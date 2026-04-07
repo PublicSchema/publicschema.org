@@ -1,0 +1,18 @@
+id: end_date
+maturity: draft
+
+definition:
+  en: "The date on which this record or relationship ceased to be effective."
+  fr: "La date à laquelle cet enregistrement ou cette relation a cessé d'être effectif."
+  es: "La fecha en que este registro o relación dejó de ser efectivo."
+
+type: date
+cardinality: single
+vocabulary: null
+references: null
+schema_org_equivalent: "schema:endDate"
+data_classification: non_personal
+
+convergence:
+  system_count: 4
+  total_systems: 6

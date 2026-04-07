@@ -1,0 +1,18 @@
+id: issuing_authority
+maturity: draft
+
+definition:
+  en: "The organization or government body that issued the identifier."
+  fr: "L'organisation ou l'organe gouvernemental qui a delivre l'identifiant."
+  es: "La organizacion o entidad gubernamental que emitio el identificador."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+data_classification: non_personal
+
+convergence:
+  system_count: 0
+  total_systems: 5
+  notes: "Not found in any of the 5 mapped systems. Considered best practice for identity verification but rarely captured in current social protection systems."

@@ -1,0 +1,19 @@
+id: country
+maturity: draft
+
+definition:
+  en: "The country, expressed as an ISO 3166-1 alpha-2 code where possible."
+  fr: "Le pays, exprime sous forme de code ISO 3166-1 alpha-2 si possible."
+  es: "El pais, expresado como codigo ISO 3166-1 alfa-2 cuando sea posible."
+
+type: string
+cardinality: single
+vocabulary: country
+references: null
+schema_org_equivalent: "schema:addressCountry"
+data_classification: personal
+
+convergence:
+  system_count: 3
+  total_systems: 5
+  notes: "Present in 3 of 5 mapped systems. Typically only relevant for systems operating across multiple countries or managing migrant populations."

@@ -1,0 +1,19 @@
+id: given_name_at_birth
+maturity: draft
+
+definition:
+  en: "The given name of the person at the time of birth, before any legal name change."
+  fr: "Le prenom de la personne au moment de la naissance, avant tout changement legal de nom."
+  es: "El nombre de pila de la persona en el momento del nacimiento, antes de cualquier cambio legal de nombre."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+schema_org_equivalent: null
+data_classification: personal
+
+convergence:
+  system_count: 0
+  total_systems: 6
+  notes: "Not present in original convergence systems. Added based on EBSI PID/PDA1/ELM schema analysis."

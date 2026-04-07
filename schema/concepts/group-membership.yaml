@@ -1,0 +1,33 @@
+id: GroupMembership
+maturity: draft
+
+definition:
+  en: >
+    The link between a Person and a Group, carrying the role the person
+    plays within that group (such as head, spouse, or dependent). This
+    join record allows a person to belong to multiple groups simultaneously.
+  fr: >
+    Le lien entre une personne et un groupe, indiquant le role que la
+    personne joue au sein de ce groupe (tel que chef, conjoint ou
+    dependant). Cet enregistrement de jointure permet a une personne
+    d'appartenir a plusieurs groupes simultanement.
+  es: >
+    El vinculo entre una persona y un grupo, que indica el rol que la
+    persona desempena dentro de ese grupo (como jefe, conyuge o
+    dependiente). Este registro de union permite que una persona
+    pertenezca a varios grupos al mismo tiempo.
+
+properties:
+  - person
+  - group
+  - role
+  - start_date
+  - end_date
+  - is_active
+
+supertypes: []
+subtypes: []
+
+convergence:
+  system_count: 5
+  total_systems: 6

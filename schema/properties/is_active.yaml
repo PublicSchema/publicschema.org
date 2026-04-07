@@ -1,0 +1,17 @@
+id: is_active
+maturity: draft
+
+definition:
+  en: "Whether this record or relationship is currently active."
+  fr: "Si cet enregistrement ou cette relation est actuellement actif."
+  es: "Si este registro o relación está actualmente activo."
+
+type: boolean
+cardinality: single
+vocabulary: null
+references: null
+data_classification: non_personal
+
+convergence:
+  system_count: 3
+  total_systems: 6

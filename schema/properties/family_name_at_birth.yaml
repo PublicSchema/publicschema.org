@@ -1,0 +1,19 @@
+id: family_name_at_birth
+maturity: draft
+
+definition:
+  en: "The family name of the person at the time of birth, before any change due to marriage or other legal event."
+  fr: "Le nom de famille de la personne au moment de la naissance, avant tout changement du a un mariage ou autre evenement juridique."
+  es: "El apellido de la persona en el momento del nacimiento, antes de cualquier cambio debido a matrimonio u otro evento legal."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+schema_org_equivalent: null
+data_classification: personal
+
+convergence:
+  system_count: 0
+  total_systems: 6
+  notes: "Not present in original convergence systems. Added based on EBSI PID/PDA1/ELM schema analysis."

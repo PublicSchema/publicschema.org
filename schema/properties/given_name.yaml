@@ -1,0 +1,19 @@
+id: given_name
+maturity: draft
+
+definition:
+  en: "The given (first) name of the person."
+  fr: "Le prenom de la personne."
+  es: "El nombre de pila de la persona."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+schema_org_equivalent: "schema:givenName"
+data_classification: personal
+
+convergence:
+  system_count: 5
+  total_systems: 6
+  notes: "Present in 5 of 6 mapped systems. Some systems store only a single composite name field."

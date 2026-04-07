@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://publicschema.org/schemas/concept.schema.json",
+  "title": "PublicSchema Concept",
+  "type": "object",
+  "required": ["id", "maturity", "definition", "properties"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Z][a-zA-Z]*$",
+      "description": "PascalCase concept identifier"
+    },
+    "maturity": {
+      "type": "string",
+      "enum": ["draft", "trial-use", "normative"]
+    },
+    "domain": {
+      "type": ["string", "null"],
+      "description": "Domain namespace. Null or omitted for universal concepts."
+    },
+    "definition": {
+      "$ref": "#/$defs/multilingual_text"
+    },
+    "properties": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "description": "Property ID"
+      }
+    },
+    "subtypes": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "supertypes": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "convergence": {
+      "$ref": "#/$defs/convergence"
+    }
+  },
+  "$defs": {
+    "multilingual_text": {
+      "type": "object",
+      "required": ["en"],
+      "properties": {
+        "en": { "type": "string" },
+        "fr": { "type": "string" },
+        "es": { "type": "string" }
+      },
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "convergence": {
+      "type": "object",
+      "properties": {
+        "system_count": { "type": "integer", "minimum": 0 },
+        "total_systems": { "type": "integer", "minimum": 0 },
+        "notes": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

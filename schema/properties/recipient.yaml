@@ -1,0 +1,17 @@
+id: recipient
+maturity: draft
+
+definition:
+  en: "The person who received or is intended to receive the payment."
+  fr: "La personne qui a reçu ou est destinée à recevoir le paiement."
+  es: "La persona que recibió o está destinada a recibir el pago."
+
+type: concept:Person
+cardinality: single
+vocabulary: null
+references: Person
+data_classification: personal
+
+convergence:
+  system_count: 2
+  total_systems: 6

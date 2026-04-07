@@ -1,0 +1,20 @@
+id: address
+maturity: draft
+
+definition:
+  en: "The physical or postal address associated with this household."
+  fr: "L'adresse physique ou postale associée à ce ménage."
+  es: "La dirección física o postal asociada a este hogar."
+
+type: concept:Address
+cardinality: single
+vocabulary: null
+references: Address
+data_classification: personal
+
+convergence:
+  system_count: 3
+  total_systems: 4
+  notes: >
+    DHIS2 and OpenSPP use a plain string; SPDCI uses a structured Address.
+    High convergence but type divergence between inline string and linked entity.

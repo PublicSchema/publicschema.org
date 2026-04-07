@@ -1,0 +1,186 @@
+id: occupation
+maturity: draft
+definition:
+  en: Categories describing a person's occupation, based on the ISCO-08 sub-major groups (2-digit level).
+  fr: Catégories décrivant la profession d'une personne, basées sur les sous-grands groupes ISCO-08 (niveau à 2 chiffres).
+  es: Categorías que describen la ocupación de una persona, basadas en los subgrupos principales ISCO-08 (nivel de 2 dígitos).
+standard:
+  name: ISCO-08
+  uri: https://www.ilo.org/public/english/bureau/stat/isco/isco08/
+sync:
+  source_url: https://raw.githubusercontent.com/pgmyrek/ISCO_08_Structure/master/output_data.json
+  format: isco-json
+  last_synced: '2026-04-07'
+values:
+- code: commissioned_armed_forces_officers
+  label:
+    en: Commissioned armed forces officers
+  standard_code: '01'
+- code: non_commissioned_armed_forces_officers
+  label:
+    en: Non-commissioned armed forces officers
+  standard_code: '02'
+- code: armed_forces_occupations_other_ranks
+  label:
+    en: Armed forces occupations, other ranks
+  standard_code: '03'
+- code: chief_executives_senior_officials_and_legislators
+  label:
+    en: Chief executives, senior officials and legislators
+  standard_code: '11'
+- code: administrative_and_commercial_managers
+  label:
+    en: Administrative and commercial managers
+  standard_code: '12'
+- code: production_and_specialised_services_managers
+  label:
+    en: Production and specialised services managers
+  standard_code: '13'
+- code: hospitality_retail_and_other_services_managers
+  label:
+    en: Hospitality, retail and other services managers
+  standard_code: '14'
+- code: science_and_engineering_professionals
+  label:
+    en: Science and engineering professionals
+  standard_code: '21'
+- code: health_professionals
+  label:
+    en: Health professionals
+  standard_code: '22'
+- code: teaching_professionals
+  label:
+    en: Teaching professionals
+  standard_code: '23'
+- code: business_and_administration_professionals
+  label:
+    en: Business and administration professionals
+  standard_code: '24'
+- code: information_and_communications_technology_professionals
+  label:
+    en: Information and communications technology professionals
+  standard_code: '25'
+- code: legal_social_and_cultural_professionals
+  label:
+    en: Legal, social and cultural professionals
+  standard_code: '26'
+- code: science_and_engineering_associate_professionals
+  label:
+    en: Science and engineering associate professionals
+  standard_code: '31'
+- code: health_associate_professionals
+  label:
+    en: Health associate professionals
+  standard_code: '32'
+- code: business_and_administration_associate_professionals
+  label:
+    en: Business and administration associate professionals
+  standard_code: '33'
+- code: legal_social_cultural_and_related_associate_professionals
+  label:
+    en: Legal, social, cultural and related associate professionals
+  standard_code: '34'
+- code: information_and_communications_technicians
+  label:
+    en: Information and communications technicians
+  standard_code: '35'
+- code: general_and_keyboard_clerks
+  label:
+    en: General and keyboard clerks
+  standard_code: '41'
+- code: customer_services_clerks
+  label:
+    en: Customer services clerks
+  standard_code: '42'
+- code: numerical_and_material_recording_clerks
+  label:
+    en: Numerical and material recording clerks
+  standard_code: '43'
+- code: other_clerical_support_workers
+  label:
+    en: Other clerical support workers
+  standard_code: '44'
+- code: personal_service_workers
+  label:
+    en: Personal service workers
+  standard_code: '51'
+- code: sales_workers
+  label:
+    en: Sales workers
+  standard_code: '52'
+- code: personal_care_workers
+  label:
+    en: Personal care workers
+  standard_code: '53'
+- code: protective_services_workers
+  label:
+    en: Protective services workers
+  standard_code: '54'
+- code: market_oriented_skilled_agricultural_workers
+  label:
+    en: Market-oriented skilled agricultural workers
+  standard_code: '61'
+- code: market_oriented_skilled_forestry_fishery_and_hunting_workers
+  label:
+    en: Market-oriented skilled forestry, fishery and hunting workers
+  standard_code: '62'
+- code: subsistence_farmers_fishers_hunters_and_gatherers
+  label:
+    en: Subsistence farmers, fishers, hunters and gatherers
+  standard_code: '63'
+- code: building_and_related_trades_workers_excluding_electricians
+  label:
+    en: Building and related trades workers, excluding electricians
+  standard_code: '71'
+- code: metal_machinery_and_related_trades_workers
+  label:
+    en: Metal, machinery and related trades workers
+  standard_code: '72'
+- code: handicraft_and_printing_workers
+  label:
+    en: Handicraft and printing workers
+  standard_code: '73'
+- code: electrical_and_electronic_trades_workers
+  label:
+    en: Electrical and electronic trades workers
+  standard_code: '74'
+- code: food_processing_wood_working_garment_and_other_craft_and_related_trades_workers
+  label:
+    en: Food processing, wood working, garment and other craft and related trades workers
+  standard_code: '75'
+- code: stationary_plant_and_machine_operators
+  label:
+    en: Stationary plant and machine operators
+  standard_code: '81'
+- code: assemblers
+  label:
+    en: Assemblers
+  standard_code: '82'
+- code: drivers_and_mobile_plant_operators
+  label:
+    en: Drivers and mobile plant operators
+  standard_code: '83'
+- code: cleaners_and_helpers
+  label:
+    en: Cleaners and helpers
+  standard_code: '91'
+- code: agricultural_forestry_and_fishery_labourers
+  label:
+    en: Agricultural, forestry and fishery labourers
+  standard_code: '92'
+- code: labourers_in_mining_construction_manufacturing_and_transport
+  label:
+    en: Labourers in mining, construction, manufacturing and transport
+  standard_code: '93'
+- code: food_preparation_assistants
+  label:
+    en: Food preparation assistants
+  standard_code: '94'
+- code: street_and_related_sales_and_service_workers
+  label:
+    en: Street and related sales and service workers
+  standard_code: '95'
+- code: refuse_workers_and_other_elementary_workers
+  label:
+    en: Refuse workers and other elementary workers
+  standard_code: '96'

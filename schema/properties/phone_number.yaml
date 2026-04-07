@@ -1,0 +1,19 @@
+id: phone_number
+maturity: draft
+
+definition:
+  en: "A contact phone number for the person, including country code."
+  fr: "Un numero de telephone de contact pour la personne, incluant l'indicatif pays."
+  es: "Un numero de telefono de contacto para la persona, incluido el prefijo del pais."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+schema_org_equivalent: "schema:telephone"
+data_classification: personal
+
+convergence:
+  system_count: 3
+  total_systems: 6
+  notes: "Present in 3 of 6 mapped systems. Increasingly important as mobile money becomes a payment channel."

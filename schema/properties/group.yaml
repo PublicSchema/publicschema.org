@@ -1,0 +1,18 @@
+id: group
+maturity: draft
+
+definition:
+  en: "The group to which the person belongs."
+  fr: "Le groupe auquel la personne appartient."
+  es: "El grupo al que pertenece la persona."
+
+type: concept:Group
+cardinality: single
+vocabulary: null
+references: Group
+data_classification: personal
+
+convergence:
+  system_count: 2
+  total_systems: 5
+  notes: "Present in 2 of 5 mapped systems as an explicit reference. Often implicit in the membership table structure rather than recorded as a named field."

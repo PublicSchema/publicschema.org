@@ -1,0 +1,18 @@
+id: eligibility_decision_ref
+maturity: draft
+
+definition:
+  en: "Reference to the eligibility decision that authorized this enrollment."
+  fr: "Référence à la décision d'éligibilité qui a autorisé cette inscription."
+  es: "Referencia a la decisión de elegibilidad que autorizó esta inscripción."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+data_classification: personal
+
+convergence:
+  system_count: 0
+  total_systems: 6
+  notes: "PDMC forward-looking design making eligibility-to-enrollment chain explicit."

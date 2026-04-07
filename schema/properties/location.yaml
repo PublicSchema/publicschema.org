@@ -1,0 +1,20 @@
+id: location
+maturity: draft
+
+definition:
+  en: "The geographic location associated with this household, capturing coordinates or administrative area."
+  fr: "La localisation géographique associée à ce ménage, capturant les coordonnées ou la zone administrative."
+  es: "La ubicación geográfica asociada a este hogar, capturando coordenadas o área administrativa."
+
+type: concept:Location
+cardinality: single
+vocabulary: null
+references: Location
+data_classification: personal
+
+convergence:
+  system_count: 2
+  total_systems: 4
+  notes: >
+    OpenSPP and SPDCI map location. Distinct from address: location is the
+    administrative area for targeting; address is the specific contact point.

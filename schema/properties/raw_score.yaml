@@ -1,0 +1,17 @@
+id: raw_score
+maturity: draft
+
+definition:
+  en: "The numeric score produced by the assessment instrument."
+  fr: "Le score numérique produit par l'instrument d'évaluation."
+  es: "La puntuación numérica producida por el instrumento de evaluación."
+
+type: decimal
+cardinality: single
+vocabulary: null
+references: null
+data_classification: special_category
+
+convergence:
+  system_count: 0
+  total_systems: 3

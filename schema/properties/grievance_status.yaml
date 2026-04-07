@@ -1,0 +1,17 @@
+id: grievance_status
+maturity: draft
+
+definition:
+  en: "The current processing state of the grievance."
+  fr: "L'état actuel de traitement du grief."
+  es: "El estado actual de procesamiento del agravio."
+
+type: string
+cardinality: single
+vocabulary: grievance-status
+references: null
+data_classification: non_personal
+
+convergence:
+  system_count: 4
+  total_systems: 5

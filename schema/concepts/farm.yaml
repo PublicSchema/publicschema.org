@@ -1,0 +1,31 @@
+id: Farm
+maturity: draft
+
+definition:
+  en: >
+    An organizational and operating unit of agricultural production under single
+    management. Farm records appear across agricultural registries, land
+    administration, social protection, and climate adaptation programs.
+  fr: >
+    Une unite organisationnelle et operationnelle de production agricole sous
+    gestion unique. Les donnees sur les exploitations agricoles apparaissent
+    dans les registres agricoles, l'administration fonciere, la protection
+    sociale et les programmes d'adaptation climatique.
+  es: >
+    Una unidad organizativa y operativa de produccion agricola bajo gestion
+    unica. Los registros de fincas aparecen en registros agricolas,
+    administracion de tierras, proteccion social y programas de adaptacion
+    climatica.
+
+properties:
+  - farm_area_hectares
+  - primary_crop
+  - location
+
+supertypes: [Group]
+subtypes: []
+
+convergence:
+  system_count: 2
+  total_systems: 6
+  notes: "Low coverage. Only DHIS2 (workaround) and OpenSPP have farm data models."

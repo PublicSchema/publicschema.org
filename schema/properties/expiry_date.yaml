@@ -1,0 +1,18 @@
+id: expiry_date
+maturity: draft
+
+definition:
+  en: "The date on which the identifier expires or becomes invalid."
+  fr: "La date a laquelle l'identifiant expire ou devient invalide."
+  es: "La fecha en que el identificador expira o deja de ser valido."
+
+type: date
+cardinality: single
+vocabulary: null
+references: null
+data_classification: non_personal
+
+convergence:
+  system_count: 1
+  total_systems: 5
+  notes: "Present in 1 of 5 mapped systems. Relevant for documents such as passports and national IDs with fixed validity periods."

@@ -1,0 +1,18 @@
+id: dwelling_type
+maturity: draft
+
+definition:
+  en: "The type of dwelling occupied by the household (e.g., permanent structure, temporary shelter, shared housing)."
+  fr: "Le type de logement occupé par le ménage (par exemple, structure permanente, abri temporaire, logement partagé)."
+  es: "El tipo de vivienda ocupada por el hogar (por ejemplo, estructura permanente, refugio temporal, vivienda compartida)."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+data_classification: personal
+
+convergence:
+  system_count: 0
+  total_systems: 4
+  notes: "Proxy means testing input, not a standard registry field."

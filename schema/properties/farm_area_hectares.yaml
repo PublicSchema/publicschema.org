@@ -1,0 +1,17 @@
+id: farm_area_hectares
+maturity: draft
+
+definition:
+  en: "The total area of the farm in hectares."
+  fr: "La superficie totale de l'exploitation agricole en hectares."
+  es: "La superficie total de la granja en hectáreas."
+
+type: decimal
+cardinality: single
+vocabulary: null
+references: null
+data_classification: personal
+
+convergence:
+  system_count: 1
+  total_systems: 2

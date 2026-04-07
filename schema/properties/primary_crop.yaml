@@ -1,0 +1,18 @@
+id: primary_crop
+maturity: draft
+
+definition:
+  en: "The primary crop or agricultural activity of the farm."
+  fr: "La principale culture ou activité agricole de l'exploitation."
+  es: "El cultivo o actividad agrícola principal de la granja."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+data_classification: personal
+
+convergence:
+  system_count: 0
+  total_systems: 2
+  notes: "Even OpenSPP models crops as activities on a farm, not as a single attribute."

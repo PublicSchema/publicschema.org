@@ -1,0 +1,19 @@
+id: issuing_jurisdiction
+maturity: draft
+
+definition:
+  en: "The geographic jurisdiction that issued the identifier, expressed as an ISO 3166-2 subdivision code or ISO 3166-1 country code."
+  fr: "La juridiction geographique qui a delivre l'identifiant, exprimee sous forme de code de subdivision ISO 3166-2 ou de code de pays ISO 3166-1."
+  es: "La jurisdiccion geografica que emitio el identificador, expresada como un codigo de subdivision ISO 3166-2 o un codigo de pais ISO 3166-1."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+schema_org_equivalent: null
+data_classification: non_personal
+
+convergence:
+  system_count: 0
+  total_systems: 6
+  notes: "Not present in original convergence systems. Added based on EBSI PID/PDA1/ELM schema analysis."

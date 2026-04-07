@@ -1,0 +1,18 @@
+id: referral_status
+maturity: draft
+
+definition:
+  en: "The current state of the referral (pending, accepted, declined, completed)."
+  fr: "L'état actuel de l'orientation (en attente, acceptée, refusée, complétée)."
+  es: "El estado actual de la derivación (pendiente, aceptada, rechazada, completada)."
+
+type: string
+cardinality: single
+vocabulary: referral-status
+references: null
+domain_override: null
+data_classification: non_personal
+
+convergence:
+  system_count: 1
+  total_systems: 3

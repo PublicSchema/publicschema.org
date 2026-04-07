@@ -1,0 +1,18 @@
+id: conditionality_type
+maturity: draft
+
+definition:
+  en: "Whether the program requires beneficiaries to meet behavioral conditions to receive benefits (unconditional, conditional, soft conditional, labelled)."
+  fr: "Si le programme exige que les bénéficiaires remplissent des conditions comportementales pour recevoir des prestations (inconditionnel, conditionnel, conditionnel souple, étiqueté)."
+  es: "Si el programa requiere que los beneficiarios cumplan condiciones de comportamiento para recibir beneficios (incondicional, condicional, condicional flexible, etiquetado)."
+
+type: string
+cardinality: single
+vocabulary: conditionality-type
+references: null
+data_classification: non_personal
+
+convergence:
+  system_count: 3
+  total_systems: 6
+  notes: "Present in 3 of 6 mapped systems. Most social protection programs classify their conditionality approach. Common in cash transfer program registries."

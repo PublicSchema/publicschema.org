@@ -1,0 +1,19 @@
+id: document_expiry_date
+maturity: draft
+
+definition:
+  en: "The date on which the document or credential representing the entitlement expires, which may differ from the entitlement period itself."
+  fr: "La date a laquelle le document ou le justificatif representant le droit expire, qui peut differer de la periode du droit elle-meme."
+  es: "La fecha en que el documento o credencial que representa el derecho expira, que puede diferir del periodo del derecho en si."
+
+type: date
+cardinality: single
+vocabulary: null
+references: null
+schema_org_equivalent: null
+data_classification: non_personal
+
+convergence:
+  system_count: 0
+  total_systems: 6
+  notes: "Not present in original convergence systems. Added based on EBSI PID/PDA1/ELM schema analysis."

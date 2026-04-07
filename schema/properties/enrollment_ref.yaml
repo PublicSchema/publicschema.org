@@ -1,0 +1,17 @@
+id: enrollment_ref
+maturity: draft
+
+definition:
+  en: "Reference to the enrollment to which this entitlement belongs."
+  fr: "Référence à l'inscription à laquelle cette prestation est rattachée."
+  es: "Referencia a la inscripción a la que pertenece esta prestación."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+data_classification: personal
+
+convergence:
+  system_count: 0
+  total_systems: 5

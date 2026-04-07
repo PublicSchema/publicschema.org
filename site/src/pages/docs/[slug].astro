@@ -1,0 +1,38 @@
+---
+import Base from "../../layouts/Base.astro";
+import { docs } from "../../data/docs";
+import { marked } from "marked";
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
+
+export function getStaticPaths() {
+  return Object.keys(docs).map((slug) => ({ params: { slug } }));
+}
+
+const { slug } = Astro.params;
+const doc = docs[slug!];
+const docsDir = resolve(process.cwd(), "../docs");
+const raw = readFileSync(resolve(docsDir, doc.file), "utf-8");
+
+// Strip the leading H1 (we render our own title in the page header)
+const withoutH1 = raw.replace(/^#\s+.+\n+/, "");
+const html = await marked.parse(withoutH1);
+---
+<Base title={doc.title} description={doc.description}>
+  <article>
+    <div class="page-header">
+      <nav class="breadcrumb">
+        <a href="/">Home</a>
+        <span class="separator">/</span>
+        <a href="/docs/">Docs</a>
+        <span class="separator">/</span>
+        {doc.title}
+      </nav>
+      <h1>{doc.title}</h1>
+      <p class="definition-text">{doc.description}</p>
+    </div>
+    <div class="concept-narrative doc-content">
+      <Fragment set:html={html} />
+    </div>
+  </article>
+</Base>

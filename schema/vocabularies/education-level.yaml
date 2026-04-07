@@ -1,0 +1,124 @@
+id: education-level
+maturity: draft
+
+definition:
+  en: "The highest level of education completed by a person, classified according to the International Standard Classification of Education (ISCED 2011)."
+  fr: "Le plus haut niveau d'éducation atteint par une personne, classé selon la Classification internationale type de l'éducation (CITE 2011)."
+  es: "El nivel más alto de educación alcanzado por una persona, clasificado según la Clasificación Internacional Normalizada de la Educación (CINE 2011)."
+
+standard:
+  name: "ISCED 2011"
+  uri: "https://uis.unesco.org/sites/default/files/documents/international-standard-classification-of-education-isced-2011-en.pdf"
+  notes: "International Standard Classification of Education. Levels 0-8."
+
+values:
+  - code: early_childhood
+    label:
+      en: Early childhood education
+      fr: "Éducation de la petite enfance"
+      es: "Educación de la primera infancia"
+    standard_code: "0"
+    definition:
+      en: "ISCED level 0: programmes for children below the age of entry into primary education."
+      fr: "CITE niveau 0 : programmes destinés aux enfants en dessous de l'âge d'entrée dans l'enseignement primaire."
+      es: "CINE nivel 0: programas para niños menores de la edad de entrada en la educación primaria."
+
+  - code: primary
+    label:
+      en: Primary education
+      fr: Enseignement primaire
+      es: "Educación primaria"
+    standard_code: "1"
+    definition:
+      en: "ISCED level 1: first stage of basic education, typically starting at age 5-7."
+      fr: "CITE niveau 1 : première étape de l'éducation de base, débutant généralement entre 5 et 7 ans."
+      es: "CINE nivel 1: primera etapa de la educación básica, que comienza típicamente entre los 5 y 7 años."
+
+  - code: lower_secondary
+    label:
+      en: Lower secondary education
+      fr: "Premier cycle de l'enseignement secondaire"
+      es: "Educación secundaria baja"
+    standard_code: "2"
+    definition:
+      en: "ISCED level 2: second stage of basic education, building on primary."
+      fr: "CITE niveau 2 : deuxième étape de l'éducation de base, faisant suite à l'enseignement primaire."
+      es: "CINE nivel 2: segunda etapa de la educación básica, que continúa a partir de la primaria."
+
+  - code: upper_secondary
+    label:
+      en: Upper secondary education
+      fr: "Deuxième cycle de l'enseignement secondaire"
+      es: "Educación secundaria alta"
+    standard_code: "3"
+    definition:
+      en: "ISCED level 3: final stage of secondary education, preparing for tertiary or employment."
+      fr: "CITE niveau 3 : dernière étape de l'enseignement secondaire, préparant à l'enseignement supérieur ou à l'emploi."
+      es: "CINE nivel 3: etapa final de la educación secundaria, que prepara para la educación terciaria o el empleo."
+
+  - code: post_secondary_non_tertiary
+    label:
+      en: Post-secondary non-tertiary education
+      fr: "Enseignement post-secondaire non supérieur"
+      es: "Educación postsecundaria no terciaria"
+    standard_code: "4"
+    definition:
+      en: "ISCED level 4: programmes between upper secondary and tertiary that are not typically considered higher education."
+      fr: "CITE niveau 4 : programmes situés entre le secondaire supérieur et le supérieur, non généralement considérés comme enseignement supérieur."
+      es: "CINE nivel 4: programas entre la educación secundaria alta y la terciaria que no se consideran habitualmente educación superior."
+
+  - code: short_cycle_tertiary
+    label:
+      en: Short-cycle tertiary education
+      fr: "Enseignement supérieur de cycle court"
+      es: "Educación terciaria de ciclo corto"
+    standard_code: "5"
+    definition:
+      en: "ISCED level 5: short practical or vocational programmes at the tertiary level."
+      fr: "CITE niveau 5 : programmes courts, pratiques ou professionnels au niveau de l'enseignement supérieur."
+      es: "CINE nivel 5: programas cortos, prácticos o vocacionales a nivel terciario."
+
+  - code: bachelor
+    label:
+      en: "Bachelor's or equivalent"
+      fr: "Licence ou équivalent"
+      es: "Grado o equivalente"
+    standard_code: "6"
+    definition:
+      en: "ISCED level 6: first degree or equivalent, typically 3-4 years."
+      fr: "CITE niveau 6 : premier diplôme ou équivalent, généralement 3 à 4 ans."
+      es: "CINE nivel 6: primer título o equivalente, típicamente de 3 a 4 años."
+
+  - code: master
+    label:
+      en: "Master's or equivalent"
+      fr: "Master ou équivalent"
+      es: "Maestría o equivalente"
+    standard_code: "7"
+    definition:
+      en: "ISCED level 7: second degree or equivalent, typically 1-2 years after bachelor's."
+      fr: "CITE niveau 7 : deuxième diplôme ou équivalent, généralement 1 à 2 ans après la licence."
+      es: "CINE nivel 7: segundo título o equivalente, típicamente 1 a 2 años después del grado."
+
+  - code: doctoral
+    label:
+      en: "Doctoral or equivalent"
+      fr: "Doctorat ou équivalent"
+      es: "Doctorado o equivalente"
+    standard_code: "8"
+    definition:
+      en: "ISCED level 8: highest level of education, involving original research."
+      fr: "CITE niveau 8 : niveau d'éducation le plus élevé, impliquant une recherche originale."
+      es: "CINE nivel 8: nivel más alto de educación, que implica investigación original."
+
+system_mappings:
+  spdci:
+    "0": early_childhood
+    "1": primary
+    "2": lower_secondary
+    "3": upper_secondary
+    "4": post_secondary_non_tertiary
+    "5": short_cycle_tertiary
+    "6": bachelor
+    "7": master
+    "8": doctoral

@@ -1,0 +1,17 @@
+id: payment_currency
+maturity: draft
+
+definition:
+  en: "The ISO 4217 currency code for this payment."
+  fr: "Le code de devise ISO 4217 pour ce paiement."
+  es: "El código de moneda ISO 4217 para este pago."
+
+type: string
+cardinality: single
+vocabulary: currency
+references: null
+data_classification: non_personal
+
+convergence:
+  system_count: 1
+  total_systems: 6

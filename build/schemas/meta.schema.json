@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://publicschema.org/schemas/meta.schema.json",
+  "title": "PublicSchema Vocabulary Metadata",
+  "type": "object",
+  "required": ["name", "base_uri", "version", "maturity", "languages", "license"],
+  "additionalProperties": false,
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "base_uri": {
+      "type": "string",
+      "format": "uri"
+    },
+    "version": {
+      "type": "string"
+    },
+    "maturity": {
+      "type": "string",
+      "enum": ["draft", "trial-use", "normative"]
+    },
+    "languages": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z]{2}$"
+      },
+      "minItems": 1
+    },
+    "license": {
+      "type": "string"
+    }
+  }
+}

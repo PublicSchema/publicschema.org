@@ -1,0 +1,18 @@
+id: referral_reason
+maturity: draft
+
+definition:
+  en: "The basis for the referral."
+  fr: "Le motif de l'orientation."
+  es: "La base para la derivación."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+domain_override: null
+data_classification: non_personal
+
+convergence:
+  system_count: 1
+  total_systems: 3

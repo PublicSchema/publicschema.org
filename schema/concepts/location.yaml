@@ -1,0 +1,33 @@
+id: Location
+maturity: draft
+
+definition:
+  en: >
+    A named geographic or administrative area, such as a region, district,
+    commune, or village. Location captures where a household or event is
+    situated within an administrative hierarchy, distinct from a street address.
+  fr: >
+    Une zone geographique ou administrative nommee, telle qu'une region,
+    un district, une commune ou un village. La localisation indique ou
+    se situe un menage ou un evenement dans une hierarchie administrative,
+    distinct d'une adresse postale.
+  es: >
+    Una area geografica o administrativa con nombre, como una region,
+    distrito, municipio o aldea. La ubicacion indica donde se situa
+    un hogar o evento dentro de una jerarquia administrativa, distinta
+    de una direccion postal.
+
+properties:
+  - location_name
+  - latitude
+  - longitude
+  - administrative_level
+  - parent_location
+  - location_code
+
+supertypes: []
+subtypes: []
+
+convergence:
+  system_count: 6
+  total_systems: 6

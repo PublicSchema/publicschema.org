@@ -1,0 +1,57 @@
+id: Person
+maturity: draft
+
+definition:
+  en: >
+    The unique individual human being who is a subject of record within a
+    social protection system. Person is the persistent, atomic unit of
+    identity in registries; operational statuses such as Registrant,
+    Applicant, or Beneficiary are transient roles defined by the person's
+    relationship to a specific Program, not properties of the Person
+    entity itself.
+  fr: >
+    L'individu unique qui fait l'objet d'un enregistrement dans un
+    systeme de protection sociale. La personne est l'unite atomique
+    et persistante d'identite dans les registres; les statuts
+    operationnels tels que demandeur ou beneficiaire sont des roles
+    transitoires definis par la relation de la personne a un
+    programme specifique.
+  es: >
+    El individuo unico que es sujeto de registro en un sistema de
+    proteccion social. La persona es la unidad atomica y persistente
+    de identidad en los registros; los estados operacionales como
+    solicitante o beneficiario son roles transitorios definidos por
+    la relacion de la persona con un programa especifico.
+
+properties:
+  - date_of_birth
+  - given_name
+  - family_name
+  - family_name_at_birth
+  - given_name_at_birth
+  - preferred_name
+  - patronymic_name
+  - name
+  - gender
+  - nationality
+  - sex
+  - marital_status
+  - education_level
+  - preferred_language
+  - occupation
+  - phone_number
+  - identifiers
+  - group_memberships
+
+subtypes: []
+supertypes: []
+
+convergence:
+  system_count: 6
+  total_systems: 6
+  notes: >
+    Universal across all 6 mapped systems. The most consistently represented
+    concept in social protection delivery systems. All systems maintain a
+    person-level record as the primary unit of identity. EBSI PID and ELM
+    schemas informed additional naming properties (birth names, preferred
+    name, patronymic) not present in the original convergence systems.

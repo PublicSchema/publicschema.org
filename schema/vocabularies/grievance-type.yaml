@@ -1,0 +1,88 @@
+id: grievance-type
+maturity: draft
+
+definition:
+  en: "Categories describing the nature of a grievance filed against a social protection program or its delivery process."
+  fr: "Catégories décrivant la nature d'un grief déposé contre un programme de protection sociale ou son processus de prestation."
+  es: "Categorías que describen la naturaleza de un agravio presentado contra un programa de protección social o su proceso de entrega."
+
+values:
+  - code: exclusion_error
+    label:
+      en: Exclusion error
+      fr: Erreur d'exclusion
+      es: Error de exclusión
+    definition:
+      en: "A complaint that an eligible person or household was wrongly excluded from a program or benefit."
+      fr: "Une plainte indiquant qu'une personne ou un ménage éligible a été injustement exclu d'un programme ou d'une prestation."
+      es: "Una queja de que una persona u hogar elegible fue injustamente excluido de un programa o beneficio."
+
+  - code: inclusion_error
+    label:
+      en: Inclusion error
+      fr: Erreur d'inclusion
+      es: Error de inclusión
+    definition:
+      en: "A report that an ineligible person or household is receiving benefits they should not be entitled to."
+      fr: "Un signalement qu'une personne ou un ménage inéligible reçoit des prestations auxquelles il ne devrait pas avoir droit."
+      es: "Un reporte de que una persona u hogar inelegible está recibiendo beneficios a los que no debería tener derecho."
+
+  - code: payment_complaint
+    label:
+      en: Payment complaint
+      fr: Plainte de paiement
+      es: Queja de pago
+    definition:
+      en: "A complaint about delayed, missing, incorrect, or incomplete benefit payments."
+      fr: "Une plainte concernant des paiements de prestations retardés, manquants, incorrects ou incomplets."
+      es: "Una queja sobre pagos de beneficios retrasados, faltantes, incorrectos o incompletos."
+
+  - code: appeal
+    label:
+      en: Appeal
+      fr: Appel
+      es: Recurso
+    definition:
+      en: "A formal request to review and reverse an administrative decision, such as an eligibility determination or benefit calculation."
+      fr: "Une demande formelle de révision et d'annulation d'une décision administrative, telle qu'une détermination d'éligibilité ou un calcul de prestation."
+      es: "Una solicitud formal para revisar y revertir una decisión administrativa, como una determinación de elegibilidad o un cálculo de beneficio."
+
+  - code: service_quality
+    label:
+      en: Service quality
+      fr: Qualité de service
+      es: Calidad de servicio
+    definition:
+      en: "A complaint about the quality, accessibility, or timeliness of services provided by the program or its agents."
+      fr: "Une plainte concernant la qualité, l'accessibilité ou la rapidité des services fournis par le programme ou ses agents."
+      es: "Una queja sobre la calidad, accesibilidad o oportunidad de los servicios proporcionados por el programa o sus agentes."
+
+  - code: misconduct
+    label:
+      en: Misconduct
+      fr: Mauvaise conduite
+      es: Mala conducta
+    definition:
+      en: "An allegation of fraud, corruption, harassment, or other improper behavior by program staff or agents."
+      fr: "Une allégation de fraude, corruption, harcèlement ou autre comportement inapproprié de la part du personnel ou des agents du programme."
+      es: "Una alegación de fraude, corrupción, acoso u otro comportamiento impropio por parte del personal o agentes del programa."
+
+  - code: information_request
+    label:
+      en: Information request
+      fr: Demande d'information
+      es: Solicitud de información
+    definition:
+      en: "A request for information about program rules, eligibility criteria, benefit entitlements, or complaint procedures."
+      fr: "Une demande d'information sur les règles du programme, les critères d'éligibilité, les droits aux prestations ou les procédures de plainte."
+      es: "Una solicitud de información sobre las reglas del programa, los criterios de elegibilidad, los derechos a beneficios o los procedimientos de queja."
+
+  - code: other
+    label:
+      en: Other
+      fr: Autre
+      es: Otro
+    definition:
+      en: "A grievance type not covered by the other categories."
+      fr: "Un type de grief non couvert par les autres catégories."
+      es: "Un tipo de agravio no cubierto por las otras categorías."

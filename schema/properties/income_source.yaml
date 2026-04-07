@@ -1,0 +1,18 @@
+id: income_source
+maturity: draft
+
+definition:
+  en: "The primary reported source of income for the household, used in targeting and proxy means testing."
+  fr: "La principale source de revenus déclarée pour le ménage, utilisée dans le ciblage et les tests de substitution."
+  es: "La principal fuente de ingresos declarada para el hogar, utilizada en la focalización y las pruebas de medios indirectos."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+data_classification: personal
+
+convergence:
+  system_count: 0
+  total_systems: 4
+  notes: "Proxy means testing input, not a standard registry field."

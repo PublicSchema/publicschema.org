@@ -1,0 +1,17 @@
+id: payment_amount
+maturity: draft
+
+definition:
+  en: "The monetary value of this payment."
+  fr: "La valeur monétaire de ce paiement."
+  es: "El valor monetario de este pago."
+
+type: decimal
+cardinality: single
+vocabulary: null
+references: null
+data_classification: personal
+
+convergence:
+  system_count: 5
+  total_systems: 6

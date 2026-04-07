@@ -1,0 +1,17 @@
+id: targeting_approach
+maturity: draft
+
+definition:
+  en: "The method used to identify eligible beneficiaries."
+  fr: "La méthode utilisée pour identifier les bénéficiaires éligibles."
+  es: "El método utilizado para identificar a los beneficiarios elegibles."
+
+type: string
+cardinality: single
+vocabulary: targeting-approach
+references: null
+data_classification: non_personal
+
+convergence:
+  system_count: 0
+  total_systems: 4

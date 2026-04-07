@@ -1,0 +1,17 @@
+id: marital_status
+maturity: draft
+
+definition:
+  en: "The marital or civil status of a person as recorded in an administrative system."
+  fr: "Le statut matrimonial ou civil d'une personne tel qu'enregistré dans un système administratif."
+  es: "El estado civil o matrimonial de una persona tal como se registra en un sistema administrativo."
+
+type: string
+cardinality: single
+vocabulary: marital-status
+references: null
+data_classification: personal
+
+convergence:
+  system_count: 3
+  total_systems: 5

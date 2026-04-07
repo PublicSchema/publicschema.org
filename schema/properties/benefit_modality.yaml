@@ -1,0 +1,17 @@
+id: benefit_modality
+maturity: draft
+
+definition:
+  en: "The form of benefit the entitlement specifies (cash, voucher, in-kind, service, fee waiver)."
+  fr: "La forme de prestation que l'ayant droit spécifie (espèces, bon, en nature, service, exonération de frais)."
+  es: "La forma de beneficio que especifica el derecho (efectivo, vale, en especie, servicio, exención de tarifa)."
+
+type: string
+cardinality: multiple
+vocabulary: benefit-modality
+references: null
+data_classification: non_personal
+
+convergence:
+  system_count: 1
+  total_systems: 5

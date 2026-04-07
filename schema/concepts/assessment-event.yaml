@@ -1,0 +1,34 @@
+id: AssessmentEvent
+maturity: draft
+domain: sp
+
+definition:
+  en: >
+    A discrete event where a subject's data is processed through a specific
+    assessment framework to generate a welfare profile or score. Triggers
+    include initial registration, recertification, and shock-response
+    reassessment.
+  fr: >
+    Un événement discret au cours duquel les données d'un sujet sont traitées
+    via un cadre d'évaluation spécifique pour générer un profil ou un score de
+    bien-être. Les déclencheurs comprennent l'enregistrement initial, la
+    recertification et la réévaluation en réponse à un choc.
+  es: >
+    Un evento discreto en el que los datos de un sujeto se procesan a través
+    de un marco de evaluación específico para generar un perfil o puntuación
+    de bienestar. Los desencadenantes incluyen el registro inicial, la
+    recertificación y la reevaluación ante un choque.
+
+properties:
+  - assessed_entity
+  - framework_used
+  - assessment_date
+  - assessor
+  - raw_score
+
+subtypes: []
+supertypes: []
+
+convergence:
+  system_count: 3
+  total_systems: 6

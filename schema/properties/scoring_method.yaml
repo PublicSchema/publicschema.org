@@ -1,0 +1,17 @@
+id: scoring_method
+maturity: draft
+
+definition:
+  en: "The computational approach used to generate a welfare score from collected data."
+  fr: "L'approche de calcul utilisée pour générer un score de bien-être à partir des données collectées."
+  es: "El enfoque computacional utilizado para generar una puntuación de bienestar a partir de los datos recopilados."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+data_classification: non_personal
+
+convergence:
+  system_count: 0
+  total_systems: 4

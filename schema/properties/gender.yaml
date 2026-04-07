@@ -1,0 +1,18 @@
+id: gender
+maturity: draft
+
+definition:
+  en: "The gender of the person as recorded in a social protection registry or identity document."
+  fr: "Le genre de la personne tel qu'enregistre dans un registre de protection sociale ou un document d'identite."
+  es: "El genero de la persona tal como se registra en un registro de proteccion social o documento de identidad."
+
+type: string
+cardinality: single
+vocabulary: gender-type
+references: null
+data_classification: personal
+
+convergence:
+  system_count: 5
+  total_systems: 6
+  notes: "Present in 5 of 6 mapped systems. Value sets vary: some systems use binary male/female only, others include additional categories."

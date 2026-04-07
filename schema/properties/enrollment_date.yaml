@@ -1,0 +1,18 @@
+id: enrollment_date
+maturity: draft
+
+definition:
+  en: "The date on which the enrollment was formally activated."
+  fr: "La date à laquelle l'inscription a été formellement activée."
+  es: "La fecha en que la inscripción fue formalmente activada."
+
+type: date
+cardinality: single
+vocabulary: null
+references: null
+domain_override: null
+data_classification: non_personal
+
+convergence:
+  system_count: 3
+  total_systems: 6

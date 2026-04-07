@@ -1,0 +1,17 @@
+id: education_level
+maturity: draft
+
+definition:
+  en: "The highest level of formal education completed by a person."
+  fr: "Le plus haut niveau d'éducation formelle atteint par une personne."
+  es: "El nivel más alto de educación formal alcanzado por una persona."
+
+type: string
+cardinality: single
+vocabulary: education-level
+references: null
+data_classification: personal
+
+convergence:
+  system_count: 2
+  total_systems: 5

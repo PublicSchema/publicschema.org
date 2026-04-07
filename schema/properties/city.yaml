@@ -1,0 +1,19 @@
+id: city
+maturity: draft
+
+definition:
+  en: "The city, town, or village component of the address."
+  fr: "La composante ville, bourg ou village de l'adresse."
+  es: "El componente ciudad, pueblo o aldea de la direccion."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+schema_org_equivalent: "schema:addressLocality"
+data_classification: personal
+
+convergence:
+  system_count: 3
+  total_systems: 5
+  notes: "Present in 3 of 5 mapped systems. Settlement-level specificity varies; some systems use administrative area codes rather than free-text city names."

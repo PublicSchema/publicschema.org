@@ -1,0 +1,18 @@
+id: applicant
+maturity: draft
+
+definition:
+  en: "The person or group that applied for and received this eligibility decision."
+  fr: "La personne ou le groupe ayant demandé et reçu cette décision d'éligibilité."
+  es: "La persona o grupo que solicitó y recibió esta decisión de elegibilidad."
+
+type: concept:Person
+cardinality: single
+vocabulary: null
+references: Person
+domain_override: null
+data_classification: personal
+
+convergence:
+  system_count: 2
+  total_systems: 2

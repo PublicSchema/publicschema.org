@@ -1,0 +1,137 @@
+---
+import Base from "../layouts/Base.astro";
+import { loadVocabulary } from "../data/vocabulary";
+
+const vocab = loadVocabulary();
+const concepts = Object.values(vocab.concepts).sort((a, b) => a.id.localeCompare(b.id));
+const coreConcepts = concepts.filter((c) => !c.domain);
+const domainLabels: Record<string, string> = { sp: "Social Protection" };
+const domainCodes = [...new Set(concepts.filter((c) => c.domain).map((c) => c.domain as string))].sort();
+const conceptsByDomain = Object.fromEntries(domainCodes.map((d) => [d, concepts.filter((c) => c.domain === d)]));
+const properties = Object.values(vocab.properties).sort((a, b) => a.id.localeCompare(b.id));
+const vocabularies = Object.values(vocab.vocabularies).sort((a, b) => a.id.localeCompare(b.id));
+---
+<Base title="Home" description="A shared data vocabulary for government service delivery.">
+  <div class="hero">
+    <h1>PublicSchema</h1>
+    <p>
+      A schema.org-style vocabulary of concepts, properties, and controlled value
+      sets for government service delivery. Starting with social protection,
+      extending to broader government services over time.
+    </p>
+  </div>
+
+  <div class="stat-bar">
+    <div class="stat-item">
+      <span class="stat-number">{concepts.length}</span>
+      <span class="stat-label">Concepts</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number">{properties.length}</span>
+      <span class="stat-label">Properties</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number">{vocabularies.length}</span>
+      <span class="stat-label">Vocabularies</span>
+    </div>
+  </div>
+
+  <h2>Core Concepts</h2>
+  <p style="color: var(--color-text-muted); margin-bottom: var(--space-md);">
+    Universal entities that appear across all government service delivery domains.
+  </p>
+  <div class="card-grid">
+    {coreConcepts.map((c, i) => (
+      <div class:list={["card", { "mobile-overflow-card": i >= 6 }]}>
+        <a href={c.path}>
+          <h3>{c.id} <span class={`badge badge-${c.maturity}`}>{c.maturity}</span></h3>
+          <p>{c.definition.en?.slice(0, 140)}{(c.definition.en?.length || 0) > 140 ? "..." : ""}</p>
+        </a>
+      </div>
+    ))}
+  </div>
+  {coreConcepts.length > 6 && (
+    <div class="mobile-view-all">
+      <a href="/concepts/" class="btn btn-secondary">View all {coreConcepts.length} core concepts</a>
+    </div>
+  )}
+
+  {domainCodes.map((domain) => (
+    <Fragment>
+      <h2>{domainLabels[domain] || domain}</h2>
+      <p style="color: var(--color-text-muted); margin-bottom: var(--space-md);">
+        Concepts specific to the {(domainLabels[domain] || domain).toLowerCase()} domain.
+      </p>
+      <div class="card-grid">
+        {conceptsByDomain[domain].map((c, i) => (
+          <div class:list={["card", { "mobile-overflow-card": i >= 6 }]}>
+            <a href={c.path}>
+              <h3>{c.id} <span class={`badge badge-${c.maturity}`}>{c.maturity}</span></h3>
+              <p>{c.definition.en?.slice(0, 140)}{(c.definition.en?.length || 0) > 140 ? "..." : ""}</p>
+            </a>
+          </div>
+        ))}
+      </div>
+      {conceptsByDomain[domain].length > 6 && (
+        <div class="mobile-view-all">
+          <a href="/concepts/" class="btn btn-secondary">View all {conceptsByDomain[domain].length} {(domainLabels[domain] || domain).toLowerCase()} concepts</a>
+        </div>
+      )}
+    </Fragment>
+  ))}
+
+  <h2>Properties</h2>
+  <p style="color: var(--color-text-muted); margin-bottom: var(--space-md);">
+    Reusable attributes shared across concepts.
+  </p>
+  <div class="mobile-summary">
+    <p>{properties.length} reusable properties shared across concepts.</p>
+    <a href="/properties/" class="btn btn-secondary">Browse all properties</a>
+  </div>
+  <div class="mobile-hide">
+    <table class="data-table">
+      <thead><tr><th>Property</th><th>Type</th><th>Used by</th></tr></thead>
+      <tbody>
+        {properties.map((p) => {
+          const conceptRef = p.type.match(/^concept:(.+)$/)?.[1];
+          const primitives = ["string", "integer", "decimal", "boolean", "date"];
+          return (
+            <tr>
+              <td><a href={p.path}>{p.id}</a></td>
+              <td>{conceptRef
+                ? <a href={vocab.concepts[conceptRef]?.path || `/${conceptRef}`}><code>{p.type}</code></a>
+                : primitives.includes(p.type)
+                  ? <a href={`/types#${p.type}`}><code>{p.type}</code></a>
+                  : <code>{p.type}</code>
+              }</td>
+              <td>{p.used_by.join(", ")}</td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Vocabularies</h2>
+  <p style="color: var(--color-text-muted); margin-bottom: var(--space-md);">
+    Controlled value sets, referencing international standards where they exist.
+  </p>
+  <div class="mobile-summary">
+    <p>{vocabularies.length} controlled value sets referencing international standards.</p>
+    <a href="/vocab/" class="btn btn-secondary">Browse all vocabularies</a>
+  </div>
+  <div class="mobile-hide">
+    <table class="data-table">
+      <thead><tr><th>Vocabulary</th><th>Values</th><th>Standard</th></tr></thead>
+      <tbody>
+        {vocabularies.map((v) => (
+          <tr>
+            <td><a href={`/vocab/${v.id}`}>{v.id}</a></td>
+            <td>{v.values.length}</td>
+            <td>{v.standard?.name || "None"}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</Base>

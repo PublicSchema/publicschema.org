@@ -1,0 +1,95 @@
+id: identifier-type
+maturity: draft
+
+definition:
+  en: "Categories of identifier documents or numbers used to identify persons in social protection systems."
+  fr: "Categories de documents ou de numeros d'identification utilises pour identifier les personnes dans les systemes de protection sociale."
+  es: "Categorias de documentos o numeros de identificacion utilizados para identificar personas en sistemas de proteccion social."
+
+values:
+  - code: national_id
+    label:
+      en: National ID
+      fr: Carte d'identite nationale
+      es: Documento de identidad nacional
+    definition:
+      en: "A government-issued national identity number or card."
+      fr: "Un numero ou une carte d'identite nationale delivre par le gouvernement."
+      es: "Un numero o tarjeta de identidad nacional emitido por el gobierno."
+
+  - code: birth_certificate
+    label:
+      en: Birth certificate
+      fr: Acte de naissance
+      es: Certificado de nacimiento
+    definition:
+      en: "An official record of a person's birth issued by a civil registry."
+      fr: "Un document officiel de naissance delivre par un registre d'etat civil."
+      es: "Un registro oficial de nacimiento emitido por un registro civil."
+
+  - code: passport
+    label:
+      en: Passport
+      fr: Passeport
+      es: Pasaporte
+    definition:
+      en: "A government-issued travel document that also serves as a proof of identity and nationality."
+      fr: "Un document de voyage delivre par le gouvernement servant egalement de preuve d'identite et de nationalite."
+      es: "Un documento de viaje emitido por el gobierno que tambien sirve como prueba de identidad y nacionalidad."
+
+  - code: voter_id
+    label:
+      en: Voter ID
+      fr: Carte d'electeur
+      es: Tarjeta de votante
+    definition:
+      en: "An identity document issued for electoral registration purposes."
+      fr: "Un document d'identite delivre a des fins d'inscription electorale."
+      es: "Un documento de identidad emitido con fines de registro electoral."
+
+  - code: program_id
+    label:
+      en: Program ID
+      fr: Identifiant de programme
+      es: ID de programa
+    definition:
+      en: "A beneficiary identifier assigned by a specific social protection program."
+      fr: "Un identifiant de beneficiaire attribue par un programme specifique de protection sociale."
+      es: "Un identificador de beneficiario asignado por un programa especifico de proteccion social."
+
+  - code: household_id
+    label:
+      en: Household ID
+      fr: Identifiant de menage
+      es: ID de hogar
+    definition:
+      en: "An identifier assigned to a household rather than to an individual person."
+      fr: "Un identifiant attribue a un menage plutot qu'a une personne individuelle."
+      es: "Un identificador asignado a un hogar en lugar de a una persona individual."
+
+  - code: social_security_number
+    label:
+      en: Social security number
+      fr: Numero de securite sociale
+      es: Numero de seguridad social
+    definition:
+      en: "A number assigned by a social security or social insurance administration, distinct from a national identity number in many countries."
+      fr: "Un numero attribue par une administration de securite sociale ou d'assurance sociale, distinct du numero d'identite nationale dans de nombreux pays."
+      es: "Un numero asignado por una administracion de seguridad social o seguro social, distinto del numero de identidad nacional en muchos paises."
+
+  - code: other
+    label:
+      en: Other
+      fr: Autre
+      es: Otro
+    definition:
+      en: "An identifier type not covered by the other categories."
+      fr: "Un type d'identifiant non couvert par les autres categories."
+      es: "Un tipo de identificador no cubierto por las otras categorias."
+
+system_mappings:
+  spdci:
+    "UIN": national_id
+    "BRN": birth_certificate
+    "MRN": other
+    "DRN": other

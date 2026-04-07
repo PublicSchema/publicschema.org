@@ -1,0 +1,18 @@
+id: referred_person
+maturity: draft
+
+definition:
+  en: "The person who is being referred."
+  fr: "La personne qui fait l'objet de l'orientation."
+  es: "La persona que está siendo referida."
+
+type: concept:Person
+cardinality: single
+vocabulary: null
+references: Person
+domain_override: null
+data_classification: personal
+
+convergence:
+  system_count: 1
+  total_systems: 3

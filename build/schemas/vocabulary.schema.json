@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://publicschema.org/schemas/vocabulary.schema.json",
+  "title": "PublicSchema Vocabulary",
+  "type": "object",
+  "required": ["id", "maturity", "definition", "values"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*$",
+      "description": "kebab-case vocabulary identifier"
+    },
+    "maturity": {
+      "type": "string",
+      "enum": ["draft", "trial-use", "normative"]
+    },
+    "definition": {
+      "$ref": "#/$defs/multilingual_text"
+    },
+    "standard": {
+      "type": ["object", "null"],
+      "properties": {
+        "name": { "type": "string" },
+        "uri": { "type": "string" },
+        "notes": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "values": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/vocab_value"
+      },
+      "minItems": 1
+    },
+    "system_mappings": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "string"
+        }
+      }
+    },
+    "sync": {
+      "type": "object",
+      "required": ["source_url", "format"],
+      "additionalProperties": false,
+      "properties": {
+        "source_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to download the authoritative standard data from"
+        },
+        "format": {
+          "type": "string",
+          "enum": ["fhir-codesystem", "iso-xml", "csv", "tsv", "semicolon-delimited", "github-json", "isco-json"],
+          "description": "Parser to use for the downloaded data"
+        },
+        "last_synced": {
+          "type": "string",
+          "format": "date",
+          "description": "Date of the most recent sync (ISO 8601)"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "multilingual_text": {
+      "type": "object",
+      "required": ["en"],
+      "properties": {
+        "en": { "type": "string" },
+        "fr": { "type": "string" },
+        "es": { "type": "string" }
+      },
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "vocab_value": {
+      "type": "object",
+      "required": ["code", "label"],
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        "label": {
+          "$ref": "#/$defs/multilingual_text"
+        },
+        "standard_code": {
+          "type": "string"
+        },
+        "definition": {
+          "$ref": "#/$defs/multilingual_text"
+        }
+      }
+    }
+  }
+}

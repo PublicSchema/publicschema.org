@@ -1,0 +1,38 @@
+id: Address
+maturity: draft
+
+definition:
+  en: >
+    A structured physical or postal location used to reach a person,
+    household, or organization. Addresses combine spatial and administrative
+    components such as street, settlement, district, and postal code.
+  fr: >
+    Un emplacement physique ou postal structure utilise pour joindre une
+    personne, un menage ou une organisation. Les adresses combinent des
+    composantes spatiales et administratives telles que la rue, le
+    quartier, le district et le code postal.
+  es: >
+    Una ubicacion fisica o postal estructurada utilizada para contactar
+    a una persona, hogar u organizacion. Las direcciones combinan
+    componentes espaciales y administrativos como calle, localidad,
+    distrito y codigo postal.
+
+properties:
+  - street_address
+  - house_number
+  - building_name
+  - city
+  - administrative_area
+  - postal_code
+  - country
+
+supertypes: []
+subtypes: []
+
+convergence:
+  system_count: 5
+  total_systems: 6
+  notes: >
+    Present in 5 of 6 mapped systems. EBSI PID and PDA1 schemas informed
+    additional decomposition properties (house_number, building_name) not
+    present in the original convergence systems.

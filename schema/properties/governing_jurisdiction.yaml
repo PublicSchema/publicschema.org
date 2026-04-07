@@ -1,0 +1,19 @@
+id: governing_jurisdiction
+maturity: draft
+
+definition:
+  en: "The country or subdivision whose legislation governs this enrollment. Implicit in domestic programs, but must be explicit in cross-border or federated contexts such as social security coordination between countries."
+  fr: "Le pays ou la subdivision dont la legislation regit cette inscription. Implicite dans les programmes nationaux, mais doit etre explicite dans les contextes transfrontaliers ou federes tels que la coordination de la securite sociale entre pays."
+  es: "El pais o subdivision cuya legislacion rige esta inscripcion. Implicito en los programas nacionales, pero debe ser explicito en contextos transfronterizos o federados como la coordinacion de la seguridad social entre paises."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+schema_org_equivalent: null
+data_classification: non_personal
+
+convergence:
+  system_count: 0
+  total_systems: 6
+  notes: "Not present in original convergence systems. Added based on EBSI PID/PDA1/ELM schema analysis."

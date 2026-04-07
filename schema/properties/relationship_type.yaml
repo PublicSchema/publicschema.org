@@ -1,0 +1,17 @@
+id: relationship_type
+maturity: draft
+
+definition:
+  en: "The nature of the relationship between two persons (e.g., spouse, parent, child, sibling, guardian, caregiver)."
+  fr: "La nature de la relation entre deux personnes (par ex., conjoint, parent, enfant, frère/sœur, tuteur, soignant)."
+  es: "La naturaleza de la relación entre dos personas (p. ej., cónyuge, padre/madre, hijo/a, hermano/a, tutor, cuidador)."
+
+type: string
+cardinality: single
+vocabulary: relationship-type
+references: null
+data_classification: non_personal
+
+convergence:
+  system_count: 6
+  total_systems: 6

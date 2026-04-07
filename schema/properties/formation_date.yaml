@@ -1,0 +1,18 @@
+id: formation_date
+maturity: draft
+
+definition:
+  en: "The date on which this group was formed or registered."
+  fr: "La date a laquelle ce groupe a ete forme ou enregistre."
+  es: "La fecha en que este grupo fue formado o registrado."
+
+type: date
+cardinality: single
+vocabulary: null
+references: null
+data_classification: non_personal
+
+convergence:
+  system_count: 1
+  total_systems: 5
+  notes: "Present in only 1 of 5 mapped systems. Uncommon in practice; most systems record the date of first registration rather than group formation."

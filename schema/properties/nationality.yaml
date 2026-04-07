@@ -1,0 +1,18 @@
+id: nationality
+maturity: draft
+
+definition:
+  en: "The country of citizenship or nationality, expressed as an ISO 3166-1 alpha-2 code where possible."
+  fr: "Le pays de citoyennete ou de nationalite, exprime de preference sous forme de code ISO 3166-1 alpha-2."
+  es: "El pais de ciudadania o nacionalidad, expresado preferiblemente como codigo ISO 3166-1 alfa-2."
+
+type: string
+cardinality: single
+vocabulary: country
+references: null
+data_classification: personal
+
+convergence:
+  system_count: 3
+  total_systems: 6
+  notes: "Present in 3 of 6 mapped systems. More common in systems handling migrants or refugees."

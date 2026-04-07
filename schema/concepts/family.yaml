@@ -1,0 +1,26 @@
+id: Family
+maturity: draft
+
+definition:
+  en: >
+    A social unit defined by kinship, marriage, or adoption, regardless of
+    shared budget or co-residence. A family can span multiple households and
+    geographic boundaries.
+  fr: >
+    Une unité sociale définie par la parenté, le mariage ou l'adoption,
+    indépendamment du budget partagé ou de la corésidence. Une famille peut
+    s'étendre sur plusieurs ménages et frontières géographiques.
+  es: >
+    Una unidad social definida por el parentesco, el matrimonio o la adopción,
+    independientemente del presupuesto compartido o la corresidencia. Una
+    familia puede abarcar varios hogares y fronteras geográficas.
+
+properties: []
+
+supertypes: [Group]
+subtypes: []
+
+convergence:
+  system_count: 5
+  total_systems: 6
+  notes: "No OpenCRVS equivalent. OpenIMIS uses 'family' where other systems use 'household'."

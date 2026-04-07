@@ -1,0 +1,17 @@
+id: data_sources
+maturity: draft
+
+definition:
+  en: "The administrative, survey, or collected data sources that feed into the assessment calculation."
+  fr: "Les sources de données administratives, d'enquête ou collectées qui alimentent le calcul de l'évaluation."
+  es: "Las fuentes de datos administrativos, de encuesta o recopilados que alimentan el cálculo de la evaluación."
+
+type: string
+cardinality: multiple
+vocabulary: null
+references: null
+data_classification: non_personal
+
+convergence:
+  system_count: 0
+  total_systems: 4

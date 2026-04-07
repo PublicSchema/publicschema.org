@@ -1,0 +1,17 @@
+id: payment_date
+maturity: draft
+
+definition:
+  en: "The date on which the payment was made or processed."
+  fr: "La date à laquelle le paiement a été effectué ou traité."
+  es: "La fecha en que el pago fue realizado o procesado."
+
+type: date
+cardinality: single
+vocabulary: null
+references: null
+data_classification: non_personal
+
+convergence:
+  system_count: 5
+  total_systems: 6

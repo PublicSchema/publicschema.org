@@ -1,0 +1,19 @@
+id: street_address
+maturity: draft
+
+definition:
+  en: "The street name, number, and any apartment or building identifiers."
+  fr: "Le nom de la rue, le numero et tout identifiant d'appartement ou de batiment."
+  es: "El nombre de la calle, numero y cualquier identificador de apartamento o edificio."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+schema_org_equivalent: "schema:streetAddress"
+data_classification: personal
+
+convergence:
+  system_count: 3
+  total_systems: 5
+  notes: "Present in 3 of 5 mapped systems. Often stored as a single free-text field rather than parsed into sub-components."

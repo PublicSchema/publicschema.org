@@ -1,0 +1,18 @@
+id: resolution_date
+maturity: draft
+
+definition:
+  en: "The date on which the grievance was resolved or closed."
+  fr: "La date à laquelle le grief a été résolu ou clos."
+  es: "La fecha en que el agravio fue resuelto o cerrado."
+
+type: date
+cardinality: single
+vocabulary: null
+references: null
+domain_override: null
+data_classification: non_personal
+
+convergence:
+  system_count: 1
+  total_systems: 5

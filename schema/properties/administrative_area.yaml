@@ -1,0 +1,19 @@
+id: administrative_area
+maturity: draft
+
+definition:
+  en: "The first-level administrative subdivision (province, state, region) containing the address."
+  fr: "La premiere subdivision administrative (province, etat, region) contenant l'adresse."
+  es: "La primera subdivision administrativa (provincia, estado, region) que contiene la direccion."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+schema_org_equivalent: "schema:addressRegion"
+data_classification: personal
+
+convergence:
+  system_count: 2
+  total_systems: 5
+  notes: "Present in 2 of 5 mapped systems as an explicit field. Equivalent data is often captured via a linked Location reference rather than a free-text field."

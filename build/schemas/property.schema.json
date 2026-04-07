@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://publicschema.org/schemas/property.schema.json",
+  "title": "PublicSchema Property",
+  "type": "object",
+  "required": ["id", "maturity", "definition", "type", "cardinality"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*$",
+      "description": "snake_case property identifier"
+    },
+    "maturity": {
+      "type": "string",
+      "enum": ["draft", "trial-use", "normative"]
+    },
+    "definition": {
+      "$ref": "#/$defs/multilingual_text"
+    },
+    "type": {
+      "type": "string",
+      "pattern": "^(string|date|datetime|integer|decimal|boolean|uri|concept:[A-Z][a-zA-Z]*)$",
+      "description": "One of: string, date, datetime, integer, decimal, boolean, uri, or concept:{ConceptId}"
+    },
+    "cardinality": {
+      "type": "string",
+      "enum": ["single", "multiple"]
+    },
+    "vocabulary": {
+      "type": ["string", "null"],
+      "description": "Reference to a vocabulary ID"
+    },
+    "references": {
+      "type": ["string", "null"],
+      "description": "Reference to a concept ID"
+    },
+    "domain_override": {
+      "type": ["string", "null"],
+      "description": "Explicit domain namespace override. Set to null to force universal URI, or to a domain code (e.g. 'sp') to force domain-specific URI, regardless of which concepts use this property."
+    },
+    "schema_org_equivalent": {
+      "type": ["string", "null"],
+      "pattern": "^schema:[a-zA-Z]+$",
+      "description": "schema.org equivalent property as a CURIE (e.g. 'schema:givenName'). Used to generate camelCase aliases in the JSON-LD context."
+    },
+    "data_classification": {
+      "type": "string",
+      "enum": ["non_personal", "personal", "special_category"],
+      "description": "Data classification for privacy and disclosure guidance. non_personal: structural/program metadata that does not identify or relate to a natural person. personal: identifies, relates to, or resolves to a natural person (includes person references, person-specific record references, and group composition data). special_category: data whose value is inherently sensitive (individual assessment scores, vulnerability indices). Program-level parameters like scoring methods or cutoff thresholds are non_personal, not special_category."
+    },
+    "convergence": {
+      "$ref": "#/$defs/convergence"
+    }
+  },
+  "$defs": {
+    "multilingual_text": {
+      "type": "object",
+      "required": ["en"],
+      "properties": {
+        "en": { "type": "string" },
+        "fr": { "type": "string" },
+        "es": { "type": "string" }
+      },
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "convergence": {
+      "type": "object",
+      "properties": {
+        "system_count": { "type": "integer", "minimum": 0 },
+        "total_systems": { "type": "integer", "minimum": 0 },
+        "notes": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

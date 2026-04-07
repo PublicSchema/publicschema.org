@@ -1,0 +1,41 @@
+id: Entitlement
+maturity: draft
+domain: sp
+
+definition:
+  en: >
+    A recognized right or claim of a participant to receive specific benefits or
+    services as defined by law or policy. An entitlement specifies the benefit
+    modality, amount, frequency, and currency.
+  fr: >
+    Un droit reconnu ou une créance d'un participant à recevoir des prestations
+    ou services spécifiques tels que définis par la loi ou la politique. Un
+    droit précise la modalité de prestation, le montant, la fréquence et la devise.
+  es: >
+    Un derecho reconocido o una reclamación de un participante para recibir
+    beneficios o servicios específicos según lo definido por la ley o la
+    política. Un derecho especifica la modalidad del beneficio, el monto, la
+    frecuencia y la moneda.
+
+properties:
+  - enrollment_ref
+  - benefit_modality
+  - benefit_description
+  - amount
+  - currency
+  - frequency
+  - start_date
+  - end_date
+  - document_expiry_date
+
+subtypes: []
+supertypes: []
+
+convergence:
+  system_count: 5
+  total_systems: 6
+  notes: >
+    Present in 5 of 6 mapped systems. EBSI PRC (Provisional Replacement
+    Certificate for the European Health Insurance Card) informed the
+    document_expiry_date property, distinguishing credential expiry from
+    entitlement period.

@@ -1,0 +1,19 @@
+id: patronymic_name
+maturity: draft
+
+definition:
+  en: "A name derived from the given name of the person's father or a paternal ancestor, used in naming conventions where patronymics are a distinct component of a person's full name."
+  fr: "Un nom derive du prenom du pere de la personne ou d'un ancetre paternel, utilise dans les conventions de denomination ou les patronymes constituent un element distinct du nom complet."
+  es: "Un nombre derivado del nombre de pila del padre de la persona o de un ancestro paterno, utilizado en convenciones de denominacion donde los patronimicos son un componente distinto del nombre completo."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+schema_org_equivalent: null
+data_classification: personal
+
+convergence:
+  system_count: 0
+  total_systems: 6
+  notes: "Not present in original convergence systems. Added based on EBSI PID/PDA1/ELM schema analysis."

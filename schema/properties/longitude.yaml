@@ -1,0 +1,19 @@
+id: longitude
+maturity: draft
+
+definition:
+  en: "The geographic longitude in decimal degrees (WGS84)."
+  fr: "La longitude geographique en degres decimaux (WGS84)."
+  es: "La longitud geografica en grados decimales (WGS84)."
+
+type: decimal
+cardinality: single
+vocabulary: null
+references: null
+schema_org_equivalent: "schema:longitude"
+data_classification: personal
+
+convergence:
+  system_count: 1
+  total_systems: 6
+  notes: "Present in 1 of 6 mapped systems. Typically captured alongside latitude; geospatial support is an emerging capability in social protection systems."

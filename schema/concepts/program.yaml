@@ -1,0 +1,36 @@
+id: Program
+maturity: draft
+domain: sp
+
+definition:
+  en: >
+    A government or institutional social protection intervention that provides
+    benefits to eligible individuals or households based on defined criteria.
+    A program has a name, implementing agency, targeting approach, and coverage
+    area.
+  fr: >
+    Une intervention gouvernementale ou institutionnelle de protection sociale
+    qui fournit des prestations aux individus ou aux ménages éligibles selon
+    des critères définis. Un programme a un nom, une agence de mise en oeuvre,
+    une approche de ciblage et une zone de couverture.
+  es: >
+    Una intervención gubernamental o institucional de protección social que
+    proporciona beneficios a individuos u hogares elegibles según criterios
+    definidos. Un programa tiene un nombre, una agencia implementadora, un
+    enfoque de focalización y un área de cobertura.
+
+properties:
+  - name
+  - implementing_agency
+  - coverage_area
+  - targeting_approach
+  - conditionality_type
+  - start_date
+  - end_date
+
+subtypes: []
+supertypes: []
+
+convergence:
+  system_count: 4
+  total_systems: 6

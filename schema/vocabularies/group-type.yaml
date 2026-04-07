@@ -1,0 +1,56 @@
+id: group-type
+maturity: draft
+
+definition:
+  en: "Categories used to classify the administrative or social type of a group in a social protection system."
+  fr: "Categories utilisees pour classer le type administratif ou social d'un groupe dans un systeme de protection sociale."
+  es: "Categorias utilizadas para clasificar el tipo administrativo o social de un grupo en un sistema de proteccion social."
+
+values:
+  - code: household
+    label:
+      en: Household
+      fr: Menage
+      es: Hogar
+    definition:
+      en: "A group of persons who share a dwelling and typically pool resources for daily living."
+      fr: "Un groupe de personnes partageant un logement et mettant generalement en commun des ressources pour la vie quotidienne."
+      es: "Un grupo de personas que comparten una vivienda y generalmente comparten recursos para la vida diaria."
+
+  - code: family
+    label:
+      en: Family
+      fr: Famille
+      es: Familia
+    definition:
+      en: "A group defined by legal or biological kinship ties, which may span multiple households."
+      fr: "Un groupe defini par des liens de parente legaux ou biologiques, pouvant s'etendre sur plusieurs menages."
+      es: "Un grupo definido por lazos de parentesco legal o biologico, que puede abarcar varios hogares."
+
+  - code: farm
+    label:
+      en: Farm
+      fr: Exploitation agricole
+      es: Granja
+    definition:
+      en: "An agricultural production unit, often household-based, used for targeting agricultural support programs."
+      fr: "Une unite de production agricole, souvent basee sur le menage, utilisee pour cibler les programmes d'aide agricole."
+      es: "Una unidad de produccion agricola, generalmente basada en el hogar, utilizada para focalizar programas de apoyo agricola."
+
+  - code: other
+    label:
+      en: Other
+      fr: Autre
+      es: Otro
+    definition:
+      en: "A group type not covered by the other categories."
+      fr: "Un type de groupe non couvert par les autres categories."
+      es: "Un tipo de grupo no cubierto por las otras categorias."
+
+system_mappings:
+  openspp:
+    "household": household
+    "family": family
+  spdci:
+    "2": household
+    "3": family

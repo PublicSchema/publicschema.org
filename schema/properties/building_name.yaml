@@ -1,0 +1,19 @@
+id: building_name
+maturity: draft
+
+definition:
+  en: "The name of a building, estate, or compound, used in contexts where locations are identified by name rather than street number."
+  fr: "Le nom d'un batiment, d'un domaine ou d'un complexe, utilise dans les contextes ou les lieux sont identifies par leur nom plutot que par un numero de rue."
+  es: "El nombre de un edificio, finca o complejo, utilizado en contextos donde las ubicaciones se identifican por nombre en lugar de por numero de calle."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+schema_org_equivalent: null
+data_classification: personal
+
+convergence:
+  system_count: 0
+  total_systems: 6
+  notes: "Not present in original convergence systems. Added based on EBSI PID/PDA1/ELM schema analysis."

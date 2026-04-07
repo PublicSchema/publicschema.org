@@ -1,0 +1,18 @@
+id: group_memberships
+maturity: draft
+
+definition:
+  en: "Group memberships held by this person, linking them to households, families, or other groups."
+  fr: "Appartenances a des groupes detenues par cette personne, la reliant aux menages, familles ou autres groupes."
+  es: "Membresias de grupos que posee esta persona, vinculandola con hogares, familias u otros grupos."
+
+type: concept:GroupMembership
+cardinality: multiple
+vocabulary: null
+references: GroupMembership
+data_classification: personal
+
+convergence:
+  system_count: 5
+  total_systems: 6
+  notes: "Present in 5 of 6 mapped systems. The person-to-group relationship is many-to-many; group_memberships is the person-side view of this join."

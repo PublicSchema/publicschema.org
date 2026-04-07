@@ -1,0 +1,17 @@
+id: program_ref
+maturity: draft
+
+definition:
+  en: "Reference to the program in which the beneficiary is enrolled."
+  fr: "Référence au programme dans lequel le bénéficiaire est inscrit."
+  es: "Referencia al programa en el que el beneficiario está inscrito."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+data_classification: non_personal
+
+convergence:
+  system_count: 5
+  total_systems: 6

@@ -1,0 +1,18 @@
+id: person
+maturity: draft
+
+definition:
+  en: "The person who holds this group membership."
+  fr: "La personne qui detient cette appartenance a un groupe."
+  es: "La persona que tiene esta membresia de grupo."
+
+type: concept:Person
+cardinality: single
+vocabulary: null
+references: Person
+data_classification: personal
+
+convergence:
+  system_count: 2
+  total_systems: 5
+  notes: "Present in 2 of 5 mapped systems as an explicit reference. Most systems co-locate person data with the membership record rather than using a typed reference."

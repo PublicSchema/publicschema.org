@@ -1,0 +1,48 @@
+id: conditionality-type
+maturity: draft
+
+definition:
+  en: "Categories describing whether and how a social protection program requires beneficiaries to meet behavioral conditions to receive or continue receiving benefits."
+  fr: "Catégories décrivant si et comment un programme de protection sociale exige des bénéficiaires qu'ils remplissent des conditions comportementales pour recevoir ou continuer à recevoir des prestations."
+  es: "Categorías que describen si y cómo un programa de protección social requiere que los beneficiarios cumplan condiciones de comportamiento para recibir o continuar recibiendo beneficios."
+
+values:
+  - code: unconditional
+    label:
+      en: Unconditional
+      fr: Inconditionnel
+      es: Incondicional
+    definition:
+      en: "Benefits are provided without requiring the beneficiary to fulfill any behavioral conditions."
+      fr: "Les prestations sont fournies sans exiger que le bénéficiaire remplisse des conditions comportementales."
+      es: "Los beneficios se proporcionan sin requerir que el beneficiario cumpla condiciones de comportamiento."
+
+  - code: conditional
+    label:
+      en: Conditional
+      fr: Conditionnel
+      es: Condicional
+    definition:
+      en: "Benefits require the beneficiary to meet specified behavioral conditions, such as school attendance, health checkups, or participation in training."
+      fr: "Les prestations exigent que le bénéficiaire remplisse des conditions comportementales spécifiées, telles que la fréquentation scolaire, les bilans de santé ou la participation à des formations."
+      es: "Los beneficios requieren que el beneficiario cumpla condiciones de comportamiento especificadas, como asistencia escolar, chequeos de salud o participación en capacitación."
+
+  - code: soft_conditional
+    label:
+      en: Soft conditional
+      fr: Conditionnel souple
+      es: Condicional flexible
+    definition:
+      en: "Conditions are encouraged and monitored but non-compliance does not result in benefit suspension or termination."
+      fr: "Les conditions sont encouragées et suivies mais le non-respect n'entraîne pas la suspension ou la fin des prestations."
+      es: "Las condiciones se fomentan y monitorean pero el incumplimiento no resulta en suspensión o terminación de beneficios."
+
+  - code: labelled
+    label:
+      en: Labelled
+      fr: Étiqueté
+      es: Etiquetado
+    definition:
+      en: "Benefits are designated for a specific purpose (e.g., food, education) but spending is not strictly enforced or verified."
+      fr: "Les prestations sont désignées pour un usage spécifique (par ex., alimentation, éducation) mais les dépenses ne sont pas strictement contrôlées ou vérifiées."
+      es: "Los beneficios se designan para un propósito específico (p. ej., alimentación, educación) pero el gasto no se aplica ni verifica estrictamente."

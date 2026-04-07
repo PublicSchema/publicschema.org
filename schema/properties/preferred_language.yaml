@@ -1,0 +1,17 @@
+id: preferred_language
+maturity: draft
+
+definition:
+  en: "The preferred language of communication for a person, using ISO 639-3 codes."
+  fr: "La langue de communication préférée d'une personne, utilisant les codes ISO 639-3."
+  es: "El idioma de comunicación preferido de una persona, utilizando códigos ISO 639-3."
+
+type: string
+cardinality: single
+vocabulary: language
+references: null
+data_classification: personal
+
+convergence:
+  system_count: 2
+  total_systems: 5

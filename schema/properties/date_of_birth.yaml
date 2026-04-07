@@ -1,0 +1,19 @@
+id: date_of_birth
+maturity: draft
+
+definition:
+  en: "The date on which the person was born."
+  fr: "La date de naissance de la personne."
+  es: "La fecha de nacimiento de la persona."
+
+type: date
+cardinality: single
+vocabulary: null
+references: null
+schema_org_equivalent: "schema:birthDate"
+data_classification: personal
+
+convergence:
+  system_count: 6
+  total_systems: 6
+  notes: "Universal across all 6 mapped systems. Some systems also store birth year separately for approximate dates."

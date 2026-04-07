@@ -1,0 +1,33 @@
+id: PaymentEvent
+maturity: draft
+
+definition:
+  en: >
+    A record of a single transfer of value from a program to a beneficiary.
+    Captures the amount, date, status, delivery channel, and reconciliation
+    state of each disbursement in the payment cycle.
+  fr: >
+    Un enregistrement d'un transfert unique de valeur d'un programme vers un
+    bénéficiaire. Capture le montant, la date, le statut, le canal de livraison
+    et l'état de réconciliation de chaque versement dans le cycle de paiement.
+  es: >
+    Un registro de una única transferencia de valor de un programa a un
+    beneficiario. Captura el monto, la fecha, el estado, el canal de entrega y
+    el estado de conciliación de cada desembolso en el ciclo de pago.
+
+properties:
+  - payment_amount
+  - payment_date
+  - payment_status
+  - recipient
+  - enrollment_ref
+  - delivery_channel
+  - transaction_reference
+  - payment_currency
+
+subtypes: []
+supertypes: []
+
+convergence:
+  system_count: 6
+  total_systems: 6

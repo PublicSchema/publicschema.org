@@ -1,0 +1,39 @@
+id: Identifier
+maturity: draft
+
+definition:
+  en: >
+    A unique alphanumeric code assigned to a person by a system or authority,
+    such as a national ID number, birth certificate number, or program-assigned
+    beneficiary code.
+  fr: >
+    Un code alphanumerique unique attribue a une personne par un systeme
+    ou une autorite, tel qu'un numero d'identite nationale, un numero
+    d'acte de naissance ou un code beneficiaire attribue par un programme.
+  es: >
+    Un codigo alfanumerico unico asignado a una persona por un sistema
+    o autoridad, como un numero de identidad nacional, numero de
+    certificado de nacimiento o codigo de beneficiario asignado por
+    un programa.
+
+properties:
+  - identifier_type
+  - identifier_value
+  - issuing_authority
+  - issue_date
+  - expiry_date
+  - identifier_scheme_id
+  - identifier_scheme_name
+  - issuing_jurisdiction
+
+supertypes: []
+subtypes: []
+
+convergence:
+  system_count: 5
+  total_systems: 6
+  notes: >
+    Present in 5 of 6 mapped systems. EBSI ELM and PID schemas informed
+    additional scheme metadata properties (identifier_scheme_id,
+    identifier_scheme_name, issuing_jurisdiction) not present in the
+    original convergence systems.

@@ -1,0 +1,17 @@
+id: cutoff_score
+maturity: draft
+
+definition:
+  en: "The threshold score below or above which an applicant is considered eligible."
+  fr: "Le score seuil en dessous ou au-dessus duquel un demandeur est considéré éligible."
+  es: "La puntuación umbral por debajo o por encima de la cual un solicitante se considera elegible."
+
+type: decimal
+cardinality: single
+vocabulary: null
+references: null
+data_classification: non_personal
+
+convergence:
+  system_count: 0
+  total_systems: 4

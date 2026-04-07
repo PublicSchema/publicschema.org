@@ -1,0 +1,19 @@
+id: name
+maturity: draft
+
+definition:
+  en: "The full display name of the person."
+  fr: "Le nom complet d'affichage de la personne."
+  es: "El nombre completo de visualizacion de la persona."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+schema_org_equivalent: "schema:name"
+data_classification: personal
+
+convergence:
+  system_count: 6
+  total_systems: 6
+  notes: "Universal across all 6 mapped systems. May be stored as a composite field or derived from given_name and family_name."

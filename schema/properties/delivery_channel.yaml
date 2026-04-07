@@ -1,0 +1,17 @@
+id: delivery_channel
+maturity: draft
+
+definition:
+  en: "The mechanism through which the transfer reaches the beneficiary."
+  fr: "Le mécanisme par lequel le transfert parvient au bénéficiaire."
+  es: "El mecanismo a través del cual la transferencia llega al beneficiario."
+
+type: string
+cardinality: single
+vocabulary: delivery-channel
+references: null
+data_classification: non_personal
+
+convergence:
+  system_count: 1
+  total_systems: 6

@@ -1,0 +1,68 @@
+id: referral-status
+maturity: draft
+
+definition:
+  en: "The lifecycle states of a referral between programs or services."
+  fr: "Les états du cycle de vie d'une orientation entre programmes ou services."
+  es: "Los estados del ciclo de vida de una derivación entre programas o servicios."
+
+values:
+  - code: pending
+    label:
+      en: Pending
+      fr: En attente
+      es: Pendiente
+    definition:
+      en: "The referral has been created and sent to the receiving program but has not yet been acted upon."
+      fr: "L'orientation a été créée et envoyée au programme récepteur mais n'a pas encore été traitée."
+      es: "La derivación ha sido creada y enviada al programa receptor pero aún no ha sido procesada."
+
+  - code: accepted
+    label:
+      en: Accepted
+      fr: Acceptée
+      es: Aceptada
+    definition:
+      en: "The receiving program has acknowledged the referral and agreed to serve the referred person."
+      fr: "Le programme récepteur a accusé réception de l'orientation et a accepté de prendre en charge la personne orientée."
+      es: "El programa receptor ha reconocido la derivación y ha aceptado atender a la persona derivada."
+
+  - code: declined
+    label:
+      en: Declined
+      fr: Refusée
+      es: Rechazada
+    definition:
+      en: "The receiving program has reviewed but declined to accept the referral, typically due to ineligibility or capacity constraints."
+      fr: "Le programme récepteur a examiné mais refusé l'orientation, généralement en raison d'inéligibilité ou de contraintes de capacité."
+      es: "El programa receptor ha revisado pero rechazado la derivación, generalmente por inelegibilidad o restricciones de capacidad."
+
+  - code: completed
+    label:
+      en: Completed
+      fr: Complétée
+      es: Completada
+    definition:
+      en: "The referred person has been enrolled or served by the receiving program, and the referral process is finished."
+      fr: "La personne orientée a été inscrite ou prise en charge par le programme récepteur, et le processus d'orientation est terminé."
+      es: "La persona derivada ha sido inscrita o atendida por el programa receptor, y el proceso de derivación ha finalizado."
+
+  - code: cancelled
+    label:
+      en: Cancelled
+      fr: Annulée
+      es: Cancelada
+    definition:
+      en: "The referral was withdrawn by the referring program or the referred person before the receiving program acted on it."
+      fr: "L'orientation a été retirée par le programme référant ou la personne orientée avant que le programme récepteur n'agisse."
+      es: "La derivación fue retirada por el programa referente o la persona derivada antes de que el programa receptor actuara."
+
+  - code: expired
+    label:
+      en: Expired
+      fr: Expirée
+      es: Expirada
+    definition:
+      en: "The referral was not acted upon within the expected timeframe and is no longer valid."
+      fr: "L'orientation n'a pas été traitée dans le délai prévu et n'est plus valide."
+      es: "La derivación no fue procesada dentro del plazo esperado y ya no es válida."

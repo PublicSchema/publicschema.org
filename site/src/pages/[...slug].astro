@@ -1,0 +1,259 @@
+---
+/**
+ * Catch-all route for concepts and properties.
+ * Concepts: /Person (universal), /sp/Enrollment (domain-specific)
+ * Properties: /date_of_birth (universal), /sp/enrollment_status (domain-specific)
+ */
+import Base from "../layouts/Base.astro";
+import { loadVocabulary } from "../data/vocabulary";
+import type { Concept, Property } from "../data/vocabulary";
+
+export function getStaticPaths() {
+  const vocab = loadVocabulary();
+  const paths = [];
+
+  for (const [id, concept] of Object.entries(vocab.concepts)) {
+    const slug = concept.path.replace(/^\//, "");
+    paths.push({ params: { slug }, props: { kind: "concept" as const, termId: id } });
+  }
+  for (const [id, prop] of Object.entries(vocab.properties)) {
+    const slug = prop.path.replace(/^\//, "");
+    paths.push({ params: { slug }, props: { kind: "property" as const, termId: id } });
+  }
+
+  return paths;
+}
+
+const vocab = loadVocabulary();
+const { kind, termId } = Astro.props;
+
+const classificationLabels: Record<string, string> = {
+  non_personal: "Non-personal",
+  personal: "Personal",
+  special_category: "Special category",
+};
+
+/** Look up a concept's path by ID for linking. */
+function conceptPath(id: string): string {
+  return vocab.concepts[id]?.path || `/${id}`;
+}
+
+/** Look up a property's path by ID for linking. */
+function propPath(id: string): string {
+  return vocab.properties[id]?.path || `/${id}`;
+}
+---
+
+{kind === "concept" ? (() => {
+  const concept = vocab.concepts[termId] as Concept;
+  const propList = concept.properties.map((ref) => ({
+    ...ref,
+    detail: vocab.properties[ref.id],
+  }));
+  return (
+    <Base title={concept.id} description={concept.definition.en}>
+      <article>
+      <div class="page-header">
+        <nav class="breadcrumb">
+          <a href="/">Home</a>
+          <span class="separator">/</span>
+          <a href="/concepts/">Concepts</a>
+          <span class="separator">/</span>
+          {concept.id}
+        </nav>
+        <h1>{concept.domain && <span class="domain-prefix" title={{"sp": "Social Protection"}[concept.domain] || concept.domain}>{concept.domain}:</span>}{concept.id}</h1>
+        <div class="meta-line">
+          <span class={`badge badge-${concept.maturity}`}>{concept.maturity}</span>
+        </div>
+        <p class="definition-text">{concept.definition.en}</p>
+        <p class="uri">{concept.uri}</p>
+        <div class="download-links">
+          <a href={`${concept.path}.jsonld`} class="btn btn-secondary">JSON-LD</a>
+          <a href={`${concept.path}.csv`} class="btn btn-secondary" download>CSV</a>
+          <a href={`${concept.path}-definition.xlsx`} class="btn btn-secondary" download>Definition (Excel)</a>
+          <a href={`${concept.path}-template.xlsx`} class="btn btn-secondary" download>Template (Excel)</a>
+        </div>
+      </div>
+
+      {concept.supertypes.length > 0 && (
+        <div class="concept-section">
+          <h2>Supertypes</h2>
+          <div class="type-links">
+            {concept.supertypes.map((s) => <a href={conceptPath(s)}>{s}</a>)}
+          </div>
+        </div>
+      )}
+
+      {concept.subtypes.length > 0 && (
+        <div class="concept-section">
+          <h2>Subtypes</h2>
+          <div class="type-links">
+            {concept.subtypes.map((s) => <a href={conceptPath(s)}>{s}</a>)}
+          </div>
+        </div>
+      )}
+
+      {(() => {
+        const ownIds = new Set(concept.properties.map((ref) => ref.id));
+        const inheritedProps = [] as {id: string; detail: typeof vocab.properties[string] | undefined; from: string}[];
+        for (const st of concept.supertypes) {
+          const parent = vocab.concepts[st];
+          if (!parent) continue;
+          for (const ref of parent.properties) {
+            if (!ownIds.has(ref.id)) {
+              inheritedProps.push({ ...ref, detail: vocab.properties[ref.id], from: st });
+            }
+          }
+        }
+        const allProps = [
+          ...propList.map((p) => ({ ...p, from: null as string | null })),
+          ...inheritedProps,
+        ];
+        return (
+          <div class="concept-section">
+            <h2>Properties</h2>
+            {allProps.length > 0 ? (
+              <div class="table-scroll">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Property</th>
+                    <th>Type</th>
+                    <th>Classification</th>
+                    <th>Definition</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {allProps.map((p) => {
+                    const typeStr = p.detail?.type || "unknown";
+                    const conceptRef = typeStr.match(/^concept:(.+)$/)?.[1];
+                    const primitives = ["string", "integer", "decimal", "boolean", "date"];
+                    const isPrimitive = primitives.includes(typeStr);
+                    return (
+                      <tr class={p.from ? "inherited-row" : ""}>
+                        <td>
+                          <a href={propPath(p.id)}>{p.id}</a>
+                          {p.from && <span class="inherited-badge">from <a href={conceptPath(p.from)}>{p.from}</a></span>}
+                        </td>
+                        <td>
+                          {conceptRef
+                            ? <a href={conceptPath(conceptRef)}><code>{typeStr}</code></a>
+                            : isPrimitive
+                              ? <a href={`/types#${typeStr}`}><code>{typeStr}</code></a>
+                              : <code>{typeStr}</code>
+                          }
+                          {p.detail?.vocabulary && (
+                            <> (<a href={`/vocab/${p.detail.vocabulary}`}>{p.detail.vocabulary}</a>)</>
+                          )}
+                        </td>
+                        <td>{p.detail?.data_classification ? <span class={`badge badge-${p.detail.data_classification}`}>{classificationLabels[p.detail.data_classification] ?? p.detail.data_classification}</span> : ""}</td>
+                        <td>{p.detail?.definition.en?.slice(0, 80)}{(p.detail?.definition.en?.length || 0) > 80 ? "..." : ""}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+              </div>
+            ) : (
+              <p style="color: var(--color-text-muted);">No properties defined yet.</p>
+            )}
+          </div>
+        );
+      })()}
+
+      {concept.convergence?.notes && (
+        <div class="concept-section">
+          <h2>Convergence notes</h2>
+          <p style="color: var(--color-text-muted); line-height: 1.65;">{concept.convergence.notes}</p>
+        </div>
+      )}
+      </article>
+    </Base>
+  );
+})() : (() => {
+  const prop = vocab.properties[termId] as Property;
+  const typeConceptRef = prop.type.match(/^concept:(.+)$/)?.[1];
+  const primitiveTypes = ["string", "integer", "decimal", "boolean", "date"];
+  const isPrimitiveType = primitiveTypes.includes(prop.type);
+  return (
+    <Base title={prop.id} description={prop.definition.en}>
+      <article>
+      <div class="page-header">
+        <nav class="breadcrumb">
+          <a href="/">Home</a>
+          <span class="separator">/</span>
+          <a href="/properties/">Properties</a>
+          <span class="separator">/</span>
+          {prop.id}
+        </nav>
+        <h1>{prop.id}</h1>
+        <div class="meta-line">
+          <span class={`badge badge-${prop.maturity}`}>{prop.maturity}</span>
+        </div>
+        <p class="definition-text">{prop.definition.en}</p>
+        <p class="uri">{prop.uri}</p>
+        <div class="download-links">
+          <a href={`${prop.path}.jsonld`} class="btn btn-secondary">JSON-LD</a>
+        </div>
+      </div>
+
+      <div class="concept-section">
+        <h2>Details</h2>
+        <table class="data-table detail-kv-table">
+          <tbody>
+            <tr>
+              <td style="font-weight: 600; color: var(--color-text-muted); width: 10rem;">Type</td>
+              <td>{typeConceptRef
+                ? <a href={conceptPath(typeConceptRef)}><code>{prop.type}</code></a>
+                : isPrimitiveType
+                  ? <a href={`/types#${prop.type}`}><code>{prop.type}</code></a>
+                  : <code>{prop.type}</code>
+              }</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 600; color: var(--color-text-muted);">Cardinality</td>
+              <td>{prop.cardinality}</td>
+            </tr>
+            {prop.vocabulary && (
+              <tr>
+                <td style="font-weight: 600; color: var(--color-text-muted);">Vocabulary</td>
+                <td><a href={`/vocab/${prop.vocabulary}`}>{prop.vocabulary}</a></td>
+              </tr>
+            )}
+            {prop.data_classification && (
+              <tr>
+                <td style="font-weight: 600; color: var(--color-text-muted);">Classification</td>
+                <td><span class={`badge badge-${prop.data_classification}`}>{classificationLabels[prop.data_classification] ?? prop.data_classification}</span></td>
+              </tr>
+            )}
+            {prop.references && (
+              <tr>
+                <td style="font-weight: 600; color: var(--color-text-muted);">References</td>
+                <td><a href={conceptPath(prop.references)}>{prop.references}</a></td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="concept-section">
+        <h2>Used by</h2>
+        {prop.used_by.length > 0 ? (
+          <div class="type-links">
+            {prop.used_by.map((d) => <a href={conceptPath(d)}>{d}</a>)}
+          </div>
+        ) : (
+          <p style="color: var(--color-text-muted);">Not used by any concept yet.</p>
+        )}
+      </div>
+
+      {prop.convergence?.notes && (
+        <div class="concept-section">
+          <h2>Convergence notes</h2>
+          <p style="color: var(--color-text-muted); line-height: 1.65;">{prop.convergence.notes}</p>
+        </div>
+      )}
+      </article>
+    </Base>
+  );
+})()}

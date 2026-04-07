@@ -1,0 +1,18 @@
+id: administrative_level
+maturity: draft
+
+definition:
+  en: "The administrative classification (national, regional, district, sub-district, village)."
+  fr: "La classification administrative (national, regional, district, sous-district, village)."
+  es: "La clasificacion administrativa (nacional, regional, distrito, subdistrito, aldea)."
+
+type: string
+cardinality: single
+vocabulary: administrative-level
+references: null
+data_classification: non_personal
+
+convergence:
+  system_count: 3
+  total_systems: 6
+  notes: "Present in 3 of 6 mapped systems. Level naming conventions differ across countries; systems often use numeric levels (level 1, level 2) rather than named tiers."

@@ -1,0 +1,19 @@
+id: house_number
+maturity: draft
+
+definition:
+  en: "The house, building, or plot number within a street or road."
+  fr: "Le numero de maison, de batiment ou de parcelle dans une rue ou une route."
+  es: "El numero de casa, edificio o parcela dentro de una calle o carretera."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+schema_org_equivalent: null
+data_classification: personal
+
+convergence:
+  system_count: 0
+  total_systems: 6
+  notes: "Not present in original convergence systems. Added based on EBSI PID/PDA1/ELM schema analysis."

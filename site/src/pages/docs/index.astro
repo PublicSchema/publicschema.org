@@ -1,0 +1,50 @@
+---
+import Base from "../../layouts/Base.astro";
+import { docs } from "../../data/docs";
+
+interface DocLink {
+  slug: string;
+  title: string;
+  description: string;
+}
+
+interface DocCategory {
+  name: string;
+  docs: DocLink[];
+}
+
+// Group docs by category, preserving insertion order
+const categoryOrder = ["Getting Started", "Technical Documentation", "Landscape"];
+const grouped = new Map<string, DocLink[]>();
+for (const name of categoryOrder) {
+  grouped.set(name, []);
+}
+for (const [slug, entry] of Object.entries(docs)) {
+  const list = grouped.get(entry.category);
+  if (list) list.push({ slug, title: entry.title, description: entry.description });
+}
+const categories: DocCategory[] = categoryOrder.map((name) => ({
+  name,
+  docs: grouped.get(name)!,
+}));
+---
+<Base title="Documentation" description="PublicSchema documentation, guides, and technical references.">
+  <div class="page-header">
+    <h1>Documentation</h1>
+    <p class="subtitle">Guides, technical references, and background on PublicSchema.</p>
+  </div>
+
+  {categories.map((cat) => (
+    <section class="doc-category">
+      <h2>{cat.name}</h2>
+      <div class="doc-list">
+        {cat.docs.map((doc) => (
+          <a href={`/docs/${doc.slug}/`} class="doc-card">
+            <h3>{doc.title}</h3>
+            <p>{doc.description}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+  ))}
+</Base>

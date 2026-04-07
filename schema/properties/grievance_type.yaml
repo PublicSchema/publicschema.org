@@ -1,0 +1,17 @@
+id: grievance_type
+maturity: draft
+
+definition:
+  en: "The category of complaint (exclusion error, inclusion error, payment complaint, misconduct, information request)."
+  fr: "La catégorie de plainte (erreur d'exclusion, erreur d'inclusion, plainte de paiement, mauvaise conduite, demande d'information)."
+  es: "La categoría de queja (error de exclusión, error de inclusión, queja de pago, mala conducta, solicitud de información)."
+
+type: string
+cardinality: single
+vocabulary: grievance-type
+references: null
+data_classification: non_personal
+
+convergence:
+  system_count: 3
+  total_systems: 5

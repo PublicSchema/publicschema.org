@@ -1,0 +1,18 @@
+id: identifier_value
+maturity: draft
+
+definition:
+  en: "The alphanumeric value of the identifier as issued or recorded."
+  fr: "La valeur alphanumerique de l'identifiant tel qu'il a ete delivre ou enregistre."
+  es: "El valor alfanumerico del identificador tal como fue emitido o registrado."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+data_classification: personal
+
+convergence:
+  system_count: 2
+  total_systems: 5
+  notes: "Present in 2 of 5 mapped systems as an explicit field. Often stored as the primary key or embedded within the identifier record rather than named separately."

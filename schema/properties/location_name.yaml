@@ -1,0 +1,18 @@
+id: location_name
+maturity: draft
+
+definition:
+  en: "A human-readable place name for the location."
+  fr: "Un nom de lieu lisible par un humain pour la localisation."
+  es: "Un nombre de lugar legible para la ubicacion."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+data_classification: non_personal
+
+convergence:
+  system_count: 6
+  total_systems: 6
+  notes: "Universal across all 6 mapped systems. The most consistently captured location property."

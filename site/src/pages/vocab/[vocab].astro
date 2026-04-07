@@ -1,0 +1,106 @@
+---
+import Base from "../../layouts/Base.astro";
+import { loadVocabulary } from "../../data/vocabulary";
+import type { Vocabulary } from "../../data/vocabulary";
+
+export function getStaticPaths() {
+  const vocab = loadVocabulary();
+  return Object.keys(vocab.vocabularies).map((id) => ({ params: { vocab: id } }));
+}
+
+const allVocab = loadVocabulary();
+const vocabulary = allVocab.vocabularies[Astro.params.vocab] as Vocabulary;
+---
+<Base title={vocabulary.id} description={vocabulary.definition.en}>
+  <article>
+  <div class="page-header">
+    <nav class="breadcrumb">
+      <a href="/">Home</a>
+      <span class="separator">/</span>
+      <a href="/vocab/">Vocabularies</a>
+      <span class="separator">/</span>
+      {vocabulary.id}
+    </nav>
+    <h1>{vocabulary.id}</h1>
+    <div class="meta-line">
+      <span class={`badge badge-${vocabulary.maturity}`}>{vocabulary.maturity}</span>
+    </div>
+    <p class="definition-text">{vocabulary.definition.en}</p>
+    <p class="uri">{vocabulary.uri}</p>
+    <div class="download-links">
+      <a href={`/vocab/${Astro.params.vocab}.csv`} class="btn btn-secondary" download>CSV</a>
+      <a href={`/vocab/${Astro.params.vocab}.jsonld`} class="btn btn-secondary">JSON-LD</a>
+    </div>
+  </div>
+
+  {vocabulary.standard && (
+    <div class="concept-section">
+      <h2>Standard reference</h2>
+      <p>
+        {vocabulary.standard.name}
+        {vocabulary.standard.uri && (
+          <> (<a href={vocabulary.standard.uri} target="_blank" rel="noopener">{vocabulary.standard.uri}</a>)</>
+        )}
+      </p>
+      {vocabulary.standard.notes && (
+        <p style="color: var(--color-text-muted); line-height: 1.65;">{vocabulary.standard.notes}</p>
+      )}
+    </div>
+  )}
+
+  <div class="concept-section">
+    <h2>Values</h2>
+    <div class="table-scroll">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Code</th>
+          <th>Label</th>
+          <th>Standard code</th>
+          <th>Definition</th>
+        </tr>
+      </thead>
+      <tbody>
+        {vocabulary.values.map((v) => (
+          <tr>
+            <td><code>{v.code}</code></td>
+            <td>{v.label.en}</td>
+            <td>{v.standard_code || ""}</td>
+            <td>{v.definition.en}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  {vocabulary.system_mappings && Object.keys(vocabulary.system_mappings).length > 0 && (
+    <div class="concept-section">
+      <h2>System mappings</h2>
+      {Object.entries(vocabulary.system_mappings).map(([system, mappings]) => (
+        <div style="margin-bottom: var(--space-lg);">
+          <h3>{system}</h3>
+          <div class="table-scroll">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>System code</th>
+                <th>Canonical value</th>
+              </tr>
+            </thead>
+            <tbody>
+              {Object.entries(mappings).map(([sysCode, canonical]) => (
+                <tr>
+                  <td><code>{sysCode}</code></td>
+                  <td><code>{canonical}</code></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          </div>
+        </div>
+      ))}
+    </div>
+  )}
+  </article>
+</Base>

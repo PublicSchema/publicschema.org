@@ -1,0 +1,1206 @@
+id: region
+maturity: draft
+definition:
+  en: Geographic regions and country groupings as defined by the United Nations M49 standard.
+  fr: Régions géographiques et groupements de pays tels que définis par la norme M49 des Nations Unies.
+  es: Regiones geográficas y agrupaciones de países según la norma M49 de las Naciones Unidas.
+standard:
+  name: UN M49
+  uri: https://unstats.un.org/unsd/methodology/m49/
+sync:
+  source_url: https://raw.githubusercontent.com/datasets/country-codes/main/data/country-codes.csv
+  format: csv
+  last_synced: '2026-04-07'
+values:
+- code: af
+  label:
+    en: Afghanistan
+  standard_code: '4'
+- code: ax
+  label:
+    en: Åland Islands
+  standard_code: '248'
+  definition:
+    en: Kepulauan Aland
+- code: al
+  label:
+    en: Albania
+  standard_code: '8'
+- code: dz
+  label:
+    en: Algeria
+  standard_code: '12'
+- code: as
+  label:
+    en: American Samoa
+  standard_code: '16'
+  definition:
+    en: Samoa Amerika
+- code: ad
+  label:
+    en: Andorra
+  standard_code: '20'
+- code: ao
+  label:
+    en: Angola
+  standard_code: '24'
+- code: ai
+  label:
+    en: Anguilla
+  standard_code: '660'
+- code: aq
+  label:
+    en: Antarctica
+  standard_code: '10'
+  definition:
+    en: Antartika
+- code: ag
+  label:
+    en: Antigua and Barbuda
+  standard_code: '28'
+  definition:
+    en: Antigua dan Barbuda
+- code: ar
+  label:
+    en: Argentina
+  standard_code: '32'
+- code: am
+  label:
+    en: Armenia
+  standard_code: '51'
+- code: aw
+  label:
+    en: Aruba
+  standard_code: '533'
+- code: au
+  label:
+    en: Australia
+  standard_code: '36'
+- code: at
+  label:
+    en: Austria
+  standard_code: '40'
+- code: az
+  label:
+    en: Azerbaijan
+  standard_code: '31'
+- code: bs
+  label:
+    en: Bahamas (the)
+  standard_code: '44'
+  definition:
+    en: Bahamas
+- code: bh
+  label:
+    en: Bahrain
+  standard_code: '48'
+- code: bd
+  label:
+    en: Bangladesh
+  standard_code: '50'
+- code: bb
+  label:
+    en: Barbados
+  standard_code: '52'
+- code: by
+  label:
+    en: Belarus
+  standard_code: '112'
+- code: be
+  label:
+    en: Belgium
+  standard_code: '56'
+- code: bz
+  label:
+    en: Belize
+  standard_code: '84'
+- code: bj
+  label:
+    en: Benin
+  standard_code: '204'
+- code: bm
+  label:
+    en: Bermuda
+  standard_code: '60'
+- code: bt
+  label:
+    en: Bhutan
+  standard_code: '64'
+- code: bo
+  label:
+    en: Bolivia (Plurinational State of)
+  standard_code: '68'
+  definition:
+    en: Bolivia
+- code: bq
+  label:
+    en: Bonaire, Sint Eustatius and Saba
+  standard_code: '535'
+  definition:
+    en: Belanda Caribbean
+- code: ba
+  label:
+    en: Bosnia and Herzegovina
+  standard_code: '70'
+  definition:
+    en: Bosnia dan Herzegovina
+- code: bw
+  label:
+    en: Botswana
+  standard_code: '72'
+- code: bv
+  label:
+    en: Bouvet Island
+  standard_code: '74'
+  definition:
+    en: Pulau Bouvet
+- code: br
+  label:
+    en: Brazil
+  standard_code: '76'
+- code: io
+  label:
+    en: British Indian Ocean Territory
+  standard_code: '86'
+  definition:
+    en: Wilayah Lautan Hindi British
+- code: vg
+  label:
+    en: British Virgin Islands
+  standard_code: '92'
+  definition:
+    en: Kepulauan Virgin British
+- code: bn
+  label:
+    en: Brunei Darussalam
+  standard_code: '96'
+  definition:
+    en: Brunei
+- code: bg
+  label:
+    en: Bulgaria
+  standard_code: '100'
+- code: bf
+  label:
+    en: Burkina Faso
+  standard_code: '854'
+- code: bi
+  label:
+    en: Burundi
+  standard_code: '108'
+- code: cv
+  label:
+    en: Cabo Verde
+  standard_code: '132'
+  definition:
+    en: Cape Verde
+- code: kh
+  label:
+    en: Cambodia
+  standard_code: '116'
+  definition:
+    en: Kemboja
+- code: cm
+  label:
+    en: Cameroon
+  standard_code: '120'
+- code: ca
+  label:
+    en: Canada
+  standard_code: '124'
+  definition:
+    en: Kanada
+- code: ky
+  label:
+    en: Cayman Islands
+  standard_code: '136'
+  definition:
+    en: Kepulauan Cayman
+- code: cf
+  label:
+    en: Central African Republic (the)
+  standard_code: '140'
+  definition:
+    en: Republik Afrika Tengah
+- code: td
+  label:
+    en: Chad
+  standard_code: '148'
+- code: cl
+  label:
+    en: Chile
+  standard_code: '152'
+- code: cn
+  label:
+    en: China
+  standard_code: '156'
+- code: hk
+  label:
+    en: China, Hong Kong Special Administrative Region
+  standard_code: '344'
+  definition:
+    en: Hong Kong
+- code: mo
+  label:
+    en: China, Macao Special Administrative Region
+  standard_code: '446'
+  definition:
+    en: Macau
+- code: cx
+  label:
+    en: Christmas Island
+  standard_code: '162'
+  definition:
+    en: Pulau Krismas
+- code: cc
+  label:
+    en: Cocos (Keeling) Islands
+  standard_code: '166'
+  definition:
+    en: Kepulauan Cocos (Keeling)
+- code: co
+  label:
+    en: Colombia
+  standard_code: '170'
+- code: km
+  label:
+    en: Comoros (the)
+  standard_code: '174'
+  definition:
+    en: Comoros
+- code: cg
+  label:
+    en: Congo (the)
+  standard_code: '178'
+  definition:
+    en: Congo - Brazzaville
+- code: ck
+  label:
+    en: Cook Islands (the) **
+  standard_code: '184'
+  definition:
+    en: Kepulauan Cook
+- code: cr
+  label:
+    en: Costa Rica
+  standard_code: '188'
+- code: hr
+  label:
+    en: Croatia
+  standard_code: '191'
+- code: cu
+  label:
+    en: Cuba
+  standard_code: '192'
+- code: cw
+  label:
+    en: Curaçao
+  standard_code: '531'
+  definition:
+    en: Curacao
+- code: cy
+  label:
+    en: Cyprus
+  standard_code: '196'
+- code: cz
+  label:
+    en: Czechia
+  standard_code: '203'
+- code: kp
+  label:
+    en: Democratic People's Republic of Korea (the)
+  standard_code: '408'
+  definition:
+    en: Korea Utara
+- code: cd
+  label:
+    en: Democratic Republic of the Congo (the)
+  standard_code: '180'
+  definition:
+    en: Congo - Kinshasa
+- code: dk
+  label:
+    en: Denmark
+  standard_code: '208'
+- code: dj
+  label:
+    en: Djibouti
+  standard_code: '262'
+- code: dm
+  label:
+    en: Dominica
+  standard_code: '212'
+- code: do
+  label:
+    en: Dominican Republic (the)
+  standard_code: '214'
+  definition:
+    en: Republik Dominica
+- code: ec
+  label:
+    en: Ecuador
+  standard_code: '218'
+- code: eg
+  label:
+    en: Egypt
+  standard_code: '818'
+  definition:
+    en: Mesir
+- code: sv
+  label:
+    en: El Salvador
+  standard_code: '222'
+- code: gq
+  label:
+    en: Equatorial Guinea
+  standard_code: '226'
+  definition:
+    en: Guinea Khatulistiwa
+- code: er
+  label:
+    en: Eritrea
+  standard_code: '232'
+- code: ee
+  label:
+    en: Estonia
+  standard_code: '233'
+- code: sz
+  label:
+    en: Eswatini
+  standard_code: '748'
+- code: et
+  label:
+    en: Ethiopia
+  standard_code: '231'
+- code: fk
+  label:
+    en: Falkland Islands
+  standard_code: '238'
+  definition:
+    en: Kepulauan Falkland
+- code: fo
+  label:
+    en: Faroe Islands
+  standard_code: '234'
+  definition:
+    en: Kepulauan Faroe
+- code: fj
+  label:
+    en: Fiji
+  standard_code: '242'
+- code: fi
+  label:
+    en: Finland
+  standard_code: '246'
+- code: fr
+  label:
+    en: France
+  standard_code: '250'
+  definition:
+    en: Perancis
+- code: gf
+  label:
+    en: French Guiana
+  standard_code: '254'
+  definition:
+    en: Guiana Perancis
+- code: pf
+  label:
+    en: French Polynesia
+  standard_code: '258'
+  definition:
+    en: Polinesia Perancis
+- code: tf
+  label:
+    en: French Southern Territories
+  standard_code: '260'
+  definition:
+    en: Wilayah Selatan Perancis
+- code: ga
+  label:
+    en: Gabon
+  standard_code: '266'
+- code: gm
+  label:
+    en: Gambia (the)
+  standard_code: '270'
+  definition:
+    en: Gambia
+- code: ge
+  label:
+    en: Georgia
+  standard_code: '268'
+- code: de
+  label:
+    en: Germany
+  standard_code: '276'
+  definition:
+    en: Jerman
+- code: gh
+  label:
+    en: Ghana
+  standard_code: '288'
+- code: gi
+  label:
+    en: Gibraltar
+  standard_code: '292'
+- code: gr
+  label:
+    en: Greece
+  standard_code: '300'
+- code: gl
+  label:
+    en: Greenland
+  standard_code: '304'
+- code: gd
+  label:
+    en: Grenada
+  standard_code: '308'
+- code: gp
+  label:
+    en: Guadeloupe
+  standard_code: '312'
+- code: gu
+  label:
+    en: Guam
+  standard_code: '316'
+- code: gt
+  label:
+    en: Guatemala
+  standard_code: '320'
+- code: gg
+  label:
+    en: Guernsey
+  standard_code: '831'
+- code: gn
+  label:
+    en: Guinea
+  standard_code: '324'
+- code: gw
+  label:
+    en: Guinea-Bissau
+  standard_code: '624'
+  definition:
+    en: Guinea Bissau
+- code: gy
+  label:
+    en: Guyana
+  standard_code: '328'
+- code: ht
+  label:
+    en: Haiti
+  standard_code: '332'
+- code: hm
+  label:
+    en: Heard Island and McDonald Islands
+  standard_code: '334'
+  definition:
+    en: Kepulauan Heard & McDonald
+- code: va
+  label:
+    en: Holy See (the) *
+  standard_code: '336'
+  definition:
+    en: Kota Vatican
+- code: hn
+  label:
+    en: Honduras
+  standard_code: '340'
+- code: hu
+  label:
+    en: Hungary
+  standard_code: '348'
+- code: is
+  label:
+    en: Iceland
+  standard_code: '352'
+- code: in
+  label:
+    en: India
+  standard_code: '356'
+- code: id
+  label:
+    en: Indonesia
+  standard_code: '360'
+- code: ir
+  label:
+    en: Iran (Islamic Republic of)
+  standard_code: '364'
+  definition:
+    en: Iran
+- code: iq
+  label:
+    en: Iraq
+  standard_code: '368'
+- code: ie
+  label:
+    en: Ireland
+  standard_code: '372'
+- code: im
+  label:
+    en: Isle of Man
+  standard_code: '833'
+- code: il
+  label:
+    en: Israel
+  standard_code: '376'
+- code: it
+  label:
+    en: Italy
+  standard_code: '380'
+  definition:
+    en: Itali
+- code: ci
+  label:
+    en: Ivory Coast
+  standard_code: '384'
+  definition:
+    en: Cote d’Ivoire
+- code: jm
+  label:
+    en: Jamaica
+  standard_code: '388'
+- code: jp
+  label:
+    en: Japan
+  standard_code: '392'
+  definition:
+    en: Jepun
+- code: je
+  label:
+    en: Jersey
+  standard_code: '832'
+- code: jo
+  label:
+    en: Jordan
+  standard_code: '400'
+- code: kz
+  label:
+    en: Kazakhstan
+  standard_code: '398'
+- code: ke
+  label:
+    en: Kenya
+  standard_code: '404'
+- code: ki
+  label:
+    en: Kiribati
+  standard_code: '296'
+- code: kw
+  label:
+    en: Kuwait
+  standard_code: '414'
+- code: kg
+  label:
+    en: Kyrgyzstan
+  standard_code: '417'
+- code: la
+  label:
+    en: Lao People's Democratic Republic (the)
+  standard_code: '418'
+  definition:
+    en: Laos
+- code: lv
+  label:
+    en: Latvia
+  standard_code: '428'
+- code: lb
+  label:
+    en: Lebanon
+  standard_code: '422'
+  definition:
+    en: Lubnan
+- code: ls
+  label:
+    en: Lesotho
+  standard_code: '426'
+- code: lr
+  label:
+    en: Liberia
+  standard_code: '430'
+- code: ly
+  label:
+    en: Libya
+  standard_code: '434'
+- code: li
+  label:
+    en: Liechtenstein
+  standard_code: '438'
+- code: lt
+  label:
+    en: Lithuania
+  standard_code: '440'
+- code: lu
+  label:
+    en: Luxembourg
+  standard_code: '442'
+- code: mg
+  label:
+    en: Madagascar
+  standard_code: '450'
+  definition:
+    en: Madagaskar
+- code: mw
+  label:
+    en: Malawi
+  standard_code: '454'
+- code: my
+  label:
+    en: Malaysia
+  standard_code: '458'
+- code: mv
+  label:
+    en: Maldives
+  standard_code: '462'
+- code: ml
+  label:
+    en: Mali
+  standard_code: '466'
+- code: mt
+  label:
+    en: Malta
+  standard_code: '470'
+- code: mh
+  label:
+    en: Marshall Islands (the)
+  standard_code: '584'
+  definition:
+    en: Kepulauan Marshall
+- code: mq
+  label:
+    en: Martinique
+  standard_code: '474'
+- code: mr
+  label:
+    en: Mauritania
+  standard_code: '478'
+- code: mu
+  label:
+    en: Mauritius
+  standard_code: '480'
+- code: yt
+  label:
+    en: Mayotte
+  standard_code: '175'
+- code: mx
+  label:
+    en: Mexico
+  standard_code: '484'
+- code: fm
+  label:
+    en: Micronesia (Federated States of)
+  standard_code: '583'
+  definition:
+    en: Micronesia
+- code: mc
+  label:
+    en: Monaco
+  standard_code: '492'
+- code: mn
+  label:
+    en: Mongolia
+  standard_code: '496'
+- code: me
+  label:
+    en: Montenegro
+  standard_code: '499'
+- code: ms
+  label:
+    en: Montserrat
+  standard_code: '500'
+- code: ma
+  label:
+    en: Morocco
+  standard_code: '504'
+  definition:
+    en: Maghribi
+- code: mz
+  label:
+    en: Mozambique
+  standard_code: '508'
+- code: mm
+  label:
+    en: Myanmar
+  standard_code: '104'
+  definition:
+    en: Myanmar (Burma)
+- code: na
+  label:
+    en: Namibia
+  standard_code: '516'
+- code: nr
+  label:
+    en: Nauru
+  standard_code: '520'
+- code: np
+  label:
+    en: Nepal
+  standard_code: '524'
+- code: nl
+  label:
+    en: Netherlands (the)
+  standard_code: '528'
+  definition:
+    en: Belanda
+- code: nc
+  label:
+    en: New Caledonia
+  standard_code: '540'
+- code: nz
+  label:
+    en: New Zealand
+  standard_code: '554'
+- code: ni
+  label:
+    en: Nicaragua
+  standard_code: '558'
+- code: ne
+  label:
+    en: Niger (the)
+  standard_code: '562'
+  definition:
+    en: Niger
+- code: ng
+  label:
+    en: Nigeria
+  standard_code: '566'
+- code: nu
+  label:
+    en: Niue **
+  standard_code: '570'
+  definition:
+    en: Niue
+- code: nf
+  label:
+    en: Norfolk Island
+  standard_code: '574'
+  definition:
+    en: Pulau Norfolk
+- code: mp
+  label:
+    en: Northern Mariana Islands
+  standard_code: '580'
+  definition:
+    en: Kepulauan Mariana Utara
+- code: mk
+  label:
+    en: North Macedonia
+  standard_code: '807'
+  definition:
+    en: Macedonia Utara
+- code: 'no'
+  label:
+    en: Norway
+  standard_code: '578'
+- code: om
+  label:
+    en: Oman
+  standard_code: '512'
+- code: pk
+  label:
+    en: Pakistan
+  standard_code: '586'
+- code: pw
+  label:
+    en: Palau
+  standard_code: '585'
+- code: pa
+  label:
+    en: Panama
+  standard_code: '591'
+- code: pg
+  label:
+    en: Papua New Guinea
+  standard_code: '598'
+- code: py
+  label:
+    en: Paraguay
+  standard_code: '600'
+- code: pe
+  label:
+    en: Peru
+  standard_code: '604'
+- code: ph
+  label:
+    en: Philippines (the)
+  standard_code: '608'
+  definition:
+    en: Filipina
+- code: pn
+  label:
+    en: Pitcairn
+  standard_code: '612'
+  definition:
+    en: Kepulauan Pitcairn
+- code: pl
+  label:
+    en: Poland
+  standard_code: '616'
+- code: pt
+  label:
+    en: Portugal
+  standard_code: '620'
+- code: pr
+  label:
+    en: Puerto Rico
+  standard_code: '630'
+- code: qa
+  label:
+    en: Qatar
+  standard_code: '634'
+- code: kr
+  label:
+    en: Republic of Korea (the)
+  standard_code: '410'
+  definition:
+    en: Korea Selatan
+- code: md
+  label:
+    en: Republic of Moldova (the)
+  standard_code: '498'
+  definition:
+    en: Moldova
+- code: re
+  label:
+    en: Réunion
+  standard_code: '638'
+  definition:
+    en: Reunion
+- code: ro
+  label:
+    en: Romania
+  standard_code: '642'
+- code: ru
+  label:
+    en: Russian Federation (the)
+  standard_code: '643'
+  definition:
+    en: Rusia
+- code: rw
+  label:
+    en: Rwanda
+  standard_code: '646'
+- code: bl
+  label:
+    en: Saint Barthélemy
+  standard_code: '652'
+  definition:
+    en: St. Barthelemy
+- code: sh
+  label:
+    en: Saint Helena
+  standard_code: '654'
+- code: kn
+  label:
+    en: Saint Kitts and Nevis
+  standard_code: '659'
+  definition:
+    en: Saint Kitts dan Nevis
+- code: lc
+  label:
+    en: Saint Lucia
+  standard_code: '662'
+- code: mf
+  label:
+    en: Saint Martin (French Part)
+  standard_code: '663'
+  definition:
+    en: Saint Martin
+- code: pm
+  label:
+    en: Saint Pierre and Miquelon
+  standard_code: '666'
+  definition:
+    en: Saint Pierre dan Miquelon
+- code: vc
+  label:
+    en: Saint Vincent and the Grenadines
+  standard_code: '670'
+  definition:
+    en: Saint Vincent dan Grenadines
+- code: ws
+  label:
+    en: Samoa
+  standard_code: '882'
+- code: sm
+  label:
+    en: San Marino
+  standard_code: '674'
+- code: st
+  label:
+    en: Sao Tome and Principe
+  standard_code: '678'
+  definition:
+    en: Sao Tome dan Principe
+- code: sa
+  label:
+    en: Saudi Arabia
+  standard_code: '682'
+  definition:
+    en: Arab Saudi
+- code: sn
+  label:
+    en: Senegal
+  standard_code: '686'
+- code: rs
+  label:
+    en: Serbia
+  standard_code: '688'
+- code: sc
+  label:
+    en: Seychelles
+  standard_code: '690'
+- code: sl
+  label:
+    en: Sierra Leone
+  standard_code: '694'
+- code: sg
+  label:
+    en: Singapore
+  standard_code: '702'
+  definition:
+    en: Singapura
+- code: sx
+  label:
+    en: Sint Maarten (Dutch part)
+  standard_code: '534'
+  definition:
+    en: Sint Maarten
+- code: sk
+  label:
+    en: Slovakia
+  standard_code: '703'
+- code: si
+  label:
+    en: Slovenia
+  standard_code: '705'
+- code: sb
+  label:
+    en: Solomon Islands
+  standard_code: '90'
+  definition:
+    en: Kepulauan Solomon
+- code: so
+  label:
+    en: Somalia
+  standard_code: '706'
+- code: za
+  label:
+    en: South Africa
+  standard_code: '710'
+  definition:
+    en: Afrika Selatan
+- code: gs
+  label:
+    en: South Georgia and the South Sandwich Islands
+  standard_code: '239'
+  definition:
+    en: Kepulauan Georgia Selatan & Sandwich Selatan
+- code: ss
+  label:
+    en: South Sudan
+  standard_code: '728'
+  definition:
+    en: Sudan Selatan
+- code: es
+  label:
+    en: Spain
+  standard_code: '724'
+  definition:
+    en: Sepanyol
+- code: lk
+  label:
+    en: Sri Lanka
+  standard_code: '144'
+- code: ps
+  label:
+    en: State of Palestine (the) *
+  standard_code: '275'
+  definition:
+    en: Palestin
+- code: sd
+  label:
+    en: Sudan (the)
+  standard_code: '729'
+  definition:
+    en: Sudan
+- code: sr
+  label:
+    en: Suriname
+  standard_code: '740'
+  definition:
+    en: Surinam
+- code: sj
+  label:
+    en: Svalbard and Jan Mayen Islands
+  standard_code: '744'
+  definition:
+    en: Svalbard dan Jan Mayen
+- code: se
+  label:
+    en: Sweden
+  standard_code: '752'
+- code: ch
+  label:
+    en: Switzerland
+  standard_code: '756'
+- code: sy
+  label:
+    en: Syrian Arab Republic (the)
+  standard_code: '760'
+  definition:
+    en: Syria
+- code: tw
+  label:
+    en: Taiwan
+  standard_code: '158'
+- code: tj
+  label:
+    en: Tajikistan
+  standard_code: '762'
+- code: th
+  label:
+    en: Thailand
+  standard_code: '764'
+- code: tl
+  label:
+    en: Timor-Leste
+  standard_code: '626'
+- code: tg
+  label:
+    en: Togo
+  standard_code: '768'
+- code: tk
+  label:
+    en: Tokelau
+  standard_code: '772'
+- code: to
+  label:
+    en: Tonga
+  standard_code: '776'
+- code: tt
+  label:
+    en: Trinidad and Tobago
+  standard_code: '780'
+  definition:
+    en: Trinidad dan Tobago
+- code: tn
+  label:
+    en: Tunisia
+  standard_code: '788'
+- code: tr
+  label:
+    en: Turkey
+  standard_code: '792'
+  definition:
+    en: Turkiye
+- code: tm
+  label:
+    en: Turkmenistan
+  standard_code: '795'
+- code: tc
+  label:
+    en: Turks and Caicos Islands
+  standard_code: '796'
+  definition:
+    en: Kepulauan Turks dan Caicos
+- code: tv
+  label:
+    en: Tuvalu
+  standard_code: '798'
+- code: ug
+  label:
+    en: Uganda
+  standard_code: '800'
+- code: ua
+  label:
+    en: Ukraine
+  standard_code: '804'
+- code: ae
+  label:
+    en: United Arab Emirates (the)
+  standard_code: '784'
+  definition:
+    en: Emiriah Arab Bersatu
+- code: gb
+  label:
+    en: United Kingdom of Great Britain and Northern Ireland (the)
+  standard_code: '826'
+  definition:
+    en: UK
+- code: tz
+  label:
+    en: United Republic of Tanzania (the)
+  standard_code: '834'
+  definition:
+    en: Tanzania
+- code: um
+  label:
+    en: United States Minor Outlying Islands
+  standard_code: '581'
+  definition:
+    en: Kepulauan Terpencil A.S.
+- code: us
+  label:
+    en: United States of America (the)
+    fr: États-Unis d'Amérique
+    es: Estados Unidos de América
+  standard_code: '840'
+  definition:
+    en: United States of America.
+- code: vi
+  label:
+    en: United States Virgin Islands
+  standard_code: '850'
+  definition:
+    en: Kepulauan Virgin A.S.
+- code: uy
+  label:
+    en: Uruguay
+  standard_code: '858'
+- code: uz
+  label:
+    en: Uzbekistan
+  standard_code: '860'
+- code: vu
+  label:
+    en: Vanuatu
+  standard_code: '548'
+- code: ve
+  label:
+    en: Venezuela (Bolivarian Republic of)
+  standard_code: '862'
+  definition:
+    en: Venezuela
+- code: vn
+  label:
+    en: Viet Nam
+  standard_code: '704'
+  definition:
+    en: Vietnam
+- code: wf
+  label:
+    en: Wallis and Futuna Islands
+  standard_code: '876'
+  definition:
+    en: Wallis dan Futuna
+- code: eh
+  label:
+    en: Western Sahara
+  standard_code: '732'
+  definition:
+    en: Sahara Barat
+- code: ye
+  label:
+    en: Yemen
+  standard_code: '887'
+  definition:
+    en: Yaman
+- code: zm
+  label:
+    en: Zambia
+  standard_code: '894'
+- code: zw
+  label:
+    en: Zimbabwe
+  standard_code: '716'

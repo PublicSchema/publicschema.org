@@ -1,0 +1,19 @@
+id: latitude
+maturity: draft
+
+definition:
+  en: "The geographic latitude in decimal degrees (WGS84)."
+  fr: "La latitude geographique en degres decimaux (WGS84)."
+  es: "La latitud geografica en grados decimales (WGS84)."
+
+type: decimal
+cardinality: single
+vocabulary: null
+references: null
+schema_org_equivalent: "schema:latitude"
+data_classification: personal
+
+convergence:
+  system_count: 1
+  total_systems: 6
+  notes: "Present in 1 of 6 mapped systems. Geospatial coordinates are rarely stored at the location record level; GPS capture is growing in newer deployments."

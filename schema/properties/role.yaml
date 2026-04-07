@@ -1,0 +1,18 @@
+id: role
+maturity: draft
+
+definition:
+  en: "The role of the person within the group (e.g., head, spouse, child, dependent)."
+  fr: "Le role de la personne au sein du groupe (par exemple, chef, conjoint, enfant, dependant)."
+  es: "El rol de la persona dentro del grupo (por ejemplo, jefe, conyuge, hijo, dependiente)."
+
+type: string
+cardinality: single
+vocabulary: group-role
+references: null
+data_classification: personal
+
+convergence:
+  system_count: 2
+  total_systems: 5
+  notes: "Present in 2 of 5 mapped systems. Role value sets vary widely across systems; no single standard covers the full range of social protection household roles."

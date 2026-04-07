@@ -1,0 +1,177 @@
+id: relationship-type
+maturity: draft
+
+definition:
+  en: "Categories describing the nature of the connection between two persons, covering kinship, administrative, and economic relationships."
+  fr: "Catégories décrivant la nature du lien entre deux personnes, couvrant les relations de parenté, administratives et économiques."
+  es: "Categorías que describen la naturaleza de la conexión entre dos personas, abarcando relaciones de parentesco, administrativas y económicas."
+
+values:
+  - code: spouse
+    label:
+      en: Spouse
+      fr: Conjoint(e)
+      es: Cónyuge
+    definition:
+      en: "A person's husband, wife, or legally recognized partner."
+      fr: "Le mari, la femme ou le partenaire légalement reconnu d'une personne."
+      es: "El esposo, esposa o pareja legalmente reconocida de una persona."
+
+  - code: parent
+    label:
+      en: Parent
+      fr: Parent
+      es: Padre/Madre
+    definition:
+      en: "A biological or legally recognized mother or father."
+      fr: "Une mère ou un père biologique ou légalement reconnu(e)."
+      es: "Una madre o padre biológico o legalmente reconocido."
+
+  - code: child
+    label:
+      en: Child
+      fr: Enfant
+      es: Hijo/a
+    definition:
+      en: "A biological or legally recognized son or daughter."
+      fr: "Un fils ou une fille biologique ou légalement reconnu(e)."
+      es: "Un hijo o hija biológico o legalmente reconocido."
+
+  - code: sibling
+    label:
+      en: Sibling
+      fr: Frère/Sœur
+      es: Hermano/a
+    definition:
+      en: "A brother or sister sharing at least one biological or legal parent."
+      fr: "Un frère ou une sœur partageant au moins un parent biologique ou légal."
+      es: "Un hermano o hermana que comparte al menos un padre biológico o legal."
+
+  - code: grandparent
+    label:
+      en: Grandparent
+      fr: Grand-parent
+      es: Abuelo/a
+    definition:
+      en: "A parent of a person's parent."
+      fr: "Un parent du parent d'une personne."
+      es: "Un padre o madre del padre o madre de una persona."
+
+  - code: grandchild
+    label:
+      en: Grandchild
+      fr: Petit-enfant
+      es: Nieto/a
+    definition:
+      en: "A child of a person's child."
+      fr: "Un enfant de l'enfant d'une personne."
+      es: "Un hijo o hija del hijo o hija de una persona."
+
+  - code: guardian
+    label:
+      en: Guardian
+      fr: Tuteur/Tutrice
+      es: Tutor/a
+    definition:
+      en: "A person with legal responsibility for the care and management of another, typically a minor or incapacitated adult."
+      fr: "Une personne ayant la responsabilité légale de la prise en charge d'une autre personne, généralement un mineur ou un adulte incapable."
+      es: "Una persona con responsabilidad legal del cuidado y gestión de otra, generalmente un menor o un adulto incapacitado."
+
+  - code: caregiver
+    label:
+      en: Caregiver
+      fr: Soignant(e)
+      es: Cuidador/a
+    definition:
+      en: "A person who provides ongoing care or assistance, whether or not they hold legal guardianship."
+      fr: "Une personne qui fournit des soins ou une assistance continue, qu'elle détienne ou non la tutelle légale."
+      es: "Una persona que proporciona cuidado o asistencia continua, tenga o no la tutela legal."
+
+  - code: dependent
+    label:
+      en: Dependent
+      fr: Personne à charge
+      es: Dependiente
+    definition:
+      en: "A person who relies on another for financial support or daily living needs."
+      fr: "Une personne qui dépend d'une autre pour son soutien financier ou ses besoins quotidiens."
+      es: "Una persona que depende de otra para su sustento financiero o necesidades diarias."
+
+  - code: head_of_household
+    label:
+      en: Head of household
+      fr: Chef de ménage
+      es: Jefe/a de hogar
+    definition:
+      en: "The person recognized as the primary decision-maker or representative of the household for administrative purposes."
+      fr: "La personne reconnue comme le principal décideur ou représentant du ménage à des fins administratives."
+      es: "La persona reconocida como el principal tomador de decisiones o representante del hogar para fines administrativos."
+
+  - code: payment_proxy
+    label:
+      en: Payment proxy
+      fr: Mandataire de paiement
+      es: Apoderado de pago
+    definition:
+      en: "A person authorized to collect benefits on behalf of another, often used when the beneficiary cannot collect in person."
+      fr: "Une personne autorisée à collecter des prestations au nom d'une autre, souvent utilisée lorsque le bénéficiaire ne peut pas collecter en personne."
+      es: "Una persona autorizada para cobrar beneficios en nombre de otra, utilizada frecuentemente cuando el beneficiario no puede cobrar en persona."
+
+  - code: survivor
+    label:
+      en: Survivor
+      fr: Survivant(e)
+      es: Sobreviviente
+    definition:
+      en: "A person entitled to continued or transferred benefits following the death of the primary beneficiary."
+      fr: "Une personne ayant droit à la continuation ou au transfert des prestations suite au décès du bénéficiaire principal."
+      es: "Una persona con derecho a la continuación o transferencia de beneficios tras el fallecimiento del beneficiario principal."
+
+  - code: other
+    label:
+      en: Other
+      fr: Autre
+      es: Otro
+    definition:
+      en: "A relationship type not covered by the other categories."
+      fr: "Un type de relation non couvert par les autres catégories."
+      es: "Un tipo de relación no cubierto por las otras categorías."
+
+system_mappings:
+  spdci:
+    "SPS": spouse
+    "HUSB": spouse
+    "WIFE": spouse
+    "PRN": parent
+    "FTH": parent
+    "MTH": parent
+    "CHILD": child
+    "DAUC": child
+    "SONC": child
+    "SIB": sibling
+    "BRO": sibling
+    "SIS": sibling
+    "GRPRN": grandparent
+    "GRFTH": grandparent
+    "GRMTH": grandparent
+    "GRNDCHILD": grandchild
+    "GRNDDAU": grandchild
+    "PRNFOST": guardian
+    "DOMPART": spouse
+    "EXT": other
+    "INLAW": other
+  openimis:
+    "HEAD": head_of_household
+    "SPOUSE": spouse
+    "SON": child
+    "DAUGHTER": child
+    "FATHER": parent
+    "MOTHER": parent
+    "GRANDFATHER": grandparent
+    "GRANDMOTHER": grandparent
+    "GRANDSON": grandchild
+    "GRANDDAUGHTER": grandchild
+    "BROTHER": sibling
+    "SISTER": sibling
+    "OTHER RELATIVE": other
+    "NOT RELATED": other

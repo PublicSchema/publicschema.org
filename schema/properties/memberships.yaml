@@ -1,0 +1,18 @@
+id: memberships
+maturity: draft
+
+definition:
+  en: "The membership records linking persons to this group, each carrying role and lifecycle dates."
+  fr: "Les enregistrements d'appartenance reliant des personnes a ce groupe, chacun portant le role et les dates de cycle de vie."
+  es: "Los registros de membresia que vinculan personas a este grupo, cada uno con el rol y las fechas de ciclo de vida."
+
+type: concept:GroupMembership
+cardinality: multiple
+vocabulary: null
+references: GroupMembership
+data_classification: personal
+
+convergence:
+  system_count: 3
+  total_systems: 5
+  notes: "Present in 3 of 5 mapped systems. This is the group-side view of the person-to-group many-to-many join via GroupMembership records."

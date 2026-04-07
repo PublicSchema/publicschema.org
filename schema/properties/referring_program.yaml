@@ -1,0 +1,18 @@
+id: referring_program
+maturity: draft
+
+definition:
+  en: "Reference to the program or organization making the referral."
+  fr: "Référence au programme ou à l'organisation effectuant l'orientation."
+  es: "Referencia al programa u organización que realiza la derivación."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+domain_override: null
+data_classification: non_personal
+
+convergence:
+  system_count: 0
+  total_systems: 3

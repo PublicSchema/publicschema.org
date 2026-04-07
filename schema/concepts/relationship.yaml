@@ -1,0 +1,33 @@
+id: Relationship
+maturity: draft
+
+definition:
+  en: >
+    A link defining the social, legal, or administrative connection between an
+    individual and another person or group. Three broad types exist: kinship
+    (biological or legal ties), administrative (grantee, caregiver, payment
+    proxy), and economic (dependent, survivor).
+  fr: >
+    Un lien définissant la connexion sociale, légale ou administrative entre un
+    individu et une autre personne ou un groupe. Trois grands types existent :
+    la parenté (liens biologiques ou juridiques), l'administratif (bénéficiaire,
+    soignant, mandataire de paiement) et l'économique (dépendant, survivant).
+  es: >
+    Un vínculo que define la conexión social, legal o administrativa entre un
+    individuo y otra persona o grupo. Existen tres tipos generales: parentesco
+    (vínculos biológicos o legales), administrativo (beneficiario, cuidador,
+    apoderado de pago) y económico (dependiente, sobreviviente).
+
+properties:
+  - subject_person
+  - object_person
+  - relationship_type
+  - start_date
+  - end_date
+
+supertypes: []
+subtypes: []
+
+convergence:
+  system_count: 6
+  total_systems: 6

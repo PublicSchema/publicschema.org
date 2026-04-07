@@ -1,0 +1,92 @@
+---
+import Base from "../layouts/Base.astro";
+---
+<Base title="Terms and License" description="Licensing terms for PublicSchema vocabulary definitions and code.">
+  <div class="page-header">
+    <h1>Terms and License</h1>
+    <p class="subtitle">How you can use PublicSchema.</p>
+  </div>
+
+  <article class="concept-narrative">
+    <h2>Summary</h2>
+    <p>
+      PublicSchema uses a dual license. The vocabulary definitions are freely
+      available under a Creative Commons license. The software that builds and
+      serves the vocabulary is available under the Apache License.
+    </p>
+    <p>
+      In practice: you can use the vocabulary in your systems, documentation,
+      and data exchanges without restriction, as long as you provide attribution
+      and share derivative vocabulary work under the same terms.
+    </p>
+
+    <h2>Vocabulary definitions: CC BY-SA 4.0</h2>
+    <p>
+      The vocabulary definitions, including concept definitions, property
+      definitions, controlled value sets, and credential schemas (everything
+      under the <code>schema/</code> directory in the
+      <a href="https://github.com/PublicSchema/publicschema.org">source repository</a>),
+      are licensed under the
+      <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons
+      Attribution-ShareAlike 4.0 International License</a>.
+    </p>
+    <p>You are free to:</p>
+    <ul>
+      <li><strong>Share</strong>: copy and redistribute the vocabulary in any medium or format, for any purpose, including commercial use.</li>
+      <li><strong>Adapt</strong>: remix, transform, and build upon the vocabulary for any purpose, including commercial use.</li>
+    </ul>
+    <p>Under the following terms:</p>
+    <ul>
+      <li><strong>Attribution</strong>: you must give appropriate credit, provide a link to the license, and indicate if changes were made.</li>
+      <li><strong>ShareAlike</strong>: if you remix, transform, or build upon the vocabulary, you must distribute your contributions under the same license.</li>
+    </ul>
+    <p>
+      Using PublicSchema vocabulary terms in your data, APIs, or documentation
+      (e.g., referencing <code>publicschema.org/Person</code> or adopting our
+      property names) constitutes normal use and requires only attribution, not
+      ShareAlike. The ShareAlike clause applies when you create derivative
+      vocabulary works: modified or extended versions of the definitions themselves.
+    </p>
+
+    <h2>Code: Apache License 2.0</h2>
+    <p>
+      The software in this project, including the build pipeline, the website
+      source code, tests, and configuration files (everything under
+      <code>build/</code>, <code>site/</code>, and <code>tests/</code>), is
+      licensed under the
+      <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License,
+      Version 2.0</a>.
+    </p>
+    <p>
+      You may use, modify, and distribute the code under the terms of the
+      Apache License. See the
+      <a href="https://github.com/PublicSchema/publicschema.org/blob/main/LICENSE">LICENSE</a>
+      file for the full text.
+    </p>
+
+    <h2>JSON-LD context and JSON Schemas</h2>
+    <p>
+      The generated JSON-LD context (<code>ctx/v0.1.json</code>) and JSON
+      Schema files are considered part of the vocabulary and are covered by the
+      CC BY-SA 4.0 license. They are machine-readable representations of the
+      vocabulary definitions.
+    </p>
+
+    <h2>Attribution</h2>
+    <p>
+      When using PublicSchema vocabulary definitions, appropriate attribution is:
+    </p>
+    <blockquote>
+      Based on <a href="https://publicschema.org">PublicSchema</a>,
+      licensed under
+      <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
+    </blockquote>
+
+    <h2>Questions</h2>
+    <p>
+      If you have questions about licensing or use of PublicSchema, please
+      <a href="https://github.com/PublicSchema/publicschema.org/issues">open an issue</a>
+      on GitHub.
+    </p>
+  </article>
+</Base>

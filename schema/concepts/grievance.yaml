@@ -1,0 +1,36 @@
+id: Grievance
+maturity: draft
+domain: sp
+
+definition:
+  en: >
+    A record of a participant's or applicant's formal expression of
+    dissatisfaction or dispute regarding any aspect of the delivery chain.
+    Grievance subsumes appeals (requests to reverse a decision) and complaints
+    (dissatisfaction with service quality).
+  fr: >
+    Un enregistrement de l'expression formelle d'insatisfaction ou de
+    contestation d'un participant ou d'un demandeur concernant tout aspect de
+    la chaîne de livraison. Le grief englobe les appels (demandes d'annulation
+    d'une décision) et les plaintes (insatisfaction vis-à-vis de la qualité du
+    service).
+  es: >
+    Un registro de la expresión formal de insatisfacción o disputa de un
+    participante o solicitante con respecto a cualquier aspecto de la cadena de
+    entrega. El agravio engloba los recursos (solicitudes para revertir una
+    decisión) y las quejas (insatisfacción con la calidad del servicio).
+
+properties:
+  - complainant
+  - grievance_subject
+  - grievance_type
+  - grievance_status
+  - submission_date
+  - resolution_date
+
+subtypes: []
+supertypes: []
+
+convergence:
+  system_count: 5
+  total_systems: 6

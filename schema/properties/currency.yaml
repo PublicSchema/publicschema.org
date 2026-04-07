@@ -1,0 +1,18 @@
+id: currency
+maturity: draft
+
+definition:
+  en: "The ISO 4217 currency code for a monetary entitlement."
+  fr: "Le code de devise ISO 4217 pour une prestation monétaire."
+  es: "El código de moneda ISO 4217 para una prestación monetaria."
+
+type: string
+cardinality: single
+vocabulary: currency
+references: null
+domain_override: null
+data_classification: non_personal
+
+convergence:
+  system_count: 1
+  total_systems: 5

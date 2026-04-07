@@ -1,0 +1,98 @@
+id: benefit-frequency
+maturity: draft
+
+definition:
+  en: "The schedule on which a benefit or transfer is provided to a recipient, ranging from one-time payments to recurring disbursements at fixed intervals."
+  fr: "Le calendrier selon lequel une prestation ou un transfert est fourni à un bénéficiaire, allant des paiements uniques aux versements récurrents à intervalles fixes."
+  es: "El calendario con el que se otorga una prestación o transferencia a un beneficiario, desde pagos únicos hasta desembolsos recurrentes a intervalos fijos."
+
+values:
+  - code: one_time
+    label:
+      en: One-time
+      fr: Ponctuel
+      es: Único
+    definition:
+      en: "A single, non-recurring transfer or benefit."
+      fr: "Un transfert ou une prestation unique, non récurrent."
+      es: "Una transferencia o prestación única, no recurrente."
+
+  - code: daily
+    label:
+      en: Daily
+      fr: Quotidien
+      es: Diario
+    definition:
+      en: "Benefit provided every day."
+      fr: "Prestation fournie chaque jour."
+      es: "Prestación proporcionada cada día."
+
+  - code: weekly
+    label:
+      en: Weekly
+      fr: Hebdomadaire
+      es: Semanal
+    definition:
+      en: "Benefit provided once per week."
+      fr: "Prestation fournie une fois par semaine."
+      es: "Prestación proporcionada una vez por semana."
+
+  - code: biweekly
+    label:
+      en: Biweekly
+      fr: Bihebdomadaire
+      es: Quincenal
+    definition:
+      en: "Benefit provided every two weeks."
+      fr: "Prestation fournie toutes les deux semaines."
+      es: "Prestación proporcionada cada dos semanas."
+
+  - code: monthly
+    label:
+      en: Monthly
+      fr: Mensuel
+      es: Mensual
+    definition:
+      en: "Benefit provided once per month."
+      fr: "Prestation fournie une fois par mois."
+      es: "Prestación proporcionada una vez al mes."
+
+  - code: quarterly
+    label:
+      en: Quarterly
+      fr: Trimestriel
+      es: Trimestral
+    definition:
+      en: "Benefit provided once every three months."
+      fr: "Prestation fournie une fois tous les trois mois."
+      es: "Prestación proporcionada una vez cada tres meses."
+
+  - code: semi_annually
+    label:
+      en: Semi-annually
+      fr: Semestriel
+      es: Semestral
+    definition:
+      en: "Benefit provided twice per year (every six months)."
+      fr: "Prestation fournie deux fois par an (tous les six mois)."
+      es: "Prestación proporcionada dos veces al año (cada seis meses)."
+
+  - code: annually
+    label:
+      en: Annually
+      fr: Annuel
+      es: Anual
+    definition:
+      en: "Benefit provided once per year."
+      fr: "Prestation fournie une fois par an."
+      es: "Prestación proporcionada una vez al año."
+
+  - code: as_needed
+    label:
+      en: As needed
+      fr: Selon les besoins
+      es: Según necesidad
+    definition:
+      en: "Benefit provided on demand or as circumstances require, without a fixed schedule."
+      fr: "Prestation fournie à la demande ou selon les circonstances, sans calendrier fixe."
+      es: "Prestación proporcionada a demanda o según las circunstancias lo requieran, sin un calendario fijo."

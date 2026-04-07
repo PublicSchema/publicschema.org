@@ -1,0 +1,18 @@
+id: valid_until
+maturity: draft
+
+definition:
+  en: "The date until which the eligibility decision remains valid."
+  fr: "La date jusqu'à laquelle la décision d'éligibilité reste valide."
+  es: "La fecha hasta la cual la decisión de elegibilidad permanece válida."
+
+type: date
+cardinality: single
+vocabulary: null
+references: null
+domain_override: null
+data_classification: non_personal
+
+convergence:
+  system_count: 0
+  total_systems: 2

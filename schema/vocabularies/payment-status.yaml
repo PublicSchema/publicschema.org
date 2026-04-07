@@ -1,0 +1,79 @@
+id: payment-status
+maturity: draft
+
+definition:
+  en: "The processing states of a payment event in the disbursement cycle."
+  fr: "Les états de traitement d'un événement de paiement dans le cycle de versement."
+  es: "Los estados de procesamiento de un evento de pago en el ciclo de desembolso."
+
+values:
+  - code: pending
+    label:
+      en: Pending
+      fr: En attente
+      es: Pendiente
+    definition:
+      en: "The payment has been scheduled or initiated but has not yet been transmitted or confirmed."
+      fr: "Le paiement a été planifié ou initié mais n'a pas encore été transmis ou confirmé."
+      es: "El pago ha sido programado o iniciado pero aún no ha sido transmitido o confirmado."
+
+  - code: paid
+    label:
+      en: Paid
+      fr: Payé
+      es: Pagado
+    definition:
+      en: "The payment has been successfully transmitted and received by the beneficiary."
+      fr: "Le paiement a été transmis avec succès et reçu par le bénéficiaire."
+      es: "El pago ha sido transmitido con éxito y recibido por el beneficiario."
+
+  - code: failed
+    label:
+      en: Failed
+      fr: Échoué
+      es: Fallido
+    definition:
+      en: "The payment attempt did not complete successfully due to a technical or account-level error."
+      fr: "La tentative de paiement n'a pas abouti en raison d'une erreur technique ou au niveau du compte."
+      es: "El intento de pago no se completó con éxito debido a un error técnico o a nivel de cuenta."
+
+  - code: returned
+    label:
+      en: Returned
+      fr: Retourné
+      es: Devuelto
+    definition:
+      en: "The payment was transmitted but subsequently returned by the receiving institution or agent."
+      fr: "Le paiement a été transmis mais a ensuite été retourné par l'institution ou l'agent récepteur."
+      es: "El pago fue transmitido pero posteriormente devuelto por la institución o agente receptor."
+
+  - code: cancelled
+    label:
+      en: Cancelled
+      fr: Annulé
+      es: Cancelado
+    definition:
+      en: "The payment was cancelled before transmission, typically due to eligibility changes or administrative decision."
+      fr: "Le paiement a été annulé avant la transmission, généralement en raison de changements d'éligibilité ou d'une décision administrative."
+      es: "El pago fue cancelado antes de la transmisión, generalmente debido a cambios de elegibilidad o decisión administrativa."
+
+  - code: reconciled
+    label:
+      en: Reconciled
+      fr: Réconcilié
+      es: Conciliado
+    definition:
+      en: "The payment record has been matched and verified against financial system records, confirming accuracy."
+      fr: "Le registre de paiement a été rapproché et vérifié par rapport aux registres du système financier, confirmant l'exactitude."
+      es: "El registro de pago ha sido cotejado y verificado con los registros del sistema financiero, confirmando su exactitud."
+
+system_mappings:
+  opencrvs:
+    "COMPLETED": paid
+    "ERROR": failed
+    "PARTIAL": paid
+  openimis:
+    "PENDING_APPROVAL": pending
+    "APPROVE_FOR_PAYMENT": pending
+    "REJECTED": cancelled
+    "RECONCILED": reconciled

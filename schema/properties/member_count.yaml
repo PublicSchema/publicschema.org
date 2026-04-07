@@ -1,0 +1,18 @@
+id: member_count
+maturity: draft
+
+definition:
+  en: "The total number of members in this household or group."
+  fr: "Le nombre total de membres dans ce ménage ou ce groupe."
+  es: "El número total de miembros en este hogar o grupo."
+
+type: integer
+cardinality: single
+vocabulary: null
+references: null
+data_classification: non_personal
+
+convergence:
+  system_count: 2
+  total_systems: 5
+  notes: "Present in OpenSPP and SPDCI. Often derived at query time rather than stored as a field."

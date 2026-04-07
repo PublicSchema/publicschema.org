@@ -1,0 +1,728 @@
+id: currency
+maturity: draft
+definition:
+  en: Currency codes as defined by the ISO 4217 standard.
+  fr: Codes de devises tels que définis par la norme ISO 4217.
+  es: Códigos de moneda según la norma ISO 4217.
+standard:
+  name: ISO 4217
+  uri: https://www.iso.org/iso-4217-currency-codes.html
+sync:
+  source_url: https://www.six-group.com/dam/download/financial-information/data-center/iso-currrency/lists/list-one.xml
+  format: iso-xml
+  last_synced: '2026-04-07'
+values:
+- code: afn
+  label:
+    en: Afghani
+  standard_code: AFN
+- code: eur
+  label:
+    en: Euro
+  standard_code: EUR
+- code: all
+  label:
+    en: Lek
+  standard_code: ALL
+- code: dzd
+  label:
+    en: Algerian Dinar
+  standard_code: DZD
+- code: usd
+  label:
+    en: US Dollar
+    fr: Dollar américain
+    es: Dólar estadounidense
+  standard_code: USD
+- code: aoa
+  label:
+    en: Kwanza
+  standard_code: AOA
+- code: xcd
+  label:
+    en: East Caribbean Dollar
+  standard_code: XCD
+- code: xad
+  label:
+    en: Arab Accounting Dinar
+  standard_code: XAD
+- code: ars
+  label:
+    en: Argentine Peso
+  standard_code: ARS
+- code: amd
+  label:
+    en: Armenian Dram
+  standard_code: AMD
+- code: awg
+  label:
+    en: Aruban Florin
+  standard_code: AWG
+- code: aud
+  label:
+    en: Australian Dollar
+  standard_code: AUD
+- code: azn
+  label:
+    en: Azerbaijan Manat
+  standard_code: AZN
+- code: bsd
+  label:
+    en: Bahamian Dollar
+  standard_code: BSD
+- code: bhd
+  label:
+    en: Bahraini Dinar
+  standard_code: BHD
+- code: bdt
+  label:
+    en: Taka
+  standard_code: BDT
+- code: bbd
+  label:
+    en: Barbados Dollar
+  standard_code: BBD
+- code: byn
+  label:
+    en: Belarusian Ruble
+  standard_code: BYN
+- code: bzd
+  label:
+    en: Belize Dollar
+  standard_code: BZD
+- code: xof
+  label:
+    en: CFA Franc BCEAO
+  standard_code: XOF
+- code: bmd
+  label:
+    en: Bermudian Dollar
+  standard_code: BMD
+- code: inr
+  label:
+    en: Indian Rupee
+  standard_code: INR
+- code: btn
+  label:
+    en: Ngultrum
+  standard_code: BTN
+- code: bob
+  label:
+    en: Boliviano
+  standard_code: BOB
+- code: bov
+  label:
+    en: Mvdol
+  standard_code: BOV
+- code: bam
+  label:
+    en: Convertible Mark
+  standard_code: BAM
+- code: bwp
+  label:
+    en: Pula
+  standard_code: BWP
+- code: nok
+  label:
+    en: Norwegian Krone
+  standard_code: NOK
+- code: brl
+  label:
+    en: Brazilian Real
+  standard_code: BRL
+- code: bnd
+  label:
+    en: Brunei Dollar
+  standard_code: BND
+- code: bif
+  label:
+    en: Burundi Franc
+  standard_code: BIF
+- code: cve
+  label:
+    en: Cabo Verde Escudo
+  standard_code: CVE
+- code: khr
+  label:
+    en: Riel
+  standard_code: KHR
+- code: xaf
+  label:
+    en: CFA Franc BEAC
+  standard_code: XAF
+- code: cad
+  label:
+    en: Canadian Dollar
+  standard_code: CAD
+- code: kyd
+  label:
+    en: Cayman Islands Dollar
+  standard_code: KYD
+- code: clp
+  label:
+    en: Chilean Peso
+  standard_code: CLP
+- code: clf
+  label:
+    en: Unidad de Fomento
+  standard_code: CLF
+- code: cny
+  label:
+    en: Yuan Renminbi
+  standard_code: CNY
+- code: cop
+  label:
+    en: Colombian Peso
+  standard_code: COP
+- code: cou
+  label:
+    en: Unidad de Valor Real
+  standard_code: COU
+- code: kmf
+  label:
+    en: 'Comorian Franc '
+  standard_code: KMF
+- code: cdf
+  label:
+    en: Congolese Franc
+  standard_code: CDF
+- code: nzd
+  label:
+    en: New Zealand Dollar
+  standard_code: NZD
+- code: crc
+  label:
+    en: Costa Rican Colon
+  standard_code: CRC
+- code: cup
+  label:
+    en: Cuban Peso
+  standard_code: CUP
+- code: xcg
+  label:
+    en: Caribbean Guilder
+  standard_code: XCG
+- code: czk
+  label:
+    en: Czech Koruna
+  standard_code: CZK
+- code: dkk
+  label:
+    en: Danish Krone
+  standard_code: DKK
+- code: djf
+  label:
+    en: Djibouti Franc
+  standard_code: DJF
+- code: dop
+  label:
+    en: Dominican Peso
+  standard_code: DOP
+- code: egp
+  label:
+    en: Egyptian Pound
+  standard_code: EGP
+- code: svc
+  label:
+    en: El Salvador Colon
+  standard_code: SVC
+- code: ern
+  label:
+    en: Nakfa
+  standard_code: ERN
+- code: szl
+  label:
+    en: Lilangeni
+  standard_code: SZL
+- code: etb
+  label:
+    en: Ethiopian Birr
+  standard_code: ETB
+- code: fkp
+  label:
+    en: Falkland Islands Pound
+  standard_code: FKP
+- code: fjd
+  label:
+    en: Fiji Dollar
+  standard_code: FJD
+- code: xpf
+  label:
+    en: CFP Franc
+  standard_code: XPF
+- code: gmd
+  label:
+    en: Dalasi
+  standard_code: GMD
+- code: gel
+  label:
+    en: Lari
+  standard_code: GEL
+- code: ghs
+  label:
+    en: Ghana Cedi
+  standard_code: GHS
+- code: gip
+  label:
+    en: Gibraltar Pound
+  standard_code: GIP
+- code: gtq
+  label:
+    en: Quetzal
+  standard_code: GTQ
+- code: gbp
+  label:
+    en: Pound Sterling
+  standard_code: GBP
+- code: gnf
+  label:
+    en: Guinean Franc
+  standard_code: GNF
+- code: gyd
+  label:
+    en: Guyana Dollar
+  standard_code: GYD
+- code: htg
+  label:
+    en: Gourde
+  standard_code: HTG
+- code: hnl
+  label:
+    en: Lempira
+  standard_code: HNL
+- code: hkd
+  label:
+    en: Hong Kong Dollar
+  standard_code: HKD
+- code: huf
+  label:
+    en: Forint
+  standard_code: HUF
+- code: isk
+  label:
+    en: Iceland Krona
+  standard_code: ISK
+- code: idr
+  label:
+    en: Rupiah
+  standard_code: IDR
+- code: xdr
+  label:
+    en: SDR (Special Drawing Right)
+  standard_code: XDR
+- code: irr
+  label:
+    en: Iranian Rial
+  standard_code: IRR
+- code: iqd
+  label:
+    en: Iraqi Dinar
+  standard_code: IQD
+- code: ils
+  label:
+    en: New Israeli Sheqel
+  standard_code: ILS
+- code: jmd
+  label:
+    en: Jamaican Dollar
+  standard_code: JMD
+- code: jpy
+  label:
+    en: Yen
+  standard_code: JPY
+- code: jod
+  label:
+    en: Jordanian Dinar
+  standard_code: JOD
+- code: kzt
+  label:
+    en: Tenge
+  standard_code: KZT
+- code: kes
+  label:
+    en: Kenyan Shilling
+  standard_code: KES
+- code: kpw
+  label:
+    en: North Korean Won
+  standard_code: KPW
+- code: krw
+  label:
+    en: Won
+  standard_code: KRW
+- code: kwd
+  label:
+    en: Kuwaiti Dinar
+  standard_code: KWD
+- code: kgs
+  label:
+    en: Som
+  standard_code: KGS
+- code: lak
+  label:
+    en: Lao Kip
+  standard_code: LAK
+- code: lbp
+  label:
+    en: Lebanese Pound
+  standard_code: LBP
+- code: lsl
+  label:
+    en: Loti
+  standard_code: LSL
+- code: zar
+  label:
+    en: Rand
+  standard_code: ZAR
+- code: lrd
+  label:
+    en: Liberian Dollar
+  standard_code: LRD
+- code: lyd
+  label:
+    en: Libyan Dinar
+  standard_code: LYD
+- code: chf
+  label:
+    en: Swiss Franc
+  standard_code: CHF
+- code: mop
+  label:
+    en: Pataca
+  standard_code: MOP
+- code: mkd
+  label:
+    en: Denar
+  standard_code: MKD
+- code: mga
+  label:
+    en: Malagasy Ariary
+  standard_code: MGA
+- code: mwk
+  label:
+    en: Malawi Kwacha
+  standard_code: MWK
+- code: myr
+  label:
+    en: Malaysian Ringgit
+  standard_code: MYR
+- code: mvr
+  label:
+    en: Rufiyaa
+  standard_code: MVR
+- code: mru
+  label:
+    en: Ouguiya
+  standard_code: MRU
+- code: mur
+  label:
+    en: Mauritius Rupee
+  standard_code: MUR
+- code: xua
+  label:
+    en: ADB Unit of Account
+  standard_code: XUA
+- code: mxn
+  label:
+    en: Mexican Peso
+  standard_code: MXN
+- code: mxv
+  label:
+    en: Mexican Unidad de Inversion (UDI)
+  standard_code: MXV
+- code: mdl
+  label:
+    en: Moldovan Leu
+  standard_code: MDL
+- code: mnt
+  label:
+    en: Tugrik
+  standard_code: MNT
+- code: mad
+  label:
+    en: Moroccan Dirham
+  standard_code: MAD
+- code: mzn
+  label:
+    en: Mozambique Metical
+  standard_code: MZN
+- code: mmk
+  label:
+    en: Kyat
+  standard_code: MMK
+- code: nad
+  label:
+    en: Namibia Dollar
+  standard_code: NAD
+- code: npr
+  label:
+    en: Nepalese Rupee
+  standard_code: NPR
+- code: nio
+  label:
+    en: Cordoba Oro
+  standard_code: NIO
+- code: ngn
+  label:
+    en: Naira
+  standard_code: NGN
+- code: omr
+  label:
+    en: Rial Omani
+  standard_code: OMR
+- code: pkr
+  label:
+    en: Pakistan Rupee
+  standard_code: PKR
+- code: pab
+  label:
+    en: Balboa
+  standard_code: PAB
+- code: pgk
+  label:
+    en: Kina
+  standard_code: PGK
+- code: pyg
+  label:
+    en: Guarani
+  standard_code: PYG
+- code: pen
+  label:
+    en: Sol
+  standard_code: PEN
+- code: php
+  label:
+    en: Philippine Peso
+  standard_code: PHP
+- code: pln
+  label:
+    en: Zloty
+  standard_code: PLN
+- code: qar
+  label:
+    en: Qatari Rial
+  standard_code: QAR
+- code: ron
+  label:
+    en: Romanian Leu
+  standard_code: RON
+- code: rub
+  label:
+    en: Russian Ruble
+  standard_code: RUB
+- code: rwf
+  label:
+    en: Rwanda Franc
+  standard_code: RWF
+- code: shp
+  label:
+    en: Saint Helena Pound
+  standard_code: SHP
+- code: wst
+  label:
+    en: Tala
+  standard_code: WST
+- code: stn
+  label:
+    en: Dobra
+  standard_code: STN
+- code: sar
+  label:
+    en: Saudi Riyal
+  standard_code: SAR
+- code: rsd
+  label:
+    en: Serbian Dinar
+  standard_code: RSD
+- code: scr
+  label:
+    en: Seychelles Rupee
+  standard_code: SCR
+- code: sle
+  label:
+    en: Leone
+  standard_code: SLE
+- code: sgd
+  label:
+    en: Singapore Dollar
+  standard_code: SGD
+- code: xsu
+  label:
+    en: Sucre
+  standard_code: XSU
+- code: sbd
+  label:
+    en: Solomon Islands Dollar
+  standard_code: SBD
+- code: sos
+  label:
+    en: Somali Shilling
+  standard_code: SOS
+- code: ssp
+  label:
+    en: South Sudanese Pound
+  standard_code: SSP
+- code: lkr
+  label:
+    en: Sri Lanka Rupee
+  standard_code: LKR
+- code: sdg
+  label:
+    en: Sudanese Pound
+  standard_code: SDG
+- code: srd
+  label:
+    en: Surinam Dollar
+  standard_code: SRD
+- code: sek
+  label:
+    en: Swedish Krona
+  standard_code: SEK
+- code: che
+  label:
+    en: WIR Euro
+  standard_code: CHE
+- code: chw
+  label:
+    en: WIR Franc
+  standard_code: CHW
+- code: syp
+  label:
+    en: Syrian Pound
+  standard_code: SYP
+- code: twd
+  label:
+    en: New Taiwan Dollar
+  standard_code: TWD
+- code: tjs
+  label:
+    en: Somoni
+  standard_code: TJS
+- code: tzs
+  label:
+    en: Tanzanian Shilling
+  standard_code: TZS
+- code: thb
+  label:
+    en: Baht
+  standard_code: THB
+- code: top
+  label:
+    en: Pa’anga
+  standard_code: TOP
+- code: ttd
+  label:
+    en: Trinidad and Tobago Dollar
+  standard_code: TTD
+- code: tnd
+  label:
+    en: Tunisian Dinar
+  standard_code: TND
+- code: try
+  label:
+    en: Turkish Lira
+  standard_code: TRY
+- code: tmt
+  label:
+    en: Turkmenistan New Manat
+  standard_code: TMT
+- code: ugx
+  label:
+    en: Uganda Shilling
+  standard_code: UGX
+- code: uah
+  label:
+    en: Hryvnia
+  standard_code: UAH
+- code: aed
+  label:
+    en: UAE Dirham
+  standard_code: AED
+- code: usn
+  label:
+    en: US Dollar (Next day)
+  standard_code: USN
+- code: uyu
+  label:
+    en: Peso Uruguayo
+  standard_code: UYU
+- code: uyi
+  label:
+    en: Uruguay Peso en Unidades Indexadas (UI)
+  standard_code: UYI
+- code: uyw
+  label:
+    en: Unidad Previsional
+  standard_code: UYW
+- code: uzs
+  label:
+    en: Uzbekistan Sum
+  standard_code: UZS
+- code: vuv
+  label:
+    en: Vatu
+  standard_code: VUV
+- code: ves
+  label:
+    en: Bolívar Soberano
+  standard_code: VES
+- code: ved
+  label:
+    en: Bolívar Soberano
+  standard_code: VED
+- code: vnd
+  label:
+    en: Dong
+  standard_code: VND
+- code: yer
+  label:
+    en: Yemeni Rial
+  standard_code: YER
+- code: zmw
+  label:
+    en: Zambian Kwacha
+  standard_code: ZMW
+- code: zwg
+  label:
+    en: Zimbabwe Gold
+  standard_code: ZWG
+- code: xba
+  label:
+    en: Bond Markets Unit European Composite Unit (EURCO)
+  standard_code: XBA
+- code: xbb
+  label:
+    en: Bond Markets Unit European Monetary Unit (E.M.U.-6)
+  standard_code: XBB
+- code: xbc
+  label:
+    en: Bond Markets Unit European Unit of Account 9 (E.U.A.-9)
+  standard_code: XBC
+- code: xbd
+  label:
+    en: Bond Markets Unit European Unit of Account 17 (E.U.A.-17)
+  standard_code: XBD
+- code: xts
+  label:
+    en: Codes specifically reserved for testing purposes
+  standard_code: XTS
+- code: xxx
+  label:
+    en: The codes assigned for transactions where no currency is involved
+  standard_code: XXX
+- code: xau
+  label:
+    en: Gold
+  standard_code: XAU
+- code: xpd
+  label:
+    en: Palladium
+  standard_code: XPD
+- code: xpt
+  label:
+    en: Platinum
+  standard_code: XPT
+- code: xag
+  label:
+    en: Silver
+  standard_code: XAG

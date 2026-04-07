@@ -1,0 +1,17 @@
+id: benefit_description
+maturity: draft
+
+definition:
+  en: "A free-text description of the specific benefit."
+  fr: "Une description en texte libre de la prestation spécifique."
+  es: "Una descripción en texto libre del beneficio específico."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+data_classification: non_personal
+
+convergence:
+  system_count: 0
+  total_systems: 5

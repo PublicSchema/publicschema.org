@@ -1,0 +1,35 @@
+id: Household
+maturity: draft
+
+definition:
+  en: >
+    A social and economic unit of one or more persons who share food and other
+    essentials for living. The operational definition varies across countries and
+    programs, combining criteria of co-residence, shared budget, shared cooking,
+    kinship, and administrative registration.
+  fr: >
+    Une unité sociale et économique d'une ou plusieurs personnes qui partagent
+    la nourriture et d'autres biens essentiels à la vie. La définition
+    opérationnelle varie selon les pays et les programmes, combinant des critères
+    de corésidence, de budget partagé, de cuisine commune, de parenté et
+    d'enregistrement administratif.
+  es: >
+    Una unidad social y económica de una o más personas que comparten alimentos
+    y otros elementos esenciales para la vida. La definición operacional varía
+    según los países y programas, combinando criterios de corresidencia,
+    presupuesto compartido, cocina común, parentesco y registro administrativo.
+
+properties:
+  - address
+  - location
+  - dwelling_type
+  - income_source
+  - member_count
+
+supertypes: [Group]
+subtypes: []
+
+convergence:
+  system_count: 4
+  total_systems: 6
+  notes: "No OpenCRVS or standalone OpenIMIS match."

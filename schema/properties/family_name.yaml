@@ -1,0 +1,19 @@
+id: family_name
+maturity: draft
+
+definition:
+  en: "The family (last) name or surname of the person."
+  fr: "Le nom de famille ou patronyme de la personne."
+  es: "El apellido o nombre de familia de la persona."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+schema_org_equivalent: "schema:familyName"
+data_classification: personal
+
+convergence:
+  system_count: 5
+  total_systems: 6
+  notes: "Present in 5 of 6 mapped systems. Some systems store only a single composite name field."

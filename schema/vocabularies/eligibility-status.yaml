@@ -1,0 +1,68 @@
+id: eligibility-status
+maturity: draft
+
+definition:
+  en: "The possible outcomes of a formal eligibility determination for a social protection program."
+  fr: "Les résultats possibles d'une détermination formelle d'éligibilité à un programme de protection sociale."
+  es: "Los posibles resultados de una determinación formal de elegibilidad para un programa de protección social."
+
+values:
+  - code: eligible
+    label:
+      en: Eligible
+      fr: Éligible
+      es: Elegible
+    definition:
+      en: "The subject meets the program's criteria and is approved to receive benefits."
+      fr: "Le sujet satisfait aux critères du programme et est approuvé pour recevoir des prestations."
+      es: "El sujeto cumple los criterios del programa y está aprobado para recibir beneficios."
+
+  - code: ineligible
+    label:
+      en: Ineligible
+      fr: Non éligible
+      es: No elegible
+    definition:
+      en: "The subject does not meet the program's criteria and is not approved for benefits."
+      fr: "Le sujet ne satisfait pas aux critères du programme et n'est pas approuvé pour recevoir des prestations."
+      es: "El sujeto no cumple los criterios del programa y no está aprobado para recibir beneficios."
+
+  - code: pending
+    label:
+      en: Pending
+      fr: En attente
+      es: Pendiente
+    definition:
+      en: "The eligibility determination is in progress and a final decision has not yet been issued."
+      fr: "La détermination de l'éligibilité est en cours et une décision finale n'a pas encore été rendue."
+      es: "La determinación de elegibilidad está en curso y aún no se ha emitido una decisión final."
+
+  - code: conditional
+    label:
+      en: Conditional
+      fr: Conditionnel
+      es: Condicional
+    definition:
+      en: "The subject is eligible provided they meet additional conditions, such as school attendance or health check-ups."
+      fr: "Le sujet est éligible à condition de remplir des conditions supplémentaires, telles que la fréquentation scolaire ou les examens médicaux."
+      es: "El sujeto es elegible siempre que cumpla condiciones adicionales, como asistencia escolar o chequeos de salud."
+
+  - code: appealing
+    label:
+      en: Appealing
+      fr: En recours
+      es: En apelación
+    definition:
+      en: "The subject has contested the eligibility decision and the appeal is under review."
+      fr: "Le sujet a contesté la décision d'éligibilité et le recours est en cours d'examen."
+      es: "El sujeto ha impugnado la decisión de elegibilidad y la apelación está siendo revisada."
+
+  - code: expired
+    label:
+      en: Expired
+      fr: Expiré
+      es: Expirado
+    definition:
+      en: "The eligibility decision was valid for a defined period and that period has passed without renewal."
+      fr: "La décision d'éligibilité était valide pour une période définie et cette période s'est écoulée sans renouvellement."
+      es: "La decisión de elegibilidad era válida por un período definido y ese período ha transcurrido sin renovación."

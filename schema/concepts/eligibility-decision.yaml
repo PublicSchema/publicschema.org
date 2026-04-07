@@ -1,0 +1,34 @@
+id: EligibilityDecision
+maturity: draft
+domain: sp
+
+definition:
+  en: >
+    A formal determination of whether a subject meets a program's criteria
+    based on assessed conditions. One assessment event can produce multiple
+    eligibility decisions for different programs.
+  fr: >
+    Une détermination formelle indiquant si un sujet satisfait aux critères
+    d'un programme sur la base des conditions évaluées. Un événement
+    d'évaluation peut produire plusieurs décisions d'éligibilité pour
+    différents programmes.
+  es: >
+    Una determinación formal de si un sujeto cumple los criterios de un
+    programa en función de las condiciones evaluadas. Un evento de evaluación
+    puede producir múltiples decisiones de elegibilidad para diferentes
+    programas.
+
+properties:
+  - applicant
+  - program_ref
+  - eligibility_status
+  - decision_date
+  - decision_basis
+  - valid_until
+
+subtypes: []
+supertypes: []
+
+convergence:
+  system_count: 2
+  total_systems: 6

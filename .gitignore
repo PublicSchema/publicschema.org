@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Build outputs (keep stubs, ignore generated)
+dist/context.jsonld
+dist/downloads/
+dist/schemas/
+dist/vocabulary.json
+
+# Generated download files (built by export.py, copied to site/public)
+site/public/*.csv
+site/public/*.xlsx
+site/public/sp/
+
+# Working documents
+plan*.md
+.plans/
+review-*.md
+
+# AI assistant config (local only)
+CLAUDE.md
+
+# Node
+node_modules/
+site/dist/
+site/.astro/
+
+# OS
+.DS_Store

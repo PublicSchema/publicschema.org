@@ -1,0 +1,18 @@
+id: issue_date
+maturity: draft
+
+definition:
+  en: "The date on which the identifier was issued."
+  fr: "La date a laquelle l'identifiant a ete delivre."
+  es: "La fecha en que se emitio el identificador."
+
+type: date
+cardinality: single
+vocabulary: null
+references: null
+data_classification: non_personal
+
+convergence:
+  system_count: 0
+  total_systems: 5
+  notes: "Not found in any of the 5 mapped systems. Present in some civil registration systems but not typically carried in social protection delivery databases."

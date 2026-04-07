@@ -1,0 +1,19 @@
+id: preferred_name
+maturity: draft
+
+definition:
+  en: "The name a person is commonly known by, when it differs from their legal name. Covers chosen names, professional names, and naming conventions where given name plus family name is insufficient."
+  fr: "Le nom sous lequel une personne est couramment connue, lorsqu'il differe de son nom legal. Couvre les noms d'usage, les noms professionnels et les conventions de denomination ou prenom et nom de famille sont insuffisants."
+  es: "El nombre por el que una persona es comunmente conocida, cuando difiere de su nombre legal. Cubre nombres de uso, nombres profesionales y convenciones de denominacion donde nombre y apellido son insuficientes."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+schema_org_equivalent: "schema:alternateName"
+data_classification: personal
+
+convergence:
+  system_count: 0
+  total_systems: 6
+  notes: "Not present in original convergence systems. Added based on EBSI PID/PDA1/ELM schema analysis."

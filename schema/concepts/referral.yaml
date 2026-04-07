@@ -1,0 +1,34 @@
+id: Referral
+maturity: draft
+domain: sp
+
+definition:
+  en: >
+    A structured process of linking a subject to an external program, service,
+    or provider to address identified needs. Referrals span a spectrum from
+    passive information sharing to active service linkage with follow-up.
+  fr: >
+    Un processus structuré de mise en relation d'un sujet avec un programme,
+    un service ou un prestataire externe pour répondre aux besoins identifiés.
+    Les orientations vont d'un simple partage d'information passif à une mise
+    en lien active avec suivi.
+  es: >
+    Un proceso estructurado de vinculación de un sujeto con un programa,
+    servicio o proveedor externo para abordar las necesidades identificadas.
+    Las derivaciones abarcan un espectro que va desde el intercambio pasivo de
+    información hasta la vinculación activa de servicios con seguimiento.
+
+properties:
+  - referred_person
+  - referring_program
+  - receiving_program
+  - referral_date
+  - referral_reason
+  - referral_status
+
+subtypes: []
+supertypes: []
+
+convergence:
+  system_count: 3
+  total_systems: 6

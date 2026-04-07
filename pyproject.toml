@@ -1,0 +1,25 @@
+[project]
+name = "publicschema"
+version = "0.1.0"
+description = "A schema.org-style vocabulary for government service delivery"
+requires-python = ">=3.12"
+license = "Apache-2.0"
+dependencies = [
+    "pyyaml>=6.0",
+    "jsonschema>=4.20",
+    "openpyxl>=3.1",
+]
+
+[tool.uv]
+dev-dependencies = [
+    "pyld>=3.0.0",
+    "pytest>=8.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[project.scripts]
+ps-build = "build.build:main"
+ps-validate = "build.validate:main"
+ps-sync = "build.sync_standards:main"

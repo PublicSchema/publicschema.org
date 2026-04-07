@@ -1,0 +1,83 @@
+id: marital-status
+maturity: draft
+definition:
+  en: Categories describing a person's marital or civil status as recorded in a registry or administrative system.
+  fr: Catégories décrivant le statut matrimonial ou civil d'une personne tel qu'enregistré dans un registre ou un système
+    administratif.
+  es: Categorías que describen el estado civil o matrimonial de una persona tal como se registra en un registro o sistema
+    administrativo.
+standard:
+  name: FHIR v3-MaritalStatus
+  uri: http://terminology.hl7.org/CodeSystem/v3-MaritalStatus
+sync:
+  source_url: https://terminology.hl7.org/CodeSystem-v3-MaritalStatus.json
+  format: fhir-codesystem
+  last_synced: '2026-04-08'
+values:
+- code: annulled
+  label:
+    en: Annulled
+  standard_code: A
+- code: divorced
+  label:
+    en: Divorced
+  standard_code: D
+- code: interlocutory
+  label:
+    en: Interlocutory
+  standard_code: I
+- code: legally_separated
+  label:
+    en: Legally Separated
+  standard_code: L
+- code: married
+  label:
+    en: Married
+    fr: Marié(e)
+    es: Casado/a
+  definition:
+    en: Currently married.
+  standard_code: M
+- code: common_law
+  label:
+    en: Common Law
+  standard_code: C
+- code: polygamous
+  label:
+    en: Polygamous
+  standard_code: P
+- code: domestic_partner
+  label:
+    en: Domestic partner
+  standard_code: T
+- code: unmarried
+  label:
+    en: unmarried
+  standard_code: U
+- code: never_married
+  label:
+    en: Never Married
+  standard_code: S
+- code: widowed
+  label:
+    en: Widowed
+  standard_code: W
+system_mappings:
+  openspp:
+    S: unmarried
+    M: married
+    W: widowed
+    D: divorced
+    L: legally_separated
+    C: domestic_partner
+  spdci:
+    S: unmarried
+    M: married
+    W: widowed
+    A: annulled
+    D: divorced
+    L: legally_separated
+    U: unmarried
+  dhis2:
+    Single or widow: unmarried
+    Married (conjugal cohabitation): married

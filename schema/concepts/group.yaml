@@ -1,0 +1,31 @@
+id: Group
+maturity: draft
+
+definition:
+  en: >
+    An abstract collection of persons that serves as the base for concrete
+    group types such as Household, Family, and Farm. Groups are linked to
+    their members via GroupMembership records.
+  fr: >
+    Un regroupement abstrait de personnes qui sert de base aux types de
+    groupes concrets tels que Menage, Famille et Exploitation agricole.
+    Les groupes sont lies a leurs membres via des enregistrements
+    GroupMembership.
+  es: >
+    Una coleccion abstracta de personas que sirve como base para tipos
+    de grupos concretos como Hogar, Familia y Granja. Los grupos se
+    vinculan a sus miembros mediante registros GroupMembership.
+
+properties:
+  - name
+  - group_type
+  - formation_date
+  - member_count
+  - memberships
+
+supertypes: []
+subtypes: [Household, Family, Farm]
+
+convergence:
+  system_count: 5
+  total_systems: 6

@@ -1,0 +1,74 @@
+---
+import Base from "../layouts/Base.astro";
+---
+<Base title="Data Types" description="Primitive data types used by PublicSchema properties.">
+  <article>
+  <div class="page-header">
+    <nav class="breadcrumb">
+      <a href="/">Home</a><span class="separator">/</span>Data Types
+    </nav>
+    <h1>Data Types</h1>
+    <p class="subtitle">The primitive types used by properties in the vocabulary.</p>
+  </div>
+
+  <div class="concept-section" id="string">
+    <h2>string</h2>
+    <p>A sequence of Unicode characters. No maximum length is prescribed by the vocabulary; systems should define their own limits.</p>
+    <table class="data-table">
+      <tbody>
+        <tr><td style="font-weight: 600; color: var(--color-text-muted); width: 10rem;">Format</td><td>Free text (UTF-8)</td></tr>
+        <tr><td style="font-weight: 600; color: var(--color-text-muted);">JSON type</td><td><code>string</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="concept-section" id="integer">
+    <h2>integer</h2>
+    <p>A whole number with no fractional component.</p>
+    <table class="data-table">
+      <tbody>
+        <tr><td style="font-weight: 600; color: var(--color-text-muted); width: 10rem;">Format</td><td>Signed integer (no decimal point)</td></tr>
+        <tr><td style="font-weight: 600; color: var(--color-text-muted);">JSON type</td><td><code>number</code> (integer)</td></tr>
+        <tr><td style="font-weight: 600; color: var(--color-text-muted);">Examples</td><td><code>0</code>, <code>5</code>, <code>-1</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="concept-section" id="decimal">
+    <h2>decimal</h2>
+    <p>A numeric value that may include a fractional component. Used for scores, monetary amounts, and measurements.</p>
+    <table class="data-table">
+      <tbody>
+        <tr><td style="font-weight: 600; color: var(--color-text-muted); width: 10rem;">Format</td><td>Decimal number</td></tr>
+        <tr><td style="font-weight: 600; color: var(--color-text-muted);">JSON type</td><td><code>number</code></td></tr>
+        <tr><td style="font-weight: 600; color: var(--color-text-muted);">Examples</td><td><code>99.50</code>, <code>-12.345</code>, <code>0.0</code></td></tr>
+        <tr><td style="font-weight: 600; color: var(--color-text-muted);">Note</td><td>For monetary amounts, pair with a <code>currency</code> property (ISO 4217 code).</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="concept-section" id="boolean">
+    <h2>boolean</h2>
+    <p>A true/false value.</p>
+    <table class="data-table">
+      <tbody>
+        <tr><td style="font-weight: 600; color: var(--color-text-muted); width: 10rem;">Format</td><td><code>true</code> or <code>false</code></td></tr>
+        <tr><td style="font-weight: 600; color: var(--color-text-muted);">JSON type</td><td><code>boolean</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="concept-section" id="date">
+    <h2>date</h2>
+    <p>A calendar date without a time-of-day component. Follows <a href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank" rel="noopener">ISO 8601</a>.</p>
+    <table class="data-table">
+      <tbody>
+        <tr><td style="font-weight: 600; color: var(--color-text-muted); width: 10rem;">Format</td><td><code>YYYY-MM-DD</code> (ISO 8601 calendar date)</td></tr>
+        <tr><td style="font-weight: 600; color: var(--color-text-muted);">JSON type</td><td><code>string</code></td></tr>
+        <tr><td style="font-weight: 600; color: var(--color-text-muted);">Examples</td><td><code>2024-03-15</code>, <code>1990-01-01</code></td></tr>
+        <tr><td style="font-weight: 600; color: var(--color-text-muted);">Note</td><td>Systems that only know a birth year may use <code>YYYY</code> or <code>YYYY-01-01</code> with a precision qualifier. The vocabulary does not prescribe which approach to use.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  </article>
+</Base>

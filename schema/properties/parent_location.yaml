@@ -1,0 +1,18 @@
+id: parent_location
+maturity: draft
+
+definition:
+  en: "The parent location in the administrative hierarchy."
+  fr: "La localisation parente dans la hierarchie administrative."
+  es: "La ubicacion padre en la jerarquia administrativa."
+
+type: concept:Location
+cardinality: single
+vocabulary: null
+references: Location
+data_classification: non_personal
+
+convergence:
+  system_count: 6
+  total_systems: 6
+  notes: "Universal across all 6 mapped systems. All systems model location as a tree structure with parent references to represent the administrative hierarchy."

@@ -1,0 +1,132 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'A shared data vocabulary for government service delivery' } = Astro.props;
+const currentPath = Astro.url.pathname;
+
+const navLinks = [
+  { href: '/concepts/', label: 'Concepts' },
+  { href: '/properties/', label: 'Properties' },
+  { href: '/vocab/', label: 'Vocabularies' },
+  { href: '/docs/', label: 'Docs' },
+  { href: '/about/', label: 'About' },
+];
+---
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content={description} />
+  <title>{title} | PublicSchema</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <nav class="site-nav">
+    <div class="site-container">
+      <a href="/" class="site-logo">
+        <span class="logo-mark" aria-hidden="true">PS</span>
+        <span>
+          <span class="site-title">PublicSchema</span>
+          <span class="site-title-sub">Data Vocabulary</span>
+        </span>
+      </a>
+      <ul class="nav-links">
+        {navLinks.map(({ href, label }) => (
+          <li>
+            <a href={href} class:list={[{ active: currentPath.startsWith(href) }]}>
+              {label}
+            </a>
+          </li>
+        ))}
+      </ul>
+      <details class="mobile-nav">
+        <summary class="mobile-nav-toggle" aria-label="Menu">
+          <span class="hamburger-icon"></span>
+        </summary>
+        <ul class="mobile-nav-links">
+          {navLinks.map(({ href, label }) => (
+            <li>
+              <a href={href} class:list={[{ active: currentPath.startsWith(href) }]}>
+                {label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </details>
+    </div>
+  </nav>
+
+  <main class="site-container">
+    <slot />
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <div class="footer-name">PublicSchema</div>
+          <p>
+            A schema.org-style vocabulary of concepts, properties, and controlled
+            value sets for government service delivery.
+          </p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-links-col">
+            <h4>Explore</h4>
+            <ul>
+              <li><a href="/concepts/">Concepts</a></li>
+              <li><a href="/properties/">Properties</a></li>
+              <li><a href="/vocab/">Vocabularies</a></li>
+            </ul>
+          </div>
+          <div class="footer-links-col">
+            <h4>Docs</h4>
+            <ul>
+              <li><a href="/docs/integration-guide/">Integration Guide</a></li>
+              <li><a href="/docs/extension-mechanism/">Extension Mechanism</a></li>
+              <li><a href="/docs/">All documentation</a></li>
+            </ul>
+          </div>
+          <div class="footer-links-col">
+            <h4>Project</h4>
+            <ul>
+              <li><a href="/about/">About</a></li>
+              <li><a href="https://github.com/PublicSchema/publicschema.org">Source on GitHub</a></li>
+              <li><a href="/terms/">Terms and License</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>Vocabulary: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> | Code: <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache 2.0</a></span>
+        <span>Built with <a href="https://astro.build/">Astro</a></span>
+      </div>
+    </div>
+  </footer>
+  <script>
+    const mobileNav = document.querySelector('.mobile-nav');
+    if (mobileNav) {
+      // Close menu when a link is clicked (handles same-page navigation)
+      mobileNav.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => mobileNav.removeAttribute('open'));
+      });
+      // Close menu when clicking outside
+      document.addEventListener('click', (e) => {
+        if (mobileNav.hasAttribute('open') && !mobileNav.contains(e.target as Node)) {
+          mobileNav.removeAttribute('open');
+        }
+      });
+    }
+  </script>
+</body>
+</html>

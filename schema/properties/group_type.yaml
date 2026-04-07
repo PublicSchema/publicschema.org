@@ -1,0 +1,18 @@
+id: group_type
+maturity: draft
+
+definition:
+  en: "The administrative or social category of the group."
+  fr: "La categorie administrative ou sociale du groupe."
+  es: "La categoria administrativa o social del grupo."
+
+type: string
+cardinality: single
+vocabulary: group-type
+references: null
+data_classification: non_personal
+
+convergence:
+  system_count: 4
+  total_systems: 5
+  notes: "Present in 4 of 5 mapped systems. All systems distinguish between household, family, and farm types, though the exact categories vary."

@@ -1,0 +1,18 @@
+id: beneficiary
+maturity: draft
+
+definition:
+  en: "The person or group enrolled in the program."
+  fr: "La personne ou le groupe inscrit dans le programme."
+  es: "La persona o grupo inscrito en el programa."
+
+type: concept:Person
+cardinality: single
+vocabulary: null
+references: Person
+domain_override: null
+data_classification: personal
+
+convergence:
+  system_count: 5
+  total_systems: 6

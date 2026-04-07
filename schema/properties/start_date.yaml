@@ -1,0 +1,19 @@
+id: start_date
+maturity: draft
+
+definition:
+  en: "The date on which this record or relationship became effective."
+  fr: "La date à laquelle cet enregistrement ou cette relation est devenu effectif."
+  es: "La fecha en que este registro o relación entró en vigor."
+
+type: date
+cardinality: single
+vocabulary: null
+references: null
+schema_org_equivalent: "schema:startDate"
+data_classification: non_personal
+
+convergence:
+  system_count: 5
+  total_systems: 6
+  notes: "Near-universal temporal property."

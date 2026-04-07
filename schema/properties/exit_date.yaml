@@ -1,0 +1,18 @@
+id: exit_date
+maturity: draft
+
+definition:
+  en: "The date on which the enrollment was closed, graduated, or suspended."
+  fr: "La date à laquelle l'inscription a été clôturée, graduée ou suspendue."
+  es: "La fecha en que la inscripción fue cerrada, graduada o suspendida."
+
+type: date
+cardinality: single
+vocabulary: null
+references: null
+domain_override: null
+data_classification: non_personal
+
+convergence:
+  system_count: 2
+  total_systems: 6

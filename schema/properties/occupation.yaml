@@ -1,0 +1,18 @@
+id: occupation
+maturity: draft
+
+definition:
+  en: "The person's primary occupation, classified according to the ISCO-08 sub-major groups."
+  fr: "La profession principale de la personne, classée selon les sous-grands groupes ISCO-08."
+  es: "La ocupación principal de la persona, clasificada según los subgrupos principales ISCO-08."
+
+type: string
+cardinality: single
+vocabulary: occupation
+references: null
+data_classification: personal
+
+convergence:
+  system_count: 2
+  total_systems: 6
+  notes: "Present in 2 of 6 mapped systems. Social protection systems that track occupation typically use it for eligibility or labor market analysis."

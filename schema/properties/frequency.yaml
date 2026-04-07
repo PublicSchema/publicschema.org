@@ -1,0 +1,18 @@
+id: frequency
+maturity: draft
+
+definition:
+  en: "How often the entitlement is delivered (monthly, quarterly, annual, one-time)."
+  fr: "La fréquence à laquelle la prestation est versée (mensuelle, trimestrielle, annuelle, unique)."
+  es: "Con qué frecuencia se entrega el derecho (mensual, trimestral, anual, única vez)."
+
+type: string
+cardinality: single
+vocabulary: benefit-frequency
+references: null
+domain_override: null
+data_classification: non_personal
+
+convergence:
+  system_count: 0
+  total_systems: 5

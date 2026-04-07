@@ -1,0 +1,17 @@
+id: transaction_reference
+maturity: draft
+
+definition:
+  en: "A unique reference code for this payment transaction."
+  fr: "Un code de référence unique pour cette transaction de paiement."
+  es: "Un código de referencia único para esta transacción de pago."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+data_classification: personal
+
+convergence:
+  system_count: 1
+  total_systems: 6

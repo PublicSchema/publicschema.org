@@ -1,0 +1,17 @@
+id: object_person
+maturity: draft
+
+definition:
+  en: "The person to whom the subject person is related (the object of the relationship statement)."
+  fr: "La personne à laquelle la personne sujet est liée (l'objet de l'énoncé de relation)."
+  es: "La persona con quien la persona sujeto está relacionada (el objeto del enunciado de relación)."
+
+type: concept:Person
+cardinality: single
+vocabulary: null
+references: Person
+data_classification: personal
+
+convergence:
+  system_count: 4
+  total_systems: 6

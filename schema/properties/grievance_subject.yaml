@@ -1,0 +1,17 @@
+id: grievance_subject
+maturity: draft
+
+definition:
+  en: "Reference to the person, enrollment, or payment event that the grievance concerns."
+  fr: "Référence à la personne, à l'inscription ou à l'événement de paiement que le grief concerne."
+  es: "Referencia a la persona, inscripción o evento de pago al que se refiere el agravio."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+data_classification: personal
+
+convergence:
+  system_count: 3
+  total_systems: 5

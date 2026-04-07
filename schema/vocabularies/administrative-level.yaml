@@ -1,0 +1,58 @@
+id: administrative-level
+maturity: draft
+
+definition:
+  en: "Categories describing the tier of government or administrative subdivision at which a location is classified."
+  fr: "Catégories décrivant le niveau de gouvernement ou de subdivision administrative auquel un lieu est classé."
+  es: "Categorías que describen el nivel de gobierno o subdivisión administrativa en el que se clasifica una ubicación."
+
+values:
+  - code: national
+    label:
+      en: National
+      fr: National
+      es: Nacional
+    definition:
+      en: "The country level, representing the entire sovereign state."
+      fr: "Le niveau national, représentant l'ensemble de l'État souverain."
+      es: "El nivel nacional, que representa el estado soberano en su totalidad."
+
+  - code: regional
+    label:
+      en: Regional
+      fr: Régional
+      es: Regional
+    definition:
+      en: "The first subnational level, typically a state, province, or region."
+      fr: "Le premier niveau sous-national, généralement un état, une province ou une région."
+      es: "El primer nivel subnacional, generalmente un estado, provincia o región."
+
+  - code: district
+    label:
+      en: District
+      fr: District
+      es: Distrito
+    definition:
+      en: "The second subnational level, typically a district, county, or department."
+      fr: "Le deuxième niveau sous-national, généralement un district, comté ou département."
+      es: "El segundo nivel subnacional, generalmente un distrito, condado o departamento."
+
+  - code: sub_district
+    label:
+      en: Sub-district
+      fr: Sous-district
+      es: Subdistrito
+    definition:
+      en: "The third subnational level, typically a sub-district, commune, or municipality."
+      fr: "Le troisième niveau sous-national, généralement un sous-district, une commune ou une municipalité."
+      es: "El tercer nivel subnacional, generalmente un subdistrito, comuna o municipalidad."
+
+  - code: village
+    label:
+      en: Village
+      fr: Village
+      es: Aldea
+    definition:
+      en: "The lowest administrative level, typically a village, neighborhood, or ward."
+      fr: "Le niveau administratif le plus bas, généralement un village, un quartier ou une section."
+      es: "El nivel administrativo más bajo, generalmente una aldea, vecindario o barrio."

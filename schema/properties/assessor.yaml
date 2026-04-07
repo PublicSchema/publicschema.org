@@ -1,0 +1,17 @@
+id: assessor
+maturity: draft
+
+definition:
+  en: "The name or identifier of the field officer or system that conducted the assessment."
+  fr: "Le nom ou l'identifiant de l'agent de terrain ou du système ayant conduit l'évaluation."
+  es: "El nombre o identificador del agente de campo o sistema que realizó la evaluación."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+data_classification: special_category
+
+convergence:
+  system_count: 1
+  total_systems: 3

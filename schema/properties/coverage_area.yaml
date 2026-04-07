@@ -1,0 +1,17 @@
+id: coverage_area
+maturity: draft
+
+definition:
+  en: "The geographic or administrative scope of program coverage."
+  fr: "L'étendue géographique ou administrative de la couverture du programme."
+  es: "El alcance geográfico o administrativo de la cobertura del programa."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+data_classification: non_personal
+
+convergence:
+  system_count: 0
+  total_systems: 4

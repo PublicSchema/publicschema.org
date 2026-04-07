@@ -1,0 +1,922 @@
+id: script
+maturity: draft
+definition:
+  en: Writing system codes as defined by the ISO 15924 standard.
+  fr: Codes de systèmes d'écriture tels que définis par la norme ISO 15924.
+  es: Códigos de sistemas de escritura según la norma ISO 15924.
+standard:
+  name: ISO 15924
+  uri: https://unicode.org/iso15924/
+sync:
+  source_url: https://unicode.org/iso15924/iso15924.txt
+  format: semicolon-delimited
+  last_synced: '2026-04-07'
+values:
+- code: adlm
+  label:
+    en: Adlam
+  standard_code: Adlm
+- code: afak
+  label:
+    en: Afaka
+  standard_code: Afak
+- code: aghb
+  label:
+    en: Caucasian Albanian
+  standard_code: Aghb
+- code: ahom
+  label:
+    en: Ahom, Tai Ahom
+  standard_code: Ahom
+- code: arab
+  label:
+    en: Arabic
+  standard_code: Arab
+- code: aran
+  label:
+    en: Arabic (Nastaliq variant)
+  standard_code: Aran
+- code: armi
+  label:
+    en: Imperial Aramaic
+  standard_code: Armi
+- code: armn
+  label:
+    en: Armenian
+  standard_code: Armn
+- code: avst
+  label:
+    en: Avestan
+  standard_code: Avst
+- code: bali
+  label:
+    en: Balinese
+  standard_code: Bali
+- code: bamu
+  label:
+    en: Bamum
+  standard_code: Bamu
+- code: bass
+  label:
+    en: Bassa Vah
+  standard_code: Bass
+- code: batk
+  label:
+    en: Batak
+  standard_code: Batk
+- code: beng
+  label:
+    en: Bengali (Bangla)
+  standard_code: Beng
+- code: berf
+  label:
+    en: Beria Erfe
+  standard_code: Berf
+- code: bhks
+  label:
+    en: Bhaiksuki
+  standard_code: Bhks
+- code: blis
+  label:
+    en: Blissymbols
+  standard_code: Blis
+- code: bopo
+  label:
+    en: Bopomofo
+  standard_code: Bopo
+- code: brah
+  label:
+    en: Brahmi
+  standard_code: Brah
+- code: brai
+  label:
+    en: Braille
+  standard_code: Brai
+- code: bugi
+  label:
+    en: Buginese
+  standard_code: Bugi
+- code: buhd
+  label:
+    en: Buhid
+  standard_code: Buhd
+- code: cakm
+  label:
+    en: Chakma
+  standard_code: Cakm
+- code: cans
+  label:
+    en: Unified Canadian Aboriginal Syllabics
+  standard_code: Cans
+- code: cari
+  label:
+    en: Carian
+  standard_code: Cari
+- code: cham
+  label:
+    en: Cham
+  standard_code: Cham
+- code: cher
+  label:
+    en: Cherokee
+  standard_code: Cher
+- code: chis
+  label:
+    en: Chisoi
+  standard_code: Chis
+- code: chrs
+  label:
+    en: Chorasmian
+  standard_code: Chrs
+- code: cirt
+  label:
+    en: Cirth
+  standard_code: Cirt
+- code: copt
+  label:
+    en: Coptic
+  standard_code: Copt
+- code: cpmn
+  label:
+    en: Cypro-Minoan
+  standard_code: Cpmn
+- code: cprt
+  label:
+    en: Cypriot syllabary
+  standard_code: Cprt
+- code: cyrl
+  label:
+    en: Cyrillic
+  standard_code: Cyrl
+- code: cyrs
+  label:
+    en: Cyrillic (Old Church Slavonic variant)
+  standard_code: Cyrs
+- code: deva
+  label:
+    en: Devanagari (Nagari)
+  standard_code: Deva
+- code: diak
+  label:
+    en: Dives Akuru
+  standard_code: Diak
+- code: dogr
+  label:
+    en: Dogra
+  standard_code: Dogr
+- code: dsrt
+  label:
+    en: Deseret (Mormon)
+  standard_code: Dsrt
+- code: dupl
+  label:
+    en: Duployan shorthand, Duployan stenography
+  standard_code: Dupl
+- code: egyd
+  label:
+    en: Egyptian demotic
+  standard_code: Egyd
+- code: egyh
+  label:
+    en: Egyptian hieratic
+  standard_code: Egyh
+- code: egyp
+  label:
+    en: Egyptian hieroglyphs
+  standard_code: Egyp
+- code: elba
+  label:
+    en: Elbasan
+  standard_code: Elba
+- code: elym
+  label:
+    en: Elymaic
+  standard_code: Elym
+- code: ethi
+  label:
+    en: Ethiopic (Geʻez)
+  standard_code: Ethi
+- code: gara
+  label:
+    en: Garay
+  standard_code: Gara
+- code: geok
+  label:
+    en: Khutsuri (Asomtavruli and Nuskhuri)
+  standard_code: Geok
+- code: geor
+  label:
+    en: Georgian (Mkhedruli and Mtavruli)
+  standard_code: Geor
+- code: glag
+  label:
+    en: Glagolitic
+  standard_code: Glag
+- code: gong
+  label:
+    en: Gunjala Gondi
+  standard_code: Gong
+- code: gonm
+  label:
+    en: Masaram Gondi
+  standard_code: Gonm
+- code: goth
+  label:
+    en: Gothic
+  standard_code: Goth
+- code: gran
+  label:
+    en: Grantha
+  standard_code: Gran
+- code: grek
+  label:
+    en: Greek
+  standard_code: Grek
+- code: gujr
+  label:
+    en: Gujarati
+  standard_code: Gujr
+- code: gukh
+  label:
+    en: Gurung Khema
+  standard_code: Gukh
+- code: guru
+  label:
+    en: Gurmukhi
+  standard_code: Guru
+- code: hanb
+  label:
+    en: Han with Bopomofo (alias for Han + Bopomofo)
+  standard_code: Hanb
+- code: hang
+  label:
+    en: Hangul (Hangŭl, Hangeul)
+  standard_code: Hang
+- code: hani
+  label:
+    en: Han (Hanzi, Kanji, Hanja)
+  standard_code: Hani
+- code: hano
+  label:
+    en: Hanunoo (Hanunóo)
+  standard_code: Hano
+- code: hans
+  label:
+    en: Han (Simplified variant)
+  standard_code: Hans
+- code: hant
+  label:
+    en: Han (Traditional variant)
+  standard_code: Hant
+- code: hatr
+  label:
+    en: Hatran
+  standard_code: Hatr
+- code: hebr
+  label:
+    en: Hebrew
+  standard_code: Hebr
+- code: hira
+  label:
+    en: Hiragana
+  standard_code: Hira
+- code: hluw
+  label:
+    en: Anatolian Hieroglyphs (Luwian Hieroglyphs, Hittite Hieroglyphs)
+  standard_code: Hluw
+- code: hmng
+  label:
+    en: Pahawh Hmong
+  standard_code: Hmng
+- code: hmnp
+  label:
+    en: Nyiakeng Puachue Hmong
+  standard_code: Hmnp
+- code: hntl
+  label:
+    en: Han (Traditional variant) with Latin (alias for Hant + Latn)
+  standard_code: Hntl
+- code: hrkt
+  label:
+    en: Japanese syllabaries (alias for Hiragana + Katakana)
+  standard_code: Hrkt
+- code: hung
+  label:
+    en: Old Hungarian (Hungarian Runic)
+  standard_code: Hung
+- code: inds
+  label:
+    en: Indus (Harappan)
+  standard_code: Inds
+- code: ital
+  label:
+    en: Old Italic (Etruscan, Oscan, etc.)
+  standard_code: Ital
+- code: jamo
+  label:
+    en: Jamo (alias for Jamo subset of Hangul)
+  standard_code: Jamo
+- code: java
+  label:
+    en: Javanese
+  standard_code: Java
+- code: jpan
+  label:
+    en: Japanese (alias for Han + Hiragana + Katakana)
+  standard_code: Jpan
+- code: jurc
+  label:
+    en: Jurchen
+  standard_code: Jurc
+- code: kali
+  label:
+    en: Kayah Li
+  standard_code: Kali
+- code: kana
+  label:
+    en: Katakana
+  standard_code: Kana
+- code: kawi
+  label:
+    en: Kawi
+  standard_code: Kawi
+- code: khar
+  label:
+    en: Kharoshthi
+  standard_code: Khar
+- code: khmr
+  label:
+    en: Khmer
+  standard_code: Khmr
+- code: khoj
+  label:
+    en: Khojki
+  standard_code: Khoj
+- code: kitl
+  label:
+    en: Khitan large script
+  standard_code: Kitl
+- code: kits
+  label:
+    en: Khitan small script
+  standard_code: Kits
+- code: knda
+  label:
+    en: Kannada
+  standard_code: Knda
+- code: kore
+  label:
+    en: Korean (alias for Hangul + Han)
+  standard_code: Kore
+- code: kpel
+  label:
+    en: Kpelle
+  standard_code: Kpel
+- code: krai
+  label:
+    en: Kirat Rai
+  standard_code: Krai
+- code: kthi
+  label:
+    en: Kaithi
+  standard_code: Kthi
+- code: lana
+  label:
+    en: Tai Tham (Lanna)
+  standard_code: Lana
+- code: laoo
+  label:
+    en: Lao
+  standard_code: Laoo
+- code: latf
+  label:
+    en: Latin (Fraktur variant)
+  standard_code: Latf
+- code: latg
+  label:
+    en: Latin (Gaelic variant)
+  standard_code: Latg
+- code: latn
+  label:
+    en: Latin
+    fr: Latin
+    es: Latino
+  standard_code: Latn
+  definition:
+    en: Latin script.
+- code: leke
+  label:
+    en: Leke
+  standard_code: Leke
+- code: lepc
+  label:
+    en: Lepcha (Róng)
+  standard_code: Lepc
+- code: limb
+  label:
+    en: Limbu
+  standard_code: Limb
+- code: lina
+  label:
+    en: Linear A
+  standard_code: Lina
+- code: linb
+  label:
+    en: Linear B
+  standard_code: Linb
+- code: lisu
+  label:
+    en: Lisu (Fraser)
+  standard_code: Lisu
+- code: loma
+  label:
+    en: Loma
+  standard_code: Loma
+- code: lyci
+  label:
+    en: Lycian
+  standard_code: Lyci
+- code: lydi
+  label:
+    en: Lydian
+  standard_code: Lydi
+- code: mahj
+  label:
+    en: Mahajani
+  standard_code: Mahj
+- code: maka
+  label:
+    en: Makasar
+  standard_code: Maka
+- code: mand
+  label:
+    en: Mandaic, Mandaean
+  standard_code: Mand
+- code: mani
+  label:
+    en: Manichaean
+  standard_code: Mani
+- code: marc
+  label:
+    en: Marchen
+  standard_code: Marc
+- code: maya
+  label:
+    en: Mayan hieroglyphs
+  standard_code: Maya
+- code: medf
+  label:
+    en: Medefaidrin (Oberi Okaime, Oberi Ɔkaimɛ)
+  standard_code: Medf
+- code: mend
+  label:
+    en: Mende Kikakui
+  standard_code: Mend
+- code: merc
+  label:
+    en: Meroitic Cursive
+  standard_code: Merc
+- code: mero
+  label:
+    en: Meroitic Hieroglyphs
+  standard_code: Mero
+- code: mlym
+  label:
+    en: Malayalam
+  standard_code: Mlym
+- code: modi
+  label:
+    en: Modi, Moḍī
+  standard_code: Modi
+- code: mong
+  label:
+    en: Mongolian
+  standard_code: Mong
+- code: moon
+  label:
+    en: Moon (Moon code, Moon script, Moon type)
+  standard_code: Moon
+- code: mroo
+  label:
+    en: Mro, Mru
+  standard_code: Mroo
+- code: mtei
+  label:
+    en: Meitei Mayek (Meithei, Meetei)
+  standard_code: Mtei
+- code: mult
+  label:
+    en: Multani
+  standard_code: Mult
+- code: mymr
+  label:
+    en: Myanmar (Burmese)
+  standard_code: Mymr
+- code: nagm
+  label:
+    en: Nag Mundari
+  standard_code: Nagm
+- code: nand
+  label:
+    en: Nandinagari
+  standard_code: Nand
+- code: narb
+  label:
+    en: Old North Arabian (Ancient North Arabian)
+  standard_code: Narb
+- code: nbat
+  label:
+    en: Nabataean
+  standard_code: Nbat
+- code: newa
+  label:
+    en: Newa, Newar, Newari, Nepāla lipi
+  standard_code: Newa
+- code: nkdb
+  label:
+    en: Naxi Dongba (na²¹ɕi³³ to³³ba²¹, Nakhi Tomba)
+  standard_code: Nkdb
+- code: nkgb
+  label:
+    en: Naxi Geba (na²¹ɕi³³ gʌ²¹ba²¹, 'Na-'Khi ²Ggŏ-¹baw, Nakhi Geba)
+  standard_code: Nkgb
+- code: nkoo
+  label:
+    en: N’Ko
+  standard_code: Nkoo
+- code: nshu
+  label:
+    en: Nüshu
+  standard_code: Nshu
+- code: ogam
+  label:
+    en: Ogham
+  standard_code: Ogam
+- code: olck
+  label:
+    en: Ol Chiki (Ol Cemet’, Ol, Santali)
+  standard_code: Olck
+- code: onao
+  label:
+    en: Ol Onal
+  standard_code: Onao
+- code: orkh
+  label:
+    en: Old Turkic, Orkhon Runic
+  standard_code: Orkh
+- code: orya
+  label:
+    en: Oriya (Odia)
+  standard_code: Orya
+- code: osge
+  label:
+    en: Osage
+  standard_code: Osge
+- code: osma
+  label:
+    en: Osmanya
+  standard_code: Osma
+- code: ougr
+  label:
+    en: Old Uyghur
+  standard_code: Ougr
+- code: palm
+  label:
+    en: Palmyrene
+  standard_code: Palm
+- code: pauc
+  label:
+    en: Pau Cin Hau
+  standard_code: Pauc
+- code: pcun
+  label:
+    en: Proto-Cuneiform
+  standard_code: Pcun
+- code: pelm
+  label:
+    en: Proto-Elamite
+  standard_code: Pelm
+- code: perm
+  label:
+    en: Old Permic
+  standard_code: Perm
+- code: phag
+  label:
+    en: Phags-pa
+  standard_code: Phag
+- code: phli
+  label:
+    en: Inscriptional Pahlavi
+  standard_code: Phli
+- code: phlp
+  label:
+    en: Psalter Pahlavi
+  standard_code: Phlp
+- code: phlv
+  label:
+    en: Book Pahlavi
+  standard_code: Phlv
+- code: phnx
+  label:
+    en: Phoenician
+  standard_code: Phnx
+- code: plrd
+  label:
+    en: Miao (Pollard)
+  standard_code: Plrd
+- code: piqd
+  label:
+    en: Klingon (KLI pIqaD)
+  standard_code: Piqd
+- code: prti
+  label:
+    en: Inscriptional Parthian
+  standard_code: Prti
+- code: psin
+  label:
+    en: Proto-Sinaitic
+  standard_code: Psin
+- code: qaaa
+  label:
+    en: Reserved for private use (start)
+  standard_code: Qaaa
+- code: qabx
+  label:
+    en: Reserved for private use (end)
+  standard_code: Qabx
+- code: ranj
+  label:
+    en: Ranjana
+  standard_code: Ranj
+- code: rjng
+  label:
+    en: Rejang (Redjang, Kaganga)
+  standard_code: Rjng
+- code: rohg
+  label:
+    en: Hanifi Rohingya
+  standard_code: Rohg
+- code: roro
+  label:
+    en: Rongorongo
+  standard_code: Roro
+- code: runr
+  label:
+    en: Runic
+  standard_code: Runr
+- code: samr
+  label:
+    en: Samaritan
+  standard_code: Samr
+- code: sara
+  label:
+    en: Sarati
+  standard_code: Sara
+- code: sarb
+  label:
+    en: Old South Arabian
+  standard_code: Sarb
+- code: saur
+  label:
+    en: Saurashtra
+  standard_code: Saur
+- code: seal
+  label:
+    en: (Small) Seal
+  standard_code: Seal
+- code: sgnw
+  label:
+    en: SignWriting
+  standard_code: Sgnw
+- code: shaw
+  label:
+    en: Shavian (Shaw)
+  standard_code: Shaw
+- code: shrd
+  label:
+    en: Sharada, Śāradā
+  standard_code: Shrd
+- code: shui
+  label:
+    en: Shuishu
+  standard_code: Shui
+- code: sidd
+  label:
+    en: Siddham, Siddhaṃ, Siddhamātṛkā
+  standard_code: Sidd
+- code: sidt
+  label:
+    en: Sidetic
+  standard_code: Sidt
+- code: sind
+  label:
+    en: Khudawadi, Sindhi
+  standard_code: Sind
+- code: sinh
+  label:
+    en: Sinhala
+  standard_code: Sinh
+- code: sogd
+  label:
+    en: Sogdian
+  standard_code: Sogd
+- code: sogo
+  label:
+    en: Old Sogdian
+  standard_code: Sogo
+- code: sora
+  label:
+    en: Sora Sompeng
+  standard_code: Sora
+- code: soyo
+  label:
+    en: Soyombo
+  standard_code: Soyo
+- code: sund
+  label:
+    en: Sundanese
+  standard_code: Sund
+- code: sunu
+  label:
+    en: Sunuwar
+  standard_code: Sunu
+- code: sylo
+  label:
+    en: Syloti Nagri
+  standard_code: Sylo
+- code: syrc
+  label:
+    en: Syriac
+  standard_code: Syrc
+- code: syre
+  label:
+    en: Syriac (Estrangelo variant)
+  standard_code: Syre
+- code: syrj
+  label:
+    en: Syriac (Western variant)
+  standard_code: Syrj
+- code: syrn
+  label:
+    en: Syriac (Eastern variant)
+  standard_code: Syrn
+- code: tagb
+  label:
+    en: Tagbanwa
+  standard_code: Tagb
+- code: takr
+  label:
+    en: Takri, Ṭākrī, Ṭāṅkrī
+  standard_code: Takr
+- code: tale
+  label:
+    en: Tai Le
+  standard_code: Tale
+- code: talu
+  label:
+    en: New Tai Lue
+  standard_code: Talu
+- code: taml
+  label:
+    en: Tamil
+  standard_code: Taml
+- code: tang
+  label:
+    en: Tangut
+  standard_code: Tang
+- code: tavt
+  label:
+    en: Tai Viet
+  standard_code: Tavt
+- code: tayo
+  label:
+    en: Tai Yo
+  standard_code: Tayo
+- code: telu
+  label:
+    en: Telugu
+  standard_code: Telu
+- code: teng
+  label:
+    en: Tengwar
+  standard_code: Teng
+- code: tfng
+  label:
+    en: Tifinagh (Berber)
+  standard_code: Tfng
+- code: tglg
+  label:
+    en: Tagalog (Baybayin, Alibata)
+  standard_code: Tglg
+- code: thaa
+  label:
+    en: Thaana
+  standard_code: Thaa
+- code: thai
+  label:
+    en: Thai
+  standard_code: Thai
+- code: tibt
+  label:
+    en: Tibetan
+  standard_code: Tibt
+- code: tirh
+  label:
+    en: Tirhuta
+  standard_code: Tirh
+- code: tnsa
+  label:
+    en: Tangsa
+  standard_code: Tnsa
+- code: todr
+  label:
+    en: Todhri
+  standard_code: Todr
+- code: tols
+  label:
+    en: Tolong Siki
+  standard_code: Tols
+- code: toto
+  label:
+    en: Toto
+  standard_code: Toto
+- code: tutg
+  label:
+    en: Tulu-Tigalari
+  standard_code: Tutg
+- code: ugar
+  label:
+    en: Ugaritic
+  standard_code: Ugar
+- code: vaii
+  label:
+    en: Vai
+  standard_code: Vaii
+- code: visp
+  label:
+    en: Visible Speech
+  standard_code: Visp
+- code: vith
+  label:
+    en: Vithkuqi
+  standard_code: Vith
+- code: wara
+  label:
+    en: Warang Citi (Varang Kshiti)
+  standard_code: Wara
+- code: wcho
+  label:
+    en: Wancho
+  standard_code: Wcho
+- code: wole
+  label:
+    en: Woleai
+  standard_code: Wole
+- code: xpeo
+  label:
+    en: Old Persian
+  standard_code: Xpeo
+- code: xsux
+  label:
+    en: Cuneiform, Sumero-Akkadian
+  standard_code: Xsux
+- code: yezi
+  label:
+    en: Yezidi
+  standard_code: Yezi
+- code: yiii
+  label:
+    en: Yi
+  standard_code: Yiii
+- code: zanb
+  label:
+    en: Zanabazar Square (Zanabazarin Dörböljin Useg, Xewtee Dörböljin Bicig, Horizontal Square Script)
+  standard_code: Zanb
+- code: zinh
+  label:
+    en: Code for inherited script
+  standard_code: Zinh
+- code: zmth
+  label:
+    en: Mathematical notation
+  standard_code: Zmth
+- code: zsye
+  label:
+    en: Symbols (Emoji variant)
+  standard_code: Zsye
+- code: zsym
+  label:
+    en: Symbols
+  standard_code: Zsym
+- code: zxxx
+  label:
+    en: Code for unwritten documents
+  standard_code: Zxxx
+- code: zyyy
+  label:
+    en: Code for undetermined script
+  standard_code: Zyyy
+- code: zzzz
+  label:
+    en: Code for uncoded script
+  standard_code: Zzzz

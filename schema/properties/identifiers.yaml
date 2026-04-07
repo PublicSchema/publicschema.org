@@ -1,0 +1,18 @@
+id: identifiers
+maturity: draft
+
+definition:
+  en: "Unique identifiers assigned to this person (national ID, program ID, etc.)."
+  fr: "Identifiants uniques attribues a cette personne (identifiant national, identifiant de programme, etc.)."
+  es: "Identificadores unicos asignados a esta persona (identificacion nacional, identificacion de programa, etc.)."
+
+type: concept:Identifier
+cardinality: multiple
+vocabulary: null
+references: Identifier
+data_classification: personal
+
+convergence:
+  system_count: 5
+  total_systems: 6
+  notes: "Present in 5 of 6 mapped systems. Structural approaches vary: some embed identifiers inline on the person record, others maintain a separate identifier entity."

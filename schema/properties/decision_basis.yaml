@@ -1,0 +1,18 @@
+id: decision_basis
+maturity: draft
+
+definition:
+  en: "The assessment event, score, or administrative rule that formed the basis for the decision."
+  fr: "L'événement d'évaluation, le score ou la règle administrative ayant constitué la base de la décision."
+  es: "El evento de evaluación, puntuación o regla administrativa que formó la base de la decisión."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+domain_override: null
+data_classification: personal
+
+convergence:
+  system_count: 1
+  total_systems: 2

@@ -1,0 +1,41 @@
+id: Enrollment
+maturity: draft
+domain: sp
+
+definition:
+  en: >
+    The administrative process of registering an eligible individual or household
+    as an active beneficiary of a program. Enrollment activates benefit delivery
+    and creates the link between the beneficiary and the program.
+  fr: >
+    Le processus administratif d'intégration d'un sujet éligible en tant que
+    bénéficiaire actif d'un programme. Les contraintes budgétaires signifient que
+    l'éligibilité ne garantit pas l'inscription.
+  es: >
+    El proceso administrativo de incorporación de un sujeto elegible como
+    beneficiario activo de un programa. Las restricciones presupuestarias
+    significan que la elegibilidad no garantiza la inscripción.
+
+properties:
+  - beneficiary
+  - program_ref
+  - eligibility_decision_ref
+  - enrollment_status
+  - enrollment_date
+  - exit_date
+  - start_date
+  - end_date
+  - is_active
+  - governing_jurisdiction
+
+subtypes: []
+supertypes: []
+
+convergence:
+  system_count: 6
+  total_systems: 6
+  notes: >
+    Universal across all 6 mapped systems. EBSI PDA1 (Portable Document A1
+    for cross-border social security coordination) informed the
+    governing_jurisdiction property for explicit jurisdiction tracking in
+    federated or cross-border contexts.

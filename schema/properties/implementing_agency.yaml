@@ -1,0 +1,17 @@
+id: implementing_agency
+maturity: draft
+
+definition:
+  en: "The government ministry or organization responsible for program administration."
+  fr: "Le ministère gouvernemental ou l'organisation responsable de l'administration du programme."
+  es: "El ministerio gubernamental u organización responsable de la administración del programa."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+data_classification: non_personal
+
+convergence:
+  system_count: 2
+  total_systems: 4

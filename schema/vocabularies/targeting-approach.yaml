@@ -1,0 +1,78 @@
+id: targeting-approach
+maturity: draft
+
+definition:
+  en: "The methods used to identify and select eligible beneficiaries for a social protection program."
+  fr: "Les méthodes utilisées pour identifier et sélectionner les bénéficiaires éligibles à un programme de protection sociale."
+  es: "Los métodos utilizados para identificar y seleccionar a los beneficiarios elegibles de un programa de protección social."
+
+values:
+  - code: means_tested
+    label:
+      en: Means tested
+      fr: Sous condition de ressources
+      es: Con verificación de medios
+    definition:
+      en: "Eligibility based on verified income or asset assessment."
+      fr: "Éligibilité basée sur une évaluation vérifiée des revenus ou des actifs."
+      es: "Elegibilidad basada en una evaluación verificada de ingresos o activos."
+
+  - code: proxy_means_tested
+    label:
+      en: Proxy means tested
+      fr: Test par approximation du niveau de vie
+      es: Prueba de medios por aproximación
+    definition:
+      en: "Eligibility based on a statistical model predicting welfare from observable household characteristics."
+      fr: "Éligibilité basée sur un modèle statistique prédisant le bien-être à partir de caractéristiques observables du ménage."
+      es: "Elegibilidad basada en un modelo estadístico que predice el bienestar a partir de características observables del hogar."
+
+  - code: categorical
+    label:
+      en: Categorical
+      fr: Catégoriel
+      es: Categórico
+    definition:
+      en: "Eligibility based on demographic category such as age, disability, pregnancy, or orphanhood."
+      fr: "Éligibilité basée sur une catégorie démographique telle que l'âge, le handicap, la grossesse ou l'état d'orphelin."
+      es: "Elegibilidad basada en una categoría demográfica como edad, discapacidad, embarazo o orfandad."
+
+  - code: geographic
+    label:
+      en: Geographic
+      fr: Géographique
+      es: Geográfico
+    definition:
+      en: "Eligibility based on residence in a defined geographic area."
+      fr: "Éligibilité basée sur la résidence dans une zone géographique définie."
+      es: "Elegibilidad basada en la residencia en un área geográfica definida."
+
+  - code: universal
+    label:
+      en: Universal
+      fr: Universel
+      es: Universal
+    definition:
+      en: "Available to all individuals within a defined population, regardless of income or other characteristics."
+      fr: "Accessible à tous les individus au sein d'une population définie, indépendamment du revenu ou d'autres caractéristiques."
+      es: "Disponible para todos los individuos dentro de una población definida, independientemente de los ingresos u otras características."
+
+  - code: community_based
+    label:
+      en: Community based
+      fr: Basé sur la communauté
+      es: Basado en la comunidad
+    definition:
+      en: "The community selects beneficiaries based on local knowledge of relative welfare."
+      fr: "La communauté sélectionne les bénéficiaires en se basant sur la connaissance locale du bien-être relatif."
+      es: "La comunidad selecciona a los beneficiarios basándose en el conocimiento local del bienestar relativo."
+
+  - code: self_targeting
+    label:
+      en: Self targeting
+      fr: Auto-ciblage
+      es: Auto-focalización
+    definition:
+      en: "Program design deters non-poor participation, typically by setting wages below market rate or requiring time-intensive participation."
+      fr: "La conception du programme décourage la participation des non-pauvres, généralement en fixant des salaires inférieurs au taux du marché ou en exigeant une participation intensive en temps."
+      es: "El diseño del programa desincentiva la participación de los no pobres, típicamente fijando salarios por debajo de la tasa de mercado o exigiendo una participación que requiere mucho tiempo."
