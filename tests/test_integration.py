@@ -8,6 +8,7 @@ import json
 from pathlib import Path
 
 import jsonschema
+import pytest
 from pyld import jsonld
 
 from tests.conftest import SCHEMA_DIR
@@ -17,6 +18,94 @@ from build.validate import validate_schema_dir
 
 V2_ROOT = Path(__file__).parent.parent
 EXAMPLES_DIR = V2_ROOT / "examples"
+
+# VC context URL used in the examples
+_VC_CONTEXT_URL = "https://www.w3.org/ns/credentials/v2"
+
+# Minimal W3C VC Data Model 2.0 context stub -- enough for the terms used in
+# our examples. This avoids network calls during testing.
+_VC_CONTEXT_STUB = {
+    "@context": {
+        "@version": 1.1,
+        "@protected": True,
+        "id": "@id",
+        "type": "@type",
+        "VerifiableCredential": {
+            "@id": "https://www.w3.org/2018/credentials#VerifiableCredential",
+        },
+        "credentialSubject": {
+            "@id": "https://www.w3.org/2018/credentials#credentialSubject",
+            "@type": "@id",
+        },
+        "issuer": {
+            "@id": "https://www.w3.org/2018/credentials#issuer",
+            "@type": "@id",
+        },
+        "validFrom": {
+            "@id": "https://www.w3.org/2018/credentials#validFrom",
+            "@type": "http://www.w3.org/2001/XMLSchema#dateTime",
+        },
+        "validUntil": {
+            "@id": "https://www.w3.org/2018/credentials#validUntil",
+            "@type": "http://www.w3.org/2001/XMLSchema#dateTime",
+        },
+        "credentialSchema": {
+            "@id": "https://www.w3.org/2018/credentials#credentialSchema",
+            "@type": "@id",
+        },
+        "credentialStatus": {
+            "@id": "https://www.w3.org/2018/credentials#credentialStatus",
+            "@type": "@id",
+        },
+    }
+}
+
+
+def _make_document_loader():
+    """Return a pyld document loader that stubs the W3C VC context URL."""
+    from pyld import jsonld as _jsonld
+
+    def loader(url, options):
+        if url == _VC_CONTEXT_URL:
+            return {
+                "document": _VC_CONTEXT_STUB,
+                "documentUrl": url,
+                "contextUrl": None,
+                "contentType": "application/ld+json",
+            }
+        raise _jsonld.JsonLdError(
+            f"No document loader for URL: {url}",
+            "jsonld.LoadDocumentError",
+            {"url": url},
+            code="loading remote context failed",
+        )
+
+    return loader
+
+
+def _classify_example(path: Path) -> str:
+    """Return "vc", "sd-jwt", or "unknown" based on file content and name."""
+    if "-sd" in path.name:
+        return "sd-jwt"
+    try:
+        data = json.loads(path.read_text())
+    except (json.JSONDecodeError, OSError):
+        return "unknown"
+    if "@context" in data and "credentialSubject" in data:
+        return "vc"
+    return "unknown"
+
+
+def _all_example_paths() -> list[Path]:
+    """Return all example JSON file paths, sorted for stable ordering."""
+    return sorted(EXAMPLES_DIR.glob("*.json"))
+
+
+def _example_params(paths: list[Path] | None = None):
+    """Collect pytest.param entries for the given paths (defaults to all)."""
+    if paths is None:
+        paths = _all_example_paths()
+    return [pytest.param(p, id=p.name) for p in paths]
 
 
 class TestRealSchema:
@@ -90,38 +179,92 @@ class TestRealSchema:
         assert "EnrollmentCredential" in cred_schemas
         assert "PaymentCredential" in cred_schemas
 
-    def test_example_vcs_validate_against_schemas(self):
-        """All example VC JSON files validate against their credential schemas."""
-        result = build_vocabulary(SCHEMA_DIR)
-        cred_schemas = result["credential_schemas"]
+    @pytest.mark.parametrize("example_path", _example_params(_all_example_paths()))
+    def test_example_validates(self, example_path: Path):
+        """Each example file validates against its credential schema (VC) or
+        has the correct SD-JWT structure."""
+        kind = _classify_example(example_path)
+        example = json.loads(example_path.read_text())
 
-        examples = {
-            "identity-credential.json": "IdentityCredential",
-            "enrollment-credential.json": "EnrollmentCredential",
-            "payment-credential.json": "PaymentCredential",
-        }
-        for filename, cred_type in examples.items():
-            example_path = EXAMPLES_DIR / filename
-            assert example_path.exists(), f"Example file not found: {filename}"
-            example = json.loads(example_path.read_text())
-            schema = cred_schemas[cred_type]
+        if kind == "vc":
+            result = build_vocabulary(SCHEMA_DIR)
+            cred_schemas = result["credential_schemas"]
+
+            # Find the credential type: the entry in "type" that is not "VerifiableCredential"
+            type_list = example.get("type", [])
+            cred_type = next(
+                (t for t in type_list if t != "VerifiableCredential"),
+                None,
+            )
+            assert cred_type is not None, (
+                f"{example_path.name}: could not determine credential type from {type_list}"
+            )
+            assert cred_type in cred_schemas, (
+                f"{example_path.name}: no credential schema found for type '{cred_type}'"
+            )
             jsonschema.validate(
-                example, schema,
+                example,
+                cred_schemas[cred_type],
                 format_checker=jsonschema.FormatChecker(),
             )
 
-    def test_sd_jwt_example_has_correct_format(self):
-        """SD-JWT example has iss/vct/_sd_alg and no @context at top level."""
-        sd_path = EXAMPLES_DIR / "enrollment-credential-sd.json"
-        assert sd_path.exists(), "SD-JWT example file not found"
-        sd = json.loads(sd_path.read_text())
-        assert "iss" in sd
-        assert "vct" in sd
-        assert "_sd_alg" in sd
-        assert "sub" in sd
-        assert "cnf" in sd
-        assert "@context" not in sd
-        assert "type" not in sd
+        elif kind == "sd-jwt":
+            assert "iss" in example, f"{example_path.name}: missing 'iss'"
+            assert "vct" in example, f"{example_path.name}: missing 'vct'"
+            assert "_sd_alg" in example, f"{example_path.name}: missing '_sd_alg'"
+            assert "sub" in example, f"{example_path.name}: missing 'sub'"
+            assert "cnf" in example, f"{example_path.name}: missing 'cnf'"
+            assert "@context" not in example, (
+                f"{example_path.name}: SD-JWT must not have '@context'"
+            )
+            assert "type" not in example, (
+                f"{example_path.name}: SD-JWT must not have 'type'"
+            )
+
+        else:
+            pytest.skip(f"{example_path.name}: unrecognized file type, skipping")
+
+    @pytest.mark.parametrize(
+        "example_path",
+        _example_params([p for p in _all_example_paths() if _classify_example(p) == "vc"]),
+    )
+    def test_vc_examples_expand_with_jsonld(self, example_path: Path):
+        """VC examples expand correctly using the generated JSON-LD context."""
+        result = build_vocabulary(SCHEMA_DIR)
+        ps_context = result["context"]["@context"]
+
+        example = json.loads(example_path.read_text())
+
+        # Replace every non-VC context entry with the inline PS context dict so
+        # expansion works without any HTTP fetches. The VC context URL is kept
+        # so the stub document loader can serve it.
+        original_ctx = example.get("@context", [])
+        inline_ctx = [
+            _VC_CONTEXT_URL if entry == _VC_CONTEXT_URL else ps_context
+            for entry in original_ctx
+        ]
+        example["@context"] = inline_ctx
+
+        expanded = jsonld.expand(example, {"documentLoader": _make_document_loader()})
+        assert len(expanded) >= 1, (
+            f"{example_path.name}: JSON-LD expansion produced no results"
+        )
+
+        credential = expanded[0]
+
+        # credentialSubject properties should resolve to full URIs, not compact keys
+        cs_key = "https://www.w3.org/2018/credentials#credentialSubject"
+        assert cs_key in credential, (
+            f"{example_path.name}: credentialSubject did not expand to a full URI"
+        )
+        subject = credential[cs_key][0]
+        # Every key in the expanded subject should be a full URI (no bare property names)
+        for key in subject:
+            if key == "@type" or key == "@id":
+                continue
+            assert key.startswith("http"), (
+                f"{example_path.name}: property '{key}' did not expand to a full URI"
+            )
 
     def test_jsonld_expansion_resolves_properties(self):
         """JSON-LD expansion using the generated context resolves property URIs."""
