@@ -210,16 +210,7 @@ code {
 .site-nav .site-logo .logo-mark {
   width: 2rem;
   height: 2rem;
-  background: var(--color-accent);
   border-radius: var(--radius-sm);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 0.75rem;
-  letter-spacing: 0.02em;
 }
 
 .site-nav .site-title {
