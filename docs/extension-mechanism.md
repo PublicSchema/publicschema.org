@@ -15,7 +15,7 @@ Use a second `@context` entry with your own namespace:
 ```json
 {
   "@context": [
-    "https://publicschema.org/ctx/v0.1",
+    "https://publicschema.org/ctx/v0.1.jsonld",
     {
       "myorg": "https://data.myorg.gov/ns/",
       "beneficiary_category": "myorg:beneficiary_category",
@@ -42,7 +42,7 @@ If a PublicSchema vocabulary does not cover your system's codes, extend it:
 ```json
 {
   "@context": [
-    "https://publicschema.org/ctx/v0.1",
+    "https://publicschema.org/ctx/v0.1.jsonld",
     {
       "myorg": "https://data.myorg.gov/ns/"
     }
@@ -63,7 +63,7 @@ Define your concept in your own namespace:
 ```json
 {
   "@context": [
-    "https://publicschema.org/ctx/v0.1",
+    "https://publicschema.org/ctx/v0.1.jsonld",
     {
       "myorg": "https://data.myorg.gov/ns/",
       "CaseManagementRecord": "myorg:CaseManagementRecord",

@@ -19,7 +19,7 @@ Add the PublicSchema context to your JSON-LD documents:
 
 ```json
 {
-  "@context": "https://publicschema.org/ctx/v0.1",
+  "@context": "https://publicschema.org/ctx/v0.1.jsonld",
   "type": "Person",
   "given_name": "Amina",
   "family_name": "Diallo",
@@ -67,12 +67,26 @@ Use PublicSchema credential types to issue VCs:
 {
   "@context": [
     "https://www.w3.org/ns/credentials/v2",
-    "https://publicschema.org/ctx/v0.1"
+    "https://publicschema.org/ctx/v0.1.jsonld"
   ],
+  "id": "urn:uuid:b2c3d4e5-f6a7-8901-bcde-f12345678901",
   "type": ["VerifiableCredential", "EnrollmentCredential"],
   "issuer": "did:web:your-system.example.gov",
   "validFrom": "2025-01-15T00:00:00Z",
+  "validUntil": "2026-01-15T00:00:00Z",
+  "credentialSchema": {
+    "id": "https://publicschema.org/schemas/credentials/EnrollmentCredential.schema.json",
+    "type": "JsonSchema"
+  },
+  "credentialStatus": {
+    "id": "https://your-system.example.gov/credentials/status/1#42",
+    "type": "BitstringStatusListEntry",
+    "statusPurpose": "revocation",
+    "statusListIndex": "42",
+    "statusListCredential": "https://your-system.example.gov/credentials/status/1"
+  },
   "credentialSubject": {
+    "id": "did:web:your-system.example.gov:persons:4421",
     "type": "Person",
     "given_name": "Amina",
     "family_name": "Diallo",
@@ -80,7 +94,6 @@ Use PublicSchema credential types to issue VCs:
       "type": "Enrollment",
       "program_ref": "https://your-system.example.gov/programs/cash-transfer",
       "enrollment_status": "active",
-      "beneficiary": "did:web:your-system.example.gov:persons:4421",
       "enrollment_date": "2025-01-15"
     }
   }
@@ -117,7 +130,7 @@ system_mappings:
 
 | Artifact | URL | Description |
 |---|---|---|
-| JSON-LD Context | `/ctx/v0.1` | Map property names to URIs |
+| JSON-LD Context | `/ctx/v0.1.jsonld` | Map property names to URIs |
 | Vocabulary JSON | `/vocabulary.json` | Full vocabulary with all concepts, properties, vocabularies |
 | Concept Schemas | `/schemas/{Concept}.schema.json` | JSON Schema per concept |
 | Credential Schemas | `/schemas/credentials/{Type}.schema.json` | VC-envelope JSON Schema per credential type |

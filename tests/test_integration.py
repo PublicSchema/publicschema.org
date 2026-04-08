@@ -110,6 +110,19 @@ class TestRealSchema:
                 format_checker=jsonschema.FormatChecker(),
             )
 
+    def test_sd_jwt_example_has_correct_format(self):
+        """SD-JWT example has iss/vct/_sd_alg and no @context at top level."""
+        sd_path = EXAMPLES_DIR / "enrollment-credential-sd.json"
+        assert sd_path.exists(), "SD-JWT example file not found"
+        sd = json.loads(sd_path.read_text())
+        assert "iss" in sd
+        assert "vct" in sd
+        assert "_sd_alg" in sd
+        assert "sub" in sd
+        assert "cnf" in sd
+        assert "@context" not in sd
+        assert "type" not in sd
+
     def test_jsonld_expansion_resolves_properties(self):
         """JSON-LD expansion using the generated context resolves property URIs."""
         result = build_vocabulary(SCHEMA_DIR)

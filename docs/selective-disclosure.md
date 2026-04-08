@@ -67,11 +67,15 @@ An SD-JWT VC separates always-disclosed claims from selectively disclosable ones
 ```json
 {
   "iss": "did:web:registry.example.gov.sn",
+  "sub": "did:web:registry.example.gov.sn:persons:4421",
   "iat": 1706745600,
+  "nbf": 1706745600,
+  "exp": 1738435200,
   "vct": "https://publicschema.org/schemas/credentials/EnrollmentCredential",
   "_sd_alg": "sha-256",
-
-  "type": ["VerifiableCredential", "EnrollmentCredential"],
+  "cnf": {
+    "jwk": { "kty": "EC", "crv": "P-256", "x": "...", "y": "..." }
+  },
 
   "credentialSubject": {
     "type": "Person",
@@ -94,6 +98,8 @@ An SD-JWT VC separates always-disclosed claims from selectively disclosable ones
   }
 }
 ```
+
+Note: SD-JWT VC payloads do not include `@context` or `type` arrays at the top level. These are W3C VCDM properties; SD-JWT VC uses `vct` (verifiable credential type) instead. The `cnf` claim binds the credential to the holder's key for key binding proof.
 
 The `_sd` array contains hashes of the disclosable claims. The actual values are provided separately as disclosures that the holder can choose to include or omit when presenting the credential.
 

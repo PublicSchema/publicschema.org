@@ -510,8 +510,8 @@ def build_vocabulary(schema_dir: Path) -> dict:
                 }
                 if "required" in nested:
                     nested_obj["required"] = nested["required"]
-                # Use lowercase concept name as the property key
-                subject_props[included_id[0].lower() + included_id[1:]] = nested_obj
+                # Use snake_case concept name as the property key
+                subject_props[_to_snake_case(included_id)] = nested_obj
 
         # Build VC envelope schema
         credential_schema = {
@@ -519,16 +519,36 @@ def build_vocabulary(schema_dir: Path) -> dict:
             "$id": f"{base_uri}schemas/credentials/{cred_id}.schema.json",
             "title": cred_id,
             "type": "object",
+            "required": ["@context", "type", "issuer", "credentialSubject"],
             "properties": {
                 "@context": {
                     "type": "array",
-                    "items": {"type": "string"},
+                    "prefixItems": [
+                        {"const": "https://www.w3.org/ns/credentials/v2"},
+                    ],
+                    "items": {
+                        "oneOf": [
+                            {"type": "string"},
+                            {"type": "object"},
+                        ],
+                    },
                 },
+                "id": {"type": "string"},
                 "type": {
                     "type": "array",
                     "items": {"type": "string"},
                     "contains": {"const": cred_id},
                 },
+                "issuer": {
+                    "oneOf": [
+                        {"type": "string"},
+                        {"type": "object"},
+                    ],
+                },
+                "validFrom": {"type": "string", "format": "date-time"},
+                "validUntil": {"type": "string", "format": "date-time"},
+                "credentialSchema": {"type": "object"},
+                "credentialStatus": {"type": "object"},
                 "credentialSubject": {
                     "type": "object",
                     "properties": subject_props,

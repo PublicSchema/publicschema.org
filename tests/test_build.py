@@ -654,7 +654,7 @@ class TestCredentialSchemas:
     def test_credential_schema_wraps_concept_in_vc_envelope(
         self, tmp_schema, write_concept, write_property, write_credential
     ):
-        """Credential schema has VC envelope: type array, credentialSubject with concept properties."""
+        """Credential schema has VC envelope with required fields and concept properties."""
         write_property("name.yaml", make_property(id="name"))
         write_concept("person.yaml", make_concept(
             id="Person", properties=["name"],
@@ -673,9 +673,15 @@ class TestCredentialSchemas:
         assert "$schema" in schema
         assert schema["title"] == "IdentityCredential"
 
+        # Required fields
+        assert "required" in schema
+        assert "@context" in schema["required"]
+        assert "issuer" in schema["required"]
+
         # VC envelope structure
         props = schema["properties"]
         assert "type" in props
+        assert "issuer" in props
         assert "credentialSubject" in props
 
         # credentialSubject has the concept's properties
@@ -732,12 +738,81 @@ class TestCredentialSchemas:
                 "https://test.example.org/ctx/v0.1.jsonld",
             ],
             "type": ["VerifiableCredential", "IdentityCredential"],
+            "issuer": "did:web:example.gov",
             "credentialSubject": {
                 "type": "Person",
                 "name": "Amina Diallo",
             },
         }
         jsonschema.validate(example, schema)
+
+    def test_credential_schema_rejects_missing_required_fields(
+        self, tmp_schema, write_concept, write_property, write_credential
+    ):
+        """A document without @context or issuer fails validation."""
+        write_property("name.yaml", make_property(id="name"))
+        write_concept("person.yaml", make_concept(
+            id="Person", properties=["name"],
+        ))
+        write_credential("identity.yaml", make_credential(
+            id="IdentityCredential", subject_concept="Person",
+        ))
+        result = build_vocabulary(tmp_schema)
+        schema = result["credential_schemas"]["IdentityCredential"]
+
+        # Missing @context and issuer
+        bad_example = {
+            "type": ["VerifiableCredential", "IdentityCredential"],
+            "credentialSubject": {"name": "Test"},
+        }
+        with pytest.raises(jsonschema.ValidationError):
+            jsonschema.validate(bad_example, schema)
+
+    def test_credential_schema_rejects_wrong_context_first_element(
+        self, tmp_schema, write_concept, write_property, write_credential
+    ):
+        """@context with wrong first element fails validation."""
+        write_property("name.yaml", make_property(id="name"))
+        write_concept("person.yaml", make_concept(
+            id="Person", properties=["name"],
+        ))
+        write_credential("identity.yaml", make_credential(
+            id="IdentityCredential", subject_concept="Person",
+        ))
+        result = build_vocabulary(tmp_schema)
+        schema = result["credential_schemas"]["IdentityCredential"]
+
+        bad_example = {
+            "@context": ["https://wrong.example.com"],
+            "type": ["VerifiableCredential", "IdentityCredential"],
+            "issuer": "did:web:example.gov",
+            "credentialSubject": {"name": "Test"},
+        }
+        with pytest.raises(jsonschema.ValidationError):
+            jsonschema.validate(bad_example, schema)
+
+    def test_credential_schema_snake_case_nested_key(
+        self, tmp_schema, write_concept, write_property, write_credential
+    ):
+        """Multi-word included concept uses snake_case key (PaymentEvent -> payment_event)."""
+        write_property("name.yaml", make_property(id="name"))
+        write_property("amount.yaml", make_property(id="amount", type="decimal"))
+        write_concept("person.yaml", make_concept(
+            id="Person", properties=["name"],
+        ))
+        write_concept("payment_event.yaml", make_concept(
+            id="PaymentEvent", properties=["amount"],
+        ))
+        write_credential("payment.yaml", make_credential(
+            id="PaymentCredential",
+            subject_concept="Person",
+            included_concepts=["PaymentEvent"],
+        ))
+        result = build_vocabulary(tmp_schema)
+        schema = result["credential_schemas"]["PaymentCredential"]
+        subject_props = schema["properties"]["credentialSubject"]["properties"]
+        assert "payment_event" in subject_props
+        assert "paymentEvent" not in subject_props
 
 
 # ---------------------------------------------------------------------------
