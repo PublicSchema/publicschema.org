@@ -825,6 +825,29 @@ class TestCredentialSchemas:
         with pytest.raises(jsonschema.ValidationError):
             jsonschema.validate(bad_example, schema)
 
+    def test_credential_schema_rejects_empty_context_array(
+        self, tmp_schema, write_concept, write_property, write_credential
+    ):
+        """An empty @context array fails validation (minItems)."""
+        write_property("name.yaml", make_property(id="name"))
+        write_concept("person.yaml", make_concept(
+            id="Person", properties=["name"],
+        ))
+        write_credential("identity.yaml", make_credential(
+            id="IdentityCredential", subject_concept="Person",
+        ))
+        result = build_vocabulary(tmp_schema)
+        schema = result["credential_schemas"]["IdentityCredential"]
+
+        bad_example = {
+            "@context": [],
+            "type": ["VerifiableCredential", "IdentityCredential"],
+            "issuer": "did:web:example.gov",
+            "credentialSubject": {"name": "Test"},
+        }
+        with pytest.raises(jsonschema.ValidationError):
+            jsonschema.validate(bad_example, schema)
+
     def test_credential_schema_rejects_wrong_context_first_element(
         self, tmp_schema, write_concept, write_property, write_credential
     ):
@@ -1105,6 +1128,24 @@ class TestJsonLdDocuments:
         dist = tmp_path / "dist"
         write_outputs(result, dist)
         assert (dist / "jsonld" / "sp" / "Enrollment.jsonld").exists()
+
+    def test_vocabulary_jsonld_domain_specific_uses_flat_path(
+        self, tmp_schema, write_concept, write_property, write_vocabulary
+    ):
+        """Domain-specific vocabulary JSON-LD is keyed under vocab/ (no domain segment)."""
+        write_vocabulary("estatus.yaml", make_vocabulary(id="estatus"))
+        write_property("enrollment_status.yaml", make_property(
+            id="enrollment_status", vocabulary="estatus",
+        ))
+        write_concept("enrollment.yaml", make_concept(
+            id="Enrollment", domain="sp", properties=["enrollment_status"],
+        ))
+        result = build_vocabulary(tmp_schema)
+        # Key should be flat vocab/ path so Astro endpoint can find it
+        assert "vocab/estatus.jsonld" in result["jsonld_docs"]
+        # The @id still contains the domain
+        doc = result["jsonld_docs"]["vocab/estatus.jsonld"]
+        assert "/sp/vocab/estatus" in doc["@id"]
 
 
 # ---------------------------------------------------------------------------

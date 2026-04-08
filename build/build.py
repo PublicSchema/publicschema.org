@@ -534,6 +534,7 @@ def build_vocabulary(schema_dir: Path) -> dict:
             "properties": {
                 "@context": {
                     "type": "array",
+                    "minItems": 2,
                     "prefixItems": [
                         {"const": "https://www.w3.org/ns/credentials/v2"},
                     ],
@@ -591,8 +592,10 @@ def build_vocabulary(schema_dir: Path) -> dict:
         )
 
     for vocab_id, vocab_out in out_vocabularies.items():
-        vocab_ns = vocab_out.get("domain")
-        key = f"{vocab_ns}/vocab/{vocab_id}.jsonld" if vocab_ns else f"vocab/{vocab_id}.jsonld"
+        # Always use flat vocab/ path regardless of domain so Astro endpoints
+        # can resolve files without needing domain lookup. The domain is
+        # already encoded in the vocabulary's @id URI.
+        key = f"vocab/{vocab_id}.jsonld"
         jsonld_docs[key] = _vocabulary_to_jsonld(
             vocab_out, vocabularies_raw[vocab_id], context_url,
         )
