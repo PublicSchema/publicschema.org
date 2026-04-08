@@ -11,29 +11,28 @@ const conceptsByDomain = Object.fromEntries(domainCodes.map((d) => [d, concepts.
 const properties = Object.values(vocab.properties).sort((a, b) => a.id.localeCompare(b.id));
 const vocabularies = Object.values(vocab.vocabularies).sort((a, b) => a.id.localeCompare(b.id));
 ---
-<Base title="Home" description="A shared data vocabulary for government service delivery.">
+<Base title="Home" description="Common definitions for public service delivery.">
   <div class="hero">
     <h1>PublicSchema</h1>
     <p>
-      A schema.org-style vocabulary of concepts, properties, and controlled value
-      sets for government service delivery. Starting with social protection,
-      extending to broader government services over time.
+      Common definitions for public service delivery. Built so programs can
+      coordinate, share data, and reach the people they serve.
     </p>
   </div>
 
   <div class="stat-bar">
-    <div class="stat-item">
+    <a href="/concepts/" class="stat-item">
       <span class="stat-number">{concepts.length}</span>
       <span class="stat-label">Concepts</span>
-    </div>
-    <div class="stat-item">
+    </a>
+    <a href="/properties/" class="stat-item">
       <span class="stat-number">{properties.length}</span>
       <span class="stat-label">Properties</span>
-    </div>
-    <div class="stat-item">
+    </a>
+    <a href="/vocab/" class="stat-item">
       <span class="stat-number">{vocabularies.length}</span>
       <span class="stat-label">Vocabularies</span>
-    </div>
+    </a>
   </div>
 
   <h2>Core Concepts</h2>

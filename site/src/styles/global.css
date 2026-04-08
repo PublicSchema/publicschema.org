@@ -102,6 +102,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
 }
 
 /* ----------------------------------------------------------------
@@ -142,8 +143,10 @@ code {
 
 .site-container {
   max-width: var(--max-width);
+  width: 100%;
   margin: 0 auto;
   padding: 0 var(--space-lg);
+  box-sizing: border-box;
 }
 
 .content-container {
@@ -619,6 +622,16 @@ article .data-table {
 
 .stat-item {
   text-align: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.stat-item:hover .stat-number {
+  color: var(--color-accent-hover);
+}
+
+.stat-item:hover .stat-label {
+  color: var(--color-accent);
 }
 
 .stat-number {
@@ -1213,6 +1226,15 @@ article .table-scroll .data-table {
   article {
     display: flex;
     flex-direction: column;
+    max-width: 100%;
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  /* Prevent flex children from pushing article wider than viewport */
+  article > * {
+    min-width: 0;
+    max-width: 100%;
   }
 
   /* Push download links to end of article on mobile */
@@ -1306,6 +1328,46 @@ article .table-scroll .data-table {
 
   .site-nav .site-title-sub {
     display: none;
+  }
+
+  /* Prevent horizontal overflow in content areas */
+  main.site-container {
+    overflow-x: hidden;
+  }
+
+  /* Disable data-table breakout on mobile */
+  article .data-table {
+    width: 100%;
+    max-width: 100%;
+    position: static;
+    left: auto;
+    transform: none;
+  }
+
+  /* Doc content: break long words and code on mobile */
+  .doc-content {
+    overflow-wrap: anywhere;
+  }
+
+  .doc-content code {
+    word-break: break-all;
+  }
+
+  .doc-content pre {
+    max-width: 100%;
+  }
+
+  /* Doc tables: horizontal scroll on mobile */
+  .doc-content table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .doc-content th,
+  .doc-content td {
+    white-space: nowrap;
+    padding: 0.5rem 0.75rem;
   }
 }
 
