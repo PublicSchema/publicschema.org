@@ -145,6 +145,16 @@ PublicSchema declares equivalences with schema.org for overlapping properties. T
 
 Use whichever naming convention your system prefers. Both are valid in the context.
 
+## `@vocab` fallback behavior
+
+The PublicSchema context declares `"@vocab": "https://publicschema.org/"`. This means any JSON key that is not explicitly defined in the context will silently expand to `https://publicschema.org/{key}`. For example, a typo like `"givn_name"` would expand to `https://publicschema.org/givn_name` instead of raising an error.
+
+JSON-LD processors will not flag this. To catch typos and undeclared properties, validate your data against the JSON Schema for the concept you are using. The JSON Schema only allows declared properties, so `"givn_name"` would fail validation.
+
+## schema.org `alternateName` mapping
+
+The PublicSchema property `preferred_name` maps to schema.org's `alternateName` as a `broadMatch`, not an `exactMatch`. schema.org's `alternateName` covers any alternate name (nicknames, former names, abbreviations), while `preferred_name` is specifically the name the person prefers to be addressed by. If your system uses `alternateName` from schema.org, be aware that it is semantically broader.
+
 ## Extending PublicSchema
 
 See `docs/extension-mechanism.md` for how to add custom properties, vocabulary values, and concepts using your own namespace alongside PublicSchema terms.
