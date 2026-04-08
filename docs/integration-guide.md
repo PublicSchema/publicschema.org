@@ -124,11 +124,11 @@ system_mappings:
 
 | Artifact | URL | Description |
 |---|---|---|
-| JSON-LD Context | `/ctx/draft.jsonld` | Map property names to URIs |
-| Full Vocabulary (JSON-LD) | `/v/draft/publicschema.jsonld` | Complete vocabulary as a single JSON-LD @graph |
-| Full Vocabulary (Turtle) | `/v/draft/publicschema.ttl` | Complete vocabulary as RDF/Turtle |
-| SHACL Shapes | `/v/draft/publicschema.shacl.ttl` | Validation shapes for all concepts |
-| Vocabulary JSON | `/vocabulary.json` | Full vocabulary with all concepts, properties, vocabularies |
+| JSON-LD Context | [`/ctx/draft.jsonld`](/ctx/draft.jsonld) | Map property names to URIs |
+| Full Vocabulary (JSON-LD) | [`/v/draft/publicschema.jsonld`](/v/draft/publicschema.jsonld) | Complete vocabulary as a single JSON-LD @graph |
+| Full Vocabulary (Turtle) | [`/v/draft/publicschema.ttl`](/v/draft/publicschema.ttl) | Complete vocabulary as RDF/Turtle |
+| SHACL Shapes | [`/v/draft/publicschema.shacl.ttl`](/v/draft/publicschema.shacl.ttl) | Validation shapes for all concepts |
+| Vocabulary JSON | [`/vocabulary.json`](/vocabulary.json) | Full vocabulary with all concepts, properties, vocabularies |
 | Concept Schemas | `/schemas/{Concept}.schema.json` | JSON Schema per concept |
 | Credential Schemas | `/schemas/credentials/{Type}.schema.json` | VC-envelope JSON Schema per credential type |
 
