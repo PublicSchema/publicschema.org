@@ -420,19 +420,23 @@ def build_vocabulary(schema_dir: Path) -> dict:
             "system_mappings": data.get("system_mappings"),
         }
 
-    # Build JSON-LD context (uses the computed URIs from output objects).
-    # Context URIs get a .jsonld suffix so they dereference on static hosts
-    # (GitHub Pages) where content negotiation is unavailable.
-    context_map = {
+    # Build JSON-LD context. Concept URIs are bare (the HTML page URL IS the
+    # concept URI, following the schema.org pattern). The .jsonld representation
+    # is discoverable via <link rel="alternate"> on the HTML page.
+    context_map: dict[str, object] = {
         "@vocab": base_uri,
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "schema": "https://schema.org/",
         "ps": "https://publicschema.org/meta/",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+        "skos": "http://www.w3.org/2004/02/skos/core#",
+        "type": "@type",
     }
     for concept_id, concept_out in out_concepts.items():
-        context_map[concept_id] = concept_out["uri"] + ".jsonld"
+        context_map[concept_id] = concept_out["uri"]
     for prop_id, prop_out in out_properties.items():
-        prop_uri = prop_out["uri"] + ".jsonld"
+        prop_uri = prop_out["uri"]
         prop_type = properties_raw[prop_id].get("type", "string")
         # concept:X references get @type: @id
         if prop_type.startswith("concept:"):
@@ -450,11 +454,14 @@ def build_vocabulary(schema_dir: Path) -> dict:
             alias = schema_eq.split(":", 1)[1]
             # Alias points to the same context entry as the original property
             context_map[alias] = context_map[prop_id]
+    # Add credential types to context with explicit URIs
+    credentials_raw = _load_all_yaml(schema_dir / "credentials")
+    for cred_id in credentials_raw:
+        context_map[cred_id] = f"{base_uri}credentials/{cred_id}"
     version = meta.get("version", "0.1.0")
     # Use major.minor for context versioning (drop patch)
     version_short = ".".join(version.split(".")[:2])
     context = {
-        "@id": f"{base_uri}ctx/v{version_short}.jsonld",
         "@context": context_map,
     }
 
@@ -482,7 +489,7 @@ def build_vocabulary(schema_dir: Path) -> dict:
         concept_schemas[concept_id] = concept_schema
 
     # Build credential schemas (VC envelope wrapping concept schemas)
-    credentials_raw = _load_all_yaml(schema_dir / "credentials")
+    # credentials_raw was already loaded above for context generation
     credential_schemas = {}
     for cred_id, cred_data in credentials_raw.items():
         subject_concept_id = cred_data.get("subject_concept")

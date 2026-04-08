@@ -51,7 +51,7 @@ function propPath(id: string): string {
     detail: vocab.properties[ref.id],
   }));
   return (
-    <Base title={concept.id} description={concept.definition.en}>
+    <Base title={concept.id} description={concept.definition.en} alternateJsonLd={`${concept.path}.jsonld`}>
       <article>
       <div class="page-header">
         <nav class="breadcrumb">
@@ -174,7 +174,7 @@ function propPath(id: string): string {
   const primitiveTypes = ["string", "integer", "decimal", "boolean", "date"];
   const isPrimitiveType = primitiveTypes.includes(prop.type);
   return (
-    <Base title={prop.id} description={prop.definition.en}>
+    <Base title={prop.id} description={prop.definition.en} alternateJsonLd={`${prop.path}.jsonld`}>
       <article>
       <div class="page-header">
         <nav class="breadcrumb">

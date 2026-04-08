@@ -4,9 +4,10 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description?: string;
+  alternateJsonLd?: string;
 }
 
-const { title, description = 'Common definitions for public service delivery' } = Astro.props;
+const { title, description = 'Common definitions for public service delivery', alternateJsonLd } = Astro.props;
 const currentPath = Astro.url.pathname;
 const pageTitle = `${title} | PublicSchema`;
 const canonicalUrl = new URL(currentPath, Astro.site).href;
@@ -29,6 +30,7 @@ const navLinks = [
   <title>{pageTitle}</title>
   <link rel="canonical" href={canonicalUrl} />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  {alternateJsonLd && <link rel="alternate" type="application/ld+json" href={alternateJsonLd} />}
 
   <!-- OpenGraph -->
   <meta property="og:type" content="website" />

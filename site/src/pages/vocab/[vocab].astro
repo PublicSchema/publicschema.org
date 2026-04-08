@@ -11,7 +11,7 @@ export function getStaticPaths() {
 const allVocab = loadVocabulary();
 const vocabulary = allVocab.vocabularies[Astro.params.vocab] as Vocabulary;
 ---
-<Base title={vocabulary.id} description={vocabulary.definition.en}>
+<Base title={vocabulary.id} description={vocabulary.definition.en} alternateJsonLd={`/vocab/${Astro.params.vocab}.jsonld`}>
   <article>
   <div class="page-header">
     <nav class="breadcrumb">

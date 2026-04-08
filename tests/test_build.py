@@ -289,7 +289,7 @@ class TestJsonLdContext:
     def test_context_has_vocab_and_prefixes(
         self, tmp_schema, write_concept
     ):
-        """Context includes @vocab, xsd, schema, and ps prefixes."""
+        """Context includes @vocab, xsd, schema, ps, rdfs, rdf, skos prefixes."""
         write_concept("person.yaml", make_concept(id="Person"))
         result = build_vocabulary(tmp_schema)
         ctx = result["context"]["@context"]
@@ -297,41 +297,53 @@ class TestJsonLdContext:
         assert ctx["xsd"] == "http://www.w3.org/2001/XMLSchema#"
         assert ctx["schema"] == "https://schema.org/"
         assert ctx["ps"] == "https://publicschema.org/meta/"
+        assert ctx["rdfs"] == "http://www.w3.org/2000/01/rdf-schema#"
+        assert ctx["rdf"] == "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+        assert ctx["skos"] == "http://www.w3.org/2004/02/skos/core#"
 
-    def test_context_has_versioned_id(
+    def test_context_has_no_id(
         self, tmp_schema, write_concept
     ):
-        """Context document has a versioned @id from _meta.yaml version."""
+        """Context document has no @id (it describes the context, not itself)."""
         write_concept("person.yaml", make_concept(id="Person"))
         result = build_vocabulary(tmp_schema)
         context = result["context"]
-        assert context["@id"] == "https://test.example.org/ctx/v0.1.jsonld"
+        assert "@id" not in context
 
-    def test_context_concept_has_jsonld_uri(
+    def test_context_has_type_alias(
         self, tmp_schema, write_concept
     ):
-        """Concepts in context use .jsonld URIs for static-host dereferencing."""
+        """Context maps 'type' to '@type' for standalone use without VC context."""
         write_concept("person.yaml", make_concept(id="Person"))
         result = build_vocabulary(tmp_schema)
         ctx = result["context"]["@context"]
-        assert ctx["Person"] == "https://test.example.org/Person.jsonld"
+        assert ctx["type"] == "@type"
 
-    def test_context_string_property_has_jsonld_uri(
+    def test_context_concept_has_bare_uri(
+        self, tmp_schema, write_concept
+    ):
+        """Concepts in context use bare URIs (HTML page IS the concept URI)."""
+        write_concept("person.yaml", make_concept(id="Person"))
+        result = build_vocabulary(tmp_schema)
+        ctx = result["context"]["@context"]
+        assert ctx["Person"] == "https://test.example.org/Person"
+
+    def test_context_string_property_has_bare_uri(
         self, tmp_schema, write_concept, write_property
     ):
-        """String properties use .jsonld URIs in the context."""
+        """String properties use bare URIs in the context."""
         write_property("name.yaml", make_property(id="name", type="string"))
         write_concept("person.yaml", make_concept(
             id="Person", properties=["name"],
         ))
         result = build_vocabulary(tmp_schema)
         ctx = result["context"]["@context"]
-        assert ctx["name"] == "https://test.example.org/name.jsonld"
+        assert ctx["name"] == "https://test.example.org/name"
 
     def test_context_date_property_has_xsd_type(
         self, tmp_schema, write_concept, write_property
     ):
-        """Date properties get @type: xsd:date coercion with .jsonld URI."""
+        """Date properties get @type: xsd:date coercion with bare URI."""
         write_property("dob.yaml", make_property(id="dob", type="date"))
         write_concept("person.yaml", make_concept(
             id="Person", properties=["dob"],
@@ -339,7 +351,7 @@ class TestJsonLdContext:
         result = build_vocabulary(tmp_schema)
         ctx = result["context"]["@context"]
         assert ctx["dob"] == {
-            "@id": "https://test.example.org/dob.jsonld",
+            "@id": "https://test.example.org/dob",
             "@type": "xsd:date",
         }
 
@@ -353,7 +365,7 @@ class TestJsonLdContext:
         result = build_vocabulary(tmp_schema)
         ctx = result["context"]["@context"]
         assert ctx["created"] == {
-            "@id": "https://test.example.org/created.jsonld",
+            "@id": "https://test.example.org/created",
             "@type": "xsd:dateTime",
         }
 
@@ -367,7 +379,7 @@ class TestJsonLdContext:
         result = build_vocabulary(tmp_schema)
         ctx = result["context"]["@context"]
         assert ctx["amount"] == {
-            "@id": "https://test.example.org/amount.jsonld",
+            "@id": "https://test.example.org/amount",
             "@type": "xsd:decimal",
         }
 
@@ -381,7 +393,7 @@ class TestJsonLdContext:
         result = build_vocabulary(tmp_schema)
         ctx = result["context"]["@context"]
         assert ctx["count"] == {
-            "@id": "https://test.example.org/count.jsonld",
+            "@id": "https://test.example.org/count",
             "@type": "xsd:integer",
         }
 
@@ -395,14 +407,14 @@ class TestJsonLdContext:
         result = build_vocabulary(tmp_schema)
         ctx = result["context"]["@context"]
         assert ctx["active"] == {
-            "@id": "https://test.example.org/active.jsonld",
+            "@id": "https://test.example.org/active",
             "@type": "xsd:boolean",
         }
 
     def test_context_concept_ref_property_has_id_type(
         self, tmp_schema, write_concept, write_property
     ):
-        """Properties referencing a concept get @type: @id with .jsonld URI."""
+        """Properties referencing a concept get @type: @id with bare URI."""
         write_property("beneficiary.yaml", make_property(
             id="beneficiary", type="concept:Person",
         ))
@@ -412,7 +424,7 @@ class TestJsonLdContext:
         result = build_vocabulary(tmp_schema)
         ctx = result["context"]["@context"]
         assert ctx["beneficiary"] == {
-            "@id": "https://test.example.org/beneficiary.jsonld",
+            "@id": "https://test.example.org/beneficiary",
             "@type": "@id",
         }
 
@@ -426,7 +438,7 @@ class TestJsonLdContext:
         result = build_vocabulary(tmp_schema)
         ctx = result["context"]["@context"]
         assert ctx["link"] == {
-            "@id": "https://test.example.org/link.jsonld",
+            "@id": "https://test.example.org/link",
             "@type": "@id",
         }
 
@@ -440,8 +452,8 @@ class TestJsonLdContext:
 
         result = build_vocabulary(tmp_schema)
         ctx = result["context"]["@context"]
-        assert ctx["Enrollment"] == "https://test.example.org/sp/Enrollment.jsonld"
-        assert ctx["enrollment_status"] == "https://test.example.org/sp/enrollment_status.jsonld"
+        assert ctx["Enrollment"] == "https://test.example.org/sp/Enrollment"
+        assert ctx["enrollment_status"] == "https://test.example.org/sp/enrollment_status"
 
     def test_context_schema_org_alias_for_string_property(
         self, tmp_schema, write_concept, write_property
@@ -456,9 +468,9 @@ class TestJsonLdContext:
         result = build_vocabulary(tmp_schema)
         ctx = result["context"]["@context"]
         # Original entry still present
-        assert ctx["given_name"] == "https://test.example.org/given_name.jsonld"
+        assert ctx["given_name"] == "https://test.example.org/given_name"
         # schema.org alias resolves to the same PublicSchema URI
-        assert ctx["givenName"] == "https://test.example.org/given_name.jsonld"
+        assert ctx["givenName"] == "https://test.example.org/given_name"
 
     def test_context_schema_org_alias_for_typed_property(
         self, tmp_schema, write_concept, write_property
@@ -474,13 +486,28 @@ class TestJsonLdContext:
         result = build_vocabulary(tmp_schema)
         ctx = result["context"]["@context"]
         assert ctx["dob"] == {
-            "@id": "https://test.example.org/dob.jsonld",
+            "@id": "https://test.example.org/dob",
             "@type": "xsd:date",
         }
         assert ctx["birthDate"] == {
-            "@id": "https://test.example.org/dob.jsonld",
+            "@id": "https://test.example.org/dob",
             "@type": "xsd:date",
         }
+
+    def test_context_has_credential_types(
+        self, tmp_schema, write_concept, write_property, write_credential
+    ):
+        """Credential types appear in context with explicit URIs."""
+        write_property("name.yaml", make_property(id="name"))
+        write_concept("person.yaml", make_concept(
+            id="Person", properties=["name"],
+        ))
+        write_credential("identity.yaml", make_credential(
+            id="IdentityCredential", subject_concept="Person",
+        ))
+        result = build_vocabulary(tmp_schema)
+        ctx = result["context"]["@context"]
+        assert ctx["IdentityCredential"] == "https://test.example.org/credentials/IdentityCredential"
 
     def test_vocabulary_json_has_schema_org_equivalent(
         self, tmp_schema, write_concept, write_property
