@@ -102,13 +102,7 @@ Use PublicSchema credential types to issue VCs:
 
 ### 5. Implement selective disclosure
 
-Consult the `data_classification` field on each property to determine which claims should be selectively disclosable in SD-JWT VCs:
-
-- `non_personal` properties: always in the clear
-- `personal` properties: wrapped in `_sd` (PII, revealed only when needed)
-- `special_category` properties: wrapped in `_sd` with additional access controls
-
-See `docs/selective-disclosure.md` for the full design.
+Consult the credential type definitions in `docs/selective-disclosure.md` to determine which claims should be selectively disclosable in SD-JWT VCs. Each credential type specifies which claims are always disclosed and which are wrapped in `_sd` (revealed only when needed).
 
 ## System mapping
 

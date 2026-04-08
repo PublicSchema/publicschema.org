@@ -41,15 +41,12 @@ def sample_vocab_result(
     ))
     write_property("beneficiary.yaml", make_property(
         id="beneficiary", type="concept:Person",
-        data_classification="personal",
     ))
     write_property("enrollment_status.yaml", make_property(
         id="enrollment_status", vocabulary="enrollment-status",
-        data_classification="non_personal",
     ))
     write_property("enrollment_date.yaml", make_property(
         id="enrollment_date", type="date",
-        data_classification="non_personal",
     ))
     write_concept("enrollment.yaml", make_concept(
         id="Enrollment",
@@ -159,7 +156,7 @@ class TestConceptCSV:
         reader = csv.DictReader(csv_path.open())
         assert set(reader.fieldnames) == {
             "property", "type", "cardinality",
-            "definition", "vocabulary", "data_classification",
+            "definition", "vocabulary",
         }
 
     def test_csv_has_one_row_per_property(self, sample_vocab_result, tmp_path):
@@ -177,7 +174,6 @@ class TestConceptCSV:
 
         assert rows["enrollment_status"]["vocabulary"] == "enrollment-status"
         assert rows["enrollment_date"]["type"] == "date"
-        assert rows["beneficiary"]["data_classification"] == "personal"
 
     def test_csv_universal_concept_no_domain_dir(
         self, tmp_schema, write_concept, write_property, tmp_path

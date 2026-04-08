@@ -99,8 +99,6 @@ def _embedded_property_jsonld(
     if prop_raw.get("references"):
         ref_concept = out_concepts.get(prop_raw["references"])
         entry["ps:references"] = ref_concept["uri"] if ref_concept else prop_raw["references"]
-    if prop_out.get("data_classification"):
-        entry["ps:dataClassification"] = prop_out["data_classification"]
     return entry
 
 
@@ -391,7 +389,6 @@ def build_vocabulary(schema_dir: Path) -> dict:
             "references": data.get("references"),
             "used_by": property_domains.get(prop_id, []),
             "schema_org_equivalent": data.get("schema_org_equivalent"),
-            "data_classification": data.get("data_classification"),
             "convergence": data.get("convergence"),
         }
 

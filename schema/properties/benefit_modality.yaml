@@ -10,7 +10,6 @@ type: string
 cardinality: multiple
 vocabulary: benefit-modality
 references: null
-data_classification: non_personal
 
 convergence:
   system_count: 1

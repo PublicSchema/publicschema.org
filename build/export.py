@@ -156,7 +156,7 @@ def generate_concept_csv(
 
     fieldnames = [
         "property", "type", "cardinality",
-        "definition", "vocabulary", "data_classification",
+        "definition", "vocabulary",
     ]
     with csv_path.open("w", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames)
@@ -168,7 +168,6 @@ def generate_concept_csv(
                 "cardinality": prop.get("cardinality", "single"),
                 "definition": (prop.get("definition") or {}).get("en", ""),
                 "vocabulary": prop.get("vocabulary") or "",
-                "data_classification": prop.get("data_classification") or "",
             })
 
 
@@ -303,7 +302,7 @@ def generate_definition_xlsx(
     prop_headers = [
         "Property", "Type", "Cardinality",
         "Definition (EN)", "Definition (FR)", "Definition (ES)",
-        "Vocabulary", "Data Classification",
+        "Vocabulary",
     ]
     for c, header in enumerate(prop_headers, start=1):
         ws_props.cell(row=1, column=c, value=header)
@@ -320,7 +319,6 @@ def generate_definition_xlsx(
             cell.font = VALUE_FONT
             cell.alignment = WRAP_ALIGNMENT
         ws_props.cell(row=row_idx, column=7, value=prop.get("vocabulary") or "").font = VALUE_FONT
-        ws_props.cell(row=row_idx, column=8, value=prop.get("data_classification") or "").font = VALUE_FONT
 
     _style_alternating_rows(ws_props, 2, len(properties) + 1, len(prop_headers))
     _auto_column_widths(ws_props)

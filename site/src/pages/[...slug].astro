@@ -27,12 +27,6 @@ export function getStaticPaths() {
 const vocab = loadVocabulary();
 const { kind, termId } = Astro.props;
 
-const classificationLabels: Record<string, string> = {
-  non_personal: "Non-personal",
-  personal: "Personal",
-  special_category: "Special category",
-};
-
 /** Look up a concept's path by ID for linking. */
 function conceptPath(id: string): string {
   return vocab.concepts[id]?.path || `/${id}`;
@@ -118,7 +112,6 @@ function propPath(id: string): string {
                   <tr>
                     <th>Property</th>
                     <th>Type</th>
-                    <th>Classification</th>
                     <th>Definition</th>
                   </tr>
                 </thead>
@@ -145,7 +138,6 @@ function propPath(id: string): string {
                             <> (<a href={`/vocab/${p.detail.vocabulary}`}>{p.detail.vocabulary}</a>)</>
                           )}
                         </td>
-                        <td data-label="Classification">{p.detail?.data_classification ? <span class={`badge badge-${p.detail.data_classification}`}>{classificationLabels[p.detail.data_classification] ?? p.detail.data_classification}</span> : ""}</td>
                         <td data-label="Definition">{p.detail?.definition.en?.slice(0, 80)}{(p.detail?.definition.en?.length || 0) > 80 ? "..." : ""}</td>
                       </tr>
                     );
@@ -216,12 +208,6 @@ function propPath(id: string): string {
               <tr>
                 <td style="font-weight: 600; color: var(--color-text-muted);">Vocabulary</td>
                 <td><a href={`/vocab/${prop.vocabulary}`}>{prop.vocabulary}</a></td>
-              </tr>
-            )}
-            {prop.data_classification && (
-              <tr>
-                <td style="font-weight: 600; color: var(--color-text-muted);">Classification</td>
-                <td><span class={`badge badge-${prop.data_classification}`}>{classificationLabels[prop.data_classification] ?? prop.data_classification}</span></td>
               </tr>
             )}
             {prop.references && (

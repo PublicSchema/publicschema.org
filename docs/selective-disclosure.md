@@ -4,16 +4,11 @@
 
 PublicSchema credentials are designed for use with SD-JWT VC (Selective Disclosure JWT Verifiable Credentials), enabling holders to reveal only the claims needed for a specific interaction.
 
-## Data Classification Levels
+## Data Classification Approach
 
-Most properties in PublicSchema carry a `data_classification` annotation that guides credential issuers and verifiers on disclosure expectations. The field is optional; when absent, the issuer must decide based on usage context.
+PublicSchema does not assign a fixed data classification to individual properties. Whether a property is personal data depends on the record it appears in, not the property itself. For example, `date_of_birth` on a Person record is personal data; the same field in an aggregate statistical table is not.
 
-| Level | Meaning | SD-JWT Behavior | Traditional Data Handling | Example Properties |
-|---|---|---|---|---|
-| `non_personal` | Structural, non-PII. Program metadata, statuses, dates, program-level parameters. | Always in the clear (not wrapped in `_sd`) | No special handling required | enrollment_status, program_ref, payment_status, group_type, scoring_method, cutoff_score |
-| `personal` | Identifies, relates to, or resolves to a natural person. Includes person references, person-specific record references, and group composition data. | Wrapped in `_sd` array (selectively disclosable) | Standard PII protections: access control, encryption at rest, retention limits | given_name, date_of_birth, address, applicant, beneficiary, enrollment_ref, role |
-| `special_category` | Data whose value is inherently sensitive: individual assessment scores, vulnerability indices. | Wrapped in `_sd` array with additional access controls expected | Enhanced protections: audit logging, purpose limitation, breach notification triggers | raw_score, assessor |
-| absent / null | Sensitivity depends on usage context. The property is not inherently personal or non-personal. | Issuer decides based on credential context (see below) | Issuer applies protections appropriate to the deployment context | coordinates, street_address (when on a non-person record) |
+Instead, disclosure behavior is defined at the **credential level**. Each credential type below specifies which claims are always disclosed and which are selectively disclosable.
 
 ## Credential Structure for SD-JWT VC
 
@@ -106,22 +101,19 @@ The `_sd` array contains hashes of the disclosable claims. The actual values are
 
 ## Traditional Data Handling Guidance
 
-The `data_classification` field applies beyond Verifiable Credentials. It also guides how systems should handle data at rest and in transit.
+Data handling requirements depend on the credential or dataset context, not on individual property definitions. Implementers should assess each deployment and apply protections based on whether the data, in that context, identifies or relates to a natural person.
 
-`non_personal` data requires no special treatment. It can be stored, logged, and transmitted without data protection controls. `personal` data requires standard PII protections: access control, encryption at rest, defined retention periods, and compliance with applicable privacy regulations. `special_category` data requires enhanced protections on top of those: audit logging on every access, strict purpose limitation (data used only for the reason it was collected), and breach notification triggers in case of unauthorized disclosure.
-
-| Classification | Access control | Encryption at rest | Retention limits | Audit logging | Breach notification |
-|---|---|---|---|---|---|
-| `non_personal` | No requirement | No requirement | No requirement | No requirement | No requirement |
-| `personal` | Required | Required | Required | Recommended | Required |
-| `special_category` | Required | Required | Required | Required | Required |
+General guidance:
+- **Structural metadata** (program parameters, statuses, dates) typically requires no special handling.
+- **Person-linked data** (identity claims, person-specific records) requires standard PII protections: access control, encryption at rest, defined retention periods.
+- **Inherently sensitive data** (assessment scores, vulnerability indices) requires enhanced protections: audit logging, purpose limitation, breach notification triggers.
 
 ## Implementation Guidance
 
-1. **Issuers** should consult the `data_classification` field on each property when constructing SD-JWT VCs. Properties marked `non_personal` go in the clear; `personal` and `special_category` properties go in `_sd`. For properties with no classification, the issuer determines disclosure behavior based on credential context. For example, coordinates in an IdentityCredential should be treated as personal and placed in `_sd`; the same coordinates in a FacilityCredential describing a service location may be non-personal and placed in the clear.
+1. **Issuers** should consult the credential type definitions above when constructing SD-JWT VCs. Claims listed as "always disclosed" go in the clear; "selectively disclosable" claims go in `_sd`. For properties not covered by a defined credential type, the issuer determines disclosure behavior based on credential context.
 
-2. **Holders** (wallet applications) should present a disclosure selection UI grouping claims by data classification. Special category claims should require explicit confirmation. Claims with no classification should default to selectively disclosable to err on the side of privacy.
+2. **Holders** (wallet applications) should present a disclosure selection UI distinguishing always-disclosed claims from selectively disclosable ones. Inherently sensitive claims (assessment scores, vulnerability indices) should require explicit confirmation. When in doubt, default to selectively disclosable to err on the side of privacy.
 
-3. **Verifiers** should request only the claims they need. A request for `special_category` claims should include a justification (e.g., audit authority reference).
+3. **Verifiers** should request only the claims they need. A request for inherently sensitive claims should include a justification (e.g., audit authority reference).
 
-4. **The build pipeline** outputs data classification values in `vocabulary.json` under each property's `data_classification` field. When the field is absent, wallet and verifier implementations should treat the property as context-dependent and apply a conservative default. Wallet and verifier implementations can consume this programmatically to auto-configure disclosure policies.
+4. **The build pipeline** outputs property metadata in `vocabulary.json`. Wallet and verifier implementations should use the credential type definitions in this document to configure disclosure policies.

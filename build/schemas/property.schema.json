@@ -44,11 +44,6 @@
       "pattern": "^schema:[a-zA-Z]+$",
       "description": "schema.org equivalent property as a CURIE (e.g. 'schema:givenName'). Used to generate camelCase aliases in the JSON-LD context."
     },
-    "data_classification": {
-      "type": "string",
-      "enum": ["non_personal", "personal", "special_category"],
-      "description": "Data classification for privacy and disclosure guidance. non_personal: structural/program metadata that does not identify or relate to a natural person. personal: identifies, relates to, or resolves to a natural person (includes person references, person-specific record references, and group composition data). special_category: data whose value is inherently sensitive (individual assessment scores, vulnerability indices). Program-level parameters like scoring methods or cutoff thresholds are non_personal, not special_category."
-    },
     "convergence": {
       "$ref": "#/$defs/convergence"
     }

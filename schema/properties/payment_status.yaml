@@ -10,7 +10,6 @@ type: string
 cardinality: single
 vocabulary: payment-status
 references: null
-data_classification: non_personal
 
 convergence:
   system_count: 4

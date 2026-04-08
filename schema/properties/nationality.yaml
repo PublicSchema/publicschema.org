@@ -10,7 +10,6 @@ type: string
 cardinality: single
 vocabulary: country
 references: null
-data_classification: personal
 
 convergence:
   system_count: 3

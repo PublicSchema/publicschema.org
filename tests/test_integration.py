@@ -150,17 +150,6 @@ class TestRealSchema:
         # @type should expand to the Person bare URI
         assert person["@type"] == ["https://publicschema.org/Person"]
 
-    def test_data_classification_levels_are_valid(self):
-        """Properties that have a data_classification use one of the valid values."""
-        result = build_vocabulary(SCHEMA_DIR)
-        valid = {"non_personal", "personal", "special_category"}
-        invalid = []
-        for prop_id, prop_data in result["properties"].items():
-            s = prop_data.get("data_classification")
-            if s is not None and s not in valid:
-                invalid.append((prop_id, s))
-        assert invalid == [], f"Invalid data_classification levels: {invalid}"
-
     def test_jsonld_expansion_schema_org_alias(self):
         """camelCase schema.org aliases expand to the same URIs."""
         result = build_vocabulary(SCHEMA_DIR)

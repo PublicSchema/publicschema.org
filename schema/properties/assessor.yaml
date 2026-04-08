@@ -10,7 +10,6 @@ type: string
 cardinality: single
 vocabulary: null
 references: null
-data_classification: special_category
 
 convergence:
   system_count: 1

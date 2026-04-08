@@ -46,7 +46,6 @@ export interface Property {
   cardinality: string;
   vocabulary: string | null;
   references: string | null;
-  data_classification: string | null;
   used_by: string[];
   convergence: Convergence | null;
 }

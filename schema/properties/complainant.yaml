@@ -10,7 +10,6 @@ type: concept:Person
 cardinality: single
 vocabulary: null
 references: Person
-data_classification: personal
 
 convergence:
   system_count: 3

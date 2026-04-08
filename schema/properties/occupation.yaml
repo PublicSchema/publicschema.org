@@ -10,7 +10,6 @@ type: string
 cardinality: single
 vocabulary: occupation
 references: null
-data_classification: personal
 
 convergence:
   system_count: 2
