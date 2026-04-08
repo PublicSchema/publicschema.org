@@ -6,7 +6,7 @@ definition:
   fr: "Référence à l'inscription à laquelle cette prestation est rattachée."
   es: "Referencia a la inscripción a la que pertenece esta prestación."
 
-type: string
+type: uri
 cardinality: single
 vocabulary: null
 references: null

@@ -302,7 +302,9 @@ def _compute_vocabulary_domain_namespace(
     return None
 
 
-def _property_to_json_schema(prop_data: dict, vocabularies: dict) -> dict:
+def _property_to_json_schema(
+    prop_data: dict, vocabularies: dict, out_vocabularies: dict | None = None,
+) -> dict:
     """Convert a property definition to a JSON Schema property definition."""
     prop_type = prop_data.get("type", "string")
     cardinality = prop_data.get("cardinality", "single")
@@ -312,7 +314,10 @@ def _property_to_json_schema(prop_data: dict, vocabularies: dict) -> dict:
     if vocab_ref and vocab_ref in vocabularies:
         vocab = vocabularies[vocab_ref]
         codes = [v["code"] for v in vocab.get("values", [])]
-        item_schema = {"type": "string", "enum": codes}
+        item_schema: dict = {"type": "string", "enum": codes}
+        # Link to the vocabulary URI so consumers can discover full semantics
+        if out_vocabularies and vocab_ref in out_vocabularies:
+            item_schema["$comment"] = out_vocabularies[vocab_ref]["uri"]
     elif prop_type.startswith("concept:"):
         # Reference to another concept: accept object or string
         item_schema = {"type": ["object", "string"]}
@@ -438,16 +443,22 @@ def build_vocabulary(schema_dir: Path) -> dict:
     for prop_id, prop_out in out_properties.items():
         prop_uri = prop_out["uri"]
         prop_type = properties_raw[prop_id].get("type", "string")
+        cardinality = properties_raw[prop_id].get("cardinality", "single")
         # concept:X references get @type: @id
         if prop_type.startswith("concept:"):
-            context_map[prop_id] = {"@id": prop_uri, "@type": "@id"}
+            entry: dict[str, str] = {"@id": prop_uri, "@type": "@id"}
         elif prop_type in JSONLD_TYPE_COERCION:
-            context_map[prop_id] = {
-                "@id": prop_uri,
-                "@type": JSONLD_TYPE_COERCION[prop_type],
-            }
+            entry = {"@id": prop_uri, "@type": JSONLD_TYPE_COERCION[prop_type]}
+        elif cardinality == "multiple":
+            # Multi-valued properties need an object entry for @container
+            entry = {"@id": prop_uri}
         else:
             context_map[prop_id] = prop_uri
+            entry = None
+        if entry is not None:
+            if cardinality == "multiple":
+                entry["@container"] = "@set"
+            context_map[prop_id] = entry
         # Add camelCase alias for schema.org equivalent properties
         schema_eq = properties_raw[prop_id].get("schema_org_equivalent")
         if schema_eq and schema_eq.startswith("schema:"):
@@ -474,7 +485,7 @@ def build_vocabulary(schema_dir: Path) -> dict:
             prop_id = norm["id"]
             if prop_id in properties_raw:
                 schema_props[prop_id] = _property_to_json_schema(
-                    properties_raw[prop_id], vocabularies_raw,
+                    properties_raw[prop_id], vocabularies_raw, out_vocabularies,
                 )
 
         concept_domain = data.get("domain")

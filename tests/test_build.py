@@ -494,6 +494,41 @@ class TestJsonLdContext:
             "@type": "xsd:date",
         }
 
+    def test_context_multivalued_property_has_container_set(
+        self, tmp_schema, write_concept, write_property
+    ):
+        """Multi-valued properties get @container: @set in context."""
+        write_property("ids.yaml", make_property(
+            id="ids", type="string", cardinality="multiple",
+        ))
+        write_concept("person.yaml", make_concept(
+            id="Person", properties=["ids"],
+        ))
+        result = build_vocabulary(tmp_schema)
+        ctx = result["context"]["@context"]
+        assert ctx["ids"] == {
+            "@id": "https://test.example.org/ids",
+            "@container": "@set",
+        }
+
+    def test_context_multivalued_typed_property_has_container_set(
+        self, tmp_schema, write_concept, write_property
+    ):
+        """Multi-valued typed properties get both @type and @container."""
+        write_property("dates.yaml", make_property(
+            id="dates", type="date", cardinality="multiple",
+        ))
+        write_concept("person.yaml", make_concept(
+            id="Person", properties=["dates"],
+        ))
+        result = build_vocabulary(tmp_schema)
+        ctx = result["context"]["@context"]
+        assert ctx["dates"] == {
+            "@id": "https://test.example.org/dates",
+            "@type": "xsd:date",
+            "@container": "@set",
+        }
+
     def test_context_has_credential_types(
         self, tmp_schema, write_concept, write_property, write_credential
     ):
@@ -614,6 +649,28 @@ class TestJsonSchemaGeneration:
         result = build_vocabulary(tmp_schema)
         gender_schema = result["concept_schemas"]["Person"]["properties"]["gender"]
         assert set(gender_schema["enum"]) == {"male", "female"}
+
+    def test_concept_schema_vocabulary_enum_has_comment_uri(
+        self, tmp_schema, write_concept, write_property, write_vocabulary
+    ):
+        """Vocabulary enum schema includes $comment with the vocabulary URI."""
+        write_vocabulary("gender-type.yaml", make_vocabulary(
+            id="gender-type",
+            values=[
+                {"code": "male", "label": {"en": "Male", "fr": "M", "es": "M"},
+                 "definition": {"en": "Male.", "fr": "M.", "es": "M."}},
+            ],
+        ))
+        write_property("gender.yaml", make_property(
+            id="gender", vocabulary="gender-type",
+        ))
+        write_concept("person.yaml", make_concept(
+            id="Person", properties=["gender"],
+        ))
+        result = build_vocabulary(tmp_schema)
+        gender_schema = result["concept_schemas"]["Person"]["properties"]["gender"]
+        assert "$comment" in gender_schema
+        assert gender_schema["$comment"] == "https://test.example.org/vocab/gender-type"
 
     def test_concept_schema_multivalued_property(
         self, tmp_schema, write_concept, write_property

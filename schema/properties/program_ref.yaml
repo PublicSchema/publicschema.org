@@ -6,7 +6,7 @@ definition:
   fr: "Référence au programme dans lequel le bénéficiaire est inscrit."
   es: "Referencia al programa en el que el beneficiario está inscrito."
 
-type: string
+type: uri
 cardinality: single
 vocabulary: null
 references: null
