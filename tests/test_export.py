@@ -64,6 +64,94 @@ def sample_vocab_result(
 # CSV tests
 # ---------------------------------------------------------------------------
 
+@pytest.fixture
+def inheritance_vocab_result(
+    tmp_schema, write_concept, write_property,
+):
+    """Build a vocabulary result with a Group -> Family/Household hierarchy."""
+    write_property("name.yaml", make_property(id="name"))
+    write_property("group_type.yaml", make_property(id="group_type"))
+    write_property("member_count.yaml", make_property(id="member_count", type="integer"))
+    write_property("address.yaml", make_property(id="address"))
+    write_concept("group.yaml", make_concept(
+        id="Group",
+        properties=["name", "group_type", "member_count"],
+        subtypes=["Family", "Household"],
+    ))
+    write_concept("family.yaml", make_concept(
+        id="Family",
+        properties=[],
+        supertypes=["Group"],
+    ))
+    write_concept("household.yaml", make_concept(
+        id="Household",
+        properties=["address", "member_count"],
+        supertypes=["Group"],
+    ))
+    return build_vocabulary(tmp_schema)
+
+
+# ---------------------------------------------------------------------------
+# Inheritance tests
+# ---------------------------------------------------------------------------
+
+class TestPropertyInheritance:
+    """Inherited properties from supertypes appear in all export formats."""
+
+    def test_csv_includes_inherited_properties(self, inheritance_vocab_result, tmp_path):
+        """Family (no own properties) gets all properties from Group."""
+        generate_concept_csv("Family", inheritance_vocab_result, tmp_path)
+        csv_path = tmp_path / "Family.csv"
+        reader = csv.DictReader(csv_path.open())
+        rows = {r["property"]: r for r in reader}
+        assert set(rows.keys()) == {"name", "group_type", "member_count"}
+
+    def test_csv_inherited_properties_come_first(self, inheritance_vocab_result, tmp_path):
+        """Inherited properties appear before the concept's own properties."""
+        generate_concept_csv("Household", inheritance_vocab_result, tmp_path)
+        csv_path = tmp_path / "Household.csv"
+        reader = csv.DictReader(csv_path.open())
+        props = [r["property"] for r in reader]
+        # Group's properties first, then Household's own (minus duplicates)
+        assert props == ["name", "group_type", "member_count", "address"]
+
+    def test_csv_deduplicates_inherited_properties(self, inheritance_vocab_result, tmp_path):
+        """member_count appears in both Group and Household; should appear only once."""
+        generate_concept_csv("Household", inheritance_vocab_result, tmp_path)
+        csv_path = tmp_path / "Household.csv"
+        reader = csv.DictReader(csv_path.open())
+        props = [r["property"] for r in reader]
+        assert props.count("member_count") == 1
+
+    def test_definition_xlsx_includes_inherited_properties(
+        self, inheritance_vocab_result, tmp_path,
+    ):
+        """Family definition workbook includes Group's properties."""
+        generate_definition_xlsx("Family", inheritance_vocab_result, tmp_path)
+        wb = load_workbook(tmp_path / "Family-definition.xlsx")
+        ws = wb["Properties"]
+        props = [ws.cell(row=r, column=1).value for r in range(2, ws.max_row + 1)]
+        assert set(props) == {"name", "group_type", "member_count"}
+
+    def test_template_xlsx_includes_inherited_properties(
+        self, inheritance_vocab_result, tmp_path,
+    ):
+        """Family template workbook includes Group's properties as columns."""
+        generate_template_xlsx("Family", inheritance_vocab_result, tmp_path)
+        wb = load_workbook(tmp_path / "Family-template.xlsx")
+        ws = wb["Data"]
+        ids = [ws.cell(row=2, column=c).value for c in range(1, ws.max_column + 1)]
+        assert set(ids) == {"name", "group_type", "member_count"}
+
+    def test_parent_concept_unaffected(self, inheritance_vocab_result, tmp_path):
+        """Group itself still has exactly its own properties."""
+        generate_concept_csv("Group", inheritance_vocab_result, tmp_path)
+        csv_path = tmp_path / "Group.csv"
+        reader = csv.DictReader(csv_path.open())
+        props = [r["property"] for r in reader]
+        assert props == ["name", "group_type", "member_count"]
+
+
 class TestConceptCSV:
     def test_csv_has_header_row(self, sample_vocab_result, tmp_path):
         generate_concept_csv("Enrollment", sample_vocab_result, tmp_path)

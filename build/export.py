@@ -69,13 +69,33 @@ def _human_label(prop_id: str) -> str:
     return prop_id.replace("_", " ").capitalize()
 
 
-def _resolve_properties(concept: dict, all_properties: dict) -> list[dict]:
-    """Resolve a concept's property references to full property dicts."""
-    resolved = []
-    for entry in concept.get("properties", []):
-        prop_id = entry["id"] if isinstance(entry, dict) else entry
-        if prop_id in all_properties:
-            resolved.append(all_properties[prop_id])
+def _resolve_properties(
+    concept: dict, all_properties: dict, all_concepts: dict | None = None,
+) -> list[dict]:
+    """Resolve a concept's property references to full property dicts.
+
+    When all_concepts is provided, inherited properties from supertypes
+    are included (parent properties first, then the concept's own),
+    with duplicates removed.
+    """
+    seen: set[str] = set()
+    resolved: list[dict] = []
+
+    def _add_props(entries):
+        for entry in entries:
+            prop_id = entry["id"] if isinstance(entry, dict) else entry
+            if prop_id not in seen and prop_id in all_properties:
+                seen.add(prop_id)
+                resolved.append(all_properties[prop_id])
+
+    # Walk supertypes first (inherited properties come before own)
+    if all_concepts:
+        for parent_id in concept.get("supertypes", []):
+            if parent_id in all_concepts:
+                parent = all_concepts[parent_id]
+                _add_props(parent.get("properties", []))
+
+    _add_props(concept.get("properties", []))
     return resolved
 
 
@@ -128,7 +148,9 @@ def generate_concept_csv(
 ):
     """Generate a flat CSV with one row per property for a concept."""
     concept = vocab_result["concepts"][concept_id]
-    properties = _resolve_properties(concept, vocab_result["properties"])
+    properties = _resolve_properties(
+        concept, vocab_result["properties"], vocab_result["concepts"],
+    )
     out_dir = _concept_dir(concept, output_dir)
     csv_path = out_dir / f"{concept_id}.csv"
 
@@ -176,7 +198,9 @@ def generate_definition_xlsx(
 ):
     """Generate a data dictionary workbook for a concept."""
     concept = vocab_result["concepts"][concept_id]
-    properties = _resolve_properties(concept, vocab_result["properties"])
+    properties = _resolve_properties(
+        concept, vocab_result["properties"], vocab_result["concepts"],
+    )
     vocabularies = vocab_result["vocabularies"]
     out_dir = _concept_dir(concept, output_dir)
     xlsx_path = out_dir / f"{concept_id}-definition.xlsx"
@@ -343,7 +367,9 @@ def generate_template_xlsx(
 ):
     """Generate a ready-to-fill data entry workbook for a concept."""
     concept = vocab_result["concepts"][concept_id]
-    properties = _resolve_properties(concept, vocab_result["properties"])
+    properties = _resolve_properties(
+        concept, vocab_result["properties"], vocab_result["concepts"],
+    )
     vocabularies = vocab_result["vocabularies"]
     out_dir = _concept_dir(concept, output_dir)
     xlsx_path = out_dir / f"{concept_id}-template.xlsx"
