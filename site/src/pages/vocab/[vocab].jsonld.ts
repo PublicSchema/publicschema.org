@@ -5,7 +5,7 @@
 import { loadVocabulary } from "../../data/vocabulary";
 import type { Vocabulary } from "../../data/vocabulary";
 
-const CONTEXT = "https://publicschema.org/ctx/v0.1";
+const CONTEXT = "https://publicschema.org/ctx/v0.1.jsonld";
 
 /** Append .jsonld so the URI dereferences on static hosts (no content negotiation). */
 function jsonldUrl(uri: string): string {

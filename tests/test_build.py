@@ -266,7 +266,7 @@ class TestJsonLdContext:
         write_concept("person.yaml", make_concept(id="Person"))
         result = build_vocabulary(tmp_schema)
         context = result["context"]
-        assert context["@id"] == "https://test.example.org/ctx/v0.1"
+        assert context["@id"] == "https://test.example.org/ctx/v0.1.jsonld"
 
     def test_context_concept_has_jsonld_uri(
         self, tmp_schema, write_concept
@@ -663,7 +663,7 @@ class TestCredentialSchemas:
         example = {
             "@context": [
                 "https://www.w3.org/ns/credentials/v2",
-                "https://test.example.org/ctx/v0.1",
+                "https://test.example.org/ctx/v0.1.jsonld",
             ],
             "type": ["VerifiableCredential", "IdentityCredential"],
             "credentialSubject": {

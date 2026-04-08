@@ -273,7 +273,7 @@ def build_vocabulary(schema_dir: Path) -> dict:
     # Use major.minor for context versioning (drop patch)
     version_short = ".".join(version.split(".")[:2])
     context = {
-        "@id": f"{base_uri}ctx/v{version_short}",
+        "@id": f"{base_uri}ctx/v{version_short}.jsonld",
         "@context": context_map,
     }
 
