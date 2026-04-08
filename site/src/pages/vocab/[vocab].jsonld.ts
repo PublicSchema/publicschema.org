@@ -7,10 +7,15 @@ import type { Vocabulary } from "../../data/vocabulary";
 
 const CONTEXT = "https://publicschema.org/ctx/v0.1";
 
+/** Append .jsonld so the URI dereferences on static hosts (no content negotiation). */
+function jsonldUrl(uri: string): string {
+  return uri + ".jsonld";
+}
+
 function vocabularyToJsonLd(vocabulary: Vocabulary) {
   const doc: Record<string, unknown> = {
     "@context": CONTEXT,
-    "@id": vocabulary.uri,
+    "@id": jsonldUrl(vocabulary.uri),
     "@type": "skos:ConceptScheme",
     "rdfs:label": vocabulary.id,
     "rdfs:comment": vocabulary.definition.en,

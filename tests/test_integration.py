@@ -125,17 +125,17 @@ class TestRealSchema:
         assert len(expanded) == 1
         person = expanded[0]
 
-        # given_name should expand to the PublicSchema URI
-        assert "https://publicschema.org/given_name" in person
-        assert person["https://publicschema.org/given_name"][0]["@value"] == "Amina"
+        # given_name should expand to the PublicSchema .jsonld URI
+        assert "https://publicschema.org/given_name.jsonld" in person
+        assert person["https://publicschema.org/given_name.jsonld"][0]["@value"] == "Amina"
 
         # date_of_birth should expand with xsd:date type
-        dob = person["https://publicschema.org/date_of_birth"][0]
+        dob = person["https://publicschema.org/date_of_birth.jsonld"][0]
         assert dob["@value"] == "1988-03-15"
         assert dob["@type"] == "http://www.w3.org/2001/XMLSchema#date"
 
-        # @type should expand to the Person URI
-        assert person["@type"] == ["https://publicschema.org/Person"]
+        # @type should expand to the Person .jsonld URI
+        assert person["@type"] == ["https://publicschema.org/Person.jsonld"]
 
     def test_data_classification_annotations_present(self):
         """All properties in the real schema have data_classification annotations."""
@@ -171,6 +171,6 @@ class TestRealSchema:
         }
         expanded = jsonld.expand(doc)
         person = expanded[0]
-        # givenName alias should expand to the same PublicSchema URI as given_name
-        assert "https://publicschema.org/given_name" in person
-        assert person["https://publicschema.org/given_name"][0]["@value"] == "Amina"
+        # givenName alias should expand to the same PublicSchema .jsonld URI as given_name
+        assert "https://publicschema.org/given_name.jsonld" in person
+        assert person["https://publicschema.org/given_name.jsonld"][0]["@value"] == "Amina"

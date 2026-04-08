@@ -7,6 +7,11 @@ import type { Concept, Property } from "../data/vocabulary";
 
 const CONTEXT = "https://publicschema.org/ctx/v0.1";
 
+/** Append .jsonld so the URI dereferences on static hosts (no content negotiation). */
+function jsonldUrl(uri: string): string {
+  return uri + ".jsonld";
+}
+
 export function getStaticPaths() {
   const vocab = loadVocabulary();
   const paths = [];
@@ -26,7 +31,7 @@ export function getStaticPaths() {
 function conceptToJsonLd(concept: Concept, vocab: ReturnType<typeof loadVocabulary>) {
   const doc: Record<string, unknown> = {
     "@context": CONTEXT,
-    "@id": concept.uri,
+    "@id": jsonldUrl(concept.uri),
     "@type": "rdfs:Class",
     "rdfs:label": concept.id,
     "rdfs:comment": concept.definition.en,
@@ -47,14 +52,14 @@ function conceptToJsonLd(concept: Concept, vocab: ReturnType<typeof loadVocabula
   if (concept.supertypes.length > 0) {
     doc["rdfs:subClassOf"] = concept.supertypes.map((s) => {
       const parent = vocab.concepts[s];
-      return parent ? parent.uri : s;
+      return parent ? jsonldUrl(parent.uri) : s;
     });
   }
 
   if (concept.subtypes.length > 0) {
     doc["schema:subtypes"] = concept.subtypes.map((s) => {
       const child = vocab.concepts[s];
-      return child ? child.uri : s;
+      return child ? jsonldUrl(child.uri) : s;
     });
   }
 
@@ -62,7 +67,7 @@ function conceptToJsonLd(concept: Concept, vocab: ReturnType<typeof loadVocabula
     doc["schema:properties"] = concept.properties.map((ref) => {
       const prop = vocab.properties[ref.id];
       return {
-        "@id": prop ? prop.uri : ref.id,
+        "@id": prop ? jsonldUrl(prop.uri) : ref.id,
       };
     });
   }
@@ -73,7 +78,7 @@ function conceptToJsonLd(concept: Concept, vocab: ReturnType<typeof loadVocabula
 function propertyToJsonLd(prop: Property, vocab: ReturnType<typeof loadVocabulary>) {
   const doc: Record<string, unknown> = {
     "@context": CONTEXT,
-    "@id": prop.uri,
+    "@id": jsonldUrl(prop.uri),
     "@type": "rdf:Property",
     "rdfs:label": prop.id,
     "rdfs:comment": prop.definition.en,
@@ -91,18 +96,18 @@ function propertyToJsonLd(prop: Property, vocab: ReturnType<typeof loadVocabular
 
   if (prop.vocabulary) {
     const vocabEntry = vocab.vocabularies[prop.vocabulary];
-    doc["schema:vocabulary"] = vocabEntry ? vocabEntry.uri : prop.vocabulary;
+    doc["schema:vocabulary"] = vocabEntry ? jsonldUrl(vocabEntry.uri) : prop.vocabulary;
   }
 
   if (prop.references) {
     const refConcept = vocab.concepts[prop.references];
-    doc["schema:references"] = refConcept ? refConcept.uri : prop.references;
+    doc["schema:references"] = refConcept ? jsonldUrl(refConcept.uri) : prop.references;
   }
 
   if (prop.used_by.length > 0) {
     doc["schema:domainIncludes"] = prop.used_by.map((id) => {
       const concept = vocab.concepts[id];
-      return concept ? concept.uri : id;
+      return concept ? jsonldUrl(concept.uri) : id;
     });
   }
 

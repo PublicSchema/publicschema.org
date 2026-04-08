@@ -239,16 +239,18 @@ def build_vocabulary(schema_dir: Path) -> dict:
             "system_mappings": data.get("system_mappings"),
         }
 
-    # Build JSON-LD context (uses the computed URIs from output objects)
+    # Build JSON-LD context (uses the computed URIs from output objects).
+    # Context URIs get a .jsonld suffix so they dereference on static hosts
+    # (GitHub Pages) where content negotiation is unavailable.
     context_map = {
         "@vocab": base_uri,
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "schema": "https://schema.org/",
     }
     for concept_id, concept_out in out_concepts.items():
-        context_map[concept_id] = concept_out["uri"]
+        context_map[concept_id] = concept_out["uri"] + ".jsonld"
     for prop_id, prop_out in out_properties.items():
-        prop_uri = prop_out["uri"]
+        prop_uri = prop_out["uri"] + ".jsonld"
         prop_type = properties_raw[prop_id].get("type", "string")
         # concept:X references get @type: @id
         if prop_type.startswith("concept:"):

@@ -267,31 +267,31 @@ class TestJsonLdContext:
         context = result["context"]
         assert context["@id"] == "https://test.example.org/ctx/v0.1"
 
-    def test_context_concept_is_bare_uri(
+    def test_context_concept_has_jsonld_uri(
         self, tmp_schema, write_concept
     ):
-        """Concepts are bare URI strings in the context."""
+        """Concepts in context use .jsonld URIs for static-host dereferencing."""
         write_concept("person.yaml", make_concept(id="Person"))
         result = build_vocabulary(tmp_schema)
         ctx = result["context"]["@context"]
-        assert ctx["Person"] == "https://test.example.org/Person"
+        assert ctx["Person"] == "https://test.example.org/Person.jsonld"
 
-    def test_context_string_property_is_bare_uri(
+    def test_context_string_property_has_jsonld_uri(
         self, tmp_schema, write_concept, write_property
     ):
-        """String properties without vocabulary are bare URI strings."""
+        """String properties use .jsonld URIs in the context."""
         write_property("name.yaml", make_property(id="name", type="string"))
         write_concept("person.yaml", make_concept(
             id="Person", properties=["name"],
         ))
         result = build_vocabulary(tmp_schema)
         ctx = result["context"]["@context"]
-        assert ctx["name"] == "https://test.example.org/name"
+        assert ctx["name"] == "https://test.example.org/name.jsonld"
 
     def test_context_date_property_has_xsd_type(
         self, tmp_schema, write_concept, write_property
     ):
-        """Date properties get @type: xsd:date coercion."""
+        """Date properties get @type: xsd:date coercion with .jsonld URI."""
         write_property("dob.yaml", make_property(id="dob", type="date"))
         write_concept("person.yaml", make_concept(
             id="Person", properties=["dob"],
@@ -299,7 +299,7 @@ class TestJsonLdContext:
         result = build_vocabulary(tmp_schema)
         ctx = result["context"]["@context"]
         assert ctx["dob"] == {
-            "@id": "https://test.example.org/dob",
+            "@id": "https://test.example.org/dob.jsonld",
             "@type": "xsd:date",
         }
 
@@ -313,7 +313,7 @@ class TestJsonLdContext:
         result = build_vocabulary(tmp_schema)
         ctx = result["context"]["@context"]
         assert ctx["created"] == {
-            "@id": "https://test.example.org/created",
+            "@id": "https://test.example.org/created.jsonld",
             "@type": "xsd:dateTime",
         }
 
@@ -327,7 +327,7 @@ class TestJsonLdContext:
         result = build_vocabulary(tmp_schema)
         ctx = result["context"]["@context"]
         assert ctx["amount"] == {
-            "@id": "https://test.example.org/amount",
+            "@id": "https://test.example.org/amount.jsonld",
             "@type": "xsd:decimal",
         }
 
@@ -341,7 +341,7 @@ class TestJsonLdContext:
         result = build_vocabulary(tmp_schema)
         ctx = result["context"]["@context"]
         assert ctx["count"] == {
-            "@id": "https://test.example.org/count",
+            "@id": "https://test.example.org/count.jsonld",
             "@type": "xsd:integer",
         }
 
@@ -355,14 +355,14 @@ class TestJsonLdContext:
         result = build_vocabulary(tmp_schema)
         ctx = result["context"]["@context"]
         assert ctx["active"] == {
-            "@id": "https://test.example.org/active",
+            "@id": "https://test.example.org/active.jsonld",
             "@type": "xsd:boolean",
         }
 
     def test_context_concept_ref_property_has_id_type(
         self, tmp_schema, write_concept, write_property
     ):
-        """Properties referencing a concept get @type: @id."""
+        """Properties referencing a concept get @type: @id with .jsonld URI."""
         write_property("beneficiary.yaml", make_property(
             id="beneficiary", type="concept:Person",
         ))
@@ -372,7 +372,7 @@ class TestJsonLdContext:
         result = build_vocabulary(tmp_schema)
         ctx = result["context"]["@context"]
         assert ctx["beneficiary"] == {
-            "@id": "https://test.example.org/beneficiary",
+            "@id": "https://test.example.org/beneficiary.jsonld",
             "@type": "@id",
         }
 
@@ -386,7 +386,7 @@ class TestJsonLdContext:
         result = build_vocabulary(tmp_schema)
         ctx = result["context"]["@context"]
         assert ctx["link"] == {
-            "@id": "https://test.example.org/link",
+            "@id": "https://test.example.org/link.jsonld",
             "@type": "@id",
         }
 
@@ -400,8 +400,8 @@ class TestJsonLdContext:
 
         result = build_vocabulary(tmp_schema)
         ctx = result["context"]["@context"]
-        assert ctx["Enrollment"] == "https://test.example.org/sp/Enrollment"
-        assert ctx["enrollment_status"] == "https://test.example.org/sp/enrollment_status"
+        assert ctx["Enrollment"] == "https://test.example.org/sp/Enrollment.jsonld"
+        assert ctx["enrollment_status"] == "https://test.example.org/sp/enrollment_status.jsonld"
 
     def test_context_schema_org_alias_for_string_property(
         self, tmp_schema, write_concept, write_property
@@ -416,9 +416,9 @@ class TestJsonLdContext:
         result = build_vocabulary(tmp_schema)
         ctx = result["context"]["@context"]
         # Original entry still present
-        assert ctx["given_name"] == "https://test.example.org/given_name"
+        assert ctx["given_name"] == "https://test.example.org/given_name.jsonld"
         # schema.org alias resolves to the same PublicSchema URI
-        assert ctx["givenName"] == "https://test.example.org/given_name"
+        assert ctx["givenName"] == "https://test.example.org/given_name.jsonld"
 
     def test_context_schema_org_alias_for_typed_property(
         self, tmp_schema, write_concept, write_property
@@ -434,11 +434,11 @@ class TestJsonLdContext:
         result = build_vocabulary(tmp_schema)
         ctx = result["context"]["@context"]
         assert ctx["dob"] == {
-            "@id": "https://test.example.org/dob",
+            "@id": "https://test.example.org/dob.jsonld",
             "@type": "xsd:date",
         }
         assert ctx["birthDate"] == {
-            "@id": "https://test.example.org/dob",
+            "@id": "https://test.example.org/dob.jsonld",
             "@type": "xsd:date",
         }
 
