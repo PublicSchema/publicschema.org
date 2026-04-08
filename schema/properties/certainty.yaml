@@ -1,0 +1,13 @@
+id: certainty
+maturity: draft
+
+definition:
+  en: "The confidence that the event has occurred or will occur."
+  fr: "La confiance que l'evenement s'est produit ou se produira."
+  es: "La confianza de que el evento ha ocurrido o ocurrira."
+
+type: string
+cardinality: single
+vocabulary: certainty
+references: null
+data_classification: non_personal

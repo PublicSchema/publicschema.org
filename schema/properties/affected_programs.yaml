@@ -1,0 +1,13 @@
+id: affected_programs
+maturity: draft
+
+definition:
+  en: "Programs whose operations or beneficiaries are affected by this event."
+  fr: "Les programmes dont les operations ou les beneficiaires sont affectes par cet evenement."
+  es: "Programas cuyas operaciones o beneficiarios se ven afectados por este evento."
+
+type: concept:Program
+cardinality: multiple
+vocabulary: null
+references: Program
+data_classification: non_personal

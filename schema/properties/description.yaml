@@ -1,0 +1,13 @@
+id: description
+maturity: draft
+
+definition:
+  en: "A free-text summary describing the event, situation, or record."
+  fr: "Un resume en texte libre decrivant l'evenement, la situation ou l'enregistrement."
+  es: "Un resumen en texto libre que describe el evento, la situacion o el registro."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+data_classification: non_personal

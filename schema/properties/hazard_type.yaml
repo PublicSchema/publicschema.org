@@ -1,0 +1,13 @@
+id: hazard_type
+maturity: draft
+
+definition:
+  en: "The category of hazard or disruptive event."
+  fr: "La categorie de risque ou d'evenement perturbateur."
+  es: "La categoria de peligro o evento perturbador."
+
+type: string
+cardinality: single
+vocabulary: hazard-type
+references: null
+data_classification: non_personal

@@ -1,0 +1,88 @@
+id: hazard-type
+maturity: draft
+
+definition:
+  en: "The category of hazard or disruptive event, based on the Sendai Framework classification with extensions for social and economic shocks."
+  fr: "La categorie de risque ou d'evenement perturbateur, basee sur la classification du Cadre de Sendai avec des extensions pour les chocs sociaux et economiques."
+  es: "La categoria de peligro o evento perturbador, basada en la clasificacion del Marco de Sendai con extensiones para choques sociales y economicos."
+
+values:
+  - code: geophysical
+    label:
+      en: Geophysical
+      fr: Geophysique
+      es: Geofisico
+    definition:
+      en: "Earthquakes, landslides, tsunamis, or volcanic activity."
+      fr: "Tremblements de terre, glissements de terrain, tsunamis ou activite volcanique."
+      es: "Terremotos, deslizamientos de tierra, tsunamis o actividad volcanica."
+
+  - code: meteorological
+    label:
+      en: Meteorological
+      fr: Meteorologique
+      es: Meteorologico
+    definition:
+      en: "Floods, storms, extreme temperatures, or drought."
+      fr: "Inondations, tempetes, temperatures extremes ou secheresse."
+      es: "Inundaciones, tormentas, temperaturas extremas o sequia."
+
+  - code: biological
+    label:
+      en: Biological
+      fr: Biologique
+      es: Biologico
+    definition:
+      en: "Disease outbreaks, epidemics, pest infestations, or biological contamination."
+      fr: "Epidemies, infestations de ravageurs ou contamination biologique."
+      es: "Brotes de enfermedades, epidemias, infestaciones de plagas o contaminacion biologica."
+
+  - code: environmental
+    label:
+      en: Environmental
+      fr: Environnemental
+      es: Ambiental
+    definition:
+      en: "Pollution, deforestation, desertification, or ecological degradation."
+      fr: "Pollution, deforestation, desertification ou degradation ecologique."
+      es: "Contaminacion, deforestacion, desertificacion o degradacion ecologica."
+
+  - code: technological
+    label:
+      en: Technological
+      fr: Technologique
+      es: Tecnologico
+    definition:
+      en: "Industrial accidents, infrastructure failures, or chemical spills."
+      fr: "Accidents industriels, defaillances d'infrastructure ou deversements chimiques."
+      es: "Accidentes industriales, fallas de infraestructura o derrames quimicos."
+
+  - code: conflict
+    label:
+      en: Conflict
+      fr: Conflit
+      es: Conflicto
+    definition:
+      en: "Armed conflict, civil unrest, or forced displacement."
+      fr: "Conflit arme, troubles civils ou deplacement force."
+      es: "Conflicto armado, disturbios civiles o desplazamiento forzado."
+
+  - code: economic
+    label:
+      en: Economic
+      fr: Economique
+      es: Economico
+    definition:
+      en: "Economic shocks such as price spikes, currency collapse, or market disruption."
+      fr: "Chocs economiques tels que flambee des prix, effondrement monetaire ou perturbation des marches."
+      es: "Choques economicos como alzas de precios, colapso monetario o perturbacion de mercados."
+
+  - code: other
+    label:
+      en: Other
+      fr: Autre
+      es: Otro
+    definition:
+      en: "Events not covered by any other category."
+      fr: "Evenements non couverts par aucune autre categorie."
+      es: "Eventos no cubiertos por ninguna otra categoria."

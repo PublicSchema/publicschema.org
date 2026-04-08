@@ -1,0 +1,13 @@
+id: affected_locations
+maturity: draft
+
+definition:
+  en: "The geographic or administrative areas affected by this event."
+  fr: "Les zones geographiques ou administratives affectees par cet evenement."
+  es: "Las areas geograficas o administrativas afectadas por este evento."
+
+type: concept:Location
+cardinality: multiple
+vocabulary: null
+references: Location
+data_classification: non_personal

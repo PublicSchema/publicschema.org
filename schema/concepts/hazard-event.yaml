@@ -1,0 +1,46 @@
+id: HazardEvent
+maturity: draft
+
+definition:
+  en: >
+    An event or condition that may disrupt the delivery of public services
+    or affect the well-being of a population. Covers natural hazards
+    (floods, droughts, earthquakes), health emergencies, conflict, and
+    economic shocks. Aligned with the Sendai Framework's broad definition
+    of hazard, and mappable to OASIS CAP v1.2 for alert interoperability.
+  fr: >
+    Un evenement ou une condition pouvant perturber la prestation de
+    services publics ou affecter le bien-etre d'une population. Couvre
+    les risques naturels (inondations, secheresses, tremblements de terre),
+    les urgences sanitaires, les conflits et les chocs economiques. Aligne
+    sur la definition large du Cadre de Sendai et compatible avec OASIS
+    CAP v1.2 pour l'interoperabilite des alertes.
+  es: >
+    Un evento o condicion que puede interrumpir la prestacion de servicios
+    publicos o afectar el bienestar de una poblacion. Cubre riesgos
+    naturales (inundaciones, sequias, terremotos), emergencias sanitarias,
+    conflictos y choques economicos. Alineado con la definicion amplia
+    del Marco de Sendai y compatible con OASIS CAP v1.2 para la
+    interoperabilidad de alertas.
+
+properties:
+  # Identity
+  - identifiers
+  # Classification
+  - hazard_type
+  - severity
+  - certainty
+  # Description
+  - description
+  # Temporal
+  - start_date
+  - end_date
+  # Geographic scope
+  - affected_locations
+  # Program impact
+  - affected_programs
+  # Provenance
+  - data_sources
+
+supertypes: []
+subtypes: []
