@@ -9,6 +9,11 @@ dist/downloads/
 dist/jsonld/
 dist/schemas/
 dist/vocabulary.json
+dist/publicschema.ttl
+dist/publicschema.shacl.ttl
+
+# Release snapshots (local until distribution strategy is decided)
+releases/
 
 # Generated download files (built by export.py, copied to site/public)
 site/public/*.csv

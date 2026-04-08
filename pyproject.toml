@@ -25,3 +25,4 @@ testpaths = ["tests"]
 ps-build = "build.build:main"
 ps-validate = "build.validate:main"
 ps-sync = "build.sync_standards:main"
+ps-release = "build.release:main"
