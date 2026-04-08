@@ -194,6 +194,44 @@ class TestURIGeneration:
         value = result["vocabularies"]["gender-type"]["values"][0]
         assert value["uri"] == "https://test.example.org/vocab/gender-type/value_a"
 
+    def test_vocabulary_hierarchy_fields_passed_through(
+        self, tmp_schema, write_vocabulary
+    ):
+        """Vocabulary values with level and parent_code appear in build output."""
+        data = make_vocabulary(id="occupation")
+        data["values"] = [
+            {
+                "code": "managers",
+                "label": {"en": "Managers"},
+                "standard_code": "1",
+                "level": 1,
+            },
+            {
+                "code": "chief_executives",
+                "label": {"en": "Chief executives"},
+                "standard_code": "11",
+                "level": 2,
+                "parent_code": "1",
+            },
+        ]
+        write_vocabulary("occupation.yaml", data)
+        result = build_vocabulary(tmp_schema)
+        values = result["vocabularies"]["occupation"]["values"]
+        assert values[0]["level"] == 1
+        assert "parent_code" not in values[0]
+        assert values[1]["level"] == 2
+        assert values[1]["parent_code"] == "1"
+
+    def test_vocabulary_flat_values_omit_hierarchy_fields(
+        self, tmp_schema, write_vocabulary
+    ):
+        """Flat vocabulary values (no level/parent_code) omit those fields."""
+        write_vocabulary("gender-type.yaml", make_vocabulary(id="gender-type"))
+        result = build_vocabulary(tmp_schema)
+        value = result["vocabularies"]["gender-type"]["values"][0]
+        assert "level" not in value
+        assert "parent_code" not in value
+
     def test_vocabulary_uri_domain_specific(
         self, tmp_schema, write_concept, write_property, write_vocabulary
     ):

@@ -1,186 +1,3721 @@
 id: occupation
 maturity: draft
 definition:
-  en: Categories describing a person's occupation, based on the ISCO-08 sub-major groups (2-digit level).
-  fr: Catégories décrivant la profession d'une personne, basées sur les sous-grands groupes ISCO-08 (niveau à 2 chiffres).
-  es: Categorías que describen la ocupación de una persona, basadas en los subgrupos principales ISCO-08 (nivel de 2 dígitos).
+  en: Categories describing a person's occupation, based on the full ISCO-08 classification hierarchy (major groups, sub-major
+    groups, minor groups, and unit groups).
+  fr: Categories decrivant la profession d'une personne, basees sur la classification hierarchique complete ISCO-08 (grands
+    groupes, sous-grands groupes, sous-groupes et groupes de base).
+  es: Categorias que describen la ocupacion de una persona, basadas en la clasificacion jerarquica completa ISCO-08 (grandes
+    grupos, subgrupos principales, subgrupos y grupos primarios).
 standard:
   name: ISCO-08
   uri: https://www.ilo.org/public/english/bureau/stat/isco/isco08/
 sync:
   source_url: https://raw.githubusercontent.com/pgmyrek/ISCO_08_Structure/master/output_data.json
   format: isco-json
-  last_synced: '2026-04-07'
+  last_synced: '2026-04-08'
 values:
-- code: commissioned_armed_forces_officers
+- code: armed_forces_occupations_0
+  label:
+    en: Armed forces occupations
+  standard_code: '0'
+  level: 1
+- code: commissioned_armed_forces_officers_01
   label:
     en: Commissioned armed forces officers
   standard_code: '01'
-- code: non_commissioned_armed_forces_officers
+  level: 2
+  parent_code: '0'
+- code: commissioned_armed_forces_officers_011
+  label:
+    en: Commissioned armed forces officers
+  standard_code: '011'
+  level: 3
+  parent_code: '01'
+- code: commissioned_armed_forces_officers_0110
+  label:
+    en: Commissioned armed forces officers
+  standard_code: '0110'
+  level: 4
+  parent_code: '011'
+- code: non_commissioned_armed_forces_officers_02
   label:
     en: Non-commissioned armed forces officers
   standard_code: '02'
-- code: armed_forces_occupations_other_ranks
+  level: 2
+  parent_code: '0'
+- code: non_commissioned_armed_forces_officers_021
+  label:
+    en: Non-commissioned armed forces officers
+  standard_code: '021'
+  level: 3
+  parent_code: '02'
+- code: non_commissioned_armed_forces_officers_0210
+  label:
+    en: Non-commissioned armed forces officers
+  standard_code: '0210'
+  level: 4
+  parent_code: '021'
+- code: armed_forces_occupations_other_ranks_03
   label:
     en: Armed forces occupations, other ranks
   standard_code: '03'
-- code: chief_executives_senior_officials_and_legislators
+  level: 2
+  parent_code: '0'
+- code: armed_forces_occupations_other_ranks_031
+  label:
+    en: Armed forces occupations, other ranks
+  standard_code: '031'
+  level: 3
+  parent_code: '03'
+- code: armed_forces_occupations_other_ranks_0310
+  label:
+    en: Armed forces occupations, other ranks
+  standard_code: '0310'
+  level: 4
+  parent_code: '031'
+- code: managers_1
+  label:
+    en: Managers
+  standard_code: '1'
+  level: 1
+- code: chief_executives_senior_officials_and_legislators_11
   label:
     en: Chief executives, senior officials and legislators
   standard_code: '11'
-- code: administrative_and_commercial_managers
+  level: 2
+  parent_code: '1'
+- code: legislators_and_senior_officials_111
+  label:
+    en: Legislators and senior officials
+  standard_code: '111'
+  level: 3
+  parent_code: '11'
+- code: legislators_1111
+  label:
+    en: Legislators
+  standard_code: '1111'
+  level: 4
+  parent_code: '111'
+- code: senior_government_officials_1112
+  label:
+    en: Senior government officials
+  standard_code: '1112'
+  level: 4
+  parent_code: '111'
+- code: traditional_chiefs_and_heads_of_village_1113
+  label:
+    en: Traditional chiefs and heads of village
+  standard_code: '1113'
+  level: 4
+  parent_code: '111'
+- code: senior_officials_of_special_interest_organizations_1114
+  label:
+    en: Senior officials of special-interest organizations
+  standard_code: '1114'
+  level: 4
+  parent_code: '111'
+- code: managing_directors_and_chief_executives_112
+  label:
+    en: Managing directors and chief executives
+  standard_code: '112'
+  level: 3
+  parent_code: '11'
+- code: managing_directors_and_chief_executives_1120
+  label:
+    en: Managing directors and chief executives
+  standard_code: '1120'
+  level: 4
+  parent_code: '112'
+- code: administrative_and_commercial_managers_12
   label:
     en: Administrative and commercial managers
   standard_code: '12'
-- code: production_and_specialised_services_managers
+  level: 2
+  parent_code: '1'
+- code: business_services_and_administration_managers_121
+  label:
+    en: Business services and administration managers
+  standard_code: '121'
+  level: 3
+  parent_code: '12'
+- code: finance_managers_1211
+  label:
+    en: Finance managers
+  standard_code: '1211'
+  level: 4
+  parent_code: '121'
+- code: human_resource_managers_1212
+  label:
+    en: Human resource managers
+  standard_code: '1212'
+  level: 4
+  parent_code: '121'
+- code: policy_and_planning_managers_1213
+  label:
+    en: Policy and planning managers
+  standard_code: '1213'
+  level: 4
+  parent_code: '121'
+- code: business_services_and_administration_managers_not_elsewhere_classified_1219
+  label:
+    en: Business services and administration managers not elsewhere classified
+  standard_code: '1219'
+  level: 4
+  parent_code: '121'
+- code: sales_marketing_and_development_managers_122
+  label:
+    en: Sales, marketing and development managers
+  standard_code: '122'
+  level: 3
+  parent_code: '12'
+- code: sales_and_marketing_managers_1221
+  label:
+    en: Sales and marketing managers
+  standard_code: '1221'
+  level: 4
+  parent_code: '122'
+- code: advertising_and_public_relations_managers_1222
+  label:
+    en: Advertising and public relations managers
+  standard_code: '1222'
+  level: 4
+  parent_code: '122'
+- code: research_and_development_managers_1223
+  label:
+    en: Research and development managers
+  standard_code: '1223'
+  level: 4
+  parent_code: '122'
+- code: production_and_specialised_services_managers_13
   label:
     en: Production and specialised services managers
   standard_code: '13'
-- code: hospitality_retail_and_other_services_managers
+  level: 2
+  parent_code: '1'
+- code: production_managers_in_agriculture_forestry_and_fisheries_131
+  label:
+    en: Production managers in agriculture, forestry and fisheries
+  standard_code: '131'
+  level: 3
+  parent_code: '13'
+- code: agricultural_and_forestry_production_managers_1311
+  label:
+    en: Agricultural and forestry production managers
+  standard_code: '1311'
+  level: 4
+  parent_code: '131'
+- code: aquaculture_and_fisheries_production_managers_1312
+  label:
+    en: Aquaculture and fisheries production managers
+  standard_code: '1312'
+  level: 4
+  parent_code: '131'
+- code: manufacturing_mining_construction_and_distribution_managers_132
+  label:
+    en: Manufacturing, mining, construction, and distribution managers
+  standard_code: '132'
+  level: 3
+  parent_code: '13'
+- code: manufacturing_managers_1321
+  label:
+    en: Manufacturing managers
+  standard_code: '1321'
+  level: 4
+  parent_code: '132'
+- code: mining_managers_1322
+  label:
+    en: Mining managers
+  standard_code: '1322'
+  level: 4
+  parent_code: '132'
+- code: construction_managers_1323
+  label:
+    en: Construction managers
+  standard_code: '1323'
+  level: 4
+  parent_code: '132'
+- code: supply_distribution_and_related_managers_1324
+  label:
+    en: Supply, distribution and related managers
+  standard_code: '1324'
+  level: 4
+  parent_code: '132'
+- code: information_and_communications_technology_service_managers_133
+  label:
+    en: Information and communications technology service managers
+  standard_code: '133'
+  level: 3
+  parent_code: '13'
+- code: information_and_communications_technology_service_managers_1330
+  label:
+    en: Information and communications technology service managers
+  standard_code: '1330'
+  level: 4
+  parent_code: '133'
+- code: professional_services_managers_134
+  label:
+    en: Professional services managers
+  standard_code: '134'
+  level: 3
+  parent_code: '13'
+- code: child_care_services_managers_1341
+  label:
+    en: Child care services managers
+  standard_code: '1341'
+  level: 4
+  parent_code: '134'
+- code: health_services_managers_1342
+  label:
+    en: Health services managers
+  standard_code: '1342'
+  level: 4
+  parent_code: '134'
+- code: aged_care_services_managers_1343
+  label:
+    en: Aged care services managers
+  standard_code: '1343'
+  level: 4
+  parent_code: '134'
+- code: social_welfare_managers_1344
+  label:
+    en: Social welfare managers
+  standard_code: '1344'
+  level: 4
+  parent_code: '134'
+- code: education_managers_1345
+  label:
+    en: Education managers
+  standard_code: '1345'
+  level: 4
+  parent_code: '134'
+- code: financial_and_insurance_services_branch_managers_1346
+  label:
+    en: Financial and insurance services branch managers
+  standard_code: '1346'
+  level: 4
+  parent_code: '134'
+- code: professional_services_managers_not_elsewhere_classified_1349
+  label:
+    en: Professional services managers not elsewhere classified
+  standard_code: '1349'
+  level: 4
+  parent_code: '134'
+- code: hospitality_retail_and_other_services_managers_14
   label:
     en: Hospitality, retail and other services managers
   standard_code: '14'
-- code: science_and_engineering_professionals
+  level: 2
+  parent_code: '1'
+- code: hotel_and_restaurant_managers_141
+  label:
+    en: Hotel and restaurant managers
+  standard_code: '141'
+  level: 3
+  parent_code: '14'
+- code: hotel_managers_1411
+  label:
+    en: Hotel managers
+  standard_code: '1411'
+  level: 4
+  parent_code: '141'
+- code: restaurant_managers_1412
+  label:
+    en: Restaurant managers
+  standard_code: '1412'
+  level: 4
+  parent_code: '141'
+- code: retail_and_wholesale_trade_managers_142
+  label:
+    en: Retail and wholesale trade managers
+  standard_code: '142'
+  level: 3
+  parent_code: '14'
+- code: retail_and_wholesale_trade_managers_1420
+  label:
+    en: Retail and wholesale trade managers
+  standard_code: '1420'
+  level: 4
+  parent_code: '142'
+- code: other_services_managers_143
+  label:
+    en: Other services managers
+  standard_code: '143'
+  level: 3
+  parent_code: '14'
+- code: sports_recreation_and_cultural_centre_managers_1431
+  label:
+    en: Sports, recreation and cultural centre managers
+  standard_code: '1431'
+  level: 4
+  parent_code: '143'
+- code: services_managers_not_elsewhere_classified_1439
+  label:
+    en: Services managers not elsewhere classified
+  standard_code: '1439'
+  level: 4
+  parent_code: '143'
+- code: professionals_2
+  label:
+    en: Professionals
+  standard_code: '2'
+  level: 1
+- code: science_and_engineering_professionals_21
   label:
     en: Science and engineering professionals
   standard_code: '21'
-- code: health_professionals
+  level: 2
+  parent_code: '2'
+- code: physical_and_earth_science_professionals_211
+  label:
+    en: Physical and earth science professionals
+  standard_code: '211'
+  level: 3
+  parent_code: '21'
+- code: physicists_and_astronomers_2111
+  label:
+    en: Physicists and astronomers
+  standard_code: '2111'
+  level: 4
+  parent_code: '211'
+- code: meteorologists_2112
+  label:
+    en: Meteorologists
+  standard_code: '2112'
+  level: 4
+  parent_code: '211'
+- code: chemists_2113
+  label:
+    en: Chemists
+  standard_code: '2113'
+  level: 4
+  parent_code: '211'
+- code: geologists_and_geophysicists_2114
+  label:
+    en: Geologists and geophysicists
+  standard_code: '2114'
+  level: 4
+  parent_code: '211'
+- code: mathematicians_actuaries_and_statisticians_212
+  label:
+    en: Mathematicians, actuaries and statisticians
+  standard_code: '212'
+  level: 3
+  parent_code: '21'
+- code: mathematicians_actuaries_and_statisticians_2120
+  label:
+    en: Mathematicians, actuaries and statisticians
+  standard_code: '2120'
+  level: 4
+  parent_code: '212'
+- code: life_science_professionals_213
+  label:
+    en: Life science professionals
+  standard_code: '213'
+  level: 3
+  parent_code: '21'
+- code: biologists_botanists_zoologists_and_related_professionals_2131
+  label:
+    en: Biologists, botanists, zoologists and related professionals
+  standard_code: '2131'
+  level: 4
+  parent_code: '213'
+- code: farming_forestry_and_fisheries_advisers_2132
+  label:
+    en: Farming, forestry and fisheries advisers
+  standard_code: '2132'
+  level: 4
+  parent_code: '213'
+- code: environmental_protection_professionals_2133
+  label:
+    en: Environmental protection professionals
+  standard_code: '2133'
+  level: 4
+  parent_code: '213'
+- code: engineering_professionals_excluding_electrotechnology_214
+  label:
+    en: Engineering professionals (excluding electrotechnology)
+  standard_code: '214'
+  level: 3
+  parent_code: '21'
+- code: industrial_and_production_engineers_2141
+  label:
+    en: Industrial and production engineers
+  standard_code: '2141'
+  level: 4
+  parent_code: '214'
+- code: civil_engineers_2142
+  label:
+    en: Civil engineers
+  standard_code: '2142'
+  level: 4
+  parent_code: '214'
+- code: environmental_engineers_2143
+  label:
+    en: Environmental engineers
+  standard_code: '2143'
+  level: 4
+  parent_code: '214'
+- code: mechanical_engineers_2144
+  label:
+    en: Mechanical engineers
+  standard_code: '2144'
+  level: 4
+  parent_code: '214'
+- code: chemical_engineers_2145
+  label:
+    en: Chemical engineers
+  standard_code: '2145'
+  level: 4
+  parent_code: '214'
+- code: mining_engineers_metallurgists_and_related_professionals_2146
+  label:
+    en: Mining engineers, metallurgists and related professionals
+  standard_code: '2146'
+  level: 4
+  parent_code: '214'
+- code: engineering_professionals_not_elsewhere_classified_2149
+  label:
+    en: Engineering professionals not elsewhere classified
+  standard_code: '2149'
+  level: 4
+  parent_code: '214'
+- code: electrotechnology_engineers_215
+  label:
+    en: Electrotechnology engineers
+  standard_code: '215'
+  level: 3
+  parent_code: '21'
+- code: electrical_engineers_2151
+  label:
+    en: Electrical engineers
+  standard_code: '2151'
+  level: 4
+  parent_code: '215'
+- code: electronics_engineers_2152
+  label:
+    en: Electronics engineers
+  standard_code: '2152'
+  level: 4
+  parent_code: '215'
+- code: telecommunications_engineers_2153
+  label:
+    en: Telecommunications engineers
+  standard_code: '2153'
+  level: 4
+  parent_code: '215'
+- code: architects_planners_surveyors_and_designers_216
+  label:
+    en: Architects, planners, surveyors and designers
+  standard_code: '216'
+  level: 3
+  parent_code: '21'
+- code: building_architects_2161
+  label:
+    en: Building architects
+  standard_code: '2161'
+  level: 4
+  parent_code: '216'
+- code: landscape_architects_2162
+  label:
+    en: Landscape architects
+  standard_code: '2162'
+  level: 4
+  parent_code: '216'
+- code: product_and_garment_designers_2163
+  label:
+    en: Product and garment designers
+  standard_code: '2163'
+  level: 4
+  parent_code: '216'
+- code: town_and_traffic_planners_2164
+  label:
+    en: Town and traffic planners
+  standard_code: '2164'
+  level: 4
+  parent_code: '216'
+- code: cartographers_and_surveyors_2165
+  label:
+    en: Cartographers and surveyors
+  standard_code: '2165'
+  level: 4
+  parent_code: '216'
+- code: graphic_and_multimedia_designers_2166
+  label:
+    en: Graphic and multimedia designers
+  standard_code: '2166'
+  level: 4
+  parent_code: '216'
+- code: health_professionals_22
   label:
     en: Health professionals
   standard_code: '22'
-- code: teaching_professionals
+  level: 2
+  parent_code: '2'
+- code: medical_doctors_221
+  label:
+    en: Medical doctors
+  standard_code: '221'
+  level: 3
+  parent_code: '22'
+- code: generalist_medical_practitioners_2211
+  label:
+    en: Generalist medical practitioners
+  standard_code: '2211'
+  level: 4
+  parent_code: '221'
+- code: specialist_medical_practitioners_2212
+  label:
+    en: Specialist medical practitioners
+  standard_code: '2212'
+  level: 4
+  parent_code: '221'
+- code: nursing_and_midwifery_professionals_222
+  label:
+    en: Nursing and midwifery professionals
+  standard_code: '222'
+  level: 3
+  parent_code: '22'
+- code: nursing_professionals_2221
+  label:
+    en: Nursing professionals
+  standard_code: '2221'
+  level: 4
+  parent_code: '222'
+- code: midwifery_professionals_2222
+  label:
+    en: Midwifery professionals
+  standard_code: '2222'
+  level: 4
+  parent_code: '222'
+- code: traditional_and_complementary_medicine_professionals_223
+  label:
+    en: Traditional and complementary medicine professionals
+  standard_code: '223'
+  level: 3
+  parent_code: '22'
+- code: traditional_and_complementary_medicine_professionals_2230
+  label:
+    en: Traditional and complementary medicine professionals
+  standard_code: '2230'
+  level: 4
+  parent_code: '223'
+- code: paramedical_practitioners_224
+  label:
+    en: Paramedical practitioners
+  standard_code: '224'
+  level: 3
+  parent_code: '22'
+- code: paramedical_practitioners_2240
+  label:
+    en: Paramedical practitioners
+  standard_code: '2240'
+  level: 4
+  parent_code: '224'
+- code: veterinarians_225
+  label:
+    en: Veterinarians
+  standard_code: '225'
+  level: 3
+  parent_code: '22'
+- code: veterinarians_2250
+  label:
+    en: Veterinarians
+  standard_code: '2250'
+  level: 4
+  parent_code: '225'
+- code: other_health_professionals_226
+  label:
+    en: Other health professionals
+  standard_code: '226'
+  level: 3
+  parent_code: '22'
+- code: dentists_2261
+  label:
+    en: Dentists
+  standard_code: '2261'
+  level: 4
+  parent_code: '226'
+- code: pharmacists_2262
+  label:
+    en: Pharmacists
+  standard_code: '2262'
+  level: 4
+  parent_code: '226'
+- code: environmental_and_occupational_health_and_hygiene_professionals_2263
+  label:
+    en: Environmental and occupational health and hygiene professionals
+  standard_code: '2263'
+  level: 4
+  parent_code: '226'
+- code: physiotherapists_2264
+  label:
+    en: Physiotherapists
+  standard_code: '2264'
+  level: 4
+  parent_code: '226'
+- code: dieticians_and_nutritionists_2265
+  label:
+    en: Dieticians and nutritionists
+  standard_code: '2265'
+  level: 4
+  parent_code: '226'
+- code: audiologists_and_speech_therapists_2266
+  label:
+    en: Audiologists and speech therapists
+  standard_code: '2266'
+  level: 4
+  parent_code: '226'
+- code: optometrists_and_ophthalmic_opticians_2267
+  label:
+    en: Optometrists and ophthalmic opticians
+  standard_code: '2267'
+  level: 4
+  parent_code: '226'
+- code: health_professionals_not_elsewhere_classified_2269
+  label:
+    en: Health professionals not elsewhere classified
+  standard_code: '2269'
+  level: 4
+  parent_code: '226'
+- code: teaching_professionals_23
   label:
     en: Teaching professionals
   standard_code: '23'
-- code: business_and_administration_professionals
+  level: 2
+  parent_code: '2'
+- code: university_and_higher_education_teachers_231
+  label:
+    en: University and higher education teachers
+  standard_code: '231'
+  level: 3
+  parent_code: '23'
+- code: university_and_higher_education_teachers_2310
+  label:
+    en: University and higher education teachers
+  standard_code: '2310'
+  level: 4
+  parent_code: '231'
+- code: vocational_education_teachers_232
+  label:
+    en: Vocational education teachers
+  standard_code: '232'
+  level: 3
+  parent_code: '23'
+- code: vocational_education_teachers_2320
+  label:
+    en: Vocational education teachers
+  standard_code: '2320'
+  level: 4
+  parent_code: '232'
+- code: secondary_education_teachers_233
+  label:
+    en: Secondary education teachers
+  standard_code: '233'
+  level: 3
+  parent_code: '23'
+- code: secondary_education_teachers_2330
+  label:
+    en: Secondary education teachers
+  standard_code: '2330'
+  level: 4
+  parent_code: '233'
+- code: primary_school_and_early_childhood_teachers_234
+  label:
+    en: Primary school and early childhood teachers
+  standard_code: '234'
+  level: 3
+  parent_code: '23'
+- code: primary_school_teachers_2341
+  label:
+    en: Primary school teachers
+  standard_code: '2341'
+  level: 4
+  parent_code: '234'
+- code: early_childhood_educators_2342
+  label:
+    en: Early childhood educators
+  standard_code: '2342'
+  level: 4
+  parent_code: '234'
+- code: other_teaching_professionals_235
+  label:
+    en: Other teaching professionals
+  standard_code: '235'
+  level: 3
+  parent_code: '23'
+- code: education_methods_specialists_2351
+  label:
+    en: Education methods specialists
+  standard_code: '2351'
+  level: 4
+  parent_code: '235'
+- code: special_needs_teachers_2352
+  label:
+    en: Special needs teachers
+  standard_code: '2352'
+  level: 4
+  parent_code: '235'
+- code: other_language_teachers_2353
+  label:
+    en: Other language teachers
+  standard_code: '2353'
+  level: 4
+  parent_code: '235'
+- code: other_music_teachers_2354
+  label:
+    en: Other music teachers
+  standard_code: '2354'
+  level: 4
+  parent_code: '235'
+- code: other_arts_teachers_2355
+  label:
+    en: Other arts teachers
+  standard_code: '2355'
+  level: 4
+  parent_code: '235'
+- code: information_technology_trainers_2356
+  label:
+    en: Information technology trainers
+  standard_code: '2356'
+  level: 4
+  parent_code: '235'
+- code: teaching_professionals_not_elsewhere_classified_2359
+  label:
+    en: Teaching professionals not elsewhere classified
+  standard_code: '2359'
+  level: 4
+  parent_code: '235'
+- code: business_and_administration_professionals_24
   label:
     en: Business and administration professionals
   standard_code: '24'
-- code: information_and_communications_technology_professionals
+  level: 2
+  parent_code: '2'
+- code: finance_professionals_241
+  label:
+    en: Finance professionals
+  standard_code: '241'
+  level: 3
+  parent_code: '24'
+- code: accountants_2411
+  label:
+    en: Accountants
+  standard_code: '2411'
+  level: 4
+  parent_code: '241'
+- code: financial_and_investment_advisers_2412
+  label:
+    en: Financial and investment advisers
+  standard_code: '2412'
+  level: 4
+  parent_code: '241'
+- code: financial_analysts_2413
+  label:
+    en: Financial analysts
+  standard_code: '2413'
+  level: 4
+  parent_code: '241'
+- code: administration_professionals_242
+  label:
+    en: Administration professionals
+  standard_code: '242'
+  level: 3
+  parent_code: '24'
+- code: management_and_organization_analysts_2421
+  label:
+    en: Management and organization analysts
+  standard_code: '2421'
+  level: 4
+  parent_code: '242'
+- code: policy_administration_professionals_2422
+  label:
+    en: Policy administration professionals
+  standard_code: '2422'
+  level: 4
+  parent_code: '242'
+- code: personnel_and_careers_professionals_2423
+  label:
+    en: Personnel and careers professionals
+  standard_code: '2423'
+  level: 4
+  parent_code: '242'
+- code: training_and_staff_development_professionals_2424
+  label:
+    en: Training and staff development professionals
+  standard_code: '2424'
+  level: 4
+  parent_code: '242'
+- code: sales_marketing_and_public_relations_professionals_243
+  label:
+    en: Sales, marketing and public relations professionals
+  standard_code: '243'
+  level: 3
+  parent_code: '24'
+- code: advertising_and_marketing_professionals_2431
+  label:
+    en: Advertising and marketing professionals
+  standard_code: '2431'
+  level: 4
+  parent_code: '243'
+- code: public_relations_professionals_2432
+  label:
+    en: Public relations professionals
+  standard_code: '2432'
+  level: 4
+  parent_code: '243'
+- code: technical_and_medical_sales_professionals_excluding_ict_2433
+  label:
+    en: Technical and medical sales professionals (excluding ICT)
+  standard_code: '2433'
+  level: 4
+  parent_code: '243'
+- code: information_and_communications_technology_sales_professionals_2434
+  label:
+    en: Information and communications technology sales professionals
+  standard_code: '2434'
+  level: 4
+  parent_code: '243'
+- code: information_and_communications_technology_professionals_25
   label:
     en: Information and communications technology professionals
   standard_code: '25'
-- code: legal_social_and_cultural_professionals
+  level: 2
+  parent_code: '2'
+- code: software_and_applications_developers_and_analysts_251
+  label:
+    en: Software and applications developers and analysts
+  standard_code: '251'
+  level: 3
+  parent_code: '25'
+- code: systems_analysts_2511
+  label:
+    en: Systems analysts
+  standard_code: '2511'
+  level: 4
+  parent_code: '251'
+- code: software_developers_2512
+  label:
+    en: Software developers
+  standard_code: '2512'
+  level: 4
+  parent_code: '251'
+- code: web_and_multimedia_developers_2513
+  label:
+    en: Web and multimedia developers
+  standard_code: '2513'
+  level: 4
+  parent_code: '251'
+- code: applications_programmers_2514
+  label:
+    en: Applications programmers
+  standard_code: '2514'
+  level: 4
+  parent_code: '251'
+- code: software_and_applications_developers_and_analysts_not_elsewhere_classified_2519
+  label:
+    en: Software and applications developers and analysts not elsewhere classified
+  standard_code: '2519'
+  level: 4
+  parent_code: '251'
+- code: database_and_network_professionals_252
+  label:
+    en: Database and network professionals
+  standard_code: '252'
+  level: 3
+  parent_code: '25'
+- code: database_designers_and_administrators_2521
+  label:
+    en: Database designers and administrators
+  standard_code: '2521'
+  level: 4
+  parent_code: '252'
+- code: systems_administrators_2522
+  label:
+    en: Systems administrators
+  standard_code: '2522'
+  level: 4
+  parent_code: '252'
+- code: computer_network_professionals_2523
+  label:
+    en: Computer network professionals
+  standard_code: '2523'
+  level: 4
+  parent_code: '252'
+- code: database_and_network_professionals_not_elsewhere_classified_2529
+  label:
+    en: Database and network professionals not elsewhere classified
+  standard_code: '2529'
+  level: 4
+  parent_code: '252'
+- code: legal_social_and_cultural_professionals_26
   label:
     en: Legal, social and cultural professionals
   standard_code: '26'
-- code: science_and_engineering_associate_professionals
+  level: 2
+  parent_code: '2'
+- code: legal_professionals_261
+  label:
+    en: Legal professionals
+  standard_code: '261'
+  level: 3
+  parent_code: '26'
+- code: lawyers_2611
+  label:
+    en: Lawyers
+  standard_code: '2611'
+  level: 4
+  parent_code: '261'
+- code: judges_2612
+  label:
+    en: Judges
+  standard_code: '2612'
+  level: 4
+  parent_code: '261'
+- code: legal_professionals_not_elsewhere_classified_2619
+  label:
+    en: Legal professionals not elsewhere classified
+  standard_code: '2619'
+  level: 4
+  parent_code: '261'
+- code: librarians_archivists_and_curators_262
+  label:
+    en: Librarians, archivists and curators
+  standard_code: '262'
+  level: 3
+  parent_code: '26'
+- code: archivists_and_curators_2621
+  label:
+    en: Archivists and curators
+  standard_code: '2621'
+  level: 4
+  parent_code: '262'
+- code: librarians_and_related_information_professionals_2622
+  label:
+    en: Librarians and related information professionals
+  standard_code: '2622'
+  level: 4
+  parent_code: '262'
+- code: social_and_religious_professionals_263
+  label:
+    en: Social and religious professionals
+  standard_code: '263'
+  level: 3
+  parent_code: '26'
+- code: economists_2631
+  label:
+    en: Economists
+  standard_code: '2631'
+  level: 4
+  parent_code: '263'
+- code: sociologists_anthropologists_and_related_professionals_2632
+  label:
+    en: Sociologists, anthropologists and related professionals
+  standard_code: '2632'
+  level: 4
+  parent_code: '263'
+- code: philosophers_historians_and_political_scientists_2633
+  label:
+    en: Philosophers, historians and political scientists
+  standard_code: '2633'
+  level: 4
+  parent_code: '263'
+- code: psychologists_2634
+  label:
+    en: Psychologists
+  standard_code: '2634'
+  level: 4
+  parent_code: '263'
+- code: social_work_and_counselling_professionals_2635
+  label:
+    en: Social work and counselling professionals
+  standard_code: '2635'
+  level: 4
+  parent_code: '263'
+- code: religious_professionals_2636
+  label:
+    en: Religious professionals
+  standard_code: '2636'
+  level: 4
+  parent_code: '263'
+- code: authors_journalists_and_linguists_264
+  label:
+    en: Authors, journalists and linguists
+  standard_code: '264'
+  level: 3
+  parent_code: '26'
+- code: authors_and_related_writers_2641
+  label:
+    en: Authors and related writers
+  standard_code: '2641'
+  level: 4
+  parent_code: '264'
+- code: journalists_2642
+  label:
+    en: Journalists
+  standard_code: '2642'
+  level: 4
+  parent_code: '264'
+- code: translators_interpreters_and_other_linguists_2643
+  label:
+    en: Translators, interpreters and other linguists
+  standard_code: '2643'
+  level: 4
+  parent_code: '264'
+- code: creative_and_performing_artists_265
+  label:
+    en: Creative and performing artists
+  standard_code: '265'
+  level: 3
+  parent_code: '26'
+- code: visual_artists_2651
+  label:
+    en: Visual artists
+  standard_code: '2651'
+  level: 4
+  parent_code: '265'
+- code: musicians_singers_and_composers_2652
+  label:
+    en: Musicians, singers and composers
+  standard_code: '2652'
+  level: 4
+  parent_code: '265'
+- code: dancers_and_choreographers_2653
+  label:
+    en: Dancers and choreographers
+  standard_code: '2653'
+  level: 4
+  parent_code: '265'
+- code: film_stage_and_related_directors_and_producers_2654
+  label:
+    en: Film, stage and related directors and producers
+  standard_code: '2654'
+  level: 4
+  parent_code: '265'
+- code: actors_2655
+  label:
+    en: Actors
+  standard_code: '2655'
+  level: 4
+  parent_code: '265'
+- code: announcers_on_radio_television_and_other_media_2656
+  label:
+    en: Announcers on radio, television and other media
+  standard_code: '2656'
+  level: 4
+  parent_code: '265'
+- code: creative_and_performing_artists_not_elsewhere_classified_2659
+  label:
+    en: Creative and performing artists not elsewhere classified
+  standard_code: '2659'
+  level: 4
+  parent_code: '265'
+- code: technicians_and_associate_professionals_3
+  label:
+    en: Technicians and associate professionals
+  standard_code: '3'
+  level: 1
+- code: science_and_engineering_associate_professionals_31
   label:
     en: Science and engineering associate professionals
   standard_code: '31'
-- code: health_associate_professionals
+  level: 2
+  parent_code: '3'
+- code: physical_and_engineering_science_technicians_311
+  label:
+    en: Physical and engineering science technicians
+  standard_code: '311'
+  level: 3
+  parent_code: '31'
+- code: chemical_and_physical_science_technicians_3111
+  label:
+    en: Chemical and physical science technicians
+  standard_code: '3111'
+  level: 4
+  parent_code: '311'
+- code: civil_engineering_technicians_3112
+  label:
+    en: Civil engineering technicians
+  standard_code: '3112'
+  level: 4
+  parent_code: '311'
+- code: electrical_engineering_technicians_3113
+  label:
+    en: Electrical engineering technicians
+  standard_code: '3113'
+  level: 4
+  parent_code: '311'
+- code: electronics_engineering_technicians_3114
+  label:
+    en: Electronics engineering technicians
+  standard_code: '3114'
+  level: 4
+  parent_code: '311'
+- code: mechanical_engineering_technicians_3115
+  label:
+    en: Mechanical engineering technicians
+  standard_code: '3115'
+  level: 4
+  parent_code: '311'
+- code: chemical_engineering_technicians_3116
+  label:
+    en: Chemical engineering technicians
+  standard_code: '3116'
+  level: 4
+  parent_code: '311'
+- code: mining_and_metallurgical_technicians_3117
+  label:
+    en: Mining and metallurgical technicians
+  standard_code: '3117'
+  level: 4
+  parent_code: '311'
+- code: draughtspersons_3118
+  label:
+    en: Draughtspersons
+  standard_code: '3118'
+  level: 4
+  parent_code: '311'
+- code: physical_and_engineering_science_technicians_not_elsewhere_classified_3119
+  label:
+    en: Physical and engineering science technicians not elsewhere classified
+  standard_code: '3119'
+  level: 4
+  parent_code: '311'
+- code: mining_manufacturing_and_construction_supervisors_312
+  label:
+    en: Mining, manufacturing and construction supervisors
+  standard_code: '312'
+  level: 3
+  parent_code: '31'
+- code: mining_supervisors_3121
+  label:
+    en: Mining supervisors
+  standard_code: '3121'
+  level: 4
+  parent_code: '312'
+- code: manufacturing_supervisors_3122
+  label:
+    en: Manufacturing supervisors
+  standard_code: '3122'
+  level: 4
+  parent_code: '312'
+- code: construction_supervisors_3123
+  label:
+    en: Construction supervisors
+  standard_code: '3123'
+  level: 4
+  parent_code: '312'
+- code: process_control_technicians_313
+  label:
+    en: Process control technicians
+  standard_code: '313'
+  level: 3
+  parent_code: '31'
+- code: power_production_plant_operators_3131
+  label:
+    en: Power production plant operators
+  standard_code: '3131'
+  level: 4
+  parent_code: '313'
+- code: incinerator_and_water_treatment_plant_operators_3132
+  label:
+    en: Incinerator and water treatment plant operators
+  standard_code: '3132'
+  level: 4
+  parent_code: '313'
+- code: chemical_processing_plant_controllers_3133
+  label:
+    en: Chemical processing plant controllers
+  standard_code: '3133'
+  level: 4
+  parent_code: '313'
+- code: petroleum_and_natural_gas_refining_plant_operators_3134
+  label:
+    en: Petroleum and natural gas refining plant operators
+  standard_code: '3134'
+  level: 4
+  parent_code: '313'
+- code: metal_production_process_controllers_3135
+  label:
+    en: Metal production process controllers
+  standard_code: '3135'
+  level: 4
+  parent_code: '313'
+- code: process_control_technicians_not_elsewhere_classified_3139
+  label:
+    en: Process control technicians not elsewhere classified
+  standard_code: '3139'
+  level: 4
+  parent_code: '313'
+- code: life_science_technicians_and_related_associate_professionals_314
+  label:
+    en: Life science technicians and related associate professionals
+  standard_code: '314'
+  level: 3
+  parent_code: '31'
+- code: life_science_technicians_excluding_medical_3141
+  label:
+    en: Life science technicians (excluding medical)
+  standard_code: '3141'
+  level: 4
+  parent_code: '314'
+- code: agricultural_technicians_3142
+  label:
+    en: Agricultural technicians
+  standard_code: '3142'
+  level: 4
+  parent_code: '314'
+- code: forestry_technicians_3143
+  label:
+    en: Forestry technicians
+  standard_code: '3143'
+  level: 4
+  parent_code: '314'
+- code: ship_and_aircraft_controllers_and_technicians_315
+  label:
+    en: Ship and aircraft controllers and technicians
+  standard_code: '315'
+  level: 3
+  parent_code: '31'
+- code: ships_engineers_3151
+  label:
+    en: Ships' engineers
+  standard_code: '3151'
+  level: 4
+  parent_code: '315'
+- code: ships_deck_officers_and_pilots_3152
+  label:
+    en: Ships' deck officers and pilots
+  standard_code: '3152'
+  level: 4
+  parent_code: '315'
+- code: aircraft_pilots_and_related_associate_professionals_3153
+  label:
+    en: Aircraft pilots and related associate professionals
+  standard_code: '3153'
+  level: 4
+  parent_code: '315'
+- code: air_traffic_controllers_3154
+  label:
+    en: Air traffic controllers
+  standard_code: '3154'
+  level: 4
+  parent_code: '315'
+- code: air_traffic_safety_electronics_technicians_3155
+  label:
+    en: Air traffic safety electronics technicians
+  standard_code: '3155'
+  level: 4
+  parent_code: '315'
+- code: health_associate_professionals_32
   label:
     en: Health associate professionals
   standard_code: '32'
-- code: business_and_administration_associate_professionals
+  level: 2
+  parent_code: '3'
+- code: medical_and_pharmaceutical_technicians_321
+  label:
+    en: Medical and pharmaceutical technicians
+  standard_code: '321'
+  level: 3
+  parent_code: '32'
+- code: medical_imaging_and_therapeutic_equipment_technicians_3211
+  label:
+    en: Medical imaging and therapeutic equipment technicians
+  standard_code: '3211'
+  level: 4
+  parent_code: '321'
+- code: medical_and_pathology_laboratory_technicians_3212
+  label:
+    en: Medical and pathology laboratory technicians
+  standard_code: '3212'
+  level: 4
+  parent_code: '321'
+- code: pharmaceutical_technicians_and_assistants_3213
+  label:
+    en: Pharmaceutical technicians and assistants
+  standard_code: '3213'
+  level: 4
+  parent_code: '321'
+- code: medical_and_dental_prosthetic_technicians_3214
+  label:
+    en: Medical and dental prosthetic technicians
+  standard_code: '3214'
+  level: 4
+  parent_code: '321'
+- code: nursing_and_midwifery_associate_professionals_322
+  label:
+    en: Nursing and midwifery associate professionals
+  standard_code: '322'
+  level: 3
+  parent_code: '32'
+- code: nursing_associate_professionals_3221
+  label:
+    en: Nursing associate professionals
+  standard_code: '3221'
+  level: 4
+  parent_code: '322'
+- code: midwifery_associate_professionals_3222
+  label:
+    en: Midwifery associate professionals
+  standard_code: '3222'
+  level: 4
+  parent_code: '322'
+- code: traditional_and_complementary_medicine_associate_professionals_323
+  label:
+    en: Traditional and complementary medicine associate professionals
+  standard_code: '323'
+  level: 3
+  parent_code: '32'
+- code: traditional_and_complementary_medicine_associate_professionals_3230
+  label:
+    en: Traditional and complementary medicine associate professionals
+  standard_code: '3230'
+  level: 4
+  parent_code: '323'
+- code: veterinary_technicians_and_assistants_324
+  label:
+    en: Veterinary technicians and assistants
+  standard_code: '324'
+  level: 3
+  parent_code: '32'
+- code: veterinary_technicians_and_assistants_3240
+  label:
+    en: Veterinary technicians and assistants
+  standard_code: '3240'
+  level: 4
+  parent_code: '324'
+- code: other_health_associate_professionals_325
+  label:
+    en: Other health associate professionals
+  standard_code: '325'
+  level: 3
+  parent_code: '32'
+- code: dental_assistants_and_therapists_3251
+  label:
+    en: Dental assistants and therapists
+  standard_code: '3251'
+  level: 4
+  parent_code: '325'
+- code: medical_records_and_health_information_technicians_3252
+  label:
+    en: Medical records and health information technicians
+  standard_code: '3252'
+  level: 4
+  parent_code: '325'
+- code: community_health_workers_3253
+  label:
+    en: Community health workers
+  standard_code: '3253'
+  level: 4
+  parent_code: '325'
+- code: dispensing_opticians_3254
+  label:
+    en: Dispensing opticians
+  standard_code: '3254'
+  level: 4
+  parent_code: '325'
+- code: physiotherapy_technicians_and_assistants_3255
+  label:
+    en: Physiotherapy technicians and assistants
+  standard_code: '3255'
+  level: 4
+  parent_code: '325'
+- code: medical_assistants_3256
+  label:
+    en: Medical assistants
+  standard_code: '3256'
+  level: 4
+  parent_code: '325'
+- code: environmental_and_occupational_health_inspectors_and_associates_3257
+  label:
+    en: Environmental and occupational health inspectors and associates
+  standard_code: '3257'
+  level: 4
+  parent_code: '325'
+- code: ambulance_workers_3258
+  label:
+    en: Ambulance workers
+  standard_code: '3258'
+  level: 4
+  parent_code: '325'
+- code: health_associate_professionals_not_elsewhere_classified_3259
+  label:
+    en: Health associate professionals not elsewhere classified
+  standard_code: '3259'
+  level: 4
+  parent_code: '325'
+- code: business_and_administration_associate_professionals_33
   label:
     en: Business and administration associate professionals
   standard_code: '33'
-- code: legal_social_cultural_and_related_associate_professionals
+  level: 2
+  parent_code: '3'
+- code: financial_and_mathematical_associate_professionals_331
+  label:
+    en: Financial and mathematical associate professionals
+  standard_code: '331'
+  level: 3
+  parent_code: '33'
+- code: securities_and_finance_dealers_and_brokers_3311
+  label:
+    en: Securities and finance dealers and brokers
+  standard_code: '3311'
+  level: 4
+  parent_code: '331'
+- code: credit_and_loans_officers_3312
+  label:
+    en: Credit and loans officers
+  standard_code: '3312'
+  level: 4
+  parent_code: '331'
+- code: accounting_associate_professionals_3313
+  label:
+    en: Accounting associate professionals
+  standard_code: '3313'
+  level: 4
+  parent_code: '331'
+- code: statistical_mathematical_and_related_associate_professionals_3314
+  label:
+    en: Statistical, mathematical and related associate professionals
+  standard_code: '3314'
+  level: 4
+  parent_code: '331'
+- code: valuers_and_loss_assessors_3315
+  label:
+    en: Valuers and loss assessors
+  standard_code: '3315'
+  level: 4
+  parent_code: '331'
+- code: sales_and_purchasing_agents_and_brokers_332
+  label:
+    en: Sales and purchasing agents and brokers
+  standard_code: '332'
+  level: 3
+  parent_code: '33'
+- code: insurance_representatives_3321
+  label:
+    en: Insurance representatives
+  standard_code: '3321'
+  level: 4
+  parent_code: '332'
+- code: commercial_sales_representatives_3322
+  label:
+    en: Commercial sales representatives
+  standard_code: '3322'
+  level: 4
+  parent_code: '332'
+- code: buyers_3323
+  label:
+    en: Buyers
+  standard_code: '3323'
+  level: 4
+  parent_code: '332'
+- code: trade_brokers_3324
+  label:
+    en: Trade brokers
+  standard_code: '3324'
+  level: 4
+  parent_code: '332'
+- code: business_services_agents_333
+  label:
+    en: Business services agents
+  standard_code: '333'
+  level: 3
+  parent_code: '33'
+- code: clearing_and_forwarding_agents_3331
+  label:
+    en: Clearing and forwarding agents
+  standard_code: '3331'
+  level: 4
+  parent_code: '333'
+- code: conference_and_event_planners_3332
+  label:
+    en: Conference and event planners
+  standard_code: '3332'
+  level: 4
+  parent_code: '333'
+- code: employment_agents_and_contractors_3333
+  label:
+    en: Employment agents and contractors
+  standard_code: '3333'
+  level: 4
+  parent_code: '333'
+- code: real_estate_agents_and_property_managers_3334
+  label:
+    en: Real estate agents and property managers
+  standard_code: '3334'
+  level: 4
+  parent_code: '333'
+- code: business_services_agents_not_elsewhere_classified_3339
+  label:
+    en: Business services agents not elsewhere classified
+  standard_code: '3339'
+  level: 4
+  parent_code: '333'
+- code: administrative_and_specialised_secretaries_334
+  label:
+    en: Administrative and specialised secretaries
+  standard_code: '334'
+  level: 3
+  parent_code: '33'
+- code: office_supervisors_3341
+  label:
+    en: Office supervisors
+  standard_code: '3341'
+  level: 4
+  parent_code: '334'
+- code: legal_secretaries_3342
+  label:
+    en: Legal secretaries
+  standard_code: '3342'
+  level: 4
+  parent_code: '334'
+- code: administrative_and_executive_secretaries_3343
+  label:
+    en: Administrative and executive secretaries
+  standard_code: '3343'
+  level: 4
+  parent_code: '334'
+- code: medical_secretaries_3344
+  label:
+    en: Medical secretaries
+  standard_code: '3344'
+  level: 4
+  parent_code: '334'
+- code: regulatory_government_associate_professionals_335
+  label:
+    en: Regulatory government associate professionals
+  standard_code: '335'
+  level: 3
+  parent_code: '33'
+- code: customs_and_border_inspectors_3351
+  label:
+    en: Customs and border inspectors
+  standard_code: '3351'
+  level: 4
+  parent_code: '335'
+- code: government_tax_and_excise_officials_3352
+  label:
+    en: Government tax and excise officials
+  standard_code: '3352'
+  level: 4
+  parent_code: '335'
+- code: government_social_benefits_officials_3353
+  label:
+    en: Government social benefits officials
+  standard_code: '3353'
+  level: 4
+  parent_code: '335'
+- code: government_licensing_officials_3354
+  label:
+    en: Government licensing officials
+  standard_code: '3354'
+  level: 4
+  parent_code: '335'
+- code: police_inspectors_and_detectives_3355
+  label:
+    en: Police inspectors and detectives
+  standard_code: '3355'
+  level: 4
+  parent_code: '335'
+- code: regulatory_government_associate_professionals_not_elsewhere_classified_3359
+  label:
+    en: Regulatory government associate professionals not elsewhere classified
+  standard_code: '3359'
+  level: 4
+  parent_code: '335'
+- code: legal_social_cultural_and_related_associate_professionals_34
   label:
     en: Legal, social, cultural and related associate professionals
   standard_code: '34'
-- code: information_and_communications_technicians
+  level: 2
+  parent_code: '3'
+- code: legal_social_and_religious_associate_professionals_341
+  label:
+    en: Legal, social and religious associate professionals
+  standard_code: '341'
+  level: 3
+  parent_code: '34'
+- code: legal_and_related_associate_professionals_3411
+  label:
+    en: Legal and related associate professionals
+  standard_code: '3411'
+  level: 4
+  parent_code: '341'
+- code: social_work_associate_professionals_3412
+  label:
+    en: Social work associate professionals
+  standard_code: '3412'
+  level: 4
+  parent_code: '341'
+- code: religious_associate_professionals_3413
+  label:
+    en: Religious associate professionals
+  standard_code: '3413'
+  level: 4
+  parent_code: '341'
+- code: sports_and_fitness_workers_342
+  label:
+    en: Sports and fitness workers
+  standard_code: '342'
+  level: 3
+  parent_code: '34'
+- code: athletes_and_sports_players_3421
+  label:
+    en: Athletes and sports players
+  standard_code: '3421'
+  level: 4
+  parent_code: '342'
+- code: sports_coaches_instructors_and_officials_3422
+  label:
+    en: Sports coaches, instructors and officials
+  standard_code: '3422'
+  level: 4
+  parent_code: '342'
+- code: fitness_and_recreation_instructors_and_program_leaders_3423
+  label:
+    en: Fitness and recreation instructors and program leaders
+  standard_code: '3423'
+  level: 4
+  parent_code: '342'
+- code: artistic_cultural_and_culinary_associate_professionals_343
+  label:
+    en: Artistic, cultural and culinary associate professionals
+  standard_code: '343'
+  level: 3
+  parent_code: '34'
+- code: photographers_3431
+  label:
+    en: Photographers
+  standard_code: '3431'
+  level: 4
+  parent_code: '343'
+- code: interior_designers_and_decorators_3432
+  label:
+    en: Interior designers and decorators
+  standard_code: '3432'
+  level: 4
+  parent_code: '343'
+- code: gallery_museum_and_library_technicians_3433
+  label:
+    en: Gallery, museum and library technicians
+  standard_code: '3433'
+  level: 4
+  parent_code: '343'
+- code: chefs_3434
+  label:
+    en: Chefs
+  standard_code: '3434'
+  level: 4
+  parent_code: '343'
+- code: other_artistic_and_cultural_associate_professionals_3435
+  label:
+    en: Other artistic and cultural associate professionals
+  standard_code: '3435'
+  level: 4
+  parent_code: '343'
+- code: information_and_communications_technicians_35
   label:
     en: Information and communications technicians
   standard_code: '35'
-- code: general_and_keyboard_clerks
+  level: 2
+  parent_code: '3'
+- code: information_and_communications_technology_operations_and_user_support_technicians_351
+  label:
+    en: Information and communications technology operations and user support technicians
+  standard_code: '351'
+  level: 3
+  parent_code: '35'
+- code: information_and_communications_technology_operations_technicians_3511
+  label:
+    en: Information and communications technology operations technicians
+  standard_code: '3511'
+  level: 4
+  parent_code: '351'
+- code: information_and_communications_technology_user_support_technicians_3512
+  label:
+    en: Information and communications technology user support technicians
+  standard_code: '3512'
+  level: 4
+  parent_code: '351'
+- code: computer_network_and_systems_technicians_3513
+  label:
+    en: Computer network and systems technicians
+  standard_code: '3513'
+  level: 4
+  parent_code: '351'
+- code: web_technicians_3514
+  label:
+    en: Web technicians
+  standard_code: '3514'
+  level: 4
+  parent_code: '351'
+- code: telecommunications_and_broadcasting_technicians_352
+  label:
+    en: Telecommunications and broadcasting technicians
+  standard_code: '352'
+  level: 3
+  parent_code: '35'
+- code: broadcasting_and_audio_visual_technicians_3521
+  label:
+    en: Broadcasting and audio-visual technicians
+  standard_code: '3521'
+  level: 4
+  parent_code: '352'
+- code: telecommunications_engineering_technicians_3522
+  label:
+    en: Telecommunications engineering technicians
+  standard_code: '3522'
+  level: 4
+  parent_code: '352'
+- code: clerical_support_workers_4
+  label:
+    en: Clerical support workers
+  standard_code: '4'
+  level: 1
+- code: general_and_keyboard_clerks_41
   label:
     en: General and keyboard clerks
   standard_code: '41'
-- code: customer_services_clerks
+  level: 2
+  parent_code: '4'
+- code: general_office_clerks_411
+  label:
+    en: General office clerks
+  standard_code: '411'
+  level: 3
+  parent_code: '41'
+- code: general_office_clerks_4110
+  label:
+    en: General office clerks
+  standard_code: '4110'
+  level: 4
+  parent_code: '411'
+- code: secretaries_general_412
+  label:
+    en: Secretaries (general)
+  standard_code: '412'
+  level: 3
+  parent_code: '41'
+- code: secretaries_general_4120
+  label:
+    en: Secretaries (general)
+  standard_code: '4120'
+  level: 4
+  parent_code: '412'
+- code: keyboard_operators_413
+  label:
+    en: Keyboard operators
+  standard_code: '413'
+  level: 3
+  parent_code: '41'
+- code: typists_and_word_processing_operators_4131
+  label:
+    en: Typists and word processing operators
+  standard_code: '4131'
+  level: 4
+  parent_code: '413'
+- code: data_entry_clerks_4132
+  label:
+    en: Data entry clerks
+  standard_code: '4132'
+  level: 4
+  parent_code: '413'
+- code: customer_services_clerks_42
   label:
     en: Customer services clerks
   standard_code: '42'
-- code: numerical_and_material_recording_clerks
+  level: 2
+  parent_code: '4'
+- code: tellers_money_collectors_and_related_clerks_421
+  label:
+    en: Tellers, money collectors and related clerks
+  standard_code: '421'
+  level: 3
+  parent_code: '42'
+- code: bank_tellers_and_related_clerks_4211
+  label:
+    en: Bank tellers and related clerks
+  standard_code: '4211'
+  level: 4
+  parent_code: '421'
+- code: bookmakers_croupiers_and_related_gaming_workers_4212
+  label:
+    en: Bookmakers, croupiers and related gaming workers
+  standard_code: '4212'
+  level: 4
+  parent_code: '421'
+- code: pawnbrokers_and_money_lenders_4213
+  label:
+    en: Pawnbrokers and money-lenders
+  standard_code: '4213'
+  level: 4
+  parent_code: '421'
+- code: debt_collectors_and_related_workers_4214
+  label:
+    en: Debt-collectors and related workers
+  standard_code: '4214'
+  level: 4
+  parent_code: '421'
+- code: client_information_workers_422
+  label:
+    en: Client information workers
+  standard_code: '422'
+  level: 3
+  parent_code: '42'
+- code: travel_consultants_and_clerks_4221
+  label:
+    en: Travel consultants and clerks
+  standard_code: '4221'
+  level: 4
+  parent_code: '422'
+- code: contact_centre_information_clerks_4222
+  label:
+    en: Contact centre information clerks
+  standard_code: '4222'
+  level: 4
+  parent_code: '422'
+- code: telephone_switchboard_operators_4223
+  label:
+    en: Telephone switchboard operators
+  standard_code: '4223'
+  level: 4
+  parent_code: '422'
+- code: hotel_receptionists_4224
+  label:
+    en: Hotel receptionists
+  standard_code: '4224'
+  level: 4
+  parent_code: '422'
+- code: enquiry_clerks_4225
+  label:
+    en: Enquiry clerks
+  standard_code: '4225'
+  level: 4
+  parent_code: '422'
+- code: receptionists_general_4226
+  label:
+    en: Receptionists (general)
+  standard_code: '4226'
+  level: 4
+  parent_code: '422'
+- code: survey_and_market_research_interviewers_4227
+  label:
+    en: Survey and market research interviewers
+  standard_code: '4227'
+  level: 4
+  parent_code: '422'
+- code: client_information_workers_not_elsewhere_classified_4229
+  label:
+    en: Client information workers not elsewhere classified
+  standard_code: '4229'
+  level: 4
+  parent_code: '422'
+- code: numerical_and_material_recording_clerks_43
   label:
     en: Numerical and material recording clerks
   standard_code: '43'
-- code: other_clerical_support_workers
+  level: 2
+  parent_code: '4'
+- code: numerical_clerks_431
+  label:
+    en: Numerical clerks
+  standard_code: '431'
+  level: 3
+  parent_code: '43'
+- code: accounting_and_bookkeeping_clerks_4311
+  label:
+    en: Accounting and bookkeeping clerks
+  standard_code: '4311'
+  level: 4
+  parent_code: '431'
+- code: statistical_finance_and_insurance_clerks_4312
+  label:
+    en: Statistical, finance and insurance clerks
+  standard_code: '4312'
+  level: 4
+  parent_code: '431'
+- code: payroll_clerks_4313
+  label:
+    en: Payroll clerks
+  standard_code: '4313'
+  level: 4
+  parent_code: '431'
+- code: material_recording_and_transport_clerks_432
+  label:
+    en: Material-recording and transport clerks
+  standard_code: '432'
+  level: 3
+  parent_code: '43'
+- code: stock_clerks_4321
+  label:
+    en: Stock clerks
+  standard_code: '4321'
+  level: 4
+  parent_code: '432'
+- code: production_clerks_4322
+  label:
+    en: Production clerks
+  standard_code: '4322'
+  level: 4
+  parent_code: '432'
+- code: transport_clerks_4323
+  label:
+    en: Transport clerks
+  standard_code: '4323'
+  level: 4
+  parent_code: '432'
+- code: other_clerical_support_workers_44
   label:
     en: Other clerical support workers
   standard_code: '44'
-- code: personal_service_workers
+  level: 2
+  parent_code: '4'
+- code: other_clerical_support_workers_441
+  label:
+    en: Other clerical support workers
+  standard_code: '441'
+  level: 3
+  parent_code: '44'
+- code: library_clerks_4411
+  label:
+    en: Library clerks
+  standard_code: '4411'
+  level: 4
+  parent_code: '441'
+- code: mail_carriers_and_sorting_clerks_4412
+  label:
+    en: Mail carriers and sorting clerks
+  standard_code: '4412'
+  level: 4
+  parent_code: '441'
+- code: coding_proof_reading_and_related_clerks_4413
+  label:
+    en: Coding, proof-reading and related clerks
+  standard_code: '4413'
+  level: 4
+  parent_code: '441'
+- code: scribes_and_related_workers_4414
+  label:
+    en: Scribes and related workers
+  standard_code: '4414'
+  level: 4
+  parent_code: '441'
+- code: filing_and_copying_clerks_4415
+  label:
+    en: Filing and copying clerks
+  standard_code: '4415'
+  level: 4
+  parent_code: '441'
+- code: personnel_clerks_4416
+  label:
+    en: Personnel clerks
+  standard_code: '4416'
+  level: 4
+  parent_code: '441'
+- code: clerical_support_workers_not_elsewhere_classified_4419
+  label:
+    en: Clerical support workers not elsewhere classified
+  standard_code: '4419'
+  level: 4
+  parent_code: '441'
+- code: service_and_sales_workers_5
+  label:
+    en: Service and sales workers
+  standard_code: '5'
+  level: 1
+- code: personal_service_workers_51
   label:
     en: Personal service workers
   standard_code: '51'
-- code: sales_workers
+  level: 2
+  parent_code: '5'
+- code: travel_attendants_conductors_and_guides_511
+  label:
+    en: Travel attendants, conductors and guides
+  standard_code: '511'
+  level: 3
+  parent_code: '51'
+- code: travel_attendants_and_travel_stewards_5111
+  label:
+    en: Travel attendants and travel stewards
+  standard_code: '5111'
+  level: 4
+  parent_code: '511'
+- code: transport_conductors_5112
+  label:
+    en: Transport conductors
+  standard_code: '5112'
+  level: 4
+  parent_code: '511'
+- code: travel_guides_5113
+  label:
+    en: Travel guides
+  standard_code: '5113'
+  level: 4
+  parent_code: '511'
+- code: cooks_512
+  label:
+    en: Cooks
+  standard_code: '512'
+  level: 3
+  parent_code: '51'
+- code: cooks_5120
+  label:
+    en: Cooks
+  standard_code: '5120'
+  level: 4
+  parent_code: '512'
+- code: waiters_and_bartenders_513
+  label:
+    en: Waiters and bartenders
+  standard_code: '513'
+  level: 3
+  parent_code: '51'
+- code: waiters_5131
+  label:
+    en: Waiters
+  standard_code: '5131'
+  level: 4
+  parent_code: '513'
+- code: bartenders_5132
+  label:
+    en: Bartenders
+  standard_code: '5132'
+  level: 4
+  parent_code: '513'
+- code: hairdressers_beauticians_and_related_workers_514
+  label:
+    en: Hairdressers, beauticians and related workers
+  standard_code: '514'
+  level: 3
+  parent_code: '51'
+- code: hairdressers_5141
+  label:
+    en: Hairdressers
+  standard_code: '5141'
+  level: 4
+  parent_code: '514'
+- code: beauticians_and_related_workers_5142
+  label:
+    en: Beauticians and related workers
+  standard_code: '5142'
+  level: 4
+  parent_code: '514'
+- code: building_and_housekeeping_supervisors_515
+  label:
+    en: Building and housekeeping supervisors
+  standard_code: '515'
+  level: 3
+  parent_code: '51'
+- code: cleaning_and_housekeeping_supervisors_in_offices_hotels_and_other_establishments_5151
+  label:
+    en: Cleaning and housekeeping supervisors in offices, hotels and other establishments
+  standard_code: '5151'
+  level: 4
+  parent_code: '515'
+- code: domestic_housekeepers_5152
+  label:
+    en: Domestic housekeepers
+  standard_code: '5152'
+  level: 4
+  parent_code: '515'
+- code: building_caretakers_5153
+  label:
+    en: Building caretakers
+  standard_code: '5153'
+  level: 4
+  parent_code: '515'
+- code: other_personal_services_workers_516
+  label:
+    en: Other personal services workers
+  standard_code: '516'
+  level: 3
+  parent_code: '51'
+- code: astrologers_fortune_tellers_and_related_workers_5161
+  label:
+    en: Astrologers, fortune-tellers and related workers
+  standard_code: '5161'
+  level: 4
+  parent_code: '516'
+- code: companions_and_valets_5162
+  label:
+    en: Companions and valets
+  standard_code: '5162'
+  level: 4
+  parent_code: '516'
+- code: undertakers_and_embalmers_5163
+  label:
+    en: Undertakers and embalmers
+  standard_code: '5163'
+  level: 4
+  parent_code: '516'
+- code: pet_groomers_and_animal_care_workers_5164
+  label:
+    en: Pet groomers and animal care workers
+  standard_code: '5164'
+  level: 4
+  parent_code: '516'
+- code: driving_instructors_5165
+  label:
+    en: Driving instructors
+  standard_code: '5165'
+  level: 4
+  parent_code: '516'
+- code: personal_services_workers_not_elsewhere_classified_5169
+  label:
+    en: Personal services workers not elsewhere classified
+  standard_code: '5169'
+  level: 4
+  parent_code: '516'
+- code: sales_workers_52
   label:
     en: Sales workers
   standard_code: '52'
-- code: personal_care_workers
+  level: 2
+  parent_code: '5'
+- code: street_and_market_salespersons_521
+  label:
+    en: Street and market salespersons
+  standard_code: '521'
+  level: 3
+  parent_code: '52'
+- code: stall_and_market_salespersons_5211
+  label:
+    en: Stall and market salespersons
+  standard_code: '5211'
+  level: 4
+  parent_code: '521'
+- code: street_food_salespersons_5212
+  label:
+    en: Street food salespersons
+  standard_code: '5212'
+  level: 4
+  parent_code: '521'
+- code: shop_salespersons_522
+  label:
+    en: Shop salespersons
+  standard_code: '522'
+  level: 3
+  parent_code: '52'
+- code: shop_keepers_5221
+  label:
+    en: Shop keepers
+  standard_code: '5221'
+  level: 4
+  parent_code: '522'
+- code: shop_supervisors_5222
+  label:
+    en: Shop supervisors
+  standard_code: '5222'
+  level: 4
+  parent_code: '522'
+- code: shop_sales_assistants_5223
+  label:
+    en: Shop sales assistants
+  standard_code: '5223'
+  level: 4
+  parent_code: '522'
+- code: cashiers_and_ticket_clerks_523
+  label:
+    en: Cashiers and ticket clerks
+  standard_code: '523'
+  level: 3
+  parent_code: '52'
+- code: cashiers_and_ticket_clerks_5230
+  label:
+    en: Cashiers and ticket clerks
+  standard_code: '5230'
+  level: 4
+  parent_code: '523'
+- code: other_sales_workers_524
+  label:
+    en: Other sales workers
+  standard_code: '524'
+  level: 3
+  parent_code: '52'
+- code: fashion_and_other_models_5241
+  label:
+    en: Fashion and other models
+  standard_code: '5241'
+  level: 4
+  parent_code: '524'
+- code: sales_demonstrators_5242
+  label:
+    en: Sales demonstrators
+  standard_code: '5242'
+  level: 4
+  parent_code: '524'
+- code: door_to_door_salespersons_5243
+  label:
+    en: Door to door salespersons
+  standard_code: '5243'
+  level: 4
+  parent_code: '524'
+- code: contact_centre_salespersons_5244
+  label:
+    en: Contact centre salespersons
+  standard_code: '5244'
+  level: 4
+  parent_code: '524'
+- code: service_station_attendants_5245
+  label:
+    en: Service station attendants
+  standard_code: '5245'
+  level: 4
+  parent_code: '524'
+- code: food_service_counter_attendants_5246
+  label:
+    en: Food service counter attendants
+  standard_code: '5246'
+  level: 4
+  parent_code: '524'
+- code: sales_workers_not_elsewhere_classified_5249
+  label:
+    en: Sales workers not elsewhere classified
+  standard_code: '5249'
+  level: 4
+  parent_code: '524'
+- code: personal_care_workers_53
   label:
     en: Personal care workers
   standard_code: '53'
-- code: protective_services_workers
+  level: 2
+  parent_code: '5'
+- code: child_care_workers_and_teachers_aides_531
+  label:
+    en: Child care workers and teachers' aides
+  standard_code: '531'
+  level: 3
+  parent_code: '53'
+- code: child_care_workers_5311
+  label:
+    en: Child care workers
+  standard_code: '5311'
+  level: 4
+  parent_code: '531'
+- code: teachers_aides_5312
+  label:
+    en: Teachers' aides
+  standard_code: '5312'
+  level: 4
+  parent_code: '531'
+- code: personal_care_workers_in_health_services_532
+  label:
+    en: Personal care workers in health services
+  standard_code: '532'
+  level: 3
+  parent_code: '53'
+- code: health_care_assistants_5321
+  label:
+    en: Health care assistants
+  standard_code: '5321'
+  level: 4
+  parent_code: '532'
+- code: home_based_personal_care_workers_5322
+  label:
+    en: Home-based personal care workers
+  standard_code: '5322'
+  level: 4
+  parent_code: '532'
+- code: personal_care_workers_in_health_services_not_elsewhere_classified_5329
+  label:
+    en: Personal care workers in health services not elsewhere classified
+  standard_code: '5329'
+  level: 4
+  parent_code: '532'
+- code: protective_services_workers_54
   label:
     en: Protective services workers
   standard_code: '54'
-- code: market_oriented_skilled_agricultural_workers
+  level: 2
+  parent_code: '5'
+- code: protective_services_workers_541
+  label:
+    en: Protective services workers
+  standard_code: '541'
+  level: 3
+  parent_code: '54'
+- code: fire_fighters_5411
+  label:
+    en: Fire-fighters
+  standard_code: '5411'
+  level: 4
+  parent_code: '541'
+- code: police_officers_5412
+  label:
+    en: Police officers
+  standard_code: '5412'
+  level: 4
+  parent_code: '541'
+- code: prison_guards_5413
+  label:
+    en: Prison guards
+  standard_code: '5413'
+  level: 4
+  parent_code: '541'
+- code: security_guards_5414
+  label:
+    en: Security guards
+  standard_code: '5414'
+  level: 4
+  parent_code: '541'
+- code: protective_services_workers_not_elsewhere_classified_5419
+  label:
+    en: Protective services workers not elsewhere classified
+  standard_code: '5419'
+  level: 4
+  parent_code: '541'
+- code: skilled_agricultural_forestry_and_fishery_workers_6
+  label:
+    en: Skilled agricultural, forestry and fishery workers
+  standard_code: '6'
+  level: 1
+- code: market_oriented_skilled_agricultural_workers_61
   label:
     en: Market-oriented skilled agricultural workers
   standard_code: '61'
-- code: market_oriented_skilled_forestry_fishery_and_hunting_workers
+  level: 2
+  parent_code: '6'
+- code: market_gardeners_and_crop_growers_611
+  label:
+    en: Market gardeners and crop growers
+  standard_code: '611'
+  level: 3
+  parent_code: '61'
+- code: field_crop_and_vegetable_growers_6111
+  label:
+    en: Field crop and vegetable growers
+  standard_code: '6111'
+  level: 4
+  parent_code: '611'
+- code: tree_and_shrub_crop_growers_6112
+  label:
+    en: Tree and shrub crop growers
+  standard_code: '6112'
+  level: 4
+  parent_code: '611'
+- code: gardeners_horticultural_and_nursery_growers_6113
+  label:
+    en: Gardeners, horticultural and nursery growers
+  standard_code: '6113'
+  level: 4
+  parent_code: '611'
+- code: mixed_crop_growers_6114
+  label:
+    en: Mixed crop growers
+  standard_code: '6114'
+  level: 4
+  parent_code: '611'
+- code: animal_producers_612
+  label:
+    en: Animal producers
+  standard_code: '612'
+  level: 3
+  parent_code: '61'
+- code: livestock_and_dairy_producers_6121
+  label:
+    en: Livestock and dairy producers
+  standard_code: '6121'
+  level: 4
+  parent_code: '612'
+- code: poultry_producers_6122
+  label:
+    en: Poultry producers
+  standard_code: '6122'
+  level: 4
+  parent_code: '612'
+- code: apiarists_and_sericulturists_6123
+  label:
+    en: Apiarists and sericulturists
+  standard_code: '6123'
+  level: 4
+  parent_code: '612'
+- code: animal_producers_not_elsewhere_classified_6129
+  label:
+    en: Animal producers not elsewhere classified
+  standard_code: '6129'
+  level: 4
+  parent_code: '612'
+- code: mixed_crop_and_animal_producers_613
+  label:
+    en: Mixed crop and animal producers
+  standard_code: '613'
+  level: 3
+  parent_code: '61'
+- code: mixed_crop_and_animal_producers_6130
+  label:
+    en: Mixed crop and animal producers
+  standard_code: '6130'
+  level: 4
+  parent_code: '613'
+- code: market_oriented_skilled_forestry_fishery_and_hunting_workers_62
   label:
     en: Market-oriented skilled forestry, fishery and hunting workers
   standard_code: '62'
-- code: subsistence_farmers_fishers_hunters_and_gatherers
+  level: 2
+  parent_code: '6'
+- code: forestry_and_related_workers_621
+  label:
+    en: Forestry and related workers
+  standard_code: '621'
+  level: 3
+  parent_code: '62'
+- code: forestry_and_related_workers_6210
+  label:
+    en: Forestry and related workers
+  standard_code: '6210'
+  level: 4
+  parent_code: '621'
+- code: fishery_workers_hunters_and_trappers_622
+  label:
+    en: Fishery workers, hunters and trappers
+  standard_code: '622'
+  level: 3
+  parent_code: '62'
+- code: aquaculture_workers_6221
+  label:
+    en: Aquaculture workers
+  standard_code: '6221'
+  level: 4
+  parent_code: '622'
+- code: inland_and_coastal_waters_fishery_workers_6222
+  label:
+    en: Inland and coastal waters fishery workers
+  standard_code: '6222'
+  level: 4
+  parent_code: '622'
+- code: deep_sea_fishery_workers_6223
+  label:
+    en: Deep-sea fishery workers
+  standard_code: '6223'
+  level: 4
+  parent_code: '622'
+- code: hunters_and_trappers_6224
+  label:
+    en: Hunters and trappers
+  standard_code: '6224'
+  level: 4
+  parent_code: '622'
+- code: subsistence_farmers_fishers_hunters_and_gatherers_63
   label:
     en: Subsistence farmers, fishers, hunters and gatherers
   standard_code: '63'
-- code: building_and_related_trades_workers_excluding_electricians
+  level: 2
+  parent_code: '6'
+- code: subsistence_crop_farmers_631
+  label:
+    en: Subsistence crop farmers
+  standard_code: '631'
+  level: 3
+  parent_code: '63'
+- code: subsistence_crop_farmers_6310
+  label:
+    en: Subsistence crop farmers
+  standard_code: '6310'
+  level: 4
+  parent_code: '631'
+- code: subsistence_livestock_farmers_632
+  label:
+    en: Subsistence livestock farmers
+  standard_code: '632'
+  level: 3
+  parent_code: '63'
+- code: subsistence_livestock_farmers_6320
+  label:
+    en: Subsistence livestock farmers
+  standard_code: '6320'
+  level: 4
+  parent_code: '632'
+- code: subsistence_mixed_crop_and_livestock_farmers_633
+  label:
+    en: Subsistence mixed crop and livestock farmers
+  standard_code: '633'
+  level: 3
+  parent_code: '63'
+- code: subsistence_mixed_crop_and_livestock_farmers_6330
+  label:
+    en: Subsistence mixed crop and livestock farmers
+  standard_code: '6330'
+  level: 4
+  parent_code: '633'
+- code: subsistence_fishers_hunters_trappers_and_gatherers_634
+  label:
+    en: Subsistence fishers, hunters, trappers and gatherers
+  standard_code: '634'
+  level: 3
+  parent_code: '63'
+- code: subsistence_fishers_hunters_trappers_and_gatherers_6340
+  label:
+    en: Subsistence fishers, hunters, trappers and gatherers
+  standard_code: '6340'
+  level: 4
+  parent_code: '634'
+- code: craft_and_related_trades_workers_7
+  label:
+    en: Craft and related trades workers
+  standard_code: '7'
+  level: 1
+- code: building_and_related_trades_workers_excluding_electricians_71
   label:
     en: Building and related trades workers, excluding electricians
   standard_code: '71'
-- code: metal_machinery_and_related_trades_workers
+  level: 2
+  parent_code: '7'
+- code: building_frame_and_related_trades_workers_711
+  label:
+    en: Building frame and related trades workers
+  standard_code: '711'
+  level: 3
+  parent_code: '71'
+- code: house_builders_7111
+  label:
+    en: House builders
+  standard_code: '7111'
+  level: 4
+  parent_code: '711'
+- code: bricklayers_and_related_workers_7112
+  label:
+    en: Bricklayers and related workers
+  standard_code: '7112'
+  level: 4
+  parent_code: '711'
+- code: stonemasons_stone_cutters_splitters_and_carvers_7113
+  label:
+    en: Stonemasons, stone cutters, splitters and carvers
+  standard_code: '7113'
+  level: 4
+  parent_code: '711'
+- code: concrete_placers_concrete_finishers_and_related_workers_7114
+  label:
+    en: Concrete placers, concrete finishers and related workers
+  standard_code: '7114'
+  level: 4
+  parent_code: '711'
+- code: carpenters_and_joiners_7115
+  label:
+    en: Carpenters and joiners
+  standard_code: '7115'
+  level: 4
+  parent_code: '711'
+- code: building_frame_and_related_trades_workers_not_elsewhere_classified_7119
+  label:
+    en: Building frame and related trades workers not elsewhere classified
+  standard_code: '7119'
+  level: 4
+  parent_code: '711'
+- code: building_finishers_and_related_trades_workers_712
+  label:
+    en: Building finishers and related trades workers
+  standard_code: '712'
+  level: 3
+  parent_code: '71'
+- code: roofers_7121
+  label:
+    en: Roofers
+  standard_code: '7121'
+  level: 4
+  parent_code: '712'
+- code: floor_layers_and_tile_setters_7122
+  label:
+    en: Floor layers and tile setters
+  standard_code: '7122'
+  level: 4
+  parent_code: '712'
+- code: plasterers_7123
+  label:
+    en: Plasterers
+  standard_code: '7123'
+  level: 4
+  parent_code: '712'
+- code: insulation_workers_7124
+  label:
+    en: Insulation workers
+  standard_code: '7124'
+  level: 4
+  parent_code: '712'
+- code: glaziers_7125
+  label:
+    en: Glaziers
+  standard_code: '7125'
+  level: 4
+  parent_code: '712'
+- code: plumbers_and_pipe_fitters_7126
+  label:
+    en: Plumbers and pipe fitters
+  standard_code: '7126'
+  level: 4
+  parent_code: '712'
+- code: air_conditioning_and_refrigeration_mechanics_7127
+  label:
+    en: Air conditioning and refrigeration mechanics
+  standard_code: '7127'
+  level: 4
+  parent_code: '712'
+- code: painters_building_structure_cleaners_and_related_trades_workers_713
+  label:
+    en: Painters, building structure cleaners and related trades workers
+  standard_code: '713'
+  level: 3
+  parent_code: '71'
+- code: painters_and_related_workers_7131
+  label:
+    en: Painters and related workers
+  standard_code: '7131'
+  level: 4
+  parent_code: '713'
+- code: spray_painters_and_varnishers_7132
+  label:
+    en: Spray painters and varnishers
+  standard_code: '7132'
+  level: 4
+  parent_code: '713'
+- code: building_structure_cleaners_7133
+  label:
+    en: Building structure cleaners
+  standard_code: '7133'
+  level: 4
+  parent_code: '713'
+- code: metal_machinery_and_related_trades_workers_72
   label:
     en: Metal, machinery and related trades workers
   standard_code: '72'
-- code: handicraft_and_printing_workers
+  level: 2
+  parent_code: '7'
+- code: sheet_and_structural_metal_workers_moulders_and_welders_and_related_workers_721
+  label:
+    en: Sheet and structural metal workers, moulders and welders, and related workers
+  standard_code: '721'
+  level: 3
+  parent_code: '72'
+- code: metal_moulders_and_coremakers_7211
+  label:
+    en: Metal moulders and coremakers
+  standard_code: '7211'
+  level: 4
+  parent_code: '721'
+- code: welders_and_flamecutters_7212
+  label:
+    en: Welders and flamecutters
+  standard_code: '7212'
+  level: 4
+  parent_code: '721'
+- code: sheet_metal_workers_7213
+  label:
+    en: Sheet-metal workers
+  standard_code: '7213'
+  level: 4
+  parent_code: '721'
+- code: structural_metal_preparers_and_erectors_7214
+  label:
+    en: Structural-metal preparers and erectors
+  standard_code: '7214'
+  level: 4
+  parent_code: '721'
+- code: riggers_and_cable_splicers_7215
+  label:
+    en: Riggers and cable splicers
+  standard_code: '7215'
+  level: 4
+  parent_code: '721'
+- code: blacksmiths_toolmakers_and_related_trades_workers_722
+  label:
+    en: Blacksmiths, toolmakers and related trades workers
+  standard_code: '722'
+  level: 3
+  parent_code: '72'
+- code: blacksmiths_hammersmiths_and_forging_press_workers_7221
+  label:
+    en: Blacksmiths, hammersmiths and forging press workers
+  standard_code: '7221'
+  level: 4
+  parent_code: '722'
+- code: toolmakers_and_related_workers_7222
+  label:
+    en: Toolmakers and related workers
+  standard_code: '7222'
+  level: 4
+  parent_code: '722'
+- code: metal_working_machine_tool_setters_and_operators_7223
+  label:
+    en: Metal working machine tool setters and operators
+  standard_code: '7223'
+  level: 4
+  parent_code: '722'
+- code: metal_polishers_wheel_grinders_and_tool_sharpeners_7224
+  label:
+    en: Metal polishers, wheel grinders and tool sharpeners
+  standard_code: '7224'
+  level: 4
+  parent_code: '722'
+- code: machinery_mechanics_and_repairers_723
+  label:
+    en: Machinery mechanics and repairers
+  standard_code: '723'
+  level: 3
+  parent_code: '72'
+- code: motor_vehicle_mechanics_and_repairers_7231
+  label:
+    en: Motor vehicle mechanics and repairers
+  standard_code: '7231'
+  level: 4
+  parent_code: '723'
+- code: aircraft_engine_mechanics_and_repairers_7232
+  label:
+    en: Aircraft engine mechanics and repairers
+  standard_code: '7232'
+  level: 4
+  parent_code: '723'
+- code: agricultural_and_industrial_machinery_mechanics_and_repairers_7233
+  label:
+    en: Agricultural and industrial machinery mechanics and repairers
+  standard_code: '7233'
+  level: 4
+  parent_code: '723'
+- code: bicycle_and_related_repairers_7234
+  label:
+    en: Bicycle and related repairers
+  standard_code: '7234'
+  level: 4
+  parent_code: '723'
+- code: handicraft_and_printing_workers_73
   label:
     en: Handicraft and printing workers
   standard_code: '73'
-- code: electrical_and_electronic_trades_workers
+  level: 2
+  parent_code: '7'
+- code: handicraft_workers_731
+  label:
+    en: Handicraft workers
+  standard_code: '731'
+  level: 3
+  parent_code: '73'
+- code: precision_instrument_makers_and_repairers_7311
+  label:
+    en: Precision-instrument makers and repairers
+  standard_code: '7311'
+  level: 4
+  parent_code: '731'
+- code: musical_instrument_makers_and_tuners_7312
+  label:
+    en: Musical instrument makers and tuners
+  standard_code: '7312'
+  level: 4
+  parent_code: '731'
+- code: jewellery_and_precious_metal_workers_7313
+  label:
+    en: Jewellery and precious-metal workers
+  standard_code: '7313'
+  level: 4
+  parent_code: '731'
+- code: potters_and_related_workers_7314
+  label:
+    en: Potters and related workers
+  standard_code: '7314'
+  level: 4
+  parent_code: '731'
+- code: glass_makers_cutters_grinders_and_finishers_7315
+  label:
+    en: Glass makers, cutters, grinders and finishers
+  standard_code: '7315'
+  level: 4
+  parent_code: '731'
+- code: sign_writers_decorative_painters_engravers_and_etchers_7316
+  label:
+    en: Sign writers, decorative painters, engravers and etchers
+  standard_code: '7316'
+  level: 4
+  parent_code: '731'
+- code: handicraft_workers_in_wood_basketry_and_related_materials_7317
+  label:
+    en: Handicraft workers in wood, basketry and related materials
+  standard_code: '7317'
+  level: 4
+  parent_code: '731'
+- code: handicraft_workers_in_textile_leather_and_related_materials_7318
+  label:
+    en: Handicraft workers in textile, leather and related materials
+  standard_code: '7318'
+  level: 4
+  parent_code: '731'
+- code: handicraft_workers_not_elsewhere_classified_7319
+  label:
+    en: Handicraft workers not elsewhere classified
+  standard_code: '7319'
+  level: 4
+  parent_code: '731'
+- code: printing_trades_workers_732
+  label:
+    en: Printing trades workers
+  standard_code: '732'
+  level: 3
+  parent_code: '73'
+- code: pre_press_technicians_7321
+  label:
+    en: Pre-press technicians
+  standard_code: '7321'
+  level: 4
+  parent_code: '732'
+- code: printers_7322
+  label:
+    en: Printers
+  standard_code: '7322'
+  level: 4
+  parent_code: '732'
+- code: print_finishing_and_binding_workers_7323
+  label:
+    en: Print finishing and binding workers
+  standard_code: '7323'
+  level: 4
+  parent_code: '732'
+- code: electrical_and_electronic_trades_workers_74
   label:
     en: Electrical and electronic trades workers
   standard_code: '74'
-- code: food_processing_wood_working_garment_and_other_craft_and_related_trades_workers
+  level: 2
+  parent_code: '7'
+- code: electrical_equipment_installers_and_repairers_741
+  label:
+    en: Electrical equipment installers and repairers
+  standard_code: '741'
+  level: 3
+  parent_code: '74'
+- code: building_and_related_electricians_7411
+  label:
+    en: Building and related electricians
+  standard_code: '7411'
+  level: 4
+  parent_code: '741'
+- code: electrical_mechanics_and_fitters_7412
+  label:
+    en: Electrical mechanics and fitters
+  standard_code: '7412'
+  level: 4
+  parent_code: '741'
+- code: electrical_line_installers_and_repairers_7413
+  label:
+    en: Electrical line installers and repairers
+  standard_code: '7413'
+  level: 4
+  parent_code: '741'
+- code: electronics_and_telecommunications_installers_and_repairers_742
+  label:
+    en: Electronics and telecommunications installers and repairers
+  standard_code: '742'
+  level: 3
+  parent_code: '74'
+- code: electronics_mechanics_and_servicers_7421
+  label:
+    en: Electronics mechanics and servicers
+  standard_code: '7421'
+  level: 4
+  parent_code: '742'
+- code: information_and_communications_technology_installers_and_servicers_7422
+  label:
+    en: Information and communications technology installers and servicers
+  standard_code: '7422'
+  level: 4
+  parent_code: '742'
+- code: food_processing_wood_working_garment_and_other_craft_and_related_trades_workers_75
   label:
     en: Food processing, wood working, garment and other craft and related trades workers
   standard_code: '75'
-- code: stationary_plant_and_machine_operators
+  level: 2
+  parent_code: '7'
+- code: food_processing_and_related_trades_workers_751
+  label:
+    en: Food processing and related trades workers
+  standard_code: '751'
+  level: 3
+  parent_code: '75'
+- code: butchers_fishmongers_and_related_food_preparers_7511
+  label:
+    en: Butchers, fishmongers and related food preparers
+  standard_code: '7511'
+  level: 4
+  parent_code: '751'
+- code: bakers_pastry_cooks_and_confectionery_makers_7512
+  label:
+    en: Bakers, pastry-cooks and confectionery makers
+  standard_code: '7512'
+  level: 4
+  parent_code: '751'
+- code: dairy_products_makers_7513
+  label:
+    en: Dairy-products makers
+  standard_code: '7513'
+  level: 4
+  parent_code: '751'
+- code: fruit_vegetable_and_related_preservers_7514
+  label:
+    en: Fruit, vegetable and related preservers
+  standard_code: '7514'
+  level: 4
+  parent_code: '751'
+- code: food_and_beverage_tasters_and_graders_7515
+  label:
+    en: Food and beverage tasters and graders
+  standard_code: '7515'
+  level: 4
+  parent_code: '751'
+- code: tobacco_preparers_and_tobacco_products_makers_7516
+  label:
+    en: Tobacco preparers and tobacco products makers
+  standard_code: '7516'
+  level: 4
+  parent_code: '751'
+- code: wood_treaters_cabinet_makers_and_related_trades_workers_752
+  label:
+    en: Wood treaters, cabinet-makers and related trades workers
+  standard_code: '752'
+  level: 3
+  parent_code: '75'
+- code: wood_treaters_7521
+  label:
+    en: Wood treaters
+  standard_code: '7521'
+  level: 4
+  parent_code: '752'
+- code: cabinet_makers_and_related_workers_7522
+  label:
+    en: Cabinet-makers and related workers
+  standard_code: '7522'
+  level: 4
+  parent_code: '752'
+- code: woodworking_machine_tool_setters_and_operators_7523
+  label:
+    en: Woodworking-machine tool setters and operators
+  standard_code: '7523'
+  level: 4
+  parent_code: '752'
+- code: garment_and_related_trades_workers_753
+  label:
+    en: Garment and related trades workers
+  standard_code: '753'
+  level: 3
+  parent_code: '75'
+- code: tailors_dressmakers_furriers_and_hatters_7531
+  label:
+    en: Tailors, dressmakers, furriers and hatters
+  standard_code: '7531'
+  level: 4
+  parent_code: '753'
+- code: garment_and_related_pattern_makers_and_cutters_7532
+  label:
+    en: Garment and related pattern-makers and cutters
+  standard_code: '7532'
+  level: 4
+  parent_code: '753'
+- code: sewing_embroidery_and_related_workers_7533
+  label:
+    en: Sewing, embroidery and related workers
+  standard_code: '7533'
+  level: 4
+  parent_code: '753'
+- code: upholsterers_and_related_workers_7534
+  label:
+    en: Upholsterers and related workers
+  standard_code: '7534'
+  level: 4
+  parent_code: '753'
+- code: pelt_dressers_tanners_and_fellmongers_7535
+  label:
+    en: Pelt dressers, tanners and fellmongers
+  standard_code: '7535'
+  level: 4
+  parent_code: '753'
+- code: shoemakers_and_related_workers_7536
+  label:
+    en: Shoemakers and related workers
+  standard_code: '7536'
+  level: 4
+  parent_code: '753'
+- code: other_craft_and_related_workers_754
+  label:
+    en: Other craft and related workers
+  standard_code: '754'
+  level: 3
+  parent_code: '75'
+- code: underwater_divers_7541
+  label:
+    en: Underwater divers
+  standard_code: '7541'
+  level: 4
+  parent_code: '754'
+- code: shotfirers_and_blasters_7542
+  label:
+    en: Shotfirers and blasters
+  standard_code: '7542'
+  level: 4
+  parent_code: '754'
+- code: product_graders_and_testers_excluding_foods_and_beverages_7543
+  label:
+    en: Product graders and testers (excluding foods and beverages)
+  standard_code: '7543'
+  level: 4
+  parent_code: '754'
+- code: fumigators_and_other_pest_and_weed_controllers_7544
+  label:
+    en: Fumigators and other pest and weed controllers
+  standard_code: '7544'
+  level: 4
+  parent_code: '754'
+- code: craft_and_related_workers_not_elsewhere_classified_7549
+  label:
+    en: Craft and related workers not elsewhere classified
+  standard_code: '7549'
+  level: 4
+  parent_code: '754'
+- code: plant_and_machine_operators_and_assemblers_8
+  label:
+    en: Plant and machine operators, and assemblers
+  standard_code: '8'
+  level: 1
+- code: stationary_plant_and_machine_operators_81
   label:
     en: Stationary plant and machine operators
   standard_code: '81'
-- code: assemblers
+  level: 2
+  parent_code: '8'
+- code: mining_and_mineral_processing_plant_operators_811
+  label:
+    en: Mining and mineral processing plant operators
+  standard_code: '811'
+  level: 3
+  parent_code: '81'
+- code: miners_and_quarriers_8111
+  label:
+    en: Miners and quarriers
+  standard_code: '8111'
+  level: 4
+  parent_code: '811'
+- code: mineral_and_stone_processing_plant_operators_8112
+  label:
+    en: Mineral and stone processing plant operators
+  standard_code: '8112'
+  level: 4
+  parent_code: '811'
+- code: well_drillers_and_borers_and_related_workers_8113
+  label:
+    en: Well drillers and borers and related workers
+  standard_code: '8113'
+  level: 4
+  parent_code: '811'
+- code: cement_stone_and_other_mineral_products_machine_operators_8114
+  label:
+    en: Cement, stone and other mineral products machine operators
+  standard_code: '8114'
+  level: 4
+  parent_code: '811'
+- code: metal_processing_and_finishing_plant_operators_812
+  label:
+    en: Metal processing and finishing plant operators
+  standard_code: '812'
+  level: 3
+  parent_code: '81'
+- code: metal_processing_plant_operators_8121
+  label:
+    en: Metal processing plant operators
+  standard_code: '8121'
+  level: 4
+  parent_code: '812'
+- code: metal_finishing_plating_and_coating_machine_operators_8122
+  label:
+    en: Metal finishing, plating and coating machine operators
+  standard_code: '8122'
+  level: 4
+  parent_code: '812'
+- code: chemical_and_photographic_products_plant_and_machine_operators_813
+  label:
+    en: Chemical and photographic products plant and machine operators
+  standard_code: '813'
+  level: 3
+  parent_code: '81'
+- code: chemical_products_plant_and_machine_operators_8131
+  label:
+    en: Chemical products plant and machine operators
+  standard_code: '8131'
+  level: 4
+  parent_code: '813'
+- code: photographic_products_machine_operators_8132
+  label:
+    en: Photographic products machine operators
+  standard_code: '8132'
+  level: 4
+  parent_code: '813'
+- code: rubber_plastic_and_paper_products_machine_operators_814
+  label:
+    en: Rubber, plastic and paper products machine operators
+  standard_code: '814'
+  level: 3
+  parent_code: '81'
+- code: rubber_products_machine_operators_8141
+  label:
+    en: Rubber products machine operators
+  standard_code: '8141'
+  level: 4
+  parent_code: '814'
+- code: plastic_products_machine_operators_8142
+  label:
+    en: Plastic products machine operators
+  standard_code: '8142'
+  level: 4
+  parent_code: '814'
+- code: paper_products_machine_operators_8143
+  label:
+    en: Paper products machine operators
+  standard_code: '8143'
+  level: 4
+  parent_code: '814'
+- code: textile_fur_and_leather_products_machine_operators_815
+  label:
+    en: Textile, fur and leather products machine operators
+  standard_code: '815'
+  level: 3
+  parent_code: '81'
+- code: fibre_preparing_spinning_and_winding_machine_operators_8151
+  label:
+    en: Fibre preparing, spinning and winding machine operators
+  standard_code: '8151'
+  level: 4
+  parent_code: '815'
+- code: weaving_and_knitting_machine_operators_8152
+  label:
+    en: Weaving and knitting machine operators
+  standard_code: '8152'
+  level: 4
+  parent_code: '815'
+- code: sewing_machine_operators_8153
+  label:
+    en: Sewing machine operators
+  standard_code: '8153'
+  level: 4
+  parent_code: '815'
+- code: bleaching_dyeing_and_fabric_cleaning_machine_operators_8154
+  label:
+    en: Bleaching, dyeing and fabric cleaning machine operators
+  standard_code: '8154'
+  level: 4
+  parent_code: '815'
+- code: fur_and_leather_preparing_machine_operators_8155
+  label:
+    en: Fur and leather preparing machine operators
+  standard_code: '8155'
+  level: 4
+  parent_code: '815'
+- code: shoemaking_and_related_machine_operators_8156
+  label:
+    en: Shoemaking and related machine operators
+  standard_code: '8156'
+  level: 4
+  parent_code: '815'
+- code: laundry_machine_operators_8157
+  label:
+    en: Laundry machine operators
+  standard_code: '8157'
+  level: 4
+  parent_code: '815'
+- code: textile_fur_and_leather_products_machine_operators_not_elsewhere_classified_8159
+  label:
+    en: Textile, fur and leather products machine operators not elsewhere classified
+  standard_code: '8159'
+  level: 4
+  parent_code: '815'
+- code: food_and_related_products_machine_operators_816
+  label:
+    en: Food and related products machine operators
+  standard_code: '816'
+  level: 3
+  parent_code: '81'
+- code: food_and_related_products_machine_operators_8160
+  label:
+    en: Food and related products machine operators
+  standard_code: '8160'
+  level: 4
+  parent_code: '816'
+- code: wood_processing_and_papermaking_plant_operators_817
+  label:
+    en: Wood processing and papermaking plant operators
+  standard_code: '817'
+  level: 3
+  parent_code: '81'
+- code: pulp_and_papermaking_plant_operators_8171
+  label:
+    en: Pulp and papermaking plant operators
+  standard_code: '8171'
+  level: 4
+  parent_code: '817'
+- code: wood_processing_plant_operators_8172
+  label:
+    en: Wood processing plant operators
+  standard_code: '8172'
+  level: 4
+  parent_code: '817'
+- code: other_stationary_plant_and_machine_operators_818
+  label:
+    en: Other stationary plant and machine operators
+  standard_code: '818'
+  level: 3
+  parent_code: '81'
+- code: glass_and_ceramics_plant_operators_8181
+  label:
+    en: Glass and ceramics plant operators
+  standard_code: '8181'
+  level: 4
+  parent_code: '818'
+- code: steam_engine_and_boiler_operators_8182
+  label:
+    en: Steam engine and boiler operators
+  standard_code: '8182'
+  level: 4
+  parent_code: '818'
+- code: packing_bottling_and_labelling_machine_operators_8183
+  label:
+    en: Packing, bottling and labelling machine operators
+  standard_code: '8183'
+  level: 4
+  parent_code: '818'
+- code: stationary_plant_and_machine_operators_not_elsewhere_classified_8189
+  label:
+    en: Stationary plant and machine operators not elsewhere classified
+  standard_code: '8189'
+  level: 4
+  parent_code: '818'
+- code: assemblers_82
   label:
     en: Assemblers
   standard_code: '82'
-- code: drivers_and_mobile_plant_operators
+  level: 2
+  parent_code: '8'
+- code: assemblers_821
+  label:
+    en: Assemblers
+  standard_code: '821'
+  level: 3
+  parent_code: '82'
+- code: mechanical_machinery_assemblers_8211
+  label:
+    en: Mechanical machinery assemblers
+  standard_code: '8211'
+  level: 4
+  parent_code: '821'
+- code: electrical_and_electronic_equipment_assemblers_8212
+  label:
+    en: Electrical and electronic equipment assemblers
+  standard_code: '8212'
+  level: 4
+  parent_code: '821'
+- code: assemblers_not_elsewhere_classified_8219
+  label:
+    en: Assemblers not elsewhere classified
+  standard_code: '8219'
+  level: 4
+  parent_code: '821'
+- code: drivers_and_mobile_plant_operators_83
   label:
     en: Drivers and mobile plant operators
   standard_code: '83'
-- code: cleaners_and_helpers
+  level: 2
+  parent_code: '8'
+- code: locomotive_engine_drivers_and_related_workers_831
+  label:
+    en: Locomotive engine drivers and related workers
+  standard_code: '831'
+  level: 3
+  parent_code: '83'
+- code: locomotive_engine_drivers_8311
+  label:
+    en: Locomotive engine drivers
+  standard_code: '8311'
+  level: 4
+  parent_code: '831'
+- code: railway_brake_signal_and_switch_operators_8312
+  label:
+    en: Railway brake, signal and switch operators
+  standard_code: '8312'
+  level: 4
+  parent_code: '831'
+- code: car_van_and_motorcycle_drivers_832
+  label:
+    en: Car, van and motorcycle drivers
+  standard_code: '832'
+  level: 3
+  parent_code: '83'
+- code: motorcycle_drivers_8321
+  label:
+    en: Motorcycle drivers
+  standard_code: '8321'
+  level: 4
+  parent_code: '832'
+- code: car_taxi_and_van_drivers_8322
+  label:
+    en: Car, taxi and van drivers
+  standard_code: '8322'
+  level: 4
+  parent_code: '832'
+- code: heavy_truck_and_bus_drivers_833
+  label:
+    en: Heavy truck and bus drivers
+  standard_code: '833'
+  level: 3
+  parent_code: '83'
+- code: bus_and_tram_drivers_8331
+  label:
+    en: Bus and tram drivers
+  standard_code: '8331'
+  level: 4
+  parent_code: '833'
+- code: heavy_truck_and_lorry_drivers_8332
+  label:
+    en: Heavy truck and lorry drivers
+  standard_code: '8332'
+  level: 4
+  parent_code: '833'
+- code: mobile_plant_operators_834
+  label:
+    en: Mobile plant operators
+  standard_code: '834'
+  level: 3
+  parent_code: '83'
+- code: mobile_farm_and_forestry_plant_operators_8341
+  label:
+    en: Mobile farm and forestry plant operators
+  standard_code: '8341'
+  level: 4
+  parent_code: '834'
+- code: earthmoving_and_related_plant_operators_8342
+  label:
+    en: Earthmoving and related plant operators
+  standard_code: '8342'
+  level: 4
+  parent_code: '834'
+- code: crane_hoist_and_related_plant_operators_8343
+  label:
+    en: Crane, hoist and related plant operators
+  standard_code: '8343'
+  level: 4
+  parent_code: '834'
+- code: lifting_truck_operators_8344
+  label:
+    en: Lifting truck operators
+  standard_code: '8344'
+  level: 4
+  parent_code: '834'
+- code: ships_deck_crews_and_related_workers_835
+  label:
+    en: Ships' deck crews and related workers
+  standard_code: '835'
+  level: 3
+  parent_code: '83'
+- code: ships_deck_crews_and_related_workers_8350
+  label:
+    en: Ships' deck crews and related workers
+  standard_code: '8350'
+  level: 4
+  parent_code: '835'
+- code: elementary_occupations_9
+  label:
+    en: Elementary occupations
+  standard_code: '9'
+  level: 1
+- code: cleaners_and_helpers_91
   label:
     en: Cleaners and helpers
   standard_code: '91'
-- code: agricultural_forestry_and_fishery_labourers
+  level: 2
+  parent_code: '9'
+- code: domestic_hotel_and_office_cleaners_and_helpers_911
+  label:
+    en: Domestic, hotel and office cleaners and helpers
+  standard_code: '911'
+  level: 3
+  parent_code: '91'
+- code: domestic_cleaners_and_helpers_9111
+  label:
+    en: Domestic cleaners and helpers
+  standard_code: '9111'
+  level: 4
+  parent_code: '911'
+- code: cleaners_and_helpers_in_offices_hotels_and_other_establishments_9112
+  label:
+    en: Cleaners and helpers in offices, hotels and other establishments
+  standard_code: '9112'
+  level: 4
+  parent_code: '911'
+- code: vehicle_window_laundry_and_other_hand_cleaning_workers_912
+  label:
+    en: Vehicle, window, laundry and other hand cleaning workers
+  standard_code: '912'
+  level: 3
+  parent_code: '91'
+- code: hand_launderers_and_pressers_9121
+  label:
+    en: Hand launderers and pressers
+  standard_code: '9121'
+  level: 4
+  parent_code: '912'
+- code: vehicle_cleaners_9122
+  label:
+    en: Vehicle cleaners
+  standard_code: '9122'
+  level: 4
+  parent_code: '912'
+- code: window_cleaners_9123
+  label:
+    en: Window cleaners
+  standard_code: '9123'
+  level: 4
+  parent_code: '912'
+- code: other_cleaning_workers_9129
+  label:
+    en: Other cleaning workers
+  standard_code: '9129'
+  level: 4
+  parent_code: '912'
+- code: agricultural_forestry_and_fishery_labourers_92
   label:
     en: Agricultural, forestry and fishery labourers
   standard_code: '92'
-- code: labourers_in_mining_construction_manufacturing_and_transport
+  level: 2
+  parent_code: '9'
+- code: agricultural_forestry_and_fishery_labourers_921
+  label:
+    en: Agricultural, forestry and fishery labourers
+  standard_code: '921'
+  level: 3
+  parent_code: '92'
+- code: crop_farm_labourers_9211
+  label:
+    en: Crop farm labourers
+  standard_code: '9211'
+  level: 4
+  parent_code: '921'
+- code: livestock_farm_labourers_9212
+  label:
+    en: Livestock farm labourers
+  standard_code: '9212'
+  level: 4
+  parent_code: '921'
+- code: mixed_crop_and_livestock_farm_labourers_9213
+  label:
+    en: Mixed crop and livestock farm labourers
+  standard_code: '9213'
+  level: 4
+  parent_code: '921'
+- code: garden_and_horticultural_labourers_9214
+  label:
+    en: Garden and horticultural labourers
+  standard_code: '9214'
+  level: 4
+  parent_code: '921'
+- code: forestry_labourers_9215
+  label:
+    en: Forestry labourers
+  standard_code: '9215'
+  level: 4
+  parent_code: '921'
+- code: fishery_and_aquaculture_labourers_9216
+  label:
+    en: Fishery and aquaculture labourers
+  standard_code: '9216'
+  level: 4
+  parent_code: '921'
+- code: labourers_in_mining_construction_manufacturing_and_transport_93
   label:
     en: Labourers in mining, construction, manufacturing and transport
   standard_code: '93'
-- code: food_preparation_assistants
+  level: 2
+  parent_code: '9'
+- code: mining_and_construction_labourers_931
+  label:
+    en: Mining and construction labourers
+  standard_code: '931'
+  level: 3
+  parent_code: '93'
+- code: mining_and_quarrying_labourers_9311
+  label:
+    en: Mining and quarrying labourers
+  standard_code: '9311'
+  level: 4
+  parent_code: '931'
+- code: civil_engineering_labourers_9312
+  label:
+    en: Civil engineering labourers
+  standard_code: '9312'
+  level: 4
+  parent_code: '931'
+- code: building_construction_labourers_9313
+  label:
+    en: Building construction labourers
+  standard_code: '9313'
+  level: 4
+  parent_code: '931'
+- code: manufacturing_labourers_932
+  label:
+    en: Manufacturing labourers
+  standard_code: '932'
+  level: 3
+  parent_code: '93'
+- code: hand_packers_9321
+  label:
+    en: Hand packers
+  standard_code: '9321'
+  level: 4
+  parent_code: '932'
+- code: manufacturing_labourers_not_elsewhere_classified_9329
+  label:
+    en: Manufacturing labourers not elsewhere classified
+  standard_code: '9329'
+  level: 4
+  parent_code: '932'
+- code: transport_and_storage_labourers_933
+  label:
+    en: Transport and storage labourers
+  standard_code: '933'
+  level: 3
+  parent_code: '93'
+- code: hand_and_pedal_vehicle_drivers_9331
+  label:
+    en: Hand and pedal vehicle drivers
+  standard_code: '9331'
+  level: 4
+  parent_code: '933'
+- code: drivers_of_animal_drawn_vehicles_and_machinery_9332
+  label:
+    en: Drivers of animal-drawn vehicles and machinery
+  standard_code: '9332'
+  level: 4
+  parent_code: '933'
+- code: freight_handlers_9333
+  label:
+    en: Freight handlers
+  standard_code: '9333'
+  level: 4
+  parent_code: '933'
+- code: shelf_fillers_9334
+  label:
+    en: Shelf fillers
+  standard_code: '9334'
+  level: 4
+  parent_code: '933'
+- code: food_preparation_assistants_94
   label:
     en: Food preparation assistants
   standard_code: '94'
-- code: street_and_related_sales_and_service_workers
+  level: 2
+  parent_code: '9'
+- code: food_preparation_assistants_941
+  label:
+    en: Food preparation assistants
+  standard_code: '941'
+  level: 3
+  parent_code: '94'
+- code: fast_food_preparers_9411
+  label:
+    en: Fast food preparers
+  standard_code: '9411'
+  level: 4
+  parent_code: '941'
+- code: kitchen_helpers_9412
+  label:
+    en: Kitchen helpers
+  standard_code: '9412'
+  level: 4
+  parent_code: '941'
+- code: street_and_related_sales_and_service_workers_95
   label:
     en: Street and related sales and service workers
   standard_code: '95'
-- code: refuse_workers_and_other_elementary_workers
+  level: 2
+  parent_code: '9'
+- code: street_and_related_service_workers_951
+  label:
+    en: Street and related service workers
+  standard_code: '951'
+  level: 3
+  parent_code: '95'
+- code: street_and_related_service_workers_9510
+  label:
+    en: Street and related service workers
+  standard_code: '9510'
+  level: 4
+  parent_code: '951'
+- code: street_vendors_excluding_food_952
+  label:
+    en: Street vendors (excluding food)
+  standard_code: '952'
+  level: 3
+  parent_code: '95'
+- code: street_vendors_excluding_food_9520
+  label:
+    en: Street vendors (excluding food)
+  standard_code: '9520'
+  level: 4
+  parent_code: '952'
+- code: refuse_workers_and_other_elementary_workers_96
   label:
     en: Refuse workers and other elementary workers
   standard_code: '96'
+  level: 2
+  parent_code: '9'
+- code: refuse_workers_961
+  label:
+    en: Refuse workers
+  standard_code: '961'
+  level: 3
+  parent_code: '96'
+- code: garbage_and_recycling_collectors_9611
+  label:
+    en: Garbage and recycling collectors
+  standard_code: '9611'
+  level: 4
+  parent_code: '961'
+- code: refuse_sorters_9612
+  label:
+    en: Refuse sorters
+  standard_code: '9612'
+  level: 4
+  parent_code: '961'
+- code: sweepers_and_related_labourers_9613
+  label:
+    en: Sweepers and related labourers
+  standard_code: '9613'
+  level: 4
+  parent_code: '961'
+- code: other_elementary_workers_962
+  label:
+    en: Other elementary workers
+  standard_code: '962'
+  level: 3
+  parent_code: '96'
+- code: messengers_package_deliverers_and_luggage_porters_9621
+  label:
+    en: Messengers, package deliverers and luggage porters
+  standard_code: '9621'
+  level: 4
+  parent_code: '962'
+- code: odd_job_persons_9622
+  label:
+    en: Odd job persons
+  standard_code: '9622'
+  level: 4
+  parent_code: '962'
+- code: meter_readers_and_vending_machine_collectors_9623
+  label:
+    en: Meter readers and vending-machine collectors
+  standard_code: '9623'
+  level: 4
+  parent_code: '962'
+- code: water_and_firewood_collectors_9624
+  label:
+    en: Water and firewood collectors
+  standard_code: '9624'
+  level: 4
+  parent_code: '962'
+- code: elementary_workers_not_elsewhere_classified_9629
+  label:
+    en: Elementary workers not elsewhere classified
+  standard_code: '9629'
+  level: 4
+  parent_code: '962'

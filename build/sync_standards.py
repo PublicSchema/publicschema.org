@@ -143,7 +143,11 @@ def parse_semicolon_delimited(data: str) -> list[dict]:
 def parse_isco_json(data: str) -> list[dict]:
     """Parse ISCO-08 hierarchical JSON from pgmyrek/ISCO_08_Structure.
 
-    Extracts sub-major groups (2-digit codes) from the nested tree.
+    Extracts all four levels of the classification hierarchy:
+    1-digit major groups, 2-digit sub-major groups, 3-digit minor groups,
+    and 4-digit unit groups. Each entry includes ``level`` and
+    ``parent_code`` fields to preserve the tree structure.
+
     Each node has {"name": "CODE - Title", "children": [...]}.
     """
     tree = json.loads(data)
@@ -156,24 +160,35 @@ def parse_isco_json(data: str) -> list[dict]:
             return parts[0].strip(), parts[1].strip()
         return "", name.strip()
 
-    def _walk(node: dict) -> None:
+    def _walk(node: dict, parent_code: str | None) -> None:
         name = node.get("name", "")
         code, title = _parse_name(name)
-        # 2-digit codes are sub-major groups (the target granularity)
-        if len(code) == 2 and title:
-            result.append({
-                "code": _to_snake_case(title),
+        if code and title:
+            level = len(code)
+            # Append standard_code to ensure uniqueness: ISCO-08 reuses
+            # titles across hierarchy levels (e.g., "Commissioned armed
+            # forces officers" appears at 2-digit, 3-digit, and 4-digit).
+            entry = {
+                "code": f"{_to_snake_case(title)}_{code}",
                 "label": {"en": title},
                 "standard_code": code,
-            })
-        for child in node.get("children", []):
-            _walk(child)
+                "level": level,
+            }
+            if parent_code is not None:
+                entry["parent_code"] = parent_code
+            result.append(entry)
+            # Children use this node's code as their parent
+            for child in node.get("children", []):
+                _walk(child, code)
+        else:
+            for child in node.get("children", []):
+                _walk(child, parent_code)
 
     if isinstance(tree, list):
         for node in tree:
-            _walk(node)
+            _walk(node, None)
     else:
-        _walk(tree)
+        _walk(tree, None)
 
     return result
 
@@ -271,6 +286,14 @@ def merge_values(
                 ev["standard_code"] = pv["standard_code"]
                 changed = True
 
+            # Update hierarchy fields (level, parent_code)
+            if pv.get("level") and pv["level"] != ev.get("level"):
+                ev["level"] = pv["level"]
+                changed = True
+            if pv.get("parent_code") and pv["parent_code"] != ev.get("parent_code"):
+                ev["parent_code"] = pv["parent_code"]
+                changed = True
+
             if changed:
                 report["updated"].append(code)
 
@@ -282,6 +305,10 @@ def merge_values(
                 "label": dict(pv["label"]),
                 "standard_code": pv.get("standard_code"),
             }
+            if pv.get("level") is not None:
+                new_value["level"] = pv["level"]
+            if pv.get("parent_code") is not None:
+                new_value["parent_code"] = pv["parent_code"]
             merged.append(new_value)
             report["added"].append(code)
 

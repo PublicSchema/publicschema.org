@@ -96,6 +96,15 @@
         },
         "definition": {
           "$ref": "#/$defs/multilingual_text"
+        },
+        "level": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Depth in the hierarchy (1=top). Present only for hierarchical vocabularies."
+        },
+        "parent_code": {
+          "type": "string",
+          "description": "standard_code of the parent value in the hierarchy."
         }
       }
     }

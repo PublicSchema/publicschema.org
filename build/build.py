@@ -220,13 +220,18 @@ def build_vocabulary(schema_dir: Path) -> dict:
         vocab_base = _compute_uri(base_uri, vocab_ns, f"vocab/{vocab_id}")
         values = []
         for v in data.get("values", []):
-            values.append({
+            value_out = {
                 "code": v["code"],
                 "uri": f"{vocab_base}/{v['code']}",
                 "label": v.get("label", {}),
                 "standard_code": v.get("standard_code"),
                 "definition": v.get("definition", {}),
-            })
+            }
+            if v.get("level") is not None:
+                value_out["level"] = v["level"]
+            if v.get("parent_code") is not None:
+                value_out["parent_code"] = v["parent_code"]
+            values.append(value_out)
         out_vocabularies[vocab_id] = {
             "id": vocab_id,
             "domain": vocab_ns,

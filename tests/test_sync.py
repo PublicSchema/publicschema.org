@@ -224,7 +224,7 @@ class TestParseSemicolonDelimited:
 
 
 class TestParseIscoJson:
-    def test_extracts_sub_major_groups(self):
+    def test_extracts_all_levels(self):
         data = json.dumps([
             {
                 "name": "1 - Managers",
@@ -234,7 +234,10 @@ class TestParseIscoJson:
                         "children": [
                             {
                                 "name": "111 - Legislators and senior officials",
-                                "children": [],
+                                "children": [
+                                    {"name": "1111 - Legislators"},
+                                    {"name": "1112 - Senior government officials"},
+                                ],
                             },
                         ],
                     },
@@ -246,14 +249,55 @@ class TestParseIscoJson:
             },
         ])
         result = parse_isco_json(data)
-        # Should only include 2-digit codes
-        assert len(result) == 2
-        assert result[0]["standard_code"] == "11"
-        assert result[0]["label"]["en"] == "Chief executives, senior officials and legislators"
-        assert result[0]["code"] == "chief_executives_senior_officials_and_legislators"
-        assert result[1]["standard_code"] == "12"
+        codes = {r["standard_code"] for r in result}
+        # All 4 levels should be present
+        assert codes == {"1", "11", "12", "111", "1111", "1112"}
 
-    def test_skips_major_and_unit_groups(self):
+    def test_major_group_has_level_1_no_parent(self):
+        data = json.dumps([
+            {"name": "1 - Managers", "children": []},
+        ])
+        result = parse_isco_json(data)
+        assert len(result) == 1
+        assert result[0]["standard_code"] == "1"
+        assert result[0]["level"] == 1
+        assert result[0].get("parent_code") is None
+        assert result[0]["code"] == "managers_1"
+
+    def test_sub_major_group_has_level_2_with_parent(self):
+        data = json.dumps([
+            {
+                "name": "1 - Managers",
+                "children": [
+                    {"name": "11 - Chief executives", "children": []},
+                ],
+            },
+        ])
+        result = parse_isco_json(data)
+        sub_major = [r for r in result if r["standard_code"] == "11"][0]
+        assert sub_major["level"] == 2
+        assert sub_major["parent_code"] == "1"
+
+    def test_minor_group_has_level_3(self):
+        data = json.dumps([
+            {
+                "name": "1 - Managers",
+                "children": [
+                    {
+                        "name": "11 - Chief executives",
+                        "children": [
+                            {"name": "111 - Legislators", "children": []},
+                        ],
+                    },
+                ],
+            },
+        ])
+        result = parse_isco_json(data)
+        minor = [r for r in result if r["standard_code"] == "111"][0]
+        assert minor["level"] == 3
+        assert minor["parent_code"] == "11"
+
+    def test_unit_group_has_level_4(self):
         data = json.dumps([
             {
                 "name": "1 - Managers",
@@ -264,7 +308,7 @@ class TestParseIscoJson:
                             {
                                 "name": "111 - Legislators",
                                 "children": [
-                                    {"name": "1111 - Legislators", "children": []},
+                                    {"name": "1111 - Legislators"},
                                 ],
                             },
                         ],
@@ -273,8 +317,9 @@ class TestParseIscoJson:
             },
         ])
         result = parse_isco_json(data)
-        assert len(result) == 1
-        assert result[0]["standard_code"] == "11"
+        unit = [r for r in result if r["standard_code"] == "1111"][0]
+        assert unit["level"] == 4
+        assert unit["parent_code"] == "111"
 
     def test_empty_tree(self):
         result = parse_isco_json("[]")
@@ -407,3 +452,51 @@ class TestMergeValues:
         ]
         merged, report = merge_values(existing, parsed)
         assert "definition" not in merged[0]
+
+    def test_preserves_level_and_parent_code_on_new(self):
+        """New values with level and parent_code carry them through merge."""
+        existing = []
+        parsed = [
+            {
+                "code": "managers",
+                "label": {"en": "Managers"},
+                "standard_code": "1",
+                "level": 1,
+            },
+            {
+                "code": "chief_executives",
+                "label": {"en": "Chief executives"},
+                "standard_code": "11",
+                "level": 2,
+                "parent_code": "1",
+            },
+        ]
+        merged, report = merge_values(existing, parsed)
+        assert merged[0]["level"] == 1
+        assert merged[0].get("parent_code") is None
+        assert merged[1]["level"] == 2
+        assert merged[1]["parent_code"] == "1"
+
+    def test_updates_level_and_parent_code_on_existing(self):
+        """Existing values get level/parent_code updated from parsed data."""
+        existing = [
+            {
+                "code": "chief_executives",
+                "label": {"en": "Chief executives", "fr": "Dirigeants"},
+                "standard_code": "11",
+            },
+        ]
+        parsed = [
+            {
+                "code": "chief_executives",
+                "label": {"en": "Chief executives"},
+                "standard_code": "11",
+                "level": 2,
+                "parent_code": "1",
+            },
+        ]
+        merged, report = merge_values(existing, parsed)
+        assert merged[0]["level"] == 2
+        assert merged[0]["parent_code"] == "1"
+        # Translations preserved
+        assert merged[0]["label"]["fr"] == "Dirigeants"

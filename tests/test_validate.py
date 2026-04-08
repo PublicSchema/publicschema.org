@@ -137,6 +137,30 @@ class TestSchemaValidation:
         errors = validate_schema_dir(tmp_schema)
         assert any("type" in str(e) for e in errors)
 
+    def test_vocabulary_with_hierarchical_values_passes(
+        self, tmp_schema, write_vocabulary
+    ):
+        """Vocabulary values with level and parent_code pass validation."""
+        data = make_vocabulary()
+        data["values"] = [
+            {
+                "code": "managers",
+                "label": {"en": "Managers"},
+                "standard_code": "1",
+                "level": 1,
+            },
+            {
+                "code": "chief_executives",
+                "label": {"en": "Chief executives"},
+                "standard_code": "11",
+                "level": 2,
+                "parent_code": "1",
+            },
+        ]
+        write_vocabulary("hierarchical.yaml", data)
+        errors = validate_schema_dir(tmp_schema)
+        assert errors == []
+
     def test_vocabulary_duplicate_value_codes(self, tmp_schema, write_vocabulary):
         data = make_vocabulary()
         data["values"].append(data["values"][0].copy())  # duplicate first value
