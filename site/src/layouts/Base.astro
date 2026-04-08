@@ -6,7 +6,7 @@ interface Props {
   description?: string;
 }
 
-const { title, description = 'A shared data vocabulary for government service delivery' } = Astro.props;
+const { title, description = 'Common definitions for public service delivery' } = Astro.props;
 const currentPath = Astro.url.pathname;
 const pageTitle = `${title} | PublicSchema`;
 const canonicalUrl = new URL(currentPath, Astro.site).href;
@@ -95,8 +95,8 @@ const navLinks = [
         <div class="footer-brand">
           <div class="footer-name">PublicSchema</div>
           <p>
-            A schema.org-style vocabulary of concepts, properties, and controlled
-            value sets for government service delivery.
+            Common definitions for public service delivery. Built so programs can
+            coordinate, share data, and reach the people they serve.
           </p>
         </div>
         <div class="footer-links">

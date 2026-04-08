@@ -4,20 +4,20 @@ import Base from "../layouts/Base.astro";
 <Base title="About" description="About the PublicSchema project.">
   <div class="page-header">
     <h1>About PublicSchema</h1>
-    <p class="subtitle">A shared data vocabulary for government service delivery.</p>
+    <p class="subtitle">Common definitions for public service delivery.</p>
   </div>
 
   <article class="concept-narrative">
     <h2>The problem</h2>
     <p>
-      Government service delivery systems collect and manage similar data about
-      the same people, but they model it differently. A person in one system has
+      Service delivery systems collect and manage similar data about the same
+      people, but they model it differently. A person in one system has
       a "gender" field with codes 1/2/3. Another uses "M/F/O". A third uses
       "male/female/non-binary/prefer_not_to_say".
     </p>
     <p>
       This is not just a technical annoyance. When systems cannot understand each
-      other's data, governments cannot identify who is receiving benefits across
+      other's data, organizations cannot identify who is receiving benefits across
       programs, refer beneficiaries between services, consolidate reporting
       across agencies, or detect duplication and gaps in coverage.
     </p>
@@ -42,9 +42,9 @@ import Base from "../layouts/Base.astro";
 
     <h2>The vision</h2>
     <p>
-      An open, composable vocabulary of concepts and properties for government
+      An open, composable vocabulary of concepts and properties for public
       services. Think <a href="https://schema.org">schema.org</a>, but for
-      government service delivery.
+      public service delivery.
     </p>
     <p>
       Schema.org does not tell websites what data to collect. It provides a
@@ -83,8 +83,8 @@ import Base from "../layouts/Base.astro";
       than pretending the differences do not exist.
     </p>
     <p>
-      <strong>Temporally grounded.</strong> Almost everything in government
-      service delivery is time-bounded: enrollment periods, benefit cycles,
+      <strong>Temporally grounded.</strong> Almost everything in public service
+      delivery is time-bounded: enrollment periods, benefit cycles,
       eligibility windows, payment schedules. A status snapshot without a
       validity period is incomplete. Temporal context is a first-class concern,
       not an afterthought.
@@ -113,7 +113,7 @@ import Base from "../layouts/Base.astro";
       values designed for use as
       <a href="https://www.w3.org/TR/vc-data-model-2.0/">Verifiable Credential</a>
       schemas. Credential design accounts for selective disclosure, since
-      government credentials often contain sensitive personal data that should
+      credentials often contain sensitive personal data that should
       not be fully revealed in every presentation.
     </p>
     <p>
@@ -136,8 +136,8 @@ import Base from "../layouts/Base.astro";
       Referral).
     </p>
     <p>
-      As the vocabulary matures, it can extend to adjacent government service
-      domains: civil registration, health referrals, education, land
+      As the vocabulary matures, it will extend to adjacent domains: civil
+      registration, health referrals, education, humanitarian response, land
       administration. The structure is the same; only the concepts and
       vocabularies change.
     </p>
@@ -171,8 +171,8 @@ import Base from "../layouts/Base.astro";
     <h2>Roadmap</h2>
     <h3>Phase 1: Vocabulary foundation</h3>
     <p>
-      Define concepts and properties as a schema.org-style vocabulary with
-      stable URIs. Write each definition for domain practitioners. Publish as a
+      Define concepts and properties with stable URIs, following the schema.org
+      pattern. Write each definition for domain practitioners. Publish as a
       reference website. Identify champion systems for early validation.
     </p>
     <h3>Phase 2: Vocabulary standards and mappings</h3>
@@ -185,7 +185,7 @@ import Base from "../layouts/Base.astro";
     <p>
       Formalize governance. Validate mappings with system implementers and
       country deployments. Document real-world adoption patterns. Extend to
-      adjacent government service domains.
+      adjacent public service domains.
     </p>
   </article>
 </Base>

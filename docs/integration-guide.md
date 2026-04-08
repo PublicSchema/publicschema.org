@@ -2,7 +2,7 @@
 
 ## What PublicSchema provides
 
-PublicSchema is a shared vocabulary for government service delivery data. It provides:
+PublicSchema is a shared vocabulary for public service delivery data. It provides:
 
 1. **Concepts**: semantic entities (Person, Enrollment, PaymentEvent, etc.) with multilingual definitions
 2. **Properties**: typed, reusable fields that apply across concepts (given_name, start_date, amount)

@@ -2,13 +2,11 @@
 
 **[publicschema.org](https://publicschema.org)**
 
-A schema.org-style vocabulary of concepts, properties, and controlled value sets for government service delivery.
+Common definitions for public service delivery. Built so programs can coordinate, share data, and reach the people they serve.
 
 ## What this is
 
-Government service delivery systems collect similar data about the same people, but model it differently. PublicSchema provides a shared language: stable definitions, reusable properties, and standardized vocabularies that systems can adopt incrementally.
-
-Starting with social protection. Extending to broader government services over time.
+Service delivery systems collect similar data about the same people, but model it differently. PublicSchema provides a shared language: stable definitions, reusable properties, and standardized vocabularies that systems can adopt incrementally.
 
 ## What's in the vocabulary
 

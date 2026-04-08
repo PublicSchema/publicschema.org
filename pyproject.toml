@@ -1,7 +1,7 @@
 [project]
 name = "publicschema"
 version = "0.1.0"
-description = "A schema.org-style vocabulary for government service delivery"
+description = "Common definitions for public service delivery"
 requires-python = ">=3.12"
 license = "Apache-2.0"
 dependencies = [
