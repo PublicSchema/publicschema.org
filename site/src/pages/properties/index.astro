@@ -15,7 +15,7 @@ const primitiveTypes = ["string", "integer", "decimal", "boolean", "date"];
     <p class="subtitle">Reusable attributes shared across concepts.</p>
   </div>
 
-  <table class="data-table">
+  <table class="data-table mobile-card-table">
     <thead>
       <tr>
         <th>Property</th>
@@ -31,14 +31,14 @@ const primitiveTypes = ["string", "integer", "decimal", "boolean", "date"];
         return (
           <tr>
             <td><a href={p.path}>{p.id}</a></td>
-            <td>{conceptRef
+            <td data-label="Type">{conceptRef
               ? <a href={vocab.concepts[conceptRef]?.path || `/${conceptRef}`}><code>{p.type}</code></a>
               : isPrimitive
                 ? <a href={`/types#${p.type}`}><code>{p.type}</code></a>
                 : <code>{p.type}</code>
             }</td>
-            <td>{p.used_by.join(", ")}</td>
-            <td>{p.convergence ? `${p.convergence.system_count}/${p.convergence.total_systems}` : ""}</td>
+            <td data-label="Used by">{p.used_by.join(", ")}</td>
+            <td data-label="Systems">{p.convergence ? `${p.convergence.system_count}/${p.convergence.total_systems}` : ""}</td>
           </tr>
         );
       })}

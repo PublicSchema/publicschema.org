@@ -113,8 +113,7 @@ function propPath(id: string): string {
           <div class="concept-section">
             <h2>Properties</h2>
             {allProps.length > 0 ? (
-              <div class="table-scroll">
-              <table class="data-table">
+              <table class="data-table mobile-card-table">
                 <thead>
                   <tr>
                     <th>Property</th>
@@ -135,7 +134,7 @@ function propPath(id: string): string {
                           <a href={propPath(p.id)}>{p.id}</a>
                           {p.from && <span class="inherited-badge">from <a href={conceptPath(p.from)}>{p.from}</a></span>}
                         </td>
-                        <td>
+                        <td data-label="Type">
                           {conceptRef
                             ? <a href={conceptPath(conceptRef)}><code>{typeStr}</code></a>
                             : isPrimitive
@@ -146,14 +145,13 @@ function propPath(id: string): string {
                             <> (<a href={`/vocab/${p.detail.vocabulary}`}>{p.detail.vocabulary}</a>)</>
                           )}
                         </td>
-                        <td>{p.detail?.data_classification ? <span class={`badge badge-${p.detail.data_classification}`}>{classificationLabels[p.detail.data_classification] ?? p.detail.data_classification}</span> : ""}</td>
-                        <td>{p.detail?.definition.en?.slice(0, 80)}{(p.detail?.definition.en?.length || 0) > 80 ? "..." : ""}</td>
+                        <td data-label="Classification">{p.detail?.data_classification ? <span class={`badge badge-${p.detail.data_classification}`}>{classificationLabels[p.detail.data_classification] ?? p.detail.data_classification}</span> : ""}</td>
+                        <td data-label="Definition">{p.detail?.definition.en?.slice(0, 80)}{(p.detail?.definition.en?.length || 0) > 80 ? "..." : ""}</td>
                       </tr>
                     );
                   })}
                 </tbody>
               </table>
-              </div>
             ) : (
               <p style="color: var(--color-text-muted);">No properties defined yet.</p>
             )}

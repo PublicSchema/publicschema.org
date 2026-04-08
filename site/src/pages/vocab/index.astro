@@ -14,7 +14,7 @@ const vocabularies = Object.values(vocab.vocabularies).sort((a, b) => a.id.local
     <p class="subtitle">Controlled value sets, referencing international standards where they exist.</p>
   </div>
 
-  <table class="data-table">
+  <table class="data-table mobile-card-table">
     <thead>
       <tr>
         <th>Vocabulary</th>
@@ -27,9 +27,9 @@ const vocabularies = Object.values(vocab.vocabularies).sort((a, b) => a.id.local
       {vocabularies.map((v) => (
         <tr>
           <td><a href={`/vocab/${v.id}`}>{v.id}</a></td>
-          <td>{v.values.length}</td>
-          <td>{v.standard?.name || "None"}</td>
-          <td>{v.definition.en?.slice(0, 80)}{(v.definition.en?.length || 0) > 80 ? "..." : ""}</td>
+          <td data-label="Values">{v.values.length}</td>
+          <td data-label="Standard">{v.standard?.name || "None"}</td>
+          <td data-label="Definition">{v.definition.en?.slice(0, 80)}{(v.definition.en?.length || 0) > 80 ? "..." : ""}</td>
         </tr>
       ))}
     </tbody>

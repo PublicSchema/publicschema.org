@@ -1125,24 +1125,69 @@ article .table-scroll .data-table {
     font-weight: 600;
   }
 
-  /* Tables: horizontal scroll */
-  .data-table {
+  /* Card-style tables: each row becomes a stacked card on mobile */
+  .mobile-card-table {
+    border: none;
+  }
+
+  .mobile-card-table thead {
+    display: none;
+  }
+
+  .mobile-card-table tbody {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .mobile-card-table tr {
     display: block;
-    overflow-x: auto;
+    padding: var(--space-md);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-md);
+    background: white;
   }
 
-  /* Sticky first column for data tables */
-  .data-table th:first-child,
-  .data-table td:first-child {
-    position: sticky;
-    left: 0;
-    background: var(--color-bg);
-    z-index: 1;
+  .mobile-card-table tr:hover {
+    background: white;
   }
 
-  .data-table th:first-child {
-    background: var(--color-surface);
-    z-index: 2;
+  .mobile-card-table td {
+    display: block;
+    padding: 0;
+    border: none;
+  }
+
+  /* First cell is the card heading */
+  .mobile-card-table td:first-child {
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: var(--space-sm);
+    padding-bottom: var(--space-sm);
+    border-bottom: 1px solid var(--color-border-light);
+  }
+
+  /* Subsequent cells show label from data-label attribute */
+  .mobile-card-table td[data-label]::before {
+    content: attr(data-label);
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-text-muted);
+    margin-top: var(--space-sm);
+    margin-bottom: 0.15rem;
+  }
+
+  /* Hide empty cells (e.g. no classification, no standard code) */
+  .mobile-card-table td[data-label]:empty {
+    display: none;
+  }
+
+  /* Inherited rows */
+  .mobile-card-table .inherited-row {
+    opacity: 0.7;
   }
 
   /* Key-value detail tables: stack vertically */

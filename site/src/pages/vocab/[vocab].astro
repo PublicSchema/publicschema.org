@@ -50,8 +50,7 @@ const vocabulary = allVocab.vocabularies[Astro.params.vocab] as Vocabulary;
 
   <div class="concept-section">
     <h2>Values</h2>
-    <div class="table-scroll">
-    <table class="data-table">
+    <table class="data-table mobile-card-table">
       <thead>
         <tr>
           <th>Code</th>
@@ -64,14 +63,13 @@ const vocabulary = allVocab.vocabularies[Astro.params.vocab] as Vocabulary;
         {vocabulary.values.map((v) => (
           <tr>
             <td><code>{v.code}</code></td>
-            <td>{v.label.en}</td>
-            <td>{v.standard_code || ""}</td>
-            <td>{v.definition.en}</td>
+            <td data-label="Label">{v.label.en}</td>
+            <td data-label="Standard code">{v.standard_code || ""}</td>
+            <td data-label="Definition">{v.definition.en}</td>
           </tr>
         ))}
       </tbody>
     </table>
-    </div>
   </div>
 
   {vocabulary.system_mappings && Object.keys(vocabulary.system_mappings).length > 0 && (
