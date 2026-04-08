@@ -834,7 +834,7 @@ class TestCredentialSchemas:
         example = {
             "@context": [
                 "https://www.w3.org/ns/credentials/v2",
-                "https://test.example.org/ctx/v0.1.jsonld",
+                "https://test.example.org/ctx/draft.jsonld",
             ],
             "type": ["VerifiableCredential", "IdentityCredential"],
             "issuer": "did:web:example.gov",
@@ -942,6 +942,10 @@ class TestCredentialSchemas:
 # ---------------------------------------------------------------------------
 
 class TestJsonLdDocuments:
+    def _concept_node(self, doc: dict) -> dict:
+        """Extract the concept (rdfs:Class) node from a @graph-based doc."""
+        return doc["@graph"][0]
+
     def test_concept_jsonld_has_bare_uri(
         self, tmp_schema, write_concept
     ):
@@ -949,25 +953,40 @@ class TestJsonLdDocuments:
         write_concept("person.yaml", make_concept(id="Person"))
         result = build_vocabulary(tmp_schema)
         docs = result["jsonld_docs"]
-        doc = docs["Person.jsonld"]
-        assert doc["@id"] == "https://test.example.org/Person"
-        assert not doc["@id"].endswith(".jsonld")
+        doc = docs["concepts/Person.jsonld"]
+        concept = self._concept_node(doc)
+        assert concept["@id"] == "https://test.example.org/Person"
+        assert not concept["@id"].endswith(".jsonld")
 
     def test_concept_jsonld_type_is_rdfs_class(
         self, tmp_schema, write_concept
     ):
         write_concept("person.yaml", make_concept(id="Person"))
         result = build_vocabulary(tmp_schema)
-        doc = result["jsonld_docs"]["Person.jsonld"]
-        assert doc["@type"] == "rdfs:Class"
+        doc = result["jsonld_docs"]["concepts/Person.jsonld"]
+        assert self._concept_node(doc)["@type"] == "rdfs:Class"
 
     def test_concept_jsonld_has_context_url(
         self, tmp_schema, write_concept
     ):
         write_concept("person.yaml", make_concept(id="Person"))
         result = build_vocabulary(tmp_schema)
-        doc = result["jsonld_docs"]["Person.jsonld"]
-        assert doc["@context"] == "https://test.example.org/ctx/v0.1.jsonld"
+        doc = result["jsonld_docs"]["concepts/Person.jsonld"]
+        assert doc["@context"] == "https://test.example.org/ctx/draft.jsonld"
+
+    def test_concept_jsonld_uses_graph_array(
+        self, tmp_schema, write_concept
+    ):
+        """Concept JSON-LD uses @graph array, not a single top-level node."""
+        write_concept("person.yaml", make_concept(id="Person"))
+        result = build_vocabulary(tmp_schema)
+        doc = result["jsonld_docs"]["concepts/Person.jsonld"]
+        assert "@graph" in doc
+        assert isinstance(doc["@graph"], list)
+        assert len(doc["@graph"]) >= 1
+        # Top-level should only have @context and @graph
+        assert "@id" not in doc
+        assert "@type" not in doc
 
     def test_concept_jsonld_language_tagged_comments(
         self, tmp_schema, write_concept
@@ -978,16 +997,17 @@ class TestJsonLdDocuments:
             definition={"en": "A person.", "fr": "Une personne.", "es": "Una persona."},
         ))
         result = build_vocabulary(tmp_schema)
-        doc = result["jsonld_docs"]["Person.jsonld"]
-        comments = doc["rdfs:comment"]
+        doc = result["jsonld_docs"]["concepts/Person.jsonld"]
+        concept = self._concept_node(doc)
+        comments = concept["rdfs:comment"]
         assert isinstance(comments, list)
         langs = {c["@language"]: c["@value"] for c in comments}
         assert langs["en"] == "A person."
         assert langs["fr"] == "Une personne."
         assert langs["es"] == "Una persona."
         # No invented properties
-        assert "rdfs:comment_fr" not in doc
-        assert "rdfs:comment_es" not in doc
+        assert "rdfs:comment_fr" not in concept
+        assert "rdfs:comment_es" not in concept
 
     def test_concept_jsonld_domain_path(
         self, tmp_schema, write_concept
@@ -997,9 +1017,9 @@ class TestJsonLdDocuments:
             id="Enrollment", domain="sp",
         ))
         result = build_vocabulary(tmp_schema)
-        assert "sp/Enrollment.jsonld" in result["jsonld_docs"]
-        doc = result["jsonld_docs"]["sp/Enrollment.jsonld"]
-        assert doc["@id"] == "https://test.example.org/sp/Enrollment"
+        assert "concepts/sp/Enrollment.jsonld" in result["jsonld_docs"]
+        doc = result["jsonld_docs"]["concepts/sp/Enrollment.jsonld"]
+        assert self._concept_node(doc)["@id"] == "https://test.example.org/sp/Enrollment"
 
     def test_concept_jsonld_supertypes(
         self, tmp_schema, write_concept
@@ -1009,23 +1029,30 @@ class TestJsonLdDocuments:
             id="Household", supertypes=["Group"],
         ))
         result = build_vocabulary(tmp_schema)
-        doc = result["jsonld_docs"]["Household.jsonld"]
+        doc = result["jsonld_docs"]["concepts/Household.jsonld"]
+        concept = self._concept_node(doc)
         # Supertypes use bare URIs
-        assert doc["rdfs:subClassOf"] == ["https://test.example.org/Group"]
+        assert concept["rdfs:subClassOf"] == ["https://test.example.org/Group"]
 
-    def test_concept_jsonld_embedded_properties(
+    def test_concept_jsonld_properties_in_graph(
         self, tmp_schema, write_concept, write_property
     ):
+        """Properties appear as peer nodes in @graph with schema:domainIncludes."""
         write_property("name.yaml", make_property(id="name"))
         write_concept("person.yaml", make_concept(
             id="Person", properties=["name"],
         ))
         result = build_vocabulary(tmp_schema)
-        doc = result["jsonld_docs"]["Person.jsonld"]
-        props = doc["ps:properties"]
-        assert len(props) == 1
-        assert props[0]["@type"] == "rdf:Property"
-        assert not props[0]["@id"].endswith(".jsonld")
+        doc = result["jsonld_docs"]["concepts/Person.jsonld"]
+        graph = doc["@graph"]
+        # First node is the concept, rest are properties
+        assert len(graph) == 2
+        prop_node = graph[1]
+        assert prop_node["@type"] == "rdf:Property"
+        assert not prop_node["@id"].endswith(".jsonld")
+        assert prop_node["schema:domainIncludes"] == {"@id": "https://test.example.org/Person"}
+        # No ps:properties on the concept node
+        assert "ps:properties" not in graph[0]
 
     def test_property_jsonld_has_bare_uri(
         self, tmp_schema, write_concept, write_property
@@ -1035,7 +1062,7 @@ class TestJsonLdDocuments:
             id="Person", properties=["name"],
         ))
         result = build_vocabulary(tmp_schema)
-        doc = result["jsonld_docs"]["name.jsonld"]
+        doc = result["jsonld_docs"]["properties/name.jsonld"]
         assert doc["@id"] == "https://test.example.org/name"
         assert doc["@type"] == "rdf:Property"
 
@@ -1048,7 +1075,7 @@ class TestJsonLdDocuments:
             id="Person", properties=["dob"],
         ))
         result = build_vocabulary(tmp_schema)
-        doc = result["jsonld_docs"]["dob.jsonld"]
+        doc = result["jsonld_docs"]["properties/dob.jsonld"]
         assert doc["schema:rangeIncludes"] == "xsd:date"
 
     def test_property_jsonld_range_includes_geojson_geometry(
@@ -1060,7 +1087,7 @@ class TestJsonLdDocuments:
             id="Area", properties=["geom"],
         ))
         result = build_vocabulary(tmp_schema)
-        doc = result["jsonld_docs"]["geom.jsonld"]
+        doc = result["jsonld_docs"]["properties/geom.jsonld"]
         assert doc["schema:rangeIncludes"] == "https://purl.org/geojson/vocab#Geometry"
 
     def test_property_jsonld_range_includes_concept_uri(
@@ -1074,7 +1101,7 @@ class TestJsonLdDocuments:
             id="Person", properties=["beneficiary"],
         ))
         result = build_vocabulary(tmp_schema)
-        doc = result["jsonld_docs"]["beneficiary.jsonld"]
+        doc = result["jsonld_docs"]["properties/beneficiary.jsonld"]
         assert doc["schema:rangeIncludes"] == "https://test.example.org/Person"
 
     def test_property_jsonld_domain_includes(
@@ -1085,7 +1112,7 @@ class TestJsonLdDocuments:
             id="Person", properties=["name"],
         ))
         result = build_vocabulary(tmp_schema)
-        doc = result["jsonld_docs"]["name.jsonld"]
+        doc = result["jsonld_docs"]["properties/name.jsonld"]
         assert "https://test.example.org/Person" in doc["schema:domainIncludes"]
 
     def test_property_jsonld_language_tagged_comments(
@@ -1099,7 +1126,7 @@ class TestJsonLdDocuments:
             id="Person", properties=["name"],
         ))
         result = build_vocabulary(tmp_schema)
-        doc = result["jsonld_docs"]["name.jsonld"]
+        doc = result["jsonld_docs"]["properties/name.jsonld"]
         comments = doc["rdfs:comment"]
         langs = {c["@language"]: c["@value"] for c in comments}
         assert langs["en"] == "Name."
@@ -1165,10 +1192,10 @@ class TestJsonLdDocuments:
         result = build_vocabulary(tmp_schema)
         dist = tmp_path / "dist"
         write_outputs(result, dist)
-        jsonld_path = dist / "jsonld" / "Person.jsonld"
+        jsonld_path = dist / "jsonld" / "concepts" / "Person.jsonld"
         assert jsonld_path.exists()
         doc = json.loads(jsonld_path.read_text())
-        assert doc["@id"] == "https://test.example.org/Person"
+        assert doc["@graph"][0]["@id"] == "https://test.example.org/Person"
 
     def test_jsonld_docs_domain_subdir(
         self, tmp_schema, write_concept, tmp_path
@@ -1181,7 +1208,7 @@ class TestJsonLdDocuments:
         result = build_vocabulary(tmp_schema)
         dist = tmp_path / "dist"
         write_outputs(result, dist)
-        assert (dist / "jsonld" / "sp" / "Enrollment.jsonld").exists()
+        assert (dist / "jsonld" / "concepts" / "sp" / "Enrollment.jsonld").exists()
 
     def test_vocabulary_jsonld_domain_specific_uses_flat_path(
         self, tmp_schema, write_concept, write_property, write_vocabulary

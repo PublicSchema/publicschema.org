@@ -76,10 +76,10 @@ class TestConceptJsonld:
         }
         for path, doc in concept_docs.items():
             g = _parse_doc(doc, inline_ctx)
-            concept_uri = rdflib.URIRef(doc["@id"])
+            concept_uri = rdflib.URIRef(doc["@graph"][0]["@id"])
             assert (concept_uri, RDF.type, RDFS.Class) in g, (
                 f"Missing rdf:type rdfs:Class for concept at {path} "
-                f"(URI: {doc['@id']})"
+                f"(URI: {doc['@graph'][0]['@id']})"
             )
 
     def test_concept_jsonld_has_label_and_comment(self, build_result):
@@ -91,7 +91,7 @@ class TestConceptJsonld:
         }
         for path, doc in concept_docs.items():
             g = _parse_doc(doc, inline_ctx)
-            concept_uri = rdflib.URIRef(doc["@id"])
+            concept_uri = rdflib.URIRef(doc["@graph"][0]["@id"])
             labels = list(g.objects(concept_uri, RDFS.label))
             comments = list(g.objects(concept_uri, RDFS.comment))
             assert labels, f"No rdfs:label found for concept at {path}"

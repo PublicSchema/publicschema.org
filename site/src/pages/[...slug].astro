@@ -151,12 +151,6 @@ function propPath(id: string): string {
         );
       })()}
 
-      {concept.convergence?.notes && (
-        <div class="concept-section">
-          <h2>Convergence notes</h2>
-          <p style="color: var(--color-text-muted); line-height: 1.65;">{concept.convergence.notes}</p>
-        </div>
-      )}
       </article>
     </Base>
   );
@@ -231,12 +225,6 @@ function propPath(id: string): string {
         )}
       </div>
 
-      {prop.convergence?.notes && (
-        <div class="concept-section">
-          <h2>Convergence notes</h2>
-          <p style="color: var(--color-text-muted); line-height: 1.65;">{prop.convergence.notes}</p>
-        </div>
-      )}
       </article>
     </Base>
   );

@@ -12,7 +12,8 @@ from rdflib.namespace import RDF, RDFS, SKOS
 
 from build.build import build_vocabulary
 from build.rdf_export import (
-    SH, build_shacl, build_turtle, load_graph, write_shacl, write_turtle,
+    SH, build_full_jsonld, build_shacl, build_turtle, load_graph,
+    write_full_jsonld, write_shacl, write_turtle,
 )
 from tests.conftest import SCHEMA_DIR, make_concept, make_property, make_vocabulary
 
@@ -150,6 +151,111 @@ class TestTurtleIntegration:
         g2.parse(data=ttl2, format="turtle")
 
         assert len(g1) == len(g2)
+
+
+# ===========================================================================
+# Full vocabulary JSON-LD
+# ===========================================================================
+
+class TestBuildFullJsonld:
+    """Full vocabulary JSON-LD serialization from synthetic schema data."""
+
+    def test_full_jsonld_is_valid(
+        self, tmp_schema, write_concept, write_property,
+    ):
+        """Generated JSON-LD parses back into rdflib without errors."""
+        write_concept("thing.yaml", make_concept(id="Thing", properties=["name"]))
+        write_property("name.yaml", make_property(id="name"))
+        result = build_vocabulary(tmp_schema)
+
+        content = build_full_jsonld(result)
+        doc = json.loads(content)
+        assert "@context" in doc
+        assert "@graph" in doc
+        assert isinstance(doc["@graph"], list)
+        assert len(doc["@graph"]) > 0
+
+    def test_full_jsonld_contains_class_and_property(
+        self, tmp_schema, write_concept, write_property,
+    ):
+        """Full JSON-LD graph contains both concepts and properties."""
+        write_concept("widget.yaml", make_concept(id="Widget", properties=["size"]))
+        write_property("size.yaml", make_property(id="size", type="integer"))
+        result = build_vocabulary(tmp_schema)
+
+        content = build_full_jsonld(result)
+        doc = json.loads(content)
+        ids = {node.get("@id") for node in doc["@graph"]}
+        # rdflib expands CURIEs to full URIs
+        assert any("Widget" in str(i) for i in ids if i)
+        assert any("size" in str(i) for i in ids if i)
+
+
+class TestWriteFullJsonld:
+    """File writing for full vocabulary JSON-LD."""
+
+    def test_writes_file(
+        self, tmp_schema, tmp_path, write_concept, write_property,
+    ):
+        """write_full_jsonld creates publicschema.jsonld in the dist directory."""
+        write_concept("thing.yaml", make_concept(id="Thing", properties=["name"]))
+        write_property("name.yaml", make_property(id="name"))
+        result = build_vocabulary(tmp_schema)
+
+        dist_dir = tmp_path / "dist"
+        dist_dir.mkdir()
+        out_path = write_full_jsonld(result, dist_dir)
+
+        assert out_path.exists()
+        assert out_path.name == "publicschema.jsonld"
+        assert out_path.stat().st_size > 0
+
+
+class TestFullJsonldIntegration:
+    """Full JSON-LD export against the real schema directory."""
+
+    @pytest.fixture(scope="class")
+    def real_result(self):
+        return build_vocabulary(SCHEMA_DIR)
+
+    def test_real_schema_full_jsonld_parses(self, real_result):
+        """Full JSON-LD from the real schema parses without errors."""
+        content = build_full_jsonld(real_result)
+        doc = json.loads(content)
+        assert "@context" in doc
+        assert len(doc["@graph"]) > 0
+
+    def _parse_full_jsonld(self, real_result):
+        """Parse the full JSON-LD with the inline context (avoids network fetch)."""
+        content = build_full_jsonld(real_result)
+        doc = json.loads(content)
+        doc["@context"] = real_result["context"]["@context"]
+        g = rdflib.Graph()
+        g.parse(data=json.dumps(doc), format="json-ld")
+        return g
+
+    def test_real_schema_full_jsonld_has_expected_counts(self, real_result):
+        """Full JSON-LD contains at least the expected number of classes and properties."""
+        g = self._parse_full_jsonld(real_result)
+        classes = list(g.triples((None, RDF.type, RDFS.Class)))
+        properties = list(g.triples((None, RDF.type, RDF.Property)))
+        schemes = list(g.triples((None, RDF.type, SKOS.ConceptScheme)))
+        assert len(classes) >= 19, f"Expected >= 19 classes, got {len(classes)}"
+        assert len(properties) >= 91, f"Expected >= 91 properties, got {len(properties)}"
+        assert len(schemes) >= 10, f"Expected >= 10 concept schemes, got {len(schemes)}"
+
+    def test_real_schema_full_jsonld_roundtrips_via_turtle(self, real_result):
+        """Full JSON-LD and Turtle produce the same number of triples."""
+        ttl = build_turtle(real_result)
+        g_ttl = rdflib.Graph()
+        g_ttl.parse(data=ttl, format="turtle")
+
+        g_jsonld = self._parse_full_jsonld(real_result)
+
+        assert len(g_jsonld) == len(g_ttl), (
+            f"JSON-LD graph has {len(g_jsonld)} triples, "
+            f"Turtle has {len(g_ttl)}"
+        )
 
 
 # ===========================================================================

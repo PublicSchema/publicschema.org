@@ -20,7 +20,6 @@ These terms describe the vocabulary itself (maturity, domain, cardinality) rathe
 | `ps:standardCode` | Vocabulary values | `string` | The code used by the referenced international standard for this value. |
 | `ps:notes` | Various | `string` | Free-text notes, typically on standard references. |
 | `ps:subtypes` | Concepts | `array of URIs` | Concepts that specialize this concept. |
-| `ps:properties` | Concepts | `array of objects` | Embedded property definitions on a concept's JSON-LD document. |
 
 ## Context declaration
 

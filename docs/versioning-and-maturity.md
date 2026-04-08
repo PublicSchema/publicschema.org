@@ -18,7 +18,7 @@ Maturity progresses in one direction. A concept at "trial use" will not regress 
 
 ## Context versioning
 
-The JSON-LD context is versioned: `https://publicschema.org/ctx/v0.1`, `https://publicschema.org/ctx/v1`, etc. Older versions remain resolvable indefinitely. A system that references `v0.1` will continue to work even after `v2` is published.
+The JSON-LD context is versioned. The current pre-release context is at `https://publicschema.org/ctx/draft.jsonld`. Once the schema is released, versioned contexts will use numeric labels (e.g., `ctx/v0.1.jsonld`, `ctx/v1.jsonld`). Older versions remain resolvable indefinitely.
 
 Within a context version, only additive changes are made (new terms). Removing or renaming a term requires a new context version.
 

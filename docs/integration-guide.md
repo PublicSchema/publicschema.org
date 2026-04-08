@@ -19,7 +19,7 @@ Add the PublicSchema context to your JSON-LD documents:
 
 ```json
 {
-  "@context": "https://publicschema.org/ctx/v0.1.jsonld",
+  "@context": "https://publicschema.org/ctx/draft.jsonld",
   "type": "Person",
   "given_name": "Amina",
   "family_name": "Diallo",
@@ -67,7 +67,7 @@ Use PublicSchema credential types to issue VCs:
 {
   "@context": [
     "https://www.w3.org/ns/credentials/v2",
-    "https://publicschema.org/ctx/v0.1.jsonld"
+    "https://publicschema.org/ctx/draft.jsonld"
   ],
   "id": "urn:uuid:b2c3d4e5-f6a7-8901-bcde-f12345678901",
   "type": ["VerifiableCredential", "EnrollmentCredential"],
@@ -124,7 +124,10 @@ system_mappings:
 
 | Artifact | URL | Description |
 |---|---|---|
-| JSON-LD Context | `/ctx/v0.1.jsonld` | Map property names to URIs |
+| JSON-LD Context | `/ctx/draft.jsonld` | Map property names to URIs |
+| Full Vocabulary (JSON-LD) | `/v/draft/publicschema.jsonld` | Complete vocabulary as a single JSON-LD @graph |
+| Full Vocabulary (Turtle) | `/v/draft/publicschema.ttl` | Complete vocabulary as RDF/Turtle |
+| SHACL Shapes | `/v/draft/publicschema.shacl.ttl` | Validation shapes for all concepts |
 | Vocabulary JSON | `/vocabulary.json` | Full vocabulary with all concepts, properties, vocabularies |
 | Concept Schemas | `/schemas/{Concept}.schema.json` | JSON Schema per concept |
 | Credential Schemas | `/schemas/credentials/{Type}.schema.json` | VC-envelope JSON Schema per credential type |

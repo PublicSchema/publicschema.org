@@ -79,10 +79,11 @@ def _resolve_range_includes(
     return RANGE_INCLUDES_MAP.get(prop_type, "xsd:string")
 
 
-def _embedded_property_jsonld(
-    prop_out: dict, prop_raw: dict, out_concepts: dict, out_vocabularies: dict,
+def _concept_property_jsonld(
+    prop_out: dict, prop_raw: dict, concept_uri: str,
+    out_concepts: dict, out_vocabularies: dict,
 ) -> dict:
-    """Build a property object for embedding inside a concept document (no @context, no domainIncludes)."""
+    """Build a property node for inclusion in a concept's @graph array."""
     prop_type = prop_raw.get("type", "string")
     entry: dict = {
         "@id": prop_out["uri"],
@@ -90,6 +91,7 @@ def _embedded_property_jsonld(
         "rdfs:label": prop_out["id"],
         "rdfs:comment": _language_tagged(prop_raw.get("definition", {})),
         "ps:maturity": prop_out["maturity"],
+        "schema:domainIncludes": {"@id": concept_uri},
         "schema:rangeIncludes": _resolve_range_includes(prop_type, out_concepts),
         "ps:cardinality": prop_out.get("cardinality"),
     }
@@ -107,9 +109,13 @@ def _concept_to_jsonld(
     out_concepts: dict, out_properties: dict, properties_raw: dict,
     out_vocabularies: dict,
 ) -> dict:
-    """Build a complete JSON-LD document for a concept."""
-    doc: dict = {
-        "@context": context_url,
+    """Build a JSON-LD document for a concept using a @graph array.
+
+    The concept class node and its property nodes are peers in the graph,
+    linked by schema:domainIncludes on each property. This follows the
+    schema.org pattern and produces standard RDF triples.
+    """
+    concept_node: dict = {
         "@id": concept_out["uri"],
         "@type": "rdfs:Class",
         "rdfs:label": concept_out["id"],
@@ -117,30 +123,31 @@ def _concept_to_jsonld(
         "ps:maturity": concept_out["maturity"],
     }
     if concept_out.get("domain"):
-        doc["ps:domain"] = concept_out["domain"]
+        concept_node["ps:domain"] = concept_out["domain"]
     supertypes = concept_out.get("supertypes", [])
     if supertypes:
-        doc["rdfs:subClassOf"] = [
+        concept_node["rdfs:subClassOf"] = [
             out_concepts[s]["uri"] if s in out_concepts else s
             for s in supertypes
         ]
     subtypes = concept_out.get("subtypes", [])
     if subtypes:
-        doc["ps:subtypes"] = [
+        concept_node["ps:subtypes"] = [
             out_concepts[s]["uri"] if s in out_concepts else s
             for s in subtypes
         ]
+    graph = [concept_node]
     props = concept_out.get("properties", [])
     if props:
-        doc["ps:properties"] = [
-            _embedded_property_jsonld(
-                out_properties[ref["id"]], properties_raw[ref["id"]],
-                out_concepts, out_vocabularies,
-            )
-            for ref in props
-            if ref["id"] in out_properties and ref["id"] in properties_raw
-        ]
-    return doc
+        for ref in props:
+            if ref["id"] in out_properties and ref["id"] in properties_raw:
+                graph.append(
+                    _concept_property_jsonld(
+                        out_properties[ref["id"]], properties_raw[ref["id"]],
+                        concept_out["uri"], out_concepts, out_vocabularies,
+                    )
+                )
+    return {"@context": context_url, "@graph": graph}
 
 
 def _property_to_jsonld(
@@ -233,6 +240,29 @@ def _normalize_property_entry(entry) -> dict:
     if isinstance(entry, str):
         return {"id": entry}
     return {"id": entry["id"]}
+
+
+def _collect_all_properties(concept_id: str, concepts_raw: dict) -> list:
+    """Collect property entries from a concept and all its supertypes."""
+    visited = set()
+    all_props = []
+    seen_ids = set()
+
+    def walk(cid):
+        if cid in visited or cid not in concepts_raw:
+            return
+        visited.add(cid)
+        concept = concepts_raw[cid]
+        for st in concept.get("supertypes", []):
+            walk(st)
+        for entry in concept.get("properties", []):
+            norm = _normalize_property_entry(entry)
+            if norm["id"] not in seen_ids:
+                seen_ids.add(norm["id"])
+                all_props.append(entry)
+
+    walk(concept_id)
+    return all_props
 
 
 def _compute_uri(base_uri: str, domain: str | None, id_str: str) -> str:
@@ -438,6 +468,34 @@ def build_vocabulary(schema_dir: Path) -> dict:
         "skos": "http://www.w3.org/2004/02/skos/core#",
         "type": "@type",
     }
+    # URI-valued predicates need @type:@id so JSON-LD processors
+    # treat values as URI references, not plain strings.
+    context_map["schema:domainIncludes"] = {
+        "@id": "https://schema.org/domainIncludes",
+        "@type": "@id",
+    }
+    context_map["schema:rangeIncludes"] = {
+        "@id": "https://schema.org/rangeIncludes",
+        "@type": "@id",
+    }
+    context_map["rdfs:subClassOf"] = {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+        "@type": "@id",
+        "@container": "@set",
+    }
+    context_map["ps:subtypes"] = {
+        "@id": "https://publicschema.org/meta/subtypes",
+        "@type": "@id",
+        "@container": "@set",
+    }
+    context_map["ps:references"] = {
+        "@id": "https://publicschema.org/meta/references",
+        "@type": "@id",
+    }
+    context_map["ps:vocabulary"] = {
+        "@id": "https://publicschema.org/meta/vocabulary",
+        "@type": "@id",
+    }
     for concept_id, concept_out in out_concepts.items():
         context_map[concept_id] = concept_out["uri"]
     for prop_id, prop_out in out_properties.items():
@@ -470,8 +528,9 @@ def build_vocabulary(schema_dir: Path) -> dict:
     for cred_id in credentials_raw:
         context_map[cred_id] = f"{base_uri}credentials/{cred_id}"
     version = meta.get("version", "0.1.0")
-    # Use major.minor for context versioning (drop patch)
-    version_short = ".".join(version.split(".")[:2])
+    maturity = meta.get("maturity", "draft")
+    # Use "draft" as version label while unreleased; major.minor once stable
+    version_label = "draft" if maturity == "draft" else ".".join(version.split(".")[:2])
     context = {
         "@context": context_map,
     }
@@ -480,7 +539,7 @@ def build_vocabulary(schema_dir: Path) -> dict:
     concept_schemas = {}
     for concept_id, data in concepts_raw.items():
         schema_props = {}
-        for entry in data.get("properties", []):
+        for entry in _collect_all_properties(concept_id, concepts_raw):
             norm = _normalize_property_entry(entry)
             prop_id = norm["id"]
             if prop_id in properties_raw:
@@ -549,7 +608,10 @@ def build_vocabulary(schema_dir: Path) -> dict:
                 "type": {
                     "type": "array",
                     "items": {"type": "string"},
-                    "contains": {"const": cred_id},
+                    "allOf": [
+                        {"contains": {"const": "VerifiableCredential"}},
+                        {"contains": {"const": cred_id}},
+                    ],
                 },
                 "issuer": {
                     "oneOf": [
@@ -571,7 +633,7 @@ def build_vocabulary(schema_dir: Path) -> dict:
 
     # Build JSON-LD documents for concepts, properties, and vocabularies.
     # These are written to dist/jsonld/ and served as static files.
-    context_url = f"{base_uri}ctx/v{version_short}.jsonld"
+    context_url = f"{base_uri}ctx/{version_label}.jsonld"
     jsonld_docs: dict[str, dict] = {}
 
     for concept_id, concept_out in out_concepts.items():
@@ -615,7 +677,7 @@ def build_vocabulary(schema_dir: Path) -> dict:
 def write_outputs(result: dict, dist_dir: Path):
     """Write build outputs to the dist directory."""
     from build.export import generate_all_downloads
-    from build.rdf_export import write_shacl, write_turtle
+    from build.rdf_export import write_full_jsonld, write_shacl, write_turtle
 
     dist_dir.mkdir(parents=True, exist_ok=True)
     schemas_dir = dist_dir / "schemas"
@@ -639,7 +701,7 @@ def write_outputs(result: dict, dist_dir: Path):
 
     # Per-concept JSON Schemas
     for concept_id, schema in result["concept_schemas"].items():
-        filename = f"{concept_id.lower()}.schema.json"
+        filename = f"{concept_id}.schema.json"
         (schemas_dir / filename).write_text(
             json.dumps(schema, indent=2, ensure_ascii=False) + "\n"
         )
@@ -667,8 +729,9 @@ def write_outputs(result: dict, dist_dir: Path):
                 json.dumps(doc, indent=2, ensure_ascii=False) + "\n"
             )
 
-    # RDF exports (Turtle + SHACL)
+    # RDF exports (Turtle, JSON-LD, SHACL)
     write_turtle(result, dist_dir)
+    write_full_jsonld(result, dist_dir)
     write_shacl(result, dist_dir)
 
     # CSV and Excel downloads per concept

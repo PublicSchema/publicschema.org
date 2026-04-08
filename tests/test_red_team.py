@@ -1,9 +1,7 @@
-"""Failing tests for issues found during red team review.
+"""Regression tests for issues found during red team review.
 
-Each test documents a known bug with its severity and a reference to
-the affected code. Tests are marked xfail until the corresponding
-fix is applied. When a fix lands, the xfail will start passing and
-pytest will flag it for removal.
+Each test documents a bug that was found and fixed, with severity
+and a reference to the affected code.
 """
 
 import json
@@ -37,7 +35,6 @@ def real_result():
 # Affects: all 23 vocabulary-backed properties
 # ---------------------------------------------------------------------------
 
-@pytest.mark.xfail(reason="BUG 1: sh:in uses untyped literals, sh:datatype requires typed")
 class TestShaclVocabTypedLiterals:
     """SHACL sh:in literals must be typed xsd:string to match sh:datatype."""
 
@@ -113,7 +110,6 @@ class TestShaclVocabTypedLiterals:
 # Affects: all JSON-LD documents when consumed by external processors
 # ---------------------------------------------------------------------------
 
-@pytest.mark.xfail(reason="BUG 2: context.jsonld missing @type:@id coercions for URI predicates")
 class TestContextUriCoercions:
     """The published context must coerce URI-valued predicates to @id references."""
 
@@ -216,7 +212,6 @@ class TestContextUriCoercions:
 # Affects: Household (missing Group properties), Family (same), Farm (same)
 # ---------------------------------------------------------------------------
 
-@pytest.mark.xfail(reason="BUG 3: JSON Schema does not include inherited supertype properties")
 class TestJsonSchemaInheritance:
     """JSON Schema for subtypes should include inherited properties."""
 
@@ -263,7 +258,6 @@ class TestJsonSchemaInheritance:
 # Affects: same subtypes as BUG 3
 # ---------------------------------------------------------------------------
 
-@pytest.mark.xfail(reason="BUG 4: SHACL shapes missing inherited property constraints")
 class TestShaclInheritance:
     """SHACL shapes for subtypes should constrain inherited properties."""
 
@@ -305,7 +299,6 @@ class TestShaclInheritance:
 # Affects: geometry, geocodes properties
 # ---------------------------------------------------------------------------
 
-@pytest.mark.xfail(reason="BUG 5: sh:nodeKind BlankNodeOrIRI incompatible with rdf:JSON literals")
 class TestShaclGeojsonGeometry:
     """SHACL shapes for geojson_geometry properties should accept JSON literals."""
 
@@ -354,7 +347,6 @@ class TestShaclGeojsonGeometry:
 # Affects: all credential schemas
 # ---------------------------------------------------------------------------
 
-@pytest.mark.xfail(reason="BUG 6: credential schema allows missing VerifiableCredential type")
 class TestCredentialSchemaTypeArray:
     """Credential schemas must require VerifiableCredential in type array."""
 
@@ -369,7 +361,7 @@ class TestCredentialSchemaTypeArray:
         bad_vc = {
             "@context": [
                 "https://www.w3.org/ns/credentials/v2",
-                "https://publicschema.org/ctx/v0.1.jsonld",
+                "https://publicschema.org/ctx/draft.jsonld",
             ],
             "type": ["IdentityCredential"],  # missing VerifiableCredential
             "issuer": "did:web:example.org",
@@ -393,22 +385,17 @@ class TestCredentialSchemaTypeArray:
 # but $id references PaymentEvent.schema.json)
 # ---------------------------------------------------------------------------
 
-@pytest.mark.xfail(reason="BUG 9: schema filename lowercase but $id uses PascalCase")
 class TestSchemaFilenameIdConsistency:
     """Schema filename should be consistent with the $id URI."""
 
     def test_schema_id_matches_filename(self, real_result):
-        """The schema $id path should match the actual filename.
-
-        Currently fails: filename is lowercased but $id keeps PascalCase.
-        e.g., file=paymentevent.schema.json, $id=.../PaymentEvent.schema.json
-        """
+        """The schema $id path should match the actual filename."""
         for concept_id, schema in real_result["concept_schemas"].items():
             schema_id = schema["$id"]
             # Extract the filename from $id
             id_filename = schema_id.rsplit("/", 1)[-1]
-            # The actual filename written by write_outputs
-            actual_filename = f"{concept_id.lower()}.schema.json"
+            # The actual filename written by write_outputs (PascalCase)
+            actual_filename = f"{concept_id}.schema.json"
 
             assert id_filename == actual_filename, (
                 f"Concept {concept_id}: $id references '{id_filename}' "

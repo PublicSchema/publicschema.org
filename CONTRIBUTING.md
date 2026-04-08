@@ -38,11 +38,11 @@ uv run pytest       # Python tests (schema validation, build pipeline, exports)
 Data flows one direction:
 
 ```
-schema/ (YAML) --> build pipeline --> dist/ (JSON, CSV, XLSX) --> site/ (Astro) --> static HTML
+schema/ (YAML) --> build pipeline --> dist/ (JSON, CSV, XLSX, TTL, SHACL) --> site/ (Astro) --> static HTML
 ```
 
 1. `build.validate` checks all YAML files against JSON Schemas and validates referential integrity.
-2. `build.build` reads YAML sources and generates `dist/vocabulary.json`, `dist/context.jsonld`, JSON Schemas, and downloadable files (CSV, Excel).
+2. `build.build` reads YAML sources and generates `dist/vocabulary.json`, `dist/context.jsonld`, JSON Schemas, RDF exports (Turtle, JSON-LD, SHACL), and downloadable files (CSV, Excel).
 3. The Astro site reads `dist/vocabulary.json` and renders the website.
 
 ## Adding vocabulary entries

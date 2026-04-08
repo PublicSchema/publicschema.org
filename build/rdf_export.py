@@ -93,6 +93,37 @@ def write_turtle(result: dict, dist_dir: Path) -> Path:
     return out_path
 
 
+def build_full_jsonld(result: dict) -> str:
+    """Build a single JSON-LD document containing the full vocabulary.
+
+    Loads all per-entity JSON-LD documents into a graph, then serializes
+    as a compact JSON-LD @graph array. This is the JSON-LD equivalent of
+    publicschema.ttl.
+    """
+    g = load_graph(result)
+    meta = result["meta"]
+    base_uri = meta["base_uri"]
+    version = meta["version"]
+    maturity = meta.get("maturity", "draft")
+    version_label = "draft" if maturity == "draft" else ".".join(version.split(".")[:2])
+    context_url = f"{base_uri}ctx/{version_label}.jsonld"
+    # Pass the inline context so rdflib compacts URIs into short terms
+    ctx = result["context"]["@context"]
+    raw = g.serialize(format="json-ld", context=ctx)
+    doc = json.loads(raw)
+    # Replace the inline context with the hosted URL for the published file
+    doc["@context"] = context_url
+    return json.dumps(doc, indent=2, ensure_ascii=False) + "\n"
+
+
+def write_full_jsonld(result: dict, dist_dir: Path) -> Path:
+    """Write the full vocabulary JSON-LD to dist/publicschema.jsonld. Returns the output path."""
+    content = build_full_jsonld(result)
+    out_path = dist_dir / "publicschema.jsonld"
+    out_path.write_text(content)
+    return out_path
+
+
 # ---------------------------------------------------------------------------
 # SHACL shapes
 # ---------------------------------------------------------------------------
@@ -113,6 +144,28 @@ SHACL_DATATYPE_MAP = {
 # Vocabulary value count threshold: vocabularies with more values than this
 # are excluded from sh:in constraints to keep SHACL files readable.
 VOCAB_SIZE_THRESHOLD = 50
+
+
+def _resolve_all_properties(concept_id: str, concepts: dict) -> list:
+    """Collect property entries from a concept and all its supertypes."""
+    visited = set()
+    all_props = []
+    seen_ids = set()
+
+    def walk(cid):
+        if cid in visited or cid not in concepts:
+            return
+        visited.add(cid)
+        for st in concepts[cid].get("supertypes", []):
+            walk(st)
+        for entry in concepts[cid].get("properties", []):
+            pid = entry["id"]
+            if pid not in seen_ids:
+                seen_ids.add(pid)
+                all_props.append(entry)
+
+    walk(concept_id)
+    return all_props
 
 
 def build_shacl(result: dict) -> str:
@@ -143,7 +196,7 @@ def build_shacl(result: dict) -> str:
         g.add((shape_uri, SH.targetClass, concept_uri))
         g.add((shape_uri, RDFS.label, rdflib.Literal(f"{concept_id} shape")))
 
-        for prop_entry in concept.get("properties", []):
+        for prop_entry in _resolve_all_properties(concept_id, concepts):
             prop_id = prop_entry["id"]
             if prop_id not in properties:
                 continue
@@ -170,7 +223,7 @@ def build_shacl(result: dict) -> str:
                     g.add((prop_shape, SH["class"], rdflib.URIRef(concepts[ref_id]["uri"])))
                 g.add((prop_shape, SH.nodeKind, SH.BlankNodeOrIRI))
             elif prop_type == "geojson_geometry":
-                g.add((prop_shape, SH.nodeKind, SH.BlankNodeOrIRI))
+                g.add((prop_shape, SH.datatype, RDF.JSON))
             elif prop_type == "uri":
                 g.add((prop_shape, SH.nodeKind, SH.IRI))
             elif prop_type in SHACL_DATATYPE_MAP:
@@ -183,7 +236,7 @@ def build_shacl(result: dict) -> str:
                 values = vocab.get("values", [])
                 if 0 < len(values) <= VOCAB_SIZE_THRESHOLD:
                     collection = rdflib.BNode()
-                    items = [rdflib.Literal(v["code"]) for v in values]
+                    items = [rdflib.Literal(v["code"], datatype=XSD.string) for v in values]
                     rdflib.collection.Collection(g, collection, items)
                     g.add((prop_shape, SH["in"], collection))
 
