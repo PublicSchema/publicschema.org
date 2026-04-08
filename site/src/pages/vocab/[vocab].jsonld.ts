@@ -1,66 +1,10 @@
 /**
  * JSON-LD representations for vocabularies.
- * /vocab/gender-type.jsonld, /vocab/enrollment-status.jsonld, etc.
+ * Serves pre-built JSON-LD files from dist/jsonld/vocab/.
  */
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import { loadVocabulary } from "../../data/vocabulary";
-import type { Vocabulary } from "../../data/vocabulary";
-
-const CONTEXT = "https://publicschema.org/ctx/v0.1.jsonld";
-
-/** Append .jsonld so the URI dereferences on static hosts (no content negotiation). */
-function jsonldUrl(uri: string): string {
-  return uri + ".jsonld";
-}
-
-function vocabularyToJsonLd(vocabulary: Vocabulary) {
-  const doc: Record<string, unknown> = {
-    "@context": CONTEXT,
-    "@id": jsonldUrl(vocabulary.uri),
-    "@type": "skos:ConceptScheme",
-    "rdfs:label": vocabulary.id,
-    "rdfs:comment": vocabulary.definition.en,
-    "ps:maturity": vocabulary.maturity,
-  };
-
-  if (vocabulary.definition.fr) {
-    doc["rdfs:comment_fr"] = vocabulary.definition.fr;
-  }
-  if (vocabulary.definition.es) {
-    doc["rdfs:comment_es"] = vocabulary.definition.es;
-  }
-
-  if (vocabulary.domain) {
-    doc["ps:domain"] = vocabulary.domain;
-  }
-
-  if (vocabulary.standard) {
-    doc["ps:standardReference"] = {
-      "schema:name": vocabulary.standard.name,
-      ...(vocabulary.standard.uri ? { "@id": vocabulary.standard.uri } : {}),
-      ...(vocabulary.standard.notes ? { "ps:notes": vocabulary.standard.notes } : {}),
-    };
-  }
-
-  if (vocabulary.values.length > 0) {
-    doc["skos:hasTopConcept"] = vocabulary.values.map((v) => {
-      const entry: Record<string, unknown> = {
-        "@id": v.uri,
-        "@type": "skos:Concept",
-        "skos:notation": v.code,
-        "skos:prefLabel": v.label.en,
-        "skos:definition": v.definition.en,
-      };
-      if (v.standard_code) {
-        entry["ps:standardCode"] = v.standard_code;
-      }
-      if (v.label.fr) entry["skos:prefLabel_fr"] = v.label.fr;
-      if (v.label.es) entry["skos:prefLabel_es"] = v.label.es;
-      return entry;
-    });
-  }
-
-  return doc;
-}
 
 export function getStaticPaths() {
   const vocab = loadVocabulary();
@@ -68,11 +12,16 @@ export function getStaticPaths() {
 }
 
 export function GET({ params }: { params: { vocab: string } }) {
-  const allVocab = loadVocabulary();
-  const vocabulary = allVocab.vocabularies[params.vocab];
-  const doc = vocabularyToJsonLd(vocabulary);
-
-  return new Response(JSON.stringify(doc, null, 2), {
-    headers: { "Content-Type": "application/ld+json" },
-  });
+  const filePath = resolve(process.cwd(), `../dist/jsonld/vocab/${params.vocab}.jsonld`);
+  try {
+    const content = readFileSync(filePath, "utf-8");
+    return new Response(content, {
+      headers: { "Content-Type": "application/ld+json" },
+    });
+  } catch {
+    return new Response(JSON.stringify({ error: "Not found" }), {
+      status: 404,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
 }
