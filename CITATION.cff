@@ -1,6 +1,9 @@
 cff-version: 1.2.0
 title: PublicSchema
 message: "If you use this vocabulary, please cite it as below."
+authors:
+  - family-names: Joslin
+    given-names: Jeremi
 type: dataset
 url: "https://publicschema.org"
 repository-code: "https://github.com/PublicSchema/publicschema.org"
@@ -8,12 +11,11 @@ license:
   - CC-BY-SA-4.0
   - Apache-2.0
 abstract: >-
-  A schema.org-style vocabulary of concepts, properties, and controlled
-  value sets for government service delivery. Starting with social
-  protection, extending to broader government services over time.
+  Common definitions for public service delivery. Built so programs can
+  coordinate, share data, and reach the people they serve.
 keywords:
   - social protection
-  - government services
+  - public service delivery
   - interoperability
   - vocabulary
   - schema
