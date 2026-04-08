@@ -250,13 +250,14 @@ class TestJsonLdContext:
     def test_context_has_vocab_and_prefixes(
         self, tmp_schema, write_concept
     ):
-        """Context includes @vocab, xsd, and schema prefixes."""
+        """Context includes @vocab, xsd, schema, and ps prefixes."""
         write_concept("person.yaml", make_concept(id="Person"))
         result = build_vocabulary(tmp_schema)
         ctx = result["context"]["@context"]
         assert ctx["@vocab"] == "https://test.example.org/"
         assert ctx["xsd"] == "http://www.w3.org/2001/XMLSchema#"
         assert ctx["schema"] == "https://schema.org/"
+        assert ctx["ps"] == "https://publicschema.org/meta/"
 
     def test_context_has_versioned_id(
         self, tmp_schema, write_concept

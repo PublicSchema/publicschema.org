@@ -19,7 +19,7 @@ function vocabularyToJsonLd(vocabulary: Vocabulary) {
     "@type": "skos:ConceptScheme",
     "rdfs:label": vocabulary.id,
     "rdfs:comment": vocabulary.definition.en,
-    "schema:maturity": vocabulary.maturity,
+    "ps:maturity": vocabulary.maturity,
   };
 
   if (vocabulary.definition.fr) {
@@ -30,14 +30,14 @@ function vocabularyToJsonLd(vocabulary: Vocabulary) {
   }
 
   if (vocabulary.domain) {
-    doc["schema:domain"] = vocabulary.domain;
+    doc["ps:domain"] = vocabulary.domain;
   }
 
   if (vocabulary.standard) {
-    doc["schema:standardReference"] = {
+    doc["ps:standardReference"] = {
       "schema:name": vocabulary.standard.name,
       ...(vocabulary.standard.uri ? { "@id": vocabulary.standard.uri } : {}),
-      ...(vocabulary.standard.notes ? { "schema:notes": vocabulary.standard.notes } : {}),
+      ...(vocabulary.standard.notes ? { "ps:notes": vocabulary.standard.notes } : {}),
     };
   }
 
@@ -51,7 +51,7 @@ function vocabularyToJsonLd(vocabulary: Vocabulary) {
         "skos:definition": v.definition.en,
       };
       if (v.standard_code) {
-        entry["schema:standardCode"] = v.standard_code;
+        entry["ps:standardCode"] = v.standard_code;
       }
       if (v.label.fr) entry["skos:prefLabel_fr"] = v.label.fr;
       if (v.label.es) entry["skos:prefLabel_es"] = v.label.es;

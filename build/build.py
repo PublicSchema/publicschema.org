@@ -246,6 +246,7 @@ def build_vocabulary(schema_dir: Path) -> dict:
         "@vocab": base_uri,
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "schema": "https://schema.org/",
+        "ps": "https://publicschema.org/meta/",
     }
     for concept_id, concept_out in out_concepts.items():
         context_map[concept_id] = concept_out["uri"] + ".jsonld"

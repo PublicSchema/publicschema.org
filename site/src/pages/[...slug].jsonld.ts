@@ -35,7 +35,7 @@ function conceptToJsonLd(concept: Concept, vocab: ReturnType<typeof loadVocabula
     "@type": "rdfs:Class",
     "rdfs:label": concept.id,
     "rdfs:comment": concept.definition.en,
-    "schema:maturity": concept.maturity,
+    "ps:maturity": concept.maturity,
   };
 
   if (concept.definition.fr) {
@@ -46,7 +46,7 @@ function conceptToJsonLd(concept: Concept, vocab: ReturnType<typeof loadVocabula
   }
 
   if (concept.domain) {
-    doc["schema:domain"] = concept.domain;
+    doc["ps:domain"] = concept.domain;
   }
 
   if (concept.supertypes.length > 0) {
@@ -57,14 +57,14 @@ function conceptToJsonLd(concept: Concept, vocab: ReturnType<typeof loadVocabula
   }
 
   if (concept.subtypes.length > 0) {
-    doc["schema:subtypes"] = concept.subtypes.map((s) => {
+    doc["ps:subtypes"] = concept.subtypes.map((s) => {
       const child = vocab.concepts[s];
       return child ? jsonldUrl(child.uri) : s;
     });
   }
 
   if (concept.properties.length > 0) {
-    doc["schema:properties"] = concept.properties.map((ref) => {
+    doc["ps:properties"] = concept.properties.map((ref) => {
       const prop = vocab.properties[ref.id];
       if (!prop) return { "@id": ref.id };
       return embeddedPropertyJsonLd(prop, vocab);
@@ -81,9 +81,9 @@ function embeddedPropertyJsonLd(prop: Property, vocab: ReturnType<typeof loadVoc
     "@type": "rdf:Property",
     "rdfs:label": prop.id,
     "rdfs:comment": prop.definition.en,
-    "schema:maturity": prop.maturity,
+    "ps:maturity": prop.maturity,
     "schema:rangeIncludes": prop.type,
-    "schema:cardinality": prop.cardinality,
+    "ps:cardinality": prop.cardinality,
   };
 
   if (prop.definition.fr) {
@@ -95,16 +95,16 @@ function embeddedPropertyJsonLd(prop: Property, vocab: ReturnType<typeof loadVoc
 
   if (prop.vocabulary) {
     const vocabEntry = vocab.vocabularies[prop.vocabulary];
-    entry["schema:vocabulary"] = vocabEntry ? jsonldUrl(vocabEntry.uri) : prop.vocabulary;
+    entry["ps:vocabulary"] = vocabEntry ? jsonldUrl(vocabEntry.uri) : prop.vocabulary;
   }
 
   if (prop.references) {
     const refConcept = vocab.concepts[prop.references];
-    entry["schema:references"] = refConcept ? jsonldUrl(refConcept.uri) : prop.references;
+    entry["ps:references"] = refConcept ? jsonldUrl(refConcept.uri) : prop.references;
   }
 
   if (prop.data_classification) {
-    entry["schema:dataClassification"] = prop.data_classification;
+    entry["ps:dataClassification"] = prop.data_classification;
   }
 
   return entry;
@@ -117,9 +117,9 @@ function propertyToJsonLd(prop: Property, vocab: ReturnType<typeof loadVocabular
     "@type": "rdf:Property",
     "rdfs:label": prop.id,
     "rdfs:comment": prop.definition.en,
-    "schema:maturity": prop.maturity,
+    "ps:maturity": prop.maturity,
     "schema:rangeIncludes": prop.type,
-    "schema:cardinality": prop.cardinality,
+    "ps:cardinality": prop.cardinality,
   };
 
   if (prop.definition.fr) {
@@ -131,12 +131,12 @@ function propertyToJsonLd(prop: Property, vocab: ReturnType<typeof loadVocabular
 
   if (prop.vocabulary) {
     const vocabEntry = vocab.vocabularies[prop.vocabulary];
-    doc["schema:vocabulary"] = vocabEntry ? jsonldUrl(vocabEntry.uri) : prop.vocabulary;
+    doc["ps:vocabulary"] = vocabEntry ? jsonldUrl(vocabEntry.uri) : prop.vocabulary;
   }
 
   if (prop.references) {
     const refConcept = vocab.concepts[prop.references];
-    doc["schema:references"] = refConcept ? jsonldUrl(refConcept.uri) : prop.references;
+    doc["ps:references"] = refConcept ? jsonldUrl(refConcept.uri) : prop.references;
   }
 
   if (prop.used_by.length > 0) {
