@@ -91,3 +91,108 @@ def write_turtle(result: dict, dist_dir: Path) -> Path:
     out_path = dist_dir / "publicschema.ttl"
     out_path.write_text(ttl)
     return out_path
+
+
+# ---------------------------------------------------------------------------
+# SHACL shapes
+# ---------------------------------------------------------------------------
+
+SH = rdflib.Namespace("http://www.w3.org/ns/shacl#")
+
+# Map YAML property types to XSD datatypes for sh:datatype.
+SHACL_DATATYPE_MAP = {
+    "string": XSD.string,
+    "date": XSD.date,
+    "datetime": XSD.dateTime,
+    "integer": XSD.integer,
+    "decimal": XSD.decimal,
+    "boolean": XSD.boolean,
+    "uri": XSD.anyURI,
+}
+
+# Vocabulary value count threshold: vocabularies with more values than this
+# are excluded from sh:in constraints to keep SHACL files readable.
+VOCAB_SIZE_THRESHOLD = 50
+
+
+def build_shacl(result: dict) -> str:
+    """Build SHACL shapes from the build result.
+
+    Generates one sh:NodeShape per concept, with sh:property entries for
+    each of the concept's properties. Constraints are derived from the
+    property type, cardinality, and vocabulary.
+
+    Phase 5a: sh:datatype, sh:maxCount, sh:class for concept references,
+              sh:nodeKind for geojson_geometry and URI types.
+    Phase 5b: sh:in for vocabulary-backed properties (small vocabularies only).
+    """
+    g = rdflib.Graph()
+    g.bind("sh", SH)
+    g.bind("xsd", XSD)
+    g.bind("ps", rdflib.Namespace("https://publicschema.org/"))
+
+    concepts = result["concepts"]
+    properties = result["properties"]
+    vocabularies = result["vocabularies"]
+
+    for concept_id, concept in concepts.items():
+        concept_uri = rdflib.URIRef(concept["uri"])
+        shape_uri = rdflib.URIRef(concept["uri"] + "Shape")
+
+        g.add((shape_uri, RDF.type, SH.NodeShape))
+        g.add((shape_uri, SH.targetClass, concept_uri))
+        g.add((shape_uri, RDFS.label, rdflib.Literal(f"{concept_id} shape")))
+
+        for prop_entry in concept.get("properties", []):
+            prop_id = prop_entry["id"]
+            if prop_id not in properties:
+                continue
+            prop = properties[prop_id]
+            prop_uri = rdflib.URIRef(prop["uri"])
+
+            # Create a blank node for the sh:property entry
+            prop_shape = rdflib.BNode()
+            g.add((shape_uri, SH.property, prop_shape))
+            g.add((prop_shape, SH.path, prop_uri))
+            g.add((prop_shape, SH.name, rdflib.Literal(prop_id)))
+
+            prop_type = prop.get("type", "string")
+            cardinality = prop.get("cardinality", "single")
+
+            # Cardinality: single -> maxCount 1 (everything is optional, no minCount)
+            if cardinality == "single":
+                g.add((prop_shape, SH.maxCount, rdflib.Literal(1)))
+
+            # Type constraints
+            if prop_type.startswith("concept:"):
+                ref_id = prop_type.split(":", 1)[1]
+                if ref_id in concepts:
+                    g.add((prop_shape, SH["class"], rdflib.URIRef(concepts[ref_id]["uri"])))
+                g.add((prop_shape, SH.nodeKind, SH.BlankNodeOrIRI))
+            elif prop_type == "geojson_geometry":
+                g.add((prop_shape, SH.nodeKind, SH.BlankNodeOrIRI))
+            elif prop_type == "uri":
+                g.add((prop_shape, SH.nodeKind, SH.IRI))
+            elif prop_type in SHACL_DATATYPE_MAP:
+                g.add((prop_shape, SH.datatype, SHACL_DATATYPE_MAP[prop_type]))
+
+            # Vocabulary constraints (Phase 5b): sh:in for small vocabularies
+            vocab_id = prop.get("vocabulary")
+            if vocab_id and vocab_id in vocabularies:
+                vocab = vocabularies[vocab_id]
+                values = vocab.get("values", [])
+                if 0 < len(values) <= VOCAB_SIZE_THRESHOLD:
+                    collection = rdflib.BNode()
+                    items = [rdflib.Literal(v["code"]) for v in values]
+                    rdflib.collection.Collection(g, collection, items)
+                    g.add((prop_shape, SH["in"], collection))
+
+    return g.serialize(format="turtle")
+
+
+def write_shacl(result: dict, dist_dir: Path) -> Path:
+    """Write the SHACL shapes file to dist/publicschema.shacl.ttl. Returns the output path."""
+    shacl_ttl = build_shacl(result)
+    out_path = dist_dir / "publicschema.shacl.ttl"
+    out_path.write_text(shacl_ttl)
+    return out_path

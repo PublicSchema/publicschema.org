@@ -615,7 +615,7 @@ def build_vocabulary(schema_dir: Path) -> dict:
 def write_outputs(result: dict, dist_dir: Path):
     """Write build outputs to the dist directory."""
     from build.export import generate_all_downloads
-    from build.rdf_export import write_turtle
+    from build.rdf_export import write_shacl, write_turtle
 
     dist_dir.mkdir(parents=True, exist_ok=True)
     schemas_dir = dist_dir / "schemas"
@@ -667,8 +667,9 @@ def write_outputs(result: dict, dist_dir: Path):
                 json.dumps(doc, indent=2, ensure_ascii=False) + "\n"
             )
 
-    # Turtle (RDF) export
+    # RDF exports (Turtle + SHACL)
     write_turtle(result, dist_dir)
+    write_shacl(result, dist_dir)
 
     # CSV and Excel downloads per concept
     downloads_dir = dist_dir / "downloads"
