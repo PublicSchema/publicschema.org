@@ -1,0 +1,42 @@
+name: Vocabulary Suggestion
+description: Suggest a new vocabulary (value set) or changes to an existing one.
+labels: [vocabulary]
+body:
+  - type: dropdown
+    id: type
+    attributes:
+      label: Type
+      options:
+        - New vocabulary
+        - Add values to existing vocabulary
+        - Change existing values
+        - Reference to international standard
+    validations:
+      required: true
+  - type: input
+    id: vocabulary-name
+    attributes:
+      label: Vocabulary name
+      description: The name of the vocabulary (new or existing).
+      placeholder: e.g., disability-type
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What does this vocabulary represent? Which concepts and properties use it?
+    validations:
+      required: true
+  - type: textarea
+    id: values
+    attributes:
+      label: Proposed values
+      description: List the values with brief definitions. If referencing a standard, name it.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: How do existing systems handle this? Which standards exist? Where do systems diverge?

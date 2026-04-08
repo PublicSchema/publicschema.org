@@ -1,0 +1,51 @@
+name: Concept Proposal
+description: Propose a new concept or suggest changes to an existing concept definition.
+labels: [concept]
+body:
+  - type: dropdown
+    id: type
+    attributes:
+      label: Type
+      options:
+        - New concept
+        - Change to existing concept
+    validations:
+      required: true
+  - type: input
+    id: concept-name
+    attributes:
+      label: Concept name
+      description: The name of the concept (new or existing).
+      placeholder: e.g., ServiceDeliveryPoint
+    validations:
+      required: true
+  - type: textarea
+    id: definition
+    attributes:
+      label: Proposed definition
+      description: A plain-language definition. Write for a policy officer, not a developer.
+    validations:
+      required: true
+  - type: dropdown
+    id: domain
+    attributes:
+      label: Domain
+      description: Is this concept universal or specific to a domain?
+      options:
+        - Universal (applies across domains)
+        - Social protection (sp)
+        - Other (specify in description)
+    validations:
+      required: true
+  - type: textarea
+    id: justification
+    attributes:
+      label: Justification
+      description: Why is this concept needed? Which systems use it? What evidence supports the definition?
+    validations:
+      required: true
+  - type: textarea
+    id: properties
+    attributes:
+      label: Key properties
+      description: What properties should this concept have? List the most important ones.

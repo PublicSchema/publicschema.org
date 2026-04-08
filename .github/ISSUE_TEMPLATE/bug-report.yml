@@ -1,0 +1,22 @@
+name: Bug Report
+description: Report an issue with the website, build pipeline, or generated outputs.
+labels: [bug]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: Describe the bug. Include what you expected to happen and what actually happened.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: How can we reproduce this issue?
+  - type: input
+    id: url
+    attributes:
+      label: Page URL
+      description: If this is a website issue, which page?
+      placeholder: https://publicschema.org/...

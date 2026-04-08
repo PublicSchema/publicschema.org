@@ -8,6 +8,8 @@ interface Props {
 
 const { title, description = 'A shared data vocabulary for government service delivery' } = Astro.props;
 const currentPath = Astro.url.pathname;
+const pageTitle = `${title} | PublicSchema`;
+const canonicalUrl = new URL(currentPath, Astro.site).href;
 
 const navLinks = [
   { href: '/concepts/', label: 'Concepts' },
@@ -24,8 +26,21 @@ const navLinks = [
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content={description} />
-  <title>{title} | PublicSchema</title>
+  <title>{pageTitle}</title>
+  <link rel="canonical" href={canonicalUrl} />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <!-- OpenGraph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={pageTitle} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonicalUrl} />
+  <meta property="og:site_name" content="PublicSchema" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content={pageTitle} />
+  <meta name="twitter:description" content={description} />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
