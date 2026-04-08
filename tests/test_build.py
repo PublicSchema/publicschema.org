@@ -4,11 +4,12 @@ TDD: these tests define expected behavior before implementation.
 """
 
 import json
+import re
 
 import jsonschema
 import pytest
 
-from build.build import build_vocabulary
+from build.build import build_vocabulary, _to_snake_case
 from tests.conftest import make_concept, make_credential, make_property, make_vocabulary
 
 
@@ -710,3 +711,256 @@ class TestCredentialSchemas:
             },
         }
         jsonschema.validate(example, schema)
+
+
+# ---------------------------------------------------------------------------
+# JSON-LD document generation
+# ---------------------------------------------------------------------------
+
+class TestJsonLdDocuments:
+    def test_concept_jsonld_has_bare_uri(
+        self, tmp_schema, write_concept
+    ):
+        """Concept JSON-LD @id is the bare URI (no .jsonld suffix)."""
+        write_concept("person.yaml", make_concept(id="Person"))
+        result = build_vocabulary(tmp_schema)
+        docs = result["jsonld_docs"]
+        doc = docs["Person.jsonld"]
+        assert doc["@id"] == "https://test.example.org/Person"
+        assert not doc["@id"].endswith(".jsonld")
+
+    def test_concept_jsonld_type_is_rdfs_class(
+        self, tmp_schema, write_concept
+    ):
+        write_concept("person.yaml", make_concept(id="Person"))
+        result = build_vocabulary(tmp_schema)
+        doc = result["jsonld_docs"]["Person.jsonld"]
+        assert doc["@type"] == "rdfs:Class"
+
+    def test_concept_jsonld_has_context_url(
+        self, tmp_schema, write_concept
+    ):
+        write_concept("person.yaml", make_concept(id="Person"))
+        result = build_vocabulary(tmp_schema)
+        doc = result["jsonld_docs"]["Person.jsonld"]
+        assert doc["@context"] == "https://test.example.org/ctx/v0.1.jsonld"
+
+    def test_concept_jsonld_language_tagged_comments(
+        self, tmp_schema, write_concept
+    ):
+        """rdfs:comment uses language-tagged values, not invented rdfs:comment_fr."""
+        write_concept("person.yaml", make_concept(
+            id="Person",
+            definition={"en": "A person.", "fr": "Une personne.", "es": "Una persona."},
+        ))
+        result = build_vocabulary(tmp_schema)
+        doc = result["jsonld_docs"]["Person.jsonld"]
+        comments = doc["rdfs:comment"]
+        assert isinstance(comments, list)
+        langs = {c["@language"]: c["@value"] for c in comments}
+        assert langs["en"] == "A person."
+        assert langs["fr"] == "Une personne."
+        assert langs["es"] == "Una persona."
+        # No invented properties
+        assert "rdfs:comment_fr" not in doc
+        assert "rdfs:comment_es" not in doc
+
+    def test_concept_jsonld_domain_path(
+        self, tmp_schema, write_concept
+    ):
+        """Domain-specific concept uses domain path in output key."""
+        write_concept("enrollment.yaml", make_concept(
+            id="Enrollment", domain="sp",
+        ))
+        result = build_vocabulary(tmp_schema)
+        assert "sp/Enrollment.jsonld" in result["jsonld_docs"]
+        doc = result["jsonld_docs"]["sp/Enrollment.jsonld"]
+        assert doc["@id"] == "https://test.example.org/sp/Enrollment"
+
+    def test_concept_jsonld_supertypes(
+        self, tmp_schema, write_concept
+    ):
+        write_concept("group.yaml", make_concept(id="Group"))
+        write_concept("household.yaml", make_concept(
+            id="Household", supertypes=["Group"],
+        ))
+        result = build_vocabulary(tmp_schema)
+        doc = result["jsonld_docs"]["Household.jsonld"]
+        # Supertypes use bare URIs
+        assert doc["rdfs:subClassOf"] == ["https://test.example.org/Group"]
+
+    def test_concept_jsonld_embedded_properties(
+        self, tmp_schema, write_concept, write_property
+    ):
+        write_property("name.yaml", make_property(id="name"))
+        write_concept("person.yaml", make_concept(
+            id="Person", properties=["name"],
+        ))
+        result = build_vocabulary(tmp_schema)
+        doc = result["jsonld_docs"]["Person.jsonld"]
+        props = doc["ps:properties"]
+        assert len(props) == 1
+        assert props[0]["@type"] == "rdf:Property"
+        assert not props[0]["@id"].endswith(".jsonld")
+
+    def test_property_jsonld_has_bare_uri(
+        self, tmp_schema, write_concept, write_property
+    ):
+        write_property("name.yaml", make_property(id="name"))
+        write_concept("person.yaml", make_concept(
+            id="Person", properties=["name"],
+        ))
+        result = build_vocabulary(tmp_schema)
+        doc = result["jsonld_docs"]["name.jsonld"]
+        assert doc["@id"] == "https://test.example.org/name"
+        assert doc["@type"] == "rdf:Property"
+
+    def test_property_jsonld_range_includes_xsd(
+        self, tmp_schema, write_concept, write_property
+    ):
+        """rangeIncludes maps to proper XSD URIs, not raw type strings."""
+        write_property("dob.yaml", make_property(id="dob", type="date"))
+        write_concept("person.yaml", make_concept(
+            id="Person", properties=["dob"],
+        ))
+        result = build_vocabulary(tmp_schema)
+        doc = result["jsonld_docs"]["dob.jsonld"]
+        assert doc["schema:rangeIncludes"] == "xsd:date"
+
+    def test_property_jsonld_range_includes_concept_uri(
+        self, tmp_schema, write_concept, write_property
+    ):
+        """concept:X references get the concept's bare URI for rangeIncludes."""
+        write_property("beneficiary.yaml", make_property(
+            id="beneficiary", type="concept:Person",
+        ))
+        write_concept("person.yaml", make_concept(
+            id="Person", properties=["beneficiary"],
+        ))
+        result = build_vocabulary(tmp_schema)
+        doc = result["jsonld_docs"]["beneficiary.jsonld"]
+        assert doc["schema:rangeIncludes"] == "https://test.example.org/Person"
+
+    def test_property_jsonld_domain_includes(
+        self, tmp_schema, write_concept, write_property
+    ):
+        write_property("name.yaml", make_property(id="name"))
+        write_concept("person.yaml", make_concept(
+            id="Person", properties=["name"],
+        ))
+        result = build_vocabulary(tmp_schema)
+        doc = result["jsonld_docs"]["name.jsonld"]
+        assert "https://test.example.org/Person" in doc["schema:domainIncludes"]
+
+    def test_property_jsonld_language_tagged_comments(
+        self, tmp_schema, write_concept, write_property
+    ):
+        write_property("name.yaml", make_property(
+            id="name",
+            definition={"en": "Name.", "fr": "Nom.", "es": "Nombre."},
+        ))
+        write_concept("person.yaml", make_concept(
+            id="Person", properties=["name"],
+        ))
+        result = build_vocabulary(tmp_schema)
+        doc = result["jsonld_docs"]["name.jsonld"]
+        comments = doc["rdfs:comment"]
+        langs = {c["@language"]: c["@value"] for c in comments}
+        assert langs["en"] == "Name."
+        assert langs["fr"] == "Nom."
+        assert "rdfs:comment_fr" not in doc
+
+    def test_vocabulary_jsonld_skos_scheme(
+        self, tmp_schema, write_vocabulary
+    ):
+        write_vocabulary("gender-type.yaml", make_vocabulary(id="gender-type"))
+        result = build_vocabulary(tmp_schema)
+        doc = result["jsonld_docs"]["vocab/gender-type.jsonld"]
+        assert doc["@type"] == "skos:ConceptScheme"
+        assert not doc["@id"].endswith(".jsonld")
+
+    def test_vocabulary_jsonld_values_are_skos_concepts(
+        self, tmp_schema, write_vocabulary
+    ):
+        write_vocabulary("gender-type.yaml", make_vocabulary(
+            id="gender-type",
+            values=[
+                {"code": "male", "label": {"en": "Male", "fr": "Masculin", "es": "Masculino"},
+                 "definition": {"en": "Male.", "fr": "Masculin.", "es": "Masculino."}},
+            ],
+        ))
+        result = build_vocabulary(tmp_schema)
+        doc = result["jsonld_docs"]["vocab/gender-type.jsonld"]
+        values = doc["skos:hasTopConcept"]
+        assert len(values) == 1
+        v = values[0]
+        assert v["@type"] == "skos:Concept"
+        assert v["skos:notation"] == "male"
+        # Language-tagged labels
+        labels = {l["@language"]: l["@value"] for l in v["skos:prefLabel"]}
+        assert labels["en"] == "Male"
+        assert labels["fr"] == "Masculin"
+        # No invented properties
+        assert "skos:prefLabel_fr" not in v
+
+    def test_vocabulary_jsonld_language_tagged_definition(
+        self, tmp_schema, write_vocabulary
+    ):
+        write_vocabulary("gender-type.yaml", make_vocabulary(
+            id="gender-type",
+            values=[
+                {"code": "male", "label": {"en": "Male", "fr": "M", "es": "M"},
+                 "definition": {"en": "Male.", "fr": "Masculin.", "es": "Masculino."}},
+            ],
+        ))
+        result = build_vocabulary(tmp_schema)
+        doc = result["jsonld_docs"]["vocab/gender-type.jsonld"]
+        v = doc["skos:hasTopConcept"][0]
+        defns = {d["@language"]: d["@value"] for d in v["skos:definition"]}
+        assert defns["en"] == "Male."
+        assert defns["fr"] == "Masculin."
+
+    def test_jsonld_docs_written_to_dist(
+        self, tmp_schema, write_concept, tmp_path
+    ):
+        """write_outputs() creates dist/jsonld/ with correct files."""
+        from build.build import write_outputs
+        write_concept("person.yaml", make_concept(id="Person"))
+        result = build_vocabulary(tmp_schema)
+        dist = tmp_path / "dist"
+        write_outputs(result, dist)
+        jsonld_path = dist / "jsonld" / "Person.jsonld"
+        assert jsonld_path.exists()
+        doc = json.loads(jsonld_path.read_text())
+        assert doc["@id"] == "https://test.example.org/Person"
+
+    def test_jsonld_docs_domain_subdir(
+        self, tmp_schema, write_concept, tmp_path
+    ):
+        """Domain-specific concepts write to domain subdirectory."""
+        from build.build import write_outputs
+        write_concept("enrollment.yaml", make_concept(
+            id="Enrollment", domain="sp",
+        ))
+        result = build_vocabulary(tmp_schema)
+        dist = tmp_path / "dist"
+        write_outputs(result, dist)
+        assert (dist / "jsonld" / "sp" / "Enrollment.jsonld").exists()
+
+
+# ---------------------------------------------------------------------------
+# Helper: _to_snake_case
+# ---------------------------------------------------------------------------
+
+class TestToSnakeCase:
+    def test_pascal_to_snake(self):
+        assert _to_snake_case("PaymentEvent") == "payment_event"
+
+    def test_single_word(self):
+        assert _to_snake_case("Enrollment") == "enrollment"
+
+    def test_already_lower(self):
+        assert _to_snake_case("person") == "person"
+
+    def test_multi_caps(self):
+        assert _to_snake_case("AssessmentEvent") == "assessment_event"

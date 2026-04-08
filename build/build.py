@@ -4,9 +4,11 @@ Reads all YAML files from schema/ and generates:
 1. vocabulary.json: full vocabulary as structured JSON
 2. context.jsonld: JSON-LD context mapping IDs to URIs
 3. schemas/*.schema.json: one JSON Schema per concept (for VC validation)
+4. jsonld/*.jsonld: per-concept, per-property, per-vocabulary JSON-LD documents
 """
 
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -34,6 +36,180 @@ JSONLD_TYPE_COERCION = {
     "boolean": "xsd:boolean",
     "uri": "@id",
 }
+
+
+# Type mappings from YAML types to JSON-LD rangeIncludes values
+RANGE_INCLUDES_MAP = {
+    "string": "xsd:string",
+    "date": "xsd:date",
+    "datetime": "xsd:dateTime",
+    "integer": "xsd:integer",
+    "decimal": "xsd:decimal",
+    "boolean": "xsd:boolean",
+    "uri": "xsd:anyURI",
+}
+
+
+def _to_snake_case(name: str) -> str:
+    """Convert PascalCase to snake_case. e.g. PaymentEvent -> payment_event."""
+    return re.sub(r"(?<=[a-z0-9])([A-Z])", r"_\1", name).lower()
+
+
+def _language_tagged(texts: dict) -> list[dict]:
+    """Build a list of JSON-LD language-tagged value objects from a {lang: text} dict."""
+    return [
+        {"@value": text, "@language": lang}
+        for lang, text in texts.items()
+        if text
+    ]
+
+
+def _resolve_range_includes(
+    prop_type: str, out_concepts: dict[str, dict],
+) -> str:
+    """Map a property type to a JSON-LD rangeIncludes value."""
+    if prop_type.startswith("concept:"):
+        ref_id = prop_type.split(":", 1)[1]
+        if ref_id in out_concepts:
+            return out_concepts[ref_id]["uri"]
+        return ref_id
+    return RANGE_INCLUDES_MAP.get(prop_type, "xsd:string")
+
+
+def _embedded_property_jsonld(
+    prop_out: dict, prop_raw: dict, out_concepts: dict, out_vocabularies: dict,
+) -> dict:
+    """Build a property object for embedding inside a concept document (no @context, no domainIncludes)."""
+    prop_type = prop_raw.get("type", "string")
+    entry: dict = {
+        "@id": prop_out["uri"],
+        "@type": "rdf:Property",
+        "rdfs:label": prop_out["id"],
+        "rdfs:comment": _language_tagged(prop_raw.get("definition", {})),
+        "ps:maturity": prop_out["maturity"],
+        "schema:rangeIncludes": _resolve_range_includes(prop_type, out_concepts),
+        "ps:cardinality": prop_out.get("cardinality"),
+    }
+    if prop_out.get("vocabulary"):
+        vocab = out_vocabularies.get(prop_out["vocabulary"])
+        entry["ps:vocabulary"] = vocab["uri"] if vocab else prop_out["vocabulary"]
+    if prop_raw.get("references"):
+        ref_concept = out_concepts.get(prop_raw["references"])
+        entry["ps:references"] = ref_concept["uri"] if ref_concept else prop_raw["references"]
+    if prop_out.get("data_classification"):
+        entry["ps:dataClassification"] = prop_out["data_classification"]
+    return entry
+
+
+def _concept_to_jsonld(
+    concept_out: dict, concept_raw: dict, context_url: str,
+    out_concepts: dict, out_properties: dict, properties_raw: dict,
+    out_vocabularies: dict,
+) -> dict:
+    """Build a complete JSON-LD document for a concept."""
+    doc: dict = {
+        "@context": context_url,
+        "@id": concept_out["uri"],
+        "@type": "rdfs:Class",
+        "rdfs:label": concept_out["id"],
+        "rdfs:comment": _language_tagged(concept_raw.get("definition", {})),
+        "ps:maturity": concept_out["maturity"],
+    }
+    if concept_out.get("domain"):
+        doc["ps:domain"] = concept_out["domain"]
+    supertypes = concept_out.get("supertypes", [])
+    if supertypes:
+        doc["rdfs:subClassOf"] = [
+            out_concepts[s]["uri"] if s in out_concepts else s
+            for s in supertypes
+        ]
+    subtypes = concept_out.get("subtypes", [])
+    if subtypes:
+        doc["ps:subtypes"] = [
+            out_concepts[s]["uri"] if s in out_concepts else s
+            for s in subtypes
+        ]
+    props = concept_out.get("properties", [])
+    if props:
+        doc["ps:properties"] = [
+            _embedded_property_jsonld(
+                out_properties[ref["id"]], properties_raw[ref["id"]],
+                out_concepts, out_vocabularies,
+            )
+            for ref in props
+            if ref["id"] in out_properties and ref["id"] in properties_raw
+        ]
+    return doc
+
+
+def _property_to_jsonld(
+    prop_out: dict, prop_raw: dict, context_url: str,
+    out_concepts: dict, out_vocabularies: dict,
+) -> dict:
+    """Build a complete JSON-LD document for a standalone property."""
+    prop_type = prop_raw.get("type", "string")
+    doc: dict = {
+        "@context": context_url,
+        "@id": prop_out["uri"],
+        "@type": "rdf:Property",
+        "rdfs:label": prop_out["id"],
+        "rdfs:comment": _language_tagged(prop_raw.get("definition", {})),
+        "ps:maturity": prop_out["maturity"],
+        "schema:rangeIncludes": _resolve_range_includes(prop_type, out_concepts),
+        "ps:cardinality": prop_out.get("cardinality"),
+    }
+    if prop_out.get("vocabulary"):
+        vocab = out_vocabularies.get(prop_out["vocabulary"])
+        doc["ps:vocabulary"] = vocab["uri"] if vocab else prop_out["vocabulary"]
+    if prop_raw.get("references"):
+        ref_concept = out_concepts.get(prop_raw["references"])
+        doc["ps:references"] = ref_concept["uri"] if ref_concept else prop_raw["references"]
+    used_by = prop_out.get("used_by", [])
+    if used_by:
+        doc["schema:domainIncludes"] = [
+            out_concepts[cid]["uri"] if cid in out_concepts else cid
+            for cid in used_by
+        ]
+    return doc
+
+
+def _vocabulary_to_jsonld(
+    vocab_out: dict, vocab_raw: dict, context_url: str,
+) -> dict:
+    """Build a complete JSON-LD document for a vocabulary using SKOS."""
+    doc: dict = {
+        "@context": context_url,
+        "@id": vocab_out["uri"],
+        "@type": "skos:ConceptScheme",
+        "rdfs:label": vocab_out["id"],
+        "rdfs:comment": _language_tagged(vocab_raw.get("definition", {})),
+        "ps:maturity": vocab_out["maturity"],
+    }
+    if vocab_out.get("domain"):
+        doc["ps:domain"] = vocab_out["domain"]
+    standard = vocab_raw.get("standard")
+    if standard:
+        std_entry: dict = {"schema:name": standard.get("name", "")}
+        if standard.get("uri"):
+            std_entry["@id"] = standard["uri"]
+        if standard.get("notes"):
+            std_entry["ps:notes"] = standard["notes"]
+        doc["ps:standardReference"] = std_entry
+    values = vocab_out.get("values", [])
+    if values:
+        doc["skos:hasTopConcept"] = []
+        for v in values:
+            entry: dict = {
+                "@id": v["uri"],
+                "@type": "skos:Concept",
+                "skos:notation": v["code"],
+                "skos:prefLabel": _language_tagged(v.get("label", {})),
+                "skos:definition": _language_tagged(v.get("definition", {})),
+            }
+            if v.get("standard_code"):
+                entry["ps:standardCode"] = v["standard_code"]
+            doc["skos:hasTopConcept"].append(entry)
+    return doc
 
 
 def _load_yaml(path: Path) -> dict:
@@ -354,6 +530,35 @@ def build_vocabulary(schema_dir: Path) -> dict:
         }
         credential_schemas[cred_id] = credential_schema
 
+    # Build JSON-LD documents for concepts, properties, and vocabularies.
+    # These are written to dist/jsonld/ and served as static files.
+    context_url = f"{base_uri}ctx/v{version_short}.jsonld"
+    jsonld_docs: dict[str, dict] = {}
+
+    for concept_id, concept_out in out_concepts.items():
+        domain = concept_out.get("domain")
+        key = f"{domain}/{concept_id}.jsonld" if domain else f"{concept_id}.jsonld"
+        jsonld_docs[key] = _concept_to_jsonld(
+            concept_out, concepts_raw[concept_id], context_url,
+            out_concepts, out_properties, properties_raw,
+            out_vocabularies,
+        )
+
+    for prop_id, prop_out in out_properties.items():
+        prop_ns = _compute_property_domain_namespace(prop_id, concepts_raw, properties_raw)
+        key = f"{prop_ns}/{prop_id}.jsonld" if prop_ns else f"{prop_id}.jsonld"
+        jsonld_docs[key] = _property_to_jsonld(
+            prop_out, properties_raw[prop_id], context_url,
+            out_concepts, out_vocabularies,
+        )
+
+    for vocab_id, vocab_out in out_vocabularies.items():
+        vocab_ns = vocab_out.get("domain")
+        key = f"{vocab_ns}/vocab/{vocab_id}.jsonld" if vocab_ns else f"vocab/{vocab_id}.jsonld"
+        jsonld_docs[key] = _vocabulary_to_jsonld(
+            vocab_out, vocabularies_raw[vocab_id], context_url,
+        )
+
     return {
         "meta": meta,
         "concepts": out_concepts,
@@ -362,6 +567,7 @@ def build_vocabulary(schema_dir: Path) -> dict:
         "context": context,
         "concept_schemas": concept_schemas,
         "credential_schemas": credential_schemas,
+        "jsonld_docs": jsonld_docs,
     }
 
 
@@ -405,6 +611,18 @@ def write_outputs(result: dict, dist_dir: Path):
             filename = f"{cred_id}.schema.json"
             (creds_dir / filename).write_text(
                 json.dumps(schema, indent=2, ensure_ascii=False) + "\n"
+            )
+
+    # Per-concept/property/vocabulary JSON-LD documents
+    jsonld_docs = result.get("jsonld_docs", {})
+    if jsonld_docs:
+        jsonld_dir = dist_dir / "jsonld"
+        jsonld_dir.mkdir(exist_ok=True)
+        for rel_path, doc in jsonld_docs.items():
+            out_path = jsonld_dir / rel_path
+            out_path.parent.mkdir(parents=True, exist_ok=True)
+            out_path.write_text(
+                json.dumps(doc, indent=2, ensure_ascii=False) + "\n"
             )
 
     # CSV and Excel downloads per concept
