@@ -576,7 +576,7 @@ def build_vocabulary(schema_dir: Path) -> dict:
 
     for concept_id, concept_out in out_concepts.items():
         domain = concept_out.get("domain")
-        key = f"{domain}/{concept_id}.jsonld" if domain else f"{concept_id}.jsonld"
+        key = f"concepts/{domain}/{concept_id}.jsonld" if domain else f"concepts/{concept_id}.jsonld"
         jsonld_docs[key] = _concept_to_jsonld(
             concept_out, concepts_raw[concept_id], context_url,
             out_concepts, out_properties, properties_raw,
@@ -585,7 +585,7 @@ def build_vocabulary(schema_dir: Path) -> dict:
 
     for prop_id, prop_out in out_properties.items():
         prop_ns = _compute_property_domain_namespace(prop_id, concepts_raw, properties_raw)
-        key = f"{prop_ns}/{prop_id}.jsonld" if prop_ns else f"{prop_id}.jsonld"
+        key = f"properties/{prop_ns}/{prop_id}.jsonld" if prop_ns else f"properties/{prop_id}.jsonld"
         jsonld_docs[key] = _property_to_jsonld(
             prop_out, properties_raw[prop_id], context_url,
             out_concepts, out_vocabularies,
@@ -615,6 +615,7 @@ def build_vocabulary(schema_dir: Path) -> dict:
 def write_outputs(result: dict, dist_dir: Path):
     """Write build outputs to the dist directory."""
     from build.export import generate_all_downloads
+    from build.rdf_export import write_turtle
 
     dist_dir.mkdir(parents=True, exist_ok=True)
     schemas_dir = dist_dir / "schemas"
@@ -665,6 +666,9 @@ def write_outputs(result: dict, dist_dir: Path):
             out_path.write_text(
                 json.dumps(doc, indent=2, ensure_ascii=False) + "\n"
             )
+
+    # Turtle (RDF) export
+    write_turtle(result, dist_dir)
 
     # CSV and Excel downloads per concept
     downloads_dir = dist_dir / "downloads"
