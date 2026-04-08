@@ -67,12 +67,12 @@ function propPath(id: string): string {
         </div>
         <p class="definition-text">{concept.definition.en}</p>
         <p class="uri">{concept.uri}</p>
-        <div class="download-links">
-          <a href={`${concept.path}.jsonld`} class="btn btn-secondary">JSON-LD</a>
-          <a href={`${concept.path}.csv`} class="btn btn-secondary" download>CSV</a>
-          <a href={`${concept.path}-definition.xlsx`} class="btn btn-secondary" download>Definition (Excel)</a>
-          <a href={`${concept.path}-template.xlsx`} class="btn btn-secondary" download>Template (Excel)</a>
-        </div>
+      </div>
+      <div class="download-links">
+        <a href={`${concept.path}.jsonld`} class="btn btn-secondary">JSON-LD</a>
+        <a href={`${concept.path}.csv`} class="btn btn-secondary" download>CSV</a>
+        <a href={`${concept.path}-definition.xlsx`} class="btn btn-secondary" download>Definition (Excel)</a>
+        <a href={`${concept.path}-template.xlsx`} class="btn btn-secondary" download>Template (Excel)</a>
       </div>
 
       {concept.supertypes.length > 0 && (
@@ -190,9 +190,9 @@ function propPath(id: string): string {
         </div>
         <p class="definition-text">{prop.definition.en}</p>
         <p class="uri">{prop.uri}</p>
-        <div class="download-links">
-          <a href={`${prop.path}.jsonld`} class="btn btn-secondary">JSON-LD</a>
-        </div>
+      </div>
+      <div class="download-links">
+        <a href={`${prop.path}.jsonld`} class="btn btn-secondary">JSON-LD</a>
       </div>
 
       <div class="concept-section">

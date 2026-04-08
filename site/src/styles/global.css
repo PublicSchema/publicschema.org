@@ -1218,6 +1218,20 @@ article .table-scroll .data-table {
     position: static;
   }
 
+  /* On mobile, use flex column on article so we can reorder downloads to bottom */
+  article {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Push download links to end of article on mobile */
+  article > .download-links {
+    order: 99;
+    margin-top: var(--space-xl);
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--color-border-light);
+  }
+
   /* Download buttons: 2x2 grid */
   .download-links {
     display: grid;
