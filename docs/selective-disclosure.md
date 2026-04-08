@@ -6,13 +6,14 @@ PublicSchema credentials are designed for use with SD-JWT VC (Selective Disclosu
 
 ## Data Classification Levels
 
-Every property in PublicSchema carries a `data_classification` annotation that guides credential issuers and verifiers on disclosure expectations:
+Most properties in PublicSchema carry a `data_classification` annotation that guides credential issuers and verifiers on disclosure expectations. The field is optional; when absent, the issuer must decide based on usage context.
 
 | Level | Meaning | SD-JWT Behavior | Traditional Data Handling | Example Properties |
 |---|---|---|---|---|
 | `non_personal` | Structural, non-PII. Program metadata, statuses, dates, program-level parameters. | Always in the clear (not wrapped in `_sd`) | No special handling required | enrollment_status, program_ref, payment_status, group_type, scoring_method, cutoff_score |
 | `personal` | Identifies, relates to, or resolves to a natural person. Includes person references, person-specific record references, and group composition data. | Wrapped in `_sd` array (selectively disclosable) | Standard PII protections: access control, encryption at rest, retention limits | given_name, date_of_birth, address, applicant, beneficiary, enrollment_ref, role |
 | `special_category` | Data whose value is inherently sensitive: individual assessment scores, vulnerability indices. | Wrapped in `_sd` array with additional access controls expected | Enhanced protections: audit logging, purpose limitation, breach notification triggers | raw_score, assessor |
+| absent / null | Sensitivity depends on usage context. The property is not inherently personal or non-personal. | Issuer decides based on credential context (see below) | Issuer applies protections appropriate to the deployment context | coordinates, street_address (when on a non-person record) |
 
 ## Credential Structure for SD-JWT VC
 
@@ -117,10 +118,10 @@ The `data_classification` field applies beyond Verifiable Credentials. It also g
 
 ## Implementation Guidance
 
-1. **Issuers** should consult the `data_classification` field on each property when constructing SD-JWT VCs. Properties marked `non_personal` go in the clear; `personal` and `special_category` properties go in `_sd`.
+1. **Issuers** should consult the `data_classification` field on each property when constructing SD-JWT VCs. Properties marked `non_personal` go in the clear; `personal` and `special_category` properties go in `_sd`. For properties with no classification, the issuer determines disclosure behavior based on credential context. For example, coordinates in an IdentityCredential should be treated as personal and placed in `_sd`; the same coordinates in a FacilityCredential describing a service location may be non-personal and placed in the clear.
 
-2. **Holders** (wallet applications) should present a disclosure selection UI grouping claims by data classification. Special category claims should require explicit confirmation.
+2. **Holders** (wallet applications) should present a disclosure selection UI grouping claims by data classification. Special category claims should require explicit confirmation. Claims with no classification should default to selectively disclosable to err on the side of privacy.
 
 3. **Verifiers** should request only the claims they need. A request for `special_category` claims should include a justification (e.g., audit authority reference).
 
-4. **The build pipeline** outputs data classification values in `vocabulary.json` under each property's `data_classification` field. Wallet and verifier implementations can consume this programmatically to auto-configure disclosure policies.
+4. **The build pipeline** outputs data classification values in `vocabulary.json` under each property's `data_classification` field. When the field is absent, wallet and verifier implementations should treat the property as context-dependent and apply a conservative default. Wallet and verifier implementations can consume this programmatically to auto-configure disclosure policies.

@@ -1,0 +1,13 @@
+id: alert_certainty
+maturity: draft
+
+definition:
+  en: "The confidence level in the occurrence of the alert event."
+  fr: "Le niveau de confiance dans la survenue de l'evenement d'alerte."
+  es: "El nivel de confianza en la ocurrencia del evento de alerta."
+
+type: string
+cardinality: single
+vocabulary: alert-certainty
+references: null
+data_classification: non_personal

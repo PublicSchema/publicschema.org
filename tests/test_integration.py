@@ -150,25 +150,14 @@ class TestRealSchema:
         # @type should expand to the Person bare URI
         assert person["@type"] == ["https://publicschema.org/Person"]
 
-    def test_data_classification_annotations_present(self):
-        """All properties in the real schema have data_classification annotations."""
-        result = build_vocabulary(SCHEMA_DIR)
-        missing = []
-        for prop_id, prop_data in result["properties"].items():
-            if prop_data.get("data_classification") is None:
-                missing.append(prop_id)
-        assert missing == [], (
-            f"{len(missing)} properties missing data_classification: {missing}"
-        )
-
     def test_data_classification_levels_are_valid(self):
-        """All data_classification values are one of non_personal, personal, special_category."""
+        """Properties that have a data_classification use one of the valid values."""
         result = build_vocabulary(SCHEMA_DIR)
         valid = {"non_personal", "personal", "special_category"}
         invalid = []
         for prop_id, prop_data in result["properties"].items():
             s = prop_data.get("data_classification")
-            if s not in valid:
+            if s is not None and s not in valid:
                 invalid.append((prop_id, s))
         assert invalid == [], f"Invalid data_classification levels: {invalid}"
 

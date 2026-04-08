@@ -1,0 +1,29 @@
+id: GeographicArea
+maturity: draft
+
+definition:
+  en: >
+    A defined geographic region described by boundary geometry, administrative
+    codes, or named locations. Used to specify the spatial extent of alerts,
+    program coverage, and other location-bounded concepts.
+  fr: >
+    Une region geographique definie par une geometrie de limites, des codes
+    administratifs ou des lieux nommes. Utilisee pour specifier l'etendue
+    spatiale des alertes, de la couverture des programmes et d'autres
+    concepts lies a un lieu.
+  es: >
+    Una region geografica definida por geometria de limites, codigos
+    administrativos o ubicaciones con nombre. Se utiliza para especificar
+    la extension espacial de alertas, cobertura de programas y otros
+    conceptos vinculados a una ubicacion.
+
+properties:
+  - area_description
+  - geometry
+  - geocodes
+  - locations
+  - altitude_min
+  - altitude_max
+
+supertypes: []
+subtypes: []

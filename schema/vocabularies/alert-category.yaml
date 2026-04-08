@@ -1,0 +1,132 @@
+id: alert-category
+maturity: draft
+
+definition:
+  en: "The subject category of an alert event, classifying the general nature of the hazard or threat."
+  fr: "La categorie du sujet d'un evenement d'alerte, classifiant la nature generale du danger ou de la menace."
+  es: "La categoria del tema de un evento de alerta, clasificando la naturaleza general del peligro o amenaza."
+
+standard:
+  name: "OASIS CAP v1.2"
+  uri: "https://docs.oasis-open.org/emergency/cap/v1.2/CAP-v1.2.html"
+
+values:
+  - code: geo
+    label:
+      en: Geophysical
+      fr: Geophysique
+      es: Geofisico
+    definition:
+      en: "Geophysical events such as earthquakes, landslides, tsunamis, or volcanic activity."
+      fr: "Evenements geophysiques tels que tremblements de terre, glissements de terrain, tsunamis ou activite volcanique."
+      es: "Eventos geofisicos como terremotos, deslizamientos de tierra, tsunamis o actividad volcanica."
+
+  - code: met
+    label:
+      en: Meteorological
+      fr: Meteorologique
+      es: Meteorologico
+    definition:
+      en: "Meteorological events such as floods, storms, extreme temperatures, or drought."
+      fr: "Evenements meteorologiques tels qu'inondations, tempetes, temperatures extremes ou secheresse."
+      es: "Eventos meteorologicos como inundaciones, tormentas, temperaturas extremas o sequia."
+
+  - code: safety
+    label:
+      en: Safety
+      fr: Securite generale
+      es: Seguridad general
+    definition:
+      en: "General safety hazards and emergencies."
+      fr: "Dangers de securite generale et urgences."
+      es: "Peligros de seguridad general y emergencias."
+
+  - code: security
+    label:
+      en: Security
+      fr: Securite
+      es: Seguridad
+    definition:
+      en: "Law enforcement, military, or homeland security events."
+      fr: "Evenements lies aux forces de l'ordre, a l'armee ou a la securite interieure."
+      es: "Eventos de fuerzas del orden, militares o de seguridad nacional."
+
+  - code: rescue
+    label:
+      en: Rescue
+      fr: Sauvetage
+      es: Rescate
+    definition:
+      en: "Rescue and recovery operations."
+      fr: "Operations de sauvetage et de recuperation."
+      es: "Operaciones de rescate y recuperacion."
+
+  - code: fire
+    label:
+      en: Fire
+      fr: Incendie
+      es: Incendio
+    definition:
+      en: "Fire-related events including wildfires and structural fires."
+      fr: "Evenements lies aux incendies, y compris les feux de foret et les incendies de structures."
+      es: "Eventos relacionados con incendios, incluidos incendios forestales y estructurales."
+
+  - code: health
+    label:
+      en: Health
+      fr: Sante
+      es: Salud
+    definition:
+      en: "Public health events such as disease outbreaks, contamination, or biological hazards."
+      fr: "Evenements de sante publique tels qu'epidemies, contaminations ou risques biologiques."
+      es: "Eventos de salud publica como brotes de enfermedades, contaminacion o riesgos biologicos."
+
+  - code: env
+    label:
+      en: Environmental
+      fr: Environnemental
+      es: Ambiental
+    definition:
+      en: "Environmental events such as pollution or wildlife threats."
+      fr: "Evenements environnementaux tels que la pollution ou les menaces pour la faune."
+      es: "Eventos ambientales como contaminacion o amenazas a la vida silvestre."
+
+  - code: transport
+    label:
+      en: Transport
+      fr: Transport
+      es: Transporte
+    definition:
+      en: "Transport-related events affecting roads, rail, air, or maritime systems."
+      fr: "Evenements lies au transport affectant les systemes routiers, ferroviaires, aeriens ou maritimes."
+      es: "Eventos relacionados con el transporte que afectan sistemas viales, ferroviarios, aereos o maritimos."
+
+  - code: infra
+    label:
+      en: Infrastructure
+      fr: Infrastructure
+      es: Infraestructura
+    definition:
+      en: "Infrastructure events such as utility failures or telecommunications disruptions."
+      fr: "Evenements d'infrastructure tels que pannes de services publics ou perturbations des telecommunications."
+      es: "Eventos de infraestructura como fallas de servicios publicos o interrupciones de telecomunicaciones."
+
+  - code: cbrne
+    label:
+      en: CBRNE
+      fr: NRBC-E
+      es: NBQRE
+    definition:
+      en: "Chemical, biological, radiological, nuclear, or explosive events."
+      fr: "Evenements chimiques, biologiques, radiologiques, nucleaires ou explosifs."
+      es: "Eventos quimicos, biologicos, radiologicos, nucleares o explosivos."
+
+  - code: other
+    label:
+      en: Other
+      fr: Autre
+      es: Otro
+    definition:
+      en: "Events not covered by any other category."
+      fr: "Evenements non couverts par aucune autre categorie."
+      es: "Eventos no cubiertos por ninguna otra categoria."

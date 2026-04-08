@@ -67,7 +67,7 @@ Key fields:
 - `name`: snake_case
 - `definition`: plain language
 - `type`: the data type (string, date, integer, concept reference, vocabulary reference)
-- `data_classification`: `non_personal`, `personal`, or `special_category` (see rules below)
+- `data_classification`: `non_personal`, `personal`, or `special_category` (optional; see rules below)
 - `used_by`: list of concepts that use this property
 
 ### Adding a vocabulary
@@ -78,12 +78,20 @@ For vocabularies that reference international standards, include `sync` metadata
 
 ### Data classification rules
 
-Every property has a `data_classification` field. Follow these rules:
+The `data_classification` field is optional. There are three meaningful signals:
+
+- `personal`: always sensitive, regardless of context. Use it when a property identifies, points to, or resolves to a natural person.
+- `special_category`: always sensitive and subject to enhanced protections, regardless of context. Use it when the value itself is inherently sensitive (individual assessment scores, vulnerability indices).
+- `non_personal`: a positive assertion that the property is structurally non-personal. Use it for program-level metadata, thresholds, statuses, and dates that apply uniformly to all participants.
+- **absent / null**: classification depends on usage context. The implementer decides based on how the property is used in a specific credential or dataset.
+
+Additional rules:
 
 1. **Person references are personal.** Any property whose value identifies or points to a natural person is `personal`. This includes direct person references, references to person-specific records, and properties that reveal group composition.
-2. **Program-level metadata is non_personal.** Thresholds, design parameters, statuses, and dates that apply uniformly to all participants are `non_personal`.
-3. **Special_category is about inherent content sensitivity.** Reserve it for data whose value is itself sensitive: individual assessment scores, vulnerability indices. A reference to an assessment event is `personal`, not `special_category`.
-4. **When in doubt, classify up.** Choose `personal` over `non_personal`. Implementers can relax handling; they cannot retroactively tighten it.
+2. **Program-level metadata is non_personal.** Thresholds, design parameters, statuses, and dates that apply uniformly to all participants are `non_personal`. Examples: `targeting_approach`, `enrollment_status`, `payment_date`.
+3. **Special_category is about inherent content sensitivity, not association.** Reserve it for data whose value is itself sensitive: individual assessment scores, vulnerability indices. A reference to an assessment event is `personal` (it links to a person), not `special_category`.
+4. **Context-dependent properties are left unclassified.** Some properties are not inherently personal; they become personal when linked to a person. Geographic coordinates and address fields are examples: a coordinate on a facility record is not personal, but the same type of coordinate on a person record is. The classification lives on the linking property (e.g., `location` on Household is `personal`), not on the linked concept's own fields.
+5. **When in doubt, classify up.** If a property could be `personal` or `non_personal` depending on context, choose `personal`. Implementers can relax handling; they cannot retroactively tighten it.
 
 ## Domain namespacing
 

@@ -20,8 +20,8 @@
     },
     "type": {
       "type": "string",
-      "pattern": "^(string|date|datetime|integer|decimal|boolean|uri|concept:[A-Z][a-zA-Z]*)$",
-      "description": "One of: string, date, datetime, integer, decimal, boolean, uri, or concept:{ConceptId}"
+      "pattern": "^(string|date|datetime|integer|decimal|boolean|uri|geojson_geometry|concept:[A-Z][a-zA-Z]*)$",
+      "description": "One of: string, date, datetime, integer, decimal, boolean, uri, geojson_geometry, or concept:{ConceptId}"
     },
     "cardinality": {
       "type": "string",

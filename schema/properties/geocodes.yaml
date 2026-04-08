@@ -1,0 +1,13 @@
+id: geocodes
+maturity: draft
+
+definition:
+  en: "Administrative or statistical codes that identify this area within a coding system (FIPS, P-code, postal code, etc.)."
+  fr: "Codes administratifs ou statistiques identifiant cette zone dans un systeme de codification (FIPS, P-code, code postal, etc.)."
+  es: "Codigos administrativos o estadisticos que identifican esta area dentro de un sistema de codificacion (FIPS, P-code, codigo postal, etc.)."
+
+type: concept:Identifier
+cardinality: multiple
+vocabulary: null
+references: Identifier
+data_classification: non_personal

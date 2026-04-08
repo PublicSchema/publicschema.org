@@ -1,0 +1,62 @@
+id: alert-message-type
+maturity: draft
+
+definition:
+  en: "The nature of the alert message, such as an initial alert, update, or cancellation."
+  fr: "La nature du message d'alerte, comme une alerte initiale, une mise a jour ou une annulation."
+  es: "La naturaleza del mensaje de alerta, como una alerta inicial, actualizacion o cancelacion."
+
+standard:
+  name: "OASIS CAP v1.2"
+  uri: "https://docs.oasis-open.org/emergency/cap/v1.2/CAP-v1.2.html"
+
+values:
+  - code: alert
+    label:
+      en: Alert
+      fr: Alerte
+      es: Alerta
+    definition:
+      en: "An initial alert message."
+      fr: "Un message d'alerte initial."
+      es: "Un mensaje de alerta inicial."
+
+  - code: update
+    label:
+      en: Update
+      fr: Mise a jour
+      es: Actualizacion
+    definition:
+      en: "An update to a previously issued alert."
+      fr: "Une mise a jour d'une alerte precedemment emise."
+      es: "Una actualizacion de una alerta emitida anteriormente."
+
+  - code: cancel
+    label:
+      en: Cancel
+      fr: Annulation
+      es: Cancelacion
+    definition:
+      en: "A cancellation of a previously issued alert."
+      fr: "Une annulation d'une alerte precedemment emise."
+      es: "Una cancelacion de una alerta emitida anteriormente."
+
+  - code: ack
+    label:
+      en: Acknowledge
+      fr: Accuse de reception
+      es: Acuse de recibo
+    definition:
+      en: "An acknowledgement of receipt of an alert message."
+      fr: "Un accuse de reception d'un message d'alerte."
+      es: "Un acuse de recibo de un mensaje de alerta."
+
+  - code: error
+    label:
+      en: Error
+      fr: Erreur
+      es: Error
+    definition:
+      en: "A rejection or error indication for a previously received alert."
+      fr: "Un rejet ou une indication d'erreur pour une alerte precedemment recue."
+      es: "Un rechazo o indicacion de error para una alerta recibida anteriormente."

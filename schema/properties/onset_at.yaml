@@ -1,0 +1,13 @@
+id: onset_at
+maturity: draft
+
+definition:
+  en: "The expected date and time of the beginning of the alert event."
+  fr: "La date et l'heure prevues du debut de l'evenement d'alerte."
+  es: "La fecha y hora esperadas del inicio del evento de alerta."
+
+type: datetime
+cardinality: single
+vocabulary: null
+references: null
+data_classification: non_personal

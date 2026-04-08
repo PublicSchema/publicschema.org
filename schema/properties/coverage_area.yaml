@@ -6,10 +6,10 @@ definition:
   fr: "L'étendue géographique ou administrative de la couverture du programme."
   es: "El alcance geográfico o administrativo de la cobertura del programa."
 
-type: string
+type: concept:GeographicArea
 cardinality: single
 vocabulary: null
-references: null
+references: GeographicArea
 data_classification: non_personal
 
 convergence:

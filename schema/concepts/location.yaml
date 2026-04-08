@@ -21,6 +21,7 @@ properties:
   - location_name
   - latitude
   - longitude
+  - geometry
   - administrative_level
   - parent_location
   - location_code

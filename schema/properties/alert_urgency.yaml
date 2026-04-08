@@ -1,0 +1,13 @@
+id: alert_urgency
+maturity: draft
+
+definition:
+  en: "The time sensitivity of the alert event."
+  fr: "La sensibilite temporelle de l'evenement d'alerte."
+  es: "La sensibilidad temporal del evento de alerta."
+
+type: string
+cardinality: single
+vocabulary: alert-urgency
+references: null
+data_classification: non_personal

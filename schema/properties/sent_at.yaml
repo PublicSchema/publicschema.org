@@ -1,0 +1,13 @@
+id: sent_at
+maturity: draft
+
+definition:
+  en: "The date and time when the alert message was sent."
+  fr: "La date et l'heure a laquelle le message d'alerte a ete envoye."
+  es: "La fecha y hora en que se envio el mensaje de alerta."
+
+type: datetime
+cardinality: single
+vocabulary: null
+references: null
+data_classification: non_personal

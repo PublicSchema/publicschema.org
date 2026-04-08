@@ -1,0 +1,62 @@
+id: alert-status
+maturity: draft
+
+definition:
+  en: "The processing status of an alert message, indicating whether it describes an actual event or is for testing purposes."
+  fr: "Le statut de traitement d'un message d'alerte, indiquant s'il decrit un evenement reel ou s'il est a des fins de test."
+  es: "El estado de procesamiento de un mensaje de alerta, indicando si describe un evento real o es para fines de prueba."
+
+standard:
+  name: "OASIS CAP v1.2"
+  uri: "https://docs.oasis-open.org/emergency/cap/v1.2/CAP-v1.2.html"
+
+values:
+  - code: actual
+    label:
+      en: Actual
+      fr: Reel
+      es: Real
+    definition:
+      en: "An alert describing an actionable event."
+      fr: "Une alerte decrivant un evenement necessitant une action."
+      es: "Una alerta que describe un evento que requiere accion."
+
+  - code: exercise
+    label:
+      en: Exercise
+      fr: Exercice
+      es: Ejercicio
+    definition:
+      en: "An alert used during a planned exercise or drill."
+      fr: "Une alerte utilisee lors d'un exercice ou d'une simulation planifiee."
+      es: "Una alerta utilizada durante un ejercicio o simulacro planificado."
+
+  - code: system
+    label:
+      en: System
+      fr: Systeme
+      es: Sistema
+    definition:
+      en: "An alert used for internal system testing or message routing."
+      fr: "Une alerte utilisee pour des tests internes du systeme ou le routage de messages."
+      es: "Una alerta utilizada para pruebas internas del sistema o enrutamiento de mensajes."
+
+  - code: test
+    label:
+      en: Test
+      fr: Test
+      es: Prueba
+    definition:
+      en: "An alert used for technical testing; recipients should disregard."
+      fr: "Une alerte utilisee pour des tests techniques; les destinataires doivent l'ignorer."
+      es: "Una alerta utilizada para pruebas tecnicas; los destinatarios deben ignorarla."
+
+  - code: draft
+    label:
+      en: Draft
+      fr: Brouillon
+      es: Borrador
+    definition:
+      en: "An alert that has not yet been issued."
+      fr: "Une alerte qui n'a pas encore ete emise."
+      es: "Una alerta que aun no ha sido emitida."

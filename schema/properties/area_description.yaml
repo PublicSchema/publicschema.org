@@ -1,0 +1,13 @@
+id: area_description
+maturity: draft
+
+definition:
+  en: "A human-readable description of the geographic area, such as a region name or administrative boundary label."
+  fr: "Une description lisible de la zone geographique, comme un nom de region ou un libelle de limite administrative."
+  es: "Una descripcion legible del area geografica, como un nombre de region o una etiqueta de limite administrativo."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+data_classification: non_personal

@@ -137,6 +137,15 @@ class TestSchemaValidation:
         errors = validate_schema_dir(tmp_schema)
         assert any("type" in str(e) for e in errors)
 
+    def test_property_geojson_geometry_type_passes(
+        self, tmp_schema, write_property, write_concept
+    ):
+        """geojson_geometry is a valid property type."""
+        write_property("geom.yaml", make_property(id="geom", type="geojson_geometry"))
+        write_concept("area.yaml", make_concept(id="Area", properties=["geom"]))
+        errors = validate_schema_dir(tmp_schema)
+        assert errors == []
+
     def test_vocabulary_with_hierarchical_values_passes(
         self, tmp_schema, write_vocabulary
     ):

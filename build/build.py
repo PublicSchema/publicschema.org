@@ -24,6 +24,7 @@ TYPE_MAP = {
     "decimal": {"type": "number"},
     "boolean": {"type": "boolean"},
     "uri": {"type": "string", "format": "uri"},
+    "geojson_geometry": {"$ref": "https://geojson.org/schema/Geometry.json"},
 }
 
 # Type mappings from YAML types to JSON-LD @type coercion values.
@@ -35,6 +36,7 @@ JSONLD_TYPE_COERCION = {
     "decimal": "xsd:decimal",
     "boolean": "xsd:boolean",
     "uri": "@id",
+    "geojson_geometry": "@json",
 }
 
 
@@ -47,6 +49,7 @@ RANGE_INCLUDES_MAP = {
     "decimal": "xsd:decimal",
     "boolean": "xsd:boolean",
     "uri": "xsd:anyURI",
+    "geojson_geometry": "https://purl.org/geojson/vocab#Geometry",
 }
 
 

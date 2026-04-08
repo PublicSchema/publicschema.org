@@ -1,0 +1,13 @@
+id: sender
+maturity: draft
+
+definition:
+  en: "The identifier of the originator of the alert message."
+  fr: "L'identifiant de l'emetteur du message d'alerte."
+  es: "El identificador del emisor del mensaje de alerta."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+data_classification: non_personal

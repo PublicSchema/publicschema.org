@@ -1,0 +1,62 @@
+id: alert-certainty
+maturity: draft
+
+definition:
+  en: "The confidence level in the occurrence of an alert event."
+  fr: "Le niveau de confiance dans la survenue d'un evenement d'alerte."
+  es: "El nivel de confianza en la ocurrencia de un evento de alerta."
+
+standard:
+  name: "OASIS CAP v1.2"
+  uri: "https://docs.oasis-open.org/emergency/cap/v1.2/CAP-v1.2.html"
+
+values:
+  - code: observed
+    label:
+      en: Observed
+      fr: Observe
+      es: Observado
+    definition:
+      en: "The event has been determined to have occurred or to be ongoing."
+      fr: "L'evenement a ete determine comme s'etant produit ou etant en cours."
+      es: "Se ha determinado que el evento ha ocurrido o esta en curso."
+
+  - code: likely
+    label:
+      en: Likely
+      fr: Probable
+      es: Probable
+    definition:
+      en: "The event is likely to occur (probability greater than 50%)."
+      fr: "L'evenement est susceptible de se produire (probabilite superieure a 50%)."
+      es: "Es probable que el evento ocurra (probabilidad superior al 50%)."
+
+  - code: possible
+    label:
+      en: Possible
+      fr: Possible
+      es: Posible
+    definition:
+      en: "The event may occur (probability less than 50%)."
+      fr: "L'evenement peut se produire (probabilite inferieure a 50%)."
+      es: "El evento puede ocurrir (probabilidad inferior al 50%)."
+
+  - code: unlikely
+    label:
+      en: Unlikely
+      fr: Improbable
+      es: Improbable
+    definition:
+      en: "The event is not expected to occur."
+      fr: "L'evenement ne devrait pas se produire."
+      es: "No se espera que el evento ocurra."
+
+  - code: unknown
+    label:
+      en: Unknown
+      fr: Inconnu
+      es: Desconocido
+    definition:
+      en: "Certainty is not known."
+      fr: "La certitude n'est pas connue."
+      es: "La certeza no es conocida."

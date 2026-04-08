@@ -494,6 +494,21 @@ class TestJsonLdContext:
             "@type": "xsd:date",
         }
 
+    def test_context_geojson_geometry_property_has_json_type(
+        self, tmp_schema, write_concept, write_property
+    ):
+        """geojson_geometry properties get @type: @json in the JSON-LD context."""
+        write_property("geom.yaml", make_property(id="geom", type="geojson_geometry"))
+        write_concept("area.yaml", make_concept(
+            id="Area", properties=["geom"],
+        ))
+        result = build_vocabulary(tmp_schema)
+        ctx = result["context"]["@context"]
+        assert ctx["geom"] == {
+            "@id": "https://test.example.org/geom",
+            "@type": "@json",
+        }
+
     def test_context_multivalued_property_has_container_set(
         self, tmp_schema, write_concept, write_property
     ):
@@ -686,6 +701,33 @@ class TestJsonSchemaGeneration:
         ids_schema = result["concept_schemas"]["Person"]["properties"]["ids"]
         assert ids_schema["type"] == "array"
         assert ids_schema["items"]["type"] == "string"
+
+    def test_concept_schema_geojson_geometry_has_ref(
+        self, tmp_schema, write_concept, write_property
+    ):
+        """geojson_geometry type produces a $ref to GeoJSON Geometry schema."""
+        write_property("geom.yaml", make_property(id="geom", type="geojson_geometry"))
+        write_concept("area.yaml", make_concept(
+            id="Area", properties=["geom"],
+        ))
+        result = build_vocabulary(tmp_schema)
+        geom_schema = result["concept_schemas"]["Area"]["properties"]["geom"]
+        assert geom_schema == {"$ref": "https://geojson.org/schema/Geometry.json"}
+
+    def test_concept_schema_geojson_geometry_multivalued(
+        self, tmp_schema, write_concept, write_property
+    ):
+        """Multi-valued geojson_geometry wraps the $ref in an array."""
+        write_property("geoms.yaml", make_property(
+            id="geoms", type="geojson_geometry", cardinality="multiple",
+        ))
+        write_concept("area.yaml", make_concept(
+            id="Area", properties=["geoms"],
+        ))
+        result = build_vocabulary(tmp_schema)
+        schema = result["concept_schemas"]["Area"]["properties"]["geoms"]
+        assert schema["type"] == "array"
+        assert schema["items"] == {"$ref": "https://geojson.org/schema/Geometry.json"}
 
 
 # ---------------------------------------------------------------------------
@@ -1008,6 +1050,18 @@ class TestJsonLdDocuments:
         result = build_vocabulary(tmp_schema)
         doc = result["jsonld_docs"]["dob.jsonld"]
         assert doc["schema:rangeIncludes"] == "xsd:date"
+
+    def test_property_jsonld_range_includes_geojson_geometry(
+        self, tmp_schema, write_concept, write_property
+    ):
+        """geojson_geometry type maps to GeoJSON-LD Geometry URI for rangeIncludes."""
+        write_property("geom.yaml", make_property(id="geom", type="geojson_geometry"))
+        write_concept("area.yaml", make_concept(
+            id="Area", properties=["geom"],
+        ))
+        result = build_vocabulary(tmp_schema)
+        doc = result["jsonld_docs"]["geom.jsonld"]
+        assert doc["schema:rangeIncludes"] == "https://purl.org/geojson/vocab#Geometry"
 
     def test_property_jsonld_range_includes_concept_uri(
         self, tmp_schema, write_concept, write_property

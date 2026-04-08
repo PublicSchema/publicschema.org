@@ -1,0 +1,13 @@
+id: headline
+maturity: draft
+
+definition:
+  en: "A brief human-readable summary of the alert, suitable for display as a title."
+  fr: "Un bref resume lisible de l'alerte, adapte a l'affichage en tant que titre."
+  es: "Un breve resumen legible de la alerta, adecuado para mostrarse como titulo."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+data_classification: non_personal

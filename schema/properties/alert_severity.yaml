@@ -1,0 +1,13 @@
+id: alert_severity
+maturity: draft
+
+definition:
+  en: "The severity level of the alert event."
+  fr: "Le niveau de gravite de l'evenement d'alerte."
+  es: "El nivel de gravedad del evento de alerta."
+
+type: string
+cardinality: single
+vocabulary: alert-severity
+references: null
+data_classification: non_personal

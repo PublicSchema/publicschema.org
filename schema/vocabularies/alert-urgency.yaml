@@ -1,0 +1,62 @@
+id: alert-urgency
+maturity: draft
+
+definition:
+  en: "The time sensitivity of an alert event, indicating how soon responsive action should be taken."
+  fr: "La sensibilite temporelle d'un evenement d'alerte, indiquant dans quel delai une action doit etre entreprise."
+  es: "La sensibilidad temporal de un evento de alerta, indicando que tan pronto se debe tomar accion."
+
+standard:
+  name: "OASIS CAP v1.2"
+  uri: "https://docs.oasis-open.org/emergency/cap/v1.2/CAP-v1.2.html"
+
+values:
+  - code: immediate
+    label:
+      en: Immediate
+      fr: Immediat
+      es: Inmediato
+    definition:
+      en: "Responsive action should be taken immediately."
+      fr: "Une action doit etre entreprise immediatement."
+      es: "Se debe tomar accion de manera inmediata."
+
+  - code: expected
+    label:
+      en: Expected
+      fr: Prevu
+      es: Esperado
+    definition:
+      en: "Responsive action should be taken within the next hour."
+      fr: "Une action doit etre entreprise dans l'heure suivante."
+      es: "Se debe tomar accion dentro de la proxima hora."
+
+  - code: future
+    label:
+      en: Future
+      fr: Futur
+      es: Futuro
+    definition:
+      en: "Responsive action should be taken in the near future."
+      fr: "Une action doit etre entreprise dans un avenir proche."
+      es: "Se debe tomar accion en un futuro cercano."
+
+  - code: past
+    label:
+      en: Past
+      fr: Passe
+      es: Pasado
+    definition:
+      en: "Responsive action is no longer required."
+      fr: "Une action n'est plus necessaire."
+      es: "Ya no se requiere accion."
+
+  - code: unknown
+    label:
+      en: Unknown
+      fr: Inconnu
+      es: Desconocido
+    definition:
+      en: "Urgency is not known."
+      fr: "L'urgence n'est pas connue."
+      es: "La urgencia no es conocida."

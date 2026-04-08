@@ -1,0 +1,13 @@
+id: effective_at
+maturity: draft
+
+definition:
+  en: "The date and time when the alert becomes effective."
+  fr: "La date et l'heure a laquelle l'alerte prend effet."
+  es: "La fecha y hora en que la alerta entra en vigor."
+
+type: datetime
+cardinality: single
+vocabulary: null
+references: null
+data_classification: non_personal

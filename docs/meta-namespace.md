@@ -15,7 +15,7 @@ These terms describe the vocabulary itself (maturity, domain, cardinality) rathe
 | `ps:cardinality` | Properties | `string` | Whether the property accepts a single value (`single`) or multiple values (`multiple`). |
 | `ps:vocabulary` | Properties | `URI` | URI of the controlled vocabulary that constrains this property's values. |
 | `ps:references` | Properties | `URI` | URI of the concept that this property points to (for reference properties). |
-| `ps:dataClassification` | Properties | `string` | Data sensitivity level: `non_personal`, `personal`, or `special_category`. |
+| `ps:dataClassification` | Properties | `string` | Data sensitivity level: `non_personal`, `personal`, or `special_category`. Optional. When absent, classification depends on usage context and the implementer decides based on how the property is used. |
 | `ps:standardReference` | Vocabularies | `object` | Reference to an international standard the vocabulary is based on. Contains `schema:name`, optional `@id` (standard URI), and optional `ps:notes`. |
 | `ps:standardCode` | Vocabulary values | `string` | The code used by the referenced international standard for this value. |
 | `ps:notes` | Various | `string` | Free-text notes, typically on standard references. |

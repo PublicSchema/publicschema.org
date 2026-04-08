@@ -1,0 +1,13 @@
+id: geometry
+maturity: draft
+
+definition:
+  en: "The geographic boundary or shape, expressed as a GeoJSON Geometry object (Point, Polygon, MultiPolygon, etc.)."
+  fr: "La limite ou forme geographique, exprimee sous forme d'objet GeoJSON Geometry (Point, Polygon, MultiPolygon, etc.)."
+  es: "El limite o forma geografica, expresado como un objeto GeoJSON Geometry (Point, Polygon, MultiPolygon, etc.)."
+
+type: geojson_geometry
+cardinality: single
+vocabulary: null
+references: null
+data_classification: non_personal

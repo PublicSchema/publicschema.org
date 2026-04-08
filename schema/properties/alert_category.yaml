@@ -1,0 +1,13 @@
+id: alert_category
+maturity: draft
+
+definition:
+  en: "The subject category of the alert event."
+  fr: "La categorie du sujet de l'evenement d'alerte."
+  es: "La categoria del tema del evento de alerta."
+
+type: string
+cardinality: multiple
+vocabulary: alert-category
+references: null
+data_classification: non_personal

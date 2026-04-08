@@ -1,0 +1,13 @@
+id: locations
+maturity: draft
+
+definition:
+  en: "Named locations within or representing this geographic area."
+  fr: "Lieux nommes au sein de ou representant cette zone geographique."
+  es: "Ubicaciones con nombre dentro de o que representan esta area geografica."
+
+type: concept:Location
+cardinality: multiple
+vocabulary: null
+references: Location
+data_classification: non_personal

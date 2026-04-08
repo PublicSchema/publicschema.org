@@ -1,0 +1,13 @@
+id: instruction
+maturity: draft
+
+definition:
+  en: "Recommended actions or instructions for recipients of the alert."
+  fr: "Actions ou instructions recommandees pour les destinataires de l'alerte."
+  es: "Acciones o instrucciones recomendadas para los destinatarios de la alerta."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+data_classification: non_personal

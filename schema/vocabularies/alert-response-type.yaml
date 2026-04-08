@@ -1,0 +1,102 @@
+id: alert-response-type
+maturity: draft
+
+definition:
+  en: "The recommended action for recipients of an alert."
+  fr: "L'action recommandee pour les destinataires d'une alerte."
+  es: "La accion recomendada para los destinatarios de una alerta."
+
+standard:
+  name: "OASIS CAP v1.2"
+  uri: "https://docs.oasis-open.org/emergency/cap/v1.2/CAP-v1.2.html"
+
+values:
+  - code: shelter
+    label:
+      en: Shelter
+      fr: Abri
+      es: Refugio
+    definition:
+      en: "Take shelter in place or seek designated shelter."
+      fr: "Se mettre a l'abri sur place ou chercher un abri designe."
+      es: "Refugiarse en el lugar o buscar un refugio designado."
+
+  - code: evacuate
+    label:
+      en: Evacuate
+      fr: Evacuer
+      es: Evacuar
+    definition:
+      en: "Relocate as instructed in the alert instruction."
+      fr: "Se relocaliser selon les instructions de l'alerte."
+      es: "Reubicarse segun las instrucciones de la alerta."
+
+  - code: prepare
+    label:
+      en: Prepare
+      fr: Se preparer
+      es: Prepararse
+    definition:
+      en: "Make preparations as instructed in the alert instruction."
+      fr: "Effectuer les preparations selon les instructions de l'alerte."
+      es: "Realizar preparaciones segun las instrucciones de la alerta."
+
+  - code: execute
+    label:
+      en: Execute
+      fr: Executer
+      es: Ejecutar
+    definition:
+      en: "Execute a pre-planned activity identified in the alert instruction."
+      fr: "Executer une activite pre-planifiee identifiee dans les instructions de l'alerte."
+      es: "Ejecutar una actividad preplanificada identificada en las instrucciones de la alerta."
+
+  - code: avoid
+    label:
+      en: Avoid
+      fr: Eviter
+      es: Evitar
+    definition:
+      en: "Avoid the subject area of the alert."
+      fr: "Eviter la zone concernee par l'alerte."
+      es: "Evitar el area afectada por la alerta."
+
+  - code: monitor
+    label:
+      en: Monitor
+      fr: Surveiller
+      es: Vigilar
+    definition:
+      en: "Attend to information sources as described in the alert instruction."
+      fr: "Suivre les sources d'information decrites dans les instructions de l'alerte."
+      es: "Prestar atencion a las fuentes de informacion descritas en las instrucciones de la alerta."
+
+  - code: assess
+    label:
+      en: Assess
+      fr: Evaluer
+      es: Evaluar
+    definition:
+      en: "Evaluate the information in this message."
+      fr: "Evaluer les informations contenues dans ce message."
+      es: "Evaluar la informacion contenida en este mensaje."
+
+  - code: all_clear
+    label:
+      en: All clear
+      fr: Fin d'alerte
+      es: Fin de alerta
+    definition:
+      en: "The subject event is no longer a threat or concern; return to normal activities."
+      fr: "L'evenement concerne ne represente plus une menace ou un sujet de preoccupation; reprendre les activites normales."
+      es: "El evento en cuestion ya no representa una amenaza o preocupacion; reanudar las actividades normales."
+
+  - code: none
+    label:
+      en: None
+      fr: Aucune
+      es: Ninguna
+    definition:
+      en: "No recommended action."
+      fr: "Aucune action recommandee."
+      es: "Ninguna accion recomendada."

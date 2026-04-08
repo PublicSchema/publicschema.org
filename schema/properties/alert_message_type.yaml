@@ -1,0 +1,13 @@
+id: alert_message_type
+maturity: draft
+
+definition:
+  en: "The nature of the alert message, such as initial alert, update, or cancellation."
+  fr: "La nature du message d'alerte, comme une alerte initiale, une mise a jour ou une annulation."
+  es: "La naturaleza del mensaje de alerta, como alerta inicial, actualizacion o cancelacion."
+
+type: string
+cardinality: single
+vocabulary: alert-message-type
+references: null
+data_classification: non_personal
