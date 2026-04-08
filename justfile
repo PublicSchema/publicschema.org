@@ -46,8 +46,12 @@ site-install:
 
 # --- Development ---
 
-# Validate, build, and check everything is clean
-check: validate build
+# Run all tests
+test:
+    uv run pytest
+
+# Validate, test, build, and check everything is clean
+check: validate test build
     @echo "All checks passed."
 
 # Install all dependencies (Python + Node)

@@ -1,0 +1,25 @@
+name: Schema check
+
+on:
+  schedule:
+    - cron: "0 9 * * 1" # every Monday at 09:00 UTC
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v4
+
+      - run: uv sync
+
+      - name: Validate schema
+        run: uv run python -m build.validate
+
+      - name: Run tests
+        run: uv run pytest
+
+      - name: Build vocabulary data
+        run: uv run python -m build.build
