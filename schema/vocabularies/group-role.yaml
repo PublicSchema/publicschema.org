@@ -155,6 +155,8 @@ system_mappings:
     - code: NOT RELATED
       label: Not Related
       maps_to: non_relative
+    unmapped_canonical:
+    - dependent
   openspp:
     vocabulary_name: GroupMembershipType
     values:
@@ -166,5 +168,8 @@ system_mappings:
     - child
     - dependent
     - parent
+    - sibling
+    - grandparent
+    - grandchild
     - other_relative
     - non_relative

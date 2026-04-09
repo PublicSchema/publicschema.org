@@ -92,6 +92,7 @@ system_mappings:
       label: Exited
       maps_to: closed
     unmapped_canonical:
+    - waitlisted
     - graduated
   dhis2:
     vocabulary_name: EnrollmentStatus
@@ -106,6 +107,7 @@ system_mappings:
       label: Cancelled
       maps_to: closed
     unmapped_canonical:
+    - waitlisted
     - suspended
     - pending_verification
     - graduated
@@ -125,6 +127,7 @@ system_mappings:
       label: Suspended
       maps_to: suspended
     unmapped_canonical:
+    - waitlisted
     - closed
   spdci:
     vocabulary_name: EnrollmentStatusEnum
@@ -142,4 +145,5 @@ system_mappings:
       label: Suspended
       maps_to: suspended
     unmapped_canonical:
+    - waitlisted
     - pending_verification

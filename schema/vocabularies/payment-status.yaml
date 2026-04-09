@@ -118,6 +118,7 @@ system_mappings:
     unmapped_canonical:
     - returned
     - cancelled
+    - rejected
   fhir_r4:
     vocabulary_name: PaymentStatusCodes
     values:
@@ -132,6 +133,8 @@ system_mappings:
     - failed
     - returned
     - cancelled
+    - processing
+    - rejected
   opencrvs:
     vocabulary_name: PaymentOutcomeType
     values:
@@ -149,6 +152,8 @@ system_mappings:
     - returned
     - cancelled
     - reconciled
+    - processing
+    - rejected
   openimis:
     vocabulary_name: BenefitConsumptionStatus
     values:

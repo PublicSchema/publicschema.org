@@ -92,6 +92,7 @@ system_mappings:
     - voucher
     - service
     - fee_waiver
+    - insurance
   spdci:
     vocabulary_name: BenefitTypeEnum
     values:
