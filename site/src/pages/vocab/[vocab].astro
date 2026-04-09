@@ -72,30 +72,52 @@ const vocabulary = allVocab.vocabularies[Astro.params.vocab] as Vocabulary;
     </table>
   </div>
 
+  {vocabulary.same_standard_systems && vocabulary.same_standard_systems.length > 0 && (
+    <div class="concept-section">
+      <h2>Same standard</h2>
+      <p>The following systems use the same underlying standard{vocabulary.standard ? ` (${vocabulary.standard.name})` : ''} for this vocabulary, so values are directly compatible without mapping:</p>
+      <ul>
+        {vocabulary.same_standard_systems.map((system) => (
+          <li><strong>{system}</strong></li>
+        ))}
+      </ul>
+    </div>
+  )}
+
   {vocabulary.system_mappings && Object.keys(vocabulary.system_mappings).length > 0 && (
     <div class="concept-section">
       <h2>System mappings</h2>
-      {Object.entries(vocabulary.system_mappings).map(([system, mappings]) => (
+      {Object.entries(vocabulary.system_mappings).map(([system, mapping]) => (
         <div style="margin-bottom: var(--space-lg);">
           <h3>{system}</h3>
+          {mapping.vocabulary_name && (
+            <p class="mapping-vocab-name">System vocabulary: <strong>{mapping.vocabulary_name}</strong></p>
+          )}
           <div class="table-scroll">
           <table class="data-table">
             <thead>
               <tr>
                 <th>System code</th>
-                <th>Canonical value</th>
+                <th>System label</th>
+                <th>{vocabulary.id} value</th>
               </tr>
             </thead>
             <tbody>
-              {Object.entries(mappings).map(([sysCode, canonical]) => (
-                <tr>
-                  <td><code>{sysCode}</code></td>
-                  <td><code>{canonical}</code></td>
+              {mapping.values.map((v) => (
+                <tr class={v.maps_to === null ? 'unmapped-row' : ''}>
+                  <td><code>{v.code}</code></td>
+                  <td data-label="System label">{v.label}</td>
+                  <td data-label={`${vocabulary.id} value`}>{v.maps_to ? (<code>{v.maps_to}</code>) : (<span class="no-mapping">no equivalent</span>)}</td>
                 </tr>
               ))}
             </tbody>
           </table>
           </div>
+          {mapping.unmapped_canonical && mapping.unmapped_canonical.length > 0 && (
+            <p class="unmapped-note">
+              Not covered by {system}: {mapping.unmapped_canonical.map((code) => (<code>{code}</code>)).reduce((prev, curr) => <>{prev}, {curr}</>)}
+            </p>
+          )}
         </div>
       ))}
     </div>

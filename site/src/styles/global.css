@@ -784,6 +784,37 @@ article .data-table {
   background: var(--color-accent-light);
 }
 
+/* System mapping enriched tables */
+.mapping-vocab-name {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  margin: var(--space-xs) 0 var(--space-sm);
+}
+
+.unmapped-row td {
+  color: var(--color-text-muted);
+}
+
+.no-mapping {
+  font-size: 0.8rem;
+  font-style: italic;
+  color: var(--color-text-muted);
+}
+
+.unmapped-note {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  margin-top: var(--space-sm);
+  line-height: 1.6;
+}
+
+.unmapped-note code {
+  font-size: 0.8rem;
+  background: var(--color-surface);
+  padding: 0.1rem 0.35rem;
+  border-radius: var(--radius-sm);
+}
+
 /* Inherited property rows in the properties table */
 .inherited-row td {
   color: var(--color-text-muted);
@@ -995,6 +1026,10 @@ article .table-scroll .data-table {
   position: static;
   left: auto;
   transform: none;
+}
+
+article .table-scroll .data-table th {
+  position: static;
 }
 
 /* ----------------------------------------------------------------
