@@ -54,8 +54,6 @@ values:
     en: Gender has not been recorded or has not been disclosed.
     fr: Le genre n'a pas ete enregistre ou n'a pas ete divulgue.
     es: El genero no ha sido registrado o no ha sido declarado.
-same_standard_systems:
-- fhir_r4
 system_mappings:
   openimis:
     vocabulary_name: Gender

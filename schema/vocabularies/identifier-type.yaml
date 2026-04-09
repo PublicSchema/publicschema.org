@@ -136,7 +136,7 @@ system_mappings:
       maps_to: other
     - code: SB
       label: Social Beneficiary Identifier
-      maps_to: social_security_number
+      maps_to: program_id
     - code: BRN
       label: Breed Registry Number
       maps_to: null
@@ -181,8 +181,8 @@ system_mappings:
       maps_to: null
     unmapped_canonical:
     - voter_id
-    - program_id
     - household_id
+    - social_security_number
   spdci:
     vocabulary_name: IdentifierTypeEnum
     values:

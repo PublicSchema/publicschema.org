@@ -111,11 +111,11 @@ system_mappings:
     values:
       - code: "Single or widow"
         label: "Single or widow"
-        maps_to: never_married
+        maps_to: null
       - code: "Married (conjugal cohabitation)"
         label: "Married (conjugal cohabitation)"
         maps_to: married
-    unmapped_canonical: [widowed, divorced, legally_separated, consensual_union]
+    unmapped_canonical: [never_married, widowed, divorced, legally_separated, consensual_union]
   fhir_r4:
     vocabulary_name: "Marital Status Codes"
     values:

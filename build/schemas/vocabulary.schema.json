@@ -110,10 +110,12 @@
       "properties": {
         "code": {
           "type": "string",
+          "minLength": 1,
           "description": "Identifier used in the external system"
         },
         "label": {
           "type": "string",
+          "minLength": 1,
           "description": "Human-readable label the system uses"
         },
         "maps_to": {
