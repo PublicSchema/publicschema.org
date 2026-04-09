@@ -1,11 +1,11 @@
-Creative Commons Attribution-ShareAlike 4.0 International
+Creative Commons Attribution 4.0 International
 
 This license applies to the vocabulary definitions in this repository:
 concept definitions, property definitions, vocabulary value sets, and
 credential schemas (everything under the schema/ directory).
 
 For the full license text, see:
-https://creativecommons.org/licenses/by-sa/4.0/legalcode
+https://creativecommons.org/licenses/by/4.0/legalcode
 
 You are free to:
 
@@ -22,12 +22,19 @@ Under the following terms:
   reasonable manner, but not in any way that suggests the licensor
   endorses you or your use.
 
-  ShareAlike - If you remix, transform, or build upon the material, you
-  must distribute your contributions under the same license as the
-  original.
-
   No additional restrictions - You may not apply legal terms or
   technological measures that legally restrict others from doing
   anything the license permits.
 
 Copyright 2026 PublicSchema Contributors
+
+## Attribution Guidance
+
+Embedding the PublicSchema JSON-LD context URL
+(https://publicschema.org/ctx/draft.jsonld) in a credential, dataset,
+or application counts as sufficient attribution under CC-BY-4.0.
+
+No additional notice is required in end-user-facing interfaces. If you
+redistribute modified vocabulary definitions, include a link to the
+original at https://publicschema.org and a note indicating changes were
+made.

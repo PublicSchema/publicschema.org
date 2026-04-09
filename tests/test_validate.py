@@ -276,12 +276,57 @@ class TestSupertypeSubtype:
 # ---------------------------------------------------------------------------
 
 class TestMultilingualCompleteness:
-    def test_concept_missing_french_definition(self, tmp_schema, write_concept):
-        data = make_concept()
+    def test_draft_concept_missing_french_is_warning(self, tmp_schema, write_concept):
+        """Draft concepts produce warnings (not errors) for missing non-English translations."""
+        data = make_concept(maturity="draft")
+        del data["definition"]["fr"]
+        write_concept("warn.yaml", data)
+        issues = validate_schema_dir(tmp_schema)
+        fr_issues = [e for e in issues if "fr" in str(e)]
+        assert len(fr_issues) == 1
+        assert fr_issues[0].severity == "warning"
+
+    def test_trial_use_concept_missing_french_is_error(self, tmp_schema, write_concept):
+        """Trial-use concepts produce errors for missing translations."""
+        data = make_concept(maturity="trial-use")
         del data["definition"]["fr"]
         write_concept("bad.yaml", data)
-        errors = validate_schema_dir(tmp_schema)
-        assert any("fr" in str(e) for e in errors)
+        issues = validate_schema_dir(tmp_schema)
+        fr_issues = [e for e in issues if "fr" in str(e) and e.severity == "error"]
+        assert len(fr_issues) == 1
+
+    def test_normative_concept_missing_french_is_error(self, tmp_schema, write_concept):
+        """Normative concepts produce errors for missing translations."""
+        data = make_concept(maturity="normative")
+        del data["definition"]["fr"]
+        write_concept("bad.yaml", data)
+        issues = validate_schema_dir(tmp_schema)
+        fr_issues = [e for e in issues if "fr" in str(e) and e.severity == "error"]
+        assert len(fr_issues) == 1
+
+    def test_draft_concept_missing_english_is_error(self, tmp_schema, write_concept):
+        """Even draft concepts require English."""
+        data = make_concept(maturity="draft")
+        del data["definition"]["en"]
+        write_concept("bad.yaml", data)
+        issues = validate_schema_dir(tmp_schema)
+        en_errors = [e for e in issues if "en" in str(e) and e.severity == "error"]
+        assert len(en_errors) >= 1
+
+    def test_draft_property_missing_spanish_is_warning(
+        self, tmp_schema, write_property, write_concept
+    ):
+        """Draft properties produce warnings for missing non-English translations."""
+        data = make_property(maturity="draft")
+        del data["definition"]["es"]
+        write_property("warn.yaml", data)
+        write_concept("person.yaml", make_concept(
+            id="Person", properties=["test_field"],
+        ))
+        issues = validate_schema_dir(tmp_schema)
+        es_issues = [e for e in issues if "es" in str(e)]
+        assert len(es_issues) == 1
+        assert es_issues[0].severity == "warning"
 
     def test_vocabulary_value_missing_translation_is_ok(
         self, tmp_schema, write_vocabulary
@@ -291,7 +336,8 @@ class TestMultilingualCompleteness:
         del data["values"][0]["label"]["es"]
         del data["values"][0]["label"]["fr"]
         write_vocabulary("ok.yaml", data)
-        errors = validate_schema_dir(tmp_schema)
+        issues = validate_schema_dir(tmp_schema)
+        errors = [e for e in issues if e.severity == "error"]
         assert errors == []
 
     def test_vocabulary_value_missing_english_label_fails(
@@ -301,15 +347,28 @@ class TestMultilingualCompleteness:
         data = make_vocabulary()
         del data["values"][0]["label"]["en"]
         write_vocabulary("bad.yaml", data)
-        errors = validate_schema_dir(tmp_schema)
-        assert any("en" in str(e) for e in errors)
+        issues = validate_schema_dir(tmp_schema)
+        assert any("en" in str(e) and e.severity == "error" for e in issues)
 
-    def test_vocabulary_definition_still_requires_all_languages(
+    def test_draft_vocabulary_definition_missing_french_is_warning(
         self, tmp_schema, write_vocabulary
     ):
-        """Vocabulary-level definitions still require all configured languages."""
-        data = make_vocabulary()
+        """Draft vocabulary definitions produce warnings for missing non-English translations."""
+        data = make_vocabulary(maturity="draft")
+        del data["definition"]["fr"]
+        write_vocabulary("warn.yaml", data)
+        issues = validate_schema_dir(tmp_schema)
+        fr_issues = [e for e in issues if "fr" in str(e)]
+        assert len(fr_issues) == 1
+        assert fr_issues[0].severity == "warning"
+
+    def test_trial_use_vocabulary_definition_missing_french_is_error(
+        self, tmp_schema, write_vocabulary
+    ):
+        """Trial-use vocabulary definitions require all configured languages."""
+        data = make_vocabulary(maturity="trial-use")
         del data["definition"]["fr"]
         write_vocabulary("bad.yaml", data)
-        errors = validate_schema_dir(tmp_schema)
-        assert any("fr" in str(e) for e in errors)
+        issues = validate_schema_dir(tmp_schema)
+        fr_errors = [e for e in issues if "fr" in str(e) and e.severity == "error"]
+        assert len(fr_errors) == 1

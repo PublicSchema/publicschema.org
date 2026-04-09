@@ -19,17 +19,18 @@ SCHEMAS_DIR = Path(__file__).parent / "schemas"
 
 
 class ValidationError:
-    """A single validation error with context."""
+    """A single validation issue with context."""
 
-    def __init__(self, file: str, message: str):
+    def __init__(self, file: str, message: str, severity: str = "error"):
         self.file = file
         self.message = message
+        self.severity = severity
 
     def __str__(self):
         return f"{self.file}: {self.message}"
 
     def __repr__(self):
-        return f"ValidationError({self.file!r}, {self.message!r})"
+        return f"ValidationError({self.file!r}, {self.message!r}, severity={self.severity!r})"
 
 
 def _load_json_schema(name: str) -> dict:
@@ -69,18 +70,31 @@ def _check_multilingual(
     languages: list[str],
     filename: str,
     field_path: str,
+    maturity: str = "normative",
 ) -> list[ValidationError]:
-    """Check that a multilingual dict has all required languages."""
-    errors = []
+    """Check that a multilingual dict has all required languages.
+
+    At draft maturity, only English is required; missing translations for
+    other languages produce warnings. At trial-use or normative maturity,
+    all configured languages are required (errors).
+    """
+    issues = []
     if not isinstance(data, dict):
-        return errors
+        return issues
     for lang in languages:
         if lang not in data:
-            errors.append(ValidationError(
-                filename,
-                f"Missing '{lang}' translation in {field_path}",
-            ))
-    return errors
+            if maturity == "draft" and lang != "en":
+                issues.append(ValidationError(
+                    filename,
+                    f"Missing '{lang}' translation in {field_path}",
+                    severity="warning",
+                ))
+            else:
+                issues.append(ValidationError(
+                    filename,
+                    f"Missing '{lang}' translation in {field_path}",
+                ))
+    return issues
 
 
 def validate_schema_dir(schema_dir: Path) -> list[ValidationError]:
@@ -126,6 +140,7 @@ def validate_schema_dir(schema_dir: Path) -> list[ValidationError]:
         if "definition" in data:
             errors.extend(_check_multilingual(
                 data["definition"], languages, filename, "definition",
+                maturity=data.get("maturity", "draft"),
             ))
 
     # Validate properties
@@ -134,6 +149,7 @@ def validate_schema_dir(schema_dir: Path) -> list[ValidationError]:
         if "definition" in data:
             errors.extend(_check_multilingual(
                 data["definition"], languages, filename, "definition",
+                maturity=data.get("maturity", "draft"),
             ))
 
     # Validate vocabularies
@@ -142,6 +158,7 @@ def validate_schema_dir(schema_dir: Path) -> list[ValidationError]:
         if "definition" in data:
             errors.extend(_check_multilingual(
                 data["definition"], languages, filename, "definition",
+                maturity=data.get("maturity", "draft"),
             ))
         # Check each value's multilingual fields (only require English;
         # synced vocabularies from external sources lack translations)
@@ -257,7 +274,15 @@ def main():
     if len(sys.argv) > 1:
         schema_dir = Path(sys.argv[1])
 
-    errors = validate_schema_dir(schema_dir)
+    issues = validate_schema_dir(schema_dir)
+    warnings = [i for i in issues if i.severity == "warning"]
+    errors = [i for i in issues if i.severity == "error"]
+
+    if warnings:
+        print(f"{len(warnings)} warning(s):", file=sys.stderr)
+        for w in warnings:
+            print(f"  - {w}", file=sys.stderr)
+
     if errors:
         print(f"Validation failed with {len(errors)} error(s):")
         for e in errors:

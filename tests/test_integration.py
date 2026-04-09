@@ -111,7 +111,8 @@ def _example_params(paths: list[Path] | None = None):
 class TestRealSchema:
     def test_real_schema_validates(self):
         """The real schema directory passes validation with zero errors."""
-        errors = validate_schema_dir(SCHEMA_DIR)
+        issues = validate_schema_dir(SCHEMA_DIR)
+        errors = [e for e in issues if e.severity == "error"]
         assert errors == [], (
             f"Validation failed with {len(errors)} error(s):\n"
             + "\n".join(f"  - {e}" for e in errors)
