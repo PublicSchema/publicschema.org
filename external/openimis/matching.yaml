@@ -97,7 +97,7 @@ matches:
       "7": other
       "8": spouse
     gaps:
-      v2_only: [grandchild, guardian, caregiver, dependent, head_of_household, payment_proxy, survivor]
+      v2_only: [grandchild, guardian, caregiver, dependent, in_law, extended_family, payment_proxy, survivor]
       external_only: []
 
   - v2_vocabulary: education-level
@@ -121,12 +121,12 @@ matches:
     external_vocabulary: BenefitConsumptionStatus
     external_source: "openimis-be-payroll_py/payroll/models.py:20"
     confidence: medium
-    notes: "BenefitConsumptionStatus tracks individual benefit disbursement records within a payroll run in the social protection module. CREATED and ACCEPTED both represent early-stage records that have not been transmitted, mapping to pending. DUPLICATE and PENDING_DELETION represent records that will be cancelled before payment, mapping to cancelled. RECONCILED maps directly."
+    notes: "BenefitConsumptionStatus tracks individual benefit disbursement records within a payroll run in the social protection module. CREATED represents an early-stage record mapping to pending. ACCEPTED and APPROVE_FOR_PAYMENT represent records accepted for payment execution, mapping to processing. REJECTED maps to rejected (a business decision denial). DUPLICATE and PENDING_DELETION represent records that will be cancelled before payment, mapping to cancelled. RECONCILED maps directly."
     value_mapping:
       "CREATED": pending
-      "ACCEPTED": pending
-      "APPROVE_FOR_PAYMENT": pending
-      "REJECTED": cancelled
+      "ACCEPTED": processing
+      "APPROVE_FOR_PAYMENT": processing
+      "REJECTED": rejected
       "DUPLICATE": cancelled
       "PENDING_DELETION": cancelled
       "RECONCILED": reconciled
@@ -141,11 +141,11 @@ matches:
     notes: "PayTypeChoices records how a contribution (insurance premium) was collected, not how a benefit was disbursed. Despite the semantic difference, the payment methods (bank transfer, cash, mobile phone) map directly to v2 delivery channels. FUNDING (code F) represents donor or institutional transfers with no clear delivery channel equivalent, so it maps to other."
     value_mapping:
       "B": bank_transfer
-      "C": cash_in_hand
+      "C": cash
       "M": mobile_money
       "F": other
     gaps:
-      v2_only: [agent_network, prepaid_card, e_voucher, paper_voucher, direct_distribution, service_point]
+      v2_only: [agent_network, prepaid_card, e_voucher, paper_voucher, service_point]
       external_only: []
 
   - v2_vocabulary: grievance-status

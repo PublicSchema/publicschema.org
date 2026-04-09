@@ -102,6 +102,7 @@ system_mappings:
       maps_to: closed
     unmapped_canonical:
     - rejected
+    - withdrawn
   openimis:
     values:
     - code: Waiting
@@ -123,3 +124,4 @@ system_mappings:
     - resolved
     - escalated
     - rejected
+    - withdrawn

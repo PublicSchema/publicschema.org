@@ -145,15 +145,15 @@ matches:
     external_vocabulary: "Relationship Type"
     external_source: "spp_vocabulary/data/vocabulary_relationship.xml"
     confidence: medium
-    notes: "OpenSPP covers individual-to-individual kinship and group-to-group organizational relationships. V2 covers individual kinship only. OpenSPP organizational codes (parent_organization, subsidiary, partner_organization, affiliated_with) have no v2 equivalent. OpenSPP 'child_in_law' and 'parent_in_law' have no exact v2 codes; 'other' is the closest match. V2 adds guardian, caregiver, dependent, head_of_household, payment_proxy, survivor which OpenSPP does not define in this vocabulary."
+    notes: "OpenSPP covers individual-to-individual kinship and group-to-group organizational relationships. V2 covers individual kinship only. OpenSPP organizational codes (parent_organization, subsidiary, partner_organization, affiliated_with) have no v2 equivalent. OpenSPP 'child_in_law' and 'parent_in_law' map to v2 'in_law'. V2 adds guardian, caregiver, dependent, in_law, extended_family, payment_proxy, survivor which OpenSPP does not define in this vocabulary. OpenSPP 'head' is a group role, not a person-to-person relationship; it belongs in group-role, not relationship-type."
     value_mapping:
-      "head": head_of_household
+      "head": ~               # group role, not person-to-person relationship; see group-role vocabulary
       "spouse": spouse
       "child": child
-      "child_in_law": other
+      "child_in_law": in_law
       "grandchild": grandchild
       "parent": parent
-      "parent_in_law": other
+      "parent_in_law": in_law
       "grandparent": grandparent
       "sibling": sibling
       "other_relative": other
@@ -174,8 +174,6 @@ matches:
         - subsidiary            # group-to-group hierarchical relationship
         - partner_organization  # group-to-group peer relationship
         - affiliated_with       # group-to-group loose affiliation
-        - child_in_law          # no dedicated v2 code; maps to 'other'
-        - parent_in_law         # no dedicated v2 code; maps to 'other'
 
   - v2_vocabulary: identifier-type
     external_vocabulary: "ID Type"
@@ -341,9 +339,8 @@ matches:
       v2_only:
         - eligible          # no standalone OpenSPP eligibility status; implied by enrolled state
         - pending           # no OpenSPP eligibility pending status; implied by draft membership
+        - under_review      # no OpenSPP eligibility review status
         - conditional       # no OpenSPP eligibility conditional status
-        - appealing         # grievance module handles appeals separately, not an eligibility status
-        - expired           # no OpenSPP eligibility expiry status
       external_only: []
 
   - v2_vocabulary: benefit-modality
