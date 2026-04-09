@@ -10,6 +10,7 @@ type: string
 cardinality: single
 vocabulary: eligibility-status
 references: null
+sensitivity: sensitive
 domain_override: null
 
 convergence:

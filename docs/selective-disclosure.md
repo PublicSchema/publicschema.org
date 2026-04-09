@@ -32,14 +32,15 @@ Selectively disclosable:
 Always disclosed:
 - `type` (Person + Enrollment)
 - `enrollment_status`
-- `program_ref`
+- `is_enrolled`
 - `enrollment_date`, `start_date`
 
 Selectively disclosable:
+- `program_ref`
 - Person identity claims (given_name, family_name, date_of_birth)
 - `beneficiary` reference
 
-**Use case**: Proof of active enrollment for service access. A health clinic verifier needs to confirm the holder is enrolled in a nutrition program. The holder discloses enrollment_status (active) and program_ref, but not their name or date of birth.
+**Use case**: Proof of active enrollment for service access. A health clinic verifier needs to confirm the holder is enrolled in a program. The holder discloses enrollment_status (active) and is_enrolled (true), keeping program identity and personal details hidden.
 
 ### PaymentCredential
 
@@ -84,10 +85,11 @@ An SD-JWT VC separates always-disclosed claims from selectively disclosable ones
     "enrollment": {
       "type": "Enrollment",
       "enrollment_status": "active",
-      "program_ref": "https://example.gov.sn/programs/pnbsf",
+      "is_enrolled": true,
       "enrollment_date": "2025-01-15",
       "start_date": "2025-02-01",
       "_sd": [
+        "...hash(program_ref)...",
         "...hash(beneficiary)..."
       ]
     }

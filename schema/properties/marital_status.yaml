@@ -10,6 +10,7 @@ type: string
 cardinality: single
 vocabulary: marital-status
 references: null
+sensitivity: sensitive
 
 convergence:
   system_count: 3

@@ -26,6 +26,7 @@ properties:
   - start_date
   - end_date
   - is_active
+  - is_enrolled
   - governing_jurisdiction
 
 subtypes: []

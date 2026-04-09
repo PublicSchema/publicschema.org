@@ -202,45 +202,59 @@ system_mappings:
     - code: BRN
       label: Breed Registry Number
       maps_to: null
+      unmapped_reason: out_of_scope
     - code: MR
       label: Medical Record Number
       maps_to: null
+      unmapped_reason: out_of_scope
     - code: MCN
       label: Microchip Number
       maps_to: null
+      unmapped_reason: out_of_scope
     - code: EN
       label: Employer Number
       maps_to: null
+      unmapped_reason: out_of_scope
     - code: NIIP
       label: National Insurance Payor Identifier
       maps_to: null
+      unmapped_reason: out_of_scope
     - code: PRN
       label: Provider Number
       maps_to: null
+      unmapped_reason: out_of_scope
     - code: MD
       label: Medical License Number
       maps_to: null
+      unmapped_reason: out_of_scope
     - code: DR
       label: Donor Registration Number
       maps_to: null
+      unmapped_reason: out_of_scope
     - code: ACSN
       label: Accession ID
       maps_to: null
+      unmapped_reason: out_of_scope
     - code: UDI
       label: Universal Device Identifier
       maps_to: null
+      unmapped_reason: out_of_scope
     - code: SNO
       label: Serial Number
       maps_to: null
+      unmapped_reason: out_of_scope
     - code: PLAC
       label: Placer Identifier
       maps_to: null
+      unmapped_reason: out_of_scope
     - code: FILL
       label: Filler Identifier
       maps_to: null
+      unmapped_reason: out_of_scope
     - code: JHN
       label: Jurisdictional Health Number
       maps_to: null
+      unmapped_reason: not_yet_mapped
     unmapped_canonical:
     - voter_id
     - household_id

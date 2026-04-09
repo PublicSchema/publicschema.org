@@ -89,6 +89,7 @@ system_mappings:
     - code: '1'
       label: Member (Person/Individual)
       maps_to: null
+      unmapped_reason: out_of_scope
     unmapped_canonical:
     - farm
     - other

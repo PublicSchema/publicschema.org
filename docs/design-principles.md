@@ -177,3 +177,17 @@ Use an inline primitive when the value is a simple scalar with no independent id
 | Property value is one of a closed set of options | Vocabulary |
 | Property value has its own identity and sub-properties | Property referencing a concept (`concept: X`) |
 | Property value is a simple scalar (number, date, string) | Inline primitive type |
+
+## 12. Sensitivity annotations
+
+Some properties reveal sensitive circumstances in almost every deployment context, regardless of whether they identify a specific person. `program_ref` reveals enrollment in a specific program (which may be an HIV, disability, or poverty-targeted program). `grievance_type` reveals that someone filed a complaint and what kind. These warrant a flag even when they appear in aggregate data.
+
+Properties carry an optional `sensitivity` annotation:
+
+| Level | When to use | What it signals |
+|---|---|---|
+| `standard` | Default. No special handling beyond normal data protection. | Can be omitted from YAML (assumed if absent). |
+| `sensitive` | Reveals circumstances (health, poverty, victimhood) in most contexts. | Requires justification to collect or disclose. Implementers should assess whether this property needs enhanced protections in their deployment. |
+| `restricted` | Should not appear in credentials presented at routine service points. | Requires a Data Protection Impact Assessment. Typically limited to assessment scores, vulnerability indices, and similar derived measures. |
+
+This annotation is a practitioner warning about the nature of the information. It is not a compliance label or PII classification. The principle that "privacy is context-dependent" still holds: whether a property constitutes personal data depends on the record it appears in, not the property itself. Sensitivity says "even when this is not personal data, handle it with care."

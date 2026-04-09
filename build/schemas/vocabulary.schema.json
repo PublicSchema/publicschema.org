@@ -155,6 +155,11 @@
         "maps_to": {
           "type": ["string", "null"],
           "description": "Canonical value code, or null if no equivalent"
+        },
+        "unmapped_reason": {
+          "type": "string",
+          "enum": ["no_equivalent", "not_yet_mapped", "out_of_scope", "context_dependent"],
+          "description": "Why this system value has no canonical equivalent. Required when maps_to is null."
         }
       }
     },

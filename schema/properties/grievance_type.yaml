@@ -10,6 +10,7 @@ type: string
 cardinality: single
 vocabulary: grievance-type
 references: null
+sensitivity: sensitive
 
 convergence:
   system_count: 3

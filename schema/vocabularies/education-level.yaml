@@ -140,6 +140,7 @@ system_mappings:
     - code: '9'
       label: Not elsewhere classified
       maps_to: null
+      unmapped_reason: no_equivalent
   openimis:
     vocabulary_name: Education
     values:
@@ -164,6 +165,7 @@ system_mappings:
     - code: '7'
       label: Other
       maps_to: null
+      unmapped_reason: no_equivalent
     unmapped_canonical:
     - lower_secondary
     - post_secondary_non_tertiary

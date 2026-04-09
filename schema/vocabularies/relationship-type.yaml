@@ -211,138 +211,183 @@ system_mappings:
     - code: BP
       label: Billing contact person
       maps_to: null
+      unmapped_reason: out_of_scope
     - code: C
       label: Emergency Contact
       maps_to: null
+      unmapped_reason: not_yet_mapped
     - code: CP
       label: Contact person
       maps_to: null
+      unmapped_reason: no_equivalent
     - code: E
       label: Employer
       maps_to: null
+      unmapped_reason: out_of_scope
     - code: EP
       label: Emergency contact person
       maps_to: null
+      unmapped_reason: not_yet_mapped
     - code: F
       label: Federal Agency
       maps_to: null
+      unmapped_reason: out_of_scope
     - code: I
       label: Insurance Company
       maps_to: null
+      unmapped_reason: out_of_scope
     - code: N
       label: Next-of-Kin
       maps_to: null
+      unmapped_reason: not_yet_mapped
     - code: O
       label: Other
       maps_to: null
+      unmapped_reason: no_equivalent
     - code: PR
       label: Person preparing referral
       maps_to: null
+      unmapped_reason: out_of_scope
     - code: S
       label: State Agency
       maps_to: null
+      unmapped_reason: out_of_scope
     - code: U
       label: Unknown
       maps_to: null
+      unmapped_reason: no_equivalent
     - code: _AffiliationRoleType
       label: AffiliationRoleType
       maps_to: null
+      unmapped_reason: out_of_scope
     - code: _AssignedRoleType
       label: AssignedRoleType
       maps_to: null
+      unmapped_reason: out_of_scope
     - code: _CertifiedEntityType
       label: CertifiedEntityType
       maps_to: null
+      unmapped_reason: out_of_scope
     - code: _CitizenRoleType
       label: CitizenRoleType
       maps_to: null
+      unmapped_reason: out_of_scope
     - code: _ContactRoleType
       label: ContactRoleType
       maps_to: null
+      unmapped_reason: out_of_scope
     - code: _IdentifiedEntityType
       label: IdentifiedEntityType
       maps_to: null
+      unmapped_reason: out_of_scope
     - code: _LivingSubjectProductionClass
       label: LivingSubjectProductionClass
       maps_to: null
+      unmapped_reason: out_of_scope
     - code: _MedicationGeneralizationRoleType
       label: MedicationGeneralizationRoleType
       maps_to: null
+      unmapped_reason: out_of_scope
     - code: _MemberRoleType
       label: MemberRoleType
       maps_to: null
+      unmapped_reason: out_of_scope
     - code: _PersonalRelationshipRoleType
       label: PersonalRelationshipRoleType
       maps_to: null
+      unmapped_reason: out_of_scope
     - code: _PolicyOrProgramCoverageRoleType
       label: PolicyOrProgramCoverageRoleType
       maps_to: null
+      unmapped_reason: out_of_scope
     - code: _ResearchSubjectRoleBasis
       label: ResearchSubjectRoleBasis
       maps_to: null
+      unmapped_reason: out_of_scope
     - code: _ServiceDeliveryLocationRoleType
       label: ServiceDeliveryLocationRoleType
       maps_to: null
+      unmapped_reason: out_of_scope
     - code: _SpecimenRoleType
       label: SpecimenRoleType
       maps_to: null
+      unmapped_reason: out_of_scope
     - code: CLAIM
       label: claimant
       maps_to: null
+      unmapped_reason: out_of_scope
     - code: communityLaboratory
       label: Community Laboratory
       maps_to: null
+      unmapped_reason: out_of_scope
     - code: GT
       label: Guarantor
       maps_to: null
+      unmapped_reason: out_of_scope
     - code: homeHealth
       label: Home Health
       maps_to: null
+      unmapped_reason: out_of_scope
     - code: laboratory
       label: Laboratory
       maps_to: null
+      unmapped_reason: out_of_scope
     - code: pathologist
       label: Pathologist
       maps_to: null
+      unmapped_reason: out_of_scope
     - code: PH
       label: Policy Holder
       maps_to: null
+      unmapped_reason: out_of_scope
     - code: phlebotomist
       label: Phlebotomist
       maps_to: null
+      unmapped_reason: out_of_scope
     - code: PROG
       label: program eligible
       maps_to: null
+      unmapped_reason: out_of_scope
     - code: PT
       label: Patient
       maps_to: null
+      unmapped_reason: out_of_scope
     - code: subject
       label: Self
       maps_to: null
+      unmapped_reason: no_equivalent
     - code: thirdParty
       label: Third Party
       maps_to: null
+      unmapped_reason: no_equivalent
     - code: DEP
       label: Dependent
       maps_to: null
+      unmapped_reason: not_yet_mapped
     - code: DEPEN
       label: Dependent
       maps_to: null
+      unmapped_reason: not_yet_mapped
     - code: FM
       label: Family Member
       maps_to: null
+      unmapped_reason: not_yet_mapped
     - code: INDIV
       label: individual
       maps_to: null
+      unmapped_reason: no_equivalent
     - code: NAMED
       label: named insured
       maps_to: null
+      unmapped_reason: out_of_scope
     - code: PSYCHCF
       label: Psychiatric Care Facility
       maps_to: null
+      unmapped_reason: out_of_scope
     - code: SUBSCR
       label: subscriber
       maps_to: null
+      unmapped_reason: out_of_scope
     unmapped_canonical:
     - sibling
     - grandparent
@@ -423,9 +468,11 @@ system_mappings:
     - code: SELF
       label: Self
       maps_to: null
+      unmapped_reason: no_equivalent
     - code: PRIMSPOUS
       label: Primary Spouse
       maps_to: null
+      unmapped_reason: not_yet_mapped
     - code: FAMMEMB
       label: family member
       maps_to: other

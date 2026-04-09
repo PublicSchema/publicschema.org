@@ -10,6 +10,7 @@ type: uri
 cardinality: single
 vocabulary: null
 references: null
+sensitivity: sensitive
 
 convergence:
   system_count: 5

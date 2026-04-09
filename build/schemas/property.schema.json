@@ -44,6 +44,11 @@
       "pattern": "^schema:[a-zA-Z]+$",
       "description": "schema.org equivalent property as a CURIE (e.g. 'schema:givenName'). Used to generate camelCase aliases in the JSON-LD context."
     },
+    "sensitivity": {
+      "type": "string",
+      "enum": ["standard", "sensitive", "restricted"],
+      "description": "How sensitive this property is in most deployment contexts. standard (default, can be omitted): no special handling. sensitive: reveals circumstances (health, poverty, victimhood) in most contexts. restricted: should not appear in credentials at routine service points."
+    },
     "convergence": {
       "$ref": "#/$defs/convergence"
     }

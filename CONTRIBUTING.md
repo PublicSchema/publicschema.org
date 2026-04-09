@@ -112,6 +112,11 @@ When adding or updating system mappings:
 3. The `code` must be what the system stores in its database, not a human label
 4. Show the full picture: include all system values, even those with no canonical equivalent
 5. List all canonical values not covered by the system in `unmapped_canonical`
+6. When `maps_to` is null, include `unmapped_reason` to explain why:
+   - `no_equivalent`: the system code has no semantic match in our vocabulary
+   - `not_yet_mapped`: a canonical value could exist but hasn't been added yet
+   - `out_of_scope`: the code is from a domain we don't cover
+   - `context_dependent`: the mapping varies by deployment
 
 See `docs/vocabulary-extraction-process.md` Phase 4 for the complete format specification.
 

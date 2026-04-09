@@ -102,9 +102,11 @@ system_mappings:
       - code: "A"
         label: "Annulled"
         maps_to: null
+        unmapped_reason: no_equivalent
       - code: "U"
         label: "Unmarried"
         maps_to: null
+        unmapped_reason: no_equivalent
     unmapped_canonical: [consensual_union]
   dhis2:
     vocabulary_name: "Civil status"
@@ -112,6 +114,7 @@ system_mappings:
       - code: "Single or widow"
         label: "Single or widow"
         maps_to: null
+        unmapped_reason: no_equivalent
       - code: "Married (conjugal cohabitation)"
         label: "Married (conjugal cohabitation)"
         maps_to: married
@@ -137,16 +140,21 @@ system_mappings:
       - code: "A"
         label: "Annulled"
         maps_to: null
+        unmapped_reason: no_equivalent
       - code: "I"
         label: "Interlocutory"
         maps_to: null
+        unmapped_reason: no_equivalent
       - code: "P"
         label: "Polygamous"
         maps_to: null
+        unmapped_reason: not_yet_mapped
       - code: "T"
         label: "Domestic partner"
         maps_to: null
+        unmapped_reason: not_yet_mapped
       - code: "U"
         label: "unmarried"
         maps_to: null
+        unmapped_reason: no_equivalent
     unmapped_canonical: [consensual_union]
