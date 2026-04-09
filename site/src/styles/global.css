@@ -310,6 +310,10 @@ code {
 .badge-trial-use { background: var(--color-trial-use-bg); color: var(--color-trial-use); }
 .badge-normative { background: var(--color-normative-bg); color: var(--color-normative); }
 
+/* Review status */
+.badge-unreviewed { background: var(--color-draft-bg); color: var(--color-draft); }
+.badge-reviewed { background: var(--color-normative-bg); color: var(--color-normative); }
+
 /* Data classification levels */
 .badge-non_personal { background: var(--color-non-personal-bg); color: var(--color-non-personal); }
 .badge-personal { background: var(--color-personal-bg); color: var(--color-personal); }

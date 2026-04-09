@@ -1,0 +1,98 @@
+---
+import Base from "../../layouts/Base.astro";
+import { buildSystemIndex, getSystemMeta, getIssueUrl } from "../../data/systems";
+
+export function getStaticPaths() {
+  const index = buildSystemIndex();
+  return Object.keys(index).map((id) => ({
+    params: { system: id },
+  }));
+}
+
+const systemId = Astro.params.system!;
+const index = buildSystemIndex();
+const entries = index[systemId] ?? [];
+const meta = getSystemMeta(systemId);
+const issueUrl = getIssueUrl(meta.name);
+
+const valueMapped = entries.filter((e) => e.relationship === "value_mapping").length;
+const sameStandard = entries.filter((e) => e.relationship === "same_standard").length;
+---
+<Base title={meta.name} description={`Vocabulary mappings between ${meta.name} and PublicSchema.`}>
+  <article>
+  <div class="page-header">
+    <nav class="breadcrumb">
+      <a href="/">Home</a>
+      <span class="separator">/</span>
+      <a href="/systems/">Systems</a>
+      <span class="separator">/</span>
+      {meta.name}
+    </nav>
+    <h1>
+      {meta.name}
+      <span class={`badge badge-${meta.reviewStatus}`}>{meta.reviewStatus}</span>
+    </h1>
+    {meta.url && (
+      <p><a href={meta.url} target="_blank" rel="noopener">{meta.url}</a></p>
+    )}
+    <p class="definition-text">{meta.description}</p>
+    {meta.reviewStatus === "reviewed" && meta.lastReviewed && (
+      <p style="color: var(--color-text-muted); font-size: 0.85rem;">
+        Last reviewed: {meta.lastReviewed}{meta.reviewedBy ? ` by ${meta.reviewedBy}` : ""}
+      </p>
+    )}
+  </div>
+
+  <div class="concept-section">
+    <p>
+      This page shows how {meta.name} vocabulary codes map to PublicSchema canonical values.
+      If you work with {meta.name} and spot an error, please <a href={issueUrl} target="_blank" rel="noopener">report it</a>.
+    </p>
+    <p style="color: var(--color-text-muted); font-size: 0.85rem;">
+      {entries.length} vocabularies covered: {valueMapped} via value mapping{sameStandard > 0 ? `, ${sameStandard} via same standard` : ""}.
+    </p>
+  </div>
+
+  <div class="concept-section">
+    <h2>Vocabularies</h2>
+    <table class="data-table mobile-card-table">
+      <thead>
+        <tr>
+          <th>Vocabulary</th>
+          <th>System name</th>
+          <th>Relationship</th>
+          <th>Coverage</th>
+          <th>Gaps</th>
+        </tr>
+      </thead>
+      <tbody>
+        {entries.map((entry) => (
+          <tr>
+            <td><a href={`/vocab/${entry.vocabId}`}>{entry.vocabId}</a></td>
+            <td data-label="System name">{entry.vocabularyName ?? ""}</td>
+            <td data-label="Relationship">
+              {entry.relationship === "same_standard" ? "Same standard" : "Value mapping"}
+            </td>
+            <td data-label="Coverage">
+              {entry.relationship === "same_standard"
+                ? "All values"
+                : `${entry.mappedCount}/${entry.totalSystemValues} mapped`}
+            </td>
+            <td data-label="Gaps">
+              {entry.unmappedCanonicalCount > 0
+                ? `${entry.unmappedCanonicalCount} not covered`
+                : ""}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="concept-section" style="text-align: center;">
+    <a href={issueUrl} target="_blank" rel="noopener" class="btn btn-secondary">
+      Report an issue with these mappings
+    </a>
+  </div>
+  </article>
+</Base>

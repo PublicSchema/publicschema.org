@@ -2,6 +2,7 @@
 import Base from "../../layouts/Base.astro";
 import { loadVocabulary } from "../../data/vocabulary";
 import type { Vocabulary } from "../../data/vocabulary";
+import { getSystemName } from "../../data/systems";
 
 export function getStaticPaths() {
   const vocab = loadVocabulary();
@@ -78,7 +79,7 @@ const vocabulary = allVocab.vocabularies[Astro.params.vocab] as Vocabulary;
       <p>The following systems use the same underlying standard{vocabulary.standard ? ` (${vocabulary.standard.name})` : ''} for this vocabulary, so values are directly compatible without mapping:</p>
       <ul>
         {vocabulary.same_standard_systems.map((system) => (
-          <li><strong>{system}</strong></li>
+          <li><a href={`/systems/${system}`}><strong>{getSystemName(system)}</strong></a></li>
         ))}
       </ul>
     </div>
@@ -89,7 +90,7 @@ const vocabulary = allVocab.vocabularies[Astro.params.vocab] as Vocabulary;
       <h2>System mappings</h2>
       {Object.entries(vocabulary.system_mappings).map(([system, mapping]) => (
         <div style="margin-bottom: var(--space-lg);">
-          <h3>{system}</h3>
+          <h3><a href={`/systems/${system}`}>{getSystemName(system)}</a></h3>
           {mapping.vocabulary_name && (
             <p class="mapping-vocab-name">System vocabulary: <strong>{mapping.vocabulary_name}</strong></p>
           )}
@@ -115,7 +116,7 @@ const vocabulary = allVocab.vocabularies[Astro.params.vocab] as Vocabulary;
           </div>
           {mapping.unmapped_canonical && mapping.unmapped_canonical.length > 0 && (
             <p class="unmapped-note">
-              Not covered by {system}: {mapping.unmapped_canonical.map((code) => (<code>{code}</code>)).reduce((prev, curr) => <>{prev}, {curr}</>)}
+              Not covered by {getSystemName(system)}: {mapping.unmapped_canonical.map((code) => (<code>{code}</code>)).reduce((prev, curr) => <>{prev}, {curr}</>)}
             </p>
           )}
         </div>
