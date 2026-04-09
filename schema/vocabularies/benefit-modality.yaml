@@ -4,6 +4,15 @@ definition:
   en: The form in which a benefit or entitlement is delivered to a beneficiary.
   fr: La forme sous laquelle une prestation ou un droit est versé à un bénéficiaire.
   es: La forma en que se entrega un beneficio o derecho a un beneficiario.
+references:
+  - name: "CaLP Network Glossary"
+    uri: "https://www.calpnetwork.org/resources/glossary-of-terms/"
+    relationship: partial_overlap
+    machine_readable: false
+  - name: "WFP Transfer Modality Framework"
+    uri: "https://executiveboard.wfp.org/document_download/WFP-0000148946"
+    relationship: partial_overlap
+    machine_readable: false
 values:
 - code: cash
   label:

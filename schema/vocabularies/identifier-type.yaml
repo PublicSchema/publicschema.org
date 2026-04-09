@@ -6,6 +6,21 @@ definition:
     et de prestation de services.
   es: Categorias de documentos o numeros de identificacion utilizados para identificar personas en sistemas administrativos
     y de prestacion de servicios.
+references:
+  - name: "HL7 FHIR Identifier Type Codes (v2-0203)"
+    uri: "https://build.fhir.org/valueset-identifier-type.html"
+    relationship: partial_overlap
+    machine_readable: true
+  - name: "ICAO Doc 9303 - Machine Readable Travel Documents"
+    uri: "https://www.icao.int/publications/pages/publication.aspx?docnum=9303"
+    relationship: partial_overlap
+    machine_readable: false
+    notes: "Covers passport, visa, and card document classes."
+  - name: "MOSIP Identity Schema"
+    uri: "https://docs.mosip.io/1.2.0/id-lifecycle-management/identity-management/id-schema"
+    relationship: structural_pattern
+    machine_readable: true
+    notes: "Country-configurable document categories. This vocabulary provides a base set; implementations extend per country."
 values:
 - code: national_id
   label:

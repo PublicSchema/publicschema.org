@@ -24,6 +24,7 @@ properties:
   - amount
   - currency
   - frequency
+  - frequency_rule
   - start_date
   - end_date
   - document_expiry_date

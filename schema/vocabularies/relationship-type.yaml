@@ -6,6 +6,12 @@ definition:
   fr: Catégories décrivant la nature du lien entre deux personnes, couvrant les relations de parenté, administratives et économiques.
   es: Categorías que describen la naturaleza de la conexión entre dos personas, abarcando relaciones de parentesco, administrativas
     y económicas.
+references:
+  - name: "HL7 v3 RoleCode (PersonalRelationshipRoleType)"
+    uri: "https://terminology.hl7.org/3.0.0/ValueSet-v3-PersonalRelationshipRoleType.html"
+    relationship: superset
+    machine_readable: true
+    notes: "HL7 defines granular kinship codes (70+). This vocabulary uses broader categories."
 values:
 - code: spouse
   label:

@@ -498,20 +498,20 @@ Note that this is an operational state that typically follows `paid`, and system
 - [x] grievance-status: add `withdrawn`
 
 ### Phase 3: New property
-- [ ] Create `frequency_rule` property (`schema/properties/frequency_rule.yaml`)
-- [ ] Add `frequency_rule` to Entitlement concept
+- [x] Create `frequency_rule` property (`schema/properties/frequency_rule.yaml`)
+- [x] Add `frequency_rule` to Entitlement concept
 
 ### Phase 4: References metadata
-- [ ] Add `references` to payment-status
-- [ ] Add `references` to enrollment-status
-- [ ] Add `references` to eligibility-status
-- [ ] Add `references` to delivery-channel
-- [ ] Add `references` to benefit-modality
-- [ ] Add `references` to benefit-frequency
-- [ ] Add `references` to group-role
-- [ ] Add `references` to identifier-type
-- [ ] Add `references` to grievance-status
-- [ ] Add `references` to relationship-type
+- [x] Add `references` to payment-status
+- [x] Add `references` to enrollment-status
+- [x] Add `references` to eligibility-status
+- [x] Add `references` to delivery-channel
+- [x] Add `references` to benefit-modality
+- [x] Add `references` to benefit-frequency
+- [x] Add `references` to group-role
+- [x] Add `references` to identifier-type
+- [x] Add `references` to grievance-status
+- [x] Add `references` to relationship-type
 
 ### Phase 5: Cross-references and documentation
 - [ ] Add `see_also` cross-references (group-role <-> relationship-type, delivery-channel <-> benefit-modality)

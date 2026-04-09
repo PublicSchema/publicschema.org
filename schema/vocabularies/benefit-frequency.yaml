@@ -6,6 +6,18 @@ definition:
   fr: "Le calendrier selon lequel une prestation ou un transfert est fourni à un bénéficiaire, allant des paiements uniques aux versements récurrents à intervalles fixes."
   es: "El calendario con el que se otorga una prestación o transferencia a un beneficiario, desde pagos únicos hasta desembolsos recurrentes a intervalos fijos."
 
+references:
+  - name: "ISO 20022 EventFrequency1Code"
+    uri: "https://www.iso20022.org/catalogue-messages/additional-content-messages/external-code-sets"
+    relationship: partial_overlap
+    machine_readable: true
+    notes: "ISO 20022 frequency codes map to monthly, quarterly, semi_annually, annually. This vocabulary includes additional values not in ISO 20022."
+  - name: "RFC 5545 - iCalendar RRULE"
+    uri: "https://datatracker.ietf.org/doc/html/rfc5545#section-3.3.10"
+    relationship: structural_pattern
+    machine_readable: true
+    notes: "The 'custom' code uses RRULE format."
+
 values:
   - code: one_time
     label:

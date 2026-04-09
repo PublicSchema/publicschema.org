@@ -4,6 +4,15 @@ definition:
   en: The lifecycle states of a grievance record in a program or service.
   fr: Les états du cycle de vie d'un dossier de grief dans un programme ou service.
   es: Los estados del ciclo de vida de un registro de agravio en un programa o servicio.
+references:
+  - name: "ISO 10002 - Quality management, Complaints handling"
+    uri: "https://www.iso.org/standard/71580.html"
+    relationship: prose_guidance
+    machine_readable: false
+  - name: "World Bank Grievance Redress Mechanism (GRM) Guidance"
+    uri: "https://openknowledge.worldbank.org/bitstreams/b4a57d20-24bf-518a-93b1-1a5db3bdbae1/download"
+    relationship: prose_guidance
+    machine_readable: false
 values:
 - code: submitted
   label:

@@ -4,6 +4,12 @@ definition:
   en: The possible outcomes of a formal eligibility determination for a program or service.
   fr: Les résultats possibles d'une détermination formelle d'éligibilité à un programme ou service.
   es: Los posibles resultados de una determinación formal de elegibilidad para un programa o servicio.
+references:
+  - name: "HL7 FHIR CoverageEligibilityResponse"
+    uri: "https://build.fhir.org/coverageeligibilityresponse-definitions.html"
+    relationship: structural_pattern
+    machine_readable: true
+    notes: "FHIR separates eligibility outcome from processing status. This vocabulary keeps both in a single lifecycle."
 values:
 - code: eligible
   label:

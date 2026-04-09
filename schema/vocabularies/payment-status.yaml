@@ -4,6 +4,16 @@ definition:
   en: The processing states of a payment event in the disbursement cycle.
   fr: Les états de traitement d'un événement de paiement dans le cycle de versement.
   es: Los estados de procesamiento de un evento de pago en el ciclo de desembolso.
+references:
+  - name: "ISO 20022 ExternalPaymentTransactionStatus1Code"
+    uri: "https://www.iso20022.org/catalogue-messages/additional-content-messages/external-code-sets"
+    relationship: superset
+    machine_readable: true
+    notes: "ISO 20022 defines granular interbank processing states. This vocabulary is a deliberate high-level simplification."
+  - name: "Mojaloop FSPIOP TransferState"
+    uri: "https://docs.mojaloop.io/technical/api/fspiop/logical-data-model.html"
+    relationship: partial_overlap
+    machine_readable: true
 values:
 - code: pending
   label:

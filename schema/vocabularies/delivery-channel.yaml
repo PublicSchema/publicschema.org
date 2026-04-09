@@ -4,6 +4,16 @@ definition:
   en: The mechanisms through which benefit transfers reach beneficiaries.
   fr: Les mécanismes par lesquels les transferts de prestations parviennent aux bénéficiaires.
   es: Los mecanismos a través de los cuales las transferencias de beneficios llegan a los beneficiarios.
+references:
+  - name: "GovStack Payments Building Block"
+    uri: "https://specs.govstack.global/payments/2-description"
+    relationship: structural_pattern
+    machine_readable: false
+    notes: "GovStack distinguishes origin channel from delivery instrument. This vocabulary focuses on delivery instrument only."
+  - name: "GSMA Mobile Money API"
+    uri: "https://developer.mobilemoneyapi.io/"
+    relationship: partial_overlap
+    machine_readable: true
 values:
 - code: bank_transfer
   label:

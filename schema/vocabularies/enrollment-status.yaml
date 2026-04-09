@@ -4,6 +4,16 @@ definition:
   en: The lifecycle states of an enrollment in a program.
   fr: Les états du cycle de vie d'une inscription dans un programme.
   es: Los estados del ciclo de vida de una inscripción en un programa.
+references:
+  - name: "HL7 FHIR EpisodeOfCare.status"
+    uri: "https://build.fhir.org/codesystem-episode-of-care-status.json.html"
+    relationship: structural_pattern
+    machine_readable: true
+    notes: "FHIR's episode lifecycle informed the structure."
+  - name: "World Bank Social Protection Delivery Systems Framework"
+    uri: "https://thedocs.worldbank.org/en/doc/147511529959939838-0160022017/original/11amMarch9DeliverySystemsFrameworkCORECOURSEWITHCLICKERSSENT8March2017.pdf"
+    relationship: prose_guidance
+    machine_readable: false
 values:
 - code: waitlisted
   label:
