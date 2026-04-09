@@ -7,29 +7,17 @@ definition:
   es: Categorías que describen el estado civil o matrimonial de una persona tal como se registra en un registro o sistema
     administrativo.
 standard:
-  name: FHIR v3-MaritalStatus
-  uri: http://terminology.hl7.org/CodeSystem/v3-MaritalStatus
-sync:
-  source_url: https://terminology.hl7.org/CodeSystem-v3-MaritalStatus.json
-  format: fhir-codesystem
-  last_synced: '2026-04-08'
+  name: UN UNSD Population Census Framework
+  uri: urn:un:unsd:pop-census:marital-status
 values:
-- code: annulled
+- code: never_married
   label:
-    en: Annulled
-  standard_code: A
-- code: divorced
-  label:
-    en: Divorced
-  standard_code: D
-- code: interlocutory
-  label:
-    en: Interlocutory
-  standard_code: I
-- code: legally_separated
-  label:
-    en: Legally Separated
-  standard_code: L
+    en: Never Married
+    fr: Jamais marié(e)
+    es: Nunca casado/a
+  definition:
+    en: Person who has never been married.
+  standard_code: S
 - code: married
   label:
     en: Married
@@ -38,46 +26,127 @@ values:
   definition:
     en: Currently married.
   standard_code: M
-- code: common_law
-  label:
-    en: Common Law
-  standard_code: C
-- code: polygamous
-  label:
-    en: Polygamous
-  standard_code: P
-- code: domestic_partner
-  label:
-    en: Domestic partner
-  standard_code: T
-- code: unmarried
-  label:
-    en: unmarried
-  standard_code: U
-- code: never_married
-  label:
-    en: Never Married
-  standard_code: S
 - code: widowed
   label:
     en: Widowed
+    fr: Veuf/Veuve
+    es: Viudo/a
+  definition:
+    en: Person whose spouse has died and who has not remarried.
   standard_code: W
+- code: divorced
+  label:
+    en: Divorced
+    fr: Divorcé(e)
+    es: Divorciado/a
+  definition:
+    en: Person whose marriage has been legally dissolved and who has not remarried.
+  standard_code: D
+- code: legally_separated
+  label:
+    en: Legally Separated
+    fr: Séparé(e) légalement
+    es: Separado/a legalmente
+  definition:
+    en: Person who is legally separated from their spouse.
+  standard_code: L
+- code: consensual_union
+  label:
+    en: Consensual Union
+    fr: Union consensuelle
+    es: Unión consensual
+  definition:
+    en: Person living in a consensual union (cohabitation without formal marriage).
+  standard_code: C
+
 system_mappings:
   openspp:
-    S: unmarried
-    M: married
-    W: widowed
-    D: divorced
-    L: legally_separated
-    C: domestic_partner
+    vocabulary_name: "MaritalStatus"
+    values:
+      - code: "S"
+        label: "Never Married"
+        maps_to: never_married
+      - code: "M"
+        label: "Married"
+        maps_to: married
+      - code: "W"
+        label: "Widowed"
+        maps_to: widowed
+      - code: "D"
+        label: "Divorced"
+        maps_to: divorced
+      - code: "L"
+        label: "Separated"
+        maps_to: legally_separated
+      - code: "C"
+        label: "Consensual Union"
+        maps_to: consensual_union
   spdci:
-    S: unmarried
-    M: married
-    W: widowed
-    A: annulled
-    D: divorced
-    L: legally_separated
-    U: unmarried
+    vocabulary_name: "MaritalStatusEnum"
+    values:
+      - code: "S"
+        label: "Never Married"
+        maps_to: never_married
+      - code: "M"
+        label: "Married"
+        maps_to: married
+      - code: "W"
+        label: "Widow"
+        maps_to: widowed
+      - code: "D"
+        label: "Divorced"
+        maps_to: divorced
+      - code: "L"
+        label: "Legally Separated"
+        maps_to: legally_separated
+      - code: "A"
+        label: "Annulled"
+        maps_to: null
+      - code: "U"
+        label: "Unmarried"
+        maps_to: null
+    unmapped_canonical: [consensual_union]
   dhis2:
-    Single or widow: unmarried
-    Married (conjugal cohabitation): married
+    vocabulary_name: "Civil status"
+    values:
+      - code: "Single or widow"
+        label: "Single or widow"
+        maps_to: never_married
+      - code: "Married (conjugal cohabitation)"
+        label: "Married (conjugal cohabitation)"
+        maps_to: married
+    unmapped_canonical: [widowed, divorced, legally_separated, consensual_union]
+  fhir_r4:
+    vocabulary_name: "Marital Status Codes"
+    values:
+      - code: "S"
+        label: "Never Married"
+        maps_to: never_married
+      - code: "M"
+        label: "Married"
+        maps_to: married
+      - code: "W"
+        label: "Widowed"
+        maps_to: widowed
+      - code: "D"
+        label: "Divorced"
+        maps_to: divorced
+      - code: "L"
+        label: "Legally Separated"
+        maps_to: legally_separated
+      - code: "A"
+        label: "Annulled"
+        maps_to: null
+      - code: "I"
+        label: "Interlocutory"
+        maps_to: null
+      - code: "P"
+        label: "Polygamous"
+        maps_to: null
+      - code: "T"
+        label: "Domestic partner"
+        maps_to: null
+      - code: "U"
+        label: "unmarried"
+        maps_to: null
+    unmapped_canonical: [consensual_union]
