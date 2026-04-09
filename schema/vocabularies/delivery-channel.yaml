@@ -4,6 +4,9 @@ definition:
   en: The mechanisms through which benefit transfers reach beneficiaries.
   fr: Les mécanismes par lesquels les transferts de prestations parviennent aux bénéficiaires.
   es: Los mecanismos a través de los cuales las transferencias de beneficios llegan a los beneficiarios.
+see_also:
+  - vocabulary: benefit-modality
+    note: "delivery-channel describes how a benefit reaches the beneficiary (the mechanism); benefit-modality describes what form the benefit takes (cash, voucher, in-kind). A cash benefit (modality) can be delivered via bank transfer, mobile money, or cash (channels)."
 references:
   - name: "GovStack Payments Building Block"
     uri: "https://specs.govstack.global/payments/2-description"

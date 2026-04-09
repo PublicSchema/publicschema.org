@@ -4,6 +4,9 @@ definition:
   en: The possible outcomes of a formal eligibility determination for a program or service.
   fr: Les résultats possibles d'une détermination formelle d'éligibilité à un programme ou service.
   es: Los posibles resultados de una determinación formal de elegibilidad para un programa o servicio.
+vc_guidance: >
+  For Verifiable Credential use, only terminal states (eligible, ineligible, conditional) should appear in credentials.
+  Process states (pending, under_review) are transient and should not be attested in a credential.
 references:
   - name: "HL7 FHIR CoverageEligibilityResponse"
     uri: "https://build.fhir.org/coverageeligibilityresponse-definitions.html"

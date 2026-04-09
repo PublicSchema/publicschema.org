@@ -6,6 +6,9 @@ definition:
     et de prestation de services.
   es: Categorias de documentos o numeros de identificacion utilizados para identificar personas en sistemas administrativos
     y de prestacion de servicios.
+vc_guidance: >
+  For Verifiable Credential use, the identifier type alone is insufficient. Credentials must also specify the issuing
+  jurisdiction and identifier scheme.
 references:
   - name: "HL7 FHIR Identifier Type Codes (v2-0203)"
     uri: "https://build.fhir.org/valueset-identifier-type.html"

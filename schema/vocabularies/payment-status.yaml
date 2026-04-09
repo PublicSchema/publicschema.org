@@ -91,6 +91,9 @@ values:
     en: The payment record has been matched and verified against financial system records, confirming accuracy.
     fr: Le registre de paiement a été rapproché et vérifié par rapport aux registres du système financier, confirmant l'exactitude.
     es: El registro de pago ha sido cotejado y verificado con los registros del sistema financiero, confirmando su exactitud.
+  notes:
+    en: This is an operational state that typically follows paid. Systems may track both a payment status and a separate
+      reconciliation flag.
 system_mappings:
   openspp:
     values:

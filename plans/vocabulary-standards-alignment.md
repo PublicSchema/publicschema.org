@@ -514,7 +514,7 @@ Note that this is an operational state that typically follows `paid`, and system
 - [x] Add `references` to relationship-type
 
 ### Phase 5: Cross-references and documentation
-- [ ] Add `see_also` cross-references (group-role <-> relationship-type, delivery-channel <-> benefit-modality)
-- [ ] Add note to `reconciled` in payment-status
-- [ ] Add VC note to identifier-type
-- [ ] Add VC guidance to eligibility-status
+- [x] Add `see_also` cross-references (group-role <-> relationship-type, delivery-channel <-> benefit-modality)
+- [x] Add note to `reconciled` in payment-status
+- [x] Add VC note to identifier-type
+- [x] Add VC guidance to eligibility-status

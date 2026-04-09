@@ -7,6 +7,9 @@ definition:
     Les rôles sont définis par rapport à la personne de référence du groupe (chef).
   es: El rol que una persona desempeña dentro de un grupo como un hogar, familia u otra unidad organizacional. Los roles se
     definen en relación con la persona de referencia del grupo (jefe/a).
+see_also:
+  - vocabulary: relationship-type
+    note: "group-role describes a person's role within a group (person-to-group); relationship-type describes connections between two persons (person-to-person). Values like 'spouse' and 'child' appear in both but answer different questions."
 references:
   - name: "UN Principles and Recommendations for Population and Housing Censuses (Rev.3)"
     uri: "https://unstats.un.org/unsd/demographic-social/Standards-and-Methods/files/Principles_and_Recommendations/Population-and-Housing-Censuses/Series_M67rev3-E.pdf"
