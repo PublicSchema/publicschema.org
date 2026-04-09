@@ -94,7 +94,6 @@ const vocabulary = allVocab.vocabularies[Astro.params.vocab] as Vocabulary;
           {mapping.vocabulary_name && (
             <p class="mapping-vocab-name">System vocabulary: <strong>{mapping.vocabulary_name}</strong></p>
           )}
-          <div class="table-scroll">
           <table class="data-table">
             <thead>
               <tr>
@@ -108,12 +107,11 @@ const vocabulary = allVocab.vocabularies[Astro.params.vocab] as Vocabulary;
                 <tr class={v.maps_to === null ? 'unmapped-row' : ''}>
                   <td><code>{v.code}</code></td>
                   <td data-label="System label">{v.label}</td>
-                  <td data-label={`${vocabulary.id} value`}>{v.maps_to ? (<code>{v.maps_to}</code>) : (<span class="no-mapping">no equivalent</span>)}</td>
+                  <td data-label={`${vocabulary.id} value`}>{v.maps_to ? (<code>{v.maps_to}</code>) : (<span class="no-mapping">{v.unmapped_reason ? v.unmapped_reason.replace(/_/g, " ") : "no equivalent"}</span>)}</td>
                 </tr>
               ))}
             </tbody>
           </table>
-          </div>
           {mapping.unmapped_canonical && mapping.unmapped_canonical.length > 0 && (
             <p class="unmapped-note">
               Not covered by {getSystemName(system)}: {mapping.unmapped_canonical.map((code) => (<code>{code}</code>)).reduce((prev, curr) => <>{prev}, {curr}</>)}

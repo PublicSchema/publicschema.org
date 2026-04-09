@@ -9,7 +9,7 @@ PublicSchema is a shared vocabulary for public service delivery data. It provide
 3. **Vocabularies**: controlled value sets, referencing international standards where they exist
 4. **JSON-LD context**: maps property names to stable URIs with type information
 5. **JSON Schemas**: per-concept and per-credential validation schemas
-6. **Credential types**: VerifiableCredential schemas for IdentityCredential, EnrollmentCredential, PaymentCredential
+6. **Credential types**: SD-JWT VC schemas for IdentityCredential, EnrollmentCredential, PaymentCredential
 
 ## Quick start
 
@@ -61,40 +61,29 @@ The `vocabulary.json` file contains the full list of vocabularies with all codes
 
 ### 4. Issue Verifiable Credentials
 
-Use PublicSchema credential types to issue VCs:
+Use PublicSchema credential types to issue SD-JWT VCs:
 
 ```json
 {
-  "@context": [
-    "https://www.w3.org/ns/credentials/v2",
-    "https://publicschema.org/ctx/draft.jsonld"
-  ],
-  "id": "urn:uuid:b2c3d4e5-f6a7-8901-bcde-f12345678901",
-  "type": ["VerifiableCredential", "EnrollmentCredential"],
-  "issuer": "did:web:your-system.example.gov",
-  "validFrom": "2025-01-15T00:00:00Z",
-  "validUntil": "2026-01-15T00:00:00Z",
-  "credentialSchema": {
-    "id": "https://publicschema.org/schemas/credentials/EnrollmentCredential.schema.json",
-    "type": "JsonSchema"
-  },
-  "credentialStatus": {
-    "id": "https://your-system.example.gov/credentials/status/1#42",
-    "type": "BitstringStatusListEntry",
-    "statusPurpose": "revocation",
-    "statusListIndex": "42",
-    "statusListCredential": "https://your-system.example.gov/credentials/status/1"
+  "iss": "did:web:your-system.example.gov",
+  "sub": "did:web:your-system.example.gov:persons:4421",
+  "iat": 1706745600,
+  "nbf": 1706745600,
+  "exp": 1738435200,
+  "vct": "https://publicschema.org/schemas/credentials/EnrollmentCredential",
+  "_sd_alg": "sha-256",
+  "cnf": {
+    "jwk": { "kty": "EC", "crv": "P-256", "x": "...", "y": "..." }
   },
   "credentialSubject": {
-    "id": "did:web:your-system.example.gov:persons:4421",
     "type": "Person",
-    "given_name": "Amina",
-    "family_name": "Diallo",
+    "_sd": ["...hash(given_name)...", "...hash(family_name)..."],
     "enrollment": {
       "type": "Enrollment",
-      "program_ref": "https://your-system.example.gov/programs/cash-transfer",
       "enrollment_status": "active",
-      "enrollment_date": "2025-01-15"
+      "is_enrolled": true,
+      "enrollment_date": "2025-01-15",
+      "_sd": ["...hash(program_ref)..."]
     }
   }
 }
@@ -130,7 +119,7 @@ system_mappings:
 | SHACL Shapes | [`/v/draft/publicschema.shacl.ttl`](/v/draft/publicschema.shacl.ttl) | Validation shapes for all concepts |
 | Vocabulary JSON | [`/vocabulary.json`](/vocabulary.json) | Full vocabulary with all concepts, properties, vocabularies |
 | Concept Schemas | `/schemas/{Concept}.schema.json` | JSON Schema per concept |
-| Credential Schemas | `/schemas/credentials/{Type}.schema.json` | VC-envelope JSON Schema per credential type |
+| Credential Schemas | `/schemas/credentials/{Type}.schema.json` | SD-JWT VC JSON Schema per credential type |
 
 ## schema.org interoperability
 

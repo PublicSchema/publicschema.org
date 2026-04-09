@@ -102,7 +102,7 @@ function propPath(id: string): string {
         const allProps = [
           ...propList.map((p) => ({ ...p, from: null as string | null })),
           ...inheritedProps,
-        ];
+        ].sort((a, b) => a.id.localeCompare(b.id));
         return (
           <div class="concept-section">
             <h2>Properties</h2>
@@ -173,6 +173,9 @@ function propPath(id: string): string {
         <h1>{prop.id}</h1>
         <div class="meta-line">
           <span class={`badge badge-${prop.maturity}`}>{prop.maturity}</span>
+          {prop.sensitivity && prop.sensitivity !== "standard" && (
+            <span class={`badge badge-${prop.sensitivity}`}>{prop.sensitivity}</span>
+          )}
         </div>
         <p class="definition-text">{prop.definition.en}</p>
         <p class="uri">{prop.uri}</p>

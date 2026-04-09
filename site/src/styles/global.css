@@ -314,6 +314,10 @@ code {
 .badge-unreviewed { background: var(--color-draft-bg); color: var(--color-draft); }
 .badge-reviewed { background: var(--color-normative-bg); color: var(--color-normative); }
 
+/* Sensitivity levels */
+.badge-sensitive { background: var(--color-personal-bg); color: var(--color-personal); }
+.badge-restricted { background: var(--color-special-category-bg); color: var(--color-special-category); }
+
 /* Data classification levels */
 .badge-non_personal { background: var(--color-non-personal-bg); color: var(--color-non-personal); }
 .badge-personal { background: var(--color-personal-bg); color: var(--color-personal); }
@@ -413,10 +417,9 @@ article {
   margin: 0 auto;
 }
 
-/* Let data tables break out of narrow article columns
-   to use the full site-container width.
-   Tables inside .table-scroll are excluded via override below. */
-article .data-table {
+/* Opt-in: let a table break out of narrow article columns
+   to use the full site-container width. Add class "table-wide". */
+article .data-table.table-wide {
   width: calc(100vw - 2 * var(--space-lg));
   max-width: calc(var(--max-width) - 2 * var(--space-lg));
   position: relative;
@@ -1011,32 +1014,6 @@ article .data-table {
 }
 
 /* ----------------------------------------------------------------
-   Table scroll wrapper (prevents breakout conflict on mobile)
-   ---------------------------------------------------------------- */
-
-article .table-scroll {
-  width: calc(100vw - 2 * var(--space-lg));
-  max-width: calc(var(--max-width) - 2 * var(--space-lg));
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-article .table-scroll .data-table {
-  width: 100%;
-  max-width: none;
-  position: static;
-  left: auto;
-  transform: none;
-}
-
-article .table-scroll .data-table th {
-  position: static;
-}
-
-/* ----------------------------------------------------------------
    Responsive
    ---------------------------------------------------------------- */
 
@@ -1374,8 +1351,8 @@ article .table-scroll .data-table th {
     overflow-x: hidden;
   }
 
-  /* Disable data-table breakout on mobile */
-  article .data-table {
+  /* Disable table-wide breakout on mobile */
+  article .data-table.table-wide {
     width: 100%;
     max-width: 100%;
     position: static;

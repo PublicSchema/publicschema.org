@@ -419,6 +419,7 @@ def build_vocabulary(schema_dir: Path) -> dict:
             "references": data.get("references"),
             "used_by": property_domains.get(prop_id, []),
             "schema_org_equivalent": data.get("schema_org_equivalent"),
+            "sensitivity": data.get("sensitivity"),
             "convergence": data.get("convergence"),
         }
 
