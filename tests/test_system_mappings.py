@@ -27,7 +27,7 @@ def all_vocabs():
     """Load all vocabulary YAML files that have system_mappings."""
     vocabs_dir = SCHEMA_DIR / "vocabularies"
     result = {}
-    for path in sorted(vocabs_dir.glob("*.yaml")):
+    for path in sorted(vocabs_dir.rglob("*.yaml")):
         with open(path) as f:
             data = yaml.safe_load(f)
         if data.get("system_mappings"):

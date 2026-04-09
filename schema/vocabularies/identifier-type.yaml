@@ -1,11 +1,11 @@
 id: identifier-type
 maturity: draft
 definition:
-  en: Categories of identifier documents or numbers used to identify persons in social protection systems.
-  fr: Categories de documents ou de numeros d'identification utilises pour identifier les personnes dans les systemes de protection
-    sociale.
-  es: Categorias de documentos o numeros de identificacion utilizados para identificar personas en sistemas de proteccion
-    social.
+  en: Categories of identifier documents or numbers used to identify persons in administrative and service delivery systems.
+  fr: Categories de documents ou de numeros d'identification utilises pour identifier les personnes dans les systemes administratifs
+    et de prestation de services.
+  es: Categorias de documentos o numeros de identificacion utilizados para identificar personas en sistemas administrativos
+    y de prestacion de servicios.
 values:
 - code: national_id
   label:
@@ -49,9 +49,9 @@ values:
     fr: Identifiant de programme
     es: ID de programa
   definition:
-    en: A beneficiary identifier assigned by a specific social protection program.
-    fr: Un identifiant de beneficiaire attribue par un programme specifique de protection sociale.
-    es: Un identificador de beneficiario asignado por un programa especifico de proteccion social.
+    en: A beneficiary identifier assigned by a specific program.
+    fr: Un identifiant de beneficiaire attribue par un programme specifique.
+    es: Un identificador de beneficiario asignado por un programa especifico.
 - code: household_id
   label:
     en: Household ID

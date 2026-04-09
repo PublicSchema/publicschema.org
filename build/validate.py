@@ -46,7 +46,7 @@ def _load_all_yaml(directory: Path) -> dict[str, dict]:
     result = {}
     if not directory.exists():
         return result
-    for p in sorted(directory.glob("*.yaml")):
+    for p in sorted(directory.rglob("*.yaml")):
         result[p.name] = _load_yaml(p)
     return result
 

@@ -2,9 +2,9 @@ id: grievance-type
 maturity: draft
 
 definition:
-  en: "Categories describing the nature of a grievance filed against a social protection program or its delivery process."
-  fr: "Catégories décrivant la nature d'un grief déposé contre un programme de protection sociale ou son processus de prestation."
-  es: "Categorías que describen la naturaleza de un agravio presentado contra un programa de protección social o su proceso de entrega."
+  en: "Categories describing the nature of a grievance filed against a program or its delivery process."
+  fr: "Catégories décrivant la nature d'un grief déposé contre un programme ou son processus de prestation."
+  es: "Categorías que describen la naturaleza de un agravio presentado contra un programa o su proceso de entrega."
 
 values:
   - code: exclusion_error
@@ -13,9 +13,9 @@ values:
       fr: Erreur d'exclusion
       es: Error de exclusión
     definition:
-      en: "A complaint that an eligible person or household was wrongly excluded from a program or benefit."
-      fr: "Une plainte indiquant qu'une personne ou un ménage éligible a été injustement exclu d'un programme ou d'une prestation."
-      es: "Una queja de que una persona u hogar elegible fue injustamente excluido de un programa o beneficio."
+      en: "A complaint that an eligible person or household was wrongly excluded from a program, benefit, or service."
+      fr: "Une plainte indiquant qu'une personne ou un ménage éligible a été injustement exclu d'un programme, d'une prestation ou d'un service."
+      es: "Una queja de que una persona u hogar elegible fue injustamente excluido de un programa, beneficio o servicio."
 
   - code: inclusion_error
     label:
@@ -23,9 +23,9 @@ values:
       fr: Erreur d'inclusion
       es: Error de inclusión
     definition:
-      en: "A report that an ineligible person or household is receiving benefits they should not be entitled to."
-      fr: "Un signalement qu'une personne ou un ménage inéligible reçoit des prestations auxquelles il ne devrait pas avoir droit."
-      es: "Un reporte de que una persona u hogar inelegible está recibiendo beneficios a los que no debería tener derecho."
+      en: "A report that an ineligible person or household is receiving benefits or services they should not be entitled to."
+      fr: "Un signalement qu'une personne ou un ménage inéligible reçoit des prestations ou services auxquels il ne devrait pas avoir droit."
+      es: "Un reporte de que una persona u hogar inelegible está recibiendo beneficios o servicios a los que no debería tener derecho."
 
   - code: payment_complaint
     label:

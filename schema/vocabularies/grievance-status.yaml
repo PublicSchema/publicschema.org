@@ -1,9 +1,9 @@
 id: grievance-status
 maturity: draft
 definition:
-  en: The lifecycle states of a grievance record in a social protection program.
-  fr: Les états du cycle de vie d'un dossier de grief dans un programme de protection sociale.
-  es: Los estados del ciclo de vida de un registro de agravio en un programa de protección social.
+  en: The lifecycle states of a grievance record in a program or service.
+  fr: Les états du cycle de vie d'un dossier de grief dans un programme ou service.
+  es: Los estados del ciclo de vida de un registro de agravio en un programa o servicio.
 values:
 - code: submitted
   label:

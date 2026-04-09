@@ -1,4 +1,4 @@
-id: severity
+id: event-severity
 maturity: draft
 definition:
   en: The observed or expected severity of an event's impact. Values are compatible with OASIS CAP v1.2 severity codes.

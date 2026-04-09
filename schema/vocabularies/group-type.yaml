@@ -1,9 +1,9 @@
 id: group-type
 maturity: draft
 definition:
-  en: Categories used to classify the administrative or social type of a group in a social protection system.
-  fr: Categories utilisees pour classer le type administratif ou social d'un groupe dans un systeme de protection sociale.
-  es: Categorias utilizadas para clasificar el tipo administrativo o social de un grupo en un sistema de proteccion social.
+  en: Categories used to classify the administrative or social type of a group in an administrative system.
+  fr: Categories utilisees pour classer le type administratif ou social d'un groupe dans un systeme administratif.
+  es: Categorias utilizadas para clasificar el tipo administrativo o social de un grupo en un sistema administrativo.
 values:
 - code: household
   label:

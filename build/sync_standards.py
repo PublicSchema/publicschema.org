@@ -383,7 +383,7 @@ def find_syncable_vocabularies(schema_dir: Path) -> list[Path]:
     if not vocab_dir.exists():
         return []
     result = []
-    for path in sorted(vocab_dir.glob("*.yaml")):
+    for path in sorted(vocab_dir.rglob("*.yaml")):
         data = yaml.safe_load(path.read_text())
         if data and data.get("sync"):
             result.append(path)

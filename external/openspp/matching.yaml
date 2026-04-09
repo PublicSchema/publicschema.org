@@ -1,0 +1,712 @@
+system: openspp
+
+# This file maps OpenSPP vocabularies (Pass A structured vocabs + Pass B selections)
+# against PublicSchema v2 vocabularies.
+#
+# Pass A vocabularies are backed by spp.vocabulary (XML/JSON source files).
+# Pass B vocabularies are fields.Selection enumerations in Odoo model code.
+#
+# Confidence levels:
+#   high   - same standard or very close semantic alignment with clear code mapping
+#   medium - similar concept, partial overlap or some codes don't map cleanly
+#   low    - related domain but significant structural differences
+
+matches:
+
+  # -----------------------------------------------------------------------
+  # Standard equivalences (same international standard on both sides)
+  # -----------------------------------------------------------------------
+
+  - v2_vocabulary: country
+    external_vocabulary: "Country (ISO 3166-1)"
+    external_source: "spp_vocabulary/data/vocabulary_country.xml"
+    confidence: high
+    same_standard: true
+    notes: "Both use ISO 3166-1 alpha-2 codes. OpenSPP adds three non-standard codes (XA=Stateless, XK=Kosovo, ZZ=Unknown/Not Stated) not present in the v2 vocabulary."
+    gaps:
+      v2_only: []
+      external_only:
+        - XA  # Stateless
+        - XK  # Kosovo
+        - ZZ  # Unknown / Not Stated
+
+  - v2_vocabulary: currency
+    external_vocabulary: "Currency (ISO 4217)"
+    external_source: "spp_vocabulary/data/vocabulary_currency.xml"
+    confidence: high
+    same_standard: true
+    notes: "Both use ISO 4217 alphabetic codes. OpenSPP XML is more complete (~180 codes) than the v2 sync from the Six Group XML, but the code space is identical."
+    gaps:
+      v2_only: []
+      external_only: []
+
+  - v2_vocabulary: language
+    external_vocabulary: "Language (ISO 639)"
+    external_source: "spp_vocabulary/data/vocabulary_language.xml"
+    confidence: high
+    same_standard: true
+    notes: "Both use ISO 639-1 two-letter codes. OpenSPP adds three non-standard codes (sgn, und, zxx) for sign language, undetermined, and no linguistic content."
+    gaps:
+      v2_only: []
+      external_only:
+        - sgn  # Sign Language
+        - und  # Undetermined
+        - zxx  # No Linguistic Content
+
+  - v2_vocabulary: occupation
+    external_vocabulary: "Occupation (ISCO-08)"
+    external_source: "spp_vocabulary/data/vocabulary_occupation.xml"
+    confidence: high
+    same_standard: true
+    notes: "Both use ISCO-08 codes. OpenSPP exposes two levels (major groups and sub-major groups, 53 codes total). The v2 vocabulary is synced from the same ILO standard."
+    gaps:
+      v2_only: []
+      external_only: []
+
+  # -----------------------------------------------------------------------
+  # Value-level matches
+  # -----------------------------------------------------------------------
+
+  - v2_vocabulary: sex
+    external_vocabulary: "Gender (ISO 5218)"
+    external_source: "spp_vocabulary/data/vocabulary_gender.xml"
+    confidence: high
+    same_standard: true
+    notes: "Both use ISO 5218. OpenSPP stores the numeric codes directly (0, 1, 2, 9); v2 maps those same numeric codes to named identifiers. The value_mapping translates OpenSPP db_values to v2 codes."
+    value_mapping:
+      "0": not_known
+      "1": male
+      "2": female
+      "9": not_applicable
+    gaps:
+      v2_only: []
+      external_only: []
+
+  - v2_vocabulary: gender-type
+    external_vocabulary: "Gender (ISO 5218)"
+    external_source: "spp_vocabulary/data/vocabulary_gender.xml"
+    external_model: "res.partner (field: gender)"
+    confidence: high
+    notes: "OpenSPP models use text values ('male', 'female', 'other') via FHIR-style labels on the res.partner model, not the numeric ISO codes. The v2 system_mappings for openspp already capture this. The 'other' code maps to v2 'other'; the numeric ISO not_known/not_applicable codes have no direct equivalent in this field."
+    value_mapping:
+      "male": male
+      "female": female
+      "other": other
+    gaps:
+      v2_only:
+        - not_stated  # No model field for 'not stated' gender in OpenSPP
+      external_only: []
+
+  - v2_vocabulary: education-level
+    external_vocabulary: "Education Level (ISCED 2011)"
+    external_source: "spp_vocabulary/data/vocabulary_education_level.xml"
+    confidence: high
+    same_standard: true
+    notes: "Both use ISCED 2011 levels 0-8. OpenSPP adds code 'N' (No Formal Education) and code '9' (Not Stated / Unknown) which have no v2 equivalents. The numeric codes 0-8 map directly."
+    value_mapping:
+      "0": early_childhood
+      "1": primary
+      "2": lower_secondary
+      "3": upper_secondary
+      "4": post_secondary_non_tertiary
+      "5": short_cycle_tertiary
+      "6": bachelor
+      "7": master
+      "8": doctoral
+    gaps:
+      v2_only: []
+      external_only:
+        - N   # No Formal Education (OpenSPP extension, not in ISCED 2011 standard)
+        - "9" # Not Stated / Unknown (OpenSPP extension)
+
+  - v2_vocabulary: marital-status
+    external_vocabulary: "Marital Status"
+    external_source: "spp_vocabulary/data/vocabulary_marital_status.xml"
+    confidence: medium
+    notes: "OpenSPP uses UN census letter codes (S, M, W, D, L, C). V2 uses FHIR v3-MaritalStatus codes, which is a richer set. OpenSPP 'C' (Consensual Union) maps to v2 'common_law' / 'domestic_partner'; the v2 system_mappings file already maps it to 'domestic_partner'. Several v2 codes (annulled, interlocutory, polygamous, domestic_partner, unmarried) have no OpenSPP equivalent."
+    value_mapping:
+      "S": never_married
+      "M": married
+      "W": widowed
+      "D": divorced
+      "L": legally_separated
+      "C": domestic_partner
+    gaps:
+      v2_only:
+        - annulled          # FHIR A code, not in OpenSPP
+        - interlocutory     # FHIR I code, not in OpenSPP
+        - polygamous        # FHIR P code, not in OpenSPP
+        - common_law        # FHIR C code overlaps with domestic_partner; no distinct OpenSPP code
+        - domestic_partner  # FHIR T code; OpenSPP C maps here, not to a separate T code
+        - unmarried         # FHIR U code; OpenSPP uses S (Never Married) for this concept
+      external_only: []
+
+  - v2_vocabulary: relationship-type
+    external_vocabulary: "Relationship Type"
+    external_source: "spp_vocabulary/data/vocabulary_relationship.xml"
+    confidence: medium
+    notes: "OpenSPP covers individual-to-individual kinship and group-to-group organizational relationships. V2 covers individual kinship only. OpenSPP organizational codes (parent_organization, subsidiary, partner_organization, affiliated_with) have no v2 equivalent. OpenSPP 'child_in_law' and 'parent_in_law' have no exact v2 codes; 'other' is the closest match. V2 adds guardian, caregiver, dependent, head_of_household, payment_proxy, survivor which OpenSPP does not define in this vocabulary."
+    value_mapping:
+      "head": head_of_household
+      "spouse": spouse
+      "child": child
+      "child_in_law": other
+      "grandchild": grandchild
+      "parent": parent
+      "parent_in_law": other
+      "grandparent": grandparent
+      "sibling": sibling
+      "other_relative": other
+      "non_relative": other
+      "parent_organization": ~      # no v2 equivalent (organizational relationship)
+      "subsidiary": ~               # no v2 equivalent
+      "partner_organization": ~     # no v2 equivalent
+      "affiliated_with": ~          # no v2 equivalent
+    gaps:
+      v2_only:
+        - guardian        # legal guardianship, not in OpenSPP relationship vocab
+        - caregiver       # care provider without legal status
+        - dependent       # financial/care dependency role
+        - payment_proxy   # authorized collector, not in OpenSPP relationship vocab
+        - survivor        # benefit survivor entitlement role
+      external_only:
+        - parent_organization   # group-to-group hierarchical relationship
+        - subsidiary            # group-to-group hierarchical relationship
+        - partner_organization  # group-to-group peer relationship
+        - affiliated_with       # group-to-group loose affiliation
+        - child_in_law          # no dedicated v2 code; maps to 'other'
+        - parent_in_law         # no dedicated v2 code; maps to 'other'
+
+  - v2_vocabulary: identifier-type
+    external_vocabulary: "ID Type"
+    external_source: "spp_vocabulary/data/vocabulary_id_type.xml"
+    confidence: high
+    notes: "OpenSPP defines 4 active ID types. All 4 map cleanly to v2 codes. V2 has additional types (voter_id, program_id, household_id, social_security_number, other) with no OpenSPP equivalent. Note: OpenSPP source file has additional commented-out codes (child and spouse types) that are not active."
+    value_mapping:
+      "national_id": national_id
+      "passport": passport
+      "tax_id": social_security_number
+      "birth_certificate": birth_certificate
+    gaps:
+      v2_only:
+        - voter_id              # not in OpenSPP active vocabulary
+        - program_id            # not in OpenSPP active vocabulary
+        - household_id          # not in OpenSPP active vocabulary
+        - other                 # not in OpenSPP active vocabulary
+      external_only: []
+
+  - v2_vocabulary: group-type
+    external_vocabulary: "Group Type"
+    external_source: "spp_vocabulary/data/vocabulary_group_type.xml"
+    confidence: high
+    notes: "OpenSPP defines two group types (household, family). Both map exactly to v2. V2 adds 'farm' and 'other' which OpenSPP does not define in this vocabulary (OpenSPP farms are a separate registry object, not a group type)."
+    value_mapping:
+      "household": household
+      "family": family
+    gaps:
+      v2_only:
+        - farm   # OpenSPP has a dedicated farmer registry, not a group-type code
+        - other  # not in OpenSPP vocabulary
+      external_only: []
+
+  - v2_vocabulary: group-role
+    external_vocabulary: "Group Membership Type"
+    external_source: "spp_vocabulary/data/vocabulary_group_membership_type.xml"
+    confidence: medium
+    notes: "OpenSPP only has one active code ('head') in this vocabulary. The other roles (child, spouse, etc.) are commented out in the source file. V2 has a full role set. The single OpenSPP code maps cleanly; all other v2 codes are v2-only from this vocabulary's perspective."
+    value_mapping:
+      "head": head
+    gaps:
+      v2_only:
+        - spouse        # commented out in OpenSPP vocabulary_group_membership_type.xml
+        - child         # commented out in OpenSPP vocabulary_group_membership_type.xml
+        - dependent     # not defined in OpenSPP vocabulary
+        - parent        # not defined in OpenSPP vocabulary
+        - other_relative  # not defined in OpenSPP vocabulary
+        - non_relative  # not defined in OpenSPP vocabulary
+      external_only: []
+
+  - v2_vocabulary: enrollment-status
+    external_vocabulary: "ProgramMembershipState"
+    external_model: "spp.program.membership"
+    external_source: "spp_programs/models/program_membership.py"
+    confidence: medium
+    notes: "OpenSPP ProgramMembershipState is the closest equivalent to v2 enrollment-status. 'draft' maps to v2 'pending_verification' (not yet confirmed). 'enrolled' maps to 'active'. 'paused' maps to 'suspended'. 'exited' maps to 'closed'. 'not_eligible' has no dedicated v2 enrollment-status code; it is a determination outcome, not an enrollment state. 'duplicated' has no v2 equivalent. V2 'graduated' has no OpenSPP equivalent in this enum (graduation is handled by a separate spp_graduation module)."
+    value_mapping:
+      "draft": pending_verification
+      "enrolled": active
+      "paused": suspended
+      "exited": closed
+      "not_eligible": ~   # no v2 enrollment-status code; closest is eligibility-status.ineligible
+      "duplicated": ~     # no v2 equivalent
+    gaps:
+      v2_only:
+        - graduated   # handled by spp_graduation module, not ProgramMembershipState
+      external_only:
+        - not_eligible  # eligibility outcome, not enrollment lifecycle state
+        - duplicated    # deduplication flag, not an enrollment lifecycle state
+
+  - v2_vocabulary: payment-status
+    external_vocabulary: "PaymentState + PaymentStatus + EntitlementPaymentStatus"
+    external_sources:
+      - "spp_programs/models/payment.py (PaymentState: issued, sent, reconciled)"
+      - "spp_programs/models/payment.py (PaymentStatus: paid, failed)"
+      - "spp_programs/models/entitlement.py (EntitlementPaymentStatus: paid, notpaid)"
+    confidence: medium
+    notes: "OpenSPP splits payment lifecycle across three separate enumerations. PaymentState tracks FSP transmission steps; PaymentStatus records the reconciliation outcome; EntitlementPaymentStatus is a simple paid/notpaid flag computed on entitlements. Together they cover the v2 payment-status codes, but there is no single one-to-one mapping. V2 'returned' has no OpenSPP equivalent; OpenSPP 'sent' maps to v2 'pending' (in transit but not yet confirmed). V2 'cancelled' is covered by EntitlementState (cancelled, expired) rather than payment status fields."
+    value_mapping:
+      # PaymentState
+      "issued": pending
+      "sent": pending
+      "reconciled": reconciled
+      # PaymentStatus
+      "paid": paid
+      "failed": failed
+      # EntitlementPaymentStatus
+      "notpaid": pending
+    gaps:
+      v2_only:
+        - returned    # no OpenSPP payment status for returned/reversed payments
+        - cancelled   # covered in EntitlementState, not payment status fields
+      external_only:
+        - issued      # intermediate transmission state with no direct v2 equivalent (maps to pending)
+        - sent        # intermediate transmission state with no direct v2 equivalent (maps to pending)
+        - notpaid     # computed flag; maps to pending but semantically different
+
+  - v2_vocabulary: grievance-status
+    external_vocabulary: "GRMTicketStageType"
+    external_model: "spp.grm.ticket.stage"
+    external_source: "spp_grm/models/grm_ticket_stage.py"
+    confidence: medium
+    notes: "OpenSPP GRMTicketStageType categorizes ticket stages for workflow logic. 'new' maps to v2 'submitted'. 'in_progress' and 'waiting' both map to 'under_review'. 'escalated' maps to 'escalated'. 'resolved' maps to 'resolved'. 'closed' maps to 'closed'. 'cancelled' has no direct v2 equivalent; v2 does not model grievance cancellation as a distinct status. V2 'rejected' has no OpenSPP equivalent in GRMTicketStageType (rejection is tracked via the GRMTicketDecision field instead)."
+    value_mapping:
+      "new": submitted
+      "in_progress": under_review
+      "waiting": under_review
+      "escalated": escalated
+      "resolved": resolved
+      "closed": closed
+      "cancelled": ~   # no v2 grievance-status code for cancelled
+    gaps:
+      v2_only:
+        - rejected    # tracked via GRMTicketDecision.rejected, not a stage type
+      external_only:
+        - cancelled   # no v2 equivalent; grievances are not cancelled in v2 model
+        - waiting     # merged into under_review; v2 does not distinguish waiting from active review
+
+  - v2_vocabulary: event-severity
+    external_vocabulary: "GRMTicketSeverity"
+    external_model: "spp.grm.ticket"
+    external_source: "spp_grm/models/grm_ticket.py"
+    confidence: medium
+    notes: "GRMTicketSeverity is the best OpenSPP match for v2 severity (OASIS CAP). OpenSPP uses a 4-level scale (low, medium, high, critical); v2 uses a 5-level OASIS CAP scale (extreme, severe, moderate, minor, unknown). 'critical' maps to 'extreme', 'high' to 'severe', 'medium' to 'moderate', 'low' to 'minor'. V2 'unknown' and 'extreme' have no OpenSPP GRM equivalent. OpenSPP also has HazardIncidentSeverity (numeric 1-5 scale) which maps more directly to CAP levels but covers a different domain."
+    value_mapping:
+      "low": minor
+      "medium": moderate
+      "high": severe
+      "critical": extreme
+    gaps:
+      v2_only:
+        - unknown   # no OpenSPP GRM severity code for unknown/not yet determined
+      external_only: []
+
+  - v2_vocabulary: event-severity
+    external_vocabulary: "HazardIncidentSeverity"
+    external_model: "spp.hazard.incident"
+    external_source: "spp_hazard/models/hazard_incident.py"
+    confidence: low
+    notes: "HazardIncidentSeverity uses a numeric 1-5 scale (Minor through Catastrophic), which aligns structurally with OASIS CAP but has 5 levels to v2's 5 levels. The semantic mapping is approximate: '1' (Minor) maps to 'minor', '2' (Moderate) to 'moderate', '3' (Significant) to 'severe', '4' (Severe) to 'severe', '5' (Catastrophic) to 'extreme'. Levels 3 and 4 both collapse to 'severe', which is a lossy mapping."
+    value_mapping:
+      "1": minor
+      "2": moderate
+      "3": severe
+      "4": severe
+      "5": extreme
+    gaps:
+      v2_only:
+        - unknown   # no OpenSPP hazard severity for undetermined severity
+      external_only:
+        - "3"  # Significant — distinct from both moderate and severe, collapses to severe
+        - "4"  # Severe — collapses with level 3 into v2 severe
+
+  - v2_vocabulary: eligibility-status
+    external_vocabulary: "ProgramMembershipState (partial)"
+    external_model: "spp.program.membership"
+    external_source: "spp_programs/models/program_membership.py"
+    confidence: low
+    notes: "OpenSPP does not have a dedicated eligibility determination vocabulary. The closest is ProgramMembershipState.not_eligible, which overlaps with v2 eligibility-status.ineligible. OpenSPP's spp_scoring module computes scores and classifications but does not expose a formal eligibility-status enum. The mapping is partial: only 'not_eligible' from ProgramMembershipState has a direct v2 equivalent."
+    value_mapping:
+      "not_eligible": ineligible
+    gaps:
+      v2_only:
+        - eligible          # no standalone OpenSPP eligibility status; implied by enrolled state
+        - pending           # no OpenSPP eligibility pending status; implied by draft membership
+        - conditional       # no OpenSPP eligibility conditional status
+        - appealing         # grievance module handles appeals separately, not an eligibility status
+        - expired           # no OpenSPP eligibility expiry status
+      external_only: []
+
+  - v2_vocabulary: benefit-modality
+    external_vocabulary: "ProgramEntitlementType"
+    external_model: "wizard (spp.create.program.wizard)"
+    external_source: "spp_programs/wizard/create_program_wizard.py"
+    confidence: low
+    notes: "ProgramEntitlementType is a 2-value enum (cash, inkind) that only partially covers v2 benefit-modality. OpenSPP 'cash' maps to v2 'cash'; 'inkind' maps to v2 'in_kind'. V2 voucher, service, and fee_waiver modalities are not distinguished in OpenSPP's program setup wizard."
+    value_mapping:
+      "cash": cash
+      "inkind": in_kind
+    gaps:
+      v2_only:
+        - voucher     # not distinguished in OpenSPP entitlement type
+        - service     # not distinguished in OpenSPP entitlement type
+        - fee_waiver  # not distinguished in OpenSPP entitlement type
+      external_only: []
+
+# -----------------------------------------------------------------------
+# No-match entries
+# -----------------------------------------------------------------------
+
+no_match:
+
+  # v2 vocabularies with no OpenSPP equivalent
+
+  - v2_vocabulary: benefit-frequency
+    reason: "OpenSPP does not have a vocabulary or selection enum for benefit delivery frequency. Cycle recurrence in OpenSPP is configured via date ranges and the Odoo recurrence infrastructure (RRULE), not a controlled vocabulary."
+
+  - v2_vocabulary: event-certainty
+    reason: "No OpenSPP vocabulary or selection for data certainty or confidence level on recorded attributes."
+
+  - v2_vocabulary: conditionality-type
+    reason: "OpenSPP does not expose a conditionality classification vocabulary. Whether a program is conditional or unconditional is implicit in program configuration, not a controlled vocabulary field."
+
+  - v2_vocabulary: delivery-channel
+    reason: "OpenSPP does not have a delivery channel vocabulary. Payment delivery mechanism is determined by the FSP (Financial Service Provider) configuration, not a separate enumeration."
+
+  - v2_vocabulary: grievance-type
+    reason: "OpenSPP GRM does not have a structured grievance category vocabulary in the extracted data. Ticket categorization is done through configurable category records (spp.grm.ticket.category), not a fixed selection enum, making a code-level mapping impossible without deployment-specific data."
+
+  - v2_vocabulary: hazard-type
+    reason: "OpenSPP spp_hazard module defines hazard incidents but does not expose a hazard type classification vocabulary or selection in the extracted data. Hazard types would be configured per deployment."
+
+  - v2_vocabulary: referral-status
+    reason: "OpenSPP does not have a referral module or referral lifecycle vocabulary in the extracted data. The spp_case_base module tracks intake source (including 'referral') but not outbound referral status."
+
+  - v2_vocabulary: targeting-approach
+    reason: "OpenSPP does not have a controlled vocabulary for targeting methodology. Targeting is implemented through configurable filter rules and scoring models (spp_scoring), not a classification vocabulary."
+
+  - v2_vocabulary: administrative-level
+    reason: "OpenSPP uses spp_area for geographic areas but the area level classification uses a reference to STATE_SELECTION (not an inline enum), and no structured administrative level vocabulary was found in the extracted data."
+
+  - v2_vocabulary: script
+    reason: "No OpenSPP vocabulary for writing scripts (ISO 15924). OpenSPP language vocabulary uses ISO 639 codes only."
+
+  - v2_vocabulary: region
+    reason: "No OpenSPP vocabulary for UN M49 geographic regions. Country selection uses ISO 3166-1; regional groupings are not exposed as a controlled vocabulary."
+
+  # OpenSPP vocabularies with no v2 equivalent
+
+  - external_vocabulary: "Religion (UN Census Framework)"
+    external_source: "spp_vocabulary/data/vocabulary_religion.xml"
+    reason: "PublicSchema v2 does not define a religion vocabulary. Religious affiliation is domain-specific and highly deployment-sensitive; the v2 schema treats it as a free-text or deployment-defined field."
+
+  - external_vocabulary: "Disability Domain (Washington Group)"
+    external_source: "spp_vocabulary/data/vocabulary_disability.xml"
+    reason: "PublicSchema v2 does not have a disability domain vocabulary. Disability information is referenced as a property but the WG-SS domain classification (seeing, hearing, walking, etc.) is not in the v2 vocabulary set."
+
+  - external_vocabulary: "Disability Severity (Washington Group)"
+    external_source: "spp_vocabulary/data/vocabulary_disability.xml"
+    reason: "No v2 vocabulary for Washington Group severity levels (1-4 scale). Would need to be defined in v2 if disability data is to be represented."
+
+  - external_vocabulary: "Disability Status"
+    external_source: "spp_vocabulary/data/vocabulary_disability.xml"
+    reason: "No v2 vocabulary for summarized disability status (Y/N/U). This is an OpenSPP-derived indicator, not based on an international standard."
+
+  - external_vocabulary: "Ethnocultural Status"
+    external_source: "spp_vocabulary/data/vocabulary_ethnocultural.xml"
+    reason: "No v2 vocabulary for ethnocultural status. This is a deployment-sensitive category; v2 does not define it as a standard vocabulary."
+
+  - external_vocabulary: "Economic Activity Status (ILO)"
+    external_source: "spp_vocabulary/data/vocabulary_economic_activity.xml"
+    reason: "No v2 vocabulary for ILO economic activity status (ICSE-18). Employment status is not currently in the v2 vocabulary set."
+
+  - external_vocabulary: "Housing Type (UN Rev.3)"
+    external_source: "spp_vocabulary/data/vocabulary_housing.xml"
+    reason: "No v2 vocabulary for UN housing type classification. Housing data is referenced as a property but housing type categories are not in the v2 vocabulary set."
+
+  - external_vocabulary: "Crop Classification (FAO ICC)"
+    external_source: "spp_farmer_registry_vocabularies/data/vocab_crops_default.xml"
+    reason: "Agriculture domain is not in v2 scope. No crop classification vocabulary exists in PublicSchema v2."
+
+  - external_vocabulary: "Livestock Classification (FAO)"
+    external_source: "spp_farmer_registry_vocabularies/data/vocab_livestock_default.xml"
+    reason: "Agriculture domain is not in v2 scope. No livestock classification vocabulary exists in PublicSchema v2."
+
+  - external_vocabulary: "Aquaculture Species (FAO ASFIS)"
+    external_source: "spp_farmer_registry_vocabularies/data/vocab_aquaculture_default.xml"
+    reason: "Agriculture domain is not in v2 scope. No aquaculture classification vocabulary exists in PublicSchema v2."
+
+  - external_vocabulary: "Farm Type"
+    external_source: "spp_farmer_registry_vocabularies/data/vocab_farm_type.xml"
+    reason: "Agriculture domain is not in v2 scope. No farm type vocabulary exists in PublicSchema v2."
+
+  - external_vocabulary: "Land Tenure/Ownership"
+    external_source: "spp_farmer_registry_vocabularies/data/vocab_land_tenure.xml"
+    reason: "Agriculture domain is not in v2 scope. No land tenure vocabulary exists in PublicSchema v2."
+
+  - external_vocabulary: "Land Use"
+    external_source: "spp_farmer_registry_vocabularies/data/vocab_land_use.xml"
+    reason: "Agriculture domain is not in v2 scope. No land use vocabulary exists in PublicSchema v2."
+
+  - external_vocabulary: "Holder Type (FAO WCA 2020)"
+    external_source: "spp_farmer_registry_vocabularies/data/vocab_holder_type.xml"
+    reason: "Agriculture domain is not in v2 scope. No agricultural holder type vocabulary exists in PublicSchema v2."
+
+  - external_vocabulary: "Cultivation Method"
+    external_source: "spp_farmer_registry_vocabularies/data/vocab_cultivation_method.xml"
+    reason: "Agriculture domain is not in v2 scope. No cultivation method vocabulary exists in PublicSchema v2."
+
+  - external_vocabulary: "Activity Purpose"
+    external_source: "spp_farmer_registry_vocabularies/data/vocab_activity_purpose.xml"
+    reason: "Agriculture domain is not in v2 scope. No agricultural activity purpose vocabulary exists in PublicSchema v2."
+
+  - external_vocabulary: "Irrigation Asset Type"
+    external_source: "spp_farmer_registry_vocabularies/data/vocab_irrigation_asset_type.xml"
+    reason: "Agriculture domain is not in v2 scope. No irrigation asset vocabulary exists in PublicSchema v2."
+
+  - external_vocabulary: "Data Source"
+    external_source: "spp_farmer_registry_vocabularies/data/vocab_data_source.xml"
+    reason: "No v2 vocabulary for data collection source (census, self_registration, field_visit, external_system). This is an audit trail concept specific to OpenSPP's farmer registry ingestion workflow."
+
+  - external_vocabulary: "Change Request Document Types"
+    external_source: "spp_vocabulary/data/vocabulary_cr_document_types.xml"
+    reason: "This vocabulary has no defined codes (empty in source file). It is a deployment-level placeholder for document type configuration."
+
+  # Pass B selection enumerations with no v2 equivalent
+
+  - external_vocabulary: "ProgramMembershipDeduplicationStatus"
+    external_source: "spp_programs/models/program_membership.py"
+    reason: "No v2 vocabulary for deduplication processing status (new, processing, verified, duplicated). Deduplication is an operational workflow concept not represented in PublicSchema v2."
+
+  - external_vocabulary: "CycleMembershipState"
+    external_source: "spp_programs/models/cycle_membership.py"
+    reason: "No v2 vocabulary for cycle-level membership state. OpenSPP program cycles (distribution rounds) have no direct equivalent in v2 concepts."
+
+  - external_vocabulary: "CycleState"
+    external_source: "spp_programs/models/cycle_base.py"
+    reason: "No v2 vocabulary for program cycle lifecycle state (draft, to_approve, approved, distributed, cancelled, ended). Distribution cycles are an OpenSPP operational concept."
+
+  - external_vocabulary: "EntitlementState"
+    external_source: "spp_programs/models/entitlement.py"
+    reason: "No v2 vocabulary for cash or in-kind entitlement lifecycle state. The OpenSPP entitlement state machine (draft, pending_validation, approved, trans2FSP, rdpd2ben, rejected, cancelled, expired) is more granular than v2 payment-status and covers a different object type."
+
+  - external_vocabulary: "InKindEntitlementState"
+    external_source: "spp_programs/models/entitlement.py"
+    reason: "No v2 vocabulary for in-kind entitlement state. Same rationale as EntitlementState."
+
+  - external_vocabulary: "ApprovalState"
+    external_source: "spp_approval/models/approval_mixin.py"
+    reason: "No v2 vocabulary for approval workflow state (draft, pending, revision, approved, rejected). Approval workflows are an operational/administrative concept not in v2."
+
+  - external_vocabulary: "ApprovalFreezeReason"
+    external_source: "spp_approval/models/approval_freeze.py"
+    reason: "No v2 vocabulary for approval freeze reasons (election, audit, regulatory, maintenance, other). Highly operational concept with no v2 equivalent."
+
+  - external_vocabulary: "ApprovalFreezeState"
+    external_source: "spp_approval/models/approval_freeze.py"
+    reason: "No v2 vocabulary for approval freeze lifecycle state. Operational concept."
+
+  - external_vocabulary: "IdentifierStatus"
+    external_source: "spp_registry/models/reg_id.py"
+    reason: "No v2 vocabulary for identifier validity status (valid, invalid). V2 does not model identifier lifecycle states."
+
+  - external_vocabulary: "IdentifierVerificationMethod"
+    external_source: "spp_registry/models/reg_id.py"
+    reason: "No v2 vocabulary for identifier verification methods (dci_api, physical_document, scanned, verbal, self_declared, manual_lookup, biometric). V2 does not currently define verification method categories."
+
+  - external_vocabulary: "RelationshipPartnerType"
+    external_source: "spp_registry/models/reg_relationship.py"
+    reason: "No v2 vocabulary for registry partner type (individual 'i', group 'g'). This is an OpenSPP-specific technical classification for the spp.reg.relationship model."
+
+  - external_vocabulary: "GroupMembershipStatus"
+    external_source: "spp_registry/models/group_membership.py"
+    reason: "No v2 vocabulary for group membership active/inactive status. V2 group-role covers the role dimension; time-based active/inactive status is not a separate vocabulary in v2."
+
+  - external_vocabulary: "ConsentRecordType"
+    external_source: "spp_consent/models/consent.py"
+    reason: "No v2 vocabulary for consent record type (consent_record vs consent_receipt). Consent management is not currently in v2 scope."
+
+  - external_vocabulary: "ConsentRecipientMode"
+    external_source: "spp_consent/models/consent.py"
+    reason: "No v2 vocabulary for consent recipient mode. Consent management is not in v2 scope."
+
+  - external_vocabulary: "ConsentDelegationType"
+    external_source: "spp_consent/models/consent.py"
+    reason: "No v2 vocabulary for consent delegation type (self, guardian, parent, poa, representative). Consent management is not in v2 scope."
+
+  - external_vocabulary: "ConsentLegalBasis"
+    external_source: "spp_consent/models/consent.py"
+    reason: "No v2 vocabulary for GDPR/DPL legal basis (consent, contract, legal_obligation, vital_interest, public_interest, legitimate_interest). Data protection legal basis is not in v2 scope."
+
+  - external_vocabulary: "ConsentStatus"
+    external_source: "spp_consent/models/consent.py"
+    reason: "No v2 vocabulary for consent lifecycle status (requested, given, renewed, refused, withdrawn, expired, invalidated). Consent management is not in v2 scope."
+
+  - external_vocabulary: "ConsentCollectionMethod"
+    external_source: "spp_consent/models/consent.py"
+    reason: "No v2 vocabulary for consent collection method (written, verbal, electronic, biometric). Consent management is not in v2 scope."
+
+  - external_vocabulary: "ConsentWithdrawalChannel"
+    external_source: "spp_consent/models/consent.py"
+    reason: "No v2 vocabulary for consent withdrawal channel (web, mobile, api, paper, verbal, other). Consent management is not in v2 scope."
+
+  - external_vocabulary: "CaseIntensityLevel"
+    external_source: "spp_case_base/models/case.py"
+    reason: "No v2 vocabulary for case management intensity level. Case management is not in v2 scope."
+
+  - external_vocabulary: "CasePriority"
+    external_source: "spp_case_base/models/case.py"
+    reason: "No v2 vocabulary for case priority (low, medium, high, urgent). Case management is not in v2 scope."
+
+  - external_vocabulary: "CaseClientType"
+    external_source: "spp_case_base/models/case.py"
+    reason: "No v2 vocabulary for case client type (individual, household, group). Case management is not in v2 scope."
+
+  - external_vocabulary: "CaseIntakeSource"
+    external_source: "spp_case_base/models/case.py"
+    reason: "No v2 vocabulary for case intake source (walk_in, referral, outreach, grm, program, other). Case management is not in v2 scope."
+
+  - external_vocabulary: "CaseClosureOutcome"
+    external_source: "spp_case_base/models/case.py"
+    reason: "No v2 vocabulary for case closure outcome. Case management is not in v2 scope."
+
+  - external_vocabulary: "CaseAssessmentType"
+    external_source: "spp_case_base/models/case_assessment.py"
+    reason: "No v2 vocabulary for case assessment type (intake, periodic, closure, reassessment). Case management is not in v2 scope."
+
+  - external_vocabulary: "CaseAssessmentRiskLevel"
+    external_source: "spp_case_base/models/case_assessment.py"
+    reason: "No v2 vocabulary for case assessment risk level (low, medium, high, critical). Case management is not in v2 scope."
+
+  - external_vocabulary: "CaseAssessmentState"
+    external_source: "spp_case_base/models/case_assessment.py"
+    reason: "No v2 vocabulary for case assessment state (draft, completed, reviewed). Case management is not in v2 scope."
+
+  - external_vocabulary: "CaseOutcomeType"
+    external_source: "spp_case_base/models/case_config.py"
+    reason: "No v2 vocabulary for case outcome type (positive, neutral, negative). Case management is not in v2 scope."
+
+  - external_vocabulary: "AlertPriority"
+    external_source: "spp_alerts/models/alert.py"
+    reason: "No v2 vocabulary for monitoring alert priority. System alert management is an operational infrastructure concept not in v2 scope."
+
+  - external_vocabulary: "AlertState"
+    external_source: "spp_alerts/models/alert.py"
+    reason: "No v2 vocabulary for alert lifecycle state (active, acknowledged, resolved). Alert management is not in v2 scope."
+
+  - external_vocabulary: "AlertRuleType"
+    external_source: "spp_alerts/models/alert_rule.py"
+    reason: "No v2 vocabulary for alert rule type (threshold, date). Alert management is not in v2 scope."
+
+  - external_vocabulary: "AlertRuleComparison"
+    external_source: "spp_alerts/models/alert_rule.py"
+    reason: "No v2 vocabulary for alert comparison operators (lt, lte, gt, gte, eq). This is a technical/operational concept."
+
+  - external_vocabulary: "SessionState"
+    external_source: "spp_session_tracking/models/session.py"
+    reason: "No v2 vocabulary for case management session state (scheduled, in_progress, completed, cancelled). Session tracking is not in v2 scope."
+
+  - external_vocabulary: "SessionFrequency"
+    external_source: "spp_session_tracking/models/session_type.py"
+    reason: "Session frequency (weekly, biweekly, monthly, quarterly, one_time) partially overlaps with v2 benefit-frequency but applies to case management sessions, not benefit delivery. The semantic context is sufficiently different that a match would be misleading."
+
+  - external_vocabulary: "ScoringModelCategory"
+    external_source: "spp_scoring/models/scoring_model.py"
+    reason: "No v2 vocabulary for scoring model category (poverty, vulnerability, eligibility, triage, custom). Scoring is an operational assessment tool concept not in v2 scope."
+
+  - external_vocabulary: "ScoringModelCalculationMethod"
+    external_source: "spp_scoring/models/scoring_model.py"
+    reason: "No v2 vocabulary for scoring calculation method. Operational/technical concept."
+
+  - external_vocabulary: "ScoringIndicatorCalculationType"
+    external_source: "spp_scoring/models/scoring_indicator.py"
+    reason: "No v2 vocabulary for scoring indicator calculation type. Operational/technical concept."
+
+  - external_vocabulary: "ScoringResultClassificationColor"
+    external_source: "spp_scoring/models/scoring_result.py"
+    reason: "No v2 vocabulary for scoring result color classification. UI/operational concept."
+
+  - external_vocabulary: "ScoringResultCalculationMode"
+    external_source: "spp_scoring/models/scoring_result.py"
+    reason: "No v2 vocabulary for scoring calculation mode (manual, batch, automatic). Operational/technical concept."
+
+  - external_vocabulary: "ScoringBatchJobState"
+    external_source: "spp_scoring/models/scoring_batch_job.py"
+    reason: "No v2 vocabulary for batch job state (pending, processing, done, failed). Infrastructure/operational concept."
+
+  - external_vocabulary: "ProgramTargetType"
+    external_source: "spp_programs/wizard/create_program_wizard.py"
+    reason: "No v2 vocabulary for program target type (individual vs group). This is a program configuration setting, not a domain vocabulary."
+
+  - external_vocabulary: "SimulationRunState"
+    external_source: "spp_simulation/models/simulation_run.py"
+    reason: "No v2 vocabulary for simulation run state. Simulation is an operational planning tool not in v2 scope."
+
+  - external_vocabulary: "SimulationMetricType"
+    external_source: "spp_simulation/models/simulation_metric.py"
+    reason: "No v2 vocabulary for simulation metric type. Operational/analytical concept."
+
+  - external_vocabulary: "SimulationMetricAggregation"
+    external_source: "spp_simulation/models/simulation_metric.py"
+    reason: "No v2 vocabulary for simulation metric aggregation function. Operational/technical concept."
+
+  - external_vocabulary: "GRMTicketPriority"
+    external_source: "spp_grm/models/grm_ticket.py"
+    reason: "No v2 vocabulary for GRM ticket priority (numeric 0-3 scale). Priority is an operational triage field; v2 grievance-status covers lifecycle state only, not priority."
+
+  - external_vocabulary: "GRMTicketSensitivity"
+    external_source: "spp_grm/models/grm_ticket.py"
+    reason: "No v2 vocabulary for ticket data sensitivity classification (standard, sensitive, highly_sensitive). Data classification is not in v2 scope at the vocabulary level."
+
+  - external_vocabulary: "GRMComplainantType"
+    external_source: "spp_grm/models/grm_ticket.py"
+    reason: "No v2 vocabulary for complainant type (beneficiary, non_beneficiary, staff, anonymous, other). V2 does not define complainant categories."
+
+  - external_vocabulary: "GRMTicketDecision"
+    external_source: "spp_grm/models/grm_ticket.py"
+    reason: "No v2 vocabulary for GRM ticket decision (upheld, partially_upheld, rejected, withdrawn, redirected, referred_to_case). V2 grievance-status tracks lifecycle state; decision outcome is a separate concept not in v2."
+
+  - external_vocabulary: "GRMSLAStatus"
+    external_source: "spp_grm/models/grm_ticket.py"
+    reason: "No v2 vocabulary for SLA compliance status (on_track, at_risk, breached). SLA tracking is an operational concept not in v2 scope."
+
+  - external_vocabulary: "GraduationRecommendation"
+    external_source: "spp_graduation/models/graduation_assessment.py"
+    reason: "No v2 vocabulary for graduation assessment recommendation (graduate, extend, exit, defer). Graduation assessment is an OpenSPP-specific operational concept."
+
+  - external_vocabulary: "GraduationAssessmentState"
+    external_source: "spp_graduation/models/graduation_assessment.py"
+    reason: "No v2 vocabulary for graduation assessment approval state (draft, submitted, approved, rejected). Operational workflow concept."
+
+  - external_vocabulary: "HazardIncidentStatus"
+    external_source: "spp_hazard/models/hazard_incident.py"
+    reason: "No v2 vocabulary for hazard incident lifecycle status (alert, active, recovery, closed). V2 severity covers magnitude, not incident lifecycle state."
+
+  - external_vocabulary: "HazardImpactDamageLevel"
+    external_source: "spp_hazard/models/hazard_impact.py"
+    reason: "No v2 vocabulary for hazard impact damage level (minimal, moderate, severe, critical, partially_damaged, totally_damaged). Damage assessment is a sub-concept of hazard response not currently in v2."
+
+  - external_vocabulary: "ExitRegistrantReason"
+    external_source: "spp_change_request_v2/details/exit_registrant.py"
+    reason: "No v2 vocabulary for registrant exit reason (deceased, emigrated, duplicate, ineligible, voluntary, fraud, other). Change request processing is an operational concept not in v2 scope."
+
+  - external_vocabulary: "SplitHouseholdReason"
+    external_source: "spp_change_request_v2/details/split_household.py"
+    reason: "No v2 vocabulary for household split reason. Change request processing is not in v2 scope."
+
+  - external_vocabulary: "TransferMemberReason"
+    external_source: "spp_change_request_v2/details/transfer_member.py"
+    reason: "No v2 vocabulary for member transfer reason. Change request processing is not in v2 scope."
+
+  - external_vocabulary: "RemoveMemberReason"
+    external_source: "spp_change_request_v2/details/remove_member.py"
+    reason: "No v2 vocabulary for member removal reason. Change request processing is not in v2 scope."

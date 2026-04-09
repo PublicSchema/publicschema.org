@@ -1,0 +1,361 @@
+system: opencrvs
+
+# Vocabulary overlap between OpenCRVS and PublicSchema v2 is thin.
+# OpenCRVS is a civil registration system (CRVS domain). Most of its vocabularies
+# cover CRVS-specific workflow states, audit operations, and form infrastructure
+# with no social protection equivalent.
+#
+# The matches below fall into two categories:
+#   1. Direct matches: shared semantic concepts with a value-level mapping.
+#   2. Country-config matches: v2 has defined values; OpenCRVS treats the concept
+#      as a free-text string configured per country deployment — no core enum exists.
+
+matches:
+
+  # --- sex vs Gender ---
+  # OpenCRVS uses a single GraphQL enum called "Gender" for what is semantically
+  # biological sex (male, female, unknown) plus a social "other" category.
+  # V2 separates these into sex (ISO 5218, biological) and gender-type (social gender).
+  # Both v2 vocabularies map onto the same OpenCRVS enum.
+
+  - v2_vocabulary: sex
+    external_vocabulary: Gender
+    external_source: "packages/client/src/tests/schema.graphql:711"
+    confidence: medium
+    notes: >
+      OpenCRVS calls this enum "Gender" but uses it on birth, death, and marriage
+      declarations where the field captures biological sex (not social gender).
+      The mapping is close but not exact: OpenCRVS "other" is mapped to
+      not_applicable because ISO 5218 has no "other" — it uses not_applicable (9)
+      for cases outside the male/female binary. OpenCRVS "unknown" maps to
+      not_known (ISO 5218 code 0). The name mismatch ("Gender" vs biological sex)
+      reflects a common conflation in CRVS systems.
+    value_mapping:
+      "male": male
+      "female": female
+      "other": not_applicable
+      "unknown": not_known
+    gaps:
+      v2_only:
+        - not_applicable  # mapped from "other"; no distinct OpenCRVS code for it
+      external_only: []
+
+  - v2_vocabulary: gender-type
+    external_vocabulary: Gender
+    external_source: "packages/client/src/tests/schema.graphql:711"
+    confidence: high
+    notes: >
+      OpenCRVS "Gender" aligns well with v2 gender-type, which also references
+      FHIR AdministrativeGender. Both treat "other" as a residual category for
+      people not captured by male/female. OpenCRVS "unknown" maps to not_stated
+      (gender not recorded or disclosed). This is a better semantic fit than the
+      sex mapping above because gender-type is the social/administrative framing.
+    value_mapping:
+      "male": male
+      "female": female
+      "other": other
+      "unknown": not_stated
+    gaps:
+      v2_only: []
+      external_only: []
+
+  # --- payment-status vs PaymentOutcomeType ---
+  # OpenCRVS records a fee payment outcome when a certificate is issued.
+  # V2 payment-status covers the full disbursement lifecycle for benefit payments.
+  # These are different contexts: OpenCRVS payments are service fees collected
+  # by registrars, not welfare benefit disbursements.
+
+  - v2_vocabulary: payment-status
+    external_vocabulary: PaymentOutcomeType
+    external_source: "packages/client/src/tests/schema.graphql:1138"
+    confidence: low
+    notes: >
+      OpenCRVS PaymentOutcomeType records whether a civil registration service fee
+      was collected (COMPLETED, ERROR, PARTIAL). This is registrar-side fee
+      collection, not benefit disbursement — the contexts are fundamentally
+      different. COMPLETED maps to paid; ERROR maps to failed. PARTIAL has no
+      clean v2 equivalent because v2 does not model partial payment as a distinct
+      terminal state; it is mapped to paid as the closest approximation, with the
+      caveat that partial payment semantics differ.
+    value_mapping:
+      "COMPLETED": paid
+      "ERROR": failed
+      "PARTIAL": paid
+    gaps:
+      v2_only:
+        - pending     # no pre-transmission state in OpenCRVS fee model
+        - returned    # no return concept in OpenCRVS fee model
+        - cancelled   # no cancellation concept in OpenCRVS fee model
+        - reconciled  # no reconciliation state in OpenCRVS fee model
+      external_only:
+        - PARTIAL     # partial fee payment; no v2 equivalent
+
+  # --- identifier-type vs IdentityDocumentType (country-configurable) ---
+  # OpenCRVS does not define identity document types in core code.
+  # The GraphQL schema uses String for the type field. Example values
+  # (PASSPORT, DRIVING_LICENSE, NID, etc.) appear only in test fixtures.
+  # However, OpenCRVS does reference NATIONAL_ID and BIRTH_REGISTRATION_NUMBER
+  # as constants in specific integration contexts, so partial overlap exists.
+
+  - v2_vocabulary: identifier-type
+    external_vocabulary: IdentityDocumentType
+    confidence: low
+    country_config: true
+    notes: >
+      OpenCRVS does not define identity document types in core code — the field
+      is a free-text String configured per country deployment. Test fixtures show
+      values such as PASSPORT, DRIVING_LICENSE, NID, REFUGEE_NUMBER, but these
+      are not authoritative. The BIRTH_REGISTRATION_NUMBER and
+      DEATH_REGISTRATION_NUMBER constants appear in integration code, which have
+      no direct v2 equivalent (v2 uses birth_certificate as a general category).
+      No value mapping is possible without a specific country deployment.
+
+  # --- Country-configurable matches (no value mapping possible) ---
+
+  - v2_vocabulary: marital-status
+    external_vocabulary: MaritalStatus
+    confidence: null
+    country_config: true
+    notes: >
+      OpenCRVS does not define marital status values in core. The field is typed
+      as String on the GraphQL Person type (line 1157 in schema.graphql). Values
+      are country-configurable at deployment time. V2 uses FHIR v3-MaritalStatus
+      as its reference standard.
+
+  - v2_vocabulary: education-level
+    external_vocabulary: EducationLevel
+    confidence: null
+    country_config: true
+    notes: >
+      OpenCRVS does not define education level values in core. The field
+      (educationalAttainment) is typed as String in the FHIR-based model. Values
+      are country-configurable. V2 uses ISCED 2011 as its reference standard.
+
+  - v2_vocabulary: occupation
+    external_vocabulary: Occupation
+    confidence: null
+    country_config: true
+    notes: >
+      OpenCRVS does not define occupation values in core. The field is typed as
+      String on the GraphQL Person type (line 1158 in schema.graphql). Values
+      are country-configurable. V2 uses ISCO-08 as its reference standard.
+
+
+no_match:
+
+  # --- V2 vocabularies with no OpenCRVS equivalent ---
+  # These are social protection concepts. OpenCRVS is a civil registration system
+  # and has no enrollment, eligibility, benefit, or grievance constructs.
+
+  - v2_vocabulary: enrollment-status
+    reason: >
+      OpenCRVS has no concept of program enrollment. Civil registration records
+      vital events (birth, death, marriage); it does not track program participation.
+
+  - v2_vocabulary: eligibility-status
+    reason: >
+      No eligibility assessment in OpenCRVS. Eligibility determination is a social
+      protection function with no CRVS equivalent.
+
+  - v2_vocabulary: benefit-frequency
+    reason: >
+      No benefit disbursement cycle in OpenCRVS. Payments in OpenCRVS are one-time
+      service fees, not recurring benefit transfers.
+
+  - v2_vocabulary: benefit-modality
+    reason: >
+      No benefit type or modality concept in OpenCRVS. Cash, in-kind, and voucher
+      transfers are social protection constructs absent from CRVS.
+
+  - v2_vocabulary: event-certainty
+    reason: >
+      No probability or certainty scoring in OpenCRVS. The concept is used in v2
+      for targeting and assessment confidence levels, which have no CRVS analog.
+
+  - v2_vocabulary: conditionality-type
+    reason: >
+      Conditionalities (co-responsibilities attached to benefits) are a social
+      protection concept with no equivalent in civil registration.
+
+  - v2_vocabulary: delivery-channel
+    reason: >
+      Delivery channel (how benefits reach beneficiaries) is a disbursement
+      concept absent from OpenCRVS.
+
+  - v2_vocabulary: grievance-status
+    reason: >
+      OpenCRVS has no formal grievance management module. Complaints and appeals
+      are social protection constructs.
+
+  - v2_vocabulary: grievance-type
+    reason: >
+      Same as grievance-status: no grievance classification in OpenCRVS.
+
+  - v2_vocabulary: group-role
+    reason: >
+      V2 group-role covers household membership roles (head, spouse, child, etc.)
+      in a social protection context. OpenCRVS captures family relationships
+      differently — as string fields on the birth or marriage registration record —
+      with no shared enumeration.
+
+  - v2_vocabulary: group-type
+    reason: >
+      V2 group-type distinguishes household, family, farm, and other group
+      structures used in social protection targeting. OpenCRVS has no equivalent
+      grouping concept.
+
+  - v2_vocabulary: hazard-type
+    reason: >
+      Hazard classification is used in social protection for shock-responsive
+      programming. No analog in civil registration.
+
+  - v2_vocabulary: referral-status
+    reason: >
+      Referral tracking between programs is a social protection construct with
+      no civil registration equivalent.
+
+  - v2_vocabulary: event-severity
+    reason: >
+      Severity scoring (for shocks, grievances, or needs) is a social protection
+      assessment concept absent from OpenCRVS.
+
+  - v2_vocabulary: targeting-approach
+    reason: >
+      Program targeting methodology is a social protection planning concept with
+      no civil registration equivalent.
+
+  - v2_vocabulary: administrative-level
+    reason: >
+      V2 administrative-level is a standardized vocabulary for geographic
+      administrative hierarchy tiers. OpenCRVS uses country-configurable location
+      types (deprecated LocationTypeV1, then arbitrary strings) rather than a
+      fixed tier enumeration. The concepts are adjacent but OpenCRVS has no
+      equivalent fixed vocabulary.
+
+  # --- OpenCRVS domain-relevant vocabularies with no v2 equivalent ---
+  # These are CRVS-specific concepts that could be relevant to future PublicSchema
+  # CRVS domain work but have no current v2 home.
+
+  - external_vocabulary: EventStatus
+    reason: >
+      CRVS-specific registration lifecycle (CREATED, NOTIFIED, DECLARED,
+      REGISTERED, ARCHIVED). Relevant to future publicschema.org/crvs/ domain
+      work but no current v2 concept covers civil registration event states.
+
+  - external_vocabulary: RegStatus
+    reason: >
+      Legacy v1 registration lifecycle status (IN_PROGRESS, DECLARED,
+      REGISTERED, CERTIFIED, etc.). Same domain gap as EventStatus — CRVS
+      workflow state with no v2 equivalent.
+
+  - external_vocabulary: ActionType
+    reason: >
+      CRVS action taxonomy (DECLARE, REGISTER, REJECT, PRINT_CERTIFICATE, etc.).
+      Civil registration workflow actions; no v2 concept.
+
+  - external_vocabulary: ActionStatus
+    reason: >
+      Lifecycle of an individual CRVS action (Requested, Accepted, Rejected).
+      Internal to the OpenCRVS events engine; no v2 equivalent.
+
+  - external_vocabulary: RegAction
+    reason: >
+      Legacy v1 audit trail actions (VERIFIED, CORRECTED, MARKED_AS_DUPLICATE,
+      etc.). CRVS audit log concept; no v2 equivalent.
+
+  - external_vocabulary: EventType
+    reason: >
+      Civil registration event types (birth, death, marriage). Fundamental CRVS
+      taxonomy with no current v2 concept — v2 does not yet model the CRVS domain.
+
+  - external_vocabulary: RegistrationType
+    reason: >
+      Legacy uppercase mirror of EventType (BIRTH, DEATH, MARRIAGE). Same gap
+      as EventType.
+
+  - external_vocabulary: UserStatus
+    reason: >
+      User account lifecycle (active, deactivated, pending, disabled). System
+      administration concept; no v2 equivalent.
+
+  - external_vocabulary: SystemRoleType
+    reason: >
+      Built-in CRVS role types (FIELD_AGENT, LOCAL_REGISTRAR, etc.). Role-based
+      access control for a specific system; no v2 equivalent.
+
+  - external_vocabulary: SystemType
+    reason: >
+      Types of external integrating systems (NATIONAL_ID, HEALTH, RECORD_SEARCH,
+      etc.). OpenCRVS integration taxonomy; no v2 equivalent.
+
+  - external_vocabulary: SystemStatus
+    reason: >
+      Lifecycle status of an external integrating system client. System
+      administration concept; no v2 equivalent.
+
+  - external_vocabulary: IntegratingSystemType
+    reason: >
+      Sub-type for national ID integrations (OSIA, OTHER). Narrow integration
+      taxonomy; no v2 equivalent.
+
+  - external_vocabulary: LocationTypeV1
+    reason: >
+      Deprecated location type enum (ADMIN_STRUCTURE, CRVS_OFFICE,
+      HEALTH_FACILITY). Superseded in v2 by country-configurable strings.
+      V2 administrative-level covers a related concept but at a different
+      granularity.
+
+  - external_vocabulary: AdministrativeAreaType
+    reason: >
+      Field configuration enum for location types (same values as LocationTypeV1).
+      Infrastructure concept; no v2 equivalent.
+
+  - external_vocabulary: AddressType
+    reason: >
+      Whether an address is domestic or international. V2 does not currently
+      define an address type vocabulary — address is modeled as a concept, not
+      a typed enum.
+
+  - external_vocabulary: AddressUse
+    reason: >
+      Purpose of an address (home, work, temp, old) from the FHIR-based legacy
+      model. V2 does not define an address use vocabulary.
+
+  - external_vocabulary: GeographicalArea
+    reason: >
+      Urban/rural classification of an address location. V2 does not define this
+      vocabulary, though the concept is relevant to social protection targeting.
+
+  - external_vocabulary: TelecomSystem
+    reason: >
+      Type of telecommunications contact (phone, fax, email, etc.). Contact point
+      infrastructure; no v2 equivalent.
+
+  - external_vocabulary: TelecomUse
+    reason: >
+      Purpose of a contact point (home, work, temp, etc.). Contact point
+      infrastructure; no v2 equivalent.
+
+  - external_vocabulary: AttachmentStatus
+    reason: >
+      Status of an attached document (PRELIMINARY, FINAL, AMENDED, etc.).
+      Document lifecycle concept from the FHIR-based model; no v2 equivalent.
+
+  - external_vocabulary: PaymentType
+    reason: >
+      Method of fee payment for civil registration services (MANUAL only).
+      Registrar-side fee collection; structurally incompatible with v2
+      payment-status (disbursement lifecycle).
+
+  - external_vocabulary: VerificationStatus
+    reason: >
+      Status of an identity verification check against an external system
+      (verified, authenticated, failed, pending). CRVS integration concept
+      relevant to identity verification workflows; no v2 equivalent.
+
+  # --- Pure infrastructure vocabularies (omitted from domain-relevant list) ---
+  # The following OpenCRVS vocabularies are pure application infrastructure with
+  # no meaningful mapping surface and are listed here only for completeness:
+  #   TokenUserType, RecordScopeType, JurisdictionFilter, InherentFlag,
+  #   SearchCriteria, AuditReason, AuditAction, DraftStatus, CertificateStatus,
+  #   AuditOperation, NotificationTriggerEvent, ConditionalType, FieldType

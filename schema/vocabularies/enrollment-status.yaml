@@ -1,9 +1,9 @@
 id: enrollment-status
 maturity: draft
 definition:
-  en: The lifecycle states of an enrollment in a social protection program.
-  fr: Les états du cycle de vie d'une inscription dans un programme de protection sociale.
-  es: Los estados del ciclo de vida de una inscripción en un programa de protección social.
+  en: The lifecycle states of an enrollment in a program.
+  fr: Les états du cycle de vie d'une inscription dans un programme.
+  es: Los estados del ciclo de vida de una inscripción en un programa.
 values:
 - code: active
   label:

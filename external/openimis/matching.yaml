@@ -1,0 +1,334 @@
+system: openimis
+
+matches:
+  - v2_vocabulary: enrollment-status
+    external_vocabulary: BeneficiaryStatus
+    external_source: "social_protection/models.py:13"
+    confidence: high
+    notes: "BeneficiaryStatus tracks the lifecycle of an individual or group enrolled in a benefit plan. POTENTIAL maps to pending_verification because those records have not yet been confirmed as active beneficiaries. GRADUATED is a named exit route (program goals met), distinct from the broader closed state."
+    value_mapping:
+      "POTENTIAL": pending_verification
+      "ACTIVE": active
+      "GRADUATED": graduated
+      "SUSPENDED": suspended
+    gaps:
+      v2_only: [closed]
+      external_only: []
+
+  - v2_vocabulary: group-role
+    external_vocabulary: GroupIndividual.Role
+    external_source: "individual/models.py:152"
+    confidence: high
+    notes: "Role describes a person's position within a group (household) in the social protection module. OpenIMIS uses gendered terms (SON/DAUGHTER, GRANDFATHER/GRANDMOTHER) that collapse to gender-neutral v2 codes. GRANDSON/GRANDDAUGHTER map to dependent because grandchildren in a household head's group are typically dependents, not the same as the grandparent relationship type."
+    value_mapping:
+      "HEAD": head
+      "SPOUSE": spouse
+      "SON": child
+      "DAUGHTER": child
+      "FATHER": parent
+      "MOTHER": parent
+      "GRANDFATHER": parent
+      "GRANDMOTHER": parent
+      "GRANDSON": dependent
+      "GRANDDAUGHTER": dependent
+      "BROTHER": other_relative
+      "SISTER": other_relative
+      "OTHER RELATIVE": other_relative
+      "NOT RELATED": non_relative
+    gaps:
+      v2_only: []
+      external_only: []
+
+  - v2_vocabulary: gender-type
+    external_vocabulary: Gender
+    external_source: "insuree/models.py:16"
+    confidence: high
+    notes: "OpenIMIS Gender is a DB lookup table (tblGender) seeded with M/F/O. These align directly with the v2 male/female/other codes. The v2 not_stated code has no equivalent in OpenIMIS; the system does not record a 'not stated' option."
+    value_mapping:
+      "M": male
+      "F": female
+      "O": other
+    gaps:
+      v2_only: [not_stated]
+      external_only: []
+
+  - v2_vocabulary: group-type
+    external_vocabulary: FamilyType
+    external_source: "insuree/models.py:61"
+    confidence: medium
+    notes: "FamilyType classifies a family/household unit in the legacy health insurance module. Nuclear Family, Extended Family, and Single Parent all map to the family v2 code because they are kinship-defined units. HouseHold maps to household. Group maps to other because it is a catch-all administrative grouping, not a kinship unit. The v2 farm code has no OpenIMIS equivalent."
+    value_mapping:
+      "N": family
+      "E": family
+      "S": family
+      "O": other
+      "H": household
+      "G": other
+    gaps:
+      v2_only: [farm]
+      external_only: []
+
+  - v2_vocabulary: identifier-type
+    external_vocabulary: IdentificationType
+    external_source: "insuree/models.py:180"
+    confidence: high
+    notes: "IdentificationType lists document types accepted to identify an insuree. Driver's Licence has no exact v2 match and maps to other; it is an edge case in social protection contexts."
+    value_mapping:
+      "N": national_id
+      "P": passport
+      "V": voter_id
+      "D": other
+    gaps:
+      v2_only: [birth_certificate, program_id, household_id, social_security_number]
+      external_only: []
+
+  - v2_vocabulary: relationship-type
+    external_vocabulary: Relation
+    external_source: "insuree/models.py:193"
+    confidence: medium
+    notes: "Relation describes how an insuree relates to the family head in the legacy health insurance module. The values use gender-neutral combined terms (Brother/Sister -> sibling) and partial kinship terms. Employee (code 6) has no family relationship equivalent and maps to other. This is a separate table from GroupIndividual.Role; both cover person-to-group relationships but in different modules."
+    value_mapping:
+      "1": sibling
+      "2": parent
+      "3": other
+      "4": child
+      "5": grandparent
+      "6": other
+      "7": other
+      "8": spouse
+    gaps:
+      v2_only: [grandchild, guardian, caregiver, dependent, head_of_household, payment_proxy, survivor]
+      external_only: []
+
+  - v2_vocabulary: education-level
+    external_vocabulary: Education
+    external_source: "insuree/models.py:167"
+    confidence: medium
+    notes: "OpenIMIS Education uses a small flat list (7 values) versus the full ISCED 2011 hierarchy in v2. Nursery maps to early_childhood. The OpenIMIS list combines lower and upper secondary into a single 'Secondary school' value, so it maps to upper_secondary as the broader category. University maps to bachelor as the most common degree-level outcome. Postgraduate studies maps to master. PHD maps to doctoral. The v2 vocabulary has several levels (lower_secondary, post_secondary_non_tertiary, short_cycle_tertiary) with no OpenIMIS equivalent."
+    value_mapping:
+      "1": early_childhood
+      "2": primary
+      "3": upper_secondary
+      "4": bachelor
+      "5": master
+      "6": doctoral
+      "7": other
+    gaps:
+      v2_only: [lower_secondary, post_secondary_non_tertiary, short_cycle_tertiary]
+      external_only: []
+
+  - v2_vocabulary: payment-status
+    external_vocabulary: BenefitConsumptionStatus
+    external_source: "openimis-be-payroll_py/payroll/models.py:20"
+    confidence: medium
+    notes: "BenefitConsumptionStatus tracks individual benefit disbursement records within a payroll run in the social protection module. CREATED and ACCEPTED both represent early-stage records that have not been transmitted, mapping to pending. DUPLICATE and PENDING_DELETION represent records that will be cancelled before payment, mapping to cancelled. RECONCILED maps directly."
+    value_mapping:
+      "CREATED": pending
+      "ACCEPTED": pending
+      "APPROVE_FOR_PAYMENT": pending
+      "REJECTED": cancelled
+      "DUPLICATE": cancelled
+      "PENDING_DELETION": cancelled
+      "RECONCILED": reconciled
+    gaps:
+      v2_only: [paid, failed, returned]
+      external_only: []
+
+  - v2_vocabulary: delivery-channel
+    external_vocabulary: PayTypeChoices
+    external_source: "openimis-be-contribution_py/contribution/models.py:13"
+    confidence: medium
+    notes: "PayTypeChoices records how a contribution (insurance premium) was collected, not how a benefit was disbursed. Despite the semantic difference, the payment methods (bank transfer, cash, mobile phone) map directly to v2 delivery channels. FUNDING (code F) represents donor or institutional transfers with no clear delivery channel equivalent, so it maps to other."
+    value_mapping:
+      "B": bank_transfer
+      "C": cash_in_hand
+      "M": mobile_money
+      "F": other
+    gaps:
+      v2_only: [agent_network, prepaid_card, e_voucher, paper_voucher, direct_distribution, service_point]
+      external_only: []
+
+  - v2_vocabulary: grievance-status
+    external_vocabulary: TicketStatus
+    external_source: "openimis-be-grievance_py/grievance/migrations/0004_auto_20230425_1638.py:82"
+    confidence: medium
+    notes: "TicketStatus was defined in a migration (later removed as a constrained choice in migration 0005). Waiting maps to submitted as the initial received state. Todo maps to submitted as it has not yet been picked up. Inprogress maps to under_review. Review maps to under_review as it is still an active assessment stage. CLOSE maps to closed. The v2 escalated and rejected states have no OpenIMIS equivalent."
+    value_mapping:
+      "Waiting": submitted
+      "Todo": submitted
+      "Inprogress": under_review
+      "Review": under_review
+      "CLOSE": closed
+    gaps:
+      v2_only: [resolved, escalated, rejected]
+      external_only: []
+
+  - v2_vocabulary: event-severity
+    external_vocabulary: TicketPriority
+    external_source: "openimis-be-grievance_py/grievance/migrations/0004_auto_20230425_1638.py:83"
+    confidence: low
+    notes: "TicketPriority is a grievance ticket priority, not a hazard severity. The semantic match is partial: both vocabularies express a graduated scale of urgency. Critical maps to extreme, High to severe, Normal to moderate, Low to minor. The mapping is defensible for analytical comparisons but the concepts are not identical: one is about grievance urgency, the other about disaster impact."
+    value_mapping:
+      "Critical": extreme
+      "High": severe
+      "Normal": moderate
+      "Low": minor
+    gaps:
+      v2_only: [unknown]
+      external_only: []
+
+  - v2_vocabulary: administrative-level
+    external_vocabulary: LocationType
+    external_source: "location/apps.py:6"
+    confidence: high
+    notes: "LocationType defines the four-level administrative hierarchy used by openIMIS (Region > District > Ward > Village). Region maps to regional, District to district, Ward and Village both map to sub_district and village respectively. The v2 national level has no openIMIS equivalent as the system works within a single country."
+    value_mapping:
+      "R": regional
+      "D": district
+      "W": sub_district
+      "V": village
+    gaps:
+      v2_only: [national]
+      external_only: []
+
+  - v2_vocabulary: occupation
+    external_vocabulary: Profession
+    external_source: "insuree/models.py:154"
+    confidence: low
+    notes: "OpenIMIS Profession covers the same domain (what a person does for work) but with only 4 broad values (Housewife, Employee, Self Employee, Others) versus the full ISCO-08 hierarchy (436 codes) in v2. The granularity gap makes value-level mapping impractical, but the conceptual relationship is worth tracking."
+    value_mapping: {}
+    gaps:
+      v2_only: ["all ISCO-08 codes"]
+      external_only: ["Housewife (not an ISCO-08 category)", "Self Employee (employment status, not occupation)"]
+
+no_match:
+  # v2 vocabularies with no OpenIMIS equivalent
+  - v2_vocabulary: benefit-frequency
+    reason: "OpenIMIS does not define a payment frequency vocabulary. Payment cycle cadence is configured per product as numeric date fields (start/end dates and recurring periods), not as a categorical enumeration."
+
+  - v2_vocabulary: benefit-modality
+    reason: "OpenIMIS does not have an explicit benefit modality vocabulary. The social protection module handles cash transfers; in-kind or voucher modalities are not represented as a categorical field."
+
+  - v2_vocabulary: conditionality-type
+    reason: "OpenIMIS does not model conditionality as a categorical attribute on benefit plans. Conditions are managed outside the core schema."
+
+  - v2_vocabulary: eligibility-status
+    reason: "OpenIMIS does not have a dedicated eligibility determination status vocabulary. Eligibility logic is embedded in benefit plan rules and BeneficiaryStatus; there is no separate EligibilityDecision record with its own status field."
+
+  - v2_vocabulary: hazard-type
+    reason: "OpenIMIS does not model hazard or shock events. The system has no shock-registry or emergency-trigger module."
+
+  - v2_vocabulary: marital-status
+    reason: "OpenIMIS does not include a marital status vocabulary in the extracted modules. The insuree model does not have a marital status field in the social protection or insuree modules covered here."
+
+  - v2_vocabulary: referral-status
+    reason: "OpenIMIS does not have a referral module or referral status vocabulary in the extracted codebase. The grievance module handles complaints, not inter-program referrals."
+
+  - v2_vocabulary: targeting-approach
+    reason: "OpenIMIS does not expose a targeting approach vocabulary. The benefit plan configuration does not categorise the method used to identify beneficiaries as a controlled value set."
+
+  - v2_vocabulary: event-certainty
+    reason: "OpenIMIS does not model event certainty. This vocabulary is used for shock or hazard events, which are outside the scope of the openIMIS modules."
+
+  # OpenIMIS-only vocabularies with no v2 match
+  - external_vocabulary: BenefitPlanType
+    reason: "PublicSchema does not have a vocabulary distinguishing individual versus group enrollment modes. This is a configuration attribute of a benefit plan, not a standalone concept."
+
+  - external_vocabulary: ProjectStatus
+    reason: "PublicSchema does not model cash-for-work or community project lifecycle states. ProjectStatus is specific to openIMIS social protection projects (PREPARATION, IN_PROGRESS, COMPLETED)."
+
+  - external_vocabulary: GroupIndividual.RecipientType
+    reason: "PublicSchema does not distinguish primary versus secondary benefit recipient within a group membership. This is an openIMIS-specific concept for designating the payment recipient when multiple group members qualify."
+
+  - external_vocabulary: ConfirmationType
+    reason: "PublicSchema does not model the administrative authority that confirmed a family registration. This is an openIMIS-specific audit field."
+
+  - external_vocabulary: InsureeStatus
+    reason: "PublicSchema does not have a person-level lifecycle status vocabulary. PersonStatus (ACTIVE/INACTIVE/DEAD) is an internal record management concept in openIMIS, not a social protection enrollment state."
+
+  - external_vocabulary: PayrollStatus
+    reason: "PublicSchema does not model payroll batch processing states. PayrollStatus tracks the approval workflow for a payroll run (PENDING_APPROVAL, APPROVE_FOR_PAYMENT, REJECTED, RECONCILED), which operates at a different level of abstraction than the individual payment-status vocabulary."
+
+  - external_vocabulary: CsvReconciliationUpload.Status
+    reason: "PublicSchema does not model file import or batch reconciliation job states. This is an internal processing status for CSV upload jobs in openIMIS."
+
+  - external_vocabulary: Payment.STATUS_CHOICES
+    reason: "This is the legacy health insurance premium payment status in openIMIS, not a benefit disbursement status. It tracks premium matching and posting states (POSTED, ASSIGNED, UNMATCHED, PAYMENTMATCHED), which are insurance accounting concepts not present in PublicSchema."
+
+  - external_vocabulary: PaymentCycle.PaymentCycleStatus
+    reason: "PublicSchema does not model payment cycle (period) lifecycle states. PaymentCycleStatus tracks whether a payment window is PENDING, ACTIVE, or SUSPENDED, which is a scheduling concept without a v2 equivalent."
+
+  - external_vocabulary: ClaimStatus
+    reason: "PublicSchema does not model health insurance claim processing. ClaimStatus (REJECTED, ENTERED, CHECKED, PROCESSED, VALUATED) is an adjudication workflow specific to the openIMIS health module."
+
+  - external_vocabulary: ClaimFeedbackStatus
+    reason: "PublicSchema does not model claim feedback collection workflows. This is a health insurance audit process specific to openIMIS."
+
+  - external_vocabulary: ClaimReviewStatus
+    reason: "PublicSchema does not model medical claim review workflows. This is a health insurance quality assurance process specific to openIMIS."
+
+  - external_vocabulary: ClaimDetailStatus
+    reason: "PublicSchema does not model claim line item adjudication outcomes. This is internal to the openIMIS health insurance claims module."
+
+  - external_vocabulary: GeneralClaimAttachmentType
+    reason: "PublicSchema does not model document attachment types (URL vs FILE). This is a technical storage attribute specific to openIMIS claim attachments."
+
+  - external_vocabulary: PolicyStatus
+    reason: "PublicSchema does not model health insurance policy lifecycle states. PolicyStatus (IDLE, ACTIVE, SUSPENDED, EXPIRED, READY) applies to health insurance coverage periods, not social protection enrollments."
+
+  - external_vocabulary: PolicyStage
+    reason: "PublicSchema does not distinguish new enrollment from renewal at the vocabulary level. This is a health insurance concept specific to openIMIS."
+
+  - external_vocabulary: HealthFacilityStatus
+    reason: "PublicSchema does not model health facility operational status. This is specific to the openIMIS health module."
+
+  - external_vocabulary: HealthFacilityLevel
+    reason: "PublicSchema does not model health facility hierarchy levels (Dispensary, Health Centre, Hospital). This is specific to the openIMIS health module."
+
+  - external_vocabulary: HealthFacilityCareType
+    reason: "PublicSchema does not model care type classifications for health facilities. This is specific to the openIMIS health module."
+
+  - external_vocabulary: HealthFacilityLegalForm
+    reason: "PublicSchema does not model legal form or ownership type of service facilities. This is specific to the openIMIS health module."
+
+  - external_vocabulary: HealthFacilitySubLevel
+    reason: "PublicSchema does not model facility sub-level classifications (rural vs urban). This is specific to the openIMIS health module."
+
+  - external_vocabulary: CareTypeEnum
+    reason: "PublicSchema does not model care types for health insurance products. This is specific to the openIMIS health module."
+
+  - external_vocabulary: CeilingInterpretationEnum
+    reason: "PublicSchema does not model health insurance benefit ceiling interpretation modes. This is specific to the openIMIS health insurance product configuration."
+
+  - external_vocabulary: CeilingTypeEnum
+    reason: "PublicSchema does not model health insurance ceiling scope (per treatment, per policy, per insuree). This is specific to the openIMIS health insurance product configuration."
+
+  - external_vocabulary: PriceOriginEnum
+    reason: "PublicSchema does not model health service reimbursement price origin (pricelist, provider, relative). This is specific to the openIMIS health insurance product configuration."
+
+  - external_vocabulary: LimitTypeEnum
+    reason: "PublicSchema does not model benefit limit types (co-insurance vs fixed amount) for health products. This is specific to the openIMIS health insurance module."
+
+  - external_vocabulary: CeilingExclusionEnum
+    reason: "PublicSchema does not model ceiling exclusion rules for hospital versus non-hospital care. This is specific to the openIMIS health insurance module."
+
+  - external_vocabulary: ProductCeilingType
+    reason: "Duplicate of CeilingTypeEnum defined as inline field choices on the Product model. Same reasoning applies: health insurance concept with no v2 equivalent."
+
+  - external_vocabulary: ProductCeilingInterpretation
+    reason: "Duplicate of CeilingInterpretationEnum defined as inline field choices on the Product model. Same reasoning applies: health insurance concept with no v2 equivalent."
+
+  - external_vocabulary: ProductItemOrServicePriceOrigin
+    reason: "Duplicate of PriceOriginEnum defined as inline field choices on product item and service models. Same reasoning applies: health insurance concept with no v2 equivalent."
+
+  - external_vocabulary: ProductItemOrServiceLimitType
+    reason: "Duplicate of LimitTypeEnum defined as inline field choices on product item and service models. Same reasoning applies: health insurance concept with no v2 equivalent."
+
+  - external_vocabulary: ProductRelativePricePeriod
+    reason: "PublicSchema does not model relative price calculation periods (Month, Quarter, Year) for health insurance products. This is specific to the openIMIS health insurance module."
+
+  - external_vocabulary: ProductCeilingInterpretationConstants
+    reason: "Duplicate constants for the same field as CeilingInterpretationEnum, defined at the class level on the Product model. Same reasoning applies: health insurance concept with no v2 equivalent."
+
+  - external_vocabulary: ProductItemOrServiceOriginConstants
+    reason: "Duplicate constants for price origin and limit type defined at the class level on ProductItemOrService. Same reasoning applies: health insurance concept with no v2 equivalent."

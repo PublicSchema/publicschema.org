@@ -1,9 +1,9 @@
 id: eligibility-status
 maturity: draft
 definition:
-  en: The possible outcomes of a formal eligibility determination for a social protection program.
-  fr: Les résultats possibles d'une détermination formelle d'éligibilité à un programme de protection sociale.
-  es: Los posibles resultados de una determinación formal de elegibilidad para un programa de protección social.
+  en: The possible outcomes of a formal eligibility determination for a program or service.
+  fr: Les résultats possibles d'une détermination formelle d'éligibilité à un programme ou service.
+  es: Los posibles resultados de una determinación formal de elegibilidad para un programa o servicio.
 values:
 - code: eligible
   label:

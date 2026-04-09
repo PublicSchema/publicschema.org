@@ -8,5 +8,5 @@ definition:
 
 type: string
 cardinality: single
-vocabulary: severity
+vocabulary: event-severity
 references: null
