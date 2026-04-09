@@ -97,7 +97,7 @@ An SD-JWT VC separates always-disclosed claims from selectively disclosable ones
 }
 ```
 
-Note: SD-JWT VC payloads do not include `@context` or `type` arrays at the top level. These are W3C VCDM properties; SD-JWT VC uses `vct` (verifiable credential type) instead. The `cnf` claim binds the credential to the holder's key for key binding proof.
+Note: PublicSchema credential schemas use the SD-JWT VC format exclusively. SD-JWT VC payloads use `vct` (verifiable credential type) instead of W3C VCDM's `@context` and `type` arrays. The `cnf` claim binds the credential to the holder's key for key binding proof. The generated JSON Schemas in `dist/schemas/credentials/` validate SD-JWT VC payloads, not W3C VCDM envelopes.
 
 The `_sd` array contains hashes of the disclosable claims. The actual values are provided separately as disclosures that the holder can choose to include or omit when presenting the credential.
 

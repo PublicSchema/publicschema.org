@@ -584,46 +584,47 @@ def build_vocabulary(schema_dir: Path) -> dict:
                 # Use snake_case concept name as the property key
                 subject_props[_to_snake_case(included_id)] = nested_obj
 
-        # Build VC envelope schema
+        # Build SD-JWT VC schema
         credential_schema = {
             "$schema": "https://json-schema.org/draft/2020-12/schema",
             "$id": f"{base_uri}schemas/credentials/{cred_id}.schema.json",
             "title": cred_id,
             "type": "object",
-            "required": ["@context", "type", "issuer", "credentialSubject"],
+            "required": ["vct", "iss", "iat"],
             "properties": {
-                "@context": {
-                    "type": "array",
-                    "minItems": 2,
-                    "prefixItems": [
-                        {"const": "https://www.w3.org/ns/credentials/v2"},
-                    ],
-                    "items": {
-                        "oneOf": [
-                            {"type": "string"},
-                            {"type": "object"},
-                        ],
-                    },
+                "vct": {
+                    "type": "string",
+                    "const": f"{base_uri}schemas/credentials/{cred_id}",
+                    "description": "Verifiable credential type identifier",
                 },
-                "id": {"type": "string"},
-                "type": {
-                    "type": "array",
-                    "items": {"type": "string"},
-                    "allOf": [
-                        {"contains": {"const": "VerifiableCredential"}},
-                        {"contains": {"const": cred_id}},
-                    ],
+                "iss": {
+                    "type": "string",
+                    "description": "Issuer identifier (DID or URL)",
                 },
-                "issuer": {
-                    "oneOf": [
-                        {"type": "string"},
-                        {"type": "object"},
-                    ],
+                "sub": {
+                    "type": "string",
+                    "description": "Subject identifier",
                 },
-                "validFrom": {"type": "string", "format": "date-time"},
-                "validUntil": {"type": "string", "format": "date-time"},
-                "credentialSchema": {"type": "object"},
-                "credentialStatus": {"type": "object"},
+                "iat": {
+                    "type": "integer",
+                    "description": "Issued at (Unix timestamp)",
+                },
+                "nbf": {
+                    "type": "integer",
+                    "description": "Not before (Unix timestamp)",
+                },
+                "exp": {
+                    "type": "integer",
+                    "description": "Expiration time (Unix timestamp)",
+                },
+                "cnf": {
+                    "type": "object",
+                    "description": "Confirmation claim for key binding",
+                },
+                "_sd_alg": {
+                    "type": "string",
+                    "description": "Selective disclosure hash algorithm",
+                },
                 "credentialSubject": {
                     "type": "object",
                     "properties": subject_props,

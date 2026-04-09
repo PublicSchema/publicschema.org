@@ -340,31 +340,23 @@ class TestShaclGeojsonGeometry:
 
 
 # ---------------------------------------------------------------------------
-# BUG 6 (Medium): Credential schemas don't require 'VerifiableCredential'
-# in the type array.
+# Credential schemas enforce SD-JWT VC vct value.
 #
-# File: build/build.py, credential schema construction (lines ~556-560)
+# File: build/build.py, credential schema construction
 # Affects: all credential schemas
 # ---------------------------------------------------------------------------
 
-class TestCredentialSchemaTypeArray:
-    """Credential schemas must require VerifiableCredential in type array."""
+class TestCredentialSchemaVctValue:
+    """Credential schemas must enforce the correct vct URI."""
 
-    def test_missing_verifiable_credential_type_rejected(self, real_result):
-        """A VC with type: ['IdentityCredential'] (no VerifiableCredential) should fail.
-
-        Currently passes: the schema only checks for the specific credential
-        type, not for the W3C-required 'VerifiableCredential' entry.
-        """
+    def test_wrong_vct_rejected(self, real_result):
+        """An SD-JWT VC with the wrong vct value should fail validation."""
         cred_schema = real_result["credential_schemas"]["IdentityCredential"]
 
-        bad_vc = {
-            "@context": [
-                "https://www.w3.org/ns/credentials/v2",
-                "https://publicschema.org/ctx/draft.jsonld",
-            ],
-            "type": ["IdentityCredential"],  # missing VerifiableCredential
-            "issuer": "did:web:example.org",
+        bad_payload = {
+            "vct": "https://wrong.example.com/WrongCredential",
+            "iss": "did:web:example.org",
+            "iat": 1736899200,
             "credentialSubject": {
                 "given_name": "Test",
             },
@@ -372,7 +364,7 @@ class TestCredentialSchemaTypeArray:
 
         with pytest.raises(jsonschema.ValidationError):
             jsonschema.validate(
-                bad_vc, cred_schema,
+                bad_payload, cred_schema,
                 format_checker=jsonschema.FormatChecker(),
             )
 

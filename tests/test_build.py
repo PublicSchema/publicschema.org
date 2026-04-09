@@ -750,10 +750,10 @@ class TestCredentialSchemas:
         assert "credential_schemas" in result
         assert "IdentityCredential" in result["credential_schemas"]
 
-    def test_credential_schema_wraps_concept_in_vc_envelope(
+    def test_credential_schema_uses_sd_jwt_vc_envelope(
         self, tmp_schema, write_concept, write_property, write_credential
     ):
-        """Credential schema has VC envelope with required fields and concept properties."""
+        """Credential schema has SD-JWT VC envelope with required fields and concept properties."""
         write_property("name.yaml", make_property(id="name"))
         write_concept("person.yaml", make_concept(
             id="Person", properties=["name"],
@@ -772,16 +772,25 @@ class TestCredentialSchemas:
         assert "$schema" in schema
         assert schema["title"] == "IdentityCredential"
 
-        # Required fields
+        # Required fields for SD-JWT VC
         assert "required" in schema
-        assert "@context" in schema["required"]
-        assert "issuer" in schema["required"]
+        assert "vct" in schema["required"]
+        assert "iss" in schema["required"]
+        assert "iat" in schema["required"]
 
-        # VC envelope structure
+        # No W3C VCDM fields
+        assert "@context" not in schema["required"]
+
+        # SD-JWT VC envelope structure
         props = schema["properties"]
-        assert "type" in props
-        assert "issuer" in props
+        assert "vct" in props
+        assert "iss" in props
+        assert "iat" in props
+        assert "cnf" in props
         assert "credentialSubject" in props
+
+        # vct has the correct const value
+        assert props["vct"]["const"] == "https://test.example.org/schemas/credentials/IdentityCredential"
 
         # credentialSubject has the concept's properties
         subject = props["credentialSubject"]
@@ -817,10 +826,10 @@ class TestCredentialSchemas:
         enrollment = subject_props["enrollment"]
         assert "enrollment_status" in enrollment["properties"]
 
-    def test_credential_schema_validates_example(
+    def test_credential_schema_validates_sd_jwt_example(
         self, tmp_schema, write_concept, write_property, write_credential
     ):
-        """A valid example VC validates against the generated credential schema."""
+        """A valid SD-JWT VC payload validates against the generated credential schema."""
         write_property("name.yaml", make_property(id="name"))
         write_concept("person.yaml", make_concept(
             id="Person", properties=["name"],
@@ -832,12 +841,9 @@ class TestCredentialSchemas:
         schema = result["credential_schemas"]["IdentityCredential"]
 
         example = {
-            "@context": [
-                "https://www.w3.org/ns/credentials/v2",
-                "https://test.example.org/ctx/draft.jsonld",
-            ],
-            "type": ["VerifiableCredential", "IdentityCredential"],
-            "issuer": "did:web:example.gov",
+            "vct": "https://test.example.org/schemas/credentials/IdentityCredential",
+            "iss": "did:web:example.gov",
+            "iat": 1736899200,
             "credentialSubject": {
                 "type": "Person",
                 "name": "Amina Diallo",
@@ -848,7 +854,7 @@ class TestCredentialSchemas:
     def test_credential_schema_rejects_missing_required_fields(
         self, tmp_schema, write_concept, write_property, write_credential
     ):
-        """A document without @context or issuer fails validation."""
+        """A document without vct, iss, or iat fails validation."""
         write_property("name.yaml", make_property(id="name"))
         write_concept("person.yaml", make_concept(
             id="Person", properties=["name"],
@@ -859,18 +865,18 @@ class TestCredentialSchemas:
         result = build_vocabulary(tmp_schema)
         schema = result["credential_schemas"]["IdentityCredential"]
 
-        # Missing @context and issuer
+        # Missing vct and iss
         bad_example = {
-            "type": ["VerifiableCredential", "IdentityCredential"],
+            "iat": 1736899200,
             "credentialSubject": {"name": "Test"},
         }
         with pytest.raises(jsonschema.ValidationError):
             jsonschema.validate(bad_example, schema)
 
-    def test_credential_schema_rejects_empty_context_array(
+    def test_credential_schema_rejects_wrong_vct(
         self, tmp_schema, write_concept, write_property, write_credential
     ):
-        """An empty @context array fails validation (minItems)."""
+        """A payload with incorrect vct value fails validation."""
         write_property("name.yaml", make_property(id="name"))
         write_concept("person.yaml", make_concept(
             id="Person", properties=["name"],
@@ -882,32 +888,9 @@ class TestCredentialSchemas:
         schema = result["credential_schemas"]["IdentityCredential"]
 
         bad_example = {
-            "@context": [],
-            "type": ["VerifiableCredential", "IdentityCredential"],
-            "issuer": "did:web:example.gov",
-            "credentialSubject": {"name": "Test"},
-        }
-        with pytest.raises(jsonschema.ValidationError):
-            jsonschema.validate(bad_example, schema)
-
-    def test_credential_schema_rejects_wrong_context_first_element(
-        self, tmp_schema, write_concept, write_property, write_credential
-    ):
-        """@context with wrong first element fails validation."""
-        write_property("name.yaml", make_property(id="name"))
-        write_concept("person.yaml", make_concept(
-            id="Person", properties=["name"],
-        ))
-        write_credential("identity.yaml", make_credential(
-            id="IdentityCredential", subject_concept="Person",
-        ))
-        result = build_vocabulary(tmp_schema)
-        schema = result["credential_schemas"]["IdentityCredential"]
-
-        bad_example = {
-            "@context": ["https://wrong.example.com"],
-            "type": ["VerifiableCredential", "IdentityCredential"],
-            "issuer": "did:web:example.gov",
+            "vct": "https://wrong.example.com/WrongType",
+            "iss": "did:web:example.gov",
+            "iat": 1736899200,
             "credentialSubject": {"name": "Test"},
         }
         with pytest.raises(jsonschema.ValidationError):
