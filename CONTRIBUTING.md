@@ -97,6 +97,24 @@ Current domain codes:
 - Definitions and descriptions: plain language, no jargon. Written for a policy officer, not a developer.
 - When researching vocabularies (e.g., marital status, gender), document which international standards exist and how systems diverge before proposing a canonical set.
 
+## System mappings
+
+System mappings show each external system's full vocabulary for a given concept: their code, their label, and the mapping to our canonical value. Gaps are explicit in both directions: system values with no PublicSchema equivalent appear as unmapped rows (`maps_to: null`), and PublicSchema values with no system equivalent are listed in `unmapped_canonical`.
+
+This serves two audiences:
+- **Integration developers** who need to know what codes a system sends and how to convert them
+- **Domain experts** who need to see where vocabularies diverge across systems
+
+When adding or updating system mappings:
+
+1. Use the enriched format (code + label + maps_to), not the flat format
+2. Get codes and labels from `enums.json` when available (see `docs/vocabulary-extraction-process.md`)
+3. The `code` must be what the system stores in its database, not a human label
+4. Show the full picture: include all system values, even those with no canonical equivalent
+5. List all canonical values not covered by the system in `unmapped_canonical`
+
+See `docs/vocabulary-extraction-process.md` Phase 4 for the complete format specification.
+
 ## External standard syncing
 
 Vocabularies that reference international standards are synced from authoritative sources using `build/sync_standards.py`. Synced vocabularies have `sync: { source_url, format, last_synced }` in their YAML. The sync script updates the `values` list and `last_synced` timestamp but never overwrites hand-written fields.
