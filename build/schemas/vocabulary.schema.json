@@ -37,11 +37,12 @@
     "system_mappings": {
       "type": "object",
       "additionalProperties": {
-        "type": "object",
-        "additionalProperties": {
-          "type": "string"
-        }
+        "$ref": "#/$defs/system_mapping"
       }
+    },
+    "same_standard_systems": {
+      "type": "array",
+      "items": { "type": "string" }
     },
     "sync": {
       "type": "object",
@@ -77,6 +78,48 @@
       },
       "additionalProperties": {
         "type": "string"
+      }
+    },
+    "system_mapping": {
+      "type": "object",
+      "required": ["values"],
+      "additionalProperties": false,
+      "properties": {
+        "vocabulary_name": {
+          "type": "string",
+          "description": "Name the external system uses for this vocabulary"
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/system_mapping_value"
+          },
+          "minItems": 1
+        },
+        "unmapped_canonical": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Canonical value codes not covered by this system"
+        }
+      }
+    },
+    "system_mapping_value": {
+      "type": "object",
+      "required": ["code", "label", "maps_to"],
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "Identifier used in the external system"
+        },
+        "label": {
+          "type": "string",
+          "description": "Human-readable label the system uses"
+        },
+        "maps_to": {
+          "type": ["string", "null"],
+          "description": "Canonical value code, or null if no equivalent"
+        }
       }
     },
     "vocab_value": {
