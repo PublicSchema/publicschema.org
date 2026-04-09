@@ -11,6 +11,8 @@ sync:
   source_url: https://raw.githubusercontent.com/lukes/ISO-3166-Countries-with-Regional-Codes/master/all/all.json
   format: github-json
   last_synced: '2026-04-07'
+same_standard_systems:
+  - openspp
 values:
 - code: af
   label:
