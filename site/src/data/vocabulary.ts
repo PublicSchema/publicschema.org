@@ -58,6 +58,18 @@ export interface VocabValue {
   definition: MultilingualText;
 }
 
+export interface SystemMappingValue {
+  code: string;
+  label: string;
+  maps_to: string | null;
+}
+
+export interface SystemMapping {
+  vocabulary_name?: string;
+  values: SystemMappingValue[];
+  unmapped_canonical?: string[];
+}
+
 export interface Vocabulary {
   id: string;
   domain: string | null;
@@ -67,7 +79,8 @@ export interface Vocabulary {
   definition: MultilingualText;
   standard: { name: string; uri: string; notes?: string } | null;
   values: VocabValue[];
-  system_mappings: Record<string, Record<string, string>> | null;
+  system_mappings: Record<string, SystemMapping> | null;
+  same_standard_systems: string[] | null;
 }
 
 export interface VocabularyData {
