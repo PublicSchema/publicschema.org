@@ -21,7 +21,6 @@ const primitiveTypes = ["string", "integer", "decimal", "boolean", "date"];
         <th>Property</th>
         <th>Type</th>
         <th>Used by</th>
-        <th>Systems</th>
       </tr>
     </thead>
     <tbody>
@@ -38,7 +37,6 @@ const primitiveTypes = ["string", "integer", "decimal", "boolean", "date"];
                 : <code>{p.type}</code>
             }</td>
             <td data-label="Used by">{p.used_by.join(", ")}</td>
-            <td data-label="Systems">{p.convergence ? `${p.convergence.system_count}/${p.convergence.total_systems}` : ""}</td>
           </tr>
         );
       })}
