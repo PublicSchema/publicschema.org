@@ -1,177 +1,693 @@
 id: relationship-type
 maturity: draft
-
 definition:
-  en: "Categories describing the nature of the connection between two persons, covering kinship, administrative, and economic relationships."
-  fr: "Catégories décrivant la nature du lien entre deux personnes, couvrant les relations de parenté, administratives et économiques."
-  es: "Categorías que describen la naturaleza de la conexión entre dos personas, abarcando relaciones de parentesco, administrativas y económicas."
-
+  en: Categories describing the nature of the connection between two persons, covering kinship, administrative, and economic
+    relationships.
+  fr: Catégories décrivant la nature du lien entre deux personnes, couvrant les relations de parenté, administratives et économiques.
+  es: Categorías que describen la naturaleza de la conexión entre dos personas, abarcando relaciones de parentesco, administrativas
+    y económicas.
 values:
-  - code: spouse
-    label:
-      en: Spouse
-      fr: Conjoint(e)
-      es: Cónyuge
-    definition:
-      en: "A person's husband, wife, or legally recognized partner."
-      fr: "Le mari, la femme ou le partenaire légalement reconnu d'une personne."
-      es: "El esposo, esposa o pareja legalmente reconocida de una persona."
-
-  - code: parent
-    label:
-      en: Parent
-      fr: Parent
-      es: Padre/Madre
-    definition:
-      en: "A biological or legally recognized mother or father."
-      fr: "Une mère ou un père biologique ou légalement reconnu(e)."
-      es: "Una madre o padre biológico o legalmente reconocido."
-
-  - code: child
-    label:
-      en: Child
-      fr: Enfant
-      es: Hijo/a
-    definition:
-      en: "A biological or legally recognized son or daughter."
-      fr: "Un fils ou une fille biologique ou légalement reconnu(e)."
-      es: "Un hijo o hija biológico o legalmente reconocido."
-
-  - code: sibling
-    label:
-      en: Sibling
-      fr: Frère/Sœur
-      es: Hermano/a
-    definition:
-      en: "A brother or sister sharing at least one biological or legal parent."
-      fr: "Un frère ou une sœur partageant au moins un parent biologique ou légal."
-      es: "Un hermano o hermana que comparte al menos un padre biológico o legal."
-
-  - code: grandparent
-    label:
-      en: Grandparent
-      fr: Grand-parent
-      es: Abuelo/a
-    definition:
-      en: "A parent of a person's parent."
-      fr: "Un parent du parent d'une personne."
-      es: "Un padre o madre del padre o madre de una persona."
-
-  - code: grandchild
-    label:
-      en: Grandchild
-      fr: Petit-enfant
-      es: Nieto/a
-    definition:
-      en: "A child of a person's child."
-      fr: "Un enfant de l'enfant d'une personne."
-      es: "Un hijo o hija del hijo o hija de una persona."
-
-  - code: guardian
-    label:
-      en: Guardian
-      fr: Tuteur/Tutrice
-      es: Tutor/a
-    definition:
-      en: "A person with legal responsibility for the care and management of another, typically a minor or incapacitated adult."
-      fr: "Une personne ayant la responsabilité légale de la prise en charge d'une autre personne, généralement un mineur ou un adulte incapable."
-      es: "Una persona con responsabilidad legal del cuidado y gestión de otra, generalmente un menor o un adulto incapacitado."
-
-  - code: caregiver
-    label:
-      en: Caregiver
-      fr: Soignant(e)
-      es: Cuidador/a
-    definition:
-      en: "A person who provides ongoing care or assistance, whether or not they hold legal guardianship."
-      fr: "Une personne qui fournit des soins ou une assistance continue, qu'elle détienne ou non la tutelle légale."
-      es: "Una persona que proporciona cuidado o asistencia continua, tenga o no la tutela legal."
-
-  - code: dependent
-    label:
-      en: Dependent
-      fr: Personne à charge
-      es: Dependiente
-    definition:
-      en: "A person who relies on another for financial support or daily living needs."
-      fr: "Une personne qui dépend d'une autre pour son soutien financier ou ses besoins quotidiens."
-      es: "Una persona que depende de otra para su sustento financiero o necesidades diarias."
-
-  - code: head_of_household
-    label:
-      en: Head of household
-      fr: Chef de ménage
-      es: Jefe/a de hogar
-    definition:
-      en: "The person recognized as the primary decision-maker or representative of the household for administrative purposes."
-      fr: "La personne reconnue comme le principal décideur ou représentant du ménage à des fins administratives."
-      es: "La persona reconocida como el principal tomador de decisiones o representante del hogar para fines administrativos."
-
-  - code: payment_proxy
-    label:
-      en: Payment proxy
-      fr: Mandataire de paiement
-      es: Apoderado de pago
-    definition:
-      en: "A person authorized to collect benefits on behalf of another, often used when the beneficiary cannot collect in person."
-      fr: "Une personne autorisée à collecter des prestations au nom d'une autre, souvent utilisée lorsque le bénéficiaire ne peut pas collecter en personne."
-      es: "Una persona autorizada para cobrar beneficios en nombre de otra, utilizada frecuentemente cuando el beneficiario no puede cobrar en persona."
-
-  - code: survivor
-    label:
-      en: Survivor
-      fr: Survivant(e)
-      es: Sobreviviente
-    definition:
-      en: "A person entitled to continued or transferred benefits following the death of the primary beneficiary."
-      fr: "Une personne ayant droit à la continuation ou au transfert des prestations suite au décès du bénéficiaire principal."
-      es: "Una persona con derecho a la continuación o transferencia de beneficios tras el fallecimiento del beneficiario principal."
-
-  - code: other
-    label:
-      en: Other
-      fr: Autre
-      es: Otro
-    definition:
-      en: "A relationship type not covered by the other categories."
-      fr: "Un type de relation non couvert par les autres catégories."
-      es: "Un tipo de relación no cubierto por las otras categorías."
-
+- code: spouse
+  label:
+    en: Spouse
+    fr: Conjoint(e)
+    es: Cónyuge
+  definition:
+    en: A person's husband, wife, or legally recognized partner.
+    fr: Le mari, la femme ou le partenaire légalement reconnu d'une personne.
+    es: El esposo, esposa o pareja legalmente reconocida de una persona.
+- code: parent
+  label:
+    en: Parent
+    fr: Parent
+    es: Padre/Madre
+  definition:
+    en: A biological or legally recognized mother or father.
+    fr: Une mère ou un père biologique ou légalement reconnu(e).
+    es: Una madre o padre biológico o legalmente reconocido.
+- code: child
+  label:
+    en: Child
+    fr: Enfant
+    es: Hijo/a
+  definition:
+    en: A biological or legally recognized son or daughter.
+    fr: Un fils ou une fille biologique ou légalement reconnu(e).
+    es: Un hijo o hija biológico o legalmente reconocido.
+- code: sibling
+  label:
+    en: Sibling
+    fr: Frère/Sœur
+    es: Hermano/a
+  definition:
+    en: A brother or sister sharing at least one biological or legal parent.
+    fr: Un frère ou une sœur partageant au moins un parent biologique ou légal.
+    es: Un hermano o hermana que comparte al menos un padre biológico o legal.
+- code: grandparent
+  label:
+    en: Grandparent
+    fr: Grand-parent
+    es: Abuelo/a
+  definition:
+    en: A parent of a person's parent.
+    fr: Un parent du parent d'une personne.
+    es: Un padre o madre del padre o madre de una persona.
+- code: grandchild
+  label:
+    en: Grandchild
+    fr: Petit-enfant
+    es: Nieto/a
+  definition:
+    en: A child of a person's child.
+    fr: Un enfant de l'enfant d'une personne.
+    es: Un hijo o hija del hijo o hija de una persona.
+- code: guardian
+  label:
+    en: Guardian
+    fr: Tuteur/Tutrice
+    es: Tutor/a
+  definition:
+    en: A person with legal responsibility for the care and management of another, typically a minor or incapacitated adult.
+    fr: Une personne ayant la responsabilité légale de la prise en charge d'une autre personne, généralement un mineur ou
+      un adulte incapable.
+    es: Una persona con responsabilidad legal del cuidado y gestión de otra, generalmente un menor o un adulto incapacitado.
+- code: caregiver
+  label:
+    en: Caregiver
+    fr: Soignant(e)
+    es: Cuidador/a
+  definition:
+    en: A person who provides ongoing care or assistance, whether or not they hold legal guardianship.
+    fr: Une personne qui fournit des soins ou une assistance continue, qu'elle détienne ou non la tutelle légale.
+    es: Una persona que proporciona cuidado o asistencia continua, tenga o no la tutela legal.
+- code: dependent
+  label:
+    en: Dependent
+    fr: Personne à charge
+    es: Dependiente
+  definition:
+    en: A person who relies on another for financial support or daily living needs.
+    fr: Une personne qui dépend d'une autre pour son soutien financier ou ses besoins quotidiens.
+    es: Una persona que depende de otra para su sustento financiero o necesidades diarias.
+- code: head_of_household
+  label:
+    en: Head of household
+    fr: Chef de ménage
+    es: Jefe/a de hogar
+  definition:
+    en: The person recognized as the primary decision-maker or representative of the household for administrative purposes.
+    fr: La personne reconnue comme le principal décideur ou représentant du ménage à des fins administratives.
+    es: La persona reconocida como el principal tomador de decisiones o representante del hogar para fines administrativos.
+- code: payment_proxy
+  label:
+    en: Payment proxy
+    fr: Mandataire de paiement
+    es: Apoderado de pago
+  definition:
+    en: A person authorized to collect benefits on behalf of another, often used when the beneficiary cannot collect in person.
+    fr: Une personne autorisée à collecter des prestations au nom d'une autre, souvent utilisée lorsque le bénéficiaire ne
+      peut pas collecter en personne.
+    es: Una persona autorizada para cobrar beneficios en nombre de otra, utilizada frecuentemente cuando el beneficiario no
+      puede cobrar en persona.
+- code: survivor
+  label:
+    en: Survivor
+    fr: Survivant(e)
+    es: Sobreviviente
+  definition:
+    en: A person entitled to continued or transferred benefits following the death of the primary beneficiary.
+    fr: Une personne ayant droit à la continuation ou au transfert des prestations suite au décès du bénéficiaire principal.
+    es: Una persona con derecho a la continuación o transferencia de beneficios tras el fallecimiento del beneficiario principal.
+- code: other
+  label:
+    en: Other
+    fr: Autre
+    es: Otro
+  definition:
+    en: A relationship type not covered by the other categories.
+    fr: Un type de relation non couvert par les autres catégories.
+    es: Un tipo de relación no cubierto por las otras categorías.
 system_mappings:
+  openspp:
+    values:
+    - code: head
+      label: Head
+      maps_to: head_of_household
+    - code: spouse
+      label: Spouse
+      maps_to: spouse
+    - code: child
+      label: Child
+      maps_to: child
+    - code: child_in_law
+      label: Child In Law
+      maps_to: other
+    - code: grandchild
+      label: Grandchild
+      maps_to: grandchild
+    - code: parent
+      label: Parent
+      maps_to: parent
+    - code: parent_in_law
+      label: Parent In Law
+      maps_to: other
+    - code: grandparent
+      label: Grandparent
+      maps_to: grandparent
+    - code: sibling
+      label: Sibling
+      maps_to: sibling
+    - code: other_relative
+      label: Other Relative
+      maps_to: other
+    - code: non_relative
+      label: Non Relative
+      maps_to: other
+    unmapped_canonical:
+    - guardian
+    - caregiver
+    - dependent
+    - payment_proxy
+    - survivor
+  fhir_r4:
+    vocabulary_name: PatientRelationshipType
+    values:
+    - code: child
+      label: Child
+      maps_to: child
+    - code: parent
+      label: Parent
+      maps_to: parent
+    - code: spouse
+      label: Spouse
+      maps_to: spouse
+    - code: common
+      label: Common
+      maps_to: spouse
+    - code: other
+      label: Other
+      maps_to: other
+    - code: BP
+      label: Billing contact person
+      maps_to: null
+    - code: C
+      label: Emergency Contact
+      maps_to: null
+    - code: CP
+      label: Contact person
+      maps_to: null
+    - code: E
+      label: Employer
+      maps_to: null
+    - code: EP
+      label: Emergency contact person
+      maps_to: null
+    - code: F
+      label: Federal Agency
+      maps_to: null
+    - code: I
+      label: Insurance Company
+      maps_to: null
+    - code: N
+      label: Next-of-Kin
+      maps_to: null
+    - code: O
+      label: Other
+      maps_to: null
+    - code: PR
+      label: Person preparing referral
+      maps_to: null
+    - code: S
+      label: State Agency
+      maps_to: null
+    - code: U
+      label: Unknown
+      maps_to: null
+    - code: _AffiliationRoleType
+      label: AffiliationRoleType
+      maps_to: null
+    - code: _AssignedRoleType
+      label: AssignedRoleType
+      maps_to: null
+    - code: _CertifiedEntityType
+      label: CertifiedEntityType
+      maps_to: null
+    - code: _CitizenRoleType
+      label: CitizenRoleType
+      maps_to: null
+    - code: _ContactRoleType
+      label: ContactRoleType
+      maps_to: null
+    - code: _IdentifiedEntityType
+      label: IdentifiedEntityType
+      maps_to: null
+    - code: _LivingSubjectProductionClass
+      label: LivingSubjectProductionClass
+      maps_to: null
+    - code: _MedicationGeneralizationRoleType
+      label: MedicationGeneralizationRoleType
+      maps_to: null
+    - code: _MemberRoleType
+      label: MemberRoleType
+      maps_to: null
+    - code: _PersonalRelationshipRoleType
+      label: PersonalRelationshipRoleType
+      maps_to: null
+    - code: _PolicyOrProgramCoverageRoleType
+      label: PolicyOrProgramCoverageRoleType
+      maps_to: null
+    - code: _ResearchSubjectRoleBasis
+      label: ResearchSubjectRoleBasis
+      maps_to: null
+    - code: _ServiceDeliveryLocationRoleType
+      label: ServiceDeliveryLocationRoleType
+      maps_to: null
+    - code: _SpecimenRoleType
+      label: SpecimenRoleType
+      maps_to: null
+    - code: CLAIM
+      label: claimant
+      maps_to: null
+    - code: communityLaboratory
+      label: Community Laboratory
+      maps_to: null
+    - code: GT
+      label: Guarantor
+      maps_to: null
+    - code: homeHealth
+      label: Home Health
+      maps_to: null
+    - code: laboratory
+      label: Laboratory
+      maps_to: null
+    - code: pathologist
+      label: Pathologist
+      maps_to: null
+    - code: PH
+      label: Policy Holder
+      maps_to: null
+    - code: phlebotomist
+      label: Phlebotomist
+      maps_to: null
+    - code: PROG
+      label: program eligible
+      maps_to: null
+    - code: PT
+      label: Patient
+      maps_to: null
+    - code: subject
+      label: Self
+      maps_to: null
+    - code: thirdParty
+      label: Third Party
+      maps_to: null
+    - code: DEP
+      label: Dependent
+      maps_to: null
+    - code: DEPEN
+      label: Dependent
+      maps_to: null
+    - code: FM
+      label: Family Member
+      maps_to: null
+    - code: INDIV
+      label: individual
+      maps_to: null
+    - code: NAMED
+      label: named insured
+      maps_to: null
+    - code: PSYCHCF
+      label: Psychiatric Care Facility
+      maps_to: null
+    - code: SUBSCR
+      label: subscriber
+      maps_to: null
+    unmapped_canonical:
+    - sibling
+    - grandparent
+    - grandchild
+    - guardian
+    - caregiver
+    - dependent
+    - head_of_household
+    - payment_proxy
+    - survivor
   spdci:
-    "SPS": spouse
-    "HUSB": spouse
-    "WIFE": spouse
-    "PRN": parent
-    "FTH": parent
-    "MTH": parent
-    "CHILD": child
-    "DAUC": child
-    "SONC": child
-    "SIB": sibling
-    "BRO": sibling
-    "SIS": sibling
-    "GRPRN": grandparent
-    "GRFTH": grandparent
-    "GRMTH": grandparent
-    "GRNDCHILD": grandchild
-    "GRNDDAU": grandchild
-    "PRNFOST": guardian
-    "DOMPART": spouse
-    "EXT": other
-    "INLAW": other
+    vocabulary_name: RelationshipTypeEnum
+    values:
+    - code: SPS
+      label: spouse
+      maps_to: spouse
+    - code: HUSB
+      label: husband
+      maps_to: spouse
+    - code: WIFE
+      label: wife
+      maps_to: spouse
+    - code: PRN
+      label: parent
+      maps_to: parent
+    - code: FTH
+      label: father
+      maps_to: parent
+    - code: MTH
+      label: mother
+      maps_to: parent
+    - code: CHILD
+      label: child
+      maps_to: child
+    - code: DAUC
+      label: daughter
+      maps_to: child
+    - code: SONC
+      label: son
+      maps_to: child
+    - code: SIB
+      label: sibling
+      maps_to: sibling
+    - code: BRO
+      label: borther
+      maps_to: sibling
+    - code: SIS
+      label: sister
+      maps_to: sibling
+    - code: GRPRN
+      label: grandparent
+      maps_to: grandparent
+    - code: GRFTH
+      label: grandfather
+      maps_to: grandparent
+    - code: GRMTH
+      label: grandmother
+      maps_to: grandparent
+    - code: GRNDCHILD
+      label: grandchild
+      maps_to: grandchild
+    - code: GRNDDAU
+      label: granddaughter
+      maps_to: grandchild
+    - code: PRNFOST
+      label: foster parent
+      maps_to: guardian
+    - code: DOMPART
+      label: domestic partner
+      maps_to: spouse
+    - code: EXT
+      label: extended family member
+      maps_to: other
+    - code: INLAW
+      label: inlaw
+      maps_to: other
+    - code: SELF
+      label: Self
+      maps_to: null
+    - code: PRIMSPOUS
+      label: Primary Spouse
+      maps_to: null
+    - code: FAMMEMB
+      label: family member
+      maps_to: null
+    - code: DAUADOPT
+      label: adopted daughter
+      maps_to: null
+    - code: SONADOPT
+      label: adopted son
+      maps_to: null
+    - code: DAUFOST
+      label: foster daughter
+      maps_to: null
+    - code: SONFOST
+      label: foster son
+      maps_to: null
+    - code: DAU
+      label: natural daughter
+      maps_to: null
+    - code: STPDAU
+      label: stepdaughter
+      maps_to: null
+    - code: NCHILD
+      label: natural child
+      maps_to: null
+    - code: SON
+      label: natural son
+      maps_to: null
+    - code: STPSON
+      label: stepson
+      maps_to: null
+    - code: STPCHILD
+      label: step child
+      maps_to: null
+    - code: AUNT
+      label: aunt
+      maps_to: null
+    - code: MAUNT
+      label: maternal aunt
+      maps_to: null
+    - code: PAUNT
+      label: paternal aunt
+      maps_to: null
+    - code: COUSN
+      label: cousin
+      maps_to: null
+    - code: MCOUSN
+      label: maternal cousin
+      maps_to: null
+    - code: PCOUSN
+      label: paternal cousin
+      maps_to: null
+    - code: GGRPRN
+      label: great grandparent
+      maps_to: null
+    - code: GGRFTH
+      label: great grandfather
+      maps_to: null
+    - code: MGGRFTH
+      label: maternal great-grandfather
+      maps_to: null
+    - code: PGGRFTH
+      label: paternal great-grandfather
+      maps_to: null
+    - code: GGRMTH
+      label: great grandmother
+      maps_to: null
+    - code: PGGRMTH
+      label: paternal great-grandmother
+      maps_to: null
+    - code: MGGRPRN
+      label: maternal great-grandparent
+      maps_to: null
+    - code: PGGRPRN
+      label: paternal great-grandparent
+      maps_to: null
+    - code: MGRFTH
+      label: maternal grandfather
+      maps_to: null
+    - code: PGRFTH
+      label: paternal grandfather
+      maps_to: null
+    - code: MGRMTH
+      label: maternal grandmother
+      maps_to: null
+    - code: PGRMTH
+      label: paternal grandmother
+      maps_to: null
+    - code: MGRPRN
+      label: maternal grandparent
+      maps_to: null
+    - code: PGRPRN
+      label: paternal grandparent
+      maps_to: null
+    - code: CHLDINLAW
+      label: child-in-law
+      maps_to: null
+    - code: DAUINLAW
+      label: daughter in-law
+      maps_to: null
+    - code: SONINLAW
+      label: son in-law
+      maps_to: null
+    - code: PRNINLAW
+      label: parent in-law
+      maps_to: null
+    - code: FTHINLAW
+      label: father-in-law
+      maps_to: null
+    - code: MTHINLAW
+      label: mother-in-law
+      maps_to: null
+    - code: SIBINLAW
+      label: sibling in-law
+      maps_to: null
+    - code: BROINLAW
+      label: brother in-law
+      maps_to: null
+    - code: SISINLAW
+      label: sister in-law
+      maps_to: null
+    - code: NIENEPH
+      label: niece/nephew
+      maps_to: null
+    - code: NEPHEW
+      label: nephew
+      maps_to: null
+    - code: NEICE
+      label: neice
+      maps_to: null
+    - code: UNCLE
+      label: uncle
+      maps_to: null
+    - code: MUNCLE
+      label: maternal uncle
+      maps_to: null
+    - code: PUNCLE
+      label: parental uncle
+      maps_to: null
+    - code: ADOPTP
+      label: adoptive parent
+      maps_to: null
+    - code: ADOPTF
+      label: adoptive father
+      maps_to: null
+    - code: ADOPTM
+      label: adoptive mother
+      maps_to: null
+    - code: FTHFOST
+      label: foster father
+      maps_to: null
+    - code: NFTH
+      label: natural father
+      maps_to: null
+    - code: NFTHF
+      label: natural father of fetus
+      maps_to: null
+    - code: STPFTH
+      label: stepfather
+      maps_to: null
+    - code: GESTM
+      label: gestational mother
+      maps_to: null
+    - code: NMTH
+      label: natural mother
+      maps_to: null
+    - code: NMTHF
+      label: natural mother of fetus
+      maps_to: null
+    - code: STPMTH
+      label: stepmother
+      maps_to: null
+    - code: NPRN
+      label: natural parent
+      maps_to: null
+    - code: STPPRN
+      label: step parent
+      maps_to: null
+    - code: HBRO
+      label: half-brother
+      maps_to: null
+    - code: NBRO
+      label: natural brother
+      maps_to: null
+    - code: TWINBRO
+      label: twin brother
+      maps_to: null
+    - code: FTWINBRO
+      label: faternal twin brother
+      maps_to: null
+    - code: ITWINBRO
+      label: identical twin brother
+      maps_to: null
+    - code: STPBRO
+      label: stepbrother
+      maps_to: null
+    - code: HSIB
+      label: half-sibling
+      maps_to: null
+    - code: HSIS
+      label: half-sister
+      maps_to: null
+    - code: NSIB
+      label: natural sibling
+      maps_to: null
+    - code: NSIS
+      label: natural sister
+      maps_to: null
+    - code: TWINSIS
+      label: twin sister
+      maps_to: null
+    - code: FTWINSIS
+      label: faternal twin sister
+      maps_to: null
+    - code: ITWINSIS
+      label: identical twin sister
+      maps_to: null
+    - code: TWIN
+      label: twin
+      maps_to: null
+    - code: FTWIN
+      label: faternal twin
+      maps_to: null
+    - code: ITWIN
+      label: identical twin
+      maps_to: null
+    - code: SIGOTHR
+      label: significant other
+      maps_to: null
+    - code: FRMSPS
+      label: former spouse
+      maps_to: null
+    unmapped_canonical:
+    - caregiver
+    - dependent
+    - head_of_household
+    - payment_proxy
+    - survivor
   openimis:
-    "HEAD": head_of_household
-    "SPOUSE": spouse
-    "SON": child
-    "DAUGHTER": child
-    "FATHER": parent
-    "MOTHER": parent
-    "GRANDFATHER": grandparent
-    "GRANDMOTHER": grandparent
-    "GRANDSON": grandchild
-    "GRANDDAUGHTER": grandchild
-    "BROTHER": sibling
-    "SISTER": sibling
-    "OTHER RELATIVE": other
-    "NOT RELATED": other
+    values:
+    - code: HEAD
+      label: Head
+      maps_to: head_of_household
+    - code: SPOUSE
+      label: Spouse
+      maps_to: spouse
+    - code: SON
+      label: Son
+      maps_to: child
+    - code: DAUGHTER
+      label: Daughter
+      maps_to: child
+    - code: FATHER
+      label: Father
+      maps_to: parent
+    - code: MOTHER
+      label: Mother
+      maps_to: parent
+    - code: GRANDFATHER
+      label: Grandfather
+      maps_to: grandparent
+    - code: GRANDMOTHER
+      label: Grandmother
+      maps_to: grandparent
+    - code: GRANDSON
+      label: Grandson
+      maps_to: grandchild
+    - code: GRANDDAUGHTER
+      label: Granddaughter
+      maps_to: grandchild
+    - code: BROTHER
+      label: Brother
+      maps_to: sibling
+    - code: SISTER
+      label: Sister
+      maps_to: sibling
+    - code: OTHER RELATIVE
+      label: Other Relative
+      maps_to: other
+    - code: NOT RELATED
+      label: Not Related
+      maps_to: other
+    unmapped_canonical:
+    - guardian
+    - caregiver
+    - dependent
+    - payment_proxy
+    - survivor

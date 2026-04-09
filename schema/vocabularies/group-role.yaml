@@ -1,97 +1,131 @@
 id: group-role
 maturity: draft
-
 definition:
-  en: "The role a person plays within a group such as a household, family, or other organizational unit."
-  fr: "Le rôle qu'une personne joue au sein d'un groupe tel qu'un ménage, une famille ou une autre unité organisationnelle."
-  es: "El rol que una persona desempeña dentro de un grupo como un hogar, familia u otra unidad organizacional."
-
+  en: The role a person plays within a group such as a household, family, or other organizational unit.
+  fr: Le rôle qu'une personne joue au sein d'un groupe tel qu'un ménage, une famille ou une autre unité organisationnelle.
+  es: El rol que una persona desempeña dentro de un grupo como un hogar, familia u otra unidad organizacional.
 values:
-  - code: head
-    label:
-      en: Head
-      fr: Chef
-      es: Jefe/a
-    definition:
-      en: "The person recognized as the primary decision-maker or representative of the group for administrative purposes."
-      fr: "La personne reconnue comme le principal décideur ou représentant du groupe à des fins administratives."
-      es: "La persona reconocida como el principal tomador de decisiones o representante del grupo para fines administrativos."
-
-  - code: spouse
-    label:
-      en: Spouse
-      fr: Conjoint(e)
-      es: Cónyuge
-    definition:
-      en: "The husband, wife, or legally recognized partner of the group head."
-      fr: "Le mari, la femme ou le partenaire légalement reconnu du chef de groupe."
-      es: "El esposo, esposa o pareja legalmente reconocida del jefe de grupo."
-
-  - code: child
-    label:
-      en: Child
-      fr: Enfant
-      es: Hijo/a
-    definition:
-      en: "A son or daughter of the group head or spouse, whether biological, adopted, or fostered."
-      fr: "Un fils ou une fille du chef de groupe ou du conjoint, biologique, adopté(e) ou placé(e)."
-      es: "Un hijo o hija del jefe de grupo o cónyuge, ya sea biológico, adoptado o en acogida."
-
-  - code: dependent
-    label:
-      en: Dependent
-      fr: Personne à charge
-      es: Dependiente
-    definition:
-      en: "A person who relies on the group for financial support or daily living needs, not classified as spouse or child."
-      fr: "Une personne qui dépend du groupe pour son soutien financier ou ses besoins quotidiens, non classée comme conjoint ou enfant."
-      es: "Una persona que depende del grupo para su sustento financiero o necesidades diarias, no clasificada como cónyuge o hijo/a."
-
-  - code: parent
-    label:
-      en: Parent
-      fr: Parent
-      es: Padre/Madre
-    definition:
-      en: "A parent of the group head or spouse living in the same group."
-      fr: "Un parent du chef de groupe ou du conjoint vivant dans le même groupe."
-      es: "Un padre o madre del jefe de grupo o cónyuge que vive en el mismo grupo."
-
-  - code: other_relative
-    label:
-      en: Other relative
-      fr: Autre parent
-      es: Otro pariente
-    definition:
-      en: "A family member of the group head who does not fit the other kinship categories."
-      fr: "Un membre de la famille du chef de groupe qui ne correspond pas aux autres catégories de parenté."
-      es: "Un miembro de la familia del jefe de grupo que no encaja en las otras categorías de parentesco."
-
-  - code: non_relative
-    label:
-      en: Non-relative
-      fr: Non-parent
-      es: No pariente
-    definition:
-      en: "A group member who has no kinship tie to the group head."
-      fr: "Un membre du groupe qui n'a aucun lien de parenté avec le chef de groupe."
-      es: "Un miembro del grupo que no tiene vínculo de parentesco con el jefe de grupo."
-
+- code: head
+  label:
+    en: Head
+    fr: Chef
+    es: Jefe/a
+  definition:
+    en: The person recognized as the primary decision-maker or representative of the group for administrative purposes.
+    fr: La personne reconnue comme le principal décideur ou représentant du groupe à des fins administratives.
+    es: La persona reconocida como el principal tomador de decisiones o representante del grupo para fines administrativos.
+- code: spouse
+  label:
+    en: Spouse
+    fr: Conjoint(e)
+    es: Cónyuge
+  definition:
+    en: The husband, wife, or legally recognized partner of the group head.
+    fr: Le mari, la femme ou le partenaire légalement reconnu du chef de groupe.
+    es: El esposo, esposa o pareja legalmente reconocida del jefe de grupo.
+- code: child
+  label:
+    en: Child
+    fr: Enfant
+    es: Hijo/a
+  definition:
+    en: A son or daughter of the group head or spouse, whether biological, adopted, or fostered.
+    fr: Un fils ou une fille du chef de groupe ou du conjoint, biologique, adopté(e) ou placé(e).
+    es: Un hijo o hija del jefe de grupo o cónyuge, ya sea biológico, adoptado o en acogida.
+- code: dependent
+  label:
+    en: Dependent
+    fr: Personne à charge
+    es: Dependiente
+  definition:
+    en: A person who relies on the group for financial support or daily living needs, not classified as spouse or child.
+    fr: Une personne qui dépend du groupe pour son soutien financier ou ses besoins quotidiens, non classée comme conjoint
+      ou enfant.
+    es: Una persona que depende del grupo para su sustento financiero o necesidades diarias, no clasificada como cónyuge o
+      hijo/a.
+- code: parent
+  label:
+    en: Parent
+    fr: Parent
+    es: Padre/Madre
+  definition:
+    en: A parent of the group head or spouse living in the same group.
+    fr: Un parent du chef de groupe ou du conjoint vivant dans le même groupe.
+    es: Un padre o madre del jefe de grupo o cónyuge que vive en el mismo grupo.
+- code: other_relative
+  label:
+    en: Other relative
+    fr: Autre parent
+    es: Otro pariente
+  definition:
+    en: A family member of the group head who does not fit the other kinship categories.
+    fr: Un membre de la famille du chef de groupe qui ne correspond pas aux autres catégories de parenté.
+    es: Un miembro de la familia del jefe de grupo que no encaja en las otras categorías de parentesco.
+- code: non_relative
+  label:
+    en: Non-relative
+    fr: Non-parent
+    es: No pariente
+  definition:
+    en: A group member who has no kinship tie to the group head.
+    fr: Un membre du groupe qui n'a aucun lien de parenté avec le chef de groupe.
+    es: Un miembro del grupo que no tiene vínculo de parentesco con el jefe de grupo.
 system_mappings:
   openimis:
-    "HEAD": head
-    "SPOUSE": spouse
-    "SON": child
-    "DAUGHTER": child
-    "FATHER": parent
-    "MOTHER": parent
-    "GRANDFATHER": parent
-    "GRANDMOTHER": parent
-    "GRANDSON": dependent
-    "GRANDDAUGHTER": dependent
-    "BROTHER": other_relative
-    "SISTER": other_relative
-    "OTHER RELATIVE": other_relative
-    "NOT RELATED": non_relative
+    vocabulary_name: GroupIndividualRole
+    values:
+    - code: HEAD
+      label: Head
+      maps_to: head
+    - code: SPOUSE
+      label: Spouse
+      maps_to: spouse
+    - code: SON
+      label: Son
+      maps_to: child
+    - code: DAUGHTER
+      label: Daughter
+      maps_to: child
+    - code: FATHER
+      label: Father
+      maps_to: parent
+    - code: MOTHER
+      label: Mother
+      maps_to: parent
+    - code: GRANDFATHER
+      label: Grandfather
+      maps_to: parent
+    - code: GRANDMOTHER
+      label: Grandmother
+      maps_to: parent
+    - code: GRANDSON
+      label: Grandson
+      maps_to: dependent
+    - code: GRANDDAUGHTER
+      label: Granddaughter
+      maps_to: dependent
+    - code: BROTHER
+      label: Brother
+      maps_to: other_relative
+    - code: SISTER
+      label: Sister
+      maps_to: other_relative
+    - code: OTHER RELATIVE
+      label: Other Relative
+      maps_to: other_relative
+    - code: NOT RELATED
+      label: Not Related
+      maps_to: non_relative
   openspp:
-    "head": head
+    vocabulary_name: GroupMembershipType
+    values:
+    - code: head
+      label: Head
+      maps_to: head
+    unmapped_canonical:
+    - spouse
+    - child
+    - dependent
+    - parent
+    - other_relative
+    - non_relative

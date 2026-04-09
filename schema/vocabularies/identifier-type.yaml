@@ -1,95 +1,206 @@
 id: identifier-type
 maturity: draft
-
 definition:
-  en: "Categories of identifier documents or numbers used to identify persons in social protection systems."
-  fr: "Categories de documents ou de numeros d'identification utilises pour identifier les personnes dans les systemes de protection sociale."
-  es: "Categorias de documentos o numeros de identificacion utilizados para identificar personas en sistemas de proteccion social."
-
+  en: Categories of identifier documents or numbers used to identify persons in social protection systems.
+  fr: Categories de documents ou de numeros d'identification utilises pour identifier les personnes dans les systemes de protection
+    sociale.
+  es: Categorias de documentos o numeros de identificacion utilizados para identificar personas en sistemas de proteccion
+    social.
 values:
-  - code: national_id
-    label:
-      en: National ID
-      fr: Carte d'identite nationale
-      es: Documento de identidad nacional
-    definition:
-      en: "A government-issued national identity number or card."
-      fr: "Un numero ou une carte d'identite nationale delivre par le gouvernement."
-      es: "Un numero o tarjeta de identidad nacional emitido por el gobierno."
-
-  - code: birth_certificate
-    label:
-      en: Birth certificate
-      fr: Acte de naissance
-      es: Certificado de nacimiento
-    definition:
-      en: "An official record of a person's birth issued by a civil registry."
-      fr: "Un document officiel de naissance delivre par un registre d'etat civil."
-      es: "Un registro oficial de nacimiento emitido por un registro civil."
-
-  - code: passport
-    label:
-      en: Passport
-      fr: Passeport
-      es: Pasaporte
-    definition:
-      en: "A government-issued travel document that also serves as a proof of identity and nationality."
-      fr: "Un document de voyage delivre par le gouvernement servant egalement de preuve d'identite et de nationalite."
-      es: "Un documento de viaje emitido por el gobierno que tambien sirve como prueba de identidad y nacionalidad."
-
-  - code: voter_id
-    label:
-      en: Voter ID
-      fr: Carte d'electeur
-      es: Tarjeta de votante
-    definition:
-      en: "An identity document issued for electoral registration purposes."
-      fr: "Un document d'identite delivre a des fins d'inscription electorale."
-      es: "Un documento de identidad emitido con fines de registro electoral."
-
-  - code: program_id
-    label:
-      en: Program ID
-      fr: Identifiant de programme
-      es: ID de programa
-    definition:
-      en: "A beneficiary identifier assigned by a specific social protection program."
-      fr: "Un identifiant de beneficiaire attribue par un programme specifique de protection sociale."
-      es: "Un identificador de beneficiario asignado por un programa especifico de proteccion social."
-
-  - code: household_id
-    label:
-      en: Household ID
-      fr: Identifiant de menage
-      es: ID de hogar
-    definition:
-      en: "An identifier assigned to a household rather than to an individual person."
-      fr: "Un identifiant attribue a un menage plutot qu'a une personne individuelle."
-      es: "Un identificador asignado a un hogar en lugar de a una persona individual."
-
-  - code: social_security_number
-    label:
-      en: Social security number
-      fr: Numero de securite sociale
-      es: Numero de seguridad social
-    definition:
-      en: "A number assigned by a social security or social insurance administration, distinct from a national identity number in many countries."
-      fr: "Un numero attribue par une administration de securite sociale ou d'assurance sociale, distinct du numero d'identite nationale dans de nombreux pays."
-      es: "Un numero asignado por una administracion de seguridad social o seguro social, distinto del numero de identidad nacional en muchos paises."
-
-  - code: other
-    label:
-      en: Other
-      fr: Autre
-      es: Otro
-    definition:
-      en: "An identifier type not covered by the other categories."
-      fr: "Un type d'identifiant non couvert par les autres categories."
-      es: "Un tipo de identificador no cubierto por las otras categorias."
-
+- code: national_id
+  label:
+    en: National ID
+    fr: Carte d'identite nationale
+    es: Documento de identidad nacional
+  definition:
+    en: A government-issued national identity number or card.
+    fr: Un numero ou une carte d'identite nationale delivre par le gouvernement.
+    es: Un numero o tarjeta de identidad nacional emitido por el gobierno.
+- code: birth_certificate
+  label:
+    en: Birth certificate
+    fr: Acte de naissance
+    es: Certificado de nacimiento
+  definition:
+    en: An official record of a person's birth issued by a civil registry.
+    fr: Un document officiel de naissance delivre par un registre d'etat civil.
+    es: Un registro oficial de nacimiento emitido por un registro civil.
+- code: passport
+  label:
+    en: Passport
+    fr: Passeport
+    es: Pasaporte
+  definition:
+    en: A government-issued travel document that also serves as a proof of identity and nationality.
+    fr: Un document de voyage delivre par le gouvernement servant egalement de preuve d'identite et de nationalite.
+    es: Un documento de viaje emitido por el gobierno que tambien sirve como prueba de identidad y nacionalidad.
+- code: voter_id
+  label:
+    en: Voter ID
+    fr: Carte d'electeur
+    es: Tarjeta de votante
+  definition:
+    en: An identity document issued for electoral registration purposes.
+    fr: Un document d'identite delivre a des fins d'inscription electorale.
+    es: Un documento de identidad emitido con fines de registro electoral.
+- code: program_id
+  label:
+    en: Program ID
+    fr: Identifiant de programme
+    es: ID de programa
+  definition:
+    en: A beneficiary identifier assigned by a specific social protection program.
+    fr: Un identifiant de beneficiaire attribue par un programme specifique de protection sociale.
+    es: Un identificador de beneficiario asignado por un programa especifico de proteccion social.
+- code: household_id
+  label:
+    en: Household ID
+    fr: Identifiant de menage
+    es: ID de hogar
+  definition:
+    en: An identifier assigned to a household rather than to an individual person.
+    fr: Un identifiant attribue a un menage plutot qu'a une personne individuelle.
+    es: Un identificador asignado a un hogar en lugar de a una persona individual.
+- code: social_security_number
+  label:
+    en: Social security number
+    fr: Numero de securite sociale
+    es: Numero de seguridad social
+  definition:
+    en: A number assigned by a social security or social insurance administration, distinct from a national identity number
+      in many countries.
+    fr: Un numero attribue par une administration de securite sociale ou d'assurance sociale, distinct du numero d'identite
+      nationale dans de nombreux pays.
+    es: Un numero asignado por una administracion de seguridad social o seguro social, distinto del numero de identidad nacional
+      en muchos paises.
+- code: other
+  label:
+    en: Other
+    fr: Autre
+    es: Otro
+  definition:
+    en: An identifier type not covered by the other categories.
+    fr: Un type d'identifiant non couvert par les autres categories.
+    es: Un tipo de identificador no cubierto por las otras categorias.
 system_mappings:
+  openspp:
+    vocabulary_name: IdType
+    values:
+    - code: national_id
+      label: National ID
+      maps_to: national_id
+    - code: passport
+      label: Passport
+      maps_to: passport
+    - code: tax_id
+      label: Tax ID
+      maps_to: other
+    - code: birth_certificate
+      label: Birth Certificate
+      maps_to: birth_certificate
+    unmapped_canonical:
+    - voter_id
+    - program_id
+    - household_id
+    - social_security_number
+  openimis:
+    values:
+    - code: N
+      label: National ID
+      maps_to: national_id
+    - code: P
+      label: Passport
+      maps_to: passport
+    - code: V
+      label: Voter ID
+      maps_to: voter_id
+    - code: D
+      label: Driver's License
+      maps_to: other
+    unmapped_canonical:
+    - birth_certificate
+    - program_id
+    - household_id
+    - social_security_number
+  fhir_r4:
+    vocabulary_name: Identifier Type Codes
+    values:
+    - code: PPN
+      label: Passport Number
+      maps_to: passport
+    - code: DL
+      label: Driver's License Number
+      maps_to: other
+    - code: TAX
+      label: Tax ID Number
+      maps_to: other
+    - code: SB
+      label: Social Beneficiary Identifier
+      maps_to: social_security_number
+    - code: BRN
+      label: Breed Registry Number
+      maps_to: null
+    - code: MR
+      label: Medical Record Number
+      maps_to: null
+    - code: MCN
+      label: Microchip Number
+      maps_to: null
+    - code: EN
+      label: Employer Number
+      maps_to: null
+    - code: NIIP
+      label: National Insurance Payor Identifier
+      maps_to: null
+    - code: PRN
+      label: Provider Number
+      maps_to: null
+    - code: MD
+      label: Medical License Number
+      maps_to: null
+    - code: DR
+      label: Donor Registration Number
+      maps_to: null
+    - code: ACSN
+      label: Accession ID
+      maps_to: null
+    - code: UDI
+      label: Universal Device Identifier
+      maps_to: null
+    - code: SNO
+      label: Serial Number
+      maps_to: null
+    - code: PLAC
+      label: Placer Identifier
+      maps_to: null
+    - code: FILL
+      label: Filler Identifier
+      maps_to: null
+    - code: JHN
+      label: Jurisdictional Health Number
+      maps_to: null
+    unmapped_canonical:
+    - voter_id
+    - program_id
+    - household_id
   spdci:
-    "UIN": national_id
-    "BRN": birth_certificate
-    "MRN": other
-    "DRN": other
+    vocabulary_name: IdentifierTypeEnum
+    values:
+    - code: UIN
+      label: Unique Identification Number
+      maps_to: national_id
+    - code: BRN
+      label: Birth Registration Number
+      maps_to: birth_certificate
+    - code: MRN
+      label: Marriage Registration Number
+      maps_to: other
+    - code: DRN
+      label: Death Registration Number
+      maps_to: other
+    unmapped_canonical:
+    - passport
+    - voter_id
+    - program_id
+    - household_id
+    - social_security_number

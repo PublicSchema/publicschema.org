@@ -1,85 +1,130 @@
 id: gender-type
 maturity: draft
-
 definition:
-  en: "Categories used to record the gender of a person in a social protection or identity system."
-  fr: "Categories utilisees pour enregistrer le genre d'une personne dans un systeme de protection sociale ou d'identite."
-  es: "Categorias utilizadas para registrar el genero de una persona en un sistema de proteccion social o de identidad."
-
+  en: Categories used to record the gender of a person in a social protection or identity system.
+  fr: Categories utilisees pour enregistrer le genre d'une personne dans un systeme de protection sociale ou d'identite.
+  es: Categorias utilizadas para registrar el genero de una persona en un sistema de proteccion social o de identidad.
 standard:
-  name: "ISO/IEC 5218"
-  uri: "https://www.iso.org/standard/36266.html"
-  notes: "Codes for the representation of human sexes. ISO 5218 uses numeric codes; this vocabulary maps them to readable snake_case identifiers."
-
+  name: ISO/IEC 5218
+  uri: https://www.iso.org/standard/36266.html
+  notes: Codes for the representation of human sexes. ISO 5218 uses numeric codes; this vocabulary maps them to readable snake_case
+    identifiers.
 sync:
-  source_url: "https://hl7.org/fhir/R4/codesystem-administrative-gender.json"
+  source_url: https://hl7.org/fhir/R4/codesystem-administrative-gender.json
   format: fhir-codesystem
-  last_synced: "2026-04-07"
-
+  last_synced: '2026-04-07'
 values:
-  - code: male
-    label:
-      en: Male
-      fr: Masculin
-      es: Masculino
-    standard_code: "1"
-    definition:
-      en: "A person recorded as male in a registry or identity document."
-      fr: "Une personne enregistree comme de sexe masculin dans un registre ou un document d'identite."
-      es: "Una persona registrada como masculina en un registro o documento de identidad."
-
-  - code: female
-    label:
-      en: Female
-      fr: Feminin
-      es: Femenino
-    standard_code: "2"
-    definition:
-      en: "A person recorded as female in a registry or identity document."
-      fr: "Une personne enregistree comme de sexe feminin dans un registre ou un document d'identite."
-      es: "Una persona registrada como femenina en un registro o documento de identidad."
-
-  - code: other
-    label:
-      en: Other
-      fr: Autre
-      es: Otro
-    standard_code: "9"
-    definition:
-      en: "A person whose gender is not captured by the male or female categories."
-      fr: "Une personne dont le genre n'est pas couvert par les categories masculin ou feminin."
-      es: "Una persona cuyo genero no queda cubierto por las categorias masculino o femenino."
-
-  - code: not_stated
-    label:
-      en: Not stated
-      fr: Non declare
-      es: No declarado
-    standard_code: "0"
-    definition:
-      en: "Gender has not been recorded or has not been disclosed."
-      fr: "Le genre n'a pas ete enregistre ou n'a pas ete divulgue."
-      es: "El genero no ha sido registrado o no ha sido declarado."
-
+- code: male
+  label:
+    en: Male
+    fr: Masculin
+    es: Masculino
+  standard_code: '1'
+  definition:
+    en: A person recorded as male in a registry or identity document.
+    fr: Une personne enregistree comme de sexe masculin dans un registre ou un document d'identite.
+    es: Una persona registrada como masculina en un registro o documento de identidad.
+- code: female
+  label:
+    en: Female
+    fr: Feminin
+    es: Femenino
+  standard_code: '2'
+  definition:
+    en: A person recorded as female in a registry or identity document.
+    fr: Une personne enregistree comme de sexe feminin dans un registre ou un document d'identite.
+    es: Una persona registrada como femenina en un registro o documento de identidad.
+- code: other
+  label:
+    en: Other
+    fr: Autre
+    es: Otro
+  standard_code: '9'
+  definition:
+    en: A person whose gender is not captured by the male or female categories.
+    fr: Une personne dont le genre n'est pas couvert par les categories masculin ou feminin.
+    es: Una persona cuyo genero no queda cubierto por las categorias masculino o femenino.
+- code: not_stated
+  label:
+    en: Not stated
+    fr: Non declare
+    es: No declarado
+  standard_code: '0'
+  definition:
+    en: Gender has not been recorded or has not been disclosed.
+    fr: Le genre n'a pas ete enregistre ou n'a pas ete divulgue.
+    es: El genero no ha sido registrado o no ha sido declarado.
+same_standard_systems:
+- fhir_r4
 system_mappings:
   openimis:
-    "M": male
-    "F": female
-    "O": other
+    vocabulary_name: Gender
+    values:
+    - code: M
+      label: Male
+      maps_to: male
+    - code: F
+      label: Female
+      maps_to: female
+    - code: O
+      label: Other
+      maps_to: other
+    unmapped_canonical:
+    - not_stated
   openspp:
-    "male": male
-    "female": female
-    "other": other
+    vocabulary_name: Iso5218GenderCodes
+    values:
+    - code: '1'
+      label: Male
+      maps_to: male
+    - code: '2'
+      label: Female
+      maps_to: female
+    - code: '9'
+      label: Not applicable
+      maps_to: other
+    - code: '0'
+      label: Not known
+      maps_to: not_stated
   dhis2:
-    "Male": male
-    "Female": female
+    vocabulary_name: Gender
+    values:
+    - code: Male
+      label: Male
+      maps_to: male
+    - code: Female
+      label: Female
+      maps_to: female
+    unmapped_canonical:
+    - other
+    - not_stated
   fhir_r4:
-    "male": male
-    "female": female
-    "other": other
-    "unknown": not_stated
+    vocabulary_name: AdministrativeGender
+    values:
+    - code: male
+      label: Male
+      maps_to: male
+    - code: female
+      label: Female
+      maps_to: female
+    - code: other
+      label: Other
+      maps_to: other
+    - code: unknown
+      label: Unknown
+      maps_to: not_stated
   opencrvs:
-    "male": male
-    "female": female
-    "other": other
-    "unknown": not_stated
+    vocabulary_name: Gender
+    values:
+    - code: male
+      label: Male
+      maps_to: male
+    - code: female
+      label: Female
+      maps_to: female
+    - code: other
+      label: Other
+      maps_to: other
+    - code: unknown
+      label: Unknown
+      maps_to: not_stated

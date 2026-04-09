@@ -1,115 +1,123 @@
 id: delivery-channel
 maturity: draft
-
 definition:
-  en: "The mechanisms through which benefit transfers reach beneficiaries."
-  fr: "Les mécanismes par lesquels les transferts de prestations parviennent aux bénéficiaires."
-  es: "Los mecanismos a través de los cuales las transferencias de beneficios llegan a los beneficiarios."
-
+  en: The mechanisms through which benefit transfers reach beneficiaries.
+  fr: Les mécanismes par lesquels les transferts de prestations parviennent aux bénéficiaires.
+  es: Los mecanismos a través de los cuales las transferencias de beneficios llegan a los beneficiarios.
 values:
-  - code: bank_transfer
-    label:
-      en: Bank transfer
-      fr: Virement bancaire
-      es: Transferencia bancaria
-    definition:
-      en: "Payment credited directly to a beneficiary's bank account via electronic funds transfer."
-      fr: "Paiement crédité directement sur le compte bancaire d'un bénéficiaire par virement électronique."
-      es: "Pago acreditado directamente en la cuenta bancaria de un beneficiario mediante transferencia electrónica de fondos."
-
-  - code: mobile_money
-    label:
-      en: Mobile money
-      fr: Monnaie mobile
-      es: Dinero móvil
-    definition:
-      en: "Payment transmitted to a beneficiary's registered mobile money account (e.g., M-Pesa, Orange Money)."
-      fr: "Paiement transmis au compte de monnaie mobile enregistré d'un bénéficiaire (ex. M-Pesa, Orange Money)."
-      es: "Pago transmitido a la cuenta de dinero móvil registrada de un beneficiario (p. ej., M-Pesa, Orange Money)."
-
-  - code: cash_in_hand
-    label:
-      en: Cash in hand
-      fr: Espèces en main
-      es: Efectivo en mano
-    definition:
-      en: "Physical currency handed directly to the beneficiary, typically at a distribution point."
-      fr: "Monnaie physique remise directement au bénéficiaire, généralement à un point de distribution."
-      es: "Moneda física entregada directamente al beneficiario, generalmente en un punto de distribución."
-
-  - code: agent_network
-    label:
-      en: Agent network
-      fr: Réseau d'agents
-      es: Red de agentes
-    definition:
-      en: "Payment disbursed through a network of authorised retail agents acting on behalf of a financial institution."
-      fr: "Paiement versé par un réseau d'agents de détail autorisés agissant pour le compte d'une institution financière."
-      es: "Pago desembolsado a través de una red de agentes minoristas autorizados que actúan en nombre de una institución financiera."
-
-  - code: prepaid_card
-    label:
-      en: Prepaid card
-      fr: Carte prépayée
-      es: Tarjeta prepaga
-    definition:
-      en: "Funds loaded onto a physical or virtual prepaid card that the beneficiary uses to make purchases or withdraw cash."
-      fr: "Fonds chargés sur une carte prépayée physique ou virtuelle que le bénéficiaire utilise pour effectuer des achats ou retirer de l'argent."
-      es: "Fondos cargados en una tarjeta prepaga física o virtual que el beneficiario utiliza para realizar compras o retirar efectivo."
-
-  - code: e_voucher
-    label:
-      en: E-voucher
-      fr: Bon électronique
-      es: Vale electrónico
-    definition:
-      en: "A digital code or token redeemable at participating vendors, typically via SMS or a mobile application."
-      fr: "Un code ou jeton numérique échangeable auprès de vendeurs participants, généralement par SMS ou application mobile."
-      es: "Un código o token digital canjeable en vendedores participantes, generalmente a través de SMS o aplicación móvil."
-
-  - code: paper_voucher
-    label:
-      en: Paper voucher
-      fr: Bon papier
-      es: Vale en papel
-    definition:
-      en: "A printed document redeemable at participating vendors for specific goods or services."
-      fr: "Un document imprimé échangeable auprès de vendeurs participants contre des biens ou services spécifiques."
-      es: "Un documento impreso canjeable en vendedores participantes por bienes o servicios específicos."
-
-  - code: direct_distribution
-    label:
-      en: Direct distribution
-      fr: Distribution directe
-      es: Distribución directa
-    definition:
-      en: "In-kind goods delivered directly to beneficiaries at a distribution site, without a voucher or monetary intermediary."
-      fr: "Biens en nature livrés directement aux bénéficiaires à un site de distribution, sans intermédiaire bon ou monétaire."
-      es: "Bienes en especie entregados directamente a los beneficiarios en un sitio de distribución, sin intermediario de vale o monetario."
-
-  - code: service_point
-    label:
-      en: Service point
-      fr: Point de service
-      es: Punto de servicio
-    definition:
-      en: "Benefits accessed at a designated service facility, such as a health clinic or community centre."
-      fr: "Prestations accessibles dans un établissement de service désigné, tel qu'une clinique de santé ou un centre communautaire."
-      es: "Beneficios a los que se accede en una instalación de servicio designada, como una clínica de salud o un centro comunitario."
-
-  - code: other
-    label:
-      en: Other
-      fr: Autre
-      es: Otro
-    definition:
-      en: "A delivery channel not covered by the other defined values."
-      fr: "Un canal de livraison non couvert par les autres valeurs définies."
-      es: "Un canal de entrega no cubierto por los demás valores definidos."
-
+- code: bank_transfer
+  label:
+    en: Bank transfer
+    fr: Virement bancaire
+    es: Transferencia bancaria
+  definition:
+    en: Payment credited directly to a beneficiary's bank account via electronic funds transfer.
+    fr: Paiement crédité directement sur le compte bancaire d'un bénéficiaire par virement électronique.
+    es: Pago acreditado directamente en la cuenta bancaria de un beneficiario mediante transferencia electrónica de fondos.
+- code: mobile_money
+  label:
+    en: Mobile money
+    fr: Monnaie mobile
+    es: Dinero móvil
+  definition:
+    en: Payment transmitted to a beneficiary's registered mobile money account (e.g., M-Pesa, Orange Money).
+    fr: Paiement transmis au compte de monnaie mobile enregistré d'un bénéficiaire (ex. M-Pesa, Orange Money).
+    es: Pago transmitido a la cuenta de dinero móvil registrada de un beneficiario (p. ej., M-Pesa, Orange Money).
+- code: cash_in_hand
+  label:
+    en: Cash in hand
+    fr: Espèces en main
+    es: Efectivo en mano
+  definition:
+    en: Physical currency handed directly to the beneficiary, typically at a distribution point.
+    fr: Monnaie physique remise directement au bénéficiaire, généralement à un point de distribution.
+    es: Moneda física entregada directamente al beneficiario, generalmente en un punto de distribución.
+- code: agent_network
+  label:
+    en: Agent network
+    fr: Réseau d'agents
+    es: Red de agentes
+  definition:
+    en: Payment disbursed through a network of authorised retail agents acting on behalf of a financial institution.
+    fr: Paiement versé par un réseau d'agents de détail autorisés agissant pour le compte d'une institution financière.
+    es: Pago desembolsado a través de una red de agentes minoristas autorizados que actúan en nombre de una institución financiera.
+- code: prepaid_card
+  label:
+    en: Prepaid card
+    fr: Carte prépayée
+    es: Tarjeta prepaga
+  definition:
+    en: Funds loaded onto a physical or virtual prepaid card that the beneficiary uses to make purchases or withdraw cash.
+    fr: Fonds chargés sur une carte prépayée physique ou virtuelle que le bénéficiaire utilise pour effectuer des achats ou
+      retirer de l'argent.
+    es: Fondos cargados en una tarjeta prepaga física o virtual que el beneficiario utiliza para realizar compras o retirar
+      efectivo.
+- code: e_voucher
+  label:
+    en: E-voucher
+    fr: Bon électronique
+    es: Vale electrónico
+  definition:
+    en: A digital code or token redeemable at participating vendors, typically via SMS or a mobile application.
+    fr: Un code ou jeton numérique échangeable auprès de vendeurs participants, généralement par SMS ou application mobile.
+    es: Un código o token digital canjeable en vendedores participantes, generalmente a través de SMS o aplicación móvil.
+- code: paper_voucher
+  label:
+    en: Paper voucher
+    fr: Bon papier
+    es: Vale en papel
+  definition:
+    en: A printed document redeemable at participating vendors for specific goods or services.
+    fr: Un document imprimé échangeable auprès de vendeurs participants contre des biens ou services spécifiques.
+    es: Un documento impreso canjeable en vendedores participantes por bienes o servicios específicos.
+- code: direct_distribution
+  label:
+    en: Direct distribution
+    fr: Distribution directe
+    es: Distribución directa
+  definition:
+    en: In-kind goods delivered directly to beneficiaries at a distribution site, without a voucher or monetary intermediary.
+    fr: Biens en nature livrés directement aux bénéficiaires à un site de distribution, sans intermédiaire bon ou monétaire.
+    es: Bienes en especie entregados directamente a los beneficiarios en un sitio de distribución, sin intermediario de vale
+      o monetario.
+- code: service_point
+  label:
+    en: Service point
+    fr: Point de service
+    es: Punto de servicio
+  definition:
+    en: Benefits accessed at a designated service facility, such as a health clinic or community centre.
+    fr: Prestations accessibles dans un établissement de service désigné, tel qu'une clinique de santé ou un centre communautaire.
+    es: Beneficios a los que se accede en una instalación de servicio designada, como una clínica de salud o un centro comunitario.
+- code: other
+  label:
+    en: Other
+    fr: Autre
+    es: Otro
+  definition:
+    en: A delivery channel not covered by the other defined values.
+    fr: Un canal de livraison non couvert par les autres valeurs définies.
+    es: Un canal de entrega no cubierto por los demás valores definidos.
 system_mappings:
   openimis:
-    "B": bank_transfer
-    "C": cash_in_hand
-    "M": mobile_money
-    "F": other
+    vocabulary_name: PayTypeChoices
+    values:
+    - code: B
+      label: Bank Transfer
+      maps_to: bank_transfer
+    - code: C
+      label: Cash
+      maps_to: cash_in_hand
+    - code: M
+      label: Mobile
+      maps_to: mobile_money
+    - code: F
+      label: Funding
+      maps_to: other
+    unmapped_canonical:
+    - agent_network
+    - prepaid_card
+    - e_voucher
+    - paper_voucher
+    - direct_distribution
+    - service_point

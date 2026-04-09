@@ -1,68 +1,107 @@
 id: grievance-status
 maturity: draft
-
 definition:
-  en: "The lifecycle states of a grievance record in a social protection program."
-  fr: "Les états du cycle de vie d'un dossier de grief dans un programme de protection sociale."
-  es: "Los estados del ciclo de vida de un registro de agravio en un programa de protección social."
-
+  en: The lifecycle states of a grievance record in a social protection program.
+  fr: Les états du cycle de vie d'un dossier de grief dans un programme de protection sociale.
+  es: Los estados del ciclo de vida de un registro de agravio en un programa de protección social.
 values:
-  - code: submitted
-    label:
-      en: Submitted
-      fr: Soumis
-      es: Presentado
-    definition:
-      en: "The grievance has been formally received and registered in the system, awaiting assignment."
-      fr: "Le grief a été formellement reçu et enregistré dans le système, en attente d'affectation."
-      es: "El agravio ha sido recibido formalmente y registrado en el sistema, a la espera de asignación."
-
-  - code: under_review
-    label:
-      en: Under review
-      fr: En cours d'examen
-      es: En revisión
-    definition:
-      en: "The grievance is being actively investigated or assessed by a case worker or review body."
-      fr: "Le grief est en cours d'investigation ou d'évaluation active par un agent de terrain ou un organe d'examen."
-      es: "El agravio está siendo investigado o evaluado activamente por un trabajador social o un órgano de revisión."
-
-  - code: resolved
-    label:
-      en: Resolved
-      fr: Résolu
-      es: Resuelto
-    definition:
-      en: "A decision or remedy has been issued and communicated to the complainant."
-      fr: "Une décision ou un remède a été émis et communiqué au plaignant."
-      es: "Se ha emitido y comunicado al reclamante una decisión o remedio."
-
-  - code: closed
-    label:
-      en: Closed
-      fr: Clos
-      es: Cerrado
-    definition:
-      en: "The grievance process is complete and the record is archived, either after resolution or withdrawal."
-      fr: "Le processus de grief est terminé et le dossier est archivé, que ce soit après résolution ou retrait."
-      es: "El proceso de agravio está completo y el registro está archivado, ya sea después de la resolución o retiro."
-
-  - code: escalated
-    label:
-      en: Escalated
-      fr: Escaladé
-      es: Escalado
-    definition:
-      en: "The grievance has been referred to a higher authority or external body because it could not be resolved at the first level."
-      fr: "Le grief a été renvoyé à une autorité supérieure ou un organisme externe parce qu'il n'a pas pu être résolu au premier niveau."
-      es: "El agravio ha sido referido a una autoridad superior u organismo externo porque no pudo resolverse en el primer nivel."
-
-  - code: rejected
-    label:
-      en: Rejected
-      fr: Rejeté
-      es: Rechazado
-    definition:
-      en: "The grievance was found to be invalid, outside program scope, or a duplicate, and was not accepted for processing."
-      fr: "Le grief a été jugé invalide, hors du champ du programme ou en double, et n'a pas été accepté pour traitement."
-      es: "El agravio fue considerado inválido, fuera del alcance del programa o duplicado, y no fue aceptado para procesamiento."
+- code: submitted
+  label:
+    en: Submitted
+    fr: Soumis
+    es: Presentado
+  definition:
+    en: The grievance has been formally received and registered in the system, awaiting assignment.
+    fr: Le grief a été formellement reçu et enregistré dans le système, en attente d'affectation.
+    es: El agravio ha sido recibido formalmente y registrado en el sistema, a la espera de asignación.
+- code: under_review
+  label:
+    en: Under review
+    fr: En cours d'examen
+    es: En revisión
+  definition:
+    en: The grievance is being actively investigated or assessed by a case worker or review body.
+    fr: Le grief est en cours d'investigation ou d'évaluation active par un agent de terrain ou un organe d'examen.
+    es: El agravio está siendo investigado o evaluado activamente por un trabajador social o un órgano de revisión.
+- code: resolved
+  label:
+    en: Resolved
+    fr: Résolu
+    es: Resuelto
+  definition:
+    en: A decision or remedy has been issued and communicated to the complainant.
+    fr: Une décision ou un remède a été émis et communiqué au plaignant.
+    es: Se ha emitido y comunicado al reclamante una decisión o remedio.
+- code: closed
+  label:
+    en: Closed
+    fr: Clos
+    es: Cerrado
+  definition:
+    en: The grievance process is complete and the record is archived, either after resolution or withdrawal.
+    fr: Le processus de grief est terminé et le dossier est archivé, que ce soit après résolution ou retrait.
+    es: El proceso de agravio está completo y el registro está archivado, ya sea después de la resolución o retiro.
+- code: escalated
+  label:
+    en: Escalated
+    fr: Escaladé
+    es: Escalado
+  definition:
+    en: The grievance has been referred to a higher authority or external body because it could not be resolved at the first
+      level.
+    fr: Le grief a été renvoyé à une autorité supérieure ou un organisme externe parce qu'il n'a pas pu être résolu au premier
+      niveau.
+    es: El agravio ha sido referido a una autoridad superior u organismo externo porque no pudo resolverse en el primer nivel.
+- code: rejected
+  label:
+    en: Rejected
+    fr: Rejeté
+    es: Rechazado
+  definition:
+    en: The grievance was found to be invalid, outside program scope, or a duplicate, and was not accepted for processing.
+    fr: Le grief a été jugé invalide, hors du champ du programme ou en double, et n'a pas été accepté pour traitement.
+    es: El agravio fue considerado inválido, fuera del alcance del programa o duplicado, y no fue aceptado para procesamiento.
+system_mappings:
+  openspp:
+    values:
+    - code: new
+      label: New
+      maps_to: submitted
+    - code: in_progress
+      label: In Progress
+      maps_to: under_review
+    - code: waiting
+      label: Waiting
+      maps_to: under_review
+    - code: escalated
+      label: Escalated
+      maps_to: escalated
+    - code: resolved
+      label: Resolved
+      maps_to: resolved
+    - code: closed
+      label: Closed
+      maps_to: closed
+    unmapped_canonical:
+    - rejected
+  openimis:
+    values:
+    - code: Waiting
+      label: Waiting
+      maps_to: submitted
+    - code: Todo
+      label: Todo
+      maps_to: submitted
+    - code: Inprogress
+      label: In Progress
+      maps_to: under_review
+    - code: Review
+      label: Review
+      maps_to: under_review
+    - code: CLOSE
+      label: Close
+      maps_to: closed
+    unmapped_canonical:
+    - resolved
+    - escalated
+    - rejected

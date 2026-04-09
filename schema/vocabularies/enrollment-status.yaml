@@ -1,74 +1,119 @@
 id: enrollment-status
 maturity: draft
-
 definition:
-  en: "The lifecycle states of an enrollment in a social protection program."
-  fr: "Les états du cycle de vie d'une inscription dans un programme de protection sociale."
-  es: "Los estados del ciclo de vida de una inscripción en un programa de protección social."
-
+  en: The lifecycle states of an enrollment in a social protection program.
+  fr: Les états du cycle de vie d'une inscription dans un programme de protection sociale.
+  es: Los estados del ciclo de vida de una inscripción en un programa de protección social.
 values:
-  - code: active
-    label:
-      en: Active
-      fr: Actif
-      es: Activo
-    definition:
-      en: "The enrollment is current and benefits are being delivered."
-      fr: "L'inscription est en cours et les prestations sont délivrées."
-      es: "La inscripción está vigente y las prestaciones se están entregando."
-
-  - code: suspended
-    label:
-      en: Suspended
-      fr: Suspendu
-      es: Suspendido
-    definition:
-      en: "The enrollment has been temporarily paused, typically pending verification or compliance action."
-      fr: "L'inscription a été temporairement suspendue, en attente de vérification ou d'action de conformité."
-      es: "La inscripción ha sido temporalmente pausada, generalmente pendiente de verificación o acción de cumplimiento."
-
-  - code: closed
-    label:
-      en: Closed
-      fr: Clos
-      es: Cerrado
-    definition:
-      en: "The enrollment has been permanently ended, either due to ineligibility, graduation, or death."
-      fr: "L'inscription a été définitivement clôturée, en raison d'inéligibilité, de graduation ou de décès."
-      es: "La inscripción ha sido terminada de forma permanente, ya sea por inelegibilidad, graduación o fallecimiento."
-
-  - code: pending_verification
-    label:
-      en: Pending verification
-      fr: En attente de vérification
-      es: Pendiente de verificación
-    definition:
-      en: "The application is awaiting document or data verification before enrollment is confirmed."
-      fr: "La demande attend la vérification des documents ou des données avant que l'inscription soit confirmée."
-      es: "La solicitud está a la espera de verificación de documentos o datos antes de confirmar la inscripción."
-
-  - code: graduated
-    label:
-      en: Graduated
-      fr: Diplômé
-      es: Graduado
-    definition:
-      en: "The beneficiary has successfully exited the program through graduation criteria, not through ineligibility."
-      fr: "Le bénéficiaire a quitté le programme avec succès selon les critères de graduation, et non par inéligibilité."
-      es: "El beneficiario ha salido exitosamente del programa a través de los criterios de graduación, no por inelegibilidad."
-
+- code: active
+  label:
+    en: Active
+    fr: Actif
+    es: Activo
+  definition:
+    en: The enrollment is current and benefits are being delivered.
+    fr: L'inscription est en cours et les prestations sont délivrées.
+    es: La inscripción está vigente y las prestaciones se están entregando.
+- code: suspended
+  label:
+    en: Suspended
+    fr: Suspendu
+    es: Suspendido
+  definition:
+    en: The enrollment has been temporarily paused, typically pending verification or compliance action.
+    fr: L'inscription a été temporairement suspendue, en attente de vérification ou d'action de conformité.
+    es: La inscripción ha sido temporalmente pausada, generalmente pendiente de verificación o acción de cumplimiento.
+- code: closed
+  label:
+    en: Closed
+    fr: Clos
+    es: Cerrado
+  definition:
+    en: The enrollment has been permanently ended, either due to ineligibility, graduation, or death.
+    fr: L'inscription a été définitivement clôturée, en raison d'inéligibilité, de graduation ou de décès.
+    es: La inscripción ha sido terminada de forma permanente, ya sea por inelegibilidad, graduación o fallecimiento.
+- code: pending_verification
+  label:
+    en: Pending verification
+    fr: En attente de vérification
+    es: Pendiente de verificación
+  definition:
+    en: The application is awaiting document or data verification before enrollment is confirmed.
+    fr: La demande attend la vérification des documents ou des données avant que l'inscription soit confirmée.
+    es: La solicitud está a la espera de verificación de documentos o datos antes de confirmar la inscripción.
+- code: graduated
+  label:
+    en: Graduated
+    fr: Diplômé
+    es: Graduado
+  definition:
+    en: The beneficiary has successfully exited the program through graduation criteria, not through ineligibility.
+    fr: Le bénéficiaire a quitté le programme avec succès selon les critères de graduation, et non par inéligibilité.
+    es: El beneficiario ha salido exitosamente del programa a través de los criterios de graduación, no por inelegibilidad.
 system_mappings:
+  openspp:
+    values:
+    - code: draft
+      label: Draft
+      maps_to: pending_verification
+    - code: enrolled
+      label: Enrolled
+      maps_to: active
+    - code: paused
+      label: Paused
+      maps_to: suspended
+    - code: exited
+      label: Exited
+      maps_to: closed
+    unmapped_canonical:
+    - graduated
   dhis2:
-    "ACTIVE": active
-    "COMPLETED": closed
-    "CANCELLED": closed
+    vocabulary_name: EnrollmentStatus
+    values:
+    - code: ACTIVE
+      label: Active
+      maps_to: active
+    - code: COMPLETED
+      label: Completed
+      maps_to: closed
+    - code: CANCELLED
+      label: Cancelled
+      maps_to: closed
+    unmapped_canonical:
+    - suspended
+    - pending_verification
+    - graduated
   openimis:
-    "POTENTIAL": pending_verification
-    "ACTIVE": active
-    "GRADUATED": graduated
-    "SUSPENDED": suspended
+    vocabulary_name: BeneficiaryStatus
+    values:
+    - code: POTENTIAL
+      label: Potential
+      maps_to: pending_verification
+    - code: ACTIVE
+      label: Active
+      maps_to: active
+    - code: GRADUATED
+      label: Graduated
+      maps_to: graduated
+    - code: SUSPENDED
+      label: Suspended
+      maps_to: suspended
+    unmapped_canonical:
+    - closed
   spdci:
-    "1": active
-    "2": closed
-    "3": graduated
-    "4": suspended
+    vocabulary_name: EnrollmentStatusEnum
+    values:
+    - code: '1'
+      label: Active
+      maps_to: active
+    - code: '2'
+      label: Deceased
+      maps_to: closed
+    - code: '3'
+      label: Graduated
+      maps_to: graduated
+    - code: '4'
+      label: Suspended
+      maps_to: suspended
+    unmapped_canonical:
+    - pending_verification

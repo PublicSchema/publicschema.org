@@ -1,62 +1,90 @@
 id: severity
 maturity: draft
-
 definition:
-  en: "The observed or expected severity of an event's impact. Values are compatible with OASIS CAP v1.2 severity codes."
-  fr: "La gravite observee ou attendue de l'impact d'un evenement. Les valeurs sont compatibles avec les codes de gravite d'OASIS CAP v1.2."
-  es: "La gravedad observada o esperada del impacto de un evento. Los valores son compatibles con los codigos de gravedad de OASIS CAP v1.2."
-
+  en: The observed or expected severity of an event's impact. Values are compatible with OASIS CAP v1.2 severity codes.
+  fr: La gravite observee ou attendue de l'impact d'un evenement. Les valeurs sont compatibles avec les codes de gravite d'OASIS
+    CAP v1.2.
+  es: La gravedad observada o esperada del impacto de un evento. Los valores son compatibles con los codigos de gravedad de
+    OASIS CAP v1.2.
 standard:
-  name: "OASIS CAP v1.2"
-  uri: "https://docs.oasis-open.org/emergency/cap/v1.2/CAP-v1.2.html"
-
+  name: OASIS CAP v1.2
+  uri: https://docs.oasis-open.org/emergency/cap/v1.2/CAP-v1.2.html
 values:
-  - code: extreme
-    label:
-      en: Extreme
-      fr: Extreme
-      es: Extrema
-    definition:
-      en: "Extraordinary threat to life or property."
-      fr: "Menace extraordinaire pour la vie ou les biens."
-      es: "Amenaza extraordinaria para la vida o la propiedad."
-
-  - code: severe
-    label:
-      en: Severe
-      fr: Grave
-      es: Grave
-    definition:
-      en: "Significant threat to life or property."
-      fr: "Menace significative pour la vie ou les biens."
-      es: "Amenaza significativa para la vida o la propiedad."
-
-  - code: moderate
-    label:
-      en: Moderate
-      fr: Moderee
-      es: Moderada
-    definition:
-      en: "Possible threat to life or property."
-      fr: "Menace possible pour la vie ou les biens."
-      es: "Amenaza posible para la vida o la propiedad."
-
-  - code: minor
-    label:
-      en: Minor
-      fr: Mineure
-      es: Menor
-    definition:
-      en: "Minimal or no known threat to life or property."
-      fr: "Menace minimale ou nulle pour la vie ou les biens."
-      es: "Amenaza minima o nula para la vida o la propiedad."
-
-  - code: unknown
-    label:
-      en: Unknown
-      fr: Inconnue
-      es: Desconocida
-    definition:
-      en: "Severity is not yet determined."
-      fr: "La gravite n'est pas encore determinee."
-      es: "La gravedad aun no se ha determinado."
+- code: extreme
+  label:
+    en: Extreme
+    fr: Extreme
+    es: Extrema
+  definition:
+    en: Extraordinary threat to life or property.
+    fr: Menace extraordinaire pour la vie ou les biens.
+    es: Amenaza extraordinaria para la vida o la propiedad.
+- code: severe
+  label:
+    en: Severe
+    fr: Grave
+    es: Grave
+  definition:
+    en: Significant threat to life or property.
+    fr: Menace significative pour la vie ou les biens.
+    es: Amenaza significativa para la vida o la propiedad.
+- code: moderate
+  label:
+    en: Moderate
+    fr: Moderee
+    es: Moderada
+  definition:
+    en: Possible threat to life or property.
+    fr: Menace possible pour la vie ou les biens.
+    es: Amenaza posible para la vida o la propiedad.
+- code: minor
+  label:
+    en: Minor
+    fr: Mineure
+    es: Menor
+  definition:
+    en: Minimal or no known threat to life or property.
+    fr: Menace minimale ou nulle pour la vie ou les biens.
+    es: Amenaza minima o nula para la vida o la propiedad.
+- code: unknown
+  label:
+    en: Unknown
+    fr: Inconnue
+    es: Desconocida
+  definition:
+    en: Severity is not yet determined.
+    fr: La gravite n'est pas encore determinee.
+    es: La gravedad aun no se ha determinado.
+system_mappings:
+  openspp:
+    values:
+    - code: low
+      label: Low
+      maps_to: minor
+    - code: medium
+      label: Medium
+      maps_to: moderate
+    - code: high
+      label: High
+      maps_to: severe
+    - code: critical
+      label: Critical
+      maps_to: extreme
+    unmapped_canonical:
+    - unknown
+  openimis:
+    values:
+    - code: Critical
+      label: Critical
+      maps_to: extreme
+    - code: High
+      label: High
+      maps_to: severe
+    - code: Normal
+      label: Normal
+      maps_to: moderate
+    - code: Low
+      label: Low
+      maps_to: minor
+    unmapped_canonical:
+    - unknown

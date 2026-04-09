@@ -1,71 +1,108 @@
 id: sex
 maturity: draft
-
 definition:
-  en: "The biological sex of a person as recorded in an official register or identity document, following ISO/IEC 5218."
-  fr: "Le sexe biologique d'une personne tel qu'enregistré dans un registre officiel ou un document d'identité, selon la norme ISO/IEC 5218."
-  es: "El sexo biológico de una persona tal como se registra en un registro oficial o documento de identidad, según la norma ISO/IEC 5218."
-
+  en: The biological sex of a person as recorded in an official register or identity document, following ISO/IEC 5218.
+  fr: Le sexe biologique d'une personne tel qu'enregistré dans un registre officiel ou un document d'identité, selon la norme
+    ISO/IEC 5218.
+  es: El sexo biológico de una persona tal como se registra en un registro oficial o documento de identidad, según la norma
+    ISO/IEC 5218.
 standard:
-  name: "ISO/IEC 5218"
-  uri: "https://www.iso.org/standard/36266.html"
-  notes: "Codes for the representation of human sexes. Numeric codes mapped to readable identifiers. EBSI PID schemas extend ISO 5218 with additional codes: 3 (other), 4 (inter), 5 (diverse), 6 (open). PublicSchema follows the base ISO standard. Systems using the EBSI extension can map values 3-6 to not_applicable."
-
+  name: ISO/IEC 5218
+  uri: https://www.iso.org/standard/36266.html
+  notes: 'Codes for the representation of human sexes. Numeric codes mapped to readable identifiers. EBSI PID schemas extend
+    ISO 5218 with additional codes: 3 (other), 4 (inter), 5 (diverse), 6 (open). PublicSchema follows the base ISO standard.
+    Systems using the EBSI extension can map values 3-6 to not_applicable.'
 values:
-  - code: not_known
-    label:
-      en: Not known
-      fr: Inconnu
-      es: Desconocido
-    standard_code: "0"
-    definition:
-      en: "Sex has not been recorded or is not known."
-
-  - code: male
-    label:
-      en: Male
-      fr: Masculin
-      es: Masculino
-    standard_code: "1"
-    definition:
-      en: "Male sex."
-
-  - code: female
-    label:
-      en: Female
-      fr: Féminin
-      es: Femenino
-    standard_code: "2"
-    definition:
-      en: "Female sex."
-
-  - code: not_applicable
-    label:
-      en: Not applicable
-      fr: Non applicable
-      es: No aplica
-    standard_code: "9"
-    definition:
-      en: "Sex is not applicable in this context (e.g., legal entities)."
-
+- code: not_known
+  label:
+    en: Not known
+    fr: Inconnu
+    es: Desconocido
+  standard_code: '0'
+  definition:
+    en: Sex has not been recorded or is not known.
+- code: male
+  label:
+    en: Male
+    fr: Masculin
+    es: Masculino
+  standard_code: '1'
+  definition:
+    en: Male sex.
+- code: female
+  label:
+    en: Female
+    fr: Féminin
+    es: Femenino
+  standard_code: '2'
+  definition:
+    en: Female sex.
+- code: not_applicable
+  label:
+    en: Not applicable
+    fr: Non applicable
+    es: No aplica
+  standard_code: '9'
+  definition:
+    en: Sex is not applicable in this context (e.g., legal entities).
 system_mappings:
   openspp:
-    "0": not_known
-    "1": male
-    "2": female
-    "9": not_applicable
+    vocabulary_name: Iso5218GenderCodes
+    values:
+    - code: '0'
+      label: Not known
+      maps_to: not_known
+    - code: '1'
+      label: Male
+      maps_to: male
+    - code: '2'
+      label: Female
+      maps_to: female
+    - code: '9'
+      label: Not applicable
+      maps_to: not_applicable
   spdci:
-    "male": male
-    "female": female
-    "other": not_applicable
-    "unknown": not_known
+    vocabulary_name: SexCategoryEnum
+    values:
+    - code: male
+      label: Male
+      maps_to: male
+    - code: female
+      label: Female
+      maps_to: female
+    - code: other
+      label: Others
+      maps_to: not_applicable
+    - code: unknown
+      label: Unknown
+      maps_to: not_known
   opencrvs:
-    "male": male
-    "female": female
-    "other": not_applicable
-    "unknown": not_known
+    vocabulary_name: Gender
+    values:
+    - code: male
+      label: Male
+      maps_to: male
+    - code: female
+      label: Female
+      maps_to: female
+    - code: other
+      label: Other
+      maps_to: not_applicable
+    - code: unknown
+      label: Unknown
+      maps_to: not_known
   fhir_r4:
-    "male": male
-    "female": female
-    "other": not_applicable
-    "unknown": not_known
+    vocabulary_name: AdministrativeGender
+    values:
+    - code: male
+      label: Male
+      maps_to: male
+    - code: female
+      label: Female
+      maps_to: female
+    - code: other
+      label: Other
+      maps_to: not_applicable
+    - code: unknown
+      label: Unknown
+      maps_to: not_known

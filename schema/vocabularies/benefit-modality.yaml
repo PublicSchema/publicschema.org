@@ -1,66 +1,96 @@
 id: benefit-modality
 maturity: draft
-
 definition:
-  en: "The form in which a benefit or entitlement is delivered to a beneficiary."
-  fr: "La forme sous laquelle une prestation ou un droit est versé à un bénéficiaire."
-  es: "La forma en que se entrega un beneficio o derecho a un beneficiario."
-
+  en: The form in which a benefit or entitlement is delivered to a beneficiary.
+  fr: La forme sous laquelle une prestation ou un droit est versé à un bénéficiaire.
+  es: La forma en que se entrega un beneficio o derecho a un beneficiario.
 values:
-  - code: cash
-    label:
-      en: Cash
-      fr: Espèces
-      es: Efectivo
-    definition:
-      en: "A direct monetary transfer to the beneficiary, delivered as physical currency or electronic funds."
-      fr: "Un transfert monétaire direct au bénéficiaire, sous forme d'espèces physiques ou de fonds électroniques."
-      es: "Una transferencia monetaria directa al beneficiario, entregada como moneda física o fondos electrónicos."
-
-  - code: voucher
-    label:
-      en: Voucher
-      fr: Bon
-      es: Vale
-    definition:
-      en: "A redeemable document or code that entitles the holder to obtain goods or services from a designated provider."
-      fr: "Un document ou code échangeable qui donne droit au titulaire d'obtenir des biens ou services auprès d'un prestataire désigné."
-      es: "Un documento o código canjeable que da derecho al titular a obtener bienes o servicios de un proveedor designado."
-
-  - code: in_kind
-    label:
-      en: In-kind
-      fr: En nature
-      es: En especie
-    definition:
-      en: "Physical goods (food, clothing, agricultural inputs, etc.) provided directly rather than as a monetary equivalent."
-      fr: "Biens physiques (nourriture, vêtements, intrants agricoles, etc.) fournis directement plutôt que sous forme d'équivalent monétaire."
-      es: "Bienes físicos (alimentos, ropa, insumos agrícolas, etc.) proporcionados directamente en lugar de como equivalente monetario."
-
-  - code: service
-    label:
-      en: Service
-      fr: Service
-      es: Servicio
-    definition:
-      en: "Access to a social service such as healthcare, education, childcare, or skills training provided as the benefit."
-      fr: "Accès à un service social tel que les soins de santé, l'éducation, la garde d'enfants ou la formation professionnelle fourni comme prestation."
-      es: "Acceso a un servicio social como atención médica, educación, cuidado infantil o formación profesional proporcionado como beneficio."
-
-  - code: fee_waiver
-    label:
-      en: Fee waiver
-      fr: Exonération de frais
-      es: Exención de tarifa
-    definition:
-      en: "An exemption from a fee or charge that would otherwise apply, such as school fees, health co-payments, or utility costs."
-      fr: "Une exonération d'une redevance ou d'un frais qui s'appliquerait autrement, comme les frais de scolarité, les co-paiements de santé ou les coûts des services publics."
-      es: "Una exención de una tarifa o cargo que de otro modo se aplicaría, como cuotas escolares, copagos de salud o costos de servicios públicos."
-
+- code: cash
+  label:
+    en: Cash
+    fr: Espèces
+    es: Efectivo
+  definition:
+    en: A direct monetary transfer to the beneficiary, delivered as physical currency or electronic funds.
+    fr: Un transfert monétaire direct au bénéficiaire, sous forme d'espèces physiques ou de fonds électroniques.
+    es: Una transferencia monetaria directa al beneficiario, entregada como moneda física o fondos electrónicos.
+- code: voucher
+  label:
+    en: Voucher
+    fr: Bon
+    es: Vale
+  definition:
+    en: A redeemable document or code that entitles the holder to obtain goods or services from a designated provider.
+    fr: Un document ou code échangeable qui donne droit au titulaire d'obtenir des biens ou services auprès d'un prestataire
+      désigné.
+    es: Un documento o código canjeable que da derecho al titular a obtener bienes o servicios de un proveedor designado.
+- code: in_kind
+  label:
+    en: In-kind
+    fr: En nature
+    es: En especie
+  definition:
+    en: Physical goods (food, clothing, agricultural inputs, etc.) provided directly rather than as a monetary equivalent.
+    fr: Biens physiques (nourriture, vêtements, intrants agricoles, etc.) fournis directement plutôt que sous forme d'équivalent
+      monétaire.
+    es: Bienes físicos (alimentos, ropa, insumos agrícolas, etc.) proporcionados directamente en lugar de como equivalente
+      monetario.
+- code: service
+  label:
+    en: Service
+    fr: Service
+    es: Servicio
+  definition:
+    en: Access to a social service such as healthcare, education, childcare, or skills training provided as the benefit.
+    fr: Accès à un service social tel que les soins de santé, l'éducation, la garde d'enfants ou la formation professionnelle
+      fourni comme prestation.
+    es: Acceso a un servicio social como atención médica, educación, cuidado infantil o formación profesional proporcionado
+      como beneficio.
+- code: fee_waiver
+  label:
+    en: Fee waiver
+    fr: Exonération de frais
+    es: Exención de tarifa
+  definition:
+    en: An exemption from a fee or charge that would otherwise apply, such as school fees, health co-payments, or utility
+      costs.
+    fr: Une exonération d'une redevance ou d'un frais qui s'appliquerait autrement, comme les frais de scolarité, les co-paiements
+      de santé ou les coûts des services publics.
+    es: Una exención de una tarifa o cargo que de otro modo se aplicaría, como cuotas escolares, copagos de salud o costos
+      de servicios públicos.
 system_mappings:
+  openspp:
+    values:
+    - code: cash
+      label: Cash
+      maps_to: cash
+    - code: inkind
+      label: In-Kind
+      maps_to: in_kind
+    unmapped_canonical:
+    - voucher
+    - service
+    - fee_waiver
   spdci:
-    "1": cash
-    "2": voucher
-    "3": in_kind
-    "4": service
-    "5": service
+    vocabulary_name: BenefitTypeEnum
+    values:
+    - code: '1'
+      label: Cash
+      maps_to: cash
+    - code: '2'
+      label: Voucher
+      maps_to: voucher
+    - code: '3'
+      label: In-kind
+      maps_to: in_kind
+    - code: '4'
+      label: Training
+      maps_to: service
+    - code: '5'
+      label: Work Opportunity
+      maps_to: service
+    - code: '6'
+      label: Insurance
+      maps_to: null
+    unmapped_canonical:
+    - fee_waiver
