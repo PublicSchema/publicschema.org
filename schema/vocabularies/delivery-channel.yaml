@@ -23,11 +23,11 @@ values:
     en: Payment transmitted to a beneficiary's registered mobile money account (e.g., M-Pesa, Orange Money).
     fr: Paiement transmis au compte de monnaie mobile enregistré d'un bénéficiaire (ex. M-Pesa, Orange Money).
     es: Pago transmitido a la cuenta de dinero móvil registrada de un beneficiario (p. ej., M-Pesa, Orange Money).
-- code: cash_in_hand
+- code: cash
   label:
-    en: Cash in hand
-    fr: Espèces en main
-    es: Efectivo en mano
+    en: Cash
+    fr: Espèces
+    es: Efectivo
   definition:
     en: Physical currency handed directly to the beneficiary, typically at a distribution point.
     fr: Monnaie physique remise directement au bénéficiaire, généralement à un point de distribution.
@@ -70,16 +70,6 @@ values:
     en: A printed document redeemable at participating vendors for specific goods or services.
     fr: Un document imprimé échangeable auprès de vendeurs participants contre des biens ou services spécifiques.
     es: Un documento impreso canjeable en vendedores participantes por bienes o servicios específicos.
-- code: direct_distribution
-  label:
-    en: Direct distribution
-    fr: Distribution directe
-    es: Distribución directa
-  definition:
-    en: In-kind goods delivered directly to beneficiaries at a distribution site, without a voucher or monetary intermediary.
-    fr: Biens en nature livrés directement aux bénéficiaires à un site de distribution, sans intermédiaire bon ou monétaire.
-    es: Bienes en especie entregados directamente a los beneficiarios en un sitio de distribución, sin intermediario de vale
-      o monetario.
 - code: service_point
   label:
     en: Service point
@@ -107,7 +97,7 @@ system_mappings:
       maps_to: bank_transfer
     - code: C
       label: Cash
-      maps_to: cash_in_hand
+      maps_to: cash
     - code: M
       label: Mobile
       maps_to: mobile_money
@@ -119,5 +109,4 @@ system_mappings:
     - prepaid_card
     - e_voucher
     - paper_voucher
-    - direct_distribution
     - service_point

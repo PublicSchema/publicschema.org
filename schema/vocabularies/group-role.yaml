@@ -1,9 +1,12 @@
 id: group-role
 maturity: draft
 definition:
-  en: The role a person plays within a group such as a household, family, or other organizational unit.
+  en: The role a person plays within a group such as a household, family, or other organizational unit. Roles are defined
+    relative to the group's reference person (head).
   fr: Le rôle qu'une personne joue au sein d'un groupe tel qu'un ménage, une famille ou une autre unité organisationnelle.
-  es: El rol que una persona desempeña dentro de un grupo como un hogar, familia u otra unidad organizacional.
+    Les rôles sont définis par rapport à la personne de référence du groupe (chef).
+  es: El rol que una persona desempeña dentro de un grupo como un hogar, familia u otra unidad organizacional. Los roles se
+    definen en relación con la persona de referencia del grupo (jefe/a).
 values:
 - code: head
   label:
@@ -52,6 +55,33 @@ values:
     en: A parent of the group head or spouse living in the same group.
     fr: Un parent du chef de groupe ou du conjoint vivant dans le même groupe.
     es: Un padre o madre del jefe de grupo o cónyuge que vive en el mismo grupo.
+- code: sibling
+  label:
+    en: Sibling
+    fr: Frère/Sœur
+    es: Hermano/a
+  definition:
+    en: A brother or sister of the group head or their spouse.
+    fr: Un frère ou une sœur du chef de groupe ou de son conjoint.
+    es: Un hermano o hermana del jefe de grupo o de su cónyuge.
+- code: grandparent
+  label:
+    en: Grandparent
+    fr: Grand-parent
+    es: Abuelo/a
+  definition:
+    en: A parent of the group head's parent, living in the same group.
+    fr: Un parent du parent du chef de groupe, vivant dans le même groupe.
+    es: Un padre o madre del padre o madre del jefe de grupo, que vive en el mismo grupo.
+- code: grandchild
+  label:
+    en: Grandchild
+    fr: Petit-enfant
+    es: Nieto/a
+  definition:
+    en: A child of the group head's child, living in the same group.
+    fr: Un enfant de l'enfant du chef de groupe, vivant dans le même groupe.
+    es: Un hijo o hija del hijo o hija del jefe de grupo, que vive en el mismo grupo.
 - code: other_relative
   label:
     en: Other relative
@@ -94,22 +124,22 @@ system_mappings:
       maps_to: parent
     - code: GRANDFATHER
       label: Grandfather
-      maps_to: parent
+      maps_to: grandparent
     - code: GRANDMOTHER
       label: Grandmother
-      maps_to: parent
+      maps_to: grandparent
     - code: GRANDSON
       label: Grandson
-      maps_to: dependent
+      maps_to: grandchild
     - code: GRANDDAUGHTER
       label: Granddaughter
-      maps_to: dependent
+      maps_to: grandchild
     - code: BROTHER
       label: Brother
-      maps_to: other_relative
+      maps_to: sibling
     - code: SISTER
       label: Sister
-      maps_to: other_relative
+      maps_to: sibling
     - code: OTHER RELATIVE
       label: Other Relative
       maps_to: other_relative

@@ -73,6 +73,42 @@ values:
       nationale dans de nombreux pays.
     es: Un numero asignado por una administracion de seguridad social o seguro social, distinto del numero de identidad nacional
       en muchos paises.
+- code: tax_id
+  label:
+    en: Tax ID
+    fr: Identifiant fiscal
+    es: Identificacion fiscal
+  definition:
+    en: A tax identification number assigned by a revenue or fiscal authority.
+    fr: Un numero d'identification fiscale attribue par une autorite fiscale ou de recettes.
+    es: Un numero de identificacion fiscal asignado por una autoridad tributaria o fiscal.
+- code: drivers_license
+  label:
+    en: Driver's license
+    fr: Permis de conduire
+    es: Licencia de conducir
+  definition:
+    en: A government-issued permit to operate motor vehicles, commonly used as identification.
+    fr: Un permis delivre par le gouvernement pour conduire des vehicules a moteur, couramment utilise comme piece d'identite.
+    es: Un permiso emitido por el gobierno para operar vehiculos motorizados, comúnmente utilizado como identificacion.
+- code: marriage_certificate
+  label:
+    en: Marriage certificate
+    fr: Acte de mariage
+    es: Certificado de matrimonio
+  definition:
+    en: An official record of a marriage issued by a civil registry or religious authority.
+    fr: Un document officiel de mariage delivre par un registre d'etat civil ou une autorite religieuse.
+    es: Un registro oficial de matrimonio emitido por un registro civil o una autoridad religiosa.
+- code: death_certificate
+  label:
+    en: Death certificate
+    fr: Acte de deces
+    es: Certificado de defuncion
+  definition:
+    en: An official record of a death issued by a civil registry or health authority.
+    fr: Un document officiel de deces delivre par un registre d'etat civil ou une autorite sanitaire.
+    es: Un registro oficial de defuncion emitido por un registro civil o una autoridad sanitaria.
 - code: other
   label:
     en: Other
@@ -94,7 +130,7 @@ system_mappings:
       maps_to: passport
     - code: tax_id
       label: Tax ID
-      maps_to: other
+      maps_to: tax_id
     - code: birth_certificate
       label: Birth Certificate
       maps_to: birth_certificate
@@ -116,7 +152,7 @@ system_mappings:
       maps_to: voter_id
     - code: D
       label: Driver's License
-      maps_to: other
+      maps_to: drivers_license
     unmapped_canonical:
     - birth_certificate
     - program_id
@@ -130,10 +166,10 @@ system_mappings:
       maps_to: passport
     - code: DL
       label: Driver's License Number
-      maps_to: other
+      maps_to: drivers_license
     - code: TAX
       label: Tax ID Number
-      maps_to: other
+      maps_to: tax_id
     - code: SB
       label: Social Beneficiary Identifier
       maps_to: program_id
@@ -194,10 +230,10 @@ system_mappings:
       maps_to: birth_certificate
     - code: MRN
       label: Marriage Registration Number
-      maps_to: other
+      maps_to: marriage_certificate
     - code: DRN
       label: Death Registration Number
-      maps_to: other
+      maps_to: death_certificate
     unmapped_canonical:
     - passport
     - voter_id

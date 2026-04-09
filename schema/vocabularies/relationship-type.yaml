@@ -89,16 +89,29 @@ values:
     en: A person who relies on another for financial support or daily living needs.
     fr: Une personne qui dépend d'une autre pour son soutien financier ou ses besoins quotidiens.
     es: Una persona que depende de otra para su sustento financiero o necesidades diarias.
-- code: head_of_household
+- code: in_law
   label:
-    en: Head of household
-    fr: Chef de ménage
-    es: Jefe/a de hogar
+    en: In-law
+    fr: Par alliance
+    es: Pariente político
   definition:
-    en: The person recognized as the primary decision-maker or representative of the household for administrative purposes.
-    fr: La personne reconnue comme le principal décideur ou représentant du ménage à des fins administratives.
-    es: La persona reconocida como el principal tomador de decisiones o representante del hogar para fines administrativos.
+    en: A person related through marriage rather than by blood, such as a parent-in-law, child-in-law, or sibling-in-law.
+    fr: Une personne liée par le mariage plutôt que par le sang, comme un beau-parent, un gendre/belle-fille ou un beau-frère/belle-sœur.
+    es: Una persona relacionada por matrimonio en lugar de por sangre, como un suegro/a, yerno/nuera o cuñado/a.
+- code: extended_family
+  label:
+    en: Extended family
+    fr: Famille élargie
+    es: Familia extendida
+  definition:
+    en: A family member beyond the immediate kinship categories (e.g. aunt, uncle, cousin, niece, nephew) where the specific
+      type is not recorded.
+    fr: Un membre de la famille au-delà des catégories de parenté immédiate (p. ex. tante, oncle, cousin, nièce, neveu) dont
+      le type spécifique n'est pas enregistré.
+    es: Un miembro de la familia más allá de las categorías de parentesco inmediato (p. ej. tía, tío, primo, sobrina, sobrino)
+      cuyo tipo específico no está registrado.
 - code: payment_proxy
+  domain: sp
   label:
     en: Payment proxy
     fr: Mandataire de paiement
@@ -110,6 +123,7 @@ values:
     es: Una persona autorizada para cobrar beneficios en nombre de otra, utilizada frecuentemente cuando el beneficiario no
       puede cobrar en persona.
 - code: survivor
+  domain: sp
   label:
     en: Survivor
     fr: Survivant(e)
@@ -130,9 +144,6 @@ values:
 system_mappings:
   openspp:
     values:
-    - code: head
-      label: Head
-      maps_to: head_of_household
     - code: spouse
       label: Spouse
       maps_to: spouse
@@ -141,7 +152,7 @@ system_mappings:
       maps_to: child
     - code: child_in_law
       label: Child In Law
-      maps_to: other
+      maps_to: in_law
     - code: grandchild
       label: Grandchild
       maps_to: grandchild
@@ -150,7 +161,7 @@ system_mappings:
       maps_to: parent
     - code: parent_in_law
       label: Parent In Law
-      maps_to: other
+      maps_to: in_law
     - code: grandparent
       label: Grandparent
       maps_to: grandparent
@@ -167,6 +178,7 @@ system_mappings:
     - guardian
     - caregiver
     - dependent
+    - extended_family
     - payment_proxy
     - survivor
   fhir_r4:
@@ -329,7 +341,8 @@ system_mappings:
     - guardian
     - caregiver
     - dependent
-    - head_of_household
+    - in_law
+    - extended_family
     - payment_proxy
     - survivor
   spdci:
@@ -394,10 +407,10 @@ system_mappings:
       maps_to: spouse
     - code: EXT
       label: extended family member
-      maps_to: other
+      maps_to: extended_family
     - code: INLAW
       label: inlaw
-      maps_to: other
+      maps_to: in_law
     - code: SELF
       label: Self
       maps_to: null
@@ -406,246 +419,242 @@ system_mappings:
       maps_to: null
     - code: FAMMEMB
       label: family member
-      maps_to: null
+      maps_to: other
     - code: DAUADOPT
       label: adopted daughter
-      maps_to: null
+      maps_to: child
     - code: SONADOPT
       label: adopted son
-      maps_to: null
+      maps_to: child
     - code: DAUFOST
       label: foster daughter
-      maps_to: null
+      maps_to: child
     - code: SONFOST
       label: foster son
-      maps_to: null
+      maps_to: child
     - code: DAU
       label: natural daughter
-      maps_to: null
+      maps_to: child
     - code: STPDAU
       label: stepdaughter
-      maps_to: null
+      maps_to: child
     - code: NCHILD
       label: natural child
-      maps_to: null
+      maps_to: child
     - code: SON
       label: natural son
-      maps_to: null
+      maps_to: child
     - code: STPSON
       label: stepson
-      maps_to: null
+      maps_to: child
     - code: STPCHILD
       label: step child
-      maps_to: null
+      maps_to: child
     - code: AUNT
       label: aunt
-      maps_to: null
+      maps_to: extended_family
     - code: MAUNT
       label: maternal aunt
-      maps_to: null
+      maps_to: extended_family
     - code: PAUNT
       label: paternal aunt
-      maps_to: null
+      maps_to: extended_family
     - code: COUSN
       label: cousin
-      maps_to: null
+      maps_to: extended_family
     - code: MCOUSN
       label: maternal cousin
-      maps_to: null
+      maps_to: extended_family
     - code: PCOUSN
       label: paternal cousin
-      maps_to: null
+      maps_to: extended_family
     - code: GGRPRN
       label: great grandparent
-      maps_to: null
+      maps_to: grandparent
     - code: GGRFTH
       label: great grandfather
-      maps_to: null
+      maps_to: grandparent
     - code: MGGRFTH
       label: maternal great-grandfather
-      maps_to: null
+      maps_to: grandparent
     - code: PGGRFTH
       label: paternal great-grandfather
-      maps_to: null
+      maps_to: grandparent
     - code: GGRMTH
       label: great grandmother
-      maps_to: null
+      maps_to: grandparent
     - code: PGGRMTH
       label: paternal great-grandmother
-      maps_to: null
+      maps_to: grandparent
     - code: MGGRPRN
       label: maternal great-grandparent
-      maps_to: null
+      maps_to: grandparent
     - code: PGGRPRN
       label: paternal great-grandparent
-      maps_to: null
+      maps_to: grandparent
     - code: MGRFTH
       label: maternal grandfather
-      maps_to: null
+      maps_to: grandparent
     - code: PGRFTH
       label: paternal grandfather
-      maps_to: null
+      maps_to: grandparent
     - code: MGRMTH
       label: maternal grandmother
-      maps_to: null
+      maps_to: grandparent
     - code: PGRMTH
       label: paternal grandmother
-      maps_to: null
+      maps_to: grandparent
     - code: MGRPRN
       label: maternal grandparent
-      maps_to: null
+      maps_to: grandparent
     - code: PGRPRN
       label: paternal grandparent
-      maps_to: null
+      maps_to: grandparent
     - code: CHLDINLAW
       label: child-in-law
-      maps_to: null
+      maps_to: in_law
     - code: DAUINLAW
       label: daughter in-law
-      maps_to: null
+      maps_to: in_law
     - code: SONINLAW
       label: son in-law
-      maps_to: null
+      maps_to: in_law
     - code: PRNINLAW
       label: parent in-law
-      maps_to: null
+      maps_to: in_law
     - code: FTHINLAW
       label: father-in-law
-      maps_to: null
+      maps_to: in_law
     - code: MTHINLAW
       label: mother-in-law
-      maps_to: null
+      maps_to: in_law
     - code: SIBINLAW
       label: sibling in-law
-      maps_to: null
+      maps_to: in_law
     - code: BROINLAW
       label: brother in-law
-      maps_to: null
+      maps_to: in_law
     - code: SISINLAW
       label: sister in-law
-      maps_to: null
+      maps_to: in_law
     - code: NIENEPH
       label: niece/nephew
-      maps_to: null
+      maps_to: extended_family
     - code: NEPHEW
       label: nephew
-      maps_to: null
+      maps_to: extended_family
     - code: NEICE
       label: neice
-      maps_to: null
+      maps_to: extended_family
     - code: UNCLE
       label: uncle
-      maps_to: null
+      maps_to: extended_family
     - code: MUNCLE
       label: maternal uncle
-      maps_to: null
+      maps_to: extended_family
     - code: PUNCLE
       label: parental uncle
-      maps_to: null
+      maps_to: extended_family
     - code: ADOPTP
       label: adoptive parent
-      maps_to: null
+      maps_to: parent
     - code: ADOPTF
       label: adoptive father
-      maps_to: null
+      maps_to: parent
     - code: ADOPTM
       label: adoptive mother
-      maps_to: null
+      maps_to: parent
     - code: FTHFOST
       label: foster father
-      maps_to: null
+      maps_to: parent
     - code: NFTH
       label: natural father
-      maps_to: null
+      maps_to: parent
     - code: NFTHF
       label: natural father of fetus
-      maps_to: null
+      maps_to: parent
     - code: STPFTH
       label: stepfather
-      maps_to: null
+      maps_to: parent
     - code: GESTM
       label: gestational mother
-      maps_to: null
+      maps_to: parent
     - code: NMTH
       label: natural mother
-      maps_to: null
+      maps_to: parent
     - code: NMTHF
       label: natural mother of fetus
-      maps_to: null
+      maps_to: parent
     - code: STPMTH
       label: stepmother
-      maps_to: null
+      maps_to: parent
     - code: NPRN
       label: natural parent
-      maps_to: null
+      maps_to: parent
     - code: STPPRN
       label: step parent
-      maps_to: null
+      maps_to: parent
     - code: HBRO
       label: half-brother
-      maps_to: null
+      maps_to: sibling
     - code: NBRO
       label: natural brother
-      maps_to: null
+      maps_to: sibling
     - code: TWINBRO
       label: twin brother
-      maps_to: null
+      maps_to: sibling
     - code: FTWINBRO
       label: faternal twin brother
-      maps_to: null
+      maps_to: sibling
     - code: ITWINBRO
       label: identical twin brother
-      maps_to: null
+      maps_to: sibling
     - code: STPBRO
       label: stepbrother
-      maps_to: null
+      maps_to: sibling
     - code: HSIB
       label: half-sibling
-      maps_to: null
+      maps_to: sibling
     - code: HSIS
       label: half-sister
-      maps_to: null
+      maps_to: sibling
     - code: NSIB
       label: natural sibling
-      maps_to: null
+      maps_to: sibling
     - code: NSIS
       label: natural sister
-      maps_to: null
+      maps_to: sibling
     - code: TWINSIS
       label: twin sister
-      maps_to: null
+      maps_to: sibling
     - code: FTWINSIS
       label: faternal twin sister
-      maps_to: null
+      maps_to: sibling
     - code: ITWINSIS
       label: identical twin sister
-      maps_to: null
+      maps_to: sibling
     - code: TWIN
       label: twin
-      maps_to: null
+      maps_to: sibling
     - code: FTWIN
       label: faternal twin
-      maps_to: null
+      maps_to: sibling
     - code: ITWIN
       label: identical twin
-      maps_to: null
+      maps_to: sibling
     - code: SIGOTHR
       label: significant other
-      maps_to: null
+      maps_to: spouse
     - code: FRMSPS
       label: former spouse
-      maps_to: null
+      maps_to: other
     unmapped_canonical:
     - caregiver
     - dependent
-    - head_of_household
     - payment_proxy
     - survivor
   openimis:
     values:
-    - code: HEAD
-      label: Head
-      maps_to: head_of_household
     - code: SPOUSE
       label: Spouse
       maps_to: spouse
@@ -689,5 +698,7 @@ system_mappings:
     - guardian
     - caregiver
     - dependent
+    - in_law
+    - extended_family
     - payment_proxy
     - survivor

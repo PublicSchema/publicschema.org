@@ -14,6 +14,15 @@ values:
     en: The payment has been scheduled or initiated but has not yet been transmitted or confirmed.
     fr: Le paiement a été planifié ou initié mais n'a pas encore été transmis ou confirmé.
     es: El pago ha sido programado o iniciado pero aún no ha sido transmitido o confirmado.
+- code: processing
+  label:
+    en: Processing
+    fr: En traitement
+    es: En procesamiento
+  definition:
+    en: The payment instruction has been accepted by the financial intermediary and is being executed.
+    fr: L'instruction de paiement a été acceptée par l'intermédiaire financier et est en cours d'exécution.
+    es: La instrucción de pago ha sido aceptada por el intermediario financiero y está siendo ejecutada.
 - code: paid
   label:
     en: Paid
@@ -41,6 +50,18 @@ values:
     en: The payment was transmitted but subsequently returned by the receiving institution or agent.
     fr: Le paiement a été transmis mais a ensuite été retourné par l'institution ou l'agent récepteur.
     es: El pago fue transmitido pero posteriormente devuelto por la institución o agente receptor.
+- code: rejected
+  label:
+    en: Rejected
+    fr: Rejeté
+    es: Rechazado
+  definition:
+    en: The payment was evaluated and denied based on a business or policy decision, such as a failed eligibility check or a
+      disputed claim.
+    fr: Le paiement a été évalué et refusé sur la base d'une décision commerciale ou politique, telle qu'un contrôle d'éligibilité
+      échoué ou une réclamation contestée.
+    es: El pago fue evaluado y denegado en base a una decisión comercial o de política, como una verificación de elegibilidad
+      fallida o una reclamación disputada.
 - code: cancelled
   label:
     en: Cancelled
@@ -68,7 +89,7 @@ system_mappings:
       maps_to: pending
     - code: sent
       label: Sent
-      maps_to: pending
+      maps_to: processing
     - code: reconciled
       label: Reconciled
       maps_to: reconciled
@@ -123,16 +144,16 @@ system_mappings:
       maps_to: pending
     - code: ACCEPTED
       label: Accepted
-      maps_to: pending
+      maps_to: processing
     - code: PENDING_APPROVAL
       label: Pending Approval
       maps_to: pending
     - code: APPROVE_FOR_PAYMENT
       label: Approve For Payment
-      maps_to: pending
+      maps_to: processing
     - code: REJECTED
       label: Rejected
-      maps_to: cancelled
+      maps_to: rejected
     - code: DUPLICATE
       label: Duplicate
       maps_to: cancelled

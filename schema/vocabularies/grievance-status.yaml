@@ -61,6 +61,15 @@ values:
     en: The grievance was found to be invalid, outside program scope, or a duplicate, and was not accepted for processing.
     fr: Le grief a été jugé invalide, hors du champ du programme ou en double, et n'a pas été accepté pour traitement.
     es: El agravio fue considerado inválido, fuera del alcance del programa o duplicado, y no fue aceptado para procesamiento.
+- code: withdrawn
+  label:
+    en: Withdrawn
+    fr: Retiré
+    es: Retirado
+  definition:
+    en: The complainant has voluntarily withdrawn the grievance before resolution.
+    fr: Le plaignant a volontairement retiré le grief avant la résolution.
+    es: El reclamante ha retirado voluntariamente el agravio antes de la resolución.
 system_mappings:
   openspp:
     values:

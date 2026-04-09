@@ -37,11 +37,11 @@ values:
       fr: "Prestation fournie une fois par semaine."
       es: "Prestación proporcionada una vez por semana."
 
-  - code: biweekly
+  - code: every_two_weeks
     label:
-      en: Biweekly
-      fr: Bihebdomadaire
-      es: Quincenal
+      en: Every two weeks
+      fr: Toutes les deux semaines
+      es: Cada dos semanas
     definition:
       en: "Benefit provided every two weeks."
       fr: "Prestation fournie toutes les deux semaines."
@@ -96,3 +96,13 @@ values:
       en: "Benefit provided on demand or as circumstances require, without a fixed schedule."
       fr: "Prestation fournie à la demande ou selon les circonstances, sans calendrier fixe."
       es: "Prestación proporcionada a demanda o según las circunstancias lo requieran, sin un calendario fijo."
+
+  - code: custom
+    label:
+      en: Custom
+      fr: Personnalisé
+      es: Personalizado
+    definition:
+      en: "A recurrence schedule not covered by the predefined frequencies, specified as an iCalendar RRULE (RFC 5545) in the frequency_rule property."
+      fr: "Un calendrier de récurrence non couvert par les fréquences prédéfinies, spécifié sous forme de RRULE iCalendar (RFC 5545) dans la propriété frequency_rule."
+      es: "Un calendario de recurrencia no cubierto por las frecuencias predefinidas, especificado como una RRULE de iCalendar (RFC 5545) en la propiedad frequency_rule."

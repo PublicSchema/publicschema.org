@@ -5,6 +5,17 @@ definition:
   fr: Les états du cycle de vie d'une inscription dans un programme.
   es: Los estados del ciclo de vida de una inscripción en un programa.
 values:
+- code: waitlisted
+  label:
+    en: Waitlisted
+    fr: En liste d'attente
+    es: En lista de espera
+  definition:
+    en: The applicant has been verified as eligible but is awaiting an available program slot due to capacity or budget constraints.
+    fr: Le demandeur a été vérifié comme éligible mais attend une place disponible dans le programme en raison de contraintes
+      de capacité ou de budget.
+    es: El solicitante ha sido verificado como elegible pero está esperando un lugar disponible en el programa debido a restricciones
+      de capacidad o presupuesto.
 - code: active
   label:
     en: Active
@@ -29,9 +40,13 @@ values:
     fr: Clos
     es: Cerrado
   definition:
-    en: The enrollment has been permanently ended, either due to ineligibility, graduation, or death.
-    fr: L'inscription a été définitivement clôturée, en raison d'inéligibilité, de graduation ou de décès.
-    es: La inscripción ha sido terminada de forma permanente, ya sea por inelegibilidad, graduación o fallecimiento.
+    en: The enrollment has been permanently ended for administrative reasons such as ineligibility, non-compliance, voluntary
+      withdrawal, or death. Use graduated when exit is through program-defined criteria.
+    fr: L'inscription a été définitivement clôturée pour des raisons administratives telles que l'inéligibilité, le non-respect
+      des conditions, le retrait volontaire ou le décès. Utilisez graduated lorsque la sortie se fait selon les critères définis
+      par le programme.
+    es: La inscripción ha sido terminada de forma permanente por razones administrativas como inelegibilidad, incumplimiento,
+      retiro voluntario o fallecimiento. Use graduated cuando la salida es a través de criterios definidos por el programa.
 - code: pending_verification
   label:
     en: Pending verification
@@ -42,14 +57,15 @@ values:
     fr: La demande attend la vérification des documents ou des données avant que l'inscription soit confirmée.
     es: La solicitud está a la espera de verificación de documentos o datos antes de confirmar la inscripción.
 - code: graduated
+  domain: sp
   label:
     en: Graduated
-    fr: Diplômé
+    fr: Sorti avec succès
     es: Graduado
   definition:
-    en: The beneficiary has successfully exited the program through graduation criteria, not through ineligibility.
-    fr: Le bénéficiaire a quitté le programme avec succès selon les critères de graduation, et non par inéligibilité.
-    es: El beneficiario ha salido exitosamente del programa a través de los criterios de graduación, no por inelegibilidad.
+    en: The beneficiary has successfully exited the program through program-defined graduation criteria.
+    fr: Le bénéficiaire a quitté le programme avec succès selon les critères de graduation définis par le programme.
+    es: El beneficiario ha salido exitosamente del programa a través de los criterios de graduación definidos por el programa.
 system_mappings:
   openspp:
     values:

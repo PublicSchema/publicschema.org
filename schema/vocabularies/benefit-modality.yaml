@@ -58,6 +58,15 @@ values:
       de santé ou les coûts des services publics.
     es: Una exención de una tarifa o cargo que de otro modo se aplicaría, como cuotas escolares, copagos de salud o costos
       de servicios públicos.
+- code: insurance
+  label:
+    en: Insurance
+    fr: Assurance
+    es: Seguro
+  definition:
+    en: Enrollment in or subsidization of an insurance scheme (health, crop, social) as the benefit provided to the beneficiary.
+    fr: Inscription ou subvention d'un régime d'assurance (santé, récolte, social) comme prestation fournie au bénéficiaire.
+    es: Inscripción en o subsidio de un esquema de seguro (salud, cosecha, social) como beneficio proporcionado al beneficiario.
 system_mappings:
   openspp:
     values:
@@ -91,6 +100,6 @@ system_mappings:
       maps_to: service
     - code: '6'
       label: Insurance
-      maps_to: null
+      maps_to: insurance
     unmapped_canonical:
     - fee_waiver

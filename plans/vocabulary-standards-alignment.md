@@ -481,21 +481,21 @@ Note that this is an operational state that typically follows `paid`, and system
 - [x] Generalize `exclusion_error` and `inclusion_error` definitions in grievance-type
 
 ### Phase 1: Bug fixes
-- [ ] Fix SPDCI relationship-type null mappings (remap ~60 codes)
-- [ ] Fix openIMIS group-role mappings (grandparent, grandchild, sibling)
-- [ ] Fix French translation of `graduated` in enrollment-status
+- [x] Fix SPDCI relationship-type null mappings (remap ~60 codes)
+- [x] Fix openIMIS group-role mappings (grandparent, grandchild, sibling)
+- [x] Fix French translation of `graduated` in enrollment-status
 
 ### Phase 2: Value changes
-- [ ] payment-status: add `processing` and `rejected`, update mappings
-- [ ] enrollment-status: add `waitlisted`, annotate `graduated` with `domain: sp`, tighten `closed`
-- [ ] eligibility-status: remove `appealing` and `expired`, add `under_review`
-- [ ] group-role: add `sibling`, `grandparent`, `grandchild`
-- [ ] identifier-type: add `tax_id`, `drivers_license`, `marriage_certificate`, `death_certificate`, update mappings
-- [ ] benefit-modality: add `insurance`, update SPDCI mapping
-- [ ] delivery-channel: remove `direct_distribution`, rename `cash_in_hand` to `cash`, update mapping
-- [ ] benefit-frequency: rename `biweekly` to `every_two_weeks`, add `custom`
-- [ ] relationship-type: remove `head_of_household`, add `in_law` and `extended_family`, annotate SP values, update all mappings
-- [ ] grievance-status: add `withdrawn`
+- [x] payment-status: add `processing` and `rejected`, update mappings
+- [x] enrollment-status: add `waitlisted`, annotate `graduated` with `domain: sp`, tighten `closed`
+- [x] eligibility-status: remove `appealing` and `expired`, add `under_review`
+- [x] group-role: add `sibling`, `grandparent`, `grandchild`
+- [x] identifier-type: add `tax_id`, `drivers_license`, `marriage_certificate`, `death_certificate`, update mappings
+- [x] benefit-modality: add `insurance`, update SPDCI mapping
+- [x] delivery-channel: remove `direct_distribution`, rename `cash_in_hand` to `cash`, update mapping
+- [x] benefit-frequency: rename `biweekly` to `every_two_weeks`, add `custom`
+- [x] relationship-type: remove `head_of_household`, add `in_law` and `extended_family`, annotate SP values, update all mappings
+- [x] grievance-status: add `withdrawn`
 
 ### Phase 3: New property
 - [ ] Create `frequency_rule` property (`schema/properties/frequency_rule.yaml`)
