@@ -44,6 +44,40 @@
       "type": "array",
       "items": { "type": "string" }
     },
+    "references": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "uri", "relationship"],
+        "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string" },
+          "uri": { "type": "string" },
+          "relationship": {
+            "type": "string",
+            "enum": ["superset", "subset", "partial_overlap", "structural_pattern", "prose_guidance"]
+          },
+          "machine_readable": { "type": "boolean" },
+          "notes": { "type": "string" }
+        }
+      }
+    },
+    "see_also": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["vocabulary", "note"],
+        "additionalProperties": false,
+        "properties": {
+          "vocabulary": { "type": "string" },
+          "note": { "type": "string" }
+        }
+      }
+    },
+    "vc_guidance": {
+      "type": "string",
+      "description": "Guidance for Verifiable Credential use of this vocabulary"
+    },
     "sync": {
       "type": "object",
       "required": ["source_url", "format"],
@@ -133,6 +167,10 @@
           "type": "string",
           "pattern": "^[a-z][a-z0-9_]*$"
         },
+        "domain": {
+          "type": "string",
+          "description": "Domain scope for this value (e.g. 'sp' for social protection)"
+        },
         "label": {
           "$ref": "#/$defs/multilingual_text"
         },
@@ -141,6 +179,13 @@
         },
         "definition": {
           "$ref": "#/$defs/multilingual_text"
+        },
+        "notes": {
+          "type": "object",
+          "properties": {
+            "en": { "type": "string" }
+          },
+          "additionalProperties": { "type": "string" }
         },
         "level": {
           "type": "integer",

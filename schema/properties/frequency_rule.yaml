@@ -9,9 +9,7 @@ definition:
 type: string
 cardinality: single
 vocabulary: null
-references:
-  - name: "RFC 5545 - Internet Calendaring and Scheduling (iCalendar)"
-    uri: "https://datatracker.ietf.org/doc/html/rfc5545#section-3.3.10"
+references: null
 domain_override: null
 
 convergence:
