@@ -93,7 +93,7 @@ const vocabularies = Object.values(vocab.vocabularies).sort((a, b) => a.id.local
       <tbody>
         {properties.map((p) => {
           const conceptRef = p.type.match(/^concept:(.+)$/)?.[1];
-          const primitives = ["string", "integer", "decimal", "boolean", "date"];
+          const primitives = ["string", "integer", "decimal", "boolean", "date", "datetime", "uri", "geojson_geometry"];
           return (
             <tr>
               <td><a href={p.path}>{p.id}</a></td>

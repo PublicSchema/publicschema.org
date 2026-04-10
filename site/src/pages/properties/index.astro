@@ -4,7 +4,7 @@ import { loadVocabulary } from "../../data/vocabulary";
 
 const vocab = loadVocabulary();
 const properties = Object.values(vocab.properties).sort((a, b) => a.id.localeCompare(b.id));
-const primitiveTypes = ["string", "integer", "decimal", "boolean", "date"];
+const primitiveTypes = ["string", "integer", "decimal", "boolean", "date", "datetime", "uri", "geojson_geometry"];
 ---
 <Base title="Properties" description="All properties in the PublicSchema vocabulary.">
   <div class="page-header">

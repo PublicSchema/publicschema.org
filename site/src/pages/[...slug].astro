@@ -119,7 +119,7 @@ function propPath(id: string): string {
                   {allProps.map((p) => {
                     const typeStr = p.detail?.type || "unknown";
                     const conceptRef = typeStr.match(/^concept:(.+)$/)?.[1];
-                    const primitives = ["string", "integer", "decimal", "boolean", "date"];
+                    const primitives = ["string", "integer", "decimal", "boolean", "date", "datetime", "uri", "geojson_geometry"];
                     const isPrimitive = primitives.includes(typeStr);
                     return (
                       <tr class={p.from ? "inherited-row" : ""}>
@@ -157,7 +157,7 @@ function propPath(id: string): string {
 })() : (() => {
   const prop = vocab.properties[termId] as Property;
   const typeConceptRef = prop.type.match(/^concept:(.+)$/)?.[1];
-  const primitiveTypes = ["string", "integer", "decimal", "boolean", "date"];
+  const primitiveTypes = ["string", "integer", "decimal", "boolean", "date", "datetime", "uri", "geojson_geometry"];
   const isPrimitiveType = primitiveTypes.includes(prop.type);
   return (
     <Base title={prop.id} description={prop.definition.en} alternateJsonLd={`${prop.path}.jsonld`}>
