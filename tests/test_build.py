@@ -233,6 +233,24 @@ class TestURIGeneration:
         assert "level" not in value
         assert "parent_code" not in value
 
+    def test_vocabulary_external_values_true(
+        self, tmp_schema, write_vocabulary
+    ):
+        """Vocabulary with external_values: true passes the flag through."""
+        write_vocabulary("country.yaml", make_vocabulary(
+            id="country", external_values=True,
+        ))
+        result = build_vocabulary(tmp_schema)
+        assert result["vocabularies"]["country"]["external_values"] is True
+
+    def test_vocabulary_external_values_defaults_false(
+        self, tmp_schema, write_vocabulary
+    ):
+        """Vocabulary without external_values defaults to False."""
+        write_vocabulary("gender-type.yaml", make_vocabulary(id="gender-type"))
+        result = build_vocabulary(tmp_schema)
+        assert result["vocabularies"]["gender-type"]["external_values"] is False
+
     def test_vocabulary_uri_domain_specific(
         self, tmp_schema, write_concept, write_property, write_vocabulary
     ):

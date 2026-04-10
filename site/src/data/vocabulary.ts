@@ -83,6 +83,7 @@ export interface Vocabulary {
   values: VocabValue[];
   system_mappings: Record<string, SystemMapping> | null;
   same_standard_systems: string[] | null;
+  external_values: boolean;
 }
 
 export interface VocabularyData {

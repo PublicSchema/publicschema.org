@@ -78,6 +78,10 @@
       "type": "string",
       "description": "Guidance for Verifiable Credential use of this vocabulary"
     },
+    "external_values": {
+      "type": "boolean",
+      "description": "When true, the HTML page hides the values table and points to the standard instead. Downloads still include all values."
+    },
     "sync": {
       "type": "object",
       "required": ["source_url", "format"],

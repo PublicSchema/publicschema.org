@@ -13,6 +13,7 @@ sync:
   last_synced: '2026-04-07'
 same_standard_systems:
   - openspp
+external_values: true
 values:
 - code: af
   label:

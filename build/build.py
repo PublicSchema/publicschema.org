@@ -455,6 +455,7 @@ def build_vocabulary(schema_dir: Path) -> dict:
             "values": values,
             "system_mappings": data.get("system_mappings"),
             "same_standard_systems": data.get("same_standard_systems"),
+            "external_values": data.get("external_values", False),
         }
 
     # Build JSON-LD context. Concept URIs are bare (the HTML page URL IS the

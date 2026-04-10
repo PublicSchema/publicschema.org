@@ -49,29 +49,41 @@ const vocabulary = allVocab.vocabularies[Astro.params.vocab] as Vocabulary;
     </div>
   )}
 
-  <div class="concept-section">
-    <h2>Values</h2>
-    <table class="data-table mobile-card-table">
-      <thead>
-        <tr>
-          <th>Code</th>
-          <th>Label</th>
-          <th>Standard code</th>
-          <th>Definition</th>
-        </tr>
-      </thead>
-      <tbody>
-        {vocabulary.values.map((v) => (
+  {vocabulary.external_values ? (
+    <div class="concept-section">
+      <h2>Values</h2>
+      <p>
+        This vocabulary is defined by an external standard{vocabulary.standard ? ` (${vocabulary.standard.name})` : ''}.
+        The full list of values is available in the downloads above{vocabulary.standard?.uri ? (
+          <> or from the <a href={vocabulary.standard.uri} target="_blank" rel="noopener">official standard page</a></>
+        ) : ''}.
+      </p>
+    </div>
+  ) : (
+    <div class="concept-section">
+      <h2>Values</h2>
+      <table class="data-table mobile-card-table">
+        <thead>
           <tr>
-            <td><code>{v.code}</code></td>
-            <td data-label="Label">{v.label.en}</td>
-            <td data-label="Standard code">{v.standard_code || ""}</td>
-            <td data-label="Definition">{v.definition.en}</td>
+            <th>Code</th>
+            <th>Label</th>
+            <th>Standard code</th>
+            <th>Definition</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
+        </thead>
+        <tbody>
+          {vocabulary.values.map((v) => (
+            <tr>
+              <td><code>{v.code}</code></td>
+              <td data-label="Label">{v.label.en}</td>
+              <td data-label="Standard code">{v.standard_code || ""}</td>
+              <td data-label="Definition">{v.definition.en}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  )}
 
   {vocabulary.same_standard_systems && vocabulary.same_standard_systems.length > 0 && (
     <div class="concept-section">
