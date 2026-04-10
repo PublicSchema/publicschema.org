@@ -13,21 +13,7 @@ PublicSchema vocabularies need `system_mappings` that show how each external sys
 
 ## Process overview
 
-```
-Clone source code
-       |
-       v
-Phase 1: Extract (subagents read code, write normalized JSON)
-       |
-       v
-Phase 2: Verify (automated checks + human review)
-       |
-       v
-Phase 3: Match (map extracted vocabs to PublicSchema vocabs)
-       |
-       v
-Phase 4: Write (update system_mappings in vocabulary YAML files)
-```
+![Four-phase pipeline: Clone, Extract, Verify, Match, Write](/images/extraction-pipeline.svg)
 
 ## Phase 1: Extract
 

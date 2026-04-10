@@ -24,6 +24,8 @@ Not all vocabulary values belong in credentials.
 
 ## Credential Structure for SD-JWT VC
 
+![Disclosure matrix: which claims are always disclosed vs. selectively disclosable per credential type](/images/credential-disclosure.svg)
+
 ### IdentityCredential
 
 Always disclosed:

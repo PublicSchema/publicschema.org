@@ -6,6 +6,12 @@ export interface DocEntry {
 }
 
 export const docs: Record<string, DocEntry> = {
+  "integration-patterns": {
+    file: "integration-patterns.md",
+    title: "Integration Patterns",
+    description: "How PublicSchema works across REST APIs, event-driven systems, verifiable credentials, file exchanges, and analytics pipelines.",
+    category: "Getting Started",
+  },
   "use-cases": {
     file: "use-cases.md",
     title: "Use Cases",

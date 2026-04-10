@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 320"
+     fill="none" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+
+  <!-- Q1: Own identity? -->
+  <rect x="240" y="8" width="220" height="44" rx="6"
+        fill="#f0ece7" stroke="#ddd8d3" stroke-width="1.5"/>
+  <text x="350" y="35" text-anchor="middle"
+        fill="#1e1b18" font-size="13" font-weight="500">Own identity?</text>
+
+  <!-- Yes arrow left to Concept -->
+  <path d="M240 30 L170 30" stroke="#9a958f" stroke-width="1.5"/>
+  <polygon points="174,25 164,30 174,35" fill="#9a958f"/>
+  <text x="207" y="24" text-anchor="middle"
+        fill="#166534" font-size="11" font-weight="600">Yes</text>
+
+  <!-- Concept outcome -->
+  <rect x="24" y="12" width="140" height="38" rx="6" fill="#1e3a5f"/>
+  <text x="94" y="36" text-anchor="middle"
+        fill="#ffffff" font-size="13" font-weight="600">Concept</text>
+
+  <!-- No arrow down to Q2 -->
+  <path d="M350 52 L350 98" stroke="#9a958f" stroke-width="1.5"/>
+  <polygon points="344,94 350,104 356,94" fill="#9a958f"/>
+  <text x="362" y="78" fill="#b54a1a" font-size="11" font-weight="600">No</text>
+
+  <!-- Q2: Closed value set? -->
+  <rect x="240" y="104" width="220" height="44" rx="6"
+        fill="#f0ece7" stroke="#ddd8d3" stroke-width="1.5"/>
+  <text x="350" y="131" text-anchor="middle"
+        fill="#1e1b18" font-size="13" font-weight="500">Closed value set?</text>
+
+  <!-- Yes arrow left to Vocabulary -->
+  <path d="M240 126 L170 126" stroke="#9a958f" stroke-width="1.5"/>
+  <polygon points="174,121 164,126 174,131" fill="#9a958f"/>
+  <text x="207" y="120" text-anchor="middle"
+        fill="#166534" font-size="11" font-weight="600">Yes</text>
+
+  <!-- Vocabulary outcome -->
+  <rect x="24" y="108" width="140" height="38" rx="6" fill="#1e3a5f"/>
+  <text x="94" y="132" text-anchor="middle"
+        fill="#ffffff" font-size="13" font-weight="600">Vocabulary</text>
+
+  <!-- No arrow down to Q3 -->
+  <path d="M350 148 L350 194" stroke="#9a958f" stroke-width="1.5"/>
+  <polygon points="344,190 350,200 356,190" fill="#9a958f"/>
+  <text x="362" y="174" fill="#b54a1a" font-size="11" font-weight="600">No</text>
+
+  <!-- Q3: Value has own identity? -->
+  <rect x="240" y="200" width="220" height="44" rx="6"
+        fill="#f0ece7" stroke="#ddd8d3" stroke-width="1.5"/>
+  <text x="350" y="227" text-anchor="middle"
+        fill="#1e1b18" font-size="13" font-weight="500">Value has own identity?</text>
+
+  <!-- Yes arrow left to Reference -->
+  <path d="M240 222 L170 222" stroke="#9a958f" stroke-width="1.5"/>
+  <polygon points="174,217 164,222 174,227" fill="#9a958f"/>
+  <text x="207" y="216" text-anchor="middle"
+        fill="#166534" font-size="11" font-weight="600">Yes</text>
+
+  <!-- Reference outcome -->
+  <rect x="24" y="204" width="140" height="38" rx="6" fill="#1e3a5f"/>
+  <text x="94" y="228" text-anchor="middle"
+        fill="#ffffff" font-size="13" font-weight="600">Reference</text>
+
+  <!-- No arrow down to Inline primitive -->
+  <path d="M350 244 L350 270" stroke="#9a958f" stroke-width="1.5"/>
+  <polygon points="344,266 350,276 356,266" fill="#9a958f"/>
+  <text x="362" y="260" fill="#b54a1a" font-size="11" font-weight="600">No</text>
+
+  <!-- Inline primitive outcome -->
+  <rect x="270" y="276" width="160" height="38" rx="6"
+        fill="#e8eef5" stroke="#ddd8d3" stroke-width="1.5"/>
+  <text x="350" y="300" text-anchor="middle"
+        fill="#1e3a5f" font-size="13" font-weight="600">Inline primitive</text>
+</svg>

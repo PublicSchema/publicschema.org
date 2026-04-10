@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 200"
+     fill="none" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+
+  <!-- Top row: 3 systems -->
+  <rect x="20"  y="4" width="140" height="38" rx="6"
+        fill="#f0ece7" stroke="#ddd8d3" stroke-width="1.5"/>
+  <text x="90"  y="29" text-anchor="middle"
+        fill="#1e1b18" font-size="13" font-weight="500">System A</text>
+
+  <rect x="230" y="4" width="140" height="38" rx="6"
+        fill="#f0ece7" stroke="#ddd8d3" stroke-width="1.5"/>
+  <text x="300" y="29" text-anchor="middle"
+        fill="#1e1b18" font-size="13" font-weight="500">System B</text>
+
+  <rect x="440" y="4" width="140" height="38" rx="6"
+        fill="#f0ece7" stroke="#ddd8d3" stroke-width="1.5"/>
+  <text x="510" y="29" text-anchor="middle"
+        fill="#1e1b18" font-size="13" font-weight="500">System C</text>
+
+  <!-- Center: PublicSchema -->
+  <rect x="150" y="76" width="300" height="52" rx="6" fill="#1e3a5f"/>
+  <text x="300" y="107" text-anchor="middle"
+        fill="#ffffff" font-size="15" font-weight="600">PublicSchema</text>
+
+  <!-- Bottom row: 2 systems -->
+  <rect x="95"  y="162" width="140" height="38" rx="6"
+        fill="#f0ece7" stroke="#ddd8d3" stroke-width="1.5"/>
+  <text x="165" y="187" text-anchor="middle"
+        fill="#1e1b18" font-size="13" font-weight="500">System D</text>
+
+  <rect x="365" y="162" width="140" height="38" rx="6"
+        fill="#f0ece7" stroke="#ddd8d3" stroke-width="1.5"/>
+  <text x="435" y="187" text-anchor="middle"
+        fill="#1e1b18" font-size="13" font-weight="500">System E</text>
+
+  <!-- Lines: top systems to PublicSchema -->
+  <line x1="90"  y1="42" x2="200" y2="76" stroke="#9a958f" stroke-width="1.5"/>
+  <line x1="300" y1="42" x2="300" y2="76" stroke="#9a958f" stroke-width="1.5"/>
+  <line x1="510" y1="42" x2="400" y2="76" stroke="#9a958f" stroke-width="1.5"/>
+
+  <!-- Lines: PublicSchema to bottom systems -->
+  <line x1="230" y1="128" x2="165" y2="162" stroke="#9a958f" stroke-width="1.5"/>
+  <line x1="370" y1="128" x2="435" y2="162" stroke="#9a958f" stroke-width="1.5"/>
+
+  <!-- "1 mapping each" annotation -->
+  <text x="300" y="152" text-anchor="middle"
+        fill="#6f6b66" font-size="11" font-style="italic">one mapping per system</text>
+</svg>

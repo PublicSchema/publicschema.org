@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 280"
+     fill="none" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+
+  <!-- Step 0: Clone -->
+  <rect x="120" y="4" width="180" height="40" rx="6"
+        fill="#f0ece7" stroke="#ddd8d3" stroke-width="1.5"/>
+  <text x="210" y="29" text-anchor="middle"
+        fill="#1e1b18" font-size="13" font-weight="500">Clone source code</text>
+
+  <!-- Arrow -->
+  <path d="M210 44 L210 60" stroke="#9a958f" stroke-width="1.5"/>
+  <polygon points="204,56 210,66 216,56" fill="#9a958f"/>
+
+  <!-- Step 1: Extract -->
+  <rect x="110" y="66" width="200" height="40" rx="6"
+        fill="#e8eef5" stroke="#ddd8d3" stroke-width="1.5"/>
+  <text x="210" y="84" text-anchor="middle"
+        fill="#1e3a5f" font-size="11" font-weight="600">Phase 1</text>
+  <text x="210" y="98" text-anchor="middle"
+        fill="#1e3a5f" font-size="12">Extract vocabularies</text>
+
+  <!-- Arrow -->
+  <path d="M210 106 L210 122" stroke="#9a958f" stroke-width="1.5"/>
+  <polygon points="204,118 210,128 216,118" fill="#9a958f"/>
+
+  <!-- Step 2: Verify -->
+  <rect x="110" y="128" width="200" height="40" rx="6"
+        fill="#e8eef5" stroke="#ddd8d3" stroke-width="1.5"/>
+  <text x="210" y="146" text-anchor="middle"
+        fill="#1e3a5f" font-size="11" font-weight="600">Phase 2</text>
+  <text x="210" y="160" text-anchor="middle"
+        fill="#1e3a5f" font-size="12">Verify + review</text>
+
+  <!-- Arrow -->
+  <path d="M210 168 L210 184" stroke="#9a958f" stroke-width="1.5"/>
+  <polygon points="204,180 210,190 216,180" fill="#9a958f"/>
+
+  <!-- Step 3: Match -->
+  <rect x="110" y="190" width="200" height="40" rx="6"
+        fill="#e8eef5" stroke="#ddd8d3" stroke-width="1.5"/>
+  <text x="210" y="208" text-anchor="middle"
+        fill="#1e3a5f" font-size="11" font-weight="600">Phase 3</text>
+  <text x="210" y="222" text-anchor="middle"
+        fill="#1e3a5f" font-size="12">Match to PublicSchema</text>
+
+  <!-- Arrow -->
+  <path d="M210 230 L210 246" stroke="#9a958f" stroke-width="1.5"/>
+  <polygon points="204,242 210,252 216,242" fill="#9a958f"/>
+
+  <!-- Step 4: Write -->
+  <rect x="110" y="252" width="200" height="40" rx="6"
+        fill="#1e3a5f"/>
+  <text x="210" y="270" text-anchor="middle"
+        fill="#ffffff" font-size="11" font-weight="600">Phase 4</text>
+  <text x="210" y="284" text-anchor="middle"
+        fill="#a3bdd4" font-size="12">Write system_mappings</text>
+
+  <!-- Side annotations -->
+  <text x="330" y="91" fill="#6f6b66" font-size="10">subagents read code</text>
+  <text x="330" y="153" fill="#6f6b66" font-size="10">schema + source + human</text>
+  <text x="330" y="215" fill="#6f6b66" font-size="10">map vocabs pairwise</text>
+  <text x="330" y="277" fill="#6f6b66" font-size="10">update YAML files</text>
+</svg>

@@ -4,6 +4,8 @@ PublicSchema sits in a landscape of adjacent initiatives that operate at differe
 
 ## Where PublicSchema sits
 
+![Standards landscape: PublicSchema fills the delivery lifecycle vocabulary layer](/images/standards-stack.svg)
+
 | Layer | What exists | What's missing |
 |---|---|---|
 | Trust and transport | EBSI, OpenID4VC, W3C VC Data Model | No domain vocabulary inside credentials |

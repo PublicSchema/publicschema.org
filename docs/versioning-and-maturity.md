@@ -8,6 +8,8 @@ Stable URIs are essential for Verifiable Credential compatibility. A credential 
 
 "Is this element safe to use?" and "which snapshot am I building against?" are different questions. PublicSchema answers them independently.
 
+![A release is a heterogeneous snapshot containing entities at different maturity levels](/images/versioning-axes.svg)
+
 ### Per-entity maturity
 
 Every concept, property, and vocabulary value carries a maturity level:

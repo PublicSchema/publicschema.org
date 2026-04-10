@@ -34,11 +34,7 @@ Without a shared reference, connecting N systems requires N*(N-1)/2 bilateral ma
 
 With PublicSchema as the shared reference, each system maps to PublicSchema once. Connecting a new system means one mapping, not N-1.
 
-```
-System A ──→ PublicSchema ──→ System B
-System C ──→ PublicSchema ──→ System D
-System E ──→ PublicSchema ──┘
-```
+![Each system maps to PublicSchema once](/images/rosetta-stone.svg)
 
 This pattern works for both field names (properties) and value codes (vocabularies).
 
@@ -86,19 +82,13 @@ Once you have field and code mappings, you can use them in several ways:
 
 System A exports in its own format. A translation layer maps A's fields and codes to PublicSchema properties and vocabulary codes. A second translation layer maps from PublicSchema to System B's format.
 
-```
-System A export → Map to PublicSchema → Map to System B → System B import
-```
+![System A maps to PublicSchema, then to System B](/images/data-exchange-flow.svg)
 
 ### Data consolidation (ETL)
 
 Multiple sources are mapped to PublicSchema's canonical format and loaded into a shared data store:
 
-```
-Source 1 → Map to PublicSchema ──┐
-Source 2 → Map to PublicSchema ──┼→ Consolidated store
-Source 3 → Map to PublicSchema ──┘
-```
+![Multiple sources map to PublicSchema, then consolidate](/images/etl-consolidation.svg)
 
 ### API federation
 

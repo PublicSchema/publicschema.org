@@ -39,6 +39,8 @@ Every element gets a stable URI. Once published at trial-use or above, a URI wil
 
 Use this decision tree to determine what kind of element to create.
 
+![Decision tree: own identity, closed value set, value has identity](/images/decision-tree.svg)
+
 **Step 1: Does it have its own identity?** Does this thing exist independently, get referenced from multiple places, and have its own lifecycle? If yes, it is a **concept**.
 
 *Example:* GroupMembership is a concept, not a property on Person or Group. It carries its own data (role, dates), has its own lifecycle, and is referenced from both sides.

@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 230"
+     fill="none" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+
+  <!-- Release container -->
+  <rect x="20" y="4" width="480" height="160" rx="8"
+        fill="#faf9f6" stroke="#ddd8d3" stroke-width="1.5"/>
+  <text x="40" y="28" fill="#1e1b18" font-size="14" font-weight="600">Release v0.3.0</text>
+  <text x="484" y="28" text-anchor="end"
+        fill="#6f6b66" font-size="11">heterogeneous snapshot</text>
+
+  <!-- Normative entities -->
+  <rect x="40" y="44" width="100" height="28" rx="4" fill="#dcfce7" stroke="#166534" stroke-width="1"/>
+  <text x="90" y="63" text-anchor="middle" fill="#166534" font-size="12" font-weight="500">Person</text>
+
+  <rect x="152" y="44" width="76" height="28" rx="12"
+        fill="#dcfce7" stroke="#166534" stroke-width="1"/>
+  <text x="190" y="63" text-anchor="middle"
+        fill="#166534" font-size="10" font-weight="600">normative</text>
+
+  <!-- Trial-use entities -->
+  <rect x="40" y="82" width="100" height="28" rx="4" fill="#fef3c7" stroke="#92400e" stroke-width="1"/>
+  <text x="90" y="101" text-anchor="middle" fill="#92400e" font-size="12" font-weight="500">Enrollment</text>
+
+  <rect x="152" y="82" width="72" height="28" rx="12"
+        fill="#fef3c7" stroke="#92400e" stroke-width="1"/>
+  <text x="188" y="101" text-anchor="middle"
+        fill="#92400e" font-size="10" font-weight="600">trial use</text>
+
+  <rect x="240" y="82" width="120" height="28" rx="4" fill="#fef3c7" stroke="#92400e" stroke-width="1"/>
+  <text x="300" y="101" text-anchor="middle" fill="#92400e" font-size="12" font-weight="500">PaymentEvent</text>
+
+  <rect x="372" y="82" width="72" height="28" rx="12"
+        fill="#fef3c7" stroke="#92400e" stroke-width="1"/>
+  <text x="408" y="101" text-anchor="middle"
+        fill="#92400e" font-size="10" font-weight="600">trial use</text>
+
+  <!-- Draft entities -->
+  <rect x="40" y="120" width="100" height="28" rx="4" fill="#f0ece7" stroke="#ddd8d3" stroke-width="1"/>
+  <text x="90" y="139" text-anchor="middle" fill="#6f6b66" font-size="12" font-weight="500">Grievance</text>
+
+  <rect x="152" y="120" width="56" height="28" rx="12"
+        fill="#f0ece7" stroke="#ddd8d3" stroke-width="1"/>
+  <text x="180" y="139" text-anchor="middle"
+        fill="#6f6b66" font-size="10" font-weight="600">draft</text>
+
+  <rect x="224" y="120" width="140" height="28" rx="4" fill="#f0ece7" stroke="#ddd8d3" stroke-width="1"/>
+  <text x="294" y="139" text-anchor="middle" fill="#6f6b66" font-size="12" font-weight="500">AssessmentEvent</text>
+
+  <rect x="376" y="120" width="56" height="28" rx="12"
+        fill="#f0ece7" stroke="#ddd8d3" stroke-width="1"/>
+  <text x="404" y="139" text-anchor="middle"
+        fill="#6f6b66" font-size="10" font-weight="600">draft</text>
+
+  <!-- Maturity progression arrow -->
+  <text x="20" y="200" fill="#1e1b18" font-size="12" font-weight="500">Maturity progression:</text>
+
+  <rect x="180" y="186" width="60" height="26" rx="4" fill="#f0ece7" stroke="#ddd8d3" stroke-width="1"/>
+  <text x="210" y="203" text-anchor="middle" fill="#6f6b66" font-size="11">Draft</text>
+
+  <path d="M244 199 L268 199" stroke="#9a958f" stroke-width="1.5"/>
+  <polygon points="264,194 274,199 264,204" fill="#9a958f"/>
+
+  <rect x="278" y="186" width="76" height="26" rx="4" fill="#fef3c7" stroke="#92400e" stroke-width="1"/>
+  <text x="316" y="203" text-anchor="middle" fill="#92400e" font-size="11">Trial use</text>
+
+  <path d="M358 199 L382 199" stroke="#9a958f" stroke-width="1.5"/>
+  <polygon points="378,194 388,199 378,204" fill="#9a958f"/>
+
+  <rect x="392" y="186" width="86" height="26" rx="4" fill="#dcfce7" stroke="#166534" stroke-width="1"/>
+  <text x="435" y="203" text-anchor="middle" fill="#166534" font-size="11">Normative</text>
+</svg>

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 150"
+     fill="none" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+
+  <!-- Sources (left) -->
+  <rect x="10" y="10" width="120" height="34" rx="6"
+        fill="#f0ece7" stroke="#ddd8d3" stroke-width="1.5"/>
+  <text x="70" y="32" text-anchor="middle"
+        fill="#1e1b18" font-size="12" font-weight="500">Source 1</text>
+
+  <rect x="10" y="58" width="120" height="34" rx="6"
+        fill="#f0ece7" stroke="#ddd8d3" stroke-width="1.5"/>
+  <text x="70" y="80" text-anchor="middle"
+        fill="#1e1b18" font-size="12" font-weight="500">Source 2</text>
+
+  <rect x="10" y="106" width="120" height="34" rx="6"
+        fill="#f0ece7" stroke="#ddd8d3" stroke-width="1.5"/>
+  <text x="70" y="128" text-anchor="middle"
+        fill="#1e1b18" font-size="12" font-weight="500">Source 3</text>
+
+  <!-- Arrows to PS -->
+  <path d="M130 27 L208 62" stroke="#9a958f" stroke-width="1.5"/>
+  <polygon points="203,57 212,64 205,67" fill="#9a958f"/>
+
+  <path d="M130 75 L208 75" stroke="#9a958f" stroke-width="1.5"/>
+  <polygon points="204,70 214,75 204,80" fill="#9a958f"/>
+
+  <path d="M130 123 L208 88" stroke="#9a958f" stroke-width="1.5"/>
+  <polygon points="203,83 212,86 205,93" fill="#9a958f"/>
+
+  <!-- PublicSchema -->
+  <rect x="214" y="49" width="172" height="52" rx="6" fill="#1e3a5f"/>
+  <text x="300" y="80" text-anchor="middle"
+        fill="#ffffff" font-size="13" font-weight="600">PublicSchema</text>
+
+  <!-- Arrow to consolidated -->
+  <path d="M386 75 L432 75" stroke="#9a958f" stroke-width="1.5"/>
+  <polygon points="428,70 438,75 428,80" fill="#9a958f"/>
+
+  <!-- Consolidated store -->
+  <rect x="438" y="49" width="152" height="52" rx="6"
+        fill="#e8eef5" stroke="#ddd8d3" stroke-width="1.5"/>
+  <text x="514" y="72" text-anchor="middle"
+        fill="#1e3a5f" font-size="12" font-weight="500">Consolidated</text>
+  <text x="514" y="88" text-anchor="middle"
+        fill="#1e3a5f" font-size="12" font-weight="500">store</text>
+</svg>

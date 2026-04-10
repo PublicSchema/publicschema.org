@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 220"
+     fill="none" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+
+  <!-- Top box -->
+  <rect x="220" y="10" width="280" height="46" rx="6"
+        fill="#f0ece7" stroke="#ddd8d3" stroke-width="1.5"/>
+  <text x="360" y="39" text-anchor="middle"
+        fill="#1e1b18" font-size="14" font-weight="500">Your internal model</text>
+
+  <!-- Arrow down -->
+  <path d="M360 56 L360 78" stroke="#9a958f" stroke-width="1.5"/>
+  <polygon points="354,74 360,84 366,74" fill="#9a958f"/>
+
+  <!-- Middle box (accent) -->
+  <rect x="130" y="84" width="460" height="56" rx="6" fill="#1e3a5f"/>
+  <text x="360" y="108" text-anchor="middle"
+        fill="#ffffff" font-size="15" font-weight="600">PublicSchema</text>
+  <text x="360" y="126" text-anchor="middle"
+        fill="#a3bdd4" font-size="12">concepts · properties · vocabularies</text>
+
+  <!-- Tree connector: vertical stem + horizontal bar -->
+  <path d="M360 140 L360 156 M80 156 L640 156" stroke="#9a958f" stroke-width="1.5"/>
+
+  <!-- Drops with arrowheads -->
+  <path d="M80  156 L80  166" stroke="#9a958f" stroke-width="1.5"/>
+  <polygon points="74,162  80,172  86,162"  fill="#9a958f"/>
+
+  <path d="M220 156 L220 166" stroke="#9a958f" stroke-width="1.5"/>
+  <polygon points="214,162 220,172 226,162" fill="#9a958f"/>
+
+  <path d="M360 156 L360 166" stroke="#9a958f" stroke-width="1.5"/>
+  <polygon points="354,162 360,172 366,162" fill="#9a958f"/>
+
+  <path d="M500 156 L500 166" stroke="#9a958f" stroke-width="1.5"/>
+  <polygon points="494,162 500,172 506,162" fill="#9a958f"/>
+
+  <path d="M640 156 L640 166" stroke="#9a958f" stroke-width="1.5"/>
+  <polygon points="634,162 640,172 646,162" fill="#9a958f"/>
+
+  <!-- Bottom boxes -->
+  <rect x="15"  y="172" width="130" height="42" rx="6"
+        fill="#e8eef5" stroke="#ddd8d3" stroke-width="1.5"/>
+  <text x="80"  y="198" text-anchor="middle"
+        fill="#1e3a5f" font-size="13" font-weight="500">REST API</text>
+
+  <rect x="155" y="172" width="130" height="42" rx="6"
+        fill="#e8eef5" stroke="#ddd8d3" stroke-width="1.5"/>
+  <text x="220" y="198" text-anchor="middle"
+        fill="#1e3a5f" font-size="13" font-weight="500">Event bus</text>
+
+  <rect x="295" y="172" width="130" height="42" rx="6"
+        fill="#e8eef5" stroke="#ddd8d3" stroke-width="1.5"/>
+  <text x="360" y="198" text-anchor="middle"
+        fill="#1e3a5f" font-size="13" font-weight="500">Credentials</text>
+
+  <rect x="435" y="172" width="130" height="42" rx="6"
+        fill="#e8eef5" stroke="#ddd8d3" stroke-width="1.5"/>
+  <text x="500" y="198" text-anchor="middle"
+        fill="#1e3a5f" font-size="13" font-weight="500">File exchange</text>
+
+  <rect x="575" y="172" width="130" height="42" rx="6"
+        fill="#e8eef5" stroke="#ddd8d3" stroke-width="1.5"/>
+  <text x="640" y="198" text-anchor="middle"
+        fill="#1e3a5f" font-size="13" font-weight="500">Warehouse</text>
+</svg>
