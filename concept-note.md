@@ -52,7 +52,7 @@ A critical design target: the vocabulary must be directly usable as the schema l
 
 **Evidence-based.** Convergence data (which systems implement which concepts and properties) informs priorities. A property present in 6 out of 6 systems is worth standardizing before one present in 2 out of 6. Real-world adoption drives the roadmap.
 
-**VC-ready.** Vocabulary definitions must work as the schema layer for Verifiable Credentials (W3C VC Data Model 2.0). This means stable URIs that resolve to machine-readable definitions, JSON-LD contexts that map property names to those URIs, and vocabulary values that can serve as credential claim values. Credential design must account for selective disclosure (SD-JWT VC or BBS+ signatures), since government credentials often contain sensitive personal data that should not be fully revealed in every presentation.
+**VC-ready.** Vocabulary definitions must work as the schema layer for Verifiable Credentials. This means stable URIs that resolve to machine-readable definitions, JSON-LD contexts that map property names to those URIs, and vocabulary values that can serve as credential claim values. Credential schemas use SD-JWT VC (Selective Disclosure JWT Verifiable Credentials) format, since government credentials often contain sensitive personal data that should not be fully revealed in every presentation.
 
 **Incremental.** Start with what we know, get it right, extend when ready. No grand architecture upfront.
 

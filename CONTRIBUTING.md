@@ -69,6 +69,16 @@ Key fields:
 - `type`: the data type (string, date, integer, concept reference, vocabulary reference)
 - `used_by`: list of concepts that use this property
 
+#### Sensitivity annotations
+
+Properties that reveal circumstances (health status, poverty, victimhood) in most contexts should include a `sensitivity` field:
+
+- `standard` (default, can be omitted): no special handling beyond normal data protection
+- `sensitive`: reveals circumstances in most contexts; requires justification to collect or disclose (e.g., `program_ref`, `grievance_type`, `education_level`)
+- `restricted`: should not appear in credentials presented at routine service points; requires a data protection impact assessment (e.g., assessment scores, vulnerability indices)
+
+This is a practitioner warning about the nature of the information, not a compliance label. See `docs/design-principles.md` section 12 for the full rationale.
+
 ### Adding a vocabulary
 
 Create a YAML file in `schema/vocabularies/`.

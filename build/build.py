@@ -560,7 +560,7 @@ def build_vocabulary(schema_dir: Path) -> dict:
         }
         concept_schemas[concept_id] = concept_schema
 
-    # Build credential schemas (VC envelope wrapping concept schemas)
+    # Build SD-JWT VC credential schemas
     # credentials_raw was already loaded above for context generation
     credential_schemas = {}
     for cred_id, cred_data in credentials_raw.items():
@@ -709,7 +709,7 @@ def write_outputs(result: dict, dist_dir: Path):
             json.dumps(schema, indent=2, ensure_ascii=False) + "\n"
         )
 
-    # Credential schemas (VC envelope)
+    # Credential schemas (SD-JWT VC)
     cred_schemas = result.get("credential_schemas", {})
     if cred_schemas:
         creds_dir = schemas_dir / "credentials"
