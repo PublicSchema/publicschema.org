@@ -1,20 +1,46 @@
 ---
 import Base from "../layouts/Base.astro";
 ---
-<Base title="About" description="About the PublicSchema project.">
-  <div class="page-header">
-    <h1>About PublicSchema</h1>
-    <p class="subtitle">Common definitions for public service delivery.</p>
-  </div>
-
+<Base title="About" description="An open reference model for public service delivery data.">
   <article class="concept-narrative">
+    <div class="page-header">
+      <h1>About</h1>
+      <p class="subtitle">An open reference model for public service delivery data.</p>
+    </div>
     <h2>The problem</h2>
     <p>
       Service delivery systems collect and manage similar data about the same
-      people, but they model it differently. A person in one system has
-      a "gender" field with codes 1/2/3. Another uses "M/F/O". A third uses
-      "male/female/non-binary/prefer_not_to_say".
+      people, but they model it differently:
     </p>
+
+    <table class="divergence-example">
+      <thead>
+        <tr>
+          <th>System</th>
+          <th>Field name</th>
+          <th>Values</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>System A</td>
+          <td><code>gender</code></td>
+          <td><code>1</code>, <code>2</code>, <code>3</code></td>
+        </tr>
+        <tr>
+          <td>System B</td>
+          <td><code>sex</code></td>
+          <td><code>M</code>, <code>F</code>, <code>O</code></td>
+        </tr>
+        <tr>
+          <td>System C</td>
+          <td><code>gender_identity</code></td>
+          <td><code>male</code>, <code>female</code>, <code>non-binary</code>, <code>prefer_not_to_say</code></td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="table-caption">Same concept, three different representations.</p>
+
     <p>
       This is not just a technical annoyance. When systems cannot understand each
       other's data, organizations cannot identify who is receiving benefits across
@@ -40,122 +66,68 @@ import Base from "../layouts/Base.astro";
       what values mean, not what fields exist.
     </p>
 
-    <h2>The vision</h2>
+    <figure class="diagram">
+      <img src="/images/rosetta-stone.svg" alt="Diagram showing multiple systems connected through PublicSchema as a shared reference, with one mapping per system instead of point-to-point integrations." />
+    </figure>
+
+    <h2>What PublicSchema provides</h2>
     <p>
-      An open, composable vocabulary of concepts and properties for public
-      services. Think <a href="https://schema.org">schema.org</a>, but for
-      public service delivery.
-    </p>
-    <p>
-      Schema.org does not tell websites what data to collect. It provides a
-      shared language: "here is what Person means, here are properties that can
-      describe a Person, here are standard values for gender." Websites adopt the
-      terms that apply to them.
-    </p>
-    <p>
-      Similarly, PublicSchema provides:
+      PublicSchema is an open reference model for public service data, following
+      the same approach as <a href="https://schema.org">schema.org</a>: shared
+      definitions that systems can adopt without being forced to restructure.
     </p>
     <ul>
-      <li><strong>Concepts</strong>: semantic entities with clear, human-readable definitions. Written for policy practitioners, not developers.</li>
-      <li><strong>Properties</strong>: named, typed fields that apply to one or more concepts. Defined once and reused, keeping definitions consistent.</li>
-      <li><strong>Vocabularies</strong>: controlled value sets. Where international standards exist (ISO 5218, ISO 3166, ISO 4217), we reference them. Where they do not, we define a canonical set with clear definitions.</li>
-      <li><strong>Vocabulary mappings</strong>: how specific systems' codes correspond to canonical values.</li>
+      <li><strong><a href="/concepts/">Concepts</a></strong>: semantic entities (Person, Enrollment, Payment, etc.) with definitions written for policy practitioners, not developers.</li>
+      <li><strong><a href="/properties/">Properties</a></strong>: named, typed fields that apply to one or more concepts. Defined once and reused, keeping definitions consistent.</li>
+      <li><strong><a href="/vocab/">Vocabularies</a></strong>: controlled value sets. Where international standards exist (ISO, FHIR, UN), we reference them. Where they do not, we define a canonical set with mappings to how specific systems encode the same values.</li>
+      <li><strong>Credential schemas</strong>: JSON-LD contexts and structures for issuing concept data as <a href="https://www.w3.org/TR/vc-data-model-2.0/">Verifiable Credentials</a>.</li>
     </ul>
     <p>
       Every element gets a stable URI. Everything is optional. Systems adopt
       what they need.
     </p>
 
+    <figure class="diagram">
+      <img src="/images/integration-layer.svg" alt="Diagram showing PublicSchema as a shared layer between an internal data model and multiple output formats: REST API, event bus, credentials, file exchange, and data warehouse." />
+    </figure>
+
     <h2>Design principles</h2>
-
     <p>
-      <strong>Semantic, not structural.</strong> Concepts carry meaning. A Person
-      is not a bag of fields. Definitions are written for domain practitioners,
-      not for software developers. The vocabulary should be legible to a social
-      protection policy officer.
+      Definitions carry semantic weight, not just structure. Properties are
+      reusable across concepts. Time-boundedness is first-class. International
+      standards are referenced, never reinvented. Nothing is mandatory.
     </p>
     <p>
-      <strong>Properties are independent (until they are not).</strong> A
-      property like <code>start_date</code> is defined once and used across
-      multiple concepts. However, when a shared property needs concept-specific
-      value sets (e.g., <code>status</code> means different things on an
-      Enrollment vs. a Grievance), the property definition specializes rather
-      than pretending the differences do not exist.
-    </p>
-    <p>
-      <strong>Temporally grounded.</strong> Almost everything in public service
-      delivery is time-bounded: enrollment periods, benefit cycles,
-      eligibility windows, payment schedules. A status snapshot without a
-      validity period is incomplete. Temporal context is a first-class concern,
-      not an afterthought.
-    </p>
-    <p>
-      <strong>Vocabularies reference standards.</strong> Never invent what
-      already exists. For gender, marital status, country, currency: adopt
-      existing international standards and map system-specific codes to them.
-      Only define value sets for domain-specific concepts where no standard
-      exists.
-    </p>
-    <p>
-      <strong>Everything is optional.</strong> There is no "you must implement
-      these fields to be compliant." Systems adopt the concepts, properties, and
-      vocabularies that apply to them. The vocabulary is descriptive, not
-      prescriptive.
-    </p>
-    <p>
-      <strong>Evidence-based.</strong> Convergence data from analysis of 6
-      systems across 18+ concepts informs which entities, properties, and
-      vocabularies are prioritized. Where systems agree, PublicSchema codifies
-      the consensus. Where they diverge, the vocabulary documents the variation.
-    </p>
-    <p>
-      <strong>VC-ready.</strong> Stable URIs, JSON-LD contexts, and vocabulary
-      values designed for use as
-      <a href="https://www.w3.org/TR/vc-data-model-2.0/">Verifiable Credential</a>
-      schemas. Credential design accounts for selective disclosure, since
-      credentials often contain sensitive personal data that should
-      not be fully revealed in every presentation.
-    </p>
-    <p>
-      <strong>Incremental.</strong> Start with what we know, get it right, extend
-      when ready. No grand architecture upfront.
+      See <a href="/docs/design-principles/">Design Principles</a> for the full
+      rationale behind each of these choices.
     </p>
 
-    <h2>Starting with social protection</h2>
+    <h2>Scope</h2>
     <p>
-      PublicSchema begins with social protection because it is a well-understood
-      domain with active digital transformation across many countries, multiple
-      open-source systems exist alongside emerging standards, and the
-      interoperability pain is immediate and concrete.
+      PublicSchema starts with social protection: a well-understood domain with
+      active digital transformation, multiple open-source systems, and immediate
+      interoperability pain. See the full list of
+      <a href="/concepts/">concepts</a> for current coverage.
     </p>
     <p>
-      Initial concept coverage includes people and identity (Person, Household,
-      Family, Group, Identifier, Address, Location), program delivery (Program,
-      Enrollment, Entitlement, EligibilityDecision, AssessmentFramework,
-      AssessmentEvent), payments (PaymentEvent), and accountability (Grievance,
-      Referral).
+      The model is designed to extend to adjacent domains (civil registration,
+      health, education, humanitarian response) as adoption grows. The structure
+      is the same; only the concepts and vocabularies change.
     </p>
     <p>
-      As the vocabulary matures, it will extend to adjacent domains: civil
-      registration, health referrals, education, humanitarian response, land
-      administration. The structure is the same; only the concepts and
-      vocabularies change.
-    </p>
-
-    <h2>Related standards</h2>
-    <p>
-      PublicSchema is designed to complement existing efforts, not compete with
-      them. It sits at the delivery lifecycle vocabulary layer, between identity
-      standards (EU Core Vocabularies), API interoperability (DCI/SPDCI,
-      GovStack), and trust infrastructure (W3C VC, EBSI).
-    </p>
-    <p>
-      See <a href="/docs/related-standards/">Related Standards</a> for a
-      detailed comparison with DCI, EU Core Vocabularies, GovStack, FHIR,
-      Schema.org, and other initiatives.
+      PublicSchema complements existing efforts rather than competing with them.
+      It sits at the delivery data layer, between identity standards
+      (EU Core Vocabularies), API interoperability (DCI/SPDCI, GovStack), and
+      trust infrastructure (W3C VC, EBSI). See
+      <a href="/docs/related-standards/">Related Standards</a> for a detailed
+      comparison.
     </p>
 
-    <h2>Governance</h2>
+    <figure class="diagram">
+      <img src="/images/standards-stack.svg" alt="Standards stack diagram showing PublicSchema at the delivery lifecycle layer, alongside other standards for trust, identity, service catalogues, APIs, and statistical measurement." />
+    </figure>
+
+    <h2>Governance and roadmap</h2>
     <p>
       The project is maintained by a small team to enable fast, opinionated
       decisions in the early stages. Feedback is actively sought from domain
@@ -164,28 +136,22 @@ import Base from "../layouts/Base.astro";
     <p>
       As adoption grows, governance will expand: first to an advisory group of
       contributors and domain experts, then to a formal multi-stakeholder
-      structure. The right governance model will emerge from who actually uses
-      and contributes to the vocabulary.
+      structure.
     </p>
-
-    <h2>Roadmap</h2>
-    <h3>Phase 1: Vocabulary foundation</h3>
+    <h3>Phase 1: Foundation <span class="badge badge-status">in progress</span></h3>
     <p>
-      Define concepts and properties with stable URIs, following the schema.org
-      pattern. Write each definition for domain practitioners. Publish as a
-      reference website. Identify champion systems for early validation.
+      Concepts and properties with stable URIs. Definitions written for domain
+      practitioners. Published as a reference website.
     </p>
-    <h3>Phase 2: Vocabulary standards and mappings</h3>
+    <h3>Phase 2: Standards and mappings</h3>
     <p>
-      Research and adopt existing international standards for each value set.
-      Define canonical value sets where no standard exists. Build cross-system
+      International standards adopted for each value set. Cross-system
       vocabulary mappings. Pilot with at least one country deployment.
     </p>
     <h3>Phase 3: Adoption and extension</h3>
     <p>
-      Formalize governance. Validate mappings with system implementers and
-      country deployments. Document real-world adoption patterns. Extend to
-      adjacent public service domains.
+      Formalized governance. Real-world validation with system implementers.
+      Extension to adjacent public service domains.
     </p>
   </article>
 </Base>

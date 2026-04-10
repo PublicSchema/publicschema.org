@@ -1,14 +1,14 @@
-# ADR-001: CC-BY-4.0 for vocabulary, Apache-2.0 for code
+# ADR-001: CC-BY-4.0 for reference model, Apache-2.0 for code
 
 **Status:** Accepted (content merged into `docs/versioning-and-maturity.md`)
 
 ## Context
 
-PublicSchema needs a license model. Vocabulary definitions (concepts, properties, vocabularies in `schema/`) are reference content that should be freely adoptable by governments, NGOs, and private implementers. Build tooling and tests are software.
+PublicSchema needs a license model. The reference model (concepts, properties, vocabularies, and credential schemas in `schema/`) is reference content that should be freely adoptable by governments, NGOs, and private implementers. Build tooling and tests are software.
 
 ## Decision
 
-CC-BY-4.0 for vocabulary content, Apache-2.0 for code.
+CC-BY-4.0 for the reference model, Apache-2.0 for code.
 
 ## Alternatives considered
 
@@ -18,4 +18,4 @@ CC-BY-4.0 for vocabulary content, Apache-2.0 for code.
 
 ## Consequences
 
-Adopters can embed vocabulary terms freely as long as they credit PublicSchema. Attribution is lightweight: embedding the JSON-LD context URL in a credential or dataset satisfies the requirement. Code contributions (build scripts, validators, site) are covered by a well-understood OSS license with patent termination provisions.
+Adopters can embed reference model terms freely as long as they credit PublicSchema. Attribution is lightweight: embedding the JSON-LD context URL in a credential or dataset satisfies the requirement. Code contributions (build scripts, validators, site) are covered by a well-understood OSS license with patent termination provisions.

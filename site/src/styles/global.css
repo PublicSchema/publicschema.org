@@ -224,6 +224,11 @@ code {
   letter-spacing: -0.01em;
 }
 
+.site-nav .site-title-public {
+  font-weight: 400;
+  color: var(--color-accent);
+}
+
 .site-nav .site-title-sub {
   font-size: 0.7rem;
   font-weight: 400;
@@ -609,6 +614,11 @@ article .data-table.table-wide {
   letter-spacing: -0.02em;
 }
 
+.hero-title-public {
+  font-weight: 400;
+  color: var(--color-accent);
+}
+
 .hero p {
   font-size: 1.15rem;
   color: var(--color-text-muted);
@@ -979,6 +989,50 @@ article .data-table.table-wide {
 
 .doc-content strong {
   font-family: var(--font-sans);
+}
+
+/* Divergence example table (about page) */
+.divergence-example {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  margin: var(--space-md) 0 var(--space-xs);
+}
+
+.divergence-example th,
+.divergence-example td {
+  padding: 0.6rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.divergence-example th {
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+  background: var(--color-surface);
+}
+
+.table-caption {
+  font-size: 0.825rem;
+  color: var(--color-text-muted);
+  font-style: italic;
+  margin: 0 0 var(--space-lg);
+}
+
+/* Diagram figures */
+.diagram {
+  margin: var(--space-xl) 0;
+  padding: 0;
+}
+
+.diagram img {
+  width: 100%;
+  max-width: 640px;
+  display: block;
+  margin: 0 auto;
 }
 
 /* Download links (JSON-LD, CSV) on detail pages */

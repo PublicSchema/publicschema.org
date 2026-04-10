@@ -61,6 +61,6 @@ Once published at trial use or above, a URI will not be removed. Deprecated term
 
 ## Licensing
 
-Vocabulary content in `schema/` is licensed under **CC-BY-4.0**. Build tooling and tests under **Apache-2.0**.
+The reference model in `schema/` is licensed under **CC-BY-4.0**. Build tooling and tests under **Apache-2.0**.
 
 CC-BY-4.0 was chosen over CC0 (loses attribution tracking) and CC-BY-SA (share-alike clause discourages adoption by governments and corporate integrators). Embedding the JSON-LD context URL satisfies the attribution requirement.

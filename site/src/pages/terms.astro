@@ -1,39 +1,37 @@
 ---
 import Base from "../layouts/Base.astro";
 ---
-<Base title="Terms and License" description="Licensing terms for PublicSchema vocabulary definitions and code.">
-  <div class="page-header">
-    <h1>Terms and License</h1>
-    <p class="subtitle">How you can use PublicSchema.</p>
-  </div>
-
+<Base title="Terms and License" description="Licensing terms for PublicSchema reference model and code.">
   <article class="concept-narrative">
+    <div class="page-header">
+      <h1>Terms and License</h1>
+      <p class="subtitle">How you can use PublicSchema.</p>
+    </div>
     <h2>Summary</h2>
     <p>
-      PublicSchema uses a dual license. The vocabulary definitions are freely
+      PublicSchema uses a dual license. The reference model is freely
       available under a Creative Commons license. The software that builds and
-      serves the vocabulary is available under the Apache License.
+      serves it is available under the Apache License.
     </p>
     <p>
-      In practice: you can use the vocabulary in your systems, documentation,
-      and data exchanges without restriction, as long as you provide attribution
-      and share derivative vocabulary work under the same terms.
+      In practice: you can use the reference model in your systems, documentation,
+      and data exchanges without restriction, as long as you provide attribution.
     </p>
 
-    <h2>Vocabulary definitions: CC BY 4.0</h2>
+    <h2>Reference model: CC BY 4.0</h2>
     <p>
-      The vocabulary definitions, including concept definitions, property
-      definitions, controlled value sets, and credential schemas (everything
-      under the <code>schema/</code> directory in the
+      The reference model, including concept definitions, property definitions,
+      controlled value sets, and credential schemas (everything under the
+      <code>schema/</code> directory in the
       <a href="https://github.com/PublicSchema/publicschema.org">source repository</a>),
-      are licensed under the
+      is licensed under the
       <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons
       Attribution 4.0 International License</a>.
     </p>
     <p>You are free to:</p>
     <ul>
-      <li><strong>Share</strong>: copy and redistribute the vocabulary in any medium or format, for any purpose, including commercial use.</li>
-      <li><strong>Adapt</strong>: remix, transform, and build upon the vocabulary for any purpose, including commercial use.</li>
+      <li><strong>Share</strong>: copy and redistribute the reference model in any medium or format, for any purpose, including commercial use.</li>
+      <li><strong>Adapt</strong>: remix, transform, and build upon the reference model for any purpose, including commercial use.</li>
     </ul>
     <p>Under the following terms:</p>
     <ul>
@@ -59,14 +57,28 @@ import Base from "../layouts/Base.astro";
     <h2>JSON-LD context and JSON Schemas</h2>
     <p>
       The generated JSON-LD context (<code>ctx/draft.jsonld</code>) and JSON
-      Schema files are considered part of the vocabulary and are covered by the
+      Schema files are considered part of the reference model and are covered by the
       CC BY 4.0 license. They are machine-readable representations of the
-      vocabulary definitions.
+      definitions.
+    </p>
+
+    <h2>Third-party standards and systems</h2>
+    <p>
+      PublicSchema references international standards (ISO, HL7 FHIR, UN, ISCED,
+      ISCO) and includes mappings to external systems (OpenIMIS, OpenSPP, and
+      others). These standards and systems retain their own licenses and terms.
+    </p>
+    <p>
+      The CC BY 4.0 license applies only to the definitions, mappings, and
+      value sets authored by PublicSchema. It does not grant any rights over
+      the referenced standards or external system schemas themselves. Where
+      PublicSchema values correspond to codes defined by an international
+      standard, the standard body remains the authoritative source.
     </p>
 
     <h2>Attribution</h2>
     <p>
-      When using PublicSchema vocabulary definitions, appropriate attribution is:
+      When using the PublicSchema reference model, appropriate attribution is:
     </p>
     <blockquote>
       Based on <a href="https://publicschema.org">PublicSchema</a>,

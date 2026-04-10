@@ -11,12 +11,12 @@ const conceptsByDomain = Object.fromEntries(domainCodes.map((d) => [d, concepts.
 const properties = Object.values(vocab.properties).sort((a, b) => a.id.localeCompare(b.id));
 const vocabularies = Object.values(vocab.vocabularies).sort((a, b) => a.id.localeCompare(b.id));
 ---
-<Base title="Home" description="Common definitions for public service delivery.">
+<Base title="Home" description="An open reference model for public service delivery data.">
   <div class="hero">
-    <h1>PublicSchema</h1>
+    <h1><span class="hero-title-public">Public</span>Schema</h1>
     <p>
-      Common definitions for public service delivery. Built so programs can
-      coordinate, share data, and reach the people they serve.
+      An open reference model for public service delivery data. Built so
+      programs can coordinate, share data, and reach the people they serve.
     </p>
   </div>
 
@@ -79,58 +79,25 @@ const vocabularies = Object.values(vocab.vocabularies).sort((a, b) => a.id.local
     </Fragment>
   ))}
 
-  <h2>Properties</h2>
-  <p style="color: var(--color-text-muted); margin-bottom: var(--space-md);">
-    Reusable attributes shared across concepts.
-  </p>
-  <div class="mobile-summary">
-    <p>{properties.length} reusable properties shared across concepts.</p>
-    <a href="/properties/" class="btn btn-secondary">Browse all properties</a>
-  </div>
-  <div class="mobile-hide">
-    <table class="data-table">
-      <thead><tr><th>Property</th><th>Type</th><th>Used by</th></tr></thead>
-      <tbody>
-        {properties.map((p) => {
-          const conceptRef = p.type.match(/^concept:(.+)$/)?.[1];
-          const primitives = ["string", "integer", "decimal", "boolean", "date", "datetime", "uri", "geojson_geometry"];
-          return (
-            <tr>
-              <td><a href={p.path}>{p.id}</a></td>
-              <td>{conceptRef
-                ? <a href={vocab.concepts[conceptRef]?.path || `/${conceptRef}`}><code>{p.type}</code></a>
-                : primitives.includes(p.type)
-                  ? <a href={`/types#${p.type}`}><code>{p.type}</code></a>
-                  : <code>{p.type}</code>
-              }</td>
-              <td>{p.used_by.join(", ")}</td>
-            </tr>
-          );
-        })}
-      </tbody>
-    </table>
-  </div>
-
   <h2>Vocabularies</h2>
   <p style="color: var(--color-text-muted); margin-bottom: var(--space-md);">
     Controlled value sets, referencing international standards where they exist.
   </p>
-  <div class="mobile-summary">
-    <p>{vocabularies.length} controlled value sets referencing international standards.</p>
-    <a href="/vocab/" class="btn btn-secondary">Browse all vocabularies</a>
+  <div class="card-grid">
+    {vocabularies.map((v, i) => (
+      <div class:list={["card", { "mobile-overflow-card": i >= 6 }]}>
+        <a href={`/vocab/${v.id}`}>
+          <h3>{v.id}</h3>
+          <p>
+            {v.values.length} values{v.standard?.name ? <> &middot; {v.standard.name}</> : ""}
+          </p>
+        </a>
+      </div>
+    ))}
   </div>
-  <div class="mobile-hide">
-    <table class="data-table">
-      <thead><tr><th>Vocabulary</th><th>Values</th><th>Standard</th></tr></thead>
-      <tbody>
-        {vocabularies.map((v) => (
-          <tr>
-            <td><a href={`/vocab/${v.id}`}>{v.id}</a></td>
-            <td>{v.values.length}</td>
-            <td>{v.standard?.name || "None"}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
+  {vocabularies.length > 6 && (
+    <div class="mobile-view-all">
+      <a href="/vocab/" class="btn btn-secondary">View all {vocabularies.length} vocabularies</a>
+    </div>
+  )}
 </Base>

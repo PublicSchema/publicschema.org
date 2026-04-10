@@ -1,6 +1,6 @@
 Creative Commons Attribution 4.0 International
 
-This license applies to the vocabulary definitions in this repository:
+This license applies to the reference model in this repository:
 concept definitions, property definitions, vocabulary value sets, and
 credential schemas (everything under the schema/ directory).
 
@@ -35,6 +35,6 @@ Embedding the PublicSchema JSON-LD context URL
 or application counts as sufficient attribution under CC-BY-4.0.
 
 No additional notice is required in end-user-facing interfaces. If you
-redistribute modified vocabulary definitions, include a link to the
-original at https://publicschema.org and a note indicating changes were
-made.
+redistribute modified definitions from the reference model, include a
+link to the original at https://publicschema.org and a note indicating
+changes were made.

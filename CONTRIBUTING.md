@@ -143,4 +143,4 @@ Run `just sync-standards` to re-sync all external vocabularies.
 3. Run `uv run pytest` to verify tests pass.
 4. Submit a pull request with a clear description of what you changed and why.
 
-By submitting a pull request, you agree that your contribution is licensed under CC-BY-4.0 (vocabulary content in `schema/`) and Apache-2.0 (code in `build/`, `tests/`, `site/`).
+By submitting a pull request, you agree that your contribution is licensed under CC-BY-4.0 (reference model content in `schema/`) and Apache-2.0 (code in `build/`, `tests/`, `site/`).
