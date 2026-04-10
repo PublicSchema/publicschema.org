@@ -54,7 +54,7 @@ examples/         Example Verifiable Credentials
 
 This project uses a dual license:
 
-- **Vocabulary definitions** (everything under `schema/`): [Creative Commons Attribution-ShareAlike 4.0](LICENSE-VOCABULARY)
+- **Vocabulary definitions** (everything under `schema/`): [Creative Commons Attribution 4.0](LICENSE-VOCABULARY)
 - **Code** (build tools, site, tests, configuration): [Apache License 2.0](LICENSE)
 
 See [publicschema.org/terms/](https://publicschema.org/terms/) for full details.
