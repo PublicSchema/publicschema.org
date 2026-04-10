@@ -3,14 +3,8 @@ __pycache__/
 *.pyc
 .venv/
 
-# Build outputs (keep stubs, ignore generated)
-dist/context.jsonld
-dist/downloads/
-dist/jsonld/
-dist/schemas/
-dist/vocabulary.json
-dist/publicschema.ttl
-dist/publicschema.shacl.ttl
+# Build outputs
+dist/
 
 # Release snapshots (local until distribution strategy is decided)
 releases/
@@ -22,6 +16,7 @@ site/public/sp/
 
 # Working documents
 plan*.md
+plans/
 .plans/
 research/
 review-*.md
@@ -29,10 +24,15 @@ review-*.md
 # AI assistant config (local only)
 CLAUDE.md
 
+# Generated external schema extractions
+external/*/extracted/
+
 # Node
 node_modules/
 site/dist/
 site/.astro/
+site/playwright-report/
+site/test-results/
 
 # OS
 .DS_Store
