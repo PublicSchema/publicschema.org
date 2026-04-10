@@ -10,6 +10,18 @@ PublicSchema does not assign a fixed data classification to individual propertie
 
 Instead, disclosure behavior is defined at the **credential level**. Each credential type below specifies which claims are always disclosed and which are selectively disclosable.
 
+For property-level sensitivity annotations, see [Schema Design: Sensitivity annotations](../schema-design/#7-sensitivity-annotations).
+
+## Vocabulary values in credentials
+
+Not all vocabulary values belong in credentials.
+
+**Stable facts, not transient states.** A VC should attest to facts that remain meaningful over time ("this person is eligible"), not process states that change within hours ("this application is under review").
+
+**No draft values in production credentials.** A draft value's meaning may change. Issuers should only use values at trial-use or normative maturity.
+
+**Identifier type alone is insufficient.** `identifier_type: national_id` is meaningless without the issuing jurisdiction and identifier scheme. Vocabularies used in credentials should document what additional context is needed.
+
 ## Credential Structure for SD-JWT VC
 
 ### IdentityCredential
@@ -106,9 +118,10 @@ The `_sd` array contains hashes of the disclosable claims. The actual values are
 Data handling requirements depend on the credential or dataset context, not on individual property definitions. Implementers should assess each deployment and apply protections based on whether the data, in that context, identifies or relates to a natural person.
 
 General guidance:
-- **Structural metadata** (program parameters, statuses, dates) typically requires no special handling.
-- **Person-linked data** (identity claims, person-specific records) requires standard PII protections: access control, encryption at rest, defined retention periods.
-- **Inherently sensitive data** (assessment scores, vulnerability indices) requires enhanced protections: audit logging, purpose limitation, breach notification triggers.
+- **Structural metadata** (program parameters, statuses, dates) typically requires no special handling beyond normal data protection.
+- **Person-linked data** (identity claims, person-specific records) requires standard protections: access control, encryption at rest, defined retention periods.
+- **Sensitive data** (properties that reveal circumstances like health status, poverty, or victimhood in most contexts) requires justification to collect or disclose. See the `sensitivity` annotation in [Schema Design](../schema-design/#7-sensitivity-annotations).
+- **Restricted data** (assessment scores, vulnerability indices) requires enhanced protections: audit logging, purpose limitation, Data Protection Impact Assessment.
 
 ## Implementation Guidance
 

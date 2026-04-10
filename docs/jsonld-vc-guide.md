@@ -1,15 +1,16 @@
-# PublicSchema Integration Guide
+# JSON-LD & Verifiable Credentials Guide
 
-## What PublicSchema provides
+This guide covers how to use PublicSchema with JSON-LD contexts and SD-JWT Verifiable Credentials. This is one of several ways to use PublicSchema. See [Use Cases](/docs/use-cases/) for a broader overview of integration patterns, many of which do not require JSON-LD or VCs.
 
-PublicSchema is a shared vocabulary for public service delivery data. It provides:
+## What this path uses
 
-1. **Concepts**: semantic entities (Person, Enrollment, PaymentEvent, etc.) with multilingual definitions
-2. **Properties**: typed, reusable fields that apply across concepts (given_name, start_date, amount)
-3. **Vocabularies**: controlled value sets, referencing international standards where they exist
-4. **JSON-LD context**: maps property names to stable URIs with type information
-5. **JSON Schemas**: per-concept and per-credential validation schemas
-6. **Credential types**: SD-JWT VC schemas for IdentityCredential, EnrollmentCredential, PaymentCredential
+This integration path builds on the following PublicSchema artifacts:
+
+- **JSON-LD context**: maps property names to stable URIs with type information
+- **JSON Schemas**: per-concept and per-credential validation schemas
+- **Credential types**: SD-JWT VC schemas for IdentityCredential, EnrollmentCredential, PaymentCredential
+
+For the full list of available artifacts, see [Available artifacts](#available-artifacts) below.
 
 ## Quick start
 
@@ -91,23 +92,42 @@ Use PublicSchema credential types to issue SD-JWT VCs:
 
 ### 5. Implement selective disclosure
 
-Consult the credential type definitions in `docs/selective-disclosure.md` to determine which claims should be selectively disclosable in SD-JWT VCs. Each credential type specifies which claims are always disclosed and which are wrapped in `_sd` (revealed only when needed).
+Consult the credential type definitions in the [Selective Disclosure](/docs/selective-disclosure/) guide to determine which claims should be selectively disclosable in SD-JWT VCs. Each credential type specifies which claims are always disclosed and which are wrapped in `_sd` (revealed only when needed).
 
 ## System mapping
 
-If your system uses different field names or codes, use the `system_mappings` in vocabulary YAML files to translate. For example, the gender-type vocabulary includes:
+If your system uses different field names or codes, use the `system_mappings` in vocabulary YAML files to translate. Each system entry lists its values with the original code, human-readable label, and the canonical value it maps to. For example, the gender-type vocabulary includes:
 
 ```yaml
 system_mappings:
   openimis:
-    "M": male
-    "F": female
-    "O": other
+    vocabulary_name: Gender
+    values:
+      - code: "M"
+        label: Male
+        maps_to: male
+      - code: "F"
+        label: Female
+        maps_to: female
+      - code: "O"
+        label: Other
+        maps_to: other
+    unmapped_canonical: [not_stated]
   spdci:
-    "1": male
-    "2": female
-    "0": not_stated
+    vocabulary_name: GenderCode
+    values:
+      - code: "1"
+        label: Male
+        maps_to: male
+      - code: "2"
+        label: Female
+        maps_to: female
+      - code: "0"
+        label: Not stated
+        maps_to: not_stated
 ```
+
+The `unmapped_canonical` list shows which PublicSchema values have no equivalent in that system, making gaps explicit in both directions. See [Mapping Example](/docs/mapping-example/) for a full walkthrough.
 
 ## Available artifacts
 
@@ -143,4 +163,11 @@ The PublicSchema property `preferred_name` maps to schema.org's `alternateName` 
 
 ## Extending PublicSchema
 
-See `docs/extension-mechanism.md` for how to add custom properties, vocabulary values, and concepts using your own namespace alongside PublicSchema terms.
+See the [Extension Mechanism](/docs/extension-mechanism/) for how to add custom properties, vocabulary values, and concepts using your own namespace alongside PublicSchema terms.
+
+## Next steps
+
+- For a lighter approach that does not require JSON-LD, see the [Vocabulary Adoption Guide](/docs/vocabulary-adoption-guide/).
+- To map fields between existing systems, see the [Interoperability & Mapping Guide](/docs/interoperability-guide/).
+- To design a new system for compatibility, see the [Data Model Design Guide](/docs/data-model-guide/).
+- For concrete scenarios showing how PublicSchema is used, see [Use Cases](/docs/use-cases/).

@@ -1,6 +1,6 @@
 # ADR-001: CC-BY-4.0 for vocabulary, Apache-2.0 for code
 
-**Status:** Accepted
+**Status:** Accepted (content merged into `docs/versioning-and-maturity.md`)
 
 ## Context
 

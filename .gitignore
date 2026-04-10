@@ -9,10 +9,12 @@ dist/
 # Release snapshots (local until distribution strategy is decided)
 releases/
 
-# Generated download files (built by export.py, copied to site/public)
+# Generated files (built by build pipeline, copied to site/public)
 site/public/*.csv
 site/public/*.xlsx
 site/public/sp/
+site/public/schemas/
+site/public/vocabulary.json
 
 # Working documents
 plan*.md

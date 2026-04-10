@@ -1,6 +1,6 @@
 # ADR-003: Domain-scoped URIs, not prefixed names
 
-**Status:** Accepted
+**Status:** Accepted (content merged into `docs/schema-design.md`)
 
 ## Context
 

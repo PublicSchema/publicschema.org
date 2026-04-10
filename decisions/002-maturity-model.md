@@ -1,6 +1,6 @@
 # ADR-002: Per-entity maturity plus release versioning
 
-**Status:** Accepted
+**Status:** Accepted (content merged into `docs/versioning-and-maturity.md`)
 
 ## Context
 

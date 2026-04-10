@@ -2,8 +2,11 @@
 import Base from "../../layouts/Base.astro";
 import { docs } from "../../data/docs";
 import { marked } from "marked";
+import { gfmHeadingId } from "marked-gfm-heading-id";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
+
+marked.use(gfmHeadingId());
 
 export function getStaticPaths() {
   return Object.keys(docs).map((slug) => ({ params: { slug } }));

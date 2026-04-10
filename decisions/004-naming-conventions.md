@@ -1,6 +1,6 @@
 # ADR-004: Naming conventions as type system
 
-**Status:** Accepted
+**Status:** Accepted (content merged into `docs/schema-design.md`)
 
 ## Context
 

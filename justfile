@@ -17,6 +17,8 @@ default:
 build:
     uv run python -m build.build
     rsync -a --include='*.csv' --include='*.xlsx' --include='*/' --exclude='*' {{dist_dir}}/downloads/ {{site_dir}}/public/
+    rsync -a {{dist_dir}}/schemas/ {{site_dir}}/public/schemas/
+    cp {{dist_dir}}/vocabulary.json {{site_dir}}/public/vocabulary.json
 
 # Validate all YAML source files (schema, referential integrity, translations)
 validate:
