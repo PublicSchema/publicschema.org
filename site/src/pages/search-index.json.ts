@@ -64,7 +64,7 @@ export function GET() {
         }
       }
     }
-    const valueCount = v.external_values ? v.values.length : v.values.length;
+    const valueCount = v.values.length;
 
     documents.push({
       id: `vocab:${v.id}`,

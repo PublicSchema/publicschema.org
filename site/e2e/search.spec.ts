@@ -91,9 +91,20 @@ test.describe("Search: desktop", () => {
     const results = page.locator("#search-results");
     await expect(results.locator('[role="option"]').first()).toBeVisible();
 
-    // The marital-status vocabulary should appear
+    // The marital-status vocabulary should appear with a matched-value hint
     const vocabResult = results.locator('a[href="/vocab/marital-status"]');
     await expect(vocabResult).toBeVisible();
+    const context = vocabResult.locator(".search-result-context");
+    await expect(context).toContainText("Matched");
+  });
+
+  test("keyboard shortcut hint is displayed", async ({ page }) => {
+    await page.goto("/");
+    const hint = page.locator(".search-shortcut");
+    await expect(hint).toBeVisible();
+    // Should contain either Ctrl+K or the Mac command key symbol
+    const text = await hint.textContent();
+    expect(text === "Ctrl+K" || text === "\u2318K").toBe(true);
   });
 
   test("no results for nonsense query", async ({ page }) => {

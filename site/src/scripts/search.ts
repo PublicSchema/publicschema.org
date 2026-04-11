@@ -32,6 +32,10 @@ function ensureIndex(): Promise<MiniSearch<SearchDocument>> {
       });
       ms.addAll(docs);
       return ms;
+    })
+    .catch((err) => {
+      indexPromise = null;
+      throw err;
     });
   return indexPromise;
 }
@@ -105,10 +109,9 @@ function groupResults(
   query: string
 ): GroupedResults[] {
   const groups: Record<string, GroupedResults> = {};
-  let total = 0;
 
+  // First pass: collect up to MAX_PER_GROUP per type (ensures type diversity)
   for (const result of results) {
-    if (total >= MAX_RESULTS) break;
     const type = result.type;
     if (!groups[type]) {
       groups[type] = {
@@ -120,12 +123,22 @@ function groupResults(
     if (groups[type].items.length >= MAX_PER_GROUP) continue;
 
     let matchedValue: string | null = null;
-    if (type === "vocabulary" && result.match?.keywords) {
-      matchedValue = findMatchedValue(result.keywords || "", query);
+    // MiniSearch's match maps query terms to arrays of field names where they matched.
+    // Check if any matched term was found in the "keywords" field.
+    if (type === "vocabulary" && result.match) {
+      const matchedViaKeywords = Object.values(result.match).some(
+        (fields) => Array.isArray(fields) && fields.includes("keywords")
+      );
+      if (matchedViaKeywords) {
+        matchedValue = findMatchedValue(result.keywords || "", query);
+      }
     }
 
     groups[type].items.push({ result, matchedValue });
-    total++;
+
+    // Check total across all groups
+    const total = Object.values(groups).reduce((sum, g) => sum + g.items.length, 0);
+    if (total >= MAX_RESULTS) break;
   }
 
   return Object.values(groups).sort(
@@ -136,7 +149,8 @@ function groupResults(
 function renderResults(
   container: HTMLElement,
   groups: GroupedResults[],
-  query: string
+  query: string,
+  idPrefix: string = "desktop"
 ): void {
   let optionIndex = 0;
   let html = "";
@@ -151,7 +165,7 @@ function renderResults(
       } else if (result.meta) {
         context = escapeHtml(truncate(result.meta, 80));
       }
-      html += `<a class="search-result" href="${escapeHtml(result.path)}" role="option" id="search-opt-${optionIndex}" aria-selected="false">
+      html += `<a class="search-result" href="${escapeHtml(result.path)}" role="option" id="search-opt-${idPrefix}-${optionIndex}" aria-selected="false">
         <span class="badge badge-${escapeHtml(result.type)}">${escapeHtml(result.type)}</span>
         <span class="search-result-content">
           <span class="search-result-title">${highlighted}</span>
@@ -180,7 +194,9 @@ function renderMinChars(container: HTMLElement): void {
 
 // Detect platform for keyboard shortcut display
 const isMac =
-  typeof navigator !== "undefined" && /Mac|iPhone|iPad/.test(navigator.platform || "");
+  typeof navigator !== "undefined" &&
+  ((navigator as any).userAgentData?.platform === "macOS" ||
+    /Mac|iPhone|iPad/.test(navigator.platform || ""));
 
 function initSearch(): void {
   const searchContainer = document.querySelector(".search-container");
@@ -379,6 +395,7 @@ function initSearch(): void {
           role="combobox"
           aria-expanded="false"
           aria-autocomplete="list"
+          aria-haspopup="listbox"
           aria-controls="search-overlay-results"
           aria-label="Search PublicSchema"
           autocomplete="off"
@@ -460,7 +477,7 @@ function initSearch(): void {
 
         const groups = groupResults(results, q);
         overlayInput.setAttribute("aria-expanded", "true");
-        renderResults(overlayResults, groups, q);
+        renderResults(overlayResults, groups, q, "overlay");
         overlayActiveIndex = -1;
 
         const totalShown = groups.reduce((sum, g) => sum + g.items.length, 0);
