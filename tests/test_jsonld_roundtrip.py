@@ -175,6 +175,164 @@ class TestVocabularyJsonld:
             )
 
 
+class TestExternalEquivalentsSkos:
+    """SKOS match triples from external_equivalents should appear in parsed RDF."""
+
+    def test_concept_exact_match(self, build_result):
+        """Person has skos:exactMatch to SEMIC Core Person URI."""
+        inline_ctx = build_result["context"]["@context"]
+        doc = build_result["jsonld_docs"]["concepts/Person.jsonld"]
+        g = _parse_doc(doc, inline_ctx)
+        person_uri = rdflib.URIRef("https://publicschema.org/Person")
+        semic_uri = rdflib.URIRef("http://www.w3.org/ns/person#Person")
+        assert (person_uri, SKOS.exactMatch, semic_uri) in g, (
+            "Person should have skos:exactMatch to SEMIC Core Person"
+        )
+
+    def test_concept_close_match(self, build_result):
+        """Person has skos:closeMatch to SPDCI Person URI."""
+        inline_ctx = build_result["context"]["@context"]
+        doc = build_result["jsonld_docs"]["concepts/Person.jsonld"]
+        g = _parse_doc(doc, inline_ctx)
+        person_uri = rdflib.URIRef("https://publicschema.org/Person")
+        dci_uri = rdflib.URIRef("https://schema.spdci.org/core/v1/data/Person")
+        assert (person_uri, SKOS.closeMatch, dci_uri) in g, (
+            "Person should have skos:closeMatch to SPDCI Person"
+        )
+
+    def test_property_exact_match(self, build_result):
+        """gender property has skos:exactMatch to SEMIC gender URI."""
+        inline_ctx = build_result["context"]["@context"]
+        doc = build_result["jsonld_docs"]["properties/gender.jsonld"]
+        g = _parse_doc(doc, inline_ctx)
+        gender_uri = rdflib.URIRef("https://publicschema.org/gender")
+        semic_uri = rdflib.URIRef("http://data.europa.eu/m8g/gender")
+        assert (gender_uri, SKOS.exactMatch, semic_uri) in g, (
+            "gender should have skos:exactMatch to SEMIC gender"
+        )
+
+    def test_concept_property_match_in_graph(self, build_result):
+        """gender property embedded in Person concept doc also has match triples."""
+        inline_ctx = build_result["context"]["@context"]
+        doc = build_result["jsonld_docs"]["concepts/Person.jsonld"]
+        g = _parse_doc(doc, inline_ctx)
+        gender_uri = rdflib.URIRef("https://publicschema.org/gender")
+        semic_uri = rdflib.URIRef("http://data.europa.eu/m8g/gender")
+        assert (gender_uri, SKOS.exactMatch, semic_uri) in g, (
+            "gender property in Person concept doc should have skos:exactMatch"
+        )
+
+    def test_vocabulary_match_fallback_to_see_also(self, build_result):
+        """Vocabulary external_equivalents without match field use rdfs:seeAlso fallback."""
+        inline_ctx = build_result["context"]["@context"]
+        # Find a vocabulary that has external_equivalents
+        vocab_docs = {
+            k: v for k, v in build_result["jsonld_docs"].items()
+            if k.startswith("vocab/")
+        }
+        # gender-type has external_equivalents with match: broad
+        doc = build_result["jsonld_docs"]["vocab/gender-type.jsonld"]
+        g = _parse_doc(doc, inline_ctx)
+        vocab_uri = rdflib.URIRef(doc["@id"])
+        semic_uri = rdflib.URIRef("http://data.europa.eu/m8g/gender")
+        assert (vocab_uri, SKOS.broadMatch, semic_uri) in g, (
+            "gender-type vocabulary should have skos:broadMatch to SEMIC gender"
+        )
+
+    def test_no_match_field_uses_see_also(self, tmp_path):
+        """When external_equivalents has no match field, rdfs:seeAlso is used."""
+        import yaml
+        schema_dir = tmp_path / "schema"
+        schema_dir.mkdir()
+        (schema_dir / "concepts").mkdir()
+        (schema_dir / "properties").mkdir()
+        (schema_dir / "vocabularies").mkdir()
+
+        meta = {
+            "name": "TestSchema",
+            "base_uri": "https://test.example.org/",
+            "version": "0.1.0",
+            "maturity": "draft",
+            "languages": ["en"],
+            "license": "CC-BY-4.0",
+        }
+        (schema_dir / "_meta.yaml").write_text(yaml.dump(meta))
+
+        concept = {
+            "id": "Widget",
+            "maturity": "draft",
+            "definition": {"en": "A widget."},
+            "properties": [],
+            "external_equivalents": {
+                "other": {
+                    "label": "Widget",
+                    "uri": "http://example.org/Widget",
+                    # no match field
+                }
+            },
+        }
+        (schema_dir / "concepts" / "widget.yaml").write_text(yaml.dump(concept))
+
+        result = build_vocabulary(schema_dir)
+        inline_ctx = result["context"]["@context"]
+        doc = result["jsonld_docs"]["concepts/Widget.jsonld"]
+        g = _parse_doc(doc, inline_ctx)
+
+        widget_uri = rdflib.URIRef("https://test.example.org/Widget")
+        other_uri = rdflib.URIRef("http://example.org/Widget")
+        assert (widget_uri, RDFS.seeAlso, other_uri) in g, (
+            "Missing match field should produce rdfs:seeAlso triple"
+        )
+
+    def test_all_match_types(self, tmp_path):
+        """All five SKOS match types plus the seeAlso fallback work correctly."""
+        import yaml
+        schema_dir = tmp_path / "schema"
+        schema_dir.mkdir()
+        (schema_dir / "concepts").mkdir()
+        (schema_dir / "properties").mkdir()
+        (schema_dir / "vocabularies").mkdir()
+
+        meta = {
+            "name": "TestSchema",
+            "base_uri": "https://test.example.org/",
+            "version": "0.1.0",
+            "maturity": "draft",
+            "languages": ["en"],
+            "license": "CC-BY-4.0",
+        }
+        (schema_dir / "_meta.yaml").write_text(yaml.dump(meta))
+
+        concept = {
+            "id": "Thing",
+            "maturity": "draft",
+            "definition": {"en": "A thing."},
+            "properties": [],
+            "external_equivalents": {
+                "a": {"label": "A", "uri": "http://example.org/exact", "match": "exact"},
+                "b": {"label": "B", "uri": "http://example.org/close", "match": "close"},
+                "c": {"label": "C", "uri": "http://example.org/broad", "match": "broad"},
+                "d": {"label": "D", "uri": "http://example.org/narrow", "match": "narrow"},
+                "e": {"label": "E", "uri": "http://example.org/related", "match": "related"},
+                "f": {"label": "F", "uri": "http://example.org/none"},
+            },
+        }
+        (schema_dir / "concepts" / "thing.yaml").write_text(yaml.dump(concept))
+
+        result = build_vocabulary(schema_dir)
+        inline_ctx = result["context"]["@context"]
+        doc = result["jsonld_docs"]["concepts/Thing.jsonld"]
+        g = _parse_doc(doc, inline_ctx)
+
+        thing = rdflib.URIRef("https://test.example.org/Thing")
+        assert (thing, SKOS.exactMatch, rdflib.URIRef("http://example.org/exact")) in g
+        assert (thing, SKOS.closeMatch, rdflib.URIRef("http://example.org/close")) in g
+        assert (thing, SKOS.broadMatch, rdflib.URIRef("http://example.org/broad")) in g
+        assert (thing, SKOS.narrowMatch, rdflib.URIRef("http://example.org/narrow")) in g
+        assert (thing, SKOS.relatedMatch, rdflib.URIRef("http://example.org/related")) in g
+        assert (thing, RDFS.seeAlso, rdflib.URIRef("http://example.org/none")) in g
+
+
 class TestUriMatchesBaseUri:
     def test_concept_uris_match_base_uri(self, build_result):
         """All concept URIs start with the base_uri from meta."""

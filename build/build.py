@@ -53,6 +53,40 @@ RANGE_INCLUDES_MAP = {
 }
 
 
+# Map external_equivalents match values to RDF predicates.
+# SKOS match predicates are the standard for asserting equivalences between
+# concepts in different schemes. rdfs:seeAlso is the safe fallback when
+# the match type is not specified.
+MATCH_PREDICATES = {
+    "exact": "skos:exactMatch",
+    "close": "skos:closeMatch",
+    "broad": "skos:broadMatch",
+    "narrow": "skos:narrowMatch",
+    "related": "skos:relatedMatch",
+}
+MATCH_FALLBACK = "rdfs:seeAlso"
+
+
+def _external_equivalents_triples(raw_data: dict) -> dict[str, list[str]]:
+    """Extract RDF match triples from an entity's external_equivalents.
+
+    Returns a dict mapping predicate terms (e.g. "skos:exactMatch") to
+    lists of URIs. Suitable for merging directly into a JSON-LD node.
+    """
+    equivalents = raw_data.get("external_equivalents")
+    if not equivalents:
+        return {}
+    triples: dict[str, list[str]] = {}
+    for _system, entry in equivalents.items():
+        uri = entry.get("uri")
+        if not uri:
+            continue
+        match_type = entry.get("match")
+        predicate = MATCH_PREDICATES.get(match_type, MATCH_FALLBACK)
+        triples.setdefault(predicate, []).append(uri)
+    return triples
+
+
 def _to_snake_case(name: str) -> str:
     """Convert PascalCase to snake_case. e.g. PaymentEvent -> payment_event."""
     return re.sub(r"(?<=[a-z0-9])([A-Z])", r"_\1", name).lower()
@@ -101,6 +135,8 @@ def _concept_property_jsonld(
     if prop_raw.get("references"):
         ref_concept = out_concepts.get(prop_raw["references"])
         entry["ps:references"] = ref_concept["uri"] if ref_concept else prop_raw["references"]
+    for predicate, uris in _external_equivalents_triples(prop_raw).items():
+        entry[predicate] = uris if len(uris) > 1 else uris[0]
     return entry
 
 
@@ -136,6 +172,8 @@ def _concept_to_jsonld(
             out_concepts[s]["uri"] if s in out_concepts else s
             for s in subtypes
         ]
+    for predicate, uris in _external_equivalents_triples(concept_raw).items():
+        concept_node[predicate] = uris if len(uris) > 1 else uris[0]
     graph = [concept_node]
     props = concept_out.get("properties", [])
     if props:
@@ -172,6 +210,8 @@ def _property_to_jsonld(
     if prop_raw.get("references"):
         ref_concept = out_concepts.get(prop_raw["references"])
         doc["ps:references"] = ref_concept["uri"] if ref_concept else prop_raw["references"]
+    for predicate, uris in _external_equivalents_triples(prop_raw).items():
+        doc[predicate] = uris if len(uris) > 1 else uris[0]
     used_by = prop_out.get("used_by", [])
     if used_by:
         doc["schema:domainIncludes"] = [
@@ -195,6 +235,8 @@ def _vocabulary_to_jsonld(
     }
     if vocab_out.get("domain"):
         doc["ps:domain"] = vocab_out["domain"]
+    for predicate, uris in _external_equivalents_triples(vocab_raw).items():
+        doc[predicate] = uris if len(uris) > 1 else uris[0]
     standard = vocab_raw.get("standard")
     if standard:
         std_entry: dict = {"schema:name": standard.get("name", "")}
@@ -501,6 +543,14 @@ def build_vocabulary(schema_dir: Path) -> dict:
     }
     context_map["ps:vocabulary"] = {
         "@id": "https://publicschema.org/meta/vocabulary",
+        "@type": "@id",
+    }
+    # SKOS match predicates and rdfs:seeAlso need @type:@id so URIs
+    # serialize as references, not plain strings.
+    for skos_pred in MATCH_PREDICATES.values():
+        context_map[skos_pred] = {"@type": "@id"}
+    context_map["rdfs:seeAlso"] = {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#seeAlso",
         "@type": "@id",
     }
     for concept_id, concept_out in out_concepts.items():
