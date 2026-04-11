@@ -17,7 +17,8 @@
     "highlight.js": "^11.11.1",
     "marked": "^18.0.0",
     "marked-gfm-heading-id": "^4.1.4",
-    "marked-highlight": "^2.2.4"
+    "marked-highlight": "^2.2.4",
+    "minisearch": "^7.2.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.59.1"
