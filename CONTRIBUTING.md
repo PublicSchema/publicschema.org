@@ -109,7 +109,7 @@ Current domain codes:
 
 ## System mappings
 
-System mappings show each external system's full vocabulary for a given concept: their code, their label, and the mapping to our canonical value. Gaps are explicit in both directions: system values with no PublicSchema equivalent appear as unmapped rows (`maps_to: null`), and PublicSchema values with no system equivalent are listed in `unmapped_canonical`.
+System mappings show how external systems represent the same concept: their code, their label, and the mapping to our canonical value. They can live on vocabulary YAMLs (`schema/vocabularies/*.yaml`) or property YAMLs (`schema/properties/*.yaml`). Use property-level mappings when the PublicSchema side is a typed value (e.g., integer) but the external system uses a vocabulary or enum. Gaps are explicit in both directions: system values with no PublicSchema equivalent appear as unmapped rows (`maps_to: null`), and PublicSchema values with no system equivalent are listed in `unmapped_canonical`.
 
 This serves two audiences:
 - **Integration developers** who need to know what codes a system sends and how to convert them

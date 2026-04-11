@@ -4,7 +4,7 @@ How to extract vocabularies (enums, value sets, coded fields) from an external s
 
 ## Why this exists
 
-PublicSchema vocabularies need `system_mappings` that show how each external system represents the same concept. Extracting these mappings by hand is error-prone and hard to verify. This process uses AI subagents to read source code, extract vocabularies into a normalized format, and produce mappings we can review and verify.
+PublicSchema vocabularies and properties need `system_mappings` that show how each external system represents the same concept. Extracting these mappings by hand is error-prone and hard to verify. This process uses AI subagents to read source code, extract vocabularies into a normalized format, and produce mappings we can review and verify.
 
 ## Prerequisites
 
@@ -222,7 +222,7 @@ This can be done by a single subagent or by hand. For ~30 vocabularies, manual m
 
 ### Goal
 
-Update `system_mappings` in the relevant `schema/vocabularies/*.yaml` files using the enriched format.
+Update `system_mappings` in the relevant `schema/vocabularies/*.yaml` or `schema/properties/*.yaml` files using the enriched format.
 
 ### Format
 
@@ -320,7 +320,7 @@ external/
     matching.yaml                 # Phase 3 output
 ```
 
-The final mappings live in `schema/vocabularies/*.yaml` under `system_mappings.<system>`.
+The final mappings live in `schema/vocabularies/*.yaml` or `schema/properties/*.yaml` under `system_mappings.<system>`. Use property-level mappings when the PublicSchema side is a typed value (e.g., integer) rather than a vocabulary.
 
 ## System-specific notes
 
