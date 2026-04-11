@@ -11,6 +11,14 @@ cardinality: single
 vocabulary: null
 references: Person
 
+external_equivalents:
+  dci:
+    label: "member"
+    uri: "https://schema.spdci.org/core/v1/data/Member"
+    match: broad
+    vocabulary: "SPDCI Core"
+    note: "DCI embeds the related_person list on a Member; the subject is the Member itself rather than an explicit field"
+
 convergence:
   system_count: 2
   total_systems: 6

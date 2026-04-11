@@ -11,6 +11,14 @@ cardinality: multiple
 vocabulary: benefit-modality
 references: null
 
+external_equivalents:
+  dci:
+    label: "benefit_type"
+    uri: "https://schema.spdci.org/extensions/ibr/v1/data/benefit_type"
+    match: broad
+    vocabulary: "SPDCI IBR"
+    note: "Both classify the form of benefit; DCI uses BenefitTypeEnum, PublicSchema uses benefit-modality vocabulary"
+
 convergence:
   system_count: 1
   total_systems: 5

@@ -19,6 +19,12 @@ external_equivalents:
     match: exact
     vocabulary: "Core Person"
 
+  dci:
+    label: "surname"
+    uri: "https://schema.spdci.org/core/v1/data/surname"
+    match: close
+    vocabulary: "SPDCI Core"
+    note: "Same concept; DCI uses 'surname', PublicSchema uses 'family_name'"
 convergence:
   system_count: 5
   total_systems: 6

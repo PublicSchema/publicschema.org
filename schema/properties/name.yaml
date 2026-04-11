@@ -19,6 +19,12 @@ external_equivalents:
     match: exact
     vocabulary: "Core Person"
 
+  dci:
+    label: "name"
+    uri: "https://schema.spdci.org/core/v1/data/name"
+    match: close
+    vocabulary: "SPDCI Core"
+    note: "PublicSchema 'name' is a flat display string; DCI 'name' is a structured Name object with surname, given_name, and other components"
 convergence:
   system_count: 6
   total_systems: 6

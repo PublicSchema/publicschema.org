@@ -19,6 +19,11 @@ external_equivalents:
     match: exact
     vocabulary: "Core Location"
 
+  dci:
+    label: "postal_code"
+    uri: "https://schema.spdci.org/core/v1/data/postal_code"
+    match: exact
+    vocabulary: "SPDCI Core"
 convergence:
   system_count: 3
   total_systems: 5

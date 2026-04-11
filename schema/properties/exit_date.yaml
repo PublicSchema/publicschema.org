@@ -12,6 +12,14 @@ vocabulary: null
 references: null
 domain_override: null
 
+external_equivalents:
+  dci:
+    label: "status_change_date"
+    uri: "https://schema.spdci.org/extensions/ibr/v1/data/status_change_date"
+    match: broad
+    vocabulary: "SPDCI IBR"
+    note: "DCI 'status_change_date' covers any enrollment status change; PublicSchema 'exit_date' is specifically the exit event"
+
 convergence:
   system_count: 2
   total_systems: 6

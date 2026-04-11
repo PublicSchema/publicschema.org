@@ -11,6 +11,13 @@ cardinality: single
 vocabulary: identifier-type
 references: null
 
+external_equivalents:
+  dci:
+    label: "identifier_type"
+    uri: "https://schema.spdci.org/core/v1/data/identifier_type"
+    match: exact
+    vocabulary: "SPDCI Core"
+
 convergence:
   system_count: 4
   total_systems: 5

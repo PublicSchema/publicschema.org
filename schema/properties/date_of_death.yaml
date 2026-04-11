@@ -18,3 +18,9 @@ external_equivalents:
     uri: "http://data.europa.eu/m8g/deathDate"
     match: exact
     vocabulary: "Core Person"
+
+  dci:
+    label: "death_date"
+    uri: "https://schema.spdci.org/core/v1/data/death_date"
+    match: exact
+    vocabulary: "SPDCI Core"

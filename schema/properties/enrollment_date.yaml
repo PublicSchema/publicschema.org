@@ -12,6 +12,14 @@ vocabulary: null
 references: null
 domain_override: null
 
+external_equivalents:
+  dci:
+    label: "enrollment_date"
+    uri: "https://schema.spdci.org/extensions/ibr/v1/data/enrollment_date"
+    match: close
+    vocabulary: "SPDCI IBR"
+    note: "Same concept and name; DCI defines this on the Beneficiary entity"
+
 convergence:
   system_count: 3
   total_systems: 6

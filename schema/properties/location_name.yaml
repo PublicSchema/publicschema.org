@@ -19,6 +19,12 @@ external_equivalents:
     vocabulary: "Core Location"
     note: "SEMIC geographicName is the official geographic name; ours is a general location display name"
 
+  dci:
+    label: "name"
+    uri: "https://schema.spdci.org/core/v1/data/Place/name"
+    match: close
+    vocabulary: "SPDCI Core"
+    note: "Both are human-readable location names; DCI uses Place.name"
 convergence:
   system_count: 6
   total_systems: 6

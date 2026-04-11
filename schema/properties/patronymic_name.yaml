@@ -19,6 +19,12 @@ external_equivalents:
     match: exact
     vocabulary: "Core Person"
 
+  dci:
+    label: "second_name"
+    uri: "https://schema.spdci.org/core/v1/data/second_name"
+    match: broad
+    vocabulary: "SPDCI Core"
+    note: "DCI 'second_name' covers middle names broadly; patronymics are a specific naming convention not modeled by DCI"
 convergence:
   system_count: 0
   total_systems: 6

@@ -20,6 +20,12 @@ external_equivalents:
     vocabulary: "Core Person"
     note: "SEMIC uses dc:alternative for any alternative name; ours is specifically the preferred display name"
 
+  dci:
+    label: "given_name"
+    uri: "https://schema.spdci.org/core/v1/data/given_name"
+    match: broad
+    vocabulary: "SPDCI Core"
+    note: "DCI has no preferred or chosen name concept; closest is the generic given_name field"
 convergence:
   system_count: 0
   total_systems: 6

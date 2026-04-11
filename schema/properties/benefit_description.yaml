@@ -11,6 +11,14 @@ cardinality: single
 vocabulary: null
 references: null
 
+external_equivalents:
+  dci:
+    label: "benefit_description"
+    uri: "https://schema.spdci.org/extensions/ibr/v1/data/benefit_description"
+    match: close
+    vocabulary: "SPDCI IBR"
+    note: "Same concept and name; DCI uses this for in-kind benefit descriptions (e.g. 'sacks of rice')"
+
 convergence:
   system_count: 0
   total_systems: 5

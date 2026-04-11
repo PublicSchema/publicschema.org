@@ -11,6 +11,13 @@ cardinality: single
 vocabulary: relationship-type
 references: null
 
+external_equivalents:
+  dci:
+    label: "relationship_type"
+    uri: "https://schema.spdci.org/core/v1/data/relationship_type"
+    match: exact
+    vocabulary: "SPDCI Core"
+
 convergence:
   system_count: 6
   total_systems: 6

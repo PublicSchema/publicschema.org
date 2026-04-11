@@ -12,6 +12,14 @@ vocabulary: enrollment-status
 references: null
 domain_override: null
 
+external_equivalents:
+  dci:
+    label: "enrollment_status"
+    uri: "https://schema.spdci.org/extensions/ibr/v1/data/enrollment_status"
+    match: close
+    vocabulary: "SPDCI IBR"
+    note: "Same concept and name; DCI defines this on the Beneficiary entity"
+
 convergence:
   system_count: 5
   total_systems: 6

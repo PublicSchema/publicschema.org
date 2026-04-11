@@ -20,6 +20,12 @@ external_equivalents:
     vocabulary: "Core Location"
     note: "SEMIC adminUnitL2 is specifically the second-level admin unit (region/state); ours is a general administrative area field"
 
+  dci:
+    label: "region_code"
+    uri: "https://schema.spdci.org/core/v1/data/region_code"
+    match: close
+    vocabulary: "SPDCI Core"
+    note: "Both capture the first-level subnational division; DCI uses a code, PublicSchema uses a name"
 convergence:
   system_count: 2
   total_systems: 5

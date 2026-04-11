@@ -19,6 +19,11 @@ external_equivalents:
     vocabulary: "Core Person"
     note: "SEMIC uses skos:notation for the literal value of an identifier"
 
+  dci:
+    label: "identifier_value"
+    uri: "https://schema.spdci.org/core/v1/data/identifier_value"
+    match: exact
+    vocabulary: "SPDCI Core"
 convergence:
   system_count: 2
   total_systems: 5

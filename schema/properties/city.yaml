@@ -20,6 +20,12 @@ external_equivalents:
     vocabulary: "Core Location"
     note: "SEMIC postName is the city or locality associated with the postal address, which may differ from the municipality"
 
+  dci:
+    label: "locality"
+    uri: "https://schema.spdci.org/core/v1/data/locality"
+    match: exact
+    vocabulary: "SPDCI Core"
+    note: "DCI calls this field 'locality'; same concept as PublicSchema 'city'"
 convergence:
   system_count: 3
   total_systems: 5

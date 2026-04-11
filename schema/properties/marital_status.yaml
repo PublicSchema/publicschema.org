@@ -12,6 +12,14 @@ vocabulary: marital-status
 references: null
 sensitivity: sensitive
 
+external_equivalents:
+  dci:
+    label: "marital_status"
+    uri: "https://schema.spdci.org/core/v1/data/marital_status"
+    match: close
+    vocabulary: "SPDCI Core"
+    note: "Same concept; lives on Member in DCI but on Person in PublicSchema"
+
 convergence:
   system_count: 3
   total_systems: 5

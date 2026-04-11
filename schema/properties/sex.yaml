@@ -18,6 +18,11 @@ external_equivalents:
     match: exact
     vocabulary: "Core Person"
 
+  dci:
+    label: "sex"
+    uri: "https://schema.spdci.org/core/v1/data/sex"
+    match: exact
+    vocabulary: "SPDCI Core"
 convergence:
   system_count: 4
   total_systems: 5

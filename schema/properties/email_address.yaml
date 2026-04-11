@@ -19,3 +19,10 @@ external_equivalents:
     match: close
     vocabulary: "Core Person"
     note: "SEMIC places email on ContactPoint, not directly on Person"
+
+  dci:
+    label: "email"
+    uri: "https://schema.spdci.org/core/v1/data/email"
+    match: close
+    vocabulary: "SPDCI Core"
+    note: "Same concept; DCI uses 'email', PublicSchema uses 'email_address'"

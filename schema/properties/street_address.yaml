@@ -20,6 +20,12 @@ external_equivalents:
     vocabulary: "Core Location"
     note: "SEMIC thoroughfare is specifically the street name; ours may include the full street line with number"
 
+  dci:
+    label: "address_line_1"
+    uri: "https://schema.spdci.org/core/v1/data/address_line_1"
+    match: close
+    vocabulary: "SPDCI Core"
+    note: "PublicSchema uses a single street_address field; DCI splits into address_line_1 and address_line_2"
 convergence:
   system_count: 3
   total_systems: 5

@@ -20,6 +20,11 @@ external_equivalents:
     vocabulary: "Core Person"
     note: "SEMIC places telephone on ContactPoint, not directly on Person"
 
+  dci:
+    label: "phone_number"
+    uri: "https://schema.spdci.org/core/v1/data/phone_number"
+    match: exact
+    vocabulary: "SPDCI Core"
 convergence:
   system_count: 3
   total_systems: 6

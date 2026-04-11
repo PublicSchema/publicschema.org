@@ -11,6 +11,14 @@ cardinality: single
 vocabulary: group-type
 references: null
 
+external_equivalents:
+  dci:
+    label: "group_type"
+    uri: "https://schema.spdci.org/core/v1/data/group_type"
+    match: close
+    vocabulary: "SPDCI Core"
+    note: "Both classify the category of group; DCI uses AssistanceUnitEnum, PublicSchema uses a broader vocabulary"
+
 convergence:
   system_count: 4
   total_systems: 5
