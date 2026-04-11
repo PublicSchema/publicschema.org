@@ -4,29 +4,39 @@ domain: sp
 
 definition:
   en: >
-    A recognized right or claim of a participant to receive specific benefits or
-    services as defined by law or policy. An entitlement specifies the benefit
-    modality, amount, frequency, and currency.
+    An instance of a recognized right of a specific beneficiary to receive a
+    benefit. Each entitlement typically corresponds to one disbursement period,
+    but multiple entitlements may exist for the same enrollment and overlapping
+    periods (e.g., base transfer plus top-up, multi-tranche payments, or
+    emergency supplements). The entitlement references both the enrollment
+    (who) and the benefit schedule (what was promised).
   fr: >
-    Un droit reconnu ou une créance d'un participant à recevoir des prestations
-    ou services spécifiques tels que définis par la loi ou la politique. Un
-    droit précise la modalité de prestation, le montant, la fréquence et la devise.
+    Une instance d'un droit reconnu d'un beneficiaire specifique a recevoir
+    une prestation. Chaque droit correspond generalement a une periode de
+    versement, mais plusieurs droits peuvent exister pour la meme inscription
+    et des periodes chevauchantes (par ex., transfert de base plus
+    complement, paiements a tranches multiples ou supplements d'urgence).
+    Le droit reference a la fois l'inscription (qui) et le calendrier de
+    prestations (ce qui a ete promis).
   es: >
-    Un derecho reconocido o una reclamación de un participante para recibir
-    beneficios o servicios específicos según lo definido por la ley o la
-    política. Un derecho especifica la modalidad del beneficio, el monto, la
-    frecuencia y la moneda.
+    Una instancia de un derecho reconocido de un beneficiario especifico a
+    recibir un beneficio. Cada derecho corresponde tipicamente a un periodo
+    de desembolso, pero pueden existir multiples derechos para la misma
+    inscripcion y periodos superpuestos (por ej., transferencia base mas
+    complemento, pagos en multiples cuotas o suplementos de emergencia).
+    El derecho referencia tanto la inscripcion (quien) como el calendario
+    de beneficios (lo que se prometio).
 
 properties:
   - enrollment_ref
+  - schedule_ref
   - benefit_modality
   - benefit_description
   - amount
   - currency
-  - frequency
-  - frequency_rule
-  - start_date
-  - end_date
+  - coverage_period_start
+  - coverage_period_end
+  - entitlement_status
   - document_expiry_date
 
 subtypes: []

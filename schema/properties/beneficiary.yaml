@@ -6,10 +6,10 @@ definition:
   fr: "La personne ou le groupe inscrit dans le programme."
   es: "La persona o grupo inscrito en el programa."
 
-type: concept:Person
+type: concept:Party
 cardinality: single
 vocabulary: null
-references: Person
+references: Party
 domain_override: null
 
 convergence:

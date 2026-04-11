@@ -65,24 +65,6 @@ values:
       retirer de l'argent.
     es: Fondos cargados en una tarjeta prepaga física o virtual que el beneficiario utiliza para realizar compras o retirar
       efectivo.
-- code: e_voucher
-  label:
-    en: E-voucher
-    fr: Bon électronique
-    es: Vale electrónico
-  definition:
-    en: A digital code or token redeemable at participating vendors, typically via SMS or a mobile application.
-    fr: Un code ou jeton numérique échangeable auprès de vendeurs participants, généralement par SMS ou application mobile.
-    es: Un código o token digital canjeable en vendedores participantes, generalmente a través de SMS o aplicación móvil.
-- code: paper_voucher
-  label:
-    en: Paper voucher
-    fr: Bon papier
-    es: Vale en papel
-  definition:
-    en: A printed document redeemable at participating vendors for specific goods or services.
-    fr: Un document imprimé échangeable auprès de vendeurs participants contre des biens ou services spécifiques.
-    es: Un documento impreso canjeable en vendedores participantes por bienes o servicios específicos.
 - code: service_point
   label:
     en: Service point
@@ -120,6 +102,4 @@ system_mappings:
     unmapped_canonical:
     - agent_network
     - prepaid_card
-    - e_voucher
-    - paper_voucher
     - service_point

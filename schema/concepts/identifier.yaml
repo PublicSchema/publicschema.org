@@ -3,18 +3,20 @@ maturity: draft
 
 definition:
   en: >
-    A unique alphanumeric code assigned to a person by a system or authority,
-    such as a national ID number, birth certificate number, or program-assigned
-    beneficiary code.
+    A unique alphanumeric code assigned to a party (person or group) by a
+    system or authority, such as a national ID number, birth certificate
+    number, household registration number, or program-assigned beneficiary
+    code.
   fr: >
-    Un code alphanumerique unique attribue a une personne par un systeme
-    ou une autorite, tel qu'un numero d'identite nationale, un numero
-    d'acte de naissance ou un code beneficiaire attribue par un programme.
+    Un code alphanumerique unique attribue a une partie (personne ou groupe)
+    par un systeme ou une autorite, tel qu'un numero d'identite nationale,
+    un numero d'acte de naissance, un numero d'enregistrement de menage ou
+    un code beneficiaire attribue par un programme.
   es: >
-    Un codigo alfanumerico unico asignado a una persona por un sistema
-    o autoridad, como un numero de identidad nacional, numero de
-    certificado de nacimiento o codigo de beneficiario asignado por
-    un programa.
+    Un codigo alfanumerico unico asignado a una parte (persona o grupo)
+    por un sistema o autoridad, como un numero de identidad nacional,
+    numero de certificado de nacimiento, numero de registro de hogar o
+    codigo de beneficiario asignado por un programa.
 
 properties:
   - identifier_type

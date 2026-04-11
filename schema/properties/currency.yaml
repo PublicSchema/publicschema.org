@@ -2,9 +2,9 @@ id: currency
 maturity: draft
 
 definition:
-  en: "The ISO 4217 currency code for a monetary entitlement."
-  fr: "Le code de devise ISO 4217 pour une prestation monétaire."
-  es: "El código de moneda ISO 4217 para una prestación monetaria."
+  en: "The ISO 4217 currency code for a monetary value."
+  fr: "Le code de devise ISO 4217 pour une valeur monetaire."
+  es: "El codigo de moneda ISO 4217 para un valor monetario."
 
 type: string
 cardinality: single

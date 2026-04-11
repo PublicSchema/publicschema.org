@@ -2,9 +2,9 @@ id: amount
 maturity: draft
 
 definition:
-  en: "The monetary or quantitative value of the entitlement per delivery cycle."
-  fr: "La valeur monétaire ou quantitative de l'ayant droit par cycle de versement."
-  es: "El valor monetario o cuantitativo del derecho por ciclo de entrega."
+  en: "The monetary or quantitative value associated with this record."
+  fr: "La valeur monetaire ou quantitative associee a cet enregistrement."
+  es: "El valor monetario o cuantitativo asociado a este registro."
 
 type: decimal
 cardinality: single

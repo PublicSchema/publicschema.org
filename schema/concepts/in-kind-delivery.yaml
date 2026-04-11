@@ -1,0 +1,43 @@
+id: InKindDelivery
+maturity: draft
+
+definition:
+  en: >
+    A record of a direct physical distribution of goods or services from a
+    program to a beneficiary, with no financial instrument involved. Covers
+    food distribution, supply kits, agricultural inputs, school feeding, and
+    direct service provision. Multiple in-kind deliveries may fulfill a single
+    entitlement.
+  fr: >
+    Un enregistrement d'une distribution physique directe de biens ou de
+    services d'un programme vers un beneficiaire, sans instrument financier
+    implique. Couvre la distribution alimentaire, les kits de fournitures,
+    les intrants agricoles, l'alimentation scolaire et la prestation directe
+    de services. Plusieurs livraisons en nature peuvent remplir un seul droit.
+  es: >
+    Un registro de una distribucion fisica directa de bienes o servicios de
+    un programa a un beneficiario, sin instrumento financiero involucrado.
+    Cubre la distribucion de alimentos, kits de suministros, insumos
+    agricolas, alimentacion escolar y prestacion directa de servicios.
+    Varias entregas en especie pueden cumplir un solo derecho.
+
+properties:
+  - entitlement_ref
+  - enrollment_ref
+  - recipient
+  - items
+  - delivery_date
+  - delivery_location
+  - delivery_status
+
+subtypes: []
+supertypes: []
+
+convergence:
+  system_count: 0
+  total_systems: 6
+  notes: >
+    No direct analog in the six mapped SP systems. In-kind distribution
+    tracking is common in humanitarian programs (WFP General Food Distribution,
+    UNICEF supply programs) but these are not among the currently mapped
+    targets.

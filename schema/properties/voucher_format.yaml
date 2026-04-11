@@ -1,0 +1,16 @@
+id: voucher_format
+maturity: draft
+
+definition:
+  en: "The physical or digital form of the voucher."
+  fr: "La forme physique ou numerique du bon."
+  es: "La forma fisica o digital del vale."
+
+type: string
+cardinality: single
+vocabulary: voucher-format
+references: null
+
+convergence:
+  system_count: 0
+  total_systems: 6

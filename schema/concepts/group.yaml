@@ -18,12 +18,13 @@ definition:
 
 properties:
   - name
+  - identifiers
   - group_type
   - formation_date
   - member_count
   - memberships
 
-supertypes: []
+supertypes: [Party]
 subtypes: [Household, Family, Farm]
 
 convergence:

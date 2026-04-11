@@ -1,0 +1,17 @@
+id: delivery_status
+maturity: draft
+
+definition:
+  en: "The status of this in-kind delivery."
+  fr: "Le statut de cette livraison en nature."
+  es: "El estado de esta entrega en especie."
+
+type: string
+cardinality: single
+vocabulary: payment-status
+references: null
+
+convergence:
+  system_count: 0
+  total_systems: 6
+  notes: "Reuses the payment-status vocabulary. Not all values apply equally (e.g., 'reconciled' is less common for in-kind). A dedicated vocabulary may be warranted in future."

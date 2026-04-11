@@ -1,0 +1,52 @@
+id: entitlement-status
+maturity: draft
+definition:
+  en: The lifecycle states of a benefit entitlement instance, from approval through fulfillment.
+  fr: Les etats du cycle de vie d'une instance de droit a prestation, de l'approbation a l'execution.
+  es: Los estados del ciclo de vida de una instancia de derecho a prestacion, desde la aprobacion hasta el cumplimiento.
+values:
+- code: approved
+  label:
+    en: Approved
+    fr: Approuve
+    es: Aprobado
+  definition:
+    en: The entitlement has been confirmed and is awaiting fulfillment.
+    fr: Le droit a ete confirme et est en attente d'execution.
+    es: El derecho ha sido confirmado y esta pendiente de cumplimiento.
+- code: suspended
+  label:
+    en: Suspended
+    fr: Suspendu
+    es: Suspendido
+  definition:
+    en: The entitlement is temporarily withheld, for example due to a failed conditionality check or pending verification.
+    fr: Le droit est temporairement retenu, par exemple en raison d'un controle de conditionnalite echoue ou d'une verification en cours.
+    es: El derecho esta temporalmente retenido, por ejemplo debido a una verificacion de condicionalidad fallida o una verificacion pendiente.
+- code: cancelled
+  label:
+    en: Cancelled
+    fr: Annule
+    es: Cancelado
+  definition:
+    en: The entitlement has been withdrawn and will not be fulfilled.
+    fr: Le droit a ete retire et ne sera pas execute.
+    es: El derecho ha sido retirado y no sera cumplido.
+- code: partially_fulfilled
+  label:
+    en: Partially fulfilled
+    fr: Partiellement execute
+    es: Parcialmente cumplido
+  definition:
+    en: Some but not all of the entitled amount has been delivered, for example one tranche of a multi-tranche payment or a voucher issued but not yet redeemed.
+    fr: Une partie mais pas la totalite du montant du droit a ete versee, par exemple une tranche d'un paiement a tranches multiples ou un bon emis mais pas encore echange.
+    es: Se ha entregado parte pero no la totalidad del monto del derecho, por ejemplo una cuota de un pago en multiples cuotas o un vale emitido pero aun no canjeado.
+- code: fulfilled
+  label:
+    en: Fulfilled
+    fr: Execute
+    es: Cumplido
+  definition:
+    en: The full entitled amount has been delivered to the beneficiary.
+    fr: Le montant total du droit a ete verse au beneficiaire.
+    es: El monto total del derecho ha sido entregado al beneficiario.

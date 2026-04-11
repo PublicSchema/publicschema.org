@@ -1,0 +1,16 @@
+id: redemption_agent
+maturity: draft
+
+definition:
+  en: "The merchant, vendor, or agent who accepted the voucher for redemption."
+  fr: "Le commercant, vendeur ou agent qui a accepte le bon pour l'echange."
+  es: "El comerciante, vendedor o agente que acepto el vale para el canje."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+
+convergence:
+  system_count: 0
+  total_systems: 6

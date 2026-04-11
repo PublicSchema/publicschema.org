@@ -1,0 +1,16 @@
+id: entitlement_ref
+maturity: draft
+
+definition:
+  en: "Reference to the entitlement that this payment or voucher fulfills."
+  fr: "Reference au droit que ce paiement ou bon remplit."
+  es: "Referencia al derecho que este pago o vale cumple."
+
+type: uri
+cardinality: single
+vocabulary: null
+references: Entitlement
+
+convergence:
+  system_count: 0
+  total_systems: 6

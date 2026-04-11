@@ -1,0 +1,33 @@
+id: Party
+maturity: draft
+
+definition:
+  en: >
+    A person or organized group of persons that can be identified, enrolled in
+    programs, and receive benefits or services. Party is the shared supertype
+    for Person and Group, enabling references that accept either.
+  fr: >
+    Une personne ou un groupe organise de personnes pouvant etre identifie,
+    inscrit dans des programmes et recevoir des prestations ou des services.
+    Party est le supertype partage pour Person et Group, permettant des
+    references acceptant l'un ou l'autre.
+  es: >
+    Una persona o grupo organizado de personas que puede ser identificado,
+    inscrito en programas y recibir beneficios o servicios. Party es el
+    supertipo compartido para Person y Group, permitiendo referencias que
+    aceptan cualquiera de los dos.
+
+properties:
+  - name
+  - identifiers
+
+subtypes: [Person, Group]
+supertypes: []
+
+convergence:
+  system_count: 6
+  total_systems: 6
+  notes: >
+    All mapped systems distinguish between individual and group-level records
+    but share common identification and naming properties across both.
+    OpenSPP models this explicitly as "Registrant."

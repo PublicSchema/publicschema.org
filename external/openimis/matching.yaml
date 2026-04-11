@@ -145,7 +145,7 @@ matches:
       "M": mobile_money
       "F": other
     gaps:
-      v2_only: [agent_network, prepaid_card, e_voucher, paper_voucher, service_point]
+      v2_only: [agent_network, prepaid_card, service_point]
       external_only: []
 
   - v2_vocabulary: grievance-status

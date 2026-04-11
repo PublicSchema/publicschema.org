@@ -1,0 +1,16 @@
+id: redeemable_by
+maturity: draft
+
+definition:
+  en: "The person or group authorized to redeem this voucher on behalf of the beneficiary."
+  fr: "La personne ou le groupe autorise a echanger ce bon au nom du beneficiaire."
+  es: "La persona o grupo autorizado para canjear este vale en nombre del beneficiario."
+
+type: concept:Party
+cardinality: multiple
+vocabulary: null
+references: Party
+
+convergence:
+  system_count: 0
+  total_systems: 6

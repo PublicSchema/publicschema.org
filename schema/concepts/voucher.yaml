@@ -1,0 +1,54 @@
+id: Voucher
+maturity: draft
+
+definition:
+  en: >
+    A redeemable instrument issued to a beneficiary as fulfillment of a
+    benefit entitlement. A voucher has a distinct lifecycle: creation,
+    issuance, redemption, expiry, or cancellation. It may be electronic
+    (digital code, SMS, QR) or paper. Multiple vouchers may fulfill a
+    single entitlement, and a voucher's face value may differ from the
+    entitlement amount.
+  fr: >
+    Un instrument echangeable emis au benefice d'un beneficiaire en
+    execution d'un droit a prestation. Un bon a un cycle de vie distinct:
+    creation, emission, echange, expiration ou annulation. Il peut etre
+    electronique (code numerique, SMS, QR) ou papier. Plusieurs bons
+    peuvent remplir un seul droit, et la valeur nominale d'un bon peut
+    differer du montant du droit.
+  es: >
+    Un instrumento canjeable emitido a un beneficiario como cumplimiento
+    de un derecho a prestacion. Un vale tiene un ciclo de vida distinto:
+    creacion, emision, canje, vencimiento o cancelacion. Puede ser
+    electronico (codigo digital, SMS, QR) o en papel. Varios vales pueden
+    cumplir un solo derecho, y el valor nominal de un vale puede diferir
+    del monto del derecho.
+
+properties:
+  - entitlement_ref
+  - issued_to
+  - redeemable_by
+  - serial_number
+  - amount
+  - currency
+  - voucher_status
+  - voucher_format
+  - issue_date
+  - expiry_date
+  - redemption_date
+  - redeemed_by
+  - redemption_agent
+  - items
+
+subtypes: []
+supertypes: []
+
+convergence:
+  system_count: 0
+  total_systems: 6
+  notes: >
+    None of the six currently mapped SP systems model vouchers as standalone
+    entities. GovStack Payments Building Block (a specification, not a mapped
+    system) models vouchers as first-class entities with a full lifecycle API.
+    Voucher-based delivery is common in humanitarian programs (WFP SCOPE,
+    UNICEF RapidPro). Expect gap-heavy SSSOM mappings initially.

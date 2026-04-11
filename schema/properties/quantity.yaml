@@ -1,0 +1,16 @@
+id: quantity
+maturity: draft
+
+definition:
+  en: "The amount of a commodity in the specified unit of measure."
+  fr: "La quantite d'un produit dans l'unite de mesure specifiee."
+  es: "La cantidad de un producto en la unidad de medida especificada."
+
+type: decimal
+cardinality: single
+vocabulary: null
+references: null
+
+convergence:
+  system_count: 0
+  total_systems: 6

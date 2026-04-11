@@ -2,9 +2,9 @@ id: issue_date
 maturity: draft
 
 definition:
-  en: "The date on which the identifier was issued."
-  fr: "La date a laquelle l'identifiant a ete delivre."
-  es: "La fecha en que se emitio el identificador."
+  en: "The date on which this record or document was issued."
+  fr: "La date a laquelle cet enregistrement ou document a ete delivre."
+  es: "La fecha en que se emitio este registro o documento."
 
 type: date
 cardinality: single

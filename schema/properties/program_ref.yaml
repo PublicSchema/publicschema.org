@@ -2,14 +2,14 @@ id: program_ref
 maturity: draft
 
 definition:
-  en: "Reference to the program in which the beneficiary is enrolled."
-  fr: "Référence au programme dans lequel le bénéficiaire est inscrit."
-  es: "Referencia al programa en el que el beneficiario está inscrito."
+  en: "Reference to the program."
+  fr: "Reference au programme."
+  es: "Referencia al programa."
 
 type: uri
 cardinality: single
 vocabulary: null
-references: null
+references: Program
 sensitivity: sensitive
 
 convergence:

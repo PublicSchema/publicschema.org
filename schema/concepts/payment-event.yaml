@@ -3,27 +3,34 @@ maturity: draft
 
 definition:
   en: >
-    A record of a single transfer of value from a program to a beneficiary.
-    Captures the amount, date, status, delivery channel, and reconciliation
-    state of each disbursement in the payment cycle.
+    A record of a direct monetary transfer from a program to a beneficiary.
+    Covers bank transfer, mobile money, cash, agent network, and prepaid card
+    channels. Multiple payment events may fulfill a single entitlement (e.g.,
+    split payments, multi-tranche disbursements, or retries after failure).
   fr: >
-    Un enregistrement d'un transfert unique de valeur d'un programme vers un
-    bénéficiaire. Capture le montant, la date, le statut, le canal de livraison
-    et l'état de réconciliation de chaque versement dans le cycle de paiement.
+    Un enregistrement d'un transfert monetaire direct d'un programme vers un
+    beneficiaire. Couvre les canaux de virement bancaire, monnaie mobile,
+    especes, reseau d'agents et carte prepayee. Plusieurs evenements de
+    paiement peuvent remplir un seul droit (par ex., paiements fractionnes,
+    versements a tranches multiples ou nouvelles tentatives apres echec).
   es: >
-    Un registro de una única transferencia de valor de un programa a un
-    beneficiario. Captura el monto, la fecha, el estado, el canal de entrega y
-    el estado de conciliación de cada desembolso en el ciclo de pago.
+    Un registro de una transferencia monetaria directa de un programa a un
+    beneficiario. Cubre los canales de transferencia bancaria, dinero movil,
+    efectivo, red de agentes y tarjeta prepaga. Varios eventos de pago pueden
+    cumplir un solo derecho (por ej., pagos fraccionados, desembolsos en
+    multiples cuotas o reintentos tras fallo).
 
 properties:
+  - entitlement_ref
+  - enrollment_ref
+  - recipient
   - payment_amount
+  - payment_currency
   - payment_date
   - payment_status
-  - recipient
-  - enrollment_ref
   - delivery_channel
   - transaction_reference
-  - payment_currency
+  - failure_reason
 
 subtypes: []
 supertypes: []

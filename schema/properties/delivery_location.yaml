@@ -1,0 +1,16 @@
+id: delivery_location
+maturity: draft
+
+definition:
+  en: "The location where the distribution took place, such as a distribution point, school, or health facility."
+  fr: "Le lieu ou la distribution a eu lieu, comme un point de distribution, une ecole ou un etablissement de sante."
+  es: "El lugar donde se realizo la distribucion, como un punto de distribucion, escuela o centro de salud."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+
+convergence:
+  system_count: 0
+  total_systems: 6

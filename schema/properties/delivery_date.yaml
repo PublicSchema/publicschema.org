@@ -1,0 +1,16 @@
+id: delivery_date
+maturity: draft
+
+definition:
+  en: "The date on which the goods or services were distributed to the beneficiary."
+  fr: "La date a laquelle les biens ou services ont ete distribues au beneficiaire."
+  es: "La fecha en que los bienes o servicios fueron distribuidos al beneficiario."
+
+type: date
+cardinality: single
+vocabulary: null
+references: null
+
+convergence:
+  system_count: 0
+  total_systems: 6

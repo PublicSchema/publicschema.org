@@ -1,0 +1,16 @@
+id: issued_to
+maturity: draft
+
+definition:
+  en: "The person, household, or group to whom the voucher is assigned."
+  fr: "La personne, le menage ou le groupe auquel le bon est attribue."
+  es: "La persona, hogar o grupo al que se asigna el vale."
+
+type: concept:Party
+cardinality: single
+vocabulary: null
+references: Party
+
+convergence:
+  system_count: 0
+  total_systems: 6

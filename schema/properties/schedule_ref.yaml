@@ -1,0 +1,16 @@
+id: schedule_ref
+maturity: draft
+
+definition:
+  en: "Reference to the benefit schedule that this entitlement instantiates."
+  fr: "Reference au calendrier de prestations que ce droit instancie."
+  es: "Referencia al calendario de beneficios que esta instancia de derecho representa."
+
+type: uri
+cardinality: single
+vocabulary: null
+references: BenefitSchedule
+
+convergence:
+  system_count: 0
+  total_systems: 6

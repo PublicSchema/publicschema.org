@@ -44,7 +44,7 @@ properties:
   - group_memberships
 
 subtypes: []
-supertypes: []
+supertypes: [Party]
 
 convergence:
   system_count: 6

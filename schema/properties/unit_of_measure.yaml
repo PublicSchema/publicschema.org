@@ -1,0 +1,16 @@
+id: unit_of_measure
+maturity: draft
+
+definition:
+  en: "The unit in which the quantity is expressed."
+  fr: "L'unite dans laquelle la quantite est exprimee."
+  es: "La unidad en la que se expresa la cantidad."
+
+type: string
+cardinality: single
+vocabulary: unit-of-measure
+references: null
+
+convergence:
+  system_count: 0
+  total_systems: 6

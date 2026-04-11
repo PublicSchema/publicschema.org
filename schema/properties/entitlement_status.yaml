@@ -1,0 +1,16 @@
+id: entitlement_status
+maturity: draft
+
+definition:
+  en: "The lifecycle state of this entitlement instance."
+  fr: "L'etat du cycle de vie de cette instance de droit."
+  es: "El estado del ciclo de vida de esta instancia de derecho."
+
+type: string
+cardinality: single
+vocabulary: entitlement-status
+references: null
+
+convergence:
+  system_count: 0
+  total_systems: 6

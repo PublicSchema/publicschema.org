@@ -1,0 +1,16 @@
+id: items
+maturity: draft
+
+definition:
+  en: "The list of commodity line items in this delivery or voucher."
+  fr: "La liste des lignes de produits dans cette livraison ou ce bon."
+  es: "La lista de lineas de productos en esta entrega o vale."
+
+type: concept:DeliveryItem
+cardinality: multiple
+vocabulary: null
+references: DeliveryItem
+
+convergence:
+  system_count: 0
+  total_systems: 6

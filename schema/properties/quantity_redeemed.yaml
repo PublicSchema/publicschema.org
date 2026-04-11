@@ -1,0 +1,16 @@
+id: quantity_redeemed
+maturity: draft
+
+definition:
+  en: "The amount of this commodity that has been redeemed or collected so far."
+  fr: "La quantite de ce produit qui a ete echangee ou collectee jusqu'a present."
+  es: "La cantidad de este producto que ha sido canjeada o recolectada hasta el momento."
+
+type: decimal
+cardinality: single
+vocabulary: null
+references: null
+
+convergence:
+  system_count: 0
+  total_systems: 6

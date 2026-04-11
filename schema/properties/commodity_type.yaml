@@ -1,0 +1,16 @@
+id: commodity_type
+maturity: draft
+
+definition:
+  en: "The type of commodity or goods being delivered or redeemable."
+  fr: "Le type de produit ou de bien livre ou echangeable."
+  es: "El tipo de producto o bien entregado o canjeable."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+
+convergence:
+  system_count: 0
+  total_systems: 6

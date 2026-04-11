@@ -1,0 +1,16 @@
+id: coverage_period_end
+maturity: draft
+
+definition:
+  en: "The end date of the period this entitlement covers."
+  fr: "La date de fin de la periode couverte par ce droit."
+  es: "La fecha de fin del periodo que cubre este derecho."
+
+type: date
+cardinality: single
+vocabulary: null
+references: null
+
+convergence:
+  system_count: 0
+  total_systems: 6

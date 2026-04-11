@@ -2,9 +2,9 @@ id: expiry_date
 maturity: draft
 
 definition:
-  en: "The date on which the identifier expires or becomes invalid."
-  fr: "La date a laquelle l'identifiant expire ou devient invalide."
-  es: "La fecha en que el identificador expira o deja de ser valido."
+  en: "The date on which this record or document expires or becomes invalid."
+  fr: "La date a laquelle cet enregistrement ou document expire ou devient invalide."
+  es: "La fecha en que este registro o documento expira o deja de ser valido."
 
 type: date
 cardinality: single

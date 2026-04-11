@@ -1,0 +1,45 @@
+id: BenefitSchedule
+maturity: draft
+domain: sp
+
+definition:
+  en: >
+    A program-level definition of a benefit stream that specifies the modality,
+    amount, frequency, and time period over which benefits are provided. A
+    program may have one or more benefit schedules (e.g., a monthly cash
+    transfer and an annual school supplies kit).
+  fr: >
+    Une definition au niveau du programme d'un flux de prestations qui
+    specifie la modalite, le montant, la frequence et la periode pendant
+    laquelle les prestations sont fournies. Un programme peut avoir un ou
+    plusieurs calendriers de prestations (par ex., un transfert monetaire
+    mensuel et un kit de fournitures scolaires annuel).
+  es: >
+    Una definicion a nivel de programa de un flujo de beneficios que
+    especifica la modalidad, el monto, la frecuencia y el periodo durante
+    el cual se proporcionan los beneficios. Un programa puede tener uno o
+    mas calendarios de beneficios (por ej., una transferencia monetaria
+    mensual y un kit de utiles escolares anual).
+
+properties:
+  - program_ref
+  - benefit_modality
+  - benefit_description
+  - amount
+  - currency
+  - frequency
+  - frequency_rule
+  - start_date
+  - end_date
+
+subtypes: []
+supertypes: []
+
+convergence:
+  system_count: 4
+  total_systems: 6
+  notes: >
+    openIMIS has BenefitPlan, OpenSPP has entitlement managers, SPDCI has
+    BenefitType. The separation between program-level benefit design and
+    per-instance entitlement is present in most systems, though often as
+    configuration rather than a first-class entity.

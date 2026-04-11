@@ -64,12 +64,53 @@ Always disclosed:
 - `payment_date`
 
 Selectively disclosable:
+- `entitlement_ref`
+- `enrollment_ref`
 - `payment_amount`, `payment_currency`
 - `delivery_channel`
 - `transaction_reference`
+- `failure_reason`
 - Person identity claims
 
-**Use case**: Proof of payment receipt. An auditor needs to verify payments were made. The holder discloses payment_amount, payment_date, and transaction_reference, but not their personal identity.
+**Use case**: Proof of payment receipt. An auditor needs to verify payments were made. The holder discloses payment_amount, payment_date, and transaction_reference, but not their personal identity. For failed payments, failure_reason can be disclosed to support dispute resolution.
+
+### VoucherCredential
+
+Always disclosed:
+- `type` (Voucher)
+- `voucher_status`
+- `serial_number`
+- `expiry_date`
+
+Selectively disclosable:
+- `entitlement_ref`
+- `issued_to`
+- `redeemable_by`
+- `amount`, `currency`
+- `voucher_format`
+- `items` (each delivery item can be disclosed independently)
+- `issue_date`
+- `redemption_date`, `redeemed_by`, `redemption_agent`
+
+**Use case**: Voucher redemption at a vendor. The holder presents the voucher credential. The vendor needs to confirm the voucher is valid (status), identify it (serial number), and check it has not expired (expiry date). The holder can selectively disclose the face value or commodity basket (items) while keeping their identity hidden. Post-redemption fields (redemption_date, redeemed_by) support audit without requiring re-presentation of identity claims.
+
+### EntitlementCredential
+
+Always disclosed:
+- `type` (Entitlement)
+- `entitlement_status`
+- `coverage_period_start`, `coverage_period_end`
+
+Selectively disclosable:
+- `enrollment_ref`
+- `schedule_ref`
+- `benefit_modality`
+- `benefit_description`
+- `amount`, `currency`
+- `document_expiry_date`
+- Person identity claims (via enrollment chain)
+
+**Use case**: Proof of benefit entitlement. A beneficiary needs to demonstrate they are entitled to a benefit for a specific period (e.g., to access a complementary service). The holder discloses entitlement_status (approved) and coverage period, keeping program details and identity hidden. Note: per-cycle entitlements are short-lived, so credential rotation is frequent; `document_expiry_date` controls VC validity independent of the coverage period.
 
 ## SD-JWT VC Payload Structure
 

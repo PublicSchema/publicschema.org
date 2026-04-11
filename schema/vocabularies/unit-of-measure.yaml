@@ -1,0 +1,85 @@
+id: unit-of-measure
+maturity: draft
+definition:
+  en: Units of measure for quantities of goods distributed or redeemable through benefit programs.
+  fr: Unites de mesure pour les quantites de biens distribues ou echangeables dans les programmes de prestations.
+  es: Unidades de medida para las cantidades de bienes distribuidos o canjeables a traves de programas de beneficios.
+references:
+  - name: "UN/CEFACT Recommendation 20 - Codes for Units of Measure"
+    uri: "https://unece.org/trade/uncefact/cl-recommendations"
+    relationship: superset
+    machine_readable: true
+    notes: "UN/CEFACT Rec 20 is the authoritative standard for trade units. This vocabulary is a small subset covering common humanitarian and social protection commodities."
+values:
+- code: kg
+  label:
+    en: Kilogram
+    fr: Kilogramme
+    es: Kilogramo
+  definition:
+    en: Unit of mass equal to 1,000 grams.
+    fr: Unite de masse egale a 1 000 grammes.
+    es: Unidad de masa igual a 1.000 gramos.
+- code: g
+  label:
+    en: Gram
+    fr: Gramme
+    es: Gramo
+  definition:
+    en: Unit of mass equal to one thousandth of a kilogram.
+    fr: Unite de masse egale a un millieme de kilogramme.
+    es: Unidad de masa igual a una milesima de kilogramo.
+- code: l
+  label:
+    en: Litre
+    fr: Litre
+    es: Litro
+  definition:
+    en: Unit of volume equal to 1,000 cubic centimetres.
+    fr: Unite de volume egale a 1 000 centimetres cubes.
+    es: Unidad de volumen igual a 1.000 centimetros cubicos.
+- code: ml
+  label:
+    en: Millilitre
+    fr: Millilitre
+    es: Mililitro
+  definition:
+    en: Unit of volume equal to one thousandth of a litre.
+    fr: Unite de volume egale a un millieme de litre.
+    es: Unidad de volumen igual a una milesima de litro.
+- code: unit
+  label:
+    en: Unit
+    fr: Unite
+    es: Unidad
+  definition:
+    en: A discrete countable item (e.g., one textbook, one seed packet).
+    fr: Un article denombrable discret (par ex., un manuel, un paquet de semences).
+    es: Un articulo contable discreto (por ej., un libro de texto, un paquete de semillas).
+- code: kit
+  label:
+    en: Kit
+    fr: Kit
+    es: Kit
+  definition:
+    en: A pre-assembled package of multiple items (e.g., hygiene kit, education kit).
+    fr: Un ensemble pre-assemble de plusieurs articles (par ex., kit d'hygiene, kit educatif).
+    es: Un paquete preensamblado de multiples articulos (por ej., kit de higiene, kit educativo).
+- code: meal
+  label:
+    en: Meal
+    fr: Repas
+    es: Comida
+  definition:
+    en: A single prepared meal serving (used in school feeding and institutional programs).
+    fr: Une portion de repas prepare (utilise dans les programmes d'alimentation scolaire et institutionnels).
+    es: Una porcion de comida preparada (utilizada en programas de alimentacion escolar e institucionales).
+- code: mt
+  label:
+    en: Metric ton
+    fr: Tonne metrique
+    es: Tonelada metrica
+  definition:
+    en: Unit of mass equal to 1,000 kilograms. Used for bulk commodity tracking.
+    fr: Unite de masse egale a 1 000 kilogrammes. Utilisee pour le suivi des produits en vrac.
+    es: Unidad de masa igual a 1.000 kilogramos. Utilizada para el seguimiento de productos a granel.

@@ -1,0 +1,37 @@
+id: DeliveryItem
+maturity: draft
+
+definition:
+  en: >
+    A line item describing a specific commodity and quantity within a delivery
+    or voucher. Used to represent food baskets, supply kits, and other
+    composite benefits where multiple commodities are included at specified
+    quantities.
+  fr: >
+    Une ligne de detail decrivant un produit specifique et sa quantite dans
+    une livraison ou un bon. Utilise pour representer les paniers
+    alimentaires, les kits de fournitures et d'autres prestations composites
+    ou plusieurs produits sont inclus a des quantites specifiees.
+  es: >
+    Una linea de detalle que describe un producto especifico y su cantidad
+    dentro de una entrega o vale. Se utiliza para representar canastas de
+    alimentos, kits de suministros y otros beneficios compuestos donde se
+    incluyen multiples productos en cantidades especificadas.
+
+properties:
+  - commodity_type
+  - quantity
+  - unit_of_measure
+  - quantity_redeemed
+  - description
+
+subtypes: []
+supertypes: []
+
+convergence:
+  system_count: 0
+  total_systems: 6
+  notes: >
+    No direct analog in the six mapped SP systems. Commodity line items are
+    common in humanitarian logistics systems (WFP LESS, UNICEF supply chain)
+    but these are not among the currently mapped targets.
