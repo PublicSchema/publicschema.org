@@ -156,9 +156,9 @@ function collectAllSubtypes(conceptId: string): string[] {
         const ownIds = new Set(concept.properties.map((ref) => ref.id));
         const inheritedProps = collectInheritedProperties(termId, new Set(ownIds));
         const allProps = [
-          ...propList.map((p) => ({ ...p, from: null as string | null })),
           ...inheritedProps,
-        ].sort((a, b) => a.id.localeCompare(b.id));
+          ...propList.map((p) => ({ ...p, from: null as string | null })),
+        ];
         return (
           <div class="concept-section">
             <h2>Properties</h2>
