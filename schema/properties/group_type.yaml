@@ -16,7 +16,7 @@ external_equivalents:
     label: "group_type"
     uri: "https://schema.spdci.org/core/v1/data/group_type"
     match: close
-    vocabulary: "SPDCI Core"
+    vocabulary: "DCI Core"
     note: "Both classify the category of group; DCI uses AssistanceUnitEnum, PublicSchema uses a broader vocabulary"
 
 convergence:

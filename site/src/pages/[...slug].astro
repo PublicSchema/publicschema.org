@@ -116,37 +116,6 @@ function collectAllSubtypes(conceptId: string): string[] {
         <a href={`${concept.path}-template.xlsx`} class="btn btn-secondary" download>Template (Excel)</a>
       </div>
 
-      {concept.external_equivalents && Object.keys(concept.external_equivalents).length > 0 && (
-        <div class="concept-section">
-          <h2>Aligned standards</h2>
-          <table class="data-table">
-            <thead>
-              <tr>
-                <th>Standard</th>
-                <th>Equivalent</th>
-                <th>Match</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Object.entries(concept.external_equivalents).map(([key, eq]) => (
-                <>
-                  <tr>
-                    <td>{eq.vocabulary}</td>
-                    <td><a href={eq.uri} target="_blank" rel="noopener">{eq.label}</a></td>
-                    <td><span class={`badge badge-${eq.match}`}>{eq.match.replace('_', ' ')}</span></td>
-                  </tr>
-                  {eq.note && (
-                    <tr class="aligned-note-row">
-                      <td colspan="3" class="aligned-note">{eq.note}</td>
-                    </tr>
-                  )}
-                </>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
-
       {concept.supertypes.length > 0 && (
         <div class="concept-section">
           <h2>Supertypes</h2>
@@ -246,6 +215,52 @@ function collectAllSubtypes(conceptId: string): string[] {
         );
       })()}
 
+      {(concept.convergence || (concept.external_equivalents && Object.keys(concept.external_equivalents).length > 0)) && (
+        <div class="concept-section">
+          <h2>Evidence</h2>
+          {concept.convergence && (
+            <p class="evidence-convergence">
+              {concept.convergence.system_count === concept.convergence.total_systems
+                ? <>Present in all <strong>{concept.convergence.total_systems}</strong> mapped delivery systems.</>
+                : concept.convergence.system_count === 0
+                  ? <>Not yet found in mapped delivery systems.</>
+                  : <>Present in <strong>{concept.convergence.system_count}</strong> of {concept.convergence.total_systems} mapped delivery systems.</>
+              }
+            </p>
+          )}
+          {concept.convergence?.notes && (
+            <p class="evidence-notes">{concept.convergence.notes}</p>
+          )}
+          {concept.external_equivalents && Object.keys(concept.external_equivalents).length > 0 && (
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Standard</th>
+                  <th>Equivalent</th>
+                  <th>Match</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.entries(concept.external_equivalents).map(([key, eq]) => (
+                  <>
+                    <tr>
+                      <td>{eq.vocabulary}</td>
+                      <td><a href={eq.uri} target="_blank" rel="noopener">{eq.label}</a></td>
+                      <td><span class={`badge badge-${eq.match}`}>{eq.match.replace('_', ' ')}</span></td>
+                    </tr>
+                    {eq.note && (
+                      <tr class="aligned-note-row">
+                        <td colspan="3" class="aligned-note">{eq.note}</td>
+                      </tr>
+                    )}
+                  </>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
+      )}
+
       </article>
     </Base>
   );
@@ -279,34 +294,49 @@ function collectAllSubtypes(conceptId: string): string[] {
         <a href={`${prop.path}.jsonld`} class="btn btn-secondary">JSON-LD</a>
       </div>
 
-      {prop.external_equivalents && Object.keys(prop.external_equivalents).length > 0 && (
+      {(prop.convergence || (prop.external_equivalents && Object.keys(prop.external_equivalents).length > 0)) && (
         <div class="concept-section">
-          <h2>Aligned standards</h2>
-          <table class="data-table">
-            <thead>
-              <tr>
-                <th>Standard</th>
-                <th>Equivalent</th>
-                <th>Match</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Object.entries(prop.external_equivalents).map(([key, eq]) => (
-                <>
-                  <tr>
-                    <td>{eq.vocabulary}</td>
-                    <td><a href={eq.uri} target="_blank" rel="noopener">{eq.label}</a></td>
-                    <td><span class={`badge badge-${eq.match}`}>{eq.match.replace('_', ' ')}</span></td>
-                  </tr>
-                  {eq.note && (
-                    <tr class="aligned-note-row">
-                      <td colspan="3" class="aligned-note">{eq.note}</td>
+          <h2>Evidence</h2>
+          {prop.convergence && (
+            <p class="evidence-convergence">
+              {prop.convergence.system_count === prop.convergence.total_systems
+                ? <>Present in all <strong>{prop.convergence.total_systems}</strong> mapped delivery systems.</>
+                : prop.convergence.system_count === 0
+                  ? <>Not yet found in mapped delivery systems.</>
+                  : <>Present in <strong>{prop.convergence.system_count}</strong> of {prop.convergence.total_systems} mapped delivery systems.</>
+              }
+            </p>
+          )}
+          {prop.convergence?.notes && (
+            <p class="evidence-notes">{prop.convergence.notes}</p>
+          )}
+          {prop.external_equivalents && Object.keys(prop.external_equivalents).length > 0 && (
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Standard</th>
+                  <th>Equivalent</th>
+                  <th>Match</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.entries(prop.external_equivalents).map(([key, eq]) => (
+                  <>
+                    <tr>
+                      <td>{eq.vocabulary}</td>
+                      <td><a href={eq.uri} target="_blank" rel="noopener">{eq.label}</a></td>
+                      <td><span class={`badge badge-${eq.match}`}>{eq.match.replace('_', ' ')}</span></td>
                     </tr>
-                  )}
-                </>
-              ))}
-            </tbody>
-          </table>
+                    {eq.note && (
+                      <tr class="aligned-note-row">
+                        <td colspan="3" class="aligned-note">{eq.note}</td>
+                      </tr>
+                    )}
+                  </>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
       )}
 

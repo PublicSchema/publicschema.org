@@ -15,5 +15,5 @@ convergence:
   system_count: 3
   total_systems: 4
   notes: >
-    DHIS2 and OpenSPP use a plain string; SPDCI uses a structured Address.
+    DHIS2 and OpenSPP use a plain string; DCI uses a structured Address.
     High convergence but type divergence between inline string and linked entity.

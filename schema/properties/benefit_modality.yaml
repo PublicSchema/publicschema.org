@@ -16,7 +16,7 @@ external_equivalents:
     label: "benefit_type"
     uri: "https://schema.spdci.org/extensions/ibr/v1/data/benefit_type"
     match: broad
-    vocabulary: "SPDCI IBR"
+    vocabulary: "DCI IBR"
     note: "Both classify the form of benefit; DCI uses BenefitTypeEnum, PublicSchema uses benefit-modality vocabulary"
 
 convergence:

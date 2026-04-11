@@ -33,10 +33,10 @@ export const systemRegistry: Record<string, SystemMeta> = {
     description: "Open-source insurance management information system.",
     reviewStatus: "unreviewed",
   },
-  spdci: {
-    name: "SPDCI",
+  dci: {
+    name: "DCI",
     url: "https://spdci.org",
-    description: "Social Protection Digital Convergence Initiative standard.",
+    description: "Digital Convergence Initiative standard.",
     reviewStatus: "unreviewed",
   },
   fhir_r4: {

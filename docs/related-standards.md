@@ -11,13 +11,13 @@ PublicSchema sits in a landscape of adjacent initiatives that operate at differe
 | Trust and transport | EBSI, OpenID4VC, W3C VC Data Model | No domain vocabulary inside credentials |
 | Identity attributes | EU Core Person Vocabulary, W3C Citizenship Vocabulary | Covers name/birth/citizenship only, not delivery data |
 | Service catalogues | CPSV-AP (EU), HSDS/Open Referral, schema.org/GovernmentService | Describes what services exist, not who receives what |
-| API interoperability | DCI/SPDCI, GovStack | Interface contracts between systems, not semantic vocabulary |
+| API interoperability | DCI, GovStack | Interface contracts between systems, not semantic vocabulary |
 | Statistical measurement | ILO/World Bank ASPIRE, ILOSTAT | Counts and indicators, not data models for exchange |
 | **Delivery lifecycle vocabulary** | **Nothing** | **This is the gap PublicSchema fills** |
 
 ## Specific initiatives
 
-### DCI/SPDCI
+### DCI
 
 The Digital Convergence Initiative builds API interoperability standards between social protection systems (social registry, payment, civil registration interfaces), jointly steered by GIZ, ILO, and the World Bank. PublicSchema is the semantic vocabulary layer that DCI's API standards implicitly need but have not built. DCI defines how data flows between systems; PublicSchema defines what the data means. The two are complementary.
 

@@ -33,7 +33,7 @@ external_equivalents:
     label: "RelatedPerson"
     uri: "https://schema.spdci.org/core/v1/data/RelatedPerson"
     match: close
-    vocabulary: "SPDCI Core"
+    vocabulary: "DCI Core"
     note: "Same concept; DCI has relationship_type and related_member while PublicSchema adds explicit subject/object persons and temporal bounds (start_date, end_date)"
 
 convergence:

@@ -17,7 +17,7 @@ external_equivalents:
     label: "enrollment_date"
     uri: "https://schema.spdci.org/extensions/ibr/v1/data/enrollment_date"
     match: close
-    vocabulary: "SPDCI IBR"
+    vocabulary: "DCI IBR"
     note: "Same concept and name; DCI defines this on the Beneficiary entity"
 
 convergence:

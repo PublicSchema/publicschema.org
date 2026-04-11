@@ -23,5 +23,5 @@ external_equivalents:
     label: "second_name"
     uri: "https://schema.spdci.org/core/v1/data/second_name"
     match: broad
-    vocabulary: "SPDCI Core"
+    vocabulary: "DCI Core"
     note: "DCI 'second_name' covers middle names broadly; matronymics are a specific naming convention not modeled by DCI"

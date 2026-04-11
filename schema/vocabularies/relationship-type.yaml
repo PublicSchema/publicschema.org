@@ -399,7 +399,7 @@ system_mappings:
     - extended_family
     - payment_proxy
     - survivor
-  spdci:
+  dci:
     vocabulary_name: RelationshipTypeEnum
     values:
     - code: SPS

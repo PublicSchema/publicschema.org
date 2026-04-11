@@ -264,7 +264,7 @@ system_mappings:
     - marriage_certificate
     - death_certificate
     - other
-  spdci:
+  dci:
     vocabulary_name: IdentifierTypeEnum
     values:
     - code: UIN

@@ -9,7 +9,7 @@ test.describe("Systems index page", () => {
     await expect(rows).toHaveCount(6);
 
     // All system display names should appear
-    for (const name of ["OpenSPP", "openIMIS", "SPDCI", "FHIR R4", "DHIS2", "OpenCRVS"]) {
+    for (const name of ["OpenSPP", "openIMIS", "DCI", "FHIR R4", "DHIS2", "OpenCRVS"]) {
       await expect(page.getByText(name)).toBeVisible();
     }
   });

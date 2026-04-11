@@ -68,7 +68,7 @@ system_mappings:
     - code: '9'
       label: Not applicable
       maps_to: not_applicable
-  spdci:
+  dci:
     vocabulary_name: SexCategoryEnum
     values:
     - code: male

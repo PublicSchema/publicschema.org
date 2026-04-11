@@ -170,7 +170,7 @@ system_mappings:
     - lower_secondary
     - post_secondary_non_tertiary
     - short_cycle_tertiary
-  spdci:
+  dci:
     vocabulary_name: EducationCodeEnum
     values:
     - code: '0'

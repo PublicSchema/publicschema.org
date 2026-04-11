@@ -24,7 +24,7 @@ external_equivalents:
     label: "maiden_name"
     uri: "https://schema.spdci.org/core/v1/data/maiden_name"
     match: close
-    vocabulary: "SPDCI Core"
+    vocabulary: "DCI Core"
     note: "DCI 'maiden_name' is a specific sub-case; PublicSchema 'family_name_at_birth' covers any legal name change"
 convergence:
   system_count: 0

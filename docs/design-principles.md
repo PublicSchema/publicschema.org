@@ -2,7 +2,7 @@
 
 ## 1. Semantic, not structural
 
-Concepts carry meaning. A Person is not a bag of fields; it is a named entity with a definition written for domain practitioners. The interoperability problem is vocabulary divergence: systems use different names for the same real-world entities. PublicSchema provides shared definitions that make equivalences explicit.
+Concepts carry meaning. A Person is not a bag of fields; it is a named entity with a definition written for domain practitioners. The interoperability problem is vocabulary divergence: systems use different names for the same real-world entities, and when those names encode different semantic choices, mappings between them lose information. PublicSchema provides shared definitions that make equivalences explicit and preserve meaning across systems.
 
 ## 2. Descriptive, not prescriptive
 

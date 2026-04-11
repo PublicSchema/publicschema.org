@@ -15,11 +15,13 @@ This isn't just a technical annoyance. When systems can't understand each other'
 
 The usual response is to build integration middleware that translates between systems case by case. This is expensive, fragile, and doesn't scale.
 
+Worse, many of these mappings are not just expensive but lossy. When one system tracks gender with three numeric codes and another distinguishes "non-binary" and "prefer_not_to_say," no translation can preserve the original meaning. Information is lost, and decisions downstream are made on distorted data.
+
 ## The insight
 
-The structural differences between systems are surprisingly small. When we mapped 6 major systems across social protection (OpenSPP, openIMIS, SPDCI, DHIS2, FHIR R4, OpenCRVS), we found that all 6 had some version of Person, Enrollment, and Payment. The structures converge. The vocabularies diverge.
+The structural differences between systems are surprisingly small. When we mapped 6 major systems across social protection (OpenSPP, openIMIS, DCI, DHIS2, FHIR R4, OpenCRVS), we found that all 6 had some version of Person, Enrollment, and Payment. The structures converge. The vocabularies diverge.
 
-The real interoperability challenge is vocabulary alignment: agreeing on what values mean, not what fields exist.
+The real interoperability challenge is vocabulary alignment: agreeing on what values mean, not what fields exist. Shared definitions don't just reduce the effort required to connect systems; they make accurate data exchange possible in the first place.
 
 ## The vision
 
@@ -67,13 +69,13 @@ A landscape review of 10+ initiatives confirmed that no existing project provide
 | Trust and transport | EBSI, OpenID4VC, W3C VC Data Model | No domain vocabulary inside credentials (though EBSI's JSON Schemas for person identity, social security coordination, and education credentials informed property design; see below) |
 | Identity attributes | EU Core Person Vocabulary, W3C Citizenship Vocabulary | Covers name/birth/citizenship only, not delivery data |
 | Service catalogues | CPSV-AP (EU), HSDS/Open Referral, schema.org/GovernmentService | Describes what services exist, not who receives what |
-| API interoperability | DCI/SPDCI, GovStack | Interface contracts between systems, not semantic vocabulary |
+| API interoperability | DCI, GovStack | Interface contracts between systems, not semantic vocabulary |
 | Statistical measurement | ILO/World Bank ASPIRE, ILOSTAT | Counts and indicators, not data models for exchange |
 | **Delivery lifecycle vocabulary** | **Nothing** | **This is the PublicSchema gap** |
 
 ### Specific initiatives
 
-**DCI/SPDCI** (Digital Convergence Initiative) is the closest initiative and the most important relationship. DCI builds API interoperability standards between social protection systems (social registry, payment, civil registration interfaces), jointly steered by GIZ, ILO, and the World Bank. PublicSchema is the semantic vocabulary layer that DCI's API standards implicitly need but have not built. DCI defines how data flows between systems; PublicSchema defines what the data means. The two are complementary, and DCI is a natural partner.
+**DCI** (Digital Convergence Initiative) is the closest initiative and the most important relationship. DCI builds API interoperability standards between social protection systems (social registry, payment, civil registration interfaces), jointly steered by GIZ, ILO, and the World Bank. PublicSchema is the semantic vocabulary layer that DCI's API standards implicitly need but have not built. DCI defines how data flows between systems; PublicSchema defines what the data means. The two are complementary, and DCI is a natural partner.
 
 **EU Core Vocabularies (SEMIC/Interoperable Europe)** are the closest technical precedent for how to build this. The Core Person Vocabulary, Core Location Vocabulary, and Core Public Service Vocabulary Application Profile (CPSV-AP) are minimal, reusable RDF vocabularies for EU public administration, published with SHACL validation shapes under CC-BY 4.0. PublicSchema should align with these where they overlap (person, location, address) rather than reinventing definitions. However, the EU Core Vocabularies cover identity and service cataloguing, not the delivery lifecycle (enrollment, entitlement, payment, grievance).
 

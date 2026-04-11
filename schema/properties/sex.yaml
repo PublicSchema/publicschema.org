@@ -22,7 +22,7 @@ external_equivalents:
     label: "sex"
     uri: "https://schema.spdci.org/core/v1/data/sex"
     match: exact
-    vocabulary: "SPDCI Core"
+    vocabulary: "DCI Core"
 convergence:
   system_count: 4
   total_systems: 5

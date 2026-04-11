@@ -16,7 +16,7 @@ external_equivalents:
     label: "member"
     uri: "https://schema.spdci.org/core/v1/data/Member"
     match: broad
-    vocabulary: "SPDCI Core"
+    vocabulary: "DCI Core"
     note: "DCI embeds the related_person list on a Member; the subject is the Member itself rather than an explicit field"
 
 convergence:

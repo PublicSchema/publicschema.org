@@ -24,7 +24,7 @@ external_equivalents:
     label: "country_code"
     uri: "https://schema.spdci.org/core/v1/data/country_code"
     match: close
-    vocabulary: "SPDCI Core"
+    vocabulary: "DCI Core"
     note: "Both capture the country; DCI field is 'country_code'"
 convergence:
   system_count: 3

@@ -16,7 +16,7 @@ external_equivalents:
     label: "related_member"
     uri: "https://schema.spdci.org/core/v1/data/related_member"
     match: close
-    vocabulary: "SPDCI Core"
+    vocabulary: "DCI Core"
     note: "Both represent the other party in a relationship; DCI uses 'related_member'"
 
 convergence:

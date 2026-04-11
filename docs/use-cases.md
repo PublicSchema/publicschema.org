@@ -20,7 +20,7 @@ PublicSchema provides common definitions for public service delivery. There are 
 
 **Who:** A government running social protection, school feeding, and health insurance as separate programs, each on a different system.
 
-**The problem:** Each system has records for the same families, described differently. The education ministry's database calls them "students," the health system calls them "patients," and the cash transfer system calls them "beneficiaries." There is no reliable way to check whether a person is already enrolled elsewhere.
+**The problem:** Each system has records for the same families, described differently. The education ministry's database calls them "students," the health system calls them "patients," and the cash transfer system calls them "beneficiaries." There is no reliable way to check whether a person is already enrolled elsewhere. Even when fields can be matched by name, divergent codes make comparison unreliable: "active" in one system may not mean the same thing as "active" in another.
 
 **How PublicSchema helps:** The integration team maps each system's fields to PublicSchema properties (given_name, national_id, date_of_birth, enrollment_status). A shared registry can then match records across systems using a common vocabulary. No system needs to change its internal data model.
 
@@ -40,7 +40,7 @@ PublicSchema provides common definitions for public service delivery. There are 
 
 **Who:** A donor, coordinating body, or government dashboard aggregating data across multiple programs, sectors, or countries.
 
-**The problem:** Every program reports using its own codes and field names. One uses "ACTV" for active enrollment, another uses "1," a third uses "enrolled." Aggregating numbers across programs requires manual translation every reporting cycle.
+**The problem:** Every program reports using its own codes and field names. One uses "ACTV" for active enrollment, another uses "1," a third uses "enrolled." Aggregating numbers across programs requires manual translation every reporting cycle. When these translations are lossy (because one program's codes don't map cleanly to another's), the aggregated numbers are unreliable.
 
 **How PublicSchema helps:** The coordinating body defines a reporting template that references PublicSchema vocabulary codes (enrollment-status, payment-status, delivery-channel). Each program maps its internal codes once. From that point on, aggregation is mechanical.
 

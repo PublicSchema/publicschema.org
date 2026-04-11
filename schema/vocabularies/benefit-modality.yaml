@@ -93,7 +93,7 @@ system_mappings:
     - service
     - fee_waiver
     - insurance
-  spdci:
+  dci:
     vocabulary_name: BenefitTypeEnum
     values:
     - code: '1'

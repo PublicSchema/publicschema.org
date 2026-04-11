@@ -16,7 +16,7 @@ external_equivalents:
     label: "registration_date"
     uri: "https://schema.spdci.org/core/v1/data/registration_date"
     match: close
-    vocabulary: "SPDCI Core"
+    vocabulary: "DCI Core"
     note: "DCI records when the group was registered; PublicSchema distinguishes group formation from registration"
 
 convergence:

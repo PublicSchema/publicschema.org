@@ -1,6 +1,6 @@
 # DCI Property-Level Mapping Research
 
-Analysis of property-level `external_equivalents` between SPDCI (DCI) and PublicSchema.
+Analysis of property-level `external_equivalents` between DCI (Digital Convergence Initiative) and PublicSchema.
 
 ## DCI entities used as source
 
@@ -98,4 +98,4 @@ IBR extension: ibr/Beneficiary, ibr/Benefit, ibr/Programme
 
 2. **URI format for property-level mappings.** DCI JSON-LD uses URIs like `spdci:birth_date` which resolves to `https://schema.spdci.org/core/v1/data/birth_date`. Should we use these resolved URIs, or the entity-scoped form like `https://schema.spdci.org/core/v1/data/Person#birth_date`?
 
-3. **Properties that live on different DCI entities.** `marital_status` lives on Person in PS but on Member in DCI. The note should explain this, but should the `vocabulary` field say "SPDCI Core" (the standard) or something that identifies the entity?
+3. **Properties that live on different DCI entities.** `marital_status` lives on Person in PS but on Member in DCI. The note should explain this, but should the `vocabulary` field say "DCI Core" (the standard) or something that identifies the entity?

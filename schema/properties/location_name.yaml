@@ -23,7 +23,7 @@ external_equivalents:
     label: "name"
     uri: "https://schema.spdci.org/core/v1/data/Place/name"
     match: close
-    vocabulary: "SPDCI Core"
+    vocabulary: "DCI Core"
     note: "Both are human-readable location names; DCI uses Place.name"
 convergence:
   system_count: 6

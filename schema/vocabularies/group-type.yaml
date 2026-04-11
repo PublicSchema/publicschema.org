@@ -86,7 +86,7 @@ system_mappings:
       maps_to: other
     unmapped_canonical:
     - farm
-  spdci:
+  dci:
     vocabulary_name: AssistanceUnitEnum
     values:
     - code: '2'

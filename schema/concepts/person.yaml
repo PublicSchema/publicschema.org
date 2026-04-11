@@ -59,7 +59,7 @@ external_equivalents:
     label: "Person"
     uri: "https://schema.spdci.org/core/v1/data/Person"
     match: close
-    vocabulary: "SPDCI Core"
+    vocabulary: "DCI Core"
     note: "DCI Person carries only basic demographics (name, sex, birth/death dates, contact); attributes like marital status, education, and occupation live on DCI Member instead"
 
 convergence:

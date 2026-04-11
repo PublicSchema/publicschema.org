@@ -23,7 +23,7 @@ external_equivalents:
     label: "latitude"
     uri: "https://schema.spdci.org/core/v1/data/latitude"
     match: exact
-    vocabulary: "SPDCI Core"
+    vocabulary: "DCI Core"
 convergence:
   system_count: 1
   total_systems: 6

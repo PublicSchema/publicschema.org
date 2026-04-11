@@ -23,7 +23,7 @@ external_equivalents:
     label: "given_name"
     uri: "https://schema.spdci.org/core/v1/data/given_name"
     match: exact
-    vocabulary: "SPDCI Core"
+    vocabulary: "DCI Core"
 convergence:
   system_count: 5
   total_systems: 6

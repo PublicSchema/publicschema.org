@@ -23,7 +23,7 @@ external_equivalents:
     label: "longitude"
     uri: "https://schema.spdci.org/core/v1/data/longitude"
     match: exact
-    vocabulary: "SPDCI Core"
+    vocabulary: "DCI Core"
 convergence:
   system_count: 1
   total_systems: 6

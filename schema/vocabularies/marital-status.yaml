@@ -81,7 +81,7 @@ system_mappings:
       - code: "C"
         label: "Consensual Union"
         maps_to: consensual_union
-  spdci:
+  dci:
     vocabulary_name: "MaritalStatusEnum"
     values:
       - code: "S"

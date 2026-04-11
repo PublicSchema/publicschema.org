@@ -16,7 +16,7 @@ external_equivalents:
     label: "occupation"
     uri: "https://schema.spdci.org/core/v1/data/occupation"
     match: close
-    vocabulary: "SPDCI Core"
+    vocabulary: "DCI Core"
     note: "Same concept; DCI uses OccupationEnum, PublicSchema references ISCO-08. Lives on Member in DCI, Person in PublicSchema"
 
 convergence:

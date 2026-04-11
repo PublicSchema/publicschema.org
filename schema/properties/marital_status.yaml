@@ -17,7 +17,7 @@ external_equivalents:
     label: "marital_status"
     uri: "https://schema.spdci.org/core/v1/data/marital_status"
     match: close
-    vocabulary: "SPDCI Core"
+    vocabulary: "DCI Core"
     note: "Same concept; lives on Member in DCI but on Person in PublicSchema"
 
 convergence:

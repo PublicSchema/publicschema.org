@@ -129,7 +129,7 @@ system_mappings:
     unmapped_canonical:
     - waitlisted
     - closed
-  spdci:
+  dci:
     vocabulary_name: EnrollmentStatusEnum
     values:
     - code: '1'

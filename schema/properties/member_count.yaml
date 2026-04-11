@@ -16,10 +16,10 @@ external_equivalents:
     label: "group_size"
     uri: "https://schema.spdci.org/core/v1/data/group_size"
     match: close
-    vocabulary: "SPDCI Core"
+    vocabulary: "DCI Core"
     note: "Same concept (integer count of group members); DCI uses 'group_size'"
 
 convergence:
   system_count: 2
   total_systems: 5
-  notes: "Present in OpenSPP and SPDCI. Often derived at query time rather than stored as a field."
+  notes: "Present in OpenSPP and DCI. Often derived at query time rather than stored as a field."

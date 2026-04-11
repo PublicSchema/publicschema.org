@@ -36,7 +36,7 @@ external_equivalents:
     label: "Programme"
     uri: "https://schema.spdci.org/extensions/ibr/v1/Programme"
     match: close
-    vocabulary: "SPDCI IBR"
+    vocabulary: "DCI IBR"
     note: "Both describe a social protection program; DCI emphasizes benefit modalities and institutional classification while PublicSchema emphasizes coverage area and targeting approach"
 
 convergence:

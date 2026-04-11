@@ -39,7 +39,7 @@ convergence:
   system_count: 4
   total_systems: 6
   notes: >
-    openIMIS has BenefitPlan, OpenSPP has entitlement managers, SPDCI has
+    openIMIS has BenefitPlan, OpenSPP has entitlement managers, DCI has
     BenefitType. The separation between program-level benefit design and
     per-instance entitlement is present in most systems, though often as
     configuration rather than a first-class entity.

@@ -16,7 +16,7 @@ external_equivalents:
     label: "language_code"
     uri: "https://schema.spdci.org/core/v1/data/language_code"
     match: close
-    vocabulary: "SPDCI Core"
+    vocabulary: "DCI Core"
     note: "DCI records languages spoken; PublicSchema records preferred communication language"
 
 convergence:

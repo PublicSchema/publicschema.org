@@ -24,7 +24,7 @@ external_equivalents:
     label: "region_code"
     uri: "https://schema.spdci.org/core/v1/data/region_code"
     match: close
-    vocabulary: "SPDCI Core"
+    vocabulary: "DCI Core"
     note: "Both capture the first-level subnational division; DCI uses a code, PublicSchema uses a name"
 convergence:
   system_count: 2

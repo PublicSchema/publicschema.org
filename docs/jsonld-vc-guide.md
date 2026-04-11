@@ -113,7 +113,7 @@ system_mappings:
         label: Other
         maps_to: other
     unmapped_canonical: [not_stated]
-  spdci:
+  dci:
     vocabulary_name: GenderCode
     values:
       - code: "1"

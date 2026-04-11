@@ -33,7 +33,7 @@ external_equivalents:
     label: "Member"
     uri: "https://schema.spdci.org/core/v1/data/Member"
     match: broad
-    vocabulary: "SPDCI Core"
+    vocabulary: "DCI Core"
     note: "DCI Member conflates group membership with an extended person profile (demographics, disability, employment); PublicSchema separates the join (GroupMembership) from the person record (Person)"
 
 convergence:

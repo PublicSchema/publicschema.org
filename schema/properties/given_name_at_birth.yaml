@@ -17,7 +17,7 @@ external_equivalents:
     label: "given_name"
     uri: "https://schema.spdci.org/core/v1/data/given_name"
     match: broad
-    vocabulary: "SPDCI Core"
+    vocabulary: "DCI Core"
     note: "DCI has no birth-name distinction; closest is the generic given_name field on the Name object"
 
 convergence:

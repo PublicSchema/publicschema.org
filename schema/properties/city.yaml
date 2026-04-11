@@ -24,7 +24,7 @@ external_equivalents:
     label: "locality"
     uri: "https://schema.spdci.org/core/v1/data/locality"
     match: exact
-    vocabulary: "SPDCI Core"
+    vocabulary: "DCI Core"
     note: "DCI calls this field 'locality'; same concept as PublicSchema 'city'"
 convergence:
   system_count: 3

@@ -42,7 +42,7 @@ external_equivalents:
     label: "Address"
     uri: "https://schema.spdci.org/core/v1/data/Address"
     match: close
-    vocabulary: "SPDCI Core"
+    vocabulary: "DCI Core"
     note: "Same concept, different property decomposition; DCI uses address_line_1/2 while PublicSchema decomposes into street, house number, and building name"
 
 convergence:

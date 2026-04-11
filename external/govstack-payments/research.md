@@ -21,7 +21,7 @@ The BB is split into three independent API families:
 
 ## Key architectural differences from other mapped systems
 
-Unlike the other six systems mapped in PublicSchema (OpenSPP, openIMIS, DHIS2, FHIR R4, OpenCRVS, SPDCI), the GovStack Payment BB is:
+Unlike the other six systems mapped in PublicSchema (OpenSPP, openIMIS, DHIS2, FHIR R4, OpenCRVS, DCI), the GovStack Payment BB is:
 
 1. **An API specification, not a data model.** It defines operations and message schemas, not persistent entities. There is no "Beneficiary" table or "Payment" entity in the traditional sense; instead, there are request/response schemas for API calls.
 

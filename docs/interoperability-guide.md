@@ -32,7 +32,7 @@ You do not need to change any system's internal data model. The mapping lives be
 
 Without a shared reference, connecting N systems requires N*(N-1)/2 bilateral mappings. With 5 systems, that is 10 separate mapping tables to maintain.
 
-With PublicSchema as the shared reference, each system maps to PublicSchema once. Connecting a new system means one mapping, not N-1.
+With PublicSchema as the shared reference, each system maps to PublicSchema once. Connecting a new system means one mapping, not N-1. More importantly, because every system maps to the same shared definitions, meaning is preserved across the translation. Without a shared vocabulary, bilateral mappings are often lossy: one system's codes may not have equivalents in another.
 
 ![Each system maps to PublicSchema once](/images/rosetta-stone.svg)
 
@@ -137,11 +137,11 @@ Data entered in the template is already aligned to PublicSchema, so it can be lo
 
 ## System mappings in vocabulary files
 
-Some vocabularies include pre-built mappings for specific systems (OpenIMIS, SPDCI, etc.) in their source YAML files. These mappings list each system's codes, labels, and how they map to the canonical codes.
+Some vocabularies include pre-built mappings for specific systems (OpenIMIS, DCI, etc.) in their source YAML files. These mappings list each system's codes, labels, and how they map to the canonical codes.
 
 Check the vocabulary pages to see if your system is already mapped. If it is, you can use the mapping directly instead of building one from scratch.
 
-For example, the gender-type vocabulary includes mappings for OpenIMIS and SPDCI, showing that OpenIMIS uses `"M"/"F"/"O"` and SPDCI uses `"1"/"2"/"0"` for the same canonical values.
+For example, the gender-type vocabulary includes mappings for OpenIMIS and DCI, showing that OpenIMIS uses `"M"/"F"/"O"` and DCI uses `"1"/"2"/"0"` for the same canonical values.
 
 See [Mapping Example](/docs/mapping-example/) for a full walkthrough of system mappings.
 
@@ -163,7 +163,9 @@ Approach: decide whether you are mapping the current state or the full history. 
 
 Your system uses "inactive" for cases that PublicSchema splits into "suspended," "completed," and "exited."
 
-Approach: if you cannot distinguish between them from your data, map to the broadest applicable code and document the ambiguity. If you can distinguish (e.g., by looking at related fields), add logic to the mapping.
+This is not just a mapping inconvenience; it is an information gap. When you map "inactive" to a single code, you lose the distinction between someone whose benefits are temporarily paused and someone who has permanently exited. Downstream systems that consume the mapped data cannot recover the lost precision.
+
+Approach: if you cannot distinguish between them from your data, map to the broadest applicable code and document the ambiguity. If you can distinguish (e.g., by looking at related fields), add logic to the mapping. The more systems that adopt shared vocabulary codes directly, the less this problem arises.
 
 ### Missing concepts
 
