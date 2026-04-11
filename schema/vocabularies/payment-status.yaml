@@ -185,3 +185,21 @@ system_mappings:
     - paid
     - failed
     - returned
+  govstack_payments:
+    vocabulary_name: "BatchTransactionStatus (implied)"
+    values:
+    - code: ongoing
+      label: Ongoing
+      maps_to: processing
+    - code: completed
+      label: Completed
+      maps_to: paid
+    - code: failed
+      label: Failed
+      maps_to: failed
+    unmapped_canonical:
+    - pending
+    - returned
+    - rejected
+    - cancelled
+    - reconciled

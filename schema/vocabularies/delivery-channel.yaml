@@ -103,3 +103,30 @@ system_mappings:
     - agent_network
     - prepaid_card
     - service_point
+  govstack_payments:
+    vocabulary_name: paymentModality
+    values:
+    - code: "00"
+      label: Bank Account
+      maps_to: bank_transfer
+    - code: "01"
+      label: Mobile Money
+      maps_to: mobile_money
+    - code: "02"
+      label: Voucher
+      maps_to: null
+      unmapped_reason: out_of_scope
+    - code: "03"
+      label: Digital Wallet
+      maps_to: null
+      unmapped_reason: no_equivalent
+    - code: "04"
+      label: Proxy
+      maps_to: null
+      unmapped_reason: no_equivalent
+    unmapped_canonical:
+    - cash
+    - agent_network
+    - prepaid_card
+    - service_point
+    - other

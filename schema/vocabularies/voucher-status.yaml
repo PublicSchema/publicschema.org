@@ -29,6 +29,15 @@ values:
     en: The voucher has been distributed to the beneficiary or their authorized representative.
     fr: Le bon a ete distribue au beneficiaire ou a son representant autorise.
     es: El vale ha sido distribuido al beneficiario o su representante autorizado.
+- code: suspended
+  label:
+    en: Suspended
+    fr: Suspendu
+    es: Suspendido
+  definition:
+    en: The voucher has been temporarily deactivated and cannot be redeemed until reactivated. Reasons include suspected fraud, verification checks, or administrative holds.
+    fr: Le bon a ete temporairement desactive et ne peut pas etre echange jusqu'a sa reactivation. Les raisons incluent une suspicion de fraude, des verifications ou des blocages administratifs.
+    es: El vale ha sido temporalmente desactivado y no puede ser canjeado hasta su reactivacion. Las razones incluyen sospecha de fraude, verificaciones o bloqueos administrativos.
 - code: partially_redeemed
   label:
     en: Partially redeemed
@@ -65,3 +74,31 @@ values:
     en: The voucher has been voided by the program before redemption.
     fr: Le bon a ete annule par le programme avant l'echange.
     es: El vale ha sido anulado por el programa antes del canje.
+system_mappings:
+  govstack_payments:
+    vocabulary_name: VoucherStatus
+    values:
+    - code: "01"
+      label: Pre-Activated
+      maps_to: created
+    - code: "02"
+      label: Activated
+      maps_to: issued
+    - code: "03"
+      label: Redeemed
+      maps_to: redeemed
+    - code: "04"
+      label: Cancelled
+      maps_to: cancelled
+    - code: "05"
+      label: Suspended
+      maps_to: suspended
+    - code: "06"
+      label: Expired
+      maps_to: expired
+    - code: "9"
+      label: Error
+      maps_to: null
+      unmapped_reason: out_of_scope
+    unmapped_canonical:
+    - partially_redeemed
