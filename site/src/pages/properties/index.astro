@@ -3,7 +3,10 @@ import Base from "../../layouts/Base.astro";
 import { loadVocabulary } from "../../data/vocabulary";
 
 const vocab = loadVocabulary();
-const properties = Object.values(vocab.properties).sort((a, b) => a.id.localeCompare(b.id));
+const maturityRank: Record<string, number> = { normative: 0, "trial-use": 1, draft: 2 };
+const byMaturityThenName = (a: { maturity: string; id: string }, b: { maturity: string; id: string }) =>
+  (maturityRank[a.maturity] ?? 9) - (maturityRank[b.maturity] ?? 9) || a.id.localeCompare(b.id);
+const properties = Object.values(vocab.properties).sort(byMaturityThenName);
 const primitiveTypes = ["string", "integer", "decimal", "boolean", "date", "datetime", "uri", "geojson_geometry"];
 ---
 <Base title="Properties" description="All properties in the PublicSchema vocabulary.">

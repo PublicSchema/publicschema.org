@@ -3,32 +3,83 @@ import Base from "../layouts/Base.astro";
 import { loadVocabulary } from "../data/vocabulary";
 
 const vocab = loadVocabulary();
-const concepts = Object.values(vocab.concepts).sort((a, b) => a.id.localeCompare(b.id));
+const maturityRank: Record<string, number> = { normative: 0, "trial-use": 1, draft: 2 };
+const byMaturityThenName = (a: { maturity: string; id: string }, b: { maturity: string; id: string }) =>
+  (maturityRank[a.maturity] ?? 9) - (maturityRank[b.maturity] ?? 9) || a.id.localeCompare(b.id);
+const concepts = Object.values(vocab.concepts).sort(byMaturityThenName);
 const coreConcepts = concepts.filter((c) => !c.domain);
 const domainLabels: Record<string, string> = { sp: "Social Protection" };
 const domainCodes = [...new Set(concepts.filter((c) => c.domain).map((c) => c.domain as string))].sort();
 const conceptsByDomain = Object.fromEntries(domainCodes.map((d) => [d, concepts.filter((c) => c.domain === d)]));
-const properties = Object.values(vocab.properties).sort((a, b) => a.id.localeCompare(b.id));
-const vocabularies = Object.values(vocab.vocabularies).sort((a, b) => a.id.localeCompare(b.id));
+const properties = Object.values(vocab.properties).sort(byMaturityThenName);
+const vocabularies = Object.values(vocab.vocabularies).sort(byMaturityThenName);
+const systems = ["OpenSPP", "openIMIS", "DCI", "DHIS2", "FHIR R4", "OpenCRVS"];
 ---
 <Base title="Home" description="Common definitions for public service delivery. When programs serve the same people, their systems need a shared language.">
 
   <!-- 1. Hero -->
-  <div class="hero">
-    <h1><span class="hero-title-public">Public</span>Schema</h1>
-    <p>
-      Common definitions for public service delivery. When programs serve the
-      same people, their systems need a shared language. PublicSchema provides it.
-    </p>
-    <div class="hero-cta">
-      <a href="/docs/use-cases/" class="btn btn-primary">See how programs use this</a>
-      <a href="#explore" class="btn btn-secondary">Browse the schema</a>
+  <div class="h3-hero">
+    <div class="h3-hero-inner">
+      <h1><span class="h3-hero-public">Public</span>Schema</h1>
+      <p class="h3-hero-lead">
+        When programs serve the same people, their systems need a shared
+        language. PublicSchema provides it: agreed definitions for concepts,
+        fields, and value codes across public service delivery.
+      </p>
+      <div class="h3-hero-cta">
+        <a href="/docs/use-cases/" class="btn btn-primary">See how programs use this</a>
+        <a href="#contents" class="btn btn-secondary">What's in the schema</a>
+      </div>
     </div>
   </div>
 
-  <!-- 2. The problem -->
-  <div class="problem-section">
-    <h2>Programs serve the same people. Their systems don't know it.</h2>
+  <!-- 2. What the schema contains -->
+  <div class="h3-band" id="contents">
+    <div class="h3-band-inner">
+      <h2>What the schema contains</h2>
+      <p class="h3-band-lead">
+        PublicSchema is not an API standard, a software product, or a compliance
+        framework. It provides agreed definitions where every concept carries
+        semantic weight, not just structure. A Person is not a bag of fields.
+        Every definition gets a stable URI, ready for use in Verifiable
+        Credentials. Everything is optional; systems adopt what applies to them.
+      </p>
+
+      <div class="h3-layers">
+        <a href="/concepts/" class="h3-layer">
+          <h3>Concepts and properties</h3>
+          <p>
+            Entities like Person, Enrollment, and Payment get clear definitions
+            written for program managers. Each concept carries named, typed
+            properties (<code>given_name</code>, <code>date_of_birth</code>,
+            <code>enrollment_status</code>) defined once and reused across
+            concepts.
+          </p>
+          <div class="h3-layer-examples">
+            <span>Person</span><span>Household</span><span>Enrollment</span><span>Payment</span><span>Grievance</span>
+          </div>
+          <span class="h3-layer-count">{concepts.length} concepts, {properties.length} properties</span>
+        </a>
+        <a href="/vocab/" class="h3-layer">
+          <h3>Vocabularies</h3>
+          <p>
+            Controlled value sets for fields like gender, country, benefit
+            modality, and enrollment status. Where international standards exist
+            (ISO, FHIR), we reference them. Where they don't, we define a common
+            set based on observed convergence across systems.
+          </p>
+          <div class="h3-layer-examples">
+            <span>Gender (ISO 5218)</span><span>Country (ISO 3166)</span><span>Currency (ISO 4217)</span><span>Benefit modality</span>
+          </div>
+          <span class="h3-layer-count">{vocabularies.length} vocabularies</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Why this matters -->
+  <div class="h3-prose">
+    <h2>Why a shared vocabulary matters</h2>
     <p>
       A mother enrolled in a cash transfer program should automatically qualify
       for a maternal health benefit. But the two systems define "gender"
@@ -37,146 +88,185 @@ const vocabularies = Object.values(vocab.vocabularies).sort((a, b) => a.id.local
       introduces errors.
     </p>
 
-    <table class="divergence-example">
-      <thead>
-        <tr>
-          <th>System</th>
-          <th>Field name</th>
-          <th>Values</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>System A</td>
-          <td><code>gender</code></td>
-          <td><code>1</code>, <code>2</code>, <code>3</code></td>
-        </tr>
-        <tr>
-          <td>System B</td>
-          <td><code>sex</code></td>
-          <td><code>M</code>, <code>F</code>, <code>O</code></td>
-        </tr>
-        <tr>
-          <td>System C</td>
-          <td><code>gender_identity</code></td>
-          <td><code>male</code>, <code>female</code>, <code>non-binary</code>, <code>prefer_not_to_say</code></td>
-        </tr>
-      </tbody>
-    </table>
-    <p class="table-caption">Same concept. Three systems. Three incompatible representations.</p>
+    <div class="h3-example">
+      <table>
+        <thead>
+          <tr>
+            <th>System</th>
+            <th>Field name</th>
+            <th>Values</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>System A</td>
+            <td><code>gender</code></td>
+            <td><code>1</code>, <code>2</code>, <code>3</code></td>
+          </tr>
+          <tr>
+            <td>System B</td>
+            <td><code>sex</code></td>
+            <td><code>M</code>, <code>F</code>, <code>O</code></td>
+          </tr>
+          <tr>
+            <td>System C</td>
+            <td><code>gender_identity</code></td>
+            <td><code>male</code>, <code>female</code>, <code>non-binary</code>, <code>prefer_not_to_say</code></td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="h3-example-caption">Same concept. Three systems. Three incompatible representations.</p>
+    </div>
 
     <p>
       This is the coordination tax: every time two programs need to share data,
       someone spends weeks mapping fields and translating codes. It is expensive,
       fragile, and starts over every time a system upgrades.
     </p>
-
-    <p class="credibility-line">
-      We analyzed 6 major systems across social protection (OpenSPP, openIMIS,
-      SPDCI, DHIS2, FHIR R4, OpenCRVS) and found that the structures converge.
-      The vocabularies diverge. That is where the real interoperability challenge
-      lies.
-    </p>
-  </div>
-
-  <!-- 3. How it works -->
-  <div class="explainer-section">
-    <h2>A shared language, not a new system</h2>
     <p>
-      PublicSchema does not replace your systems. It gives them a common
-      vocabulary so they can understand each other.
+      Worse, some mappings are not just slow but lossy. System C distinguishes
+      <code>non-binary</code> and <code>prefer_not_to_say</code>; System A has
+      three numeric codes. No mapping can preserve that distinction. Information
+      is lost, and downstream decisions are made on distorted data. Shared
+      definitions don't just save time; they make accurate exchange possible
+      in the first place.
     </p>
-    <div class="explainer-grid">
-      <div class="explainer-item">
-        <h3>Shared definitions</h3>
-        <p>
-          Concepts like Person, Enrollment, and Payment get clear definitions
-          written for program managers, not developers. When two systems both
-          say "Enrollment," they mean the same thing.
-        </p>
-        <a href="/concepts/" class="explainer-link">{concepts.length} concepts &rarr;</a>
+
+    <div class="h3-diagram">
+      <div class="h3-diagram-panel">
+        <svg viewBox="0 0 200 155" aria-hidden="true">
+          <line x1="100" y1="15" x2="162" y2="55" />
+          <line x1="100" y1="15" x2="138" y2="133" class="h3-lossy" />
+          <line x1="100" y1="15" x2="62" y2="133" />
+          <line x1="100" y1="15" x2="38" y2="55" />
+          <line x1="162" y1="55" x2="138" y2="133" />
+          <line x1="162" y1="55" x2="62" y2="133" class="h3-lossy" />
+          <line x1="162" y1="55" x2="38" y2="55" class="h3-lossy" />
+          <line x1="138" y1="133" x2="62" y2="133" />
+          <line x1="138" y1="133" x2="38" y2="55" class="h3-lossy" />
+          <line x1="62" y1="133" x2="38" y2="55" />
+          <circle cx="100" cy="15" r="8" />
+          <circle cx="162" cy="55" r="8" />
+          <circle cx="138" cy="133" r="8" />
+          <circle cx="62" cy="133" r="8" />
+          <circle cx="38" cy="55" r="8" />
+        </svg>
+        <div class="h3-diagram-label">
+          <strong>Without shared definitions</strong>
+          Custom mapping per pair. <span class="h3-lossy-note">Dashed: lossy or impossible</span>
+        </div>
       </div>
-      <div class="explainer-item">
-        <h3>Shared field names</h3>
-        <p>
-          Properties like <code>given_name</code>, <code>date_of_birth</code>,
-          and <code>enrollment_status</code> are defined once and reused across
-          concepts. No more guessing whether "beneficiary_name" and "first_name"
-          mean the same thing.
-        </p>
-        <a href="/properties/" class="explainer-link">{properties.length} properties &rarr;</a>
-      </div>
-      <div class="explainer-item">
-        <h3>Shared value codes</h3>
-        <p>
-          Where international standards exist (ISO country codes, currency
-          codes), we reference them. Where they don't, we define a common set
-          with clear definitions.
-        </p>
-        <a href="/vocab/" class="explainer-link">{vocabularies.length} vocabularies &rarr;</a>
+      <div class="h3-diagram-panel h3-diagram-panel-hub">
+        <svg viewBox="0 0 200 155" aria-hidden="true">
+          <line x1="100" y1="15" x2="100" y2="80" />
+          <line x1="162" y1="55" x2="100" y2="80" />
+          <line x1="138" y1="133" x2="100" y2="80" />
+          <line x1="62" y1="133" x2="100" y2="80" />
+          <line x1="38" y1="55" x2="100" y2="80" />
+          <circle cx="100" cy="15" r="8" />
+          <circle cx="162" cy="55" r="8" />
+          <circle cx="138" cy="133" r="8" />
+          <circle cx="62" cy="133" r="8" />
+          <circle cx="38" cy="55" r="8" />
+          <circle cx="100" cy="80" r="12" class="h3-hub-node" />
+        </svg>
+        <div class="h3-diagram-label">
+          <strong>With shared definitions</strong>
+          Each system maps once to the shared vocabulary
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- 4. What this is NOT -->
-  <div class="callout">
-    <p class="callout-label">What PublicSchema is not</p>
+  <!-- 4. Where it fits -->
+  <div class="h3-prose">
+    <h2>Where it fits in the standards landscape</h2>
     <p>
-      PublicSchema is not an API standard, not a software product, and not a
-      compliance framework. It is a shared dictionary that your existing systems
-      can adopt without restructuring.
+      Standards like DCI and GovStack define how data moves between
+      systems: API contracts, transport protocols, building blocks. They
+      include data models, but those models serve the transport layer.
+      PublicSchema starts from the other direction: what does "enrollment"
+      mean? What properties describe a payment? What values are valid for
+      benefit modality? The semantic model is the primary artifact.
+    </p>
+    <p>
+      The two approaches are complementary. DCI specifies how to move
+      enrollment records between systems; PublicSchema specifies what
+      "enrollment," "active," and "benefit_modality" mean in those records.
+      EU Core Person Vocabulary handles identity attributes; PublicSchema
+      extends into the delivery lifecycle beyond name and date of birth.
     </p>
   </div>
 
-  <!-- 5. Where to start -->
-  <div class="persona-section">
-    <p class="section-overline">Choose your path</p>
+  <!-- 5. Grounded in evidence -->
+  <div class="h3-evidence">
+    <div class="h3-evidence-inner">
+      <h2>Grounded in evidence</h2>
+      <p>
+        PublicSchema is grounded in a comparative analysis of six social
+        protection systems. Where international standards exist (ISO for
+        gender, countries, currencies; FHIR for health), we reference them.
+        Where they don't, we define a common set based on how these systems
+        actually work.
+      </p>
+      <div class="h3-systems">
+        {systems.map((s) => (
+          <span class="h3-system">{s}</span>
+        ))}
+      </div>
+      <a href="/systems/" class="h3-evidence-link">See how systems compare</a>
+    </div>
+  </div>
+
+  <!-- 6. Where to start -->
+  <div class="h3-prose">
+    <p class="h3-overline">Choose your path</p>
     <h2>Where to start</h2>
-    <div class="persona-grid">
-      <div class="card persona-card">
+    <div class="h3-personas">
+      <div class="h3-persona">
         <h3>&ldquo;I coordinate programs that serve overlapping populations&rdquo;</h3>
         <p>
           You need consolidated numbers, deduplicated beneficiary lists, or
           referral pathways between services. PublicSchema gives you shared
           definitions so data from different programs can be compared and linked.
         </p>
-        <div class="persona-links">
+        <div class="h3-persona-links">
           <a href="/docs/use-cases/">Read the use cases</a>
           <a href="/concepts/">Browse concepts</a>
         </div>
       </div>
-      <div class="card persona-card">
+      <div class="h3-persona">
         <h3>&ldquo;I build or maintain integrations between systems&rdquo;</h3>
         <p>
           You need shared field names and value codes so systems can exchange data
           without custom translation layers. Map your system once; every other
           mapped system becomes interoperable.
         </p>
-        <div class="persona-links">
+        <div class="h3-persona-links">
           <a href="/properties/">Browse properties</a>
           <a href="/vocab/">Browse vocabularies</a>
         </div>
       </div>
-      <div class="card persona-card">
+      <div class="h3-persona">
         <h3>&ldquo;I&rsquo;m writing requirements for a new system&rdquo;</h3>
         <p>
           You need concrete interoperability specifications for your RFP, not
           &ldquo;the system must be interoperable.&rdquo; Reference PublicSchema
           properties and vocabulary codes so vendors have a testable target.
         </p>
-        <div class="persona-links">
+        <div class="h3-persona-links">
           <a href="/docs/use-cases/">Read the use cases</a>
           <a href="/docs/data-model-guide/">Data model guide</a>
         </div>
       </div>
-      <div class="card persona-card">
+      <div class="h3-persona">
         <h3>&ldquo;I&rsquo;m analyzing programs across countries or sectors&rdquo;</h3>
         <p>
           You need a structured framework for comparison so divergences become
           visible and nameable. PublicSchema's concept and property inventory
           gives you a common grid to map against.
         </p>
-        <div class="persona-links">
+        <div class="h3-persona-links">
           <a href="/concepts/">Browse concepts</a>
           <a href="/vocab/">Browse vocabularies</a>
         </div>
@@ -184,84 +274,636 @@ const vocabularies = Object.values(vocab.vocabularies).sort((a, b) => a.id.local
     </div>
   </div>
 
-  <!-- 6. Browse the schema -->
-  <div id="explore" class="catalog-section">
-    <p class="section-overline">Reference</p>
-    <h2>Explore the schema</h2>
-    <p class="catalog-summary">
-      The schema currently covers {concepts.length} concepts,
-      {properties.length} properties, and {vocabularies.length} vocabularies
-      across social protection.
-    </p>
+  <!-- 7. Schema index (preview) -->
+  <div class="h3-prose" id="index">
+    <h2>Browse the schema</h2>
 
-    <h3 class="catalog-heading">Core Concepts</h3>
-    <p style="color: var(--color-text-muted); margin-bottom: var(--space-md); font-size: 0.875rem;">
-      Universal entities that appear across all public service delivery domains.
-    </p>
-    <div class="card-grid">
-      {coreConcepts.slice(0, 4).map((c) => (
-        <div class="card">
-          <a href={c.path}>
-            <h3>{c.id} <span class={`badge badge-${c.maturity}`}>{c.maturity}</span></h3>
-            <p>{c.definition.en?.slice(0, 140)}{(c.definition.en?.length || 0) > 140 ? "..." : ""}</p>
+    <div class="h3-idx">
+      <div class="h3-idx-header">
+        <h3>Core concepts</h3>
+        <span class="h3-idx-count">{coreConcepts.length}</span>
+      </div>
+      <div class="h3-idx-chips">
+        {coreConcepts.slice(0, 6).map((c) => (
+          <a href={c.path} class="h3-chip">
+            {c.id}
           </a>
-        </div>
-      ))}
-    </div>
-    <div class="catalog-view-all">
-      <a href="/concepts/" class="btn btn-secondary">View all {coreConcepts.length} core concepts</a>
+        ))}
+        {coreConcepts.length > 6 && (
+          <a href="/concepts/" class="h3-chip h3-chip-more">
+            +{coreConcepts.length - 6} more
+          </a>
+        )}
+      </div>
     </div>
 
     {domainCodes.map((domain) => (
-      <Fragment>
-        <h3 class="catalog-heading">{domainLabels[domain] || domain}</h3>
-        <p style="color: var(--color-text-muted); margin-bottom: var(--space-md); font-size: 0.875rem;">
-          Concepts specific to the {(domainLabels[domain] || domain).toLowerCase()} domain.
-        </p>
-        <div class="card-grid">
-          {conceptsByDomain[domain].slice(0, 4).map((c) => (
-            <div class="card">
-              <a href={c.path}>
-                <h3>{c.id} <span class={`badge badge-${c.maturity}`}>{c.maturity}</span></h3>
-                <p>{c.definition.en?.slice(0, 140)}{(c.definition.en?.length || 0) > 140 ? "..." : ""}</p>
-              </a>
-            </div>
+      <div class="h3-idx">
+        <div class="h3-idx-header">
+          <h3>{domainLabels[domain] || domain}</h3>
+          <span class="h3-idx-count">{conceptsByDomain[domain].length}</span>
+        </div>
+        <div class="h3-idx-chips">
+          {conceptsByDomain[domain].slice(0, 6).map((c) => (
+            <a href={c.path} class="h3-chip">
+              {c.id}
+            </a>
           ))}
+          {conceptsByDomain[domain].length > 6 && (
+            <a href="/concepts/" class="h3-chip h3-chip-more">
+              +{conceptsByDomain[domain].length - 6} more
+            </a>
+          )}
         </div>
-        <div class="catalog-view-all">
-          <a href="/concepts/" class="btn btn-secondary">View all {conceptsByDomain[domain].length} {(domainLabels[domain] || domain).toLowerCase()} concepts</a>
-        </div>
-      </Fragment>
+      </div>
     ))}
 
-    <h3 class="catalog-heading">Vocabularies</h3>
-    <p style="color: var(--color-text-muted); margin-bottom: var(--space-md); font-size: 0.875rem;">
-      Controlled value sets, referencing international standards where they exist.
-    </p>
-    <div class="card-grid vocab-grid">
-      {vocabularies.slice(0, 6).map((v) => (
-        <div class="card">
-          <a href={`/vocab/${v.id}`}>
-            <h3>{v.id}</h3>
-            <p>
-              {v.values.length} values{v.standard?.name ? <> &middot; {v.standard.name}</> : ""}
-            </p>
+    <div class="h3-idx">
+      <div class="h3-idx-header">
+        <h3>Vocabularies</h3>
+        <span class="h3-idx-count">{vocabularies.length}</span>
+      </div>
+      <div class="h3-idx-chips">
+        {vocabularies.slice(0, 8).map((v) => (
+          <a href={`/vocab/${v.id}`} class="h3-chip">
+            {v.id}
+            <span class="h3-chip-meta">{v.values.length}</span>
           </a>
-        </div>
-      ))}
+        ))}
+        {vocabularies.length > 8 && (
+          <a href="/vocab/" class="h3-chip h3-chip-more">
+            +{vocabularies.length - 8} more
+          </a>
+        )}
+      </div>
     </div>
-    <div class="catalog-view-all">
-      <a href="/vocab/" class="btn btn-secondary">View all {vocabularies.length} vocabularies</a>
-    </div>
-  </div>
 
-  <!-- 7. Closing CTA -->
-  <div class="closing-cta">
-    <p>Ready to dig in?</p>
-    <div class="hero-cta">
-      <a href="/docs/use-cases/" class="btn btn-primary">Read the use cases</a>
-      <a href="/systems/" class="btn btn-secondary">See how systems map</a>
-    </div>
+    <p class="h3-closing">
+      PublicSchema is maintained as an open project.
+      <a href="https://github.com/PublicSchema/publicschema.org">Source on GitHub</a>
+      <span class="h3-header-sep" aria-hidden="true"></span>
+      <a href="/about/">About the project</a>
+    </p>
   </div>
 
 </Base>
+
+<style>
+  /* ---- Full-bleed helper ---- */
+  .h3-hero,
+  .h3-band,
+  .h3-evidence {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* ---- Hero ---- */
+  .h3-hero {
+    text-align: center;
+    background: linear-gradient(180deg, var(--color-accent-light) 0%, var(--color-bg) 100%);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .h3-hero-inner {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: calc(var(--space-2xl) + var(--space-xl)) var(--space-lg) calc(var(--space-2xl) + var(--space-lg));
+  }
+
+  .h3-hero h1 {
+    font-size: 3rem;
+    margin: 0 0 var(--space-lg);
+    line-height: 1.1;
+  }
+
+  .h3-hero-public {
+    font-weight: 300;
+    color: var(--color-accent);
+  }
+
+  .h3-hero-lead {
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    line-height: 1.65;
+    color: var(--color-text-muted);
+    max-width: 34rem;
+    margin: 0 auto var(--space-xl);
+  }
+
+  .h3-hero-cta {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-md);
+  }
+
+  .h3-header-sep {
+    display: block;
+    width: 1px;
+    height: 0.9rem;
+    background: var(--color-border);
+  }
+
+  /* ---- Prose sections (white bg, content-width) ---- */
+  .h3-prose {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: var(--space-2xl) 0;
+  }
+
+  .h3-prose + .h3-prose {
+    border-top: 1px solid var(--color-border-light);
+  }
+
+  .h3-prose h2 {
+    font-size: 1.35rem;
+    margin: 0 0 var(--space-md);
+  }
+
+  .h3-prose p {
+    font-family: var(--font-serif);
+    line-height: 1.75;
+    margin-bottom: var(--space-md);
+  }
+
+  .h3-prose p:last-child {
+    margin-bottom: 0;
+  }
+
+  .h3-prose code {
+    background: var(--color-surface);
+    padding: 0.1rem 0.35rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.85em;
+  }
+
+  /* ---- Divergence example (framed) ---- */
+  .h3-example {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-md) var(--space-lg) var(--space-sm);
+    margin: var(--space-lg) 0;
+  }
+
+  .h3-example table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+  }
+
+  .h3-example th,
+  .h3-example td {
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid var(--color-border-light);
+  }
+
+  .h3-example th {
+    font-weight: 600;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted);
+  }
+
+  .h3-example tr:last-child td {
+    border-bottom: none;
+  }
+
+  .h3-example code {
+    background: white;
+    padding: 0.1rem 0.3rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.85em;
+  }
+
+  .h3-example-caption {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    font-style: italic;
+    margin: var(--space-sm) 0 0;
+    text-align: center;
+  }
+
+  /* ---- Hub-and-spoke diagram ---- */
+  .h3-diagram {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+    margin: var(--space-xl) 0 0;
+    padding: var(--space-lg);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+  }
+
+  .h3-diagram-panel {
+    text-align: center;
+  }
+
+  .h3-diagram-panel svg {
+    width: 100%;
+    max-width: 180px;
+    height: auto;
+    margin: 0 auto var(--space-sm);
+    display: block;
+  }
+
+  .h3-diagram-panel line {
+    stroke: var(--color-highlight);
+    stroke-width: 2;
+    opacity: 0.5;
+  }
+
+  .h3-diagram-panel circle {
+    fill: var(--color-text-muted);
+    stroke: white;
+    stroke-width: 2;
+  }
+
+  .h3-diagram-panel-hub line {
+    stroke: var(--color-accent);
+    stroke-width: 2;
+    opacity: 0.7;
+  }
+
+  .h3-diagram-panel-hub circle {
+    fill: var(--color-accent);
+    opacity: 0.6;
+  }
+
+  .h3-hub-node {
+    fill: var(--color-accent) !important;
+    opacity: 1 !important;
+    stroke: white;
+    stroke-width: 2;
+  }
+
+  .h3-diagram-label {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    line-height: 1.4;
+  }
+
+  .h3-diagram-label strong {
+    display: block;
+    color: var(--color-text);
+    font-size: 0.85rem;
+    margin-bottom: 0.15rem;
+  }
+
+  /* ---- Lossy links in mesh diagram ---- */
+  .h3-diagram-panel line.h3-lossy {
+    stroke: var(--color-highlight);
+    stroke-dasharray: 5 4;
+    opacity: 0.55;
+  }
+
+  .h3-lossy-note {
+    color: var(--color-highlight);
+  }
+
+  /* ---- Band section (surface bg, full-bleed) ---- */
+  .h3-band {
+    background: var(--color-surface);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .h3-band-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--space-2xl) var(--space-lg);
+  }
+
+  .h3-band h2 {
+    font-size: 1.35rem;
+    margin: 0 0 var(--space-md);
+  }
+
+  .h3-band-lead {
+    font-family: var(--font-serif);
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    max-width: var(--content-width);
+    margin: 0 0 var(--space-xl);
+  }
+
+  /* ---- Three layers ---- */
+  .h3-layers {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+  }
+
+  .h3-layer {
+    background: white;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-xl) var(--space-lg);
+    text-decoration: none;
+    color: var(--color-text);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .h3-layer:hover {
+    border-color: var(--color-accent);
+  }
+
+  .h3-layer h3 {
+    font-size: 1.1rem;
+    color: var(--color-accent);
+    margin: 0 0 var(--space-sm);
+  }
+
+  .h3-layer > p {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    margin: 0 0 var(--space-lg);
+    flex: 1;
+  }
+
+  .h3-layer-examples {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-lg);
+  }
+
+  .h3-layer-examples span {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    padding: 0.3rem 0.6rem;
+    background: var(--color-surface);
+    border-radius: var(--radius-sm);
+    color: var(--color-text);
+  }
+
+  .h3-layer-count {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-accent);
+  }
+
+  /* ---- Evidence section ---- */
+  .h3-evidence {
+    background: var(--color-accent);
+    color: white;
+  }
+
+  .h3-evidence-inner {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: var(--space-2xl) var(--space-lg);
+  }
+
+  .h3-evidence h2 {
+    color: white;
+    font-size: 1.35rem;
+    margin: 0 0 var(--space-md);
+  }
+
+  .h3-evidence p {
+    font-family: var(--font-serif);
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0 0 var(--space-lg);
+    max-width: 40rem;
+  }
+
+  .h3-systems {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-lg);
+  }
+
+  .h3-system {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    padding: 0.3rem 0.7rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-sm);
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .h3-evidence-link {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: white;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .h3-evidence-link:hover {
+    color: white;
+  }
+
+  /* ---- Persona cards ---- */
+  .h3-overline {
+    font-family: var(--font-sans) !important;
+    font-size: 0.75rem !important;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-accent);
+    margin: 0 0 var(--space-xs) !important;
+  }
+
+  .h3-personas {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+  }
+
+  .h3-persona {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .h3-persona h3 {
+    font-size: 0.95rem;
+    font-style: italic;
+    font-weight: 600;
+    line-height: 1.4;
+    margin: 0 0 var(--space-sm);
+    color: var(--color-text);
+  }
+
+  .h3-persona > p {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    margin: 0;
+    flex: 1;
+  }
+
+  .h3-persona-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-top: var(--space-md);
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--color-border-light);
+  }
+
+  .h3-persona-links a {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 0.3rem 0.7rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    color: var(--color-text);
+    background: white;
+  }
+
+  .h3-persona-links a:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+
+  /* ---- Schema index ---- */
+  .h3-idx {
+    margin-bottom: var(--space-xl);
+  }
+
+  .h3-idx:last-child {
+    margin-bottom: 0;
+  }
+
+  .h3-idx-header {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+  }
+
+  .h3-idx-header h3 {
+    font-size: 0.95rem;
+    margin: 0;
+  }
+
+  .h3-idx-count {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    background: var(--color-surface);
+    padding: 0.15rem 0.5rem;
+    border-radius: var(--radius-pill);
+  }
+
+  .h3-idx-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  .h3-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: 0.4rem 0.85rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-pill);
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-decoration: none;
+    color: var(--color-text);
+  }
+
+  .h3-chip:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+
+  .h3-chip .badge {
+    font-size: 0.6rem;
+    padding: 0.1rem 0.35rem;
+  }
+
+  .h3-chip-meta {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    font-weight: 400;
+  }
+
+  .h3-chip-more {
+    background: none;
+    border-style: dashed;
+    color: var(--color-text-muted);
+    font-weight: 400;
+  }
+
+  .h3-chip-more:hover {
+    border-style: solid;
+    color: var(--color-accent);
+  }
+
+  /* ---- Closing line ---- */
+  .h3-closing {
+    font-family: var(--font-sans) !important;
+    font-size: 0.875rem !important;
+    color: var(--color-text-muted);
+    margin-top: var(--space-2xl) !important;
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--color-border-light);
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  .h3-closing a {
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .h3-closing a:hover {
+    text-decoration: underline;
+  }
+
+  /* ---- Responsive ---- */
+  @media (max-width: 768px) {
+    .h3-hero h1 {
+      font-size: 2.25rem;
+    }
+
+    .h3-hero-inner {
+      padding-top: var(--space-2xl);
+      padding-bottom: var(--space-2xl);
+    }
+
+    .h3-layers {
+      grid-template-columns: 1fr;
+    }
+
+    .h3-personas {
+      grid-template-columns: 1fr;
+    }
+
+    .h3-diagram {
+      gap: var(--space-md);
+      padding: var(--space-md);
+    }
+
+    .h3-diagram-panel svg {
+      max-width: 120px;
+    }
+
+    .h3-systems {
+      gap: var(--space-xs);
+    }
+  }
+</style>
