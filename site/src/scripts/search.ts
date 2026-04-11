@@ -79,18 +79,14 @@ function truncate(text: string, maxLen: number): string {
   return text.slice(0, maxLen).trimEnd() + "...";
 }
 
-// Find which vocabulary value label matched the query
+// Find which vocabulary value label matched the query.
+// Keywords are tab-separated in the search index to preserve multi-word labels.
 function findMatchedValue(keywords: string, query: string): string | null {
   if (!keywords) return null;
   const q = query.toLowerCase();
-  const labels = keywords.split(/\s+/);
-  // Try multi-word match first (e.g., "Never Married")
-  const fullKeywords = keywords.split(/\s{2,}|\t/);
-  for (const label of fullKeywords) {
-    if (label.toLowerCase().includes(q)) return label.trim();
-  }
+  const labels = keywords.split("\t");
   for (const label of labels) {
-    if (label.toLowerCase().includes(q)) return label;
+    if (label.toLowerCase().includes(q)) return label.trim();
   }
   return null;
 }
@@ -484,8 +480,10 @@ function initSearch(): void {
         if (overlayStatus) {
           overlayStatus.textContent = `${totalShown} result${totalShown === 1 ? "" : "s"} found`;
         }
-      } catch {
-        // Silently fail; user can still browse
+      } catch (err) {
+        console.error("Search failed:", err);
+        overlayResults.innerHTML = "";
+        overlayInput.setAttribute("aria-expanded", "false");
       }
     }
 

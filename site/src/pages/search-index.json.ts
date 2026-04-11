@@ -11,12 +11,6 @@ interface SearchDocument {
   keywords: string;
 }
 
-function formatTitle(id: string): string {
-  // Convert snake_case/kebab-case to readable: "date_of_birth" -> "date_of_birth", but keep as-is
-  // Concept IDs are PascalCase and already readable
-  return id;
-}
-
 function truncate(text: string, maxLength: number): string {
   const trimmed = text.trim().replace(/\n/g, " ");
   if (trimmed.length <= maxLength) return trimmed;
@@ -35,7 +29,7 @@ export function GET() {
       title: concept.id,
       body: truncate(concept.definition.en || "", 200),
       path: concept.path,
-      meta: concept.domain ? `Domain: ${concept.domain}` : "Universal",
+      meta: concept.domain ? `Domain: ${concept.domain}` : "",
       keywords: concept.properties.map((p) => p.id).join(" "),
     });
   }
@@ -73,7 +67,7 @@ export function GET() {
       body: truncate(v.definition.en || "", 200),
       path: `/vocab/${v.id}`,
       meta: `${valueCount} values`,
-      keywords: valueLabels.join(" "),
+      keywords: valueLabels.join("\t"),
     });
   }
 
