@@ -1,0 +1,20 @@
+id: matronymic_name
+maturity: draft
+
+definition:
+  en: "A name derived from the given name of the person's mother."
+  fr: "Un nom derive du prenom de la mere de la personne."
+  es: "Un nombre derivado del nombre de pila de la madre de la persona."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+schema_org_equivalent: null
+
+external_equivalents:
+  semic:
+    label: "matronymicName"
+    uri: "http://data.europa.eu/m8g/matronymicName"
+    match: exact
+    vocabulary: "Core Person"

@@ -11,6 +11,13 @@ cardinality: single
 vocabulary: sex
 references: null
 
+external_equivalents:
+  semic:
+    label: "sex"
+    uri: "http://data.europa.eu/m8g/sex"
+    match: exact
+    vocabulary: "Core Person"
+
 convergence:
   system_count: 4
   total_systems: 5

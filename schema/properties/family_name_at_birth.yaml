@@ -12,6 +12,14 @@ vocabulary: null
 references: null
 schema_org_equivalent: null
 
+external_equivalents:
+  semic:
+    label: "birthName"
+    uri: "http://www.w3.org/ns/person#birthName"
+    match: broad
+    vocabulary: "Core Person"
+    note: "SEMIC birthName is the full name at birth; ours is only the family name component"
+
 convergence:
   system_count: 0
   total_systems: 6

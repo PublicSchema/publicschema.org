@@ -31,6 +31,13 @@ properties:
 supertypes: []
 subtypes: []
 
+external_equivalents:
+  semic:
+    label: "Identifier"
+    uri: "http://www.w3.org/ns/adms#Identifier"
+    match: exact
+    vocabulary: "ADMS"
+
 convergence:
   system_count: 5
   total_systems: 6

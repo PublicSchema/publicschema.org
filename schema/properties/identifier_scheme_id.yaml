@@ -12,6 +12,14 @@ vocabulary: null
 references: null
 schema_org_equivalent: null
 
+external_equivalents:
+  semic:
+    label: "conformsTo"
+    uri: "http://purl.org/dc/terms/conformsTo"
+    match: close
+    vocabulary: "Core Person"
+    note: "SEMIC uses dc:conformsTo linking to a standard; ours is the scheme identifier string"
+
 convergence:
   system_count: 0
   total_systems: 6

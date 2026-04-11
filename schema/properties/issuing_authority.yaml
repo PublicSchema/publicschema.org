@@ -11,6 +11,14 @@ cardinality: single
 vocabulary: null
 references: null
 
+external_equivalents:
+  semic:
+    label: "creator"
+    uri: "http://purl.org/dc/terms/creator"
+    match: close
+    vocabulary: "Core Person"
+    note: "SEMIC uses dc:creator as an object property; ours is a string name of the issuing authority"
+
 convergence:
   system_count: 0
   total_systems: 5

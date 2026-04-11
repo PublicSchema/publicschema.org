@@ -1,0 +1,21 @@
+id: email_address
+maturity: draft
+
+definition:
+  en: "An email address through which the person can be contacted."
+  fr: "Une adresse electronique par laquelle la personne peut etre contactee."
+  es: "Una direccion de correo electronico a traves de la cual se puede contactar a la persona."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+schema_org_equivalent: "schema:email"
+
+external_equivalents:
+  semic:
+    label: "email"
+    uri: "http://data.europa.eu/m8g/email"
+    match: close
+    vocabulary: "Core Person"
+    note: "SEMIC places email on ContactPoint, not directly on Person"

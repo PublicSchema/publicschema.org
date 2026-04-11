@@ -12,6 +12,13 @@ vocabulary: null
 references: null
 schema_org_equivalent: null
 
+external_equivalents:
+  semic:
+    label: "patronymicName"
+    uri: "http://www.w3.org/ns/person#patronymicName"
+    match: exact
+    vocabulary: "Core Person"
+
 convergence:
   system_count: 0
   total_systems: 6

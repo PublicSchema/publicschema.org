@@ -45,6 +45,13 @@ values:
   standard_code: '9'
   definition:
     en: Sex is not applicable in this context (e.g., legal entities).
+external_equivalents:
+  semic:
+    label: "Human Sex"
+    uri: "http://publications.europa.eu/resource/authority/human-sex"
+    match: exact
+    vocabulary: "Core Person"
+    note: "EU Named Authority List for human sex, based on ISO/IEC 5218. Same 4 concepts, different authority URIs."
 system_mappings:
   openspp:
     vocabulary_name: Iso5218GenderCodes
@@ -106,3 +113,18 @@ system_mappings:
     - code: unknown
       label: Unknown
       maps_to: not_known
+  semic:
+    vocabulary_name: "EU Human Sex NAL"
+    values:
+    - code: MALE
+      label: Male
+      maps_to: male
+    - code: FEMALE
+      label: Female
+      maps_to: female
+    - code: NKN
+      label: Not known
+      maps_to: not_known
+    - code: NAP
+      label: Not applicable
+      maps_to: not_applicable

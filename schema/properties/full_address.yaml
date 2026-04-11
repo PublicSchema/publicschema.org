@@ -1,0 +1,20 @@
+id: full_address
+maturity: draft
+
+definition:
+  en: "The complete address written as a single text string. Coexists with structured address components for systems that store addresses as free text."
+  fr: "L'adresse complete redigee sous forme d'une seule chaine de texte. Coexiste avec les composantes structurees de l'adresse pour les systemes qui stockent les adresses en texte libre."
+  es: "La direccion completa escrita como una sola cadena de texto. Coexiste con los componentes estructurados de la direccion para los sistemas que almacenan direcciones como texto libre."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+schema_org_equivalent: null
+
+external_equivalents:
+  semic:
+    label: "fullAddress"
+    uri: "http://www.w3.org/ns/locn#fullAddress"
+    match: exact
+    vocabulary: "Core Location"

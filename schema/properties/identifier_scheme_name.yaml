@@ -12,6 +12,14 @@ vocabulary: null
 references: null
 schema_org_equivalent: null
 
+external_equivalents:
+  semic:
+    label: "label"
+    uri: "http://www.w3.org/2000/01/rdf-schema#label"
+    match: close
+    vocabulary: "Core Person"
+    note: "SEMIC uses rdfs:label on the Identifier for the scheme name; ours is a dedicated field"
+
 convergence:
   system_count: 0
   total_systems: 6

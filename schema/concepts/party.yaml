@@ -24,6 +24,14 @@ properties:
 subtypes: [Person, Group]
 supertypes: []
 
+external_equivalents:
+  semic:
+    label: "Agent"
+    uri: "http://xmlns.com/foaf/0.1/Agent"
+    match: close
+    vocabulary: "Core Person"
+    note: "SEMIC foaf:Agent includes software agents and any acting entity; ours is specifically persons and organized groups in social protection"
+
 convergence:
   system_count: 6
   total_systems: 6

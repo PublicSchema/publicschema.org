@@ -1,0 +1,21 @@
+id: country_of_birth
+maturity: draft
+
+definition:
+  en: "The country where the person was born, expressed as an ISO 3166-1 code."
+  fr: "Le pays ou la personne est nee, exprime sous forme de code ISO 3166-1."
+  es: "El pais donde nacio la persona, expresado como codigo ISO 3166-1."
+
+type: string
+cardinality: single
+vocabulary: country
+references: null
+schema_org_equivalent: null
+
+external_equivalents:
+  semic:
+    label: "countryOfBirth"
+    uri: "http://www.w3.org/ns/person#countryOfBirth"
+    match: close
+    vocabulary: "Core Person"
+    note: "SEMIC countryOfBirth references a Location object; ours is a coded string (ISO 3166)"

@@ -12,6 +12,14 @@ vocabulary: null
 references: null
 schema_org_equivalent: null
 
+external_equivalents:
+  semic:
+    label: "locatorDesignator"
+    uri: "http://www.w3.org/ns/locn#locatorDesignator"
+    match: close
+    vocabulary: "Core Location"
+    note: "SEMIC locatorDesignator covers house number plus unit/floor/stairway; ours is house number only"
+
 convergence:
   system_count: 0
   total_systems: 6

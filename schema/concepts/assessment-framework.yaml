@@ -28,6 +28,14 @@ properties:
 subtypes: []
 supertypes: []
 
+external_equivalents:
+  semic:
+    label: "Reference Framework"
+    uri: "http://data.europa.eu/m8g/ReferenceFramework"
+    match: close
+    vocabulary: "CCCEV"
+    note: "SEMIC ReferenceFramework is legislation or policy from which requirements derive; ours is a scoring methodology (PMT, scorecard)"
+
 convergence:
   system_count: 4
   total_systems: 6

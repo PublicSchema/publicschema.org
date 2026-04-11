@@ -401,6 +401,7 @@ def build_vocabulary(schema_dir: Path) -> dict:
             "subtypes": data.get("subtypes", []),
             "supertypes": data.get("supertypes", []),
             "convergence": data.get("convergence"),
+            "external_equivalents": data.get("external_equivalents"),
         }
 
     # Build output properties
@@ -421,6 +422,7 @@ def build_vocabulary(schema_dir: Path) -> dict:
             "schema_org_equivalent": data.get("schema_org_equivalent"),
             "sensitivity": data.get("sensitivity"),
             "system_mappings": data.get("system_mappings"),
+            "external_equivalents": data.get("external_equivalents"),
             "convergence": data.get("convergence"),
         }
 
@@ -455,6 +457,7 @@ def build_vocabulary(schema_dir: Path) -> dict:
             "standard": data.get("standard"),
             "values": values,
             "system_mappings": data.get("system_mappings"),
+            "external_equivalents": data.get("external_equivalents"),
             "same_standard_systems": data.get("same_standard_systems"),
             "external_values": data.get("external_values", False),
         }

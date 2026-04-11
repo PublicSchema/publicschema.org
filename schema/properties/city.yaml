@@ -12,6 +12,14 @@ vocabulary: null
 references: null
 schema_org_equivalent: "schema:addressLocality"
 
+external_equivalents:
+  semic:
+    label: "postName"
+    uri: "http://www.w3.org/ns/locn#postName"
+    match: close
+    vocabulary: "Core Location"
+    note: "SEMIC postName is the city or locality associated with the postal address, which may differ from the municipality"
+
 convergence:
   system_count: 3
   total_systems: 5

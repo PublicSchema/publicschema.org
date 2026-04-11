@@ -12,6 +12,14 @@ vocabulary: null
 references: null
 schema_org_equivalent: "schema:streetAddress"
 
+external_equivalents:
+  semic:
+    label: "thoroughfare"
+    uri: "http://www.w3.org/ns/locn#thoroughfare"
+    match: close
+    vocabulary: "Core Location"
+    note: "SEMIC thoroughfare is specifically the street name; ours may include the full street line with number"
+
 convergence:
   system_count: 3
   total_systems: 5

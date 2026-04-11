@@ -15,6 +15,13 @@ same_standard_systems:
   - openspp
   - fhir_r4
 external_values: true
+external_equivalents:
+  semic:
+    label: "Language"
+    uri: "http://publications.europa.eu/resource/authority/language"
+    match: close
+    vocabulary: "Core Public Event"
+    note: "EU Language NAL uses ISO 639-1/2 (~180/500 codes). PublicSchema uses ISO 639-3 (~7,900 codes), the superset covering all known human languages. Every 639-1/2 code maps to a 639-3 code. 639-3 is necessary for minority, indigenous, and refugee-context languages that 639-1/2 does not cover."
 values:
 - code: aaa
   label:

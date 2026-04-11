@@ -1,0 +1,20 @@
+id: date_of_death
+maturity: draft
+
+definition:
+  en: "The date on which the person died."
+  fr: "La date de deces de la personne."
+  es: "La fecha de fallecimiento de la persona."
+
+type: date
+cardinality: single
+vocabulary: null
+references: null
+schema_org_equivalent: "schema:deathDate"
+
+external_equivalents:
+  semic:
+    label: "deathDate"
+    uri: "http://data.europa.eu/m8g/deathDate"
+    match: exact
+    vocabulary: "Core Person"

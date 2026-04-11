@@ -12,6 +12,14 @@ vocabulary: null
 references: null
 schema_org_equivalent: "schema:alternateName"
 
+external_equivalents:
+  semic:
+    label: "alternative"
+    uri: "http://purl.org/dc/terms/alternative"
+    match: close
+    vocabulary: "Core Person"
+    note: "SEMIC uses dc:alternative for any alternative name; ours is specifically the preferred display name"
+
 convergence:
   system_count: 0
   total_systems: 6

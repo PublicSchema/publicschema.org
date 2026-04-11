@@ -11,6 +11,14 @@ cardinality: single
 vocabulary: null
 references: null
 
+external_equivalents:
+  semic:
+    label: "geographicName"
+    uri: "http://www.w3.org/ns/locn#geographicName"
+    match: close
+    vocabulary: "Core Location"
+    note: "SEMIC geographicName is the official geographic name; ours is a general location display name"
+
 convergence:
   system_count: 6
   total_systems: 6

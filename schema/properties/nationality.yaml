@@ -11,6 +11,14 @@ cardinality: single
 vocabulary: country
 references: null
 
+external_equivalents:
+  semic:
+    label: "citizenship"
+    uri: "http://www.w3.org/ns/person#citizenship"
+    match: broad
+    vocabulary: "Core Person"
+    note: "SEMIC citizenship is an object property linking to a Jurisdiction; ours is a coded string (ISO 3166). Also, citizenship has legal connotations that nationality does not always carry."
+
 convergence:
   system_count: 3
   total_systems: 6

@@ -12,6 +12,13 @@ vocabulary: null
 references: null
 schema_org_equivalent: "schema:postalCode"
 
+external_equivalents:
+  semic:
+    label: "postCode"
+    uri: "http://www.w3.org/ns/locn#postCode"
+    match: exact
+    vocabulary: "Core Location"
+
 convergence:
   system_count: 3
   total_systems: 5

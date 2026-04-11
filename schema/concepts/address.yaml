@@ -18,9 +18,11 @@ definition:
     distrito y codigo postal.
 
 properties:
+  - full_address
   - street_address
   - house_number
   - building_name
+  - address_area
   - city
   - administrative_area
   - postal_code
@@ -29,6 +31,13 @@ properties:
 
 supertypes: []
 subtypes: []
+
+external_equivalents:
+  semic:
+    label: "Address"
+    uri: "http://www.w3.org/ns/locn#Address"
+    match: exact
+    vocabulary: "Core Location"
 
 convergence:
   system_count: 5

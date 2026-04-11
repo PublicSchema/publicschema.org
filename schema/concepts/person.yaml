@@ -25,12 +25,15 @@ definition:
 
 properties:
   - date_of_birth
+  - date_of_death
+  - country_of_birth
   - given_name
   - family_name
   - family_name_at_birth
   - given_name_at_birth
   - preferred_name
   - patronymic_name
+  - matronymic_name
   - gender
   - nationality
   - sex
@@ -39,10 +42,19 @@ properties:
   - preferred_language
   - occupation
   - phone_number
+  - email_address
+  - domicile
   - group_memberships
 
 subtypes: []
 supertypes: [Party]
+
+external_equivalents:
+  semic:
+    label: "Person"
+    uri: "http://www.w3.org/ns/person#Person"
+    match: exact
+    vocabulary: "Core Person"
 
 convergence:
   system_count: 6

@@ -12,6 +12,14 @@ vocabulary: null
 references: null
 schema_org_equivalent: "schema:telephone"
 
+external_equivalents:
+  semic:
+    label: "telephone"
+    uri: "http://data.europa.eu/m8g/telephone"
+    match: close
+    vocabulary: "Core Person"
+    note: "SEMIC places telephone on ContactPoint, not directly on Person"
+
 convergence:
   system_count: 3
   total_systems: 6

@@ -12,6 +12,13 @@ vocabulary: null
 references: null
 schema_org_equivalent: "schema:birthDate"
 
+external_equivalents:
+  semic:
+    label: "birthDate"
+    uri: "http://data.europa.eu/m8g/birthDate"
+    match: exact
+    vocabulary: "Core Person"
+
 convergence:
   system_count: 6
   total_systems: 6

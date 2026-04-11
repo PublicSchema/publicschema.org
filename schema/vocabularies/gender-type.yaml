@@ -54,6 +54,13 @@ values:
     en: Gender has not been recorded or has not been disclosed.
     fr: Le genre n'a pas ete enregistre ou n'a pas ete divulgue.
     es: El genero no ha sido registrado o no ha sido declarado.
+external_equivalents:
+  semic:
+    label: "Gender"
+    uri: "http://data.europa.eu/m8g/gender"
+    match: broad
+    vocabulary: "Core Person"
+    note: "SEMIC intentionally leaves gender vocabulary open, recommending implementations choose a context-appropriate controlled vocabulary. No EU NAL is mandated for gender."
 system_mappings:
   openimis:
     vocabulary_name: Gender

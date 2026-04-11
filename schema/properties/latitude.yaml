@@ -12,6 +12,13 @@ vocabulary: null
 references: null
 schema_org_equivalent: "schema:latitude"
 
+external_equivalents:
+  semic:
+    label: "latitude"
+    uri: "http://data.europa.eu/m8g/latitude"
+    match: exact
+    vocabulary: "Core Location"
+
 convergence:
   system_count: 1
   total_systems: 6

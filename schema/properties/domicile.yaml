@@ -1,0 +1,21 @@
+id: domicile
+maturity: draft
+
+definition:
+  en: "The place that the person treats as their permanent home, which may differ from the address of their current household."
+  fr: "Le lieu que la personne considere comme son domicile permanent, qui peut differer de l'adresse de son menage actuel."
+  es: "El lugar que la persona considera como su domicilio permanente, que puede diferir de la direccion de su hogar actual."
+
+type: concept:Address
+cardinality: single
+vocabulary: null
+references: null
+schema_org_equivalent: null
+
+external_equivalents:
+  semic:
+    label: "domicile"
+    uri: "http://data.europa.eu/m8g/domicile"
+    match: close
+    vocabulary: "Core Person"
+    note: "Both represent permanent home; SEMIC uses locn:Address as range, ours references our Address concept"

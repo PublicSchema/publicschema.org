@@ -27,3 +27,11 @@ properties:
 
 supertypes: []
 subtypes: []
+
+external_equivalents:
+  semic:
+    label: "Administrative Unit"
+    uri: "http://data.europa.eu/m8g/AdminUnit"
+    match: broad
+    vocabulary: "Core Location"
+    note: "SEMIC AdminUnit is strictly an administrative hierarchy node; ours also covers non-administrative boundaries like flood zones and program coverage areas"

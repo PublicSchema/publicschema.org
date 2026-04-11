@@ -30,6 +30,14 @@ properties:
 supertypes: []
 subtypes: []
 
+external_equivalents:
+  semic:
+    label: "Location"
+    uri: "http://purl.org/dc/terms/Location"
+    match: close
+    vocabulary: "Core Location"
+    note: "SEMIC dc:Location is a generic spatial thing; ours is a hierarchical administrative node with level and parent"
+
 convergence:
   system_count: 6
   total_systems: 6

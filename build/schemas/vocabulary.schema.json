@@ -40,6 +40,13 @@
         "$ref": "#/$defs/system_mapping"
       }
     },
+    "external_equivalents": {
+      "type": ["object", "null"],
+      "description": "Mappings to equivalent classes or properties in external ontologies (e.g. SEMIC Core Vocabularies)",
+      "additionalProperties": {
+        "$ref": "#/$defs/external_equivalent"
+      }
+    },
     "same_standard_systems": {
       "type": "array",
       "items": { "type": "string" }
@@ -164,6 +171,35 @@
           "type": "string",
           "enum": ["no_equivalent", "not_yet_mapped", "out_of_scope", "context_dependent"],
           "description": "Why this system value has no canonical equivalent. Required when maps_to is null."
+        }
+      }
+    },
+    "external_equivalent": {
+      "type": "object",
+      "required": ["label", "uri", "match"],
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "type": "string",
+          "description": "Human-readable name in the external ontology"
+        },
+        "uri": {
+          "type": "string",
+          "format": "uri",
+          "description": "Full URI of the equivalent in the external ontology"
+        },
+        "match": {
+          "type": "string",
+          "enum": ["exact", "close", "broad", "name_match"],
+          "description": "Semantic match quality"
+        },
+        "vocabulary": {
+          "type": "string",
+          "description": "Which vocabulary or ontology module this comes from"
+        },
+        "note": {
+          "type": "string",
+          "description": "Semantic rationale for the match quality"
         }
       }
     },

@@ -14,6 +14,13 @@ sync:
 same_standard_systems:
   - openspp
 external_values: true
+external_equivalents:
+  semic:
+    label: "Country"
+    uri: "http://publications.europa.eu/resource/authority/country"
+    match: close
+    vocabulary: "Core Location"
+    note: "EU Country Named Authority List is based on ISO 3166-1 (same underlying standard). SEMIC uses URI-based resources; PublicSchema uses alpha-2 codes."
 values:
 - code: af
   label:

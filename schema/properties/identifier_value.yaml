@@ -11,6 +11,14 @@ cardinality: single
 vocabulary: null
 references: null
 
+external_equivalents:
+  semic:
+    label: "notation"
+    uri: "http://www.w3.org/2004/02/skos/core#notation"
+    match: close
+    vocabulary: "Core Person"
+    note: "SEMIC uses skos:notation for the literal value of an identifier"
+
 convergence:
   system_count: 2
   total_systems: 5

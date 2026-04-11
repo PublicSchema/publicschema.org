@@ -12,6 +12,14 @@ vocabulary: country
 references: null
 schema_org_equivalent: "schema:addressCountry"
 
+external_equivalents:
+  semic:
+    label: "adminUnitL1"
+    uri: "http://www.w3.org/ns/locn#adminUnitL1"
+    match: close
+    vocabulary: "Core Location"
+    note: "SEMIC adminUnitL1 is the top-level admin unit (country); ours is explicitly a country field with ISO 3166 coding"
+
 convergence:
   system_count: 3
   total_systems: 5

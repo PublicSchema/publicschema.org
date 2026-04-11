@@ -11,6 +11,13 @@ cardinality: single
 vocabulary: null
 references: null
 
+external_equivalents:
+  semic:
+    label: "issued"
+    uri: "http://purl.org/dc/terms/issued"
+    match: exact
+    vocabulary: "Core Person"
+
 convergence:
   system_count: 0
   total_systems: 5

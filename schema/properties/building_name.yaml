@@ -12,6 +12,14 @@ vocabulary: null
 references: null
 schema_org_equivalent: null
 
+external_equivalents:
+  semic:
+    label: "locatorName"
+    uri: "http://www.w3.org/ns/locn#locatorName"
+    match: close
+    vocabulary: "Core Location"
+    note: "SEMIC locatorName is a proper name for a passage or building; ours is specifically building name"
+
 convergence:
   system_count: 0
   total_systems: 6

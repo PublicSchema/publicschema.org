@@ -12,6 +12,14 @@ vocabulary: null
 references: null
 schema_org_equivalent: "schema:addressRegion"
 
+external_equivalents:
+  semic:
+    label: "adminUnitL2"
+    uri: "http://www.w3.org/ns/locn#adminUnitL2"
+    match: close
+    vocabulary: "Core Location"
+    note: "SEMIC adminUnitL2 is specifically the second-level admin unit (region/state); ours is a general administrative area field"
+
 convergence:
   system_count: 2
   total_systems: 5

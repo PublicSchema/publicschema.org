@@ -12,6 +12,13 @@ vocabulary: null
 references: null
 schema_org_equivalent: "schema:familyName"
 
+external_equivalents:
+  semic:
+    label: "familyName"
+    uri: "http://xmlns.com/foaf/0.1/familyName"
+    match: exact
+    vocabulary: "Core Person"
+
 convergence:
   system_count: 5
   total_systems: 6

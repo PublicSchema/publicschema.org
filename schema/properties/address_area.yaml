@@ -1,0 +1,20 @@
+id: address_area
+maturity: draft
+
+definition:
+  en: "The name of a geographic area such as a neighborhood, quarter, or ward that groups addresses below the city level."
+  fr: "Le nom d'une zone geographique telle qu'un quartier ou un secteur qui regroupe des adresses en dessous du niveau de la ville."
+  es: "El nombre de un area geografica como un barrio o sector que agrupa direcciones por debajo del nivel de la ciudad."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+schema_org_equivalent: null
+
+external_equivalents:
+  semic:
+    label: "addressArea"
+    uri: "http://www.w3.org/ns/locn#addressArea"
+    match: exact
+    vocabulary: "Core Location"
