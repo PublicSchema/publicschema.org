@@ -1,66 +1,66 @@
 id: gender-type
 maturity: draft
 definition:
-  en: Categories used to record the gender of a person in an identity or administrative system.
-  fr: Categories utilisees pour enregistrer le genre d'une personne dans un systeme d'identite ou administratif.
-  es: Categorias utilizadas para registrar el genero de una persona en un sistema de identidad o administrativo.
-standard:
-  name: ISO/IEC 5218
-  uri: https://www.iso.org/standard/36266.html
-  notes: Codes for the representation of human sexes. ISO 5218 uses numeric codes; this vocabulary maps them to readable snake_case
-    identifiers.
-sync:
-  source_url: https://hl7.org/fhir/R4/codesystem-administrative-gender.json
-  format: fhir-codesystem
-  last_synced: '2026-04-07'
+  en: >-
+    The administrative gender of a person as recorded in a registry or identity system. Distinct from biological sex
+    (see the sex vocabulary). No single international standard governs gender vocabulary; ISO/IEC 5218 explicitly
+    covers biological sex only. This vocabulary provides a minimal common set based on what social protection systems
+    actually record.
+  fr: >-
+    Le genre administratif d'une personne tel qu'enregistre dans un registre ou un systeme d'identite. Distinct du
+    sexe biologique (voir le vocabulaire sex). Aucune norme internationale unique ne regit le vocabulaire du genre.
+    Ce vocabulaire fournit un ensemble minimal commun base sur ce que les systemes de protection sociale enregistrent.
+  es: >-
+    El genero administrativo de una persona tal como se registra en un registro o sistema de identidad. Distinto del
+    sexo biologico (ver el vocabulario sex). Ninguna norma internacional unica rige el vocabulario de genero. Este
+    vocabulario proporciona un conjunto minimo comun basado en lo que los sistemas de proteccion social registran.
+# No governing standard. ISO/IEC 5218 covers biological sex only (2022 revision).
+# FHIR R5 Gender Harmony and SEMIC Core Person 2.1.1 both separate sex from gender
+# but neither mandates a controlled vocabulary for gender.
 values:
 - code: male
   label:
     en: Male
     fr: Masculin
     es: Masculino
-  standard_code: '1'
   definition:
-    en: A person recorded as male in a registry or identity document.
-    fr: Une personne enregistree comme de sexe masculin dans un registre ou un document d'identite.
-    es: Una persona registrada como masculina en un registro o documento de identidad.
+    en: Person identifies or is recorded as male.
+    fr: La personne s'identifie ou est enregistree comme homme.
+    es: La persona se identifica o esta registrada como hombre.
 - code: female
   label:
     en: Female
     fr: Feminin
     es: Femenino
-  standard_code: '2'
   definition:
-    en: A person recorded as female in a registry or identity document.
-    fr: Une personne enregistree comme de sexe feminin dans un registre ou un document d'identite.
-    es: Una persona registrada como femenina en un registro o documento de identidad.
+    en: Person identifies or is recorded as female.
+    fr: La personne s'identifie ou est enregistree comme femme.
+    es: La persona se identifica o esta registrada como mujer.
 - code: other
   label:
     en: Other
     fr: Autre
     es: Otro
-  standard_code: '9'
   definition:
-    en: A person whose gender is not captured by the male or female categories.
-    fr: Une personne dont le genre n'est pas couvert par les categories masculin ou feminin.
-    es: Una persona cuyo genero no queda cubierto por las categorias masculino o femenino.
+    en: A gender not captured by the male or female categories.
+    fr: Un genre qui n'est pas couvert par les categories homme ou femme.
+    es: Un genero no cubierto por las categorias hombre o mujer.
 - code: not_stated
   label:
     en: Not stated
     fr: Non declare
     es: No declarado
-  standard_code: '0'
   definition:
-    en: Gender has not been recorded or has not been disclosed.
-    fr: Le genre n'a pas ete enregistre ou n'a pas ete divulgue.
-    es: El genero no ha sido registrado o no ha sido declarado.
+    en: Gender has not been recorded or the person declined to disclose.
+    fr: Le genre n'a pas ete enregistre ou la personne a refuse de le divulguer.
+    es: El genero no ha sido registrado o la persona se nego a divulgarlo.
 external_equivalents:
   semic:
     label: "Gender"
     uri: "http://data.europa.eu/m8g/gender"
     match: broad
     vocabulary: "Core Person"
-    note: "SEMIC intentionally leaves gender vocabulary open, recommending implementations choose a context-appropriate controlled vocabulary. No EU NAL is mandated for gender."
+    note: "SEMIC Core Person 2.1.1 defines gender as a separate property from sex but mandates no controlled vocabulary, leaving the choice to implementers."
 system_mappings:
   openimis:
     vocabulary_name: Gender
