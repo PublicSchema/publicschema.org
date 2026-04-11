@@ -796,6 +796,56 @@ def write_outputs(result: dict, dist_dir: Path):
     downloads_dir = dist_dir / "downloads"
     generate_all_downloads(result, downloads_dir)
 
+    # Machine-readable artifact index
+    meta = result["meta"]
+    base_uri = meta.get("base_uri", "https://publicschema.org/")
+    version = meta.get("version", "0.1.0")
+    maturity = meta.get("maturity", "draft")
+    version_label = "draft" if maturity == "draft" else ".".join(version.split(".")[:2])
+
+    manifest = {
+        "name": meta.get("name", "PublicSchema"),
+        "version": version,
+        "maturity": maturity,
+        "base_uri": base_uri,
+        "artifacts": {
+            "context": f"/ctx/{version_label}.jsonld",
+            "vocabulary": "/vocabulary.json",
+            "turtle": f"/v/{version_label}/publicschema.ttl",
+            "jsonld": f"/v/{version_label}/publicschema.jsonld",
+            "shacl": f"/v/{version_label}/publicschema.shacl.ttl",
+        },
+        "concepts": {},
+        "vocabularies": {},
+        "credentials": {},
+    }
+
+    for concept_id, concept in result["concepts"].items():
+        path = concept["path"]
+        domain = concept.get("domain")
+        schema_prefix = f"/{domain}" if domain else ""
+        manifest["concepts"][concept_id] = {
+            "schema": f"{schema_prefix}/schemas/{concept_id}.schema.json",
+            "jsonld": f"{path}.jsonld",
+            "csv": f"/downloads/{concept_id}.csv",
+            "xlsx_definition": f"/downloads/{concept_id}-definition.xlsx",
+            "xlsx_template": f"/downloads/{concept_id}-template.xlsx",
+        }
+
+    for vocab_id, vocab in result["vocabularies"].items():
+        manifest["vocabularies"][vocab_id] = {
+            "jsonld": f"/vocab/{vocab_id}.jsonld",
+        }
+
+    for cred_id in result.get("credential_schemas", {}):
+        manifest["credentials"][cred_id] = {
+            "schema": f"/schemas/credentials/{cred_id}.schema.json",
+        }
+
+    (dist_dir / "manifest.json").write_text(
+        json.dumps(manifest, indent=2, ensure_ascii=False) + "\n"
+    )
+
 
 def main():
     """CLI entry point for build."""
