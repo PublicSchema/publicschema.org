@@ -391,8 +391,6 @@ no_match:
   - v2_vocabulary: targeting-approach
     reason: "OpenSPP does not have a controlled vocabulary for targeting methodology. Targeting is implemented through configurable filter rules and scoring models (spp_scoring), not a classification vocabulary."
 
-  - v2_vocabulary: administrative-level
-    reason: "OpenSPP uses spp_area for geographic areas but the area level classification uses a reference to STATE_SELECTION (not an inline enum), and no structured administrative level vocabulary was found in the extracted data."
 
   - v2_vocabulary: script
     reason: "No OpenSPP vocabulary for writing scripts (ISO 15924). OpenSPP language vocabulary uses ISO 639 codes only."

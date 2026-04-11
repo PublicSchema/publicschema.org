@@ -177,20 +177,6 @@ matches:
       v2_only: [unknown]
       external_only: []
 
-  - v2_vocabulary: administrative-level
-    external_vocabulary: LocationType
-    external_source: "location/apps.py:6"
-    confidence: high
-    notes: "LocationType defines the four-level administrative hierarchy used by openIMIS (Region > District > Ward > Village). Region maps to regional, District to district, Ward and Village both map to sub_district and village respectively. The v2 national level has no openIMIS equivalent as the system works within a single country."
-    value_mapping:
-      "R": regional
-      "D": district
-      "W": sub_district
-      "V": village
-    gaps:
-      v2_only: [national]
-      external_only: []
-
   - v2_vocabulary: occupation
     external_vocabulary: Profession
     external_source: "insuree/models.py:154"

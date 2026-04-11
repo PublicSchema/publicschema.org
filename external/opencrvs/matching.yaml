@@ -224,13 +224,6 @@ no_match:
       Program targeting methodology is a social protection planning concept with
       no civil registration equivalent.
 
-  - v2_vocabulary: administrative-level
-    reason: >
-      V2 administrative-level is a standardized vocabulary for geographic
-      administrative hierarchy tiers. OpenCRVS uses country-configurable location
-      types (deprecated LocationTypeV1, then arbitrary strings) rather than a
-      fixed tier enumeration. The concepts are adjacent but OpenCRVS has no
-      equivalent fixed vocabulary.
 
   # --- OpenCRVS domain-relevant vocabularies with no v2 equivalent ---
   # These are CRVS-specific concepts that could be relevant to future PublicSchema
@@ -302,8 +295,9 @@ no_match:
     reason: >
       Deprecated location type enum (ADMIN_STRUCTURE, CRVS_OFFICE,
       HEALTH_FACILITY). Superseded in v2 by country-configurable strings.
-      V2 administrative-level covers a related concept but at a different
-      granularity.
+      PublicSchema uses a numeric administrative_level integer (OCHA COD-AB
+      convention) rather than named tiers, which covers a related concept
+      but at a different granularity.
 
   - external_vocabulary: AdministrativeAreaType
     reason: >

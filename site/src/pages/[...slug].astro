@@ -7,6 +7,7 @@
 import Base from "../layouts/Base.astro";
 import { loadVocabulary } from "../data/vocabulary";
 import type { Concept, Property } from "../data/vocabulary";
+import { getSystemName } from "../data/systems";
 
 export function getStaticPaths() {
   const vocab = loadVocabulary();
@@ -227,6 +228,50 @@ function propPath(id: string): string {
           <p style="color: var(--color-text-muted);">Not used by any concept yet.</p>
         )}
       </div>
+
+      {prop.system_mappings && Object.keys(prop.system_mappings).length > 0 && (
+        <div class="concept-section">
+          <h2>System mappings</h2>
+          {Object.entries(prop.system_mappings).map(([system, mapping]) => (
+            <div style="margin-bottom: var(--space-lg);">
+              <h3><a href={`/systems/${system}`}>{getSystemName(system)}</a></h3>
+              {mapping.vocabulary_name && (
+                <p class="mapping-vocab-name">System vocabulary: <strong>{mapping.vocabulary_name}</strong></p>
+              )}
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>System code</th>
+                    <th>System label</th>
+                    <th>{prop.id} value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {mapping.values.map((v) => (
+                    <tr class={v.maps_to === null ? 'unmapped-row' : ''}>
+                      <td><code>{v.code}</code></td>
+                      <td data-label="System label">{v.label}</td>
+                      <td data-label={`${prop.id} value`}>
+                        {v.maps_to !== null
+                          ? (<code>{v.maps_to}</code>)
+                          : (<span class="no-mapping">{v.unmapped_reason?.replace(/_/g, " ") ?? "no equivalent"}</span>)
+                        }
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              {mapping.unmapped_canonical && mapping.unmapped_canonical.length > 0 && (
+                <p class="unmapped-note">
+                  Not covered by {getSystemName(system)}: {mapping.unmapped_canonical.map((code, i) => (
+                    <>{i > 0 && ", "}<code>{code}</code></>
+                  ))}
+                </p>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
 
       </article>
     </Base>

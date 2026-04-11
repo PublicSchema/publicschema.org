@@ -23,6 +23,7 @@ properties:
   - longitude
   - geometry
   - administrative_level
+  - level_name
   - parent_location
   - location_code
 

@@ -48,6 +48,7 @@ export interface Property {
   references: string | null;
   used_by: string[];
   sensitivity: "standard" | "sensitive" | "restricted" | null;
+  system_mappings: Record<string, SystemMapping> | null;
   convergence: Convergence | null;
 }
 
@@ -62,7 +63,7 @@ export interface VocabValue {
 export interface SystemMappingValue {
   code: string;
   label: string;
-  maps_to: string | null;
+  maps_to: string | number | null;
   unmapped_reason?: string;
 }
 

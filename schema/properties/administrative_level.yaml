@@ -2,16 +2,56 @@ id: administrative_level
 maturity: draft
 
 definition:
-  en: "The administrative classification (national, regional, district, sub-district, village)."
-  fr: "La classification administrative (national, regional, district, sous-district, village)."
-  es: "La clasificacion administrativa (nacional, regional, distrito, subdistrito, aldea)."
+  en: "The numeric tier in the administrative hierarchy, following the OCHA COD-AB convention: 0 = country, 1 = first subnational (state, province, region), 2 = second subnational (district, county, department), and so on. No fixed maximum depth."
+  fr: "Le niveau numerique dans la hierarchie administrative, selon la convention OCHA COD-AB : 0 = pays, 1 = premier niveau sous-national (etat, province, region), 2 = deuxieme niveau sous-national (district, comte, departement), et ainsi de suite. Pas de profondeur maximale fixe."
+  es: "El nivel numerico en la jerarquia administrativa, segun la convencion OCHA COD-AB: 0 = pais, 1 = primer nivel subnacional (estado, provincia, region), 2 = segundo nivel subnacional (distrito, condado, departamento), y asi sucesivamente. Sin profundidad maxima fija."
 
-type: string
+type: integer
 cardinality: single
-vocabulary: administrative-level
+vocabulary: null
 references: null
+
+system_mappings:
+  ocha_cod_ab:
+    vocabulary_name: "COD-AB AdminN"
+    values:
+    - code: Admin0
+      label: Country
+      maps_to: 0
+    - code: Admin1
+      label: First subnational
+      maps_to: 1
+    - code: Admin2
+      label: Second subnational
+      maps_to: 2
+    - code: Admin3
+      label: Third subnational
+      maps_to: 3
+    - code: Admin4
+      label: Fourth subnational
+      maps_to: 4
+    - code: Admin5
+      label: Fifth subnational
+      maps_to: 5
+  openimis:
+    vocabulary_name: LocationType
+    values:
+    - code: R
+      label: Region
+      maps_to: 1
+    - code: D
+      label: District
+      maps_to: 2
+    - code: W
+      label: Ward
+      maps_to: 3
+    - code: V
+      label: Village
+      maps_to: 4
+    unmapped_canonical:
+    - "0 (country)"
 
 convergence:
   system_count: 3
   total_systems: 6
-  notes: "Present in 3 of 6 mapped systems. Level naming conventions differ across countries; systems often use numeric levels (level 1, level 2) rather than named tiers."
+  notes: "Present in 3 of 6 mapped systems. Follows the OCHA COD-AB convention: 0 = country (Admin0), 1 = first subnational (Admin1), and so on. No fixed maximum depth."

@@ -15,8 +15,10 @@ const entries = index[systemId] ?? [];
 const meta = getSystemMeta(systemId);
 const issueUrl = getIssueUrl(meta.name);
 
-const valueMapped = entries.filter((e) => e.relationship === "value_mapping").length;
-const sameStandard = entries.filter((e) => e.relationship === "same_standard").length;
+const vocabEntries = entries.filter((e) => e.kind === "vocabulary");
+const propEntries = entries.filter((e) => e.kind === "property");
+const valueMapped = vocabEntries.filter((e) => e.relationship === "value_mapping").length;
+const sameStandard = vocabEntries.filter((e) => e.relationship === "same_standard").length;
 ---
 <Base title={meta.name} description={`Vocabulary mappings between ${meta.name} and PublicSchema.`}>
   <article>
@@ -49,10 +51,12 @@ const sameStandard = entries.filter((e) => e.relationship === "same_standard").l
       If you work with {meta.name} and spot an error, please <a href={issueUrl} target="_blank" rel="noopener">report it</a>.
     </p>
     <p style="color: var(--color-text-muted); font-size: 0.85rem;">
-      {entries.length} vocabularies covered: {valueMapped} via value mapping{sameStandard > 0 ? `, ${sameStandard} via same standard` : ""}.
+      {vocabEntries.length} vocabularies covered: {valueMapped} via value mapping{sameStandard > 0 ? `, ${sameStandard} via same standard` : ""}.
+      {propEntries.length > 0 && ` ${propEntries.length} property mapping${propEntries.length > 1 ? "s" : ""}.`}
     </p>
   </div>
 
+  {vocabEntries.length > 0 && (
   <div class="concept-section">
     <h2>Vocabularies</h2>
     <table class="data-table mobile-card-table">
@@ -66,7 +70,7 @@ const sameStandard = entries.filter((e) => e.relationship === "same_standard").l
         </tr>
       </thead>
       <tbody>
-        {entries.map((entry) => (
+        {vocabEntries.map((entry) => (
           <tr>
             <td><a href={`/vocab/${entry.vocabId}`}>{entry.vocabId}</a></td>
             <td data-label="System name">{entry.vocabularyName ?? ""}</td>
@@ -88,6 +92,37 @@ const sameStandard = entries.filter((e) => e.relationship === "same_standard").l
       </tbody>
     </table>
   </div>
+  )}
+
+  {propEntries.length > 0 && (
+  <div class="concept-section">
+    <h2>Properties</h2>
+    <table class="data-table mobile-card-table">
+      <thead>
+        <tr>
+          <th>Property</th>
+          <th>System name</th>
+          <th>Coverage</th>
+          <th>Gaps</th>
+        </tr>
+      </thead>
+      <tbody>
+        {propEntries.map((entry) => (
+          <tr>
+            <td><a href={`/${entry.vocabId}`}>{entry.vocabId}</a></td>
+            <td data-label="System name">{entry.vocabularyName ?? ""}</td>
+            <td data-label="Coverage">{`${entry.mappedCount}/${entry.totalSystemValues} mapped`}</td>
+            <td data-label="Gaps">
+              {entry.unmappedCanonicalCount > 0
+                ? `${entry.unmappedCanonicalCount} not covered`
+                : ""}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  )}
 
   <div class="concept-section" style="text-align: center;">
     <a href={issueUrl} target="_blank" rel="noopener" class="btn btn-secondary">

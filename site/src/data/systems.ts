@@ -57,6 +57,12 @@ export const systemRegistry: Record<string, SystemMeta> = {
     description: "Open-source civil registration and vital statistics platform.",
     reviewStatus: "unreviewed",
   },
+  ocha_cod_ab: {
+    name: "OCHA COD-AB",
+    url: "https://cod.unocha.org/",
+    description: "OCHA Common Operational Datasets for administrative boundaries.",
+    reviewStatus: "unreviewed",
+  },
 };
 
 export function getSystemName(id: string): string {
@@ -94,6 +100,7 @@ export function isEnrichedMapping(mapping: unknown): mapping is EnrichedMapping 
 }
 
 export interface SystemVocabEntry {
+  kind: "vocabulary" | "property";
   vocabId: string;
   vocabDefinition: string;
   relationship: "value_mapping" | "same_standard";
@@ -119,6 +126,7 @@ export function buildSystemIndex(): Record<string, SystemVocabEntry[]> {
         if (isEnrichedMapping(mapping)) {
           const mapped = mapping.values.filter((val) => val.maps_to !== null).length;
           index[systemId].push({
+            kind: "vocabulary",
             vocabId: v.id,
             vocabDefinition: v.definition.en?.slice(0, 100) || "",
             relationship: "value_mapping",
@@ -130,6 +138,7 @@ export function buildSystemIndex(): Record<string, SystemVocabEntry[]> {
         } else {
           const count = Object.keys(mapping as Record<string, string>).length;
           index[systemId].push({
+            kind: "vocabulary",
             vocabId: v.id,
             vocabDefinition: v.definition.en?.slice(0, 100) || "",
             relationship: "value_mapping",
@@ -149,6 +158,7 @@ export function buildSystemIndex(): Record<string, SystemVocabEntry[]> {
         if (existing) continue;
 
         index[systemId].push({
+          kind: "vocabulary",
           vocabId: v.id,
           vocabDefinition: v.definition.en?.slice(0, 100) || "",
           relationship: "same_standard",
@@ -156,6 +166,29 @@ export function buildSystemIndex(): Record<string, SystemVocabEntry[]> {
           totalSystemValues: v.values.length,
           unmappedCanonicalCount: 0,
         });
+      }
+    }
+  }
+
+  // Property-level system_mappings
+  for (const p of Object.values(vocab.properties)) {
+    if (p.system_mappings) {
+      for (const [systemId, mapping] of Object.entries(p.system_mappings)) {
+        if (!index[systemId]) index[systemId] = [];
+
+        if (isEnrichedMapping(mapping)) {
+          const mapped = mapping.values.filter((val) => val.maps_to !== null).length;
+          index[systemId].push({
+            kind: "property",
+            vocabId: p.id,
+            vocabDefinition: p.definition.en?.slice(0, 100) || "",
+            relationship: "value_mapping",
+            vocabularyName: mapping.vocabulary_name,
+            mappedCount: mapped,
+            totalSystemValues: mapping.values.length,
+            unmappedCanonicalCount: mapping.unmapped_canonical?.length ?? 0,
+          });
+        }
       }
     }
   }

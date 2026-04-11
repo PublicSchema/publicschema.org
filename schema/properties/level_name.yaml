@@ -1,0 +1,17 @@
+id: level_name
+maturity: draft
+
+definition:
+  en: "The country-specific name for this administrative tier (e.g., state, department, commune, ward)."
+  fr: "Le nom specifique au pays pour ce niveau administratif (p. ex., etat, departement, commune, quartier)."
+  es: "El nombre especifico del pais para este nivel administrativo (p. ej., estado, departamento, comuna, barrio)."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+
+convergence:
+  system_count: 0
+  total_systems: 6
+  notes: "Not present as a separate field in any mapped system. Systems typically embed the level name in the location record or derive it from a country-specific configuration."

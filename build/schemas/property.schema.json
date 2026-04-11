@@ -49,6 +49,13 @@
       "enum": ["standard", "sensitive", "restricted"],
       "description": "How sensitive this property is in most deployment contexts. standard (default, can be omitted): no special handling. sensitive: reveals circumstances (health, poverty, victimhood) in most contexts. restricted: should not appear in credentials at routine service points."
     },
+    "system_mappings": {
+      "type": ["object", "null"],
+      "description": "Mappings showing how external system values correspond to this property's values",
+      "additionalProperties": {
+        "$ref": "#/$defs/system_mapping"
+      }
+    },
     "convergence": {
       "$ref": "#/$defs/convergence"
     }
@@ -74,6 +81,55 @@
         "notes": { "type": "string" }
       },
       "additionalProperties": false
+    },
+    "system_mapping": {
+      "type": "object",
+      "required": ["values"],
+      "additionalProperties": false,
+      "properties": {
+        "vocabulary_name": {
+          "type": "string",
+          "description": "Name the external system uses for this field or vocabulary"
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/system_mapping_value"
+          },
+          "minItems": 1
+        },
+        "unmapped_canonical": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Canonical values not covered by this system"
+        }
+      }
+    },
+    "system_mapping_value": {
+      "type": "object",
+      "required": ["code", "label", "maps_to"],
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Identifier used in the external system"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Human-readable label the system uses"
+        },
+        "maps_to": {
+          "type": ["string", "integer", "null"],
+          "description": "Canonical property value, or null if no equivalent"
+        },
+        "unmapped_reason": {
+          "type": "string",
+          "enum": ["no_equivalent", "not_yet_mapped", "out_of_scope", "context_dependent"],
+          "description": "Why this system value has no canonical equivalent. Required when maps_to is null."
+        }
+      }
     }
   }
 }
