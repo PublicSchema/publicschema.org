@@ -33,7 +33,7 @@ properties:
   - failure_reason
 
 subtypes: []
-supertypes: []
+supertypes: [Event]
 
 convergence:
   system_count: 6

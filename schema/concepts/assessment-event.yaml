@@ -27,7 +27,7 @@ properties:
   - raw_score
 
 subtypes: []
-supertypes: []
+supertypes: [Event]
 
 convergence:
   system_count: 3

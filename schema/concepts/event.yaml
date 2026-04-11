@@ -1,0 +1,28 @@
+id: Event
+maturity: draft
+
+definition:
+  en: >
+    Something that happens at a specific time or over a bounded period within
+    a delivery system. Event is the shared supertype for records that capture
+    occurrences (assessments, decisions, payments, deliveries, referrals, etc.),
+    as distinct from standing entities like persons, groups, or programs.
+  fr: >
+    Quelque chose qui se produit a un moment precis ou sur une periode
+    delimitee au sein d'un systeme de prestation. Event est le supertype
+    partage pour les enregistrements qui capturent des occurrences
+    (evaluations, decisions, paiements, livraisons, orientations, etc.),
+    distincts des entites permanentes comme les personnes, les groupes ou
+    les programmes.
+  es: >
+    Algo que ocurre en un momento especifico o durante un periodo delimitado
+    dentro de un sistema de prestacion. Event es el supertipo compartido para
+    los registros que capturan ocurrencias (evaluaciones, decisiones, pagos,
+    entregas, derivaciones, etc.), distintos de las entidades permanentes
+    como personas, grupos o programas.
+
+properties:
+  - identifiers
+
+subtypes: [AssessmentEvent, EligibilityDecision, HazardEvent, InKindDelivery, PaymentEvent, Referral, VoucherRedemption]
+supertypes: []

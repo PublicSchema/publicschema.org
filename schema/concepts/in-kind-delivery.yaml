@@ -31,7 +31,7 @@ properties:
   - delivery_status
 
 subtypes: []
-supertypes: []
+supertypes: [Event]
 
 convergence:
   system_count: 0

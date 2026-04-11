@@ -27,7 +27,7 @@ properties:
   - valid_until
 
 subtypes: []
-supertypes: []
+supertypes: [Event]
 
 convergence:
   system_count: 2

@@ -27,7 +27,7 @@ properties:
   - referral_status
 
 subtypes: []
-supertypes: []
+supertypes: [Event]
 
 convergence:
   system_count: 3

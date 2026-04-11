@@ -24,8 +24,6 @@ definition:
     interoperabilidad de alertas.
 
 properties:
-  # Identity
-  - identifiers
   # Classification
   - hazard_type
   - severity
@@ -42,5 +40,5 @@ properties:
   # Provenance
   - data_sources
 
-supertypes: []
+supertypes: [Event]
 subtypes: []
