@@ -71,6 +71,31 @@ const navLinks = [
           </li>
         ))}
       </ul>
+      <div class="search-container">
+        <div class="search-input-wrapper">
+          <input
+            type="search"
+            class="search-input"
+            placeholder="Search concepts, properties..."
+            role="combobox"
+            aria-expanded="false"
+            aria-autocomplete="list"
+            aria-controls="search-results"
+            aria-label="Search PublicSchema"
+            autocomplete="off"
+          />
+          <kbd class="search-shortcut" aria-hidden="true"></kbd>
+        </div>
+        <div id="search-results" class="search-results" role="listbox" aria-label="Search results" hidden>
+        </div>
+        <span class="search-sr-status" aria-live="polite"></span>
+      </div>
+      <button class="search-mobile-toggle" aria-label="Search" type="button">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="8.5" cy="8.5" r="5.5"></circle>
+          <line x1="13" y1="13" x2="18" y2="18"></line>
+        </svg>
+      </button>
       <details class="mobile-nav">
         <summary class="mobile-nav-toggle" aria-label="Menu">
           <span class="hamburger-icon"></span>
@@ -136,6 +161,7 @@ const navLinks = [
       </div>
     </div>
   </footer>
+  <script src="../scripts/search.ts"></script>
   <script>
     const mobileNav = document.querySelector('.mobile-nav');
     if (mobileNav) {
