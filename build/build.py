@@ -76,10 +76,16 @@ def _external_equivalents_triples(raw_data: dict) -> dict[str, list[str]]:
     equivalents = raw_data.get("external_equivalents")
     if not equivalents:
         return {}
+    entity_id = raw_data.get("id", "<unknown>")
     triples: dict[str, list[str]] = {}
-    for _system, entry in equivalents.items():
+    for system, entry in equivalents.items():
         uri = entry.get("uri")
         if not uri:
+            print(
+                f"WARNING: external_equivalents[{system}] on {entity_id} "
+                f"is missing 'uri' field, skipping",
+                file=sys.stderr,
+            )
             continue
         match_type = entry.get("match")
         predicate = MATCH_PREDICATES.get(match_type, MATCH_FALLBACK)
@@ -545,10 +551,14 @@ def build_vocabulary(schema_dir: Path) -> dict:
         "@id": "https://publicschema.org/meta/vocabulary",
         "@type": "@id",
     }
-    # SKOS match predicates and rdfs:seeAlso need @type:@id so URIs
-    # serialize as references, not plain strings.
+    # SKOS match predicates and rdfs:seeAlso need explicit @id expansions
+    # and @type:@id coercion so JSON-LD processors treat values as URI
+    # references. CURIE keys alone are not valid context terms; the full
+    # IRI must be provided via @id.
+    skos_base = "http://www.w3.org/2004/02/skos/core#"
     for skos_pred in MATCH_PREDICATES.values():
-        context_map[skos_pred] = {"@type": "@id"}
+        local = skos_pred.split(":", 1)[1]
+        context_map[skos_pred] = {"@id": f"{skos_base}{local}", "@type": "@id"}
     context_map["rdfs:seeAlso"] = {
         "@id": "http://www.w3.org/2000/01/rdf-schema#seeAlso",
         "@type": "@id",
@@ -822,10 +832,8 @@ def write_outputs(result: dict, dist_dir: Path):
 
     for concept_id, concept in result["concepts"].items():
         path = concept["path"]
-        domain = concept.get("domain")
-        schema_prefix = f"/{domain}" if domain else ""
         manifest["concepts"][concept_id] = {
-            "schema": f"{schema_prefix}/schemas/{concept_id}.schema.json",
+            "schema": f"/schemas/{concept_id}.schema.json",
             "jsonld": f"{path}.jsonld",
             "csv": f"/downloads/{concept_id}.csv",
             "xlsx_definition": f"/downloads/{concept_id}-definition.xlsx",

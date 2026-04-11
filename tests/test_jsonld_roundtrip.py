@@ -222,15 +222,9 @@ class TestExternalEquivalentsSkos:
             "gender property in Person concept doc should have skos:exactMatch"
         )
 
-    def test_vocabulary_match_fallback_to_see_also(self, build_result):
-        """Vocabulary external_equivalents without match field use rdfs:seeAlso fallback."""
+    def test_vocabulary_broad_match(self, build_result):
+        """gender-type vocabulary has skos:broadMatch to SEMIC gender URI."""
         inline_ctx = build_result["context"]["@context"]
-        # Find a vocabulary that has external_equivalents
-        vocab_docs = {
-            k: v for k, v in build_result["jsonld_docs"].items()
-            if k.startswith("vocab/")
-        }
-        # gender-type has external_equivalents with match: broad
         doc = build_result["jsonld_docs"]["vocab/gender-type.jsonld"]
         g = _parse_doc(doc, inline_ctx)
         vocab_uri = rdflib.URIRef(doc["@id"])
@@ -331,6 +325,42 @@ class TestExternalEquivalentsSkos:
         assert (thing, SKOS.narrowMatch, rdflib.URIRef("http://example.org/narrow")) in g
         assert (thing, SKOS.relatedMatch, rdflib.URIRef("http://example.org/related")) in g
         assert (thing, RDFS.seeAlso, rdflib.URIRef("http://example.org/none")) in g
+
+    def test_missing_uri_warns(self, tmp_path, capsys):
+        """An external_equivalents entry without a uri field emits a warning."""
+        import yaml
+        schema_dir = tmp_path / "schema"
+        schema_dir.mkdir()
+        (schema_dir / "concepts").mkdir()
+        (schema_dir / "properties").mkdir()
+        (schema_dir / "vocabularies").mkdir()
+
+        meta = {
+            "name": "TestSchema",
+            "base_uri": "https://test.example.org/",
+            "version": "0.1.0",
+            "maturity": "draft",
+            "languages": ["en"],
+            "license": "CC-BY-4.0",
+        }
+        (schema_dir / "_meta.yaml").write_text(yaml.dump(meta))
+
+        concept = {
+            "id": "Broken",
+            "maturity": "draft",
+            "definition": {"en": "Missing URI."},
+            "properties": [],
+            "external_equivalents": {
+                "bad": {"label": "No URI here"},
+            },
+        }
+        (schema_dir / "concepts" / "broken.yaml").write_text(yaml.dump(concept))
+
+        build_vocabulary(schema_dir)
+        captured = capsys.readouterr()
+        assert "missing 'uri' field" in captured.err
+        assert "bad" in captured.err
+        assert "Broken" in captured.err
 
 
 class TestUriMatchesBaseUri:
