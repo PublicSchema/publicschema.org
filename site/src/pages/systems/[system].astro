@@ -72,7 +72,7 @@ const sameStandard = vocabEntries.filter((e) => e.relationship === "same_standar
       <tbody>
         {vocabEntries.map((entry) => (
           <tr>
-            <td><a href={`/vocab/${entry.vocabId}`}>{entry.vocabId}</a></td>
+            <td><a href={`/vocab/${entry.vocabId}#${systemId}`}>{entry.vocabId}</a></td>
             <td data-label="System name">{entry.vocabularyName ?? ""}</td>
             <td data-label="Relationship">
               {entry.relationship === "same_standard" ? "Same standard" : "Value mapping"}

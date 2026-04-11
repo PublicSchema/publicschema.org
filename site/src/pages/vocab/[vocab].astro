@@ -133,7 +133,7 @@ const vocabulary = allVocab.vocabularies[Astro.params.vocab] as Vocabulary;
       <h2>System mappings</h2>
       {Object.entries(vocabulary.system_mappings).map(([system, mapping]) => (
         <div style="margin-bottom: var(--space-lg);">
-          <h3><a href={`/systems/${system}`}>{getSystemName(system)}</a></h3>
+          <h3 id={system}><a href={`/systems/${system}`}>{getSystemName(system)}</a></h3>
           {mapping.vocabulary_name && (
             <p class="mapping-vocab-name">System vocabulary: <strong>{mapping.vocabulary_name}</strong></p>
           )}
