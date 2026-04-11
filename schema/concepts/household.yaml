@@ -24,7 +24,6 @@ properties:
   - location
   - dwelling_type
   - income_source
-  - member_count
 
 supertypes: [Group]
 subtypes: []

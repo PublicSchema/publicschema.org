@@ -17,8 +17,6 @@ definition:
     vinculan a sus miembros mediante registros GroupMembership.
 
 properties:
-  - name
-  - identifiers
   - group_type
   - formation_date
   - member_count

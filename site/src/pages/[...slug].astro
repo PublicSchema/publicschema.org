@@ -37,6 +37,52 @@ function conceptPath(id: string): string {
 function propPath(id: string): string {
   return vocab.properties[id]?.path || `/${id}`;
 }
+
+/** Recursively collect inherited properties from the full supertype chain.
+ *  Each property is attributed to the nearest ancestor that declares it. */
+function collectInheritedProperties(
+  conceptId: string,
+  seenIds: Set<string>,
+  visited: Set<string> = new Set(),
+): Array<{id: string; detail: typeof vocab.properties[string] | undefined; from: string}> {
+  const result: Array<{id: string; detail: typeof vocab.properties[string] | undefined; from: string}> = [];
+  const concept = vocab.concepts[conceptId];
+  if (!concept) return result;
+  for (const st of concept.supertypes) {
+    if (visited.has(st)) continue;
+    visited.add(st);
+    const parent = vocab.concepts[st];
+    if (!parent) continue;
+    for (const ref of parent.properties) {
+      if (!seenIds.has(ref.id)) {
+        seenIds.add(ref.id);
+        result.push({ ...ref, detail: vocab.properties[ref.id], from: st });
+      }
+    }
+    result.push(...collectInheritedProperties(st, seenIds, visited));
+  }
+  return result;
+}
+
+/** Recursively collect all subtypes (direct and indirect) of a concept, flat. */
+function collectAllSubtypes(conceptId: string): string[] {
+  const result: string[] = [];
+  const visited = new Set<string>();
+  function walk(id: string) {
+    if (visited.has(id)) return;
+    visited.add(id);
+    const c = vocab.concepts[id];
+    if (!c) return;
+    for (const st of c.subtypes) {
+      result.push(st);
+      walk(st);
+    }
+  }
+  walk(conceptId);
+  return result;
+}
+
+
 ---
 
 {kind === "concept" ? (() => {
@@ -79,27 +125,36 @@ function propPath(id: string): string {
         </div>
       )}
 
-      {concept.subtypes.length > 0 && (
-        <div class="concept-section">
-          <h2>Subtypes</h2>
-          <div class="type-links">
-            {concept.subtypes.map((s) => <a href={conceptPath(s)}>{s}</a>)}
+      {concept.subtypes.length > 0 && (() => {
+        function renderSubtypes(parentId: string, isRoot: boolean): any {
+          const c = vocab.concepts[parentId];
+          if (!c || c.subtypes.length === 0) return null;
+          return c.subtypes.map((st, i) => {
+            const children = vocab.concepts[st]?.subtypes || [];
+            if (isRoot) {
+              return (
+                <span class="subtype-entry">
+                  <a href={conceptPath(st)}>{st}</a>
+                  {children.length > 0 && <span class="subtype-children">{renderSubtypes(st, false)}</span>}
+                </span>
+              );
+            }
+            return <>{i > 0 && ", "}<a href={conceptPath(st)}>{st}</a></>;
+          });
+        }
+        return (
+          <div class="concept-section">
+            <h2>Subtypes</h2>
+            <div class="subtype-list">
+              {renderSubtypes(termId, true)}
+            </div>
           </div>
-        </div>
-      )}
+        );
+      })()}
 
       {(() => {
         const ownIds = new Set(concept.properties.map((ref) => ref.id));
-        const inheritedProps = [] as {id: string; detail: typeof vocab.properties[string] | undefined; from: string}[];
-        for (const st of concept.supertypes) {
-          const parent = vocab.concepts[st];
-          if (!parent) continue;
-          for (const ref of parent.properties) {
-            if (!ownIds.has(ref.id)) {
-              inheritedProps.push({ ...ref, detail: vocab.properties[ref.id], from: st });
-            }
-          }
-        }
+        const inheritedProps = collectInheritedProperties(termId, new Set(ownIds));
         const allProps = [
           ...propList.map((p) => ({ ...p, from: null as string | null })),
           ...inheritedProps,
@@ -135,6 +190,14 @@ function propPath(id: string): string {
                               ? <a href={`/types#${typeStr}`}><code>{typeStr}</code></a>
                               : <code>{typeStr}</code>
                           }
+                          {conceptRef && (() => {
+                            const subs = collectAllSubtypes(conceptRef);
+                            return subs.length > 0 && (
+                              <span class="subtype-hint">
+                                includes {subs.map((s, i) => <>{i > 0 && ", "}<a href={conceptPath(s)}>{s}</a></>)}
+                              </span>
+                            );
+                          })()}
                           {p.detail?.vocabulary && (
                             <> (<a href={`/vocab/${p.detail.vocabulary}`}>{p.detail.vocabulary}</a>)</>
                           )}
@@ -191,12 +254,22 @@ function propPath(id: string): string {
           <tbody>
             <tr>
               <td style="font-weight: 600; color: var(--color-text-muted); width: 10rem;">Type</td>
-              <td>{typeConceptRef
-                ? <a href={conceptPath(typeConceptRef)}><code>{prop.type}</code></a>
-                : isPrimitiveType
-                  ? <a href={`/types#${prop.type}`}><code>{prop.type}</code></a>
-                  : <code>{prop.type}</code>
-              }</td>
+              <td>
+                {typeConceptRef
+                  ? <a href={conceptPath(typeConceptRef)}><code>{prop.type}</code></a>
+                  : isPrimitiveType
+                    ? <a href={`/types#${prop.type}`}><code>{prop.type}</code></a>
+                    : <code>{prop.type}</code>
+                }
+                {typeConceptRef && (() => {
+                  const subs = collectAllSubtypes(typeConceptRef);
+                  return subs.length > 0 && (
+                    <span class="subtype-hint">
+                      includes {subs.map((s, i) => <>{i > 0 && ", "}<a href={conceptPath(s)}>{s}</a></>)}
+                    </span>
+                  );
+                })()}
+              </td>
             </tr>
             <tr>
               <td style="font-weight: 600; color: var(--color-text-muted);">Cardinality</td>
@@ -211,7 +284,17 @@ function propPath(id: string): string {
             {prop.references && (
               <tr>
                 <td style="font-weight: 600; color: var(--color-text-muted);">References</td>
-                <td><a href={conceptPath(prop.references)}>{prop.references}</a></td>
+                <td>
+                  <a href={conceptPath(prop.references)}>{prop.references}</a>
+                  {(() => {
+                    const subs = collectAllSubtypes(prop.references);
+                    return subs.length > 0 && (
+                      <span class="subtype-hint">
+                        includes {subs.map((s, i) => <>{i > 0 && ", "}<a href={conceptPath(s)}>{s}</a></>)}
+                      </span>
+                    );
+                  })()}
+                </td>
               </tr>
             )}
           </tbody>

@@ -31,7 +31,6 @@ properties:
   - given_name_at_birth
   - preferred_name
   - patronymic_name
-  - name
   - gender
   - nationality
   - sex
@@ -40,7 +39,6 @@ properties:
   - preferred_language
   - occupation
   - phone_number
-  - identifiers
   - group_memberships
 
 subtypes: []
