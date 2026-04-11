@@ -604,7 +604,17 @@ article .data-table.table-wide {
 
 .hero {
   text-align: center;
-  padding: var(--space-2xl) 0 3rem;
+  padding: var(--space-2xl) 0 var(--space-2xl);
+}
+
+.hero::after {
+  content: '';
+  display: block;
+  width: 4rem;
+  height: 2px;
+  background: var(--color-highlight);
+  margin: var(--space-xl) auto 0;
+  border-radius: 1px;
 }
 
 .hero h1 {
@@ -620,11 +630,12 @@ article .data-table.table-wide {
 }
 
 .hero p {
-  font-size: 1.15rem;
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
   color: var(--color-text-muted);
-  max-width: 38rem;
+  max-width: 36rem;
   margin: 0 auto;
-  line-height: 1.65;
+  line-height: 1.6;
 }
 
 .stat-bar {
@@ -1047,6 +1058,292 @@ article .data-table.table-wide {
   font-family: var(--font-sans);
 }
 
+/* ----------------------------------------------------------------
+   Homepage sections
+   ---------------------------------------------------------------- */
+
+/* Hero CTA buttons */
+.hero-cta {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+}
+
+/* Problem section (constrained-width prose) */
+.problem-section {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: var(--space-xl) 0;
+}
+
+.problem-section h2 {
+  font-size: 1.5rem;
+  margin-bottom: var(--space-md);
+}
+
+.problem-section p {
+  font-family: var(--font-serif);
+  line-height: 1.7;
+}
+
+.problem-section .credibility-line {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-text);
+  margin-top: var(--space-lg);
+  padding: var(--space-md) var(--space-lg);
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  border-left: 3px solid var(--color-accent);
+  line-height: 1.6;
+}
+
+/* Explainer grid (3-column "how it works") */
+.explainer-section {
+  padding: var(--space-xl) 0;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface);
+  margin: var(--space-xl) calc(-1 * var(--space-lg));
+  padding-left: var(--space-lg);
+  padding-right: var(--space-lg);
+}
+
+.explainer-section h2 {
+  text-align: center;
+  margin-bottom: var(--space-sm);
+}
+
+.explainer-section > p {
+  text-align: center;
+  color: var(--color-text-muted);
+  max-width: 36rem;
+  margin: 0 auto var(--space-xl);
+}
+
+.explainer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-lg);
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.explainer-item {
+  background: white;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+.explainer-item:hover {
+  border-color: var(--color-accent);
+  box-shadow: 0 2px 12px rgba(30, 58, 95, 0.06);
+}
+
+.explainer-item h3 {
+  font-size: 1.05rem;
+  margin: 0 0 var(--space-sm);
+  color: var(--color-accent);
+}
+
+.explainer-item p {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin: 0 0 var(--space-md);
+}
+
+.explainer-item .explainer-link {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* Callout (e.g. "what this is NOT") */
+.callout {
+  max-width: var(--content-width);
+  margin: var(--space-2xl) auto;
+  padding: var(--space-lg);
+  border-left: 4px solid var(--color-highlight);
+  background: var(--color-highlight-light);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  font-size: 0.925rem;
+  line-height: 1.6;
+  color: var(--color-text);
+}
+
+.callout p {
+  margin: 0;
+}
+
+.callout-label {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-highlight);
+  margin: 0 0 var(--space-sm) !important;
+}
+
+/* Section intro (heading + subtitle) */
+.section-intro {
+  margin-bottom: var(--space-lg);
+}
+
+.section-intro h2 {
+  margin-bottom: var(--space-sm);
+}
+
+.section-intro p {
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+/* Section overline label */
+.section-overline {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-highlight);
+  margin: 0 0 var(--space-xs);
+}
+
+/* Persona section (full-bleed background band) */
+.persona-section {
+  background: var(--color-accent-light);
+  margin: var(--space-xl) calc(-1 * var(--space-lg));
+  padding: var(--space-xl) var(--space-lg);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.persona-section h2 {
+  margin-bottom: var(--space-lg);
+}
+
+/* Persona grid (2-column instead of auto-fill) */
+.persona-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-lg);
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+/* Persona cards (role-based entry points) */
+.persona-card {
+  border-left: 3px solid var(--color-highlight);
+}
+
+.persona-card h3 {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--color-accent);
+  margin: 0 0 var(--space-sm);
+}
+
+.persona-card p {
+  margin: 0 0 var(--space-md);
+}
+
+.persona-card .persona-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.persona-card .persona-links a {
+  display: inline-block;
+  padding: 0.3rem 0.75rem;
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-pill);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--color-accent);
+  transition: all 0.15s;
+}
+
+.persona-card .persona-links a:hover {
+  background: var(--color-accent);
+  color: white;
+}
+
+/* Catalog section */
+.catalog-section {
+  margin-top: var(--space-2xl);
+  padding-top: var(--space-xl);
+  border-top: 2px solid var(--color-border);
+}
+
+.catalog-section h2 {
+  margin-bottom: var(--space-sm);
+}
+
+.catalog-summary {
+  color: var(--color-text-muted);
+  margin: 0 0 var(--space-xl);
+}
+
+.catalog-heading {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+  margin: var(--space-xl) 0 var(--space-xs);
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.catalog-view-all {
+  text-align: center;
+  margin: var(--space-md) 0 var(--space-xl);
+}
+
+/* Vocabulary grid (denser) */
+.vocab-grid {
+  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+  gap: var(--space-md);
+}
+
+.vocab-grid .card {
+  padding: var(--space-md);
+}
+
+.vocab-grid .card h3 {
+  font-size: 0.95rem;
+}
+
+/* Closing CTA */
+.closing-cta {
+  text-align: center;
+  padding: var(--space-2xl) var(--space-lg);
+  margin: var(--space-xl) calc(-1 * var(--space-lg));
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+}
+
+.closing-cta p {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  color: var(--color-text);
+  margin: 0 0 var(--space-lg);
+}
+
+.closing-cta .hero-cta {
+  margin-top: 0;
+}
+
 /* Divergence example table (about page) */
 .divergence-example {
   width: 100%;
@@ -1071,11 +1368,17 @@ article .data-table.table-wide {
   background: var(--color-surface);
 }
 
+.divergence-example code {
+  background: var(--color-surface);
+  padding: 0.1rem 0.35rem;
+  border-radius: var(--radius-sm);
+}
+
 .table-caption {
   font-size: 0.825rem;
   color: var(--color-text-muted);
   font-style: italic;
-  margin: 0 0 var(--space-lg);
+  margin: 0 0 var(--space-md);
 }
 
 /* Diagram figures */
@@ -1140,6 +1443,44 @@ article .data-table.table-wide {
   }
 
   .card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-cta {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero-cta .btn {
+    width: 100%;
+    max-width: 20rem;
+    justify-content: center;
+  }
+
+  .explainer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .explainer-section {
+    margin-left: calc(-1 * var(--space-lg));
+    margin-right: calc(-1 * var(--space-lg));
+  }
+
+  .persona-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .persona-section {
+    margin-left: calc(-1 * var(--space-lg));
+    margin-right: calc(-1 * var(--space-lg));
+  }
+
+  .closing-cta {
+    margin-left: calc(-1 * var(--space-lg));
+    margin-right: calc(-1 * var(--space-lg));
+  }
+
+  .vocab-grid {
     grid-template-columns: 1fr;
   }
 

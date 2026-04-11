@@ -11,93 +11,257 @@ const conceptsByDomain = Object.fromEntries(domainCodes.map((d) => [d, concepts.
 const properties = Object.values(vocab.properties).sort((a, b) => a.id.localeCompare(b.id));
 const vocabularies = Object.values(vocab.vocabularies).sort((a, b) => a.id.localeCompare(b.id));
 ---
-<Base title="Home" description="An open reference model for public service delivery data.">
+<Base title="Home" description="Common definitions for public service delivery. When programs serve the same people, their systems need a shared language.">
+
+  <!-- 1. Hero -->
   <div class="hero">
     <h1><span class="hero-title-public">Public</span>Schema</h1>
     <p>
-      An open reference model for public service delivery data. Built so
-      programs can coordinate, share data, and reach the people they serve.
+      Common definitions for public service delivery. When programs serve the
+      same people, their systems need a shared language. PublicSchema provides it.
+    </p>
+    <div class="hero-cta">
+      <a href="/docs/use-cases/" class="btn btn-primary">See how programs use this</a>
+      <a href="#explore" class="btn btn-secondary">Browse the schema</a>
+    </div>
+  </div>
+
+  <!-- 2. The problem -->
+  <div class="problem-section">
+    <h2>Programs serve the same people. Their systems don't know it.</h2>
+    <p>
+      A mother enrolled in a cash transfer program should automatically qualify
+      for a maternal health benefit. But the two systems define "gender"
+      differently, "household" differently, and "enrollment status" differently.
+      The referral requires a manual mapping exercise that takes weeks and
+      introduces errors.
+    </p>
+
+    <table class="divergence-example">
+      <thead>
+        <tr>
+          <th>System</th>
+          <th>Field name</th>
+          <th>Values</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>System A</td>
+          <td><code>gender</code></td>
+          <td><code>1</code>, <code>2</code>, <code>3</code></td>
+        </tr>
+        <tr>
+          <td>System B</td>
+          <td><code>sex</code></td>
+          <td><code>M</code>, <code>F</code>, <code>O</code></td>
+        </tr>
+        <tr>
+          <td>System C</td>
+          <td><code>gender_identity</code></td>
+          <td><code>male</code>, <code>female</code>, <code>non-binary</code>, <code>prefer_not_to_say</code></td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="table-caption">Same concept. Three systems. Three incompatible representations.</p>
+
+    <p>
+      This is the coordination tax: every time two programs need to share data,
+      someone spends weeks mapping fields and translating codes. It is expensive,
+      fragile, and starts over every time a system upgrades.
+    </p>
+
+    <p class="credibility-line">
+      We analyzed 6 major systems across social protection (OpenSPP, openIMIS,
+      SPDCI, DHIS2, FHIR R4, OpenCRVS) and found that the structures converge.
+      The vocabularies diverge. That is where the real interoperability challenge
+      lies.
     </p>
   </div>
 
-  <div class="stat-bar">
-    <a href="/concepts/" class="stat-item">
-      <span class="stat-number">{concepts.length}</span>
-      <span class="stat-label">Concepts</span>
-    </a>
-    <a href="/properties/" class="stat-item">
-      <span class="stat-number">{properties.length}</span>
-      <span class="stat-label">Properties</span>
-    </a>
-    <a href="/vocab/" class="stat-item">
-      <span class="stat-number">{vocabularies.length}</span>
-      <span class="stat-label">Vocabularies</span>
-    </a>
+  <!-- 3. How it works -->
+  <div class="explainer-section">
+    <h2>A shared language, not a new system</h2>
+    <p>
+      PublicSchema does not replace your systems. It gives them a common
+      vocabulary so they can understand each other.
+    </p>
+    <div class="explainer-grid">
+      <div class="explainer-item">
+        <h3>Shared definitions</h3>
+        <p>
+          Concepts like Person, Enrollment, and Payment get clear definitions
+          written for program managers, not developers. When two systems both
+          say "Enrollment," they mean the same thing.
+        </p>
+        <a href="/concepts/" class="explainer-link">{concepts.length} concepts &rarr;</a>
+      </div>
+      <div class="explainer-item">
+        <h3>Shared field names</h3>
+        <p>
+          Properties like <code>given_name</code>, <code>date_of_birth</code>,
+          and <code>enrollment_status</code> are defined once and reused across
+          concepts. No more guessing whether "beneficiary_name" and "first_name"
+          mean the same thing.
+        </p>
+        <a href="/properties/" class="explainer-link">{properties.length} properties &rarr;</a>
+      </div>
+      <div class="explainer-item">
+        <h3>Shared value codes</h3>
+        <p>
+          Where international standards exist (ISO country codes, currency
+          codes), we reference them. Where they don't, we define a common set
+          with clear definitions.
+        </p>
+        <a href="/vocab/" class="explainer-link">{vocabularies.length} vocabularies &rarr;</a>
+      </div>
+    </div>
   </div>
 
-  <h2>Core Concepts</h2>
-  <p style="color: var(--color-text-muted); margin-bottom: var(--space-md);">
-    Universal entities that appear across all public service delivery domains.
-  </p>
-  <div class="card-grid">
-    {coreConcepts.map((c, i) => (
-      <div class:list={["card", { "mobile-overflow-card": i >= 6 }]}>
-        <a href={c.path}>
-          <h3>{c.id} <span class={`badge badge-${c.maturity}`}>{c.maturity}</span></h3>
-          <p>{c.definition.en?.slice(0, 140)}{(c.definition.en?.length || 0) > 140 ? "..." : ""}</p>
-        </a>
-      </div>
-    ))}
+  <!-- 4. What this is NOT -->
+  <div class="callout">
+    <p class="callout-label">What PublicSchema is not</p>
+    <p>
+      PublicSchema is not an API standard, not a software product, and not a
+      compliance framework. It is a shared dictionary that your existing systems
+      can adopt without restructuring.
+    </p>
   </div>
-  {coreConcepts.length > 6 && (
-    <div class="mobile-view-all">
+
+  <!-- 5. Where to start -->
+  <div class="persona-section">
+    <p class="section-overline">Choose your path</p>
+    <h2>Where to start</h2>
+    <div class="persona-grid">
+      <div class="card persona-card">
+        <h3>&ldquo;I coordinate programs that serve overlapping populations&rdquo;</h3>
+        <p>
+          You need consolidated numbers, deduplicated beneficiary lists, or
+          referral pathways between services. PublicSchema gives you shared
+          definitions so data from different programs can be compared and linked.
+        </p>
+        <div class="persona-links">
+          <a href="/docs/use-cases/">Read the use cases</a>
+          <a href="/concepts/">Browse concepts</a>
+        </div>
+      </div>
+      <div class="card persona-card">
+        <h3>&ldquo;I build or maintain integrations between systems&rdquo;</h3>
+        <p>
+          You need shared field names and value codes so systems can exchange data
+          without custom translation layers. Map your system once; every other
+          mapped system becomes interoperable.
+        </p>
+        <div class="persona-links">
+          <a href="/properties/">Browse properties</a>
+          <a href="/vocab/">Browse vocabularies</a>
+        </div>
+      </div>
+      <div class="card persona-card">
+        <h3>&ldquo;I&rsquo;m writing requirements for a new system&rdquo;</h3>
+        <p>
+          You need concrete interoperability specifications for your RFP, not
+          &ldquo;the system must be interoperable.&rdquo; Reference PublicSchema
+          properties and vocabulary codes so vendors have a testable target.
+        </p>
+        <div class="persona-links">
+          <a href="/docs/use-cases/">Read the use cases</a>
+          <a href="/docs/data-model-guide/">Data model guide</a>
+        </div>
+      </div>
+      <div class="card persona-card">
+        <h3>&ldquo;I&rsquo;m analyzing programs across countries or sectors&rdquo;</h3>
+        <p>
+          You need a structured framework for comparison so divergences become
+          visible and nameable. PublicSchema's concept and property inventory
+          gives you a common grid to map against.
+        </p>
+        <div class="persona-links">
+          <a href="/concepts/">Browse concepts</a>
+          <a href="/vocab/">Browse vocabularies</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. Browse the schema -->
+  <div id="explore" class="catalog-section">
+    <p class="section-overline">Reference</p>
+    <h2>Explore the schema</h2>
+    <p class="catalog-summary">
+      The schema currently covers {concepts.length} concepts,
+      {properties.length} properties, and {vocabularies.length} vocabularies
+      across social protection.
+    </p>
+
+    <h3 class="catalog-heading">Core Concepts</h3>
+    <p style="color: var(--color-text-muted); margin-bottom: var(--space-md); font-size: 0.875rem;">
+      Universal entities that appear across all public service delivery domains.
+    </p>
+    <div class="card-grid">
+      {coreConcepts.slice(0, 4).map((c) => (
+        <div class="card">
+          <a href={c.path}>
+            <h3>{c.id} <span class={`badge badge-${c.maturity}`}>{c.maturity}</span></h3>
+            <p>{c.definition.en?.slice(0, 140)}{(c.definition.en?.length || 0) > 140 ? "..." : ""}</p>
+          </a>
+        </div>
+      ))}
+    </div>
+    <div class="catalog-view-all">
       <a href="/concepts/" class="btn btn-secondary">View all {coreConcepts.length} core concepts</a>
     </div>
-  )}
 
-  {domainCodes.map((domain) => (
-    <Fragment>
-      <h2>{domainLabels[domain] || domain}</h2>
-      <p style="color: var(--color-text-muted); margin-bottom: var(--space-md);">
-        Concepts specific to the {(domainLabels[domain] || domain).toLowerCase()} domain.
-      </p>
-      <div class="card-grid">
-        {conceptsByDomain[domain].map((c, i) => (
-          <div class:list={["card", { "mobile-overflow-card": i >= 6 }]}>
-            <a href={c.path}>
-              <h3>{c.id} <span class={`badge badge-${c.maturity}`}>{c.maturity}</span></h3>
-              <p>{c.definition.en?.slice(0, 140)}{(c.definition.en?.length || 0) > 140 ? "..." : ""}</p>
-            </a>
-          </div>
-        ))}
-      </div>
-      {conceptsByDomain[domain].length > 6 && (
-        <div class="mobile-view-all">
+    {domainCodes.map((domain) => (
+      <Fragment>
+        <h3 class="catalog-heading">{domainLabels[domain] || domain}</h3>
+        <p style="color: var(--color-text-muted); margin-bottom: var(--space-md); font-size: 0.875rem;">
+          Concepts specific to the {(domainLabels[domain] || domain).toLowerCase()} domain.
+        </p>
+        <div class="card-grid">
+          {conceptsByDomain[domain].slice(0, 4).map((c) => (
+            <div class="card">
+              <a href={c.path}>
+                <h3>{c.id} <span class={`badge badge-${c.maturity}`}>{c.maturity}</span></h3>
+                <p>{c.definition.en?.slice(0, 140)}{(c.definition.en?.length || 0) > 140 ? "..." : ""}</p>
+              </a>
+            </div>
+          ))}
+        </div>
+        <div class="catalog-view-all">
           <a href="/concepts/" class="btn btn-secondary">View all {conceptsByDomain[domain].length} {(domainLabels[domain] || domain).toLowerCase()} concepts</a>
         </div>
-      )}
-    </Fragment>
-  ))}
-
-  <h2>Vocabularies</h2>
-  <p style="color: var(--color-text-muted); margin-bottom: var(--space-md);">
-    Controlled value sets, referencing international standards where they exist.
-  </p>
-  <div class="card-grid">
-    {vocabularies.map((v, i) => (
-      <div class:list={["card", { "mobile-overflow-card": i >= 6 }]}>
-        <a href={`/vocab/${v.id}`}>
-          <h3>{v.id}</h3>
-          <p>
-            {v.values.length} values{v.standard?.name ? <> &middot; {v.standard.name}</> : ""}
-          </p>
-        </a>
-      </div>
+      </Fragment>
     ))}
-  </div>
-  {vocabularies.length > 6 && (
-    <div class="mobile-view-all">
+
+    <h3 class="catalog-heading">Vocabularies</h3>
+    <p style="color: var(--color-text-muted); margin-bottom: var(--space-md); font-size: 0.875rem;">
+      Controlled value sets, referencing international standards where they exist.
+    </p>
+    <div class="card-grid vocab-grid">
+      {vocabularies.slice(0, 6).map((v) => (
+        <div class="card">
+          <a href={`/vocab/${v.id}`}>
+            <h3>{v.id}</h3>
+            <p>
+              {v.values.length} values{v.standard?.name ? <> &middot; {v.standard.name}</> : ""}
+            </p>
+          </a>
+        </div>
+      ))}
+    </div>
+    <div class="catalog-view-all">
       <a href="/vocab/" class="btn btn-secondary">View all {vocabularies.length} vocabularies</a>
     </div>
-  )}
+  </div>
+
+  <!-- 7. Closing CTA -->
+  <div class="closing-cta">
+    <p>Ready to dig in?</p>
+    <div class="hero-cta">
+      <a href="/docs/use-cases/" class="btn btn-primary">Read the use cases</a>
+      <a href="/systems/" class="btn btn-secondary">See how systems map</a>
+    </div>
+  </div>
+
 </Base>
