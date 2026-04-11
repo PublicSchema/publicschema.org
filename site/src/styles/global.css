@@ -309,6 +309,7 @@ code {
 .badge-narrow { background: var(--color-narrow-bg); color: var(--color-narrow); }
 .badge-related { background: var(--color-related-bg); color: var(--color-related); }
 .badge-no-match { background: var(--color-no-match-bg); color: var(--color-no-match); }
+.badge-name_match { background: var(--color-related-bg); color: var(--color-related); }
 
 /* Maturity levels */
 .badge-draft { background: var(--color-draft-bg); color: var(--color-draft); }
@@ -810,6 +811,24 @@ article .data-table.table-wide {
 .type-links a:hover {
   border-color: var(--color-accent);
   background: var(--color-accent-light);
+}
+
+/* Aligned standards note rows */
+.aligned-note-row td {
+  padding-top: 0;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.aligned-note-row:hover td {
+  background: transparent;
+}
+
+.aligned-note {
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+  line-height: 1.55;
+  font-family: var(--font-serif);
 }
 
 /* System mapping enriched tables */

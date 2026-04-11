@@ -116,6 +116,37 @@ function collectAllSubtypes(conceptId: string): string[] {
         <a href={`${concept.path}-template.xlsx`} class="btn btn-secondary" download>Template (Excel)</a>
       </div>
 
+      {concept.external_equivalents && Object.keys(concept.external_equivalents).length > 0 && (
+        <div class="concept-section">
+          <h2>Aligned standards</h2>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Standard</th>
+                <th>Equivalent</th>
+                <th>Match</th>
+              </tr>
+            </thead>
+            <tbody>
+              {Object.entries(concept.external_equivalents).map(([key, eq]) => (
+                <>
+                  <tr>
+                    <td>{eq.vocabulary}</td>
+                    <td><a href={eq.uri} target="_blank" rel="noopener">{eq.label}</a></td>
+                    <td><span class={`badge badge-${eq.match}`}>{eq.match.replace('_', ' ')}</span></td>
+                  </tr>
+                  {eq.note && (
+                    <tr class="aligned-note-row">
+                      <td colspan="3" class="aligned-note">{eq.note}</td>
+                    </tr>
+                  )}
+                </>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
       {concept.supertypes.length > 0 && (
         <div class="concept-section">
           <h2>Supertypes</h2>
@@ -247,6 +278,37 @@ function collectAllSubtypes(conceptId: string): string[] {
       <div class="download-links">
         <a href={`${prop.path}.jsonld`} class="btn btn-secondary">JSON-LD</a>
       </div>
+
+      {prop.external_equivalents && Object.keys(prop.external_equivalents).length > 0 && (
+        <div class="concept-section">
+          <h2>Aligned standards</h2>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Standard</th>
+                <th>Equivalent</th>
+                <th>Match</th>
+              </tr>
+            </thead>
+            <tbody>
+              {Object.entries(prop.external_equivalents).map(([key, eq]) => (
+                <>
+                  <tr>
+                    <td>{eq.vocabulary}</td>
+                    <td><a href={eq.uri} target="_blank" rel="noopener">{eq.label}</a></td>
+                    <td><span class={`badge badge-${eq.match}`}>{eq.match.replace('_', ' ')}</span></td>
+                  </tr>
+                  {eq.note && (
+                    <tr class="aligned-note-row">
+                      <td colspan="3" class="aligned-note">{eq.note}</td>
+                    </tr>
+                  )}
+                </>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
 
       <div class="concept-section">
         <h2>Details</h2>

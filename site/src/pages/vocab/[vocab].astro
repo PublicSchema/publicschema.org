@@ -49,6 +49,37 @@ const vocabulary = allVocab.vocabularies[Astro.params.vocab] as Vocabulary;
     </div>
   )}
 
+  {vocabulary.external_equivalents && Object.keys(vocabulary.external_equivalents).length > 0 && (
+    <div class="concept-section">
+      <h2>Aligned standards</h2>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Standard</th>
+            <th>Equivalent</th>
+            <th>Match</th>
+          </tr>
+        </thead>
+        <tbody>
+          {Object.entries(vocabulary.external_equivalents).map(([key, eq]) => (
+            <>
+              <tr>
+                <td>{eq.vocabulary}</td>
+                <td><a href={eq.uri} target="_blank" rel="noopener">{eq.label}</a></td>
+                <td><span class={`badge badge-${eq.match}`}>{eq.match.replace('_', ' ')}</span></td>
+              </tr>
+              {eq.note && (
+                <tr class="aligned-note-row">
+                  <td colspan="3" class="aligned-note">{eq.note}</td>
+                </tr>
+              )}
+            </>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  )}
+
   {vocabulary.external_values ? (
     <div class="concept-section">
       <h2>Values</h2>

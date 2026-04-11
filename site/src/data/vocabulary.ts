@@ -34,6 +34,7 @@ export interface Concept {
   subtypes: string[];
   supertypes: string[];
   convergence: Convergence | null;
+  external_equivalents: Record<string, ExternalEquivalent> | null;
 }
 
 export interface Property {
@@ -50,6 +51,7 @@ export interface Property {
   sensitivity: "standard" | "sensitive" | "restricted" | null;
   system_mappings: Record<string, SystemMapping> | null;
   convergence: Convergence | null;
+  external_equivalents: Record<string, ExternalEquivalent> | null;
 }
 
 export interface VocabValue {
@@ -73,6 +75,14 @@ export interface SystemMapping {
   unmapped_canonical?: string[];
 }
 
+export interface ExternalEquivalent {
+  label: string;
+  uri: string;
+  match: "exact" | "close" | "broad" | "name_match";
+  vocabulary: string;
+  note?: string;
+}
+
 export interface Vocabulary {
   id: string;
   domain: string | null;
@@ -85,6 +95,7 @@ export interface Vocabulary {
   system_mappings: Record<string, SystemMapping> | null;
   same_standard_systems: string[] | null;
   external_values: boolean;
+  external_equivalents: Record<string, ExternalEquivalent> | null;
 }
 
 export interface VocabularyData {
