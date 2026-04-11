@@ -32,6 +32,14 @@ properties:
 subtypes: []
 supertypes: []
 
+external_equivalents:
+  dci:
+    label: "Beneficiary"
+    uri: "https://schema.spdci.org/extensions/ibr/v1/data/Beneficiary"
+    match: broad
+    vocabulary: "SPDCI IBR"
+    note: "DCI Beneficiary bundles enrollment status, benefit history, and beneficiary identity into one object; PublicSchema separates these into Enrollment (status), Entitlement (what is owed), and PaymentEvent (what was paid)"
+
 convergence:
   system_count: 6
   total_systems: 6

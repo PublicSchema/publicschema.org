@@ -42,6 +42,14 @@ properties:
 subtypes: []
 supertypes: []
 
+external_equivalents:
+  dci:
+    label: "Benefit"
+    uri: "https://schema.spdci.org/extensions/ibr/v1/data/Benefit"
+    match: broad
+    vocabulary: "SPDCI IBR"
+    note: "DCI Benefit records what was delivered (type, value, date); PublicSchema Entitlement records the recognized right to receive. DCI has no equivalent of the promise-to-delivery separation, so entitled-but-not-yet-paid states cannot be represented"
+
 convergence:
   system_count: 5
   total_systems: 6
