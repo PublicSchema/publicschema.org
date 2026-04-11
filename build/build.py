@@ -832,12 +832,14 @@ def write_outputs(result: dict, dist_dir: Path):
 
     for concept_id, concept in result["concepts"].items():
         path = concept["path"]
+        domain = concept.get("domain")
+        dl_prefix = f"/downloads/{domain}" if domain else "/downloads"
         manifest["concepts"][concept_id] = {
             "schema": f"/schemas/{concept_id}.schema.json",
             "jsonld": f"{path}.jsonld",
-            "csv": f"/downloads/{concept_id}.csv",
-            "xlsx_definition": f"/downloads/{concept_id}-definition.xlsx",
-            "xlsx_template": f"/downloads/{concept_id}-template.xlsx",
+            "csv": f"{dl_prefix}/{concept_id}.csv",
+            "xlsx_definition": f"{dl_prefix}/{concept_id}-definition.xlsx",
+            "xlsx_template": f"{dl_prefix}/{concept_id}-template.xlsx",
         }
 
     for vocab_id, vocab in result["vocabularies"].items():

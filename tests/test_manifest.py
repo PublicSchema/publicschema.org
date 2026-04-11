@@ -106,3 +106,102 @@ class TestManifestCredentialEntries:
             pytest.skip("No credentials in build result")
         for cred_id, entry in manifest["credentials"].items():
             assert "schema" in entry, f"Credential {cred_id} missing schema key"
+
+
+class TestManifestPathCorrectness:
+    """Verify that manifest paths correspond to real files and follow naming rules."""
+
+    @pytest.fixture(scope="class")
+    def dist_with_manifest(self, tmp_path_factory):
+        """Build outputs and return (dist_dir, manifest)."""
+        result = build_vocabulary(SCHEMA_DIR)
+        dist_dir = tmp_path_factory.mktemp("dist_paths")
+        write_outputs(result, dist_dir)
+        manifest = json.loads((dist_dir / "manifest.json").read_text())
+        return dist_dir, manifest, result
+
+    def test_concept_schema_files_exist(self, dist_with_manifest):
+        """Every concept schema path in the manifest corresponds to a real file."""
+        dist_dir, manifest, _ = dist_with_manifest
+        for concept_id, entry in manifest["concepts"].items():
+            # Schema path is /schemas/Concept.schema.json -> dist/schemas/Concept.schema.json
+            schema_rel = entry["schema"].lstrip("/")
+            assert (dist_dir / schema_rel).exists(), (
+                f"Concept {concept_id} schema file missing: {schema_rel}"
+            )
+
+    def test_concept_jsonld_files_exist(self, dist_with_manifest):
+        """Every concept jsonld path in the manifest corresponds to a real file."""
+        dist_dir, manifest, _ = dist_with_manifest
+        for concept_id, entry in manifest["concepts"].items():
+            # jsonld path like /Person.jsonld or /sp/Enrollment.jsonld
+            # maps to dist/jsonld/concepts/Person.jsonld or dist/jsonld/concepts/sp/Enrollment.jsonld
+            jsonld_path = entry["jsonld"]  # e.g. "/sp/Enrollment.jsonld"
+            jsonld_rel = "jsonld/concepts" + jsonld_path
+            assert (dist_dir / jsonld_rel).exists(), (
+                f"Concept {concept_id} jsonld file missing: {jsonld_rel}"
+            )
+
+    def test_vocabulary_jsonld_files_exist(self, dist_with_manifest):
+        """Every vocabulary jsonld path in the manifest corresponds to a real file."""
+        dist_dir, manifest, _ = dist_with_manifest
+        for vocab_id, entry in manifest["vocabularies"].items():
+            jsonld_rel = "jsonld/" + entry["jsonld"].lstrip("/")
+            assert (dist_dir / jsonld_rel).exists(), (
+                f"Vocabulary {vocab_id} jsonld file missing: {jsonld_rel}"
+            )
+
+    def test_credential_schema_files_exist(self, dist_with_manifest):
+        """Every credential schema path in the manifest corresponds to a real file."""
+        dist_dir, manifest, result = dist_with_manifest
+        if not result.get("credential_schemas"):
+            pytest.skip("No credentials in build result")
+        for cred_id, entry in manifest["credentials"].items():
+            schema_rel = entry["schema"].lstrip("/")
+            assert (dist_dir / schema_rel).exists(), (
+                f"Credential {cred_id} schema file missing: {schema_rel}"
+            )
+
+    def test_domain_concept_has_domain_jsonld_path(self, dist_with_manifest):
+        """Domain-specific concepts have domain segment in their jsonld path."""
+        _, manifest, result = dist_with_manifest
+        for concept_id, concept in result["concepts"].items():
+            if concept.get("domain"):
+                entry = manifest["concepts"][concept_id]
+                assert entry["jsonld"].startswith(f"/{concept['domain']}/"), (
+                    f"Domain concept {concept_id} should have /{concept['domain']}/ "
+                    f"prefix in jsonld path, got {entry['jsonld']}"
+                )
+
+    def test_domain_concept_has_flat_schema_path(self, dist_with_manifest):
+        """Domain-specific concepts still use flat /schemas/ path (no domain prefix)."""
+        _, manifest, result = dist_with_manifest
+        for concept_id, concept in result["concepts"].items():
+            if concept.get("domain"):
+                entry = manifest["concepts"][concept_id]
+                assert entry["schema"] == f"/schemas/{concept_id}.schema.json", (
+                    f"Domain concept {concept_id} schema should be flat, "
+                    f"got {entry['schema']}"
+                )
+
+    def test_download_files_exist(self, dist_with_manifest):
+        """Every download path (CSV, XLSX) in the manifest corresponds to a real file."""
+        dist_dir, manifest, _ = dist_with_manifest
+        for concept_id, entry in manifest["concepts"].items():
+            for key in ["csv", "xlsx_definition", "xlsx_template"]:
+                rel = entry[key].lstrip("/")
+                assert (dist_dir / rel).exists(), (
+                    f"Concept {concept_id} {key} file missing: {rel}"
+                )
+
+    def test_domain_concept_download_paths_include_domain(self, dist_with_manifest):
+        """Domain-specific concepts have domain prefix in download paths."""
+        _, manifest, result = dist_with_manifest
+        for concept_id, concept in result["concepts"].items():
+            if concept.get("domain"):
+                domain = concept["domain"]
+                entry = manifest["concepts"][concept_id]
+                assert entry["csv"] == f"/downloads/{domain}/{concept_id}.csv", (
+                    f"Domain concept {concept_id} csv should include /{domain}/, "
+                    f"got {entry['csv']}"
+                )

@@ -319,6 +319,42 @@ class TestJsonLdContext:
         assert ctx["rdf"] == "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
         assert ctx["skos"] == "http://www.w3.org/2004/02/skos/core#"
 
+    def test_context_skos_match_predicates_have_id_coercion(
+        self, tmp_schema, write_concept
+    ):
+        """SKOS match predicates in context have full @id IRI and @type: @id.
+
+        Without the explicit @id, JSON-LD processors cannot resolve CURIE keys
+        like 'skos:exactMatch' as valid context terms.
+        """
+        write_concept("person.yaml", make_concept(id="Person"))
+        result = build_vocabulary(tmp_schema)
+        ctx = result["context"]["@context"]
+        skos_base = "http://www.w3.org/2004/02/skos/core#"
+        for pred_name in ["exactMatch", "closeMatch", "broadMatch", "narrowMatch", "relatedMatch"]:
+            key = f"skos:{pred_name}"
+            assert key in ctx, f"Missing context entry for {key}"
+            entry = ctx[key]
+            assert isinstance(entry, dict), f"{key} should be a dict, got {type(entry)}"
+            assert entry["@id"] == f"{skos_base}{pred_name}", (
+                f"{key} @id should be full IRI, got {entry.get('@id')}"
+            )
+            assert entry["@type"] == "@id", (
+                f"{key} should have @type: @id for URI coercion"
+            )
+
+    def test_context_rdfs_see_also_has_id_coercion(
+        self, tmp_schema, write_concept
+    ):
+        """rdfs:seeAlso in context has full @id IRI and @type: @id."""
+        write_concept("person.yaml", make_concept(id="Person"))
+        result = build_vocabulary(tmp_schema)
+        ctx = result["context"]["@context"]
+        entry = ctx["rdfs:seeAlso"]
+        assert isinstance(entry, dict)
+        assert entry["@id"] == "http://www.w3.org/2000/01/rdf-schema#seeAlso"
+        assert entry["@type"] == "@id"
+
     def test_context_has_no_id(
         self, tmp_schema, write_concept
     ):

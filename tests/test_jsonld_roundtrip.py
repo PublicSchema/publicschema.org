@@ -362,6 +362,48 @@ class TestExternalEquivalentsSkos:
         assert "bad" in captured.err
         assert "Broken" in captured.err
 
+    def test_multiple_equivalents_all_present(self, build_result):
+        """Person has multiple external_equivalents; all produce SKOS triples."""
+        inline_ctx = build_result["context"]["@context"]
+        doc = build_result["jsonld_docs"]["concepts/Person.jsonld"]
+        g = _parse_doc(doc, inline_ctx)
+        person_uri = rdflib.URIRef("https://publicschema.org/Person")
+
+        # Collect all SKOS match + seeAlso triples on Person
+        skos_preds = [SKOS.exactMatch, SKOS.closeMatch, SKOS.broadMatch,
+                      SKOS.narrowMatch, SKOS.relatedMatch, RDFS.seeAlso]
+        all_objects = []
+        for pred in skos_preds:
+            all_objects.extend(g.objects(person_uri, pred))
+
+        # Person should have at least 2 equivalents (SEMIC exact + SPDCI close)
+        assert len(all_objects) >= 2, (
+            f"Person should have at least 2 external equivalent triples, "
+            f"got {len(all_objects)}: {[str(o) for o in all_objects]}"
+        )
+
+    def test_property_match_in_standalone_and_embedded(self, build_result):
+        """A property's SKOS triples appear in both standalone and embedded documents."""
+        inline_ctx = build_result["context"]["@context"]
+
+        # Standalone property doc
+        standalone_doc = build_result["jsonld_docs"]["properties/gender.jsonld"]
+        g_standalone = _parse_doc(standalone_doc, inline_ctx)
+
+        # Embedded in concept doc
+        concept_doc = build_result["jsonld_docs"]["concepts/Person.jsonld"]
+        g_concept = _parse_doc(concept_doc, inline_ctx)
+
+        gender_uri = rdflib.URIRef("https://publicschema.org/gender")
+        semic_uri = rdflib.URIRef("http://data.europa.eu/m8g/gender")
+
+        assert (gender_uri, SKOS.exactMatch, semic_uri) in g_standalone, (
+            "gender standalone doc should have skos:exactMatch"
+        )
+        assert (gender_uri, SKOS.exactMatch, semic_uri) in g_concept, (
+            "gender in Person concept doc should have skos:exactMatch"
+        )
+
 
 class TestUriMatchesBaseUri:
     def test_concept_uris_match_base_uri(self, build_result):

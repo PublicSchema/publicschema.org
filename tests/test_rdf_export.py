@@ -88,6 +88,91 @@ class TestBuildTurtle:
         assert (vocab_uri, RDF.type, SKOS.ConceptScheme) in g
 
 
+class TestTurtleSkosMatches:
+    """SKOS match triples from external_equivalents in Turtle output."""
+
+    def test_turtle_contains_skos_exact_match(
+        self, tmp_schema, write_concept, write_property,
+    ):
+        """Concept with exactMatch external_equivalent produces skos:exactMatch triple in Turtle."""
+        write_concept("widget.yaml", make_concept(
+            id="Widget",
+            properties=["size"],
+            external_equivalents={
+                "other": {
+                    "label": "Widget",
+                    "uri": "http://example.org/Widget",
+                    "match": "exact",
+                }
+            },
+        ))
+        write_property("size.yaml", make_property(id="size", type="integer"))
+        result = build_vocabulary(tmp_schema)
+
+        ttl = build_turtle(result)
+        g = rdflib.Graph()
+        g.parse(data=ttl, format="turtle")
+
+        widget_uri = rdflib.URIRef("https://test.example.org/Widget")
+        other_uri = rdflib.URIRef("http://example.org/Widget")
+        assert (widget_uri, SKOS.exactMatch, other_uri) in g
+
+    def test_turtle_contains_skos_see_also_fallback(
+        self, tmp_schema, write_concept, write_property,
+    ):
+        """External equivalent without match field produces rdfs:seeAlso in Turtle."""
+        write_concept("thing.yaml", make_concept(
+            id="Thing",
+            properties=["name"],
+            external_equivalents={
+                "ext": {
+                    "label": "Thing",
+                    "uri": "http://example.org/Thing",
+                }
+            },
+        ))
+        write_property("name.yaml", make_property(id="name"))
+        result = build_vocabulary(tmp_schema)
+
+        ttl = build_turtle(result)
+        g = rdflib.Graph()
+        g.parse(data=ttl, format="turtle")
+
+        thing_uri = rdflib.URIRef("https://test.example.org/Thing")
+        ext_uri = rdflib.URIRef("http://example.org/Thing")
+        assert (thing_uri, RDFS.seeAlso, ext_uri) in g
+
+    def test_full_jsonld_contains_skos_match(
+        self, tmp_schema, write_concept, write_property,
+    ):
+        """Full JSON-LD export contains SKOS match triples from external_equivalents."""
+        write_concept("widget.yaml", make_concept(
+            id="Widget",
+            properties=["size"],
+            external_equivalents={
+                "semic": {
+                    "label": "Widget",
+                    "uri": "http://example.org/SemicWidget",
+                    "match": "close",
+                }
+            },
+        ))
+        write_property("size.yaml", make_property(id="size", type="integer"))
+        result = build_vocabulary(tmp_schema)
+
+        content = build_full_jsonld(result)
+        # Parse with inline context for triple-level assertion
+        import json as _json
+        doc = _json.loads(content)
+        doc["@context"] = result["context"]["@context"]
+        g = rdflib.Graph()
+        g.parse(data=_json.dumps(doc), format="json-ld")
+
+        widget_uri = rdflib.URIRef("https://test.example.org/Widget")
+        semic_uri = rdflib.URIRef("http://example.org/SemicWidget")
+        assert (widget_uri, SKOS.closeMatch, semic_uri) in g
+
+
 class TestWriteTurtle:
     """File writing for Turtle output."""
 
@@ -151,6 +236,27 @@ class TestTurtleIntegration:
         g2.parse(data=ttl2, format="turtle")
 
         assert len(g1) == len(g2)
+
+    def test_real_schema_turtle_has_skos_match_triples(self, real_result):
+        """Real schema Turtle contains SKOS match triples from external_equivalents.
+
+        Person has external_equivalents with exactMatch (SEMIC) and closeMatch (SPDCI),
+        so the Turtle should contain corresponding SKOS triples.
+        """
+        ttl = build_turtle(real_result)
+        g = rdflib.Graph()
+        g.parse(data=ttl, format="turtle")
+
+        person_uri = rdflib.URIRef("https://publicschema.org/Person")
+        # At least one SKOS match triple on Person
+        skos_preds = [SKOS.exactMatch, SKOS.closeMatch, SKOS.broadMatch,
+                      SKOS.narrowMatch, SKOS.relatedMatch]
+        matches = []
+        for pred in skos_preds:
+            matches.extend(g.triples((person_uri, pred, None)))
+        assert len(matches) >= 1, (
+            "Person should have at least one SKOS match triple in Turtle"
+        )
 
 
 # ===========================================================================
