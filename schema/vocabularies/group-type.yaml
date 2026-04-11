@@ -1,19 +1,28 @@
 id: group-type
-maturity: draft
+maturity: trial-use
 definition:
-  en: Categories used to classify the administrative or social type of a group in an administrative system.
-  fr: Categories utilisees pour classer le type administratif ou social d'un groupe dans un systeme administratif.
-  es: Categorias utilizadas para clasificar el tipo administrativo o social de un grupo en un sistema administrativo.
+  en: Categories used to classify the administrative or social type of a group in a public service delivery system.
+  fr: Catégories utilisées pour classer le type administratif ou social d'un groupe dans un système de prestation de services publics.
+  es: Categorías utilizadas para clasificar el tipo administrativo o social de un grupo en un sistema de prestación de servicios públicos.
+references:
+  - name: "UN Principles and Recommendations for Population and Housing Censuses (Rev.3)"
+    uri: "https://unstats.un.org/unsd/demographic-social/Standards-and-Methods/files/Principles_and_Recommendations/Population-and-Housing-Censuses/Series_M67rev3-E.pdf"
+    relationship: prose_guidance
+    machine_readable: false
+    notes: "Defines household and family as statistical units. No standard code system for group type classification exists."
+see_also:
+  - vocabulary: group-role
+    note: "group-type classifies the kind of group (household, family, farm); group-role classifies a person's position within a group (head, spouse, child). The two are orthogonal."
 values:
 - code: household
   label:
     en: Household
-    fr: Menage
+    fr: Ménage
     es: Hogar
   definition:
-    en: A group of persons who share a dwelling and typically pool resources for daily living.
-    fr: Un groupe de personnes partageant un logement et mettant generalement en commun des ressources pour la vie quotidienne.
-    es: Un grupo de personas que comparten una vivienda y generalmente comparten recursos para la vida diaria.
+    en: A group of persons who share a dwelling and typically pool resources for daily living. The operational definition varies across countries and programs, combining criteria of co-residence, shared budget, shared cooking, kinship, and administrative registration.
+    fr: Un groupe de personnes partageant un logement et mettant généralement en commun des ressources pour la vie quotidienne. La définition opérationnelle varie selon les pays et les programmes, combinant des critères de corésidence, de budget partagé, de cuisine commune, de parenté et d'enregistrement administratif.
+    es: Un grupo de personas que comparten una vivienda y generalmente comparten recursos para la vida diaria. La definición operativa varía entre países y programas, combinando criterios de corresidencia, presupuesto compartido, cocina compartida, parentesco y registro administrativo.
 - code: family
   label:
     en: Family
@@ -21,8 +30,8 @@ values:
     es: Familia
   definition:
     en: A group defined by legal or biological kinship ties, which may span multiple households.
-    fr: Un groupe defini par des liens de parente legaux ou biologiques, pouvant s'etendre sur plusieurs menages.
-    es: Un grupo definido por lazos de parentesco legal o biologico, que puede abarcar varios hogares.
+    fr: Un groupe défini par des liens de parenté légaux ou biologiques, pouvant s'étendre sur plusieurs ménages.
+    es: Un grupo definido por lazos de parentesco legal o biológico, que puede abarcar varios hogares.
 - code: farm
   label:
     en: Farm
@@ -30,8 +39,8 @@ values:
     es: Granja
   definition:
     en: An agricultural production unit, often household-based, used for targeting agricultural support programs.
-    fr: Une unite de production agricole, souvent basee sur le menage, utilisee pour cibler les programmes d'aide agricole.
-    es: Una unidad de produccion agricola, generalmente basada en el hogar, utilizada para focalizar programas de apoyo agricola.
+    fr: Une unité de production agricole, souvent basée sur le ménage, utilisée pour cibler les programmes d'aide agricole.
+    es: Una unidad de producción agrícola, generalmente basada en el hogar, utilizada para focalizar programas de apoyo agrícola.
 - code: other
   label:
     en: Other
@@ -39,8 +48,8 @@ values:
     es: Otro
   definition:
     en: A group type not covered by the other categories.
-    fr: Un type de groupe non couvert par les autres categories.
-    es: Un tipo de grupo no cubierto por las otras categorias.
+    fr: Un type de groupe non couvert par les autres catégories.
+    es: Un tipo de grupo no cubierto por las otras categorías.
 system_mappings:
   openspp:
     vocabulary_name: GroupType
@@ -70,7 +79,7 @@ system_mappings:
       label: Other
       maps_to: other
     - code: H
-      label: Head
+      label: Household
       maps_to: household
     - code: G
       label: Group

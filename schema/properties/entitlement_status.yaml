@@ -1,5 +1,5 @@
 id: entitlement_status
-maturity: draft
+maturity: trial-use
 
 definition:
   en: "The lifecycle state of this entitlement instance."
@@ -12,5 +12,5 @@ vocabulary: entitlement-status
 references: null
 
 convergence:
-  system_count: 0
+  system_count: 1
   total_systems: 6

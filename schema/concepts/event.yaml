@@ -1,5 +1,5 @@
 id: Event
-maturity: draft
+maturity: trial-use
 
 definition:
   en: >
@@ -8,15 +8,15 @@ definition:
     occurrences (assessments, decisions, payments, deliveries, referrals, etc.),
     as distinct from standing entities like persons, groups, or programs.
   fr: >
-    Quelque chose qui se produit a un moment precis ou sur une periode
-    delimitee au sein d'un systeme de prestation. Event est le supertype
-    partage pour les enregistrements qui capturent des occurrences
-    (evaluations, decisions, paiements, livraisons, orientations, etc.),
-    distincts des entites permanentes comme les personnes, les groupes ou
+    Quelque chose qui se produit à un moment précis ou sur une période
+    délimitée au sein d'un système de prestation. Event est le supertype
+    partagé pour les enregistrements qui capturent des occurrences
+    (évaluations, décisions, paiements, livraisons, orientations, etc.),
+    distincts des entités permanentes comme les personnes, les groupes ou
     les programmes.
   es: >
-    Algo que ocurre en un momento especifico o durante un periodo delimitado
-    dentro de un sistema de prestacion. Event es el supertipo compartido para
+    Algo que ocurre en un momento específico o durante un período delimitado
+    dentro de un sistema de prestación. Event es el supertipo compartido para
     los registros que capturan ocurrencias (evaluaciones, decisiones, pagos,
     entregas, derivaciones, etc.), distintos de las entidades permanentes
     como personas, grupos o programas.
@@ -26,3 +26,12 @@ properties:
 
 subtypes: [AssessmentEvent, EligibilityDecision, HazardEvent, InKindDelivery, PaymentEvent, Referral, VoucherRedemption]
 supertypes: []
+
+convergence:
+  system_count: 6
+  total_systems: 6
+  notes: >
+    Event is a PublicSchema abstraction; no mapped system has an explicit
+    event supertype. All six systems model timestamped occurrence records
+    (payments, assessments, decisions, referrals) that correspond to Event
+    subtypes.

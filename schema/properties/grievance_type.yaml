@@ -1,10 +1,10 @@
 id: grievance_type
-maturity: draft
+maturity: trial-use
 
 definition:
-  en: "The category of complaint (exclusion error, inclusion error, payment complaint, misconduct, information request)."
-  fr: "La catégorie de plainte (erreur d'exclusion, erreur d'inclusion, plainte de paiement, mauvaise conduite, demande d'information)."
-  es: "La categoría de queja (error de exclusión, error de inclusión, queja de pago, mala conducta, solicitud de información)."
+  en: "The category of grievance or complaint, classifying the nature of the issue raised."
+  fr: "La catégorie de grief ou de plainte, classifiant la nature du problème soulevé."
+  es: "La categoría de agravio o queja, clasificando la naturaleza del problema planteado."
 
 type: string
 cardinality: single
