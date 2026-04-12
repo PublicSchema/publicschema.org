@@ -10,957 +10,1428 @@ standard:
 sync:
   source_url: https://raw.githubusercontent.com/lukes/ISO-3166-Countries-with-Regional-Codes/master/all/all.json
   format: github-json
-  last_synced: '2026-04-07'
+  last_synced: '2026-04-12'
 same_standard_systems:
-  - openspp
+- openspp
 external_values: true
 external_equivalents:
   semic:
-    label: "Country"
-    uri: "http://publications.europa.eu/resource/authority/country"
+    label: Country
+    uri: http://publications.europa.eu/resource/authority/country
     match: close
-    vocabulary: "Core Location"
-    note: "EU Country Named Authority List is based on ISO 3166-1 (same underlying standard). SEMIC uses URI-based resources; PublicSchema uses alpha-2 codes."
+    vocabulary: Core Location
+    note: EU Country Named Authority List is based on ISO 3166-1 (same underlying standard). SEMIC uses URI-based resources;
+      PublicSchema uses alpha-2 codes.
 values:
 - code: af
   label:
     en: Afghanistan
+    fr: Afghanistan
+    es: Afganistán
   standard_code: AF
 - code: ax
   label:
     en: Åland Islands
+    fr: Îles Åland
+    es: Islas Aland
   standard_code: AX
 - code: al
   label:
     en: Albania
+    fr: Albanie
+    es: Albania
   standard_code: AL
 - code: dz
   label:
     en: Algeria
+    fr: Algérie
+    es: Argelia
   standard_code: DZ
 - code: as
   label:
     en: American Samoa
+    fr: Samoa américaines
+    es: Samoa Americana
   standard_code: AS
 - code: ad
   label:
     en: Andorra
+    fr: Andorre
+    es: Andorra
   standard_code: AD
 - code: ao
   label:
     en: Angola
+    fr: Angola
+    es: Angola
   standard_code: AO
 - code: ai
   label:
     en: Anguilla
+    fr: Anguilla
+    es: Anguila
   standard_code: AI
 - code: aq
   label:
     en: Antarctica
+    fr: Antarctique
+    es: Antártida
   standard_code: AQ
 - code: ag
   label:
     en: Antigua and Barbuda
+    fr: Antigua-et-Barbuda
+    es: Antigua y Barbuda
   standard_code: AG
 - code: ar
   label:
     en: Argentina
+    fr: Argentine
+    es: Argentina
   standard_code: AR
 - code: am
   label:
     en: Armenia
+    fr: Arménie
+    es: Armenia
   standard_code: AM
 - code: aw
   label:
     en: Aruba
+    fr: Aruba
+    es: Aruba
   standard_code: AW
 - code: au
   label:
     en: Australia
+    fr: Australie
+    es: Australia
   standard_code: AU
 - code: at
   label:
     en: Austria
+    fr: Autriche
+    es: Austria
   standard_code: AT
 - code: az
   label:
     en: Azerbaijan
+    fr: Azerbaïdjan
+    es: Azerbaiyán
   standard_code: AZ
 - code: bs
   label:
     en: Bahamas
+    fr: Bahamas
+    es: Bahamas
   standard_code: BS
 - code: bh
   label:
     en: Bahrain
+    fr: Bahreïn
+    es: Baréin
   standard_code: BH
 - code: bd
   label:
     en: Bangladesh
+    fr: Bangladesh
+    es: Bangladés
   standard_code: BD
 - code: bb
   label:
     en: Barbados
+    fr: Barbade
+    es: Barbados
   standard_code: BB
 - code: by
   label:
     en: Belarus
+    fr: Biélorussie
+    es: Bielorrusia
   standard_code: BY
 - code: be
   label:
     en: Belgium
+    fr: Belgique
+    es: Bélgica
   standard_code: BE
 - code: bz
   label:
     en: Belize
+    fr: Belize
+    es: Belice
   standard_code: BZ
 - code: bj
   label:
     en: Benin
+    fr: Bénin
+    es: Benín
   standard_code: BJ
 - code: bm
   label:
     en: Bermuda
+    fr: Bermudes
+    es: Bermudas
   standard_code: BM
 - code: bt
   label:
     en: Bhutan
+    fr: Bhoutan
+    es: Bután
   standard_code: BT
 - code: bo
   label:
     en: Bolivia, Plurinational State of
+    fr: Bolivie
+    es: Bolivia
   standard_code: BO
 - code: bq
   label:
     en: Bonaire, Sint Eustatius and Saba
+    fr: Pays-Bas caribéens
+    es: Caribe neerlandés
   standard_code: BQ
 - code: ba
   label:
     en: Bosnia and Herzegovina
+    fr: Bosnie-Herzégovine
+    es: Bosnia y Herzegovina
   standard_code: BA
 - code: bw
   label:
     en: Botswana
+    fr: Botswana
+    es: Botsuana
   standard_code: BW
 - code: bv
   label:
     en: Bouvet Island
+    fr: Île Bouvet
+    es: Isla Bouvet
   standard_code: BV
 - code: br
   label:
     en: Brazil
+    fr: Brésil
+    es: Brasil
   standard_code: BR
 - code: io
   label:
     en: British Indian Ocean Territory
+    fr: Territoire britannique de l’océan Indien
+    es: Territorio Británico del Océano Índico
   standard_code: IO
 - code: bn
   label:
     en: Brunei Darussalam
+    fr: Brunei
+    es: Brunéi
   standard_code: BN
 - code: bg
   label:
     en: Bulgaria
+    fr: Bulgarie
+    es: Bulgaria
   standard_code: BG
 - code: bf
   label:
     en: Burkina Faso
+    fr: Burkina Faso
+    es: Burkina Faso
   standard_code: BF
 - code: bi
   label:
     en: Burundi
+    fr: Burundi
+    es: Burundi
   standard_code: BI
 - code: cv
   label:
     en: Cabo Verde
+    fr: Cap-Vert
+    es: Cabo Verde
   standard_code: CV
 - code: kh
   label:
     en: Cambodia
+    fr: Cambodge
+    es: Camboya
   standard_code: KH
 - code: cm
   label:
     en: Cameroon
+    fr: Cameroun
+    es: Camerún
   standard_code: CM
 - code: ca
   label:
     en: Canada
+    fr: Canada
+    es: Canadá
   standard_code: CA
 - code: ky
   label:
     en: Cayman Islands
+    fr: Îles Caïmans
+    es: Islas Caimán
   standard_code: KY
 - code: cf
   label:
     en: Central African Republic
+    fr: République centrafricaine
+    es: República Centroafricana
   standard_code: CF
 - code: td
   label:
     en: Chad
+    fr: Tchad
+    es: Chad
   standard_code: TD
 - code: cl
   label:
     en: Chile
+    fr: Chili
+    es: Chile
   standard_code: CL
 - code: cn
   label:
     en: China
+    fr: Chine
+    es: China
   standard_code: CN
 - code: cx
   label:
     en: Christmas Island
+    fr: Île Christmas
+    es: Isla de Navidad
   standard_code: CX
 - code: cc
   label:
     en: Cocos (Keeling) Islands
+    fr: Îles Cocos
+    es: Islas Cocos
   standard_code: CC
 - code: co
   label:
     en: Colombia
+    fr: Colombie
+    es: Colombia
   standard_code: CO
 - code: km
   label:
     en: Comoros
+    fr: Comores
+    es: Comoras
   standard_code: KM
 - code: cg
   label:
     en: Congo
+    fr: Congo-Brazzaville
+    es: Congo
   standard_code: CG
 - code: cd
   label:
     en: Congo, Democratic Republic of the
+    fr: Congo-Kinshasa
+    es: República Democrática del Congo
   standard_code: CD
 - code: ck
   label:
     en: Cook Islands
+    fr: Îles Cook
+    es: Islas Cook
   standard_code: CK
 - code: cr
   label:
     en: Costa Rica
+    fr: Costa Rica
+    es: Costa Rica
   standard_code: CR
 - code: ci
   label:
     en: Côte d'Ivoire
+    fr: Côte d’Ivoire
+    es: Côte d’Ivoire
   standard_code: CI
 - code: hr
   label:
     en: Croatia
+    fr: Croatie
+    es: Croacia
   standard_code: HR
 - code: cu
   label:
     en: Cuba
+    fr: Cuba
+    es: Cuba
   standard_code: CU
 - code: cw
   label:
     en: Curaçao
+    fr: Curaçao
+    es: Curazao
   standard_code: CW
 - code: cy
   label:
     en: Cyprus
+    fr: Chypre
+    es: Chipre
   standard_code: CY
 - code: cz
   label:
     en: Czechia
+    fr: Tchéquie
+    es: Chequia
   standard_code: CZ
 - code: dk
   label:
     en: Denmark
+    fr: Danemark
+    es: Dinamarca
   standard_code: DK
 - code: dj
   label:
     en: Djibouti
+    fr: Djibouti
+    es: Yibuti
   standard_code: DJ
 - code: dm
   label:
     en: Dominica
+    fr: Dominique
+    es: Dominica
   standard_code: DM
 - code: do
   label:
     en: Dominican Republic
+    fr: République dominicaine
+    es: República Dominicana
   standard_code: DO
 - code: ec
   label:
     en: Ecuador
+    fr: Équateur
+    es: Ecuador
   standard_code: EC
 - code: eg
   label:
     en: Egypt
+    fr: Égypte
+    es: Egipto
   standard_code: EG
 - code: sv
   label:
     en: El Salvador
+    fr: Salvador
+    es: El Salvador
   standard_code: SV
 - code: gq
   label:
     en: Equatorial Guinea
+    fr: Guinée équatoriale
+    es: Guinea Ecuatorial
   standard_code: GQ
 - code: er
   label:
     en: Eritrea
+    fr: Érythrée
+    es: Eritrea
   standard_code: ER
 - code: ee
   label:
     en: Estonia
+    fr: Estonie
+    es: Estonia
   standard_code: EE
 - code: sz
   label:
     en: Eswatini
+    fr: Eswatini
+    es: Esuatini
   standard_code: SZ
 - code: et
   label:
     en: Ethiopia
+    fr: Éthiopie
+    es: Etiopía
   standard_code: ET
 - code: fk
   label:
     en: Falkland Islands (Malvinas)
+    fr: Îles Malouines
+    es: Islas Malvinas
   standard_code: FK
 - code: fo
   label:
     en: Faroe Islands
+    fr: Îles Féroé
+    es: Islas Feroe
   standard_code: FO
 - code: fj
   label:
     en: Fiji
+    fr: Fidji
+    es: Fiyi
   standard_code: FJ
 - code: fi
   label:
     en: Finland
+    fr: Finlande
+    es: Finlandia
   standard_code: FI
 - code: fr
   label:
     en: France
+    fr: France
+    es: Francia
   standard_code: FR
 - code: gf
   label:
     en: French Guiana
+    fr: Guyane française
+    es: Guayana Francesa
   standard_code: GF
 - code: pf
   label:
     en: French Polynesia
+    fr: Polynésie française
+    es: Polinesia Francesa
   standard_code: PF
 - code: tf
   label:
     en: French Southern Territories
+    fr: Terres australes françaises
+    es: Territorios Australes Franceses
   standard_code: TF
 - code: ga
   label:
     en: Gabon
+    fr: Gabon
+    es: Gabón
   standard_code: GA
 - code: gm
   label:
     en: Gambia
+    fr: Gambie
+    es: Gambia
   standard_code: GM
 - code: ge
   label:
     en: Georgia
+    fr: Géorgie
+    es: Georgia
   standard_code: GE
 - code: de
   label:
     en: Germany
+    fr: Allemagne
+    es: Alemania
   standard_code: DE
 - code: gh
   label:
     en: Ghana
+    fr: Ghana
+    es: Ghana
   standard_code: GH
 - code: gi
   label:
     en: Gibraltar
+    fr: Gibraltar
+    es: Gibraltar
   standard_code: GI
 - code: gr
   label:
     en: Greece
+    fr: Grèce
+    es: Grecia
   standard_code: GR
 - code: gl
   label:
     en: Greenland
+    fr: Groenland
+    es: Groenlandia
   standard_code: GL
 - code: gd
   label:
     en: Grenada
+    fr: Grenade
+    es: Granada
   standard_code: GD
 - code: gp
   label:
     en: Guadeloupe
+    fr: Guadeloupe
+    es: Guadalupe
   standard_code: GP
 - code: gu
   label:
     en: Guam
+    fr: Guam
+    es: Guam
   standard_code: GU
 - code: gt
   label:
     en: Guatemala
+    fr: Guatemala
+    es: Guatemala
   standard_code: GT
 - code: gg
   label:
     en: Guernsey
+    fr: Guernesey
+    es: Guernesey
   standard_code: GG
 - code: gn
   label:
     en: Guinea
+    fr: Guinée
+    es: Guinea
   standard_code: GN
 - code: gw
   label:
     en: Guinea-Bissau
+    fr: Guinée-Bissau
+    es: Guinea-Bisáu
   standard_code: GW
 - code: gy
   label:
     en: Guyana
+    fr: Guyana
+    es: Guyana
   standard_code: GY
 - code: ht
   label:
     en: Haiti
+    fr: Haïti
+    es: Haití
   standard_code: HT
 - code: hm
   label:
     en: Heard Island and McDonald Islands
+    fr: Îles Heard-et-MacDonald
+    es: Islas Heard y McDonald
   standard_code: HM
 - code: va
   label:
     en: Holy See
+    fr: État de la Cité du Vatican
+    es: Ciudad del Vaticano
   standard_code: VA
 - code: hn
   label:
     en: Honduras
+    fr: Honduras
+    es: Honduras
   standard_code: HN
 - code: hk
   label:
     en: Hong Kong
+    fr: R.A.S. chinoise de Hong Kong
+    es: RAE de Hong Kong (China)
   standard_code: HK
 - code: hu
   label:
     en: Hungary
+    fr: Hongrie
+    es: Hungría
   standard_code: HU
 - code: is
   label:
     en: Iceland
+    fr: Islande
+    es: Islandia
   standard_code: IS
 - code: in
   label:
     en: India
+    fr: Inde
+    es: India
   standard_code: IN
 - code: id
   label:
     en: Indonesia
+    fr: Indonésie
+    es: Indonesia
   standard_code: ID
 - code: ir
   label:
     en: Iran, Islamic Republic of
+    fr: Iran
+    es: Irán
   standard_code: IR
 - code: iq
   label:
     en: Iraq
+    fr: Irak
+    es: Irak
   standard_code: IQ
 - code: ie
   label:
     en: Ireland
+    fr: Irlande
+    es: Irlanda
   standard_code: IE
 - code: im
   label:
     en: Isle of Man
+    fr: Île de Man
+    es: Isla de Man
   standard_code: IM
 - code: il
   label:
     en: Israel
+    fr: Israël
+    es: Israel
   standard_code: IL
 - code: it
   label:
     en: Italy
+    fr: Italie
+    es: Italia
   standard_code: IT
 - code: jm
   label:
     en: Jamaica
+    fr: Jamaïque
+    es: Jamaica
   standard_code: JM
 - code: jp
   label:
     en: Japan
+    fr: Japon
+    es: Japón
   standard_code: JP
 - code: je
   label:
     en: Jersey
+    fr: Jersey
+    es: Jersey
   standard_code: JE
 - code: jo
   label:
     en: Jordan
+    fr: Jordanie
+    es: Jordania
   standard_code: JO
 - code: kz
   label:
     en: Kazakhstan
+    fr: Kazakhstan
+    es: Kazajistán
   standard_code: KZ
 - code: ke
   label:
     en: Kenya
+    fr: Kenya
+    es: Kenia
   standard_code: KE
 - code: ki
   label:
     en: Kiribati
+    fr: Kiribati
+    es: Kiribati
   standard_code: KI
 - code: kp
   label:
     en: Korea, Democratic People's Republic of
+    fr: Corée du Nord
+    es: Corea del Norte
   standard_code: KP
 - code: kr
   label:
     en: Korea, Republic of
+    fr: Corée du Sud
+    es: Corea del Sur
   standard_code: KR
 - code: kw
   label:
     en: Kuwait
+    fr: Koweït
+    es: Kuwait
   standard_code: KW
 - code: kg
   label:
     en: Kyrgyzstan
+    fr: Kirghizstan
+    es: Kirguistán
   standard_code: KG
 - code: la
   label:
     en: Lao People's Democratic Republic
+    fr: Laos
+    es: Laos
   standard_code: LA
 - code: lv
   label:
     en: Latvia
+    fr: Lettonie
+    es: Letonia
   standard_code: LV
 - code: lb
   label:
     en: Lebanon
+    fr: Liban
+    es: Líbano
   standard_code: LB
 - code: ls
   label:
     en: Lesotho
+    fr: Lesotho
+    es: Lesoto
   standard_code: LS
 - code: lr
   label:
     en: Liberia
+    fr: Liberia
+    es: Liberia
   standard_code: LR
 - code: ly
   label:
     en: Libya
+    fr: Libye
+    es: Libia
   standard_code: LY
 - code: li
   label:
     en: Liechtenstein
+    fr: Liechtenstein
+    es: Liechtenstein
   standard_code: LI
 - code: lt
   label:
     en: Lithuania
+    fr: Lituanie
+    es: Lituania
   standard_code: LT
 - code: lu
   label:
     en: Luxembourg
+    fr: Luxembourg
+    es: Luxemburgo
   standard_code: LU
 - code: mo
   label:
     en: Macao
+    fr: R.A.S. chinoise de Macao
+    es: RAE de Macao (China)
   standard_code: MO
 - code: mg
   label:
     en: Madagascar
+    fr: Madagascar
+    es: Madagascar
   standard_code: MG
 - code: mw
   label:
     en: Malawi
+    fr: Malawi
+    es: Malaui
   standard_code: MW
 - code: my
   label:
     en: Malaysia
+    fr: Malaisie
+    es: Malasia
   standard_code: MY
 - code: mv
   label:
     en: Maldives
+    fr: Maldives
+    es: Maldivas
   standard_code: MV
 - code: ml
   label:
     en: Mali
+    fr: Mali
+    es: Mali
   standard_code: ML
 - code: mt
   label:
     en: Malta
+    fr: Malte
+    es: Malta
   standard_code: MT
 - code: mh
   label:
     en: Marshall Islands
+    fr: Îles Marshall
+    es: Islas Marshall
   standard_code: MH
 - code: mq
   label:
     en: Martinique
+    fr: Martinique
+    es: Martinica
   standard_code: MQ
 - code: mr
   label:
     en: Mauritania
+    fr: Mauritanie
+    es: Mauritania
   standard_code: MR
 - code: mu
   label:
     en: Mauritius
+    fr: Maurice
+    es: Mauricio
   standard_code: MU
 - code: yt
   label:
     en: Mayotte
+    fr: Mayotte
+    es: Mayotte
   standard_code: YT
 - code: mx
   label:
     en: Mexico
+    fr: Mexique
+    es: México
   standard_code: MX
 - code: fm
   label:
     en: Micronesia, Federated States of
+    fr: Micronésie
+    es: Micronesia
   standard_code: FM
 - code: md
   label:
     en: Moldova, Republic of
+    fr: Moldavie
+    es: Moldavia
   standard_code: MD
 - code: mc
   label:
     en: Monaco
+    fr: Monaco
+    es: Mónaco
   standard_code: MC
 - code: mn
   label:
     en: Mongolia
+    fr: Mongolie
+    es: Mongolia
   standard_code: MN
 - code: me
   label:
     en: Montenegro
+    fr: Monténégro
+    es: Montenegro
   standard_code: ME
 - code: ms
   label:
     en: Montserrat
+    fr: Montserrat
+    es: Montserrat
   standard_code: MS
 - code: ma
   label:
     en: Morocco
+    fr: Maroc
+    es: Marruecos
   standard_code: MA
 - code: mz
   label:
     en: Mozambique
+    fr: Mozambique
+    es: Mozambique
   standard_code: MZ
 - code: mm
   label:
     en: Myanmar
+    fr: Myanmar (Birmanie)
+    es: Myanmar (Birmania)
   standard_code: MM
 - code: na
   label:
     en: Namibia
+    fr: Namibie
+    es: Namibia
   standard_code: NA
 - code: nr
   label:
     en: Nauru
+    fr: Nauru
+    es: Nauru
   standard_code: NR
 - code: np
   label:
     en: Nepal
+    fr: Népal
+    es: Nepal
   standard_code: NP
 - code: nl
   label:
     en: Netherlands, Kingdom of the
+    fr: Pays-Bas
+    es: Países Bajos
   standard_code: NL
 - code: nc
   label:
     en: New Caledonia
+    fr: Nouvelle-Calédonie
+    es: Nueva Caledonia
   standard_code: NC
 - code: nz
   label:
     en: New Zealand
+    fr: Nouvelle-Zélande
+    es: Nueva Zelanda
   standard_code: NZ
 - code: ni
   label:
     en: Nicaragua
+    fr: Nicaragua
+    es: Nicaragua
   standard_code: NI
 - code: ne
   label:
     en: Niger
+    fr: Niger
+    es: Níger
   standard_code: NE
 - code: ng
   label:
     en: Nigeria
+    fr: Nigeria
+    es: Nigeria
   standard_code: NG
 - code: nu
   label:
     en: Niue
+    fr: Niue
+    es: Niue
   standard_code: NU
 - code: nf
   label:
     en: Norfolk Island
+    fr: Île Norfolk
+    es: Isla Norfolk
   standard_code: NF
 - code: mk
   label:
     en: North Macedonia
+    fr: Macédoine du Nord
+    es: Macedonia del Norte
   standard_code: MK
 - code: mp
   label:
     en: Northern Mariana Islands
+    fr: Îles Mariannes du Nord
+    es: Islas Marianas del Norte
   standard_code: MP
 - code: 'no'
   label:
     en: Norway
+    fr: Norvège
+    es: Noruega
   standard_code: 'NO'
 - code: om
   label:
     en: Oman
+    fr: Oman
+    es: Omán
   standard_code: OM
 - code: pk
   label:
     en: Pakistan
+    fr: Pakistan
+    es: Pakistán
   standard_code: PK
 - code: pw
   label:
     en: Palau
+    fr: Palaos
+    es: Palaos
   standard_code: PW
 - code: ps
   label:
     en: Palestine, State of
+    fr: Territoires palestiniens
+    es: Territorios Palestinos
   standard_code: PS
 - code: pa
   label:
     en: Panama
+    fr: Panama
+    es: Panamá
   standard_code: PA
 - code: pg
   label:
     en: Papua New Guinea
+    fr: Papouasie-Nouvelle-Guinée
+    es: Papúa Nueva Guinea
   standard_code: PG
 - code: py
   label:
     en: Paraguay
+    fr: Paraguay
+    es: Paraguay
   standard_code: PY
 - code: pe
   label:
     en: Peru
+    fr: Pérou
+    es: Perú
   standard_code: PE
 - code: ph
   label:
     en: Philippines
+    fr: Philippines
+    es: Filipinas
   standard_code: PH
 - code: pn
   label:
     en: Pitcairn
+    fr: Îles Pitcairn
+    es: Islas Pitcairn
   standard_code: PN
 - code: pl
   label:
     en: Poland
+    fr: Pologne
+    es: Polonia
   standard_code: PL
 - code: pt
   label:
     en: Portugal
+    fr: Portugal
+    es: Portugal
   standard_code: PT
 - code: pr
   label:
     en: Puerto Rico
+    fr: Porto Rico
+    es: Puerto Rico
   standard_code: PR
 - code: qa
   label:
     en: Qatar
+    fr: Qatar
+    es: Catar
   standard_code: QA
 - code: re
   label:
     en: Réunion
+    fr: La Réunion
+    es: Reunión
   standard_code: RE
 - code: ro
   label:
     en: Romania
+    fr: Roumanie
+    es: Rumanía
   standard_code: RO
 - code: ru
   label:
     en: Russian Federation
+    fr: Russie
+    es: Rusia
   standard_code: RU
 - code: rw
   label:
     en: Rwanda
+    fr: Rwanda
+    es: Ruanda
   standard_code: RW
 - code: bl
   label:
     en: Saint Barthélemy
+    fr: Saint-Barthélemy
+    es: San Bartolomé
   standard_code: BL
 - code: sh
   label:
     en: Saint Helena, Ascension and Tristan da Cunha
+    fr: Sainte-Hélène
+    es: Santa Elena
   standard_code: SH
 - code: kn
   label:
     en: Saint Kitts and Nevis
+    fr: Saint-Christophe-et-Niévès
+    es: San Cristóbal y Nieves
   standard_code: KN
 - code: lc
   label:
     en: Saint Lucia
+    fr: Sainte-Lucie
+    es: Santa Lucía
   standard_code: LC
 - code: mf
   label:
     en: Saint Martin (French part)
+    fr: Saint-Martin
+    es: San Martín
   standard_code: MF
 - code: pm
   label:
     en: Saint Pierre and Miquelon
+    fr: Saint-Pierre-et-Miquelon
+    es: San Pedro y Miquelón
   standard_code: PM
 - code: vc
   label:
     en: Saint Vincent and the Grenadines
+    fr: Saint-Vincent-et-les Grenadines
+    es: San Vicente y las Granadinas
   standard_code: VC
 - code: ws
   label:
     en: Samoa
+    fr: Samoa
+    es: Samoa
   standard_code: WS
 - code: sm
   label:
     en: San Marino
+    fr: Saint-Marin
+    es: San Marino
   standard_code: SM
 - code: st
   label:
     en: Sao Tome and Principe
+    fr: Sao Tomé-et-Principe
+    es: Santo Tomé y Príncipe
   standard_code: ST
 - code: sa
   label:
     en: Saudi Arabia
+    fr: Arabie saoudite
+    es: Arabia Saudí
   standard_code: SA
 - code: sn
   label:
     en: Senegal
+    fr: Sénégal
+    es: Senegal
   standard_code: SN
 - code: rs
   label:
     en: Serbia
+    fr: Serbie
+    es: Serbia
   standard_code: RS
 - code: sc
   label:
     en: Seychelles
+    fr: Seychelles
+    es: Seychelles
   standard_code: SC
 - code: sl
   label:
     en: Sierra Leone
+    fr: Sierra Leone
+    es: Sierra Leona
   standard_code: SL
 - code: sg
   label:
     en: Singapore
+    fr: Singapour
+    es: Singapur
   standard_code: SG
 - code: sx
   label:
     en: Sint Maarten (Dutch part)
+    fr: Saint-Martin (partie néerlandaise)
+    es: Sint Maarten
   standard_code: SX
 - code: sk
   label:
     en: Slovakia
+    fr: Slovaquie
+    es: Eslovaquia
   standard_code: SK
 - code: si
   label:
     en: Slovenia
+    fr: Slovénie
+    es: Eslovenia
   standard_code: SI
 - code: sb
   label:
     en: Solomon Islands
+    fr: Îles Salomon
+    es: Islas Salomón
   standard_code: SB
 - code: so
   label:
     en: Somalia
+    fr: Somalie
+    es: Somalia
   standard_code: SO
 - code: za
   label:
     en: South Africa
+    fr: Afrique du Sud
+    es: Sudáfrica
   standard_code: ZA
 - code: gs
   label:
     en: South Georgia and the South Sandwich Islands
+    fr: Géorgie du Sud-et-les Îles Sandwich du Sud
+    es: Islas Georgia del Sur y Sandwich del Sur
   standard_code: GS
 - code: ss
   label:
     en: South Sudan
+    fr: Soudan du Sud
+    es: Sudán del Sur
   standard_code: SS
 - code: es
   label:
     en: Spain
+    fr: Espagne
+    es: España
   standard_code: ES
 - code: lk
   label:
     en: Sri Lanka
+    fr: Sri Lanka
+    es: Sri Lanka
   standard_code: LK
 - code: sd
   label:
     en: Sudan
+    fr: Soudan
+    es: Sudán
   standard_code: SD
 - code: sr
   label:
     en: Suriname
+    fr: Suriname
+    es: Surinam
   standard_code: SR
 - code: sj
   label:
     en: Svalbard and Jan Mayen
+    fr: Svalbard et Jan Mayen
+    es: Svalbard y Jan Mayen
   standard_code: SJ
 - code: se
   label:
     en: Sweden
+    fr: Suède
+    es: Suecia
   standard_code: SE
 - code: ch
   label:
     en: Switzerland
+    fr: Suisse
+    es: Suiza
   standard_code: CH
 - code: sy
   label:
     en: Syrian Arab Republic
+    fr: Syrie
+    es: Siria
   standard_code: SY
 - code: tw
   label:
     en: Taiwan, Province of China
+    fr: Taïwan
+    es: Taiwán
   standard_code: TW
 - code: tj
   label:
     en: Tajikistan
+    fr: Tadjikistan
+    es: Tayikistán
   standard_code: TJ
 - code: tz
   label:
     en: Tanzania, United Republic of
+    fr: Tanzanie
+    es: Tanzania
   standard_code: TZ
 - code: th
   label:
     en: Thailand
+    fr: Thaïlande
+    es: Tailandia
   standard_code: TH
 - code: tl
   label:
     en: Timor-Leste
+    fr: Timor oriental
+    es: Timor-Leste
   standard_code: TL
 - code: tg
   label:
     en: Togo
+    fr: Togo
+    es: Togo
   standard_code: TG
 - code: tk
   label:
     en: Tokelau
+    fr: Tokelau
+    es: Tokelau
   standard_code: TK
 - code: to
   label:
     en: Tonga
+    fr: Tonga
+    es: Tonga
   standard_code: TO
 - code: tt
   label:
     en: Trinidad and Tobago
+    fr: Trinité-et-Tobago
+    es: Trinidad y Tobago
   standard_code: TT
 - code: tn
   label:
     en: Tunisia
+    fr: Tunisie
+    es: Túnez
   standard_code: TN
 - code: tr
   label:
     en: Türkiye
+    fr: Turquie
+    es: Turquía
   standard_code: TR
 - code: tm
   label:
     en: Turkmenistan
+    fr: Turkménistan
+    es: Turkmenistán
   standard_code: TM
 - code: tc
   label:
     en: Turks and Caicos Islands
+    fr: Îles Turques-et-Caïques
+    es: Islas Turcas y Caicos
   standard_code: TC
 - code: tv
   label:
     en: Tuvalu
+    fr: Tuvalu
+    es: Tuvalu
   standard_code: TV
 - code: ug
   label:
     en: Uganda
+    fr: Ouganda
+    es: Uganda
   standard_code: UG
 - code: ua
   label:
     en: Ukraine
+    fr: Ukraine
+    es: Ucrania
   standard_code: UA
 - code: ae
   label:
     en: United Arab Emirates
+    fr: Émirats arabes unis
+    es: Emiratos Árabes Unidos
   standard_code: AE
 - code: gb
   label:
     en: United Kingdom of Great Britain and Northern Ireland
+    fr: Royaume-Uni
+    es: Reino Unido
   standard_code: GB
 - code: us
   label:
@@ -971,52 +1442,78 @@ values:
 - code: um
   label:
     en: United States Minor Outlying Islands
+    fr: Îles mineures éloignées des États-Unis
+    es: Islas menores alejadas de EE. UU.
   standard_code: UM
 - code: uy
   label:
     en: Uruguay
+    fr: Uruguay
+    es: Uruguay
   standard_code: UY
 - code: uz
   label:
     en: Uzbekistan
+    fr: Ouzbékistan
+    es: Uzbekistán
   standard_code: UZ
 - code: vu
   label:
     en: Vanuatu
+    fr: Vanuatu
+    es: Vanuatu
   standard_code: VU
 - code: ve
   label:
     en: Venezuela, Bolivarian Republic of
+    fr: Venezuela
+    es: Venezuela
   standard_code: VE
 - code: vn
   label:
     en: Viet Nam
+    fr: Viêt Nam
+    es: Vietnam
   standard_code: VN
 - code: vg
   label:
     en: Virgin Islands (British)
+    fr: Îles Vierges britanniques
+    es: Islas Vírgenes Británicas
   standard_code: VG
 - code: vi
   label:
     en: Virgin Islands (U.S.)
+    fr: Îles Vierges des États-Unis
+    es: Islas Vírgenes de EE. UU.
   standard_code: VI
 - code: wf
   label:
     en: Wallis and Futuna
+    fr: Wallis-et-Futuna
+    es: Wallis y Futuna
   standard_code: WF
 - code: eh
   label:
     en: Western Sahara
+    fr: Sahara occidental
+    es: Sáhara Occidental
   standard_code: EH
 - code: ye
   label:
     en: Yemen
+    fr: Yémen
+    es: Yemen
   standard_code: YE
 - code: zm
   label:
     en: Zambia
+    fr: Zambie
+    es: Zambia
   standard_code: ZM
 - code: zw
   label:
     en: Zimbabwe
+    fr: Zimbabwe
+    es: Zimbabue
   standard_code: ZW

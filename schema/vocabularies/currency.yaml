@@ -10,26 +10,34 @@ standard:
 sync:
   source_url: https://www.six-group.com/dam/download/financial-information/data-center/iso-currrency/lists/list-one.xml
   format: iso-xml
-  last_synced: '2026-04-07'
+  last_synced: '2026-04-12'
 same_standard_systems:
-  - openspp
+- openspp
 external_values: true
 values:
 - code: afn
   label:
     en: Afghani
+    fr: afghani afghan
+    es: afgani afgano
   standard_code: AFN
 - code: eur
   label:
     en: Euro
+    fr: euro
+    es: euro
   standard_code: EUR
 - code: all
   label:
     en: Lek
+    fr: lek albanais
+    es: lek albanés
   standard_code: ALL
 - code: dzd
   label:
     en: Algerian Dinar
+    fr: dinar algérien
+    es: dinar argelino
   standard_code: DZD
 - code: usd
   label:
@@ -40,10 +48,14 @@ values:
 - code: aoa
   label:
     en: Kwanza
+    fr: kwanza angolais
+    es: kuanza angoleño
   standard_code: AOA
 - code: xcd
   label:
     en: East Caribbean Dollar
+    fr: dollar des Caraïbes orientales
+    es: dólar del Caribe Oriental
   standard_code: XCD
 - code: xad
   label:
@@ -52,622 +64,930 @@ values:
 - code: ars
   label:
     en: Argentine Peso
+    fr: peso argentin
+    es: peso argentino
   standard_code: ARS
 - code: amd
   label:
     en: Armenian Dram
+    fr: dram arménien
+    es: dram armenio
   standard_code: AMD
 - code: awg
   label:
     en: Aruban Florin
+    fr: florin arubais
+    es: florín arubeño
   standard_code: AWG
 - code: aud
   label:
     en: Australian Dollar
+    fr: dollar australien
+    es: dólar australiano
   standard_code: AUD
 - code: azn
   label:
     en: Azerbaijan Manat
+    fr: manat azéri
+    es: manat azerbaiyano
   standard_code: AZN
 - code: bsd
   label:
     en: Bahamian Dollar
+    fr: dollar bahaméen
+    es: dólar bahameño
   standard_code: BSD
 - code: bhd
   label:
     en: Bahraini Dinar
+    fr: dinar bahreïni
+    es: dinar bareiní
   standard_code: BHD
 - code: bdt
   label:
     en: Taka
+    fr: taka bangladeshi
+    es: taka bangladesí
   standard_code: BDT
 - code: bbd
   label:
     en: Barbados Dollar
+    fr: dollar barbadien
+    es: dólar barbadense
   standard_code: BBD
 - code: byn
   label:
     en: Belarusian Ruble
+    fr: rouble biélorusse
+    es: rublo bielorruso
   standard_code: BYN
 - code: bzd
   label:
     en: Belize Dollar
+    fr: dollar bélizéen
+    es: dólar beliceño
   standard_code: BZD
 - code: xof
   label:
     en: CFA Franc BCEAO
+    fr: franc CFA (BCEAO)
+    es: franco CFA de África Occidental
   standard_code: XOF
 - code: bmd
   label:
     en: Bermudian Dollar
+    fr: dollar bermudien
+    es: dólar bermudeño
   standard_code: BMD
 - code: inr
   label:
     en: Indian Rupee
+    fr: roupie indienne
+    es: rupia india
   standard_code: INR
 - code: btn
   label:
     en: Ngultrum
+    fr: ngultrum bouthanais
+    es: gultrum butanés
   standard_code: BTN
 - code: bob
   label:
     en: Boliviano
+    fr: boliviano bolivien
+    es: boliviano
   standard_code: BOB
 - code: bov
   label:
     en: Mvdol
+    fr: mvdol bolivien
+    es: MVDOL boliviano
   standard_code: BOV
 - code: bam
   label:
     en: Convertible Mark
+    fr: mark convertible bosniaque
+    es: marco convertible de Bosnia y Herzegovina
   standard_code: BAM
 - code: bwp
   label:
     en: Pula
+    fr: pula botswanais
+    es: pula botsuano
   standard_code: BWP
 - code: nok
   label:
     en: Norwegian Krone
+    fr: couronne norvégienne
+    es: corona noruega
   standard_code: NOK
 - code: brl
   label:
     en: Brazilian Real
+    fr: réal brésilien
+    es: real brasileño
   standard_code: BRL
 - code: bnd
   label:
     en: Brunei Dollar
+    fr: dollar brunéien
+    es: dólar bruneano
   standard_code: BND
 - code: bif
   label:
     en: Burundi Franc
+    fr: franc burundais
+    es: franco burundés
   standard_code: BIF
 - code: cve
   label:
     en: Cabo Verde Escudo
+    fr: escudo capverdien
+    es: escudo de Cabo Verde
   standard_code: CVE
 - code: khr
   label:
     en: Riel
+    fr: riel cambodgien
+    es: riel camboyano
   standard_code: KHR
 - code: xaf
   label:
     en: CFA Franc BEAC
+    fr: franc CFA (BEAC)
+    es: franco CFA de África Central
   standard_code: XAF
 - code: cad
   label:
     en: Canadian Dollar
+    fr: dollar canadien
+    es: dólar canadiense
   standard_code: CAD
 - code: kyd
   label:
     en: Cayman Islands Dollar
+    fr: dollar des îles Caïmans
+    es: dólar de las Islas Caimán
   standard_code: KYD
 - code: clp
   label:
     en: Chilean Peso
+    fr: peso chilien
+    es: peso chileno
   standard_code: CLP
 - code: clf
   label:
     en: Unidad de Fomento
+    fr: unité d’investissement chilienne
+    es: unidad de fomento chilena
   standard_code: CLF
 - code: cny
   label:
     en: Yuan Renminbi
+    fr: yuan renminbi chinois
+    es: yuan renminbi
   standard_code: CNY
 - code: cop
   label:
     en: Colombian Peso
+    fr: peso colombien
+    es: peso colombiano
   standard_code: COP
 - code: cou
   label:
     en: Unidad de Valor Real
+    fr: unité de valeur réelle colombienne
+    es: unidad de valor real colombiana
   standard_code: COU
 - code: kmf
   label:
     en: 'Comorian Franc '
+    fr: franc comorien
+    es: franco comorense
   standard_code: KMF
 - code: cdf
   label:
     en: Congolese Franc
+    fr: franc congolais
+    es: franco congoleño
   standard_code: CDF
 - code: nzd
   label:
     en: New Zealand Dollar
+    fr: dollar néo-zélandais
+    es: dólar neozelandés
   standard_code: NZD
 - code: crc
   label:
     en: Costa Rican Colon
+    fr: colón costaricain
+    es: colón costarricense
   standard_code: CRC
 - code: cup
   label:
     en: Cuban Peso
+    fr: peso cubain
+    es: peso cubano
   standard_code: CUP
 - code: xcg
   label:
     en: Caribbean Guilder
+    fr: florin caribéen
+    es: florín caribeño
   standard_code: XCG
 - code: czk
   label:
     en: Czech Koruna
+    fr: couronne tchèque
+    es: corona checa
   standard_code: CZK
 - code: dkk
   label:
     en: Danish Krone
+    fr: couronne danoise
+    es: corona danesa
   standard_code: DKK
 - code: djf
   label:
     en: Djibouti Franc
+    fr: franc djiboutien
+    es: franco yibutiano
   standard_code: DJF
 - code: dop
   label:
     en: Dominican Peso
+    fr: peso dominicain
+    es: peso dominicano
   standard_code: DOP
 - code: egp
   label:
     en: Egyptian Pound
+    fr: livre égyptienne
+    es: libra egipcia
   standard_code: EGP
 - code: svc
   label:
     en: El Salvador Colon
+    fr: colón salvadorien
+    es: colón salvadoreño
   standard_code: SVC
 - code: ern
   label:
     en: Nakfa
+    fr: nafka érythréen
+    es: nakfa eritreo
   standard_code: ERN
 - code: szl
   label:
     en: Lilangeni
+    fr: lilangeni swazi
+    es: lilangeni esuatiní
   standard_code: SZL
 - code: etb
   label:
     en: Ethiopian Birr
+    fr: birr éthiopien
+    es: bir etíope
   standard_code: ETB
 - code: fkp
   label:
     en: Falkland Islands Pound
+    fr: livre des îles Malouines
+    es: libra malvinense
   standard_code: FKP
 - code: fjd
   label:
     en: Fiji Dollar
+    fr: dollar fidjien
+    es: dólar fiyiano
   standard_code: FJD
 - code: xpf
   label:
     en: CFP Franc
+    fr: franc CFP
+    es: franco CFP
   standard_code: XPF
 - code: gmd
   label:
     en: Dalasi
+    fr: dalasi gambien
+    es: dalasi gambiano
   standard_code: GMD
 - code: gel
   label:
     en: Lari
+    fr: lari géorgien
+    es: lari georgiano
   standard_code: GEL
 - code: ghs
   label:
     en: Ghana Cedi
+    fr: cédi ghanéen
+    es: cedi ghanés
   standard_code: GHS
 - code: gip
   label:
     en: Gibraltar Pound
+    fr: livre de Gibraltar
+    es: libra gibraltareña
   standard_code: GIP
 - code: gtq
   label:
     en: Quetzal
+    fr: quetzal guatémaltèque
+    es: quetzal guatemalteco
   standard_code: GTQ
 - code: gbp
   label:
     en: Pound Sterling
+    fr: livre sterling
+    es: libra esterlina
   standard_code: GBP
 - code: gnf
   label:
     en: Guinean Franc
+    fr: franc guinéen
+    es: franco guineano
   standard_code: GNF
 - code: gyd
   label:
     en: Guyana Dollar
+    fr: dollar du Guyana
+    es: dólar guyanés
   standard_code: GYD
 - code: htg
   label:
     en: Gourde
+    fr: gourde haïtienne
+    es: gurde haitiano
   standard_code: HTG
 - code: hnl
   label:
     en: Lempira
+    fr: lempira hondurien
+    es: lempira hondureño
   standard_code: HNL
 - code: hkd
   label:
     en: Hong Kong Dollar
+    fr: dollar de Hong Kong
+    es: dólar hongkonés
   standard_code: HKD
 - code: huf
   label:
     en: Forint
+    fr: forint hongrois
+    es: forinto húngaro
   standard_code: HUF
 - code: isk
   label:
     en: Iceland Krona
+    fr: couronne islandaise
+    es: corona islandesa
   standard_code: ISK
 - code: idr
   label:
     en: Rupiah
+    fr: roupie indonésienne
+    es: rupia indonesia
   standard_code: IDR
 - code: xdr
   label:
     en: SDR (Special Drawing Right)
+    fr: droit de tirage spécial
+    es: derechos especiales de giro
   standard_code: XDR
 - code: irr
   label:
     en: Iranian Rial
+    fr: riyal iranien
+    es: rial iraní
   standard_code: IRR
 - code: iqd
   label:
     en: Iraqi Dinar
+    fr: dinar irakien
+    es: dinar iraquí
   standard_code: IQD
 - code: ils
   label:
     en: New Israeli Sheqel
+    fr: nouveau shekel israélien
+    es: nuevo séquel israelí
   standard_code: ILS
 - code: jmd
   label:
     en: Jamaican Dollar
+    fr: dollar jamaïcain
+    es: dólar jamaicano
   standard_code: JMD
 - code: jpy
   label:
     en: Yen
+    fr: yen japonais
+    es: yen japonés
   standard_code: JPY
 - code: jod
   label:
     en: Jordanian Dinar
+    fr: dinar jordanien
+    es: dinar jordano
   standard_code: JOD
 - code: kzt
   label:
     en: Tenge
+    fr: tenge kazakh
+    es: tengue kazajo
   standard_code: KZT
 - code: kes
   label:
     en: Kenyan Shilling
+    fr: shilling kényan
+    es: chelín keniano
   standard_code: KES
 - code: kpw
   label:
     en: North Korean Won
+    fr: won nord-coréen
+    es: won norcoreano
   standard_code: KPW
 - code: krw
   label:
     en: Won
+    fr: won sud-coréen
+    es: won surcoreano
   standard_code: KRW
 - code: kwd
   label:
     en: Kuwaiti Dinar
+    fr: dinar koweïtien
+    es: dinar kuwaití
   standard_code: KWD
 - code: kgs
   label:
     en: Som
+    fr: som kirghize
+    es: som kirguís
   standard_code: KGS
 - code: lak
   label:
     en: Lao Kip
+    fr: kip laotien
+    es: kip laosiano
   standard_code: LAK
 - code: lbp
   label:
     en: Lebanese Pound
+    fr: livre libanaise
+    es: libra libanesa
   standard_code: LBP
 - code: lsl
   label:
     en: Loti
+    fr: loti lesothan
+    es: loti lesotense
   standard_code: LSL
 - code: zar
   label:
     en: Rand
+    fr: rand sud-africain
+    es: rand sudafricano
   standard_code: ZAR
 - code: lrd
   label:
     en: Liberian Dollar
+    fr: dollar libérien
+    es: dólar liberiano
   standard_code: LRD
 - code: lyd
   label:
     en: Libyan Dinar
+    fr: dinar libyen
+    es: dinar libio
   standard_code: LYD
 - code: chf
   label:
     en: Swiss Franc
+    fr: franc suisse
+    es: franco suizo
   standard_code: CHF
 - code: mop
   label:
     en: Pataca
+    fr: pataca macanaise
+    es: pataca macaense
   standard_code: MOP
 - code: mkd
   label:
     en: Denar
+    fr: denar macédonien
+    es: dinar macedonio
   standard_code: MKD
 - code: mga
   label:
     en: Malagasy Ariary
+    fr: ariary malgache
+    es: ariari malgache
   standard_code: MGA
 - code: mwk
   label:
     en: Malawi Kwacha
+    fr: kwacha malawite
+    es: kuacha malauí
   standard_code: MWK
 - code: myr
   label:
     en: Malaysian Ringgit
+    fr: ringgit malais
+    es: ringit malasio
   standard_code: MYR
 - code: mvr
   label:
     en: Rufiyaa
+    fr: rufiyaa maldivienne
+    es: rufiya maldiva
   standard_code: MVR
 - code: mru
   label:
     en: Ouguiya
+    fr: ouguiya mauritanien
+    es: uguiya mauritano
   standard_code: MRU
 - code: mur
   label:
     en: Mauritius Rupee
+    fr: roupie mauricienne
+    es: rupia mauriciana
   standard_code: MUR
 - code: xua
   label:
     en: ADB Unit of Account
+    fr: unité de compte ADB
   standard_code: XUA
 - code: mxn
   label:
     en: Mexican Peso
+    fr: peso mexicain
+    es: peso mexicano
   standard_code: MXN
 - code: mxv
   label:
     en: Mexican Unidad de Inversion (UDI)
+    fr: unité de conversion mexicaine (UDI)
+    es: unidad de inversión (UDI) mexicana
   standard_code: MXV
 - code: mdl
   label:
     en: Moldovan Leu
+    fr: leu moldave
+    es: leu moldavo
   standard_code: MDL
 - code: mnt
   label:
     en: Tugrik
+    fr: tugrik mongol
+    es: tugrik mongol
   standard_code: MNT
 - code: mad
   label:
     en: Moroccan Dirham
+    fr: dirham marocain
+    es: dírham marroquí
   standard_code: MAD
 - code: mzn
   label:
     en: Mozambique Metical
+    fr: metical mozambicain
+    es: metical mozambiqueño
   standard_code: MZN
 - code: mmk
   label:
     en: Kyat
+    fr: kyat myanmarais
+    es: kiat de Myanmar
   standard_code: MMK
 - code: nad
   label:
     en: Namibia Dollar
+    fr: dollar namibien
+    es: dólar namibio
   standard_code: NAD
 - code: npr
   label:
     en: Nepalese Rupee
+    fr: roupie népalaise
+    es: rupia nepalí
   standard_code: NPR
 - code: nio
   label:
     en: Cordoba Oro
+    fr: córdoba oro nicaraguayen
+    es: córdoba oro
   standard_code: NIO
 - code: ngn
   label:
     en: Naira
+    fr: naira nigérian
+    es: naira nigeriano
   standard_code: NGN
 - code: omr
   label:
     en: Rial Omani
+    fr: riyal omanais
+    es: rial omaní
   standard_code: OMR
 - code: pkr
   label:
     en: Pakistan Rupee
+    fr: roupie pakistanaise
+    es: rupia pakistaní
   standard_code: PKR
 - code: pab
   label:
     en: Balboa
+    fr: balboa panaméen
+    es: balboa panameño
   standard_code: PAB
 - code: pgk
   label:
     en: Kina
+    fr: kina papouan-néo-guinéen
+    es: kina papú
   standard_code: PGK
 - code: pyg
   label:
     en: Guarani
+    fr: guaraní paraguayen
+    es: guaraní paraguayo
   standard_code: PYG
 - code: pen
   label:
     en: Sol
+    fr: sol péruvien
+    es: sol peruano
   standard_code: PEN
 - code: php
   label:
     en: Philippine Peso
+    fr: peso philippin
+    es: peso filipino
   standard_code: PHP
 - code: pln
   label:
     en: Zloty
+    fr: zloty polonais
+    es: esloti polaco
   standard_code: PLN
 - code: qar
   label:
     en: Qatari Rial
+    fr: riyal qatari
+    es: rial catarí
   standard_code: QAR
 - code: ron
   label:
     en: Romanian Leu
+    fr: leu roumain
+    es: leu rumano
   standard_code: RON
 - code: rub
   label:
     en: Russian Ruble
+    fr: rouble russe
+    es: rublo ruso
   standard_code: RUB
 - code: rwf
   label:
     en: Rwanda Franc
+    fr: franc rwandais
+    es: franco ruandés
   standard_code: RWF
 - code: shp
   label:
     en: Saint Helena Pound
+    fr: livre de Sainte-Hélène
+    es: libra de Santa Elena
   standard_code: SHP
 - code: wst
   label:
     en: Tala
+    fr: tala samoan
+    es: tala samoano
   standard_code: WST
 - code: stn
   label:
     en: Dobra
+    fr: dobra santoméen
+    es: dobra santotomense
   standard_code: STN
 - code: sar
   label:
     en: Saudi Riyal
+    fr: riyal saoudien
+    es: rial saudí
   standard_code: SAR
 - code: rsd
   label:
     en: Serbian Dinar
+    fr: dinar serbe
+    es: dinar serbio
   standard_code: RSD
 - code: scr
   label:
     en: Seychelles Rupee
+    fr: roupie des Seychelles
+    es: rupia seychellense
   standard_code: SCR
 - code: sle
   label:
     en: Leone
+    fr: leone sierra-léonais
+    es: leona sierraleonesa
   standard_code: SLE
 - code: sgd
   label:
     en: Singapore Dollar
+    fr: dollar de Singapour
+    es: dólar singapurense
   standard_code: SGD
 - code: xsu
   label:
     en: Sucre
+    fr: sucre
   standard_code: XSU
 - code: sbd
   label:
     en: Solomon Islands Dollar
+    fr: dollar des îles Salomon
+    es: dólar salomonense
   standard_code: SBD
 - code: sos
   label:
     en: Somali Shilling
+    fr: shilling somalien
+    es: chelín somalí
   standard_code: SOS
 - code: ssp
   label:
     en: South Sudanese Pound
+    fr: livre sud-soudanaise
+    es: libra sursudanesa
   standard_code: SSP
 - code: lkr
   label:
     en: Sri Lanka Rupee
+    fr: roupie srilankaise
+    es: rupia esrilanquesa
   standard_code: LKR
 - code: sdg
   label:
     en: Sudanese Pound
+    fr: livre soudanaise
+    es: libra sudanesa
   standard_code: SDG
 - code: srd
   label:
     en: Surinam Dollar
+    fr: dollar surinamais
+    es: dólar surinamés
   standard_code: SRD
 - code: sek
   label:
     en: Swedish Krona
+    fr: couronne suédoise
+    es: corona sueca
   standard_code: SEK
 - code: che
   label:
     en: WIR Euro
+    fr: euro WIR
+    es: euro WIR
   standard_code: CHE
 - code: chw
   label:
     en: WIR Franc
+    fr: franc WIR
+    es: franco WIR
   standard_code: CHW
 - code: syp
   label:
     en: Syrian Pound
+    fr: livre syrienne
+    es: libra siria
   standard_code: SYP
 - code: twd
   label:
     en: New Taiwan Dollar
+    fr: nouveau dollar taïwanais
+    es: nuevo dólar taiwanés
   standard_code: TWD
 - code: tjs
   label:
     en: Somoni
+    fr: somoni tadjik
+    es: somoni tayiko
   standard_code: TJS
 - code: tzs
   label:
     en: Tanzanian Shilling
+    fr: shilling tanzanien
+    es: chelín tanzano
   standard_code: TZS
 - code: thb
   label:
     en: Baht
+    fr: baht thaïlandais
+    es: bat tailandés
   standard_code: THB
 - code: top
   label:
     en: Pa’anga
+    fr: pa’anga tongan
+    es: paanga tongano
   standard_code: TOP
 - code: ttd
   label:
     en: Trinidad and Tobago Dollar
+    fr: dollar de Trinité-et-Tobago
+    es: dólar de Trinidad y Tobago
   standard_code: TTD
 - code: tnd
   label:
     en: Tunisian Dinar
+    fr: dinar tunisien
+    es: dinar tunecino
   standard_code: TND
 - code: try
   label:
     en: Turkish Lira
+    fr: livre turque
+    es: lira turca
   standard_code: TRY
 - code: tmt
   label:
     en: Turkmenistan New Manat
+    fr: nouveau manat turkmène
+    es: manat turcomano
   standard_code: TMT
 - code: ugx
   label:
     en: Uganda Shilling
+    fr: shilling ougandais
+    es: chelín ugandés
   standard_code: UGX
 - code: uah
   label:
     en: Hryvnia
+    fr: hryvnia ukrainienne
+    es: grivna ucraniana
   standard_code: UAH
 - code: aed
   label:
     en: UAE Dirham
+    fr: dirham des Émirats arabes unis
+    es: dírham de los Emiratos Árabes Unidos
   standard_code: AED
 - code: usn
   label:
     en: US Dollar (Next day)
+    fr: dollar des Etats-Unis (jour suivant)
+    es: dólar estadounidense (día siguiente)
   standard_code: USN
 - code: uyu
   label:
     en: Peso Uruguayo
+    fr: peso uruguayen
+    es: peso uruguayo
   standard_code: UYU
 - code: uyi
   label:
     en: Uruguay Peso en Unidades Indexadas (UI)
+    fr: peso uruguayen (unités indexées)
+    es: peso uruguayo en unidades indexadas
   standard_code: UYI
 - code: uyw
   label:
     en: Unidad Previsional
+    fr: unité de salaire nominal uruguayenne
+    es: unidad previsional uruguayo
   standard_code: UYW
 - code: uzs
   label:
     en: Uzbekistan Sum
+    fr: sum ouzbek
+    es: sum uzbeko
   standard_code: UZS
 - code: vuv
   label:
     en: Vatu
+    fr: vatu vanuatuan
+    es: vatu vanuatense
   standard_code: VUV
 - code: ves
   label:
     en: Bolívar Soberano
+    fr: bolivar vénézuélien
+    es: bolívar venezolano
   standard_code: VES
 - code: ved
   label:
@@ -676,14 +996,20 @@ values:
 - code: vnd
   label:
     en: Dong
+    fr: dông vietnamien
+    es: dong vietnamita
   standard_code: VND
 - code: yer
   label:
     en: Yemeni Rial
+    fr: riyal yéménite
+    es: rial yemení
   standard_code: YER
 - code: zmw
   label:
     en: Zambian Kwacha
+    fr: kwacha zambien
+    es: kuacha zambiano
   standard_code: ZMW
 - code: zwg
   label:
@@ -692,40 +1018,60 @@ values:
 - code: xba
   label:
     en: Bond Markets Unit European Composite Unit (EURCO)
+    fr: unité européenne composée
+    es: unidad compuesta europea
   standard_code: XBA
 - code: xbb
   label:
     en: Bond Markets Unit European Monetary Unit (E.M.U.-6)
+    fr: unité monétaire européenne
+    es: unidad monetaria europea
   standard_code: XBB
 - code: xbc
   label:
     en: Bond Markets Unit European Unit of Account 9 (E.U.A.-9)
+    fr: unité de compte européenne (XBC)
+    es: unidad de cuenta europea (XBC)
   standard_code: XBC
 - code: xbd
   label:
     en: Bond Markets Unit European Unit of Account 17 (E.U.A.-17)
+    fr: unité de compte européenne (XBD)
+    es: unidad de cuenta europea (XBD)
   standard_code: XBD
 - code: xts
   label:
     en: Codes specifically reserved for testing purposes
+    fr: (devise de test)
+    es: código reservado para pruebas
   standard_code: XTS
 - code: xxx
   label:
     en: The codes assigned for transactions where no currency is involved
+    fr: devise inconnue ou non valide
+    es: moneda desconocida
   standard_code: XXX
 - code: xau
   label:
     en: Gold
+    fr: or
+    es: oro
   standard_code: XAU
 - code: xpd
   label:
     en: Palladium
+    fr: palladium
+    es: paladio
   standard_code: XPD
 - code: xpt
   label:
     en: Platinum
+    fr: platine
+    es: platino
   standard_code: XPT
 - code: xag
   label:
     en: Silver
+    fr: argent
+    es: plata
   standard_code: XAG
