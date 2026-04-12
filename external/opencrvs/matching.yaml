@@ -299,7 +299,7 @@ matches:
       OpenCRVS calls this enum "Gender" but uses it on birth, death, and marriage
       declarations where the field captures biological sex (not social gender).
       The mapping is close but not exact: OpenCRVS "other" is mapped to
-      not_applicable because ISO 5218 has no "other" — it uses not_applicable (9)
+      not_applicable because ISO 5218 has no "other"; it uses not_applicable (9)
       for cases outside the male/female binary. OpenCRVS "unknown" maps to
       not_known (ISO 5218 code 0). The name mismatch ("Gender" vs biological sex)
       reflects a common conflation in CRVS systems.
@@ -345,7 +345,7 @@ matches:
     notes: >
       OpenCRVS PaymentOutcomeType records whether a civil registration service fee
       was collected (COMPLETED, ERROR, PARTIAL). This is registrar-side fee
-      collection, not benefit disbursement — the contexts are fundamentally
+      collection, not benefit disbursement; the contexts are fundamentally
       different. COMPLETED maps to paid; ERROR maps to failed. PARTIAL has no
       clean v2 equivalent because v2 does not model partial payment as a distinct
       terminal state; it is mapped to paid as the closest approximation, with the
@@ -375,7 +375,7 @@ matches:
     confidence: low
     country_config: true
     notes: >
-      OpenCRVS does not define identity document types in core code — the field
+      OpenCRVS does not define identity document types in core code; the field
       is a free-text String configured per country deployment. Test fixtures show
       values such as PASSPORT, DRIVING_LICENSE, NID, REFUGEE_NUMBER, but these
       are not authoritative. The BIRTH_REGISTRATION_NUMBER and
@@ -459,7 +459,7 @@ matches:
       OpenCRVS Event enumerates three event types (birth, death, marriage) used
       as the RegistrationType discriminator. Our civil-status-record-type covers
       a broader set including paternity_recognition, supplementary_judgment, and
-      court_ordered_substitute — values with no counterpart in v1 core. The
+      court_ordered_substitute (values with no counterpart in v1 core). The
       three shared values align cleanly. Note: RegistrationType is the uppercase
       mirror of Event used on Registration.type; the value-level mapping applies
       equally to both.
@@ -633,7 +633,7 @@ no_match:
       Adoptive, legal, and surrogate roles are not representable in v1.
 
   # --- v2 vocabularies with no OpenCRVS equivalent ---
-  # SP vocabularies — OpenCRVS is a civil registration system and has no
+  # SP vocabularies. OpenCRVS is a civil registration system and has no
   # enrollment, eligibility, benefit, or grievance constructs.
 
   - v2_vocabulary: enrollment-status
@@ -683,8 +683,8 @@ no_match:
     reason: >
       V2 group-role covers household membership roles (head, spouse, child, etc.)
       in a social protection context. OpenCRVS captures family relationships
-      differently — as string fields on the birth or marriage registration record
-      — with no shared enumeration.
+      differently (as string fields on the birth or marriage registration record),
+      with no shared enumeration.
 
   - v2_vocabulary: group-type
     reason: >
@@ -719,7 +719,7 @@ no_match:
       Semantic mismatch with OpenCRVS RegistrationType. Ours describes the
       timing and procedural route of registration (current, late, court_ordered,
       reconstruction). OpenCRVS RegistrationType describes which event type is
-      being registered (BIRTH, DEATH, MARRIAGE) — that dimension maps to our
+      being registered (BIRTH, DEATH, MARRIAGE); that dimension maps to our
       civil-status-record-type vocabulary, not registration-type. The two
       vocabularies share a name but no dimension.
 
@@ -730,7 +730,7 @@ no_match:
       Audit-trail action codes (VERIFIED, REQUESTED_CORRECTION, CORRECTED,
       MARKED_AS_DUPLICATE, etc.). PublicSchema does not enumerate workflow
       actions. Note: RegAction.CORRECTED is the operational home for paternity
-      recognition, legitimation, and similar amendments in v1 — see
+      recognition, legitimation, and similar amendments in v1; see
       concept_matches.PaternityRecognition for the `related` reference.
 
   - external_vocabulary: RegistrationType
@@ -791,7 +791,7 @@ no_match:
   - external_vocabulary: AddressType
     reason: >
       Whether an address is domestic or international. V2 does not currently
-      define an address type vocabulary — address is modelled as a concept, not
+      define an address type vocabulary; address is modelled as a concept, not
       a typed enum.
 
   - external_vocabulary: AddressUse
