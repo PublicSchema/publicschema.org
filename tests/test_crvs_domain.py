@@ -454,6 +454,32 @@ class TestDemographicVocabularies:
         }
 
 
+class TestEventPropertyReferences:
+    """Event properties that reference CRVSPerson instead of Person."""
+
+    @pytest.mark.parametrize("prop_id", ["deceased", "party_1", "party_2"])
+    def test_property_references_crvs_person(self, prop_id):
+        """deceased, party_1, party_2 reference CRVSPerson, not Person."""
+        data = _load_yaml(SCHEMA_DIR / "properties" / f"{prop_id}.yaml")
+        assert data["type"] == "concept:CRVSPerson"
+        assert data["references"] == "CRVSPerson"
+
+    def test_birth_does_not_have_place_of_usual_residence(self):
+        """Birth no longer lists place_of_usual_residence directly."""
+        data = _load_yaml(SCHEMA_DIR / "concepts" / "birth.yaml")
+        assert "place_of_usual_residence" not in data["properties"]
+
+    def test_death_does_not_have_place_of_usual_residence(self):
+        """Death no longer lists place_of_usual_residence directly."""
+        data = _load_yaml(SCHEMA_DIR / "concepts" / "death.yaml")
+        assert "place_of_usual_residence" not in data["properties"]
+
+    def test_fetal_death_does_not_have_place_of_usual_residence(self):
+        """FetalDeath no longer lists place_of_usual_residence directly."""
+        data = _load_yaml(SCHEMA_DIR / "concepts" / "fetal-death.yaml")
+        assert "place_of_usual_residence" not in data["properties"]
+
+
 class TestCRVSPerson:
     """CRVSPerson is a temporal snapshot of a Person at the time of a vital event."""
 
