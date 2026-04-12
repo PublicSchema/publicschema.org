@@ -274,4 +274,14 @@ const isDropdown = variant === 'desktop' || variant === 'mobile-compact';
       }
     });
   });
+  // Close when focus leaves the dropdown entirely (e.g. keyboard user tabs past
+  // the last item). `relatedTarget` is the element receiving focus next.
+  switchers.forEach((el) => {
+    el.addEventListener('focusout', (e) => {
+      const next = (e as FocusEvent).relatedTarget as Node | null;
+      if (el.hasAttribute('open') && (!next || !el.contains(next))) {
+        el.removeAttribute('open');
+      }
+    });
+  });
 </script>

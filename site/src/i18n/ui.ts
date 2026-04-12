@@ -32,6 +32,7 @@ const en = {
   'search.results_status': '{count} result(s) found',
   'search.no_results_status': 'No results found',
   'search.aria_label': 'Search PublicSchema',
+  'search.close': 'Close search',
 
   // Footer
   'footer.tagline': 'Common definitions for public service delivery. Built so programs can coordinate, share data, and reach the people they serve.',
@@ -217,6 +218,7 @@ export const ui: Record<Locale, Partial<Dict>> = {
     'search.results_status': '{count} résultat(s) trouvé(s)',
     'search.no_results_status': 'Aucun résultat trouvé',
     'search.aria_label': 'Rechercher sur PublicSchema',
+    'search.close': 'Fermer la recherche',
 
     // Footer
     'footer.tagline': 'Définitions communes pour la prestation de services publics. Conçu pour permettre aux programmes de coordonner, partager des données et atteindre les personnes qu\'ils servent.',
@@ -397,6 +399,7 @@ export const ui: Record<Locale, Partial<Dict>> = {
     'search.results_status': '{count} resultado(s) encontrado(s)',
     'search.no_results_status': 'No se encontraron resultados',
     'search.aria_label': 'Buscar en PublicSchema',
+    'search.close': 'Cerrar búsqueda',
 
     // Footer
     'footer.tagline': 'Definiciones comunes para la prestación de servicios públicos. Diseñado para que los programas puedan coordinarse, compartir datos y llegar a las personas a quienes sirven.',

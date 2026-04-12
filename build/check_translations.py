@@ -136,13 +136,12 @@ def check_ui_dictionary(ui_ts_path: Path = UI_TS_PATH) -> Report:
         if missing:
             report.error(
                 f"UI dictionary: {locale} is missing {len(missing)} key(s): "
-                + ", ".join(missing[:10])
-                + (", ..." if len(missing) > 10 else "")
+                + ", ".join(missing)
             )
         if extra:
             report.warn(
                 f"UI dictionary: {locale} has {len(extra)} key(s) not present in en: "
-                + ", ".join(extra[:10])
+                + ", ".join(extra)
             )
     return report
 

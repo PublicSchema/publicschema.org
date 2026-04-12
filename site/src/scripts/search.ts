@@ -21,7 +21,9 @@ interface SearchStrings {
   navConcepts: string;
   navProperties: string;
   navVocabularies: string;
+  navDocs: string;
   ariaLabel: string;
+  close: string;
 }
 
 function readStrings(container: Element): SearchStrings {
@@ -38,7 +40,9 @@ function readStrings(container: Element): SearchStrings {
     navConcepts: g("navConcepts", "Concepts"),
     navProperties: g("navProperties", "Properties"),
     navVocabularies: g("navVocabularies", "Vocabularies"),
+    navDocs: g("navDocs", "Docs"),
     ariaLabel: g("searchAriaLabel", "Search"),
+    close: g("searchClose", "Close search"),
   };
 }
 
@@ -92,7 +96,7 @@ function typeLabels(s: SearchStrings): Record<string, string> {
     concept: s.navConcepts,
     property: s.navProperties,
     vocabulary: s.navVocabularies,
-    doc: "Docs",
+    doc: s.navDocs,
   };
 }
 
@@ -448,7 +452,7 @@ function initSearch(): void {
           aria-label="${escapeHtml(strings.ariaLabel)}"
           autocomplete="off"
         />
-        <button class="search-overlay-close" type="button" aria-label="${escapeHtml(strings.ariaLabel)}">
+        <button class="search-overlay-close" type="button" aria-label="${escapeHtml(strings.close)}">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
             <line x1="4" y1="4" x2="16" y2="16"></line>
             <line x1="16" y1="4" x2="4" y2="16"></line>
