@@ -14,6 +14,12 @@ Ejemplos:
 
 Las definiciones deben coincidir con el alcance. La definición de un vocabulario universal no debe referenciar un dominio específico. Escriba "los estados del ciclo de vida de una inscripción en un programa", no "...en un programa de protección social".
 
+### Vocabularios de proceso y mecanismo
+
+Los vocabularios que describen procesos (ciclos de vida de inscripción, procesamiento de pagos, gestión de quejas) y mecanismos de entrega (canales, modalidades) son universales por defecto, incluso si el primer concepto que los utiliza es específico de un dominio. La prueba: ¿los mismos códigos tendrían significados diferentes en otro dominio? Si "active" en una inscripción significa lo mismo en protección social y en educación, el vocabulario es universal.
+
+Los valores individuales que solo aplican a un dominio usan la anotación `domain` sobre el valor (véase la sección 4), no sobre el vocabulario en sí.
+
 ## 2. Un concepto por vocabulario
 
 Cada vocabulario responde una pregunta. No combine preocupaciones ortogonales.
@@ -33,11 +39,15 @@ Si existe un sistema de códigos formal, referencíelo. Tres niveles:
 | **Referencia** | La norma existe pero no se sincroniza (solo prosa, superposición parcial, simplificación deliberada). | `references` |
 | **Ninguno** | No existe ninguna norma relevante. | Ninguno de los campos |
 
+### Vocabularios sincronizados con normas
+
+Cuando un vocabulario se sincroniza desde una norma internacional y los sistemas utilizan directamente los códigos de esa norma, `same_standard_systems` es suficiente en lugar de `system_mappings` a nivel de valor. Esto aplica a listas de códigos extensas (países, divisas, idiomas) en las que la norma es la capa de interoperabilidad de facto.
+
 Un vocabulario sin `standard`, sin `references` y sin `system_mappings` no está validado. Aceptable en madurez borrador; debe resolverse antes del uso experimental.
 
-No adopte los códigos de una norma cuando no sirven a la audiencia. Los códigos ISO 20022 (RCVD, ACTC, ACSP) son para mensajería interbancaria. Use códigos legibles; mapee a la norma.
+No adopte los códigos de una norma cuando no resulten útiles para los usuarios. Los códigos ISO 20022 (RCVD, ACTC, ACSP) son para mensajería interbancaria. Use códigos legibles; mapee a la norma.
 
-Prefiera las normas legibles por máquina sobre las que solo tienen prosa. Las normas legibles por máquina pueden sincronizarse automáticamente; las normas de solo prosa se desactualizan.
+Prefiera las normas legibles por máquina sobre las que solo están disponibles en formato de texto. Las normas legibles por máquina pueden sincronizarse automáticamente; las normas de solo prosa se desactualizan.
 
 ## 4. Anotaciones de dominio en valores individuales
 

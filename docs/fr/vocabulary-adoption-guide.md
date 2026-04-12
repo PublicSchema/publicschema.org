@@ -1,6 +1,6 @@
 # Guide d'adoption du vocabulaire
 
-C'est la façon la plus légère d'utiliser PublicSchema. Vous alignez les codes et les valeurs de champs de votre système avec le vocabulaire canonique de PublicSchema, sans modifier votre modèle de données, adopter JSON-LD ou émettre des attestations. Le bénéfice : vos données deviennent comparables avec tout autre système qui fait de même.
+C'est l'approche la plus simple pour utiliser PublicSchema. Vous alignez les codes et les valeurs de champs de votre système avec le vocabulaire canonique de PublicSchema, sans modifier votre modèle de données, adopter JSON-LD ou émettre des attestations. Le bénéfice : vos données deviennent comparables avec tout autre système qui fait de même.
 
 ## Sommaire
 
@@ -21,7 +21,7 @@ Cette approche fonctionne bien lorsque :
 - Vous avez besoin d'un rapportage comparable entre programmes, pays ou donateurs
 - Vous souhaitez normaliser les codes de réponse des API entre agences
 - Vous harmonisez des exports de données provenant de plusieurs systèmes
-- Vous voulez un gain rapide avant de vous engager dans une intégration plus approfondie
+- Vous souhaitez obtenir des résultats concrets rapidement avant de vous engager dans une intégration plus approfondie
 
 Vous n'avez pas besoin de modifier votre schéma de base de données, vos noms de champs internes ni votre code d'application. Vous n'avez besoin que d'une couche de traduction entre vos codes et les codes canoniques.
 
@@ -72,13 +72,13 @@ Quelques points à surveiller :
 
 - **Correspondances un-à-plusieurs.** Votre système peut avoir un seul code là où PublicSchema en a plusieurs. Par exemple, votre système peut utiliser "inactive" à la fois pour les inscriptions "suspendues" et "terminées". Documentez ces cas et décidez comment les traiter.
 - **Valeurs non correspondues.** Votre système peut avoir des valeurs sans équivalent canonique, ou vice versa. Documentez les lacunes ; c'est une information utile même si vous ne pouvez pas les résoudre immédiatement.
-- **Différences sémantiques.** Deux codes peuvent sembler identiques mais signifier des choses différentes. Lisez les définitions, pas seulement les libellés. Par exemple, "pending" dans votre système peut signifier "en attente d'approbation" tandis que le "pending" canonique signifie "en attente de paiement".
+- **Différences sémantiques.** Deux codes peuvent sembler identiques mais signifier des choses différentes. Lisez les définitions, pas seulement les libellés. Par exemple, "pending" dans votre système peut signifier "en attente d'approbation" tandis que le code de référence "pending" signifie "en attente de paiement".
 
 ## Étape 4 : Appliquer la correspondance
 
 La façon d'appliquer la correspondance dépend de ce que vous cherchez à faire :
 
-**Pour le rapportage :** Ajoutez une colonne à votre export qui traduit les codes internes en codes canoniques. Votre modèle de rapportage fait référence à la colonne canonique.
+**Pour le rapportage :** Ajoutez une colonne à votre export qui traduit les codes internes en codes de référence. Votre modèle de rapport utilise la colonne de référence.
 
 **Pour les réponses d'API :** Ajoutez une couche de traduction qui convertit les codes internes en codes canoniques dans la réponse. Votre base de données interne reste inchangée.
 
@@ -94,13 +94,13 @@ Une fois vos codes alignés :
 
 - **Des chiffres comparables entre systèmes.** "Combien d'inscriptions actives ?" signifie la même chose partout.
 - **Un échange de données simplifié.** Deux systèmes qui effectuent tous les deux la correspondance vers les codes PublicSchema peuvent échanger des données sans traduction bilatérale de codes.
-- **Des lacunes explicites.** Là où les codes de votre système ne correspondent pas à l'ensemble canonique, la lacune est visible et documentée plutôt que cachée dans des traductions ad hoc.
+- **Des lacunes explicites.** Là où les codes de votre système ne correspondent pas à l'ensemble de référence, l'écart est visible et documenté plutôt que masqué dans des traductions improvisées.
 - **Une base pour une intégration plus approfondie.** Si vous souhaitez ultérieurement aligner les noms de champs, adopter des schémas JSON ou émettre des attestations, la correspondance de vocabulaire est déjà faite.
 
 ## Conseils
 
 - Commencez par un ou deux vocabulaires, pas par tous. Le statut d'inscription et le statut de paiement sont des points de départ courants.
-- Si votre système utilise déjà des codes d'une norme internationale (par exemple, ISO 3166 pour les pays), vérifiez si PublicSchema référence la même norme. Si c'est le cas, votre correspondance peut déjà être triviale.
+- Si votre système utilise déjà des codes d'une norme internationale (par exemple, ISO 3166 pour les pays), vérifiez si PublicSchema renvoie à la même norme. Si c'est le cas, votre correspondance peut déjà être triviale.
 - Les vocabulaires PublicSchema qui référencent des normes internationales incluent le `standard_code` dans le CSV. Vous pouvez effectuer la correspondance via le code de norme si c'est plus facile que via les libellés.
 - Certains vocabulaires incluent des correspondances spécifiques à des systèmes dans leurs fichiers source YAML. Consultez la [page des vocabulaires](/vocab/) pour voir si votre système est déjà mis en correspondance.
 

@@ -54,7 +54,7 @@ Si un vocabulaire PublicSchema ne couvre pas les codes de votre système, étend
 }
 ```
 
-Le vérificateur voit que `enrollment_status` a une valeur de votre espace de noms, pas de l'ensemble canonique PublicSchema. Il peut choisir de l'accepter, de l'associer à une valeur canonique ou de la signaler pour révision.
+Le vérificateur voit que `enrollment_status` a une valeur de votre espace de noms, pas de l'ensemble canonique PublicSchema. Il peut choisir de l'accepter, de l'associer à une valeur canonique ou de la soumettre à révision.
 
 ### Ajouter des concepts entièrement nouveaux
 
@@ -88,13 +88,13 @@ Notez que `beneficiary` résout toujours vers la définition PublicSchema, même
 
 3. **Documentez vos extensions.** Publiez votre contexte étendu à une URL stable afin que les autres systèmes puissent comprendre vos données.
 
-4. **Proposez en amont.** Si votre extension s'avère utile dans plusieurs systèmes, proposez son inclusion dans PublicSchema. Le vocabulaire grandit grâce à des usages réels, pas par conception de comité.
+4. **Proposez en amont.** Si votre extension s'avère utile dans plusieurs systèmes, proposez son inclusion dans PublicSchema. Le vocabulaire grandit grâce à des usages réels, pas par élaboration en comité.
 
 ## Pour les émetteurs d'attestations
 
 Lors de l'émission d'une attestation vérifiable qui utilise des extensions :
 
-- Listez l'URL de votre contexte après le contexte PublicSchema dans le tableau `@context`
+- Ajoutez l'URL de votre contexte après le contexte PublicSchema dans le tableau `@context`
 - Utilisez le type d'attestation PublicSchema (par exemple, `EnrollmentCredential`) plus votre propre type si nécessaire
 - Les propriétés étendues suivent les mêmes directives de sensibilité : annotez-les comme `standard`, `sensitive` ou `restricted` (consultez [Conception du schéma : Annotations de sensibilité](../schema-design/#7-sensitivity-annotations))
 

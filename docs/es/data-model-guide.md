@@ -1,6 +1,6 @@
 # Guía de diseño de modelo de datos
 
-Esta guía es para equipos que construyen un nuevo sistema (un registro social, SIG, herramienta de gestión de casos o cualquier plataforma de prestación de servicios públicos) y desean que sea interoperable desde el inicio. En lugar de adaptar la compatibilidad después, usted diseña su modelo de datos usando PublicSchema como referencia.
+Esta guía es para equipos que construyen un nuevo sistema (un registro social, SIG, herramienta de gestión de casos o cualquier plataforma de prestación de servicios públicos) y desean que sea interoperable desde el inicio. En lugar de adaptar la compatibilidad después, diseñe su modelo de datos usando PublicSchema como referencia.
 
 ## Contenido
 
@@ -31,7 +31,7 @@ No se trata de importar PublicSchema en su sistema como dependencia. Se trata de
 
 Un modelo de datos compatible con PublicSchema:
 
-1. **Usa los mismos conceptos.** Su tabla "beneficiario" se corresponde claramente con el concepto Persona (Person) de PublicSchema, aunque usted lo llame de otra forma internamente.
+1. **Usa los mismos conceptos.** Su tabla "beneficiario" se corresponde claramente con el concepto Persona (Person) de PublicSchema, aunque internamente lo llame de otra forma.
 2. **Almacena las mismas propiedades.** Sus campos cubren las propiedades de PublicSchema que necesita, con tipos compatibles. Puede tener campos adicionales; eso está bien.
 3. **Usa los mismos códigos de vocabulario.** Donde PublicSchema define un conjunto de valores controlados (estado de inscripción, género, canal de entrega), su sistema usa los mismos códigos o puede traducirlos de forma trivial.
 4. **Puede exportar en formato canónico.** Dado lo anterior, su sistema puede producir exportaciones o respuestas de API que se alineen con los nombres de propiedad y los códigos de vocabulario de PublicSchema.
@@ -64,7 +64,7 @@ Para cada propiedad que adopte, alinee en:
 
 - **Nombre.** Su nombre de campo interno puede diferir, pero documente la correspondencia. Si puede usar el nombre de PublicSchema directamente (p. ej., `given_name`, `enrollment_status`), la correspondencia es trivial.
 - **Tipo.** Coincida con el tipo esperado. Si PublicSchema dice `date`, almacene una fecha, no una cadena de texto. Si dice `integer`, almacene un entero.
-- **Cardinalidad.** PublicSchema marca las propiedades como de valor único o de valores múltiples. Si una propiedad tiene valores múltiples (p. ej., una persona puede tener varios identificadores), diseñe su esquema para soportar eso (p. ej., una tabla separada o un campo de arreglo).
+- **Cardinalidad.** PublicSchema marca las propiedades como de valor único o de valores múltiples. Si una propiedad tiene valores múltiples (p. ej., una persona puede tener varios identificadores), diseñe su esquema para soportarlo (por ejemplo, una tabla separada o un campo de tipo arreglo).
 
 El **CSV** del concepto es útil como lista de verificación durante este paso.
 
@@ -72,13 +72,13 @@ El **CSV** del concepto es útil como lista de verificación durante este paso.
 
 Para cualquier propiedad respaldada por un vocabulario (códigos de estado, género, tipos de documento, etc.), use los códigos canónicos directamente si puede. Esta es la decisión de diseño de mayor valor porque elimina la necesidad de traducción de códigos en cada integración futura.
 
-Si debe usar códigos internos diferentes (p. ej., su base de datos usa claves foráneas enteras), mantenga una tabla de búsqueda que mapee sus códigos a los canónicos. Diseñe esta correspondencia en su sistema desde el inicio, no como algo posterior.
+Si debe usar códigos internos diferentes (p. ej., su base de datos usa claves numéricas enteras), mantenga una tabla de correspondencia que vincule sus códigos a los canónicos. Diseñe esta correspondencia en su sistema desde el inicio, no como algo posterior.
 
 Consulte la [Guía de adopción de vocabulario](/docs/vocabulary-adoption-guide/) para detalles sobre cómo trabajar con los vocabularios.
 
 ## Paso 4: Añada sus propios campos
 
-Su sistema casi con certeza necesitará campos que PublicSchema no define. Eso es esperado y está bien. PublicSchema cubre el terreno común entre sistemas, no todos los campos posibles.
+Su sistema casi con certeza necesitará campos que PublicSchema no define. Eso es perfectamente normal. PublicSchema cubre el terreno común entre sistemas, no todos los campos posibles.
 
 Al añadir campos personalizados:
 
@@ -91,7 +91,7 @@ Al añadir campos personalizados:
 Use los siguientes artefactos para verificar su diseño frente a PublicSchema:
 
 - **Esquema JSON:** Valide registros de muestra frente al esquema JSON del concepto. Si sus datos exportados pasan la validación, su esquema es compatible.
-- **Formas SHACL:** Si trabaja con RDF, las formas SHACL proveen validación de restricciones para todos los conceptos.
+- **Formas SHACL:** Si trabaja con RDF, los perfiles SHACL permiten la validación de restricciones para todos los conceptos.
 - **Plantilla Excel:** Ingrese datos de muestra en la Plantilla Excel para cada concepto. Si los datos de su sistema llenan la plantilla de forma limpia, la correspondencia es sólida. Si las columnas están vacías o los valores no encajan en las listas desplegables, investigue las brechas.
 
 ## Uso de PublicSchema en la adquisición
@@ -102,7 +102,7 @@ Ejemplo de lenguaje de requisito:
 
 > El sistema debe ser capaz de exportar registros de Persona (Person) con las siguientes propiedades según la definición de PublicSchema (publicschema.org): given_name, family_name, date_of_birth, sex, national_id. El estado de inscripción debe usar códigos del vocabulario enrollment-status de PublicSchema. El sistema debe soportar la exportación en formato CSV con los nombres de propiedad de PublicSchema como encabezados de columna.
 
-Esto es verificable. Durante la evaluación, puede entregar a los proveedores una Plantilla Excel y pedirles que demuestren que su sistema puede producir una exportación conforme.
+Esto es verificable. Durante la evaluación, puede entregar a los proveedores una Plantilla Excel y pedirles que demuestren que su sistema puede producir una exportación compatible.
 
 También puede referenciar directamente los libros de trabajo del Excel de definición en la solicitud de propuesta como especificación autorizada para cada entidad que el sistema debe soportar.
 
@@ -116,7 +116,7 @@ PublicSchema modela la relación entre personas y grupos (hogares, familias, etc
 
 PublicSchema modela los identificadores (cédula nacional, número de pasaporte, ID de programa) como un concepto Identificador (Identifier) separado vinculado a Persona (Person), no como campos directamente sobre Persona. Esto soporta múltiples identificadores por persona y captura metadatos como la autoridad emisora y el período de validez.
 
-### La acotación temporal es de primer nivel
+### La acotación temporal es un elemento central
 
 Muchos conceptos llevan start_date y end_date. Una inscripción no es solo un estado; es una relación acotada en el tiempo. Diseñe su esquema para soportar este patrón en lugar de almacenar solo el estado actual.
 
@@ -139,7 +139,7 @@ Algunos conceptos son universales (Person, Location) y otros son específicos de
 
 | Formato | Qué es | Mejor para |
 |---|---|---|
-| **CSV** | Códigos con etiquetas y definiciones multilingües | Población de tablas de búsqueda en su base de datos |
+| **CSV** | Códigos con etiquetas y definiciones multilingües | Carga inicial de tablas de búsqueda en su base de datos |
 | **JSON-LD** | Vocabulario como SKOS ConceptScheme | Acceso programático |
 
 **Validación:**

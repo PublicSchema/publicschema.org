@@ -20,7 +20,7 @@ Cada concepto, propiedad y valor de vocabulario lleva un nivel de madurez:
 | **Uso experimental** | Suficientemente estable para adoptantes tempranos. | Los cambios incompatibles requieren aviso previo. |
 | **Normativo** | Bloqueado. Apto para producción. | Los cambios requieren un nuevo URI. |
 
-La madurez progresa en una sola dirección. Un concepto en uso experimental no regresará a borrador. Tres niveles (no cinco, como en el FMM 0-5 de FHIR) se corresponden con un modelo mental claro: experimental, adoptante temprano, estable.
+La madurez progresa en una sola dirección. Un concepto en uso experimental no regresará a borrador. Tres niveles (no cinco, como en el FMM 0-5 de FHIR) corresponden a un modelo mental claro: experimental, primeros adoptantes, estable.
 
 La madurez aplica a los valores de vocabulario individuales, no solo a los vocabularios. Un vocabulario normativo puede contener un valor borrador. Los valores borrador no deben aparecer en credenciales de producción.
 
@@ -63,4 +63,4 @@ Una vez publicado en uso experimental o superior, un URI no será eliminado. Los
 
 El modelo de referencia en `schema/` está licenciado bajo **CC-BY-4.0**. Las herramientas de construcción y las pruebas bajo **Apache-2.0**.
 
-CC-BY-4.0 se eligió sobre CC0 (pierde el seguimiento de atribución) y CC-BY-SA (la cláusula de compartir igual desalienta la adopción por parte de gobiernos e integradores corporativos). Incrustar la URL del contexto JSON-LD satisface el requisito de atribución.
+CC-BY-4.0 se eligió sobre CC0 (pierde el seguimiento de atribución) y CC-BY-SA (la cláusula CompartirIgual desalienta la adopción por parte de gobiernos e integradores corporativos). Incrustar la URL del contexto JSON-LD satisface el requisito de atribución.

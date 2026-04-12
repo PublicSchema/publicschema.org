@@ -1,6 +1,6 @@
 # Normes connexes
 
-PublicSchema s'inscrit dans un paysage d'initiatives connexes qui opèrent à différentes couches. Il est conçu pour compléter chacune d'elles, non pour leur faire concurrence.
+PublicSchema s'inscrit dans un paysage d'initiatives connexes qui opèrent à différentes couches. Il est conçu pour compléter chacune d'elles, non pour les concurrencer.
 
 ## Où se situe PublicSchema
 
@@ -23,11 +23,11 @@ La Digital Convergence Initiative (initiative de convergence numérique) constru
 
 ### Vocabulaires de base de l'UE (SEMIC / Interoperable Europe)
 
-Le précédent technique le plus proche de la façon de construire un vocabulaire partagé. Le Core Person Vocabulary, le Core Location Vocabulary et le Core Public Service Vocabulary Application Profile (CPSV-AP) sont des vocabulaires RDF minimaux et réutilisables pour l'administration publique européenne, publiés avec des formes de validation SHACL sous CC-BY 4.0. PublicSchema s'aligne sur ceux-ci là où ils se chevauchent (personne, localisation, adresse) plutôt que de réinventer des définitions. Cependant, les Vocabulaires de base de l'UE couvrent l'identité et le catalogage des services, pas le cycle de vie de la prestation (inscription, droit, paiement, réclamation).
+Le précédent technique le plus proche de la façon de construire un vocabulaire partagé. Le Core Person Vocabulary, le Core Location Vocabulary et le Core Public Service Vocabulary Application Profile (CPSV-AP) sont des vocabulaires RDF minimaux et réutilisables pour l'administration publique européenne, publiés avec des formes de validation SHACL sous CC-BY 4.0. PublicSchema s'aligne sur ceux-ci là où ils se chevauchent (personne, localisation, adresse) plutôt que de réinventer des définitions. Cependant, les Vocabulaires de base de l'UE couvrent l'identité et le catalogage des services, pas le cycle de vie de la prestation (inscription, droits à prestations, paiement, réclamation).
 
 ### GovStack
 
-GovStack définit des spécifications de blocs de construction pour les services gouvernementaux numériques (identité, paiements, messagerie). PublicSchema est le pendant en termes de modèle de données : là où GovStack dit "vous avez besoin d'un bloc de construction de paiement", PublicSchema définit à quoi ressemblent les données de paiement entre les systèmes et comment les traduire entre eux. GovStack manque explicitement d'une couche sémantique transversale, ce qui est la lacune que comble PublicSchema.
+GovStack définit des spécifications de blocs de construction pour les services gouvernementaux numériques (identité, paiements, messagerie). PublicSchema est le pendant en termes de modèle de données : là où GovStack dit "vous avez besoin d'un bloc de construction de paiement", PublicSchema définit à quoi ressemblent les données de paiement entre les systèmes et comment les traduire entre eux. Les spécifications GovStack reconnaissent explicitement l'absence d'une couche sémantique transversale, ce qui est la lacune que comble PublicSchema.
 
 ### FHIR
 
@@ -43,7 +43,7 @@ La norme pour les répertoires de services ("quels services existent et où"). P
 
 ### W3C Verifiable Credentials
 
-Le W3C VC Data Model 2.0 fournit la couche de confiance. Le vocabulaire de PublicSchema, publié comme contexte JSON-LD avec des URI résolvables, sert de schéma qui rend les attestations de services gouvernementaux interopérables entre pays et systèmes. Les spécifications connexes comprennent SD-JWT VC pour la divulgation sélective et OpenID4VCI/VP pour l'émission et la présentation d'attestations.
+Le W3C VC Data Model 2.0 fournit la couche de confiance. Le vocabulaire de PublicSchema, publié comme contexte JSON-LD avec des URI résolvables, sert de schéma qui rend les attestations de services gouvernementaux interopérables entre pays et systèmes. Les spécifications connexes incluent SD-JWT VC pour la divulgation sélective et OpenID4VCI/VP pour l'émission et la présentation d'attestations.
 
 ### EBSI
 

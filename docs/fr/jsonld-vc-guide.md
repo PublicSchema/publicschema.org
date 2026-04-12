@@ -1,6 +1,6 @@
 # Guide JSON-LD et attestations vérifiables
 
-Ce guide explique comment utiliser PublicSchema avec les contextes JSON-LD et les attestations vérifiables (verifiable credentials) SD-JWT. C'est l'une des façons d'utiliser PublicSchema. Consultez [Cas d'utilisation](/docs/use-cases/) pour une vue d'ensemble plus large des modèles d'intégration, dont beaucoup ne nécessitent pas JSON-LD ni les VC.
+Ce guide explique comment utiliser PublicSchema avec les contextes JSON-LD et les attestations vérifiables SD-JWT. C'est l'une des nombreuses façons d'utiliser PublicSchema. Consultez [Cas d'utilisation](/docs/use-cases/) pour une vue d'ensemble plus large des modèles d'intégration, dont beaucoup ne nécessitent pas JSON-LD ni les VC.
 
 ## Ce qu'utilise cette voie d'intégration
 
@@ -50,7 +50,7 @@ Les schémas sont disponibles à l'adresse `https://publicschema.org/schemas/{Co
 
 ### 3. Utiliser les codes de vocabulaire canoniques
 
-Lorsque votre système stocke le statut d'inscription, le statut de paiement, le genre, etc., effectuez la correspondance de vos codes internes vers les codes canoniques PublicSchema :
+Lorsque votre système stocke le statut d'inscription, le statut de paiement, le genre, etc., convertissez vos codes internes vers les codes canoniques PublicSchema :
 
 | Votre système | PublicSchema | Vocabulaire |
 |---|---|---|
@@ -92,11 +92,11 @@ Utilisez les types d'attestation PublicSchema pour émettre des SD-JWT VC :
 
 ### 5. Implémenter la divulgation sélective
 
-Consultez les définitions des types d'attestation dans le guide [Divulgation sélective](/docs/selective-disclosure/) pour déterminer quelles affirmations doivent être sélectivement divulgables dans les SD-JWT VC. Chaque type d'attestation spécifie quelles affirmations sont toujours divulguées et lesquelles sont enveloppées dans `_sd` (révélées seulement lorsque nécessaire).
+Consultez les définitions des types d'attestation dans le guide [Divulgation sélective](/docs/selective-disclosure/) pour déterminer quelles affirmations sont à divulguer de façon sélective dans les SD-JWT VC. Chaque type d'attestation spécifie quelles affirmations sont toujours divulguées et lesquelles sont enveloppées dans `_sd` (révélées seulement lorsque nécessaire).
 
 ## Correspondance de systèmes
 
-Si votre système utilise des noms de champs ou des codes différents, utilisez les `system_mappings` dans les fichiers YAML de vocabulaire pour effectuer la traduction. Chaque entrée de système liste ses valeurs avec le code d'origine, le libellé lisible par l'humain et la valeur canonique vers laquelle elle correspond. Par exemple, le vocabulaire gender-type inclut :
+Si votre système utilise des noms de champs ou des codes différents, utilisez les `system_mappings` dans les fichiers YAML de vocabulaire pour traduire les valeurs. Chaque entrée de système liste ses valeurs avec le code d'origine, le libellé lisible par l'humain et la valeur canonique vers laquelle elle correspond. Par exemple, le vocabulaire gender-type inclut :
 
 ```yaml
 system_mappings:
@@ -153,13 +153,13 @@ Utilisez la convention de nommage que votre système préfère. Les deux sont va
 
 ## Comportement de repli `@vocab`
 
-Le contexte PublicSchema déclare `"@vocab": "https://publicschema.org/"`. Cela signifie que toute clé JSON qui n'est pas explicitement définie dans le contexte se développera silencieusement vers `https://publicschema.org/{clé}`. Par exemple, une faute de frappe comme `"givn_name"` se développerait vers `https://publicschema.org/givn_name` au lieu de déclencher une erreur.
+Le contexte PublicSchema déclare `"@vocab": "https://publicschema.org/"`. Cela signifie que toute clé JSON qui n'est pas explicitement définie dans le contexte s'étendra silencieusement vers `https://publicschema.org/{clé}`. Par exemple, une faute de frappe comme `"givn_name"` s'étendrait vers `https://publicschema.org/givn_name` au lieu de déclencher une erreur.
 
-Les processeurs JSON-LD ne signaleront pas cela. Pour détecter les fautes de frappe et les propriétés non déclarées, validez vos données par rapport au schéma JSON du concept que vous utilisez. Le schéma JSON n'autorise que les propriétés déclarées, donc `"givn_name"` échouerait à la validation.
+Les processeurs JSON-LD ne signaleront pas cela. Pour détecter les fautes de frappe et les propriétés non déclarées, validez vos données par rapport au schéma JSON du concept que vous utilisez. Le schéma JSON n'autorise que les propriétés déclarées, donc `"givn_name"` ne passerait pas la validation.
 
 ## Correspondance schema.org `alternateName`
 
-La propriété PublicSchema `preferred_name` correspond à `alternateName` de schema.org comme `broadMatch`, et non comme `exactMatch`. L'`alternateName` de schema.org couvre tout nom alternatif (surnoms, anciens noms, abréviations), tandis que `preferred_name` est spécifiquement le nom par lequel la personne préfère être appelée. Si votre système utilise `alternateName` de schema.org, sachez qu'il est sémantiquement plus large.
+La propriété PublicSchema `preferred_name` est alignée avec `alternateName` de schema.org en tant que `broadMatch`, et non `exactMatch`. L'`alternateName` de schema.org couvre tout nom alternatif (surnoms, anciens noms, abréviations), tandis que `preferred_name` est spécifiquement le nom par lequel la personne préfère être appelée. Si votre système utilise `alternateName` de schema.org, sachez qu'il est sémantiquement plus large.
 
 ## Étendre PublicSchema
 

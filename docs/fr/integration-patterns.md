@@ -1,18 +1,18 @@
 # Modèles d'intégration
 
-PublicSchema définit ce que les données signifient. Il ne définit pas comment les données se déplacent. Les mêmes concepts, propriétés et codes de vocabulaire fonctionnent sur n'importe quel transport : API REST, bus d'événements, attestations vérifiables (verifiable credentials), échanges de fichiers et pipelines d'analyse.
+PublicSchema définit ce que les données signifient. Il ne définit pas comment les données se déplacent. Les mêmes concepts, propriétés et codes de vocabulaire fonctionnent sur n'importe quel transport : API REST, bus d'événements, attestations vérifiables, échanges de fichiers et pipelines d'analyse.
 
 ## La couche sémantique
 
 ![PublicSchema se situe entre votre modèle interne et tout transport](/images/integration-layer.svg)
 
-Votre système effectue la correspondance de ses champs et codes avec PublicSchema une seule fois. À partir de là, la même représentation canonique circule sur n'importe quel canal.
+Votre système aligne ses champs et codes sur PublicSchema une seule fois. À partir de là, la même représentation canonique circule sur n'importe quel canal.
 
 Les exemples ci-dessous utilisent le même enregistrement d'inscription dans chaque modèle.
 
 ## API REST
 
-Exposez les noms de propriétés et les codes de vocabulaire PublicSchema dans la surface de votre API. Les consommateurs obtiennent un contrat prévisible sans connaître votre schéma interne.
+Exposez les noms de propriétés et les codes de vocabulaire PublicSchema dans la surface de votre API. Les systèmes clients obtiennent un contrat prévisible sans connaître votre schéma interne.
 
 ```json
 GET /api/enrollments/4421
@@ -27,11 +27,11 @@ GET /api/enrollments/4421
 }
 ```
 
-Validez les charges utiles de requête et de réponse avec les schémas JSON PublicSchema à la frontière de l'API.
+Validez les charges utiles des requêtes et des réponses avec les schémas JSON PublicSchema au point d'entrée de l'API.
 
 ## Systèmes orientés événements
 
-Publiez des événements de domaine avec des charges utiles conformes à la structure PublicSchema. Les abonnés de différents systèmes les consomment sans correspondance bilatérale de champs.
+Publiez des événements de domaine avec des charges utiles conformes à la structure PublicSchema. Les abonnés, quelle que soit leur plateforme, peuvent les traiter sans table de correspondance bilatérale.
 
 ```json
 {
@@ -48,7 +48,7 @@ Publiez des événements de domaine avec des charges utiles conformes à la stru
 }
 ```
 
-L'enveloppe d'événement (type, horodatage, métadonnées de routage) vous appartient. La charge utile interne utilise PublicSchema.
+L'enveloppe de l'événement (type, horodatage, métadonnées de routage) reste à votre discrétion. La charge utile interne utilise PublicSchema.
 
 ## Attestations vérifiables
 
@@ -83,7 +83,7 @@ given_name,family_name,enrollment_status,enrollment_date,program_ref
 Amina,Diallo,active,2025-01-15,cash-transfer-2025
 ```
 
-Pas d'API, pas d'infrastructure. Une table de correspondance et un CSV bien nommé.
+Pas d'API, pas d'infrastructure. Une table de correspondance et un fichier CSV aux colonnes bien nommées.
 
 ## Entrepôt de données et analyse
 

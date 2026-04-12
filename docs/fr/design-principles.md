@@ -1,8 +1,8 @@
 # Principes de conception
 
-## 1. Sémantique, pas structural
+## 1. Le sens avant la structure
 
-Les concepts portent une signification. Une Personne n'est pas un simple ensemble de champs ; c'est une entité nommée avec une définition rédigée pour les praticiens du domaine. Le problème d'interopérabilité est la divergence de vocabulaire : les systèmes utilisent des noms différents pour les mêmes entités du monde réel, et lorsque ces noms encodent des choix sémantiques différents, les correspondances entre eux perdent de l'information. PublicSchema fournit des définitions partagées qui rendent les équivalences explicites et préservent le sens entre les systèmes.
+Les concepts portent une signification. Une Personne n'est pas un simple ensemble de champs ; c'est une entité nommée avec une définition rédigée pour les praticiens du domaine. Le problème d'interopérabilité est la divergence de vocabulaire : les systèmes utilisent des noms différents pour les mêmes entités du monde réel, et lorsque ces noms expriment des choix sémantiques différents, les correspondances entre eux perdent de l'information. PublicSchema fournit des définitions partagées qui rendent les équivalences explicites et préservent le sens entre les systèmes.
 
 ## 2. Descriptif, pas prescriptif
 
@@ -10,7 +10,7 @@ Rien n'est obligatoire. Les systèmes adoptent les concepts, propriétés et voc
 
 ## 3. Fondé sur des données probantes et incrémental
 
-Les données de convergence orientent les priorités. Une propriété présente dans 6 systèmes sur 6 mérite d'être normalisée avant une propriété présente dans 2 systèmes sur 6. Commencer par ce qui est confirmé, étendre lorsque l'adoption fait surface un besoin réel.
+Les données de convergence orientent les priorités. Une propriété présente dans 6 systèmes sur 6 mérite d'être normalisée avant une propriété présente dans 2 systèmes sur 6. Commencer par ce qui est confirmé, étendre lorsque l'adoption révèle un besoin réel.
 
 ## 4. Langage clair pour les praticiens
 

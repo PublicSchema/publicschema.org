@@ -1,6 +1,6 @@
 # Cas d'utilisation
 
-PublicSchema fournit des définitions communes pour la prestation de services publics. Les façons de l'utiliser sont nombreuses, de l'alignement des codes de vocabulaire dans des tableurs à l'émission d'attestations vérifiables. Cette page décrit des scénarios concrets où PublicSchema aide les programmes à se coordonner, à partager des données et à atteindre les personnes qu'ils servent.
+PublicSchema fournit des définitions communes pour la prestation de services publics. Il existe de nombreuses façons de l'utiliser, de l'alignement des codes de vocabulaire dans des tableurs à l'émission d'attestations vérifiables. Cette page décrit des scénarios concrets où PublicSchema aide les programmes à se coordonner, à partager des données et à atteindre les personnes qu'ils servent.
 
 ## Sommaire
 
@@ -20,7 +20,7 @@ PublicSchema fournit des définitions communes pour la prestation de services pu
 
 **Qui :** Un gouvernement gérant la protection sociale, la restauration scolaire et l'assurance maladie comme programmes distincts, chacun sur un système différent.
 
-**Le problème :** Chaque système contient des enregistrements pour les mêmes familles, décrits différemment. La base de données du ministère de l'éducation les appelle "étudiants", le système de santé les appelle "patients" et le système de transfert d'argent les appelle "bénéficiaires". Il n'existe pas de moyen fiable de vérifier si une personne est déjà inscrite ailleurs. Même lorsque les champs peuvent être mis en correspondance par leur nom, des codes divergents rendent la comparaison peu fiable : "active" dans un système peut ne pas avoir le même sens que "active" dans un autre.
+**Le problème :** Chaque système contient des enregistrements pour les mêmes familles, décrits différemment. La base de données du ministère de l'éducation les appelle "étudiants", le système de santé les appelle "patients" et le système de transfert d'argent les appelle "bénéficiaires". Il n'existe pas de moyen fiable de vérifier si une personne est déjà inscrite ailleurs. Même lorsque les champs peuvent être associés par leur nom, des codes divergents rendent la comparaison peu fiable : "active" dans un système peut ne pas avoir le même sens que "active" dans un autre.
 
 **Comment PublicSchema aide :** L'équipe d'intégration effectue la correspondance des champs de chaque système avec les propriétés PublicSchema (given_name, national_id, date_of_birth, enrollment_status). Un registre partagé peut alors rapprocher les enregistrements entre systèmes en utilisant un vocabulaire commun. Aucun système n'a besoin de modifier son modèle de données interne.
 
@@ -30,7 +30,7 @@ PublicSchema fournit des définitions communes pour la prestation de services pu
 
 **Qui :** Un réfugié enregistré dans un pays, arrivant dans un pays d'accueil qui doit vérifier son identité et son inscription antérieure à des services.
 
-**Le problème :** Les enregistrements de la personne existent dans les systèmes du pays d'origine, mais le pays d'accueil n'y a pas accès. Rappeler le système d'origine peut être peu pratique ou impossible. La personne a besoin d'un moyen de prouver qui elle est et les services qu'elle a reçus.
+**Le problème :** Les enregistrements de la personne existent dans les systèmes du pays d'origine, mais le pays d'accueil n'y a pas accès. Interroger le système du pays d'origine peut être difficile ou impossible. La personne a besoin d'un moyen de prouver qui elle est et les services qu'elle a reçus.
 
 **Comment PublicSchema aide :** Le pays d'origine émet une attestation vérifiable (verifiable credential) SD-JWT en utilisant les types d'attestation PublicSchema (IdentityCredential, EnrollmentCredential). Le pays d'accueil peut vérifier l'attestation hors ligne car elle utilise un schéma partagé. La divulgation sélective permet à la personne de ne révéler que ce qui est nécessaire (nom, date de naissance, inscription antérieure) sans exposer des informations sensibles.
 
@@ -40,7 +40,7 @@ PublicSchema fournit des définitions communes pour la prestation de services pu
 
 **Qui :** Un donateur, un organe de coordination ou un tableau de bord gouvernemental agrégeant des données de plusieurs programmes, secteurs ou pays.
 
-**Le problème :** Chaque programme rend compte en utilisant ses propres codes et noms de champs. L'un utilise "ACTV" pour une inscription active, un autre utilise "1", un troisième utilise "enrolled". L'agrégation des chiffres entre programmes nécessite une traduction manuelle à chaque cycle de rapportage. Lorsque ces traductions sont approximatives (parce que les codes d'un programme ne correspondent pas clairement à ceux d'un autre), les chiffres agrégés ne sont pas fiables.
+**Le problème :** Chaque programme rend compte en utilisant ses propres codes et noms de champs. L'un utilise "ACTV" pour une inscription active, un autre utilise "1", un troisième utilise "enrolled". L'agrégation des chiffres entre programmes nécessite une traduction manuelle à chaque période de rapport. Lorsque ces traductions entraînent des pertes (parce que les codes d'un programme ne correspondent pas clairement à ceux d'un autre), les chiffres agrégés ne sont pas fiables.
 
 **Comment PublicSchema aide :** L'organe de coordination définit un modèle de rapportage qui fait référence aux codes de vocabulaire PublicSchema (enrollment-status, payment-status, delivery-channel). Chaque programme effectue la correspondance de ses codes internes une seule fois. À partir de là, l'agrégation est mécanique.
 
@@ -58,7 +58,7 @@ PublicSchema fournit des définitions communes pour la prestation de services pu
 
 ## De l'enregistrement des naissances à l'inscription multi-secteurs
 
-**Qui :** Une autorité d'enregistrement des faits d'état civil (état civil) délivrant des actes de naissance, connectée à des programmes qui inscrivent automatiquement les nouveau-nés (assurance maladie, allocations pour enfants, suivi de la vaccination).
+**Qui :** Une autorité d'enregistrement des faits d'état civil (état civil) délivrant des actes de naissance, connectée à des programmes qui enrôlent automatiquement les nouveau-nés (assurance maladie, allocations destinées aux enfants, suivi de la vaccination).
 
 **Le problème :** Une naissance est enregistrée, mais chaque programme en aval doit être notifié séparément, en utilisant son propre format de saisie. Les intégrations bilatérales entre l'état civil et chaque programme sont coûteuses à construire et à maintenir.
 
@@ -102,7 +102,7 @@ PublicSchema fournit des définitions communes pour la prestation de services pu
 
 **Le problème :** Chaque pays définit différemment des concepts tels que "inscription", "droit" et "réclamation". La comparaison nécessite une interprétation manuelle de la documentation de chaque pays, qui est incohérente et souvent incomplète.
 
-**Comment PublicSchema aide :** L'analyste utilise l'inventaire de concepts et de propriétés de PublicSchema comme cadre structuré pour la comparaison. Pour chaque pays et secteur, il effectue la correspondance du modèle de données du programme local avec PublicSchema. Le résultat rend les divergences visibles et nommables : le pays A collecte les coordonnées GPS des ménages, le pays B non. Le pays A définit l'inscription "inactive" comme "suspendue", le pays B l'utilise pour désigner une inscription "terminée".
+**Comment PublicSchema aide :** L'analyste utilise l'inventaire de concepts et de propriétés de PublicSchema comme cadre structuré pour la comparaison. Pour chaque pays et secteur, il effectue la correspondance du modèle de données du programme local avec PublicSchema. Le résultat rend les divergences visibles et identifiables : le pays A collecte les coordonnées GPS des ménages, le pays B non. Le pays A définit l'inscription "inactive" comme "suspendue", le pays B l'utilise pour désigner une inscription "terminée".
 
 **Artefacts clés :** Définitions de concepts (avec descriptions multilingues), inventaire de propriétés, définitions de vocabulaires, correspondances de systèmes.
 
@@ -112,7 +112,7 @@ PublicSchema fournit des définitions communes pour la prestation de services pu
 
 **Le problème :** Cinq agences exposent chacune une API REST : registre social, système d'information scolaire, système d'information sanitaire, registre d'état civil, base de données d'extension agricole. Les noms de champs et les codes de valeurs diffèrent entre les cinq. La construction d'adaptateurs personnalisés pour chaque API est coûteuse et fragile.
 
-**Comment PublicSchema aide :** La fédération impose que toutes les API alignent les noms de champs sur les propriétés PublicSchema et utilisent les codes de vocabulaire PublicSchema. Chaque agence conserve son schéma interne ; elle ajoute simplement une surface d'API alignée sur PublicSchema. La couche de fédération parle un seul langage au lieu de cinq.
+**Comment PublicSchema aide :** La fédération impose que toutes les API alignent les noms de champs sur les propriétés PublicSchema et utilisent les codes de vocabulaire PublicSchema. Chaque agence conserve son schéma interne ; elle expose simplement une interface API alignée sur PublicSchema. La couche de fédération parle un seul langage au lieu de cinq.
 
 **Artefacts clés :** Propriétés (comme noms de champs partagés), codes de vocabulaire (comme ensembles de valeurs partagés), schémas JSON (pour la validation des contrats).
 

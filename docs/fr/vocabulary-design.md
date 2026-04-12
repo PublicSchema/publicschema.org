@@ -2,7 +2,7 @@
 
 Règles pour les vocabulaires contrôlés. S'appuie sur [Conception du schéma](../schema-design/).
 
-## 1. Universel par défaut, scoped par domaine par exception
+## 1. Universel par défaut, délimité par domaine par exception
 
 Un vocabulaire se trouve à la racine sauf si les mêmes codes porteraient des significations différentes selon les domaines.
 
@@ -35,7 +35,7 @@ Si un système de codes formel existe, référencez-le. Trois niveaux :
 
 Un vocabulaire sans `standard`, sans `references` et sans `system_mappings` n'est pas validé. Acceptable au niveau de maturité brouillon ; doit être résolu avant l'usage expérimental.
 
-N'adoptez pas les codes d'une norme lorsqu'ils ne servent pas le public cible. Les codes ISO 20022 (RCVD, ACTC, ACSP) sont destinés aux messages interbancaires. Utilisez des codes lisibles ; effectuez la correspondance vers la norme.
+N'adoptez pas les codes d'une norme lorsqu'ils ne servent pas les praticiens visés. Les codes ISO 20022 (RCVD, ACTC, ACSP) sont destinés aux messages interbancaires. Utilisez des codes lisibles ; effectuez la correspondance vers la norme.
 
 Préférez les normes lisibles par machine aux normes en prose uniquement. Les normes lisibles par machine peuvent être synchronisées automatiquement ; les normes en prose dérivent.
 
@@ -68,8 +68,8 @@ Avant de nommer un vocabulaire, demandez-vous : un autre domaine pourrait-il dé
 
 Les correspondances de systèmes sont le principal mécanisme de validation :
 
-- 3 systèmes ou plus effectuant leur correspondance vers `other` = lacune dans le vocabulaire. Promouvez en code nommé.
-- 4 codes système ou plus effectuant leur correspondance vers une seule valeur canonique = le vocabulaire peut être trop grossier.
-- Code système effectuant sa correspondance vers `null` alors qu'un code canonique plus large existe = bogue de correspondance.
+- 3 systèmes ou plus dont les codes correspondent à `other` = lacune dans le vocabulaire. Promouvez en code nommé.
+- 4 codes système ou plus correspondant à une seule valeur canonique = le vocabulaire est peut-être trop grossier.
+- Code système correspondant à `null` alors qu'un code canonique plus large existe = erreur de correspondance.
 
 Un vocabulaire sans correspondances de systèmes n'est pas validé. Ajoutez des correspondances avant de faire progresser la maturité.

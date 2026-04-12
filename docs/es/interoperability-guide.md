@@ -1,6 +1,6 @@
 # Guía de interoperabilidad y correspondencia
 
-Esta guía es para equipos que conectan sistemas existentes: mapeo de campos entre plataformas, construcción de intercambios de datos, consolidación de registros de múltiples fuentes o ejecución de canalizaciones ETL. PublicSchema actúa como punto de referencia compartido (una piedra de Rosetta) de modo que cada sistema solo necesita una correspondencia en lugar de una correspondencia hacia cada otro sistema.
+Esta guía es para equipos que conectan sistemas existentes: mapeo de campos entre plataformas, construcción de intercambios de datos, consolidación de registros de múltiples fuentes o ejecución de procesos ETL. PublicSchema actúa como punto de referencia compartido (una piedra de Rosetta) de modo que cada sistema solo necesita una correspondencia en lugar de una correspondencia hacia cada otro sistema.
 
 ## Contenido
 
@@ -22,7 +22,7 @@ Este enfoque funciona bien cuando:
 
 - Dos o más sistemas necesitan intercambiar datos pero usan diferentes nombres de campo y códigos
 - Está deduplicando registros entre programas o sectores
-- Está construyendo un almacén de datos o panel de control que agrega datos de múltiples fuentes
+- Está construyendo un almacén de datos o tablero que consolida datos de múltiples fuentes
 - Está migrando datos de una plataforma a otra
 - Está construyendo una capa de federación entre APIs de agencias
 
@@ -30,7 +30,7 @@ No necesita cambiar el modelo de datos interno de ningún sistema. La correspond
 
 ## El patrón Piedra de Rosetta
 
-Sin un referente compartido, conectar N sistemas requiere N*(N-1)/2 correspondencias bilaterales. Con 5 sistemas, son 10 tablas de correspondencia separadas a mantener.
+Sin un referente compartido, conectar N sistemas requiere N*(N-1)/2 correspondencias bilaterales. Con 5 sistemas, son 10 tablas de correspondencia separadas que hay que mantener.
 
 Con PublicSchema como referente compartido, cada sistema mapea a PublicSchema una sola vez. Conectar un nuevo sistema significa una correspondencia, no N-1. Más importante aún, dado que cada sistema mapea a las mismas definiciones compartidas, el significado se preserva a través de la traducción. Sin un vocabulario compartido, las correspondencias bilaterales suelen ser imprecisas: los códigos de un sistema pueden no tener equivalentes en otro.
 
@@ -59,7 +59,7 @@ Algunos aspectos a tener en cuenta:
 - **Algunos campos pueden dividirse o combinarse.** Su sistema podría almacenar un nombre completo en un solo campo donde PublicSchema tiene `given_name` y `family_name` por separado, o viceversa.
 - **Las diferencias de tipo son esperables.** Su base de datos podría usar enteros o claves foráneas donde PublicSchema usa códigos de vocabulario. La correspondencia maneja la traducción.
 
-La descarga **CSV** del concepto le da una lista plana de propiedades con tipos y definiciones, útil como punto de partida para su tabla de correspondencias.
+La descarga **CSV** del concepto le proporciona un listado de propiedades con tipos y definiciones, útil como punto de partida para su tabla de correspondencias.
 
 ## Paso 2: Mapee sus códigos a los vocabularios de PublicSchema
 
@@ -114,7 +114,7 @@ jsonschema.validate(record, schema)
 
 La validación detecta:
 
-- Campos que no se mapearon correctamente (tipo incorrecto, contexto requerido faltante)
+- Campos que no se mapearon correctamente (tipo incorrecto, contexto obligatorio ausente)
 - Códigos de vocabulario que no están en el conjunto canónico
 - Problemas estructurales (arreglos donde se esperan valores únicos, o viceversa)
 
@@ -122,7 +122,7 @@ La validación detecta:
 
 Cada página de concepto ofrece una descarga de **Plantilla Excel**. Se trata de un libro de trabajo de entrada de datos donde:
 
-- La fila 1 tiene etiquetas de campo legibles para personas
+- La fila 1 tiene etiquetas de campo legibles por personas
 - La fila 2 tiene los IDs de propiedad de PublicSchema
 - Los campos respaldados por vocabulario tienen validación de lista desplegable (solo se aceptan códigos canónicos)
 - Los comentarios de celda incluyen definiciones de propiedad
@@ -163,7 +163,7 @@ Enfoque: decida si está mapeando el estado actual o el historial completo. Para
 
 Su sistema usa "inactive" para casos que PublicSchema divide en "suspended", "completed" y "exited".
 
-Esto no es solo un inconveniente de correspondencia; es una brecha de información. Cuando mapea "inactive" a un solo código, pierde la distinción entre alguien cuyas prestaciones están temporalmente pausadas y alguien que ha salido definitivamente. Los sistemas que consumen los datos mapeados no pueden recuperar la precisión perdida.
+Esto no es solo un inconveniente de correspondencia; es una pérdida de información. Cuando mapea "inactive" a un solo código, pierde la distinción entre alguien cuyas prestaciones están temporalmente pausadas y alguien que ha salido definitivamente. Los sistemas que consumen los datos mapeados no pueden recuperar la precisión perdida.
 
 Enfoque: si no puede distinguir entre ellos a partir de sus datos, mapee al código más amplio aplicable y documente la ambigüedad. Si puede distinguir (p. ej., consultando campos relacionados), añada lógica a la correspondencia. Cuantos más sistemas adopten directamente los códigos de vocabulario compartidos, menos se presentará este problema.
 

@@ -2,11 +2,11 @@
 
 ## Vue d'ensemble
 
-Les attestations PublicSchema sont conçues pour être utilisées avec SD-JWT VC (attestations vérifiables à divulgation sélective JWT), permettant aux détenteurs de ne révéler que les affirmations nécessaires à une interaction spécifique.
+Les attestations PublicSchema sont conçues pour être utilisées avec SD-JWT VC, un format d'attestations vérifiables à divulgation sélective, permettant aux détenteurs de ne révéler que les affirmations nécessaires à une interaction spécifique.
 
 ## Approche de classification des données
 
-PublicSchema n'attribue pas de classification de données fixe aux propriétés individuelles. Le fait qu'une propriété constitue une donnée personnelle dépend de l'enregistrement dans lequel elle apparaît, pas de la propriété elle-même. Par exemple, `date_of_birth` dans un enregistrement de Personne est une donnée personnelle ; le même champ dans un tableau statistique agrégé ne l'est pas.
+PublicSchema n'attribue pas de classification de données fixe aux propriétés individuelles. Le fait qu'une propriété constitue une donnée personnelle dépend du contexte de l'enregistrement dans lequel elle apparaît, pas de la propriété elle-même. Par exemple, `date_of_birth` dans un enregistrement de Personne est une donnée personnelle ; le même champ dans un tableau statistique agrégé ne l'est pas.
 
 En revanche, le comportement de divulgation est défini au **niveau de l'attestation**. Chaque type d'attestation ci-dessous spécifie quelles affirmations sont toujours divulguées et lesquelles sont sélectivement divulgables.
 
@@ -16,9 +16,9 @@ Pour les annotations de sensibilité au niveau des propriétés, consultez [Conc
 
 Les valeurs de vocabulaire n'ont pas toutes leur place dans les attestations.
 
-**Des faits stables, pas des états transitoires.** Une attestation vérifiable devrait attester des faits qui restent significatifs dans le temps ("cette personne est éligible"), pas des états de processus qui changent en quelques heures ("cette demande est en cours d'examen").
+**Des faits stables, pas des états transitoires.** Une attestation vérifiable devrait attester des faits qui gardent leur sens dans la durée ("cette personne est éligible"), pas des états de processus qui changent en quelques heures ("cette demande est en cours d'examen").
 
-**Pas de valeurs en brouillon dans les attestations de production.** La signification d'une valeur en brouillon peut changer. Les émetteurs ne devraient utiliser que des valeurs ayant atteint la maturité usage expérimental ou normatif.
+**Pas de valeurs en brouillon dans les attestations de production.** La signification d'une valeur provisoire peut évoluer. Les émetteurs ne devraient utiliser que des valeurs ayant atteint la maturité usage expérimental ou normatif.
 
 **Le type d'identifiant seul est insuffisant.** `identifier_type: national_id` est sans signification sans la juridiction émettrice et le schéma d'identifiant. Les vocabulaires utilisés dans les attestations doivent documenter quel contexte supplémentaire est nécessaire.
 
@@ -92,7 +92,7 @@ Sélectivement divulgable :
 - `issue_date`
 - `redemption_date`, `redeemed_by`, `redemption_agent`
 
-**Cas d'utilisation** : Remboursement de coupon chez un vendeur. Le détenteur présente l'attestation de coupon. Le vendeur doit confirmer que le coupon est valide (statut), l'identifier (numéro de série) et vérifier qu'il n'a pas expiré (date d'expiration). Le détenteur peut divulguer sélectivement la valeur nominale ou le panier de produits (items) tout en gardant son identité cachée. Les champs post-remboursement (redemption_date, redeemed_by) permettent l'audit sans nécessiter une nouvelle présentation des affirmations d'identité.
+**Cas d'utilisation** : Remboursement de coupon chez un vendeur. Le détenteur présente l'attestation de coupon. Le vendeur doit confirmer que le coupon est valide (statut), l'identifier (numéro de série) et vérifier qu'il n'a pas expiré (date d'expiration). Le détenteur peut divulguer sélectivement la valeur nominale ou le panier de produits (items) tout en gardant son identité cachée. Les champs post-remboursement (redemption_date, redeemed_by) permettent l'audit sans nouvelle présentation des affirmations d'identité.
 
 ### EntitlementCredential
 
@@ -110,7 +110,7 @@ Sélectivement divulgable :
 - `document_expiry_date`
 - Affirmations d'identité de la Personne (via la chaîne d'inscription)
 
-**Cas d'utilisation** : Preuve du droit à une prestation. Un bénéficiaire doit démontrer qu'il a droit à une prestation pour une période spécifique (par exemple, pour accéder à un service complémentaire). Le détenteur divulgue entitlement_status (approved) et la période de couverture, gardant les détails du programme et l'identité cachés. Note : les droits par cycle sont de courte durée, donc la rotation des attestations est fréquente ; `document_expiry_date` contrôle la validité de la VC indépendamment de la période de couverture.
+**Cas d'utilisation** : Preuve du droit à une prestation. Un bénéficiaire doit démontrer qu'il a droit à une prestation pour une période spécifique (par exemple, pour accéder à un service complémentaire). Le détenteur divulgue entitlement_status (approved) et la période de couverture, gardant les détails du programme et l'identité cachés. Note : les droits émis à chaque cycle de paiement ont une durée de vie limitée, ce qui implique un renouvellement fréquent des attestations ; `document_expiry_date` contrôle la validité de la VC indépendamment de la période de couverture.
 
 ## Structure de la charge utile SD-JWT VC
 
@@ -152,13 +152,13 @@ Une SD-JWT VC sépare les affirmations toujours divulguées des affirmations sé
 }
 ```
 
-Note : les schémas d'attestation PublicSchema utilisent exclusivement le format SD-JWT VC. Les charges utiles SD-JWT VC utilisent `vct` (type d'attestation vérifiable) au lieu du `@context` et des tableaux `type` du W3C VCDM. L'affirmation `cnf` lie l'attestation à la clé du détenteur pour la preuve de liaison de clé. Les schémas JSON générés dans `dist/schemas/credentials/` valident les charges utiles SD-JWT VC, pas les enveloppes W3C VCDM.
+Note : les schémas d'attestation PublicSchema utilisent exclusivement le format SD-JWT VC. Les charges utiles SD-JWT VC utilisent `vct` (type d'attestation) au lieu du `@context` et des tableaux `type` du W3C VCDM. L'affirmation `cnf` lie l'attestation à la clé du détenteur pour la preuve de liaison de clé. Les schémas JSON générés dans `dist/schemas/credentials/` valident les charges utiles SD-JWT VC, pas les enveloppes W3C VCDM.
 
 Le tableau `_sd` contient des hachages des affirmations divulgables. Les valeurs réelles sont fournies séparément sous forme de divulgations que le détenteur peut choisir d'inclure ou d'omettre lors de la présentation de l'attestation.
 
 ## Guide de traitement traditionnel des données
 
-Les exigences de traitement des données dépendent du contexte de l'attestation ou du jeu de données, pas des définitions individuelles de propriétés. Les implémenteurs doivent évaluer chaque déploiement et appliquer des protections selon que les données, dans ce contexte, identifient ou concernent une personne physique.
+Les exigences de traitement des données dépendent du contexte de l'attestation ou du jeu de données, pas des définitions individuelles de propriétés. Les équipes de mise en oeuvre doivent évaluer chaque déploiement et appliquer des protections selon que les données, dans ce contexte, identifient ou concernent une personne physique.
 
 Guide général :
 - **Les métadonnées structurelles** (paramètres de programme, statuts, dates) ne nécessitent généralement aucun traitement spécial au-delà de la protection normale des données.
@@ -168,9 +168,9 @@ Guide général :
 
 ## Guide d'implémentation
 
-1. **Les émetteurs** doivent consulter les définitions de types d'attestation ci-dessus lors de la construction de SD-JWT VC. Les affirmations listées comme "toujours divulguées" apparaissent en clair ; les affirmations "sélectivement divulgables" vont dans `_sd`. Pour les propriétés non couvertes par un type d'attestation défini, l'émetteur détermine le comportement de divulgation en fonction du contexte de l'attestation.
+1. **Les émetteurs** doivent consulter les définitions de types d'attestation ci-dessus au moment de produire des SD-JWT VC. Les affirmations listées comme "toujours divulguées" figurent en clair dans la charge utile ; les affirmations "sélectivement divulgables" vont dans `_sd`. Pour les propriétés non couvertes par un type d'attestation défini, l'émetteur détermine le comportement de divulgation en fonction du contexte de l'attestation.
 
-2. **Les détenteurs** (applications de portefeuille) doivent présenter une interface de sélection de divulgation distinguant les affirmations toujours divulguées des affirmations sélectivement divulgables. Les affirmations intrinsèquement sensibles (scores d'évaluation, indices de vulnérabilité) doivent nécessiter une confirmation explicite. En cas de doute, optez par défaut pour la divulgation sélective afin de favoriser la protection de la vie privée.
+2. **Les détenteurs** (applications de portefeuille) doivent proposer une interface permettant à l'utilisateur de choisir quelles affirmations divulguer, en distinguant les affirmations toujours visibles des affirmations optionnelles. Les affirmations intrinsèquement sensibles (scores d'évaluation, indices de vulnérabilité) doivent nécessiter une confirmation explicite. En cas de doute, privilégiez la divulgation sélective par précaution, conformément au principe de minimisation des données.
 
 3. **Les vérificateurs** ne doivent demander que les affirmations dont ils ont besoin. Une demande d'affirmations intrinsèquement sensibles doit inclure une justification (par exemple, une référence à l'autorité d'audit).
 

@@ -1,6 +1,6 @@
 # Casos de uso
 
-PublicSchema provee definiciones comunes para la prestación de servicios públicos. Hay muchas formas de usarlo, desde alinear códigos de vocabulario en hojas de cálculo hasta emitir credenciales verificables. Esta página describe escenarios concretos en los que PublicSchema ayuda a los programas a coordinarse, compartir datos y llegar a las personas a quienes sirven.
+PublicSchema ofrece definiciones comunes para la prestación de servicios públicos. Hay muchas formas de usarlo, desde alinear códigos de vocabulario en hojas de cálculo hasta emitir credenciales verificables. Esta página describe escenarios concretos en los que PublicSchema ayuda a los programas a coordinarse, compartir datos y llegar a las personas a quienes sirven.
 
 ## Contenido
 
@@ -20,7 +20,7 @@ PublicSchema provee definiciones comunes para la prestación de servicios públi
 
 **Quién:** Un gobierno que gestiona protección social, alimentación escolar y seguro de salud como programas separados, cada uno en un sistema diferente.
 
-**El problema:** Cada sistema tiene registros de las mismas familias, descritos de forma diferente. La base de datos del ministerio de educación los llama "estudiantes", el sistema de salud los llama "pacientes" y el sistema de transferencias monetarias los llama "beneficiarios". No existe una forma confiable de verificar si una persona ya está inscrita en otro lugar. Incluso cuando los campos pueden coincidirse por nombre, los códigos divergentes hacen la comparación poco confiable: "active" en un sistema puede no significar lo mismo que "active" en otro.
+**El problema:** Cada sistema tiene registros de las mismas familias, descritos de forma diferente. La base de datos del ministerio de educación los llama "estudiantes", el sistema de salud los llama "pacientes" y el sistema de transferencias monetarias los llama "beneficiarios". No existe una forma confiable de verificar si una persona ya está inscrita en otro lugar. Incluso cuando los campos coinciden en nombre, los códigos divergentes hacen la comparación poco confiable: "active" en un sistema puede no significar lo mismo que "active" en otro.
 
 **Cómo ayuda PublicSchema:** El equipo de integración mapea los campos de cada sistema a las propiedades de PublicSchema (given_name, national_id, date_of_birth, enrollment_status). Un registro compartido puede entonces cruzar registros entre sistemas usando un vocabulario común. Ningún sistema necesita cambiar su modelo de datos interno.
 
@@ -38,9 +38,9 @@ PublicSchema provee definiciones comunes para la prestación de servicios públi
 
 ## Reporte estandarizado entre programas y donantes
 
-**Quién:** Un donante, organismo coordinador o panel de control gubernamental que agrega datos de múltiples programas, sectores o países.
+**Quién:** Un donante, organismo coordinador o tablero gubernamental que agrega datos de múltiples programas, sectores o países.
 
-**El problema:** Cada programa reporta usando sus propios códigos y nombres de campo. Uno usa "ACTV" para la inscripción activa, otro usa "1", un tercero usa "enrolled". Agregar cifras entre programas requiere una traducción manual en cada ciclo de reporte. Cuando estas traducciones son imprecisas (porque los códigos de un programa no se corresponden limpiamente con los de otro), los números agregados son poco confiables.
+**El problema:** Cada programa reporta usando sus propios códigos y nombres de campo. Uno usa "ACTV" para la inscripción activa, otro usa "1", un tercero usa "enrolled". Agregar cifras entre programas requiere una traducción manual en cada ciclo de reporte. Cuando estas traducciones son inexactas o incompletas (porque los códigos de un programa no se corresponden limpiamente con los de otro), los números agregados son poco confiables.
 
 **Cómo ayuda PublicSchema:** El organismo coordinador define una plantilla de reporte que referencia los códigos de vocabulario de PublicSchema (enrollment-status, payment-status, delivery-channel). Cada programa mapea sus códigos internos una sola vez. A partir de ese punto, la agregación es mecánica.
 
@@ -50,7 +50,7 @@ PublicSchema provee definiciones comunes para la prestación de servicios públi
 
 **Quién:** Un gobierno que adquiere un nuevo registro, SIG o sistema de gestión de casos en cualquier sector.
 
-**El problema:** Las solicitudes de propuesta especifican que "el sistema debe ser interoperable", lo cual es demasiado vago para evaluar. Los proveedores lo interpretan como quieren. No existe una norma concreta contra la cual hacer pruebas.
+**El problema:** Las solicitudes de propuesta especifican que "el sistema debe ser interoperable", lo cual es demasiado vago como para evaluarlo. Los proveedores lo interpretan como quieren. No existe una norma concreta contra la cual hacer pruebas.
 
 **Cómo ayuda PublicSchema:** La solicitud de propuesta referencia PublicSchema directamente: "El sistema debe poder exportar registros de Persona (Person) con estas propiedades: given_name, family_name, date_of_birth, national_id. Los campos de estado deben usar códigos de los vocabularios de PublicSchema." Esto funciona tanto si se adquiere un registro social, un sistema de información estudiantil o una base de datos de establecimientos de salud. Los proveedores obtienen un objetivo concreto; los evaluadores obtienen algo que pueden probar.
 
@@ -82,7 +82,7 @@ PublicSchema provee definiciones comunes para la prestación de servicios públi
 
 **El problema:** Verificar la elegibilidad actualmente requiere una conexión en vivo con el registro central. En zonas remotas o durante interrupciones del sistema, la prestación del servicio se detiene porque la elegibilidad no puede confirmarse.
 
-**Cómo ayuda PublicSchema:** La persona tiene una credencial verificable en su teléfono o tarjeta inteligente. En el punto de atención, el dispositivo del agente verifica la firma de la credencial y comprueba que enrollment_status es "active" y que el monto de la prestación es el correcto. La verificación funciona sin conexión porque es criptográfica, no una consulta a una base de datos. Los datos personales que van más allá de lo necesario para la transacción permanecen ocultos mediante la divulgación selectiva.
+**Cómo ayuda PublicSchema:** La persona tiene una credencial verificable en su teléfono o tarjeta inteligente. En el punto de atención, el dispositivo del agente verifica la firma de la credencial y comprueba que enrollment_status es "active" y que el monto de la prestación es correcto. La verificación funciona sin conexión porque es criptográfica, no una consulta a una base de datos. Los datos personales que van más allá de lo necesario para la transacción permanecen ocultos mediante la divulgación selectiva.
 
 **Artefactos clave:** Tipos de credencial, reglas de divulgación selectiva, esquemas JSON.
 
@@ -102,7 +102,7 @@ PublicSchema provee definiciones comunes para la prestación de servicios públi
 
 **El problema:** Cada país define conceptos como "inscripción", "prestación" y "queja" de forma diferente. La comparación requiere interpretar manualmente la documentación de cada país, que es inconsistente y a menudo incompleta.
 
-**Cómo ayuda PublicSchema:** El analista usa el inventario de conceptos y propiedades de PublicSchema como marco estructurado de comparación. Para cada país y sector, mapea el modelo de datos del programa local frente a PublicSchema. El resultado hace visibles y nombrables las divergencias: el País A recopila coordenadas GPS del hogar, el País B no. El País A define la inscripción "inactive" como "suspended", el País B la usa para indicar "completed".
+**Cómo ayuda PublicSchema:** El analista usa el inventario de conceptos y propiedades de PublicSchema como marco estructurado de comparación. Para cada país y sector, mapea el modelo de datos del programa local frente a PublicSchema. El resultado hace visibles las divergencias y permite nombrarlas con precisión: el País A recopila coordenadas GPS del hogar, el País B no. El País A define la inscripción "inactive" como "suspended", el País B la usa para indicar "completed".
 
 **Artefactos clave:** Definiciones de conceptos (con descripciones multilingües), inventario de propiedades, definiciones de vocabularios, correspondencias de sistemas.
 
@@ -112,7 +112,7 @@ PublicSchema provee definiciones comunes para la prestación de servicios públi
 
 **El problema:** Cinco agencias exponen cada una una API REST: registro social, SIG de educación, sistema de información de salud, registro civil, base de datos de extensión agrícola. Los nombres de campo y los códigos de valor difieren entre los cinco. Construir adaptadores personalizados para cada API es costoso y frágil.
 
-**Cómo ayuda PublicSchema:** La federación exige que todas las APIs alineen los nombres de campo a las propiedades de PublicSchema y usen los códigos de vocabulario de PublicSchema. Cada agencia mantiene su esquema interno; simplemente añade una superficie de API alineada con PublicSchema. La capa federada habla un solo idioma en lugar de cinco.
+**Cómo ayuda PublicSchema:** La federación exige que todas las APIs alineen los nombres de campo a las propiedades de PublicSchema y usen los códigos de vocabulario de PublicSchema. Cada agencia mantiene su esquema interno; simplemente expone una API compatible con PublicSchema. La capa federada habla un solo idioma en lugar de cinco.
 
 **Artefactos clave:** Propiedades (como nombres de campo compartidos), códigos de vocabulario (como conjuntos de valores compartidos), esquemas JSON (para validación de contratos).
 

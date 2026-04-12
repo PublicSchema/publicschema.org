@@ -11,7 +11,7 @@ La casse encode le type d'élément :
 | Codes de valeurs de vocabulaire | snake_case | never_married, bank_transfer |
 | Identifiants de vocabulaire | kebab-case | gender-type, enrollment-status |
 
-Appliqué par des validateurs regex dans les schémas JSON. Une fois qu'un nom est publié en usage expérimental ou au-dessus, il ne peut plus être modifié.
+Ces conventions sont appliquées par des validateurs d'expression régulière dans les schémas JSON. Une fois qu'un nom est publié en usage expérimental ou au-dessus, il ne peut plus être modifié.
 
 ## 2. URI scoped par domaine
 
@@ -65,13 +65,27 @@ Utilisez cet arbre de décision pour déterminer quel type d'élément créer.
 
 Presque tout dans la prestation de services publics est borné dans le temps. Un instantané de statut sans période de validité est incomplet. Lors de la conception d'un concept ou d'une propriété, demandez-vous : cette valeur changera-t-elle au fil du temps ? Si oui, modélisez explicitement le contexte temporel (dates de début/fin, périodes de validité).
 
+### Conventions pour les propriétés de date
+
+Les concepts à cycle de vie utilisent des noms de dates spécifiques au domaine qui décrivent l'événement du domaine. Les concepts de relation et d'appartenance utilisent les dates génériques `start_date` / `end_date`.
+
+| Type de concept | Modèle de date | Exemples |
+|---|---|---|
+| Cycle de vie (Inscription) | Dates nommées spécifiques au domaine | `enrollment_date`, `exit_date` |
+| Cycle de vie (Droit) | Période spécifique au domaine | `coverage_period_start`, `coverage_period_end` |
+| Cycle de vie (Réclamation) | Dates d'événements spécifiques au domaine | `submission_date`, `resolution_date` |
+| Événement unique (PaymentEvent) | Date d'événement unique | `payment_date` |
+| Relation (GroupMembership, Relationship) | Dates génériques | `start_date`, `end_date` |
+
+Ne combinez pas les deux modèles sur un même concept. Un concept à cycle de vie ne doit pas porter à la fois `enrollment_date` et `start_date`.
+
 ## 6. Indépendance des propriétés
 
-Une propriété comme `start_date` est définie une seule fois et réutilisée entre concepts. Lorsqu'une propriété partagée nécessite des ensembles de valeurs spécifiques à un concept (par exemple, `status` sur Inscription et Réclamation), elle se spécialise via des références de vocabulaire différentes plutôt que de prétendre que les différences n'existent pas.
+Une propriété comme `start_date` est définie une seule fois et réutilisée pour l'ensemble des concepts. Lorsqu'une propriété partagée nécessite des ensembles de valeurs spécifiques à un concept (par exemple, `status` sur Inscription et Réclamation), elle se spécialise via des références de vocabulaire différentes plutôt que de prétendre que les différences n'existent pas.
 
 ## 7. Annotations de sensibilité
 
-Certaines propriétés révèlent des circonstances sensibles que la personne soit identifiable ou non. `program_ref` révèle l'inscription à un programme spécifique (qui peut cibler le VIH, le handicap ou la pauvreté). `grievance_type` révèle que quelqu'un a déposé une réclamation.
+Certaines propriétés révèlent des circonstances sensibles que la personne soit identifiable ou non. `program_ref` révèle l'inscription à un programme spécifique (qui peut cibler le VIH, le handicap ou la pauvreté). `grievance_type` révèle que quelqu'un a déposé une plainte.
 
 | Niveau | Quand l'utiliser | Ce qu'il signale |
 |---|---|---|

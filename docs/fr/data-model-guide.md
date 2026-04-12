@@ -1,6 +1,6 @@
 # Guide de conception du modèle de données
 
-Ce guide est destiné aux équipes qui construisent un nouveau système (un registre social, un système d'information de gestion, un outil de gestion de cas ou toute plateforme de prestation de services publics) et souhaitent qu'il soit interopérable dès le départ. Plutôt que de greffer la compatibilité après coup, vous concevez votre modèle de données en utilisant PublicSchema comme référence.
+Ce guide est destiné aux équipes qui construisent un nouveau système (un registre social, un système d'information de gestion, un outil de gestion de cas ou toute plateforme de prestation de services publics) et souhaitent qu'il soit interopérable dès le départ. Plutôt que d'intégrer la compatibilité après coup, vous concevez votre modèle de données en prenant PublicSchema comme référence.
 
 ## Sommaire
 
@@ -33,10 +33,10 @@ Un modèle de données compatible avec PublicSchema :
 
 1. **Utilise les mêmes concepts.** Votre table "bénéficiaire" correspond clairement au concept Personne de PublicSchema, même si vous l'appelez différemment en interne.
 2. **Stocke les mêmes propriétés.** Vos champs couvrent les propriétés PublicSchema dont vous avez besoin, avec des types compatibles. Vous pouvez avoir des champs supplémentaires ; c'est parfaitement acceptable.
-3. **Utilise les mêmes codes de vocabulaire.** Là où PublicSchema définit un ensemble de valeurs contrôlées (statut d'inscription, genre, canal de livraison), votre système utilise les mêmes codes ou peut les traduire trivialement.
-4. **Peut exporter dans un format canonique.** Compte tenu de ce qui précède, votre système peut produire des exports ou des réponses d'API alignés avec les noms de propriétés et les codes de vocabulaire PublicSchema.
+3. **Utilise les mêmes codes de vocabulaire.** Là où PublicSchema définit un ensemble de valeurs contrôlées (statut d'inscription, genre, canal de livraison), votre système utilise les mêmes codes ou peut les convertir sans effort.
+4. **Peut exporter dans un format canonique.** Sur cette base, votre système peut produire des exports ou des réponses d'API alignés sur les noms de propriétés et les codes de vocabulaire PublicSchema.
 
-Vous n'avez pas besoin d'utiliser les noms de champs exacts de PublicSchema en interne, d'adopter JSON-LD ou de changer votre moteur de base de données. La compatibilité concerne l'alignement sémantique, pas la conformité structurelle.
+Vous n'avez pas besoin d'utiliser les noms de champs exacts de PublicSchema en interne, d'adopter JSON-LD ou de changer votre moteur de base de données. La compatibilité est une question d'alignement sémantique, non de conformité de structure.
 
 ## Étape 1 : Identifier les concepts dont vous avez besoin
 
@@ -70,9 +70,9 @@ Le **CSV** du concept est utile comme liste de contrôle lors de cette étape.
 
 ## Étape 3 : Adopter les vocabulaires canoniques
 
-Pour toute propriété soutenue par un vocabulaire (codes de statut, genre, types de documents, etc.), utilisez les codes canoniques directement si vous le pouvez. C'est le choix de conception à la valeur ajoutée la plus élevée car il élimine le besoin de traduction de codes dans chaque future intégration.
+Pour toute propriété soutenue par un vocabulaire (codes de statut, genre, types de documents, etc.), utilisez les codes canoniques directement si vous le pouvez. C'est le choix de conception le plus rentable, car il élimine la nécessité de traduire les codes à chaque nouvelle intégration.
 
-Si vous devez utiliser des codes internes différents (par exemple, votre base de données utilise des clés étrangères entières), maintenez une table de correspondance qui lie vos codes aux codes canoniques. Intégrez cette correspondance dans votre système dès le début, pas comme une réflexion après coup.
+Si vous devez utiliser des codes internes différents (par exemple, votre base de données utilise des clés étrangères entières), maintenez une table de correspondance qui lie vos codes aux codes canoniques. Intégrez cette correspondance dans votre système dès le départ, et non en dernière minute.
 
 Consultez le [Guide d'adoption du vocabulaire](/docs/vocabulary-adoption-guide/) pour plus de détails sur l'utilisation des vocabulaires.
 
@@ -92,7 +92,7 @@ Utilisez les artefacts suivants pour vérifier votre conception par rapport à P
 
 - **Schéma JSON :** Validez des exemples d'enregistrements par rapport au schéma JSON du concept. Si vos données exportées passent la validation, votre schéma est compatible.
 - **Formes SHACL :** Si vous travaillez avec RDF, les formes SHACL fournissent une validation des contraintes pour tous les concepts.
-- **Modèle Excel :** Saisissez des exemples de données dans le modèle Excel pour chaque concept. Si les données de votre système remplissent le modèle proprement, la correspondance est solide. Si des colonnes sont vides ou si des valeurs ne correspondent pas aux listes déroulantes, examinez les lacunes.
+- **Modèle Excel :** Saisissez des exemples de données dans le modèle Excel pour chaque concept. Si les données de votre système remplissent le modèle proprement, la correspondance est solide. Si des colonnes sont vides ou si des valeurs ne correspondent pas aux listes déroulantes, analysez les écarts.
 
 ## Utiliser PublicSchema dans les appels d'offres
 
@@ -116,9 +116,9 @@ PublicSchema modélise la relation entre les personnes et les groupes (ménages,
 
 PublicSchema modélise les identifiants (carte nationale d'identité, numéro de passeport, identifiant de programme) comme un concept Identifiant distinct lié à Personne, pas comme des champs directement sur Personne. Cela permet plusieurs identifiants par personne et capture des métadonnées comme l'autorité émettrice et la période de validité.
 
-### La borne temporelle est de première importance
+### La délimitation temporelle est un concept de premier plan
 
-De nombreux concepts portent start_date et end_date. Une inscription n'est pas seulement un statut ; c'est une relation bornée dans le temps. Concevez votre schéma pour prendre en charge ce modèle plutôt que de stocker uniquement l'état courant.
+De nombreux concepts portent start_date et end_date. Une inscription n'est pas seulement un statut ; c'est une relation bornée dans le temps. Concevez votre schéma pour prendre en charge ce modèle plutôt que de ne stocker que l'état actuel.
 
 ### Espace de noms de domaine
 
@@ -139,7 +139,7 @@ Certains concepts sont universels (Personne, Localisation) et d'autres sont spé
 
 | Format | Ce que c'est | Idéal pour |
 |---|---|---|
-| **CSV** | Codes avec libellés et définitions multilingues | Alimentation des tables de correspondance dans votre base de données |
+| **CSV** | Codes avec libellés et définitions multilingues | Initialisation des tables de correspondance dans votre base de données |
 | **JSON-LD** | Vocabulaire en tant que SKOS ConceptScheme | Accès programmatique |
 
 **Validation :**

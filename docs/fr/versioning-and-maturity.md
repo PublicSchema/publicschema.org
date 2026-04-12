@@ -6,7 +6,7 @@ Les URI stables sont essentiels pour la compatibilité des attestations vérifia
 
 ## Deux axes de versionnement
 
-"Cet élément est-il sûr à utiliser ?" et "Contre quel instantané est-ce que je construis ?" sont des questions différentes. PublicSchema y répond indépendamment.
+"Cet élément est-il sûr à utiliser ?" et "Sur la base de quel instantané est-ce que je construis ?" sont des questions différentes. PublicSchema y répond indépendamment.
 
 ![Une version est un instantané hétérogène contenant des entités à différents niveaux de maturité](/images/versioning-axes.svg)
 
@@ -63,4 +63,4 @@ Une fois publié en usage expérimental ou au-dessus, un URI ne sera pas supprim
 
 Le modèle de référence dans `schema/` est sous licence **CC-BY-4.0**. Les outils de construction et les tests sont sous licence **Apache-2.0**.
 
-CC-BY-4.0 a été choisi plutôt que CC0 (qui perd le suivi d'attribution) et CC-BY-SA (dont la clause de partage à l'identique décourage l'adoption par les gouvernements et les intégrateurs commerciaux). L'intégration de l'URL du contexte JSON-LD satisfait à l'exigence d'attribution.
+CC-BY-4.0 a été choisi plutôt que CC0 (qui ne préserve pas le suivi d'attribution) et CC-BY-SA (dont la clause de partage à l'identique décourage l'adoption par les gouvernements et les intégrateurs du secteur privé). L'intégration de l'URL du contexte JSON-LD satisfait à l'exigence d'attribution.

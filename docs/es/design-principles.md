@@ -2,7 +2,7 @@
 
 ## 1. Semántico, no estructural
 
-Los conceptos llevan significado. Una Persona (Person) no es un conjunto de campos; es una entidad con nombre y una definición escrita para practicantes del dominio. El problema de interoperabilidad es la divergencia de vocabulario: los sistemas usan nombres diferentes para las mismas entidades del mundo real, y cuando esos nombres codifican decisiones semánticas distintas, las correspondencias entre ellos pierden información. PublicSchema provee definiciones compartidas que hacen explícitas las equivalencias y preservan el significado a través de los sistemas.
+Los conceptos tienen significado. Una Persona (Person) no es un conjunto de campos; es una entidad con nombre y una definición escrita para practicantes del dominio. El problema de interoperabilidad radica en la divergencia de vocabulario: los sistemas usan nombres diferentes para las mismas entidades del mundo real, y cuando esos nombres codifican decisiones semánticas distintas, las correspondencias entre ellos pierden información. PublicSchema provee definiciones compartidas que hacen explícitas las equivalencias y preservan el significado a través de los sistemas.
 
 ## 2. Descriptivo, no normativo
 
@@ -10,7 +10,7 @@ Nada es obligatorio. Los sistemas adoptan los conceptos, propiedades y vocabular
 
 ## 3. Basado en evidencia e incremental
 
-Los datos de convergencia impulsan las prioridades. Una propiedad presente en 6 de 6 sistemas vale la pena estandarizar antes que una presente en 2 de 6. Comience con lo que está confirmado; extienda cuando la adopción revele una necesidad genuina.
+Los datos de convergencia impulsan las prioridades. Una propiedad presente en 6 de 6 sistemas vale la pena estandarizar antes que una presente en 2 de 6. Comience con lo que está confirmado y extiéndalo cuando la adopción revele una necesidad genuina.
 
 ## 4. Lenguaje sencillo para practicantes
 

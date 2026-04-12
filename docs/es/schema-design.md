@@ -2,7 +2,7 @@
 
 ## 1. Convenciones de nomenclatura
 
-El estilo de escritura codifica el tipo de elemento:
+El estilo de escritura indica el tipo de elemento:
 
 | Tipo de elemento | Convención | Ejemplos |
 |---|---|---|
@@ -11,7 +11,7 @@ El estilo de escritura codifica el tipo de elemento:
 | Códigos de valor de vocabulario | snake_case | never_married, bank_transfer |
 | Identificadores de vocabulario | kebab-case | gender-type, enrollment-status |
 
-Aplicado por validadores de expresiones regulares en esquemas JSON. Una vez que un nombre se publica en uso experimental o superior, no puede cambiarse.
+Estas convenciones son aplicadas por validadores de expresiones regulares en los esquemas JSON. Una vez que un nombre se publica en uso experimental o superior, no puede cambiarse.
 
 ## 2. URIs con alcance de dominio
 
@@ -22,7 +22,7 @@ Algunos conceptos comparten un nombre entre dominios pero tienen semánticas dif
 
 La prueba: un elemento es universal si la misma definición tiene el mismo significado independientemente del dominio. Si no es así, pertenece a un espacio de nombres de dominio.
 
-Los nombres nunca se prefijan con una abreviación de dominio. Es `Enrollment`, no `SPEnrollment`. La estructura del URI maneja la disambiguación.
+Los nombres nunca se prefijan con una abreviación de dominio. Es `Enrollment`, no `SPEnrollment`. La estructura del URI se encarga de la disambiguación.
 
 | Código | Dominio | Estado |
 |---|---|---|
@@ -65,9 +65,23 @@ Use este árbol de decisión para determinar qué tipo de elemento crear.
 
 Casi todo en la prestación de servicios públicos está acotado en el tiempo. Una instantánea de estado sin un período de validez está incompleta. Al diseñar un concepto o propiedad, pregúntese: ¿cambiará este valor con el tiempo? Si es así, modele el contexto temporal explícitamente (fechas de inicio/fin, períodos de validez).
 
+### Convenciones para propiedades de fecha
+
+Los conceptos de ciclo de vida usan fechas con nombre específico del dominio que describen el evento del dominio. Los conceptos de relación y membresía usan `start_date` / `end_date` genéricos.
+
+| Tipo de concepto | Patrón de fecha | Ejemplos |
+|---|---|---|
+| Ciclo de vida (Enrollment) | Fechas con nombre específico del dominio | `enrollment_date`, `exit_date` |
+| Ciclo de vida (Entitlement) | Período específico del dominio | `coverage_period_start`, `coverage_period_end` |
+| Ciclo de vida (Grievance) | Fechas de evento específicas del dominio | `submission_date`, `resolution_date` |
+| Evento único (PaymentEvent) | Fecha de evento único | `payment_date` |
+| Relación (GroupMembership, Relationship) | Fechas genéricas | `start_date`, `end_date` |
+
+No mezcle ambos patrones en el mismo concepto. Un concepto de ciclo de vida no debe llevar tanto `enrollment_date` como `start_date`.
+
 ## 6. Independencia de propiedades
 
-Una propiedad como `start_date` se define una sola vez y se reutiliza en varios conceptos. Cuando una propiedad compartida necesita conjuntos de valores específicos de concepto (p. ej., `status` en Enrollment frente a Grievance), se especializa mediante referencias a vocabularios diferentes en lugar de ignorar las diferencias.
+Una propiedad como `start_date` se define una sola vez y se reutiliza en varios conceptos. Cuando una propiedad compartida necesita conjuntos de valores específicos de concepto (p. ej., `status` en Enrollment frente a Grievance), se especializa mediante referencias a vocabularios diferentes en lugar de disimular las diferencias.
 
 ## 7. Anotaciones de sensibilidad
 
@@ -79,4 +93,4 @@ Algunas propiedades revelan circunstancias sensibles independientemente de si id
 | `sensitive` | Revela circunstancias (salud, pobreza, condición de víctima) en la mayoría de los contextos. | Requiere justificación para recopilar o divulgar. |
 | `restricted` | No debe aparecer en credenciales en puntos de servicio rutinarios. | Requiere una Evaluación de Impacto en la Protección de Datos. |
 
-Esta es una advertencia para practicantes, no una etiqueta de cumplimiento. Si una propiedad constituye datos personales depende del registro en el que aparece, no de la propiedad en sí. Consulte [Divulgación selectiva](../selective-disclosure/) para la clasificación a nivel de credencial.
+Esta es una advertencia para practicantes, no una etiqueta regulatoria. Si una propiedad constituye datos personales depende del registro en el que aparece, no de la propiedad en sí. Consulte [Divulgación selectiva](../selective-disclosure/) para la clasificación a nivel de credencial.

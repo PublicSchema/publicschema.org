@@ -2,7 +2,7 @@
 
 ## Principios
 
-PublicSchema es descriptivo, no normativo. Los sistemas adoptan los conceptos, propiedades y vocabularios que les aplican. Cuando un sistema necesita algo que PublicSchema no provee, lo extiende usando su propio espacio de nombres.
+PublicSchema es descriptivo, no normativo. Los sistemas adoptan los conceptos, propiedades y vocabularios que les aplican. Cuando un sistema necesita algo que PublicSchema no ofrece, lo extiende usando su propio espacio de nombres.
 
 JSON-LD hace esto sencillo: cualquier término que no esté en el contexto de PublicSchema puede definirse en un contexto adicional.
 
@@ -33,7 +33,7 @@ Use una segunda entrada `@context` con su propio espacio de nombres:
 }
 ```
 
-Los términos de PublicSchema (`given_name`, `family_name`) resuelven a URIs de PublicSchema. Sus términos personalizados (`beneficiary_category`, `proxy_score_v2`) resuelven a su espacio de nombres. Ambos coexisten de forma limpia.
+Los términos de PublicSchema (`given_name`, `family_name`) se resuelven como URIs de PublicSchema. Sus términos personalizados (`beneficiary_category`, `proxy_score_v2`) se resuelven como URIs de su espacio de nombres. Ambos coexisten sin conflicto.
 
 ### Añadir valores de vocabulario personalizados
 
@@ -88,13 +88,13 @@ Tenga en cuenta que `beneficiary` sigue resolviendo a la definición de PublicSc
 
 3. **Documente sus extensiones.** Publique su contexto extendido en una URL estable para que otros sistemas puedan entender sus datos.
 
-4. **Proponga hacia arriba.** Si su extensión resulta útil en múltiples sistemas, propóngala para su inclusión en PublicSchema. El vocabulario crece a través del uso en el mundo real, no del diseño por comité.
+4. **Proponga hacia arriba.** Si su extensión resulta útil en múltiples sistemas, propóngala para su inclusión en PublicSchema. El vocabulario crece a través del uso en el mundo real, no del diseño en comité.
 
 ## Para emisores de credenciales
 
 Al emitir una credencial verificable que usa extensiones:
 
-- Incluya la URL de su contexto después del contexto de PublicSchema en el arreglo `@context`
+- Incluya la URL de su contexto después del contexto de PublicSchema en la lista `@context`
 - Use el tipo de credencial de PublicSchema (p. ej., `EnrollmentCredential`) más su propio tipo si es necesario
 - Las propiedades extendidas siguen las mismas directrices de sensibilidad: anótelas como `standard`, `sensitive` o `restricted` (consulte [Diseño de esquema: Anotaciones de sensibilidad](../schema-design/#7-sensitivity-annotations))
 

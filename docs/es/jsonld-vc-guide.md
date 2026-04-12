@@ -1,6 +1,6 @@
 # Guía de JSON-LD y credenciales verificables
 
-Esta guía explica cómo usar PublicSchema con contextos JSON-LD y credenciales verificables SD-JWT. Este es uno de varios caminos para usar PublicSchema. Consulte [Casos de uso](/docs/use-cases/) para una visión general más amplia de los patrones de integración, muchos de los cuales no requieren JSON-LD ni credenciales verificables.
+Esta guía explica cómo usar PublicSchema con contextos JSON-LD y credenciales verificables SD-JWT. Esta es una de las varias formas de usar PublicSchema. Consulte [Casos de uso](/docs/use-cases/) para una visión general más amplia de los patrones de integración, muchos de los cuales no requieren JSON-LD ni credenciales verificables.
 
 ## Qué usa este camino
 
@@ -151,15 +151,15 @@ PublicSchema declara equivalencias con schema.org para las propiedades que se su
 
 Use la convención de nomenclatura que prefiera su sistema. Ambas son válidas en el contexto.
 
-## Comportamiento de retroceso `@vocab`
+## Comportamiento de respaldo de `@vocab`
 
-El contexto de PublicSchema declara `"@vocab": "https://publicschema.org/"`. Esto significa que cualquier clave JSON que no esté explícitamente definida en el contexto se expandirá silenciosamente a `https://publicschema.org/{key}`. Por ejemplo, un error tipográfico como `"givn_name"` se expandiría a `https://publicschema.org/givn_name` en lugar de producir un error.
+El contexto de PublicSchema declara `"@vocab": "https://publicschema.org/"`. Esto significa que cualquier clave JSON que no esté explícitamente definida en el contexto se expandirá sin advertencia a `https://publicschema.org/{key}`. Por ejemplo, un error tipográfico como `"givn_name"` se expandiría a `https://publicschema.org/givn_name` en lugar de producir un error.
 
 Los procesadores JSON-LD no detectarán esto. Para capturar errores tipográficos y propiedades no declaradas, valide sus datos contra el esquema JSON del concepto que está usando. El esquema JSON solo permite propiedades declaradas, por lo que `"givn_name"` fallaría la validación.
 
 ## Correspondencia de `alternateName` de schema.org
 
-La propiedad `preferred_name` de PublicSchema se mapea al `alternateName` de schema.org como un `broadMatch`, no un `exactMatch`. El `alternateName` de schema.org cubre cualquier nombre alternativo (apodos, nombres anteriores, abreviaciones), mientras que `preferred_name` es específicamente el nombre con el que la persona prefiere ser llamada. Si su sistema usa `alternateName` de schema.org, tenga en cuenta que es semánticamente más amplio.
+La propiedad `preferred_name` de PublicSchema se mapea al `alternateName` de schema.org como un `broadMatch`, no un `exactMatch`. El `alternateName` de schema.org cubre cualquier nombre alternativo (apodos, nombres anteriores, abreviaciones), mientras que `preferred_name` es específicamente el nombre con el que la persona prefiere ser identificada. Si su sistema usa `alternateName` de schema.org, tenga en cuenta que es semánticamente más amplio.
 
 ## Extensión de PublicSchema
 

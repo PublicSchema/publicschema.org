@@ -6,7 +6,7 @@ Las credenciales de PublicSchema están diseñadas para usarse con SD-JWT VC (cr
 
 ## Enfoque de clasificación de datos
 
-PublicSchema no asigna una clasificación de datos fija a propiedades individuales. Si una propiedad constituye datos personales depende del registro en el que aparece, no de la propiedad en sí. Por ejemplo, `date_of_birth` en un registro de Persona es dato personal; el mismo campo en una tabla estadística agregada no lo es.
+PublicSchema no asigna una clasificación de datos fija a propiedades individuales. Si una propiedad constituye datos personales depende del registro en el que aparece, no de la propiedad en sí. Por ejemplo, `date_of_birth` en un registro de Persona constituye un dato personal; el mismo campo en una tabla estadística agregada no lo es.
 
 En cambio, el comportamiento de divulgación se define a nivel de **credencial**. Cada tipo de credencial a continuación especifica qué afirmaciones se divulgan siempre y cuáles son divulgables selectivamente.
 
@@ -39,7 +39,7 @@ Divulgable selectivamente:
 - `phone_number`
 - `identifiers` (cada identificador puede divulgarse de forma independiente)
 
-**Caso de uso**: Verificación de edad sin revelar la identidad completa. Un verificador necesita confirmar que la persona titular tiene más de 18 años. La titular divulga solo `date_of_birth`, manteniendo ocultos `given_name`, `phone_number` y otro PII.
+**Caso de uso**: Verificación de edad sin revelar la identidad completa. Un verificador necesita confirmar que la persona titular tiene más de 18 años. La titular divulga solo `date_of_birth`, manteniendo ocultos `given_name`, `phone_number` y otros datos personales.
 
 ### EnrollmentCredential
 
@@ -92,7 +92,7 @@ Divulgable selectivamente:
 - `issue_date`
 - `redemption_date`, `redeemed_by`, `redemption_agent`
 
-**Caso de uso**: Redención de vale en un proveedor. La persona titular presenta la credencial de vale. El proveedor necesita confirmar que el vale es válido (estado), identificarlo (número de serie) y comprobar que no ha expirado (fecha de vencimiento). La titular puede divulgar selectivamente el valor nominal o la cesta de bienes (items) mientras mantiene su identidad oculta. Los campos posteriores a la redención (redemption_date, redeemed_by) apoyan la auditoría sin requerir una nueva presentación de afirmaciones de identidad.
+**Caso de uso**: Redención de vale en un proveedor. La persona titular presenta la credencial de vale. El proveedor necesita confirmar que el vale es válido (estado), identificarlo (número de serie) y comprobar que no ha expirado (fecha de vencimiento). La titular puede divulgar selectivamente el valor nominal o la cesta de bienes (items) mientras mantiene su identidad oculta. Los campos posteriores a la redención (redemption_date, redeemed_by) apoyan la auditoría sin necesidad de presentar nuevamente las afirmaciones de identidad.
 
 ### EntitlementCredential
 
@@ -152,7 +152,7 @@ Una carga útil SD-JWT VC separa las afirmaciones siempre divulgadas de las divu
 }
 ```
 
-Nota: los esquemas de credencial de PublicSchema usan exclusivamente el formato SD-JWT VC. Las cargas útiles SD-JWT VC usan `vct` (tipo de credencial verificable) en lugar del `@context` y los arreglos `type` del W3C VCDM. La afirmación `cnf` vincula la credencial a la clave de la persona titular para la prueba de vinculación de clave. Los esquemas JSON generados en `dist/schemas/credentials/` validan cargas útiles SD-JWT VC, no envoltorios W3C VCDM.
+Nota: los esquemas de credencial de PublicSchema usan exclusivamente el formato SD-JWT VC. Las cargas útiles SD-JWT VC usan `vct` (tipo de credencial verificable) en lugar del `@context` y los arreglos `type` del W3C VCDM. La afirmación `cnf` vincula la credencial a la clave de la persona titular como prueba de posesión de clave. Los esquemas JSON generados en `dist/schemas/credentials/` validan cargas útiles SD-JWT VC, no envoltorios W3C VCDM.
 
 El arreglo `_sd` contiene hashes de las afirmaciones divulgables. Los valores reales se proveen por separado como divulgaciones que la persona titular puede elegir incluir u omitir al presentar la credencial.
 
@@ -174,4 +174,4 @@ Orientación general:
 
 3. **Los verificadores** deben solicitar solo las afirmaciones que necesitan. Una solicitud de afirmaciones inherentemente sensibles debe incluir una justificación (p. ej., referencia a autoridad de auditoría).
 
-4. **La canalización de construcción** genera metadatos de propiedades en `vocabulary.json`. Las implementaciones de cartera y verificador deben usar las definiciones de tipos de credencial de este documento para configurar las políticas de divulgación.
+4. **La canalización de construcción** genera metadatos de propiedades en `vocabulary.json`. Las billeteras digitales y los verificadores deben usar las definiciones de tipos de credencial de este documento para configurar las políticas de divulgación.

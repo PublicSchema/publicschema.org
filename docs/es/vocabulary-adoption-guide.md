@@ -1,6 +1,6 @@
 # Guía de adopción de vocabulario
 
-Esta es la forma más ligera de usar PublicSchema. Usted alinea los códigos y valores de campo de su sistema con el vocabulario canónico de PublicSchema, sin cambiar su modelo de datos, adoptar JSON-LD ni emitir credenciales. El beneficio: sus datos se vuelven comparables con cualquier otro sistema que haga lo mismo.
+Esta es la forma más ligera de usar PublicSchema. Usted alinea los códigos y valores de campo de su sistema con el vocabulario canónico de PublicSchema, sin cambiar su modelo de datos, adoptar JSON-LD ni emitir credenciales. La ventaja es clara: sus datos se vuelven comparables con cualquier otro sistema que haga lo mismo.
 
 ## Contenido
 
@@ -21,7 +21,7 @@ Este enfoque funciona bien cuando:
 - Necesita reportes comparables entre programas, países o donantes
 - Desea estandarizar los códigos de respuesta de la API entre agencias
 - Está armonizando exportaciones de datos de múltiples sistemas
-- Quiere un avance rápido antes de comprometerse con una integración más profunda
+- Quiere obtener un resultado concreto rápidamente antes de comprometerse con una integración más profunda
 
 No necesita cambiar su esquema de base de datos, sus nombres de campo internos ni el código de su aplicación. Solo necesita una capa de traducción entre sus códigos y los códigos canónicos.
 
@@ -70,7 +70,7 @@ Compare los códigos de su sistema con los códigos canónicos y construya una t
 
 Algunos aspectos a tener en cuenta:
 
-- **Correspondencias de uno a varios.** Su sistema podría tener un código donde PublicSchema tiene varios. Por ejemplo, su sistema podría usar "inactive" tanto para inscripciones "suspended" como "completed". Documéntelas y decida cómo manejarlas.
+- **Correspondencias de uno a varios.** Su sistema podría tener un código donde PublicSchema tiene varios. Por ejemplo, su sistema podría usar "inactive" tanto para inscripciones "suspended" como "completed". Documente estas situaciones y decida cómo manejarlas.
 - **Valores sin correspondencia.** Su sistema podría tener valores que no tienen equivalente canónico, o viceversa. Documente las brechas; son información útil aunque no pueda resolverlas de inmediato.
 - **Diferencias semánticas.** Dos códigos podrían parecer iguales pero significar cosas distintas. Lea las definiciones, no solo las etiquetas. Por ejemplo, "pending" en su sistema podría significar "pendiente de aprobación", mientras que el canónico "pending" significa "pendiente de pago".
 
@@ -86,13 +86,13 @@ La forma de aplicar la correspondencia depende de lo que esté intentando hacer:
 
 **Para paneles de control:** Mapee los códigos en la capa de visualización. Sus consultas devuelven códigos internos; el panel los traduce para la visualización.
 
-En todos los casos, su sistema interno continúa usando sus propios códigos. La correspondencia se aplica en el límite.
+En todos los casos, su sistema interno continúa usando sus propios códigos. La correspondencia se aplica únicamente en el punto de intercambio.
 
 ## Qué obtiene
 
 Una vez que sus códigos estén alineados:
 
-- **Cifras comparables entre sistemas.** "¿Cuántas inscripciones activas?" significa lo mismo en todos lados.
+- **Cifras comparables entre sistemas.** "¿Cuántas inscripciones activas?" significa lo mismo en cualquier sistema.
 - **Intercambio de datos más simple.** Dos sistemas que ambos mapean a códigos de PublicSchema pueden intercambiar datos sin traducción bilateral de códigos.
 - **Brechas explícitas.** Donde los códigos de su sistema no coinciden con el conjunto canónico, la brecha es visible y documentada en lugar de estar oculta en traducciones ad hoc.
 - **Una base para una integración más profunda.** Si más adelante desea alinear nombres de campo, adoptar esquemas JSON o emitir credenciales, la correspondencia de vocabulario ya está hecha.
@@ -110,8 +110,8 @@ Cada página de vocabulario ofrece:
 
 | Formato | Qué es | Mejor para |
 |---|---|---|
-| **CSV** | Archivo plano con códigos, etiquetas y definiciones | Hojas de cálculo, canalizaciones de datos, referencia rápida |
-| **JSON-LD** | Datos enlazados legibles por máquina | Acceso programático, cadenas de herramientas RDF |
+| **CSV** | Archivo plano con códigos, etiquetas y definiciones | Hojas de cálculo, flujos de datos, referencia rápida |
+| **JSON-LD** | Datos enlazados legibles por máquina | Acceso programático, entornos de herramientas RDF |
 
 Para el vocabulario completo (todos los conceptos, propiedades y vocabularios en un solo archivo):
 

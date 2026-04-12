@@ -1,6 +1,6 @@
 # Patrones de integración
 
-PublicSchema define qué significan los datos. No define cómo se mueven. Los mismos conceptos, propiedades y códigos de vocabulario funcionan con cualquier transporte: APIs REST, buses de eventos, credenciales verificables (verifiable credentials), intercambios de archivos y canalizaciones de análisis.
+PublicSchema define qué significan los datos. No define cómo se mueven. Los mismos conceptos, propiedades y códigos de vocabulario funcionan con cualquier transporte: APIs REST, buses de eventos, credenciales verificables, intercambios de archivos y canalizaciones de análisis.
 
 ## La capa semántica
 
@@ -27,11 +27,11 @@ GET /api/enrollments/4421
 }
 ```
 
-Valide las cargas útiles de solicitud y respuesta con los esquemas JSON de PublicSchema en el límite de la API.
+Valide las cargas útiles de solicitud y respuesta con los esquemas JSON de PublicSchema en el punto de entrada de la API.
 
 ## Sistemas orientados a eventos
 
-Publique eventos de dominio con cargas útiles con forma de PublicSchema. Los suscriptores de diferentes sistemas los consumen sin necesidad de una correspondencia de campos bilateral.
+Publique eventos de dominio con cargas útiles con forma de PublicSchema. Los suscriptores de diferentes sistemas los consumen sin necesidad de un mapeo de campos bilateral.
 
 ```json
 {
@@ -48,7 +48,7 @@ Publique eventos de dominio con cargas útiles con forma de PublicSchema. Los su
 }
 ```
 
-El envoltorio del evento (tipo, marca de tiempo, metadatos de enrutamiento) es suyo. La carga útil interior usa PublicSchema.
+El envoltorio del evento (tipo, marca de tiempo, metadatos de enrutamiento) corresponde a su implementación. La carga útil interior usa PublicSchema.
 
 ## Credenciales verificables
 
@@ -76,14 +76,14 @@ Consulte la [Guía de divulgación selectiva](/docs/selective-disclosure/) para 
 
 ## Intercambio por lotes y archivos
 
-Exporte datos como archivos CSV o JSON usando los nombres de propiedad de PublicSchema como encabezados de columna. Cualquier sistema con una correspondencia de PublicSchema puede importar el archivo sin análisis sintáctico personalizado.
+Exporte datos como archivos CSV o JSON usando los nombres de propiedad de PublicSchema como encabezados de columna. Cualquier sistema con una correspondencia de PublicSchema puede importar el archivo sin procesamiento personalizado.
 
 ```csv
 given_name,family_name,enrollment_status,enrollment_date,program_ref
 Amina,Diallo,active,2025-01-15,cash-transfer-2025
 ```
 
-Sin API, sin infraestructura. Una tabla de correspondencias y un CSV bien nombrado.
+Sin API, sin infraestructura. Una tabla de correspondencias y un CSV con columnas bien definidas.
 
 ## Almacén de datos y análisis
 

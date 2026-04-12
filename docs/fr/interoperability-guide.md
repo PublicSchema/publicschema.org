@@ -1,6 +1,6 @@
 # Guide d'interopérabilité et de correspondance
 
-Ce guide est destiné aux équipes qui connectent des systèmes existants : effectuer la correspondance de champs entre plateformes, construire des échanges de données, consolider des enregistrements provenant de sources multiples ou exécuter des pipelines ETL. PublicSchema joue le rôle d'un point de référence partagé (une pierre de Rosette) de sorte que chaque système n'ait besoin que d'une seule correspondance au lieu d'une correspondance vers chaque autre système.
+Ce guide est destiné aux équipes qui connectent des systèmes existants : mise en correspondance de champs entre plateformes, construction d'échanges de données, consolidation d'enregistrements provenant de sources multiples ou exécution de pipelines ETL. PublicSchema joue le rôle de référence partagée (pierre de Rosette), permettant à chaque système de n'établir qu'une seule correspondance plutôt qu'une correspondance avec chacun des autres systèmes.
 
 ## Sommaire
 
@@ -21,8 +21,8 @@ Ce guide est destiné aux équipes qui connectent des systèmes existants : effe
 Cette approche fonctionne bien lorsque :
 
 - Deux systèmes ou plus doivent échanger des données mais utilisent des noms de champs et des codes différents
-- Vous déduplichez des enregistrements entre programmes ou secteurs
-- Vous construisez un entrepôt de données ou un tableau de bord qui agrège des données de sources multiples
+- Vous dédupliquez des enregistrements entre programmes ou secteurs
+- Vous mettez en place un entrepôt de données ou un tableau de bord qui agrège des données de sources multiples
 - Vous migrez des données d'une plateforme à une autre
 - Vous construisez une couche de fédération entre des API d'agences
 
@@ -32,7 +32,7 @@ Vous n'avez pas besoin de modifier le modèle de données interne d'un quelconqu
 
 Sans référence partagée, connecter N systèmes nécessite N*(N-1)/2 correspondances bilatérales. Avec 5 systèmes, cela représente 10 tables de correspondance distinctes à maintenir.
 
-Avec PublicSchema comme référence partagée, chaque système effectue sa correspondance vers PublicSchema une seule fois. Connecter un nouveau système signifie une seule correspondance, pas N-1. Plus important encore, comme chaque système effectue sa correspondance vers les mêmes définitions partagées, le sens est préservé tout au long de la traduction. Sans vocabulaire partagé, les correspondances bilatérales sont souvent approximatives : les codes d'un système peuvent ne pas avoir d'équivalents dans un autre.
+Avec PublicSchema comme référence partagée, chaque système effectue sa correspondance vers PublicSchema une seule fois. Connecter un nouveau système signifie une seule correspondance, pas N-1. Plus important encore, comme chaque système se réfère aux mêmes définitions partagées, le sens est préservé lors des échanges. Sans vocabulaire partagé, les correspondances bilatérales sont souvent imparfaites : les codes d'un système peuvent ne pas avoir d'équivalents dans un autre.
 
 ![Chaque système effectue sa correspondance vers PublicSchema une seule fois](/images/rosetta-stone.svg)
 
@@ -40,7 +40,7 @@ Ce modèle fonctionne à la fois pour les noms de champs (propriétés) et les c
 
 ## Étape 1 : Effectuer la correspondance de vos champs avec les propriétés PublicSchema
 
-Commencez par identifier quel concept PublicSchema correspond à l'entité dans votre système. Parcourez la [page des concepts](/concepts/) ou téléchargez le **classeur Excel de définition** pour un concept afin de voir toutes ses propriétés en un seul endroit.
+Commencez par identifier quel concept PublicSchema correspond à l'entité dans votre système. Consultez la [page des concepts](/concepts/) ou téléchargez le **classeur Excel de définition** pour voir toutes les propriétés d'un concept en un seul endroit.
 
 Pour chaque champ de votre système, trouvez la propriété PublicSchema correspondante :
 
@@ -56,7 +56,7 @@ Pour chaque champ de votre système, trouvez la propriété PublicSchema corresp
 Quelques points à noter :
 
 - **Tous les champs n'auront pas forcément une correspondance.** Certains champs sont spécifiques à votre système et n'ont pas d'équivalent canonique. C'est normal ; documentez la lacune.
-- **Certains champs peuvent se diviser ou se fusionner.** Votre système peut stocker un nom complet dans un seul champ là où PublicSchema a `given_name` et `family_name` séparément, ou vice versa.
+- **Certains champs peuvent être divisés ou fusionnés lors de la correspondance.** Votre système peut stocker un nom complet dans un seul champ là où PublicSchema a `given_name` et `family_name` séparément, ou vice versa.
 - **Les différences de type sont attendues.** Votre base de données peut utiliser des entiers ou des clés étrangères là où PublicSchema utilise des codes de vocabulaire. La correspondance gère la traduction.
 
 Le téléchargement **CSV** du concept vous donne une liste plate de propriétés avec les types et les définitions, utile comme point de départ pour votre table de correspondance.
@@ -80,7 +80,7 @@ Une fois que vous disposez des correspondances de champs et de codes, vous pouve
 
 ### Échange de données direct entre deux systèmes
 
-Le système A exporte dans son propre format. Une couche de traduction effectue la correspondance des champs et codes du système A vers les propriétés et codes de vocabulaire PublicSchema. Une seconde couche de traduction effectue la correspondance de PublicSchema vers le format du système B.
+Le système A exporte dans son propre format. Une couche de traduction convertit les champs et codes du système A vers les propriétés et codes de vocabulaire PublicSchema. Une seconde couche de traduction effectue la correspondance de PublicSchema vers le format du système B.
 
 ![Le système A effectue sa correspondance vers PublicSchema, puis vers le système B](/images/data-exchange-flow.svg)
 
@@ -114,7 +114,7 @@ jsonschema.validate(record, schema)
 
 La validation détecte :
 
-- Les champs qui n'ont pas été correctement mis en correspondance (mauvais type, contexte requis manquant)
+- Les champs mal convertis (mauvais type, information contextuelle obligatoire absente)
 - Les codes de vocabulaire qui ne font pas partie de l'ensemble canonique
 - Les problèmes structurels (tableaux là où des valeurs uniques sont attendues, ou vice versa)
 
@@ -123,7 +123,7 @@ La validation détecte :
 Chaque page de concept propose un téléchargement de **modèle Excel**. Il s'agit d'un classeur de saisie de données où :
 
 - La ligne 1 contient des libellés de champs lisibles par l'humain
-- La ligne 2 contient les identifiants de propriétés PublicSchema
+- La ligne 2 contient les identifiants techniques des propriétés PublicSchema
 - Les champs soutenus par un vocabulaire ont une validation par liste déroulante (seuls les codes canoniques sont acceptés)
 - Les commentaires de cellules incluent les définitions des propriétés
 
@@ -131,7 +131,7 @@ Cela est utile lorsque :
 
 - Vous collectez des données auprès d'équipes de terrain qui travaillent avec des tableurs
 - Vous avez besoin d'un format canonique pour la saisie de données sans construire une application personnalisée
-- Vous souhaitez prototyper un formulaire de collecte de données avant de vous engager dans un système
+- Vous souhaitez prototyper un formulaire de collecte de données avant d'adopter un système dédié
 
 Les données saisies dans le modèle sont déjà alignées sur PublicSchema et peuvent donc être chargées dans tout système disposant d'une correspondance PublicSchema.
 
@@ -194,5 +194,5 @@ Approche : documentez la lacune. Pour vos entités supplémentaires, réfléchis
 ## Prochaines étapes
 
 - Si vous avez seulement besoin d'aligner des codes de valeurs (pas des noms de champs), le [Guide d'adoption du vocabulaire](/docs/vocabulary-adoption-guide/) est un point de départ plus léger.
-- Si vous concevez un nouveau système de zéro, consultez le [Guide de conception du modèle de données](/docs/data-model-guide/).
+- Si vous concevez un nouveau système en partant de zéro, consultez le [Guide de conception du modèle de données](/docs/data-model-guide/).
 - Si vous souhaitez utiliser des contextes JSON-LD ou émettre des attestations vérifiables, consultez le [Guide JSON-LD et VC](/docs/jsonld-vc-guide/).

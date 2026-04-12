@@ -27,7 +27,7 @@ El precedente técnico más cercano a cómo construir un vocabulario compartido.
 
 ### GovStack
 
-GovStack define especificaciones de bloque de construcción para servicios digitales de gobierno (identidad, pagos, mensajería). PublicSchema es el contraparte de modelo de datos: donde GovStack dice "necesita un bloque de construcción de pago", PublicSchema define cómo se ven los datos de pago en todos los sistemas y cómo traducir entre ellos. GovStack carece explícitamente de una capa semántica transversal, que es la brecha que PublicSchema aborda.
+GovStack define especificaciones de bloque de construcción para servicios digitales de gobierno (identidad, pagos, mensajería). PublicSchema es el complemento en la capa de modelo de datos: donde GovStack dice "necesita un bloque de construcción de pago", PublicSchema define cómo se ven los datos de pago en todos los sistemas y cómo traducir entre ellos. GovStack carece explícitamente de una capa semántica transversal, que es la brecha que PublicSchema aborda.
 
 ### FHIR
 
@@ -35,7 +35,7 @@ La norma de interoperabilidad del sector salud, que combina un modelo de datos c
 
 ### Schema.org
 
-El modelo directo para cómo PublicSchema está estructurado y publicado. Schema.org tuvo éxito porque era simple, opcional y útil desde el primer día. Sus tipos de gobierno (GovernmentService, GovernmentOrganization) son extremadamente superficiales y orientados a SEO; no modelan datos de prestación.
+El modelo directo para cómo PublicSchema está estructurado y publicado. Schema.org tuvo éxito porque era simple, opcional y útil desde el primer día. Sus tipos de gobierno (GovernmentService, GovernmentOrganization) son extremadamente superficiales y están pensados para el posicionamiento web (SEO); no modelan datos de prestación.
 
 ### HSDS / Open Referral
 
