@@ -163,6 +163,15 @@ const en = {
   'docs.page_title': 'Documentation',
   'docs.page_subtitle': 'Guides, technical references, and background on PublicSchema.',
 
+  // Homepage schema index (data-driven section)
+  'home.browse_schema': 'Browse the schema',
+  'home.core_concepts': 'Core concepts',
+  'home.vocabularies': 'Vocabularies',
+  'home.plus_more': '+{count} more',
+  'home.closing': 'PublicSchema is maintained as an open project.',
+  'home.source_github': 'Source on GitHub',
+  'home.about_project': 'About the project',
+
   // 404
   '404.page_title': 'Page not found',
   '404.message': 'The page you\u2019re looking for doesn\u2019t exist or has been moved.',
