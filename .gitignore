@@ -27,6 +27,9 @@ review-*.md
 # AI assistant config (local only)
 CLAUDE.md
 
+# Generated glossary (built by extract_glossary.py)
+translations/glossary.yaml
+
 # Generated external schema extractions
 external/*/extracted/
 

@@ -18,6 +18,7 @@ Run from the repo root with `uv run python -m build.extract_glossary`.
 from __future__ import annotations
 
 import json
+import os
 import sys
 from pathlib import Path
 from typing import Any
@@ -28,10 +29,11 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 SCHEMA_DIR = PROJECT_ROOT / "schema"
 GLOSSARY_PATH = PROJECT_ROOT / "translations" / "glossary.yaml"
 
-OPENSPP_GLOSSARY = Path(
-    "/Users/jeremi/Projects/134-openspp/acn-workspace/repos/"
-    "openspp-modules/scripts/glossary/openspp-glossary.json"
-)
+# Optional path to an OpenSPP glossary JSON file, used to seed UI term
+# translations. Set via the OPENSPP_GLOSSARY_PATH environment variable.
+# When unset or the file does not exist, the script skips OpenSPP seeding.
+OPENSPP_GLOSSARY = Path(os.environ.get("OPENSPP_GLOSSARY_PATH", "")
+                        ) if os.environ.get("OPENSPP_GLOSSARY_PATH") else None
 
 LOCALES = ("en", "fr", "es")
 
@@ -190,7 +192,7 @@ def _extract_domain_terms() -> list[dict]:
 
 
 def _load_openspp_glossary() -> dict[str, Any]:
-    if not OPENSPP_GLOSSARY.exists():
+    if OPENSPP_GLOSSARY is None or not OPENSPP_GLOSSARY.exists():
         return {}
     return json.loads(OPENSPP_GLOSSARY.read_text())
 

@@ -241,7 +241,7 @@ class TestOpensppLookup:
 
 class TestLoadOpensppGlossary:
     def test_returns_empty_when_file_missing(self, monkeypatch):
-        monkeypatch.setattr(eg, "OPENSPP_GLOSSARY", Path("/nonexistent/path.json"))
+        monkeypatch.setattr(eg, "OPENSPP_GLOSSARY", None)
         result = eg._load_openspp_glossary()
         assert result == {}
 
@@ -260,7 +260,7 @@ class TestLoadOpensppGlossary:
 
 class TestBuildUiTerms:
     def test_applies_overrides(self, monkeypatch):
-        monkeypatch.setattr(eg, "OPENSPP_GLOSSARY", Path("/nonexistent"))
+        monkeypatch.setattr(eg, "OPENSPP_GLOSSARY", None)
         terms = eg._build_ui_terms()
         by_key = {t["key"]: t for t in terms}
         # "home" has an override for fr and es
@@ -268,13 +268,13 @@ class TestBuildUiTerms:
         assert by_key["home"]["es"] == "Inicio"
 
     def test_uses_seed_en_when_no_override(self, monkeypatch):
-        monkeypatch.setattr(eg, "OPENSPP_GLOSSARY", Path("/nonexistent"))
+        monkeypatch.setattr(eg, "OPENSPP_GLOSSARY", None)
         terms = eg._build_ui_terms()
         by_key = {t["key"]: t for t in terms}
         assert by_key["search"]["en"] == "Search"
 
     def test_all_seed_keys_present(self, monkeypatch):
-        monkeypatch.setattr(eg, "OPENSPP_GLOSSARY", Path("/nonexistent"))
+        monkeypatch.setattr(eg, "OPENSPP_GLOSSARY", None)
         terms = eg._build_ui_terms()
         keys = {t["key"] for t in terms}
         assert keys == set(eg.UI_SEED_KEYS.keys())
@@ -320,7 +320,7 @@ class TestBuildGlossary:
         monkeypatch.setattr(eg, "PROJECT_ROOT", tmp_path)
         monkeypatch.setattr(eg, "SCHEMA_DIR", tmp_path)
         monkeypatch.setattr(eg, "GLOSSARY_PATH", tmp_path / "glossary.yaml")
-        monkeypatch.setattr(eg, "OPENSPP_GLOSSARY", Path("/nonexistent"))
+        monkeypatch.setattr(eg, "OPENSPP_GLOSSARY", None)
         (tmp_path / "concepts").mkdir()
         (tmp_path / "properties").mkdir()
         (tmp_path / "vocabularies").mkdir()
@@ -337,7 +337,7 @@ class TestBuildGlossary:
         monkeypatch.setattr(eg, "PROJECT_ROOT", tmp_path)
         monkeypatch.setattr(eg, "SCHEMA_DIR", tmp_path)
         monkeypatch.setattr(eg, "GLOSSARY_PATH", tmp_path / "glossary.yaml")
-        monkeypatch.setattr(eg, "OPENSPP_GLOSSARY", Path("/nonexistent"))
+        monkeypatch.setattr(eg, "OPENSPP_GLOSSARY", None)
         (tmp_path / "concepts").mkdir()
         _write_yaml(tmp_path / "concepts" / "person.yaml", _make_concept("Person"))
         (tmp_path / "properties").mkdir()
