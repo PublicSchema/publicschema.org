@@ -236,6 +236,120 @@ FORMAT_HANDLERS = {
 
 
 # ---------------------------------------------------------------------------
+# CLDR translations (via Babel)
+#
+# Populates FR/ES labels on vocabulary values by looking up each code in the
+# Unicode CLDR data bundled with the `babel` package. The lookup key and the
+# Babel attribute to read from depend on the vocabulary; see CLDR_LOOKUPS.
+# ---------------------------------------------------------------------------
+
+
+def _cldr_country_key(value: dict) -> str:
+    return (value.get("standard_code") or "").upper()
+
+
+def _cldr_region_key(value: dict) -> str:
+    # Region vocab mixes alpha-2 country codes in `code` with M49 numerics in
+    # `standard_code`. Babel's `territories` is keyed by both, so prefer the
+    # alpha-2 form which also covers the few values that lack a numeric.
+    code = (value.get("code") or "").upper()
+    return code or (value.get("standard_code") or "")
+
+
+def _cldr_currency_key(value: dict) -> str:
+    return (value.get("standard_code") or "").upper()
+
+
+def _cldr_script_key(value: dict) -> str:
+    # ISO 15924 is already title-case (Latn, Arab); Babel uses the same form.
+    return value.get("standard_code") or ""
+
+
+def _cldr_language_key(value: dict) -> str:
+    # ISO 639-3 codes are 3-letter; Babel's `languages` dict mixes 639-1 and
+    # 639-3 codes. Let the lookup try the raw code first; the caller falls
+    # back through `language_aliases` for any 639-3 that maps to a 639-1.
+    return value.get("code") or ""
+
+
+CLDR_LOOKUPS: dict[str, tuple[str, callable]] = {
+    "country": ("territories", _cldr_country_key),
+    "region": ("territories", _cldr_region_key),
+    "currency": ("currencies", _cldr_currency_key),
+    "script": ("scripts", _cldr_script_key),
+    "language": ("languages", _cldr_language_key),
+}
+
+
+def _lookup_cldr_label(
+    locale,
+    attr: str,
+    key: str,
+) -> str | None:
+    """Resolve a CLDR label, falling back through language aliases.
+
+    For language codes, Babel keys its `languages` dict on a mix of ISO 639-1
+    (two-letter) and 639-3 (three-letter) codes. A vocab value with a 639-3
+    code that has no CLDR entry (e.g. "eng") is re-tried via the global
+    `language_aliases` map (eng -> en, fra -> fr, spa -> es, etc.).
+    """
+    if not key:
+        return None
+    table = getattr(locale, attr, {})
+    label = table.get(key)
+    if label:
+        return label
+    if attr == "languages":
+        from babel.core import get_global
+        aliased = get_global("language_aliases").get(key)
+        if aliased:
+            return table.get(aliased)
+    return None
+
+
+def apply_cldr_translations(
+    vocab_id: str,
+    values: list[dict],
+    locales: tuple[str, ...] = ("fr", "es"),
+) -> dict:
+    """Populate FR/ES labels from CLDR for the given vocabulary values.
+
+    Does not overwrite hand-written translations: if a value already has a
+    label for a given locale, it is preserved. Returns a report with per-locale
+    counts of labels added and a per-locale list of codes that still lack a
+    translation after the pass. The per-locale missing lists make partial
+    coverage visible (e.g. a value with a hand-written fr and no CLDR es).
+    """
+    lookup = CLDR_LOOKUPS.get(vocab_id)
+    if lookup is None:
+        return {"skipped": True, "reason": f"no CLDR lookup configured for {vocab_id}"}
+
+    from babel import Locale
+
+    attr, key_fn = lookup
+    report: dict = {
+        "added": {loc: 0 for loc in locales},
+        "missing": {loc: [] for loc in locales},
+    }
+    babel_locales = {loc: Locale.parse(loc) for loc in locales}
+
+    for value in values:
+        key = key_fn(value)
+        label = value.setdefault("label", {})
+        for loc in locales:
+            if label.get(loc):
+                continue  # preserve hand-written translation
+            translated = _lookup_cldr_label(babel_locales[loc], attr, key)
+            if translated:
+                label[loc] = translated
+                report["added"][loc] += 1
+            else:
+                report["missing"][loc].append(value.get("code", ""))
+
+    return report
+
+
+# ---------------------------------------------------------------------------
 # Merge logic
 # ---------------------------------------------------------------------------
 
@@ -359,12 +473,15 @@ def sync_vocabulary(
     existing = data.get("values", [])
     merged, report = merge_values(existing, parsed)
 
+    cldr_report = apply_cldr_translations(vocab_id, merged)
+
     result = {
         "vocab_id": vocab_id,
         "added": report["added"],
         "removed": report["removed"],
         "updated": report["updated"],
         "total": len(merged),
+        "cldr": cldr_report,
     }
 
     if not dry_run:
@@ -446,6 +563,14 @@ def main():
         updated = len(report["updated"])
         total = report["total"]
         print(f"{prefix}{vid}: {total} values ({added} added, {updated} updated, {removed} removed upstream)")
+
+        cldr = report.get("cldr", {})
+        if cldr and not cldr.get("skipped"):
+            added_parts = ", ".join(f"{loc}:+{n}" for loc, n in cldr.get("added", {}).items())
+            missing_parts = ", ".join(
+                f"{loc}:{len(codes)}" for loc, codes in cldr.get("missing", {}).items()
+            )
+            print(f"  CLDR translations: added {added_parts}; missing {missing_parts}")
 
         if report["removed"]:
             for code in report["removed"]:

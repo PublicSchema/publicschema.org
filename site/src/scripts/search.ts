@@ -10,12 +10,56 @@ interface SearchDocument {
   keywords: string;
 }
 
+interface SearchStrings {
+  locale: string;
+  placeholder: string;
+  minChars: string;
+  noResults: string;
+  browseHint: string;
+  resultsStatus: string;
+  noResultsStatus: string;
+  navConcepts: string;
+  navProperties: string;
+  navVocabularies: string;
+  navDocs: string;
+  ariaLabel: string;
+  close: string;
+}
+
+function readStrings(container: Element): SearchStrings {
+  const g = (name: string, fallback: string) =>
+    (container as HTMLElement).dataset[name] ?? fallback;
+  return {
+    locale: g("locale", "en"),
+    placeholder: g("searchPlaceholder", "Search concepts, properties..."),
+    minChars: g("searchMinChars", "Type at least 2 characters to search"),
+    noResults: g("searchNoResults", "No results for"),
+    browseHint: g("searchBrowseHint", "Browse"),
+    resultsStatus: g("searchResultsStatus", "{count} result(s) found"),
+    noResultsStatus: g("searchNoResultsStatus", "No results found"),
+    navConcepts: g("navConcepts", "Concepts"),
+    navProperties: g("navProperties", "Properties"),
+    navVocabularies: g("navVocabularies", "Vocabularies"),
+    navDocs: g("navDocs", "Docs"),
+    ariaLabel: g("searchAriaLabel", "Search"),
+    close: g("searchClose", "Close search"),
+  };
+}
+
+function localePrefix(locale: string): string {
+  return locale === "en" ? "" : `/${locale}`;
+}
+
+function indexUrlFor(locale: string): string {
+  return `${localePrefix(locale)}/search-index.json`;
+}
+
 // Shared index promise: ensures only one fetch + build happens
 let indexPromise: Promise<MiniSearch<SearchDocument>> | null = null;
 
-function ensureIndex(): Promise<MiniSearch<SearchDocument>> {
+function ensureIndex(locale: string): Promise<MiniSearch<SearchDocument>> {
   if (indexPromise) return indexPromise;
-  indexPromise = fetch("/search-index.json")
+  indexPromise = fetch(indexUrlFor(locale))
     .then((res) => {
       if (!res.ok) throw new Error(`Search index fetch failed: ${res.status}`);
       return res.json();
@@ -47,12 +91,14 @@ const TYPE_ORDER: Record<string, number> = {
   doc: 3,
 };
 
-const TYPE_LABELS: Record<string, string> = {
-  concept: "Concepts",
-  property: "Properties",
-  vocabulary: "Vocabularies",
-  doc: "Docs",
-};
+function typeLabels(s: SearchStrings): Record<string, string> {
+  return {
+    concept: s.navConcepts,
+    property: s.navProperties,
+    vocabulary: s.navVocabularies,
+    doc: s.navDocs,
+  };
+}
 
 const DEBOUNCE_MS = 120;
 const MIN_QUERY_LENGTH = 2;
@@ -102,7 +148,8 @@ interface GroupedResults {
 
 function groupResults(
   results: Array<MiniSearch.SearchResult & SearchDocument>,
-  query: string
+  query: string,
+  labels: Record<string, string>
 ): GroupedResults[] {
   const groups: Record<string, GroupedResults> = {};
 
@@ -112,7 +159,7 @@ function groupResults(
     if (!groups[type]) {
       groups[type] = {
         type,
-        label: TYPE_LABELS[type] || type,
+        label: labels[type] || type,
         items: [],
       };
     }
@@ -175,17 +222,23 @@ function renderResults(
   container.innerHTML = html;
 }
 
-function renderNoResults(container: HTMLElement, query: string): void {
+function renderNoResults(container: HTMLElement, query: string, s: SearchStrings): void {
+  const prefix = localePrefix(s.locale);
   container.innerHTML = `<div class="search-no-results">
-    No results for "${escapeHtml(truncate(query, 60))}"
+    ${escapeHtml(s.noResults)} "${escapeHtml(truncate(query, 60))}"
     <div style="margin-top: var(--space-sm)">
-      Browse: <a href="/concepts/">Concepts</a> &middot; <a href="/properties/">Properties</a> &middot; <a href="/vocab/">Vocabularies</a>
+      ${escapeHtml(s.browseHint)}: <a href="${prefix}/concepts/">${escapeHtml(s.navConcepts)}</a> &middot; <a href="${prefix}/properties/">${escapeHtml(s.navProperties)}</a> &middot; <a href="${prefix}/vocab/">${escapeHtml(s.navVocabularies)}</a>
     </div>
   </div>`;
 }
 
-function renderMinChars(container: HTMLElement): void {
-  container.innerHTML = `<div class="search-min-chars">Type at least 2 characters to search</div>`;
+function renderMinChars(container: HTMLElement, s: SearchStrings): void {
+  container.innerHTML = `<div class="search-min-chars">${escapeHtml(s.minChars)}</div>`;
+}
+
+// Substitute {count} placeholder in a status template string.
+function formatCount(template: string, count: number): string {
+  return template.replace(/\{count\}/g, String(count));
 }
 
 // Detect platform for keyboard shortcut display
@@ -212,7 +265,10 @@ function initSearch(): void {
     ".search-mobile-toggle"
   ) as HTMLButtonElement | null;
 
-  if (!searchInput || !resultsContainer) return;
+  if (!searchInput || !resultsContainer || !searchContainer) return;
+
+  const strings = readStrings(searchContainer);
+  const labels = typeLabels(strings);
 
   // Set keyboard shortcut hint text
   if (shortcutHint) {
@@ -262,7 +318,7 @@ function initSearch(): void {
     if (query.length < MIN_QUERY_LENGTH) {
       if (query.length > 0) {
         showResults();
-        renderMinChars(resultsContainer!);
+        renderMinChars(resultsContainer!, strings);
       } else {
         hideResults();
       }
@@ -274,7 +330,7 @@ function initSearch(): void {
     const q = query.length > 100 ? query.slice(0, 100) : query;
 
     try {
-      const ms = await ensureIndex();
+      const ms = await ensureIndex(strings.locale);
       // Check that query hasn't changed during async wait
       if (currentQuery !== query) return;
       const results = ms.search(q) as Array<
@@ -283,19 +339,19 @@ function initSearch(): void {
 
       if (results.length === 0) {
         showResults();
-        renderNoResults(resultsContainer!, q);
-        if (srStatus) srStatus.textContent = "No results found";
+        renderNoResults(resultsContainer!, q, strings);
+        if (srStatus) srStatus.textContent = strings.noResultsStatus;
         return;
       }
 
-      const groups = groupResults(results, q);
+      const groups = groupResults(results, q, labels);
       showResults();
       renderResults(resultsContainer!, groups, q);
       activeIndex = -1;
 
       const totalShown = groups.reduce((sum, g) => sum + g.items.length, 0);
       if (srStatus) {
-        srStatus.textContent = `${totalShown} result${totalShown === 1 ? "" : "s"} found`;
+        srStatus.textContent = formatCount(strings.resultsStatus, totalShown);
       }
     } catch {
       hideResults();
@@ -312,7 +368,7 @@ function initSearch(): void {
 
   // Trigger index preload on focus
   searchInput.addEventListener("focus", () => {
-    ensureIndex();
+    ensureIndex(strings.locale);
     if (searchInput.value.trim().length >= MIN_QUERY_LENGTH) {
       doSearch(searchInput.value.trim());
     }
@@ -387,23 +443,23 @@ function initSearch(): void {
         <input
           type="search"
           class="search-input"
-          placeholder="Search concepts, properties..."
+          placeholder="${escapeHtml(strings.placeholder)}"
           role="combobox"
           aria-expanded="false"
           aria-autocomplete="list"
           aria-haspopup="listbox"
           aria-controls="search-overlay-results"
-          aria-label="Search PublicSchema"
+          aria-label="${escapeHtml(strings.ariaLabel)}"
           autocomplete="off"
         />
-        <button class="search-overlay-close" type="button" aria-label="Close search">
+        <button class="search-overlay-close" type="button" aria-label="${escapeHtml(strings.close)}">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
             <line x1="4" y1="4" x2="16" y2="16"></line>
             <line x1="16" y1="4" x2="4" y2="16"></line>
           </svg>
         </button>
       </div>
-      <div id="search-overlay-results" class="search-overlay-results" role="listbox" aria-label="Search results"></div>
+      <div id="search-overlay-results" class="search-overlay-results" role="listbox" aria-label="${escapeHtml(strings.ariaLabel)}"></div>
       <span class="search-sr-status" aria-live="polite"></span>
     `;
 
@@ -446,7 +502,7 @@ function initSearch(): void {
       if (query.length < MIN_QUERY_LENGTH) {
         if (query.length > 0) {
           overlayInput.setAttribute("aria-expanded", "true");
-          renderMinChars(overlayResults);
+          renderMinChars(overlayResults, strings);
         } else {
           overlayInput.setAttribute("aria-expanded", "false");
           overlayResults.innerHTML = "";
@@ -458,7 +514,7 @@ function initSearch(): void {
       const q = query.length > 100 ? query.slice(0, 100) : query;
 
       try {
-        const ms = await ensureIndex();
+        const ms = await ensureIndex(strings.locale);
         if (overlayQuery !== query) return;
         const results = ms.search(q) as Array<
           MiniSearch.SearchResult & SearchDocument
@@ -466,19 +522,19 @@ function initSearch(): void {
 
         if (results.length === 0) {
           overlayInput.setAttribute("aria-expanded", "true");
-          renderNoResults(overlayResults, q);
-          if (overlayStatus) overlayStatus.textContent = "No results found";
+          renderNoResults(overlayResults, q, strings);
+          if (overlayStatus) overlayStatus.textContent = strings.noResultsStatus;
           return;
         }
 
-        const groups = groupResults(results, q);
+        const groups = groupResults(results, q, labels);
         overlayInput.setAttribute("aria-expanded", "true");
         renderResults(overlayResults, groups, q, "overlay");
         overlayActiveIndex = -1;
 
         const totalShown = groups.reduce((sum, g) => sum + g.items.length, 0);
         if (overlayStatus) {
-          overlayStatus.textContent = `${totalShown} result${totalShown === 1 ? "" : "s"} found`;
+          overlayStatus.textContent = formatCount(strings.resultsStatus, totalShown);
         }
       } catch (err) {
         console.error("Search failed:", err);

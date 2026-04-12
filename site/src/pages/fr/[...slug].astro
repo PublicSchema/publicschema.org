@@ -1,0 +1,26 @@
+---
+/**
+ * Catch-all for concepts and properties under /fr/.
+ * Same getStaticPaths as the root catch-all; locale prop set to "fr".
+ */
+import ConceptDetail from '../../components/pages/ConceptDetail.astro';
+import PropertyDetail from '../../components/pages/PropertyDetail.astro';
+import { loadVocabulary } from '../../data/vocabulary';
+
+export function getStaticPaths() {
+  const vocab = loadVocabulary();
+  const paths = [];
+  for (const [id, concept] of Object.entries(vocab.concepts)) {
+    const slug = concept.path.replace(/^\//, '');
+    paths.push({ params: { slug }, props: { kind: 'concept' as const, termId: id } });
+  }
+  for (const [id, prop] of Object.entries(vocab.properties)) {
+    const slug = prop.path.replace(/^\//, '');
+    paths.push({ params: { slug }, props: { kind: 'property' as const, termId: id } });
+  }
+  return paths;
+}
+
+const { kind, termId } = Astro.props;
+---
+{kind === 'concept' ? <ConceptDetail termId={termId} locale="fr" /> : <PropertyDetail termId={termId} locale="fr" />}

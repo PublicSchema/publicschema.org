@@ -10,6 +10,7 @@ import pytest
 import yaml
 
 from build.sync_standards import (
+    apply_cldr_translations,
     merge_values,
     parse_csv,
     parse_fhir_codesystem,
@@ -500,3 +501,95 @@ class TestMergeValues:
         assert merged[0]["parent_code"] == "1"
         # Translations preserved
         assert merged[0]["label"]["fr"] == "Dirigeants"
+
+
+class TestApplyCldrTranslations:
+    def test_populates_country_labels_in_fr_and_es(self):
+        values = [
+            {"code": "us", "label": {"en": "United States"}, "standard_code": "US"},
+            {"code": "fr", "label": {"en": "France"}, "standard_code": "FR"},
+        ]
+        report = apply_cldr_translations("country", values)
+        assert values[0]["label"]["fr"] == "États-Unis"
+        assert values[0]["label"]["es"] == "Estados Unidos"
+        assert values[1]["label"]["fr"] == "France"
+        assert report["added"]["fr"] >= 2
+        assert report["added"]["es"] >= 2
+
+    def test_populates_currency_labels(self):
+        values = [
+            {"code": "usd", "label": {"en": "US Dollar"}, "standard_code": "USD"},
+            {"code": "eur", "label": {"en": "Euro"}, "standard_code": "EUR"},
+        ]
+        apply_cldr_translations("currency", values)
+        assert "dollar" in values[0]["label"]["fr"].lower()
+        assert values[1]["label"]["fr"].lower() == "euro"
+
+    def test_populates_script_labels(self):
+        values = [
+            {"code": "latn", "label": {"en": "Latin"}, "standard_code": "Latn"},
+            {"code": "arab", "label": {"en": "Arabic"}, "standard_code": "Arab"},
+        ]
+        apply_cldr_translations("script", values)
+        assert values[0]["label"]["fr"] == "latin"
+        assert values[1]["label"]["es"] == "árabe"
+
+    def test_populates_region_labels_by_alpha2(self):
+        values = [
+            {"code": "us", "label": {"en": "United States"}, "standard_code": "840"},
+        ]
+        apply_cldr_translations("region", values)
+        assert values[0]["label"]["fr"] == "États-Unis"
+
+    def test_populates_language_labels_via_iso_639_3_alias(self):
+        # ISO 639-3 codes (eng, fra, spa) resolve via language_aliases to the
+        # 639-1 form that CLDR actually keys on.
+        values = [
+            {"code": "eng", "label": {"en": "English"}, "standard_code": "eng"},
+            {"code": "fra", "label": {"en": "French"}, "standard_code": "fra"},
+        ]
+        apply_cldr_translations("language", values)
+        assert values[0]["label"]["fr"] == "anglais"
+        assert values[1]["label"]["es"] == "francés"
+
+    def test_preserves_hand_written_translations(self):
+        values = [
+            {
+                "code": "us",
+                "label": {"en": "United States", "fr": "États unis d'Amérique"},
+                "standard_code": "US",
+            },
+        ]
+        apply_cldr_translations("country", values)
+        assert values[0]["label"]["fr"] == "États unis d'Amérique"
+        # ES was missing so CLDR fills it in
+        assert values[0]["label"]["es"] == "Estados Unidos"
+
+    def test_reports_codes_without_cldr_coverage(self):
+        # Ghotuo (aaa) is a 639-3 code with no CLDR translation.
+        values = [
+            {"code": "aaa", "label": {"en": "Ghotuo"}, "standard_code": "aaa"},
+        ]
+        report = apply_cldr_translations("language", values)
+        assert "aaa" in report["missing"]["fr"]
+        assert "aaa" in report["missing"]["es"]
+        assert "fr" not in values[0]["label"]
+        assert "es" not in values[0]["label"]
+
+    def test_reports_per_locale_gaps_when_one_locale_is_handwritten(self):
+        # Hand-written fr, no CLDR coverage for es. The gap must surface in
+        # the es missing list even though fr is fully populated.
+        values = [
+            {
+                "code": "aaa",
+                "label": {"en": "Ghotuo", "fr": "Ghotuo (fr)"},
+                "standard_code": "aaa",
+            },
+        ]
+        report = apply_cldr_translations("language", values)
+        assert report["missing"]["fr"] == []
+        assert "aaa" in report["missing"]["es"]
+
+    def test_skipped_for_unknown_vocab(self):
+        report = apply_cldr_translations("sex", [])
+        assert report.get("skipped") is True

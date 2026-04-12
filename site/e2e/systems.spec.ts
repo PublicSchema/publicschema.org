@@ -1,14 +1,12 @@
 import { test, expect } from "@playwright/test";
 
 test.describe("Systems index page", () => {
-  test("renders all 6 systems", async ({ page }) => {
+  test("renders all known systems", async ({ page }) => {
     await page.goto("/systems/");
     await expect(page.locator("main h1")).toHaveText("Systems");
 
-    const rows = page.locator("main table tbody tr");
-    await expect(rows).toHaveCount(6);
-
-    // All system display names should appear
+    // All system display names should appear. More entries may be added over
+    // time, so assert presence rather than an exact row count.
     for (const name of ["OpenSPP", "openIMIS", "DCI", "FHIR R4", "DHIS2", "OpenCRVS"]) {
       await expect(page.getByText(name)).toBeVisible();
     }
@@ -88,8 +86,10 @@ test.describe("System detail page", () => {
 
   test("vocabulary links point to vocab pages", async ({ page }) => {
     await page.goto("/systems/openspp");
-    const vocabLink = page.locator('a[href="/vocab/gender-type"]');
-    await expect(vocabLink).toBeVisible();
+    // Links include a #system hash fragment pointing at the relevant mapping
+    // section, so match by prefix.
+    const vocabLink = page.locator('a[href^="/vocab/gender-type"]');
+    await expect(vocabLink.first()).toBeVisible();
   });
 
   test("report issue button appears at bottom", async ({ page }) => {

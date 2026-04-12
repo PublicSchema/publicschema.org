@@ -1,0 +1,48 @@
+---
+import Base from '../../layouts/Base.astro';
+import TranslationBanner from '../TranslationBanner.astro';
+import { defaultLocale, type Locale } from '../../i18n/languages';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = defaultLocale } = Astro.props;
+
+const modules = import.meta.glob('./content/AboutContent.*.astro');
+const wantedKey = `./content/AboutContent.${locale}.astro`;
+const fallbackKey = './content/AboutContent.en.astro';
+const loader = modules[wantedKey] ?? modules[fallbackKey];
+const fellBack = !modules[wantedKey];
+const Content = (await loader()).default;
+
+const titles: Record<Locale, { title: string; subtitle: string; description: string }> = {
+  en: {
+    title: 'About PublicSchema',
+    subtitle: "What it provides, where it sits, and where it's going.",
+    description: "What PublicSchema provides, where it sits, and where it's going.",
+  },
+  fr: {
+    title: 'À propos de PublicSchema',
+    subtitle: "Ce qu'il fournit, où il se situe et vers quoi il se dirige.",
+    description: "Ce que PublicSchema fournit, où il se situe et vers quoi il se dirige.",
+  },
+  es: {
+    title: 'Acerca de PublicSchema',
+    subtitle: 'Qué ofrece, dónde se sitúa y hacia dónde va.',
+    description: 'Qué ofrece PublicSchema, dónde se sitúa y hacia dónde va.',
+  },
+};
+
+const { title, subtitle, description } = titles[locale];
+---
+<Base title={title} description={description} locale={locale}>
+  <article class="concept-narrative">
+    {fellBack && <TranslationBanner locale={locale} />}
+    <div class="page-header">
+      <h1>{title}</h1>
+      <p class="subtitle">{subtitle}</p>
+    </div>
+    <Content locale={locale} />
+  </article>
+</Base>

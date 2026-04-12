@@ -1,34 +1,54 @@
 ---
 import '../styles/global.css';
+import { defaultLocale, languages, localesLive, type Locale } from '../i18n/languages';
+import { localePath, switchLocalePath, useTranslations } from '../i18n/utils';
+import LanguageSwitcher from '../components/LanguageSwitcher.astro';
 
 interface Props {
   title: string;
   description?: string;
   alternateJsonLd?: string;
+  locale?: Locale;
 }
 
-const { title, description = 'Common definitions for public service delivery', alternateJsonLd } = Astro.props;
+const {
+  title,
+  alternateJsonLd,
+  locale = defaultLocale,
+} = Astro.props;
+
+const t = useTranslations(locale);
+const description = Astro.props.description ?? t('footer.tagline');
+
 const currentPath = Astro.url.pathname;
 const pageTitle = `${title} | PublicSchema`;
 const canonicalUrl = new URL(currentPath, Astro.site).href;
+const { htmlLang, ogLocale } = languages[locale];
 
 const navLinks = [
-  { href: '/concepts/', label: 'Concepts' },
-  { href: '/properties/', label: 'Properties' },
-  { href: '/vocab/', label: 'Vocabularies' },
-  { href: '/docs/', label: 'Docs' },
-  { href: '/about/', label: 'About' },
+  { href: '/concepts/', label: t('nav.concepts') },
+  { href: '/vocab/', label: t('nav.vocabularies') },
+  { href: '/docs/', label: t('nav.docs') },
+  { href: '/about/', label: t('nav.about') },
 ];
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={htmlLang}>
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content={description} />
   <title>{pageTitle}</title>
   <link rel="canonical" href={canonicalUrl} />
+  {localesLive.map((loc) => (
+    <link
+      rel="alternate"
+      hreflang={languages[loc].htmlLang}
+      href={new URL(switchLocalePath(Astro.url, loc), Astro.site).href}
+    />
+  ))}
+  <link rel="alternate" hreflang="x-default" href={new URL(switchLocalePath(Astro.url, defaultLocale), Astro.site).href} />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   {alternateJsonLd && <link rel="alternate" type="application/ld+json" href={alternateJsonLd} />}
 
@@ -38,6 +58,10 @@ const navLinks = [
   <meta property="og:description" content={description} />
   <meta property="og:url" content={canonicalUrl} />
   <meta property="og:site_name" content="PublicSchema" />
+  <meta property="og:locale" content={ogLocale} />
+  {localesLive.filter((loc) => loc !== locale).map((loc) => (
+    <meta property="og:locale:alternate" content={languages[loc].ogLocale} />
+  ))}
   <meta property="og:image" content={new URL('/images/social-preview.png', Astro.site).href} />
   <meta property="og:image:width" content="1280" />
   <meta property="og:image:height" content="640" />
@@ -55,7 +79,7 @@ const navLinks = [
 <body>
   <nav class="site-nav">
     <div class="site-container">
-      <a href="/" class="site-logo">
+      <a href={localePath('/', locale)} class="site-logo">
         <img src="/images/logo.svg" alt="" class="logo-mark" width="32" height="32" />
         <span>
           <span class="site-title"><span class="site-title-public">Public</span>Schema</span>
@@ -63,53 +87,86 @@ const navLinks = [
         </span>
       </a>
       <ul class="nav-links">
-        {navLinks.map(({ href, label }) => (
-          <li>
-            <a href={href} class:list={[{ active: currentPath.startsWith(href) }]}>
-              {label}
-            </a>
-          </li>
-        ))}
+        {navLinks.map(({ href, label }) => {
+          const localized = localePath(href, locale);
+          return (
+            <li>
+              <a href={localized} class:list={[{ active: currentPath.startsWith(localized) }]}>
+                {label}
+              </a>
+            </li>
+          );
+        })}
       </ul>
-      <div class="search-container">
+      <div
+        class="search-container"
+        data-locale={locale}
+        data-search-placeholder={t('search.placeholder')}
+        data-search-min-chars={t('search.min_chars')}
+        data-search-no-results={t('search.no_results')}
+        data-search-browse-hint={t('search.browse_hint')}
+        data-search-results-status={t('search.results_status')}
+        data-search-no-results-status={t('search.no_results_status')}
+        data-nav-concepts={t('nav.concepts')}
+        data-nav-properties={t('nav.properties')}
+        data-nav-vocabularies={t('nav.vocabularies')}
+        data-nav-docs={t('nav.docs')}
+        data-search-close={t('search.close')}
+      >
         <div class="search-input-wrapper">
           <input
             type="search"
             class="search-input"
-            placeholder="Search concepts, properties..."
+            placeholder={t('search.placeholder')}
             role="combobox"
             aria-expanded="false"
             aria-autocomplete="list"
             aria-haspopup="listbox"
             aria-controls="search-results"
-            aria-label="Search PublicSchema"
+            aria-label={t('search.aria_label')}
             autocomplete="off"
           />
           <kbd class="search-shortcut" aria-hidden="true"></kbd>
         </div>
-        <div id="search-results" class="search-results" role="listbox" aria-label="Search results" hidden>
+        <div id="search-results" class="search-results" role="listbox" aria-label={t('search.aria_label')} hidden>
         </div>
         <span class="search-sr-status" aria-live="polite"></span>
       </div>
-      <button class="search-mobile-toggle" aria-label="Search" type="button">
+      <button class="search-mobile-toggle" aria-label={t('nav.search')} type="button">
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <circle cx="8.5" cy="8.5" r="5.5"></circle>
           <line x1="13" y1="13" x2="18" y2="18"></line>
         </svg>
       </button>
+      {localesLive.length > 1 && (
+        <>
+          <div class="lang-switcher-desktop-wrapper">
+            <LanguageSwitcher currentLocale={locale} currentUrl={Astro.url} variant="desktop" />
+          </div>
+          <div class="lang-switcher-mobile-wrapper">
+            <LanguageSwitcher currentLocale={locale} currentUrl={Astro.url} variant="mobile-compact" />
+          </div>
+        </>
+      )}
       <details class="mobile-nav">
-        <summary class="mobile-nav-toggle" aria-label="Menu">
+        <summary class="mobile-nav-toggle" aria-label={t('nav.menu')}>
           <span class="hamburger-icon"></span>
         </summary>
         <ul class="mobile-nav-links">
-          {navLinks.map(({ href, label }) => (
-            <li>
-              <a href={href} class:list={[{ active: currentPath.startsWith(href) }]}>
-                {label}
-              </a>
-            </li>
-          ))}
+          {navLinks.map(({ href, label }) => {
+            const localized = localePath(href, locale);
+            return (
+              <li>
+                <a href={localized} class:list={[{ active: currentPath.startsWith(localized) }]}>
+                  {label}
+                </a>
+              </li>
+            );
+          })}
         </ul>
+        {localesLive.length > 1 && (
+          <LanguageSwitcher currentLocale={locale} currentUrl={Astro.url} variant="mobile-full" />
+        )}
       </details>
     </div>
   </nav>
@@ -123,42 +180,39 @@ const navLinks = [
       <div class="footer-content">
         <div class="footer-brand">
           <div class="footer-name">PublicSchema</div>
-          <p>
-            Common definitions for public service delivery. Built so programs can
-            coordinate, share data, and reach the people they serve.
-          </p>
+          <p>{t('footer.tagline')}</p>
         </div>
         <div class="footer-links">
           <div class="footer-links-col">
-            <h4>Explore</h4>
+            <h4>{t('footer.explore')}</h4>
             <ul>
-              <li><a href="/concepts/">Concepts</a></li>
-              <li><a href="/properties/">Properties</a></li>
-              <li><a href="/vocab/">Vocabularies</a></li>
-              <li><a href="/systems/">Systems</a></li>
+              <li><a href={localePath('/concepts/', locale)}>{t('nav.concepts')}</a></li>
+              <li><a href={localePath('/properties/', locale)}>{t('nav.properties')}</a></li>
+              <li><a href={localePath('/vocab/', locale)}>{t('nav.vocabularies')}</a></li>
+              <li><a href={localePath('/systems/', locale)}>{t('footer.systems')}</a></li>
             </ul>
           </div>
           <div class="footer-links-col">
-            <h4>Docs</h4>
+            <h4>{t('footer.docs')}</h4>
             <ul>
-              <li><a href="/docs/use-cases/">Use Cases</a></li>
-              <li><a href="/docs/extension-mechanism/">Extension Mechanism</a></li>
-              <li><a href="/docs/">All documentation</a></li>
+              <li><a href={localePath('/docs/use-cases/', locale)}>{t('footer.use_cases')}</a></li>
+              <li><a href={localePath('/docs/extension-mechanism/', locale)}>{t('footer.extension_mechanism')}</a></li>
+              <li><a href={localePath('/docs/', locale)}>{t('footer.all_docs')}</a></li>
             </ul>
           </div>
           <div class="footer-links-col">
-            <h4>Project</h4>
+            <h4>{t('footer.project')}</h4>
             <ul>
-              <li><a href="/about/">About</a></li>
-              <li><a href="https://github.com/PublicSchema/publicschema.org">Source on GitHub</a></li>
-              <li><a href="/terms/">Terms and License</a></li>
+              <li><a href={localePath('/about/', locale)}>{t('footer.about')}</a></li>
+              <li><a href="https://github.com/PublicSchema/publicschema.org">{t('footer.source_github')}</a></li>
+              <li><a href={localePath('/terms/', locale)}>{t('footer.terms')}</a></li>
             </ul>
           </div>
         </div>
       </div>
       <div class="footer-bottom">
-        <span>Reference model: <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> | Code: <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache 2.0</a></span>
-        <span>Built with <a href="https://astro.build/">Astro</a></span>
+        <span>{t('footer.reference_model_cc')} <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> | {t('footer.code_apache')} <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache 2.0</a></span>
+        <span>{t('footer.built_with')} <a href="https://astro.build/">Astro</a></span>
       </div>
     </div>
   </footer>
@@ -178,5 +232,28 @@ const navLinks = [
       });
     }
   </script>
+
+  <style>
+    .lang-switcher-desktop-wrapper {
+      display: flex;
+      align-items: center;
+      padding-left: var(--space-sm);
+      border-left: 1px solid var(--color-border-light);
+    }
+    .lang-switcher-mobile-wrapper {
+      display: none;
+    }
+
+    @media (max-width: 900px) {
+      .lang-switcher-desktop-wrapper {
+        display: none;
+      }
+      .lang-switcher-mobile-wrapper {
+        display: flex;
+        align-items: center;
+        margin-right: 0.25rem;
+      }
+    }
+  </style>
 </body>
 </html>

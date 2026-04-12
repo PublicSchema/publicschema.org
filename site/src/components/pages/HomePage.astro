@@ -1,0 +1,141 @@
+---
+import Base from '../../layouts/Base.astro';
+import TranslationBanner from '../TranslationBanner.astro';
+import { defaultLocale, type Locale } from '../../i18n/languages';
+import { useTranslations, localePath } from '../../i18n/utils';
+import { loadVocabulary } from '../../data/vocabulary';
+import '../../styles/homepage.css';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = defaultLocale } = Astro.props;
+const t = useTranslations(locale);
+
+const vocab = loadVocabulary();
+const maturityRank: Record<string, number> = { normative: 0, 'trial-use': 1, draft: 2 };
+const byMaturityThenName = (a: { maturity: string; id: string }, b: { maturity: string; id: string }) =>
+  (maturityRank[a.maturity] ?? 9) - (maturityRank[b.maturity] ?? 9) || a.id.localeCompare(b.id);
+const concepts = Object.values(vocab.concepts).sort(byMaturityThenName);
+const coreConcepts = concepts.filter((c) => !c.domain);
+const domainLabels: Record<string, string> = { sp: t('concepts.section_social_protection') };
+const domainCodes = [...new Set(concepts.filter((c) => c.domain).map((c) => c.domain as string))].sort();
+const conceptsByDomain = Object.fromEntries(domainCodes.map((d) => [d, concepts.filter((c) => c.domain === d)]));
+const properties = Object.values(vocab.properties).sort(byMaturityThenName);
+// Vocabularies are keyed by their canonical reference form (`<domain>/<id>`
+// for domain-scoped vocabs). Keep the entry key alongside so href links use
+// the prefixed path required by CRVS and other domain-scoped routes.
+const vocabularies = Object.entries(vocab.vocabularies)
+  .map(([key, v]) => ({ key, ...v }))
+  .sort((a, b) =>
+    (maturityRank[a.maturity] ?? 9) - (maturityRank[b.maturity] ?? 9) || a.key.localeCompare(b.key)
+  );
+const systems = ['OpenSPP', 'openIMIS', 'DCI', 'DHIS2', 'FHIR R4', 'OpenCRVS'];
+
+const modules = import.meta.glob('./content/HomepageContent.*.astro');
+const wantedKey = `./content/HomepageContent.${locale}.astro`;
+const fallbackKey = './content/HomepageContent.en.astro';
+const loader = modules[wantedKey] ?? modules[fallbackKey];
+const fellBack = !modules[wantedKey];
+const Content = (await loader()).default;
+
+const titles: Record<Locale, { title: string; description: string }> = {
+  en: {
+    title: 'Home',
+    description: 'Common definitions for public service delivery. When programs serve the same people, their systems need a shared language.',
+  },
+  fr: {
+    title: 'Accueil',
+    description: 'Définitions communes pour la prestation de services publics. Lorsque des programmes servent les mêmes personnes, leurs systèmes ont besoin d\'un langage partagé.',
+  },
+  es: {
+    title: 'Inicio',
+    description: 'Definiciones comunes para la prestación de servicios públicos. Cuando los programas sirven a las mismas personas, sus sistemas necesitan un lenguaje compartido.',
+  },
+};
+
+const { title, description } = titles[locale];
+---
+<Base title={title} description={description} locale={locale}>
+  {fellBack && <TranslationBanner locale={locale} />}
+  <Content
+    locale={locale}
+    conceptsCount={concepts.length}
+    propertiesCount={properties.length}
+    vocabulariesCount={vocabularies.length}
+    systems={systems}
+  />
+
+  <!-- Schema index (preview) -->
+  <div class="h3-prose" id="index">
+    <h2>{t('home.browse_schema')}</h2>
+
+    <div class="h3-idx">
+      <div class="h3-idx-header">
+        <h3>{t('home.core_concepts')}</h3>
+        <span class="h3-idx-count">{coreConcepts.length}</span>
+      </div>
+      <div class="h3-idx-chips">
+        {coreConcepts.slice(0, 6).map((c) => (
+          <a href={localePath(c.path, locale)} class="h3-chip">
+            {c.id}
+          </a>
+        ))}
+        {coreConcepts.length > 6 && (
+          <a href={localePath('/concepts/', locale)} class="h3-chip h3-chip-more">
+            {t('home.plus_more', { count: coreConcepts.length - 6 })}
+          </a>
+        )}
+      </div>
+    </div>
+
+    {domainCodes.map((domain) => (
+      <div class="h3-idx">
+        <div class="h3-idx-header">
+          <h3>{domainLabels[domain] || domain}</h3>
+          <span class="h3-idx-count">{conceptsByDomain[domain].length}</span>
+        </div>
+        <div class="h3-idx-chips">
+          {conceptsByDomain[domain].slice(0, 6).map((c) => (
+            <a href={localePath(c.path, locale)} class="h3-chip">
+              {c.id}
+            </a>
+          ))}
+          {conceptsByDomain[domain].length > 6 && (
+            <a href={localePath('/concepts/', locale)} class="h3-chip h3-chip-more">
+              {t('home.plus_more', { count: conceptsByDomain[domain].length - 6 })}
+            </a>
+          )}
+        </div>
+      </div>
+    ))}
+
+    <div class="h3-idx">
+      <div class="h3-idx-header">
+        <h3>{t('home.vocabularies')}</h3>
+        <span class="h3-idx-count">{vocabularies.length}</span>
+      </div>
+      <div class="h3-idx-chips">
+        {vocabularies.slice(0, 8).map((v) => (
+          <a href={localePath(`/vocab/${v.key}`, locale)} class="h3-chip">
+            {v.key}
+            <span class="h3-chip-meta">{v.values.length}</span>
+          </a>
+        ))}
+        {vocabularies.length > 8 && (
+          <a href={localePath('/vocab/', locale)} class="h3-chip h3-chip-more">
+            {t('home.plus_more', { count: vocabularies.length - 8 })}
+          </a>
+        )}
+      </div>
+    </div>
+
+    <p class="h3-closing">
+      {t('home.closing')}
+      <a href="https://github.com/PublicSchema/publicschema.org">{t('home.source_github')}</a>
+      <span class="h3-header-sep" aria-hidden="true"></span>
+      <a href={localePath('/about/', locale)}>{t('home.about_project')}</a>
+    </p>
+  </div>
+</Base>

@@ -10,18 +10,20 @@ standard:
 sync:
   source_url: https://iso639-3.sil.org/sites/iso639-3/files/downloads/iso-639-3.tab
   format: tsv
-  last_synced: '2026-04-07'
+  last_synced: '2026-04-12'
 same_standard_systems:
-  - openspp
-  - fhir_r4
+- openspp
+- fhir_r4
 external_values: true
 external_equivalents:
   semic:
-    label: "Language"
-    uri: "http://publications.europa.eu/resource/authority/language"
+    label: Language
+    uri: http://publications.europa.eu/resource/authority/language
     match: close
-    vocabulary: "Core Public Event"
-    note: "EU Language NAL uses ISO 639-1/2 (~180/500 codes). PublicSchema uses ISO 639-3 (~7,900 codes), the superset covering all known human languages. Every 639-1/2 code maps to a 639-3 code. 639-3 is necessary for minority, indigenous, and refugee-context languages that 639-1/2 does not cover."
+    vocabulary: Core Public Event
+    note: EU Language NAL uses ISO 639-1/2 (~180/500 codes). PublicSchema uses ISO 639-3 (~7,900 codes), the superset covering
+      all known human languages. Every 639-1/2 code maps to a 639-3 code. 639-3 is necessary for minority, indigenous, and
+      refugee-context languages that 639-1/2 does not cover.
 values:
 - code: aaa
   label:
@@ -86,6 +88,8 @@ values:
 - code: aar
   label:
     en: Afar
+    fr: afar
+    es: afar
   standard_code: aar
 - code: aas
   label:
@@ -154,6 +158,8 @@ values:
 - code: abk
   label:
     en: Abkhazian
+    fr: abkhaze
+    es: abjasio
   standard_code: abk
 - code: abl
   label:
@@ -230,6 +236,8 @@ values:
 - code: ace
   label:
     en: Achinese
+    fr: aceh
+    es: achenés
   standard_code: ace
 - code: acf
   label:
@@ -238,6 +246,8 @@ values:
 - code: ach
   label:
     en: Acoli
+    fr: acoli
+    es: acoli
   standard_code: ach
 - code: aci
   label:
@@ -306,6 +316,8 @@ values:
 - code: ada
   label:
     en: Adangme
+    fr: adangme
+    es: adangme
   standard_code: ada
 - code: adb
   label:
@@ -382,6 +394,8 @@ values:
 - code: ady
   label:
     en: Adyghe
+    fr: adyguéen
+    es: adigué
   standard_code: ady
 - code: adz
   label:
@@ -394,6 +408,7 @@ values:
 - code: aeb
   label:
     en: Tunisian Arabic
+    fr: arabe tunisien
   standard_code: aeb
 - code: aec
   label:
@@ -470,6 +485,8 @@ values:
 - code: afh
   label:
     en: Afrihili
+    fr: afrihili
+    es: afrihili
   standard_code: afh
 - code: afi
   label:
@@ -494,6 +511,8 @@ values:
 - code: afr
   label:
     en: Afrikaans
+    fr: afrikaans
+    es: afrikáans
   standard_code: afr
 - code: afs
   label:
@@ -574,6 +593,8 @@ values:
 - code: agq
   label:
     en: Aghem
+    fr: aghem
+    es: aghem
   standard_code: agq
 - code: agr
   label:
@@ -722,6 +743,8 @@ values:
 - code: ain
   label:
     en: Ainu (Japan)
+    fr: aïnou
+    es: ainu
   standard_code: ain
 - code: aio
   label:
@@ -778,6 +801,8 @@ values:
 - code: aju
   label:
     en: Judeo-Moroccan Arabic
+    fr: judéo-arabe
+    es: judeo-árabe
   standard_code: aju
 - code: ajw
   label:
@@ -790,6 +815,8 @@ values:
 - code: aka
   label:
     en: Akan
+    fr: akan
+    es: akan
   standard_code: aka
 - code: akb
   label:
@@ -830,6 +857,8 @@ values:
 - code: akk
   label:
     en: Akkadian
+    fr: akkadien
+    es: acadio
   standard_code: akk
 - code: akl
   label:
@@ -886,6 +915,7 @@ values:
 - code: akz
   label:
     en: Alabama
+    fr: alabama
   standard_code: akz
 - code: ala
   label:
@@ -902,6 +932,8 @@ values:
 - code: ale
   label:
     en: Aleut
+    fr: aléoute
+    es: aleutiano
   standard_code: ale
 - code: alf
   label:
@@ -934,6 +966,7 @@ values:
 - code: aln
   label:
     en: Gheg Albanian
+    fr: guègue
   standard_code: aln
 - code: alo
   label:
@@ -954,10 +987,14 @@ values:
 - code: als
   label:
     en: Tosk Albanian
+    fr: albanais
+    es: albanés
   standard_code: als
 - code: alt
   label:
     en: Southern Altai
+    fr: altaï du Sud
+    es: altái meridional
   standard_code: alt
 - code: alu
   label:
@@ -1006,6 +1043,8 @@ values:
 - code: amh
   label:
     en: Amharic
+    fr: amharique
+    es: amárico
   standard_code: amh
 - code: ami
   label:
@@ -1106,6 +1145,8 @@ values:
 - code: ang
   label:
     en: Old English (ca. 450-1100)
+    fr: ancien anglais
+    es: inglés antiguo
   standard_code: ang
 - code: anh
   label:
@@ -1134,6 +1175,8 @@ values:
 - code: ann
   label:
     en: Obolo
+    fr: obolo
+    es: obolo
   standard_code: ann
 - code: ano
   label:
@@ -1142,6 +1185,8 @@ values:
 - code: anp
   label:
     en: Angika
+    fr: angika
+    es: angika
   standard_code: anp
 - code: anq
   label:
@@ -1402,14 +1447,20 @@ values:
 - code: ara
   label:
     en: Arabic
+    fr: arabe
+    es: árabe
   standard_code: ara
 - code: arb
   label:
     en: Standard Arabic
+    fr: arabe
+    es: árabe
   standard_code: arb
 - code: arc
   label:
     en: Official Aramaic (700-300 BCE)
+    fr: araméen
+    es: arameo
   standard_code: arc
 - code: ard
   label:
@@ -1422,6 +1473,8 @@ values:
 - code: arg
   label:
     en: Aragonese
+    fr: aragonais
+    es: aragonés
   standard_code: arg
 - code: arh
   label:
@@ -1446,18 +1499,24 @@ values:
 - code: arn
   label:
     en: Mapudungun
+    fr: mapuche
+    es: mapuche
   standard_code: arn
 - code: aro
   label:
     en: Araona
+    fr: araona
   standard_code: aro
 - code: arp
   label:
     en: Arapaho
+    fr: arapaho
+    es: arapaho
   standard_code: arp
 - code: arq
   label:
     en: Algerian Arabic
+    fr: arabe algérien
   standard_code: arq
 - code: arr
   label:
@@ -1466,6 +1525,8 @@ values:
 - code: ars
   label:
     en: Najdi Arabic
+    fr: arabe najdi
+    es: árabe najdí
   standard_code: ars
 - code: aru
   label:
@@ -1478,6 +1539,8 @@ values:
 - code: arw
   label:
     en: Arawak
+    fr: arawak
+    es: arahuaco
   standard_code: arw
 - code: arx
   label:
@@ -1486,14 +1549,18 @@ values:
 - code: ary
   label:
     en: Moroccan Arabic
+    fr: arabe marocain
   standard_code: ary
 - code: arz
   label:
     en: Egyptian Arabic
+    fr: arabe égyptien
   standard_code: arz
 - code: asa
   label:
     en: Asu (Tanzania)
+    fr: asu
+    es: asu
   standard_code: asa
 - code: asb
   label:
@@ -1506,6 +1573,7 @@ values:
 - code: ase
   label:
     en: American Sign Language
+    fr: langue des signes américaine
   standard_code: ase
 - code: asf
   label:
@@ -1538,6 +1606,8 @@ values:
 - code: asm
   label:
     en: Assamese
+    fr: assamais
+    es: asamés
   standard_code: asm
 - code: asn
   label:
@@ -1566,6 +1636,8 @@ values:
 - code: ast
   label:
     en: Asturian
+    fr: asturien
+    es: asturiano
   standard_code: ast
 - code: asu
   label:
@@ -1622,6 +1694,8 @@ values:
 - code: atj
   label:
     en: Atikamekw
+    fr: atikamekw
+    es: atikamekw
   standard_code: atj
 - code: atk
   label:
@@ -1778,6 +1852,8 @@ values:
 - code: ava
   label:
     en: Avaric
+    fr: avar
+    es: avar
   standard_code: ava
 - code: avb
   label:
@@ -1790,6 +1866,8 @@ values:
 - code: ave
   label:
     en: Avestan
+    fr: avestique
+    es: avéstico
   standard_code: ave
 - code: avi
   label:
@@ -1798,6 +1876,7 @@ values:
 - code: avk
   label:
     en: Kotava
+    fr: kotava
   standard_code: avk
 - code: avl
   label:
@@ -1834,6 +1913,8 @@ values:
 - code: awa
   label:
     en: Awadhi
+    fr: awadhi
+    es: avadhi
   standard_code: awa
 - code: awb
   label:
@@ -1978,6 +2059,8 @@ values:
 - code: aym
   label:
     en: Aymara
+    fr: aymara
+    es: aimara
   standard_code: aym
 - code: ayn
   label:
@@ -1998,6 +2081,8 @@ values:
 - code: ayr
   label:
     en: Central Aymara
+    fr: aymara
+    es: aimara
   standard_code: ayr
 - code: ays
   label:
@@ -2030,6 +2115,8 @@ values:
 - code: aze
   label:
     en: Azerbaijani
+    fr: azerbaïdjanais
+    es: azerbaiyano
   standard_code: aze
 - code: azg
   label:
@@ -2038,6 +2125,8 @@ values:
 - code: azj
   label:
     en: North Azerbaijani
+    fr: azerbaïdjanais
+    es: azerbaiyano
   standard_code: azj
 - code: azm
   label:
@@ -2094,18 +2183,26 @@ values:
 - code: bak
   label:
     en: Bashkir
+    fr: bachkir
+    es: baskir
   standard_code: bak
 - code: bal
   label:
     en: Baluchi
+    fr: baloutchi
+    es: baluchi
   standard_code: bal
 - code: bam
   label:
     en: Bambara
+    fr: bambara
+    es: bambara
   standard_code: bam
 - code: ban
   label:
     en: Balinese
+    fr: balinais
+    es: balinés
   standard_code: ban
 - code: bao
   label:
@@ -2118,10 +2215,13 @@ values:
 - code: bar
   label:
     en: Bavarian
+    fr: bavarois
   standard_code: bar
 - code: bas
   label:
     en: Basa (Cameroon)
+    fr: bassa
+    es: basaa
   standard_code: bas
 - code: bau
   label:
@@ -2138,6 +2238,8 @@ values:
 - code: bax
   label:
     en: Bamun
+    fr: bamoun
+    es: bamún
   standard_code: bax
 - code: bay
   label:
@@ -2154,6 +2256,7 @@ values:
 - code: bbc
   label:
     en: Batak Toba
+    fr: batak toba
   standard_code: bbc
 - code: bbd
   label:
@@ -2182,6 +2285,8 @@ values:
 - code: bbj
   label:
     en: Ghomálá'
+    fr: ghomalaʼ
+    es: ghomala
   standard_code: bbj
 - code: bbk
   label:
@@ -2254,6 +2359,8 @@ values:
 - code: bcc
   label:
     en: Southern Balochi
+    fr: baloutchi
+    es: baluchi
   standard_code: bcc
 - code: bcd
   label:
@@ -2290,6 +2397,8 @@ values:
 - code: bcl
   label:
     en: Central Bikol
+    fr: bikol
+    es: bicol
   standard_code: bcl
 - code: bcm
   label:
@@ -2486,6 +2595,8 @@ values:
 - code: bej
   label:
     en: Beja
+    fr: bedja
+    es: beja
   standard_code: bej
 - code: bek
   label:
@@ -2494,14 +2605,20 @@ values:
 - code: bel
   label:
     en: Belarusian
+    fr: biélorusse
+    es: bielorruso
   standard_code: bel
 - code: bem
   label:
     en: Bemba (Zambia)
+    fr: bemba
+    es: bemba
   standard_code: bem
 - code: ben
   label:
     en: Bengali
+    fr: bengali
+    es: bengalí
   standard_code: ben
 - code: beo
   label:
@@ -2534,6 +2651,7 @@ values:
 - code: bew
   label:
     en: Betawi
+    fr: betawi
   standard_code: bew
 - code: bex
   label:
@@ -2546,6 +2664,8 @@ values:
 - code: bez
   label:
     en: Bena (Tanzania)
+    fr: bena
+    es: bena
   standard_code: bez
 - code: bfa
   label:
@@ -2562,6 +2682,8 @@ values:
 - code: bfd
   label:
     en: Bafut
+    fr: bafut
+    es: bafut
   standard_code: bfd
 - code: bfe
   label:
@@ -2614,6 +2736,7 @@ values:
 - code: bfq
   label:
     en: Badaga
+    fr: badaga
   standard_code: bfq
 - code: bfr
   label:
@@ -2658,6 +2781,8 @@ values:
 - code: bgc
   label:
     en: Haryanvi
+    fr: haryanvi
+    es: haryanvi
   standard_code: bgc
 - code: bgd
   label:
@@ -2694,6 +2819,8 @@ values:
 - code: bgn
   label:
     en: Western Balochi
+    fr: baloutchi occidental
+    es: baluchi occidental
   standard_code: bgn
 - code: bgo
   label:
@@ -2798,6 +2925,8 @@ values:
 - code: bho
   label:
     en: Bhojpuri
+    fr: bhodjpouri
+    es: bhoyapurí
   standard_code: bho
 - code: bhp
   label:
@@ -2870,6 +2999,8 @@ values:
 - code: bik
   label:
     en: Bikol
+    fr: bikol
+    es: bicol
   standard_code: bik
 - code: bil
   label:
@@ -2882,6 +3013,8 @@ values:
 - code: bin
   label:
     en: Bini
+    fr: bini
+    es: bini
   standard_code: bin
 - code: bio
   label:
@@ -2902,6 +3035,8 @@ values:
 - code: bis
   label:
     en: Bislama
+    fr: bichelamar
+    es: bislama
   standard_code: bis
 - code: bit
   label:
@@ -2982,6 +3117,7 @@ values:
 - code: bjn
   label:
     en: Banjar
+    fr: banjar
   standard_code: bjn
 - code: bjo
   label:
@@ -3070,6 +3206,8 @@ values:
 - code: bkm
   label:
     en: Kom (Cameroon)
+    fr: kom
+    es: kom
   standard_code: bkm
 - code: bkn
   label:
@@ -3126,6 +3264,8 @@ values:
 - code: bla
   label:
     en: Siksika
+    fr: siksika
+    es: siksika
   standard_code: bla
 - code: blb
   label:
@@ -3178,6 +3318,8 @@ values:
 - code: blo
   label:
     en: Anii
+    fr: anii
+    es: anii
   standard_code: blo
 - code: blp
   label:
@@ -3426,6 +3568,8 @@ values:
 - code: bod
   label:
     en: Tibetan
+    fr: tibétain
+    es: tibetano
   standard_code: bod
 - code: boe
   label:
@@ -3486,6 +3630,8 @@ values:
 - code: bos
   label:
     en: Bosnian
+    fr: bosniaque
+    es: bosnio
   standard_code: bos
 - code: bot
   label:
@@ -3606,6 +3752,7 @@ values:
 - code: bpy
   label:
     en: Bishnupriya
+    fr: bishnupriya
   standard_code: bpy
 - code: bpz
   label:
@@ -3642,6 +3789,7 @@ values:
 - code: bqi
   label:
     en: Bakhtiari
+    fr: bakhtiari
   standard_code: bqi
 - code: bqj
   label:
@@ -3714,6 +3862,8 @@ values:
 - code: bra
   label:
     en: Braj
+    fr: braj
+    es: braj
   standard_code: bra
 - code: brb
   label:
@@ -3730,6 +3880,8 @@ values:
 - code: bre
   label:
     en: Breton
+    fr: breton
+    es: bretón
   standard_code: bre
 - code: brf
   label:
@@ -3742,6 +3894,7 @@ values:
 - code: brh
   label:
     en: Brahui
+    fr: brahoui
   standard_code: brh
 - code: bri
   label:
@@ -3806,6 +3959,8 @@ values:
 - code: brx
   label:
     en: Bodo (India)
+    fr: bodo
+    es: bodo
   standard_code: brx
 - code: bry
   label:
@@ -3886,6 +4041,8 @@ values:
 - code: bss
   label:
     en: Akoose
+    fr: akoose
+    es: akoose
   standard_code: bss
 - code: bst
   label:
@@ -4006,6 +4163,8 @@ values:
 - code: bua
   label:
     en: Buriat
+    fr: bouriate
+    es: buriato
   standard_code: bua
 - code: bub
   label:
@@ -4030,6 +4189,8 @@ values:
 - code: bug
   label:
     en: Buginese
+    fr: bugi
+    es: buginés
   standard_code: bug
 - code: buh
   label:
@@ -4050,10 +4211,14 @@ values:
 - code: bul
   label:
     en: Bulgarian
+    fr: bulgare
+    es: búlgaro
   standard_code: bul
 - code: bum
   label:
     en: Bulu (Cameroon)
+    fr: boulou
+    es: bulu
   standard_code: bum
 - code: bun
   label:
@@ -4346,6 +4511,8 @@ values:
 - code: bxk
   label:
     en: Bukusu
+    fr: luyia
+    es: luyia
   standard_code: bxk
 - code: bxl
   label:
@@ -4374,6 +4541,8 @@ values:
 - code: bxr
   label:
     en: Russia Buriat
+    fr: bouriate
+    es: buriato
   standard_code: bxr
 - code: bxs
   label:
@@ -4450,6 +4619,8 @@ values:
 - code: byn
   label:
     en: Bilin
+    fr: blin
+    es: blin
   standard_code: byn
 - code: byo
   label:
@@ -4478,6 +4649,8 @@ values:
 - code: byv
   label:
     en: Medumba
+    fr: médumba
+    es: medumba
   standard_code: byv
 - code: byw
   label:
@@ -4610,6 +4783,8 @@ values:
 - code: cad
   label:
     en: Caddo
+    fr: caddo
+    es: caddo
   standard_code: cad
 - code: cae
   label:
@@ -4662,6 +4837,8 @@ values:
 - code: car
   label:
     en: Galibi Carib
+    fr: caribe
+    es: caribe
   standard_code: car
 - code: cas
   label:
@@ -4670,6 +4847,8 @@ values:
 - code: cat
   label:
     en: Catalan
+    fr: catalan
+    es: catalán
   standard_code: cat
 - code: cav
   label:
@@ -4686,6 +4865,8 @@ values:
 - code: cay
   label:
     en: Cayuga
+    fr: cayuga
+    es: cayuga
   standard_code: cay
 - code: caz
   label:
@@ -4782,6 +4963,8 @@ values:
 - code: cch
   label:
     en: Atsam
+    fr: atsam
+    es: atsam
   standard_code: cch
 - code: ccj
   label:
@@ -4802,6 +4985,8 @@ values:
 - code: ccp
   label:
     en: Chakma
+    fr: changma kodha
+    es: chakma
   standard_code: ccp
 - code: ccr
   label:
@@ -4866,6 +5051,8 @@ values:
 - code: ceb
   label:
     en: Cebuano
+    fr: cebuano
+    es: cebuano
   standard_code: ceb
 - code: ceg
   label:
@@ -4882,6 +5069,8 @@ values:
 - code: ces
   label:
     en: Czech
+    fr: tchèque
+    es: checo
   standard_code: ces
 - code: cet
   label:
@@ -4918,6 +5107,8 @@ values:
 - code: cgg
   label:
     en: Chiga
+    fr: kiga
+    es: chiga
   standard_code: cgg
 - code: cgk
   label:
@@ -4926,10 +5117,14 @@ values:
 - code: cha
   label:
     en: Chamorro
+    fr: chamorro
+    es: chamorro
   standard_code: cha
 - code: chb
   label:
     en: Chibcha
+    fr: chibcha
+    es: chibcha
   standard_code: chb
 - code: chc
   label:
@@ -4942,6 +5137,8 @@ values:
 - code: che
   label:
     en: Chechen
+    fr: tchétchène
+    es: checheno
   standard_code: che
 - code: chf
   label:
@@ -4950,6 +5147,8 @@ values:
 - code: chg
   label:
     en: Chagatai
+    fr: tchaghataï
+    es: chagatái
   standard_code: chg
 - code: chh
   label:
@@ -4962,6 +5161,8 @@ values:
 - code: chk
   label:
     en: Chuukese
+    fr: chuuk
+    es: trukés
   standard_code: chk
 - code: chl
   label:
@@ -4970,18 +5171,26 @@ values:
 - code: chm
   label:
     en: Mari (Russia)
+    fr: mari
+    es: marí
   standard_code: chm
 - code: chn
   label:
     en: Chinook jargon
+    fr: jargon chinook
+    es: jerga chinuk
   standard_code: chn
 - code: cho
   label:
     en: Choctaw
+    fr: choctaw
+    es: choctaw
   standard_code: cho
 - code: chp
   label:
     en: Chipewyan
+    fr: chipewyan
+    es: chipewyan
   standard_code: chp
 - code: chq
   label:
@@ -4990,6 +5199,8 @@ values:
 - code: chr
   label:
     en: Cherokee
+    fr: cherokee
+    es: cheroqui
   standard_code: chr
 - code: cht
   label:
@@ -4998,10 +5209,14 @@ values:
 - code: chu
   label:
     en: Church Slavic
+    fr: slavon d’église
+    es: eslavo eclesiástico
   standard_code: chu
 - code: chv
   label:
     en: Chuvash
+    fr: tchouvache
+    es: chuvasio
   standard_code: chv
 - code: chw
   label:
@@ -5014,6 +5229,8 @@ values:
 - code: chy
   label:
     en: Cheyenne
+    fr: cheyenne
+    es: cheyene
   standard_code: chy
 - code: chz
   label:
@@ -5122,6 +5339,8 @@ values:
 - code: ckb
   label:
     en: Central Kurdish
+    fr: sorani
+    es: kurdo sorani
   standard_code: ckb
 - code: ckh
   label:
@@ -5186,10 +5405,14 @@ values:
 - code: clc
   label:
     en: Chilcotin
+    fr: chilcotin
+    es: chilcotin
   standard_code: clc
 - code: cld
   label:
     en: Chaldean Neo-Aramaic
+    fr: syriaque
+    es: siriaco
   standard_code: cld
 - code: cle
   label:
@@ -5226,6 +5449,8 @@ values:
 - code: cls
   label:
     en: Classical Sanskrit
+    fr: sanskrit
+    es: sánscrito
   standard_code: cls
 - code: clt
   label:
@@ -5270,6 +5495,8 @@ values:
 - code: cmn
   label:
     en: Mandarin Chinese
+    fr: chinois
+    es: chino
   standard_code: cmn
 - code: cmo
   label:
@@ -5414,6 +5641,8 @@ values:
 - code: cop
   label:
     en: Coptic
+    fr: copte
+    es: copto
   standard_code: cop
 - code: coq
   label:
@@ -5422,10 +5651,14 @@ values:
 - code: cor
   label:
     en: Cornish
+    fr: cornique
+    es: córnico
   standard_code: cor
 - code: cos
   label:
     en: Corsican
+    fr: corse
+    es: corso
   standard_code: cos
 - code: cot
   label:
@@ -5482,6 +5715,7 @@ values:
 - code: cps
   label:
     en: Capiznon
+    fr: capiznon
   standard_code: cps
 - code: cpu
   label:
@@ -5518,6 +5752,8 @@ values:
 - code: cre
   label:
     en: Cree
+    fr: cree
+    es: cree
   standard_code: cre
 - code: crf
   label:
@@ -5526,10 +5762,14 @@ values:
 - code: crg
   label:
     en: Michif
+    fr: mitchif
+    es: michif
   standard_code: crg
 - code: crh
   label:
     en: Crimean Tatar
+    fr: tatar de Crimée
+    es: tártaro de Crimea
   standard_code: crh
 - code: cri
   label:
@@ -5538,18 +5778,26 @@ values:
 - code: crj
   label:
     en: Southern East Cree
+    fr: cri de l’Est (dialecte du Sud)
+    es: cree suroriental
   standard_code: crj
 - code: crk
   label:
     en: Plains Cree
+    fr: cri des plaines
+    es: cree de las llanuras
   standard_code: crk
 - code: crl
   label:
     en: Northern East Cree
+    fr: cri de l’Est (dialecte du Nord)
+    es: cree nororiental
   standard_code: crl
 - code: crm
   label:
     en: Moose Cree
+    fr: cri de Moose
+    es: cree moose
   standard_code: crm
 - code: crn
   label:
@@ -5566,10 +5814,14 @@ values:
 - code: crr
   label:
     en: Carolina Algonquian
+    fr: algonquin de Caroline
+    es: algonquino de Carolina
   standard_code: crr
 - code: crs
   label:
     en: Seselwa Creole French
+    fr: créole seychellois
+    es: criollo seychelense
   standard_code: crs
 - code: crt
   label:
@@ -5602,6 +5854,8 @@ values:
 - code: csb
   label:
     en: Kashubian
+    fr: kachoube
+    es: casubio
   standard_code: csb
 - code: csc
   label:
@@ -5682,6 +5936,8 @@ values:
 - code: csw
   label:
     en: Swampy Cree
+    fr: cri des marais
+    es: cree de los pantanos
   standard_code: csw
 - code: csx
   label:
@@ -5850,6 +6106,8 @@ values:
 - code: cwd
   label:
     en: Woods Cree
+    fr: cree
+    es: cree
   standard_code: cwd
 - code: cwe
   label:
@@ -5878,6 +6136,8 @@ values:
 - code: cym
   label:
     en: Welsh
+    fr: gallois
+    es: galés
   standard_code: cym
 - code: cyo
   label:
@@ -5938,6 +6198,8 @@ values:
 - code: dak
   label:
     en: Dakota
+    fr: dakota
+    es: dakota
   standard_code: dak
 - code: dal
   label:
@@ -5950,6 +6212,8 @@ values:
 - code: dan
   label:
     en: Danish
+    fr: danois
+    es: danés
   standard_code: dan
 - code: dao
   label:
@@ -5962,6 +6226,8 @@ values:
 - code: dar
   label:
     en: Dargwa
+    fr: dargwa
+    es: dargva
   standard_code: dar
 - code: das
   label:
@@ -5974,6 +6240,8 @@ values:
 - code: dav
   label:
     en: Taita
+    fr: taita
+    es: taita
   standard_code: dav
 - code: daw
   label:
@@ -6150,6 +6418,8 @@ values:
 - code: del
   label:
     en: Delaware
+    fr: delaware
+    es: delaware
   standard_code: del
 - code: dem
   label:
@@ -6158,6 +6428,8 @@ values:
 - code: den
   label:
     en: Slave (Athapascan)
+    fr: esclave
+    es: slave
   standard_code: den
 - code: dep
   label:
@@ -6178,6 +6450,8 @@ values:
 - code: deu
   label:
     en: German
+    fr: allemand
+    es: alemán
   standard_code: deu
 - code: dev
   label:
@@ -6234,10 +6508,14 @@ values:
 - code: dgo
   label:
     en: Dogri (individual language)
+    fr: dogri
+    es: dogri
   standard_code: dgo
 - code: dgr
   label:
     en: Tlicho
+    fr: dogrib
+    es: dogrib
   standard_code: dgr
 - code: dgs
   label:
@@ -6262,6 +6540,8 @@ values:
 - code: dhd
   label:
     en: Dhundari
+    fr: marwarî
+    es: marwari
   standard_code: dhd
 - code: dhg
   label:
@@ -6350,6 +6630,8 @@ values:
 - code: dik
   label:
     en: Southwestern Dinka
+    fr: dinka
+    es: dinka
   standard_code: dik
 - code: dil
   label:
@@ -6362,6 +6644,8 @@ values:
 - code: din
   label:
     en: Dinka
+    fr: dinka
+    es: dinka
   standard_code: din
 - code: dio
   label:
@@ -6374,6 +6658,8 @@ values:
 - code: diq
   label:
     en: Dimli (individual language)
+    fr: zazaki
+    es: zazaki
   standard_code: diq
 - code: dir
   label:
@@ -6390,6 +6676,8 @@ values:
 - code: div
   label:
     en: Dhivehi
+    fr: maldivien
+    es: divehi
   standard_code: div
 - code: diw
   label:
@@ -6426,6 +6714,8 @@ values:
 - code: dje
   label:
     en: Zarma
+    fr: zarma
+    es: zarma
   standard_code: dje
 - code: djf
   label:
@@ -6666,6 +6956,8 @@ values:
 - code: doi
   label:
     en: Dogri (macrolanguage)
+    fr: dogri
+    es: dogri
   standard_code: doi
 - code: dok
   label:
@@ -6786,6 +7078,8 @@ values:
 - code: dsb
   label:
     en: Lower Sorbian
+    fr: bas-sorabe
+    es: bajo sorbio
   standard_code: dsb
 - code: dse
   label:
@@ -6862,6 +7156,7 @@ values:
 - code: dtp
   label:
     en: Kadazan Dusun
+    fr: dusun central
   standard_code: dtp
 - code: dtr
   label:
@@ -6886,6 +7181,8 @@ values:
 - code: dua
   label:
     en: Duala
+    fr: douala
+    es: duala
   standard_code: dua
 - code: dub
   label:
@@ -6926,6 +7223,8 @@ values:
 - code: dum
   label:
     en: Middle Dutch (ca. 1050-1350)
+    fr: moyen néerlandais
+    es: neerlandés medio
   standard_code: dum
 - code: dun
   label:
@@ -7046,6 +7345,8 @@ values:
 - code: dyo
   label:
     en: Jola-Fonyi
+    fr: diola-fogny
+    es: jola-fonyi
   standard_code: dyo
 - code: dyr
   label:
@@ -7054,6 +7355,8 @@ values:
 - code: dyu
   label:
     en: Dyula
+    fr: dioula
+    es: diula
   standard_code: dyu
 - code: dyy
   label:
@@ -7074,6 +7377,8 @@ values:
 - code: dzg
   label:
     en: Dazaga
+    fr: dazaga
+    es: dazaga
   standard_code: dzg
 - code: dzl
   label:
@@ -7086,6 +7391,8 @@ values:
 - code: dzo
   label:
     en: Dzongkha
+    fr: dzongkha
+    es: dzongkha
   standard_code: dzo
 - code: eaa
   label:
@@ -7114,6 +7421,8 @@ values:
 - code: ebu
   label:
     en: Embu
+    fr: embu
+    es: embu
   standard_code: ebu
 - code: ecr
   label:
@@ -7142,6 +7451,8 @@ values:
 - code: efi
   label:
     en: Efik
+    fr: éfik
+    es: efik
   standard_code: efi
 - code: ega
   label:
@@ -7150,6 +7461,7 @@ values:
 - code: egl
   label:
     en: Emilian
+    fr: émilien
   standard_code: egl
 - code: egm
   label:
@@ -7162,6 +7474,8 @@ values:
 - code: egy
   label:
     en: Egyptian (Ancient)
+    fr: égyptien ancien
+    es: egipcio antiguo
   standard_code: egy
 - code: ehs
   label:
@@ -7190,6 +7504,8 @@ values:
 - code: eka
   label:
     en: Ekajuk
+    fr: ékadjouk
+    es: ekajuk
   standard_code: eka
 - code: eke
   label:
@@ -7206,6 +7522,8 @@ values:
 - code: ekk
   label:
     en: Standard Estonian
+    fr: estonien
+    es: estonio
   standard_code: ekk
 - code: ekl
   label:
@@ -7250,6 +7568,8 @@ values:
 - code: ell
   label:
     en: Modern Greek (1453-)
+    fr: grec
+    es: griego
   standard_code: ell
 - code: elm
   label:
@@ -7266,6 +7586,8 @@ values:
 - code: elx
   label:
     en: Elamite
+    fr: élamite
+    es: elamita
   standard_code: elx
 - code: ema
   label:
@@ -7290,6 +7612,8 @@ values:
 - code: emk
   label:
     en: Eastern Maninkakan
+    fr: mandingue
+    es: mandingo
   standard_code: emk
 - code: emm
   label:
@@ -7370,6 +7694,8 @@ values:
 - code: enm
   label:
     en: Middle English (1100-1500)
+    fr: moyen anglais
+    es: inglés medio
   standard_code: enm
 - code: enn
   label:
@@ -7414,6 +7740,8 @@ values:
 - code: epo
   label:
     en: Esperanto
+    fr: espéranto
+    es: esperanto
   standard_code: epo
 - code: era
   label:
@@ -7474,6 +7802,8 @@ values:
 - code: esk
   label:
     en: Northwest Alaska Inupiatun
+    fr: inupiaq
+    es: inupiaq
   standard_code: esk
 - code: esl
   label:
@@ -7502,10 +7832,13 @@ values:
 - code: est
   label:
     en: Estonian
+    fr: estonien
+    es: estonio
   standard_code: est
 - code: esu
   label:
     en: Central Yupik
+    fr: youpik central
   standard_code: esu
 - code: esy
   label:
@@ -7562,6 +7895,8 @@ values:
 - code: eus
   label:
     en: Basque
+    fr: basque
+    es: euskera
   standard_code: eus
 - code: eve
   label:
@@ -7578,14 +7913,19 @@ values:
 - code: ewe
   label:
     en: Ewe
+    fr: éwé
+    es: ewé
   standard_code: ewe
 - code: ewo
   label:
     en: Ewondo
+    fr: éwondo
+    es: ewondo
   standard_code: ewo
 - code: ext
   label:
     en: Extremaduran
+    fr: estrémègne
   standard_code: ext
 - code: eya
   label:
@@ -7650,10 +7990,14 @@ values:
 - code: fan
   label:
     en: Fang (Equatorial Guinea)
+    fr: fang
+    es: fang
   standard_code: fan
 - code: fao
   label:
     en: Faroese
+    fr: féroïen
+    es: feroés
   standard_code: fao
 - code: fap
   label:
@@ -7666,10 +8010,14 @@ values:
 - code: fas
   label:
     en: Persian
+    fr: persan
+    es: persa
   standard_code: fas
 - code: fat
   label:
     en: Fanti
+    fr: fanti
+    es: fanti
   standard_code: fat
 - code: fau
   label:
@@ -7726,14 +8074,20 @@ values:
 - code: fij
   label:
     en: Fijian
+    fr: fidjien
+    es: fiyiano
   standard_code: fij
 - code: fil
   label:
     en: Filipino
+    fr: filipino
+    es: filipino
   standard_code: fil
 - code: fin
   label:
     en: Finnish
+    fr: finnois
+    es: finés
   standard_code: fin
 - code: fip
   label:
@@ -7746,6 +8100,7 @@ values:
 - code: fit
   label:
     en: Tornedalen Finnish
+    fr: finnois tornédalien
   standard_code: fit
 - code: fiw
   label:
@@ -7822,6 +8177,8 @@ values:
 - code: fon
   label:
     en: Fon
+    fr: fon
+    es: fon
   standard_code: fon
 - code: for
   label:
@@ -7842,10 +8199,14 @@ values:
 - code: fra
   label:
     en: French
+    fr: français
+    es: francés
   standard_code: fra
 - code: frc
   label:
     en: Cajun French
+    fr: français cadien
+    es: francés cajún
   standard_code: frc
 - code: frd
   label:
@@ -7858,14 +8219,19 @@ values:
 - code: frm
   label:
     en: Middle French (ca. 1400-1600)
+    fr: moyen français
+    es: francés medio
   standard_code: frm
 - code: fro
   label:
     en: Old French (842-ca. 1400)
+    fr: ancien français
+    es: francés antiguo
   standard_code: fro
 - code: frp
   label:
     en: Arpitan
+    fr: francoprovençal
   standard_code: frp
 - code: frq
   label:
@@ -7874,10 +8240,14 @@ values:
 - code: frr
   label:
     en: Northern Frisian
+    fr: frison septentrional
+    es: frisón septentrional
   standard_code: frr
 - code: frs
   label:
     en: Eastern Frisian
+    fr: frison oriental
+    es: frisón oriental
   standard_code: frs
 - code: frt
   label:
@@ -7886,6 +8256,8 @@ values:
 - code: fry
   label:
     en: Western Frisian
+    fr: frison occidental
+    es: frisón occidental
   standard_code: fry
 - code: fse
   label:
@@ -7906,6 +8278,8 @@ values:
 - code: fuc
   label:
     en: Pulaar
+    fr: peul
+    es: fula
   standard_code: fuc
 - code: fud
   label:
@@ -7934,6 +8308,8 @@ values:
 - code: ful
   label:
     en: Fulah
+    fr: peul
+    es: fula
   standard_code: ful
 - code: fum
   label:
@@ -7950,6 +8326,8 @@ values:
 - code: fur
   label:
     en: Friulian
+    fr: frioulan
+    es: friulano
   standard_code: fur
 - code: fut
   label:
@@ -7982,6 +8360,8 @@ values:
 - code: gaa
   label:
     en: Ga
+    fr: ga
+    es: ga
   standard_code: gaa
 - code: gab
   label:
@@ -8006,6 +8386,8 @@ values:
 - code: gag
   label:
     en: Gagauz
+    fr: gagaouze
+    es: gagauzo
   standard_code: gag
 - code: gah
   label:
@@ -8034,6 +8416,8 @@ values:
 - code: gan
   label:
     en: Gan Chinese
+    fr: gan
+    es: chino gan
   standard_code: gan
 - code: gao
   label:
@@ -8074,14 +8458,20 @@ values:
 - code: gay
   label:
     en: Gayo
+    fr: gayo
+    es: gayo
   standard_code: gay
 - code: gaz
   label:
     en: West Central Oromo
+    fr: oromo
+    es: oromo
   standard_code: gaz
 - code: gba
   label:
     en: Gbaya (Central African Republic)
+    fr: gbaya
+    es: gbaya
   standard_code: gba
 - code: gbb
   label:
@@ -8134,6 +8524,8 @@ values:
 - code: gbo
   label:
     en: Northern Grebo
+    fr: grebo
+    es: grebo
   standard_code: gbo
 - code: gbp
   label:
@@ -8174,6 +8566,7 @@ values:
 - code: gbz
   label:
     en: Zoroastrian Dari
+    fr: dari zoroastrien
   standard_code: gbz
 - code: gcc
   label:
@@ -8362,6 +8755,8 @@ values:
 - code: gez
   label:
     en: Geez
+    fr: guèze
+    es: geez
   standard_code: gez
 - code: gfk
   label:
@@ -8490,6 +8885,8 @@ values:
 - code: gil
   label:
     en: Gilbertese
+    fr: gilbertin
+    es: gilbertés
   standard_code: gil
 - code: gim
   label:
@@ -8590,6 +8987,8 @@ values:
 - code: gla
   label:
     en: Scottish Gaelic
+    fr: gaélique écossais
+    es: gaélico escocés
   standard_code: gla
 - code: glb
   label:
@@ -8606,10 +9005,14 @@ values:
 - code: gle
   label:
     en: Irish
+    fr: irlandais
+    es: irlandés
   standard_code: gle
 - code: glg
   label:
     en: Galician
+    fr: galicien
+    es: gallego
   standard_code: glg
 - code: glh
   label:
@@ -8622,6 +9025,7 @@ values:
 - code: glk
   label:
     en: Gilaki
+    fr: gilaki
   standard_code: glk
 - code: gll
   label:
@@ -8642,6 +9046,8 @@ values:
 - code: glv
   label:
     en: Manx
+    fr: mannois
+    es: manés
   standard_code: glv
 - code: glw
   label:
@@ -8670,6 +9076,8 @@ values:
 - code: gmh
   label:
     en: Middle High German (ca. 1050-1500)
+    fr: moyen haut-allemand
+    es: alto alemán medio
   standard_code: gmh
 - code: gml
   label:
@@ -8762,6 +9170,8 @@ values:
 - code: gno
   label:
     en: Northern Gondi
+    fr: gondi
+    es: gondi
   standard_code: gno
 - code: gnq
   label:
@@ -8818,6 +9228,8 @@ values:
 - code: goh
   label:
     en: Old High German (ca. 750-1050)
+    fr: ancien haut allemand
+    es: alto alemán antiguo
   standard_code: goh
 - code: goi
   label:
@@ -8838,10 +9250,14 @@ values:
 - code: gom
   label:
     en: Goan Konkani
+    fr: konkani
+    es: konkaní
   standard_code: gom
 - code: gon
   label:
     en: Gondi
+    fr: gondi
+    es: gondi
   standard_code: gon
 - code: goo
   label:
@@ -8858,6 +9274,8 @@ values:
 - code: gor
   label:
     en: Gorontalo
+    fr: gorontalo
+    es: gorontalo
   standard_code: gor
 - code: gos
   label:
@@ -8866,6 +9284,8 @@ values:
 - code: got
   label:
     en: Gothic
+    fr: gotique
+    es: gótico
   standard_code: got
 - code: gou
   label:
@@ -8930,10 +9350,14 @@ values:
 - code: grb
   label:
     en: Grebo
+    fr: grebo
+    es: grebo
   standard_code: grb
 - code: grc
   label:
     en: Ancient Greek (to 1453)
+    fr: grec ancien
+    es: griego antiguo
   standard_code: grc
 - code: grd
   label:
@@ -8962,6 +9386,8 @@ values:
 - code: grn
   label:
     en: Guarani
+    fr: guarani
+    es: guaraní
   standard_code: grn
 - code: gro
   label:
@@ -9042,6 +9468,8 @@ values:
 - code: gsw
   label:
     en: Swiss German
+    fr: suisse allemand
+    es: alemán suizo
   standard_code: gsw
 - code: gta
   label:
@@ -9062,6 +9490,7 @@ values:
 - code: guc
   label:
     en: Wayuu
+    fr: wayuu
   standard_code: guc
 - code: gud
   label:
@@ -9078,6 +9507,8 @@ values:
 - code: gug
   label:
     en: Paraguayan Guaraní
+    fr: guarani
+    es: guaraní
   standard_code: gug
 - code: guh
   label:
@@ -9090,6 +9521,8 @@ values:
 - code: guj
   label:
     en: Gujarati
+    fr: goudjarati
+    es: guyaratí
   standard_code: guj
 - code: guk
   label:
@@ -9122,6 +9555,7 @@ values:
 - code: gur
   label:
     en: Farefare
+    fr: gurenne
   standard_code: gur
 - code: gus
   label:
@@ -9146,6 +9580,8 @@ values:
 - code: guz
   label:
     en: Gusii
+    fr: gusii
+    es: gusii
   standard_code: guz
 - code: gva
   label:
@@ -9230,6 +9666,8 @@ values:
 - code: gwi
   label:
     en: Gwichʼin
+    fr: gwichʼin
+    es: kutchin
   standard_code: gwi
 - code: gwj
   label:
@@ -9270,6 +9708,8 @@ values:
 - code: gya
   label:
     en: Northwest Gbaya
+    fr: gbaya
+    es: gbaya
   standard_code: gya
 - code: gyb
   label:
@@ -9370,6 +9810,8 @@ values:
 - code: hai
   label:
     en: Haida
+    fr: haïda
+    es: haida
   standard_code: hai
 - code: haj
   label:
@@ -9378,6 +9820,8 @@ values:
 - code: hak
   label:
     en: Hakka Chinese
+    fr: hakka
+    es: chino hakka
   standard_code: hak
 - code: hal
   label:
@@ -9414,10 +9858,14 @@ values:
 - code: hat
   label:
     en: Haitian
+    fr: créole haïtien
+    es: criollo haitiano
   standard_code: hat
 - code: hau
   label:
     en: Hausa
+    fr: haoussa
+    es: hausa
   standard_code: hau
 - code: hav
   label:
@@ -9426,10 +9874,14 @@ values:
 - code: haw
   label:
     en: Hawaiian
+    fr: hawaïen
+    es: hawaiano
   standard_code: haw
 - code: hax
   label:
     en: Southern Haida
+    fr: haïda du Sud
+    es: haida meridional
   standard_code: hax
 - code: hay
   label:
@@ -9474,6 +9926,8 @@ values:
 - code: hdn
   label:
     en: Northern Haida
+    fr: haïda
+    es: haida
   standard_code: hdn
 - code: hds
   label:
@@ -9486,10 +9940,14 @@ values:
 - code: hea
   label:
     en: Northern Qiandong Miao
+    fr: hmong
+    es: hmong
   standard_code: hea
 - code: heb
   label:
     en: Hebrew
+    fr: hébreu
+    es: hebreo
   standard_code: heb
 - code: hed
   label:
@@ -9514,6 +9972,8 @@ values:
 - code: her
   label:
     en: Herero
+    fr: héréro
+    es: herero
   standard_code: her
 - code: hgm
   label:
@@ -9550,6 +10010,7 @@ values:
 - code: hif
   label:
     en: Fiji Hindi
+    fr: hindi fidjien
   standard_code: hif
 - code: hig
   label:
@@ -9574,10 +10035,14 @@ values:
 - code: hil
   label:
     en: Hiligaynon
+    fr: hiligaynon
+    es: hiligaynon
   standard_code: hil
 - code: hin
   label:
     en: Hindi
+    fr: hindi
+    es: hindi
   standard_code: hin
 - code: hio
   label:
@@ -9590,6 +10055,8 @@ values:
 - code: hit
   label:
     en: Hittite
+    fr: hittite
+    es: hitita
   standard_code: hit
 - code: hiw
   label:
@@ -9706,10 +10173,14 @@ values:
 - code: hmn
   label:
     en: Hmong
+    fr: hmong
+    es: hmong
   standard_code: hmn
 - code: hmo
   label:
     en: Hiri Motu
+    fr: hiri motu
+    es: hiri motu
   standard_code: hmo
 - code: hmp
   label:
@@ -9922,6 +10393,8 @@ values:
 - code: hrv
   label:
     en: Croatian
+    fr: croate
+    es: croata
   standard_code: hrv
 - code: hrw
   label:
@@ -9938,6 +10411,8 @@ values:
 - code: hsb
   label:
     en: Upper Sorbian
+    fr: haut-sorabe
+    es: alto sorbio
   standard_code: hsb
 - code: hsh
   label:
@@ -9950,6 +10425,8 @@ values:
 - code: hsn
   label:
     en: Xiang Chinese
+    fr: xiang
+    es: chino xiang
   standard_code: hsn
 - code: hss
   label:
@@ -10026,6 +10503,8 @@ values:
 - code: hun
   label:
     en: Hungarian
+    fr: hongrois
+    es: húngaro
   standard_code: hun
 - code: huo
   label:
@@ -10034,6 +10513,8 @@ values:
 - code: hup
   label:
     en: Hupa
+    fr: hupa
+    es: hupa
   standard_code: hup
 - code: huq
   label:
@@ -10042,6 +10523,8 @@ values:
 - code: hur
   label:
     en: Halkomelem
+    fr: halkomelem
+    es: halkomelem
   standard_code: hur
 - code: hus
   label:
@@ -10114,6 +10597,8 @@ values:
 - code: hye
   label:
     en: Armenian
+    fr: arménien
+    es: armenio
   standard_code: hye
 - code: hyw
   label:
@@ -10134,10 +10619,14 @@ values:
 - code: iba
   label:
     en: Iban
+    fr: iban
+    es: iban
   standard_code: iba
 - code: ibb
   label:
     en: Ibibio
+    fr: ibibio
+    es: ibibio
   standard_code: ibb
 - code: ibd
   label:
@@ -10170,6 +10659,8 @@ values:
 - code: ibo
   label:
     en: Igbo
+    fr: igbo
+    es: igbo
   standard_code: ibo
 - code: ibr
   label:
@@ -10226,6 +10717,8 @@ values:
 - code: ido
   label:
     en: Ido
+    fr: ido
+    es: ido
   standard_code: ido
 - code: idr
   label:
@@ -10330,6 +10823,8 @@ values:
 - code: iii
   label:
     en: Sichuan Yi
+    fr: yi du Sichuan
+    es: yi de Sichuán
   standard_code: iii
 - code: iin
   label:
@@ -10358,6 +10853,8 @@ values:
 - code: ike
   label:
     en: Eastern Canadian Inuktitut
+    fr: inuktitut
+    es: inuktitut
   standard_code: ike
 - code: ikh
   label:
@@ -10394,10 +10891,14 @@ values:
 - code: ikt
   label:
     en: Inuinnaqtun
+    fr: inuktitut de l’Ouest canadien
+    es: inuit del oeste de Canadá
   standard_code: ikt
 - code: iku
   label:
     en: Inuktitut
+    fr: inuktitut
+    es: inuktitut
   standard_code: iku
 - code: ikv
   label:
@@ -10426,6 +10927,8 @@ values:
 - code: ile
   label:
     en: Interlingue
+    fr: interlingue
+    es: interlingue
   standard_code: ile
 - code: ilg
   label:
@@ -10446,6 +10949,8 @@ values:
 - code: ilo
   label:
     en: Iloko
+    fr: ilocano
+    es: ilocano
   standard_code: ilo
 - code: ilp
   label:
@@ -10502,6 +11007,8 @@ values:
 - code: ina
   label:
     en: Interlingua (International Auxiliary Language Association)
+    fr: interlingua
+    es: interlingua
   standard_code: ina
 - code: inb
   label:
@@ -10510,6 +11017,8 @@ values:
 - code: ind
   label:
     en: Indonesian
+    fr: indonésien
+    es: indonesio
   standard_code: ind
 - code: ing
   label:
@@ -10518,6 +11027,8 @@ values:
 - code: inh
   label:
     en: Ingush
+    fr: ingouche
+    es: ingush
   standard_code: inh
 - code: inj
   label:
@@ -10574,6 +11085,8 @@ values:
 - code: ipk
   label:
     en: Inupiaq
+    fr: inupiaq
+    es: inupiaq
   standard_code: ipk
 - code: ipo
   label:
@@ -10658,6 +11171,8 @@ values:
 - code: isl
   label:
     en: Icelandic
+    fr: islandais
+    es: islandés
   standard_code: isl
 - code: ism
   label:
@@ -10690,6 +11205,8 @@ values:
 - code: ita
   label:
     en: Italian
+    fr: italien
+    es: italiano
   standard_code: ita
 - code: itb
   label:
@@ -10806,6 +11323,7 @@ values:
 - code: izh
   label:
     en: Ingrian
+    fr: ingrien
   standard_code: izh
 - code: izm
   label:
@@ -10862,6 +11380,7 @@ values:
 - code: jam
   label:
     en: Jamaican Creole English
+    fr: créole jamaïcain
   standard_code: jam
 - code: jan
   label:
@@ -10890,6 +11409,8 @@ values:
 - code: jav
   label:
     en: Javanese
+    fr: javanais
+    es: javanés
   standard_code: jav
 - code: jax
   label:
@@ -10930,6 +11451,8 @@ values:
 - code: jbo
   label:
     en: Lojban
+    fr: lojban
+    es: lojban
   standard_code: jbo
 - code: jbr
   label:
@@ -11022,6 +11545,8 @@ values:
 - code: jgo
   label:
     en: Ngomba
+    fr: ngomba
+    es: ngomba
   standard_code: jgo
 - code: jhi
   label:
@@ -11150,6 +11675,8 @@ values:
 - code: jmc
   label:
     en: Machame
+    fr: matchamé
+    es: machame
   standard_code: jmc
 - code: jmd
   label:
@@ -11242,10 +11769,14 @@ values:
 - code: jpn
   label:
     en: Japanese
+    fr: japonais
+    es: japonés
   standard_code: jpn
 - code: jpr
   label:
     en: Judeo-Persian
+    fr: judéo-persan
+    es: judeo-persa
   standard_code: jpr
 - code: jqr
   label:
@@ -11258,6 +11789,8 @@ values:
 - code: jrb
   label:
     en: Judeo-Arabic
+    fr: judéo-arabe
+    es: judeo-árabe
   standard_code: jrb
 - code: jrr
   label:
@@ -11334,6 +11867,7 @@ values:
 - code: jut
   label:
     en: Jutish
+    fr: jute
   standard_code: jut
 - code: juu
   label:
@@ -11374,14 +11908,20 @@ values:
 - code: kaa
   label:
     en: Kara-Kalpak
+    fr: karakalpak
+    es: karakalpako
   standard_code: kaa
 - code: kab
   label:
     en: Kabyle
+    fr: kabyle
+    es: cabileño
   standard_code: kab
 - code: kac
   label:
     en: Kachin
+    fr: kachin
+    es: kachin
   standard_code: kac
 - code: kad
   label:
@@ -11410,6 +11950,8 @@ values:
 - code: kaj
   label:
     en: Jju
+    fr: jju
+    es: jju
   standard_code: kaj
 - code: kak
   label:
@@ -11418,14 +11960,20 @@ values:
 - code: kal
   label:
     en: Kalaallisut
+    fr: groenlandais
+    es: groenlandés
   standard_code: kal
 - code: kam
   label:
     en: Kamba (Kenya)
+    fr: kamba
+    es: kamba
   standard_code: kam
 - code: kan
   label:
     en: Kannada
+    fr: kannada
+    es: canarés
   standard_code: kan
 - code: kao
   label:
@@ -11442,14 +11990,20 @@ values:
 - code: kas
   label:
     en: Kashmiri
+    fr: cachemiri
+    es: cachemir
   standard_code: kas
 - code: kat
   label:
     en: Georgian
+    fr: géorgien
+    es: georgiano
   standard_code: kat
 - code: kau
   label:
     en: Kanuri
+    fr: kanouri
+    es: kanuri
   standard_code: kau
 - code: kav
   label:
@@ -11458,6 +12012,8 @@ values:
 - code: kaw
   label:
     en: Kawi
+    fr: kawi
+    es: kawi
   standard_code: kaw
 - code: kax
   label:
@@ -11470,6 +12026,8 @@ values:
 - code: kaz
   label:
     en: Kazakh
+    fr: kazakh
+    es: kazajo
   standard_code: kaz
 - code: kba
   label:
@@ -11486,6 +12044,8 @@ values:
 - code: kbd
   label:
     en: Kabardian
+    fr: kabarde
+    es: kabardiano
   standard_code: kbd
 - code: kbe
   label:
@@ -11514,6 +12074,8 @@ values:
 - code: kbl
   label:
     en: Kanembu
+    fr: kanembou
+    es: kanembu
   standard_code: kbl
 - code: kbm
   label:
@@ -11598,6 +12160,8 @@ values:
 - code: kcg
   label:
     en: Tyap
+    fr: tyap
+    es: tyap
   standard_code: kcg
 - code: kch
   label:
@@ -11690,6 +12254,8 @@ values:
 - code: kde
   label:
     en: Makonde
+    fr: makondé
+    es: makonde
   standard_code: kde
 - code: kdf
   label:
@@ -11766,6 +12332,8 @@ values:
 - code: kea
   label:
     en: Kabuverdianu
+    fr: capverdien
+    es: criollo caboverdiano
   standard_code: kea
 - code: keb
   label:
@@ -11818,6 +12386,7 @@ values:
 - code: ken
   label:
     en: Kenyang
+    fr: kényang
   standard_code: ken
 - code: keo
   label:
@@ -11926,6 +12495,8 @@ values:
 - code: kfo
   label:
     en: Koro (Côte d'Ivoire)
+    fr: koro
+    es: koro
   standard_code: kfo
 - code: kfp
   label:
@@ -12018,6 +12589,8 @@ values:
 - code: kgp
   label:
     en: Kaingang
+    fr: caingangue
+    es: káingang
   standard_code: kgp
 - code: kgq
   label:
@@ -12058,6 +12631,8 @@ values:
 - code: kha
   label:
     en: Khasi
+    fr: khasi
+    es: khasi
   standard_code: kha
 - code: khb
   label:
@@ -12094,6 +12669,8 @@ values:
 - code: khk
   label:
     en: Halh Mongolian
+    fr: mongol
+    es: mongol
   standard_code: khk
 - code: khl
   label:
@@ -12102,6 +12679,8 @@ values:
 - code: khm
   label:
     en: Khmer
+    fr: khmer
+    es: jemer
   standard_code: khm
 - code: khn
   label:
@@ -12110,6 +12689,8 @@ values:
 - code: kho
   label:
     en: Khotanese
+    fr: khotanais
+    es: kotanés
   standard_code: kho
 - code: khp
   label:
@@ -12118,6 +12699,8 @@ values:
 - code: khq
   label:
     en: Koyra Chiini Songhay
+    fr: koyra chiini
+    es: koyra chiini
   standard_code: khq
 - code: khr
   label:
@@ -12142,6 +12725,7 @@ values:
 - code: khw
   label:
     en: Khowar
+    fr: khowar
   standard_code: khw
 - code: khx
   label:
@@ -12198,6 +12782,8 @@ values:
 - code: kik
   label:
     en: Kikuyu
+    fr: kikuyu
+    es: kikuyu
   standard_code: kik
 - code: kil
   label:
@@ -12210,6 +12796,8 @@ values:
 - code: kin
   label:
     en: Kinyarwanda
+    fr: kinyarwanda
+    es: kinyarwanda
   standard_code: kin
 - code: kio
   label:
@@ -12226,6 +12814,8 @@ values:
 - code: kir
   label:
     en: Kirghiz
+    fr: kirghize
+    es: kirguís
   standard_code: kir
 - code: kis
   label:
@@ -12238,6 +12828,7 @@ values:
 - code: kiu
   label:
     en: Kirmanjki (individual language)
+    fr: kirmanjki
   standard_code: kiu
 - code: kiv
   label:
@@ -12394,6 +12985,8 @@ values:
 - code: kkj
   label:
     en: Kako
+    fr: kako
+    es: kako
   standard_code: kkj
 - code: kkk
   label:
@@ -12514,6 +13107,8 @@ values:
 - code: kln
   label:
     en: Kalenjin
+    fr: kalendjin
+    es: kalenjin
   standard_code: kln
 - code: klo
   label:
@@ -12570,6 +13165,8 @@ values:
 - code: kmb
   label:
     en: Kimbundu
+    fr: kimboundou
+    es: kimbundu
   standard_code: kmb
 - code: kmc
   label:
@@ -12634,6 +13231,8 @@ values:
 - code: kmr
   label:
     en: Northern Kurdish
+    fr: kurde
+    es: kurdo
   standard_code: kmr
 - code: kms
   label:
@@ -12678,6 +13277,8 @@ values:
 - code: knc
   label:
     en: Central Kanuri
+    fr: kanouri
+    es: kanuri
   standard_code: knc
 - code: knd
   label:
@@ -12694,6 +13295,8 @@ values:
 - code: kng
   label:
     en: Koongo
+    fr: kikongo
+    es: kongo
   standard_code: kng
 - code: kni
   label:
@@ -12798,10 +13401,14 @@ values:
 - code: koi
   label:
     en: Komi-Permyak
+    fr: komi-permiak
+    es: komi permio
   standard_code: koi
 - code: kok
   label:
     en: Konkani (macrolanguage)
+    fr: konkani
+    es: konkaní
   standard_code: kok
 - code: kol
   label:
@@ -12810,10 +13417,14 @@ values:
 - code: kom
   label:
     en: Komi
+    fr: komi
+    es: komi
   standard_code: kom
 - code: kon
   label:
     en: Kongo
+    fr: kikongo
+    es: kongo
   standard_code: kon
 - code: koo
   label:
@@ -12830,10 +13441,14 @@ values:
 - code: kor
   label:
     en: Korean
+    fr: coréen
+    es: coreano
   standard_code: kor
 - code: kos
   label:
     en: Kosraean
+    fr: kosraéen
+    es: kosraeano
   standard_code: kos
 - code: kot
   label:
@@ -12878,6 +13493,8 @@ values:
 - code: kpe
   label:
     en: Kpelle
+    fr: kpellé
+    es: kpelle
   standard_code: kpe
 - code: kpf
   label:
@@ -12942,6 +13559,8 @@ values:
 - code: kpv
   label:
     en: Komi-Zyrian
+    fr: komi
+    es: komi
   standard_code: kpv
 - code: kpw
   label:
@@ -13074,6 +13693,8 @@ values:
 - code: krc
   label:
     en: Karachay-Balkar
+    fr: karatchaï balkar
+    es: karachay-balkar
   standard_code: krc
 - code: krd
   label:
@@ -13094,10 +13715,12 @@ values:
 - code: kri
   label:
     en: Krio
+    fr: krio
   standard_code: kri
 - code: krj
   label:
     en: Kinaray-A
+    fr: kinaray-a
   standard_code: krj
 - code: krk
   label:
@@ -13106,6 +13729,8 @@ values:
 - code: krl
   label:
     en: Karelian
+    fr: carélien
+    es: carelio
   standard_code: krl
 - code: krn
   label:
@@ -13130,6 +13755,8 @@ values:
 - code: kru
   label:
     en: Kurukh
+    fr: kouroukh
+    es: kurukh
   standard_code: kru
 - code: krv
   label:
@@ -13154,6 +13781,8 @@ values:
 - code: ksb
   label:
     en: Shambala
+    fr: shambala
+    es: shambala
   standard_code: ksb
 - code: ksc
   label:
@@ -13170,6 +13799,8 @@ values:
 - code: ksf
   label:
     en: Bafia
+    fr: bafia
+    es: bafia
   standard_code: ksf
 - code: ksg
   label:
@@ -13178,6 +13809,8 @@ values:
 - code: ksh
   label:
     en: Kölsch
+    fr: kölsch
+    es: kölsch
   standard_code: ksh
 - code: ksi
   label:
@@ -13354,6 +13987,8 @@ values:
 - code: kua
   label:
     en: Kuanyama
+    fr: kuanyama
+    es: kuanyama
   standard_code: kua
 - code: kub
   label:
@@ -13402,6 +14037,8 @@ values:
 - code: kum
   label:
     en: Kumyk
+    fr: koumyk
+    es: kumyk
   standard_code: kum
 - code: kun
   label:
@@ -13422,6 +14059,8 @@ values:
 - code: kur
   label:
     en: Kurdish
+    fr: kurde
+    es: kurdo
   standard_code: kur
 - code: kus
   label:
@@ -13430,6 +14069,8 @@ values:
 - code: kut
   label:
     en: Kutenai
+    fr: kutenai
+    es: kutenai
   standard_code: kut
 - code: kuu
   label:
@@ -13598,6 +14239,8 @@ values:
 - code: kwk
   label:
     en: Kwak'wala
+    fr: kwak’wala
+    es: kwakʼwala
   standard_code: kwk
 - code: kwl
   label:
@@ -13726,6 +14369,8 @@ values:
 - code: kxv
   label:
     en: Kuvi
+    fr: kuvi
+    es: kuvi
   standard_code: kxv
 - code: kxw
   label:
@@ -13954,6 +14599,8 @@ values:
 - code: lad
   label:
     en: Ladino
+    fr: ladino
+    es: ladino
   standard_code: lad
 - code: lae
   label:
@@ -13966,10 +14613,14 @@ values:
 - code: lag
   label:
     en: Rangi
+    fr: langi
+    es: langi
   standard_code: lag
 - code: lah
   label:
     en: Lahnda
+    fr: lahnda
+    es: lahnda
   standard_code: lah
 - code: lai
   label:
@@ -13986,6 +14637,8 @@ values:
 - code: lam
   label:
     en: Lamba
+    fr: lamba
+    es: lamba
   standard_code: lam
 - code: lan
   label:
@@ -13994,6 +14647,8 @@ values:
 - code: lao
   label:
     en: Lao
+    fr: lao
+    es: lao
   standard_code: lao
 - code: lap
   label:
@@ -14014,6 +14669,8 @@ values:
 - code: lat
   label:
     en: Latin
+    fr: latin
+    es: latín
   standard_code: lat
 - code: lau
   label:
@@ -14022,6 +14679,8 @@ values:
 - code: lav
   label:
     en: Latvian
+    fr: letton
+    es: letón
   standard_code: lav
 - code: law
   label:
@@ -14322,6 +14981,8 @@ values:
 - code: lez
   label:
     en: Lezghian
+    fr: lezghien
+    es: lezgiano
   standard_code: lez
 - code: lfa
   label:
@@ -14334,6 +14995,7 @@ values:
 - code: lfn
   label:
     en: Lingua Franca Nova
+    fr: lingua franca nova
   standard_code: lfn
 - code: lga
   label:
@@ -14474,6 +15136,8 @@ values:
 - code: lij
   label:
     en: Ligurian
+    fr: ligure
+    es: ligur
   standard_code: lij
 - code: lik
   label:
@@ -14482,14 +15146,20 @@ values:
 - code: lil
   label:
     en: Lillooet
+    fr: lillooet
+    es: lillooet
   standard_code: lil
 - code: lim
   label:
     en: Limburgan
+    fr: limbourgeois
+    es: limburgués
   standard_code: lim
 - code: lin
   label:
     en: Lingala
+    fr: lingala
+    es: lingala
   standard_code: lin
 - code: lio
   label:
@@ -14514,6 +15184,8 @@ values:
 - code: lit
   label:
     en: Lithuanian
+    fr: lituanien
+    es: lituano
   standard_code: lit
 - code: liu
   label:
@@ -14522,6 +15194,7 @@ values:
 - code: liv
   label:
     en: Liv
+    fr: livonien
   standard_code: liv
 - code: liw
   label:
@@ -14626,6 +15299,8 @@ values:
 - code: lkt
   label:
     en: Lakota
+    fr: lakota
+    es: lakota
   standard_code: lkt
 - code: lku
   label:
@@ -14766,6 +15441,8 @@ values:
 - code: lmo
   label:
     en: Lombard
+    fr: lombard
+    es: lombardo
   standard_code: lmo
 - code: lmp
   label:
@@ -14898,6 +15575,8 @@ values:
 - code: lol
   label:
     en: Mongo
+    fr: mongo
+    es: mongo
   standard_code: lol
 - code: lom
   label:
@@ -14934,6 +15613,8 @@ values:
 - code: lou
   label:
     en: Louisiana Creole
+    fr: créole louisianais
+    es: criollo de Luisiana
   standard_code: lou
 - code: lov
   label:
@@ -14954,6 +15635,8 @@ values:
 - code: loz
   label:
     en: Lozi
+    fr: lozi
+    es: lozi
   standard_code: loz
 - code: lpa
   label:
@@ -14986,6 +15669,8 @@ values:
 - code: lrc
   label:
     en: Northern Luri
+    fr: lori du Nord
+    es: lorí septentrional
   standard_code: lrc
 - code: lre
   label:
@@ -15070,6 +15755,8 @@ values:
 - code: lsm
   label:
     en: Saamia
+    fr: samia
+    es: samia
   standard_code: lsm
 - code: lsn
   label:
@@ -15114,6 +15801,7 @@ values:
 - code: ltg
   label:
     en: Latgalian
+    fr: latgalien
   standard_code: ltg
 - code: lth
   label:
@@ -15142,14 +15830,20 @@ values:
 - code: ltz
   label:
     en: Luxembourgish
+    fr: luxembourgeois
+    es: luxemburgués
   standard_code: ltz
 - code: lua
   label:
     en: Luba-Lulua
+    fr: luba-kasaï (ciluba)
+    es: luba-lulua
   standard_code: lua
 - code: lub
   label:
     en: Luba-Katanga
+    fr: luba-katanga (kiluba)
+    es: luba-katanga
   standard_code: lub
 - code: luc
   label:
@@ -15170,6 +15864,8 @@ values:
 - code: lug
   label:
     en: Ganda
+    fr: ganda
+    es: ganda
   standard_code: lug
 - code: luh
   label:
@@ -15178,6 +15874,8 @@ values:
 - code: lui
   label:
     en: Luiseño
+    fr: luiseño
+    es: luiseño
   standard_code: lui
 - code: luj
   label:
@@ -15198,6 +15896,8 @@ values:
 - code: lun
   label:
     en: Lunda
+    fr: lunda
+    es: lunda
   standard_code: lun
 - code: luo
   label:
@@ -15218,6 +15918,8 @@ values:
 - code: lus
   label:
     en: Lushai
+    fr: lushaï
+    es: mizo
   standard_code: lus
 - code: lut
   label:
@@ -15238,6 +15940,8 @@ values:
 - code: luy
   label:
     en: Luyia
+    fr: luyia
+    es: luyia
   standard_code: luy
 - code: luz
   label:
@@ -15262,6 +15966,8 @@ values:
 - code: lvs
   label:
     en: Standard Latvian
+    fr: letton
+    es: letón
   standard_code: lvs
 - code: lvu
   label:
@@ -15330,6 +16036,7 @@ values:
 - code: lzh
   label:
     en: Literary Chinese
+    fr: chinois littéraire
   standard_code: lzh
 - code: lzl
   label:
@@ -15342,6 +16049,7 @@ values:
 - code: lzz
   label:
     en: Laz
+    fr: laze
   standard_code: lzz
 - code: maa
   label:
@@ -15354,6 +16062,8 @@ values:
 - code: mad
   label:
     en: Madurese
+    fr: madurais
+    es: madurés
   standard_code: mad
 - code: mae
   label:
@@ -15362,18 +16072,26 @@ values:
 - code: maf
   label:
     en: Mafa
+    fr: mafa
+    es: mafa
   standard_code: maf
 - code: mag
   label:
     en: Magahi
+    fr: magahi
+    es: magahi
   standard_code: mag
 - code: mah
   label:
     en: Marshallese
+    fr: marshallais
+    es: marshalés
   standard_code: mah
 - code: mai
   label:
     en: Maithili
+    fr: maïthili
+    es: maithili
   standard_code: mai
 - code: maj
   label:
@@ -15382,10 +16100,14 @@ values:
 - code: mak
   label:
     en: Makasar
+    fr: makassar
+    es: macasar
   standard_code: mak
 - code: mal
   label:
     en: Malayalam
+    fr: malayalam
+    es: malayálam
   standard_code: mal
 - code: mam
   label:
@@ -15394,6 +16116,8 @@ values:
 - code: man
   label:
     en: Mandingo
+    fr: mandingue
+    es: mandingo
   standard_code: man
 - code: maq
   label:
@@ -15402,10 +16126,14 @@ values:
 - code: mar
   label:
     en: Marathi
+    fr: marathi
+    es: maratí
   standard_code: mar
 - code: mas
   label:
     en: Masai
+    fr: maasaï
+    es: masái
   standard_code: mas
 - code: mat
   label:
@@ -15654,10 +16382,14 @@ values:
 - code: mde
   label:
     en: Maba (Chad)
+    fr: maba
+    es: maba
   standard_code: mde
 - code: mdf
   label:
     en: Moksha
+    fr: mokcha
+    es: moksha
   standard_code: mdf
 - code: mdg
   label:
@@ -15702,6 +16434,8 @@ values:
 - code: mdr
   label:
     en: Mandar
+    fr: mandar
+    es: mandar
   standard_code: mdr
 - code: mds
   label:
@@ -15786,6 +16520,8 @@ values:
 - code: men
   label:
     en: Mende (Sierra Leone)
+    fr: mendé
+    es: mende
   standard_code: men
 - code: meo
   label:
@@ -15802,6 +16538,8 @@ values:
 - code: mer
   label:
     en: Meru
+    fr: meru
+    es: meru
   standard_code: mer
 - code: mes
   label:
@@ -15850,6 +16588,8 @@ values:
 - code: mfe
   label:
     en: Morisyen
+    fr: créole mauricien
+    es: criollo mauriciano
   standard_code: mfe
 - code: mff
   label:
@@ -15938,6 +16678,8 @@ values:
 - code: mga
   label:
     en: Middle Irish (900-1200)
+    fr: moyen irlandais
+    es: irlandés medio
   standard_code: mga
 - code: mgb
   label:
@@ -15966,6 +16708,8 @@ values:
 - code: mgh
   label:
     en: Makhuwa-Meetto
+    fr: makua
+    es: makhuwa-meetto
   standard_code: mgh
 - code: mgi
   label:
@@ -15994,6 +16738,8 @@ values:
 - code: mgo
   label:
     en: Meta'
+    fr: metaʼ
+    es: meta’
   standard_code: mgo
 - code: mgp
   label:
@@ -16102,6 +16848,8 @@ values:
 - code: mhr
   label:
     en: Eastern Mari
+    fr: mari
+    es: marí
   standard_code: mhr
 - code: mhs
   label:
@@ -16142,6 +16890,8 @@ values:
 - code: mic
   label:
     en: Mi'kmaq
+    fr: micmac
+    es: micmac
   standard_code: mic
 - code: mid
   label:
@@ -16186,6 +16936,8 @@ values:
 - code: min
   label:
     en: Minangkabau
+    fr: minangkabau
+    es: minangkabau
   standard_code: min
 - code: mio
   label:
@@ -16342,6 +17094,8 @@ values:
 - code: mkd
   label:
     en: Macedonian
+    fr: macédonien
+    es: macedonio
   standard_code: mkd
 - code: mke
   label:
@@ -16450,6 +17204,8 @@ values:
 - code: mlg
   label:
     en: Malagasy
+    fr: malgache
+    es: malgache
   standard_code: mlg
 - code: mlh
   label:
@@ -16502,6 +17258,8 @@ values:
 - code: mlt
   label:
     en: Maltese
+    fr: maltais
+    es: maltés
   standard_code: mlt
 - code: mlu
   label:
@@ -16634,6 +17392,8 @@ values:
 - code: mnc
   label:
     en: Manchu
+    fr: mandchou
+    es: manchú
   standard_code: mnc
 - code: mnd
   label:
@@ -16658,6 +17418,8 @@ values:
 - code: mni
   label:
     en: Manipuri
+    fr: manipuri
+    es: manipurí
   standard_code: mni
 - code: mnj
   label:
@@ -16666,6 +17428,8 @@ values:
 - code: mnk
   label:
     en: Mandinka
+    fr: mandingue
+    es: mandingo
   standard_code: mnk
 - code: mnl
   label:
@@ -16734,6 +17498,8 @@ values:
 - code: moe
   label:
     en: Innu
+    fr: innu-aimun
+    es: innu-aimun
   standard_code: moe
 - code: mog
   label:
@@ -16742,6 +17508,8 @@ values:
 - code: moh
   label:
     en: Mohawk
+    fr: mohawk
+    es: mohawk
   standard_code: moh
 - code: moi
   label:
@@ -16762,6 +17530,8 @@ values:
 - code: mon
   label:
     en: Mongolian
+    fr: mongol
+    es: mongol
   standard_code: mon
 - code: moo
   label:
@@ -16782,6 +17552,8 @@ values:
 - code: mos
   label:
     en: Mossi
+    fr: moré
+    es: mossi
   standard_code: mos
 - code: mot
   label:
@@ -17046,10 +17818,13 @@ values:
 - code: mri
   label:
     en: Maori
+    fr: maori
+    es: maorí
   standard_code: mri
 - code: mrj
   label:
     en: Western Mari
+    fr: mari occidental
   standard_code: mrj
 - code: mrk
   label:
@@ -17118,6 +17893,8 @@ values:
 - code: msa
   label:
     en: Malay (macrolanguage)
+    fr: malais
+    es: malayo
   standard_code: msa
 - code: msb
   label:
@@ -17318,6 +18095,8 @@ values:
 - code: mua
   label:
     en: Mundang
+    fr: moundang
+    es: mundang
   standard_code: mua
 - code: mub
   label:
@@ -17358,6 +18137,8 @@ values:
 - code: mul
   label:
     en: Multiple languages
+    fr: multilingue
+    es: varios idiomas
   standard_code: mul
 - code: mum
   label:
@@ -17370,6 +18151,8 @@ values:
 - code: mup
   label:
     en: Malvi
+    fr: rajasthani
+    es: rajasthani
   standard_code: mup
 - code: muq
   label:
@@ -17382,6 +18165,8 @@ values:
 - code: mus
   label:
     en: Creek
+    fr: creek
+    es: creek
   standard_code: mus
 - code: mut
   label:
@@ -17538,6 +18323,8 @@ values:
 - code: mwl
   label:
     en: Mirandese
+    fr: mirandais
+    es: mirandés
   standard_code: mwl
 - code: mwm
   label:
@@ -17562,6 +18349,8 @@ values:
 - code: mwr
   label:
     en: Marwari
+    fr: marwarî
+    es: marwari
   standard_code: mwr
 - code: mws
   label:
@@ -17578,6 +18367,7 @@ values:
 - code: mwv
   label:
     en: Mentawai
+    fr: mentawaï
   standard_code: mwv
 - code: mww
   label:
@@ -17694,6 +18484,8 @@ values:
 - code: mya
   label:
     en: Burmese
+    fr: birman
+    es: birmano
   standard_code: mya
 - code: myb
   label:
@@ -17706,6 +18498,8 @@ values:
 - code: mye
   label:
     en: Myene
+    fr: myènè
+    es: myene
   standard_code: mye
 - code: myf
   label:
@@ -17758,6 +18552,8 @@ values:
 - code: myv
   label:
     en: Erzya
+    fr: erzya
+    es: erzya
   standard_code: myv
 - code: myw
   label:
@@ -17826,6 +18622,8 @@ values:
 - code: mzn
   label:
     en: Mazanderani
+    fr: mazandérani
+    es: mazandaraní
   standard_code: mzn
 - code: mzo
   label:
@@ -17918,6 +18716,8 @@ values:
 - code: nan
   label:
     en: Min Nan Chinese
+    fr: minnan
+    es: chino min nan
   standard_code: nan
 - code: nao
   label:
@@ -17926,10 +18726,14 @@ values:
 - code: nap
   label:
     en: Neapolitan
+    fr: napolitain
+    es: napolitano
   standard_code: nap
 - code: naq
   label:
     en: Khoekhoe
+    fr: nama
+    es: nama
   standard_code: naq
 - code: nar
   label:
@@ -17946,10 +18750,14 @@ values:
 - code: nau
   label:
     en: Nauru
+    fr: nauruan
+    es: nauruano
   standard_code: nau
 - code: nav
   label:
     en: Navajo
+    fr: navajo
+    es: navajo
   standard_code: nav
 - code: naw
   label:
@@ -18010,6 +18818,8 @@ values:
 - code: nbl
   label:
     en: South Ndebele
+    fr: ndébélé du Sud
+    es: ndebele meridional
   standard_code: nbl
 - code: nbm
   label:
@@ -18166,6 +18976,8 @@ values:
 - code: nde
   label:
     en: North Ndebele
+    fr: ndébélé du Nord
+    es: ndebele septentrional
   standard_code: nde
 - code: ndf
   label:
@@ -18206,6 +19018,8 @@ values:
 - code: ndo
   label:
     en: Ndonga
+    fr: ndonga
+    es: ndonga
   standard_code: ndo
 - code: ndp
   label:
@@ -18222,6 +19036,8 @@ values:
 - code: nds
   label:
     en: Low German
+    fr: bas-allemand
+    es: bajo alemán
   standard_code: nds
 - code: ndt
   label:
@@ -18310,6 +19126,8 @@ values:
 - code: nep
   label:
     en: Nepali (macrolanguage)
+    fr: népalais
+    es: nepalí
   standard_code: nep
 - code: neq
   label:
@@ -18338,6 +19156,8 @@ values:
 - code: new
   label:
     en: Nepal Bhasa
+    fr: newari
+    es: nevarí
   standard_code: new
 - code: nex
   label:
@@ -18562,6 +19382,8 @@ values:
 - code: nia
   label:
     en: Nias
+    fr: niha
+    es: nias
   standard_code: nia
 - code: nib
   label:
@@ -18634,6 +19456,8 @@ values:
 - code: niu
   label:
     en: Niuean
+    fr: niuéen
+    es: niueano
   standard_code: niu
 - code: niv
   label:
@@ -18694,6 +19518,7 @@ values:
 - code: njo
   label:
     en: Ao Naga
+    fr: ao
   standard_code: njo
 - code: njr
   label:
@@ -18830,6 +19655,8 @@ values:
 - code: nld
   label:
     en: Dutch
+    fr: néerlandais
+    es: neerlandés
   standard_code: nld
 - code: nle
   label:
@@ -18918,6 +19745,8 @@ values:
 - code: nmg
   label:
     en: Kwasio
+    fr: ngoumba
+    es: kwasio
   standard_code: nmg
 - code: nmh
   label:
@@ -19026,6 +19855,8 @@ values:
 - code: nnh
   label:
     en: Ngiemboon
+    fr: ngiemboon
+    es: ngiemboon
   standard_code: nnh
 - code: nni
   label:
@@ -19054,6 +19885,8 @@ values:
 - code: nno
   label:
     en: Norwegian Nynorsk
+    fr: norvégien nynorsk
+    es: noruego nynorsk
   standard_code: nno
 - code: nnp
   label:
@@ -19098,6 +19931,8 @@ values:
 - code: nob
   label:
     en: Norwegian Bokmål
+    fr: norvégien bokmål
+    es: noruego bokmal
   standard_code: nob
 - code: noc
   label:
@@ -19118,6 +19953,8 @@ values:
 - code: nog
   label:
     en: Nogai
+    fr: nogaï
+    es: nogai
   standard_code: nog
 - code: noh
   label:
@@ -19142,6 +19979,8 @@ values:
 - code: non
   label:
     en: Old Norse
+    fr: vieux norrois
+    es: nórdico antiguo
   standard_code: non
 - code: nop
   label:
@@ -19154,6 +19993,8 @@ values:
 - code: nor
   label:
     en: Norwegian
+    fr: norvégien
+    es: noruego
   standard_code: nor
 - code: nos
   label:
@@ -19170,6 +20011,7 @@ values:
 - code: nov
   label:
     en: Novial
+    fr: novial
   standard_code: nov
 - code: now
   label:
@@ -19202,6 +20044,8 @@ values:
 - code: npi
   label:
     en: Nepali (individual language)
+    fr: népalais
+    es: nepalí
   standard_code: npi
 - code: npl
   label:
@@ -19254,6 +20098,8 @@ values:
 - code: nqo
   label:
     en: N'Ko
+    fr: n’ko
+    es: n’ko
   standard_code: nqo
 - code: nqq
   label:
@@ -19390,6 +20236,8 @@ values:
 - code: nso
   label:
     en: Pedi
+    fr: sotho du Nord
+    es: sotho septentrional
   standard_code: nso
 - code: nsp
   label:
@@ -19562,6 +20410,8 @@ values:
 - code: nus
   label:
     en: Nuer
+    fr: nuer
+    es: nuer
   standard_code: nus
 - code: nut
   label:
@@ -19614,6 +20464,8 @@ values:
 - code: nwc
   label:
     en: Classical Newari
+    fr: newarî classique
+    es: newari clásico
   standard_code: nwc
 - code: nwe
   label:
@@ -19706,6 +20558,8 @@ values:
 - code: nya
   label:
     en: Chichewa
+    fr: chewa
+    es: nyanja
   standard_code: nya
 - code: nyb
   label:
@@ -19754,14 +20608,20 @@ values:
 - code: nym
   label:
     en: Nyamwezi
+    fr: nyamwezi
+    es: nyamwezi
   standard_code: nym
 - code: nyn
   label:
     en: Nyankole
+    fr: nyankolé
+    es: nyankole
   standard_code: nyn
 - code: nyo
   label:
     en: Nyoro
+    fr: nyoro
+    es: nyoro
   standard_code: nyo
 - code: nyp
   label:
@@ -19818,6 +20678,8 @@ values:
 - code: nzi
   label:
     en: Nzima
+    fr: nzema
+    es: nzima
   standard_code: nzi
 - code: nzk
   label:
@@ -19910,6 +20772,8 @@ values:
 - code: oci
   label:
     en: Occitan (post 1500)
+    fr: occitan
+    es: occitano
   standard_code: oci
 - code: ocm
   label:
@@ -19998,18 +20862,26 @@ values:
 - code: ojb
   label:
     en: Northwestern Ojibwa
+    fr: ojibwé du Nord-Ouest
+    es: ojibwa noroccidental
   standard_code: ojb
 - code: ojc
   label:
     en: Central Ojibwa
+    fr: ojibwé central
+    es: ojibwa central
   standard_code: ojc
 - code: ojg
   label:
     en: Eastern Ojibwa
+    fr: ojibwa
+    es: ojibwa
   standard_code: ojg
 - code: oji
   label:
     en: Ojibwa
+    fr: ojibwa
+    es: ojibwa
   standard_code: oji
 - code: ojp
   label:
@@ -20018,6 +20890,8 @@ values:
 - code: ojs
   label:
     en: Severn Ojibwa
+    fr: oji-cri
+    es: oji-cree
   standard_code: ojs
 - code: ojv
   label:
@@ -20026,10 +20900,14 @@ values:
 - code: ojw
   label:
     en: Western Ojibwa
+    fr: ojibwé occidental
+    es: ojibwa occidental
   standard_code: ojw
 - code: oka
   label:
     en: Okanagan
+    fr: colville-okanagan
+    es: okanagan
   standard_code: oka
 - code: okb
   label:
@@ -20342,10 +21220,14 @@ values:
 - code: ori
   label:
     en: Oriya (macrolanguage)
+    fr: odia
+    es: oriya
   standard_code: ori
 - code: orm
   label:
     en: Oromo
+    fr: oromo
+    es: oromo
   standard_code: orm
 - code: orn
   label:
@@ -20386,6 +21268,8 @@ values:
 - code: ory
   label:
     en: Odia
+    fr: odia
+    es: oriya
   standard_code: ory
 - code: orz
   label:
@@ -20394,6 +21278,8 @@ values:
 - code: osa
   label:
     en: Osage
+    fr: osage
+    es: osage
   standard_code: osa
 - code: osc
   label:
@@ -20422,6 +21308,8 @@ values:
 - code: oss
   label:
     en: Iron Ossetic
+    fr: ossète
+    es: osético
   standard_code: oss
 - code: ost
   label:
@@ -20438,6 +21326,8 @@ values:
 - code: ota
   label:
     en: Ottoman Turkish (1500-1928)
+    fr: turc ottoman
+    es: turco otomano
   standard_code: ota
 - code: otb
   label:
@@ -20582,6 +21472,8 @@ values:
 - code: pag
   label:
     en: Pangasinan
+    fr: pangasinan
+    es: pangasinán
   standard_code: pag
 - code: pah
   label:
@@ -20598,14 +21490,20 @@ values:
 - code: pal
   label:
     en: Pahlavi
+    fr: pahlavi
+    es: pahlavi
   standard_code: pal
 - code: pam
   label:
     en: Pampanga
+    fr: pampangan
+    es: pampanga
   standard_code: pam
 - code: pan
   label:
     en: Panjabi
+    fr: pendjabi
+    es: punyabí
   standard_code: pan
 - code: pao
   label:
@@ -20614,6 +21512,8 @@ values:
 - code: pap
   label:
     en: Papiamento
+    fr: papiamento
+    es: papiamento
   standard_code: pap
 - code: paq
   label:
@@ -20630,6 +21530,8 @@ values:
 - code: pau
   label:
     en: Palauan
+    fr: palau
+    es: palauano
   standard_code: pau
 - code: pav
   label:
@@ -20714,6 +21616,8 @@ values:
 - code: pbu
   label:
     en: Northern Pashto
+    fr: pachto
+    es: pastún
   standard_code: pbu
 - code: pbv
   label:
@@ -20738,6 +21642,7 @@ values:
 - code: pcd
   label:
     en: Picard
+    fr: picard
   standard_code: pcd
 - code: pce
   label:
@@ -20774,6 +21679,8 @@ values:
 - code: pcm
   label:
     en: Nigerian Pidgin
+    fr: pidgin nigérian
+    es: pidgin de Nigeria
   standard_code: pcm
 - code: pcn
   label:
@@ -20794,6 +21701,7 @@ values:
 - code: pdc
   label:
     en: Pennsylvania German
+    fr: pennsilfaanisch
   standard_code: pdc
 - code: pdi
   label:
@@ -20810,6 +21718,7 @@ values:
 - code: pdt
   label:
     en: Plautdietsch
+    fr: bas-prussien
   standard_code: pdt
 - code: pdu
   label:
@@ -20866,6 +21775,8 @@ values:
 - code: peo
   label:
     en: Old Persian (ca. 600-400 B.C.)
+    fr: persan ancien
+    es: persa antiguo
   standard_code: peo
 - code: pep
   label:
@@ -20878,6 +21789,8 @@ values:
 - code: pes
   label:
     en: Iranian Persian
+    fr: persan
+    es: persa
   standard_code: pes
 - code: pev
   label:
@@ -20906,6 +21819,7 @@ values:
 - code: pfl
   label:
     en: Pfaelzisch
+    fr: allemand palatin
   standard_code: pfl
 - code: pga
   label:
@@ -20982,6 +21896,8 @@ values:
 - code: phn
   label:
     en: Phoenician
+    fr: phénicien
+    es: fenicio
   standard_code: phn
 - code: pho
   label:
@@ -21074,6 +21990,8 @@ values:
 - code: pis
   label:
     en: Pijin
+    fr: pijin
+    es: pidgin salomonense
   standard_code: pis
 - code: pit
   label:
@@ -21186,6 +22104,8 @@ values:
 - code: pli
   label:
     en: Pali
+    fr: pali
+    es: pali
   standard_code: pli
 - code: plk
   label:
@@ -21218,6 +22138,8 @@ values:
 - code: plt
   label:
     en: Plateau Malagasy
+    fr: malgache
+    es: malgache
   standard_code: plt
 - code: plu
   label:
@@ -21298,6 +22220,7 @@ values:
 - code: pms
   label:
     en: Piemontese
+    fr: piémontais
   standard_code: pms
 - code: pmt
   label:
@@ -21326,6 +22249,8 @@ values:
 - code: pnb
   label:
     en: Western Panjabi
+    fr: lahnda
+    es: lahnda
   standard_code: pnb
 - code: pnc
   label:
@@ -21394,6 +22319,7 @@ values:
 - code: pnt
   label:
     en: Pontic
+    fr: pontique
   standard_code: pnt
 - code: pnu
   label:
@@ -21450,6 +22376,8 @@ values:
 - code: pol
   label:
     en: Polish
+    fr: polonais
+    es: polaco
   standard_code: pol
 - code: pom
   label:
@@ -21458,6 +22386,8 @@ values:
 - code: pon
   label:
     en: Pohnpeian
+    fr: pohnpei
+    es: pohnpeiano
   standard_code: pon
 - code: poo
   label:
@@ -21474,6 +22404,8 @@ values:
 - code: por
   label:
     en: Portuguese
+    fr: portugais
+    es: portugués
   standard_code: por
 - code: pos
   label:
@@ -21554,6 +22486,8 @@ values:
 - code: pqm
   label:
     en: Malecite-Passamaquoddy
+    fr: malécite-passamaquoddy
+    es: maliseet-passamaquoddy
   standard_code: pqm
 - code: prc
   label:
@@ -21574,6 +22508,8 @@ values:
 - code: prg
   label:
     en: Prussian
+    fr: prussien
+    es: prusiano
   standard_code: prg
 - code: prh
   label:
@@ -21602,6 +22538,8 @@ values:
 - code: pro
   label:
     en: Old Provençal (to 1500)
+    fr: provençal ancien
+    es: provenzal antiguo
   standard_code: pro
 - code: prq
   label:
@@ -21614,6 +22552,8 @@ values:
 - code: prs
   label:
     en: Dari
+    fr: dari
+    es: darí
   standard_code: prs
 - code: prt
   label:
@@ -21822,6 +22762,8 @@ values:
 - code: pus
   label:
     en: Pushto
+    fr: pachto
+    es: pastún
   standard_code: pus
 - code: put
   label:
@@ -21934,6 +22876,8 @@ values:
 - code: quc
   label:
     en: K'iche'
+    fr: quiché
+    es: quiché
   standard_code: quc
 - code: qud
   label:
@@ -21942,6 +22886,8 @@ values:
 - code: que
   label:
     en: Quechua
+    fr: quechua
+    es: quechua
   standard_code: que
 - code: quf
   label:
@@ -21950,6 +22896,7 @@ values:
 - code: qug
   label:
     en: Chimborazo Highland Quichua
+    fr: quichua du Haut-Chimborazo
   standard_code: qug
 - code: quh
   label:
@@ -22010,6 +22957,8 @@ values:
 - code: quz
   label:
     en: Cusco Quechua
+    fr: quechua
+    es: quechua
   standard_code: quz
 - code: qva
   label:
@@ -22190,6 +23139,8 @@ values:
 - code: raj
   label:
     en: Rajasthani
+    fr: rajasthani
+    es: rajasthani
   standard_code: raj
 - code: rak
   label:
@@ -22214,6 +23165,8 @@ values:
 - code: rap
   label:
     en: Rapanui
+    fr: rapanui
+    es: rapanui
   standard_code: rap
 - code: raq
   label:
@@ -22222,6 +23175,8 @@ values:
 - code: rar
   label:
     en: Rarotongan
+    fr: rarotongien
+    es: rarotongano
   standard_code: rar
 - code: ras
   label:
@@ -22346,6 +23301,7 @@ values:
 - code: rgn
   label:
     en: Romagnol
+    fr: romagnol
   standard_code: rgn
 - code: rgr
   label:
@@ -22362,6 +23318,8 @@ values:
 - code: rhg
   label:
     en: Rohingya
+    fr: rohingya
+    es: rohinyá
   standard_code: rhg
 - code: rhp
   label:
@@ -22378,6 +23336,7 @@ values:
 - code: rif
   label:
     en: Tarifit
+    fr: rifain
   standard_code: rif
 - code: ril
   label:
@@ -22534,6 +23493,8 @@ values:
 - code: rmy
   label:
     en: Vlax Romani
+    fr: romani
+    es: romaní
   standard_code: rmy
 - code: rmz
   label:
@@ -22590,6 +23551,8 @@ values:
 - code: rof
   label:
     en: Rombo
+    fr: rombo
+    es: rombo
   standard_code: rof
 - code: rog
   label:
@@ -22598,6 +23561,8 @@ values:
 - code: roh
   label:
     en: Romansh
+    fr: romanche
+    es: romanche
   standard_code: roh
 - code: rol
   label:
@@ -22606,10 +23571,14 @@ values:
 - code: rom
   label:
     en: Romany
+    fr: romani
+    es: romaní
   standard_code: rom
 - code: ron
   label:
     en: Romanian
+    fr: roumain
+    es: rumano
   standard_code: ron
 - code: roo
   label:
@@ -22690,6 +23659,7 @@ values:
 - code: rtm
   label:
     en: Rotuman
+    fr: rotuman
   standard_code: rtm
 - code: rts
   label:
@@ -22710,6 +23680,7 @@ values:
 - code: rue
   label:
     en: Rusyn
+    fr: ruthène
   standard_code: rue
 - code: ruf
   label:
@@ -22718,6 +23689,7 @@ values:
 - code: rug
   label:
     en: Roviana
+    fr: roviana
   standard_code: rug
 - code: ruh
   label:
@@ -22734,6 +23706,8 @@ values:
 - code: run
   label:
     en: Rundi
+    fr: roundi
+    es: kirundi
   standard_code: run
 - code: ruo
   label:
@@ -22742,6 +23716,8 @@ values:
 - code: rup
   label:
     en: Macedo-Romanian
+    fr: aroumain
+    es: arrumano
   standard_code: rup
 - code: ruq
   label:
@@ -22750,6 +23726,8 @@ values:
 - code: rus
   label:
     en: Russian
+    fr: russe
+    es: ruso
   standard_code: rus
 - code: rut
   label:
@@ -22774,6 +23752,8 @@ values:
 - code: rwk
   label:
     en: Rwa
+    fr: rwa
+    es: rwa
   standard_code: rwk
 - code: rwl
   label:
@@ -22830,6 +23810,8 @@ values:
 - code: sad
   label:
     en: Sandawe
+    fr: sandawe
+    es: sandawe
   standard_code: sad
 - code: sae
   label:
@@ -22842,10 +23824,14 @@ values:
 - code: sag
   label:
     en: Sango
+    fr: sango
+    es: sango
   standard_code: sag
 - code: sah
   label:
     en: Yakut
+    fr: iakoute
+    es: sakha
   standard_code: sah
 - code: saj
   label:
@@ -22858,10 +23844,14 @@ values:
 - code: sam
   label:
     en: Samaritan Aramaic
+    fr: araméen samaritain
+    es: arameo samaritano
   standard_code: sam
 - code: san
   label:
     en: Sanskrit
+    fr: sanskrit
+    es: sánscrito
   standard_code: san
 - code: sao
   label:
@@ -22870,6 +23860,8 @@ values:
 - code: saq
   label:
     en: Samburu
+    fr: samburu
+    es: samburu
   standard_code: saq
 - code: sar
   label:
@@ -22878,10 +23870,14 @@ values:
 - code: sas
   label:
     en: Sasak
+    fr: sasak
+    es: sasak
   standard_code: sas
 - code: sat
   label:
     en: Santali
+    fr: santali
+    es: santali
   standard_code: sat
 - code: sau
   label:
@@ -22906,10 +23902,13 @@ values:
 - code: saz
   label:
     en: Saurashtra
+    fr: saurashtra
   standard_code: saz
 - code: sba
   label:
     en: Ngambay
+    fr: ngambay
+    es: ngambay
   standard_code: sba
 - code: sbb
   label:
@@ -22970,6 +23969,8 @@ values:
 - code: sbp
   label:
     en: Sangu (Tanzania)
+    fr: isangu
+    es: sangu
   standard_code: sbp
 - code: sbq
   label:
@@ -23046,10 +24047,14 @@ values:
 - code: scn
   label:
     en: Sicilian
+    fr: sicilien
+    es: siciliano
   standard_code: scn
 - code: sco
   label:
     en: Scots
+    fr: écossais
+    es: escocés
   standard_code: sco
 - code: scp
   label:
@@ -23098,6 +24103,7 @@ values:
 - code: sdc
   label:
     en: Sassarese Sardinian
+    fr: sarde sassarais
   standard_code: sdc
 - code: sde
   label:
@@ -23114,6 +24120,8 @@ values:
 - code: sdh
   label:
     en: Southern Kurdish
+    fr: kurde du Sud
+    es: kurdo meridional
   standard_code: sdh
 - code: sdj
   label:
@@ -23186,6 +24194,8 @@ values:
 - code: see
   label:
     en: Seneca
+    fr: seneca
+    es: seneca
   standard_code: see
 - code: sef
   label:
@@ -23198,10 +24208,13 @@ values:
 - code: seh
   label:
     en: Sena
+    fr: cisena
+    es: sena
   standard_code: seh
 - code: sei
   label:
     en: Seri
+    fr: séri
   standard_code: sei
 - code: sej
   label:
@@ -23214,6 +24227,8 @@ values:
 - code: sel
   label:
     en: Selkup
+    fr: selkoupe
+    es: selkup
   standard_code: sel
 - code: sen
   label:
@@ -23238,6 +24253,8 @@ values:
 - code: ses
   label:
     en: Koyraboro Senni Songhai
+    fr: koyraboro senni
+    es: koyraboro senni
   standard_code: ses
 - code: set
   label:
@@ -23286,6 +24303,8 @@ values:
 - code: sga
   label:
     en: Old Irish (to 900)
+    fr: ancien irlandais
+    es: irlandés antiguo
   standard_code: sga
 - code: sgb
   label:
@@ -23338,6 +24357,7 @@ values:
 - code: sgs
   label:
     en: Samogitian
+    fr: samogitien
   standard_code: sgs
 - code: sgt
   label:
@@ -23394,6 +24414,8 @@ values:
 - code: shi
   label:
     en: Tachelhit
+    fr: chleuh
+    es: tashelhit
   standard_code: shi
 - code: shj
   label:
@@ -23414,6 +24436,8 @@ values:
 - code: shn
   label:
     en: Shan
+    fr: shan
+    es: shan
   standard_code: shn
 - code: sho
   label:
@@ -23442,6 +24466,8 @@ values:
 - code: shu
   label:
     en: Chadian Arabic
+    fr: arabe tchadien
+    es: árabe chadiano
   standard_code: shu
 - code: shv
   label:
@@ -23474,6 +24500,8 @@ values:
 - code: sid
   label:
     en: Sidamo
+    fr: sidamo
+    es: sidamo
   standard_code: sid
 - code: sie
   label:
@@ -23514,6 +24542,8 @@ values:
 - code: sin
   label:
     en: Sinhala
+    fr: cingalais
+    es: cingalés
   standard_code: sin
 - code: sip
   label:
@@ -23742,10 +24772,13 @@ values:
 - code: slh
   label:
     en: Southern Puget Sound Salish
+    fr: lushootseed du Sud
+    es: lushootseed meridional
   standard_code: slh
 - code: sli
   label:
     en: Lower Silesian
+    fr: bas-silésien
   standard_code: sli
 - code: slj
   label:
@@ -23754,6 +24787,8 @@ values:
 - code: slk
   label:
     en: Slovak
+    fr: slovaque
+    es: eslovaco
   standard_code: slk
 - code: sll
   label:
@@ -23790,6 +24825,8 @@ values:
 - code: slv
   label:
     en: Slovenian
+    fr: slovène
+    es: esloveno
   standard_code: slv
 - code: slw
   label:
@@ -23802,6 +24839,7 @@ values:
 - code: sly
   label:
     en: Selayar
+    fr: sélayar
   standard_code: sly
 - code: slz
   label:
@@ -23810,6 +24848,8 @@ values:
 - code: sma
   label:
     en: Southern Sami
+    fr: same du Sud
+    es: sami meridional
   standard_code: sma
 - code: smb
   label:
@@ -23822,6 +24862,8 @@ values:
 - code: sme
   label:
     en: Northern Sami
+    fr: same du Nord
+    es: sami septentrional
   standard_code: sme
 - code: smf
   label:
@@ -23838,6 +24880,8 @@ values:
 - code: smj
   label:
     en: Lule Sami
+    fr: same de Lule
+    es: sami lule
   standard_code: smj
 - code: smk
   label:
@@ -23854,10 +24898,14 @@ values:
 - code: smn
   label:
     en: Inari Sami
+    fr: same d’Inari
+    es: sami inari
   standard_code: smn
 - code: smo
   label:
     en: Samoan
+    fr: samoan
+    es: samoano
   standard_code: smo
 - code: smp
   label:
@@ -23874,6 +24922,8 @@ values:
 - code: sms
   label:
     en: Skolt Sami
+    fr: same skolt
+    es: sami skolt
   standard_code: sms
 - code: smt
   label:
@@ -23906,6 +24956,8 @@ values:
 - code: sna
   label:
     en: Shona
+    fr: shona
+    es: shona
   standard_code: sna
 - code: snc
   label:
@@ -23914,6 +24966,8 @@ values:
 - code: snd
   label:
     en: Sindhi
+    fr: sindhi
+    es: sindi
   standard_code: snd
 - code: sne
   label:
@@ -23938,6 +24992,8 @@ values:
 - code: snk
   label:
     en: Soninke
+    fr: soninké
+    es: soninké
   standard_code: snk
 - code: snl
   label:
@@ -24018,6 +25074,8 @@ values:
 - code: sog
   label:
     en: Sogdian
+    fr: sogdien
+    es: sogdiano
   standard_code: sog
 - code: soh
   label:
@@ -24042,6 +25100,8 @@ values:
 - code: som
   label:
     en: Somali
+    fr: somali
+    es: somalí
   standard_code: som
 - code: soo
   label:
@@ -24066,6 +25126,8 @@ values:
 - code: sot
   label:
     en: Southern Sotho
+    fr: sotho du Sud
+    es: sotho meridional
   standard_code: sot
 - code: sou
   label:
@@ -24094,6 +25156,8 @@ values:
 - code: spa
   label:
     en: Spanish
+    fr: espagnol
+    es: español
   standard_code: spa
 - code: spb
   label:
@@ -24174,6 +25238,8 @@ values:
 - code: spy
   label:
     en: Sabaot
+    fr: kalendjin
+    es: kalenjin
   standard_code: spy
 - code: sqa
   label:
@@ -24186,6 +25252,8 @@ values:
 - code: sqi
   label:
     en: Albanian
+    fr: albanais
+    es: albanés
   standard_code: sqi
 - code: sqk
   label:
@@ -24238,10 +25306,14 @@ values:
 - code: src
   label:
     en: Logudorese Sardinian
+    fr: sarde
+    es: sardo
   standard_code: src
 - code: srd
   label:
     en: Sardinian
+    fr: sarde
+    es: sardo
   standard_code: srd
 - code: sre
   label:
@@ -24278,6 +25350,8 @@ values:
 - code: srn
   label:
     en: Sranan Tongo
+    fr: sranan tongo
+    es: sranan tongo
   standard_code: srn
 - code: sro
   label:
@@ -24286,6 +25360,8 @@ values:
 - code: srp
   label:
     en: Serbian
+    fr: serbe
+    es: serbio
   standard_code: srp
 - code: srq
   label:
@@ -24294,6 +25370,8 @@ values:
 - code: srr
   label:
     en: Serer
+    fr: sérère
+    es: serer
   standard_code: srr
 - code: srs
   label:
@@ -24414,6 +25492,8 @@ values:
 - code: ssw
   label:
     en: Swati
+    fr: swati
+    es: suazi
   standard_code: ssw
 - code: ssx
   label:
@@ -24422,6 +25502,8 @@ values:
 - code: ssy
   label:
     en: Saho
+    fr: saho
+    es: saho
   standard_code: ssy
 - code: ssz
   label:
@@ -24490,10 +25572,13 @@ values:
 - code: stq
   label:
     en: Saterfriesisch
+    fr: saterlandais
   standard_code: stq
 - code: str
   label:
     en: Straits Salish
+    fr: salish des détroits
+    es: salish de los estrechos
   standard_code: str
 - code: sts
   label:
@@ -24550,10 +25635,14 @@ values:
 - code: suk
   label:
     en: Sukuma
+    fr: soukouma
+    es: sukuma
   standard_code: suk
 - code: sun
   label:
     en: Sundanese
+    fr: soundanais
+    es: sundanés
   standard_code: sun
 - code: suo
   label:
@@ -24570,6 +25659,8 @@ values:
 - code: sus
   label:
     en: Susu
+    fr: soussou
+    es: susu
   standard_code: sus
 - code: sut
   label:
@@ -24586,6 +25677,8 @@ values:
 - code: sux
   label:
     en: Sumerian
+    fr: sumérien
+    es: sumerio
   standard_code: sux
 - code: suy
   label:
@@ -24630,18 +25723,26 @@ values:
 - code: swa
   label:
     en: Swahili (macrolanguage)
+    fr: swahili
+    es: suajili
   standard_code: swa
 - code: swb
   label:
     en: Maore Comorian
+    fr: comorien
+    es: comorense
   standard_code: swb
 - code: swc
   label:
     en: Congo Swahili
+    fr: swahili du Congo
+    es: suajili del Congo
   standard_code: swc
 - code: swe
   label:
     en: Swedish
+    fr: suédois
+    es: sueco
   standard_code: swe
 - code: swf
   label:
@@ -24654,6 +25755,8 @@ values:
 - code: swh
   label:
     en: Swahili (individual language)
+    fr: swahili
+    es: suajili
   standard_code: swh
 - code: swi
   label:
@@ -24786,6 +25889,8 @@ values:
 - code: syc
   label:
     en: Classical Syriac
+    fr: syriaque classique
+    es: siríaco clásico
   standard_code: syc
 - code: syi
   label:
@@ -24814,6 +25919,8 @@ values:
 - code: syr
   label:
     en: Syriac
+    fr: syriaque
+    es: siriaco
   standard_code: syr
 - code: sys
   label:
@@ -24854,6 +25961,8 @@ values:
 - code: szl
   label:
     en: Silesian
+    fr: silésien
+    es: silesio
   standard_code: szl
 - code: szn
   label:
@@ -24910,6 +26019,8 @@ values:
 - code: tah
   label:
     en: Tahitian
+    fr: tahitien
+    es: tahitiano
   standard_code: tah
 - code: taj
   label:
@@ -24926,6 +26037,8 @@ values:
 - code: tam
   label:
     en: Tamil
+    fr: tamoul
+    es: tamil
   standard_code: tam
 - code: tan
   label:
@@ -24954,6 +26067,8 @@ values:
 - code: tat
   label:
     en: Tatar
+    fr: tatar
+    es: tártaro
   standard_code: tat
 - code: tau
   label:
@@ -25094,6 +26209,8 @@ values:
 - code: tce
   label:
     en: Southern Tutchone
+    fr: tutchone du Sud
+    es: tutchone meridional
   standard_code: tce
 - code: tcf
   label:
@@ -25162,6 +26279,7 @@ values:
 - code: tcy
   label:
     en: Tulu
+    fr: toulou
   standard_code: tcy
 - code: tcz
   label:
@@ -25298,10 +26416,14 @@ values:
 - code: tel
   label:
     en: Telugu
+    fr: télougou
+    es: telugu
   standard_code: tel
 - code: tem
   label:
     en: Timne
+    fr: timné
+    es: temne
   standard_code: tem
 - code: ten
   label:
@@ -25310,6 +26432,8 @@ values:
 - code: teo
   label:
     en: Teso
+    fr: teso
+    es: teso
   standard_code: teo
 - code: tep
   label:
@@ -25322,6 +26446,8 @@ values:
 - code: ter
   label:
     en: Tereno
+    fr: tereno
+    es: tereno
   standard_code: ter
 - code: tes
   label:
@@ -25330,6 +26456,8 @@ values:
 - code: tet
   label:
     en: Tetum
+    fr: tétoum
+    es: tetún
   standard_code: tet
 - code: teu
   label:
@@ -25414,10 +26542,14 @@ values:
 - code: tgk
   label:
     en: Tajik
+    fr: tadjik
+    es: tayiko
   standard_code: tgk
 - code: tgl
   label:
     en: Tagalog
+    fr: filipino
+    es: filipino
   standard_code: tgl
 - code: tgn
   label:
@@ -25462,6 +26594,8 @@ values:
 - code: tgx
   label:
     en: Tagish
+    fr: tagish
+    es: tagish
   standard_code: tgx
 - code: tgy
   label:
@@ -25474,6 +26608,8 @@ values:
 - code: tha
   label:
     en: Thai
+    fr: thaï
+    es: tailandés
   standard_code: tha
 - code: thd
   label:
@@ -25530,6 +26666,8 @@ values:
 - code: tht
   label:
     en: Tahltan
+    fr: tahltan
+    es: tahltan
   standard_code: tht
 - code: thu
   label:
@@ -25562,6 +26700,8 @@ values:
 - code: tig
   label:
     en: Tigre
+    fr: tigré
+    es: tigré
   standard_code: tig
 - code: tih
   label:
@@ -25606,6 +26746,8 @@ values:
 - code: tir
   label:
     en: Tigrinya
+    fr: tigrigna
+    es: tigriña
   standard_code: tir
 - code: tis
   label:
@@ -25622,6 +26764,8 @@ values:
 - code: tiv
   label:
     en: Tiv
+    fr: tiv
+    es: tiv
   standard_code: tiv
 - code: tiw
   label:
@@ -25714,6 +26858,8 @@ values:
 - code: tkl
   label:
     en: Tokelau
+    fr: tokelau
+    es: tokelauano
   standard_code: tkl
 - code: tkm
   label:
@@ -25734,6 +26880,7 @@ values:
 - code: tkr
   label:
     en: Tsakhur
+    fr: tsakhour
   standard_code: tkr
 - code: tks
   label:
@@ -25790,10 +26937,14 @@ values:
 - code: tlh
   label:
     en: Klingon
+    fr: klingon
+    es: klingon
   standard_code: tlh
 - code: tli
   label:
     en: Tlingit
+    fr: tlingit
+    es: tlingit
   standard_code: tli
 - code: tlj
   label:
@@ -25854,6 +27005,7 @@ values:
 - code: tly
   label:
     en: Talysh
+    fr: talysh
   standard_code: tly
 - code: tma
   label:
@@ -25886,6 +27038,8 @@ values:
 - code: tmh
   label:
     en: Tamashek
+    fr: tamacheq
+    es: tamashek
   standard_code: tmh
 - code: tmi
   label:
@@ -26058,6 +27212,8 @@ values:
 - code: tog
   label:
     en: Tonga (Nyasa)
+    fr: tonga nyasa
+    es: tonga del Nyasa
   standard_code: tog
 - code: toh
   label:
@@ -26074,6 +27230,8 @@ values:
 - code: tok
   label:
     en: Toki Pona
+    fr: toki pona
+    es: toki pona
   standard_code: tok
 - code: tol
   label:
@@ -26086,6 +27244,8 @@ values:
 - code: ton
   label:
     en: Tonga (Tonga Islands)
+    fr: tongien
+    es: tongano
   standard_code: ton
 - code: too
   label:
@@ -26154,6 +27314,8 @@ values:
 - code: tpi
   label:
     en: Tok Pisin
+    fr: tok pisin
+    es: tok pisin
   standard_code: tpi
 - code: tpj
   label:
@@ -26338,10 +27500,13 @@ values:
 - code: tru
   label:
     en: Turoyo
+    fr: touroyo
   standard_code: tru
 - code: trv
   label:
     en: Sediq
+    fr: taroko
+    es: taroko
   standard_code: trv
 - code: trw
   label:
@@ -26374,6 +27539,7 @@ values:
 - code: tsd
   label:
     en: Tsakonian
+    fr: tsakonien
   standard_code: tsd
 - code: tse
   label:
@@ -26390,6 +27556,8 @@ values:
 - code: tsi
   label:
     en: Tsimshian
+    fr: tsimshian
+    es: tsimshiano
   standard_code: tsi
 - code: tsj
   label:
@@ -26410,10 +27578,14 @@ values:
 - code: tsn
   label:
     en: Tswana
+    fr: tswana
+    es: setsuana
   standard_code: tsn
 - code: tso
   label:
     en: Tsonga
+    fr: tsonga
+    es: tsonga
   standard_code: tso
 - code: tsp
   label:
@@ -26510,6 +27682,8 @@ values:
 - code: ttm
   label:
     en: Northern Tutchone
+    fr: tutchone du Nord
+    es: tutchone septentrional
   standard_code: ttm
 - code: ttn
   label:
@@ -26526,6 +27700,8 @@ values:
 - code: ttq
   label:
     en: Tawallammat Tamajaq
+    fr: tamacheq
+    es: tamashek
   standard_code: ttq
 - code: ttr
   label:
@@ -26538,6 +27714,7 @@ values:
 - code: ttt
   label:
     en: Muslim Tat
+    fr: tati caucasien
   standard_code: ttt
 - code: ttu
   label:
@@ -26602,6 +27779,8 @@ values:
 - code: tuk
   label:
     en: Turkmen
+    fr: turkmène
+    es: turcomano
   standard_code: tuk
 - code: tul
   label:
@@ -26610,6 +27789,8 @@ values:
 - code: tum
   label:
     en: Tumbuka
+    fr: tumbuka
+    es: tumbuka
   standard_code: tum
 - code: tun
   label:
@@ -26626,6 +27807,8 @@ values:
 - code: tur
   label:
     en: Turkish
+    fr: turc
+    es: turco
   standard_code: tur
 - code: tus
   label:
@@ -26674,6 +27857,8 @@ values:
 - code: tvl
   label:
     en: Tuvalu
+    fr: tuvalu
+    es: tuvaluano
   standard_code: tvl
 - code: tvm
   label:
@@ -26746,6 +27931,8 @@ values:
 - code: twi
   label:
     en: Twi
+    fr: akan
+    es: akan
   standard_code: twi
 - code: twl
   label:
@@ -26770,6 +27957,8 @@ values:
 - code: twq
   label:
     en: Tasawaq
+    fr: tasawaq
+    es: tasawaq
   standard_code: twq
 - code: twr
   label:
@@ -26918,6 +28107,8 @@ values:
 - code: tyv
   label:
     en: Tuvinian
+    fr: touvain
+    es: tuviniano
   standard_code: tyv
 - code: tyx
   label:
@@ -26950,6 +28141,8 @@ values:
 - code: tzm
   label:
     en: Central Atlas Tamazight
+    fr: amazighe de l’Atlas central
+    es: tamazight del Atlas Central
   standard_code: tzm
 - code: tzn
   label:
@@ -27026,6 +28219,8 @@ values:
 - code: udm
   label:
     en: Udmurt
+    fr: oudmourte
+    es: udmurt
   standard_code: udm
 - code: udu
   label:
@@ -27042,6 +28237,8 @@ values:
 - code: uga
   label:
     en: Ugaritic
+    fr: ougaritique
+    es: ugarítico
   standard_code: uga
 - code: ugb
   label:
@@ -27078,6 +28275,8 @@ values:
 - code: uig
   label:
     en: Uighur
+    fr: ouïghour
+    es: uigur
   standard_code: uig
 - code: uis
   label:
@@ -27126,6 +28325,8 @@ values:
 - code: ukr
   label:
     en: Ukrainian
+    fr: ukrainien
+    es: ucraniano
   standard_code: ukr
 - code: uks
   label:
@@ -27206,6 +28407,8 @@ values:
 - code: umb
   label:
     en: Umbundu
+    fr: umbundu
+    es: umbundu
   standard_code: umb
 - code: umc
   label:
@@ -27250,6 +28453,8 @@ values:
 - code: umu
   label:
     en: Munsee
+    fr: delaware
+    es: delaware
   standard_code: umu
 - code: una
   label:
@@ -27258,6 +28463,8 @@ values:
 - code: und
   label:
     en: Undetermined
+    fr: langue indéterminée
+    es: lengua desconocida
   standard_code: und
 - code: une
   label:
@@ -27326,6 +28533,8 @@ values:
 - code: urd
   label:
     en: Urdu
+    fr: ourdou
+    es: urdu
   standard_code: urd
 - code: ure
   label:
@@ -27490,10 +28699,14 @@ values:
 - code: uzb
   label:
     en: Uzbek
+    fr: ouzbek
+    es: uzbeko
   standard_code: uzb
 - code: uzn
   label:
     en: Northern Uzbek
+    fr: ouzbek
+    es: uzbeko
   standard_code: uzn
 - code: uzs
   label:
@@ -27522,6 +28735,7 @@ values:
 - code: vai
   label:
     en: Vai
+    fr: vaï
   standard_code: vai
 - code: vaj
   label:
@@ -27578,6 +28792,8 @@ values:
 - code: vec
   label:
     en: Venetian
+    fr: vénitien
+    es: veneciano
   standard_code: vec
 - code: ved
   label:
@@ -27594,6 +28810,8 @@ values:
 - code: ven
   label:
     en: Venda
+    fr: venda
+    es: venda
   standard_code: ven
 - code: veo
   label:
@@ -27602,6 +28820,7 @@ values:
 - code: vep
   label:
     en: Veps
+    fr: vepse
   standard_code: vep
 - code: ver
   label:
@@ -27626,6 +28845,8 @@ values:
 - code: vie
   label:
     en: Vietnamese
+    fr: vietnamien
+    es: vietnamita
   standard_code: vie
 - code: vif
   label:
@@ -27710,6 +28931,7 @@ values:
 - code: vls
   label:
     en: Vlaams
+    fr: flamand occidental
   standard_code: vls
 - code: vma
   label:
@@ -27734,6 +28956,7 @@ values:
 - code: vmf
   label:
     en: Mainfränkisch
+    fr: franconien du Main
   standard_code: vmf
 - code: vmg
   label:
@@ -27790,6 +29013,8 @@ values:
 - code: vmw
   label:
     en: Makhuwa
+    fr: macua
+    es: makua
   standard_code: vmw
 - code: vmx
   label:
@@ -27818,6 +29043,8 @@ values:
 - code: vol
   label:
     en: Volapük
+    fr: volapük
+    es: volapük
   standard_code: vol
 - code: vor
   label:
@@ -27826,6 +29053,8 @@ values:
 - code: vot
   label:
     en: Votic
+    fr: vote
+    es: vótico
   standard_code: vot
 - code: vra
   label:
@@ -27834,6 +29063,7 @@ values:
 - code: vro
   label:
     en: Võro
+    fr: võro
   standard_code: vro
 - code: vrs
   label:
@@ -27870,6 +29100,8 @@ values:
 - code: vun
   label:
     en: Vunjo
+    fr: vunjo
+    es: vunjo
   standard_code: vun
 - code: vut
   label:
@@ -27898,6 +29130,8 @@ values:
 - code: wae
   label:
     en: Walser
+    fr: walser
+    es: walser
   standard_code: wae
 - code: waf
   label:
@@ -27922,6 +29156,8 @@ values:
 - code: wal
   label:
     en: Wolaytta
+    fr: walamo
+    es: wolayta
   standard_code: wal
 - code: wam
   label:
@@ -27946,10 +29182,14 @@ values:
 - code: war
   label:
     en: Waray (Philippines)
+    fr: waray
+    es: waray
   standard_code: war
 - code: was
   label:
     en: Washo
+    fr: washo
+    es: washo
   standard_code: was
 - code: wat
   label:
@@ -28022,6 +29262,8 @@ values:
 - code: wbp
   label:
     en: Warlpiri
+    fr: warlpiri
+    es: warlpiri
   standard_code: wbp
 - code: wbq
   label:
@@ -28330,6 +29572,8 @@ values:
 - code: wln
   label:
     en: Walloon
+    fr: wallon
+    es: valón
   standard_code: wln
 - code: wlo
   label:
@@ -28518,6 +29762,8 @@ values:
 - code: wol
   label:
     en: Wolof
+    fr: wolof
+    es: wólof
   standard_code: wol
 - code: wom
   label:
@@ -28722,6 +29968,8 @@ values:
 - code: wuu
   label:
     en: Wu Chinese
+    fr: wu
+    es: chino wu
   standard_code: wuu
 - code: wuv
   label:
@@ -28826,6 +30074,8 @@ values:
 - code: xal
   label:
     en: Kalmyk
+    fr: kalmouk
+    es: kalmyk
   standard_code: xal
 - code: xam
   label:
@@ -29130,6 +30380,8 @@ values:
 - code: xho
   label:
     en: Xhosa
+    fr: xhosa
+    es: xhosa
   standard_code: xho
 - code: xhr
   label:
@@ -29358,6 +30610,7 @@ values:
 - code: xmf
   label:
     en: Mingrelian
+    fr: mingrélien
   standard_code: xmf
 - code: xmg
   label:
@@ -29482,6 +30735,8 @@ values:
 - code: xnr
   label:
     en: Kangri
+    fr: kangri
+    es: kangri
   standard_code: xnr
 - code: xns
   label:
@@ -29514,6 +30769,8 @@ values:
 - code: xog
   label:
     en: Soga
+    fr: soga
+    es: soga
   standard_code: xog
 - code: xoi
   label:
@@ -29566,6 +30823,8 @@ values:
 - code: xpe
   label:
     en: Liberia Kpelle
+    fr: kpellé
+    es: kpelle
   standard_code: xpe
 - code: xpf
   label:
@@ -29742,6 +31001,8 @@ values:
 - code: xsl
   label:
     en: South Slavey
+    fr: esclave
+    es: slave
   standard_code: xsl
 - code: xsm
   label:
@@ -30106,10 +31367,14 @@ values:
 - code: yao
   label:
     en: Yao
+    fr: yao
+    es: yao
   standard_code: yao
 - code: yap
   label:
     en: Yapese
+    fr: yapois
+    es: yapés
   standard_code: yap
 - code: yaq
   label:
@@ -30134,6 +31399,8 @@ values:
 - code: yav
   label:
     en: Yangben
+    fr: yangben
+    es: yangben
   standard_code: yav
 - code: yaw
   label:
@@ -30158,6 +31425,8 @@ values:
 - code: ybb
   label:
     en: Yemba
+    fr: yemba
+    es: yemba
   standard_code: ybb
 - code: ybe
   label:
@@ -30230,6 +31499,8 @@ values:
 - code: ydd
   label:
     en: Eastern Yiddish
+    fr: yiddish
+    es: yidis
   standard_code: ydd
 - code: yde
   label:
@@ -30350,6 +31621,8 @@ values:
 - code: yid
   label:
     en: Yiddish
+    fr: yiddish
+    es: yidis
   standard_code: yid
 - code: yif
   label:
@@ -30670,6 +31943,8 @@ values:
 - code: yor
   label:
     en: Yoruba
+    fr: yoruba
+    es: yoruba
   standard_code: yor
 - code: yot
   label:
@@ -30738,6 +32013,8 @@ values:
 - code: yrl
   label:
     en: Nhengatu
+    fr: nheengatou
+    es: ñe’engatú
   standard_code: yrl
 - code: yrm
   label:
@@ -30846,6 +32123,8 @@ values:
 - code: yue
   label:
     en: Yue Chinese
+    fr: cantonais
+    es: cantonés
   standard_code: yue
 - code: yuf
   label:
@@ -31034,6 +32313,8 @@ values:
 - code: zai
   label:
     en: Isthmus Zapotec
+    fr: zapotèque
+    es: zapoteco
   standard_code: zai
 - code: zaj
   label:
@@ -31058,6 +32339,8 @@ values:
 - code: zap
   label:
     en: Zapotec
+    fr: zapotèque
+    es: zapoteco
   standard_code: zap
 - code: zaq
   label:
@@ -31114,6 +32397,8 @@ values:
 - code: zbl
   label:
     en: Blissymbols
+    fr: symboles Bliss
+    es: símbolos Bliss
   standard_code: zbl
 - code: zbt
   label:
@@ -31146,6 +32431,7 @@ values:
 - code: zea
   label:
     en: Zeeuws
+    fr: zélandais
   standard_code: zea
 - code: zeg
   label:
@@ -31162,6 +32448,8 @@ values:
 - code: zen
   label:
     en: Zenaga
+    fr: zenaga
+    es: zenaga
   standard_code: zen
 - code: zga
   label:
@@ -31174,6 +32462,8 @@ values:
 - code: zgh
   label:
     en: Standard Moroccan Tamazight
+    fr: amazighe standard marocain
+    es: tamazight estándar marroquí
   standard_code: zgh
 - code: zgm
   label:
@@ -31190,6 +32480,8 @@ values:
 - code: zha
   label:
     en: Zhuang
+    fr: zhuang
+    es: zhuang
   standard_code: zha
 - code: zhb
   label:
@@ -31210,6 +32502,8 @@ values:
 - code: zho
   label:
     en: Chinese
+    fr: chinois
+    es: chino
   standard_code: zho
 - code: zhw
   label:
@@ -31622,6 +32916,8 @@ values:
 - code: zsm
   label:
     en: Standard Malay
+    fr: malais
+    es: malayo
   standard_code: zsm
 - code: zsr
   label:
@@ -31686,6 +32982,8 @@ values:
 - code: zul
   label:
     en: Zulu
+    fr: zoulou
+    es: zulú
   standard_code: zul
 - code: zum
   label:
@@ -31694,6 +32992,8 @@ values:
 - code: zun
   label:
     en: Zuni
+    fr: zuñi
+    es: zuñi
   standard_code: zun
 - code: zuy
   label:
@@ -31706,10 +33006,14 @@ values:
 - code: zxx
   label:
     en: No linguistic content
+    fr: sans contenu linguistique
+    es: sin contenido lingüístico
   standard_code: zxx
 - code: zyb
   label:
     en: Yongbei Zhuang
+    fr: zhuang
+    es: zhuang
   standard_code: zyb
 - code: zyg
   label:
@@ -31730,6 +33034,8 @@ values:
 - code: zza
   label:
     en: Zaza
+    fr: zazaki
+    es: zazaki
   standard_code: zza
 - code: zzj
   label:

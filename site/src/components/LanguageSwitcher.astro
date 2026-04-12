@@ -1,0 +1,287 @@
+---
+import { languages, localesLive, type Locale } from '../i18n/languages';
+import { switchLocalePath, useTranslations } from '../i18n/utils';
+
+interface Props {
+  currentLocale: Locale;
+  currentUrl: URL;
+  variant?: 'desktop' | 'mobile-compact' | 'mobile-full';
+}
+
+const { currentLocale, currentUrl, variant = 'desktop' } = Astro.props;
+const t = useTranslations(currentLocale);
+
+// Hide the switcher entirely while only one locale is live.
+const shouldRender = localesLive.length > 1;
+
+const currentMeta = languages[currentLocale];
+const menuLabel = t('lang.menu_label');
+const triggerAriaLabel = t('lang.current', { language: currentMeta.nativeName });
+const isDropdown = variant === 'desktop' || variant === 'mobile-compact';
+---
+{shouldRender && (
+  isDropdown ? (
+    <details
+      class:list={[
+        'lang-switcher',
+        `lang-switcher-${variant}`,
+      ]}
+    >
+      <summary class="lang-switcher-trigger" aria-label={triggerAriaLabel} title={triggerAriaLabel}>
+        <svg
+          class="lang-globe-icon"
+          width="16"
+          height="16"
+          viewBox="0 0 16 16"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <circle cx="8" cy="8" r="6.5"></circle>
+          <path d="M1.5 8h13"></path>
+          <path d="M8 1.5c1.8 2 2.7 4.2 2.7 6.5S9.8 12.5 8 14.5C6.2 12.5 5.3 10.3 5.3 8S6.2 3.5 8 1.5z"></path>
+        </svg>
+        <span class="lang-switcher-code" lang={currentMeta.htmlLang}>{currentMeta.shortCode}</span>
+        <svg
+          class="lang-chevron-icon"
+          width="10"
+          height="10"
+          viewBox="0 0 10 10"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <polyline points="2,4 5,7 8,4"></polyline>
+        </svg>
+      </summary>
+      <ul class="lang-switcher-menu" aria-label={menuLabel}>
+        {localesLive.map((locale) => {
+          const meta = languages[locale];
+          const isCurrent = locale === currentLocale;
+          const href = switchLocalePath(currentUrl, locale);
+          return (
+            <li>
+              {isCurrent ? (
+                <span
+                  class="lang-switcher-item is-current"
+                  aria-current="true"
+                  lang={meta.htmlLang}
+                >{meta.nativeName}</span>
+              ) : (
+                <a
+                  class="lang-switcher-item"
+                  href={href}
+                  hreflang={meta.htmlLang}
+                  lang={meta.htmlLang}
+                  aria-label={t('lang.switch_to', { language: meta.nativeName })}
+                >{meta.nativeName}</a>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    </details>
+  ) : (
+    <ul
+      class:list={[
+        'lang-switcher',
+        `lang-switcher-${variant}`,
+      ]}
+      aria-label={menuLabel}
+    >
+      {localesLive.map((locale) => {
+        const meta = languages[locale];
+        const isCurrent = locale === currentLocale;
+        const href = switchLocalePath(currentUrl, locale);
+        return (
+          <li>
+            {isCurrent ? (
+              <span
+                class="lang-switcher-item is-current"
+                aria-current="true"
+                lang={meta.htmlLang}
+              >{meta.nativeName}</span>
+            ) : (
+              <a
+                class="lang-switcher-item"
+                href={href}
+                hreflang={meta.htmlLang}
+                lang={meta.htmlLang}
+                aria-label={t('lang.switch_to', { language: meta.nativeName })}
+              >{meta.nativeName}</a>
+            )}
+          </li>
+        );
+      })}
+    </ul>
+  )
+)}
+
+<style>
+  /* Dropdown root (desktop + mobile-compact) */
+  .lang-switcher-desktop,
+  .lang-switcher-mobile-compact {
+    position: relative;
+  }
+
+  .lang-switcher-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.35rem 0.55rem;
+    font-size: 0.825rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    list-style: none;
+    transition: color 0.15s, background 0.15s, border-color 0.15s;
+  }
+
+  .lang-switcher-trigger::-webkit-details-marker {
+    display: none;
+  }
+
+  .lang-switcher-trigger:hover,
+  [open] > .lang-switcher-trigger {
+    color: var(--color-accent);
+    background: var(--color-accent-light);
+    border-color: var(--color-border-light);
+  }
+
+  .lang-globe-icon {
+    flex-shrink: 0;
+  }
+
+  .lang-switcher-code {
+    letter-spacing: 0.02em;
+  }
+
+  .lang-chevron-icon {
+    flex-shrink: 0;
+    opacity: 0.7;
+    transition: transform 0.15s;
+  }
+
+  [open] > .lang-switcher-trigger .lang-chevron-icon {
+    transform: rotate(180deg);
+  }
+
+  .lang-switcher-desktop .lang-switcher-menu,
+  .lang-switcher-mobile-compact .lang-switcher-menu {
+    position: absolute;
+    top: calc(100% + 0.6rem);
+    right: 0;
+    min-width: 11rem;
+    margin: 0;
+    padding: 0.4rem 0;
+    list-style: none;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    z-index: 100;
+  }
+
+  .lang-switcher-desktop .lang-switcher-menu li,
+  .lang-switcher-mobile-compact .lang-switcher-menu li {
+    margin: 0;
+  }
+
+  .lang-switcher-item {
+    display: block;
+    position: relative;
+    padding: 0.5rem 1rem 0.5rem 2.1rem;
+    font-size: 0.875rem;
+    color: var(--color-text);
+    text-decoration: none;
+    transition: background 0.15s, color 0.15s;
+  }
+
+  a.lang-switcher-item:hover {
+    background: var(--color-accent-light);
+    color: var(--color-accent);
+  }
+
+  .lang-switcher-item.is-current {
+    color: var(--color-text-muted);
+    cursor: default;
+  }
+
+  .lang-switcher-item.is-current::before {
+    content: '\2713';
+    position: absolute;
+    left: 0.8rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-accent);
+    font-weight: 600;
+    font-size: 0.9rem;
+    line-height: 1;
+  }
+
+  /* Stacked list inside the mobile hamburger */
+  .lang-switcher-mobile-full {
+    list-style: none;
+    margin: var(--space-sm) 0 0 0;
+    padding: var(--space-sm) 0 0 0;
+    border-top: 1px solid var(--color-border-light);
+  }
+
+  .lang-switcher-mobile-full li {
+    margin: 0;
+  }
+
+  .lang-switcher-mobile-full .lang-switcher-item {
+    padding: var(--space-sm) var(--space-md);
+    font-size: 0.95rem;
+  }
+</style>
+
+<script>
+  // Close any open language dropdown when the user clicks outside of it,
+  // presses Escape, or follows one of its links. Native <details> handles
+  // toggling; this only adds the usual dismissal affordances.
+  const switchers = document.querySelectorAll<HTMLDetailsElement>(
+    '.lang-switcher-desktop, .lang-switcher-mobile-compact'
+  );
+  switchers.forEach((el) => {
+    el.querySelectorAll('a').forEach((a) => {
+      a.addEventListener('click', () => el.removeAttribute('open'));
+    });
+  });
+  document.addEventListener('click', (e) => {
+    switchers.forEach((el) => {
+      if (el.hasAttribute('open') && !el.contains(e.target as Node)) {
+        el.removeAttribute('open');
+      }
+    });
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    switchers.forEach((el) => {
+      if (el.hasAttribute('open')) {
+        el.removeAttribute('open');
+        el.querySelector<HTMLElement>('summary')?.focus();
+      }
+    });
+  });
+  // Close when focus leaves the dropdown entirely (e.g. keyboard user tabs past
+  // the last item). `relatedTarget` is the element receiving focus next.
+  switchers.forEach((el) => {
+    el.addEventListener('focusout', (e) => {
+      const next = (e as FocusEvent).relatedTarget as Node | null;
+      if (el.hasAttribute('open') && (!next || !el.contains(next))) {
+        el.removeAttribute('open');
+      }
+    });
+  });
+</script>

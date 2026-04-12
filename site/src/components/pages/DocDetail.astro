@@ -1,0 +1,83 @@
+---
+import Base from '../../layouts/Base.astro';
+import TranslationBanner from '../TranslationBanner.astro';
+import { defaultLocale, type Locale } from '../../i18n/languages';
+import { useTranslations, localePath } from '../../i18n/utils';
+import { docs } from '../../data/docs';
+import { Marked } from 'marked';
+import { gfmHeadingId } from 'marked-gfm-heading-id';
+import { markedHighlight } from 'marked-highlight';
+import hljs from 'highlight.js';
+import 'highlight.js/styles/github-dark.css';
+import { readFileSync, existsSync } from 'node:fs';
+import { resolve } from 'node:path';
+
+interface Props {
+  slug: string;
+  locale?: Locale;
+}
+
+const { slug, locale = defaultLocale } = Astro.props;
+const t = useTranslations(locale);
+
+const renderer = new Marked(
+  gfmHeadingId(),
+  markedHighlight({
+    langPrefix: 'hljs language-',
+    highlight(code, lang) {
+      if (lang && hljs.getLanguage(lang)) {
+        return hljs.highlight(code, { language: lang }).value;
+      }
+      return hljs.highlightAuto(code).value;
+    },
+  })
+);
+
+const doc = docs[slug];
+const docsDir = resolve(process.cwd(), '../docs');
+const localePath_ = locale === defaultLocale ? doc.file : `${locale}/${doc.file}`;
+const resolvedPath = resolve(docsDir, localePath_);
+const fellBack = locale !== defaultLocale && !existsSync(resolvedPath);
+const finalPath = fellBack ? resolve(docsDir, doc.file) : resolvedPath;
+const raw = readFileSync(finalPath, 'utf-8');
+
+// Strip the leading H1 (we render our own title in the page header)
+const withoutH1 = raw.replace(/^#\s+.+\n+/, '');
+let html = await renderer.parse(withoutH1);
+
+// Rewrite site-internal links to include the locale prefix for non-default
+// locales. Shared assets (images, JSON-LD exports, Astro bundles) stay
+// un-prefixed since there is only one copy. External links (https://, //)
+// and in-page anchors (#...) are left untouched.
+if (locale !== defaultLocale) {
+  const sharedAssetPrefix = /^\/(images|v|_astro|ctx|favicon|sitemap|robots\.txt)(\/|$|\.)/;
+  const localePrefix = new RegExp(`^\\/${locale}(\\/|$)`);
+  html = html.replace(/href="(\/[^"#]*)(#[^"]*)?"/g, (match, path, anchor) => {
+    if (sharedAssetPrefix.test(path)) return match;
+    if (localePrefix.test(path)) return match;
+    return `href="${localePath(path, locale)}${anchor ?? ''}"`;
+  });
+}
+
+const title = doc.title[locale] ?? doc.title.en;
+const description = doc.description[locale] ?? doc.description.en;
+---
+<Base title={title} description={description} locale={locale}>
+  <article>
+    {fellBack && <TranslationBanner locale={locale} />}
+    <div class="page-header">
+      <nav class="breadcrumb">
+        <a href={localePath('/', locale)}>{t('breadcrumb.home')}</a>
+        <span class="separator">/</span>
+        <a href={localePath('/docs/', locale)}>{t('nav.docs')}</a>
+        <span class="separator">/</span>
+        {title}
+      </nav>
+      <h1>{title}</h1>
+      <p class="definition-text">{description}</p>
+    </div>
+    <div class="concept-narrative doc-content">
+      <Fragment set:html={html} />
+    </div>
+  </article>
+</Base>

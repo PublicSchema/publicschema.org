@@ -1,0 +1,207 @@
+---
+import Base from '../../layouts/Base.astro';
+import { defaultLocale, type Locale } from '../../i18n/languages';
+import { useTranslations, localePath } from '../../i18n/utils';
+import { loadVocabulary } from '../../data/vocabulary';
+import type { Concept } from '../../data/vocabulary';
+import {
+  conceptPath as conceptPathFor,
+  propPath as propPathFor,
+  collectInheritedProperties,
+  collectAllSubtypes,
+} from '../../data/concept-utils';
+
+interface Props {
+  termId: string;
+  locale?: Locale;
+}
+
+const { termId, locale = defaultLocale } = Astro.props;
+const t = useTranslations(locale);
+
+const vocab = loadVocabulary();
+const concept = vocab.concepts[termId] as Concept;
+const definition = concept.definition[locale] ?? concept.definition.en ?? '';
+
+const conceptLink = (id: string) => localePath(conceptPathFor(vocab, id), locale);
+const propLink = (id: string) => localePath(propPathFor(vocab, id), locale);
+
+const propList = concept.properties.map((ref) => ({
+  ...ref,
+  detail: vocab.properties[ref.id],
+}));
+const ownIds = new Set(concept.properties.map((ref) => ref.id));
+const inheritedProps = collectInheritedProperties(vocab, termId, new Set(ownIds));
+const allProps = [
+  ...inheritedProps,
+  ...propList.map((p) => ({ ...p, from: null as string | null })),
+];
+
+const primitiveTypes = ['string', 'integer', 'decimal', 'boolean', 'date', 'datetime', 'uri', 'geojson_geometry'];
+
+const domainTitles: Record<string, string> = { sp: t('concepts.section_social_protection') };
+---
+<Base title={concept.id} description={definition} alternateJsonLd={`${concept.path}.jsonld`} locale={locale}>
+  <article>
+  <div class="page-header">
+    <nav class="breadcrumb">
+      <a href={localePath('/', locale)}>{t('breadcrumb.home')}</a>
+      <span class="separator">/</span>
+      <a href={localePath('/concepts/', locale)}>{t('common.concepts')}</a>
+      <span class="separator">/</span>
+      {concept.id}
+    </nav>
+    <h1>{concept.domain && <span class="domain-prefix" title={domainTitles[concept.domain] || concept.domain}>{concept.domain}:</span>}{concept.id}</h1>
+    <div class="meta-line">
+      <span class={`badge badge-${concept.maturity}`}>{concept.maturity}</span>
+      {concept.abstract && (
+        <span class="badge badge-abstract" title={t('concept_detail.abstract_title')}>{t('concept_detail.abstract_badge')}</span>
+      )}
+    </div>
+    <p class="definition-text">{definition}</p>
+    <p class="uri">{concept.uri}</p>
+  </div>
+  <div class="download-links">
+    <a href={`${concept.path}.jsonld`} class="btn btn-secondary">{t('download.jsonld')}</a>
+    <a href={`${concept.path}.csv`} class="btn btn-secondary" download>{t('download.csv')}</a>
+    <a href={`${concept.path}-definition.xlsx`} class="btn btn-secondary" download>{t('download.definition_xlsx')}</a>
+    <a href={`${concept.path}-template.xlsx`} class="btn btn-secondary" download>{t('download.template_xlsx')}</a>
+  </div>
+
+  {concept.supertypes.length > 0 && (
+    <div class="concept-section">
+      <h2>{t('concept_detail.supertypes')}</h2>
+      <div class="type-links">
+        {concept.supertypes.map((s) => <a href={conceptLink(s)}>{s}</a>)}
+      </div>
+    </div>
+  )}
+
+  {concept.subtypes.length > 0 && (() => {
+    function renderSubtypes(parentId: string, isRoot: boolean): any {
+      const c = vocab.concepts[parentId];
+      if (!c || c.subtypes.length === 0) return null;
+      return c.subtypes.map((st, i) => {
+        const children = vocab.concepts[st]?.subtypes || [];
+        if (isRoot) {
+          return (
+            <span class="subtype-entry">
+              <a href={conceptLink(st)}>{st}</a>
+              {children.length > 0 && <span class="subtype-children">{renderSubtypes(st, false)}</span>}
+            </span>
+          );
+        }
+        return <>{i > 0 && ', '}<a href={conceptLink(st)}>{st}</a></>;
+      });
+    }
+    return (
+      <div class="concept-section">
+        <h2>{t('concept_detail.subtypes')}</h2>
+        <div class="subtype-list">
+          {renderSubtypes(termId, true)}
+        </div>
+      </div>
+    );
+  })()}
+
+  <div class="concept-section">
+    <h2>{t('concept_detail.properties')}</h2>
+    {allProps.length > 0 ? (
+      <table class="data-table mobile-card-table">
+        <thead>
+          <tr>
+            <th>{t('concept_detail.table.property')}</th>
+            <th>{t('concept_detail.table.type')}</th>
+            <th>{t('concept_detail.table.definition')}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {allProps.map((p) => {
+            const typeStr = p.detail?.type || 'unknown';
+            const conceptRef = typeStr.match(/^concept:(.+)$/)?.[1];
+            const isPrimitive = primitiveTypes.includes(typeStr);
+            const propDef = (p.detail?.definition?.[locale] ?? p.detail?.definition?.en) || '';
+            return (
+              <tr class={p.from ? 'inherited-row' : ''}>
+                <td>
+                  <a href={propLink(p.id)}>{p.id}</a>
+                  {p.from && <span class="inherited-badge">{t('concept_detail.inherited_from')} <a href={conceptLink(p.from)}>{p.from}</a></span>}
+                </td>
+                <td data-label={t('concept_detail.table.type')}>
+                  {conceptRef
+                    ? <a href={conceptLink(conceptRef)}><code>{typeStr}</code></a>
+                    : isPrimitive
+                      ? <a href={localePath(`/types#${typeStr}`, locale)}><code>{typeStr}</code></a>
+                      : <code>{typeStr}</code>
+                  }
+                  {conceptRef && (() => {
+                    const subs = collectAllSubtypes(vocab, conceptRef);
+                    return subs.length > 0 && (
+                      <span class="subtype-hint">
+                        {t('concept_detail.includes')} {subs.map((s, i) => <>{i > 0 && ', '}<a href={conceptLink(s)}>{s}</a></>)}
+                      </span>
+                    );
+                  })()}
+                  {p.detail?.vocabulary && (
+                    <> (<a href={localePath(`/vocab/${p.detail.vocabulary}`, locale)}>{p.detail.vocabulary}</a>)</>
+                  )}
+                </td>
+                <td data-label={t('concept_detail.table.definition')}>{propDef.slice(0, 80)}{propDef.length > 80 ? '...' : ''}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    ) : (
+      <p style="color: var(--color-text-muted);">{t('concept_detail.no_properties')}</p>
+    )}
+  </div>
+
+  {(concept.convergence || (concept.external_equivalents && Object.keys(concept.external_equivalents).length > 0)) && (
+    <div class="concept-section">
+      <h2>{t('concept_detail.evidence')}</h2>
+      {concept.convergence && (
+        <p class="evidence-convergence">
+          {concept.convergence.system_count === concept.convergence.total_systems
+            ? t('concept_detail.evidence.all_systems', { total: concept.convergence.total_systems })
+            : concept.convergence.system_count === 0
+              ? t('concept_detail.evidence.none')
+              : t('concept_detail.evidence.partial', { count: concept.convergence.system_count, total: concept.convergence.total_systems })
+          }
+        </p>
+      )}
+      {concept.convergence?.notes && (
+        <p class="evidence-notes">{concept.convergence.notes}</p>
+      )}
+      {concept.external_equivalents && Object.keys(concept.external_equivalents).length > 0 && (
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>{t('concept_detail.table.standard')}</th>
+              <th>{t('concept_detail.table.equivalent')}</th>
+              <th>{t('concept_detail.table.match')}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Object.entries(concept.external_equivalents).map(([_key, eq]) => (
+              <>
+                <tr>
+                  <td>{eq.vocabulary}</td>
+                  <td><a href={eq.uri} target="_blank" rel="noopener">{eq.label}</a></td>
+                  <td><span class={`badge badge-${eq.match}`}>{eq.match.replace('_', ' ')}</span></td>
+                </tr>
+                {eq.note && (
+                  <tr class="aligned-note-row">
+                    <td colspan="3" class="aligned-note">{eq.note}</td>
+                  </tr>
+                )}
+              </>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </div>
+  )}
+
+  </article>
+</Base>

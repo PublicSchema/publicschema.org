@@ -1,0 +1,57 @@
+---
+import Base from '../../layouts/Base.astro';
+import { defaultLocale, type Locale } from '../../i18n/languages';
+import { useTranslations, localePath } from '../../i18n/utils';
+import { buildSystemIndex, getSystemMeta } from '../../data/systems';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = defaultLocale } = Astro.props;
+const t = useTranslations(locale);
+
+const index = buildSystemIndex();
+const systems = Object.entries(index)
+  .map(([id, entries]) => {
+    const meta = getSystemMeta(id);
+    const valueMapped = entries.filter((e) => e.relationship === "value_mapping").length;
+    const sameStandard = entries.filter((e) => e.relationship === "same_standard").length;
+    return { id, meta, entries, valueMapped, sameStandard, total: entries.length };
+  })
+  .sort((a, b) => b.total - a.total);
+---
+<Base title={t('systems.page_title')} description={t('systems.page_subtitle')} locale={locale}>
+  <div class="page-header">
+    <nav class="breadcrumb">
+      <a href={localePath('/', locale)}>{t('breadcrumb.home')}</a><span class="separator">/</span>{t('common.systems')}
+    </nav>
+    <h1>{t('systems.page_title')}</h1>
+    <p class="subtitle">{t('systems.page_subtitle')}</p>
+  </div>
+
+  <table class="data-table mobile-card-table">
+    <thead>
+      <tr>
+        <th>{t('systems.table.system')}</th>
+        <th>{t('systems.table.vocabularies')}</th>
+        <th>{t('systems.table.value_mappings')}</th>
+        <th>{t('systems.table.same_standard')}</th>
+        <th>{t('systems.table.status')}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {systems.map(({ id, meta, total, valueMapped, sameStandard }) => (
+        <tr>
+          <td><a href={localePath(`/systems/${id}`, locale)}>{meta.name}</a></td>
+          <td data-label={t('systems.table.vocabularies')}>{total}</td>
+          <td data-label={t('systems.table.value_mappings')}>{valueMapped}</td>
+          <td data-label={t('systems.table.same_standard')}>{sameStandard}</td>
+          <td data-label={t('systems.table.status')}>
+            <span class={`badge badge-${meta.reviewStatus}`}>{meta.reviewStatus}</span>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</Base>

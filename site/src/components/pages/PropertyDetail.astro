@@ -1,0 +1,210 @@
+---
+import Base from '../../layouts/Base.astro';
+import { defaultLocale, type Locale } from '../../i18n/languages';
+import { useTranslations, localePath } from '../../i18n/utils';
+import { loadVocabulary } from '../../data/vocabulary';
+import type { Property } from '../../data/vocabulary';
+import {
+  conceptPath as conceptPathFor,
+  collectAllSubtypes,
+} from '../../data/concept-utils';
+import { getSystemName } from '../../data/systems';
+
+interface Props {
+  termId: string;
+  locale?: Locale;
+}
+
+const { termId, locale = defaultLocale } = Astro.props;
+const t = useTranslations(locale);
+
+const vocab = loadVocabulary();
+const prop = vocab.properties[termId] as Property;
+const definition = prop.definition[locale] ?? prop.definition.en ?? '';
+
+const conceptLink = (id: string) => localePath(conceptPathFor(vocab, id), locale);
+
+const typeConceptRef = prop.type.match(/^concept:(.+)$/)?.[1];
+const primitiveTypes = ['string', 'integer', 'decimal', 'boolean', 'date', 'datetime', 'uri', 'geojson_geometry'];
+const isPrimitiveType = primitiveTypes.includes(prop.type);
+---
+<Base title={prop.id} description={definition} alternateJsonLd={`${prop.path}.jsonld`} locale={locale}>
+  <article>
+  <div class="page-header">
+    <nav class="breadcrumb">
+      <a href={localePath('/', locale)}>{t('breadcrumb.home')}</a>
+      <span class="separator">/</span>
+      <a href={localePath('/properties/', locale)}>{t('common.properties')}</a>
+      <span class="separator">/</span>
+      {prop.id}
+    </nav>
+    <h1>{prop.id}</h1>
+    <div class="meta-line">
+      <span class={`badge badge-${prop.maturity}`}>{prop.maturity}</span>
+      {prop.sensitivity && prop.sensitivity !== 'standard' && (
+        <span class={`badge badge-${prop.sensitivity}`}>{prop.sensitivity}</span>
+      )}
+    </div>
+    <p class="definition-text">{definition}</p>
+    <p class="uri">{prop.uri}</p>
+  </div>
+  <div class="download-links">
+    <a href={`${prop.path}.jsonld`} class="btn btn-secondary">{t('download.jsonld')}</a>
+  </div>
+
+  {(prop.convergence || (prop.external_equivalents && Object.keys(prop.external_equivalents).length > 0)) && (
+    <div class="concept-section">
+      <h2>{t('concept_detail.evidence')}</h2>
+      {prop.convergence && (
+        <p class="evidence-convergence">
+          {prop.convergence.system_count === prop.convergence.total_systems
+            ? t('concept_detail.evidence.all_systems', { total: prop.convergence.total_systems })
+            : prop.convergence.system_count === 0
+              ? t('concept_detail.evidence.none')
+              : t('concept_detail.evidence.partial', { count: prop.convergence.system_count, total: prop.convergence.total_systems })
+          }
+        </p>
+      )}
+      {prop.convergence?.notes && (
+        <p class="evidence-notes">{prop.convergence.notes}</p>
+      )}
+      {prop.external_equivalents && Object.keys(prop.external_equivalents).length > 0 && (
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>{t('concept_detail.table.standard')}</th>
+              <th>{t('concept_detail.table.equivalent')}</th>
+              <th>{t('concept_detail.table.match')}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Object.entries(prop.external_equivalents).map(([_key, eq]) => (
+              <>
+                <tr>
+                  <td>{eq.vocabulary}</td>
+                  <td><a href={eq.uri} target="_blank" rel="noopener">{eq.label}</a></td>
+                  <td><span class={`badge badge-${eq.match}`}>{eq.match.replace('_', ' ')}</span></td>
+                </tr>
+                {eq.note && (
+                  <tr class="aligned-note-row">
+                    <td colspan="3" class="aligned-note">{eq.note}</td>
+                  </tr>
+                )}
+              </>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </div>
+  )}
+
+  <div class="concept-section">
+    <h2>{t('property_detail.details')}</h2>
+    <table class="data-table detail-kv-table">
+      <tbody>
+        <tr>
+          <td style="font-weight: 600; color: var(--color-text-muted); width: 10rem;">{t('property_detail.type')}</td>
+          <td>
+            {typeConceptRef
+              ? <a href={conceptLink(typeConceptRef)}><code>{prop.type}</code></a>
+              : isPrimitiveType
+                ? <a href={localePath(`/types#${prop.type}`, locale)}><code>{prop.type}</code></a>
+                : <code>{prop.type}</code>
+            }
+            {typeConceptRef && (() => {
+              const subs = collectAllSubtypes(vocab, typeConceptRef);
+              return subs.length > 0 && (
+                <span class="subtype-hint">
+                  {t('concept_detail.includes')} {subs.map((s, i) => <>{i > 0 && ', '}<a href={conceptLink(s)}>{s}</a></>)}
+                </span>
+              );
+            })()}
+          </td>
+        </tr>
+        <tr>
+          <td style="font-weight: 600; color: var(--color-text-muted);">{t('property_detail.cardinality')}</td>
+          <td>{prop.cardinality}</td>
+        </tr>
+        {prop.vocabulary && (
+          <tr>
+            <td style="font-weight: 600; color: var(--color-text-muted);">{t('property_detail.vocabulary')}</td>
+            <td><a href={localePath(`/vocab/${prop.vocabulary}`, locale)}>{prop.vocabulary}</a></td>
+          </tr>
+        )}
+        {prop.references && (
+          <tr>
+            <td style="font-weight: 600; color: var(--color-text-muted);">{t('property_detail.references')}</td>
+            <td>
+              <a href={conceptLink(prop.references)}>{prop.references}</a>
+              {(() => {
+                const subs = collectAllSubtypes(vocab, prop.references);
+                return subs.length > 0 && (
+                  <span class="subtype-hint">
+                    {t('concept_detail.includes')} {subs.map((s, i) => <>{i > 0 && ', '}<a href={conceptLink(s)}>{s}</a></>)}
+                  </span>
+                );
+              })()}
+            </td>
+          </tr>
+        )}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="concept-section">
+    <h2>{t('property_detail.used_by')}</h2>
+    {prop.used_by.length > 0 ? (
+      <div class="type-links">
+        {prop.used_by.map((d) => <a href={conceptLink(d)}>{d}</a>)}
+      </div>
+    ) : (
+      <p style="color: var(--color-text-muted);">{t('property_detail.no_uses')}</p>
+    )}
+  </div>
+
+  {prop.system_mappings && Object.keys(prop.system_mappings).length > 0 && (
+    <div class="concept-section">
+      <h2>{t('property_detail.system_mappings')}</h2>
+      {Object.entries(prop.system_mappings).map(([system, mapping]) => (
+        <div style="margin-bottom: var(--space-lg);">
+          <h3><a href={localePath(`/systems/${system}`, locale)}>{getSystemName(system)}</a></h3>
+          {mapping.vocabulary_name && (
+            <p class="mapping-vocab-name">{t('vocab_detail.system_vocabulary')} <strong>{mapping.vocabulary_name}</strong></p>
+          )}
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>{t('property_detail.table.system_code')}</th>
+                <th>{t('property_detail.table.system_label')}</th>
+                <th>{t('property_detail.value_column', { property: prop.id })}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {mapping.values.map((v) => (
+                <tr class={v.maps_to === null ? 'unmapped-row' : ''}>
+                  <td><code>{v.code}</code></td>
+                  <td data-label={t('property_detail.table.system_label')}>{v.label}</td>
+                  <td data-label={t('property_detail.value_column', { property: prop.id })}>
+                    {v.maps_to !== null
+                      ? (<code>{v.maps_to}</code>)
+                      : (<span class="no-mapping">{v.unmapped_reason?.replace(/_/g, ' ') ?? t('vocab_detail.no_mapping')}</span>)
+                    }
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          {mapping.unmapped_canonical && mapping.unmapped_canonical.length > 0 && (
+            <p class="unmapped-note">
+              {t('vocab_detail.not_covered_by', { system: getSystemName(system) })} {mapping.unmapped_canonical.map((code, i) => (
+                <>{i > 0 && ', '}<code>{code}</code></>
+              ))}
+            </p>
+          )}
+        </div>
+      ))}
+    </div>
+  )}
+
+  </article>
+</Base>

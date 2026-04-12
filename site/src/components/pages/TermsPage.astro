@@ -1,0 +1,48 @@
+---
+import Base from '../../layouts/Base.astro';
+import TranslationBanner from '../TranslationBanner.astro';
+import { defaultLocale, type Locale } from '../../i18n/languages';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = defaultLocale } = Astro.props;
+
+const modules = import.meta.glob('./content/TermsContent.*.astro');
+const wantedKey = `./content/TermsContent.${locale}.astro`;
+const fallbackKey = './content/TermsContent.en.astro';
+const loader = modules[wantedKey] ?? modules[fallbackKey];
+const fellBack = !modules[wantedKey];
+const Content = (await loader()).default;
+
+const headers: Record<Locale, { title: string; subtitle: string; description: string }> = {
+  en: {
+    title: 'Terms and License',
+    subtitle: 'How you can use PublicSchema.',
+    description: 'Licensing terms for PublicSchema reference model and code.',
+  },
+  fr: {
+    title: 'Conditions et licence',
+    subtitle: 'Comment vous pouvez utiliser PublicSchema.',
+    description: 'Conditions de licence du modèle de référence et du code de PublicSchema.',
+  },
+  es: {
+    title: 'Términos y licencia',
+    subtitle: 'Cómo puede utilizar PublicSchema.',
+    description: 'Términos de licencia del modelo de referencia y el código de PublicSchema.',
+  },
+};
+
+const { title, subtitle, description } = headers[locale];
+---
+<Base title={title} description={description} locale={locale}>
+  <article class="concept-narrative">
+    {fellBack && <TranslationBanner locale={locale} />}
+    <div class="page-header">
+      <h1>{title}</h1>
+      <p class="subtitle">{subtitle}</p>
+    </div>
+    <Content />
+  </article>
+</Base>

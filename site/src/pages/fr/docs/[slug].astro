@@ -1,0 +1,9 @@
+---
+import DocDetail from '../../../components/pages/DocDetail.astro';
+import { docs } from '../../../data/docs';
+
+export function getStaticPaths() {
+  return Object.keys(docs).map((slug) => ({ params: { slug } }));
+}
+---
+<DocDetail slug={Astro.params.slug!} locale="fr" />

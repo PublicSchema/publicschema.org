@@ -1,0 +1,140 @@
+---
+/** English about page prose. The page shell loads the locale-specific variant dynamically. */
+---
+<h2>What PublicSchema provides</h2>
+<p>
+  PublicSchema is an open reference model for public service data.
+  The <a href="/">homepage</a> covers the basics; this page goes deeper.
+</p>
+<p>It provides:</p>
+<ul>
+  <li><strong><a href="/concepts/">Concepts</a></strong>: semantic entities (Person, Enrollment, Payment, and others) with definitions written for policy practitioners, not developers.</li>
+  <li><strong><a href="/properties/">Properties</a></strong>: named, typed fields that apply to one or more concepts. Defined once and reused, keeping definitions consistent across domains.</li>
+  <li><strong><a href="/vocab/">Vocabularies</a></strong>: controlled value sets. Where international standards exist (ISO, FHIR, UN), we reference them. Where they do not, we define a canonical set with mappings to how specific systems encode the same values.</li>
+  <li><strong>Credential schemas</strong>: JSON-LD contexts and structures for issuing concept data as <a href="https://www.w3.org/TR/vc-data-model-2.0/">Verifiable Credentials</a>, using SD-JWT VC for selective disclosure of sensitive personal data.</li>
+</ul>
+<p>
+  Every element gets a stable URI. Everything is optional. Systems adopt
+  what they need.
+</p>
+
+<figure class="diagram">
+  <img src="/images/integration-layer.svg" alt="Diagram showing PublicSchema as a shared layer between an internal data model and multiple output formats: REST API, event bus, credentials, file exchange, and data warehouse." />
+</figure>
+
+<h2>Design principles</h2>
+<p>
+  Definitions carry semantic weight, not just structure. Properties are
+  reusable across concepts. Time-boundedness is first-class. International
+  standards are referenced, never reinvented. Nothing is mandatory.
+</p>
+<p>
+  See <a href="/docs/design-principles/">Design Principles</a> for the full
+  rationale behind each of these choices.
+</p>
+
+<h2>Where PublicSchema sits</h2>
+<p>
+  PublicSchema complements existing efforts rather than competing with them.
+  It sits at the delivery data layer: between identity standards, API
+  interoperability, and trust infrastructure.
+</p>
+
+<table class="divergence-example">
+  <thead>
+    <tr>
+      <th>Layer</th>
+      <th>What exists</th>
+      <th>What PublicSchema adds</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Trust and transport</td>
+      <td>W3C VC, OpenID4VC, EBSI</td>
+      <td>Domain vocabulary inside credentials</td>
+    </tr>
+    <tr>
+      <td>Identity attributes</td>
+      <td>EU Core Person Vocabulary</td>
+      <td>Delivery lifecycle data beyond name/birth/citizenship</td>
+    </tr>
+    <tr>
+      <td>Service catalogues</td>
+      <td>CPSV-AP, HSDS/Open Referral</td>
+      <td>Who receives what, not what services exist</td>
+    </tr>
+    <tr>
+      <td>API interoperability</td>
+      <td>DCI, GovStack</td>
+      <td>Shared semantics behind the API contracts</td>
+    </tr>
+    <tr>
+      <td>Statistical measurement</td>
+      <td>ILO/World Bank ASPIRE</td>
+      <td>Data models for exchange, not just indicators</td>
+    </tr>
+    <tr>
+      <td><strong>Delivery lifecycle</strong></td>
+      <td><strong>Nothing</strong></td>
+      <td><strong>This is the gap</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<figure class="diagram">
+  <img src="/images/standards-stack.svg" alt="Standards stack diagram showing PublicSchema at the delivery lifecycle layer, alongside other standards for trust, identity, service catalogues, APIs, and statistical measurement." />
+</figure>
+
+<p>
+  DCI is the closest initiative: it defines how data flows between
+  social protection systems; PublicSchema defines what the data means.
+  GovStack defines building blocks for digital government; PublicSchema is
+  the shared data model those blocks implicitly need. FHIR is the health
+  sector equivalent; we take inspiration from its approach but target public
+  services broadly.
+</p>
+<p>
+  See <a href="/docs/related-standards/">Related Standards</a> for a detailed
+  comparison.
+</p>
+
+<h2>Scope</h2>
+<p>
+  PublicSchema starts with social protection: a well-understood domain with
+  active digital transformation, multiple open-source systems, and immediate
+  interoperability pain. See the full list of
+  <a href="/concepts/">concepts</a> for current coverage.
+</p>
+<p>
+  The model is designed to extend to adjacent domains (civil registration,
+  health, education, humanitarian response) as adoption grows. The structure
+  is the same; only the concepts and vocabularies change.
+</p>
+
+<h2>Governance and roadmap</h2>
+<p>
+  The project is maintained by Jeremi Joslin to enable fast, opinionated
+  decisions in the early stages. Feedback is actively sought from domain
+  experts, system implementers, and standards bodies.
+</p>
+<p>
+  As adoption grows, governance will expand: first to an advisory group of
+  contributors and domain experts, then to a formal multi-stakeholder
+  structure.
+</p>
+<h3>Phase 1: Foundation <span class="badge badge-draft">in progress</span></h3>
+<p>
+  Concepts and properties with stable URIs. Definitions written for domain
+  practitioners. Published as a reference website.
+</p>
+<h3>Phase 2: Standards and mappings</h3>
+<p>
+  International standards adopted for each value set. Cross-system
+  vocabulary mappings. Pilot with at least one country deployment.
+</p>
+<h3>Phase 3: Adoption and extension</h3>
+<p>
+  Formalized governance. Real-world validation with system implementers.
+  Extension to adjacent public service domains.
+</p>

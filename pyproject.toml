@@ -8,6 +8,7 @@ dependencies = [
     "pyyaml>=6.0",
     "jsonschema>=4.20",
     "openpyxl>=3.1",
+    "babel>=2.14",
 ]
 
 [tool.uv]
@@ -26,3 +27,4 @@ ps-build = "build.build:main"
 ps-validate = "build.validate:main"
 ps-sync = "build.sync_standards:main"
 ps-release = "build.release:main"
+ps-check-translations = "build.check_translations:main"
