@@ -9,6 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Full history so the translation-staleness check can read git
+          # timestamps across files.
+          fetch-depth: 0
 
       - uses: astral-sh/setup-uv@v4
 
@@ -19,6 +23,9 @@ jobs:
 
       - name: Run tests
         run: uv run pytest
+
+      - name: Check translation completeness and staleness
+        run: uv run python -m build.check_translations
 
       - name: Build vocabulary data
         run: uv run python -m build.build
