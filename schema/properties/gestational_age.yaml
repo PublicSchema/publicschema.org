@@ -1,0 +1,13 @@
+id: gestational_age
+maturity: draft
+
+definition:
+  en: "The completed weeks of gestation at the time of the event. Used for fetal death and birth records to distinguish viability and to apply the ICD-PM mortality classification."
+  fr: "Le nombre de semaines de gestation révolues au moment de l'événement. Utilisé pour les actes de mortinaissance et de naissance afin de distinguer la viabilité et d'appliquer la classification de mortalité CIM-PM."
+  es: "Las semanas completas de gestación al momento del evento. Utilizado en registros de muerte fetal y nacimiento para distinguir la viabilidad y aplicar la clasificación de mortalidad CIE-PM."
+
+type: integer
+cardinality: single
+vocabulary: null
+references: null
+domain_override: crvs

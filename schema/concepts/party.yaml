@@ -7,10 +7,10 @@ definition:
     programs, and receive benefits or services. Party is the shared supertype
     for Person and Group, enabling references that accept either.
   fr: >
-    Une personne ou un groupe organise de personnes pouvant etre identifie,
+    Une personne ou un groupe organisé de personnes pouvant être identifié,
     inscrit dans des programmes et recevoir des prestations ou des services.
-    Party est le supertype partage pour Person et Group, permettant des
-    references acceptant l'un ou l'autre.
+    Party est le supertype partagé pour Person et Group, permettant des
+    références acceptant l'un ou l'autre.
   es: >
     Una persona o grupo organizado de personas que puede ser identificado,
     inscrito en programas y recibir beneficios o servicios. Party es el

@@ -5,16 +5,15 @@ definition:
   en: >
     An abstract collection of persons that serves as the base for concrete
     group types such as Household, Family, and Farm. Groups are linked to
-    their members via GroupMembership records.
+    their members via membership links.
   fr: >
     Un regroupement abstrait de personnes qui sert de base aux types de
-    groupes concrets tels que Menage, Famille et Exploitation agricole.
-    Les groupes sont lies a leurs membres via des enregistrements
-    GroupMembership.
+    groupes concrets tels que Ménage, Famille et Exploitation agricole.
+    Les groupes sont liés à leurs membres via des liens d'appartenance.
   es: >
-    Una coleccion abstracta de personas que sirve como base para tipos
+    Una colección abstracta de personas que sirve como base para tipos
     de grupos concretos como Hogar, Familia y Granja. Los grupos se
-    vinculan a sus miembros mediante registros GroupMembership.
+    vinculan a sus miembros mediante enlaces de pertenencia.
 
 properties:
   - group_type

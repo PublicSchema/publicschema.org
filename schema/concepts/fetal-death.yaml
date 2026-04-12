@@ -1,0 +1,40 @@
+id: FetalDeath
+maturity: draft
+domain: crvs
+
+definition:
+  en: >
+    Death prior to the complete expulsion or extraction of a product of
+    conception from its mother, irrespective of the duration of pregnancy.
+    Distinct from live Birth followed by Death, and from miscarriages below
+    viability thresholds set by national law. Captures gestational age, weight,
+    and coded cause of fetal death using ICD-PM where available.
+  fr: >
+    Décès survenu avant l'expulsion ou l'extraction complète du produit de la
+    conception hors du corps de la mère, indépendamment de la durée de la
+    grossesse. Distinct d'une naissance vivante suivie d'un décès, et des
+    fausses couches en deçà des seuils de viabilité fixés par la loi
+    nationale. Saisit l'âge gestationnel, le poids et la cause codée de
+    mortinaissance, en utilisant la CIM-PM lorsqu'elle est disponible.
+  es: >
+    Defunción ocurrida antes de la expulsión o extracción completa del producto
+    de la concepción del cuerpo de la madre, con independencia de la duración
+    del embarazo. Distinta de un nacimiento vivo seguido de defunción, y de los
+    abortos espontáneos por debajo de los umbrales de viabilidad fijados por la
+    ley nacional. Captura la edad gestacional, el peso y la causa codificada de
+    muerte fetal utilizando la CIE-PM cuando esté disponible.
+
+properties:
+  - parents
+  - place_of_usual_residence
+  - place_type
+  - attendant_at_birth
+  - gestational_age
+  - weight
+  - cause_of_fetal_death
+  - cause_of_fetal_death_code
+  - cause_of_fetal_death_coding_system
+  - medical_certifier
+
+subtypes: []
+supertypes: [VitalEvent]

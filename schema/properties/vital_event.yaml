@@ -1,0 +1,13 @@
+id: vital_event
+maturity: draft
+
+definition:
+  en: "The vital event that this certificate attests to. Used on certificates issued directly from a vital event record rather than from a stored civil status record."
+  fr: "L'événement d'état civil attesté par ce certificat. Utilisé sur les certificats délivrés directement à partir d'un enregistrement d'événement d'état civil plutôt qu'à partir d'un acte d'état civil conservé."
+  es: "El evento vital que acredita este certificado. Utilizado en certificados emitidos directamente a partir de un registro de evento vital, en lugar de un acta de estado civil almacenada."
+
+type: concept:VitalEvent
+cardinality: single
+vocabulary: null
+references: VitalEvent
+domain_override: crvs

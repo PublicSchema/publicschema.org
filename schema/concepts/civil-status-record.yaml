@@ -1,0 +1,36 @@
+id: CivilStatusRecord
+maturity: draft
+domain: crvs
+
+definition:
+  en: >
+    The official written record (acte) held by a civil registration authority
+    that attests to a vital event. In civil-law traditions, this is the
+    persistent legal document that accumulates marginal annotations over time
+    and from which certificates are issued. Distinct from the vital event
+    itself (the underlying occurrence) and from certificates (the documents
+    produced from the record on demand).
+  fr: >
+    L'acte officiel conservé par une autorité d'état civil qui atteste d'un
+    événement d'état civil. Dans les traditions de droit civil, il s'agit du
+    document juridique pérenne qui accumule des mentions marginales au fil
+    du temps et à partir duquel les certificats sont délivrés. Distinct de
+    l'événement d'état civil lui-même (l'occurrence sous-jacente) et des
+    certificats (les documents produits à partir de l'acte à la demande).
+  es: >
+    El registro oficial escrito (acta) que conserva una autoridad de registro
+    civil y que acredita un evento vital. En las tradiciones de derecho civil,
+    es el documento jurídico permanente que acumula anotaciones marginales a
+    lo largo del tiempo y a partir del cual se emiten los certificados.
+    Distinto del evento vital en sí (el suceso subyacente) y de los
+    certificados (los documentos que se producen a partir del acta a demanda).
+
+properties:
+  - record_type
+  - originating_event
+  - annotations
+  - person
+  - issuing_authority_location
+
+subtypes: []
+supertypes: []

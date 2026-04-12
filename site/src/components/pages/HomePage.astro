@@ -23,7 +23,14 @@ const domainLabels: Record<string, string> = { sp: t('concepts.section_social_pr
 const domainCodes = [...new Set(concepts.filter((c) => c.domain).map((c) => c.domain as string))].sort();
 const conceptsByDomain = Object.fromEntries(domainCodes.map((d) => [d, concepts.filter((c) => c.domain === d)]));
 const properties = Object.values(vocab.properties).sort(byMaturityThenName);
-const vocabularies = Object.values(vocab.vocabularies).sort(byMaturityThenName);
+// Vocabularies are keyed by their canonical reference form (`<domain>/<id>`
+// for domain-scoped vocabs). Keep the entry key alongside so href links use
+// the prefixed path required by CRVS and other domain-scoped routes.
+const vocabularies = Object.entries(vocab.vocabularies)
+  .map(([key, v]) => ({ key, ...v }))
+  .sort((a, b) =>
+    (maturityRank[a.maturity] ?? 9) - (maturityRank[b.maturity] ?? 9) || a.key.localeCompare(b.key)
+  );
 const systems = ['OpenSPP', 'openIMIS', 'DCI', 'DHIS2', 'FHIR R4', 'OpenCRVS'];
 
 const modules = import.meta.glob('./content/HomepageContent.*.astro');
@@ -111,8 +118,8 @@ const { title, description } = titles[locale];
       </div>
       <div class="h3-idx-chips">
         {vocabularies.slice(0, 8).map((v) => (
-          <a href={localePath(`/vocab/${v.id}`, locale)} class="h3-chip">
-            {v.id}
+          <a href={localePath(`/vocab/${v.key}`, locale)} class="h3-chip">
+            {v.key}
             <span class="h3-chip-meta">{v.values.length}</span>
           </a>
         ))}

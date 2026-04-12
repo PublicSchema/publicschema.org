@@ -1,0 +1,13 @@
+id: weight_at_birth
+maturity: draft
+
+definition:
+  en: "The weight of the child at birth, recorded in grams. A core UN Principles and Recommendations vital statistics variable used to identify low birth weight."
+  fr: "Le poids de l'enfant à la naissance, enregistré en grammes. Variable essentielle des Principes et Recommandations des Nations Unies sur les statistiques de l'état civil, utilisée pour identifier l'insuffisance pondérale à la naissance."
+  es: "El peso del niño o de la niña al nacer, registrado en gramos. Variable clave de los Principios y Recomendaciones de las Naciones Unidas sobre estadísticas vitales, utilizada para identificar el bajo peso al nacer."
+
+type: decimal
+cardinality: single
+vocabulary: null
+references: null
+domain_override: crvs

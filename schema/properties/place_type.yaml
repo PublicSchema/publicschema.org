@@ -1,0 +1,13 @@
+id: place_type
+maturity: draft
+
+definition:
+  en: "The category of place where the vital event occurred (health facility, home, en route, etc.). Complements the specific Location by describing what kind of setting it was."
+  fr: "La catégorie de lieu où l'événement d'état civil s'est produit (établissement de santé, domicile, en chemin, etc.). Complète le lieu spécifique en décrivant le type de cadre dans lequel il s'est produit."
+  es: "La categoría de lugar donde ocurrió el evento vital (establecimiento de salud, hogar, en camino, etc.). Complementa el Lugar específico al describir qué tipo de entorno era."
+
+type: string
+cardinality: single
+vocabulary: crvs/place-type
+references: null
+domain_override: crvs

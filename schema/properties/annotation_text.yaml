@@ -1,0 +1,13 @@
+id: annotation_text
+maturity: draft
+
+definition:
+  en: "The full text of the marginal annotation as recorded on the civil status record. Preserves the exact wording used by the registration authority."
+  fr: "Le texte intégral de la mention marginale tel qu'il figure sur l'acte d'état civil. Conserve la formulation exacte utilisée par l'autorité d'enregistrement."
+  es: "El texto íntegro de la anotación marginal tal como figura en el acta de estado civil. Conserva la redacción exacta utilizada por la autoridad de registro."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+domain_override: crvs

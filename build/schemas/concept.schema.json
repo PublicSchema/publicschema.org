@@ -19,6 +19,10 @@
       "type": ["string", "null"],
       "description": "Domain namespace. Null or omitted for universal concepts."
     },
+    "abstract": {
+      "type": "boolean",
+      "description": "True if the concept is an abstract supertype that exists only to group shared properties; concrete instances are recorded as one of its subtypes."
+    },
     "definition": {
       "$ref": "#/$defs/multilingual_text"
     },
@@ -72,7 +76,7 @@
     },
     "external_equivalent": {
       "type": "object",
-      "required": ["label", "uri", "match"],
+      "required": ["label", "match"],
       "additionalProperties": false,
       "properties": {
         "label": {
@@ -86,8 +90,8 @@
         },
         "match": {
           "type": "string",
-          "enum": ["exact", "close", "broad", "name_match"],
-          "description": "Semantic match quality: exact (same meaning), close (similar with minor differences), broad (overlapping scope), name_match (same name but unverified semantics)"
+          "enum": ["exact", "close", "broad", "name_match", "none"],
+          "description": "Semantic match quality: exact (same meaning), close (similar with minor differences), broad (overlapping scope), name_match (same name but unverified semantics), none (no equivalent exists)"
         },
         "vocabulary": {
           "type": "string",

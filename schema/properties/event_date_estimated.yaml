@@ -1,0 +1,13 @@
+id: event_date_estimated
+maturity: draft
+
+definition:
+  en: "Whether the event date is an estimate rather than a known exact date. Common for late-registered births or deaths where the precise date is not documented."
+  fr: "Indique si la date de l'événement est une estimation plutôt qu'une date exacte connue. Fréquent pour les naissances ou décès enregistrés tardivement dont la date précise n'est pas documentée."
+  es: "Indica si la fecha del evento es una estimación en lugar de una fecha exacta conocida. Común para nacimientos o defunciones registrados tardíamente cuya fecha precisa no está documentada."
+
+type: boolean
+cardinality: single
+vocabulary: null
+references: null
+domain_override: crvs

@@ -1,0 +1,89 @@
+id: enrollment-exit-reason
+maturity: draft
+domain: sp
+
+definition:
+  en: "The reason an enrollment was permanently closed. Applies when enrollment status is closed, not when graduated."
+  fr: "La raison pour laquelle une inscription a été définitivement clôturée. S'applique lorsque le statut d'inscription est clos, pas lorsqu'il est gradué."
+  es: "La razón por la cual una inscripción fue cerrada permanentemente. Se aplica cuando el estado de inscripción es cerrado, no cuando es graduado."
+
+values:
+  - code: voluntary_withdrawal
+    label:
+      en: Voluntary withdrawal
+      fr: Retrait volontaire
+      es: Retiro voluntario
+    definition:
+      en: "The beneficiary chose to leave the program."
+      fr: "Le bénéficiaire a choisi de quitter le programme."
+      es: "El beneficiario eligió abandonar el programa."
+
+  - code: non_compliance
+    label:
+      en: Non-compliance
+      fr: Non-conformité
+      es: Incumplimiento
+    definition:
+      en: "The beneficiary did not meet ongoing program conditions."
+      fr: "Le bénéficiaire n'a pas rempli les conditions continues du programme."
+      es: "El beneficiario no cumplió con las condiciones continuas del programa."
+
+  - code: ineligibility
+    label:
+      en: Ineligibility
+      fr: Inéligibilité
+      es: Inelegibilidad
+    definition:
+      en: "The beneficiary was determined to be no longer eligible due to a change in circumstances such as income, age, or residency."
+      fr: "Le bénéficiaire a été déterminé comme n'étant plus éligible en raison d'un changement de circonstances tel que le revenu, l'âge ou la résidence."
+      es: "Se determinó que el beneficiario ya no es elegible debido a un cambio de circunstancias como ingresos, edad o residencia."
+
+  - code: death
+    label:
+      en: Death
+      fr: Décès
+      es: Fallecimiento
+    definition:
+      en: "The beneficiary died."
+      fr: "Le bénéficiaire est décédé."
+      es: "El beneficiario falleció."
+
+  - code: program_end
+    label:
+      en: Program end
+      fr: Fin du programme
+      es: Fin del programa
+    definition:
+      en: "The program itself ended or the funding cycle closed."
+      fr: "Le programme lui-même s'est terminé ou le cycle de financement a pris fin."
+      es: "El programa en sí terminó o el ciclo de financiamiento se cerró."
+
+  - code: relocation
+    label:
+      en: Relocation
+      fr: Déménagement
+      es: Reubicación
+    definition:
+      en: "The beneficiary moved out of the program's coverage area."
+      fr: "Le bénéficiaire a déménagé hors de la zone de couverture du programme."
+      es: "El beneficiario se mudó fuera del área de cobertura del programa."
+
+  - code: duplicate
+    label:
+      en: Duplicate
+      fr: Doublon
+      es: Duplicado
+    definition:
+      en: "The enrollment was identified as a duplicate of another record."
+      fr: "L'inscription a été identifiée comme un doublon d'un autre dossier."
+      es: "La inscripción fue identificada como un duplicado de otro registro."
+
+  - code: administrative
+    label:
+      en: Administrative
+      fr: Administratif
+      es: Administrativo
+    definition:
+      en: "Closed for administrative reasons not covered by other codes."
+      fr: "Clôturé pour des raisons administratives non couvertes par les autres codes."
+      es: "Cerrado por razones administrativas no cubiertas por los otros códigos."

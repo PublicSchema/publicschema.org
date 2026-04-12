@@ -1,0 +1,26 @@
+id: Annulment
+maturity: draft
+domain: crvs
+
+definition:
+  en: >
+    A judicial declaration that a marriage was invalid from its inception,
+    typically because a legal impediment existed at the time of the ceremony
+    (such as lack of consent, existing marriage, or prohibited degree of
+    kinship). Distinct from Divorce, which ends a valid marriage.
+  fr: >
+    Une déclaration judiciaire selon laquelle un mariage était nul dès son
+    origine, généralement parce qu'un empêchement légal existait au moment
+    de la célébration (absence de consentement, mariage existant ou degré de
+    parenté prohibé). Distincte du Divorce, qui met fin à un mariage valide.
+  es: >
+    Una declaración judicial de que un matrimonio era nulo desde su origen,
+    generalmente porque existía un impedimento legal al momento de la
+    celebración (falta de consentimiento, matrimonio preexistente o grado de
+    parentesco prohibido). Distinta del Divorcio, que pone fin a un
+    matrimonio válido.
+
+properties: []
+
+subtypes: []
+supertypes: [MarriageTermination]

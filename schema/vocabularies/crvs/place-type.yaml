@@ -1,0 +1,59 @@
+id: place-type
+maturity: draft
+domain: crvs
+
+definition:
+  en: "The category of place where a vital event occurred (birth or death). Distinct from the specific Location: this captures the type (health facility, home, etc.) rather than the named place."
+  fr: "La catégorie de lieu où un événement d'état civil (naissance ou décès) s'est produit. Distinct du lieu spécifique: saisit le type (établissement de santé, domicile, etc.) plutôt que le lieu nommé."
+  es: "La categoría de lugar donde ocurrió un evento vital (nacimiento o defunción). Distinto del lugar específico: captura el tipo (establecimiento de salud, hogar, etc.) en lugar del lugar nombrado."
+
+values:
+  - code: health_facility
+    label:
+      en: Health facility
+      fr: Établissement de santé
+      es: Establecimiento de salud
+    definition:
+      en: "The event occurred in a hospital, clinic, or other health facility."
+      fr: "L'événement s'est produit dans un hôpital, une clinique ou un autre établissement de santé."
+      es: "El evento ocurrió en un hospital, clínica u otro establecimiento de salud."
+
+  - code: home
+    label:
+      en: Home
+      fr: Domicile
+      es: Hogar
+    definition:
+      en: "The event occurred in a residential setting."
+      fr: "L'événement s'est produit dans un cadre résidentiel."
+      es: "El evento ocurrió en un entorno residencial."
+
+  - code: en_route
+    label:
+      en: En route
+      fr: En chemin
+      es: En camino
+    definition:
+      en: "The event occurred while the person was being transported to a place of care."
+      fr: "L'événement s'est produit pendant que la personne était transportée vers un lieu de soins."
+      es: "El evento ocurrió mientras la persona estaba siendo trasladada a un lugar de atención."
+
+  - code: other
+    label:
+      en: Other
+      fr: Autre
+      es: Otro
+    definition:
+      en: "The event occurred at another type of place not covered above."
+      fr: "L'événement s'est produit dans un autre type de lieu non couvert ci-dessus."
+      es: "El evento ocurrió en otro tipo de lugar no cubierto arriba."
+
+  - code: unknown
+    label:
+      en: Unknown
+      fr: Inconnu
+      es: Desconocido
+    definition:
+      en: "The type of place where the event occurred is not known."
+      fr: "Le type de lieu où l'événement s'est produit n'est pas connu."
+      es: "El tipo de lugar donde ocurrió el evento no se conoce."

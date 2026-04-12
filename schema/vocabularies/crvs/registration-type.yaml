@@ -1,0 +1,49 @@
+id: registration-type
+maturity: draft
+domain: crvs
+
+definition:
+  en: "Categories describing whether the registration of a vital event occurred within the legal time limit, after it, or through a special procedure."
+  fr: "Catégories décrivant si l'enregistrement d'un événement d'état civil a eu lieu dans le délai légal, après celui-ci ou par une procédure particulière."
+  es: "Categorías que describen si el registro de un evento vital ocurrió dentro del plazo legal, después de este, o mediante un procedimiento especial."
+
+values:
+  - code: current
+    label:
+      en: Current
+      fr: Courant
+      es: Corriente
+    definition:
+      en: "Registration took place within the legal time limit set by the jurisdiction."
+      fr: "L'enregistrement a eu lieu dans le délai légal fixé par la juridiction."
+      es: "El registro se realizó dentro del plazo legal establecido por la jurisdicción."
+
+  - code: late
+    label:
+      en: Late
+      fr: Tardif
+      es: Tardío
+    definition:
+      en: "Registration took place after the legal time limit but through the standard administrative process."
+      fr: "L'enregistrement a eu lieu après le délai légal, mais par la procédure administrative standard."
+      es: "El registro se realizó después del plazo legal, pero mediante el procedimiento administrativo estándar."
+
+  - code: court_ordered
+    label:
+      en: Court ordered
+      fr: Ordonné par le tribunal
+      es: Ordenado por el tribunal
+    definition:
+      en: "Registration was effected by court order, typically because the standard administrative route was no longer available."
+      fr: "L'enregistrement a été effectué par décision judiciaire, généralement parce que la voie administrative standard n'était plus disponible."
+      es: "El registro se efectuó por orden judicial, típicamente porque la vía administrativa estándar ya no estaba disponible."
+
+  - code: reconstruction
+    label:
+      en: Reconstruction
+      fr: Reconstitution
+      es: Reconstrucción
+    definition:
+      en: "The record was reconstructed from other evidence because the original register was lost, destroyed, or never existed."
+      fr: "L'acte a été reconstitué à partir d'autres éléments de preuve parce que le registre original a été perdu, détruit ou n'a jamais existé."
+      es: "El registro fue reconstruido a partir de otras pruebas porque el registro original se perdió, fue destruido o nunca existió."

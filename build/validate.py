@@ -52,6 +52,17 @@ def _load_all_yaml(directory: Path) -> dict[str, dict]:
     return result
 
 
+def _load_vocabularies_with_paths(directory: Path) -> list[tuple[Path, dict]]:
+    """Load vocabulary YAMLs with their relative paths for domain validation."""
+    result = []
+    if not directory.exists():
+        return result
+    for p in sorted(directory.rglob("*.yaml")):
+        rel = p.relative_to(directory)
+        result.append((rel, _load_yaml(p)))
+    return result
+
+
 def _validate_against_schema(
     data: dict, schema: dict, filename: str
 ) -> list[ValidationError]:
@@ -122,11 +133,58 @@ def validate_schema_dir(schema_dir: Path) -> list[ValidationError]:
     concepts = _load_all_yaml(schema_dir / "concepts")
     properties = _load_all_yaml(schema_dir / "properties")
     vocabularies = _load_all_yaml(schema_dir / "vocabularies")
+    vocabularies_with_paths = _load_vocabularies_with_paths(schema_dir / "vocabularies")
 
     # Build lookup indexes
     concept_ids = {data["id"] for data in concepts.values() if "id" in data}
     property_ids = {data["id"] for data in properties.values() if "id" in data}
-    vocabulary_ids = {data["id"] for data in vocabularies.values() if "id" in data}
+
+    # Vocabularies are referenced by their canonical form: '<domain>/<id>' for
+    # domain-scoped vocabularies (living in a subdirectory) and bare '<id>' for
+    # universal ones (living at the vocabularies/ root). The YAML ``domain``
+    # field must match the subdirectory name; YAML ``id`` must be the bare id.
+    vocabulary_ids: set[str] = set()
+    for rel_path, data in vocabularies_with_paths:
+        if "id" not in data:
+            continue
+        filename = rel_path.name
+        vocab_id = data["id"]
+        yaml_domain = data.get("domain")
+        parts = rel_path.parts
+        if len(parts) == 1:
+            # Root-level vocabulary: must have no domain field (or domain: null)
+            if yaml_domain:
+                errors.append(ValidationError(
+                    filename,
+                    f"Root-level vocabulary has 'domain: {yaml_domain}' but lives at vocabularies/ root; "
+                    f"move the file to vocabularies/{yaml_domain}/ or remove the domain field",
+                ))
+                continue
+            vocabulary_ids.add(vocab_id)
+        else:
+            # Subdirectory vocabulary: one directory level, domain must match
+            subdir = parts[0]
+            if len(parts) > 2:
+                errors.append(ValidationError(
+                    filename,
+                    f"Vocabulary nested more than one level deep ({rel_path}); use vocabularies/<domain>/<id>.yaml",
+                ))
+                continue
+            if yaml_domain != subdir:
+                errors.append(ValidationError(
+                    filename,
+                    f"Vocabulary in 'vocabularies/{subdir}/' must declare 'domain: {subdir}' "
+                    f"(found {yaml_domain!r})",
+                ))
+                continue
+            if "/" in vocab_id:
+                errors.append(ValidationError(
+                    filename,
+                    f"Vocabulary 'id' must be bare (no slash); got '{vocab_id}'. "
+                    f"The domain segment is derived from the 'domain' field.",
+                ))
+                continue
+            vocabulary_ids.add(f"{subdir}/{vocab_id}")
 
     # Load JSON Schemas for validation
     concept_schema = _load_json_schema("concept.schema.json")

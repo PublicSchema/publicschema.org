@@ -1,0 +1,40 @@
+id: Adoption
+maturity: draft
+domain: crvs
+
+definition:
+  en: >
+    A legal act by which one or more persons acquire the status of parent to
+    a child, creating a parent-child relationship that did not previously
+    exist in law. Distinguishes full adoption (where prior biological
+    filiation is replaced) from simple adoption (where it is preserved
+    alongside the new bond), following civil-law traditions and the Hague
+    Convention on Intercountry Adoption.
+  fr: >
+    Un acte juridique par lequel une ou plusieurs personnes acquièrent le
+    statut de parent d'un enfant, créant une relation parent-enfant qui
+    n'existait pas auparavant en droit. Distingue l'adoption plénière (où
+    la filiation biologique antérieure est remplacée) de l'adoption simple
+    (où elle est conservée parallèlement au nouveau lien), suivant les
+    traditions de droit civil et la Convention de La Haye sur l'adoption
+    internationale.
+  es: >
+    Un acto jurídico por el cual una o varias personas adquieren el estatus
+    de progenitores de un niño o niña, creando una relación paterno-filial
+    que no existía previamente en derecho. Distingue la adopción plena
+    (donde la filiación biológica anterior es sustituida) de la adopción
+    simple (donde se conserva junto al nuevo vínculo), siguiendo las
+    tradiciones de derecho civil y el Convenio de La Haya sobre adopción
+    internacional.
+
+properties:
+  - adoptee
+  - adoptive_parents
+  - previous_parents
+  - adoption_type
+  - judgment_date
+  - judgment_reference
+  - court
+
+subtypes: []
+supertypes: [VitalEvent]

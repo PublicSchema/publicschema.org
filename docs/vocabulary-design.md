@@ -14,6 +14,12 @@ Examples:
 
 Definitions must match scope. A universal vocabulary's definition must not reference a specific domain. Write "the lifecycle states of an enrollment in a program," not "...in a social protection program."
 
+### Process and mechanism vocabularies
+
+Vocabularies that describe processes (enrollment lifecycles, payment processing, complaint handling) and delivery mechanisms (channels, modalities) are universal by default, even if the first concept using them is domain-specific. The test: would the same codes carry different meanings in another domain? If "active" enrollment means the same thing in social protection and education, the vocabulary is universal.
+
+Individual values that only apply to one domain use the `domain` annotation on the value (see section 4), not on the vocabulary itself.
+
 ## 2. One concept per vocabulary
 
 Each vocabulary answers one question. Do not combine orthogonal concerns.
@@ -32,6 +38,10 @@ If a formal code system exists, reference it. Three levels:
 | **Sync** | Machine-readable standard defines the authoritative value set. | `standard` + `sync` |
 | **Reference** | Standard exists but we don't sync (prose-only, partial overlap, deliberate simplification). | `references` |
 | **None** | No relevant standard exists. | Neither field |
+
+### Synced standard vocabularies
+
+When a vocabulary is synced from an international standard and systems use that standard's codes directly, `same_standard_systems` is sufficient in place of value-level `system_mappings`. This applies to large code lists (countries, currencies, languages) where the standard is the de facto interoperability layer.
 
 A vocabulary with no `standard`, no `references`, and no `system_mappings` is unvalidated. Acceptable at draft maturity; must be resolved before trial use.
 

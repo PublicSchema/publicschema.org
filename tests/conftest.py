@@ -69,9 +69,14 @@ def write_credential(tmp_schema):
 
 @pytest.fixture
 def write_vocabulary(tmp_schema):
-    """Helper to write a vocabulary YAML file into the tmp schema."""
+    """Helper to write a vocabulary YAML file into the tmp schema.
+
+    Filenames may include subdirectory segments (e.g. ``'sp/estatus.yaml'``)
+    which are interpreted as domain subdirectories under ``vocabularies/``.
+    """
     def _write(filename, data):
         path = tmp_schema / "vocabularies" / filename
+        path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(yaml.dump(data, allow_unicode=True))
         return path
     return _write

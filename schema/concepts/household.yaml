@@ -28,6 +28,18 @@ properties:
 supertypes: [Group]
 subtypes: []
 
+external_equivalents:
+  semic:
+    label: "N/A"
+    match: none
+    vocabulary: "Core Person"
+    note: "SEMIC Core Person does not define a household concept. Residence-related data attaches to Person via address."
+  dci:
+    label: "N/A"
+    match: none
+    vocabulary: "DCI Core"
+    note: "DCI does not define a standalone household entity. Household-like grouping is handled through Group with role-based membership."
+
 convergence:
   system_count: 4
   total_systems: 6

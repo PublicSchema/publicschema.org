@@ -54,6 +54,9 @@ const domainTitles: Record<string, string> = { sp: t('concepts.section_social_pr
     <h1>{concept.domain && <span class="domain-prefix" title={domainTitles[concept.domain] || concept.domain}>{concept.domain}:</span>}{concept.id}</h1>
     <div class="meta-line">
       <span class={`badge badge-${concept.maturity}`}>{concept.maturity}</span>
+      {concept.abstract && (
+        <span class="badge badge-abstract" title={t('concept_detail.abstract_title')}>{t('concept_detail.abstract_badge')}</span>
+      )}
     </div>
     <p class="definition-text">{definition}</p>
     <p class="uri">{concept.uri}</p>

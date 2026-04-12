@@ -1,0 +1,46 @@
+id: VitalEvent
+maturity: draft
+domain: crvs
+abstract: true
+
+definition:
+  en: >
+    An event of legal and statistical importance that marks a change in a
+    person's civil status, such as birth, death, fetal death, marriage, divorce,
+    annulment, adoption, paternity recognition, or legitimation. VitalEvent is
+    an abstract supertype that groups shared properties (when and where the
+    event occurred, who registered it, and the registration lifecycle).
+    Aligned with the UN Principles and Recommendations for Vital Statistics.
+  fr: >
+    Un événement d'importance juridique et statistique qui marque un changement
+    dans l'état civil d'une personne, tel qu'une naissance, un décès, une
+    mortinaissance, un mariage, un divorce, une annulation, une adoption, une
+    reconnaissance de paternité ou une légitimation. VitalEvent est un
+    supertype abstrait qui regroupe les propriétés communes (quand et où
+    l'événement s'est produit, qui l'a enregistré et le cycle de vie de
+    l'enregistrement). Aligné sur les Principes et Recommandations des Nations
+    Unies en matière de statistiques de l'état civil.
+  es: >
+    Un evento de relevancia jurídica y estadística que marca un cambio en el
+    estado civil de una persona, como un nacimiento, una defunción, una muerte
+    fetal, un matrimonio, un divorcio, una anulación, una adopción, un
+    reconocimiento de paternidad o una legitimación. VitalEvent es un supertipo
+    abstracto que agrupa las propiedades comunes (cuándo y dónde ocurrió el
+    evento, quién lo registró y el ciclo de vida del registro). Alineado con
+    los Principios y Recomendaciones de las Naciones Unidas sobre estadísticas
+    vitales.
+
+properties:
+  - event_date
+  - event_date_estimated
+  - event_location
+  - registration_number
+  - registration_date
+  - registration_location
+  - registration_type
+  - registrar
+  - informant
+  - registration_status
+
+subtypes: [Birth, Death, FetalDeath, Marriage, MarriageTermination, Adoption, PaternityRecognition, Legitimation]
+supertypes: [Event]

@@ -1,0 +1,117 @@
+id: entitlement-status
+maturity: trial-use
+domain: sp
+definition:
+  en: The lifecycle states of a benefit entitlement instance, from creation through fulfillment or termination.
+  fr: Les états du cycle de vie d'une instance de droit à prestation, de la création à l'exécution ou la clôture.
+  es: Los estados del ciclo de vida de una instancia de derecho a prestación, desde la creación hasta el cumplimiento o la terminación.
+references:
+  - name: "HL7 FHIR R4 Financial Resource Status Codes (fm-status)"
+    uri: "https://hl7.org/fhir/R4/codesystem-fm-status.html"
+    relationship: structural_pattern
+    machine_readable: true
+    notes: "FHIR's financial status lifecycle (active, cancelled, draft, entered-in-error) informed the pre-approval and terminal states."
+values:
+- code: pending
+  label:
+    en: Pending
+    fr: En attente
+    es: Pendiente
+  definition:
+    en: The entitlement has been created but has not yet been confirmed through validation or approval.
+    fr: Le droit a été créé mais n'a pas encore été confirmé par validation ou approbation.
+    es: El derecho ha sido creado pero aún no ha sido confirmado mediante validación o aprobación.
+- code: approved
+  label:
+    en: Approved
+    fr: Approuvé
+    es: Aprobado
+  definition:
+    en: The entitlement has been confirmed and is awaiting fulfillment.
+    fr: Le droit a été confirmé et est en attente d'exécution.
+    es: El derecho ha sido confirmado y está pendiente de cumplimiento.
+- code: suspended
+  label:
+    en: Suspended
+    fr: Suspendu
+    es: Suspendido
+  definition:
+    en: The entitlement is temporarily withheld, for example due to a failed conditionality check or pending verification.
+    fr: Le droit est temporairement retenu, par exemple en raison d'un contrôle de conditionnalité échoué ou d'une vérification en cours.
+    es: El derecho está temporalmente retenido, por ejemplo debido a una verificación de condicionalidad fallida o una verificación pendiente.
+- code: rejected
+  label:
+    en: Rejected
+    fr: Rejeté
+    es: Rechazado
+  definition:
+    en: The entitlement was evaluated and denied. Unlike cancellation, rejection means the entitlement was never valid.
+    fr: Le droit a été évalué et refusé. Contrairement à l'annulation, le rejet signifie que le droit n'a jamais été valide.
+    es: El derecho fue evaluado y denegado. A diferencia de la cancelación, el rechazo significa que el derecho nunca fue válido.
+- code: cancelled
+  label:
+    en: Cancelled
+    fr: Annulé
+    es: Cancelado
+  definition:
+    en: The entitlement has been withdrawn and will not be fulfilled.
+    fr: Le droit a été retiré et ne sera pas exécuté.
+    es: El derecho ha sido retirado y no será cumplido.
+- code: expired
+  label:
+    en: Expired
+    fr: Expiré
+    es: Expirado
+  definition:
+    en: The entitlement's validity period has passed without fulfillment. Unlike cancellation, no one actively withdrew the entitlement; it lapsed.
+    fr: La période de validité du droit a expiré sans exécution. Contrairement à l'annulation, personne n'a activement retiré le droit ; il a expiré.
+    es: El período de validez del derecho ha pasado sin cumplimiento. A diferencia de la cancelación, nadie retiró activamente el derecho; caducó.
+- code: partially_fulfilled
+  label:
+    en: Partially fulfilled
+    fr: Partiellement exécuté
+    es: Parcialmente cumplido
+  definition:
+    en: Some but not all of the entitled amount has been delivered, for example one tranche of a multi-tranche payment or a voucher issued but not yet redeemed.
+    fr: Une partie mais pas la totalité du montant du droit a été versée, par exemple une tranche d'un paiement à tranches multiples ou un bon émis mais pas encore échangé.
+    es: Se ha entregado parte pero no la totalidad del monto del derecho, por ejemplo una cuota de un pago en múltiples cuotas o un vale emitido pero aún no canjeado.
+- code: fulfilled
+  label:
+    en: Fulfilled
+    fr: Exécuté
+    es: Cumplido
+  definition:
+    en: The full entitled amount has been delivered to the beneficiary.
+    fr: Le montant total du droit a été versé au bénéficiaire.
+    es: El monto total del derecho ha sido entregado al beneficiario.
+system_mappings:
+  openspp:
+    vocabulary_name: EntitlementState
+    values:
+    - code: draft
+      label: Draft
+      maps_to: pending
+    - code: pending_validation
+      label: Pending Validation
+      maps_to: pending
+    - code: approved
+      label: Approved
+      maps_to: approved
+    - code: trans2FSP
+      label: Transferred to FSP
+      maps_to: approved
+    - code: rdpd2ben
+      label: Redeemed/Paid to Beneficiary
+      maps_to: fulfilled
+    - code: reject
+      label: Rejected
+      maps_to: rejected
+    - code: cancelled
+      label: Cancelled
+      maps_to: cancelled
+    - code: expired
+      label: Expired
+      maps_to: expired
+    unmapped_canonical:
+    - suspended
+    - partially_fulfilled

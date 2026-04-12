@@ -1,0 +1,33 @@
+id: Legitimation
+maturity: draft
+domain: crvs
+
+definition:
+  en: >
+    The act by which a child previously born outside marriage acquires the
+    legal status of a child born within marriage, typically following the
+    subsequent marriage of the biological parents. Relevant in jurisdictions
+    where the status of the child still varies by marital context.
+  fr: >
+    L'acte par lequel un enfant précédemment né hors mariage acquiert le
+    statut juridique d'enfant né dans le mariage, généralement à la suite
+    du mariage ultérieur des parents biologiques. Pertinent dans les
+    juridictions où le statut de l'enfant varie encore selon le contexte
+    marital.
+  es: >
+    El acto por el cual un hijo o hija nacido previamente fuera del
+    matrimonio adquiere el estatus jurídico de hijo o hija nacido dentro del
+    matrimonio, generalmente tras el matrimonio posterior de los progenitores
+    biológicos. Relevante en jurisdicciones en las que el estatus del menor
+    aún varía según el contexto marital.
+
+properties:
+  - child
+  - parents
+  - birth_ref
+  - judgment_date
+  - judgment_reference
+  - court
+
+subtypes: []
+supertypes: [VitalEvent]

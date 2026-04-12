@@ -1,0 +1,69 @@
+id: birth-type
+maturity: draft
+domain: crvs
+
+definition:
+  en: "The number of children delivered in a single birth event."
+  fr: "Le nombre d'enfants nés lors d'un même accouchement."
+  es: "El número de niños nacidos en un mismo evento de parto."
+
+values:
+  - code: single
+    label:
+      en: Single
+      fr: Simple
+      es: Único
+    definition:
+      en: "One child delivered in the birth event."
+      fr: "Un seul enfant lors de l'accouchement."
+      es: "Un niño nacido en el evento de parto."
+
+  - code: twin
+    label:
+      en: Twin
+      fr: Jumeaux
+      es: Gemelos
+    definition:
+      en: "Two children delivered in the same birth event."
+      fr: "Deux enfants lors du même accouchement."
+      es: "Dos niños nacidos en el mismo evento de parto."
+
+  - code: triplet
+    label:
+      en: Triplet
+      fr: Triplés
+      es: Trillizos
+    definition:
+      en: "Three children delivered in the same birth event."
+      fr: "Trois enfants lors du même accouchement."
+      es: "Tres niños nacidos en el mismo evento de parto."
+
+  - code: quadruplet
+    label:
+      en: Quadruplet
+      fr: Quadruplés
+      es: Cuatrillizos
+    definition:
+      en: "Four children delivered in the same birth event."
+      fr: "Quatre enfants lors du même accouchement."
+      es: "Cuatro niños nacidos en el mismo evento de parto."
+
+  - code: quintuplet
+    label:
+      en: Quintuplet
+      fr: Quintuplés
+      es: Quintillizos
+    definition:
+      en: "Five children delivered in the same birth event."
+      fr: "Cinq enfants lors du même accouchement."
+      es: "Cinco niños nacidos en el mismo evento de parto."
+
+  - code: higher_order
+    label:
+      en: Higher order
+      fr: Ordre supérieur
+      es: Orden superior
+    definition:
+      en: "Six or more children delivered in the same birth event."
+      fr: "Six enfants ou plus lors du même accouchement."
+      es: "Seis o más niños nacidos en el mismo evento de parto."

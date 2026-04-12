@@ -4,17 +4,19 @@ domain: sp
 
 definition:
   en: >
-    The administrative process of registering an eligible individual or household
-    as an active beneficiary of a program. Enrollment activates benefit delivery
-    and creates the link between the beneficiary and the program.
+    The administrative process of registering an eligible person or household
+    as an active beneficiary of a program. Budget constraints and capacity
+    limits mean that eligibility does not guarantee enrollment.
   fr: >
-    Le processus administratif d'intégration d'un sujet éligible en tant que
-    bénéficiaire actif d'un programme. Les contraintes budgétaires signifient que
-    l'éligibilité ne garantit pas l'inscription.
+    Le processus administratif d'inscription d'une personne ou d'un ménage
+    éligible en tant que bénéficiaire actif d'un programme. Les contraintes
+    budgétaires et les limites de capacité signifient que l'éligibilité ne
+    garantit pas l'inscription.
   es: >
-    El proceso administrativo de incorporación de un sujeto elegible como
-    beneficiario activo de un programa. Las restricciones presupuestarias
-    significan que la elegibilidad no garantiza la inscripción.
+    El proceso administrativo de inscripción de una persona u hogar elegible
+    como beneficiario activo de un programa. Las restricciones presupuestarias
+    y los límites de capacidad significan que la elegibilidad no garantiza la
+    inscripción.
 
 properties:
   - beneficiary
@@ -23,9 +25,7 @@ properties:
   - enrollment_status
   - enrollment_date
   - exit_date
-  - start_date
-  - end_date
-  - is_active
+  - exit_reason
   - is_enrolled
   - governing_jurisdiction
 

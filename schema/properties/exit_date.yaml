@@ -2,9 +2,9 @@ id: exit_date
 maturity: trial-use
 
 definition:
-  en: "The date on which the enrollment was closed, graduated, or suspended."
-  fr: "La date à laquelle l'inscription a été clôturée, graduée ou suspendue."
-  es: "La fecha en que la inscripción fue cerrada, graduada o suspendida."
+  en: "The date the enrollment ceased to be active, whether through closure or graduation. Does not apply to temporary suspension."
+  fr: "La date à laquelle l'inscription a cessé d'être active, que ce soit par clôture ou graduation. Ne s'applique pas à la suspension temporaire."
+  es: "La fecha en que la inscripción dejó de estar activa, ya sea por cierre o graduación. No se aplica a la suspensión temporal."
 
 type: date
 cardinality: single

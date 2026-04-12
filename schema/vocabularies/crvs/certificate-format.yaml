@@ -1,0 +1,39 @@
+id: certificate-format
+maturity: draft
+domain: crvs
+
+definition:
+  en: "The format of a civil status certificate document. Distinct from the type of event it attests to: a full copy reproduces the entire acte including its marginal annotations, an extract contains only a summary."
+  fr: "Le format d'un document de certificat d'état civil. Distinct du type d'événement qu'il atteste: une copie intégrale reproduit l'acte entier y compris ses mentions marginales, un extrait n'en contient qu'un résumé."
+  es: "El formato de un documento de certificado de estado civil. Distinto del tipo de evento que acredita: una copia íntegra reproduce toda el acta incluyendo sus anotaciones marginales, un extracto contiene solo un resumen."
+
+values:
+  - code: full_copy
+    label:
+      en: Full copy
+      fr: Copie intégrale
+      es: Copia íntegra
+    definition:
+      en: "A complete reproduction of the acte, including all marginal annotations that have accumulated over time."
+      fr: "Une reproduction complète de l'acte, y compris toutes les mentions marginales accumulées au fil du temps."
+      es: "Una reproducción completa del acta, incluyendo todas las anotaciones marginales acumuladas a lo largo del tiempo."
+
+  - code: extract
+    label:
+      en: Extract
+      fr: Extrait
+      es: Extracto
+    definition:
+      en: "A summary extract of the acte containing only essential information, without the full text of annotations."
+      fr: "Un extrait résumé de l'acte contenant uniquement les informations essentielles, sans le texte complet des mentions."
+      es: "Un extracto resumido del acta que contiene solo la información esencial, sin el texto completo de las anotaciones."
+
+  - code: multilingual_extract
+    label:
+      en: Multilingual extract
+      fr: Extrait plurilingue
+      es: Extracto multilingüe
+    definition:
+      en: "A standardized extract formatted in multiple languages, often issued for international use under ICCS/CIEC conventions."
+      fr: "Un extrait standardisé présenté en plusieurs langues, souvent délivré pour un usage international dans le cadre des conventions CIEC."
+      es: "Un extracto estandarizado presentado en varios idiomas, frecuentemente emitido para uso internacional bajo las convenciones CIEC."

@@ -2,9 +2,9 @@ id: schedule_ref
 maturity: trial-use
 
 definition:
-  en: "Reference to the benefit schedule that this entitlement instantiates."
-  fr: "Reference au calendrier de prestations que ce droit instancie."
-  es: "Referencia al calendario de beneficios que esta instancia de derecho representa."
+  en: "Reference to the benefit schedule that this entitlement corresponds to."
+  fr: "Référence au calendrier de prestations auquel ce droit correspond."
+  es: "Referencia al calendario de beneficios al que corresponde este derecho."
 
 type: uri
 cardinality: single

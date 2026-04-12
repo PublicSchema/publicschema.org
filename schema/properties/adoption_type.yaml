@@ -1,0 +1,13 @@
+id: adoption_type
+maturity: draft
+
+definition:
+  en: "Whether the adoption is full (biological filiation is entirely replaced) or simple (biological filiation is preserved alongside the new parental link). Key distinction in civil-law traditions."
+  fr: "Indique si l'adoption est plénière (la filiation biologique est entièrement remplacée) ou simple (la filiation biologique est conservée parallèlement au nouveau lien parental). Distinction clé dans les traditions de droit civil."
+  es: "Indica si la adopción es plena (la filiación biológica queda totalmente sustituida) o simple (la filiación biológica se conserva junto al nuevo vínculo parental). Distinción clave en las tradiciones de derecho civil."
+
+type: string
+cardinality: single
+vocabulary: crvs/adoption-type
+references: null
+domain_override: crvs

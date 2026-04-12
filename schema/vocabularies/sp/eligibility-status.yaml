@@ -1,0 +1,74 @@
+id: eligibility-status
+maturity: draft
+domain: sp
+definition:
+  en: The possible outcomes of a formal eligibility determination for a program or service.
+  fr: Les résultats possibles d'une détermination formelle d'éligibilité à un programme ou service.
+  es: Los posibles resultados de una determinación formal de elegibilidad para un programa o servicio.
+vc_guidance: >
+  For Verifiable Credential use, only terminal states (eligible, ineligible, conditional) should appear in credentials.
+  Process states (pending, under_review) are transient and should not be attested in a credential.
+references:
+  - name: "HL7 FHIR CoverageEligibilityResponse"
+    uri: "https://build.fhir.org/coverageeligibilityresponse-definitions.html"
+    relationship: structural_pattern
+    machine_readable: true
+    notes: "FHIR separates eligibility outcome from processing status. This vocabulary keeps both in a single lifecycle."
+values:
+- code: eligible
+  label:
+    en: Eligible
+    fr: Éligible
+    es: Elegible
+  definition:
+    en: The subject meets the program's criteria and is approved to receive benefits.
+    fr: Le sujet satisfait aux critères du programme et est approuvé pour recevoir des prestations.
+    es: El sujeto cumple los criterios del programa y está aprobado para recibir beneficios.
+- code: ineligible
+  label:
+    en: Ineligible
+    fr: Non éligible
+    es: No elegible
+  definition:
+    en: The subject does not meet the program's criteria and is not approved for benefits.
+    fr: Le sujet ne satisfait pas aux critères du programme et n'est pas approuvé pour recevoir des prestations.
+    es: El sujeto no cumple los criterios del programa y no está aprobado para recibir beneficios.
+- code: pending
+  label:
+    en: Pending
+    fr: En attente
+    es: Pendiente
+  definition:
+    en: The eligibility determination is in progress and a final decision has not yet been issued.
+    fr: La détermination de l'éligibilité est en cours et une décision finale n'a pas encore été rendue.
+    es: La determinación de elegibilidad está en curso y aún no se ha emitido una decisión final.
+- code: under_review
+  label:
+    en: Under review
+    fr: En cours d'examen
+    es: En revisión
+  definition:
+    en: The eligibility assessment is actively being evaluated by a case worker or review body.
+    fr: L'évaluation de l'éligibilité est activement examinée par un agent de terrain ou un organe d'examen.
+    es: La evaluación de elegibilidad está siendo evaluada activamente por un trabajador social o un órgano de revisión.
+- code: conditional
+  label:
+    en: Conditional
+    fr: Conditionnel
+    es: Condicional
+  definition:
+    en: The subject is eligible provided they meet additional conditions, such as school attendance or health check-ups.
+    fr: Le sujet est éligible à condition de remplir des conditions supplémentaires, telles que la fréquentation scolaire
+      ou les examens médicaux.
+    es: El sujeto es elegible siempre que cumpla condiciones adicionales, como asistencia escolar o chequeos de salud.
+system_mappings:
+  openspp:
+    values:
+    - code: not_eligible
+      label: Not Eligible
+      maps_to: ineligible
+    unmapped_canonical:
+    - eligible
+    - pending
+    - under_review
+    - conditional

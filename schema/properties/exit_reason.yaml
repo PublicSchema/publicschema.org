@@ -1,0 +1,13 @@
+id: exit_reason
+maturity: draft
+
+definition:
+  en: "The reason the enrollment was permanently closed. Applies when enrollment status is closed, not when graduated."
+  fr: "La raison pour laquelle l'inscription a été définitivement clôturée. S'applique lorsque le statut d'inscription est clos, pas lorsqu'il est gradué."
+  es: "La razón por la cual la inscripción fue cerrada permanentemente. Se aplica cuando el estado de inscripción es cerrado, no cuando es graduado."
+
+type: string
+cardinality: single
+vocabulary: sp/enrollment-exit-reason
+references: null
+domain_override: null

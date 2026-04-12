@@ -1,0 +1,39 @@
+id: CivilStatusAnnotation
+maturity: draft
+domain: crvs
+
+definition:
+  en: >
+    A marginal annotation (mention marginale) added to a civil status record
+    to reflect a later vital event or administrative change. Examples include
+    a marriage noted on the birth record of a spouse, a divorce noted on a
+    marriage record, or a court-ordered correction. The annotation mechanism
+    is how civil-law registries maintain a coherent civil identity over time
+    without rewriting the original acte.
+  fr: >
+    Une mention marginale ajoutée à un acte d'état civil pour refléter un
+    événement d'état civil ultérieur ou une modification administrative.
+    Exemples: un mariage indiqué sur l'acte de naissance d'un conjoint, un
+    divorce indiqué sur un acte de mariage, ou une correction ordonnée par
+    tribunal. Le mécanisme des mentions est la manière dont les registres
+    de droit civil maintiennent une identité civile cohérente dans le temps
+    sans réécrire l'acte original.
+  es: >
+    Una anotación marginal añadida a un acta de estado civil para reflejar
+    un evento vital posterior o un cambio administrativo. Ejemplos incluyen
+    un matrimonio anotado en el acta de nacimiento de un cónyuge, un divorcio
+    anotado en un acta de matrimonio o una corrección ordenada por tribunal.
+    El mecanismo de anotaciones es la forma en que los registros de derecho
+    civil mantienen una identidad civil coherente en el tiempo sin reescribir
+    el acta original.
+
+properties:
+  - civil_status_record
+  - triggering_event
+  - annotation_date
+  - annotating_authority
+  - annotation_type
+  - annotation_text
+
+subtypes: []
+supertypes: []

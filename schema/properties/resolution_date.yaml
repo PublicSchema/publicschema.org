@@ -2,9 +2,9 @@ id: resolution_date
 maturity: trial-use
 
 definition:
-  en: "The date on which the grievance was resolved or closed."
-  fr: "La date à laquelle le grief a été résolu ou clos."
-  es: "La fecha en que el agravio fue resuelto o cerrado."
+  en: "The date on which a resolution decision was issued for the grievance."
+  fr: "La date à laquelle une décision de résolution a été rendue pour le grief."
+  es: "La fecha en que se emitió una decisión de resolución para el agravio."
 
 type: date
 cardinality: single

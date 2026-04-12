@@ -98,7 +98,9 @@ system_mappings:
       maps_to: mobile_money
     - code: F
       label: Funding
-      maps_to: other
+      maps_to: null
+      unmapped_reason: no_equivalent
+      note: "Funding is a program-to-program financial transfer, not a beneficiary delivery channel."
     unmapped_canonical:
     - agent_network
     - prepaid_card

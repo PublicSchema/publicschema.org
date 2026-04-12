@@ -1,0 +1,13 @@
+id: family_register_status
+maturity: draft
+
+definition:
+  en: "The lifecycle status of the family register: active, closed, split into multiple registers, or merged with another. Tracks how vital events reshape the register over time."
+  fr: "Le statut du cycle de vie du registre familial: actif, clôturé, scindé en plusieurs registres ou fusionné avec un autre. Retrace la manière dont les événements d'état civil transforment le registre au fil du temps."
+  es: "El estado del ciclo de vida del registro familiar: activo, cerrado, dividido en varios registros o fusionado con otro. Da seguimiento a cómo los eventos vitales transforman el registro a lo largo del tiempo."
+
+type: string
+cardinality: single
+vocabulary: crvs/family-register-status
+references: null
+domain_override: crvs

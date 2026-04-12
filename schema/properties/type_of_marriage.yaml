@@ -1,0 +1,13 @@
+id: type_of_marriage
+maturity: draft
+
+definition:
+  en: "The legal regime under which the marriage was contracted: civil, religious, customary, or common law. Determines which authority registered or recognized the union and how subsequent terminations are handled."
+  fr: "Le régime juridique sous lequel le mariage a été contracté: civil, religieux, coutumier ou de fait. Détermine quelle autorité a enregistré ou reconnu l'union et la manière dont les ruptures ultérieures sont traitées."
+  es: "El régimen jurídico bajo el cual se contrajo el matrimonio: civil, religioso, consuetudinario o de hecho. Determina qué autoridad registró o reconoció la unión y cómo se gestionan las terminaciones posteriores."
+
+type: string
+cardinality: single
+vocabulary: crvs/marriage-type
+references: null
+domain_override: crvs

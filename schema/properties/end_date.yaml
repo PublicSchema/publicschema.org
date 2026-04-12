@@ -2,9 +2,9 @@ id: end_date
 maturity: trial-use
 
 definition:
-  en: "The date on which this record or relationship ceased to be effective."
-  fr: "La date à laquelle cet enregistrement ou cette relation a cessé d'être effectif."
-  es: "La fecha en que este registro o relación dejó de ser efectivo."
+  en: "The date on which this ceased to be effective."
+  fr: "La date à laquelle ceci a cessé d'être effectif."
+  es: "La fecha en que esto dejó de ser efectivo."
 
 type: date
 cardinality: single

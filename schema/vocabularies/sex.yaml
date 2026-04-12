@@ -21,8 +21,8 @@ values:
   standard_code: '0'
   definition:
     en: Sex has not been recorded or is not known.
-    fr: Le sexe n'a pas été enregistré ou n'est pas connu.
-    es: El sexo no ha sido registrado o no se conoce.
+    fr: "Le sexe n'a pas été enregistré ou n'est pas connu."
+    es: "El sexo no ha sido registrado o no se conoce."
 - code: male
   label:
     en: Male
@@ -31,8 +31,8 @@ values:
   standard_code: '1'
   definition:
     en: Male sex.
-    fr: Sexe masculin.
-    es: Sexo masculino.
+    fr: "Sexe masculin."
+    es: "Sexo masculino."
 - code: female
   label:
     en: Female
@@ -41,8 +41,8 @@ values:
   standard_code: '2'
   definition:
     en: Female sex.
-    fr: Sexe féminin.
-    es: Sexo femenino.
+    fr: "Sexe féminin."
+    es: "Sexo femenino."
 - code: not_applicable
   label:
     en: Not applicable
@@ -51,8 +51,8 @@ values:
   standard_code: '9'
   definition:
     en: Sex is not applicable in this context (e.g., legal entities).
-    fr: Le sexe n'est pas applicable dans ce contexte (par exemple, entités juridiques).
-    es: El sexo no es aplicable en este contexto (por ejemplo, entidades jurídicas).
+    fr: "Le sexe n'est pas applicable dans ce contexte (par ex., entités juridiques)."
+    es: "El sexo no es aplicable en este contexto (por ej., entidades jurídicas)."
 external_equivalents:
   semic:
     label: "Human Sex"

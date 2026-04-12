@@ -1,0 +1,13 @@
+id: cause_of_death_code
+maturity: draft
+
+definition:
+  en: "The coded underlying cause of death, typically an ICD-10 or ICD-11 code. The coding scheme in use is specified by cause_of_death_coding_system."
+  fr: "La cause sous-jacente du décès sous forme codée, généralement un code CIM-10 ou CIM-11. Le système de codage utilisé est précisé par cause_of_death_coding_system."
+  es: "La causa subyacente de la defunción en forma codificada, típicamente un código CIE-10 o CIE-11. El sistema de codificación utilizado se especifica en cause_of_death_coding_system."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+domain_override: crvs

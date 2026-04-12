@@ -1,0 +1,13 @@
+id: civil_status_record
+maturity: draft
+
+definition:
+  en: "A reference to a CivilStatusRecord. Used on annotations to point to the record being annotated, and on certificates to point to the record from which the certificate is issued."
+  fr: "Une référence à un CivilStatusRecord. Utilisée sur les mentions marginales pour désigner l'acte annoté, et sur les certificats pour désigner l'acte à partir duquel le certificat est délivré."
+  es: "Una referencia a un CivilStatusRecord. Utilizada en las anotaciones para apuntar al acta que se anota, y en los certificados para apuntar al acta a partir de la cual se emite el certificado."
+
+type: concept:CivilStatusRecord
+cardinality: single
+vocabulary: null
+references: CivilStatusRecord
+domain_override: crvs

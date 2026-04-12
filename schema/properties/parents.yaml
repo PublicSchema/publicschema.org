@@ -1,0 +1,13 @@
+id: parents
+maturity: draft
+
+definition:
+  en: "The parents of the child, each captured as a Parent link entity that combines a Person with a parental role (biological mother, adoptive father, etc.)."
+  fr: "Les parents de l'enfant, chacun représenté par une entité de lien Parent qui associe une Personne à un rôle parental (mère biologique, père adoptif, etc.)."
+  es: "Los padres del niño o de la niña, cada uno representado por una entidad de enlace Parent que combina una Persona con un rol parental (madre biológica, padre adoptivo, etc.)."
+
+type: concept:Parent
+cardinality: multiple
+vocabulary: null
+references: Parent
+domain_override: crvs

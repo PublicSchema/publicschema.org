@@ -1,0 +1,39 @@
+id: Certificate
+maturity: draft
+domain: crvs
+
+definition:
+  en: >
+    A document issued from a civil status record or vital event that attests
+    to the event for external use. Distinct from the underlying record:
+    certificates can be issued repeatedly, in different formats (full copy,
+    extract, multilingual extract under ICCS/CIEC conventions), and by
+    different offices (for example, an embassy issuing an extract of a
+    record held in the country of origin).
+  fr: >
+    Un document délivré à partir d'un acte d'état civil ou d'un événement
+    d'état civil, attestant de l'événement pour un usage externe. Distinct
+    de l'acte sous-jacent: les certificats peuvent être délivrés de manière
+    répétée, sous différents formats (copie intégrale, extrait, extrait
+    plurilingue selon les conventions CIEC) et par différents bureaux (par
+    exemple, une ambassade délivrant un extrait d'un acte conservé dans le
+    pays d'origine).
+  es: >
+    Un documento emitido a partir de un acta de estado civil o un evento
+    vital que acredita el evento para uso externo. Distinto del acta
+    subyacente: los certificados pueden emitirse repetidamente, en distintos
+    formatos (copia íntegra, extracto, extracto multilingüe bajo las
+    convenciones CIEC) y por distintas oficinas (por ejemplo, una embajada
+    emitiendo un extracto de un acta conservada en el país de origen).
+
+properties:
+  - vital_event
+  - civil_status_record
+  - certificate_number
+  - issue_date
+  - issuing_office
+  - certificate_document_type
+  - certificate_format
+
+subtypes: []
+supertypes: []

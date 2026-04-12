@@ -1,0 +1,59 @@
+id: cause-of-death-method
+maturity: draft
+domain: crvs
+
+definition:
+  en: "The method used to determine the cause of death. In many low-income settings, cause of death is ascertained by verbal autopsy rather than physician certification; consumers need to know how a reported cause was derived."
+  fr: "La méthode utilisée pour déterminer la cause du décès. Dans de nombreux contextes à faibles revenus, la cause du décès est établie par autopsie verbale plutôt que par certification médicale; les utilisateurs doivent savoir comment une cause rapportée a été déterminée."
+  es: "El método utilizado para determinar la causa de la muerte. En muchos contextos de bajos ingresos, la causa de muerte se determina por autopsia verbal en lugar de certificación médica; los consumidores deben saber cómo se derivó una causa reportada."
+
+values:
+  - code: physician_certified
+    label:
+      en: Physician certified
+      fr: Certifié par un médecin
+      es: Certificado por un médico
+    definition:
+      en: "A licensed physician determined the cause of death, typically using a medical certificate."
+      fr: "Un médecin diplômé a déterminé la cause du décès, généralement au moyen d'un certificat médical."
+      es: "Un médico titulado determinó la causa de la muerte, típicamente mediante un certificado médico."
+
+  - code: verbal_autopsy
+    label:
+      en: Verbal autopsy
+      fr: Autopsie verbale
+      es: Autopsia verbal
+    definition:
+      en: "The cause of death was inferred from a structured interview with family or caregivers about the circumstances and symptoms preceding death."
+      fr: "La cause du décès a été déduite d'un entretien structuré avec la famille ou les aidants sur les circonstances et les symptômes précédant le décès."
+      es: "La causa de la muerte se infirió a partir de una entrevista estructurada con familiares o cuidadores sobre las circunstancias y los síntomas previos a la muerte."
+
+  - code: coroner
+    label:
+      en: Coroner
+      fr: Coroner
+      es: Forense
+    definition:
+      en: "A coroner or medical examiner determined the cause of death, often through post-mortem examination."
+      fr: "Un coroner ou un médecin légiste a déterminé la cause du décès, souvent par examen post-mortem."
+      es: "Un forense o médico examinador determinó la causa de la muerte, a menudo mediante examen post-mortem."
+
+  - code: lay_reporting
+    label:
+      en: Lay reporting
+      fr: Déclaration non professionnelle
+      es: Reporte no profesional
+    definition:
+      en: "The cause was reported by a lay informant without clinical or forensic expertise."
+      fr: "La cause a été rapportée par un déclarant non professionnel, sans expertise clinique ou médico-légale."
+      es: "La causa fue reportada por un informante no profesional, sin experiencia clínica o forense."
+
+  - code: other
+    label:
+      en: Other
+      fr: Autre
+      es: Otro
+    definition:
+      en: "The cause was determined by another method not covered above."
+      fr: "La cause a été déterminée par une autre méthode non couverte ci-dessus."
+      es: "La causa se determinó por otro método no cubierto arriba."

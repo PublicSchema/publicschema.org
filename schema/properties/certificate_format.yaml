@@ -1,0 +1,13 @@
+id: certificate_format
+maturity: draft
+
+definition:
+  en: "The format of the certificate: full copy (reproducing the acte including marginal annotations), extract (summary only), or a multilingual extract for international use."
+  fr: "Le format du certificat: copie intégrale (reproduisant l'acte y compris les mentions marginales), extrait (résumé uniquement), ou extrait plurilingue pour un usage international."
+  es: "El formato del certificado: copia íntegra (que reproduce el acta incluyendo las anotaciones marginales), extracto (solo resumen), o extracto multilingüe para uso internacional."
+
+type: string
+cardinality: single
+vocabulary: crvs/certificate-format
+references: null
+domain_override: crvs

@@ -141,6 +141,15 @@ values:
     en: A person entitled to continued or transferred benefits following the death of the primary beneficiary.
     fr: Une personne ayant droit à la continuation ou au transfert des prestations suite au décès du bénéficiaire principal.
     es: Una persona con derecho a la continuación o transferencia de beneficios tras el fallecimiento del beneficiario principal.
+- code: non_relative
+  label:
+    en: Non-relative
+    fr: Non-parent
+    es: No pariente
+  definition:
+    en: A person known to the household or group who has no kinship or legal tie to the reference person.
+    fr: Une personne connue du ménage ou du groupe qui n'a aucun lien de parenté ou juridique avec la personne de référence.
+    es: Una persona conocida del hogar o grupo que no tiene vínculo de parentesco ni legal con la persona de referencia.
 - code: other
   label:
     en: Other
@@ -182,7 +191,7 @@ system_mappings:
       maps_to: other
     - code: non_relative
       label: Non Relative
-      maps_to: other
+      maps_to: non_relative
     unmapped_canonical:
     - guardian
     - caregiver
@@ -749,7 +758,7 @@ system_mappings:
       maps_to: other
     - code: NOT RELATED
       label: Not Related
-      maps_to: other
+      maps_to: non_relative
     unmapped_canonical:
     - guardian
     - caregiver

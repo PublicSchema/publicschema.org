@@ -8,7 +8,7 @@ definition:
 
 type: string
 cardinality: single
-vocabulary: enrollment-status
+vocabulary: sp/enrollment-status
 references: null
 domain_override: null
 

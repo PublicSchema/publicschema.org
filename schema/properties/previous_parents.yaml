@@ -1,0 +1,13 @@
+id: previous_parents
+maturity: draft
+
+definition:
+  en: "The parents whose legal relationship with the adoptee is modified or terminated by the adoption. Present in full adoption (where biological parental rights end); often absent in simple adoption (where they are preserved)."
+  fr: "Les parents dont le lien juridique avec l'adopté est modifié ou rompu par l'adoption. Présents dans l'adoption plénière (où les droits parentaux biologiques cessent); souvent absents dans l'adoption simple (où ils sont conservés)."
+  es: "Los padres cuya relación legal con la persona adoptada se modifica o termina con la adopción. Presentes en la adopción plena (donde cesan los derechos parentales biológicos); a menudo ausentes en la adopción simple (donde se conservan)."
+
+type: concept:Parent
+cardinality: multiple
+vocabulary: null
+references: Parent
+domain_override: crvs

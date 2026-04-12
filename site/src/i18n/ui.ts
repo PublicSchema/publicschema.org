@@ -144,6 +144,8 @@ const en = {
   'concept_detail.evidence.all_systems': 'Present in all {total} mapped delivery systems.',
   'concept_detail.evidence.none': 'Not yet found in mapped delivery systems.',
   'concept_detail.evidence.partial': 'Present in {count} of {total} mapped delivery systems.',
+  'concept_detail.abstract_badge': 'abstract',
+  'concept_detail.abstract_title': 'Abstract supertype: exists to group shared properties; instances are recorded as one of its subtypes',
 
   // Property detail
   'property_detail.details': 'Details',
@@ -330,6 +332,8 @@ export const ui: Record<Locale, Partial<Dict>> = {
     'concept_detail.evidence.all_systems': 'Présent dans l\'ensemble des {total} systèmes de prestation cartographiés.',
     'concept_detail.evidence.none': 'Pas encore trouvé dans les systèmes de prestation cartographiés.',
     'concept_detail.evidence.partial': 'Présent dans {count} des {total} systèmes de prestation cartographiés.',
+    'concept_detail.abstract_badge': 'abstrait',
+    'concept_detail.abstract_title': 'Supertype abstrait : existe pour regrouper des propriétés partagées ; les instances sont enregistrées comme l\'un de ses sous-types',
 
     // Property detail
     'property_detail.details': 'Détails',
@@ -511,6 +515,8 @@ export const ui: Record<Locale, Partial<Dict>> = {
     'concept_detail.evidence.all_systems': 'Presente en los {total} sistemas de prestación mapeados.',
     'concept_detail.evidence.none': 'Aún no encontrado en los sistemas de prestación mapeados.',
     'concept_detail.evidence.partial': 'Presente en {count} de {total} sistemas de prestación mapeados.',
+    'concept_detail.abstract_badge': 'abstracto',
+    'concept_detail.abstract_title': 'Supertipo abstracto: existe para agrupar propiedades compartidas; las instancias se registran como uno de sus subtipos',
 
     // Property detail
     'property_detail.details': 'Detalles',

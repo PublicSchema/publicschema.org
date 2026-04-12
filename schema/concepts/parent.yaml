@@ -1,0 +1,35 @@
+id: Parent
+maturity: draft
+domain: crvs
+
+definition:
+  en: >
+    A link entity that associates a Person with a parental role (biological
+    mother, biological father, legal mother, legal father, adoptive mother,
+    adoptive father, surrogate mother). Used on Birth, Adoption,
+    PaternityRecognition, and Legitimation so that biological and legal
+    parentage can be captured explicitly rather than collapsed into a single
+    parent slot. Parallel in structure to GroupMembership.
+  fr: >
+    Une entité de lien qui associe une Personne à un rôle parental (mère
+    biologique, père biologique, mère légale, père légal, mère adoptive,
+    père adoptif, mère porteuse). Utilisée sur les actes de Naissance,
+    d'Adoption, de Reconnaissance de paternité et de Légitimation afin que
+    les filiations biologique et juridique puissent être saisies de manière
+    explicite plutôt que fusionnées dans un seul champ parent. De structure
+    parallèle à GroupMembership.
+  es: >
+    Una entidad de enlace que asocia una Persona con un rol parental (madre
+    biológica, padre biológico, madre legal, padre legal, madre adoptiva,
+    padre adoptivo, madre gestante). Utilizada en Nacimiento, Adopción,
+    Reconocimiento de paternidad y Legitimación para que la filiación
+    biológica y la jurídica puedan representarse de forma explícita en lugar
+    de colapsarse en un único campo de progenitor. De estructura paralela
+    a GroupMembership.
+
+properties:
+  - person
+  - parental_role
+
+subtypes: []
+supertypes: []

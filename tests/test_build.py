@@ -254,18 +254,19 @@ class TestURIGeneration:
     def test_vocabulary_uri_domain_specific(
         self, tmp_schema, write_concept, write_property, write_vocabulary
     ):
-        """Vocabulary referenced only by domain-specific properties gets a domain URI."""
-        write_vocabulary("estatus.yaml", make_vocabulary(id="estatus"))
+        """Domain-scoped vocabulary (declared via domain + subdir) gets a domain URI."""
+        write_vocabulary("sp/estatus.yaml", make_vocabulary(id="estatus", domain="sp"))
         write_property("enrollment_status.yaml", make_property(
-            id="enrollment_status", vocabulary="estatus",
+            id="enrollment_status", vocabulary="sp/estatus",
         ))
         write_concept("enrollment.yaml", make_concept(
             id="Enrollment", domain="sp", properties=["enrollment_status"],
         ))
         result = build_vocabulary(tmp_schema)
-        vocab = result["vocabularies"]["estatus"]
-        assert vocab["uri"] == "https://test.example.org/sp/vocab/estatus"
+        vocab = result["vocabularies"]["sp/estatus"]
+        assert vocab["uri"] == "https://test.example.org/vocab/sp/estatus"
         assert vocab["domain"] == "sp"
+        assert vocab["id"] == "estatus"
 
     def test_vocabulary_uri_universal(
         self, tmp_schema, write_concept, write_property, write_vocabulary
@@ -286,17 +287,17 @@ class TestURIGeneration:
     def test_vocabulary_path_domain_specific(
         self, tmp_schema, write_concept, write_property, write_vocabulary
     ):
-        """Domain-specific vocabulary gets a domain path."""
-        write_vocabulary("estatus.yaml", make_vocabulary(id="estatus"))
+        """Domain-scoped vocabulary gets a /vocab/<domain>/<id> path."""
+        write_vocabulary("sp/estatus.yaml", make_vocabulary(id="estatus", domain="sp"))
         write_property("enrollment_status.yaml", make_property(
-            id="enrollment_status", vocabulary="estatus",
+            id="enrollment_status", vocabulary="sp/estatus",
         ))
         write_concept("enrollment.yaml", make_concept(
             id="Enrollment", domain="sp", properties=["enrollment_status"],
         ))
         result = build_vocabulary(tmp_schema)
-        vocab = result["vocabularies"]["estatus"]
-        assert vocab["path"] == "/sp/vocab/estatus"
+        vocab = result["vocabularies"]["sp/estatus"]
+        assert vocab["path"] == "/vocab/sp/estatus"
 
 
 # ---------------------------------------------------------------------------
@@ -1247,23 +1248,22 @@ class TestJsonLdDocuments:
         write_outputs(result, dist)
         assert (dist / "jsonld" / "concepts" / "sp" / "Enrollment.jsonld").exists()
 
-    def test_vocabulary_jsonld_domain_specific_uses_flat_path(
+    def test_vocabulary_jsonld_domain_specific_uses_prefixed_path(
         self, tmp_schema, write_concept, write_property, write_vocabulary
     ):
-        """Domain-specific vocabulary JSON-LD is keyed under vocab/ (no domain segment)."""
-        write_vocabulary("estatus.yaml", make_vocabulary(id="estatus"))
+        """Domain-scoped vocabulary JSON-LD is keyed under vocab/<domain>/<id>."""
+        write_vocabulary("sp/estatus.yaml", make_vocabulary(id="estatus", domain="sp"))
         write_property("enrollment_status.yaml", make_property(
-            id="enrollment_status", vocabulary="estatus",
+            id="enrollment_status", vocabulary="sp/estatus",
         ))
         write_concept("enrollment.yaml", make_concept(
             id="Enrollment", domain="sp", properties=["enrollment_status"],
         ))
         result = build_vocabulary(tmp_schema)
-        # Key should be flat vocab/ path so Astro endpoint can find it
-        assert "vocab/estatus.jsonld" in result["jsonld_docs"]
-        # The @id still contains the domain
-        doc = result["jsonld_docs"]["vocab/estatus.jsonld"]
-        assert "/sp/vocab/estatus" in doc["@id"]
+        # Key reflects the domain subdirectory so Astro catch-all can serve it
+        assert "vocab/sp/estatus.jsonld" in result["jsonld_docs"]
+        doc = result["jsonld_docs"]["vocab/sp/estatus.jsonld"]
+        assert doc["@id"] == "https://test.example.org/vocab/sp/estatus"
 
 
 # ---------------------------------------------------------------------------

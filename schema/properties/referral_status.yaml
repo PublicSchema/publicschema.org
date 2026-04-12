@@ -8,7 +8,7 @@ definition:
 
 type: string
 cardinality: single
-vocabulary: referral-status
+vocabulary: sp/referral-status
 references: null
 domain_override: null
 

@@ -8,7 +8,7 @@ definition:
 
 type: string
 cardinality: single
-vocabulary: entitlement-status
+vocabulary: sp/entitlement-status
 references: null
 
 convergence:

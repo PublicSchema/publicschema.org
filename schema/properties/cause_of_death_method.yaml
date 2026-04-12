@@ -1,0 +1,13 @@
+id: cause_of_death_method
+maturity: draft
+
+definition:
+  en: "The method used to ascertain the cause of death: physician certified, verbal autopsy, coroner, lay reporting, or other. Important for judging data quality, since verbal autopsy and lay reporting are less precise than physician certification."
+  fr: "La méthode utilisée pour déterminer la cause du décès: certification médicale, autopsie verbale, coroner, déclaration par un non-professionnel, ou autre. Importante pour apprécier la qualité des données, l'autopsie verbale et la déclaration non professionnelle étant moins précises que la certification médicale."
+  es: "El método utilizado para determinar la causa de la defunción: certificación médica, autopsia verbal, médico forense, declaración no profesional u otro. Importante para juzgar la calidad de los datos, dado que la autopsia verbal y la declaración no profesional son menos precisas que la certificación médica."
+
+type: string
+cardinality: single
+vocabulary: crvs/cause-of-death-method
+references: null
+domain_override: crvs

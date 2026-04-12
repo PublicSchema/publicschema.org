@@ -1,0 +1,79 @@
+id: parental-role
+maturity: draft
+domain: crvs
+
+definition:
+  en: "The type of parental relationship a person has in the context of a vital event. Distinguishes biological, legal, adoptive, and surrogate parental roles by gender to match civil law and paternity recognition conventions."
+  fr: "Le type de relation parentale d'une personne dans le contexte d'un événement d'état civil. Distingue les rôles biologiques, légaux, adoptifs et de maternité de substitution par genre pour correspondre aux conventions du droit civil et de la reconnaissance de paternité."
+  es: "El tipo de relación parental que tiene una persona en el contexto de un evento vital. Distingue los roles biológico, legal, adoptivo y de maternidad subrogada por género para ajustarse a las convenciones del derecho civil y del reconocimiento de paternidad."
+
+values:
+  - code: biological_mother
+    label:
+      en: Biological mother
+      fr: Mère biologique
+      es: Madre biológica
+    definition:
+      en: "The woman who gave birth to the child."
+      fr: "La femme qui a donné naissance à l'enfant."
+      es: "La mujer que dio a luz al niño."
+
+  - code: biological_father
+    label:
+      en: Biological father
+      fr: Père biologique
+      es: Padre biológico
+    definition:
+      en: "The man who is the biological father of the child."
+      fr: "L'homme qui est le père biologique de l'enfant."
+      es: "El hombre que es el padre biológico del niño."
+
+  - code: legal_mother
+    label:
+      en: Legal mother
+      fr: Mère légale
+      es: Madre legal
+    definition:
+      en: "A woman recognized by law as the mother of the child, whether or not she is the biological mother."
+      fr: "Une femme reconnue par la loi comme la mère de l'enfant, qu'elle soit ou non la mère biologique."
+      es: "Una mujer reconocida por la ley como la madre del niño, sea o no la madre biológica."
+
+  - code: legal_father
+    label:
+      en: Legal father
+      fr: Père légal
+      es: Padre legal
+    definition:
+      en: "A man recognized by law as the father of the child, whether or not he is the biological father."
+      fr: "Un homme reconnu par la loi comme le père de l'enfant, qu'il soit ou non le père biologique."
+      es: "Un hombre reconocido por la ley como el padre del niño, sea o no el padre biológico."
+
+  - code: adoptive_mother
+    label:
+      en: Adoptive mother
+      fr: Mère adoptive
+      es: Madre adoptiva
+    definition:
+      en: "A woman who has adopted the child through a legal adoption process."
+      fr: "Une femme qui a adopté l'enfant par une procédure légale d'adoption."
+      es: "Una mujer que ha adoptado al niño mediante un proceso legal de adopción."
+
+  - code: adoptive_father
+    label:
+      en: Adoptive father
+      fr: Père adoptif
+      es: Padre adoptivo
+    definition:
+      en: "A man who has adopted the child through a legal adoption process."
+      fr: "Un homme qui a adopté l'enfant par une procédure légale d'adoption."
+      es: "Un hombre que ha adoptado al niño mediante un proceso legal de adopción."
+
+  - code: surrogate_mother
+    label:
+      en: Surrogate mother
+      fr: Mère porteuse
+      es: Madre sustituta
+    definition:
+      en: "A woman who carried and gave birth to the child on behalf of the intended parents."
+      fr: "Une femme qui a porté et donné naissance à l'enfant au nom des parents d'intention."
+      es: "Una mujer que gestó y dio a luz al niño en nombre de los padres previstos."

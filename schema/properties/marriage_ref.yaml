@@ -1,0 +1,13 @@
+id: marriage_ref
+maturity: draft
+
+definition:
+  en: "A reference to the Marriage record that this termination (divorce or annulment) dissolves. Links the end of the union back to its formation."
+  fr: "Une référence à l'acte de Mariage que cette rupture (divorce ou annulation) dissout. Relie la fin de l'union à sa formation."
+  es: "Una referencia al registro de Matrimonio que esta terminación (divorcio o anulación) disuelve. Vincula el fin de la unión con su formación."
+
+type: concept:Marriage
+cardinality: single
+vocabulary: null
+references: Marriage
+domain_override: crvs

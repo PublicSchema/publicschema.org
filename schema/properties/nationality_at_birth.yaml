@@ -1,0 +1,13 @@
+id: nationality_at_birth
+maturity: draft
+
+definition:
+  en: "The nationality acquired by the child at the time of birth, typically derived from parentage (jus sanguinis) or place of birth (jus soli) according to the applicable national law."
+  fr: "La nationalité acquise par l'enfant au moment de la naissance, généralement déterminée par la filiation (jus sanguinis) ou le lieu de naissance (jus soli) selon la loi nationale applicable."
+  es: "La nacionalidad adquirida por el niño o la niña al momento del nacimiento, típicamente derivada de la filiación (jus sanguinis) o del lugar de nacimiento (jus soli) según la ley nacional aplicable."
+
+type: string
+cardinality: single
+vocabulary: country
+references: null
+domain_override: crvs

@@ -1,0 +1,37 @@
+id: PaternityRecognition
+maturity: draft
+domain: crvs
+
+definition:
+  en: >
+    A formal act in which a parent, typically a father, establishes legal
+    parentage for a child born outside marriage. Takes place before a
+    registrar, notary, or court and is often annotated on the child's
+    original birth record. Distinct from Legitimation, which additionally
+    establishes the child as born within marriage.
+  fr: >
+    Un acte formel par lequel un parent, généralement le père, établit la
+    filiation juridique d'un enfant né hors mariage. Reçu par un officier
+    d'état civil, un notaire ou un tribunal, et souvent consigné en mention
+    marginale sur l'acte de naissance de l'enfant. Distinct de la
+    Légitimation, qui établit en outre l'enfant comme né dans le cadre du
+    mariage.
+  es: >
+    Un acto formal mediante el cual un progenitor, típicamente el padre,
+    establece la filiación jurídica de un hijo o hija nacido fuera del
+    matrimonio. Se efectúa ante un funcionario de registro civil, un notario
+    o un tribunal, y se suele anotar al margen del acta de nacimiento
+    original del menor. Distinto de la Legitimación, que además establece
+    al menor como nacido dentro del matrimonio.
+
+properties:
+  - recognizing_parent
+  - child
+  - mother
+  - birth_ref
+  - judgment_date
+  - judgment_reference
+  - court
+
+subtypes: []
+supertypes: [VitalEvent]

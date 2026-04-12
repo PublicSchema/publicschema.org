@@ -118,7 +118,7 @@ export function buildSystemIndex(): Record<string, SystemVocabEntry[]> {
   const vocab = loadVocabulary();
   const index: Record<string, SystemVocabEntry[]> = {};
 
-  for (const v of Object.values(vocab.vocabularies)) {
+  for (const [vocabKey, v] of Object.entries(vocab.vocabularies)) {
     if (v.system_mappings) {
       for (const [systemId, mapping] of Object.entries(v.system_mappings)) {
         if (!index[systemId]) index[systemId] = [];
@@ -127,7 +127,7 @@ export function buildSystemIndex(): Record<string, SystemVocabEntry[]> {
           const mapped = mapping.values.filter((val) => val.maps_to !== null).length;
           index[systemId].push({
             kind: "vocabulary",
-            vocabId: v.id,
+            vocabId: vocabKey,
             vocabDefinition: v.definition.en?.slice(0, 100) || "",
             relationship: "value_mapping",
             vocabularyName: mapping.vocabulary_name,
@@ -139,7 +139,7 @@ export function buildSystemIndex(): Record<string, SystemVocabEntry[]> {
           const count = Object.keys(mapping as Record<string, string>).length;
           index[systemId].push({
             kind: "vocabulary",
-            vocabId: v.id,
+            vocabId: vocabKey,
             vocabDefinition: v.definition.en?.slice(0, 100) || "",
             relationship: "value_mapping",
             mappedCount: count,
@@ -154,12 +154,12 @@ export function buildSystemIndex(): Record<string, SystemVocabEntry[]> {
       for (const systemId of v.same_standard_systems) {
         if (!index[systemId]) index[systemId] = [];
         // Skip if this system already has a value mapping for this vocab
-        const existing = index[systemId].find((e) => e.vocabId === v.id);
+        const existing = index[systemId].find((e) => e.vocabId === vocabKey);
         if (existing) continue;
 
         index[systemId].push({
           kind: "vocabulary",
-          vocabId: v.id,
+          vocabId: vocabKey,
           vocabDefinition: v.definition.en?.slice(0, 100) || "",
           relationship: "same_standard",
           mappedCount: v.values.length,

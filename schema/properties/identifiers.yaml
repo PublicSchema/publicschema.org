@@ -2,9 +2,9 @@ id: identifiers
 maturity: trial-use
 
 definition:
-  en: "Unique identifiers assigned to this person (national ID, program ID, etc.)."
-  fr: "Identifiants uniques attribues a cette personne (identifiant national, identifiant de programme, etc.)."
-  es: "Identificadores unicos asignados a esta persona (identificacion nacional, identificacion de programa, etc.)."
+  en: "Unique identifiers assigned to this person or group (national ID, program ID, etc.)."
+  fr: "Identifiants uniques attribués à cette personne ou ce groupe (identifiant national, identifiant de programme, etc.)."
+  es: "Identificadores únicos asignados a esta persona o grupo (identificación nacional, identificación de programa, etc.)."
 
 type: concept:Identifier
 cardinality: multiple

@@ -1,0 +1,13 @@
+id: event_date
+maturity: draft
+
+definition:
+  en: "The date on which the vital event (birth, death, marriage, etc.) occurred. Distinct from the registration date, which is when the event was recorded by a registration authority."
+  fr: "La date à laquelle l'événement d'état civil (naissance, décès, mariage, etc.) s'est produit. Distincte de la date d'enregistrement, qui est la date à laquelle l'événement a été consigné par une autorité d'enregistrement."
+  es: "La fecha en que ocurrió el evento vital (nacimiento, defunción, matrimonio, etc.). Distinta de la fecha de registro, que es cuando el evento fue registrado por una autoridad de registro."
+
+type: date
+cardinality: single
+vocabulary: null
+references: null
+domain_override: crvs

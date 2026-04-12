@@ -1,0 +1,49 @@
+id: marriage-type
+maturity: draft
+domain: crvs
+
+definition:
+  en: "The legal or traditional framework under which a marriage was contracted."
+  fr: "Le cadre juridique ou traditionnel dans lequel un mariage a été contracté."
+  es: "El marco legal o tradicional bajo el cual se contrajo un matrimonio."
+
+values:
+  - code: civil
+    label:
+      en: Civil
+      fr: Civil
+      es: Civil
+    definition:
+      en: "Marriage contracted before a civil registration officer under secular law."
+      fr: "Mariage contracté devant un officier de l'état civil en droit laïque."
+      es: "Matrimonio contraído ante un oficial del registro civil bajo derecho secular."
+
+  - code: religious
+    label:
+      en: Religious
+      fr: Religieux
+      es: Religioso
+    definition:
+      en: "Marriage contracted under religious rites (e.g., church, mosque, synagogue, temple)."
+      fr: "Mariage contracté selon des rites religieux (par ex., église, mosquée, synagogue, temple)."
+      es: "Matrimonio contraído bajo ritos religiosos (por ej., iglesia, mezquita, sinagoga, templo)."
+
+  - code: customary
+    label:
+      en: Customary
+      fr: Coutumier
+      es: Consuetudinario
+    definition:
+      en: "Marriage contracted under customary or traditional law, typically recognized by local authorities."
+      fr: "Mariage contracté selon le droit coutumier ou traditionnel, généralement reconnu par les autorités locales."
+      es: "Matrimonio contraído bajo derecho consuetudinario o tradicional, típicamente reconocido por las autoridades locales."
+
+  - code: common_law
+    label:
+      en: Common law
+      fr: Union de fait
+      es: Unión de hecho
+    definition:
+      en: "A relationship recognized as a marriage through long-term cohabitation without a formal ceremony, where the jurisdiction permits."
+      fr: "Une relation reconnue comme mariage par la cohabitation prolongée sans cérémonie formelle, lorsque la juridiction le permet."
+      es: "Una relación reconocida como matrimonio mediante cohabitación prolongada sin ceremonia formal, cuando la jurisdicción lo permite."

@@ -2,9 +2,9 @@ id: amount
 maturity: trial-use
 
 definition:
-  en: "The monetary or quantitative value associated with this record."
-  fr: "La valeur monetaire ou quantitative associee a cet enregistrement."
-  es: "El valor monetario o cuantitativo asociado a este registro."
+  en: "The monetary or quantitative value."
+  fr: "La valeur monétaire ou quantitative."
+  es: "El valor monetario o cuantitativo."
 
 type: decimal
 cardinality: single

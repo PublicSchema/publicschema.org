@@ -1,0 +1,13 @@
+id: cause_of_death_coding_system
+maturity: draft
+
+definition:
+  en: "The classification system used to code the cause of death (for example ICD-10, ICD-11, or a national variant). Required when comparing coded causes across jurisdictions."
+  fr: "Le système de classification utilisé pour coder la cause du décès (par exemple CIM-10, CIM-11 ou une variante nationale). Nécessaire pour comparer les causes codées entre juridictions."
+  es: "El sistema de clasificación utilizado para codificar la causa de la defunción (por ejemplo CIE-10, CIE-11 o una variante nacional). Es necesario al comparar causas codificadas entre jurisdicciones."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+domain_override: crvs

@@ -33,6 +33,15 @@ values:
     en: The payment instruction has been accepted by the financial intermediary and is being executed.
     fr: L'instruction de paiement a été acceptée par l'intermédiaire financier et est en cours d'exécution.
     es: La instrucción de pago ha sido aceptada por el intermediario financiero y está siendo ejecutada.
+- code: partial
+  label:
+    en: Partial
+    fr: Partiel
+    es: Parcial
+  definition:
+    en: Part of the payment amount has been transmitted but the full amount has not yet been delivered.
+    fr: Une partie du montant du paiement a été transmise mais le montant total n'a pas encore été versé.
+    es: Parte del monto del pago ha sido transmitida pero el monto total aún no ha sido entregado.
 - code: paid
   label:
     en: Paid
@@ -83,6 +92,8 @@ values:
       administrative.
     es: El pago fue cancelado antes de la transmisión, generalmente debido a cambios de elegibilidad o decisión administrativa.
 - code: reconciled
+  deprecated: true
+  deprecated_note: "Use the is_reconciled property on PaymentEvent instead. This value will be removed in a future major version."
   label:
     en: Reconciled
     fr: Réconcilié
@@ -92,8 +103,7 @@ values:
     fr: Le registre de paiement a été rapproché et vérifié par rapport aux registres du système financier, confirmant l'exactitude.
     es: El registro de pago ha sido cotejado y verificado con los registros del sistema financiero, confirmando su exactitud.
   notes:
-    en: This is an operational state that typically follows paid. Systems may track both a payment status and a separate
-      reconciliation flag.
+    en: "Deprecated: use the is_reconciled property instead. This status mixed financial reconciliation with payment lifecycle states."
 system_mappings:
   openspp:
     values:
@@ -106,6 +116,7 @@ system_mappings:
     - code: reconciled
       label: Reconciled
       maps_to: reconciled
+      migration_note: "Will map to is_reconciled: true + payment_status: paid when reconciled status is removed."
     - code: paid
       label: Paid
       maps_to: paid
@@ -116,6 +127,7 @@ system_mappings:
       label: Not Paid
       maps_to: pending
     unmapped_canonical:
+    - partial
     - returned
     - cancelled
     - rejected
@@ -128,7 +140,9 @@ system_mappings:
     - code: cleared
       label: Cleared
       maps_to: reconciled
+      migration_note: "Will map to is_reconciled: true + payment_status: paid when reconciled status is removed."
     unmapped_canonical:
+    - partial
     - pending
     - failed
     - returned
@@ -146,7 +160,7 @@ system_mappings:
       maps_to: failed
     - code: PARTIAL
       label: Partial
-      maps_to: paid
+      maps_to: partial
     unmapped_canonical:
     - pending
     - returned
@@ -181,7 +195,9 @@ system_mappings:
     - code: RECONCILED
       label: Reconciled
       maps_to: reconciled
+      migration_note: "Will map to is_reconciled: true + payment_status: paid when reconciled status is removed."
     unmapped_canonical:
+    - partial
     - paid
     - failed
     - returned
@@ -198,6 +214,7 @@ system_mappings:
       label: Failed
       maps_to: failed
     unmapped_canonical:
+    - partial
     - pending
     - returned
     - rejected

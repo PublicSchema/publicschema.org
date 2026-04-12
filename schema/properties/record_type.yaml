@@ -1,0 +1,13 @@
+id: record_type
+maturity: draft
+
+definition:
+  en: "The type of civil status record: birth, marriage, death, paternity recognition, supplementary judgment (jugement supplétif), or a court-ordered substitute record. Determines which original vital event the record attests to."
+  fr: "Le type d'acte d'état civil: naissance, mariage, décès, reconnaissance de paternité, jugement supplétif, ou acte de substitution ordonné par tribunal. Détermine à quel événement d'état civil original l'acte se rattache."
+  es: "El tipo de acta de estado civil: nacimiento, matrimonio, defunción, reconocimiento de paternidad, sentencia supletoria, o acta sustitutiva ordenada por tribunal. Determina a qué evento vital original acredita el acta."
+
+type: string
+cardinality: single
+vocabulary: crvs/civil-status-record-type
+references: null
+domain_override: crvs

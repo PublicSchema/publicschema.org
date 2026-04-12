@@ -1,0 +1,13 @@
+id: parental_role
+maturity: draft
+
+definition:
+  en: "The role a person holds as a parent (biological mother, biological father, legal mother, legal father, adoptive mother, adoptive father, surrogate mother). Makes biological vs. legal parentage explicit and separable."
+  fr: "Le rôle qu'une personne exerce en tant que parent (mère biologique, père biologique, mère légale, père légal, mère adoptive, père adoptif, mère porteuse). Rend explicites et séparables la filiation biologique et la filiation juridique."
+  es: "El rol que una persona desempeña como progenitor (madre biológica, padre biológico, madre legal, padre legal, madre adoptiva, padre adoptivo, madre gestante). Hace explícita y separable la filiación biológica de la legal."
+
+type: string
+cardinality: single
+vocabulary: crvs/parental-role
+references: null
+domain_override: crvs

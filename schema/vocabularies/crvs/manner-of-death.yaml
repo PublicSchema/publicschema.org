@@ -1,0 +1,93 @@
+id: manner-of-death
+maturity: draft
+domain: crvs
+
+definition:
+  en: "How a death occurred, as distinct from its underlying medical cause. Aligned with WHO/ICD Manner of Death classification."
+  fr: "La manière dont un décès est survenu, distincte de sa cause médicale sous-jacente. Aligné sur la classification OMS/CIM de la manière du décès."
+  es: "La manera en que ocurrió una muerte, distinta de su causa médica subyacente. Alineado con la clasificación OMS/CIE de la manera de la muerte."
+
+standard:
+  name: WHO/ICD Manner of Death classification
+  uri: https://www.who.int/standards/classifications/classification-of-diseases
+
+values:
+  - code: natural
+    label:
+      en: Natural
+      fr: Naturelle
+      es: Natural
+    definition:
+      en: "Death due to disease or the natural aging process, without external intervention."
+      fr: "Décès dû à une maladie ou au processus naturel de vieillissement, sans intervention extérieure."
+      es: "Muerte debida a enfermedad o al proceso natural de envejecimiento, sin intervención externa."
+
+  - code: accident
+    label:
+      en: Accident
+      fr: Accident
+      es: Accidente
+    definition:
+      en: "Death caused by an unintentional external event."
+      fr: "Décès causé par un événement extérieur non intentionnel."
+      es: "Muerte causada por un evento externo no intencional."
+
+  - code: intentional_self_harm
+    label:
+      en: Intentional self-harm
+      fr: Lésions auto-infligées intentionnellement
+      es: Lesiones autoinfligidas intencionalmente
+    definition:
+      en: "Death resulting from an act intentionally inflicted by the deceased on themselves (suicide)."
+      fr: "Décès résultant d'un acte intentionnellement infligé par le défunt à lui-même (suicide)."
+      es: "Muerte que resulta de un acto intencionalmente infligido por el fallecido a sí mismo (suicidio)."
+
+  - code: assault
+    label:
+      en: Assault
+      fr: Agression
+      es: Agresión
+    definition:
+      en: "Death caused by the intentional act of another person (homicide)."
+      fr: "Décès causé par l'acte intentionnel d'une autre personne (homicide)."
+      es: "Muerte causada por el acto intencional de otra persona (homicidio)."
+
+  - code: legal_intervention
+    label:
+      en: Legal intervention
+      fr: Intervention légale
+      es: Intervención legal
+    definition:
+      en: "Death caused by law enforcement or other legally authorized action."
+      fr: "Décès causé par une action policière ou une autre action légalement autorisée."
+      es: "Muerte causada por una acción policial u otra acción legalmente autorizada."
+
+  - code: war
+    label:
+      en: War
+      fr: Guerre
+      es: Guerra
+    definition:
+      en: "Death caused by acts of war or armed conflict."
+      fr: "Décès causé par des actes de guerre ou un conflit armé."
+      es: "Muerte causada por actos de guerra o conflicto armado."
+
+  - code: pending_investigation
+    label:
+      en: Pending investigation
+      fr: Enquête en cours
+      es: Pendiente de investigación
+    definition:
+      en: "The manner of death has not yet been determined because an investigation is ongoing."
+      fr: "La manière du décès n'a pas encore été déterminée parce qu'une enquête est en cours."
+      es: "La manera de la muerte aún no se ha determinado porque una investigación está en curso."
+
+  - code: could_not_be_determined
+    label:
+      en: Could not be determined
+      fr: N'a pas pu être déterminée
+      es: No se pudo determinar
+    definition:
+      en: "After investigation, the manner of death could not be established."
+      fr: "Après enquête, la manière du décès n'a pas pu être établie."
+      es: "Tras la investigación, no se pudo establecer la manera de la muerte."

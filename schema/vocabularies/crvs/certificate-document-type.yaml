@@ -1,0 +1,69 @@
+id: certificate-document-type
+maturity: draft
+domain: crvs
+
+definition:
+  en: "The type of vital event that a certificate attests to. Describes what the document is about; orthogonal to the format of the certificate (full copy vs. extract)."
+  fr: "Le type d'événement d'état civil attesté par un certificat. Décrit l'objet du document; orthogonal au format du certificat (copie intégrale ou extrait)."
+  es: "El tipo de evento vital que certifica un certificado. Describe de qué trata el documento; ortogonal al formato del certificado (copia íntegra o extracto)."
+
+values:
+  - code: birth_certificate
+    label:
+      en: Birth certificate
+      fr: Certificat de naissance
+      es: Certificado de nacimiento
+    definition:
+      en: "A certificate attesting to a birth event."
+      fr: "Un certificat attestant d'un événement de naissance."
+      es: "Un certificado que acredita un evento de nacimiento."
+
+  - code: death_certificate
+    label:
+      en: Death certificate
+      fr: Certificat de décès
+      es: Certificado de defunción
+    definition:
+      en: "A certificate attesting to a death event."
+      fr: "Un certificat attestant d'un événement de décès."
+      es: "Un certificado que acredita un evento de defunción."
+
+  - code: marriage_certificate
+    label:
+      en: Marriage certificate
+      fr: Certificat de mariage
+      es: Certificado de matrimonio
+    definition:
+      en: "A certificate attesting to a marriage event."
+      fr: "Un certificat attestant d'un événement de mariage."
+      es: "Un certificado que acredita un evento de matrimonio."
+
+  - code: divorce_certificate
+    label:
+      en: Divorce certificate
+      fr: Certificat de divorce
+      es: Certificado de divorcio
+    definition:
+      en: "A certificate attesting to a divorce."
+      fr: "Un certificat attestant d'un divorce."
+      es: "Un certificado que acredita un divorcio."
+
+  - code: adoption_certificate
+    label:
+      en: Adoption certificate
+      fr: Certificat d'adoption
+      es: Certificado de adopción
+    definition:
+      en: "A certificate attesting to an adoption."
+      fr: "Un certificat attestant d'une adoption."
+      es: "Un certificado que acredita una adopción."
+
+  - code: annulment_certificate
+    label:
+      en: Annulment certificate
+      fr: Certificat d'annulation
+      es: Certificado de anulación
+    definition:
+      en: "A certificate attesting to the annulment of a marriage."
+      fr: "Un certificat attestant de l'annulation d'un mariage."
+      es: "Un certificado que acredita la anulación de un matrimonio."

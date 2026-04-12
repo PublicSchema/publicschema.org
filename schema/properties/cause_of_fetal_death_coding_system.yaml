@@ -1,0 +1,13 @@
+id: cause_of_fetal_death_coding_system
+maturity: draft
+
+definition:
+  en: "The classification system used to code the cause of a fetal death (for example ICD-PM, ICD-10, or a national variant)."
+  fr: "Le système de classification utilisé pour coder la cause d'une mortinaissance (par exemple CIM-PM, CIM-10 ou une variante nationale)."
+  es: "El sistema de clasificación utilizado para codificar la causa de una muerte fetal (por ejemplo CIE-PM, CIE-10 o una variante nacional)."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+domain_override: crvs

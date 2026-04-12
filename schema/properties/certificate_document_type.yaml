@@ -1,0 +1,13 @@
+id: certificate_document_type
+maturity: draft
+
+definition:
+  en: "The type of event the certificate attests to (birth, death, marriage, divorce, adoption). Describes what the document is about, orthogonal to its format."
+  fr: "Le type d'événement attesté par le certificat (naissance, décès, mariage, divorce, adoption). Décrit l'objet du document, indépendamment de son format."
+  es: "El tipo de evento que acredita el certificado (nacimiento, defunción, matrimonio, divorcio, adopción). Describe de qué trata el documento, con independencia de su formato."
+
+type: string
+cardinality: single
+vocabulary: crvs/certificate-document-type
+references: null
+domain_override: crvs

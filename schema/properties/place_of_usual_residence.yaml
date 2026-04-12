@@ -1,0 +1,13 @@
+id: place_of_usual_residence
+maturity: draft
+
+definition:
+  en: "The usual place of residence of the mother at the time of birth (or of the deceased prior to death). Used by national statistics offices to allocate vital events to the place where people live, not only where events occur."
+  fr: "Le lieu de résidence habituelle de la mère au moment de la naissance (ou de la personne décédée avant le décès). Utilisé par les bureaux nationaux de statistiques pour attribuer les événements d'état civil au lieu de vie des personnes, et non uniquement au lieu où l'événement s'est produit."
+  es: "El lugar de residencia habitual de la madre al momento del nacimiento (o de la persona fallecida antes de la defunción). Usado por las oficinas nacionales de estadística para asignar los eventos vitales al lugar donde viven las personas, no solo donde ocurren los eventos."
+
+type: concept:Location
+cardinality: single
+vocabulary: null
+references: Location
+domain_override: crvs

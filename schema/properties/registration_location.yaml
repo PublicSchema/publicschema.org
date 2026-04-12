@@ -1,0 +1,13 @@
+id: registration_location
+maturity: draft
+
+definition:
+  en: "The civil registration office where the vital event was registered. Often a municipal or district-level registry distinct from the place of occurrence."
+  fr: "Le bureau d'état civil où l'événement a été enregistré. Souvent un registre municipal ou de district, distinct du lieu où l'événement s'est produit."
+  es: "La oficina de registro civil donde se registró el evento vital. A menudo es un registro municipal o distrital, distinto del lugar donde ocurrió el evento."
+
+type: concept:Location
+cardinality: single
+vocabulary: null
+references: Location
+domain_override: crvs

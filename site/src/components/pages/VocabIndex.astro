@@ -13,9 +13,14 @@ const t = useTranslations(locale);
 
 const vocab = loadVocabulary();
 const maturityRank: Record<string, number> = { normative: 0, "trial-use": 1, draft: 2 };
-const byMaturityThenName = (a: { maturity: string; id: string }, b: { maturity: string; id: string }) =>
-  (maturityRank[a.maturity] ?? 9) - (maturityRank[b.maturity] ?? 9) || a.id.localeCompare(b.id);
-const vocabularies = Object.values(vocab.vocabularies).sort(byMaturityThenName);
+// Vocabularies are keyed by their canonical reference form (`<domain>/<id>`
+// for domain-scoped vocabs, bare `<id>` for universal ones). Using the key
+// rather than `v.id` keeps CRVS and other domain-prefixed routes working.
+const vocabularies = Object.entries(vocab.vocabularies)
+  .map(([key, v]) => ({ key, ...v }))
+  .sort((a, b) =>
+    (maturityRank[a.maturity] ?? 9) - (maturityRank[b.maturity] ?? 9) || a.key.localeCompare(b.key)
+  );
 ---
 <Base title={t('vocab.page_title')} description={t('vocab.page_subtitle')} locale={locale}>
   <div class="page-header">
@@ -38,7 +43,7 @@ const vocabularies = Object.values(vocab.vocabularies).sort(byMaturityThenName);
     <tbody>
       {vocabularies.map((v) => (
         <tr>
-          <td><a href={localePath(`/vocab/${v.id}`, locale)}>{v.id}</a></td>
+          <td><a href={localePath(`/vocab/${v.key}`, locale)}>{v.key}</a></td>
           <td data-label={t('vocab.table.values')}>{v.values.length}</td>
           <td data-label={t('vocab.table.standard')}>{v.standard?.name || "None"}</td>
           <td data-label={t('vocab.table.definition')}>{(v.definition[locale] ?? v.definition.en)?.slice(0, 80)}{((v.definition[locale] ?? v.definition.en)?.length || 0) > 80 ? "..." : ""}</td>
