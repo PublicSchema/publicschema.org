@@ -4,7 +4,7 @@ maturity: trial-use
 definition:
   en: "Reference to the person, enrollment, or payment event that the grievance concerns."
   fr: "Référence à la personne, à l'inscription ou à l'événement de paiement que le grief concerne."
-  es: "Referencia a la persona, inscripción o evento de pago al que se refiere el agravio."
+  es: "Referencia a la persona, inscripción o evento de pago que atañe a la queja."
 
 type: string
 cardinality: single

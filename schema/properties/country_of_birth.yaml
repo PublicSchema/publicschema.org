@@ -3,8 +3,8 @@ maturity: trial-use
 
 definition:
   en: "The country where the person was born, expressed as an ISO 3166-1 code."
-  fr: "Le pays ou la personne est nee, exprime sous forme de code ISO 3166-1."
-  es: "El pais donde nacio la persona, expresado como codigo ISO 3166-1."
+  fr: "Le pays où la personne est née, exprimé sous forme de code ISO 3166-1."
+  es: "El país donde nació la persona, expresado como código ISO 3166-1."
 
 type: string
 cardinality: single

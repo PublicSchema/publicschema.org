@@ -3,7 +3,7 @@ maturity: trial-use
 
 definition:
   en: "The identifier assigned to this record by the system that created it. Used to reference the record internally; distinct from any externally meaningful business reference (for example, a payment transaction number or a civil registration number) that may also be present."
-  fr: "L'identifiant attribué à cet enregistrement par le système qui l'a créé. Utilisé pour référencer l'enregistrement en interne; distinct de toute référence métier à portée externe (par exemple, un numéro de transaction de paiement ou un numéro d'enregistrement civil) qui peut également être présente."
+  fr: "L'identifiant attribué à cet enregistrement par le système qui l'a créé. Utilisé pour référencer l'enregistrement en interne; distinct de toute référence métier externe (par exemple, un numéro de transaction de paiement ou un numéro d'enregistrement civil) qui peut également être présente."
   es: "El identificador asignado a este registro por el sistema que lo creó. Se utiliza para referenciar el registro internamente; distinto de cualquier referencia comercial de alcance externo (por ejemplo, un número de transacción de pago o un número de registro civil) que también pueda estar presente."
 
 type: string

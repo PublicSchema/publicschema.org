@@ -4,7 +4,7 @@ maturity: trial-use
 definition:
   en: "The geographic location associated with this household, capturing coordinates or administrative area."
   fr: "La localisation géographique associée à ce ménage, capturant les coordonnées ou la zone administrative."
-  es: "La ubicación geográfica asociada a este hogar, capturando coordenadas o área administrativa."
+  es: "La ubicación geográfica asociada a este hogar, que recoge las coordenadas o el área administrativa."
 
 type: concept:Location
 cardinality: single

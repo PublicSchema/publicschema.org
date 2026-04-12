@@ -4,7 +4,7 @@ maturity: draft
 definition:
   en: "The vital event that this civil status record attests to (the birth behind a birth record, the marriage behind a marriage record, etc.). Anchors the record to its underlying occurrence."
   fr: "L'événement d'état civil que cet acte atteste (la naissance derrière un acte de naissance, le mariage derrière un acte de mariage, etc.). Rattache l'acte à l'événement sous-jacent."
-  es: "El evento vital que esta acta de estado civil acredita (el nacimiento detrás de un acta de nacimiento, el matrimonio detrás de un acta de matrimonio, etc.). Ancla el acta al suceso subyacente."
+  es: "El evento vital que esta acta de estado civil acredita (el nacimiento que dio origen al acta de nacimiento, el matrimonio que dio origen al acta de matrimonio, etc.). Vincula el acta al suceso subyacente."
 
 type: concept:VitalEvent
 cardinality: single

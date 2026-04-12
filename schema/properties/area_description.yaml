@@ -3,8 +3,8 @@ maturity: draft
 
 definition:
   en: "A human-readable description of the geographic area, such as a region name or administrative boundary label."
-  fr: "Une description lisible de la zone geographique, comme un nom de region ou un libelle de limite administrative."
-  es: "Una descripcion legible del area geografica, como un nombre de region o una etiqueta de limite administrativo."
+  fr: "Une description lisible par un humain de la zone géographique, par exemple un nom de région ou un libellé de limite administrative."
+  es: "Una descripción legible del área geográfica, como un nombre de región o una etiqueta de límite administrativo."
 
 type: string
 cardinality: single

@@ -3,8 +3,8 @@ maturity: trial-use
 
 definition:
   en: "The country, expressed as an ISO 3166-1 alpha-2 code where possible."
-  fr: "Le pays, exprime sous forme de code ISO 3166-1 alpha-2 si possible."
-  es: "El pais, expresado como codigo ISO 3166-1 alfa-2 cuando sea posible."
+  fr: "Le pays, exprimé sous forme de code ISO 3166-1 alpha-2 si possible."
+  es: "El país, expresado como código ISO 3166-1 alfa-2 cuando sea posible."
 
 type: string
 cardinality: single

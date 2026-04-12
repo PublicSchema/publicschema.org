@@ -3,8 +3,8 @@ maturity: trial-use
 
 definition:
   en: "The complete address written as a single text string. Coexists with structured address components for systems that store addresses as free text."
-  fr: "L'adresse complete redigee sous forme d'une seule chaine de texte. Coexiste avec les composantes structurees de l'adresse pour les systemes qui stockent les adresses en texte libre."
-  es: "La direccion completa escrita como una sola cadena de texto. Coexiste con los componentes estructurados de la direccion para los sistemas que almacenan direcciones como texto libre."
+  fr: "L'adresse complète rédigée sous forme d'une seule chaîne de texte. Coexiste avec les composantes structurées de l'adresse pour les systèmes qui stockent les adresses en texte libre."
+  es: "La dirección completa escrita como una sola cadena de texto. Coexiste con los componentes estructurados de la dirección para los sistemas que almacenan direcciones como texto libre."
 
 type: string
 cardinality: single

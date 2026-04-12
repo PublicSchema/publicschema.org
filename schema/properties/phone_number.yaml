@@ -3,8 +3,8 @@ maturity: trial-use
 
 definition:
   en: "A contact phone number for the person, including country code."
-  fr: "Un numero de telephone de contact pour la personne, incluant l'indicatif pays."
-  es: "Un numero de telefono de contacto para la persona, incluido el prefijo del pais."
+  fr: "Un numéro de téléphone de contact pour la personne, incluant l'indicatif de pays."
+  es: "Un número de teléfono de contacto para la persona, incluido el prefijo del país."
 
 type: string
 cardinality: single

@@ -3,8 +3,8 @@ maturity: draft
 
 definition:
   en: "A public identifier for the voucher, printed on the physical document or communicated via SMS or application."
-  fr: "Un identifiant public pour le bon, imprime sur le document physique ou communique par SMS ou application."
-  es: "Un identificador publico para el vale, impreso en el documento fisico o comunicado por SMS o aplicacion."
+  fr: "Un identifiant public pour le bon, imprimé sur le document physique ou communiqué par SMS ou application."
+  es: "Un identificador público para el vale, impreso en el documento físico o comunicado por SMS o aplicación."
 
 type: string
 cardinality: single

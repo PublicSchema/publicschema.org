@@ -3,8 +3,8 @@ maturity: trial-use
 
 definition:
   en: "A human-readable place name for the location."
-  fr: "Un nom de lieu lisible par un humain pour la localisation."
-  es: "Un nombre de lugar legible para la ubicacion."
+  fr: "Un nom de lieu en langage naturel pour cette localisation."
+  es: "Un nombre de lugar legible por humanos para la ubicación."
 
 type: string
 cardinality: single

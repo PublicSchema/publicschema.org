@@ -3,7 +3,7 @@ maturity: draft
 
 definition:
   en: "An iCalendar recurrence rule (RFC 5545 RRULE) specifying a custom schedule. Used when the frequency property is set to 'custom'."
-  fr: "Une regle de recurrence iCalendar (RRULE RFC 5545) specifiant un calendrier personnalise. Utilisee lorsque la propriete frequency est definie sur 'custom'."
+  fr: "Une règle de récurrence iCalendar (RRULE RFC 5545) spécifiant un calendrier personnalisé. Utilisée lorsque la propriété frequency est définie sur 'custom'."
   es: "Una regla de recurrencia iCalendar (RRULE RFC 5545) que especifica un calendario personalizado. Se utiliza cuando la propiedad frequency se establece en 'custom'."
 
 type: string

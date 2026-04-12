@@ -3,8 +3,8 @@ maturity: trial-use
 
 definition:
   en: "The date on which the document or credential representing the entitlement expires, which may differ from the entitlement period itself."
-  fr: "La date a laquelle le document ou le justificatif representant le droit expire, qui peut differer de la periode du droit elle-meme."
-  es: "La fecha en que el documento o credencial que representa el derecho expira, que puede diferir del periodo del derecho en si."
+  fr: "La date à laquelle le document ou le justificatif représentant le droit expire, qui peut différer de la période du droit elle-même."
+  es: "La fecha en que el documento o credencial que representa el derecho expira, la cual puede diferir del período del derecho en sí."
 
 type: date
 cardinality: single

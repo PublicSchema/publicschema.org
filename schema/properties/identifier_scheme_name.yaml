@@ -3,8 +3,8 @@ maturity: trial-use
 
 definition:
   en: "The human-readable name of the identifier scheme, such as 'National Identity Number' or 'Social Security Number'."
-  fr: "Le nom lisible du schema d'identification, tel que 'Numero d'identite nationale' ou 'Numero de securite sociale'."
-  es: "El nombre legible del esquema de identificacion, como 'Numero de identidad nacional' o 'Numero de seguridad social'."
+  fr: "Le nom lisible du schéma d'identification, tel que 'Numéro d'identité nationale' ou 'Numéro de sécurité sociale'."
+  es: "El nombre legible del esquema de identificación, como 'Número de identidad nacional' o 'Número de seguridad social'."
 
 type: string
 cardinality: single

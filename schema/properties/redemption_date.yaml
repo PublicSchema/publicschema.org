@@ -3,8 +3,8 @@ maturity: draft
 
 definition:
   en: "The date on which the voucher was redeemed at a vendor or agent."
-  fr: "La date a laquelle le bon a ete echange aupres d'un vendeur ou d'un agent."
-  es: "La fecha en que el vale fue canjeado en un vendedor o agente."
+  fr: "La date à laquelle le bon a été échangé auprès d'un vendeur ou d'un agent."
+  es: "La fecha en que el vale fue canjeado ante un vendedor o agente."
 
 type: date
 cardinality: single

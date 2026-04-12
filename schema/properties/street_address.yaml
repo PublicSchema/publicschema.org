@@ -3,8 +3,8 @@ maturity: trial-use
 
 definition:
   en: "The street name, number, and any apartment or building identifiers."
-  fr: "Le nom de la rue, le numero et tout identifiant d'appartement ou de batiment."
-  es: "El nombre de la calle, numero y cualquier identificador de apartamento o edificio."
+  fr: "Le nom de la rue, le numéro et tout identifiant d'appartement ou de bâtiment."
+  es: "El nombre de la calle, número y cualquier identificador de apartamento o edificio."
 
 type: string
 cardinality: single

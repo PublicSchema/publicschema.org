@@ -3,8 +3,8 @@ maturity: trial-use
 
 definition:
   en: "The postal or zip code of the address."
-  fr: "Le code postal ou code zip de l'adresse."
-  es: "El codigo postal o codigo zip de la direccion."
+  fr: "Le code postal de l'adresse (ou code ZIP aux États-Unis)."
+  es: "El código postal o código zip de la dirección."
 
 type: string
 cardinality: single

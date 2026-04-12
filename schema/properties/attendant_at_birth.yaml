@@ -4,7 +4,7 @@ maturity: draft
 definition:
   en: "The type of person who attended the delivery (physician, midwife, nurse, traditional birth attendant, other, or none). Used as a proxy for safe delivery in health statistics."
   fr: "Le type de personne ayant assisté à l'accouchement (médecin, sage-femme, infirmier, accoucheuse traditionnelle, autre ou aucune). Utilisé comme indicateur d'accouchement en sécurité dans les statistiques de santé."
-  es: "El tipo de persona que atendió el parto (médico, partera, enfermería, partera tradicional, otro o ninguno). Utilizado como indicador de parto seguro en las estadísticas de salud."
+  es: "El tipo de persona que atendió el parto (médico, partera profesional, enfermero/a, partera tradicional, otro o ninguno). Utilizado como indicador de parto seguro en las estadísticas de salud."
 
 type: string
 cardinality: single

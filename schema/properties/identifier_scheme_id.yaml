@@ -3,8 +3,8 @@ maturity: trial-use
 
 definition:
   en: "A URI or code that identifies the scheme or system under which the identifier was assigned."
-  fr: "Un URI ou un code qui identifie le schema ou le systeme dans le cadre duquel l'identifiant a ete attribue."
-  es: "Un URI o codigo que identifica el esquema o sistema bajo el cual se asigno el identificador."
+  fr: "Un URI ou un code qui identifie le schéma ou le système dans le cadre duquel l'identifiant a été attribué."
+  es: "Un URI o código que identifica el esquema o sistema bajo el cual se asignó el identificador."
 
 type: string
 cardinality: single

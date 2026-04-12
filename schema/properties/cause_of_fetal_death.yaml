@@ -3,7 +3,7 @@ maturity: draft
 
 definition:
   en: "A free-text description of the cause of a fetal death. Captured alongside cause_of_fetal_death_code when an ICD-PM or equivalent code is assigned."
-  fr: "Une description en texte libre de la cause d'une mortinaissance. Saisie parallèlement à cause_of_fetal_death_code lorsqu'un code CIM-PM ou équivalent est attribué."
+  fr: "Une description en texte libre de la cause d'une mortinaissance. Renseigné conjointement avec cause_of_fetal_death_code lorsqu'un code CIM-PM ou équivalent est attribué."
   es: "Una descripción en texto libre de la causa de la muerte fetal. Se captura junto con cause_of_fetal_death_code cuando se asigna un código CIE-PM o equivalente."
 
 type: string

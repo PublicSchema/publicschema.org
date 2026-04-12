@@ -3,8 +3,8 @@ maturity: trial-use
 
 definition:
   en: "The numeric tier in the administrative hierarchy, following the OCHA COD-AB convention: 0 = country, 1 = first subnational (state, province, region), 2 = second subnational (district, county, department), and so on. No fixed maximum depth."
-  fr: "Le niveau numerique dans la hierarchie administrative, selon la convention OCHA COD-AB : 0 = pays, 1 = premier niveau sous-national (etat, province, region), 2 = deuxieme niveau sous-national (district, comte, departement), et ainsi de suite. Pas de profondeur maximale fixe."
-  es: "El nivel numerico en la jerarquia administrativa, segun la convencion OCHA COD-AB: 0 = pais, 1 = primer nivel subnacional (estado, provincia, region), 2 = segundo nivel subnacional (distrito, condado, departamento), y asi sucesivamente. Sin profundidad maxima fija."
+  fr: "Le niveau numérique dans la hiérarchie administrative, selon la convention OCHA COD-AB : 0 = pays, 1 = premier niveau sous-national (État, province, région), 2 = deuxième niveau sous-national (district, comté, département), et ainsi de suite. Pas de profondeur maximale fixe."
+  es: "El nivel numérico en la jerarquía administrativa, según la convención OCHA COD-AB: 0 = país, 1 = primer nivel subnacional (estado, provincia, región), 2 = segundo nivel subnacional (distrito, condado, departamento), y así sucesivamente. Sin profundidad máxima fija."
 
 type: integer
 cardinality: single

@@ -3,8 +3,8 @@ maturity: draft
 
 definition:
   en: "The maximum altitude of the area, in meters above sea level (WGS84 datum)."
-  fr: "L'altitude maximale de la zone, en metres au-dessus du niveau de la mer (datum WGS84)."
-  es: "La altitud maxima del area, en metros sobre el nivel del mar (datum WGS84)."
+  fr: "L'altitude maximale de la zone, en mètres au-dessus du niveau de la mer (datum WGS84)."
+  es: "La altitud máxima del área, en metros sobre el nivel del mar (datum WGS84)."
 
 type: decimal
 cardinality: single

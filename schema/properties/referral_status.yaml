@@ -3,7 +3,7 @@ maturity: draft
 
 definition:
   en: "The current state of the referral (pending, accepted, declined, completed)."
-  fr: "L'état actuel de l'orientation (en attente, acceptée, refusée, complétée)."
+  fr: "L'état actuel de l'orientation (en attente, acceptée, refusée, terminée)."
   es: "El estado actual de la derivación (pendiente, aceptada, rechazada, completada)."
 
 type: string

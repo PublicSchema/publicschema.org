@@ -3,8 +3,8 @@ maturity: draft
 
 definition:
   en: "The category of annotation: a court-ordered correction, a nationality change, or similar administrative modifications to the record's meaning."
-  fr: "La catégorie de mention: correction ordonnée par tribunal, changement de nationalité, ou autres modifications administratives portant sur la portée de l'acte."
-  es: "La categoría de anotación: corrección ordenada por tribunal, cambio de nacionalidad u otras modificaciones administrativas que afectan el alcance del acta."
+  fr: "La catégorie de mention : correction ordonnée par un tribunal, changement de nationalité, ou autres modifications administratives touchant à la teneur de l'acte."
+  es: "La categoría de anotación: corrección ordenada por tribunal, cambio de nacionalidad u otras modificaciones administrativas que afectan el contenido o significado del acta."
 
 type: string
 cardinality: single

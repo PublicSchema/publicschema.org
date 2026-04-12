@@ -3,8 +3,8 @@ maturity: trial-use
 
 definition:
   en: "The geographic latitude in decimal degrees (WGS84)."
-  fr: "La latitude geographique en degres decimaux (WGS84)."
-  es: "La latitud geografica en grados decimales (WGS84)."
+  fr: "La latitude géographique en degrés décimaux (WGS84)."
+  es: "La latitud geográfica en grados decimales (WGS84)."
 
 type: decimal
 cardinality: single

@@ -3,8 +3,8 @@ maturity: trial-use
 
 definition:
   en: "A description of why the payment failed, was returned, or was rejected."
-  fr: "Une description de la raison pour laquelle le paiement a echoue, a ete retourne ou a ete rejete."
-  es: "Una descripcion de por que el pago fallo, fue devuelto o fue rechazado."
+  fr: "Une description de la raison pour laquelle le paiement a échoué, a été retourné ou a été rejeté."
+  es: "Una descripción de por qué el pago falló, fue devuelto o fue rechazado."
 
 type: string
 cardinality: single

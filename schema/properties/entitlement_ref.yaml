@@ -3,8 +3,8 @@ maturity: trial-use
 
 definition:
   en: "Reference to the entitlement that this payment or voucher fulfills."
-  fr: "Reference au droit que ce paiement ou bon remplit."
-  es: "Referencia al derecho que este pago o vale cumple."
+  fr: "Référence au droit que ce paiement ou bon honore."
+  es: "Referencia al derecho al que corresponde este pago o vale."
 
 type: uri
 cardinality: single

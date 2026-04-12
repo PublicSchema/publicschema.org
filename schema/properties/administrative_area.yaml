@@ -3,8 +3,8 @@ maturity: trial-use
 
 definition:
   en: "The first-level administrative subdivision (province, state, region) containing the address."
-  fr: "La premiere subdivision administrative (province, etat, region) contenant l'adresse."
-  es: "La primera subdivision administrativa (provincia, estado, region) que contiene la direccion."
+  fr: "La première subdivision administrative (province, État, région) contenant l'adresse."
+  es: "La primera subdivisión administrativa (provincia, estado, región) que contiene la dirección."
 
 type: string
 cardinality: single
