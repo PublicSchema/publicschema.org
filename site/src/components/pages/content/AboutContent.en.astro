@@ -14,8 +14,8 @@
   <li><strong>Credential schemas</strong>: JSON-LD contexts and structures for issuing concept data as <a href="https://www.w3.org/TR/vc-data-model-2.0/">Verifiable Credentials</a>, using SD-JWT VC for selective disclosure of sensitive personal data.</li>
 </ul>
 <p>
-  Every element gets a stable URI. Everything is optional. Systems adopt
-  what they need.
+  Every element gets a stable URI. Everything is optional. Countries and
+  programs adopt what they need and extend what they don't.
 </p>
 
 <figure class="diagram">
@@ -110,6 +110,24 @@
   The model is designed to extend to adjacent domains (civil registration,
   health, education, humanitarian response) as adoption grows. The structure
   is the same; only the concepts and vocabularies change.
+</p>
+
+<h2>How countries and programs adopt it</h2>
+<p>
+  PublicSchema is a starting point, not a mandate. Countries and programs
+  adopt the parts that apply to their context and extend the rest in their
+  own namespace. The shared schema stays stable; local specificity is
+  preserved.
+</p>
+<ul>
+  <li><strong>Adopt universal concepts as-is.</strong> Person, Household, Location, and other universal concepts rarely need local changes. Using them directly gives interoperability at no cost.</li>
+  <li><strong>Use vocabularies where they fit.</strong> ISO countries, currencies, and languages map cleanly to most systems. Where a domain vocabulary (enrollment status, benefit modality) does not cover a local code, add it in your namespace.</li>
+  <li><strong>Extend what's missing.</strong> Country-specific concepts (a national identifier, a specific case management record, a local benefit category) live in your namespace alongside PublicSchema terms.</li>
+  <li><strong>Propose upstream.</strong> When an extension turns out to be useful across countries, propose it for inclusion. The vocabulary grows through real-world adoption, not committee design.</li>
+</ul>
+<p>
+  See <a href="/docs/extension-mechanism/">Extending PublicSchema</a> for
+  concrete patterns and examples.
 </p>
 
 <h2>Governance and roadmap</h2>

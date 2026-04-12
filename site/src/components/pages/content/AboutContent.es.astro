@@ -22,8 +22,8 @@ const { locale = defaultLocale } = Astro.props;
   <li><strong>Esquemas de credenciales</strong>: contextos JSON-LD y estructuras para emitir datos de conceptos como <a href="https://www.w3.org/TR/vc-data-model-2.0/">Credenciales Verificables</a>, usando SD-JWT VC para la divulgación selectiva de datos personales sensibles.</li>
 </ul>
 <p>
-  Cada elemento recibe un URI estable. Todo es opcional. Los sistemas adoptan
-  lo que necesitan.
+  Cada elemento recibe un URI estable. Todo es opcional. Los países y los programas
+  adoptan lo que necesitan y extienden lo que falta.
 </p>
 
 <figure class="diagram">
@@ -118,6 +118,23 @@ const { locale = defaultLocale } = Astro.props;
   El modelo está diseñado para extenderse a dominios adyacentes (registro civil,
   salud, educación, respuesta humanitaria) a medida que crece la adopción. La estructura
   es la misma; solo cambian los conceptos y los vocabularios.
+</p>
+
+<h2>Cómo lo adoptan los países y los programas</h2>
+<p>
+  PublicSchema es un punto de partida, no un mandato. Los países y los programas adoptan
+  las partes que se aplican a su contexto y extienden el resto en su propio espacio de
+  nombres. El esquema compartido se mantiene estable; la especificidad local se preserva.
+</p>
+<ul>
+  <li><strong>Adopte los conceptos universales tal cual.</strong> Persona, Hogar, Ubicación y otros conceptos universales rara vez necesitan cambios locales. Usarlos directamente ofrece interoperabilidad sin costo adicional.</li>
+  <li><strong>Use los vocabularios cuando encajen.</strong> Los códigos ISO de países, monedas e idiomas se corresponden sin dificultad con la mayoría de los sistemas. Cuando un vocabulario de dominio (estado de inscripción, modalidad de beneficio) no cubra un código local, agréguelo en su espacio de nombres.</li>
+  <li><strong>Extienda lo que falta.</strong> Los conceptos específicos de un país (un identificador nacional, un registro específico de gestión de casos, una categoría local de beneficio) viven en su espacio de nombres junto a los términos de PublicSchema.</li>
+  <li><strong>Proponga aguas arriba.</strong> Cuando una extensión resulte útil en varios países, proponga su inclusión. El vocabulario crece a través de la adopción real, no del diseño por comité.</li>
+</ul>
+<p>
+  Consulte <a href={localePath('/docs/extension-mechanism/', locale)}>Extender PublicSchema</a>
+  para patrones y ejemplos concretos.
 </p>
 
 <h2>Gobernanza y hoja de ruta</h2>

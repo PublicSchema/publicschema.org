@@ -25,7 +25,8 @@ const {
     <p class="h3-hero-lead">
       Cuando los programas atienden a las mismas personas, sus sistemas necesitan un
       lenguaje común. PublicSchema lo proporciona: definiciones acordadas para conceptos,
-      campos y códigos de valores en la prestación de servicios públicos.
+      campos y códigos de valores. Empiece aquí; adapte y extienda según el contexto
+      de su país.
     </p>
     <div class="h3-hero-cta">
       <a href={localePath('/docs/use-cases/', locale)} class="btn btn-primary">Ver cómo los programas usan esto</a>
@@ -43,7 +44,8 @@ const {
       marco de cumplimiento. Proporciona definiciones acordadas donde cada concepto tiene
       peso semántico, no solo estructura. Una Persona no es un conjunto de campos.
       Cada definición recibe un URI estable, listo para usar en Credenciales
-      Verificables. Todo es opcional; los sistemas adoptan lo que les corresponde.
+      Verificables. Todo es opcional. Adopte lo que se aplica al contexto de su país;
+      extienda el resto en su propio espacio de nombres.
     </p>
 
     <div class="h3-layers">
@@ -268,6 +270,19 @@ const {
       <div class="h3-persona-links">
         <a href={localePath('/concepts/', locale)}>Explorar conceptos</a>
         <a href={localePath('/vocab/', locale)}>Explorar vocabularios</a>
+      </div>
+    </div>
+    <div class="h3-persona h3-persona-wide">
+      <h3>&ldquo;Estoy adaptando un estándar al contexto de mi país&rdquo;</h3>
+      <p>
+        Los conceptos universales como Persona y Hogar se aplican tal cual. Donde los programas
+        de su país necesiten más (categorías específicas de prestaciones, códigos de focalización
+        por variables proxy, identificadores heredados), extienda PublicSchema en su propio
+        espacio de nombres. La interoperabilidad se preserva; la especificidad local no se pierde.
+      </p>
+      <div class="h3-persona-links">
+        <a href={localePath('/docs/extension-mechanism/', locale)}>Cómo extender</a>
+        <a href={localePath('/about/', locale)}>Acerca del proyecto</a>
       </div>
     </div>
   </div>

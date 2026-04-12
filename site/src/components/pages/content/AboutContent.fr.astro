@@ -22,8 +22,8 @@ const { locale = defaultLocale } = Astro.props;
   <li><strong>Schémas d'identifiants vérifiables</strong> : contextes JSON-LD et structures pour émettre des données de concepts sous forme de <a href="https://www.w3.org/TR/vc-data-model-2.0/">Titres vérifiables (Verifiable Credentials)</a>, en utilisant SD-JWT VC pour la divulgation sélective des données personnelles sensibles.</li>
 </ul>
 <p>
-  Chaque élément reçoit un URI stable. Tout est optionnel. Les systèmes adoptent
-  ce dont ils ont besoin.
+  Chaque élément reçoit un URI stable. Tout est optionnel. Les pays et les programmes
+  adoptent ce dont ils ont besoin et étendent ce qui manque.
 </p>
 
 <figure class="diagram">
@@ -118,6 +118,24 @@ const { locale = defaultLocale } = Astro.props;
   Le modèle est conçu pour s'étendre aux domaines adjacents (état civil,
   santé, éducation, aide humanitaire) au fur et à mesure que l'adoption progresse. La structure
   est la même ; seuls les concepts et les vocabulaires changent.
+</p>
+
+<h2>Comment les pays et les programmes l'adoptent</h2>
+<p>
+  PublicSchema est un point de départ, pas un cadre imposé. Les pays et les programmes
+  adoptent les parties qui s'appliquent à leur contexte et étendent le reste dans leur
+  propre espace de noms. Le schéma partagé reste stable ; la spécificité locale est
+  préservée.
+</p>
+<ul>
+  <li><strong>Adoptez les concepts universels tels quels.</strong> Personne, Ménage, Lieu et d'autres concepts universels nécessitent rarement des adaptations locales. Les utiliser directement offre l'interopérabilité sans coût supplémentaire.</li>
+  <li><strong>Utilisez les vocabulaires lorsqu'ils conviennent.</strong> Les codes ISO de pays, de devises et de langues correspondent sans difficulté à la plupart des systèmes. Lorsqu'un vocabulaire de domaine (statut d'inscription, modalité de prestation) ne couvre pas un code local, ajoutez-le dans votre espace de noms.</li>
+  <li><strong>Étendez ce qui manque.</strong> Les concepts propres à un pays (un identifiant national, un dossier de gestion de cas spécifique, une catégorie de prestation locale) résident dans votre espace de noms aux côtés des termes PublicSchema.</li>
+  <li><strong>Proposez l'ajout en amont.</strong> Lorsqu'une extension s'avère utile dans plusieurs pays, proposez son intégration. Le vocabulaire évolue par l'adoption réelle, pas par la conception en comité.</li>
+</ul>
+<p>
+  Voir <a href={localePath('/docs/extension-mechanism/', locale)}>Étendre PublicSchema</a> pour
+  des modèles et des exemples concrets.
 </p>
 
 <h2>Gouvernance et feuille de route</h2>

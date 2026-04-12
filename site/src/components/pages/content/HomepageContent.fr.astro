@@ -25,7 +25,8 @@ const {
     <p class="h3-hero-lead">
       Lorsque des programmes servent les mêmes personnes, leurs systèmes ont besoin d'un
       langage commun. PublicSchema le fournit : des définitions partagées pour les concepts,
-      les champs et les codes de valeurs dans la prestation de services publics.
+      les champs et les codes de valeurs. Commencez ici ; adaptez et étendez selon le contexte
+      de votre pays.
     </p>
     <div class="h3-hero-cta">
       <a href={localePath('/docs/use-cases/', locale)} class="btn btn-primary">Voir comment les programmes l'utilisent</a>
@@ -43,7 +44,8 @@ const {
       Il fournit des définitions partagées où chaque concept porte un poids sémantique,
       pas seulement une structure. Une Personne n'est pas un simple ensemble de champs.
       Chaque définition reçoit un URI stable, prêt à l'emploi dans des Titres vérifiables (Verifiable
-      Credentials). Tout est optionnel ; les systèmes adoptent ce qui leur convient.
+      Credentials). Tout est optionnel. Adoptez ce qui s'applique au contexte de votre pays ;
+      étendez le reste dans votre propre espace de noms.
     </p>
 
     <div class="h3-layers">
@@ -268,6 +270,20 @@ const {
       <div class="h3-persona-links">
         <a href={localePath('/concepts/', locale)}>Parcourir les concepts</a>
         <a href={localePath('/vocab/', locale)}>Parcourir les vocabulaires</a>
+      </div>
+    </div>
+    <div class="h3-persona h3-persona-wide">
+      <h3>&ldquo;J&rsquo;adapte un standard au contexte de mon pays&rdquo;</h3>
+      <p>
+        Les concepts universels comme Personne et Ménage s'appliquent tels quels. Là où
+        les programmes de votre pays ont besoin de plus (catégories de prestations spécifiques,
+        codes de ciblage par variables proxy, identifiants hérités), étendez PublicSchema dans
+        votre propre espace de noms. L'interopérabilité est préservée ; la spécificité locale
+        n'est pas perdue.
+      </p>
+      <div class="h3-persona-links">
+        <a href={localePath('/docs/extension-mechanism/', locale)}>Comment étendre</a>
+        <a href={localePath('/about/', locale)}>À propos du projet</a>
       </div>
     </div>
   </div>

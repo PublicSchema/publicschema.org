@@ -25,7 +25,8 @@ const {
     <p class="h3-hero-lead">
       When programs serve the same people, their systems need a shared
       language. PublicSchema provides it: agreed definitions for concepts,
-      fields, and value codes across public service delivery.
+      fields, and value codes. Start here; adapt and extend for your
+      country's context.
     </p>
     <div class="h3-hero-cta">
       <a href={localePath('/docs/use-cases/', locale)} class="btn btn-primary">See how programs use this</a>
@@ -43,7 +44,8 @@ const {
       framework. It provides agreed definitions where every concept carries
       semantic weight, not just structure. A Person is not a bag of fields.
       Every definition gets a stable URI, ready for use in Verifiable
-      Credentials. Everything is optional; systems adopt what applies to them.
+      Credentials. Everything is optional. Adopt what applies to your country's
+      context; extend the rest in your own namespace.
     </p>
 
     <div class="h3-layers">
@@ -268,6 +270,19 @@ const {
       <div class="h3-persona-links">
         <a href={localePath('/concepts/', locale)}>Browse concepts</a>
         <a href={localePath('/vocab/', locale)}>Browse vocabularies</a>
+      </div>
+    </div>
+    <div class="h3-persona h3-persona-wide">
+      <h3>&ldquo;I&rsquo;m adapting a standard for my country&rsquo;s context&rdquo;</h3>
+      <p>
+        Universal concepts like Person and Household apply as-is. Where your
+        country's programs need more (specific benefit categories, proxy-means
+        codes, legacy identifiers), extend PublicSchema in your own namespace.
+        Interoperability is preserved; local specificity is not lost.
+      </p>
+      <div class="h3-persona-links">
+        <a href={localePath('/docs/extension-mechanism/', locale)}>How to extend</a>
+        <a href={localePath('/about/', locale)}>About the project</a>
       </div>
     </div>
   </div>
