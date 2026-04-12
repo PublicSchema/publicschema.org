@@ -43,12 +43,21 @@ def _load_yaml(path: Path) -> dict:
 
 
 def _load_all_yaml(directory: Path) -> dict[str, dict]:
-    """Load all YAML files from a directory, keyed by filename."""
+    """Load all YAML files from a directory, keyed by filename.
+
+    For files in subdirectories, also stores an entry keyed by the
+    relative path (e.g. 'sp/enrollment-exit-reason.yaml') so that
+    vocabulary references using subdirectory prefixes resolve correctly.
+    """
     result = {}
     if not directory.exists():
         return result
     for p in sorted(directory.rglob("*.yaml")):
         result[p.name] = _load_yaml(p)
+        # Also key by relative path for subdirectory files
+        rel = p.relative_to(directory)
+        if rel != Path(p.name):
+            result[str(rel)] = result[p.name]
     return result
 
 
@@ -126,7 +135,17 @@ def validate_schema_dir(schema_dir: Path) -> list[ValidationError]:
     # Build lookup indexes
     concept_ids = {data["id"] for data in concepts.values() if "id" in data}
     property_ids = {data["id"] for data in properties.values() if "id" in data}
-    vocabulary_ids = {data["id"] for data in vocabularies.values() if "id" in data}
+    # Build vocabulary ID set from both the YAML 'id' field and the
+    # relative file path (minus extension) so that subdirectory-prefixed
+    # references like 'sp/enrollment-exit-reason' resolve correctly.
+    vocabulary_ids = set()
+    for key, data in vocabularies.items():
+        if "id" in data:
+            vocabulary_ids.add(data["id"])
+            # Add path-based ID (e.g. 'sp/enrollment-exit-reason' from 'sp/enrollment-exit-reason.yaml')
+            stem = key.removesuffix(".yaml")
+            if stem != data["id"]:
+                vocabulary_ids.add(stem)
 
     # Load JSON Schemas for validation
     concept_schema = _load_json_schema("concept.schema.json")

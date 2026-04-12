@@ -89,6 +89,10 @@
       "type": "boolean",
       "description": "When true, the HTML page hides the values table and points to the standard instead. Downloads still include all values."
     },
+    "domain": {
+      "type": ["string", "null"],
+      "description": "Domain namespace. Null or omitted for universal vocabularies."
+    },
     "sync": {
       "type": "object",
       "required": ["source_url", "format"],
@@ -145,6 +149,10 @@
           "type": "array",
           "items": { "type": "string" },
           "description": "Canonical value codes not covered by this system"
+        },
+        "note": {
+          "type": "string",
+          "description": "Context note about the overall mapping for this system"
         }
       }
     },
@@ -171,12 +179,20 @@
           "type": "string",
           "enum": ["no_equivalent", "not_yet_mapped", "out_of_scope", "context_dependent"],
           "description": "Why this system value has no canonical equivalent. Required when maps_to is null."
+        },
+        "note": {
+          "type": "string",
+          "description": "Context note explaining the mapping rationale"
+        },
+        "migration_note": {
+          "type": "string",
+          "description": "Note about planned changes to this mapping (e.g. when a deprecated code is removed)"
         }
       }
     },
     "external_equivalent": {
       "type": "object",
-      "required": ["label", "uri", "match"],
+      "required": ["label", "match"],
       "additionalProperties": false,
       "properties": {
         "label": {
@@ -190,7 +206,7 @@
         },
         "match": {
           "type": "string",
-          "enum": ["exact", "close", "broad", "name_match"],
+          "enum": ["exact", "close", "broad", "name_match", "none"],
           "description": "Semantic match quality"
         },
         "vocabulary": {
@@ -240,6 +256,14 @@
         "parent_code": {
           "type": "string",
           "description": "standard_code of the parent value in the hierarchy."
+        },
+        "deprecated": {
+          "type": "boolean",
+          "description": "Whether this value is deprecated and will be removed in a future version"
+        },
+        "deprecated_note": {
+          "type": "string",
+          "description": "Guidance for migrating away from this deprecated value"
         }
       }
     }

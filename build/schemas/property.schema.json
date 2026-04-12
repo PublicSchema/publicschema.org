@@ -91,7 +91,7 @@
     },
     "external_equivalent": {
       "type": "object",
-      "required": ["label", "uri", "match"],
+      "required": ["label", "match"],
       "additionalProperties": false,
       "properties": {
         "label": {
@@ -105,8 +105,8 @@
         },
         "match": {
           "type": "string",
-          "enum": ["exact", "close", "broad", "name_match"],
-          "description": "Semantic match quality: exact (same meaning), close (similar with minor differences), broad (overlapping scope), name_match (same name but unverified semantics)"
+          "enum": ["exact", "close", "broad", "name_match", "none"],
+          "description": "Semantic match quality: exact (same meaning), close (similar with minor differences), broad (overlapping scope), name_match (same name but unverified semantics), none (no equivalent exists)"
         },
         "vocabulary": {
           "type": "string",
@@ -138,6 +138,10 @@
           "type": "array",
           "items": { "type": "string" },
           "description": "Canonical values not covered by this system"
+        },
+        "note": {
+          "type": "string",
+          "description": "Context note about the overall mapping for this system"
         }
       }
     },
@@ -164,6 +168,14 @@
           "type": "string",
           "enum": ["no_equivalent", "not_yet_mapped", "out_of_scope", "context_dependent"],
           "description": "Why this system value has no canonical equivalent. Required when maps_to is null."
+        },
+        "note": {
+          "type": "string",
+          "description": "Context note explaining the mapping rationale"
+        },
+        "migration_note": {
+          "type": "string",
+          "description": "Note about planned changes to this mapping (e.g. when a deprecated code is removed)"
         }
       }
     }

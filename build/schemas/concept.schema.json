@@ -72,7 +72,7 @@
     },
     "external_equivalent": {
       "type": "object",
-      "required": ["label", "uri", "match"],
+      "required": ["label", "match"],
       "additionalProperties": false,
       "properties": {
         "label": {
@@ -86,8 +86,8 @@
         },
         "match": {
           "type": "string",
-          "enum": ["exact", "close", "broad", "name_match"],
-          "description": "Semantic match quality: exact (same meaning), close (similar with minor differences), broad (overlapping scope), name_match (same name but unverified semantics)"
+          "enum": ["exact", "close", "broad", "name_match", "none"],
+          "description": "Semantic match quality: exact (same meaning), close (similar with minor differences), broad (overlapping scope), name_match (same name but unverified semantics), none (no equivalent exists)"
         },
         "vocabulary": {
           "type": "string",
