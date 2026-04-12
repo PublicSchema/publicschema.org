@@ -41,3 +41,10 @@ properties:
 
 subtypes: [Parent]
 supertypes: []
+
+external_equivalents:
+  opencrvs:
+    label: "No v1 equivalent"
+    match: none
+    vocabulary: "OpenCRVS v1 GraphQL"
+    note: "OpenCRVS v1 has no temporal-snapshot concept. Demographic fields (occupation, education, marital status) sit directly on the Person type and are implicitly current-at-registration."

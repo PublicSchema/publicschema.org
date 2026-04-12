@@ -36,3 +36,9 @@ values:
       en: "Persons of working age who were neither employed nor unemployed during the reference period (e.g., students, retirees, homemakers, discouraged workers)."
       fr: "Personnes en âge de travailler qui n'étaient ni employées ni au chômage pendant la période de référence (par exemple, étudiants, retraités, personnes au foyer, travailleurs découragés)."
       es: "Personas en edad de trabajar que no estaban ni empleadas ni desempleadas durante el período de referencia (por ejemplo, estudiantes, jubilados, personas dedicadas al hogar, trabajadores desalentados)."
+external_equivalents:
+  opencrvs:
+    label: "No v1 equivalent"
+    match: none
+    vocabulary: "OpenCRVS v1 GraphQL"
+    note: "OpenCRVS v1 does not include an employment status field or vocabulary."

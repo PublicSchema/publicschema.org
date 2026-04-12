@@ -347,6 +347,7 @@ class TestCoverage:
         "Legitimation",
         "CivilStatusRecord",
         "CivilStatusAnnotation",
+        "CRVSPerson",
         "Parent",
         "Certificate",
         "FamilyRegister",

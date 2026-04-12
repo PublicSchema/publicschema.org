@@ -54,3 +54,9 @@ values:
       en: "A worker who holds a self-employment job in a cooperative that produces goods or services, in which each member takes part on an equal footing in organizing production and other activities."
       fr: "Un travailleur qui occupe un emploi indépendant dans une coopérative qui produit des biens ou des services, dans laquelle chaque membre participe sur un pied d'égalité à l'organisation de la production et des autres activités."
       es: "Un trabajador que tiene un empleo independiente en una cooperativa que produce bienes o servicios, en la cual cada miembro participa en igualdad de condiciones en la organización de la producción y otras actividades."
+external_equivalents:
+  opencrvs:
+    label: "No v1 equivalent"
+    match: none
+    vocabulary: "OpenCRVS v1 GraphQL"
+    note: "OpenCRVS v1 does not include a status-in-employment field or vocabulary."

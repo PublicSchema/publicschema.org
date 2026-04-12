@@ -11,3 +11,10 @@ cardinality: single
 vocabulary: null
 references: null
 sensitivity: restricted
+
+external_equivalents:
+  opencrvs:
+    label: "No v1 equivalent"
+    match: none
+    vocabulary: "OpenCRVS v1 GraphQL"
+    note: "OpenCRVS v1 Person type does not include a religion field."

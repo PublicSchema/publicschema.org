@@ -11,3 +11,10 @@ cardinality: single
 vocabulary: null
 references: null
 domain_override: crvs
+
+external_equivalents:
+  opencrvs:
+    label: "No v1 equivalent"
+    match: none
+    vocabulary: "OpenCRVS v1 GraphQL"
+    note: "OpenCRVS v1 derives age from birthDate on the Person type. No explicit stated-age field exists for low-completeness settings."

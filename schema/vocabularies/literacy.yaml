@@ -27,3 +27,9 @@ values:
       en: "Cannot, with understanding, both read and write a short simple statement on everyday life."
       fr: "Ne peut pas, avec compréhension, lire et écrire un court énoncé simple sur la vie quotidienne."
       es: "No puede, con comprensión, leer y escribir una declaración breve y sencilla sobre la vida cotidiana."
+external_equivalents:
+  opencrvs:
+    label: "No v1 equivalent"
+    match: none
+    vocabulary: "OpenCRVS v1 GraphQL"
+    note: "OpenCRVS v1 does not include a literacy field or vocabulary."

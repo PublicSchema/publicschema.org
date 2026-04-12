@@ -626,6 +626,13 @@ no_match:
       register (livret de famille, koseki, hukou); families are not modelled
       as a tracked unit.
 
+  - v2_concept: CRVSPerson
+    reason: >
+      OpenCRVS v1 has no temporal-snapshot concept. Demographic fields
+      (occupation, education, marital status) sit directly on the Person type
+      and are implicitly current-at-registration. There is no reified
+      "person-in-context" entity separating event-time values from current values.
+
   - v2_concept: Parent
     reason: >
       Our Parent is a reified link entity (Person + parental_role). OpenCRVS
@@ -711,6 +718,26 @@ no_match:
     reason: >
       Program targeting methodology is a social protection planning concept with
       no civil registration equivalent.
+
+  # Universal demographic vocabularies with no OpenCRVS v1 equivalent:
+
+  - v2_vocabulary: literacy
+    reason: >
+      OpenCRVS v1 Person type does not include a literacy field. The UNSD binary
+      literacy classification (literate/illiterate) has no counterpart in v1 core
+      or country configuration patterns.
+
+  - v2_vocabulary: employment-status
+    reason: >
+      OpenCRVS v1 Person type does not include an employment status field.
+      The ILO tripartite classification (employed/unemployed/outside labour force)
+      has no counterpart in v1 core.
+
+  - v2_vocabulary: status-in-employment
+    reason: >
+      OpenCRVS v1 Person type does not include a status-in-employment field.
+      The ILO ICSE-18 categories (employee/employer/own-account worker/etc.)
+      have no counterpart in v1 core.
 
   # v2 CRVS vocabulary with a semantic mismatch:
 
