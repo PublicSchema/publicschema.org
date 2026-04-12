@@ -7,15 +7,15 @@ definition:
     household, or organization. Addresses combine spatial and administrative
     components such as street, settlement, district, and postal code.
   fr: >
-    Un emplacement physique ou postal structure utilise pour joindre une
-    personne, un menage ou une organisation. Les adresses combinent des
-    composantes spatiales et administratives telles que la rue, le
-    quartier, le district et le code postal.
+    Un emplacement physique ou postal structuré, utilisé pour joindre une
+    personne, un ménage ou une organisation. Les adresses combinent des
+    composantes spatiales et administratives telles que la rue, la localité,
+    le district et le code postal.
   es: >
-    Una ubicacion fisica o postal estructurada utilizada para contactar
-    a una persona, hogar u organizacion. Las direcciones combinan
+    Una ubicación física o postal estructurada utilizada para contactar
+    a una persona, hogar u organización. Las direcciones combinan
     componentes espaciales y administrativos como calle, localidad,
-    distrito y codigo postal.
+    distrito y código postal.
 
 properties:
   - full_address

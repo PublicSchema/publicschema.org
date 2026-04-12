@@ -12,17 +12,17 @@ definition:
   fr: >
     Un instantané temporel d'une Personne telle qu'observée au moment d'un
     événement d'état civil. Porte les mêmes propriétés démographiques que
-    Personne, mais figées au moment de l'événement plutôt que reflétant les
+    Personne, mais figées au moment de l'événement plutôt que de refléter les
     valeurs actuelles. Utilisé partout où un événement d'état civil doit
     enregistrer qui était une personne (profession, résidence, éducation,
     etc.) au moment où l'événement s'est produit.
   es: >
     Una instantánea temporal de una Persona tal como se observó en el momento
     de un evento vital. Lleva las mismas propiedades demográficas que Persona,
-    pero congeladas en el momento del evento en lugar de reflejar valores
-    actuales. Se utiliza en cualquier lugar donde un evento vital necesite
-    registrar quién era una persona (ocupación, residencia, educación, etc.)
-    en el momento en que ocurrió el evento.
+    pero fijadas en el momento del evento, en lugar de reflejar los valores
+    actuales. Se utiliza siempre que un evento vital necesite registrar quién
+    era una persona (ocupación, residencia, educación, etc.) en el momento en
+    que ocurrió el evento.
 
 properties:
   - person

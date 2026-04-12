@@ -27,8 +27,8 @@ definition:
     reconocimiento de paternidad o una legitimación. VitalEvent es un supertipo
     abstracto que agrupa las propiedades comunes (cuándo y dónde ocurrió el
     evento, quién lo registró y el ciclo de vida del registro). Alineado con
-    los Principios y Recomendaciones de las Naciones Unidas sobre estadísticas
-    vitales.
+    los Principios y Recomendaciones de las Naciones Unidas para un Sistema
+    de Estadísticas Vitales.
 
 properties:
   - event_date

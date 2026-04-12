@@ -8,15 +8,15 @@ definition:
     composite benefits where multiple commodities are included at specified
     quantities.
   fr: >
-    Une ligne de detail decrivant un produit specifique et sa quantite dans
-    une livraison ou un bon. Utilise pour representer les paniers
+    Une ligne de détail décrivant un produit spécifique et sa quantité dans
+    une livraison ou un bon. Utilisé pour représenter les paniers
     alimentaires, les kits de fournitures et d'autres prestations composites
-    ou plusieurs produits sont inclus a des quantites specifiees.
+    où plusieurs produits sont inclus à des quantités spécifiées.
   es: >
-    Una linea de detalle que describe un producto especifico y su cantidad
+    Una línea de detalle que describe un producto específico y su cantidad
     dentro de una entrega o vale. Se utiliza para representar canastas de
     alimentos, kits de suministros y otros beneficios compuestos donde se
-    incluyen multiples productos en cantidades especificadas.
+    incluyen múltiples productos en cantidades especificadas.
 
 properties:
   - commodity_type

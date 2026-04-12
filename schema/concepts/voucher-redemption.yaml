@@ -10,20 +10,20 @@ definition:
     redemption (common in WFP value voucher programs), multiple
     VoucherRedemption records track each visit.
   fr: >
-    Un enregistrement d'une transaction de canje unique contre un bon.
-    Chaque VoucherRedemption capture une visite chez un vendeur ou agent
-    ou une partie ou la totalite de la valeur du bon ou des produits
-    auxquels il donne droit a ete collectee. Pour les bons a usage unique,
-    il y a un seul VoucherRedemption. Pour le canje incremental (courant
-    dans les programmes de bons de valeur du PAM), plusieurs
-    enregistrements VoucherRedemption suivent chaque visite.
+    Un enregistrement d'une transaction d'échange unique contre un bon.
+    Chaque VoucherRedemption enregistre une visite chez un vendeur ou un
+    agent, lors de laquelle une partie ou la totalité de la valeur du bon
+    ou des produits auxquels il donne droit a été collectée. Pour les bons
+    à usage unique, il y a un seul VoucherRedemption. Pour l'échange
+    incrémental (fréquent dans les programmes de bons de valeur du PAM),
+    plusieurs enregistrements VoucherRedemption suivent chaque visite.
   es: >
-    Un registro de una transaccion de canje unica contra un vale. Cada
+    Un registro de una transacción de canje única contra un vale. Cada
     VoucherRedemption captura una visita a un vendedor o agente donde se
-    recogio parte o la totalidad del valor del vale o de los productos a
-    los que da derecho. Para vales de uso unico, hay un solo
-    VoucherRedemption. Para el canje incremental (comun en los programas
-    de vales de valor del PMA), multiples registros VoucherRedemption
+    recogió parte o la totalidad del valor del vale o de los productos a
+    los que da derecho. Para vales de uso único, hay un solo
+    VoucherRedemption. Para el canje incremental (común en los programas
+    de vales de valor del PMA), múltiples registros VoucherRedemption
     rastrean cada visita.
 
 properties:

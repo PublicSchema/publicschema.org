@@ -14,9 +14,9 @@ definition:
     Une instance d'un droit reconnu d'un bénéficiaire spécifique à recevoir
     une prestation. Chaque droit correspond généralement à une période de
     versement, mais plusieurs droits peuvent exister pour la même inscription
-    et des périodes chevauchantes (par ex., transfert de base plus
+    et des périodes qui se chevauchent (par ex., transfert de base plus
     complément, paiements à tranches multiples ou suppléments d'urgence).
-    Le droit référence à la fois l'inscription (qui) et le calendrier de
+    Le droit renvoie à la fois à l'inscription (qui) et au calendrier de
     prestations (ce qui a été promis).
   es: >
     Una instancia de un derecho reconocido de un beneficiario específico a
@@ -24,8 +24,8 @@ definition:
     de desembolso, pero pueden existir múltiples derechos para la misma
     inscripción y períodos superpuestos (por ej., transferencia base más
     complemento, pagos en múltiples cuotas o suplementos de emergencia).
-    El derecho referencia tanto la inscripción (quién) como el calendario
-    de beneficios (lo que se prometió).
+    El derecho hace referencia tanto a la inscripción (quién) como al
+    calendario de beneficios (lo que se prometió).
 
 properties:
   - enrollment_ref

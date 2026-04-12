@@ -11,16 +11,17 @@ definition:
     cause-of-death classification.
   fr: >
     La disparition permanente de toute trace de vie à un moment quelconque
-    après la naissance vivante. Saisit la personne décédée, la cause et la
-    manière du décès, la méthode utilisée pour déterminer la cause et le
-    certificateur médical. Aligné sur la définition de l'OMS et la structure
-    CIM pour la classification des causes de décès.
+    après la naissance vivante. Recueille les données relatives à la personne décédée, à la cause et à la
+    manière du décès, à la méthode utilisée pour déterminer la cause et au
+    certificateur médical. Conforme à la définition de l'OMS et à la
+    structure de la CIM pour la classification des causes de décès.
   es: >
-    La desaparición permanente de toda evidencia de vida en cualquier momento
-    tras haber ocurrido un nacimiento vivo. Captura a la persona fallecida,
-    la causa y la manera de la defunción, el método utilizado para determinar
-    la causa y el certificador médico. Alineado con la definición de la OMS
-    y la estructura CIE para la clasificación de causas de defunción.
+    La desaparición permanente de toda manifestación de vida en cualquier
+    momento tras haber ocurrido un nacimiento vivo. Recoge a la persona
+    fallecida, la causa y la manera de la defunción, el método utilizado para
+    determinar la causa y el certificador médico. Alineado con la definición
+    de la OMS y la estructura CIE para la clasificación de causas de
+    defunción.
 
 properties:
   - deceased

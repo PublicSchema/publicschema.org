@@ -12,8 +12,9 @@ definition:
     Les groupes sont liés à leurs membres via des liens d'appartenance.
   es: >
     Una colección abstracta de personas que sirve como base para tipos
-    de grupos concretos como Hogar, Familia y Granja. Los grupos se
-    vinculan a sus miembros mediante enlaces de pertenencia.
+    de grupos concretos como Hogar, Familia y Explotación Agrícola. Los
+    grupos se vinculan a sus miembros a través de relaciones de
+    pertenencia.
 
 properties:
   - group_type

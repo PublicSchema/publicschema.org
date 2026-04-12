@@ -7,15 +7,15 @@ definition:
     codes, or named locations. Used to specify the spatial extent of alerts,
     program coverage, and other location-bounded concepts.
   fr: >
-    Une region geographique definie par une geometrie de limites, des codes
-    administratifs ou des lieux nommes. Utilisee pour specifier l'etendue
+    Une région géographique définie par une géométrie de limites, des codes
+    administratifs ou des lieux nommés. Utilisée pour spécifier l'étendue
     spatiale des alertes, de la couverture des programmes et d'autres
-    concepts lies a un lieu.
+    concepts liés à un lieu.
   es: >
-    Una region geografica definida por geometria de limites, codigos
+    Una región geográfica definida por geometría de límites, códigos
     administrativos o ubicaciones con nombre. Se utiliza para especificar
-    la extension espacial de alertas, cobertura de programas y otros
-    conceptos vinculados a una ubicacion.
+    la extensión espacial de alertas, cobertura de programas y otros
+    conceptos vinculados a una ubicación.
 
 properties:
   - area_description

@@ -21,7 +21,8 @@ definition:
     Supertipo abstracto que agrupa el Divorcio (disolución de un matrimonio
     válido) y la Anulación (declaración de que el matrimonio era nulo desde
     el origen). La defunción de un cónyuge pone fin al matrimonio pero se
-    registra como una Defunción, no como una MarriageTermination.
+    registra como una Defunción, no como una Terminación de matrimonio
+    (MarriageTermination).
 
 properties:
   - party_1

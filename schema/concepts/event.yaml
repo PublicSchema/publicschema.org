@@ -12,7 +12,7 @@ definition:
     Quelque chose qui se produit à un moment précis ou sur une période
     délimitée au sein d'un système de prestation. Event est le supertype
     partagé pour les enregistrements qui capturent des occurrences
-    (évaluations, décisions, paiements, livraisons, orientations, etc.),
+    (évaluations, décisions, paiements, remises de prestations, orientations, etc.),
     distincts des entités permanentes comme les personnes, les groupes ou
     les programmes.
   es: >

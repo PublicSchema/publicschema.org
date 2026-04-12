@@ -9,17 +9,17 @@ definition:
     program may have one or more benefit schedules (e.g., a monthly cash
     transfer and an annual school supplies kit).
   fr: >
-    Une definition au niveau du programme d'un flux de prestations qui
-    specifie la modalite, le montant, la frequence et la periode pendant
+    Une définition au niveau du programme d'une série de prestations qui
+    spécifie la modalité, le montant, la fréquence et la période pendant
     laquelle les prestations sont fournies. Un programme peut avoir un ou
-    plusieurs calendriers de prestations (par ex., un transfert monetaire
+    plusieurs calendriers de prestations (par ex., un transfert monétaire
     mensuel et un kit de fournitures scolaires annuel).
   es: >
-    Una definicion a nivel de programa de un flujo de beneficios que
-    especifica la modalidad, el monto, la frecuencia y el periodo durante
+    Una definición a nivel de programa de un flujo de beneficios que
+    especifica la modalidad, el monto, la frecuencia y el período durante
     el cual se proporcionan los beneficios. Un programa puede tener uno o
-    mas calendarios de beneficios (por ej., una transferencia monetaria
-    mensual y un kit de utiles escolares anual).
+    más calendarios de beneficios (por ej., una transferencia monetaria
+    mensual y un kit de útiles escolares anual).
 
 properties:
   - program_ref

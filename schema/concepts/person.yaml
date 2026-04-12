@@ -11,16 +11,16 @@ definition:
   fr: >
     L'individu unique qui fait l'objet d'un enregistrement dans un
     système de protection sociale. La personne est l'unité indivisible
-    et persistante d'identité dans les registres; les statuts
-    opérationnels tels que demandeur ou bénéficiaire sont des rôles
-    transitoires définis par la relation de la personne à un
+    et persistante d'identité dans les registres. Les statuts
+    opérationnels tels que Registrant, demandeur ou bénéficiaire sont
+    des rôles transitoires définis par la relation de la personne à un
     programme spécifique.
   es: >
     El individuo único que es sujeto de registro en un sistema de
     protección social. La persona es la unidad indivisible y persistente
     de identidad en los registros; los estados operacionales como
-    solicitante o beneficiario son roles transitorios definidos por
-    la relación de la persona con un programa específico.
+    inscrito, solicitante o beneficiario son roles transitorios definidos
+    por la relación de la persona con un programa específico.
 
 properties:
   - date_of_birth

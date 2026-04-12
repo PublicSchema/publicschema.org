@@ -10,13 +10,13 @@ definition:
   fr: >
     Une personne ou un groupe organisé de personnes pouvant être identifié,
     inscrit dans des programmes et recevoir des prestations ou des services.
-    Party est le supertype partagé pour Person et Group, permettant des
-    références acceptant l'un ou l'autre.
+    Party est le supertype commun de Person et Group, permettant de les
+    désigner indifféremment dans une référence.
   es: >
     Una persona o grupo organizado de personas que puede ser identificado,
     inscrito en programas y recibir beneficios o servicios. Party es el
-    supertipo compartido para Person y Group, permitiendo referencias que
-    aceptan cualquiera de los dos.
+    supertipo compartido para Person y Group, que permite referencias que
+    acepten cualquiera de los dos.
 
 properties:
   - name
