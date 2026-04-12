@@ -1,0 +1,13 @@
+id: is_reconciled
+maturity: draft
+
+definition:
+  en: "Whether this payment has been matched and verified against financial system records."
+  fr: "Si ce paiement a été rapproché et vérifié par rapport aux registres du système financier."
+  es: "Si este pago ha sido cotejado y verificado con los registros del sistema financiero."
+
+type: boolean
+cardinality: single
+vocabulary: null
+references: null
+domain_override: null

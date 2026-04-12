@@ -8,17 +8,17 @@ definition:
     channels. Multiple payment events may fulfill a single entitlement (e.g.,
     split payments, multi-tranche disbursements, or retries after failure).
   fr: >
-    Un enregistrement d'un transfert monetaire direct d'un programme vers un
-    beneficiaire. Couvre les canaux de virement bancaire, monnaie mobile,
-    especes, reseau d'agents et carte prepayee. Plusieurs evenements de
-    paiement peuvent remplir un seul droit (par ex., paiements fractionnes,
-    versements a tranches multiples ou nouvelles tentatives apres echec).
+    Un enregistrement d'un transfert monétaire direct d'un programme vers un
+    bénéficiaire. Couvre les canaux de virement bancaire, monnaie mobile,
+    espèces, réseau d'agents et carte prépayée. Plusieurs événements de
+    paiement peuvent remplir un seul droit (par ex., paiements fractionnés,
+    versements à tranches multiples ou nouvelles tentatives après échec).
   es: >
     Un registro de una transferencia monetaria directa de un programa a un
-    beneficiario. Cubre los canales de transferencia bancaria, dinero movil,
+    beneficiario. Cubre los canales de transferencia bancaria, dinero móvil,
     efectivo, red de agentes y tarjeta prepaga. Varios eventos de pago pueden
     cumplir un solo derecho (por ej., pagos fraccionados, desembolsos en
-    multiples cuotas o reintentos tras fallo).
+    múltiples cuotas o reintentos tras fallo).
 
 properties:
   - entitlement_ref
@@ -31,6 +31,7 @@ properties:
   - delivery_channel
   - transaction_reference
   - failure_reason
+  - is_reconciled
 
 subtypes: []
 supertypes: [Event]

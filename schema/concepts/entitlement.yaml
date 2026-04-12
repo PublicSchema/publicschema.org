@@ -11,21 +11,21 @@ definition:
     emergency supplements). The entitlement references both the enrollment
     (who) and the benefit schedule (what was promised).
   fr: >
-    Une instance d'un droit reconnu d'un beneficiaire specifique a recevoir
-    une prestation. Chaque droit correspond generalement a une periode de
-    versement, mais plusieurs droits peuvent exister pour la meme inscription
-    et des periodes chevauchantes (par ex., transfert de base plus
-    complement, paiements a tranches multiples ou supplements d'urgence).
-    Le droit reference a la fois l'inscription (qui) et le calendrier de
-    prestations (ce qui a ete promis).
+    Une instance d'un droit reconnu d'un bénéficiaire spécifique à recevoir
+    une prestation. Chaque droit correspond généralement à une période de
+    versement, mais plusieurs droits peuvent exister pour la même inscription
+    et des périodes chevauchantes (par ex., transfert de base plus
+    complément, paiements à tranches multiples ou suppléments d'urgence).
+    Le droit référence à la fois l'inscription (qui) et le calendrier de
+    prestations (ce qui a été promis).
   es: >
-    Una instancia de un derecho reconocido de un beneficiario especifico a
-    recibir un beneficio. Cada derecho corresponde tipicamente a un periodo
-    de desembolso, pero pueden existir multiples derechos para la misma
-    inscripcion y periodos superpuestos (por ej., transferencia base mas
-    complemento, pagos en multiples cuotas o suplementos de emergencia).
-    El derecho referencia tanto la inscripcion (quien) como el calendario
-    de beneficios (lo que se prometio).
+    Una instancia de un derecho reconocido de un beneficiario específico a
+    recibir un beneficio. Cada derecho corresponde típicamente a un período
+    de desembolso, pero pueden existir múltiples derechos para la misma
+    inscripción y períodos superpuestos (por ej., transferencia base más
+    complemento, pagos en múltiples cuotas o suplementos de emergencia).
+    El derecho referencia tanto la inscripción (quién) como el calendario
+    de beneficios (lo que se prometió).
 
 properties:
   - enrollment_ref

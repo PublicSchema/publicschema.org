@@ -4,24 +4,23 @@ maturity: trial-use
 definition:
   en: >
     The unique individual human being who is a subject of record within a
-    social protection system. Person is the persistent, atomic unit of
+    social protection system. Person is the persistent, indivisible unit of
     identity in registries; operational statuses such as Registrant,
     Applicant, or Beneficiary are transient roles defined by the person's
-    relationship to a specific Program, not properties of the Person
-    entity itself.
+    relationship to a specific Program, not properties of the person themselves.
   fr: >
     L'individu unique qui fait l'objet d'un enregistrement dans un
-    systeme de protection sociale. La personne est l'unite atomique
-    et persistante d'identite dans les registres; les statuts
-    operationnels tels que demandeur ou beneficiaire sont des roles
-    transitoires definis par la relation de la personne a un
-    programme specifique.
+    système de protection sociale. La personne est l'unité indivisible
+    et persistante d'identité dans les registres; les statuts
+    opérationnels tels que demandeur ou bénéficiaire sont des rôles
+    transitoires définis par la relation de la personne à un
+    programme spécifique.
   es: >
-    El individuo unico que es sujeto de registro en un sistema de
-    proteccion social. La persona es la unidad atomica y persistente
+    El individuo único que es sujeto de registro en un sistema de
+    protección social. La persona es la unidad indivisible y persistente
     de identidad en los registros; los estados operacionales como
     solicitante o beneficiario son roles transitorios definidos por
-    la relacion de la persona con un programa especifico.
+    la relación de la persona con un programa específico.
 
 properties:
   - date_of_birth
@@ -38,6 +37,7 @@ properties:
   - nationality
   - sex
   - marital_status
+  - number_of_spouses
   - education_level
   - preferred_language
   - occupation

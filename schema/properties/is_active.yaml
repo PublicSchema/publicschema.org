@@ -2,9 +2,9 @@ id: is_active
 maturity: trial-use
 
 definition:
-  en: "Whether this record or relationship is currently active."
-  fr: "Si cet enregistrement ou cette relation est actuellement actif."
-  es: "Si este registro o relación está actualmente activo."
+  en: "Whether this is currently active."
+  fr: "Si ceci est actuellement actif."
+  es: "Si esto está actualmente activo."
 
 type: boolean
 cardinality: single

@@ -4,16 +4,16 @@ definition:
   en: >-
     The administrative gender of a person as recorded in a registry or identity system. Distinct from biological sex
     (see the sex vocabulary). No single international standard governs gender vocabulary; ISO/IEC 5218 explicitly
-    covers biological sex only. This vocabulary provides a minimal common set based on what social protection systems
+    covers biological sex only. This vocabulary provides a minimal common set based on what administrative systems
     actually record.
   fr: >-
-    Le genre administratif d'une personne tel qu'enregistre dans un registre ou un systeme d'identite. Distinct du
-    sexe biologique (voir le vocabulaire sex). Aucune norme internationale unique ne regit le vocabulaire du genre.
-    Ce vocabulaire fournit un ensemble minimal commun base sur ce que les systemes de protection sociale enregistrent.
+    Le genre administratif d'une personne tel qu'enregistré dans un registre ou un système d'identité. Distinct du
+    sexe biologique (voir le vocabulaire sex). Aucune norme internationale unique ne régit le vocabulaire du genre.
+    Ce vocabulaire fournit un ensemble minimal commun basé sur ce que les systèmes administratifs enregistrent.
   es: >-
-    El genero administrativo de una persona tal como se registra en un registro o sistema de identidad. Distinto del
-    sexo biologico (ver el vocabulario sex). Ninguna norma internacional unica rige el vocabulario de genero. Este
-    vocabulario proporciona un conjunto minimo comun basado en lo que los sistemas de proteccion social registran.
+    El género administrativo de una persona tal como se registra en un registro o sistema de identidad. Distinto del
+    sexo biológico (ver el vocabulario sex). Ninguna norma internacional única rige el vocabulario de género. Este
+    vocabulario proporciona un conjunto mínimo común basado en lo que los sistemas administrativos registran.
 # No governing standard. ISO/IEC 5218 covers biological sex only (2022 revision).
 # FHIR R5 Gender Harmony and SEMIC Core Person 2.1.1 both separate sex from gender
 # but neither mandates a controlled vocabulary for gender.

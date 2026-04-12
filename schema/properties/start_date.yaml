@@ -2,9 +2,9 @@ id: start_date
 maturity: trial-use
 
 definition:
-  en: "The date on which this record or relationship became effective."
-  fr: "La date à laquelle cet enregistrement ou cette relation est devenu effectif."
-  es: "La fecha en que este registro o relación entró en vigor."
+  en: "The date on which this became effective."
+  fr: "La date à laquelle ceci est devenu effectif."
+  es: "La fecha en que esto entró en vigor."
 
 type: date
 cardinality: single

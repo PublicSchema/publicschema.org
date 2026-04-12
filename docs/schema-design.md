@@ -65,6 +65,20 @@ Use this decision tree to determine what kind of element to create.
 
 Almost everything in public service delivery is time-bounded. A status snapshot without a validity period is incomplete. When designing a concept or property, ask: will this value change over time? If yes, model the temporal context explicitly (start/end dates, validity periods).
 
+### Date property conventions
+
+Lifecycle concepts use domain-specific named dates that describe the domain event. Relationship and membership concepts use generic `start_date` / `end_date`.
+
+| Concept type | Date pattern | Examples |
+|---|---|---|
+| Lifecycle (Enrollment) | Domain-specific named dates | `enrollment_date`, `exit_date` |
+| Lifecycle (Entitlement) | Domain-specific period | `coverage_period_start`, `coverage_period_end` |
+| Lifecycle (Grievance) | Domain-specific event dates | `submission_date`, `resolution_date` |
+| Single event (PaymentEvent) | Single event date | `payment_date` |
+| Relationship (GroupMembership, Relationship) | Generic dates | `start_date`, `end_date` |
+
+Do not mix both patterns on the same concept. A lifecycle concept should not carry both `enrollment_date` and `start_date`.
+
 ## 6. Property independence
 
 A property like `start_date` is defined once and reused across concepts. When a shared property needs concept-specific value sets (e.g., `status` on Enrollment vs. Grievance), it specializes via different vocabulary references rather than pretending the differences don't exist.

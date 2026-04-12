@@ -17,6 +17,8 @@ values:
     es: Nunca casado/a
   definition:
     en: Person who has never been married.
+    fr: "Personne qui n'a jamais été mariée."
+    es: "Persona que nunca ha estado casada."
   standard_code: S
 - code: married
   label:
@@ -25,6 +27,8 @@ values:
     es: Casado/a
   definition:
     en: Currently married.
+    fr: "Actuellement marié(e)."
+    es: "Actualmente casado/a."
   standard_code: M
 - code: widowed
   label:
@@ -33,6 +37,8 @@ values:
     es: Viudo/a
   definition:
     en: Person whose spouse has died and who has not remarried.
+    fr: "Personne dont le conjoint est décédé et qui ne s'est pas remariée."
+    es: "Persona cuyo cónyuge ha fallecido y que no se ha vuelto a casar."
   standard_code: W
 - code: divorced
   label:
@@ -41,6 +47,8 @@ values:
     es: Divorciado/a
   definition:
     en: Person whose marriage has been legally dissolved and who has not remarried.
+    fr: "Personne dont le mariage a été légalement dissous et qui ne s'est pas remariée."
+    es: "Persona cuyo matrimonio ha sido legalmente disuelto y que no se ha vuelto a casar."
   standard_code: D
 - code: legally_separated
   label:
@@ -49,6 +57,8 @@ values:
     es: Separado/a legalmente
   definition:
     en: Person who is legally separated from their spouse.
+    fr: "Personne légalement séparée de son conjoint."
+    es: "Persona legalmente separada de su cónyuge."
   standard_code: L
 - code: consensual_union
   label:
@@ -57,6 +67,8 @@ values:
     es: Unión consensual
   definition:
     en: Person living in a consensual union (cohabitation without formal marriage).
+    fr: "Personne vivant en union consensuelle (cohabitation sans mariage formel)."
+    es: "Persona que vive en unión consensual (cohabitación sin matrimonio formal)."
   standard_code: C
 
 system_mappings:
@@ -147,8 +159,8 @@ system_mappings:
         unmapped_reason: no_equivalent
       - code: "P"
         label: "Polygamous"
-        maps_to: null
-        unmapped_reason: not_yet_mapped
+        maps_to: married
+        note: "Per UN census standards (Rev. 3/4), all parties in a polygamous union are 'married.' Polygamy is a union characteristic, not a marital status. Use the number_of_spouses property to capture union type."
       - code: "T"
         label: "Domestic partner"
         maps_to: null

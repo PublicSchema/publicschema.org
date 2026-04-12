@@ -2,9 +2,9 @@ id: name
 maturity: trial-use
 
 definition:
-  en: "The full display name of the person."
-  fr: "Le nom complet d'affichage de la personne."
-  es: "El nombre completo de visualizacion de la persona."
+  en: "The full display name of the person or group."
+  fr: "Le nom complet d'affichage de la personne ou du groupe."
+  es: "El nombre completo de visualización de la persona o del grupo."
 
 type: string
 cardinality: single

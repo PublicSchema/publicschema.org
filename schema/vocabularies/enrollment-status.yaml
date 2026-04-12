@@ -50,13 +50,9 @@ values:
     fr: Clos
     es: Cerrado
   definition:
-    en: The enrollment has been permanently ended for administrative reasons such as ineligibility, non-compliance, voluntary
-      withdrawal, or death. Use graduated when exit is through program-defined criteria.
-    fr: L'inscription a été définitivement clôturée pour des raisons administratives telles que l'inéligibilité, le non-respect
-      des conditions, le retrait volontaire ou le décès. Utilisez graduated lorsque la sortie se fait selon les critères définis
-      par le programme.
-    es: La inscripción ha sido terminada de forma permanente por razones administrativas como inelegibilidad, incumplimiento,
-      retiro voluntario o fallecimiento. Use graduated cuando la salida es a través de criterios definidos por el programa.
+    en: "The enrollment has been permanently ended. The reason for closure is captured in exit_reason."
+    fr: "L'inscription a été définitivement clôturée. La raison de la clôture est indiquée dans exit_reason."
+    es: "La inscripción ha sido terminada de forma permanente. La razón del cierre se indica en exit_reason."
 - code: pending_verification
   label:
     en: Pending verification
@@ -111,6 +107,7 @@ system_mappings:
     - suspended
     - pending_verification
     - graduated
+    notes: "COMPLETED may map to graduated or closed + exit_reason depending on program context. CANCELLED maps to closed + exit_reason (administrative or voluntary_withdrawal)."
   openimis:
     vocabulary_name: BeneficiaryStatus
     values:
