@@ -1,0 +1,13 @@
+id: age_at_event
+maturity: draft
+
+definition:
+  en: "The stated age of the person at the time of the vital event. Used in low-completeness settings where date of birth is unknown and stated age is the only age data available."
+  fr: "L'âge déclaré de la personne au moment de l'événement d'état civil. Utilisé dans les contextes de faible complétude où la date de naissance est inconnue et l'âge déclaré est la seule donnée d'âge disponible."
+  es: "La edad declarada de la persona al momento del evento vital. Utilizado en contextos de baja completitud donde la fecha de nacimiento es desconocida y la edad declarada es el único dato de edad disponible."
+
+type: integer
+cardinality: single
+vocabulary: null
+references: null
+domain_override: crvs

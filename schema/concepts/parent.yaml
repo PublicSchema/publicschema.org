@@ -28,11 +28,10 @@ definition:
     a GroupMembership.
 
 properties:
-  - person
   - parental_role
 
 subtypes: []
-supertypes: []
+supertypes: [CRVSPerson]
 
 external_equivalents:
   opencrvs:
