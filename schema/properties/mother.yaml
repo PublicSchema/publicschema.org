@@ -6,8 +6,8 @@ definition:
   fr: "La mère de l'enfant dans un contexte de reconnaissance de paternité, où son identité est utilisée pour rattacher la reconnaissance à un acte maternel précis même lorsqu'elle n'est pas la déclarante."
   es: "La madre del niño o de la niña en un contexto de reconocimiento de paternidad, donde su identidad se utiliza para vincular el reconocimiento a un registro materno específico aunque ella no sea la declarante."
 
-type: concept:Person
+type: concept:Parent
 cardinality: single
 vocabulary: null
-references: Person
+references: Parent
 domain_override: crvs

@@ -57,3 +57,13 @@ values:
       en: "A certificate attesting to an adoption."
       fr: "Un certificat attestant d'une adoption."
       es: "Un certificado que acredita una adopción."
+
+  - code: annulment_certificate
+    label:
+      en: Annulment certificate
+      fr: Certificat d'annulation
+      es: Certificado de anulación
+    definition:
+      en: "A certificate attesting to the annulment of a marriage."
+      fr: "Un certificat attestant de l'annulation d'un mariage."
+      es: "Un certificado que acredita la anulación de un matrimonio."

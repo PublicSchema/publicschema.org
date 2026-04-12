@@ -5,31 +5,36 @@ domain: crvs
 definition:
   en: >
     A record that tracks a family unit over time, centered on a head of
-    household and capturing members via GroupMembership links. Distinct from
-    the event-based acte tradition: family registers (koseki in Japan, hukou
-    in China, livret de famille in France) maintain a running view of the
-    family as vital events occur. Status captures whether the register is
-    active, closed, split, or merged.
+    household. Members are reached through the linked Family, which exposes
+    GroupMembership entries for each person with their role (head, spouse,
+    child, etc.) and entry or exit dates. Distinct from the event-based
+    acte tradition: family registers (koseki in Japan, hukou in China,
+    livret de famille in France) maintain a running view of the family as
+    vital events occur. Status captures whether the register is active,
+    closed, split, or merged.
   fr: >
     Un registre qui suit une unité familiale dans le temps, centré sur un
-    chef de famille et saisissant les membres via des liens GroupMembership.
-    Distinct de la tradition des actes par événement: les registres
+    chef de famille. Les membres sont accessibles via la Famille liée,
+    qui expose les GroupMembership de chaque personne avec son rôle (chef
+    de famille, conjoint, enfant, etc.) et ses dates d'entrée ou de
+    sortie. Distinct de la tradition des actes par événement: les registres
     familiaux (koseki au Japon, hukou en Chine, livret de famille en France)
     maintiennent une vue continue de la famille à mesure que surviennent
     les événements d'état civil. Le statut indique si le registre est actif,
     clôturé, scindé ou fusionné.
   es: >
     Un registro que da seguimiento a una unidad familiar a lo largo del
-    tiempo, centrado en una jefatura de hogar y capturando a los miembros
-    mediante enlaces GroupMembership. Distinto de la tradición de actas por
-    evento: los registros familiares (koseki en Japón, hukou en China,
-    libreta de familia en Francia) mantienen una visión continua de la
-    familia a medida que ocurren los eventos vitales. El estado indica si
-    el registro está activo, cerrado, dividido o fusionado.
+    tiempo, centrado en una jefatura de hogar. Los miembros se alcanzan a
+    través de la Familia vinculada, que expone las entradas de
+    GroupMembership de cada persona con su rol (jefe de hogar, cónyuge,
+    hijo, etc.) y las fechas de entrada o salida. Distinto de la tradición
+    de actas por evento: los registros familiares (koseki en Japón, hukou
+    en China, libreta de familia en Francia) mantienen una visión continua
+    de la familia a medida que ocurren los eventos vitales. El estado
+    indica si el registro está activo, cerrado, dividido o fusionado.
 
 properties:
   - family
-  - members
   - head_of_household
   - register_number
   - register_authority

@@ -6,8 +6,8 @@ definition:
   fr: "Le numéro unique attribué par l'autorité d'état civil lors de l'enregistrement de l'événement. Sert de référence principale pour retrouver l'acte officiel."
   es: "El número único asignado por la autoridad de registro civil cuando se registra el evento vital. Sirve como referencia principal para recuperar el registro oficial."
 
-type: concept:Identifier
+type: string
 cardinality: single
 vocabulary: null
-references: Identifier
+references: null
 domain_override: crvs
