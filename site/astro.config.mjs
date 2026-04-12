@@ -17,6 +17,15 @@ export default defineConfig({
       defaultLocale: 'en',
       locales: { en: 'en', fr: 'fr', es: 'es' },
     },
+    serialize(item) {
+      if (item.links?.length && !item.links.some((l) => l.lang === 'x-default')) {
+        const enLink = item.links.find((l) => l.lang === 'en');
+        if (enLink) {
+          item.links.push({ lang: 'x-default', url: enLink.url });
+        }
+      }
+      return item;
+    },
   })],
   vite: {
     resolve: {
