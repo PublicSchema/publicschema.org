@@ -8,6 +8,6 @@ definition:
 
 type: string
 cardinality: single
-vocabulary: enrollment-exit-reason
+vocabulary: sp/enrollment-exit-reason
 references: null
 domain_override: null

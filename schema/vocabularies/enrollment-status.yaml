@@ -107,7 +107,7 @@ system_mappings:
     - suspended
     - pending_verification
     - graduated
-    notes: "COMPLETED may map to graduated or closed + exit_reason depending on program context. CANCELLED maps to closed + exit_reason (administrative or voluntary_withdrawal)."
+    note: "COMPLETED may map to graduated or closed + exit_reason depending on program context. CANCELLED maps to closed + exit_reason (administrative or voluntary_withdrawal)."
   openimis:
     vocabulary_name: BeneficiaryStatus
     values:

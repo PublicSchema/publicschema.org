@@ -127,6 +127,7 @@ system_mappings:
       label: Not Paid
       maps_to: pending
     unmapped_canonical:
+    - partial
     - returned
     - cancelled
     - rejected
@@ -141,6 +142,7 @@ system_mappings:
       maps_to: reconciled
       migration_note: "Will map to is_reconciled: true + payment_status: paid when reconciled status is removed."
     unmapped_canonical:
+    - partial
     - pending
     - failed
     - returned
@@ -195,6 +197,7 @@ system_mappings:
       maps_to: reconciled
       migration_note: "Will map to is_reconciled: true + payment_status: paid when reconciled status is removed."
     unmapped_canonical:
+    - partial
     - paid
     - failed
     - returned
@@ -211,6 +214,7 @@ system_mappings:
       label: Failed
       maps_to: failed
     unmapped_canonical:
+    - partial
     - pending
     - returned
     - rejected
