@@ -85,6 +85,7 @@ const navLinks = [
   <link rel="alternate" hreflang="x-default" href={new URL(switchLocalePath(Astro.url, defaultLocale), Astro.site).href} />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   {alternateJsonLd && <link rel="alternate" type="application/ld+json" href={alternateJsonLd} />}
+  <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM-optimized site description" />
 
   <!-- OpenGraph -->
   <meta property="og:type" content={ogType} />
