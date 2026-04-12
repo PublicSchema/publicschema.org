@@ -23,7 +23,7 @@ const conceptsByDomain = Object.fromEntries(domainCodes.map((d) => [d, concepts.
 ---
 <Base title={t('concepts.page_title')} description={t('concepts.page_subtitle')} locale={locale}>
   <div class="page-header">
-    <nav class="breadcrumb">
+    <nav class="breadcrumb" aria-label={t('breadcrumb.home')}>
       <a href={localePath('/', locale)}>{t('breadcrumb.home')}</a><span class="separator">/</span>{t('common.concepts')}
     </nav>
     <h1>{t('concepts.page_title')}</h1>

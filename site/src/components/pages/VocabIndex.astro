@@ -24,7 +24,7 @@ const vocabularies = Object.entries(vocab.vocabularies)
 ---
 <Base title={t('vocab.page_title')} description={t('vocab.page_subtitle')} locale={locale}>
   <div class="page-header">
-    <nav class="breadcrumb">
+    <nav class="breadcrumb" aria-label={t('breadcrumb.home')}>
       <a href={localePath('/', locale)}>{t('breadcrumb.home')}</a><span class="separator">/</span>{t('common.vocabularies')}
     </nav>
     <h1>{t('vocab.page_title')}</h1>

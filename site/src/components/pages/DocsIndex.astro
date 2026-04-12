@@ -50,6 +50,9 @@ const categories: DocCategory[] = categoryOrder.map((key) => ({
 ---
 <Base title={t('docs.page_title')} description={t('docs.page_subtitle')} locale={locale}>
   <div class="page-header">
+    <nav class="breadcrumb" aria-label={t('breadcrumb.home')}>
+      <a href={localePath('/', locale)}>{t('breadcrumb.home')}</a><span class="separator">/</span>{t('nav.docs')}
+    </nav>
     <h1>{t('docs.page_title')}</h1>
     <p class="subtitle">{t('docs.page_subtitle')}</p>
   </div>

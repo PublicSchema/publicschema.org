@@ -56,7 +56,7 @@ const domainTitles: Record<string, string> = { sp: t('concepts.section_social_pr
     }
   })} />
   <div class="page-header">
-    <nav class="breadcrumb">
+    <nav class="breadcrumb" aria-label={t('breadcrumb.home')}>
       <a href={localePath('/', locale)}>{t('breadcrumb.home')}</a>
       <span class="separator">/</span>
       <a href={localePath('/concepts/', locale)}>{t('common.concepts')}</a>
@@ -199,7 +199,7 @@ const domainTitles: Record<string, string> = { sp: t('concepts.section_social_pr
               <>
                 <tr>
                   <td>{eq.vocabulary}</td>
-                  <td><a href={eq.uri} target="_blank" rel="noopener">{eq.label}</a></td>
+                  <td><a href={eq.uri} target="_blank" rel="noopener noreferrer">{eq.label}</a></td>
                   <td><span class={`badge badge-${eq.match}`}>{eq.match.replace('_', ' ')}</span></td>
                 </tr>
                 {eq.note && (

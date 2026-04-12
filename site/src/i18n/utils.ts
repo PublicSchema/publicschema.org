@@ -42,8 +42,17 @@ export function getLangFromUrl(url: URL | string): Locale {
  */
 export function localePath(path: string, locale: Locale = defaultLocale): string {
   const normalized = path.startsWith('/') ? path : `/${path}`;
-  if (locale === defaultLocale) return normalized;
-  return `/${locale}${normalized}`;
+
+  // Ensure trailing slash on page paths (skip fragments and file extensions).
+  const [pathPart, ...fragmentParts] = normalized.split('#');
+  const fragment = fragmentParts.length > 0 ? `#${fragmentParts.join('#')}` : '';
+  const lastSegment = pathPart.split('/').pop() ?? '';
+  const needsSlash = !pathPart.endsWith('/') && !lastSegment.includes('.');
+  const withSlash = needsSlash ? `${pathPart}/` : pathPart;
+  const result = `${withSlash}${fragment}`;
+
+  if (locale === defaultLocale) return result;
+  return `/${locale}${result}`;
 }
 
 /**

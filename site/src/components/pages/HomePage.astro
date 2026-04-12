@@ -42,15 +42,15 @@ const Content = (await loader()).default;
 
 const titles: Record<Locale, { title: string; description: string }> = {
   en: {
-    title: 'Home',
+    title: 'Common definitions for public service delivery',
     description: 'Common definitions for public service delivery. When programs serve the same people, their systems need a shared language.',
   },
   fr: {
-    title: 'Accueil',
+    title: 'Définitions communes pour la prestation de services publics',
     description: 'Définitions communes pour la prestation de services publics. Lorsque des programmes servent les mêmes personnes, leurs systèmes ont besoin d\'un langage partagé.',
   },
   es: {
-    title: 'Inicio',
+    title: 'Definiciones comunes para la prestación de servicios públicos',
     description: 'Definiciones comunes para la prestación de servicios públicos. Cuando los programas sirven a las mismas personas, sus sistemas necesitan un lenguaje compartido.',
   },
 };
@@ -58,21 +58,31 @@ const titles: Record<Locale, { title: string; description: string }> = {
 const { title, description } = titles[locale];
 ---
 <Base title={title} description={description} locale={locale}>
-  <script type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "PublicSchema",
-    "url": "https://publicschema.org/",
-    "description": description,
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": {
-        "@type": "EntryPoint",
-        "urlTemplate": "https://publicschema.org/?q={search_term_string}"
-      },
-      "query-input": "required name=search_term_string"
+  <script type="application/ld+json" set:html={JSON.stringify([
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "PublicSchema",
+      "url": "https://publicschema.org/",
+      "description": description,
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://publicschema.org/?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "PublicSchema",
+      "url": "https://publicschema.org/",
+      "logo": "https://publicschema.org/images/logo.png",
+      "description": description
     }
-  })} />
+  ])} />
   {fellBack && <TranslationBanner locale={locale} />}
   <Content
     locale={locale}

@@ -10,6 +10,7 @@ interface Props {
   alternateJsonLd?: string;
   ogType?: 'website' | 'article';
   locale?: Locale;
+  noHreflang?: boolean;
 }
 
 const {
@@ -17,6 +18,7 @@ const {
   alternateJsonLd,
   ogType = 'website',
   locale = defaultLocale,
+  noHreflang = false,
 } = Astro.props;
 
 const t = useTranslations(locale);
@@ -75,15 +77,18 @@ const navLinks = [
   <meta name="description" content={description} />
   <title>{pageTitle}</title>
   <link rel="canonical" href={canonicalUrl} />
-  {localesLive.map((loc) => (
+  {!noHreflang && localesLive.map((loc) => (
     <link
       rel="alternate"
       hreflang={languages[loc].htmlLang}
       href={new URL(switchLocalePath(Astro.url, loc), Astro.site).href}
     />
   ))}
-  <link rel="alternate" hreflang="x-default" href={new URL(switchLocalePath(Astro.url, defaultLocale), Astro.site).href} />
+  {!noHreflang && <link rel="alternate" hreflang="x-default" href={new URL(switchLocalePath(Astro.url, defaultLocale), Astro.site).href} />}
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#1e3a5f" />
   {alternateJsonLd && <link rel="alternate" type="application/ld+json" href={alternateJsonLd} />}
   <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM-optimized site description" />
 
@@ -94,10 +99,11 @@ const navLinks = [
   <meta property="og:url" content={canonicalUrl} />
   <meta property="og:site_name" content="PublicSchema" />
   <meta property="og:locale" content={ogLocale} />
-  {localesLive.filter((loc) => loc !== locale).map((loc) => (
+  {!noHreflang && localesLive.filter((loc) => loc !== locale).map((loc) => (
     <meta property="og:locale:alternate" content={languages[loc].ogLocale} />
   ))}
   <meta property="og:image" content={new URL('/images/social-preview.png', Astro.site).href} />
+  <meta property="og:image:alt" content="PublicSchema: common definitions for public service delivery" />
   <meta property="og:image:width" content="1280" />
   <meta property="og:image:height" content="640" />
   <meta property="og:logo" content={new URL('/images/logo.png', Astro.site).href} />
@@ -105,6 +111,7 @@ const navLinks = [
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content={new URL('/images/social-preview.png', Astro.site).href} />
+  <meta name="twitter:image:alt" content="PublicSchema: common definitions for public service delivery" />
   <meta name="twitter:title" content={pageTitle} />
   <meta name="twitter:description" content={description} />
   <script type="application/ld+json" set:html={breadcrumbJsonLd}></script>

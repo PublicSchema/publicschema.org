@@ -2,12 +2,14 @@
 import Base from '../../layouts/Base.astro';
 import TranslationBanner from '../TranslationBanner.astro';
 import { defaultLocale, type Locale } from '../../i18n/languages';
+import { useTranslations, localePath } from '../../i18n/utils';
 
 interface Props {
   locale?: Locale;
 }
 
 const { locale = defaultLocale } = Astro.props;
+const t = useTranslations(locale);
 
 const modules = import.meta.glob('./content/AboutContent.*.astro');
 const wantedKey = `./content/AboutContent.${locale}.astro`;
@@ -40,6 +42,9 @@ const { title, subtitle, description } = titles[locale];
   <article class="concept-narrative">
     {fellBack && <TranslationBanner locale={locale} />}
     <div class="page-header">
+      <nav class="breadcrumb" aria-label={t('breadcrumb.home')}>
+        <a href={localePath('/', locale)}>{t('breadcrumb.home')}</a><span class="separator">/</span>{title}
+      </nav>
       <h1>{title}</h1>
       <p class="subtitle">{subtitle}</p>
     </div>

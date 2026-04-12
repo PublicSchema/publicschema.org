@@ -42,7 +42,7 @@ const { title, subtitle, description } = headers[locale];
   <article class="concept-narrative">
     {fellBack && <TranslationBanner locale={locale} />}
     <div class="page-header">
-      <nav class="breadcrumb">
+      <nav class="breadcrumb" aria-label={t('breadcrumb.home')}>
         <a href={localePath('/', locale)}>{t('breadcrumb.home')}</a><span class="separator">/</span>{title}
       </nav>
       <h1>{title}</h1>

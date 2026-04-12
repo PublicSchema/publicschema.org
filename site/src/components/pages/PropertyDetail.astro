@@ -30,8 +30,20 @@ const isPrimitiveType = primitiveTypes.includes(prop.type);
 ---
 <Base title={prop.id} description={definition} alternateJsonLd={`${prop.path}.jsonld`} ogType="article" locale={locale}>
   <article>
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "DefinedTerm",
+    "name": prop.id,
+    "description": definition,
+    "url": prop.uri,
+    "inDefinedTermSet": {
+      "@type": "DefinedTermSet",
+      "name": "PublicSchema",
+      "url": "https://publicschema.org/properties/"
+    }
+  })} />
   <div class="page-header">
-    <nav class="breadcrumb">
+    <nav class="breadcrumb" aria-label={t('breadcrumb.home')}>
       <a href={localePath('/', locale)}>{t('breadcrumb.home')}</a>
       <span class="separator">/</span>
       <a href={localePath('/properties/', locale)}>{t('common.properties')}</a>
@@ -82,7 +94,7 @@ const isPrimitiveType = primitiveTypes.includes(prop.type);
               <>
                 <tr>
                   <td>{eq.vocabulary}</td>
-                  <td><a href={eq.uri} target="_blank" rel="noopener">{eq.label}</a></td>
+                  <td><a href={eq.uri} target="_blank" rel="noopener noreferrer">{eq.label}</a></td>
                   <td><span class={`badge badge-${eq.match}`}>{eq.match.replace('_', ' ')}</span></td>
                 </tr>
                 {eq.note && (

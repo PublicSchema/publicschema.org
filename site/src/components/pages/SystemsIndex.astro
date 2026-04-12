@@ -23,7 +23,7 @@ const systems = Object.entries(index)
 ---
 <Base title={t('systems.page_title')} description={t('systems.page_subtitle')} locale={locale}>
   <div class="page-header">
-    <nav class="breadcrumb">
+    <nav class="breadcrumb" aria-label={t('breadcrumb.home')}>
       <a href={localePath('/', locale)}>{t('breadcrumb.home')}</a><span class="separator">/</span>{t('common.systems')}
     </nav>
     <h1>{t('systems.page_title')}</h1>

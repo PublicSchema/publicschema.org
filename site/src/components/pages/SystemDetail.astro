@@ -25,7 +25,7 @@ const sameStandard = vocabEntries.filter((e) => e.relationship === "same_standar
 <Base title={meta.name} description={t('system_detail.page_description', { name: meta.name })} ogType="article" locale={locale}>
   <article>
   <div class="page-header">
-    <nav class="breadcrumb">
+    <nav class="breadcrumb" aria-label={t('breadcrumb.home')}>
       <a href={localePath('/', locale)}>{t('breadcrumb.home')}</a>
       <span class="separator">/</span>
       <a href={localePath('/systems/', locale)}>{t('common.systems')}</a>
@@ -37,7 +37,7 @@ const sameStandard = vocabEntries.filter((e) => e.relationship === "same_standar
       <span class={`badge badge-${meta.reviewStatus}`}>{meta.reviewStatus}</span>
     </h1>
     {meta.url && (
-      <p><a href={meta.url} target="_blank" rel="noopener">{meta.url}</a></p>
+      <p><a href={meta.url} target="_blank" rel="noopener noreferrer">{meta.url}</a></p>
     )}
     <p class="definition-text">{meta.description}</p>
     {meta.reviewStatus === "reviewed" && meta.lastReviewed && (
@@ -50,7 +50,7 @@ const sameStandard = vocabEntries.filter((e) => e.relationship === "same_standar
   <div class="concept-section">
     <p>
       This page shows how {meta.name} vocabulary codes map to PublicSchema canonical values.
-      If you work with {meta.name} and spot an error, please <a href={issueUrl} target="_blank" rel="noopener">report it</a>.
+      If you work with {meta.name} and spot an error, please <a href={issueUrl} target="_blank" rel="noopener noreferrer">report it</a>.
     </p>
     <p style="color: var(--color-text-muted); font-size: 0.85rem;">
       {vocabEntries.length} {t('system_detail.vocabularies').toLowerCase()} covered: {valueMapped} {t('system_detail.relationship_value_mapping').toLowerCase()}{sameStandard > 0 ? `, ${sameStandard} ${t('system_detail.relationship_same_standard').toLowerCase()}` : ""}.
@@ -127,7 +127,7 @@ const sameStandard = vocabEntries.filter((e) => e.relationship === "same_standar
   )}
 
   <div class="concept-section" style="text-align: center;">
-    <a href={issueUrl} target="_blank" rel="noopener" class="btn btn-secondary">
+    <a href={issueUrl} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
       {t('system_detail.report_button')}
     </a>
   </div>
