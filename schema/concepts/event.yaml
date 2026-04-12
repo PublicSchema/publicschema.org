@@ -27,6 +27,18 @@ properties:
 subtypes: [AssessmentEvent, EligibilityDecision, HazardEvent, InKindDelivery, PaymentEvent, Referral, VoucherRedemption]
 supertypes: []
 
+external_equivalents:
+  semic:
+    label: "N/A"
+    match: none
+    vocabulary: "Core Vocabularies"
+    note: "SEMIC Core Vocabularies do not define a generic event supertype. Domain-specific events are modeled directly."
+  dci:
+    label: "N/A"
+    match: none
+    vocabulary: "DCI Core"
+    note: "DCI does not define a generic event supertype. Timestamped occurrences are modeled as properties on domain entities."
+
 convergence:
   system_count: 6
   total_systems: 6

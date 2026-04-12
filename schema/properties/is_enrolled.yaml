@@ -2,9 +2,9 @@ id: is_enrolled
 maturity: trial-use
 
 definition:
-  en: "Whether the person is currently enrolled in a program. A simple boolean for use in verifiable credentials where the program identity should remain undisclosed."
-  fr: "Indique si la personne est actuellement inscrite dans un programme. Un booleen simple destine aux justificatifs verificables ou l'identite du programme doit rester non divulguee."
-  es: "Indica si la persona esta actualmente inscrita en un programa. Un booleano simple para uso en credenciales verificables donde la identidad del programa debe permanecer sin revelar."
+  en: "Whether the person is currently enrolled in a program. Designed for verifiable credentials where enrollment status must be disclosed without revealing the specific program or detailed enrollment state. For operational queries, use enrollment_status instead."
+  fr: "Indique si la personne est actuellement inscrite dans un programme. Conçu pour les justificatifs vérifiables où le statut d'inscription doit être divulgué sans révéler le programme spécifique ou l'état détaillé de l'inscription. Pour les requêtes opérationnelles, utiliser enrollment_status."
+  es: "Indica si la persona está actualmente inscrita en un programa. Diseñado para credenciales verificables donde el estado de inscripción debe divulgarse sin revelar el programa específico o el estado detallado de inscripción. Para consultas operacionales, usar enrollment_status."
 
 type: boolean
 cardinality: single

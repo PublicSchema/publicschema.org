@@ -31,6 +31,13 @@ properties:
 subtypes: []
 supertypes: []
 
+external_equivalents:
+  dci:
+    label: "N/A"
+    match: none
+    vocabulary: "DCI Core"
+    note: "DCI does not define a grievance or complaint entity. Grievance handling is outside the scope of the data exchange layer."
+
 convergence:
   system_count: 5
   total_systems: 6

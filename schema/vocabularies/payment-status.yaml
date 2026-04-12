@@ -33,6 +33,15 @@ values:
     en: The payment instruction has been accepted by the financial intermediary and is being executed.
     fr: L'instruction de paiement a été acceptée par l'intermédiaire financier et est en cours d'exécution.
     es: La instrucción de pago ha sido aceptada por el intermediario financiero y está siendo ejecutada.
+- code: partial
+  label:
+    en: Partial
+    fr: Partiel
+    es: Parcial
+  definition:
+    en: Part of the payment amount has been transmitted but the full amount has not yet been delivered.
+    fr: Une partie du montant du paiement a été transmise mais le montant total n'a pas encore été versé.
+    es: Parte del monto del pago ha sido transmitida pero el monto total aún no ha sido entregado.
 - code: paid
   label:
     en: Paid
@@ -149,7 +158,7 @@ system_mappings:
       maps_to: failed
     - code: PARTIAL
       label: Partial
-      maps_to: paid
+      maps_to: partial
     unmapped_canonical:
     - pending
     - returned

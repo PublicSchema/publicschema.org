@@ -8,7 +8,7 @@ definition:
     administrativo.
 standard:
   name: UN UNSD Population Census Framework
-  uri: urn:un:unsd:pop-census:marital-status
+  uri: https://unstats.un.org/unsd/demographic-social/Standards-and-Methods/files/Principles_and_Recommendations/Population-and-Housing-Censuses/Series_M67rev3-E.pdf
 values:
 - code: never_married
   label:

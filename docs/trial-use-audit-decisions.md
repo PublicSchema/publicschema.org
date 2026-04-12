@@ -166,8 +166,8 @@ Since `reconciled` is a trial-use value, removing it requires advance notice (pe
 
 ### Changes required
 
-- [ ] Add a note to the `recipient` property definition explaining that recipient may differ from the enrolled beneficiary
-- [ ] Add a note to the `complainant` property definition explaining that the complainant need not be the enrolled beneficiary
+- [x] Add a note to the `recipient` property definition explaining that recipient may differ from the enrolled beneficiary
+- [x] Add a note to the `complainant` property definition explaining that the complainant need not be the enrolled beneficiary
 
 ---
 
@@ -181,9 +181,9 @@ Most systems track a single enrollment date meaning "when did this person become
 
 ### Changes required
 
-- [ ] Rewrite `enrollment_date` EN definition to: "The date on which the enrollment became active and benefit delivery was authorized."
-- [ ] Update FR/ES to match
-- [ ] Verify Enrollment concept definition is consistent (it now says "registering" which is fine, the concept covers the whole process, the property captures the activation event)
+- [x] Rewrite `enrollment_date` EN definition to: "The date on which the enrollment became active and benefit delivery was authorized."
+- [x] Update FR/ES to match
+- [x] Verify Enrollment concept definition is consistent (it now says "registering" which is fine, the concept covers the whole process, the property captures the activation event)
 
 ---
 
@@ -195,8 +195,8 @@ Most systems track a single enrollment date meaning "when did this person become
 
 ### Changes required
 
-- [ ] Rewrite `resolution_date` EN definition to: "The date on which a resolution decision was issued for the grievance."
-- [ ] Update FR/ES to match
+- [x] Rewrite `resolution_date` EN definition to: "The date on which a resolution decision was issued for the grievance."
+- [x] Update FR/ES to match
 
 ---
 
@@ -212,8 +212,8 @@ Most systems track a single enrollment date meaning "when did this person become
 
 ### Changes required
 
-- [ ] Remove `is_active` from Enrollment's `properties` list
-- [ ] Add a note to the Enrollment concept or `is_enrolled` property clarifying its VC-specific purpose
+- [x] Remove `is_active` from Enrollment's `properties` list
+- [x] Add a note to the Enrollment concept or `is_enrolled` property clarifying its VC-specific purpose
 
 ---
 
@@ -231,8 +231,8 @@ Four vocabulary coarseness warnings. Decided per item:
 
 ### Changes required
 
-- [ ] Add `partial` value to payment-status vocabulary
-- [ ] Update opencrvs system_mapping to map PARTIAL to `partial` instead of `paid`
+- [x] Add `partial` value to payment-status vocabulary
+- [x] Update opencrvs system_mapping to map PARTIAL to `partial` instead of `paid`
 
 ---
 
@@ -244,8 +244,8 @@ Four vocabulary coarseness warnings. Decided per item:
 
 ### Changes required
 
-- [ ] Add `non_relative` value to relationship-type vocabulary
-- [ ] Update system_mappings that currently map non-relative codes to `other`
+- [x] Add `non_relative` value to relationship-type vocabulary
+- [x] Update system_mappings that currently map non-relative codes to `other`
 
 ---
 
@@ -257,8 +257,8 @@ Four vocabulary coarseness warnings. Decided per item:
 
 ### Changes required
 
-- [ ] Rewrite `other` value definition to: "A gender identity that is not exclusively male or female, including but not limited to non-binary, third gender, or gender-diverse identities as recognized by the recording system."
-- [ ] Update FR/ES to match
+- [x] Rewrite `other` value definition to: "A gender identity that is not exclusively male or female, including but not limited to non-binary, third gender, or gender-diverse identities as recognized by the recording system."
+- [x] Update FR/ES to match
 
 ---
 
@@ -270,8 +270,8 @@ Four vocabulary coarseness warnings. Decided per item:
 
 ### Changes required
 
-- [ ] Research openspp, openimis grievance type equivalents and add system_mappings
-- [ ] If no system equivalents found, add a note explaining the literature-only evidence base
+- [x] Research openspp, openimis grievance type equivalents and add system_mappings
+- [x] If no system equivalents found, add a note explaining the literature-only evidence base
 
 ---
 
@@ -295,8 +295,8 @@ None.
 
 ### Changes required
 
-- [ ] Research DHIS2, openIMIS, DCI for entitlement status equivalents
-- [ ] Research additional systems for group role equivalents
+- [ ] Research DHIS2, openIMIS, DCI for entitlement status equivalents (deferred: requires per-system investigation)
+- [ ] Research additional systems for group role equivalents (deferred: requires per-system investigation)
 
 ---
 
@@ -349,7 +349,7 @@ For Household, Event, PaymentEvent, Grievance: these genuinely lack strong match
 
 ### Changes required
 
-- [ ] Add `external_equivalents` to Household, Event, PaymentEvent, Grievance with notes explaining why no close match exists (or add the closest match if one exists)
+- [x] Add `external_equivalents` to Household, Event, PaymentEvent, Grievance with notes explaining why no close match exists (or add the closest match if one exists)
 
 ---
 

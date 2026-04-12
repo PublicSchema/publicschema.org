@@ -14,9 +14,18 @@ definition:
     El género administrativo de una persona tal como se registra en un registro o sistema de identidad. Distinto del
     sexo biológico (ver el vocabulario sex). Ninguna norma internacional única rige el vocabulario de género. Este
     vocabulario proporciona un conjunto mínimo común basado en lo que los sistemas administrativos registran.
+references:
+  - name: "FHIR R5 Gender Harmony Implementation Guide"
+    uri: "https://hl7.org/fhir/extensions/StructureDefinition-individual-genderIdentity.html"
+    relationship: structural_pattern
+    machine_readable: true
+    notes: "FHIR R5 separates sex from gender but does not mandate a controlled vocabulary for gender identity."
+  - name: "SEMIC Core Person Vocabulary 2.1.1"
+    uri: "https://semiceu.github.io/Core-Person-Vocabulary/releases/2.1.1/"
+    relationship: structural_pattern
+    machine_readable: false
+    notes: "SEMIC defines gender as a separate property from sex but leaves vocabulary choice to implementers."
 # No governing standard. ISO/IEC 5218 covers biological sex only (2022 revision).
-# FHIR R5 Gender Harmony and SEMIC Core Person 2.1.1 both separate sex from gender
-# but neither mandates a controlled vocabulary for gender.
 values:
 - code: male
   label:
@@ -42,9 +51,9 @@ values:
     fr: Autre
     es: Otro
   definition:
-    en: A gender not captured by the male or female categories.
-    fr: Un genre qui n'est pas couvert par les categories homme ou femme.
-    es: Un genero no cubierto por las categorias hombre o mujer.
+    en: A gender identity that is not exclusively male or female, including but not limited to non-binary, third gender, or gender-diverse identities as recognized by the recording system.
+    fr: Une identité de genre qui n'est pas exclusivement masculine ou féminine, y compris mais sans s'y limiter les identités non binaires, de troisième genre ou de genre diversifié telles que reconnues par le système d'enregistrement.
+    es: Una identidad de género que no es exclusivamente masculina o femenina, incluyendo pero no limitándose a identidades no binarias, de tercer género o de género diverso según lo reconocido por el sistema de registro.
 - code: not_stated
   label:
     en: Not stated

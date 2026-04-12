@@ -8,7 +8,7 @@ definition:
 
 type: string
 cardinality: single
-vocabulary: conditionality-type
+vocabulary: sp/conditionality-type
 references: null
 
 convergence:

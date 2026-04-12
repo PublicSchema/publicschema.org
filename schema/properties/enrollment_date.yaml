@@ -2,9 +2,9 @@ id: enrollment_date
 maturity: trial-use
 
 definition:
-  en: "The date on which the enrollment was formally activated."
-  fr: "La date à laquelle l'inscription a été formellement activée."
-  es: "La fecha en que la inscripción fue formalmente activada."
+  en: "The date on which the enrollment became active and benefit delivery was authorized."
+  fr: "La date à laquelle l'inscription est devenue active et la prestation de services a été autorisée."
+  es: "La fecha en que la inscripción se activó y se autorizó la entrega de beneficios."
 
 type: date
 cardinality: single

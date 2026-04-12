@@ -36,6 +36,13 @@ properties:
 subtypes: []
 supertypes: [Event]
 
+external_equivalents:
+  dci:
+    label: "N/A"
+    match: none
+    vocabulary: "DCI Core"
+    note: "DCI does not define a standalone payment event entity. Payment data is tracked as properties on Beneficiary (disbursement history)."
+
 convergence:
   system_count: 6
   total_systems: 6
