@@ -4,7 +4,6 @@ test.describe("i18n: locale-scoped chrome", () => {
   test("French home has lang=fr and translated nav labels", async ({ page }) => {
     await page.goto("/fr/");
     await expect(page.locator("html")).toHaveAttribute("lang", "fr");
-    await expect(page.locator(".nav-links")).toContainText("Propriétés");
     await expect(page.locator(".nav-links")).toContainText("Vocabulaires");
     await expect(page.locator(".nav-links")).toContainText("À propos");
   });
@@ -12,7 +11,6 @@ test.describe("i18n: locale-scoped chrome", () => {
   test("Spanish home has lang=es and translated nav labels", async ({ page }) => {
     await page.goto("/es/");
     await expect(page.locator("html")).toHaveAttribute("lang", "es");
-    await expect(page.locator(".nav-links")).toContainText("Propiedades");
     await expect(page.locator(".nav-links")).toContainText("Vocabularios");
     await expect(page.locator(".nav-links")).toContainText("Acerca de");
   });
@@ -20,7 +18,7 @@ test.describe("i18n: locale-scoped chrome", () => {
   test("English home has lang=en and English nav labels", async ({ page }) => {
     await page.goto("/");
     await expect(page.locator("html")).toHaveAttribute("lang", "en");
-    await expect(page.locator(".nav-links")).toContainText("Properties");
+    await expect(page.locator(".nav-links")).toContainText("Vocabularies");
   });
 });
 

@@ -22,6 +22,7 @@ const en = {
   // Language switcher
   'lang.switch_to': 'Switch language to {language}',
   'lang.current': 'Current language: {language}',
+  'lang.menu_label': 'Language',
 
   // Search UI
   'search.placeholder': 'Search concepts, properties...',
@@ -206,6 +207,7 @@ export const ui: Record<Locale, Partial<Dict>> = {
     // Language switcher
     'lang.switch_to': 'Changer la langue en {language}',
     'lang.current': 'Langue actuelle : {language}',
+    'lang.menu_label': 'Langue',
 
     // Search UI
     'search.placeholder': 'Rechercher des concepts, des propriétés...',
@@ -385,6 +387,7 @@ export const ui: Record<Locale, Partial<Dict>> = {
     // Language switcher
     'lang.switch_to': 'Cambiar idioma a {language}',
     'lang.current': 'Idioma actual: {language}',
+    'lang.menu_label': 'Idioma',
 
     // Search UI
     'search.placeholder': 'Buscar conceptos, propiedades...',
