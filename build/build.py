@@ -166,6 +166,8 @@ def _concept_to_jsonld(
     }
     if concept_out.get("domain"):
         concept_node["ps:domain"] = concept_out["domain"]
+    if concept_out.get("abstract"):
+        concept_node["ps:abstract"] = True
     supertypes = concept_out.get("supertypes", [])
     if supertypes:
         concept_node["rdfs:subClassOf"] = [
@@ -440,6 +442,7 @@ def build_vocabulary(schema_dir: Path) -> dict:
             "uri": _compute_uri(base_uri, domain, concept_id),
             "path": _compute_path(domain, concept_id),
             "maturity": data.get("maturity"),
+            "abstract": data.get("abstract", False),
             "definition": data.get("definition", {}),
             "properties": [
                 _normalize_property_entry(e)

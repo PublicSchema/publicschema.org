@@ -105,6 +105,9 @@ function collectAllSubtypes(conceptId: string): string[] {
         <h1>{concept.domain && <span class="domain-prefix" title={{"sp": "Social Protection"}[concept.domain] || concept.domain}>{concept.domain}:</span>}{concept.id}</h1>
         <div class="meta-line">
           <span class={`badge badge-${concept.maturity}`}>{concept.maturity}</span>
+          {concept.abstract && (
+            <span class="badge badge-abstract" title="Abstract supertype: exists to group shared properties; instances are recorded as one of its subtypes">abstract</span>
+          )}
         </div>
         <p class="definition-text">{concept.definition.en}</p>
         <p class="uri">{concept.uri}</p>

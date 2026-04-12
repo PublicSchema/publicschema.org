@@ -168,6 +168,29 @@ class TestSupertypeSubtypeSymmetry:
         assert set(data["subtypes"]) == {"Divorce", "Annulment"}
 
 
+class TestAbstractConcepts:
+    @pytest.mark.parametrize("concept_id", ["VitalEvent", "MarriageTermination"])
+    def test_abstract_flag_true_in_yaml(self, concept_id):
+        """Abstract supertypes declare abstract: true in their YAML."""
+        kebab = "".join(
+            ("-" + c.lower() if c.isupper() and i > 0 else c.lower())
+            for i, c in enumerate(concept_id)
+        )
+        data = _load_yaml(SCHEMA_DIR / "concepts" / f"{kebab}.yaml")
+        assert data.get("abstract") is True, (
+            f"{concept_id} should be marked abstract"
+        )
+
+    def test_abstract_flag_propagates_to_build_output(self):
+        """Build output carries the abstract flag for abstract concepts."""
+        result = build_vocabulary(SCHEMA_DIR)
+        assert result["concepts"]["VitalEvent"]["abstract"] is True
+        assert result["concepts"]["MarriageTermination"]["abstract"] is True
+        # Concrete subtypes default to False
+        assert result["concepts"]["Birth"]["abstract"] is False
+        assert result["concepts"]["Divorce"]["abstract"] is False
+
+
 class TestCrvsVocabularies:
     @pytest.mark.parametrize("vocab_id", CRVS_VOCABULARIES)
     def test_vocabulary_file_exists(self, vocab_id):
@@ -254,7 +277,15 @@ class TestCrvsVocabularies:
             ),
             ("marriage-type", {"civil", "religious", "customary", "common_law"}),
             ("adoption-type", {"full", "simple"}),
-            ("annotation-type", {"court_ordered_correction", "nationality_change"}),
+            (
+                "annotation-type",
+                {
+                    "court_ordered_correction",
+                    "nationality_change",
+                    "name_change",
+                    "gender_marker_change",
+                },
+            ),
             (
                 "civil-status-record-type",
                 {

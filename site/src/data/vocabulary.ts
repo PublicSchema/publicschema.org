@@ -29,6 +29,7 @@ export interface Concept {
   uri: string;
   path: string;
   maturity: string;
+  abstract: boolean;
   definition: MultilingualText;
   properties: PropertyRef[];
   subtypes: string[];

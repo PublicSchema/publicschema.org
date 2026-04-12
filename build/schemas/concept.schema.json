@@ -19,6 +19,10 @@
       "type": ["string", "null"],
       "description": "Domain namespace. Null or omitted for universal concepts."
     },
+    "abstract": {
+      "type": "boolean",
+      "description": "True if the concept is an abstract supertype that exists only to group shared properties; concrete instances are recorded as one of its subtypes."
+    },
     "definition": {
       "$ref": "#/$defs/multilingual_text"
     },

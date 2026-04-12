@@ -27,3 +27,23 @@ values:
       en: "An annotation reflecting a change in the person's nationality, for example through naturalization or loss of citizenship."
       fr: "Une mention reflétant un changement de nationalité de la personne, par exemple par naturalisation ou perte de citoyenneté."
       es: "Una anotación que refleja un cambio en la nacionalidad de la persona, por ejemplo, a través de naturalización o pérdida de ciudadanía."
+
+  - code: name_change
+    label:
+      en: Name change
+      fr: Changement de nom
+      es: Cambio de nombre
+    definition:
+      en: "An annotation reflecting an administrative or judicial change of the person's name that does not itself constitute a vital event."
+      fr: "Une mention reflétant un changement de nom de la personne, par voie administrative ou judiciaire, qui ne constitue pas en lui-même un événement d'état civil."
+      es: "Una anotación que refleja un cambio administrativo o judicial del nombre de la persona que no constituye en sí mismo un evento vital."
+
+  - code: gender_marker_change
+    label:
+      en: Gender marker change
+      fr: Changement de mention de sexe
+      es: Cambio de mención de sexo
+    definition:
+      en: "An annotation reflecting a change to the gender marker recorded on the person's civil status record, issued by an administrative or judicial authority."
+      fr: "Une mention reflétant un changement de la mention de sexe portée sur l'acte d'état civil de la personne, prononcé par une autorité administrative ou judiciaire."
+      es: "Una anotación que refleja un cambio de la mención de sexo inscrita en el acta de estado civil de la persona, dictado por una autoridad administrativa o judicial."
