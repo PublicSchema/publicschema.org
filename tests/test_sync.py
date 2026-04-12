@@ -571,9 +571,24 @@ class TestApplyCldrTranslations:
             {"code": "aaa", "label": {"en": "Ghotuo"}, "standard_code": "aaa"},
         ]
         report = apply_cldr_translations("language", values)
-        assert "aaa" in report["missing"]
+        assert "aaa" in report["missing"]["fr"]
+        assert "aaa" in report["missing"]["es"]
         assert "fr" not in values[0]["label"]
         assert "es" not in values[0]["label"]
+
+    def test_reports_per_locale_gaps_when_one_locale_is_handwritten(self):
+        # Hand-written fr, no CLDR coverage for es. The gap must surface in
+        # the es missing list even though fr is fully populated.
+        values = [
+            {
+                "code": "aaa",
+                "label": {"en": "Ghotuo", "fr": "Ghotuo (fr)"},
+                "standard_code": "aaa",
+            },
+        ]
+        report = apply_cldr_translations("language", values)
+        assert report["missing"]["fr"] == []
+        assert "aaa" in report["missing"]["es"]
 
     def test_skipped_for_unknown_vocab(self):
         report = apply_cldr_translations("sex", [])

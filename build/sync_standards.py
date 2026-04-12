@@ -316,7 +316,9 @@ def apply_cldr_translations(
 
     Does not overwrite hand-written translations: if a value already has a
     label for a given locale, it is preserved. Returns a report with per-locale
-    counts of labels added and a list of codes missing from CLDR.
+    counts of labels added and a per-locale list of codes that still lack a
+    translation after the pass. The per-locale missing lists make partial
+    coverage visible — e.g. a value with a hand-written fr and no CLDR es.
     """
     lookup = CLDR_LOOKUPS.get(vocab_id)
     if lookup is None:
@@ -325,14 +327,15 @@ def apply_cldr_translations(
     from babel import Locale
 
     attr, key_fn = lookup
-    report: dict = {"added": {loc: 0 for loc in locales}, "missing": []}
+    report: dict = {
+        "added": {loc: 0 for loc in locales},
+        "missing": {loc: [] for loc in locales},
+    }
     babel_locales = {loc: Locale.parse(loc) for loc in locales}
-    missing_codes: list[str] = []
 
     for value in values:
         key = key_fn(value)
         label = value.setdefault("label", {})
-        any_translation = False
         for loc in locales:
             if label.get(loc):
                 continue  # preserve hand-written translation
@@ -340,11 +343,9 @@ def apply_cldr_translations(
             if translated:
                 label[loc] = translated
                 report["added"][loc] += 1
-                any_translation = True
-        if not any_translation and not any(label.get(loc) for loc in locales):
-            missing_codes.append(value.get("code", ""))
+            else:
+                report["missing"][loc].append(value.get("code", ""))
 
-    report["missing"] = missing_codes
     return report
 
 
@@ -565,9 +566,11 @@ def main():
 
         cldr = report.get("cldr", {})
         if cldr and not cldr.get("skipped"):
-            counts = ", ".join(f"{loc}:+{n}" for loc, n in cldr.get("added", {}).items())
-            missing = len(cldr.get("missing", []))
-            print(f"  CLDR translations: {counts} ({missing} codes with no CLDR coverage)")
+            added_parts = ", ".join(f"{loc}:+{n}" for loc, n in cldr.get("added", {}).items())
+            missing_parts = ", ".join(
+                f"{loc}:{len(codes)}" for loc, codes in cldr.get("missing", {}).items()
+            )
+            print(f"  CLDR translations: added {added_parts}; missing {missing_parts}")
 
         if report["removed"]:
             for code in report["removed"]:

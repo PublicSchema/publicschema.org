@@ -205,7 +205,7 @@ def _check_paired_files(
             )
 
 
-_DOC_FILE_RE = re.compile(r'file:\s*"([^"]+)"')
+_DOC_FILE_RE = re.compile(r'''file:\s*["']([^"']+)["']''')
 
 
 def _published_doc_files(manifest_path: Path) -> list[str]:
