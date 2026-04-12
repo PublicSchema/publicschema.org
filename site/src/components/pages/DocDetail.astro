@@ -50,7 +50,7 @@ let html = await renderer.parse(withoutH1);
 // un-prefixed since there is only one copy. External links (https://, //)
 // and in-page anchors (#...) are left untouched.
 if (locale !== defaultLocale) {
-  const sharedAssetPrefix = /^\/(images|v|_astro|favicon|sitemap|robots\.txt)(\/|$|\.)/;
+  const sharedAssetPrefix = /^\/(images|v|_astro|ctx|favicon|sitemap|robots\.txt)(\/|$|\.)/;
   const localePrefix = new RegExp(`^\\/${locale}(\\/|$)`);
   html = html.replace(/href="(\/[^"#]*)(#[^"]*)?"/g, (match, path, anchor) => {
     if (sharedAssetPrefix.test(path)) return match;

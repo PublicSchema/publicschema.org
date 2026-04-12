@@ -1,6 +1,7 @@
 import { loadVocabulary } from './vocabulary';
 import { docs } from './docs';
 import { defaultLocale, type Locale } from '../i18n/languages';
+import { useTranslations } from '../i18n/utils';
 
 export interface SearchDocument {
   id: string;
@@ -36,6 +37,7 @@ function pick(value: { en?: string; fr?: string; es?: string } | undefined, loca
  */
 export function buildSearchIndex(locale: Locale = defaultLocale): SearchDocument[] {
   const vocab = loadVocabulary();
+  const t = useTranslations(locale);
   const documents: SearchDocument[] = [];
 
   for (const concept of Object.values(vocab.concepts)) {
@@ -83,20 +85,14 @@ export function buildSearchIndex(locale: Locale = defaultLocale): SearchDocument
     });
   }
 
-  const docCategoryLabels: Record<string, Record<Locale, string>> = {
-    getting_started: { en: 'Getting Started', fr: 'Pour commencer', es: 'Primeros pasos' },
-    technical: { en: 'Technical Documentation', fr: 'Documentation technique', es: 'Documentación técnica' },
-    landscape: { en: 'Landscape', fr: 'Panorama', es: 'Panorama' },
-  };
   for (const [slug, doc] of Object.entries(docs)) {
-    const categoryLabel = docCategoryLabels[doc.category]?.[locale] ?? docCategoryLabels[doc.category]?.en ?? doc.category;
     documents.push({
       id: `doc:${slug}`,
       type: 'doc',
       title: doc.title[locale] ?? doc.title.en,
       body: truncate(doc.description[locale] ?? doc.description.en, 200),
       path: `/docs/${slug}/`,
-      meta: categoryLabel,
+      meta: t(`docs.category.${doc.category}`),
       keywords: '',
     });
   }
