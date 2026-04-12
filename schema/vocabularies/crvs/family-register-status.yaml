@@ -5,7 +5,7 @@ domain: crvs
 definition:
   en: "Lifecycle status of a family register. Captures whether the register is currently active, has been closed, or was split into or merged with other registers following vital events."
   fr: "Statut du cycle de vie d'un registre familial. Indique si le registre est actuellement actif, a été clôturé, ou a été scindé ou fusionné avec d'autres registres suite à des événements d'état civil."
-  es: "Estado del ciclo de vida de un registro familiar. Indica si el registro está actualmente activo, ha sido cerrado, o fue dividido o fusionado con otros registros tras eventos vitales."
+  es: "Estado del ciclo de vida de un registro familiar. Registra si el registro está actualmente activo, ha sido cerrado, o fue dividido o fusionado con otros registros tras eventos de estado civil."
 
 values:
   - code: active
@@ -16,7 +16,7 @@ values:
     definition:
       en: "The register is currently active and tracks a family unit with at least one living member."
       fr: "Le registre est actuellement actif et suit une unité familiale comptant au moins un membre vivant."
-      es: "El registro está actualmente activo y hace seguimiento a una unidad familiar con al menos un miembro vivo."
+      es: "El registro está actualmente activo y registra una unidad familiar con al menos un miembro vivo."
 
   - code: closed
     label:
@@ -25,7 +25,7 @@ values:
       es: Cerrado
     definition:
       en: "The register has been closed, typically because all members have died or left."
-      fr: "Le registre a été clôturé, généralement parce que tous les membres sont décédés ou sont partis."
+      fr: "Le registre a été clôturé, généralement parce que tous ses membres sont décédés ou ont quitté l'unité familiale."
       es: "El registro ha sido cerrado, típicamente porque todos los miembros han fallecido o se han ido."
 
   - code: split

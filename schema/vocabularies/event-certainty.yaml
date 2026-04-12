@@ -3,8 +3,8 @@ maturity: draft
 
 definition:
   en: "The confidence that an event has occurred or will occur. Values are compatible with OASIS CAP v1.2 certainty codes."
-  fr: "La confiance qu'un evenement s'est produit ou se produira. Les valeurs sont compatibles avec les codes de certitude d'OASIS CAP v1.2."
-  es: "La confianza de que un evento ha ocurrido o ocurrira. Los valores son compatibles con los codigos de certeza de OASIS CAP v1.2."
+  fr: "Le degré de certitude qu'un événement s'est produit ou se produira. Les valeurs sont compatibles avec les codes de certitude d'OASIS CAP v1.2."
+  es: "La confianza de que un evento ha ocurrido o ocurrirá. Los valores son compatibles con los códigos de certeza de OASIS CAP v1.2."
 
 standard:
   name: "OASIS CAP v1.2"
@@ -14,11 +14,11 @@ values:
   - code: observed
     label:
       en: Observed
-      fr: Observe
+      fr: Observé
       es: Observado
     definition:
       en: "The event has been observed or confirmed."
-      fr: "L'evenement a ete observe ou confirme."
+      fr: "L'événement a été observé ou confirmé."
       es: "El evento ha sido observado o confirmado."
 
   - code: likely
@@ -28,7 +28,7 @@ values:
       es: Probable
     definition:
       en: "The event is likely to occur (probability greater than 50%)."
-      fr: "L'evenement est susceptible de se produire (probabilite superieure a 50%)."
+      fr: "L'événement est susceptible de se produire (probabilité supérieure à 50%)."
       es: "Es probable que el evento ocurra (probabilidad superior al 50%)."
 
   - code: possible
@@ -38,7 +38,7 @@ values:
       es: Posible
     definition:
       en: "The event is possible but not likely (probability less than 50%)."
-      fr: "L'evenement est possible mais peu probable (probabilite inferieure a 50%)."
+      fr: "L'événement est possible mais peu probable (probabilité inférieure à 50%)."
       es: "El evento es posible pero poco probable (probabilidad inferior al 50%)."
 
   - code: unlikely
@@ -48,15 +48,15 @@ values:
       es: Improbable
     definition:
       en: "The event is not expected to occur."
-      fr: "L'evenement n'est pas prevu."
+      fr: "L'événement n'est pas prévu."
       es: "No se espera que el evento ocurra."
 
   - code: unknown
     label:
       en: Unknown
       fr: Inconnue
-      es: Desconocida
+      es: Desconocido
     definition:
       en: "Certainty is not yet determined."
-      fr: "La certitude n'est pas encore determinee."
-      es: "La certeza aun no se ha determinado."
+      fr: "La certitude n'est pas encore déterminée."
+      es: "La certeza aún no se ha determinado."

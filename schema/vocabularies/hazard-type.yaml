@@ -3,39 +3,39 @@ maturity: draft
 
 definition:
   en: "The category of hazard or disruptive event, based on the Sendai Framework classification with extensions for social and economic shocks."
-  fr: "La categorie de risque ou d'evenement perturbateur, basee sur la classification du Cadre de Sendai avec des extensions pour les chocs sociaux et economiques."
-  es: "La categoria de peligro o evento perturbador, basada en la clasificacion del Marco de Sendai con extensiones para choques sociales y economicos."
+  fr: "La catégorie de risque ou d'événement perturbateur, basée sur la classification du Cadre de Sendai avec des extensions pour les chocs sociaux et économiques."
+  es: "La categoría de peligro o evento perturbador, basada en la clasificación del Marco de Sendai con extensiones para choques sociales y económicos."
 
 values:
   - code: geophysical
     label:
       en: Geophysical
-      fr: Geophysique
-      es: Geofisico
+      fr: Géophysique
+      es: Geofísico
     definition:
       en: "Earthquakes, landslides, tsunamis, or volcanic activity."
-      fr: "Tremblements de terre, glissements de terrain, tsunamis ou activite volcanique."
-      es: "Terremotos, deslizamientos de tierra, tsunamis o actividad volcanica."
+      fr: "Tremblements de terre, glissements de terrain, tsunamis ou activité volcanique."
+      es: "Terremotos, deslizamientos de tierra, tsunamis o actividad volcánica."
 
   - code: meteorological
     label:
       en: Meteorological
-      fr: Meteorologique
-      es: Meteorologico
+      fr: Météorologique
+      es: Meteorológico
     definition:
       en: "Floods, storms, extreme temperatures, or drought."
-      fr: "Inondations, tempetes, temperatures extremes ou secheresse."
-      es: "Inundaciones, tormentas, temperaturas extremas o sequia."
+      fr: "Inondations, tempêtes, températures extrêmes ou sécheresse."
+      es: "Inundaciones, tormentas, temperaturas extremas o sequía."
 
   - code: biological
     label:
       en: Biological
       fr: Biologique
-      es: Biologico
+      es: Biológico
     definition:
       en: "Disease outbreaks, epidemics, pest infestations, or biological contamination."
-      fr: "Epidemies, infestations de ravageurs ou contamination biologique."
-      es: "Brotes de enfermedades, epidemias, infestaciones de plagas o contaminacion biologica."
+      fr: "Épidémies, infestations de ravageurs ou contamination biologique."
+      es: "Brotes de enfermedades, epidemias, infestaciones de plagas o contaminación biológica."
 
   - code: environmental
     label:
@@ -44,18 +44,18 @@ values:
       es: Ambiental
     definition:
       en: "Pollution, deforestation, desertification, or ecological degradation."
-      fr: "Pollution, deforestation, desertification ou degradation ecologique."
-      es: "Contaminacion, deforestacion, desertificacion o degradacion ecologica."
+      fr: "Pollution, déforestation, désertification ou dégradation écologique."
+      es: "Contaminación, deforestación, desertificación o degradación ecológica."
 
   - code: technological
     label:
       en: Technological
       fr: Technologique
-      es: Tecnologico
+      es: Tecnológico
     definition:
       en: "Industrial accidents, infrastructure failures, or chemical spills."
-      fr: "Accidents industriels, defaillances d'infrastructure ou deversements chimiques."
-      es: "Accidentes industriales, fallas de infraestructura o derrames quimicos."
+      fr: "Accidents industriels, défaillances d'infrastructure ou déversements chimiques."
+      es: "Accidentes industriales, fallas de infraestructura o derrames químicos."
 
   - code: conflict
     label:
@@ -64,18 +64,18 @@ values:
       es: Conflicto
     definition:
       en: "Armed conflict, civil unrest, or forced displacement."
-      fr: "Conflit arme, troubles civils ou deplacement force."
+      fr: "Conflit armé, troubles civils ou déplacement forcé."
       es: "Conflicto armado, disturbios civiles o desplazamiento forzado."
 
   - code: economic
     label:
       en: Economic
-      fr: Economique
-      es: Economico
+      fr: Économique
+      es: Económico
     definition:
       en: "Economic shocks such as price spikes, currency collapse, or market disruption."
-      fr: "Chocs economiques tels que flambee des prix, effondrement monetaire ou perturbation des marches."
-      es: "Choques economicos como alzas de precios, colapso monetario o perturbacion de mercados."
+      fr: "Chocs économiques tels que flambée des prix, effondrement monétaire ou perturbation des marchés."
+      es: "Choques económicos como alzas de precios, colapso monetario o perturbación de mercados."
 
   - code: other
     label:
@@ -84,5 +84,5 @@ values:
       es: Otro
     definition:
       en: "Events not covered by any other category."
-      fr: "Evenements non couverts par aucune autre categorie."
-      es: "Eventos no cubiertos por ninguna otra categoria."
+      fr: "Événements non couverts par aucune autre catégorie."
+      es: "Eventos no cubiertos por ninguna otra categoría."

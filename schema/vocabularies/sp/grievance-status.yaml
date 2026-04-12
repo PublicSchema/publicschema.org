@@ -4,7 +4,7 @@ domain: sp
 definition:
   en: The lifecycle states of a grievance record in a program or service.
   fr: Les états du cycle de vie d'un dossier de grief dans un programme ou service.
-  es: Los estados del ciclo de vida de un registro de agravio en un programa o servicio.
+  es: Los estados del ciclo de vida de un registro de queja en un programa o servicio.
 references:
   - name: "ISO 10002 - Quality management, Complaints handling"
     uri: "https://www.iso.org/standard/71580.html"
@@ -23,7 +23,7 @@ values:
   definition:
     en: The grievance has been formally received and registered in the system, awaiting assignment.
     fr: Le grief a été formellement reçu et enregistré dans le système, en attente d'affectation.
-    es: El agravio ha sido recibido formalmente y registrado en el sistema, a la espera de asignación.
+    es: La queja ha sido recibida formalmente y registrada en el sistema, a la espera de asignación.
 - code: under_review
   label:
     en: Under review
@@ -32,7 +32,7 @@ values:
   definition:
     en: The grievance is being actively investigated or assessed by a case worker or review body.
     fr: Le grief est en cours d'investigation ou d'évaluation active par un agent de terrain ou un organe d'examen.
-    es: El agravio está siendo investigado o evaluado activamente por un trabajador social o un órgano de revisión.
+    es: La queja está siendo investigada o evaluada activamente por un trabajador social o un órgano de revisión.
 - code: resolved
   label:
     en: Resolved
@@ -50,18 +50,18 @@ values:
   definition:
     en: The grievance process is complete and the record is archived, either after resolution or withdrawal.
     fr: Le processus de grief est terminé et le dossier est archivé, que ce soit après résolution ou retrait.
-    es: El proceso de agravio está completo y el registro está archivado, ya sea después de la resolución o retiro.
+    es: El proceso de la queja está completo y el registro está archivado, ya sea después de la resolución o del retiro.
 - code: escalated
   label:
     en: Escalated
-    fr: Escaladé
+    fr: Transmis à une instance supérieure
     es: Escalado
   definition:
     en: The grievance has been referred to a higher authority or external body because it could not be resolved at the first
       level.
-    fr: Le grief a été renvoyé à une autorité supérieure ou un organisme externe parce qu'il n'a pas pu être résolu au premier
+    fr: Le grief a été transmis à une autorité supérieure ou à un organisme externe, n'ayant pas pu être résolu au premier
       niveau.
-    es: El agravio ha sido referido a una autoridad superior u organismo externo porque no pudo resolverse en el primer nivel.
+    es: La queja ha sido remitida a una autoridad superior u organismo externo porque no pudo resolverse en el primer nivel.
 - code: rejected
   label:
     en: Rejected
@@ -70,7 +70,7 @@ values:
   definition:
     en: The grievance was found to be invalid, outside program scope, or a duplicate, and was not accepted for processing.
     fr: Le grief a été jugé invalide, hors du champ du programme ou en double, et n'a pas été accepté pour traitement.
-    es: El agravio fue considerado inválido, fuera del alcance del programa o duplicado, y no fue aceptado para procesamiento.
+    es: La queja fue considerada inválida, fuera del alcance del programa o duplicada, y no fue aceptada para su tramitación.
 - code: withdrawn
   label:
     en: Withdrawn
@@ -79,7 +79,7 @@ values:
   definition:
     en: The complainant has voluntarily withdrawn the grievance before resolution.
     fr: Le plaignant a volontairement retiré le grief avant la résolution.
-    es: El reclamante ha retirado voluntariamente el agravio antes de la resolución.
+    es: El reclamante ha retirado voluntariamente la queja antes de la resolución.
 system_mappings:
   openspp:
     values:

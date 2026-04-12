@@ -5,7 +5,7 @@ domain: crvs
 definition:
   en: "The category of a marginal annotation (mention marginale) added to a civil status record when the annotation is not derivable from a triggering vital event. Event-triggered annotations (e.g., annotating a birth acte with a marriage) carry their annotation type implicitly through the triggering event and are not listed here."
   fr: "La catégorie d'une mention marginale ajoutée à un acte d'état civil lorsque la mention n'est pas déductible d'un événement d'état civil déclencheur. Les mentions déclenchées par un événement (par ex., mentionner un mariage sur un acte de naissance) portent leur type implicitement à travers l'événement déclencheur et ne sont pas listées ici."
-  es: "La categoría de una anotación marginal (mention marginale) añadida a un acta de estado civil cuando la anotación no es derivable de un evento vital desencadenante. Las anotaciones desencadenadas por un evento (por ej., anotar un matrimonio en un acta de nacimiento) llevan su tipo de forma implícita a través del evento desencadenante y no se listan aquí."
+  es: "La categoría de una anotación marginal (mention marginale) añadida a un acta de estado civil cuando la anotación no se deriva de un evento de estado civil desencadenante. Las anotaciones desencadenadas por un evento (por ej., anotar un matrimonio en un acta de nacimiento) llevan su tipo de forma implícita a través del evento desencadenante y no se listan aquí."
 
 values:
   - code: court_ordered_correction

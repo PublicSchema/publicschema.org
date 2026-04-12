@@ -3,7 +3,7 @@ maturity: trial-use
 domain: sp
 definition:
   en: The lifecycle states of a benefit entitlement instance, from creation through fulfillment or termination.
-  fr: Les états du cycle de vie d'une instance de droit à prestation, de la création à l'exécution ou la clôture.
+  fr: Les états du cycle de vie d'une instance de droit à prestation, de la création à l'exécution ou à la clôture.
   es: Los estados del ciclo de vida de una instancia de derecho a prestación, desde la creación hasta el cumplimiento o la terminación.
 references:
   - name: "HL7 FHIR R4 Financial Resource Status Codes (fm-status)"
@@ -64,7 +64,7 @@ values:
     es: Expirado
   definition:
     en: The entitlement's validity period has passed without fulfillment. Unlike cancellation, no one actively withdrew the entitlement; it lapsed.
-    fr: La période de validité du droit a expiré sans exécution. Contrairement à l'annulation, personne n'a activement retiré le droit ; il a expiré.
+    fr: La période de validité du droit a expiré sans exécution. Contrairement à l'annulation, personne n'a activement retiré le droit; il a simplement échu.
     es: El período de validez del derecho ha pasado sin cumplimiento. A diferencia de la cancelación, nadie retiró activamente el derecho; caducó.
 - code: partially_fulfilled
   label:

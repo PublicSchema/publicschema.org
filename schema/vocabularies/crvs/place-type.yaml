@@ -4,8 +4,8 @@ domain: crvs
 
 definition:
   en: "The category of place where a vital event occurred (birth or death). Distinct from the specific Location: this captures the type (health facility, home, etc.) rather than the named place."
-  fr: "La catégorie de lieu où un événement d'état civil (naissance ou décès) s'est produit. Distinct du lieu spécifique: saisit le type (établissement de santé, domicile, etc.) plutôt que le lieu nommé."
-  es: "La categoría de lugar donde ocurrió un evento vital (nacimiento o defunción). Distinto del lugar específico: captura el tipo (establecimiento de salud, hogar, etc.) en lugar del lugar nombrado."
+  fr: "La catégorie de lieu où un événement d'état civil (naissance ou décès) s'est produit. Distinct du lieu spécifique: indique le type (établissement de santé, domicile, etc.) plutôt que le lieu nommé."
+  es: "La categoría de lugar donde ocurrió un evento vital (nacimiento o defunción). Distinto del lugar específico: recoge el tipo (establecimiento de salud, hogar, etc.) en lugar del lugar nombrado."
 
 values:
   - code: health_facility

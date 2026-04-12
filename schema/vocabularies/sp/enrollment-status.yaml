@@ -23,7 +23,7 @@ values:
     es: En lista de espera
   definition:
     en: The applicant has been verified as eligible but is awaiting an available program slot due to capacity or budget constraints.
-    fr: Le demandeur a été vérifié comme éligible mais attend une place disponible dans le programme en raison de contraintes
+    fr: Le demandeur a été reconnu admissible mais attend une place disponible dans le programme en raison de contraintes
       de capacité ou de budget.
     es: El solicitante ha sido verificado como elegible pero está esperando un lugar disponible en el programa debido a restricciones
       de capacidad o presupuesto.
@@ -71,7 +71,7 @@ values:
     es: Graduado
   definition:
     en: The beneficiary has successfully exited the program through program-defined graduation criteria.
-    fr: Le bénéficiaire a quitté le programme avec succès selon les critères de graduation définis par le programme.
+    fr: Le bénéficiaire a quitté le programme avec succès selon les critères de sortie définis par le programme.
     es: El beneficiario ha salido exitosamente del programa a través de los criterios de graduación definidos por el programa.
 system_mappings:
   openspp:

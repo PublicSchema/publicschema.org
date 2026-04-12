@@ -77,8 +77,8 @@ values:
   definition:
     en: The payment was evaluated and denied based on a business or policy decision, such as a failed eligibility check or a
       disputed claim.
-    fr: Le paiement a été évalué et refusé sur la base d'une décision commerciale ou politique, telle qu'un contrôle d'éligibilité
-      échoué ou une réclamation contestée.
+    fr: Le paiement a été évalué et refusé sur la base d'une décision institutionnelle ou réglementaire, telle qu'un contrôle
+      d'admissibilité non satisfait ou une réclamation contestée.
     es: El pago fue evaluado y denegado en base a una decisión comercial o de política, como una verificación de elegibilidad
       fallida o una reclamación disputada.
 - code: cancelled
@@ -88,7 +88,7 @@ values:
     es: Cancelado
   definition:
     en: The payment was cancelled before transmission, typically due to eligibility changes or administrative decision.
-    fr: Le paiement a été annulé avant la transmission, généralement en raison de changements d'éligibilité ou d'une décision
+    fr: Le paiement a été annulé avant la transmission, généralement en raison de changements d'admissibilité ou d'une décision
       administrative.
     es: El pago fue cancelado antes de la transmisión, generalmente debido a cambios de elegibilidad o decisión administrativa.
 - code: reconciled

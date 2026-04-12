@@ -2,18 +2,18 @@ id: voucher-format
 maturity: draft
 definition:
   en: The physical or digital form of a voucher.
-  fr: La forme physique ou numerique d'un bon.
-  es: La forma fisica o digital de un vale.
+  fr: La forme physique ou numérique d'un bon.
+  es: La forma física o digital de un vale.
 values:
 - code: electronic
   label:
     en: Electronic
-    fr: Electronique
-    es: Electronico
+    fr: Électronique
+    es: Electrónico
   definition:
     en: A digital code or token delivered via SMS, mobile application, QR code, or other electronic means.
-    fr: Un code ou jeton numerique delivre par SMS, application mobile, code QR ou autre moyen electronique.
-    es: Un codigo o token digital entregado por SMS, aplicacion movil, codigo QR u otro medio electronico.
+    fr: Un code ou jeton numérique délivré par SMS, application mobile, code QR ou autre moyen électronique.
+    es: Un código o token digital entregado por SMS, aplicación móvil, código QR u otro medio electrónico.
 - code: paper
   label:
     en: Paper
@@ -21,5 +21,5 @@ values:
     es: Papel
   definition:
     en: A printed document that the beneficiary presents physically at a vendor or distribution point.
-    fr: Un document imprime que le beneficiaire presente physiquement chez un vendeur ou un point de distribution.
-    es: Un documento impreso que el beneficiario presenta fisicamente en un vendedor o punto de distribucion.
+    fr: Un document imprimé que le bénéficiaire présente physiquement chez un vendeur ou un point de distribution.
+    es: Un documento impreso que el beneficiario presenta físicamente en un vendedor o punto de distribución.

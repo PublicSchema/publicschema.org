@@ -4,7 +4,7 @@ domain: sp
 
 definition:
   en: "The reason an enrollment was permanently closed. Applies when enrollment status is closed, not when graduated."
-  fr: "La raison pour laquelle une inscription a été définitivement clôturée. S'applique lorsque le statut d'inscription est clos, pas lorsqu'il est gradué."
+  fr: "La raison pour laquelle une inscription a été définitivement clôturée. S'applique lorsque le statut d'inscription est clos, et non lorsqu'il est gradué."
   es: "La razón por la cual una inscripción fue cerrada permanentemente. Se aplica cuando el estado de inscripción es cerrado, no cuando es graduado."
 
 values:
@@ -21,21 +21,21 @@ values:
   - code: non_compliance
     label:
       en: Non-compliance
-      fr: Non-conformité
+      fr: Non-respect des conditions
       es: Incumplimiento
     definition:
       en: "The beneficiary did not meet ongoing program conditions."
-      fr: "Le bénéficiaire n'a pas rempli les conditions continues du programme."
+      fr: "Le bénéficiaire n'a pas satisfait aux conditions continues du programme."
       es: "El beneficiario no cumplió con las condiciones continuas del programa."
 
   - code: ineligibility
     label:
       en: Ineligibility
-      fr: Inéligibilité
+      fr: Non-admissibilité
       es: Inelegibilidad
     definition:
       en: "The beneficiary was determined to be no longer eligible due to a change in circumstances such as income, age, or residency."
-      fr: "Le bénéficiaire a été déterminé comme n'étant plus éligible en raison d'un changement de circonstances tel que le revenu, l'âge ou la résidence."
+      fr: "Le bénéficiaire a été reconnu comme n'étant plus admissible en raison d'un changement de circonstances, tel que le revenu, l'âge ou la résidence."
       es: "Se determinó que el beneficiario ya no es elegible debido a un cambio de circunstancias como ingresos, edad o residencia."
 
   - code: death

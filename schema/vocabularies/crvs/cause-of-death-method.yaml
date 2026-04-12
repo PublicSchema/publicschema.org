@@ -4,8 +4,8 @@ domain: crvs
 
 definition:
   en: "The method used to determine the cause of death. In many low-income settings, cause of death is ascertained by verbal autopsy rather than physician certification; consumers need to know how a reported cause was derived."
-  fr: "La méthode utilisée pour déterminer la cause du décès. Dans de nombreux contextes à faibles revenus, la cause du décès est établie par autopsie verbale plutôt que par certification médicale; les utilisateurs doivent savoir comment une cause rapportée a été déterminée."
-  es: "El método utilizado para determinar la causa de la muerte. En muchos contextos de bajos ingresos, la causa de muerte se determina por autopsia verbal en lugar de certificación médica; los consumidores deben saber cómo se derivó una causa reportada."
+  fr: "La méthode utilisée pour déterminer la cause du décès. Dans de nombreux contextes à ressources limitées, la cause du décès est établie par autopsie verbale plutôt que par certification médicale; les utilisateurs doivent savoir comment une cause déclarée a été déterminée."
+  es: "El método utilizado para determinar la causa de la muerte. En muchos contextos de bajos ingresos, la causa de muerte se determina por autopsia verbal en lugar de certificación médica; los usuarios de los datos deben conocer el método por el que se estableció la causa declarada."
 
 values:
   - code: physician_certified
@@ -42,11 +42,11 @@ values:
     label:
       en: Lay reporting
       fr: Déclaration non professionnelle
-      es: Reporte no profesional
+      es: Declaración no profesional
     definition:
       en: "The cause was reported by a lay informant without clinical or forensic expertise."
       fr: "La cause a été rapportée par un déclarant non professionnel, sans expertise clinique ou médico-légale."
-      es: "La causa fue reportada por un informante no profesional, sin experiencia clínica o forense."
+      es: "La causa fue declarada por un informante no profesional, sin experiencia clínica ni forense."
 
   - code: other
     label:

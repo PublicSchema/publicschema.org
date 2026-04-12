@@ -2,9 +2,9 @@ id: event-severity
 maturity: draft
 definition:
   en: The observed or expected severity of an event's impact. Values are compatible with OASIS CAP v1.2 severity codes.
-  fr: La gravite observee ou attendue de l'impact d'un evenement. Les valeurs sont compatibles avec les codes de gravite d'OASIS
+  fr: La gravité observée ou attendue de l'impact d'un événement. Les valeurs sont compatibles avec les codes de gravité d'OASIS
     CAP v1.2.
-  es: La gravedad observada o esperada del impacto de un evento. Los valores son compatibles con los codigos de gravedad de
+  es: La gravedad observada o esperada del impacto de un evento. Los valores son compatibles con los códigos de gravedad de
     OASIS CAP v1.2.
 standard:
   name: OASIS CAP v1.2
@@ -13,7 +13,7 @@ values:
 - code: extreme
   label:
     en: Extreme
-    fr: Extreme
+    fr: Extrême
     es: Extrema
   definition:
     en: Extraordinary threat to life or property.
@@ -31,7 +31,7 @@ values:
 - code: moderate
   label:
     en: Moderate
-    fr: Moderee
+    fr: Modérée
     es: Moderada
   definition:
     en: Possible threat to life or property.
@@ -45,16 +45,16 @@ values:
   definition:
     en: Minimal or no known threat to life or property.
     fr: Menace minimale ou nulle pour la vie ou les biens.
-    es: Amenaza minima o nula para la vida o la propiedad.
+    es: Amenaza mínima o nula para la vida o la propiedad.
 - code: unknown
   label:
     en: Unknown
     fr: Inconnue
-    es: Desconocida
+    es: Desconocido
   definition:
     en: Severity is not yet determined.
-    fr: La gravite n'est pas encore determinee.
-    es: La gravedad aun no se ha determinado.
+    fr: La gravité n'est pas encore déterminée.
+    es: La gravedad aún no se ha determinado.
 system_mappings:
   openspp:
     values:

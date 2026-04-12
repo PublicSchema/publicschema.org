@@ -41,7 +41,7 @@ values:
   - code: completed
     label:
       en: Completed
-      fr: Complétée
+      fr: Terminée
       es: Completada
     definition:
       en: "The referred person has been enrolled or served by the receiving program, and the referral process is finished."
@@ -55,7 +55,7 @@ values:
       es: Cancelada
     definition:
       en: "The referral was withdrawn by the referring program or the referred person before the receiving program acted on it."
-      fr: "L'orientation a été retirée par le programme référant ou la personne orientée avant que le programme récepteur n'agisse."
+      fr: "L'orientation a été retirée par le programme référent ou la personne orientée avant que le programme récepteur n'agisse."
       es: "La derivación fue retirada por el programa referente o la persona derivada antes de que el programa receptor actuara."
 
   - code: expired

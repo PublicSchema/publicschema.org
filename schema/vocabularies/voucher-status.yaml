@@ -2,8 +2,8 @@ id: voucher-status
 maturity: draft
 definition:
   en: The lifecycle states of a voucher instrument, from creation through redemption or expiry.
-  fr: Les etats du cycle de vie d'un instrument de bon, de la creation a l'echange ou l'expiration.
-  es: Los estados del ciclo de vida de un instrumento de vale, desde la creacion hasta el canje o vencimiento.
+  fr: Les états du cycle de vie d'un instrument de bon, de la création à l'échange ou à l'expiration.
+  es: Los estados del ciclo de vida de un instrumento de vale, desde la creación hasta el canje o vencimiento.
 references:
   - name: "GovStack Payments Building Block - Voucher APIs"
     uri: "https://specs.govstack.global/payments/2-description"
@@ -14,20 +14,20 @@ values:
 - code: created
   label:
     en: Created
-    fr: Cree
+    fr: Créé
     es: Creado
   definition:
     en: The voucher has been generated but not yet distributed to the beneficiary.
-    fr: Le bon a ete genere mais n'a pas encore ete distribue au beneficiaire.
-    es: El vale ha sido generado pero aun no ha sido distribuido al beneficiario.
+    fr: Le bon a été généré mais n'a pas encore été distribué au bénéficiaire.
+    es: El vale ha sido generado pero aún no ha sido distribuido al beneficiario.
 - code: issued
   label:
     en: Issued
-    fr: Emis
+    fr: Émis
     es: Emitido
   definition:
     en: The voucher has been distributed to the beneficiary or their authorized representative.
-    fr: Le bon a ete distribue au beneficiaire ou a son representant autorise.
+    fr: Le bon a été distribué au bénéficiaire ou à son représentant autorisé.
     es: El vale ha sido distribuido al beneficiario o su representante autorizado.
 - code: suspended
   label:
@@ -36,43 +36,43 @@ values:
     es: Suspendido
   definition:
     en: The voucher has been temporarily deactivated and cannot be redeemed until reactivated. Reasons include suspected fraud, verification checks, or administrative holds.
-    fr: Le bon a ete temporairement desactive et ne peut pas etre echange jusqu'a sa reactivation. Les raisons incluent une suspicion de fraude, des verifications ou des blocages administratifs.
-    es: El vale ha sido temporalmente desactivado y no puede ser canjeado hasta su reactivacion. Las razones incluyen sospecha de fraude, verificaciones o bloqueos administrativos.
+    fr: Le bon a été temporairement désactivé et ne peut pas être échangé jusqu'à sa réactivation. Les raisons incluent une suspicion de fraude, des vérifications ou des blocages administratifs.
+    es: El vale ha sido temporalmente desactivado y no puede ser canjeado hasta su reactivación. Las razones incluyen sospecha de fraude, verificaciones o bloqueos administrativos.
 - code: partially_redeemed
   label:
     en: Partially redeemed
-    fr: Partiellement echange
+    fr: Partiellement échangé
     es: Parcialmente canjeado
   definition:
     en: Some but not all of the voucher's value or entitled commodities have been redeemed. The voucher remains active for further use until fully redeemed or expired.
-    fr: Une partie mais pas la totalite de la valeur du bon ou des produits auxquels il donne droit a ete echangee. Le bon reste actif pour une utilisation ulterieure jusqu'a echange complet ou expiration.
+    fr: Une partie mais pas la totalité de la valeur du bon ou des produits auxquels il donne droit a été échangée. Le bon reste actif pour une utilisation ultérieure jusqu'à échange complet ou expiration.
     es: Se ha canjeado parte pero no la totalidad del valor del vale o de los productos a los que da derecho. El vale permanece activo para uso posterior hasta el canje completo o vencimiento.
 - code: redeemed
   label:
     en: Redeemed
-    fr: Echange
+    fr: Échangé
     es: Canjeado
   definition:
     en: The voucher has been fully used at a vendor or agent.
-    fr: Le bon a ete entierement utilise aupres d'un vendeur ou d'un agent.
+    fr: Le bon a été entièrement utilisé auprès d'un vendeur ou d'un agent.
     es: El vale ha sido completamente utilizado en un vendedor o agente.
 - code: expired
   label:
     en: Expired
-    fr: Expire
+    fr: Expiré
     es: Vencido
   definition:
     en: The voucher's validity period has passed without redemption.
-    fr: La periode de validite du bon est passee sans echange.
-    es: El periodo de validez del vale ha pasado sin canje.
+    fr: La période de validité du bon est passée sans échange.
+    es: El período de validez del vale ha pasado sin canje.
 - code: cancelled
   label:
     en: Cancelled
-    fr: Annule
+    fr: Annulé
     es: Cancelado
   definition:
     en: The voucher has been voided by the program before redemption.
-    fr: Le bon a ete annule par le programme avant l'echange.
+    fr: Le bon a été annulé par le programme avant l'échange.
     es: El vale ha sido anulado por el programa antes del canje.
 system_mappings:
   govstack_payments:

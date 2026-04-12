@@ -34,17 +34,17 @@ values:
     es: Masculino
   definition:
     en: Person identifies or is recorded as male.
-    fr: La personne s'identifie ou est enregistree comme homme.
-    es: La persona se identifica o esta registrada como hombre.
+    fr: La personne s'identifie ou est enregistrée comme homme.
+    es: La persona se identifica o está registrada como hombre.
 - code: female
   label:
     en: Female
-    fr: Feminin
+    fr: Féminin
     es: Femenino
   definition:
     en: Person identifies or is recorded as female.
-    fr: La personne s'identifie ou est enregistree comme femme.
-    es: La persona se identifica o esta registrada como mujer.
+    fr: La personne s'identifie ou est enregistrée comme femme.
+    es: La persona se identifica o está registrada como mujer.
 - code: other
   label:
     en: Other
@@ -57,12 +57,12 @@ values:
 - code: not_stated
   label:
     en: Not stated
-    fr: Non declare
+    fr: Non déclaré
     es: No declarado
   definition:
     en: Gender has not been recorded or the person declined to disclose.
-    fr: Le genre n'a pas ete enregistre ou la personne a refuse de le divulguer.
-    es: El genero no ha sido registrado o la persona se nego a divulgarlo.
+    fr: Le genre n'a pas été enregistré ou la personne a refusé de le divulguer.
+    es: El género no ha sido registrado o la persona se negó a divulgarlo.
 external_equivalents:
   semic:
     label: "Gender"

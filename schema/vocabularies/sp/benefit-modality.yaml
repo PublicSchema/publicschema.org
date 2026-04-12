@@ -3,8 +3,8 @@ maturity: trial-use
 domain: sp
 definition:
   en: The form in which a benefit or entitlement is delivered to a beneficiary.
-  fr: La forme sous laquelle une prestation ou un droit est versé à un bénéficiaire.
-  es: La forma en que se entrega un beneficio o derecho a un beneficiario.
+  fr: La forme sous laquelle une prestation ou un droit est remis à un bénéficiaire.
+  es: La forma en que se entrega una prestación o derecho a un beneficiario.
 see_also:
   - vocabulary: delivery-channel
     note: "benefit-modality describes what form the benefit takes (cash, voucher, in-kind); delivery-channel describes how it reaches the beneficiary (bank transfer, mobile money, agent). The two are orthogonal: a voucher (modality) can be delivered as e-voucher or paper voucher (channels)."
@@ -57,8 +57,8 @@ values:
     en: Access to a social service such as healthcare, education, childcare, or skills training provided as the benefit.
     fr: Accès à un service social tel que les soins de santé, l'éducation, la garde d'enfants ou la formation professionnelle
       fourni comme prestation.
-    es: Acceso a un servicio social como atención médica, educación, cuidado infantil o formación profesional proporcionado
-      como beneficio.
+    es: Acceso a un servicio social como atención médica, educación, cuidado infantil o formación profesional, proporcionado
+      como prestación.
 - code: fee_waiver
   label:
     en: Fee waiver
@@ -78,8 +78,8 @@ values:
     es: Seguro
   definition:
     en: Enrollment in or subsidization of an insurance scheme (health, crop, social) as the benefit provided to the beneficiary.
-    fr: Inscription ou subvention d'un régime d'assurance (santé, récolte, social) comme prestation fournie au bénéficiaire.
-    es: Inscripción en o subsidio de un esquema de seguro (salud, cosecha, social) como beneficio proporcionado al beneficiario.
+    fr: Inscription à un régime d'assurance ou subvention de celui-ci (santé, récolte, social) comme prestation fournie au bénéficiaire.
+    es: Inscripción en un régimen de seguro o subvención del mismo (salud, cosechas, social) como prestación proporcionada al beneficiario.
 system_mappings:
   openspp:
     values:

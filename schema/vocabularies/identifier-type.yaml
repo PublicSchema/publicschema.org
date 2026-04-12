@@ -2,10 +2,10 @@ id: identifier-type
 maturity: trial-use
 definition:
   en: Categories of identifier documents or numbers used to identify persons in administrative and service delivery systems.
-  fr: Categories de documents ou de numeros d'identification utilises pour identifier les personnes dans les systemes administratifs
+  fr: Catégories de documents ou de numéros d'identification utilisés pour identifier les personnes dans les systèmes administratifs
     et de prestation de services.
-  es: Categorias de documentos o numeros de identificacion utilizados para identificar personas en sistemas administrativos
-    y de prestacion de servicios.
+  es: Categorías de documentos o números de identificación utilizados para identificar personas en sistemas administrativos
+    y de prestación de servicios.
 vc_guidance: >
   For Verifiable Credential use, the identifier type alone is insufficient. Credentials must also specify the issuing
   jurisdiction and identifier scheme.
@@ -28,12 +28,12 @@ values:
 - code: national_id
   label:
     en: National ID
-    fr: Carte d'identite nationale
+    fr: Carte d'identité nationale
     es: Documento de identidad nacional
   definition:
     en: A government-issued national identity number or card.
-    fr: Un numero ou une carte d'identite nationale delivre par le gouvernement.
-    es: Un numero o tarjeta de identidad nacional emitido por el gobierno.
+    fr: Un numéro ou une carte d'identité nationale délivré par le gouvernement.
+    es: Un número o tarjeta de identidad nacional emitido por el gobierno.
 - code: birth_certificate
   label:
     en: Birth certificate
@@ -41,7 +41,7 @@ values:
     es: Certificado de nacimiento
   definition:
     en: An official record of a person's birth issued by a civil registry.
-    fr: Un document officiel de naissance delivre par un registre d'etat civil.
+    fr: Un document officiel de naissance délivré par un registre d'état civil.
     es: Un registro oficial de nacimiento emitido por un registro civil.
 - code: passport
   label:
@@ -50,16 +50,16 @@ values:
     es: Pasaporte
   definition:
     en: A government-issued travel document that also serves as a proof of identity and nationality.
-    fr: Un document de voyage delivre par le gouvernement servant egalement de preuve d'identite et de nationalite.
-    es: Un documento de viaje emitido por el gobierno que tambien sirve como prueba de identidad y nacionalidad.
+    fr: Un document de voyage délivré par le gouvernement servant également de preuve d'identité et de nationalité.
+    es: Un documento de viaje emitido por el gobierno que también sirve como prueba de identidad y nacionalidad.
 - code: voter_id
   label:
     en: Voter ID
-    fr: Carte d'electeur
+    fr: Carte d'électeur
     es: Tarjeta de votante
   definition:
     en: An identity document issued for electoral registration purposes.
-    fr: Un document d'identite delivre a des fins d'inscription electorale.
+    fr: Un document d'identité délivré à des fins d'inscription électorale.
     es: Un documento de identidad emitido con fines de registro electoral.
 - code: program_id
   label:
@@ -68,38 +68,38 @@ values:
     es: ID de programa
   definition:
     en: A beneficiary identifier assigned by a specific program.
-    fr: Un identifiant de beneficiaire attribue par un programme specifique.
-    es: Un identificador de beneficiario asignado por un programa especifico.
+    fr: Un identifiant de bénéficiaire attribué par un programme spécifique.
+    es: Un identificador de beneficiario asignado por un programa específico.
 - code: household_id
   label:
     en: Household ID
-    fr: Identifiant de menage
+    fr: Identifiant de ménage
     es: ID de hogar
   definition:
     en: An identifier assigned to a household rather than to an individual person.
-    fr: Un identifiant attribue a un menage plutot qu'a une personne individuelle.
+    fr: Un identifiant attribué à un ménage plutôt qu'à une personne individuelle.
     es: Un identificador asignado a un hogar en lugar de a una persona individual.
 - code: social_security_number
   label:
     en: Social security number
-    fr: Numero de securite sociale
-    es: Numero de seguridad social
+    fr: Numéro de sécurité sociale
+    es: Número de seguridad social
   definition:
     en: A number assigned by a social security or social insurance administration, distinct from a national identity number
       in many countries.
-    fr: Un numero attribue par une administration de securite sociale ou d'assurance sociale, distinct du numero d'identite
+    fr: Un numéro attribué par une administration de sécurité sociale ou d'assurance sociale, distinct du numéro d'identité
       nationale dans de nombreux pays.
-    es: Un numero asignado por una administracion de seguridad social o seguro social, distinto del numero de identidad nacional
-      en muchos paises.
+    es: Un número asignado por una administración de seguridad social o seguro social, distinto del número de identidad nacional
+      en muchos países.
 - code: tax_id
   label:
     en: Tax ID
     fr: Identifiant fiscal
-    es: Identificacion fiscal
+    es: Identificación fiscal
   definition:
     en: A tax identification number assigned by a revenue or fiscal authority.
-    fr: Un numero d'identification fiscale attribue par une autorite fiscale ou de recettes.
-    es: Un numero de identificacion fiscal asignado por una autoridad tributaria o fiscal.
+    fr: Un numéro d'identification fiscale attribué par une autorité fiscale ou de recettes.
+    es: Un número de identificación fiscal asignado por una autoridad tributaria o fiscal.
 - code: drivers_license
   label:
     en: Driver's license
@@ -107,8 +107,8 @@ values:
     es: Licencia de conducir
   definition:
     en: A government-issued permit to operate motor vehicles, commonly used as identification.
-    fr: Un permis delivre par le gouvernement pour conduire des vehicules a moteur, couramment utilise comme piece d'identite.
-    es: Un permiso emitido por el gobierno para operar vehiculos motorizados, comúnmente utilizado como identificacion.
+    fr: Un permis délivré par le gouvernement pour conduire des véhicules à moteur, couramment utilisé comme pièce d'identité.
+    es: Un permiso emitido por el gobierno para operar vehículos motorizados, comúnmente utilizado como identificación.
 - code: marriage_certificate
   label:
     en: Marriage certificate
@@ -116,17 +116,17 @@ values:
     es: Certificado de matrimonio
   definition:
     en: An official record of a marriage issued by a civil registry or religious authority.
-    fr: Un document officiel de mariage delivre par un registre d'etat civil ou une autorite religieuse.
+    fr: Un document officiel de mariage délivré par un registre d'état civil ou une autorité religieuse.
     es: Un registro oficial de matrimonio emitido por un registro civil o una autoridad religiosa.
 - code: death_certificate
   label:
     en: Death certificate
     fr: Acte de deces
-    es: Certificado de defuncion
+    es: Certificado de defunción
   definition:
     en: An official record of a death issued by a civil registry or health authority.
-    fr: Un document officiel de deces delivre par un registre d'etat civil ou une autorite sanitaire.
-    es: Un registro oficial de defuncion emitido por un registro civil o una autoridad sanitaria.
+    fr: Un document officiel de décès délivré par un registre d'état civil ou une autorité sanitaire.
+    es: Un registro oficial de defunción emitido por un registro civil o una autoridad sanitaria.
 - code: other
   label:
     en: Other
@@ -134,8 +134,8 @@ values:
     es: Otro
   definition:
     en: An identifier type not covered by the other categories.
-    fr: Un type d'identifiant non couvert par les autres categories.
-    es: Un tipo de identificador no cubierto por las otras categorias.
+    fr: Un type d'identifiant non couvert par les autres catégories.
+    es: Un tipo de identificador no cubierto por las otras categorías.
 system_mappings:
   openspp:
     vocabulary_name: IdType

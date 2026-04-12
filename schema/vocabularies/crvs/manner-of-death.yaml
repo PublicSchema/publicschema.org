@@ -35,7 +35,7 @@ values:
   - code: intentional_self_harm
     label:
       en: Intentional self-harm
-      fr: Lésions auto-infligées intentionnellement
+      fr: Lésions auto-infligées
       es: Lesiones autoinfligidas intencionalmente
     definition:
       en: "Death resulting from an act intentionally inflicted by the deceased on themselves (suicide)."
@@ -79,7 +79,7 @@ values:
       es: Pendiente de investigación
     definition:
       en: "The manner of death has not yet been determined because an investigation is ongoing."
-      fr: "La manière du décès n'a pas encore été déterminée parce qu'une enquête est en cours."
+      fr: "La manière du décès n'a pas encore été établie, une enquête étant en cours."
       es: "La manera de la muerte aún no se ha determinado porque una investigación está en curso."
 
   - code: could_not_be_determined
