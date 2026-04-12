@@ -89,9 +89,10 @@ const vocabulary = allVocab.vocabularies[vocab] as Vocabulary;
     <div class="concept-section">
       <h2>{t('vocab_detail.values')}</h2>
       <p>
-        {t('vocab_detail.external_values_note')}{vocabulary.standard?.uri ? (
-          <> or from the <a href={vocabulary.standard.uri} target="_blank" rel="noopener">official standard page</a></>
-        ) : ''}
+        {t('vocab_detail.external_values_note_prefix')}{vocabulary.standard ? ` (${vocabulary.standard.name})` : ''}.
+        {' '}{t('vocab_detail.external_values_note_suffix')}{vocabulary.standard?.uri ? (
+          <> or from the <a href={vocabulary.standard.uri} target="_blank" rel="noopener">{t('vocab_detail.official_standard_page')}</a></>
+        ) : ''}.
       </p>
     </div>
   ) : (
@@ -123,7 +124,7 @@ const vocabulary = allVocab.vocabularies[vocab] as Vocabulary;
   {vocabulary.same_standard_systems && vocabulary.same_standard_systems.length > 0 && (
     <div class="concept-section">
       <h2>{t('vocab_detail.same_standard')}</h2>
-      <p>{t('vocab_detail.same_standard_desc')}{vocabulary.standard ? ` (${vocabulary.standard.name})` : ''}</p>
+      <p>{t('vocab_detail.same_standard_desc_prefix')}{vocabulary.standard ? ` (${vocabulary.standard.name})` : ''} {t('vocab_detail.same_standard_desc_suffix')}</p>
       <ul>
         {vocabulary.same_standard_systems.map((system) => (
           <li><a href={localePath(`/systems/${system}`, locale)}><strong>{getSystemName(system)}</strong></a></li>
