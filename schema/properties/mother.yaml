@@ -1,0 +1,13 @@
+id: mother
+maturity: draft
+
+definition:
+  en: "The mother of the child in a paternity recognition context, where her identity is used to bind the recognition to a specific maternal record even when she is not the declarant."
+  fr: "La mère de l'enfant dans un contexte de reconnaissance de paternité, où son identité est utilisée pour rattacher la reconnaissance à un acte maternel précis même lorsqu'elle n'est pas la déclarante."
+  es: "La madre del niño o de la niña en un contexto de reconocimiento de paternidad, donde su identidad se utiliza para vincular el reconocimiento a un registro materno específico aunque ella no sea la declarante."
+
+type: concept:Person
+cardinality: single
+vocabulary: null
+references: Person
+domain_override: crvs

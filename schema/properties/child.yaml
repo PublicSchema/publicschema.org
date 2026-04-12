@@ -1,0 +1,13 @@
+id: child
+maturity: draft
+
+definition:
+  en: "The child whose birth, adoption, or legitimation is recorded in this event."
+  fr: "L'enfant dont la naissance, l'adoption ou la légitimation est consignée dans cet événement."
+  es: "El niño o la niña cuyo nacimiento, adopción o legitimación se registra en este evento."
+
+type: concept:Person
+cardinality: single
+vocabulary: null
+references: Person
+domain_override: crvs

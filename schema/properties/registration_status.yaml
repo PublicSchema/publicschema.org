@@ -1,0 +1,13 @@
+id: registration_status
+maturity: draft
+
+definition:
+  en: "The lifecycle state of the registration process for this vital event: whether it is declared, pending validation, registered, rejected, cancelled, or has been corrected or archived."
+  fr: "L'état du cycle de vie du processus d'enregistrement pour cet événement d'état civil: déclaré, en attente de validation, enregistré, rejeté, annulé, corrigé ou archivé."
+  es: "El estado del ciclo de vida del proceso de registro para este evento vital: declarado, pendiente de validación, registrado, rechazado, cancelado, corregido o archivado."
+
+type: string
+cardinality: single
+vocabulary: crvs/registration-status
+references: null
+domain_override: crvs

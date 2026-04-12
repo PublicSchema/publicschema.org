@@ -1,0 +1,79 @@
+id: registration-status
+maturity: draft
+domain: crvs
+
+definition:
+  en: "Lifecycle states of the registration of a vital event, from initial declaration through validation, archival, or cancellation."
+  fr: "États du cycle de vie de l'enregistrement d'un événement d'état civil, de la déclaration initiale à la validation, l'archivage ou l'annulation."
+  es: "Estados del ciclo de vida del registro de un evento vital, desde la declaración inicial hasta la validación, archivo o cancelación."
+
+values:
+  - code: declared
+    label:
+      en: Declared
+      fr: Déclaré
+      es: Declarado
+    definition:
+      en: "The event has been reported to the registrar but has not yet been validated."
+      fr: "L'événement a été signalé à l'officier d'état civil mais n'a pas encore été validé."
+      es: "El evento ha sido reportado al registrador pero aún no ha sido validado."
+
+  - code: pending_validation
+    label:
+      en: Pending validation
+      fr: En attente de validation
+      es: Pendiente de validación
+    definition:
+      en: "The declaration is under review by the registration authority prior to being entered into the register."
+      fr: "La déclaration est en cours d'examen par l'autorité d'enregistrement avant d'être inscrite au registre."
+      es: "La declaración está en revisión por parte de la autoridad de registro antes de ser inscrita en el registro."
+
+  - code: registered
+    label:
+      en: Registered
+      fr: Enregistré
+      es: Registrado
+    definition:
+      en: "The event has been entered into the register and is legally effective."
+      fr: "L'événement a été inscrit au registre et a effet juridique."
+      es: "El evento ha sido inscrito en el registro y tiene efecto jurídico."
+
+  - code: rejected
+    label:
+      en: Rejected
+      fr: Rejeté
+      es: Rechazado
+    definition:
+      en: "The registration authority has refused to register the event (e.g., insufficient evidence, duplicate)."
+      fr: "L'autorité d'enregistrement a refusé d'enregistrer l'événement (par exemple, preuves insuffisantes, doublon)."
+      es: "La autoridad de registro ha rechazado registrar el evento (por ejemplo, pruebas insuficientes, duplicado)."
+
+  - code: cancelled
+    label:
+      en: Cancelled
+      fr: Annulé
+      es: Cancelado
+    definition:
+      en: "A previously registered event has been cancelled, typically following a court judgment."
+      fr: "Un événement précédemment enregistré a été annulé, généralement à la suite d'un jugement."
+      es: "Un evento previamente registrado ha sido cancelado, típicamente tras una sentencia judicial."
+
+  - code: corrected
+    label:
+      en: Corrected
+      fr: Corrigé
+      es: Corregido
+    definition:
+      en: "The registration has been modified to correct an error in the original record."
+      fr: "L'enregistrement a été modifié pour corriger une erreur dans l'acte original."
+      es: "El registro ha sido modificado para corregir un error en el acta original."
+
+  - code: archived
+    label:
+      en: Archived
+      fr: Archivé
+      es: Archivado
+    definition:
+      en: "The registration has been moved to long-term archival storage; no further routine operations expected."
+      fr: "L'enregistrement a été transféré vers un archivage à long terme; aucune opération courante n'est attendue."
+      es: "El registro ha sido trasladado al almacenamiento de archivo a largo plazo; no se esperan más operaciones rutinarias."

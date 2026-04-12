@@ -1,0 +1,13 @@
+id: birth_order
+maturity: draft
+
+definition:
+  en: "For multiple births, the sequence number of this infant among the siblings born in the same delivery (1 for first-born, 2 for second-born, etc.)."
+  fr: "Pour les naissances multiples, le numéro d'ordre de ce nouveau-né parmi les frères et sœurs nés lors du même accouchement (1 pour le premier né, 2 pour le deuxième, etc.)."
+  es: "Para partos múltiples, el número de orden de este recién nacido entre los hermanos nacidos en el mismo parto (1 para el primogénito, 2 para el segundo, etc.)."
+
+type: integer
+cardinality: single
+vocabulary: null
+references: null
+domain_override: crvs

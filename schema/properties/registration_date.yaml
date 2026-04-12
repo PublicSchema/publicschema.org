@@ -1,0 +1,13 @@
+id: registration_date
+maturity: draft
+
+definition:
+  en: "The date on which the vital event was officially registered with the civil registration authority. May be later than the event date, especially for late registrations."
+  fr: "La date à laquelle l'événement d'état civil a été officiellement enregistré auprès de l'autorité d'état civil. Peut être postérieure à la date de l'événement, en particulier pour les enregistrements tardifs."
+  es: "La fecha en que el evento vital fue registrado oficialmente ante la autoridad de registro civil. Puede ser posterior a la fecha del evento, especialmente para registros tardíos."
+
+type: date
+cardinality: single
+vocabulary: null
+references: null
+domain_override: crvs

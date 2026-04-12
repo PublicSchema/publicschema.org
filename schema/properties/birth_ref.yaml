@@ -1,0 +1,13 @@
+id: birth_ref
+maturity: draft
+
+definition:
+  en: "A reference to the Birth record of the child whose parentage is being recognized, legitimized, or otherwise modified. Links the current event back to the original birth record."
+  fr: "Une référence à l'acte de Naissance de l'enfant dont la filiation est reconnue, légitimée ou autrement modifiée. Relie l'événement en cours à l'acte de naissance d'origine."
+  es: "Una referencia al registro de Nacimiento del hijo o hija cuya filiación se está reconociendo, legitimando o modificando de otro modo. Vincula el evento actual con el registro de nacimiento original."
+
+type: concept:Birth
+cardinality: single
+vocabulary: null
+references: Birth
+domain_override: crvs

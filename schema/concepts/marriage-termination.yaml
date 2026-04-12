@@ -1,0 +1,34 @@
+id: MarriageTermination
+maturity: draft
+domain: crvs
+
+definition:
+  en: >
+    The legal end of a marriage while both parties are alive. Abstract
+    supertype grouping Divorce (dissolution of a valid marriage) and Annulment
+    (declaration that the marriage was invalid from the outset). Death of a
+    spouse ends the marriage but is recorded as a Death, not a
+    MarriageTermination.
+  fr: >
+    La fin juridique d'un mariage du vivant des deux parties. Supertype
+    abstrait regroupant le Divorce (dissolution d'un mariage valide) et
+    l'Annulation (déclaration que le mariage était nul dès l'origine). Le
+    décès d'un conjoint met fin au mariage mais est enregistré comme un
+    Décès, pas comme une MarriageTermination.
+  es: >
+    El fin jurídico de un matrimonio cuando ambas partes están vivas.
+    Supertipo abstracto que agrupa el Divorcio (disolución de un matrimonio
+    válido) y la Anulación (declaración de que el matrimonio era nulo desde
+    el origen). La defunción de un cónyuge pone fin al matrimonio pero se
+    registra como una Defunción, no como una MarriageTermination.
+
+properties:
+  - party_1
+  - party_2
+  - marriage_ref
+  - judgment_date
+  - judgment_reference
+  - court
+
+subtypes: [Divorce, Annulment]
+supertypes: [VitalEvent]

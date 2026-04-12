@@ -1,0 +1,49 @@
+id: family-register-status
+maturity: draft
+domain: crvs
+
+definition:
+  en: "Lifecycle status of a family register. Captures whether the register is currently active, has been closed, or was split into or merged with other registers following vital events."
+  fr: "Statut du cycle de vie d'un registre familial. Indique si le registre est actuellement actif, a été clôturé, ou a été scindé ou fusionné avec d'autres registres suite à des événements d'état civil."
+  es: "Estado del ciclo de vida de un registro familiar. Indica si el registro está actualmente activo, ha sido cerrado, o fue dividido o fusionado con otros registros tras eventos vitales."
+
+values:
+  - code: active
+    label:
+      en: Active
+      fr: Actif
+      es: Activo
+    definition:
+      en: "The register is currently active and tracks a family unit with at least one living member."
+      fr: "Le registre est actuellement actif et suit une unité familiale comptant au moins un membre vivant."
+      es: "El registro está actualmente activo y hace seguimiento a una unidad familiar con al menos un miembro vivo."
+
+  - code: closed
+    label:
+      en: Closed
+      fr: Clôturé
+      es: Cerrado
+    definition:
+      en: "The register has been closed, typically because all members have died or left."
+      fr: "Le registre a été clôturé, généralement parce que tous les membres sont décédés ou sont partis."
+      es: "El registro ha sido cerrado, típicamente porque todos los miembros han fallecido o se han ido."
+
+  - code: split
+    label:
+      en: Split
+      fr: Scindé
+      es: Dividido
+    definition:
+      en: "The register was split into multiple registers, for example when a family member marries and creates a new family unit."
+      fr: "Le registre a été scindé en plusieurs registres, par exemple lorsqu'un membre de la famille se marie et crée une nouvelle unité familiale."
+      es: "El registro fue dividido en múltiples registros, por ejemplo, cuando un miembro de la familia contrae matrimonio y crea una nueva unidad familiar."
+
+  - code: merged
+    label:
+      en: Merged
+      fr: Fusionné
+      es: Fusionado
+    definition:
+      en: "The register was merged with another register, for example following a marriage that joined two families into one register."
+      fr: "Le registre a été fusionné avec un autre registre, par exemple à la suite d'un mariage ayant réuni deux familles en un seul registre."
+      es: "El registro fue fusionado con otro registro, por ejemplo, tras un matrimonio que unió dos familias en un solo registro."

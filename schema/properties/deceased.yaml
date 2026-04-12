@@ -1,0 +1,13 @@
+id: deceased
+maturity: draft
+
+definition:
+  en: "The person whose death is recorded. Remains a Person entity so that existing identifiers and attributes can still be referenced after death."
+  fr: "La personne dont le décès est enregistré. Reste une entité Personne afin que les identifiants et attributs existants puissent toujours être référencés après le décès."
+  es: "La persona cuyo fallecimiento se registra. Sigue siendo una entidad Persona para que los identificadores y atributos existentes puedan seguir siendo referenciados tras la defunción."
+
+type: concept:Person
+cardinality: single
+vocabulary: null
+references: Person
+domain_override: crvs

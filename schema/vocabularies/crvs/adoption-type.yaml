@@ -1,0 +1,29 @@
+id: adoption-type
+maturity: draft
+domain: crvs
+
+definition:
+  en: "Whether an adoption fully replaces the relationship to the biological family (full adoption) or preserves some legal ties to it (simple or limited adoption). This distinction carries significant civil status implications in civil law systems."
+  fr: "Si une adoption remplace entièrement la relation avec la famille biologique (adoption plénière) ou préserve certains liens légaux avec elle (adoption simple ou limitée). Cette distinction a des implications importantes sur l'état civil dans les systèmes de droit civil."
+  es: "Si una adopción reemplaza completamente la relación con la familia biológica (adopción plena) o preserva algunos lazos legales con ella (adopción simple o limitada). Esta distinción tiene implicaciones importantes en el estado civil en los sistemas de derecho civil."
+
+values:
+  - code: full
+    label:
+      en: Full
+      fr: Plénière
+      es: Plena
+    definition:
+      en: "Adoption that fully severs legal ties to the biological family and establishes a complete new legal parent-child relationship. Known as adoption plenière in French civil law."
+      fr: "Adoption qui rompt entièrement les liens juridiques avec la famille biologique et établit une nouvelle relation parent-enfant juridiquement complète. Connue sous le nom d'adoption plénière en droit civil français."
+      es: "Adopción que rompe por completo los vínculos legales con la familia biológica y establece una nueva relación legal de padre-hijo. Conocida como adopción plena."
+
+  - code: simple
+    label:
+      en: Simple
+      fr: Simple
+      es: Simple
+    definition:
+      en: "Adoption that preserves some legal ties to the biological family, for example for inheritance purposes. Known as adoption simple in French civil law."
+      fr: "Adoption qui préserve certains liens juridiques avec la famille biologique, par exemple à des fins successorales. Connue sous le nom d'adoption simple en droit civil français."
+      es: "Adopción que preserva algunos vínculos legales con la familia biológica, por ejemplo, para fines de herencia. Conocida como adopción simple."

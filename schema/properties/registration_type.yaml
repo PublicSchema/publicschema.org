@@ -1,0 +1,13 @@
+id: registration_type
+maturity: draft
+
+definition:
+  en: "The regime under which the registration was processed: current (within the legal window), late, court-ordered, or reconstruction of a lost record. Affects legal weight and downstream uses."
+  fr: "Le régime selon lequel l'enregistrement a été traité: courant (dans le délai légal), tardif, ordonné par un tribunal, ou reconstitution d'un acte perdu. Influe sur la valeur juridique et les usages ultérieurs."
+  es: "El régimen bajo el cual se procesó el registro: corriente (dentro del plazo legal), tardío, ordenado por tribunal, o reconstitución de un acta perdida. Afecta el peso legal y los usos posteriores."
+
+type: string
+cardinality: single
+vocabulary: crvs/registration-type
+references: null
+domain_override: crvs

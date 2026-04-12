@@ -24,7 +24,7 @@ definition:
 properties:
   - identifiers
 
-subtypes: [AssessmentEvent, EligibilityDecision, HazardEvent, InKindDelivery, PaymentEvent, Referral, VoucherRedemption]
+subtypes: [AssessmentEvent, EligibilityDecision, HazardEvent, InKindDelivery, PaymentEvent, Referral, VitalEvent, VoucherRedemption]
 supertypes: []
 
 external_equivalents:

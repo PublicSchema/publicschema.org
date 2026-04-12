@@ -1,0 +1,69 @@
+id: birth-attendant
+maturity: draft
+domain: crvs
+
+definition:
+  en: "The category of person who attended the birth. Used to track skilled birth attendance, a core indicator of maternal and newborn health."
+  fr: "La catégorie de personne ayant assisté à l'accouchement. Utilisé pour suivre l'assistance qualifiée à l'accouchement, un indicateur clé de la santé maternelle et néonatale."
+  es: "La categoría de persona que asistió al parto. Se utiliza para hacer seguimiento a la asistencia calificada al parto, un indicador clave de la salud materna y neonatal."
+
+values:
+  - code: physician
+    label:
+      en: Physician
+      fr: Médecin
+      es: Médico
+    definition:
+      en: "A licensed medical doctor attended the birth."
+      fr: "Un médecin diplômé a assisté à l'accouchement."
+      es: "Un médico titulado asistió al parto."
+
+  - code: midwife
+    label:
+      en: Midwife
+      fr: Sage-femme
+      es: Partera
+    definition:
+      en: "A professionally trained midwife attended the birth."
+      fr: "Une sage-femme qualifiée a assisté à l'accouchement."
+      es: "Una partera profesional asistió al parto."
+
+  - code: nurse
+    label:
+      en: Nurse
+      fr: Infirmier/ère
+      es: Enfermero/a
+    definition:
+      en: "A nurse attended the birth."
+      fr: "Un infirmier ou une infirmière a assisté à l'accouchement."
+      es: "Un enfermero o enfermera asistió al parto."
+
+  - code: traditional_birth_attendant
+    label:
+      en: Traditional birth attendant
+      fr: Accoucheuse traditionnelle
+      es: Partera tradicional
+    definition:
+      en: "A community member or traditional practitioner who provides birth assistance, typically without formal medical training."
+      fr: "Un membre de la communauté ou un praticien traditionnel qui fournit une assistance à l'accouchement, généralement sans formation médicale formelle."
+      es: "Un miembro de la comunidad o practicante tradicional que brinda asistencia al parto, típicamente sin formación médica formal."
+
+  - code: other
+    label:
+      en: Other
+      fr: Autre
+      es: Otro
+    definition:
+      en: "Another category of attendant not covered above (e.g., family member, self)."
+      fr: "Une autre catégorie d'assistant non couverte ci-dessus (par exemple, membre de la famille, soi-même)."
+      es: "Otra categoría de asistente no cubierta arriba (por ejemplo, familiar, la propia persona)."
+
+  - code: none
+    label:
+      en: None
+      fr: Aucun
+      es: Ninguno
+    definition:
+      en: "No attendant was present during the birth."
+      fr: "Aucun assistant n'était présent lors de l'accouchement."
+      es: "No hubo ningún asistente presente durante el parto."

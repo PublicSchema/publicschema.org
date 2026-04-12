@@ -1,0 +1,13 @@
+id: annotation_date
+maturity: draft
+
+definition:
+  en: "The date on which the annotation was added to the civil status record. Typically after the originating record was created, reflecting a later vital event."
+  fr: "La date à laquelle la mention a été ajoutée à l'acte d'état civil. Généralement postérieure à la création de l'acte d'origine, reflétant un événement d'état civil ultérieur."
+  es: "La fecha en que se añadió la anotación al acta de estado civil. Generalmente posterior a la creación del acta original, reflejando un evento vital posterior."
+
+type: date
+cardinality: single
+vocabulary: null
+references: null
+domain_override: crvs

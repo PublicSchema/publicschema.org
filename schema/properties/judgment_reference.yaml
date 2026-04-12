@@ -1,0 +1,13 @@
+id: judgment_reference
+maturity: draft
+
+definition:
+  en: "The case number or other identifier of the court judgment that ordered this vital event. Enables retrieval of the underlying judicial record."
+  fr: "Le numéro de dossier ou autre identifiant du jugement ayant ordonné cet événement d'état civil. Permet de retrouver la décision judiciaire sous-jacente."
+  es: "El número de expediente u otro identificador de la sentencia judicial que ordenó este evento vital. Permite recuperar la resolución judicial subyacente."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+domain_override: crvs

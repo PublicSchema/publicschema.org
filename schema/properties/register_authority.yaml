@@ -1,0 +1,13 @@
+id: register_authority
+maturity: draft
+
+definition:
+  en: "The authority that maintains the family register. Typically a municipal or ward-level civil registration office."
+  fr: "L'autorité qui tient le registre familial. Généralement un bureau d'état civil au niveau municipal ou d'arrondissement."
+  es: "La autoridad que mantiene el registro familiar. Generalmente una oficina de registro civil a nivel municipal o de distrito."
+
+type: concept:Location
+cardinality: single
+vocabulary: null
+references: Location
+domain_override: crvs

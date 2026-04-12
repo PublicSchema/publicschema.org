@@ -1,0 +1,13 @@
+id: issuing_authority_location
+maturity: draft
+
+definition:
+  en: "The civil registration office that issued the record, modeled as a Location. Distinct from the string-valued issuing_authority property used on generic identifiers."
+  fr: "Le bureau d'état civil qui a délivré l'acte, représenté comme un Lieu. Distinct de la propriété issuing_authority, de type chaîne, utilisée sur les identifiants génériques."
+  es: "La oficina de registro civil que emitió el acta, modelada como una Ubicación. Distinta de la propiedad issuing_authority, de tipo cadena, utilizada en identificadores genéricos."
+
+type: concept:Location
+cardinality: single
+vocabulary: null
+references: Location
+domain_override: crvs

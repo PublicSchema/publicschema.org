@@ -1,0 +1,13 @@
+id: informant
+maturity: draft
+
+definition:
+  en: "The person who declares the vital event to the civil registration authority. Typically a parent for births, a relative or medical professional for deaths, or the parties themselves for marriages."
+  fr: "La personne qui déclare l'événement à l'autorité d'état civil. Habituellement un parent pour les naissances, un proche ou un professionnel de santé pour les décès, ou les parties elles-mêmes pour les mariages."
+  es: "La persona que declara el evento vital ante la autoridad de registro civil. Típicamente un padre o madre en nacimientos, un familiar o profesional médico en defunciones, o las propias partes en matrimonios."
+
+type: concept:Person
+cardinality: single
+vocabulary: null
+references: Person
+domain_override: crvs

@@ -1,0 +1,13 @@
+id: triggering_event
+maturity: draft
+
+definition:
+  en: "The subsequent vital event that prompted the annotation (for example, a marriage annotated on the birth record of a spouse, or a divorce annotated on a marriage record)."
+  fr: "L'événement d'état civil ultérieur qui a motivé la mention (par exemple, un mariage mentionné sur l'acte de naissance d'un conjoint, ou un divorce mentionné sur un acte de mariage)."
+  es: "El evento vital posterior que motivó la anotación (por ejemplo, un matrimonio anotado en el acta de nacimiento de un cónyuge, o un divorcio anotado en un acta de matrimonio)."
+
+type: concept:VitalEvent
+cardinality: single
+vocabulary: null
+references: VitalEvent
+domain_override: crvs

@@ -1,0 +1,13 @@
+id: sex_at_birth
+maturity: draft
+
+definition:
+  en: "The sex of the child as observed and recorded at the time of birth. Distinct from any later legal or administrative sex marker."
+  fr: "Le sexe de l'enfant tel qu'observé et consigné au moment de la naissance. Distinct de tout marqueur de sexe légal ou administratif ultérieur."
+  es: "El sexo del niño o de la niña tal como se observa y registra en el momento del nacimiento. Distinto de cualquier marcador de sexo legal o administrativo posterior."
+
+type: string
+cardinality: single
+vocabulary: sex
+references: null
+domain_override: crvs

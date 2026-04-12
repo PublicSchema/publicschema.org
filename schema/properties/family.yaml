@@ -1,0 +1,13 @@
+id: family
+maturity: draft
+
+definition:
+  en: "The family group tracked by a family register. Modeled as a Group so that household-level and family-level concepts can share structure."
+  fr: "Le groupe familial suivi par un registre familial. Modélisé comme un Groupe afin que les concepts de niveau ménage et de niveau famille puissent partager la même structure."
+  es: "El grupo familiar al que da seguimiento un registro familiar. Modelado como un Grupo para que los conceptos a nivel de hogar y a nivel de familia puedan compartir la misma estructura."
+
+type: concept:Group
+cardinality: single
+vocabulary: null
+references: Group
+domain_override: crvs

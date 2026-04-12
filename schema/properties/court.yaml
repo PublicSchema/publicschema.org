@@ -1,0 +1,13 @@
+id: court
+maturity: draft
+
+definition:
+  en: "The court that issued the judgment for a divorce, annulment, adoption, paternity recognition, or other court-ordered vital event."
+  fr: "Le tribunal qui a rendu le jugement pour un divorce, une annulation, une adoption, une reconnaissance de paternité ou un autre événement d'état civil ordonné par tribunal."
+  es: "El tribunal que dictó la sentencia para un divorcio, anulación, adopción, reconocimiento de paternidad u otro evento vital ordenado por tribunal."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+domain_override: crvs

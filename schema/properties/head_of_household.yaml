@@ -1,0 +1,13 @@
+id: head_of_household
+maturity: draft
+
+definition:
+  en: "The person designated as head of the family register, around whom the register is organized. Terminology and legal significance vary (koseki hittosha in Japan, hu zhu in China, chef de famille in French-inspired systems)."
+  fr: "La personne désignée comme chef du registre familial, autour de laquelle le registre est organisé. La terminologie et la portée juridique varient (koseki hittosha au Japon, hu zhu en Chine, chef de famille dans les systèmes inspirés du droit français)."
+  es: "La persona designada como cabeza del registro familiar, en torno a la cual se organiza el registro. La terminología y el alcance jurídico varían (koseki hittosha en Japón, hu zhu en China, jefe de familia en los sistemas de inspiración francesa)."
+
+type: concept:Person
+cardinality: single
+vocabulary: null
+references: Person
+domain_override: crvs

@@ -1,0 +1,13 @@
+id: annotating_authority
+maturity: draft
+
+definition:
+  en: "The civil registration office that added the annotation to the record. May differ from the office that issued the original record if the person has moved."
+  fr: "Le bureau d'état civil qui a ajouté la mention à l'acte. Peut différer du bureau qui a délivré l'acte original si la personne a déménagé."
+  es: "La oficina de registro civil que añadió la anotación al acta. Puede diferir de la oficina que emitió el acta original si la persona se ha trasladado."
+
+type: concept:Location
+cardinality: single
+vocabulary: null
+references: Location
+domain_override: crvs

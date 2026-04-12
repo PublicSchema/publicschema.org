@@ -1,0 +1,13 @@
+id: manner_of_death
+maturity: draft
+
+definition:
+  en: "The circumstances under which the death occurred: natural, accident, intentional self-harm, assault, legal intervention, war, pending investigation, or could not be determined. Follows the WHO death certificate structure."
+  fr: "Les circonstances dans lesquelles le décès s'est produit: naturel, accident, blessure auto-infligée intentionnelle, agression, intervention légale, guerre, enquête en cours, ou indéterminé. Suit la structure de l'acte de décès de l'OMS."
+  es: "Las circunstancias en las que ocurrió la defunción: natural, accidente, lesión autoinfligida intencional, agresión, intervención legal, guerra, investigación pendiente o no determinada. Sigue la estructura del certificado de defunción de la OMS."
+
+type: string
+cardinality: single
+vocabulary: crvs/manner-of-death
+references: null
+domain_override: crvs

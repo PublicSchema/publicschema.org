@@ -1,0 +1,13 @@
+id: birth_type
+maturity: draft
+
+definition:
+  en: "Whether the birth was single, twin, triplet, or higher-order multiple. Captured at the level of the delivery, not per infant."
+  fr: "Indique si la naissance est unique, gémellaire, triple ou d'un ordre plus élevé. Saisie au niveau de l'accouchement, et non par nouveau-né."
+  es: "Indica si el parto fue simple, gemelar, triple o de orden mayor. Se captura al nivel del parto, no por cada recién nacido."
+
+type: string
+cardinality: single
+vocabulary: crvs/birth-type
+references: null
+domain_override: crvs

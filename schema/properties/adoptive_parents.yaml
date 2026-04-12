@@ -1,0 +1,13 @@
+id: adoptive_parents
+maturity: draft
+
+definition:
+  en: "The parents who acquire parental rights through the adoption, each captured as a Parent link entity with an adoptive role."
+  fr: "Les parents qui acquièrent les droits parentaux par l'adoption, chacun représenté par une entité de lien Parent avec un rôle adoptif."
+  es: "Los padres o madres que adquieren derechos parentales mediante la adopción, cada uno representado como una entidad de enlace Parent con un rol adoptivo."
+
+type: concept:Parent
+cardinality: multiple
+vocabulary: null
+references: Parent
+domain_override: crvs

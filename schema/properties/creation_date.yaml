@@ -1,0 +1,13 @@
+id: creation_date
+maturity: draft
+
+definition:
+  en: "The date on which the family register was created, typically at marriage, at the birth of the first child, or when a new household is administratively constituted."
+  fr: "La date à laquelle le registre familial a été créé, généralement lors d'un mariage, à la naissance du premier enfant ou lors de la constitution administrative d'un nouveau ménage."
+  es: "La fecha en que se creó el registro familiar, generalmente al contraerse matrimonio, al nacimiento del primer hijo o al constituirse administrativamente un nuevo hogar."
+
+type: date
+cardinality: single
+vocabulary: null
+references: null
+domain_override: crvs

@@ -1,0 +1,29 @@
+id: annotation-type
+maturity: draft
+domain: crvs
+
+definition:
+  en: "The category of a marginal annotation (mention marginale) added to a civil status record when the annotation is not derivable from a triggering vital event. Event-triggered annotations (e.g., annotating a birth acte with a marriage) carry their annotation type implicitly through the triggering event and are not listed here."
+  fr: "La catégorie d'une mention marginale ajoutée à un acte d'état civil lorsque la mention n'est pas déductible d'un événement d'état civil déclencheur. Les mentions déclenchées par un événement (par ex., mentionner un mariage sur un acte de naissance) portent leur type implicitement à travers l'événement déclencheur et ne sont pas listées ici."
+  es: "La categoría de una anotación marginal (mention marginale) añadida a un acta de estado civil cuando la anotación no es derivable de un evento vital desencadenante. Las anotaciones desencadenadas por un evento (por ej., anotar un matrimonio en un acta de nacimiento) llevan su tipo de forma implícita a través del evento desencadenante y no se listan aquí."
+
+values:
+  - code: court_ordered_correction
+    label:
+      en: Court ordered correction
+      fr: Correction ordonnée par le tribunal
+      es: Corrección ordenada por el tribunal
+    definition:
+      en: "An annotation reflecting a judicial correction of a prior entry in the civil status record (e.g., rectification of a name or date)."
+      fr: "Une mention reflétant une correction judiciaire d'une inscription antérieure dans l'acte d'état civil (par ex., rectification d'un nom ou d'une date)."
+      es: "Una anotación que refleja una corrección judicial de una inscripción previa en el acta de estado civil (por ej., rectificación de un nombre o fecha)."
+
+  - code: nationality_change
+    label:
+      en: Nationality change
+      fr: Changement de nationalité
+      es: Cambio de nacionalidad
+    definition:
+      en: "An annotation reflecting a change in the person's nationality, for example through naturalization or loss of citizenship."
+      fr: "Une mention reflétant un changement de nationalité de la personne, par exemple par naturalisation ou perte de citoyenneté."
+      es: "Una anotación que refleja un cambio en la nacionalidad de la persona, por ejemplo, a través de naturalización o pérdida de ciudadanía."

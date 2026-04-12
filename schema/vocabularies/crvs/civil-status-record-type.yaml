@@ -1,0 +1,69 @@
+id: civil-status-record-type
+maturity: draft
+domain: crvs
+
+definition:
+  en: "The type of acte represented by a civil status record. Covers the standard vital event actes and court-ordered substitutes used when original records are missing or were never created."
+  fr: "Le type d'acte représenté par un registre d'état civil. Couvre les actes standard des événements d'état civil et les substituts judiciaires utilisés lorsque les actes originaux sont manquants ou n'ont jamais été établis."
+  es: "El tipo de acta representado por un registro de estado civil. Cubre las actas estándar de eventos vitales y los sustitutos ordenados por el tribunal utilizados cuando las actas originales están ausentes o nunca fueron creadas."
+
+values:
+  - code: birth
+    label:
+      en: Birth
+      fr: Naissance
+      es: Nacimiento
+    definition:
+      en: "A birth acte recording the birth of a person."
+      fr: "Un acte de naissance enregistrant la naissance d'une personne."
+      es: "Un acta de nacimiento que registra el nacimiento de una persona."
+
+  - code: marriage
+    label:
+      en: Marriage
+      fr: Mariage
+      es: Matrimonio
+    definition:
+      en: "A marriage acte recording a marriage between two parties."
+      fr: "Un acte de mariage enregistrant un mariage entre deux parties."
+      es: "Un acta de matrimonio que registra un matrimonio entre dos partes."
+
+  - code: death
+    label:
+      en: Death
+      fr: Décès
+      es: Defunción
+    definition:
+      en: "A death acte recording the death of a person."
+      fr: "Un acte de décès enregistrant le décès d'une personne."
+      es: "Un acta de defunción que registra la muerte de una persona."
+
+  - code: paternity_recognition
+    label:
+      en: Paternity recognition
+      fr: Reconnaissance de paternité
+      es: Reconocimiento de paternidad
+    definition:
+      en: "An acte recording a parent's legal recognition of paternity or parentage for a child, most often outside of marriage."
+      fr: "Un acte enregistrant la reconnaissance légale de paternité ou de parentalité d'un parent envers un enfant, le plus souvent hors mariage."
+      es: "Un acta que registra el reconocimiento legal de paternidad o parentalidad por parte de un progenitor hacia un niño, con mayor frecuencia fuera del matrimonio."
+
+  - code: jugement_suppletif
+    label:
+      en: Supplementary judgment
+      fr: Jugement supplétif
+      es: Sentencia supletoria
+    definition:
+      en: "A court judgment issued in place of a missing original acte, typically used in civil law systems when a birth was never registered or the record was lost."
+      fr: "Un jugement rendu en remplacement d'un acte original manquant, généralement utilisé dans les systèmes de droit civil lorsqu'une naissance n'a jamais été enregistrée ou que l'acte a été perdu."
+      es: "Una sentencia judicial emitida en lugar de un acta original ausente, típicamente utilizada en los sistemas de derecho civil cuando un nacimiento nunca fue registrado o el registro se perdió."
+
+  - code: court_ordered_substitute
+    label:
+      en: Court ordered substitute
+      fr: Substitut ordonné par le tribunal
+      es: Sustituto ordenado por el tribunal
+    definition:
+      en: "A record created by court order to substitute for an original acte that cannot be produced, in jurisdictions using a mechanism similar to the jugement supplétif."
+      fr: "Un acte créé par décision judiciaire pour remplacer un acte original qui ne peut être produit, dans les juridictions utilisant un mécanisme similaire au jugement supplétif."
+      es: "Un registro creado por orden judicial para sustituir un acta original que no puede ser presentada, en jurisdicciones que utilizan un mecanismo similar a la sentencia supletoria."

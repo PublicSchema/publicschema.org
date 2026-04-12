@@ -1,0 +1,32 @@
+id: Marriage
+maturity: draft
+domain: crvs
+
+definition:
+  en: >
+    The legal union of two persons under the applicable law. Captures the two
+    parties, witnesses, and the type of marriage (civil, religious, customary,
+    common law). Treated as a vital event rather than a standing relationship,
+    since what is being registered is the occurrence that creates legal
+    spousal status.
+  fr: >
+    L'union légale de deux personnes selon la loi applicable. Saisit les deux
+    parties, les témoins et le type de mariage (civil, religieux, coutumier,
+    de fait). Traité comme un événement d'état civil plutôt que comme une
+    relation permanente, car ce qui est enregistré est l'événement qui crée
+    le statut juridique de conjoint.
+  es: >
+    La unión legal de dos personas según la ley aplicable. Captura a las dos
+    partes, los testigos y el tipo de matrimonio (civil, religioso,
+    consuetudinario, de hecho). Tratado como un evento vital y no como una
+    relación permanente, ya que lo que se registra es el suceso que crea el
+    estatus jurídico de cónyuge.
+
+properties:
+  - party_1
+  - party_2
+  - witnesses
+  - type_of_marriage
+
+subtypes: []
+supertypes: [VitalEvent]

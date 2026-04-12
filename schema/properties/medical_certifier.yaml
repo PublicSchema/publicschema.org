@@ -1,0 +1,13 @@
+id: medical_certifier
+maturity: draft
+
+definition:
+  en: "The medical practitioner who certified the cause of death. Distinct from the registrar, who records the death with the civil registration authority."
+  fr: "Le praticien médical qui a certifié la cause du décès. Distinct de l'officier d'état civil, qui consigne le décès auprès de l'autorité d'enregistrement."
+  es: "El profesional médico que certificó la causa de la defunción. Distinto del funcionario de registro civil, que inscribe la defunción ante la autoridad de registro."
+
+type: concept:Person
+cardinality: single
+vocabulary: null
+references: Person
+domain_override: crvs
