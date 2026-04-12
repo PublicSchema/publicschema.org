@@ -165,6 +165,9 @@ const en = {
   // Docs index
   'docs.page_title': 'Documentation',
   'docs.page_subtitle': 'Guides, technical references, and background on PublicSchema.',
+  'docs.category.getting_started': 'Getting Started',
+  'docs.category.technical': 'Technical Documentation',
+  'docs.category.landscape': 'Landscape',
 
   // Homepage schema index (data-driven section)
   'home.browse_schema': 'Browse the schema',
@@ -346,6 +349,9 @@ export const ui: Record<Locale, Partial<Dict>> = {
     // Docs index
     'docs.page_title': 'Documentation',
     'docs.page_subtitle': 'Guides, références techniques et informations générales sur PublicSchema.',
+    'docs.category.getting_started': 'Pour commencer',
+    'docs.category.technical': 'Documentation technique',
+    'docs.category.landscape': 'Panorama',
 
     // Homepage schema index (data-driven section)
     'home.browse_schema': 'Explorer le schéma',
@@ -522,6 +528,9 @@ export const ui: Record<Locale, Partial<Dict>> = {
     // Docs index
     'docs.page_title': 'Documentación',
     'docs.page_subtitle': 'Guías, referencias técnicas e información general sobre PublicSchema.',
+    'docs.category.getting_started': 'Primeros pasos',
+    'docs.category.technical': 'Documentación técnica',
+    'docs.category.landscape': 'Panorama',
 
     // Homepage schema index (data-driven section)
     'home.browse_schema': 'Explorar el esquema',

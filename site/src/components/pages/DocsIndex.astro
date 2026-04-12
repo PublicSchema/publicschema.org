@@ -2,7 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import { defaultLocale, type Locale } from '../../i18n/languages';
 import { useTranslations, localePath } from '../../i18n/utils';
-import { docs } from '../../data/docs';
+import { docs, type DocCategoryKey } from '../../data/docs';
 
 interface Props {
   locale?: Locale;
@@ -23,18 +23,29 @@ interface DocCategory {
 }
 
 // Group docs by category, preserving insertion order
-const categoryOrder = ["Getting Started", "Technical Documentation", "Landscape"];
-const grouped = new Map<string, DocLink[]>();
-for (const name of categoryOrder) {
-  grouped.set(name, []);
+const categoryOrder: DocCategoryKey[] = ['getting_started', 'technical', 'landscape'];
+const categoryLabelKey: Record<DocCategoryKey, string> = {
+  getting_started: 'docs.category.getting_started',
+  technical: 'docs.category.technical',
+  landscape: 'docs.category.landscape',
+};
+const grouped = new Map<DocCategoryKey, DocLink[]>();
+for (const key of categoryOrder) {
+  grouped.set(key, []);
 }
 for (const [slug, entry] of Object.entries(docs)) {
   const list = grouped.get(entry.category);
-  if (list) list.push({ slug, title: entry.title, description: entry.description });
+  if (list) {
+    list.push({
+      slug,
+      title: entry.title[locale] ?? entry.title.en,
+      description: entry.description[locale] ?? entry.description.en,
+    });
+  }
 }
-const categories: DocCategory[] = categoryOrder.map((name) => ({
-  name,
-  docs: grouped.get(name)!,
+const categories: DocCategory[] = categoryOrder.map((key) => ({
+  name: t(categoryLabelKey[key]),
+  docs: grouped.get(key)!,
 }));
 ---
 <Base title={t('docs.page_title')} description={t('docs.page_subtitle')} locale={locale}>
