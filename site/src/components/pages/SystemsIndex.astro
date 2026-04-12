@@ -21,7 +21,7 @@ const systems = Object.entries(index)
   })
   .sort((a, b) => b.total - a.total);
 ---
-<Base title={t('systems.page_title')} description="External systems with vocabulary mappings to PublicSchema." locale={locale}>
+<Base title={t('systems.page_title')} description={t('systems.page_subtitle')} locale={locale}>
   <div class="page-header">
     <nav class="breadcrumb">
       <a href={localePath('/', locale)}>{t('breadcrumb.home')}</a><span class="separator">/</span>{t('common.systems')}

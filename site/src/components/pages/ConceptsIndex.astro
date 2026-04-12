@@ -21,7 +21,7 @@ const domainLabels: Record<string, string> = { sp: t('concepts.section_social_pr
 const domainCodes = [...new Set(concepts.filter((c) => c.domain).map((c) => c.domain as string))].sort();
 const conceptsByDomain = Object.fromEntries(domainCodes.map((d) => [d, concepts.filter((c) => c.domain === d)]));
 ---
-<Base title={t('concepts.page_title')} description="All concepts in the PublicSchema vocabulary." locale={locale}>
+<Base title={t('concepts.page_title')} description={t('concepts.page_subtitle')} locale={locale}>
   <div class="page-header">
     <nav class="breadcrumb">
       <a href={localePath('/', locale)}>{t('breadcrumb.home')}</a><span class="separator">/</span>{t('common.concepts')}

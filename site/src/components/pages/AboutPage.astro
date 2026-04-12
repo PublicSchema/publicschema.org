@@ -16,9 +16,6 @@ const loader = modules[wantedKey] ?? modules[fallbackKey];
 const fellBack = !modules[wantedKey];
 const Content = (await loader()).default;
 
-// Page chrome strings stay in English until Phase 2 translates them per
-// prose page. The rest of the site chrome is already locale-aware via
-// the i18n dictionary.
 const titles: Record<Locale, { title: string; subtitle: string; description: string }> = {
   en: {
     title: 'About PublicSchema',
@@ -26,14 +23,14 @@ const titles: Record<Locale, { title: string; subtitle: string; description: str
     description: "What PublicSchema provides, where it sits, and where it's going.",
   },
   fr: {
-    title: 'About PublicSchema',
-    subtitle: "What it provides, where it sits, and where it's going.",
-    description: "What PublicSchema provides, where it sits, and where it's going.",
+    title: 'À propos de PublicSchema',
+    subtitle: "Ce qu'il fournit, où il se situe et vers quoi il se dirige.",
+    description: "Ce que PublicSchema fournit, où il se situe et vers quoi il se dirige.",
   },
   es: {
-    title: 'About PublicSchema',
-    subtitle: "What it provides, where it sits, and where it's going.",
-    description: "What PublicSchema provides, where it sits, and where it's going.",
+    title: 'Acerca de PublicSchema',
+    subtitle: 'Qué ofrece, dónde se sitúa y hacia dónde va.',
+    description: 'Qué ofrece PublicSchema, dónde se sitúa y hacia dónde va.',
   },
 };
 

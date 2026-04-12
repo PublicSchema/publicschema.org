@@ -1,0 +1,12 @@
+---
+import SystemDetail from '../../../components/pages/SystemDetail.astro';
+import { buildSystemIndex } from '../../../data/systems';
+
+export function getStaticPaths() {
+  const index = buildSystemIndex();
+  return Object.keys(index).map((id) => ({
+    params: { system: id },
+  }));
+}
+---
+<SystemDetail system={Astro.params.system!} locale="es" />

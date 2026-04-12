@@ -1,0 +1,143 @@
+---
+/**
+ * English about page prose. Phase 2 adds AboutContent.fr.astro and
+ * AboutContent.es.astro, which the page shell loads dynamically.
+ */
+---
+<h2>Qué ofrece PublicSchema</h2>
+<p>
+  PublicSchema es un modelo de referencia abierto para datos de servicios públicos.
+  La <a href="/">página de inicio</a> cubre los aspectos básicos; esta página profundiza más.
+</p>
+<p>Ofrece:</p>
+<ul>
+  <li><strong><a href="/concepts/">Conceptos</a></strong>: entidades semánticas (Persona, Inscripción, Pago y otras) con definiciones redactadas para profesionales de política pública, no para desarrolladores.</li>
+  <li><strong><a href="/properties/">Propiedades</a></strong>: campos con nombre y tipo que se aplican a uno o más conceptos. Se definen una sola vez y se reutilizan, manteniendo las definiciones coherentes entre dominios.</li>
+  <li><strong><a href="/vocab/">Vocabularios</a></strong>: conjuntos de valores controlados. Cuando existen estándares internacionales (ISO, FHIR, ONU), los referenciamos. Cuando no existen, definimos un conjunto canónico con correspondencias a cómo los sistemas específicos codifican los mismos valores.</li>
+  <li><strong>Esquemas de credenciales</strong>: contextos JSON-LD y estructuras para emitir datos de conceptos como <a href="https://www.w3.org/TR/vc-data-model-2.0/">Credenciales Verificables</a>, usando SD-JWT VC para la divulgación selectiva de datos personales sensibles.</li>
+</ul>
+<p>
+  Cada elemento recibe un URI estable. Todo es opcional. Los sistemas adoptan
+  lo que necesitan.
+</p>
+
+<figure class="diagram">
+  <img src="/images/integration-layer.svg" alt="Diagrama que muestra PublicSchema como una capa compartida entre un modelo de datos interno y múltiples formatos de salida: API REST, bus de eventos, credenciales, intercambio de archivos y almacén de datos." />
+</figure>
+
+<h2>Principios de diseño</h2>
+<p>
+  Las definiciones tienen peso semántico, no solo estructura. Las propiedades son
+  reutilizables entre conceptos. La delimitación temporal es de primer orden. Los estándares
+  internacionales se referencian, nunca se reinventan. Nada es obligatorio.
+</p>
+<p>
+  Consulte <a href="/docs/design-principles/">Principios de diseño</a> para conocer la
+  justificación completa de cada una de estas decisiones.
+</p>
+
+<h2>Dónde se ubica PublicSchema</h2>
+<p>
+  PublicSchema complementa los esfuerzos existentes en lugar de competir con ellos.
+  Se sitúa en la capa de datos de prestación: entre los estándares de identidad, la
+  interoperabilidad de API y la infraestructura de confianza.
+</p>
+
+<table class="divergence-example">
+  <thead>
+    <tr>
+      <th>Capa</th>
+      <th>Qué existe</th>
+      <th>Qué agrega PublicSchema</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Confianza y transporte</td>
+      <td>W3C VC, OpenID4VC, EBSI</td>
+      <td>Vocabulario de dominio dentro de las credenciales</td>
+    </tr>
+    <tr>
+      <td>Atributos de identidad</td>
+      <td>EU Core Person Vocabulary</td>
+      <td>Datos del ciclo de vida de la prestación más allá de nombre, nacimiento y ciudadanía</td>
+    </tr>
+    <tr>
+      <td>Catálogos de servicios</td>
+      <td>CPSV-AP, HSDS/Open Referral</td>
+      <td>Quién recibe qué, no qué servicios existen</td>
+    </tr>
+    <tr>
+      <td>Interoperabilidad de API</td>
+      <td>DCI, GovStack</td>
+      <td>Semántica compartida detrás de los contratos de API</td>
+    </tr>
+    <tr>
+      <td>Medición estadística</td>
+      <td>ILO/World Bank ASPIRE</td>
+      <td>Modelos de datos para el intercambio, no solo indicadores</td>
+    </tr>
+    <tr>
+      <td><strong>Ciclo de vida de la prestación</strong></td>
+      <td><strong>Nada</strong></td>
+      <td><strong>Esta es la brecha</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<figure class="diagram">
+  <img src="/images/standards-stack.svg" alt="Diagrama de la pila de estándares que muestra PublicSchema en la capa del ciclo de vida de la prestación, junto con otros estándares de confianza, identidad, catálogos de servicios, API y medición estadística." />
+</figure>
+
+<p>
+  DCI es la iniciativa más cercana: define cómo fluyen los datos entre
+  sistemas de protección social; PublicSchema define qué significan esos datos.
+  GovStack define bloques de construcción para el gobierno digital; PublicSchema es
+  el modelo de datos compartido que esos bloques necesitan implícitamente. FHIR es el
+  equivalente en el sector salud; nos inspiramos en su enfoque pero apuntamos a los servicios
+  públicos en general.
+</p>
+<p>
+  Consulte <a href="/docs/related-standards/">Estándares relacionados</a> para una comparación
+  detallada.
+</p>
+
+<h2>Alcance</h2>
+<p>
+  PublicSchema comienza con la protección social: un dominio bien comprendido con
+  transformación digital activa, múltiples sistemas de código abierto y una necesidad
+  inmediata de interoperabilidad. Consulte la lista completa de
+  <a href="/concepts/">conceptos</a> para conocer la cobertura actual.
+</p>
+<p>
+  El modelo está diseñado para extenderse a dominios adyacentes (registro civil,
+  salud, educación, respuesta humanitaria) a medida que crece la adopción. La estructura
+  es la misma; solo cambian los conceptos y los vocabularios.
+</p>
+
+<h2>Gobernanza y hoja de ruta</h2>
+<p>
+  El proyecto es mantenido por Jeremi Joslin para permitir decisiones rápidas y con
+  criterio en las etapas iniciales. Se busca activamente la retroalimentación de
+  expertos en el dominio, implementadores de sistemas y organismos de normalización.
+</p>
+<p>
+  A medida que crezca la adopción, la gobernanza se ampliará: primero a un grupo asesor
+  de colaboradores y expertos en el dominio, luego a una estructura formal de múltiples
+  partes interesadas.
+</p>
+<h3>Fase 1: Fundación <span class="badge badge-draft">en progreso</span></h3>
+<p>
+  Conceptos y propiedades con URIs estables. Definiciones redactadas para
+  profesionales del dominio. Publicado como sitio web de referencia.
+</p>
+<h3>Fase 2: Estándares y correspondencias</h3>
+<p>
+  Estándares internacionales adoptados para cada conjunto de valores. Correspondencias
+  de vocabularios entre sistemas. Piloto con al menos un despliegue en un país.
+</p>
+<h3>Fase 3: Adopción y extensión</h3>
+<p>
+  Gobernanza formalizada. Validación en el mundo real con implementadores de sistemas.
+  Extensión a dominios adyacentes de servicios públicos.
+</p>

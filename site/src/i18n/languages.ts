@@ -14,11 +14,12 @@ export const locales = Object.keys(languages) as Locale[];
 export const defaultLocale: Locale = 'en';
 
 /**
- * Locales with deployed routes. Flip to include `fr` and `es` in Phase 2
- * once the translated pages exist. Until then, the switcher and hreflang
- * alternates only reference English so we do not link to 404s.
+ * Locales with deployed routes. Drives the language switcher, hreflang
+ * alternates, and og:locale:alternate tags. All three locales now have
+ * deployed routes, though some pages fall back to English content with a
+ * translation banner until their prose is translated.
  */
-export const localesLive: Locale[] = ['en'];
+export const localesLive: Locale[] = ['en', 'fr', 'es'];
 
 export function isLocale(value: string): value is Locale {
   return value in languages;

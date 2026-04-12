@@ -18,7 +18,7 @@ const byMaturityThenName = (a: { maturity: string; id: string }, b: { maturity: 
 const properties = Object.values(vocab.properties).sort(byMaturityThenName);
 const primitiveTypes = ["string", "integer", "decimal", "boolean", "date", "datetime", "uri", "geojson_geometry"];
 ---
-<Base title={t('properties.page_title')} description="All properties in the PublicSchema vocabulary." locale={locale}>
+<Base title={t('properties.page_title')} description={t('properties.page_subtitle')} locale={locale}>
   <div class="page-header">
     <nav class="breadcrumb">
       <a href={localePath('/', locale)}>{t('breadcrumb.home')}</a><span class="separator">/</span>{t('common.properties')}

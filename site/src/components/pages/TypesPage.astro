@@ -2,12 +2,14 @@
 import Base from '../../layouts/Base.astro';
 import TranslationBanner from '../TranslationBanner.astro';
 import { defaultLocale, type Locale } from '../../i18n/languages';
+import { localePath, useTranslations } from '../../i18n/utils';
 
 interface Props {
   locale?: Locale;
 }
 
 const { locale = defaultLocale } = Astro.props;
+const t = useTranslations(locale);
 
 const modules = import.meta.glob('./content/TypesContent.*.astro');
 const wantedKey = `./content/TypesContent.${locale}.astro`;
@@ -23,14 +25,14 @@ const headers: Record<Locale, { title: string; subtitle: string; description: st
     description: 'Primitive data types used by PublicSchema properties.',
   },
   fr: {
-    title: 'Data Types',
-    subtitle: 'The data types used by properties in the vocabulary.',
-    description: 'Primitive data types used by PublicSchema properties.',
+    title: 'Types de données',
+    subtitle: 'Les types de données utilisés par les propriétés du vocabulaire.',
+    description: 'Types de données primitifs utilisés par les propriétés de PublicSchema.',
   },
   es: {
-    title: 'Data Types',
-    subtitle: 'The data types used by properties in the vocabulary.',
-    description: 'Primitive data types used by PublicSchema properties.',
+    title: 'Tipos de datos',
+    subtitle: 'Los tipos de datos utilizados por las propiedades del vocabulario.',
+    description: 'Tipos de datos primitivos utilizados por las propiedades de PublicSchema.',
   },
 };
 
@@ -41,7 +43,7 @@ const { title, subtitle, description } = headers[locale];
     {fellBack && <TranslationBanner locale={locale} />}
     <div class="page-header">
       <nav class="breadcrumb">
-        <a href="/">Home</a><span class="separator">/</span>Data Types
+        <a href={localePath('/', locale)}>{t('breadcrumb.home')}</a><span class="separator">/</span>{title}
       </nav>
       <h1>{title}</h1>
       <p class="subtitle">{subtitle}</p>

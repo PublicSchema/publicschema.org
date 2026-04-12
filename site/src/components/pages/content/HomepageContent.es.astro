@@ -1,0 +1,274 @@
+---
+import { defaultLocale, type Locale } from '../../../i18n/languages';
+import { localePath } from '../../../i18n/utils';
+
+interface Props {
+  locale?: Locale;
+  conceptsCount: number;
+  propertiesCount: number;
+  vocabulariesCount: number;
+  systems: string[];
+}
+
+const {
+  locale = defaultLocale,
+  conceptsCount,
+  propertiesCount,
+  vocabulariesCount,
+  systems,
+} = Astro.props;
+---
+<!-- Hero -->
+<div class="h3-hero">
+  <div class="h3-hero-inner">
+    <h1><span class="h3-hero-public">Public</span>Schema</h1>
+    <p class="h3-hero-lead">
+      Cuando los programas atienden a las mismas personas, sus sistemas necesitan un
+      lenguaje común. PublicSchema lo proporciona: definiciones acordadas para conceptos,
+      campos y códigos de valores en la prestación de servicios públicos.
+    </p>
+    <div class="h3-hero-cta">
+      <a href={localePath('/docs/use-cases/', locale)} class="btn btn-primary">Ver cómo los programas usan esto</a>
+      <a href="#contents" class="btn btn-secondary">Qué contiene el esquema</a>
+    </div>
+  </div>
+</div>
+
+<!-- What the schema contains -->
+<div class="h3-band" id="contents">
+  <div class="h3-band-inner">
+    <h2>Qué contiene el esquema</h2>
+    <p class="h3-band-lead">
+      PublicSchema no es un estándar de API, un producto de software ni un
+      marco de cumplimiento. Proporciona definiciones acordadas donde cada concepto tiene
+      peso semántico, no solo estructura. Una Persona no es un conjunto de campos.
+      Cada definición recibe un URI estable, listo para usar en Credenciales
+      Verificables. Todo es opcional; los sistemas adoptan lo que les corresponde.
+    </p>
+
+    <div class="h3-layers">
+      <a href={localePath('/concepts/', locale)} class="h3-layer">
+        <h3>Conceptos y propiedades</h3>
+        <p>
+          Entidades como Persona, Inscripción y Pago reciben definiciones claras
+          redactadas para gestores de programas. Cada concepto tiene propiedades
+          con nombre y tipo (<code>given_name</code>, <code>date_of_birth</code>,
+          <code>enrollment_status</code>) definidas una sola vez y reutilizadas
+          entre conceptos.
+        </p>
+        <div class="h3-layer-examples">
+          <span>Person</span><span>Household</span><span>Enrollment</span><span>Payment</span><span>Grievance</span>
+        </div>
+        <span class="h3-layer-count">{conceptsCount} conceptos, {propertiesCount} propiedades</span>
+      </a>
+      <a href={localePath('/vocab/', locale)} class="h3-layer">
+        <h3>Vocabularios</h3>
+        <p>
+          Conjuntos de valores controlados para campos como género, país, modalidad
+          de beneficio y estado de inscripción. Cuando existen estándares internacionales
+          (ISO, FHIR), los referenciamos. Cuando no existen, definimos un conjunto común
+          basado en la convergencia observada entre sistemas.
+        </p>
+        <div class="h3-layer-examples">
+          <span>Gender (ISO 5218)</span><span>Country (ISO 3166)</span><span>Currency (ISO 4217)</span><span>Benefit modality</span>
+        </div>
+        <span class="h3-layer-count">{vocabulariesCount} vocabularios</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Why this matters -->
+<div class="h3-prose">
+  <h2>Por qué importa un vocabulario compartido</h2>
+  <p>
+    Una madre inscrita en un programa de transferencias monetarias debería calificar
+    automáticamente para un beneficio de salud materno. Pero los dos sistemas definen
+    "género" de manera diferente, "hogar" de manera diferente y "estado de inscripción"
+    de manera diferente. La derivación requiere un ejercicio manual de correspondencia
+    que tarda semanas e introduce errores.
+  </p>
+
+  <div class="h3-example">
+    <table>
+      <thead>
+        <tr>
+          <th>Sistema</th>
+          <th>Nombre del campo</th>
+          <th>Valores</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Sistema A</td>
+          <td><code>gender</code></td>
+          <td><code>1</code>, <code>2</code>, <code>3</code></td>
+        </tr>
+        <tr>
+          <td>Sistema B</td>
+          <td><code>sex</code></td>
+          <td><code>M</code>, <code>F</code>, <code>O</code></td>
+        </tr>
+        <tr>
+          <td>Sistema C</td>
+          <td><code>gender_identity</code></td>
+          <td><code>male</code>, <code>female</code>, <code>non-binary</code>, <code>prefer_not_to_say</code></td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="h3-example-caption">El mismo concepto. Tres sistemas. Tres representaciones incompatibles.</p>
+  </div>
+
+  <p>
+    Este es el costo de coordinación: cada vez que dos programas necesitan compartir datos,
+    alguien dedica semanas a mapear campos y traducir códigos. Es costoso,
+    frágil y vuelve a empezar cada vez que un sistema se actualiza.
+  </p>
+  <p>
+    Peor aún, algunas correspondencias no son solo lentas sino que generan pérdida de información.
+    El Sistema C distingue <code>non-binary</code> y <code>prefer_not_to_say</code>; el Sistema A tiene
+    tres códigos numéricos. Ninguna correspondencia puede preservar esa distinción. Se pierde información
+    y las decisiones posteriores se toman sobre datos distorsionados. Las definiciones compartidas no
+    solo ahorran tiempo; hacen posible el intercambio preciso desde el principio.
+  </p>
+
+  <div class="h3-diagram">
+    <div class="h3-diagram-panel">
+      <svg viewBox="0 0 200 155" aria-hidden="true">
+        <line x1="100" y1="15" x2="162" y2="55" />
+        <line x1="100" y1="15" x2="38" y2="55" />
+        <line x1="162" y1="55" x2="138" y2="133" />
+        <line x1="162" y1="55" x2="62" y2="133" class="h3-lossy" />
+        <line x1="162" y1="55" x2="38" y2="55" class="h3-lossy" />
+        <line x1="138" y1="133" x2="62" y2="133" />
+        <line x1="138" y1="133" x2="38" y2="55" class="h3-lossy" />
+        <line x1="62" y1="133" x2="38" y2="55" />
+        <circle cx="100" cy="15" r="8" />
+        <circle cx="162" cy="55" r="8" />
+        <circle cx="138" cy="133" r="8" />
+        <circle cx="62" cy="133" r="8" />
+        <circle cx="38" cy="55" r="8" />
+      </svg>
+      <div class="h3-diagram-label">
+        <strong>Sin definiciones compartidas</strong>
+        Correspondencia personalizada por par.
+      </div>
+    </div>
+    <div class="h3-diagram-panel h3-diagram-panel-hub">
+      <svg viewBox="0 0 200 155" aria-hidden="true">
+        <line x1="100" y1="15" x2="100" y2="80" />
+        <line x1="162" y1="55" x2="100" y2="80" />
+        <line x1="138" y1="133" x2="100" y2="80" />
+        <line x1="62" y1="133" x2="100" y2="80" />
+        <line x1="38" y1="55" x2="100" y2="80" />
+        <circle cx="100" cy="15" r="8" />
+        <circle cx="162" cy="55" r="8" />
+        <circle cx="138" cy="133" r="8" />
+        <circle cx="62" cy="133" r="8" />
+        <circle cx="38" cy="55" r="8" />
+        <circle cx="100" cy="80" r="12" class="h3-hub-node" />
+      </svg>
+      <div class="h3-diagram-label">
+        <strong>Con definiciones compartidas</strong>
+        Cada sistema se mapea una sola vez al vocabulario compartido
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Where it fits -->
+<div class="h3-prose">
+  <h2>Su lugar en el panorama de estándares</h2>
+  <p>
+    Estándares como DCI y GovStack definen cómo se mueven los datos entre
+    sistemas: contratos de API, protocolos de transporte, bloques de construcción. Incluyen
+    modelos de datos, pero esos modelos sirven a la capa de transporte.
+    PublicSchema parte desde la otra dirección: ¿qué significa "inscripción"?
+    ¿Qué propiedades describen un pago? ¿Qué valores son válidos para la
+    modalidad de beneficio? El modelo semántico es el artefacto principal.
+  </p>
+  <p>
+    Los dos enfoques son complementarios. DCI especifica cómo mover
+    registros de inscripción entre sistemas; PublicSchema especifica qué
+    significan "inscripción", "activo" y "benefit_modality" en esos registros.
+    EU Core Person Vocabulary gestiona los atributos de identidad; PublicSchema
+    se extiende al ciclo de vida de la prestación más allá del nombre y la fecha de nacimiento.
+  </p>
+</div>
+
+<!-- Grounded in evidence -->
+<div class="h3-evidence">
+  <div class="h3-evidence-inner">
+    <h2>Basado en evidencia</h2>
+    <p>
+      PublicSchema se basa en un análisis comparativo de seis sistemas de
+      protección social. Cuando existen estándares internacionales (ISO para
+      género, países y monedas; FHIR para salud), los referenciamos.
+      Cuando no existen, definimos un conjunto común basado en cómo estos sistemas
+      funcionan en la práctica.
+    </p>
+    <div class="h3-systems">
+      {systems.map((s) => (
+        <span class="h3-system">{s}</span>
+      ))}
+    </div>
+    <a href={localePath('/systems/', locale)} class="h3-evidence-link">Ver cómo se comparan los sistemas</a>
+  </div>
+</div>
+
+<!-- Where to start -->
+<div class="h3-prose">
+  <p class="h3-overline">Elija su camino</p>
+  <h2>Por dónde empezar</h2>
+  <div class="h3-personas">
+    <div class="h3-persona">
+      <h3>&ldquo;Coordino programas que atienden a poblaciones superpuestas&rdquo;</h3>
+      <p>
+        Necesita cifras consolidadas, listas de beneficiarios deduplicadas o
+        vías de derivación entre servicios. PublicSchema le ofrece definiciones
+        compartidas para que los datos de diferentes programas puedan compararse y vincularse.
+      </p>
+      <div class="h3-persona-links">
+        <a href={localePath('/docs/use-cases/', locale)}>Leer los casos de uso</a>
+        <a href={localePath('/concepts/', locale)}>Explorar conceptos</a>
+      </div>
+    </div>
+    <div class="h3-persona">
+      <h3>&ldquo;Construyo o mantengo integraciones entre sistemas&rdquo;</h3>
+      <p>
+        Necesita nombres de campos y códigos de valores compartidos para que los sistemas
+        puedan intercambiar datos sin capas de traducción personalizadas. Mapee su sistema
+        una vez; cada otro sistema mapeado se vuelve interoperable.
+      </p>
+      <div class="h3-persona-links">
+        <a href={localePath('/properties/', locale)}>Explorar propiedades</a>
+        <a href={localePath('/vocab/', locale)}>Explorar vocabularios</a>
+      </div>
+    </div>
+    <div class="h3-persona">
+      <h3>&ldquo;Estoy redactando requisitos para un nuevo sistema&rdquo;</h3>
+      <p>
+        Necesita especificaciones concretas de interoperabilidad para su convocatoria,
+        no &ldquo;el sistema debe ser interoperable.&rdquo; Referencie las propiedades
+        y los códigos de vocabulario de PublicSchema para que los proveedores tengan
+        un objetivo verificable.
+      </p>
+      <div class="h3-persona-links">
+        <a href={localePath('/docs/use-cases/', locale)}>Leer los casos de uso</a>
+        <a href={localePath('/docs/data-model-guide/', locale)}>Guía del modelo de datos</a>
+      </div>
+    </div>
+    <div class="h3-persona">
+      <h3>&ldquo;Analizo programas entre países o sectores&rdquo;</h3>
+      <p>
+        Necesita un marco estructurado de comparación para que las divergencias sean
+        visibles y nombrabiles. El inventario de conceptos y propiedades de PublicSchema
+        le ofrece una cuadrícula común contra la cual mapear.
+      </p>
+      <div class="h3-persona-links">
+        <a href={localePath('/concepts/', locale)}>Explorar conceptos</a>
+        <a href={localePath('/vocab/', locale)}>Explorar vocabularios</a>
+      </div>
+    </div>
+  </div>
+</div>

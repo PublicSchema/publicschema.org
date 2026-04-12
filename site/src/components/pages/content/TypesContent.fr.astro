@@ -1,0 +1,98 @@
+---
+---
+  <div class="concept-section" id="string">
+    <h2>string</h2>
+    <p>Une séquence de caractères Unicode. Aucune longueur maximale n'est prescrite par le vocabulaire ; les systèmes doivent définir leurs propres limites.</p>
+    <table class="data-table">
+      <tbody>
+        <tr><td style="font-weight: 600; color: var(--color-text-muted); width: 10rem;">Format</td><td>Texte libre (UTF-8)</td></tr>
+        <tr><td style="font-weight: 600; color: var(--color-text-muted);">Type JSON</td><td><code>string</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="concept-section" id="integer">
+    <h2>integer</h2>
+    <p>Un nombre entier sans composante fractionnaire.</p>
+    <table class="data-table">
+      <tbody>
+        <tr><td style="font-weight: 600; color: var(--color-text-muted); width: 10rem;">Format</td><td>Entier signé (sans virgule décimale)</td></tr>
+        <tr><td style="font-weight: 600; color: var(--color-text-muted);">Type JSON</td><td><code>number</code> (integer)</td></tr>
+        <tr><td style="font-weight: 600; color: var(--color-text-muted);">Exemples</td><td><code>0</code>, <code>5</code>, <code>-1</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="concept-section" id="decimal">
+    <h2>decimal</h2>
+    <p>Une valeur numérique pouvant inclure une composante fractionnaire. Utilisé pour les scores, les montants monétaires et les mesures.</p>
+    <table class="data-table">
+      <tbody>
+        <tr><td style="font-weight: 600; color: var(--color-text-muted); width: 10rem;">Format</td><td>Nombre décimal</td></tr>
+        <tr><td style="font-weight: 600; color: var(--color-text-muted);">Type JSON</td><td><code>number</code></td></tr>
+        <tr><td style="font-weight: 600; color: var(--color-text-muted);">Exemples</td><td><code>99.50</code>, <code>-12.345</code>, <code>0.0</code></td></tr>
+        <tr><td style="font-weight: 600; color: var(--color-text-muted);">Remarque</td><td>Pour les montants monétaires, associer à une propriété <code>currency</code> (code ISO 4217).</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="concept-section" id="boolean">
+    <h2>boolean</h2>
+    <p>Une valeur vrai/faux.</p>
+    <table class="data-table">
+      <tbody>
+        <tr><td style="font-weight: 600; color: var(--color-text-muted); width: 10rem;">Format</td><td><code>true</code> ou <code>false</code></td></tr>
+        <tr><td style="font-weight: 600; color: var(--color-text-muted);">Type JSON</td><td><code>boolean</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="concept-section" id="date">
+    <h2>date</h2>
+    <p>Une date calendaire sans composante horaire. Conforme à <a href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank" rel="noopener">ISO 8601</a>.</p>
+    <table class="data-table">
+      <tbody>
+        <tr><td style="font-weight: 600; color: var(--color-text-muted); width: 10rem;">Format</td><td><code>YYYY-MM-DD</code> (date calendaire ISO 8601)</td></tr>
+        <tr><td style="font-weight: 600; color: var(--color-text-muted);">Type JSON</td><td><code>string</code></td></tr>
+        <tr><td style="font-weight: 600; color: var(--color-text-muted);">Exemples</td><td><code>2024-03-15</code>, <code>1990-01-01</code></td></tr>
+        <tr><td style="font-weight: 600; color: var(--color-text-muted);">Remarque</td><td>Les systèmes qui ne connaissent que l'année de naissance peuvent utiliser <code>YYYY</code> ou <code>YYYY-01-01</code> avec un qualificatif de précision. Le vocabulaire ne prescrit pas quelle approche utiliser.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="concept-section" id="datetime">
+    <h2>datetime</h2>
+    <p>Une date combinée avec une composante horaire. Conforme à <a href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank" rel="noopener">ISO 8601</a>.</p>
+    <table class="data-table">
+      <tbody>
+        <tr><td style="font-weight: 600; color: var(--color-text-muted); width: 10rem;">Format</td><td><code>YYYY-MM-DDThh:mm:ssZ</code> (date-heure ISO 8601)</td></tr>
+        <tr><td style="font-weight: 600; color: var(--color-text-muted);">Type JSON</td><td><code>string</code></td></tr>
+        <tr><td style="font-weight: 600; color: var(--color-text-muted);">Exemples</td><td><code>2024-03-15T09:30:00Z</code>, <code>2024-03-15T14:00:00+02:00</code></td></tr>
+        <tr><td style="font-weight: 600; color: var(--color-text-muted);">Remarque</td><td>Toujours inclure un décalage de fuseau horaire ou utiliser UTC (<code>Z</code>). Les heures locales sans indication de fuseau sont ambiguës.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="concept-section" id="uri">
+    <h2>uri</h2>
+    <p>Un identifiant uniforme de ressource (URI). Utilisé pour des références stables à des enregistrements ou ressources externes.</p>
+    <table class="data-table">
+      <tbody>
+        <tr><td style="font-weight: 600; color: var(--color-text-muted); width: 10rem;">Format</td><td>URI RFC 3986</td></tr>
+        <tr><td style="font-weight: 600; color: var(--color-text-muted);">Type JSON</td><td><code>string</code> (format : <code>uri</code>)</td></tr>
+        <tr><td style="font-weight: 600; color: var(--color-text-muted);">Exemples</td><td><code>https://example.org/programs/123</code>, <code>urn:uuid:550e8400-e29b-41d4-a716-446655440000</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="concept-section" id="geojson_geometry">
+    <h2>geojson_geometry</h2>
+    <p>Une forme géographique exprimée sous la forme d'un objet Geometry <a href="https://datatracker.ietf.org/doc/html/rfc7946" target="_blank" rel="noopener">GeoJSON</a>. Prend en charge Point, LineString, Polygon, MultiPoint, MultiLineString, MultiPolygon et GeometryCollection.</p>
+    <table class="data-table">
+      <tbody>
+        <tr><td style="font-weight: 600; color: var(--color-text-muted); width: 10rem;">Format</td><td>Objet Geometry GeoJSON (<a href="https://datatracker.ietf.org/doc/html/rfc7946#section-3.1" target="_blank" rel="noopener">RFC 7946 &sect;3.1</a>)</td></tr>
+        <tr><td style="font-weight: 600; color: var(--color-text-muted);">Type JSON</td><td><code>object</code></td></tr>
+        <tr><td style="font-weight: 600; color: var(--color-text-muted);">Schéma JSON</td><td><a href="https://geojson.org/schema/Geometry.json" target="_blank" rel="noopener"><code>https://geojson.org/schema/Geometry.json</code></a></td></tr>
+        <tr><td style="font-weight: 600; color: var(--color-text-muted);">Exemple</td><td><code>{'{"type": "Point", "coordinates": [36.82, -1.29]}'}</code></td></tr>
+      </tbody>
+    </table>
+  </div>

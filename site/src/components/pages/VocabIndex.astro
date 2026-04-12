@@ -17,7 +17,7 @@ const byMaturityThenName = (a: { maturity: string; id: string }, b: { maturity: 
   (maturityRank[a.maturity] ?? 9) - (maturityRank[b.maturity] ?? 9) || a.id.localeCompare(b.id);
 const vocabularies = Object.values(vocab.vocabularies).sort(byMaturityThenName);
 ---
-<Base title={t('vocab.page_title')} description="Controlled value sets in the PublicSchema vocabulary." locale={locale}>
+<Base title={t('vocab.page_title')} description={t('vocab.page_subtitle')} locale={locale}>
   <div class="page-header">
     <nav class="breadcrumb">
       <a href={localePath('/', locale)}>{t('breadcrumb.home')}</a><span class="separator">/</span>{t('common.vocabularies')}
