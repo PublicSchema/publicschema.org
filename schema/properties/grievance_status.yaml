@@ -8,7 +8,7 @@ definition:
 
 type: string
 cardinality: single
-vocabulary: grievance-status
+vocabulary: sp/grievance-status
 references: null
 
 convergence:

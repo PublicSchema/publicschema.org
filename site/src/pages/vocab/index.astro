@@ -4,9 +4,11 @@ import { loadVocabulary } from "../../data/vocabulary";
 
 const vocab = loadVocabulary();
 const maturityRank: Record<string, number> = { normative: 0, "trial-use": 1, draft: 2 };
-const byMaturityThenName = (a: { maturity: string; id: string }, b: { maturity: string; id: string }) =>
-  (maturityRank[a.maturity] ?? 9) - (maturityRank[b.maturity] ?? 9) || a.id.localeCompare(b.id);
-const vocabularies = Object.values(vocab.vocabularies).sort(byMaturityThenName);
+const vocabularies = Object.entries(vocab.vocabularies)
+  .map(([key, v]) => ({ key, ...v }))
+  .sort((a, b) =>
+    (maturityRank[a.maturity] ?? 9) - (maturityRank[b.maturity] ?? 9) || a.key.localeCompare(b.key)
+  );
 ---
 <Base title="Vocabularies" description="Controlled value sets in the PublicSchema vocabulary.">
   <div class="page-header">
@@ -29,7 +31,7 @@ const vocabularies = Object.values(vocab.vocabularies).sort(byMaturityThenName);
     <tbody>
       {vocabularies.map((v) => (
         <tr>
-          <td><a href={`/vocab/${v.id}`}>{v.id}</a></td>
+          <td><a href={`/vocab/${v.key}`}>{v.key}</a></td>
           <td data-label="Values">{v.values.length}</td>
           <td data-label="Standard">{v.standard?.name || "None"}</td>
           <td data-label="Definition">{v.definition.en?.slice(0, 80)}{(v.definition.en?.length || 0) > 80 ? "..." : ""}</td>

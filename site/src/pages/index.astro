@@ -12,7 +12,11 @@ const domainLabels: Record<string, string> = { sp: "Social Protection" };
 const domainCodes = [...new Set(concepts.filter((c) => c.domain).map((c) => c.domain as string))].sort();
 const conceptsByDomain = Object.fromEntries(domainCodes.map((d) => [d, concepts.filter((c) => c.domain === d)]));
 const properties = Object.values(vocab.properties).sort(byMaturityThenName);
-const vocabularies = Object.values(vocab.vocabularies).sort(byMaturityThenName);
+const vocabularies = Object.entries(vocab.vocabularies)
+  .map(([key, v]) => ({ key, ...v }))
+  .sort((a, b) =>
+    (maturityRank[a.maturity] ?? 9) - (maturityRank[b.maturity] ?? 9) || a.key.localeCompare(b.key)
+  );
 const systems = ["OpenSPP", "openIMIS", "Digital Convergence Initiative (DCI)", "DHIS2", "FHIR R4", "OpenCRVS"];
 ---
 <Base title="Home" description="Common definitions for public service delivery. When programs serve the same people, their systems need a shared language.">
@@ -323,8 +327,8 @@ const systems = ["OpenSPP", "openIMIS", "Digital Convergence Initiative (DCI)", 
       </div>
       <div class="h3-idx-chips">
         {vocabularies.slice(0, 8).map((v) => (
-          <a href={`/vocab/${v.id}`} class="h3-chip">
-            {v.id}
+          <a href={`/vocab/${v.key}`} class="h3-chip">
+            {v.key}
             <span class="h3-chip-meta">{v.values.length}</span>
           </a>
         ))}

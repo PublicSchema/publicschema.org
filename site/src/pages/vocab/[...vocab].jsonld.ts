@@ -8,7 +8,7 @@ import { loadVocabulary } from "../../data/vocabulary";
 
 export function getStaticPaths() {
   const vocab = loadVocabulary();
-  return Object.keys(vocab.vocabularies).map((id) => ({ params: { vocab: id } }));
+  return Object.keys(vocab.vocabularies).map((key) => ({ params: { vocab: key } }));
 }
 
 export function GET({ params }: { params: { vocab: string } }) {

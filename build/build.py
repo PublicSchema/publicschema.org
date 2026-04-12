@@ -283,6 +283,27 @@ def _load_all_yaml(directory: Path) -> dict[str, dict]:
     return result
 
 
+def _load_vocabularies_indexed(directory: Path) -> dict[str, dict]:
+    """Load vocabulary YAMLs keyed by their canonical reference form.
+
+    Domain-scoped vocabularies are keyed as ``<domain>/<id>`` (matching how
+    properties reference them and how the web page URLs are laid out).
+    Universal vocabularies are keyed by bare ``<id>``. The domain is read
+    from the YAML ``domain`` field.
+    """
+    result = {}
+    if not directory.exists():
+        return result
+    for p in sorted(directory.rglob("*.yaml")):
+        data = _load_yaml(p)
+        if "id" not in data:
+            continue
+        domain = data.get("domain")
+        key = f"{domain}/{data['id']}" if domain else data["id"]
+        result[key] = data
+    return result
+
+
 def _normalize_property_entry(entry) -> dict:
     """Normalize a property entry to {id}."""
     if isinstance(entry, str):
@@ -359,28 +380,6 @@ def _compute_property_domain_namespace(
     return None
 
 
-def _compute_vocabulary_domain_namespace(
-    vocab_id: str,
-    properties_raw: dict[str, dict],
-    concepts_raw: dict[str, dict],
-) -> str | None:
-    """Derive a vocabulary's domain namespace from the properties that reference it.
-
-    If all properties referencing this vocabulary share the same non-null
-    domain namespace, the vocabulary gets that domain. Otherwise it's universal.
-    """
-    domains = set()
-    for prop_id, prop_data in properties_raw.items():
-        if prop_data.get("vocabulary") == vocab_id:
-            prop_ns = _compute_property_domain_namespace(prop_id, concepts_raw, properties_raw)
-            domains.add(prop_ns)
-    if len(domains) == 1:
-        sole_domain = next(iter(domains))
-        if sole_domain is not None:
-            return sole_domain
-    return None
-
-
 def _property_to_json_schema(
     prop_data: dict, vocabularies: dict, out_vocabularies: dict | None = None,
 ) -> dict:
@@ -419,7 +418,7 @@ def build_vocabulary(schema_dir: Path) -> dict:
 
     concepts_raw = _load_all_yaml(schema_dir / "concepts")
     properties_raw = _load_all_yaml(schema_dir / "properties")
-    vocabularies_raw = _load_all_yaml(schema_dir / "vocabularies")
+    vocabularies_raw = _load_vocabularies_indexed(schema_dir / "vocabularies")
 
     # Compute property domains (which concepts use each property)
     property_domains: dict[str, list[str]] = {
@@ -474,13 +473,21 @@ def build_vocabulary(schema_dir: Path) -> dict:
             "convergence": data.get("convergence"),
         }
 
-    # Build output vocabularies
+    # Build output vocabularies. Vocabularies are keyed by their canonical
+    # reference form: '<domain>/<id>' for domain-scoped vocabularies,
+    # bare '<id>' for universal ones. The key format matches how properties
+    # reference the vocabulary (property's `vocabulary:` field) and how
+    # the site route at /<domain>/vocab/<id> or /vocab/<id> is laid out.
     out_vocabularies = {}
-    for vocab_id, data in vocabularies_raw.items():
-        vocab_ns = _compute_vocabulary_domain_namespace(
-            vocab_id, properties_raw, concepts_raw,
-        )
-        vocab_base = _compute_uri(base_uri, vocab_ns, f"vocab/{vocab_id}")
+    for vocab_key, data in vocabularies_raw.items():
+        vocab_id = data["id"]
+        vocab_ns = data.get("domain")
+        # Vocabulary URI/path are /vocab/<domain>/<id> for domain-scoped vocabs
+        # and /vocab/<id> for universal. This keeps all vocabularies under a
+        # single /vocab/ namespace on the site while preserving the domain
+        # segment to prevent cross-domain name collisions.
+        vocab_base = f"{base_uri}vocab/{vocab_key}"
+        vocab_path = f"/vocab/{vocab_key}"
         values = []
         for v in data.get("values", []):
             value_out = {
@@ -495,11 +502,11 @@ def build_vocabulary(schema_dir: Path) -> dict:
             if v.get("parent_code") is not None:
                 value_out["parent_code"] = v["parent_code"]
             values.append(value_out)
-        out_vocabularies[vocab_id] = {
+        out_vocabularies[vocab_key] = {
             "id": vocab_id,
             "domain": vocab_ns,
             "uri": vocab_base,
-            "path": _compute_path(vocab_ns, f"vocab/{vocab_id}"),
+            "path": vocab_path,
             "maturity": data.get("maturity"),
             "definition": data.get("definition", {}),
             "standard": data.get("standard"),
@@ -721,13 +728,12 @@ def build_vocabulary(schema_dir: Path) -> dict:
             out_concepts, out_vocabularies,
         )
 
-    for vocab_id, vocab_out in out_vocabularies.items():
-        # Always use flat vocab/ path regardless of domain so Astro endpoints
-        # can resolve files without needing domain lookup. The domain is
-        # already encoded in the vocabulary's @id URI.
-        key = f"vocab/{vocab_id}.jsonld"
+    for vocab_key, vocab_out in out_vocabularies.items():
+        # vocab_key is '<domain>/<id>' for domain-scoped vocabs, bare '<id>'
+        # otherwise. The path mirrors the site's /vocab/... URL structure.
+        key = f"vocab/{vocab_key}.jsonld"
         jsonld_docs[key] = _vocabulary_to_jsonld(
-            vocab_out, vocabularies_raw[vocab_id], context_url,
+            vocab_out, vocabularies_raw[vocab_key], context_url,
         )
 
     return {

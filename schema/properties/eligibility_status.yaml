@@ -8,7 +8,7 @@ definition:
 
 type: string
 cardinality: single
-vocabulary: eligibility-status
+vocabulary: sp/eligibility-status
 references: null
 sensitivity: sensitive
 domain_override: null

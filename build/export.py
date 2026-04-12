@@ -330,7 +330,8 @@ def generate_definition_xlsx(
         if vocab_id and vocab_id in vocabularies and vocab_id not in seen_vocabs:
             seen_vocabs.add(vocab_id)
             vocab = vocabularies[vocab_id]
-            ws_vocab = wb.create_sheet(vocab_id)
+            # Excel sheet names can't contain '/'; use the bare vocab id.
+            ws_vocab = wb.create_sheet(vocab["id"])
 
             vocab_headers = ["Code", "Label (EN)", "Label (FR)", "Label (ES)", "Definition (EN)"]
             for c, header in enumerate(vocab_headers, start=1):

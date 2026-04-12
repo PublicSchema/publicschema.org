@@ -13,12 +13,13 @@ function escapeCsv(value: string): string {
 
 export function getStaticPaths() {
   const vocab = loadVocabulary();
-  return Object.keys(vocab.vocabularies).map((id) => ({ params: { vocab: id } }));
+  return Object.keys(vocab.vocabularies).map((key) => ({ params: { vocab: key } }));
 }
 
 export function GET({ params }: { params: { vocab: string } }) {
   const allVocab = loadVocabulary();
   const vocabulary = allVocab.vocabularies[params.vocab];
+  const filename = `${vocabulary.id}.csv`;
 
   const headers = ["code", "label_en", "label_fr", "label_es", "standard_code", "uri", "definition_en"];
   const rows = vocabulary.values.map((v) =>
@@ -40,7 +41,7 @@ export function GET({ params }: { params: { vocab: string } }) {
   return new Response(csv, {
     headers: {
       "Content-Type": "text/csv; charset=utf-8",
-      "Content-Disposition": `attachment; filename="${params.vocab}.csv"`,
+      "Content-Disposition": `attachment; filename="${filename}"`,
     },
   });
 }

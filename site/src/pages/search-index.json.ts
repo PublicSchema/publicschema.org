@@ -49,7 +49,7 @@ export function GET() {
   }
 
   // Vocabularies
-  for (const v of Object.values(vocab.vocabularies)) {
+  for (const [vocabKey, v] of Object.entries(vocab.vocabularies)) {
     const valueLabels: string[] = [];
     if (!v.external_values) {
       for (const val of v.values) {
@@ -61,11 +61,11 @@ export function GET() {
     const valueCount = v.values.length;
 
     documents.push({
-      id: `vocab:${v.id}`,
+      id: `vocab:${vocabKey}`,
       type: "vocabulary",
-      title: v.id,
+      title: vocabKey,
       body: truncate(v.definition.en || "", 200),
-      path: `/vocab/${v.id}`,
+      path: `/vocab/${vocabKey}`,
       meta: `${valueCount} values`,
       keywords: valueLabels.join("\t"),
     });

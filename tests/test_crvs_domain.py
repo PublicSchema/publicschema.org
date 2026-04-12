@@ -176,12 +176,16 @@ class TestCrvsVocabularies:
         assert path.exists(), f"Missing vocabulary file: {path}"
 
     def test_vocabularies_load_in_build(self):
-        """All CRVS vocabularies appear in build output."""
+        """All CRVS vocabularies appear in build output keyed as crvs/<id>."""
         result = build_vocabulary(SCHEMA_DIR)
         for vocab_id in CRVS_VOCABULARIES:
-            assert vocab_id in result["vocabularies"], (
-                f"Vocabulary {vocab_id} missing from build output"
+            key = f"crvs/{vocab_id}"
+            assert key in result["vocabularies"], (
+                f"Vocabulary {key} missing from build output"
             )
+            assert result["vocabularies"][key]["id"] == vocab_id
+            assert result["vocabularies"][key]["domain"] == "crvs"
+            assert result["vocabularies"][key]["path"] == f"/vocab/{key}"
 
     def test_vocabularies_have_domain_crvs(self):
         """CRVS vocabularies carry domain=crvs."""

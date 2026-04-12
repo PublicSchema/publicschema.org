@@ -8,7 +8,7 @@ definition:
 
 type: string
 cardinality: multiple
-vocabulary: benefit-modality
+vocabulary: sp/benefit-modality
 references: null
 
 external_equivalents:
