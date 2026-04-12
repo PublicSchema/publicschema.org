@@ -1,0 +1,59 @@
+---
+/**
+ * GitHub Pages only serves the root `404.html` for missing URLs, including
+ * requests under `/fr/` and `/es/`. So this single page embeds all three
+ * language variants and a short client script picks the right one based on
+ * the current URL path. No layout translation happens here because the
+ * requesting URL determines the language, not a build-time locale prop.
+ */
+import Base from '../../layouts/Base.astro';
+---
+<Base title="Page not found" description="The page you're looking for doesn't exist.">
+  <article class="concept-narrative">
+    <div class="page-header" data-lang="en">
+      <h1>Page not found</h1>
+      <p class="subtitle">The page you&rsquo;re looking for doesn&rsquo;t exist or has been moved.</p>
+    </div>
+    <p data-lang="en">
+      You can <a href="/">go back to the homepage</a> or browse
+      <a href="/concepts/">concepts</a>,
+      <a href="/properties/">properties</a>, or
+      <a href="/vocab/">vocabularies</a>.
+    </p>
+
+    <div class="page-header" data-lang="fr" hidden>
+      <h1>Page introuvable</h1>
+      <p class="subtitle">La page que vous recherchez n&rsquo;existe pas ou a &eacute;t&eacute; d&eacute;plac&eacute;e.</p>
+    </div>
+    <p data-lang="fr" hidden>
+      Vous pouvez <a href="/fr/">retourner &agrave; la page d&rsquo;accueil</a> ou parcourir les
+      <a href="/fr/concepts/">concepts</a>,
+      <a href="/fr/properties/">propri&eacute;t&eacute;s</a> ou
+      <a href="/fr/vocab/">vocabulaires</a>.
+    </p>
+
+    <div class="page-header" data-lang="es" hidden>
+      <h1>P&aacute;gina no encontrada</h1>
+      <p class="subtitle">La p&aacute;gina que buscas no existe o ha sido movida.</p>
+    </div>
+    <p data-lang="es" hidden>
+      Puedes <a href="/es/">volver a la p&aacute;gina principal</a> o explorar
+      <a href="/es/concepts/">conceptos</a>,
+      <a href="/es/properties/">propiedades</a> o
+      <a href="/es/vocab/">vocabularios</a>.
+    </p>
+  </article>
+
+  <script is:inline>
+    (function () {
+      var path = window.location.pathname;
+      var lang = 'en';
+      if (/^\/fr(\/|$)/.test(path)) lang = 'fr';
+      else if (/^\/es(\/|$)/.test(path)) lang = 'es';
+      document.documentElement.lang = lang;
+      document.querySelectorAll('[data-lang]').forEach(function (el) {
+        el.hidden = el.getAttribute('data-lang') !== lang;
+      });
+    })();
+  </script>
+</Base>

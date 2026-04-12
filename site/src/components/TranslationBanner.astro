@@ -1,0 +1,90 @@
+---
+import type { Locale } from '../i18n/languages';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+const messages: Record<Locale, { message: string; dismiss: string }> = {
+  en: {
+    message: 'This page is not yet available in your language. The content below is in English.',
+    dismiss: 'Dismiss',
+  },
+  fr: {
+    message: "Cette page n'est pas encore disponible en fran\u00e7ais. Le contenu ci-dessous est en anglais.",
+    dismiss: 'Fermer',
+  },
+  es: {
+    message: 'Esta p\u00e1gina a\u00fan no est\u00e1 disponible en espa\u00f1ol. El contenido a continuaci\u00f3n est\u00e1 en ingl\u00e9s.',
+    dismiss: 'Cerrar',
+  },
+};
+
+const { message, dismiss } = messages[locale];
+---
+<div class="translation-banner" data-translation-banner role="note" aria-live="polite">
+  <span class="translation-banner-icon" aria-hidden="true">&#9432;</span>
+  <span>{message}</span>
+  <button type="button" class="translation-banner-dismiss" aria-label={dismiss}>
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+      <line x1="3" y1="3" x2="11" y2="11"></line>
+      <line x1="11" y1="3" x2="3" y2="11"></line>
+    </svg>
+  </button>
+</div>
+
+<script is:inline>
+  (function () {
+    var KEY = 'psch-translation-banner-dismissed';
+    var banner = document.querySelector('[data-translation-banner]');
+    if (!banner) return;
+    if (sessionStorage.getItem(KEY) === '1') {
+      banner.remove();
+      return;
+    }
+    var btn = banner.querySelector('.translation-banner-dismiss');
+    if (btn) {
+      btn.addEventListener('click', function () {
+        sessionStorage.setItem(KEY, '1');
+        banner.remove();
+      });
+    }
+  })();
+</script>
+
+<style>
+  .translation-banner {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+    margin-bottom: var(--space-lg);
+    background: var(--color-accent-light);
+    border: 1px solid var(--color-accent);
+    border-radius: var(--radius-md);
+    font-size: 0.9rem;
+    color: var(--color-text);
+  }
+  .translation-banner-icon {
+    color: var(--color-accent);
+    font-weight: 700;
+  }
+  .translation-banner-dismiss {
+    margin-left: auto;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--color-text-muted);
+    padding: 0.25rem;
+    border-radius: var(--radius-sm);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .translation-banner-dismiss:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: var(--color-text);
+  }
+</style>
