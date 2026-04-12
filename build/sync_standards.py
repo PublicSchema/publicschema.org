@@ -318,7 +318,7 @@ def apply_cldr_translations(
     label for a given locale, it is preserved. Returns a report with per-locale
     counts of labels added and a per-locale list of codes that still lack a
     translation after the pass. The per-locale missing lists make partial
-    coverage visible — e.g. a value with a hand-written fr and no CLDR es.
+    coverage visible (e.g. a value with a hand-written fr and no CLDR es).
     """
     lookup = CLDR_LOOKUPS.get(vocab_id)
     if lookup is None:

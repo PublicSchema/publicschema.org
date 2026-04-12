@@ -1,19 +1,24 @@
 ---
-/**
- * English about page prose. Phase 2 adds AboutContent.fr.astro and
- * AboutContent.es.astro, which the page shell loads dynamically.
- */
+/** French about page prose. The page shell loads the locale-specific variant dynamically. */
+import { defaultLocale, type Locale } from '../../../i18n/languages';
+import { localePath } from '../../../i18n/utils';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = defaultLocale } = Astro.props;
 ---
 <h2>Ce que PublicSchema fournit</h2>
 <p>
   PublicSchema est un modèle de référence ouvert pour les données de services publics.
-  La <a href="/">page d'accueil</a> couvre les bases ; cette page va plus loin.
+  La <a href={localePath('/', locale)}>page d'accueil</a> couvre les bases ; cette page va plus loin.
 </p>
 <p>Il fournit :</p>
 <ul>
-  <li><strong><a href="/concepts/">Concepts</a></strong> : entités sémantiques (Personne, Inscription, Paiement, et autres) avec des définitions rédigées pour les praticiens des politiques publiques, pas pour les développeurs.</li>
-  <li><strong><a href="/properties/">Propriétés</a></strong> : champs nommés et typés s'appliquant à un ou plusieurs concepts. Définis une seule fois et réutilisés, garantissant la cohérence des définitions entre les domaines.</li>
-  <li><strong><a href="/vocab/">Vocabulaires</a></strong> : ensembles de valeurs contrôlées. Lorsque des normes internationales existent (ISO, FHIR, ONU), nous les référençons. Lorsqu'elles n'existent pas, nous définissons un ensemble canonique avec des correspondances vers la manière dont des systèmes spécifiques encodent les mêmes valeurs.</li>
+  <li><strong><a href={localePath('/concepts/', locale)}>Concepts</a></strong> : entités sémantiques (Personne, Inscription, Paiement, et autres) avec des définitions rédigées pour les praticiens des politiques publiques, pas pour les développeurs.</li>
+  <li><strong><a href={localePath('/properties/', locale)}>Propriétés</a></strong> : champs nommés et typés s'appliquant à un ou plusieurs concepts. Définis une seule fois et réutilisés, garantissant la cohérence des définitions entre les domaines.</li>
+  <li><strong><a href={localePath('/vocab/', locale)}>Vocabulaires</a></strong> : ensembles de valeurs contrôlées. Lorsque des normes internationales existent (ISO, FHIR, ONU), nous les référençons. Lorsqu'elles n'existent pas, nous définissons un ensemble canonique avec des correspondances vers la manière dont des systèmes spécifiques encodent les mêmes valeurs.</li>
   <li><strong>Schémas d'identifiants vérifiables</strong> : contextes JSON-LD et structures pour émettre des données de concepts sous forme de <a href="https://www.w3.org/TR/vc-data-model-2.0/">Titres vérifiables (Verifiable Credentials)</a>, en utilisant SD-JWT VC pour la divulgation sélective des données personnelles sensibles.</li>
 </ul>
 <p>
@@ -32,7 +37,7 @@
   sont référencées, jamais réinventées. Rien n'est obligatoire.
 </p>
 <p>
-  Voir <a href="/docs/design-principles/">Principes de conception</a> pour la justification
+  Voir <a href={localePath('/docs/design-principles/', locale)}>Principes de conception</a> pour la justification
   complète de chacun de ces choix.
 </p>
 
@@ -98,7 +103,7 @@
   au sens large.
 </p>
 <p>
-  Voir <a href="/docs/related-standards/">Normes connexes</a> pour une comparaison
+  Voir <a href={localePath('/docs/related-standards/', locale)}>Normes connexes</a> pour une comparaison
   détaillée.
 </p>
 
@@ -107,7 +112,7 @@
   PublicSchema commence par la protection sociale : un domaine bien compris, en pleine
   transformation numérique, avec plusieurs systèmes open source et des problèmes immédiats
   d'interopérabilité. Voir la liste complète des
-  <a href="/concepts/">concepts</a> pour la couverture actuelle.
+  <a href={localePath('/concepts/', locale)}>concepts</a> pour la couverture actuelle.
 </p>
 <p>
   Le modèle est conçu pour s'étendre aux domaines adjacents (état civil,

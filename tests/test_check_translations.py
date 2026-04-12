@@ -65,7 +65,7 @@ class TestExtractUiKeys:
         report = ct.check_ui_dictionary(ui_file)
         assert not report.ok
         assert any("fr is missing" in e and "c.d" in e for e in report.errors)
-        # es is complete — no error for it
+        # es is complete, so no error for it
         assert not any("es is missing" in e for e in report.errors)
 
     def test_warns_on_extra_keys(self, tmp_path: Path):

@@ -1,9 +1,8 @@
 import type { Locale } from './languages';
 
 /**
- * UI string dictionary. English is the source of truth; French and Spanish
- * are filled during Phase 2 translation work. Missing keys fall back to
- * English via the `t()` function.
+ * UI string dictionary. English is the source of truth. Missing keys in
+ * French or Spanish fall back to English via the `t()` function.
  *
  * Long prose pages (homepage, about, terms, types) are not stored here:
  * they use locale-specific Astro content components. This dictionary is for
