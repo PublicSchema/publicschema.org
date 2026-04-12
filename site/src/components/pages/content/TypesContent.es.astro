@@ -13,10 +13,10 @@
 
   <div class="concept-section" id="integer">
     <h2>integer</h2>
-    <p>Un número entero sin componente fraccional.</p>
+    <p>Un número entero sin parte fraccionaria.</p>
     <table class="data-table">
       <tbody>
-        <tr><td style="font-weight: 600; color: var(--color-text-muted); width: 10rem;">Formato</td><td>Entero con signo (sin punto decimal)</td></tr>
+        <tr><td style="font-weight: 600; color: var(--color-text-muted); width: 10rem;">Formato</td><td>Entero con signo (sin parte fraccionaria)</td></tr>
         <tr><td style="font-weight: 600; color: var(--color-text-muted);">Tipo JSON</td><td><code>number</code> (integer)</td></tr>
         <tr><td style="font-weight: 600; color: var(--color-text-muted);">Ejemplos</td><td><code>0</code>, <code>5</code>, <code>-1</code></td></tr>
       </tbody>
@@ -25,20 +25,20 @@
 
   <div class="concept-section" id="decimal">
     <h2>decimal</h2>
-    <p>Un valor numérico que puede incluir un componente fraccional. Se utiliza para puntuaciones, montos monetarios y mediciones.</p>
+    <p>Un valor numérico que puede incluir una parte fraccionaria. Se utiliza para puntuaciones, montos monetarios y mediciones.</p>
     <table class="data-table">
       <tbody>
         <tr><td style="font-weight: 600; color: var(--color-text-muted); width: 10rem;">Formato</td><td>Número decimal</td></tr>
         <tr><td style="font-weight: 600; color: var(--color-text-muted);">Tipo JSON</td><td><code>number</code></td></tr>
         <tr><td style="font-weight: 600; color: var(--color-text-muted);">Ejemplos</td><td><code>99.50</code>, <code>-12.345</code>, <code>0.0</code></td></tr>
-        <tr><td style="font-weight: 600; color: var(--color-text-muted);">Nota</td><td>Para montos monetarios, combinar con una propiedad <code>currency</code> (código ISO 4217).</td></tr>
+        <tr><td style="font-weight: 600; color: var(--color-text-muted);">Nota</td><td>Para montos monetarios, combine esta propiedad con <code>currency</code> (código ISO 4217).</td></tr>
       </tbody>
     </table>
   </div>
 
   <div class="concept-section" id="boolean">
     <h2>boolean</h2>
-    <p>Un valor verdadero/falso.</p>
+    <p>Un valor booleano: verdadero o falso.</p>
     <table class="data-table">
       <tbody>
         <tr><td style="font-weight: 600; color: var(--color-text-muted); width: 10rem;">Formato</td><td><code>true</code> o <code>false</code></td></tr>
@@ -49,25 +49,25 @@
 
   <div class="concept-section" id="date">
     <h2>date</h2>
-    <p>Una fecha de calendario sin componente de hora. Sigue <a href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank" rel="noopener">ISO 8601</a>.</p>
+    <p>Una fecha de calendario sin componente horario. Sigue <a href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank" rel="noopener">ISO 8601</a>.</p>
     <table class="data-table">
       <tbody>
         <tr><td style="font-weight: 600; color: var(--color-text-muted); width: 10rem;">Formato</td><td><code>YYYY-MM-DD</code> (fecha de calendario ISO 8601)</td></tr>
         <tr><td style="font-weight: 600; color: var(--color-text-muted);">Tipo JSON</td><td><code>string</code></td></tr>
         <tr><td style="font-weight: 600; color: var(--color-text-muted);">Ejemplos</td><td><code>2024-03-15</code>, <code>1990-01-01</code></td></tr>
-        <tr><td style="font-weight: 600; color: var(--color-text-muted);">Nota</td><td>Los sistemas que solo conocen el año de nacimiento pueden usar <code>YYYY</code> o <code>YYYY-01-01</code> con un calificador de precisión. El vocabulario no prescribe qué enfoque utilizar.</td></tr>
+        <tr><td style="font-weight: 600; color: var(--color-text-muted);">Nota</td><td>Los sistemas que solo conocen el año de nacimiento pueden usar <code>YYYY</code> o <code>YYYY-01-01</code> con un cualificador de precisión. El vocabulario no prescribe qué enfoque utilizar.</td></tr>
       </tbody>
     </table>
   </div>
   <div class="concept-section" id="datetime">
     <h2>datetime</h2>
-    <p>Una fecha combinada con un componente de hora. Sigue <a href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank" rel="noopener">ISO 8601</a>.</p>
+    <p>Una fecha combinada con un componente horario. Sigue <a href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank" rel="noopener">ISO 8601</a>.</p>
     <table class="data-table">
       <tbody>
         <tr><td style="font-weight: 600; color: var(--color-text-muted); width: 10rem;">Formato</td><td><code>YYYY-MM-DDThh:mm:ssZ</code> (fecha-hora ISO 8601)</td></tr>
         <tr><td style="font-weight: 600; color: var(--color-text-muted);">Tipo JSON</td><td><code>string</code></td></tr>
         <tr><td style="font-weight: 600; color: var(--color-text-muted);">Ejemplos</td><td><code>2024-03-15T09:30:00Z</code>, <code>2024-03-15T14:00:00+02:00</code></td></tr>
-        <tr><td style="font-weight: 600; color: var(--color-text-muted);">Nota</td><td>Incluir siempre un desplazamiento de zona horaria o usar UTC (<code>Z</code>). Las horas locales sin zona horaria son ambiguas.</td></tr>
+        <tr><td style="font-weight: 600; color: var(--color-text-muted);">Nota</td><td>Incluir siempre un desfase horario o usar UTC (<code>Z</code>). Las horas locales sin indicador de zona horaria son ambiguas.</td></tr>
       </tbody>
     </table>
   </div>

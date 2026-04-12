@@ -16,14 +16,14 @@ const { locale = defaultLocale } = Astro.props;
 </p>
 <p>Ofrece:</p>
 <ul>
-  <li><strong><a href={localePath('/concepts/', locale)}>Conceptos</a></strong>: entidades semánticas (Persona, Inscripción, Pago y otras) con definiciones redactadas para profesionales de política pública, no para desarrolladores.</li>
+  <li><strong><a href={localePath('/concepts/', locale)}>Conceptos</a></strong>: entidades semánticas (Persona, Inscripción, Pago y otras) con definiciones redactadas para profesionales de políticas públicas, no para desarrolladores.</li>
   <li><strong><a href={localePath('/properties/', locale)}>Propiedades</a></strong>: campos con nombre y tipo que se aplican a uno o más conceptos. Se definen una sola vez y se reutilizan, manteniendo las definiciones coherentes entre dominios.</li>
-  <li><strong><a href={localePath('/vocab/', locale)}>Vocabularios</a></strong>: conjuntos de valores controlados. Cuando existen estándares internacionales (ISO, FHIR, ONU), los referenciamos. Cuando no existen, definimos un conjunto canónico con correspondencias a cómo los sistemas específicos codifican los mismos valores.</li>
-  <li><strong>Esquemas de credenciales</strong>: contextos JSON-LD y estructuras para emitir datos de conceptos como <a href="https://www.w3.org/TR/vc-data-model-2.0/">Credenciales Verificables</a>, usando SD-JWT VC para la divulgación selectiva de datos personales sensibles.</li>
+  <li><strong><a href={localePath('/vocab/', locale)}>Vocabularios</a></strong>: conjuntos de valores controlados. Cuando existen estándares internacionales (ISO, FHIR, ONU), hacemos referencia a ellos. Cuando no existen, definimos un conjunto canónico con correspondencias a cómo los sistemas específicos codifican los mismos valores.</li>
+  <li><strong>Esquemas de credenciales</strong>: contextos JSON-LD y estructuras para emitir datos de conceptos como <a href="https://www.w3.org/TR/vc-data-model-2.0/">Credenciales Verificables</a>, usando SD-JWT VC para la revelación selectiva de datos personales sensibles.</li>
 </ul>
 <p>
   Cada elemento recibe un URI estable. Todo es opcional. Los países y los programas
-  adoptan lo que necesitan y extienden lo que falta.
+  adoptan lo que necesitan y amplían lo que no cubre sus necesidades.
 </p>
 
 <figure class="diagram">
@@ -33,8 +33,8 @@ const { locale = defaultLocale } = Astro.props;
 <h2>Principios de diseño</h2>
 <p>
   Las definiciones tienen peso semántico, no solo estructura. Las propiedades son
-  reutilizables entre conceptos. La delimitación temporal es de primer orden. Los estándares
-  internacionales se referencian, nunca se reinventan. Nada es obligatorio.
+  reutilizables entre conceptos. La dimensión temporal es un aspecto central del modelo. Se hace referencia a los
+  estándares internacionales, nunca se reinventan. Nada es obligatorio.
 </p>
 <p>
   Consulte <a href={localePath('/docs/design-principles/', locale)}>Principios de diseño</a> para conocer la
@@ -44,8 +44,8 @@ const { locale = defaultLocale } = Astro.props;
 <h2>Dónde se ubica PublicSchema</h2>
 <p>
   PublicSchema complementa los esfuerzos existentes en lugar de competir con ellos.
-  Se sitúa en la capa de datos de prestación: entre los estándares de identidad, la
-  interoperabilidad de API y la infraestructura de confianza.
+  Se sitúa en la capa de datos para la prestación de servicios: entre los estándares de identidad, la
+  interoperabilidad de APIs y la infraestructura de confianza.
 </p>
 
 <table class="divergence-example">
@@ -65,7 +65,7 @@ const { locale = defaultLocale } = Astro.props;
     <tr>
       <td>Atributos de identidad</td>
       <td>EU Core Person Vocabulary</td>
-      <td>Datos del ciclo de vida de la prestación más allá de nombre, nacimiento y ciudadanía</td>
+      <td>Datos sobre el ciclo de vida de la prestación, más allá del nombre, la fecha de nacimiento y la ciudadanía</td>
     </tr>
     <tr>
       <td>Catálogos de servicios</td>
@@ -99,7 +99,7 @@ const { locale = defaultLocale } = Astro.props;
   sistemas de protección social; PublicSchema define qué significan esos datos.
   GovStack define bloques de construcción para el gobierno digital; PublicSchema es
   el modelo de datos compartido que esos bloques necesitan implícitamente. FHIR es el
-  equivalente en el sector salud; nos inspiramos en su enfoque pero apuntamos a los servicios
+  equivalente en el sector salud; nos inspiramos en su enfoque pero nuestro alcance abarca los servicios
   públicos en general.
 </p>
 <p>
@@ -130,7 +130,7 @@ const { locale = defaultLocale } = Astro.props;
   <li><strong>Adopte los conceptos universales tal cual.</strong> Persona, Hogar, Ubicación y otros conceptos universales rara vez necesitan cambios locales. Usarlos directamente ofrece interoperabilidad sin costo adicional.</li>
   <li><strong>Use los vocabularios cuando encajen.</strong> Los códigos ISO de países, monedas e idiomas se corresponden sin dificultad con la mayoría de los sistemas. Cuando un vocabulario de dominio (estado de inscripción, modalidad de beneficio) no cubra un código local, agréguelo en su espacio de nombres.</li>
   <li><strong>Extienda lo que falta.</strong> Los conceptos específicos de un país (un identificador nacional, un registro específico de gestión de casos, una categoría local de beneficio) viven en su espacio de nombres junto a los términos de PublicSchema.</li>
-  <li><strong>Proponga aguas arriba.</strong> Cuando una extensión resulte útil en varios países, proponga su inclusión. El vocabulario crece a través de la adopción real, no del diseño por comité.</li>
+  <li><strong>Proponga su inclusión en el modelo compartido.</strong> Cuando una extensión resulte útil en varios países, proponga su inclusión. El vocabulario crece a través de la adopción real, no del diseño por comité.</li>
 </ul>
 <p>
   Consulte <a href={localePath('/docs/extension-mechanism/', locale)}>Extender PublicSchema</a>
@@ -140,7 +140,7 @@ const { locale = defaultLocale } = Astro.props;
 <h2>Gobernanza y hoja de ruta</h2>
 <p>
   El proyecto es mantenido por Jeremi Joslin para permitir decisiones rápidas y con
-  criterio en las etapas iniciales. Se busca activamente la retroalimentación de
+  criterio en las etapas iniciales. Se reciben activamente aportes de
   expertos en el dominio, implementadores de sistemas y organismos de normalización.
 </p>
 <p>
@@ -148,7 +148,7 @@ const { locale = defaultLocale } = Astro.props;
   de colaboradores y expertos en el dominio, luego a una estructura formal de múltiples
   partes interesadas.
 </p>
-<h3>Fase 1: Fundación <span class="badge badge-draft">en progreso</span></h3>
+<h3>Fase 1: Fundación <span class="badge badge-draft">en curso</span></h3>
 <p>
   Conceptos y propiedades con URIs estables. Definiciones redactadas para
   profesionales del dominio. Publicado como sitio web de referencia.
@@ -156,7 +156,7 @@ const { locale = defaultLocale } = Astro.props;
 <h3>Fase 2: Estándares y correspondencias</h3>
 <p>
   Estándares internacionales adoptados para cada conjunto de valores. Correspondencias
-  de vocabularios entre sistemas. Piloto con al menos un despliegue en un país.
+  de vocabularios entre sistemas. Experiencia piloto con al menos una implementación en un país.
 </p>
 <h3>Fase 3: Adopción y extensión</h3>
 <p>

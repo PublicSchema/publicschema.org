@@ -9,31 +9,31 @@ interface Props {
 
 const { locale = defaultLocale } = Astro.props;
 ---
-<h2>Ce que PublicSchema fournit</h2>
+<h2>Ce que PublicSchema propose</h2>
 <p>
   PublicSchema est un modèle de référence ouvert pour les données de services publics.
   La <a href={localePath('/', locale)}>page d'accueil</a> couvre les bases ; cette page va plus loin.
 </p>
-<p>Il fournit :</p>
+<p>Il comprend :</p>
 <ul>
-  <li><strong><a href={localePath('/concepts/', locale)}>Concepts</a></strong> : entités sémantiques (Personne, Inscription, Paiement, et autres) avec des définitions rédigées pour les praticiens des politiques publiques, pas pour les développeurs.</li>
+  <li><strong><a href={localePath('/concepts/', locale)}>Concepts</a></strong> : entités sémantiques (Personne, Inscription, Paiement, entre autres) avec des définitions accessibles aux professionnels des politiques publiques, et non aux seuls développeurs.</li>
   <li><strong><a href={localePath('/properties/', locale)}>Propriétés</a></strong> : champs nommés et typés s'appliquant à un ou plusieurs concepts. Définis une seule fois et réutilisés, garantissant la cohérence des définitions entre les domaines.</li>
-  <li><strong><a href={localePath('/vocab/', locale)}>Vocabulaires</a></strong> : ensembles de valeurs contrôlées. Lorsque des normes internationales existent (ISO, FHIR, ONU), nous les référençons. Lorsqu'elles n'existent pas, nous définissons un ensemble canonique avec des correspondances vers la manière dont des systèmes spécifiques encodent les mêmes valeurs.</li>
-  <li><strong>Schémas d'identifiants vérifiables</strong> : contextes JSON-LD et structures pour émettre des données de concepts sous forme de <a href="https://www.w3.org/TR/vc-data-model-2.0/">Titres vérifiables (Verifiable Credentials)</a>, en utilisant SD-JWT VC pour la divulgation sélective des données personnelles sensibles.</li>
+  <li><strong><a href={localePath('/vocab/', locale)}>Vocabulaires</a></strong> : ensembles de valeurs contrôlées. Lorsque des normes internationales existent (ISO, FHIR, ONU), nous les référençons. Lorsqu'elles n'existent pas, nous définissons un ensemble canonique accompagné de correspondances avec la façon dont différents systèmes représentent ces mêmes valeurs.</li>
+  <li><strong>Schémas d'attestations vérifiables</strong> : contextes JSON-LD et structures pour publier des données sous forme d'<a href="https://www.w3.org/TR/vc-data-model-2.0/">attestations vérifiables (Verifiable Credentials)</a>, en utilisant SD-JWT VC pour la divulgation sélective des données personnelles sensibles.</li>
 </ul>
 <p>
   Chaque élément reçoit un URI stable. Tout est optionnel. Les pays et les programmes
-  adoptent ce dont ils ont besoin et étendent ce qui manque.
+  adoptent ce qui s'applique à leur contexte et complètent ce qui ne correspond pas.
 </p>
 
 <figure class="diagram">
-  <img src="/images/integration-layer.svg" alt="Diagramme montrant PublicSchema comme couche partagée entre un modèle de données interne et plusieurs formats de sortie : API REST, bus d'événements, identifiants vérifiables, échange de fichiers et entrepôt de données." />
+  <img src="/images/integration-layer.svg" alt="Diagramme montrant PublicSchema comme couche partagée entre un modèle de données interne et plusieurs formats de sortie : API REST, bus d'événements, attestations vérifiables, échange de fichiers et entrepôt de données." />
 </figure>
 
 <h2>Principes de conception</h2>
 <p>
-  Les définitions portent un poids sémantique, pas seulement une structure. Les propriétés sont
-  réutilisables entre les concepts. La délimitation temporelle est de première importance. Les normes internationales
+  Les définitions ont une portée sémantique, pas seulement structurelle. Les propriétés sont
+  réutilisables entre les concepts. La dimension temporelle est traitée comme un élément fondamental du modèle. Les normes internationales
   sont référencées, jamais réinventées. Rien n'est obligatoire.
 </p>
 <p>
@@ -44,7 +44,7 @@ const { locale = defaultLocale } = Astro.props;
 <h2>La place de PublicSchema</h2>
 <p>
   PublicSchema complète les efforts existants plutôt que de leur faire concurrence.
-  Il se situe au niveau de la couche de données de prestation : entre les normes d'identité, l'interopérabilité
+  Il occupe la couche de données relative à la prestation de services : entre les normes d'identité, l'interopérabilité
   des API et l'infrastructure de confiance.
 </p>
 
@@ -60,32 +60,32 @@ const { locale = defaultLocale } = Astro.props;
     <tr>
       <td>Confiance et transport</td>
       <td>W3C VC, OpenID4VC, EBSI</td>
-      <td>Vocabulaire de domaine au sein des identifiants vérifiables</td>
+      <td>Vocabulaire métier au sein des attestations vérifiables</td>
     </tr>
     <tr>
       <td>Attributs d'identité</td>
       <td>EU Core Person Vocabulary</td>
-      <td>Données du cycle de vie de la prestation au-delà du nom, de la naissance et de la citoyenneté</td>
+      <td>Données du cycle de vie de la prestation, au-delà de l'identité civile</td>
     </tr>
     <tr>
       <td>Catalogues de services</td>
       <td>CPSV-AP, HSDS/Open Referral</td>
-      <td>Qui reçoit quoi, pas quels services existent</td>
+      <td>Qui reçoit quoi, et non quels services sont disponibles</td>
     </tr>
     <tr>
       <td>Interopérabilité des API</td>
       <td>DCI, GovStack</td>
-      <td>Sémantique partagée derrière les contrats d'API</td>
+      <td>Sémantique partagée sous-jacente aux contrats d'API</td>
     </tr>
     <tr>
       <td>Mesure statistique</td>
       <td>ILO/World Bank ASPIRE</td>
-      <td>Modèles de données pour l'échange, pas seulement des indicateurs</td>
+      <td>Modèles de données pour l'échange, et non de simples indicateurs statistiques</td>
     </tr>
     <tr>
       <td><strong>Cycle de vie de la prestation</strong></td>
       <td><strong>Rien</strong></td>
-      <td><strong>C'est le manque à combler</strong></td>
+      <td><strong>C'est la lacune à combler</strong></td>
     </tr>
   </tbody>
 </table>
@@ -97,8 +97,8 @@ const { locale = defaultLocale } = Astro.props;
 <p>
   DCI est l'initiative la plus proche : elle définit comment les données circulent entre
   les systèmes de protection sociale ; PublicSchema définit ce que ces données signifient.
-  GovStack définit des blocs de construction pour le gouvernement numérique ; PublicSchema est
-  le modèle de données partagé dont ces blocs ont implicitement besoin. FHIR est l'équivalent du
+  GovStack définit des blocs fonctionnels pour le gouvernement numérique ; PublicSchema
+  constitue le modèle de données partagé que ces blocs supposent implicitement. FHIR est l'équivalent du
   secteur de la santé ; nous nous inspirons de son approche mais ciblons les services publics
   au sens large.
 </p>
@@ -109,9 +109,9 @@ const { locale = defaultLocale } = Astro.props;
 
 <h2>Périmètre</h2>
 <p>
-  PublicSchema commence par la protection sociale : un domaine bien compris, en pleine
-  transformation numérique, avec plusieurs systèmes open source et des problèmes immédiats
-  d'interopérabilité. Voir la liste complète des
+  PublicSchema prend pour point de départ la protection sociale : un domaine bien balisé, en pleine
+  transformation numérique, disposant de plusieurs systèmes open source et confronté à des enjeux
+  immédiats d'interopérabilité. Voir la liste complète des
   <a href={localePath('/concepts/', locale)}>concepts</a> pour la couverture actuelle.
 </p>
 <p>
@@ -128,10 +128,10 @@ const { locale = defaultLocale } = Astro.props;
   préservée.
 </p>
 <ul>
-  <li><strong>Adoptez les concepts universels tels quels.</strong> Personne, Ménage, Lieu et d'autres concepts universels nécessitent rarement des adaptations locales. Les utiliser directement offre l'interopérabilité sans coût supplémentaire.</li>
+  <li><strong>Adoptez les concepts universels tels quels.</strong> Personne, Ménage, Lieu et d'autres concepts universels nécessitent rarement des adaptations locales. Les utiliser directement garantit l'interopérabilité sans effort supplémentaire.</li>
   <li><strong>Utilisez les vocabulaires lorsqu'ils conviennent.</strong> Les codes ISO de pays, de devises et de langues correspondent sans difficulté à la plupart des systèmes. Lorsqu'un vocabulaire de domaine (statut d'inscription, modalité de prestation) ne couvre pas un code local, ajoutez-le dans votre espace de noms.</li>
   <li><strong>Étendez ce qui manque.</strong> Les concepts propres à un pays (un identifiant national, un dossier de gestion de cas spécifique, une catégorie de prestation locale) résident dans votre espace de noms aux côtés des termes PublicSchema.</li>
-  <li><strong>Proposez l'ajout en amont.</strong> Lorsqu'une extension s'avère utile dans plusieurs pays, proposez son intégration. Le vocabulaire évolue par l'adoption réelle, pas par la conception en comité.</li>
+  <li><strong>Proposez l'ajout en amont.</strong> Lorsqu'une extension s'avère utile dans plusieurs pays, proposez son intégration. Le vocabulaire évolue par l'adoption réelle, non par une conception de comité.</li>
 </ul>
 <p>
   Voir <a href={localePath('/docs/extension-mechanism/', locale)}>Étendre PublicSchema</a> pour
@@ -140,18 +140,18 @@ const { locale = defaultLocale } = Astro.props;
 
 <h2>Gouvernance et feuille de route</h2>
 <p>
-  Le projet est maintenu par Jeremi Joslin pour permettre des décisions rapides et tranchées
-  dans les premières phases. Les retours des experts du domaine, des implémenteurs de systèmes
-  et des organismes de normalisation sont activement sollicités.
+  Le projet est maintenu par Jeremi Joslin pour permettre des prises de décision rapides et assumées
+  dans les premières phases. Les contributions des experts du domaine, des intégrateurs de systèmes
+  et des organismes de normalisation sont activement sollicitées.
 </p>
 <p>
   À mesure que l'adoption progresse, la gouvernance s'élargira : d'abord à un groupe consultatif
-  de contributeurs et d'experts du domaine, puis à une structure formelle multi-parties prenantes.
+  de contributeurs et d'experts du domaine, puis à une structure formelle multipartite.
 </p>
 <h3>Phase 1 : Fondation <span class="badge badge-draft">en cours</span></h3>
 <p>
-  Concepts et propriétés avec des URI stables. Définitions rédigées pour les praticiens
-  du domaine. Publié sous forme de site de référence.
+  Concepts et propriétés avec des URI stables. Définitions rédigées pour les professionnels
+  du domaine. Publication sous forme de site de référence.
 </p>
 <h3>Phase 2 : Normes et correspondances</h3>
 <p>
@@ -160,6 +160,6 @@ const { locale = defaultLocale } = Astro.props;
 </p>
 <h3>Phase 3 : Adoption et extension</h3>
 <p>
-  Gouvernance formalisée. Validation en conditions réelles avec les implémenteurs de systèmes.
+  Gouvernance formalisée. Validation en conditions réelles avec les intégrateurs de systèmes.
   Extension aux domaines de services publics adjacents.
 </p>

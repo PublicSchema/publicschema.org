@@ -207,7 +207,7 @@ export const ui: Record<Locale, Partial<Dict>> = {
     'nav.search': 'Rechercher',
 
     // Language switcher
-    'lang.switch_to': 'Changer la langue en {language}',
+    'lang.switch_to': 'Passer en {language}',
     'lang.current': 'Langue actuelle : {language}',
     'lang.menu_label': 'Langue',
 
@@ -222,7 +222,7 @@ export const ui: Record<Locale, Partial<Dict>> = {
     'search.close': 'Fermer la recherche',
 
     // Footer
-    'footer.tagline': 'Définitions communes pour la prestation de services publics. Conçu pour permettre aux programmes de coordonner, partager des données et atteindre les personnes qu\'ils servent.',
+    'footer.tagline': 'Définitions communes pour la prestation de services publics. Conçu pour permettre aux programmes de se coordonner, de partager des données et d\'atteindre les personnes auxquelles ils s\'adressent.',
     'footer.explore': 'Explorer',
     'footer.docs': 'Documentation',
     'footer.project': 'Projet',
@@ -256,10 +256,10 @@ export const ui: Record<Locale, Partial<Dict>> = {
 
     // Properties index
     'properties.page_title': 'Propriétés',
-    'properties.page_subtitle': 'Attributs réutilisables partagés entre les concepts.',
+    'properties.page_subtitle': 'Propriétés réutilisables partagées entre les concepts.',
     'properties.table.property': 'Propriété',
     'properties.table.type': 'Type',
-    'properties.table.used_by': 'Utilisé par',
+    'properties.table.used_by': 'Utilisée par',
     'properties.table.definition': 'Définition',
 
     // Vocabularies index
@@ -275,7 +275,7 @@ export const ui: Record<Locale, Partial<Dict>> = {
     'vocab_detail.aligned_standards': 'Normes alignées',
     'vocab_detail.values': 'Valeurs',
     'vocab_detail.external_values_note_prefix': 'Ce vocabulaire est défini par une norme externe',
-    'vocab_detail.external_values_note_suffix': 'La liste complète des valeurs est disponible dans les téléchargements ci-dessus',
+    'vocab_detail.external_values_note_suffix': 'La liste complète des valeurs est accessible via les liens de téléchargement ci-dessus',
     'vocab_detail.official_standard_page': 'page officielle de la norme',
     'vocab_detail.table.code': 'Code',
     'vocab_detail.table.label': 'Libellé',
@@ -283,7 +283,7 @@ export const ui: Record<Locale, Partial<Dict>> = {
     'vocab_detail.table.definition': 'Définition',
     'vocab_detail.same_standard': 'Même norme',
     'vocab_detail.same_standard_desc_prefix': 'Les systèmes suivants utilisent la même norme sous-jacente',
-    'vocab_detail.same_standard_desc_suffix': 'pour ce vocabulaire, les valeurs sont donc directement compatibles sans correspondance :',
+    'vocab_detail.same_standard_desc_suffix': 'pour ce vocabulaire ; les valeurs sont donc directement compatibles sans conversion :',
     'vocab_detail.system_mappings': 'Correspondances système',
     'vocab_detail.system_vocabulary': 'Vocabulaire système :',
     'vocab_detail.no_mapping': 'aucun équivalent',
@@ -291,7 +291,7 @@ export const ui: Record<Locale, Partial<Dict>> = {
 
     // Systems index
     'systems.page_title': 'Systèmes',
-    'systems.page_subtitle': 'Systèmes externes et normes avec des correspondances de vocabulaire vers les valeurs canoniques de PublicSchema.',
+    'systems.page_subtitle': 'Systèmes externes et normes dont les vocabulaires sont mis en correspondance avec les valeurs canoniques de PublicSchema.',
     'systems.table.system': 'Système',
     'systems.table.vocabularies': 'Vocabulaires',
     'systems.table.value_mappings': 'Correspondances de valeurs',
@@ -314,7 +314,7 @@ export const ui: Record<Locale, Partial<Dict>> = {
     'system_detail.report_button': 'Signaler un problème avec ces correspondances',
 
     // Concept detail
-    'concept_detail.supertypes': 'Supertypes',
+    'concept_detail.supertypes': 'Super-types',
     'concept_detail.subtypes': 'Sous-types',
     'concept_detail.properties': 'Propriétés',
     'concept_detail.no_properties': 'Aucune propriété définie pour l\'instant.',
@@ -328,11 +328,11 @@ export const ui: Record<Locale, Partial<Dict>> = {
     'concept_detail.table.standard': 'Norme',
     'concept_detail.table.equivalent': 'Équivalent',
     'concept_detail.table.match': 'Correspondance',
-    'concept_detail.evidence.all_systems': 'Présent dans l\'ensemble des {total} systèmes de prestation cartographiés.',
-    'concept_detail.evidence.none': 'Pas encore trouvé dans les systèmes de prestation cartographiés.',
-    'concept_detail.evidence.partial': 'Présent dans {count} des {total} systèmes de prestation cartographiés.',
+    'concept_detail.evidence.all_systems': 'Présent dans les {total} systèmes de prestation analysés.',
+    'concept_detail.evidence.none': 'Pas encore trouvé dans les systèmes de prestation analysés.',
+    'concept_detail.evidence.partial': 'Présent dans {count} des {total} systèmes de prestation analysés.',
     'concept_detail.abstract_badge': 'abstrait',
-    'concept_detail.abstract_title': 'Supertype abstrait : existe pour regrouper des propriétés partagées ; les instances sont enregistrées comme l\'un de ses sous-types',
+    'concept_detail.abstract_title': 'Supertype abstrait : regroupe des propriétés partagées ; les instances sont enregistrées sous l\'un de ses sous-types.',
 
     // Property detail
     'property_detail.details': 'Détails',
@@ -340,8 +340,8 @@ export const ui: Record<Locale, Partial<Dict>> = {
     'property_detail.cardinality': 'Cardinalité',
     'property_detail.vocabulary': 'Vocabulaire',
     'property_detail.references': 'Références',
-    'property_detail.used_by': 'Utilisé par',
-    'property_detail.no_uses': 'Non utilisé par aucun concept pour l\'instant.',
+    'property_detail.used_by': 'Utilisée par',
+    'property_detail.no_uses': 'Pas encore utilisée par aucun concept.',
     'property_detail.system_mappings': 'Correspondances système',
     'property_detail.table.system_code': 'Code système',
     'property_detail.table.system_label': 'Libellé système',
@@ -372,7 +372,7 @@ export const ui: Record<Locale, Partial<Dict>> = {
     // 404
     '404.page_title': 'Page introuvable',
     '404.message': 'La page que vous recherchez n\'existe pas ou a été déplacée.',
-    '404.go_home': 'retourner à la page d\'accueil',
+    '404.go_home': 'revenir à la page d\'accueil',
     '404.or_browse': 'ou parcourir',
 
     // Translation banner
@@ -397,7 +397,7 @@ export const ui: Record<Locale, Partial<Dict>> = {
     // Search UI
     'search.placeholder': 'Buscar conceptos, propiedades...',
     'search.min_chars': 'Escriba al menos 2 caracteres para buscar',
-    'search.no_results': 'Sin resultados para',
+    'search.no_results': 'Ningún resultado para',
     'search.browse_hint': 'Explorar: Conceptos, Propiedades, Vocabularios',
     'search.results_status': '{count} resultado(s) encontrado(s)',
     'search.no_results_status': 'No se encontraron resultados',
@@ -414,7 +414,7 @@ export const ui: Record<Locale, Partial<Dict>> = {
     'footer.all_docs': 'Toda la documentación',
     'footer.systems': 'Sistemas',
     'footer.about': 'Acerca de',
-    'footer.source_github': 'Fuente en GitHub',
+    'footer.source_github': 'Repositorio en GitHub',
     'footer.terms': 'Términos y licencia',
     'footer.reference_model_cc': 'Modelo de referencia:',
     'footer.code_apache': 'Código:',
@@ -442,7 +442,7 @@ export const ui: Record<Locale, Partial<Dict>> = {
     'properties.page_subtitle': 'Atributos reutilizables compartidos entre conceptos.',
     'properties.table.property': 'Propiedad',
     'properties.table.type': 'Tipo',
-    'properties.table.used_by': 'Usado por',
+    'properties.table.used_by': 'Utilizada por',
     'properties.table.definition': 'Definición',
 
     // Vocabularies index
@@ -458,7 +458,7 @@ export const ui: Record<Locale, Partial<Dict>> = {
     'vocab_detail.aligned_standards': 'Normas alineadas',
     'vocab_detail.values': 'Valores',
     'vocab_detail.external_values_note_prefix': 'Este vocabulario está definido por una norma externa',
-    'vocab_detail.external_values_note_suffix': 'La lista completa de valores está disponible en las descargas anteriores',
+    'vocab_detail.external_values_note_suffix': 'La lista completa de valores está disponible en la sección de descargas',
     'vocab_detail.official_standard_page': 'página oficial de la norma',
     'vocab_detail.table.code': 'Código',
     'vocab_detail.table.label': 'Etiqueta',
@@ -466,7 +466,7 @@ export const ui: Record<Locale, Partial<Dict>> = {
     'vocab_detail.table.definition': 'Definición',
     'vocab_detail.same_standard': 'Misma norma',
     'vocab_detail.same_standard_desc_prefix': 'Los siguientes sistemas utilizan la misma norma subyacente',
-    'vocab_detail.same_standard_desc_suffix': 'para este vocabulario, por lo que los valores son directamente compatibles sin correspondencia:',
+    'vocab_detail.same_standard_desc_suffix': 'para este vocabulario, por lo que los valores son directamente compatibles sin necesidad de correspondencia:',
     'vocab_detail.system_mappings': 'Correspondencias del sistema',
     'vocab_detail.system_vocabulary': 'Vocabulario del sistema:',
     'vocab_detail.no_mapping': 'sin equivalente',
@@ -494,7 +494,7 @@ export const ui: Record<Locale, Partial<Dict>> = {
     'system_detail.coverage_all': 'Todos los valores',
     'system_detail.coverage_mapped': '{mapped}/{total} correspondencias',
     'system_detail.not_covered': '{count} sin cobertura',
-    'system_detail.report_button': 'Reportar un problema con estas correspondencias',
+    'system_detail.report_button': 'Notificar un problema con estas correspondencias',
 
     // Concept detail
     'concept_detail.supertypes': 'Supertipos',
@@ -511,9 +511,9 @@ export const ui: Record<Locale, Partial<Dict>> = {
     'concept_detail.table.standard': 'Norma',
     'concept_detail.table.equivalent': 'Equivalente',
     'concept_detail.table.match': 'Correspondencia',
-    'concept_detail.evidence.all_systems': 'Presente en los {total} sistemas de prestación mapeados.',
-    'concept_detail.evidence.none': 'Aún no encontrado en los sistemas de prestación mapeados.',
-    'concept_detail.evidence.partial': 'Presente en {count} de {total} sistemas de prestación mapeados.',
+    'concept_detail.evidence.all_systems': 'Presente en los {total} sistemas de prestación relevados.',
+    'concept_detail.evidence.none': 'Aún no identificado en los sistemas de prestación relevados.',
+    'concept_detail.evidence.partial': 'Presente en {count} de {total} sistemas de prestación relevados.',
     'concept_detail.abstract_badge': 'abstracto',
     'concept_detail.abstract_title': 'Supertipo abstracto: existe para agrupar propiedades compartidas; las instancias se registran como uno de sus subtipos',
 
@@ -523,8 +523,8 @@ export const ui: Record<Locale, Partial<Dict>> = {
     'property_detail.cardinality': 'Cardinalidad',
     'property_detail.vocabulary': 'Vocabulario',
     'property_detail.references': 'Referencias',
-    'property_detail.used_by': 'Usado por',
-    'property_detail.no_uses': 'No usado por ningún concepto aún.',
+    'property_detail.used_by': 'Utilizada por',
+    'property_detail.no_uses': 'Aún no utilizada por ningún concepto.',
     'property_detail.system_mappings': 'Correspondencias del sistema',
     'property_detail.table.system_code': 'Código del sistema',
     'property_detail.table.system_label': 'Etiqueta del sistema',
@@ -549,7 +549,7 @@ export const ui: Record<Locale, Partial<Dict>> = {
     'home.vocabularies': 'Vocabularios',
     'home.plus_more': '+{count} más',
     'home.closing': 'PublicSchema se mantiene como un proyecto abierto.',
-    'home.source_github': 'Fuente en GitHub',
+    'home.source_github': 'Repositorio en GitHub',
     'home.about_project': 'Acerca del proyecto',
 
     // 404
