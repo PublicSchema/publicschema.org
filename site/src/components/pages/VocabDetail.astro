@@ -1,0 +1,172 @@
+---
+import Base from '../../layouts/Base.astro';
+import { defaultLocale, type Locale } from '../../i18n/languages';
+import { useTranslations, localePath } from '../../i18n/utils';
+import { loadVocabulary } from '../../data/vocabulary';
+import type { Vocabulary } from '../../data/vocabulary';
+import { getSystemName } from '../../data/systems';
+
+interface Props {
+  vocab: string;
+  locale?: Locale;
+}
+
+const { vocab, locale = defaultLocale } = Astro.props;
+const t = useTranslations(locale);
+
+const allVocab = loadVocabulary();
+const vocabulary = allVocab.vocabularies[vocab] as Vocabulary;
+---
+<Base title={vocabulary.id} description={vocabulary.definition.en} alternateJsonLd={`/vocab/${vocab}.jsonld`} locale={locale}>
+  <article>
+  <div class="page-header">
+    <nav class="breadcrumb">
+      <a href={localePath('/', locale)}>{t('breadcrumb.home')}</a>
+      <span class="separator">/</span>
+      <a href={localePath('/vocab/', locale)}>{t('common.vocabularies')}</a>
+      <span class="separator">/</span>
+      {vocabulary.id}
+    </nav>
+    <h1>{vocabulary.id}</h1>
+    <div class="meta-line">
+      <span class={`badge badge-${vocabulary.maturity}`}>{vocabulary.maturity}</span>
+    </div>
+    <p class="definition-text">{vocabulary.definition[locale] ?? vocabulary.definition.en}</p>
+    <p class="uri">{vocabulary.uri}</p>
+  </div>
+  <div class="download-links">
+    <a href={`/vocab/${vocab}.csv`} class="btn btn-secondary" download>{t('download.csv')}</a>
+    <a href={`/vocab/${vocab}.jsonld`} class="btn btn-secondary">{t('download.jsonld')}</a>
+  </div>
+
+  {vocabulary.standard && (
+    <div class="concept-section">
+      <h2>{t('vocab_detail.standard_reference')}</h2>
+      <p>
+        {vocabulary.standard.name}
+        {vocabulary.standard.uri && (
+          <> (<a href={vocabulary.standard.uri} target="_blank" rel="noopener">{vocabulary.standard.uri}</a>)</>
+        )}
+      </p>
+      {vocabulary.standard.notes && (
+        <p style="color: var(--color-text-muted); line-height: 1.65;">{vocabulary.standard.notes}</p>
+      )}
+    </div>
+  )}
+
+  {vocabulary.external_equivalents && Object.keys(vocabulary.external_equivalents).length > 0 && (
+    <div class="concept-section">
+      <h2>{t('vocab_detail.aligned_standards')}</h2>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Standard</th>
+            <th>Equivalent</th>
+            <th>Match</th>
+          </tr>
+        </thead>
+        <tbody>
+          {Object.entries(vocabulary.external_equivalents).map(([key, eq]) => (
+            <>
+              <tr>
+                <td>{eq.vocabulary}</td>
+                <td><a href={eq.uri} target="_blank" rel="noopener">{eq.label}</a></td>
+                <td><span class={`badge badge-${eq.match}`}>{eq.match.replace('_', ' ')}</span></td>
+              </tr>
+              {eq.note && (
+                <tr class="aligned-note-row">
+                  <td colspan="3" class="aligned-note">{eq.note}</td>
+                </tr>
+              )}
+            </>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  )}
+
+  {vocabulary.external_values ? (
+    <div class="concept-section">
+      <h2>{t('vocab_detail.values')}</h2>
+      <p>
+        {t('vocab_detail.external_values_note')}{vocabulary.standard?.uri ? (
+          <> or from the <a href={vocabulary.standard.uri} target="_blank" rel="noopener">official standard page</a></>
+        ) : ''}
+      </p>
+    </div>
+  ) : (
+    <div class="concept-section">
+      <h2>{t('vocab_detail.values')}</h2>
+      <table class="data-table mobile-card-table">
+        <thead>
+          <tr>
+            <th>{t('vocab_detail.table.code')}</th>
+            <th>{t('vocab_detail.table.label')}</th>
+            <th>{t('vocab_detail.table.standard_code')}</th>
+            <th>{t('vocab_detail.table.definition')}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {vocabulary.values.map((v) => (
+            <tr>
+              <td><code>{v.code}</code></td>
+              <td data-label={t('vocab_detail.table.label')}>{v.label[locale] ?? v.label.en}</td>
+              <td data-label={t('vocab_detail.table.standard_code')}>{v.standard_code || ""}</td>
+              <td data-label={t('vocab_detail.table.definition')}>{v.definition[locale] ?? v.definition.en}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  )}
+
+  {vocabulary.same_standard_systems && vocabulary.same_standard_systems.length > 0 && (
+    <div class="concept-section">
+      <h2>{t('vocab_detail.same_standard')}</h2>
+      <p>{t('vocab_detail.same_standard_desc')}{vocabulary.standard ? ` (${vocabulary.standard.name})` : ''}</p>
+      <ul>
+        {vocabulary.same_standard_systems.map((system) => (
+          <li><a href={localePath(`/systems/${system}`, locale)}><strong>{getSystemName(system)}</strong></a></li>
+        ))}
+      </ul>
+    </div>
+  )}
+
+  {vocabulary.system_mappings && Object.keys(vocabulary.system_mappings).length > 0 && (
+    <div class="concept-section">
+      <h2>{t('vocab_detail.system_mappings')}</h2>
+      {Object.entries(vocabulary.system_mappings).map(([system, mapping]) => (
+        <div style="margin-bottom: var(--space-lg);">
+          <h3 id={system}><a href={localePath(`/systems/${system}`, locale)}>{getSystemName(system)}</a></h3>
+          {mapping.vocabulary_name && (
+            <p class="mapping-vocab-name">{t('vocab_detail.system_vocabulary')} <strong>{mapping.vocabulary_name}</strong></p>
+          )}
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>System code</th>
+                <th>System label</th>
+                <th>{vocabulary.id} value</th>
+              </tr>
+            </thead>
+            <tbody>
+              {mapping.values.map((v) => (
+                <tr class={v.maps_to === null ? 'unmapped-row' : ''}>
+                  <td><code>{v.code}</code></td>
+                  <td data-label="System label">{v.label}</td>
+                  <td data-label={`${vocabulary.id} value`}>{v.maps_to ? (<code>{v.maps_to}</code>) : (<span class="no-mapping">{v.unmapped_reason ? v.unmapped_reason.replace(/_/g, " ") : t('vocab_detail.no_mapping')}</span>)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          {mapping.unmapped_canonical && mapping.unmapped_canonical.length > 0 && (
+            <p class="unmapped-note">
+              {t('vocab_detail.not_covered_by', { system: getSystemName(system) })} {mapping.unmapped_canonical.map((code) => (<code>{code}</code>)).reduce((prev, curr) => <>{prev}, {curr}</>)}
+            </p>
+          )}
+        </div>
+      ))}
+    </div>
+  )}
+  </article>
+</Base>

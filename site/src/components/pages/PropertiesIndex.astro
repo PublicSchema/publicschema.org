@@ -1,0 +1,57 @@
+---
+import Base from '../../layouts/Base.astro';
+import { defaultLocale, type Locale } from '../../i18n/languages';
+import { useTranslations, localePath } from '../../i18n/utils';
+import { loadVocabulary } from '../../data/vocabulary';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = defaultLocale } = Astro.props;
+const t = useTranslations(locale);
+
+const vocab = loadVocabulary();
+const maturityRank: Record<string, number> = { normative: 0, "trial-use": 1, draft: 2 };
+const byMaturityThenName = (a: { maturity: string; id: string }, b: { maturity: string; id: string }) =>
+  (maturityRank[a.maturity] ?? 9) - (maturityRank[b.maturity] ?? 9) || a.id.localeCompare(b.id);
+const properties = Object.values(vocab.properties).sort(byMaturityThenName);
+const primitiveTypes = ["string", "integer", "decimal", "boolean", "date", "datetime", "uri", "geojson_geometry"];
+---
+<Base title={t('properties.page_title')} description="All properties in the PublicSchema vocabulary." locale={locale}>
+  <div class="page-header">
+    <nav class="breadcrumb">
+      <a href={localePath('/', locale)}>{t('breadcrumb.home')}</a><span class="separator">/</span>{t('common.properties')}
+    </nav>
+    <h1>{t('properties.page_title')}</h1>
+    <p class="subtitle">{t('properties.page_subtitle')}</p>
+  </div>
+
+  <table class="data-table mobile-card-table">
+    <thead>
+      <tr>
+        <th>{t('properties.table.property')}</th>
+        <th>{t('properties.table.type')}</th>
+        <th>{t('properties.table.used_by')}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {properties.map((p) => {
+        const conceptRef = p.type.match(/^concept:(.+)$/)?.[1];
+        const isPrimitive = primitiveTypes.includes(p.type);
+        return (
+          <tr>
+            <td><a href={localePath(p.path, locale)}>{p.id}</a></td>
+            <td data-label={t('properties.table.type')}>{conceptRef
+              ? <a href={localePath(vocab.concepts[conceptRef]?.path || `/${conceptRef}`, locale)}><code>{p.type}</code></a>
+              : isPrimitive
+                ? <a href={localePath(`/types#${p.type}`, locale)}><code>{p.type}</code></a>
+                : <code>{p.type}</code>
+            }</td>
+            <td data-label={t('properties.table.used_by')}>{p.used_by.join(", ")}</td>
+          </tr>
+        );
+      })}
+    </tbody>
+  </table>
+</Base>
