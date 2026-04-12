@@ -47,3 +47,10 @@ values:
       en: "A relationship recognized as a marriage through long-term cohabitation without a formal ceremony, where the jurisdiction permits."
       fr: "Une relation reconnue comme mariage par la cohabitation prolongée sans cérémonie formelle, lorsque la juridiction le permet."
       es: "Una relación reconocida como matrimonio mediante cohabitación prolongada sin ceremonia formal, cuando la jurisdicción lo permite."
+
+external_equivalents:
+  opencrvs:
+    label: "MarriageRegistration.typeOfMarriage (country-configured)"
+    match: none
+    vocabulary: "OpenCRVS v1 GraphQL"
+    note: "The field is an untyped String; values are defined at country-deployment time and no reference values were observed in the Farajaland configuration."

@@ -77,3 +77,10 @@ values:
       en: "A woman who carried and gave birth to the child on behalf of the intended parents."
       fr: "Une femme qui a porté et donné naissance à l'enfant au nom des parents d'intention."
       es: "Una mujer que gestó y dio a luz al niño en nombre de los padres previstos."
+
+external_equivalents:
+  opencrvs:
+    label: "Parental roles (country-configured)"
+    match: none
+    vocabulary: "OpenCRVS v1 GraphQL"
+    note: "OpenCRVS uses named field slots (mother, father) rather than an enumeration; RelatedPerson.relationship is a free String, and adoptive, legal, and surrogate roles are not representable in v1 core."

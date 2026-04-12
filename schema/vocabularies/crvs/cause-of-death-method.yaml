@@ -57,3 +57,10 @@ values:
       en: "The cause was determined by another method not covered above."
       fr: "La cause a été déterminée par une autre méthode non couverte ci-dessus."
       es: "La causa se determinó por otro método no cubierto arriba."
+
+external_equivalents:
+  opencrvs:
+    label: "DeathRegistration.causeOfDeathMethod (country-configured)"
+    match: none
+    vocabulary: "OpenCRVS v1 GraphQL"
+    note: "The field is an untyped String; values are defined at country-deployment time (e.g. Farajaland uses PHYSICIAN/LAY_REPORTED/VERBAL_AUTOPSY/MEDICALLY_CERTIFIED, which partially overlaps our vocabulary)."

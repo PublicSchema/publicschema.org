@@ -47,3 +47,10 @@ values:
       en: "An annotation reflecting a change to the gender marker recorded on the person's civil status record, issued by an administrative or judicial authority."
       fr: "Une mention reflétant un changement de la mention de sexe portée sur l'acte d'état civil de la personne, prononcé par une autorité administrative ou judiciaire."
       es: "Una anotación que refleja un cambio de la mención de sexo inscrita en el acta de estado civil de la persona, dictado por una autoridad administrativa o judicial."
+
+external_equivalents:
+  opencrvs:
+    label: "No v1 equivalent"
+    match: none
+    vocabulary: "OpenCRVS v1 GraphQL"
+    note: "OpenCRVS v1 core has no annotation concept; corrections flow through the RegAction workflow recorded in History, which is an audit trail rather than a typed marginal annotation."

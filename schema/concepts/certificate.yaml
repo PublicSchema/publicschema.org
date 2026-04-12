@@ -37,3 +37,11 @@ properties:
 
 subtypes: []
 supertypes: []
+
+external_equivalents:
+  opencrvs:
+    label: "Certificate"
+    uri: "https://github.com/opencrvs/opencrvs-core/blob/develop/packages/client/src/tests/schema.graphql#Certificate"
+    match: close
+    vocabulary: "OpenCRVS v1 GraphQL"
+    note: "Both represent a certificate issued for a registration, but the fields diverge: OpenCRVS emphasises collection and fee payment while PublicSchema emphasises issuance metadata (issue date, issuing office, format)."

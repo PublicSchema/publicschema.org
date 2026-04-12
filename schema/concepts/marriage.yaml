@@ -30,3 +30,11 @@ properties:
 
 subtypes: []
 supertypes: [VitalEvent]
+
+external_equivalents:
+  opencrvs:
+    label: "MarriageRegistration"
+    uri: "https://github.com/opencrvs/opencrvs-core/blob/develop/packages/client/src/tests/schema.graphql#MarriageRegistration"
+    match: broad
+    vocabulary: "OpenCRVS v1 GraphQL"
+    note: "MarriageRegistration bundles event, record, and workflow like the other *Registration types. OpenCRVS uses gendered slots (bride/groom); PublicSchema uses gender-neutral party_1/party_2."

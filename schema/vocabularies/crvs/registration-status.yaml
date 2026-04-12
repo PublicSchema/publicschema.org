@@ -77,3 +77,65 @@ values:
       en: "The registration has been moved to long-term archival storage; no further routine operations expected."
       fr: "L'enregistrement a été transféré vers un archivage à long terme; aucune opération courante n'est attendue."
       es: "El registro ha sido trasladado al almacenamiento de archivo a largo plazo; no se esperan más operaciones rutinarias."
+
+system_mappings:
+  opencrvs:
+    vocabulary_name: "RegStatus"
+    values:
+      - code: "DECLARED"
+        label: "Declared"
+        maps_to: declared
+      - code: "WAITING_VALIDATION"
+        label: "Waiting Validation"
+        maps_to: pending_validation
+      - code: "REGISTERED"
+        label: "Registered"
+        maps_to: registered
+      - code: "REJECTED"
+        label: "Rejected"
+        maps_to: rejected
+      - code: "ARCHIVED"
+        label: "Archived"
+        maps_to: archived
+      - code: "IN_PROGRESS"
+        label: "In Progress"
+        maps_to: null
+        unmapped_reason: no_equivalent
+        note: "Pre-declaration draft state; PublicSchema has no analog."
+      - code: "DECLARATION_UPDATED"
+        label: "Declaration Updated"
+        maps_to: null
+        unmapped_reason: no_equivalent
+        note: "Declaration edited after submission; no distinct PublicSchema state."
+      - code: "CORRECTION_REQUESTED"
+        label: "Correction Requested"
+        maps_to: null
+        unmapped_reason: no_equivalent
+        note: "Correction pending registrar review; no distinct PublicSchema state."
+      - code: "VALIDATED"
+        label: "Validated"
+        maps_to: null
+        unmapped_reason: no_equivalent
+        note: "Pre-registration review complete; PublicSchema collapses this into registered."
+      - code: "CERTIFIED"
+        label: "Certified"
+        maps_to: null
+        unmapped_reason: no_equivalent
+        note: "Certificate printed; PublicSchema collapses this into registered."
+      - code: "ISSUED"
+        label: "Issued"
+        maps_to: null
+        unmapped_reason: no_equivalent
+        note: "Certificate handed to collector; PublicSchema collapses this into registered."
+    unmapped_canonical:
+      - cancelled
+      - corrected
+    note: "RegStatus enumerates the OpenCRVS workflow lifecycle with finer granularity than PublicSchema; several post-registration states (VALIDATED, CERTIFIED, ISSUED) collapse into registered."
+
+external_equivalents:
+  opencrvs:
+    label: "RegStatus"
+    uri: "https://github.com/opencrvs/opencrvs-core/blob/develop/packages/client/src/tests/schema.graphql#RegStatus"
+    match: close
+    vocabulary: "OpenCRVS v1 GraphQL"
+    note: "Close match overall; see system_mappings for the value-level detail, where six OpenCRVS states have no PublicSchema equivalent and two canonical values (cancelled, corrected) have no OpenCRVS equivalent."

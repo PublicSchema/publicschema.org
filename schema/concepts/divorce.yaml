@@ -20,3 +20,10 @@ properties: []
 
 subtypes: []
 supertypes: [MarriageTermination]
+
+external_equivalents:
+  opencrvs:
+    label: "No v1 equivalent"
+    match: none
+    vocabulary: "OpenCRVS v1 GraphQL"
+    note: "Divorce registration is not modelled in OpenCRVS v1 core. No divorce registration entity exists."

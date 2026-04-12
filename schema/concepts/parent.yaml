@@ -33,3 +33,10 @@ properties:
 
 subtypes: []
 supertypes: []
+
+external_equivalents:
+  opencrvs:
+    label: "No v1 equivalent"
+    match: none
+    vocabulary: "OpenCRVS v1 GraphQL"
+    note: "OpenCRVS v1 uses typed slots (mother, father) with roles implicit in field names rather than a reified link entity. Adoptive, legal, and surrogate roles are not representable in v1."

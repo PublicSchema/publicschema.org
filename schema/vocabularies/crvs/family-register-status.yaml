@@ -47,3 +47,10 @@ values:
       en: "The register was merged with another register, for example following a marriage that joined two families into one register."
       fr: "Le registre a été fusionné avec un autre registre, par exemple à la suite d'un mariage ayant réuni deux familles en un seul registre."
       es: "El registro fue fusionado con otro registro, por ejemplo, tras un matrimonio que unió dos familias en un solo registro."
+
+external_equivalents:
+  opencrvs:
+    label: "No v1 equivalent"
+    match: none
+    vocabulary: "OpenCRVS v1 GraphQL"
+    note: "OpenCRVS v1 has no family-register construct; it is event-record centric and does not track families as a registered unit."

@@ -67,3 +67,10 @@ values:
       en: "Six or more children delivered in the same birth event."
       fr: "Six enfants ou plus lors du même accouchement."
       es: "Seis o más niños nacidos en el mismo evento de parto."
+
+external_equivalents:
+  opencrvs:
+    label: "BirthRegistration.birthType (country-configured)"
+    match: none
+    vocabulary: "OpenCRVS v1 GraphQL"
+    note: "The field is an untyped String; values are defined at country-deployment time (e.g. Farajaland uses SINGLE/TWIN/TRIPLET/QUADRUPLET/HIGHER_MULTIPLE_DELIVERY)."

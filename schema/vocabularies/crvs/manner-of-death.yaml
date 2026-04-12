@@ -91,3 +91,10 @@ values:
       en: "After investigation, the manner of death could not be established."
       fr: "Après enquête, la manière du décès n'a pas pu être établie."
       es: "Tras la investigación, no se pudo establecer la manera de la muerte."
+
+external_equivalents:
+  opencrvs:
+    label: "DeathRegistration.mannerOfDeath (country-configured)"
+    match: none
+    vocabulary: "OpenCRVS v1 GraphQL"
+    note: "The field is an untyped String; values are defined at country-deployment time (e.g. Farajaland uses NATURAL_CAUSES/ACCIDENT/SUICIDE/HOMICIDE/MANNER_UNDETERMINED, which collapses several WHO/ICD categories)."
