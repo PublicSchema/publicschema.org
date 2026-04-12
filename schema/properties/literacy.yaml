@@ -1,0 +1,13 @@
+id: literacy
+maturity: draft
+
+definition:
+  en: "Whether the person can, with understanding, both read and write a short simple statement on everyday life."
+  fr: "Si la personne peut, avec compréhension, lire et écrire un court énoncé simple sur la vie quotidienne."
+  es: "Si la persona puede, con comprensión, leer y escribir una declaración breve y sencilla sobre la vida cotidiana."
+
+type: string
+cardinality: single
+vocabulary: literacy
+references: null
+sensitivity: sensitive

@@ -1,0 +1,12 @@
+id: status_in_employment
+maturity: draft
+
+definition:
+  en: "The type of employment relationship: whether the person is an employee, employer, own-account worker, contributing family worker, or cooperative member."
+  fr: "Le type de relation d'emploi : si la personne est salariée, employeur, travailleur à son propre compte, travailleur familial collaborant ou membre d'une coopérative."
+  es: "El tipo de relación de empleo: si la persona es empleado asalariado, empleador, trabajador por cuenta propia, trabajador familiar auxiliar o miembro de una cooperativa."
+
+type: string
+cardinality: single
+vocabulary: status-in-employment
+references: null

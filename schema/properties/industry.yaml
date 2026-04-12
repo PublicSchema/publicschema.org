@@ -1,0 +1,12 @@
+id: industry
+maturity: draft
+
+definition:
+  en: "The branch of economic activity in which the person works, classified according to the International Standard Industrial Classification (ISIC Rev.4). Too large to enumerate; countries use national adaptations."
+  fr: "La branche d'activité économique dans laquelle la personne travaille, classée selon la Classification internationale type, par industrie (CITI Rév.4). Trop volumineuse pour être énumérée; les pays utilisent des adaptations nationales."
+  es: "La rama de actividad económica en la que trabaja la persona, clasificada según la Clasificación Industrial Internacional Uniforme (CIIU Rev.4). Demasiado extensa para enumerar; los países utilizan adaptaciones nacionales."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null

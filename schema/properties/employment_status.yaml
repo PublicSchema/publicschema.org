@@ -1,0 +1,12 @@
+id: employment_status
+maturity: draft
+
+definition:
+  en: "The labour force participation status of the person: whether they are employed, unemployed, or outside the labour force."
+  fr: "Le statut de participation à la population active de la personne : si elle est employée, au chômage ou hors de la population active."
+  es: "El estado de participación en la fuerza laboral de la persona: si está empleada, desempleada o fuera de la fuerza laboral."
+
+type: string
+cardinality: single
+vocabulary: employment-status
+references: null

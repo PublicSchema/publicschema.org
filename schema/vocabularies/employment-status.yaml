@@ -1,0 +1,38 @@
+id: employment-status
+maturity: draft
+definition:
+  en: The labour force participation status of a person, classified according to the ILO 19th International Conference of Labour Statisticians (2013) tripartite framework.
+  fr: Le statut de participation à la population active d'une personne, classé selon le cadre tripartite de la 19e Conférence internationale des statisticiens du travail (2013) de l'OIT.
+  es: El estado de participación en la fuerza laboral de una persona, clasificado según el marco tripartito de la 19a Conferencia Internacional de Estadísticos del Trabajo (2013) de la OIT.
+standard:
+  name: ILO 19th ICLS Resolution concerning statistics of work, employment, and labour underutilization
+  uri: https://www.ilo.org/resource/resolution/ilo-resolution-concerning-statistics-work-employment-and-labour
+  notes: "Tripartite classification: employed, unemployed, outside the labour force."
+values:
+  - code: employed
+    label:
+      en: Employed
+      fr: Employé
+      es: Empleado
+    definition:
+      en: "Persons of working age who, during a short reference period, were engaged in any activity to produce goods or provide services for pay or profit."
+      fr: "Personnes en âge de travailler qui, pendant une courte période de référence, ont exercé une activité de production de biens ou de prestation de services moyennant rémunération ou profit."
+      es: "Personas en edad de trabajar que, durante un período de referencia corto, realizaron alguna actividad para producir bienes o prestar servicios a cambio de remuneración o beneficio."
+  - code: unemployed
+    label:
+      en: Unemployed
+      fr: Chômeur
+      es: Desempleado
+    definition:
+      en: "Persons of working age who were not in employment, carried out activities to seek employment, and were currently available to take up employment."
+      fr: "Personnes en âge de travailler qui n'étaient pas en emploi, ont mené des activités de recherche d'emploi et étaient actuellement disponibles pour occuper un emploi."
+      es: "Personas en edad de trabajar que no estaban empleadas, realizaron actividades de búsqueda de empleo y estaban actualmente disponibles para aceptar un empleo."
+  - code: outside_labour_force
+    label:
+      en: Outside the labour force
+      fr: Hors de la population active
+      es: Fuera de la fuerza laboral
+    definition:
+      en: "Persons of working age who were neither employed nor unemployed during the reference period (e.g., students, retirees, homemakers, discouraged workers)."
+      fr: "Personnes en âge de travailler qui n'étaient ni employées ni au chômage pendant la période de référence (par exemple, étudiants, retraités, personnes au foyer, travailleurs découragés)."
+      es: "Personas en edad de trabajar que no estaban ni empleadas ni desempleadas durante el período de referencia (por ejemplo, estudiantes, jubilados, personas dedicadas al hogar, trabajadores desalentados)."

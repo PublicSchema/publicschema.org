@@ -1,0 +1,56 @@
+id: status-in-employment
+maturity: draft
+definition:
+  en: The type of employment relationship a person has, classified according to the ILO International Classification of Status in Employment (ICSE-18).
+  fr: Le type de relation d'emploi d'une personne, classé selon la Classification internationale de la situation dans l'emploi (CISE-18) de l'OIT.
+  es: El tipo de relación de empleo de una persona, clasificado según la Clasificación Internacional de la Situación en el Empleo (CISE-18) de la OIT.
+standard:
+  name: ILO ICSE-18 (20th ICLS, 2018)
+  uri: https://www.ilo.org/resource/resolution/ilo-resolution-concerning-statistics-work-relationships
+  notes: "International Classification of Status in Employment. Top-level categories only."
+values:
+  - code: employee
+    label:
+      en: Employee
+      fr: Salarié
+      es: Empleado asalariado
+    definition:
+      en: "A worker who holds an explicit or implicit employment contract giving them basic remuneration not directly dependent on the revenue of the employer."
+      fr: "Un travailleur titulaire d'un contrat de travail explicite ou implicite lui garantissant une rémunération de base non directement dépendante du revenu de l'employeur."
+      es: "Un trabajador que tiene un contrato de trabajo explícito o implícito que le otorga una remuneración básica no dependiente directamente de los ingresos del empleador."
+  - code: employer
+    label:
+      en: Employer
+      fr: Employeur
+      es: Empleador
+    definition:
+      en: "An independent worker who, on a continuous basis, engages one or more persons to work for them as employees."
+      fr: "Un travailleur indépendant qui, de manière continue, engage une ou plusieurs personnes pour travailler pour lui en tant que salariés."
+      es: "Un trabajador independiente que, de manera continua, contrata a una o más personas para que trabajen como empleados."
+  - code: own_account_worker
+    label:
+      en: Own-account worker
+      fr: Travailleur à son propre compte
+      es: Trabajador por cuenta propia
+    definition:
+      en: "An independent worker who does not engage employees on a continuous basis."
+      fr: "Un travailleur indépendant qui n'engage pas de salariés de manière continue."
+      es: "Un trabajador independiente que no contrata empleados de manera continua."
+  - code: contributing_family_worker
+    label:
+      en: Contributing family worker
+      fr: Travailleur familial collaborant
+      es: Trabajador familiar auxiliar
+    definition:
+      en: "A person who works without pay in an economic enterprise operated by a related person living in the same household."
+      fr: "Une personne qui travaille sans rémunération dans une entreprise économique dirigée par un membre de sa famille vivant dans le même ménage."
+      es: "Una persona que trabaja sin remuneración en una empresa económica dirigida por un familiar que vive en el mismo hogar."
+  - code: cooperative_member
+    label:
+      en: Member of a producers' cooperative
+      fr: "Membre d'une coopérative de producteurs"
+      es: Miembro de una cooperativa de productores
+    definition:
+      en: "A worker who holds a self-employment job in a cooperative that produces goods or services, in which each member takes part on an equal footing in organizing production and other activities."
+      fr: "Un travailleur qui occupe un emploi indépendant dans une coopérative qui produit des biens ou des services, dans laquelle chaque membre participe sur un pied d'égalité à l'organisation de la production et des autres activités."
+      es: "Un trabajador que tiene un empleo independiente en una cooperativa que produce bienes o servicios, en la cual cada miembro participa en igualdad de condiciones en la organización de la producción y otras actividades."

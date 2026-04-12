@@ -2,9 +2,9 @@ id: person
 maturity: trial-use
 
 definition:
-  en: "The person who holds this group membership."
-  fr: "La personne qui detient cette appartenance a un groupe."
-  es: "La persona que tiene esta membresia de grupo."
+  en: "A reference to the individual Person this record relates to."
+  fr: "Une référence à la Personne individuelle à laquelle ce dossier se rapporte."
+  es: "Una referencia a la Persona individual a la que se refiere este registro."
 
 type: concept:Person
 cardinality: single

@@ -323,6 +323,129 @@ class TestCrvsVocabularies:
         )
 
 
+class TestPersonDemographicProperties:
+    """Person carries universal demographic properties used across domains."""
+
+    DEMOGRAPHIC_PROPERTIES = [
+        "literacy",
+        "religion",
+        "ethnic_group",
+        "employment_status",
+        "status_in_employment",
+        "industry",
+    ]
+
+    def test_person_has_demographic_properties(self):
+        """Person includes all universal demographic properties."""
+        data = _load_yaml(SCHEMA_DIR / "concepts" / "person.yaml")
+        for prop in self.DEMOGRAPHIC_PROPERTIES:
+            assert prop in data["properties"], (
+                f"Person should have property '{prop}'"
+            )
+
+    @pytest.mark.parametrize("prop_id", DEMOGRAPHIC_PROPERTIES)
+    def test_demographic_property_file_exists(self, prop_id):
+        """Each demographic property has a YAML file on disk."""
+        path = SCHEMA_DIR / "properties" / f"{prop_id}.yaml"
+        assert path.exists(), f"Missing property file: {path}"
+
+    @pytest.mark.parametrize("prop_id", DEMOGRAPHIC_PROPERTIES)
+    def test_demographic_property_has_trilingual_definition(self, prop_id):
+        """Each demographic property has en, fr, es definitions."""
+        data = _load_yaml(SCHEMA_DIR / "properties" / f"{prop_id}.yaml")
+        for lang in ("en", "fr", "es"):
+            assert lang in data["definition"], (
+                f"{prop_id} missing '{lang}' definition"
+            )
+
+    def test_demographic_properties_in_build(self):
+        """All demographic properties appear in the build output for Person."""
+        result = build_vocabulary(SCHEMA_DIR)
+        person = result["concepts"]["Person"]
+        prop_ids = {p["id"] for p in person["properties"]}
+        for prop in self.DEMOGRAPHIC_PROPERTIES:
+            assert prop in prop_ids, (
+                f"Person build output should include '{prop}'"
+            )
+
+    def test_religion_has_no_vocabulary(self):
+        """religion is free text (country-specific), no vocabulary."""
+        data = _load_yaml(SCHEMA_DIR / "properties" / "religion.yaml")
+        assert data.get("vocabulary") is None
+
+    def test_ethnic_group_has_no_vocabulary(self):
+        """ethnic_group is free text (country-specific), no vocabulary."""
+        data = _load_yaml(SCHEMA_DIR / "properties" / "ethnic_group.yaml")
+        assert data.get("vocabulary") is None
+
+    def test_industry_has_no_vocabulary(self):
+        """industry references ISIC Rev.4 but too large to enumerate."""
+        data = _load_yaml(SCHEMA_DIR / "properties" / "industry.yaml")
+        assert data.get("vocabulary") is None
+
+    def test_religion_is_restricted(self):
+        """religion is GDPR Art.9 special category data."""
+        data = _load_yaml(SCHEMA_DIR / "properties" / "religion.yaml")
+        assert data.get("sensitivity") == "restricted"
+
+    def test_ethnic_group_is_restricted(self):
+        """ethnic_group is GDPR Art.9 special category data."""
+        data = _load_yaml(SCHEMA_DIR / "properties" / "ethnic_group.yaml")
+        assert data.get("sensitivity") == "restricted"
+
+
+class TestDemographicVocabularies:
+    """Vocabularies for literacy, employment-status, and status-in-employment."""
+
+    @pytest.mark.parametrize("vocab_id", [
+        "literacy",
+        "employment-status",
+        "status-in-employment",
+    ])
+    def test_vocabulary_file_exists(self, vocab_id):
+        """Each new demographic vocabulary has a YAML file."""
+        path = SCHEMA_DIR / "vocabularies" / f"{vocab_id}.yaml"
+        assert path.exists(), f"Missing vocabulary file: {path}"
+
+    @pytest.mark.parametrize("vocab_id", [
+        "literacy",
+        "employment-status",
+        "status-in-employment",
+    ])
+    def test_vocabulary_loads_in_build(self, vocab_id):
+        """New universal vocabularies appear in build output."""
+        result = build_vocabulary(SCHEMA_DIR)
+        assert vocab_id in result["vocabularies"], (
+            f"Vocabulary {vocab_id} missing from build output"
+        )
+
+    def test_literacy_codes(self):
+        """Literacy uses UNSD binary: literate / illiterate."""
+        data = _load_yaml(SCHEMA_DIR / "vocabularies" / "literacy.yaml")
+        codes = {v["code"] for v in data["values"]}
+        assert codes == {"literate", "illiterate"}
+
+    def test_employment_status_codes(self):
+        """Employment status uses ILO 19th ICLS tripartite classification."""
+        data = _load_yaml(SCHEMA_DIR / "vocabularies" / "employment-status.yaml")
+        codes = {v["code"] for v in data["values"]}
+        assert codes == {"employed", "unemployed", "outside_labour_force"}
+
+    def test_status_in_employment_codes(self):
+        """Status in employment uses ILO ICSE-18 categories."""
+        data = _load_yaml(
+            SCHEMA_DIR / "vocabularies" / "status-in-employment.yaml"
+        )
+        codes = {v["code"] for v in data["values"]}
+        assert codes == {
+            "employee",
+            "employer",
+            "own_account_worker",
+            "contributing_family_worker",
+            "cooperative_member",
+        }
+
+
 class TestParentLinkEntity:
     def test_parent_has_person_and_role(self):
         """Parent is a link entity combining person and parental_role."""

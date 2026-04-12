@@ -1,0 +1,13 @@
+id: religion
+maturity: draft
+
+definition:
+  en: "The religion, religious denomination, or sect of the person, as self-identified. No international classification exists; countries define their own value sets."
+  fr: "La religion, confession religieuse ou secte de la personne, telle que déclarée par elle-même. Aucune classification internationale n'existe; les pays définissent leurs propres jeux de valeurs."
+  es: "La religión, denominación religiosa o secta de la persona, según autodeclaración. No existe una clasificación internacional; los países definen sus propios conjuntos de valores."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+sensitivity: restricted
