@@ -43,6 +43,18 @@ const domainTitles: Record<string, string> = { sp: t('concepts.section_social_pr
 ---
 <Base title={concept.id} description={definition} alternateJsonLd={`${concept.path}.jsonld`} locale={locale}>
   <article>
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "DefinedTerm",
+    "name": concept.id,
+    "description": definition,
+    "url": concept.uri,
+    "inDefinedTermSet": {
+      "@type": "DefinedTermSet",
+      "name": "PublicSchema",
+      "url": "https://publicschema.org/concepts/"
+    }
+  })} />
   <div class="page-header">
     <nav class="breadcrumb">
       <a href={localePath('/', locale)}>{t('breadcrumb.home')}</a>

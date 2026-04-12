@@ -111,6 +111,7 @@ const en = {
   'systems.table.status': 'Status',
 
   // System detail
+  'system_detail.page_description': 'Vocabulary mappings between {name} and PublicSchema.',
   'system_detail.vocabularies': 'Vocabularies',
   'system_detail.properties': 'Properties',
   'system_detail.table.vocabulary': 'Vocabulary',
@@ -299,6 +300,7 @@ export const ui: Record<Locale, Partial<Dict>> = {
     'systems.table.status': 'Statut',
 
     // System detail
+    'system_detail.page_description': 'Correspondances de vocabulaire entre {name} et PublicSchema.',
     'system_detail.vocabularies': 'Vocabulaires',
     'system_detail.properties': 'Propriétés',
     'system_detail.table.vocabulary': 'Vocabulaire',
@@ -482,6 +484,7 @@ export const ui: Record<Locale, Partial<Dict>> = {
     'systems.table.status': 'Estado',
 
     // System detail
+    'system_detail.page_description': 'Correspondencias de vocabulario entre {name} y PublicSchema.',
     'system_detail.vocabularies': 'Vocabularios',
     'system_detail.properties': 'Propiedades',
     'system_detail.table.vocabulary': 'Vocabulario',

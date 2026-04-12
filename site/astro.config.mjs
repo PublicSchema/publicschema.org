@@ -11,7 +11,12 @@ export default defineConfig({
     defaultLocale: 'en',
     routing: { prefixDefaultLocale: false },
   },
-  integrations: [sitemap()],
+  integrations: [sitemap({
+    i18n: {
+      defaultLocale: 'en',
+      locales: { en: 'en', fr: 'fr', es: 'es' },
+    },
+  })],
   vite: {
     resolve: {
       alias: {

@@ -25,6 +25,38 @@ const pageTitle = `${title} | PublicSchema`;
 const canonicalUrl = new URL(currentPath, Astro.site).href;
 const { htmlLang, ogLocale } = languages[locale];
 
+// Build BreadcrumbList JSON-LD from the URL path segments.
+// Strip locale prefix ('fr', 'es', etc.) and empty strings from the path.
+const localeCodeSet = new Set(Object.keys(languages));
+const rawSegments = currentPath.split('/').filter(Boolean);
+const pathSegments = rawSegments[0] && localeCodeSet.has(rawSegments[0])
+  ? rawSegments.slice(1)
+  : rawSegments;
+
+const breadcrumbItems: Array<{ '@type': string; position: number; name: string; item?: string }> = [
+  { '@type': 'ListItem', position: 1, name: 'Home', item: new URL(localePath('/', locale), Astro.site).href },
+];
+pathSegments.forEach((segment, index) => {
+  const isLast = index === pathSegments.length - 1;
+  const segmentPath = '/' + pathSegments.slice(0, index + 1).join('/') + '/';
+  const name = isLast ? title : segment.charAt(0).toUpperCase() + segment.slice(1);
+  const item: { '@type': string; position: number; name: string; item?: string } = {
+    '@type': 'ListItem',
+    position: index + 2,
+    name,
+  };
+  if (!isLast) {
+    item.item = new URL(localePath(segmentPath, locale), Astro.site).href;
+  }
+  breadcrumbItems.push(item);
+});
+
+const breadcrumbJsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: breadcrumbItems,
+});
+
 const navLinks = [
   { href: '/concepts/', label: t('nav.concepts') },
   { href: '/vocab/', label: t('nav.vocabularies') },
@@ -72,6 +104,7 @@ const navLinks = [
   <meta name="twitter:image" content={new URL('/images/social-preview.png', Astro.site).href} />
   <meta name="twitter:title" content={pageTitle} />
   <meta name="twitter:description" content={description} />
+  <script type="application/ld+json" set:html={breadcrumbJsonLd}></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
