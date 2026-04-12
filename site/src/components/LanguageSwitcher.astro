@@ -1,0 +1,114 @@
+---
+import { languages, localesLive, type Locale } from '../i18n/languages';
+import { switchLocalePath, useTranslations } from '../i18n/utils';
+
+interface Props {
+  currentLocale: Locale;
+  currentUrl: URL;
+  variant?: 'desktop' | 'mobile-compact' | 'mobile-full';
+}
+
+const { currentLocale, currentUrl, variant = 'desktop' } = Astro.props;
+const t = useTranslations(currentLocale);
+
+// Hide the switcher entirely while only one locale is live.
+const shouldRender = localesLive.length > 1;
+---
+{shouldRender && (
+<ul
+  class:list={[
+    'lang-switcher',
+    `lang-switcher-${variant}`,
+  ]}
+  aria-label="Language"
+>
+  {localesLive.map((locale) => {
+    const meta = languages[locale];
+    const isCurrent = locale === currentLocale;
+    const label = variant === 'mobile-compact' ? meta.shortCode : meta.nativeName;
+    const href = switchLocalePath(currentUrl, locale);
+    return (
+      <li>
+        {isCurrent ? (
+          <span
+            class="lang-current"
+            aria-current="true"
+            lang={meta.htmlLang}
+          >{label}</span>
+        ) : (
+          <a
+            href={href}
+            hreflang={meta.htmlLang}
+            lang={meta.htmlLang}
+            aria-label={t('lang.switch_to', { language: meta.nativeName })}
+          >{label}</a>
+        )}
+      </li>
+    );
+  })}
+</ul>
+)}
+
+<style>
+  .lang-switcher {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 0.825rem;
+  }
+
+  .lang-switcher li + li::before {
+    content: '|';
+    color: var(--color-border);
+    margin-right: 0.5rem;
+  }
+
+  .lang-switcher a {
+    color: var(--color-text-muted);
+    text-decoration: none;
+    padding: 0.15rem 0.1rem;
+    border-radius: var(--radius-sm);
+    transition: color 0.15s;
+  }
+
+  .lang-switcher a:hover {
+    color: var(--color-accent);
+  }
+
+  .lang-current {
+    color: var(--color-text);
+    font-weight: 600;
+  }
+
+  .lang-switcher-mobile-compact {
+    font-size: 0.75rem;
+    gap: 0.35rem;
+  }
+
+  .lang-switcher-mobile-compact li + li::before {
+    margin-right: 0.35rem;
+  }
+
+  .lang-switcher-mobile-full {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    border-top: 1px solid var(--color-border-light);
+    padding-top: var(--space-sm);
+    margin-top: var(--space-sm);
+  }
+
+  .lang-switcher-mobile-full li + li::before {
+    content: none;
+  }
+
+  .lang-switcher-mobile-full a,
+  .lang-switcher-mobile-full .lang-current {
+    display: block;
+    padding: var(--space-sm) var(--space-md);
+    font-size: 0.95rem;
+  }
+</style>

@@ -13,6 +13,13 @@ export type Locale = keyof typeof languages;
 export const locales = Object.keys(languages) as Locale[];
 export const defaultLocale: Locale = 'en';
 
+/**
+ * Locales with deployed routes. Flip to include `fr` and `es` in Phase 2
+ * once the translated pages exist. Until then, the switcher and hreflang
+ * alternates only reference English so we do not link to 404s.
+ */
+export const localesLive: Locale[] = ['en'];
+
 export function isLocale(value: string): value is Locale {
   return value in languages;
 }
