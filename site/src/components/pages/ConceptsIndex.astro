@@ -36,7 +36,6 @@ const conceptsByDomain = Object.fromEntries(domainCodes.map((d) => [d, concepts.
       <tr>
         <th>{t('concepts.table.concept')}</th>
         <th>{t('concepts.table.definition')}</th>
-        <th>{t('concepts.table.maturity')}</th>
       </tr>
     </thead>
     <tbody>
@@ -44,7 +43,6 @@ const conceptsByDomain = Object.fromEntries(domainCodes.map((d) => [d, concepts.
         <tr>
           <td><a href={localePath(c.path, locale)}>{c.id}</a></td>
           <td data-label={t('concepts.table.definition')}>{(c.definition[locale] ?? c.definition.en)?.slice(0, 100)}{((c.definition[locale] ?? c.definition.en)?.length || 0) > 100 ? "..." : ""}</td>
-          <td data-label={t('concepts.table.maturity')}><span class={`badge badge-${c.maturity}`}>{c.maturity}</span></td>
         </tr>
       ))}
     </tbody>
@@ -58,7 +56,6 @@ const conceptsByDomain = Object.fromEntries(domainCodes.map((d) => [d, concepts.
           <tr>
             <th>{t('concepts.table.concept')}</th>
             <th>{t('concepts.table.definition')}</th>
-            <th>{t('concepts.table.maturity')}</th>
           </tr>
         </thead>
         <tbody>
@@ -66,7 +63,6 @@ const conceptsByDomain = Object.fromEntries(domainCodes.map((d) => [d, concepts.
             <tr>
               <td><a href={localePath(c.path, locale)}>{c.id}</a></td>
               <td data-label={t('concepts.table.definition')}>{(c.definition[locale] ?? c.definition.en)?.slice(0, 100)}{((c.definition[locale] ?? c.definition.en)?.length || 0) > 100 ? "..." : ""}</td>
-              <td data-label={t('concepts.table.maturity')}><span class={`badge badge-${c.maturity}`}>{c.maturity}</span></td>
             </tr>
           ))}
         </tbody>
