@@ -22,7 +22,7 @@ definition:
     como personas, grupos o programas.
 
 properties:
-  - identifiers
+  - record_id
 
 subtypes: [AssessmentEvent, EligibilityDecision, HazardEvent, InKindDelivery, PaymentEvent, Referral, VitalEvent, VoucherRedemption]
 supertypes: []
