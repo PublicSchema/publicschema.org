@@ -13,7 +13,7 @@ const domainCodes = [...new Set(concepts.filter((c) => c.domain).map((c) => c.do
 const conceptsByDomain = Object.fromEntries(domainCodes.map((d) => [d, concepts.filter((c) => c.domain === d)]));
 const properties = Object.values(vocab.properties).sort(byMaturityThenName);
 const vocabularies = Object.values(vocab.vocabularies).sort(byMaturityThenName);
-const systems = ["OpenSPP", "openIMIS", "DCI", "DHIS2", "FHIR R4", "OpenCRVS"];
+const systems = ["OpenSPP", "openIMIS", "Digital Convergence Initiative (DCI)", "DHIS2", "FHIR R4", "OpenCRVS"];
 ---
 <Base title="Home" description="Common definitions for public service delivery. When programs serve the same people, their systems need a shared language.">
 
@@ -180,7 +180,7 @@ const systems = ["OpenSPP", "openIMIS", "DCI", "DHIS2", "FHIR R4", "OpenCRVS"];
   <div class="h3-prose">
     <h2>Where it fits in the standards landscape</h2>
     <p>
-      Standards like DCI and GovStack define how data moves between
+      Standards like the Digital Convergence Initiative (DCI) and GovStack define how data moves between
       systems: API contracts, transport protocols, building blocks. They
       include data models, but those models serve the transport layer.
       PublicSchema starts from the other direction: what does "enrollment"
@@ -201,11 +201,11 @@ const systems = ["OpenSPP", "openIMIS", "DCI", "DHIS2", "FHIR R4", "OpenCRVS"];
     <div class="h3-evidence-inner">
       <h2>Grounded in evidence</h2>
       <p>
-        PublicSchema is grounded in a comparative analysis of six social
-        protection systems. Where international standards exist (ISO for
-        gender, countries, currencies; FHIR for health), we reference them.
-        Where they don't, we define a common set based on how these systems
-        actually work.
+        PublicSchema is grounded in a comparative analysis of systems and
+        standards across social protection and related domains. Where
+        international standards exist (ISO for gender, countries, currencies;
+        FHIR for health), we reference them. Where they don't, we define a
+        common set based on observed convergence.
       </p>
       <div class="h3-systems">
         {systems.map((s) => (
