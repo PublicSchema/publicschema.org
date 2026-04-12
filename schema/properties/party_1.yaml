@@ -11,3 +11,11 @@ cardinality: single
 vocabulary: null
 references: Person
 domain_override: crvs
+
+external_equivalents:
+  opencrvs:
+    label: "MarriageRegistration.bride"
+    uri: "https://github.com/opencrvs/opencrvs-core/blob/develop/packages/client/src/tests/schema.graphql#MarriageRegistration"
+    match: close
+    vocabulary: "OpenCRVS v1 GraphQL"
+    note: "Gendered-to-neutral mapping: our party_1 is gender-neutral, OpenCRVS uses gendered slots. Assignment is arbitrary (party_1 = bride); applied symmetrically with party_2 = groom so the structural correspondence is honest."

@@ -40,3 +40,11 @@ properties:
 
 subtypes: []
 supertypes: [VitalEvent]
+
+external_equivalents:
+  opencrvs:
+    label: "BirthRegistration"
+    uri: "https://github.com/opencrvs/opencrvs-core/blob/develop/packages/client/src/tests/schema.graphql#BirthRegistration"
+    match: broad
+    vocabulary: "OpenCRVS v1 GraphQL"
+    note: "OpenCRVS BirthRegistration bundles the event, the civil status record, and the workflow into one type. Broader scope than PublicSchema Birth; see docs/opencrvs-decomposition.md."

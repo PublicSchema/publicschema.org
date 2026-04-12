@@ -37,3 +37,10 @@ values:
       en: "A standardized extract formatted in multiple languages, often issued for international use under ICCS/CIEC conventions."
       fr: "Un extrait standardisé présenté en plusieurs langues, souvent délivré pour un usage international dans le cadre des conventions CIEC."
       es: "Un extracto estandarizado presentado en varios idiomas, frecuentemente emitido para uso internacional bajo las convenciones CIEC."
+
+external_equivalents:
+  opencrvs:
+    label: "No v1 equivalent"
+    match: none
+    vocabulary: "OpenCRVS v1 GraphQL"
+    note: "OpenCRVS makes no core-level distinction between full copy, extract, and multilingual extract; any such distinction would live inside the certificate template definition itself."

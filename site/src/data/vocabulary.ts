@@ -79,7 +79,14 @@ export interface SystemMapping {
 export interface ExternalEquivalent {
   label: string;
   uri: string;
-  match: "exact" | "close" | "broad" | "name_match";
+  match:
+    | "exact"
+    | "close"
+    | "broad"
+    | "narrow"
+    | "related"
+    | "name_match"
+    | "none";
   vocabulary: string;
   note?: string;
 }

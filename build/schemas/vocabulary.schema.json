@@ -206,8 +206,8 @@
         },
         "match": {
           "type": "string",
-          "enum": ["exact", "close", "broad", "name_match", "none"],
-          "description": "Semantic match quality"
+          "enum": ["exact", "close", "broad", "narrow", "related", "name_match", "none"],
+          "description": "Semantic match quality. SKOS-aligned: exact, close, broad, narrow, related. Non-SKOS extensions: name_match, none."
         },
         "vocabulary": {
           "type": "string",

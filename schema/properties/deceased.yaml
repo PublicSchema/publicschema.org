@@ -11,3 +11,11 @@ cardinality: single
 vocabulary: null
 references: Person
 domain_override: crvs
+
+external_equivalents:
+  opencrvs:
+    label: "DeathRegistration.deceased"
+    uri: "https://github.com/opencrvs/opencrvs-core/blob/develop/packages/client/src/tests/schema.graphql#DeathRegistration"
+    match: close
+    vocabulary: "OpenCRVS v1 GraphQL"
+    note: "OpenCRVS Deceased extends Person with death-specific fields (deathDate, mannerOfDeath); our deceased slot is a plain Person reference."

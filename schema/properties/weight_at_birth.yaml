@@ -11,3 +11,11 @@ cardinality: single
 vocabulary: null
 references: null
 domain_override: crvs
+
+external_equivalents:
+  opencrvs:
+    label: "BirthRegistration.weightAtBirth"
+    uri: "https://github.com/opencrvs/opencrvs-core/blob/develop/packages/client/src/tests/schema.graphql#BirthRegistration"
+    match: exact
+    vocabulary: "OpenCRVS v1 GraphQL"
+    note: "Direct numeric field on both sides; OpenCRVS types it as Float."

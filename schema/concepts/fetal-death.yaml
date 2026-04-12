@@ -38,3 +38,10 @@ properties:
 
 subtypes: []
 supertypes: [VitalEvent]
+
+external_equivalents:
+  opencrvs:
+    label: "No v1 equivalent"
+    match: none
+    vocabulary: "OpenCRVS v1 GraphQL"
+    note: "OpenCRVS does not model fetal death as a distinct event. The field BirthRegistration.foetalDeathsToMother is a statistical count on the mother's birth record, not a registration of the fetal death itself."

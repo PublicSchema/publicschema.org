@@ -67,3 +67,30 @@ values:
       en: "A record created by court order to substitute for an original acte that cannot be produced, in jurisdictions using a mechanism similar to the jugement supplétif."
       fr: "Un acte créé par décision judiciaire pour remplacer un acte original qui ne peut être produit, dans les juridictions utilisant un mécanisme similaire au jugement supplétif."
       es: "Un registro creado por orden judicial para sustituir un acta original que no puede ser presentada, en jurisdicciones que utilizan un mecanismo similar a la sentencia supletoria."
+
+system_mappings:
+  opencrvs:
+    vocabulary_name: "Event"
+    values:
+      - code: "birth"
+        label: "Birth"
+        maps_to: birth
+      - code: "death"
+        label: "Death"
+        maps_to: death
+      - code: "marriage"
+        label: "Marriage"
+        maps_to: marriage
+    unmapped_canonical:
+      - paternity_recognition
+      - supplementary_judgment
+      - court_ordered_substitute
+    note: "OpenCRVS Event covers three event types while PublicSchema civil-status-record-type covers six; the three shared values align cleanly."
+
+external_equivalents:
+  opencrvs:
+    label: "Event"
+    uri: "https://github.com/opencrvs/opencrvs-core/blob/develop/packages/client/src/tests/schema.graphql#Event"
+    match: narrow
+    vocabulary: "OpenCRVS v1 GraphQL"
+    note: "OpenCRVS models three event types (birth, death, marriage) while PublicSchema models six; the OpenCRVS set is a strict subset of ours."

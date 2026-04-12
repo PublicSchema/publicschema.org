@@ -11,3 +11,11 @@ cardinality: single
 vocabulary: crvs/marriage-type
 references: null
 domain_override: crvs
+
+external_equivalents:
+  opencrvs:
+    label: "MarriageRegistration.typeOfMarriage"
+    uri: "https://github.com/opencrvs/opencrvs-core/blob/develop/packages/client/src/tests/schema.graphql#MarriageRegistration"
+    match: close
+    vocabulary: "OpenCRVS v1 GraphQL"
+    note: "OpenCRVS types this as a free String populated from country configuration; our marriage-type vocabulary recommends a canonical set."

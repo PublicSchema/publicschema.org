@@ -90,8 +90,8 @@
         },
         "match": {
           "type": "string",
-          "enum": ["exact", "close", "broad", "name_match", "none"],
-          "description": "Semantic match quality: exact (same meaning), close (similar with minor differences), broad (overlapping scope), name_match (same name but unverified semantics), none (no equivalent exists)"
+          "enum": ["exact", "close", "broad", "narrow", "related", "name_match", "none"],
+          "description": "Semantic match quality. SKOS-aligned: exact (same meaning), close (similar with minor differences), broad (external concept is broader than ours), narrow (external concept is narrower than ours), related (associated but not hierarchical). Non-SKOS extensions: name_match (same name but unverified semantics), none (no equivalent exists)"
         },
         "vocabulary": {
           "type": "string",

@@ -57,3 +57,10 @@ values:
       en: "The type of place where the event occurred is not known."
       fr: "Le type de lieu où l'événement s'est produit n'est pas connu."
       es: "El tipo de lugar donde ocurrió el evento no se conoce."
+
+external_equivalents:
+  opencrvs:
+    label: "Location.type (country-configured)"
+    match: none
+    vocabulary: "OpenCRVS v1 GraphQL"
+    note: "OpenCRVS eventLocation is typed as a Location entity rather than a coded place-type; Location.type is an untyped String defined at country-deployment time, not a core enum."

@@ -27,3 +27,10 @@ values:
       en: "Adoption that preserves some legal ties to the biological family, for example for inheritance purposes. Known as adoption simple in French civil law."
       fr: "Adoption qui préserve certains liens juridiques avec la famille biologique, par exemple à des fins successorales. Connue sous le nom d'adoption simple en droit civil français."
       es: "Adopción que preserva algunos vínculos legales con la familia biológica, por ejemplo, para fines de herencia. Conocida como adopción simple."
+
+external_equivalents:
+  opencrvs:
+    label: "No v1 equivalent"
+    match: none
+    vocabulary: "OpenCRVS v1 GraphQL"
+    note: "Adoption is not a v1 event type; an OpenCRVS deployment supporting adoption would define this vocabulary in country configuration."

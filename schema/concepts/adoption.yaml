@@ -38,3 +38,10 @@ properties:
 
 subtypes: []
 supertypes: [VitalEvent]
+
+external_equivalents:
+  opencrvs:
+    label: "No v1 equivalent"
+    match: none
+    vocabulary: "OpenCRVS v1 GraphQL"
+    note: "Adoption is not modelled as a distinct registration type in OpenCRVS v1 core. Adoption scenarios are handled in country extensions or via the correction workflow, not as a first-class event."

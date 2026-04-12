@@ -1,14 +1,287 @@
 system: opencrvs
+system_version: v1-graphql
 
-# Vocabulary overlap between OpenCRVS and PublicSchema v2 is thin.
-# OpenCRVS is a civil registration system (CRVS domain). Most of its vocabularies
-# cover CRVS-specific workflow states, audit operations, and form infrastructure
-# with no social protection equivalent.
+# Scope: OpenCRVS v1 GraphQL core only (25 entities, 16 enums extracted from
+# packages/client/src/tests/schema.graphql). Excludes the v2 event service,
+# Farajaland country config, and the verifiable-credentials schemas.
 #
-# The matches below fall into two categories:
-#   1. Direct matches: shared semantic concepts with a value-level mapping.
-#   2. Country-config matches: v2 has defined values; OpenCRVS treats the concept
-#      as a free-text string configured per country deployment — no core enum exists.
+# --- Structural note: the *Registration conflation ---
+# OpenCRVS bundles three things into each *Registration type:
+#   1. the vital event (the occurrence)
+#   2. the civil status record (the embedded Registration sub-object:
+#      registrationNumber, page, book, status)
+#   3. the workflow wrapper (registration.status[] of RegWorkflow, plus history[])
+# PublicSchema separates these into VitalEvent + CivilStatusRecord + Certificate.
+# Concept-level matches therefore use `broad` for Birth/Death/Marriage: OpenCRVS's
+# type is genuinely wider than ours. The decomposition tables below route each
+# OpenCRVS field to the correct PublicSchema concept; see
+# docs/opencrvs-decomposition.md for a worked example and the reverse direction.
+
+concept_matches:
+
+  - v2_concept: VitalEvent
+    external_entity: EventRegistration
+    external_source: packages/client/src/tests/schema.graphql:EventRegistration
+    match: related
+    notes: >
+      EventRegistration is the implicit parent of BirthRegistration,
+      DeathRegistration, and MarriageRegistration (see `parent: EventRegistration`
+      on each type in entities.json). It has no dedicated GraphQL type of its own.
+      Our VitalEvent is the abstract supertype grouping shared properties of the
+      occurrence; the overlap is conceptual, not structural.
+
+  - v2_concept: Birth
+    external_entity: BirthRegistration
+    external_source: packages/client/src/tests/schema.graphql:BirthRegistration
+    match: broad
+    notes: >
+      BirthRegistration is genuinely broader than our Birth because it bundles
+      the vital event, the embedded Registration record, the workflow wrapper,
+      and the history/audit trail. Reading a BirthRegistration requires
+      decomposing into Birth + CivilStatusRecord + Certificate records. See the
+      field-level decomposition below.
+    decomposition:
+      - opencrvs_field: child
+        target_concept: Birth
+        target_property: child
+        notes: "Typed as Person on both sides; direct slot match."
+      - opencrvs_field: mother
+        target_concept: Birth
+        target_property: parents
+        notes: "Wrap the OpenCRVS Person in a Parent link entity with parental_role=biological_mother."
+      - opencrvs_field: father
+        target_concept: Birth
+        target_property: parents
+        notes: "Wrap the OpenCRVS Person in a Parent link entity with parental_role=biological_father. Adoptive, legal, and surrogate roles are not representable in v1."
+      - opencrvs_field: informant
+        target_concept: VitalEvent
+        target_property: informant
+        notes: "OpenCRVS uses RelatedPerson (Person + relationship); we drop the relationship role on our informant slot."
+      - opencrvs_field: eventLocation
+        target_concept: VitalEvent
+        target_property: event_location
+      - opencrvs_field: birthType
+        target_concept: Birth
+        target_property: birth_type
+        notes: "Country-configured String on OpenCRVS side; our birth-type vocabulary defines a recommended set."
+      - opencrvs_field: weightAtBirth
+        target_concept: Birth
+        target_property: weight_at_birth
+      - opencrvs_field: attendantAtBirth
+        target_concept: Birth
+        target_property: attendant_at_birth
+        notes: "Country-configured String on OpenCRVS side."
+      - opencrvs_field: child.Person.birthDate
+        target_concept: VitalEvent
+        target_property: event_date
+        notes: "No event_date field on BirthRegistration itself; derived from the child's birthDate."
+      - opencrvs_field: child.Person.multipleBirth
+        target_concept: Birth
+        target_property: birth_order
+      - opencrvs_field: child.Person.gender
+        target_concept: Birth
+        target_property: sex_at_birth
+        notes: "Gender enum value-mapped via the sex vocabulary system_mappings."
+      - opencrvs_field: registration.registrationNumber
+        target_concept: CivilStatusRecord
+        target_property: record_id
+      - opencrvs_field: registration.type
+        target_concept: CivilStatusRecord
+        target_property: record_type
+        notes: "RegistrationType (BIRTH/DEATH/MARRIAGE) maps to the civil-status-record-type vocabulary."
+      - opencrvs_field: registration.status
+        target_concept: VitalEvent
+        target_property: registration_status
+        notes: "Array of RegWorkflow; the current status is the most recent entry's `type` (a RegStatus value)."
+      - opencrvs_field: registration.certificates
+        target_concept: Certificate
+        target_property: "*"
+        notes: "Each Certificate in the array becomes one PublicSchema Certificate record linked back to the Birth and the CivilStatusRecord."
+      - opencrvs_field: foetalDeathsToMother
+        target_concept: null
+        target_property: null
+        notes: >
+          Statistical count of prior fetal deaths borne by the mother. Not a
+          registration of a fetal death. Intentionally unmapped.
+      - opencrvs_field: history
+        target_concept: CivilStatusRecord
+        target_property: null
+        notes: "Audit trail entries; no PublicSchema property yet. Annotations surface through a separate mechanism (CivilStatusAnnotation is unmapped in v1)."
+
+  - v2_concept: Death
+    external_entity: DeathRegistration
+    external_source: packages/client/src/tests/schema.graphql:DeathRegistration
+    match: broad
+    notes: >
+      Same bundling pattern as BirthRegistration: event + record + workflow
+      collapsed into a single type. DeathRegistration additionally carries
+      cause-of-death fields.
+    decomposition:
+      - opencrvs_field: deceased
+        target_concept: Death
+        target_property: deceased
+        notes: "Typed as Person on both sides; direct slot match."
+      - opencrvs_field: informant
+        target_concept: VitalEvent
+        target_property: informant
+      - opencrvs_field: eventLocation
+        target_concept: VitalEvent
+        target_property: event_location
+      - opencrvs_field: deceased.Person.deceased.deathDate
+        target_concept: VitalEvent
+        target_property: event_date
+        notes: "Nested on the Deceased sub-object; no event_date on DeathRegistration itself."
+      - opencrvs_field: mannerOfDeath
+        target_concept: Death
+        target_property: manner_of_death
+        notes: "Country-configured String on OpenCRVS side."
+      - opencrvs_field: causeOfDeath
+        target_concept: Death
+        target_property: cause_of_death
+        notes: "Free text on both sides."
+      - opencrvs_field: causeOfDeathMethod
+        target_concept: Death
+        target_property: cause_of_death_method
+        notes: "Country-configured String on OpenCRVS side."
+      - opencrvs_field: medicalPractitioner
+        target_concept: Death
+        target_property: medical_certifier
+        notes: "OpenCRVS uses a dedicated MedicalPractitioner entity; ours is a Person reference."
+      - opencrvs_field: registration.registrationNumber
+        target_concept: CivilStatusRecord
+        target_property: record_id
+      - opencrvs_field: registration.type
+        target_concept: CivilStatusRecord
+        target_property: record_type
+      - opencrvs_field: registration.status
+        target_concept: VitalEvent
+        target_property: registration_status
+      - opencrvs_field: registration.certificates
+        target_concept: Certificate
+        target_property: "*"
+      - opencrvs_field: history
+        target_concept: CivilStatusRecord
+        target_property: null
+
+  - v2_concept: Marriage
+    external_entity: MarriageRegistration
+    external_source: packages/client/src/tests/schema.graphql:MarriageRegistration
+    match: broad
+    notes: >
+      Same bundling pattern as the other *Registration types. OpenCRVS uses
+      gendered slots (bride/groom); our Marriage uses gender-neutral party_1/
+      party_2. The mapping assigns party_1=bride and party_2=groom. The
+      assignment is arbitrary but applied symmetrically to both rows so the
+      structural correspondence is honest.
+    decomposition:
+      - opencrvs_field: bride
+        target_concept: Marriage
+        target_property: party_1
+        notes: "Gendered-to-neutral mapping; party_1 is typed Person in PublicSchema."
+      - opencrvs_field: groom
+        target_concept: Marriage
+        target_property: party_2
+        notes: "Gendered-to-neutral mapping; party_2 is typed Person in PublicSchema."
+      - opencrvs_field: witnessOne
+        target_concept: Marriage
+        target_property: witnesses
+        notes: "OpenCRVS uses exactly two named slots; our witnesses list has unlimited cardinality."
+      - opencrvs_field: witnessTwo
+        target_concept: Marriage
+        target_property: witnesses
+      - opencrvs_field: informant
+        target_concept: VitalEvent
+        target_property: informant
+      - opencrvs_field: eventLocation
+        target_concept: VitalEvent
+        target_property: event_location
+      - opencrvs_field: typeOfMarriage
+        target_concept: Marriage
+        target_property: type_of_marriage
+        notes: "Country-configured String on OpenCRVS side."
+      - opencrvs_field: registration.registrationNumber
+        target_concept: CivilStatusRecord
+        target_property: record_id
+      - opencrvs_field: registration.type
+        target_concept: CivilStatusRecord
+        target_property: record_type
+      - opencrvs_field: registration.status
+        target_concept: VitalEvent
+        target_property: registration_status
+      - opencrvs_field: registration.certificates
+        target_concept: Certificate
+        target_property: "*"
+      - opencrvs_field: history
+        target_concept: CivilStatusRecord
+        target_property: null
+
+  - v2_concept: CivilStatusRecord
+    external_entity: Registration
+    external_source: packages/client/src/tests/schema.graphql:Registration
+    match: related
+    notes: >
+      The structural role differs. Registration is embedded inside *Registration
+      and carries administrative metadata (tracking IDs, attachments, workflow
+      status) rather than functioning as the legal acte. Our CivilStatusRecord
+      is the legal record of the event. `related` reflects genuine conceptual
+      overlap without pretending the responsibilities line up.
+    decomposition:
+      - opencrvs_field: registrationNumber
+        target_concept: CivilStatusRecord
+        target_property: record_id
+      - opencrvs_field: type
+        target_concept: CivilStatusRecord
+        target_property: record_type
+        notes: "RegistrationType maps to our civil-status-record-type vocabulary (narrow)."
+      - opencrvs_field: status
+        target_concept: VitalEvent
+        target_property: registration_status
+        notes: "Array of RegWorkflow; the current state is the most recent entry's `type`."
+      - opencrvs_field: attachments
+        target_concept: CivilStatusRecord
+        target_property: null
+        notes: "Supporting documents; no PublicSchema property."
+      - opencrvs_field: certificates
+        target_concept: Certificate
+        target_property: "*"
+
+  - v2_concept: Certificate
+    external_entity: Certificate
+    external_source: packages/client/src/tests/schema.graphql:Certificate
+    match: close
+    notes: >
+      Both represent a certificate issued for a registration. The noun matches
+      but the fields diverge: OpenCRVS emphasises collection and payment
+      (collector, payments, certificateTemplateId) while we emphasise issuance
+      metadata (certificate_document_type, certificate_format, issue_date,
+      issuing_office, certificate_number). Field-level overlap is minimal.
+    decomposition:
+      - opencrvs_field: collector
+        target_concept: Certificate
+        target_property: null
+        notes: "Who picks up the certificate; no direct PublicSchema equivalent."
+      - opencrvs_field: certificateTemplateId
+        target_concept: Certificate
+        target_property: certificate_document_type
+        notes: "Free String in v1; country configuration decides the template-to-document-type mapping."
+      - opencrvs_field: payments
+        target_concept: null
+        target_property: null
+        notes: "Registrar-side fee collection. Structurally distinct from PublicSchema's PaymentEvent (benefit disbursement). Intentionally unmapped."
+
+  - v2_concept: PaternityRecognition
+    external_entity: null
+    external_source: packages/client/src/tests/schema.graphql:RegAction
+    match: related
+    notes: >
+      Not a first-class type in v1. In practice OpenCRVS handles paternity
+      recognition through the correction workflow on an existing BirthRegistration:
+      a RegAction of CORRECTED (with a preceding REQUESTED_CORRECTION) is
+      recorded in History with an input/output diff. Recorded here as `related`
+      so implementers can locate the operational pattern. A value-level mapping
+      is not applicable because the target is a workflow action code, not an
+      event type.
+
 
 matches:
 
@@ -26,7 +299,7 @@ matches:
       OpenCRVS calls this enum "Gender" but uses it on birth, death, and marriage
       declarations where the field captures biological sex (not social gender).
       The mapping is close but not exact: OpenCRVS "other" is mapped to
-      not_applicable because ISO 5218 has no "other" — it uses not_applicable (9)
+      not_applicable because ISO 5218 has no "other"; it uses not_applicable (9)
       for cases outside the male/female binary. OpenCRVS "unknown" maps to
       not_known (ISO 5218 code 0). The name mismatch ("Gender" vs biological sex)
       reflects a common conflation in CRVS systems.
@@ -72,7 +345,7 @@ matches:
     notes: >
       OpenCRVS PaymentOutcomeType records whether a civil registration service fee
       was collected (COMPLETED, ERROR, PARTIAL). This is registrar-side fee
-      collection, not benefit disbursement — the contexts are fundamentally
+      collection, not benefit disbursement; the contexts are fundamentally
       different. COMPLETED maps to paid; ERROR maps to failed. PARTIAL has no
       clean v2 equivalent because v2 does not model partial payment as a distinct
       terminal state; it is mapped to paid as the closest approximation, with the
@@ -102,7 +375,7 @@ matches:
     confidence: low
     country_config: true
     notes: >
-      OpenCRVS does not define identity document types in core code — the field
+      OpenCRVS does not define identity document types in core code; the field
       is a free-text String configured per country deployment. Test fixtures show
       values such as PASSPORT, DRIVING_LICENSE, NID, REFUGEE_NUMBER, but these
       are not authoritative. The BIRTH_REGISTRATION_NUMBER and
@@ -110,7 +383,7 @@ matches:
       no direct v2 equivalent (v2 uses birth_certificate as a general category).
       No value mapping is possible without a specific country deployment.
 
-  # --- Country-configurable matches (no value mapping possible) ---
+  # --- SP country-configurable matches (no value mapping possible) ---
 
   - v2_vocabulary: marital-status
     external_vocabulary: MaritalStatus
@@ -140,12 +413,228 @@ matches:
       String on the GraphQL Person type (line 1158 in schema.graphql). Values
       are country-configurable. V2 uses ISCO-08 as its reference standard.
 
+  # --- CRVS domain vocabulary matches (real OpenCRVS enums) ---
+
+  - v2_vocabulary: crvs/registration-status
+    external_vocabulary: RegStatus
+    external_source: packages/client/src/tests/schema.graphql:RegStatus
+    confidence: high
+    notes: >
+      RegStatus enumerates the OpenCRVS workflow lifecycle with finer granularity
+      than crvs/registration-status: it splits our `registered` into VALIDATED →
+      REGISTERED → CERTIFIED → ISSUED and adds IN_PROGRESS (pre-declaration
+      draft) and DECLARATION_UPDATED. Our `cancelled` has no OpenCRVS equivalent;
+      the workflow reaches `rejected` or `archived` instead. Our `corrected`
+      captures the outcome of a correction flow that OpenCRVS records with a
+      separate CORRECTION_REQUESTED pending state.
+    value_mapping:
+      DECLARED: declared
+      WAITING_VALIDATION: pending_validation
+      REGISTERED: registered
+      REJECTED: rejected
+      ARCHIVED: archived
+      IN_PROGRESS: null
+      DECLARATION_UPDATED: null
+      CORRECTION_REQUESTED: null
+      VALIDATED: null
+      CERTIFIED: null
+      ISSUED: null
+    gaps:
+      v2_only:
+        - cancelled
+        - corrected
+      external_only:
+        - IN_PROGRESS           # pre-declaration draft
+        - DECLARATION_UPDATED   # declaration edited after submission
+        - CORRECTION_REQUESTED  # correction pending registrar review
+        - VALIDATED             # pre-registration review complete
+        - CERTIFIED             # certificate printed
+        - ISSUED                # certificate handed to collector
+
+  - v2_vocabulary: crvs/civil-status-record-type
+    external_vocabulary: Event
+    external_source: packages/client/src/tests/schema.graphql:Event
+    confidence: high
+    notes: >
+      OpenCRVS Event enumerates three event types (birth, death, marriage) used
+      as the RegistrationType discriminator. Our civil-status-record-type covers
+      a broader set including paternity_recognition, supplementary_judgment, and
+      court_ordered_substitute (values with no counterpart in v1 core). The
+      three shared values align cleanly. Note: RegistrationType is the uppercase
+      mirror of Event used on Registration.type; the value-level mapping applies
+      equally to both.
+    value_mapping:
+      birth: birth
+      death: death
+      marriage: marriage
+    gaps:
+      v2_only:
+        - paternity_recognition
+        - supplementary_judgment
+        - court_ordered_substitute
+      external_only: []
+
+  # --- CRVS country-configured vocabularies ---
+  # OpenCRVS leaves these fields as untyped String in v1 GraphQL core. Values
+  # are defined at country-deployment time (e.g. Farajaland's forms.json).
+  # PublicSchema provides a recommended value set.
+
+  - v2_vocabulary: crvs/birth-type
+    external_vocabulary: BirthRegistration.birthType
+    confidence: null
+    country_config: true
+    notes: >
+      String field. Farajaland reference config uses SINGLE, TWIN, TRIPLET,
+      QUADRUPLET, HIGHER_MULTIPLE_DELIVERY. Our set maps closely but uses
+      quintuplet + higher_order in place of HIGHER_MULTIPLE_DELIVERY.
+
+  - v2_vocabulary: crvs/birth-attendant
+    external_vocabulary: BirthRegistration.attendantAtBirth
+    confidence: null
+    country_config: true
+    notes: >
+      String field. Farajaland reference config values: PHYSICIAN, NURSE,
+      MIDWIFE, OTHER_PARAMEDICAL_PERSONNEL, LAYPERSON, TRADITIONAL_BIRTH_ATTENDANT,
+      NONE. Roughly aligned with our vocabulary.
+
+  - v2_vocabulary: crvs/manner-of-death
+    external_vocabulary: DeathRegistration.mannerOfDeath
+    confidence: null
+    country_config: true
+    notes: >
+      String field. Farajaland reference config values: NATURAL_CAUSES, ACCIDENT,
+      SUICIDE, HOMICIDE, MANNER_UNDETERMINED. Our vocabulary follows the WHO/ICD
+      8-value taxonomy; the Farajaland set collapses several categories (e.g.
+      legal_intervention and war are absent).
+
+  - v2_vocabulary: crvs/cause-of-death-method
+    external_vocabulary: DeathRegistration.causeOfDeathMethod
+    confidence: null
+    country_config: true
+    notes: >
+      String field. Farajaland reference config values: PHYSICIAN, LAY_REPORTED,
+      VERBAL_AUTOPSY, MEDICALLY_CERTIFIED. Partial overlap with our vocabulary.
+
+  - v2_vocabulary: crvs/marriage-type
+    external_vocabulary: MarriageRegistration.typeOfMarriage
+    confidence: null
+    country_config: true
+    notes: >
+      String field. No Farajaland reference values observed in forms.json.
+      Country-configurable.
+
+  - v2_vocabulary: crvs/parental-role
+    external_vocabulary: null
+    confidence: null
+    country_config: true
+    notes: >
+      Parental roles are implicit in OpenCRVS field names (mother, father).
+      There is no enumeration, and RelatedPerson.relationship is a free String.
+      No value-level mapping is possible.
+
+  - v2_vocabulary: crvs/place-type
+    external_vocabulary: null
+    confidence: null
+    country_config: true
+    notes: >
+      OpenCRVS eventLocation is typed as Location (an entity), not a coded
+      place-type. No core enum exists; country deployments may add their own
+      typing through Location.type (also an untyped String).
+
+  - v2_vocabulary: crvs/certificate-document-type
+    external_vocabulary: Certificate.certificateTemplateId
+    confidence: null
+    country_config: true
+    notes: >
+      Free String in v1 (a template identifier). Country configuration decides
+      the mapping from template ID to document type.
+
+  - v2_vocabulary: crvs/certificate-format
+    external_vocabulary: null
+    confidence: null
+    country_config: true
+    notes: >
+      OpenCRVS makes no core-level distinction between full copy, extract, and
+      multilingual extract. Any such distinction would live inside the template
+      definition itself.
+
+  - v2_vocabulary: crvs/adoption-type
+    external_vocabulary: null
+    confidence: null
+    country_config: true
+    notes: >
+      Adoption is not a v1 event type; no field exists. Recorded as country_config
+      because an OpenCRVS deployment extending for adoption support would define
+      this vocabulary in country config.
+
+  - v2_vocabulary: crvs/annotation-type
+    external_vocabulary: null
+    confidence: null
+    country_config: true
+    notes: >
+      No annotation concept in v1 core. A country deployment modelling marginal
+      annotations would define this vocabulary itself; OpenCRVS provides no
+      default set.
+
+  - v2_vocabulary: crvs/family-register-status
+    external_vocabulary: null
+    confidence: null
+    country_config: true
+    notes: >
+      OpenCRVS has no family-register construct. A deployment adding one would
+      define this vocabulary in country config.
+
 
 no_match:
 
-  # --- V2 vocabularies with no OpenCRVS equivalent ---
-  # These are social protection concepts. OpenCRVS is a civil registration system
-  # and has no enrollment, eligibility, benefit, or grievance constructs.
+  # --- v2 concepts with no OpenCRVS v1 equivalent ---
+
+  - v2_concept: FetalDeath
+    reason: >
+      Not modelled as a distinct event type. BirthRegistration.foetalDeathsToMother
+      is a statistical count on the mother's birth record, not a registration of
+      the fetal death itself.
+
+  - v2_concept: MarriageTermination
+    reason: "Abstract concept; no v1 equivalent because neither divorce nor annulment is modelled."
+
+  - v2_concept: Divorce
+    reason: "Not modelled in v1 core. No divorce registration entity exists."
+
+  - v2_concept: Annulment
+    reason: "Not modelled in v1 core. No annulment registration entity exists."
+
+  - v2_concept: Adoption
+    reason: >
+      Not modelled as a distinct registration type in v1 core. Adoption scenarios
+      are handled in country extensions or via the correction workflow, not as a
+      first-class event.
+
+  - v2_concept: Legitimation
+    reason: "Not modelled in v1 core. Same pattern as PaternityRecognition (operationally a correction)."
+
+  - v2_concept: CivilStatusAnnotation
+    reason: >
+      No reified marginal-annotation type in v1. Corrections flow through the
+      RegAction CORRECTION_REQUESTED → CORRECTED workflow recorded in History,
+      which is an audit trail rather than an annotation with its own type,
+      authority, and triggering event.
+
+  - v2_concept: FamilyRegister
+    reason: >
+      OpenCRVS v1 is event-record centric. There is no concept of a family
+      register (livret de famille, koseki, hukou); families are not modelled
+      as a tracked unit.
+
+  - v2_concept: Parent
+    reason: >
+      Our Parent is a reified link entity (Person + parental_role). OpenCRVS
+      uses typed slots (mother, father) with roles implicit in field names.
+      Adoptive, legal, and surrogate roles are not representable in v1.
+
+  # --- v2 vocabularies with no OpenCRVS equivalent ---
+  # SP vocabularies. OpenCRVS is a civil registration system and has no
+  # enrollment, eligibility, benefit, or grievance constructs.
 
   - v2_vocabulary: enrollment-status
     reason: >
@@ -188,14 +677,13 @@ no_match:
       are social protection constructs.
 
   - v2_vocabulary: grievance-type
-    reason: >
-      Same as grievance-status: no grievance classification in OpenCRVS.
+    reason: "Same as grievance-status: no grievance classification in OpenCRVS."
 
   - v2_vocabulary: group-role
     reason: >
       V2 group-role covers household membership roles (head, spouse, child, etc.)
       in a social protection context. OpenCRVS captures family relationships
-      differently — as string fields on the birth or marriage registration record —
+      differently (as string fields on the birth or marriage registration record),
       with no shared enumeration.
 
   - v2_vocabulary: group-type
@@ -224,22 +712,39 @@ no_match:
       Program targeting methodology is a social protection planning concept with
       no civil registration equivalent.
 
+  # v2 CRVS vocabulary with a semantic mismatch:
+
+  - v2_vocabulary: crvs/registration-type
+    reason: >
+      Semantic mismatch with OpenCRVS RegistrationType. Ours describes the
+      timing and procedural route of registration (current, late, court_ordered,
+      reconstruction). OpenCRVS RegistrationType describes which event type is
+      being registered (BIRTH, DEATH, MARRIAGE); that dimension maps to our
+      civil-status-record-type vocabulary, not registration-type. The two
+      vocabularies share a name but no dimension.
 
   # --- OpenCRVS domain-relevant vocabularies with no v2 equivalent ---
-  # These are CRVS-specific concepts that could be relevant to future PublicSchema
-  # CRVS domain work but have no current v2 home.
+
+  - external_vocabulary: RegAction
+    reason: >
+      Audit-trail action codes (VERIFIED, REQUESTED_CORRECTION, CORRECTED,
+      MARKED_AS_DUPLICATE, etc.). PublicSchema does not enumerate workflow
+      actions. Note: RegAction.CORRECTED is the operational home for paternity
+      recognition, legitimation, and similar amendments in v1; see
+      concept_matches.PaternityRecognition for the `related` reference.
+
+  - external_vocabulary: RegistrationType
+    reason: >
+      Uppercase mirror of Event (BIRTH, DEATH, MARRIAGE) used on
+      Registration.type. Not a separate mapping target; the value-level mapping
+      under matches[Event] applies to both enums.
 
   - external_vocabulary: EventStatus
     reason: >
-      CRVS-specific registration lifecycle (CREATED, NOTIFIED, DECLARED,
-      REGISTERED, ARCHIVED). Relevant to future publicschema.org/crvs/ domain
-      work but no current v2 concept covers civil registration event states.
-
-  - external_vocabulary: RegStatus
-    reason: >
-      Legacy v1 registration lifecycle status (IN_PROGRESS, DECLARED,
-      REGISTERED, CERTIFIED, etc.). Same domain gap as EventStatus — CRVS
-      workflow state with no v2 equivalent.
+      Extended registration lifecycle (CREATED, NOTIFIED, DECLARED, REGISTERED,
+      ARCHIVED) used in some notification paths. The overlap with
+      crvs/registration-status is captured via RegStatus; EventStatus itself has
+      no direct mapping because CREATED/NOTIFIED are not modelled in v2.
 
   - external_vocabulary: ActionType
     reason: >
@@ -251,25 +756,8 @@ no_match:
       Lifecycle of an individual CRVS action (Requested, Accepted, Rejected).
       Internal to the OpenCRVS events engine; no v2 equivalent.
 
-  - external_vocabulary: RegAction
-    reason: >
-      Legacy v1 audit trail actions (VERIFIED, CORRECTED, MARKED_AS_DUPLICATE,
-      etc.). CRVS audit log concept; no v2 equivalent.
-
-  - external_vocabulary: EventType
-    reason: >
-      Civil registration event types (birth, death, marriage). Fundamental CRVS
-      taxonomy with no current v2 concept — v2 does not yet model the CRVS domain.
-
-  - external_vocabulary: RegistrationType
-    reason: >
-      Legacy uppercase mirror of EventType (BIRTH, DEATH, MARRIAGE). Same gap
-      as EventType.
-
   - external_vocabulary: UserStatus
-    reason: >
-      User account lifecycle (active, deactivated, pending, disabled). System
-      administration concept; no v2 equivalent.
+    reason: "User account lifecycle. System administration concept; no v2 equivalent."
 
   - external_vocabulary: SystemRoleType
     reason: >
@@ -282,14 +770,10 @@ no_match:
       etc.). OpenCRVS integration taxonomy; no v2 equivalent.
 
   - external_vocabulary: SystemStatus
-    reason: >
-      Lifecycle status of an external integrating system client. System
-      administration concept; no v2 equivalent.
+    reason: "Lifecycle status of an external integrating system client. No v2 equivalent."
 
   - external_vocabulary: IntegratingSystemType
-    reason: >
-      Sub-type for national ID integrations (OSIA, OTHER). Narrow integration
-      taxonomy; no v2 equivalent.
+    reason: "Sub-type for national ID integrations (OSIA, OTHER). Narrow integration taxonomy; no v2 equivalent."
 
   - external_vocabulary: LocationTypeV1
     reason: >
@@ -307,7 +791,7 @@ no_match:
   - external_vocabulary: AddressType
     reason: >
       Whether an address is domestic or international. V2 does not currently
-      define an address type vocabulary — address is modeled as a concept, not
+      define an address type vocabulary; address is modelled as a concept, not
       a typed enum.
 
   - external_vocabulary: AddressUse

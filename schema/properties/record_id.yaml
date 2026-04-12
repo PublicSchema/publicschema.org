@@ -15,3 +15,11 @@ convergence:
   system_count: 0
   total_systems: 6
   notes: "PublicSchema abstraction. Every system of record assigns an internal row identifier, but these are not semantically exchanged between systems and are not modeled as named schema fields in the six mapped systems. `record_id` exists to give integrators a canonical slot for the originating system's identifier, not to describe a shared cross-system vocabulary."
+
+external_equivalents:
+  opencrvs:
+    label: "Registration.registrationNumber"
+    uri: "https://github.com/opencrvs/opencrvs-core/blob/develop/packages/client/src/tests/schema.graphql#Registration"
+    match: close
+    vocabulary: "OpenCRVS v1 GraphQL"
+    note: "Both represent the official registration number issued for the civil status record. OpenCRVS also carries a separate internal trackingId which has no PublicSchema equivalent."

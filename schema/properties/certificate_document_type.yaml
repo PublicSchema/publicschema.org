@@ -11,3 +11,11 @@ cardinality: single
 vocabulary: crvs/certificate-document-type
 references: null
 domain_override: crvs
+
+external_equivalents:
+  opencrvs:
+    label: "Certificate.certificateTemplateId"
+    uri: "https://github.com/opencrvs/opencrvs-core/blob/develop/packages/client/src/tests/schema.graphql#Certificate"
+    match: broad
+    vocabulary: "OpenCRVS v1 GraphQL"
+    note: "OpenCRVS stores a free-string template ID that country configuration resolves to a document type; our vocabulary is a canonical set of document categories. Mapping requires knowledge of the local template catalogue."

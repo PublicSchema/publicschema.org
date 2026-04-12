@@ -24,3 +24,10 @@ properties: []
 
 subtypes: []
 supertypes: [MarriageTermination]
+
+external_equivalents:
+  opencrvs:
+    label: "No v1 equivalent"
+    match: none
+    vocabulary: "OpenCRVS v1 GraphQL"
+    note: "Annulment is not modelled in OpenCRVS v1 core. No annulment registration entity exists."
