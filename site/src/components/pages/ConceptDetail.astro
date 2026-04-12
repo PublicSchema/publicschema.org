@@ -41,7 +41,7 @@ const primitiveTypes = ['string', 'integer', 'decimal', 'boolean', 'date', 'date
 
 const domainTitles: Record<string, string> = { sp: t('concepts.section_social_protection') };
 ---
-<Base title={concept.id} description={definition} alternateJsonLd={`${concept.path}.jsonld`} locale={locale}>
+<Base title={concept.id} description={definition} alternateJsonLd={`${concept.path}.jsonld`} ogType="article" locale={locale}>
   <article>
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",

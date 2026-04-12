@@ -62,7 +62,7 @@ if (locale !== defaultLocale) {
 const title = doc.title[locale] ?? doc.title.en;
 const description = doc.description[locale] ?? doc.description.en;
 ---
-<Base title={title} description={description} locale={locale}>
+<Base title={title} description={description} ogType="article" locale={locale}>
   <article>
     {fellBack && <TranslationBanner locale={locale} />}
     <div class="page-header">

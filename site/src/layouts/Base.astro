@@ -8,12 +8,14 @@ interface Props {
   title: string;
   description?: string;
   alternateJsonLd?: string;
+  ogType?: 'website' | 'article';
   locale?: Locale;
 }
 
 const {
   title,
   alternateJsonLd,
+  ogType = 'website',
   locale = defaultLocale,
 } = Astro.props;
 
@@ -85,7 +87,7 @@ const navLinks = [
   {alternateJsonLd && <link rel="alternate" type="application/ld+json" href={alternateJsonLd} />}
 
   <!-- OpenGraph -->
-  <meta property="og:type" content="website" />
+  <meta property="og:type" content={ogType} />
   <meta property="og:title" content={pageTitle} />
   <meta property="og:description" content={description} />
   <meta property="og:url" content={canonicalUrl} />

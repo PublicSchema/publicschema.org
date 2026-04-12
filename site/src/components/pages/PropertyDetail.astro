@@ -28,7 +28,7 @@ const typeConceptRef = prop.type.match(/^concept:(.+)$/)?.[1];
 const primitiveTypes = ['string', 'integer', 'decimal', 'boolean', 'date', 'datetime', 'uri', 'geojson_geometry'];
 const isPrimitiveType = primitiveTypes.includes(prop.type);
 ---
-<Base title={prop.id} description={definition} alternateJsonLd={`${prop.path}.jsonld`} locale={locale}>
+<Base title={prop.id} description={definition} alternateJsonLd={`${prop.path}.jsonld`} ogType="article" locale={locale}>
   <article>
   <div class="page-header">
     <nav class="breadcrumb">

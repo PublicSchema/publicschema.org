@@ -22,7 +22,7 @@ const propEntries = entries.filter((e) => e.kind === "property");
 const valueMapped = vocabEntries.filter((e) => e.relationship === "value_mapping").length;
 const sameStandard = vocabEntries.filter((e) => e.relationship === "same_standard").length;
 ---
-<Base title={meta.name} description={t('system_detail.page_description', { name: meta.name })} locale={locale}>
+<Base title={meta.name} description={t('system_detail.page_description', { name: meta.name })} ogType="article" locale={locale}>
   <article>
   <div class="page-header">
     <nav class="breadcrumb">

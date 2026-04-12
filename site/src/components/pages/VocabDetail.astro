@@ -17,7 +17,7 @@ const t = useTranslations(locale);
 const allVocab = loadVocabulary();
 const vocabulary = allVocab.vocabularies[vocab] as Vocabulary;
 ---
-<Base title={vocabulary.id} description={vocabulary.definition[locale] ?? vocabulary.definition.en} alternateJsonLd={`/vocab/${vocab}.jsonld`} locale={locale}>
+<Base title={vocabulary.id} description={vocabulary.definition[locale] ?? vocabulary.definition.en} alternateJsonLd={`/vocab/${vocab}.jsonld`} ogType="article" locale={locale}>
   <article>
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
