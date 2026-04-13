@@ -17,6 +17,8 @@ const en = {
   'nav.about': 'About',
   'nav.menu': 'Menu',
   'nav.search': 'Search',
+  'nav.skip_to_content': 'Skip to main content',
+  'nav.back_to_top': 'Back to top',
 
   // Language switcher
   'lang.switch_to': 'Switch language to {language}',
@@ -206,6 +208,8 @@ export const ui: Record<Locale, Partial<Dict>> = {
     'nav.about': 'À propos',
     'nav.menu': 'Menu',
     'nav.search': 'Rechercher',
+    'nav.skip_to_content': 'Aller au contenu principal',
+    'nav.back_to_top': 'Retour en haut',
 
     // Language switcher
     'lang.switch_to': 'Passer en {language}',
@@ -390,6 +394,8 @@ export const ui: Record<Locale, Partial<Dict>> = {
     'nav.about': 'Acerca de',
     'nav.menu': 'Menú',
     'nav.search': 'Buscar',
+    'nav.skip_to_content': 'Ir al contenido principal',
+    'nav.back_to_top': 'Volver arriba',
 
     // Language switcher
     'lang.switch_to': 'Cambiar idioma a {language}',

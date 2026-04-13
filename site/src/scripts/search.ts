@@ -432,6 +432,8 @@ function initSearch(): void {
 
   // --- Mobile overlay ---
   let overlayEl: HTMLElement | null = null;
+  let overlayEscapeHandler: ((e: KeyboardEvent) => void) | null = null;
+  let overlayScrollY = 0;
 
   function openMobileOverlay(): void {
     if (overlayEl) return;
@@ -451,6 +453,9 @@ function initSearch(): void {
           aria-controls="search-overlay-results"
           aria-label="${escapeHtml(strings.ariaLabel)}"
           autocomplete="off"
+          autocorrect="off"
+          autocapitalize="none"
+          spellcheck="false"
         />
         <button class="search-overlay-close" type="button" aria-label="${escapeHtml(strings.close)}">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
@@ -464,7 +469,15 @@ function initSearch(): void {
     `;
 
     document.body.appendChild(overlayEl);
-    document.body.style.overflow = "hidden";
+    // Lock body scroll. On iOS Safari, `overflow: hidden` alone does not stop
+    // touch scroll on the page behind the overlay; pinning the body via
+    // `position: fixed` and restoring scroll on close is the reliable approach.
+    overlayScrollY = window.scrollY;
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${overlayScrollY}px`;
+    document.body.style.left = "0";
+    document.body.style.right = "0";
+    document.body.style.width = "100%";
 
     const overlayInput = overlayEl.querySelector(
       ".search-input"
@@ -585,6 +598,13 @@ function initSearch(): void {
 
     closeBtn.addEventListener("click", closeMobileOverlay);
 
+    // Document-level Escape handler (removes itself on close). This catches the
+    // key even when focus has not yet landed on the overlay input.
+    overlayEscapeHandler = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeMobileOverlay();
+    };
+    document.addEventListener("keydown", overlayEscapeHandler);
+
     // Focus the input after a tick (to ensure overlay is rendered)
     requestAnimationFrame(() => {
       overlayInput.focus();
@@ -595,7 +615,16 @@ function initSearch(): void {
     if (!overlayEl) return;
     overlayEl.remove();
     overlayEl = null;
-    document.body.style.overflow = "";
+    document.body.style.position = "";
+    document.body.style.top = "";
+    document.body.style.left = "";
+    document.body.style.right = "";
+    document.body.style.width = "";
+    window.scrollTo(0, overlayScrollY);
+    if (overlayEscapeHandler) {
+      document.removeEventListener("keydown", overlayEscapeHandler);
+      overlayEscapeHandler = null;
+    }
   }
 
   if (mobileToggle) {

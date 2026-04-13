@@ -73,7 +73,7 @@ const navLinks = [
 <html lang={htmlLang}>
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="description" content={description} />
   <title>{pageTitle}</title>
   <link rel="canonical" href={canonicalUrl} />
@@ -120,6 +120,7 @@ const navLinks = [
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
 </head>
 <body>
+  <a href="#main-content" class="skip-link">{t('nav.skip_to_content')}</a>
   <nav class="site-nav">
     <div class="site-container">
       <a href={localePath('/', locale)} class="site-logo">
@@ -168,6 +169,9 @@ const navLinks = [
             aria-controls="search-results"
             aria-label={t('search.aria_label')}
             autocomplete="off"
+            autocorrect="off"
+            autocapitalize="none"
+            spellcheck="false"
           />
           <kbd class="search-shortcut" aria-hidden="true"></kbd>
         </div>
@@ -214,7 +218,7 @@ const navLinks = [
     </div>
   </nav>
 
-  <main class="site-container">
+  <main id="main-content" class="site-container" tabindex="-1">
     <slot />
   </main>
 
@@ -259,6 +263,12 @@ const navLinks = [
       </div>
     </div>
   </footer>
+  <button class="back-to-top" type="button" aria-label={t('nav.back_to_top')} hidden>
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <polyline points="5,12 10,7 15,12"></polyline>
+      <line x1="10" y1="7" x2="10" y2="16"></line>
+    </svg>
+  </button>
   <script src="../scripts/search.ts"></script>
   <script>
     const mobileNav = document.querySelector('.mobile-nav');
@@ -272,6 +282,24 @@ const navLinks = [
         if (mobileNav.hasAttribute('open') && !mobileNav.contains(e.target as Node)) {
           mobileNav.removeAttribute('open');
         }
+      });
+    }
+
+    // Back-to-top: reveal after the user has scrolled past one viewport.
+    const backToTop = document.querySelector<HTMLButtonElement>('.back-to-top');
+    if (backToTop) {
+      const toggle = () => {
+        if (window.scrollY > window.innerHeight) {
+          backToTop.hidden = false;
+        } else {
+          backToTop.hidden = true;
+        }
+      };
+      toggle();
+      window.addEventListener('scroll', toggle, { passive: true });
+      backToTop.addEventListener('click', () => {
+        const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        window.scrollTo({ top: 0, behavior: prefersReduced ? 'auto' : 'smooth' });
       });
     }
   </script>

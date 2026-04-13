@@ -100,6 +100,7 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
@@ -135,6 +136,64 @@ a:hover {
 code {
   font-family: var(--font-mono);
   font-size: 0.85em;
+}
+
+/* ----------------------------------------------------------------
+   Skip link (keyboard / voice-control / switch access)
+   ---------------------------------------------------------------- */
+
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 0;
+  z-index: 9999;
+  padding: 0.75rem 1.25rem;
+  background: var(--color-accent);
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 0 0 var(--radius-md) 0;
+  transition: top 0.15s;
+}
+
+.skip-link:focus {
+  top: 0;
+  color: white;
+  outline: 2px solid white;
+  outline-offset: -4px;
+}
+
+/* ----------------------------------------------------------------
+   Back-to-top button
+   ---------------------------------------------------------------- */
+
+.back-to-top {
+  position: fixed;
+  bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+  right: calc(1rem + env(safe-area-inset-right, 0px));
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  background: var(--color-bg);
+  color: var(--color-accent);
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  z-index: 50;
+  transition: background 0.15s, transform 0.15s;
+}
+
+.back-to-top:hover {
+  background: var(--color-accent-light);
+  transform: translateY(-2px);
+}
+
+.back-to-top[hidden] {
+  display: none;
 }
 
 /* ----------------------------------------------------------------
@@ -204,6 +263,7 @@ code {
   gap: 0.6rem;
   text-decoration: none;
   padding: 0;
+  min-height: 44px;
 }
 
 .site-nav .site-logo:hover {
@@ -453,6 +513,8 @@ code {
   flex: 1;
   width: 100%;
   padding-right: 0.75rem;
+  /* 16px prevents iOS Safari auto-zoom on focus */
+  font-size: 1rem;
 }
 
 .search-overlay-close {
@@ -477,7 +539,7 @@ code {
 .search-overlay-results {
   flex: 1;
   overflow-y: auto;
-  padding: var(--space-xs) 0;
+  padding: var(--space-xs) 0 env(safe-area-inset-bottom, 0px);
 }
 
 .search-overlay-results .search-result {
@@ -1767,6 +1829,7 @@ article .data-table.table-wide {
     justify-content: center;
     width: 44px;
     height: 44px;
+    flex-shrink: 0;
     border: none;
     background: none;
     cursor: pointer;
@@ -1932,7 +1995,7 @@ article .data-table.table-wide {
   .mobile-card-table td[data-label]::before {
     content: attr(data-label);
     display: block;
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.06em;
@@ -1973,7 +2036,7 @@ article .data-table.table-wide {
   }
 
   .detail-kv-table td:first-child {
-    font-size: 0.72rem;
+    font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     position: static;
@@ -2019,10 +2082,24 @@ article .data-table.table-wide {
     word-break: break-all;
   }
 
-  /* Breadcrumb wrapping */
+  /* Breadcrumb wrapping + 44px touch targets */
   .breadcrumb {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .breadcrumb a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0.5rem 0.25rem;
+  }
+
+  .breadcrumb .separator {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
   }
 
   /* Badge minimum size */
@@ -2140,6 +2217,17 @@ article .data-table.table-wide {
   /* Single column download buttons on very small screens */
   .download-links {
     grid-template-columns: 1fr;
+  }
+}
+
+/* Reclaim nav space at very narrow widths so touch targets stay tappable */
+@media (max-width: 360px) {
+  .site-nav .site-title {
+    display: none;
+  }
+
+  .site-nav .site-container {
+    gap: 0.25rem;
   }
 }
 

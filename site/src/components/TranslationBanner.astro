@@ -77,11 +77,14 @@ const { message, dismiss } = messages[locale];
     border: none;
     cursor: pointer;
     color: var(--color-text-muted);
-    padding: 0.25rem;
+    padding: 0.75rem;
+    min-width: 44px;
+    min-height: 44px;
     border-radius: var(--radius-sm);
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
   }
   .translation-banner-dismiss:hover {
     background: rgba(0, 0, 0, 0.05);

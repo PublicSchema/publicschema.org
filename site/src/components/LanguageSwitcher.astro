@@ -134,7 +134,8 @@ const isDropdown = variant === 'desktop' || variant === 'mobile-compact';
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
-    padding: 0.35rem 0.55rem;
+    padding: 0.55rem 0.55rem;
+    min-height: 44px;
     font-size: 0.825rem;
     font-weight: 500;
     color: var(--color-text-muted);
@@ -197,7 +198,9 @@ const isDropdown = variant === 'desktop' || variant === 'mobile-compact';
   }
 
   .lang-switcher-item {
-    display: block;
+    display: flex;
+    align-items: center;
+    min-height: 44px;
     position: relative;
     padding: 0.5rem 1rem 0.5rem 2.1rem;
     font-size: 0.875rem;
