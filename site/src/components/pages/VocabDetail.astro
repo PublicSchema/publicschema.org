@@ -18,14 +18,17 @@ const t = useTranslations(locale);
 
 const allVocab = loadVocabulary();
 const vocabulary = allVocab.vocabularies[vocab] as Vocabulary;
+const definition = vocabulary.definition[locale] ?? vocabulary.definition.en;
+const displayLabel = vocabulary.label?.[locale] ?? vocabulary.label?.en ?? vocabulary.id;
+const showCanonicalName = locale !== defaultLocale && displayLabel !== vocabulary.id;
 ---
-<Base title={vocabulary.id} description={vocabulary.definition[locale] ?? vocabulary.definition.en} alternateJsonLd={`/vocab/${vocab}.jsonld`} ogType="article" locale={locale}>
+<Base title={displayLabel} description={definition} alternateJsonLd={`/vocab/${vocab}.jsonld`} ogType="article" locale={locale}>
   <article>
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "DefinedTermSet",
     "name": vocabulary.id,
-    "description": vocabulary.definition[locale] ?? vocabulary.definition.en,
+    "description": definition,
     "url": vocabulary.uri
   })} />
   <div class="page-header">
@@ -34,14 +37,18 @@ const vocabulary = allVocab.vocabularies[vocab] as Vocabulary;
       <span class="separator">/</span>
       <a href={localePath('/vocab/', locale)}>{t('common.vocabularies')}</a>
       <span class="separator">/</span>
-      {vocabulary.id}
+      {displayLabel}
     </nav>
-    <h1>{vocabulary.id}</h1>
+    <h1>{displayLabel}</h1>
+    <p class="canonical-line">
+      {showCanonicalName && <span class="canonical-name">{vocabulary.id}</span>}
+      {showCanonicalName && <span class="canonical-sep">&middot;</span>}
+      <span class="uri">{vocabulary.uri}</span>
+    </p>
     <div class="meta-line">
       <span class={`badge badge-${vocabulary.maturity}`}>{vocabulary.maturity}</span>
     </div>
-    <p class="definition-text">{vocabulary.definition[locale] ?? vocabulary.definition.en}</p>
-    <p class="uri">{vocabulary.uri}</p>
+    <p class="definition-text">{definition}</p>
   </div>
   <div class="download-links">
     <a href={`/vocab/${vocab}.csv`} class="btn btn-secondary" download>{t('download.csv')}</a>

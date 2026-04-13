@@ -1,6 +1,10 @@
 id: enrollment-exit-reason
 maturity: draft
 domain: sp
+label:
+  en: Enrollment Exit Reason
+  fr: "Motif de sortie d'inscription"
+  es: Motivo de salida de inscripción
 
 definition:
   en: "The reason an enrollment was permanently closed. Applies when enrollment status is closed, not when graduated."

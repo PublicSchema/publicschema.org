@@ -1,6 +1,10 @@
 id: benefit-frequency
 maturity: draft
 domain: sp
+label:
+  en: Benefit Frequency
+  fr: Fréquence des prestations
+  es: Frecuencia de prestaciones
 
 definition:
   en: "The schedule on which a benefit or transfer is provided to a recipient, ranging from one-time payments to recurring disbursements at fixed intervals."

@@ -1,6 +1,10 @@
 id: referral-status
 maturity: draft
 domain: sp
+label:
+  en: Referral Status
+  fr: "Statut de l'orientation"
+  es: Estado de la derivación
 
 definition:
   en: "The lifecycle states of a referral between programs or services."

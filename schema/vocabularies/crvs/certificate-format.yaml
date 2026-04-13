@@ -1,6 +1,10 @@
 id: certificate-format
 maturity: draft
 domain: crvs
+label:
+  en: Certificate Format
+  fr: Format de certificat
+  es: Formato de certificado
 
 definition:
   en: "The format of a civil status certificate document. Distinct from the type of event it attests to: a full copy reproduces the entire acte including its marginal annotations, an extract contains only a summary."

@@ -1,6 +1,10 @@
 id: annotation-type
 maturity: draft
 domain: crvs
+label:
+  en: Annotation Type
+  fr: "Type d'annotation"
+  es: Tipo de anotación
 
 definition:
   en: "The category of a marginal annotation (mention marginale) added to a civil status record when the annotation is not derivable from a triggering vital event. Event-triggered annotations (e.g., annotating a birth acte with a marriage) carry their annotation type implicitly through the triggering event and are not listed here."

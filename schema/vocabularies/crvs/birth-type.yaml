@@ -1,6 +1,10 @@
 id: birth-type
 maturity: draft
 domain: crvs
+label:
+  en: Birth Type
+  fr: Type de naissance
+  es: Tipo de nacimiento
 
 definition:
   en: "The number of children delivered in a single birth event."

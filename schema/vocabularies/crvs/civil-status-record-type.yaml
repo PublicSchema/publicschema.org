@@ -1,6 +1,10 @@
 id: civil-status-record-type
 maturity: draft
 domain: crvs
+label:
+  en: Civil Status Record Type
+  fr: "Type de registre d'état civil"
+  es: Tipo de registro de estado civil
 
 definition:
   en: "The type of acte represented by a civil status record. Covers the standard vital event actes and court-ordered substitutes used when original records are missing or were never created."

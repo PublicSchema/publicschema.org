@@ -443,6 +443,7 @@ def build_vocabulary(schema_dir: Path) -> dict:
             "path": _compute_path(domain, concept_id),
             "maturity": data.get("maturity"),
             "abstract": data.get("abstract", False),
+            "label": data.get("label", {}),
             "definition": data.get("definition", {}),
             "properties": [
                 _normalize_property_entry(e)
@@ -511,6 +512,7 @@ def build_vocabulary(schema_dir: Path) -> dict:
             "uri": vocab_base,
             "path": vocab_path,
             "maturity": data.get("maturity"),
+            "label": data.get("label", {}),
             "definition": data.get("definition", {}),
             "standard": data.get("standard"),
             "values": values,

@@ -25,6 +25,8 @@ const t = useTranslations(locale);
 const vocab = loadVocabulary();
 const concept = vocab.concepts[termId] as Concept;
 const definition = concept.definition[locale] ?? concept.definition.en ?? '';
+const displayLabel = concept.label?.[locale] ?? concept.label?.en ?? concept.id;
+const showCanonicalName = locale !== defaultLocale && displayLabel !== concept.id;
 
 const conceptLink = (id: string) => localePath(conceptPathFor(vocab, id), locale);
 const propLink = (id: string) => localePath(propPathFor(vocab, id), locale);
@@ -44,7 +46,7 @@ const primitiveTypes = ['string', 'integer', 'decimal', 'boolean', 'date', 'date
 
 const domainTitles: Record<string, string> = { sp: t('concepts.section_social_protection'), crvs: t('concepts.section_crvs') };
 ---
-<Base title={concept.id} description={definition} alternateJsonLd={`${concept.path}.jsonld`} ogType="article" locale={locale}>
+<Base title={displayLabel} description={definition} alternateJsonLd={`${concept.path}.jsonld`} ogType="article" locale={locale}>
   <article>
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
@@ -64,9 +66,14 @@ const domainTitles: Record<string, string> = { sp: t('concepts.section_social_pr
       <span class="separator">/</span>
       <a href={localePath('/concepts/', locale)}>{t('common.concepts')}</a>
       <span class="separator">/</span>
-      {concept.id}
+      {displayLabel}
     </nav>
-    <h1>{concept.domain && <span class="domain-prefix" title={domainTitles[concept.domain] || concept.domain}>{concept.domain}:</span>}{concept.id}</h1>
+    <h1>{concept.domain && <span class="domain-prefix" title={domainTitles[concept.domain] || concept.domain}>{concept.domain}:</span>}{displayLabel}</h1>
+    <p class="canonical-line">
+      {showCanonicalName && <span class="canonical-name">{concept.id}</span>}
+      {showCanonicalName && <span class="canonical-sep">&middot;</span>}
+      <span class="uri">{concept.uri}</span>
+    </p>
     <div class="meta-line">
       <span class={`badge badge-${concept.maturity}`}>{concept.maturity}</span>
       {concept.abstract && (
@@ -74,7 +81,6 @@ const domainTitles: Record<string, string> = { sp: t('concepts.section_social_pr
       )}
     </div>
     <p class="definition-text">{definition}</p>
-    <p class="uri">{concept.uri}</p>
   </div>
   <div class="download-links">
     <a href={`${concept.path}.jsonld`} class="btn btn-secondary">{t('download.jsonld')}</a>

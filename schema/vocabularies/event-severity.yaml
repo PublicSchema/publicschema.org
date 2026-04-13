@@ -1,5 +1,9 @@
 id: event-severity
 maturity: draft
+label:
+  en: Event Severity
+  fr: "Gravité de l'événement"
+  es: Gravedad del evento
 definition:
   en: The observed or expected severity of an event's impact. Values are compatible with OASIS CAP v1.2 severity codes.
   fr: La gravité observée ou attendue de l'impact d'un événement. Les valeurs sont compatibles avec les codes de gravité d'OASIS

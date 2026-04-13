@@ -1,6 +1,10 @@
 id: certificate-document-type
 maturity: draft
 domain: crvs
+label:
+  en: Certificate Document Type
+  fr: Type de document de certificat
+  es: Tipo de documento de certificado
 
 definition:
   en: "The type of vital event that a certificate attests to. Describes what the document is about; orthogonal to the format of the certificate (full copy vs. extract)."

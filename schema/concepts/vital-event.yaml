@@ -1,6 +1,10 @@
 id: VitalEvent
 maturity: draft
 domain: crvs
+label:
+  en: Vital Event
+  fr: "Événement d'état civil"
+  es: Evento vital
 abstract: true
 
 definition:

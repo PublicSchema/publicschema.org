@@ -1192,6 +1192,29 @@ article .data-table.table-wide {
    Detail page utilities
    ---------------------------------------------------------------- */
 
+.canonical-line {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-sm);
+  margin: 0.25rem 0 0;
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+}
+
+.canonical-name {
+  font-weight: 500;
+}
+
+.canonical-sep {
+  color: var(--color-text-muted);
+}
+
+.canonical-hint {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
 .uri {
   font-family: var(--font-mono);
   font-size: 0.8125rem;
@@ -2186,9 +2209,13 @@ article .data-table.table-wide {
     text-align: center;
   }
 
-  /* URI overflow */
+  /* URI / canonical line overflow */
   .uri {
     word-break: break-all;
+  }
+
+  .canonical-line {
+    flex-wrap: wrap;
   }
 
   /* Breadcrumb wrapping + 44px touch targets */

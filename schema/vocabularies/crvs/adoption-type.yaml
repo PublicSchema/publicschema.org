@@ -1,6 +1,10 @@
 id: adoption-type
 maturity: draft
 domain: crvs
+label:
+  en: Adoption Type
+  fr: "Type d'adoption"
+  es: Tipo de adopción
 
 definition:
   en: "Whether an adoption fully replaces the relationship to the biological family (full adoption) or preserves some legal ties to it (simple or limited adoption). This distinction carries significant civil status implications in civil law systems."

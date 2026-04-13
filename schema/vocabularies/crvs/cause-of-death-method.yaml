@@ -1,6 +1,10 @@
 id: cause-of-death-method
 maturity: draft
 domain: crvs
+label:
+  en: Cause of Death Method
+  fr: Méthode de détermination de la cause du décès
+  es: Método de causa de defunción
 
 definition:
   en: "The method used to determine the cause of death. In many low-income settings, cause of death is ascertained by verbal autopsy rather than physician certification; consumers need to know how a reported cause was derived."

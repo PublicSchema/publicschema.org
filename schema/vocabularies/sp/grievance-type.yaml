@@ -1,6 +1,10 @@
 id: grievance-type
 maturity: trial-use
 domain: sp
+label:
+  en: Grievance Type
+  fr: Type de réclamation
+  es: Tipo de reclamación
 
 definition:
   en: "Categories describing the nature of a grievance or complaint received by a program through its redress mechanism."

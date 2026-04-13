@@ -1,5 +1,9 @@
 id: voucher-status
 maturity: draft
+label:
+  en: Voucher Status
+  fr: Statut du bon
+  es: Estado del vale
 definition:
   en: The lifecycle states of a voucher instrument, from creation through redemption or expiry.
   fr: Les états du cycle de vie d'un instrument de bon, de la création à l'échange ou à l'expiration.

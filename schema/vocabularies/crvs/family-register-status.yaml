@@ -1,6 +1,10 @@
 id: family-register-status
 maturity: draft
 domain: crvs
+label:
+  en: Family Register Status
+  fr: Statut du registre de famille
+  es: Estado del registro de familia
 
 definition:
   en: "Lifecycle status of a family register. Captures whether the register is currently active, has been closed, or was split into or merged with other registers following vital events."

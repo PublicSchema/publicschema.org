@@ -1,5 +1,9 @@
 id: occupation
 maturity: trial-use
+label:
+  en: Occupation
+  fr: Profession
+  es: Ocupación
 definition:
   en: Categories describing a person's occupation, based on the full ISCO-08 classification hierarchy (major groups, sub-major
     groups, minor groups, and unit groups).

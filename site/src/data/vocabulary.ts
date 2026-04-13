@@ -30,6 +30,7 @@ export interface Concept {
   path: string;
   maturity: string;
   abstract: boolean;
+  label: MultilingualText;
   definition: MultilingualText;
   properties: PropertyRef[];
   subtypes: string[];
@@ -97,6 +98,7 @@ export interface Vocabulary {
   uri: string;
   path: string;
   maturity: string;
+  label: MultilingualText;
   definition: MultilingualText;
   standard: { name: string; uri: string; notes?: string } | null;
   values: VocabValue[];

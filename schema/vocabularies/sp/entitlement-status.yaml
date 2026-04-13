@@ -1,6 +1,10 @@
 id: entitlement-status
 maturity: trial-use
 domain: sp
+label:
+  en: Entitlement Status
+  fr: Statut du droit
+  es: Estado del derecho
 definition:
   en: The lifecycle states of a benefit entitlement instance, from creation through fulfillment or termination.
   fr: Les états du cycle de vie d'une instance de droit à prestation, de la création à l'exécution ou à la clôture.

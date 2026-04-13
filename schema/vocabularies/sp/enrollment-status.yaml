@@ -1,6 +1,10 @@
 id: enrollment-status
 maturity: trial-use
 domain: sp
+label:
+  en: Enrollment Status
+  fr: "Statut d'inscription"
+  es: Estado de inscripción
 definition:
   en: The lifecycle states of an enrollment in a program.
   fr: Les états du cycle de vie d'une inscription dans un programme.

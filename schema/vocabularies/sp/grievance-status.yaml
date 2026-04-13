@@ -1,6 +1,10 @@
 id: grievance-status
 maturity: trial-use
 domain: sp
+label:
+  en: Grievance Status
+  fr: Statut de la réclamation
+  es: Estado de la reclamación
 definition:
   en: The lifecycle states of a grievance record in a program or service.
   fr: Les états du cycle de vie d'un dossier de grief dans un programme ou service.

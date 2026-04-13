@@ -1,6 +1,10 @@
 id: birth-attendant
 maturity: draft
 domain: crvs
+label:
+  en: Birth Attendant
+  fr: Assistant à la naissance
+  es: Asistente al parto
 
 definition:
   en: "The category of person who attended the birth. Used to track skilled birth attendance, a core indicator of maternal and newborn health."

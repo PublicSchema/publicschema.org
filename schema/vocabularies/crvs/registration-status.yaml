@@ -1,6 +1,10 @@
 id: registration-status
 maturity: draft
 domain: crvs
+label:
+  en: Registration Status
+  fr: "Statut d'enregistrement"
+  es: Estado de registro
 
 definition:
   en: "Lifecycle states of the registration of a vital event, from initial declaration through validation, archival, or cancellation."

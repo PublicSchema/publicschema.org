@@ -1,6 +1,10 @@
 id: eligibility-status
 maturity: draft
 domain: sp
+label:
+  en: Eligibility Status
+  fr: "Statut d'éligibilité"
+  es: Estado de elegibilidad
 definition:
   en: The possible outcomes of a formal eligibility determination for a program or service.
   fr: Les résultats possibles d'une détermination formelle d'admissibilité à un programme ou service.

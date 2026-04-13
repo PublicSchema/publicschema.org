@@ -1,5 +1,9 @@
 id: event-certainty
 maturity: draft
+label:
+  en: Event Certainty
+  fr: "Certitude de l'événement"
+  es: Certeza del evento
 
 definition:
   en: "The confidence that an event has occurred or will occur. Values are compatible with OASIS CAP v1.2 certainty codes."

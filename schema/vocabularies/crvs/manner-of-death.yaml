@@ -1,6 +1,10 @@
 id: manner-of-death
 maturity: draft
 domain: crvs
+label:
+  en: Manner of Death
+  fr: Circonstances du décès
+  es: Circunstancias de la defunción
 
 definition:
   en: "How a death occurred, as distinct from its underlying medical cause. Aligned with WHO/ICD Manner of Death classification."

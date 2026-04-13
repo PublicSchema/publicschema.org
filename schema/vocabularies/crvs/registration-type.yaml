@@ -1,6 +1,10 @@
 id: registration-type
 maturity: draft
 domain: crvs
+label:
+  en: Registration Type
+  fr: "Type d'enregistrement"
+  es: Tipo de registro
 
 definition:
   en: "Categories describing whether the registration of a vital event occurred within the legal time limit, after it, or through a special procedure."

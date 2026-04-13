@@ -1,5 +1,9 @@
 id: currency
 maturity: trial-use
+label:
+  en: Currency
+  fr: Devise
+  es: Moneda
 definition:
   en: Currency codes as defined by the ISO 4217 standard.
   fr: Codes de devises tels que définis par la norme ISO 4217.

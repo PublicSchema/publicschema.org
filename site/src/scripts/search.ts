@@ -50,6 +50,11 @@ function localePrefix(locale: string): string {
   return locale === "en" ? "" : `/${locale}`;
 }
 
+// Strip diacritics so "menage" matches "Ménage", "elegibilite" matches "Éligibilité", etc.
+function foldDiacritics(term: string): string {
+  return term.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
 function indexUrlFor(locale: string): string {
   return `${localePrefix(locale)}/search-index.json`;
 }
@@ -68,10 +73,12 @@ function ensureIndex(locale: string): Promise<MiniSearch<SearchDocument>> {
       const ms = new MiniSearch<SearchDocument>({
         fields: ["title", "body", "keywords"],
         storeFields: ["type", "title", "body", "path", "meta", "keywords"],
+        processTerm: (term) => foldDiacritics(term.toLowerCase()),
         searchOptions: {
           boost: { title: 3, body: 1, keywords: 0.5 },
           prefix: true,
           fuzzy: 0.2,
+          processTerm: (term) => foldDiacritics(term.toLowerCase()),
         },
       });
       ms.addAll(docs);
@@ -105,11 +112,17 @@ const MIN_QUERY_LENGTH = 2;
 const MAX_RESULTS = 8;
 const MAX_PER_GROUP = 3;
 
-// Highlight matched substring in a title
+// Highlight matched substring in a title, accent-insensitive.
+// Walks the folded (no-diacritics) version to find match positions,
+// then maps those positions back to the original string.
 function highlightMatch(title: string, query: string): string {
-  const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  const regex = new RegExp(`(${escaped})`, "gi");
-  return escapeHtml(title).replace(regex, "<mark>$1</mark>");
+  const safe = escapeHtml(title);
+  const folded = foldDiacritics(safe.toLowerCase());
+  const foldedQuery = foldDiacritics(query.toLowerCase());
+  const start = folded.indexOf(foldedQuery);
+  if (start === -1) return safe;
+  const end = start + foldedQuery.length;
+  return safe.slice(0, start) + "<mark>" + safe.slice(start, end) + "</mark>" + safe.slice(end);
 }
 
 function escapeHtml(text: string): string {
@@ -127,12 +140,13 @@ function truncate(text: string, maxLen: number): string {
 
 // Find which vocabulary value label matched the query.
 // Keywords are tab-separated in the search index to preserve multi-word labels.
+// Comparison is accent-insensitive.
 function findMatchedValue(keywords: string, query: string): string | null {
   if (!keywords) return null;
-  const q = query.toLowerCase();
+  const q = foldDiacritics(query.toLowerCase());
   const labels = keywords.split("\t");
   for (const label of labels) {
-    if (label.toLowerCase().includes(q)) return label.trim();
+    if (foldDiacritics(label.toLowerCase()).includes(q)) return label.trim();
   }
   return null;
 }
@@ -193,10 +207,12 @@ function renderResults(
   container: HTMLElement,
   groups: GroupedResults[],
   query: string,
+  locale: string,
   idPrefix: string = "desktop"
 ): void {
   let optionIndex = 0;
   let html = "";
+  const prefix = localePrefix(locale);
 
   for (const group of groups) {
     html += `<div class="search-group-header" role="presentation">${escapeHtml(group.label)}</div>`;
@@ -208,7 +224,9 @@ function renderResults(
       } else if (result.meta) {
         context = escapeHtml(truncate(result.meta, 80));
       }
-      html += `<a class="search-result" href="${escapeHtml(result.path)}" role="option" id="search-opt-${idPrefix}-${optionIndex}" aria-selected="false">
+      const rawPath = result.path.endsWith("/") ? result.path : `${result.path}/`;
+      const href = `${prefix}${rawPath}`;
+      html += `<a class="search-result" href="${escapeHtml(href)}" role="option" id="search-opt-${idPrefix}-${optionIndex}" aria-selected="false">
         <span class="badge badge-${escapeHtml(result.type)}">${escapeHtml(result.type)}</span>
         <span class="search-result-content">
           <span class="search-result-title">${highlighted}</span>
@@ -346,7 +364,7 @@ function initSearch(): void {
 
       const groups = groupResults(results, q, labels);
       showResults();
-      renderResults(resultsContainer!, groups, q);
+      renderResults(resultsContainer!, groups, q, strings.locale);
       activeIndex = -1;
 
       const totalShown = groups.reduce((sum, g) => sum + g.items.length, 0);
@@ -542,7 +560,7 @@ function initSearch(): void {
 
         const groups = groupResults(results, q, labels);
         overlayInput.setAttribute("aria-expanded", "true");
-        renderResults(overlayResults, groups, q, "overlay");
+        renderResults(overlayResults, groups, q, strings.locale, "overlay");
         overlayActiveIndex = -1;
 
         const totalShown = groups.reduce((sum, g) => sum + g.items.length, 0);

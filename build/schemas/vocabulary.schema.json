@@ -15,6 +15,10 @@
       "type": "string",
       "enum": ["draft", "trial-use", "normative"]
     },
+    "label": {
+      "$ref": "#/$defs/multilingual_text",
+      "description": "Human-readable display name in each supported language"
+    },
     "definition": {
       "$ref": "#/$defs/multilingual_text"
     },

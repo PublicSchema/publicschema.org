@@ -1,6 +1,10 @@
 id: parental-role
 maturity: draft
 domain: crvs
+label:
+  en: Parental Role
+  fr: Rôle parental
+  es: Rol parental
 
 definition:
   en: "The type of parental relationship a person has in the context of a vital event. Distinguishes biological, legal, adoptive, and surrogate parental roles by gender to match civil law and paternity recognition conventions."

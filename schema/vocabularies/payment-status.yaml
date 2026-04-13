@@ -1,5 +1,9 @@
 id: payment-status
 maturity: trial-use
+label:
+  en: Payment Status
+  fr: Statut de paiement
+  es: Estado de pago
 definition:
   en: The processing states of a payment event in the disbursement cycle.
   fr: Les états de traitement d'un événement de paiement dans le cycle de versement.

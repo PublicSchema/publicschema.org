@@ -1,6 +1,10 @@
 id: place-type
 maturity: draft
 domain: crvs
+label:
+  en: Place Type
+  fr: Type de lieu
+  es: Tipo de lugar
 
 definition:
   en: "The category of place where a vital event occurred (birth or death). Distinct from the specific Location: this captures the type (health facility, home, etc.) rather than the named place."
