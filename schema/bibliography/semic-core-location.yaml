@@ -15,7 +15,8 @@ informs:
     - Address
     - GeographicArea
     - Location
-  vocabularies: []
+  vocabularies:
+    - country
   properties:
     - address_area
     - administrative_area

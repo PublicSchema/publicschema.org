@@ -23,14 +23,6 @@ references:
     machine_readable: true
     notes: "The 'custom' code uses RRULE format."
 
-external_equivalents:
-  semic:
-    label: "Frequency"
-    uri: "http://publications.europa.eu/resource/authority/frequency"
-    match: close
-    vocabulary: "CPOV"
-    note: "EU Frequency Named Authority List covers general recurrence patterns. PublicSchema benefit-frequency is scoped to benefit payment schedules but overlapping concepts map directly."
-
 values:
   - code: one_time
     label:

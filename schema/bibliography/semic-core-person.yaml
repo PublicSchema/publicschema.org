@@ -15,7 +15,9 @@ informs:
     - Identifier
     - Party
     - Person
-  vocabularies: []
+  vocabularies:
+    - gender-type
+    - sex
   properties:
     - country_of_birth
     - date_of_birth

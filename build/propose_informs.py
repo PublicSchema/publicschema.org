@@ -222,6 +222,7 @@ def build_report() -> Report:
         d = load_yaml(p)
         vid = vocab_canonical_id(p)
         process_vocab_standard(d, p, vid, report)
+        process_external_equivalents(d, p, "vocabularies", vid, report)
 
     return report
 
