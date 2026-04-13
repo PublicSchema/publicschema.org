@@ -20,7 +20,7 @@ Not all vocabulary values belong in credentials.
 
 **No draft values in production credentials.** A draft value's meaning may change. Issuers should only use values at candidate or normative maturity.
 
-**Identifier type alone is insufficient.** `identifier_type: national_id` is meaningless without the issuing jurisdiction and identifier scheme. Vocabularies used in credentials should document what additional context is needed.
+**Identifier type alone is insufficient.** `identifier_type: national_id_number` is meaningless without the issuing jurisdiction and identifier scheme. Vocabularies used in credentials should document what additional context is needed.
 
 ## Credential Structure for SD-JWT VC
 

@@ -20,7 +20,7 @@ Les valeurs de vocabulaire n'ont pas toutes leur place dans les attestations.
 
 **Pas de valeurs en brouillon dans les attestations de production.** La signification d'une valeur provisoire peut évoluer. Les émetteurs ne devraient utiliser que des valeurs ayant atteint la maturité usage expérimental ou normatif.
 
-**Le type d'identifiant seul est insuffisant.** `identifier_type: national_id` est sans signification sans la juridiction émettrice et le schéma d'identifiant. Les vocabulaires utilisés dans les attestations doivent documenter quel contexte supplémentaire est nécessaire.
+**Le type d'identifiant seul est insuffisant.** `identifier_type: national_id_number` est sans signification sans la juridiction émettrice et le schéma d'identifiant. Les vocabulaires utilisés dans les attestations doivent documenter quel contexte supplémentaire est nécessaire.
 
 ## Structure des attestations pour SD-JWT VC
 

@@ -20,7 +20,7 @@ No todos los valores de vocabulario pertenecen a las credenciales.
 
 **Sin valores borrador en credenciales de producción.** El significado de un valor en borrador puede cambiar. Los emisores solo deben usar valores en madurez de uso experimental o normativa.
 
-**El tipo de identificador solo no es suficiente.** `identifier_type: national_id` no tiene significado sin la jurisdicción emisora y el esquema de identificación. Los vocabularios usados en credenciales deben documentar qué contexto adicional se necesita.
+**El tipo de identificador solo no es suficiente.** `identifier_type: national_id_number` no tiene significado sin la jurisdicción emisora y el esquema de identificación. Los vocabularios usados en credenciales deben documentar qué contexto adicional se necesita.
 
 ## Estructura de credencial para SD-JWT VC
 

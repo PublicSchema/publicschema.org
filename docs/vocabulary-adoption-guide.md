@@ -35,7 +35,8 @@ Browse the [vocabularies page](/vocab/) to see all available controlled value se
 | Payment status (completed, failed, etc.) | [payment-status](/vocab/payment-status/) |
 | Gender | [gender-type](/vocab/gender-type/) |
 | Delivery channel (bank, mobile, cash) | [delivery-channel](/vocab/delivery-channel/) |
-| Document type (passport, national ID, etc.) | [identifier-type](/vocab/identifier-type/) |
+| Identifier number type (national ID number, passport number, P-code, etc.) | [identifier-type](/vocab/identifier-type/) |
+| Identity document type (passport, national ID card, beneficiary card, etc.) | [document-type](/vocab/document-type/) |
 | Country | [country](/vocab/country/) |
 | Currency | [currency](/vocab/currency/) |
 

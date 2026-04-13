@@ -35,7 +35,8 @@ Explore la [página de vocabularios](/vocab/) para ver todos los conjuntos de va
 | Estado de pago (completado, fallido, etc.) | [payment-status](/vocab/payment-status/) |
 | Género | [gender-type](/vocab/gender-type/) |
 | Canal de entrega (banco, móvil, efectivo) | [delivery-channel](/vocab/delivery-channel/) |
-| Tipo de documento (pasaporte, cédula nacional, etc.) | [identifier-type](/vocab/identifier-type/) |
+| Tipo de número de identificador (número de identidad nacional, número de pasaporte, P-code, etc.) | [identifier-type](/vocab/identifier-type/) |
+| Tipo de documento de identidad (pasaporte, tarjeta de identidad nacional, tarjeta de beneficiario, etc.) | [document-type](/vocab/document-type/) |
 | País | [country](/vocab/country/) |
 | Divisa | [currency](/vocab/currency/) |
 
