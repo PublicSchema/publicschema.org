@@ -9,6 +9,12 @@ source file and field.
 This does NOT enforce the reverse direction: bibliography entries are allowed
 to list informs that the extractor does not surface (curated editorial calls
 go in that direction).
+
+TODO: the reverse asymmetry means a contributor who removes evidence from a
+source YAML (e.g., deletes an `external_equivalents.dci` block on a property)
+will not be alerted that the bibliography still claims the link. If this
+becomes an issue, add a reverse-drift test that walks bib_existing and fails
+for non-surfaced entries that are not on an explicit editorial allow-list.
 """
 
 from collections import defaultdict

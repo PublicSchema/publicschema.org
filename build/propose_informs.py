@@ -12,12 +12,18 @@ is reported as "unmapped" so a human can decide.
 from __future__ import annotations
 
 import argparse
+import re
 import sys
 from collections import defaultdict
 from dataclasses import dataclass, field
 from pathlib import Path
 
 import yaml
+
+# Matches the start of the `informs:` block at column 0. Anchoring to line
+# start avoids false matches on inline comments or string values containing
+# the substring "informs:".
+INFORMS_HEADER_RE = re.compile(r"^informs:", re.MULTILINE)
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 SCHEMA = REPO_ROOT / "schema"
@@ -311,6 +317,9 @@ def render_informs_block(informs: dict[str, list[str]]) -> str:
     """Render an `informs:` block matching the existing bibliography YAML style.
 
     2-space indent, `[]` for empty arrays, sorted item order within each list.
+    Note: existing custom ordering in a bibliography YAML is not preserved;
+    the first `--apply` run that touches a file re-sorts its informs lists
+    alphabetically.
     """
     lines = ["informs:"]
     for kind in ("concepts", "vocabularies", "properties"):
@@ -341,7 +350,8 @@ def apply_proposals(report: Report) -> dict[str, dict[str, list[str]]]:
             print(f"WARNING: {bib_path} not found, skipping", file=sys.stderr)
             continue
         text = bib_path.read_text()
-        if "informs:" not in text:
+        parts = INFORMS_HEADER_RE.split(text, maxsplit=1)
+        if len(parts) != 2:
             print(f"WARNING: {bib_path} has no informs: block, skipping", file=sys.stderr)
             continue
 
@@ -356,7 +366,7 @@ def apply_proposals(report: Report) -> dict[str, dict[str, list[str]]]:
         if not any(added.values()):
             continue
 
-        before = text.split("informs:", 1)[0].rstrip() + "\n\n"
+        before = parts[0].rstrip() + "\n\n"
         new_block = render_informs_block({k: sorted(v) for k, v in merged.items()})
         bib_path.write_text(before + new_block)
         summary[bib_id] = {k: sorted(set(v)) for k, v in added.items() if v}
