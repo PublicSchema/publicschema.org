@@ -11,6 +11,8 @@ import hljs from 'highlight.js';
 import 'highlight.js/styles/github-dark.css';
 import { readFileSync, existsSync } from 'node:fs';
 import { resolve } from 'node:path';
+import PageFeedback from '../PageFeedback.astro';
+import FeedbackOrientation from '../FeedbackOrientation.astro';
 
 interface Props {
   slug: string;
@@ -79,5 +81,7 @@ const description = doc.description[locale] ?? doc.description.en;
     <div class="concept-narrative doc-content">
       <Fragment set:html={html} />
     </div>
+    <PageFeedback pageId={slug} pageTitle={title} locale={locale} />
+    <FeedbackOrientation locale={locale} />
   </article>
 </Base>

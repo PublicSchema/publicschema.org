@@ -9,6 +9,8 @@ import {
   collectAllSubtypes,
 } from '../../data/concept-utils';
 import { getSystemName } from '../../data/systems';
+import SectionFeedback from '../SectionFeedback.astro';
+import FeedbackOrientation from '../FeedbackOrientation.astro';
 
 interface Props {
   termId: string;
@@ -65,8 +67,8 @@ const isPrimitiveType = primitiveTypes.includes(prop.type);
   </div>
 
   {(prop.convergence || (prop.external_equivalents && Object.keys(prop.external_equivalents).length > 0)) && (
-    <div class="concept-section">
-      <h2>{t('concept_detail.evidence')}</h2>
+    <div class="concept-section" id="evidence">
+      <h2>{t('concept_detail.evidence')}<SectionFeedback pageType="property" pageId={termId} sectionId="evidence" sectionLabel={t('concept_detail.evidence')} locale={locale} /></h2>
       {prop.convergence && (
         <p class="evidence-convergence">
           {prop.convergence.system_count === prop.convergence.total_systems
@@ -90,9 +92,9 @@ const isPrimitiveType = primitiveTypes.includes(prop.type);
             </tr>
           </thead>
           <tbody>
-            {Object.entries(prop.external_equivalents).map(([_key, eq]) => (
+            {Object.entries(prop.external_equivalents).map(([key, eq]) => (
               <>
-                <tr>
+                <tr id={`eq-${key}`}>
                   <td>{eq.vocabulary}</td>
                   <td><a href={eq.uri} target="_blank" rel="noopener noreferrer">{eq.label}</a></td>
                   <td><span class={`badge badge-${eq.match}`}>{eq.match.replace('_', ' ')}</span></td>
@@ -110,8 +112,8 @@ const isPrimitiveType = primitiveTypes.includes(prop.type);
     </div>
   )}
 
-  <div class="concept-section">
-    <h2>{t('property_detail.details')}</h2>
+  <div class="concept-section" id="details">
+    <h2>{t('property_detail.details')}<SectionFeedback pageType="property" pageId={termId} sectionId="details" sectionLabel={t('property_detail.details')} locale={locale} /></h2>
     <table class="data-table detail-kv-table">
       <tbody>
         <tr>
@@ -163,8 +165,8 @@ const isPrimitiveType = primitiveTypes.includes(prop.type);
     </table>
   </div>
 
-  <div class="concept-section">
-    <h2>{t('property_detail.used_by')}</h2>
+  <div class="concept-section" id="used-by">
+    <h2>{t('property_detail.used_by')}<SectionFeedback pageType="property" pageId={termId} sectionId="used-by" sectionLabel={t('property_detail.used_by')} locale={locale} /></h2>
     {prop.used_by.length > 0 ? (
       <div class="type-links">
         {prop.used_by.map((d) => <a href={conceptLink(d)}>{d}</a>)}
@@ -175,11 +177,11 @@ const isPrimitiveType = primitiveTypes.includes(prop.type);
   </div>
 
   {prop.system_mappings && Object.keys(prop.system_mappings).length > 0 && (
-    <div class="concept-section">
-      <h2>{t('property_detail.system_mappings')}</h2>
+    <div class="concept-section" id="system-mappings">
+      <h2>{t('property_detail.system_mappings')}<SectionFeedback pageType="property" pageId={termId} sectionId="system-mappings" sectionLabel={t('property_detail.system_mappings')} locale={locale} /></h2>
       {Object.entries(prop.system_mappings).map(([system, mapping]) => (
         <div style="margin-bottom: var(--space-lg);">
-          <h3><a href={localePath(`/systems/${system}`, locale)}>{getSystemName(system)}</a></h3>
+          <h3 id={`sysmap-${system}`}><a href={localePath(`/systems/${system}`, locale)}>{getSystemName(system)}</a><SectionFeedback pageType="property" pageId={termId} sectionId={`sysmap-${system}`} sectionLabel={t('property_detail.system_mappings')} locale={locale} systemName={getSystemName(system)} /></h3>
           {mapping.vocabulary_name && (
             <p class="mapping-vocab-name">{t('vocab_detail.system_vocabulary')} <strong>{mapping.vocabulary_name}</strong></p>
           )}
@@ -193,7 +195,7 @@ const isPrimitiveType = primitiveTypes.includes(prop.type);
             </thead>
             <tbody>
               {mapping.values.map((v) => (
-                <tr class={v.maps_to === null ? 'unmapped-row' : ''}>
+                <tr class={v.maps_to === null ? 'unmapped-row' : ''} id={`sysmap-${system}-${v.code}`}>
                   <td><code>{v.code}</code></td>
                   <td data-label={t('property_detail.table.system_label')}>{v.label}</td>
                   <td data-label={t('property_detail.value_column', { property: prop.id })}>
@@ -218,5 +220,6 @@ const isPrimitiveType = primitiveTypes.includes(prop.type);
     </div>
   )}
 
+  <FeedbackOrientation locale={locale} />
   </article>
 </Base>

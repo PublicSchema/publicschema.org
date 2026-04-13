@@ -5,6 +5,8 @@ import { useTranslations, localePath } from '../../i18n/utils';
 import { loadVocabulary } from '../../data/vocabulary';
 import type { Vocabulary } from '../../data/vocabulary';
 import { getSystemName } from '../../data/systems';
+import SectionFeedback from '../SectionFeedback.astro';
+import FeedbackOrientation from '../FeedbackOrientation.astro';
 
 interface Props {
   vocab: string;
@@ -47,8 +49,8 @@ const vocabulary = allVocab.vocabularies[vocab] as Vocabulary;
   </div>
 
   {vocabulary.standard && (
-    <div class="concept-section">
-      <h2>{t('vocab_detail.standard_reference')}</h2>
+    <div class="concept-section" id="standard">
+      <h2>{t('vocab_detail.standard_reference')}<SectionFeedback pageType="vocabulary" pageId={vocab} sectionId="standard" sectionLabel={t('vocab_detail.standard_reference')} locale={locale} /></h2>
       <p>
         {vocabulary.standard.name}
         {vocabulary.standard.uri && (
@@ -62,8 +64,8 @@ const vocabulary = allVocab.vocabularies[vocab] as Vocabulary;
   )}
 
   {vocabulary.external_equivalents && Object.keys(vocabulary.external_equivalents).length > 0 && (
-    <div class="concept-section">
-      <h2>{t('vocab_detail.aligned_standards')}</h2>
+    <div class="concept-section" id="aligned-standards">
+      <h2>{t('vocab_detail.aligned_standards')}<SectionFeedback pageType="vocabulary" pageId={vocab} sectionId="aligned-standards" sectionLabel={t('vocab_detail.aligned_standards')} locale={locale} /></h2>
       <table class="data-table">
         <thead>
           <tr>
@@ -75,7 +77,7 @@ const vocabulary = allVocab.vocabularies[vocab] as Vocabulary;
         <tbody>
           {Object.entries(vocabulary.external_equivalents).map(([key, eq]) => (
             <>
-              <tr>
+              <tr id={`eq-${key}`}>
                 <td>{eq.vocabulary}</td>
                 <td><a href={eq.uri} target="_blank" rel="noopener noreferrer">{eq.label}</a></td>
                 <td><span class={`badge badge-${eq.match}`}>{eq.match.replace('_', ' ')}</span></td>
@@ -93,8 +95,8 @@ const vocabulary = allVocab.vocabularies[vocab] as Vocabulary;
   )}
 
   {vocabulary.external_values ? (
-    <div class="concept-section">
-      <h2>{t('vocab_detail.values')}</h2>
+    <div class="concept-section" id="values">
+      <h2>{t('vocab_detail.values')}<SectionFeedback pageType="vocabulary" pageId={vocab} sectionId="values" sectionLabel={t('vocab_detail.values')} locale={locale} /></h2>
       <p>
         {t('vocab_detail.external_values_note_prefix')}{vocabulary.standard ? ` (${vocabulary.standard.name})` : ''}.
         {' '}{t('vocab_detail.external_values_note_suffix')}{vocabulary.standard?.uri ? (
@@ -103,8 +105,8 @@ const vocabulary = allVocab.vocabularies[vocab] as Vocabulary;
       </p>
     </div>
   ) : (
-    <div class="concept-section">
-      <h2>{t('vocab_detail.values')}</h2>
+    <div class="concept-section" id="values">
+      <h2>{t('vocab_detail.values')}<SectionFeedback pageType="vocabulary" pageId={vocab} sectionId="values" sectionLabel={t('vocab_detail.values')} locale={locale} /></h2>
       <table class="data-table mobile-card-table">
         <thead>
           <tr>
@@ -116,7 +118,7 @@ const vocabulary = allVocab.vocabularies[vocab] as Vocabulary;
         </thead>
         <tbody>
           {vocabulary.values.map((v) => (
-            <tr>
+            <tr id={`val-${v.code}`}>
               <td><code>{v.code}</code></td>
               <td data-label={t('vocab_detail.table.label')}>{v.label[locale] ?? v.label.en}</td>
               <td data-label={t('vocab_detail.table.standard_code')}>{v.standard_code || ""}</td>
@@ -129,8 +131,8 @@ const vocabulary = allVocab.vocabularies[vocab] as Vocabulary;
   )}
 
   {vocabulary.same_standard_systems && vocabulary.same_standard_systems.length > 0 && (
-    <div class="concept-section">
-      <h2>{t('vocab_detail.same_standard')}</h2>
+    <div class="concept-section" id="same-standard">
+      <h2>{t('vocab_detail.same_standard')}<SectionFeedback pageType="vocabulary" pageId={vocab} sectionId="same-standard" sectionLabel={t('vocab_detail.same_standard')} locale={locale} /></h2>
       <p>{t('vocab_detail.same_standard_desc_prefix')}{vocabulary.standard ? ` (${vocabulary.standard.name})` : ''} {t('vocab_detail.same_standard_desc_suffix')}</p>
       <ul>
         {vocabulary.same_standard_systems.map((system) => (
@@ -141,11 +143,11 @@ const vocabulary = allVocab.vocabularies[vocab] as Vocabulary;
   )}
 
   {vocabulary.system_mappings && Object.keys(vocabulary.system_mappings).length > 0 && (
-    <div class="concept-section">
-      <h2>{t('vocab_detail.system_mappings')}</h2>
+    <div class="concept-section" id="system-mappings">
+      <h2>{t('vocab_detail.system_mappings')}<SectionFeedback pageType="vocabulary" pageId={vocab} sectionId="system-mappings" sectionLabel={t('vocab_detail.system_mappings')} locale={locale} /></h2>
       {Object.entries(vocabulary.system_mappings).map(([system, mapping]) => (
         <div style="margin-bottom: var(--space-lg);">
-          <h3 id={system}><a href={localePath(`/systems/${system}`, locale)}>{getSystemName(system)}</a></h3>
+          <h3 id={system}><a href={localePath(`/systems/${system}`, locale)}>{getSystemName(system)}</a><SectionFeedback pageType="vocabulary" pageId={vocab} sectionId={system} sectionLabel={t('vocab_detail.system_mappings')} locale={locale} systemName={getSystemName(system)} /></h3>
           {mapping.vocabulary_name && (
             <p class="mapping-vocab-name">{t('vocab_detail.system_vocabulary')} <strong>{mapping.vocabulary_name}</strong></p>
           )}
@@ -159,7 +161,7 @@ const vocabulary = allVocab.vocabularies[vocab] as Vocabulary;
             </thead>
             <tbody>
               {mapping.values.map((v) => (
-                <tr class={v.maps_to === null ? 'unmapped-row' : ''}>
+                <tr class={v.maps_to === null ? 'unmapped-row' : ''} id={`sysmap-${system}-${v.code}`}>
                   <td><code>{v.code}</code></td>
                   <td data-label="System label">{v.label}</td>
                   <td data-label={`${vocabulary.id} value`}>{v.maps_to ? (<code>{v.maps_to}</code>) : (<span class="no-mapping">{v.unmapped_reason ? v.unmapped_reason.replace(/_/g, " ") : t('vocab_detail.no_mapping')}</span>)}</td>
@@ -176,5 +178,6 @@ const vocabulary = allVocab.vocabularies[vocab] as Vocabulary;
       ))}
     </div>
   )}
+  <FeedbackOrientation locale={locale} />
   </article>
 </Base>

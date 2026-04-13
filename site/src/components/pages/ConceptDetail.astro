@@ -11,6 +11,8 @@ import {
   collectInheritedProperties,
   collectAllSubtypes,
 } from '../../data/concept-utils';
+import SectionFeedback from '../SectionFeedback.astro';
+import FeedbackOrientation from '../FeedbackOrientation.astro';
 
 interface Props {
   termId: string;
@@ -82,8 +84,8 @@ const domainTitles: Record<string, string> = { sp: t('concepts.section_social_pr
   </div>
 
   {concept.supertypes.length > 0 && (
-    <div class="concept-section">
-      <h2>{t('concept_detail.supertypes')}</h2>
+    <div class="concept-section" id="supertypes">
+      <h2>{t('concept_detail.supertypes')}<SectionFeedback pageType="concept" pageId={termId} sectionId="supertypes" sectionLabel={t('concept_detail.supertypes')} locale={locale} /></h2>
       <div class="type-links">
         {concept.supertypes.map((s) => <a href={conceptLink(s)}>{s}</a>)}
       </div>
@@ -108,8 +110,8 @@ const domainTitles: Record<string, string> = { sp: t('concepts.section_social_pr
       });
     }
     return (
-      <div class="concept-section">
-        <h2>{t('concept_detail.subtypes')}</h2>
+      <div class="concept-section" id="subtypes">
+        <h2>{t('concept_detail.subtypes')}<SectionFeedback pageType="concept" pageId={termId} sectionId="subtypes" sectionLabel={t('concept_detail.subtypes')} locale={locale} /></h2>
         <div class="subtype-list">
           {renderSubtypes(termId, true)}
         </div>
@@ -117,8 +119,8 @@ const domainTitles: Record<string, string> = { sp: t('concepts.section_social_pr
     );
   })()}
 
-  <div class="concept-section">
-    <h2>{t('concept_detail.properties')}</h2>
+  <div class="concept-section" id="properties">
+    <h2>{t('concept_detail.properties')}<SectionFeedback pageType="concept" pageId={termId} sectionId="properties" sectionLabel={t('concept_detail.properties')} locale={locale} /></h2>
     {allProps.length > 0 ? (
       <table class="data-table mobile-card-table">
         <thead>
@@ -135,7 +137,7 @@ const domainTitles: Record<string, string> = { sp: t('concepts.section_social_pr
             const isPrimitive = primitiveTypes.includes(typeStr);
             const propDef = (p.detail?.definition?.[locale] ?? p.detail?.definition?.en) || '';
             return (
-              <tr class={p.from ? 'inherited-row' : ''}>
+              <tr class={p.from ? 'inherited-row' : ''} id={`prop-${p.id}`}>
                 <td>
                   <a href={propLink(p.id)}>{p.id}</a>
                   {p.from && <span class="inherited-badge">{t('concept_detail.inherited_from')} <a href={conceptLink(p.from)}>{p.from}</a></span>}
@@ -173,8 +175,8 @@ const domainTitles: Record<string, string> = { sp: t('concepts.section_social_pr
   </div>
 
   {(concept.convergence || (concept.external_equivalents && Object.keys(concept.external_equivalents).length > 0)) && (
-    <div class="concept-section">
-      <h2>{t('concept_detail.evidence')}</h2>
+    <div class="concept-section" id="evidence">
+      <h2>{t('concept_detail.evidence')}<SectionFeedback pageType="concept" pageId={termId} sectionId="evidence" sectionLabel={t('concept_detail.evidence')} locale={locale} /></h2>
       {concept.convergence && (
         <p class="evidence-convergence">
           {concept.convergence.system_count === concept.convergence.total_systems
@@ -198,9 +200,9 @@ const domainTitles: Record<string, string> = { sp: t('concepts.section_social_pr
             </tr>
           </thead>
           <tbody>
-            {Object.entries(concept.external_equivalents).map(([_key, eq]) => (
+            {Object.entries(concept.external_equivalents).map(([key, eq]) => (
               <>
-                <tr>
+                <tr id={`eq-${key}`}>
                   <td>{eq.vocabulary}</td>
                   <td><a href={eq.uri} target="_blank" rel="noopener noreferrer">{eq.label}</a></td>
                   <td><span class={`badge badge-${eq.match}`}>{eq.match.replace('_', ' ')}</span></td>
@@ -218,5 +220,6 @@ const domainTitles: Record<string, string> = { sp: t('concepts.section_social_pr
     </div>
   )}
 
+  <FeedbackOrientation locale={locale} />
   </article>
 </Base>

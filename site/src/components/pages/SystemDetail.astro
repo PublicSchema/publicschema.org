@@ -3,6 +3,8 @@ import Base from '../../layouts/Base.astro';
 import { defaultLocale, type Locale } from '../../i18n/languages';
 import { useTranslations, localePath } from '../../i18n/utils';
 import { buildSystemIndex, getSystemMeta, getIssueUrl } from '../../data/systems';
+import SectionFeedback from '../SectionFeedback.astro';
+import FeedbackOrientation from '../FeedbackOrientation.astro';
 
 interface Props {
   system: string;
@@ -59,8 +61,8 @@ const sameStandard = vocabEntries.filter((e) => e.relationship === "same_standar
   </div>
 
   {vocabEntries.length > 0 && (
-  <div class="concept-section">
-    <h2>{t('system_detail.vocabularies')}</h2>
+  <div class="concept-section" id="vocabularies">
+    <h2>{t('system_detail.vocabularies')}<SectionFeedback pageType="system" pageId={systemId} sectionId="vocabularies" sectionLabel={t('system_detail.vocabularies')} locale={locale} /></h2>
     <table class="data-table mobile-card-table">
       <thead>
         <tr>
@@ -97,8 +99,8 @@ const sameStandard = vocabEntries.filter((e) => e.relationship === "same_standar
   )}
 
   {propEntries.length > 0 && (
-  <div class="concept-section">
-    <h2>{t('system_detail.properties')}</h2>
+  <div class="concept-section" id="properties">
+    <h2>{t('system_detail.properties')}<SectionFeedback pageType="system" pageId={systemId} sectionId="properties" sectionLabel={t('system_detail.properties')} locale={locale} /></h2>
     <table class="data-table mobile-card-table">
       <thead>
         <tr>
@@ -125,6 +127,8 @@ const sameStandard = vocabEntries.filter((e) => e.relationship === "same_standar
     </table>
   </div>
   )}
+
+  <FeedbackOrientation locale={locale} />
 
   <div class="concept-section" style="text-align: center;">
     <a href={issueUrl} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
