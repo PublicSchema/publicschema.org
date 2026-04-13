@@ -11,7 +11,7 @@ definition:
 references:
   - name: "ISO/IEC 19785 (CBEFF) Biometric Type Registry"
     uri: "https://www.iso.org/standard/41047.html"
-    relationship: based_on
+    relationship: subset
     machine_readable: false
     notes: "CBEFF type codes: face (2), voice (3), fingerprint (4), iris (5), signature (8)."
   - name: "OSIA Biometric Data Model"

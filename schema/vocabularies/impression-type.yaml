@@ -22,7 +22,7 @@ definition:
 references:
   - name: "OSIA ImpressionType Enum"
     uri: "https://secureidentityalliance.github.io/osia/"
-    relationship: based_on
+    relationship: partial_overlap
     machine_readable: false
     notes: "Full 19-value OSIA ImpressionType enumeration."
 values:

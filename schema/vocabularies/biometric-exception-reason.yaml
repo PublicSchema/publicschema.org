@@ -22,7 +22,7 @@ definition:
 references:
   - name: "OSIA MissingType Enum"
     uri: "https://secureidentityalliance.github.io/osia/"
-    relationship: based_on
+    relationship: subset
     machine_readable: false
     notes: "OSIA MissingType presence enum: AMPUTATED, BANDAGED, DAMAGED. unable_to_capture added as a catch-all."
 values:

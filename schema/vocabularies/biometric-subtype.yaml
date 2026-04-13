@@ -22,7 +22,7 @@ definition:
 references:
   - name: "ISO 19794-2 Finger Position Codes"
     uri: "https://www.iso.org/standard/50864.html"
-    relationship: based_on
+    relationship: subset
     machine_readable: false
     notes: "Finger positions 1-10 mapped to named codes."
   - name: "OSIA BiometricSubType"
