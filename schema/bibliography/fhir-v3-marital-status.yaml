@@ -6,7 +6,7 @@ year: null
 version: "R4"
 type: classification
 domain: health
-uri: "https://hl7.org/fhir/R4/v3/MaritalStatus/cs.html"
+uri: "https://terminology.hl7.org/2.0.0/CodeSystem-v3-MaritalStatus.html"
 access: open
 status: active
 
