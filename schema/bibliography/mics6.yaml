@@ -1,11 +1,11 @@
-id: dhs-recode7
-title: "DHS Recode7: Standard Recode Manual for DHS 7"
-short_title: "DHS Recode7"
-publisher: "ICF International / USAID"
-year: 2018
+id: mics6
+title: "Multiple Indicator Cluster Surveys Round 6 (MICS6)"
+short_title: "MICS6"
+publisher: "UNICEF"
+year: 2017
 type: classification
 domain: general
-uri: "https://dhsprogram.com/publications/publication-dhsg4-dhs-questionnaires-and-manuals.cfm"
+uri: "https://mics.unicef.org/tools"
 access: open
 status: active
 
@@ -21,7 +21,6 @@ informs:
     - household-asset
     - ict-access
     - literacy
-    - livestock-type
     - roof-material
     - sanitation-facility
     - wall-material
@@ -40,7 +39,6 @@ informs:
     - household_assets
     - ict_access
     - literacy
-    - livestock_type
     - roof_material
     - sanitation_facility
     - wall_material

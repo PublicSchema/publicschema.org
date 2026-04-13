@@ -4,6 +4,9 @@ label:
   en: Household Asset
 definition:
   en: Durable goods owned by at least one member of the household, used as wealth proxy indicators in targeting and proxy means testing.
+see_also:
+- vocabulary: ict-access
+  note: "Mobile phone, television, and radio appear in both vocabularies. household-asset captures wealth proxy indicators; ict-access captures information and communication access."
 values:
 - code: radio
   label:

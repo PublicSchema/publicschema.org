@@ -1,0 +1,20 @@
+id: lsms-isa
+title: "Living Standards Measurement Study - Integrated Surveys on Agriculture (LSMS-ISA)"
+short_title: "LSMS-ISA"
+publisher: "World Bank"
+year: 2012
+type: classification
+domain: general
+uri: "https://www.worldbank.org/en/programs/lsms/initiatives/lsms-ISA"
+access: open
+status: active
+
+informs:
+  concepts:
+    - Farm
+  vocabularies:
+    - land-tenure
+    - livestock-type
+  properties:
+    - land_tenure
+    - livestock_type
