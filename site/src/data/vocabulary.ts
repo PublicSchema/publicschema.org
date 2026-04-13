@@ -37,6 +37,7 @@ export interface Concept {
   supertypes: string[];
   convergence: Convergence | null;
   external_equivalents: Record<string, ExternalEquivalent> | null;
+  bibliography_refs?: string[];
 }
 
 export interface Property {
@@ -54,6 +55,7 @@ export interface Property {
   system_mappings: Record<string, SystemMapping> | null;
   convergence: Convergence | null;
   external_equivalents: Record<string, ExternalEquivalent> | null;
+  bibliography_refs?: string[];
 }
 
 export interface VocabValue {
@@ -92,6 +94,14 @@ export interface ExternalEquivalent {
   note?: string;
 }
 
+export interface VocabReference {
+  name: string;
+  uri: string;
+  relationship: string;
+  machine_readable: boolean;
+  notes?: string;
+}
+
 export interface Vocabulary {
   id: string;
   domain: string | null;
@@ -106,6 +116,47 @@ export interface Vocabulary {
   same_standard_systems: string[] | null;
   external_values: boolean;
   external_equivalents: Record<string, ExternalEquivalent> | null;
+  references?: VocabReference[];
+  bibliography_refs?: string[];
+}
+
+export type BibliographyType =
+  | "international_standard"
+  | "specification"
+  | "classification"
+  | "eu_vocabulary"
+  | "eu_credential_schema"
+  | "legal_instrument"
+  | "guidance_publication";
+
+export type BibliographyDomain =
+  | "general"
+  | "social_protection"
+  | "health"
+  | "crvs"
+  | "payments"
+  | "identity"
+  | "humanitarian"
+  | "education";
+
+export interface BibliographyEntry {
+  id: string;
+  title: string;
+  short_title: string | null;
+  standard_number: string | null;
+  publisher: string;
+  year: number | null;
+  version: string | null;
+  type: BibliographyType;
+  domain: BibliographyDomain;
+  uri: string | null;
+  access: "open" | "paywalled" | "registration_required" | null;
+  status: "active" | "draft" | "superseded" | "withdrawn";
+  informs: {
+    concepts: string[];
+    vocabularies: string[];
+    properties: string[];
+  };
 }
 
 export interface VocabularyData {
@@ -117,6 +168,7 @@ export interface VocabularyData {
   concepts: Record<string, Concept>;
   properties: Record<string, Property>;
   vocabularies: Record<string, Vocabulary>;
+  bibliography: Record<string, BibliographyEntry>;
 }
 
 export function loadVocabulary(): VocabularyData {
