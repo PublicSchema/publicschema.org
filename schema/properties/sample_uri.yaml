@@ -1,0 +1,13 @@
+id: sample_uri
+maturity: draft
+
+definition:
+  en: "A URI reference to the biometric sample data. The referenced resource contains the actual biometric data (image, audio, or other signal)."
+  fr: "Une référence URI vers les données de l'échantillon biométrique. La ressource référencée contient les données biométriques réelles (image, audio ou autre signal)."
+  es: "Una referencia URI a los datos de la muestra biométrica. El recurso referenciado contiene los datos biométricos reales (imagen, audio u otra señal)."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+sensitivity: restricted

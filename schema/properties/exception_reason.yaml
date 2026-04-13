@@ -1,0 +1,12 @@
+id: exception_reason
+maturity: draft
+
+definition:
+  en: "The reason a biometric sample could not be captured. When non-null, this record documents a capture exception rather than holding biometric data."
+  fr: "La raison pour laquelle un échantillon biométrique n'a pas pu être capturé. Lorsque non nul, cet enregistrement documente une exception de capture plutôt que de contenir des données biométriques."
+  es: "La razón por la cual no se pudo capturar una muestra biométrica. Cuando no es nulo, este registro documenta una excepción de captura en lugar de contener datos biométricos."
+
+type: string
+cardinality: single
+vocabulary: biometric-exception-reason
+references: null

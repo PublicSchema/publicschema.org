@@ -1,0 +1,12 @@
+id: capture_device
+maturity: draft
+
+definition:
+  en: "An identifier or description of the device used to capture the biometric sample."
+  fr: "Un identifiant ou une description du dispositif utilisé pour capturer l'échantillon biométrique."
+  es: "Un identificador o descripción del dispositivo utilizado para capturar la muestra biométrica."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null

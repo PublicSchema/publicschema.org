@@ -1,0 +1,12 @@
+id: impression_type
+maturity: draft
+
+definition:
+  en: "The method by which a fingerprint biometric was captured (e.g., live scan plain, rolled, latent)."
+  fr: "La méthode par laquelle une empreinte digitale biométrique a été capturée (p. ex., scan en direct simple, roulé, latent)."
+  es: "El método mediante el cual se capturó una huella dactilar biométrica (p. ej., escaneo en vivo simple, rodado, latente)."
+
+type: string
+cardinality: single
+vocabulary: impression-type
+references: null

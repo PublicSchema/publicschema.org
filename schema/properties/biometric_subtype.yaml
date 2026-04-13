@@ -1,0 +1,12 @@
+id: biometric_subtype
+maturity: draft
+
+definition:
+  en: "The specific body part or position within a biometric modality (e.g., right index finger, left eye, portrait)."
+  fr: "La partie du corps ou la position spécifique au sein d'une modalité biométrique (p. ex., index droit, oeil gauche, portrait)."
+  es: "La parte del cuerpo o posición específica dentro de una modalidad biométrica (p. ej., índice derecho, ojo izquierdo, retrato)."
+
+type: string
+cardinality: single
+vocabulary: biometric-subtype
+references: null

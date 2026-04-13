@@ -1,0 +1,12 @@
+id: quality_algorithm
+maturity: draft
+
+definition:
+  en: "The algorithm or standard used to compute the quality score (e.g., NFIQ2, ISO_29794_4)."
+  fr: "L'algorithme ou la norme utilisé pour calculer le score de qualité (p. ex., NFIQ2, ISO_29794_4)."
+  es: "El algoritmo o estándar utilizado para calcular el puntaje de calidad (p. ej., NFIQ2, ISO_29794_4)."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null

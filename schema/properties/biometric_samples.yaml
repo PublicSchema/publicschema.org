@@ -1,0 +1,12 @@
+id: biometric_samples
+maturity: draft
+
+definition:
+  en: "Biometric samples associated with this person, linking to fingerprint, iris, face, and other biometric records."
+  fr: "Échantillons biométriques associés à cette personne, reliant aux enregistrements d'empreintes digitales, d'iris, de visage et autres données biométriques."
+  es: "Muestras biométricas asociadas con esta persona, vinculando a registros de huellas dactilares, iris, rostro y otros datos biométricos."
+
+type: concept:BiometricSample
+cardinality: multiple
+vocabulary: null
+references: BiometricSample

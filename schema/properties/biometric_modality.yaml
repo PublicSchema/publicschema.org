@@ -1,0 +1,12 @@
+id: biometric_modality
+maturity: draft
+
+definition:
+  en: "The type of biometric measurement (face, fingerprint, iris, signature, voice)."
+  fr: "Le type de mesure biométrique (visage, empreinte digitale, iris, signature, voix)."
+  es: "El tipo de medición biométrica (rostro, huella dactilar, iris, firma, voz)."
+
+type: string
+cardinality: single
+vocabulary: biometric-modality
+references: null

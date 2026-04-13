@@ -1,0 +1,12 @@
+id: sample_format
+maturity: draft
+
+definition:
+  en: "The MIME type of the biometric sample data (e.g., image/jp2, image/jpeg, application/octet-stream)."
+  fr: "Le type MIME des données de l'échantillon biométrique (p. ex., image/jp2, image/jpeg, application/octet-stream)."
+  es: "El tipo MIME de los datos de la muestra biométrica (p. ej., image/jp2, image/jpeg, application/octet-stream)."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null

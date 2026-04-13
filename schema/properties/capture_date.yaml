@@ -1,0 +1,12 @@
+id: capture_date
+maturity: draft
+
+definition:
+  en: "The date on which the biometric sample was captured."
+  fr: "La date à laquelle l'échantillon biométrique a été capturé."
+  es: "La fecha en la que se capturó la muestra biométrica."
+
+type: date
+cardinality: single
+vocabulary: null
+references: null

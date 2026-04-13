@@ -1,0 +1,12 @@
+id: quality_score
+maturity: draft
+
+definition:
+  en: "A quality score for the biometric sample, on a 0-100 scale per ISO 29794-1. Higher values indicate better quality."
+  fr: "Un score de qualité pour l'échantillon biométrique, sur une échelle de 0 à 100 selon ISO 29794-1. Des valeurs plus élevées indiquent une meilleure qualité."
+  es: "Un puntaje de calidad para la muestra biométrica, en una escala de 0 a 100 según ISO 29794-1. Valores más altos indican mejor calidad."
+
+type: integer
+cardinality: single
+vocabulary: null
+references: null
