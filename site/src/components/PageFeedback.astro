@@ -1,0 +1,32 @@
+---
+import type { Locale } from '../i18n/languages';
+import { useTranslations } from '../i18n/utils';
+
+interface Props {
+  pageId: string;
+  pageTitle: string;
+  locale: Locale;
+}
+
+const { pageId, pageTitle, locale } = Astro.props;
+const t = useTranslations(locale);
+
+const GITHUB_REPO = 'https://github.com/PublicSchema/publicschema.org';
+
+const title = `[Doc: ${pageId}] [${locale}] Page feedback`;
+const pageUrl = new URL(Astro.url.pathname, Astro.site).href;
+const body = [
+  `**Page:** ${pageUrl}`,
+  `**Locale:** ${locale}`,
+  '',
+  '<!-- Describe the issue -->',
+].join('\n');
+
+const params = new URLSearchParams({ title, body, labels: `feedback,lang:${locale}` });
+const issueUrl = `${GITHUB_REPO}/issues/new?${params.toString()}`;
+---
+<p class="page-feedback">
+  <a href={issueUrl} target="_blank" rel="noopener noreferrer">
+    {t('feedback.page_link')}
+  </a>
+</p>

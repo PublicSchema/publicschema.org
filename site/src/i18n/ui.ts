@@ -193,6 +193,15 @@ const en = {
   // Translation banner
   'banner.not_translated': 'This page is not yet available in your language. The content below is in English.',
   'banner.dismiss': 'Dismiss',
+
+  // Feedback
+  'feedback.section_aria': 'Report an issue with this section',
+  'feedback.page_link': 'See a problem on this page? Report it on GitHub.',
+  'feedback.orientation_title': 'Help improve this page',
+  'feedback.orientation_hypothesis': 'Highlight any text on this page to leave an annotation. {link} to get started.',
+  'feedback.orientation_hypothesis_link': 'Join our review group',
+  'feedback.orientation_github': 'If you have a GitHub account, click the feedback icon next to any section heading to report a specific issue.',
+  'footer.join_review': 'Join review group',
 };
 
 type Dict = typeof en;
@@ -384,6 +393,15 @@ export const ui: Record<Locale, Partial<Dict>> = {
     // Translation banner
     'banner.not_translated': 'Cette page n\'est pas encore disponible dans votre langue. Le contenu ci-dessous est en anglais.',
     'banner.dismiss': 'Fermer',
+
+    // Feedback
+    'feedback.section_aria': 'Signaler un problème dans cette section',
+    'feedback.page_link': 'Vous voyez un problème sur cette page ? Signalez-le sur GitHub.',
+    'feedback.orientation_title': 'Aidez-nous à améliorer cette page',
+    'feedback.orientation_hypothesis': 'Surlignez du texte sur cette page pour laisser une annotation. {link} pour commencer.',
+    'feedback.orientation_hypothesis_link': 'Rejoindre notre groupe de révision',
+    'feedback.orientation_github': 'Si vous avez un compte GitHub, cliquez sur l\'icône à côté de chaque titre de section pour signaler un problème précis.',
+    'footer.join_review': 'Rejoindre le groupe de révision',
   },
   es: {
     // Navigation and chrome
@@ -570,5 +588,14 @@ export const ui: Record<Locale, Partial<Dict>> = {
     // Translation banner
     'banner.not_translated': 'Esta página aún no está disponible en español. El contenido a continuación está en inglés.',
     'banner.dismiss': 'Cerrar',
+
+    // Feedback
+    'feedback.section_aria': 'Reportar un problema en esta sección',
+    'feedback.page_link': '¿Ve un problema en esta página? Repórtelo en GitHub.',
+    'feedback.orientation_title': 'Ayude a mejorar esta página',
+    'feedback.orientation_hypothesis': 'Resalte cualquier texto en esta página para dejar una anotación. {link} para comenzar.',
+    'feedback.orientation_hypothesis_link': 'Únase a nuestro grupo de revisión',
+    'feedback.orientation_github': 'Si tiene una cuenta de GitHub, haga clic en el icono junto a cada encabezado de sección para reportar un problema específico.',
+    'footer.join_review': 'Unirse al grupo de revisión',
   },
 };

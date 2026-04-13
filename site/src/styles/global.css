@@ -776,10 +776,56 @@ article .data-table.table-wide {
 }
 
 .concept-section h2 {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-sm);
   font-size: 1.35rem;
   margin-bottom: var(--space-md);
   padding-bottom: var(--space-sm);
   border-bottom: 2px solid var(--color-border);
+}
+
+.concept-section h3 {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-sm);
+}
+
+/* Per-section feedback icon (pencil) */
+.section-feedback-link {
+  flex-shrink: 0;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  opacity: 0.4;
+  transition: color 0.15s, opacity 0.15s;
+  line-height: 1;
+}
+
+.section-feedback-link:hover {
+  color: var(--color-accent);
+  opacity: 1;
+  background: none;
+}
+
+/* Page-level feedback link (DocDetail) */
+.page-feedback {
+  margin-top: var(--space-xl);
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+/* Feedback orientation block */
+.feedback-orientation {
+  border-top: 1px solid var(--color-border-light);
+  padding-top: var(--space-lg);
+}
+
+.feedback-orientation p {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
 }
 
 .definition-text {
@@ -2270,7 +2316,11 @@ article .data-table.table-wide {
   .site-nav,
   .site-footer,
   .filter-controls,
-  .btn {
+  .btn,
+  .section-feedback-link,
+  .page-feedback,
+  .feedback-orientation,
+  hypothesis-sidebar {
     display: none !important;
   }
 

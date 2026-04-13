@@ -1,0 +1,43 @@
+---
+import type { Locale } from '../i18n/languages';
+import { useTranslations } from '../i18n/utils';
+
+interface Props {
+  pageType: 'concept' | 'property' | 'vocabulary' | 'system';
+  pageId: string;
+  sectionId: string;
+  sectionLabel: string;
+  locale: Locale;
+  systemName?: string;
+}
+
+const { pageType, pageId, sectionId, sectionLabel, locale, systemName } = Astro.props;
+const t = useTranslations(locale);
+
+const GITHUB_REPO = 'https://github.com/PublicSchema/publicschema.org';
+
+const title = `[${pageType}: ${pageId}] [${locale}] ${sectionLabel}${systemName ? `: ${systemName}` : ''}`;
+const pageUrl = new URL(Astro.url.pathname + '#' + sectionId, Astro.site).href;
+const body = [
+  `**Page:** ${pageUrl}`,
+  `**Locale:** ${locale}`,
+  `**Section:** ${sectionLabel}`,
+  '',
+  '<!-- Describe the issue. Is this a translation problem or a content problem? -->',
+].join('\n');
+
+const params = new URLSearchParams({ title, body, labels: `feedback,lang:${locale}` });
+const issueUrl = `${GITHUB_REPO}/issues/new?${params.toString()}`;
+---
+<a
+  href={issueUrl}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="section-feedback-link"
+  aria-label={t('feedback.section_aria')}
+  title={t('feedback.section_aria')}
+>
+  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M11.5 1.5a2.12 2.12 0 0 1 3 3L5 14H2v-3z"/>
+  </svg>
+</a>
