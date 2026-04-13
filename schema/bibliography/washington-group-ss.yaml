@@ -1,0 +1,23 @@
+id: washington-group-ss
+title: "Washington Group Short Set on Functioning (WG-SS)"
+short_title: "WG-SS"
+publisher: "Washington Group on Disability Statistics"
+year: 2006
+type: international_standard
+domain: general
+uri: "https://www.washingtongroup-disability.com/question-sets/wg-short-set-on-functioning-wg-ss/"
+access: open
+status: active
+
+informs:
+  concepts:
+    - Person
+  vocabularies:
+    - functional-difficulty-severity
+  properties:
+    - difficulty_seeing
+    - difficulty_hearing
+    - difficulty_walking
+    - difficulty_cognition
+    - difficulty_self_care
+    - difficulty_communication

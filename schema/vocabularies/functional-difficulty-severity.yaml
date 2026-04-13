@@ -1,0 +1,64 @@
+id: functional-difficulty-severity
+maturity: draft
+label:
+  en: Functional Difficulty Severity
+definition:
+  en: "The degree of difficulty a person experiences in a functional domain, based on the Washington Group Short Set on Functioning (WG-SS) four-point response scale."
+standard:
+  name: Washington Group Short Set on Functioning (WG-SS)
+  uri: https://www.washingtongroup-disability.com/question-sets/wg-short-set-on-functioning-wg-ss/
+  notes: Endorsed by the UN Statistical Commission. The standard survey instrument for disability measurement in censuses and surveys.
+values:
+- code: no_difficulty
+  label:
+    en: No difficulty
+  definition:
+    en: The person reports no difficulty performing the function.
+- code: some_difficulty
+  label:
+    en: Some difficulty
+  definition:
+    en: The person reports some difficulty but can perform the function.
+- code: a_lot_of_difficulty
+  label:
+    en: A lot of difficulty
+  definition:
+    en: The person reports a lot of difficulty performing the function. This is the lower threshold for the WG recommended disability identifier.
+- code: cannot_do
+  label:
+    en: Cannot do at all
+  definition:
+    en: The person cannot perform the function at all.
+system_mappings:
+  dhs:
+    vocabulary_name: DHS Disability Module response scale
+    values:
+    - code: '1'
+      label: No difficulty
+      maps_to: no_difficulty
+    - code: '2'
+      label: Some difficulty
+      maps_to: some_difficulty
+    - code: '3'
+      label: A lot of difficulty
+      maps_to: a_lot_of_difficulty
+    - code: '4'
+      label: Cannot do at all
+      maps_to: cannot_do
+    note: "DHS optional Disability Module. Uses WG-SS verbatim for persons age 5+. Not included in all DHS surveys."
+  mics:
+    vocabulary_name: MICS6 WG-SS response scale
+    values:
+    - code: '1'
+      label: No difficulty
+      maps_to: no_difficulty
+    - code: '2'
+      label: Some difficulty
+      maps_to: some_difficulty
+    - code: '3'
+      label: A lot of difficulty
+      maps_to: a_lot_of_difficulty
+    - code: '4'
+      label: Cannot do at all
+      maps_to: cannot_do
+    note: "MICS6 Functioning Module (AF1-AF6). Uses WG-SS verbatim for women 18-49 (men in some countries)."

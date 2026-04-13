@@ -38,6 +38,7 @@ properties:
   - cooking_fuel
   - electricity_access
   - household_assets
+  - ict_access
 
 supertypes: [Group]
 subtypes: []

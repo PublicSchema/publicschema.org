@@ -56,6 +56,12 @@ properties:
   - domicile
   - group_memberships
   - biometric_samples
+  - difficulty_seeing
+  - difficulty_hearing
+  - difficulty_walking
+  - difficulty_cognition
+  - difficulty_self_care
+  - difficulty_communication
 
 subtypes: []
 supertypes: [Party]

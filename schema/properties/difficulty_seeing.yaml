@@ -1,0 +1,12 @@
+id: difficulty_seeing
+maturity: draft
+
+definition:
+  en: "The degree of difficulty the person experiences seeing, even when wearing glasses or contact lenses."
+
+type: string
+cardinality: single
+vocabulary: functional-difficulty-severity
+references: null
+category: disability
+sensitivity: sensitive

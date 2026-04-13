@@ -64,6 +64,8 @@ VOCAB_STANDARD_LOOKUP: dict[str, str] = {
     "DHS/MICS Harmonized Housing Codes": "dhs-recode7",
     "UN Principles and Recommendations for Population and Housing Censuses, Rev. 3": "un-census-rev3",
     "WHO Household Energy Database": "who-household-energy",
+    "Washington Group Short Set on Functioning (WG-SS)": "washington-group-ss",
+    "ITU Core ICT Indicators": "itu-core-ict",
 }
 
 SKIPPED_KEYS = {"opencrvs"}

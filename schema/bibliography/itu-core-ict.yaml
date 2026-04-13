@@ -1,0 +1,18 @@
+id: itu-core-ict
+title: "ITU Core ICT Indicators"
+short_title: "ITU Core ICT"
+publisher: "International Telecommunication Union (ITU)"
+year: null
+type: international_standard
+domain: general
+uri: "https://www.itu.int/en/ITU-D/Statistics/Pages/coreindicators/default.aspx"
+access: open
+status: active
+
+informs:
+  concepts:
+    - Household
+  vocabularies:
+    - ict-access
+  properties:
+    - ict_access

@@ -1,0 +1,72 @@
+id: ict-access
+maturity: draft
+label:
+  en: ICT Access
+definition:
+  en: Information and communication technology devices and services accessible to the household, based on ITU Core ICT Indicators.
+standard:
+  name: "ITU Core ICT Indicators"
+  uri: "https://www.itu.int/en/ITU-D/Statistics/Pages/coreindicators/default.aspx"
+  notes: "ITU core household indicators for ICT access monitoring (SDG 17.8.1)."
+see_also:
+- vocabulary: household-asset
+  note: "Mobile phone, television, and radio appear in both vocabularies. household-asset captures wealth proxy indicators; ict-access captures information and communication access."
+values:
+- code: mobile_phone
+  label:
+    en: Mobile phone
+  definition:
+    en: Access to a mobile telephone (basic or smartphone) by any household member.
+- code: computer_tablet
+  label:
+    en: Computer/tablet
+  definition:
+    en: Access to a desktop computer, laptop, or tablet device by any household member.
+- code: internet
+  label:
+    en: Internet
+  definition:
+    en: Access to the internet by any household member, from any device and any location.
+- code: television
+  label:
+    en: Television
+  definition:
+    en: Access to a television set by the household.
+- code: radio
+  label:
+    en: Radio
+  definition:
+    en: Access to a radio receiver by the household.
+system_mappings:
+  dhs:
+    vocabulary_name: "DHS ICT-related variables"
+    values:
+    - code: hv243a
+      label: Mobile telephone
+      maps_to: mobile_phone
+    - code: hv208
+      label: Television
+      maps_to: television
+    - code: hv207
+      label: Radio
+      maps_to: radio
+    unmapped_canonical:
+    - computer_tablet
+    - internet
+    note: "DHS captures mobile phone, TV, and radio as household asset binary indicators. Computer and internet access are not standard DHS recode variables."
+  mics:
+    vocabulary_name: "MICS6 ICT indicators"
+    values:
+    - code: HC12
+      label: Mobile phone
+      maps_to: mobile_phone
+    - code: HC11
+      label: Computer/tablet
+      maps_to: computer_tablet
+    - code: HC13
+      label: Internet access
+      maps_to: internet
+    unmapped_canonical:
+    - television
+    - radio
+    note: "MICS6 HC11-HC13. Television and radio are not part of the standard MICS6 ICT module but may appear in country-specific adaptations."

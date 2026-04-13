@@ -1,0 +1,11 @@
+id: ict_access
+maturity: draft
+
+definition:
+  en: "Information and communication technology devices and services accessible to the household."
+
+type: string
+cardinality: multiple
+vocabulary: ict-access
+references: null
+category: ict
