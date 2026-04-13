@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import ExpandableDefinition from '../ExpandableDefinition.astro';
 import { defaultLocale, type Locale } from '../../i18n/languages';
 import { useTranslations, localePath } from '../../i18n/utils';
 import { loadVocabulary } from '../../data/vocabulary';
@@ -158,7 +159,9 @@ const domainTitles: Record<string, string> = { sp: t('concepts.section_social_pr
                     <> (<a href={localePath(`/vocab/${p.detail.vocabulary}`, locale)}>{p.detail.vocabulary}</a>)</>
                   )}
                 </td>
-                <td data-label={t('concept_detail.table.definition')}>{propDef.slice(0, 80)}{propDef.length > 80 ? '...' : ''}</td>
+                <td data-label={t('concept_detail.table.definition')}>
+                  {propDef && <ExpandableDefinition text={propDef} threshold={80} />}
+                </td>
               </tr>
             );
           })}

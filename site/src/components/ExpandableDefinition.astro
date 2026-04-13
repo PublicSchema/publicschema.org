@@ -1,0 +1,16 @@
+---
+interface Props {
+  text: string;
+  threshold?: number;
+}
+
+const { text, threshold = 100 } = Astro.props;
+const needsExpand = (text?.length ?? 0) > threshold;
+---
+{needsExpand ? (
+  <details class="def-expand">
+    <summary>{text}</summary>
+  </details>
+) : (
+  <Fragment>{text}</Fragment>
+)}

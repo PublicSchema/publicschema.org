@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import ExpandableDefinition from '../ExpandableDefinition.astro';
 import { defaultLocale, type Locale } from '../../i18n/languages';
 import { useTranslations, localePath } from '../../i18n/utils';
 import { loadVocabulary } from '../../data/vocabulary';
@@ -42,7 +43,9 @@ const conceptsByDomain = Object.fromEntries(domainCodes.map((d) => [d, concepts.
       {coreConcepts.map((c) => (
         <tr>
           <td><a href={localePath(c.path, locale)}>{c.id}</a></td>
-          <td data-label={t('concepts.table.definition')}>{(c.definition[locale] ?? c.definition.en)?.slice(0, 100)}{((c.definition[locale] ?? c.definition.en)?.length || 0) > 100 ? "..." : ""}</td>
+          <td data-label={t('concepts.table.definition')}>
+            <ExpandableDefinition text={c.definition[locale] ?? c.definition.en ?? ''} />
+          </td>
         </tr>
       ))}
     </tbody>
@@ -62,7 +65,9 @@ const conceptsByDomain = Object.fromEntries(domainCodes.map((d) => [d, concepts.
           {conceptsByDomain[domain].map((c) => (
             <tr>
               <td><a href={localePath(c.path, locale)}>{c.id}</a></td>
-              <td data-label={t('concepts.table.definition')}>{(c.definition[locale] ?? c.definition.en)?.slice(0, 100)}{((c.definition[locale] ?? c.definition.en)?.length || 0) > 100 ? "..." : ""}</td>
+              <td data-label={t('concepts.table.definition')}>
+                <ExpandableDefinition text={c.definition[locale] ?? c.definition.en ?? ''} />
+              </td>
             </tr>
           ))}
         </tbody>
