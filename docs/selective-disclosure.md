@@ -68,11 +68,11 @@ Selectively disclosable:
 - `enrollment_ref`
 - `payment_amount`, `payment_currency`
 - `delivery_channel`
-- `transaction_reference`
+- `identifiers` (including any transaction_reference entries)
 - `failure_reason`
 - Person identity claims
 
-**Use case**: Proof of payment receipt. An auditor needs to verify payments were made. The holder discloses payment_amount, payment_date, and transaction_reference, but not their personal identity. For failed payments, failure_reason can be disclosed to support dispute resolution.
+**Use case**: Proof of payment receipt. An auditor needs to verify payments were made. The holder discloses payment_amount, payment_date, and the transaction_reference entry from identifiers, but not their personal identity. For failed payments, failure_reason can be disclosed to support dispute resolution.
 
 ### VoucherCredential
 

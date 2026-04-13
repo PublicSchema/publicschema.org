@@ -118,7 +118,9 @@ Two transforms are worth calling out:
 ```json
 {
   "_concept": "CivilStatusRecord",
-  "record_id": "2026-KE-0001337",
+  "identifiers": [
+    { "identifier_type": "birth_registration_number", "identifier_value": "2026-KE-0001337" }
+  ],
   "record_type": "birth",
   "registration_status": "registered",
   "originating_event": { "_ref": "Birth", "_opencrvs_id": "br-0a1c2f" }
@@ -127,7 +129,10 @@ Two transforms are worth calling out:
 
 This record is built from the `registration` sub-object:
 
-- `registrationNumber` becomes `record_id`.
+- `registrationNumber` becomes an entry in `identifiers` with
+  `identifier_type` set to `birth_registration_number` (or
+  `marriage_registration_number` / `death_registration_number` for the
+  other event types).
 - `type` (a `RegistrationType` value, uppercase) is lower-cased and mapped
   through the `civil-status-record-type` vocabulary.
 - The current `registration_status` is the `type` on the most recent entry
@@ -146,7 +151,7 @@ yourself.
   "_concept": "Certificate",
   "certificate_document_type": "birth_certificate",
   "vital_event": { "_ref": "Birth", "_opencrvs_id": "br-0a1c2f" },
-  "civil_status_record": { "_ref": "CivilStatusRecord", "record_id": "2026-KE-0001337" }
+  "civil_status_record": { "_ref": "CivilStatusRecord", "_opencrvs_id": "reg-0a1c2f" }
 }
 ```
 
@@ -182,7 +187,7 @@ A condensed view for `BirthRegistration`:
 | `child.birthDate` | VitalEvent | `event_date` |
 | `child.multipleBirth` | Birth | `birth_order` |
 | `child.gender` | Birth | `sex_at_birth` |
-| `registration.registrationNumber` | CivilStatusRecord | `record_id` |
+| `registration.registrationNumber` | CivilStatusRecord | `identifiers` (as `birth_registration_number`) |
 | `registration.type` | CivilStatusRecord | `record_type` |
 | `registration.status` | VitalEvent | `registration_status` |
 | `registration.certificates` | Certificate | (one record each) |
@@ -205,9 +210,12 @@ When sending data to an OpenCRVS endpoint, invert the routing:
    surrogate); OpenCRVS v1 has no slot for it.
 3. Write the child's `event_date` onto `child.birthDate`.
 4. Build the embedded `registration` sub-object from the
-   `CivilStatusRecord`: `record_id` → `registrationNumber`; `record_type`
-   → `RegistrationType` (upper-cased); current `registration_status` →
-   append a new entry to `status[]` with the mapped `RegStatus`.
+   `CivilStatusRecord`: take the `identifiers` entry whose
+   `identifier_type` matches the registration type (e.g.,
+   `birth_registration_number`) and write its `identifier_value` to
+   `registrationNumber`; map `record_type` to `RegistrationType`
+   (upper-cased); append a new entry to `status[]` with the mapped
+   `RegStatus` from the current `registration_status`.
 5. For each `Certificate`, append an entry to `registration.certificates[]`
    using the locally resolved template id.
 

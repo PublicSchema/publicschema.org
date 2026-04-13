@@ -68,11 +68,11 @@ Divulgable selectivamente:
 - `enrollment_ref`
 - `payment_amount`, `payment_currency`
 - `delivery_channel`
-- `transaction_reference`
+- `identifiers` (incluidas las entradas transaction_reference)
 - `failure_reason`
 - Afirmaciones de identidad de persona
 
-**Caso de uso**: Comprobante de recibo de pago. Un auditor necesita verificar que se realizaron los pagos. La titular divulga payment_amount, payment_date y transaction_reference, pero no su identidad personal. En caso de pagos fallidos, failure_reason puede divulgarse para apoyar la resolución de disputas.
+**Caso de uso**: Comprobante de recibo de pago. Un auditor necesita verificar que se realizaron los pagos. La titular divulga payment_amount, payment_date y la entrada transaction_reference de identifiers, pero no su identidad personal. En caso de pagos fallidos, failure_reason puede divulgarse para apoyar la resolución de disputas.
 
 ### VoucherCredential
 

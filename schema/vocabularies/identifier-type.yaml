@@ -205,6 +205,15 @@ values:
     en: A United Nations code for trade and transport locations, covering seaports, airports, and inland freight terminals.
     fr: Un code des Nations Unies pour les lieux de commerce et de transport, couvrant les ports maritimes, aéroports et terminaux intérieurs de fret.
     es: Un código de las Naciones Unidas para ubicaciones de comercio y transporte, que abarca puertos marítimos, aeropuertos y terminales de carga interiores.
+- code: transaction_reference
+  label:
+    en: Transaction reference
+    fr: Référence de transaction
+    es: Referencia de transacción
+  definition:
+    en: A reference code assigned to a payment transaction by the payment rail (for example, a mobile money operator, a bank, or an agent network). Used to trace or reconcile the payment with the rail that executed it.
+    fr: Un code de référence attribué à une transaction de paiement par le canal de paiement (par exemple, un opérateur d'argent mobile, une banque ou un réseau d'agents). Utilisé pour tracer ou rapprocher le paiement avec le canal qui l'a exécuté.
+    es: Un código de referencia asignado a una transacción de pago por el canal de pago (por ejemplo, un operador de dinero móvil, un banco o una red de agentes). Se utiliza para rastrear o conciliar el pago con el canal que lo ejecutó.
 - code: other
   label:
     en: Other
@@ -245,6 +254,7 @@ system_mappings:
     - fips_code
     - hasc_code
     - un_locode
+    - transaction_reference
     - other
   openimis:
     values:
@@ -275,6 +285,7 @@ system_mappings:
     - fips_code
     - hasc_code
     - un_locode
+    - transaction_reference
     - other
   fhir_r4:
     vocabulary_name: Identifier Type Codes
@@ -362,6 +373,7 @@ system_mappings:
     - fips_code
     - hasc_code
     - un_locode
+    - transaction_reference
     - other
   dci:
     vocabulary_name: IdentifierTypeEnum
@@ -393,4 +405,5 @@ system_mappings:
     - fips_code
     - hasc_code
     - un_locode
+    - transaction_reference
     - other

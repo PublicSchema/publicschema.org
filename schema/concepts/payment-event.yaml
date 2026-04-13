@@ -33,7 +33,6 @@ properties:
   - payment_date
   - payment_status
   - delivery_channel
-  - transaction_reference
   - failure_reason
   - is_reconciled
 

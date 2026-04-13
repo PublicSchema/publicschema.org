@@ -27,7 +27,7 @@ definition:
     como personas, grupos o programas.
 
 properties:
-  - record_id
+  - identifiers
 
 subtypes: [AssessmentEvent, EligibilityDecision, HazardEvent, InKindDelivery, PaymentEvent, Referral, VitalEvent, VoucherRedemption]
 supertypes: []

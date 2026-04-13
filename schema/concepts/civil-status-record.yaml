@@ -30,6 +30,7 @@ definition:
     certificados (los documentos que se producen a partir del acta a solicitud).
 
 properties:
+  - identifiers
   - record_type
   - originating_event
   - annotations

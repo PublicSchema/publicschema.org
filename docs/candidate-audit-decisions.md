@@ -347,8 +347,6 @@ Event is an abstract marker. Subtypes define their own domain-specific dates (pe
 
 For Household, Event, PaymentEvent, Grievance: these genuinely lack strong matches in SEMIC or DCI. Document as verified rather than leaving blank.
 
-> **Later amendment (ADR-005).** D17's thin-Event decision stands. The property referenced in the Problem statement above was subsequently replaced: `identifiers` was removed from Event and `record_id` added in its place. D17's rationale (Event as an abstract marker whose subtypes define their own specifics) was not changed. See [ADR-005](../decisions/005-event-identifier-split.md) for the rationale of the swap: the credential-shaped `Identifier` concept fits Party but not Event, which needs a single system-assigned string rather than a list of credentials.
-
 ### Changes required
 
 - [x] Add `external_equivalents` to Household, Event, PaymentEvent, Grievance with notes explaining why no close match exists (or add the closest match if one exists)

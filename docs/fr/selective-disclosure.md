@@ -68,11 +68,11 @@ Sélectivement divulgable :
 - `enrollment_ref`
 - `payment_amount`, `payment_currency`
 - `delivery_channel`
-- `transaction_reference`
+- `identifiers` (y compris toute entrée transaction_reference)
 - `failure_reason`
 - Affirmations d'identité de la Personne
 
-**Cas d'utilisation** : Preuve de réception de paiement. Un auditeur doit vérifier que les paiements ont été effectués. Le détenteur divulgue payment_amount, payment_date et transaction_reference, mais pas son identité personnelle. Pour les paiements échoués, failure_reason peut être divulgué pour soutenir la résolution des litiges.
+**Cas d'utilisation** : Preuve de réception de paiement. Un auditeur doit vérifier que les paiements ont été effectués. Le détenteur divulgue payment_amount, payment_date et l'entrée transaction_reference de identifiers, mais pas son identité personnelle. Pour les paiements échoués, failure_reason peut être divulgué pour soutenir la résolution des litiges.
 
 ### VoucherCredential
 

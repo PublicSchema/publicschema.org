@@ -84,7 +84,8 @@ concept_matches:
         notes: "Gender enum value-mapped via the sex vocabulary system_mappings."
       - opencrvs_field: registration.registrationNumber
         target_concept: CivilStatusRecord
-        target_property: record_id
+        target_property: identifiers
+        notes: "Maps to an Identifier entry with identifier_type=birth_registration_number."
       - opencrvs_field: registration.type
         target_concept: CivilStatusRecord
         target_property: record_type
@@ -149,7 +150,8 @@ concept_matches:
         notes: "OpenCRVS uses a dedicated MedicalPractitioner entity; ours is a Person reference."
       - opencrvs_field: registration.registrationNumber
         target_concept: CivilStatusRecord
-        target_property: record_id
+        target_property: identifiers
+        notes: "Maps to an Identifier entry with identifier_type=death_registration_number."
       - opencrvs_field: registration.type
         target_concept: CivilStatusRecord
         target_property: record_type
@@ -201,7 +203,8 @@ concept_matches:
         notes: "Country-configured String on OpenCRVS side."
       - opencrvs_field: registration.registrationNumber
         target_concept: CivilStatusRecord
-        target_property: record_id
+        target_property: identifiers
+        notes: "Maps to an Identifier entry with identifier_type=marriage_registration_number."
       - opencrvs_field: registration.type
         target_concept: CivilStatusRecord
         target_property: record_type
@@ -228,7 +231,8 @@ concept_matches:
     decomposition:
       - opencrvs_field: registrationNumber
         target_concept: CivilStatusRecord
-        target_property: record_id
+        target_property: identifiers
+        notes: "Maps to an Identifier entry whose identifier_type follows the registration type (birth_registration_number / marriage_registration_number / death_registration_number)."
       - opencrvs_field: type
         target_concept: CivilStatusRecord
         target_property: record_type
