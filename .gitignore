@@ -23,6 +23,12 @@ plans/
 .plans/
 research/
 review-*.md
+ideas/
+reviews/
+reports/
+docs/*research*.md
+docs/*audit*.md
+external/*/research.md
 
 # AI assistant config (local only)
 CLAUDE.md
