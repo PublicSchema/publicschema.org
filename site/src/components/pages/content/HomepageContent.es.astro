@@ -101,10 +101,10 @@ const {
 <div class="h3-prose">
   <h2>Por qué importa un vocabulario compartido</h2>
   <p>
-    Una madre inscrita en un programa de transferencias monetarias debería tener acceso
-    automático a un beneficio de salud materna. Pero los dos sistemas definen
-    "género" de manera diferente, "hogar" de manera diferente y "estado de inscripción"
-    de manera diferente. La remisión requiere un ejercicio manual de mapeo
+    Un programa de protección social quiere derivar a beneficiarios con discapacidad
+    hacia un servicio de apoyo especializado. Pero los dos sistemas no coinciden en
+    qué significa "discapacidad", cómo se estructura un "hogar", ni qué representa
+    el estado "inscrito". La derivación requiere un ejercicio manual de mapeo
     que puede llevar semanas e introduce errores.
   </p>
 
@@ -120,22 +120,22 @@ const {
       <tbody>
         <tr>
           <td>Sistema A</td>
-          <td><code>gender</code></td>
-          <td><code>1</code>, <code>2</code>, <code>3</code></td>
+          <td><code>has_disability</code></td>
+          <td><code>yes</code>, <code>no</code></td>
         </tr>
         <tr>
           <td>Sistema B</td>
-          <td><code>sex</code></td>
-          <td><code>M</code>, <code>F</code>, <code>O</code></td>
+          <td><code>disability_level</code></td>
+          <td>Conjunto corto del Washington Group (6 dominios, 4 niveles de severidad cada uno)</td>
         </tr>
         <tr>
           <td>Sistema C</td>
-          <td><code>gender_identity</code></td>
-          <td><code>male</code>, <code>female</code>, <code>non-binary</code>, <code>prefer_not_to_say</code></td>
+          <td><code>medical_condition</code></td>
+          <td>Códigos diagnósticos CIE-10</td>
         </tr>
       </tbody>
     </table>
-    <p class="h3-example-caption">El mismo concepto. Tres sistemas. Tres representaciones incompatibles.</p>
+    <p class="h3-example-caption">El mismo concepto. Tres sistemas. Tres modelos fundamentalmente diferentes.</p>
   </div>
 
   <p>
@@ -144,11 +144,12 @@ const {
     frágil y el proceso se reinicia cada vez que un sistema se actualiza.
   </p>
   <p>
-    Peor aún, algunos mapeos no son solo lentos sino que conllevan pérdida de información.
-    El Sistema C distingue <code>non-binary</code> y <code>prefer_not_to_say</code>; el Sistema A tiene
-    tres códigos numéricos. Ningún mapeo puede preservar esa distinción. Se pierde información
-    y las decisiones posteriores se toman sobre datos distorsionados. Las definiciones compartidas no
-    solo ahorran tiempo; hacen posible el intercambio preciso desde el principio.
+    Estos no son problemas que se resuelvan con una tabla de correspondencia. No se pueden
+    recuperar los niveles de severidad del Washington Group a partir de un booleano sí/no, y los
+    códigos diagnósticos CIE-10 miden algo distinto a ambos. Mientras tanto, un sistema modela
+    el hogar como un grupo con roles (jefe, cónyuge, dependiente); otro lo almacena como campos
+    individuales en un solo registro. Los conceptos mismos no se alinean. Las definiciones compartidas
+    no solo ahorran tiempo; hacen posible el intercambio preciso desde el principio.
   </p>
 
   <div class="h3-diagram">
@@ -193,6 +194,12 @@ const {
       </div>
     </div>
   </div>
+
+  <p>
+    PublicSchema no prescribe qué representación es la correcta. Le ofrece un punto
+    de referencia común para ver las diferencias, decidir qué se adapta a su contexto,
+    y extenderlo donde sus programas lo necesiten. Adopte lo que funcione; deje el resto.
+  </p>
 </div>
 
 <!-- Where it fits -->

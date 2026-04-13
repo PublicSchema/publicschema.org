@@ -101,11 +101,11 @@ const {
 <div class="h3-prose">
   <h2>Pourquoi un vocabulaire partagé est essentiel</h2>
   <p>
-    Une mère inscrite à un programme de transfert monétaire devrait automatiquement être éligible
-    à une prestation de santé maternelle. Mais les deux systèmes définissent le « genre »
-    différemment, le « ménage » différemment, et le « statut d'inscription » différemment.
-    Le renvoi vers la prestation de santé nécessite alors un exercice de mise en correspondance
-    manuelle, qui prend des semaines et génère des erreurs.
+    Un programme de protection sociale souhaite orienter des bénéficiaires en situation de handicap
+    vers un service d'accompagnement spécialisé. Mais les deux systèmes ne s'accordent pas
+    sur ce que signifie « handicap », sur la structure d'un « ménage », ni sur ce que représente
+    le statut « inscrit ». L'orientation nécessite un exercice de mise en correspondance manuelle,
+    qui prend des semaines et génère des erreurs.
   </p>
 
   <div class="h3-example">
@@ -120,22 +120,22 @@ const {
       <tbody>
         <tr>
           <td>Système A</td>
-          <td><code>gender</code></td>
-          <td><code>1</code>, <code>2</code>, <code>3</code></td>
+          <td><code>has_disability</code></td>
+          <td><code>yes</code>, <code>no</code></td>
         </tr>
         <tr>
           <td>Système B</td>
-          <td><code>sex</code></td>
-          <td><code>M</code>, <code>F</code>, <code>O</code></td>
+          <td><code>disability_level</code></td>
+          <td>Ensemble court du Washington Group (6 domaines, 4 niveaux de sévérité chacun)</td>
         </tr>
         <tr>
           <td>Système C</td>
-          <td><code>gender_identity</code></td>
-          <td><code>male</code>, <code>female</code>, <code>non-binary</code>, <code>prefer_not_to_say</code></td>
+          <td><code>medical_condition</code></td>
+          <td>Codes diagnostiques CIM-10</td>
         </tr>
       </tbody>
     </table>
-    <p class="h3-example-caption">Le même concept. Trois systèmes. Trois représentations incompatibles.</p>
+    <p class="h3-example-caption">Le même concept. Trois systèmes. Trois modèles fondamentalement différents.</p>
   </div>
 
   <p>
@@ -144,11 +144,13 @@ const {
     fragile, et tout recommence à zéro à chaque mise à niveau d'un système.
   </p>
   <p>
-    Pire encore, certaines correspondances ne sont pas seulement lentes mais entraînent des pertes d'information. Le système C distingue
-    <code>non-binary</code> et <code>prefer_not_to_say</code> ; le système A possède
-    trois codes numériques. Aucune correspondance ne peut préserver cette distinction. L'information
-    est perdue, et les décisions en aval sont prises sur des données déformées. Les définitions partagées
-    ne font pas qu'économiser du temps ; elles rendent tout simplement possible un échange précis.
+    Ce ne sont pas des problèmes qu'une simple table de correspondance peut résoudre. On ne peut pas
+    retrouver les niveaux de sévérité du Washington Group à partir d'un booléen oui/non, et les codes
+    diagnostiques CIM-10 mesurent autre chose que les deux premiers. Par ailleurs, un système modélise
+    le ménage comme un groupe avec des rôles (chef, conjoint, personne à charge) ; un autre le stocke
+    sous forme de champs individuels sur un seul enregistrement. Les concepts eux-mêmes ne s'alignent pas.
+    Les définitions partagées ne font pas qu'économiser du temps ; elles rendent tout simplement possible
+    un échange précis.
   </p>
 
   <div class="h3-diagram">
@@ -193,6 +195,13 @@ const {
       </div>
     </div>
   </div>
+
+  <p>
+    PublicSchema ne prescrit pas quelle représentation est la bonne. Il vous offre
+    un point de référence commun pour voir les différences, choisir ce qui correspond
+    à votre contexte, et l'étendre là où vos programmes en ont besoin. Adoptez ce qui
+    fonctionne ; laissez le reste.
+  </p>
 </div>
 
 <!-- Where it fits -->

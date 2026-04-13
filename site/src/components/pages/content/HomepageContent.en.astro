@@ -101,11 +101,11 @@ const {
 <div class="h3-prose">
   <h2>Why a shared vocabulary matters</h2>
   <p>
-    A mother enrolled in a cash transfer program should automatically qualify
-    for a maternal health benefit. But the two systems define "gender"
-    differently, "household" differently, and "enrollment status" differently.
-    The referral requires a manual mapping exercise that takes weeks and
-    introduces errors.
+    A social protection program wants to refer beneficiaries with disabilities
+    to a specialized support service. But the two systems don't agree on what
+    "disability" means, how a "household" is structured, or what "enrolled"
+    looks like. The referral requires a manual mapping exercise that takes
+    weeks and introduces errors.
   </p>
 
   <div class="h3-example">
@@ -120,22 +120,22 @@ const {
       <tbody>
         <tr>
           <td>System A</td>
-          <td><code>gender</code></td>
-          <td><code>1</code>, <code>2</code>, <code>3</code></td>
+          <td><code>has_disability</code></td>
+          <td><code>yes</code>, <code>no</code></td>
         </tr>
         <tr>
           <td>System B</td>
-          <td><code>sex</code></td>
-          <td><code>M</code>, <code>F</code>, <code>O</code></td>
+          <td><code>disability_level</code></td>
+          <td>Washington Group short set (6 domains, 4 severity levels each)</td>
         </tr>
         <tr>
           <td>System C</td>
-          <td><code>gender_identity</code></td>
-          <td><code>male</code>, <code>female</code>, <code>non-binary</code>, <code>prefer_not_to_say</code></td>
+          <td><code>medical_condition</code></td>
+          <td>ICD-10 diagnostic codes</td>
         </tr>
       </tbody>
     </table>
-    <p class="h3-example-caption">Same concept. Three systems. Three incompatible representations.</p>
+    <p class="h3-example-caption">Same concept. Three systems. Three fundamentally different models.</p>
   </div>
 
   <p>
@@ -144,12 +144,13 @@ const {
     fragile, and starts over every time a system upgrades.
   </p>
   <p>
-    Worse, some mappings are not just slow but lossy. System C distinguishes
-    <code>non-binary</code> and <code>prefer_not_to_say</code>; System A has
-    three numeric codes. No mapping can preserve that distinction. Information
-    is lost, and downstream decisions are made on distorted data. Shared
-    definitions don't just save time; they make accurate exchange possible
-    in the first place.
+    These aren't problems you solve with a lookup table. You cannot recover
+    Washington Group severity categories from a yes/no boolean, and ICD-10
+    diagnostic codes measure something different from either. Meanwhile, one
+    system models a household as a group with roles (head, spouse, dependent);
+    another stores it as flat fields on a single record. The concepts themselves
+    don't align. Shared definitions don't just save time; they make accurate
+    exchange possible in the first place.
   </p>
 
   <div class="h3-diagram">
@@ -194,6 +195,13 @@ const {
       </div>
     </div>
   </div>
+
+  <p>
+    PublicSchema does not prescribe which representation is correct. It gives
+    you a common reference point so you can see the differences, decide what
+    fits your context, and extend it where your programs need more. Adopt the
+    parts that work; leave the rest.
+  </p>
 </div>
 
 <!-- Where it fits -->
