@@ -449,6 +449,7 @@ class TestDemographicVocabularies:
             "employee",
             "employer",
             "own_account_worker",
+            "dependent_contractor",
             "contributing_family_worker",
             "cooperative_member",
         }
