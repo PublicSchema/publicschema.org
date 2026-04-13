@@ -18,7 +18,7 @@ Not all vocabulary values belong in credentials.
 
 **Stable facts, not transient states.** A VC should attest to facts that remain meaningful over time ("this person is eligible"), not process states that change within hours ("this application is under review").
 
-**No draft values in production credentials.** A draft value's meaning may change. Issuers should only use values at trial-use or normative maturity.
+**No draft values in production credentials.** A draft value's meaning may change. Issuers should only use values at candidate or normative maturity.
 
 **Identifier type alone is insufficient.** `identifier_type: national_id` is meaningless without the issuing jurisdiction and identifier scheme. Vocabularies used in credentials should document what additional context is needed.
 

@@ -13,7 +13,7 @@ const { locale = defaultLocale } = Astro.props;
 const t = useTranslations(locale);
 
 const vocab = loadVocabulary();
-const maturityRank: Record<string, number> = { normative: 0, "trial-use": 1, draft: 2 };
+const maturityRank: Record<string, number> = { normative: 0, candidate: 1, draft: 2 };
 // Vocabularies are keyed by their canonical reference form (`<domain>/<id>`
 // for domain-scoped vocabs, bare `<id>` for universal ones). Using the key
 // rather than `v.id` keeps CRVS and other domain-prefixed routes working.

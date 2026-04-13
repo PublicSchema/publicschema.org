@@ -43,7 +43,7 @@ If a formal code system exists, reference it. Three levels:
 
 When a vocabulary is synced from an international standard and systems use that standard's codes directly, `same_standard_systems` is sufficient in place of value-level `system_mappings`. This applies to large code lists (countries, currencies, languages) where the standard is the de facto interoperability layer.
 
-A vocabulary with no `standard`, no `references`, and no `system_mappings` is unvalidated. Acceptable at draft maturity; must be resolved before trial use.
+A vocabulary with no `standard`, no `references`, and no `system_mappings` is unvalidated. Acceptable at draft maturity; must be resolved before candidate.
 
 Do not adopt a standard's codes when they don't serve the audience. ISO 20022 codes (RCVD, ACTC, ACSP) are for interbank messaging. Use readable codes; map to the standard.
 

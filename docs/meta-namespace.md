@@ -10,7 +10,7 @@ These terms describe the vocabulary itself (maturity, domain, cardinality) rathe
 
 | Term | Used on | Type | Description |
 |---|---|---|---|
-| `ps:maturity` | Concepts, properties, vocabularies, vocabulary values | `string` | Lifecycle stage: `draft`, `trial_use`, or `normative`. |
+| `ps:maturity` | Concepts, properties, vocabularies, vocabulary values | `string` | Lifecycle stage: `draft`, `candidate`, or `normative`. |
 | `ps:domain` | Concepts, properties, vocabularies | `string` or `null` | Domain namespace code (`sp`, `edu`, `health`, `crvs`). Null for universal terms. |
 | `ps:cardinality` | Properties | `string` | Whether the property accepts a single value (`single`) or multiple values (`multiple`). |
 | `ps:vocabulary` | Properties | `URI` | URI of the controlled vocabulary that constrains this property's values. |

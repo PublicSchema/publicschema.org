@@ -1,5 +1,5 @@
 id: is_enrolled
-maturity: trial-use
+maturity: candidate
 
 definition:
   en: "Whether the person is currently enrolled in a program. Designed for verifiable credentials where enrollment status must be disclosed without revealing the specific program or detailed enrollment state. For operational queries, use enrollment_status instead."

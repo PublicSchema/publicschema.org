@@ -14,7 +14,7 @@ const { locale = defaultLocale } = Astro.props;
 const t = useTranslations(locale);
 
 const vocab = loadVocabulary();
-const maturityRank: Record<string, number> = { normative: 0, 'trial-use': 1, draft: 2 };
+const maturityRank: Record<string, number> = { normative: 0, candidate: 1, draft: 2 };
 const byMaturityThenName = (a: { maturity: string; id: string }, b: { maturity: string; id: string }) =>
   (maturityRank[a.maturity] ?? 9) - (maturityRank[b.maturity] ?? 9) || a.id.localeCompare(b.id);
 const concepts = Object.values(vocab.concepts).sort(byMaturityThenName);

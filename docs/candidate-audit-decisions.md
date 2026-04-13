@@ -138,7 +138,7 @@ A boolean (`is_reconciled`) is the right granularity for now:
 
 ### Deprecation path
 
-Since `reconciled` is a trial-use value, removing it requires advance notice (per versioning rules). The path:
+Since `reconciled` is a candidate value, removing it requires advance notice (per versioning rules). The path:
 
 1. Add `is_reconciled` boolean property to PaymentEvent.
 2. Mark `reconciled` value in payment-status as deprecated, with a note: "Use the `is_reconciled` property instead. This value will be removed in a future major version."
@@ -262,11 +262,11 @@ Four vocabulary coarseness warnings. Decided per item:
 
 ---
 
-## Decision 13: grievance-type at trial-use with zero system mappings
+## Decision 13: grievance-type at candidate with zero system mappings
 
-**Problem:** Weakest evidence base of any trial-use vocabulary. No system_mappings, only literature references.
+**Problem:** Weakest evidence base of any candidate vocabulary. No system_mappings, only literature references.
 
-**Decision: Keep at trial-use. Add mappings where possible.** The codes are well-grounded in World Bank and ISO 10002 literature. The gap is in our mapping work, not in the concepts.
+**Decision: Keep at candidate. Add mappings where possible.** The codes are well-grounded in World Bank and ISO 10002 literature. The gap is in our mapping work, not in the concepts.
 
 ### Changes required
 
@@ -291,7 +291,7 @@ None.
 
 **Problem:** entitlement-status has 1 system mapping, group-role has 2.
 
-**Decision: Keep at trial-use. Add mappings.** The gap is in our mapping work, not in the concepts.
+**Decision: Keep at candidate. Add mappings.** The gap is in our mapping work, not in the concepts.
 
 ### Changes required
 
@@ -395,7 +395,7 @@ None.
 | 10 | Add `partial` to payment-status; keep others coarse | None | payment-status vocab |
 | 11 | Promote `non_relative` to relationship-type | None | relationship-type vocab |
 | 12 | Rewrite gender-type `other` definition | None | gender-type vocab |
-| 13 | Keep grievance-type trial-use, add mappings | None | Research task |
+| 13 | Keep grievance-type candidate, add mappings | None | Research task |
 | 14 | Omit domain field (universal by default) | None | No change |
 | 15 | Keep thin-evidence vocabs, add mappings | None | Research task |
 | 16 | Map FHIR P to `married`, add `number_of_spouses` property | `number_of_spouses.yaml` | marital-status + Person |

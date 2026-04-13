@@ -1,8 +1,8 @@
 # Trial-Use Audit Findings
 
-Audit date: 2026-04-12. Scope: 14 trial-use concepts, 98 properties, 19 vocabularies.
+Audit date: 2026-04-12. Scope: 14 candidate concepts, 98 properties, 19 vocabularies.
 
-Severity key: **FAIL** = violates a trial-use gate or design principle. **WARN** = suspicious, worth fixing. **INFO** = observation, may not need action.
+Severity key: **FAIL** = violates a candidate gate or design principle. **WARN** = suspicious, worth fixing. **INFO** = observation, may not need action.
 
 ---
 
@@ -246,7 +246,7 @@ Severity key: **FAIL** = violates a trial-use gate or design principle. **WARN**
 
 ### FAIL
 
-- [x] **conditionality_type property: broken vocabulary path.** References `conditionality-type` (root-level), actual file at `schema/vocabularies/sp/conditionality-type.yaml`. Affects draft Program concept only, not the 14 trial-use concepts. (`schema/properties/conditionality_type.yaml`)
+- [x] **conditionality_type property: broken vocabulary path.** References `conditionality-type` (root-level), actual file at `schema/vocabularies/sp/conditionality-type.yaml`. Affects draft Program concept only, not the 14 candidate concepts. (`schema/properties/conditionality_type.yaml`)
 
 - [x] **targeting_approach property: broken vocabulary path.** References `targeting-approach` (root-level), actual file at `schema/vocabularies/sp/targeting-approach.yaml`. Same scope as above. (`schema/properties/targeting_approach.yaml`)
 

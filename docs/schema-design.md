@@ -11,7 +11,7 @@ Casing encodes element type:
 | Vocabulary value codes | snake_case | never_married, bank_transfer |
 | Vocabulary identifiers | kebab-case | gender-type, enrollment-status |
 
-Enforced by JSON Schema regex validators. Once a name is published at trial-use or above, it cannot be changed.
+Enforced by JSON Schema regex validators. Once a name is published at candidate or above, it cannot be changed.
 
 ## 2. Domain-scoped URIs
 
@@ -33,7 +33,7 @@ Names are never prefixed with a domain abbreviation. It is `Enrollment`, not `SP
 
 ## 3. URI persistence
 
-Every element gets a stable URI. Once published at trial-use or above, a URI will not be removed. Deprecated terms continue to resolve with metadata indicating the replacement. See [Versioning and Maturity](../versioning-and-maturity/) for the full model.
+Every element gets a stable URI. Once published at candidate or above, a URI will not be removed. Deprecated terms continue to resolve with metadata indicating the replacement. See [Versioning and Maturity](../versioning-and-maturity/) for the full model.
 
 ## 4. Concept, property, or vocabulary
 

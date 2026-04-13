@@ -17,10 +17,10 @@ Every concept, property, and vocabulary value carries a maturity level:
 | Level | Meaning | What can change |
 |---|---|---|
 | **Draft** | Proposed, open for feedback. | May be renamed, restructured, or removed. |
-| **Trial use** | Stable enough for early adopters. | Breaking changes require advance notice. |
+| **Candidate** | Stable enough for early adopters. | Breaking changes require advance notice. |
 | **Normative** | Locked. Production-safe. | Changes require a new URI. |
 
-Maturity progresses in one direction. A concept at trial use will not regress to draft. Three levels (not five, as in FHIR's FMM 0-5) map to a clear mental model: experimental, early adopter, stable.
+Maturity progresses in one direction. A concept at candidate will not regress to draft. Three levels (not five, as in FHIR's FMM 0-5) map to a clear mental model: experimental, early adopter, stable.
 
 Maturity applies to individual vocabulary values, not just vocabularies. A normative vocabulary can contain a draft value. Draft values should not appear in production credentials.
 
@@ -30,15 +30,15 @@ Semver on `_meta.yaml`:
 
 - **Patch** (0.1.1): fix definitions, add translations, fix system mappings.
 - **Minor** (0.2.0): add concepts, properties, or vocabularies. Promote maturity levels.
-- **Major** (1.0.0): breaking changes to trial-use or normative entities.
+- **Major** (1.0.0): breaking changes to candidate or normative entities.
 
-A release is a heterogeneous snapshot: version 0.3.0 may contain normative, trial-use, and draft entities. The release version says nothing about individual entity stability; the maturity field does.
+A release is a heterogeneous snapshot: version 0.3.0 may contain normative, candidate, and draft entities. The release version says nothing about individual entity stability; the maturity field does.
 
 ## How things evolve
 
 **Adding values is safe.** Existing consumers that don't recognize a new code will ignore it.
 
-**Renaming or removing values is breaking.** At draft: acceptable with notice. At trial use: requires deprecation period. At normative: requires a new vocabulary version.
+**Renaming or removing values is breaking.** At draft: acceptable with notice. At candidate: requires deprecation period. At normative: requires a new vocabulary version.
 
 **When a new domain is added:**
 
@@ -57,7 +57,7 @@ Every element gets a stable URI:
 - Properties: `https://publicschema.org/given_name`
 - Vocabularies: `https://publicschema.org/vocab/gender-type`
 
-Once published at trial use or above, a URI will not be removed. Deprecated terms continue to resolve with metadata indicating the replacement.
+Once published at candidate or above, a URI will not be removed. Deprecated terms continue to resolve with metadata indicating the replacement.
 
 ## Licensing
 

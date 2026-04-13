@@ -47,8 +47,8 @@
   /* Maturity level colors */
   --color-draft: #92400e;
   --color-draft-bg: #fef9c3;
-  --color-trial-use: #92400e;
-  --color-trial-use-bg: #fef3c7;
+  --color-candidate: #92400e;
+  --color-candidate-bg: #fef3c7;
   --color-normative: #166534;
   --color-normative-bg: #dcfce7;
 
@@ -613,7 +613,7 @@ code {
 
 /* Maturity levels */
 .badge-draft { background: var(--color-draft-bg); color: var(--color-draft); }
-.badge-trial-use { background: var(--color-trial-use-bg); color: var(--color-trial-use); }
+.badge-candidate { background: var(--color-candidate-bg); color: var(--color-candidate); }
 .badge-normative { background: var(--color-normative-bg); color: var(--color-normative); }
 
 /* Abstract supertypes */

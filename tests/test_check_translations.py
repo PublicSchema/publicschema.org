@@ -103,13 +103,13 @@ class TestExtractUiKeys:
 
 
 class TestCheckSchema:
-    def test_requires_fr_es_for_trial_use_concept(self, tmp_path: Path):
+    def test_requires_fr_es_for_candidate_concept(self, tmp_path: Path):
         (tmp_path / "concepts").mkdir()
         path = tmp_path / "concepts" / "person.yaml"
         path.write_text(textwrap.dedent(
             """\
             id: Person
-            maturity: trial-use
+            maturity: candidate
             definition:
               en: A person.
             """
@@ -133,13 +133,13 @@ class TestCheckSchema:
         report = ct.check_schema(tmp_path)
         assert report.ok
 
-    def test_accepts_trial_use_with_translations(self, tmp_path: Path):
+    def test_accepts_candidate_with_translations(self, tmp_path: Path):
         (tmp_path / "properties").mkdir()
         path = tmp_path / "properties" / "name.yaml"
         path.write_text(textwrap.dedent(
             """\
             id: name
-            maturity: trial-use
+            maturity: candidate
             definition:
               en: A name.
               fr: Un nom.
@@ -155,7 +155,7 @@ class TestCheckSchema:
         path.write_text(textwrap.dedent(
             """\
             id: sex
-            maturity: stable
+            maturity: normative
             definition:
               en: Sex.
               fr: ""
@@ -259,7 +259,7 @@ class TestRunAllOnRepo:
         report = ct.check_ui_dictionary()
         assert report.ok, "UI dictionary has missing keys: " + "; ".join(report.errors)
 
-    def test_schema_definitions_complete_for_trial_use(self):
+    def test_schema_definitions_complete_for_candidate(self):
         report = ct.check_schema()
         assert report.ok, (
             "Schema definitions incomplete:\n"

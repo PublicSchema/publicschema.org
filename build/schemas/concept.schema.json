@@ -13,7 +13,7 @@
     },
     "maturity": {
       "type": "string",
-      "enum": ["draft", "trial-use", "normative"]
+      "enum": ["draft", "candidate", "normative"]
     },
     "label": {
       "$ref": "#/$defs/multilingual_text",

@@ -1,5 +1,5 @@
 id: record_id
-maturity: trial-use
+maturity: candidate
 
 definition:
   en: "The identifier assigned to this record by the system that created it. Used to reference the record internally; distinct from any externally meaningful business reference (for example, a payment transaction number or a civil registration number) that may also be present."

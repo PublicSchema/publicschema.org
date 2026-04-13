@@ -19,7 +19,7 @@ Two orthogonal versioning axes:
 Three levels, inspired by FHIR's maturity model:
 
 - **draft:** Experimental. May change without notice.
-- **trial-use:** Stable enough for early adopters. Breaking changes require a deprecation notice.
+- **candidate:** Stable enough for early adopters. Breaking changes require a deprecation notice.
 - **normative:** Locked. Breaking changes require a new URI.
 
 ### 2. Release versioning (what snapshot?)
@@ -28,9 +28,9 @@ Semver applied to the vocabulary as a whole (`_meta.yaml` version field):
 
 - **Patch** (0.1.1): fix definitions, add translations, fix system mappings.
 - **Minor** (0.2.0): add new concepts, properties, or vocabularies. Promote entity maturity levels.
-- **Major** (1.0.0): reserved for when normative content exists. Breaking changes to trial-use or normative entities require a major bump.
+- **Major** (1.0.0): reserved for when normative content exists. Breaking changes to candidate or normative entities require a major bump.
 
-A release is a heterogeneous snapshot: version 0.3.0 may contain 5 normative concepts, 12 trial-use, and 8 draft. The release version says nothing about individual entity stability; the maturity field does.
+A release is a heterogeneous snapshot: version 0.3.0 may contain 5 normative concepts, 12 candidate, and 8 draft. The release version says nothing about individual entity stability; the maturity field does.
 
 The JSON-LD context URL tracks releases: `ctx/draft.jsonld` during pre-release, then `ctx/v0.1.jsonld`, `ctx/v1.jsonld`, etc. Older context versions remain resolvable indefinitely.
 

@@ -15,7 +15,7 @@ Based on research into international standards, review by two domain experts (so
 
 ### 1. No structural splits
 
-We will not split payment-status, eligibility-status, or delivery-channel into multiple vocabularies. A single clean lifecycle vocabulary works cross-domain when the values are domain-neutral and well-scoped. If a future domain surfaces a genuine semantic conflict that cannot be resolved with value-level annotations, the split can be introduced at trial-use maturity. (Principle 2: do not split prematurely.)
+We will not split payment-status, eligibility-status, or delivery-channel into multiple vocabularies. A single clean lifecycle vocabulary works cross-domain when the values are domain-neutral and well-scoped. If a future domain surfaces a genuine semantic conflict that cannot be resolved with value-level annotations, the split can be introduced at candidate maturity. (Principle 2: do not split prematurely.)
 
 ### 2. Universal by default, domain-scoped by exception
 
@@ -309,7 +309,7 @@ references:
     uri: "https://www.iso20022.org/catalogue-messages/additional-content-messages/external-code-sets"
     relationship: superset
     machine_readable: true
-    notes: "ISO 20022 defines granular interbank processing states. This vocabulary is a deliberate high-level simplification. May split into processing and settlement dimensions at trial-use maturity as cross-domain use cases require finer granularity."
+    notes: "ISO 20022 defines granular interbank processing states. This vocabulary is a deliberate high-level simplification. May split into processing and settlement dimensions at candidate maturity as cross-domain use cases require finer granularity."
   - name: "Mojaloop FSPIOP TransferState"
     uri: "https://docs.mojaloop.io/technical/api/fspiop/logical-data-model.html"
     relationship: partial_overlap

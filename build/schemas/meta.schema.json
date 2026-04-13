@@ -18,7 +18,7 @@
     },
     "maturity": {
       "type": "string",
-      "enum": ["draft", "trial-use", "normative"]
+      "enum": ["draft", "candidate", "normative"]
     },
     "languages": {
       "type": "array",

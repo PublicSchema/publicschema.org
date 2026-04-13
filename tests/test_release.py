@@ -18,7 +18,7 @@ def release_env(tmp_path):
         "name": "TestSchema",
         "base_uri": "https://test.example.org/",
         "version": "0.2.0",
-        "maturity": "trial-use",
+        "maturity": "candidate",
         "languages": ["en", "fr", "es"],
         "license": "CC-BY-4.0",
     }
@@ -63,7 +63,7 @@ class TestCreateRelease:
         assert len(versions["releases"]) == 1
         entry = versions["releases"][0]
         assert entry["version"] == "0.2.0"
-        assert entry["maturity"] == "trial-use"
+        assert entry["maturity"] == "candidate"
         assert "date" in entry
 
     def test_appends_to_existing_versions_json(self, release_env):

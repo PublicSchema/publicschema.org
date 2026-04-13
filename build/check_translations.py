@@ -13,7 +13,7 @@ Runs four independent checks, each emitting warnings and/or errors:
    translated" warning.
 3. **Prose components:** same timestamp comparison for
    ``site/src/components/pages/content/*Content.{en,fr,es}.astro``.
-4. **Schema definitions:** every trial-use or stable concept, property,
+4. **Schema definitions:** every candidate or normative concept, property,
    and vocabulary YAML must carry a non-empty ``definition`` entry in
    ``fr`` and ``es``. Draft entries are skipped.
 
@@ -41,7 +41,7 @@ DOCS_MANIFEST_PATH = Path("site/src/data/docs.ts")
 PROSE_DIR = Path("site/src/components/pages/content")
 SCHEMA_DIR = Path("schema")
 LOCALES: tuple[str, ...] = ("fr", "es")
-MATURITY_REQUIRES_TRANSLATION: tuple[str, ...] = ("trial-use", "stable")
+MATURITY_REQUIRES_TRANSLATION: tuple[str, ...] = ("candidate", "normative")
 
 
 # ---------------------------------------------------------------------------

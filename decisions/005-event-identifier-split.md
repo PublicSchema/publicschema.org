@@ -20,7 +20,7 @@ The mismatch was visible in practice:
 
 External standards handle this split explicitly. FHIR gives every resource a `Resource.id` (a single system-assigned string, the logical id) and a separate `Resource.identifier[]` (business identifiers with type, system, value, period). Two properties, two concepts, one clear distinction: system-assigned row ID vs. externally-meaningful business identifier.
 
-ADR-002 (Decision 17 in the trial-use audit) kept Event thin with only `identifiers`, on the rationale that Event is an abstract marker whose subtypes define their own specifics. That reasoning stands; this ADR refines what the thin marker should carry.
+ADR-002 (Decision 17 in the candidate audit) kept Event thin with only `identifiers`, on the rationale that Event is an abstract marker whose subtypes define their own specifics. That reasoning stands; this ADR refines what the thin marker should carry.
 
 ## Decision
 
@@ -46,4 +46,4 @@ The semantic tension between Party-scoped credentials and event row IDs disappea
 
 Subtype-specific business references remain, because they carry semantics that `record_id` does not (a `transaction_reference` is meaningful to the payment rail; `record_id` is only meaningful inside the originating system).
 
-This is a breaking change to the schema as published in trial-use, but no adopters exist yet. The per-entity maturity model (ADR-002) allows this kind of change on trial-use entities before normative lock-in. Adopters reading the pre-ADR-005 schema should replace any `Event.identifiers` references with `Event.record_id` and change the data shape from `Identifier[]` to `string`.
+This is a breaking change to the schema as published at candidate, but no adopters exist yet. The per-entity maturity model (ADR-002) allows this kind of change on candidate entities before normative lock-in. Adopters reading the pre-ADR-005 schema should replace any `Event.identifiers` references with `Event.record_id` and change the data shape from `Identifier[]` to `string`.

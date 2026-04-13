@@ -17,7 +17,7 @@ Enforce naming conventions via JSON Schema regex patterns:
 
 ## Alternatives considered
 
-- **Convention without enforcement:** Relies on code review to catch violations. Contributors will inevitably use inconsistent casing, and once a name is published at trial-use or normative, it cannot be changed without breaking adopters.
+- **Convention without enforcement:** Relies on code review to catch violations. Contributors will inevitably use inconsistent casing, and once a name is published at candidate or normative, it cannot be changed without breaking adopters.
 - **Prefix-based type system (`c_Person`, `p_given_name`):** Clutters names with type tags that add nothing for human readers. The casing convention is immediately recognizable without prefixes.
 
 ## Consequences

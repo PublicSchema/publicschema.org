@@ -286,9 +286,9 @@ class TestMultilingualCompleteness:
         assert len(fr_issues) == 1
         assert fr_issues[0].severity == "warning"
 
-    def test_trial_use_concept_missing_french_is_error(self, tmp_schema, write_concept):
-        """Trial-use concepts produce errors for missing translations."""
-        data = make_concept(maturity="trial-use")
+    def test_candidate_concept_missing_french_is_error(self, tmp_schema, write_concept):
+        """Candidate concepts produce errors for missing translations."""
+        data = make_concept(maturity="candidate")
         del data["definition"]["fr"]
         write_concept("bad.yaml", data)
         issues = validate_schema_dir(tmp_schema)
@@ -362,11 +362,11 @@ class TestMultilingualCompleteness:
         assert len(fr_issues) == 1
         assert fr_issues[0].severity == "warning"
 
-    def test_trial_use_vocabulary_definition_missing_french_is_error(
+    def test_candidate_vocabulary_definition_missing_french_is_error(
         self, tmp_schema, write_vocabulary
     ):
-        """Trial-use vocabulary definitions require all configured languages."""
-        data = make_vocabulary(maturity="trial-use")
+        """Candidate vocabulary definitions require all configured languages."""
+        data = make_vocabulary(maturity="candidate")
         del data["definition"]["fr"]
         write_vocabulary("bad.yaml", data)
         issues = validate_schema_dir(tmp_schema)

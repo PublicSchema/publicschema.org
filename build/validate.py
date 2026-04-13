@@ -86,7 +86,7 @@ def _check_multilingual(
     """Check that a multilingual dict has all required languages.
 
     At draft maturity, only English is required; missing translations for
-    other languages produce warnings. At trial-use or normative maturity,
+    other languages produce warnings. At candidate or normative maturity,
     all configured languages are required (errors).
     """
     issues = []
