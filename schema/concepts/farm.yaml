@@ -34,6 +34,8 @@ definition:
 properties:
   - farm_area_hectares
   - primary_crop
+  - livestock_type
+  - land_tenure
   - location
 
 supertypes: [Group]

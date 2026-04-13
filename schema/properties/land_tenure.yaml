@@ -1,0 +1,11 @@
+id: land_tenure
+maturity: draft
+
+definition:
+  en: "The legal or customary tenure arrangement under which the farm's land is held."
+
+type: string
+cardinality: single
+vocabulary: land-tenure
+references: null
+category: agriculture

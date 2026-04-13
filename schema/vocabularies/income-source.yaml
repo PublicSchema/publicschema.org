@@ -1,0 +1,57 @@
+id: income-source
+maturity: draft
+label:
+  en: Income Source
+definition:
+  en: "The source of income for a household, combining employment-derived categories (informed by ILO ICSE-18) with non-employment income types relevant to social protection targeting."
+values:
+- code: wages_salary
+  label:
+    en: Wages/salary
+  definition:
+    en: Income from paid employment as an employee earning regular wages or salary.
+- code: self_employment_non_farm
+  label:
+    en: Self-employment (non-farm)
+  definition:
+    en: Income from non-agricultural self-employment, own-account work, or business ownership.
+- code: farming
+  label:
+    en: Farming
+  definition:
+    en: Income from agricultural production including crop cultivation and animal husbandry.
+- code: fishing
+  label:
+    en: Fishing
+  definition:
+    en: Income from fishing, aquaculture, or related harvesting of aquatic resources.
+- code: remittances
+  label:
+    en: Remittances
+  definition:
+    en: Income received as transfers from household members or relatives living elsewhere, including international remittances.
+- code: social_transfers
+  label:
+    en: Social transfers
+  definition:
+    en: Income from government social protection programs including cash transfers, pensions, disability benefits, and social assistance.
+- code: pension
+  label:
+    en: Pension
+  definition:
+    en: Income from occupational or private pension schemes (distinct from state social assistance).
+- code: rental_income
+  label:
+    en: Rental income
+  definition:
+    en: Income from renting out property, land, or other assets.
+- code: casual_labor
+  label:
+    en: Casual labor
+  definition:
+    en: Income from irregular, short-term, or seasonal labor without a formal employment contract.
+- code: other
+  label:
+    en: Other
+  definition:
+    en: An income source not covered by the other categories.

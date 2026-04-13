@@ -1,0 +1,11 @@
+id: food_security_level
+maturity: draft
+
+definition:
+  en: "The severity of food insecurity experienced by the household, derived from a food security assessment instrument."
+
+type: string
+cardinality: single
+vocabulary: food-security-level
+references: null
+category: food_security

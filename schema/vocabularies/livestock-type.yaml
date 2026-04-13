@@ -1,0 +1,154 @@
+id: livestock-type
+maturity: draft
+label:
+  en: Livestock Type
+definition:
+  en: Types of livestock kept by the agricultural holding, classified according to the FAO World Programme for the Census of Agriculture.
+standard:
+  name: FAO World Programme for the Census of Agriculture 2020
+  uri: https://www.fao.org/world-census-agriculture/wcarounds/wca2020/en/
+  notes: FAO defines livestock categories for agricultural censuses. The list below covers the main species relevant to social protection targeting.
+values:
+- code: cattle
+  label:
+    en: Cattle
+  definition:
+    en: Domesticated bovines including cows, bulls, oxen, and calves.
+- code: sheep
+  label:
+    en: Sheep
+  definition:
+    en: Domesticated sheep of all ages.
+- code: goats
+  label:
+    en: Goats
+  definition:
+    en: Domesticated goats of all ages.
+- code: pigs
+  label:
+    en: Pigs
+  definition:
+    en: Domesticated pigs and swine of all ages.
+- code: chickens
+  label:
+    en: Chickens
+  definition:
+    en: Domesticated chickens, hens, roosters, and chicks.
+- code: other_poultry
+  label:
+    en: Other poultry
+  definition:
+    en: Domesticated birds other than chickens, including ducks, turkeys, guinea fowl, and geese.
+- code: horses
+  label:
+    en: Horses
+  definition:
+    en: Domesticated horses of all ages.
+- code: donkeys_mules
+  label:
+    en: Donkeys/mules
+  definition:
+    en: Domesticated donkeys, mules, and hinnies.
+- code: camels
+  label:
+    en: Camels
+  definition:
+    en: Domesticated camels (dromedary and Bactrian).
+- code: rabbits
+  label:
+    en: Rabbits
+  definition:
+    en: Domesticated rabbits raised for meat, fur, or other products.
+- code: beehives
+  label:
+    en: Beehives
+  definition:
+    en: Bee colonies maintained in hives for honey production.
+- code: other_livestock
+  label:
+    en: Other livestock
+  definition:
+    en: Livestock species not covered by the other categories.
+system_mappings:
+  dhs:
+    vocabulary_name: DHS Recode7 livestock variables (hv246a-j)
+    values:
+    - code: hv246a
+      label: Cattle
+      maps_to: cattle
+    - code: hv246b
+      label: Cows/bulls
+      maps_to: cattle
+    - code: hv246c
+      label: Horses/donkeys/mules
+      maps_to: horses
+      note: "DHS combines horses, donkeys, and mules. Maps to horses as primary; donkeys_mules is not separately identifiable."
+    - code: hv246d
+      label: Goats
+      maps_to: goats
+    - code: hv246e
+      label: Sheep
+      maps_to: sheep
+    - code: hv246f
+      label: Chickens/poultry
+      maps_to: chickens
+      note: "DHS combines chickens with other poultry. Maps to chickens as the dominant category."
+    - code: hv246g
+      label: Pigs
+      maps_to: pigs
+    - code: hv246h
+      label: Other
+      maps_to: other_livestock
+    unmapped_canonical:
+    - other_poultry
+    - donkeys_mules
+    - camels
+    - rabbits
+    - beehives
+    note: "DHS Recode7 hv246a-h. Each variable records the count of animals owned by the household. Code here is the variable name. Some DHS phases use different subsets of these variables."
+  lsms_isa:
+    vocabulary_name: LSMS-ISA harmonized livestock roster
+    values:
+    - code: '1'
+      label: Indigenous/local cattle
+      maps_to: cattle
+    - code: '2'
+      label: Exotic/cross cattle
+      maps_to: cattle
+    - code: '3'
+      label: Sheep
+      maps_to: sheep
+    - code: '4'
+      label: Goats
+      maps_to: goats
+    - code: '5'
+      label: Pigs
+      maps_to: pigs
+    - code: '6'
+      label: Local chickens
+      maps_to: chickens
+    - code: '7'
+      label: Exotic/cross chickens
+      maps_to: chickens
+    - code: '8'
+      label: Other poultry
+      maps_to: other_poultry
+    - code: '9'
+      label: Donkeys
+      maps_to: donkeys_mules
+    - code: '10'
+      label: Horses
+      maps_to: horses
+    - code: '11'
+      label: Mules
+      maps_to: donkeys_mules
+    - code: '12'
+      label: Camels
+      maps_to: camels
+    - code: '13'
+      label: Beehives
+      maps_to: beehives
+    - code: '14'
+      label: Rabbits
+      maps_to: rabbits
+    note: "LSMS-ISA harmonized livestock codes from the 7-country Sub-Saharan Africa panel. More granular than DHS; distinguishes indigenous from exotic breeds."

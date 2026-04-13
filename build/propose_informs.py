@@ -66,6 +66,9 @@ VOCAB_STANDARD_LOOKUP: dict[str, str] = {
     "WHO Household Energy Database": "who-household-energy",
     "Washington Group Short Set on Functioning (WG-SS)": "washington-group-ss",
     "ITU Core ICT Indicators": "itu-core-ict",
+    "FAO World Programme for the Census of Agriculture 2020": "fao-wca-2020-vol1",
+    "FAO Voluntary Guidelines on the Responsible Governance of Tenure (VGGT)": "fao-vggt",
+    "FAO Food Insecurity Experience Scale (FIES)": "fao-fies",
 }
 
 SKIPPED_KEYS = {"opencrvs"}

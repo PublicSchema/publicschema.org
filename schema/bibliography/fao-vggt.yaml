@@ -1,0 +1,18 @@
+id: fao-vggt
+title: "Voluntary Guidelines on the Responsible Governance of Tenure of Land, Fisheries and Forests in the Context of National Food Security"
+short_title: "FAO VGGT"
+publisher: "Food and Agriculture Organization of the United Nations (FAO)"
+year: 2012
+type: international_standard
+domain: general
+uri: "https://www.fao.org/tenure/voluntary-guidelines/en/"
+access: open
+status: active
+
+informs:
+  concepts:
+    - Farm
+  vocabularies:
+    - land-tenure
+  properties:
+    - land_tenure

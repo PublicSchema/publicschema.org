@@ -1,0 +1,31 @@
+id: food-security-level
+maturity: draft
+label:
+  en: Food Security Level
+definition:
+  en: The severity of food insecurity experienced by the household, classified according to the FAO Food Insecurity Experience Scale (FIES) severity levels.
+standard:
+  name: FAO Food Insecurity Experience Scale (FIES)
+  uri: https://www.fao.org/in-action/voices-of-the-hungry/fies/en/
+  notes: Internationally standardized 8-question experience-based scale used by FAO for SDG 2.1.2 monitoring. The four severity levels below are derived from the raw FIES questionnaire responses.
+values:
+- code: food_secure
+  label:
+    en: Food secure
+  definition:
+    en: The household has reliable access to sufficient, safe, and nutritious food. None of the FIES conditions are experienced.
+- code: mildly_insecure
+  label:
+    en: Mildly food insecure
+  definition:
+    en: The household has experienced uncertainty about obtaining food or has been unable to eat healthy and nutritious food, but has not reduced quantity.
+- code: moderately_insecure
+  label:
+    en: Moderately food insecure
+  definition:
+    en: The household has reduced the quality and/or quantity of food consumed. Adults may have skipped meals or gone without eating for a day.
+- code: severely_insecure
+  label:
+    en: Severely food insecure
+  definition:
+    en: The household has experienced hunger. Adults have gone without eating for a whole day or more due to lack of resources.

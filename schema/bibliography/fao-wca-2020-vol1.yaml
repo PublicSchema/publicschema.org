@@ -13,7 +13,9 @@ status: active
 informs:
   concepts:
     - Farm
-  vocabularies: []
+  vocabularies:
+    - livestock-type
   properties:
     - farm_area_hectares
     - primary_crop
+    - livestock_type

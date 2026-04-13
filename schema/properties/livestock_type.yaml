@@ -1,0 +1,11 @@
+id: livestock_type
+maturity: draft
+
+definition:
+  en: "Types of livestock kept by the agricultural holding."
+
+type: string
+cardinality: multiple
+vocabulary: livestock-type
+references: null
+category: agriculture

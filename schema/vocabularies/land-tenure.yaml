@@ -1,0 +1,87 @@
+id: land-tenure
+maturity: draft
+label:
+  en: Land Tenure
+definition:
+  en: The legal or customary arrangement under which land is held, classified according to FAO Voluntary Guidelines on the Responsible Governance of Tenure (VGGT) categories.
+standard:
+  name: "FAO Voluntary Guidelines on the Responsible Governance of Tenure (VGGT)"
+  uri: https://www.fao.org/tenure/voluntary-guidelines/en/
+  notes: International framework for governance of tenure of land, fisheries, and forests. Provides the conceptual basis for tenure classification.
+values:
+- code: owned_with_title
+  label:
+    en: Owned with title
+  definition:
+    en: Land held with a formal, legally recognized title deed or certificate of ownership.
+- code: owned_without_title
+  label:
+    en: Owned without title
+  definition:
+    en: Land held through customary or informal ownership without a formal title document.
+- code: rented
+  label:
+    en: Rented
+  definition:
+    en: Land used under a rental or lease agreement with a landowner for a fixed payment.
+- code: sharecropped
+  label:
+    en: Sharecropped
+  definition:
+    en: Land cultivated under an arrangement where the tenant pays the landowner a share of the harvest or proceeds.
+- code: communal
+  label:
+    en: Communal
+  definition:
+    en: Land held collectively by a community, clan, or group under customary or statutory communal tenure.
+- code: state_allocated
+  label:
+    en: State-allocated
+  definition:
+    en: Land allocated by the state or government authority for use, often without transfer of ownership.
+- code: informal
+  label:
+    en: Informal/squatting
+  definition:
+    en: Land occupied and used without any formal or customary legal basis.
+- code: borrowed
+  label:
+    en: Borrowed
+  definition:
+    en: Land used temporarily without payment, typically lent by a relative, friend, or community member.
+- code: other
+  label:
+    en: Other
+  definition:
+    en: A tenure arrangement not covered by the other categories.
+system_mappings:
+  lsms_isa:
+    vocabulary_name: "LSMS-ISA harmonized tenure status"
+    values:
+      - code: "1"
+        label: "Owned (purchased/inherited)"
+        maps_to: owned_with_title
+        note: "LSMS-ISA does not distinguish titled from untitled ownership in the harmonized variable. Mapped to owned_with_title as default; field context may indicate otherwise."
+      - code: "2"
+        label: "Rented in"
+        maps_to: rented
+      - code: "3"
+        label: "Sharecropped"
+        maps_to: sharecropped
+      - code: "4"
+        label: "Borrowed/given for free"
+        maps_to: borrowed
+      - code: "5"
+        label: "Communal/village"
+        maps_to: communal
+      - code: "6"
+        label: "Allocated by government"
+        maps_to: state_allocated
+      - code: "7"
+        label: "Squatting"
+        maps_to: informal
+      - code: "96"
+        label: "Other"
+        maps_to: other
+    unmapped_canonical: [owned_without_title]
+    note: "LSMS-ISA harmonized tenure codes from the Sub-Saharan Africa panel. The owned/untitled distinction is not captured in the harmonized layer but may exist in country-specific modules."

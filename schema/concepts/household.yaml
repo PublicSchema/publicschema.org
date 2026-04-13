@@ -39,6 +39,7 @@ properties:
   - electricity_access
   - household_assets
   - ict_access
+  - food_security_level
 
 supertypes: [Group]
 subtypes: []

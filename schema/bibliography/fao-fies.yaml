@@ -1,0 +1,18 @@
+id: fao-fies
+title: "Food Insecurity Experience Scale (FIES)"
+short_title: "FAO FIES"
+publisher: "Food and Agriculture Organization of the United Nations (FAO)"
+year: 2014
+type: international_standard
+domain: general
+uri: "https://www.fao.org/in-action/voices-of-the-hungry/fies/en/"
+access: open
+status: active
+
+informs:
+  concepts:
+    - Household
+  vocabularies:
+    - food-security-level
+  properties:
+    - food_security_level
