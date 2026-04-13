@@ -1,0 +1,24 @@
+id: spdci-ibr
+title: "Integrated Beneficiary Registry (IBR) v1.0.0"
+short_title: "DCI IBR"
+publisher: "Digital Convergence Initiative (DCI)"
+year: 2024
+version: "v1.0.0"
+type: specification
+domain: social_protection
+uri: "https://standards.spdci.org/standards/wip-integrated-beneficiary-registry-v1.0.0"
+access: open
+status: active
+
+informs:
+  concepts:
+    - Enrollment
+    - Entitlement
+    - Program
+  vocabularies: []
+  properties:
+    - benefit_description
+    - benefit_modality
+    - enrollment_date
+    - enrollment_status
+    - exit_date

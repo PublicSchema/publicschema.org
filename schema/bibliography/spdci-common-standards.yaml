@@ -11,24 +11,51 @@ status: active
 
 informs:
   concepts:
-    - Person
-    - Household
+    - Address
     - Group
     - GroupMembership
+    - Household
     - Identifier
-    - Address
     - Location
+    - Person
     - Relationship
   vocabularies: []
   properties:
-    - given_name
-    - family_name
-    - date_of_birth
-    - sex
-    - phone_number
-    - email_address
-    - identifiers
     - address
-    - marital_status
+    - administrative_area
+    - city
+    - country
+    - date_of_birth
+    - date_of_death
     - education_level
+    - email_address
+    - family_name
+    - family_name_at_birth
+    - formation_date
+    - given_name
+    - given_name_at_birth
+    - group_type
+    - identifier_type
+    - identifier_value
+    - identifiers
+    - latitude
+    - location_name
+    - longitude
+    - marital_status
+    - matronymic_name
+    - member_count
+    - memberships
+    - name
     - nationality
+    - object_person
+    - occupation
+    - parent_location
+    - patronymic_name
+    - phone_number
+    - postal_code
+    - preferred_language
+    - preferred_name
+    - relationship_type
+    - sex
+    - street_address
+    - subject_person

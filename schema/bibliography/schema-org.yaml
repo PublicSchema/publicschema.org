@@ -11,10 +11,27 @@ status: active
 
 informs:
   concepts:
-    - Person
     - Address
-    - Location
     - Event
+    - Location
     - Party
+    - Person
   vocabularies: []
-  properties: []
+  properties:
+    - administrative_area
+    - city
+    - country
+    - date_of_birth
+    - date_of_death
+    - email_address
+    - end_date
+    - family_name
+    - given_name
+    - latitude
+    - longitude
+    - name
+    - phone_number
+    - postal_code
+    - preferred_name
+    - start_date
+    - street_address

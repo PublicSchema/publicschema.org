@@ -1,0 +1,17 @@
+id: semic-adms
+title: "Asset Description Metadata Schema (ADMS) Vocabulary"
+short_title: "SEMIC ADMS"
+publisher: "SEMIC, Interoperable Europe (European Commission)"
+year: 2023
+version: "v2.00"
+type: eu_vocabulary
+domain: general
+uri: "https://semiceu.github.io/ADMS/releases/2.00/"
+access: open
+status: active
+
+informs:
+  concepts:
+    - Identifier
+  vocabularies: []
+  properties: []

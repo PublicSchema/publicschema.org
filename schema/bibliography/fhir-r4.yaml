@@ -11,6 +11,7 @@ access: open
 status: active
 
 informs:
-  concepts: []
+  concepts:
+    - IdentityDocument
   vocabularies: []
   properties: []

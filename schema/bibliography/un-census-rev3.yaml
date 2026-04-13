@@ -13,15 +13,16 @@ status: active
 
 informs:
   concepts:
-    - Household
     - Family
     - GroupMembership
+    - Household
   vocabularies:
     - group-role
     - group-type
+    - literacy
     - marital-status
     - relationship-type
   properties:
+    - head_of_household
     - marital_status
     - relationship_type
-    - head_of_household

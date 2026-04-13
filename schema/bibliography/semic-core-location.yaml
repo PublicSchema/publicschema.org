@@ -13,19 +13,20 @@ status: active
 informs:
   concepts:
     - Address
-    - Location
     - GeographicArea
+    - Location
   vocabularies: []
   properties:
-    - full_address
     - address_area
     - administrative_area
-    - postal_code
+    - building_name
     - city
     - country
+    - full_address
     - geometry
-    - latitude
-    - longitude
     - house_number
-    - building_name
+    - latitude
+    - location_name
+    - longitude
+    - postal_code
     - street_address

@@ -12,23 +12,31 @@ status: active
 
 informs:
   concepts:
-    - Person
     - Identifier
+    - Party
+    - Person
   vocabularies: []
   properties:
-    - given_name
-    - family_name
-    - given_name_at_birth
-    - family_name_at_birth
-    - patronymic_name
-    - matronymic_name
-    - preferred_name
-    - date_of_birth
     - country_of_birth
-    - place_of_usual_residence
+    - date_of_birth
+    - date_of_death
+    - domicile
+    - email_address
+    - family_name
+    - family_name_at_birth
     - gender
-    - sex
-    - nationality
-    - identifier_value
+    - given_name
+    - given_name_at_birth
     - identifier_scheme_id
     - identifier_scheme_name
+    - identifier_value
+    - issue_date
+    - issuing_authority
+    - matronymic_name
+    - name
+    - nationality
+    - patronymic_name
+    - phone_number
+    - place_of_usual_residence
+    - preferred_name
+    - sex
