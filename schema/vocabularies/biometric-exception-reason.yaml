@@ -1,0 +1,64 @@
+id: biometric-exception-reason
+maturity: draft
+label:
+  en: Biometric Exception Reason
+  fr: Raison d'exception biométrique
+  es: Razón de excepción biométrica
+definition:
+  en: >-
+    The reason a biometric sample could not be captured. Used on BiometricSample
+    records where exception_reason is non-null, indicating the record documents
+    a capture failure rather than holding actual biometric data.
+  fr: >-
+    La raison pour laquelle un échantillon biométrique n'a pas pu être capturé.
+    Utilisé sur les enregistrements BiometricSample où exception_reason n'est pas
+    nul, indiquant que l'enregistrement documente un échec de capture plutôt que
+    de contenir des données biométriques réelles.
+  es: >-
+    La razón por la cual no se pudo capturar una muestra biométrica. Se utiliza
+    en registros BiometricSample donde exception_reason no es nulo, indicando que
+    el registro documenta un fallo de captura en lugar de contener datos
+    biométricos reales.
+references:
+  - name: "OSIA MissingType Enum"
+    uri: "https://secureidentityalliance.github.io/osia/"
+    relationship: based_on
+    machine_readable: false
+    notes: "OSIA MissingType presence enum: AMPUTATED, BANDAGED, DAMAGED. unable_to_capture added as a catch-all."
+values:
+- code: amputated
+  label:
+    en: Amputated
+    fr: Amputé
+    es: Amputado
+  definition:
+    en: The body part has been amputated.
+    fr: La partie du corps a été amputée.
+    es: La parte del cuerpo ha sido amputada.
+- code: bandaged
+  label:
+    en: Bandaged
+    fr: Bandé
+    es: Vendado
+  definition:
+    en: The body part is bandaged and cannot be scanned.
+    fr: La partie du corps est bandée et ne peut pas être scannée.
+    es: La parte del cuerpo está vendada y no se puede escanear.
+- code: damaged
+  label:
+    en: Damaged
+    fr: Endommagé
+    es: Dañado
+  definition:
+    en: The body part is damaged (scarring, skin condition) preventing capture.
+    fr: La partie du corps est endommagée (cicatrice, affection cutanée) empêchant la capture.
+    es: La parte del cuerpo está dañada (cicatrices, afección cutánea) lo que impide la captura.
+- code: unable_to_capture
+  label:
+    en: Unable to capture
+    fr: Impossible de capturer
+    es: Imposible de capturar
+  definition:
+    en: The biometric could not be captured for another reason (device failure, subject unable to cooperate).
+    fr: Le biométrique n'a pas pu être capturé pour une autre raison (panne de dispositif, sujet incapable de coopérer).
+    es: El biométrico no pudo ser capturado por otra razón (fallo del dispositivo, sujeto incapaz de cooperar).

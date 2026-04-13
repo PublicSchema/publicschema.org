@@ -1,0 +1,127 @@
+id: impression-type
+maturity: draft
+label:
+  en: Impression Type
+  fr: Type d'impression
+  es: Tipo de impresión
+definition:
+  en: >-
+    The method by which a fingerprint biometric was captured. Covers live-scan,
+    non-live-scan, and latent capture methods. Applies to fingerprint captures;
+    not relevant for iris or face modalities.
+  fr: >-
+    La méthode par laquelle une empreinte digitale biométrique a été capturée.
+    Couvre les méthodes de capture par scan en direct, scan non direct et
+    capture latente. S'applique aux captures d'empreintes digitales; non
+    pertinent pour les modalités iris ou visage.
+  es: >-
+    El método mediante el cual se capturó una huella dactilar biométrica. Cubre
+    los métodos de captura por escaneo en vivo, escaneo no en vivo y captura
+    latente. Se aplica a capturas de huellas dactilares; no es relevante para
+    las modalidades de iris o rostro.
+references:
+  - name: "OSIA ImpressionType Enum"
+    uri: "https://secureidentityalliance.github.io/osia/"
+    relationship: based_on
+    machine_readable: false
+    notes: "Full 19-value OSIA ImpressionType enumeration."
+values:
+# Live scan (6)
+- code: live_scan_plain
+  label:
+    en: Live scan plain
+    fr: Scan en direct simple
+    es: Escaneo en vivo simple
+- code: live_scan_rolled
+  label:
+    en: Live scan rolled
+    fr: Scan en direct roulé
+    es: Escaneo en vivo rodado
+- code: live_scan_swipe
+  label:
+    en: Live scan swipe
+    fr: Scan en direct par glissement
+    es: Escaneo en vivo por deslizamiento
+- code: live_scan_vertical_roll
+  label:
+    en: Live scan vertical roll
+    fr: Scan en direct roulement vertical
+    es: Escaneo en vivo rodado vertical
+- code: live_scan_palm
+  label:
+    en: Live scan palm
+    fr: Scan en direct de la paume
+    es: Escaneo en vivo de la palma
+- code: live_scan_optical_contactless_plain
+  label:
+    en: Live scan optical contactless plain
+    fr: Scan en direct optique sans contact simple
+    es: Escaneo en vivo óptico sin contacto simple
+# Non-live scan (3)
+- code: non_live_scan_plain
+  label:
+    en: Non-live scan plain
+    fr: Scan non direct simple
+    es: Escaneo no en vivo simple
+- code: non_live_scan_rolled
+  label:
+    en: Non-live scan rolled
+    fr: Scan non direct roulé
+    es: Escaneo no en vivo rodado
+- code: non_live_scan_palm
+  label:
+    en: Non-live scan palm
+    fr: Scan non direct de la paume
+    es: Escaneo no en vivo de la palma
+# Latent (8)
+- code: latent_impression
+  label:
+    en: Latent impression
+    fr: Impression latente
+    es: Impresión latente
+- code: latent_tracing
+  label:
+    en: Latent tracing
+    fr: Tracé latent
+    es: Trazado latente
+- code: latent_photo
+  label:
+    en: Latent photo
+    fr: Photo latente
+    es: Foto latente
+- code: latent_lift
+  label:
+    en: Latent lift
+    fr: Relevé latent
+    es: Levantamiento latente
+- code: latent_palm_impression
+  label:
+    en: Latent palm impression
+    fr: Impression latente de la paume
+    es: Impresión latente de la palma
+- code: latent_palm_tracing
+  label:
+    en: Latent palm tracing
+    fr: Tracé latent de la paume
+    es: Trazado latente de la palma
+- code: latent_palm_photo
+  label:
+    en: Latent palm photo
+    fr: Photo latente de la paume
+    es: Foto latente de la palma
+- code: latent_palm_lift
+  label:
+    en: Latent palm lift
+    fr: Relevé latent de la paume
+    es: Levantamiento latente de la palma
+# Other (2)
+- code: other
+  label:
+    en: Other
+    fr: Autre
+    es: Otro
+- code: unknown
+  label:
+    en: Unknown
+    fr: Inconnu
+    es: Desconocido

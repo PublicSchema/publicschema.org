@@ -1,0 +1,72 @@
+id: biometric-modality
+maturity: draft
+label:
+  en: Biometric Modality
+  fr: Modalité biométrique
+  es: Modalidad biométrica
+definition:
+  en: The type of biometric measurement captured, such as fingerprint, face, or iris.
+  fr: Le type de mesure biométrique capturée, tel qu'empreinte digitale, visage ou iris.
+  es: El tipo de medición biométrica capturada, como huella dactilar, rostro o iris.
+references:
+  - name: "ISO/IEC 19785 (CBEFF) Biometric Type Registry"
+    uri: "https://www.iso.org/standard/41047.html"
+    relationship: based_on
+    machine_readable: false
+    notes: "CBEFF type codes: face (2), voice (3), fingerprint (4), iris (5), signature (8)."
+  - name: "OSIA Biometric Data Model"
+    uri: "https://secureidentityalliance.github.io/osia/"
+    relationship: partial_overlap
+    machine_readable: false
+    notes: "OSIA BiometricType enum covers the same modalities."
+values:
+- code: face
+  label:
+    en: Face
+    fr: Visage
+    es: Rostro
+  definition:
+    en: A facial image capture.
+    fr: Une capture d'image faciale.
+    es: Una captura de imagen facial.
+  standard_code: "2"
+- code: voice
+  label:
+    en: Voice
+    fr: Voix
+    es: Voz
+  definition:
+    en: A voice recording capture.
+    fr: Une capture d'enregistrement vocal.
+    es: Una captura de grabación de voz.
+  standard_code: "3"
+- code: fingerprint
+  label:
+    en: Fingerprint
+    fr: Empreinte digitale
+    es: Huella dactilar
+  definition:
+    en: A fingerprint image capture.
+    fr: Une capture d'image d'empreinte digitale.
+    es: Una captura de imagen de huella dactilar.
+  standard_code: "4"
+- code: iris
+  label:
+    en: Iris
+    fr: Iris
+    es: Iris
+  definition:
+    en: An iris image capture.
+    fr: Une capture d'image de l'iris.
+    es: Una captura de imagen del iris.
+  standard_code: "5"
+- code: signature
+  label:
+    en: Signature
+    fr: Signature
+    es: Firma
+  definition:
+    en: A handwritten signature capture (not a cryptographic signature).
+    fr: Une capture de signature manuscrite (non une signature cryptographique).
+    es: Una captura de firma manuscrita (no una firma criptográfica).
+  standard_code: "8"

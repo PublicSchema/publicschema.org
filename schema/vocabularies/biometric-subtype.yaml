@@ -1,0 +1,116 @@
+id: biometric-subtype
+maturity: draft
+label:
+  en: Biometric Subtype
+  fr: Sous-type biométrique
+  es: Subtipo biométrico
+definition:
+  en: >-
+    The specific body part or position within a biometric modality. Values must be
+    consistent with the biometric_modality property: finger codes with fingerprint,
+    eye codes with iris, portrait with face.
+  fr: >-
+    La partie du corps ou la position spécifique au sein d'une modalité biométrique.
+    Les valeurs doivent être cohérentes avec la propriété biometric_modality: les
+    codes de doigt avec empreinte digitale, les codes oculaires avec iris, portrait
+    avec visage.
+  es: >-
+    La parte del cuerpo o posición específica dentro de una modalidad biométrica.
+    Los valores deben ser consistentes con la propiedad biometric_modality: los
+    códigos de dedo con huella dactilar, los códigos oculares con iris, retrato
+    con rostro.
+references:
+  - name: "ISO 19794-2 Finger Position Codes"
+    uri: "https://www.iso.org/standard/50864.html"
+    relationship: based_on
+    machine_readable: false
+    notes: "Finger positions 1-10 mapped to named codes."
+  - name: "OSIA BiometricSubType"
+    uri: "https://secureidentityalliance.github.io/osia/"
+    relationship: partial_overlap
+    machine_readable: false
+    notes: "OSIA defines 56 subtypes; this vocabulary uses 14 covering social protection and national ID use cases."
+values:
+# Fingers (10) - consistent with ISO 19794-2 positions
+- code: right_thumb
+  label:
+    en: Right thumb
+    fr: Pouce droit
+    es: Pulgar derecho
+  standard_code: "1"
+- code: right_index
+  label:
+    en: Right index finger
+    fr: Index droit
+    es: Índice derecho
+  standard_code: "2"
+- code: right_middle
+  label:
+    en: Right middle finger
+    fr: Majeur droit
+    es: Medio derecho
+  standard_code: "3"
+- code: right_ring
+  label:
+    en: Right ring finger
+    fr: Annulaire droit
+    es: Anular derecho
+  standard_code: "4"
+- code: right_little
+  label:
+    en: Right little finger
+    fr: Auriculaire droit
+    es: Meñique derecho
+  standard_code: "5"
+- code: left_thumb
+  label:
+    en: Left thumb
+    fr: Pouce gauche
+    es: Pulgar izquierdo
+  standard_code: "6"
+- code: left_index
+  label:
+    en: Left index finger
+    fr: Index gauche
+    es: Índice izquierdo
+  standard_code: "7"
+- code: left_middle
+  label:
+    en: Left middle finger
+    fr: Majeur gauche
+    es: Medio izquierdo
+  standard_code: "8"
+- code: left_ring
+  label:
+    en: Left ring finger
+    fr: Annulaire gauche
+    es: Anular izquierdo
+  standard_code: "9"
+- code: left_little
+  label:
+    en: Left little finger
+    fr: Auriculaire gauche
+    es: Meñique izquierdo
+  standard_code: "10"
+# Iris (3)
+- code: right_eye
+  label:
+    en: Right eye
+    fr: Oeil droit
+    es: Ojo derecho
+- code: left_eye
+  label:
+    en: Left eye
+    fr: Oeil gauche
+    es: Ojo izquierdo
+- code: both_eyes
+  label:
+    en: Both eyes
+    fr: Les deux yeux
+    es: Ambos ojos
+# Face (1)
+- code: portrait
+  label:
+    en: Portrait (frontal)
+    fr: Portrait (frontal)
+    es: Retrato (frontal)
