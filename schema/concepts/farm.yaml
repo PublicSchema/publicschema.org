@@ -7,19 +7,29 @@ maturity: draft
 
 definition:
   en: >
-    An organizational and operating unit of agricultural production under single
-    management. Farm records appear across agricultural registries, land
+    An economic unit of agricultural production under single management,
+    comprising all livestock kept and all land used wholly or partly for
+    agricultural production, without regard to title, legal form, or size.
+    Aligns with the FAO "agricultural holding" (World Census of Agriculture
+    2020). Farm records appear across agricultural registries, land
     administration, social protection, and climate adaptation programs.
   fr: >
-    Une unité organisationnelle et opérationnelle de production agricole sous
-    gestion unique. Les données sur les exploitations agricoles apparaissent
-    dans les registres agricoles, l'administration foncière, la protection
-    sociale et les programmes d'adaptation climatique.
+    Une unité économique de production agricole sous gestion unique,
+    comprenant tout le cheptel détenu et toutes les terres utilisées en tout
+    ou en partie à des fins de production agricole, sans tenir compte du
+    titre, de la forme juridique ou de la taille. Équivaut à l'"exploitation
+    agricole" de la FAO (Recensement mondial de l'agriculture 2020). Les
+    données sur les exploitations agricoles apparaissent dans les registres
+    agricoles, l'administration foncière, la protection sociale et les
+    programmes d'adaptation climatique.
   es: >
-    Una unidad organizativa y operativa de producción agrícola bajo gestión
-    única. Los registros de explotaciones agrícolas aparecen en registros
-    agrícolas, administración de tierras, protección social y programas de
-    adaptación climática.
+    Una unidad económica de producción agrícola bajo gestión única, que
+    comprende todo el ganado que se posee y toda la tierra utilizada total o
+    parcialmente para la producción agrícola, sin consideración del título,
+    la forma jurídica o el tamaño. Equivale a la "explotación agrícola" de
+    la FAO (Censo Agropecuario Mundial 2020). Los registros de explotaciones
+    agrícolas aparecen en registros agrícolas, administración de tierras,
+    protección social y programas de adaptación climática.
 
 properties:
   - farm_area_hectares

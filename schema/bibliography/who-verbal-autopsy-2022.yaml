@@ -1,0 +1,18 @@
+id: who-verbal-autopsy-2022
+title: "2022 WHO Verbal Autopsy Instrument"
+short_title: "WHO Verbal Autopsy 2022"
+publisher: "World Health Organization (WHO)"
+year: 2022
+version: "2022"
+type: specification
+domain: crvs
+uri: "https://www.who.int/publications/m/item/2022-who-verbal-autopsy-instrument"
+access: open
+status: active
+
+informs:
+  concepts: []
+  vocabularies:
+    - crvs/cause-of-death-method
+  properties:
+    - cause_of_death_method

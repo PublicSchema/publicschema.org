@@ -10,8 +10,8 @@ definition:
   es: La situación laboral de una persona en la fuerza de trabajo, clasificada según el marco tripartito de la 19.ª Conferencia Internacional de Estadísticos del Trabajo (CIET, 2013) de la OIT.
 standard:
   name: ILO 19th ICLS Resolution concerning statistics of work, employment, and labour underutilization
-  uri: https://www.ilo.org/resource/resolution/ilo-resolution-concerning-statistics-work-employment-and-labour
-  notes: "Tripartite classification: employed, unemployed, outside the labour force."
+  uri: https://ilostat.ilo.org/methods/concepts-and-definitions/description-work-statistics-icls19/
+  notes: "Tripartite labour force classification: employed, unemployed, outside the labour force. Under the 19th ICLS, 'employed' covers only work done for pay or profit; other productive activities (own-use production, unpaid trainee work, volunteer work) are separate forms of work and do not count as employment for this classification."
 values:
   - code: employed
     label:

@@ -10,8 +10,8 @@ definition:
   es: El tipo de relación de empleo de una persona, clasificado según la Clasificación Internacional de la Situación en el Empleo (CISE-18) de la OIT.
 standard:
   name: ILO ICSE-18 (20th ICLS, 2018)
-  uri: https://www.ilo.org/resource/resolution/ilo-resolution-concerning-statistics-work-relationships
-  notes: "International Classification of Status in Employment. Top-level categories only."
+  uri: https://www.ilo.org/media/209766/download
+  notes: "International Classification of Status in Employment. Six top-level categories (ICSE-18 flattened): employer, own-account worker, dependent contractor, employee, contributing family worker, cooperative member. ICSE-18 organises these into Independent workers (employer, own-account worker, cooperative member) and Dependent workers (dependent contractor, employee, contributing family worker)."
 values:
   - code: employee
     label:
@@ -40,6 +40,15 @@ values:
       en: "An independent worker who does not engage employees on a continuous basis."
       fr: "Un travailleur indépendant qui n'engage pas de salariés de manière continue."
       es: "Un trabajador independiente que no contrata empleados de manera continua."
+  - code: dependent_contractor
+    label:
+      en: Dependent contractor
+      fr: Travailleur sous contrat dépendant
+      es: Contratista dependiente
+    definition:
+      en: "A worker engaged on a contractual basis to produce goods or provide services for another economic unit, who is not treated as an employee but depends on that unit for the organisation of work, access to work, or access to markets. Introduced as a distinct category in ICSE-18 to capture workers such as platform-based gig workers."
+      fr: "Un travailleur engagé sur une base contractuelle pour produire des biens ou fournir des services à une autre unité économique, qui n'est pas traité comme salarié mais dépend de cette unité pour l'organisation du travail, l'accès au travail ou l'accès aux marchés. Catégorie distincte introduite par la CISE-18 pour saisir notamment les travailleurs des plateformes numériques."
+      es: "Un trabajador contratado para producir bienes o prestar servicios a otra unidad económica, que no es tratado como empleado pero depende de esa unidad para la organización del trabajo, el acceso al trabajo o el acceso a los mercados. Categoría distinta introducida en la CISE-18 para capturar, entre otros, a los trabajadores de plataformas digitales."
   - code: contributing_family_worker
     label:
       en: Contributing family worker

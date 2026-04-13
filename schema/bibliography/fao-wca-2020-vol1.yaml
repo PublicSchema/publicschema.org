@@ -1,0 +1,19 @@
+id: fao-wca-2020-vol1
+title: "World Programme for the Census of Agriculture 2020. Volume I: Programme, concepts and definitions"
+short_title: "FAO WCA 2020 Vol.I"
+standard_number: "ISBN 978-92-5-108865-4"
+publisher: "Food and Agriculture Organization of the United Nations (FAO)"
+year: 2015
+type: guidance_publication
+domain: social_protection
+uri: "https://www.fao.org/family-farming/detail/en/c/341884/"
+access: open
+status: active
+
+informs:
+  concepts:
+    - Farm
+  vocabularies: []
+  properties:
+    - farm_area_hectares
+    - primary_crop

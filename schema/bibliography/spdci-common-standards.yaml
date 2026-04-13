@@ -1,0 +1,34 @@
+id: spdci-common-standards
+title: "Common Standards for Interoperability Interfaces"
+short_title: "DCI Common Standards"
+publisher: "Digital Convergence Initiative (DCI)"
+year: null
+type: specification
+domain: social_protection
+uri: "https://standards.spdci.org/standards/standards-for-interoperability-interfaces/common-standards-for-interoperability-interfaces"
+access: open
+status: active
+
+informs:
+  concepts:
+    - Person
+    - Household
+    - Group
+    - GroupMembership
+    - Identifier
+    - Address
+    - Location
+    - Relationship
+  vocabularies: []
+  properties:
+    - given_name
+    - family_name
+    - date_of_birth
+    - sex
+    - phone_number
+    - email_address
+    - identifiers
+    - address
+    - marital_status
+    - education_level
+    - nationality
