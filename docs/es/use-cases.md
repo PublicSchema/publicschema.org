@@ -22,7 +22,7 @@ PublicSchema ofrece definiciones comunes para la prestación de servicios públi
 
 **El problema:** Cada sistema tiene registros de las mismas familias, descritos de forma diferente. La base de datos del ministerio de educación los llama "estudiantes", el sistema de salud los llama "pacientes" y el sistema de transferencias monetarias los llama "beneficiarios". No existe una forma confiable de verificar si una persona ya está inscrita en otro lugar. Incluso cuando los campos coinciden en nombre, los códigos divergentes hacen la comparación poco confiable: "active" en un sistema puede no significar lo mismo que "active" en otro.
 
-**Cómo ayuda PublicSchema:** El equipo de integración mapea los campos de cada sistema a las propiedades de PublicSchema (given_name, national_id, date_of_birth, enrollment_status). Un registro compartido puede entonces cruzar registros entre sistemas usando un vocabulario común. Ningún sistema necesita cambiar su modelo de datos interno.
+**Cómo ayuda PublicSchema:** El equipo de integración mapea los campos de cada sistema a las propiedades de PublicSchema (given_name, identifiers, date_of_birth, enrollment_status). Un registro compartido puede entonces cruzar registros entre sistemas usando un vocabulario común. Ningún sistema necesita cambiar su modelo de datos interno.
 
 **Artefactos clave:** Conceptos (Person, Enrollment), propiedades, códigos de vocabulario, correspondencias de sistemas.
 
@@ -52,7 +52,7 @@ PublicSchema ofrece definiciones comunes para la prestación de servicios públi
 
 **El problema:** Las solicitudes de propuesta especifican que "el sistema debe ser interoperable", lo cual es demasiado vago como para evaluarlo. Los proveedores lo interpretan como quieren. No existe una norma concreta contra la cual hacer pruebas.
 
-**Cómo ayuda PublicSchema:** La solicitud de propuesta referencia PublicSchema directamente: "El sistema debe poder exportar registros de Persona (Person) con estas propiedades: given_name, family_name, date_of_birth, national_id. Los campos de estado deben usar códigos de los vocabularios de PublicSchema." Esto funciona tanto si se adquiere un registro social, un sistema de información estudiantil o una base de datos de establecimientos de salud. Los proveedores obtienen un objetivo concreto; los evaluadores obtienen algo que pueden probar.
+**Cómo ayuda PublicSchema:** La solicitud de propuesta referencia PublicSchema directamente: "El sistema debe poder exportar registros de Persona (Person) con estas propiedades: given_name, family_name, date_of_birth, identifiers. Los campos de estado deben usar códigos de los vocabularios de PublicSchema." Esto funciona tanto si se adquiere un registro social, un sistema de información estudiantil o una base de datos de establecimientos de salud. Los proveedores obtienen un objetivo concreto; los evaluadores obtienen algo que pueden probar.
 
 **Artefactos clave:** Definiciones de conceptos, inventario de propiedades, definiciones de vocabularios, esquemas JSON.
 

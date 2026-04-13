@@ -100,7 +100,7 @@ If you are writing an RFP for a new system, PublicSchema gives you concrete lang
 
 Example requirement language:
 
-> The system must be capable of exporting Person records with the following properties as defined by PublicSchema (publicschema.org): given_name, family_name, date_of_birth, sex, national_id. Enrollment status must use codes from PublicSchema's enrollment-status vocabulary. The system must support export in CSV format with PublicSchema property names as column headers.
+> The system must be capable of exporting Person records with the following properties as defined by PublicSchema (publicschema.org): given_name, family_name, date_of_birth, sex, identifiers. Enrollment status must use codes from PublicSchema's enrollment-status vocabulary. The system must support export in CSV format with PublicSchema property names as column headers.
 
 This is testable. During evaluation, you can hand vendors a Template Excel and ask them to demonstrate that their system can produce a conforming export.
 
@@ -114,7 +114,7 @@ PublicSchema models the relationship between people and groups (households, fami
 
 ### Identifiers are separate from Person
 
-PublicSchema models identifiers (national ID, passport number, program ID) as a separate Identifier concept linked to Person, not as fields directly on Person. This supports multiple identifiers per person and captures metadata like issuing authority and validity period.
+PublicSchema models identifiers (national ID number, passport number, program ID number) as a separate Identifier concept linked to Person, not as fields directly on Person. Identifier holds just the coded value and its scheme; the documents that carry identifiers (passports, national ID cards, beneficiary cards) are modeled as IdentityDocument, which holds the issuing authority, jurisdiction, issue date, and expiry.
 
 ### Time-boundedness is first-class
 

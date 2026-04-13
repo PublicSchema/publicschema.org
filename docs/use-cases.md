@@ -22,7 +22,7 @@ PublicSchema provides common definitions for public service delivery. There are 
 
 **The problem:** Each system has records for the same families, described differently. The education ministry's database calls them "students," the health system calls them "patients," and the cash transfer system calls them "beneficiaries." There is no reliable way to check whether a person is already enrolled elsewhere. Even when fields can be matched by name, divergent codes make comparison unreliable: "active" in one system may not mean the same thing as "active" in another.
 
-**How PublicSchema helps:** The integration team maps each system's fields to PublicSchema properties (given_name, national_id, date_of_birth, enrollment_status). A shared registry can then match records across systems using a common vocabulary. No system needs to change its internal data model.
+**How PublicSchema helps:** The integration team maps each system's fields to PublicSchema properties (given_name, identifiers, date_of_birth, enrollment_status). A shared registry can then match records across systems using a common vocabulary. No system needs to change its internal data model.
 
 **Key artifacts:** Concepts (Person, Enrollment), properties, vocabulary codes, system mappings.
 
@@ -52,7 +52,7 @@ PublicSchema provides common definitions for public service delivery. There are 
 
 **The problem:** RFPs specify "the system must be interoperable," which is too vague to evaluate. Vendors interpret it however they like. There is no concrete standard to test against.
 
-**How PublicSchema helps:** The RFP references PublicSchema directly: "The system must export Person records with these properties: given_name, family_name, date_of_birth, national_id. Status fields must use codes from PublicSchema vocabularies." This works whether you are procuring a social registry, a student information system, or a health facility database. Vendors get a concrete target; evaluators get something testable.
+**How PublicSchema helps:** The RFP references PublicSchema directly: "The system must export Person records with these properties: given_name, family_name, date_of_birth, identifiers. Status fields must use codes from PublicSchema vocabularies." This works whether you are procuring a social registry, a student information system, or a health facility database. Vendors get a concrete target; evaluators get something testable.
 
 **Key artifacts:** Concept definitions, property inventory, vocabulary definitions, JSON Schemas.
 

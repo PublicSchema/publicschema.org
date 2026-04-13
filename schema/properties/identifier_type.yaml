@@ -2,9 +2,9 @@ id: identifier_type
 maturity: candidate
 
 definition:
-  en: "The category of identifier document or number."
-  fr: "La catégorie du document ou numéro d'identification."
-  es: "La categoría del documento o número de identificación."
+  en: "The category of identifier value (for example, national ID number, passport number, P-code)."
+  fr: "La catégorie de valeur de l'identifiant (par exemple, numéro d'identité nationale, numéro de passeport, P-code)."
+  es: "La categoría del valor del identificador (por ejemplo, número de identidad nacional, número de pasaporte, P-code)."
 
 type: string
 cardinality: single

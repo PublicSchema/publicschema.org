@@ -100,7 +100,7 @@ Si vous rédigez un appel d'offres pour un nouveau système, PublicSchema vous d
 
 Exemple de formulation d'exigence :
 
-> Le système doit être capable d'exporter des enregistrements de Personne avec les propriétés suivantes telles que définies par PublicSchema (publicschema.org) : given_name, family_name, date_of_birth, sex, national_id. Le statut d'inscription doit utiliser les codes du vocabulaire enrollment-status de PublicSchema. Le système doit prendre en charge l'export au format CSV avec les noms de propriétés PublicSchema comme en-têtes de colonnes.
+> Le système doit être capable d'exporter des enregistrements de Personne avec les propriétés suivantes telles que définies par PublicSchema (publicschema.org) : given_name, family_name, date_of_birth, sex, identifiers. Le statut d'inscription doit utiliser les codes du vocabulaire enrollment-status de PublicSchema. Le système doit prendre en charge l'export au format CSV avec les noms de propriétés PublicSchema comme en-têtes de colonnes.
 
 C'est vérifiable. Lors de l'évaluation, vous pouvez remettre aux fournisseurs un modèle Excel et leur demander de démontrer que leur système peut produire un export conforme.
 
@@ -114,7 +114,7 @@ PublicSchema modélise la relation entre les personnes et les groupes (ménages,
 
 ### Les identifiants sont séparés de la Personne
 
-PublicSchema modélise les identifiants (carte nationale d'identité, numéro de passeport, identifiant de programme) comme un concept Identifiant distinct lié à Personne, pas comme des champs directement sur Personne. Cela permet plusieurs identifiants par personne et capture des métadonnées comme l'autorité émettrice et la période de validité.
+PublicSchema modélise les identifiants (numéro d'identité nationale, numéro de passeport, numéro d'identifiant de programme) comme un concept Identifiant distinct lié à Personne, pas comme des champs directement sur Personne. Identifiant ne porte que la valeur codée et son schéma; les documents qui portent des identifiants (passeports, cartes d'identité nationale, cartes de bénéficiaire) sont modélisés comme IdentityDocument, qui porte l'autorité émettrice, la juridiction, la date de délivrance et l'expiration.
 
 ### La délimitation temporelle est un concept de premier plan
 

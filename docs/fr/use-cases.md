@@ -22,7 +22,7 @@ PublicSchema fournit des définitions communes pour la prestation de services pu
 
 **Le problème :** Chaque système contient des enregistrements pour les mêmes familles, décrits différemment. La base de données du ministère de l'éducation les appelle "étudiants", le système de santé les appelle "patients" et le système de transfert d'argent les appelle "bénéficiaires". Il n'existe pas de moyen fiable de vérifier si une personne est déjà inscrite ailleurs. Même lorsque les champs peuvent être associés par leur nom, des codes divergents rendent la comparaison peu fiable : "active" dans un système peut ne pas avoir le même sens que "active" dans un autre.
 
-**Comment PublicSchema aide :** L'équipe d'intégration effectue la correspondance des champs de chaque système avec les propriétés PublicSchema (given_name, national_id, date_of_birth, enrollment_status). Un registre partagé peut alors rapprocher les enregistrements entre systèmes en utilisant un vocabulaire commun. Aucun système n'a besoin de modifier son modèle de données interne.
+**Comment PublicSchema aide :** L'équipe d'intégration effectue la correspondance des champs de chaque système avec les propriétés PublicSchema (given_name, identifiers, date_of_birth, enrollment_status). Un registre partagé peut alors rapprocher les enregistrements entre systèmes en utilisant un vocabulaire commun. Aucun système n'a besoin de modifier son modèle de données interne.
 
 **Artefacts clés :** Concepts (Personne, Inscription), propriétés, codes de vocabulaire, correspondances de systèmes.
 
@@ -52,7 +52,7 @@ PublicSchema fournit des définitions communes pour la prestation de services pu
 
 **Le problème :** Les appels d'offres spécifient que "le système doit être interopérable", ce qui est trop vague pour être évalué. Les fournisseurs l'interprètent à leur guise. Il n'existe pas de norme concrète à tester.
 
-**Comment PublicSchema aide :** L'appel d'offres fait directement référence à PublicSchema : "Le système doit exporter les enregistrements de Personne avec les propriétés suivantes : given_name, family_name, date_of_birth, national_id. Les champs de statut doivent utiliser les codes des vocabulaires PublicSchema." Cela fonctionne que vous passiez un marché pour un registre social, un système d'information scolaire ou une base de données de structures de santé. Les fournisseurs disposent d'une cible concrète ; les évaluateurs ont quelque chose de vérifiable.
+**Comment PublicSchema aide :** L'appel d'offres fait directement référence à PublicSchema : "Le système doit exporter les enregistrements de Personne avec les propriétés suivantes : given_name, family_name, date_of_birth, identifiers. Les champs de statut doivent utiliser les codes des vocabulaires PublicSchema." Cela fonctionne que vous passiez un marché pour un registre social, un système d'information scolaire ou une base de données de structures de santé. Les fournisseurs disposent d'une cible concrète ; les évaluateurs ont quelque chose de vérifiable.
 
 **Artefacts clés :** Définitions de concepts, inventaire de propriétés, définitions de vocabulaires, schémas JSON.
 

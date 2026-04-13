@@ -100,7 +100,7 @@ Si está redactando una solicitud de propuesta para un nuevo sistema, PublicSche
 
 Ejemplo de lenguaje de requisito:
 
-> El sistema debe ser capaz de exportar registros de Persona (Person) con las siguientes propiedades según la definición de PublicSchema (publicschema.org): given_name, family_name, date_of_birth, sex, national_id. El estado de inscripción debe usar códigos del vocabulario enrollment-status de PublicSchema. El sistema debe soportar la exportación en formato CSV con los nombres de propiedad de PublicSchema como encabezados de columna.
+> El sistema debe ser capaz de exportar registros de Persona (Person) con las siguientes propiedades según la definición de PublicSchema (publicschema.org): given_name, family_name, date_of_birth, sex, identifiers. El estado de inscripción debe usar códigos del vocabulario enrollment-status de PublicSchema. El sistema debe soportar la exportación en formato CSV con los nombres de propiedad de PublicSchema como encabezados de columna.
 
 Esto es verificable. Durante la evaluación, puede entregar a los proveedores una Plantilla Excel y pedirles que demuestren que su sistema puede producir una exportación compatible.
 
@@ -114,7 +114,7 @@ PublicSchema modela la relación entre personas y grupos (hogares, familias, etc
 
 ### Los identificadores son separados de Persona
 
-PublicSchema modela los identificadores (cédula nacional, número de pasaporte, ID de programa) como un concepto Identificador (Identifier) separado vinculado a Persona (Person), no como campos directamente sobre Persona. Esto soporta múltiples identificadores por persona y captura metadatos como la autoridad emisora y el período de validez.
+PublicSchema modela los identificadores (número de identidad nacional, número de pasaporte, número de ID de programa) como un concepto Identificador (Identifier) separado vinculado a Persona (Person), no como campos directamente sobre Persona. Identificador lleva únicamente el valor codificado y su esquema; los documentos que portan identificadores (pasaportes, tarjetas de identidad nacional, tarjetas de beneficiario) se modelan como IdentityDocument, que lleva la autoridad emisora, la jurisdicción, la fecha de emisión y la expiración.
 
 ### La acotación temporal es un elemento central
 

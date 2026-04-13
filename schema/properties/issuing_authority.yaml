@@ -2,9 +2,9 @@ id: issuing_authority
 maturity: candidate
 
 definition:
-  en: "The organization or government body that issued the identifier."
-  fr: "L'organisation ou l'organe gouvernemental qui a délivré l'identifiant."
-  es: "La organización o entidad gubernamental que emitió el identificador."
+  en: "The organization or government body that issued the document or credential."
+  fr: "L'organisation ou l'organe gouvernemental qui a délivré le document ou l'attestation."
+  es: "La organización o entidad gubernamental que emitió el documento o la credencial."
 
 type: string
 cardinality: single
