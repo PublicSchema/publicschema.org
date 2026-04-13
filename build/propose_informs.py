@@ -58,6 +58,11 @@ VOCAB_STANDARD_LOOKUP: dict[str, str] = {
     "ISO 15924": "iso-15924",
     "ISO/IEC 5218": "iso-5218",
     "ILO ICSE-18 (20th ICLS, 2018)": "ilo-20th-icls-2018",
+    "WHO/UNICEF Joint Monitoring Programme (JMP)": "who-unicef-jmp",
+    "WHO/UNICEF JMP Service Ladder (SDG 6.1.1)": "who-unicef-jmp",
+    "WHO/UNICEF JMP Service Ladder (SDG 6.2.1)": "who-unicef-jmp",
+    "DHS/MICS Harmonized Housing Codes": "dhs-recode7",
+    "UN Principles and Recommendations for Population and Housing Censuses, Rev. 3": "un-census-rev3",
 }
 
 SKIPPED_KEYS = {"opencrvs"}

@@ -1,0 +1,40 @@
+id: dwelling-type
+maturity: draft
+label:
+  en: Dwelling Type
+definition:
+  en: "The type of living quarters occupied by the household, classified according to the UN Principles and Recommendations for Population and Housing Censuses."
+standard:
+  name: "UN Principles and Recommendations for Population and Housing Censuses, Rev. 3"
+  uri: https://unstats.un.org/unsd/demographic-social/Standards-and-Methods/files/Principles_and_Recommendations/Population-and-Housing-Censuses/Series_M67rev3-E.pdf
+values:
+- code: permanent
+  label:
+    en: Permanent structure
+  definition:
+    en: Built with durable materials such as concrete, brick, stone, or metal framing, expected to last 20 or more years.
+- code: semi_permanent
+  label:
+    en: Semi-permanent structure
+  definition:
+    en: Mix of durable and non-durable materials, such as mud walls with a metal roof.
+- code: temporary
+  label:
+    en: Temporary structure
+  definition:
+    en: Built with non-durable materials such as thatch, bamboo, or unfired mud.
+- code: improvised
+  label:
+    en: Improvised dwelling
+  definition:
+    en: Makeshift shelter made from waste materials, plastic sheeting, or scrap; includes shacks in informal settlements.
+- code: collective
+  label:
+    en: Collective living quarters
+  definition:
+    en: Dormitories, barracks, institutions, refugee camps, or hotels used as long-term housing.
+- code: mobile
+  label:
+    en: Mobile housing unit
+  definition:
+    en: Tents, caravans, houseboats, or other movable structures used as a primary residence.

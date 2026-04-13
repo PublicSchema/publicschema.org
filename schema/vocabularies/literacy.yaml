@@ -37,3 +37,40 @@ external_equivalents:
     match: none
     vocabulary: "OpenCRVS v1 GraphQL"
     note: "OpenCRVS v1 does not include a literacy field or vocabulary."
+system_mappings:
+  dhs:
+    vocabulary_name: "hv108 - Literacy"
+    values:
+    - code: '0'
+      label: Cannot read at all
+      maps_to: illiterate
+    - code: '1'
+      label: Able to read only parts of sentence
+      maps_to: illiterate
+      note: "Partial reading ability does not meet the UNSD standard of being able to read AND write a short simple statement"
+    - code: '2'
+      label: Able to read a whole sentence
+      maps_to: literate
+  mics:
+    vocabulary_name: "FN3 - Literacy"
+    values:
+    - code: '1'
+      label: Cannot read at all
+      maps_to: illiterate
+    - code: '2'
+      label: Able to read only parts of sentence
+      maps_to: illiterate
+      note: "Partial reading ability does not meet the UNSD standard of being able to read AND write a short simple statement"
+    - code: '3'
+      label: Able to read a whole sentence
+      maps_to: literate
+    - code: '4'
+      label: No card with required language
+      maps_to: null
+      unmapped_reason: context_dependent
+      note: "Assessment could not be completed; does not indicate literacy status"
+    - code: '5'
+      label: Blind/visually impaired
+      maps_to: null
+      unmapped_reason: context_dependent
+      note: "Visual impairment prevents standard literacy assessment; does not indicate literacy status"

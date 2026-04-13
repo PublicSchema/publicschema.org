@@ -28,6 +28,13 @@ properties:
   - location
   - dwelling_type
   - income_source
+  - floor_material
+  - wall_material
+  - roof_material
+  - water_source
+  - water_service_level
+  - sanitation_facility
+  - sanitation_service_level
 
 supertypes: [Group]
 subtypes: []

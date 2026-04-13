@@ -8,8 +8,9 @@ definition:
 
 type: string
 cardinality: single
-vocabulary: null
+vocabulary: dwelling-type
 references: null
+category: housing
 
 convergence:
   system_count: 0

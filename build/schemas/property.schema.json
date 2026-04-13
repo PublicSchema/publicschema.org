@@ -49,6 +49,11 @@
       "enum": ["standard", "sensitive", "restricted"],
       "description": "How sensitive this property is in most deployment contexts. standard (default, can be omitted): no special handling. sensitive: reveals circumstances (health, poverty, victimhood) in most contexts. restricted: should not appear in credentials at routine service points."
     },
+    "category": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*$",
+      "description": "Display grouping for this property (e.g. wash, housing, demographics, identification). Used by the site to render properties in sections."
+    },
     "system_mappings": {
       "type": ["object", "null"],
       "description": "Mappings showing how external system values correspond to this property's values",

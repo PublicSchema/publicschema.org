@@ -1,0 +1,11 @@
+id: sanitation_facility
+maturity: draft
+
+definition:
+  en: "The type of toilet or sanitation facility used by the household."
+
+type: string
+cardinality: single
+vocabulary: sanitation-facility
+references: null
+category: wash

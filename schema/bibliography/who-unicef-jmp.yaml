@@ -1,0 +1,24 @@
+id: who-unicef-jmp
+title: "WHO/UNICEF Joint Monitoring Programme for Water Supply, Sanitation and Hygiene (JMP)"
+short_title: "JMP"
+publisher: "WHO / UNICEF"
+year: null
+type: classification
+domain: general
+uri: "https://washdata.org/"
+access: open
+status: active
+
+informs:
+  concepts:
+    - Household
+  vocabularies:
+    - water-source
+    - water-service-level
+    - sanitation-facility
+    - sanitation-service-level
+  properties:
+    - water_source
+    - water_service_level
+    - sanitation_facility
+    - sanitation_service_level

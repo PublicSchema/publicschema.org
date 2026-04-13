@@ -1,0 +1,171 @@
+id: roof-material
+maturity: draft
+label:
+  en: Roof Material
+definition:
+  en: The primary material of the roof in the household's dwelling.
+standard:
+  name: DHS/MICS Harmonized Housing Codes
+  notes: "Shared classification used by DHS (hv215) and MICS (HC4). No standalone international standard exists for roof materials; the survey programs are the de facto standard."
+values:
+- code: no_roof
+  label:
+    en: No roof
+  definition:
+    en: Dwelling has no roof covering.
+- code: thatch_palm_leaf
+  label:
+    en: Thatch or palm leaf
+  definition:
+    en: Roof made of dried grass, straw, reeds, or palm leaves bundled into thatch.
+- code: sod_grass
+  label:
+    en: Sod or grass
+  definition:
+    en: Roof covered with living or dried sod, turf, or loose grass.
+- code: rustic_mat
+  label:
+    en: Rustic mat
+  definition:
+    en: Roof covered with woven plant-fiber mats (e.g., reed or rush mats).
+- code: palm_bamboo
+  label:
+    en: Palm or bamboo
+  definition:
+    en: Roof structure made of palm fronds or split bamboo.
+- code: wood_planks
+  label:
+    en: Wood planks
+  definition:
+    en: Roof made of unfinished wood planks or boards.
+- code: cardboard
+  label:
+    en: Cardboard
+  definition:
+    en: Roof covered with cardboard or similar paper-based material.
+- code: metal
+  label:
+    en: Metal or tin sheets
+  definition:
+    en: Roof made of corrugated iron, galvanized steel, aluminum, or other metal sheets.
+- code: wood
+  label:
+    en: Wood
+  definition:
+    en: Roof made of finished or milled wooden boards.
+- code: calamine_cement_fiber
+  label:
+    en: Calamine or cement fiber
+  definition:
+    en: Roof made of corrugated calamine sheeting or fiber-cement (e.g., Eternit) panels.
+- code: ceramic_tiles
+  label:
+    en: Ceramic tiles
+  definition:
+    en: Roof covered with fired clay or ceramic tiles.
+- code: cement
+  label:
+    en: Cement
+  definition:
+    en: Flat or sloped roof made of poured concrete or reinforced cement slab.
+- code: roofing_shingles
+  label:
+    en: Roofing shingles
+  definition:
+    en: Roof covered with asphalt, fiberglass, or wooden shingles.
+- code: other
+  label:
+    en: Other
+  definition:
+    en: Roof material not covered by the other categories.
+system_mappings:
+  dhs:
+    vocabulary_name: hv215 - Main roof material
+    values:
+    - code: '11'
+      label: No roof
+      maps_to: no_roof
+    - code: '12'
+      label: Thatch/palm leaf
+      maps_to: thatch_palm_leaf
+    - code: '13'
+      label: Sod
+      maps_to: sod_grass
+    - code: '21'
+      label: Rustic mat
+      maps_to: rustic_mat
+    - code: '22'
+      label: Palm/bamboo
+      maps_to: palm_bamboo
+    - code: '23'
+      label: Wood planks
+      maps_to: wood_planks
+    - code: '24'
+      label: Cardboard
+      maps_to: cardboard
+    - code: '31'
+      label: Metal
+      maps_to: metal
+    - code: '32'
+      label: Wood
+      maps_to: wood
+    - code: '33'
+      label: Calamine/cement fiber
+      maps_to: calamine_cement_fiber
+    - code: '34'
+      label: Ceramic tiles
+      maps_to: ceramic_tiles
+    - code: '35'
+      label: Cement
+      maps_to: cement
+    - code: '36'
+      label: Roofing shingles
+      maps_to: roofing_shingles
+    - code: '96'
+      label: Other
+      maps_to: other
+  mics:
+    vocabulary_name: HC4 - Main material of the roof
+    values:
+    - code: '11'
+      label: No roof
+      maps_to: no_roof
+    - code: '12'
+      label: Thatch/palm leaf
+      maps_to: thatch_palm_leaf
+    - code: '13'
+      label: Sod/grass
+      maps_to: sod_grass
+    - code: '21'
+      label: Rustic mat
+      maps_to: rustic_mat
+    - code: '22'
+      label: Palm/bamboo
+      maps_to: palm_bamboo
+    - code: '23'
+      label: Wood planks
+      maps_to: wood_planks
+    - code: '24'
+      label: Cardboard
+      maps_to: cardboard
+    - code: '31'
+      label: Metal/tin
+      maps_to: metal
+    - code: '32'
+      label: Wood
+      maps_to: wood
+    - code: '33'
+      label: Calamine/cement fiber
+      maps_to: calamine_cement_fiber
+    - code: '34'
+      label: Ceramic tiles
+      maps_to: ceramic_tiles
+    - code: '35'
+      label: Cement
+      maps_to: cement
+    - code: '36'
+      label: Roofing shingles
+      maps_to: roofing_shingles
+    - code: '96'
+      label: Other
+      maps_to: other

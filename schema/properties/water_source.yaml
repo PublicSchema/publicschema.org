@@ -1,0 +1,11 @@
+id: water_source
+maturity: draft
+
+definition:
+  en: "The main source of drinking water used by the household."
+
+type: string
+cardinality: single
+vocabulary: water-source
+references: null
+category: wash

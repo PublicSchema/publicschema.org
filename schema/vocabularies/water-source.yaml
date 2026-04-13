@@ -1,0 +1,194 @@
+id: water-source
+maturity: draft
+label:
+  en: Water Source
+definition:
+  en: The main source of drinking water used by the household, classified according to the WHO/UNICEF Joint Monitoring Programme (JMP) facility types.
+standard:
+  name: WHO/UNICEF Joint Monitoring Programme (JMP)
+  uri: https://washdata.org/monitoring/drinking-water
+  notes: Canonical source for SDG 6.1 drinking water monitoring. Facility type categories.
+values:
+- code: piped_into_dwelling
+  label:
+    en: Piped into dwelling
+  definition:
+    en: Water piped directly into the dwelling, yard, or plot through a household connection.
+- code: piped_to_yard
+  label:
+    en: Piped to yard/plot
+  definition:
+    en: Water piped to the yard or plot outside the dwelling but within the household's controlled space.
+- code: piped_to_neighbor
+  label:
+    en: Piped to neighbor
+  definition:
+    en: Water obtained from a neighbor's piped household connection.
+- code: public_tap_standpipe
+  label:
+    en: Public tap/standpipe
+  definition:
+    en: A communal tap or standpipe that supplies water to multiple households in a public area.
+- code: tube_well_borehole
+  label:
+    en: Tube well or borehole
+  definition:
+    en: A narrow-diameter well drilled into the ground and fitted with a hand pump or motorized pump to extract groundwater.
+- code: protected_well
+  label:
+    en: Protected dug well
+  definition:
+    en: A dug well protected from runoff and surface contamination by a lining, cover, and apron.
+- code: unprotected_well
+  label:
+    en: Unprotected dug well
+  definition:
+    en: A dug well without a protective lining or cover, exposed to potential surface contamination.
+- code: protected_spring
+  label:
+    en: Protected spring
+  definition:
+    en: A natural spring protected from runoff and surface contamination by a spring box or similar structure.
+- code: unprotected_spring
+  label:
+    en: Unprotected spring
+  definition:
+    en: A natural spring without any protection structure, exposed to potential surface contamination.
+- code: rainwater
+  label:
+    en: Rainwater collection
+  definition:
+    en: Water collected from rooftops or other surfaces and stored in a tank or container.
+- code: tanker_truck
+  label:
+    en: Tanker truck
+  definition:
+    en: Water delivered by a motorized tanker truck or tanker.
+- code: cart_with_small_tank
+  label:
+    en: Cart with small tank/drum
+  definition:
+    en: Water delivered by a cart, donkey, or other non-motorized transport carrying a small tank or drum.
+- code: surface_water
+  label:
+    en: Surface water
+  definition:
+    en: Water drawn directly from a river, dam, lake, pond, stream, canal, or irrigation channel without any treatment or protection.
+- code: bottled_water
+  label:
+    en: Bottled water
+  definition:
+    en: Commercially packaged water sold in sealed bottles, typically treated or purified.
+- code: packaged_water
+  label:
+    en: Sachet/packaged water
+  definition:
+    en: Commercially packaged water sold in sealed sachets or other small disposable containers.
+- code: other
+  label:
+    en: Other
+  definition:
+    en: A drinking water source not covered by the other categories.
+system_mappings:
+  dhs:
+    vocabulary_name: hv201 - Source of drinking water
+    values:
+    - code: '11'
+      label: Piped into dwelling
+      maps_to: piped_into_dwelling
+    - code: '12'
+      label: Piped to yard/plot
+      maps_to: piped_to_yard
+    - code: '13'
+      label: Piped to neighbor
+      maps_to: piped_to_neighbor
+    - code: '14'
+      label: Public tap/standpipe
+      maps_to: public_tap_standpipe
+    - code: '21'
+      label: Tube well or borehole
+      maps_to: tube_well_borehole
+    - code: '31'
+      label: Protected well
+      maps_to: protected_well
+    - code: '32'
+      label: Unprotected well
+      maps_to: unprotected_well
+    - code: '41'
+      label: Protected spring
+      maps_to: protected_spring
+    - code: '42'
+      label: Unprotected spring
+      maps_to: unprotected_spring
+    - code: '43'
+      label: Surface water
+      maps_to: surface_water
+    - code: '51'
+      label: Rainwater
+      maps_to: rainwater
+    - code: '61'
+      label: Tanker truck
+      maps_to: tanker_truck
+    - code: '62'
+      label: Cart with small tank
+      maps_to: cart_with_small_tank
+    - code: '71'
+      label: Bottled water
+      maps_to: bottled_water
+    - code: '72'
+      label: Sachet water
+      maps_to: packaged_water
+    - code: '96'
+      label: Other
+      maps_to: other
+  mics:
+    vocabulary_name: WS1 - Main source of drinking water
+    values:
+    - code: '11'
+      label: Piped into dwelling
+      maps_to: piped_into_dwelling
+    - code: '12'
+      label: Piped to yard/plot
+      maps_to: piped_to_yard
+    - code: '13'
+      label: Piped to neighbor
+      maps_to: piped_to_neighbor
+    - code: '14'
+      label: Public tap/standpipe
+      maps_to: public_tap_standpipe
+    - code: '21'
+      label: Tube well/borehole
+      maps_to: tube_well_borehole
+    - code: '31'
+      label: Protected dug well
+      maps_to: protected_well
+    - code: '32'
+      label: Unprotected dug well
+      maps_to: unprotected_well
+    - code: '41'
+      label: Protected spring
+      maps_to: protected_spring
+    - code: '42'
+      label: Unprotected spring
+      maps_to: unprotected_spring
+    - code: '51'
+      label: Rainwater collection
+      maps_to: rainwater
+    - code: '61'
+      label: Tanker truck
+      maps_to: tanker_truck
+    - code: '71'
+      label: Cart with small tank/drum
+      maps_to: cart_with_small_tank
+    - code: '81'
+      label: Surface water
+      maps_to: surface_water
+    - code: '91'
+      label: Bottled water
+      maps_to: bottled_water
+    - code: '92'
+      label: Sachet water
+      maps_to: packaged_water
+    - code: '96'
+      label: Other
+      maps_to: other

@@ -1,0 +1,36 @@
+id: water-service-level
+maturity: draft
+label:
+  en: Water Service Level
+definition:
+  en: The WHO/UNICEF JMP classification of drinking water service quality, ranging from safely managed to no service.
+standard:
+  name: WHO/UNICEF JMP Service Ladder (SDG 6.1.1)
+  uri: https://washdata.org/monitoring/drinking-water
+  notes: The JMP service ladder classifies drinking water access for SDG 6.1.1 reporting. Levels are derived from source type and collection time, not directly observed.
+values:
+- code: safely_managed
+  label:
+    en: Safely managed
+  definition:
+    en: Drinking water from an improved source located on premises, available when needed, and free from faecal and priority chemical contamination.
+- code: basic
+  label:
+    en: Basic
+  definition:
+    en: Drinking water from an improved source where collection time is not more than 30 minutes for a round trip, including queuing.
+- code: limited
+  label:
+    en: Limited
+  definition:
+    en: Drinking water from an improved source where collection time exceeds 30 minutes for a round trip, including queuing.
+- code: unimproved
+  label:
+    en: Unimproved
+  definition:
+    en: Drinking water from an unprotected dug well or unprotected spring.
+- code: no_service
+  label:
+    en: No service / surface water
+  definition:
+    en: Drinking water collected directly from a river, dam, lake, pond, stream, canal, or irrigation channel.

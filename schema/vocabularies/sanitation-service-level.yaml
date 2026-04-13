@@ -1,0 +1,36 @@
+id: sanitation-service-level
+maturity: draft
+label:
+  en: Sanitation Service Level
+definition:
+  en: The WHO/UNICEF JMP classification of sanitation service quality, ranging from safely managed to open defecation.
+standard:
+  name: WHO/UNICEF JMP Service Ladder (SDG 6.2.1)
+  uri: https://washdata.org/monitoring/sanitation
+  notes: The JMP service ladder classifies sanitation access for SDG 6.2.1 reporting. Levels are derived from facility type and sharing status, not directly observed.
+values:
+- code: safely_managed
+  label:
+    en: Safely managed
+  definition:
+    en: Use of an improved facility that is not shared with other households and where excreta are safely disposed of in situ or transported and treated off-site.
+- code: basic
+  label:
+    en: Basic
+  definition:
+    en: Use of an improved facility that is not shared with other households.
+- code: limited
+  label:
+    en: Limited
+  definition:
+    en: Use of an improved facility that is shared between two or more households.
+- code: unimproved
+  label:
+    en: Unimproved
+  definition:
+    en: Use of pit latrines without a slab or platform, hanging latrines, or bucket latrines.
+- code: open_defecation
+  label:
+    en: Open defecation
+  definition:
+    en: Disposal of human faeces in fields, forests, bodies of water, or other open spaces, or with solid waste. No facility of any kind is used.

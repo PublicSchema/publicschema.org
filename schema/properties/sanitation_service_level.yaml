@@ -1,0 +1,11 @@
+id: sanitation_service_level
+maturity: draft
+
+definition:
+  en: "The WHO/UNICEF JMP classification of the household's sanitation service. Derived from facility type and sharing status; not directly observed."
+
+type: string
+cardinality: single
+vocabulary: sanitation-service-level
+references: null
+category: wash

@@ -1,0 +1,11 @@
+id: roof_material
+maturity: draft
+
+definition:
+  en: "The primary material of the roof in the household's dwelling."
+
+type: string
+cardinality: single
+vocabulary: roof-material
+references: null
+category: housing

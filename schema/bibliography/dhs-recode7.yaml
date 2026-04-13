@@ -1,0 +1,22 @@
+id: dhs-recode7
+title: "DHS Recode7: Standard Recode Manual for DHS 7"
+short_title: "DHS Recode7"
+publisher: "ICF International / USAID"
+year: 2018
+type: classification
+domain: general
+uri: "https://dhsprogram.com/publications/publication-dhsg4-dhs-questionnaires-and-manuals.cfm"
+access: open
+status: active
+
+informs:
+  concepts:
+    - Household
+  vocabularies:
+    - floor-material
+    - wall-material
+    - roof-material
+  properties:
+    - floor_material
+    - wall_material
+    - roof_material

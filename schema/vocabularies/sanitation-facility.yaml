@@ -1,0 +1,166 @@
+id: sanitation-facility
+maturity: draft
+label:
+  en: Sanitation Facility
+definition:
+  en: The type of toilet or latrine facility used by the household, classified according to the WHO/UNICEF Joint Monitoring Programme (JMP).
+standard:
+  name: WHO/UNICEF Joint Monitoring Programme (JMP)
+  uri: https://washdata.org/monitoring/sanitation
+  notes: Canonical facility type classification for SDG 6.2 sanitation monitoring.
+values:
+- code: flush_to_piped_sewer
+  label:
+    en: Flush to piped sewer system
+  definition:
+    en: A flush or pour-flush toilet connected to a municipal or communal piped sewer network.
+- code: flush_to_septic_tank
+  label:
+    en: Flush to septic tank
+  definition:
+    en: A flush or pour-flush toilet connected to an on-site septic tank.
+- code: flush_to_pit_latrine
+  label:
+    en: Flush to pit latrine
+  definition:
+    en: A flush or pour-flush toilet where waste is directed to a pit below or nearby.
+- code: flush_to_open_drain
+  label:
+    en: Flush to open drain
+  definition:
+    en: A flush or pour-flush toilet where waste is discharged into an open drain or ditch.
+- code: flush_to_unknown
+  label:
+    en: Flush to unknown place / don't know where
+  definition:
+    en: A flush or pour-flush toilet where the destination of waste is unknown or the respondent does not know.
+- code: ventilated_improved_pit
+  label:
+    en: Ventilated improved pit latrine (VIP)
+  definition:
+    en: A pit latrine fitted with a ventilation pipe and a fly screen, which reduces odours and fly breeding.
+- code: pit_latrine_with_slab
+  label:
+    en: Pit latrine with slab
+  definition:
+    en: A pit latrine with a concrete or other solid slab covering the pit, reducing contamination risk.
+- code: pit_latrine_without_slab
+  label:
+    en: Pit latrine without slab / open pit
+  definition:
+    en: A pit latrine with no covering slab, leaving the pit directly exposed.
+- code: composting_toilet
+  label:
+    en: Composting toilet
+  definition:
+    en: A dry toilet that treats human waste through aerobic decomposition, producing compost.
+- code: bucket_latrine
+  label:
+    en: Bucket latrine
+  definition:
+    en: A toilet or latrine in which waste is collected in a bucket or container for later removal.
+- code: hanging_toilet
+  label:
+    en: Hanging toilet / hanging latrine
+  definition:
+    en: A toilet or latrine built over water or open ground where waste falls directly below without containment.
+- code: open_defecation
+  label:
+    en: No facility / bush / field (open defecation)
+  definition:
+    en: No toilet or latrine is used; defecation takes place in the open, in fields, forests, bodies of water, or other open spaces.
+- code: other
+  label:
+    en: Other
+  definition:
+    en: A sanitation facility not covered by the other categories.
+system_mappings:
+  dhs:
+    vocabulary_name: hv205 - Type of toilet facility
+    values:
+    - code: '11'
+      label: Flush to piped sewer system
+      maps_to: flush_to_piped_sewer
+    - code: '12'
+      label: Flush to septic tank
+      maps_to: flush_to_septic_tank
+    - code: '13'
+      label: Flush to pit latrine
+      maps_to: flush_to_pit_latrine
+    - code: '14'
+      label: Flush to somewhere else
+      maps_to: flush_to_open_drain
+    - code: '15'
+      label: Flush, don't know where
+      maps_to: flush_to_unknown
+    - code: '21'
+      label: Ventilated improved pit latrine (VIP)
+      maps_to: ventilated_improved_pit
+    - code: '22'
+      label: Pit latrine with slab
+      maps_to: pit_latrine_with_slab
+    - code: '23'
+      label: Pit latrine without slab/open pit
+      maps_to: pit_latrine_without_slab
+    - code: '31'
+      label: Composting toilet
+      maps_to: composting_toilet
+    - code: '41'
+      label: Bucket toilet
+      maps_to: bucket_latrine
+    - code: '42'
+      label: Hanging toilet/hanging latrine
+      maps_to: hanging_toilet
+    - code: '43'
+      label: No facility/bush/field
+      maps_to: open_defecation
+    - code: '96'
+      label: Other
+      maps_to: other
+  mics:
+    vocabulary_name: WS11 - Type of toilet facility
+    values:
+    - code: '11'
+      label: Flush to piped sewer system
+      maps_to: flush_to_piped_sewer
+    - code: '12'
+      label: Flush to septic tank
+      maps_to: flush_to_septic_tank
+    - code: '13'
+      label: Flush to pit latrine
+      maps_to: flush_to_pit_latrine
+    - code: '14'
+      label: Flush to open drain
+      maps_to: flush_to_open_drain
+    - code: '15'
+      label: Flush to don't know where
+      maps_to: flush_to_unknown
+    - code: '18'
+      label: Flush to somewhere else
+      maps_to: null
+      unmapped_reason: context_dependent
+      note: MICS 'somewhere else' is a residual category with no canonical equivalent
+    - code: '21'
+      label: Ventilated improved pit (VIP)
+      maps_to: ventilated_improved_pit
+    - code: '22'
+      label: Pit latrine with slab
+      maps_to: pit_latrine_with_slab
+    - code: '23'
+      label: Pit latrine without slab/open pit
+      maps_to: pit_latrine_without_slab
+    - code: '31'
+      label: Composting toilet
+      maps_to: composting_toilet
+    - code: '41'
+      label: Bucket
+      maps_to: bucket_latrine
+    - code: '51'
+      label: Hanging toilet/hanging latrine
+      maps_to: hanging_toilet
+    - code: '95'
+      label: No facility/bush/field
+      maps_to: open_defecation
+    - code: '96'
+      label: Other
+      maps_to: other

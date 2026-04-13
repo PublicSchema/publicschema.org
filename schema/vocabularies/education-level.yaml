@@ -18,6 +18,15 @@ standard:
 same_standard_systems:
 - openspp
 values:
+- code: none
+  label:
+    en: No formal education
+    fr: Aucune éducation formelle
+    es: Sin educación formal
+  definition:
+    en: "No formal education completed. Below ISCED level 0."
+    fr: "Aucune éducation formelle achevée. En dessous du niveau CITE 0."
+    es: "Sin educación formal completada. Por debajo del nivel CINE 0."
 - code: early_childhood
   label:
     en: Early childhood education
@@ -204,3 +213,65 @@ system_mappings:
     - code: '8'
       label: Doctorate or equivalent
       maps_to: doctoral
+  dhs:
+    vocabulary_name: "hv106 - Highest educational level"
+    values:
+    - code: '0'
+      label: No education
+      maps_to: none
+    - code: '1'
+      label: Primary
+      maps_to: primary
+    - code: '2'
+      label: Secondary
+      maps_to: upper_secondary
+      note: "DHS does not distinguish lower from upper secondary; mapped to upper_secondary as the completed-level interpretation"
+    - code: '3'
+      label: Higher
+      maps_to: bachelor
+      note: "DHS 'Higher' covers all tertiary; mapped to bachelor as the most common tertiary completion level"
+    - code: '8'
+      label: Don't know
+      maps_to: null
+      unmapped_reason: no_equivalent
+    - code: '9'
+      label: Missing
+      maps_to: null
+      unmapped_reason: no_equivalent
+    unmapped_canonical:
+    - lower_secondary
+    - post_secondary_non_tertiary
+    - short_cycle_tertiary
+    - master
+    - doctoral
+    - early_childhood
+  mics:
+    vocabulary_name: "melevel - Education level of mother/caretaker"
+    values:
+    - code: '0'
+      label: None or ECE
+      maps_to: none
+      note: "MICS combines 'no education' and 'early childhood education' into a single code"
+    - code: '1'
+      label: Primary
+      maps_to: primary
+    - code: '2'
+      label: Lower secondary
+      maps_to: lower_secondary
+    - code: '3'
+      label: Upper secondary
+      maps_to: upper_secondary
+    - code: '4'
+      label: Higher
+      maps_to: bachelor
+      note: "MICS 'Higher' covers all tertiary; mapped to bachelor as the most common tertiary completion level"
+    - code: '9'
+      label: Missing/DK
+      maps_to: null
+      unmapped_reason: no_equivalent
+    unmapped_canonical:
+    - early_childhood
+    - post_secondary_non_tertiary
+    - short_cycle_tertiary
+    - master
+    - doctoral

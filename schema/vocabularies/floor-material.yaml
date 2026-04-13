@@ -1,0 +1,127 @@
+id: floor-material
+maturity: draft
+label:
+  en: Floor Material
+definition:
+  en: The primary material of the floor in the household's dwelling.
+standard:
+  name: DHS/MICS Harmonized Housing Codes
+  notes: "Shared classification used by DHS (hv213) and MICS (HC3). No standalone international standard exists for floor materials; the survey programs are the de facto standard."
+values:
+- code: earth_sand
+  label:
+    en: Earth or sand
+  definition:
+    en: Unpaved floor made of bare earth or sand.
+- code: dung
+  label:
+    en: Dung
+  definition:
+    en: Floor finished with dung, a traditional material used in parts of sub-Saharan Africa and South Asia.
+- code: wood_planks
+  label:
+    en: Wood planks
+  definition:
+    en: Floor made of unpolished wood planks or boards.
+- code: palm_bamboo
+  label:
+    en: Palm or bamboo
+  definition:
+    en: Floor made of woven or split palm fronds or bamboo.
+- code: parquet_polished_wood
+  label:
+    en: Parquet or polished wood
+  definition:
+    en: Floor made of finished hardwood, parquet blocks, or polished wood boards.
+- code: vinyl_asphalt
+  label:
+    en: Vinyl or asphalt strips
+  definition:
+    en: Floor covered with vinyl tiles, linoleum, or asphalt strips.
+- code: ceramic_tiles
+  label:
+    en: Ceramic tiles
+  definition:
+    en: Floor covered with ceramic, porcelain, or similar fired clay tiles.
+- code: cement
+  label:
+    en: Cement
+  definition:
+    en: Floor made of poured or troweled cement or concrete.
+- code: carpet
+  label:
+    en: Carpet
+  definition:
+    en: Floor covered with carpet or fitted rugs.
+- code: other
+  label:
+    en: Other
+  definition:
+    en: Floor material not covered by the other categories.
+system_mappings:
+  dhs:
+    vocabulary_name: hv213 - Main floor material
+    values:
+    - code: '11'
+      label: Earth/sand
+      maps_to: earth_sand
+    - code: '12'
+      label: Dung
+      maps_to: dung
+    - code: '21'
+      label: Wood planks
+      maps_to: wood_planks
+    - code: '22'
+      label: Palm/bamboo
+      maps_to: palm_bamboo
+    - code: '31'
+      label: Parquet or polished wood
+      maps_to: parquet_polished_wood
+    - code: '32'
+      label: Vinyl or asphalt strips
+      maps_to: vinyl_asphalt
+    - code: '33'
+      label: Ceramic tiles
+      maps_to: ceramic_tiles
+    - code: '34'
+      label: Cement
+      maps_to: cement
+    - code: '35'
+      label: Carpet
+      maps_to: carpet
+    - code: '96'
+      label: Other
+      maps_to: other
+  mics:
+    vocabulary_name: HC3 - Main material of the floor
+    values:
+    - code: '11'
+      label: Earth/sand
+      maps_to: earth_sand
+    - code: '12'
+      label: Dung
+      maps_to: dung
+    - code: '21'
+      label: Wood planks
+      maps_to: wood_planks
+    - code: '22'
+      label: Palm/bamboo
+      maps_to: palm_bamboo
+    - code: '31'
+      label: Parquet or polished wood
+      maps_to: parquet_polished_wood
+    - code: '32'
+      label: Vinyl or asphalt strips
+      maps_to: vinyl_asphalt
+    - code: '33'
+      label: Ceramic tiles
+      maps_to: ceramic_tiles
+    - code: '34'
+      label: Cement
+      maps_to: cement
+    - code: '35'
+      label: Carpet
+      maps_to: carpet
+    - code: '96'
+      label: Other
+      maps_to: other

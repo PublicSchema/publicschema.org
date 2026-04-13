@@ -17,12 +17,14 @@ informs:
     - GroupMembership
     - Household
   vocabularies:
+    - dwelling-type
     - group-role
     - group-type
     - literacy
     - marital-status
     - relationship-type
   properties:
+    - dwelling_type
     - head_of_household
     - marital_status
     - relationship_type

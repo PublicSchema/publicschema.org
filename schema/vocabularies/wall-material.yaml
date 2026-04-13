@@ -1,0 +1,193 @@
+id: wall-material
+maturity: draft
+label:
+  en: Wall Material
+definition:
+  en: The primary material of the exterior walls in the household's dwelling.
+standard:
+  name: DHS/MICS Harmonized Housing Codes
+  notes: "Shared classification used by DHS (hv214) and MICS (HC5). No standalone international standard exists for wall materials; the survey programs are the de facto standard."
+values:
+- code: no_walls
+  label:
+    en: No walls
+  definition:
+    en: Dwelling has no exterior walls (open structure).
+- code: cane_palm_trunks
+  label:
+    en: Cane, palm, or trunks
+  definition:
+    en: Walls made of natural cane, palm fronds, or tree trunks without additional finishing.
+- code: dirt
+  label:
+    en: Dirt
+  definition:
+    en: Walls made of packed dirt or mud without any structural reinforcement.
+- code: bamboo_with_mud
+  label:
+    en: Bamboo with mud
+  definition:
+    en: Bamboo frame walls plastered or filled with mud.
+- code: stone_with_mud
+  label:
+    en: Stone with mud
+  definition:
+    en: Stone walls bonded with mud rather than mortar or cement.
+- code: uncovered_adobe
+  label:
+    en: Uncovered adobe
+  definition:
+    en: Sun-dried mud brick (adobe) walls without an exterior plaster or render coating.
+- code: plywood
+  label:
+    en: Plywood
+  definition:
+    en: Walls made of plywood sheets.
+- code: cardboard
+  label:
+    en: Cardboard
+  definition:
+    en: Walls made of cardboard or similar paper-based material.
+- code: reused_wood
+  label:
+    en: Reused wood
+  definition:
+    en: Walls built from salvaged or reused wooden boards and planks.
+- code: cement
+  label:
+    en: Cement
+  definition:
+    en: Walls made of poured concrete or cement render on a structural frame.
+- code: stone_with_lime_cement
+  label:
+    en: Stone with lime or cement
+  definition:
+    en: Stone walls bonded with lime or cement mortar.
+- code: bricks
+  label:
+    en: Bricks
+  definition:
+    en: Walls made of fired clay bricks.
+- code: cement_blocks
+  label:
+    en: Cement blocks
+  definition:
+    en: Walls made of concrete masonry units (hollow or solid cement blocks).
+- code: covered_adobe
+  label:
+    en: Covered adobe
+  definition:
+    en: Adobe (sun-dried mud brick) walls with an exterior plaster or render coating.
+- code: wood_planks_shingles
+  label:
+    en: Wood planks or shingles
+  definition:
+    en: Walls clad with milled wood planks or wooden shingles.
+- code: other
+  label:
+    en: Other
+  definition:
+    en: Wall material not covered by the other categories.
+system_mappings:
+  dhs:
+    vocabulary_name: hv214 - Main wall material
+    values:
+    - code: '11'
+      label: No walls
+      maps_to: no_walls
+    - code: '12'
+      label: Cane/palm/trunks
+      maps_to: cane_palm_trunks
+    - code: '13'
+      label: Dirt
+      maps_to: dirt
+    - code: '21'
+      label: Bamboo with mud
+      maps_to: bamboo_with_mud
+    - code: '22'
+      label: Stone with mud
+      maps_to: stone_with_mud
+    - code: '23'
+      label: Uncovered adobe
+      maps_to: uncovered_adobe
+    - code: '24'
+      label: Plywood
+      maps_to: plywood
+    - code: '25'
+      label: Cardboard
+      maps_to: cardboard
+    - code: '26'
+      label: Reused wood
+      maps_to: reused_wood
+    - code: '31'
+      label: Cement
+      maps_to: cement
+    - code: '32'
+      label: Stone with lime/cement
+      maps_to: stone_with_lime_cement
+    - code: '33'
+      label: Bricks
+      maps_to: bricks
+    - code: '34'
+      label: Cement blocks
+      maps_to: cement_blocks
+    - code: '35'
+      label: Covered adobe
+      maps_to: covered_adobe
+    - code: '36'
+      label: Wood planks/shingles
+      maps_to: wood_planks_shingles
+    - code: '96'
+      label: Other
+      maps_to: other
+  mics:
+    vocabulary_name: HC5 - Main material of the exterior walls
+    values:
+    - code: '11'
+      label: No walls
+      maps_to: no_walls
+    - code: '12'
+      label: Cane/palm/trunks
+      maps_to: cane_palm_trunks
+    - code: '13'
+      label: Dirt
+      maps_to: dirt
+    - code: '21'
+      label: Bamboo with mud
+      maps_to: bamboo_with_mud
+    - code: '22'
+      label: Stone with mud
+      maps_to: stone_with_mud
+    - code: '23'
+      label: Uncovered adobe
+      maps_to: uncovered_adobe
+    - code: '24'
+      label: Plywood
+      maps_to: plywood
+    - code: '25'
+      label: Cardboard
+      maps_to: cardboard
+    - code: '26'
+      label: Reused wood
+      maps_to: reused_wood
+    - code: '31'
+      label: Cement
+      maps_to: cement
+    - code: '32'
+      label: Stone with lime/cement
+      maps_to: stone_with_lime_cement
+    - code: '33'
+      label: Bricks
+      maps_to: bricks
+    - code: '34'
+      label: Cement blocks
+      maps_to: cement_blocks
+    - code: '35'
+      label: Covered adobe
+      maps_to: covered_adobe
+    - code: '36'
+      label: Wood planks/shingles
+      maps_to: wood_planks_shingles
+    - code: '96'
+      label: Other
+      maps_to: other
