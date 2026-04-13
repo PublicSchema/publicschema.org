@@ -19,7 +19,7 @@ const byMaturityThenName = (a: { maturity: string; id: string }, b: { maturity: 
   (maturityRank[a.maturity] ?? 9) - (maturityRank[b.maturity] ?? 9) || a.id.localeCompare(b.id);
 const concepts = Object.values(vocab.concepts).sort(byMaturityThenName);
 const coreConcepts = concepts.filter((c) => !c.domain);
-const domainLabels: Record<string, string> = { sp: t('concepts.section_social_protection') };
+const domainLabels: Record<string, string> = { sp: t('concepts.section_social_protection'), crvs: t('concepts.section_crvs') };
 const domainCodes = [...new Set(concepts.filter((c) => c.domain).map((c) => c.domain as string))].sort();
 const conceptsByDomain = Object.fromEntries(domainCodes.map((d) => [d, concepts.filter((c) => c.domain === d)]));
 const properties = Object.values(vocab.properties).sort(byMaturityThenName);

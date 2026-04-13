@@ -18,7 +18,7 @@ const byMaturityThenName = (a: { maturity: string; id: string }, b: { maturity: 
   (maturityRank[a.maturity] ?? 9) - (maturityRank[b.maturity] ?? 9) || a.id.localeCompare(b.id);
 const concepts = Object.values(vocab.concepts).sort(byMaturityThenName);
 const coreConcepts = concepts.filter((c) => !c.domain);
-const domainLabels: Record<string, string> = { sp: t('concepts.section_social_protection') };
+const domainLabels: Record<string, string> = { sp: t('concepts.section_social_protection'), crvs: t('concepts.section_crvs') };
 const domainCodes = [...new Set(concepts.filter((c) => c.domain).map((c) => c.domain as string))].sort();
 const conceptsByDomain = Object.fromEntries(domainCodes.map((d) => [d, concepts.filter((c) => c.domain === d)]));
 ---
@@ -31,7 +31,7 @@ const conceptsByDomain = Object.fromEntries(domainCodes.map((d) => [d, concepts.
     <p class="subtitle">{t('concepts.page_subtitle')}</p>
   </div>
 
-  <h2>{t('concepts.section_core')}</h2>
+  <h2 id="core">{t('concepts.section_core')}</h2>
   <table class="data-table mobile-card-table">
     <thead>
       <tr>
@@ -53,7 +53,7 @@ const conceptsByDomain = Object.fromEntries(domainCodes.map((d) => [d, concepts.
 
   {domainCodes.map((domain) => (
     <Fragment>
-      <h2>{domainLabels[domain] || domain}</h2>
+      <h2 id={domain}>{domainLabels[domain] || domain}</h2>
       <table class="data-table mobile-card-table">
         <thead>
           <tr>
