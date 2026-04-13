@@ -31,6 +31,15 @@ const conceptsByDomain = Object.fromEntries(domainCodes.map((d) => [d, concepts.
     <p class="subtitle">{t('concepts.page_subtitle')}</p>
   </div>
 
+  <nav class="toc" aria-label="Sections">
+    <ul>
+      <li><a href="#core">{t('concepts.section_core')}</a> <span class="toc-count">{coreConcepts.length}</span></li>
+      {domainCodes.map((domain) => (
+        <li><a href={`#${domain}`}>{domainLabels[domain] || domain}</a> <span class="toc-count">{conceptsByDomain[domain].length}</span></li>
+      ))}
+    </ul>
+  </nav>
+
   <h2 id="core">{t('concepts.section_core')}</h2>
   <table class="data-table mobile-card-table">
     <thead>

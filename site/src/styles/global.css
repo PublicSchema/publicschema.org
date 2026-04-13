@@ -980,6 +980,38 @@ article .data-table.table-wide {
 }
 
 /* ----------------------------------------------------------------
+   Table of contents (index pages)
+   ---------------------------------------------------------------- */
+
+.toc {
+  margin-bottom: var(--space-lg);
+}
+
+.toc ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs) var(--space-md);
+}
+
+.toc a {
+  color: var(--color-accent);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.toc a:hover {
+  text-decoration: underline;
+}
+
+.toc-count {
+  color: var(--color-text-muted);
+  font-size: 0.85em;
+}
+
+/* ----------------------------------------------------------------
    Hero (homepage)
    ---------------------------------------------------------------- */
 
