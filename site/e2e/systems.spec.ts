@@ -14,7 +14,7 @@ test.describe("Systems index page", () => {
 
   test("each system links to its detail page", async ({ page }) => {
     await page.goto("/systems/");
-    const opensppLink = page.locator('a[href="/systems/openspp"]');
+    const opensppLink = page.locator('a[href="/systems/openspp/"]');
     await expect(opensppLink).toBeVisible();
   });
 
@@ -27,7 +27,7 @@ test.describe("Systems index page", () => {
 
 test.describe("System detail page", () => {
   test("OpenSPP page renders with correct content", async ({ page }) => {
-    await page.goto("/systems/openspp");
+    await page.goto("/systems/openspp/");
 
     // Header
     await expect(page.locator("main h1")).toContainText("OpenSPP");
@@ -46,7 +46,7 @@ test.describe("System detail page", () => {
   });
 
   test("OpenSPP page shows vocabulary table with correct entries", async ({ page }) => {
-    await page.goto("/systems/openspp");
+    await page.goto("/systems/openspp/");
 
     // Should have a vocabularies table
     const table = page.locator("table");
@@ -64,7 +64,7 @@ test.describe("System detail page", () => {
   });
 
   test("OpenSPP page shows same-standard-only vocabs", async ({ page }) => {
-    await page.goto("/systems/openspp");
+    await page.goto("/systems/openspp/");
 
     // country is same-standard only for openspp
     const countryRow = page.locator("tr", { hasText: "country" });
@@ -74,7 +74,7 @@ test.describe("System detail page", () => {
   });
 
   test("DHIS2 page has fewer vocabularies than OpenSPP", async ({ page }) => {
-    await page.goto("/systems/dhis2");
+    await page.goto("/systems/dhis2/");
     await expect(page.locator("main h1")).toContainText("DHIS2");
 
     const rows = page.locator("main table tbody tr");
@@ -85,7 +85,7 @@ test.describe("System detail page", () => {
   });
 
   test("vocabulary links point to vocab pages", async ({ page }) => {
-    await page.goto("/systems/openspp");
+    await page.goto("/systems/openspp/");
     // Links include a #system hash fragment pointing at the relevant mapping
     // section, so match by prefix.
     const vocabLink = page.locator('a[href^="/vocab/gender-type"]');
@@ -93,7 +93,7 @@ test.describe("System detail page", () => {
   });
 
   test("report issue button appears at bottom", async ({ page }) => {
-    await page.goto("/systems/openspp");
+    await page.goto("/systems/openspp/");
     const buttons = page.locator('a.btn', { hasText: "Report an issue" });
     await expect(buttons).toBeVisible();
   });
@@ -101,19 +101,19 @@ test.describe("System detail page", () => {
 
 test.describe("Vocab page links to system pages", () => {
   test("system mapping headings link to system pages", async ({ page }) => {
-    await page.goto("/vocab/gender-type");
+    await page.goto("/vocab/gender-type/");
 
     // System mapping headings should be links
-    const opensppLink = page.locator('h3 a[href="/systems/openspp"]');
+    const opensppLink = page.locator('h3 a[href="/systems/openspp/"]');
     await expect(opensppLink).toBeVisible();
     await expect(opensppLink).toHaveText("OpenSPP");
   });
 
   test("same standard section links to system pages", async ({ page }) => {
-    await page.goto("/vocab/gender-type");
+    await page.goto("/vocab/gender-type/");
 
     // Same standard section should link to system pages
-    const fhirLink = page.locator('a[href="/systems/fhir_r4"]');
+    const fhirLink = page.locator('a[href="/systems/fhir_r4/"]');
     await expect(fhirLink.first()).toBeVisible();
   });
 });
