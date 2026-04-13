@@ -278,11 +278,14 @@ const isDropdown = variant === 'desktop' || variant === 'mobile-compact';
     });
   });
   // Close when focus leaves the dropdown entirely (e.g. keyboard user tabs past
-  // the last item). `relatedTarget` is the element receiving focus next.
+  // the last item). `relatedTarget` is the element receiving focus next. When
+  // it is null (common during iOS Safari touch interactions) we leave the
+  // dropdown open; the document click handler will close it if needed. Closing
+  // on a null relatedTarget races the tap and eats the link navigation.
   switchers.forEach((el) => {
     el.addEventListener('focusout', (e) => {
       const next = (e as FocusEvent).relatedTarget as Node | null;
-      if (el.hasAttribute('open') && (!next || !el.contains(next))) {
+      if (el.hasAttribute('open') && next && !el.contains(next)) {
         el.removeAttribute('open');
       }
     });
