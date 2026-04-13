@@ -63,6 +63,7 @@ VOCAB_STANDARD_LOOKUP: dict[str, str] = {
     "WHO/UNICEF JMP Service Ladder (SDG 6.2.1)": "who-unicef-jmp",
     "DHS/MICS Harmonized Housing Codes": "dhs-recode7",
     "UN Principles and Recommendations for Population and Housing Censuses, Rev. 3": "un-census-rev3",
+    "WHO Household Energy Database": "who-household-energy",
 }
 
 SKIPPED_KEYS = {"opencrvs"}

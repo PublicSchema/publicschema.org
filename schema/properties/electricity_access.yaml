@@ -1,0 +1,33 @@
+id: electricity_access
+maturity: draft
+
+definition:
+  en: "Whether the household has access to electricity from any source."
+
+type: boolean
+cardinality: single
+vocabulary: null
+references: null
+category: energy
+
+system_mappings:
+  dhs:
+    vocabulary_name: "hv206 - Has electricity"
+    values:
+    - code: "0"
+      label: "No"
+      maps_to: 0
+    - code: "1"
+      label: "Yes"
+      maps_to: 1
+    note: "DHS Recode7 hv206. Binary indicator. Maps to boolean: 0=false, 1=true."
+  mics:
+    vocabulary_name: "HC8 - Electricity"
+    values:
+    - code: "1"
+      label: "Yes"
+      maps_to: 1
+    - code: "2"
+      label: "No"
+      maps_to: 0
+    note: "MICS6 HC8. Binary indicator. Maps to boolean: 1=true, 2=false. MICS also captures source type (HC8A-HC8E) which is not represented in this boolean property."

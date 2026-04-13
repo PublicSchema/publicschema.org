@@ -1,0 +1,154 @@
+id: household-asset
+maturity: draft
+label:
+  en: Household Asset
+definition:
+  en: Durable goods owned by at least one member of the household, used as wealth proxy indicators in targeting and proxy means testing.
+values:
+- code: radio
+  label:
+    en: Radio
+  definition:
+    en: A functioning radio receiver.
+- code: television
+  label:
+    en: Television
+  definition:
+    en: A functioning television set.
+- code: mobile_phone
+  label:
+    en: Mobile phone
+  definition:
+    en: A functioning mobile telephone (basic or smartphone).
+- code: landline_phone
+  label:
+    en: Landline telephone
+  definition:
+    en: A functioning fixed-line telephone.
+- code: computer_tablet
+  label:
+    en: Computer/tablet
+  definition:
+    en: A functioning desktop computer, laptop, or tablet device.
+- code: refrigerator
+  label:
+    en: Refrigerator
+  definition:
+    en: A functioning refrigerator or freezer.
+- code: bicycle
+  label:
+    en: Bicycle
+  definition:
+    en: A functioning bicycle.
+- code: motorcycle_scooter
+  label:
+    en: Motorcycle/scooter
+  definition:
+    en: A functioning motorcycle, motor scooter, or motorized two-wheeler.
+- code: car_truck
+  label:
+    en: Car/truck
+  definition:
+    en: A functioning car, truck, van, or other motorized four-wheeled vehicle.
+- code: animal_drawn_cart
+  label:
+    en: Animal-drawn cart
+  definition:
+    en: A functioning cart, wagon, or other vehicle drawn by animals.
+- code: motorized_boat
+  label:
+    en: Motorized boat
+  definition:
+    en: A functioning boat with a motor.
+- code: watch
+  label:
+    en: Watch
+  definition:
+    en: A functioning wristwatch or pocket watch.
+- code: bank_account
+  label:
+    en: Bank account
+  definition:
+    en: A bank account or mobile money account held by any household member.
+- code: other
+  label:
+    en: Other
+  definition:
+    en: A durable good not covered by the other categories.
+system_mappings:
+  dhs:
+    vocabulary_name: "DHS Recode7 household assets"
+    values:
+    - code: hv207
+      label: Radio
+      maps_to: radio
+    - code: hv208
+      label: Television
+      maps_to: television
+    - code: hv243a
+      label: Mobile telephone
+      maps_to: mobile_phone
+    - code: hv221
+      label: Telephone (land-line)
+      maps_to: landline_phone
+    - code: hv209
+      label: Refrigerator
+      maps_to: refrigerator
+    - code: hv210
+      label: Bicycle
+      maps_to: bicycle
+    - code: hv211
+      label: Motorcycle/scooter
+      maps_to: motorcycle_scooter
+    - code: hv212
+      label: Car/truck
+      maps_to: car_truck
+    - code: hv243c
+      label: Animal-drawn cart
+      maps_to: animal_drawn_cart
+    - code: hv243d
+      label: Boat with a motor
+      maps_to: motorized_boat
+    - code: hv243b
+      label: Watch
+      maps_to: watch
+    unmapped_canonical:
+    - computer_tablet
+    - bank_account
+    - other
+    note: "DHS Recode7 asset variables. Each is a binary (0/1) indicator. Code here is the variable name, not a numeric code. DHS does not collect computer ownership or bank account as standard recode variables."
+  mics:
+    vocabulary_name: "MICS6 household assets"
+    values:
+    - code: HC10A
+      label: Watch
+      maps_to: watch
+    - code: HC10B
+      label: Bicycle
+      maps_to: bicycle
+    - code: HC10C
+      label: Motorcycle/scooter
+      maps_to: motorcycle_scooter
+    - code: HC10D
+      label: Animal-drawn cart
+      maps_to: animal_drawn_cart
+    - code: HC10E
+      label: Car/truck
+      maps_to: car_truck
+    - code: HC10F
+      label: Boat with a motor
+      maps_to: motorized_boat
+    - code: HC11
+      label: Computer/tablet
+      maps_to: computer_tablet
+    - code: HC12
+      label: Mobile phone
+      maps_to: mobile_phone
+    unmapped_canonical:
+    - radio
+    - television
+    - landline_phone
+    - refrigerator
+    - bank_account
+    - other
+    note: "MICS6 HC10-HC12 asset checklist. Each is a binary indicator. Code is the variable name. MICS does not collect radio, television, landline, or refrigerator as standard checklist items (some country adaptations add them)."

@@ -1,0 +1,11 @@
+id: household_assets
+maturity: draft
+
+definition:
+  en: "Durable goods owned by the household, used as wealth proxy indicators in targeting and proxy means testing."
+
+type: string
+cardinality: multiple
+vocabulary: household-asset
+references: null
+category: assets

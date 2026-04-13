@@ -1,0 +1,158 @@
+id: cooking-fuel
+maturity: draft
+label:
+  en: Cooking Fuel
+definition:
+  en: The primary fuel used by the household for cooking, classified according to the WHO Household Energy Database categories.
+standard:
+  name: WHO Household Energy Database
+  uri: https://www.who.int/data/gho/data/themes/air-pollution/household-air-pollution
+  notes: WHO classification of household cooking fuels for monitoring clean energy access (SDG 7.1.2).
+values:
+- code: electricity
+  label:
+    en: Electricity
+  definition:
+    en: Cooking using electric stoves, induction cooktops, or other electrically powered cooking appliances.
+- code: lpg_natural_gas
+  label:
+    en: LPG/natural gas
+  definition:
+    en: Cooking using liquefied petroleum gas (LPG), natural gas, or biogas piped or from cylinders.
+- code: biogas
+  label:
+    en: Biogas
+  definition:
+    en: Cooking using gas produced from anaerobic digestion of organic matter (animal dung, crop residue, food waste).
+- code: kerosene
+  label:
+    en: Kerosene
+  definition:
+    en: Cooking using kerosene (paraffin) as fuel in stoves or lamps.
+- code: coal_lignite
+  label:
+    en: Coal/lignite
+  definition:
+    en: Cooking using coal, lignite, or charcoal briquettes made from coal.
+- code: charcoal
+  label:
+    en: Charcoal
+  definition:
+    en: Cooking using charcoal produced from wood or other biomass through pyrolysis.
+- code: wood
+  label:
+    en: Wood
+  definition:
+    en: Cooking using firewood, wood chips, or sawdust.
+- code: straw_shrubs_grass
+  label:
+    en: Straw/shrubs/grass
+  definition:
+    en: Cooking using straw, shrubs, grass, or other light plant materials.
+- code: agricultural_crop_waste
+  label:
+    en: Agricultural crop waste
+  definition:
+    en: Cooking using crop residues such as husks, stalks, cobs, or bagasse.
+- code: animal_dung
+  label:
+    en: Animal dung
+  definition:
+    en: Cooking using dried animal dung cakes or pellets.
+- code: no_food_cooked
+  label:
+    en: No food cooked in household
+  definition:
+    en: The household does not cook food (eats out, receives prepared meals, or uses only cold food).
+- code: other
+  label:
+    en: Other
+  definition:
+    en: A cooking fuel not covered by the other categories.
+system_mappings:
+  dhs:
+    vocabulary_name: hv226 - Type of cooking fuel
+    values:
+    - code: '1'
+      label: Electricity
+      maps_to: electricity
+    - code: '2'
+      label: LPG/natural gas/biogas
+      maps_to: lpg_natural_gas
+    - code: '3'
+      label: Natural gas
+      maps_to: lpg_natural_gas
+    - code: '4'
+      label: Biogas
+      maps_to: biogas
+    - code: '5'
+      label: Kerosene
+      maps_to: kerosene
+    - code: '6'
+      label: Coal/lignite
+      maps_to: coal_lignite
+    - code: '7'
+      label: Charcoal
+      maps_to: charcoal
+    - code: '8'
+      label: Wood
+      maps_to: wood
+    - code: '9'
+      label: Straw/shrubs/grass
+      maps_to: straw_shrubs_grass
+    - code: '10'
+      label: Agricultural crop
+      maps_to: agricultural_crop_waste
+    - code: '11'
+      label: Animal dung
+      maps_to: animal_dung
+    - code: '95'
+      label: No food cooked in house
+      maps_to: no_food_cooked
+    - code: '96'
+      label: Other
+      maps_to: other
+    note: "DHS Recode7 hv226. Codes 2 and 3 both map to lpg_natural_gas because some DHS phases split LPG from natural gas."
+  mics:
+    vocabulary_name: EU1 - Type of cookstove mainly used
+    values:
+    - code: '1'
+      label: Electricity
+      maps_to: electricity
+    - code: '2'
+      label: LPG/cooking gas
+      maps_to: lpg_natural_gas
+    - code: '3'
+      label: Natural gas
+      maps_to: lpg_natural_gas
+    - code: '4'
+      label: Biogas
+      maps_to: biogas
+    - code: '5'
+      label: Kerosene
+      maps_to: kerosene
+    - code: '6'
+      label: Coal/lignite
+      maps_to: coal_lignite
+    - code: '7'
+      label: Charcoal
+      maps_to: charcoal
+    - code: '8'
+      label: Wood
+      maps_to: wood
+    - code: '9'
+      label: Straw/shrubs/grass
+      maps_to: straw_shrubs_grass
+    - code: '10'
+      label: Agricultural crop
+      maps_to: agricultural_crop_waste
+    - code: '11'
+      label: Animal dung
+      maps_to: animal_dung
+    - code: '95'
+      label: No food cooked in household
+      maps_to: no_food_cooked
+    - code: '96'
+      label: Other
+      maps_to: other
+    note: "MICS6 EU1 (Energy Use module). Code structure parallels DHS hv226."

@@ -1,0 +1,11 @@
+id: cooking_fuel
+maturity: draft
+
+definition:
+  en: "The primary fuel used by the household for cooking."
+
+type: string
+cardinality: single
+vocabulary: cooking-fuel
+references: null
+category: energy
