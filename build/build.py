@@ -421,6 +421,7 @@ def build_vocabulary(schema_dir: Path) -> dict:
     concepts_raw = _load_all_yaml(schema_dir / "concepts")
     properties_raw = _load_all_yaml(schema_dir / "properties")
     vocabularies_raw = _load_vocabularies_indexed(schema_dir / "vocabularies")
+    bibliography_raw = _load_all_yaml(schema_dir / "bibliography")
 
     # Compute property domains (which concepts use each property)
     property_domains: dict[str, list[str]] = {
@@ -520,7 +521,70 @@ def build_vocabulary(schema_dir: Path) -> dict:
             "external_equivalents": data.get("external_equivalents"),
             "same_standard_systems": data.get("same_standard_systems"),
             "external_values": data.get("external_values", False),
+            "references": data.get("references", []),
         }
+
+    # Build bibliography output and reverse indexes. Each entry's `informs`
+    # block points at concepts/vocabularies/properties; we mirror those edges
+    # back onto each entity as `bibliography_refs` so the site can render
+    # per-entity reference sections without re-scanning the whole catalog.
+    out_bibliography = {}
+    concept_bib_refs: dict[str, list[str]] = {cid: [] for cid in out_concepts}
+    vocab_bib_refs: dict[str, list[str]] = {vid: [] for vid in out_vocabularies}
+    property_bib_refs: dict[str, list[str]] = {pid: [] for pid in out_properties}
+
+    for bib_id, data in bibliography_raw.items():
+        informs = data.get("informs") or {"concepts": [], "vocabularies": [], "properties": []}
+        out_bibliography[bib_id] = {
+            "id": bib_id,
+            "title": data.get("title"),
+            "short_title": data.get("short_title"),
+            "standard_number": data.get("standard_number"),
+            "publisher": data.get("publisher"),
+            "year": data.get("year"),
+            "version": data.get("version"),
+            "type": data.get("type"),
+            "domain": data.get("domain"),
+            "uri": data.get("uri"),
+            "access": data.get("access"),
+            "status": data.get("status"),
+            "informs": {
+                "concepts": list(informs.get("concepts", [])),
+                "vocabularies": list(informs.get("vocabularies", [])),
+                "properties": list(informs.get("properties", [])),
+            },
+        }
+        for cid in informs.get("concepts", []):
+            if cid in concept_bib_refs:
+                concept_bib_refs[cid].append(bib_id)
+            else:
+                print(
+                    f"WARNING: bibliography {bib_id!r} informs concept {cid!r} which is not defined",
+                    file=sys.stderr,
+                )
+        for vid in informs.get("vocabularies", []):
+            if vid in vocab_bib_refs:
+                vocab_bib_refs[vid].append(bib_id)
+            else:
+                print(
+                    f"WARNING: bibliography {bib_id!r} informs vocabulary {vid!r} which is not defined",
+                    file=sys.stderr,
+                )
+        for pid in informs.get("properties", []):
+            if pid in property_bib_refs:
+                property_bib_refs[pid].append(bib_id)
+            else:
+                print(
+                    f"WARNING: bibliography {bib_id!r} informs property {pid!r} which is not defined",
+                    file=sys.stderr,
+                )
+
+    for cid, refs in concept_bib_refs.items():
+        out_concepts[cid]["bibliography_refs"] = sorted(refs)
+    for vid, refs in vocab_bib_refs.items():
+        out_vocabularies[vid]["bibliography_refs"] = sorted(refs)
+    for pid, refs in property_bib_refs.items():
+        out_properties[pid]["bibliography_refs"] = sorted(refs)
 
     # Build JSON-LD context. Concept URIs are bare (the HTML page URL IS the
     # concept URI, following the schema.org pattern). The .jsonld representation
@@ -746,6 +810,7 @@ def build_vocabulary(schema_dir: Path) -> dict:
         "concepts": out_concepts,
         "properties": out_properties,
         "vocabularies": out_vocabularies,
+        "bibliography": out_bibliography,
         "context": context,
         "concept_schemas": concept_schemas,
         "credential_schemas": credential_schemas,
@@ -768,6 +833,7 @@ def write_outputs(result: dict, dist_dir: Path):
         "concepts": result["concepts"],
         "properties": result["properties"],
         "vocabularies": result["vocabularies"],
+        "bibliography": result.get("bibliography", {}),
     }
     (dist_dir / "vocabulary.json").write_text(
         json.dumps(vocabulary, indent=2, ensure_ascii=False) + "\n"
@@ -882,7 +948,8 @@ def main():
     write_outputs(result, dist_dir)
     print(f"Built {len(result['concepts'])} concepts, "
           f"{len(result['properties'])} properties, "
-          f"{len(result['vocabularies'])} vocabularies.")
+          f"{len(result['vocabularies'])} vocabularies, "
+          f"{len(result.get('bibliography', {}))} bibliography entries.")
 
 
 if __name__ == "__main__":

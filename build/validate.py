@@ -134,6 +134,7 @@ def validate_schema_dir(schema_dir: Path) -> list[ValidationError]:
     properties = _load_all_yaml(schema_dir / "properties")
     vocabularies = _load_all_yaml(schema_dir / "vocabularies")
     vocabularies_with_paths = _load_vocabularies_with_paths(schema_dir / "vocabularies")
+    bibliography = _load_all_yaml(schema_dir / "bibliography")
 
     # Build lookup indexes
     concept_ids = {data["id"] for data in concepts.values() if "id" in data}
@@ -190,6 +191,7 @@ def validate_schema_dir(schema_dir: Path) -> list[ValidationError]:
     concept_schema = _load_json_schema("concept.schema.json")
     property_schema = _load_json_schema("property.schema.json")
     vocabulary_schema = _load_json_schema("vocabulary.schema.json")
+    bibliography_schema = _load_json_schema("bibliography.schema.json")
 
     # Validate concepts
     for filename, data in concepts.items():
@@ -310,6 +312,32 @@ def validate_schema_dir(schema_dir: Path) -> list[ValidationError]:
                         filename,
                         f"'{cid}' lists '{subtype}' as subtype, but '{subtype}' does not list '{cid}' as supertype",
                     ))
+
+    # Validate bibliography entries
+    for filename, data in bibliography.items():
+        errors.extend(_validate_against_schema(data, bibliography_schema, filename))
+
+    # Bibliography cross-reference integrity: every ID in `informs` must exist
+    for filename, data in bibliography.items():
+        informs = data.get("informs") or {}
+        for cid in informs.get("concepts", []):
+            if cid not in concept_ids:
+                errors.append(ValidationError(
+                    filename,
+                    f"Bibliography 'informs.concepts' references concept '{cid}' which is not defined",
+                ))
+        for vid in informs.get("vocabularies", []):
+            if vid not in vocabulary_ids:
+                errors.append(ValidationError(
+                    filename,
+                    f"Bibliography 'informs.vocabularies' references vocabulary '{vid}' which is not defined",
+                ))
+        for pid in informs.get("properties", []):
+            if pid not in property_ids:
+                errors.append(ValidationError(
+                    filename,
+                    f"Bibliography 'informs.properties' references property '{pid}' which is not defined",
+                ))
 
     # Vocabulary value code uniqueness
     for filename, data in vocabularies.items():
