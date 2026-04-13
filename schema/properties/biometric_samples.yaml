@@ -10,3 +10,8 @@ type: concept:BiometricSample
 cardinality: multiple
 vocabulary: null
 references: BiometricSample
+
+convergence:
+  system_count: 0
+  total_systems: 6
+  notes: "No v1 system mappings exist yet. MOSIP and OSIA both link biometric records to a person; this property provides the inverse navigation."

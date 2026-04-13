@@ -37,80 +37,136 @@ values:
     en: Right thumb
     fr: Pouce droit
     es: Pulgar derecho
+  definition:
+    en: The thumb of the right hand.
+    fr: Le pouce de la main droite.
+    es: El pulgar de la mano derecha.
   standard_code: "1"
 - code: right_index
   label:
     en: Right index finger
     fr: Index droit
     es: Índice derecho
+  definition:
+    en: The index finger of the right hand.
+    fr: "L'index de la main droite."
+    es: El dedo índice de la mano derecha.
   standard_code: "2"
 - code: right_middle
   label:
     en: Right middle finger
     fr: Majeur droit
     es: Medio derecho
+  definition:
+    en: The middle finger of the right hand.
+    fr: Le majeur de la main droite.
+    es: El dedo medio de la mano derecha.
   standard_code: "3"
 - code: right_ring
   label:
     en: Right ring finger
     fr: Annulaire droit
     es: Anular derecho
+  definition:
+    en: The ring finger of the right hand.
+    fr: "L'annulaire de la main droite."
+    es: El dedo anular de la mano derecha.
   standard_code: "4"
 - code: right_little
   label:
     en: Right little finger
     fr: Auriculaire droit
     es: Meñique derecho
+  definition:
+    en: The little finger of the right hand.
+    fr: "L'auriculaire de la main droite."
+    es: El dedo meñique de la mano derecha.
   standard_code: "5"
 - code: left_thumb
   label:
     en: Left thumb
     fr: Pouce gauche
     es: Pulgar izquierdo
+  definition:
+    en: The thumb of the left hand.
+    fr: Le pouce de la main gauche.
+    es: El pulgar de la mano izquierda.
   standard_code: "6"
 - code: left_index
   label:
     en: Left index finger
     fr: Index gauche
     es: Índice izquierdo
+  definition:
+    en: The index finger of the left hand.
+    fr: "L'index de la main gauche."
+    es: El dedo índice de la mano izquierda.
   standard_code: "7"
 - code: left_middle
   label:
     en: Left middle finger
     fr: Majeur gauche
     es: Medio izquierdo
+  definition:
+    en: The middle finger of the left hand.
+    fr: Le majeur de la main gauche.
+    es: El dedo medio de la mano izquierda.
   standard_code: "8"
 - code: left_ring
   label:
     en: Left ring finger
     fr: Annulaire gauche
     es: Anular izquierdo
+  definition:
+    en: The ring finger of the left hand.
+    fr: "L'annulaire de la main gauche."
+    es: El dedo anular de la mano izquierda.
   standard_code: "9"
 - code: left_little
   label:
     en: Left little finger
     fr: Auriculaire gauche
     es: Meñique izquierdo
+  definition:
+    en: The little finger of the left hand.
+    fr: "L'auriculaire de la main gauche."
+    es: El dedo meñique de la mano izquierda.
   standard_code: "10"
 # Iris (3)
 - code: right_eye
   label:
     en: Right eye
-    fr: Oeil droit
+    fr: Œil droit
     es: Ojo derecho
+  definition:
+    en: The iris of the right eye.
+    fr: "L'iris de l'œil droit."
+    es: El iris del ojo derecho.
 - code: left_eye
   label:
     en: Left eye
-    fr: Oeil gauche
+    fr: Œil gauche
     es: Ojo izquierdo
+  definition:
+    en: The iris of the left eye.
+    fr: "L'iris de l'œil gauche."
+    es: El iris del ojo izquierdo.
 - code: both_eyes
   label:
     en: Both eyes
     fr: Les deux yeux
     es: Ambos ojos
+  definition:
+    en: A dual-iris capture covering both eyes simultaneously.
+    fr: Une capture bi-iris couvrant les deux yeux simultanément.
+    es: Una captura de iris dual que cubre ambos ojos simultáneamente.
 # Face (1)
 - code: portrait
   label:
     en: Portrait (frontal)
     fr: Portrait (frontal)
     es: Retrato (frontal)
+  definition:
+    en: A frontal facial photograph.
+    fr: Une photographie faciale frontale.
+    es: Una fotografía facial frontal.

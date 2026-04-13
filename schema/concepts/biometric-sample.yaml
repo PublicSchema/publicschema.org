@@ -45,3 +45,11 @@ properties:
 
 supertypes: []
 subtypes: []
+
+convergence:
+  system_count: 0
+  total_systems: 6
+  notes: >
+    No v1 system mappings exist yet. The concept is informed by OSIA
+    BiometricData and MOSIP CBEFF containers, both of which model biometric
+    samples as standalone records linked to a person.

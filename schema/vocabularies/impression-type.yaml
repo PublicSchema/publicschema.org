@@ -32,96 +32,172 @@ values:
     en: Live scan plain
     fr: Scan en direct simple
     es: Escaneo en vivo simple
+  definition:
+    en: A fingerprint captured by pressing a finger flat against a live-scan sensor.
+    fr: Une empreinte capturée en appuyant un doigt à plat sur un capteur de scan en direct.
+    es: Una huella capturada presionando un dedo plano contra un sensor de escaneo en vivo.
 - code: live_scan_rolled
   label:
     en: Live scan rolled
     fr: Scan en direct roulé
     es: Escaneo en vivo rodado
+  definition:
+    en: A fingerprint captured by rolling the finger from nail to nail across a live-scan sensor, producing a wider image.
+    fr: Une empreinte capturée en roulant le doigt d'un bord de l'ongle à l'autre sur un capteur de scan en direct, produisant une image plus large.
+    es: Una huella capturada rodando el dedo de un extremo de la uña al otro sobre un sensor de escaneo en vivo, produciendo una imagen más amplia.
 - code: live_scan_swipe
   label:
     en: Live scan swipe
     fr: Scan en direct par glissement
     es: Escaneo en vivo por deslizamiento
+  definition:
+    en: A fingerprint captured by swiping the finger across a narrow strip sensor.
+    fr: Une empreinte capturée en glissant le doigt sur un capteur à bande étroite.
+    es: Una huella capturada deslizando el dedo sobre un sensor de banda estrecha.
 - code: live_scan_vertical_roll
   label:
     en: Live scan vertical roll
     fr: Scan en direct roulement vertical
     es: Escaneo en vivo rodado vertical
+  definition:
+    en: A fingerprint captured by rolling the finger vertically (tip to base) across a live-scan sensor.
+    fr: Une empreinte capturée en roulant le doigt verticalement (de la pointe à la base) sur un capteur de scan en direct.
+    es: Una huella capturada rodando el dedo verticalmente (de la punta a la base) sobre un sensor de escaneo en vivo.
 - code: live_scan_palm
   label:
     en: Live scan palm
     fr: Scan en direct de la paume
     es: Escaneo en vivo de la palma
+  definition:
+    en: A palm print captured using a live-scan sensor.
+    fr: Une empreinte palmaire capturée à l'aide d'un capteur de scan en direct.
+    es: Una impresión palmar capturada usando un sensor de escaneo en vivo.
 - code: live_scan_optical_contactless_plain
   label:
     en: Live scan optical contactless plain
     fr: Scan en direct optique sans contact simple
     es: Escaneo en vivo óptico sin contacto simple
+  definition:
+    en: A fingerprint captured without physical contact using an optical sensor (e.g., camera-based capture).
+    fr: Une empreinte capturée sans contact physique à l'aide d'un capteur optique (p. ex., capture par caméra).
+    es: Una huella capturada sin contacto físico usando un sensor óptico (p. ej., captura por cámara).
 # Non-live scan (3)
 - code: non_live_scan_plain
   label:
     en: Non-live scan plain
     fr: Scan non direct simple
     es: Escaneo no en vivo simple
+  definition:
+    en: A fingerprint captured from a pre-existing ink-on-paper impression using a scanner or camera.
+    fr: Une empreinte capturée à partir d'une impression encre-sur-papier préexistante à l'aide d'un scanner ou d'une caméra.
+    es: Una huella capturada a partir de una impresión preexistente en tinta sobre papel usando un escáner o cámara.
 - code: non_live_scan_rolled
   label:
     en: Non-live scan rolled
     fr: Scan non direct roulé
     es: Escaneo no en vivo rodado
+  definition:
+    en: A rolled fingerprint captured from a pre-existing ink-on-paper impression using a scanner or camera.
+    fr: Une empreinte roulée capturée à partir d'une impression encre-sur-papier préexistante à l'aide d'un scanner ou d'une caméra.
+    es: Una huella rodada capturada a partir de una impresión preexistente en tinta sobre papel usando un escáner o cámara.
 - code: non_live_scan_palm
   label:
     en: Non-live scan palm
     fr: Scan non direct de la paume
     es: Escaneo no en vivo de la palma
+  definition:
+    en: A palm print captured from a pre-existing ink-on-paper impression using a scanner or camera.
+    fr: Une empreinte palmaire capturée à partir d'une impression encre-sur-papier préexistante à l'aide d'un scanner ou d'une caméra.
+    es: Una impresión palmar capturada a partir de una impresión preexistante en tinta sobre papel usando un escáner o cámara.
 # Latent (8)
 - code: latent_impression
   label:
     en: Latent impression
     fr: Impression latente
     es: Impresión latente
+  definition:
+    en: A fingerprint impression left unintentionally on a surface and recovered for identification.
+    fr: Une impression digitale laissée involontairement sur une surface et récupérée pour identification.
+    es: Una impresión dactilar dejada involuntariamente en una superficie y recuperada para identificación.
 - code: latent_tracing
   label:
     en: Latent tracing
     fr: Tracé latent
     es: Trazado latente
+  definition:
+    en: A latent fingerprint recovered by tracing over the impression on a transparent overlay.
+    fr: Une empreinte latente récupérée en traçant l'impression sur un support transparent.
+    es: Una huella latente recuperada trazando la impresión sobre una lámina transparente.
 - code: latent_photo
   label:
     en: Latent photo
     fr: Photo latente
     es: Foto latente
+  definition:
+    en: A latent fingerprint recovered by photographing the impression on a surface.
+    fr: Une empreinte latente récupérée en photographiant l'impression sur une surface.
+    es: Una huella latente recuperada fotografiando la impresión sobre una superficie.
 - code: latent_lift
   label:
     en: Latent lift
     fr: Relevé latent
     es: Levantamiento latente
+  definition:
+    en: A latent fingerprint recovered by lifting the impression from a surface using adhesive or chemical techniques.
+    fr: Une empreinte latente récupérée en relevant l'impression d'une surface à l'aide de techniques adhésives ou chimiques.
+    es: Una huella latente recuperada levantando la impresión de una superficie usando técnicas adhesivas o químicas.
 - code: latent_palm_impression
   label:
     en: Latent palm impression
     fr: Impression latente de la paume
     es: Impresión latente de la palma
+  definition:
+    en: A palm print impression left unintentionally on a surface and recovered for identification.
+    fr: Une impression palmaire laissée involontairement sur une surface et récupérée pour identification.
+    es: Una impresión palmar dejada involuntariamente en una superficie y recuperada para identificación.
 - code: latent_palm_tracing
   label:
     en: Latent palm tracing
     fr: Tracé latent de la paume
     es: Trazado latente de la palma
+  definition:
+    en: A latent palm print recovered by tracing over the impression on a transparent overlay.
+    fr: Une empreinte palmaire latente récupérée en traçant l'impression sur un support transparent.
+    es: Una impresión palmar latente recuperada trazando la impresión sobre una lámina transparente.
 - code: latent_palm_photo
   label:
     en: Latent palm photo
     fr: Photo latente de la paume
     es: Foto latente de la palma
+  definition:
+    en: A latent palm print recovered by photographing the impression on a surface.
+    fr: Une empreinte palmaire latente récupérée en photographiant l'impression sur une surface.
+    es: Una impresión palmar latente recuperada fotografiando la impresión sobre una superficie.
 - code: latent_palm_lift
   label:
     en: Latent palm lift
     fr: Relevé latent de la paume
     es: Levantamiento latente de la palma
+  definition:
+    en: A latent palm print recovered by lifting the impression from a surface using adhesive or chemical techniques.
+    fr: Une empreinte palmaire latente récupérée en relevant l'impression d'une surface à l'aide de techniques adhésives ou chimiques.
+    es: Una impresión palmar latente recuperada levantando la impresión de una superficie usando técnicas adhesivas o químicas.
 # Other (2)
 - code: other
   label:
     en: Other
     fr: Autre
     es: Otro
+  definition:
+    en: A capture method not covered by the other categories.
+    fr: Une méthode de capture non couverte par les autres catégories.
+    es: Un método de captura no cubierto por las otras categorías.
 - code: unknown
   label:
     en: Unknown
     fr: Inconnu
     es: Desconocido
+  definition:
+    en: The capture method is not known.
+    fr: La méthode de capture n'est pas connue.
+    es: El método de captura no es conocido.

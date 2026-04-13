@@ -30,16 +30,6 @@ values:
     fr: Une capture d'image faciale.
     es: Una captura de imagen facial.
   standard_code: "2"
-- code: voice
-  label:
-    en: Voice
-    fr: Voix
-    es: Voz
-  definition:
-    en: A voice recording capture.
-    fr: Une capture d'enregistrement vocal.
-    es: Una captura de grabación de voz.
-  standard_code: "3"
 - code: fingerprint
   label:
     en: Fingerprint
@@ -70,3 +60,13 @@ values:
     fr: Une capture de signature manuscrite (non une signature cryptographique).
     es: Una captura de firma manuscrita (no una firma criptográfica).
   standard_code: "8"
+- code: voice
+  label:
+    en: Voice
+    fr: Voix
+    es: Voz
+  definition:
+    en: A voice recording capture.
+    fr: Une capture d'enregistrement vocal.
+    es: Una captura de grabación de voz.
+  standard_code: "3"
