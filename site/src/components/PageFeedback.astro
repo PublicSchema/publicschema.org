@@ -22,8 +22,7 @@ const body = [
   '<!-- Describe the issue -->',
 ].join('\n');
 
-const params = new URLSearchParams({ title, body, labels: `feedback,lang:${locale}` });
-const issueUrl = `${GITHUB_REPO}/issues/new?${params.toString()}`;
+const issueUrl = `${GITHUB_REPO}/issues/new?title=${encodeURIComponent(title)}&body=${encodeURIComponent(body)}&labels=${encodeURIComponent(`feedback,lang:${locale}`)}`;
 ---
 <p class="page-feedback">
   <a href={issueUrl} target="_blank" rel="noopener noreferrer">

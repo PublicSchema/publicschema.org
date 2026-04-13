@@ -13,7 +13,7 @@ const groupUrl = 'https://hypothes.is/groups/6EELqkDo/public-schema-review';
 const hypothesisText = t('feedback.orientation_hypothesis');
 const [beforeLink, afterLink] = hypothesisText.split('{link}');
 ---
-<div class="concept-section feedback-orientation">
+<div class="concept-section feedback-orientation" id="feedback">
   <h2>{t('feedback.orientation_title')}</h2>
   <p>{beforeLink}<a href={groupUrl} target="_blank" rel="noopener noreferrer">{t('feedback.orientation_hypothesis_link')}</a>{afterLink}</p>
   <p>{t('feedback.orientation_github')}</p>

@@ -26,8 +26,7 @@ const body = [
   '<!-- Describe the issue. Is this a translation problem or a content problem? -->',
 ].join('\n');
 
-const params = new URLSearchParams({ title, body, labels: `feedback,lang:${locale}` });
-const issueUrl = `${GITHUB_REPO}/issues/new?${params.toString()}`;
+const issueUrl = `${GITHUB_REPO}/issues/new?title=${encodeURIComponent(title)}&body=${encodeURIComponent(body)}&labels=${encodeURIComponent(`feedback,lang:${locale}`)}`;
 ---
 <a
   href={issueUrl}
