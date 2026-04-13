@@ -10,6 +10,7 @@ type: string
 cardinality: single
 vocabulary: income-source
 references: null
+category: economic
 
 convergence:
   system_count: 0

@@ -58,30 +58,31 @@ system_mappings:
   lsms_isa:
     vocabulary_name: "LSMS-ISA harmonized tenure status"
     values:
-      - code: "1"
-        label: "Owned (purchased/inherited)"
-        maps_to: owned_with_title
-        note: "LSMS-ISA does not distinguish titled from untitled ownership in the harmonized variable. Mapped to owned_with_title as default; field context may indicate otherwise."
-      - code: "2"
-        label: "Rented in"
-        maps_to: rented
-      - code: "3"
-        label: "Sharecropped"
-        maps_to: sharecropped
-      - code: "4"
-        label: "Borrowed/given for free"
-        maps_to: borrowed
-      - code: "5"
-        label: "Communal/village"
-        maps_to: communal
-      - code: "6"
-        label: "Allocated by government"
-        maps_to: state_allocated
-      - code: "7"
-        label: "Squatting"
-        maps_to: informal
-      - code: "96"
-        label: "Other"
-        maps_to: other
-    unmapped_canonical: [owned_without_title]
+    - code: '1'
+      label: Owned (purchased/inherited)
+      maps_to: owned_with_title
+      note: "LSMS-ISA does not distinguish titled from untitled ownership in the harmonized variable. Mapped to owned_with_title as default; field context may indicate otherwise."
+    - code: '2'
+      label: Rented in
+      maps_to: rented
+    - code: '3'
+      label: Sharecropped
+      maps_to: sharecropped
+    - code: '4'
+      label: Borrowed/given for free
+      maps_to: borrowed
+    - code: '5'
+      label: Communal/village
+      maps_to: communal
+    - code: '6'
+      label: Allocated by government
+      maps_to: state_allocated
+    - code: '7'
+      label: Squatting
+      maps_to: informal
+    - code: '96'
+      label: Other
+      maps_to: other
+    unmapped_canonical:
+    - owned_without_title
     note: "LSMS-ISA harmonized tenure codes from the Sub-Saharan Africa panel. The owned/untitled distinction is not captured in the harmonized layer but may exist in country-specific modules."
