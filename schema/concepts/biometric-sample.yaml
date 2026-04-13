@@ -1,0 +1,47 @@
+id: BiometricSample
+label:
+  en: Biometric Sample
+  fr: Échantillon biométrique
+  es: Muestra biométrica
+maturity: draft
+
+definition:
+  en: >
+    A biometric measurement captured from a person, such as a fingerprint image,
+    iris scan, or facial photograph. Each record represents a single capture of a
+    single biometric position (e.g., right index finger). A BiometricSample record
+    may also document a capture exception: when exception_reason is non-null, the
+    record explains why the biometric could not be captured rather than holding
+    actual sample data.
+  fr: >
+    Une mesure biométrique capturée sur une personne, telle qu'une image
+    d'empreinte digitale, un scan de l'iris ou une photographie faciale. Chaque
+    enregistrement représente une capture unique d'une position biométrique
+    unique (p. ex., index droit). Un enregistrement BiometricSample peut aussi
+    documenter une exception de capture: lorsque exception_reason n'est pas nul,
+    l'enregistrement explique pourquoi le biométrique n'a pas pu être capturé
+    plutôt que de contenir des données d'échantillon réelles.
+  es: >
+    Una medición biométrica capturada de una persona, como una imagen de huella
+    dactilar, un escaneo de iris o una fotografía facial. Cada registro
+    representa una captura única de una posición biométrica única (p. ej.,
+    índice derecho). Un registro BiometricSample también puede documentar una
+    excepción de captura: cuando exception_reason no es nulo, el registro
+    explica por qué no se pudo capturar el biométrico en lugar de contener
+    datos de muestra reales.
+
+properties:
+  - person
+  - biometric_modality
+  - biometric_subtype
+  - impression_type
+  - capture_date
+  - quality_score
+  - quality_algorithm
+  - sample_uri
+  - sample_format
+  - exception_reason
+  - capture_device
+
+supertypes: []
+subtypes: []

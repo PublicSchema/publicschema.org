@@ -55,6 +55,7 @@ properties:
   - email_address
   - domicile
   - group_memberships
+  - biometric_samples
 
 subtypes: []
 supertypes: [Party]
