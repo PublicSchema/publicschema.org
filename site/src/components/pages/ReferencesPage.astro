@@ -1,0 +1,381 @@
+---
+import Base from '../../layouts/Base.astro';
+import { defaultLocale, type Locale } from '../../i18n/languages';
+import { useTranslations, localePath } from '../../i18n/utils';
+import { loadVocabulary } from '../../data/vocabulary';
+import type { BibliographyEntry, BibliographyType } from '../../data/vocabulary';
+import {
+  conceptPath as conceptPathFor,
+  propPath as propPathFor,
+} from '../../data/concept-utils';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = defaultLocale } = Astro.props;
+const t = useTranslations(locale);
+
+const data = loadVocabulary();
+const bibliography = data.bibliography ?? {};
+
+// Tier groupings derived from `type`. Each tier has its own description and
+// natural reading order. Entries within a tier are sorted by publisher then
+// short_title for predictable browsing.
+type Tier = {
+  id: string;
+  title: string;
+  description: string;
+  types: BibliographyType[];
+};
+
+const tiers: Tier[] = [
+  {
+    id: 'normative',
+    title: t('references.tier.normative'),
+    description: t('references.tier.normative_desc'),
+    types: ['international_standard', 'classification'],
+  },
+  {
+    id: 'specifications',
+    title: t('references.tier.specifications'),
+    description: t('references.tier.specifications_desc'),
+    types: ['specification'],
+  },
+  {
+    id: 'eu',
+    title: t('references.tier.eu'),
+    description: t('references.tier.eu_desc'),
+    types: ['eu_vocabulary', 'eu_credential_schema'],
+  },
+  {
+    id: 'legal',
+    title: t('references.tier.legal'),
+    description: t('references.tier.legal_desc'),
+    types: ['legal_instrument'],
+  },
+  {
+    id: 'guidance',
+    title: t('references.tier.guidance'),
+    description: t('references.tier.guidance_desc'),
+    types: ['guidance_publication'],
+  },
+];
+
+const entries = Object.values(bibliography);
+const grouped: Record<string, BibliographyEntry[]> = {};
+for (const tier of tiers) {
+  grouped[tier.id] = entries
+    .filter((e) => tier.types.includes(e.type))
+    .sort((a, b) => {
+      const pubCmp = a.publisher.localeCompare(b.publisher);
+      if (pubCmp !== 0) return pubCmp;
+      return (a.short_title ?? a.title).localeCompare(b.short_title ?? b.title);
+    });
+}
+
+const totalEntries = entries.length;
+const orgs = new Set(entries.map((e) => e.publisher)).size;
+const subtitle = `${t('references.page_subtitle')} ${totalEntries} ${totalEntries === 1 ? 'entry' : 'entries'} from ${orgs} organisations.`;
+
+const accessLabel = (access: string | null): string => {
+  if (!access) return '';
+  return t(`references.access.${access}`);
+};
+const statusLabel = (status: string): string => t(`references.status.${status}`);
+
+const conceptLinkFor = (id: string) => localePath(conceptPathFor(data, id), locale);
+const propLinkFor = (id: string) => localePath(propPathFor(data, id), locale);
+const vocabLinkFor = (key: string) => localePath(`/vocab/${key}`, locale);
+---
+<Base title={t('references.page_title')} description={t('references.page_subtitle')} locale={locale}>
+  <div class="page-header">
+    <nav class="breadcrumb" aria-label={t('breadcrumb.home')}>
+      <a href={localePath('/', locale)}>{t('breadcrumb.home')}</a>
+      <span class="separator">/</span>
+      {t('references.page_title')}
+    </nav>
+    <h1>{t('references.page_title')}</h1>
+    <p class="subtitle">{subtitle}</p>
+    <p class="references-disclaimer">{t('references.disclaimer')}</p>
+  </div>
+
+  <nav class="references-toc" aria-label="On this page">
+    <ul>
+      {tiers.map((tier) => grouped[tier.id].length > 0 && (
+        <li>
+          <a href={`#${tier.id}`}>{tier.title}</a>
+          <span class="references-toc-count">{grouped[tier.id].length}</span>
+        </li>
+      ))}
+    </ul>
+  </nav>
+
+  {tiers.map((tier) => grouped[tier.id].length > 0 && (
+    <section class="concept-section" id={tier.id}>
+      <h2>{tier.title}</h2>
+      <p class="references-tier-desc">{tier.description}</p>
+      <ul class="references-list">
+        {grouped[tier.id].map((entry) => {
+          const informedCount =
+            entry.informs.concepts.length +
+            entry.informs.vocabularies.length +
+            entry.informs.properties.length;
+          return (
+            <li class="references-entry" id={`bib-${entry.id}`}>
+              <div class="references-entry-head">
+                <h3 class="references-entry-title">
+                  {entry.uri ? (
+                    <a href={entry.uri} target="_blank" rel="noopener noreferrer">
+                      {entry.short_title ?? entry.title}
+                    </a>
+                  ) : (
+                    <span>{entry.short_title ?? entry.title}</span>
+                  )}
+                </h3>
+                <div class="references-entry-badges">
+                  <span class={`badge badge-status-${entry.status}`}>{statusLabel(entry.status)}</span>
+                  {entry.access && entry.access !== 'open' && (
+                    <span class={`badge badge-access-${entry.access}`}>{accessLabel(entry.access)}</span>
+                  )}
+                </div>
+              </div>
+              {entry.short_title && entry.short_title !== entry.title && (
+                <p class="references-entry-fulltitle">{entry.title}</p>
+              )}
+              <dl class="references-entry-meta">
+                <dt>{t('references.publisher')}</dt>
+                <dd>{entry.publisher}</dd>
+                {entry.year !== null && (
+                  <>
+                    <dt>{t('references.year')}</dt>
+                    <dd>{entry.version ? `${entry.year} (${entry.version})` : entry.year}</dd>
+                  </>
+                )}
+                {entry.standard_number && (
+                  <>
+                    <dt>{t('references.standard_number')}</dt>
+                    <dd><code>{entry.standard_number}</code></dd>
+                  </>
+                )}
+              </dl>
+              {informedCount > 0 ? (
+                <details class="references-informs">
+                  <summary>{t('references.informs.heading')} ({informedCount})</summary>
+                  <div class="references-informs-body">
+                    {entry.informs.concepts.length > 0 && (
+                      <div class="references-informs-group">
+                        <h4>{t('references.informs.concepts')}</h4>
+                        <ul class="references-link-list">
+                          {entry.informs.concepts.map((cid) => (
+                            <li><a href={conceptLinkFor(cid)}>{cid}</a></li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                    {entry.informs.vocabularies.length > 0 && (
+                      <div class="references-informs-group">
+                        <h4>{t('references.informs.vocabularies')}</h4>
+                        <ul class="references-link-list">
+                          {entry.informs.vocabularies.map((vid) => (
+                            <li><a href={vocabLinkFor(vid)}>{vid}</a></li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                    {entry.informs.properties.length > 0 && (
+                      <div class="references-informs-group">
+                        <h4>{t('references.informs.properties')}</h4>
+                        <ul class="references-link-list">
+                          {entry.informs.properties.map((pid) => (
+                            <li><a href={propLinkFor(pid)}>{pid}</a></li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                </details>
+              ) : (
+                <p class="references-informs-empty">{t('references.informs.none')}</p>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    </section>
+  ))}
+</Base>
+
+<style>
+  .references-disclaimer {
+    margin-top: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+    background: var(--color-bg-muted, #f5f4ef);
+    border-left: 3px solid var(--color-accent, #1e3a5f);
+    color: var(--color-text-muted);
+    font-size: 0.95em;
+    line-height: 1.55;
+  }
+
+  .references-toc {
+    margin: var(--space-lg) 0;
+    padding: var(--space-md);
+    background: var(--color-bg-subtle, #faf9f6);
+    border: 1px solid var(--color-border-light);
+    border-radius: 4px;
+  }
+  .references-toc ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm) var(--space-lg);
+  }
+  .references-toc li {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.4em;
+  }
+  .references-toc-count {
+    color: var(--color-text-muted);
+    font-size: 0.85em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .references-tier-desc {
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-md);
+  }
+
+  .references-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+  .references-entry {
+    padding: var(--space-md);
+    border: 1px solid var(--color-border-light);
+    border-radius: 4px;
+    background: var(--color-bg-subtle, #faf9f6);
+    scroll-margin-top: var(--space-xl, 4rem);
+  }
+  .references-entry:target {
+    border-color: var(--color-accent, #1e3a5f);
+    box-shadow: 0 0 0 1px var(--color-accent, #1e3a5f);
+  }
+  .references-entry-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+  .references-entry-title {
+    margin: 0;
+    font-size: 1.1em;
+    font-weight: 600;
+  }
+  .references-entry-title a {
+    text-decoration: none;
+  }
+  .references-entry-title a:hover {
+    text-decoration: underline;
+  }
+  .references-entry-badges {
+    display: inline-flex;
+    gap: 0.4em;
+    flex-shrink: 0;
+  }
+  .references-entry-fulltitle {
+    margin: 0.25em 0 0;
+    color: var(--color-text-muted);
+    font-size: 0.95em;
+    line-height: 1.45;
+  }
+  .references-entry-meta {
+    margin: var(--space-sm) 0 0;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.25em var(--space-sm);
+    font-size: 0.92em;
+  }
+  .references-entry-meta dt {
+    color: var(--color-text-muted);
+    font-weight: 500;
+  }
+  .references-entry-meta dd {
+    margin: 0;
+  }
+  .references-informs {
+    margin-top: var(--space-sm);
+  }
+  .references-informs > summary {
+    cursor: pointer;
+    font-size: 0.92em;
+    color: var(--color-text-muted);
+    font-weight: 500;
+    padding: 0.3em 0;
+  }
+  .references-informs > summary:hover {
+    color: var(--color-accent, #1e3a5f);
+  }
+  .references-informs-body {
+    margin-top: var(--space-sm);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+  .references-informs-group h4 {
+    margin: 0 0 0.3em;
+    font-size: 0.85em;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted);
+    font-weight: 600;
+  }
+  .references-link-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4em 0.6em;
+    font-size: 0.92em;
+  }
+  .references-link-list li::after {
+    content: ',';
+    color: var(--color-text-muted);
+  }
+  .references-link-list li:last-child::after {
+    content: '';
+  }
+  .references-informs-empty {
+    margin: var(--space-sm) 0 0;
+    color: var(--color-text-muted);
+    font-size: 0.9em;
+    font-style: italic;
+  }
+
+  .badge-status-active {
+    background: var(--color-normative-bg);
+    color: var(--color-normative);
+  }
+  .badge-status-draft {
+    background: var(--color-draft-bg);
+    color: var(--color-draft);
+  }
+  .badge-status-superseded,
+  .badge-status-withdrawn {
+    background: var(--color-no-match-bg);
+    color: var(--color-no-match);
+  }
+  .badge-access-paywalled,
+  .badge-access-registration_required {
+    background: var(--color-trial-use-bg);
+    color: var(--color-trial-use);
+  }
+</style>
