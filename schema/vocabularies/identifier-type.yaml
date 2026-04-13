@@ -5,14 +5,15 @@ label:
   fr: "Type d'identifiant"
   es: Tipo de identificador
 definition:
-  en: Categories of identifier documents or numbers used to identify persons in administrative and service delivery systems.
-  fr: Catégories de documents ou de numéros d'identification utilisés pour identifier les personnes dans les systèmes administratifs
-    et de prestation de services.
-  es: Categorías de documentos o números de identificación utilizados para identificar personas en sistemas administrativos
-    y de prestación de servicios.
+  en: Categories of identifier values used to distinguish entities within identification schemes. Covers coded values assigned to persons, groups, locations, and administrative areas across administrative, civil registration, and service delivery systems.
+  fr: Catégories de valeurs d'identifiants utilisées pour distinguer les entités au sein de schémas d'identification. Couvre les valeurs codées attribuées à des personnes, groupes, lieux et zones administratives dans les systèmes administratifs, d'état civil et de prestation de services.
+  es: Categorías de valores de identificadores utilizados para distinguir entidades dentro de esquemas de identificación. Cubre los valores codificados asignados a personas, grupos, ubicaciones y áreas administrativas en los sistemas administrativos, de registro civil y de prestación de servicios.
 vc_guidance: >
   For Verifiable Credential use, the identifier type alone is insufficient. Credentials must also specify the issuing
   jurisdiction and identifier scheme.
+see_also:
+  - vocabulary: document-type
+    note: "Use document-type to classify the physical or digital document that carries an identifier; use identifier-type to classify the coded value itself."
 references:
   - name: "HL7 FHIR Identifier Type Codes (v2-0203)"
     uri: "https://build.fhir.org/valueset-identifier-type.html"
@@ -22,67 +23,32 @@ references:
     uri: "https://www.icao.int/publications/pages/publication.aspx?docnum=9303"
     relationship: partial_overlap
     machine_readable: false
-    notes: "Covers passport, visa, and card document classes."
+    notes: "Defines passport and travel-document number formats."
   - name: "MOSIP Identity Schema"
     uri: "https://docs.mosip.io/1.2.0/id-lifecycle-management/identity-management/id-schema"
     relationship: structural_pattern
     machine_readable: true
-    notes: "Country-configurable document categories. This vocabulary provides a base set; implementations extend per country."
+    notes: "Country-configurable identifier categories. This vocabulary provides a base set; implementations extend per country."
+  - name: "ISO 3166 Country and Subdivision Codes"
+    uri: "https://www.iso.org/iso-3166-country-codes.html"
+    relationship: partial_overlap
+    machine_readable: true
+    notes: "Source for country_code (ISO 3166-1) and subdivision_code (ISO 3166-2) entries."
+  - name: "UN OCHA HDX P-codes"
+    uri: "https://data.humdata.org/dataset/p-codes"
+    relationship: partial_overlap
+    machine_readable: true
+    notes: "Humanitarian place codes for sub-national administrative areas."
 values:
-- code: national_id
+- code: national_id_number
   label:
-    en: National ID
-    fr: Carte d'identité nationale
-    es: Documento de identidad nacional
+    en: National ID number
+    fr: Numéro d'identité nationale
+    es: Número de identidad nacional
   definition:
-    en: A government-issued national identity number or card.
-    fr: Un numéro ou une carte d'identité nationale délivré par le gouvernement.
-    es: Un número o tarjeta de identidad nacional emitido por el gobierno.
-- code: birth_certificate
-  label:
-    en: Birth certificate
-    fr: Acte de naissance
-    es: Certificado de nacimiento
-  definition:
-    en: An official record of a person's birth issued by a civil registry.
-    fr: Un document officiel de naissance délivré par un registre d'état civil.
-    es: Un registro oficial de nacimiento emitido por un registro civil.
-- code: passport
-  label:
-    en: Passport
-    fr: Passeport
-    es: Pasaporte
-  definition:
-    en: A government-issued travel document that also serves as a proof of identity and nationality.
-    fr: Un document de voyage délivré par le gouvernement servant également de preuve d'identité et de nationalité.
-    es: Un documento de viaje emitido por el gobierno que también sirve como prueba de identidad y nacionalidad.
-- code: voter_id
-  label:
-    en: Voter ID
-    fr: Carte d'électeur
-    es: Tarjeta de votante
-  definition:
-    en: An identity document issued for electoral registration purposes.
-    fr: Un document d'identité délivré à des fins d'inscription électorale.
-    es: Un documento de identidad emitido con fines de registro electoral.
-- code: program_id
-  label:
-    en: Program ID
-    fr: Identifiant de programme
-    es: ID de programa
-  definition:
-    en: A beneficiary identifier assigned by a specific program.
-    fr: Un identifiant de bénéficiaire attribué par un programme spécifique.
-    es: Un identificador de beneficiario asignado por un programa específico.
-- code: household_id
-  label:
-    en: Household ID
-    fr: Identifiant de ménage
-    es: ID de hogar
-  definition:
-    en: An identifier assigned to a household rather than to an individual person.
-    fr: Un identifiant attribué à un ménage plutôt qu'à une personne individuelle.
-    es: Un identificador asignado a un hogar en lugar de a una persona individual.
+    en: A government-issued national identification number assigned to an individual.
+    fr: Un numéro d'identification national délivré par le gouvernement et attribué à une personne.
+    es: Un número de identificación nacional emitido por el gobierno y asignado a una persona.
 - code: social_security_number
   label:
     en: Social security number
@@ -95,42 +61,150 @@ values:
       nationale dans de nombreux pays.
     es: Un número asignado por una administración de seguridad social o seguro social, distinto del número de identidad nacional
       en muchos países.
-- code: tax_id
+- code: tax_id_number
   label:
-    en: Tax ID
-    fr: Identifiant fiscal
-    es: Identificación fiscal
+    en: Tax ID number
+    fr: Numéro d'identification fiscale
+    es: Número de identificación fiscal
   definition:
     en: A tax identification number assigned by a revenue or fiscal authority.
     fr: Un numéro d'identification fiscale attribué par une autorité fiscale ou de recettes.
     es: Un número de identificación fiscal asignado por una autoridad tributaria o fiscal.
-- code: drivers_license
+- code: program_id_number
   label:
-    en: Driver's license
-    fr: Permis de conduire
-    es: Licencia de conducir
+    en: Program ID number
+    fr: Numéro d'identifiant de programme
+    es: Número de ID de programa
   definition:
-    en: A government-issued permit to operate motor vehicles, commonly used as identification.
-    fr: Un permis délivré par le gouvernement pour conduire des véhicules à moteur, couramment utilisé comme pièce d'identité.
-    es: Un permiso emitido por el gobierno para operar vehículos motorizados, comúnmente utilizado como identificación.
-- code: marriage_certificate
+    en: A beneficiary identifier assigned by a specific program.
+    fr: Un identifiant de bénéficiaire attribué par un programme spécifique.
+    es: Un identificador de beneficiario asignado por un programa específico.
+- code: household_id_number
   label:
-    en: Marriage certificate
-    fr: Acte de mariage
-    es: Certificado de matrimonio
+    en: Household ID number
+    fr: Numéro d'identifiant de ménage
+    es: Número de ID de hogar
   definition:
-    en: An official record of a marriage issued by a civil registry or religious authority.
-    fr: Un document officiel de mariage délivré par un registre d'état civil ou une autorité religieuse.
-    es: Un registro oficial de matrimonio emitido por un registro civil o una autoridad religiosa.
-- code: death_certificate
+    en: An identifier assigned to a household rather than to an individual person.
+    fr: Un identifiant attribué à un ménage plutôt qu'à une personne individuelle.
+    es: Un identificador asignado a un hogar en lugar de a una persona individual.
+- code: passport_number
   label:
-    en: Death certificate
-    fr: Acte de deces
-    es: Certificado de defunción
+    en: Passport number
+    fr: Numéro de passeport
+    es: Número de pasaporte
   definition:
-    en: An official record of a death issued by a civil registry or health authority.
-    fr: Un document officiel de décès délivré par un registre d'état civil ou une autorité sanitaire.
-    es: Un registro oficial de defunción emitido por un registro civil o una autoridad sanitaria.
+    en: The number printed in a passport that identifies the holder within the issuing country's travel document scheme.
+    fr: Le numéro imprimé dans un passeport qui identifie le titulaire au sein du schéma des documents de voyage du pays émetteur.
+    es: El número impreso en un pasaporte que identifica al titular dentro del esquema de documentos de viaje del país emisor.
+- code: drivers_license_number
+  label:
+    en: Driver's license number
+    fr: Numéro de permis de conduire
+    es: Número de licencia de conducir
+  definition:
+    en: The number printed on a driver's license, assigned by the licensing authority.
+    fr: Le numéro imprimé sur un permis de conduire, attribué par l'autorité de délivrance.
+    es: El número impreso en una licencia de conducir, asignado por la autoridad emisora.
+- code: voter_id_number
+  label:
+    en: Voter ID number
+    fr: Numéro d'électeur
+    es: Número de votante
+  definition:
+    en: The number assigned to a voter by an electoral registration authority.
+    fr: Le numéro attribué à un électeur par une autorité d'inscription électorale.
+    es: El número asignado a un votante por una autoridad de registro electoral.
+- code: birth_registration_number
+  label:
+    en: Birth registration number
+    fr: Numéro d'acte de naissance
+    es: Número de registro de nacimiento
+  definition:
+    en: The number assigned to a birth record by a civil registration authority.
+    fr: Le numéro attribué à un acte de naissance par une autorité d'état civil.
+    es: El número asignado a un acta de nacimiento por una autoridad de registro civil.
+- code: marriage_registration_number
+  label:
+    en: Marriage registration number
+    fr: Numéro d'acte de mariage
+    es: Número de registro de matrimonio
+  definition:
+    en: The number assigned to a marriage record by a civil registration authority.
+    fr: Le numéro attribué à un acte de mariage par une autorité d'état civil.
+    es: El número asignado a un acta de matrimonio por una autoridad de registro civil.
+- code: death_registration_number
+  label:
+    en: Death registration number
+    fr: Numéro d'acte de décès
+    es: Número de registro de defunción
+  definition:
+    en: The number assigned to a death record by a civil registration authority.
+    fr: Le numéro attribué à un acte de décès par une autorité d'état civil.
+    es: El número asignado a un acta de defunción por una autoridad de registro civil.
+- code: country_code
+  label:
+    en: Country code
+    fr: Code de pays
+    es: Código de país
+  definition:
+    en: A country identifier from an international classification such as ISO 3166-1.
+    fr: Un identifiant de pays issu d'une classification internationale telle que l'ISO 3166-1.
+    es: Un identificador de país de una clasificación internacional como ISO 3166-1.
+- code: subdivision_code
+  label:
+    en: Subdivision code
+    fr: Code de subdivision
+    es: Código de subdivisión
+  definition:
+    en: A sub-national administrative area identifier from an international classification such as ISO 3166-2.
+    fr: Un identifiant de zone administrative sous-nationale issu d'une classification internationale telle que l'ISO 3166-2.
+    es: Un identificador de área administrativa sub-nacional de una clasificación internacional como ISO 3166-2.
+- code: postal_code
+  label:
+    en: Postal code
+    fr: Code postal
+    es: Código postal
+  definition:
+    en: A code assigned by a postal authority to identify a delivery area.
+    fr: Un code attribué par une autorité postale pour identifier une zone de distribution.
+    es: Un código asignado por una autoridad postal para identificar un área de entrega.
+- code: p_code
+  label:
+    en: P-code
+    fr: P-code
+    es: P-code
+  definition:
+    en: A humanitarian place code, typically assigned by a national statistics office or by UN OCHA's HDX to identify administrative areas below the country level.
+    fr: Un code humanitaire de lieu, généralement attribué par un office national de statistiques ou par le HDX d'OCHA pour identifier des zones administratives en dessous du niveau national.
+    es: Un código humanitario de lugar, generalmente asignado por una oficina nacional de estadísticas o por HDX de OCHA para identificar áreas administrativas por debajo del nivel nacional.
+- code: fips_code
+  label:
+    en: FIPS code
+    fr: Code FIPS
+    es: Código FIPS
+  definition:
+    en: A geographic code from the U.S. Federal Information Processing Standards, historically used to identify countries and sub-national areas.
+    fr: Un code géographique issu des Federal Information Processing Standards des États-Unis, historiquement utilisé pour identifier les pays et les zones sous-nationales.
+    es: Un código geográfico de los Federal Information Processing Standards de Estados Unidos, históricamente utilizado para identificar países y áreas subnacionales.
+- code: hasc_code
+  label:
+    en: HASC code
+    fr: Code HASC
+    es: Código HASC
+  definition:
+    en: A hierarchical administrative subdivision code (HASC), a community-maintained system for naming sub-national administrative areas.
+    fr: Un code hiérarchique de subdivision administrative (HASC), un système maintenu par la communauté pour nommer les zones administratives sous-nationales.
+    es: Un código jerárquico de subdivisión administrativa (HASC), un sistema mantenido por la comunidad para nombrar áreas administrativas subnacionales.
+- code: un_locode
+  label:
+    en: UN/LOCODE
+    fr: UN/LOCODE
+    es: UN/LOCODE
+  definition:
+    en: A United Nations code for trade and transport locations, covering seaports, airports, and inland freight terminals.
+    fr: Un code des Nations Unies pour les lieux de commerce et de transport, couvrant les ports maritimes, aéroports et terminaux intérieurs de fret.
+    es: Un código de las Naciones Unidas para ubicaciones de comercio y transporte, que abarca puertos marítimos, aeropuertos y terminales de carga interiores.
 - code: other
   label:
     en: Other
@@ -146,63 +220,77 @@ system_mappings:
     values:
     - code: national_id
       label: National ID
-      maps_to: national_id
+      maps_to: national_id_number
     - code: passport
       label: Passport
-      maps_to: passport
+      maps_to: passport_number
     - code: tax_id
       label: Tax ID
-      maps_to: tax_id
+      maps_to: tax_id_number
     - code: birth_certificate
       label: Birth Certificate
-      maps_to: birth_certificate
+      maps_to: birth_registration_number
     unmapped_canonical:
-    - voter_id
-    - program_id
-    - household_id
     - social_security_number
-    - drivers_license
-    - marriage_certificate
-    - death_certificate
+    - program_id_number
+    - household_id_number
+    - drivers_license_number
+    - voter_id_number
+    - marriage_registration_number
+    - death_registration_number
+    - country_code
+    - subdivision_code
+    - postal_code
+    - p_code
+    - fips_code
+    - hasc_code
+    - un_locode
     - other
   openimis:
     values:
     - code: N
       label: National ID
-      maps_to: national_id
+      maps_to: national_id_number
     - code: P
       label: Passport
-      maps_to: passport
+      maps_to: passport_number
     - code: V
       label: Voter ID
-      maps_to: voter_id
+      maps_to: voter_id_number
     - code: D
       label: Driver's License
-      maps_to: drivers_license
+      maps_to: drivers_license_number
     unmapped_canonical:
-    - birth_certificate
-    - program_id
-    - household_id
     - social_security_number
-    - tax_id
-    - marriage_certificate
-    - death_certificate
+    - tax_id_number
+    - program_id_number
+    - household_id_number
+    - birth_registration_number
+    - marriage_registration_number
+    - death_registration_number
+    - country_code
+    - subdivision_code
+    - postal_code
+    - p_code
+    - fips_code
+    - hasc_code
+    - un_locode
     - other
   fhir_r4:
     vocabulary_name: Identifier Type Codes
     values:
     - code: PPN
       label: Passport Number
-      maps_to: passport
+      maps_to: passport_number
     - code: DL
       label: Driver's License Number
-      maps_to: drivers_license
+      maps_to: drivers_license_number
     - code: TAX
       label: Tax ID Number
-      maps_to: tax_id
+      maps_to: tax_id_number
     - code: SB
       label: Social Beneficiary Identifier
-      maps_to: program_id
+      maps_to: program_id_number
     - code: BRN
       label: Breed Registry Number
       maps_to: null
@@ -260,35 +348,49 @@ system_mappings:
       maps_to: null
       unmapped_reason: not_yet_mapped
     unmapped_canonical:
-    - voter_id
-    - household_id
+    - national_id_number
     - social_security_number
-    - national_id
-    - birth_certificate
-    - marriage_certificate
-    - death_certificate
+    - household_id_number
+    - voter_id_number
+    - birth_registration_number
+    - marriage_registration_number
+    - death_registration_number
+    - country_code
+    - subdivision_code
+    - postal_code
+    - p_code
+    - fips_code
+    - hasc_code
+    - un_locode
     - other
   dci:
     vocabulary_name: IdentifierTypeEnum
     values:
     - code: UIN
       label: Unique Identification Number
-      maps_to: national_id
+      maps_to: national_id_number
     - code: BRN
       label: Birth Registration Number
-      maps_to: birth_certificate
+      maps_to: birth_registration_number
     - code: MRN
       label: Marriage Registration Number
-      maps_to: marriage_certificate
+      maps_to: marriage_registration_number
     - code: DRN
       label: Death Registration Number
-      maps_to: death_certificate
+      maps_to: death_registration_number
     unmapped_canonical:
-    - passport
-    - voter_id
-    - program_id
-    - household_id
     - social_security_number
-    - tax_id
-    - drivers_license
+    - tax_id_number
+    - program_id_number
+    - household_id_number
+    - passport_number
+    - drivers_license_number
+    - voter_id_number
+    - country_code
+    - subdivision_code
+    - postal_code
+    - p_code
+    - fips_code
+    - hasc_code
+    - un_locode
     - other

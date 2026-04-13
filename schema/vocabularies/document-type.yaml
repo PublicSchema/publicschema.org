@@ -1,0 +1,120 @@
+id: document-type
+maturity: draft
+label:
+  en: Document Type
+  fr: Type de document
+  es: Tipo de documento
+definition:
+  en: Categories of identity documents that carry one or more identifiers about a party, such as passports, national identity cards, civil registration certificates, and program-issued beneficiary cards.
+  fr: Catégories de documents d'identité portant un ou plusieurs identifiants concernant une partie, tels que les passeports, les cartes d'identité nationale, les actes d'état civil et les cartes de bénéficiaire délivrées par un programme.
+  es: Categorías de documentos de identidad que portan uno o más identificadores sobre una parte, como pasaportes, tarjetas de identidad nacional, actas de registro civil y tarjetas de beneficiario emitidas por programas.
+vc_guidance: >
+  Document type classifies the physical or digital document being described,
+  distinct from the Verifiable Credential envelope type (e.g. IdentityCredential).
+  A Verifiable Credential may attest to an IdentityDocument of a given
+  document_type without the credential itself becoming the document.
+see_also:
+  - vocabulary: identifier-type
+    note: "Use identifier-type to classify the coded values carried by the document; use document-type to classify the document itself."
+references:
+  - name: "ICAO Doc 9303 - Machine Readable Travel Documents"
+    uri: "https://www.icao.int/publications/pages/publication.aspx?docnum=9303"
+    relationship: partial_overlap
+    machine_readable: false
+    notes: "Covers passport, visa, and card document classes."
+  - name: "MOSIP Identity Schema"
+    uri: "https://docs.mosip.io/1.2.0/id-lifecycle-management/identity-management/id-schema"
+    relationship: structural_pattern
+    machine_readable: true
+    notes: "Country-configurable document categories. This vocabulary provides a base set; implementations extend per country."
+values:
+- code: passport
+  label:
+    en: Passport
+    fr: Passeport
+    es: Pasaporte
+  definition:
+    en: A government-issued travel document that also serves as a proof of identity and nationality.
+    fr: Un document de voyage délivré par le gouvernement servant également de preuve d'identité et de nationalité.
+    es: Un documento de viaje emitido por el gobierno que también sirve como prueba de identidad y nacionalidad.
+- code: national_id_card
+  label:
+    en: National ID card
+    fr: Carte d'identité nationale
+    es: Tarjeta de identidad nacional
+  definition:
+    en: A government-issued card attesting national identity, typically carrying a national identification number.
+    fr: Une carte délivrée par le gouvernement attestant l'identité nationale, portant généralement un numéro d'identification national.
+    es: Una tarjeta emitida por el gobierno que acredita la identidad nacional, que normalmente incluye un número de identificación nacional.
+- code: drivers_license
+  label:
+    en: Driver's license
+    fr: Permis de conduire
+    es: Licencia de conducir
+  definition:
+    en: A government-issued permit to operate motor vehicles, commonly used as identification.
+    fr: Un permis délivré par le gouvernement pour conduire des véhicules à moteur, couramment utilisé comme pièce d'identité.
+    es: Un permiso emitido por el gobierno para operar vehículos motorizados, comúnmente utilizado como identificación.
+- code: voter_id_card
+  label:
+    en: Voter ID card
+    fr: Carte d'électeur
+    es: Tarjeta de votante
+  definition:
+    en: An identity document issued for electoral registration purposes.
+    fr: Un document d'identité délivré à des fins d'inscription électorale.
+    es: Un documento de identidad emitido con fines de registro electoral.
+- code: digital_identity_credential
+  label:
+    en: Digital identity credential
+    fr: Attestation d'identité numérique
+    es: Credencial de identidad digital
+  definition:
+    en: A digital document, such as a Verifiable Credential, that attests identity attributes about a party without a physical counterpart.
+    fr: Un document numérique, tel qu'une attestation vérifiable, qui atteste les attributs d'identité d'une partie sans équivalent physique.
+    es: Un documento digital, como una credencial verificable, que acredita atributos de identidad de una parte sin contraparte física.
+- code: birth_certificate
+  label:
+    en: Birth certificate
+    fr: Acte de naissance
+    es: Certificado de nacimiento
+  definition:
+    en: An official record of a person's birth issued by a civil registry.
+    fr: Un document officiel de naissance délivré par un registre d'état civil.
+    es: Un registro oficial de nacimiento emitido por un registro civil.
+- code: marriage_certificate
+  label:
+    en: Marriage certificate
+    fr: Acte de mariage
+    es: Certificado de matrimonio
+  definition:
+    en: An official record of a marriage issued by a civil registry or religious authority.
+    fr: Un document officiel de mariage délivré par un registre d'état civil ou une autorité religieuse.
+    es: Un registro oficial de matrimonio emitido por un registro civil o una autoridad religiosa.
+- code: death_certificate
+  label:
+    en: Death certificate
+    fr: Acte de décès
+    es: Certificado de defunción
+  definition:
+    en: An official record of a death issued by a civil registry or health authority.
+    fr: Un document officiel de décès délivré par un registre d'état civil ou une autorité sanitaire.
+    es: Un registro oficial de defunción emitido por un registro civil o una autoridad sanitaria.
+- code: program_beneficiary_card
+  label:
+    en: Program beneficiary card
+    fr: Carte de bénéficiaire
+    es: Tarjeta de beneficiario
+  definition:
+    en: A card issued by a social protection or service delivery program to identify enrolled beneficiaries, sometimes also used at delivery points for authentication.
+    fr: Une carte délivrée par un programme de protection sociale ou de prestation de services pour identifier les bénéficiaires inscrits, parfois utilisée aux points de prestation pour l'authentification.
+    es: Una tarjeta emitida por un programa de protección social o de prestación de servicios para identificar a los beneficiarios inscritos, utilizada a veces en los puntos de entrega para la autenticación.
+- code: other
+  label:
+    en: Other
+    fr: Autre
+    es: Otro
+  definition:
+    en: A document type not covered by the other categories.
+    fr: Un type de document non couvert par les autres catégories.
+    es: Un tipo de documento no cubierto por las otras categorías.
