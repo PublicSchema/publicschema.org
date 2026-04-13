@@ -7,7 +7,7 @@ interface Props {
   conceptsCount: number;
   propertiesCount: number;
   vocabulariesCount: number;
-  systems: string[];
+  systems: { id: string; name: string }[];
 }
 
 const {
@@ -41,16 +41,21 @@ const {
     <h2>What the schema contains</h2>
     <p class="h3-band-lead">
       PublicSchema is not an API standard, a software product, or a compliance
-      framework. It provides agreed definitions where every concept carries
-      semantic weight, not just structure. A Person is not a bag of fields.
-      Every definition gets a stable URI, ready for use in Verifiable
-      Credentials. Everything is optional. Adopt what applies to your country's
-      context; extend the rest in your own namespace.
+      framework. It is a shared set of definitions. When one program says
+      "Person", "Household", or "Enrollment", another program reading the same
+      schema knows exactly what is meant, not just what fields to expect. Each
+      definition has a permanent web address, so it can be cited, referenced,
+      and carried inside digital credentials that travel with the person they
+      describe. Everything is optional: adopt the parts that fit your country's
+      context, and add your own where they don't.
     </p>
 
     <div class="h3-layers">
-      <a href={localePath('/concepts/', locale)} class="h3-layer">
-        <h3>Concepts and properties</h3>
+      <div class="h3-layer">
+        <a href={localePath('/concepts/', locale)} class="h3-layer-header">
+          <h3>Concepts and properties</h3>
+          <span class="h3-layer-count">{conceptsCount} concepts, {propertiesCount} properties</span>
+        </a>
         <p>
           Entities like Person, Enrollment, and Payment get clear definitions
           written for program managers. Each concept carries named, typed
@@ -59,12 +64,21 @@ const {
           concepts.
         </p>
         <div class="h3-layer-examples">
-          <span>Person</span><span>Household</span><span>Enrollment</span><span>Payment</span><span>Grievance</span>
+          <a href={localePath('/Person', locale)}>Person</a><a href={localePath('/Household', locale)}>Household</a><a href={localePath('/sp/Enrollment', locale)}>Enrollment</a><a href={localePath('/PaymentEvent', locale)}>Payment</a><a href={localePath('/sp/Grievance', locale)}>Grievance</a><a class="h3-layer-more" href={localePath('/concepts/', locale)}>…</a>
         </div>
-        <span class="h3-layer-count">{conceptsCount} concepts, {propertiesCount} properties</span>
-      </a>
-      <a href={localePath('/vocab/', locale)} class="h3-layer">
-        <h3>Vocabularies</h3>
+        <p class="h3-layer-standards">
+          <span class="h3-layer-standards-label">Aligned with</span>
+          <a href={localePath('/systems/openspp', locale)}>OpenSPP</a> ·
+          <a href={localePath('/systems/opencrvs', locale)}>OpenCRVS</a> ·
+          <a href={localePath('/systems/openimis', locale)}>OpenIMIS</a> ·
+          <a href={localePath('/systems/dhis2', locale)}>DHIS2</a>
+        </p>
+      </div>
+      <div class="h3-layer">
+        <a href={localePath('/vocab/', locale)} class="h3-layer-header">
+          <h3>Vocabularies</h3>
+          <span class="h3-layer-count">{vocabulariesCount} vocabularies</span>
+        </a>
         <p>
           Controlled value sets for fields like gender, country, benefit
           modality, and enrollment status. Where international standards exist
@@ -72,10 +86,13 @@ const {
           set based on observed convergence across systems.
         </p>
         <div class="h3-layer-examples">
-          <span>Gender (ISO 5218)</span><span>Country (ISO 3166)</span><span>Currency (ISO 4217)</span><span>Benefit modality</span>
+          <a href={localePath('/vocab/gender-type', locale)}>Gender</a><a href={localePath('/vocab/country', locale)}>Country</a><a href={localePath('/vocab/currency', locale)}>Currency</a><a href={localePath('/vocab/occupation', locale)}>Occupation</a><a href={localePath('/vocab/education-level', locale)}>Education level</a><a class="h3-layer-more" href={localePath('/vocab/', locale)}>…</a>
         </div>
-        <span class="h3-layer-count">{vocabulariesCount} vocabularies</span>
-      </a>
+        <p class="h3-layer-standards">
+          <span class="h3-layer-standards-label">Based on</span>
+          ISO · ILO · UN M49 · UNESCO · FHIR
+        </p>
+      </div>
     </div>
   </div>
 </div>
@@ -212,7 +229,7 @@ const {
     </p>
     <div class="h3-systems">
       {systems.map((s) => (
-        <span class="h3-system">{s}</span>
+        <a class="h3-system" href={localePath(`/systems/${s.id}`, locale)}>{s.name}</a>
       ))}
     </div>
     <a href={localePath('/systems/', locale)} class="h3-evidence-link">See how systems compare</a>

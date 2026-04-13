@@ -31,7 +31,14 @@ const vocabularies = Object.entries(vocab.vocabularies)
   .sort((a, b) =>
     (maturityRank[a.maturity] ?? 9) - (maturityRank[b.maturity] ?? 9) || a.key.localeCompare(b.key)
   );
-const systems = ['OpenSPP', 'openIMIS', 'DCI', 'DHIS2', 'FHIR R4', 'OpenCRVS'];
+const systems = [
+  { id: 'openspp', name: 'OpenSPP' },
+  { id: 'openimis', name: 'openIMIS' },
+  { id: 'dci', name: 'DCI' },
+  { id: 'dhis2', name: 'DHIS2' },
+  { id: 'fhir_r4', name: 'FHIR R4' },
+  { id: 'opencrvs', name: 'OpenCRVS' },
+];
 
 const modules = import.meta.glob('./content/HomepageContent.*.astro');
 const wantedKey = `./content/HomepageContent.${locale}.astro`;
