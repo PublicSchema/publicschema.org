@@ -1,0 +1,19 @@
+id: fhir-identifier-type-v2-0203
+title: "FHIR Identifier Type Codes (v2 table 0203)"
+short_title: "FHIR IdentifierType v2-0203"
+publisher: "Health Level Seven International (HL7)"
+year: null
+version: "R4"
+type: classification
+domain: health
+uri: "https://hl7.org/fhir/R4/valueset-identifier-type.html"
+access: open
+status: active
+
+informs:
+  concepts:
+    - Identifier
+  vocabularies:
+    - identifier-type
+  properties:
+    - identifier_type

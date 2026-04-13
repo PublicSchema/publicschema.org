@@ -1,0 +1,19 @@
+id: iso-10002
+title: "Quality management, Customer satisfaction, Guidelines for complaints handling in organizations"
+short_title: "ISO 10002"
+standard_number: "ISO 10002:2018"
+publisher: "International Organization for Standardization"
+year: 2018
+type: international_standard
+domain: social_protection
+uri: "https://www.iso.org/standard/71580.html"
+access: paywalled
+status: active
+
+informs:
+  concepts:
+    - Grievance
+  vocabularies:
+    - sp/grievance-status
+    - sp/grievance-type
+  properties: []

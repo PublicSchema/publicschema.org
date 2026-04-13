@@ -1,0 +1,19 @@
+id: hague-intercountry-adoption
+title: "Convention on Protection of Children and Co-operation in Respect of Intercountry Adoption"
+short_title: "Hague Adoption Convention"
+standard_number: "HCCH 1993 Convention No. 33"
+publisher: "Hague Conference on Private International Law (HCCH)"
+year: 1993
+type: legal_instrument
+domain: crvs
+uri: "https://www.hcch.net/en/instruments/conventions/full-text/?cid=69"
+access: open
+status: active
+
+informs:
+  concepts:
+    - Adoption
+  vocabularies: []
+  properties:
+    - previous_parents
+    - adoption_type

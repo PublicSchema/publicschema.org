@@ -1,0 +1,17 @@
+id: mojaloop-fspiop
+title: "Mojaloop FSPIOP API, TransferState data model"
+short_title: "Mojaloop FSPIOP"
+publisher: "Mojaloop Foundation"
+year: null
+type: specification
+domain: payments
+uri: "https://docs.mojaloop.io/technical/api/fspiop/logical-data-model.html"
+access: open
+status: active
+
+informs:
+  concepts: []
+  vocabularies:
+    - payment-status
+  properties:
+    - payment_status

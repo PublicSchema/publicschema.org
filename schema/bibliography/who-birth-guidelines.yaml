@@ -1,0 +1,20 @@
+id: who-birth-guidelines
+title: "WHO guidelines on place of birth, gestational age, and birthweight"
+short_title: "WHO Birth Guidelines"
+publisher: "World Health Organization"
+year: null
+type: guidance_publication
+domain: health
+uri: "https://www.who.int/teams/maternal-newborn-child-adolescent-health-and-ageing"
+access: open
+status: active
+
+informs:
+  concepts:
+    - Birth
+  vocabularies:
+    - crvs/place-type
+  properties:
+    - place_type
+    - gestational_age
+    - weight_at_birth

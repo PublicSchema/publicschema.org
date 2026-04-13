@@ -1,0 +1,18 @@
+id: isco-08
+title: "International Standard Classification of Occupations (ISCO-08)"
+short_title: "ISCO-08"
+standard_number: "ISCO-08"
+publisher: "International Labour Organization (ILO)"
+year: 2008
+type: classification
+domain: general
+uri: "https://www.ilo.org/public/english/bureau/stat/isco/isco08/"
+access: open
+status: active
+
+informs:
+  concepts: []
+  vocabularies:
+    - occupation
+  properties:
+    - occupation

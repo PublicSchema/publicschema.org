@@ -1,0 +1,17 @@
+id: who-cert-perinatal-death
+title: "International Certificate of Cause of Perinatal Death"
+short_title: "WHO Perinatal Death Cert."
+publisher: "World Health Organization"
+year: null
+type: guidance_publication
+domain: health
+uri: "https://www.who.int/standards/classifications/classification-of-diseases"
+access: open
+status: active
+
+informs:
+  concepts:
+    - FetalDeath
+  vocabularies: []
+  properties:
+    - cause_of_fetal_death

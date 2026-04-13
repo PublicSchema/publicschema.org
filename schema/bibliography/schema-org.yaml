@@ -1,0 +1,20 @@
+id: schema-org
+title: "Schema.org"
+short_title: "Schema.org"
+publisher: "Schema.org Community Group (W3C)"
+year: null
+type: specification
+domain: general
+uri: "https://schema.org/"
+access: open
+status: active
+
+informs:
+  concepts:
+    - Person
+    - Address
+    - Location
+    - Event
+    - Party
+  vocabularies: []
+  properties: []

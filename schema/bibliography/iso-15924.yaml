@@ -1,0 +1,17 @@
+id: iso-15924
+title: "Codes for the representation of names of scripts"
+short_title: "ISO 15924"
+standard_number: "ISO 15924"
+publisher: "Unicode Consortium (ISO 15924 registration authority)"
+year: null
+type: international_standard
+domain: general
+uri: "https://unicode.org/iso15924/"
+access: open
+status: active
+
+informs:
+  concepts: []
+  vocabularies:
+    - script
+  properties: []

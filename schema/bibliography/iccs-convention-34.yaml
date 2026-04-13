@@ -1,0 +1,19 @@
+id: iccs-convention-34
+title: "Convention No. 34 on the issue of multilingual and coded extracts and certificates from civil-status records"
+short_title: "ICCS Convention 34"
+standard_number: "ICCS Convention No. 34"
+publisher: "International Commission on Civil Status (ICCS/CIEC)"
+year: 2014
+type: legal_instrument
+domain: crvs
+uri: "https://ciec1.org/"
+access: open
+status: active
+
+informs:
+  concepts:
+    - Certificate
+  vocabularies:
+    - crvs/certificate-format
+  properties:
+    - certificate_format

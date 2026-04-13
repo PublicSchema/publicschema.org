@@ -1,0 +1,20 @@
+id: rfc-7946
+title: "The GeoJSON Format"
+short_title: "RFC 7946 (GeoJSON)"
+standard_number: "RFC 7946"
+publisher: "Internet Engineering Task Force (IETF)"
+year: 2016
+type: specification
+domain: general
+uri: "https://datatracker.ietf.org/doc/html/rfc7946"
+access: open
+status: active
+
+informs:
+  concepts:
+    - GeographicArea
+    - HazardEvent
+    - Location
+  vocabularies: []
+  properties:
+    - geometry

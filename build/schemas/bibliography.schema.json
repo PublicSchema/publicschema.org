@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://publicschema.org/schemas/bibliography.schema.json",
+  "title": "PublicSchema Bibliography Entry",
+  "type": "object",
+  "required": ["id", "title", "publisher", "type", "status", "informs"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*$",
+      "description": "kebab-case bibliography identifier"
+    },
+    "title": {
+      "type": "string",
+      "description": "Full title of the publication or standard"
+    },
+    "short_title": {
+      "type": "string",
+      "description": "Compact title for table display"
+    },
+    "standard_number": {
+      "type": "string",
+      "description": "Formal identifier (e.g. ISO/IEC 5218:2004, RFC 7946)"
+    },
+    "publisher": {
+      "type": "string",
+      "description": "Publishing organization"
+    },
+    "year": {
+      "type": ["integer", "null"],
+      "description": "Year of publication. Null for ongoing or undated standards."
+    },
+    "version": {
+      "type": "string",
+      "description": "Version or edition (e.g. Rev.3, v2.1.1, R4)"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "international_standard",
+        "specification",
+        "classification",
+        "eu_vocabulary",
+        "eu_credential_schema",
+        "legal_instrument",
+        "guidance_publication"
+      ],
+      "description": "Nature of the document"
+    },
+    "domain": {
+      "type": "string",
+      "enum": [
+        "general",
+        "social_protection",
+        "health",
+        "crvs",
+        "payments",
+        "identity",
+        "humanitarian",
+        "education"
+      ],
+      "description": "Thematic area"
+    },
+    "uri": {
+      "type": "string",
+      "format": "uri",
+      "description": "Canonical URL for the publication"
+    },
+    "access": {
+      "type": "string",
+      "enum": ["open", "paywalled", "registration_required"],
+      "description": "Whether the source is freely available"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "draft", "superseded", "withdrawn"]
+    },
+    "informs": {
+      "type": "object",
+      "required": ["concepts", "vocabularies", "properties"],
+      "additionalProperties": false,
+      "properties": {
+        "concepts": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Concept IDs informed by this entry"
+        },
+        "vocabularies": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Vocabulary IDs (in canonical '<domain>/<id>' or bare '<id>' form) informed by this entry"
+        },
+        "properties": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Property IDs informed by this entry"
+        }
+      }
+    }
+  }
+}

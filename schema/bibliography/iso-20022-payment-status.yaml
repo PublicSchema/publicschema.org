@@ -1,0 +1,17 @@
+id: iso-20022-payment-status
+title: "ISO 20022 External Code Sets, ExternalPaymentTransactionStatus1Code"
+short_title: "ISO 20022 PaymentStatus"
+standard_number: "ISO 20022 ExternalPaymentTransactionStatus1Code"
+publisher: "ISO 20022 Registration Management Group"
+year: null
+type: international_standard
+domain: payments
+uri: "https://www.iso20022.org/catalogue-messages/additional-content-messages/external-code-sets"
+access: open
+status: active
+
+informs:
+  concepts: []
+  vocabularies:
+    - payment-status
+  properties: []

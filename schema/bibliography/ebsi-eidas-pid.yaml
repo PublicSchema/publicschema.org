@@ -1,0 +1,25 @@
+id: ebsi-eidas-pid
+title: "eIDAS Person Identification Data (PID) Verifiable Credential schema"
+short_title: "EBSI eIDAS PID"
+publisher: "European Blockchain Services Infrastructure (EBSI), European Commission"
+year: null
+type: eu_credential_schema
+domain: identity
+uri: "https://code.europa.eu/ebsi/json-schema"
+access: open
+status: active
+
+informs:
+  concepts:
+    - Person
+    - Address
+    - Identifier
+  vocabularies: []
+  properties:
+    - given_name_at_birth
+    - family_name_at_birth
+    - preferred_name
+    - house_number
+    - building_name
+    - identifier_scheme_id
+    - identifier_scheme_name

@@ -1,0 +1,18 @@
+id: fhir-vital-records-igs
+title: "FHIR Vital Records Implementation Guides (VRDR, BFDR)"
+short_title: "FHIR Vital Records IGs"
+publisher: "Health Level Seven International (HL7)"
+year: null
+type: specification
+domain: crvs
+uri: "https://hl7.org/fhir/us/vrdr/"
+access: open
+status: active
+
+informs:
+  concepts:
+    - Birth
+    - Death
+    - FetalDeath
+  vocabularies: []
+  properties: []

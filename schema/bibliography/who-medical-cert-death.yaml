@@ -1,0 +1,19 @@
+id: who-medical-cert-death
+title: "International Form of Medical Certificate of Cause of Death"
+short_title: "WHO Medical Cert. of Death"
+publisher: "World Health Organization"
+year: null
+type: guidance_publication
+domain: health
+uri: "https://www.who.int/standards/classifications/classification-of-diseases"
+access: open
+status: active
+
+informs:
+  concepts:
+    - Death
+  vocabularies: []
+  properties:
+    - cause_of_death
+    - cause_of_death_method
+    - medical_certifier

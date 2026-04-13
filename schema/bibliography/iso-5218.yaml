@@ -1,0 +1,19 @@
+id: iso-5218
+title: "Information technology, Codes for the representation of human sexes"
+short_title: "ISO/IEC 5218"
+standard_number: "ISO/IEC 5218:2004"
+publisher: "International Organization for Standardization"
+year: 2004
+type: international_standard
+domain: identity
+uri: "https://www.iso.org/standard/36266.html"
+access: paywalled
+status: active
+
+informs:
+  concepts: []
+  vocabularies:
+    - sex
+  properties:
+    - sex
+    - sex_at_birth

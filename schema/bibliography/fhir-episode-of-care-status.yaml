@@ -1,0 +1,19 @@
+id: fhir-episode-of-care-status
+title: "FHIR EpisodeOfCare.status CodeSystem"
+short_title: "FHIR EpisodeOfCareStatus"
+publisher: "Health Level Seven International (HL7)"
+year: null
+version: "R4"
+type: classification
+domain: health
+uri: "https://build.fhir.org/codesystem-episode-of-care-status.html"
+access: open
+status: active
+
+informs:
+  concepts:
+    - Enrollment
+  vocabularies:
+    - sp/enrollment-status
+  properties:
+    - enrollment_status

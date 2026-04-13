@@ -1,0 +1,21 @@
+id: iso-3166-1
+title: "Codes for the representation of names of countries and their subdivisions, Part 1: Country code"
+short_title: "ISO 3166-1"
+standard_number: "ISO 3166-1"
+publisher: "International Organization for Standardization"
+year: null
+type: international_standard
+domain: general
+uri: "https://www.iso.org/iso-3166-country-codes.html"
+access: open
+status: active
+
+informs:
+  concepts: []
+  vocabularies:
+    - country
+  properties:
+    - nationality
+    - nationality_at_birth
+    - country_of_birth
+    - country

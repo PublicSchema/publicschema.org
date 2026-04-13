@@ -1,0 +1,17 @@
+id: wfp-transfer-modality
+title: "WFP Transfer Modality Framework"
+short_title: "WFP Transfer Modality"
+publisher: "World Food Programme (WFP)"
+year: null
+type: guidance_publication
+domain: humanitarian
+uri: "https://executiveboard.wfp.org/document_download/WFP-0000148946"
+access: open
+status: active
+
+informs:
+  concepts: []
+  vocabularies:
+    - sp/benefit-modality
+  properties:
+    - benefit_modality

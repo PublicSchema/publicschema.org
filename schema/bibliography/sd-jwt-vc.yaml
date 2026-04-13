@@ -1,0 +1,16 @@
+id: sd-jwt-vc
+title: "SD-JWT-based Verifiable Credentials"
+short_title: "SD-JWT VC"
+standard_number: "draft-ietf-oauth-sd-jwt-vc"
+publisher: "Internet Engineering Task Force (IETF), OAuth WG"
+year: null
+type: specification
+domain: identity
+uri: "https://datatracker.ietf.org/doc/draft-ietf-oauth-sd-jwt-vc/"
+access: open
+status: draft
+
+informs:
+  concepts: []
+  vocabularies: []
+  properties: []

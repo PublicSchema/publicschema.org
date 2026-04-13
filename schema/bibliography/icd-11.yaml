@@ -1,0 +1,19 @@
+id: icd-11
+title: "International Classification of Diseases, 11th Revision"
+short_title: "ICD-11"
+standard_number: "ICD-11"
+publisher: "World Health Organization"
+year: null
+version: "11th Revision"
+type: classification
+domain: health
+uri: "https://icd.who.int/browse/"
+access: open
+status: active
+
+informs:
+  concepts: []
+  vocabularies: []
+  properties:
+    - cause_of_death_coding_system
+    - cause_of_death_code

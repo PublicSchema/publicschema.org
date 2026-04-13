@@ -1,0 +1,19 @@
+id: fhir-fm-status
+title: "FHIR Financial Management Status CodeSystem"
+short_title: "FHIR FinancialResourceStatus"
+publisher: "Health Level Seven International (HL7)"
+year: null
+version: "R4"
+type: classification
+domain: health
+uri: "https://hl7.org/fhir/R4/codesystem-fm-status.html"
+access: open
+status: active
+
+informs:
+  concepts:
+    - Entitlement
+  vocabularies:
+    - sp/entitlement-status
+  properties:
+    - entitlement_status

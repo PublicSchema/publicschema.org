@@ -1,0 +1,18 @@
+id: iso-639-3
+title: "Codes for the representation of names of languages, Part 3: Alpha-3 code for comprehensive coverage of languages"
+short_title: "ISO 639-3"
+standard_number: "ISO 639-3"
+publisher: "SIL International (ISO 639-3 registration authority)"
+year: null
+type: international_standard
+domain: general
+uri: "https://iso639-3.sil.org/"
+access: open
+status: active
+
+informs:
+  concepts: []
+  vocabularies:
+    - language
+  properties:
+    - preferred_language

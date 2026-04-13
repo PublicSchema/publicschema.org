@@ -1,0 +1,17 @@
+id: semic-core-business
+title: "Core Business Vocabulary"
+short_title: "SEMIC Core Business"
+publisher: "SEMIC, Interoperable Europe (European Commission)"
+year: null
+version: "v2.2.0"
+type: eu_vocabulary
+domain: general
+uri: "https://semiceu.github.io/Core-Business-Vocabulary/releases/2.2.0/"
+access: open
+status: active
+
+informs:
+  concepts:
+    - Party
+  vocabularies: []
+  properties: []

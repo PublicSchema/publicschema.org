@@ -1,0 +1,19 @@
+id: fhir-v3-role-code
+title: "FHIR v3 PersonalRelationshipRoleType ValueSet (RoleCode)"
+short_title: "FHIR v3 PersonalRelationshipRoleType"
+publisher: "Health Level Seven International (HL7)"
+year: null
+version: "v3"
+type: classification
+domain: health
+uri: "https://terminology.hl7.org/3.0.0/ValueSet-v3-PersonalRelationshipRoleType.html"
+access: open
+status: active
+
+informs:
+  concepts:
+    - Relationship
+  vocabularies:
+    - relationship-type
+  properties:
+    - relationship_type

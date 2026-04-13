@@ -1,0 +1,33 @@
+id: un-vital-stats-rev3
+title: "Principles and Recommendations for a Vital Statistics System, Revision 3"
+short_title: "UN Vital Stats Rev.3"
+standard_number: "ST/ESA/STAT/SER.M/19/Rev.3"
+publisher: "United Nations Statistics Division"
+year: 2014
+version: "Rev.3"
+type: international_standard
+domain: crvs
+uri: "https://unstats.un.org/unsd/demographic/standmeth/principles/M19Rev3en.pdf"
+access: open
+status: active
+
+informs:
+  concepts:
+    - Birth
+    - Death
+    - FetalDeath
+    - Marriage
+    - Divorce
+    - Adoption
+    - Annulment
+    - Legitimation
+    - PaternityRecognition
+    - MarriageTermination
+    - CivilStatusRecord
+    - FamilyRegister
+    - Certificate
+    - VitalEvent
+  vocabularies:
+    - crvs/civil-status-record-type
+    - crvs/manner-of-death
+  properties: []

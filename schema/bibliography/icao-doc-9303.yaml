@@ -1,0 +1,19 @@
+id: icao-doc-9303
+title: "Machine Readable Travel Documents (Doc 9303)"
+short_title: "ICAO Doc 9303"
+standard_number: "ICAO Doc 9303"
+publisher: "International Civil Aviation Organization (ICAO)"
+year: null
+type: international_standard
+domain: identity
+uri: "https://www.icao.int/publications/pages/publication.aspx?docnum=9303"
+access: open
+status: active
+
+informs:
+  concepts:
+    - Identifier
+  vocabularies:
+    - identifier-type
+  properties:
+    - identifier_type

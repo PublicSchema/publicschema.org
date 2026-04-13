@@ -1,0 +1,19 @@
+id: iccs-convention-16
+title: "Convention No. 16 on the issue of plurilingual extracts from civil status records"
+short_title: "ICCS Convention 16"
+standard_number: "ICCS Convention No. 16"
+publisher: "International Commission on Civil Status (ICCS/CIEC)"
+year: 1976
+type: legal_instrument
+domain: crvs
+uri: "https://ciec1.org/"
+access: open
+status: active
+
+informs:
+  concepts:
+    - Certificate
+  vocabularies:
+    - crvs/certificate-format
+  properties:
+    - certificate_format

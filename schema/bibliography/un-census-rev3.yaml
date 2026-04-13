@@ -1,0 +1,27 @@
+id: un-census-rev3
+title: "Principles and Recommendations for Population and Housing Censuses, Revision 3"
+short_title: "UN Census Rev.3"
+standard_number: "ST/ESA/STAT/SER.M/67/Rev.3"
+publisher: "United Nations Statistics Division"
+year: 2017
+version: "Rev.3"
+type: international_standard
+domain: general
+uri: "https://unstats.un.org/unsd/demographic-social/Standards-and-Methods/files/Principles_and_Recommendations/Population-and-Housing-Censuses/Series_M67rev3-E.pdf"
+access: open
+status: active
+
+informs:
+  concepts:
+    - Household
+    - Family
+    - GroupMembership
+  vocabularies:
+    - group-role
+    - group-type
+    - marital-status
+    - relationship-type
+  properties:
+    - marital_status
+    - relationship_type
+    - head_of_household

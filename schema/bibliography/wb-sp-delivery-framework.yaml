@@ -1,0 +1,21 @@
+id: wb-sp-delivery-framework
+title: "Social Protection Delivery Systems Framework"
+short_title: "WB SP Delivery Framework"
+publisher: "World Bank"
+year: 2018
+type: guidance_publication
+domain: social_protection
+uri: "https://thedocs.worldbank.org/en/doc/147511529959939838-0160022017/original/11amMarch9DeliverySystemsFrameworkCORECOURSEWITHCLICKERSSENT8March2017.pdf"
+access: open
+status: active
+
+informs:
+  concepts:
+    - Enrollment
+    - Entitlement
+    - EligibilityDecision
+    - PaymentEvent
+  vocabularies:
+    - sp/enrollment-status
+  properties:
+    - enrollment_status

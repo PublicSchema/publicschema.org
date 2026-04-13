@@ -1,0 +1,19 @@
+id: fhir-coverage-eligibility
+title: "FHIR CoverageEligibilityResponse resource"
+short_title: "FHIR CoverageEligibilityResponse"
+publisher: "Health Level Seven International (HL7)"
+year: null
+version: "R4"
+type: specification
+domain: health
+uri: "https://build.fhir.org/coverageeligibilityresponse-definitions.html"
+access: open
+status: active
+
+informs:
+  concepts:
+    - EligibilityDecision
+  vocabularies:
+    - sp/eligibility-status
+  properties:
+    - eligibility_status

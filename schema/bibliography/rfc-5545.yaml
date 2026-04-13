@@ -1,0 +1,19 @@
+id: rfc-5545
+title: "Internet Calendaring and Scheduling Core Object Specification (iCalendar)"
+short_title: "RFC 5545 (iCalendar)"
+standard_number: "RFC 5545"
+publisher: "Internet Engineering Task Force (IETF)"
+year: 2009
+type: specification
+domain: general
+uri: "https://datatracker.ietf.org/doc/html/rfc5545"
+access: open
+status: active
+
+informs:
+  concepts: []
+  vocabularies:
+    - sp/benefit-frequency
+  properties:
+    - frequency_rule
+    - frequency

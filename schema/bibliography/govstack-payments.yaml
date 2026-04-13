@@ -1,0 +1,23 @@
+id: govstack-payments
+title: "GovStack Payments Building Block Specification"
+short_title: "GovStack Payments"
+publisher: "GovStack (ITU, GIZ, DIAL, Estonia)"
+year: null
+type: specification
+domain: payments
+uri: "https://specs.govstack.global/payments/2-description"
+access: open
+status: active
+
+informs:
+  concepts:
+    - PaymentEvent
+    - Voucher
+  vocabularies:
+    - delivery-channel
+    - voucher-status
+    - payment-status
+  properties:
+    - delivery_channel
+    - payment_status
+    - voucher_status

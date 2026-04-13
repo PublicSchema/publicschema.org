@@ -1,0 +1,18 @@
+id: isced-2011
+title: "International Standard Classification of Education (ISCED 2011)"
+short_title: "ISCED 2011"
+standard_number: "ISCED 2011"
+publisher: "UNESCO Institute for Statistics"
+year: 2011
+type: classification
+domain: education
+uri: "https://uis.unesco.org/en/topic/international-standard-classification-education-isced"
+access: open
+status: active
+
+informs:
+  concepts: []
+  vocabularies:
+    - education-level
+  properties:
+    - education_level

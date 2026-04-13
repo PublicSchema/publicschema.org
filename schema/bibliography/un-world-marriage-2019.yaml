@@ -1,0 +1,17 @@
+id: un-world-marriage-2019
+title: "World Marriage Data 2019, Metadata"
+short_title: "UN World Marriage 2019"
+publisher: "United Nations Department of Economic and Social Affairs, Population Division"
+year: 2019
+type: guidance_publication
+domain: general
+uri: "https://www.un.org/development/desa/pd/data/world-marriage-data"
+access: open
+status: active
+
+informs:
+  concepts: []
+  vocabularies:
+    - marital-status
+  properties:
+    - marital_status

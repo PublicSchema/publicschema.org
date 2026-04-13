@@ -1,0 +1,17 @@
+id: un-census-rev4
+title: "Principles and Recommendations for Population and Housing Censuses, Revision 4 (draft)"
+short_title: "UN Census Rev.4 (draft)"
+publisher: "United Nations Statistics Division"
+year: 2024
+version: "Rev.4 draft"
+type: international_standard
+domain: general
+access: registration_required
+status: draft
+
+informs:
+  concepts: []
+  vocabularies:
+    - marital-status
+  properties:
+    - marital_status

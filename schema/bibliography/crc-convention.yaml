@@ -1,0 +1,18 @@
+id: crc-convention
+title: "Convention on the Rights of the Child"
+short_title: "CRC"
+standard_number: "UN CRC"
+publisher: "United Nations General Assembly"
+year: 1989
+type: legal_instrument
+domain: crvs
+uri: "https://www.ohchr.org/en/instruments-mechanisms/instruments/convention-rights-child"
+access: open
+status: active
+
+informs:
+  concepts:
+    - Birth
+    - Adoption
+  vocabularies: []
+  properties: []

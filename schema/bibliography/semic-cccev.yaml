@@ -1,0 +1,18 @@
+id: semic-cccev
+title: "Core Criterion and Core Evidence Vocabulary (CCCEV)"
+short_title: "SEMIC CCCEV"
+publisher: "SEMIC, Interoperable Europe (European Commission)"
+year: null
+version: "v2.1.0"
+type: eu_vocabulary
+domain: general
+uri: "https://semiceu.github.io/CCCEV/releases/2.1.0/"
+access: open
+status: active
+
+informs:
+  concepts:
+    - AssessmentFramework
+    - EligibilityDecision
+  vocabularies: []
+  properties: []

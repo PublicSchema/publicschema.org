@@ -1,0 +1,20 @@
+id: wb-grm-guidance
+title: "Grievance Redress Mechanisms, Guidance Note for World Bank-financed projects"
+short_title: "World Bank GRM Guidance"
+publisher: "World Bank"
+year: 2022
+type: guidance_publication
+domain: social_protection
+uri: "https://openknowledge.worldbank.org/bitstreams/b4a57d20-24bf-518a-93b1-1a5db3bdbae1/download"
+access: open
+status: active
+
+informs:
+  concepts:
+    - Grievance
+  vocabularies:
+    - sp/grievance-status
+    - sp/grievance-type
+  properties:
+    - grievance_status
+    - grievance_type

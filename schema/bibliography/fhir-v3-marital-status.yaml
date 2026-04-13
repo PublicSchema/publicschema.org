@@ -1,0 +1,18 @@
+id: fhir-v3-marital-status
+title: "FHIR v3 MaritalStatus CodeSystem"
+short_title: "FHIR v3 MaritalStatus"
+publisher: "Health Level Seven International (HL7)"
+year: null
+version: "R4"
+type: classification
+domain: health
+uri: "https://hl7.org/fhir/R4/v3/MaritalStatus/cs.html"
+access: open
+status: active
+
+informs:
+  concepts: []
+  vocabularies:
+    - marital-status
+  properties:
+    - marital_status

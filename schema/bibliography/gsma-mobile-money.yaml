@@ -1,0 +1,17 @@
+id: gsma-mobile-money
+title: "GSMA Mobile Money API"
+short_title: "GSMA Mobile Money API"
+publisher: "GSMA"
+year: null
+type: specification
+domain: payments
+uri: "https://developer.mobilemoneyapi.io/"
+access: open
+status: active
+
+informs:
+  concepts: []
+  vocabularies:
+    - delivery-channel
+  properties:
+    - delivery_channel

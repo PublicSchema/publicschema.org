@@ -1,0 +1,34 @@
+id: semic-core-person
+title: "Core Person Vocabulary"
+short_title: "SEMIC Core Person"
+publisher: "SEMIC, Interoperable Europe (European Commission)"
+year: null
+version: "v2.1.1"
+type: eu_vocabulary
+domain: identity
+uri: "https://semiceu.github.io/Core-Person-Vocabulary/releases/2.1.1/"
+access: open
+status: active
+
+informs:
+  concepts:
+    - Person
+    - Identifier
+  vocabularies: []
+  properties:
+    - given_name
+    - family_name
+    - given_name_at_birth
+    - family_name_at_birth
+    - patronymic_name
+    - matronymic_name
+    - preferred_name
+    - date_of_birth
+    - country_of_birth
+    - place_of_usual_residence
+    - gender
+    - sex
+    - nationality
+    - identifier_value
+    - identifier_scheme_id
+    - identifier_scheme_name

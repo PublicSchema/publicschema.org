@@ -1,0 +1,19 @@
+id: ebsi-portable-doc-a1
+title: "Portable Document A1, Social Security Coordination Verifiable Credential schema"
+short_title: "EBSI PDA1"
+publisher: "European Blockchain Services Infrastructure (EBSI), European Commission"
+year: null
+type: eu_credential_schema
+domain: social_protection
+uri: "https://code.europa.eu/ebsi/json-schema"
+access: open
+status: active
+
+informs:
+  concepts:
+    - Enrollment
+    - Entitlement
+  vocabularies: []
+  properties:
+    - governing_jurisdiction
+    - document_expiry_date

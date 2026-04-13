@@ -1,0 +1,19 @@
+id: icd-10
+title: "International Statistical Classification of Diseases and Related Health Problems, 10th Revision"
+short_title: "ICD-10"
+standard_number: "ICD-10"
+publisher: "World Health Organization"
+year: null
+version: "10th Revision"
+type: classification
+domain: health
+uri: "https://icd.who.int/browse10/"
+access: open
+status: active
+
+informs:
+  concepts: []
+  vocabularies: []
+  properties:
+    - cause_of_death_coding_system
+    - cause_of_death_code

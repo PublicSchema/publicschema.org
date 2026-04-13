@@ -1,0 +1,18 @@
+id: icd-pm
+title: "ICD-10 for the classification of perinatal mortality (ICD-PM)"
+short_title: "ICD-PM"
+standard_number: "ICD-PM"
+publisher: "World Health Organization"
+year: 2016
+type: classification
+domain: health
+uri: "https://www.who.int/publications/i/item/9789241549752"
+access: open
+status: active
+
+informs:
+  concepts: []
+  vocabularies: []
+  properties:
+    - cause_of_fetal_death_coding_system
+    - cause_of_fetal_death_code

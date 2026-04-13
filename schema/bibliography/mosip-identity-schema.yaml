@@ -1,0 +1,19 @@
+id: mosip-identity-schema
+title: "MOSIP Identity Schema"
+short_title: "MOSIP Identity Schema"
+publisher: "MOSIP Foundation"
+year: null
+version: "v1.2.0"
+type: specification
+domain: identity
+uri: "https://docs.mosip.io/1.2.0/id-lifecycle-management/identity-management/id-schema"
+access: open
+status: active
+
+informs:
+  concepts:
+    - Identifier
+  vocabularies:
+    - identifier-type
+  properties:
+    - identifier_type

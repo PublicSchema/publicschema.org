@@ -1,0 +1,18 @@
+id: who-icd-manner-of-death
+title: "ICD Manner of Death Classification"
+short_title: "WHO Manner of Death"
+publisher: "World Health Organization"
+year: null
+type: classification
+domain: health
+uri: "https://icd.who.int/"
+access: open
+status: active
+
+informs:
+  concepts:
+    - Death
+  vocabularies:
+    - crvs/manner-of-death
+  properties:
+    - manner_of_death

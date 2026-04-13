@@ -1,0 +1,18 @@
+id: semic-cpov
+title: "Core Public Organisation Vocabulary (CPOV)"
+short_title: "SEMIC CPOV"
+publisher: "SEMIC, Interoperable Europe (European Commission)"
+year: null
+version: "v2.1.1"
+type: eu_vocabulary
+domain: general
+uri: "https://semiceu.github.io/CPOV/releases/2.1.1/"
+access: open
+status: active
+
+informs:
+  concepts:
+    - Program
+  vocabularies: []
+  properties:
+    - implementing_agency

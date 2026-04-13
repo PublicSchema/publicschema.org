@@ -1,0 +1,18 @@
+id: un-cefact-rec20
+title: "Recommendation 20: Codes for Units of Measure Used in International Trade"
+short_title: "UN/CEFACT Rec.20"
+standard_number: "UN/CEFACT Recommendation 20"
+publisher: "United Nations Centre for Trade Facilitation and Electronic Business (UN/CEFACT)"
+year: null
+type: international_standard
+domain: general
+uri: "https://unece.org/trade/uncefact/cl-recommendations"
+access: open
+status: active
+
+informs:
+  concepts: []
+  vocabularies:
+    - unit-of-measure
+  properties:
+    - unit_of_measure

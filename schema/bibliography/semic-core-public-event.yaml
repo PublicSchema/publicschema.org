@@ -1,0 +1,17 @@
+id: semic-core-public-event
+title: "Core Public Event Vocabulary"
+short_title: "SEMIC Core Public Event"
+publisher: "SEMIC, Interoperable Europe (European Commission)"
+year: null
+version: "v1.1.0"
+type: eu_vocabulary
+domain: general
+uri: "https://semiceu.github.io/Core-Public-Event-Vocabulary/releases/1.1.0/"
+access: open
+status: active
+
+informs:
+  concepts:
+    - Event
+  vocabularies: []
+  properties: []

@@ -1,0 +1,19 @@
+id: iso-4217
+title: "Codes for the representation of currencies"
+short_title: "ISO 4217"
+standard_number: "ISO 4217"
+publisher: "International Organization for Standardization"
+year: null
+type: international_standard
+domain: payments
+uri: "https://www.iso.org/iso-4217-currency-codes.html"
+access: open
+status: active
+
+informs:
+  concepts: []
+  vocabularies:
+    - currency
+  properties:
+    - currency
+    - payment_currency

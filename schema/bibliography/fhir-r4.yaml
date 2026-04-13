@@ -1,0 +1,16 @@
+id: fhir-r4
+title: "Fast Healthcare Interoperability Resources (FHIR), Release 4"
+short_title: "FHIR R4"
+publisher: "Health Level Seven International (HL7)"
+year: 2019
+version: "R4"
+type: specification
+domain: health
+uri: "https://hl7.org/fhir/R4/"
+access: open
+status: active
+
+informs:
+  concepts: []
+  vocabularies: []
+  properties: []
