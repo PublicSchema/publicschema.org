@@ -1,0 +1,17 @@
+id: fhir-bfdr
+title: "FHIR Birth and Fetal Death Reporting (BFDR) Implementation Guide"
+short_title: "FHIR BFDR"
+publisher: "Health Level Seven International (HL7)"
+year: null
+type: specification
+domain: crvs
+uri: "https://hl7.org/fhir/us/bfdr/"
+access: open
+status: active
+
+informs:
+  concepts:
+    - Birth
+    - FetalDeath
+  vocabularies: []
+  properties: []

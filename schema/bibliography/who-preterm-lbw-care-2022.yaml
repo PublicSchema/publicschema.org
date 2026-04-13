@@ -1,0 +1,18 @@
+id: who-preterm-lbw-care-2022
+title: "WHO recommendations for care of the preterm or low-birth-weight infant"
+short_title: "WHO Preterm/LBW Care"
+publisher: "World Health Organization"
+year: 2022
+type: guidance_publication
+domain: health
+uri: "https://www.who.int/publications/i/item/9789240058262"
+access: open
+status: active
+
+informs:
+  concepts:
+    - Birth
+  vocabularies: []
+  properties:
+    - gestational_age
+    - weight_at_birth
