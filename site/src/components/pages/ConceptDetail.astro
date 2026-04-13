@@ -31,6 +31,11 @@ const showCanonicalName = locale !== defaultLocale && displayLabel !== concept.i
 const conceptLink = (id: string) => localePath(conceptPathFor(vocab, id), locale);
 const propLink = (id: string) => localePath(propPathFor(vocab, id), locale);
 
+const bibliography = vocab.bibliography ?? {};
+const bibRefs = (concept.bibliography_refs ?? [])
+  .map((id) => bibliography[id])
+  .filter((entry) => entry !== undefined);
+
 const propList = concept.properties.map((ref) => ({
   ...ref,
   detail: vocab.properties[ref.id],
@@ -223,6 +228,25 @@ const domainTitles: Record<string, string> = { sp: t('concepts.section_social_pr
           </tbody>
         </table>
       )}
+    </div>
+  )}
+
+  {bibRefs.length > 0 && (
+    <div class="concept-section" id="references">
+      <h2>{t('references.referenced_by')}<SectionFeedback pageType="concept" pageId={termId} sectionId="references" sectionLabel={t('references.referenced_by')} locale={locale} /></h2>
+      <ul class="entity-references-list">
+        {bibRefs.map((entry) => (
+          <li>
+            <a href={localePath(`/references/#bib-${entry.id}`, locale)}>
+              {entry.short_title ?? entry.title}
+            </a>
+            <span class="entity-references-publisher">{entry.publisher}{entry.year ? `, ${entry.year}` : ''}</span>
+          </li>
+        ))}
+      </ul>
+      <p class="entity-references-link">
+        <a href={localePath('/references/', locale)}>{t('references.see_all')}</a>
+      </p>
     </div>
   )}
 

@@ -21,6 +21,12 @@ const vocabulary = allVocab.vocabularies[vocab] as Vocabulary;
 const definition = vocabulary.definition[locale] ?? vocabulary.definition.en;
 const displayLabel = vocabulary.label?.[locale] ?? vocabulary.label?.en ?? vocabulary.id;
 const showCanonicalName = locale !== defaultLocale && displayLabel !== vocabulary.id;
+
+const bibliography = allVocab.bibliography ?? {};
+const bibRefs = (vocabulary.bibliography_refs ?? [])
+  .map((id) => bibliography[id])
+  .filter((entry) => entry !== undefined);
+const otherRefs = vocabulary.references ?? [];
 ---
 <Base title={displayLabel} description={definition} alternateJsonLd={`/vocab/${vocab}.jsonld`} ogType="article" locale={locale}>
   <article>
@@ -185,6 +191,40 @@ const showCanonicalName = locale !== defaultLocale && displayLabel !== vocabular
       ))}
     </div>
   )}
+  {bibRefs.length > 0 && (
+    <div class="concept-section" id="references">
+      <h2>{t('references.referenced_by_vocab')}<SectionFeedback pageType="vocabulary" pageId={vocab} sectionId="references" sectionLabel={t('references.referenced_by_vocab')} locale={locale} /></h2>
+      <ul class="entity-references-list">
+        {bibRefs.map((entry) => (
+          <li>
+            <a href={localePath(`/references/#bib-${entry.id}`, locale)}>
+              {entry.short_title ?? entry.title}
+            </a>
+            <span class="entity-references-publisher">{entry.publisher}{entry.year ? `, ${entry.year}` : ''}</span>
+          </li>
+        ))}
+      </ul>
+      <p class="entity-references-link">
+        <a href={localePath('/references/', locale)}>{t('references.see_all')}</a>
+      </p>
+    </div>
+  )}
+
+  {otherRefs.length > 0 && (
+    <div class="concept-section" id="other-references">
+      <h2>{t('vocab_detail.references')}<SectionFeedback pageType="vocabulary" pageId={vocab} sectionId="other-references" sectionLabel={t('vocab_detail.references')} locale={locale} /></h2>
+      <ul class="vocab-references-list">
+        {otherRefs.map((ref) => (
+          <li>
+            <a href={ref.uri} target="_blank" rel="noopener noreferrer">{ref.name}</a>
+            <span class="vocab-references-relationship">{ref.relationship.replace(/_/g, ' ')}</span>
+            {ref.notes && <span class="vocab-references-notes">{ref.notes}</span>}
+          </li>
+        ))}
+      </ul>
+    </div>
+  )}
+
   <FeedbackOrientation locale={locale} />
   </article>
 </Base>

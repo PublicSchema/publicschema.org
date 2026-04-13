@@ -1304,6 +1304,64 @@ article .data-table.table-wide {
   line-height: 1.6;
 }
 
+/* Per-entity bibliography reference list (concept and vocabulary detail) */
+.entity-references-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.entity-references-list li {
+  line-height: 1.55;
+}
+
+.entity-references-publisher {
+  display: inline;
+  margin-left: 0.5em;
+  color: var(--color-text-muted);
+  font-size: 0.9em;
+}
+
+.entity-references-link {
+  margin-top: var(--space-sm);
+  font-size: 0.9rem;
+}
+
+/* Vocabulary `references` array (non-machine-readable design references) */
+.vocab-references-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.vocab-references-list li {
+  padding: var(--space-sm) var(--space-md);
+  border-left: 3px solid var(--color-border-light);
+  background: var(--color-bg-subtle, #faf9f6);
+}
+
+.vocab-references-relationship {
+  display: inline-block;
+  margin-left: 0.5em;
+  font-size: 0.85em;
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+.vocab-references-notes {
+  display: block;
+  margin-top: 0.3em;
+  font-size: 0.9em;
+  color: var(--color-text-muted);
+  line-height: 1.55;
+}
+
 .unmapped-note code {
   font-size: 0.8rem;
   background: var(--color-surface);
