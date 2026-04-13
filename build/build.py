@@ -541,6 +541,7 @@ def build_vocabulary(schema_dir: Path) -> dict:
             "short_title": data.get("short_title"),
             "standard_number": data.get("standard_number"),
             "publisher": data.get("publisher"),
+            "authors": data.get("authors", []),
             "year": data.get("year"),
             "version": data.get("version"),
             "type": data.get("type"),

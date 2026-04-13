@@ -1,0 +1,26 @@
+id: barca-2021-inclusive-information-systems
+title: "Inclusive Information Systems for Social Protection: Intentionally Integrating Gender and Disability"
+short_title: "Barca et al. 2021: Inclusive information systems"
+authors:
+  - "Valentina Barca"
+  - "Madhumitha Hebbar"
+  - "Alexandre Cote"
+publisher: "Social Protection Approaches to COVID-19: Expert Advice (SPACE), FCDO/GIZ/DFAT"
+year: 2021
+type: guidance_publication
+domain: social_protection
+uri: "https://socialprotection.org/discover/publications/inclusive-information-systems-social-protection-intentionally-integrating"
+access: open
+status: active
+
+informs:
+  concepts:
+    - Person
+    - Enrollment
+    - AssessmentEvent
+  vocabularies:
+    - sex
+    - gender-type
+  properties:
+    - sex
+    - gender

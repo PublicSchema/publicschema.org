@@ -144,6 +144,12 @@ const vocabLinkFor = (key: string) => localePath(`/vocab/${key}`, locale);
                 <p class="references-entry-fulltitle">{entry.title}</p>
               )}
               <dl class="references-entry-meta">
+                {entry.authors.length > 0 && (
+                  <>
+                    <dt>{t('references.authors')}</dt>
+                    <dd>{entry.authors.join(', ')}</dd>
+                  </>
+                )}
                 <dt>{t('references.publisher')}</dt>
                 <dd>{entry.publisher}</dd>
                 {entry.year !== null && (

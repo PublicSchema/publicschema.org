@@ -1,0 +1,29 @@
+id: barca-2017-integrating-data
+title: "Integrating data and information management for social protection: social registries and integrated beneficiary registries"
+short_title: "Barca 2017: Social and beneficiary registries"
+authors:
+  - "Valentina Barca"
+publisher: "Australian Government Department of Foreign Affairs and Trade (DFAT)"
+year: 2017
+type: guidance_publication
+domain: social_protection
+uri: "https://www.dfat.gov.au/about-us/publications/Pages/integrating-data-information-management-social-protection"
+access: open
+status: active
+
+informs:
+  concepts:
+    - Person
+    - Household
+    - Program
+    - Enrollment
+    - EligibilityDecision
+    - Entitlement
+    - AssessmentEvent
+    - AssessmentFramework
+    - Identifier
+  vocabularies:
+    - sp/eligibility-status
+    - sp/enrollment-status
+    - sp/targeting-approach
+  properties: []

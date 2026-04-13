@@ -27,6 +27,12 @@
       "type": "string",
       "description": "Publishing organization"
     },
+    "authors": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1,
+      "description": "Named authors, in citation order. Optional; many standards have institutional authorship only."
+    },
     "year": {
       "type": ["integer", "null"],
       "description": "Year of publication. Null for ongoing or undated standards."

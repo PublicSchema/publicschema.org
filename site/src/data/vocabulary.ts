@@ -145,6 +145,7 @@ export interface BibliographyEntry {
   short_title: string | null;
   standard_number: string | null;
   publisher: string;
+  authors: string[];
   year: number | null;
   version: string | null;
   type: BibliographyType;
