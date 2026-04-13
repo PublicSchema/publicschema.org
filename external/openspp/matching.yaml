@@ -179,18 +179,29 @@ matches:
     external_vocabulary: "ID Type"
     external_source: "spp_vocabulary/data/vocabulary_id_type.xml"
     confidence: high
-    notes: "OpenSPP defines 4 active ID types. All 4 map cleanly to v2 codes. V2 has additional types (voter_id, program_id, household_id, social_security_number, other) with no OpenSPP equivalent. Note: OpenSPP source file has additional commented-out codes (child and spouse types) that are not active."
+    notes: "OpenSPP defines 4 active ID types. All 4 map cleanly to v2 number categories. V2 covers additional number categories (social security, voter, program, household, drivers licence, civil registration numbers, location codes) with no OpenSPP equivalent. OpenSPP source file has additional commented-out codes (child and spouse types) that are not active."
     value_mapping:
-      "national_id": national_id
-      "passport": passport
-      "tax_id": social_security_number
-      "birth_certificate": birth_certificate
+      "national_id": national_id_number
+      "passport": passport_number
+      "tax_id": tax_id_number
+      "birth_certificate": birth_registration_number
     gaps:
       v2_only:
-        - voter_id              # not in OpenSPP active vocabulary
-        - program_id            # not in OpenSPP active vocabulary
-        - household_id          # not in OpenSPP active vocabulary
-        - other                 # not in OpenSPP active vocabulary
+        - social_security_number
+        - program_id_number
+        - household_id_number
+        - drivers_license_number
+        - voter_id_number
+        - marriage_registration_number
+        - death_registration_number
+        - country_code
+        - subdivision_code
+        - postal_code
+        - p_code
+        - fips_code
+        - hasc_code
+        - un_locode
+        - other
       external_only: []
 
   - v2_vocabulary: group-type

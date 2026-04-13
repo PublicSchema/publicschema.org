@@ -1,0 +1,18 @@
+id: iso-3166-2
+title: "Codes for the representation of names of countries and their subdivisions, Part 2: Country subdivision code"
+short_title: "ISO 3166-2"
+standard_number: "ISO 3166-2"
+publisher: "International Organization for Standardization"
+year: null
+type: international_standard
+domain: general
+uri: "https://www.iso.org/standard/72483.html"
+access: open
+status: active
+
+informs:
+  concepts: []
+  vocabularies:
+    - identifier-type
+  properties:
+    - issuing_jurisdiction

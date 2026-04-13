@@ -1,0 +1,16 @@
+id: hdx-p-codes
+title: "Humanitarian P-codes for sub-national administrative areas"
+short_title: "HDX P-codes"
+publisher: "United Nations Office for the Coordination of Humanitarian Affairs (UN OCHA), Humanitarian Data Exchange"
+year: null
+type: classification
+domain: humanitarian
+uri: "https://data.humdata.org/dataset/p-codes"
+access: open
+status: active
+
+informs:
+  concepts: []
+  vocabularies:
+    - identifier-type
+  properties: []

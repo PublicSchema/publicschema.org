@@ -14,8 +14,10 @@ informs:
   concepts: []
   vocabularies:
     - country
+    - identifier-type
   properties:
     - nationality
     - nationality_at_birth
     - country_of_birth
     - country
+    - issuing_jurisdiction

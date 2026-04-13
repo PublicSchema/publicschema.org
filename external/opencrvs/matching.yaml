@@ -364,24 +364,27 @@ matches:
         - PARTIAL     # partial fee payment; no v2 equivalent
 
   # --- identifier-type vs IdentityDocumentType (country-configurable) ---
-  # OpenCRVS does not define identity document types in core code.
-  # The GraphQL schema uses String for the type field. Example values
-  # (PASSPORT, DRIVING_LICENSE, NID, etc.) appear only in test fixtures.
-  # However, OpenCRVS does reference NATIONAL_ID and BIRTH_REGISTRATION_NUMBER
-  # as constants in specific integration contexts, so partial overlap exists.
+  # OpenCRVS does not define identifier categories in core code; the field is
+  # a free-text String configured per country deployment. Test fixtures show
+  # values such as PASSPORT, DRIVING_LICENSE, NID. Integration constants
+  # (NATIONAL_ID, BIRTH_REGISTRATION_NUMBER, DEATH_REGISTRATION_NUMBER) map
+  # directly to the v2 number categories introduced by the identifier-type
+  # normalization.
 
   - v2_vocabulary: identifier-type
     external_vocabulary: IdentityDocumentType
     confidence: low
     country_config: true
     notes: >
-      OpenCRVS does not define identity document types in core code; the field
-      is a free-text String configured per country deployment. Test fixtures show
-      values such as PASSPORT, DRIVING_LICENSE, NID, REFUGEE_NUMBER, but these
-      are not authoritative. The BIRTH_REGISTRATION_NUMBER and
-      DEATH_REGISTRATION_NUMBER constants appear in integration code, which have
-      no direct v2 equivalent (v2 uses birth_certificate as a general category).
-      No value mapping is possible without a specific country deployment.
+      OpenCRVS does not define identifier categories in core code; the field
+      is a free-text String configured per country deployment. Test fixtures
+      show values such as PASSPORT, DRIVING_LICENSE, NID, REFUGEE_NUMBER,
+      but these are not authoritative. The NATIONAL_ID,
+      BIRTH_REGISTRATION_NUMBER and DEATH_REGISTRATION_NUMBER constants that
+      appear in OpenCRVS integration code now map directly to the v2 codes
+      national_id_number, birth_registration_number and
+      death_registration_number respectively. A full value mapping still
+      requires a specific country deployment.
 
   # --- SP country-configurable matches (no value mapping possible) ---
 

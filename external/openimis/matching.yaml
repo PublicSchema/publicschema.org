@@ -72,14 +72,29 @@ matches:
     external_vocabulary: IdentificationType
     external_source: "insuree/models.py:180"
     confidence: high
-    notes: "IdentificationType lists document types accepted to identify an insuree. Driver's Licence has no exact v2 match and maps to other; it is an edge case in social protection contexts."
+    notes: "IdentificationType lists the identifier number categories accepted to identify an insuree. All four have direct v2 equivalents since the identifier-type vocab was normalized around _number suffixes."
     value_mapping:
-      "N": national_id
-      "P": passport
-      "V": voter_id
-      "D": other
+      "N": national_id_number
+      "P": passport_number
+      "V": voter_id_number
+      "D": drivers_license_number
     gaps:
-      v2_only: [birth_certificate, program_id, household_id, social_security_number]
+      v2_only:
+        - social_security_number
+        - tax_id_number
+        - program_id_number
+        - household_id_number
+        - birth_registration_number
+        - marriage_registration_number
+        - death_registration_number
+        - country_code
+        - subdivision_code
+        - postal_code
+        - p_code
+        - fips_code
+        - hasc_code
+        - un_locode
+        - other
       external_only: []
 
   - v2_vocabulary: relationship-type
