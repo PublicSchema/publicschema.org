@@ -1,0 +1,76 @@
+id: IdentityDocument
+label:
+  en: Identity Document
+  fr: Document d'identité
+  es: Documento de identidad
+maturity: draft
+
+definition:
+  en: >
+    A physical or digital document that asserts one or more identifiers about
+    a party (person, household, or group). Distinct from the identifier itself:
+    the number on a passport is an Identifier; the passport book is an
+    IdentityDocument. Documents have their own lifecycle (issue date, expiry,
+    issuing authority) independent of the identifier value, and the same
+    identifier may appear on successive documents. Distinct from Certificate
+    (a re-issuable extract of a civil-status record under CIEC conventions)
+    and from IdentityCredential (the Verifiable Credential envelope that may
+    attest an IdentityDocument in digital form).
+  fr: >
+    Un document physique ou numérique qui atteste d'un ou plusieurs
+    identifiants concernant une partie (personne, ménage ou groupe).
+    Distinct de l'identifiant lui-même: le numéro sur un passeport est un
+    Identifier; le livret du passeport est un IdentityDocument. Les documents
+    ont leur propre cycle de vie (date de délivrance, expiration, autorité
+    émettrice) indépendamment de la valeur de l'identifiant, et le même
+    identifiant peut apparaître sur des documents successifs. Distinct de
+    Certificate (un extrait d'acte d'état civil rééditable selon les
+    conventions CIEC) et d'IdentityCredential (l'enveloppe d'attestation
+    vérifiable qui peut attester un IdentityDocument sous forme numérique).
+  es: >
+    Un documento físico o digital que acredita uno o más identificadores
+    sobre una parte (persona, hogar o grupo). Distinto del identificador en
+    sí: el número del pasaporte es un Identifier; la libreta del pasaporte
+    es un IdentityDocument. Los documentos tienen su propio ciclo de vida
+    (fecha de emisión, expiración, autoridad emisora) independiente del
+    valor del identificador, y el mismo identificador puede aparecer en
+    documentos sucesivos. Distinto de Certificate (un extracto reeditable
+    de un acta de estado civil bajo las convenciones CIEC) y de
+    IdentityCredential (la envoltura de credencial verificable que puede
+    acreditar un IdentityDocument en forma digital).
+
+properties:
+  - identifiers
+  - document_type
+  - issued_to
+  - issuing_authority
+  - issuing_jurisdiction
+  - issue_date
+  - expiry_date
+
+supertypes: []
+subtypes: []
+
+external_equivalents:
+  icao:
+    label: "Machine-Readable Travel Document"
+    uri: "https://www.icao.int/publications/pages/publication.aspx?docnum=9303"
+    match: broad
+    vocabulary: "ICAO Doc 9303"
+    note: "ICAO 9303 distinguishes the document (passport book) from the number it carries, matching the split between IdentityDocument and Identifier."
+  fhir:
+    label: "DocumentReference"
+    uri: "https://hl7.org/fhir/R4/documentreference.html"
+    match: broad
+    vocabulary: "FHIR R4"
+    note: "FHIR DocumentReference is a generic clinical document reference; IdentityDocument is narrower and focused on documents that bear party identifiers."
+
+convergence:
+  system_count: 0
+  total_systems: 6
+  notes: >
+    Not modeled as a distinct entity in the mapped systems, which typically
+    embed issue/expiry dates and authority alongside the identifier value.
+    Introduced here to align with Verifiable Credential envelopes and
+    ICAO 9303 document semantics, and to keep Identifier generic for use
+    on non-party entities such as Location.

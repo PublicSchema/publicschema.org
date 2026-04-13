@@ -1,0 +1,12 @@
+id: document_type
+maturity: draft
+
+definition:
+  en: "The category of identity document (passport, national ID card, beneficiary card, etc.)."
+  fr: "La catégorie du document d'identité (passeport, carte d'identité nationale, carte de bénéficiaire, etc.)."
+  es: "La categoría del documento de identidad (pasaporte, tarjeta de identidad nacional, tarjeta de beneficiario, etc.)."
+
+type: string
+cardinality: single
+vocabulary: document-type
+references: null

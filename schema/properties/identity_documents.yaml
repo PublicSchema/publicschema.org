@@ -1,0 +1,12 @@
+id: identity_documents
+maturity: draft
+
+definition:
+  en: "Identity documents held by this party, such as passports, national identity cards, civil registration certificates, and program-issued beneficiary cards."
+  fr: "Documents d'identité détenus par cette partie, tels que passeports, cartes d'identité nationale, actes d'état civil et cartes de bénéficiaire délivrées par des programmes."
+  es: "Documentos de identidad que posee esta parte, como pasaportes, tarjetas de identidad nacional, actas de registro civil y tarjetas de beneficiario emitidas por programas."
+
+type: concept:IdentityDocument
+cardinality: multiple
+vocabulary: null
+references: IdentityDocument

@@ -25,6 +25,7 @@ definition:
 properties:
   - name
   - identifiers
+  - identity_documents
 
 subtypes: [Person, Group]
 supertypes: []

@@ -7,30 +7,34 @@ maturity: candidate
 
 definition:
   en: >
-    A unique alphanumeric code assigned to a party (person or group) by a
-    system or authority, such as a national ID number, birth certificate
-    number, household registration number, or program-assigned beneficiary
-    code.
+    A coded value assigned to an entity within an identification scheme.
+    Identifiers disambiguate entities such as persons, groups, locations,
+    administrative areas, or records within a specific registry or catalog.
+    The identifier is the value and its scheme; documents that carry
+    identifiers (passports, national ID cards, beneficiary cards) are
+    modeled separately as IdentityDocument.
   fr: >
-    Un code alphanumérique unique attribué à une partie (personne ou groupe)
-    par un système ou une autorité, tel qu'un numéro d'identification national,
-    un numéro d'acte de naissance, un numéro d'enregistrement de ménage ou
-    un code bénéficiaire attribué par un programme.
+    Une valeur codée attribuée à une entité au sein d'un schéma
+    d'identification. Les identifiants lèvent l'ambiguïté sur des entités
+    telles que des personnes, des groupes, des lieux, des zones
+    administratives ou des enregistrements dans un registre ou catalogue
+    spécifique. L'identifiant est la valeur et son schéma; les documents
+    qui portent des identifiants (passeports, cartes d'identité nationale,
+    cartes de bénéficiaire) sont modélisés séparément comme IdentityDocument.
   es: >
-    Un código alfanumérico único asignado a una entidad (persona o grupo)
-    por un sistema o autoridad, como un número de identidad nacional,
-    número de registro de nacimiento, número de registro de hogar o
-    código de beneficiario asignado por un programa.
+    Un valor codificado asignado a una entidad dentro de un esquema de
+    identificación. Los identificadores distinguen entidades como personas,
+    grupos, ubicaciones, áreas administrativas o registros dentro de un
+    registro o catálogo específico. El identificador es el valor y su
+    esquema; los documentos que portan identificadores (pasaportes, tarjetas
+    de identidad nacional, tarjetas de beneficiario) se modelan
+    separadamente como IdentityDocument.
 
 properties:
-  - identifier_type
   - identifier_value
-  - issuing_authority
-  - issue_date
-  - expiry_date
   - identifier_scheme_id
   - identifier_scheme_name
-  - issuing_jurisdiction
+  - identifier_type
 
 supertypes: []
 subtypes: []
@@ -41,18 +45,19 @@ external_equivalents:
     uri: "http://www.w3.org/ns/adms#Identifier"
     match: exact
     vocabulary: "ADMS"
+    note: "ADMS Identifier is a generic notation-plus-scheme value, aligning with this Identifier. Document-level lifecycle metadata (issuer, issue date) is carried on IdentityDocument."
   dci:
     label: "Identifier"
     uri: "https://schema.spdci.org/core/v1/data/Identifier"
-    match: close
+    match: exact
     vocabulary: "DCI Core"
-    note: "DCI Identifier has only type and value; PublicSchema adds credential lifecycle metadata (issuing authority, issue/expiry dates, scheme identifiers)"
+    note: "DCI Identifier is also a (type, value) pair without document lifecycle fields."
 
 convergence:
-  system_count: 5
+  system_count: 6
   total_systems: 6
   notes: >
-    Present in 5 of 6 mapped systems. EBSI ELM and PID schemas informed
-    additional scheme metadata properties (identifier_scheme_id,
-    identifier_scheme_name, issuing_jurisdiction) not present in the
-    original convergence systems.
+    All mapped systems carry coded values identifying persons, groups,
+    or administrative areas, though most conflate the value with document
+    metadata. After the split, Identifier covers only the value and scheme;
+    the lifecycle concerns live on IdentityDocument.

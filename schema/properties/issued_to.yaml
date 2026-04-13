@@ -2,9 +2,9 @@ id: issued_to
 maturity: draft
 
 definition:
-  en: "The person, household, or group to whom the voucher is assigned."
-  fr: "La personne, le ménage ou le groupe auquel le bon est attribué."
-  es: "La persona, hogar o grupo al que se asigna el vale."
+  en: "The party (person, household, or group) to whom the document, voucher, or credential is issued."
+  fr: "La partie (personne, ménage ou groupe) à laquelle le document, le bon ou l'attestation est délivré."
+  es: "La parte (persona, hogar o grupo) a la que se emite el documento, vale o credencial."
 
 type: concept:Party
 cardinality: single

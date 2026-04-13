@@ -2,9 +2,9 @@ id: identifiers
 maturity: candidate
 
 definition:
-  en: "Unique identifiers assigned to this person or group (national ID, program ID, etc.)."
-  fr: "Identifiants uniques attribués à cette personne ou ce groupe (identifiant national, identifiant de programme, etc.)."
-  es: "Identificadores únicos asignados a esta persona o grupo (identificación nacional, identificación de programa, etc.)."
+  en: "Identifiers carried by this entity, such as national ID numbers, program IDs, or identifiers asserted by an identity document."
+  fr: "Identifiants portés par cette entité, tels que numéros d'identité nationale, identifiants de programme ou identifiants attestés par un document d'identité."
+  es: "Identificadores que porta esta entidad, como números de identidad nacional, ID de programa o identificadores acreditados por un documento de identidad."
 
 type: concept:Identifier
 cardinality: multiple
