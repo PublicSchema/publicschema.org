@@ -10,7 +10,7 @@ PublicSchema does not assign a fixed data classification to individual propertie
 
 Instead, disclosure behavior is defined at the **credential level**. Each credential type below specifies which claims are always disclosed and which are selectively disclosable.
 
-For property-level sensitivity annotations, see [Schema Design: Sensitivity annotations](../schema-design/#7-sensitivity-annotations).
+For property-level sensitivity annotations, see [Schema Design: Sensitivity annotations](../schema-design/#9-sensitivity-annotations).
 
 ## Vocabulary values in credentials
 
@@ -187,7 +187,7 @@ Data handling requirements depend on the credential or dataset context, not on i
 General guidance:
 - **Structural metadata** (program parameters, statuses, dates) typically requires no special handling beyond normal data protection.
 - **Person-linked data** (identity claims, person-specific records) requires standard protections: access control, encryption at rest, defined retention periods.
-- **Sensitive data** (properties that reveal circumstances like health status, poverty, or victimhood in most contexts) requires justification to collect or disclose. See the `sensitivity` annotation in [Schema Design](../schema-design/#7-sensitivity-annotations).
+- **Sensitive data** (properties that reveal circumstances like health status, poverty, or victimhood in most contexts) requires justification to collect or disclose. See the `sensitivity` annotation in [Schema Design](../schema-design/#9-sensitivity-annotations).
 - **Restricted data** (assessment scores, vulnerability indices) requires enhanced protections: audit logging, purpose limitation, Data Protection Impact Assessment.
 
 ## Implementation Guidance

@@ -55,9 +55,17 @@ Key fields:
 - `name`: PascalCase, no domain prefix (use `Enrollment`, not `SPEnrollment`)
 - `definition`: plain language, written for a policy officer. 1-3 sentences.
 - `domain`: set to `sp` for social-protection-specific concepts, omit for universal concepts
-- `maturity`: one of `draft`, `stable`, `deprecated`
+- `maturity`: one of `draft`, `candidate`, `normative`
+- `featured`: `true` (optional) marks the concept for homepage and summary views
+- `abstract`: `true` (optional) marks the concept as a supertype that is not instantiated directly. Profile, Event, and Party are examples.
 - `properties`: list of property references
 - `translations`: definitions in `fr` and `es`
+
+#### Abstract supertypes and registry concepts
+
+Some concepts serve as abstract supertypes rather than directly instantiated records. Profile is an example: it is an abstract concept with three subtypes: SocioEconomicProfile, FunctioningProfile, and AnthropometricProfile. When adding a concept that represents a point-in-time observation record, consider whether it belongs as a Profile subtype. See `decisions/006-profile-hierarchy.md` (ADR-006) for the rationale.
+
+Instrument and SoftwareAgent are registry concepts, not events or records. Instrument describes a data-collection tool (for example, the WG-SS questionnaire); SoftwareAgent records the software that ran a scoring or eligibility step. New concepts in these categories should follow the same pattern rather than introducing a parallel structure.
 
 ### Adding a property
 
@@ -67,7 +75,10 @@ Key fields:
 - `name`: snake_case
 - `definition`: plain language
 - `type`: the data type (string, date, integer, concept reference, vocabulary reference)
+- `category` (optional but recommended): a key from `schema/categories.yaml` that groups the property in the site UI. Valid keys include `identity`, `demographics`, `functioning`, `child_functioning`, `housing`, `wash`, `energy`, `economic`, `assets`, `ict`, `food_security`, `nutrition`, `agriculture`, `administrative`, `biometrics`, and others defined in `schema/categories.yaml`.
 - `used_by`: list of concepts that use this property
+
+`schema/categories.yaml` is the registry of valid property category keys. Adding a new category requires a new entry there first.
 
 #### Sensitivity annotations
 
@@ -77,7 +88,15 @@ Properties that reveal circumstances (health status, poverty, victimhood) in mos
 - `sensitive`: reveals circumstances in most contexts; requires justification to collect or disclose (e.g., `program_ref`, `grievance_type`, `education_level`)
 - `restricted`: should not appear in credentials presented at routine service points; requires a data protection impact assessment (e.g., assessment scores, vulnerability indices)
 
-This is a practitioner warning about the nature of the information, not a compliance label. See `docs/design-principles.md` section 12 for the full rationale.
+This is a practitioner warning about the nature of the information, not a compliance label. See `docs/schema-design.md` section 9 (Sensitivity annotations) for the full rationale.
+
+#### Age applicability
+
+For Person-scoped properties that are instrument-gated by age, include an `age_applicability` field:
+
+- `age_applicability` (optional): array of age-band tags indicating which age groups the property concerns. Valid tags: `infant_0_1`, `child_2_4`, `child_5_17`, `adolescent`, `adult`.
+
+Only populate this for properties where the instrument or collection protocol restricts the age range. For example, WG-SS items carry `adult`, CFM items carry `child_2_4` or `child_5_17`. See `docs/schema-design.md` section 7 for details.
 
 ### Adding a vocabulary
 
@@ -100,7 +119,7 @@ Current domain codes:
 | `sp` | Social protection | Active |
 | `edu` | Education | Future |
 | `health` | Health | Future |
-| `crvs` | Civil registration and vital statistics | Future |
+| `crvs` | Civil registration and vital statistics | Active |
 
 ## Writing style
 

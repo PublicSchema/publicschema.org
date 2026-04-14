@@ -96,6 +96,6 @@ When issuing a Verifiable Credential that uses extensions:
 
 - List your context URL after the PublicSchema context in the `@context` array
 - Use the PublicSchema credential type (e.g., `EnrollmentCredential`) plus your own type if needed
-- Extended properties follow the same sensitivity guidelines: annotate them as `standard`, `sensitive`, or `restricted` (see [Schema Design: Sensitivity annotations](../schema-design/#7-sensitivity-annotations))
+- Extended properties follow the same sensitivity guidelines: annotate them as `standard`, `sensitive`, or `restricted` (see [Schema Design: Sensitivity annotations](../schema-design/#9-sensitivity-annotations))
 
 Verifiers who understand your context will process the extensions. Verifiers who don't will still understand all the PublicSchema terms.

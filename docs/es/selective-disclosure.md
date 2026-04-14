@@ -10,7 +10,7 @@ PublicSchema no asigna una clasificación de datos fija a propiedades individual
 
 En cambio, el comportamiento de divulgación se define a nivel de **credencial**. Cada tipo de credencial a continuación especifica qué afirmaciones se divulgan siempre y cuáles son divulgables selectivamente.
 
-Para las anotaciones de sensibilidad a nivel de propiedad, consulte [Diseño de esquema: Anotaciones de sensibilidad](../schema-design/#7-sensitivity-annotations).
+Para las anotaciones de sensibilidad a nivel de propiedad, consulte [Diseño de esquema: Anotaciones de sensibilidad](../schema-design/#9-sensitivity-annotations).
 
 ## Valores de vocabulario en credenciales
 
@@ -163,7 +163,7 @@ Los requisitos de manejo de datos dependen del contexto de la credencial o del c
 Orientación general:
 - **Los metadatos estructurales** (parámetros de programa, estados, fechas) típicamente no requieren manejo especial más allá de la protección de datos normal.
 - **Los datos vinculados a personas** (afirmaciones de identidad, registros específicos de personas) requieren protecciones estándar: control de acceso, cifrado en reposo, períodos de retención definidos.
-- **Los datos sensibles** (propiedades que revelan circunstancias como estado de salud, pobreza o condición de víctima en la mayoría de los contextos) requieren justificación para recopilarlos o divulgarlos. Consulte la anotación `sensitivity` en [Diseño de esquema](../schema-design/#7-sensitivity-annotations).
+- **Los datos sensibles** (propiedades que revelan circunstancias como estado de salud, pobreza o condición de víctima en la mayoría de los contextos) requieren justificación para recopilarlos o divulgarlos. Consulte la anotación `sensitivity` en [Diseño de esquema](../schema-design/#9-sensitivity-annotations).
 - **Los datos restringidos** (puntajes de evaluación, índices de vulnerabilidad) requieren protecciones mejoradas: registro de auditoría, limitación de propósito, Evaluación de Impacto en la Protección de Datos.
 
 ## Orientación de implementación

@@ -29,7 +29,7 @@ Les noms ne sont jamais préfixés par une abréviation de domaine. C'est `Enrol
 | `sp` | Protection sociale | Actif |
 | `edu` | Éducation | Futur |
 | `health` | Santé | Futur |
-| `crvs` | Enregistrement des faits d'état civil et statistiques de l'état civil | Futur |
+| `crvs` | Enregistrement des faits d'état civil et statistiques de l'état civil | Actif |
 
 ## 3. Persistance des URI
 
@@ -83,7 +83,41 @@ Ne combinez pas les deux modèles sur un même concept. Un concept à cycle de v
 
 Une propriété comme `start_date` est définie une seule fois et réutilisée pour l'ensemble des concepts. Lorsqu'une propriété partagée nécessite des ensembles de valeurs spécifiques à un concept (par exemple, `status` sur Inscription et Réclamation), elle se spécialise via des références de vocabulaire différentes plutôt que de prétendre que les différences n'existent pas.
 
-## 7. Annotations de sensibilité
+## 7. Applicabilité par âge
+
+Certaines propriétés portant sur la personne ne sont significatives que pour des tranches d'âge spécifiques. Le module court et le module étendu du Washington Group s'appliquent aux adultes ; le module de fonctionnement de l'enfant (CFM) s'applique aux enfants de 2-4 ans et de 5-17 ans. Les normes de croissance de l'OMS s'appliquent aux enfants de moins de 5 ans. Plutôt que d'encoder ces règles uniquement dans le texte de définition (que les machines ne peuvent pas interpréter), les propriétés portent un tableau optionnel `age_applicability` de balises contrôlées.
+
+| Balise | Plage numérique | Source de la tranche |
+|---|---|---|
+| `infant_0_1` | 0-23 mois | Petite enfance générale (couvre les modules nourrissons MICS, la croissance OMS précoce) |
+| `child_2_4` | 2-4 ans (24-59 mois) | Variante CFM 2-4 ; normes de croissance de l'enfant OMS |
+| `child_5_17` | 5-17 ans | Variante CFM 5-17 ; également la définition CRC de « enfant » |
+| `adolescent` | 10-19 ans | Définition de l'OMS (délibérément transversale avec child_5_17 et adult) |
+| `adult` | 18 ans et plus | WG-SS / WG-ES |
+
+### Pertinence thématique, pas éligibilité
+
+`age_applicability` répond à la question : « quels groupes d'âge cette propriété concerne-t-elle ? » Ce n'est **pas** un filtre primitif d'éligibilité. Le filtrage par âge est la responsabilité du consommateur, calculé à partir de `date_of_birth`. Dans cette optique, le chevauchement entre balises est une fonctionnalité, non un défaut : une propriété portant sur la santé reproductive des adolescents porte à la fois `child_5_17` et `adolescent` parce que le sujet concerne réellement la tranche des moins de 18 ans et la tranche OMS des 10-19 ans.
+
+Un consommateur demandant « ce champ est-il pertinent pour un enfant de 15 ans ? » évalue l'âge de l'enfant par rapport à toutes les tranches de la propriété et vérifie si l'une d'elles correspond. Un consommateur demandant « ce sujet est-il spécifique à l'adolescence ? » vérifie la présence de la balise `adolescent`.
+
+### Règles de population
+
+- Ne remplir que pour les propriétés qui s'attachent à `Person`. L'applicabilité par âge n'a pas de sens sur les concepts sans âge.
+- Non obligatoire. L'absence signifie que la propriété s'applique de manière générale à tout âge.
+- Le validateur impose la couverture impliquée par la bibliographie : les propriétés citées par `washington-group-ss` ou `washington-group-es` doivent inclure `adult` ; les propriétés citées par `washington-group-cfm` doivent inclure au moins l'une des tranches enfants (`child_2_4` ou `child_5_17`). Les propriétés peuvent restreindre la couverture CFM lorsque le texte de définition explique la variante à laquelle elles correspondent.
+
+## 8. Équivalents externes et liaisons de sérialisation
+
+Le champ `external_equivalents` sur les propriétés était initialement prévu pour les équivalents dans d'autres *ontologies* (vocabulaires de base SEMIC, DCI Core) : une propriété comme `given_name` correspond exactement à `http://www.w3.org/ns/person#firstName`. La correspondance est sémantique : les deux décrivent le même concept dans une ontologie alternative.
+
+Le même champ est également utilisé pour les **liaisons de sérialisation** telles que FHIR R4 Observation avec des codes LOINC. Ce ne sont pas des équivalents au sens SEMIC/DCI ; ce sont des instructions indiquant comment sérialiser cette propriété dans un format d'interopérabilité spécifique. La distinction est importante lors de la lecture d'une page de détail de propriété : une ligne SEMIC indique « ce concept existe dans une autre ontologie » ; une ligne FHIR/LOINC indique « lorsque vous sérialisez ces données en FHIR, utilisez ce code. »
+
+Convention :
+- Les codes LOINC par élément appartiennent à la **propriété** (chaque élément WG a son propre code LOINC).
+- Les références à une liste de réponses LOINC pour un vocabulaire entier appartiennent au **vocabulaire** (`standard.uri`). Exemple : `pregnancy-status` porte un URI de liste de réponses LOINC pour l'ensemble des valeurs.
+
+## 9. Annotations de sensibilité
 
 Certaines propriétés révèlent des circonstances sensibles que la personne soit identifiable ou non. `program_ref` révèle l'inscription à un programme spécifique (qui peut cibler le VIH, le handicap ou la pauvreté). `grievance_type` révèle que quelqu'un a déposé une plainte.
 

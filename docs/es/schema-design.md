@@ -29,7 +29,7 @@ Los nombres nunca se prefijan con una abreviación de dominio. Es `Enrollment`, 
 | `sp` | Protección social | Activo |
 | `edu` | Educación | Futuro |
 | `health` | Salud | Futuro |
-| `crvs` | Registro civil y estadísticas vitales | Futuro |
+| `crvs` | Registro civil y estadísticas vitales | Activo |
 
 ## 3. Persistencia de URI
 
@@ -83,7 +83,41 @@ No mezcle ambos patrones en el mismo concepto. Un concepto de ciclo de vida no d
 
 Una propiedad como `start_date` se define una sola vez y se reutiliza en varios conceptos. Cuando una propiedad compartida necesita conjuntos de valores específicos de concepto (p. ej., `status` en Enrollment frente a Grievance), se especializa mediante referencias a vocabularios diferentes en lugar de disimular las diferencias.
 
-## 7. Anotaciones de sensibilidad
+## 7. Aplicabilidad por edad
+
+Algunas propiedades con alcance en Person solo son significativas para grupos de edad específicos. El módulo corto y el módulo extendido del Washington Group se aplican a adultos; el módulo de funcionamiento infantil (CFM) se aplica a niños de 2-4 años y de 5-17 años. Los estándares de crecimiento de la OMS se aplican a menores de 5 años. En lugar de codificar estas reglas únicamente en el texto de definición (que las máquinas no pueden interpretar), las propiedades llevan un array opcional `age_applicability` de etiquetas controladas.
+
+| Etiqueta | Rango numérico | Fuente del tramo |
+|---|---|---|
+| `infant_0_1` | 0-23 meses | Infancia general (cubre los módulos de lactantes MICS, crecimiento temprano OMS) |
+| `child_2_4` | 2-4 años (24-59 meses) | Variante CFM 2-4; normas de crecimiento infantil OMS |
+| `child_5_17` | 5-17 años | Variante CFM 5-17; también la definición CDN de "niño" |
+| `adolescent` | 10-19 años | Definición de la OMS (deliberadamente transversal con child_5_17 y adult) |
+| `adult` | 18 años o más | WG-SS / WG-ES |
+
+### Relevancia temática, no elegibilidad
+
+`age_applicability` responde a la pregunta: "¿a qué grupos de edad concierne esta propiedad?" No es un primitivo de filtro de elegibilidad. El filtrado por edad es responsabilidad del consumidor, calculado a partir de `date_of_birth`. Bajo este enfoque, la superposición entre etiquetas es una característica, no un defecto: una propiedad sobre salud reproductiva adolescente lleva tanto `child_5_17` como `adolescent` porque el tema concierne genuinamente tanto al tramo de menores de 18 años como al tramo OMS de 10-19 años.
+
+Un consumidor que pregunta "¿es este campo relevante para un menor de 15 años?" evalúa la edad del menor frente a todos los tramos de la propiedad y verifica si alguno coincide. Un consumidor que pregunta "¿es este tema específico de la adolescencia?" comprueba la presencia de la etiqueta `adolescent`.
+
+### Reglas de población
+
+- Rellenar únicamente en propiedades que se adjuntan a `Person`. La aplicabilidad por edad carece de sentido en conceptos sin edad.
+- No es obligatorio. La ausencia significa que la propiedad se aplica de forma amplia a cualquier edad.
+- El validador impone la cobertura implicada por la bibliografía: las propiedades citadas por `washington-group-ss` o `washington-group-es` deben incluir `adult`; las propiedades citadas por `washington-group-cfm` deben incluir al menos uno de los tramos infantiles (`child_2_4` o `child_5_17`). Las propiedades pueden restringir la cobertura CFM cuando el texto de definición explica a qué variante corresponden.
+
+## 8. Equivalentes externos frente a enlaces de serialización
+
+El campo `external_equivalents` en las propiedades fue concebido originalmente para equivalentes en otras *ontologías* (vocabularios básicos SEMIC, DCI Core): una propiedad como `given_name` corresponde exactamente a `http://www.w3.org/ns/person#firstName`. La correspondencia es semántica: ambas describen el mismo concepto en una ontología alternativa.
+
+El mismo campo también se usa para **enlaces de serialización** como FHIR R4 Observation con códigos LOINC. Estos no son equivalentes en el sentido SEMIC/DCI; son instrucciones sobre cómo serializar esta propiedad en un formato de interoperabilidad específico. La distinción importa al leer una página de detalle de propiedad: una fila SEMIC dice "este concepto existe en otra ontología"; una fila FHIR/LOINC dice "cuando serialice estos datos en FHIR, use este código."
+
+Convención:
+- Los códigos LOINC por elemento pertenecen a la **propiedad** (cada elemento WG tiene su propio código LOINC).
+- Las referencias a una lista de respuestas LOINC para un vocabulario completo pertenecen al **vocabulario** (`standard.uri`). Ejemplo: `pregnancy-status` lleva un URI de lista de respuestas LOINC para todo el conjunto de valores.
+
+## 9. Anotaciones de sensibilidad
 
 Algunas propiedades revelan circunstancias sensibles independientemente de si identifican a una persona específica. `program_ref` revela la inscripción en un programa específico (que puede orientarse a VIH, discapacidad o pobreza). `grievance_type` revela que alguien presentó una queja.
 

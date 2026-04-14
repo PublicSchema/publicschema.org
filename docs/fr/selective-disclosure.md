@@ -10,7 +10,7 @@ PublicSchema n'attribue pas de classification de données fixe aux propriétés 
 
 En revanche, le comportement de divulgation est défini au **niveau de l'attestation**. Chaque type d'attestation ci-dessous spécifie quelles affirmations sont toujours divulguées et lesquelles sont sélectivement divulgables.
 
-Pour les annotations de sensibilité au niveau des propriétés, consultez [Conception du schéma : Annotations de sensibilité](../schema-design/#7-sensitivity-annotations).
+Pour les annotations de sensibilité au niveau des propriétés, consultez [Conception du schéma : Annotations de sensibilité](../schema-design/#9-sensitivity-annotations).
 
 ## Valeurs de vocabulaire dans les attestations
 
@@ -163,7 +163,7 @@ Les exigences de traitement des données dépendent du contexte de l'attestation
 Guide général :
 - **Les métadonnées structurelles** (paramètres de programme, statuts, dates) ne nécessitent généralement aucun traitement spécial au-delà de la protection normale des données.
 - **Les données liées à une personne** (affirmations d'identité, enregistrements spécifiques à une personne) nécessitent des protections standard : contrôle d'accès, chiffrement au repos, périodes de rétention définies.
-- **Les données sensibles** (propriétés qui révèlent des circonstances comme l'état de santé, la pauvreté ou le statut de victime dans la plupart des contextes) nécessitent une justification pour être collectées ou divulguées. Consultez l'annotation `sensitivity` dans [Conception du schéma](../schema-design/#7-sensitivity-annotations).
+- **Les données sensibles** (propriétés qui révèlent des circonstances comme l'état de santé, la pauvreté ou le statut de victime dans la plupart des contextes) nécessitent une justification pour être collectées ou divulguées. Consultez l'annotation `sensitivity` dans [Conception du schéma](../schema-design/#9-sensitivity-annotations).
 - **Les données restreintes** (scores d'évaluation, indices de vulnérabilité) nécessitent des protections renforcées : journalisation des accès, limitation des finalités, analyse d'impact sur la protection des données.
 
 ## Guide d'implémentation

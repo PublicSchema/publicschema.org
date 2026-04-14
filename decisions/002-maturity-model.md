@@ -4,7 +4,7 @@
 
 ## Context
 
-Schema elements (concepts, properties, vocabularies) evolve at different rates. `Person` might be stable while `AssessmentFramework` is still experimental. A single version number for the whole schema would force everything to the same stability guarantee and make it impossible to signal which parts are safe for production use.
+Schema elements (concepts, properties, vocabularies) evolve at different rates. `Person` might be stable while `ScoringRule` is still experimental. A single version number for the whole schema would force everything to the same stability guarantee and make it impossible to signal which parts are safe for production use.
 
 At the same time, adopters need to pin to a specific, citable snapshot of the vocabulary. "I'm using PublicSchema" is not precise enough; "I'm using PublicSchema 0.3.0" is.
 

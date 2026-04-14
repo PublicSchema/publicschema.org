@@ -102,7 +102,7 @@ We begin with social protection because:
 - We already have convergence data from 6 systems covering 18+ concepts
 - The interoperability pain is immediate and concrete
 
-Initial concept coverage includes people and identity (Person, Household, Family, Group, Identifier, Address, Location), program delivery (Program, Enrollment, Entitlement, EligibilityDecision, Instrument, Profile with SocioEconomicProfile / FunctioningProfile / AnthropometricProfile subtypes, ScoringRule, ScoringEvent), payments (PaymentEvent), and accountability (Grievance, Referral).
+Initial concept coverage includes people and identity (Person, Household, Family, Group, Identifier, Address, Location), program delivery (Program, Enrollment, Entitlement, EligibilityDecision, Instrument, SoftwareAgent, Profile with SocioEconomicProfile / FunctioningProfile / AnthropometricProfile subtypes, ScoringRule, ScoringEvent), payments (PaymentEvent), and accountability (Grievance, Referral).
 
 Concepts that need further exploration based on practitioner feedback:
 
@@ -118,7 +118,7 @@ As the vocabulary matures, it will extend to adjacent domains: civil registratio
 Stable URIs are essential for VC compatibility: a credential issued today must remain verifiable years from now. The versioning strategy borrows from FHIR's maturity model:
 
 - **Draft**: concept or property is proposed, open for feedback, may change significantly.
-- **Trial use**: definition is stable enough for early adopters, but breaking changes are still possible with notice.
+- **Candidate**: definition is stable enough for early adopters, but breaking changes are still possible with notice.
 - **Normative**: definition is locked. Changes require a new URI, not an edit to the existing one.
 
 Each concept and property carries its maturity level. The JSON-LD context is versioned (e.g., `https://publicschema.org/v1`, `https://publicschema.org/v2`), with older versions remaining resolvable indefinitely.

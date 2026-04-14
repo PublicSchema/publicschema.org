@@ -96,6 +96,6 @@ Al emitir una credencial verificable que usa extensiones:
 
 - Incluya la URL de su contexto después del contexto de PublicSchema en la lista `@context`
 - Use el tipo de credencial de PublicSchema (p. ej., `EnrollmentCredential`) más su propio tipo si es necesario
-- Las propiedades extendidas siguen las mismas directrices de sensibilidad: anótelas como `standard`, `sensitive` o `restricted` (consulte [Diseño de esquema: Anotaciones de sensibilidad](../schema-design/#7-sensitivity-annotations))
+- Las propiedades extendidas siguen las mismas directrices de sensibilidad: anótelas como `standard`, `sensitive` o `restricted` (consulte [Diseño de esquema: Anotaciones de sensibilidad](../schema-design/#9-sensitivity-annotations))
 
 Los verificadores que entiendan su contexto procesarán las extensiones. Los verificadores que no lo entiendan seguirán comprendiendo todos los términos de PublicSchema.

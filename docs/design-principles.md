@@ -16,6 +16,22 @@ Convergence data drives priorities. A property present in 6 out of 6 systems is 
 
 Definitions are written for policy officers and program managers, not developers. "The lifecycle states of an enrollment in a program" is preferable to "an enumeration of status codes applicable to the beneficiary registration entity."
 
+## 5. Abstract supertypes
+
+Some concepts exist only as shared foundations for more specific subtypes. Event, Party, and Profile carry `abstract: true`, meaning they define common properties but are never instantiated directly. Subtypes (e.g., FunctioningProfile, ScoringEvent) inherit those properties and add their own. See [ADR-006](../decisions/006-profile-hierarchy.md).
+
+## 6. Observation and scoring separation
+
+Data collection and data scoring are distinct steps with different actors, timestamps, and audit trails. Profile subtypes capture raw observation data (questionnaire responses, measurements); ScoringEvent records the act of applying a rule to that data. This separation lets systems recompute scores without re-collecting data. See [ADR-006](../decisions/006-profile-hierarchy.md).
+
+## 7. Property categories
+
+Properties are grouped by topical category (e.g., functioning, nutrition, housing) rather than listed flat. Categories are defined in `schema/categories.yaml` and rendered as visual groupings on concept detail pages. This helps practitioners locate relevant properties on concepts that carry many of them.
+
+## 8. Instrument metadata
+
+Properties that record data-collection context (administration mode, respondent, respondent relationship, age applicability) travel with the observation data, not in a separate metadata sidecar. This ensures that a Profile record is self-describing: a consumer can determine how the data was collected without consulting an external registry. See [schema-design.md section 7](schema-design.md#7-age-applicability) for age applicability details.
+
 ## See also
 
 - [Schema Design](../schema-design/) -- naming, scoping, and modeling

@@ -96,6 +96,6 @@ Lors de l'émission d'une attestation vérifiable qui utilise des extensions :
 
 - Ajoutez l'URL de votre contexte après le contexte PublicSchema dans le tableau `@context`
 - Utilisez le type d'attestation PublicSchema (par exemple, `EnrollmentCredential`) plus votre propre type si nécessaire
-- Les propriétés étendues suivent les mêmes directives de sensibilité : annotez-les comme `standard`, `sensitive` ou `restricted` (consultez [Conception du schéma : Annotations de sensibilité](../schema-design/#7-sensitivity-annotations))
+- Les propriétés étendues suivent les mêmes directives de sensibilité : annotez-les comme `standard`, `sensitive` ou `restricted` (consultez [Conception du schéma : Annotations de sensibilité](../schema-design/#9-sensitivity-annotations))
 
 Les vérificateurs qui comprennent votre contexte traiteront les extensions. Ceux qui ne le comprennent pas comprendront quand même tous les termes PublicSchema.

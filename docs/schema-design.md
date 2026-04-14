@@ -29,7 +29,7 @@ Names are never prefixed with a domain abbreviation. It is `Enrollment`, not `SP
 | `sp` | Social protection | Active |
 | `edu` | Education | Future |
 | `health` | Health | Future |
-| `crvs` | Civil registration and vital statistics | Future |
+| `crvs` | Civil registration and vital statistics | Active |
 
 ## 3. URI persistence
 
