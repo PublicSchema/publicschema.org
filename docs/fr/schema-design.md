@@ -83,6 +83,20 @@ Ne combinez pas les deux modèles sur un même concept. Un concept à cycle de v
 
 Une propriété comme `start_date` est définie une seule fois et réutilisée pour l'ensemble des concepts. Lorsqu'une propriété partagée nécessite des ensembles de valeurs spécifiques à un concept (par exemple, `status` sur Inscription et Réclamation), elle se spécialise via des références de vocabulaire différentes plutôt que de prétendre que les différences n'existent pas.
 
+### Réutilisation d'une propriété entre concepts
+
+L'indépendance des propriétés ne se limite pas aux champs structurels répétés. Des observables substantiels peuvent aussi être réutilisés entre concepts. `water_source`, `sanitation_facility` et `dwelling_type` apparaissent à la fois sur `SocioEconomicProfile` (contexte d'enregistrement de base) et sur `DwellingDamageProfile` (évaluation post-choc). `triggering_event` apparaît sur les annotations d'état civil et sur `DwellingDamageProfile`. Dans chaque cas, la propriété est déclarée une seule fois et figure dans la liste `properties` de chaque concept.
+
+Les règles qui maintiennent la cohérence :
+
+1. **Un fichier de propriété par concept nommé.** `water_source` est un unique fichier YAML référencé depuis les deux profils.
+2. **Le cadrage contextuel vit sur le concept, pas sur la propriété.** La définition de la propriété nomme l'observable (« la source principale d'eau potable du ménage »). La définition de chaque concept nomme la façon dont cet observable est interprété dans ce concept (enregistrement de base ou post-choc).
+3. **La réutilisation doit être annoncée dans la définition narrative des deux concepts.** Un lecteur sur l'une ou l'autre page doit pouvoir constater que le champ apparaît aussi ailleurs et pourquoi.
+4. **La réutilisation ne rend pas les enregistrements compatibles en type.** Un enregistrement `SocioEconomicProfile` et un enregistrement `DwellingDamageProfile` sont des choses différentes même lorsque leurs valeurs de propriétés se recoupent. Les adoptants doivent consulter la page du concept, pas la liste des propriétés, pour sérialiser vers une forme fortement typée.
+5. **Scindez lorsque la formulation diverge.** Si la définition propre à la propriété doit varier d'un contexte à l'autre, créez deux propriétés. `location` et `location_of_assessment` sont scindées ainsi : `location` est la localisation administrative ou par coordonnées enregistrée du ménage ; `location_of_assessment` est l'endroit où une évaluation des dégâts post-choc a effectivement été menée, qui peut différer après un déplacement.
+
+`triggering_event` est une référence typée. Son type est élargi à `concept:Event` afin de pouvoir pointer soit vers un `VitalEvent` (CRVS), soit vers un `HazardEvent` (humanitaire). Le concept consommateur contraint le sous-type d'`Event` attendu. Voir [ADR-007](../../decisions/007-profile-property-reuse.md) pour l'argumentaire complet.
+
 ## 7. Applicabilité par âge
 
 Certaines propriétés portant sur la personne ne sont significatives que pour des tranches d'âge spécifiques. Le module court et le module étendu du Washington Group s'appliquent aux adultes ; le module de fonctionnement de l'enfant (CFM) s'applique aux enfants de 2-4 ans et de 5-17 ans. Les normes de croissance de l'OMS s'appliquent aux enfants de moins de 5 ans. Plutôt que d'encoder ces règles uniquement dans le texte de définition (que les machines ne peuvent pas interpréter), les propriétés portent un tableau optionnel `age_applicability` de balises contrôlées.

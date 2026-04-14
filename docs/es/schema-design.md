@@ -83,6 +83,20 @@ No mezcle ambos patrones en el mismo concepto. Un concepto de ciclo de vida no d
 
 Una propiedad como `start_date` se define una sola vez y se reutiliza en varios conceptos. Cuando una propiedad compartida necesita conjuntos de valores específicos de concepto (p. ej., `status` en Enrollment frente a Grievance), se especializa mediante referencias a vocabularios diferentes en lugar de disimular las diferencias.
 
+### Reutilización de propiedades entre conceptos
+
+La independencia de propiedades no se limita a campos estructurales repetidos. También pueden reutilizarse observables sustantivos entre conceptos. `water_source`, `sanitation_facility` y `dwelling_type` aparecen tanto en `SocioEconomicProfile` (contexto de registro de base) como en `DwellingDamageProfile` (evaluación posterior a un choque). `triggering_event` aparece en las anotaciones de registro civil y en `DwellingDamageProfile`. En cada caso la propiedad se declara una sola vez y figura en la lista `properties` de cada concepto.
+
+Las reglas que mantienen la coherencia:
+
+1. **Un archivo de propiedad por concepto nombrado.** `water_source` es un único archivo YAML referenciado desde ambos perfiles.
+2. **El encuadre contextual vive en el concepto, no en la propiedad.** La definición de la propiedad nombra el observable ("la fuente principal de agua potable del hogar"). La definición de cada concepto nombra cómo se interpreta ese observable en ese concepto (registro de base o posterior al choque).
+3. **La reutilización debe anunciarse en la definición narrativa de ambos conceptos.** Un lector en cualquiera de las dos páginas debe poder ver que el campo aparece también en otro lugar y por qué.
+4. **La reutilización no hace que los registros sean compatibles en tipo.** Un registro `SocioEconomicProfile` y un registro `DwellingDamageProfile` son cosas distintas aun cuando sus valores de propiedad se solapen. Los adoptantes deben consultar la página del concepto, no la lista de propiedades, al serializar hacia una forma fuertemente tipada.
+5. **Divida cuando la redacción diverge.** Si la definición propia de la propiedad necesita un texto distinto en cada contexto, cree dos propiedades. `location` y `location_of_assessment` se dividen así: `location` es la ubicación administrativa o por coordenadas registrada del hogar; `location_of_assessment` es el lugar donde se llevó a cabo físicamente una evaluación de daños posterior al choque, que puede diferir tras un desplazamiento.
+
+`triggering_event` es una referencia tipada. Su tipo se amplía a `concept:Event` para que pueda apuntar a un `VitalEvent` (CRVS) o a un `HazardEvent` (humanitario). El concepto consumidor restringe qué subtipo de `Event` se espera. Consulte [ADR-007](../../decisions/007-profile-property-reuse.md) para ver la argumentación completa.
+
 ## 7. Aplicabilidad por edad
 
 Algunas propiedades con alcance en Person solo son significativas para grupos de edad específicos. El módulo corto y el módulo extendido del Washington Group se aplican a adultos; el módulo de funcionamiento infantil (CFM) se aplica a niños de 2-4 años y de 5-17 años. Los estándares de crecimiento de la OMS se aplican a menores de 5 años. En lugar de codificar estas reglas únicamente en el texto de definición (que las máquinas no pueden interpretar), las propiedades llevan un array opcional `age_applicability` de etiquetas controladas.
