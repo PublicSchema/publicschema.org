@@ -1,5 +1,5 @@
 id: gender-type
-maturity: candidate
+maturity: normative
 label:
   en: Gender Type
   fr: Type de genre
@@ -100,7 +100,8 @@ system_mappings:
       maps_to: female
     - code: '9'
       label: Not applicable
-      maps_to: other
+      maps_to: null
+      unmapped_reason: no_equivalent
     - code: '0'
       label: Not known
       maps_to: not_stated

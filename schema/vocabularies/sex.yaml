@@ -1,5 +1,5 @@
 id: sex
-maturity: candidate
+maturity: normative
 label:
   en: Sex
   fr: Sexe
@@ -15,7 +15,8 @@ standard:
   uri: https://www.iso.org/standard/36266.html
   notes: 'Codes for the representation of human sexes. Numeric codes mapped to readable identifiers. EBSI PID schemas extend
     ISO 5218 with additional codes: 3 (other), 4 (inter), 5 (diverse), 6 (open). PublicSchema follows the base ISO standard.
-    Systems using the EBSI extension can map values 3-6 to not_applicable.'
+    Systems using those extension values should leave them unmapped here or use a local extension rather than collapsing them
+    into ISO 5218 ''not applicable''.'
 values:
 - code: not_known
   label:
@@ -91,7 +92,8 @@ system_mappings:
       maps_to: female
     - code: other
       label: Others
-      maps_to: not_applicable
+      maps_to: null
+      unmapped_reason: no_equivalent
     - code: unknown
       label: Unknown
       maps_to: not_known
@@ -106,7 +108,8 @@ system_mappings:
       maps_to: female
     - code: other
       label: Other
-      maps_to: not_applicable
+      maps_to: null
+      unmapped_reason: no_equivalent
     - code: unknown
       label: Unknown
       maps_to: not_known
@@ -121,7 +124,8 @@ system_mappings:
       maps_to: female
     - code: other
       label: Other
-      maps_to: not_applicable
+      maps_to: null
+      unmapped_reason: no_equivalent
     - code: unknown
       label: Unknown
       maps_to: not_known
