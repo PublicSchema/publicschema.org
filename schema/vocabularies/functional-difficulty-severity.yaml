@@ -2,8 +2,12 @@ id: functional-difficulty-severity
 maturity: draft
 label:
   en: Functional Difficulty Severity
+  fr: "Sévérité de la difficulté fonctionnelle"
+  es: "Gravedad de la dificultad funcional"
 definition:
   en: "The degree of difficulty a person experiences in a functional domain, based on the Washington Group Short Set on Functioning (WG-SS) four-point response scale."
+  fr: "Le degré de difficulté que ressent une personne dans un domaine fonctionnel, selon l'échelle de réponse en quatre niveaux du Groupe de Washington sur la statistique du handicap (WG-SS)."
+  es: "El grado de dificultad que experimenta una persona en un dominio funcional, según la escala de respuesta de cuatro niveles del Grupo de Washington sobre Estadísticas de Discapacidad (WG-SS)."
 standard:
   name: Washington Group Short Set on Functioning (WG-SS)
   uri: https://www.washingtongroup-disability.com/question-sets/wg-short-set-on-functioning-wg-ss/
@@ -12,23 +16,39 @@ values:
 - code: no_difficulty
   label:
     en: No difficulty
+    fr: Aucune difficulté
+    es: Sin dificultad
   definition:
     en: The person reports no difficulty performing the function.
+    fr: La personne ne signale aucune difficulté à accomplir la fonction.
+    es: La persona no reporta ninguna dificultad para realizar la función.
 - code: some_difficulty
   label:
     en: Some difficulty
+    fr: Quelques difficultés
+    es: Alguna dificultad
   definition:
     en: The person reports some difficulty but can perform the function.
+    fr: La personne signale quelques difficultés mais peut accomplir la fonction.
+    es: La persona reporta alguna dificultad pero puede realizar la función.
 - code: a_lot_of_difficulty
   label:
     en: A lot of difficulty
+    fr: Beaucoup de difficultés
+    es: Mucha dificultad
   definition:
     en: The person reports a lot of difficulty performing the function. This is the lower threshold for the WG recommended disability identifier.
+    fr: La personne signale beaucoup de difficultés à accomplir la fonction. Il s'agit du seuil inférieur de l'identifiant de handicap recommandé par le WG.
+    es: La persona reporta mucha dificultad para realizar la función. Este es el umbral inferior del identificador de discapacidad recomendado por el WG.
 - code: cannot_do
   label:
     en: Cannot do at all
+    fr: Ne peut pas du tout
+    es: No puede hacerlo en absoluto
   definition:
     en: The person cannot perform the function at all.
+    fr: La personne ne peut pas du tout accomplir la fonction.
+    es: La persona no puede realizar la función en absoluto.
 system_mappings:
   dhs:
     vocabulary_name: DHS Disability Module response scale

@@ -3,6 +3,8 @@ maturity: draft
 
 definition:
   en: "The degree of difficulty the person experiences concentrating on an activity they enjoy doing. This is one of two properties that together cover the cognitive domain measured by the WG-SS difficulty_cognition property, which bundles remembering and concentrating into a single question."
+  fr: "Le degré de difficulté que la personne éprouve à se concentrer sur une activité qu'elle aime faire. Cette propriété est l'une des deux qui couvrent ensemble le domaine cognitif mesuré par la propriété WG-SS difficulty_cognition, laquelle regroupe la mémoire et la concentration en une seule question."
+  es: "El grado de dificultad que la persona experimenta para concentrarse en una actividad que disfruta. Esta es una de dos propiedades que juntas cubren el dominio cognitivo medido por la propiedad WG-SS difficulty_cognition, que combina memoria y concentración en una sola pregunta."
 
 type: string
 cardinality: single

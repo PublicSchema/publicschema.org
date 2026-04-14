@@ -2,8 +2,12 @@ id: comparative-behaviour-scale
 maturity: draft
 label:
   en: Comparative Behaviour Scale
+  fr: "Échelle comparative du comportement"
+  es: "Escala comparativa de comportamiento"
 definition:
   en: "A three-point scale comparing a child's behaviour to other children of the same age, used in the WG/UNICEF Child Functioning Module (CFM) for the behaviour domain."
+  fr: "Une échelle à trois niveaux comparant le comportement d'un enfant à celui d'autres enfants du même âge, utilisée dans le Module sur le fonctionnement de l'enfant (CFM) du WG/UNICEF pour le domaine comportemental."
+  es: "Una escala de tres niveles que compara el comportamiento de un niño con el de otros niños de la misma edad, utilizada en el Módulo de Funcionamiento Infantil (CFM) del WG/UNICEF para el dominio conductual."
 standard:
   name: "WG/UNICEF Child Functioning Module (CFM)"
   uri: https://www.washingtongroup-disability.com/question-sets/wg-unicef-child-functioning-module-cfm/
@@ -12,18 +16,30 @@ values:
 - code: same_or_less
   label:
     en: Same or less than other children
+    fr: Pareil ou moins que les autres enfants
+    es: Igual o menos que otros niños
   definition:
     en: "The child's behaviour is the same as or less than that of other children of the same age."
+    fr: "Le comportement de l'enfant est identique ou moins prononcé que celui des autres enfants du même âge."
+    es: "El comportamiento del niño es igual o menos pronunciado que el de otros niños de la misma edad."
 - code: more
   label:
     en: More than other children
+    fr: Plus que les autres enfants
+    es: Más que otros niños
   definition:
     en: "The child's behaviour is more than that of other children of the same age."
+    fr: "Le comportement de l'enfant est plus prononcé que celui des autres enfants du même âge."
+    es: "El comportamiento del niño es más pronunciado que el de otros niños de la misma edad."
 - code: a_lot_more
   label:
     en: A lot more than other children
+    fr: Beaucoup plus que les autres enfants
+    es: Mucho más que otros niños
   definition:
     en: "The child's behaviour is a lot more than that of other children of the same age."
+    fr: "Le comportement de l'enfant est beaucoup plus prononcé que celui des autres enfants du même âge."
+    es: "El comportamiento del niño es mucho más pronunciado que el de otros niños de la misma edad."
 system_mappings:
   mics:
     vocabulary_name: "MICS6 CFM Behaviour scale"

@@ -2,8 +2,12 @@ id: symptom-frequency
 maturity: draft
 label:
   en: Symptom Frequency
+  fr: "Fréquence des symptômes"
+  es: "Frecuencia de síntomas"
 definition:
   en: "A five-point frequency scale for emotional symptoms, used in the WG/UNICEF Child Functioning Module (CFM) for the anxiety and depression domains."
+  fr: "Une échelle de fréquence à cinq niveaux pour les symptômes émotionnels, utilisée dans le Module sur le fonctionnement de l'enfant (CFM) du WG/UNICEF pour les domaines de l'anxiété et de la dépression."
+  es: "Una escala de frecuencia de cinco niveles para síntomas emocionales, utilizada en el Módulo de Funcionamiento Infantil (CFM) del WG/UNICEF para los dominios de ansiedad y depresión."
 standard:
   name: "WG/UNICEF Child Functioning Module (CFM)"
   uri: https://www.washingtongroup-disability.com/question-sets/wg-unicef-child-functioning-module-cfm/
@@ -12,28 +16,48 @@ values:
 - code: daily
   label:
     en: Daily
+    fr: Quotidiennement
+    es: Diariamente
   definition:
     en: "The symptom occurs daily."
+    fr: "Le symptôme se manifeste quotidiennement."
+    es: "El síntoma ocurre diariamente."
 - code: weekly
   label:
     en: Weekly
+    fr: Hebdomadairement
+    es: Semanalmente
   definition:
     en: "The symptom occurs weekly."
+    fr: "Le symptôme se manifeste chaque semaine."
+    es: "El síntoma ocurre semanalmente."
 - code: monthly
   label:
     en: Monthly
+    fr: Mensuellement
+    es: Mensualmente
   definition:
     en: "The symptom occurs monthly."
+    fr: "Le symptôme se manifeste chaque mois."
+    es: "El síntoma ocurre mensualmente."
 - code: a_few_times_a_year
   label:
     en: A few times a year
+    fr: Quelques fois par an
+    es: Algunas veces al año
   definition:
     en: "The symptom occurs a few times a year."
+    fr: "Le symptôme se manifeste quelques fois par an."
+    es: "El síntoma ocurre algunas veces al año."
 - code: never
   label:
     en: Never
+    fr: Jamais
+    es: Nunca
   definition:
     en: "The symptom never occurs."
+    fr: "Le symptôme ne se manifeste jamais."
+    es: "El síntoma nunca ocurre."
 system_mappings:
   mics:
     vocabulary_name: "MICS6 CFM Anxiety/Depression scale"
