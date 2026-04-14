@@ -2,9 +2,9 @@ id: lcs_reduced_nonfood_expenses
 maturity: draft
 
 definition:
-  en: "Frequency with which the household reduced non-essential non-food expenses to meet food needs in the past 30 days. Part of the WFP Livelihood Coping Strategies (LCS) module, stress tier."
-  fr: "Fréquence à laquelle le ménage a réduit ses dépenses non alimentaires non essentielles pour répondre à ses besoins alimentaires au cours des trente derniers jours. Fait partie du module des stratégies de moyens d'existence (LCS) du PAM, niveau de stress."
-  es: "Frecuencia con la que el hogar redujo gastos no alimentarios no esenciales para cubrir sus necesidades alimentarias en los últimos treinta días. Forma parte del módulo de Estrategias de Medios de Vida (LCS) del PMA, nivel de estrés."
+  en: "Frequency with which the household reduced non-essential non-food spending, such as recreation or non-urgent purchases, to meet food needs in the past 30 days. Part of the WFP Livelihood Coping Strategies (LCS) module, stress tier."
+  fr: "Fréquence à laquelle le ménage a réduit ses dépenses non alimentaires non essentielles, telles que les loisirs ou les achats non urgents, pour répondre à ses besoins alimentaires au cours des trente derniers jours. Fait partie du module des stratégies de moyens d'existence (LCS) du PAM, niveau de stress."
+  es: "Frecuencia con la que el hogar redujo gastos no alimentarios no esenciales, como recreación o compras no urgentes, para cubrir sus necesidades alimentarias en los últimos treinta días. Forma parte del módulo de Estrategias de Medios de Vida (LCS) del PMA, nivel de estrés."
 
 type: string
 cardinality: single

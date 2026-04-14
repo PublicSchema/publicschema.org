@@ -2,9 +2,9 @@ id: fcs_pulses_days
 maturity: draft
 
 definition:
-  en: "Number of days in the past seven during which any member of the household consumed pulses and legumes. Part of the WFP Food Consumption Score (FCS)."
-  fr: "Nombre de jours au cours des sept derniers jours pendant lesquels au moins un membre du ménage a consommé des légumineuses. Fait partie du Score de consommation alimentaire (FCS) du PAM."
-  es: "Número de días en los últimos siete en que algún miembro del hogar consumió legumbres y leguminosas. Forma parte del Puntaje de Consumo de Alimentos (FCS) del PMA."
+  en: "Number of days in the past seven during which any member of the household consumed pulses, legumes, or nuts (including groundnuts, cashews, and other nuts). Part of the WFP Food Consumption Score (FCS)."
+  fr: "Nombre de jours au cours des sept derniers jours pendant lesquels au moins un membre du ménage a consommé des légumineuses ou des noix (y compris arachides, noix de cajou et autres noix). Fait partie du Score de consommation alimentaire (FCS) du PAM."
+  es: "Número de días en los últimos siete en que algún miembro del hogar consumió legumbres, leguminosas o frutos secos (incluidos cacahuetes, anacardos y otros frutos secos). Forma parte del Puntaje de Consumo de Alimentos (FCS) del PMA."
 
 type: integer
 cardinality: single

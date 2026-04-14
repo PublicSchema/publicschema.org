@@ -37,15 +37,17 @@ values:
     en: "LCS tier = stress"
 - code: reduced_nonfood_expenses
   label:
-    en: Reduced non-food expenses (health, education)
-    fr: "A réduit les dépenses non alimentaires (santé, éducation)"
-    es: "Redujo gastos no alimentarios (salud, educación)"
+    en: Reduced non-essential non-food spending
+    fr: "A réduit les dépenses non alimentaires non essentielles"
+    es: "Redujo gastos no alimentarios no esenciales"
   definition:
-    en: "The household reduced non-essential non-food expenses such as health or education spending to afford food. Stress tier."
-    fr: "Le ménage a réduit les dépenses non alimentaires non essentielles telles que les dépenses de santé ou d'éducation pour se permettre la nourriture. Niveau stress."
-    es: "El hogar redujo gastos no alimentarios no esenciales como salud o educación para poder pagar alimentos. Nivel estrés."
+    en: "The household reduced non-essential non-food spending, such as recreation or non-urgent purchases, to afford food. Stress tier: reversible reductions that do not by themselves create lasting welfare harm."
+    fr: "Le ménage a réduit les dépenses non alimentaires non essentielles, telles que les loisirs ou les achats non urgents, pour se permettre la nourriture. Niveau stress : réductions réversibles qui ne créent pas en elles-mêmes de préjudice durable au bien-être."
+    es: "El hogar redujo gastos no alimentarios no esenciales, como recreación o compras no urgentes, para poder pagar alimentos. Nivel estrés: reducciones reversibles que por sí mismas no generan daño duradero al bienestar."
   notes:
-    en: "LCS tier = stress"
+    en: "LCS tier = stress. Country adaptations vary on whether reductions in education spending sit in the stress tier or the crisis tier, depending on local context and whether the reduction compromises schooling; operations should contextualise the assignment per country."
+    fr: "Niveau LCS = stress. Les adaptations par pays varient sur le positionnement des réductions de dépenses d'éducation entre niveau stress et niveau crise, selon le contexte local et selon que la réduction compromet la scolarité ; les opérations doivent contextualiser l'affectation par pays."
+    es: "Nivel LCS = estrés. Las adaptaciones por país varían sobre si las reducciones del gasto en educación se ubican en el nivel estrés o en el nivel crisis, según el contexto local y según si la reducción compromete la escolarización; las operaciones deben contextualizar la asignación por país."
 - code: borrowed_money_food
   label:
     en: Borrowed money or bought food on credit
@@ -81,15 +83,17 @@ values:
     en: "LCS tier = crisis"
 - code: reduced_essential_nonfood
   label:
-    en: Reduced essential non-food expenses (health)
-    fr: "A réduit les dépenses non alimentaires essentielles (santé)"
-    es: "Redujo gastos no alimentarios esenciales (salud)"
+    en: Reduced essential non-food spending (health care)
+    fr: "A réduit les dépenses non alimentaires essentielles (soins de santé)"
+    es: "Redujo gastos no alimentarios esenciales (atención sanitaria)"
   definition:
-    en: "The household reduced essential non-food expenses such as health care, preventing access to needed treatment. Crisis tier."
-    fr: "Le ménage a réduit les dépenses non alimentaires essentielles telles que les soins de santé, empêchant l'accès aux traitements nécessaires. Niveau crise."
-    es: "El hogar redujo gastos no alimentarios esenciales como atención sanitaria, impidiendo el acceso al tratamiento necesario. Nivel crisis."
+    en: "The household reduced essential non-food spending, specifically health care, preventing access to needed treatment. Crisis tier: the reduction creates lasting welfare harm by denying necessary services."
+    fr: "Le ménage a réduit les dépenses non alimentaires essentielles, plus précisément les soins de santé, empêchant l'accès aux traitements nécessaires. Niveau crise : la réduction crée un préjudice durable au bien-être en privant l'accès à des services nécessaires."
+    es: "El hogar redujo gastos no alimentarios esenciales, específicamente la atención sanitaria, impidiendo el acceso al tratamiento necesario. Nivel crisis: la reducción genera un daño duradero al bienestar al negar el acceso a servicios necesarios."
   notes:
-    en: "LCS tier = crisis"
+    en: "LCS tier = crisis. Country adaptations vary on whether reductions in education spending sit in the crisis tier (when the reduction compromises schooling) or the stress tier; operations should contextualise the assignment per country."
+    fr: "Niveau LCS = crise. Les adaptations par pays varient sur le positionnement des réductions de dépenses d'éducation au niveau crise (lorsque la réduction compromet la scolarité) ou au niveau stress ; les opérations doivent contextualiser l'affectation par pays."
+    es: "Nivel LCS = crisis. Las adaptaciones por país varían sobre si las reducciones del gasto en educación se ubican en el nivel crisis (cuando la reducción compromete la escolarización) o en el nivel estrés; las operaciones deben contextualizar la asignación por país."
 - code: consumed_seed_stock
   label:
     en: Consumed seed stock
