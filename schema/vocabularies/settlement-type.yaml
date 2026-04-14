@@ -2,8 +2,12 @@ id: settlement-type
 maturity: draft
 label:
   en: Settlement Type
+  fr: Type de localité
+  es: Tipo de asentamiento
 definition:
   en: "The classification of the area where a household is located by degree of urbanization, based on the UN Degree of Urbanisation (DEGURBA) framework."
+  fr: "La classification de la zone où se trouve un ménage selon le degré d'urbanisation, basée sur le cadre DEGURBA des Nations Unies."
+  es: "La clasificación del área donde se ubica un hogar según el grado de urbanización, basada en el marco DEGURBA de las Naciones Unidas."
 standard:
   name: "UN Degree of Urbanisation (DEGURBA)"
   uri: https://unstats.un.org/unsd/demographic-social/census/documents/degurba/
@@ -12,18 +16,30 @@ values:
 - code: urban
   label:
     en: Urban
+    fr: Urbain
+    es: Urbano
   definition:
     en: "Cities and densely populated areas (DEGURBA class 1). Population >= 50,000 in contiguous high-density grid cells."
+    fr: "Villes et zones densément peuplées (classe DEGURBA 1). Population >= 50 000 dans des cellules de grille à haute densité contiguës."
+    es: "Ciudades y áreas densamente pobladas (clase DEGURBA 1). Población >= 50.000 en celdas de cuadrícula de alta densidad contiguas."
 - code: semi_urban
   label:
     en: Semi-urban
+    fr: Semi-urbain
+    es: Semiurbano
   definition:
     en: "Towns and semi-dense areas (DEGURBA class 2). Population >= 5,000 in contiguous moderate-density grid cells, not classified as urban."
+    fr: "Villes et zones semi-denses (classe DEGURBA 2). Population >= 5 000 dans des cellules de grille à densité modérée contiguës, non classifiées comme urbaines."
+    es: "Ciudades pequeñas y áreas semidensas (clase DEGURBA 2). Población >= 5.000 en celdas de cuadrícula de densidad moderada contiguas, no clasificadas como urbanas."
 - code: rural
   label:
     en: Rural
+    fr: Rural
+    es: Rural
   definition:
     en: "Rural and thinly populated areas (DEGURBA class 3). Areas not classified as urban or semi-urban."
+    fr: "Zones rurales et peu peuplées (classe DEGURBA 3). Zones non classifiées comme urbaines ou semi-urbaines."
+    es: "Zonas rurales y escasamente pobladas (clase DEGURBA 3). Áreas no clasificadas como urbanas o semiurbanas."
 system_mappings:
   dhs:
     vocabulary_name: "hv025 - Type of place of residence"

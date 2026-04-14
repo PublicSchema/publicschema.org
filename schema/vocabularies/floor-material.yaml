@@ -2,8 +2,12 @@ id: floor-material
 maturity: draft
 label:
   en: Floor Material
+  fr: Matériau du sol
+  es: Material del piso
 definition:
   en: The primary material of the floor in the household's dwelling.
+  fr: Le matériau principal du sol dans le logement du ménage.
+  es: El material principal del piso en la vivienda del hogar.
 standard:
   name: DHS/MICS Harmonized Housing Codes
   notes: "Shared classification used by DHS (hv213) and MICS (HC3). No standalone international standard exists for floor materials; the survey programs are the de facto standard."
@@ -11,53 +15,93 @@ values:
 - code: earth_sand
   label:
     en: Earth or sand
+    fr: Terre ou sable
+    es: Tierra o arena
   definition:
     en: Unpaved floor made of bare earth or sand.
+    fr: Sol non revêtu en terre battue ou en sable.
+    es: Piso sin pavimentar de tierra o arena.
 - code: dung
   label:
     en: Dung
+    fr: Bouse
+    es: Estiércol
   definition:
     en: Floor finished with dung, a traditional material used in parts of sub-Saharan Africa and South Asia.
+    fr: Sol enduit de bouse, matériau traditionnel utilisé dans certaines régions d'Afrique subsaharienne et d'Asie du Sud.
+    es: Piso acabado con estiércol, material tradicional utilizado en partes del África subsahariana y Asia meridional.
 - code: wood_planks
   label:
     en: Wood planks
+    fr: Planches de bois
+    es: Tablones de madera
   definition:
     en: Floor made of unpolished wood planks or boards.
+    fr: Sol en planches ou madriers de bois non poli.
+    es: Piso de tablones o tablas de madera sin pulir.
 - code: palm_bamboo
   label:
     en: Palm or bamboo
+    fr: Palme ou bambou
+    es: Palma o bambú
   definition:
     en: Floor made of woven or split palm fronds or bamboo.
+    fr: Sol en feuilles de palme tressées ou en lattes de bambou.
+    es: Piso de hojas de palma tejidas o bambú dividido.
 - code: parquet_polished_wood
   label:
     en: Parquet or polished wood
+    fr: Parquet ou bois poli
+    es: Parquet o madera pulida
   definition:
     en: Floor made of finished hardwood, parquet blocks, or polished wood boards.
+    fr: Sol en bois dur fini, en dalles de parquet ou en planches de bois poli.
+    es: Piso de madera dura acabada, bloques de parquet o tablas de madera pulida.
 - code: vinyl_asphalt
   label:
     en: Vinyl or asphalt strips
+    fr: Vinyle ou dalles en asphalte
+    es: Vinilo o tiras de asfalto
   definition:
     en: Floor covered with vinyl tiles, linoleum, or asphalt strips.
+    fr: Sol recouvert de dalles vinyle, de linoléum ou de bandes en asphalte.
+    es: Piso cubierto con baldosas de vinilo, linóleo o tiras de asfalto.
 - code: ceramic_tiles
   label:
     en: Ceramic tiles
+    fr: Carreaux céramique
+    es: Baldosas cerámicas
   definition:
     en: Floor covered with ceramic, porcelain, or similar fired clay tiles.
+    fr: Sol recouvert de carreaux en céramique, en porcelaine ou en argile cuite similaire.
+    es: Piso cubierto con baldosas de cerámica, porcelana u arcilla cocida similar.
 - code: cement
   label:
     en: Cement
+    fr: Ciment
+    es: Cemento
   definition:
     en: Floor made of poured or troweled cement or concrete.
+    fr: Sol en ciment ou béton coulé ou talochée.
+    es: Piso de cemento u hormigón vertido o alisado.
 - code: carpet
   label:
     en: Carpet
+    fr: Moquette
+    es: Alfombra
   definition:
     en: Floor covered with carpet or fitted rugs.
+    fr: Sol recouvert de moquette ou de tapis encastrés.
+    es: Piso cubierto con alfombra o tapetes fijos.
 - code: other
   label:
     en: Other
+    fr: Autre
+    es: Otro
   definition:
     en: Floor material not covered by the other categories.
+    fr: Matériau de sol non couvert par les autres catégories.
+    es: Material de piso no cubierto por las otras categorías.
 system_mappings:
   dhs:
     vocabulary_name: hv213 - Main floor material

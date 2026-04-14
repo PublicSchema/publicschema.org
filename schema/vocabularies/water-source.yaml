@@ -2,8 +2,12 @@ id: water-source
 maturity: draft
 label:
   en: Water Source
+  fr: Source d'eau
+  es: Fuente de agua
 definition:
   en: The main source of drinking water used by the household, classified according to the WHO/UNICEF Joint Monitoring Programme (JMP) facility types.
+  fr: La principale source d'eau potable utilisée par le ménage, classifiée selon les types d'installations du Programme conjoint de surveillance OMS/UNICEF (JMP).
+  es: La principal fuente de agua potable utilizada por el hogar, clasificada según los tipos de instalaciones del Programa de Monitoreo Conjunto OMS/UNICEF (JMP).
 standard:
   name: WHO/UNICEF Joint Monitoring Programme (JMP)
   uri: https://washdata.org/monitoring/drinking-water
@@ -12,83 +16,147 @@ values:
 - code: piped_into_dwelling
   label:
     en: Piped into dwelling
+    fr: Eau courante dans le logement
+    es: Agua por tubería en la vivienda
   definition:
     en: Water piped directly into the dwelling, yard, or plot through a household connection.
+    fr: Eau acheminée directement dans le logement, la cour ou la parcelle par un branchement domestique.
+    es: Agua canalizada directamente a la vivienda, patio o parcela mediante una conexión domiciliaria.
 - code: piped_to_yard
   label:
     en: Piped to yard/plot
+    fr: Eau courante dans la cour/parcelle
+    es: Agua por tubería en el patio/parcela
   definition:
     en: Water piped to the yard or plot outside the dwelling but within the household's controlled space.
+    fr: Eau acheminée dans la cour ou la parcelle à l'extérieur du logement mais dans l'espace contrôlé du ménage.
+    es: Agua canalizada al patio o parcela fuera de la vivienda pero dentro del espacio controlado del hogar.
 - code: piped_to_neighbor
   label:
     en: Piped to neighbor
+    fr: Eau courante chez un voisin
+    es: Agua por tubería en casa del vecino
   definition:
     en: Water obtained from a neighbor's piped household connection.
+    fr: Eau obtenue à partir du branchement domestique canalisé d'un voisin.
+    es: Agua obtenida de la conexión domiciliaria canalizada de un vecino.
 - code: public_tap_standpipe
   label:
     en: Public tap/standpipe
+    fr: Robinet public/borne-fontaine
+    es: Grifo público/surtidor
   definition:
     en: A communal tap or standpipe that supplies water to multiple households in a public area.
+    fr: Robinet communautaire ou borne-fontaine alimentant plusieurs ménages dans un espace public.
+    es: Grifo comunitario o surtidor que suministra agua a varios hogares en un área pública.
 - code: tube_well_borehole
   label:
     en: Tube well or borehole
+    fr: Puits tubulaire ou forage
+    es: Pozo entubado o perforación
   definition:
     en: A narrow-diameter well drilled into the ground and fitted with a hand pump or motorized pump to extract groundwater.
+    fr: Puits de petit diamètre foré dans le sol et équipé d'une pompe à main ou motorisée pour extraire l'eau souterraine.
+    es: Pozo de pequeño diámetro perforado en el suelo y equipado con bomba manual o motorizada para extraer agua subterránea.
 - code: protected_well
   label:
     en: Protected dug well
+    fr: Puits creusé protégé
+    es: Pozo excavado protegido
   definition:
     en: A dug well protected from runoff and surface contamination by a lining, cover, and apron.
+    fr: Puits creusé protégé du ruissellement et de la contamination de surface par un revêtement, un couvercle et un tablier.
+    es: Pozo excavado protegido del escurrimiento y la contaminación superficial mediante revestimiento, cubierta y delantal.
 - code: unprotected_well
   label:
     en: Unprotected dug well
+    fr: Puits creusé non protégé
+    es: Pozo excavado sin protección
   definition:
     en: A dug well without a protective lining or cover, exposed to potential surface contamination.
+    fr: Puits creusé sans revêtement ni couvercle protecteur, exposé à une éventuelle contamination de surface.
+    es: Pozo excavado sin revestimiento ni cubierta protectora, expuesto a posible contaminación superficial.
 - code: protected_spring
   label:
     en: Protected spring
+    fr: Source protégée
+    es: Manantial protegido
   definition:
     en: A natural spring protected from runoff and surface contamination by a spring box or similar structure.
+    fr: Source naturelle protégée du ruissellement et de la contamination de surface par un captage ou une structure similaire.
+    es: Manantial natural protegido del escurrimiento y la contaminación superficial mediante una cámara de captación o estructura similar.
 - code: unprotected_spring
   label:
     en: Unprotected spring
+    fr: Source non protégée
+    es: Manantial sin protección
   definition:
     en: A natural spring without any protection structure, exposed to potential surface contamination.
+    fr: Source naturelle sans structure de protection, exposée à une éventuelle contamination de surface.
+    es: Manantial natural sin estructura de protección, expuesto a posible contaminación superficial.
 - code: rainwater
   label:
     en: Rainwater collection
+    fr: Collecte d'eau de pluie
+    es: Recolección de agua de lluvia
   definition:
     en: Water collected from rooftops or other surfaces and stored in a tank or container.
+    fr: Eau collectée sur des toitures ou d'autres surfaces et stockée dans un réservoir ou un récipient.
+    es: Agua recogida de tejados u otras superficies y almacenada en un depósito o recipiente.
 - code: tanker_truck
   label:
     en: Tanker truck
+    fr: Camion-citerne
+    es: Camión cisterna
   definition:
     en: Water delivered by a motorized tanker truck or tanker.
+    fr: Eau livrée par un camion-citerne motorisé.
+    es: Agua entregada por un camión cisterna motorizado.
 - code: cart_with_small_tank
   label:
     en: Cart with small tank/drum
+    fr: Charrette avec petit réservoir/bidon
+    es: Carreta con depósito pequeño/bidón
   definition:
     en: Water delivered by a cart, donkey, or other non-motorized transport carrying a small tank or drum.
+    fr: Eau livrée par une charrette, un âne ou autre transport non motorisé portant un petit réservoir ou bidon.
+    es: Agua entregada por una carreta, burro u otro transporte no motorizado que lleva un pequeño depósito o bidón.
 - code: surface_water
   label:
     en: Surface water
+    fr: Eau de surface
+    es: Agua superficial
   definition:
     en: Water drawn directly from a river, dam, lake, pond, stream, canal, or irrigation channel without any treatment or protection.
+    fr: Eau puisée directement dans une rivière, un barrage, un lac, un étang, un ruisseau, un canal ou un canal d'irrigation sans traitement ni protection.
+    es: Agua extraída directamente de un río, embalse, lago, estanque, arroyo, canal o canal de riego sin ningún tratamiento ni protección.
 - code: bottled_water
   label:
     en: Bottled water
+    fr: Eau en bouteille
+    es: Agua embotellada
   definition:
     en: Commercially packaged water sold in sealed bottles, typically treated or purified.
+    fr: Eau commercialement conditionnée vendue en bouteilles hermétiques, généralement traitée ou purifiée.
+    es: Agua envasada comercialmente vendida en botellas selladas, generalmente tratada o purificada.
 - code: packaged_water
   label:
     en: Sachet/packaged water
+    fr: Eau en sachet/conditionnée
+    es: Agua en bolsa/envasada
   definition:
     en: Commercially packaged water sold in sealed sachets or other small disposable containers.
+    fr: Eau commercialement conditionnée vendue en sachets hermétiques ou autres petits contenants jetables.
+    es: Agua envasada comercialmente vendida en bolsas selladas u otros pequeños envases desechables.
 - code: other
   label:
     en: Other
+    fr: Autre
+    es: Otro
   definition:
     en: A drinking water source not covered by the other categories.
+    fr: Une source d'eau potable non couverte par les autres catégories.
+    es: Una fuente de agua potable no cubierta por las otras categorías.
 system_mappings:
   dhs:
     vocabulary_name: hv201 - Source of drinking water

@@ -3,6 +3,8 @@ maturity: draft
 
 definition:
   en: "Whether the household has access to electricity from any source."
+  fr: "Si le ménage a accès à l'électricité, quelle qu'en soit la source."
+  es: "Si el hogar tiene acceso a electricidad de cualquier fuente."
 
 type: boolean
 cardinality: single

@@ -3,6 +3,8 @@ maturity: draft
 
 definition:
   en: "The severity of food insecurity experienced by the household, derived from a food security assessment instrument."
+  fr: "La sévérité de l'insécurité alimentaire vécue par le ménage, dérivée d'un instrument d'évaluation de la sécurité alimentaire."
+  es: "La gravedad de la inseguridad alimentaria del hogar, derivada de un instrumento de evaluación de seguridad alimentaria."
 
 type: string
 cardinality: single

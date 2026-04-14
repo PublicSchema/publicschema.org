@@ -2,8 +2,12 @@ id: water-service-level
 maturity: draft
 label:
   en: Water Service Level
+  fr: Niveau de service en eau
+  es: Nivel de servicio de agua
 definition:
   en: The WHO/UNICEF JMP classification of drinking water service quality, ranging from safely managed to no service.
+  fr: La classification JMP OMS/UNICEF de la qualité du service d'eau potable, allant de la gestion sécurisée à l'absence de service.
+  es: La clasificación JMP OMS/UNICEF de la calidad del servicio de agua potable, que va desde la gestión segura hasta la ausencia de servicio.
 standard:
   name: WHO/UNICEF JMP Service Ladder (SDG 6.1.1)
   uri: https://washdata.org/monitoring/drinking-water
@@ -12,25 +16,45 @@ values:
 - code: safely_managed
   label:
     en: Safely managed
+    fr: Gestion sécurisée
+    es: Gestión segura
   definition:
     en: Drinking water from an improved source located on premises, available when needed, and free from faecal and priority chemical contamination.
+    fr: "Eau potable provenant d'une source améliorée située sur les lieux, disponible au besoin et exempte de contamination fécale et chimique prioritaire."
+    es: Agua potable de una fuente mejorada ubicada en las instalaciones, disponible cuando se necesita y libre de contaminación fecal y química prioritaria.
 - code: basic
   label:
     en: Basic
+    fr: De base
+    es: Básico
   definition:
     en: Drinking water from an improved source where collection time is not more than 30 minutes for a round trip, including queuing.
+    fr: Eau potable provenant d'une source améliorée dont le temps de collecte aller-retour, file d'attente incluse, ne dépasse pas 30 minutes.
+    es: Agua potable de una fuente mejorada donde el tiempo de recolección de ida y vuelta, incluida la espera, no supera los 30 minutos.
 - code: limited
   label:
     en: Limited
+    fr: Limité
+    es: Limitado
   definition:
     en: Drinking water from an improved source where collection time exceeds 30 minutes for a round trip, including queuing.
+    fr: Eau potable provenant d'une source améliorée dont le temps de collecte aller-retour, file d'attente incluse, dépasse 30 minutes.
+    es: Agua potable de una fuente mejorada donde el tiempo de recolección de ida y vuelta, incluida la espera, supera los 30 minutos.
 - code: unimproved
   label:
     en: Unimproved
+    fr: Non amélioré
+    es: No mejorado
   definition:
     en: Drinking water from an unprotected dug well or unprotected spring.
+    fr: Eau potable provenant d'un puits creusé non protégé ou d'une source non protégée.
+    es: Agua potable de un pozo excavado sin protección o manantial sin protección.
 - code: no_service
   label:
     en: No service / surface water
+    fr: Aucun service / eau de surface
+    es: Sin servicio / agua superficial
   definition:
     en: Drinking water collected directly from a river, dam, lake, pond, stream, canal, or irrigation channel.
+    fr: Eau potable collectée directement dans une rivière, un barrage, un lac, un étang, un ruisseau, un canal ou un canal d'irrigation.
+    es: Agua potable recogida directamente de un río, embalse, lago, estanque, arroyo, canal o canal de riego.

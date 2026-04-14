@@ -2,8 +2,12 @@ id: livestock-type
 maturity: draft
 label:
   en: Livestock Type
+  fr: Type de bétail
+  es: Tipo de ganado
 definition:
   en: Types of livestock kept by the agricultural holding, classified according to the FAO World Programme for the Census of Agriculture.
+  fr: Types de bétail élevés par l'exploitation agricole, classifiés selon le Programme mondial du recensement de l'agriculture de la FAO.
+  es: Tipos de ganado criados por la explotación agrícola, clasificados según el Programa Mundial del Censo Agropecuario de la FAO.
 standard:
   name: FAO World Programme for the Census of Agriculture 2020
   uri: https://www.fao.org/world-census-agriculture/wcarounds/wca2020/en/
@@ -12,63 +16,111 @@ values:
 - code: cattle
   label:
     en: Cattle
+    fr: Bovins
+    es: Ganado bovino
   definition:
     en: Domesticated bovines including cows, bulls, oxen, and calves.
+    fr: Bovins domestiqués, y compris vaches, taureaux, bœufs et veaux.
+    es: Bovinos domesticados, incluidas vacas, toros, bueyes y terneros.
 - code: sheep
   label:
     en: Sheep
+    fr: Ovins
+    es: Ovejas
   definition:
     en: Domesticated sheep of all ages.
+    fr: Ovins domestiqués de tous âges.
+    es: Ovejas domesticadas de todas las edades.
 - code: goats
   label:
     en: Goats
+    fr: Caprins
+    es: Cabras
   definition:
     en: Domesticated goats of all ages.
+    fr: Caprins domestiqués de tous âges.
+    es: Cabras domesticadas de todas las edades.
 - code: pigs
   label:
     en: Pigs
+    fr: Porcins
+    es: Cerdos
   definition:
     en: Domesticated pigs and swine of all ages.
+    fr: Porcins domestiqués de tous âges.
+    es: Cerdos domesticados de todas las edades.
 - code: chickens
   label:
     en: Chickens
+    fr: Poulets
+    es: Pollos
   definition:
     en: Domesticated chickens, hens, roosters, and chicks.
+    fr: Poulets, poules, coqs et poussins domestiqués.
+    es: Pollos, gallinas, gallos y pollitos domesticados.
 - code: other_poultry
   label:
     en: Other poultry
+    fr: Autres volailles
+    es: Otras aves de corral
   definition:
     en: Domesticated birds other than chickens, including ducks, turkeys, guinea fowl, and geese.
+    fr: Oiseaux domestiqués autres que les poulets, notamment les canards, dindes, pintades et oies.
+    es: Aves domesticadas distintas de los pollos, incluidos patos, pavos, gallinas de guinea y gansos.
 - code: horses
   label:
     en: Horses
+    fr: Chevaux
+    es: Caballos
   definition:
     en: Domesticated horses of all ages.
+    fr: Chevaux domestiqués de tous âges.
+    es: Caballos domesticados de todas las edades.
 - code: donkeys_mules
   label:
     en: Donkeys/mules
+    fr: Ânes/mulets
+    es: Asnos/mulas
   definition:
     en: Domesticated donkeys, mules, and hinnies.
+    fr: Ânes, mulets et bardots domestiqués.
+    es: Asnos, mulas y burdéganos domesticados.
 - code: camels
   label:
     en: Camels
+    fr: Chameaux
+    es: Camellos
   definition:
     en: Domesticated camels (dromedary and Bactrian).
+    fr: Chameaux domestiqués (dromadaires et chameaux de Bactriane).
+    es: Camellos domesticados (dromedarios y camellos bactrianos).
 - code: rabbits
   label:
     en: Rabbits
+    fr: Lapins
+    es: Conejos
   definition:
     en: Domesticated rabbits raised for meat, fur, or other products.
+    fr: Lapins domestiqués élevés pour la viande, la fourrure ou d'autres produits.
+    es: Conejos domesticados criados para carne, piel u otros productos.
 - code: beehives
   label:
     en: Beehives
+    fr: Ruches
+    es: Colmenas
   definition:
     en: Bee colonies maintained in hives for honey production.
+    fr: Colonies d'abeilles maintenues dans des ruches pour la production de miel.
+    es: Colonias de abejas mantenidas en colmenas para la producción de miel.
 - code: other_livestock
   label:
     en: Other livestock
+    fr: Autre bétail
+    es: Otro ganado
   definition:
     en: Livestock species not covered by the other categories.
+    fr: Espèces de bétail non couvertes par les autres catégories.
+    es: Especies de ganado no cubiertas por las otras categorías.
 system_mappings:
   dhs:
     vocabulary_name: DHS Recode7 livestock variables (hv246a-j)

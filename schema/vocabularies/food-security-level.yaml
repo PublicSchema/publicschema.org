@@ -2,8 +2,12 @@ id: food-security-level
 maturity: draft
 label:
   en: Food Security Level
+  fr: Niveau de sécurité alimentaire
+  es: Nivel de seguridad alimentaria
 definition:
   en: The severity of food insecurity experienced by the household, classified according to the FAO Food Insecurity Experience Scale (FIES) severity levels.
+  fr: La sévérité de l'insécurité alimentaire vécue par le ménage, classifiée selon les niveaux de gravité de l'Échelle d'expérience de l'insécurité alimentaire (FIES) de la FAO.
+  es: La gravedad de la inseguridad alimentaria del hogar, clasificada según los niveles de gravedad de la Escala de Experiencia de Inseguridad Alimentaria (FIES) de la FAO.
 standard:
   name: FAO Food Insecurity Experience Scale (FIES)
   uri: https://www.fao.org/in-action/voices-of-the-hungry/fies/en/
@@ -12,20 +16,36 @@ values:
 - code: food_secure
   label:
     en: Food secure
+    fr: Sécurité alimentaire
+    es: Seguridad alimentaria
   definition:
     en: The household has reliable access to sufficient, safe, and nutritious food. None of the FIES conditions are experienced.
+    fr: Le ménage dispose d'un accès fiable à une alimentation suffisante, sûre et nutritive. Aucune des conditions FIES n'est vécue.
+    es: El hogar tiene acceso fiable a alimentos suficientes, seguros y nutritivos. No se experimenta ninguna de las condiciones FIES.
 - code: mildly_insecure
   label:
     en: Mildly food insecure
+    fr: Légèrement en insécurité alimentaire
+    es: Levemente inseguro en alimentos
   definition:
     en: The household has experienced uncertainty about obtaining food or has been unable to eat healthy and nutritious food, but has not reduced quantity.
+    fr: Le ménage a connu une incertitude quant à l'obtention d'aliments ou a été incapable de manger sainement et nutritionnellement, sans réduire les quantités.
+    es: El hogar ha experimentado incertidumbre para obtener alimentos o ha sido incapaz de comer saludable y nutritivamente, pero no ha reducido la cantidad.
 - code: moderately_insecure
   label:
     en: Moderately food insecure
+    fr: Modérément en insécurité alimentaire
+    es: Moderadamente inseguro en alimentos
   definition:
     en: The household has reduced the quality and/or quantity of food consumed. Adults may have skipped meals or gone without eating for a day.
+    fr: Le ménage a réduit la qualité et/ou la quantité des aliments consommés. Des adultes ont pu sauter des repas ou ne pas manger pendant une journée.
+    es: El hogar ha reducido la calidad y/o la cantidad de alimentos consumidos. Adultos pueden haber omitido comidas o pasado un día sin comer.
 - code: severely_insecure
   label:
     en: Severely food insecure
+    fr: Sévèrement en insécurité alimentaire
+    es: Severamente inseguro en alimentos
   definition:
     en: The household has experienced hunger. Adults have gone without eating for a whole day or more due to lack of resources.
+    fr: Le ménage a souffert de la faim. Des adultes ont passé toute une journée ou plus sans manger faute de ressources.
+    es: El hogar ha sufrido hambre. Adultos han pasado un día entero o más sin comer por falta de recursos.

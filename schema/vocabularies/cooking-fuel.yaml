@@ -2,8 +2,12 @@ id: cooking-fuel
 maturity: draft
 label:
   en: Cooking Fuel
+  fr: Combustible de cuisson
+  es: Combustible para cocinar
 definition:
   en: The primary fuel used by the household for cooking, classified according to the WHO Household Energy Database categories.
+  fr: Le combustible principal utilisé par le ménage pour la cuisine, classifié selon les catégories de la base de données sur l'énergie domestique de l'OMS.
+  es: El combustible principal utilizado por el hogar para cocinar, clasificado según las categorías de la base de datos de energía doméstica de la OMS.
 standard:
   name: WHO Household Energy Database
   uri: https://www.who.int/data/gho/data/themes/air-pollution/household-air-pollution
@@ -12,63 +16,111 @@ values:
 - code: electricity
   label:
     en: Electricity
+    fr: Électricité
+    es: Electricidad
   definition:
     en: Cooking using electric stoves, induction cooktops, or other electrically powered cooking appliances.
+    fr: Cuisson au moyen de cuisinières électriques, plaques à induction ou autres appareils de cuisson électriques.
+    es: Cocción con cocinas eléctricas, placas de inducción u otros electrodomésticos de cocina eléctricos.
 - code: lpg_natural_gas
   label:
     en: LPG/natural gas
+    fr: GPL/gaz naturel
+    es: GLP/gas natural
   definition:
     en: Cooking using liquefied petroleum gas (LPG), natural gas, or biogas piped or from cylinders.
+    fr: Cuisson au gaz de pétrole liquéfié (GPL), au gaz naturel ou au biogaz distribué par canalisation ou en bouteilles.
+    es: Cocción con gas licuado de petróleo (GLP), gas natural o biogás distribuido por tubería o en cilindros.
 - code: biogas
   label:
     en: Biogas
+    fr: Biogaz
+    es: Biogás
   definition:
     en: Cooking using gas produced from anaerobic digestion of organic matter (animal dung, crop residue, food waste).
+    fr: Cuisson au gaz produit par digestion anaérobie de matières organiques (fumier, résidus de cultures, déchets alimentaires).
+    es: Cocción con gas producido por digestión anaeróbica de materia orgánica (estiércol, residuos de cultivos, desechos alimentarios).
 - code: kerosene
   label:
     en: Kerosene
+    fr: Pétrole lampant
+    es: Queroseno
   definition:
     en: Cooking using kerosene (paraffin) as fuel in stoves or lamps.
+    fr: "Cuisson au pétrole lampant (paraffine) dans des réchauds ou lampes."
+    es: Cocción con queroseno (parafina) como combustible en estufas o lámparas.
 - code: coal_lignite
   label:
     en: Coal/lignite
+    fr: Charbon/lignite
+    es: Carbón/lignito
   definition:
     en: Cooking using coal, lignite, or charcoal briquettes made from coal.
+    fr: Cuisson au charbon, au lignite ou aux briquettes de charbon.
+    es: Cocción con carbón, lignito o briquetas de carbón.
 - code: charcoal
   label:
     en: Charcoal
+    fr: Charbon de bois
+    es: Carbón vegetal
   definition:
     en: Cooking using charcoal produced from wood or other biomass through pyrolysis.
+    fr: Cuisson au charbon de bois produit par pyrolyse du bois ou d'autres biomasses.
+    es: Cocción con carbón vegetal producido por pirólisis de madera u otra biomasa.
 - code: wood
   label:
     en: Wood
+    fr: Bois
+    es: Leña
   definition:
     en: Cooking using firewood, wood chips, or sawdust.
+    fr: Cuisson au bois de feu, aux copeaux de bois ou à la sciure.
+    es: Cocción con leña, astillas de madera o aserrín.
 - code: straw_shrubs_grass
   label:
     en: Straw/shrubs/grass
+    fr: Paille/broussailles/herbe
+    es: Paja/arbustos/hierba
   definition:
     en: Cooking using straw, shrubs, grass, or other light plant materials.
+    fr: Cuisson à la paille, aux broussailles, à l'herbe ou à d'autres matières végétales légères.
+    es: Cocción con paja, arbustos, hierba u otros materiales vegetales ligeros.
 - code: agricultural_crop_waste
   label:
     en: Agricultural crop waste
+    fr: Résidus agricoles
+    es: Residuos de cultivos agrícolas
   definition:
     en: Cooking using crop residues such as husks, stalks, cobs, or bagasse.
+    fr: Cuisson aux résidus de cultures tels que les balles, tiges, épis ou bagasse.
+    es: Cocción con residuos de cultivos como cáscaras, tallos, mazorcas o bagazo.
 - code: animal_dung
   label:
     en: Animal dung
+    fr: Bouse animale
+    es: Estiércol animal
   definition:
     en: Cooking using dried animal dung cakes or pellets.
+    fr: Cuisson aux galettes ou granulés de bouse animale séchée.
+    es: Cocción con tortas o pellets de estiércol animal seco.
 - code: no_food_cooked
   label:
     en: No food cooked in household
+    fr: Aucun aliment cuisiné dans le ménage
+    es: No se cocina en el hogar
   definition:
     en: The household does not cook food (eats out, receives prepared meals, or uses only cold food).
+    fr: Le ménage ne cuisine pas (mange à l'extérieur, reçoit des repas préparés ou consomme uniquement des aliments froids).
+    es: El hogar no cocina (come fuera, recibe comidas preparadas o consume solo alimentos fríos).
 - code: other
   label:
     en: Other
+    fr: Autre
+    es: Otro
   definition:
     en: A cooking fuel not covered by the other categories.
+    fr: Un combustible de cuisson non couvert par les autres catégories.
+    es: Un combustible para cocinar no cubierto por las otras categorías.
 system_mappings:
   dhs:
     vocabulary_name: hv226 - Type of cooking fuel

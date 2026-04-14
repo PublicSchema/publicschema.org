@@ -2,8 +2,12 @@ id: wall-material
 maturity: draft
 label:
   en: Wall Material
+  fr: Matériau des murs
+  es: Material de las paredes
 definition:
   en: The primary material of the exterior walls in the household's dwelling.
+  fr: Le matériau principal des murs extérieurs dans le logement du ménage.
+  es: El material principal de las paredes exteriores en la vivienda del hogar.
 standard:
   name: DHS/MICS Harmonized Housing Codes
   notes: "Shared classification used by DHS (hv214) and MICS (HC5). No standalone international standard exists for wall materials; the survey programs are the de facto standard."
@@ -11,83 +15,147 @@ values:
 - code: no_walls
   label:
     en: No walls
+    fr: Sans murs
+    es: Sin paredes
   definition:
     en: Dwelling has no exterior walls (open structure).
+    fr: Le logement ne dispose pas de murs extérieurs (structure ouverte).
+    es: La vivienda no tiene paredes exteriores (estructura abierta).
 - code: cane_palm_trunks
   label:
     en: Cane, palm, or trunks
+    fr: Cannes, palmes ou troncs
+    es: Caña, palma o troncos
   definition:
     en: Walls made of natural cane, palm fronds, or tree trunks without additional finishing.
+    fr: Murs en cannes naturelles, feuilles de palme ou troncs d'arbres sans finition supplémentaire.
+    es: Paredes de caña natural, hojas de palma o troncos de árbol sin acabado adicional.
 - code: dirt
   label:
     en: Dirt
+    fr: Terre
+    es: Tierra
   definition:
     en: Walls made of packed dirt or mud without any structural reinforcement.
+    fr: Murs en terre tassée ou boue sans renforcement structurel.
+    es: Paredes de tierra compactada o barro sin refuerzo estructural.
 - code: bamboo_with_mud
   label:
     en: Bamboo with mud
+    fr: Bambou avec boue
+    es: Bambú con barro
   definition:
     en: Bamboo frame walls plastered or filled with mud.
+    fr: Murs à ossature en bambou enduits ou remplis de boue.
+    es: Paredes de estructura de bambú enlucidas o rellenas con barro.
 - code: stone_with_mud
   label:
     en: Stone with mud
+    fr: Pierre avec boue
+    es: Piedra con barro
   definition:
     en: Stone walls bonded with mud rather than mortar or cement.
+    fr: Murs en pierre liés à la boue plutôt qu'au mortier ou au ciment.
+    es: Paredes de piedra unidas con barro en lugar de mortero o cemento.
 - code: uncovered_adobe
   label:
     en: Uncovered adobe
+    fr: Adobe non revêtu
+    es: Adobe sin revestir
   definition:
     en: Sun-dried mud brick (adobe) walls without an exterior plaster or render coating.
+    fr: Murs en briques de boue séchées au soleil (adobe) sans enduit extérieur ni badigeon.
+    es: Paredes de adobe (ladrillo de barro secado al sol) sin revestimiento exterior ni enlucido.
 - code: plywood
   label:
     en: Plywood
+    fr: Contreplaqué
+    es: Contrachapado
   definition:
     en: Walls made of plywood sheets.
+    fr: Murs en feuilles de contreplaqué.
+    es: Paredes de láminas de contrachapado.
 - code: cardboard
   label:
     en: Cardboard
+    fr: Carton
+    es: Cartón
   definition:
     en: Walls made of cardboard or similar paper-based material.
+    fr: Murs en carton ou matériau similaire à base de papier.
+    es: Paredes de cartón u otro material similar a base de papel.
 - code: reused_wood
   label:
     en: Reused wood
+    fr: Bois récupéré
+    es: Madera reutilizada
   definition:
     en: Walls built from salvaged or reused wooden boards and planks.
+    fr: Murs construits avec des planches et madriers en bois récupérés ou réutilisés.
+    es: Paredes construidas con tablas y tablones de madera recuperada o reutilizada.
 - code: cement
   label:
     en: Cement
+    fr: Ciment
+    es: Cemento
   definition:
     en: Walls made of poured concrete or cement render on a structural frame.
+    fr: Murs en béton coulé ou en crépi de ciment sur une ossature structurelle.
+    es: Paredes de hormigón vertido o revoque de cemento sobre estructura.
 - code: stone_with_lime_cement
   label:
     en: Stone with lime or cement
+    fr: Pierre avec chaux ou ciment
+    es: Piedra con cal o cemento
   definition:
     en: Stone walls bonded with lime or cement mortar.
+    fr: Murs en pierre liés au mortier de chaux ou de ciment.
+    es: Paredes de piedra unidas con mortero de cal o cemento.
 - code: bricks
   label:
     en: Bricks
+    fr: Briques
+    es: Ladrillos
   definition:
     en: Walls made of fired clay bricks.
+    fr: Murs en briques de terre cuite.
+    es: Paredes de ladrillos de arcilla cocida.
 - code: cement_blocks
   label:
     en: Cement blocks
+    fr: Parpaings
+    es: Bloques de cemento
   definition:
     en: Walls made of concrete masonry units (hollow or solid cement blocks).
+    fr: Murs en parpaings ou blocs de béton (creux ou pleins).
+    es: Paredes de bloques de mampostería de hormigón (huecos o macizos).
 - code: covered_adobe
   label:
     en: Covered adobe
+    fr: Adobe revêtu
+    es: Adobe revestido
   definition:
     en: Adobe (sun-dried mud brick) walls with an exterior plaster or render coating.
+    fr: Murs en adobe (briques de boue séchées au soleil) avec un enduit ou badigeon extérieur.
+    es: Paredes de adobe (ladrillo de barro secado al sol) con revestimiento exterior de enlucido.
 - code: wood_planks_shingles
   label:
     en: Wood planks or shingles
+    fr: Planches ou bardeaux de bois
+    es: Tablones o tejas de madera
   definition:
     en: Walls clad with milled wood planks or wooden shingles.
+    fr: Murs revêtus de planches de bois sciées ou de bardeaux en bois.
+    es: Paredes revestidas de tablones de madera aserrada o tejas de madera.
 - code: other
   label:
     en: Other
+    fr: Autre
+    es: Otro
   definition:
     en: Wall material not covered by the other categories.
+    fr: Matériau de mur non couvert par les autres catégories.
+    es: Material de pared no cubierto por las otras categorías.
 system_mappings:
   dhs:
     vocabulary_name: hv214 - Main wall material

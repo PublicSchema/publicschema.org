@@ -2,8 +2,12 @@ id: household-asset
 maturity: draft
 label:
   en: Household Asset
+  fr: Bien du ménage
+  es: Bien del hogar
 definition:
   en: Durable goods owned by at least one member of the household, used as wealth proxy indicators in targeting and proxy means testing.
+  fr: Biens durables possédés par au moins un membre du ménage, utilisés comme indicateurs substituts de richesse dans le ciblage et les tests de ressources indirects.
+  es: Bienes duraderos poseídos por al menos un miembro del hogar, utilizados como indicadores sustitutos de riqueza en la focalización y las pruebas de medios indirectas.
 see_also:
 - vocabulary: ict-access
   note: "Mobile phone, television, and radio appear in both vocabularies. household-asset captures wealth proxy indicators; ict-access captures information and communication access."
@@ -11,73 +15,129 @@ values:
 - code: radio
   label:
     en: Radio
+    fr: Radio
+    es: Radio
   definition:
     en: A functioning radio receiver.
+    fr: Un récepteur radio en état de marche.
+    es: Un receptor de radio en funcionamiento.
 - code: television
   label:
     en: Television
+    fr: Télévision
+    es: Televisión
   definition:
     en: A functioning television set.
+    fr: Un téléviseur en état de marche.
+    es: Un televisor en funcionamiento.
 - code: mobile_phone
   label:
     en: Mobile phone
+    fr: Téléphone mobile
+    es: Teléfono móvil
   definition:
     en: A functioning mobile telephone (basic or smartphone).
+    fr: Un téléphone mobile (basique ou smartphone) en état de marche.
+    es: Un teléfono móvil (básico o smartphone) en funcionamiento.
 - code: landline_phone
   label:
     en: Landline telephone
+    fr: Téléphone fixe
+    es: Teléfono fijo
   definition:
     en: A functioning fixed-line telephone.
+    fr: Un téléphone fixe en état de marche.
+    es: Un teléfono de línea fija en funcionamiento.
 - code: computer_tablet
   label:
     en: Computer/tablet
+    fr: Ordinateur/tablette
+    es: Computadora/tableta
   definition:
     en: A functioning desktop computer, laptop, or tablet device.
+    fr: Un ordinateur de bureau, un ordinateur portable ou une tablette en état de marche.
+    es: Una computadora de escritorio, portátil o tableta en funcionamiento.
 - code: refrigerator
   label:
     en: Refrigerator
+    fr: Réfrigérateur
+    es: Refrigerador
   definition:
     en: A functioning refrigerator or freezer.
+    fr: Un réfrigérateur ou un congélateur en état de marche.
+    es: Un refrigerador o congelador en funcionamiento.
 - code: bicycle
   label:
     en: Bicycle
+    fr: Vélo
+    es: Bicicleta
   definition:
     en: A functioning bicycle.
+    fr: Un vélo en état de marche.
+    es: Una bicicleta en funcionamiento.
 - code: motorcycle_scooter
   label:
     en: Motorcycle/scooter
+    fr: Moto/scooter
+    es: Motocicleta/scooter
   definition:
     en: A functioning motorcycle, motor scooter, or motorized two-wheeler.
+    fr: Une moto, un scooter ou un deux-roues motorisé en état de marche.
+    es: Una motocicleta, scooter o vehículo de dos ruedas motorizado en funcionamiento.
 - code: car_truck
   label:
     en: Car/truck
+    fr: Voiture/camion
+    es: Automóvil/camión
   definition:
     en: A functioning car, truck, van, or other motorized four-wheeled vehicle.
+    fr: Une voiture, un camion, un van ou autre véhicule motorisé à quatre roues en état de marche.
+    es: Un automóvil, camión, furgoneta u otro vehículo motorizado de cuatro ruedas en funcionamiento.
 - code: animal_drawn_cart
   label:
     en: Animal-drawn cart
+    fr: Charrette attelée
+    es: Carreta de tracción animal
   definition:
     en: A functioning cart, wagon, or other vehicle drawn by animals.
+    fr: Une charrette, un chariot ou autre véhicule tiré par des animaux en état de marche.
+    es: Una carreta, vagón u otro vehículo de tracción animal en funcionamiento.
 - code: motorized_boat
   label:
     en: Motorized boat
+    fr: Bateau à moteur
+    es: Bote motorizado
   definition:
     en: A functioning boat with a motor.
+    fr: Un bateau avec un moteur en état de marche.
+    es: Un bote con motor en funcionamiento.
 - code: watch
   label:
     en: Watch
+    fr: Montre
+    es: Reloj
   definition:
     en: A functioning wristwatch or pocket watch.
+    fr: Une montre-bracelet ou une montre de poche en état de marche.
+    es: Un reloj de pulsera o de bolsillo en funcionamiento.
 - code: bank_account
   label:
     en: Bank account
+    fr: Compte bancaire
+    es: Cuenta bancaria
   definition:
     en: A bank account or mobile money account held by any household member.
+    fr: Un compte bancaire ou un compte de monnaie mobile détenu par tout membre du ménage.
+    es: Una cuenta bancaria o cuenta de dinero móvil de cualquier miembro del hogar.
 - code: other
   label:
     en: Other
+    fr: Autre
+    es: Otro
   definition:
     en: A durable good not covered by the other categories.
+    fr: Un bien durable non couvert par les autres catégories.
+    es: Un bien duradero no cubierto por las otras categorías.
 system_mappings:
   dhs:
     vocabulary_name: "DHS Recode7 household assets"

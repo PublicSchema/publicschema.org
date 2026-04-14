@@ -2,8 +2,12 @@ id: ict-access
 maturity: draft
 label:
   en: ICT Access
+  fr: Accès aux TIC
+  es: Acceso a las TIC
 definition:
   en: Information and communication technology devices and services accessible to the household, based on ITU Core ICT Indicators.
+  fr: Appareils et services de technologie de l'information et de la communication accessibles au ménage, basés sur les indicateurs essentiels des TIC de l'UIT.
+  es: Dispositivos y servicios de tecnología de la información y la comunicación accesibles al hogar, basados en los indicadores básicos de TIC de la UIT.
 standard:
   name: "ITU Core ICT Indicators"
   uri: "https://www.itu.int/en/ITU-D/Statistics/Pages/coreindicators/default.aspx"
@@ -15,28 +19,48 @@ values:
 - code: mobile_phone
   label:
     en: Mobile phone
+    fr: Téléphone mobile
+    es: Teléfono móvil
   definition:
     en: Access to a mobile telephone (basic or smartphone) by any household member.
+    fr: "Accès à un téléphone mobile (basique ou smartphone) par tout membre du ménage."
+    es: Acceso a un teléfono móvil (básico o smartphone) por cualquier miembro del hogar.
 - code: computer_tablet
   label:
     en: Computer/tablet
+    fr: Ordinateur/tablette
+    es: Computadora/tableta
   definition:
     en: Access to a desktop computer, laptop, or tablet device by any household member.
+    fr: "Accès à un ordinateur de bureau, un ordinateur portable ou une tablette par tout membre du ménage."
+    es: Acceso a una computadora de escritorio, portátil o tableta por cualquier miembro del hogar.
 - code: internet
   label:
     en: Internet
+    fr: Internet
+    es: Internet
   definition:
     en: Access to the internet by any household member, from any device and any location.
+    fr: "Accès à Internet par tout membre du ménage, depuis n'importe quel appareil et n'importe quel endroit."
+    es: Acceso a internet por cualquier miembro del hogar, desde cualquier dispositivo y cualquier lugar.
 - code: television
   label:
     en: Television
+    fr: Télévision
+    es: Televisión
   definition:
     en: Access to a television set by the household.
+    fr: "Accès à un téléviseur par le ménage."
+    es: Acceso a un televisor por el hogar.
 - code: radio
   label:
     en: Radio
+    fr: Radio
+    es: Radio
   definition:
     en: Access to a radio receiver by the household.
+    fr: "Accès à un récepteur radio par le ménage."
+    es: Acceso a un receptor de radio por el hogar.
 system_mappings:
   dhs:
     vocabulary_name: "DHS ICT-related variables"

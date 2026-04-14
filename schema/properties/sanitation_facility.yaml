@@ -3,6 +3,8 @@ maturity: draft
 
 definition:
   en: "The type of toilet or sanitation facility used by the household."
+  fr: "Le type de toilettes ou d'installation sanitaire utilisé par le ménage."
+  es: "El tipo de instalación sanitaria o letrina utilizada por el hogar."
 
 type: string
 cardinality: single

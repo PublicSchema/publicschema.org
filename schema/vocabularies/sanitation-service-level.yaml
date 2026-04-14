@@ -2,8 +2,12 @@ id: sanitation-service-level
 maturity: draft
 label:
   en: Sanitation Service Level
+  fr: Niveau de service d'assainissement
+  es: Nivel de servicio de saneamiento
 definition:
   en: The WHO/UNICEF JMP classification of sanitation service quality, ranging from safely managed to open defecation.
+  fr: La classification JMP OMS/UNICEF de la qualité des services d'assainissement, allant de la gestion sécurisée à la défécation à l'air libre.
+  es: La clasificación JMP OMS/UNICEF de la calidad del servicio de saneamiento, que va desde la gestión segura hasta la defecación al aire libre.
 standard:
   name: WHO/UNICEF JMP Service Ladder (SDG 6.2.1)
   uri: https://washdata.org/monitoring/sanitation
@@ -12,25 +16,45 @@ values:
 - code: safely_managed
   label:
     en: Safely managed
+    fr: Gestion sécurisée
+    es: Gestión segura
   definition:
     en: Use of an improved facility that is not shared with other households and where excreta are safely disposed of in situ or transported and treated off-site.
+    fr: Utilisation d'une installation améliorée non partagée avec d'autres ménages, et où les excréta sont éliminés de façon sécurisée sur place ou transportés et traités hors site.
+    es: Uso de una instalación mejorada no compartida con otros hogares y donde los excrementos son eliminados de forma segura in situ o transportados y tratados fuera del sitio.
 - code: basic
   label:
     en: Basic
+    fr: De base
+    es: Básico
   definition:
     en: Use of an improved facility that is not shared with other households.
+    fr: Utilisation d'une installation améliorée non partagée avec d'autres ménages.
+    es: Uso de una instalación mejorada no compartida con otros hogares.
 - code: limited
   label:
     en: Limited
+    fr: Limité
+    es: Limitado
   definition:
     en: Use of an improved facility that is shared between two or more households.
+    fr: Utilisation d'une installation améliorée partagée entre deux ménages ou plus.
+    es: Uso de una instalación mejorada compartida entre dos o más hogares.
 - code: unimproved
   label:
     en: Unimproved
+    fr: Non amélioré
+    es: No mejorado
   definition:
     en: Use of pit latrines without a slab or platform, hanging latrines, or bucket latrines.
+    fr: Utilisation de latrines à fosse sans dalle ni plateforme, de latrines suspendues ou de latrines à seau.
+    es: Uso de letrinas de fosa sin losa ni plataforma, letrinas colgantes o letrinas de cubo.
 - code: open_defecation
   label:
     en: Open defecation
+    fr: Défécation à l'air libre
+    es: Defecación al aire libre
   definition:
     en: Disposal of human faeces in fields, forests, bodies of water, or other open spaces, or with solid waste. No facility of any kind is used.
+    fr: "Élimination des excréments humains dans des champs, forêts, plans d'eau ou autres espaces ouverts, ou avec les déchets solides. Aucune installation d'aucun type n'est utilisée."
+    es: Eliminación de excrementos humanos en campos, bosques, cuerpos de agua u otros espacios abiertos, o con residuos sólidos. No se usa ninguna instalación.

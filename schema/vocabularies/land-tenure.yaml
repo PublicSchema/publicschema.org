@@ -2,8 +2,12 @@ id: land-tenure
 maturity: draft
 label:
   en: Land Tenure
+  fr: Régime foncier
+  es: Tenencia de la tierra
 definition:
   en: The legal or customary arrangement under which land is held, classified according to FAO Voluntary Guidelines on the Responsible Governance of Tenure (VGGT) categories.
+  fr: Le régime légal ou coutumier sous lequel les terres sont détenues, classifié selon les catégories des Directives volontaires de la FAO sur la gouvernance responsable des régimes fonciers (VGGT).
+  es: El régimen legal o consuetudinario bajo el cual se mantiene la tierra, clasificado según las categorías de las Directrices voluntarias de la FAO sobre la gobernanza responsable de la tenencia (VGGT).
 standard:
   name: "FAO Voluntary Guidelines on the Responsible Governance of Tenure (VGGT)"
   uri: https://www.fao.org/tenure/voluntary-guidelines/en/
@@ -12,48 +16,84 @@ values:
 - code: owned_with_title
   label:
     en: Owned with title
+    fr: Propriété titrée
+    es: Propiedad con título
   definition:
     en: Land held with a formal, legally recognized title deed or certificate of ownership.
+    fr: Terre détenue avec un titre de propriété ou un certificat de propriété formellement reconnu par la loi.
+    es: Tierra mantenida con un título de propiedad o certificado de propiedad formalmente reconocido legalmente.
 - code: owned_without_title
   label:
     en: Owned without title
+    fr: Propriété sans titre
+    es: Propiedad sin título
   definition:
     en: Land held through customary or informal ownership without a formal title document.
+    fr: Terre détenue par possession coutumière ou informelle sans document de titre formel.
+    es: Tierra mantenida mediante propiedad consuetudinaria o informal sin documento de título formal.
 - code: rented
   label:
     en: Rented
+    fr: Louée
+    es: Arrendada
   definition:
     en: Land used under a rental or lease agreement with a landowner for a fixed payment.
+    fr: Terre utilisée dans le cadre d'un contrat de location ou de bail avec un propriétaire foncier moyennant un paiement fixe.
+    es: Tierra utilizada bajo un contrato de arrendamiento con un propietario a cambio de un pago fijo.
 - code: sharecropped
   label:
     en: Sharecropped
+    fr: Métayage
+    es: Aparcería
   definition:
     en: Land cultivated under an arrangement where the tenant pays the landowner a share of the harvest or proceeds.
+    fr: Terre cultivée dans le cadre d'un arrangement où le locataire verse au propriétaire une part de la récolte ou des revenus.
+    es: Tierra cultivada bajo un acuerdo en que el arrendatario paga al propietario una parte de la cosecha o los ingresos.
 - code: communal
   label:
     en: Communal
+    fr: Communautaire
+    es: Comunal
   definition:
     en: Land held collectively by a community, clan, or group under customary or statutory communal tenure.
+    fr: Terre détenue collectivement par une communauté, un clan ou un groupe sous régime foncier communautaire coutumier ou légal.
+    es: Tierra mantenida colectivamente por una comunidad, clan o grupo bajo tenencia comunal consuetudinaria o estatutaria.
 - code: state_allocated
   label:
     en: State-allocated
+    fr: Attribution étatique
+    es: Asignación estatal
   definition:
     en: Land allocated by the state or government authority for use, often without transfer of ownership.
+    fr: Terre attribuée par l'État ou une autorité gouvernementale pour usage, souvent sans transfert de propriété.
+    es: Tierra asignada por el Estado o una autoridad gubernamental para su uso, generalmente sin transferencia de propiedad.
 - code: informal
   label:
     en: Informal/squatting
+    fr: Occupation informelle/squat
+    es: Informal/ocupación ilegal
   definition:
     en: Land occupied and used without any formal or customary legal basis.
+    fr: Terre occupée et utilisée sans aucune base juridique formelle ou coutumière.
+    es: Tierra ocupada y utilizada sin ninguna base legal formal o consuetudinaria.
 - code: borrowed
   label:
     en: Borrowed
+    fr: Prêtée
+    es: Prestada
   definition:
     en: Land used temporarily without payment, typically lent by a relative, friend, or community member.
+    fr: Terre utilisée temporairement sans paiement, généralement prêtée par un parent, un ami ou un membre de la communauté.
+    es: Tierra usada temporalmente sin pago, generalmente prestada por un pariente, amigo o miembro de la comunidad.
 - code: other
   label:
     en: Other
+    fr: Autre
+    es: Otro
   definition:
     en: A tenure arrangement not covered by the other categories.
+    fr: Un régime foncier non couvert par les autres catégories.
+    es: Un régimen de tenencia no cubierto por las otras categorías.
 system_mappings:
   lsms_isa:
     vocabulary_name: "LSMS-ISA harmonized tenure status"

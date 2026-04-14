@@ -2,8 +2,12 @@ id: sanitation-facility
 maturity: draft
 label:
   en: Sanitation Facility
+  fr: Installation sanitaire
+  es: Instalación sanitaria
 definition:
   en: The type of toilet or latrine facility used by the household, classified according to the WHO/UNICEF Joint Monitoring Programme (JMP).
+  fr: Le type de toilettes ou de latrine utilisé par le ménage, classifié selon le Programme conjoint de surveillance OMS/UNICEF (JMP).
+  es: El tipo de instalación sanitaria o letrina utilizada por el hogar, clasificada según el Programa de Monitoreo Conjunto OMS/UNICEF (JMP).
 standard:
   name: WHO/UNICEF Joint Monitoring Programme (JMP)
   uri: https://washdata.org/monitoring/sanitation
@@ -12,68 +16,120 @@ values:
 - code: flush_to_piped_sewer
   label:
     en: Flush to piped sewer system
+    fr: Chasse vers réseau d'égout canalisé
+    es: Descarga a red de alcantarillado
   definition:
     en: A flush or pour-flush toilet connected to a municipal or communal piped sewer network.
+    fr: Toilettes à chasse ou à versement connectées à un réseau d'égout canalisé municipal ou communautaire.
+    es: Inodoro de descarga o vertido conectado a una red de alcantarillado canalizado municipal o comunitario.
 - code: flush_to_septic_tank
   label:
     en: Flush to septic tank
+    fr: Chasse vers fosse septique
+    es: Descarga a fosa séptica
   definition:
     en: A flush or pour-flush toilet connected to an on-site septic tank.
+    fr: Toilettes à chasse ou à versement connectées à une fosse septique sur site.
+    es: Inodoro de descarga o vertido conectado a una fosa séptica en el sitio.
 - code: flush_to_pit_latrine
   label:
     en: Flush to pit latrine
+    fr: Chasse vers fosse
+    es: Descarga a letrina de fosa
   definition:
     en: A flush or pour-flush toilet where waste is directed to a pit below or nearby.
+    fr: Toilettes à chasse ou à versement où les déchets sont dirigés vers une fosse en dessous ou à proximité.
+    es: Inodoro de descarga o vertido donde los desechos se dirigen a una fosa debajo o cercana.
 - code: flush_to_open_drain
   label:
     en: Flush to open drain
+    fr: Chasse vers caniveau ouvert
+    es: Descarga a canal abierto
   definition:
     en: A flush or pour-flush toilet where waste is discharged into an open drain or ditch.
+    fr: Toilettes à chasse ou à versement où les déchets sont déversés dans un caniveau ou un fossé ouvert.
+    es: Inodoro de descarga o vertido donde los desechos se vierten a un canal o acequia abiertos.
 - code: flush_to_unknown
   label:
     en: Flush to unknown place / don't know where
+    fr: "Chasse vers destination inconnue / ne sait pas"
+    es: Descarga a lugar desconocido / no sabe adónde
   definition:
     en: A flush or pour-flush toilet where the destination of waste is unknown or the respondent does not know.
+    fr: Toilettes à chasse ou à versement dont la destination des déchets est inconnue ou que le répondant ignore.
+    es: Inodoro de descarga o vertido cuyo destino de los desechos es desconocido o el encuestado no lo sabe.
 - code: ventilated_improved_pit
   label:
     en: Ventilated improved pit latrine (VIP)
+    fr: Latrine à fosse améliorée ventilée (VIP)
+    es: Letrina de fosa mejorada ventilada (VIP)
   definition:
     en: A pit latrine fitted with a ventilation pipe and a fly screen, which reduces odours and fly breeding.
+    fr: Latrine à fosse équipée d'un tuyau de ventilation et d'une moustiquaire anti-mouches, réduisant les odeurs et la prolifération des mouches.
+    es: Letrina de fosa equipada con tubo de ventilación y malla antimoscas, que reduce olores y la cría de moscas.
 - code: pit_latrine_with_slab
   label:
     en: Pit latrine with slab
+    fr: Latrine à fosse avec dalle
+    es: Letrina de fosa con losa
   definition:
     en: A pit latrine with a concrete or other solid slab covering the pit, reducing contamination risk.
+    fr: Latrine à fosse avec une dalle en béton ou autre matériau solide couvrant la fosse, réduisant le risque de contamination.
+    es: Letrina de fosa con losa de concreto u otro material sólido que cubre la fosa, reduciendo el riesgo de contaminación.
 - code: pit_latrine_without_slab
   label:
     en: Pit latrine without slab / open pit
+    fr: Latrine à fosse sans dalle / fosse ouverte
+    es: Letrina de fosa sin losa / fosa abierta
   definition:
     en: A pit latrine with no covering slab, leaving the pit directly exposed.
+    fr: Latrine à fosse sans dalle de couverture, laissant la fosse directement exposée.
+    es: Letrina de fosa sin losa de cobertura, dejando la fosa directamente expuesta.
 - code: composting_toilet
   label:
     en: Composting toilet
+    fr: Toilettes à compostage
+    es: Inodoro de compostaje
   definition:
     en: A dry toilet that treats human waste through aerobic decomposition, producing compost.
+    fr: "Toilettes sèches qui traitent les déchets humains par décomposition aérobie, produisant du compost."
+    es: Inodoro seco que trata los residuos humanos mediante descomposición aeróbica, produciendo compost.
 - code: bucket_latrine
   label:
     en: Bucket latrine
+    fr: Latrine à seau
+    es: Letrina de cubo
   definition:
     en: A toilet or latrine in which waste is collected in a bucket or container for later removal.
+    fr: Toilettes ou latrine dans laquelle les déchets sont collectés dans un seau ou récipient pour enlèvement ultérieur.
+    es: Inodoro o letrina en que los desechos se recogen en un cubo o recipiente para su retirada posterior.
 - code: hanging_toilet
   label:
     en: Hanging toilet / hanging latrine
+    fr: Toilettes suspendues / latrine suspendue
+    es: Inodoro colgante / letrina colgante
   definition:
     en: A toilet or latrine built over water or open ground where waste falls directly below without containment.
+    fr: Toilettes ou latrine construites au-dessus de l'eau ou d'un sol ouvert où les déchets tombent directement en dessous sans confinement.
+    es: Inodoro o letrina construido sobre agua o terreno abierto donde los desechos caen directamente abajo sin contención.
 - code: open_defecation
   label:
     en: No facility / bush / field (open defecation)
+    fr: Aucune installation / brousse / champ (défécation à l'air libre)
+    es: Sin instalación / campo / monte (defecación al aire libre)
   definition:
     en: No toilet or latrine is used; defecation takes place in the open, in fields, forests, bodies of water, or other open spaces.
+    fr: "Aucune toilette ni latrine n'est utilisée; la défécation a lieu en plein air, dans des champs, forêts, plans d'eau ou autres espaces ouverts."
+    es: No se usa ningún inodoro ni letrina; la defecación ocurre al aire libre, en campos, bosques, cuerpos de agua u otros espacios abiertos.
 - code: other
   label:
     en: Other
+    fr: Autre
+    es: Otro
   definition:
     en: A sanitation facility not covered by the other categories.
+    fr: Une installation sanitaire non couverte par les autres catégories.
+    es: Una instalación sanitaria no cubierta por las otras categorías.
 system_mappings:
   dhs:
     vocabulary_name: hv205 - Type of toilet facility

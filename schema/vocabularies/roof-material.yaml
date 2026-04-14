@@ -2,8 +2,12 @@ id: roof-material
 maturity: draft
 label:
   en: Roof Material
+  fr: Matériau du toit
+  es: Material del techo
 definition:
   en: The primary material of the roof in the household's dwelling.
+  fr: Le matériau principal du toit dans le logement du ménage.
+  es: El material principal del techo en la vivienda del hogar.
 standard:
   name: DHS/MICS Harmonized Housing Codes
   notes: "Shared classification used by DHS (hv215) and MICS (HC4). No standalone international standard exists for roof materials; the survey programs are the de facto standard."
@@ -11,73 +15,129 @@ values:
 - code: no_roof
   label:
     en: No roof
+    fr: Sans toit
+    es: Sin techo
   definition:
     en: Dwelling has no roof covering.
+    fr: Le logement ne dispose pas de couverture de toit.
+    es: La vivienda no tiene cubierta de techo.
 - code: thatch_palm_leaf
   label:
     en: Thatch or palm leaf
+    fr: Chaume ou feuille de palme
+    es: Paja o hoja de palma
   definition:
     en: Roof made of dried grass, straw, reeds, or palm leaves bundled into thatch.
+    fr: Toit en herbe séchée, paille, roseaux ou feuilles de palme assemblés en chaume.
+    es: Techo de hierba seca, paja, cañas u hojas de palma agrupadas en paja.
 - code: sod_grass
   label:
     en: Sod or grass
+    fr: Gazon ou herbe
+    es: Césped o hierba
   definition:
     en: Roof covered with living or dried sod, turf, or loose grass.
+    fr: Toit recouvert de gazon vivant ou séché, de tourbe ou d'herbe libre.
+    es: Techo cubierto con césped vivo o seco, turba o hierba suelta.
 - code: rustic_mat
   label:
     en: Rustic mat
+    fr: Natte rudimentaire
+    es: Estera rústica
   definition:
     en: Roof covered with woven plant-fiber mats (e.g., reed or rush mats).
+    fr: Toit recouvert de nattes tressées en fibres végétales (par ex. nattes de roseaux).
+    es: Techo cubierto con esteras tejidas de fibra vegetal (por ejemplo, esteras de junco o caña).
 - code: palm_bamboo
   label:
     en: Palm or bamboo
+    fr: Palme ou bambou
+    es: Palma o bambú
   definition:
     en: Roof structure made of palm fronds or split bamboo.
+    fr: Structure de toit en feuilles de palme ou en lattes de bambou.
+    es: Estructura de techo de hojas de palma o bambú dividido.
 - code: wood_planks
   label:
     en: Wood planks
+    fr: Planches de bois
+    es: Tablones de madera
   definition:
     en: Roof made of unfinished wood planks or boards.
+    fr: Toit en planches ou madriers de bois non finis.
+    es: Techo de tablones o tablas de madera sin acabar.
 - code: cardboard
   label:
     en: Cardboard
+    fr: Carton
+    es: Cartón
   definition:
     en: Roof covered with cardboard or similar paper-based material.
+    fr: Toit recouvert de carton ou de matériau similaire à base de papier.
+    es: Techo cubierto con cartón u otro material similar a base de papel.
 - code: metal
   label:
     en: Metal or tin sheets
+    fr: Tôle métallique
+    es: Láminas metálicas
   definition:
     en: Roof made of corrugated iron, galvanized steel, aluminum, or other metal sheets.
+    fr: Toit en tôle ondulée, acier galvanisé, aluminium ou autres feuilles métalliques.
+    es: Techo de hierro corrugado, acero galvanizado, aluminio u otras láminas metálicas.
 - code: wood
   label:
     en: Wood
+    fr: Bois
+    es: Madera
   definition:
     en: Roof made of finished or milled wooden boards.
+    fr: Toit en planches de bois finies ou sciées.
+    es: Techo de tablas de madera acabadas o aserradas.
 - code: calamine_cement_fiber
   label:
     en: Calamine or cement fiber
+    fr: Calamine ou fibrociment
+    es: Calamina o fibrocemento
   definition:
     en: Roof made of corrugated calamine sheeting or fiber-cement (e.g., Eternit) panels.
+    fr: Toit en tôle de calamine ondulée ou en panneaux de fibrociment (par ex. Eternit).
+    es: Techo de láminas de calamina corrugada o paneles de fibrocemento (por ejemplo, Eternit).
 - code: ceramic_tiles
   label:
     en: Ceramic tiles
+    fr: Tuiles céramiques
+    es: Tejas cerámicas
   definition:
     en: Roof covered with fired clay or ceramic tiles.
+    fr: Toit recouvert de tuiles en argile cuite ou en céramique.
+    es: Techo cubierto con tejas de arcilla cocida o cerámica.
 - code: cement
   label:
     en: Cement
+    fr: Ciment
+    es: Cemento
   definition:
     en: Flat or sloped roof made of poured concrete or reinforced cement slab.
+    fr: Toit plat ou incliné en béton coulé ou en dalle de ciment armé.
+    es: Techo plano o inclinado de hormigón vertido o losa de cemento armado.
 - code: roofing_shingles
   label:
     en: Roofing shingles
+    fr: Bardeaux de toiture
+    es: Tejas de pizarra
   definition:
     en: Roof covered with asphalt, fiberglass, or wooden shingles.
+    fr: Toit recouvert de bardeaux en asphalte, en fibre de verre ou en bois.
+    es: Techo cubierto con tejas de asfalto, fibra de vidrio o madera.
 - code: other
   label:
     en: Other
+    fr: Autre
+    es: Otro
   definition:
     en: Roof material not covered by the other categories.
+    fr: Matériau de toit non couvert par les autres catégories.
+    es: Material de techo no cubierto por las otras categorías.
 system_mappings:
   dhs:
     vocabulary_name: hv215 - Main roof material

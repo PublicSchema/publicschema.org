@@ -2,8 +2,12 @@ id: dwelling-type
 maturity: draft
 label:
   en: Dwelling Type
+  fr: Type de logement
+  es: Tipo de vivienda
 definition:
   en: "The type of living quarters occupied by the household, classified according to the UN Principles and Recommendations for Population and Housing Censuses."
+  fr: "Le type de logement occupé par le ménage, classifié selon les Principes et recommandations des Nations Unies pour les recensements de population et des logements."
+  es: "El tipo de vivienda ocupada por el hogar, clasificado según los Principios y Recomendaciones de las Naciones Unidas para los censos de población y vivienda."
 standard:
   name: "UN Principles and Recommendations for Population and Housing Censuses, Rev. 3"
   uri: https://unstats.un.org/unsd/demographic-social/Standards-and-Methods/files/Principles_and_Recommendations/Population-and-Housing-Censuses/Series_M67rev3-E.pdf
@@ -11,30 +15,54 @@ values:
 - code: permanent
   label:
     en: Permanent structure
+    fr: Construction permanente
+    es: Estructura permanente
   definition:
     en: Built with durable materials such as concrete, brick, stone, or metal framing, expected to last 20 or more years.
+    fr: Construite avec des matériaux durables tels que le béton, la brique, la pierre ou la charpente métallique, prévue pour durer 20 ans ou plus.
+    es: Construida con materiales duraderos como concreto, ladrillo, piedra o estructura metálica, con una vida útil esperada de 20 años o más.
 - code: semi_permanent
   label:
     en: Semi-permanent structure
+    fr: Construction semi-permanente
+    es: Estructura semipermanente
   definition:
     en: Mix of durable and non-durable materials, such as mud walls with a metal roof.
+    fr: Mélange de matériaux durables et non durables, comme des murs en terre avec un toit en métal.
+    es: Mezcla de materiales duraderos y no duraderos, como paredes de barro con techo de metal.
 - code: temporary
   label:
     en: Temporary structure
+    fr: Construction temporaire
+    es: Estructura temporal
   definition:
     en: Built with non-durable materials such as thatch, bamboo, or unfired mud.
+    fr: Construite avec des matériaux non durables tels que le chaume, le bambou ou la terre crue non cuite.
+    es: Construida con materiales no duraderos como paja, bambú o barro sin cocer.
 - code: improvised
   label:
     en: Improvised dwelling
+    fr: Logement de fortune
+    es: Vivienda improvisada
   definition:
     en: Makeshift shelter made from waste materials, plastic sheeting, or scrap; includes shacks in informal settlements.
+    fr: Abri de fortune construit avec des matériaux de récupération, des bâches en plastique ou des débris, y compris les bidonvilles dans les quartiers informels.
+    es: Refugio improvisado hecho de materiales de desecho, plástico o chatarra, incluidas las chabolas en asentamientos informales.
 - code: collective
   label:
     en: Collective living quarters
+    fr: Logement collectif
+    es: Vivienda colectiva
   definition:
     en: Dormitories, barracks, institutions, refugee camps, or hotels used as long-term housing.
+    fr: Dortoirs, casernes, institutions, camps de réfugiés ou hôtels utilisés comme logement à long terme.
+    es: Dormitorios, cuarteles, instituciones, campamentos de refugiados u hoteles utilizados como vivienda a largo plazo.
 - code: mobile
   label:
     en: Mobile housing unit
+    fr: Logement mobile
+    es: Vivienda móvil
   definition:
     en: Tents, caravans, houseboats, or other movable structures used as a primary residence.
+    fr: Tentes, caravanes, bateaux-maisons ou autres structures mobiles utilisées comme résidence principale.
+    es: Tiendas, caravanas, casas flotantes u otras estructuras móviles utilizadas como residencia principal.
