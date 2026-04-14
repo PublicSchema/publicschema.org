@@ -6,7 +6,6 @@ artifacts are written.
 """
 
 import json
-from pathlib import Path
 
 import pytest
 

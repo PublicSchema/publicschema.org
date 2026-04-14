@@ -4,15 +4,13 @@ TDD: these tests define expected behavior before implementation.
 """
 
 import json
-import re
 from pathlib import Path
 
 import jsonschema
 import pytest
 
-from build.build import build_vocabulary, _to_snake_case
+from build.build import _to_snake_case, build_vocabulary
 from tests.conftest import make_concept, make_credential, make_property, make_vocabulary
-
 
 # ---------------------------------------------------------------------------
 # Round-trip: YAML in -> JSON out -> parse back -> assert structure
@@ -1199,7 +1197,7 @@ class TestJsonLdDocuments:
         assert v["@type"] == "skos:Concept"
         assert v["skos:notation"] == "male"
         # Language-tagged labels
-        labels = {l["@language"]: l["@value"] for l in v["skos:prefLabel"]}
+        labels = {tag["@language"]: tag["@value"] for tag in v["skos:prefLabel"]}
         assert labels["en"] == "Male"
         assert labels["fr"] == "Masculin"
         # No invented properties

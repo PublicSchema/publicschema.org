@@ -1,11 +1,9 @@
 """Shared test fixtures for PublicSchema build pipeline tests."""
 
-import json
 from pathlib import Path
 
 import pytest
 import yaml
-
 
 FIXTURES_DIR = Path(__file__).parent / "fixtures"
 V2_ROOT = Path(__file__).parent.parent

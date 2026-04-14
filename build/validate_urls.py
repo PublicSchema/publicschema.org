@@ -9,7 +9,6 @@ Usage:
     uv run python -m build.validate_urls [schema_dir]
 """
 
-import socket
 import ssl
 import sys
 import urllib.error
@@ -19,7 +18,6 @@ from dataclasses import dataclass
 from pathlib import Path
 
 import yaml
-
 
 DEFAULT_TIMEOUT = 15  # seconds; some standards bodies' sites are slow
 USER_AGENT = "PublicSchema-LinkCheck/1.0 (+https://publicschema.org)"
@@ -75,7 +73,7 @@ def _probe(bib_id: str, uri: str, timeout: int = DEFAULT_TIMEOUT) -> ProbeResult
     except urllib.error.URLError as e:
         reason = getattr(e, "reason", e)
         return ProbeResult(bib_id, uri, None, None, f"{type(reason).__name__}: {reason}")
-    except (socket.timeout, ssl.SSLError, ConnectionError, OSError) as e:
+    except (TimeoutError, ssl.SSLError, ConnectionError, OSError) as e:
         return ProbeResult(bib_id, uri, None, None, f"{type(e).__name__}: {e}")
 
 

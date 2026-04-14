@@ -13,13 +13,11 @@ Validates:
 5. No em dashes in any authored OpenCRVS content.
 """
 
-from pathlib import Path
 
 import pytest
 import yaml
 
 from tests.conftest import SCHEMA_DIR, V2_ROOT
-
 
 MATCHING_PATH = V2_ROOT / "external" / "opencrvs" / "matching.yaml"
 ALLOWED_MATCH_VALUES = {
@@ -89,7 +87,7 @@ def _resolve_vocab(ref: str, all_vocabularies: dict) -> dict | None:
     """
     if ref in all_vocabularies:
         return all_vocabularies[ref]
-    for key, vocab in all_vocabularies.items():
+    for _key, vocab in all_vocabularies.items():
         if vocab["id"] == ref:
             return vocab
     return None
@@ -247,7 +245,6 @@ class TestCrossReferenceConsistency:
     ):
         """CRVS vocabulary entries in matching.yaml should also be reflected
         on the vocabulary YAML itself."""
-        missing = []
         for entry in matching["matches"]:
             key = entry["v2_vocabulary"]
             if not key.startswith("crvs/"):

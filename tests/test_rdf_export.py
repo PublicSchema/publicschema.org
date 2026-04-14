@@ -4,7 +4,6 @@ Unit tests use synthetic schemas; integration tests run against the real schema.
 """
 
 import json
-from pathlib import Path
 
 import pytest
 import rdflib
@@ -12,11 +11,15 @@ from rdflib.namespace import RDF, RDFS, SKOS
 
 from build.build import build_vocabulary
 from build.rdf_export import (
-    SH, build_full_jsonld, build_shacl, build_turtle, load_graph,
-    write_full_jsonld, write_shacl, write_turtle,
+    SH,
+    build_full_jsonld,
+    build_shacl,
+    build_turtle,
+    write_full_jsonld,
+    write_shacl,
+    write_turtle,
 )
 from tests.conftest import SCHEMA_DIR, make_concept, make_property, make_vocabulary
-
 
 SCHEMA = rdflib.Namespace("https://schema.org/")
 

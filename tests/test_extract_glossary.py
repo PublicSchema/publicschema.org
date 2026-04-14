@@ -4,10 +4,9 @@ import json
 from pathlib import Path
 
 import yaml
-import pytest
 
 from build import extract_glossary as eg
-
+from build.loader import load_yaml
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -97,7 +96,7 @@ class TestPickDefinition:
 
 
 # ---------------------------------------------------------------------------
-# _load_yaml / _load_all_yaml
+# load_yaml / _load_all_yaml_with_paths
 # ---------------------------------------------------------------------------
 
 
@@ -105,13 +104,13 @@ class TestLoadYaml:
     def test_loads_valid_yaml(self, tmp_path: Path):
         path = tmp_path / "test.yaml"
         _write_yaml(path, {"id": "hello", "value": 42})
-        result = eg._load_yaml(path)
+        result = load_yaml(path)
         assert result == {"id": "hello", "value": 42}
 
     def test_empty_file_returns_empty_dict(self, tmp_path: Path):
         path = tmp_path / "empty.yaml"
         path.write_text("")
-        result = eg._load_yaml(path)
+        result = load_yaml(path)
         assert result == {}
 
 
@@ -120,7 +119,7 @@ class TestLoadAllYaml:
         monkeypatch.setattr(eg, "PROJECT_ROOT", tmp_path)
         _write_yaml(tmp_path / "a.yaml", {"id": "alpha"})
         _write_yaml(tmp_path / "b.yaml", {"id": "beta"})
-        result = eg._load_all_yaml(tmp_path)
+        result = eg._load_all_yaml_with_paths(tmp_path)
         assert len(result) == 2
         ids = {r["id"] for r in result}
         assert ids == {"alpha", "beta"}
@@ -129,18 +128,18 @@ class TestLoadAllYaml:
         monkeypatch.setattr(eg, "PROJECT_ROOT", tmp_path)
         _write_yaml(tmp_path / "meta.yaml", {"name": "no-id"})
         _write_yaml(tmp_path / "good.yaml", {"id": "good"})
-        result = eg._load_all_yaml(tmp_path)
+        result = eg._load_all_yaml_with_paths(tmp_path)
         assert len(result) == 1
         assert result[0]["id"] == "good"
 
     def test_nonexistent_directory_returns_empty(self, tmp_path: Path):
-        result = eg._load_all_yaml(tmp_path / "nope")
+        result = eg._load_all_yaml_with_paths(tmp_path / "nope")
         assert result == []
 
     def test_adds_source_path(self, tmp_path: Path, monkeypatch):
         _write_yaml(tmp_path / "x.yaml", {"id": "x"})
         monkeypatch.setattr(eg, "PROJECT_ROOT", tmp_path)
-        result = eg._load_all_yaml(tmp_path)
+        result = eg._load_all_yaml_with_paths(tmp_path)
         assert result[0]["_source_path"] == "x.yaml"
 
 

@@ -272,7 +272,7 @@ def render_markdown(report: Report) -> str:
     for prop in report.proposals:
         by_bib[prop.bib_id].append(prop)
 
-    out.append(f"\n## Summary\n")
+    out.append("\n## Summary\n")
     out.append(f"- Bibliography entries touched: **{len(by_bib)}**")
     out.append(f"- Total proposed links: **{len(report.proposals)}**")
     new_links = sum(

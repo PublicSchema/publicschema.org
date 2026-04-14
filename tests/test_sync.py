@@ -6,9 +6,6 @@ TDD: these tests define expected behavior before implementation.
 import json
 import textwrap
 
-import pytest
-import yaml
-
 from build.sync_standards import (
     apply_cldr_translations,
     merge_values,
@@ -20,7 +17,6 @@ from build.sync_standards import (
     parse_semicolon_delimited,
     parse_tsv,
 )
-
 
 # ---------------------------------------------------------------------------
 # Format handler tests

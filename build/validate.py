@@ -12,8 +12,8 @@ import sys
 from pathlib import Path
 
 import jsonschema
-import yaml
 
+from build.loader import load_all_yaml, load_vocabularies_with_paths, load_yaml
 
 SCHEMAS_DIR = Path(__file__).parent / "schemas"
 
@@ -36,31 +36,6 @@ class ValidationError:
 def _load_json_schema(name: str) -> dict:
     path = SCHEMAS_DIR / name
     return json.loads(path.read_text())
-
-
-def _load_yaml(path: Path) -> dict:
-    return yaml.safe_load(path.read_text()) or {}
-
-
-def _load_all_yaml(directory: Path) -> dict[str, dict]:
-    """Load all YAML files from a directory, keyed by filename."""
-    result = {}
-    if not directory.exists():
-        return result
-    for p in sorted(directory.rglob("*.yaml")):
-        result[p.name] = _load_yaml(p)
-    return result
-
-
-def _load_vocabularies_with_paths(directory: Path) -> list[tuple[Path, dict]]:
-    """Load vocabulary YAMLs with their relative paths for domain validation."""
-    result = []
-    if not directory.exists():
-        return result
-    for p in sorted(directory.rglob("*.yaml")):
-        rel = p.relative_to(directory)
-        result.append((rel, _load_yaml(p)))
-    return result
 
 
 def _validate_against_schema(
@@ -121,7 +96,7 @@ def validate_schema_dir(schema_dir: Path) -> list[ValidationError]:
         errors.append(ValidationError("_meta.yaml", "Missing _meta.yaml"))
         return errors
 
-    meta = _load_yaml(meta_path)
+    meta = load_yaml(meta_path)
     meta_schema = _load_json_schema("meta.schema.json")
     errors.extend(_validate_against_schema(meta, meta_schema, "_meta.yaml"))
     if errors:
@@ -130,15 +105,15 @@ def validate_schema_dir(schema_dir: Path) -> list[ValidationError]:
     languages = meta.get("languages", ["en"])
 
     # Load all files
-    concepts = _load_all_yaml(schema_dir / "concepts")
-    properties = _load_all_yaml(schema_dir / "properties")
-    vocabularies = _load_all_yaml(schema_dir / "vocabularies")
-    vocabularies_with_paths = _load_vocabularies_with_paths(schema_dir / "vocabularies")
-    bibliography = _load_all_yaml(schema_dir / "bibliography")
+    concepts = load_all_yaml(schema_dir / "concepts")
+    properties = load_all_yaml(schema_dir / "properties")
+    vocabularies = load_all_yaml(schema_dir / "vocabularies")
+    vocabularies_with_paths = load_vocabularies_with_paths(schema_dir / "vocabularies")
+    bibliography = load_all_yaml(schema_dir / "bibliography")
 
     # Load categories (optional file)
     categories_path = schema_dir / "categories.yaml"
-    categories = _load_yaml(categories_path) if categories_path.exists() else {}
+    categories = load_yaml(categories_path) if categories_path.exists() else {}
     if categories:
         categories_schema = _load_json_schema("categories.schema.json")
         errors.extend(_validate_against_schema(
@@ -367,7 +342,7 @@ def validate_schema_dir(schema_dir: Path) -> list[ValidationError]:
     }
     CFM_CHILD_BANDS = {"child_2_4", "child_5_17"}
     property_bib_ids: dict[str, set[str]] = {pid: set() for pid in property_ids}
-    for bib_filename, bib_data in bibliography.items():
+    for _bib_filename, bib_data in bibliography.items():
         bib_id = bib_data.get("id")
         if not bib_id:
             continue

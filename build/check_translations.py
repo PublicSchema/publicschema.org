@@ -28,12 +28,11 @@ from __future__ import annotations
 import re
 import subprocess
 import sys
+from collections.abc import Iterable
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Iterable
 
 import yaml
-
 
 UI_TS_PATH = Path("site/src/i18n/ui.ts")
 DOCS_DIR = Path("docs")
@@ -60,7 +59,7 @@ class Report:
     def warn(self, message: str) -> None:
         self.warnings.append(message)
 
-    def merge(self, other: "Report") -> None:
+    def merge(self, other: Report) -> None:
         self.errors.extend(other.errors)
         self.warnings.extend(other.warnings)
 

@@ -12,8 +12,7 @@ import re
 import sys
 from pathlib import Path
 
-import yaml
-
+from build.loader import load_yaml
 
 # Type mappings from YAML types to JSON Schema
 TYPE_MAP = {
@@ -270,16 +269,12 @@ def _vocabulary_to_jsonld(
     return doc
 
 
-def _load_yaml(path: Path) -> dict:
-    return yaml.safe_load(path.read_text()) or {}
-
-
-def _load_all_yaml(directory: Path) -> dict[str, dict]:
+def _load_all_yaml_by_id(directory: Path) -> dict[str, dict]:
     result = {}
     if not directory.exists():
         return result
     for p in sorted(directory.rglob("*.yaml")):
-        data = _load_yaml(p)
+        data = load_yaml(p)
         if "id" in data:
             result[data["id"]] = data
     return result
@@ -297,7 +292,7 @@ def _load_vocabularies_indexed(directory: Path) -> dict[str, dict]:
     if not directory.exists():
         return result
     for p in sorted(directory.rglob("*.yaml")):
-        data = _load_yaml(p)
+        data = load_yaml(p)
         if "id" not in data:
             continue
         domain = data.get("domain")
@@ -415,15 +410,15 @@ def build_vocabulary(schema_dir: Path) -> dict:
     Returns a dict with keys: meta, concepts, properties, vocabularies,
     context, concept_schemas.
     """
-    meta = _load_yaml(schema_dir / "_meta.yaml")
+    meta = load_yaml(schema_dir / "_meta.yaml")
     base_uri = meta.get("base_uri", "https://publicschema.org/")
 
-    concepts_raw = _load_all_yaml(schema_dir / "concepts")
-    properties_raw = _load_all_yaml(schema_dir / "properties")
+    concepts_raw = _load_all_yaml_by_id(schema_dir / "concepts")
+    properties_raw = _load_all_yaml_by_id(schema_dir / "properties")
     vocabularies_raw = _load_vocabularies_indexed(schema_dir / "vocabularies")
-    bibliography_raw = _load_all_yaml(schema_dir / "bibliography")
+    bibliography_raw = _load_all_yaml_by_id(schema_dir / "bibliography")
     categories_path = schema_dir / "categories.yaml"
-    categories_raw = _load_yaml(categories_path) if categories_path.exists() else {}
+    categories_raw = load_yaml(categories_path) if categories_path.exists() else {}
 
     # Compute property domains (which concepts use each property)
     property_domains: dict[str, list[str]] = {
@@ -675,7 +670,7 @@ def build_vocabulary(schema_dir: Path) -> dict:
             # Alias points to the same context entry as the original property
             context_map[alias] = context_map[prop_id]
     # Add credential types to context with explicit URIs
-    credentials_raw = _load_all_yaml(schema_dir / "credentials")
+    credentials_raw = _load_all_yaml_by_id(schema_dir / "credentials")
     for cred_id in credentials_raw:
         context_map[cred_id] = f"{base_uri}credentials/{cred_id}"
     version = meta.get("version", "0.1.0")
@@ -934,7 +929,7 @@ def write_outputs(result: dict, dist_dir: Path):
             "xlsx_template": f"{dl_prefix}/{concept_id}-template.xlsx",
         }
 
-    for vocab_id, vocab in result["vocabularies"].items():
+    for vocab_id, _vocab in result["vocabularies"].items():
         manifest["vocabularies"][vocab_id] = {
             "jsonld": f"/vocab/{vocab_id}.jsonld",
         }

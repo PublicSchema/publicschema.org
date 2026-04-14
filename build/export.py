@@ -15,7 +15,6 @@ from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
 from openpyxl.utils import get_column_letter
 from openpyxl.worksheet.datavalidation import DataValidation
 
-
 # Colour palette
 _BLUE_DARK = "1F3864"
 _BLUE_MED = "2E75B6"

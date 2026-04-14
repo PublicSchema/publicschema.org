@@ -4,8 +4,6 @@ TDD: these tests define expected behavior before implementation.
 """
 
 import csv
-import io
-from pathlib import Path
 
 import pytest
 from openpyxl import load_workbook
@@ -13,7 +11,6 @@ from openpyxl import load_workbook
 from build.build import build_vocabulary
 from build.export import generate_concept_csv, generate_definition_xlsx, generate_template_xlsx
 from tests.conftest import make_concept, make_property, make_vocabulary
-
 
 # ---------------------------------------------------------------------------
 # Fixtures

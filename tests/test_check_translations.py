@@ -4,10 +4,7 @@ import subprocess
 import textwrap
 from pathlib import Path
 
-import pytest
-
 from build import check_translations as ct
-
 
 # ---------------------------------------------------------------------------
 # UI dictionary parsing

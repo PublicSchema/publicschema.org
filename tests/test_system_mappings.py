@@ -5,13 +5,12 @@ structured format (code + label + maps_to) and that mappings are
 consistent with the vocabulary's canonical values.
 """
 
+
 import pytest
 import yaml
-from pathlib import Path
 
 from build.build import build_vocabulary
-from tests.conftest import SCHEMA_DIR, make_vocabulary
-
+from tests.conftest import SCHEMA_DIR
 
 # ---------------------------------------------------------------------------
 # Fixtures
@@ -63,7 +62,7 @@ class TestEnrichedFormat:
                         if field not in v:
                             missing.append(f"{vocab_id}/{sys_id}[{i}] missing '{field}'")
         assert missing == [], (
-            f"Values missing required fields:\n" + "\n".join(missing)
+            "Values missing required fields:\n" + "\n".join(missing)
         )
 
     def test_maps_to_is_string_or_null(self, all_vocabs):
@@ -75,7 +74,7 @@ class TestEnrichedFormat:
                     mt = v.get("maps_to")
                     if mt is not None and not isinstance(mt, str):
                         bad.append(f"{vocab_id}/{sys_id}: maps_to={mt!r} (type {type(mt).__name__})")
-        assert bad == [], f"Invalid maps_to types:\n" + "\n".join(bad)
+        assert bad == [], "Invalid maps_to types:\n" + "\n".join(bad)
 
     def test_labels_not_empty(self, all_vocabs):
         """Labels should not be empty strings."""
@@ -85,7 +84,7 @@ class TestEnrichedFormat:
                 for v in mapping.get("values", []):
                     if not str(v.get("label", "")).strip():
                         empty.append(f"{vocab_id}/{sys_id}: code={v['code']} has empty label")
-        assert empty == [], f"Empty labels:\n" + "\n".join(empty)
+        assert empty == [], "Empty labels:\n" + "\n".join(empty)
 
 
 # ---------------------------------------------------------------------------
@@ -106,7 +105,7 @@ class TestMappingIntegrity:
                     if mt is not None and mt not in canonical_codes:
                         bad.append(f"{vocab_id}/{sys_id}: '{v['code']}' maps to '{mt}' which is not a canonical code")
         assert bad == [], (
-            f"Invalid maps_to targets:\n" + "\n".join(bad)
+            "Invalid maps_to targets:\n" + "\n".join(bad)
         )
 
     def test_unmapped_canonical_references_canonical_codes(self, all_vocabs):
@@ -119,7 +118,7 @@ class TestMappingIntegrity:
                     if code not in canonical_codes:
                         bad.append(f"{vocab_id}/{sys_id}: unmapped_canonical '{code}' is not a canonical code")
         assert bad == [], (
-            f"Invalid unmapped_canonical entries:\n" + "\n".join(bad)
+            "Invalid unmapped_canonical entries:\n" + "\n".join(bad)
         )
 
 

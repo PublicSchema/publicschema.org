@@ -8,7 +8,7 @@ version (safety check).
 import json
 import shutil
 import sys
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 import yaml
@@ -57,7 +57,7 @@ def create_release(
 
     versions["releases"].append({
         "version": version,
-        "date": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
+        "date": datetime.now(UTC).strftime("%Y-%m-%d"),
         "maturity": meta.get("maturity", "draft"),
     })
 

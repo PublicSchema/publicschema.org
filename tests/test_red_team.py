@@ -4,19 +4,16 @@ Each test documents a bug that was found and fixed, with severity
 and a reference to the affected code.
 """
 
-import json
-from pathlib import Path
 
 import jsonschema
 import pytest
 import rdflib
 from pyld import jsonld
-from rdflib.namespace import RDF, RDFS, XSD
+from rdflib.namespace import XSD
 
 from build.build import build_vocabulary
 from build.rdf_export import SH, build_shacl
 from tests.conftest import SCHEMA_DIR, make_concept, make_property, make_vocabulary
-
 
 # ---------------------------------------------------------------------------
 # Shared fixtures

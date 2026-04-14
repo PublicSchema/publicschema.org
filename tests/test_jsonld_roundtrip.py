@@ -15,9 +15,8 @@ import pytest
 import rdflib
 from rdflib.namespace import RDF, RDFS, SKOS
 
-from tests.conftest import SCHEMA_DIR
 from build.build import build_vocabulary
-
+from tests.conftest import SCHEMA_DIR
 
 SCHEMA = rdflib.Namespace("https://schema.org/")
 

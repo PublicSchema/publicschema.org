@@ -5,11 +5,9 @@ from pathlib import Path
 import pytest
 import yaml
 
-from tests.conftest import SCHEMA_DIR
-
 from build.build import build_vocabulary
 from build.validate import validate_schema_dir
-
+from tests.conftest import SCHEMA_DIR
 
 CRVS_CONCEPTS = [
     "VitalEvent",

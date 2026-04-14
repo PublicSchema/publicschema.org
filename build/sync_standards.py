@@ -13,12 +13,11 @@ import io
 import json
 import sys
 import xml.etree.ElementTree as ET
-from datetime import date, timezone
+from datetime import date
 from pathlib import Path
 from urllib.request import urlopen
 
 import yaml
-
 
 # ---------------------------------------------------------------------------
 # Format handlers

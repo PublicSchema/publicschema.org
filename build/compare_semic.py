@@ -15,7 +15,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 import yaml
-from rdflib import Graph, Namespace, URIRef
+from rdflib import Graph, Namespace
 from rdflib.namespace import OWL, RDF, RDFS
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -502,7 +502,7 @@ def generate_report(
     total_prop_unmatched = 0
     total_semic_only = 0
 
-    for ps_id, semic_cls, concept_quality in matched_concepts:
+    for ps_id, semic_cls, _concept_quality in matched_concepts:
         ps_concept = ps_concepts[ps_id]
         lines.append(f"### {ps_id} vs `{semic_cls.label}`")
         lines.append("")

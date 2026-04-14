@@ -11,7 +11,6 @@ from pathlib import Path
 import rdflib
 from rdflib.namespace import RDF, RDFS, SKOS, XSD
 
-
 SCHEMA = rdflib.Namespace("https://schema.org/")
 PS = rdflib.Namespace("https://publicschema.org/meta/")
 

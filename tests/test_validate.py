@@ -3,12 +3,10 @@
 TDD: these tests define expected behavior before implementation.
 """
 
-import pytest
 import yaml
 
-from build.validate import validate_schema_dir, ValidationError
+from build.validate import validate_schema_dir
 from tests.conftest import make_concept, make_property, make_vocabulary
-
 
 # ---------------------------------------------------------------------------
 # Happy path: valid schemas pass validation

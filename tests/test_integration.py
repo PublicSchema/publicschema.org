@@ -11,10 +11,9 @@ import jsonschema
 import pytest
 from pyld import jsonld
 
-from tests.conftest import SCHEMA_DIR
-
 from build.build import build_vocabulary
 from build.validate import validate_schema_dir
+from tests.conftest import SCHEMA_DIR
 
 V2_ROOT = Path(__file__).parent.parent
 EXAMPLES_DIR = V2_ROOT / "examples"

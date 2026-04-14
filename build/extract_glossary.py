@@ -25,6 +25,8 @@ from typing import Any
 
 import yaml
 
+from build.loader import load_yaml
+
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 SCHEMA_DIR = PROJECT_ROOT / "schema"
 GLOSSARY_PATH = PROJECT_ROOT / "translations" / "glossary.yaml"
@@ -104,16 +106,12 @@ UI_OVERRIDES: dict[str, dict[str, str]] = {
 }
 
 
-def _load_yaml(path: Path) -> dict:
-    return yaml.safe_load(path.read_text()) or {}
-
-
-def _load_all_yaml(directory: Path) -> list[dict]:
+def _load_all_yaml_with_paths(directory: Path) -> list[dict]:
     if not directory.exists():
         return []
     items = []
     for p in sorted(directory.rglob("*.yaml")):
-        data = _load_yaml(p)
+        data = load_yaml(p)
         if "id" in data:
             data["_source_path"] = str(p.relative_to(PROJECT_ROOT))
             items.append(data)
@@ -139,7 +137,7 @@ def _extract_domain_terms() -> list[dict]:
     """Extract concepts, properties, vocabularies, and vocabulary values."""
     terms: list[dict] = []
 
-    for concept in _load_all_yaml(SCHEMA_DIR / "concepts"):
+    for concept in _load_all_yaml_with_paths(SCHEMA_DIR / "concepts"):
         terms.append(
             {
                 "kind": "concept",
@@ -150,7 +148,7 @@ def _extract_domain_terms() -> list[dict]:
             }
         )
 
-    for prop in _load_all_yaml(SCHEMA_DIR / "properties"):
+    for prop in _load_all_yaml_with_paths(SCHEMA_DIR / "properties"):
         terms.append(
             {
                 "kind": "property",
@@ -161,7 +159,7 @@ def _extract_domain_terms() -> list[dict]:
             }
         )
 
-    for vocab in _load_all_yaml(SCHEMA_DIR / "vocabularies"):
+    for vocab in _load_all_yaml_with_paths(SCHEMA_DIR / "vocabularies"):
         terms.append(
             {
                 "kind": "vocabulary",
