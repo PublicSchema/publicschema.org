@@ -9,18 +9,18 @@ label:
 definition:
   en: >
     A formal determination of whether a subject meets a program's criteria
-    based on assessed conditions. One assessment event can produce multiple
-    eligibility decisions for different programs.
+    based on assessed conditions. A single scoring event or profile can
+    support multiple eligibility decisions across different programs.
   fr: >
     Une détermination formelle indiquant si un sujet satisfait aux critères
-    d'un programme sur la base des conditions évaluées. Un événement
-    d'évaluation peut produire plusieurs décisions
-    d'admissibilité pour différents programmes.
+    d'un programme sur la base des conditions évaluées. Un même événement
+    de notation ou profil peut fonder plusieurs décisions d'admissibilité
+    pour différents programmes.
   es: >
     Una determinación formal de si un sujeto cumple los criterios de un
-    programa en función de las condiciones evaluadas. Un evento de evaluación
-    puede producir múltiples decisiones de elegibilidad para diferentes
-    programas.
+    programa en función de las condiciones evaluadas. Un mismo evento de
+    puntuación o perfil puede sustentar múltiples decisiones de
+    elegibilidad para diferentes programas.
 
 properties:
   - applicant

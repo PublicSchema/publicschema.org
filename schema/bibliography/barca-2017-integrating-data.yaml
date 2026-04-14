@@ -19,8 +19,8 @@ informs:
     - Enrollment
     - EligibilityDecision
     - Entitlement
-    - AssessmentEvent
-    - AssessmentFramework
+    - ScoringEvent
+    - ScoringRule
     - Identifier
   vocabularies:
     - sp/eligibility-status

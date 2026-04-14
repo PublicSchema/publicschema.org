@@ -1,0 +1,12 @@
+id: observation_date
+maturity: draft
+
+definition:
+  en: "The date on which the profile data was collected (when the instrument was administered or the measurement taken)."
+  fr: "La date à laquelle les données du profil ont été collectées (date d'administration de l'instrument ou de prise de mesure)."
+  es: "La fecha en que se recopilaron los datos del perfil (fecha en que se administró el instrumento o se tomó la medición)."
+
+type: date
+cardinality: single
+vocabulary: null
+references: null

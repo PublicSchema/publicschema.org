@@ -1,0 +1,55 @@
+id: ScoringEvent
+maturity: draft
+label:
+  en: Scoring Event
+  fr: "Événement de notation"
+  es: Evento de puntuación
+
+definition:
+  en: >
+    A discrete event in which a scoring rule is applied to inputs about a
+    subject to produce a score or a band. Inputs may be one or more Profile
+    records (a functioning profile scored against a Washington Group
+    cutoff, an anthropometric profile scored against WHO thresholds, a
+    socio-economic profile scored with a PMT formula) or inline data
+    packaged for the scoring run. A scoring event is distinct from the
+    instrument administration that produced its inputs: scoring can be
+    re-done against a different rule without collecting new data.
+  fr: >
+    Un événement discret au cours duquel une règle de notation est
+    appliquée à des données d'entrée concernant un sujet pour produire un
+    score ou une bande. Les entrées peuvent être un ou plusieurs
+    enregistrements Profile (un profil de fonctionnement scoré selon un
+    seuil du Washington Group, un profil anthropométrique scoré selon les
+    seuils de l'OMS, un profil socio-économique scoré par une formule
+    PMT) ou des données en ligne préparées pour l'exécution de la
+    notation. Un événement de notation est distinct de l'administration
+    d'instrument qui a produit ses entrées : la notation peut être refaite
+    selon une règle différente sans recollecter de données.
+  es: >
+    Un evento discreto en el que se aplica una regla de puntuación a
+    datos de entrada sobre un sujeto para producir una puntuación o
+    banda. Las entradas pueden ser uno o más registros Profile (un perfil
+    de funcionamiento puntuado con un corte del Washington Group, un
+    perfil antropométrico puntuado con los umbrales de la OMS, un perfil
+    socioeconómico puntuado con una fórmula PMT) o datos en línea
+    preparados para la ejecución de la puntuación. Un evento de
+    puntuación es distinto de la administración del instrumento que
+    produjo sus entradas: la puntuación puede rehacerse con una regla
+    diferente sin recolectar nuevos datos.
+
+properties:
+  - subject
+  - rule_applied
+  - evaluation_date
+  - evaluator
+  - inputs
+  - raw_score
+  - assessment_band
+
+subtypes: []
+supertypes: [Event]
+
+convergence:
+  system_count: 3
+  total_systems: 6

@@ -1,0 +1,12 @@
+id: instrument_used
+maturity: draft
+
+definition:
+  en: "Reference to the instrument (survey form, questionnaire, screening protocol, measurement procedure) administered in this profile record."
+  fr: "Référence à l'instrument (formulaire d'enquête, questionnaire, protocole de dépistage, procédure de mesure) administré dans cet enregistrement de profil."
+  es: "Referencia al instrumento (formulario de encuesta, cuestionario, protocolo de detección, procedimiento de medición) administrado en este registro de perfil."
+
+type: concept:Instrument
+cardinality: single
+vocabulary: null
+references: Instrument

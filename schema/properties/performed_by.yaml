@@ -1,0 +1,12 @@
+id: performed_by
+maturity: draft
+
+definition:
+  en: "The party (enumerator, field officer, agency, or system) that administered the instrument or took the measurement."
+  fr: "La partie (enquêteur, agent de terrain, organisme ou système) qui a administré l'instrument ou effectué la mesure."
+  es: "La parte (encuestador, agente de campo, organismo o sistema) que administró el instrumento o tomó la medición."
+
+type: concept:Party
+cardinality: single
+vocabulary: null
+references: Party

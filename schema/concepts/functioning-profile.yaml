@@ -1,0 +1,177 @@
+id: FunctioningProfile
+label:
+  en: Functioning Profile
+  fr: Profil de fonctionnement
+  es: Perfil de funcionamiento
+maturity: draft
+
+definition:
+  en: >
+    A point-in-time record of functioning data collected about a person
+    using a defined instrument from the Washington Group family: WG-SS
+    (Short Set), WG-ES (Extended Set), CFM 2-4, or CFM 5-17. Captures the
+    structured item responses (seeing, hearing, walking, cognition,
+    self-care, communication, affect, pain, fatigue, behaviour, and
+    related extended items) alongside the administration context
+    (administration mode, respondent, instrument version). A functioning
+    profile is not a disability classification of the person: it is the
+    raw evidence from which disability identifiers can be constructed by
+    applying a documented cutoff rule.
+  fr: >
+    Un enregistrement ponctuel de données de fonctionnement collectées sur
+    une personne à l'aide d'un instrument défini de la famille Washington
+    Group : WG-SS (ensemble court), WG-ES (ensemble étendu), CFM 2-4 ou
+    CFM 5-17. Consigne les réponses structurées aux items (vision,
+    audition, marche, cognition, soins personnels, communication, affect,
+    douleur, fatigue, comportement et items étendus associés) ainsi que le
+    contexte d'administration (mode d'administration, répondant, version
+    de l'instrument). Un profil de fonctionnement n'est pas une
+    classification du handicap de la personne : c'est la donnée brute à
+    partir de laquelle des indicateurs d'identification du handicap
+    peuvent être construits en appliquant une règle de seuil documentée.
+  es: >
+    Un registro puntual de datos de funcionamiento recopilados sobre una
+    persona mediante un instrumento definido de la familia Washington
+    Group: WG-SS (conjunto corto), WG-ES (conjunto extendido), CFM 2-4 o
+    CFM 5-17. Consigna las respuestas estructuradas a los ítems (visión,
+    audición, caminar, cognición, cuidado personal, comunicación, afecto,
+    dolor, fatiga, conducta e ítems extendidos relacionados) junto con el
+    contexto de administración (modo de administración, respondiente,
+    versión del instrumento). Un perfil de funcionamiento no es una
+    clasificación de discapacidad de la persona: es la evidencia bruta a
+    partir de la cual pueden construirse identificadores de discapacidad
+    aplicando una regla de corte documentada.
+
+properties:
+  - difficulty_seeing
+  - difficulty_hearing
+  - difficulty_walking
+  - difficulty_walking_100m
+  - difficulty_walking_500m
+  - difficulty_climbing_steps
+  - difficulty_cognition
+  - difficulty_self_care
+  - difficulty_communication
+  - uses_glasses
+  - uses_hearing_aid
+  - uses_mobility_aid
+  - difficulty_learning
+  - difficulty_dexterity
+  - difficulty_playing
+  - difficulty_remembering
+  - difficulty_concentrating
+  - difficulty_accepting_change
+  - difficulty_making_friends
+  - difficulty_controlling_behaviour
+  - difficulty_disruptive_behaviour
+  - difficulty_understanding_others
+  - difficulty_being_understood
+  - difficulty_being_understood_inside_household
+  - difficulty_being_understood_outside_household
+  - anxiety_frequency
+  - anxiety_intensity
+  - anxiety_medication
+  - depression_frequency
+  - depression_intensity
+  - depression_medication
+  - difficulty_upper_body_reach
+  - difficulty_seeing_face_across_room
+  - difficulty_seeing_coin
+  - hearing_aid_use_frequency
+  - difficulty_hearing_quiet_room
+  - difficulty_hearing_noisy_room
+  - cognition_subdomain
+  - remembering_frequency
+  - remembering_extent
+  - pain_frequency
+  - pain_intensity
+  - fatigue_frequency
+  - fatigue_duration
+  - fatigue_intensity
+
+property_groups:
+  - category: administrative
+    properties:
+      - identifiers
+      - subject
+      - observation_date
+      - performed_by
+      - instrument_used
+      - administration_mode
+      - respondent
+      - respondent_relationship
+      - items_asked
+  - category: functioning
+    properties:
+      - difficulty_seeing
+      - difficulty_hearing
+      - difficulty_walking
+      - difficulty_walking_100m
+      - difficulty_walking_500m
+      - difficulty_climbing_steps
+      - difficulty_cognition
+      - difficulty_self_care
+      - difficulty_communication
+      - difficulty_dexterity
+      - uses_glasses
+      - uses_hearing_aid
+      - uses_mobility_aid
+      - anxiety_frequency
+      - anxiety_intensity
+      - anxiety_medication
+      - depression_frequency
+      - depression_intensity
+      - depression_medication
+      - difficulty_upper_body_reach
+      - difficulty_seeing_face_across_room
+      - difficulty_seeing_coin
+      - hearing_aid_use_frequency
+      - difficulty_hearing_quiet_room
+      - difficulty_hearing_noisy_room
+      - cognition_subdomain
+      - remembering_frequency
+      - remembering_extent
+      - pain_frequency
+      - pain_intensity
+      - fatigue_frequency
+      - fatigue_duration
+      - fatigue_intensity
+  - category: child_functioning
+    properties:
+      - difficulty_learning
+      - difficulty_playing
+      - difficulty_remembering
+      - difficulty_concentrating
+      - difficulty_accepting_change
+      - difficulty_making_friends
+      - difficulty_controlling_behaviour
+      - difficulty_disruptive_behaviour
+      - difficulty_understanding_others
+      - difficulty_being_understood
+      - difficulty_being_understood_inside_household
+      - difficulty_being_understood_outside_household
+
+subtypes: []
+supertypes: [Profile]
+
+external_equivalents:
+  fhir:
+    label: "QuestionnaireResponse (WG panel)"
+    uri: "http://hl7.org/fhir/QuestionnaireResponse"
+    match: close
+    vocabulary: "FHIR R4"
+    note: "WG and CFM administrations serialize naturally as a QuestionnaireResponse whose Questionnaire is the corresponding WG or CFM instrument definition"
+
+convergence:
+  system_count: 1
+  total_systems: 6
+  notes: >
+    Only FHIR directly represents a WG or CFM administration (as a
+    QuestionnaireResponse). The other five v1 systems (DHIS2, OpenCRVS,
+    OpenSPP, openIMIS, DCI) carry a derived disability category on the
+    Person record, not the item-level answers. The Washington Group analytic
+    guidelines require the raw items to derive cutoff-based identifiers,
+    and national surveys that feed disability statistics (DHS, MICS, census
+    long forms) keep the items as separate survey records. This concept
+    gives programs a standards-faithful home for those answers; Person
+    retains a coarse functioning_status flag for operational queries.

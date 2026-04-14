@@ -26,21 +26,7 @@ definition:
 properties:
   - address
   - location
-  - dwelling_type
-  - income_source
-  - floor_material
-  - wall_material
-  - roof_material
-  - water_source
-  - water_service_level
-  - sanitation_facility
-  - sanitation_service_level
-  - cooking_fuel
-  - electricity_access
-  - household_assets
-  - ict_access
   - food_security_level
-  - settlement_type
 
 property_groups:
   - category: identity
@@ -58,37 +44,9 @@ property_groups:
     properties:
       - address
       - location
-  - category: housing
-    properties:
-      - dwelling_type
-      - floor_material
-      - wall_material
-      - roof_material
-  - category: wash
-    properties:
-      - water_source
-      - water_service_level
-      - sanitation_facility
-      - sanitation_service_level
-  - category: energy
-    properties:
-      - cooking_fuel
-      - electricity_access
-  - category: economic
-    properties:
-      - income_source
-  - category: assets
-    properties:
-      - household_assets
-  - category: ict
-    properties:
-      - ict_access
   - category: food_security
     properties:
       - food_security_level
-  - category: demographics
-    properties:
-      - settlement_type
 
 supertypes: [Group]
 subtypes: []
@@ -108,4 +66,12 @@ external_equivalents:
 convergence:
   system_count: 4
   total_systems: 6
-  notes: "No OpenCRVS or standalone OpenIMIS match."
+  notes: >
+    No OpenCRVS or standalone OpenIMIS match. Detailed point-in-time
+    socio-economic and living-conditions data (dwelling, WASH, energy,
+    assets, ICT, income source, settlement type) lives on
+    SocioEconomicProfile records; Household keeps only identity, location,
+    and a coarse food_security_level current-state summary. Practitioner
+    review confirmed that operational social registries commonly read a
+    current-state food-security flag off the household record even when
+    the survey evidence is stored separately.

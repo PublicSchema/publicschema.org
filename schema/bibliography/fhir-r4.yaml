@@ -12,7 +12,11 @@ status: active
 
 informs:
   concepts:
+    - AnthropometricProfile
+    - FunctioningProfile
     - IdentityDocument
+    - Instrument
+    - Profile
   vocabularies: []
   properties:
     - anxiety_frequency

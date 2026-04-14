@@ -32,6 +32,7 @@ SCHEMA = REPO_ROOT / "schema"
 EXTERNAL_EQUIV_LOOKUP: dict[tuple[str, str | None], str | None] = {
     ("dci", "DCI Core"): "spdci-common-standards",
     ("dci", "DCI IBR"): "spdci-ibr",
+    ("dci", "DCI Social Registry"): "spdci-social-registry",
     ("semic", "Core Person"): "semic-core-person",
     ("semic", "Core Location"): "semic-core-location",
     ("semic", "CCCEV"): "semic-cccev",
@@ -76,6 +77,10 @@ VOCAB_STANDARD_LOOKUP: dict[str, str] = {
     "UN Degree of Urbanisation (DEGURBA)": "un-degurba",
     "EGRISS International Recommendations on IDP Statistics (IRIS)": "egriss-iris",
     "WG/UNICEF Child Functioning Module (CFM)": "washington-group-cfm",
+    "Washington Group Analytic Guidelines for the Creation of Disability Identifiers": "washington-group-ss",
+    "WHO/UNICEF joint statement (2009) and Sphere Handbook (2018)": "who-muac-cutoffs",
+    "WHO Child Growth Standards and Growth Reference": "who-child-growth-standards",
+    "WHO Anthropometric Training Course (2008)": "who-child-growth-standards",
 }
 
 SKIPPED_KEYS = {"opencrvs"}

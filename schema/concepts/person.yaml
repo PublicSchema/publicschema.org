@@ -56,60 +56,10 @@ properties:
   - domicile
   - group_memberships
   - biometric_samples
-  - difficulty_seeing
-  - difficulty_hearing
-  - difficulty_walking
-  - difficulty_walking_100m
-  - difficulty_walking_500m
-  - difficulty_climbing_steps
-  - difficulty_cognition
-  - difficulty_self_care
-  - difficulty_communication
-  - uses_glasses
-  - uses_hearing_aid
-  - uses_mobility_aid
   - pregnancy_status
   - displacement_status
-  - height
-  - body_weight
-  - muac
-  - stunting_status
-  - underweight_status
-  - wasting_status
-  - acute_malnutrition_status
-  - difficulty_learning
-  - difficulty_dexterity
-  - difficulty_playing
-  - difficulty_remembering
-  - difficulty_concentrating
-  - difficulty_accepting_change
-  - difficulty_making_friends
-  - difficulty_controlling_behaviour
-  - difficulty_disruptive_behaviour
-  - difficulty_understanding_others
-  - difficulty_being_understood
-  - difficulty_being_understood_inside_household
-  - difficulty_being_understood_outside_household
-  - anxiety_frequency
-  - anxiety_intensity
-  - anxiety_medication
-  - depression_frequency
-  - depression_intensity
-  - depression_medication
-  - difficulty_upper_body_reach
-  - difficulty_seeing_face_across_room
-  - difficulty_seeing_coin
-  - hearing_aid_use_frequency
-  - difficulty_hearing_quiet_room
-  - difficulty_hearing_noisy_room
-  - cognition_subdomain
-  - remembering_frequency
-  - remembering_extent
-  - pain_frequency
-  - pain_intensity
-  - fatigue_frequency
-  - fatigue_duration
-  - fatigue_intensity
+  - functioning_status
+  - nutrition_status
 
 property_groups:
   - category: identity
@@ -138,6 +88,8 @@ property_groups:
       - ethnic_group
       - pregnancy_status
       - displacement_status
+      - functioning_status
+      - nutrition_status
   - category: education
     properties:
       - education_level
@@ -154,72 +106,6 @@ property_groups:
       - phone_number
       - email_address
       - domicile
-  - category: nutrition
-    properties:
-      - height
-      - body_weight
-      - muac
-      - stunting_status
-      - underweight_status
-      - wasting_status
-      - acute_malnutrition_status
-  - category: functioning
-    properties:
-      - difficulty_seeing
-      - difficulty_hearing
-      - difficulty_walking
-      - difficulty_walking_100m
-      - difficulty_walking_500m
-      - difficulty_climbing_steps
-      - difficulty_cognition
-      - difficulty_self_care
-      - difficulty_communication
-      - difficulty_dexterity
-      - uses_glasses
-      - uses_hearing_aid
-      - uses_mobility_aid
-      - anxiety_frequency
-      - anxiety_intensity
-      - anxiety_medication
-      - depression_frequency
-      - depression_intensity
-      - depression_medication
-      - difficulty_upper_body_reach
-      - difficulty_seeing_face_across_room
-      - difficulty_seeing_coin
-      - hearing_aid_use_frequency
-      - difficulty_hearing_quiet_room
-      - difficulty_hearing_noisy_room
-      - cognition_subdomain
-      - remembering_frequency
-      - remembering_extent
-      - pain_frequency
-      - pain_intensity
-      - fatigue_frequency
-      - fatigue_duration
-      - fatigue_intensity
-  - category: child_functioning
-    properties:
-      - difficulty_learning
-      - difficulty_dexterity
-      - difficulty_playing
-      - difficulty_remembering
-      - difficulty_concentrating
-      - difficulty_accepting_change
-      - difficulty_making_friends
-      - difficulty_controlling_behaviour
-      - difficulty_disruptive_behaviour
-      - difficulty_understanding_others
-      - difficulty_being_understood
-      - difficulty_being_understood_inside_household
-      - difficulty_being_understood_outside_household
-      - difficulty_walking_100m
-      - difficulty_walking_500m
-      - uses_glasses
-      - uses_hearing_aid
-      - uses_mobility_aid
-      - anxiety_frequency
-      - depression_frequency
   - category: other
     properties:
       - group_memberships
@@ -247,6 +133,10 @@ convergence:
   notes: >
     Universal across all 6 mapped systems. The most consistently represented
     concept in social protection delivery systems. All systems maintain a
-    person-level record as the primary unit of identity. EBSI PID and ELM
-    schemas informed additional naming properties (birth names, preferred
-    name, patronymic) not present in the original convergence systems.
+    person-level record as the primary unit of identity. Detailed
+    point-in-time functioning and anthropometric observations live on
+    FunctioningProfile and AnthropometricProfile records; Person keeps only
+    a coarse current-state summary (functioning_status, nutrition_status)
+    for targeting and reporting workflows. Practitioner review confirmed
+    this hybrid matches operational systems such as UNHCR proGres Specific
+    Needs, Brazil Cadastro Unico, and Philippines Listahanan.

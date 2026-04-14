@@ -1,0 +1,16 @@
+id: subject
+maturity: draft
+
+definition:
+  en: "The person or group that the profile or scoring event is about."
+  fr: "La personne ou le groupe sur lequel porte le profil ou l'événement de notation."
+  es: "La persona o grupo sobre el que trata el perfil o evento de puntuación."
+
+type: concept:Party
+cardinality: single
+vocabulary: null
+references: Party
+
+convergence:
+  system_count: 2
+  total_systems: 3

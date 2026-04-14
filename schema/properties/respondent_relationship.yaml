@@ -1,0 +1,12 @@
+id: respondent_relationship
+maturity: draft
+
+definition:
+  en: "The relationship of the respondent to the subject (parent, spouse, caregiver, etc.). Reuses the group-role vocabulary. Required whenever the administration mode is proxy or assisted."
+  fr: "La relation du répondant avec le sujet (parent, conjoint, aidant, etc.). Réutilise le vocabulaire group-role. Requise lorsque le mode d'administration est par procuration ou assisté."
+  es: "La relación del respondiente con el sujeto (padre, cónyuge, cuidador, etc.). Reutiliza el vocabulario group-role. Requerida cuando el modo de administración es por terceros o asistido."
+
+type: string
+cardinality: single
+vocabulary: group-role
+references: null

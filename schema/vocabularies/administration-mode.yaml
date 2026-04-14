@@ -1,0 +1,51 @@
+id: administration-mode
+maturity: draft
+label:
+  en: Administration Mode
+  fr: "Mode d'administration"
+  es: Modo de administración
+definition:
+  en: "How an instrument is administered to a subject: self-reported, proxy-reported (a caregiver or household member answers about the subject), assisted (the subject answers with help from another person), or mixed (some items self, some proxy)."
+  fr: "Comment un instrument est administré à un sujet : auto-déclaré, déclaré par procuration (un aidant ou membre du ménage répond au sujet du sujet), assisté (le sujet répond avec l'aide d'une autre personne) ou mixte (certains items en auto-déclaration, d'autres par procuration)."
+  es: "Cómo se administra un instrumento a un sujeto: autoinforme, informe por terceros (un cuidador o miembro del hogar responde sobre el sujeto), asistido (el sujeto responde con ayuda de otra persona) o mixto (algunos ítems autoinformados, otros por terceros)."
+standard:
+  name: "Washington Group Analytic Guidelines for the Creation of Disability Identifiers"
+  uri: https://www.washingtongroup-disability.com/analytic-guidelines/
+  notes: "The WG analytic guidelines recommend recording the administration mode because proxy responses systematically underreport difficulty relative to self-report, and prevalence should be disaggregated by mode when both are present in a sample."
+values:
+- code: self
+  label:
+    en: Self-report
+    fr: Auto-déclaration
+    es: Autoinforme
+  definition:
+    en: "The subject answered the items about themselves. Preferred mode for WG-SS and WG-ES."
+    fr: "Le sujet a répondu aux items à son propre sujet. Mode privilégié pour WG-SS et WG-ES."
+    es: "El sujeto respondió los ítems sobre sí mismo. Modo preferido para WG-SS y WG-ES."
+- code: proxy
+  label:
+    en: Proxy-report
+    fr: Déclaration par procuration
+    es: Informe por terceros
+  definition:
+    en: "Another person (caregiver, parent, spouse, household member) answered the items about the subject. Always the mode for the UNICEF Child Functioning Module, because the child is not the respondent."
+    fr: "Une autre personne (aidant, parent, conjoint, membre du ménage) a répondu aux items au sujet du sujet. Toujours le mode du Module de fonctionnement de l'enfant de l'UNICEF, car l'enfant n'est pas le répondant."
+    es: "Otra persona (cuidador, padre, cónyuge, miembro del hogar) respondió los ítems sobre el sujeto. Siempre el modo del Módulo de Funcionamiento Infantil de UNICEF, porque el niño no es el respondiente."
+- code: assisted
+  label:
+    en: Assisted
+    fr: Assisté
+    es: Asistido
+  definition:
+    en: "The subject answered the items but received help from another person (for reading, translation, or comprehension). Distinct from proxy: the subject is still the respondent."
+    fr: "Le sujet a répondu aux items mais a reçu l'aide d'une autre personne (lecture, traduction ou compréhension). Distinct de la procuration : le sujet reste le répondant."
+    es: "El sujeto respondió los ítems pero recibió ayuda de otra persona (para lectura, traducción o comprensión). Distinto del informe por terceros: el sujeto sigue siendo el respondiente."
+- code: mixed
+  label:
+    en: Mixed
+    fr: Mixte
+    es: Mixto
+  definition:
+    en: "Some items were answered by the subject and others by a proxy. Use when the administration crossed modes within one session, for example because the subject tired or could not answer certain items."
+    fr: "Certains items ont été répondus par le sujet et d'autres par procuration. À utiliser lorsque l'administration a croisé les modes au cours d'une même séance, par exemple parce que le sujet s'est fatigué ou ne pouvait pas répondre à certains items."
+    es: "Algunos ítems fueron respondidos por el sujeto y otros por un tercero. Utilice cuando la administración cruzó modos en una misma sesión, por ejemplo porque el sujeto se cansó o no pudo responder ciertos ítems."

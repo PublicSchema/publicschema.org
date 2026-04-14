@@ -1,0 +1,60 @@
+id: growth-reference
+maturity: draft
+label:
+  en: Growth Reference
+  fr: "Référence de croissance"
+  es: Referencia de crecimiento
+definition:
+  en: "The reference population used to derive z-scores and band classifications from anthropometric measurements. Different references produce different z-scores for the same raw measurement, so the reference must travel with the derived values."
+  fr: "La population de référence utilisée pour dériver les z-scores et les classifications par bandes à partir des mesures anthropométriques. Des références différentes produisent des z-scores différents pour une même mesure brute ; la référence doit donc accompagner les valeurs dérivées."
+  es: "La población de referencia utilizada para derivar z-scores y clasificaciones por bandas a partir de mediciones antropométricas. Referencias diferentes producen z-scores diferentes para una misma medición bruta, por lo que la referencia debe acompañar a los valores derivados."
+standard:
+  name: "WHO Child Growth Standards and Growth Reference"
+  uri: https://www.who.int/tools/child-growth-standards
+  notes: "WHO publishes two references: the 2006 Child Growth Standards for children 0-59 months and the 2007 Growth Reference for school-age children and adolescents (5-19 years). The CDC 2000 Growth Charts and the earlier NCHS/WHO 1977 reference are still encountered in US and historical datasets."
+values:
+- code: who_2006
+  label:
+    en: "WHO Child Growth Standards (2006)"
+    fr: "Normes OMS de croissance de l'enfant (2006)"
+    es: "Estándares OMS de Crecimiento Infantil (2006)"
+  definition:
+    en: "Reference for children 0-59 months. The default for most humanitarian, national surveillance, and public-health anthropometry today."
+    fr: "Référence pour les enfants de 0 à 59 mois. Par défaut pour la plupart des applications anthropométriques humanitaires, de surveillance nationale et de santé publique aujourd'hui."
+    es: "Referencia para niños de 0 a 59 meses. Valor por defecto para la mayoría de aplicaciones antropométricas humanitarias, de vigilancia nacional y de salud pública hoy en día."
+- code: who_2007
+  label:
+    en: "WHO Growth Reference (2007)"
+    fr: "Référence OMS de croissance (2007)"
+    es: "Referencia OMS de Crecimiento (2007)"
+  definition:
+    en: "Reference for school-age children and adolescents (5-19 years). Uses BMI-for-age rather than weight-for-height."
+    fr: "Référence pour les enfants d'âge scolaire et adolescents (5-19 ans). Utilise l'IMC-pour-âge plutôt que le poids-pour-taille."
+    es: "Referencia para niños en edad escolar y adolescentes (5-19 años). Utiliza IMC-para-edad en lugar de peso-para-talla."
+- code: cdc_2000
+  label:
+    en: "CDC 2000 Growth Charts"
+    fr: "Courbes de croissance CDC 2000"
+    es: "Gráficas de crecimiento CDC 2000"
+  definition:
+    en: "US CDC growth charts, widely used in the United States. Not interchangeable with the WHO 2006 standards: the same raw weight-for-height can classify differently under the two references."
+    fr: "Courbes de croissance des CDC des États-Unis, largement utilisées aux États-Unis. Non interchangeables avec les normes OMS 2006 : un même poids-pour-taille brut peut être classé différemment selon les deux références."
+    es: "Gráficas de crecimiento de los CDC de EE. UU., ampliamente utilizadas en Estados Unidos. No intercambiables con los estándares OMS 2006: un mismo peso-para-talla bruto puede clasificarse de manera diferente según las dos referencias."
+- code: nchs_1977
+  label:
+    en: "NCHS/WHO 1977 Growth Reference"
+    fr: "Référence de croissance NCHS/OMS 1977"
+    es: "Referencia de crecimiento NCHS/OMS 1977"
+  definition:
+    en: "Legacy reference. Still present in historical datasets; superseded for active use by WHO 2006."
+    fr: "Référence historique. Encore présente dans les jeux de données anciens ; remplacée pour un usage actif par l'OMS 2006."
+    es: "Referencia heredada. Aún presente en conjuntos de datos históricos; reemplazada para uso activo por la OMS 2006."
+- code: other
+  label:
+    en: Other
+    fr: Autre
+    es: Otra
+  definition:
+    en: "A named reference not listed above. Use only when the actual reference is known and documented elsewhere on the record."
+    fr: "Une référence nommée non listée ci-dessus. À utiliser uniquement lorsque la référence effective est connue et documentée ailleurs dans l'enregistrement."
+    es: "Una referencia nombrada no listada arriba. Utilice solo cuando la referencia real sea conocida y esté documentada en otra parte del registro."

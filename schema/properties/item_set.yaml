@@ -1,0 +1,12 @@
+id: item_set
+maturity: draft
+
+definition:
+  en: "The property IDs that an instrument expects to be populated when administered in full. Declared once on the Instrument registry entry; individual Profile records may override with items_asked when the instrument is deployed in a modular subset."
+  fr: "Les identifiants des propriétés qu'un instrument s'attend à voir renseignées lorsqu'il est administré intégralement. Déclaré une fois sur l'entrée de registre Instrument ; les enregistrements Profile individuels peuvent le surcharger avec items_asked lorsque l'instrument est déployé en sous-ensemble modulaire."
+  es: "Los identificadores de las propiedades que un instrumento espera que se completen cuando se administra en su totalidad. Se declara una vez en la entrada de registro Instrument; los registros Profile individuales pueden anular con items_asked cuando el instrumento se despliega en un subconjunto modular."
+
+type: string
+cardinality: multiple
+vocabulary: null
+references: null

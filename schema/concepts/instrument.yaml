@@ -1,0 +1,75 @@
+id: Instrument
+label:
+  en: Instrument
+  fr: Instrument
+  es: Instrumento
+maturity: draft
+
+definition:
+  en: >
+    A defined tool used to collect information about a subject: a survey form,
+    questionnaire, screening protocol, or measurement procedure. Instruments
+    are the catalog entries that Profile records reference to declare which
+    tool was administered. Examples include the Washington Group Short Set
+    on Functioning (WG-SS), the UNICEF Child Functioning Module (CFM 2-4,
+    CFM 5-17), a proxy means test questionnaire, the SMART anthropometry
+    protocol, and a national social registry registration form. Instrument
+    entries are persistent registry records, not administration events; a
+    single instrument is typically administered many times.
+  fr: >
+    Un outil défini utilisé pour collecter des informations sur un sujet :
+    formulaire d'enquête, questionnaire, protocole de dépistage ou
+    procédure de mesure. Les instruments sont les entrées de registre que
+    les enregistrements Profile référencent pour déclarer quel outil a été
+    administré. Les exemples incluent l'ensemble court du Washington Group
+    sur le fonctionnement (WG-SS), le Module de fonctionnement de l'enfant
+    de l'UNICEF (CFM 2-4, CFM 5-17), un questionnaire de test de
+    substitution des ressources, le protocole d'anthropométrie SMART et un
+    formulaire national d'enregistrement au registre social. Les entrées
+    d'instrument sont des enregistrements de registre persistants, pas des
+    événements d'administration ; un même instrument est généralement
+    administré de nombreuses fois.
+  es: >
+    Una herramienta definida utilizada para recopilar información sobre un
+    sujeto: formulario de encuesta, cuestionario, protocolo de detección o
+    procedimiento de medición. Los instrumentos son las entradas de
+    registro que los registros Profile referencian para declarar qué
+    herramienta se administró. Los ejemplos incluyen el conjunto corto del
+    Washington Group sobre funcionamiento (WG-SS), el Módulo de
+    Funcionamiento Infantil de UNICEF (CFM 2-4, CFM 5-17), un cuestionario
+    de prueba proxy de medios de vida, el protocolo de antropometría SMART
+    y un formulario nacional de registro al registro social. Las entradas
+    de instrumento son registros persistentes, no eventos de
+    administración; un mismo instrumento se administra generalmente
+    muchas veces.
+
+properties:
+  - name
+  - version
+  - publisher
+  - publication_url
+  - item_set
+  - language_of_administration
+
+subtypes: []
+supertypes: []
+
+external_equivalents:
+  fhir:
+    label: "Questionnaire"
+    uri: "http://hl7.org/fhir/Questionnaire"
+    match: close
+    vocabulary: "FHIR R4"
+    note: "FHIR Questionnaire is the canonical peer for a data-collection instrument; our Instrument also covers measurement protocols and screening forms beyond survey questionnaires"
+
+convergence:
+  system_count: 1
+  total_systems: 6
+  notes: >
+    Only FHIR carries a first-class instrument registry (Questionnaire).
+    DHIS2, OpenCRVS, OpenSPP, openIMIS, and DCI Core do not catalog
+    instruments. In practice, standards bodies publish the instruments
+    themselves (Washington Group, UNICEF MICS, WHO, SMART), and adopters
+    reference them by name and version. This concept gives those
+    references a citable home so Profile records can declare exactly
+    which tool and version produced them.

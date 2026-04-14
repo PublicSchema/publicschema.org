@@ -13,10 +13,12 @@ informs:
   concepts:
     - Person
   vocabularies:
+    - growth-reference
     - malnutrition-severity
+    - measurement-type
   properties:
-    - height
     - body_weight
+    - height
     - stunting_status
     - underweight_status
     - wasting_status

@@ -1,0 +1,17 @@
+id: evaluation_date
+maturity: draft
+
+definition:
+  en: "The date on which a scoring rule was applied to produce a score or band."
+  fr: "La date à laquelle une règle de notation a été appliquée pour produire un score ou une bande."
+  es: "La fecha en que se aplicó una regla de puntuación para producir una puntuación o banda."
+
+type: date
+cardinality: single
+vocabulary: null
+references: null
+domain_override: null
+
+convergence:
+  system_count: 2
+  total_systems: 3

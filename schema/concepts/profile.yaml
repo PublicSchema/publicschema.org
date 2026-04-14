@@ -1,0 +1,75 @@
+id: Profile
+label:
+  en: Profile
+  fr: Profil
+  es: Perfil
+maturity: draft
+abstract: true
+
+definition:
+  en: >
+    A point-in-time record of data collected about a subject using a
+    defined instrument. Profile is the shared supertype for
+    SocioEconomicProfile, FunctioningProfile, and AnthropometricProfile.
+    Each profile captures who was observed, when, using which instrument,
+    under which administration mode, and by whom. A profile does not
+    itself produce a score: its purpose is to record the structured
+    responses that may later be scored or reported directly.
+  fr: >
+    Un enregistrement ponctuel de données collectées sur un sujet à l'aide
+    d'un instrument défini. Profile est le supertype partagé de
+    SocioEconomicProfile, FunctioningProfile et AnthropometricProfile.
+    Chaque profil consigne qui a été observé, quand, avec quel instrument,
+    selon quel mode d'administration et par qui. Un profil ne produit pas
+    lui-même de score : son objet est de consigner les réponses structurées
+    qui pourront ensuite être scorées ou rapportées telles quelles.
+  es: >
+    Un registro puntual de datos recopilados sobre un sujeto mediante un
+    instrumento definido. Profile es el supertipo compartido de
+    SocioEconomicProfile, FunctioningProfile y AnthropometricProfile. Cada
+    perfil consigna quién fue observado, cuándo, con qué instrumento, bajo
+    qué modo de administración y por quién. Un perfil no produce por sí
+    mismo una puntuación: su propósito es consignar las respuestas
+    estructuradas que posteriormente pueden puntuarse o reportarse tal
+    como están.
+
+properties:
+  - subject
+  - observation_date
+  - performed_by
+  - instrument_used
+  - administration_mode
+  - respondent
+  - respondent_relationship
+  - items_asked
+
+subtypes: [SocioEconomicProfile, FunctioningProfile, AnthropometricProfile]
+supertypes: [Event]
+
+external_equivalents:
+  fhir:
+    label: "QuestionnaireResponse"
+    uri: "http://hl7.org/fhir/QuestionnaireResponse"
+    match: close
+    vocabulary: "FHIR R4"
+    note: "FHIR QuestionnaireResponse is the canonical peer for a single administration of a data-collection instrument; our Profile is abstract and splits by instrument family"
+  dci:
+    label: "SocioEconomicProfile"
+    uri: "https://schema.spdci.org/extensions/social-registries/v1/data/SocioEconomicProfile"
+    match: broad
+    vocabulary: "DCI Social Registry"
+    note: "DCI SocioEconomicProfile is the closest existing peer but covers only the socio-economic case; our Profile is the abstract supertype of three typed subtypes"
+
+convergence:
+  system_count: 1
+  total_systems: 6
+  notes: >
+    Only FHIR treats an instrument administration as a first-class record
+    (QuestionnaireResponse, Observation). DHIS2, OpenCRVS, OpenSPP, openIMIS,
+    and DCI Core flatten observation data into the subject record. Even so,
+    the observation pattern is how domain tools actually model this data
+    outside MIS cores: DHS and MICS store responses as separate survey
+    records, CommCare CMAM keeps nutrition measurements on a visit form, and
+    Washington Group analytics tabulate from raw item responses, not Person
+    flags. DCI's SocioEconomicProfile is the closest peer in the social
+    protection space and names the pattern explicitly.

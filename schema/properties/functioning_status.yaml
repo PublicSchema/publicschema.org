@@ -1,0 +1,13 @@
+id: functioning_status
+maturity: draft
+
+definition:
+  en: "A coarse current-state summary of the person's functioning difficulty, used by operational systems for targeting and eligibility queries. This is NOT a Washington Group or Child Functioning Module classification of the person: WG and CFM items are measured at the point of administration through a FunctioningProfile, and deriving a disability identifier requires applying a documented cutoff rule. Populate functioning_status from a FunctioningProfile only by citing the cutoff rule alongside; otherwise treat it as a self-declared or enumerator-judged summary."
+  fr: "Un résumé grossier de l'état actuel des difficultés fonctionnelles de la personne, utilisé par les systèmes opérationnels pour les requêtes de ciblage et d'éligibilité. Ce n'est PAS une classification Washington Group ou Module de fonctionnement de l'enfant de la personne : les items WG et CFM se mesurent au moment de l'administration via un FunctioningProfile, et dériver un identifiant de handicap exige d'appliquer une règle de seuil documentée. Renseignez functioning_status à partir d'un FunctioningProfile uniquement en citant la règle de seuil utilisée ; sinon, considérez-le comme un résumé auto-déclaré ou jugé par l'enquêteur."
+  es: "Un resumen grueso del estado actual de la dificultad funcional de la persona, usado por sistemas operativos para consultas de focalización y elegibilidad. Esto NO es una clasificación Washington Group o Módulo de Funcionamiento Infantil de la persona: los ítems WG y CFM se miden en el momento de la administración mediante un FunctioningProfile, y derivar un identificador de discapacidad requiere aplicar una regla de corte documentada. Complete functioning_status a partir de un FunctioningProfile solo citando la regla de corte; de lo contrario trátelo como un resumen autodeclarado o juzgado por el encuestador."
+
+type: string
+cardinality: single
+vocabulary: functional-difficulty-severity
+references: null
+sensitivity: sensitive

@@ -1,0 +1,17 @@
+id: spdci-social-registry
+title: "Social Registry (SR) Data Standard"
+short_title: "DCI Social Registry"
+publisher: "Digital Convergence Initiative (DCI)"
+year: null
+type: specification
+domain: social_protection
+uri: "https://standards.spdci.org/standards/social-registry"
+access: open
+status: active
+
+informs:
+  concepts:
+    - Profile
+    - SocioEconomicProfile
+  vocabularies: []
+  properties: []

@@ -1,0 +1,12 @@
+id: respondent
+maturity: draft
+
+definition:
+  en: "The person who provided the answers to the instrument, when different from the subject. Required whenever the administration mode is proxy or assisted."
+  fr: "La personne qui a fourni les réponses à l'instrument, lorsqu'elle est différente du sujet. Requise lorsque le mode d'administration est par procuration ou assisté."
+  es: "La persona que proporcionó las respuestas al instrumento, cuando es distinta del sujeto. Requerida cuando el modo de administración es por terceros o asistido."
+
+type: concept:Person
+cardinality: single
+vocabulary: null
+references: Person

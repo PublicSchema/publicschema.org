@@ -13,6 +13,7 @@ informs:
   concepts:
     - Person
   vocabularies:
+    - administration-mode
     - functional-difficulty-severity
   properties:
     - difficulty_cognition

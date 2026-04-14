@@ -1,0 +1,61 @@
+id: ScoringRule
+maturity: draft
+label:
+  en: Scoring Rule
+  fr: "Règle de notation"
+  es: Regla de puntuación
+
+definition:
+  en: >
+    A persistent set of rules, formulas, or cutoffs used to turn input data
+    into a score or a band. Scoring rules include proxy means test (PMT)
+    formulas, the Progress out of Poverty Index (PPI), multidimensional
+    poverty indices, Washington Group disability cutoffs (cutoff 3, cutoff
+    4, domain-specific), and WHO anthropometric band thresholds. Scoring
+    rules are registry entries: they exist independently of any particular
+    administration and can be applied to data collected through different
+    instruments.
+  fr: >
+    Un ensemble persistant de règles, formules ou seuils utilisés pour
+    transformer des données d'entrée en un score ou une bande. Les règles
+    de notation incluent les formules de test de substitution des
+    ressources (PMT), l'indice de progression hors de la pauvreté (PPI),
+    les indices de pauvreté multidimensionnelle, les seuils d'incapacité du
+    Washington Group (seuil 3, seuil 4, spécifique à un domaine) et les
+    seuils des bandes anthropométriques de l'OMS. Les règles de notation
+    sont des entrées de registre : elles existent indépendamment de toute
+    administration particulière et peuvent être appliquées à des données
+    collectées via différents instruments.
+  es: >
+    Un conjunto persistente de reglas, fórmulas o cortes utilizados para
+    transformar datos de entrada en una puntuación o banda. Las reglas de
+    puntuación incluyen las fórmulas de prueba proxy de medios de vida
+    (PMT), el Índice de Progreso fuera de la Pobreza (PPI), los índices de
+    pobreza multidimensional, los cortes de discapacidad del Washington
+    Group (corte 3, corte 4, específicos por dominio) y los umbrales de
+    bandas antropométricas de la OMS. Las reglas de puntuación son
+    entradas de registro: existen con independencia de cualquier
+    administración particular y pueden aplicarse a datos recolectados
+    mediante distintos instrumentos.
+
+properties:
+  - name
+  - scoring_method
+  - data_sources
+  - cutoff_score
+  - publication_url
+
+subtypes: []
+supertypes: []
+
+external_equivalents:
+  semic:
+    label: "Reference Framework"
+    uri: "http://data.europa.eu/m8g/ReferenceFramework"
+    match: close
+    vocabulary: "CCCEV"
+    note: "SEMIC ReferenceFramework is legislation or policy from which requirements derive; ours is narrower: a scoring methodology (PMT, WG cutoff, growth-standard thresholds)"
+
+convergence:
+  system_count: 4
+  total_systems: 6

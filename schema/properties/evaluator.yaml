@@ -1,0 +1,16 @@
+id: evaluator
+maturity: draft
+
+definition:
+  en: "The party (field officer, agency, or system) that performed the scoring."
+  fr: "La partie (agent de terrain, organisme ou système) ayant effectué la notation."
+  es: "La parte (agente de campo, organismo o sistema) que realizó la puntuación."
+
+type: concept:Party
+cardinality: single
+vocabulary: null
+references: Party
+
+convergence:
+  system_count: 1
+  total_systems: 3

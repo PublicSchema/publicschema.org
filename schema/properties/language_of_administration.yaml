@@ -1,0 +1,12 @@
+id: language_of_administration
+maturity: draft
+
+definition:
+  en: "The language(s) in which the instrument was administered to the subject. Washington Group analytical guidance notes that translation fidelity affects response patterns and recommends that the language of administration be recorded alongside the responses."
+  fr: "La ou les langues dans lesquelles l'instrument a été administré au sujet. Les lignes directrices analytiques du Washington Group notent que la fidélité de la traduction influe sur les schémas de réponse et recommandent d'enregistrer la langue d'administration aux côtés des réponses."
+  es: "El o los idiomas en los que se administró el instrumento al sujeto. Las directrices analíticas del Washington Group señalan que la fidelidad de la traducción influye en los patrones de respuesta y recomiendan registrar el idioma de administración junto a las respuestas."
+
+type: string
+cardinality: multiple
+vocabulary: language
+references: null

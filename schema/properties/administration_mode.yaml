@@ -1,0 +1,12 @@
+id: administration_mode
+maturity: draft
+
+definition:
+  en: "How the instrument was administered to the subject: self-report, proxy-report (someone else answering about the subject), assisted (the subject answering with help), or mixed. Washington Group analytical guidance recommends disaggregating prevalence by administration mode because proxy responses systematically underreport difficulty."
+  fr: "Comment l'instrument a été administré au sujet : auto-déclaration, déclaration par procuration (quelqu'un d'autre répondant au sujet du sujet), assisté (le sujet répondant avec aide) ou mixte. Les lignes directrices analytiques du Washington Group recommandent de désagréger la prévalence par mode d'administration, car les réponses par procuration sous-déclarent systématiquement la difficulté."
+  es: "Cómo se administró el instrumento al sujeto: autoinforme, informe por terceros (otra persona responde sobre el sujeto), asistido (el sujeto responde con ayuda) o mixto. Las directrices analíticas del Washington Group recomiendan desagregar la prevalencia por modo de administración, ya que las respuestas por terceros subestiman sistemáticamente la dificultad."
+
+type: string
+cardinality: single
+vocabulary: administration-mode
+references: null

@@ -1,0 +1,12 @@
+id: publication_url
+maturity: draft
+
+definition:
+  en: "A canonical URL where the instrument or scoring rule is published (typically a PDF or a documentation page hosted by the publisher)."
+  fr: "Une URL canonique à laquelle l'instrument ou la règle de notation est publiée (généralement un PDF ou une page de documentation hébergée par l'éditeur)."
+  es: "Una URL canónica donde se publica el instrumento o la regla de puntuación (normalmente un PDF o una página de documentación alojada por el editor)."
+
+type: uri
+cardinality: single
+vocabulary: null
+references: null

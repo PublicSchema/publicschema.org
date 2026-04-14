@@ -1,0 +1,16 @@
+id: rule_applied
+maturity: draft
+
+definition:
+  en: "Reference to the scoring rule that was applied in this scoring event."
+  fr: "Référence à la règle de notation appliquée lors de cet événement de notation."
+  es: "Referencia a la regla de puntuación aplicada en este evento de puntuación."
+
+type: concept:ScoringRule
+cardinality: single
+vocabulary: null
+references: ScoringRule
+
+convergence:
+  system_count: 2
+  total_systems: 3

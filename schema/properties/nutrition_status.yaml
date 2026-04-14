@@ -1,0 +1,13 @@
+id: nutrition_status
+maturity: draft
+
+definition:
+  en: "A coarse current-state summary of the person's acute malnutrition status, used by operational systems for targeting and referral queries. This is NOT a z-score classification on a specific measurement: band classifications depend on a growth reference, an age at measurement, and oedema status captured on an AnthropometricProfile. Populate nutrition_status from an AnthropometricProfile only by citing the cutoff rule alongside."
+  fr: "Un résumé grossier de l'état actuel de malnutrition aiguë de la personne, utilisé par les systèmes opérationnels pour les requêtes de ciblage et d'orientation. Ce n'est PAS une classification par score z sur une mesure donnée : les classifications en bandes dépendent d'une référence de croissance, d'un âge à la mesure et d'un statut œdémateux consignés sur un AnthropometricProfile. Renseignez nutrition_status à partir d'un AnthropometricProfile uniquement en citant la règle de seuil utilisée."
+  es: "Un resumen grueso del estado actual de desnutrición aguda de la persona, usado por sistemas operativos para consultas de focalización y derivación. Esto NO es una clasificación por puntaje z sobre una medición específica: las clasificaciones por bandas dependen de una referencia de crecimiento, una edad al momento de medición y un estado de edema consignados en un AnthropometricProfile. Complete nutrition_status a partir de un AnthropometricProfile solo citando la regla de corte."
+
+type: string
+cardinality: single
+vocabulary: acute-malnutrition-severity
+references: null
+sensitivity: sensitive

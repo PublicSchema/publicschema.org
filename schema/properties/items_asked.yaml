@@ -1,0 +1,12 @@
+id: items_asked
+maturity: draft
+
+definition:
+  en: "The property IDs that were actually asked during this administration. Lets adopters distinguish items that were asked and declined (answer absent) from items that were not asked at all. When omitted, the item set is assumed to be the default item_set of the instrument used."
+  fr: "Les identifiants des propriétés effectivement posées lors de cette administration. Permet aux adopteurs de distinguer les items posés et refusés (réponse absente) des items qui n'ont pas été posés du tout. En l'absence de cette liste, l'ensemble d'items est présumé correspondre à l'item_set par défaut de l'instrument utilisé."
+  es: "Los identificadores de las propiedades realmente preguntadas durante esta administración. Permite a los adoptantes distinguir ítems preguntados y rechazados (respuesta ausente) de ítems que no fueron preguntados. Cuando se omite, el conjunto de ítems se asume igual al item_set por defecto del instrumento utilizado."
+
+type: string
+cardinality: multiple
+vocabulary: null
+references: null
