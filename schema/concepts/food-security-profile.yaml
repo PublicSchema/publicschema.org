@@ -64,10 +64,12 @@ properties:
   - lcs_sold_productive_assets
   - lcs_withdrew_children_from_school
   - lcs_reduced_essential_nonfood
+  - lcs_consumed_seed_stock
   - lcs_harvested_immature_crops
   - lcs_sold_house_or_land
   - lcs_migrated_whole_household
-  - lcs_child_labor_or_early_marriage
+  - lcs_child_labor
+  - lcs_early_marriage
   - lcs_begging
   - hdds_cereals_consumed
   - hdds_roots_tubers_consumed
@@ -140,10 +142,12 @@ property_groups:
       - lcs_sold_productive_assets
       - lcs_withdrew_children_from_school
       - lcs_reduced_essential_nonfood
+      - lcs_consumed_seed_stock
       - lcs_harvested_immature_crops
       - lcs_sold_house_or_land
       - lcs_migrated_whole_household
-      - lcs_child_labor_or_early_marriage
+      - lcs_child_labor
+      - lcs_early_marriage
       - lcs_begging
       - hdds_cereals_consumed
       - hdds_roots_tubers_consumed

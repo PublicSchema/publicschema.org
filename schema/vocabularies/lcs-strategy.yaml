@@ -5,13 +5,13 @@ label:
   fr: "Stratégie d'adaptation des moyens d'existence"
   es: "Estrategia de afrontamiento de medios de vida"
 definition:
-  en: "The twelve household coping strategies tracked by the WFP Livelihood Coping Strategies (LCS) module, grouped into three severity tiers: stress strategies are reversible and indicate reduced ability to deal with future shocks; crisis strategies directly reduce future productive capacity; emergency strategies are harder to reverse and affect long-term welfare. Under CARI, a household's LCS output is the highest tier reported to have been adopted."
-  fr: "Les douze stratégies d'adaptation des ménages suivies par le module Livelihood Coping Strategies (LCS) du PAM, regroupées en trois niveaux de gravité : les stratégies de stress sont réversibles et indiquent une capacité réduite à faire face aux chocs futurs ; les stratégies de crise réduisent directement la capacité productive future ; les stratégies d'urgence sont plus difficiles à inverser et affectent le bien-être à long terme. Sous CARI, la sortie LCS d'un ménage est le niveau le plus élevé déclaré avoir été adopté."
-  es: "Las doce estrategias de afrontamiento de los hogares monitoreadas por el módulo Livelihood Coping Strategies (LCS) del PMA, agrupadas en tres niveles de gravedad: las estrategias de estrés son reversibles e indican capacidad reducida para enfrentar choques futuros; las estrategias de crisis reducen directamente la capacidad productiva futura; las estrategias de emergencia son más difíciles de revertir y afectan el bienestar a largo plazo. Bajo CARI, la salida LCS de un hogar es el nivel más alto reportado como adoptado."
+  en: "An illustrative set of household coping strategies drawn from the WFP Livelihood Coping Strategies (LCS) module, grouped into three severity tiers: stress strategies are reversible and indicate reduced ability to deal with future shocks; crisis strategies directly reduce future productive capacity; emergency strategies are harder to reverse and affect long-term welfare. Under CARI, a household's LCS output is the highest tier reported to have been adopted. WFP VAM expects operations to contextualise the strategy list and tier assignments per country; the codes below should be read as a canonical reference set, not a closed list."
+  fr: "Un ensemble illustratif de stratégies d'adaptation des ménages tiré du module Livelihood Coping Strategies (LCS) du PAM, regroupées en trois niveaux de gravité : les stratégies de stress sont réversibles et indiquent une capacité réduite à faire face aux chocs futurs ; les stratégies de crise réduisent directement la capacité productive future ; les stratégies d'urgence sont plus difficiles à inverser et affectent le bien-être à long terme. Sous CARI, la sortie LCS d'un ménage est le niveau le plus élevé déclaré avoir été adopté. VAM du PAM attend que les opérations contextualisent la liste des stratégies et les affectations de niveau par pays ; les codes ci-dessous sont un ensemble de référence canonique, non une liste fermée."
+  es: "Un conjunto ilustrativo de estrategias de afrontamiento de los hogares extraído del módulo Livelihood Coping Strategies (LCS) del PMA, agrupadas en tres niveles de gravedad: las estrategias de estrés son reversibles e indican capacidad reducida para enfrentar choques futuros; las estrategias de crisis reducen directamente la capacidad productiva futura; las estrategias de emergencia son más difíciles de revertir y afectan el bienestar a largo plazo. Bajo CARI, la salida LCS de un hogar es el nivel más alto reportado como adoptado. VAM del PMA espera que las operaciones contextualicen la lista de estrategias y las asignaciones de nivel por país; los códigos a continuación son un conjunto de referencia canónico, no una lista cerrada."
 standard:
   name: "WFP CARI Guidelines (3rd edition, 2021)"
-  uri: "https://docs.wfp.org/api/documents/WFP-0000132207/download/"
-  notes: "The exact list of strategies and their tier assignments are contextualized per country by WFP VAM. The twelve strategies below are the canonical set most frequently deployed; country-specific adaptations extend or substitute strategies within each tier."
+  uri: "https://docs.wfp.org/api/documents/WFP-0000134704/download/"
+  notes: "The exact list of strategies and their tier assignments are contextualized per country by WFP VAM. The codes below are a canonical reference set most frequently deployed; country-specific adaptations extend or substitute strategies within each tier."
 values:
 - code: spent_savings
   label:
@@ -90,15 +90,26 @@ values:
     es: "El hogar redujo gastos no alimentarios esenciales como atención sanitaria, impidiendo el acceso al tratamiento necesario. Nivel crisis."
   notes:
     en: "LCS tier = crisis"
+- code: consumed_seed_stock
+  label:
+    en: Consumed seed stock
+    fr: "A consommé les stocks de semences"
+    es: "Consumió las reservas de semillas"
+  definition:
+    en: "The household consumed seed stocks held for the next planting season. Crisis tier: compromises the next production cycle."
+    fr: "Le ménage a consommé les stocks de semences conservés pour la prochaine saison. Niveau crise : compromet le prochain cycle de production."
+    es: "El hogar consumió reservas de semillas guardadas para la próxima siembra. Nivel crisis: compromete el próximo ciclo productivo."
+  notes:
+    en: "LCS tier = crisis"
 - code: harvested_immature_crops
   label:
-    en: Consumed seed stock or harvested immature crops
-    fr: "A consommé les stocks de semences ou récolté des cultures immatures"
-    es: "Consumió las reservas de semillas o cosechó cultivos inmaduros"
+    en: Harvested immature crops
+    fr: "A récolté des cultures immatures"
+    es: "Cosechó cultivos inmaduros"
   definition:
-    en: "The household consumed seed stocks held for the next planting season, or harvested crops before maturity. Crisis tier: compromises the next production cycle."
-    fr: "Le ménage a consommé les stocks de semences conservés pour la prochaine saison ou a récolté des cultures avant maturité. Niveau crise : compromet le prochain cycle de production."
-    es: "El hogar consumió reservas de semillas guardadas para la próxima siembra, o cosechó cultivos antes de su madurez. Nivel crisis: compromete el próximo ciclo productivo."
+    en: "The household harvested crops before maturity. Crisis tier: reduces yield and compromises the current production cycle."
+    fr: "Le ménage a récolté des cultures avant maturité. Niveau crise : réduit le rendement et compromet le cycle de production en cours."
+    es: "El hogar cosechó cultivos antes de su madurez. Nivel crisis: reduce el rendimiento y compromete el ciclo productivo actual."
   notes:
     en: "LCS tier = crisis"
 - code: sold_house_or_land
@@ -123,15 +134,26 @@ values:
     es: "El hogar entero migró para buscar alimentos o ingresos. Nivel emergencia: distinto de la migración laboral estacional normal, que no constituye afrontamiento de crisis."
   notes:
     en: "LCS tier = emergency"
-- code: child_labor_or_early_marriage
+- code: child_labor
   label:
-    en: Engaged in high-risk work, child labour, or early marriage
-    fr: "A eu recours au travail à haut risque, au travail des enfants ou au mariage précoce"
-    es: "Recurrió a trabajo de alto riesgo, trabajo infantil o matrimonio precoz"
+    en: Engaged in child labour or high-risk work
+    fr: "A eu recours au travail des enfants ou au travail à haut risque"
+    es: "Recurrió al trabajo infantil o trabajo de alto riesgo"
   definition:
-    en: "Household members, including children, engaged in exploitative or high-risk work; or children were married early to reduce household burden. Emergency tier: long-term welfare harm, protection red flag."
-    fr: "Des membres du ménage, y compris des enfants, ont eu recours à un travail exploitant ou à haut risque, ou des enfants ont été mariés tôt pour alléger la charge du ménage. Niveau urgence : préjudice de bien-être à long terme, signal d'alerte en matière de protection."
-    es: "Miembros del hogar, incluidos niños, recurrieron a trabajo de explotación o de alto riesgo; o se casaron niños tempranamente para reducir la carga familiar. Nivel emergencia: daño al bienestar de largo plazo, señal de alerta de protección."
+    en: "Household members, including children, engaged in exploitative or high-risk work to meet food needs. Emergency tier: long-term welfare harm, protection red flag."
+    fr: "Des membres du ménage, y compris des enfants, ont eu recours à un travail exploitant ou à haut risque pour couvrir les besoins alimentaires. Niveau urgence : préjudice de bien-être à long terme, signal d'alerte en matière de protection."
+    es: "Miembros del hogar, incluidos niños, recurrieron a trabajo de explotación o de alto riesgo para cubrir las necesidades alimentarias. Nivel emergencia: daño al bienestar de largo plazo, señal de alerta de protección."
+  notes:
+    en: "LCS tier = emergency"
+- code: early_marriage
+  label:
+    en: Arranged early marriage for a household member
+    fr: "A organisé un mariage précoce pour un membre du ménage"
+    es: "Concertó el matrimonio precoz de un miembro del hogar"
+  definition:
+    en: "The household arranged the early marriage of one or more members (typically a girl) to reduce household burden or obtain bride price. Emergency tier: long-term welfare harm, protection red flag."
+    fr: "Le ménage a organisé le mariage précoce d'un ou plusieurs membres (typiquement une fille) pour alléger la charge du ménage ou obtenir une dot. Niveau urgence : préjudice de bien-être à long terme, signal d'alerte en matière de protection."
+    es: "El hogar concertó el matrimonio precoz de uno o más miembros (típicamente una niña) para reducir la carga familiar u obtener una dote. Nivel emergencia: daño al bienestar de largo plazo, señal de alerta de protección."
   notes:
     en: "LCS tier = emergency"
 - code: begging
