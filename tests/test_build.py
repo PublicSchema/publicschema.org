@@ -5,6 +5,7 @@ TDD: these tests define expected behavior before implementation.
 
 import json
 import re
+from pathlib import Path
 
 import jsonschema
 import pytest
@@ -1364,3 +1365,46 @@ class TestPropertyCategories:
         write_concept("person.yaml", make_concept(id="Person"))
         result = build_vocabulary(tmp_schema)
         assert result["categories"] == {}
+
+
+# ---------------------------------------------------------------------------
+# Schema / build output drift detection
+# ---------------------------------------------------------------------------
+
+class TestPropertySchemaDrift:
+    """Catch fields defined in property.schema.json but missing from build output."""
+
+    # Fields consumed at build time but intentionally excluded from output.
+    BUILD_ONLY_FIELDS = {"domain_override"}
+
+    def test_build_output_covers_all_schema_fields(
+        self, tmp_schema, write_concept, write_property,
+    ):
+        """Every field in property.schema.json appears in build output.
+
+        If this test fails, a field was added to the JSON schema but not
+        passed through in build_vocabulary's property output dict.
+        Update build.py to include the missing field, or add it to
+        BUILD_ONLY_FIELDS if it is intentionally excluded.
+        """
+        schema_path = self.tmp_schema = (
+            Path(__file__).parent.parent / "build" / "schemas" / "property.schema.json"
+        )
+        with schema_path.open() as f:
+            schema_fields = set(json.load(f)["properties"].keys())
+
+        # Build a property that carries every optional field so we can
+        # inspect which keys build_vocabulary passes through.
+        write_property("probe.yaml", make_property(id="probe"))
+        write_concept("person.yaml", make_concept(
+            id="Person", properties=["probe"],
+        ))
+        result = build_vocabulary(tmp_schema)
+        output_keys = set(result["properties"]["probe"].keys())
+
+        expected = schema_fields - self.BUILD_ONLY_FIELDS
+        missing = expected - output_keys
+        assert not missing, (
+            f"property.schema.json fields not in build output: {sorted(missing)}. "
+            f"Add them to build_vocabulary in build.py, or to BUILD_ONLY_FIELDS if intentional."
+        )

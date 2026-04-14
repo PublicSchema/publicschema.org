@@ -157,6 +157,8 @@ class TestConceptCSV:
         assert set(reader.fieldnames) == {
             "property", "type", "cardinality",
             "definition", "vocabulary",
+            "maturity", "sensitivity", "category",
+            "age_applicability", "valid_instruments",
         }
 
     def test_csv_has_one_row_per_property(self, sample_vocab_result, tmp_path):
@@ -186,6 +188,118 @@ class TestConceptCSV:
         result = build_vocabulary(tmp_schema)
         generate_concept_csv("Person", result, tmp_path)
         assert (tmp_path / "Person.csv").exists()
+
+
+# ---------------------------------------------------------------------------
+# Metadata columns (CSV + definition XLSX)
+# ---------------------------------------------------------------------------
+
+class TestMetadataExport:
+    """Metadata fields from the property schema appear in CSV and XLSX exports."""
+
+    @pytest.fixture
+    def metadata_vocab_result(
+        self, tmp_schema, write_concept, write_property,
+    ):
+        write_property("difficulty_walking.yaml", make_property(
+            id="difficulty_walking",
+            maturity="candidate",
+            sensitivity="sensitive",
+            category="functioning",
+            age_applicability=["adult", "child_5_17"],
+            valid_instruments=["wg_ss", "wg_es"],
+        ))
+        write_property("given_name.yaml", make_property(
+            id="given_name",
+            maturity="normative",
+        ))
+        write_concept("person.yaml", make_concept(
+            id="Person",
+            properties=["difficulty_walking", "given_name"],
+        ))
+        return build_vocabulary(tmp_schema)
+
+    # --- CSV ---
+
+    def test_csv_metadata_values_populated(self, metadata_vocab_result, tmp_path):
+        generate_concept_csv("Person", metadata_vocab_result, tmp_path)
+        csv_path = tmp_path / "Person.csv"
+        reader = csv.DictReader(csv_path.open())
+        rows = {r["property"]: r for r in reader}
+
+        row = rows["difficulty_walking"]
+        assert row["maturity"] == "candidate"
+        assert row["sensitivity"] == "sensitive"
+        assert row["category"] == "functioning"
+        assert row["age_applicability"] == "adult, child_5_17"
+        assert row["valid_instruments"] == "wg_ss, wg_es"
+
+    def test_csv_metadata_empty_when_absent(self, metadata_vocab_result, tmp_path):
+        generate_concept_csv("Person", metadata_vocab_result, tmp_path)
+        csv_path = tmp_path / "Person.csv"
+        reader = csv.DictReader(csv_path.open())
+        rows = {r["property"]: r for r in reader}
+
+        row = rows["given_name"]
+        assert row["maturity"] == "normative"
+        assert row["sensitivity"] == ""
+        assert row["category"] == ""
+        assert row["age_applicability"] == ""
+        assert row["valid_instruments"] == ""
+
+    # --- Definition XLSX ---
+
+    def test_definition_xlsx_has_metadata_columns(self, metadata_vocab_result, tmp_path):
+        generate_definition_xlsx("Person", metadata_vocab_result, tmp_path)
+        wb = load_workbook(tmp_path / "Person-definition.xlsx")
+        ws = wb["Properties"]
+        headers = [ws.cell(row=1, column=c).value for c in range(1, ws.max_column + 1)]
+        assert "Maturity" in headers
+        assert "Sensitivity" in headers
+        assert "Category" in headers
+        assert "Age Applicability" in headers
+        assert "Valid Instruments" in headers
+
+    def test_definition_xlsx_metadata_values(self, metadata_vocab_result, tmp_path):
+        generate_definition_xlsx("Person", metadata_vocab_result, tmp_path)
+        wb = load_workbook(tmp_path / "Person-definition.xlsx")
+        ws = wb["Properties"]
+        headers = [ws.cell(row=1, column=c).value for c in range(1, ws.max_column + 1)]
+
+        mat_col = headers.index("Maturity") + 1
+        sens_col = headers.index("Sensitivity") + 1
+        cat_col = headers.index("Category") + 1
+        age_col = headers.index("Age Applicability") + 1
+        inst_col = headers.index("Valid Instruments") + 1
+
+        # Row 2 = difficulty_walking (has all metadata)
+        assert ws.cell(row=2, column=mat_col).value == "candidate"
+        assert ws.cell(row=2, column=sens_col).value == "sensitive"
+        assert ws.cell(row=2, column=cat_col).value == "functioning"
+        assert ws.cell(row=2, column=age_col).value == "adult, child_5_17"
+        assert ws.cell(row=2, column=inst_col).value == "wg_ss, wg_es"
+
+    def test_definition_xlsx_metadata_empty_when_absent(self, metadata_vocab_result, tmp_path):
+        generate_definition_xlsx("Person", metadata_vocab_result, tmp_path)
+        wb = load_workbook(tmp_path / "Person-definition.xlsx")
+        ws = wb["Properties"]
+        headers = [ws.cell(row=1, column=c).value for c in range(1, ws.max_column + 1)]
+
+        # Row 3 = given_name (minimal metadata)
+        mat_col = headers.index("Maturity") + 1
+        sens_col = headers.index("Sensitivity") + 1
+        assert ws.cell(row=3, column=mat_col).value == "normative"
+        assert ws.cell(row=3, column=sens_col).value is None
+
+    # --- Template XLSX (should NOT change) ---
+
+    def test_template_xlsx_excludes_metadata(self, metadata_vocab_result, tmp_path):
+        """Metadata columns must not appear in the data-entry template."""
+        generate_template_xlsx("Person", metadata_vocab_result, tmp_path)
+        wb = load_workbook(tmp_path / "Person-template.xlsx")
+        ws = wb["Data"]
+        ids = [ws.cell(row=2, column=c).value for c in range(1, ws.max_column + 1)]
+        assert set(ids) == {"difficulty_walking", "given_name"}
 
 
 # ---------------------------------------------------------------------------

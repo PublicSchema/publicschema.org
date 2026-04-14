@@ -6,6 +6,7 @@ so they can be served as static files at clean URLs
 """
 
 import csv
+import json
 from pathlib import Path
 
 from openpyxl import Workbook
@@ -48,6 +49,41 @@ DOMAIN_LABELS = {
     "health": "Health",
     "crvs": "Civil Registration and Vital Statistics",
 }
+
+# Curated list of property metadata fields to include in exports (beyond
+# the core property/type/cardinality/definition/vocabulary columns).
+# Order here determines column order in CSV and XLSX.
+EXPORT_METADATA_FIELDS = [
+    "maturity",
+    "sensitivity",
+    "category",
+    "age_applicability",
+    "valid_instruments",
+]
+
+_PROPERTY_SCHEMA_PATH = Path(__file__).parent / "schemas" / "property.schema.json"
+
+
+def _load_property_schema_props() -> dict:
+    """Return the 'properties' dict from the property JSON schema."""
+    with _PROPERTY_SCHEMA_PATH.open() as f:
+        return json.load(f)["properties"]
+
+
+def _column_header(field_id: str) -> str:
+    """Convert a snake_case field ID to a Title Case column header."""
+    return field_id.replace("_", " ").title()
+
+
+def _format_metadata_value(prop: dict, field_id: str, schema_props: dict) -> str:
+    """Format a property metadata value for export, using the schema type."""
+    value = prop.get(field_id)
+    if value is None:
+        return ""
+    field_schema = schema_props.get(field_id, {})
+    if field_schema.get("type") == "array":
+        return ", ".join(str(v) for v in value)
+    return str(value)
 
 
 def _concept_dir(concept: dict, base_dir: Path) -> Path:
@@ -154,21 +190,25 @@ def generate_concept_csv(
     out_dir = _concept_dir(concept, output_dir)
     csv_path = out_dir / f"{concept_id}.csv"
 
+    schema_props = _load_property_schema_props()
     fieldnames = [
         "property", "type", "cardinality",
         "definition", "vocabulary",
-    ]
+    ] + EXPORT_METADATA_FIELDS
     with csv_path.open("w", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
         for prop in properties:
-            writer.writerow({
+            row = {
                 "property": prop["id"],
                 "type": prop.get("type", "string"),
                 "cardinality": prop.get("cardinality", "single"),
                 "definition": (prop.get("definition") or {}).get("en", ""),
                 "vocabulary": prop.get("vocabulary") or "",
-            })
+            }
+            for field_id in EXPORT_METADATA_FIELDS:
+                row[field_id] = _format_metadata_value(prop, field_id, schema_props)
+            writer.writerow(row)
 
 
 # ---------------------------------------------------------------------------
@@ -299,16 +339,18 @@ def generate_definition_xlsx(
     # --- Sheet 2: Properties ---
     ws_props = wb.create_sheet("Properties")
     ws_props.sheet_properties.tabColor = _BLUE_DARK
+    schema_props = _load_property_schema_props()
     prop_headers = [
         "Property", "Type", "Cardinality",
         "Definition (EN)", "Definition (FR)", "Definition (ES)",
         "Vocabulary",
-    ]
+    ] + [_column_header(f) for f in EXPORT_METADATA_FIELDS]
     for c, header in enumerate(prop_headers, start=1):
         ws_props.cell(row=1, column=c, value=header)
     _style_header_row(ws_props, 1, len(prop_headers))
     ws_props.freeze_panes = "A2"
 
+    metadata_start_col = 8  # columns after the 7 core headers
     for row_idx, prop in enumerate(properties, start=2):
         defn = prop.get("definition") or {}
         ws_props.cell(row=row_idx, column=1, value=prop["id"]).font = VALUE_FONT
@@ -319,6 +361,13 @@ def generate_definition_xlsx(
             cell.font = VALUE_FONT
             cell.alignment = WRAP_ALIGNMENT
         ws_props.cell(row=row_idx, column=7, value=prop.get("vocabulary") or "").font = VALUE_FONT
+        for offset, field_id in enumerate(EXPORT_METADATA_FIELDS):
+            value = _format_metadata_value(prop, field_id, schema_props)
+            cell = ws_props.cell(
+                row=row_idx, column=metadata_start_col + offset,
+                value=value or None,
+            )
+            cell.font = VALUE_FONT
 
     _style_alternating_rows(ws_props, 2, len(properties) + 1, len(prop_headers))
     _auto_column_widths(ws_props)
