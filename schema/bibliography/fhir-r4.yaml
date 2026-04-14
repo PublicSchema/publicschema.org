@@ -12,12 +12,14 @@ status: active
 
 informs:
   concepts:
+    - Agent
     - AnthropometricProfile
     - DwellingDamageProfile
     - FoodSecurityProfile
     - FunctioningProfile
     - IdentityDocument
     - Instrument
+    - Organization
     - Profile
   vocabularies: []
   properties:

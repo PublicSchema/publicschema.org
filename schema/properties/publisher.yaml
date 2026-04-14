@@ -2,11 +2,11 @@ id: publisher
 maturity: draft
 
 definition:
-  en: "The organization that publishes or maintains the instrument, software agent, or scoring rule (for example, the Washington Group on Disability Statistics, UNICEF, the SMART initiative, the openIMIS Initiative, or a national statistics office)."
-  fr: "L'organisation qui publie ou maintient l'instrument, l'agent logiciel ou la règle de notation (par exemple, le Washington Group on Disability Statistics, l'UNICEF, l'initiative SMART, l'initiative openIMIS ou un institut national de statistique)."
-  es: "La organización que publica o mantiene el instrumento, el agente de software o la regla de puntuación (por ejemplo, el Washington Group on Disability Statistics, UNICEF, la iniciativa SMART, la iniciativa openIMIS o una oficina nacional de estadística)."
+  en: "The agent that publishes or maintains the instrument, software agent, or scoring rule. Typically an Organization (for example, the Washington Group on Disability Statistics, UNICEF, the SMART initiative, the openIMIS Initiative, or a national statistics office), but may be a named Person for standards methodologies and individual research publications. A SoftwareAgent is not expected to appear here: the publisher of a SoftwareAgent record is the Person or Organization that publishes the software, not another piece of software. The type system admits SoftwareAgent via the Agent supertype, but that case is excluded by convention."
+  fr: "L'agent qui publie ou maintient l'instrument, l'agent logiciel ou la règle de notation. Généralement une Organization (par exemple, le Washington Group on Disability Statistics, l'UNICEF, l'initiative SMART, l'initiative openIMIS ou un institut national de statistique), mais peut être une Person nommée pour des méthodologies normatives ou des publications de recherche individuelles. Un SoftwareAgent n'est pas attendu à cet emplacement : l'éditeur d'un enregistrement SoftwareAgent est la Person ou l'Organization qui publie le logiciel, et non un autre logiciel. Le système de types admet SoftwareAgent via le supertype Agent, mais ce cas est exclu par convention."
+  es: "El agente que publica o mantiene el instrumento, el agente de software o la regla de puntuación. Normalmente una Organization (por ejemplo, el Washington Group on Disability Statistics, UNICEF, la iniciativa SMART, la iniciativa openIMIS o una oficina nacional de estadística), pero puede ser una Person nombrada para metodologías normativas o publicaciones de investigación individuales. No se espera que aparezca un SoftwareAgent en esta posición: el editor de un registro SoftwareAgent es la Person o la Organization que publica el software, no otro software. El sistema de tipos admite SoftwareAgent a través del supertipo Agent, pero ese caso queda excluido por convención."
 
-type: concept:Party
+type: concept:Agent
 cardinality: single
 vocabulary: null
-references: Party
+references: Agent

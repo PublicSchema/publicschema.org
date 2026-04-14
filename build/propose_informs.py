@@ -36,12 +36,14 @@ EXTERNAL_EQUIV_LOOKUP: dict[tuple[str, str | None], str | None] = {
     ("semic", "Core Person"): "semic-core-person",
     ("semic", "Core Location"): "semic-core-location",
     ("semic", "CCCEV"): "semic-cccev",
+    ("semic", "CPOV"): "semic-cpov",
     ("semic", "Core Vocabularies"): None,  # match=none in practice; flag if not
     ("semic", "ADMS"): "semic-adms",
     ("fhir", "FHIR R4"): "fhir-r4",
     ("icao", "ICAO Doc 9303"): "icao-doc-9303",
     ("prov", "PROV-O"): "w3c-prov-o",
     ("foaf", "FOAF"): "foaf",
+    ("schema-org", "schema.org"): "schema-org",
     # opencrvs is a system, not a standard; intentionally excluded.
 }
 

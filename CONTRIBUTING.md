@@ -57,15 +57,17 @@ Key fields:
 - `domain`: set to `sp` for social-protection-specific concepts, omit for universal concepts
 - `maturity`: one of `draft`, `candidate`, `normative`
 - `featured`: `true` (optional) marks the concept for homepage and summary views
-- `abstract`: `true` (optional) marks the concept as a supertype that is not instantiated directly. Profile, Event, and Party are examples.
+- `abstract`: `true` (optional) marks the concept as a supertype that is not instantiated directly. Agent, Event, Party, and Profile are examples.
 - `properties`: list of property references
 - `translations`: definitions in `fr` and `es`
 
 #### Abstract supertypes and registry concepts
 
-Some concepts serve as abstract supertypes rather than directly instantiated records. Profile is an example: it is an abstract concept with three subtypes: SocioEconomicProfile, FunctioningProfile, and AnthropometricProfile. When adding a concept that represents a point-in-time observation record, consider whether it belongs as a Profile subtype. See `decisions/006-profile-hierarchy.md` (ADR-006) for the rationale.
+Some concepts serve as abstract supertypes rather than directly instantiated records. Profile is an example: it is an abstract concept with five subtypes: SocioEconomicProfile, FunctioningProfile, AnthropometricProfile, FoodSecurityProfile, and DwellingDamageProfile. When adding a concept that represents a point-in-time observation record, consider whether it belongs as a Profile subtype. See `decisions/006-profile-hierarchy.md` (ADR-006) for the rationale.
 
-Instrument and SoftwareAgent are registry concepts, not events or records. Instrument describes a data-collection tool (for example, the WG-SS questionnaire); SoftwareAgent records the software that ran a scoring or eligibility step. New concepts in these categories should follow the same pattern rather than introducing a parallel structure.
+Agent and Party are the two actor/receiver abstract supertypes. Party groups entities that receive services (Person, Group). Agent groups entities that perform services (Person, Organization, SoftwareAgent). Person belongs to both. When adding a concept that represents an institutional body that acts within delivery (an agency, ministry, NGO, registry office, standards publisher), model it as a subtype of Agent (typically by extending Organization) rather than by adding a new top-level concept. See `decisions/008-agent-organization.md` (ADR-008).
+
+Instrument and SoftwareAgent are registry concepts. Instrument describes a data-collection tool (for example, the WG-SS questionnaire); SoftwareAgent records the software that ran a scoring or eligibility step. New concepts in these categories should follow the same pattern rather than introducing a parallel structure.
 
 ### Adding a property
 

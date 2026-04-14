@@ -11,30 +11,35 @@ definition:
     process, such as a scoring engine that computed a proxy means test
     score or a rule engine that evaluated eligibility. SoftwareAgent
     records the identity and version of the software so that a result
-    can be reproduced or audited later. It is distinct from a Party
-    (the person or organisation accountable for the action) and from
-    an Instrument (the questionnaire or measurement tool administered
-    to a subject).
+    can be reproduced or audited later. SoftwareAgent is a subtype of
+    Agent, alongside Person and Organization. It is distinct from the
+    Person or Organization accountable for the action (recorded in
+    properties such as performed_by or evaluator) and from an
+    Instrument (the questionnaire or measurement tool administered to
+    a subject).
   fr: >
     Un produit ou système logiciel ayant effectué une étape dans un
     processus de prestation, par exemple un moteur de notation qui a
     calculé un score de test de substitution des ressources ou un
     moteur de règles qui a évalué l'admissibilité. SoftwareAgent
     enregistre l'identité et la version du logiciel afin qu'un résultat
-    puisse être reproduit ou audité ultérieurement. Il est distinct
-    d'une Party (la personne ou l'organisme responsable de l'action)
-    et d'un Instrument (le questionnaire ou l'outil de mesure
-    administré à un sujet).
+    puisse être reproduit ou audité ultérieurement. SoftwareAgent est
+    un sous-type d'Agent, au même titre que Person et Organization. Il
+    est distinct de la Person ou de l'Organization responsable de
+    l'action (consignée dans des propriétés comme performed_by ou
+    evaluator) et d'un Instrument (le questionnaire ou l'outil de
+    mesure administré à un sujet).
   es: >
     Un producto o sistema de software que realizó un paso en un proceso
     de prestación, por ejemplo un motor de puntuación que calculó una
     puntuación de prueba proxy de medios de vida o un motor de reglas
     que evaluó la elegibilidad. SoftwareAgent registra la identidad y
     la versión del software para que un resultado pueda reproducirse
-    o auditarse posteriormente. Es distinto de una Party (la persona u
-    organismo responsable de la acción) y de un Instrument (el
-    cuestionario o la herramienta de medición administrada a un
-    sujeto).
+    o auditarse posteriormente. SoftwareAgent es un subtipo de Agent,
+    junto con Person y Organization. Es distinto de la Person u
+    Organization responsable de la acción (registrada en propiedades
+    como performed_by o evaluator) y de un Instrument (el cuestionario
+    o la herramienta de medición administrada a un sujeto).
 
 properties:
   - name
@@ -43,7 +48,7 @@ properties:
   - publication_url
 
 subtypes: []
-supertypes: []
+supertypes: [Agent]
 
 external_equivalents:
   prov:
@@ -57,7 +62,7 @@ external_equivalents:
     uri: "http://xmlns.com/foaf/0.1/Agent"
     match: broad
     vocabulary: "FOAF"
-    note: "foaf:Agent is the broad supertype covering persons, organisations, and software. SoftwareAgent is narrower: software specifically. Party covers the other side (persons and organisations)."
+    note: "foaf:Agent is the broad supertype covering persons, organisations, and software. SoftwareAgent is narrower: software specifically. Our Agent concept is the local peer for foaf:Agent and is the shared supertype of Person, Organization, and SoftwareAgent."
 
 convergence:
   system_count: 0

@@ -102,7 +102,7 @@ We begin with social protection because:
 - We already have convergence data from 6 systems covering 18+ concepts
 - The interoperability pain is immediate and concrete
 
-Initial concept coverage includes people and identity (Person, Household, Family, Group, Identifier, Address, Location), program delivery (Program, Enrollment, Entitlement, EligibilityDecision, Instrument, SoftwareAgent, Profile with SocioEconomicProfile / FunctioningProfile / AnthropometricProfile subtypes, ScoringRule, ScoringEvent), payments (PaymentEvent), and accountability (Grievance, Referral).
+Initial concept coverage includes people and identity (Person, Household, Family, Group, Identifier, Address, Location), actors (Agent, Organization, SoftwareAgent), program delivery (Program, Enrollment, Entitlement, EligibilityDecision, Instrument, Profile with SocioEconomicProfile / FunctioningProfile / AnthropometricProfile subtypes, ScoringRule, ScoringEvent), payments (PaymentEvent), and accountability (Grievance, Referral).
 
 Concepts that need further exploration based on practitioner feedback:
 

@@ -68,6 +68,7 @@ property_groups:
       - observation_date
       - performed_by
       - instrument_used
+      - software_used
       - administration_mode
       - respondent
       - respondent_relationship

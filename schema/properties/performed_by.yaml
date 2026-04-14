@@ -2,11 +2,11 @@ id: performed_by
 maturity: draft
 
 definition:
-  en: "The party (enumerator, field officer, or agency) accountable for administering the instrument or taking the measurement. When a software tool captured or derived the data, record it separately as software_used; performed_by identifies who is responsible, not what ran the capture."
-  fr: "La partie (enquêteur, agent de terrain ou organisme) responsable de l'administration de l'instrument ou de la prise de mesure. Lorsqu'un outil logiciel a capturé ou dérivé les données, enregistrez-le séparément via software_used ; performed_by identifie qui est responsable, et non ce qui a réalisé la capture."
-  es: "La parte (encuestador, agente de campo u organismo) responsable de administrar el instrumento o tomar la medición. Cuando una herramienta de software capturó o derivó los datos, regístrelo por separado mediante software_used; performed_by identifica quién es responsable, no qué ejecutó la captura."
+  en: "The agent (enumerator, field officer, or agency) accountable for administering the instrument or taking the measurement. Typically a Person or an Organization. When a software tool captured or derived the data, record it separately as software_used; performed_by identifies who is responsible, not what ran the capture."
+  fr: "L'agent (enquêteur, agent de terrain ou organisme) responsable de l'administration de l'instrument ou de la prise de mesure. Généralement une Person ou une Organization. Lorsqu'un outil logiciel a capturé ou dérivé les données, enregistrez-le séparément via software_used ; performed_by identifie qui est responsable, et non ce qui a réalisé la capture."
+  es: "El agente (encuestador, agente de campo u organismo) responsable de administrar el instrumento o tomar la medición. Normalmente una Person o una Organization. Cuando una herramienta de software capturó o derivó los datos, regístrelo por separado mediante software_used; performed_by identifica quién es responsable, no qué ejecutó la captura."
 
-type: concept:Party
+type: concept:Agent
 cardinality: single
 vocabulary: null
-references: Party
+references: Agent

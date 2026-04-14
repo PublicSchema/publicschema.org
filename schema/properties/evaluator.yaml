@@ -2,14 +2,14 @@ id: evaluator
 maturity: draft
 
 definition:
-  en: "The party (field officer or agency) accountable for the scoring. When the computation was executed by software, record the tool separately as software_used; evaluator identifies who is responsible, not what ran the calculation."
-  fr: "La partie (agent de terrain ou organisme) responsable de la notation. Lorsque le calcul a été effectué par un logiciel, enregistrez l'outil séparément via software_used ; evaluator identifie qui est responsable, et non ce qui a exécuté le calcul."
-  es: "La parte (agente de campo u organismo) responsable de la puntuación. Cuando el cálculo fue ejecutado por software, registre la herramienta por separado mediante software_used; evaluator identifica quién es responsable, no qué ejecutó el cálculo."
+  en: "The agent (field officer or agency) accountable for the scoring. Typically a Person or an Organization. When the computation was executed by software, record the tool separately as software_used; evaluator identifies who is responsible, not what ran the calculation."
+  fr: "L'agent (agent de terrain ou organisme) responsable de la notation. Généralement une Person ou une Organization. Lorsque le calcul a été effectué par un logiciel, enregistrez l'outil séparément via software_used ; evaluator identifie qui est responsable, et non ce qui a exécuté le calcul."
+  es: "El agente (agente de campo u organismo) responsable de la puntuación. Normalmente una Person o una Organization. Cuando el cálculo fue ejecutado por software, registre la herramienta por separado mediante software_used; evaluator identifica quién es responsable, no qué ejecutó el cálculo."
 
-type: concept:Party
+type: concept:Agent
 cardinality: single
 vocabulary: null
-references: Party
+references: Agent
 
 convergence:
   system_count: 1

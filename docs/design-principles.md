@@ -18,7 +18,7 @@ Definitions are written for policy officers and program managers, not developers
 
 ## 5. Abstract supertypes
 
-Some concepts exist only as shared foundations for more specific subtypes. Event, Party, and Profile carry `abstract: true`, meaning they define common properties but are never instantiated directly. Subtypes (e.g., FunctioningProfile, ScoringEvent) inherit those properties and add their own. See [ADR-006](../decisions/006-profile-hierarchy.md).
+Some concepts exist only as shared foundations for more specific subtypes. Agent, Event, Party, and Profile carry `abstract: true`, meaning they define common properties but are never instantiated directly. Subtypes (e.g., FunctioningProfile, ScoringEvent, Organization) inherit those properties and add their own. Agent is the actor-side supertype (Person, Organization, SoftwareAgent); Party is the beneficiary-side supertype (Person, Group). Person belongs to both. See [ADR-006](../decisions/006-profile-hierarchy.md) and [ADR-008](../decisions/008-agent-organization.md).
 
 ## 6. Observation and scoring separation
 

@@ -12,8 +12,10 @@ status: active
 informs:
   concepts:
     - Address
+    - Agent
     - Event
     - Location
+    - Organization
     - Party
     - Person
   vocabularies: []

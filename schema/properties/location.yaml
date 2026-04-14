@@ -2,9 +2,9 @@ id: location
 maturity: candidate
 
 definition:
-  en: "The geographic location associated with this household, capturing coordinates or administrative area."
-  fr: "La localisation géographique associée à ce ménage, capturant les coordonnées ou la zone administrative."
-  es: "La ubicación geográfica asociada a este hogar, que recoge las coordenadas o el área administrativa."
+  en: "The geographic location of the subject of this record, captured as coordinates or administrative area."
+  fr: "La localisation géographique du sujet de cet enregistrement, capturée sous forme de coordonnées ou de zone administrative."
+  es: "La ubicación geográfica del sujeto de este registro, capturada como coordenadas o área administrativa."
 
 type: concept:Location
 cardinality: single

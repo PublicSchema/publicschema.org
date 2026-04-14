@@ -113,7 +113,7 @@ property_groups:
       - biometric_samples
 
 subtypes: []
-supertypes: [Party]
+supertypes: [Party, Agent]
 
 external_equivalents:
   semic:

@@ -1,0 +1,87 @@
+id: Agent
+label:
+  en: Agent
+  fr: Agent
+  es: Agente
+maturity: candidate
+abstract: true
+
+definition:
+  en: >
+    An entity that can act within a public delivery process: a person,
+    an organization, or a software system. Agent is the shared supertype
+    for actors that perform, publish, evaluate, decide, or execute.
+    Actor-side references such as performed_by, evaluator, and publisher
+    accept any Agent, letting the schema name the accountable party
+    whether it is a named individual, an administrative body, or a
+    piece of software. Agent is distinct from Party, which groups the
+    entities that receive services (Person and Group). Person is the
+    only concept that belongs to both hierarchies: a person can both
+    receive services and perform them.
+  fr: >
+    Une entité capable d'agir dans un processus de prestation publique :
+    une personne, une organisation ou un système logiciel. Agent est le
+    supertype partagé des acteurs qui exécutent, publient, évaluent,
+    décident ou réalisent. Les références côté acteur telles que
+    performed_by, evaluator et publisher acceptent tout Agent, ce qui
+    permet au schéma de désigner la partie responsable, qu'il s'agisse
+    d'une personne nommée, d'un organisme administratif ou d'un
+    logiciel. Agent est distinct de Party, qui regroupe les entités qui
+    reçoivent des services (Person et Group). Person est le seul
+    concept appartenant aux deux hiérarchies : une personne peut à la
+    fois recevoir des services et en exécuter.
+  es: >
+    Una entidad capaz de actuar en un proceso de prestación pública:
+    una persona, una organización o un sistema de software. Agent es el
+    supertipo compartido de los actores que ejecutan, publican,
+    evalúan, deciden o realizan. Las referencias del lado del actor
+    como performed_by, evaluator y publisher aceptan cualquier Agent,
+    lo que permite al esquema nombrar a la parte responsable, ya sea
+    una persona con nombre, un organismo administrativo o un programa
+    informático. Agent es distinto de Party, que agrupa a las entidades
+    que reciben servicios (Person y Group). Person es el único concepto
+    que pertenece a ambas jerarquías: una persona puede tanto recibir
+    servicios como ejecutarlos.
+
+properties: []
+
+subtypes: [Person, Organization, SoftwareAgent]
+supertypes: []
+
+external_equivalents:
+  prov:
+    label: "Agent"
+    uri: "http://www.w3.org/ns/prov#Agent"
+    match: exact
+    vocabulary: "PROV-O"
+    note: "W3C PROV-O prov:Agent is the direct equivalent: an entity that bears some form of responsibility for an activity. PROV's subtypes prov:Person, prov:Organization, and prov:SoftwareAgent align one-to-one with ours."
+  foaf:
+    label: "Agent"
+    uri: "http://xmlns.com/foaf/0.1/Agent"
+    match: exact
+    vocabulary: "FOAF"
+    note: "foaf:Agent is the canonical broad supertype for persons, organisations, and software. Our Agent hierarchy matches FOAF's structure."
+  schema-org:
+    label: "Person and Organization (sibling pattern)"
+    uri: "https://schema.org/Thing"
+    match: related
+    vocabulary: "schema.org"
+    note: "schema.org has no single Agent supertype; instead Person and Organization are sibling subtypes of Thing, and properties that accept either name both in their range. Our Agent captures the same intent under a named abstract."
+  fhir:
+    label: "Practitioner, Organization, Device (actor split)"
+    uri: "http://hl7.org/fhir/Practitioner"
+    match: related
+    vocabulary: "FHIR R4"
+    note: "FHIR splits actors across Practitioner, Organization, and Device (plus PractitionerRole for role-qualified assignments). Our Agent is the supertype that covers the same ground; PractitionerRole-style reification is deferred."
+
+convergence:
+  system_count: 0
+  total_systems: 6
+  notes: >
+    No mapped delivery system carries an Agent supertype directly. The
+    convergence case comes from standards bodies: W3C PROV-O, FOAF,
+    schema.org, and FHIR all split the actor role across persons,
+    organizations, and (in PROV and FHIR) software or devices. Agent
+    gives those actor-side references a single honest range in the
+    schema so that performed_by, evaluator, and publisher no longer
+    have to sit on Party, which is reserved for receivers of services.

@@ -32,11 +32,11 @@ supertypes: []
 
 external_equivalents:
   semic:
-    label: "Agent"
-    uri: "http://xmlns.com/foaf/0.1/Agent"
-    match: close
+    label: "Person (Core Person)"
+    uri: "http://www.w3.org/ns/person#Person"
+    match: related
     vocabulary: "Core Person"
-    note: "SEMIC foaf:Agent includes software agents and any acting entity; ours is specifically persons and organized groups in social protection"
+    note: "SEMIC Core Person covers the individual human. Party is the beneficiary-side supertype for persons and organized groups of persons (Household, Family, Farm) that can be enrolled in programs and receive services. The broader SEMIC/foaf:Agent vocabulary for acting entities maps to our Agent concept, not to Party."
 
 convergence:
   system_count: 6

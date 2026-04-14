@@ -1,0 +1,105 @@
+id: Organization
+label:
+  en: Organization
+  fr: Organisation
+  es: Organización
+maturity: candidate
+
+definition:
+  en: >
+    A legally or administratively identifiable body that can act within a
+    public delivery process: a government agency, ministry, NGO, UN agency,
+    statistical office, health facility, civil registration office, court,
+    or standards publisher. Organizations are the institutional actors
+    that administer instruments, publish methodologies, evaluate
+    submissions, issue certificates, and operate programs. An
+    Organization's location refers to its own registered or primary site,
+    not to the place where an action it performed happened. Event-level
+    place remains a property of the event record.
+  fr: >
+    Un organisme identifiable juridiquement ou administrativement capable
+    d'agir dans un processus de prestation publique : agence
+    gouvernementale, ministère, ONG, agence des Nations unies, office
+    statistique, établissement de santé, office d'état civil, tribunal
+    ou éditeur de normes. Les organisations sont les acteurs
+    institutionnels qui administrent des instruments, publient des
+    méthodologies, évaluent des dossiers, délivrent des certificats et
+    opèrent des programmes. La localisation d'une Organization désigne
+    son propre site enregistré ou principal, et non le lieu où une
+    action qu'elle a accomplie s'est déroulée. La localisation d'un
+    événement reste une propriété du registre de l'événement.
+  es: >
+    Un organismo identificable jurídica o administrativamente capaz de
+    actuar en un proceso de prestación pública: una agencia
+    gubernamental, un ministerio, una ONG, una agencia de las Naciones
+    Unidas, una oficina estadística, un establecimiento de salud, una
+    oficina de registro civil, un tribunal o un editor de normas. Las
+    organizaciones son los actores institucionales que administran
+    instrumentos, publican metodologías, evalúan expedientes, emiten
+    certificados y operan programas. La ubicación de una Organization
+    se refiere a su propio sitio registrado o principal, no al lugar
+    donde ocurrió una acción que realizó. La ubicación a nivel de
+    evento sigue siendo una propiedad del registro del evento.
+
+properties:
+  - name
+  - identifiers
+  - location
+
+property_groups:
+  - category: identity
+    properties:
+      - name
+      - identifiers
+  - category: location
+    properties:
+      - location
+
+supertypes: [Agent]
+subtypes: []
+
+external_equivalents:
+  foaf:
+    label: "Organization"
+    uri: "http://xmlns.com/foaf/0.1/Organization"
+    match: exact
+    vocabulary: "FOAF"
+    note: "foaf:Organization is the direct equivalent: a kind of agent corresponding to social institutions such as companies, societies, and so on."
+  semic:
+    label: "Public Organisation"
+    uri: "http://data.europa.eu/m8g/PublicOrganisation"
+    match: close
+    vocabulary: "CPOV"
+    note: "SEMIC CPOV defines PublicOrganisation as a formally recognised public-sector body with classification, legal status, and spatial jurisdiction slots. Our Organization covers the broader set of institutional actors in public delivery (government agencies and ministries, but also NGOs, UN agencies, health facilities, and standards publishers). The overlap is exact for public bodies and partial for the rest. CPOV's richer shape (jurisdiction, legal status, purpose, contact point) is a natural target if Organization is later extended."
+  schema-org:
+    label: "Organization"
+    uri: "https://schema.org/Organization"
+    match: exact
+    vocabulary: "schema.org"
+    note: "schema.org Organization is the direct equivalent, sibling to schema:Person under schema:Thing. Richer subtypes (GovernmentOrganization, NGO, MedicalOrganization) are available in schema.org but not yet mirrored here."
+  prov:
+    label: "Organization"
+    uri: "http://www.w3.org/ns/prov#Organization"
+    match: exact
+    vocabulary: "PROV-O"
+    note: "prov:Organization is the PROV-O equivalent: an agent that is a social institution. Sibling to prov:Person and prov:SoftwareAgent under prov:Agent."
+  fhir:
+    label: "Organization"
+    uri: "http://hl7.org/fhir/Organization"
+    match: close
+    vocabulary: "FHIR R4"
+    note: "FHIR Organization covers formally or informally recognised groupings of people or organizations formed for the purpose of achieving some form of collective action. Our Organization starts with a minimum property set (name, identifiers, location); FHIR adds contact points, active flag, and type categorization that may be added in future iterations."
+
+convergence:
+  system_count: 0
+  total_systems: 6
+  notes: >
+    No mapped delivery system carries a first-class Organization concept.
+    In practice, organizations appear as free-text publisher names on
+    instruments, as implicit issuers on certificates, and as unmodelled
+    administrative context around program operations. Standards bodies
+    are consistent: FOAF, schema.org, PROV-O, and FHIR all have a named
+    Organization concept. Minimum property set (name, identifiers,
+    location) is pragmatic; richer modelling (parent_organization,
+    legal_form, jurisdiction, contact points, multi-site locations) is
+    deferred to a later iteration.

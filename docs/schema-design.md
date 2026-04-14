@@ -61,6 +61,15 @@ Use this decision tree to determine what kind of element to create.
 | Value has its own identity and sub-properties | Property referencing a concept |
 | Simple scalar | Inline primitive type |
 
+### Actor vs. receiver supertypes
+
+`Agent` and `Party` are two abstract supertypes that carry different semantics.
+
+- `Party` is the **receiver side**: the persons and organised groups of persons (Household, Family, Farm) that can be identified, enrolled in programs, and receive benefits or services. Beneficiary-side references (`beneficiary`, `recipient`, `subject`, `redeemable_by`, `issued_to`) range over `Party`.
+- `Agent` is the **actor side**: the persons, organisations, and software that perform, publish, evaluate, decide, or execute. Actor-side references (`performed_by`, `evaluator`, `publisher`) range over `Agent`.
+
+`Person` is the only concept that belongs to both hierarchies. A person can both receive services and perform them. `Organization` is an `Agent` only (it is not modelled as a receiver today). `SoftwareAgent` is an `Agent` only. See [ADR-008](../decisions/008-agent-organization.md).
+
 ## 5. Temporal context
 
 Almost everything in public service delivery is time-bounded. A status snapshot without a validity period is incomplete. When designing a concept or property, ask: will this value change over time? If yes, model the temporal context explicitly (start/end dates, validity periods).
@@ -93,7 +102,7 @@ The rules that keep this honest:
 2. **Contextual framing lives on the concept, not the property.** The property definition names the observable ("the household's primary source of drinking water"). Each concept definition names how that observable is interpreted in that concept (baseline vs. post-shock).
 3. **Reuse must be disclosed in both concepts' narrative definitions.** A reader on either page must be able to see that the field also appears elsewhere and why.
 4. **Reuse does not make records type-compatible.** A `SocioEconomicProfile` record and a `DwellingDamageProfile` record are different things even when their property values overlap. Adopters should consult the concept page, not the property list, when serialising into a strongly typed shape.
-5. **Split when wording diverges.** If the property's own definition needs different text in each context, create two properties. `location` and `location_of_assessment` are split this way: `location` is the household's registered administrative or coordinate location; `location_of_assessment` is where a post-shock damage assessment was physically carried out, which may differ after displacement.
+5. **Split when wording diverges.** If the property's own definition needs different text in each context, create two properties. `location` and `location_of_assessment` are split this way: `location` is the concept-agnostic geographic location of the record's subject (the household's site for a Household record, the organisation's primary site for an Organization record); `location_of_assessment` is where a post-shock damage assessment was physically carried out, which may differ after displacement.
 
 `triggering_hazard_event` (on `DwellingDamageProfile`) and `triggering_vital_event` (on `CivilStatusAnnotation`) follow the same split. Both were originally unified as one `triggering_event` whose type was widened to `concept:Event`, but the expected subtype carries meaning for validators and practitioners, so each consumer now declares its own typed reference. See [ADR-007](../decisions/007-profile-property-reuse.md) for the full argument.
 
