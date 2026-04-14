@@ -17,25 +17,8 @@ site/public/crvs/
 site/public/schemas/
 site/public/vocabulary.json
 
-# Working documents
-plan*.md
-plans/
-.plans/
-research/
-review-*.md
-ideas/
-reviews/
-reports/
-docs/*research*.md
-docs/*audit*.md
-docs/mapping-example.md
-docs/meta-namespace.md
-docs/mosip-id-schema-mapping.md
-docs/opencrvs-decomposition.md
-docs/sdk-spec.md
-docs/semic-alignment.md
-docs/vocabulary-extraction-process.md
-external/*/research.md
+# Working documents (plans, research, reviews, reports, ideas)
+.work/
 
 # AI assistant config (local only)
 CLAUDE.md
