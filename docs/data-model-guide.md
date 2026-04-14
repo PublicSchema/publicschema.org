@@ -124,6 +124,16 @@ Many concepts carry start_date and end_date. Enrollment is not just a status; it
 
 Some concepts are universal (Person, Location) and some are domain-specific (Enrollment is under social protection, `/sp/Enrollment`). If you are building for a specific sector, check which domain your concepts belong to. This affects URIs but not how you use the properties.
 
+### Observation data belongs on a Profile, not on Person or Household
+
+Washington Group functioning items (WG-SS, WG-ES, CFM), anthropometric measurements (height, weight, MUAC, z-scores, status bands), and socio-economic survey answers (dwelling type, WASH service, assets, ICT, income) are point-in-time records produced by a defined instrument. They are modeled as `Profile` records (`FunctioningProfile`, `AnthropometricProfile`, `SocioEconomicProfile`), not as columns on Person or Household.
+
+A `Profile` carries who was observed, when, with which instrument, under which administration mode, and by whom. Person retains small current-state summary flags (`functioning_status`, `nutrition_status`) so operational systems can query targeting and reporting without re-deriving from every administration; Household similarly retains `food_security_level`. The summary flags are denormalizations for convenience, not classifications. Populating them from a Profile requires applying a documented scoring rule (for example, a Washington Group cutoff), and the Profile remains the source of truth.
+
+### Scoring is a distinct act from instrument administration
+
+Scoring methodologies (PMT formulas, PPI, multidimensional poverty indices, WG cutoffs, WHO growth-standard thresholds) are cataloged as `ScoringRule` records. Applying a rule to one or more Profiles or inline data produces a `ScoringEvent`, which carries the raw score and band. Keeping administration and scoring separate lets the same Profile be scored against multiple rules without re-collecting data.
+
 ## Available downloads
 
 **Per concept:**

@@ -112,6 +112,30 @@ Selectively disclosable:
 
 **Use case**: Proof of benefit entitlement. A beneficiary needs to demonstrate they are entitled to a benefit for a specific period (e.g., to access a complementary service). The holder discloses entitlement_status (approved) and coverage period, keeping program details and identity hidden. Note: per-cycle entitlements are short-lived, so credential rotation is frequent; `document_expiry_date` controls VC validity independent of the coverage period.
 
+### ProfileCredential (SocioEconomicProfile, FunctioningProfile, AnthropometricProfile)
+
+A Profile record can be used as a credential in two patterns, and adopters choose based on use case.
+
+**Pattern A: Profile-as-subject.** The credential subject is the Profile itself. The Person (via `subject` reference) is one claim among the administrative context. Suitable when a holder wants to present evidence of a specific administration (a WG-SS interview with an enumerator, an anthropometric screening), with the item-level answers as disclosable claims.
+
+**Pattern B: Profile-as-evidence.** The credential subject is the Person. The Profile is included as evidence backing a separately scored claim on the Person (e.g., "this person meets the WG cutoff 3 disability identifier"), produced by a ScoringEvent that references the Profile in `inputs`. Suitable when the verifier only needs the derived band and can treat the raw responses as restricted.
+
+Always disclosed (Pattern A):
+- `type` (Profile subtype)
+- `instrument_used` (identity and version of the instrument)
+- `observation_date`
+
+Selectively disclosable:
+- `subject` (Person identity)
+- `performed_by`, `respondent`, `respondent_relationship`
+- `administration_mode`
+- All item-level properties (each WG/CFM item, each anthropometric measurement, each socio-economic item disclosed independently)
+- Derived fields (z-scores, status bands)
+
+**Use case**: A case worker requests a WG-SS administration as part of a disability-informed service decision. With Pattern A, the holder discloses the instrument used, date, and the relevant item answers (for example, only the seeing and hearing items) while keeping the other functioning items hidden. With Pattern B, the holder presents a DisabilityIdentifierCredential whose subject is the Person and whose `evidence` points to a FunctioningProfile held by the issuer; the verifier sees the derived identifier, not the items.
+
+Because Profile subtypes carry potentially sensitive data (health, nutrition, poverty), every item-level claim should default to selectively disclosable. Verifiers should request the minimum set of items needed and should not assume a positive response on any item implies a classification without the corresponding ScoringEvent.
+
 ## SD-JWT VC Payload Structure
 
 An SD-JWT VC separates always-disclosed claims from selectively disclosable ones using the `_sd` mechanism. Here is how an EnrollmentCredential maps:

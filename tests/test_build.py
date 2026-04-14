@@ -1281,7 +1281,7 @@ class TestToSnakeCase:
         assert _to_snake_case("person") == "person"
 
     def test_multi_caps(self):
-        assert _to_snake_case("AssessmentEvent") == "assessment_event"
+        assert _to_snake_case("ScoringEvent") == "scoring_event"
 
 
 # ---------------------------------------------------------------------------

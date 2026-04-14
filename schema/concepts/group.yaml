@@ -35,7 +35,7 @@ external_equivalents:
     uri: "https://schema.spdci.org/core/v1/data/Group"
     match: close
     vocabulary: "DCI Core"
-    note: "DCI Group embeds member lists and poverty scoring directly; PublicSchema separates membership into GroupMembership records and scoring into AssessmentEvent"
+    note: "DCI Group embeds member lists and poverty scoring directly; PublicSchema separates membership into GroupMembership records and scoring into ScoringEvent"
 
 convergence:
   system_count: 5
