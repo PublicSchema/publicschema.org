@@ -2,9 +2,9 @@ id: difficulty_cognition
 maturity: draft
 
 definition:
-  en: "The degree of difficulty the person experiences remembering or concentrating."
-  fr: "Le degré de difficulté que la personne éprouve à se souvenir ou à se concentrer."
-  es: "El grado de dificultad que la persona experimenta para recordar o concentrarse."
+  en: "The degree of difficulty the person experiences remembering or concentrating. Applies to adults (WG-SS); for children ages 5-17 see difficulty_remembering and difficulty_concentrating, which the CFM asks as two separate questions."
+  fr: "Le degré de difficulté que la personne éprouve à se souvenir ou à se concentrer. S'applique aux adultes (WG-SS); pour les enfants de 5 à 17 ans, voir difficulty_remembering et difficulty_concentrating, que le CFM pose comme deux questions distinctes."
+  es: "El grado de dificultad que la persona experimenta para recordar o concentrarse. Se aplica a adultos (WG-SS); para niños de 5 a 17 años, véase difficulty_remembering y difficulty_concentrating, que el CFM hace como dos preguntas separadas."
 
 type: string
 cardinality: single

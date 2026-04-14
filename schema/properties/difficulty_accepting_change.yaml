@@ -2,9 +2,9 @@ id: difficulty_accepting_change
 maturity: draft
 
 definition:
-  en: "The degree of difficulty the child experiences accepting changes in routine."
-  fr: "Le degré de difficulté que l'enfant éprouve à accepter les changements de routine."
-  es: "El grado de dificultad que el niño experimenta para aceptar cambios en la rutina."
+  en: "The degree of difficulty the child experiences accepting changes in routine. Applies to children ages 5-17 (CFM)."
+  fr: "Le degré de difficulté que l'enfant éprouve à accepter les changements de routine. S'applique aux enfants de 5 à 17 ans (CFM)."
+  es: "El grado de dificultad que el niño experimenta para aceptar cambios en la rutina. Se aplica a niños de 5 a 17 años (CFM)."
 
 type: string
 cardinality: single

@@ -2,9 +2,9 @@ id: difficulty_anxiety
 maturity: draft
 
 definition:
-  en: "How often the child seems very anxious, nervous, or worried."
-  fr: "À quelle fréquence l'enfant semble très anxieux, nerveux ou inquiet."
-  es: "Con qué frecuencia el niño parece muy ansioso, nervioso o preocupado."
+  en: "How often the child seems very anxious, nervous, or worried. Applies to children ages 5-17 (CFM)."
+  fr: "À quelle fréquence l'enfant semble très anxieux, nerveux ou inquiet. S'applique aux enfants de 5 à 17 ans (CFM)."
+  es: "Con qué frecuencia el niño parece muy ansioso, nervioso o preocupado. Se aplica a niños de 5 a 17 años (CFM)."
 
 type: string
 cardinality: single

@@ -2,9 +2,9 @@ id: difficulty_making_friends
 maturity: draft
 
 definition:
-  en: "The degree of difficulty the child experiences making friends."
-  fr: "Le degré de difficulté que l'enfant éprouve à se faire des amis."
-  es: "El grado de dificultad que el niño experimenta para hacer amigos."
+  en: "The degree of difficulty the child experiences making friends. Applies to children ages 5-17 (CFM)."
+  fr: "Le degré de difficulté que l'enfant éprouve à se faire des amis. S'applique aux enfants de 5 à 17 ans (CFM)."
+  es: "El grado de dificultad que el niño experimenta para hacer amigos. Se aplica a niños de 5 a 17 años (CFM)."
 
 type: string
 cardinality: single

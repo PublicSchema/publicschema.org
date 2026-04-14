@@ -2,9 +2,9 @@ id: difficulty_communication
 maturity: draft
 
 definition:
-  en: "The degree of difficulty the person experiences communicating using their usual language, including sign language."
-  fr: "Le degré de difficulté que la personne éprouve à communiquer dans sa langue habituelle, y compris la langue des signes."
-  es: "El grado de dificultad que la persona experimenta para comunicarse en su idioma habitual, incluida la lengua de signos."
+  en: "The degree of difficulty the person experiences communicating using their usual language, including sign language. Applies to adults (WG-SS) and to children ages 2-17 (CFM)."
+  fr: "Le degré de difficulté que la personne éprouve à communiquer dans sa langue habituelle, y compris la langue des signes. S'applique aux adultes (WG-SS) et aux enfants de 2 à 17 ans (CFM)."
+  es: "El grado de dificultad que la persona experimenta para comunicarse en su idioma habitual, incluida la lengua de signos. Se aplica a adultos (WG-SS) y a niños de 2 a 17 años (CFM)."
 
 type: string
 cardinality: single

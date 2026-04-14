@@ -2,9 +2,9 @@ id: difficulty_walking
 maturity: draft
 
 definition:
-  en: "The degree of difficulty the person experiences walking or climbing steps."
-  fr: "Le degré de difficulté que la personne éprouve à marcher ou à monter des escaliers."
-  es: "El grado de dificultad que la persona experimenta para caminar o subir escaleras."
+  en: "The degree of difficulty the person experiences walking or climbing steps. Applies to adults (WG-SS) and to children ages 2-17 (CFM)."
+  fr: "Le degré de difficulté que la personne éprouve à marcher ou à monter des escaliers. S'applique aux adultes (WG-SS) et aux enfants de 2 à 17 ans (CFM)."
+  es: "El grado de dificultad que la persona experimenta para caminar o subir escaleras. Se aplica a adultos (WG-SS) y a niños de 2 a 17 años (CFM)."
 
 type: string
 cardinality: single

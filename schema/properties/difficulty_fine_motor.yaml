@@ -2,9 +2,9 @@ id: difficulty_fine_motor
 maturity: draft
 
 definition:
-  en: "The degree of difficulty the child experiences picking up small objects with their hand, compared to children of the same age."
-  fr: "Le degré de difficulté que l'enfant éprouve à saisir de petits objets avec la main, par rapport aux enfants du même âge."
-  es: "El grado de dificultad que el niño experimenta para recoger objetos pequeños con la mano, en comparación con niños de la misma edad."
+  en: "The degree of difficulty the child experiences picking up small objects with their hand, compared to children of the same age. Applies to children ages 2-4 (CFM)."
+  fr: "Le degré de difficulté que l'enfant éprouve à saisir de petits objets avec la main, par rapport aux enfants du même âge. S'applique aux enfants de 2 à 4 ans (CFM)."
+  es: "El grado de dificultad que el niño experimenta para recoger objetos pequeños con la mano, en comparación con niños de la misma edad. Se aplica a niños de 2 a 4 años (CFM)."
 
 type: string
 cardinality: single

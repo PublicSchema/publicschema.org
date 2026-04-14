@@ -2,9 +2,9 @@ id: difficulty_self_care
 maturity: draft
 
 definition:
-  en: "The degree of difficulty the person experiences with self-care, such as washing all over or dressing."
-  fr: "Le degré de difficulté que la personne éprouve pour prendre soin d'elle-même, comme se laver entièrement ou s'habiller."
-  es: "El grado de dificultad que la persona experimenta para el autocuidado, como bañarse completamente o vestirse."
+  en: "The degree of difficulty the person experiences with self-care, such as washing all over or dressing. Applies to adults (WG-SS) and to children ages 5-17 (CFM); not measured by the CFM for ages 2-4."
+  fr: "Le degré de difficulté que la personne éprouve pour prendre soin d'elle-même, comme se laver entièrement ou s'habiller. S'applique aux adultes (WG-SS) et aux enfants de 5 à 17 ans (CFM); non mesuré par le CFM pour les 2 à 4 ans."
+  es: "El grado de dificultad que la persona experimenta para el autocuidado, como bañarse completamente o vestirse. Se aplica a adultos (WG-SS) y a niños de 5 a 17 años (CFM); no se mide en el CFM para niños de 2 a 4 años."
 
 type: string
 cardinality: single

@@ -2,9 +2,9 @@ id: difficulty_remembering
 maturity: draft
 
 definition:
-  en: "The degree of difficulty the person experiences remembering things. This is one of two properties that together cover the cognitive domain measured by the WG-SS difficulty_cognition property, which bundles remembering and concentrating into a single question."
-  fr: "Le degré de difficulté que la personne éprouve à se souvenir des choses. Cette propriété est l'une des deux qui couvrent ensemble le domaine cognitif mesuré par la propriété WG-SS difficulty_cognition, laquelle regroupe la mémoire et la concentration en une seule question."
-  es: "El grado de dificultad que la persona experimenta para recordar cosas. Esta es una de dos propiedades que juntas cubren el dominio cognitivo medido por la propiedad WG-SS difficulty_cognition, que combina memoria y concentración en una sola pregunta."
+  en: "The degree of difficulty the child experiences remembering things. Applies to children ages 5-17 (CFM). Paired with difficulty_concentrating; the WG-SS difficulty_cognition property bundles both into a single question for adults."
+  fr: "Le degré de difficulté que l'enfant éprouve à se souvenir des choses. S'applique aux enfants de 5 à 17 ans (CFM). Associé à difficulty_concentrating; la propriété WG-SS difficulty_cognition regroupe les deux en une seule question pour les adultes."
+  es: "El grado de dificultad que el niño experimenta para recordar cosas. Se aplica a niños de 5 a 17 años (CFM). Se combina con difficulty_concentrating; la propiedad WG-SS difficulty_cognition agrupa ambos en una sola pregunta para adultos."
 
 type: string
 cardinality: single

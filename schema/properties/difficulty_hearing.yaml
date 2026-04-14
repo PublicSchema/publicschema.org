@@ -2,9 +2,9 @@ id: difficulty_hearing
 maturity: draft
 
 definition:
-  en: "The degree of difficulty the person experiences hearing, even when using a hearing aid."
-  fr: "Le degré de difficulté que la personne éprouve à entendre, même en utilisant une aide auditive."
-  es: "El grado de dificultad que la persona experimenta para escuchar, incluso usando un audífono."
+  en: "The degree of difficulty the person experiences hearing, even when using a hearing aid. Applies to adults (WG-SS) and to children ages 2-17 (CFM)."
+  fr: "Le degré de difficulté que la personne éprouve à entendre, même en utilisant une aide auditive. S'applique aux adultes (WG-SS) et aux enfants de 2 à 17 ans (CFM)."
+  es: "El grado de dificultad que la persona experimenta para escuchar, incluso usando un audífono. Se aplica a adultos (WG-SS) y a niños de 2 a 17 años (CFM)."
 
 type: string
 cardinality: single
