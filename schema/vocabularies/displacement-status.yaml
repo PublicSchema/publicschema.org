@@ -2,8 +2,12 @@ id: displacement-status
 maturity: draft
 label:
   en: Displacement Status
+  fr: Statut de déplacement
+  es: Estado de desplazamiento
 definition:
   en: "The legal, administrative, or protection status of a person with respect to displacement and migration, drawing from international frameworks for displaced and stateless populations."
+  fr: "Le statut juridique, administratif ou de protection d'une personne en matière de déplacement et de migration, fondé sur les cadres internationaux pour les populations déplacées et apatrides."
+  es: "El estado jurídico, administrativo o de protección de una persona en relación con el desplazamiento y la migración, basado en los marcos internacionales para poblaciones desplazadas y apátridas."
 standard:
   name: "EGRISS International Recommendations on IDP Statistics (IRIS)"
   uri: https://egrisstats.org/recommendations/international-recommendations-on-idp-statistics-iris/
@@ -12,40 +16,72 @@ values:
 - code: resident
   label:
     en: Resident
+    fr: Résident
+    es: Residente
   definition:
     en: "A person living in their habitual place of residence who has not been displaced. Corresponds to 'host community' member in humanitarian contexts."
+    fr: "Une personne vivant dans son lieu de résidence habituel qui n'a pas été déplacée. Correspond au membre de la communauté d'accueil dans les contextes humanitaires."
+    es: "Una persona que vive en su lugar habitual de residencia y que no ha sido desplazada. Corresponde al miembro de la comunidad de acogida en contextos humanitarios."
 - code: idp
   label:
     en: Internally displaced person
+    fr: Déplacé interne
+    es: Desplazado interno
   definition:
     en: "A person who has been forced or obliged to flee or leave their home or habitual residence, in particular as a result of armed conflict, violence, human rights violations, or disasters, and who has not crossed an internationally recognized state border."
+    fr: "Une personne qui a été forcée ou contrainte de fuir ou quitter son domicile ou sa résidence habituelle, notamment en raison d'un conflit armé, de violence, de violations des droits humains ou de catastrophes, et qui n'a pas franchi une frontière étatique internationalement reconnue."
+    es: "Una persona que ha sido obligada o forzada a huir o abandonar su hogar o lugar habitual de residencia, en particular como resultado de un conflicto armado, violencia, violaciones de derechos humanos o desastres, y que no ha cruzado una frontera estatal internacionalmente reconocida."
 - code: idp_returnee
   label:
     en: IDP returnee
+    fr: Déplacé interne retourné
+    es: Desplazado interno retornado
   definition:
     en: "A formerly internally displaced person who has returned to their area of origin but for whom a durable solution has not yet been confirmed."
+    fr: "Un ancien déplacé interne qui est retourné dans sa zone d'origine mais pour lequel une solution durable n'a pas encore été confirmée."
+    es: "Un antiguo desplazado interno que ha regresado a su zona de origen pero para quien aún no se ha confirmado una solución duradera."
 - code: refugee
   label:
     en: Refugee
+    fr: Réfugié
+    es: Refugiado
   definition:
     en: "A person who, owing to a well-founded fear of persecution, has crossed an international border and been granted refugee status under the 1951 Convention, the 1969 OAU Convention, or the 1984 Cartagena Declaration."
+    fr: "Une personne qui, craignant avec raison d'être persécutée, a franchi une frontière internationale et s'est vu accorder le statut de réfugié en vertu de la Convention de 1951, de la Convention de l'OUA de 1969, ou de la Déclaration de Cartagène de 1984."
+    es: "Una persona que, debido a un temor fundado de persecución, ha cruzado una frontera internacional y ha obtenido el estatuto de refugiado conforme a la Convención de 1951, la Convención de la OUA de 1969, o la Declaración de Cartagena de 1984."
 - code: asylum_seeker
   label:
     en: Asylum seeker
+    fr: "Demandeur d'asile"
+    es: Solicitante de asilo
   definition:
     en: "A person who has sought international protection and whose claim for refugee status has not yet been determined."
+    fr: "Une personne qui a demandé une protection internationale et dont la demande de statut de réfugié n'a pas encore été examinée."
+    es: "Una persona que ha solicitado protección internacional y cuya solicitud de estatuto de refugiado aún no ha sido resuelta."
 - code: returnee_from_abroad
   label:
     en: Returnee from abroad
+    fr: Rapatrié
+    es: Retornado del exterior
   definition:
     en: "A person who previously sought international protection and has returned to their country of origin, whether voluntarily or involuntarily."
+    fr: "Une personne qui a précédemment demandé une protection internationale et est retournée dans son pays d'origine, de manière volontaire ou non."
+    es: "Una persona que previamente solicitó protección internacional y ha regresado a su país de origen, de manera voluntaria o involuntaria."
 - code: international_migrant
   label:
     en: International migrant
+    fr: Migrant international
+    es: Migrante internacional
   definition:
     en: "A person who is living outside their country of origin for reasons other than international protection (e.g., employment, education, family reunification)."
+    fr: "Une personne qui vit hors de son pays d'origine pour des raisons autres que la protection internationale (emploi, éducation, regroupement familial, etc.)."
+    es: "Una persona que vive fuera de su país de origen por razones distintas a la protección internacional (empleo, educación, reunificación familiar, etc.)."
 - code: stateless
   label:
     en: Stateless person
+    fr: Apatride
+    es: Apátrida
   definition:
     en: "A person who is not considered as a national by any state under the operation of its law, as defined by the 1954 Convention Relating to the Status of Stateless Persons."
+    fr: "Une personne qu'aucun État ne considère comme son ressortissant par application de sa législation, conformément à la Convention de 1954 relative au statut des apatrides."
+    es: "Una persona que ningún Estado considera como nacional suyo en virtud de su legislación, conforme a la Convención de 1954 sobre el Estatuto de los Apátridas."

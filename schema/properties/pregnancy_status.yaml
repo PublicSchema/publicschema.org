@@ -3,6 +3,8 @@ maturity: draft
 
 definition:
   en: "The current pregnancy status of the person."
+  fr: "Le statut de grossesse actuel de la personne."
+  es: "El estado de embarazo actual de la persona."
 
 type: string
 cardinality: single

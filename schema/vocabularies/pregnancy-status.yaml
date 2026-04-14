@@ -2,8 +2,12 @@ id: pregnancy-status
 maturity: draft
 label:
   en: Pregnancy Status
+  fr: Statut de grossesse
+  es: Estado de embarazo
 definition:
   en: "The current pregnancy status of a person, based on the LOINC answer list for pregnancy status."
+  fr: "Le statut de grossesse actuel d'une personne, basé sur la liste de réponses LOINC pour le statut de grossesse."
+  es: "El estado de embarazo actual de una persona, basado en la lista de respuestas LOINC para el estado de embarazo."
 standard:
   name: "LOINC LL4129-4 Pregnancy Status"
   uri: https://loinc.org/LL4129-4/
@@ -12,23 +16,39 @@ values:
 - code: not_pregnant
   label:
     en: Not pregnant
+    fr: Pas enceinte
+    es: No embarazada
   definition:
     en: "The person is not currently pregnant."
+    fr: "La personne n'est pas actuellement enceinte."
+    es: "La persona no está actualmente embarazada."
 - code: pregnant
   label:
     en: Pregnant
+    fr: Enceinte
+    es: Embarazada
   definition:
     en: "The person is currently pregnant."
+    fr: "La personne est actuellement enceinte."
+    es: "La persona está actualmente embarazada."
 - code: postpartum
   label:
     en: Postpartum
+    fr: Post-partum
+    es: Posparto
   definition:
     en: "The person has recently given birth and is in the postpartum period. This value is a PublicSchema extension for social protection use; FHIR handles postpartum via a separate observation."
+    fr: "La personne a récemment accouché et se trouve en période post-partum. Cette valeur est une extension PublicSchema pour les programmes de protection sociale; FHIR gère le post-partum via une observation séparée."
+    es: "La persona ha dado a luz recientemente y se encuentra en el período posparto. Este valor es una extensión de PublicSchema para uso en protección social; FHIR gestiona el posparto mediante una observación separada."
 - code: unknown
   label:
     en: Unknown
+    fr: Inconnu
+    es: Desconocido
   definition:
     en: "The pregnancy status is not known or was not ascertained."
+    fr: "Le statut de grossesse n'est pas connu ou n'a pas été établi."
+    es: "El estado de embarazo no se conoce o no fue determinado."
 system_mappings:
   dhs:
     vocabulary_name: "v213 - Currently pregnant"
