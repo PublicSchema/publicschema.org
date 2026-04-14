@@ -16,4 +16,14 @@ informs:
   vocabularies:
     - fcs-food-group
     - instrument-id
-  properties: []
+  properties:
+    - fcs_staples_days
+    - fcs_pulses_days
+    - fcs_vegetables_days
+    - fcs_fruit_days
+    - fcs_meat_fish_eggs_days
+    - fcs_dairy_days
+    - fcs_fat_oil_days
+    - fcs_sugar_days
+    - fcs_condiments_days
+    - recall_period_days

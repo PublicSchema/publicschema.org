@@ -20,4 +20,7 @@ informs:
   vocabularies:
     - hhs-frequency
     - instrument-id
-  properties: []
+  properties:
+    - hhs_no_food
+    - hhs_went_sleep_hungry
+    - hhs_went_whole_day_without

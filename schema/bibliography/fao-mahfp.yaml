@@ -18,4 +18,5 @@ informs:
     - FoodSecurityProfile
   vocabularies:
     - instrument-id
-  properties: []
+  properties:
+    - mahfp_months_adequate

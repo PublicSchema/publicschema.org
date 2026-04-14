@@ -19,4 +19,9 @@ informs:
   vocabularies:
     - rcsi-strategy
     - instrument-id
-  properties: []
+  properties:
+    - rcsi_less_preferred_food_days
+    - rcsi_borrow_food_days
+    - rcsi_reduce_meal_size_days
+    - rcsi_reduce_meal_number_days
+    - rcsi_restrict_adult_consumption_days

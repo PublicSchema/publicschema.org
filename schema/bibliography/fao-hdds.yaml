@@ -20,4 +20,16 @@ informs:
   vocabularies:
     - hdds-food-group
     - instrument-id
-  properties: []
+  properties:
+    - hdds_cereals_consumed
+    - hdds_roots_tubers_consumed
+    - hdds_vegetables_consumed
+    - hdds_fruit_consumed
+    - hdds_meat_poultry_offal_consumed
+    - hdds_eggs_consumed
+    - hdds_fish_seafood_consumed
+    - hdds_legumes_nuts_seeds_consumed
+    - hdds_milk_dairy_consumed
+    - hdds_oils_fats_consumed
+    - hdds_sweets_consumed
+    - hdds_spices_condiments_beverages_consumed
