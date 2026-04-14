@@ -11,4 +11,5 @@ cardinality: single
 vocabulary: shelter-situation-type
 references: null
 category: habitability
+sensitivity: sensitive
 valid_instruments: [iom_dtm_household, shelter_cluster_rna, reach_msna, pdna_housing]
