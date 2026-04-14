@@ -15,10 +15,15 @@ definition:
     settlement type, and a high-level food_security_level summary. Typical
     instruments are a social registry registration form, a proxy means
     test (PMT) questionnaire, a multidimensional poverty module, or a
-    household economy survey. When a program collects item-level food
-    security data (FCS, rCSI, LCS, HDDS, FIES, HHS, MDD-W, MAHFP), those
-    responses belong on a separate FoodSecurityProfile record rather than
-    on this profile; SocioEconomicProfile retains only the derived
+    household economy survey. The housing and WASH properties (dwelling_type,
+    wall_material, floor_material, roof_material, water_source,
+    sanitation_facility, electricity_access) are also observed on
+    DwellingDamageProfile after a hazard event; the baseline reading here
+    describes the dwelling's usual characteristics, while the DDP reading
+    describes post-shock conditions. When a program collects item-level
+    food security data (FCS, rCSI, LCS, HDDS, FIES, HHS, MDD-W, MAHFP),
+    those responses belong on a separate FoodSecurityProfile record rather
+    than on this profile; SocioEconomicProfile retains only the derived
     food_security_level summary.
   fr: >
     Un enregistrement ponctuel de données socio-économiques et de conditions
@@ -30,12 +35,18 @@ definition:
     food_security_level. Les instruments typiques sont un formulaire
     d'enregistrement au registre social, un questionnaire de test de
     substitution des ressources (PMT), un module de pauvreté
-    multidimensionnelle ou une enquête sur l'économie des ménages. Lorsqu'un
-    programme collecte des données de sécurité alimentaire au niveau des
-    items (FCS, rCSI, LCS, HDDS, FIES, HHS, MDD-W, MAHFP), ces réponses
-    appartiennent à un enregistrement FoodSecurityProfile distinct plutôt
-    qu'à ce profil ; SocioEconomicProfile ne conserve que le résumé
-    food_security_level dérivé.
+    multidimensionnelle ou une enquête sur l'économie des ménages. Les
+    propriétés de logement et WASH (dwelling_type, wall_material,
+    floor_material, roof_material, water_source, sanitation_facility,
+    electricity_access) sont également observées sur DwellingDamageProfile
+    après un événement de danger ; le relevé de base décrit ici les
+    caractéristiques habituelles du logement, tandis que le relevé DDP
+    décrit les conditions post-choc. Lorsqu'un programme collecte des
+    données de sécurité alimentaire au niveau des items (FCS, rCSI, LCS,
+    HDDS, FIES, HHS, MDD-W, MAHFP), ces réponses appartiennent à un
+    enregistrement FoodSecurityProfile distinct plutôt qu'à ce profil ;
+    SocioEconomicProfile ne conserve que le résumé food_security_level
+    dérivé.
   es: >
     Un registro puntual de datos socioeconómicos y de condiciones de vida
     de un hogar o persona, recopilados mediante una encuesta de registro o
@@ -45,11 +56,17 @@ definition:
     food_security_level. Los instrumentos típicos son un formulario de
     registro al registro social, un cuestionario de prueba proxy de medios
     de vida (PMT), un módulo de pobreza multidimensional o una encuesta de
-    economía del hogar. Cuando un programa recopila datos de seguridad
-    alimentaria a nivel de ítems (FCS, rCSI, LCS, HDDS, FIES, HHS, MDD-W,
-    MAHFP), esas respuestas pertenecen a un registro FoodSecurityProfile
-    separado en lugar de a este perfil; SocioEconomicProfile conserva solo
-    el resumen food_security_level derivado.
+    economía del hogar. Las propiedades de vivienda y WASH (dwelling_type,
+    wall_material, floor_material, roof_material, water_source,
+    sanitation_facility, electricity_access) también se observan en
+    DwellingDamageProfile tras un evento de peligro; la lectura de base
+    aquí describe las características habituales de la vivienda, mientras
+    que la lectura DDP describe las condiciones post-choque. Cuando un
+    programa recopila datos de seguridad alimentaria a nivel de ítems
+    (FCS, rCSI, LCS, HDDS, FIES, HHS, MDD-W, MAHFP), esas respuestas
+    pertenecen a un registro FoodSecurityProfile separado en lugar de a
+    este perfil; SocioEconomicProfile conserva solo el resumen
+    food_security_level derivado.
 
 properties:
   - dwelling_type
