@@ -1,0 +1,23 @@
+id: fanta-hhs
+title: "Household Hunger Scale: Indicator Definition and Measurement Guide"
+short_title: "FANTA HHS"
+publisher: "Food and Nutrition Technical Assistance II Project (FANTA-2), FHI 360"
+authors:
+  - "Terri Ballard"
+  - "Jennifer Coates"
+  - "Anne Swindale"
+  - "Megan Deitchler"
+year: 2011
+type: guidance_publication
+domain: humanitarian
+uri: "https://www.fantaproject.org/sites/default/files/resources/HHS-Indicator-Guide-Aug2011.pdf"
+access: open
+status: active
+
+informs:
+  concepts:
+    - FoodSecurityProfile
+  vocabularies:
+    - hhs-frequency
+    - instrument-id
+  properties: []

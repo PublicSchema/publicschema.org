@@ -54,3 +54,84 @@ values:
     en: "Standardized anthropometric measurement procedure used in humanitarian nutrition surveys. Captures weight, height or length, MUAC, and bilateral pitting oedema, with a declared growth reference and measurement type (recumbent or standing). See bibliography entry smart-methodology."
     fr: "Procédure standardisée de mesure anthropométrique utilisée dans les enquêtes humanitaires de nutrition. Capture le poids, la taille (couchée ou debout), le périmètre brachial et l'œdème bilatéral prenant le godet, avec une référence de croissance et un type de mesure déclarés (couché ou debout). Voir l'entrée bibliographique smart-methodology."
     es: "Procedimiento estandarizado de medición antropométrica utilizado en las encuestas humanitarias de nutrición. Captura el peso, la talla o longitud, el perímetro braquial y el edema bilateral con fóvea, con una referencia de crecimiento y un tipo de medición declarados (acostado o de pie). Ver la entrada bibliográfica smart-methodology."
+- code: wfp_fcs
+  label:
+    en: WFP Food Consumption Score (FCS)
+    fr: "Score de consommation alimentaire du PAM (FCS)"
+    es: "Puntaje de Consumo de Alimentos del PMA (FCS)"
+  definition:
+    en: "Seven-day household dietary recall using eight food groups (staples, pulses, vegetables, fruit, meat, fish, eggs, dairy, fat/oil, sugar, condiments), each scored by number of days consumed and weighted to produce a composite food consumption score. Published by WFP VAM; used to classify households as poor, borderline, or acceptable consumption. See bibliography entry wfp-fcs."
+    fr: "Rappel alimentaire du ménage sur sept jours utilisant huit groupes alimentaires (aliments de base, légumineuses, légumes, fruits, viande, poisson, œufs, produits laitiers, matières grasses, sucre, condiments), chacun noté par nombre de jours consommés et pondéré pour produire un score composite de consommation alimentaire. Publié par VAM du PAM ; utilisé pour classer les ménages en consommation pauvre, limite ou acceptable. Voir l'entrée bibliographique wfp-fcs."
+    es: "Recordatorio dietético del hogar durante siete días utilizando ocho grupos de alimentos (alimentos básicos, legumbres, verduras, frutas, carne, pescado, huevos, lácteos, grasas, azúcar, condimentos), cada uno puntuado por número de días consumidos y ponderado para producir una puntuación compuesta de consumo de alimentos. Publicado por VAM del PMA; usado para clasificar hogares como consumo pobre, limítrofe o aceptable. Ver la entrada bibliográfica wfp-fcs."
+- code: wfp_rcsi
+  label:
+    en: WFP Reduced Coping Strategies Index (rCSI)
+    fr: "Indice réduit des stratégies d'adaptation du PAM (rCSI)"
+    es: "Índice Reducido de Estrategias de Afrontamiento del PMA (rCSI)"
+  definition:
+    en: "Seven-day recall of five food-related coping behaviours (eating less-preferred foods, borrowing food or relying on help, reducing meal size, reducing meal frequency, restricting adult consumption so children can eat), each counted in days and weighted by severity. Published by WFP and CARE as a comparable short form of the full CSI. See bibliography entry wfp-rcsi."
+    fr: "Rappel sur sept jours de cinq comportements d'adaptation alimentaire (consommer des aliments moins préférés, emprunter de la nourriture ou compter sur l'aide, réduire la taille des repas, réduire la fréquence des repas, restreindre la consommation des adultes pour que les enfants puissent manger), chacun compté en jours et pondéré par gravité. Publié par le PAM et CARE comme forme courte comparable du CSI complet. Voir l'entrée bibliographique wfp-rcsi."
+    es: "Recordatorio de siete días de cinco comportamientos de afrontamiento alimentario (consumir alimentos menos preferidos, pedir prestado alimentos o depender de ayuda, reducir el tamaño de las comidas, reducir la frecuencia de las comidas, restringir el consumo de adultos para que los niños coman), cada uno contado en días y ponderado por gravedad. Publicado por el PMA y CARE como forma corta comparable del CSI completo. Ver la entrada bibliográfica wfp-rcsi."
+- code: wfp_lcs
+  label:
+    en: WFP Livelihood Coping Strategies (LCS)
+    fr: "Stratégies d'adaptation des moyens d'existence du PAM (LCS)"
+    es: "Estrategias de Afrontamiento de Medios de Vida del PMA (LCS)"
+  definition:
+    en: "Thirty-day recall of twelve household coping strategies grouped into three severity tiers: stress (selling non-productive assets, spending savings), crisis (selling productive assets, withdrawing children from school), and emergency (selling house or land, migrating, begging). Each strategy is asked as a frequency (never, rarely, sometimes, often). Published by WFP VAM as part of the CARI framework. See bibliography entry wfp-lcs."
+    fr: "Rappel sur trente jours de douze stratégies d'adaptation des ménages regroupées en trois niveaux de gravité : stress (vente d'actifs non productifs, épargne), crise (vente d'actifs productifs, retrait des enfants de l'école) et urgence (vente de maison ou de terre, migration, mendicité). Chaque stratégie est interrogée en fréquence (jamais, rarement, parfois, souvent). Publié par VAM du PAM dans le cadre CARI. Voir l'entrée bibliographique wfp-lcs."
+    es: "Recordatorio de treinta días de doce estrategias de afrontamiento de los hogares agrupadas en tres niveles de gravedad: estrés (venta de activos no productivos, uso de ahorros), crisis (venta de activos productivos, retiro de niños de la escuela) y emergencia (venta de casa o tierra, migración, mendicidad). Cada estrategia se pregunta como frecuencia (nunca, rara vez, a veces, a menudo). Publicado por VAM del PMA como parte del marco CARI. Ver la entrada bibliográfica wfp-lcs."
+- code: wfp_cari
+  label:
+    en: WFP Consolidated Approach for Reporting Indicators (CARI)
+    fr: "Approche consolidée de rapport sur les indicateurs (CARI) du PAM"
+    es: "Enfoque Consolidado para Reportar Indicadores (CARI) del PMA"
+  definition:
+    en: "Composite food security classification that combines FCS (current food consumption), rCSI (food-based coping), LCS (livelihood coping), and a food expenditure share indicator into a single four-tier index (food secure, marginally food secure, moderately food insecure, severely food insecure). Used as the umbrella instrument code when a household administration deploys the full CARI battery. See bibliography entry wfp-cari."
+    fr: "Classification composite de sécurité alimentaire qui combine FCS (consommation alimentaire actuelle), rCSI (adaptation alimentaire), LCS (adaptation des moyens d'existence) et un indicateur de part des dépenses alimentaires en un indice unique à quatre niveaux (en sécurité alimentaire, sécurité alimentaire marginale, insécurité alimentaire modérée, insécurité alimentaire sévère). Utilisé comme code instrument générique lorsqu'une administration au ménage déploie la batterie CARI complète. Voir l'entrée bibliographique wfp-cari."
+    es: "Clasificación compuesta de seguridad alimentaria que combina FCS (consumo actual), rCSI (afrontamiento alimentario), LCS (afrontamiento de medios de vida) y un indicador de participación del gasto alimentario en un índice único de cuatro niveles (seguridad alimentaria, seguridad alimentaria marginal, inseguridad alimentaria moderada, inseguridad alimentaria severa). Usado como código instrumento general cuando una administración al hogar despliega la batería CARI completa. Ver la entrada bibliográfica wfp-cari."
+- code: fao_hdds
+  label:
+    en: FAO Household Dietary Diversity Score (HDDS)
+    fr: "Score de diversité alimentaire du ménage (HDDS) de la FAO"
+    es: "Puntaje de Diversidad Dietética del Hogar (HDDS) de la FAO"
+  definition:
+    en: "Twenty-four-hour recall of household consumption across twelve FAO food groups (cereals; roots and tubers; vegetables; fruit; meat, poultry, offal; eggs; fish and seafood; legumes, nuts, and seeds; milk and dairy; oils and fats; sweets; spices, condiments, and beverages). Each group is a yes/no item; the score is the count of groups consumed. Defined in FAO i1983e. See bibliography entry fao-hdds."
+    fr: "Rappel sur vingt-quatre heures de la consommation du ménage dans douze groupes alimentaires FAO (céréales ; racines et tubercules ; légumes ; fruits ; viande, volaille, abats ; œufs ; poissons et fruits de mer ; légumineuses, noix et graines ; lait et produits laitiers ; huiles et matières grasses ; sucreries ; épices, condiments et boissons). Chaque groupe est un item oui/non ; le score est le nombre de groupes consommés. Défini dans FAO i1983e. Voir l'entrée bibliographique fao-hdds."
+    es: "Recordatorio de veinticuatro horas del consumo del hogar en doce grupos alimentarios FAO (cereales; raíces y tubérculos; verduras; frutas; carne, aves, vísceras; huevos; pescado y mariscos; legumbres, nueces y semillas; leche y lácteos; aceites y grasas; dulces; especias, condimentos y bebidas). Cada grupo es un ítem sí/no; el puntaje es el recuento de grupos consumidos. Definido en FAO i1983e. Ver la entrada bibliográfica fao-hdds."
+- code: fao_fies
+  label:
+    en: FAO Food Insecurity Experience Scale (FIES)
+    fr: "Échelle d'expérience de l'insécurité alimentaire (FIES) de la FAO"
+    es: "Escala de Experiencia de Inseguridad Alimentaria (FIES) de la FAO"
+  definition:
+    en: "Eight-item experience-based scale (worried about food, unable to eat healthy, ate few foods, skipped a meal, ate less, ran out, hungry, went a whole day without). Each item is a yes/no for a declared reference period (commonly 12 months; 30-day variants exist). Used by FAO for SDG 2.1.2 monitoring. A FIES individual variant exists; the default FIES module is household-level. See bibliography entry fao-fies."
+    fr: "Échelle expérientielle de huit items (inquiétude au sujet de la nourriture, incapacité de manger sainement, a mangé peu d'aliments, a sauté un repas, a mangé moins, a manqué de nourriture, a eu faim, a passé une journée entière sans manger). Chaque item est un oui/non pour une période de référence déclarée (généralement 12 mois ; des variantes à 30 jours existent). Utilisée par la FAO pour le suivi de l'ODD 2.1.2. Une variante individuelle FIES existe ; le module FIES par défaut est au niveau du ménage. Voir l'entrée bibliographique fao-fies."
+    es: "Escala experiencial de ocho ítems (preocupación por los alimentos, incapacidad de comer saludablemente, comió pocos alimentos, omitió una comida, comió menos, se le acabó la comida, tuvo hambre, pasó un día entero sin comer). Cada ítem es sí/no para un período de referencia declarado (habitualmente 12 meses; existen variantes de 30 días). Usada por la FAO para el monitoreo del ODS 2.1.2. Existe una variante individual FIES; el módulo FIES por defecto es a nivel de hogar. Ver la entrada bibliográfica fao-fies."
+- code: fao_mahfp
+  label:
+    en: FAO Months of Adequate Household Food Provisioning (MAHFP)
+    fr: "Mois d'approvisionnement alimentaire adéquat du ménage (MAHFP) de la FAO"
+    es: "Meses de Aprovisionamiento Alimentario Adecuado del Hogar (MAHFP) de la FAO"
+  definition:
+    en: "Twelve-month recall indicator asking, for each of the past 12 months, whether the household had enough food to meet its needs. The output is an integer 0-12 representing the number of months of adequate provisioning. Used to detect seasonality in food access. Defined by FANTA for FAO. See bibliography entry fao-mahfp."
+    fr: "Indicateur à rappel sur douze mois demandant, pour chacun des douze derniers mois, si le ménage disposait de suffisamment de nourriture pour couvrir ses besoins. La sortie est un entier de 0 à 12 représentant le nombre de mois d'approvisionnement adéquat. Utilisé pour détecter la saisonnalité de l'accès alimentaire. Défini par FANTA pour la FAO. Voir l'entrée bibliographique fao-mahfp."
+    es: "Indicador de recordatorio de doce meses que pregunta, para cada uno de los últimos doce meses, si el hogar tuvo suficiente comida para satisfacer sus necesidades. La salida es un entero 0-12 que representa el número de meses de aprovisionamiento adecuado. Usado para detectar la estacionalidad en el acceso a los alimentos. Definido por FANTA para la FAO. Ver la entrada bibliográfica fao-mahfp."
+- code: fao_wdds
+  label:
+    en: FAO Minimum Dietary Diversity for Women (MDD-W)
+    fr: "Diversité alimentaire minimale pour les femmes (MDD-W) de la FAO"
+    es: "Diversidad Dietética Mínima para Mujeres (MDD-W) de la FAO"
+  definition:
+    en: "Twenty-four-hour recall of individual (woman of reproductive age) consumption across ten FAO food groups (grains; pulses; nuts and seeds; dairy; meat/poultry/fish; eggs; dark green leafy vegetables; other vitamin-A-rich fruits and vegetables; other vegetables; other fruits). Each group is a yes/no item; women consuming five or more groups are classified as having minimum dietary diversity. Replaces earlier WDDS. See bibliography entry fao-mdd-w."
+    fr: "Rappel sur vingt-quatre heures de la consommation individuelle (femme en âge de procréer) dans dix groupes alimentaires FAO (céréales ; légumineuses ; noix et graines ; produits laitiers ; viande/volaille/poisson ; œufs ; légumes-feuilles vert foncé ; autres fruits et légumes riches en vitamine A ; autres légumes ; autres fruits). Chaque groupe est un item oui/non ; les femmes consommant cinq groupes ou plus sont classées comme ayant une diversité alimentaire minimale. Remplace le WDDS antérieur. Voir l'entrée bibliographique fao-mdd-w."
+    es: "Recordatorio de veinticuatro horas del consumo individual (mujeres en edad reproductiva) en diez grupos alimentarios FAO (cereales; legumbres; nueces y semillas; lácteos; carne/aves/pescado; huevos; hortalizas de hoja verde oscuro; otras frutas y verduras ricas en vitamina A; otras verduras; otras frutas). Cada grupo es un ítem sí/no; las mujeres que consumen cinco o más grupos se clasifican como con diversidad dietética mínima. Reemplaza al WDDS anterior. Ver la entrada bibliográfica fao-mdd-w."
+- code: fanta_hhs
+  label:
+    en: FANTA Household Hunger Scale (HHS)
+    fr: "Échelle de la faim du ménage (HHS) de FANTA"
+    es: "Escala de Hambre del Hogar (HHS) de FANTA"
+  definition:
+    en: "Three-item scale asking, over the past 30 days, whether anyone in the household (i) had no food of any kind because of lack of resources, (ii) went to sleep hungry, and (iii) went a whole day and night without eating. Each item is asked as a frequency (never, rarely 1-2 times, sometimes 3-9 times, often 10+ times). Used in severe food insecurity contexts. See bibliography entry fanta-hhs."
+    fr: "Échelle à trois items demandant, sur les trente derniers jours, si quelqu'un dans le ménage (i) n'a pas eu de nourriture d'aucune sorte faute de ressources, (ii) s'est couché affamé, et (iii) a passé une journée et une nuit entières sans manger. Chaque item est interrogé en fréquence (jamais, rarement 1-2 fois, parfois 3-9 fois, souvent 10+ fois). Utilisée dans les contextes d'insécurité alimentaire sévère. Voir l'entrée bibliographique fanta-hhs."
+    es: "Escala de tres ítems que pregunta, durante los últimos treinta días, si alguien en el hogar (i) no tuvo comida de ningún tipo por falta de recursos, (ii) se acostó con hambre, y (iii) pasó un día y una noche enteros sin comer. Cada ítem se pregunta como frecuencia (nunca, rara vez 1-2 veces, a veces 3-9 veces, a menudo 10+ veces). Usada en contextos de inseguridad alimentaria severa. Ver la entrada bibliográfica fanta-hhs."

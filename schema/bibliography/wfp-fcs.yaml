@@ -1,0 +1,19 @@
+id: wfp-fcs
+title: "Food Consumption Analysis: Calculation and Use of the Food Consumption Score in Food Security Analysis"
+short_title: "WFP FCS"
+publisher: "World Food Programme, Vulnerability Analysis and Mapping (VAM)"
+year: 2008
+version: "Version 1"
+type: guidance_publication
+domain: humanitarian
+uri: "https://www.wfp.org/publications/food-consumption-analysis-calculation-and-use-food-consumption-score-food-security"
+access: open
+status: active
+
+informs:
+  concepts:
+    - FoodSecurityProfile
+  vocabularies:
+    - fcs-food-group
+    - instrument-id
+  properties: []

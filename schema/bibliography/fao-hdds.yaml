@@ -1,0 +1,23 @@
+id: fao-hdds
+title: "Guidelines for Measuring Household and Individual Dietary Diversity"
+short_title: "FAO HDDS"
+publisher: "Food and Agriculture Organization of the United Nations (FAO), Nutrition and Consumer Protection Division"
+authors:
+  - "Gina Kennedy"
+  - "Terri Ballard"
+  - "MarieClaude Dop"
+year: 2011
+standard_number: "FAO i1983e"
+type: guidance_publication
+domain: humanitarian
+uri: "https://www.fao.org/4/i1983e/i1983e00.htm"
+access: open
+status: active
+
+informs:
+  concepts:
+    - FoodSecurityProfile
+  vocabularies:
+    - hdds-food-group
+    - instrument-id
+  properties: []

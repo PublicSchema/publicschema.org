@@ -1,0 +1,18 @@
+id: fao-mdd-w
+title: "Minimum Dietary Diversity for Women: An Updated Guide to Measurement"
+short_title: "FAO MDD-W"
+publisher: "Food and Agriculture Organization of the United Nations (FAO) and USAID FANTA"
+year: 2021
+type: guidance_publication
+domain: humanitarian
+uri: "https://www.fao.org/documents/card/en?details=cb3434en"
+access: open
+status: active
+
+informs:
+  concepts:
+    - FoodSecurityProfile
+  vocabularies:
+    - wdds-food-group
+    - instrument-id
+  properties: []

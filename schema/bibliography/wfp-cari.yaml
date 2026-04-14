@@ -1,0 +1,18 @@
+id: wfp-cari
+title: "Consolidated Approach for Reporting Indicators of Food Security (CARI) Guidelines"
+short_title: "WFP CARI"
+publisher: "World Food Programme, Vulnerability Analysis and Mapping (VAM)"
+year: 2021
+version: "Third Edition"
+type: guidance_publication
+domain: humanitarian
+uri: "https://docs.wfp.org/api/documents/WFP-0000132207/download/"
+access: open
+status: active
+
+informs:
+  concepts:
+    - FoodSecurityProfile
+  vocabularies:
+    - instrument-id
+  properties: []

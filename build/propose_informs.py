@@ -83,9 +83,19 @@ VOCAB_STANDARD_LOOKUP: dict[str, str] = {
     "WHO/UNICEF joint statement (2009) and Sphere Handbook (2018)": "who-muac-cutoffs",
     "WHO Child Growth Standards and Growth Reference": "who-child-growth-standards",
     "WHO Anthropometric Training Course (2008)": "who-child-growth-standards",
+    "WFP VAM Food Consumption Analysis (2008)": "wfp-fcs",
+    "The Coping Strategies Index (Maxwell and Caldwell, 2008)": "wfp-rcsi",
+    "WFP CARI Guidelines (3rd edition, 2021)": "wfp-lcs",
+    "FANTA Household Hunger Scale Indicator Guide (2011)": "fanta-hhs",
+    "FAO Guidelines for Measuring Household and Individual Dietary Diversity (i1983e, 2011)": "fao-hdds",
+    "FAO Minimum Dietary Diversity for Women (MDD-W) Guide, 2021": "fao-mdd-w",
+    "IOM Displacement Tracking Matrix (DTM) Shelter Damage Assessment": "iom-dtm",
+    "Sphere Handbook (2018) Shelter and Settlement chapter": "sphere-2018",
+    "Global Shelter Cluster post-disaster shelter situation categories": "global-shelter-cluster",
+    "ATC-20 Post-Earthquake Safety Evaluation of Buildings": "atc-20",
 }
 
-SKIPPED_KEYS = {"opencrvs"}
+SKIPPED_KEYS = {"opencrvs", "dhis2"}
 
 
 @dataclass

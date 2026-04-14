@@ -1,0 +1,18 @@
+id: atc-20
+title: "ATC-20: Procedures for Post-earthquake Safety Evaluation of Buildings"
+short_title: "ATC-20"
+publisher: "Applied Technology Council"
+year: 1989
+version: "First Edition (with subsequent ATC-20-1, ATC-20-2 addenda)"
+type: guidance_publication
+domain: humanitarian
+uri: "https://www.atcouncil.org/pdfs/ATC-20overview.pdf"
+access: open
+status: active
+
+informs:
+  concepts:
+    - DwellingDamageProfile
+  vocabularies:
+    - structural-safety-tag
+  properties: []
