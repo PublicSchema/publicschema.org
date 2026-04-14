@@ -9,7 +9,6 @@ import yaml
 from build.lint import LintIssue, lint_schema_dir
 from tests.conftest import make_concept, make_property, make_vocabulary
 
-
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------

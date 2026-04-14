@@ -1,0 +1,23 @@
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.15.10
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format
+
+  - repo: https://github.com/adrienverge/yamllint
+    rev: v1.38.0
+    hooks:
+      - id: yamllint
+        args: [-c, .yamllint.yaml]
+        files: ^schema/
+
+  - repo: local
+    hooks:
+      - id: schema-lint
+        name: Schema content lint
+        entry: uv run python -m build.lint
+        language: system
+        pass_filenames: false
+        files: ^schema/

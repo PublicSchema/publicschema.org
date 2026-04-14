@@ -18,6 +18,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Full history so check_translations can read git timestamps
+          fetch-depth: 0
 
       - uses: astral-sh/setup-uv@v4
 
@@ -25,6 +28,12 @@ jobs:
 
       - name: Validate schema
         run: uv run python -m build.validate
+
+      - name: Lint schema content
+        run: uv run python -m build.lint
+
+      - name: Check translation completeness and staleness
+        run: uv run python -m build.check_translations
 
       - name: Build vocabulary data
         run: uv run python -m build.build

@@ -52,8 +52,16 @@ site-install:
 test:
     uv run pytest
 
-# Validate, test, build, and check everything is clean
-check: validate test build
+# Lint schema content for quality and style issues
+lint:
+    uv run python -m build.lint
+
+# Check translation completeness and staleness
+check-translations:
+    uv run python -m build.check_translations
+
+# Validate, lint, test, build, and check everything is clean
+check: validate lint check-translations test build
     @echo "All checks passed."
 
 # Install all dependencies (Python + Node)

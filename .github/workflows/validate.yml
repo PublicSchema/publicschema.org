@@ -21,6 +21,9 @@ jobs:
       - name: Validate schema
         run: uv run python -m build.validate
 
+      - name: Lint schema content
+        run: uv run python -m build.lint
+
       - name: Run tests
         run: uv run pytest
 
