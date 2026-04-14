@@ -42,8 +42,8 @@ test.describe("Concept detail: property groups", () => {
 });
 
 test.describe("Concept detail: flat table fallback", () => {
-  test("Address page shows flat property table without category separators", async ({ page }) => {
-    await page.goto("/Address/");
+  test("Enrollment page shows flat property table without category separators", async ({ page }) => {
+    await page.goto("/sp/Enrollment/");
 
     // Properties section exists with a table
     const table = page.locator("#properties table.data-table");

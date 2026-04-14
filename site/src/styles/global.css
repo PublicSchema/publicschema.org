@@ -795,19 +795,20 @@ article .data-table.table-wide {
 
 /* Category separator rows within the properties table */
 .category-separator-row td {
-  padding: 0;
-  border: none;
-}
-
-.category-separator {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 600;
   color: var(--color-text-muted);
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  padding-top: var(--space-md) !important;
-  padding-bottom: var(--space-xs) !important;
-  border-bottom: 1px solid var(--color-border) !important;
+  padding: 0.5rem 1rem;
+  background: var(--color-border-light);
+  border: none;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.category-separator-row:hover td {
+  background: var(--color-border-light);
 }
 
 /* Per-section feedback icon (pencil) */
@@ -2181,6 +2182,13 @@ article .data-table.table-wide {
 
   .mobile-card-table tr:hover {
     background: white;
+  }
+
+  .mobile-card-table .category-separator-row {
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    background: transparent;
   }
 
   .mobile-card-table td {
