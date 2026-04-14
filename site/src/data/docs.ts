@@ -192,4 +192,18 @@ export const docs: Record<string, DocEntry> = {
     },
     category: "landscape",
   },
+  "fhir-mapping-guide": {
+    file: "fhir-mapping-guide.md",
+    title: {
+      en: "FHIR Mapping Guide",
+      fr: "Guide de correspondance FHIR",
+      es: "Guía de correspondencia FHIR",
+    },
+    description: {
+      en: "Exchanging PublicSchema disability, functioning, and anthropometric data over FHIR R4: Observation vs. QuestionnaireResponse, LOINC coding, and IPS alignment.",
+      fr: "Échanger les données PublicSchema sur le handicap, le fonctionnement et l'anthropométrie via FHIR R4 : Observation ou QuestionnaireResponse, codage LOINC et alignement avec IPS.",
+      es: "Intercambiar datos de discapacidad, funcionamiento y antropometría de PublicSchema a través de FHIR R4: Observation o QuestionnaireResponse, codificación LOINC y alineación con IPS.",
+    },
+    category: "technical",
+  },
 };

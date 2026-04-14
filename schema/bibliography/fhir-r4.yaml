@@ -14,4 +14,50 @@ informs:
   concepts:
     - IdentityDocument
   vocabularies: []
-  properties: []
+  properties:
+    - anxiety_frequency
+    - anxiety_intensity
+    - anxiety_medication
+    - cognition_subdomain
+    - depression_frequency
+    - depression_intensity
+    - depression_medication
+    - difficulty_accepting_change
+    - difficulty_being_understood
+    - difficulty_being_understood_inside_household
+    - difficulty_being_understood_outside_household
+    - difficulty_climbing_steps
+    - difficulty_cognition
+    - difficulty_communication
+    - difficulty_concentrating
+    - difficulty_controlling_behaviour
+    - difficulty_dexterity
+    - difficulty_disruptive_behaviour
+    - difficulty_hearing
+    - difficulty_hearing_noisy_room
+    - difficulty_hearing_quiet_room
+    - difficulty_learning
+    - difficulty_making_friends
+    - difficulty_playing
+    - difficulty_remembering
+    - difficulty_seeing
+    - difficulty_seeing_coin
+    - difficulty_seeing_face_across_room
+    - difficulty_self_care
+    - difficulty_understanding_others
+    - difficulty_upper_body_reach
+    - difficulty_walking
+    - difficulty_walking_100m
+    - difficulty_walking_500m
+    - fatigue_duration
+    - fatigue_frequency
+    - fatigue_intensity
+    - hearing_aid_use_frequency
+    - pain_frequency
+    - pain_intensity
+    - pregnancy_status
+    - remembering_extent
+    - remembering_frequency
+    - uses_glasses
+    - uses_hearing_aid
+    - uses_mobility_aid
