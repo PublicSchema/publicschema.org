@@ -3,6 +3,8 @@ maturity: draft
 
 definition:
   en: "The acute malnutrition classification of the person based on mid-upper arm circumference (MUAC) cutoffs defined by the WHO/UNICEF/WFP/UNHCR joint criteria."
+  fr: "La classification de malnutrition aiguë de la personne, basée sur les seuils de périmètre brachial définis par les critères conjoints OMS/UNICEF/PAM/UNHCR."
+  es: "La clasificación de desnutrición aguda de la persona, basada en los puntos de corte de la circunferencia media del brazo definidos por los criterios conjuntos OMS/UNICEF/PMA/ACNUR."
 
 type: string
 cardinality: single

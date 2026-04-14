@@ -3,6 +3,8 @@ maturity: draft
 
 definition:
   en: "The current body weight of the person, measured in kilograms. Named body_weight to distinguish from birth weight or other weight measures."
+  fr: "Le poids corporel actuel de la personne, mesuré en kilogrammes. Nommé body_weight pour le distinguer du poids à la naissance et d'autres mesures de poids."
+  es: "El peso corporal actual de la persona, medido en kilogramos. Se denomina body_weight para distinguirlo del peso al nacer y otras medidas de peso."
 
 type: decimal
 cardinality: single

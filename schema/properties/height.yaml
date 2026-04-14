@@ -3,6 +3,8 @@ maturity: draft
 
 definition:
   en: "The current body height or length of the person, measured in centimeters. For children under 2 years, this is recumbent length; for older children and adults, standing height."
+  fr: "La taille ou longueur corporelle actuelle de la personne, mesurée en centimètres. Pour les enfants de moins de 2 ans, il s'agit de la longueur couchée; pour les enfants plus âgés et les adultes, la taille debout."
+  es: "La talla o longitud corporal actual de la persona, medida en centímetros. Para niños menores de 2 años, es la longitud en decúbito; para niños mayores y adultos, la talla de pie."
 
 type: decimal
 cardinality: single
