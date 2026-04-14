@@ -1368,6 +1368,24 @@ class TestPropertyCategories:
 
 
 # ---------------------------------------------------------------------------
+# Featured concepts
+# ---------------------------------------------------------------------------
+
+class TestFeaturedConcepts:
+    """The featured flag passes through the build pipeline."""
+
+    def test_featured_true_passes_through(self, tmp_schema, write_concept):
+        write_concept("person.yaml", make_concept(id="Person", featured=True))
+        result = build_vocabulary(tmp_schema)
+        assert result["concepts"]["Person"]["featured"] is True
+
+    def test_featured_defaults_to_false(self, tmp_schema, write_concept):
+        write_concept("person.yaml", make_concept(id="Person"))
+        result = build_vocabulary(tmp_schema)
+        assert result["concepts"]["Person"]["featured"] is False
+
+
+# ---------------------------------------------------------------------------
 # Schema / build output drift detection
 # ---------------------------------------------------------------------------
 

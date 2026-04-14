@@ -27,6 +27,10 @@
       "type": "boolean",
       "description": "True if the concept is an abstract supertype that exists only to group shared properties; concrete instances are recorded as one of its subtypes."
     },
+    "featured": {
+      "type": "boolean",
+      "description": "True if the concept should be highlighted on the homepage and other summary views."
+    },
     "definition": {
       "$ref": "#/$defs/multilingual_text"
     },

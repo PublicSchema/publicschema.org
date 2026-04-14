@@ -15,14 +15,32 @@ const t = useTranslations(locale);
 
 const vocab = loadVocabulary();
 const maturityRank: Record<string, number> = { normative: 0, candidate: 1, draft: 2 };
-const byMaturityThenName = (a: { maturity: string; id: string }, b: { maturity: string; id: string }) =>
-  (maturityRank[a.maturity] ?? 9) - (maturityRank[b.maturity] ?? 9) || a.id.localeCompare(b.id);
-const concepts = Object.values(vocab.concepts).sort(byMaturityThenName);
+const byFeaturedThenMaturityThenName = (
+  a: { featured: boolean; maturity: string; id: string },
+  b: { featured: boolean; maturity: string; id: string },
+) =>
+  Number(b.featured) - Number(a.featured) ||
+  (maturityRank[a.maturity] ?? 9) - (maturityRank[b.maturity] ?? 9) ||
+  a.id.localeCompare(b.id);
+const concepts = Object.values(vocab.concepts).sort(byFeaturedThenMaturityThenName);
 const coreConcepts = concepts.filter((c) => !c.domain);
 const domainLabels: Record<string, string> = { sp: t('concepts.section_social_protection'), crvs: t('concepts.section_crvs') };
 const domainCodes = [...new Set(concepts.filter((c) => c.domain).map((c) => c.domain as string))].sort();
 const conceptsByDomain = Object.fromEntries(domainCodes.map((d) => [d, concepts.filter((c) => c.domain === d)]));
+const byMaturityThenName = (a: { maturity: string; id: string }, b: { maturity: string; id: string }) =>
+  (maturityRank[a.maturity] ?? 9) - (maturityRank[b.maturity] ?? 9) || a.id.localeCompare(b.id);
 const properties = Object.values(vocab.properties).sort(byMaturityThenName);
+
+// Pick featured concepts for homepage chips. If a group has featured items,
+// show exactly those; otherwise fall back to the first 6 by maturity.
+const featuredOrSlice = (list: typeof concepts, fallbackCount = 6) => {
+  const featured = list.filter((c) => c.featured);
+  return featured.length > 0 ? featured : list.slice(0, fallbackCount);
+};
+const coreChips = featuredOrSlice(coreConcepts);
+const domainChips = Object.fromEntries(
+  domainCodes.map((d) => [d, featuredOrSlice(conceptsByDomain[d])]),
+);
 // Vocabularies are keyed by their canonical reference form (`<domain>/<id>`
 // for domain-scoped vocabs). Keep the entry key alongside so href links use
 // the prefixed path required by CRVS and other domain-scoped routes.
@@ -109,14 +127,14 @@ const { title, description } = titles[locale];
         <span class="h3-idx-count">{coreConcepts.length}</span>
       </div>
       <div class="h3-idx-chips">
-        {coreConcepts.slice(0, 6).map((c) => (
+        {coreChips.map((c) => (
           <a href={localePath(c.path, locale)} class="h3-chip">
             {c.id}
           </a>
         ))}
-        {coreConcepts.length > 6 && (
+        {coreConcepts.length > coreChips.length && (
           <a href={localePath('/concepts/', locale)} class="h3-chip h3-chip-more">
-            {t('home.plus_more', { count: coreConcepts.length - 6 })}
+            {t('home.plus_more', { count: coreConcepts.length - coreChips.length })}
           </a>
         )}
       </div>
@@ -129,14 +147,14 @@ const { title, description } = titles[locale];
           <span class="h3-idx-count">{conceptsByDomain[domain].length}</span>
         </div>
         <div class="h3-idx-chips">
-          {conceptsByDomain[domain].slice(0, 6).map((c) => (
+          {domainChips[domain].map((c) => (
             <a href={localePath(c.path, locale)} class="h3-chip">
               {c.id}
             </a>
           ))}
-          {conceptsByDomain[domain].length > 6 && (
+          {conceptsByDomain[domain].length > domainChips[domain].length && (
             <a href={localePath('/concepts/', locale)} class="h3-chip h3-chip-more">
-              {t('home.plus_more', { count: conceptsByDomain[domain].length - 6 })}
+              {t('home.plus_more', { count: conceptsByDomain[domain].length - domainChips[domain].length })}
             </a>
           )}
         </div>

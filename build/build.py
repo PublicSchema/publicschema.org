@@ -446,6 +446,7 @@ def build_vocabulary(schema_dir: Path) -> dict:
             "path": _compute_path(domain, concept_id),
             "maturity": data.get("maturity"),
             "abstract": data.get("abstract", False),
+            "featured": bool(data.get("featured", False)),
             "label": data.get("label", {}),
             "definition": data.get("definition", {}),
             "properties": [
