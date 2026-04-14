@@ -10,6 +10,7 @@ import {
   propPath as propPathFor,
   collectInheritedProperties,
   collectAllSubtypes,
+  buildDisplayGroups,
 } from '../../data/concept-utils';
 import SectionFeedback from '../SectionFeedback.astro';
 import FeedbackOrientation from '../FeedbackOrientation.astro';
@@ -46,6 +47,10 @@ const allProps = [
   ...inheritedProps,
   ...propList.map((p) => ({ ...p, from: null as string | null })),
 ];
+
+const displayGroups = concept.property_groups
+  ? buildDisplayGroups(vocab, termId, concept.property_groups, locale)
+  : null;
 
 const primitiveTypes = ['string', 'integer', 'decimal', 'boolean', 'date', 'datetime', 'uri', 'geojson_geometry'];
 
@@ -132,7 +137,62 @@ const domainTitles: Record<string, string> = { sp: t('concepts.section_social_pr
 
   <div class="concept-section" id="properties">
     <h2>{t('concept_detail.properties')}<SectionFeedback pageType="concept" pageId={termId} sectionId="properties" sectionLabel={t('concept_detail.properties')} locale={locale} /></h2>
-    {allProps.length > 0 ? (
+    {displayGroups ? (
+      <table class="data-table mobile-card-table">
+        <thead>
+          <tr>
+            <th>{t('concept_detail.table.property')}</th>
+            <th>{t('concept_detail.table.type')}</th>
+            <th>{t('concept_detail.table.definition')}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {displayGroups.map((group) => (
+            <>
+              <tr class="category-separator-row" id={`group-${group.category}`}>
+                <td colspan="3" class="category-separator">{group.label}</td>
+              </tr>
+              {group.properties.map((p) => {
+                const typeStr = p.detail?.type || 'unknown';
+                const conceptRef = typeStr.match(/^concept:(.+)$/)?.[1];
+                const isPrimitive = primitiveTypes.includes(typeStr);
+                const propDef = (p.detail?.definition?.[locale] ?? p.detail?.definition?.en) || '';
+                return (
+                  <tr class={p.from ? 'inherited-row' : ''} id={`prop-${p.id}`}>
+                    <td>
+                      <a href={propLink(p.id)}>{p.id}</a>
+                      {p.from && <span class="inherited-badge">{t('concept_detail.inherited_from')} <a href={conceptLink(p.from)}>{p.from}</a></span>}
+                    </td>
+                    <td data-label={t('concept_detail.table.type')}>
+                      {conceptRef
+                        ? <a href={conceptLink(conceptRef)}><code>{typeStr}</code></a>
+                        : isPrimitive
+                          ? <a href={localePath(`/types#${typeStr}`, locale)}><code>{typeStr}</code></a>
+                          : <code>{typeStr}</code>
+                      }
+                      {conceptRef && (() => {
+                        const subs = collectAllSubtypes(vocab, conceptRef);
+                        return subs.length > 0 && (
+                          <span class="subtype-hint">
+                            {t('concept_detail.includes')} {subs.map((s, i) => <>{i > 0 && ', '}<a href={conceptLink(s)}>{s}</a></>)}
+                          </span>
+                        );
+                      })()}
+                      {p.detail?.vocabulary && (
+                        <> (<a href={localePath(`/vocab/${p.detail.vocabulary}`, locale)}>{p.detail.vocabulary}</a>)</>
+                      )}
+                    </td>
+                    <td data-label={t('concept_detail.table.definition')}>
+                      {propDef && <ExpandableDefinition text={propDef} threshold={80} />}
+                    </td>
+                  </tr>
+                );
+              })}
+            </>
+          ))}
+        </tbody>
+      </table>
+    ) : allProps.length > 0 ? (
       <table class="data-table mobile-card-table">
         <thead>
           <tr>

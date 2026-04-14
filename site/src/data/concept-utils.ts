@@ -1,4 +1,5 @@
-import type { VocabularyData, Property } from './vocabulary';
+import type { VocabularyData, Property, PropertyGroup } from './vocabulary';
+import type { Locale } from '../i18n/languages';
 
 /** Look up a concept's path by ID. Falls back to `/{id}` if unknown. */
 export function conceptPath(vocab: VocabularyData, id: string): string {
@@ -45,6 +46,73 @@ export function collectInheritedProperties(
     result.push(...collectInheritedProperties(vocab, st, seenIds, visited));
   }
   return result;
+}
+
+/** A property entry enriched with display info for grouped rendering. */
+export interface GroupedPropertyEntry {
+  id: string;
+  detail: Property | undefined;
+  from: string | null;
+}
+
+/** A display group: a category label plus the properties in it. */
+export interface DisplayGroup {
+  category: string;
+  label: string;
+  properties: GroupedPropertyEntry[];
+}
+
+/**
+ * Build display groups for a concept that has property_groups.
+ * Returns an array of groups, each with a translated label and
+ * enriched property entries (including inherited-from attribution).
+ */
+export function buildDisplayGroups(
+  vocab: VocabularyData,
+  conceptId: string,
+  groups: PropertyGroup[],
+  locale: Locale,
+): DisplayGroup[] {
+  const ownIds = new Set(
+    (vocab.concepts[conceptId]?.properties ?? []).map((ref) => ref.id),
+  );
+
+  // Build a map of inherited property ID -> source concept ID
+  const inheritedMap: Record<string, string> = {};
+  const visited = new Set<string>();
+  function walkSupertypes(cid: string) {
+    const c = vocab.concepts[cid];
+    if (!c) return;
+    for (const st of c.supertypes) {
+      if (visited.has(st)) continue;
+      visited.add(st);
+      const parent = vocab.concepts[st];
+      if (!parent) continue;
+      for (const ref of parent.properties) {
+        if (!(ref.id in inheritedMap)) {
+          inheritedMap[ref.id] = st;
+        }
+      }
+      walkSupertypes(st);
+    }
+  }
+  walkSupertypes(conceptId);
+
+  const categories = vocab.categories ?? {};
+
+  return groups.map((group) => {
+    const catData = categories[group.category];
+    const label =
+      catData?.label?.[locale] ?? catData?.label?.en ?? group.category;
+
+    const properties: GroupedPropertyEntry[] = group.properties.map((pid) => ({
+      id: pid,
+      detail: vocab.properties[pid],
+      from: ownIds.has(pid) ? null : inheritedMap[pid] ?? null,
+    }));
+
+    return { category: group.category, label, properties };
+  });
 }
 
 /** Flat list of every subtype (direct and indirect) of a concept. */

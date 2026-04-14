@@ -23,6 +23,15 @@ interface PropertyRef {
   id: string;
 }
 
+export interface PropertyGroup {
+  category: string;
+  properties: string[];
+}
+
+export interface CategoryLabel {
+  label: MultilingualText;
+}
+
 export interface Concept {
   id: string;
   domain: string | null;
@@ -33,6 +42,7 @@ export interface Concept {
   label: MultilingualText;
   definition: MultilingualText;
   properties: PropertyRef[];
+  property_groups: PropertyGroup[] | null;
   subtypes: string[];
   supertypes: string[];
   convergence: Convergence | null;
@@ -51,6 +61,7 @@ export interface Property {
   vocabulary: string | null;
   references: string | null;
   used_by: string[];
+  category: string | null;
   sensitivity: "standard" | "sensitive" | "restricted" | null;
   system_mappings: Record<string, SystemMapping> | null;
   convergence: Convergence | null;
@@ -170,6 +181,7 @@ export interface VocabularyData {
   properties: Record<string, Property>;
   vocabularies: Record<string, Vocabulary>;
   bibliography: Record<string, BibliographyEntry>;
+  categories: Record<string, CategoryLabel>;
 }
 
 export function loadVocabulary(): VocabularyData {
