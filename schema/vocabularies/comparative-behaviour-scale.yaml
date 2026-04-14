@@ -11,11 +11,20 @@ definition:
 standard:
   name: "WG/UNICEF Child Functioning Module (CFM)"
   uri: https://www.washingtongroup-disability.com/question-sets/wg-unicef-child-functioning-module-cfm/
-  notes: "Joint product of the Washington Group on Disability Statistics and UNICEF. Used for the controlling behaviour domain in both the 2-4 and 5-17 age modules."
+  notes: "Joint product of the Washington Group on Disability Statistics and UNICEF. Used for the controlling behaviour domain in the CFM 2-4 age module only (CF16, kick/bite/hit wording). The CFM 5-17 controlling behaviour item (CF21) uses the standard functional-difficulty-severity scale with general behaviour-control wording, not this scale."
 values:
+- code: not_at_all
+  label:
+    en: Not at all
+    fr: Pas du tout
+    es: En absoluto
+  definition:
+    en: "The child does not exhibit the behaviour at all."
+    fr: "L'enfant ne présente pas du tout ce comportement."
+    es: "El niño no presenta el comportamiento en absoluto."
 - code: same_or_less
   label:
-    en: Same or less than other children
+    en: The same or less than other children
     fr: Pareil ou moins que les autres enfants
     es: Igual o menos que otros niños
   definition:
@@ -45,12 +54,15 @@ system_mappings:
     vocabulary_name: "MICS6 CFM Behaviour scale"
     values:
     - code: '1'
-      label: "Same or less"
-      maps_to: same_or_less
+      label: "Not at all"
+      maps_to: not_at_all
     - code: '2'
+      label: "The same or less"
+      maps_to: same_or_less
+    - code: '3'
       label: "More"
       maps_to: more
-    - code: '3'
+    - code: '4'
       label: "A lot more"
       maps_to: a_lot_more
-    note: "MICS6 Child Functioning Module. CF7 (ages 2-4) and CF14 (ages 5-17)."
+    note: "MICS6 Child Functioning Module, ages 2-4: CF16 (controlling behaviour, kick/bite/hit wording) per the 19 March 2020 CFM PDF. Printed order: Not at all / The same or less / More / A lot more."

@@ -2,13 +2,13 @@ id: difficulty_controlling_behaviour
 maturity: draft
 
 definition:
-  en: "The extent to which the child has difficulty controlling their behaviour, compared to children of the same age. Applies to children ages 2-17 (CFM). For ages 2-4 the CFM asks about disruptive behaviour (kicking, biting, hitting); for ages 5-17 it asks a general behaviour-control question."
-  fr: "La mesure dans laquelle l'enfant a des difficultés à contrôler son comportement, par rapport aux enfants du même âge. S'applique aux enfants de 2 à 17 ans (CFM). Pour les 2 à 4 ans, le CFM porte sur les comportements perturbateurs (coups de pied, morsures, coups); pour les 5 à 17 ans, il pose une question générale sur le contrôle du comportement."
-  es: "La medida en que el niño tiene dificultad para controlar su comportamiento, en comparación con niños de la misma edad. Se aplica a niños de 2 a 17 años (CFM). Para niños de 2 a 4 años, el CFM pregunta sobre comportamientos disruptivos (patear, morder, golpear); para niños de 5 a 17 años, hace una pregunta general sobre el control del comportamiento."
+  en: "The degree of difficulty the child has controlling their behaviour, compared to children of the same age. Applies to children ages 5-17 (CFM CF21)."
+  fr: "Le degré de difficulté que l'enfant a à contrôler son comportement, par rapport aux enfants du même âge. S'applique aux enfants de 5 à 17 ans (CFM CF21)."
+  es: "El grado de dificultad que el niño tiene para controlar su comportamiento, en comparación con niños de la misma edad. Se aplica a niños de 5 a 17 años (CFM CF21)."
 
 type: string
 cardinality: single
-vocabulary: comparative-behaviour-scale
+vocabulary: functional-difficulty-severity
 references: null
 category: child_functioning
 sensitivity: sensitive

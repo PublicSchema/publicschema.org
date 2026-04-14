@@ -1,0 +1,14 @@
+id: difficulty_understanding_others
+maturity: draft
+
+definition:
+  en: "The degree of difficulty the child has understanding others (receptive communication), compared to children of the same age. Applies to children ages 2-4 (CFM CF12)."
+  fr: "Le degré de difficulté que l'enfant a à comprendre les autres (communication réceptive), par rapport aux enfants du même âge. S'applique aux enfants de 2 à 4 ans (CFM CF12)."
+  es: "El grado de dificultad que el niño tiene para entender a los demás (comunicación receptiva), en comparación con niños de la misma edad. Se aplica a niños de 2 a 4 años (CFM CF12)."
+
+type: string
+cardinality: single
+vocabulary: functional-difficulty-severity
+references: null
+category: child_functioning
+sensitivity: sensitive

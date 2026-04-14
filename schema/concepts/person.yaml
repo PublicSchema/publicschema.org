@@ -72,13 +72,18 @@ properties:
   - wasting_status
   - acute_malnutrition_status
   - difficulty_learning
-  - difficulty_fine_motor
+  - difficulty_dexterity
   - difficulty_playing
   - difficulty_remembering
   - difficulty_concentrating
   - difficulty_accepting_change
   - difficulty_making_friends
   - difficulty_controlling_behaviour
+  - difficulty_disruptive_behaviour
+  - difficulty_understanding_others
+  - difficulty_being_understood
+  - difficulty_being_understood_inside_household
+  - difficulty_being_understood_outside_household
   - difficulty_anxiety
   - difficulty_depression
 
@@ -142,16 +147,22 @@ property_groups:
       - difficulty_cognition
       - difficulty_self_care
       - difficulty_communication
+      - difficulty_dexterity
   - category: child_functioning
     properties:
       - difficulty_learning
-      - difficulty_fine_motor
+      - difficulty_dexterity
       - difficulty_playing
       - difficulty_remembering
       - difficulty_concentrating
       - difficulty_accepting_change
       - difficulty_making_friends
       - difficulty_controlling_behaviour
+      - difficulty_disruptive_behaviour
+      - difficulty_understanding_others
+      - difficulty_being_understood
+      - difficulty_being_understood_inside_household
+      - difficulty_being_understood_outside_household
       - difficulty_anxiety
       - difficulty_depression
   - category: other

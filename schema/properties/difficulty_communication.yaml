@@ -2,9 +2,9 @@ id: difficulty_communication
 maturity: draft
 
 definition:
-  en: "The degree of difficulty the person experiences communicating using their usual language, including sign language. Applies to adults (WG-SS) and to children ages 2-17 (CFM)."
-  fr: "Le degré de difficulté que la personne éprouve à communiquer dans sa langue habituelle, y compris la langue des signes. S'applique aux adultes (WG-SS) et aux enfants de 2 à 17 ans (CFM)."
-  es: "El grado de dificultad que la persona experimenta para comunicarse en su idioma habitual, incluida la lengua de signos. Se aplica a adultos (WG-SS) y a niños de 2 a 17 años (CFM)."
+  en: "The degree of difficulty the person experiences communicating, for example understanding or being understood, using their usual language. Applies to adults (WG-SS / WG-ES collapsed item). For children the CFM splits this into separate receptive and expressive items per age band; see difficulty_understanding_others, difficulty_being_understood, difficulty_being_understood_inside_household, difficulty_being_understood_outside_household."
+  fr: "Le degré de difficulté que la personne éprouve à communiquer, par exemple à comprendre ou à se faire comprendre, dans sa langue habituelle. S'applique aux adultes (item collapsé WG-SS / WG-ES). Pour les enfants, le CFM scinde cet item en éléments réceptifs et expressifs distincts selon l'âge; voir difficulty_understanding_others, difficulty_being_understood, difficulty_being_understood_inside_household, difficulty_being_understood_outside_household."
+  es: "El grado de dificultad que la persona experimenta al comunicarse, por ejemplo al entender o al hacerse entender, en su idioma habitual. Se aplica a adultos (ítem agrupado WG-SS / WG-ES). Para niños, el CFM divide este ítem en elementos receptivos y expresivos por franja de edad; véase difficulty_understanding_others, difficulty_being_understood, difficulty_being_understood_inside_household, difficulty_being_understood_outside_household."
 
 type: string
 cardinality: single

@@ -1,0 +1,14 @@
+id: difficulty_disruptive_behaviour
+maturity: draft
+
+definition:
+  en: "How much the child kicks, bites, or hits other children or adults, compared to children of the same age. Applies to children ages 2-4 (CFM CF16)."
+  fr: "Dans quelle mesure l'enfant donne des coups de pied, mord ou frappe d'autres enfants ou des adultes, par rapport aux enfants du même âge. S'applique aux enfants de 2 à 4 ans (CFM CF16)."
+  es: "En qué medida el niño da patadas, muerde o golpea a otros niños o adultos, en comparación con niños de la misma edad. Se aplica a niños de 2 a 4 años (CFM CF16)."
+
+type: string
+cardinality: single
+vocabulary: comparative-behaviour-scale
+references: null
+category: child_functioning
+sensitivity: sensitive

@@ -1,0 +1,14 @@
+id: difficulty_dexterity
+maturity: draft
+
+definition:
+  en: "The degree of difficulty the person experiences picking up a small object, such as a button or pencil, with their hand. For children ages 2-4 (CFM CF11) the item is phrased comparatively (difficulty picking up small objects compared to children of the same age)."
+  fr: "Le degré de difficulté que la personne éprouve à saisir un petit objet, tel qu'un bouton ou un crayon, avec la main. Pour les enfants de 2 à 4 ans (CFM CF11), la question est formulée de manière comparative (difficulté à saisir de petits objets par rapport aux enfants du même âge)."
+  es: "El grado de dificultad que la persona experimenta para recoger un objeto pequeño, como un botón o un lápiz, con la mano. Para niños de 2 a 4 años (CFM CF11), la pregunta se formula de manera comparativa (dificultad para recoger objetos pequeños en comparación con niños de la misma edad)."
+
+type: string
+cardinality: single
+vocabulary: functional-difficulty-severity
+references: null
+category: disability
+sensitivity: sensitive

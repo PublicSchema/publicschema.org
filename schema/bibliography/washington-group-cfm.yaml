@@ -19,11 +19,14 @@ informs:
   properties:
     - difficulty_accepting_change
     - difficulty_anxiety
-    - difficulty_communication
+    - difficulty_being_understood
+    - difficulty_being_understood_inside_household
+    - difficulty_being_understood_outside_household
     - difficulty_concentrating
     - difficulty_controlling_behaviour
     - difficulty_depression
-    - difficulty_fine_motor
+    - difficulty_dexterity
+    - difficulty_disruptive_behaviour
     - difficulty_hearing
     - difficulty_learning
     - difficulty_making_friends
@@ -31,4 +34,5 @@ informs:
     - difficulty_remembering
     - difficulty_seeing
     - difficulty_self_care
+    - difficulty_understanding_others
     - difficulty_walking

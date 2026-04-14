@@ -1,0 +1,14 @@
+id: difficulty_being_understood
+maturity: draft
+
+definition:
+  en: "The degree of difficulty others have understanding the child when (name) speaks (expressive communication), compared to children of the same age. Applies to children ages 2-4 (CFM CF13)."
+  fr: "Le degré de difficulté qu'ont les autres à comprendre l'enfant lorsqu'il parle (communication expressive), par rapport aux enfants du même âge. S'applique aux enfants de 2 à 4 ans (CFM CF13)."
+  es: "El grado de dificultad que tienen los demás para entender al niño cuando habla (comunicación expresiva), en comparación con niños de la misma edad. Se aplica a niños de 2 a 4 años (CFM CF13)."
+
+type: string
+cardinality: single
+vocabulary: functional-difficulty-severity
+references: null
+category: child_functioning
+sensitivity: sensitive
