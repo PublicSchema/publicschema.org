@@ -2,9 +2,9 @@ id: is_active
 maturity: candidate
 
 definition:
-  en: "Whether this is currently active."
-  fr: "Indique si cet élément est actuellement actif."
-  es: "Indica si el registro está actualmente activo."
+  en: "Whether the membership or relationship is currently in effect, as opposed to expired, suspended, or terminated."
+  fr: "Indique si l'adhésion ou la relation est actuellement en vigueur, par opposition à expirée, suspendue ou résiliée."
+  es: "Indica si la membresía o relación está actualmente vigente, en contraposición a expirada, suspendida o terminada."
 
 type: boolean
 cardinality: single

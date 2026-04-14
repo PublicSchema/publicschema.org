@@ -2,9 +2,9 @@ id: amount
 maturity: candidate
 
 definition:
-  en: "The monetary or quantitative value."
-  fr: "La valeur monétaire ou quantitative."
-  es: "El valor monetario o cuantitativo."
+  en: "The monetary or quantitative value of the item being delivered, owed, or redeemed, expressed as a decimal number in the associated currency."
+  fr: "La valeur monétaire ou quantitative de l'élément livré, dû ou échangé, exprimée sous forme de nombre décimal dans la devise associée."
+  es: "El valor monetario o cuantitativo del elemento entregado, adeudado o canjeado, expresado como un número decimal en la moneda asociada."
 
 type: decimal
 cardinality: single

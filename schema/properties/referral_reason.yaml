@@ -2,9 +2,9 @@ id: referral_reason
 maturity: draft
 
 definition:
-  en: "The basis for the referral."
-  fr: "Le motif de l'orientation."
-  es: "El motivo de la derivación."
+  en: "A free-text explanation of why the person or household was referred from one program to another."
+  fr: "Une explication en texte libre de la raison pour laquelle la personne ou le ménage a été orienté d'un programme vers un autre."
+  es: "Una explicación en texto libre de por qué la persona u hogar fue derivado de un programa a otro."
 
 type: string
 cardinality: single

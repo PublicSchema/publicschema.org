@@ -2,9 +2,9 @@ id: program_ref
 maturity: candidate
 
 definition:
-  en: "Reference to the program."
-  fr: "Référence au programme."
-  es: "Referencia al programa."
+  en: "A link to the program under which this enrollment, entitlement, eligibility decision, or benefit schedule exists."
+  fr: "Un lien vers le programme dans le cadre duquel cette inscription, ce droit, cette décision d'éligibilité ou ce calendrier de prestations existe."
+  es: "Un enlace al programa bajo el cual existe esta inscripción, derecho, decisión de elegibilidad o calendario de prestaciones."
 
 type: uri
 cardinality: single

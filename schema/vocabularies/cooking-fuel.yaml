@@ -5,9 +5,9 @@ label:
   fr: Combustible de cuisson
   es: Combustible para cocinar
 definition:
-  en: The primary fuel used by the household for cooking, classified according to the WHO Household Energy Database categories.
-  fr: Le combustible principal utilisé par le ménage pour la cuisine, classifié selon les catégories de la base de données sur l'énergie domestique de l'OMS.
-  es: El combustible principal utilizado por el hogar para cocinar, clasificado según las categorías de la base de datos de energía doméstica de la OMS.
+  en: The primary fuel used by the household for cooking, classified according to the WHO Household Energy categories.
+  fr: Le combustible principal utilisé par le ménage pour la cuisine, classifié selon les catégories d'énergie domestique de l'OMS.
+  es: El combustible principal utilizado por el hogar para cocinar, clasificado según las categorías de energía doméstica de la OMS.
 standard:
   name: WHO Household Energy Database
   uri: https://www.who.int/data/gho/data/themes/air-pollution/household-air-pollution
