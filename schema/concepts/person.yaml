@@ -142,6 +142,8 @@ property_groups:
       - difficulty_cognition
       - difficulty_self_care
       - difficulty_communication
+  - category: child_functioning
+    properties:
       - difficulty_learning
       - difficulty_fine_motor
       - difficulty_playing
