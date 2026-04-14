@@ -47,9 +47,7 @@ properties:
   - fcs_pulses_days
   - fcs_vegetables_days
   - fcs_fruit_days
-  - fcs_meat_days
-  - fcs_fish_days
-  - fcs_eggs_days
+  - fcs_meat_fish_eggs_days
   - fcs_dairy_days
   - fcs_fat_oil_days
   - fcs_sugar_days
@@ -125,9 +123,7 @@ property_groups:
       - fcs_pulses_days
       - fcs_vegetables_days
       - fcs_fruit_days
-      - fcs_meat_days
-      - fcs_fish_days
-      - fcs_eggs_days
+      - fcs_meat_fish_eggs_days
       - fcs_dairy_days
       - fcs_fat_oil_days
       - fcs_sugar_days

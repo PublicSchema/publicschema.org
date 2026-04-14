@@ -5,9 +5,9 @@ label:
   fr: "Groupe alimentaire FCS"
   es: "Grupo alimentario FCS"
 definition:
-  en: "The eleven food groups used by the WFP Food Consumption Score (FCS). Each group is scored by the number of days (0-7) the household consumed items from that group in the past seven days; the group's weight converts days-of-consumption into the composite FCS. The weights below are the WFP VAM 2008 weights and are treated as part of the instrument definition, not a programming decision."
-  fr: "Les onze groupes alimentaires utilisés par le Score de consommation alimentaire (FCS) du PAM. Chaque groupe est noté par le nombre de jours (0-7) de consommation par le ménage durant les sept derniers jours ; le poids du groupe convertit les jours de consommation en FCS composite. Les poids ci-dessous sont les poids VAM 2008 du PAM et sont considérés comme partie intégrante de la définition de l'instrument, non comme une décision de programmation."
-  es: "Los once grupos alimentarios utilizados por el Puntaje de Consumo de Alimentos (FCS) del PMA. Cada grupo se puntúa por el número de días (0-7) que el hogar consumió alimentos de ese grupo durante los últimos siete días; el peso del grupo convierte los días de consumo en el FCS compuesto. Los pesos abajo son los pesos VAM 2008 del PMA y se consideran parte de la definición del instrumento, no una decisión de programación."
+  en: "The eight scored food groups used by the WFP Food Consumption Score (FCS), plus condiments as a non-scoring screener. Each group is scored by the number of days (0-7) the household consumed items from that group in the past seven days; the group's weight converts days-of-consumption into the composite FCS. Meat, fish, and eggs form a single combined protein group in the standard WFP FCS questionnaire. The weights below are the WFP VAM 2008 weights and are treated as part of the instrument definition, not a programming decision."
+  fr: "Les huit groupes alimentaires notés utilisés par le Score de consommation alimentaire (FCS) du PAM, plus les condiments comme item de dépistage non noté. Chaque groupe est noté par le nombre de jours (0-7) de consommation par le ménage durant les sept derniers jours ; le poids du groupe convertit les jours de consommation en FCS composite. La viande, le poisson et les œufs forment un seul groupe protéique combiné dans le questionnaire FCS standard du PAM. Les poids ci-dessous sont les poids VAM 2008 du PAM et sont considérés comme partie intégrante de la définition de l'instrument, non comme une décision de programmation."
+  es: "Los ocho grupos alimentarios puntuados utilizados por el Puntaje de Consumo de Alimentos (FCS) del PMA, más los condimentos como ítem de detección no puntuado. Cada grupo se puntúa por el número de días (0-7) que el hogar consumió alimentos de ese grupo durante los últimos siete días; el peso del grupo convierte los días de consumo en el FCS compuesto. La carne, el pescado y los huevos forman un único grupo proteico combinado en el cuestionario FCS estándar del PMA. Los pesos abajo son los pesos VAM 2008 del PMA y se consideran parte de la definición del instrumento, no una decisión de programación."
 standard:
   name: "WFP VAM Food Consumption Analysis (2008)"
   uri: "https://www.wfp.org/publications/food-consumption-analysis-calculation-and-use-food-consumption-score-food-security"
@@ -57,37 +57,15 @@ values:
     es: "Todas las frutas, incluidas las recolectadas silvestres. Peso: 1."
   notes:
     en: "FCS weight = 1"
-- code: meat
+- code: meat_fish_eggs
   label:
-    en: Meat
-    fr: "Viande"
-    es: "Carne"
+    en: Meat, fish, and eggs
+    fr: "Viande, poisson et œufs"
+    es: "Carne, pescado y huevos"
   definition:
-    en: "Beef, goat, poultry, pork, bushmeat, and other meat. Weight: 4."
-    fr: "Bœuf, chèvre, volaille, porc, viande de brousse et autres viandes. Poids : 4."
-    es: "Res, cabra, aves, cerdo, carne de monte y otras carnes. Peso: 4."
-  notes:
-    en: "FCS weight = 4"
-- code: fish
-  label:
-    en: Fish and seafood
-    fr: "Poisson et fruits de mer"
-    es: "Pescado y mariscos"
-  definition:
-    en: "Fresh or dried fish and seafood. Weight: 4."
-    fr: "Poisson et fruits de mer frais ou séchés. Poids : 4."
-    es: "Pescado y mariscos frescos o secos. Peso: 4."
-  notes:
-    en: "FCS weight = 4"
-- code: eggs
-  label:
-    en: Eggs
-    fr: "Œufs"
-    es: "Huevos"
-  definition:
-    en: "Eggs of any kind. Weight: 4."
-    fr: "Œufs de toute sorte. Poids : 4."
-    es: "Huevos de cualquier tipo. Peso: 4."
+    en: "Beef, goat, poultry, pork, bushmeat, fresh or dried fish and seafood, and eggs of any kind. Asked as a single combined protein question in the standard WFP FCS. Weight: 4."
+    fr: "Bœuf, chèvre, volaille, porc, viande de brousse, poisson et fruits de mer frais ou séchés, et œufs de toute sorte. Interrogé comme une seule question protéique combinée dans le FCS standard du PAM. Poids : 4."
+    es: "Res, cabra, aves, cerdo, carne de monte, pescado y mariscos frescos o secos, y huevos de cualquier tipo. Preguntado como una única pregunta combinada de proteínas en el FCS estándar del PMA. Peso: 4."
   notes:
     en: "FCS weight = 4"
 - code: dairy
