@@ -12,3 +12,6 @@ vocabulary: acute-malnutrition-severity
 references: null
 category: nutrition
 sensitivity: sensitive
+age_applicability:
+  - infant_0_1
+  - child_2_4

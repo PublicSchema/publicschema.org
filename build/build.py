@@ -480,6 +480,7 @@ def build_vocabulary(schema_dir: Path) -> dict:
             "external_equivalents": data.get("external_equivalents"),
             "convergence": data.get("convergence"),
             "category": data.get("category"),
+            "age_applicability": data.get("age_applicability"),
         }
 
     # Build output vocabularies. Vocabularies are keyed by their canonical

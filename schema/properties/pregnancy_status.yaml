@@ -12,3 +12,5 @@ vocabulary: pregnancy-status
 references: null
 category: demographics
 sensitivity: sensitive
+age_applicability:
+  - adult

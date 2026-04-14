@@ -83,7 +83,41 @@ Do not mix both patterns on the same concept. A lifecycle concept should not car
 
 A property like `start_date` is defined once and reused across concepts. When a shared property needs concept-specific value sets (e.g., `status` on Enrollment vs. Grievance), it specializes via different vocabulary references rather than pretending the differences don't exist.
 
-## 7. Sensitivity annotations
+## 7. Age applicability
+
+Some Person-scoped properties are only meaningful for specific age groups. The Washington Group Short Set and Extended Set apply to adults; the Child Functioning Module applies to children ages 2-4 and 5-17. WHO growth standards apply to under-5s. Rather than encoding these rules in definition prose alone (which machines cannot parse), properties carry an optional `age_applicability` array of controlled tags.
+
+| Tag | Numeric range | Source of the band |
+|---|---|---|
+| `infant_0_1` | 0-23 months | General infancy (covers MICS infant modules, early WHO growth) |
+| `child_2_4` | 2-4 years (24-59 months) | CFM 2-4 variant; WHO Child Growth Standards |
+| `child_5_17` | 5-17 years | CFM 5-17 variant; also CRC definition of "child" |
+| `adolescent` | 10-19 years | WHO definition (deliberately crosscutting with child_5_17 and adult) |
+| `adult` | 18+ years | WG-SS / WG-ES |
+
+### Topical relevance, not eligibility
+
+`age_applicability` answers "which age groups does this property concern?" It is **not** a filter primitive for eligibility. Age-based filtering is the consumer's job, computed from `date_of_birth`. Under this framing, overlap between tags is a feature, not a bug: a property about adolescent reproductive health carries both `child_5_17` and `adolescent` because the topic genuinely concerns both the under-18 bracket and the WHO 10-19 bracket.
+
+A consumer asking "is this field relevant for a 15-year-old?" evaluates the child's age against all of the property's bands and asks whether any match. A consumer asking "is this topic adolescence-specific?" checks for the `adolescent` tag specifically.
+
+### Population rules
+
+- Only populate on properties that attach to `Person`. Age-applicability is meaningless on concepts without an age.
+- Not required. Absence means the property applies broadly to any age.
+- Validator enforces bibliography-implied coverage: properties cited by `washington-group-ss` or `washington-group-es` must include `adult`; properties cited by `washington-group-cfm` must include at least one of the child bands (`child_2_4` or `child_5_17`). Properties may narrow CFM coverage where the definition text explains which variant they map to.
+
+## 8. External equivalents vs. serialisation bindings
+
+The `external_equivalents` field on properties was originally intended for equivalents in other *ontologies* (SEMIC Core Vocabularies, DCI Core): a property like `given_name` maps exactly to `http://www.w3.org/ns/person#firstName`. The match is semantic: both describe the same concept in an alternate ontology.
+
+The same field is also used for **serialisation bindings** such as FHIR R4 Observation with LOINC codes. These are not equivalents in the semic/dci sense; they are instructions for how to serialise this property into a specific interop format. The distinction matters when reading a property detail page: a SEMIC row says "this concept exists in another ontology"; a FHIR/LOINC row says "when you serialise this data into FHIR, use this code."
+
+Convention:
+- Per-item LOINC codes belong on the **property** (each WG item has its own LOINC code).
+- Whole-vocabulary LOINC answer-list references belong on the **vocabulary** (`standard.uri`). Example: `pregnancy-status` carries one LOINC answer-list URI for the whole value set.
+
+## 9. Sensitivity annotations
 
 Some properties reveal sensitive circumstances regardless of whether they identify a specific person. `program_ref` reveals enrollment in a specific program (which may target HIV, disability, or poverty). `grievance_type` reveals that someone filed a complaint.
 

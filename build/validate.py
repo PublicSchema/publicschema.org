@@ -349,6 +349,55 @@ def validate_schema_dir(schema_dir: Path) -> list[ValidationError]:
                     f"Bibliography 'informs.properties' references property '{pid}' which is not defined",
                 ))
 
+    # age_applicability cross-check against WG/CFM bibliography citations.
+    # Each Washington Group instrument implies a set of age bands that every
+    # cited property must include. Properties may declare additional bands
+    # (e.g. difficulty_seeing is cited in WG-SS (adults) and in CFM (both
+    # child bands)). The rule only enforces the minimum set implied by
+    # the cited bibliographies.
+    #
+    # CFM citations imply at least one child band because individual CFM
+    # items target either the 2-4 variant, the 5-17 variant, or both. We
+    # therefore require any CFM-cited property to carry at least one of
+    # {child_2_4, child_5_17}. A stricter "both bands" rule would fail on
+    # items like difficulty_playing that exist only in the CFM 2-4 stem.
+    WG_BAND_IMPLICATIONS = {
+        "washington-group-ss": {"adult"},
+        "washington-group-es": {"adult"},
+    }
+    CFM_CHILD_BANDS = {"child_2_4", "child_5_17"}
+    property_bib_ids: dict[str, set[str]] = {pid: set() for pid in property_ids}
+    for bib_filename, bib_data in bibliography.items():
+        bib_id = bib_data.get("id")
+        if not bib_id:
+            continue
+        for pid in (bib_data.get("informs") or {}).get("properties", []) or []:
+            if pid in property_bib_ids:
+                property_bib_ids[pid].add(bib_id)
+    for filename, data in properties.items():
+        pid = data.get("id")
+        if not pid:
+            continue
+        declared = set(data.get("age_applicability") or [])
+        cites = property_bib_ids.get(pid, set())
+        for bib_id, required in WG_BAND_IMPLICATIONS.items():
+            if bib_id in cites and not required.issubset(declared):
+                missing = sorted(required - declared)
+                errors.append(ValidationError(
+                    filename,
+                    f"Property '{pid}' is cited in bibliography '{bib_id}' "
+                    f"but age_applicability is missing required band(s): "
+                    f"{', '.join(missing)}",
+                ))
+        if "washington-group-cfm" in cites and not (declared & CFM_CHILD_BANDS):
+            errors.append(ValidationError(
+                filename,
+                f"Property '{pid}' is cited in bibliography "
+                f"'washington-group-cfm' but age_applicability is missing "
+                f"at least one child band (expected one of: "
+                f"child_2_4, child_5_17)",
+            ))
+
     # Vocabulary value code uniqueness
     for filename, data in vocabularies.items():
         codes = [v["code"] for v in data.get("values", []) if "code" in v]

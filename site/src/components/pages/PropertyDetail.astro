@@ -58,6 +58,9 @@ const isPrimitiveType = primitiveTypes.includes(prop.type);
       {prop.sensitivity && prop.sensitivity !== 'standard' && (
         <span class={`badge badge-${prop.sensitivity}`}>{prop.sensitivity}</span>
       )}
+      {prop.age_applicability && prop.age_applicability.map((band) => (
+        <span class={`badge badge-age-${band}`} title={t(`property_detail.age_band.${band}.range`)}>{t(`property_detail.age_band.${band}`)}</span>
+      ))}
     </div>
     <p class="definition-text">{definition}</p>
     <p class="uri">{prop.uri}</p>

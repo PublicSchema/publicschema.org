@@ -54,6 +54,17 @@
       "pattern": "^[a-z][a-z0-9_]*$",
       "description": "Display grouping for this property (e.g. wash, housing, demographics, identification). Used by the site to render properties in sections."
     },
+    "age_applicability": {
+      "type": "array",
+      "description": "Topical relevance tags indicating which age groups this property concerns. Not a filter primitive for eligibility: age-based filtering is computed from date_of_birth. Overlap between tags is intentional (e.g. a property may carry both child_5_17 and adolescent). Population guideline: only Person-scoped properties.",
+      "items": {
+        "type": "string",
+        "enum": ["infant_0_1", "child_2_4", "child_5_17", "adolescent", "adult"],
+        "description": "Age band. infant_0_1 (0-23 months), child_2_4 (2-4 years / 24-59 months), child_5_17 (5-17 years), adolescent (10-19 years per WHO; deliberately crosscutting), adult (18+ years)."
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
     "system_mappings": {
       "type": ["object", "null"],
       "description": "Mappings showing how external system values correspond to this property's values",

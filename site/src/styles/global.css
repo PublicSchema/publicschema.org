@@ -637,6 +637,17 @@ code {
   color: var(--color-accent);
 }
 
+/* Age applicability bands. Neutral styling; numeric range lives in title attribute. */
+.badge-age-infant_0_1,
+.badge-age-child_2_4,
+.badge-age-child_5_17,
+.badge-age-adolescent,
+.badge-age-adult {
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+}
+
 /* Domain prefix (e.g. "sp:" before concept names) */
 .domain-prefix {
   color: var(--color-text-muted);

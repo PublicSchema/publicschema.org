@@ -4,6 +4,7 @@ TDD: these tests define expected behavior before implementation.
 """
 
 import pytest
+import yaml
 
 from build.validate import validate_schema_dir, ValidationError
 from tests.conftest import make_concept, make_property, make_vocabulary
@@ -510,3 +511,124 @@ class TestPropertyGroups:
         errors = validate_schema_dir(tmp_schema)
         ref_errors = [e for e in errors if "nonexistent" in str(e) and "property_groups" in str(e)]
         assert len(ref_errors) == 1
+
+
+# ---------------------------------------------------------------------------
+# age_applicability bibliography cross-check
+# ---------------------------------------------------------------------------
+
+class TestAgeApplicability:
+    """age_applicability must cover the bands implied by WG/CFM citations."""
+
+    def _write_bibliography(self, tmp_schema, filename, data):
+        path = tmp_schema / "bibliography"
+        path.mkdir(exist_ok=True)
+        (path / filename).write_text(yaml.dump(data, allow_unicode=True))
+
+    def test_wg_ss_citation_without_adult_band_fails(
+        self, tmp_schema, write_concept, write_property
+    ):
+        write_property("difficulty_seeing.yaml", make_property(
+            id="difficulty_seeing", age_applicability=["child_5_17"],
+        ))
+        write_concept("person.yaml", make_concept(
+            id="Person", properties=["difficulty_seeing"],
+        ))
+        self._write_bibliography(tmp_schema, "wg-ss.yaml", {
+            "id": "washington-group-ss",
+            "title": "WG-SS",
+            "publisher": "WG",
+            "type": "international_standard",
+            "domain": "general",
+            "status": "active",
+            "informs": {"properties": ["difficulty_seeing"]},
+        })
+        errors = validate_schema_dir(tmp_schema)
+        band_errors = [
+            e for e in errors
+            if "age_applicability" in str(e) and "adult" in str(e)
+        ]
+        assert len(band_errors) == 1
+
+    def test_wg_es_citation_with_adult_band_passes(
+        self, tmp_schema, write_concept, write_property
+    ):
+        write_property("fatigue_frequency.yaml", make_property(
+            id="fatigue_frequency", age_applicability=["adult"],
+        ))
+        write_concept("person.yaml", make_concept(
+            id="Person", properties=["fatigue_frequency"],
+        ))
+        self._write_bibliography(tmp_schema, "wg-es.yaml", {
+            "id": "washington-group-es",
+            "title": "WG-ES",
+            "publisher": "WG",
+            "type": "international_standard",
+            "domain": "general",
+            "status": "active",
+            "informs": {"properties": ["fatigue_frequency"]},
+        })
+        errors = validate_schema_dir(tmp_schema)
+        band_errors = [e for e in errors if "age_applicability" in str(e)]
+        assert band_errors == []
+
+    def test_cfm_citation_without_child_band_fails(
+        self, tmp_schema, write_concept, write_property
+    ):
+        write_property("difficulty_playing.yaml", make_property(
+            id="difficulty_playing", age_applicability=["adult"],
+        ))
+        write_concept("person.yaml", make_concept(
+            id="Person", properties=["difficulty_playing"],
+        ))
+        self._write_bibliography(tmp_schema, "cfm.yaml", {
+            "id": "washington-group-cfm",
+            "title": "CFM",
+            "publisher": "WG/UNICEF",
+            "type": "international_standard",
+            "domain": "general",
+            "status": "active",
+            "informs": {"properties": ["difficulty_playing"]},
+        })
+        errors = validate_schema_dir(tmp_schema)
+        band_errors = [
+            e for e in errors
+            if "age_applicability" in str(e) and "child band" in str(e)
+        ]
+        assert len(band_errors) == 1
+
+    def test_cfm_citation_narrowed_to_single_child_band_passes(
+        self, tmp_schema, write_concept, write_property
+    ):
+        """CFM items may apply to only one child variant (e.g. difficulty_playing is 2-4 only)."""
+        write_property("difficulty_playing.yaml", make_property(
+            id="difficulty_playing", age_applicability=["child_2_4"],
+        ))
+        write_concept("person.yaml", make_concept(
+            id="Person", properties=["difficulty_playing"],
+        ))
+        self._write_bibliography(tmp_schema, "cfm.yaml", {
+            "id": "washington-group-cfm",
+            "title": "CFM",
+            "publisher": "WG/UNICEF",
+            "type": "international_standard",
+            "domain": "general",
+            "status": "active",
+            "informs": {"properties": ["difficulty_playing"]},
+        })
+        errors = validate_schema_dir(tmp_schema)
+        band_errors = [e for e in errors if "age_applicability" in str(e)]
+        assert band_errors == []
+
+    def test_invalid_age_band_value_fails_schema(
+        self, tmp_schema, write_concept, write_property
+    ):
+        write_property("prop.yaml", make_property(
+            id="prop", age_applicability=["toddler"],
+        ))
+        write_concept("person.yaml", make_concept(
+            id="Person", properties=["prop"],
+        ))
+        errors = validate_schema_dir(tmp_schema)
+        enum_errors = [e for e in errors if "toddler" in str(e)]
+        assert len(enum_errors) == 1

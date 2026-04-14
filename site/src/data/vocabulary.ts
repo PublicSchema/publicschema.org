@@ -50,6 +50,13 @@ export interface Concept {
   bibliography_refs?: string[];
 }
 
+export type AgeBand =
+  | "infant_0_1"
+  | "child_2_4"
+  | "child_5_17"
+  | "adolescent"
+  | "adult";
+
 export interface Property {
   id: string;
   uri: string;
@@ -63,6 +70,7 @@ export interface Property {
   used_by: string[];
   category: string | null;
   sensitivity: "standard" | "sensitive" | "restricted" | null;
+  age_applicability: AgeBand[] | null;
   system_mappings: Record<string, SystemMapping> | null;
   convergence: Convergence | null;
   external_equivalents: Record<string, ExternalEquivalent> | null;
