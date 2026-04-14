@@ -10,85 +10,37 @@ definition:
   en: >
     A point-in-time record of household (or, for MDD-W, individual)
     food-security data collected using one or more instruments from the
-    humanitarian food-security canon: WFP Food Consumption Score (FCS),
-    Reduced Coping Strategies Index (rCSI), Livelihood Coping Strategies
-    (LCS), the Consolidated Approach for Reporting Indicators (CARI), FAO
-    Household Dietary Diversity Score (HDDS), FAO Food Insecurity
-    Experience Scale (FIES), FAO Minimum Dietary Diversity for Women
-    (MDD-W), FAO Months of Adequate Household Food Provisioning (MAHFP),
-    and the FANTA Household Hunger Scale (HHS). Captures the raw item
-    responses together with administration context (instrument, mode,
-    respondent, recall period). The profile does not itself compute FCS,
-    rCSI, LCS tier, CARI classification, HDDS, MDD-W, MAHFP, or HHS scores:
-    scoring is recorded separately as a ScoringEvent that cites the rule
-    and, for CARI, the upstream Profile outputs it consumed. The default
-    CARI deployment is one administration per household; FIES has both a
-    household-default and an individual variant disambiguated by
-    instrument_used; post-distribution monitoring typically records a
-    partial administration (FCS + rCSI only, sometimes called "CARI-lite"),
-    represented simply by which item properties are populated.
-    Co-administration with AnthropometricProfile (MUAC screening) is
-    common; these are two separate Profile records that share subject and
-    observation_date. The derived Household-level food_security_level
-    summary is populated on the Household record by a downstream
-    ScoringEvent, not on this profile.
+    humanitarian food-security canon: WFP FCS, rCSI, LCS, and CARI; FAO
+    HDDS, FIES, MDD-W, and MAHFP; and the FANTA HHS. Captures the raw
+    item responses alongside the administration context (instrument,
+    mode, respondent, recall period). The profile does not itself
+    compute FCS, rCSI, LCS, CARI, HDDS, MDD-W, MAHFP, or HHS scores:
+    scoring is recorded separately as a ScoringEvent that cites the
+    rule and, for CARI, the upstream Profile outputs it consumed.
   fr: >
     Un enregistrement ponctuel de données de sécurité alimentaire du
     ménage (ou, pour MDD-W, individuelles) collectées à l'aide d'un ou
-    plusieurs instruments du canon humanitaire de la sécurité alimentaire :
-    Score de consommation alimentaire (FCS) du PAM, Indice réduit des
-    stratégies d'adaptation (rCSI), Stratégies d'adaptation des moyens
-    d'existence (LCS), Approche consolidée de rapport sur les indicateurs
-    (CARI), Score de diversité alimentaire du ménage (HDDS) de la FAO,
-    Échelle d'expérience de l'insécurité alimentaire (FIES) de la FAO,
-    Diversité alimentaire minimale pour les femmes (MDD-W) de la FAO, Mois
-    d'approvisionnement alimentaire adéquat du ménage (MAHFP) de la FAO,
-    et Échelle de la faim du ménage (HHS) de FANTA. Consigne les réponses
-    brutes aux items ainsi que le contexte d'administration (instrument,
-    mode, répondant, période de rappel). Le profil ne calcule pas lui-même
-    les scores FCS, rCSI, niveau LCS, classification CARI, HDDS, MDD-W,
-    MAHFP ou HHS : la notation est enregistrée séparément via un
-    ScoringEvent citant la règle et, pour CARI, les sorties de Profile en
-    amont qu'il a consommées. Le déploiement CARI par défaut est une
-    administration par ménage ; FIES possède à la fois un défaut ménage et
-    une variante individuelle distinguées par instrument_used ; le suivi
-    post-distribution enregistre généralement une administration partielle
-    (FCS + rCSI uniquement, parfois appelée « CARI-lite »), représentée
-    simplement par les propriétés d'items effectivement renseignées.
-    L'administration conjointe avec AnthropometricProfile (dépistage MUAC)
-    est fréquente ; il s'agit de deux enregistrements de Profile distincts
-    partageant subject et observation_date. Le résumé Household
-    food_security_level dérivé est renseigné sur le ménage par un
-    ScoringEvent en aval, et non sur ce profil.
+    plusieurs instruments du canon humanitaire de la sécurité
+    alimentaire : FCS, rCSI, LCS et CARI du PAM ; HDDS, FIES, MDD-W et
+    MAHFP de la FAO ; et HHS de FANTA. Consigne les réponses brutes aux
+    items ainsi que le contexte d'administration (instrument, mode,
+    répondant, période de rappel). Le profil ne calcule pas lui-même
+    les scores FCS, rCSI, LCS, CARI, HDDS, MDD-W, MAHFP ou HHS : la
+    notation est enregistrée séparément via un ScoringEvent citant la
+    règle et, pour CARI, les sorties de Profile en amont qu'il a
+    consommées.
   es: >
-    Un registro puntual de datos de seguridad alimentaria del hogar (o,
-    para MDD-W, individuales) recopilados mediante uno o más instrumentos
-    del canon humanitario de seguridad alimentaria: Puntaje de Consumo de
-    Alimentos (FCS) del PMA, Índice Reducido de Estrategias de
-    Afrontamiento (rCSI), Estrategias de Afrontamiento de Medios de Vida
-    (LCS), Enfoque Consolidado para Reportar Indicadores (CARI), Puntaje
-    de Diversidad Dietética del Hogar (HDDS) de la FAO, Escala de
-    Experiencia de Inseguridad Alimentaria (FIES) de la FAO, Diversidad
-    Dietética Mínima para Mujeres (MDD-W) de la FAO, Meses de
-    Aprovisionamiento Alimentario Adecuado del Hogar (MAHFP) de la FAO, y
-    Escala de Hambre del Hogar (HHS) de FANTA. Consigna las respuestas
-    brutas a los ítems junto con el contexto de administración
-    (instrumento, modo, respondiente, período de recordatorio). El perfil
-    no calcula por sí mismo los puntajes FCS, rCSI, nivel LCS,
-    clasificación CARI, HDDS, MDD-W, MAHFP o HHS: la puntuación se
-    registra aparte como un ScoringEvent que cita la regla y, para CARI,
-    las salidas de Profile aguas arriba que consumió. El despliegue CARI
-    por defecto es una administración por hogar; FIES tiene tanto un
-    predeterminado de hogar como una variante individual distinguidas por
-    instrument_used; el monitoreo post-distribución suele registrar una
-    administración parcial (FCS + rCSI solamente, a veces llamada
-    «CARI-lite»), representada simplemente por las propiedades de ítem
-    efectivamente completadas. La administración conjunta con
-    AnthropometricProfile (tamizaje MUAC) es frecuente; son dos registros
-    de Profile distintos que comparten subject y observation_date. El
-    resumen food_security_level del Hogar derivado se completa en el
-    registro de Household mediante un ScoringEvent aguas abajo, no en
-    este perfil.
+    Un registro puntual de datos de seguridad alimentaria del hogar
+    (o, para MDD-W, individuales) recopilados mediante uno o más
+    instrumentos del canon humanitario de seguridad alimentaria: FCS,
+    rCSI, LCS y CARI del PMA; HDDS, FIES, MDD-W y MAHFP de la FAO; y
+    HHS de FANTA. Consigna las respuestas brutas a los ítems junto con
+    el contexto de administración (instrumento, modo, respondiente,
+    período de recordatorio). El perfil no calcula por sí mismo los
+    puntajes FCS, rCSI, LCS, CARI, HDDS, MDD-W, MAHFP o HHS: la
+    puntuación se registra aparte como un ScoringEvent que cita la
+    regla y, para CARI, las salidas de Profile aguas arriba que
+    consumió.
 
 properties:
   - fcs_staples_days
