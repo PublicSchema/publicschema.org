@@ -1,0 +1,14 @@
+id: uses_mobility_aid
+maturity: draft
+
+definition:
+  en: "Whether the person uses equipment or receives assistance for getting around, such as a cane, walker, wheelchair, or help from another person. Applies to adults (WG-ES MOB_2) and to children (CFM CF7)."
+  fr: "Si la personne utilise un équipement ou reçoit une aide pour se déplacer, tel qu'une canne, un déambulateur, un fauteuil roulant ou l'aide d'une autre personne. S'applique aux adultes (WG-ES MOB_2) et aux enfants (CFM CF7)."
+  es: "Si la persona utiliza equipo o recibe asistencia para desplazarse, tal como un bastón, un andador, una silla de ruedas o la ayuda de otra persona. Se aplica a adultos (WG-ES MOB_2) y a niños (CFM CF7)."
+
+type: boolean
+cardinality: single
+vocabulary: null
+references: null
+category: disability
+sensitivity: sensitive

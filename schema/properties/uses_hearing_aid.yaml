@@ -1,0 +1,14 @@
+id: uses_hearing_aid
+maturity: draft
+
+definition:
+  en: "Whether the person uses a hearing aid. Applies to adults (WG-ES HEAR_1) and to children (CFM CF4). This filter is used to interpret difficulty_hearing answers, which are asked with the hearing aid in use if the person wears one."
+  fr: "Si la personne utilise un appareil auditif. S'applique aux adultes (WG-ES HEAR_1) et aux enfants (CFM CF4). Ce filtre sert à interpréter les réponses à difficulty_hearing, qui sont posées avec l'appareil en place si la personne en porte un."
+  es: "Si la persona usa un audífono. Se aplica a adultos (WG-ES HEAR_1) y a niños (CFM CF4). Este filtro se usa para interpretar las respuestas de difficulty_hearing, que se formulan con el audífono puesto si la persona lo usa."
+
+type: boolean
+cardinality: single
+vocabulary: null
+references: null
+category: disability
+sensitivity: sensitive

@@ -59,9 +59,15 @@ properties:
   - difficulty_seeing
   - difficulty_hearing
   - difficulty_walking
+  - difficulty_walking_100m
+  - difficulty_walking_500m
+  - difficulty_climbing_steps
   - difficulty_cognition
   - difficulty_self_care
   - difficulty_communication
+  - uses_glasses
+  - uses_hearing_aid
+  - uses_mobility_aid
   - pregnancy_status
   - displacement_status
   - height
@@ -144,10 +150,16 @@ property_groups:
       - difficulty_seeing
       - difficulty_hearing
       - difficulty_walking
+      - difficulty_walking_100m
+      - difficulty_walking_500m
+      - difficulty_climbing_steps
       - difficulty_cognition
       - difficulty_self_care
       - difficulty_communication
       - difficulty_dexterity
+      - uses_glasses
+      - uses_hearing_aid
+      - uses_mobility_aid
   - category: child_functioning
     properties:
       - difficulty_learning
@@ -163,6 +175,11 @@ property_groups:
       - difficulty_being_understood
       - difficulty_being_understood_inside_household
       - difficulty_being_understood_outside_household
+      - difficulty_walking_100m
+      - difficulty_walking_500m
+      - uses_glasses
+      - uses_hearing_aid
+      - uses_mobility_aid
       - difficulty_anxiety
       - difficulty_depression
   - category: other

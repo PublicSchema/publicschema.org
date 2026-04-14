@@ -1,0 +1,14 @@
+id: difficulty_walking_500m
+maturity: draft
+
+definition:
+  en: "The degree of difficulty the person experiences walking 500 metres (about a third of a mile) on level ground, without using any aid. Applies to adults (WG-ES MOB_5) and to children ages 5-17 (CFM CF9 / CF11, with and without aid variants; CF13 comparative)."
+  fr: "Le degré de difficulté que la personne éprouve à marcher 500 mètres (environ un tiers de mile) sur un sol plat, sans utiliser d'aide. S'applique aux adultes (WG-ES MOB_5) et aux enfants de 5 à 17 ans (CFM CF9 / CF11, avec ou sans aide; CF13 comparatif)."
+  es: "El grado de dificultad que la persona experimenta al caminar 500 metros (aproximadamente un tercio de milla) sobre terreno plano, sin usar ningún tipo de ayuda. Se aplica a adultos (WG-ES MOB_5) y a niños de 5 a 17 años (CFM CF9 / CF11, con y sin ayuda; CF13 comparativo)."
+
+type: string
+cardinality: single
+vocabulary: functional-difficulty-severity
+references: null
+category: disability
+sensitivity: sensitive

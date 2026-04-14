@@ -1,0 +1,14 @@
+id: uses_glasses
+maturity: draft
+
+definition:
+  en: "Whether the person wears glasses or contact lenses. Applies to adults (WG-ES VIS_1) and to children (CFM CF1). This filter is used to interpret difficulty_seeing answers, which are asked with corrective lenses if the person uses them."
+  fr: "Si la personne porte des lunettes ou des lentilles de contact. S'applique aux adultes (WG-ES VIS_1) et aux enfants (CFM CF1). Ce filtre sert à interpréter les réponses à difficulty_seeing, qui sont posées avec correction si la personne en porte."
+  es: "Si la persona usa lentes o anteojos de contacto. Se aplica a adultos (WG-ES VIS_1) y a niños (CFM CF1). Este filtro se usa para interpretar las respuestas de difficulty_seeing, que se formulan con corrección si la persona la usa."
+
+type: boolean
+cardinality: single
+vocabulary: null
+references: null
+category: disability
+sensitivity: sensitive
