@@ -1,0 +1,51 @@
+id: past-3-months-frequency
+maturity: draft
+label:
+  en: Past 3 Months Frequency
+  fr: "Fréquence au cours des 3 derniers mois"
+  es: "Frecuencia en los últimos 3 meses"
+definition:
+  en: "A four-point frequency scale used in the Washington Group Extended Set on Functioning (WG-ES) for reporting how often a bodily symptom (pain, fatigue) occurred during the past 3 months."
+  fr: "Une échelle de fréquence à quatre niveaux utilisée dans l'Ensemble étendu du Groupe de Washington sur le fonctionnement (WG-ES) pour rapporter la fréquence d'un symptôme corporel (douleur, fatigue) au cours des 3 derniers mois."
+  es: "Una escala de frecuencia de cuatro niveles utilizada en el Conjunto Extendido del Grupo de Washington sobre Funcionamiento (WG-ES) para reportar la frecuencia con la que ocurrió un síntoma corporal (dolor, fatiga) durante los últimos 3 meses."
+standard:
+  name: "Washington Group Extended Set on Functioning (WG-ES)"
+  uri: https://www.washingtongroup-disability.com/question-sets/wg-extended-set-on-functioning-wg-es/
+  notes: "Used on WG-ES items PAIN_1 (pain frequency) and TIRED_1 (fatigue frequency) per the 11 October 2022 PDF."
+values:
+- code: never
+  label:
+    en: Never
+    fr: Jamais
+    es: Nunca
+  definition:
+    en: "The symptom did not occur during the past 3 months."
+    fr: "Le symptôme ne s'est pas manifesté au cours des 3 derniers mois."
+    es: "El síntoma no ocurrió durante los últimos 3 meses."
+- code: some_days
+  label:
+    en: Some days
+    fr: Certains jours
+    es: Algunos días
+  definition:
+    en: "The symptom occurred on some days during the past 3 months."
+    fr: "Le symptôme s'est manifesté certains jours au cours des 3 derniers mois."
+    es: "El síntoma ocurrió algunos días durante los últimos 3 meses."
+- code: most_days
+  label:
+    en: Most days
+    fr: La plupart des jours
+    es: La mayoría de los días
+  definition:
+    en: "The symptom occurred on most days during the past 3 months."
+    fr: "Le symptôme s'est manifesté la plupart des jours au cours des 3 derniers mois."
+    es: "El síntoma ocurrió la mayoría de los días durante los últimos 3 meses."
+- code: every_day
+  label:
+    en: Every day
+    fr: Tous les jours
+    es: Todos los días
+  definition:
+    en: "The symptom occurred every day during the past 3 months."
+    fr: "Le symptôme s'est manifesté tous les jours au cours des 3 derniers mois."
+    es: "El síntoma ocurrió todos los días durante los últimos 3 meses."

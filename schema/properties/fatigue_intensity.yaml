@@ -1,0 +1,14 @@
+id: fatigue_intensity
+maturity: draft
+
+definition:
+  en: "The intensity of the tiredness or exhaustion the person felt the last time they felt this way. Applies to adults (WG-ES TIRED_3). Asked of respondents who reported fatigue at least some days in the past 3 months."
+  fr: "L'intensité de la fatigue ou de l'épuisement ressenti par la personne la dernière fois qu'elle s'est sentie ainsi. S'applique aux adultes (WG-ES TIRED_3). Posée aux répondants ayant déclaré de la fatigue au moins certains jours au cours des 3 derniers mois."
+  es: "La intensidad del cansancio o agotamiento que la persona sintió la última vez que se sintió así. Se aplica a adultos (WG-ES TIRED_3). Se pregunta a los encuestados que reportaron fatiga al menos algunos días en los últimos 3 meses."
+
+type: string
+cardinality: single
+vocabulary: functional-intensity-3pt
+references: null
+category: disability
+sensitivity: sensitive

@@ -1,0 +1,14 @@
+id: difficulty_hearing_noisy_room
+maturity: draft
+
+definition:
+  en: "The degree of difficulty the person experiences hearing what is said in a conversation with one other person in a noisier room, with their hearing aid in use if they wear one. Applies to adults (WG-ES HEAR_5)."
+  fr: "Le degré de difficulté que la personne éprouve à entendre ce qui se dit dans une conversation avec une autre personne dans une pièce plus bruyante, avec son appareil auditif en place si elle en porte un. S'applique aux adultes (WG-ES HEAR_5)."
+  es: "El grado de dificultad que la persona experimenta al oír lo que se dice en una conversación con otra persona en una habitación más ruidosa, con el audífono puesto si lo usa. Se aplica a adultos (WG-ES HEAR_5)."
+
+type: string
+cardinality: single
+vocabulary: functional-difficulty-severity
+references: null
+category: disability
+sensitivity: sensitive

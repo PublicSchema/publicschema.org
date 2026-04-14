@@ -1,0 +1,14 @@
+id: remembering_extent
+maturity: draft
+
+definition:
+  en: "How much the person forgets: a few things, a lot of things, or almost everything. Applies to adults (WG-ES COG_4). Asked of respondents who reported remembering difficulty."
+  fr: "Dans quelle mesure la personne oublie: quelques choses, beaucoup de choses ou presque tout. S'applique aux adultes (WG-ES COG_4). Posée aux répondants ayant déclaré des difficultés de mémoire."
+  es: "Cuánto olvida la persona: algunas cosas, muchas cosas, o casi todo. Se aplica a adultos (WG-ES COG_4). Se pregunta a los encuestados que reportaron dificultades de memoria."
+
+type: string
+cardinality: single
+vocabulary: cognition-remembering-extent
+references: null
+category: disability
+sensitivity: sensitive

@@ -1,0 +1,14 @@
+id: pain_frequency
+maturity: draft
+
+definition:
+  en: "How often the person has experienced pain during the past 3 months. Applies to adults (WG-ES PAIN_1)."
+  fr: "À quelle fréquence la personne a ressenti de la douleur au cours des 3 derniers mois. S'applique aux adultes (WG-ES PAIN_1)."
+  es: "Con qué frecuencia la persona ha sentido dolor durante los últimos 3 meses. Se aplica a adultos (WG-ES PAIN_1)."
+
+type: string
+cardinality: single
+vocabulary: past-3-months-frequency
+references: null
+category: disability
+sensitivity: sensitive

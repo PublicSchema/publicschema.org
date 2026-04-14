@@ -1,0 +1,42 @@
+id: cognition-remembering-extent
+maturity: draft
+label:
+  en: Cognition Remembering Extent
+  fr: "Ampleur des difficultés de mémoire"
+  es: "Alcance de las dificultades de memoria"
+definition:
+  en: "A three-point scale describing the extent of the person's difficulty remembering, used in the Washington Group Extended Set on Functioning (WG-ES)."
+  fr: "Une échelle à trois niveaux décrivant l'ampleur des difficultés de mémoire de la personne, utilisée dans l'Ensemble étendu du Groupe de Washington sur le fonctionnement (WG-ES)."
+  es: "Una escala de tres niveles que describe el alcance de las dificultades de memoria de la persona, utilizada en el Conjunto Extendido del Grupo de Washington sobre Funcionamiento (WG-ES)."
+standard:
+  name: "Washington Group Extended Set on Functioning (WG-ES)"
+  uri: https://www.washingtongroup-disability.com/question-sets/wg-extended-set-on-functioning-wg-es/
+  notes: "Used on WG-ES item COG_4 per the 11 October 2022 PDF."
+values:
+- code: a_few_things
+  label:
+    en: A few things
+    fr: Quelques choses
+    es: Algunas cosas
+  definition:
+    en: "The person forgets a few things."
+    fr: "La personne oublie quelques choses."
+    es: "La persona olvida algunas cosas."
+- code: a_lot_of_things
+  label:
+    en: A lot of things
+    fr: Beaucoup de choses
+    es: Muchas cosas
+  definition:
+    en: "The person forgets a lot of things."
+    fr: "La personne oublie beaucoup de choses."
+    es: "La persona olvida muchas cosas."
+- code: almost_everything
+  label:
+    en: Almost everything
+    fr: Presque tout
+    es: Casi todo
+  definition:
+    en: "The person forgets almost everything."
+    fr: "La personne oublie presque tout."
+    es: "La persona olvida casi todo."

@@ -96,6 +96,20 @@ properties:
   - depression_frequency
   - depression_intensity
   - depression_medication
+  - difficulty_upper_body_reach
+  - difficulty_seeing_face_across_room
+  - difficulty_seeing_coin
+  - hearing_aid_use_frequency
+  - difficulty_hearing_quiet_room
+  - difficulty_hearing_noisy_room
+  - cognition_subdomain
+  - remembering_frequency
+  - remembering_extent
+  - pain_frequency
+  - pain_intensity
+  - fatigue_frequency
+  - fatigue_duration
+  - fatigue_intensity
 
 property_groups:
   - category: identity
@@ -170,6 +184,20 @@ property_groups:
       - depression_frequency
       - depression_intensity
       - depression_medication
+      - difficulty_upper_body_reach
+      - difficulty_seeing_face_across_room
+      - difficulty_seeing_coin
+      - hearing_aid_use_frequency
+      - difficulty_hearing_quiet_room
+      - difficulty_hearing_noisy_room
+      - cognition_subdomain
+      - remembering_frequency
+      - remembering_extent
+      - pain_frequency
+      - pain_intensity
+      - fatigue_frequency
+      - fatigue_duration
+      - fatigue_intensity
   - category: child_functioning
     properties:
       - difficulty_learning

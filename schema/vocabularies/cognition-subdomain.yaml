@@ -1,0 +1,42 @@
+id: cognition-subdomain
+maturity: draft
+label:
+  en: Cognition Subdomain
+  fr: "Sous-domaine de cognition"
+  es: "Subdominio de cognición"
+definition:
+  en: "A three-value scale distinguishing which cognition subdomain (remembering, concentrating, or both) the person has difficulty with, used in the Washington Group Extended Set on Functioning (WG-ES)."
+  fr: "Une échelle à trois valeurs distinguant le sous-domaine cognitif (mémoire, concentration, ou les deux) avec lequel la personne a des difficultés, utilisée dans l'Ensemble étendu du Groupe de Washington sur le fonctionnement (WG-ES)."
+  es: "Una escala de tres valores que distingue el subdominio cognitivo (recordar, concentrarse, o ambos) con el que la persona tiene dificultad, utilizada en el Conjunto Extendido del Grupo de Washington sobre Funcionamiento (WG-ES)."
+standard:
+  name: "Washington Group Extended Set on Functioning (WG-ES)"
+  uri: https://www.washingtongroup-disability.com/question-sets/wg-extended-set-on-functioning-wg-es/
+  notes: "Used on WG-ES item COG_2 per the 11 October 2022 PDF. Asked only of respondents who reported cognition difficulty on COG_1."
+values:
+- code: remembering_only
+  label:
+    en: Remembering only
+    fr: Mémoire uniquement
+    es: Solo recordar
+  definition:
+    en: "The difficulty is with remembering only."
+    fr: "La difficulté concerne uniquement la mémoire."
+    es: "La dificultad es solo con recordar."
+- code: concentrating_only
+  label:
+    en: Concentrating only
+    fr: Concentration uniquement
+    es: Solo concentrarse
+  definition:
+    en: "The difficulty is with concentrating only."
+    fr: "La difficulté concerne uniquement la concentration."
+    es: "La dificultad es solo con concentrarse."
+- code: both
+  label:
+    en: Both remembering and concentrating
+    fr: "Mémoire et concentration"
+    es: "Tanto recordar como concentrarse"
+  definition:
+    en: "The difficulty is with both remembering and concentrating."
+    fr: "La difficulté concerne à la fois la mémoire et la concentration."
+    es: "La dificultad es tanto con recordar como con concentrarse."

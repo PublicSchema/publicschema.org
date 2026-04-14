@@ -1,0 +1,14 @@
+id: fatigue_frequency
+maturity: draft
+
+definition:
+  en: "How often the person has felt tired or exhausted during the past 3 months. Applies to adults (WG-ES TIRED_1)."
+  fr: "À quelle fréquence la personne s'est sentie fatiguée ou épuisée au cours des 3 derniers mois. S'applique aux adultes (WG-ES TIRED_1)."
+  es: "Con qué frecuencia la persona se ha sentido cansada o agotada durante los últimos 3 meses. Se aplica a adultos (WG-ES TIRED_1)."
+
+type: string
+cardinality: single
+vocabulary: past-3-months-frequency
+references: null
+category: disability
+sensitivity: sensitive

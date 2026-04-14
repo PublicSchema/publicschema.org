@@ -1,0 +1,42 @@
+id: daily-duration
+maturity: draft
+label:
+  en: Daily Duration
+  fr: "Durée quotidienne"
+  es: "Duración diaria"
+definition:
+  en: "A three-point scale describing how much of the day a condition or feeling persists, used in the Washington Group Extended Set on Functioning (WG-ES) for fatigue."
+  fr: "Une échelle à trois niveaux décrivant la durée quotidienne d'une condition ou d'un ressenti, utilisée dans l'Ensemble étendu du Groupe de Washington sur le fonctionnement (WG-ES) pour la fatigue."
+  es: "Una escala de tres niveles que describe qué tanto del día persiste una condición o sentimiento, utilizada en el Conjunto Extendido del Grupo de Washington sobre Funcionamiento (WG-ES) para la fatiga."
+standard:
+  name: "Washington Group Extended Set on Functioning (WG-ES)"
+  uri: https://www.washingtongroup-disability.com/question-sets/wg-extended-set-on-functioning-wg-es/
+  notes: "Used on WG-ES item TIRED_2 (how much of the day the person felt tired or exhausted) per the 11 October 2022 PDF."
+values:
+- code: some_of_the_day
+  label:
+    en: Some of the day
+    fr: Une partie de la journée
+    es: Parte del día
+  definition:
+    en: "The condition persisted during some of the day."
+    fr: "La condition a persisté pendant une partie de la journée."
+    es: "La condición persistió durante parte del día."
+- code: most_of_the_day
+  label:
+    en: Most of the day
+    fr: La plupart de la journée
+    es: La mayor parte del día
+  definition:
+    en: "The condition persisted during most of the day."
+    fr: "La condition a persisté pendant la plupart de la journée."
+    es: "La condición persistió durante la mayor parte del día."
+- code: all_of_the_day
+  label:
+    en: All of the day
+    fr: Toute la journée
+    es: Todo el día
+  definition:
+    en: "The condition persisted throughout the entire day."
+    fr: "La condition a persisté toute la journée."
+    es: "La condición persistió durante todo el día."

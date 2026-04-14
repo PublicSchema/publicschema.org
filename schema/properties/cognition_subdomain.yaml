@@ -1,0 +1,14 @@
+id: cognition_subdomain
+maturity: draft
+
+definition:
+  en: "Whether the person's cognition difficulty is with remembering, concentrating, or both. Applies to adults (WG-ES COG_2). Asked of respondents who reported cognition difficulty."
+  fr: "Si la difficulté cognitive de la personne concerne la mémoire, la concentration ou les deux. S'applique aux adultes (WG-ES COG_2). Posée aux répondants ayant déclaré des difficultés cognitives."
+  es: "Si la dificultad cognitiva de la persona es para recordar, concentrarse, o ambos. Se aplica a adultos (WG-ES COG_2). Se pregunta a los encuestados que reportaron dificultades cognitivas."
+
+type: string
+cardinality: single
+vocabulary: cognition-subdomain
+references: null
+category: disability
+sensitivity: sensitive

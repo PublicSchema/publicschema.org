@@ -1,0 +1,14 @@
+id: remembering_frequency
+maturity: draft
+
+definition:
+  en: "How often the person has difficulty remembering. Applies to adults (WG-ES COG_3). Asked of respondents who reported remembering difficulty."
+  fr: "À quelle fréquence la personne a des difficultés de mémoire. S'applique aux adultes (WG-ES COG_3). Posée aux répondants ayant déclaré des difficultés de mémoire."
+  es: "Con qué frecuencia la persona tiene dificultad para recordar. Se aplica a adultos (WG-ES COG_3). Se pregunta a los encuestados que reportaron dificultades de memoria."
+
+type: string
+cardinality: single
+vocabulary: symptom-chronicity
+references: null
+category: disability
+sensitivity: sensitive

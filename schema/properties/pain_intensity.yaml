@@ -1,0 +1,14 @@
+id: pain_intensity
+maturity: draft
+
+definition:
+  en: "The intensity of the person's pain the last time they had pain. Applies to adults (WG-ES PAIN_2). Asked of respondents who reported pain at least some days in the past 3 months."
+  fr: "L'intensité de la douleur de la personne la dernière fois qu'elle en a ressenti. S'applique aux adultes (WG-ES PAIN_2). Posée aux répondants ayant déclaré des douleurs au moins certains jours au cours des 3 derniers mois."
+  es: "La intensidad del dolor de la persona la última vez que sintió dolor. Se aplica a adultos (WG-ES PAIN_2). Se pregunta a los encuestados que reportaron dolor al menos algunos días en los últimos 3 meses."
+
+type: string
+cardinality: single
+vocabulary: functional-intensity-3pt
+references: null
+category: disability
+sensitivity: sensitive

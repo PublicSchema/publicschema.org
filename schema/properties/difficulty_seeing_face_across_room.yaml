@@ -1,0 +1,14 @@
+id: difficulty_seeing_face_across_room
+maturity: draft
+
+definition:
+  en: "The degree of difficulty the person experiences seeing the face of someone across a room, even when wearing glasses if they use them. Applies to adults (WG-ES VIS_3, flagged OPTIONAL in the WG-ES instrument)."
+  fr: "Le degré de difficulté que la personne éprouve à voir le visage de quelqu'un de l'autre côté d'une pièce, même en portant des lunettes si elle en utilise. S'applique aux adultes (WG-ES VIS_3, marqué OPTIONNEL dans l'instrument WG-ES)."
+  es: "El grado de dificultad que la persona experimenta al ver la cara de alguien al otro lado de una habitación, incluso usando lentes si los utiliza. Se aplica a adultos (WG-ES VIS_3, marcado como OPCIONAL en el instrumento WG-ES)."
+
+type: string
+cardinality: single
+vocabulary: functional-difficulty-severity
+references: null
+category: disability
+sensitivity: sensitive

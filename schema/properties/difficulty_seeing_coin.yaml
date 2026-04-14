@@ -1,0 +1,14 @@
+id: difficulty_seeing_coin
+maturity: draft
+
+definition:
+  en: "The degree of difficulty the person experiences seeing something held at arm's length, such as a coin in the palm of their hand, even when wearing glasses if they use them. Applies to adults (WG-ES VIS_4, flagged OPTIONAL in the WG-ES instrument)."
+  fr: "Le degré de difficulté que la personne éprouve à voir quelque chose tenu à bout de bras, comme une pièce de monnaie dans la paume de la main, même en portant des lunettes si elle en utilise. S'applique aux adultes (WG-ES VIS_4, marqué OPTIONNEL dans l'instrument WG-ES)."
+  es: "El grado de dificultad que la persona experimenta al ver algo sostenido a la distancia de un brazo, como una moneda en la palma de la mano, incluso usando lentes si los utiliza. Se aplica a adultos (WG-ES VIS_4, marcado como OPCIONAL en el instrumento WG-ES)."
+
+type: string
+cardinality: single
+vocabulary: functional-difficulty-severity
+references: null
+category: disability
+sensitivity: sensitive

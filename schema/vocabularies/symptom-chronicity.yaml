@@ -1,0 +1,42 @@
+id: symptom-chronicity
+maturity: draft
+label:
+  en: Symptom Chronicity
+  fr: "Chronicité du symptôme"
+  es: "Cronicidad del síntoma"
+definition:
+  en: "A three-point scale describing how pervasive a cognitive symptom is, used in the Washington Group Extended Set on Functioning (WG-ES) for remembering difficulty."
+  fr: "Une échelle à trois niveaux décrivant à quel point un symptôme cognitif est omniprésent, utilisée dans l'Ensemble étendu du Groupe de Washington sur le fonctionnement (WG-ES) pour les difficultés de mémoire."
+  es: "Una escala de tres niveles que describe qué tan generalizado es un síntoma cognitivo, utilizada en el Conjunto Extendido del Grupo de Washington sobre Funcionamiento (WG-ES) para dificultades de memoria."
+standard:
+  name: "Washington Group Extended Set on Functioning (WG-ES)"
+  uri: https://www.washingtongroup-disability.com/question-sets/wg-extended-set-on-functioning-wg-es/
+  notes: "Used on WG-ES item COG_3 per the 11 October 2022 PDF."
+values:
+- code: sometimes
+  label:
+    en: Sometimes
+    fr: Parfois
+    es: A veces
+  definition:
+    en: "The symptom occurs sometimes."
+    fr: "Le symptôme se manifeste parfois."
+    es: "El síntoma ocurre a veces."
+- code: often
+  label:
+    en: Often
+    fr: Souvent
+    es: A menudo
+  definition:
+    en: "The symptom occurs often."
+    fr: "Le symptôme se manifeste souvent."
+    es: "El síntoma ocurre a menudo."
+- code: all_of_the_time
+  label:
+    en: All of the time
+    fr: Tout le temps
+    es: Todo el tiempo
+  definition:
+    en: "The symptom occurs all of the time."
+    fr: "Le symptôme se manifeste tout le temps."
+    es: "El síntoma ocurre todo el tiempo."

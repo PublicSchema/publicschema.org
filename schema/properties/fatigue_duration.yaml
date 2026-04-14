@@ -1,0 +1,14 @@
+id: fatigue_duration
+maturity: draft
+
+definition:
+  en: "How much of the day the person felt tired or exhausted the last time they felt this way. Applies to adults (WG-ES TIRED_2). Asked of respondents who reported fatigue at least some days in the past 3 months."
+  fr: "Quelle partie de la journée la personne s'est sentie fatiguée ou épuisée la dernière fois qu'elle s'est sentie ainsi. S'applique aux adultes (WG-ES TIRED_2). Posée aux répondants ayant déclaré de la fatigue au moins certains jours au cours des 3 derniers mois."
+  es: "Qué parte del día la persona se sintió cansada o agotada la última vez que se sintió así. Se aplica a adultos (WG-ES TIRED_2). Se pregunta a los encuestados que reportaron fatiga al menos algunos días en los últimos 3 meses."
+
+type: string
+cardinality: single
+vocabulary: daily-duration
+references: null
+category: disability
+sensitivity: sensitive

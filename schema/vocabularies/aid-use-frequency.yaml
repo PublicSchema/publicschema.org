@@ -1,0 +1,51 @@
+id: aid-use-frequency
+maturity: draft
+label:
+  en: Aid Use Frequency
+  fr: "Fréquence d'utilisation de l'aide"
+  es: "Frecuencia de uso de la ayuda"
+definition:
+  en: "A four-point frequency scale for how often a person uses an assistive device, used in the Washington Group Extended Set on Functioning (WG-ES) for hearing aid use."
+  fr: "Une échelle de fréquence à quatre niveaux pour la fréquence d'utilisation d'un dispositif d'assistance, utilisée dans l'Ensemble étendu du Groupe de Washington sur le fonctionnement (WG-ES) pour l'utilisation d'un appareil auditif."
+  es: "Una escala de frecuencia de cuatro niveles para la frecuencia con la que una persona usa un dispositivo de asistencia, utilizada en el Conjunto Extendido del Grupo de Washington sobre Funcionamiento (WG-ES) para el uso de audífonos."
+standard:
+  name: "Washington Group Extended Set on Functioning (WG-ES)"
+  uri: https://www.washingtongroup-disability.com/question-sets/wg-extended-set-on-functioning-wg-es/
+  notes: "Used on WG-ES item HEAR_3 (hearing aid use frequency, OPTIONAL) per the 11 October 2022 PDF."
+values:
+- code: all_of_the_time
+  label:
+    en: All of the time
+    fr: Tout le temps
+    es: Todo el tiempo
+  definition:
+    en: "The person uses the aid all of the time."
+    fr: "La personne utilise l'aide tout le temps."
+    es: "La persona usa la ayuda todo el tiempo."
+- code: some_of_the_time
+  label:
+    en: Some of the time
+    fr: Une partie du temps
+    es: Parte del tiempo
+  definition:
+    en: "The person uses the aid some of the time."
+    fr: "La personne utilise l'aide une partie du temps."
+    es: "La persona usa la ayuda parte del tiempo."
+- code: rarely
+  label:
+    en: Rarely
+    fr: Rarement
+    es: Raramente
+  definition:
+    en: "The person rarely uses the aid."
+    fr: "La personne utilise rarement l'aide."
+    es: "La persona raramente usa la ayuda."
+- code: never
+  label:
+    en: Never
+    fr: Jamais
+    es: Nunca
+  definition:
+    en: "The person never uses the aid."
+    fr: "La personne n'utilise jamais l'aide."
+    es: "La persona nunca usa la ayuda."

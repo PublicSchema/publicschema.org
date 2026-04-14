@@ -1,0 +1,14 @@
+id: difficulty_upper_body_reach
+maturity: draft
+
+definition:
+  en: "The degree of difficulty the person experiences raising a 2-litre bottle of water from waist to eye level. Applies to adults (WG-ES UB_1)."
+  fr: "Le degré de difficulté que la personne éprouve à soulever une bouteille d'eau de 2 litres de la taille aux yeux. S'applique aux adultes (WG-ES UB_1)."
+  es: "El grado de dificultad que la persona experimenta al levantar una botella de agua de 2 litros desde la cintura hasta el nivel de los ojos. Se aplica a adultos (WG-ES UB_1)."
+
+type: string
+cardinality: single
+vocabulary: functional-difficulty-severity
+references: null
+category: disability
+sensitivity: sensitive

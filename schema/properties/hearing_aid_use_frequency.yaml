@@ -1,0 +1,14 @@
+id: hearing_aid_use_frequency
+maturity: draft
+
+definition:
+  en: "How often the person uses their hearing aid. Applies to adults (WG-ES HEAR_3, flagged OPTIONAL in the WG-ES instrument). Asked of respondents who reported using a hearing aid."
+  fr: "À quelle fréquence la personne utilise son appareil auditif. S'applique aux adultes (WG-ES HEAR_3, marqué OPTIONNEL dans l'instrument WG-ES). Posée aux répondants ayant déclaré utiliser un appareil auditif."
+  es: "Con qué frecuencia la persona usa su audífono. Se aplica a adultos (WG-ES HEAR_3, marcado como OPCIONAL en el instrumento WG-ES). Se pregunta a los encuestados que reportaron usar audífono."
+
+type: string
+cardinality: single
+vocabulary: aid-use-frequency
+references: null
+category: disability
+sensitivity: sensitive
