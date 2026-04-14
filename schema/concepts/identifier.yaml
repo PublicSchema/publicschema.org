@@ -37,6 +37,16 @@ properties:
   - identifier_scheme_name
   - identifier_type
 
+property_groups:
+  - category: identity
+    properties:
+      - identifier_value
+      - identifier_type
+  - category: administrative
+    properties:
+      - identifier_scheme_id
+      - identifier_scheme_name
+
 supertypes: []
 subtypes: []
 

@@ -29,6 +29,17 @@ properties:
   - start_date
   - end_date
 
+property_groups:
+  - category: identity
+    properties:
+      - subject_person
+      - object_person
+      - relationship_type
+  - category: administrative
+    properties:
+      - start_date
+      - end_date
+
 supertypes: []
 subtypes: []
 

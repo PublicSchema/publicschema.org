@@ -32,6 +32,20 @@ properties:
   - parent_location
   - geocodes
 
+property_groups:
+  - category: location
+    properties:
+      - location_name
+      - latitude
+      - longitude
+      - geometry
+  - category: administrative
+    properties:
+      - administrative_level
+      - level_name
+      - parent_location
+      - geocodes
+
 supertypes: []
 subtypes: []
 

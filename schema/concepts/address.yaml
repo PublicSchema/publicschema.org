@@ -33,6 +33,22 @@ properties:
   - country
   - location
 
+property_groups:
+  - category: location
+    properties:
+      - full_address
+      - street_address
+      - house_number
+      - building_name
+  - category: administrative
+    properties:
+      - address_area
+      - city
+      - administrative_area
+      - postal_code
+      - country
+      - location
+
 supertypes: []
 subtypes: []
 
