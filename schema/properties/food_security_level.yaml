@@ -2,9 +2,9 @@ id: food_security_level
 maturity: draft
 
 definition:
-  en: "The severity of food insecurity experienced by the household, derived from a food security assessment instrument."
-  fr: "La sévérité de l'insécurité alimentaire vécue par le ménage, dérivée d'un instrument d'évaluation de la sécurité alimentaire."
-  es: "La gravedad de la inseguridad alimentaria del hogar, derivada de un instrumento de evaluación de seguridad alimentaria."
+  en: "A coarse current-state summary of the household's food insecurity, used by operational systems for targeting and referral queries. This is NOT the raw output of a specific food-security assessment instrument: the raw responses live on a SocioEconomicProfile (or a dedicated food-security instrument administration). Populate food_security_level from a Profile only by citing the instrument and cutoff rule that produced the band; otherwise treat it as a self-declared or enumerator-judged summary."
+  fr: "Un résumé grossier de l'état actuel d'insécurité alimentaire du ménage, utilisé par les systèmes opérationnels pour les requêtes de ciblage et d'orientation. Ce n'est PAS le résultat brut d'un instrument d'évaluation spécifique : les réponses brutes vivent sur un SocioEconomicProfile (ou sur l'administration d'un instrument dédié à la sécurité alimentaire). Renseignez food_security_level à partir d'un Profile uniquement en citant l'instrument et la règle de seuil qui a produit la bande ; sinon, considérez-le comme un résumé auto-déclaré ou jugé par l'enquêteur."
+  es: "Un resumen grueso del estado actual de inseguridad alimentaria del hogar, usado por sistemas operativos para consultas de focalización y derivación. Esto NO es la salida cruda de un instrumento específico de evaluación: las respuestas crudas viven en un SocioEconomicProfile (o en la administración de un instrumento dedicado a la seguridad alimentaria). Complete food_security_level a partir de un Profile solo citando el instrumento y la regla de corte que produjo la banda; de lo contrario trátelo como un resumen autodeclarado o juzgado por el encuestador."
 
 type: string
 cardinality: single

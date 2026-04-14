@@ -10,3 +10,4 @@ type: string
 cardinality: single
 vocabulary: measurement-type
 references: null
+valid_instruments: [smart]

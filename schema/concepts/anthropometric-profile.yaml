@@ -98,9 +98,9 @@ external_equivalents:
   fhir:
     label: "Observation (vital-signs / body measurement)"
     uri: "http://hl7.org/fhir/Observation"
-    match: close
+    match: broad
     vocabulary: "FHIR R4"
-    note: "Individual measurements serialize as separate FHIR Observation resources sharing a common subject and effective datetime; our AnthropometricProfile groups them into one administration record with the growth-reference context"
+    note: "One AnthropometricProfile administration maps to several FHIR Observation resources (one per measurement) sharing a common subject and effective datetime, plus a grouping Observation or a Procedure to carry the growth-reference and cutoff-rule context. The cardinalities do not line up one-to-one, so this is a broad match rather than a close one."
 
 convergence:
   system_count: 2

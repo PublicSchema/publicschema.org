@@ -15,3 +15,4 @@ sensitivity: sensitive
 age_applicability:
   - adult
   - child_5_17
+valid_instruments: [cfm-5-17, wg-es, wg-ss]

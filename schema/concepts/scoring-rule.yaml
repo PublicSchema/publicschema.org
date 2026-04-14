@@ -59,3 +59,12 @@ external_equivalents:
 convergence:
   system_count: 4
   total_systems: 6
+  notes: >
+    Four of six v1 systems (DHIS2, FHIR via RiskAssessment reference
+    frameworks, OpenSPP, DCI IBR) carry a concept that plays the ScoringRule
+    role: a persistent methodology definition referenced by per-subject
+    scoring runs. OpenCRVS and openIMIS do not model scoring rules
+    directly, relying on out-of-band documentation. SEMIC CCCEV
+    ReferenceFramework is the broader upstream peer covering any policy or
+    legislation from which requirements derive; our ScoringRule is the
+    narrower subset used for scoring.

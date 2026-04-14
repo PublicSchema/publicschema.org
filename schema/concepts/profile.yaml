@@ -52,13 +52,7 @@ external_equivalents:
     uri: "http://hl7.org/fhir/QuestionnaireResponse"
     match: close
     vocabulary: "FHIR R4"
-    note: "FHIR QuestionnaireResponse is the canonical peer for a single administration of a data-collection instrument; our Profile is abstract and splits by instrument family"
-  dci:
-    label: "SocioEconomicProfile"
-    uri: "https://schema.spdci.org/extensions/social-registries/v1/data/SocioEconomicProfile"
-    match: broad
-    vocabulary: "DCI Social Registry"
-    note: "DCI SocioEconomicProfile is the closest existing peer but covers only the socio-economic case; our Profile is the abstract supertype of three typed subtypes"
+    note: "FHIR QuestionnaireResponse is the canonical peer for a single administration of a data-collection instrument. Our Profile is abstract and splits by instrument family; FunctioningProfile and SocioEconomicProfile align most closely because they serialize as a single QuestionnaireResponse. AnthropometricProfile relates to FHIR Observation instead and is documented on that concept."
 
 convergence:
   system_count: 1

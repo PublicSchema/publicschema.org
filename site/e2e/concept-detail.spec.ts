@@ -65,3 +65,47 @@ test.describe("Concept detail: flat table fallback", () => {
     expect(rowCount).toBeGreaterThanOrEqual(1);
   });
 });
+
+test.describe("Concept detail: profile hierarchy smoke tests", () => {
+  test("Profile abstract page renders with QuestionnaireResponse FHIR peer", async ({ page }) => {
+    await page.goto("/Profile/");
+    await expect(page.locator("h1").first()).toContainText(/Profile/);
+    await expect(page.locator("body")).toContainText(/QuestionnaireResponse/);
+    await expect(page.locator("#properties")).toContainText(/instrument_used/);
+  });
+
+  test("FunctioningProfile page lists WG/CFM items and administrative context", async ({ page }) => {
+    await page.goto("/FunctioningProfile/");
+    const body = page.locator("body");
+    await expect(body).toContainText(/Washington Group|WG-SS|CFM/);
+    await expect(page.locator("#properties")).toContainText(/difficulty_seeing/);
+    await expect(page.locator("#properties")).toContainText(/administration_mode/);
+  });
+
+  test("AnthropometricProfile page lists measurements and growth reference", async ({ page }) => {
+    await page.goto("/AnthropometricProfile/");
+    await expect(page.locator("#properties")).toContainText(/muac/);
+    await expect(page.locator("#properties")).toContainText(/growth_reference/);
+    await expect(page.locator("#properties")).toContainText(/oedema_present/);
+  });
+
+  test("Instrument registry page renders with version and publisher fields", async ({ page }) => {
+    await page.goto("/Instrument/");
+    await expect(page.locator("#properties")).toContainText(/version/);
+    await expect(page.locator("#properties")).toContainText(/publisher/);
+    await expect(page.locator("#properties")).toContainText(/item_set/);
+  });
+
+  test("ScoringRule page renders with scoring_method and cutoff_score", async ({ page }) => {
+    await page.goto("/ScoringRule/");
+    await expect(page.locator("#properties")).toContainText(/scoring_method/);
+    await expect(page.locator("#properties")).toContainText(/cutoff_score/);
+  });
+
+  test("ScoringEvent page renders with rule_applied and raw_score", async ({ page }) => {
+    await page.goto("/ScoringEvent/");
+    await expect(page.locator("#properties")).toContainText(/rule_applied/);
+    await expect(page.locator("#properties")).toContainText(/raw_score/);
+    await expect(page.locator("#properties")).toContainText(/assessment_band/);
+  });
+});

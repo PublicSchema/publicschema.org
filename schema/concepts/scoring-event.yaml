@@ -54,3 +54,12 @@ supertypes: [Event]
 convergence:
   system_count: 3
   total_systems: 6
+  notes: >
+    Three of six v1 systems represent a scoring run as a first-class
+    record: OpenSPP (proxy means test evaluation), DCI IBR (assessment
+    event linked to a framework), and FHIR (RiskAssessment). DHIS2,
+    OpenCRVS, and openIMIS do not carry a distinct scoring event in core
+    and rely on computed fields on the subject record. Separating the
+    scoring event from the instrument administration lets a single
+    Profile be re-scored against different rules without new data
+    collection.

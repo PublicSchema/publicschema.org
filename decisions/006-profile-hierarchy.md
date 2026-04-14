@@ -41,6 +41,11 @@ Because Profile subtypes may carry sensitive data (health, nutrition, poverty), 
 
 The existing `convergence` system_count of 1-2 (FHIR and DHIS2) reflects that most v1 MIS systems flatten observation data into the subject record. This mismatch is deliberate: the refactor is informed more by standards bodies (Washington Group, WHO, UNICEF MICS, SMART) and domain tools (CommCare CMAM, DHS, MICS) than by the v1 mapped-system set.
 
+## Follow-on work
+
+- A `SoftwareAgent` concept and `software_used` property, tracked separately, extend ScoringEvent and EligibilityDecision to record the software that executed a scoring or decision step. The distinction is deliberate: `evaluator` and `performed_by` carry the party accountable for the result (a human or organisation); `software_used` carries the tool that ran the computation, for reproducibility and audit. This ADR defines the Profile and scoring concepts; `software_used` is layered on top and does not change the shapes here.
+- Four data-level validators remain to be implemented on top of this schema, all of which operate on sample Profile records rather than the schema itself: enforce `valid_instruments` (reject an item populated on a Profile whose `instrument_used` is not in the item's list), require `growth_reference` when any anthropometric status band is set, require `cutoff_rule` on `acute_malnutrition_status`, and require `administration_mode: proxy` when `instrument_used` is CFM 2-4 or CFM 5-17. The `valid_instruments` field on each WG/CFM/anthropometric item property is populated; the engine that consumes it is not yet in this repo.
+
 ## References
 
 - Expert reviews: `reviews/person-refactor/schema-expert.md`, `practitioner-expert.md`, `methodology-expert.md`

@@ -10,3 +10,4 @@ type: string
 cardinality: single
 vocabulary: growth-reference
 references: null
+valid_instruments: [smart]
