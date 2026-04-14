@@ -85,7 +85,7 @@ A property like `start_date` is defined once and reused across concepts. When a 
 
 ### Cross-concept property reuse
 
-Property independence is not limited to repeated structural fields. Substantive observables can be reused across concepts too. `water_source`, `sanitation_facility`, and `dwelling_type` appear on both `SocioEconomicProfile` (baseline registration context) and `DwellingDamageProfile` (post-shock assessment). `triggering_event` appears on CRVS annotation records and on `DwellingDamageProfile`. In each case the property is declared once and listed in each concept's `properties`.
+Property independence is not limited to repeated structural fields. Substantive observables can be reused across concepts too. `water_source`, `sanitation_facility`, and `dwelling_type` appear on both `SocioEconomicProfile` (baseline registration context) and `DwellingDamageProfile` (post-shock assessment). In each case the property is declared once and listed in each concept's `properties`.
 
 The rules that keep this honest:
 
@@ -95,7 +95,7 @@ The rules that keep this honest:
 4. **Reuse does not make records type-compatible.** A `SocioEconomicProfile` record and a `DwellingDamageProfile` record are different things even when their property values overlap. Adopters should consult the concept page, not the property list, when serialising into a strongly typed shape.
 5. **Split when wording diverges.** If the property's own definition needs different text in each context, create two properties. `location` and `location_of_assessment` are split this way: `location` is the household's registered administrative or coordinate location; `location_of_assessment` is where a post-shock damage assessment was physically carried out, which may differ after displacement.
 
-`triggering_event` is a typed reference. Its type is widened to `concept:Event` so it can point at either a `VitalEvent` (CRVS) or a `HazardEvent` (humanitarian). The consuming concept constrains which `Event` subtype is expected. See [ADR-007](../decisions/007-profile-property-reuse.md) for the full argument.
+`triggering_hazard_event` (on `DwellingDamageProfile`) and `triggering_vital_event` (on `CivilStatusAnnotation`) follow the same split. Both were originally unified as one `triggering_event` whose type was widened to `concept:Event`, but the expected subtype carries meaning for validators and practitioners, so each consumer now declares its own typed reference. See [ADR-007](../decisions/007-profile-property-reuse.md) for the full argument.
 
 ## 7. Age applicability
 

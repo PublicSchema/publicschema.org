@@ -85,7 +85,7 @@ Une propriété comme `start_date` est définie une seule fois et réutilisée p
 
 ### Réutilisation d'une propriété entre concepts
 
-L'indépendance des propriétés ne se limite pas aux champs structurels répétés. Des observables substantiels peuvent aussi être réutilisés entre concepts. `water_source`, `sanitation_facility` et `dwelling_type` apparaissent à la fois sur `SocioEconomicProfile` (contexte d'enregistrement de base) et sur `DwellingDamageProfile` (évaluation post-choc). `triggering_event` apparaît sur les annotations d'état civil et sur `DwellingDamageProfile`. Dans chaque cas, la propriété est déclarée une seule fois et figure dans la liste `properties` de chaque concept.
+L'indépendance des propriétés ne se limite pas aux champs structurels répétés. Des observables substantiels peuvent aussi être réutilisés entre concepts. `water_source`, `sanitation_facility` et `dwelling_type` apparaissent à la fois sur `SocioEconomicProfile` (contexte d'enregistrement de base) et sur `DwellingDamageProfile` (évaluation post-choc). Dans chaque cas, la propriété est déclarée une seule fois et figure dans la liste `properties` de chaque concept.
 
 Les règles qui maintiennent la cohérence :
 
@@ -95,7 +95,7 @@ Les règles qui maintiennent la cohérence :
 4. **La réutilisation ne rend pas les enregistrements compatibles en type.** Un enregistrement `SocioEconomicProfile` et un enregistrement `DwellingDamageProfile` sont des choses différentes même lorsque leurs valeurs de propriétés se recoupent. Les adoptants doivent consulter la page du concept, pas la liste des propriétés, pour sérialiser vers une forme fortement typée.
 5. **Scindez lorsque la formulation diverge.** Si la définition propre à la propriété doit varier d'un contexte à l'autre, créez deux propriétés. `location` et `location_of_assessment` sont scindées ainsi : `location` est la localisation administrative ou par coordonnées enregistrée du ménage ; `location_of_assessment` est l'endroit où une évaluation des dégâts post-choc a effectivement été menée, qui peut différer après un déplacement.
 
-`triggering_event` est une référence typée. Son type est élargi à `concept:Event` afin de pouvoir pointer soit vers un `VitalEvent` (CRVS), soit vers un `HazardEvent` (humanitaire). Le concept consommateur contraint le sous-type d'`Event` attendu. Voir [ADR-007](../../decisions/007-profile-property-reuse.md) pour l'argumentaire complet.
+`triggering_hazard_event` (sur `DwellingDamageProfile`) et `triggering_vital_event` (sur `CivilStatusAnnotation`) suivent le même principe. Initialement unifiés dans une propriété unique `triggering_event` dont le type avait été élargi à `concept:Event`, ils ont été scindés parce que le sous-type attendu porte un sens pour les validateurs et les praticiens ; chaque consommateur déclare désormais sa propre référence typée. Voir [ADR-007](../../decisions/007-profile-property-reuse.md) pour l'argumentaire complet.
 
 ## 7. Applicabilité par âge
 

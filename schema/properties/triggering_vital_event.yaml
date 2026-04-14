@@ -1,0 +1,13 @@
+id: triggering_vital_event
+maturity: draft
+
+definition:
+  en: "The vital event that triggered this record. On CivilStatusAnnotation the referenced VitalEvent identifies the later marriage, divorce, death, paternity recognition, or adoption that prompted the marginal annotation on the original acte."
+  fr: "L'événement d'état civil qui a déclenché cet enregistrement. Sur CivilStatusAnnotation, le VitalEvent référencé identifie le mariage, le divorce, le décès, la reconnaissance de paternité ou l'adoption ultérieurs qui ont motivé la mention marginale sur l'acte original."
+  es: "El evento vital que desencadenó este registro. En CivilStatusAnnotation, el VitalEvent referenciado identifica el matrimonio, divorcio, defunción, reconocimiento de paternidad o adopción posterior que motivó la anotación marginal en el acta original."
+
+type: concept:VitalEvent
+cardinality: single
+vocabulary: null
+references: VitalEvent
+category: vital_event

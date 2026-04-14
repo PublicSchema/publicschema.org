@@ -153,3 +153,15 @@ event:
     en: Event
     fr: Événement
     es: Evento
+
+hazard_event:
+  label:
+    en: Hazard event
+    fr: Événement dangereux
+    es: Evento de peligro
+
+vital_event:
+  label:
+    en: Vital event
+    fr: "Événement d'état civil"
+    es: Evento vital

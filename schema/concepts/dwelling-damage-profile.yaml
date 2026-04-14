@@ -54,7 +54,7 @@ properties:
   - essential_items_missing
   - reconstruction_intent
   - services_disrupted
-  - triggering_event
+  - triggering_hazard_event
   - location_of_assessment
 
 property_groups:
@@ -91,9 +91,11 @@ property_groups:
     properties:
       - essential_items_missing
       - reconstruction_intent
-  - category: event
+  - category: hazard_event
     properties:
-      - triggering_event
+      - triggering_hazard_event
+  - category: location
+    properties:
       - location_of_assessment
 
 subtypes: []

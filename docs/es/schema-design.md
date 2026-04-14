@@ -85,7 +85,7 @@ Una propiedad como `start_date` se define una sola vez y se reutiliza en varios 
 
 ### Reutilización de propiedades entre conceptos
 
-La independencia de propiedades no se limita a campos estructurales repetidos. También pueden reutilizarse observables sustantivos entre conceptos. `water_source`, `sanitation_facility` y `dwelling_type` aparecen tanto en `SocioEconomicProfile` (contexto de registro de base) como en `DwellingDamageProfile` (evaluación posterior a un choque). `triggering_event` aparece en las anotaciones de registro civil y en `DwellingDamageProfile`. En cada caso la propiedad se declara una sola vez y figura en la lista `properties` de cada concepto.
+La independencia de propiedades no se limita a campos estructurales repetidos. También pueden reutilizarse observables sustantivos entre conceptos. `water_source`, `sanitation_facility` y `dwelling_type` aparecen tanto en `SocioEconomicProfile` (contexto de registro de base) como en `DwellingDamageProfile` (evaluación posterior a un choque). En cada caso la propiedad se declara una sola vez y figura en la lista `properties` de cada concepto.
 
 Las reglas que mantienen la coherencia:
 
@@ -95,7 +95,7 @@ Las reglas que mantienen la coherencia:
 4. **La reutilización no hace que los registros sean compatibles en tipo.** Un registro `SocioEconomicProfile` y un registro `DwellingDamageProfile` son cosas distintas aun cuando sus valores de propiedad se solapen. Los adoptantes deben consultar la página del concepto, no la lista de propiedades, al serializar hacia una forma fuertemente tipada.
 5. **Divida cuando la redacción diverge.** Si la definición propia de la propiedad necesita un texto distinto en cada contexto, cree dos propiedades. `location` y `location_of_assessment` se dividen así: `location` es la ubicación administrativa o por coordenadas registrada del hogar; `location_of_assessment` es el lugar donde se llevó a cabo físicamente una evaluación de daños posterior al choque, que puede diferir tras un desplazamiento.
 
-`triggering_event` es una referencia tipada. Su tipo se amplía a `concept:Event` para que pueda apuntar a un `VitalEvent` (CRVS) o a un `HazardEvent` (humanitario). El concepto consumidor restringe qué subtipo de `Event` se espera. Consulte [ADR-007](../../decisions/007-profile-property-reuse.md) para ver la argumentación completa.
+`triggering_hazard_event` (en `DwellingDamageProfile`) y `triggering_vital_event` (en `CivilStatusAnnotation`) siguen el mismo principio. Inicialmente unificadas en una única propiedad `triggering_event` cuyo tipo se había ampliado a `concept:Event`, se dividieron porque el subtipo esperado tiene significado para validadores y profesionales; cada consumidor declara ahora su propia referencia tipada. Consulte [ADR-007](../../decisions/007-profile-property-reuse.md) para ver la argumentación completa.
 
 ## 7. Aplicabilidad por edad
 
