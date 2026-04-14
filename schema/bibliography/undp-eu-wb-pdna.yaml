@@ -1,0 +1,23 @@
+id: undp-eu-wb-pdna
+title: "Post-Disaster Needs Assessment Guidelines, Volume B: Housing"
+short_title: "UNDP/EU/WB PDNA"
+publisher: "United Nations Development Programme (UNDP), European Union (EU), and World Bank (WB)"
+year: 2017
+version: "2017 revision"
+type: guidance_publication
+domain: humanitarian
+uri: "https://www.gfdrr.org/en/publication/post-disaster-needs-assessments-guidelines-volume-b-housing-2017"
+access: open
+status: active
+
+informs:
+  concepts:
+    - DwellingDamageProfile
+  vocabularies:
+    - shelter-damage-level
+    - habitability-status
+    - instrument-id
+  properties:
+    - damage_level
+    - habitability_status
+    - reconstruction_intent

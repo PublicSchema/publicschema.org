@@ -13,4 +13,10 @@ informs:
     - DwellingDamageProfile
   vocabularies:
     - shelter-situation-type
-  properties: []
+    - shelter-damage-level
+    - habitability-status
+    - instrument-id
+  properties:
+    - current_shelter_type
+    - damage_level
+    - habitability_status

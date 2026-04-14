@@ -11,3 +11,4 @@ cardinality: single
 vocabulary: reconstruction-intent
 references: null
 category: recovery
+valid_instruments: [iom_dtm_household, pdna_housing, reach_msna]

@@ -13,4 +13,9 @@ informs:
     - DwellingDamageProfile
   vocabularies:
     - shelter-damage-level
-  properties: []
+    - shelter-situation-type
+    - instrument-id
+  properties:
+    - damage_level
+    - current_shelter_type
+    - triggering_hazard_event

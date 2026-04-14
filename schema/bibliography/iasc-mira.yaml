@@ -1,0 +1,21 @@
+id: iasc-mira
+title: "Multi-Cluster/Sector Initial Rapid Assessment (MIRA) Guidance, Provisional Version"
+short_title: "IASC MIRA"
+publisher: "Inter-Agency Standing Committee (IASC)"
+year: 2015
+type: guidance_publication
+domain: humanitarian
+uri: "https://interagencystandingcommittee.org/iasc-transformative-agenda/iasc-reference-module-mira-march-2015"
+access: open
+status: active
+
+informs:
+  concepts:
+    - DwellingDamageProfile
+  vocabularies:
+    - instrument-id
+    - service-disruption-type
+  properties:
+    - damage_level
+    - services_disrupted
+    - triggering_hazard_event

@@ -11,3 +11,4 @@ cardinality: single
 vocabulary: null
 references: HazardEvent
 category: hazard_event
+valid_instruments: [iasc_mira, iom_dtm_household, shelter_cluster_rna, reach_msna, pdna_housing]

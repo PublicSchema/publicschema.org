@@ -11,3 +11,4 @@ cardinality: multiple
 vocabulary: service-disruption-type
 references: null
 category: wash
+valid_instruments: [iasc_mira, iom_dtm_household, reach_msna]

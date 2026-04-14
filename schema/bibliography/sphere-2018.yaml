@@ -16,4 +16,6 @@ informs:
   vocabularies:
     - habitability-status
     - nfi-item-type
-  properties: []
+  properties:
+    - habitability_status
+    - essential_items_missing

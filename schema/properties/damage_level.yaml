@@ -11,3 +11,4 @@ cardinality: single
 vocabulary: shelter-damage-level
 references: null
 category: shelter
+valid_instruments: [iasc_mira, iom_dtm_household, shelter_cluster_rna, reach_msna, pdna_housing]
