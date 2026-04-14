@@ -1,0 +1,26 @@
+id: acute-malnutrition-severity
+maturity: draft
+label:
+  en: Acute Malnutrition Severity
+definition:
+  en: "The severity of acute malnutrition based on mid-upper arm circumference (MUAC) cutoffs for children aged 6-59 months, as defined by the WHO/UNICEF/WFP/UNHCR joint criteria."
+standard:
+  name: "WHO/UNICEF/WFP/UNHCR Joint Statement on Community-based Management of Acute Malnutrition (2007)"
+  uri: https://www.who.int/publications/i/item/9789280641479
+  notes: "MUAC cutoffs for children 6-59 months: SAM < 115mm, MAM 115-124mm, adequate >= 125mm. Updated thresholds confirmed in the 2009 WHO child growth standards implementation guide."
+values:
+- code: adequate
+  label:
+    en: Adequate
+  definition:
+    en: "MUAC >= 125mm for children aged 6-59 months. No acute malnutrition detected by MUAC screening."
+- code: moderate_acute_malnutrition
+  label:
+    en: Moderate acute malnutrition (MAM)
+  definition:
+    en: "MUAC 115-124mm for children aged 6-59 months. Indicates moderate acute malnutrition requiring supplementary feeding."
+- code: severe_acute_malnutrition
+  label:
+    en: Severe acute malnutrition (SAM)
+  definition:
+    en: "MUAC < 115mm for children aged 6-59 months. Indicates severe acute malnutrition requiring therapeutic treatment."

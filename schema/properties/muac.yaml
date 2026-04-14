@@ -1,0 +1,12 @@
+id: muac
+maturity: draft
+
+definition:
+  en: "The mid-upper arm circumference (MUAC) of the person, measured in millimeters. MUAC is a field screening measure for acute malnutrition in children aged 6-59 months."
+
+type: decimal
+cardinality: single
+vocabulary: null
+references: null
+category: nutrition
+sensitivity: sensitive

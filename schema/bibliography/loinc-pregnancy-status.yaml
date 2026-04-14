@@ -1,0 +1,18 @@
+id: loinc-pregnancy-status
+title: "LOINC 82810-3: Pregnancy Status"
+short_title: "LOINC Pregnancy Status"
+publisher: "Regenstrief Institute"
+year: 2017
+type: international_standard
+domain: general
+uri: "https://loinc.org/82810-3/"
+access: open
+status: active
+
+informs:
+  concepts:
+    - Person
+  vocabularies:
+    - pregnancy-status
+  properties:
+    - pregnancy_status

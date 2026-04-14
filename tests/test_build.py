@@ -1282,3 +1282,85 @@ class TestToSnakeCase:
 
     def test_multi_caps(self):
         assert _to_snake_case("AssessmentEvent") == "assessment_event"
+
+
+# ---------------------------------------------------------------------------
+# Property categories and concept property_groups
+# ---------------------------------------------------------------------------
+
+class TestPropertyCategories:
+    def test_property_category_passes_through(
+        self, tmp_schema, write_concept, write_property
+    ):
+        """Property category field appears in build output."""
+        write_property("dob.yaml", make_property(
+            id="dob", type="date", category="demographics",
+        ))
+        write_concept("person.yaml", make_concept(
+            id="Person", properties=["dob"],
+        ))
+        result = build_vocabulary(tmp_schema)
+        assert result["properties"]["dob"]["category"] == "demographics"
+
+    def test_property_without_category_is_null(
+        self, tmp_schema, write_concept, write_property
+    ):
+        """Properties without category have null in output."""
+        write_property("name.yaml", make_property(id="name"))
+        write_concept("person.yaml", make_concept(
+            id="Person", properties=["name"],
+        ))
+        result = build_vocabulary(tmp_schema)
+        assert result["properties"]["name"]["category"] is None
+
+    def test_concept_property_groups_passes_through(
+        self, tmp_schema, write_concept, write_property
+    ):
+        """Concept property_groups field appears in build output."""
+        write_property("dob.yaml", make_property(id="dob", type="date"))
+        write_property("name.yaml", make_property(id="name"))
+        write_concept("person.yaml", make_concept(
+            id="Person",
+            properties=["dob", "name"],
+            property_groups=[
+                {"category": "demographics", "properties": ["dob"]},
+                {"category": "identity", "properties": ["name"]},
+            ],
+        ))
+        result = build_vocabulary(tmp_schema)
+        groups = result["concepts"]["Person"]["property_groups"]
+        assert groups is not None
+        assert len(groups) == 2
+        assert groups[0]["category"] == "demographics"
+        assert groups[0]["properties"] == ["dob"]
+
+    def test_concept_without_property_groups_is_null(
+        self, tmp_schema, write_concept, write_property
+    ):
+        """Concepts without property_groups have null/None in output."""
+        write_property("name.yaml", make_property(id="name"))
+        write_concept("person.yaml", make_concept(
+            id="Person", properties=["name"],
+        ))
+        result = build_vocabulary(tmp_schema)
+        assert result["concepts"]["Person"]["property_groups"] is None
+
+    def test_categories_yaml_loaded(self, tmp_schema, write_concept):
+        """categories.yaml is loaded and included in build output."""
+        import yaml
+        categories = {
+            "demographics": {"label": {"en": "Demographics", "fr": "Démographie", "es": "Demografía"}},
+            "identity": {"label": {"en": "Identity"}},
+        }
+        (tmp_schema / "categories.yaml").write_text(yaml.dump(categories, allow_unicode=True))
+        write_concept("person.yaml", make_concept(id="Person"))
+        result = build_vocabulary(tmp_schema)
+        assert "categories" in result
+        assert "demographics" in result["categories"]
+        assert result["categories"]["demographics"]["label"]["en"] == "Demographics"
+
+    def test_categories_empty_when_no_file(self, tmp_schema, write_concept):
+        """Build succeeds with empty categories when no categories.yaml exists."""
+        write_concept("person.yaml", make_concept(id="Person"))
+        result = build_vocabulary(tmp_schema)
+        assert result["categories"] == {}

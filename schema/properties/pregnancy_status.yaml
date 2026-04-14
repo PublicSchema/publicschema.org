@@ -1,0 +1,12 @@
+id: pregnancy_status
+maturity: draft
+
+definition:
+  en: "The current pregnancy status of the person."
+
+type: string
+cardinality: single
+vocabulary: pregnancy-status
+references: null
+category: demographics
+sensitivity: sensitive

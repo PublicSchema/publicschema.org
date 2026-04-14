@@ -1,0 +1,62 @@
+id: pregnancy-status
+maturity: draft
+label:
+  en: Pregnancy Status
+definition:
+  en: "The current pregnancy status of a person, based on the LOINC answer list for pregnancy status."
+standard:
+  name: "LOINC LL4129-4 Pregnancy Status"
+  uri: https://loinc.org/LL4129-4/
+  notes: "LOINC answer list for LOINC code 82810-3 (Pregnancy status). Aligned with FHIR R4 IPS pregnancy status. The postpartum value is a PublicSchema extension for social protection programs that target postpartum or lactating women separately."
+values:
+- code: not_pregnant
+  label:
+    en: Not pregnant
+  definition:
+    en: "The person is not currently pregnant."
+- code: pregnant
+  label:
+    en: Pregnant
+  definition:
+    en: "The person is currently pregnant."
+- code: postpartum
+  label:
+    en: Postpartum
+  definition:
+    en: "The person has recently given birth and is in the postpartum period. This value is a PublicSchema extension for social protection use; FHIR handles postpartum via a separate observation."
+- code: unknown
+  label:
+    en: Unknown
+  definition:
+    en: "The pregnancy status is not known or was not ascertained."
+system_mappings:
+  dhs:
+    vocabulary_name: "v213 - Currently pregnant"
+    values:
+    - code: '0'
+      label: "No or unsure"
+      maps_to: not_pregnant
+    - code: '1'
+      label: "Yes"
+      maps_to: pregnant
+    - code: '8'
+      label: "Don't know"
+      maps_to: unknown
+    unmapped_canonical:
+    - postpartum
+    note: "DHS Recode7 v213. Postpartum status is not captured as a variable; DHS infers it from birth dates."
+  mics:
+    vocabulary_name: "CP1 - Currently pregnant"
+    values:
+    - code: '1'
+      label: "Yes"
+      maps_to: pregnant
+    - code: '2'
+      label: "No"
+      maps_to: not_pregnant
+    - code: '8'
+      label: "Don't know"
+      maps_to: unknown
+    unmapped_canonical:
+    - postpartum
+    note: "MICS6 Contraception/Unmet Need module (CP1). Same gap for postpartum as DHS."

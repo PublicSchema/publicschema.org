@@ -1,0 +1,12 @@
+id: displacement_status
+maturity: draft
+
+definition:
+  en: "The legal, administrative, or protection status of the person with respect to displacement and migration."
+
+type: string
+cardinality: single
+vocabulary: displacement-status
+references: null
+category: demographics
+sensitivity: sensitive

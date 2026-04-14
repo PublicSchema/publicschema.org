@@ -1,0 +1,26 @@
+id: malnutrition-severity
+maturity: draft
+label:
+  en: Malnutrition Severity
+definition:
+  en: "The severity of malnutrition based on z-score classifications from the WHO Child Growth Standards, used for stunting (height-for-age), underweight (weight-for-age), and wasting (weight-for-height) assessments."
+standard:
+  name: "WHO Child Growth Standards (2006)"
+  uri: https://www.who.int/tools/child-growth-standards
+  notes: "Based on the WHO Multicentre Growth Reference Study. Z-score thresholds: moderate = between -3 and -2 SD, severe = below -3 SD."
+values:
+- code: normal
+  label:
+    en: Normal
+  definition:
+    en: "Z-score >= -2 standard deviations from the WHO reference median."
+- code: moderate
+  label:
+    en: Moderate
+  definition:
+    en: "Z-score between -3 and -2 standard deviations from the WHO reference median."
+- code: severe
+  label:
+    en: Severe
+  definition:
+    en: "Z-score < -3 standard deviations from the WHO reference median."

@@ -1,0 +1,51 @@
+id: displacement-status
+maturity: draft
+label:
+  en: Displacement Status
+definition:
+  en: "The legal, administrative, or protection status of a person with respect to displacement and migration, drawing from international frameworks for displaced and stateless populations."
+standard:
+  name: "EGRISS International Recommendations on IDP Statistics (IRIS)"
+  uri: https://egrisstats.org/recommendations/international-recommendations-on-idp-statistics-iris/
+  notes: "Endorsed by the UN Statistical Commission in 2020. Complements EGRISS IRRS (2018) for refugee statistics. Values also draw from IOM International Migration Law Glossary and the 1951 Refugee Convention / 1954 Statelessness Convention."
+values:
+- code: resident
+  label:
+    en: Resident
+  definition:
+    en: "A person living in their habitual place of residence who has not been displaced. Corresponds to 'host community' member in humanitarian contexts."
+- code: idp
+  label:
+    en: Internally displaced person
+  definition:
+    en: "A person who has been forced or obliged to flee or leave their home or habitual residence, in particular as a result of armed conflict, violence, human rights violations, or disasters, and who has not crossed an internationally recognized state border."
+- code: idp_returnee
+  label:
+    en: IDP returnee
+  definition:
+    en: "A formerly internally displaced person who has returned to their area of origin but for whom a durable solution has not yet been confirmed."
+- code: refugee
+  label:
+    en: Refugee
+  definition:
+    en: "A person who, owing to a well-founded fear of persecution, has crossed an international border and been granted refugee status under the 1951 Convention, the 1969 OAU Convention, or the 1984 Cartagena Declaration."
+- code: asylum_seeker
+  label:
+    en: Asylum seeker
+  definition:
+    en: "A person who has sought international protection and whose claim for refugee status has not yet been determined."
+- code: returnee_from_abroad
+  label:
+    en: Returnee from abroad
+  definition:
+    en: "A person who previously sought international protection and has returned to their country of origin, whether voluntarily or involuntarily."
+- code: international_migrant
+  label:
+    en: International migrant
+  definition:
+    en: "A person who is living outside their country of origin for reasons other than international protection (e.g., employment, education, family reunification)."
+- code: stateless
+  label:
+    en: Stateless person
+  definition:
+    en: "A person who is not considered as a national by any state under the operation of its law, as defined by the 1954 Convention Relating to the Status of Stateless Persons."

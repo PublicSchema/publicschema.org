@@ -1,0 +1,12 @@
+id: height
+maturity: draft
+
+definition:
+  en: "The current body height or length of the person, measured in centimeters. For children under 2 years, this is recumbent length; for older children and adults, standing height."
+
+type: decimal
+cardinality: single
+vocabulary: null
+references: null
+category: nutrition
+sensitivity: sensitive

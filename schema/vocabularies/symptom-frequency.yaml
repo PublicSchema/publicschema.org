@@ -1,0 +1,56 @@
+id: symptom-frequency
+maturity: draft
+label:
+  en: Symptom Frequency
+definition:
+  en: "A five-point frequency scale for emotional symptoms, used in the WG/UNICEF Child Functioning Module (CFM) for the anxiety and depression domains."
+standard:
+  name: "WG/UNICEF Child Functioning Module (CFM)"
+  uri: https://www.washingtongroup-disability.com/question-sets/wg-unicef-child-functioning-module-cfm/
+  notes: "Joint product of the Washington Group on Disability Statistics and UNICEF. Used for the anxiety and depression domains in the 5-17 age module."
+values:
+- code: daily
+  label:
+    en: Daily
+  definition:
+    en: "The symptom occurs daily."
+- code: weekly
+  label:
+    en: Weekly
+  definition:
+    en: "The symptom occurs weekly."
+- code: monthly
+  label:
+    en: Monthly
+  definition:
+    en: "The symptom occurs monthly."
+- code: a_few_times_a_year
+  label:
+    en: A few times a year
+  definition:
+    en: "The symptom occurs a few times a year."
+- code: never
+  label:
+    en: Never
+  definition:
+    en: "The symptom never occurs."
+system_mappings:
+  mics:
+    vocabulary_name: "MICS6 CFM Anxiety/Depression scale"
+    values:
+    - code: '1'
+      label: "Daily"
+      maps_to: daily
+    - code: '2'
+      label: "Weekly"
+      maps_to: weekly
+    - code: '3'
+      label: "Monthly"
+      maps_to: monthly
+    - code: '4'
+      label: "A few times a year"
+      maps_to: a_few_times_a_year
+    - code: '5'
+      label: "Never"
+      maps_to: never
+    note: "MICS6 Child Functioning Module. CF15 (anxiety) and CF16 (depression) for ages 5-17."

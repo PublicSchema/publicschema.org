@@ -1,0 +1,51 @@
+id: settlement-type
+maturity: draft
+label:
+  en: Settlement Type
+definition:
+  en: "The classification of the area where a household is located by degree of urbanization, based on the UN Degree of Urbanisation (DEGURBA) framework."
+standard:
+  name: "UN Degree of Urbanisation (DEGURBA)"
+  uri: https://unstats.un.org/unsd/demographic-social/census/documents/degurba/
+  notes: "Adopted by the UN Statistical Commission in 2020. Developed by EU, FAO, ILO, OECD, UN-Habitat, and World Bank. Provides a methodology-based framework for classifying areas by population density and contiguity."
+values:
+- code: urban
+  label:
+    en: Urban
+  definition:
+    en: "Cities and densely populated areas (DEGURBA class 1). Population >= 50,000 in contiguous high-density grid cells."
+- code: semi_urban
+  label:
+    en: Semi-urban
+  definition:
+    en: "Towns and semi-dense areas (DEGURBA class 2). Population >= 5,000 in contiguous moderate-density grid cells, not classified as urban."
+- code: rural
+  label:
+    en: Rural
+  definition:
+    en: "Rural and thinly populated areas (DEGURBA class 3). Areas not classified as urban or semi-urban."
+system_mappings:
+  dhs:
+    vocabulary_name: "hv025 - Type of place of residence"
+    values:
+    - code: '1'
+      label: "Urban"
+      maps_to: urban
+    - code: '2'
+      label: "Rural"
+      maps_to: rural
+    unmapped_canonical:
+    - semi_urban
+    note: "DHS Recode7 hv025. Binary urban/rural classification. The semi-urban category is not captured."
+  mics:
+    vocabulary_name: "HH6 - Area"
+    values:
+    - code: '1'
+      label: "Urban"
+      maps_to: urban
+    - code: '2'
+      label: "Rural"
+      maps_to: rural
+    unmapped_canonical:
+    - semi_urban
+    note: "MICS6 HH6. Binary urban/rural classification. Same gap as DHS for semi-urban."

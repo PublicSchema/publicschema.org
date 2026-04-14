@@ -29,6 +29,7 @@ properties:
   - assessment_date
   - assessor
   - raw_score
+  - assessment_band
 
 subtypes: []
 supertypes: [Event]

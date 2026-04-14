@@ -372,3 +372,141 @@ class TestMultilingualCompleteness:
         issues = validate_schema_dir(tmp_schema)
         fr_errors = [e for e in issues if "fr" in str(e) and e.severity == "error"]
         assert len(fr_errors) == 1
+
+
+# ---------------------------------------------------------------------------
+# Property groups validation
+# ---------------------------------------------------------------------------
+
+class TestPropertyGroups:
+    def _write_categories(self, tmp_schema, categories=None):
+        """Write categories.yaml to tmp schema."""
+        import yaml
+        if categories is None:
+            categories = {
+                "demographics": {"label": {"en": "Demographics"}},
+                "identity": {"label": {"en": "Identity"}},
+                "other": {"label": {"en": "Other"}},
+            }
+        (tmp_schema / "categories.yaml").write_text(
+            yaml.dump(categories, allow_unicode=True)
+        )
+
+    def test_valid_property_groups_pass(
+        self, tmp_schema, write_concept, write_property
+    ):
+        """Concept with valid property_groups passes validation."""
+        self._write_categories(tmp_schema)
+        write_property("dob.yaml", make_property(id="dob", type="date"))
+        write_property("name.yaml", make_property(id="name"))
+        write_concept("person.yaml", make_concept(
+            id="Person",
+            properties=["dob", "name"],
+            property_groups=[
+                {"category": "demographics", "properties": ["dob"]},
+                {"category": "identity", "properties": ["name"]},
+            ],
+        ))
+        errors = validate_schema_dir(tmp_schema)
+        assert not any("property_groups" in str(e) for e in errors)
+
+    def test_property_groups_with_inherited_pass(
+        self, tmp_schema, write_concept, write_property
+    ):
+        """property_groups that include inherited properties pass."""
+        self._write_categories(tmp_schema)
+        write_property("name.yaml", make_property(id="name"))
+        write_property("dob.yaml", make_property(id="dob", type="date"))
+        write_concept("party.yaml", make_concept(
+            id="Party", properties=["name"], subtypes=["Person"],
+        ))
+        write_concept("person.yaml", make_concept(
+            id="Person",
+            properties=["dob"],
+            supertypes=["Party"],
+            property_groups=[
+                {"category": "identity", "properties": ["name"]},
+                {"category": "demographics", "properties": ["dob"]},
+            ],
+        ))
+        errors = validate_schema_dir(tmp_schema)
+        prop_group_errors = [e for e in errors if "property_groups" in str(e)]
+        assert prop_group_errors == []
+
+    def test_missing_own_property_in_groups_is_error(
+        self, tmp_schema, write_concept, write_property
+    ):
+        """Own property not in any group is an error."""
+        self._write_categories(tmp_schema)
+        write_property("dob.yaml", make_property(id="dob", type="date"))
+        write_property("name.yaml", make_property(id="name"))
+        write_concept("person.yaml", make_concept(
+            id="Person",
+            properties=["dob", "name"],
+            property_groups=[
+                {"category": "demographics", "properties": ["dob"]},
+                # name is missing from groups
+            ],
+        ))
+        errors = validate_schema_dir(tmp_schema)
+        missing_errors = [e for e in errors if "missing properties" in str(e)]
+        assert len(missing_errors) == 1
+        assert "name" in str(missing_errors[0])
+
+    def test_missing_inherited_property_in_groups_is_error(
+        self, tmp_schema, write_concept, write_property
+    ):
+        """Inherited property not in any group is an error."""
+        self._write_categories(tmp_schema)
+        write_property("name.yaml", make_property(id="name"))
+        write_property("dob.yaml", make_property(id="dob", type="date"))
+        write_concept("party.yaml", make_concept(
+            id="Party", properties=["name"], subtypes=["Person"],
+        ))
+        write_concept("person.yaml", make_concept(
+            id="Person",
+            properties=["dob"],
+            supertypes=["Party"],
+            property_groups=[
+                {"category": "demographics", "properties": ["dob"]},
+                # name (inherited from Party) is missing
+            ],
+        ))
+        errors = validate_schema_dir(tmp_schema)
+        missing_errors = [e for e in errors if "missing properties" in str(e)]
+        assert len(missing_errors) == 1
+        assert "name" in str(missing_errors[0])
+
+    def test_invalid_category_reference_is_error(
+        self, tmp_schema, write_concept, write_property
+    ):
+        """Category ID not in categories.yaml is an error."""
+        self._write_categories(tmp_schema)
+        write_property("dob.yaml", make_property(id="dob", type="date"))
+        write_concept("person.yaml", make_concept(
+            id="Person",
+            properties=["dob"],
+            property_groups=[
+                {"category": "nonexistent_cat", "properties": ["dob"]},
+            ],
+        ))
+        errors = validate_schema_dir(tmp_schema)
+        cat_errors = [e for e in errors if "nonexistent_cat" in str(e)]
+        assert len(cat_errors) == 1
+
+    def test_undefined_property_in_groups_is_error(
+        self, tmp_schema, write_concept, write_property
+    ):
+        """Property in groups that doesn't exist in properties/ is an error."""
+        self._write_categories(tmp_schema)
+        write_property("dob.yaml", make_property(id="dob", type="date"))
+        write_concept("person.yaml", make_concept(
+            id="Person",
+            properties=["dob"],
+            property_groups=[
+                {"category": "demographics", "properties": ["dob", "nonexistent"]},
+            ],
+        ))
+        errors = validate_schema_dir(tmp_schema)
+        ref_errors = [e for e in errors if "nonexistent" in str(e) and "property_groups" in str(e)]
+        assert len(ref_errors) == 1

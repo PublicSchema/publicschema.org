@@ -1,0 +1,34 @@
+id: washington-group-cfm
+title: "WG/UNICEF Child Functioning Module (CFM)"
+short_title: "WG/UNICEF CFM"
+publisher: "Washington Group on Disability Statistics / UNICEF"
+year: 2016
+type: international_standard
+domain: general
+uri: "https://www.washingtongroup-disability.com/question-sets/wg-unicef-child-functioning-module-cfm/"
+access: open
+status: active
+
+informs:
+  concepts:
+    - Person
+  vocabularies:
+    - comparative-behaviour-scale
+    - functional-difficulty-severity
+    - symptom-frequency
+  properties:
+    - difficulty_accepting_change
+    - difficulty_anxiety
+    - difficulty_communication
+    - difficulty_concentrating
+    - difficulty_controlling_behaviour
+    - difficulty_depression
+    - difficulty_fine_motor
+    - difficulty_hearing
+    - difficulty_learning
+    - difficulty_making_friends
+    - difficulty_playing
+    - difficulty_remembering
+    - difficulty_seeing
+    - difficulty_self_care
+    - difficulty_walking

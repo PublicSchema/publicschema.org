@@ -1,0 +1,22 @@
+id: who-child-growth-standards
+title: "WHO Child Growth Standards (2006)"
+short_title: "WHO CGS"
+publisher: "World Health Organization"
+year: 2006
+type: international_standard
+domain: general
+uri: "https://www.who.int/tools/child-growth-standards"
+access: open
+status: active
+
+informs:
+  concepts:
+    - Person
+  vocabularies:
+    - malnutrition-severity
+  properties:
+    - height
+    - body_weight
+    - stunting_status
+    - underweight_status
+    - wasting_status

@@ -1,0 +1,12 @@
+id: difficulty_anxiety
+maturity: draft
+
+definition:
+  en: "How often the child seems very anxious, nervous, or worried."
+
+type: string
+cardinality: single
+vocabulary: symptom-frequency
+references: null
+category: disability
+sensitivity: sensitive

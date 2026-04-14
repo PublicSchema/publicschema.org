@@ -11,6 +11,7 @@ status: active
 
 informs:
   concepts:
+    - AssessmentEvent
     - Household
     - Person
   vocabularies:
@@ -22,11 +23,14 @@ informs:
     - ict-access
     - literacy
     - livestock-type
+    - pregnancy-status
     - roof-material
     - sanitation-facility
+    - settlement-type
     - wall-material
     - water-source
   properties:
+    - assessment_band
     - cooking_fuel
     - difficulty_cognition
     - difficulty_communication
@@ -41,7 +45,9 @@ informs:
     - ict_access
     - literacy
     - livestock_type
+    - pregnancy_status
     - roof_material
     - sanitation_facility
+    - settlement_type
     - wall_material
     - water_source

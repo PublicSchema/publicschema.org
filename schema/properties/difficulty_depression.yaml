@@ -1,0 +1,12 @@
+id: difficulty_depression
+maturity: draft
+
+definition:
+  en: "How often the child seems very sad or depressed."
+
+type: string
+cardinality: single
+vocabulary: symptom-frequency
+references: null
+category: disability
+sensitivity: sensitive

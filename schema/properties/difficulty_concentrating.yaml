@@ -1,0 +1,12 @@
+id: difficulty_concentrating
+maturity: draft
+
+definition:
+  en: "The degree of difficulty the person experiences concentrating on an activity they enjoy doing. This is one of two properties that together cover the cognitive domain measured by the WG-SS difficulty_cognition property, which bundles remembering and concentrating into a single question."
+
+type: string
+cardinality: single
+vocabulary: functional-difficulty-severity
+references: null
+category: disability
+sensitivity: sensitive

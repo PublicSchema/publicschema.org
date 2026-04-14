@@ -1,0 +1,12 @@
+id: wasting_status
+maturity: draft
+
+definition:
+  en: "The wasting classification of the person based on weight-for-height z-score (WHZ) relative to the WHO Child Growth Standards."
+
+type: string
+cardinality: single
+vocabulary: malnutrition-severity
+references: null
+category: nutrition
+sensitivity: sensitive

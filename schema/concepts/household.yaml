@@ -40,6 +40,7 @@ properties:
   - household_assets
   - ict_access
   - food_security_level
+  - settlement_type
 
 property_groups:
   - category: identity
@@ -85,6 +86,9 @@ property_groups:
   - category: food_security
     properties:
       - food_security_level
+  - category: demographics
+    properties:
+      - settlement_type
 
 supertypes: [Group]
 subtypes: []

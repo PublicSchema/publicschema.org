@@ -1,0 +1,12 @@
+id: body_weight
+maturity: draft
+
+definition:
+  en: "The current body weight of the person, measured in kilograms. Named body_weight to distinguish from birth weight or other weight measures."
+
+type: decimal
+cardinality: single
+vocabulary: null
+references: null
+category: nutrition
+sensitivity: sensitive

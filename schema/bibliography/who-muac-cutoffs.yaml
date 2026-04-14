@@ -1,0 +1,19 @@
+id: who-muac-cutoffs
+title: "WHO/UNICEF/WFP/UNHCR Joint Statement on Community-based Management of Acute Malnutrition"
+short_title: "WHO MUAC Cutoffs"
+publisher: "World Health Organization / UNICEF / WFP / UNHCR"
+year: 2007
+type: international_standard
+domain: general
+uri: "https://www.who.int/publications/i/item/9789280641479"
+access: open
+status: active
+
+informs:
+  concepts:
+    - Person
+  vocabularies:
+    - acute-malnutrition-severity
+  properties:
+    - muac
+    - acute_malnutrition_status

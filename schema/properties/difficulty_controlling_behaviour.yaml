@@ -1,0 +1,12 @@
+id: difficulty_controlling_behaviour
+maturity: draft
+
+definition:
+  en: "How much the child kicks, bites, or hits other children or adults, compared to children of the same age."
+
+type: string
+cardinality: single
+vocabulary: comparative-behaviour-scale
+references: null
+category: disability
+sensitivity: sensitive

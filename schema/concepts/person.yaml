@@ -62,6 +62,25 @@ properties:
   - difficulty_cognition
   - difficulty_self_care
   - difficulty_communication
+  - pregnancy_status
+  - displacement_status
+  - height
+  - body_weight
+  - muac
+  - stunting_status
+  - underweight_status
+  - wasting_status
+  - acute_malnutrition_status
+  - difficulty_learning
+  - difficulty_fine_motor
+  - difficulty_playing
+  - difficulty_remembering
+  - difficulty_concentrating
+  - difficulty_accepting_change
+  - difficulty_making_friends
+  - difficulty_controlling_behaviour
+  - difficulty_anxiety
+  - difficulty_depression
 
 property_groups:
   - category: identity
@@ -88,6 +107,8 @@ property_groups:
       - number_of_spouses
       - religion
       - ethnic_group
+      - pregnancy_status
+      - displacement_status
   - category: education
     properties:
       - education_level
@@ -104,6 +125,15 @@ property_groups:
       - phone_number
       - email_address
       - domicile
+  - category: nutrition
+    properties:
+      - height
+      - body_weight
+      - muac
+      - stunting_status
+      - underweight_status
+      - wasting_status
+      - acute_malnutrition_status
   - category: disability
     properties:
       - difficulty_seeing
@@ -112,6 +142,16 @@ property_groups:
       - difficulty_cognition
       - difficulty_self_care
       - difficulty_communication
+      - difficulty_learning
+      - difficulty_fine_motor
+      - difficulty_playing
+      - difficulty_remembering
+      - difficulty_concentrating
+      - difficulty_accepting_change
+      - difficulty_making_friends
+      - difficulty_controlling_behaviour
+      - difficulty_anxiety
+      - difficulty_depression
   - category: other
     properties:
       - group_memberships

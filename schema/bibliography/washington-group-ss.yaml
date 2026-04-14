@@ -15,9 +15,11 @@ informs:
   vocabularies:
     - functional-difficulty-severity
   properties:
-    - difficulty_seeing
-    - difficulty_hearing
-    - difficulty_walking
     - difficulty_cognition
-    - difficulty_self_care
     - difficulty_communication
+    - difficulty_concentrating
+    - difficulty_hearing
+    - difficulty_remembering
+    - difficulty_seeing
+    - difficulty_self_care
+    - difficulty_walking

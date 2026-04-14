@@ -1,0 +1,18 @@
+id: egriss-iris
+title: "EGRISS International Recommendations on IDP Statistics (IRIS)"
+short_title: "EGRISS IRIS"
+publisher: "Expert Group on Refugee, IDP and Statelessness Statistics (EGRISS)"
+year: 2020
+type: international_standard
+domain: general
+uri: "https://egrisstats.org/recommendations/international-recommendations-on-idp-statistics-iris/"
+access: open
+status: active
+
+informs:
+  concepts:
+    - Person
+  vocabularies:
+    - displacement-status
+  properties:
+    - displacement_status

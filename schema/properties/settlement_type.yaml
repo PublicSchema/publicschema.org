@@ -1,0 +1,11 @@
+id: settlement_type
+maturity: draft
+
+definition:
+  en: "The classification of the area where the household is located by degree of urbanization."
+
+type: string
+cardinality: single
+vocabulary: settlement-type
+references: null
+category: demographics

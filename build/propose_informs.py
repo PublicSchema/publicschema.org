@@ -69,6 +69,12 @@ VOCAB_STANDARD_LOOKUP: dict[str, str] = {
     "FAO World Programme for the Census of Agriculture 2020": "fao-wca-2020-vol1",
     "FAO Voluntary Guidelines on the Responsible Governance of Tenure (VGGT)": "fao-vggt",
     "FAO Food Insecurity Experience Scale (FIES)": "fao-fies",
+    "LOINC LL4129-4 Pregnancy Status": "loinc-pregnancy-status",
+    "WHO Child Growth Standards (2006)": "who-child-growth-standards",
+    "WHO/UNICEF/WFP/UNHCR Joint Statement on Community-based Management of Acute Malnutrition (2007)": "who-muac-cutoffs",
+    "UN Degree of Urbanisation (DEGURBA)": "un-degurba",
+    "EGRISS International Recommendations on IDP Statistics (IRIS)": "egriss-iris",
+    "WG/UNICEF Child Functioning Module (CFM)": "washington-group-cfm",
 }
 
 SKIPPED_KEYS = {"opencrvs"}

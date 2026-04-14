@@ -1,0 +1,31 @@
+id: assessment_band
+maturity: draft
+
+definition:
+  en: "The ordinal or categorical classification result of an assessment, such as a wealth quintile, poverty band, or other grouping defined by the assessment framework."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+
+system_mappings:
+  dhs:
+    vocabulary_name: "hv270 - Wealth index"
+    values:
+    - code: '1'
+      label: "Poorest"
+      maps_to: '1'
+    - code: '2'
+      label: "Poorer"
+      maps_to: '2'
+    - code: '3'
+      label: "Middle"
+      maps_to: '3'
+    - code: '4'
+      label: "Richer"
+      maps_to: '4'
+    - code: '5'
+      label: "Richest"
+      maps_to: '5'
+    note: "DHS Recode7 hv270. Wealth index quintile classification based on the DHS wealth index factor score (hv271). Quintile boundaries are survey-specific."

@@ -1,0 +1,12 @@
+id: underweight_status
+maturity: draft
+
+definition:
+  en: "The underweight classification of the person based on weight-for-age z-score (WAZ) relative to the WHO Child Growth Standards."
+
+type: string
+cardinality: single
+vocabulary: malnutrition-severity
+references: null
+category: nutrition
+sensitivity: sensitive

@@ -14,6 +14,7 @@ informs:
     - Household
     - Person
   vocabularies:
+    - comparative-behaviour-scale
     - cooking-fuel
     - education-level
     - floor-material
@@ -21,15 +22,28 @@ informs:
     - household-asset
     - ict-access
     - literacy
+    - pregnancy-status
     - roof-material
     - sanitation-facility
+    - settlement-type
+    - symptom-frequency
     - wall-material
     - water-source
   properties:
     - cooking_fuel
+    - difficulty_accepting_change
+    - difficulty_anxiety
     - difficulty_cognition
     - difficulty_communication
+    - difficulty_concentrating
+    - difficulty_controlling_behaviour
+    - difficulty_depression
+    - difficulty_fine_motor
     - difficulty_hearing
+    - difficulty_learning
+    - difficulty_making_friends
+    - difficulty_playing
+    - difficulty_remembering
     - difficulty_seeing
     - difficulty_self_care
     - difficulty_walking
@@ -39,7 +53,9 @@ informs:
     - household_assets
     - ict_access
     - literacy
+    - pregnancy_status
     - roof_material
     - sanitation_facility
+    - settlement_type
     - wall_material
     - water_source

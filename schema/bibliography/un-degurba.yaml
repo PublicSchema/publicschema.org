@@ -1,0 +1,18 @@
+id: un-degurba
+title: "UN Degree of Urbanisation (DEGURBA)"
+short_title: "DEGURBA"
+publisher: "United Nations Statistical Commission"
+year: 2020
+type: international_standard
+domain: general
+uri: "https://unstats.un.org/unsd/demographic-social/census/documents/degurba/"
+access: open
+status: active
+
+informs:
+  concepts:
+    - Household
+  vocabularies:
+    - settlement-type
+  properties:
+    - settlement_type
