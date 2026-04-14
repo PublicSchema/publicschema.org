@@ -1,0 +1,13 @@
+id: recall_period_days
+maturity: draft
+
+definition:
+  en: "Number of days of recall for instrument items that allow a variable reference period, primarily FIES (commonly 30 or 365 days) and HDDS/WDDS variants. Populated only when the reference period is not fixed by the instrument protocol. For FCS, rCSI, LCS, HHS, and MAHFP, the recall window is part of the instrument definition and not separately recorded."
+  fr: "Nombre de jours de rappel pour les items d'instruments permettant une période de référence variable, principalement FIES (couramment 30 ou 365 jours) et les variantes HDDS/MDD-W. Renseigné uniquement lorsque la période de référence n'est pas fixée par le protocole de l'instrument. Pour FCS, rCSI, LCS, HHS et MAHFP, la fenêtre de rappel fait partie de la définition de l'instrument et n'est pas enregistrée séparément."
+  es: "Número de días de recordatorio para los ítems de instrumentos que permiten un período de referencia variable, principalmente FIES (comúnmente 30 o 365 días) y variantes HDDS/MDD-W. Se registra solo cuando el período de referencia no está fijado por el protocolo del instrumento. Para FCS, rCSI, LCS, HHS y MAHFP, la ventana de recordatorio es parte de la definición del instrumento y no se registra por separado."
+
+type: integer
+cardinality: single
+vocabulary: null
+references: null
+category: context

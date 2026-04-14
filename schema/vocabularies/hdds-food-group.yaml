@@ -1,0 +1,122 @@
+id: hdds-food-group
+maturity: draft
+label:
+  en: HDDS Food Group
+  fr: "Groupe alimentaire HDDS"
+  es: "Grupo alimentario HDDS"
+definition:
+  en: "The twelve food groups defined by FAO for the Household Dietary Diversity Score (HDDS). For each group, the household is asked whether any member consumed an item from that group in the past 24 hours; the HDDS is the count of groups consumed (0-12). The twelve-group version is the operational reporting form; FAO's i1983e guidance also defines a sixteen-group composition for richer disaggregation."
+  fr: "Les douze groupes alimentaires définis par la FAO pour le Score de diversité alimentaire du ménage (HDDS). Pour chaque groupe, on demande au ménage si un membre a consommé un aliment de ce groupe au cours des 24 dernières heures ; le HDDS est le nombre de groupes consommés (0 à 12). La version à douze groupes est la forme opérationnelle de rapport ; le guide FAO i1983e définit également une composition à seize groupes pour une désagrégation plus fine."
+  es: "Los doce grupos alimentarios definidos por la FAO para el Puntaje de Diversidad Dietética del Hogar (HDDS). Para cada grupo, se pregunta al hogar si algún miembro consumió un alimento de ese grupo en las últimas 24 horas; el HDDS es el recuento de grupos consumidos (0-12). La versión de doce grupos es la forma operativa de reporte; la guía FAO i1983e también define una composición de dieciséis grupos para una desagregación más detallada."
+standard:
+  name: "FAO Guidelines for Measuring Household and Individual Dietary Diversity (i1983e, 2011)"
+  uri: "https://www.fao.org/4/i1983e/i1983e00.htm"
+values:
+- code: cereals
+  label:
+    en: Cereals
+    fr: "Céréales"
+    es: "Cereales"
+  definition:
+    en: "Any foods made from grain (maize, rice, wheat, sorghum, millet, or any other grain) or made from flour of these grains, including bread, pasta, porridge, etc."
+    fr: "Tout aliment fabriqué à partir de céréales (maïs, riz, blé, sorgho, mil ou autres) ou à base de farines de ces céréales, y compris pain, pâtes, bouillies, etc."
+    es: "Cualquier alimento hecho a partir de cereales (maíz, arroz, trigo, sorgo, mijo u otros) o de harinas de estos cereales, incluidos pan, pasta, papillas, etc."
+- code: roots_tubers
+  label:
+    en: White roots and tubers
+    fr: "Racines et tubercules blancs"
+    es: "Raíces y tubérculos blancos"
+  definition:
+    en: "White potato, white yam, cassava, or any other foods made from roots with a white or pale flesh."
+    fr: "Pomme de terre blanche, igname blanche, manioc ou tout autre aliment à base de racines à chair blanche ou pâle."
+    es: "Papa blanca, ñame blanco, yuca u otros alimentos hechos de raíces con pulpa blanca o pálida."
+- code: vegetables
+  label:
+    en: Vegetables
+    fr: "Légumes"
+    es: "Verduras"
+  definition:
+    en: "Dark green leafy vegetables, orange-fleshed vegetables rich in vitamin A, and other vegetables. Group 3 in i1983e; the three-way vegetable split is available in the 16-group variant."
+    fr: "Légumes-feuilles vert foncé, légumes à chair orange riches en vitamine A et autres légumes. Groupe 3 dans i1983e ; la répartition en trois sous-groupes est disponible dans la variante à 16 groupes."
+    es: "Hortalizas de hoja verde oscuro, hortalizas de pulpa anaranjada ricas en vitamina A y otras verduras. Grupo 3 en i1983e; la división en tres subgrupos está disponible en la variante de 16 grupos."
+- code: fruit
+  label:
+    en: Fruits
+    fr: "Fruits"
+    es: "Frutas"
+  definition:
+    en: "Vitamin-A-rich fruits (mango, papaya, etc.) and other fruits, including wild-gathered."
+    fr: "Fruits riches en vitamine A (mangue, papaye, etc.) et autres fruits, y compris ceux cueillis dans la nature."
+    es: "Frutas ricas en vitamina A (mango, papaya, etc.) y otras frutas, incluidas las recolectadas silvestres."
+- code: meat_poultry_offal
+  label:
+    en: Meat, poultry, and offal
+    fr: "Viande, volaille et abats"
+    es: "Carne, aves y vísceras"
+  definition:
+    en: "Beef, pork, lamb, goat, rabbit, wild game, chicken, duck, other birds, liver, kidney, heart, and other organ meats or blood-based foods."
+    fr: "Bœuf, porc, agneau, chèvre, lapin, gibier, poulet, canard, autres oiseaux, foie, rein, cœur et autres abats ou aliments à base de sang."
+    es: "Res, cerdo, cordero, cabra, conejo, caza silvestre, pollo, pato, otras aves, hígado, riñón, corazón y otros órganos o alimentos a base de sangre."
+- code: eggs
+  label:
+    en: Eggs
+    fr: "Œufs"
+    es: "Huevos"
+  definition:
+    en: "Eggs from chicken, duck, guinea fowl, or any other bird, including eggs in dishes."
+    fr: "Œufs de poule, canard, pintade ou autre volaille, y compris les œufs dans les plats cuisinés."
+    es: "Huevos de gallina, pato, pintada u otra ave, incluyendo huevos incorporados en platos."
+- code: fish_seafood
+  label:
+    en: Fish and seafood
+    fr: "Poissons et fruits de mer"
+    es: "Pescado y mariscos"
+  definition:
+    en: "Fresh or dried fish, shellfish, and seafood."
+    fr: "Poisson frais ou séché, crustacés et fruits de mer."
+    es: "Pescado fresco o seco, crustáceos y mariscos."
+- code: legumes_nuts_seeds
+  label:
+    en: Legumes, nuts, and seeds
+    fr: "Légumineuses, noix et graines"
+    es: "Legumbres, nueces y semillas"
+  definition:
+    en: "Dried beans, dried peas, lentils, nuts, seeds, or foods made from these (e.g., hummus, peanut butter). FAO group 8 in i1983e."
+    fr: "Haricots secs, pois secs, lentilles, noix, graines ou aliments préparés à partir de ceux-ci (par exemple, houmous, beurre d'arachide). Groupe 8 FAO dans i1983e."
+    es: "Frijoles secos, guisantes secos, lentejas, nueces, semillas o alimentos hechos con ellos (por ejemplo, hummus, mantequilla de maní). Grupo 8 de FAO en i1983e."
+- code: milk_dairy
+  label:
+    en: Milk and dairy products
+    fr: "Lait et produits laitiers"
+    es: "Leche y productos lácteos"
+  definition:
+    en: "Milk, cheese, yogurt, or other milk products."
+    fr: "Lait, fromage, yaourt ou autres produits laitiers."
+    es: "Leche, queso, yogur u otros productos lácteos."
+- code: oils_fats
+  label:
+    en: Oils and fats
+    fr: "Huiles et matières grasses"
+    es: "Aceites y grasas"
+  definition:
+    en: "Cooking oil, butter, ghee, margarine, lard, or other fats added in cooking or at the table."
+    fr: "Huile de cuisson, beurre, ghee, margarine, saindoux ou autres matières grasses ajoutées à la cuisson ou à table."
+    es: "Aceite de cocina, mantequilla, ghee, margarina, manteca u otras grasas añadidas al cocinar o en la mesa."
+- code: sweets
+  label:
+    en: Sweets
+    fr: "Sucreries"
+    es: "Dulces"
+  definition:
+    en: "Sugar, honey, sweetened soda or sweetened juice drinks, sugary foods such as chocolates, candies, cookies, and cakes."
+    fr: "Sucre, miel, sodas ou jus sucrés, aliments sucrés tels que chocolats, bonbons, biscuits et gâteaux."
+    es: "Azúcar, miel, refrescos o jugos azucarados, alimentos azucarados como chocolates, caramelos, galletas y pasteles."
+- code: spices_condiments_beverages
+  label:
+    en: Spices, condiments, and beverages
+    fr: "Épices, condiments et boissons"
+    es: "Especias, condimentos y bebidas"
+  definition:
+    en: "Spices (black pepper, salt), condiments (soy sauce, hot sauce), coffee, tea, and alcoholic beverages. FAO group 12 in i1983e."
+    fr: "Épices (poivre noir, sel), condiments (sauce soja, sauce piquante), café, thé et boissons alcoolisées. Groupe 12 FAO dans i1983e."
+    es: "Especias (pimienta negra, sal), condimentos (salsa de soja, salsa picante), café, té y bebidas alcohólicas. Grupo 12 de FAO en i1983e."

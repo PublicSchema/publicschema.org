@@ -1,0 +1,122 @@
+id: nfi-item-type
+maturity: draft
+label:
+  en: Non-food Item Type
+  fr: "Type d'article non alimentaire"
+  es: "Tipo de artículo no alimentario"
+definition:
+  en: "Categories of non-food items (NFIs) typically distributed in shelter response operations, aligned with Sphere Handbook 2018 Chapter 4 minimum package. Used as a multi-select value set when recording which essential items a household is currently missing after a shock."
+  fr: "Catégories d'articles non alimentaires (NFI) généralement distribués dans les opérations de réponse abri, alignées sur le paquet minimum du Manuel Sphère 2018 chapitre 4. Utilisées comme ensemble de valeurs multi-sélection pour consigner quels articles essentiels manquent actuellement à un ménage après un choc."
+  es: "Categorías de artículos no alimentarios (NFI) típicamente distribuidos en operaciones de respuesta de refugio, alineadas con el paquete mínimo del Manual Esfera 2018 capítulo 4. Utilizadas como conjunto de valores de selección múltiple al registrar qué artículos esenciales le faltan actualmente a un hogar tras un choque."
+standard:
+  name: "Sphere Handbook (2018) Shelter and Settlement chapter"
+  uri: "https://spherestandards.org/"
+values:
+- code: tarpaulin
+  label:
+    en: Tarpaulin
+    fr: "Bâche"
+    es: "Lona"
+  definition:
+    en: "Heavy-duty plastic tarpaulin used for emergency shelter construction or dwelling repair."
+    fr: "Bâche en plastique robuste utilisée pour la construction d'abris d'urgence ou la réparation de logements."
+    es: "Lona plástica resistente usada para construcción de refugios de emergencia o reparación de vivienda."
+- code: plastic_sheeting
+  label:
+    en: Plastic sheeting
+    fr: "Feuilles plastiques"
+    es: "Láminas plásticas"
+  definition:
+    en: "Reinforced plastic sheeting for roofing, walling, or waterproofing."
+    fr: "Feuilles plastiques renforcées pour toiture, murs ou imperméabilisation."
+    es: "Láminas plásticas reforzadas para techo, muros o impermeabilización."
+- code: rope_fixings
+  label:
+    en: Rope and fixings
+    fr: "Corde et fixations"
+    es: "Cuerda y fijaciones"
+  definition:
+    en: "Rope, wire, nails, or similar fixings required to erect emergency shelter."
+    fr: "Corde, fil de fer, clous ou fixations similaires nécessaires à l'érection d'un abri d'urgence."
+    es: "Cuerda, alambre, clavos o fijaciones similares necesarias para erigir un refugio de emergencia."
+- code: blanket
+  label:
+    en: Blanket
+    fr: "Couverture"
+    es: "Manta"
+  definition:
+    en: "Blankets for warmth, typically one per household member."
+    fr: "Couvertures pour se réchauffer, habituellement une par membre du ménage."
+    es: "Mantas para abrigo, habitualmente una por miembro del hogar."
+- code: sleeping_mat
+  label:
+    en: Sleeping mat
+    fr: "Natte de couchage"
+    es: "Estera para dormir"
+  definition:
+    en: "Sleeping mat or bedding, typically one per household member."
+    fr: "Natte de couchage ou literie, habituellement une par membre du ménage."
+    es: "Estera para dormir o ropa de cama, habitualmente una por miembro del hogar."
+- code: cooking_set
+  label:
+    en: Cooking set
+    fr: "Kit de cuisine"
+    es: "Juego de cocina"
+  definition:
+    en: "Pots, pans, utensils, and plates for household meal preparation."
+    fr: "Casseroles, poêles, ustensiles et assiettes pour la préparation des repas du ménage."
+    es: "Ollas, sartenes, utensilios y platos para la preparación de comidas del hogar."
+- code: jerrycan
+  label:
+    en: Water container (jerrycan)
+    fr: "Jerrycan à eau"
+    es: "Bidón de agua"
+  definition:
+    en: "Water storage and transport container, typically 10-20 litres."
+    fr: "Récipient de stockage et de transport d'eau, généralement de 10 à 20 litres."
+    es: "Recipiente de almacenamiento y transporte de agua, habitualmente de 10 a 20 litros."
+- code: clothing
+  label:
+    en: Clothing
+    fr: "Vêtements"
+    es: "Ropa"
+  definition:
+    en: "Culturally appropriate clothing; context-dependent sizing and composition."
+    fr: "Vêtements culturellement appropriés ; dimensionnement et composition selon le contexte."
+    es: "Ropa culturalmente apropiada; dimensionamiento y composición según el contexto."
+- code: solar_lantern
+  label:
+    en: Solar lantern
+    fr: "Lanterne solaire"
+    es: "Lámpara solar"
+  definition:
+    en: "Solar-powered or battery lantern used for lighting when grid power is unavailable."
+    fr: "Lanterne à énergie solaire ou à piles utilisée pour l'éclairage en l'absence d'électricité du réseau."
+    es: "Lámpara solar o a batería usada para iluminación cuando no hay electricidad de la red."
+- code: hygiene_kit
+  label:
+    en: Hygiene kit
+    fr: "Kit d'hygiène"
+    es: "Kit de higiene"
+  definition:
+    en: "Soap, sanitary items, toothbrush, and related hygiene supplies, composition per Sphere WASH standards."
+    fr: "Savon, articles d'hygiène féminine, brosse à dents et fournitures d'hygiène connexes, composition selon les standards Sphère WASH."
+    es: "Jabón, artículos sanitarios, cepillo de dientes y suministros de higiene relacionados, composición según los estándares Esfera WASH."
+- code: winterization_kit
+  label:
+    en: Winterization kit
+    fr: "Kit d'hivernisation"
+    es: "Kit de invernación"
+  definition:
+    en: "Context-specific cold-weather supplies (heaters, insulation, winter clothing, thermal blankets) for cold-climate or high-altitude deployments."
+    fr: "Fournitures contextuelles pour le froid (chauffages, isolation, vêtements d'hiver, couvertures thermiques) pour les déploiements en climat froid ou en haute altitude."
+    es: "Suministros contextuales para climas fríos (calefactores, aislamiento, ropa de invierno, mantas térmicas) para despliegues en clima frío o altura."
+- code: other
+  label:
+    en: Other
+    fr: "Autre"
+    es: "Otro"
+  definition:
+    en: "Other essential NFI not captured by the standard categories; narrative description expected at the record level."
+    fr: "Autre NFI essentiel non couvert par les catégories standards ; une description narrative est attendue au niveau de l'enregistrement."
+    es: "Otros NFI esenciales no cubiertos por las categorías estándar; se espera descripción narrativa a nivel del registro."

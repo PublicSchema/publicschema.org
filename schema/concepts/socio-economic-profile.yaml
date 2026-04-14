@@ -12,29 +12,44 @@ definition:
     a household or person, collected through a registration survey or
     questionnaire. Covers dwelling characteristics, water and sanitation
     service, energy access, household assets, ICT access, income source,
-    settlement type, and food security. Typical instruments are a social
-    registry registration form, a proxy means test (PMT) questionnaire, a
-    multidimensional poverty module, or a household economy survey.
+    settlement type, and a high-level food_security_level summary. Typical
+    instruments are a social registry registration form, a proxy means
+    test (PMT) questionnaire, a multidimensional poverty module, or a
+    household economy survey. When a program collects item-level food
+    security data (FCS, rCSI, LCS, HDDS, FIES, HHS, MDD-W, MAHFP), those
+    responses belong on a separate FoodSecurityProfile record rather than
+    on this profile; SocioEconomicProfile retains only the derived
+    food_security_level summary.
   fr: >
     Un enregistrement ponctuel de données socio-économiques et de conditions
     de vie concernant un ménage ou une personne, collectées au moyen d'une
     enquête d'enregistrement ou d'un questionnaire. Couvre les
     caractéristiques du logement, le service d'eau et d'assainissement,
-    l'accès à l'énergie, les biens du ménage, l'accès aux TIC, la source de
-    revenus, le type d'établissement humain et la sécurité alimentaire. Les
-    instruments typiques sont un formulaire d'enregistrement au registre
-    social, un questionnaire de test de substitution des ressources (PMT),
-    un module de pauvreté multidimensionnelle ou une enquête sur l'économie
-    des ménages.
+    l'accès à l'énergie, les biens du ménage, l'accès aux TIC, la source
+    de revenus, le type d'établissement humain et un résumé de haut niveau
+    food_security_level. Les instruments typiques sont un formulaire
+    d'enregistrement au registre social, un questionnaire de test de
+    substitution des ressources (PMT), un module de pauvreté
+    multidimensionnelle ou une enquête sur l'économie des ménages. Lorsqu'un
+    programme collecte des données de sécurité alimentaire au niveau des
+    items (FCS, rCSI, LCS, HDDS, FIES, HHS, MDD-W, MAHFP), ces réponses
+    appartiennent à un enregistrement FoodSecurityProfile distinct plutôt
+    qu'à ce profil ; SocioEconomicProfile ne conserve que le résumé
+    food_security_level dérivé.
   es: >
     Un registro puntual de datos socioeconómicos y de condiciones de vida
     de un hogar o persona, recopilados mediante una encuesta de registro o
     cuestionario. Cubre características de la vivienda, servicio de agua y
     saneamiento, acceso a la energía, bienes del hogar, acceso a TIC,
-    fuente de ingresos, tipo de asentamiento y seguridad alimentaria. Los
-    instrumentos típicos son un formulario de registro al registro social,
-    un cuestionario de prueba proxy de medios de vida (PMT), un módulo de
-    pobreza multidimensional o una encuesta de economía del hogar.
+    fuente de ingresos, tipo de asentamiento y un resumen de alto nivel
+    food_security_level. Los instrumentos típicos son un formulario de
+    registro al registro social, un cuestionario de prueba proxy de medios
+    de vida (PMT), un módulo de pobreza multidimensional o una encuesta de
+    economía del hogar. Cuando un programa recopila datos de seguridad
+    alimentaria a nivel de ítems (FCS, rCSI, LCS, HDDS, FIES, HHS, MDD-W,
+    MAHFP), esas respuestas pertenecen a un registro FoodSecurityProfile
+    separado en lugar de a este perfil; SocioEconomicProfile conserva solo
+    el resumen food_security_level derivado.
 
 properties:
   - dwelling_type

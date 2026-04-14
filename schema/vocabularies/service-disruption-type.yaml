@@ -1,0 +1,56 @@
+id: service-disruption-type
+maturity: draft
+label:
+  en: Service Disruption Type
+  fr: "Type d'interruption de service"
+  es: "Tipo de interrupción de servicio"
+definition:
+  en: "Essential services that may be disrupted in a post-shock context. Multi-select vocabulary: a record lists every service currently disrupted at the household's dwelling. This captures functional status after the shock; the household's usual service infrastructure type is recorded separately by water_source, sanitation_facility, and electricity_access."
+  fr: "Services essentiels susceptibles d'être interrompus dans un contexte post-choc. Vocabulaire multi-sélection : un enregistrement liste chaque service actuellement interrompu au logement du ménage. Ceci consigne l'état fonctionnel après le choc ; le type d'infrastructure de service habituel du ménage est consigné séparément par water_source, sanitation_facility et electricity_access."
+  es: "Servicios esenciales que pueden interrumpirse en un contexto post-choque. Vocabulario de selección múltiple: un registro enumera cada servicio actualmente interrumpido en la vivienda del hogar. Esto capta el estado funcional después del choque; el tipo de infraestructura de servicio habitual del hogar se registra por separado por water_source, sanitation_facility y electricity_access."
+values:
+- code: water
+  label:
+    en: Water
+    fr: "Eau"
+    es: "Agua"
+  definition:
+    en: "Drinking-water supply is not functioning or not available."
+    fr: "L'approvisionnement en eau potable ne fonctionne pas ou n'est pas disponible."
+    es: "El suministro de agua potable no funciona o no está disponible."
+- code: sanitation
+  label:
+    en: Sanitation
+    fr: "Assainissement"
+    es: "Saneamiento"
+  definition:
+    en: "Sanitation facility (toilet, latrine, greywater disposal) is damaged or unusable."
+    fr: "L'installation d'assainissement (toilette, latrine, évacuation des eaux grises) est endommagée ou inutilisable."
+    es: "La instalación de saneamiento (inodoro, letrina, evacuación de aguas grises) está dañada o inutilizable."
+- code: electricity
+  label:
+    en: Electricity
+    fr: "Électricité"
+    es: "Electricidad"
+  definition:
+    en: "Grid or off-grid electricity supply is not functioning."
+    fr: "L'alimentation électrique du réseau ou hors réseau ne fonctionne pas."
+    es: "El suministro eléctrico de la red o fuera de red no funciona."
+- code: telecommunications
+  label:
+    en: Telecommunications
+    fr: "Télécommunications"
+    es: "Telecomunicaciones"
+  definition:
+    en: "Mobile or fixed-line telecommunications (voice, SMS, data) are not functioning."
+    fr: "Les télécommunications mobiles ou fixes (voix, SMS, données) ne fonctionnent pas."
+    es: "Las telecomunicaciones móviles o de línea fija (voz, SMS, datos) no funcionan."
+- code: none
+  label:
+    en: No service disruption
+    fr: "Aucune interruption de service"
+    es: "Sin interrupción de servicio"
+  definition:
+    en: "Recorded explicitly to distinguish from missing observation when the household reports that all services are currently functioning."
+    fr: "Consigné explicitement pour distinguer d'une observation absente lorsque le ménage rapporte que tous les services fonctionnent actuellement."
+    es: "Registrado explícitamente para distinguirse de una observación ausente cuando el hogar reporta que todos los servicios funcionan actualmente."

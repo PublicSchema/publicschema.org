@@ -1,0 +1,70 @@
+id: rcsi-strategy
+maturity: draft
+label:
+  en: rCSI Strategy
+  fr: "Stratégie rCSI"
+  es: "Estrategia rCSI"
+definition:
+  en: "The five food-related coping behaviours measured by the WFP/CARE Reduced Coping Strategies Index (rCSI). Each strategy is asked as a count of days (0-7) in the past week and multiplied by a severity weight before summing to a composite index. Weights are part of the instrument definition."
+  fr: "Les cinq comportements d'adaptation alimentaire mesurés par l'Indice réduit des stratégies d'adaptation (rCSI) du PAM/CARE. Chaque stratégie est demandée en nombre de jours (0-7) au cours de la semaine écoulée et multipliée par un poids de gravité avant la sommation en un indice composite. Les poids font partie de la définition de l'instrument."
+  es: "Los cinco comportamientos de afrontamiento alimentario medidos por el Índice Reducido de Estrategias de Afrontamiento (rCSI) del PMA/CARE. Cada estrategia se pregunta como recuento de días (0-7) en la semana pasada y se multiplica por un peso de gravedad antes de sumar al índice compuesto. Los pesos son parte de la definición del instrumento."
+standard:
+  name: "The Coping Strategies Index (Maxwell and Caldwell, 2008)"
+  uri: "https://www.fsnnetwork.org/sites/default/files/coping_strategies_tool.pdf"
+  notes: "Weights follow the reduced CSI (rCSI) as standardized for cross-context comparability."
+values:
+- code: less_preferred_food
+  label:
+    en: Ate less-preferred or less-expensive food
+    fr: "A mangé des aliments moins préférés ou moins coûteux"
+    es: "Comió alimentos menos preferidos o menos costosos"
+  definition:
+    en: "Rely on less preferred, less expensive food. Severity weight: 1."
+    fr: "Recourir à des aliments moins préférés et moins coûteux. Poids de gravité : 1."
+    es: "Recurrir a alimentos menos preferidos y menos costosos. Peso de gravedad: 1."
+  notes:
+    en: "rCSI weight = 1"
+- code: borrow_food
+  label:
+    en: Borrowed food or relied on help from friends or relatives
+    fr: "A emprunté de la nourriture ou s'est appuyé sur l'aide d'amis ou de proches"
+    es: "Pidió prestados alimentos o dependió de ayuda de amigos o familiares"
+  definition:
+    en: "Borrow food, or rely on help from friends or relatives. Severity weight: 2."
+    fr: "Emprunter de la nourriture ou s'appuyer sur l'aide d'amis ou de proches. Poids de gravité : 2."
+    es: "Pedir prestados alimentos o depender de la ayuda de amigos o familiares. Peso de gravedad: 2."
+  notes:
+    en: "rCSI weight = 2"
+- code: reduce_meal_size
+  label:
+    en: Limited portion size at mealtimes
+    fr: "A limité la taille des portions aux repas"
+    es: "Limitó el tamaño de las porciones en las comidas"
+  definition:
+    en: "Limit portion size at mealtimes. Severity weight: 1."
+    fr: "Limiter la taille des portions aux heures de repas. Poids de gravité : 1."
+    es: "Limitar el tamaño de las porciones en las horas de comida. Peso de gravedad: 1."
+  notes:
+    en: "rCSI weight = 1"
+- code: reduce_meal_number
+  label:
+    en: Reduced number of meals eaten in a day
+    fr: "A réduit le nombre de repas pris dans une journée"
+    es: "Redujo el número de comidas en el día"
+  definition:
+    en: "Reduce the number of meals eaten in a day. Severity weight: 1."
+    fr: "Réduire le nombre de repas pris dans une journée. Poids de gravité : 1."
+    es: "Reducir el número de comidas consumidas en un día. Peso de gravedad: 1."
+  notes:
+    en: "rCSI weight = 1"
+- code: restrict_adult_consumption
+  label:
+    en: Restricted adult consumption so children could eat
+    fr: "A restreint la consommation des adultes pour que les enfants puissent manger"
+    es: "Restringió el consumo de adultos para que los niños pudieran comer"
+  definition:
+    en: "Restrict consumption by adults in order for small children to eat. Severity weight: 3."
+    fr: "Restreindre la consommation des adultes afin que les jeunes enfants puissent manger. Poids de gravité : 3."
+    es: "Restringir el consumo de los adultos para que los niños pequeños puedan comer. Peso de gravedad: 3."
+  notes:
+    en: "rCSI weight = 3"

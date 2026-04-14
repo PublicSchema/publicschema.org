@@ -1,0 +1,163 @@
+id: DwellingDamageProfile
+label:
+  en: Dwelling Damage Profile
+  fr: "Profil de dommages au logement"
+  es: "Perfil de daños a la vivienda"
+maturity: draft
+
+definition:
+  en: >
+    A point-in-time record of post-shock housing and shelter conditions
+    for a household, typically anchored to a triggering hazard event.
+    Captures the observed damage level, current habitability, the
+    household's current shelter arrangement, the functional status of
+    essential services, the non-food items the household is missing,
+    and the household's stated reconstruction intent. Reuses baseline
+    housing and WASH properties from SocioEconomicProfile (dwelling_type,
+    wall_material, floor_material, roof_material, water_source,
+    sanitation_facility, electricity_access) to describe the dwelling's
+    usual characteristics, and adds post-shock-specific properties for
+    damage, habitability, service disruption, NFI needs, and recovery
+    intent. The subject is the Household. Multiple DwellingDamageProfile
+    records per household per hazard event are valid (e.g., an initial
+    rapid assessment followed by a detailed follow-up). Baseline
+    (non-hazard-triggered) administrations are a legitimate use case for
+    pre-disaster-risk programming; triggering_event may be null in that
+    case. Community-level MIRA or Shelter Cluster rapid assessments are
+    complementary instruments but operate at the site or settlement
+    level, not household level, and are out of scope for this concept.
+    A future `Dwelling` concept may replace Household as the subject unit
+    if adopters find that modelling distinct dwellings per household
+    becomes load-bearing.
+  fr: >
+    Un enregistrement ponctuel des conditions post-choc de logement et
+    d'abri d'un ménage, typiquement ancré à un événement de danger
+    déclencheur. Consigne le niveau de dommages observé, l'habitabilité
+    actuelle, l'arrangement d'abri actuel du ménage, l'état fonctionnel
+    des services essentiels, les articles non alimentaires manquants, et
+    l'intention de reconstruction déclarée du ménage. Réutilise les
+    propriétés de logement et WASH de référence de SocioEconomicProfile
+    (dwelling_type, wall_material, floor_material, roof_material,
+    water_source, sanitation_facility, electricity_access) pour décrire
+    les caractéristiques habituelles du logement, et ajoute des propriétés
+    spécifiques post-choc pour les dommages, l'habitabilité, l'interruption
+    de services, les besoins en NFI et l'intention de relèvement. Le sujet
+    est le ménage. Plusieurs enregistrements DwellingDamageProfile par
+    ménage par événement de danger sont valides (par exemple, une
+    évaluation rapide initiale suivie d'un suivi détaillé). Les
+    administrations de référence (non déclenchées par un danger) sont un
+    cas d'usage légitime pour la programmation de réduction des risques ;
+    triggering_event peut alors être nul. Les évaluations rapides
+    communautaires MIRA ou Shelter Cluster sont des instruments
+    complémentaires mais opèrent au niveau du site ou de l'établissement,
+    pas au niveau du ménage, et sont hors du périmètre de ce concept. Un
+    futur concept `Dwelling` pourra remplacer Household comme unité sujet
+    si les adoptants constatent que modéliser des logements distincts par
+    ménage devient structurant.
+  es: >
+    Un registro puntual de las condiciones post-choque de vivienda y
+    refugio de un hogar, típicamente anclado a un evento de peligro
+    desencadenante. Consigna el nivel de daños observado, la habitabilidad
+    actual, el arreglo de refugio actual del hogar, el estado funcional
+    de los servicios esenciales, los artículos no alimentarios faltantes y
+    la intención de reconstrucción declarada del hogar. Reutiliza las
+    propiedades de vivienda y WASH de base de SocioEconomicProfile
+    (dwelling_type, wall_material, floor_material, roof_material,
+    water_source, sanitation_facility, electricity_access) para describir
+    las características habituales de la vivienda, y añade propiedades
+    específicas post-choque para daños, habitabilidad, interrupción de
+    servicios, necesidades de NFI e intención de recuperación. El sujeto
+    es el hogar. Múltiples registros DwellingDamageProfile por hogar por
+    evento de peligro son válidos (por ejemplo, una evaluación rápida
+    inicial seguida de un seguimiento detallado). Las administraciones de
+    base (no desencadenadas por un peligro) son un caso de uso legítimo
+    para la programación de reducción de riesgos; triggering_event puede
+    ser nulo en ese caso. Las evaluaciones rápidas comunitarias MIRA o
+    del Shelter Cluster son instrumentos complementarios pero operan a
+    nivel del sitio o asentamiento, no del hogar, y están fuera del
+    alcance de este concepto. Un futuro concepto `Dwelling` podría
+    reemplazar a Household como unidad sujeto si los adoptantes consideran
+    que modelar viviendas distintas por hogar se vuelve estructural.
+
+properties:
+  - dwelling_type
+  - floor_material
+  - wall_material
+  - roof_material
+  - water_source
+  - sanitation_facility
+  - electricity_access
+  - damage_level
+  - habitability_status
+  - current_shelter_type
+  - structural_safety_assessment
+  - essential_items_missing
+  - reconstruction_intent
+  - services_disrupted
+  - triggering_event
+  - location_of_assessment
+
+property_groups:
+  - category: administrative
+    properties:
+      - identifiers
+      - subject
+      - observation_date
+      - performed_by
+      - instrument_used
+      - administration_mode
+      - respondent
+      - respondent_relationship
+      - items_asked
+  - category: shelter
+    properties:
+      - dwelling_type
+      - floor_material
+      - wall_material
+      - roof_material
+      - damage_level
+      - structural_safety_assessment
+  - category: habitability
+    properties:
+      - habitability_status
+      - current_shelter_type
+  - category: wash
+    properties:
+      - water_source
+      - sanitation_facility
+      - electricity_access
+      - services_disrupted
+  - category: recovery
+    properties:
+      - essential_items_missing
+      - reconstruction_intent
+  - category: event
+    properties:
+      - triggering_event
+      - location_of_assessment
+
+subtypes: []
+supertypes: [Profile]
+
+external_equivalents:
+  fhir:
+    label: "QuestionnaireResponse (post-disaster shelter assessment)"
+    uri: "http://hl7.org/fhir/QuestionnaireResponse"
+    match: close
+    vocabulary: "FHIR R4"
+    note: "A household-level post-shock shelter assessment serializes naturally as a QuestionnaireResponse whose Questionnaire is the program's assessment form."
+
+convergence:
+  system_count: 0
+  total_systems: 6
+  notes: >
+    None of the v1 social-protection systems (FHIR, DHIS2, OpenCRVS,
+    OpenSPP, openIMIS, DCI Social Registry) carry a household-level
+    shelter damage assessment. The informing domain tools live outside
+    the v1 set: IOM Displacement Tracking Matrix (DTM) household-level
+    assessments, Shelter Cluster rapid needs assessments, REACH
+    multi-sector household surveys, and national post-disaster recovery
+    surveys (e.g., PDNAs). The very low v1 convergence reflects scope
+    rather than prevalence; these assessments are widely deployed in
+    humanitarian operations and have well-established instrument shapes.
+    FHIR's QuestionnaireResponse pattern accommodates the shape.

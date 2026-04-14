@@ -10,28 +10,30 @@ definition:
   en: >
     A point-in-time record of data collected about a subject using a
     defined instrument. Profile is the shared supertype for
-    SocioEconomicProfile, FunctioningProfile, and AnthropometricProfile.
-    Each profile captures who was observed, when, using which instrument,
-    under which administration mode, and by whom. A profile does not
-    itself produce a score: its purpose is to record the structured
-    responses that may later be scored or reported directly.
+    SocioEconomicProfile, FunctioningProfile, AnthropometricProfile,
+    FoodSecurityProfile, and DwellingDamageProfile. Each profile captures
+    who was observed, when, using which instrument, under which
+    administration mode, and by whom. A profile does not itself produce a
+    score: its purpose is to record the structured responses that may
+    later be scored or reported directly.
   fr: >
     Un enregistrement ponctuel de données collectées sur un sujet à l'aide
     d'un instrument défini. Profile est le supertype partagé de
-    SocioEconomicProfile, FunctioningProfile et AnthropometricProfile.
-    Chaque profil consigne qui a été observé, quand, avec quel instrument,
-    selon quel mode d'administration et par qui. Un profil ne produit pas
-    lui-même de score : son objet est de consigner les réponses structurées
-    qui pourront ensuite être scorées ou rapportées telles quelles.
+    SocioEconomicProfile, FunctioningProfile, AnthropometricProfile,
+    FoodSecurityProfile et DwellingDamageProfile. Chaque profil consigne
+    qui a été observé, quand, avec quel instrument, selon quel mode
+    d'administration et par qui. Un profil ne produit pas lui-même de
+    score : son objet est de consigner les réponses structurées qui
+    pourront ensuite être scorées ou rapportées telles quelles.
   es: >
     Un registro puntual de datos recopilados sobre un sujeto mediante un
     instrumento definido. Profile es el supertipo compartido de
-    SocioEconomicProfile, FunctioningProfile y AnthropometricProfile. Cada
-    perfil consigna quién fue observado, cuándo, con qué instrumento, bajo
-    qué modo de administración y por quién. Un perfil no produce por sí
-    mismo una puntuación: su propósito es consignar las respuestas
-    estructuradas que posteriormente pueden puntuarse o reportarse tal
-    como están.
+    SocioEconomicProfile, FunctioningProfile, AnthropometricProfile,
+    FoodSecurityProfile y DwellingDamageProfile. Cada perfil consigna
+    quién fue observado, cuándo, con qué instrumento, bajo qué modo de
+    administración y por quién. Un perfil no produce por sí mismo una
+    puntuación: su propósito es consignar las respuestas estructuradas
+    que posteriormente pueden puntuarse o reportarse tal como están.
 
 properties:
   - subject
@@ -43,7 +45,7 @@ properties:
   - respondent_relationship
   - items_asked
 
-subtypes: [SocioEconomicProfile, FunctioningProfile, AnthropometricProfile]
+subtypes: [SocioEconomicProfile, FunctioningProfile, AnthropometricProfile, FoodSecurityProfile, DwellingDamageProfile]
 supertypes: [Event]
 
 external_equivalents:

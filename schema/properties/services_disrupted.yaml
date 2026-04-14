@@ -1,0 +1,13 @@
+id: services_disrupted
+maturity: draft
+
+definition:
+  en: "Essential services (water, sanitation, electricity, telecommunications) that are currently not functioning at the household's dwelling after the shock. Multi-select. Distinct from the household's baseline service infrastructure type, which is recorded by water_source, sanitation_facility, and electricity_access."
+  fr: "Services essentiels (eau, assainissement, électricité, télécommunications) qui ne fonctionnent pas actuellement au logement du ménage après le choc. Sélection multiple. Distinct du type d'infrastructure de service habituel du ménage, consigné par water_source, sanitation_facility et electricity_access."
+  es: "Servicios esenciales (agua, saneamiento, electricidad, telecomunicaciones) que actualmente no funcionan en la vivienda del hogar después del choque. Selección múltiple. Distinto del tipo de infraestructura de servicio habitual del hogar, registrado por water_source, sanitation_facility y electricity_access."
+
+type: string
+cardinality: multiple
+vocabulary: service-disruption-type
+references: null
+category: wash

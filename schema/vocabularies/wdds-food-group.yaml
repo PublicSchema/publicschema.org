@@ -1,0 +1,104 @@
+id: wdds-food-group
+maturity: draft
+label:
+  en: MDD-W Food Group
+  fr: "Groupe alimentaire MDD-W"
+  es: "Grupo alimentario MDD-W"
+definition:
+  en: "The ten food groups used by the FAO Minimum Dietary Diversity for Women (MDD-W) indicator, which replaced the earlier WDDS. A woman of reproductive age is asked, for each group, whether she consumed any food from that group in the past 24 hours. Women consuming at least five of the ten groups are classified as having achieved minimum dietary diversity."
+  fr: "Les dix groupes alimentaires utilisés par l'indicateur de diversité alimentaire minimale pour les femmes (MDD-W) de la FAO, qui a remplacé le WDDS antérieur. Une femme en âge de procréer est interrogée, pour chaque groupe, sur sa consommation d'aliments de ce groupe au cours des 24 dernières heures. Les femmes consommant au moins cinq des dix groupes sont classées comme ayant atteint la diversité alimentaire minimale."
+  es: "Los diez grupos alimentarios utilizados por el indicador de Diversidad Dietética Mínima para Mujeres (MDD-W) de la FAO, que reemplazó al WDDS anterior. Se pregunta a una mujer en edad reproductiva, para cada grupo, si consumió algún alimento de ese grupo en las últimas 24 horas. Las mujeres que consumen al menos cinco de los diez grupos se clasifican como que lograron la diversidad dietética mínima."
+standard:
+  name: "FAO Minimum Dietary Diversity for Women (MDD-W) Guide, 2021"
+  uri: "https://www.fao.org/documents/card/en?details=cb3434en"
+values:
+- code: grains
+  label:
+    en: Grains, white roots and tubers, and plantains
+    fr: "Céréales, racines et tubercules blancs, et bananes plantains"
+    es: "Cereales, raíces y tubérculos blancos, y plátanos"
+  definition:
+    en: "Bread, rice, pasta, porridge made from cereals; white potatoes, white yams, cassava; plantains."
+    fr: "Pain, riz, pâtes, bouillies à base de céréales ; pommes de terre blanches, ignames blanches, manioc ; bananes plantains."
+    es: "Pan, arroz, pasta, papillas de cereales; papas blancas, ñames blancos, yuca; plátanos."
+- code: pulses
+  label:
+    en: Pulses (beans, peas, lentils)
+    fr: "Légumineuses (haricots, pois, lentilles)"
+    es: "Legumbres (frijoles, guisantes, lentejas)"
+  definition:
+    en: "Dried beans, dried peas, lentils, or dishes made from them."
+    fr: "Haricots secs, pois secs, lentilles ou plats à base de ceux-ci."
+    es: "Frijoles secos, guisantes secos, lentejas o platos hechos con ellos."
+- code: nuts_seeds
+  label:
+    en: Nuts and seeds
+    fr: "Noix et graines"
+    es: "Nueces y semillas"
+  definition:
+    en: "Any tree nut, groundnut, or seed, or nut or seed pastes such as peanut butter, tahini, or similar."
+    fr: "Toute noix de l'arbre, arachide ou graine, ou pâtes de noix ou de graines telles que beurre d'arachide, tahini ou similaires."
+    es: "Cualquier nuez de árbol, maní o semilla, o pastas de nueces o semillas como mantequilla de maní, tahini o similares."
+- code: dairy
+  label:
+    en: Dairy (milk, yogurt, cheese)
+    fr: "Produits laitiers (lait, yaourt, fromage)"
+    es: "Lácteos (leche, yogur, queso)"
+  definition:
+    en: "Milk, cheese, yogurt, or other milk products. Excludes small amounts used only to whiten tea or coffee."
+    fr: "Lait, fromage, yaourt ou autres produits laitiers. Exclut les petites quantités utilisées uniquement pour blanchir thé ou café."
+    es: "Leche, queso, yogur u otros productos lácteos. Excluye pequeñas cantidades usadas solo para aclarar té o café."
+- code: meat_poultry_fish
+  label:
+    en: Meat, poultry, and fish
+    fr: "Viande, volaille et poisson"
+    es: "Carne, aves y pescado"
+  definition:
+    en: "Red meat, poultry, organ meats, fresh or dried fish, shellfish, and other flesh foods."
+    fr: "Viande rouge, volaille, abats, poisson frais ou séché, crustacés et autres aliments carnés."
+    es: "Carne roja, aves, vísceras, pescado fresco o seco, mariscos y otros alimentos cárnicos."
+- code: eggs
+  label:
+    en: Eggs
+    fr: "Œufs"
+    es: "Huevos"
+  definition:
+    en: "Eggs from any bird."
+    fr: "Œufs de toute volaille."
+    es: "Huevos de cualquier ave."
+- code: dark_green_leafy_veg
+  label:
+    en: Dark green leafy vegetables
+    fr: "Légumes-feuilles vert foncé"
+    es: "Hortalizas de hoja verde oscuro"
+  definition:
+    en: "Dark green leafy vegetables such as spinach, amaranth leaves, cassava leaves, moringa, kale, wild leaves."
+    fr: "Légumes-feuilles vert foncé tels qu'épinards, feuilles d'amarante, feuilles de manioc, moringa, chou frisé, feuilles sauvages."
+    es: "Hortalizas de hoja verde oscuro como espinacas, hojas de amaranto, hojas de yuca, moringa, col rizada, hojas silvestres."
+- code: vitamin_a_fruit_veg
+  label:
+    en: Other vitamin-A-rich fruits and vegetables
+    fr: "Autres fruits et légumes riches en vitamine A"
+    es: "Otras frutas y verduras ricas en vitamina A"
+  definition:
+    en: "Ripe mango, ripe papaya, carrot, pumpkin, orange-fleshed sweet potato, red palm oil, and other vitamin-A-rich foods. Excludes dark green leafy vegetables (captured separately)."
+    fr: "Mangue mûre, papaye mûre, carotte, citrouille, patate douce à chair orange, huile de palme rouge et autres aliments riches en vitamine A. Exclut les légumes-feuilles vert foncé (capturés séparément)."
+    es: "Mango maduro, papaya madura, zanahoria, calabaza, batata de pulpa anaranjada, aceite de palma rojo y otros alimentos ricos en vitamina A. Excluye hortalizas de hoja verde oscuro (capturadas por separado)."
+- code: other_vegetables
+  label:
+    en: Other vegetables
+    fr: "Autres légumes"
+    es: "Otras verduras"
+  definition:
+    en: "Vegetables that are not captured in the dark-green-leafy or vitamin-A-rich groups: tomato, onion, eggplant, cucumber, green beans, etc."
+    fr: "Légumes non couverts par les groupes légumes-feuilles vert foncé ou riches en vitamine A : tomate, oignon, aubergine, concombre, haricots verts, etc."
+    es: "Verduras no cubiertas por los grupos de hojas verde oscuro ni ricas en vitamina A: tomate, cebolla, berenjena, pepino, judías verdes, etc."
+- code: other_fruits
+  label:
+    en: Other fruits
+    fr: "Autres fruits"
+    es: "Otras frutas"
+  definition:
+    en: "Fruits not captured in the vitamin-A-rich group: banana, apple, pineapple, watermelon, citrus, wild-gathered fruits, etc."
+    fr: "Fruits non couverts par le groupe riche en vitamine A : banane, pomme, ananas, pastèque, agrumes, fruits cueillis dans la nature, etc."
+    es: "Frutas no cubiertas por el grupo rico en vitamina A: banano, manzana, piña, sandía, cítricos, frutas recolectadas silvestres, etc."

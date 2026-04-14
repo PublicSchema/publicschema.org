@@ -1,0 +1,56 @@
+id: reconstruction-intent
+maturity: draft
+label:
+  en: Reconstruction Intent
+  fr: "Intention de reconstruction"
+  es: "Intención de reconstrucción"
+definition:
+  en: "The household's stated intent regarding the damaged dwelling: whether they plan to repair, rebuild in place, relocate, or are unable to act without external support. Used by recovery programming to target repair grants, reconstruction grants, and relocation assistance."
+  fr: "L'intention déclarée du ménage concernant le logement endommagé : réparation prévue, reconstruction sur place, relocalisation ou incapacité à agir sans soutien extérieur. Utilisé par la programmation de relèvement pour cibler les subventions de réparation, les subventions de reconstruction et l'assistance à la relocalisation."
+  es: "La intención declarada del hogar respecto a la vivienda dañada: reparación prevista, reconstrucción en el mismo sitio, relocalización, o incapacidad de actuar sin apoyo externo. Usado por la programación de recuperación para focalizar subvenciones de reparación, subvenciones de reconstrucción y asistencia de relocalización."
+values:
+- code: repair_in_place
+  label:
+    en: Repair in place
+    fr: "Réparer sur place"
+    es: "Reparar en el mismo sitio"
+  definition:
+    en: "Household intends to repair the damaged dwelling at its current location."
+    fr: "Le ménage compte réparer le logement endommagé à son emplacement actuel."
+    es: "El hogar tiene intención de reparar la vivienda dañada en su ubicación actual."
+- code: rebuild_in_place
+  label:
+    en: Rebuild in place
+    fr: "Reconstruire sur place"
+    es: "Reconstruir en el mismo sitio"
+  definition:
+    en: "Household intends to demolish the damaged dwelling and rebuild a new dwelling at the same location."
+    fr: "Le ménage compte démolir le logement endommagé et reconstruire un nouveau logement au même emplacement."
+    es: "El hogar tiene intención de demoler la vivienda dañada y reconstruir una nueva vivienda en el mismo lugar."
+- code: relocate
+  label:
+    en: Relocate to a different site
+    fr: "Se relocaliser sur un autre site"
+    es: "Relocalizarse a otro sitio"
+  definition:
+    en: "Household intends to move to a different location rather than repair or rebuild at the damaged site (for example, because the site is flood-prone or no longer accessible)."
+    fr: "Le ménage compte s'installer ailleurs plutôt que de réparer ou reconstruire sur le site endommagé (par exemple, parce que le site est inondable ou n'est plus accessible)."
+    es: "El hogar tiene intención de mudarse a otra ubicación en lugar de reparar o reconstruir en el sitio dañado (por ejemplo, porque el sitio es inundable o ya no es accesible)."
+- code: cannot_act_without_support
+  label:
+    en: Cannot act without external support
+    fr: "Ne peut agir sans soutien extérieur"
+    es: "No puede actuar sin apoyo externo"
+  definition:
+    en: "Household has no plan to repair, rebuild, or relocate because it lacks the resources to do so without external assistance."
+    fr: "Le ménage n'a aucun plan de réparation, de reconstruction ou de relocalisation faute de ressources pour agir sans aide extérieure."
+    es: "El hogar no tiene plan de reparar, reconstruir o relocalizarse porque carece de recursos para hacerlo sin asistencia externa."
+- code: undecided
+  label:
+    en: Undecided
+    fr: "Indécis"
+    es: "Indeciso"
+  definition:
+    en: "Household has not yet decided how to respond to the damage."
+    fr: "Le ménage n'a pas encore décidé de sa réponse aux dommages."
+    es: "El hogar aún no ha decidido cómo responder a los daños."
