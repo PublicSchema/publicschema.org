@@ -48,7 +48,7 @@ test.describe("Search: desktop", () => {
     await expect(results.locator('[role="option"]').first()).toBeVisible();
 
     // Should show a concept result for "Person"
-    const personResult = results.locator('a[href="/Person"]');
+    const personResult = results.locator('a[href="/Person/"]');
     await expect(personResult).toBeVisible();
     await expect(personResult.locator(".badge")).toHaveText("concept");
   });
@@ -62,7 +62,7 @@ test.describe("Search: desktop", () => {
     const results = page.locator("#search-results");
     await expect(results.locator('[role="option"]').first()).toBeVisible();
 
-    await results.locator('a[href="/Person"]').click();
+    await results.locator('a[href="/Person/"]').click();
     await expect(page).toHaveURL(/\/Person\/?$/);
   });
 
@@ -75,7 +75,7 @@ test.describe("Search: desktop", () => {
     const results = page.locator("#search-results");
     await expect(results.locator('[role="option"]').first()).toBeVisible();
 
-    const propResult = results.locator('a[href="/date_of_birth"]');
+    const propResult = results.locator('a[href="/date_of_birth/"]');
     await expect(propResult).toBeVisible();
     await expect(propResult.locator(".badge")).toHaveText("property");
   });
@@ -92,7 +92,7 @@ test.describe("Search: desktop", () => {
     await expect(results.locator('[role="option"]').first()).toBeVisible();
 
     // The marital-status vocabulary should appear with a matched-value hint
-    const vocabResult = results.locator('a[href="/vocab/marital-status"]');
+    const vocabResult = results.locator('a[href="/vocab/marital-status/"]');
     await expect(vocabResult).toBeVisible();
     const context = vocabResult.locator(".search-result-context");
     await expect(context).toContainText("Matched");
