@@ -1,0 +1,14 @@
+id: anxiety_frequency
+maturity: draft
+
+definition:
+  en: "How often the person feels worried, nervous, or anxious. Applies to adults (WG-ES ANX_1) and to children ages 5-17 (CFM CF23, phrased as 'seems very anxious, nervous, or worried')."
+  fr: "À quelle fréquence la personne se sent inquiète, nerveuse ou anxieuse. S'applique aux adultes (WG-ES ANX_1) et aux enfants de 5 à 17 ans (CFM CF23, formulé comme 'semble très anxieux, nerveux ou inquiet')."
+  es: "Con qué frecuencia la persona se siente preocupada, nerviosa o ansiosa. Se aplica a adultos (WG-ES ANX_1) y a niños de 5 a 17 años (CFM CF23, formulado como 'parece muy ansioso, nervioso o preocupado')."
+
+type: string
+cardinality: single
+vocabulary: symptom-frequency
+references: null
+category: disability
+sensitivity: sensitive

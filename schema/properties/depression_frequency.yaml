@@ -1,0 +1,14 @@
+id: depression_frequency
+maturity: draft
+
+definition:
+  en: "How often the person feels depressed. Applies to adults (WG-ES DEP_1) and to children ages 5-17 (CFM CF24, phrased as 'seems very sad or depressed')."
+  fr: "À quelle fréquence la personne se sent déprimée. S'applique aux adultes (WG-ES DEP_1) et aux enfants de 5 à 17 ans (CFM CF24, formulé comme 'semble très triste ou déprimé')."
+  es: "Con qué frecuencia la persona se siente deprimida. Se aplica a adultos (WG-ES DEP_1) y a niños de 5 a 17 años (CFM CF24, formulado como 'parece muy triste o deprimido')."
+
+type: string
+cardinality: single
+vocabulary: symptom-frequency
+references: null
+category: disability
+sensitivity: sensitive

@@ -1,0 +1,14 @@
+id: anxiety_intensity
+maturity: draft
+
+definition:
+  en: "The intensity of the person's last feeling of worry, nervousness, or anxiety. Applies to adults (WG-ES ANX_3). Asked of respondents who reported feeling anxious at least a few times a year."
+  fr: "L'intensité du dernier sentiment d'inquiétude, de nervosité ou d'anxiété de la personne. S'applique aux adultes (WG-ES ANX_3). Posée aux répondants ayant déclaré se sentir anxieux au moins quelques fois par an."
+  es: "La intensidad del último sentimiento de preocupación, nerviosismo o ansiedad de la persona. Se aplica a adultos (WG-ES ANX_3). Se pregunta a los encuestados que reportaron sentirse ansiosos al menos algunas veces al año."
+
+type: string
+cardinality: single
+vocabulary: functional-intensity-3pt
+references: null
+category: disability
+sensitivity: sensitive

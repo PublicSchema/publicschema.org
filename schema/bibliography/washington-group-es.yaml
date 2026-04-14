@@ -1,0 +1,38 @@
+id: washington-group-es
+title: "Washington Group Extended Set on Functioning (WG-ES)"
+short_title: "WG-ES"
+publisher: "Washington Group on Disability Statistics"
+year: 2022
+type: international_standard
+domain: general
+uri: "https://www.washingtongroup-disability.com/question-sets/wg-extended-set-on-functioning-wg-es/"
+access: open
+status: active
+
+informs:
+  concepts:
+    - Person
+  vocabularies:
+    - functional-difficulty-severity
+    - functional-intensity-3pt
+    - symptom-frequency
+  properties:
+    - anxiety_frequency
+    - anxiety_intensity
+    - anxiety_medication
+    - depression_frequency
+    - depression_intensity
+    - depression_medication
+    - difficulty_climbing_steps
+    - difficulty_cognition
+    - difficulty_communication
+    - difficulty_dexterity
+    - difficulty_hearing
+    - difficulty_seeing
+    - difficulty_self_care
+    - difficulty_walking
+    - difficulty_walking_100m
+    - difficulty_walking_500m
+    - uses_glasses
+    - uses_hearing_aid
+    - uses_mobility_aid

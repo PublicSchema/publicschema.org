@@ -1,0 +1,14 @@
+id: depression_intensity
+maturity: draft
+
+definition:
+  en: "The intensity of the person's last feeling of depression. Applies to adults (WG-ES DEP_3). Asked of respondents who reported feeling depressed at least a few times a year."
+  fr: "L'intensité du dernier sentiment de dépression de la personne. S'applique aux adultes (WG-ES DEP_3). Posée aux répondants ayant déclaré se sentir déprimés au moins quelques fois par an."
+  es: "La intensidad del último sentimiento de depresión de la persona. Se aplica a adultos (WG-ES DEP_3). Se pregunta a los encuestados que reportaron sentirse deprimidos al menos algunas veces al año."
+
+type: string
+cardinality: single
+vocabulary: functional-intensity-3pt
+references: null
+category: disability
+sensitivity: sensitive

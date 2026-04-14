@@ -31,8 +31,9 @@ informs:
     - water-source
   properties:
     - cooking_fuel
+    - anxiety_frequency
+    - depression_frequency
     - difficulty_accepting_change
-    - difficulty_anxiety
     - difficulty_being_understood
     - difficulty_being_understood_inside_household
     - difficulty_being_understood_outside_household
@@ -40,7 +41,6 @@ informs:
     - difficulty_communication
     - difficulty_concentrating
     - difficulty_controlling_behaviour
-    - difficulty_depression
     - difficulty_dexterity
     - difficulty_disruptive_behaviour
     - difficulty_hearing

@@ -1,0 +1,14 @@
+id: anxiety_medication
+maturity: draft
+
+definition:
+  en: "Whether the person takes medication for anxiety or worry. Applies to adults (WG-ES ANX_2). This filter is used to interpret anxiety_frequency answers, which are asked about symptoms while on medication if the person takes any."
+  fr: "Si la personne prend un traitement pour l'anxiété ou l'inquiétude. S'applique aux adultes (WG-ES ANX_2). Ce filtre sert à interpréter les réponses à anxiety_frequency, qui sont posées à propos des symptômes sous traitement si la personne en prend un."
+  es: "Si la persona toma medicación para la ansiedad o la preocupación. Se aplica a adultos (WG-ES ANX_2). Este filtro se usa para interpretar las respuestas de anxiety_frequency, que se formulan sobre los síntomas bajo medicación si la persona la toma."
+
+type: boolean
+cardinality: single
+vocabulary: null
+references: null
+category: disability
+sensitivity: sensitive

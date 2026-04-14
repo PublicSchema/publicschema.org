@@ -1,0 +1,42 @@
+id: functional-intensity-3pt
+maturity: draft
+label:
+  en: Functional Intensity (3-point)
+  fr: "Intensité fonctionnelle (3 niveaux)"
+  es: "Intensidad funcional (3 niveles)"
+definition:
+  en: "A three-point intensity scale used in the Washington Group Extended Set on Functioning (WG-ES) for depth of feeling (anxiety, depression) and of bodily symptom (pain, fatigue)."
+  fr: "Une échelle d'intensité à trois niveaux utilisée dans l'Ensemble étendu du Groupe de Washington sur le fonctionnement (WG-ES) pour la profondeur d'un ressenti (anxiété, dépression) ou d'un symptôme corporel (douleur, fatigue)."
+  es: "Una escala de intensidad de tres niveles utilizada en el Conjunto Extendido del Grupo de Washington sobre Funcionamiento (WG-ES) para la profundidad de un sentimiento (ansiedad, depresión) o de un síntoma corporal (dolor, fatiga)."
+standard:
+  name: "Washington Group Extended Set on Functioning (WG-ES)"
+  uri: https://www.washingtongroup-disability.com/question-sets/wg-extended-set-on-functioning-wg-es/
+  notes: "Endorsed by the UN Statistical Commission. Used on WG-ES items ANX_3 (anxiety intensity), DEP_3 (depression intensity), PAIN_2 (pain intensity), TIRED_3 (fatigue intensity) per the 11 October 2022 PDF."
+values:
+- code: a_little
+  label:
+    en: A little
+    fr: Un peu
+    es: Un poco
+  definition:
+    en: "The symptom or feeling is experienced at a low intensity."
+    fr: "Le symptôme ou le ressenti est vécu à faible intensité."
+    es: "El síntoma o sentimiento se experimenta con baja intensidad."
+- code: somewhere_in_between
+  label:
+    en: Somewhere in between
+    fr: Quelque part entre les deux
+    es: En algún punto intermedio
+  definition:
+    en: "The symptom or feeling is experienced at a moderate intensity, between a little and a lot."
+    fr: "Le symptôme ou le ressenti est vécu à une intensité modérée, entre un peu et beaucoup."
+    es: "El síntoma o sentimiento se experimenta con una intensidad moderada, entre un poco y mucho."
+- code: a_lot
+  label:
+    en: A lot
+    fr: Beaucoup
+    es: Mucho
+  definition:
+    en: "The symptom or feeling is experienced at a high intensity."
+    fr: "Le symptôme ou le ressenti est vécu à forte intensité."
+    es: "El síntoma o sentimiento se experimenta con alta intensidad."

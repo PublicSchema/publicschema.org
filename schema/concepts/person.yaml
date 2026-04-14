@@ -90,8 +90,12 @@ properties:
   - difficulty_being_understood
   - difficulty_being_understood_inside_household
   - difficulty_being_understood_outside_household
-  - difficulty_anxiety
-  - difficulty_depression
+  - anxiety_frequency
+  - anxiety_intensity
+  - anxiety_medication
+  - depression_frequency
+  - depression_intensity
+  - depression_medication
 
 property_groups:
   - category: identity
@@ -160,6 +164,12 @@ property_groups:
       - uses_glasses
       - uses_hearing_aid
       - uses_mobility_aid
+      - anxiety_frequency
+      - anxiety_intensity
+      - anxiety_medication
+      - depression_frequency
+      - depression_intensity
+      - depression_medication
   - category: child_functioning
     properties:
       - difficulty_learning
@@ -180,8 +190,8 @@ property_groups:
       - uses_glasses
       - uses_hearing_aid
       - uses_mobility_aid
-      - difficulty_anxiety
-      - difficulty_depression
+      - anxiety_frequency
+      - depression_frequency
   - category: other
     properties:
       - group_memberships

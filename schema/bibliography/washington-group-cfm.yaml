@@ -17,14 +17,14 @@ informs:
     - functional-difficulty-severity
     - symptom-frequency
   properties:
+    - anxiety_frequency
+    - depression_frequency
     - difficulty_accepting_change
-    - difficulty_anxiety
     - difficulty_being_understood
     - difficulty_being_understood_inside_household
     - difficulty_being_understood_outside_household
     - difficulty_concentrating
     - difficulty_controlling_behaviour
-    - difficulty_depression
     - difficulty_dexterity
     - difficulty_disruptive_behaviour
     - difficulty_hearing
