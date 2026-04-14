@@ -2,9 +2,9 @@ id: publisher
 maturity: draft
 
 definition:
-  en: "The organization that publishes or maintains the instrument (for example, the Washington Group on Disability Statistics, UNICEF, the SMART initiative, or a national statistics office)."
-  fr: "L'organisation qui publie ou maintient l'instrument (par exemple, le Washington Group on Disability Statistics, l'UNICEF, l'initiative SMART ou un institut national de statistique)."
-  es: "La organización que publica o mantiene el instrumento (por ejemplo, el Washington Group on Disability Statistics, UNICEF, la iniciativa SMART o una oficina nacional de estadística)."
+  en: "The organization that publishes or maintains the instrument, software agent, or scoring rule (for example, the Washington Group on Disability Statistics, UNICEF, the SMART initiative, the openIMIS Initiative, or a national statistics office)."
+  fr: "L'organisation qui publie ou maintient l'instrument, l'agent logiciel ou la règle de notation (par exemple, le Washington Group on Disability Statistics, l'UNICEF, l'initiative SMART, l'initiative openIMIS ou un institut national de statistique)."
+  es: "La organización que publica o mantiene el instrumento, el agente de software o la regla de puntuación (por ejemplo, el Washington Group on Disability Statistics, UNICEF, la iniciativa SMART, la iniciativa openIMIS o una oficina nacional de estadística)."
 
 type: concept:Party
 cardinality: single

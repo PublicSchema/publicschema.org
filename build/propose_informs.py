@@ -40,6 +40,8 @@ EXTERNAL_EQUIV_LOOKUP: dict[tuple[str, str | None], str | None] = {
     ("semic", "ADMS"): "semic-adms",
     ("fhir", "FHIR R4"): "fhir-r4",
     ("icao", "ICAO Doc 9303"): "icao-doc-9303",
+    ("prov", "PROV-O"): "w3c-prov-o",
+    ("foaf", "FOAF"): "foaf",
     # opencrvs is a system, not a standard; intentionally excluded.
 }
 

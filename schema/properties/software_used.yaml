@@ -1,0 +1,12 @@
+id: software_used
+maturity: draft
+
+definition:
+  en: "The software that performed this step, recorded so the result can be reproduced or audited. Distinct from the accountable evaluator or performer (the person or organisation responsible), which is recorded separately."
+  fr: "Le logiciel qui a effectué cette étape, enregistré afin que le résultat puisse être reproduit ou audité. Distinct de l'évaluateur ou de l'exécutant responsable (la personne ou l'organisme qui en répond), enregistré séparément."
+  es: "El software que ejecutó este paso, registrado para que el resultado pueda reproducirse o auditarse. Distinto del evaluador o ejecutor responsable (la persona u organismo que responde), que se registra por separado."
+
+type: concept:SoftwareAgent
+cardinality: single
+vocabulary: null
+references: SoftwareAgent

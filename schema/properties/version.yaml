@@ -2,9 +2,9 @@ id: version
 maturity: draft
 
 definition:
-  en: "The version identifier of an instrument (for example, a release date such as 2022-10-11 or a semantic version like 6.2)."
-  fr: "L'identifiant de version d'un instrument (par exemple, une date de publication comme 2022-10-11 ou une version sémantique comme 6.2)."
-  es: "El identificador de versión de un instrumento (por ejemplo, una fecha de publicación como 2022-10-11 o una versión semántica como 6.2)."
+  en: "The version identifier of an instrument, software agent, or scoring rule (for example, a release date such as 2022-10-11 or a semantic version like 6.2)."
+  fr: "L'identifiant de version d'un instrument, d'un agent logiciel ou d'une règle de notation (par exemple, une date de publication comme 2022-10-11 ou une version sémantique comme 6.2)."
+  es: "El identificador de versión de un instrumento, agente de software o regla de puntuación (por ejemplo, una fecha de publicación como 2022-10-11 o una versión semántica como 6.2)."
 
 type: string
 cardinality: single

@@ -1,0 +1,69 @@
+id: SoftwareAgent
+maturity: draft
+label:
+  en: Software Agent
+  fr: Agent logiciel
+  es: Agente de software
+
+definition:
+  en: >
+    A software product or system that performed a step in a delivery
+    process, such as a scoring engine that computed a proxy means test
+    score or a rule engine that evaluated eligibility. SoftwareAgent
+    records the identity and version of the software so that a result
+    can be reproduced or audited later. It is distinct from a Party
+    (the person or organisation accountable for the action) and from
+    an Instrument (the questionnaire or measurement tool administered
+    to a subject).
+  fr: >
+    Un produit ou système logiciel ayant effectué une étape dans un
+    processus de prestation, par exemple un moteur de notation qui a
+    calculé un score de test de substitution des ressources ou un
+    moteur de règles qui a évalué l'admissibilité. SoftwareAgent
+    enregistre l'identité et la version du logiciel afin qu'un résultat
+    puisse être reproduit ou audité ultérieurement. Il est distinct
+    d'une Party (la personne ou l'organisme responsable de l'action)
+    et d'un Instrument (le questionnaire ou l'outil de mesure
+    administré à un sujet).
+  es: >
+    Un producto o sistema de software que realizó un paso en un proceso
+    de prestación, por ejemplo un motor de puntuación que calculó una
+    puntuación de prueba proxy de medios de vida o un motor de reglas
+    que evaluó la elegibilidad. SoftwareAgent registra la identidad y
+    la versión del software para que un resultado pueda reproducirse
+    o auditarse posteriormente. Es distinto de una Party (la persona u
+    organismo responsable de la acción) y de un Instrument (el
+    cuestionario o la herramienta de medición administrada a un
+    sujeto).
+
+properties:
+  - name
+  - version
+  - publisher
+  - publication_url
+
+subtypes: []
+supertypes: []
+
+external_equivalents:
+  prov:
+    label: "SoftwareAgent"
+    uri: "http://www.w3.org/ns/prov#SoftwareAgent"
+    match: exact
+    vocabulary: "PROV-O"
+    note: "Direct W3C PROV-O equivalent: a software agent that played a role in an activity. Our SoftwareAgent is scoped to recording the software that acted within a public delivery process."
+  foaf:
+    label: "Agent"
+    uri: "http://xmlns.com/foaf/0.1/Agent"
+    match: broad
+    vocabulary: "FOAF"
+    note: "foaf:Agent is the broad supertype covering persons, organisations, and software. SoftwareAgent is narrower: software specifically. Party covers the other side (persons and organisations)."
+
+convergence:
+  system_count: 0
+  total_systems: 6
+  notes: >
+    No mapped system currently models scoring engines or rule engines as
+    structured entities. Software identity is typically left implicit or
+    stored as a free-text log entry, which makes audit and reproducibility
+    difficult.

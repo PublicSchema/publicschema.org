@@ -1,0 +1,17 @@
+id: foaf
+title: "FOAF Vocabulary Specification"
+short_title: "FOAF"
+publisher: "FOAF Project"
+year: 2014
+version: "0.99"
+type: specification
+domain: general
+uri: "http://xmlns.com/foaf/spec/"
+access: open
+status: active
+
+informs:
+  concepts:
+    - SoftwareAgent
+  vocabularies: []
+  properties: []

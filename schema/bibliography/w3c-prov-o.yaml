@@ -1,0 +1,17 @@
+id: w3c-prov-o
+title: "PROV-O: The PROV Ontology"
+short_title: "PROV-O"
+publisher: "World Wide Web Consortium (W3C)"
+year: 2013
+version: "Recommendation 30 April 2013"
+type: specification
+domain: general
+uri: "https://www.w3.org/TR/prov-o/"
+access: open
+status: active
+
+informs:
+  concepts:
+    - SoftwareAgent
+  vocabularies: []
+  properties: []

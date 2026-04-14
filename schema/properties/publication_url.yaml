@@ -2,9 +2,9 @@ id: publication_url
 maturity: draft
 
 definition:
-  en: "A canonical URL where the instrument or scoring rule is published (typically a PDF or a documentation page hosted by the publisher)."
-  fr: "Une URL canonique à laquelle l'instrument ou la règle de notation est publiée (généralement un PDF ou une page de documentation hébergée par l'éditeur)."
-  es: "Una URL canónica donde se publica el instrumento o la regla de puntuación (normalmente un PDF o una página de documentación alojada por el editor)."
+  en: "A canonical URL where the instrument, software agent, or scoring rule is published (typically a documentation page, a source repository, or a PDF hosted by the publisher)."
+  fr: "Une URL canonique à laquelle l'instrument, l'agent logiciel ou la règle de notation est publié (généralement une page de documentation, un dépôt de code ou un PDF hébergé par l'éditeur)."
+  es: "Una URL canónica donde se publica el instrumento, el agente de software o la regla de puntuación (normalmente una página de documentación, un repositorio de código o un PDF alojado por el editor)."
 
 type: uri
 cardinality: single

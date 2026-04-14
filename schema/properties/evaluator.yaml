@@ -2,9 +2,9 @@ id: evaluator
 maturity: draft
 
 definition:
-  en: "The party (field officer, agency, or system) that performed the scoring."
-  fr: "La partie (agent de terrain, organisme ou système) ayant effectué la notation."
-  es: "La parte (agente de campo, organismo o sistema) que realizó la puntuación."
+  en: "The party (field officer or agency) accountable for the scoring. When the computation was executed by software, record the tool separately as software_used; evaluator identifies who is responsible, not what ran the calculation."
+  fr: "La partie (agent de terrain ou organisme) responsable de la notation. Lorsque le calcul a été effectué par un logiciel, enregistrez l'outil séparément via software_used ; evaluator identifie qui est responsable, et non ce qui a exécuté le calcul."
+  es: "La parte (agente de campo u organismo) responsable de la puntuación. Cuando el cálculo fue ejecutado por software, registre la herramienta por separado mediante software_used; evaluator identifica quién es responsable, no qué ejecutó el cálculo."
 
 type: concept:Party
 cardinality: single

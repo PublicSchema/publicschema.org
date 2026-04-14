@@ -28,6 +28,7 @@ properties:
   - eligibility_status
   - decision_date
   - decision_basis
+  - software_used
   - valid_until
 
 subtypes: []

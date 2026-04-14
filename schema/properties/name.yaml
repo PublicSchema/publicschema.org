@@ -2,9 +2,9 @@ id: name
 maturity: candidate
 
 definition:
-  en: "The full display name of the person or group."
-  fr: "Le nom complet d'affichage de la personne ou du groupe."
-  es: "El nombre completo de visualización de la persona o del grupo."
+  en: "The full display name of the record. Depending on the concept, this is a person's or group's name, or the title of a program, instrument, scoring rule, or software product."
+  fr: "Le nom d'affichage complet de l'enregistrement. Selon le concept, il s'agit du nom d'une personne ou d'un groupe, ou du titre d'un programme, d'un instrument, d'une règle de notation ou d'un produit logiciel."
+  es: "El nombre de visualización completo del registro. Según el concepto, es el nombre de una persona o grupo, o el título de un programa, instrumento, regla de puntuación o producto de software."
 
 type: string
 cardinality: single
