@@ -15,6 +15,7 @@ informs:
   vocabularies:
     - administration-mode
     - functional-difficulty-severity
+    - instrument-id
   properties:
     - difficulty_cognition
     - difficulty_communication

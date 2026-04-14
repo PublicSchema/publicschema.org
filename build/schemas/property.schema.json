@@ -67,11 +67,11 @@
     },
     "valid_instruments": {
       "type": "array",
-      "description": "Instrument identifiers on which this property is validly populated when it appears on a Profile record (e.g. ['wg-ss', 'wg-es'] excludes CFM). Population guideline: only WG/CFM item properties and anthropometric item properties. Enables a future data-level validator to reject a property populated on a Profile whose instrument_used is not in this list.",
+      "description": "Instrument identifiers on which this property is validly populated when it appears on a Profile record (e.g. ['wg_ss', 'wg_es'] excludes CFM). Population guideline: only WG/CFM item properties and anthropometric item properties. Each value must be a code in the 'instrument-id' vocabulary. Enables a future data-level validator to reject a property populated on a Profile whose instrument_used is not in this list.",
       "items": {
         "type": "string",
-        "pattern": "^[a-z][a-z0-9-]*$",
-        "description": "Instrument identifier (kebab-case). Known identifiers: wg-ss, wg-es, cfm-2-4, cfm-5-17, smart, pmt, mics."
+        "pattern": "^[a-z][a-z0-9_]*$",
+        "description": "Instrument identifier referencing a code in the 'instrument-id' vocabulary. Current codes: wg_ss, wg_es, cfm_2_4, cfm_5_17, smart."
       },
       "minItems": 1,
       "uniqueItems": true

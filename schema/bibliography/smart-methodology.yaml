@@ -1,0 +1,38 @@
+id: smart-methodology
+title: "Standardized Monitoring and Assessment of Relief and Transitions (SMART) Methodology"
+short_title: "SMART"
+publisher: "Action Against Hunger Canada (SMART Initiative), UNICEF, WFP, WHO, CDC"
+year: 2017
+version: "Version 2"
+type: guidance_publication
+domain: humanitarian
+uri: "https://smartmethodology.org/survey-planning-tools/smart-methodology/"
+access: open
+status: active
+
+informs:
+  concepts:
+    - AnthropometricProfile
+  vocabularies:
+    - acute-malnutrition-severity
+    - cutoff-rule
+    - growth-reference
+    - instrument-id
+    - measurement-type
+  properties:
+    - acute_malnutrition_status
+    - age_at_measurement_months
+    - bmi_for_age_z
+    - body_weight
+    - cutoff_rule
+    - growth_reference
+    - height
+    - height_for_age_z
+    - measurement_type
+    - muac
+    - oedema_present
+    - stunting_status
+    - underweight_status
+    - wasting_status
+    - weight_for_age_z
+    - weight_for_height_z

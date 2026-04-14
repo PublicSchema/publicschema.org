@@ -1,0 +1,56 @@
+id: instrument-id
+maturity: draft
+label:
+  en: Instrument Identifier
+  fr: "Identifiant d'instrument"
+  es: Identificador de instrumento
+definition:
+  en: "Canonical short identifiers for the data-collection instruments referenced by Profile records and by the valid_instruments metadata on item-level properties. Each code names a published questionnaire, screening form, or measurement protocol. Programs that deploy a national or program-specific instrument add a local code alongside the published ones."
+  fr: "Identifiants courts canoniques pour les instruments de collecte de données référencés par les enregistrements Profile et par les métadonnées valid_instruments des propriétés au niveau de l'item. Chaque code nomme un questionnaire publié, un formulaire de dépistage ou un protocole de mesure. Les programmes qui déploient un instrument national ou spécifique au programme ajoutent un code local aux côtés des codes publiés."
+  es: "Identificadores cortos canónicos para los instrumentos de recopilación de datos referenciados por los registros Profile y por los metadatos valid_instruments en las propiedades a nivel de ítem. Cada código nombra un cuestionario publicado, un formulario de detección o un protocolo de medición. Los programas que implementan un instrumento nacional o específico del programa añaden un código local junto a los códigos publicados."
+values:
+- code: wg_ss
+  label:
+    en: Washington Group Short Set on Functioning (WG-SS)
+    fr: "Ensemble court du Washington Group sur le fonctionnement (WG-SS)"
+    es: "Conjunto corto del Washington Group sobre el funcionamiento (WG-SS)"
+  definition:
+    en: "Six-question survey for adults that screens for difficulty in seeing, hearing, walking, remembering, self-care, and communication. Designed for census and general-population surveys. See bibliography entry washington-group-ss."
+    fr: "Enquête de six questions pour les adultes qui dépiste les difficultés de vision, d'audition, de marche, de mémoire, de soins personnels et de communication. Conçue pour les recensements et les enquêtes en population générale. Voir l'entrée bibliographique washington-group-ss."
+    es: "Encuesta de seis preguntas para adultos que detecta dificultades para ver, oír, caminar, recordar, cuidarse a sí mismo y comunicarse. Diseñada para censos y encuestas de población general. Ver la entrada bibliográfica washington-group-ss."
+- code: wg_es
+  label:
+    en: Washington Group Extended Set on Functioning (WG-ES)
+    fr: "Ensemble étendu du Washington Group sur le fonctionnement (WG-ES)"
+    es: "Conjunto extendido del Washington Group sobre el funcionamiento (WG-ES)"
+  definition:
+    en: "Extended survey for adults that adds upper-body and fine-motor items, additional vision and hearing items with environment qualifiers, pain, fatigue, affect (anxiety and depression), and aid-use. Used when richer functioning data is needed than the short set provides. See bibliography entry washington-group-es."
+    fr: "Enquête étendue pour adultes ajoutant des items du haut du corps et de motricité fine, des items de vision et d'audition avec qualificateurs environnementaux, douleur, fatigue, affect (anxiété et dépression) et utilisation d'aides. Utilisée lorsque des données de fonctionnement plus riches que l'ensemble court sont nécessaires. Voir l'entrée bibliographique washington-group-es."
+    es: "Encuesta extendida para adultos que añade ítems de la parte superior del cuerpo y motricidad fina, ítems adicionales de visión y audición con calificadores ambientales, dolor, fatiga, afecto (ansiedad y depresión) y uso de ayudas. Se utiliza cuando se necesitan datos de funcionamiento más ricos que los que proporciona el conjunto corto. Ver la entrada bibliográfica washington-group-es."
+- code: cfm_2_4
+  label:
+    en: UNICEF Child Functioning Module, ages 2-4 (CFM 2-4)
+    fr: "Module de fonctionnement de l'enfant UNICEF, 2 à 4 ans (CFM 2-4)"
+    es: "Módulo de Funcionamiento Infantil UNICEF, 2 a 4 años (CFM 2-4)"
+  definition:
+    en: "Caregiver-reported questionnaire on functioning for children aged 2 to 4 years. Always administered in proxy mode. Covers seeing, hearing, walking, fine motor, learning, communication, playing, and controlling behaviour. See bibliography entry washington-group-cfm."
+    fr: "Questionnaire déclaré par l'aidant sur le fonctionnement des enfants de 2 à 4 ans. Toujours administré en mode procuration. Couvre la vision, l'audition, la marche, la motricité fine, l'apprentissage, la communication, le jeu et le contrôle du comportement. Voir l'entrée bibliographique washington-group-cfm."
+    es: "Cuestionario informado por el cuidador sobre el funcionamiento de niños de 2 a 4 años. Siempre se administra en modo por terceros. Cubre visión, audición, marcha, motricidad fina, aprendizaje, comunicación, juego y control del comportamiento. Ver la entrada bibliográfica washington-group-cfm."
+- code: cfm_5_17
+  label:
+    en: UNICEF Child Functioning Module, ages 5-17 (CFM 5-17)
+    fr: "Module de fonctionnement de l'enfant UNICEF, 5 à 17 ans (CFM 5-17)"
+    es: "Módulo de Funcionamiento Infantil UNICEF, 5 a 17 años (CFM 5-17)"
+  definition:
+    en: "Caregiver-reported questionnaire on functioning for children and adolescents aged 5 to 17 years. Always administered in proxy mode. Extends the 2-4 module with self-care, concentration, accepting change, making friends, anxiety, and depression. See bibliography entry washington-group-cfm."
+    fr: "Questionnaire déclaré par l'aidant sur le fonctionnement des enfants et adolescents de 5 à 17 ans. Toujours administré en mode procuration. Étend le module 2-4 avec les soins personnels, la concentration, l'acceptation du changement, se faire des amis, l'anxiété et la dépression. Voir l'entrée bibliographique washington-group-cfm."
+    es: "Cuestionario informado por el cuidador sobre el funcionamiento de niños y adolescentes de 5 a 17 años. Siempre se administra en modo por terceros. Amplía el módulo 2-4 con cuidado personal, concentración, aceptar cambios, hacer amigos, ansiedad y depresión. Ver la entrada bibliográfica washington-group-cfm."
+- code: smart
+  label:
+    en: SMART anthropometry protocol
+    fr: "Protocole anthropométrique SMART"
+    es: "Protocolo antropométrico SMART"
+  definition:
+    en: "Standardized anthropometric measurement procedure used in humanitarian nutrition surveys. Captures weight, height or length, MUAC, and bilateral pitting oedema, with a declared growth reference and measurement type (recumbent or standing). See bibliography entry smart-methodology."
+    fr: "Procédure standardisée de mesure anthropométrique utilisée dans les enquêtes humanitaires de nutrition. Capture le poids, la taille (couchée ou debout), le périmètre brachial et l'œdème bilatéral prenant le godet, avec une référence de croissance et un type de mesure déclarés (couché ou debout). Voir l'entrée bibliographique smart-methodology."
+    es: "Procedimiento estandarizado de medición antropométrica utilizado en las encuestas humanitarias de nutrición. Captura el peso, la talla o longitud, el perímetro braquial y el edema bilateral con fóvea, con una referencia de crecimiento y un tipo de medición declarados (acostado o de pie). Ver la entrada bibliográfica smart-methodology."
