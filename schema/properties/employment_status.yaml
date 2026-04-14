@@ -10,6 +10,7 @@ type: string
 cardinality: single
 vocabulary: employment-status
 references: null
+category: employment
 
 external_equivalents:
   opencrvs:

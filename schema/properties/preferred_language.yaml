@@ -10,6 +10,7 @@ type: string
 cardinality: single
 vocabulary: language
 references: null
+category: contact
 
 external_equivalents:
   dci:

@@ -10,6 +10,7 @@ type: integer
 cardinality: single
 vocabulary: null
 references: null
+category: demographics
 domain_override: crvs
 
 external_equivalents:

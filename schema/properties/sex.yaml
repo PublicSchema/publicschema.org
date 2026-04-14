@@ -10,6 +10,7 @@ type: string
 cardinality: single
 vocabulary: sex
 references: null
+category: demographics
 
 external_equivalents:
   semic:

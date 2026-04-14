@@ -37,6 +37,30 @@
         "description": "Property ID"
       }
     },
+    "property_groups": {
+      "type": "array",
+      "description": "Display grouping and ordering of properties on the concept page. When present, defines which properties appear in each category section. May include inherited properties.",
+      "items": {
+        "type": "object",
+        "required": ["category", "properties"],
+        "additionalProperties": false,
+        "properties": {
+          "category": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]*$",
+            "description": "Category ID referencing schema/categories.yaml"
+          },
+          "properties": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "Property ID"
+            },
+            "minItems": 1
+          }
+        }
+      }
+    },
     "subtypes": {
       "type": "array",
       "items": { "type": "string" }

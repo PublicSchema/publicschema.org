@@ -422,6 +422,8 @@ def build_vocabulary(schema_dir: Path) -> dict:
     properties_raw = _load_all_yaml(schema_dir / "properties")
     vocabularies_raw = _load_vocabularies_indexed(schema_dir / "vocabularies")
     bibliography_raw = _load_all_yaml(schema_dir / "bibliography")
+    categories_path = schema_dir / "categories.yaml"
+    categories_raw = _load_yaml(categories_path) if categories_path.exists() else {}
 
     # Compute property domains (which concepts use each property)
     property_domains: dict[str, list[str]] = {
@@ -454,6 +456,7 @@ def build_vocabulary(schema_dir: Path) -> dict:
             "supertypes": data.get("supertypes", []),
             "convergence": data.get("convergence"),
             "external_equivalents": data.get("external_equivalents"),
+            "property_groups": data.get("property_groups"),
         }
 
     # Build output properties
@@ -476,6 +479,7 @@ def build_vocabulary(schema_dir: Path) -> dict:
             "system_mappings": data.get("system_mappings"),
             "external_equivalents": data.get("external_equivalents"),
             "convergence": data.get("convergence"),
+            "category": data.get("category"),
         }
 
     # Build output vocabularies. Vocabularies are keyed by their canonical
@@ -806,12 +810,18 @@ def build_vocabulary(schema_dir: Path) -> dict:
             vocab_out, vocabularies_raw[vocab_key], context_url,
         )
 
+    # Build categories output for vocabulary.json
+    out_categories = {}
+    for cat_id, cat_data in categories_raw.items():
+        out_categories[cat_id] = {"label": cat_data.get("label", {})}
+
     return {
         "meta": meta,
         "concepts": out_concepts,
         "properties": out_properties,
         "vocabularies": out_vocabularies,
         "bibliography": out_bibliography,
+        "categories": out_categories,
         "context": context,
         "concept_schemas": concept_schemas,
         "credential_schemas": credential_schemas,
@@ -835,6 +845,7 @@ def write_outputs(result: dict, dist_dir: Path):
         "properties": result["properties"],
         "vocabularies": result["vocabularies"],
         "bibliography": result.get("bibliography", {}),
+        "categories": result.get("categories", {}),
     }
     (dist_dir / "vocabulary.json").write_text(
         json.dumps(vocabulary, indent=2, ensure_ascii=False) + "\n"

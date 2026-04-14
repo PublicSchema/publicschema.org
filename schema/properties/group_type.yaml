@@ -10,6 +10,7 @@ type: string
 cardinality: single
 vocabulary: group-type
 references: null
+category: administrative
 
 external_equivalents:
   dci:

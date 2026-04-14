@@ -63,6 +63,60 @@ properties:
   - difficulty_self_care
   - difficulty_communication
 
+property_groups:
+  - category: identity
+    properties:
+      - name
+      - identifiers
+      - identity_documents
+      - given_name
+      - family_name
+      - given_name_at_birth
+      - family_name_at_birth
+      - preferred_name
+      - patronymic_name
+      - matronymic_name
+  - category: demographics
+    properties:
+      - date_of_birth
+      - date_of_death
+      - country_of_birth
+      - sex
+      - gender
+      - nationality
+      - marital_status
+      - number_of_spouses
+      - religion
+      - ethnic_group
+  - category: education
+    properties:
+      - education_level
+      - literacy
+  - category: employment
+    properties:
+      - occupation
+      - employment_status
+      - status_in_employment
+      - industry
+  - category: contact
+    properties:
+      - preferred_language
+      - phone_number
+      - email_address
+      - domicile
+  - category: disability
+    properties:
+      - difficulty_seeing
+      - difficulty_hearing
+      - difficulty_walking
+      - difficulty_cognition
+      - difficulty_self_care
+      - difficulty_communication
+  - category: other
+    properties:
+      - group_memberships
+      - biometric_samples
+
 subtypes: []
 supertypes: [Party]
 

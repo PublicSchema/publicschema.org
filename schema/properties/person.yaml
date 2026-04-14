@@ -10,6 +10,7 @@ type: concept:Person
 cardinality: single
 vocabulary: null
 references: Person
+category: other
 sensitivity: sensitive
 
 convergence:

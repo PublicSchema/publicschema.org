@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://publicschema.org/schemas/categories.schema.json",
+  "title": "PublicSchema Property Categories",
+  "description": "Display categories for grouping properties on concept pages. Keys are category IDs, values carry multilingual labels.",
+  "type": "object",
+  "minProperties": 1,
+  "additionalProperties": {
+    "type": "object",
+    "required": ["label"],
+    "additionalProperties": false,
+    "properties": {
+      "label": {
+        "$ref": "#/$defs/multilingual_text"
+      }
+    }
+  },
+  "$defs": {
+    "multilingual_text": {
+      "type": "object",
+      "required": ["en"],
+      "properties": {
+        "en": { "type": "string" },
+        "fr": { "type": "string" },
+        "es": { "type": "string" }
+      },
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  }
+}

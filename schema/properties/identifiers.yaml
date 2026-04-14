@@ -10,6 +10,7 @@ type: concept:Identifier
 cardinality: multiple
 vocabulary: null
 references: Identifier
+category: identity
 
 convergence:
   system_count: 5

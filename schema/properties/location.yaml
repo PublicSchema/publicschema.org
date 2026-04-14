@@ -10,6 +10,7 @@ type: concept:Location
 cardinality: single
 vocabulary: null
 references: Location
+category: location
 
 convergence:
   system_count: 2

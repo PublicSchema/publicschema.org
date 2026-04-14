@@ -10,6 +10,7 @@ type: string
 cardinality: single
 vocabulary: marital-status
 references: null
+category: demographics
 sensitivity: sensitive
 
 external_equivalents:

@@ -10,6 +10,7 @@ type: string
 cardinality: single
 vocabulary: education-level
 references: null
+category: education
 sensitivity: sensitive
 
 external_equivalents:

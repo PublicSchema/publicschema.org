@@ -10,6 +10,7 @@ type: string
 cardinality: single
 vocabulary: null
 references: null
+category: identity
 schema_org_equivalent: "schema:alternateName"
 
 external_equivalents:

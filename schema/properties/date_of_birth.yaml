@@ -10,6 +10,7 @@ type: date
 cardinality: single
 vocabulary: null
 references: null
+category: demographics
 schema_org_equivalent: "schema:birthDate"
 
 external_equivalents:

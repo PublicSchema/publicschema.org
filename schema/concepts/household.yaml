@@ -41,6 +41,51 @@ properties:
   - ict_access
   - food_security_level
 
+property_groups:
+  - category: identity
+    properties:
+      - name
+      - identifiers
+      - identity_documents
+  - category: administrative
+    properties:
+      - group_type
+      - formation_date
+      - member_count
+      - memberships
+  - category: location
+    properties:
+      - address
+      - location
+  - category: housing
+    properties:
+      - dwelling_type
+      - floor_material
+      - wall_material
+      - roof_material
+  - category: wash
+    properties:
+      - water_source
+      - water_service_level
+      - sanitation_facility
+      - sanitation_service_level
+  - category: energy
+    properties:
+      - cooking_fuel
+      - electricity_access
+  - category: economic
+    properties:
+      - income_source
+  - category: assets
+    properties:
+      - household_assets
+  - category: ict
+    properties:
+      - ict_access
+  - category: food_security
+    properties:
+      - food_security_level
+
 supertypes: [Group]
 subtypes: []
 

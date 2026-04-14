@@ -136,6 +136,16 @@ def validate_schema_dir(schema_dir: Path) -> list[ValidationError]:
     vocabularies_with_paths = _load_vocabularies_with_paths(schema_dir / "vocabularies")
     bibliography = _load_all_yaml(schema_dir / "bibliography")
 
+    # Load categories (optional file)
+    categories_path = schema_dir / "categories.yaml"
+    categories = _load_yaml(categories_path) if categories_path.exists() else {}
+    if categories:
+        categories_schema = _load_json_schema("categories.schema.json")
+        errors.extend(_validate_against_schema(
+            categories, categories_schema, "categories.yaml",
+        ))
+    category_ids = set(categories.keys())
+
     # Build lookup indexes
     concept_ids = {data["id"] for data in concepts.values() if "id" in data}
     property_ids = {data["id"] for data in properties.values() if "id" in data}
@@ -351,7 +361,80 @@ def validate_schema_dir(schema_dir: Path) -> list[ValidationError]:
                 ))
             seen.add(code)
 
+    # property_groups validation: category references and completeness
+    for filename, data in concepts.items():
+        groups = data.get("property_groups")
+        if not groups:
+            continue
+        concept_id = data.get("id", filename)
+
+        # Check that every category ID references a defined category
+        for group in groups:
+            cat = group.get("category", "")
+            if cat and category_ids and cat not in category_ids:
+                errors.append(ValidationError(
+                    filename,
+                    f"property_groups references category '{cat}' "
+                    f"which is not defined in categories.yaml",
+                ))
+
+        # Completeness: every own + inherited property must appear in groups.
+        # Collect all properties that should appear on this concept.
+        all_expected = set()
+        # Own properties
+        for prop_entry in data.get("properties", []):
+            pid = prop_entry["id"] if isinstance(prop_entry, dict) else prop_entry
+            all_expected.add(pid)
+        # Inherited properties (walk supertype chain)
+        visited_supers: set[str] = set()
+        _collect_inherited_ids(
+            data, concept_by_id, all_expected, visited_supers,
+        )
+        # Collect all properties listed in groups
+        grouped_ids = set()
+        for group in groups:
+            for pid in group.get("properties", []):
+                grouped_ids.add(pid)
+
+        missing = all_expected - grouped_ids
+        if missing:
+            missing_sorted = ", ".join(sorted(missing))
+            errors.append(ValidationError(
+                filename,
+                f"property_groups on '{concept_id}' is missing properties: "
+                f"{missing_sorted}. These would silently vanish from the "
+                f"concept page.",
+            ))
+
+        # Check that grouped properties actually exist
+        for group in groups:
+            for pid in group.get("properties", []):
+                if pid not in property_ids:
+                    errors.append(ValidationError(
+                        filename,
+                        f"property_groups references property '{pid}' "
+                        f"which is not defined in properties/",
+                    ))
+
     return errors
+
+
+def _collect_inherited_ids(
+    concept_data: dict,
+    concept_by_id: dict[str, tuple[str, dict]],
+    result: set[str],
+    visited: set[str],
+) -> None:
+    """Walk the supertype chain and collect all inherited property IDs."""
+    for st in concept_data.get("supertypes", []):
+        if st in visited or st not in concept_by_id:
+            continue
+        visited.add(st)
+        _, parent_data = concept_by_id[st]
+        for prop_entry in parent_data.get("properties", []):
+            pid = prop_entry["id"] if isinstance(prop_entry, dict) else prop_entry
+            result.add(pid)
+        _collect_inherited_ids(parent_data, concept_by_id, result, visited)
 
 
 def main():

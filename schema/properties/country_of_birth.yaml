@@ -10,6 +10,7 @@ type: string
 cardinality: single
 vocabulary: country
 references: null
+category: demographics
 schema_org_equivalent: null
 
 external_equivalents:

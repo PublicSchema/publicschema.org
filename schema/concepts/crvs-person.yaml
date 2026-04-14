@@ -43,6 +43,31 @@ properties:
   - place_of_usual_residence
   - age_at_event
 
+property_groups:
+  - category: other
+    properties:
+      - person
+  - category: demographics
+    properties:
+      - nationality
+      - marital_status
+      - religion
+      - ethnic_group
+      - age_at_event
+  - category: education
+    properties:
+      - education_level
+      - literacy
+  - category: employment
+    properties:
+      - occupation
+      - employment_status
+      - status_in_employment
+      - industry
+  - category: location
+    properties:
+      - place_of_usual_residence
+
 subtypes: [Parent]
 supertypes: []
 
