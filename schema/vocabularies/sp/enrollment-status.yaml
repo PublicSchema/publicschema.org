@@ -20,6 +20,15 @@ references:
     relationship: prose_guidance
     machine_readable: false
 values:
+- code: pending_verification
+  label:
+    en: Pending verification
+    fr: Vérification en attente
+    es: Verificación pendiente
+  definition:
+    en: The enrollment has been initiated but cannot become active until required eligibility, identity, or document checks are completed.
+    fr: L'inscription a été initiée mais ne peut pas devenir active tant que les vérifications requises d'admissibilité, d'identité ou de documents ne sont pas terminées.
+    es: La inscripción ha sido iniciada pero no puede volverse activa hasta que se completen las verificaciones requeridas de elegibilidad, identidad o documentos.
 - code: waitlisted
   label:
     en: Waitlisted
@@ -73,9 +82,8 @@ system_mappings:
     values:
     - code: draft
       label: Draft
-      maps_to: null
-      unmapped_reason: out_of_scope
-      note: "Draft is a pre-enrollment application state, not an enrollment lifecycle state."
+      maps_to: pending_verification
+      note: "Draft is the closest OpenSPP equivalent for an enrollment that exists but is not yet fully verified or activated."
     - code: enrolled
       label: Enrolled
       maps_to: active
@@ -101,6 +109,7 @@ system_mappings:
       label: Cancelled
       maps_to: closed
     unmapped_canonical:
+    - pending_verification
     - waitlisted
     - suspended
     - graduated
@@ -110,9 +119,8 @@ system_mappings:
     values:
     - code: POTENTIAL
       label: Potential
-      maps_to: null
-      unmapped_reason: out_of_scope
-      note: "Potential is a pre-enrollment state before admission to the program."
+      maps_to: pending_verification
+      note: "Potential is the closest openIMIS equivalent for a beneficiary record that is not yet fully admitted or activated."
     - code: ACTIVE
       label: Active
       maps_to: active
@@ -141,4 +149,5 @@ system_mappings:
       label: Suspended
       maps_to: suspended
     unmapped_canonical:
+    - pending_verification
     - waitlisted
