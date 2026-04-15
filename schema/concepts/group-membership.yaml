@@ -8,18 +8,23 @@ maturity: candidate
 definition:
   en: >
     The link between a Person and a Group, carrying the role the person
-    plays within that group (such as head, spouse, or dependent). This
-    link allows a person to belong to multiple groups at the same time.
+    plays within that group membership (such as head, spouse, child,
+    owner, operator, or worker). Applicable role values depend on the
+    kind of group. This link allows a person to belong to multiple
+    groups at the same time.
   fr: >
     Le lien entre une personne et un groupe, indiquant le rôle que la
-    personne joue au sein de ce groupe (tel que chef de groupe, conjoint
-    ou dépendant). Ce lien permet à une personne d'appartenir à plusieurs
-    groupes simultanément.
+    personne joue dans cette appartenance au groupe (tel que chef,
+    conjoint, enfant, propriétaire, exploitant ou travailleur). Les
+    valeurs de rôle applicables dépendent du type de groupe. Ce lien
+    permet à une personne d'appartenir à plusieurs groupes
+    simultanément.
   es: >
     El vínculo entre una persona y un grupo, que indica el rol que la
-    persona desempeña dentro de ese grupo (como jefe, cónyuge o
-    dependiente). Este vínculo permite que una persona pertenezca a
-    varios grupos al mismo tiempo.
+    persona desempeña dentro de esa membresía de grupo (como jefe,
+    cónyuge, hijo, propietario, operador o trabajador). Los valores de
+    rol aplicables dependen del tipo de grupo. Este vínculo permite que
+    una persona pertenezca a varios grupos al mismo tiempo.
 
 properties:
   - person

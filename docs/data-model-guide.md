@@ -110,7 +110,7 @@ You can also reference the Definition Excel workbooks directly in the RFP as the
 
 ### Person-to-Group is many-to-many
 
-PublicSchema models the relationship between people and groups (households, families, etc.) through a GroupMembership concept that carries a role (head, spouse, child, dependent). Do not model this as a simple list of members on the group. A person can belong to multiple groups, and the role matters.
+PublicSchema models the relationship between people and groups (households, families, farms, etc.) through a GroupMembership concept that carries a role (for example head, spouse, child, owner, operator, or worker). Do not model this as a simple list of members on the group. A person can belong to multiple groups, and the role matters.
 
 ### Identifiers are separate from Person
 
