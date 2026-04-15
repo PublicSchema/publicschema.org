@@ -11,16 +11,26 @@ definition:
   en: >
     An abstract collection of persons that serves as the base for concrete
     group types such as Household, Family, and Farm. Groups are linked to
-    their members via membership links.
+    their members via membership links. In native PublicSchema modeling, the
+    concrete subtype carries the authoritative semantics; group_type is kept
+    as an interoperability classifier for systems that exchange groups through
+    a flatter category field.
   fr: >
     Un regroupement abstrait de personnes qui sert de base aux types de
     groupes concrets tels que Ménage, Famille et Exploitation agricole.
-    Les groupes sont liés à leurs membres via des liens d'appartenance.
+    Les groupes sont liés à leurs membres via des liens d'appartenance. Dans
+    la modélisation native de PublicSchema, le sous-type concret porte la
+    sémantique faisant autorité; group_type est conservé comme classificateur
+    d'interopérabilité pour les systèmes qui échangent les groupes au moyen
+    d'un champ de catégorie plus plat.
   es: >
     Una colección abstracta de personas que sirve como base para tipos
     de grupos concretos como Hogar, Familia y Explotación Agrícola. Los
     grupos se vinculan a sus miembros a través de relaciones de
-    pertenencia.
+    pertenencia. En el modelado nativo de PublicSchema, el subtipo concreto
+    lleva la semántica autorizada; group_type se conserva como clasificador
+    de interoperabilidad para sistemas que intercambian grupos mediante un
+    campo de categoría más plano.
 
 properties:
   - group_type

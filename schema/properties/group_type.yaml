@@ -1,10 +1,10 @@
 id: group_type
-maturity: candidate
+maturity: normative
 
 definition:
-  en: "The administrative or social category of the group."
-  fr: "La catégorie administrative ou sociale du groupe."
-  es: "La categoría administrativa o social del grupo."
+  en: "An interoperability classifier for the category of group record being exchanged or exported. In native PublicSchema modeling, the concrete Group subtype is the authoritative signal when known."
+  fr: "Un classificateur d'interopérabilité pour la catégorie d'enregistrement de groupe échangé ou exporté. Dans la modélisation native de PublicSchema, le sous-type concret de Group est le signal faisant autorité lorsqu'il est connu."
+  es: "Un clasificador de interoperabilidad para la categoría del registro de grupo que se intercambia o exporta. En el modelado nativo de PublicSchema, el subtipo concreto de Group es la señal autorizada cuando se conoce."
 
 type: string
 cardinality: single
@@ -18,9 +18,9 @@ external_equivalents:
     uri: "https://schema.spdci.org/core/v1/data/group_type"
     match: close
     vocabulary: "DCI Core"
-    note: "Both classify the category of group; DCI uses AssistanceUnitEnum, PublicSchema uses a broader vocabulary"
+    note: "Both classify the category of group record for exchange purposes; DCI uses AssistanceUnitEnum, while PublicSchema uses a broader interoperability vocabulary alongside native Group subtypes."
 
 convergence:
   system_count: 4
   total_systems: 5
-  notes: "Present in 4 of 5 mapped systems. All systems distinguish between household, family, and farm types, though the exact categories vary."
+  notes: "Present in 4 of 5 mapped systems. Systems commonly expose a flat classifier for household, family, or farm-like records even when their native model differs. PublicSchema treats this property as an interoperability classifier rather than the authoritative source of Group semantics."

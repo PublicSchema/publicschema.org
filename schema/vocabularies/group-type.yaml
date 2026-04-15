@@ -1,13 +1,13 @@
 id: group-type
-maturity: candidate
+maturity: normative
 label:
   en: Group Type
   fr: Type de groupe
   es: Tipo de grupo
 definition:
-  en: Categories used to classify the administrative or social type of a group in a public service delivery system.
-  fr: Catégories utilisées pour classer le type administratif ou social d'un groupe dans un système de prestation de services publics.
-  es: Categorías utilizadas para clasificar el tipo administrativo o social de un grupo en un sistema de prestación de servicios públicos.
+  en: Categories used as an interoperability classifier for group records in external or flat data models. In native PublicSchema modeling, the concrete Group subtype remains authoritative; this vocabulary supports mapping and export.
+  fr: Catégories utilisées comme classificateur d'interopérabilité pour les enregistrements de groupe dans des modèles de données externes ou plats. Dans la modélisation native de PublicSchema, le sous-type concret de Group reste faisant autorité; ce vocabulaire sert au mappage et à l'export.
+  es: Categorías utilizadas como clasificador de interoperabilidad para registros de grupo en modelos de datos externos o planos. En el modelado nativo de PublicSchema, el subtipo concreto de Group sigue siendo la referencia autorizada; este vocabulario sirve para mapeo y exportación.
 references:
   - name: "UN Principles and Recommendations for Population and Housing Censuses (Rev.3)"
     uri: "https://unstats.un.org/unsd/demographic-social/Standards-and-Methods/files/Principles_and_Recommendations/Population-and-Housing-Censuses/Series_M67rev3-E.pdf"
@@ -16,7 +16,7 @@ references:
     notes: "Defines household and family as statistical units. No standard code system for group type classification exists."
 see_also:
   - vocabulary: group-role
-    note: "group-type classifies the kind of group (household, family, farm); group-role classifies a person's position within a group (head, spouse, child). The two are orthogonal."
+    note: "group-type is an interoperability classifier for the kind of group record being exchanged (household, family, farm); group-role classifies a person's position within a group membership. The concrete Group subtype is the authoritative native PublicSchema signal when known."
 values:
 - code: household
   label:
@@ -24,36 +24,36 @@ values:
     fr: Ménage
     es: Hogar
   definition:
-    en: A group of persons who share a dwelling and typically pool resources for daily living. The operational definition varies across countries and programs, combining criteria of co-residence, shared budget, shared cooking, kinship, and administrative registration.
-    fr: Un groupe de personnes partageant un logement et mettant généralement en commun des ressources pour la vie quotidienne. La définition opérationnelle varie selon les pays et les programmes, combinant des critères de corésidence, de budget partagé, de cuisine commune, de parenté et d'enregistrement administratif.
-    es: Un grupo de personas que comparten una vivienda y generalmente comparten recursos para la vida diaria. La definición operativa varía entre países y programas, combinando criterios de corresidencia, presupuesto compartido, cocina compartida, parentesco y registro administrativo.
+    en: Classifier for group records that represent a household. Operational definitions vary across countries and programs, commonly combining co-residence, shared budget, shared cooking, kinship, and administrative registration.
+    fr: Classificateur pour les enregistrements de groupe qui représentent un ménage. Les définitions opérationnelles varient selon les pays et les programmes, combinant souvent corésidence, budget partagé, cuisine commune, parenté et enregistrement administratif.
+    es: Clasificador para registros de grupo que representan un hogar. Las definiciones operativas varían entre países y programas y suelen combinar corresidencia, presupuesto compartido, cocina compartida, parentesco y registro administrativo.
 - code: family
   label:
     en: Family
     fr: Famille
     es: Familia
   definition:
-    en: A group defined by legal or biological kinship ties, which may span multiple households.
-    fr: Un groupe défini par des liens de parenté légaux ou biologiques, pouvant s'étendre sur plusieurs ménages.
-    es: Un grupo definido por lazos de parentesco legal o biológico, que puede abarcar varios hogares.
+    en: Classifier for group records that represent a family or kinship unit, which may span multiple households.
+    fr: Classificateur pour les enregistrements de groupe qui représentent une famille ou une unité de parenté, pouvant s'étendre sur plusieurs ménages.
+    es: Clasificador para registros de grupo que representan una familia o unidad de parentesco, que puede abarcar varios hogares.
 - code: farm
   label:
     en: Farm
     fr: Exploitation agricole
     es: Explotación Agrícola
   definition:
-    en: An agricultural production unit, often household-based, used for targeting agricultural support programs.
-    fr: Une unité de production agricole, souvent basée sur le ménage, utilisée pour cibler les programmes d'aide agricole.
-    es: Una unidad de producción agrícola, generalmente basada en el hogar, utilizada para focalizar programas de apoyo agrícola.
+    en: Classifier for group records that represent an agricultural production unit, often household-based, used in agricultural or social protection programs.
+    fr: Classificateur pour les enregistrements de groupe qui représentent une unité de production agricole, souvent basée sur le ménage, utilisée dans des programmes agricoles ou de protection sociale.
+    es: Clasificador para registros de grupo que representan una unidad de producción agrícola, a menudo basada en el hogar, utilizada en programas agrícolas o de protección social.
 - code: other
   label:
     en: Other
     fr: Autre
     es: Otro
   definition:
-    en: A group type not covered by the other categories.
-    fr: Un type de groupe non couvert par les autres catégories.
-    es: Un tipo de grupo no cubierto por las otras categorías.
+    en: Classifier for a group record whose external category does not fit the other canonical group-type values.
+    fr: Classificateur pour un enregistrement de groupe dont la catégorie externe ne correspond pas aux autres valeurs canoniques de type de groupe.
+    es: Clasificador para un registro de grupo cuya categoría externa no encaja en los demás valores canónicos de tipo de grupo.
 system_mappings:
   openspp:
     vocabulary_name: GroupType
