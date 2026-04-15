@@ -11,6 +11,7 @@ interface Props {
   ogType?: 'website' | 'article';
   locale?: Locale;
   noHreflang?: boolean;
+  openHypothesisSidebar?: boolean;
 }
 
 const {
@@ -19,7 +20,9 @@ const {
   ogType = 'website',
   locale = defaultLocale,
   noHreflang = false,
+  openHypothesisSidebar = false,
 } = Astro.props;
+
 
 const t = useTranslations(locale);
 const description = Astro.props.description ?? t('footer.tagline');
@@ -119,22 +122,40 @@ const navLinks = [
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
   <!-- Hypothes.is annotation sidebar -->
-  <script type="application/json" class="js-hypothesis-config">
-    {
-      "showHighlights": "whenSidebarOpen",
-      "services": [{
-        "authority": "hypothes.is",
-        "allowLeavingGroups": true,
-        "groups": ["6EELqkDo"]
-      }],
-      "branding": {
-        "appBackgroundColor": "#faf9f6",
-        "ctaBackgroundColor": "#1e3a5f",
-        "ctaTextColor": "#ffffff",
-        "selectionFontFamily": "'IBM Plex Sans', system-ui, sans-serif",
-        "annotationFontFamily": "'IBM Plex Serif', Georgia, serif"
+  <script is:inline define:vars={{ openByDefault: openHypothesisSidebar }}>
+    (function () {
+      var DISMISSED_KEY = 'publicschema.hypothesisSidebarDismissed';
+      var dismissed = false;
+      try { dismissed = localStorage.getItem(DISMISSED_KEY) === '1'; } catch (e) {}
+
+      var wasExpanded = false;
+      var config = {
+        showHighlights: 'whenSidebarOpen',
+        focus: { group: '6EELqkDo' },
+        openLoginForm: true,
+        branding: {
+          appBackgroundColor: '#faf9f6',
+          ctaBackgroundColor: '#1e3a5f',
+          ctaTextColor: '#ffffff',
+          selectionFontFamily: "'IBM Plex Sans', system-ui, sans-serif",
+          annotationFontFamily: "'IBM Plex Serif', Georgia, serif",
+        },
+        onLayoutChange: function (layout) {
+          try {
+            if (layout.expanded) {
+              localStorage.removeItem(DISMISSED_KEY);
+            } else if (wasExpanded) {
+              localStorage.setItem(DISMISSED_KEY, '1');
+            }
+          } catch (e) {}
+          wasExpanded = !!layout.expanded;
+        },
+      };
+      if (openByDefault && !dismissed) {
+        config.openSidebar = true;
       }
-    }
+      window.hypothesisConfig = function () { return config; };
+    })();
   </script>
   <script async src="https://hypothes.is/embed.js"></script>
 </head>

@@ -28,7 +28,7 @@ const bibRefs = (vocabulary.bibliography_refs ?? [])
   .filter((entry) => entry !== undefined);
 const otherRefs = vocabulary.references ?? [];
 ---
-<Base title={displayLabel} description={definition} alternateJsonLd={`/vocab/${vocab}.jsonld`} ogType="article" locale={locale}>
+<Base title={displayLabel} description={definition} alternateJsonLd={`/vocab/${vocab}.jsonld`} ogType="article" locale={locale} openHypothesisSidebar={vocabulary.maturity !== 'normative'}>
   <article>
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
