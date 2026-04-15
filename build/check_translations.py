@@ -289,9 +289,10 @@ def _check_label(
 ) -> None:
     """Validate that a schema entity's label has FR/ES translations.
 
-    Only fires when the ``label`` key is present (label is optional
-    until all property files have been populated). Same maturity gating
-    as definitions: drafts may omit, candidate+ must have all locales.
+    Only fires when the ``label`` key is present. For properties,
+    label is required by the JSON Schema; for concepts and vocabularies
+    it is not. Same maturity gating as definitions: drafts may omit
+    translations, candidate+ must have all locales.
     """
     if "label" not in data:
         return
