@@ -2,9 +2,9 @@ id: grievance_subject
 maturity: candidate
 
 definition:
-  en: "Reference to the person, enrollment, or payment event that the grievance concerns."
-  fr: "Référence à la personne, à l'inscription ou à l'événement de paiement que le grief concerne."
-  es: "Referencia a la persona, inscripción o evento de pago que atañe a la queja."
+  en: "The identifier, URI, or local reference for the person, enrollment, payment event, or other record that the grievance concerns."
+  fr: "L'identifiant, l'URI ou la référence locale de la personne, de l'inscription, de l'événement de paiement ou d'un autre dossier concerné par la réclamation."
+  es: "El identificador, URI o referencia local de la persona, la inscripción, el evento de pago u otro registro al que se refiere la reclamación."
 
 type: string
 cardinality: single

@@ -1,5 +1,5 @@
 id: grievance-type
-maturity: candidate
+maturity: normative
 domain: sp
 label:
   en: Grievance Type
@@ -7,9 +7,9 @@ label:
   es: Tipo de reclamación
 
 definition:
-  en: "Categories describing the nature of a grievance or complaint received by a program through its redress mechanism."
-  fr: "Catégories décrivant la nature d'un grief ou d'une plainte reçus par un programme par le biais de son mécanisme de recours."
-  es: "Categorías que describen la naturaleza de una queja o reclamación recibida por un programa a través de su mecanismo de recurso."
+  en: "Categories describing the primary issue raised in a grievance record handled through a program's redress mechanism."
+  fr: "Catégories décrivant le principal problème soulevé dans un dossier de réclamation traité par le mécanisme de recours d'un programme."
+  es: "Categorías que describen el problema principal planteado en un registro de queja o reclamación tramitado por el mecanismo de reclamaciones de un programa."
 
 references:
   - name: "World Bank Sourcebook on the Foundations of Social Protection Delivery Systems, Chapter 8"
@@ -17,6 +17,11 @@ references:
     relationship: prose_guidance
     machine_readable: false
     notes: "Chapter 8 covers grievance redress mechanisms in social protection delivery, organizing grievance types along delivery chain phases."
+  - name: "World Bank Grievance Redress Mechanisms Guidance Note"
+    uri: "https://openknowledge.worldbank.org/bitstreams/b4a57d20-24bf-518a-93b1-1a5db3bdbae1/download"
+    relationship: prose_guidance
+    machine_readable: false
+    notes: "Distinguishes formal grievance handling from broader inquiry and feedback channels. This vocabulary covers the issue category once a case is treated as a grievance."
   - name: "ISO 10002 - Quality management, Complaints handling"
     uri: "https://www.iso.org/standard/71580.html"
     relationship: prose_guidance
@@ -59,9 +64,9 @@ values:
       fr: Correction de données
       es: Corrección de datos
     definition:
-      en: "A request to correct inaccurate or outdated personal data held by the program, such as a misspelled name, wrong date of birth, or incorrect disability status."
-      fr: "Une demande de correction de données personnelles inexactes ou obsolètes détenues par le programme, comme un nom mal orthographié, une date de naissance erronée ou un statut de handicap incorrect."
-      es: "Una solicitud para corregir datos personales inexactos u obsoletos en poder del programa, como un nombre mal escrito, una fecha de nacimiento incorrecta o un estado de discapacidad incorrecto."
+      en: "A grievance seeking correction of inaccurate or outdated program data, such as a misspelled name, wrong date of birth, or incorrect disability status."
+      fr: "Une réclamation demandant la correction de données inexactes ou obsolètes détenues par le programme, comme un nom mal orthographié, une date de naissance erronée ou un statut de handicap incorrect."
+      es: "Una reclamación que solicita corregir datos inexactos u obsoletos en poder del programa, como un nombre mal escrito, una fecha de nacimiento incorrecta o un estado de discapacidad incorrecto."
 
   - code: appeal
     label:
@@ -93,27 +98,23 @@ values:
       fr: "Une allégation de fraude, corruption, exploitation, abus, harcèlement ou autre comportement inapproprié de la part du personnel ou des agents du programme."
       es: "Una alegación de fraude, corrupción, explotación, abuso, acoso u otro comportamiento impropio por parte del personal o agentes del programa."
 
-  - code: information_request
-    label:
-      en: Information request
-      fr: Demande d'information
-      es: Solicitud de información
-    definition:
-      en: "A request for information about program rules, eligibility criteria, benefit entitlements, or complaint procedures, when received through the grievance intake channel."
-      fr: "Une demande d'information sur les règles du programme, les critères d'admissibilité, les droits aux prestations ou les procédures de plainte, lorsqu'elle est reçue par le canal d'accueil des griefs."
-      es: "Una solicitud de información sobre las reglas del programa, los criterios de elegibilidad, los derechos a prestaciones o los procedimientos de queja, cuando se recibe a través del canal de recepción de quejas."
-
   - code: other
     label:
       en: Other
       fr: Autre
       es: Otro
     definition:
-      en: "A grievance that does not fit the other categories, or where the type has not yet been determined."
-      fr: "Un grief qui ne correspond pas aux autres catégories, ou dont le type n'a pas encore été déterminé."
-      es: "Una queja que no se ajusta a las otras categorías, o cuyo tipo aún no ha sido determinado."
+      en: "A grievance whose primary issue does not fit the named categories, or has not yet been classified."
+      fr: "Une réclamation dont le problème principal ne correspond pas aux catégories nommées, ou n'a pas encore été classé."
+      es: "Una reclamación cuyo problema principal no encaja en las categorías definidas, o aún no ha sido clasificado."
 
-# No system_mappings yet. Codes are grounded in World Bank Sourcebook (Ch. 8)
-# and ISO 10002 grievance taxonomy. OpenSPP and openIMIS both support grievance
-# workflows but use free-text or configurable category lists rather than a
-# fixed enum. System mapping requires per-deployment analysis.
+# General information requests are not modeled as grievance types. If a program's
+# intake channel receives mixed traffic, classify those inquiries outside this
+# vocabulary and reserve grievance_type for complaints, appeals, correction
+# requests, and misconduct allegations.
+#
+# OpenSPP GRM categories are deployment-configurable records rather than a fixed
+# enum, and the extracted openIMIS grievance module does not expose a comparable
+# grievance type vocabulary. This taxonomy is therefore literature-grounded and
+# deployment-mappable, but not reducible to stable code-level cross-system
+# mappings today.

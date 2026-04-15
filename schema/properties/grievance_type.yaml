@@ -1,10 +1,10 @@
 id: grievance_type
-maturity: candidate
+maturity: normative
 
 definition:
-  en: "The category of grievance or complaint, classifying the nature of the issue raised."
-  fr: "La catégorie de grief ou de plainte, selon la nature du problème soulevé."
-  es: "La categoría de queja o reclamación que clasifica la naturaleza del problema planteado."
+  en: "The primary category of issue recorded for the grievance, such as an appeal, payment complaint, correction request, or misconduct allegation."
+  fr: "La catégorie principale du problème enregistrée pour la réclamation, comme un recours, une plainte de paiement, une demande de correction ou une allégation de manquement professionnel."
+  es: "La categoría principal del problema registrada para la reclamación, como un recurso, una queja de pago, una solicitud de corrección o una alegación de mala conducta."
 
 type: string
 cardinality: single

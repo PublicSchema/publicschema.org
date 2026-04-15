@@ -9,21 +9,21 @@ label:
 
 definition:
   en: >
-    A record of a beneficiary's or applicant's formal expression of
-    dissatisfaction or dispute regarding any aspect of the delivery chain.
-    Grievance covers appeals (requests to reverse a decision) and complaints
-    (dissatisfaction with service quality).
+    A record of a complaint, appeal, correction request, or misconduct
+    allegation raised through a program's grievance redress mechanism.
+    It captures formal issues about eligibility, enrollment, payments,
+    service delivery, or program conduct.
   fr: >
-    Un enregistrement de l'expression formelle d'insatisfaction ou de
-    contestation d'un bénéficiaire ou d'un demandeur concernant tout aspect
-    de la chaîne de prestation. La réclamation englobe les recours (demandes de reconsidération d'une
-    décision) et les plaintes (insatisfaction vis-à-vis de la qualité du
-    service).
+    Un enregistrement d'une plainte, d'un recours, d'une demande de correction
+    ou d'une allégation de manquement professionnel soulevé dans le cadre du
+    mécanisme de recours d'un programme. Il capture des problèmes formels liés
+    à l'admissibilité, à l'inscription, aux paiements, à la prestation des
+    services ou à la conduite du programme.
   es: >
-    Un registro de la expresión formal de insatisfacción o disputa de un
-    beneficiario o solicitante con respecto a cualquier aspecto de la cadena de prestación.
-    La queja o reclamación abarca los recursos (solicitudes para revertir
-    una decisión) y las quejas (insatisfacción con la calidad del servicio).
+    Un registro de una queja, recurso, solicitud de corrección o alegación de
+    mala conducta planteada a través del mecanismo de reclamaciones de un
+    programa. Captura problemas formales sobre elegibilidad, inscripción,
+    pagos, prestación de servicios o conducta del programa.
 
 properties:
   - complainant
