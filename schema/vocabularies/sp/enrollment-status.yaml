@@ -1,5 +1,5 @@
 id: enrollment-status
-maturity: candidate
+maturity: normative
 domain: sp
 label:
   en: Enrollment Status
@@ -46,27 +46,18 @@ values:
     fr: Suspendu
     es: Suspendido
   definition:
-    en: The enrollment has been temporarily paused, typically pending verification or compliance action.
-    fr: L'inscription a été temporairement suspendue, en attente de vérification ou d'action de conformité.
-    es: La inscripción ha sido temporalmente pausada, generalmente pendiente de verificación o acción de cumplimiento.
+    en: The enrollment has been temporarily paused, typically due to a compliance issue, administrative hold, or temporary ineligibility.
+    fr: L'inscription a été temporairement suspendue, généralement en raison d'un problème de conformité, d'un gel administratif ou d'une inéligibilité temporaire.
+    es: La inscripción ha sido temporalmente suspendida, generalmente debido a un problema de cumplimiento, una retención administrativa o una inelegibilidad temporal.
 - code: closed
   label:
     en: Closed
     fr: Clos
     es: Cerrado
   definition:
-    en: "The enrollment has been permanently ended. The reason for closure is captured in exit_reason."
-    fr: "L'inscription a été définitivement clôturée. La raison de la clôture est indiquée dans exit_reason."
-    es: "La inscripción ha sido terminada de forma permanente. La razón del cierre se indica en exit_reason."
-- code: pending_verification
-  label:
-    en: Pending verification
-    fr: En attente de vérification
-    es: Pendiente de verificación
-  definition:
-    en: The application is awaiting document or data verification before enrollment is confirmed.
-    fr: La demande attend la vérification des documents ou des données avant que l'inscription soit confirmée.
-    es: La solicitud está a la espera de verificación de documentos o datos antes de confirmar la inscripción.
+    en: "The enrollment has been permanently ended."
+    fr: "L'inscription a été définitivement clôturée."
+    es: "La inscripción ha sido terminada de forma permanente."
 - code: graduated
   domain: sp
   label:
@@ -82,7 +73,9 @@ system_mappings:
     values:
     - code: draft
       label: Draft
-      maps_to: pending_verification
+      maps_to: null
+      unmapped_reason: out_of_scope
+      note: "Draft is a pre-enrollment application state, not an enrollment lifecycle state."
     - code: enrolled
       label: Enrolled
       maps_to: active
@@ -110,7 +103,6 @@ system_mappings:
     unmapped_canonical:
     - waitlisted
     - suspended
-    - pending_verification
     - graduated
     note: "COMPLETED may map to graduated or closed + exit_reason depending on program context. CANCELLED maps to closed + exit_reason (administrative or voluntary_withdrawal)."
   openimis:
@@ -118,7 +110,9 @@ system_mappings:
     values:
     - code: POTENTIAL
       label: Potential
-      maps_to: pending_verification
+      maps_to: null
+      unmapped_reason: out_of_scope
+      note: "Potential is a pre-enrollment state before admission to the program."
     - code: ACTIVE
       label: Active
       maps_to: active
@@ -148,4 +142,3 @@ system_mappings:
       maps_to: suspended
     unmapped_canonical:
     - waitlisted
-    - pending_verification
