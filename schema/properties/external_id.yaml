@@ -1,5 +1,9 @@
 id: external_id
 maturity: draft
+label:
+  en: "External ID"
+  fr: "Identifiant externe"
+  es: "Identificador externo"
 
 definition:
   en: "Identifiers assigned by external systems (CRM, case management, etc.). Multiple allowed because a record may carry identifiers from several systems."

@@ -1,5 +1,9 @@
 id: structural_safety_assessment
 maturity: draft
+label:
+  en: "Structural safety assessment"
+  fr: "Évaluation de la sécurité structurale"
+  es: "Evaluación de seguridad estructural"
 
 definition:
   en: "Optional structural safety tag assigned by a qualified engineer or trained shelter assessor, using the ATC-20 green/yellow/red taxonomy. Frequently null: a household enumerator is not expected to assign a structural safety tag, and many post-shock administrations do not include a structural inspector visit."

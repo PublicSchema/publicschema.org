@@ -1,5 +1,9 @@
 id: subject
 maturity: draft
+label:
+  en: "Subject"
+  fr: "Sujet"
+  es: "Sujeto"
 
 definition:
   en: "The person or group that the profile or scoring event is about. Ranged at Party (not Agent) because Profiles observe receivers: persons and organised groups of persons (Household, Family, Farm). Institutional actors (Organizations) are described through their own Organization records, not as subjects of a Profile."

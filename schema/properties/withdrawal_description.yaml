@@ -1,5 +1,9 @@
 id: withdrawal_description
 maturity: draft
+label:
+  en: "Withdrawal description"
+  fr: "Description du retrait"
+  es: "Descripción del retiro"
 
 definition:
   en: "PrivacyNotice-only. Prose description of how the data subject can withdraw consent. Should reference withdrawal_uri if available, and describe any paper or verbal channels. Required by GDPR Art 7(3)."

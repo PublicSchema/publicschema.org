@@ -1,5 +1,9 @@
 id: measurement_type
 maturity: draft
+label:
+  en: "Measurement type"
+  fr: "type de mesure"
+  es: "tipo de medición"
 
 definition:
   en: "How height was measured: recumbent (lying down, for children under two years) or standing. WHO protocols prescribe recumbent length for children under 24 months and standing height from 24 months onward; substituting one for the other introduces a small systematic bias that affects z-score classification."

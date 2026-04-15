@@ -1,5 +1,9 @@
 id: anxiety_medication
 maturity: draft
+label:
+  en: "Anxiety medication"
+  fr: "Médicament pour l'anxiété"
+  es: "Medicación para la ansiedad"
 
 definition:
   en: "Whether the person takes medication for anxiety or worry. Applies to adults (WG-ES ANX_2). This filter is used to interpret anxiety_frequency answers, which are asked about symptoms while on medication if the person takes any."

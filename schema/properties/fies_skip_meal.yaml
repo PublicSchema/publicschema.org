@@ -1,5 +1,9 @@
 id: fies_skip_meal
 maturity: draft
+label:
+  en: "FIES skipped meal"
+  fr: "FIES repas sauté"
+  es: "FIES saltó comida"
 
 definition:
   en: "Whether, at any time during the FIES reference period, the household had to skip a meal because of lack of resources. One of eight experience-based items in the FAO Food Insecurity Experience Scale (FIES); the reference period is recorded in recall_period_days."

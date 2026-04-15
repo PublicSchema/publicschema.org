@@ -1,5 +1,9 @@
 id: delivery_location
 maturity: draft
+label:
+  en: "Delivery location"
+  fr: "Lieu de distribution"
+  es: "Lugar de distribución"
 
 definition:
   en: "The location where the distribution took place, such as a distribution point, school, or health facility."

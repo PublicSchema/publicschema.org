@@ -1,5 +1,9 @@
 id: version
 maturity: draft
+label:
+  en: "Version"
+  fr: "Version"
+  es: "Versión"
 
 definition:
   en: "The version identifier of an artefact such as an instrument, software agent, scoring rule, or privacy notice (for example, a release date such as 2022-10-11 or a semantic version like 6.2)."

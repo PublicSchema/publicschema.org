@@ -1,5 +1,9 @@
 id: geometry
 maturity: candidate
+label:
+  en: "Geometry"
+  fr: "Géométrie"
+  es: "Geometría"
 
 definition:
   en: "The geographic boundary or shape, expressed as a GeoJSON Geometry object (Point, Polygon, MultiPolygon, etc.)."

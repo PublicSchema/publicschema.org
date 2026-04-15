@@ -1,5 +1,9 @@
 id: coverage_period_end
 maturity: candidate
+label:
+  en: "Coverage period end"
+  fr: "Fin de la période de couverture"
+  es: "Fin del período de cobertura"
 
 definition:
   en: "The end date of the period this entitlement covers."

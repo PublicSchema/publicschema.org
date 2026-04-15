@@ -1,5 +1,9 @@
 id: water_service_level
 maturity: draft
+label:
+  en: "Water service level"
+  fr: "Niveau de service en eau"
+  es: "Nivel de servicio de agua"
 
 definition:
   en: "The WHO/UNICEF JMP classification of the household's drinking water service. Derived from water source type and collection time; not directly observed."

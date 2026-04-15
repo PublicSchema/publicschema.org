@@ -1,5 +1,9 @@
 id: birth_type
 maturity: draft
+label:
+  en: "Birth type"
+  fr: "Type de naissance"
+  es: "Tipo de nacimiento"
 
 definition:
   en: "Whether the birth was single, twin, triplet, or higher-order multiple. Captured at the level of the delivery, not per infant."

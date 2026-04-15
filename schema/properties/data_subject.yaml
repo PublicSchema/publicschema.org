@@ -1,5 +1,9 @@
 id: data_subject
 maturity: draft
+label:
+  en: "Data subject"
+  fr: "Personne concernée"
+  es: "Persona interesada"
 
 definition:
   en: "The natural person (or occasionally group) whose personal data is being processed under this record. Party is the abstract supertype covering Person and Group. Farm is excluded: farms are not natural persons or legal beneficiaries under any data protection law. When 'data_subject' is a Group, 'delegation_type' must not be 'self'."

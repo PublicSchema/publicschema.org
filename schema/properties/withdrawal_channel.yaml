@@ -1,5 +1,9 @@
 id: withdrawal_channel
 maturity: draft
+label:
+  en: "Withdrawal channel"
+  fr: "Canal de retrait"
+  es: "Canal de retiro"
 
 definition:
   en: "The channel through which the data subject withdrew consent: web, mobile, api, paper, verbal, in-person-office, community-worker, or other. Recorded when status transitions to withdrawn. Field-critical: adopters should record the channel even when the withdrawal arrives through a non-digital path."

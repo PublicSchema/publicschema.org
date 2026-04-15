@@ -1,5 +1,9 @@
 id: voucher_status
 maturity: draft
+label:
+  en: "Voucher status"
+  fr: "Statut du bon"
+  es: "Estado del vale"
 
 definition:
   en: "The lifecycle state of the voucher."

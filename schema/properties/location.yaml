@@ -1,5 +1,9 @@
 id: location
 maturity: candidate
+label:
+  en: "Location"
+  fr: "localisation"
+  es: "ubicación"
 
 definition:
   en: "The geographic location of the subject of this record, captured as coordinates or administrative area."

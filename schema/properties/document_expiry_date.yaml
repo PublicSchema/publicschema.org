@@ -1,5 +1,9 @@
 id: document_expiry_date
 maturity: candidate
+label:
+  en: "Document expiry date"
+  fr: "Date d'expiration du document"
+  es: "Fecha de vencimiento del documento"
 
 definition:
   en: "The date on which the document or credential representing the entitlement expires, which may differ from the entitlement period itself."

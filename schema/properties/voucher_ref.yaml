@@ -1,5 +1,9 @@
 id: voucher_ref
 maturity: draft
+label:
+  en: "Voucher reference"
+  fr: "Référence du bon"
+  es: "Referencia del vale"
 
 definition:
   en: "A reference to the voucher that this record relates to."

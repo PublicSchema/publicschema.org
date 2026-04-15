@@ -1,5 +1,9 @@
 id: governing_jurisdiction
 maturity: candidate
+label:
+  en: "Governing jurisdiction"
+  fr: "Juridiction compétente"
+  es: "Jurisdicción aplicable"
 
 definition:
   en: "The country or subdivision whose legislation governs this enrollment. Implicit in domestic programs, but must be explicit in cross-border or federated contexts such as social security coordination between countries."

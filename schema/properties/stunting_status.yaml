@@ -1,5 +1,9 @@
 id: stunting_status
 maturity: draft
+label:
+  en: "Stunting status"
+  fr: "Statut de retard de croissance"
+  es: "Estado de retraso del crecimiento"
 
 definition:
   en: "The stunting classification of the person based on height-for-age z-score (HAZ) relative to the WHO Child Growth Standards."

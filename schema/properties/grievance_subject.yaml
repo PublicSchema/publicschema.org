@@ -1,5 +1,9 @@
 id: grievance_subject
 maturity: candidate
+label:
+  en: "Grievance subject"
+  fr: "Objet de la réclamation"
+  es: "Asunto de la reclamación"
 
 definition:
   en: "The identifier, URI, or local reference for the person, enrollment, payment event, or other record that the grievance concerns."

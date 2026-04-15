@@ -1,5 +1,9 @@
 id: uses_hearing_aid
 maturity: draft
+label:
+  en: "Uses hearing aid"
+  fr: "Porte un appareil auditif"
+  es: "Usa audífono"
 
 definition:
   en: "Whether the person uses a hearing aid. Applies to adults (WG-ES HEAR_1) and to children (CFM CF4). This filter is used to interpret difficulty_hearing answers, which are asked with the hearing aid in use if the person wears one."

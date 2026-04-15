@@ -1,5 +1,9 @@
 id: administrative_level
 maturity: normative
+label:
+  en: "Administrative level"
+  fr: "Niveau administratif"
+  es: "Nivel administrativo"
 
 definition:
   en: "The numeric tier in the administrative hierarchy, following the OCHA COD-AB convention: 0 = country, 1 = first subnational (state, province, region), 2 = second subnational (district, county, department), and so on. No fixed maximum depth."

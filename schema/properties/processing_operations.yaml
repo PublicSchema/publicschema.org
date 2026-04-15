@@ -1,5 +1,9 @@
 id: processing_operations
 maturity: draft
+label:
+  en: "Processing operations"
+  fr: "opérations de traitement"
+  es: "operaciones de tratamiento"
 
 definition:
   en: "Values are W3C DPV URIs, normatively subclasses of `dpv:Processing` (e.g., `dpv:Collect`, `dpv:Store`, `dpv:Share`). Describes the operations being consented to. Cross-reference GDPR Art 4(2) for the definition of 'processing'."

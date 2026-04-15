@@ -1,5 +1,9 @@
 id: triggering_vital_event
 maturity: draft
+label:
+  en: "Triggering vital event"
+  fr: "Événement d'état civil déclencheur"
+  es: "Evento vital desencadenante"
 
 definition:
   en: "The vital event that triggered this record. On CivilStatusAnnotation the referenced VitalEvent identifies the later marriage, divorce, death, paternity recognition, or adoption that prompted the marginal annotation on the original acte."

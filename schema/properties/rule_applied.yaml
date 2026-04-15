@@ -1,5 +1,9 @@
 id: rule_applied
 maturity: draft
+label:
+  en: "Rule applied"
+  fr: "Règle appliquée"
+  es: "Regla aplicada"
 
 definition:
   en: "Reference to the scoring rule that was applied in this scoring event."

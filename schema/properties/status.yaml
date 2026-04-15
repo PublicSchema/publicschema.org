@@ -1,5 +1,9 @@
 id: status
 maturity: draft
+label:
+  en: "Status"
+  fr: "Statut"
+  es: "Estado"
 
 definition:
   en: "The current lifecycle state of the record: requested, given, renewed, refused, withdrawn, revoked, expired, invalidated, or unknown. Transitions follow the state machine documented in docs/consent-lifecycle.md. given triggers the immutability of terms-fields (data_subject, controllers, recipients, purposes, etc.); see the per-property immutable_after_status annotation."

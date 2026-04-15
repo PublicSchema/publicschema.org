@@ -1,5 +1,9 @@
 id: effective_date
 maturity: draft
+label:
+  en: "Effective date"
+  fr: "Date d'entrée en vigueur"
+  es: "Fecha de vigencia"
 
 definition:
   en: "The date on which this record or notice becomes operative. On a ConsentRecord, it may be later than signed_date (the day the data subject indicated consent) and later than created_at (the digitisation timestamp); for paper workflows, signed_date is the day of the paper signature and effective_date is typically the same day but may be delayed by program logic. On a PrivacyNotice, it is the date from which this notice version applies; records collected before this date reference the superseded version via supersedes_ref."

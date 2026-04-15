@@ -1,5 +1,9 @@
 id: settlement_type
 maturity: draft
+label:
+  en: "Settlement type"
+  fr: "Type de localité"
+  es: "Tipo de asentamiento"
 
 definition:
   en: "The classification of the area where the household is located by degree of urbanization."

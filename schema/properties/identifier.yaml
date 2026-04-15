@@ -1,5 +1,9 @@
 id: identifier
 maturity: draft
+label:
+  en: "Record identifier"
+  fr: "identifiant de l'enregistrement"
+  es: "identificador del registro"
 
 definition:
   en: "A unique identifier for this record (e.g., a ULID, UUID, or program-assigned ID). Scoped to the record's namespace; not necessarily globally unique."

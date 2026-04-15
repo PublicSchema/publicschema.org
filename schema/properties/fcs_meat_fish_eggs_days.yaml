@@ -1,5 +1,9 @@
 id: fcs_meat_fish_eggs_days
 maturity: draft
+label:
+  en: "FCS meat, fish and eggs days"
+  fr: "SCA jours viande, poisson et œufs"
+  es: "PCA días carne, pescado y huevos"
 
 definition:
   en: "Number of days in the past seven during which any member of the household consumed meat, fish, or eggs (beef, goat, poultry, pork, bushmeat, fresh or dried fish and seafood, eggs of any kind). Part of the WFP Food Consumption Score (FCS); the standard FCS questionnaire asks this as a single combined protein question."

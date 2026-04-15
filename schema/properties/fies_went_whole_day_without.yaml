@@ -1,5 +1,9 @@
 id: fies_went_whole_day_without
 maturity: draft
+label:
+  en: "FIES whole day without food"
+  fr: "FIES journée entière sans nourriture"
+  es: "FIES día entero sin comer"
 
 definition:
   en: "Whether, at any time during the FIES reference period, a member of the household went without eating for a whole day because of lack of resources. One of eight experience-based items in the FAO Food Insecurity Experience Scale (FIES); the reference period is recorded in recall_period_days."

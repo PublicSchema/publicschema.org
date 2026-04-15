@@ -1,5 +1,9 @@
 id: delivery_status
 maturity: draft
+label:
+  en: "Delivery status"
+  fr: "Statut de la livraison"
+  es: "Estado de la entrega"
 
 definition:
   en: "The status of this in-kind delivery."

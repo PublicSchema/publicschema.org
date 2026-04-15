@@ -1,5 +1,9 @@
 id: fcs_dairy_days
 maturity: draft
+label:
+  en: "FCS dairy days"
+  fr: "SCA jours produits laitiers"
+  es: "PCA días lácteos"
 
 definition:
   en: "Number of days in the past seven during which any member of the household consumed milk and dairy at meal-contributing quantities (NOT small amounts used as condiments). Part of the WFP Food Consumption Score (FCS)."

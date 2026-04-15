@@ -1,5 +1,9 @@
 id: coverage_period_start
 maturity: candidate
+label:
+  en: "Coverage period start"
+  fr: "Début de la période de couverture"
+  es: "Inicio del período de cobertura"
 
 definition:
   en: "The start date of the period this entitlement covers."

@@ -1,5 +1,9 @@
 id: birth_order
 maturity: draft
+label:
+  en: "Birth order"
+  fr: "Rang de naissance"
+  es: "Orden de nacimiento"
 
 definition:
   en: "For multiple births, the sequence number of this infant among the siblings born in the same delivery (1 for first-born, 2 for second-born, etc.)."

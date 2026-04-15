@@ -1,5 +1,9 @@
 id: height_for_age_z
 maturity: draft
+label:
+  en: "Height-for-age z-score"
+  fr: "Z-score taille-pour-âge"
+  es: "Puntaje z talla-para-edad"
 
 definition:
   en: "The height-for-age z-score (HAZ) derived from the raw height measurement against the declared growth reference. Values below -2 indicate stunting; below -3 indicate severe stunting under the WHO 2006 standard."

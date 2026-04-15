@@ -1,5 +1,9 @@
 id: event_date
 maturity: draft
+label:
+  en: "Event date"
+  fr: "Date de l'événement"
+  es: "Fecha del evento"
 
 definition:
   en: "The date on which the vital event (birth, death, marriage, etc.) occurred. Distinct from the registration date, which is when the event was recorded by a registration authority."

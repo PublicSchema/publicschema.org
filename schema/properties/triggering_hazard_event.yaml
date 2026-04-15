@@ -1,5 +1,9 @@
 id: triggering_hazard_event
 maturity: draft
+label:
+  en: "Triggering hazard event"
+  fr: "Événement déclencheur"
+  es: "Evento de peligro desencadenante"
 
 definition:
   en: "The hazard event that triggered this record. On DwellingDamageProfile the referenced HazardEvent identifies the flood, earthquake, cyclone, drought, conflict event, or other shock the post-shock assessment is responding to. A record may omit this property when the damage is chronic or not attributable to a single event."

@@ -1,5 +1,9 @@
 id: altitude_max
 maturity: draft
+label:
+  en: "Maximum altitude"
+  fr: "Altitude maximale"
+  es: "Altitud máxima"
 
 definition:
   en: "The maximum altitude of the area, in meters above sea level (WGS84 datum)."

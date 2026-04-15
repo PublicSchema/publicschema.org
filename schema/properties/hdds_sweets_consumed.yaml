@@ -1,5 +1,9 @@
 id: hdds_sweets_consumed
 maturity: draft
+label:
+  en: "HDDS sweets consumed"
+  fr: "SDAM sucreries consommées"
+  es: "EDDA dulces consumidos"
 
 definition:
   en: "Whether any member of the household consumed an item from the sweets food group (sugar, honey, sweetened beverages, candies, cakes) in the past 24 hours. One of twelve food groups used by the FAO Household Dietary Diversity Score (HDDS)."

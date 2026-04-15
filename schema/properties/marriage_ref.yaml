@@ -1,5 +1,9 @@
 id: marriage_ref
 maturity: draft
+label:
+  en: "Marriage reference"
+  fr: "référence au mariage"
+  es: "referencia al matrimonio"
 
 definition:
   en: "A reference to the Marriage record that this termination (divorce or annulment) dissolves. Links the end of the union back to its formation."

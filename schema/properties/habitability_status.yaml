@@ -1,5 +1,9 @@
 id: habitability_status
 maturity: draft
+label:
+  en: "Habitability status"
+  fr: "Statut d'habitabilité"
+  es: "Estado de habitabilidad"
 
 definition:
   en: "Programming-facing judgement of whether the assessed dwelling can currently be occupied and what category of shelter response it requires. Distinct from damage_level: a moderately damaged structure may still be habitable, and a lightly damaged one may be vacated for other reasons."

@@ -1,5 +1,9 @@
 id: hdds_legumes_nuts_seeds_consumed
 maturity: draft
+label:
+  en: "HDDS legumes, nuts and seeds consumed"
+  fr: "SDAM légumineuses, noix et graines consommées"
+  es: "EDDA legumbres, nueces y semillas consumidas"
 
 definition:
   en: "Whether any member of the household consumed an item from the legumes, nuts, and seeds food group (FAO group 8) in the past 24 hours. One of twelve food groups used by the FAO Household Dietary Diversity Score (HDDS)."

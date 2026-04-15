@@ -1,5 +1,9 @@
 id: registration_type
 maturity: draft
+label:
+  en: "Registration type"
+  fr: "Type d'enregistrement"
+  es: "Tipo de registro"
 
 definition:
   en: "The regime under which the registration was processed: current (within the legal window), late, court-ordered, or reconstruction of a lost record. Affects legal weight and downstream uses."

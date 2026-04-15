@@ -1,5 +1,9 @@
 id: record_type
 maturity: draft
+label:
+  en: "Record type"
+  fr: "Type d'acte"
+  es: "Tipo de acta"
 
 definition:
   en: "The type of civil status record: birth, marriage, death, paternity recognition, supplementary judgment (jugement supplétif), or a court-ordered substitute record. Determines which original vital event the record attests to."

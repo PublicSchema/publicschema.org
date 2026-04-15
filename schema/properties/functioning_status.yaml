@@ -1,5 +1,9 @@
 id: functioning_status
 maturity: draft
+label:
+  en: "Functioning status"
+  fr: "Statut fonctionnel"
+  es: "Estado funcional"
 
 definition:
   en: "A coarse current-state summary of the person's functioning difficulty, used by operational systems for targeting and eligibility queries. This is NOT a Washington Group or Child Functioning Module classification of the person: WG and CFM items are measured at the point of administration through a FunctioningProfile, and deriving a disability identifier requires applying a documented cutoff rule. Populate functioning_status from a FunctioningProfile only by citing the cutoff rule alongside; otherwise treat it as a self-declared or enumerator-judged summary."

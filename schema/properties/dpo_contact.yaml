@@ -1,5 +1,9 @@
 id: dpo_contact
 maturity: draft
+label:
+  en: "DPO contact"
+  fr: "Contact DPD"
+  es: "Contacto DPD"
 
 definition:
   en: "Contact details (email, phone, postal) for the data protection officer or equivalent privacy-contact role of the controller(s). Free-form string; typically an email address or a postal block. Required by GDPR Arts 13/14 for notices issued in EU jurisdictions."

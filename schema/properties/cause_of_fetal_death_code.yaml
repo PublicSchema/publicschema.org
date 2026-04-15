@@ -1,5 +1,9 @@
 id: cause_of_fetal_death_code
 maturity: draft
+label:
+  en: "Cause of fetal death code"
+  fr: "Code de la cause de la mortinaissance"
+  es: "Código de causa de muerte fetal"
 
 definition:
   en: "The coded cause of a fetal death, typically an ICD-PM (Perinatal Mortality) code. The coding system is specified by cause_of_fetal_death_coding_system."

@@ -1,5 +1,9 @@
 id: parents
 maturity: draft
+label:
+  en: "Parents"
+  fr: "parents"
+  es: "progenitores"
 
 definition:
   en: "The parents of the child, each captured as a Parent link entity that combines a Person with a parental role (biological mother, adoptive father, etc.)."

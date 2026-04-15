@@ -1,5 +1,9 @@
 id: occupation
 maturity: normative
+label:
+  en: "Occupation"
+  fr: "profession"
+  es: "ocupación"
 
 definition:
   en: "The person's primary occupation, classified according to the ISCO-08 sub-major groups."

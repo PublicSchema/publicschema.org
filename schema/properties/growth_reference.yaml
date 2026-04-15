@@ -1,5 +1,9 @@
 id: growth_reference
 maturity: draft
+label:
+  en: "Growth reference"
+  fr: "Référence de croissance"
+  es: "Referencia de crecimiento"
 
 definition:
   en: "The growth reference population used to derive z-scores and band classifications from anthropometric measurements. The WHO Child Growth Standards (2006) are the default for children under five; the WHO Growth Reference (2007) applies to 5-19 year-olds; historical datasets may use the CDC 2000 charts or the NCHS/WHO 1977 reference. Required whenever any derived status (stunting_status, wasting_status, underweight_status, acute_malnutrition_status) is populated."

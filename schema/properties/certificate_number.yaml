@@ -1,5 +1,9 @@
 id: certificate_number
 maturity: draft
+label:
+  en: "Certificate number"
+  fr: "Numéro de certificat"
+  es: "Número de certificado"
 
 definition:
   en: "The number printed on the issued certificate. Distinct from the registration number of the underlying event or record, since multiple certificates can be issued from the same record over time."

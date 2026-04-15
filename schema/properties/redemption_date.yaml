@@ -1,5 +1,9 @@
 id: redemption_date
 maturity: draft
+label:
+  en: "Redemption date"
+  fr: "Date d'échange"
+  es: "Fecha de canje"
 
 definition:
   en: "The date on which the voucher was redeemed at a vendor or agent."

@@ -1,5 +1,9 @@
 id: annotation_date
 maturity: draft
+label:
+  en: "Annotation date"
+  fr: "Date de la mention"
+  es: "Fecha de anotación"
 
 definition:
   en: "The date on which the annotation was added to the civil status record. Typically after the originating record was created, reflecting a later vital event."

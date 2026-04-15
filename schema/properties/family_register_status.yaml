@@ -1,5 +1,9 @@
 id: family_register_status
 maturity: draft
+label:
+  en: "Family register status"
+  fr: "Statut du registre familial"
+  es: "Estado del registro familiar"
 
 definition:
   en: "The lifecycle status of the family register: active, closed, split into multiple registers, or merged with another. Tracks how vital events reshape the register over time."

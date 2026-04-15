@@ -1,5 +1,9 @@
 id: exception_reason
 maturity: draft
+label:
+  en: "Exception reason"
+  fr: "Motif d'exception"
+  es: "Motivo de excepción"
 
 definition:
   en: "The reason a biometric sample could not be captured. When non-null, this record documents a capture exception rather than holding biometric data."

@@ -1,5 +1,9 @@
 id: cause_of_death_code
 maturity: draft
+label:
+  en: "Cause of death code"
+  fr: "Code de la cause du décès"
+  es: "Código de causa de defunción"
 
 definition:
   en: "The coded underlying cause of death, typically an ICD-10 or ICD-11 code. The coding scheme in use is specified by cause_of_death_coding_system."

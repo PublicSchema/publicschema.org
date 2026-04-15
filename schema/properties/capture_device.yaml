@@ -1,5 +1,9 @@
 id: capture_device
 maturity: draft
+label:
+  en: "Capture device"
+  fr: "Dispositif de capture"
+  es: "Dispositivo de captura"
 
 definition:
   en: "An identifier or description of the device used to capture the biometric sample."

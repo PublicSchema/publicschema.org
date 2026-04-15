@@ -1,5 +1,9 @@
 id: enrollment_ref
 maturity: candidate
+label:
+  en: "Enrollment reference"
+  fr: "Référence d'inscription"
+  es: "Referencia de inscripción"
 
 definition:
   en: "Reference to the enrollment to which this entitlement belongs."

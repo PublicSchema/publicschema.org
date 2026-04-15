@@ -1,5 +1,9 @@
 id: identifier_type
 maturity: normative
+label:
+  en: "Identifier type"
+  fr: "type d'identifiant"
+  es: "tipo de identificador"
 
 definition:
   en: "The category of identifier value (for example, national ID number, passport number, P-code)."

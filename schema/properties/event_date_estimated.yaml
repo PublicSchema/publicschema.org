@@ -1,5 +1,9 @@
 id: event_date_estimated
 maturity: draft
+label:
+  en: "Event date estimated"
+  fr: "Date estimée de l'événement"
+  es: "Fecha estimada del evento"
 
 definition:
   en: "Whether the event date is an estimate rather than a known exact date. Common for late-registered births or deaths where the precise date is not documented."

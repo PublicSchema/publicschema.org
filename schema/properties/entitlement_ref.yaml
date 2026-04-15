@@ -1,5 +1,9 @@
 id: entitlement_ref
 maturity: candidate
+label:
+  en: "Entitlement reference"
+  fr: "Référence au droit"
+  es: "Referencia al derecho"
 
 definition:
   en: "Reference to the entitlement that this payment or voucher fulfills."

@@ -1,5 +1,9 @@
 id: legal_basis
 maturity: draft
+label:
+  en: "Legal basis"
+  fr: "base juridique"
+  es: "base legal"
 
 definition:
   en: "The legal basis under GDPR Art 6(1) (or equivalent law) authorizing the processing. Cardinality multiple because a single record may rely on more than one basis; normative usage on a ConsentRecord is one basis. On a PrivacyNotice, multiple bases may coexist if the notice covers multiple processing operations. Field-critical: populate even if your UI does not require it."

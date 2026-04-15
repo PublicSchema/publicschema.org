@@ -1,5 +1,9 @@
 id: verified_by
 maturity: draft
+label:
+  en: "Verified by"
+  fr: "Vérifié par"
+  es: "Verificado por"
 
 definition:
   en: "Person who verified the consent record (for example, a case worker reviewing a scanned paper form, or an auditor confirming a sample of records). Distinct from witnessed_by (who observed the consent act) and from indicated_by (who expressed the consent). Optional but valuable for auditable workflows."

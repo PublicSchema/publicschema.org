@@ -1,5 +1,9 @@
 id: witnessed_by
 maturity: draft
+label:
+  en: "Witnessed by"
+  fr: "Témoigné par"
+  es: "Atestiguado por"
 
 definition:
   en: "Persons who witnessed the data subject's indication of consent. Field-critical for verbal consent ('collection_medium = verbal') and for biometric-as-signature ('consent_expression = opt-in-biometric') and witnessed signatures ('consent_expression = opt-in-witnessed'); adopters should populate this field even when the data-entry UI does not require it."

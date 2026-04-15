@@ -1,5 +1,9 @@
 id: postal_code
 maturity: normative
+label:
+  en: "Postal code"
+  fr: "code postal"
+  es: "código postal"
 
 definition:
   en: "The postal or zip code of the address."

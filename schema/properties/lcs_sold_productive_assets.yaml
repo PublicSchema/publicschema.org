@@ -1,5 +1,9 @@
 id: lcs_sold_productive_assets
 maturity: draft
+label:
+  en: "LCS sold productive assets"
+  fr: "SCM vente d'actifs productifs"
+  es: "EMV venta de activos productivos"
 
 definition:
   en: "Frequency with which the household sold productive assets (tools, sewing machine, livestock) to meet food needs in the past 30 days. Part of the WFP Livelihood Coping Strategies (LCS) module, crisis tier."

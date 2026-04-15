@@ -1,5 +1,9 @@
 id: underweight_status
 maturity: draft
+label:
+  en: "Underweight status"
+  fr: "Statut d'insuffisance pondérale"
+  es: "Estado de insuficiencia ponderal"
 
 definition:
   en: "The underweight classification of the person based on weight-for-age z-score (WAZ) relative to the WHO Child Growth Standards."

@@ -1,5 +1,9 @@
 id: expiry_date
 maturity: normative
+label:
+  en: "Expiry date"
+  fr: "Date d'expiration"
+  es: "Fecha de expiración"
 
 definition:
   en: "The date on which this record or document expires or becomes invalid."

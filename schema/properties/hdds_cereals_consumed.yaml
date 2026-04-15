@@ -1,5 +1,9 @@
 id: hdds_cereals_consumed
 maturity: draft
+label:
+  en: "HDDS cereals consumed"
+  fr: "SDAM céréales consommées"
+  es: "EDDA cereales consumidos"
 
 definition:
   en: "Whether any member of the household consumed an item from the cereals and grain products food group (bread, pasta, rice) in the past 24 hours. One of twelve food groups used by the FAO Household Dietary Diversity Score (HDDS)."

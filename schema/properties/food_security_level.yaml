@@ -1,5 +1,9 @@
 id: food_security_level
 maturity: draft
+label:
+  en: "Food security level"
+  fr: "Niveau de sécurité alimentaire"
+  es: "Nivel de seguridad alimentaria"
 
 definition:
   en: "A coarse current-state summary of the household's food insecurity, used by operational systems for targeting and referral queries. This is NOT the raw output of a specific food-security assessment instrument: item-level responses belong on a FoodSecurityProfile record (FCS, rCSI, LCS, HDDS, FIES, HHS, MDD-W, MAHFP). Populate food_security_level from a Profile only by citing the instrument and cutoff rule that produced the band via a ScoringEvent; otherwise treat it as a self-declared or enumerator-judged summary."

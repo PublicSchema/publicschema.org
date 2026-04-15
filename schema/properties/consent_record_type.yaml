@@ -1,5 +1,9 @@
 id: consent_record_type
 maturity: draft
+label:
+  en: "Consent record type"
+  fr: "Type d'enregistrement de consentement"
+  es: "Tipo de registro de consentimiento"
 
 definition:
   en: "Whether this record is an internal storage record or an externally-issued consent receipt. Internal records are the controller's working state; receipts are artefacts delivered to the data subject."

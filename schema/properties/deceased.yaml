@@ -1,5 +1,9 @@
 id: deceased
 maturity: draft
+label:
+  en: "Deceased"
+  fr: "Défunt"
+  es: "Fallecido"
 
 definition:
   en: "The person whose death is recorded. Remains a Person entity so that existing identifiers and attributes can still be referenced after death."

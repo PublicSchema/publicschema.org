@@ -1,5 +1,9 @@
 id: recipients
 maturity: draft
+label:
+  en: "Recipients"
+  fr: "Destinataires"
+  es: "Destinatarios"
 
 definition:
   en: "Organizations that receive the data or its derivatives. Includes processors, joint controllers, and independent controllers. See the parallel property 'recipient_role' for the role of each recipient."

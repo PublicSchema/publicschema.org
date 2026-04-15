@@ -1,5 +1,9 @@
 id: fies_ate_less
 maturity: draft
+label:
+  en: "FIES ate less"
+  fr: "FIES mangé moins"
+  es: "FIES comió menos"
 
 definition:
   en: "Whether, at any time during the FIES reference period, the household ate less than they thought they should because of lack of resources. One of eight experience-based items in the FAO Food Insecurity Experience Scale (FIES); the reference period is recorded in recall_period_days."

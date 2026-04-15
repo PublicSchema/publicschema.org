@@ -1,5 +1,9 @@
 id: cause_of_death
 maturity: draft
+label:
+  en: "Cause of death"
+  fr: "Cause du décès"
+  es: "Causa de defunción"
 
 definition:
   en: "A free-text description of the underlying cause of death as stated on the death certificate. Captured alongside a coded cause_of_death_code when classification is available."

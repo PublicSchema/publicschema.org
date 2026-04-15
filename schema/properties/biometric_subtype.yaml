@@ -1,5 +1,9 @@
 id: biometric_subtype
 maturity: draft
+label:
+  en: "Biometric subtype"
+  fr: "Sous-type biométrique"
+  es: "Subtipo biométrico"
 
 definition:
   en: "The specific body part or position within a biometric modality (e.g., right index finger, left eye, portrait)."

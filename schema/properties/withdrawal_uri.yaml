@@ -1,5 +1,9 @@
 id: withdrawal_uri
 maturity: draft
+label:
+  en: "Withdrawal URI"
+  fr: "URI de retrait"
+  es: "URI de retiro"
 
 definition:
   en: "URI exposed to the data subject for self-service withdrawal of consent. Required by GDPR Art 7(3) ('it shall be as easy to withdraw as to give consent'). Populated on the ConsentRecord when the controller offers a self-service endpoint."

@@ -1,5 +1,9 @@
 id: issuing_authority_location
 maturity: draft
+label:
+  en: "Issuing authority location"
+  fr: "localisation de l'autorité émettrice"
+  es: "ubicación de la autoridad emisora"
 
 definition:
   en: "The civil registration office that issued the record, modeled as a Location. Distinct from the string-valued issuing_authority property used on generic identifiers."

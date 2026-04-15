@@ -1,5 +1,9 @@
 id: payment_currency
 maturity: normative
+label:
+  en: "Payment currency"
+  fr: "devise du paiement"
+  es: "moneda del pago"
 
 definition:
   en: "The ISO 4217 currency code for this payment."

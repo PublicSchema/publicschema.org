@@ -1,5 +1,9 @@
 id: bmi_for_age_z
 maturity: draft
+label:
+  en: "BMI-for-age z-score"
+  fr: "Z-score IMC-pour-âge"
+  es: "Puntaje z IMC-para-edad"
 
 definition:
   en: "The BMI-for-age z-score (BAZ) derived from height and weight against the declared growth reference. Used under the WHO 2007 reference for school-age children and adolescents (5-19 years) in place of weight-for-height, which does not apply in that age range."

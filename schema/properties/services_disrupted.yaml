@@ -1,5 +1,9 @@
 id: services_disrupted
 maturity: draft
+label:
+  en: "Services disrupted"
+  fr: "Services perturbés"
+  es: "Servicios afectados"
 
 definition:
   en: "Essential services (water, sanitation, electricity, telecommunications) that are currently degraded at the household's dwelling after the shock. Multi-select. Codes cover both full outage and partial-function cases: water may be absent, intermittent, or present-but-unsafe; sanitation may be unusable or present-but-overflowing; electricity may be absent or intermittent. Distinct from the household's baseline service infrastructure type, which is recorded by water_source, sanitation_facility, and electricity_access."

@@ -1,5 +1,9 @@
 id: cutoff_rule
 maturity: draft
+label:
+  en: "Cutoff rule"
+  fr: "Règle de seuil"
+  es: "Regla de corte"
 
 definition:
   en: "The population-specific cutoff rule used to classify acute malnutrition from MUAC or other measurements. MUAC cutoffs differ by population: WHO/UNICEF thresholds for children 6-59 months, z-score based for school-age children and adolescents, Sphere thresholds for pregnant and lactating women. Required whenever acute_malnutrition_status is populated."

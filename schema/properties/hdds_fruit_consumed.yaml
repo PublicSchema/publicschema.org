@@ -1,5 +1,9 @@
 id: hdds_fruit_consumed
 maturity: draft
+label:
+  en: "HDDS fruit consumed"
+  fr: "SDAM fruits consommés"
+  es: "EDDA frutas consumidas"
 
 definition:
   en: "Whether any member of the household consumed an item from the fruits food group in the past 24 hours. One of twelve food groups used by the FAO Household Dietary Diversity Score (HDDS)."

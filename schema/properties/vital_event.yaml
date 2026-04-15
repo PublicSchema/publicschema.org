@@ -1,5 +1,9 @@
 id: vital_event
 maturity: draft
+label:
+  en: "Vital event"
+  fr: "Événement d'état civil"
+  es: "Evento vital"
 
 definition:
   en: "The vital event that this certificate attests to. Used on certificates issued directly from a vital event record rather than from a stored civil status record."

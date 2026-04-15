@@ -1,5 +1,9 @@
 id: hdds_fish_seafood_consumed
 maturity: draft
+label:
+  en: "HDDS fish and seafood consumed"
+  fr: "SDAM poisson et fruits de mer consommés"
+  es: "EDDA pescado y mariscos consumidos"
 
 definition:
   en: "Whether any member of the household consumed an item from the fish and seafood food group in the past 24 hours. One of twelve food groups used by the FAO Household Dietary Diversity Score (HDDS)."

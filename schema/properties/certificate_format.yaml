@@ -1,5 +1,9 @@
 id: certificate_format
 maturity: draft
+label:
+  en: "Certificate format"
+  fr: "Format du certificat"
+  es: "Formato del certificado"
 
 definition:
   en: "The format of the certificate: full copy (reproducing the acte including marginal annotations), extract (summary only), or a multilingual extract for international use."

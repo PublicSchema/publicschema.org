@@ -1,5 +1,9 @@
 id: registration_status
 maturity: draft
+label:
+  en: "Registration status"
+  fr: "Statut de l'enregistrement"
+  es: "Estado del registro"
 
 definition:
   en: "The lifecycle state of the registration process for this vital event: whether it is declared, pending validation, registered, rejected, cancelled, or has been corrected or archived."

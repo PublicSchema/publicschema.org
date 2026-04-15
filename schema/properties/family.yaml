@@ -1,5 +1,9 @@
 id: family
 maturity: draft
+label:
+  en: "Family"
+  fr: "Famille"
+  es: "Familia"
 
 definition:
   en: "The family group tracked by a family register. Modeled as a Group so that household-level and family-level concepts can share structure."

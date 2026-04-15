@@ -1,5 +1,9 @@
 id: parental_role
 maturity: draft
+label:
+  en: "Parental role"
+  fr: "rôle parental"
+  es: "rol parental"
 
 definition:
   en: "The role a person holds as a parent (biological mother, biological father, legal mother, legal father, adoptive mother, adoptive father, surrogate mother). Makes biological vs. legal parentage explicit and separable."

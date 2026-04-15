@@ -1,5 +1,9 @@
 id: age_at_measurement_months
 maturity: draft
+label:
+  en: "Age at measurement (months)"
+  fr: "Âge à la mesure (mois)"
+  es: "Edad en la medición (meses)"
 
 definition:
   en: "The subject's age in completed months at the time the measurement was taken. Required for under-five anthropometry because WHO 2006 z-scores are a function of age, sex, and reference population; age now is not interchangeable with age at measurement when the measurement is historical."

@@ -1,5 +1,9 @@
 id: exit_reason
 maturity: draft
+label:
+  en: "Exit reason"
+  fr: "Motif de sortie"
+  es: "Motivo de salida"
 
 definition:
   en: "The reason the enrollment was permanently closed. Applies when enrollment status is closed, not when graduated."

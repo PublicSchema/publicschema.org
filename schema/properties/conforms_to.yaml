@@ -1,5 +1,9 @@
 id: conforms_to
 maturity: draft
+label:
+  en: "Conforms to"
+  fr: "Conforme à"
+  es: "Conforme a"
 
 definition:
   en: "URIs of standards or specifications this record conforms to (ISO/IEC TS 27560, Kantara Consent Receipt, W3C DPV, etc.). Purely declarative; no validation is performed against the cited standards at schema level."

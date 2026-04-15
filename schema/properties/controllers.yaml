@@ -1,5 +1,9 @@
 id: controllers
 maturity: draft
+label:
+  en: "Controllers"
+  fr: "Responsables du traitement"
+  es: "Responsables del tratamiento"
 
 definition:
   en: "Organizations determining the purposes and means of processing. Cardinality multiple covers joint controllership (two or more organizations jointly responsible under GDPR Art 26 or equivalent national provisions); the normative case is one controller. See 'recipient_role' to distinguish processors from controllers among recipients."

@@ -1,5 +1,9 @@
 id: collection_session_ref
 maturity: draft
+label:
+  en: "Collection session reference"
+  fr: "Référence de session de collecte"
+  es: "Referencia de sesión de recopilación"
 
 definition:
   en: "Opaque correlation key for records produced in the same intake session. A 'CollectionSession' concept is planned in ADR-013 and will formalize this; in v1 adopters use a free-form session id (e.g., a field-visit id)."

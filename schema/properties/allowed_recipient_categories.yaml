@@ -1,5 +1,9 @@
 id: allowed_recipient_categories
 maturity: draft
+label:
+  en: "Allowed recipient categories"
+  fr: "Catégories de destinataires autorisées"
+  es: "Categorías de destinatarios permitidos"
 
 definition:
   en: "Categories of organizations permitted to receive the data, as described to the data subject in the notice. Complements 'recipients', which names specific organizations. Use when specific recipient organizations are not pre-identified at the time of consent."

@@ -1,5 +1,9 @@
 id: weight_for_height_z
 maturity: draft
+label:
+  en: "Weight-for-height z-score (WHZ)"
+  fr: "Score z poids-pour-taille (WHZ)"
+  es: "Puntaje z peso-para-talla (WHZ)"
 
 definition:
   en: "The weight-for-height z-score (WHZ) derived from the raw weight and height measurements against the declared growth reference. Values below -2 indicate wasting; below -3 indicate severe wasting under the WHO 2006 standard."

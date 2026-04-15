@@ -1,5 +1,9 @@
 id: fcs_condiments_days
 maturity: draft
+label:
+  en: "FCS condiments days"
+  fr: "SCA jours condiments"
+  es: "PCA días condimentos"
 
 definition:
   en: "Number of days in the past seven during which any member of the household consumed condiments, salt, spices, tea, or coffee used in small quantities. This is a screener item with FCS weight 0: frequent consumption of only condiments signals severe diet narrowing even though this group does not contribute to the composite score. Part of the WFP Food Consumption Score (FCS)."

@@ -1,5 +1,9 @@
 id: hdds_spices_condiments_beverages_consumed
 maturity: draft
+label:
+  en: "HDDS spices, condiments and beverages consumed"
+  fr: "SDAM épices, condiments et boissons consommés"
+  es: "EDDA especias, condimentos y bebidas consumidos"
 
 definition:
   en: "Whether any member of the household consumed an item from the spices, condiments, and beverages food group (FAO group 12) in the past 24 hours. One of twelve food groups used by the FAO Household Dietary Diversity Score (HDDS)."

@@ -1,5 +1,9 @@
 id: payment_amount
 maturity: normative
+label:
+  en: "Payment amount"
+  fr: "montant du paiement"
+  es: "monto del pago"
 
 definition:
   en: "The monetary value of this payment."

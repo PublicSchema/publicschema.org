@@ -1,5 +1,9 @@
 id: valid_until
 maturity: draft
+label:
+  en: "Valid until"
+  fr: "Valide jusqu'au"
+  es: "Válido hasta"
 
 definition:
   en: "The date until which the eligibility decision remains valid."

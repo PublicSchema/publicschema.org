@@ -1,5 +1,9 @@
 id: signed_date
 maturity: draft
+label:
+  en: "Signed date"
+  fr: "Date de signature"
+  es: "Fecha de firma"
 
 definition:
   en: "The day the data subject indicated consent. For paper workflows, the day the paper form was signed; for witnessed verbal, the day of the verbal indication; for digital, the day of the click-through. MUST NOT be confused with created_at (the digitisation timestamp, which may be days or weeks later in paper-first programs) or effective_date (when the record becomes operative). Field-critical: populate even if the UI only captures created_at."

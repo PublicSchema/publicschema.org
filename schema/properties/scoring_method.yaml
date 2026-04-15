@@ -1,5 +1,9 @@
 id: scoring_method
 maturity: draft
+label:
+  en: "Scoring method"
+  fr: "Méthode de notation"
+  es: "Método de puntuación"
 
 definition:
   en: "The computational approach used to generate a welfare score from collected data."

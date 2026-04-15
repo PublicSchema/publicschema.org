@@ -1,5 +1,9 @@
 id: impression_type
 maturity: draft
+label:
+  en: "Impression type"
+  fr: "type d'empreinte"
+  es: "tipo de impresión"
 
 definition:
   en: "The method by which a fingerprint biometric was captured (e.g., live scan plain, rolled, latent)."

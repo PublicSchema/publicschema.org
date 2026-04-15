@@ -1,5 +1,9 @@
 id: biometric_samples
 maturity: draft
+label:
+  en: "Biometric samples"
+  fr: "Échantillons biométriques"
+  es: "Muestras biométricas"
 
 definition:
   en: "Biometric samples associated with this person, linking to fingerprint, iris, face, and other biometric records."

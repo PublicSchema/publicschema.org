@@ -1,5 +1,9 @@
 id: failure_reason
 maturity: candidate
+label:
+  en: "Failure reason"
+  fr: "Motif d'échec"
+  es: "Motivo del fallo"
 
 definition:
   en: "A description of why the payment failed, was returned, or was rejected."

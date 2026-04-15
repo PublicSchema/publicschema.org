@@ -1,5 +1,9 @@
 id: consent_expression
 maturity: draft
+label:
+  en: "Consent expression"
+  fr: "Expression du consentement"
+  es: "Expresión del consentimiento"
 
 definition:
   en: "The form in which consent was expressed: explicit opt-in, signed opt-in, witnessed opt-in, biometric opt-in, opt-out, or implied. IMPORTANT cross-reference: opt-in-biometric refers to the capture method (for example, fingerprint as signature), not to the data category. Processing biometric data is expressed via personal_data_categories (a URI from dpv-pd or equivalent)."

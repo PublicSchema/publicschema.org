@@ -1,5 +1,9 @@
 id: recipient_categories
 maturity: draft
+label:
+  en: "Recipient categories"
+  fr: "Catégories de destinataires"
+  es: "Categorías de destinatarios"
 
 definition:
   en: "Categories of recipients described to the data subject in the notice. PrivacyNotice-scoped: the notice describes categories; the ConsentRecord names specific recipients via 'recipients' and 'allowed_recipient_categories'."

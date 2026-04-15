@@ -1,5 +1,9 @@
 id: name
 maturity: normative
+label:
+  en: "Name"
+  fr: "nom"
+  es: "nombre"
 
 definition:
   en: "The full display name of the record. Depending on the concept, this is a person's or group's name, or the title of a program, instrument, scoring rule, or software product."

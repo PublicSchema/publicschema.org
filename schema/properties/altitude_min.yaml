@@ -1,5 +1,9 @@
 id: altitude_min
 maturity: draft
+label:
+  en: "Minimum altitude"
+  fr: "Altitude minimale"
+  es: "Altitud mínima"
 
 definition:
   en: "The minimum altitude of the area, in meters above sea level (WGS84 datum)."

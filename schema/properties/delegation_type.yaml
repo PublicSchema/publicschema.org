@@ -1,5 +1,9 @@
 id: delegation_type
 maturity: draft
+label:
+  en: "Delegation type"
+  fr: "Type de délégation"
+  es: "Tipo de delegación"
 
 definition:
   en: "The basis under which 'indicated_by' acts on behalf of 'data_subject'. The value 'self' indicates no delegation: the data subject indicated their own consent. All other values indicate that a third party acted on the data subject's behalf."

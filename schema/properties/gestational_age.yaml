@@ -1,5 +1,9 @@
 id: gestational_age
 maturity: draft
+label:
+  en: "Gestational age"
+  fr: "Âge gestationnel"
+  es: "Edad gestacional"
 
 definition:
   en: "The completed weeks of gestation at the time of the event. Used for fetal death and birth records to distinguish viability and to apply the ICD-PM mortality classification."

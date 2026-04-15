@@ -1,5 +1,9 @@
 id: damage_level
 maturity: draft
+label:
+  en: "Damage level"
+  fr: "Niveau de dommage"
+  es: "Nivel de daño"
 
 definition:
   en: "Severity of physical damage to the assessed dwelling, observed during a post-shock structural assessment. Recorded against a standardized five-tier scale aligned with IOM Displacement Tracking Matrix labels."

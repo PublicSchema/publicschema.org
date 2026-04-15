@@ -1,5 +1,9 @@
 id: level_name
 maturity: candidate
+label:
+  en: "Level name"
+  fr: "nom du niveau"
+  es: "nombre del nivel"
 
 definition:
   en: "The country-specific name for this administrative tier (e.g., state, department, commune, ward)."

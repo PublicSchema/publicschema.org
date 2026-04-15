@@ -1,5 +1,9 @@
 id: currency
 maturity: normative
+label:
+  en: "Currency"
+  fr: "Devise"
+  es: "Moneda"
 
 definition:
   en: "The ISO 4217 currency code for a monetary value."

@@ -1,5 +1,9 @@
 id: depression_medication
 maturity: draft
+label:
+  en: "Depression medication"
+  fr: "Médicament contre la dépression"
+  es: "Medicación para la depresión"
 
 definition:
   en: "Whether the person takes medication for depression. Applies to adults (WG-ES DEP_2). This filter is used to interpret depression_frequency answers, which are asked about symptoms while on medication if the person takes any."

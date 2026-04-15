@@ -1,5 +1,9 @@
 id: fies_ate_few_foods
 maturity: draft
+label:
+  en: "FIES ate few foods"
+  fr: "FIES peu d'aliments consommés"
+  es: "FIES comió pocos alimentos"
 
 definition:
   en: "Whether, at any time during the FIES reference period, the household ate only a few kinds of foods because of lack of resources. One of eight experience-based items in the FAO Food Insecurity Experience Scale (FIES); the reference period is recorded in recall_period_days."

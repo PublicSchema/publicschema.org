@@ -1,5 +1,9 @@
 id: joint_controller_arrangement_ref
 maturity: draft
+label:
+  en: "Joint controller arrangement"
+  fr: "accord de responsabilité conjointe"
+  es: "acuerdo de corresponsabilidad"
 
 definition:
   en: "Reference to the joint-controllership arrangement between the parties listed in `controllers` (GDPR Art 26). Typically a URI to a published arrangement; a local identifier is acceptable if URI is not applicable. Populated when cardinality of `controllers` is greater than one."

@@ -1,5 +1,9 @@
 id: referral_reason
 maturity: draft
+label:
+  en: "Referral reason"
+  fr: "Motif d'orientation"
+  es: "Motivo de derivación"
 
 definition:
   en: "A free-text explanation of why the person or household was referred from one program to another."

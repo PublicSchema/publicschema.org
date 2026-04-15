@@ -1,5 +1,9 @@
 id: recipient_role
 maturity: draft
+label:
+  en: "Recipient role"
+  fr: "Rôle du destinataire"
+  es: "Rol del destinatario"
 
 definition:
   en: "The role each recipient plays: processor, joint-controller, independent-controller, or sub-processor. Known limitation: v1 uses positional alignment with 'recipients' (the Nth recipient_role value corresponds to the Nth recipient). A future ADR will reify per-link roles. Adopters that cannot guarantee positional alignment should use only one recipient and one role per record, or represent the relationship externally."

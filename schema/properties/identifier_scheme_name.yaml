@@ -1,5 +1,9 @@
 id: identifier_scheme_name
 maturity: normative
+label:
+  en: "Identifier scheme name"
+  fr: "Nom du schéma d'identification"
+  es: "Nombre del esquema de identificador"
 
 definition:
   en: "The human-readable name of the identifier scheme, such as 'National Identity Number' or 'Social Security Number'."

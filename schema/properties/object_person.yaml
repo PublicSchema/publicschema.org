@@ -1,5 +1,9 @@
 id: object_person
 maturity: candidate
+label:
+  en: "Related person"
+  fr: "personne liée"
+  es: "persona relacionada"
 
 definition:
   en: "The person to whom the subject person is related (the object of the relationship statement)."

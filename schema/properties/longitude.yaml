@@ -1,5 +1,9 @@
 id: longitude
 maturity: normative
+label:
+  en: "Longitude"
+  fr: "longitude"
+  es: "longitud"
 
 definition:
   en: "The geographic longitude in decimal degrees (WGS84)."

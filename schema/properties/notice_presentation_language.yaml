@@ -1,5 +1,9 @@
 id: notice_presentation_language
 maturity: draft
+label:
+  en: "Notice presentation language"
+  fr: "langue de présentation de l'avis"
+  es: "idioma de presentación del aviso"
 
 definition:
   en: "The ISO 639-3 language code in which the notice was presented to the data subject at the time of consent. Field-critical: populate even if the UI does not require it. When the notice is available in multiple languages (see PrivacyNotice `available_languages`), this records which one the data subject actually saw. For witnessed verbal consent, this records the language of the verbal delivery."

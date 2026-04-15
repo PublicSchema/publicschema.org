@@ -1,5 +1,9 @@
 id: collection_medium
 maturity: draft
+label:
+  en: "Collection medium"
+  fr: "Support de collecte"
+  es: "Medio de recopilación"
 
 definition:
   en: "The medium through which consent was collected: paper, electronic, verbal, or mixed. Paper is the dominant medium in humanitarian and rural social-protection programs; electronic systems that ignore paper workflows exclude real practice. Field-critical: populate even if the system defaults to assuming electronic."

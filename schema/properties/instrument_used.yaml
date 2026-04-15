@@ -1,5 +1,9 @@
 id: instrument_used
 maturity: draft
+label:
+  en: "Instrument used"
+  fr: "instrument utilisé"
+  es: "instrumento utilizado"
 
 definition:
   en: "Reference to the instrument (survey form, questionnaire, screening protocol, measurement procedure) administered in this profile record."

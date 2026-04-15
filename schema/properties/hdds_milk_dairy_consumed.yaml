@@ -1,5 +1,9 @@
 id: hdds_milk_dairy_consumed
 maturity: draft
+label:
+  en: "HDDS milk and dairy consumed"
+  fr: "SDAM lait et produits laitiers consommés"
+  es: "EDDA leche y lácteos consumidos"
 
 definition:
   en: "Whether any member of the household consumed an item from the milk and dairy products food group in the past 24 hours. One of twelve food groups used by the FAO Household Dietary Diversity Score (HDDS)."

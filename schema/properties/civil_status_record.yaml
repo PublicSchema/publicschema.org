@@ -1,5 +1,9 @@
 id: civil_status_record
 maturity: draft
+label:
+  en: "Civil status record"
+  fr: "Acte d'état civil"
+  es: "Acta de estado civil"
 
 definition:
   en: "A reference to a CivilStatusRecord. Used on annotations to point to the record being annotated, and on certificates to point to the record from which the certificate is issued."

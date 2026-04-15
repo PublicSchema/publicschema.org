@@ -1,5 +1,9 @@
 id: software_used
 maturity: draft
+label:
+  en: "Software used"
+  fr: "Logiciel utilisé"
+  es: "Software utilizado"
 
 definition:
   en: "The software that performed this step, recorded so the result can be reproduced or audited. Distinct from the accountable evaluator or performer (the person or organisation responsible), which is recorded separately."

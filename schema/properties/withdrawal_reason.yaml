@@ -1,5 +1,9 @@
 id: withdrawal_reason
 maturity: draft
+label:
+  en: "Withdrawal reason"
+  fr: "Motif de retrait"
+  es: "Motivo de retiro"
 
 definition:
   en: "Free-form reason for withdrawal, if disclosed by the data subject. The data subject is not required to give a reason; this field exists for when they do, for the controller's service-improvement purposes."

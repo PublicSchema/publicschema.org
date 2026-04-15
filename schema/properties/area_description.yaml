@@ -1,5 +1,9 @@
 id: area_description
 maturity: draft
+label:
+  en: "Area description"
+  fr: "Description de la zone"
+  es: "Descripción del área"
 
 definition:
   en: "A human-readable description of the geographic area, such as a region name or administrative boundary label."

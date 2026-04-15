@@ -1,5 +1,9 @@
 id: commodity_type
 maturity: draft
+label:
+  en: "Commodity type"
+  fr: "Type de produit"
+  es: "Tipo de bien"
 
 definition:
   en: "The type of commodity or goods being delivered or redeemable."

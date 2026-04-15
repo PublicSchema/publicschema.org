@@ -1,5 +1,9 @@
 id: address
 maturity: candidate
+label:
+  en: "Address"
+  fr: "Adresse"
+  es: "Dirección"
 
 definition:
   en: "The physical or postal address associated with this household."

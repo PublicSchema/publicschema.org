@@ -1,5 +1,9 @@
 id: hdds_vegetables_consumed
 maturity: draft
+label:
+  en: "HDDS vegetables consumed"
+  fr: "SDAM légumes consommés"
+  es: "EDDA verduras consumidas"
 
 definition:
   en: "Whether any member of the household consumed an item from the vegetables food group, including dark green leafy vegetables, in the past 24 hours. One of twelve food groups used by the FAO Household Dietary Diversity Score (HDDS)."

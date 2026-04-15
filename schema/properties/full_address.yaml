@@ -1,5 +1,9 @@
 id: full_address
 maturity: candidate
+label:
+  en: "Full address"
+  fr: "Adresse complète"
+  es: "Dirección completa"
 
 definition:
   en: "The complete address written as a single text string. Coexists with structured address components for systems that store addresses as free text."

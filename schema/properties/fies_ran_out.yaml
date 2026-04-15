@@ -1,5 +1,9 @@
 id: fies_ran_out
 maturity: draft
+label:
+  en: "FIES ran out of food"
+  fr: "FIES manque de nourriture"
+  es: "FIES se quedó sin alimentos"
 
 definition:
   en: "Whether, at any time during the FIES reference period, the household ran out of food because of lack of resources. One of eight experience-based items in the FAO Food Insecurity Experience Scale (FIES); the reference period is recorded in recall_period_days."

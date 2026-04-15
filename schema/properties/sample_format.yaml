@@ -1,5 +1,9 @@
 id: sample_format
 maturity: draft
+label:
+  en: "Sample format"
+  fr: "Format de l'échantillon"
+  es: "Formato de la muestra"
 
 definition:
   en: "The MIME type of the biometric sample data (e.g., image/jp2, image/jpeg, application/octet-stream)."

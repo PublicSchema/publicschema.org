@@ -1,5 +1,9 @@
 id: registration_date
 maturity: draft
+label:
+  en: "Registration date"
+  fr: "Date d'enregistrement"
+  es: "Fecha de registro"
 
 definition:
   en: "The date on which the vital event was officially registered with the civil registration authority. May be later than the event date, especially for late registrations."

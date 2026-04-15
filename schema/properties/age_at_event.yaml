@@ -1,5 +1,9 @@
 id: age_at_event
 maturity: draft
+label:
+  en: "Age at event"
+  fr: "Âge à l'événement"
+  es: "Edad en el evento"
 
 definition:
   en: "The stated age of the person at the time of the vital event. Used in low-completeness settings where date of birth is unknown and stated age is the only age data available."

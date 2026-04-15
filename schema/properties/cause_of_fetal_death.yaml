@@ -1,5 +1,9 @@
 id: cause_of_fetal_death
 maturity: draft
+label:
+  en: "Cause of fetal death"
+  fr: "Cause de la mortinaissance"
+  es: "Causa de muerte fetal"
 
 definition:
   en: "A free-text description of the cause of a fetal death. Captured alongside cause_of_fetal_death_code when an ICD-PM or equivalent code is assigned."

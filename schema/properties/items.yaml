@@ -1,5 +1,9 @@
 id: items
 maturity: draft
+label:
+  en: "Items"
+  fr: "articles"
+  es: "artículos"
 
 definition:
   en: "The list of commodity line items in this delivery or voucher."

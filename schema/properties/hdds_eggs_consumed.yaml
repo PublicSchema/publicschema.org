@@ -1,5 +1,9 @@
 id: hdds_eggs_consumed
 maturity: draft
+label:
+  en: "HDDS eggs consumed"
+  fr: "SDAM œufs consommés"
+  es: "EDDA huevos consumidos"
 
 definition:
   en: "Whether any member of the household consumed an item from the eggs food group in the past 24 hours. One of twelve food groups used by the FAO Household Dietary Diversity Score (HDDS)."

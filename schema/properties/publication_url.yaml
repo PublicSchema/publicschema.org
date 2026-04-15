@@ -1,5 +1,9 @@
 id: publication_url
 maturity: draft
+label:
+  en: "Publication URL"
+  fr: "URL de publication"
+  es: "URL de publicación"
 
 definition:
   en: "A canonical URL where the instrument, software agent, or scoring rule is published (typically a documentation page, a source repository, or a PDF hosted by the publisher)."

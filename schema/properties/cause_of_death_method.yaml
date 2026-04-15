@@ -1,5 +1,9 @@
 id: cause_of_death_method
 maturity: draft
+label:
+  en: "Cause of death method"
+  fr: "Méthode de détermination de la cause du décès"
+  es: "Método de determinación de la causa de defunción"
 
 definition:
   en: "The method used to ascertain the cause of death: physician certified, verbal autopsy, coroner, lay reporting, or other. Important for judging data quality, since verbal autopsy and lay reporting are less precise than physician certification."

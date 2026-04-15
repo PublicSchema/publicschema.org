@@ -1,5 +1,9 @@
 id: rcsi_reduce_meal_number_days
 maturity: draft
+label:
+  en: "rCSI reduce meals days"
+  fr: "rCSI jours repas réduits"
+  es: "rCSI días comidas reducidas"
 
 definition:
   en: "Number of days in the past seven during which the household reduced the number of meals eaten per day. Part of the WFP/CARE Reduced Coping Strategies Index (rCSI)."

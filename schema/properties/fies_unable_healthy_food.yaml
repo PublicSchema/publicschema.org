@@ -1,5 +1,9 @@
 id: fies_unable_healthy_food
 maturity: draft
+label:
+  en: "FIES unable to eat healthy food"
+  fr: "FIES incapacité à manger sainement"
+  es: "FIES no pudo comer alimentos saludables"
 
 definition:
   en: "Whether, at any time during the FIES reference period, the household was unable to eat healthy and nutritious food because of lack of resources. One of eight experience-based items in the FAO Food Insecurity Experience Scale (FIES); the reference period is recorded in recall_period_days."

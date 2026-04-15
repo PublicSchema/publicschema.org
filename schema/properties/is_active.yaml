@@ -1,5 +1,9 @@
 id: is_active
 maturity: normative
+label:
+  en: "Is active"
+  fr: "est actif"
+  es: "está activo"
 
 definition:
   en: "Whether the membership or relationship is currently in effect, as opposed to expired, suspended, or terminated."

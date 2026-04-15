@@ -1,5 +1,9 @@
 id: schedule_ref
 maturity: candidate
+label:
+  en: "Schedule reference"
+  fr: "Référence au calendrier"
+  es: "Referencia al calendario"
 
 definition:
   en: "Reference to the benefit schedule that this entitlement corresponds to."

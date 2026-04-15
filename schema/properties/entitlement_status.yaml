@@ -1,5 +1,9 @@
 id: entitlement_status
 maturity: normative
+label:
+  en: "Entitlement status"
+  fr: "Statut du droit"
+  es: "Estado del derecho"
 
 definition:
   en: "The lifecycle state of this entitlement instance."

@@ -1,5 +1,9 @@
 id: body_weight
 maturity: draft
+label:
+  en: "Body weight"
+  fr: "Poids corporel"
+  es: "Peso corporal"
 
 definition:
   en: "The current body weight of the person, measured in kilograms. Named body_weight to distinguish from birth weight or other weight measures."

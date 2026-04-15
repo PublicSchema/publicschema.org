@@ -1,5 +1,9 @@
 id: dwelling_type
 maturity: candidate
+label:
+  en: "Dwelling type"
+  fr: "Type de logement"
+  es: "Tipo de vivienda"
 
 definition:
   en: "The type of dwelling occupied by the household (e.g., permanent structure, temporary shelter, shared housing)."

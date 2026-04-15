@@ -1,5 +1,9 @@
 id: verified_date
 maturity: draft
+label:
+  en: "Verification date"
+  fr: "Date de vérification"
+  es: "Fecha de verificación"
 
 definition:
   en: "Date of the verification act performed by verified_by. Typically after signed_date."

@@ -1,5 +1,9 @@
 id: refusal_reason
 maturity: draft
+label:
+  en: "Refusal reason"
+  fr: "Motif de refus"
+  es: "Motivo de rechazo"
 
 definition:
   en: "Free-form reason for refusal when the data subject declined to consent (status = refused). Distinct from withdrawal_reason, which applies after consent was initially given and later withdrawn."

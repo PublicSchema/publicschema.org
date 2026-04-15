@@ -1,5 +1,9 @@
 id: automated_decision_description
 maturity: draft
+label:
+  en: "Automated decision description"
+  fr: "Description de la décision automatisée"
+  es: "Descripción de la decisión automatizada"
 
 definition:
   en: "PrivacyNotice-only. Prose description of any automated decision-making, including profiling, that produces legal effects or similarly significant effects on the data subject (GDPR Art 22). Include the logic involved, the significance, and the envisaged consequences. Empty when no such processing occurs."

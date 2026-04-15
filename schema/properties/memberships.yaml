@@ -1,5 +1,9 @@
 id: memberships
 maturity: candidate
+label:
+  en: "Memberships"
+  fr: "appartenances"
+  es: "afiliaciones"
 
 definition:
   en: "The membership links connecting persons to this group, each carrying role and lifecycle dates."

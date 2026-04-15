@@ -1,5 +1,9 @@
 id: publisher
 maturity: draft
+label:
+  en: "Publisher"
+  fr: "éditeur"
+  es: "editor"
 
 definition:
   en: "The agent that publishes or maintains the instrument, software agent, or scoring rule. Typically an Organization (for example, the Washington Group on Disability Statistics, UNICEF, the SMART initiative, the openIMIS Initiative, or a national statistics office), but may be a named Person for standards methodologies and individual research publications. A SoftwareAgent is not expected to appear here: the publisher of a SoftwareAgent record is the Person or Organization that publishes the software, not another piece of software. The type system admits SoftwareAgent via the Agent supertype, but that case is excluded by convention."

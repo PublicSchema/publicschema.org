@@ -1,5 +1,9 @@
 id: transfer_description
 maturity: draft
+label:
+  en: "Transfer description"
+  fr: "Description du transfert"
+  es: "Descripción del traslado"
 
 definition:
   en: "PrivacyNotice-only. Prose description of international or third-country data transfers (GDPR Chapter V). Free-form; should name destination countries, adequacy decision status, and safeguards (standard contractual clauses, binding corporate rules, etc.) where applicable."

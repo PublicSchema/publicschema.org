@@ -1,5 +1,9 @@
 id: evaluator
 maturity: draft
+label:
+  en: "Evaluator"
+  fr: "Évaluateur"
+  es: "Evaluador"
 
 definition:
   en: "The agent (field officer or agency) accountable for the scoring. Typically a Person or an Organization. When the computation was executed by software, record the tool separately as software_used; evaluator identifies who is responsible, not what ran the calculation."

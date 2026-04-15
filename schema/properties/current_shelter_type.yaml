@@ -1,5 +1,9 @@
 id: current_shelter_type
 maturity: draft
+label:
+  en: "Current shelter type"
+  fr: "Type d'abri actuel"
+  es: "Tipo de refugio actual"
 
 definition:
   en: "Type of shelter arrangement the household is currently occupying at the time of assessment. Complements dwelling_type (which records the household's usual dwelling) by recording where the household is actually living now, particularly when the original dwelling is damaged, inaccessible, or vacated."

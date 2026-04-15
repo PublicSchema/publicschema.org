@@ -1,5 +1,9 @@
 id: amount
 maturity: normative
+label:
+  en: "Amount"
+  fr: "Montant"
+  es: "Monto"
 
 definition:
   en: "The monetary or quantitative value of the item being delivered, owed, or redeemed, expressed as a decimal number in the associated currency."

@@ -1,5 +1,9 @@
 id: geocodes
 maturity: candidate
+label:
+  en: "Geocodes"
+  fr: "Géocodes"
+  es: "Geocódigos"
 
 definition:
   en: "Administrative or statistical codes that identify this area within a coding system (FIPS, P-code, postal code, etc.)."

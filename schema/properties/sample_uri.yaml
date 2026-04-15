@@ -1,5 +1,9 @@
 id: sample_uri
 maturity: draft
+label:
+  en: "Sample URI"
+  fr: "URI de l'échantillon"
+  es: "URI de la muestra"
 
 definition:
   en: "A URI reference to the biometric sample data. The referenced resource contains the actual biometric data (image, audio, or other signal)."

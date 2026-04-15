@@ -1,5 +1,9 @@
 id: recipients_described
 maturity: draft
+label:
+  en: "Recipients described"
+  fr: "Destinataires décrits"
+  es: "Destinatarios descritos"
 
 definition:
   en: "Free-prose description of recipients used in the notice, complementing the coded 'recipient_categories'. Enables the notice to describe a recipient that does not fit the coded vocabulary."

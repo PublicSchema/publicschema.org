@@ -1,5 +1,9 @@
 id: attendant_at_birth
 maturity: draft
+label:
+  en: "Attendant at birth"
+  fr: "Personnel présent à la naissance"
+  es: "Asistente en el parto"
 
 definition:
   en: "The type of person who attended the delivery (physician, midwife, nurse, traditional birth attendant, other, or none). Used as a proxy for safe delivery in health statistics."

@@ -1,5 +1,9 @@
 id: sanitation_service_level
 maturity: draft
+label:
+  en: "Sanitation service level"
+  fr: "Niveau de service d'assainissement"
+  es: "Nivel de servicio de saneamiento"
 
 definition:
   en: "The WHO/UNICEF JMP classification of the household's sanitation service. Derived from facility type and sharing status; not directly observed."

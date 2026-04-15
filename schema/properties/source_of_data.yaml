@@ -1,5 +1,9 @@
 id: source_of_data
 maturity: draft
+label:
+  en: "Source of data"
+  fr: "Source des données"
+  es: "Fuente de los datos"
 
 definition:
   en: "PrivacyNotice-only. Prose description of the source(s) from which personal data is obtained when not collected directly from the data subject (GDPR Art 14). Example: 'A government beneficiary registry maintained by the Ministry of Social Protection.'"

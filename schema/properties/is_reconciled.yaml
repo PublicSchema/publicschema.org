@@ -1,5 +1,9 @@
 id: is_reconciled
 maturity: normative
+label:
+  en: "Is reconciled"
+  fr: "est rapproché"
+  es: "está conciliado"
 
 definition:
   en: "Whether this payment has been matched and verified against financial system records."

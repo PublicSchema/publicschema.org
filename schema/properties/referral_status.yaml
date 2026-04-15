@@ -1,5 +1,9 @@
 id: referral_status
 maturity: draft
+label:
+  en: "Referral status"
+  fr: "Statut de l'orientation"
+  es: "Estado de la derivación"
 
 definition:
   en: "The current state of the referral (pending, accepted, declined, completed)."

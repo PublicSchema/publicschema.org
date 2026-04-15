@@ -1,5 +1,9 @@
 id: complaint_authority_contact
 maturity: draft
+label:
+  en: "Complaint authority contact"
+  fr: "Contact de l'autorité de réclamation"
+  es: "Contacto de la autoridad de reclamación"
 
 definition:
   en: "Contact details for the relevant data protection authority where the data subject can lodge a complaint (e.g., in EU jurisdictions, the national DPA). Required by GDPR Arts 13/14 for notices in EU jurisdictions."

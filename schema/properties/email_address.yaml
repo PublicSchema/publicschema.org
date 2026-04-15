@@ -1,5 +1,9 @@
 id: email_address
 maturity: candidate
+label:
+  en: "Email address"
+  fr: "Adresse électronique"
+  es: "Correo electrónico"
 
 definition:
   en: "An email address through which the person can be contacted."

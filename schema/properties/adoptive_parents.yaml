@@ -1,5 +1,9 @@
 id: adoptive_parents
 maturity: draft
+label:
+  en: "Adoptive parents"
+  fr: "Parents adoptifs"
+  es: "Padres adoptivos"
 
 definition:
   en: "The parents who acquire parental rights through the adoption, each captured as a Parent link entity with an adoptive role."

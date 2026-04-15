@@ -1,5 +1,9 @@
 id: lcs_sold_house_or_land
 maturity: draft
+label:
+  en: "LCS sold house or land"
+  fr: "SCM vente de maison ou de terre"
+  es: "EMV venta de vivienda o tierra"
 
 definition:
   en: "Frequency with which the household sold the house or land to meet food needs in the past 30 days. Part of the WFP Livelihood Coping Strategies (LCS) module, emergency tier."

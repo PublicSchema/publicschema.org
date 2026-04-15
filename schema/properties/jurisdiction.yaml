@@ -1,5 +1,9 @@
 id: jurisdiction
 maturity: draft
+label:
+  en: "Jurisdiction"
+  fr: "juridiction"
+  es: "jurisdicción"
 
 definition:
   en: "ISO 3166-1 alpha-2 country code of the jurisdiction whose data protection law governs this record. Cardinality single: multi-jurisdictional records are the rare case; a follow-on ADR will lift cardinality if adopters hit it. Under joint controllership, this is the lead controller's primary establishment jurisdiction."

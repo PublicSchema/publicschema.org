@@ -1,5 +1,9 @@
 id: available_languages
 maturity: draft
+label:
+  en: "Available languages"
+  fr: "Langues disponibles"
+  es: "Idiomas disponibles"
 
 definition:
   en: "PrivacyNotice-only. ISO 639-3 codes of all languages in which this notice is available. See `notice_presentation_language` on the ConsentRecord for which one was actually presented to a given data subject."

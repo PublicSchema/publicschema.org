@@ -1,5 +1,9 @@
 id: legal_basis_reference
 maturity: draft
+label:
+  en: "Legal basis reference"
+  fr: "référence de la base juridique"
+  es: "referencia de la base legal"
 
 definition:
   en: "Jurisdiction-specific legal reference (e.g., a national act, article, or case citation) supporting `legal_basis`. Free-form string; use per-jurisdiction norms. Example: 'Ley 1581 de 2012, Art 6(a)' in Colombia."

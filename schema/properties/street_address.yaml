@@ -1,5 +1,9 @@
 id: street_address
 maturity: normative
+label:
+  en: "Street address"
+  fr: "Adresse de rue"
+  es: "Dirección de calle"
 
 definition:
   en: "The street name, number, and any apartment or building identifiers."

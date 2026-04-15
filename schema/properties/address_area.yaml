@@ -1,5 +1,9 @@
 id: address_area
 maturity: candidate
+label:
+  en: "Address area"
+  fr: "Zone d'adresse"
+  es: "Área de dirección"
 
 definition:
   en: "The name of a geographic area such as a neighborhood, quarter, or ward that groups addresses below the city level."

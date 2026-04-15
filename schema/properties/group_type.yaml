@@ -1,5 +1,9 @@
 id: group_type
 maturity: normative
+label:
+  en: "Group type"
+  fr: "Type de groupe"
+  es: "Tipo de grupo"
 
 definition:
   en: "An interoperability classifier for the category of group record being exchanged or exported. In native PublicSchema modeling, the concrete Group subtype is the authoritative signal when known."

@@ -1,5 +1,9 @@
 id: income_source
 maturity: candidate
+label:
+  en: "Income source"
+  fr: "source de revenus"
+  es: "fuente de ingresos"
 
 definition:
   en: "The primary reported source of income for the household, used in targeting and proxy means testing."

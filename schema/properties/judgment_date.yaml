@@ -1,5 +1,9 @@
 id: judgment_date
 maturity: draft
+label:
+  en: "Judgment date"
+  fr: "date du jugement"
+  es: "fecha de la sentencia"
 
 definition:
   en: "The date of the court judgment that granted a divorce, annulment, adoption, paternity recognition, or other court-ordered vital event. Distinct from the registration date."

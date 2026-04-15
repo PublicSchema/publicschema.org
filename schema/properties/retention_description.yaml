@@ -1,5 +1,9 @@
 id: retention_description
 maturity: draft
+label:
+  en: "Retention description"
+  fr: "Description de la conservation"
+  es: "Descripción de la retención"
 
 definition:
   en: "PrivacyNotice-only. Prose description of the retention period for personal data (GDPR Art 13(2)(a)). Use when the period cannot be expressed as a fixed number of days (for example, 'for the duration of program enrollment plus six years after program exit')."

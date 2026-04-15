@@ -1,5 +1,9 @@
 id: item_set
 maturity: draft
+label:
+  en: "Item set"
+  fr: "ensemble d'items"
+  es: "conjunto de ítems"
 
 definition:
   en: "The property IDs that an instrument expects to be populated when administered in full. Declared once on the Instrument registry entry; individual Profile records may override with items_asked when the instrument is deployed in a modular subset."

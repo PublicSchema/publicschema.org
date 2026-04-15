@@ -1,5 +1,9 @@
 id: severity
 maturity: draft
+label:
+  en: "Severity"
+  fr: "Gravité"
+  es: "Gravedad"
 
 definition:
   en: "The observed or expected severity of the event's impact."

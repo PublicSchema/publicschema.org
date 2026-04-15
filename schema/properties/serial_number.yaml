@@ -1,5 +1,9 @@
 id: serial_number
 maturity: draft
+label:
+  en: "Serial number"
+  fr: "Numéro de série"
+  es: "Número de serie"
 
 definition:
   en: "A public identifier for the voucher, printed on the physical document or communicated via SMS or application."

@@ -1,5 +1,9 @@
 id: purposes
 maturity: draft
+label:
+  en: "Processing purposes"
+  fr: "finalités du traitement"
+  es: "finalidades del tratamiento"
 
 definition:
   en: "Values are W3C DPV URIs, normatively subclasses of `dpv:Purpose` (e.g., `dpv:ServiceProvision`, `dpv:ResearchAndDevelopment`). Each URI identifies a purpose for which personal data is processed under this record. See `docs/dpv-vocabulary-reference.md` for a curated starter list."

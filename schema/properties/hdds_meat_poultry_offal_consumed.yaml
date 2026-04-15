@@ -1,5 +1,9 @@
 id: hdds_meat_poultry_offal_consumed
 maturity: draft
+label:
+  en: "HDDS meat, poultry and offal consumed"
+  fr: "SDAM viande, volaille et abats consommés"
+  es: "EDDA carne, aves y vísceras consumidas"
 
 definition:
   en: "Whether any member of the household consumed an item from the meat, poultry, and offal food group in the past 24 hours. One of twelve food groups used by the FAO Household Dietary Diversity Score (HDDS)."

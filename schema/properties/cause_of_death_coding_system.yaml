@@ -1,5 +1,9 @@
 id: cause_of_death_coding_system
 maturity: draft
+label:
+  en: "Cause of death coding system"
+  fr: "Système de codage de la cause du décès"
+  es: "Sistema de codificación de la causa de defunción"
 
 definition:
   en: "The classification system used to code the cause of death (for example ICD-10, ICD-11, or a national variant). Required when comparing coded causes across jurisdictions."

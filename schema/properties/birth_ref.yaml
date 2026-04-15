@@ -1,5 +1,9 @@
 id: birth_ref
 maturity: draft
+label:
+  en: "Birth record reference"
+  fr: "Référence à l'acte de naissance"
+  es: "Referencia al registro de nacimiento"
 
 definition:
   en: "A reference to the Birth record of the child whose parentage is being recognized, legitimized, or otherwise modified. Links the current event back to the original birth record."

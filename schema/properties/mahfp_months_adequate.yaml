@@ -1,5 +1,9 @@
 id: mahfp_months_adequate
 maturity: draft
+label:
+  en: "MAHFP months adequate"
+  fr: "MAHFP mois d'approvisionnement adéquat"
+  es: "MAHFP meses de aprovisionamiento adecuado"
 
 definition:
   en: "The number of months, in the past 12, during which the household had enough food to meet its needs. Integer 0-12 (not schema-enforced). Output of the FANTA Months of Adequate Household Food Provisioning (MAHFP) indicator."

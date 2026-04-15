@@ -1,5 +1,9 @@
 id: evidence_ref
 maturity: draft
+label:
+  en: "Evidence reference"
+  fr: "Référence aux pièces justificatives"
+  es: "Referencia a evidencias"
 
 definition:
   en: "References to the evidence artefact(s) backing this record. Values are typically URIs (for example, a signed object-store URL) but a local identifier is acceptable when a URI is not applicable. Artefact types include: PDF scans of signed paper forms, photographs of consent records, audio recordings of witnessed verbal consent, and signed digital documents. At least one evidence_ref is strongly recommended for collection_medium in {paper, verbal, mixed}. Field-critical: capture even when the artefact URI is only available after upload."

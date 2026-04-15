@@ -1,5 +1,9 @@
 id: subject_person
 maturity: candidate
+label:
+  en: "Subject person"
+  fr: "Personne sujet"
+  es: "Persona sujeto"
 
 definition:
   en: "The person who holds the described relationship (the subject of the relationship statement)."

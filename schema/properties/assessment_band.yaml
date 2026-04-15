@@ -1,5 +1,9 @@
 id: assessment_band
 maturity: draft
+label:
+  en: "Assessment band"
+  fr: "Tranche d'évaluation"
+  es: "Banda de evaluación"
 
 definition:
   en: "The ordinal or categorical classification result of an assessment, such as a wealth quintile, poverty band, or other grouping defined by the assessment framework."

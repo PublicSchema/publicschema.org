@@ -1,5 +1,9 @@
 id: weight_for_age_z
 maturity: draft
+label:
+  en: "Weight-for-age z-score (WAZ)"
+  fr: "Score z poids-pour-âge (WAZ)"
+  es: "Puntaje z peso-para-edad (WAZ)"
 
 definition:
   en: "The weight-for-age z-score (WAZ) derived from the raw weight measurement against the declared growth reference. Values below -2 indicate underweight; below -3 indicate severe underweight under the WHO 2006 standard."

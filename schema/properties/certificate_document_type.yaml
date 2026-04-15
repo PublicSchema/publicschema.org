@@ -1,5 +1,9 @@
 id: certificate_document_type
 maturity: draft
+label:
+  en: "Certificate document type"
+  fr: "Type de document du certificat"
+  es: "Tipo de documento del certificado"
 
 definition:
   en: "The type of event the certificate attests to (birth, death, marriage, divorce, adoption). Describes what the document is about, orthogonal to its format."

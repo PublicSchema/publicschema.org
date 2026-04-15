@@ -1,5 +1,9 @@
 id: nationality
 maturity: normative
+label:
+  en: "Nationality"
+  fr: "nationalité"
+  es: "nacionalidad"
 
 definition:
   en: "The country of citizenship or nationality, expressed as an ISO 3166-1 alpha-2 code where possible."

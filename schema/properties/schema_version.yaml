@@ -1,5 +1,9 @@
 id: schema_version
 maturity: draft
+label:
+  en: "Schema version"
+  fr: "Version du schéma"
+  es: "Versión del esquema"
 
 definition:
   en: "Identifies the version of the PublicSchema (or other) consent record schema this instance conforms to. Enables forward migration tooling. Typically a dereferenceable URI, for example 'https://publicschema.org/ConsentRecord/v1'."

@@ -1,5 +1,9 @@
 id: enrollment_status
 maturity: normative
+label:
+  en: "Enrollment status"
+  fr: "Statut d'inscription"
+  es: "Estado de inscripción"
 
 definition:
   en: "The current lifecycle state of the enrollment."

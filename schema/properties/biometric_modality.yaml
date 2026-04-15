@@ -1,5 +1,9 @@
 id: biometric_modality
 maturity: draft
+label:
+  en: "Biometric modality"
+  fr: "Modalité biométrique"
+  es: "Modalidad biométrica"
 
 definition:
   en: "The type of biometric measurement (face, fingerprint, iris, signature, voice)."

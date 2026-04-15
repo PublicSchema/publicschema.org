@@ -1,5 +1,9 @@
 id: created_at
 maturity: draft
+label:
+  en: "Created at"
+  fr: "Créé le"
+  es: "Creado el"
 
 definition:
   en: "System-generated timestamp marking when this record was persisted. This is the digitisation timestamp, not the consent-giving date. Distinct from 'signed_date' (the day the data subject indicated consent) and 'effective_date' (when the record becomes operative). For paper-first workflows the three timestamps may all differ."

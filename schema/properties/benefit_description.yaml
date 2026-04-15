@@ -1,5 +1,9 @@
 id: benefit_description
 maturity: candidate
+label:
+  en: "Benefit description"
+  fr: "Description de la prestation"
+  es: "Descripción del beneficio"
 
 definition:
   en: "A free-text description of the specific benefit."

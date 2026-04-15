@@ -1,5 +1,9 @@
 id: inputs
 maturity: draft
+label:
+  en: "Scoring inputs"
+  fr: "données d'entrée pour la notation"
+  es: "entradas de puntuación"
 
 definition:
   en: "The profile records that provided the data scored in this scoring event. A PMT scoring event typically takes a SocioEconomicProfile as input; a Washington Group disability identifier takes a FunctioningProfile; a wasting classification takes an AnthropometricProfile."
