@@ -192,6 +192,20 @@ export const docs: Record<string, DocEntry> = {
     },
     category: "landscape",
   },
+  "methodology": {
+    file: "methodology.md",
+    title: {
+      en: "Methodology",
+      fr: "Méthodologie",
+      es: "Metodología",
+    },
+    description: {
+      en: "How PublicSchema is built: sources synthesized, where AI tooling accelerates the work, what humans review, and how claims can be verified.",
+      fr: "Comment PublicSchema est construit : sources synthétisées, usages de l'IA pour accélérer le travail, ce que les humains examinent, et comment vérifier les affirmations.",
+      es: "Cómo se construye PublicSchema: fuentes sintetizadas, dónde la IA acelera el trabajo, qué revisan los humanos y cómo se pueden verificar las afirmaciones.",
+    },
+    category: "landscape",
+  },
   "fhir-mapping-guide": {
     file: "fhir-mapping-guide.md",
     title: {

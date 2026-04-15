@@ -137,6 +137,25 @@ const { locale = defaultLocale } = Astro.props;
   para patrones y ejemplos concretos.
 </p>
 
+<h2>Cómo se construye</h2>
+<p>
+  PublicSchema sintetiza un amplio cuerpo de trabajo previo: literatura
+  sobre la prestación de servicios públicos, sistemas de código abierto
+  (openIMIS, OpenSPP, OpenCRVS, SEMIC, GovStack) y estándares
+  internacionales (ISO, FHIR, UN M49, DCI). La IA acelera ese análisis a
+  escala; los humanos revisan cada definición, correspondencia y decisión
+  de diseño, y cada decisión arquitectónica no trivial queda registrada
+  en un registro de decisiones público. Los conceptos llevan un
+  <a href={localePath('/docs/versioning-and-maturity/', locale)}>indicador de madurez</a>
+  (borrador, uso experimental, normativo) para que los adoptantes vean
+  dónde tenemos confianza y dónde los aportes de la comunidad siguen
+  abiertos.
+</p>
+<p>
+  Consulte <a href={localePath('/docs/methodology/', locale)}>Metodología</a>
+  para conocer el proceso completo.
+</p>
+
 <h2>Gobernanza y hoja de ruta</h2>
 <p>
   El proyecto es mantenido por Jeremi Joslin para permitir decisiones rápidas y con
