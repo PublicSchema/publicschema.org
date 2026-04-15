@@ -23,6 +23,8 @@ site/public/vocabulary.json
 # AI assistant config (local only)
 CLAUDE.md
 .claude/
+.agents/
+AGENTS.md
 
 # Generated glossary (built by extract_glossary.py)
 translations/glossary.yaml
