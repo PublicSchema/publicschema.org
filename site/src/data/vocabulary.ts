@@ -60,6 +60,7 @@ export type AgeBand =
 
 export interface Property {
   id: string;
+  label?: MultilingualText;
   uri: string;
   path: string;
   maturity: string;

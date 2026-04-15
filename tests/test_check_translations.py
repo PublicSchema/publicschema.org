@@ -246,6 +246,66 @@ class TestCheckDocs:
 
 
 # ---------------------------------------------------------------------------
+# Property label translation completeness
+# ---------------------------------------------------------------------------
+
+
+class TestCheckPropertyLabel:
+    def test_candidate_property_label_missing_fr_es_triggers_error(self, tmp_path: Path):
+        (tmp_path / "properties").mkdir()
+        path = tmp_path / "properties" / "dob.yaml"
+        path.write_text(textwrap.dedent(
+            """\
+            id: dob
+            maturity: candidate
+            label:
+              en: Date of birth
+            definition:
+              en: The date of birth.
+              fr: La date de naissance.
+              es: La fecha de nacimiento.
+            """
+        ))
+        report = ct.check_schema(tmp_path)
+        assert not report.ok
+        assert any("label.fr" in e for e in report.errors)
+        assert any("label.es" in e for e in report.errors)
+
+    def test_draft_property_label_missing_translations_passes(self, tmp_path: Path):
+        (tmp_path / "properties").mkdir()
+        path = tmp_path / "properties" / "dob.yaml"
+        path.write_text(textwrap.dedent(
+            """\
+            id: dob
+            maturity: draft
+            label:
+              en: Date of birth
+            definition:
+              en: The date of birth.
+            """
+        ))
+        report = ct.check_schema(tmp_path)
+        assert report.ok
+
+    def test_property_without_label_key_passes(self, tmp_path: Path):
+        """Properties without a label key at all should not trigger label errors."""
+        (tmp_path / "properties").mkdir()
+        path = tmp_path / "properties" / "dob.yaml"
+        path.write_text(textwrap.dedent(
+            """\
+            id: dob
+            maturity: candidate
+            definition:
+              en: The date of birth.
+              fr: La date de naissance.
+              es: La fecha de nacimiento.
+            """
+        ))
+        report = ct.check_schema(tmp_path)
+        assert report.ok
+
+
+# ---------------------------------------------------------------------------
 # End-to-end against the real repo
 # ---------------------------------------------------------------------------
 

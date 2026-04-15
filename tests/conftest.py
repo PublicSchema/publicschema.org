@@ -101,6 +101,11 @@ def make_property(id="test_field", type="string", **overrides):
     data = {
         "id": id,
         "maturity": "draft",
+        "label": {
+            "en": id.replace("_", " ").capitalize(),
+            "fr": f"Libellé {id}",
+            "es": f"Etiqueta {id}",
+        },
         "definition": {
             "en": f"A test property {id}.",
             "fr": f"Un test {id}.",

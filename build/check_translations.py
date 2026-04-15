@@ -282,6 +282,33 @@ def _check_definition(
             )
 
 
+def _check_label(
+    data: dict,
+    path: Path,
+    report: Report,
+) -> None:
+    """Validate that a schema entity's label has FR/ES translations.
+
+    Only fires when the ``label`` key is present (label is optional
+    until all property files have been populated). Same maturity gating
+    as definitions: drafts may omit, candidate+ must have all locales.
+    """
+    if "label" not in data:
+        return
+    maturity = data.get("maturity", "draft")
+    if maturity not in MATURITY_REQUIRES_TRANSLATION:
+        return
+    label = data.get("label") or {}
+    entity_id = data.get("id", path.stem)
+    for locale in LOCALES:
+        value = label.get(locale)
+        if not value or not str(value).strip():
+            report.error(
+                f"Schema: {path} ({entity_id}, {maturity}) is missing "
+                f"label.{locale}"
+            )
+
+
 def _iter_yaml_files(schema_dir: Path, subdir: str) -> Iterable[Path]:
     target = schema_dir / subdir
     if not target.exists():
@@ -299,6 +326,7 @@ def check_schema(schema_dir: Path = SCHEMA_DIR) -> Report:
                 report.error(f"Schema: failed to parse {path}: {e}")
                 continue
             _check_definition(data, path, report)
+            _check_label(data, path, report)
     return report
 
 

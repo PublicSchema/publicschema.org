@@ -96,11 +96,16 @@ def _concept_dir(concept: dict, base_dir: Path) -> Path:
     return out_dir
 
 
-def _human_label(prop_id: str) -> str:
+def _human_label(prop_id: str, prop: dict | None = None) -> str:
     """Convert a property ID to a human-readable label.
 
-    'enrollment_status' -> 'Enrollment status'
+    When a property dict is provided, uses the YAML label if available.
+    Falls back to deriving from the ID: 'enrollment_status' -> 'Enrollment status'
     """
+    if prop:
+        label = (prop.get("label") or {}).get("en")
+        if label:
+            return label
     return prop_id.replace("_", " ").capitalize()
 
 
@@ -435,7 +440,7 @@ def generate_template_xlsx(
         col_letter = get_column_letter(col_idx)
 
         # Row 1: human-readable label
-        label_cell = ws.cell(row=1, column=col_idx, value=_human_label(prop["id"]))
+        label_cell = ws.cell(row=1, column=col_idx, value=_human_label(prop["id"], prop))
         label_cell.font = HEADER_FONT
         label_cell.fill = HEADER_FILL
 
@@ -473,7 +478,7 @@ def generate_template_xlsx(
                     allow_blank=True,
                 )
                 dv.error = f"Value must be from the {vocab_id} vocabulary."
-                dv.errorTitle = f"Invalid {_human_label(prop['id'])}"
+                dv.errorTitle = f"Invalid {_human_label(prop['id'], prop)}"
                 dv.sqref = f"{col_letter}3:{col_letter}1000"
                 ws.add_data_validation(dv)
 

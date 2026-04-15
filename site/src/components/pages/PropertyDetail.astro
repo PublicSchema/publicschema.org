@@ -33,12 +33,12 @@ const isPrimitiveType = primitiveTypes.includes(prop.type);
 
 const isNonNormative = prop.maturity === 'draft' || prop.maturity === 'candidate';
 ---
-<Base title={prop.id} description={definition} alternateJsonLd={`${prop.path}.jsonld`} ogType="article" locale={locale} openHypothesisSidebar={isNonNormative}>
+<Base title={prop.label?.en ?? prop.id} description={definition} alternateJsonLd={`${prop.path}.jsonld`} ogType="article" locale={locale} openHypothesisSidebar={isNonNormative}>
   <article>
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "DefinedTerm",
-    "name": prop.id,
+    "name": prop.label?.en ?? prop.id,
     "description": definition,
     "url": prop.uri,
     "inDefinedTermSet": {
@@ -53,9 +53,9 @@ const isNonNormative = prop.maturity === 'draft' || prop.maturity === 'candidate
       <span class="separator">/</span>
       <a href={localePath('/properties/', locale)}>{t('common.properties')}</a>
       <span class="separator">/</span>
-      {prop.id}
+      {prop.label?.[locale] ?? prop.label?.en ?? prop.id}
     </nav>
-    <h1>{prop.id}</h1>
+    <h1>{prop.label?.[locale] ?? prop.label?.en ?? prop.id}</h1>
     <div class="meta-line">
       <span class={`badge badge-${prop.maturity}`}>{prop.maturity}</span>
       {prop.sensitivity && prop.sensitivity !== 'standard' && (

@@ -41,7 +41,7 @@ const primitiveTypes = ["string", "integer", "decimal", "boolean", "date", "date
         const isPrimitive = primitiveTypes.includes(p.type);
         return (
           <tr>
-            <td><a href={localePath(p.path, locale)}>{p.id}</a></td>
+            <td><a href={localePath(p.path, locale)}>{p.label?.[locale] ?? p.label?.en ?? p.id}</a></td>
             <td data-label={t('properties.table.type')}>{conceptRef
               ? <a href={localePath(vocab.concepts[conceptRef]?.path || `/${conceptRef}`, locale)}><code>{p.type}</code></a>
               : isPrimitive

@@ -15,6 +15,9 @@
       "type": "string",
       "enum": ["draft", "candidate", "normative"]
     },
+    "label": {
+      "$ref": "#/$defs/multilingual_text"
+    },
     "definition": {
       "$ref": "#/$defs/multilingual_text"
     },

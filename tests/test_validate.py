@@ -390,6 +390,71 @@ class TestMultilingualCompleteness:
 
 
 # ---------------------------------------------------------------------------
+# Property label validation
+# ---------------------------------------------------------------------------
+
+class TestPropertyLabelValidation:
+    def test_property_label_missing_english_rejected(
+        self, tmp_schema, write_property, write_concept,
+    ):
+        """Label with fr but no en fails JSON schema validation."""
+        write_property("bad.yaml", make_property(
+            id="bad_prop", label={"fr": "Libellé"},
+        ))
+        write_concept("person.yaml", make_concept(
+            id="Person", properties=["bad_prop"],
+        ))
+        errors = validate_schema_dir(tmp_schema)
+        assert any("en" in str(e) for e in errors)
+
+    def test_property_label_incomplete_translation_candidate(
+        self, tmp_schema, write_property, write_concept,
+    ):
+        """Candidate property with label but missing fr/es produces validation errors."""
+        write_property("incomplete.yaml", make_property(
+            id="incomplete_prop",
+            maturity="candidate",
+            label={"en": "Incomplete"},
+        ))
+        write_concept("person.yaml", make_concept(
+            id="Person", properties=["incomplete_prop"],
+        ))
+        errors = validate_schema_dir(tmp_schema)
+        label_errors = [e for e in errors if "label" in str(e)]
+        assert len(label_errors) >= 2  # missing fr and es
+
+    def test_property_label_complete_candidate_passes(
+        self, tmp_schema, write_property, write_concept,
+    ):
+        """Candidate property with complete label passes."""
+        write_property("ok.yaml", make_property(
+            id="ok_prop",
+            maturity="candidate",
+            label={"en": "OK", "fr": "OK", "es": "OK"},
+        ))
+        write_concept("person.yaml", make_concept(
+            id="Person", properties=["ok_prop"],
+        ))
+        errors = validate_schema_dir(tmp_schema)
+        label_errors = [e for e in errors if "label" in str(e)]
+        assert label_errors == []
+
+    def test_property_without_label_passes(
+        self, tmp_schema, write_property, write_concept,
+    ):
+        """Property without label key at all passes (label is optional until Phase 5)."""
+        data = make_property(id="no_label", maturity="candidate")
+        del data["label"]
+        write_property("no_label.yaml", data)
+        write_concept("person.yaml", make_concept(
+            id="Person", properties=["no_label"],
+        ))
+        errors = validate_schema_dir(tmp_schema)
+        label_errors = [e for e in errors if "label" in str(e)]
+        assert label_errors == []
+
+
+# ---------------------------------------------------------------------------
 # Property groups validation
 # ---------------------------------------------------------------------------
 

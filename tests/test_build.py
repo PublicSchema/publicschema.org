@@ -1447,6 +1447,96 @@ class TestImmutableAfterStatusAnnotation:
         assert "ps:immutableAfterStatus" not in doc
 
 
+class TestPropertyLabel:
+    """Property label field passes through the build pipeline."""
+
+    def test_property_label_passes_through(
+        self, tmp_schema, write_concept, write_property,
+    ):
+        """label dict from YAML appears in build output."""
+        write_property("dob.yaml", make_property(
+            id="dob", type="date",
+            label={"en": "Date of birth", "fr": "Date de naissance", "es": "Fecha de nacimiento"},
+        ))
+        write_concept("person.yaml", make_concept(
+            id="Person", properties=["dob"],
+        ))
+        result = build_vocabulary(tmp_schema)
+        prop = result["properties"]["dob"]
+        assert prop["label"] == {
+            "en": "Date of birth",
+            "fr": "Date de naissance",
+            "es": "Fecha de nacimiento",
+        }
+
+    def test_property_label_empty_when_absent(
+        self, tmp_schema, write_concept, write_property,
+    ):
+        """Properties without a label field produce an empty dict in output."""
+        data = make_property(id="dob", type="date")
+        del data["label"]
+        write_property("dob.yaml", data)
+        write_concept("person.yaml", make_concept(
+            id="Person", properties=["dob"],
+        ))
+        result = build_vocabulary(tmp_schema)
+        assert result["properties"]["dob"]["label"] == {}
+
+    def test_property_jsonld_rdfs_label_language_tagged(
+        self, tmp_schema, write_concept, write_property,
+    ):
+        """JSON-LD rdfs:label is a list of language-tagged dicts when label exists."""
+        write_property("dob.yaml", make_property(
+            id="dob", type="date",
+            label={"en": "Date of birth", "fr": "Date de naissance"},
+        ))
+        write_concept("person.yaml", make_concept(
+            id="Person", properties=["dob"],
+        ))
+        result = build_vocabulary(tmp_schema)
+        doc = result["jsonld_docs"]["properties/dob.jsonld"]
+        labels = doc["rdfs:label"]
+        assert isinstance(labels, list)
+        langs = {item["@language"]: item["@value"] for item in labels}
+        assert langs["en"] == "Date of birth"
+        assert langs["fr"] == "Date de naissance"
+
+    def test_property_jsonld_rdfs_label_fallback_also_tagged(
+        self, tmp_schema, write_concept, write_property,
+    ):
+        """JSON-LD rdfs:label falls back to language-tagged id (not a plain string)."""
+        data = make_property(id="dob", type="date")
+        del data["label"]
+        write_property("dob.yaml", data)
+        write_concept("person.yaml", make_concept(
+            id="Person", properties=["dob"],
+        ))
+        result = build_vocabulary(tmp_schema)
+        doc = result["jsonld_docs"]["properties/dob.jsonld"]
+        labels = doc["rdfs:label"]
+        assert isinstance(labels, list)
+        assert {"@value": "dob", "@language": "en"} in labels
+
+    def test_concept_property_jsonld_rdfs_label_language_tagged(
+        self, tmp_schema, write_concept, write_property,
+    ):
+        """Property nodes in concept @graph also use language-tagged rdfs:label."""
+        write_property("dob.yaml", make_property(
+            id="dob", type="date",
+            label={"en": "Date of birth", "fr": "Date de naissance"},
+        ))
+        write_concept("person.yaml", make_concept(
+            id="Person", properties=["dob"],
+        ))
+        result = build_vocabulary(tmp_schema)
+        doc = result["jsonld_docs"]["concepts/Person.jsonld"]
+        prop_node = doc["@graph"][1]
+        labels = prop_node["rdfs:label"]
+        assert isinstance(labels, list)
+        langs = {item["@language"]: item["@value"] for item in labels}
+        assert langs["en"] == "Date of birth"
+
+
 class TestPropertySchemaDrift:
     """Catch fields defined in property.schema.json but missing from build output."""
 

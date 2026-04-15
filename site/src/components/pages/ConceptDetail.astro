@@ -171,7 +171,7 @@ const isNonNormative = concept.maturity === 'draft' || concept.maturity === 'can
                 return (
                   <tr class={p.from ? 'inherited-row' : ''} id={`prop-${p.id}`}>
                     <td>
-                      <a href={propLink(p.id)}>{p.id}</a>
+                      <a href={propLink(p.id)}>{p.detail?.label?.[locale] ?? p.detail?.label?.en ?? p.id}</a>
                       {p.from && <span class="inherited-badge">{t('concept_detail.inherited_from')} <a href={conceptLink(p.from)}>{p.from}</a></span>}
                     </td>
                     <td data-label={t('concept_detail.table.type')}>
@@ -221,7 +221,7 @@ const isNonNormative = concept.maturity === 'draft' || concept.maturity === 'can
             return (
               <tr class={p.from ? 'inherited-row' : ''} id={`prop-${p.id}`}>
                 <td>
-                  <a href={propLink(p.id)}>{p.id}</a>
+                  <a href={propLink(p.id)}>{p.detail?.label?.[locale] ?? p.detail?.label?.en ?? p.id}</a>
                   {p.from && <span class="inherited-badge">{t('concept_detail.inherited_from')} <a href={conceptLink(p.from)}>{p.from}</a></span>}
                 </td>
                 <td data-label={t('concept_detail.table.type')}>

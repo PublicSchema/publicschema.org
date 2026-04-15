@@ -386,7 +386,7 @@ class TestTemplateXLSX:
         wb = load_workbook(tmp_path / "sp" / "Enrollment-template.xlsx")
         ws = wb["Data"]
         labels = [ws.cell(row=1, column=c).value for c in range(1, ws.max_column + 1)]
-        # Human-readable: underscores replaced, title case
+        # Labels come from the YAML label.en field (set by make_property fixture)
         assert "Beneficiary" in labels
         assert "Enrollment status" in labels
         assert "Enrollment date" in labels

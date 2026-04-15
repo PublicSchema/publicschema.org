@@ -196,6 +196,11 @@ def validate_schema_dir(schema_dir: Path) -> list[ValidationError]:
                 data["definition"], languages, filename, "definition",
                 maturity=data.get("maturity", "draft"),
             ))
+        if "label" in data:
+            errors.extend(_check_multilingual(
+                data["label"], languages, filename, "label",
+                maturity=data.get("maturity", "draft"),
+            ))
 
     # Validate vocabularies
     for filename, data in vocabularies.items():
