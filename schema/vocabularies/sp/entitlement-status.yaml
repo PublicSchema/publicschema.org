@@ -1,5 +1,5 @@
 id: entitlement-status
-maturity: candidate
+maturity: normative
 domain: sp
 label:
   en: Entitlement Status
@@ -31,18 +31,18 @@ values:
     fr: Approuvé
     es: Aprobado
   definition:
-    en: The entitlement has been confirmed and is awaiting fulfillment.
-    fr: Le droit a été confirmé et est en attente d'exécution.
-    es: El derecho ha sido confirmado y está pendiente de cumplimiento.
+    en: The entitlement has been confirmed and is ready for fulfillment, but no delivery has yet been recorded.
+    fr: Le droit a été confirmé et est prêt à être exécuté, mais aucune livraison n'a encore été enregistrée.
+    es: El derecho ha sido confirmado y está listo para su cumplimiento, pero todavía no se ha registrado ninguna entrega.
 - code: suspended
   label:
     en: Suspended
     fr: Suspendu
     es: Suspendido
   definition:
-    en: The entitlement is temporarily withheld, for example due to a failed conditionality check or pending verification.
-    fr: Le droit est temporairement retenu, par exemple en raison d'un contrôle de conditionnalité échoué ou d'une vérification en cours.
-    es: El derecho está temporalmente retenido, por ejemplo debido a una verificación de condicionalidad fallida o una verificación pendiente.
+    en: The entitlement has been temporarily put on hold after approval, for example due to a failed conditionality check, an administrative hold, or a temporary dispute.
+    fr: Le droit a été temporairement suspendu après approbation, par exemple en raison d'un contrôle de conditionnalité échoué, d'un gel administratif ou d'un litige temporaire.
+    es: El derecho ha sido suspendido temporalmente después de la aprobación, por ejemplo debido a una verificación de condicionalidad fallida, una retención administrativa o una disputa temporal.
 - code: rejected
   label:
     en: Rejected
