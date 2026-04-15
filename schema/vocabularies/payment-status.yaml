@@ -1,5 +1,5 @@
 id: payment-status
-maturity: candidate
+maturity: normative
 label:
   en: Payment Status
   fr: Statut de paiement
@@ -95,19 +95,6 @@ values:
     fr: Le paiement a été annulé avant la transmission, généralement en raison de changements d'admissibilité ou d'une décision
       administrative.
     es: El pago fue cancelado antes de la transmisión, generalmente debido a cambios de elegibilidad o decisión administrativa.
-- code: reconciled
-  deprecated: true
-  deprecated_note: "Use the is_reconciled property on PaymentEvent instead. This value will be removed in a future major version."
-  label:
-    en: Reconciled
-    fr: Réconcilié
-    es: Conciliado
-  definition:
-    en: The payment record has been matched and verified against financial system records, confirming accuracy.
-    fr: Le registre de paiement a été rapproché et vérifié par rapport aux registres du système financier, confirmant l'exactitude.
-    es: El registro de pago ha sido cotejado y verificado con los registros del sistema financiero, confirmando su exactitud.
-  notes:
-    en: "Deprecated: use the is_reconciled property instead. This status mixed financial reconciliation with payment lifecycle states."
 system_mappings:
   openspp:
     values:
@@ -119,8 +106,8 @@ system_mappings:
       maps_to: processing
     - code: reconciled
       label: Reconciled
-      maps_to: reconciled
-      migration_note: "Will map to is_reconciled: true + payment_status: paid when reconciled status is removed."
+      maps_to: paid
+      migration_note: "Also set is_reconciled: true. Reconciliation is modeled separately from payment lifecycle state."
     - code: paid
       label: Paid
       maps_to: paid
@@ -143,8 +130,8 @@ system_mappings:
       maps_to: paid
     - code: cleared
       label: Cleared
-      maps_to: reconciled
-      migration_note: "Will map to is_reconciled: true + payment_status: paid when reconciled status is removed."
+      maps_to: paid
+      migration_note: "Also set is_reconciled: true. Reconciliation is modeled separately from payment lifecycle state."
     unmapped_canonical:
     - partial
     - pending
@@ -169,7 +156,6 @@ system_mappings:
     - pending
     - returned
     - cancelled
-    - reconciled
     - processing
     - rejected
   openimis:
@@ -198,8 +184,8 @@ system_mappings:
       maps_to: cancelled
     - code: RECONCILED
       label: Reconciled
-      maps_to: reconciled
-      migration_note: "Will map to is_reconciled: true + payment_status: paid when reconciled status is removed."
+      maps_to: paid
+      migration_note: "Also set is_reconciled: true. Reconciliation is modeled separately from payment lifecycle state."
     unmapped_canonical:
     - partial
     - paid
@@ -223,4 +209,3 @@ system_mappings:
     - returned
     - rejected
     - cancelled
-    - reconciled

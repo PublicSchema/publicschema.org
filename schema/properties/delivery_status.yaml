@@ -14,4 +14,4 @@ references: null
 convergence:
   system_count: 0
   total_systems: 6
-  notes: "Reuses the payment-status vocabulary. Not all values apply equally (e.g., 'reconciled' is less common for in-kind). A dedicated vocabulary may be warranted in future."
+  notes: "Reuses the payment-status vocabulary. Not all values apply equally (e.g., 'returned' may be less common for in-kind deliveries). A dedicated vocabulary may be warranted in future."
