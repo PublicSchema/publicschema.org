@@ -1,0 +1,13 @@
+id: evidence_ref
+maturity: draft
+
+definition:
+  en: "References to the evidence artefact(s) backing this record. Values are typically URIs (for example, a signed object-store URL) but a local identifier is acceptable when a URI is not applicable. Artefact types include: PDF scans of signed paper forms, photographs of consent records, audio recordings of witnessed verbal consent, and signed digital documents. At least one evidence_ref is strongly recommended for collection_medium in {paper, verbal, mixed}. Field-critical: capture even when the artefact URI is only available after upload."
+  fr: "Références aux artefacts de preuve appuyant cet enregistrement. Les valeurs sont généralement des URI (par exemple, une URL signée vers un objet stocké) mais un identifiant local est acceptable si un URI n'est pas applicable. Les types d'artefacts comprennent: scans PDF de formulaires papier signés, photos de registres de consentement, enregistrements audio de consentements verbaux avec témoin, et documents numériques signés. Au moins un evidence_ref est fortement recommandé pour collection_medium dans {papier, verbal, mixte}. Critique pour la collecte: à renseigner même si l'URI de l'artefact n'est disponible qu'après le téléversement."
+  es: "Referencias a los artefactos de evidencia que respaldan este registro. Los valores son típicamente URIs (por ejemplo, una URL firmada de almacenamiento de objetos), pero un identificador local es aceptable cuando no aplica una URI. Los tipos de artefactos incluyen: escaneos PDF de formularios en papel firmados, fotografías de registros de consentimiento, grabaciones de audio de consentimientos verbales con testigo, y documentos digitales firmados. Se recomienda al menos un evidence_ref cuando collection_medium es {paper, verbal, mixed}. Crítico para la recolección: registrar aunque la URI del artefacto solo esté disponible tras la carga."
+
+type: string
+cardinality: multiple
+vocabulary: null
+references: null
+category: consent_evidence

@@ -190,6 +190,34 @@ General guidance:
 - **Sensitive data** (properties that reveal circumstances like health status, poverty, or victimhood in most contexts) requires justification to collect or disclose. See the `sensitivity` annotation in [Schema Design](../schema-design/#9-sensitivity-annotations).
 - **Restricted data** (assessment scores, vulnerability indices) requires enhanced protections: audit logging, purpose limitation, Data Protection Impact Assessment.
 
+### Consent Receipt VC
+
+A `ConsentRecord` with `consent_record_type = receipt` is a natural candidate for a Verifiable Credential, particularly for programs moving toward wallet-based data governance. This pattern is aligned with ADR-009 decision 24 and is ready for future wallet deployments; it is not a day-one expectation.
+
+The Consent Receipt VC allows a data subject to carry proof of what was agreed, which notice was presented, and who the controllers are, without relying on the program's registry being online at verification time. It is consistent with Kantara Consent Receipt v1.1 intent and ISO/IEC TS 27560:2023 receipt semantics, and uses the SD-JWT VC format defined elsewhere in this document.
+
+**Must-disclose claims** (cannot be hidden by the holder):
+
+- `data_subject` (the identity of the data subject, as an identifier; the full identity claims are on the IdentityCredential)
+- `controllers` (the organisations responsible for the processing)
+- `purposes` (the DPV purpose URIs that were agreed)
+- `legal_basis` (the legal basis code, e.g., `consent`, `public_interest`)
+- `signed_date` (the date the data subject indicated agreement)
+- `status` (the current status of the consent, e.g., `given`, `withdrawn`)
+
+**Selectively disclosable claims:**
+
+- `evidence_ref` (the holder may not wish to expose where evidence artefacts are stored)
+- `witnessed_by` (the identities of witnesses; the holder may choose not to disclose)
+- Individual values within `personal_data_categories` (each DPV URI may be disclosed independently; the holder might disclose health-data categories to a health provider without exposing financial-data categories)
+- `recipients` (specific recipient organisation identities; disclosure per recipient is possible)
+- `expiry_date` and `effective_date` (validity dates are disclosable independently)
+- `notice_ref` and `notice_version` (reference to the notice; a holder might disclose these to a verifier who needs to inspect the full notice)
+- `special_category_basis` (only relevant when special-category data is involved)
+- `jurisdiction`
+
+**Implementation note.** At v1, most programs will issue Consent Receipt VCs as records in their registry, not as wallet-held credentials. The claim structure above is designed so that when wallet infrastructure is available, the same `ConsentRecord` serialisation maps directly to the VC payload without restructuring. The `vct` value for a ConsentReceiptCredential will be `https://publicschema.org/schemas/credentials/ConsentReceiptCredential` once that credential type is formally published.
+
 ## Implementation Guidance
 
 1. **Issuers** should consult the credential type definitions above when constructing SD-JWT VCs. Claims listed as "always disclosed" go in the clear; "selectively disclosable" claims go in `_sd`. For properties not covered by a defined credential type, the issuer determines disclosure behavior based on credential context.

@@ -1,0 +1,13 @@
+id: withdrawal_reason
+maturity: draft
+
+definition:
+  en: "Free-form reason for withdrawal, if disclosed by the data subject. The data subject is not required to give a reason; this field exists for when they do, for the controller's service-improvement purposes."
+  fr: "Motif de retrait en texte libre, si la personne concernée le communique. La personne concernée n'est pas tenue de donner un motif; ce champ existe pour les cas où elle le fait, à des fins d'amélioration du service par le responsable du traitement."
+  es: "Motivo de retiro en texto libre, si la persona afectada lo comunica. La persona afectada no está obligada a dar un motivo; este campo existe para cuando lo hace, con fines de mejora del servicio por parte del responsable del tratamiento."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+category: consent_lifecycle

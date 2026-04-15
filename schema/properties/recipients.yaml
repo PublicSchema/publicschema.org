@@ -1,0 +1,22 @@
+id: recipients
+maturity: draft
+
+definition:
+  en: "Organizations that receive the data or its derivatives. Includes processors, joint controllers, and independent controllers. See the parallel property 'recipient_role' for the role of each recipient."
+  fr: "Organisations qui reçoivent les données ou leurs dérivés. Comprend les sous-traitants, les responsables conjoints du traitement et les responsables indépendants du traitement. Voir la propriété parallèle 'recipient_role' pour le rôle de chaque destinataire."
+  es: "Organizaciones que reciben los datos o sus derivados. Incluye encargados del tratamiento, corresponsables del tratamiento y responsables del tratamiento independientes. Véase la propiedad paralela 'recipient_role' para conocer el rol de cada destinatario."
+
+type: concept:Organization
+cardinality: multiple
+vocabulary: null
+references: Organization
+category: consent_parties
+immutable_after_status: given
+
+external_equivalents:
+  dpv:
+    label: "has recipient"
+    uri: "https://w3id.org/dpv#hasRecipient"
+    match: close
+    vocabulary: "DPV v2"
+    note: "DPV models this as a predicate (hasRecipient) linking a record to a recipient; we model it as a property on ConsentRecord. Semantically equivalent."

@@ -1,0 +1,92 @@
+id: organization-type
+maturity: draft
+label:
+  en: Organization Type
+  fr: Type d'organisation
+  es: Tipo de organización
+definition:
+  en: A broad classification of organisations by their institutional nature and sector. Used on consent records to describe the categories of recipients to whom data may be shared, and on the Organization concept to classify the entity itself. Values reflect the types of organisations commonly involved in public program delivery as data controllers, processors, or sharing partners.
+  fr: Une classification générale des organisations selon leur nature institutionnelle et leur secteur. Utilisé sur les enregistrements de consentement pour décrire les catégories de destinataires auxquels des données peuvent être partagées, et sur le concept Organisation pour classifier l'entité elle-même. Les valeurs reflètent les types d'organisations couramment impliquées dans la prestation de programmes publics en tant que responsables du traitement, sous-traitants ou partenaires de partage.
+  es: Una clasificación amplia de organizaciones por su naturaleza institucional y sector. Se usa en registros de consentimiento para describir las categorías de destinatarios con quienes se pueden compartir datos, y en el concepto Organization para clasificar la entidad en sí. Los valores reflejan los tipos de organizaciones habitualmente involucradas en la prestación de programas públicos como responsables del tratamiento, encargados o socios de intercambio.
+values:
+- code: government_agency
+  label:
+    en: Government agency
+    fr: Agence gouvernementale
+    es: Agencia gubernamental
+  definition:
+    en: A government body at the national, regional, or local level that is not a ministry, such as a social protection agency, a statistics office, or a civil registration authority. Typically has its own legal mandate and budget.
+    fr: Un organisme gouvernemental aux niveaux national, régional ou local qui n'est pas un ministère, tel qu'une agence de protection sociale, un bureau des statistiques ou une autorité d'état civil. Dispose généralement de son propre mandat et budget.
+    es: Un organismo gubernamental a nivel nacional, regional o local que no es un ministerio, como una agencia de protección social, una oficina de estadística o una autoridad de registro civil. Típicamente tiene su propio mandato legal y presupuesto.
+- code: ministry
+  label:
+    en: Ministry
+    fr: Ministère
+    es: Ministerio
+  definition:
+    en: A central government ministry or department headed by a minister, responsible for a policy domain such as social welfare, health, education, or interior affairs.
+    fr: Un ministère ou département gouvernemental central dirigé par un ministre, responsable d'un domaine politique tel que le bien-être social, la santé, l'éducation ou l'intérieur.
+    es: Un ministerio o departamento del gobierno central encabezado por un ministro, responsable de un dominio de política como bienestar social, salud, educación o asuntos interiores.
+- code: ngo
+  label:
+    en: Non-governmental organisation
+    fr: Organisation non gouvernementale
+    es: Organizacion no gubernamental
+  definition:
+    en: A non-profit, non-governmental organisation, including international and local NGOs, that is involved in program delivery, data collection, or service provision. Includes civil-society organisations and community-based organisations when they act as data processors or implementing partners.
+    fr: Une organisation non gouvernementale sans but lucratif, y compris les ONG internationales et locales, impliquée dans la mise en œuvre de programmes, la collecte de données ou la prestation de services. Comprend les organisations de la société civile et les organisations communautaires lorsqu'elles agissent en tant que sous-traitants ou partenaires de mise en œuvre.
+    es: Una organización sin fines de lucro, no gubernamental, incluidas las ONG internacionales y locales, que participa en la ejecución de programas, la recopilación de datos o la prestación de servicios. Incluye organizaciones de la sociedad civil y organizaciones comunitarias cuando actúan como encargados del tratamiento o socios ejecutores.
+- code: un_agency
+  label:
+    en: UN agency
+    fr: Agence des Nations Unies
+    es: Agencia de la ONU
+  definition:
+    en: A United Nations agency, fund, or programme, such as UNHCR, UNICEF, WFP, WHO, or UNDP. UN agencies often act as implementing partners or coordinators in multi-party program delivery arrangements.
+    fr: Une agence, un fonds ou un programme des Nations Unies, tel que le HCR, l'UNICEF, le PAM, l'OMS ou le PNUD. Les agences des Nations Unies agissent souvent en tant que partenaires de mise en œuvre ou coordinateurs dans des arrangements multipartites.
+    es: Una agencia, fondo o programa de las Naciones Unidas, como ACNUR, UNICEF, PMA, OMS o PNUD. Las agencias de la ONU actúan frecuentemente como socios ejecutores o coordinadores en acuerdos de prestación de programas con múltiples partes.
+- code: bank
+  label:
+    en: Bank
+    fr: Banque
+    es: Banco
+  definition:
+    en: A licensed commercial, development, or microfinance bank involved in program delivery, such as disbursing cash transfers or providing accounts for beneficiaries. Banks act as processors or independent controllers depending on the scope of the data they receive.
+    fr: Une banque commerciale, de développement ou de microfinance agréée impliquée dans la mise en œuvre du programme, par exemple pour le versement de transferts en espèces ou la fourniture de comptes aux bénéficiaires. Les banques agissent en tant que sous-traitants ou responsables indépendants selon l'étendue des données qu'elles reçoivent.
+    es: Un banco comercial, de desarrollo o de microcrédito con licencia involucrado en la ejecución del programa, como el desembolso de transferencias en efectivo o la provisión de cuentas para beneficiarios. Los bancos actúan como encargados o responsables independientes según el alcance de los datos que reciben.
+- code: mobile_money_operator
+  label:
+    en: Mobile money operator
+    fr: Opérateur de monnaie mobile
+    es: Operador de dinero móvil
+  definition:
+    en: A provider of mobile payment and transfer services, such as M-Pesa, MTN Mobile Money, or similar platforms. Mobile money operators are common last-mile delivery channels for cash transfers in low- and middle-income countries.
+    fr: Un fournisseur de services de paiement et de transfert mobiles, tel que M-Pesa, MTN Mobile Money ou des plateformes similaires. Les opérateurs de monnaie mobile sont des canaux de distribution courants pour les transferts en espèces dans les pays à revenu faible et intermédiaire.
+    es: Un proveedor de servicios de pago y transferencia móvil, como M-Pesa, MTN Mobile Money o plataformas similares. Los operadores de dinero móvil son canales de distribución de último kilómetro comunes para transferencias de efectivo en países de ingresos bajos y medios.
+- code: implementing_partner
+  label:
+    en: Implementing partner
+    fr: Partenaire de mise en œuvre
+    es: Socio ejecutor
+  definition:
+    en: An organisation contracted to deliver specific program activities on behalf of the primary controller, which may be a government or UN agency. Includes prime contractors, sub-contractors, and consortium members in multi-partner program delivery. Use when none of the more specific categories (ngo, bank, un-agency) precisely apply.
+    fr: Une organisation sous contrat pour exécuter des activités de programme spécifiques au nom du responsable principal, qui peut être un gouvernement ou une agence des Nations Unies. Comprend les entrepreneurs principaux, les sous-traitants et les membres d'un consortium dans la mise en œuvre de programmes multipartenaires. À utiliser lorsqu'aucune des catégories plus spécifiques (ngo, bank, un-agency) ne s'applique précisément.
+    es: Una organización contratada para llevar a cabo actividades específicas del programa en nombre del responsable principal, que puede ser un gobierno o una agencia de la ONU. Incluye contratistas principales, subcontratistas y miembros de consorcios en la ejecución de programas con varios socios. Use cuando ninguna de las categorías más específicas (ngo, bank, un-agency) aplique con precisión.
+- code: research_institution
+  label:
+    en: Research institution
+    fr: Institution de recherche
+    es: Institución de investigación
+  definition:
+    en: A university, research institute, or think tank that receives program data for evaluation, research, or monitoring and evaluation purposes. Research institutions typically receive anonymised or pseudonymised data; when they receive identifiable data, the legal basis and data sharing agreement should be documented carefully.
+    fr: Une université, un institut de recherche ou un groupe de réflexion qui reçoit des données de programme à des fins d'évaluation, de recherche ou de suivi et évaluation. Les institutions de recherche reçoivent généralement des données anonymisées ou pseudonymisées; lorsqu'elles reçoivent des données identifiables, la base juridique et l'accord de partage de données doivent être soigneusement documentés.
+    es: Una universidad, instituto de investigación o grupo de reflexión que recibe datos del programa para evaluación, investigación o fines de seguimiento y evaluación. Las instituciones de investigación típicamente reciben datos anonimizados o pseudonimizados; cuando reciben datos identificables, la base jurídica y el acuerdo de intercambio de datos deben documentarse cuidadosamente.
+- code: other
+  label:
+    en: Other
+    fr: Autre
+    es: Otro
+  definition:
+    en: An organisation type not covered by the other values. Document the specific type in a note or in the related consent record to support future vocabulary additions.
+    fr: Un type d'organisation non couvert par les autres valeurs. Documentez le type spécifique dans une note ou dans l'enregistrement de consentement associé pour faciliter de futures extensions du vocabulaire.
+    es: Un tipo de organización no cubierto por los otros valores. Documente el tipo específico en una nota o en el registro de consentimiento relacionado para facilitar futuras ampliaciones del vocabulario.

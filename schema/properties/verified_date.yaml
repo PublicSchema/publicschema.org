@@ -1,0 +1,13 @@
+id: verified_date
+maturity: draft
+
+definition:
+  en: "Date of the verification act performed by verified_by. Typically after signed_date."
+  fr: "Date de l'acte de vérification effectué par verified_by. Généralement postérieure à signed_date."
+  es: "Fecha del acto de verificación realizado por verified_by. Típicamente posterior a signed_date."
+
+type: date
+cardinality: single
+vocabulary: null
+references: null
+category: consent_evidence

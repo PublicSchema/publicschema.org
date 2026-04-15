@@ -1,0 +1,13 @@
+id: schema_version
+maturity: draft
+
+definition:
+  en: "Identifies the version of the PublicSchema (or other) consent record schema this instance conforms to. Enables forward migration tooling. Typically a dereferenceable URI, for example 'https://publicschema.org/ConsentRecord/v1'."
+  fr: "Identifie la version du schéma d'enregistrement de consentement PublicSchema (ou autre) auquel cette instance est conforme. Permet les outils de migration vers les versions ultérieures. Il s'agit généralement d'un URI déréférençable, par exemple 'https://publicschema.org/ConsentRecord/v1'."
+  es: "Identifica la versión del esquema de registro de consentimiento de PublicSchema (u otro) al que se ajusta esta instancia. Permite las herramientas de migración hacia versiones posteriores. Normalmente es un URI desreferenciable, por ejemplo 'https://publicschema.org/ConsentRecord/v1'."
+
+type: uri
+cardinality: single
+vocabulary: null
+references: null
+category: administrative

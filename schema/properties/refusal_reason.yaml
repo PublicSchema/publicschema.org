@@ -1,0 +1,13 @@
+id: refusal_reason
+maturity: draft
+
+definition:
+  en: "Free-form reason for refusal when the data subject declined to consent (status = refused). Distinct from withdrawal_reason, which applies after consent was initially given and later withdrawn."
+  fr: "Motif de refus en texte libre lorsque la personne concernée a décliné le consentement (statut = refused). À distinguer de withdrawal_reason, qui s'applique après qu'un consentement a été initialement accordé puis retiré ultérieurement."
+  es: "Motivo de rechazo en texto libre cuando la persona afectada declinó consentir (estado = refused). Distinto de withdrawal_reason, que se aplica después de que el consentimiento fue otorgado inicialmente y luego retirado."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+category: consent_lifecycle

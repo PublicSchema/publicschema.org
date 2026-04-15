@@ -1,0 +1,22 @@
+id: data_subject
+maturity: draft
+
+definition:
+  en: "The natural person (or occasionally group) whose personal data is being processed under this record. Party is the abstract supertype covering Person and Group. Farm is excluded: farms are not natural persons or legal beneficiaries under any data protection law. When 'data_subject' is a Group, 'delegation_type' must not be 'self'."
+  fr: "La personne physique (ou parfois le groupe) dont les données personnelles sont traitées dans le cadre de cet enregistrement. Party est le supertype abstrait couvrant Person et Group. Farm est exclu : les exploitations agricoles ne sont pas des personnes physiques ni des bénéficiaires légaux au titre d'aucune loi sur la protection des données. Lorsque 'data_subject' est un Group, 'delegation_type' ne doit pas être 'self'."
+  es: "La persona física (o en ocasiones el grupo) cuyos datos personales se tratan bajo este registro. Party es el supertipo abstracto que abarca Person y Group. Farm está excluido: las explotaciones agrícolas no son personas físicas ni beneficiarias legales bajo ninguna ley de protección de datos. Cuando 'data_subject' es un Group, 'delegation_type' no debe ser 'self'."
+
+type: concept:Party
+cardinality: single
+vocabulary: null
+references: Party
+category: consent_parties
+immutable_after_status: given
+
+external_equivalents:
+  dpv:
+    label: "has data subject"
+    uri: "https://w3id.org/dpv#hasDataSubject"
+    match: close
+    vocabulary: "DPV v2"
+    note: "DPV models this as a predicate (hasDataSubject) linking a record to a subject; we model it as a property on ConsentRecord. Semantically equivalent."

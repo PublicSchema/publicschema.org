@@ -1,0 +1,36 @@
+id: dpv
+name: W3C Data Privacy Vocabulary (DPV)
+version: "2.0"
+fetched_at: "2026-04-15"
+
+# Pinned snapshots. We reference DPV URIs directly from vocabularies, properties,
+# and concepts via external_equivalents.dpv (and .dpv-gdpr). Tests parse these
+# files to verify every URI we cite resolves to a class or property in DPV.
+snapshots:
+  - file: dpv-v2.ttl
+    namespace: "https://w3id.org/dpv#"
+    source_url: "https://w3id.org/dpv"
+    content_type: text/turtle
+    sha256: 97bc7ce1a4544d39b9e480eeb7990693bee1155fb094f3dd50b9eb1d0c0d578f
+  - file: dpv-gdpr-v2.ttl
+    namespace: "https://w3id.org/dpv/legal/eu/gdpr#"
+    source_url: "https://w3id.org/dpv/legal/eu/gdpr"
+    content_type: text/turtle
+    sha256: 9b710961f5e010b659f4a87dca13578dd92d6768c8716f551d142c661f7fb77f
+
+# Refresh procedure:
+#   curl -sL -H "Accept: text/turtle" https://w3id.org/dpv -o dpv-v2.ttl
+#   curl -sL -H "Accept: text/turtle" https://w3id.org/dpv/legal/eu/gdpr -o dpv-gdpr-v2.ttl
+#   shasum -a 256 *.ttl   # update the sha256 entries above
+#   uv run pytest tests/test_graph_invariants.py -k dpv   # verify URIs still resolve
+#
+# When refreshing, review the DPV release notes. Breaking renames to any URI we
+# cite in external_equivalents.dpv require a matching YAML update in the same commit.
+
+notes: |
+  The DPV namespace ships in multiple serializations; Turtle is pinned here.
+  dpv-pd (personal-data taxonomy) is not pinned separately because ConsentRecord
+  currently references the core class dpv:PersonalData and does not cite dpv-pd
+  subclasses. Add dpv-pd-v2.ttl when a consent vocabulary cites dpv-pd:* terms.
+  dpv-tech and dpv-loc namespaces are aliased in the JSON-LD context as a
+  future convenience; no URIs from those modules are cited in v1.

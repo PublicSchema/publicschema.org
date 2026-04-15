@@ -1,0 +1,13 @@
+id: external_id
+maturity: draft
+
+definition:
+  en: "Identifiers assigned by external systems (CRM, case management, etc.). Multiple allowed because a record may carry identifiers from several systems."
+  fr: "Identifiants attribués par des systèmes externes (CRM, gestion de cas, etc.). Plusieurs valeurs sont autorisées car un enregistrement peut porter des identifiants provenant de plusieurs systèmes."
+  es: "Identificadores asignados por sistemas externos (CRM, gestión de casos, etc.). Se permiten múltiples valores porque un registro puede tener identificadores de varios sistemas."
+
+type: string
+cardinality: multiple
+vocabulary: null
+references: null
+category: administrative

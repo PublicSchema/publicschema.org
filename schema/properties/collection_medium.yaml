@@ -1,0 +1,14 @@
+id: collection_medium
+maturity: draft
+
+definition:
+  en: "The medium through which consent was collected: paper, electronic, verbal, or mixed. Paper is the dominant medium in humanitarian and rural social-protection programs; electronic systems that ignore paper workflows exclude real practice. Field-critical: populate even if the system defaults to assuming electronic."
+  fr: "Le support par lequel le consentement a été recueilli: papier, électronique, verbal ou mixte. Le papier est le support dominant dans les programmes humanitaires et de protection sociale en milieu rural; les systèmes électroniques qui ignorent les flux papier excluent la pratique réelle. Critique pour la collecte: à renseigner même si le système suppose par défaut un support électronique."
+  es: "El medio a través del cual se recopiló el consentimiento: papel, electrónico, verbal o mixto. El papel es el medio dominante en programas humanitarios y de protección social en zonas rurales; los sistemas electrónicos que ignoran los flujos en papel excluyen la práctica real. Crítico para la recolección: registrar aunque el sistema asuma por defecto el medio electrónico."
+
+type: string
+cardinality: single
+vocabulary: collection-medium
+references: null
+category: consent_evidence
+immutable_after_status: given

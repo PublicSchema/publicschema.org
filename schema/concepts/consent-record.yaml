@@ -1,0 +1,172 @@
+id: ConsentRecord
+label:
+  en: Consent Record
+  fr: Enregistrement de consentement
+  es: Registro de consentimiento
+maturity: draft
+
+definition:
+  en: >
+    ConsentRecord documents the lawful basis for processing a data subject's
+    personal data. Despite the name, consent is only one of six possible
+    legal bases under GDPR Article 6(1); records with legal_basis other than
+    consent still use this concept because the standards (W3C DPV, ISO/IEC
+    TS 27560) converge on the name. Records are produced individually in
+    office workflows and in bulk during community intake sessions; the
+    schema does not distinguish these at v1.
+  fr: >
+    ConsentRecord documente la base juridique du traitement des données
+    personnelles d'une personne concernée. Malgré son nom, le consentement
+    n'est qu'une des six bases juridiques possibles au titre de l'article
+    6, paragraphe 1, du RGPD; les enregistrements dont la base juridique
+    n'est pas le consentement utilisent aussi ce concept parce que les
+    normes (W3C DPV, ISO/IEC TS 27560) convergent sur ce nom. Les
+    enregistrements sont produits individuellement dans les circuits de
+    bureau et en masse lors des sessions d'enregistrement communautaire; le
+    schéma ne distingue pas ces deux cas en v1.
+  es: >
+    ConsentRecord documenta la base jurídica del tratamiento de los
+    datos personales de un interesado. A pesar de su nombre, el
+    consentimiento es solo una de las seis bases jurídicas posibles en
+    virtud del artículo 6, apartado 1, del RGPD; los registros cuya base
+    jurídica no es el consentimiento también utilizan este concepto
+    porque las normas (W3C DPV, ISO/IEC TS 27560) convergen en este
+    nombre. Los registros se producen individualmente en los flujos de
+    oficina y en masa durante las sesiones de captación comunitaria; el
+    esquema no distingue ambos casos en v1.
+
+properties:
+  - identifier
+  - external_id
+  - consent_record_type
+  - schema_version
+  - conforms_to
+  - created_at
+  - collection_session_ref
+  - data_subject
+  - controllers
+  - recipients
+  - recipient_role
+  - allowed_recipient_categories
+  - indicated_by
+  - delegation_type
+  - witnessed_by
+  - purposes
+  - personal_data_categories
+  - processing_operations
+  - legal_basis
+  - special_category_basis
+  - legal_basis_reference
+  - joint_controller_arrangement_ref
+  - notice_ref
+  - notice_version
+  - notice_presentation_language
+  - effective_date
+  - signed_date
+  - expiry_date
+  - jurisdiction
+  - collection_medium
+  - consent_expression
+  - evidence_ref
+  - verified_by
+  - verified_date
+  - status
+  - withdrawal_channel
+  - withdrawal_uri
+  - withdrawal_reason
+  - refusal_reason
+  - storage_duration_days
+
+property_groups:
+  - category: administrative
+    properties:
+      - identifier
+      - external_id
+      - consent_record_type
+      - schema_version
+      - conforms_to
+      - created_at
+      - collection_session_ref
+  - category: consent_parties
+    properties:
+      - data_subject
+      - controllers
+      - recipients
+      - recipient_role
+      - allowed_recipient_categories
+      - indicated_by
+      - delegation_type
+      - witnessed_by
+  - category: consent_processing
+    properties:
+      - purposes
+      - personal_data_categories
+      - processing_operations
+      - legal_basis
+      - special_category_basis
+      - legal_basis_reference
+      - joint_controller_arrangement_ref
+  - category: consent_notice
+    properties:
+      - notice_ref
+      - notice_version
+      - notice_presentation_language
+  - category: consent_validity
+    properties:
+      - effective_date
+      - signed_date
+      - expiry_date
+      - jurisdiction
+  - category: consent_evidence
+    properties:
+      - collection_medium
+      - consent_expression
+      - evidence_ref
+      - verified_by
+      - verified_date
+  - category: consent_lifecycle
+    properties:
+      - status
+      - withdrawal_channel
+      - withdrawal_uri
+      - withdrawal_reason
+      - refusal_reason
+  - category: consent_retention
+    properties:
+      - storage_duration_days
+
+supertypes: []
+subtypes: []
+
+external_equivalents:
+  dpv:
+    label: "Consent Record"
+    uri: "https://w3id.org/dpv#ConsentRecord"
+    match: exact
+    vocabulary: "W3C DPV v2"
+    note: "W3C Data Privacy Vocabulary 2.0 defines dpv:ConsentRecord as a record of consent and provides predicates (hasDataSubject, hasDataController, hasPurpose, etc.) that align with our properties. Our ConsentRecord is the direct equivalent; ours adds field-workflow fields (signed_date, witnessed_by, collection_medium) that DPV does not name."
+  fhir-r4:
+    label: "Consent"
+    uri: "http://hl7.org/fhir/StructureDefinition/Consent"
+    match: close
+    vocabulary: "FHIR R4"
+    note: "FHIR R4 Consent is the canonical health-sector consent record. Scope is close but narrower: FHIR Consent is health-centric, single-controller, and does not model receipt-as-record-type. Our ConsentRecord generalises across domains; fields verified_by, verified_date map to FHIR verification, verificationDate."
+  fhir-r5:
+    label: "Consent"
+    uri: "http://hl7.org/fhir/StructureDefinition/Consent"
+    match: close
+    vocabulary: "FHIR R5"
+    note: "FHIR R5 revises Consent and introduces the separate Permission resource for controller-side authorization. Mapping is primarily to R5 Consent; our evidence_ref maps to sourceAttachment and verified_by / verified_date map to verification.verifiedWith / verificationDate."
+
+convergence:
+  system_count: 4
+  total_systems: 6
+  notes: >
+    Consent record structure converges across OpenSPP (spp.consent.record),
+    OpenIMIS insuree consent records, openCRVS permission tracking,
+    GovStack Consent Building Block, W3C DPV, ISO/IEC TS 27560, and
+    Kantara Consent Receipt v1.1. Variation is mainly in scope (single
+    vs joint controller, digital vs paper workflow, consent-only vs
+    full legal-basis coverage). This concept takes the broader scope;
+    narrower profiles are available via external_equivalents on specific
+    properties.

@@ -166,6 +166,34 @@ Orientación general:
 - **Los datos sensibles** (propiedades que revelan circunstancias como estado de salud, pobreza o condición de víctima en la mayoría de los contextos) requieren justificación para recopilarlos o divulgarlos. Consulte la anotación `sensitivity` en [Diseño de esquema](../schema-design/#9-sensitivity-annotations).
 - **Los datos restringidos** (puntajes de evaluación, índices de vulnerabilidad) requieren protecciones mejoradas: registro de auditoría, limitación de propósito, Evaluación de Impacto en la Protección de Datos.
 
+### Credencial de recibo de consentimiento (Consent Receipt VC)
+
+Un `ConsentRecord` con `consent_record_type = receipt` es un candidato natural para una credencial verificable (Verifiable Credential), especialmente para los programas que avanzan hacia una gobernanza de datos basada en carteras digitales. Este patrón está alineado con la decisión 24 del ADR-009 y está listo para futuros despliegues con carteras digitales; no es una expectativa inmediata.
+
+La credencial de recibo de consentimiento (Consent Receipt VC) permite a un interesado llevar consigo la prueba de lo que se acordó, el aviso que se presentó y quiénes son los responsables del tratamiento, sin depender de que el registro del programa esté disponible en línea en el momento de la verificación. Este patrón es coherente con la intención de la especificación Kantara Consent Receipt v1.1 y la semántica de recibo de la norma ISO/IEC TS 27560:2023. Usa el formato SD-JWT VC definido en otras partes de este documento.
+
+**Afirmaciones de divulgación obligatoria** (el titular no puede ocultarlas):
+
+- `data_subject` (la identidad del interesado, como identificador; las afirmaciones de identidad completas están en el IdentityCredential)
+- `controllers` (las organizaciones responsables del tratamiento)
+- `purposes` (los URI de finalidades DPV que fueron acordados)
+- `legal_basis` (el código de base jurídica, p. ej., `consent`, `public_interest`)
+- `signed_date` (la fecha en que el interesado indicó su acuerdo)
+- `status` (el estado actual del consentimiento, p. ej., `given`, `withdrawn`)
+
+**Afirmaciones divulgables selectivamente:**
+
+- `evidence_ref` (el titular puede no desear exponer dónde se almacenan los documentos probatorios)
+- `witnessed_by` (las identidades de los testigos; el titular puede elegir no divulgarlas)
+- Los valores individuales dentro de `personal_data_categories` (cada URI DPV puede divulgarse de forma independiente; el titular podría divulgar las categorías de datos de salud a un proveedor de salud sin exponer las categorías de datos financieros)
+- `recipients` (las identidades de las organizaciones destinatarias específicas; es posible la divulgación por destinatario)
+- `expiry_date` y `effective_date` (las fechas de validez pueden divulgarse de forma independiente)
+- `notice_ref` y `notice_version` (referencia al aviso; un titular puede divulgar estas informaciones a un verificador que necesita inspeccionar el aviso completo)
+- `special_category_basis` (solo relevante cuando se involucran datos de categoría especial)
+- `jurisdiction`
+
+**Nota de implementación.** En la versión 1, la mayoría de los programas emitirán credenciales de recibo de consentimiento como registros en su sistema, no como credenciales almacenadas en carteras digitales. La estructura de afirmaciones anterior está diseñada para que, cuando la infraestructura de carteras esté disponible, la misma serialización de `ConsentRecord` se asigne directamente a la carga útil de la credencial sin reestructuración. El valor `vct` para un ConsentReceiptCredential será `https://publicschema.org/schemas/credentials/ConsentReceiptCredential` una vez que ese tipo de credencial se publique formalmente.
+
 ## Orientación de implementación
 
 1. **Los emisores** deben consultar las definiciones de tipos de credencial anteriores al construir credenciales verificables SD-JWT. Las afirmaciones listadas como "siempre divulgadas" van en claro; las afirmaciones "divulgables selectivamente" van en `_sd`. Para propiedades no cubiertas por un tipo de credencial definido, el emisor determina el comportamiento de divulgación según el contexto de la credencial.

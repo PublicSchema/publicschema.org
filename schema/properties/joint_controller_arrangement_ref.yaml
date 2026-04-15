@@ -1,0 +1,13 @@
+id: joint_controller_arrangement_ref
+maturity: draft
+
+definition:
+  en: "Reference to the joint-controllership arrangement between the parties listed in `controllers` (GDPR Art 26). Typically a URI to a published arrangement; a local identifier is acceptable if URI is not applicable. Populated when cardinality of `controllers` is greater than one."
+  fr: "Référence à l'accord de responsabilité conjointe entre les parties listées dans `controllers` (RGPD Art 26). Généralement un URI vers un accord publié ; un identifiant local est acceptable si un URI n'est pas applicable. À renseigner lorsque la cardinalité de `controllers` est supérieure à un."
+  es: "Referencia al acuerdo de corresponsabilidad entre las partes listadas en `controllers` (RGPD Art 26). Típicamente un URI hacia un acuerdo publicado; un identificador local es aceptable si no aplica un URI. Completar cuando la cardinalidad de `controllers` es mayor que uno."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+category: consent_processing

@@ -1,0 +1,21 @@
+id: status
+maturity: draft
+
+definition:
+  en: "The current lifecycle state of the record: requested, given, renewed, refused, withdrawn, revoked, expired, invalidated, or unknown. Transitions follow the state machine documented in docs/consent-lifecycle.md. given triggers the immutability of terms-fields (data_subject, controllers, recipients, purposes, etc.); see the per-property immutable_after_status annotation."
+  fr: "L'état actuel du cycle de vie de l'enregistrement: demandé, accordé, renouvelé, refusé, retiré, révoqué, expiré, invalidé ou inconnu. Les transitions suivent la machine d'état documentée dans docs/consent-lifecycle.md. given déclenche l'immutabilité des champs de conditions (data_subject, controllers, recipients, purposes, etc.); voir l'annotation immutable_after_status sur chaque propriété concernée."
+  es: "El estado actual del ciclo de vida del registro: solicitado, otorgado, renovado, rechazado, retirado, revocado, expirado, invalidado o desconocido. Las transiciones siguen la máquina de estados documentada en docs/consent-lifecycle.md. given activa la inmutabilidad de los campos de condiciones (data_subject, controllers, recipients, purposes, etc.); consulte la anotación immutable_after_status en cada propiedad correspondiente."
+
+type: string
+cardinality: single
+vocabulary: consent-status
+references: null
+category: consent_lifecycle
+
+external_equivalents:
+  dpv:
+    label: "hasConsentStatus"
+    uri: "https://w3id.org/dpv#hasConsentStatus"
+    match: close
+    vocabulary: "DPV v2"
+    note: "dpv:hasConsentStatus has range dpv:ConsentStatus; our status field covers the full ConsentRecord lifecycle including non-consent legal bases, which is slightly broader."

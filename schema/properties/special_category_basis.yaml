@@ -1,0 +1,14 @@
+id: special_category_basis
+maturity: draft
+
+definition:
+  en: "When `personal_data_categories` includes a special category (GDPR Art 9 / `dpv:SpecialCategoryPersonalData`), this property identifies the Art 9(2) basis that authorizes processing. Required when Art 9 data is in scope; omitted otherwise. Field-critical: populate even if your UI does not require it."
+  fr: "Lorsque `personal_data_categories` comprend une catégorie particulière (RGPD Art 9 / `dpv:SpecialCategoryPersonalData`), cette propriété identifie la base au titre de l'Art 9(2) qui autorise le traitement. Obligatoire lorsque des données Art 9 sont concernées ; omis sinon. Champ critique : à renseigner même si votre interface ne l'exige pas."
+  es: "Cuando `personal_data_categories` incluye una categoría especial (RGPD Art 9 / `dpv:SpecialCategoryPersonalData`), esta propiedad identifica la base del Art 9(2) que autoriza el tratamiento. Obligatorio cuando hay datos Art 9 en alcance; omitido en caso contrario. Campo crítico: completar incluso si su interfaz no lo exige."
+
+type: string
+cardinality: multiple
+vocabulary: special-category-basis
+references: null
+category: consent_processing
+immutable_after_status: given

@@ -1,0 +1,71 @@
+id: consent-expression
+maturity: draft
+label:
+  en: Consent Expression
+  fr: Expression du consentement
+  es: Expresión del consentimiento
+definition:
+  en: How the data subject indicated their agreement or non-objection. Orthogonal to collection-medium (paper, electronic, verbal, mixed), which describes the physical or digital channel used. Orthogonal to personal_data_categories, which describes what data is being processed. A biometric expression (opt-in-biometric) means the subject used a biometric gesture as their signature; it does not imply that biometric data is being processed as subject matter. Whether biometric data is being processed is expressed via personal_data_categories.
+  fr: Comment la personne concernée a indiqué son accord ou sa non-objection. Orthogonal à collection-medium (papier, électronique, verbal, mixte), qui décrit le canal physique ou numérique utilisé. Orthogonal à personal_data_categories, qui décrit les données traitées. Une expression biométrique (opt-in-biometric) signifie que la personne a utilisé un geste biométrique comme signature; cela n'implique pas que des données biométriques sont traitées en tant qu'objet. Le fait que des données biométriques soient traitées est exprimé via personal_data_categories.
+  es: Cómo el interesado indicó su acuerdo o no objeción. Ortogonal a collection-medium (papel, electrónico, verbal, mixto), que describe el canal físico o digital utilizado. Ortogonal a personal_data_categories, que describe los datos que se están procesando. Una expresión biométrica (opt-in-biometric) significa que el sujeto utilizó un gesto biométrico como firma; no implica que se estén procesando datos biométricos como materia. Si se procesan datos biométricos se expresa a través de personal_data_categories.
+references:
+  - name: "ISO/IEC 29184:2020 - Online privacy notices and consent, Annex A"
+    uri: "https://www.iso.org/standard/70331.html"
+    relationship: structural_pattern
+    machine_readable: false
+    notes: "Annex A of ISO/IEC 29184 defines consent expression types including opt-in, opt-out, and implied. This vocabulary extends that framework to cover witnessed and biometric expressions common in field intake."
+values:
+- code: opt_in_explicit
+  label:
+    en: Explicit opt-in
+    fr: Consentement explicite actif
+    es: Consentimiento activo explícito
+  definition:
+    en: The data subject made a clear affirmative act, such as ticking a box, pressing a confirm button, or verbally stating agreement, with full awareness of what they were agreeing to. No ambiguity is permitted. The standard for opt-in where no signature or biometric is required.
+    fr: La personne concernée a accompli un acte affirmatif clair, comme cocher une case, appuyer sur un bouton de confirmation ou déclarer verbalement son accord, en étant pleinement consciente de ce à quoi elle consentait. Aucune ambiguïté n'est permise. La norme pour le consentement actif sans signature ni biométrie.
+    es: El interesado realizó un acto afirmativo claro, como marcar una casilla, presionar un botón de confirmación o declarar verbalmente su acuerdo, con plena conciencia de lo que estaba aceptando. No se permite ninguna ambigüedad. El estándar para el consentimiento activo cuando no se requiere firma ni biometría.
+- code: opt_in_signed
+  label:
+    en: Signed opt-in
+    fr: Consentement signé
+    es: Consentimiento firmado
+  definition:
+    en: The data subject signed a consent form, either physically on paper or with a digital signature. The signature is the primary evidence of agreement. Signed consent is typically used when legal requirements demand a written record, such as for the processing of special-category data or for minor guardianship consent.
+    fr: La personne concernée a signé un formulaire de consentement, soit physiquement sur papier, soit avec une signature numérique. La signature est la preuve principale de l'accord. Le consentement signé est généralement utilisé lorsque des exigences légales imposent un enregistrement écrit, par exemple pour le traitement de données de catégorie spéciale ou pour le consentement de tutelle d'un mineur.
+    es: El interesado firmó un formulario de consentimiento, ya sea físicamente en papel o con una firma digital. La firma es la evidencia principal del acuerdo. El consentimiento firmado se usa típicamente cuando los requisitos legales exigen un registro escrito, como para el tratamiento de datos de categoría especial o para el consentimiento de tutela de menores.
+- code: opt_in_witnessed
+  label:
+    en: Witnessed opt-in
+    fr: Consentement avec témoin
+    es: Consentimiento presenciado
+  definition:
+    en: The data subject indicated agreement verbally or by gesture and one or more witnesses were present and recorded. Used when the data subject cannot or does not write. Programs using this expression must populate witnessed_by. Witnessing requirements (minimum number of witnesses, witness eligibility) are set by the program's operating procedures and applicable law, not by this schema.
+    fr: La personne concernée a indiqué son accord verbalement ou par geste et un ou plusieurs témoins étaient présents et ont été enregistrés. Utilisé lorsque la personne concernée ne peut pas ou ne souhaite pas écrire. Les programmes utilisant cette expression doivent renseigner witnessed_by. Les exigences de témoignage (nombre minimal de témoins, éligibilité des témoins) sont déterminées par les procédures opérationnelles du programme et par le droit applicable, et non par ce schéma.
+    es: El interesado indicó acuerdo verbalmente o por gesto y uno o más testigos estuvieron presentes y fueron registrados. Se usa cuando el interesado no puede o no escribe. Los programas que usan esta expresión deben rellenar witnessed_by. Los requisitos de testimonio (número mínimo de testigos, elegibilidad de testigos) son establecidos por los procedimientos operativos del programa y la ley aplicable, no por este esquema.
+- code: opt_in_biometric
+  label:
+    en: Biometric opt-in
+    fr: Consentement biométrique
+    es: Consentimiento biométrico
+  definition:
+    en: Consent indicated by a biometric capture serving as the signature, for example a thumbprint on a paper form or on a tablet screen. This is the method of capturing consent (analogous to signing with a pen), not a decision to process biometric data as subject matter. Whether biometric data is being collected and stored for program purposes is a separate question expressed via personal_data_categories. A thumbprint used only as a consent signature does not, by itself, mean that biometric data is being processed under this consent record.
+    fr: Consentement indiqué par une capture biométrique servant de signature, par exemple une empreinte digitale sur un formulaire papier ou sur écran de tablette. Il s'agit de la méthode de capture du consentement (analogue à une signature au stylo), non d'une décision de traiter des données biométriques comme objet du traitement. La question de savoir si des données biométriques sont collectées et stockées à des fins de programme est une question distincte exprimée via personal_data_categories. Une empreinte digitale utilisée uniquement comme signature de consentement ne signifie pas, en soi, que des données biométriques sont traitées dans le cadre de cet enregistrement de consentement.
+    es: Consentimiento indicado mediante una captura biométrica que sirve como firma, por ejemplo una huella dactilar en un formulario de papel o en la pantalla de una tableta. Este es el método de captura del consentimiento (análogamente a firmar con un bolígrafo), no una decisión de procesar datos biométricos como materia. Si se recopilan y almacenan datos biométricos para los fines del programa es una pregunta separada expresada a través de personal_data_categories. Una huella dactilar utilizada solo como firma de consentimiento no significa, por sí misma, que se estén procesando datos biométricos bajo este registro de consentimiento.
+- code: opt_out
+  label:
+    en: Opt-out
+    fr: Désinscription
+    es: Exclusión voluntaria
+  definition:
+    en: The data subject was notified of the processing and did not object within the given period or through the given mechanism. Opt-out processing is legitimate only where a legal basis other than consent exists (legal obligation, public interest). Programs using opt-out must ensure the notice clearly explains the processing and provides a genuine, easy mechanism for objection.
+    fr: La personne concernée a été informée du traitement et n'a pas exprimé d'objection dans le délai imparti ou via le mécanisme indiqué. Le traitement par désinscription n'est légitime que lorsqu'une base juridique autre que le consentement existe (obligation légale, intérêt public). Les programmes utilisant la désinscription doivent s'assurer que la notice explique clairement le traitement et fournit un mécanisme d'objection véritable et accessible.
+    es: El interesado fue notificado del tratamiento y no objetó en el período dado o a través del mecanismo indicado. El tratamiento por exclusión voluntaria solo es legítimo cuando existe una base jurídica distinta al consentimiento (obligación legal, interés público). Los programas que usan la exclusión voluntaria deben asegurarse de que el aviso explique claramente el tratamiento y proporcione un mecanismo de objeción genuino y fácil.
+- code: implied
+  label:
+    en: Implied
+    fr: Implicite
+    es: Implícito
+  definition:
+    en: Agreement is inferred from the data subject's behaviour or circumstances, without an explicit act of consent or formal notification of opt-out. Implied consent is legally thin and should be used only where specifically permitted by applicable law. Programs relying on implied consent should document the legal basis and the inference logic in legal_basis_reference.
+    fr: L'accord est inféré du comportement ou des circonstances de la personne concernée, sans acte explicite de consentement ni notification formelle de désinscription. Le consentement implicite est juridiquement fragile et ne doit être utilisé que dans les cas spécifiquement autorisés par la loi applicable. Les programmes s'appuyant sur le consentement implicite doivent documenter la base juridique et la logique d'inférence dans legal_basis_reference.
+    es: El acuerdo se infiere del comportamiento o las circunstancias del interesado, sin un acto explícito de consentimiento ni notificación formal de exclusión. El consentimiento implícito es jurídicamente débil y debe usarse solo cuando la ley aplicable lo permita específicamente. Los programas que se basan en el consentimiento implícito deben documentar la base jurídica y la lógica de inferencia en legal_basis_reference.

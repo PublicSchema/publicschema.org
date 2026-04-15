@@ -1,0 +1,22 @@
+id: purposes
+maturity: draft
+
+definition:
+  en: "Values are W3C DPV URIs, normatively subclasses of `dpv:Purpose` (e.g., `dpv:ServiceProvision`, `dpv:ResearchAndDevelopment`). Each URI identifies a purpose for which personal data is processed under this record. See `docs/dpv-vocabulary-reference.md` for a curated starter list."
+  fr: "Les valeurs sont des URI W3C DPV, sous-classes normatives de `dpv:Purpose` (par exemple `dpv:ServiceProvision`, `dpv:ResearchAndDevelopment`). Chaque URI identifie une finalité pour laquelle des données personnelles sont traitées dans le cadre de cet enregistrement. Voir `docs/dpv-vocabulary-reference.md` pour une liste de démarrage."
+  es: "Los valores son URI W3C DPV, subclases normativas de `dpv:Purpose` (por ejemplo, `dpv:ServiceProvision`, `dpv:ResearchAndDevelopment`). Cada URI identifica una finalidad para la cual se procesan datos personales en este registro. Consulte `docs/dpv-vocabulary-reference.md` para una lista de inicio seleccionada."
+
+type: uri
+cardinality: multiple
+vocabulary: null
+references: null
+category: consent_processing
+immutable_after_status: given
+
+external_equivalents:
+  dpv:
+    label: "has purpose"
+    uri: "https://w3id.org/dpv#hasPurpose"
+    match: close
+    vocabulary: "DPV v2"
+    note: "DPV models this as a predicate linking a record to a purpose; we model it as a property on ConsentRecord carrying purpose URIs."

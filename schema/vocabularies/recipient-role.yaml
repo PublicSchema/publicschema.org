@@ -1,0 +1,62 @@
+id: recipient-role
+maturity: draft
+label:
+  en: Recipient Role
+  fr: Rôle du destinataire
+  es: Rol del destinatario
+definition:
+  en: The legal relationship between the data controller and a recipient organisation, which determines the obligations each party carries under data protection law. The distinction between processor, joint-controller, independent-controller, and sub-processor is legally material and affects which contracts are required, who bears accountability for the processing, and what rights the data subject can exercise against each party.
+  fr: La relation juridique entre le responsable du traitement et une organisation destinataire, qui détermine les obligations de chaque partie en vertu de la législation sur la protection des données. La distinction entre sous-traitant, coresponsable, responsable indépendant et sous-traitant ultérieur est juridiquement significative et influe sur les contrats requis, les responsabilités de chaque partie et les droits que la personne concernée peut exercer contre chacun.
+  es: La relación jurídica entre el responsable del tratamiento y una organización destinataria, que determina las obligaciones de cada parte en virtud de la legislación de protección de datos. La distinción entre encargado, corresponsable, responsable independiente y subencargado es jurídicamente relevante y afecta a los contratos requeridos, quién asume la responsabilidad del tratamiento y qué derechos puede ejercer el interesado frente a cada parte.
+external_equivalents:
+  dpv:
+    label: "DPV v2 data processing roles"
+    uri: "https://w3id.org/dpv#"
+    match: exact
+    vocabulary: "DPV v2"
+    note: "Each value maps to a DPV v2 class. See individual value notes for per-value URIs. DPV does not distinguish sub-processor as a separate class; that mapping note appears on the sub_processor value."
+values:
+- code: processor
+  label:
+    en: Processor
+    fr: Sous-traitant
+    es: Encargado del tratamiento
+  definition:
+    en: An organisation that processes personal data on behalf of and under the instructions of the controller. The controller retains accountability for the processing; the processor acts only on documented instructions. A data processing agreement is required. DPV mapping, dpv:DataProcessor, URI, https://w3id.org/dpv#DataProcessor.
+    fr: Une organisation qui traite des données à caractère personnel pour le compte et selon les instructions du responsable du traitement. Le responsable du traitement conserve la responsabilité du traitement; le sous-traitant n'agit que sur instructions documentées. Un contrat de traitement des données est requis. Correspondance DPV, dpv:DataProcessor, URI, https://w3id.org/dpv#DataProcessor.
+    es: Una organización que trata datos personales en nombre y siguiendo las instrucciones del responsable del tratamiento. El responsable del tratamiento conserva la responsabilidad del tratamiento; el encargado actúa solo en base a instrucciones documentadas. Se requiere un contrato de tratamiento de datos. Correspondencia DPV, dpv:DataProcessor, URI, https://w3id.org/dpv#DataProcessor.
+  notes:
+    en: "DPV: dpv:DataProcessor, URI: https://w3id.org/dpv#DataProcessor"
+- code: joint_controller
+  label:
+    en: Joint controller
+    fr: Coresponsable du traitement
+    es: Corresponsable del tratamiento
+  definition:
+    en: An organisation that jointly determines the purposes and means of processing with the primary controller. Joint controllership triggers GDPR Article 26 obligations including a documented arrangement defining each party's responsibilities. Both controllers are jointly and severally accountable to data subjects. Reference the arrangement document in joint_controller_arrangement_ref. DPV mapping, dpv:JointDataControllers (class representing the pair or group), URI, https://w3id.org/dpv#JointDataControllers.
+    fr: Une organisation qui détermine conjointement avec le responsable principal les finalités et les moyens du traitement. La coresponsabilité déclenche les obligations de l'article 26 du RGPD, notamment un accord documenté définissant les responsabilités de chaque partie. Les deux responsables sont solidairement responsables envers les personnes concernées. Référencez le document d'accord dans joint_controller_arrangement_ref. Correspondance DPV, dpv:JointDataControllers, URI, https://w3id.org/dpv#JointDataControllers.
+    es: Una organización que determina conjuntamente con el responsable principal los fines y medios del tratamiento. La corresponsabilidad activa las obligaciones del artículo 26 del RGPD, incluyendo un acuerdo documentado que define las responsabilidades de cada parte. Ambos responsables son solidariamente responsables ante los interesados. Referencie el documento de acuerdo en joint_controller_arrangement_ref. Correspondencia DPV, dpv:JointDataControllers, URI, https://w3id.org/dpv#JointDataControllers.
+  notes:
+    en: "DPV: dpv:JointDataControllers (plural class; represents the pair or group of joint controllers), URI: https://w3id.org/dpv#JointDataControllers"
+- code: independent_controller
+  label:
+    en: Independent controller
+    fr: Responsable indépendant
+    es: Responsable independiente
+  definition:
+    en: An organisation that receives personal data and processes it for its own, independently determined purposes. The originating controller is responsible only for the transfer itself (ensuring a lawful transfer mechanism); the receiving organisation is independently responsible for its own processing. No data processing agreement is required, though a data sharing agreement is typically good practice. DPV mapping, dpv:DataController, URI, https://w3id.org/dpv#DataController.
+    fr: Une organisation qui reçoit des données à caractère personnel et les traite pour ses propres finalités déterminées de manière indépendante. Le responsable du traitement d'origine n'est responsable que du transfert lui-même (garantir un mécanisme de transfert licite); l'organisation réceptrice est indépendamment responsable de son propre traitement. Aucun contrat de traitement des données n'est requis, bien qu'un accord de partage des données soit généralement recommandé. Correspondance DPV, dpv:DataController, URI, https://w3id.org/dpv#DataController.
+    es: Una organización que recibe datos personales y los trata para sus propios fines determinados de forma independiente. El responsable del tratamiento de origen solo es responsable de la propia transferencia (garantizar un mecanismo de transferencia lícito); la organización receptora es independientemente responsable de su propio tratamiento. No se requiere contrato de tratamiento de datos, aunque un acuerdo de intercambio de datos es generalmente una buena práctica. Correspondencia DPV, dpv:DataController, URI, https://w3id.org/dpv#DataController.
+  notes:
+    en: "DPV: dpv:DataController, URI: https://w3id.org/dpv#DataController"
+- code: sub_processor
+  label:
+    en: Sub-processor
+    fr: Sous-traitant ultérieur
+    es: Subencargado del tratamiento
+  definition:
+    en: An organisation engaged by a processor (not the controller directly) to carry out specific processing activities on behalf of the controller. The original processor is responsible for ensuring the sub-processor is bound by equivalent obligations. GDPR Article 28(4) requires the processor to obtain prior written authorisation from the controller before engaging a sub-processor. DPV does not distinguish sub-processors as a separate class; this value maps to dpv:DataProcessor for interoperability purposes. URI, https://w3id.org/dpv#DataProcessor.
+    fr: Une organisation engagée par un sous-traitant (et non par le responsable du traitement directement) pour effectuer des activités de traitement spécifiques au nom du responsable du traitement. Le sous-traitant initial est responsable de s'assurer que le sous-traitant ultérieur est lié par des obligations équivalentes. L'article 28, paragraphe 4, du RGPD exige que le sous-traitant obtienne une autorisation écrite préalable du responsable du traitement avant d'engager un sous-traitant ultérieur. DPV ne distingue pas les sous-traitants ultérieurs en tant que classe séparée; cette valeur correspond à dpv:DataProcessor à des fins d'interopérabilité. URI, https://w3id.org/dpv#DataProcessor.
+    es: Una organización contratada por un encargado del tratamiento (no por el responsable directamente) para llevar a cabo actividades de tratamiento específicas en nombre del responsable. El encargado original es responsable de garantizar que el subencargado esté sujeto a obligaciones equivalentes. El artículo 28, apartado 4, del RGPD exige que el encargado obtenga autorización escrita previa del responsable antes de contratar a un subencargado. DPV no distingue a los subencargados como una clase separada; este valor se corresponde con dpv:DataProcessor a efectos de interoperabilidad. URI, https://w3id.org/dpv#DataProcessor.
+  notes:
+    en: "DPV: dpv:DataProcessor (DPV does not define a separate sub-processor class; this value maps to DataProcessor for interoperability, with the sub-processor relationship conveyed by context), URI: https://w3id.org/dpv#DataProcessor"

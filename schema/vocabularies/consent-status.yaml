@@ -1,0 +1,98 @@
+id: consent-status
+maturity: candidate
+label:
+  en: Consent Status
+  fr: Statut du consentement
+  es: Estado del consentimiento
+definition:
+  en: The current lifecycle state of a consent record. Values are ordered roughly along the record lifecycle from initial request through active use to termination. Programs that perform bulk intake should initialise records at given rather than requested.
+  fr: L'état actuel du cycle de vie d'un enregistrement de consentement. Les valeurs sont ordonnées approximativement le long du cycle de vie de l'enregistrement, de la demande initiale jusqu'à la résiliation. Les programmes qui effectuent une collecte en masse devraient initialiser les enregistrements à given plutôt qu'à requested.
+  es: El estado actual del ciclo de vida de un registro de consentimiento. Los valores están ordenados aproximadamente a lo largo del ciclo de vida del registro, desde la solicitud inicial hasta la terminación. Los programas que realizan una ingesta masiva deben inicializar los registros en given en lugar de requested.
+references:
+  - name: "W3C Data Privacy Vocabulary (DPV) v2 - Consent Status classes"
+    uri: "https://w3id.org/dpv#ConsentStatus"
+    relationship: structural_pattern
+    machine_readable: true
+    notes: "DPV v2 defines a two-tier consent status hierarchy under dpv:ConsentStatus. This vocabulary aligns with DPV's distinction between active states (given, renewed), withdrawn, refused, revoked, expired, and unknown."
+values:
+- code: requested
+  label:
+    en: Requested
+    fr: Demandé
+    es: Solicitado
+  definition:
+    en: The record has been created and the consent request has been communicated to the data subject, but no indication of agreement or refusal has been received yet. Used primarily in digital workflows where a notice is sent and a response is awaited. Bulk and in-person intake programs typically skip this state and go directly to given or refused.
+    fr: L'enregistrement a été créé et la demande de consentement a été communiquée à la personne concernée, mais aucune indication d'accord ou de refus n'a encore été reçue. Utilisé principalement dans les flux numériques où une notice est envoyée et une réponse est attendue. Les programmes de collecte en masse ou en personne ignorent généralement cet état et vont directement à given ou refused.
+    es: El registro ha sido creado y la solicitud de consentimiento ha sido comunicada al interesado, pero aún no se ha recibido ninguna indicación de acuerdo o rechazo. Se utiliza principalmente en flujos de trabajo digitales donde se envía un aviso y se espera una respuesta. Los programas de ingesta masiva y presencial generalmente omiten este estado y van directamente a given o refused.
+- code: given
+  label:
+    en: Given
+    fr: Donné
+    es: Otorgado
+  definition:
+    en: The data subject has indicated agreement to the stated terms for the first time. This is the active state for a record that has never been withdrawn, revoked, or expired. Terms-fields (purposes, recipients, legal basis, etc.) are immutable from this point forward. Distinct from renewed, which applies when a previously withdrawn or expired consent is re-activated.
+    fr: La personne concernée a indiqué son accord avec les conditions stipulées pour la première fois. C'est l'état actif d'un enregistrement qui n'a jamais été retiré, révoqué ou expiré. Les champs de conditions (finalités, destinataires, base juridique, etc.) sont immuables à partir de ce moment. Distinct de renewed, qui s'applique lorsqu'un consentement précédemment retiré ou expiré est renouvelé.
+    es: El interesado ha indicado acuerdo con los términos establecidos por primera vez. Este es el estado activo para un registro que nunca ha sido retirado, revocado o expirado. Los campos de términos (propósitos, destinatarios, base jurídica, etc.) son inmutables desde este punto. Distinto de renewed, que se aplica cuando se reactiva un consentimiento previamente retirado o expirado.
+- code: renewed
+  label:
+    en: Renewed
+    fr: Renouvelé
+    es: Renovado
+  definition:
+    en: The data subject has re-indicated agreement after a prior consent was withdrawn, revoked, or expired. Renewal typically occurs because the underlying notice was updated in a substantive way (new purposes or new recipients) and a fresh agreement was sought. Distinct from given, which marks the first-time agreement. A new consent record is created for the renewal; the prior record retains its terminal status.
+    fr: La personne concernée a réindiqué son accord après qu'un consentement précédent a été retiré, révoqué ou expiré. Le renouvellement survient généralement parce que la notice sous-jacente a été mise à jour de manière substantielle (nouvelles finalités ou nouveaux destinataires) et qu'un nouvel accord a été recherché. Distinct de given, qui marque l'accord pour la première fois. Un nouvel enregistrement de consentement est créé pour le renouvellement; l'enregistrement précédent conserve son statut terminal.
+    es: El interesado ha vuelto a indicar acuerdo después de que un consentimiento anterior fue retirado, revocado o expirado. La renovación ocurre típicamente porque el aviso subyacente fue actualizado de manera sustancial (nuevos propósitos o nuevos destinatarios) y se buscó un nuevo acuerdo. Distinto de given, que marca el acuerdo por primera vez. Se crea un nuevo registro de consentimiento para la renovación; el registro anterior conserva su estado terminal.
+- code: refused
+  label:
+    en: Refused
+    fr: Refusé
+    es: Rechazado
+  definition:
+    en: The data subject was asked and explicitly declined to give consent or to accept the stated terms. The record documents the fact of refusal for audit and lifecycle purposes. A refused record is closed; processing on the refused basis must not proceed. If the data subject later changes their mind, a new record is created with status given.
+    fr: La personne concernée a été interrogée et a explicitement refusé de donner son consentement ou d'accepter les conditions stipulées. L'enregistrement documente le fait du refus à des fins d'audit et de cycle de vie. Un enregistrement refusé est clos; le traitement sur la base refusée ne doit pas se poursuivre. Si la personne concernée change d'avis ultérieurement, un nouvel enregistrement est créé avec le statut given.
+    es: El interesado fue consultado y declinó explícitamente dar consentimiento o aceptar los términos establecidos. El registro documenta el hecho del rechazo para fines de auditoría y ciclo de vida. Un registro rechazado está cerrado; el tratamiento sobre la base rechazada no debe continuar. Si el interesado cambia de opinión posteriormente, se crea un nuevo registro con estado given.
+- code: withdrawn
+  label:
+    en: Withdrawn
+    fr: Retiré
+    es: Retirado
+  definition:
+    en: The data subject has exercised their right to withdraw consent previously given. Withdrawal is subject-initiated and must be as easy as giving consent. The record transitions to this state and withdrawal_channel is populated. Withdrawal is not retroactive (processing performed under the prior given or renewed record was lawful at the time), but must stop from the moment of withdrawal. Distinct from revoked, which is controller-initiated.
+    fr: La personne concernée a exercé son droit de retirer le consentement précédemment donné. Le retrait est initié par la personne concernée et doit être aussi facile que de donner le consentement. L'enregistrement passe à cet état et withdrawal_channel est renseigné. Le retrait n'est pas rétroactif (le traitement effectué sous l'enregistrement given ou renewed précédent était licite à l'époque), mais doit cesser à partir du moment du retrait. Distinct de revoked, qui est initié par le responsable du traitement.
+    es: El interesado ha ejercido su derecho a retirar el consentimiento previamente otorgado. La retirada es iniciada por el interesado y debe ser tan fácil como otorgar el consentimiento. El registro pasa a este estado y se rellena withdrawal_channel. La retirada no es retroactiva (el tratamiento realizado bajo el registro given o renewed anterior era lícito en su momento), pero debe detenerse desde el momento de la retirada. Distinto de revoked, que es iniciado por el responsable del tratamiento.
+- code: revoked
+  label:
+    en: Revoked
+    fr: Révoqué
+    es: Revocado
+  definition:
+    en: The controller has administratively invalidated the consent record, for example because the data subject is deceased, a court order has been issued, or program eligibility has changed in a way that makes continuation unlawful. Revocation is controller-initiated, in contrast to withdrawn which is subject-initiated. Records are moved to this status only when there is a controller-side cause; it should not be used as a synonym for withdrawn.
+    fr: Le responsable du traitement a invalidé administrativement l'enregistrement de consentement, par exemple parce que la personne concernée est décédée, qu'une ordonnance judiciaire a été rendue, ou que l'éligibilité au programme a changé de manière à rendre la continuation illicite. La révocation est initiée par le responsable du traitement, contrairement à withdrawn qui est initiée par la personne concernée. Les enregistrements ne passent à ce statut que lorsqu'il existe une cause côté responsable du traitement; il ne doit pas être utilisé comme synonyme de withdrawn.
+    es: El responsable del tratamiento ha invalidado administrativamente el registro de consentimiento, por ejemplo porque el interesado ha fallecido, se ha emitido una orden judicial, o la elegibilidad al programa ha cambiado de forma que la continuación resulte ilícita. La revocación es iniciada por el responsable del tratamiento, a diferencia de withdrawn que es iniciada por el interesado. Los registros pasan a este estado solo cuando existe una causa del lado del responsable; no debe usarse como sinónimo de withdrawn.
+- code: expired
+  label:
+    en: Expired
+    fr: Expiré
+    es: Expirado
+  definition:
+    en: The record has reached its expiry_date and is no longer valid for authorising processing. Expiry is time-based and automatic; no action by subject or controller is required. Programs must not process data under an expired consent record. If continued processing is needed and the legal basis remains valid, a renewal record must be created. Common for parental consents set to expire at the child's age of majority.
+    fr: L'enregistrement a atteint sa date d'expiration et n'est plus valide pour autoriser un traitement. L'expiration est automatique et basée sur le temps; aucune action de la personne concernée ou du responsable du traitement n'est requise. Les programmes ne doivent pas traiter des données sous un enregistrement de consentement expiré. Si un traitement continu est nécessaire et que la base juridique reste valide, un enregistrement de renouvellement doit être créé. Courant pour les consentements parentaux définis pour expirer à la majorité de l'enfant.
+    es: El registro ha alcanzado su fecha de expiración y ya no es válido para autorizar el tratamiento. La expiración es automática y basada en el tiempo; no se requiere ninguna acción del interesado ni del responsable del tratamiento. Los programas no deben tratar datos bajo un registro de consentimiento expirado. Si se necesita tratamiento continuo y la base jurídica sigue siendo válida, se debe crear un registro de renovación. Común para consentimientos parentales establecidos para expirar en la mayoría de edad del menor.
+- code: invalidated
+  label:
+    en: Invalidated
+    fr: Invalidé
+    es: Invalidado
+  definition:
+    en: The record has been determined to be legally or technically invalid after the fact, for example because the notice shown was defective, the delegation claimed was not legally authorised, or a court ruling has voided the consent. Distinct from revoked (which is an administrative controller decision) and withdrawn (which is a subject right). Records in this state must not be used as the basis for processing; remediation (obtaining a fresh valid record or relying on an alternative legal basis) is required.
+    fr: L'enregistrement a été jugé invalide sur le plan juridique ou technique après coup, par exemple parce que la notice présentée était défectueuse, la délégation invoquée n'était pas juridiquement autorisée, ou une décision de justice a annulé le consentement. Distinct de revoked (décision administrative du responsable du traitement) et withdrawn (droit de la personne concernée). Les enregistrements dans cet état ne peuvent pas être utilisés comme base de traitement; une remédiation est nécessaire.
+    es: El registro ha sido determinado como jurídica o técnicamente inválido a posteriori, por ejemplo porque el aviso mostrado era defectuoso, la delegación reclamada no estaba legalmente autorizada, o una resolución judicial ha anulado el consentimiento. Distinto de revoked (decisión administrativa del responsable) y withdrawn (derecho del interesado). Los registros en este estado no pueden usarse como base para el tratamiento; se requiere remediación.
+- code: unknown
+  label:
+    en: Unknown
+    fr: Inconnu
+    es: Desconocido
+  definition:
+    en: The consent state cannot be determined, typically because the record was migrated from a legacy system that did not track status explicitly. Use this value only for imported historical records where the original status is genuinely unrecoverable. Do not use it for new records. Programs should treat unknown-status records as unauthorised until status can be confirmed.
+    fr: L'état du consentement ne peut pas être déterminé, généralement parce que l'enregistrement a été migré depuis un système ancien qui ne suivait pas explicitement le statut. Utilisez cette valeur uniquement pour les enregistrements historiques importés où le statut d'origine est véritablement irrécupérable. Ne pas l'utiliser pour les nouveaux enregistrements. Les programmes doivent traiter les enregistrements de statut inconnu comme non autorisés jusqu'à ce que le statut puisse être confirmé.
+    es: El estado del consentimiento no puede determinarse, típicamente porque el registro fue migrado desde un sistema heredado que no rastreaba el estado explícitamente. Use este valor solo para registros históricos importados donde el estado original es genuinamente irrecuperable. No lo use para nuevos registros. Los programas deben tratar los registros de estado desconocido como no autorizados hasta que el estado pueda confirmarse.

@@ -1,0 +1,22 @@
+id: personal_data_categories
+maturity: draft
+
+definition:
+  en: "Values are W3C DPV URIs, normatively subclasses of `dpv:PersonalData` (from the DPV core; the DPV-PD extension defines finer taxa). Cross-reference: this is distinct from biometric capture method, which is `consent_expression = opt-in-biometric` on this record. Biometric data categories are values of this property (e.g., a URI for fingerprint, face image)."
+  fr: "Les valeurs sont des URI W3C DPV, sous-classes normatives de `dpv:PersonalData` (du noyau DPV ; l'extension DPV-PD définit des taxons plus fins). À ne pas confondre avec la méthode de collecte biométrique, qui est `consent_expression = opt-in-biometric` sur cet enregistrement. Les catégories de données biométriques sont des valeurs de cette propriété (par exemple, un URI pour empreinte digitale, image faciale)."
+  es: "Los valores son URI W3C DPV, subclases normativas de `dpv:PersonalData` (del núcleo DPV; la extensión DPV-PD define taxones más específicos). No confundir con el método de captura biométrica, que es `consent_expression = opt-in-biometric` en este registro. Las categorías de datos biométricos son valores de esta propiedad (por ejemplo, un URI para huella dactilar, imagen facial)."
+
+type: uri
+cardinality: multiple
+vocabulary: null
+references: null
+category: consent_processing
+immutable_after_status: given
+
+external_equivalents:
+  dpv:
+    label: "has personal data"
+    uri: "https://w3id.org/dpv#hasPersonalData"
+    match: close
+    vocabulary: "DPV v2"
+    note: "DPV models this as a predicate linking a record to a personal data category; we model it as a property on ConsentRecord carrying category URIs."

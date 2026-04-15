@@ -1,0 +1,22 @@
+id: legal_basis
+maturity: draft
+
+definition:
+  en: "The legal basis under GDPR Art 6(1) (or equivalent law) authorizing the processing. Cardinality multiple because a single record may rely on more than one basis; normative usage on a ConsentRecord is one basis. On a PrivacyNotice, multiple bases may coexist if the notice covers multiple processing operations. Field-critical: populate even if your UI does not require it."
+  fr: "La base juridique au sens de l'Art 6(1) du RGPD (ou équivalent national) autorisant le traitement. Cardinalité multiple car un enregistrement peut s'appuyer sur plus d'une base ; l'usage normatif sur un ConsentRecord est d'une base. Sur un PrivacyNotice, plusieurs bases peuvent coexister si l'avis couvre plusieurs opérations de traitement. Champ critique : à renseigner même si votre interface ne l'exige pas."
+  es: "La base legal conforme al Art 6(1) del RGPD (o ley equivalente) que autoriza el tratamiento. Cardinalidad múltiple porque un registro puede apoyarse en más de una base; el uso normativo en un ConsentRecord es una sola base. En un PrivacyNotice, múltiples bases pueden coexistir si el aviso cubre varias operaciones de tratamiento. Campo crítico: completar incluso si su interfaz no lo exige."
+
+type: string
+cardinality: multiple
+vocabulary: legal-basis
+references: null
+category: consent_processing
+immutable_after_status: given
+
+external_equivalents:
+  dpv:
+    label: "has legal basis"
+    uri: "https://w3id.org/dpv#hasLegalBasis"
+    match: close
+    vocabulary: "DPV v2"
+    note: "DPV models this as a predicate linking a record to a legal basis class; we model it as a vocabulary-typed property carrying coded values aligned to GDPR Art 6(1)."

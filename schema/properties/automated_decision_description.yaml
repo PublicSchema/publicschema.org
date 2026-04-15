@@ -1,0 +1,13 @@
+id: automated_decision_description
+maturity: draft
+
+definition:
+  en: "PrivacyNotice-only. Prose description of any automated decision-making, including profiling, that produces legal effects or similarly significant effects on the data subject (GDPR Art 22). Include the logic involved, the significance, and the envisaged consequences. Empty when no such processing occurs."
+  fr: "Réservé au PrivacyNotice. Description en texte libre de toute prise de décision automatisée, y compris le profilage, produisant des effets juridiques ou des effets significatifs similaires sur la personne concernée (RGPD Art 22). Décrire la logique utilisée, la portée et les conséquences envisagées. Vide si aucun tel traitement n'a lieu."
+  es: "Solo para PrivacyNotice. Descripción en prosa de cualquier toma de decisiones automatizada, incluida la elaboración de perfiles, que produzca efectos jurídicos o efectos significativos similares sobre la persona interesada (RGPD Art 22). Incluir la lógica empleada, la importancia y las consecuencias previstas. Vacío cuando no ocurre tal tratamiento."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+category: consent_notice

@@ -1,0 +1,22 @@
+id: controllers
+maturity: draft
+
+definition:
+  en: "Organizations determining the purposes and means of processing. Cardinality multiple covers joint controllership (two or more organizations jointly responsible under GDPR Art 26 or equivalent national provisions); the normative case is one controller. See 'recipient_role' to distinguish processors from controllers among recipients."
+  fr: "Organisations qui déterminent les finalités et les moyens du traitement. La cardinalité multiple couvre la responsabilité conjointe (deux organisations ou plus conjointement responsables au titre de l'article 26 du RGPD ou des dispositions nationales équivalentes) ; le cas normatif est un seul responsable du traitement. Voir 'recipient_role' pour distinguer les sous-traitants des responsables parmi les destinataires."
+  es: "Organizaciones que determinan los fines y los medios del tratamiento. La cardinalidad múltiple cubre la corresponsabilidad (dos o más organizaciones conjuntamente responsables en virtud del Art. 26 del RGPD o disposiciones nacionales equivalentes); el caso normativo es un único responsable del tratamiento. Véase 'recipient_role' para distinguir los encargados del tratamiento de los responsables entre los destinatarios."
+
+type: concept:Organization
+cardinality: multiple
+vocabulary: null
+references: Organization
+category: consent_parties
+immutable_after_status: given
+
+external_equivalents:
+  dpv:
+    label: "has data controller"
+    uri: "https://w3id.org/dpv#hasDataController"
+    match: close
+    vocabulary: "DPV v2"
+    note: "DPV models this as a predicate (hasDataController) linking a record to a controller; we model it as a property on ConsentRecord. Semantically equivalent."

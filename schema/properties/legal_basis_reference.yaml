@@ -1,0 +1,13 @@
+id: legal_basis_reference
+maturity: draft
+
+definition:
+  en: "Jurisdiction-specific legal reference (e.g., a national act, article, or case citation) supporting `legal_basis`. Free-form string; use per-jurisdiction norms. Example: 'Ley 1581 de 2012, Art 6(a)' in Colombia."
+  fr: "Référence juridique propre à une juridiction (par exemple, une loi nationale, un article ou une citation jurisprudentielle) étayant `legal_basis`. Chaîne libre ; utiliser les normes de la juridiction concernée. Exemple : 'Ley 1581 de 2012, Art 6(a)' en Colombie."
+  es: "Referencia legal específica de la jurisdicción (por ejemplo, una ley nacional, artículo o cita jurisprudencial) que sustenta `legal_basis`. Texto libre; usar las normas de la jurisdicción correspondiente. Ejemplo: 'Ley 1581 de 2012, Art 6(a)' en Colombia."
+
+type: string
+cardinality: multiple
+vocabulary: null
+references: null
+category: consent_processing

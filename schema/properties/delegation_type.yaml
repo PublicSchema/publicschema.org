@@ -1,0 +1,13 @@
+id: delegation_type
+maturity: draft
+
+definition:
+  en: "The basis under which 'indicated_by' acts on behalf of 'data_subject'. The value 'self' indicates no delegation: the data subject indicated their own consent. All other values indicate that a third party acted on the data subject's behalf."
+  fr: "La base selon laquelle 'indicated_by' agit au nom de 'data_subject'. La valeur 'self' indique l'absence de délégation : la personne concernée a indiqué son propre consentement. Toutes les autres valeurs indiquent qu'un tiers a agi au nom de la personne concernée."
+  es: "La base bajo la cual 'indicated_by' actúa en nombre de 'data_subject'. El valor 'self' indica que no hay delegación: la persona interesada indicó su propio consentimiento. Todos los demás valores indican que un tercero actuó en nombre de la persona interesada."
+
+type: string
+cardinality: single
+vocabulary: delegation-type
+references: null
+category: consent_parties

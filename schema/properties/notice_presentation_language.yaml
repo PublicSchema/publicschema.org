@@ -1,0 +1,13 @@
+id: notice_presentation_language
+maturity: draft
+
+definition:
+  en: "The ISO 639-3 language code in which the notice was presented to the data subject at the time of consent. Field-critical: populate even if the UI does not require it. When the notice is available in multiple languages (see PrivacyNotice `available_languages`), this records which one the data subject actually saw. For witnessed verbal consent, this records the language of the verbal delivery."
+  fr: "Le code de langue ISO 639-3 dans lequel l'avis a été présenté à la personne concernée au moment du consentement. Champ critique : à renseigner même si l'interface ne l'exige pas. Lorsque l'avis est disponible en plusieurs langues (voir PrivacyNotice `available_languages`), ce champ enregistre celle que la personne concernée a effectivement vue. Pour le consentement verbal avec témoin, il enregistre la langue de la délivrance verbale."
+  es: "El código de idioma ISO 639-3 en que el aviso fue presentado a la persona interesada en el momento del consentimiento. Campo crítico: completar incluso si la interfaz no lo exige. Cuando el aviso está disponible en varios idiomas (véase PrivacyNotice `available_languages`), este campo registra cuál vio realmente la persona interesada. Para el consentimiento verbal presenciado, registra el idioma de la entrega verbal."
+
+type: string
+cardinality: single
+vocabulary: language
+references: null
+category: consent_notice

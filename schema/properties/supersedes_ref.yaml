@@ -1,0 +1,13 @@
+id: supersedes_ref
+maturity: draft
+
+definition:
+  en: "PrivacyNotice-only. The prior notice version that this notice replaces. Enables tracing the notice evolution chain. A re-consent campaign is triggered by a substantive change (new purposes, new recipients, new data categories); a version bump without these changes does not require re-consent. See `docs/consent-lifecycle.md` for the distinction."
+  fr: "Réservé au PrivacyNotice. La version précédente de l'avis que cet avis remplace. Permet de retracer la chaîne d'évolution des avis. Une campagne de recueil de nouveau consentement est déclenchée par une modification substantielle (nouvelles finalités, nouveaux destinataires, nouvelles catégories de données) ; une mise à jour de version sans ces changements ne requiert pas de nouveau consentement. Voir `docs/consent-lifecycle.md` pour la distinction."
+  es: "Solo para PrivacyNotice. La versión anterior del aviso que este aviso reemplaza. Permite rastrear la cadena de evolución de avisos. Una campaña de recaptación de consentimiento es desencadenada por un cambio sustancial (nuevas finalidades, nuevos destinatarios, nuevas categorías de datos); un cambio de versión sin estos cambios no requiere nuevo consentimiento. Consulte `docs/consent-lifecycle.md` para la distinción."
+
+type: concept:PrivacyNotice
+cardinality: single
+vocabulary: null
+references: PrivacyNotice
+category: consent_notice

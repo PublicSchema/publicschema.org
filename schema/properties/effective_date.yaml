@@ -1,0 +1,14 @@
+id: effective_date
+maturity: draft
+
+definition:
+  en: "The date on which this record or notice becomes operative. On a ConsentRecord, it may be later than signed_date (the day the data subject indicated consent) and later than created_at (the digitisation timestamp); for paper workflows, signed_date is the day of the paper signature and effective_date is typically the same day but may be delayed by program logic. On a PrivacyNotice, it is the date from which this notice version applies; records collected before this date reference the superseded version via supersedes_ref."
+  fr: "La date à laquelle cet enregistrement ou cet avis devient opérationnel. Sur un ConsentRecord, elle peut être postérieure à signed_date (le jour où la personne concernée a indiqué son consentement) et à created_at (l'horodatage de numérisation); pour les flux sur support papier, signed_date est le jour de la signature du formulaire papier et effective_date est généralement le même jour, mais peut être retardée par la logique du programme. Sur un PrivacyNotice, il s'agit de la date à partir de laquelle cette version de l'avis s'applique; les enregistrements recueillis avant cette date renvoient à la version antérieure via supersedes_ref."
+  es: "La fecha en que este registro o aviso se vuelve operativo. En un ConsentRecord, puede ser posterior a signed_date (el día en que la persona afectada indicó su consentimiento) y a created_at (la marca de tiempo de digitalización); en flujos en papel, signed_date es el día de la firma del formulario en papel y effective_date es normalmente el mismo día, pero puede retrasarse según la lógica del programa. En un PrivacyNotice, es la fecha a partir de la cual se aplica esta versión del aviso; los registros recogidos antes de esa fecha remiten a la versión anterior mediante supersedes_ref."
+
+type: date
+cardinality: single
+vocabulary: null
+references: null
+category: consent_validity
+immutable_after_status: given

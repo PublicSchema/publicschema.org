@@ -1,0 +1,83 @@
+id: withdrawal-channel
+maturity: draft
+label:
+  en: Withdrawal Channel
+  fr: Canal de retrait
+  es: Canal de retiro
+definition:
+  en: The channel through which a data subject exercised their right to withdraw consent. This field is populated when the consent record transitions to withdrawn status. Programs must accept withdrawal through channels appropriate to how consent was originally given; programs that accept only digital withdrawal from beneficiaries who gave consent on paper may not be complying with the principle that withdrawal must be as easy as giving consent.
+  fr: Le canal par lequel une personne concernée a exercé son droit de retirer le consentement. Ce champ est renseigné lorsque l'enregistrement de consentement passe au statut withdrawn. Les programmes doivent accepter le retrait par des canaux appropriés au mode selon lequel le consentement a été initialement donné; les programmes qui n'acceptent que le retrait numérique de bénéficiaires ayant donné leur consentement sur papier pourraient ne pas respecter le principe selon lequel le retrait doit être aussi facile que de donner le consentement.
+  es: El canal a través del cual un interesado ejerció su derecho a retirar el consentimiento. Este campo se rellena cuando el registro de consentimiento pasa al estado withdrawn. Los programas deben aceptar la retirada a través de canales apropiados a cómo se otorgó el consentimiento originalmente; los programas que solo aceptan la retirada digital de beneficiarios que dieron su consentimiento en papel podrían no cumplir con el principio de que la retirada debe ser tan fácil como otorgar el consentimiento.
+values:
+- code: web
+  label:
+    en: Web
+    fr: Web
+    es: Web
+  definition:
+    en: The data subject used a web browser (desktop or mobile) to submit a withdrawal request via a form or account interface.
+    fr: La personne concernée a utilisé un navigateur web (ordinateur ou mobile) pour soumettre une demande de retrait via un formulaire ou une interface de compte.
+    es: El interesado utilizó un navegador web (escritorio o móvil) para enviar una solicitud de retiro a través de un formulario o interfaz de cuenta.
+- code: mobile
+  label:
+    en: Mobile application
+    fr: Application mobile
+    es: Aplicación móvil
+  definition:
+    en: The data subject used a mobile application to submit a withdrawal request. Includes USSD and SMS-based withdrawal flows specifically designed in a mobile application context.
+    fr: La personne concernée a utilisé une application mobile pour soumettre une demande de retrait. Comprend les flux de retrait par USSD et SMS spécifiquement conçus dans le cadre d'une application mobile.
+    es: El interesado utilizó una aplicación móvil para enviar una solicitud de retiro. Incluye flujos de retiro por USSD y SMS específicamente diseñados en el contexto de una aplicación móvil.
+- code: api
+  label:
+    en: API
+    fr: API
+    es: API
+  definition:
+    en: A withdrawal was submitted programmatically via an application programming interface, typically by a system acting on behalf of the data subject (for example, a partner system relaying a withdrawal it received). Records which external system submitted the withdrawal in evidence_ref or withdrawal_reason when traceability is needed.
+    fr: Un retrait a été soumis par voie programmatique via une interface de programmation applicative, généralement par un système agissant au nom de la personne concernée (par exemple, un système partenaire transmettant un retrait qu'il a reçu). Enregistrez dans evidence_ref ou withdrawal_reason le système externe qui a soumis le retrait lorsque la traçabilité est requise.
+    es: Se envió un retiro programáticamente a través de una interfaz de programación de aplicaciones, típicamente por un sistema que actúa en nombre del interesado (por ejemplo, un sistema asociado que transmite un retiro que recibió). Registre en evidence_ref o withdrawal_reason qué sistema externo envió el retiro cuando se necesita trazabilidad.
+- code: paper
+  label:
+    en: Paper form
+    fr: Formulaire papier
+    es: Formulario impreso
+  definition:
+    en: The data subject submitted a written withdrawal request on paper, such as a signed letter or a pre-printed withdrawal form. The paper form should be scanned or photographed and referenced in evidence_ref.
+    fr: La personne concernée a soumis une demande de retrait écrite sur papier, telle qu'une lettre signée ou un formulaire de retrait pré-imprimé. Le formulaire papier doit être numérisé ou photographié et référencé dans evidence_ref.
+    es: El interesado presentó una solicitud de retiro escrita en papel, como una carta firmada o un formulario de retiro preimpreso. El formulario de papel debe escanearse o fotografiarse y referenciarse en evidence_ref.
+- code: verbal
+  label:
+    en: Verbal
+    fr: Verbal
+    es: Verbal
+  definition:
+    en: The data subject communicated withdrawal verbally. Requires a witness or a staff member present to record the withdrawal. The staff member who received the verbal withdrawal should be noted in evidence_ref or withdrawal_reason, along with the date and circumstances. Programs should define an operating procedure for handling verbal withdrawal requests.
+    fr: La personne concernée a communiqué le retrait verbalement. Nécessite un témoin ou un membre du personnel présent pour enregistrer le retrait. Le membre du personnel qui a reçu le retrait verbal doit être noté dans evidence_ref ou withdrawal_reason, avec la date et les circonstances. Les programmes doivent définir une procédure opérationnelle pour traiter les demandes de retrait verbal.
+    es: El interesado comunicó la retirada verbalmente. Requiere un testigo o un miembro del personal presente para registrar la retirada. El miembro del personal que recibió la retirada verbal debe anotarse en evidence_ref o withdrawal_reason, junto con la fecha y las circunstancias. Los programas deben definir un procedimiento operativo para manejar las solicitudes de retirada verbal.
+- code: in_person_office
+  label:
+    en: In-person at office
+    fr: En personne au bureau
+    es: En persona en la oficina
+  definition:
+    en: The data subject visited a program office or service point in person and submitted a withdrawal request there, whether verbally or in writing. The staff member handling the request should be recorded. Distinct from community-worker, which covers field-based withdrawal.
+    fr: La personne concernée s'est rendue en personne dans un bureau ou un point de service du programme et y a soumis une demande de retrait, oralement ou par écrit. Le membre du personnel traitant la demande doit être enregistré. Distinct de community-worker, qui couvre le retrait sur le terrain.
+    es: El interesado visitó en persona una oficina o punto de servicio del programa y allí presentó una solicitud de retiro, ya sea verbalmente o por escrito. El miembro del personal que manejó la solicitud debe registrarse. Distinto de community-worker, que cubre la retirada en el campo.
+- code: community_worker
+  label:
+    en: Community worker
+    fr: Agent communautaire
+    es: Agente comunitario
+  definition:
+    en: A community-level agent (community health worker, social worker, program field agent) received and recorded the withdrawal on behalf of the program. Common in programs that use community workers for outreach; particularly important when beneficiaries cannot travel to an office or do not use digital channels. The community worker's identity should be documented in evidence_ref or withdrawal_reason.
+    fr: Un agent de niveau communautaire (agent de santé communautaire, travailleur social, agent de terrain du programme) a reçu et enregistré le retrait au nom du programme. Courant dans les programmes utilisant des agents communautaires pour la sensibilisation; particulièrement important lorsque les bénéficiaires ne peuvent pas se déplacer dans un bureau ou n'utilisent pas les canaux numériques. L'identité de l'agent communautaire doit être documentée dans evidence_ref ou withdrawal_reason.
+    es: Un agente a nivel comunitario (agente de salud comunitaria, trabajador social, agente de campo del programa) recibió y registró la retirada en nombre del programa. Común en programas que utilizan agentes comunitarios para la divulgación; especialmente importante cuando los beneficiarios no pueden ir a una oficina o no usan canales digitales. La identidad del agente comunitario debe documentarse en evidence_ref o withdrawal_reason.
+- code: other
+  label:
+    en: Other
+    fr: Autre
+    es: Otro
+  definition:
+    en: The withdrawal was received through a channel not covered by the other values. Document the specific channel in withdrawal_reason so that patterns can be identified for future vocabulary additions.
+    fr: Le retrait a été reçu par un canal non couvert par les autres valeurs. Documentez le canal spécifique dans withdrawal_reason afin que les tendances puissent être identifiées pour de futures extensions du vocabulaire.
+    es: La retirada fue recibida a través de un canal no cubierto por los otros valores. Documente el canal específico en withdrawal_reason para que se puedan identificar patrones para futuras ampliaciones del vocabulario.

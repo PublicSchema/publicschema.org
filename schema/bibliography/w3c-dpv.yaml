@@ -1,0 +1,32 @@
+id: w3c-dpv
+title: "Data Privacy Vocabulary (DPV) v2"
+short_title: "W3C DPV v2"
+publisher: "W3C Data Privacy Vocabularies and Controls Community Group (DPVCG)"
+year: 2024
+version: "2.0"
+type: specification
+domain: general
+uri: "https://w3id.org/dpv"
+access: open
+status: active
+
+informs:
+  concepts:
+    - ConsentRecord
+    - PrivacyNotice
+  properties:
+    - data_subject
+    - controllers
+    - recipients
+    - purposes
+    - personal_data_categories
+    - processing_operations
+    - indicated_by
+    - legal_basis
+    - status
+    - effective_date
+    - expiry_date
+  vocabularies:
+    - legal-basis
+    - special-category-basis
+    - recipient-role

@@ -1,0 +1,13 @@
+id: verified_by
+maturity: draft
+
+definition:
+  en: "Person who verified the consent record (for example, a case worker reviewing a scanned paper form, or an auditor confirming a sample of records). Distinct from witnessed_by (who observed the consent act) and from indicated_by (who expressed the consent). Optional but valuable for auditable workflows."
+  fr: "Personne ayant vérifié l'enregistrement de consentement (par exemple, un travailleur social examinant un formulaire papier numérisé, ou un auditeur confirmant un échantillon d'enregistrements). À distinguer de witnessed_by (qui a observé l'acte de consentement) et de indicated_by (qui a exprimé le consentement). Facultatif mais précieux pour les flux de travail auditables."
+  es: "Persona que verificó el registro de consentimiento (por ejemplo, un trabajador social que revisa un formulario en papel escaneado, o un auditor que confirma una muestra de registros). Distinto de witnessed_by (quien observó el acto de consentimiento) y de indicated_by (quien expresó el consentimiento). Opcional pero valioso para flujos de trabajo auditables."
+
+type: concept:Person
+cardinality: single
+vocabulary: null
+references: Person
+category: consent_evidence

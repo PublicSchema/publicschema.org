@@ -1,0 +1,13 @@
+id: storage_duration_days
+maturity: draft
+
+definition:
+  en: "Planned storage duration for the personal data covered by this record, expressed in days. Drives retention logic in downstream systems. Zero means: do not persist after processing. Null (unpopulated) means: duration is described in prose in the PrivacyNotice retention_description rather than coded."
+  fr: "Durée de conservation prévue pour les données personnelles couvertes par cet enregistrement, exprimée en jours. Pilote la logique de rétention dans les systèmes en aval. Zéro signifie: ne pas conserver après le traitement. Null (non renseigné) signifie: la durée est décrite en prose dans le champ retention_description de la PrivacyNotice plutôt que codée."
+  es: "Duración de almacenamiento planificada para los datos personales cubiertos por este registro, expresada en días. Dirige la lógica de retención en sistemas posteriores. Cero significa: no conservar tras el procesamiento. Nulo (no rellenado) significa: la duración se describe en prosa en el campo retention_description de la PrivacyNotice en lugar de codificarse."
+
+type: integer
+cardinality: single
+vocabulary: null
+references: null
+category: consent_retention

@@ -40,10 +40,19 @@ EXTERNAL_EQUIV_LOOKUP: dict[tuple[str, str | None], str | None] = {
     ("semic", "Core Vocabularies"): None,  # match=none in practice; flag if not
     ("semic", "ADMS"): "semic-adms",
     ("fhir", "FHIR R4"): "fhir-r4",
+    ("fhir-r4", "FHIR R4"): "fhir-r4",
+    ("fhir-r5", "FHIR R5"): "fhir-r4",
     ("icao", "ICAO Doc 9303"): "icao-doc-9303",
     ("prov", "PROV-O"): "w3c-prov-o",
     ("foaf", "FOAF"): "foaf",
     ("schema-org", "schema.org"): "schema-org",
+    # W3C DPV v2 and its GDPR legal extension are all tracked under a single
+    # bibliography entry (w3c-dpv); the snapshots differ by module but the
+    # informs relationship is to DPV as a whole.
+    ("dpv", "W3C DPV v2"): "w3c-dpv",
+    ("dpv", "DPV v2"): "w3c-dpv",
+    ("dpv-gdpr", "DPV GDPR extension v2"): "w3c-dpv",
+    ("dpv-consent-notice", "W3C DPV v2"): "w3c-dpv",
     # opencrvs is a system, not a standard; intentionally excluded.
 }
 

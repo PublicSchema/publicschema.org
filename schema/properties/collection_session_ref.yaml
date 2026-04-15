@@ -1,0 +1,13 @@
+id: collection_session_ref
+maturity: draft
+
+definition:
+  en: "Opaque correlation key for records produced in the same intake session. A 'CollectionSession' concept is planned in ADR-013 and will formalize this; in v1 adopters use a free-form session id (e.g., a field-visit id)."
+  fr: "Clé de corrélation opaque pour les enregistrements produits lors de la même session d'enregistrement. Un concept 'CollectionSession' est prévu dans ADR-013 et formalisera cela ; dans la version 1, les adoptants utilisent un identifiant de session libre (par exemple, un identifiant de visite sur le terrain)."
+  es: "Clave de correlación opaca para los registros producidos en la misma sesión de registro. Un concepto 'CollectionSession' está planificado en ADR-013 y lo formalizará; en la versión 1, los adoptantes utilizan un identificador de sesión de forma libre (por ejemplo, un identificador de visita de campo)."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+category: administrative

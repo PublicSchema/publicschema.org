@@ -1,0 +1,13 @@
+id: recipients_described
+maturity: draft
+
+definition:
+  en: "Free-prose description of recipients used in the notice, complementing the coded 'recipient_categories'. Enables the notice to describe a recipient that does not fit the coded vocabulary."
+  fr: "Description en texte libre des destinataires utilisée dans l'avis, en complément des 'recipient_categories' codées. Permet à l'avis de décrire un destinataire qui ne correspond pas au vocabulaire codé."
+  es: "Descripción en prosa libre de los destinatarios utilizada en el aviso, como complemento de las 'recipient_categories' codificadas. Permite que el aviso describa a un destinatario que no encaja en el vocabulario codificado."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+category: consent_parties

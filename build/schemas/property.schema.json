@@ -54,6 +54,11 @@
       "pattern": "^[a-z][a-z0-9_]*$",
       "description": "Display grouping for this property (e.g. wash, housing, demographics, identification). Used by the site to render properties in sections."
     },
+    "immutable_after_status": {
+      "type": "string",
+      "enum": ["given"],
+      "description": "Marks this property as a terms-field that must not change after the record reaches the named status. Emitted as ps:immutableAfterStatus in the RDF output. Adopter-enforced invariant; not validated by SHACL in v1. Currently only 'given' (for consent records) is supported."
+    },
     "age_applicability": {
       "type": "array",
       "description": "Topical relevance tags indicating which age groups this property concerns. Not a filter primitive for eligibility: age-based filtering is computed from date_of_birth. Overlap between tags is intentional (e.g. a property may carry both child_5_17 and adolescent). Population guideline: only Person-scoped properties.",

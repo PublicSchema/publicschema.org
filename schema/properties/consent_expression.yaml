@@ -1,0 +1,14 @@
+id: consent_expression
+maturity: draft
+
+definition:
+  en: "The form in which consent was expressed: explicit opt-in, signed opt-in, witnessed opt-in, biometric opt-in, opt-out, or implied. IMPORTANT cross-reference: opt-in-biometric refers to the capture method (for example, fingerprint as signature), not to the data category. Processing biometric data is expressed via personal_data_categories (a URI from dpv-pd or equivalent)."
+  fr: "La forme sous laquelle le consentement a été exprimé: opt-in explicite, opt-in signé, opt-in avec témoin, opt-in biométrique, opt-out ou implicite. Référence croisée importante: opt-in-biometric désigne la méthode de capture (par exemple, empreinte digitale comme signature), et non la catégorie de données. Le traitement de données biométriques est exprimé via personal_data_categories (un URI de dpv-pd ou équivalent)."
+  es: "La forma en que se expresó el consentimiento: opt-in explícito, opt-in firmado, opt-in con testigo, opt-in biométrico, opt-out o implícito. Referencia cruzada importante: opt-in-biometric se refiere al método de captura (por ejemplo, huella dactilar como firma), no a la categoría de datos. El tratamiento de datos biométricos se expresa mediante personal_data_categories (un URI de dpv-pd o equivalente)."
+
+type: string
+cardinality: single
+vocabulary: consent-expression
+references: null
+category: consent_evidence
+immutable_after_status: given

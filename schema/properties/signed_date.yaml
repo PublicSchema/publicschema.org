@@ -1,0 +1,13 @@
+id: signed_date
+maturity: draft
+
+definition:
+  en: "The day the data subject indicated consent. For paper workflows, the day the paper form was signed; for witnessed verbal, the day of the verbal indication; for digital, the day of the click-through. MUST NOT be confused with created_at (the digitisation timestamp, which may be days or weeks later in paper-first programs) or effective_date (when the record becomes operative). Field-critical: populate even if the UI only captures created_at."
+  fr: "Le jour où la personne concernée a indiqué son consentement. Pour les flux sur support papier, le jour de la signature du formulaire papier; pour le consentement verbal avec témoin, le jour de l'indication verbale; pour le numérique, le jour du clic de validation. NE PAS confondre avec created_at (l'horodatage de numérisation, qui peut intervenir plusieurs jours ou semaines plus tard dans les programmes prioritairement sur papier) ni avec effective_date (la date d'entrée en vigueur de l'enregistrement). Critique pour la collecte: à renseigner même si l'interface ne capture que created_at."
+  es: "El día en que la persona afectada indicó su consentimiento. En flujos en papel, el día en que se firmó el formulario; para consentimiento verbal con testigo, el día de la indicación verbal; en digital, el día del clic de aceptación. NO debe confundirse con created_at (la marca de tiempo de digitalización, que puede ser días o semanas posterior en programas con soporte papel) ni con effective_date (cuando el registro se vuelve operativo). Crítico para la recolección: registrar aunque la interfaz solo capture created_at."
+
+type: date
+cardinality: single
+vocabulary: null
+references: null
+category: consent_validity

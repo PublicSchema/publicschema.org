@@ -1,0 +1,13 @@
+id: conforms_to
+maturity: draft
+
+definition:
+  en: "URIs of standards or specifications this record conforms to (ISO/IEC TS 27560, Kantara Consent Receipt, W3C DPV, etc.). Purely declarative; no validation is performed against the cited standards at schema level."
+  fr: "URI des normes ou spécifications auxquelles cet enregistrement est conforme (ISO/IEC TS 27560, Kantara Consent Receipt, W3C DPV, etc.). Purement déclaratif ; aucune validation n'est effectuée par rapport aux normes citées au niveau du schéma."
+  es: "URIs de las normas o especificaciones con las que este registro es conforme (ISO/IEC TS 27560, Kantara Consent Receipt, W3C DPV, etc.). Puramente declarativo; no se realiza ninguna validación contra las normas citadas a nivel de esquema."
+
+type: uri
+cardinality: multiple
+vocabulary: null
+references: null
+category: administrative

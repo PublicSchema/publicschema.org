@@ -1,0 +1,14 @@
+id: recipient_role
+maturity: draft
+
+definition:
+  en: "The role each recipient plays: processor, joint-controller, independent-controller, or sub-processor. Known limitation: v1 uses positional alignment with 'recipients' (the Nth recipient_role value corresponds to the Nth recipient). A future ADR will reify per-link roles. Adopters that cannot guarantee positional alignment should use only one recipient and one role per record, or represent the relationship externally."
+  fr: "Le rôle joué par chaque destinataire : sous-traitant, responsable conjoint du traitement, responsable indépendant du traitement ou sous-traitant de rang inférieur. Limitation connue : la version 1 utilise un alignement positionnel avec 'recipients' (la Nième valeur de recipient_role correspond au Nième destinataire). Un futur ADR réifiera les rôles par lien. Les adoptants qui ne peuvent pas garantir l'alignement positionnel devraient utiliser un seul destinataire et un seul rôle par enregistrement, ou représenter la relation de manière externe."
+  es: "El rol que desempeña cada destinatario: encargado del tratamiento, corresponsable del tratamiento, responsable independiente del tratamiento o subencargado del tratamiento. Limitación conocida: la versión 1 usa alineación posicional con 'recipients' (el N-ésimo valor de recipient_role corresponde al N-ésimo destinatario). Un futuro ADR reificará los roles por enlace. Los adoptantes que no puedan garantizar la alineación posicional deben usar un único destinatario y un único rol por registro, o representar la relación externamente."
+
+type: string
+cardinality: multiple
+vocabulary: recipient-role
+references: null
+category: consent_parties
+immutable_after_status: given

@@ -1,0 +1,35 @@
+id: consent-record-type
+maturity: draft
+label:
+  en: Consent Record Type
+  fr: Type d'enregistrement de consentement
+  es: Tipo de registro de consentimiento
+definition:
+  en: Distinguishes the two roles a consent record can serve according to ISO/IEC TS 27560:2023, a controller's internal working record and a receipt issued to the data subject.
+  fr: Distingue les deux rôles qu'un enregistrement de consentement peut jouer selon la norme ISO/IEC TS 27560:2023, à savoir l'enregistrement de travail interne du responsable du traitement et le reçu remis à la personne concernée.
+  es: Distingue los dos roles que puede desempeñar un registro de consentimiento según la norma ISO/IEC TS 27560:2023, el registro de trabajo interno del responsable del tratamiento y el recibo emitido al interesado.
+references:
+  - name: "ISO/IEC TS 27560:2023 - Privacy technologies: Consent record information structure"
+    uri: "https://www.iso.org/standard/80392.html"
+    relationship: superset
+    machine_readable: false
+    notes: "Section 6 of ISO/IEC TS 27560 defines the distinction between controller-held records and receipts delivered to data subjects."
+values:
+- code: internal_record
+  label:
+    en: Internal record
+    fr: Enregistrement interne
+    es: Registro interno
+  definition:
+    en: The controller's authoritative record of the lawful basis for processing. It is maintained internally and is not required to be shared with the data subject. Supports compliance audits and lifecycle management.
+    fr: L'enregistrement faisant autorité du responsable du traitement concernant la base juridique du traitement. Il est conservé en interne et n'a pas à être communiqué à la personne concernée. Il soutient les audits de conformité et la gestion du cycle de vie.
+    es: El registro autoritativo del responsable del tratamiento sobre la base jurídica del tratamiento. Se conserva internamente y no es necesario compartirlo con el interesado. Respalda las auditorías de cumplimiento y la gestión del ciclo de vida.
+- code: receipt
+  label:
+    en: Receipt
+    fr: Reçu
+    es: Recibo
+  definition:
+    en: An artefact derived from the internal record and delivered to the data subject as proof of what was agreed. The receipt is a snapshot of the terms at the time of agreement and is the basis for the Consent Receipt Verifiable Credential pattern. It must remain readable to the data subject even after the underlying record is updated.
+    fr: Un artefact dérivé de l'enregistrement interne et remis à la personne concernée comme preuve de ce qui a été convenu. Le reçu est un instantané des conditions au moment de l'accord et constitue la base du modèle de justificatif vérifiable de reçu de consentement. Il doit rester lisible par la personne concernée même après la mise à jour de l'enregistrement sous-jacent.
+    es: Un artefacto derivado del registro interno y entregado al interesado como prueba de lo acordado. El recibo es una instantánea de las condiciones en el momento del acuerdo y es la base del patrón de credencial verificable de recibo de consentimiento. Debe permanecer legible para el interesado incluso después de que se actualice el registro subyacente.

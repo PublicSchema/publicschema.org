@@ -1,0 +1,13 @@
+id: consent_record_type
+maturity: draft
+
+definition:
+  en: "Whether this record is an internal storage record or an externally-issued consent receipt. Internal records are the controller's working state; receipts are artefacts delivered to the data subject."
+  fr: "Indique si cet enregistrement est un enregistrement de stockage interne ou un reçu de consentement émis de manière externe. Les enregistrements internes constituent l'état de travail du responsable du traitement ; les reçus sont des artefacts remis à la personne concernée."
+  es: "Indica si este registro es un registro de almacenamiento interno o un recibo de consentimiento emitido externamente. Los registros internos representan el estado de trabajo del responsable del tratamiento; los recibos son artefactos entregados a la persona interesada."
+
+type: string
+cardinality: single
+vocabulary: consent-record-type
+references: null
+category: administrative

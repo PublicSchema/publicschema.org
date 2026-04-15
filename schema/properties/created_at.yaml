@@ -1,0 +1,13 @@
+id: created_at
+maturity: draft
+
+definition:
+  en: "System-generated timestamp marking when this record was persisted. This is the digitisation timestamp, not the consent-giving date. Distinct from 'signed_date' (the day the data subject indicated consent) and 'effective_date' (when the record becomes operative). For paper-first workflows the three timestamps may all differ."
+  fr: "Horodatage généré par le système indiquant quand cet enregistrement a été conservé. Il s'agit de l'horodatage de numérisation, et non de la date de consentement. Distinct de 'signed_date' (le jour où la personne concernée a indiqué son consentement) et de 'effective_date' (quand l'enregistrement entre en vigueur). Pour les flux de travail papier, les trois horodatages peuvent tous différer."
+  es: "Marca de tiempo generada por el sistema que indica cuándo se almacenó este registro. Es la marca de tiempo de digitalización, no la fecha de otorgamiento del consentimiento. Distinta de 'signed_date' (el día en que la persona interesada indicó su consentimiento) y de 'effective_date' (cuando el registro entra en vigor). Para los flujos de trabajo en papel, las tres marcas de tiempo pueden diferir."
+
+type: datetime
+cardinality: single
+vocabulary: null
+references: null
+category: administrative

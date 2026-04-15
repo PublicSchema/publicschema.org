@@ -1404,6 +1404,49 @@ class TestFeaturedConcepts:
 # Schema / build output drift detection
 # ---------------------------------------------------------------------------
 
+class TestImmutableAfterStatusAnnotation:
+    """The immutable_after_status annotation must flow through to RDF output.
+
+    ADR-009 decision 14 resolves this explicitly: emit ps:immutableAfterStatus
+    in the JSON-LD (and therefore Turtle), and do NOT emit a sh:PropertyShape
+    with a comment-only constraint. SHACL cannot enforce cross-version
+    immutability with its standard validators; pretending otherwise would
+    mislead adopters about enforcement.
+    """
+
+    def test_annotation_emitted_on_concept_property_node(
+        self, tmp_schema, write_concept, write_property,
+    ):
+        write_property("probe.yaml", make_property(
+            id="probe", immutable_after_status="given",
+        ))
+        write_concept("person.yaml", make_concept(id="Person", properties=["probe"]))
+        result = build_vocabulary(tmp_schema)
+        doc = result["jsonld_docs"]["concepts/Person.jsonld"]
+        prop_node = next(n for n in doc["@graph"] if n.get("@id", "").endswith("/probe"))
+        assert prop_node.get("ps:immutableAfterStatus") == "given"
+
+    def test_annotation_emitted_on_standalone_property_doc(
+        self, tmp_schema, write_concept, write_property,
+    ):
+        write_property("probe.yaml", make_property(
+            id="probe", immutable_after_status="given",
+        ))
+        write_concept("person.yaml", make_concept(id="Person", properties=["probe"]))
+        result = build_vocabulary(tmp_schema)
+        doc = result["jsonld_docs"]["properties/probe.jsonld"]
+        assert doc.get("ps:immutableAfterStatus") == "given"
+
+    def test_no_annotation_when_unset(
+        self, tmp_schema, write_concept, write_property,
+    ):
+        write_property("probe.yaml", make_property(id="probe"))
+        write_concept("person.yaml", make_concept(id="Person", properties=["probe"]))
+        result = build_vocabulary(tmp_schema)
+        doc = result["jsonld_docs"]["properties/probe.jsonld"]
+        assert "ps:immutableAfterStatus" not in doc
+
+
 class TestPropertySchemaDrift:
     """Catch fields defined in property.schema.json but missing from build output."""
 

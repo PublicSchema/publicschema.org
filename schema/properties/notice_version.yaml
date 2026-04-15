@@ -1,0 +1,14 @@
+id: notice_version
+maturity: draft
+
+definition:
+  en: "Denormalized snapshot of the PrivacyNotice `version` at the time of consent. Pinned by design: if the PrivacyNotice is later corrected or reversioned, this value MUST NOT be updated. Enables demonstrating which notice text the data subject actually saw (GDPR Art 7(1) demonstrability)."
+  fr: "Instantané dénormalisé de la valeur `version` du PrivacyNotice au moment du consentement. Épinglé par conception : si le PrivacyNotice est ultérieurement corrigé ou reversionné, cette valeur NE DOIT PAS être mise à jour. Permet de démontrer quel texte de l'avis la personne concernée a effectivement vu (RGPD Art 7(1), démontabilité)."
+  es: "Instantánea desnormalizada de la `version` del PrivacyNotice en el momento del consentimiento. Fijada por diseño: si el PrivacyNotice es corregido o reversionado posteriormente, este valor NO DEBE actualizarse. Permite demostrar qué texto del aviso vio realmente la persona interesada (RGPD Art 7(1), demostrabilidad)."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+category: consent_notice
+immutable_after_status: given

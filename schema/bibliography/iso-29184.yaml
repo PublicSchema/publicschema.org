@@ -1,0 +1,32 @@
+id: iso-29184
+title: "Information technology, Online privacy notices and consent"
+short_title: "ISO/IEC 29184:2020"
+standard_number: "ISO/IEC 29184:2020"
+publisher: "International Organization for Standardization"
+year: 2020
+type: international_standard
+domain: general
+uri: "https://www.iso.org/standard/70331.html"
+access: paywalled
+status: active
+
+informs:
+  concepts:
+    - PrivacyNotice
+  properties:
+    - name
+    - version
+    - controllers
+    - purposes
+    - personal_data_categories
+    - recipient_categories
+    - recipients_described
+    - retention_description
+    - transfer_description
+    - automated_decision_description
+    - rights_description
+    - withdrawal_description
+    - complaint_authority_contact
+    - available_languages
+    - source_of_data
+  vocabularies: []

@@ -1,0 +1,14 @@
+id: allowed_recipient_categories
+maturity: draft
+
+definition:
+  en: "Categories of organizations permitted to receive the data, as described to the data subject in the notice. Complements 'recipients', which names specific organizations. Use when specific recipient organizations are not pre-identified at the time of consent."
+  fr: "Catégories d'organisations autorisées à recevoir les données, telles que décrites à la personne concernée dans l'avis. Complète 'recipients', qui désigne des organisations spécifiques. À utiliser lorsque les organisations destinataires spécifiques ne sont pas préidentifiées au moment du consentement."
+  es: "Categorías de organizaciones autorizadas a recibir los datos, tal como se describen a la persona interesada en el aviso. Complementa 'recipients', que nombra organizaciones específicas. Se usa cuando las organizaciones destinatarias específicas no están preidentificadas en el momento del consentimiento."
+
+type: string
+cardinality: multiple
+vocabulary: organization-type
+references: null
+category: consent_parties
+immutable_after_status: given

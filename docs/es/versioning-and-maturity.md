@@ -24,6 +24,8 @@ La madurez progresa en una sola dirección. Un concepto en uso experimental no r
 
 La madurez aplica a los valores de vocabulario individuales, no solo a los vocabularios. Un vocabulario normativo puede contener un valor borrador. Los valores borrador no deben aparecer en credenciales de producción.
 
+**Madurez a nivel de vocabulario frente a madurez a nivel de valor.** Son dos cosas distintas. La madurez a nivel de vocabulario (el campo `maturity` en el archivo YAML del vocabulario) rige el contrato para el vocabulario en su conjunto: ¿pueden los códigos ser renombrados, eliminados o cambiar su significado? La madurez a nivel de valor rige cada código individual dentro de ese vocabulario. Un vocabulario marcado como `candidate` (uso experimental) puede seguir creciendo de forma acumulativa: se pueden añadir nuevos valores (añadir nunca es un cambio incompatible) aunque los valores existentes estén bloqueados en su significado actual. Los cambios incompatibles en los valores existentes, como renombrar un código, eliminarlo o cambiar lo que significa, aplican la disciplina de cambios incompatibles de todo el vocabulario, independientemente del marcador de madurez propio del valor. Concretamente: `consent-status` está actualmente en `draft` (borrador) a nivel de vocabulario porque se espera que el conjunto de valores crezca con el tiempo (valores como `suspended`, `pending-verification` o `pending-witness` podrían añadirse a medida que los programas de campo informen sus necesidades). Los valores individuales que lo componen, como `given` y `withdrawn`, tienen significados fijados por el alineamiento DPV y no cambiarán semánticamente aunque el vocabulario crezca.
+
 ### Versionado de versiones
 
 Semver en `_meta.yaml`:

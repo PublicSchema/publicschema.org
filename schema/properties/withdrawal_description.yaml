@@ -1,0 +1,13 @@
+id: withdrawal_description
+maturity: draft
+
+definition:
+  en: "PrivacyNotice-only. Prose description of how the data subject can withdraw consent. Should reference withdrawal_uri if available, and describe any paper or verbal channels. Required by GDPR Art 7(3)."
+  fr: "Réservé aux PrivacyNotice. Description en prose de la manière dont la personne concernée peut retirer son consentement. Doit référencer withdrawal_uri si disponible, et décrire les canaux papier ou verbaux le cas échéant. Exigé par l'article 7(3) du RGPD."
+  es: "Solo para PrivacyNotice. Descripción en prosa de cómo la persona afectada puede retirar su consentimiento. Debe referenciar withdrawal_uri si está disponible, y describir los canales en papel o verbales si los hubiera. Requerido por el Art. 7(3) del RGPD."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+category: consent_lifecycle

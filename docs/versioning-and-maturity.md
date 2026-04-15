@@ -24,6 +24,8 @@ Maturity progresses in one direction. A concept at candidate will not regress to
 
 Maturity applies to individual vocabulary values, not just vocabularies. A normative vocabulary can contain a draft value. Draft values should not appear in production credentials.
 
+**Vocabulary-level versus value-level maturity.** These are two distinct things. The vocabulary-level maturity (the `maturity` field on the vocabulary YAML itself) governs the contract for the vocabulary as a whole: can codes be renamed, removed, or have their meaning changed? Value-level maturity governs each individual code within that vocabulary. A vocabulary marked `candidate` can still grow additively: new values may be added (adding is never a breaking change) even though existing values are locked at their current meaning. Breaking changes to existing values, such as renaming a code, removing a code, or changing what a code means, apply the whole vocabulary's breaking-change discipline regardless of the value's own maturity marker. Concretely: `consent-status` is currently `draft` at the vocabulary level because the curated value set is expected to grow over time (values such as `suspended`, `pending-verification`, or `pending-witness` may be added as field programs report their needs). Individual values within it, such as `given` and `withdrawn`, have meanings locked by the DPV alignment and will not change semantically even as the vocabulary grows.
+
 ### Release versioning
 
 Semver on `_meta.yaml`:

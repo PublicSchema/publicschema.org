@@ -1,0 +1,53 @@
+id: collection-medium
+maturity: draft
+label:
+  en: Collection Medium
+  fr: Support de collecte
+  es: Medio de recolección
+definition:
+  en: The physical or digital medium through which a consent indication was communicated and recorded. Orthogonal to consent-expression (which captures how the agreement was indicated) and to personal_data_categories (which describes what data is being processed). A biometric opt-in can be captured on an electronic medium; a signed opt-in can be captured on paper; the two axes do not collapse.
+  fr: Le support physique ou numérique par lequel une indication de consentement a été communiquée et enregistrée. Orthogonal à consent-expression (qui capture la façon dont l'accord a été indiqué) et à personal_data_categories (qui décrit les données traitées). Un consentement biométrique peut être recueilli sur support électronique; un consentement signé peut être recueilli sur papier; les deux axes ne se confondent pas.
+  es: El medio físico o digital a través del cual se comunicó y registró una indicación de consentimiento. Ortogonal a consent-expression (que captura cómo se indicó el acuerdo) y a personal_data_categories (que describe los datos que se están procesando). Un consentimiento biométrico puede recogerse en medio electrónico; un consentimiento firmado puede recogerse en papel; los dos ejes no se fusionan.
+references:
+  - name: "ISO/IEC TS 27560:2023 - Privacy technologies: Consent record information structure"
+    uri: "https://www.iso.org/standard/80392.html"
+    relationship: structural_pattern
+    machine_readable: false
+    notes: "ISO/IEC TS 27560 Section 6.3 identifies collection medium as a required field for paper-first workflows. This vocabulary aligns with its four-value enumeration."
+values:
+- code: paper
+  label:
+    en: Paper
+    fr: Papier
+    es: Papel
+  definition:
+    en: Consent was indicated on a physical paper form, such as a printed notice with a signature field, a thumbprint box, or an X-mark field. Evidence is typically a scanned document or photograph referenced via evidence_ref. Common in community intake sessions and any context without reliable digital infrastructure.
+    fr: Le consentement a été indiqué sur un formulaire papier physique, tel qu'une notice imprimée avec un champ de signature, une case d'empreinte digitale ou un champ de marquage. La preuve est généralement un document numérisé ou une photographie référencé via evidence_ref. Courant lors des sessions de collecte communautaire et dans tout contexte sans infrastructure numérique fiable.
+    es: El consentimiento fue indicado en un formulario de papel físico, como un aviso impreso con un campo de firma, una casilla de huella dactilar o un campo de marca X. La evidencia es típicamente un documento escaneado o una fotografía referenciada a través de evidence_ref. Común en sesiones de ingesta comunitaria y en cualquier contexto sin infraestructura digital confiable.
+- code: electronic
+  label:
+    en: Electronic
+    fr: Électronique
+    es: Electrónico
+  definition:
+    en: Consent was indicated through a digital interface, such as a web form, a tablet application, a mobile application, or an SMS/USSD interaction. The digital system creates the record directly. Includes both fully digital workflows and paper-to-digital workflows where a field worker enters data immediately on a device.
+    fr: Le consentement a été indiqué via une interface numérique, telle qu'un formulaire web, une application sur tablette, une application mobile ou une interaction par SMS/USSD. Le système numérique crée directement l'enregistrement. Comprend à la fois les flux entièrement numériques et les flux papier-numérique où un agent de terrain saisit immédiatement les données sur un appareil.
+    es: El consentimiento fue indicado a través de una interfaz digital, como un formulario web, una aplicación de tableta, una aplicación móvil o una interacción por SMS/USSD. El sistema digital crea el registro directamente. Incluye tanto flujos de trabajo totalmente digitales como flujos de trabajo papel-digital donde un agente de campo introduce los datos inmediatamente en un dispositivo.
+- code: verbal
+  label:
+    en: Verbal
+    fr: Verbal
+    es: Verbal
+  definition:
+    en: Consent was communicated orally by the data subject without a written or biometric record being created at that moment. Verbal consent requires witnesses (populate witnessed_by) for audit purposes. The program's standard operating procedures should specify who may act as a witness and how the verbal consent is subsequently documented. Common when data subjects are illiterate or when community norms make written forms inappropriate.
+    fr: Le consentement a été communiqué oralement par la personne concernée sans qu'un enregistrement écrit ou biométrique soit créé à ce moment. Le consentement verbal nécessite des témoins (renseigner witnessed_by) à des fins d'audit. Les procédures opérationnelles standard du programme doivent préciser qui peut agir comme témoin et comment le consentement verbal est ensuite documenté. Courant lorsque les personnes concernées sont analphabètes ou lorsque les normes communautaires rendent les formulaires écrits inappropriés.
+    es: El consentimiento fue comunicado verbalmente por el interesado sin que se creara un registro escrito o biométrico en ese momento. El consentimiento verbal requiere testigos (rellenar witnessed_by) para fines de auditoría. Los procedimientos operativos estándar del programa deben especificar quién puede actuar como testigo y cómo se documenta posteriormente el consentimiento verbal. Común cuando los interesados son analfabetos o cuando las normas comunitarias hacen inapropiados los formularios escritos.
+- code: mixed
+  label:
+    en: Mixed
+    fr: Mixte
+    es: Mixto
+  definition:
+    en: Consent was collected using a combination of media, for example a verbal explanation with a paper signature, or a paper form later digitised and supplemented with an electronic acknowledgement. Use this value when a single medium code would not accurately describe the intake process. Document the combination in evidence_ref or in a linked intake note.
+    fr: Le consentement a été recueilli en utilisant une combinaison de supports, par exemple une explication verbale avec une signature papier, ou un formulaire papier ultérieurement numérisé et complété par un accusé de réception électronique. Utilisez cette valeur lorsqu'un seul code de support ne décrirait pas avec précision le processus de collecte. Documentez la combinaison dans evidence_ref ou dans une note de collecte liée.
+    es: El consentimiento fue recopilado usando una combinación de medios, por ejemplo una explicación verbal con una firma en papel, o un formulario en papel posteriormente digitalizado y complementado con un acuse de recibo electrónico. Use este valor cuando un solo código de medio no describiría con precisión el proceso de ingesta. Documente la combinación en evidence_ref o en una nota de ingesta vinculada.

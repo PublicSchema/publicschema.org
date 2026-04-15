@@ -1,0 +1,13 @@
+id: witnessed_by
+maturity: draft
+
+definition:
+  en: "Persons who witnessed the data subject's indication of consent. Field-critical for verbal consent ('collection_medium = verbal') and for biometric-as-signature ('consent_expression = opt-in-biometric') and witnessed signatures ('consent_expression = opt-in-witnessed'); adopters should populate this field even when the data-entry UI does not require it."
+  fr: "Personnes qui ont été témoins de l'indication du consentement par la personne concernée. Essentiel sur le terrain pour le consentement verbal ('collection_medium = verbal') et pour la biométrie en tant que signature ('consent_expression = opt-in-biometric') et les signatures témoignées ('consent_expression = opt-in-witnessed') ; les adoptants devraient renseigner ce champ même si l'interface de saisie de données ne l'exige pas."
+  es: "Personas que fueron testigos de la indicación de consentimiento de la persona interesada. Crítico en el campo para el consentimiento verbal ('collection_medium = verbal') y para la biometría como firma ('consent_expression = opt-in-biometric') y las firmas presenciadas ('consent_expression = opt-in-witnessed'); los adoptantes deben completar este campo incluso cuando la interfaz de entrada de datos no lo requiera."
+
+type: concept:Person
+cardinality: multiple
+vocabulary: null
+references: Person
+category: consent_parties

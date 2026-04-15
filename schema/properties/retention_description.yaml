@@ -1,0 +1,13 @@
+id: retention_description
+maturity: draft
+
+definition:
+  en: "PrivacyNotice-only. Prose description of the retention period for personal data (GDPR Art 13(2)(a)). Use when the period cannot be expressed as a fixed number of days (for example, 'for the duration of program enrollment plus six years after program exit')."
+  fr: "Réservé aux PrivacyNotice. Description en prose de la période de conservation des données personnelles (article 13(2)(a) du RGPD). À utiliser lorsque la période ne peut pas être exprimée en nombre fixe de jours (par exemple, 'pour la durée de l'inscription au programme plus six ans après la sortie du programme')."
+  es: "Solo para PrivacyNotice. Descripción en prosa del período de retención de los datos personales (Art. 13(2)(a) del RGPD). Usar cuando el período no puede expresarse como un número fijo de días (por ejemplo, 'durante la duración de la inscripción en el programa más seis años tras la salida del programa')."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+category: consent_retention

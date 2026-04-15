@@ -1,0 +1,13 @@
+id: complaint_authority_contact
+maturity: draft
+
+definition:
+  en: "Contact details for the relevant data protection authority where the data subject can lodge a complaint (e.g., in EU jurisdictions, the national DPA). Required by GDPR Arts 13/14 for notices in EU jurisdictions."
+  fr: "Coordonnées de l'autorité de protection des données compétente auprès de laquelle la personne concernée peut déposer une réclamation (par exemple, dans les juridictions de l'UE, la CNIL nationale). Requis par les articles 13/14 du RGPD pour les avis dans les juridictions de l'UE."
+  es: "Datos de contacto de la autoridad de protección de datos competente ante la que la persona interesada puede presentar una reclamación (por ejemplo, en jurisdicciones de la UE, la AEPD nacional). Requerido por los Arts. 13/14 del RGPD para avisos en jurisdicciones de la UE."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+category: consent_parties

@@ -1,0 +1,14 @@
+id: jurisdiction
+maturity: draft
+
+definition:
+  en: "ISO 3166-1 alpha-2 country code of the jurisdiction whose data protection law governs this record. Cardinality single: multi-jurisdictional records are the rare case; a follow-on ADR will lift cardinality if adopters hit it. Under joint controllership, this is the lead controller's primary establishment jurisdiction."
+  fr: "Code pays ISO 3166-1 alpha-2 de la juridiction dont la législation sur la protection des données régit cet enregistrement. Cardinalité simple: les enregistrements multi-juridictionnels sont rares; un ADR ultérieur lèvera la contrainte si les adoptants en ont besoin. En cas de responsabilité conjointe, il s'agit de la juridiction du siège principal du responsable chef de file."
+  es: "Código de país ISO 3166-1 alpha-2 de la jurisdicción cuya ley de protección de datos rige este registro. Cardinalidad simple: los registros multi-jurisdiccionales son el caso excepcional; un ADR posterior podrá ampliar la cardinalidad si los adoptantes lo necesitan. En caso de responsabilidad conjunta, corresponde a la jurisdicción de establecimiento principal del responsable principal."
+
+type: string
+cardinality: single
+vocabulary: country
+references: null
+category: consent_validity
+immutable_after_status: given

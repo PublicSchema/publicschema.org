@@ -1,0 +1,13 @@
+id: withdrawal_uri
+maturity: draft
+
+definition:
+  en: "URI exposed to the data subject for self-service withdrawal of consent. Required by GDPR Art 7(3) ('it shall be as easy to withdraw as to give consent'). Populated on the ConsentRecord when the controller offers a self-service endpoint."
+  fr: "URI exposée à la personne concernée pour le retrait autonome de son consentement. Exigée par l'article 7(3) du RGPD ('il doit être aussi facile de retirer son consentement que de le donner'). À renseigner sur le ConsentRecord lorsque le responsable du traitement propose un point d'accès en libre-service."
+  es: "URI expuesta a la persona afectada para el retiro autónomo de su consentimiento. Requerida por el Art. 7(3) del RGPD ('debe ser tan fácil retirar el consentimiento como otorgarlo'). Se rellena en el ConsentRecord cuando el responsable del tratamiento ofrece un punto de acceso de autoservicio."
+
+type: uri
+cardinality: single
+vocabulary: null
+references: null
+category: consent_lifecycle

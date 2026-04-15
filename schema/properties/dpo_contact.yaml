@@ -1,0 +1,13 @@
+id: dpo_contact
+maturity: draft
+
+definition:
+  en: "Contact details (email, phone, postal) for the data protection officer or equivalent privacy-contact role of the controller(s). Free-form string; typically an email address or a postal block. Required by GDPR Arts 13/14 for notices issued in EU jurisdictions."
+  fr: "Coordonnées (courriel, téléphone, adresse postale) du délégué à la protection des données ou du rôle équivalent de contact pour la protection de la vie privée des responsables du traitement. Chaîne libre ; généralement une adresse courriel ou un bloc postal. Requis par les articles 13/14 du RGPD pour les avis émis dans les juridictions de l'UE."
+  es: "Datos de contacto (correo electrónico, teléfono, dirección postal) del delegado de protección de datos o del rol equivalente de contacto de privacidad del o los responsable(s) del tratamiento. Cadena libre; generalmente una dirección de correo electrónico o un bloque postal. Requerido por los Arts. 13/14 del RGPD para avisos emitidos en jurisdicciones de la UE."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+category: consent_parties

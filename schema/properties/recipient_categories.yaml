@@ -1,0 +1,13 @@
+id: recipient_categories
+maturity: draft
+
+definition:
+  en: "Categories of recipients described to the data subject in the notice. PrivacyNotice-scoped: the notice describes categories; the ConsentRecord names specific recipients via 'recipients' and 'allowed_recipient_categories'."
+  fr: "Catégories de destinataires décrites à la personne concernée dans l'avis. Limité à PrivacyNotice : l'avis décrit les catégories ; le ConsentRecord désigne des destinataires spécifiques via 'recipients' et 'allowed_recipient_categories'."
+  es: "Categorías de destinatarios descritas a la persona interesada en el aviso. Con alcance de PrivacyNotice: el aviso describe las categorías; el ConsentRecord nombra destinatarios específicos a través de 'recipients' y 'allowed_recipient_categories'."
+
+type: string
+cardinality: multiple
+vocabulary: organization-type
+references: null
+category: consent_parties

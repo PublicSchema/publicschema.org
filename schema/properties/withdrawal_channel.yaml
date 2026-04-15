@@ -1,0 +1,13 @@
+id: withdrawal_channel
+maturity: draft
+
+definition:
+  en: "The channel through which the data subject withdrew consent: web, mobile, api, paper, verbal, in-person-office, community-worker, or other. Recorded when status transitions to withdrawn. Field-critical: adopters should record the channel even when the withdrawal arrives through a non-digital path."
+  fr: "Le canal par lequel la personne concernée a retiré son consentement: web, mobile, api, papier, verbal, en-personne-bureau, agent-communautaire ou autre. À renseigner lorsque le statut passe à withdrawn. Critique pour la collecte: les adoptants doivent enregistrer le canal même lorsque le retrait arrive par une voie non numérique."
+  es: "El canal por el que la persona afectada retiró su consentimiento: web, móvil, api, papel, verbal, en-persona-oficina, agente-comunitario u otro. Se registra cuando el estado pasa a withdrawn. Crítico para la recolección: los adoptantes deben registrar el canal incluso cuando el retiro llega por una vía no digital."
+
+type: string
+cardinality: single
+vocabulary: withdrawal-channel
+references: null
+category: consent_lifecycle

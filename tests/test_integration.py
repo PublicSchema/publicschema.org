@@ -64,15 +64,16 @@ class TestRealSchema:
         assert "context" in result
         assert "concept_schemas" in result
 
-        # Verify counts match what we expect (19 concepts, 91+ properties, 11 vocabularies)
-        assert len(result["concepts"]) >= 19, (
-            f"Expected at least 19 concepts, got {len(result['concepts'])}"
+        # Verify counts are at or above the current floor. Bump these
+        # whenever the floor shifts; do not use them as precise counts.
+        assert len(result["concepts"]) >= 59, (
+            f"Expected at least 59 concepts, got {len(result['concepts'])}"
         )
-        assert len(result["properties"]) >= 91, (
-            f"Expected at least 91 properties, got {len(result['properties'])}"
+        assert len(result["properties"]) >= 444, (
+            f"Expected at least 444 properties, got {len(result['properties'])}"
         )
-        assert len(result["vocabularies"]) >= 10, (
-            f"Expected at least 10 vocabularies, got {len(result['vocabularies'])}"
+        assert len(result["vocabularies"]) >= 114, (
+            f"Expected at least 114 vocabularies, got {len(result['vocabularies'])}"
         )
 
         # Every concept should have a JSON Schema generated

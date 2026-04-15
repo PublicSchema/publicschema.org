@@ -1,0 +1,65 @@
+id: delegation-type
+maturity: draft
+label:
+  en: Delegation Type
+  fr: Type de délégation
+  es: Tipo de delegación
+definition:
+  en: Who indicated consent on behalf of the data subject and under what legal authority. The value self means the data subject indicated consent directly for themselves. All other values indicate that a third party gave consent on behalf of a data subject who lacked or delegated legal capacity. The applicable delegation authority should be documented in evidence_ref.
+  fr: Qui a indiqué le consentement au nom de la personne concernée et en vertu de quelle autorité juridique. La valeur self signifie que la personne concernée a indiqué le consentement directement pour elle-même. Toutes les autres valeurs indiquent qu'un tiers a donné le consentement au nom d'une personne concernée qui manquait ou avait délégué la capacité juridique. L'autorité de délégation applicable doit être documentée dans evidence_ref.
+  es: Quién indicó el consentimiento en nombre del interesado y bajo qué autoridad legal. El valor self significa que el interesado indicó el consentimiento directamente por sí mismo. Todos los demás valores indican que un tercero otorgó el consentimiento en nombre de un interesado que carecía o había delegado la capacidad jurídica. La autoridad de delegación aplicable debe documentarse en evidence_ref.
+values:
+- code: self
+  label:
+    en: Self
+    fr: Soi-même
+    es: Uno mismo
+  definition:
+    en: The data subject indicated consent on their own behalf with full legal capacity. The most common value for adult program participants who are legally competent. No delegation document is required.
+    fr: La personne concernée a indiqué le consentement en son propre nom avec pleine capacité juridique. La valeur la plus courante pour les participants adultes ayant pleine capacité juridique. Aucun document de délégation n'est requis.
+    es: El interesado indicó el consentimiento en su propio nombre con plena capacidad jurídica. El valor más común para los participantes adultos del programa con plena capacidad jurídica. No se requiere ningún documento de delegación.
+- code: legal_guardian
+  label:
+    en: Legal guardian
+    fr: Tuteur légal
+    es: Tutor legal
+  definition:
+    en: A person appointed by a court or authority to make legal decisions on behalf of the data subject, typically because the subject is a minor or has been determined to lack legal capacity for decision-making. The guardianship order or equivalent document should be referenced in evidence_ref.
+    fr: Une personne désignée par un tribunal ou une autorité pour prendre des décisions juridiques au nom de la personne concernée, généralement parce que la personne concernée est mineure ou a été jugée incapable de prendre des décisions de manière autonome. L'ordonnance de tutelle ou le document équivalent doit être référencé dans evidence_ref.
+    es: Una persona nombrada por un tribunal o autoridad para tomar decisiones jurídicas en nombre del interesado, típicamente porque el interesado es menor de edad o ha sido determinado que carece de capacidad jurídica para tomar decisiones. La orden de tutela o documento equivalente debe referenciarse en evidence_ref.
+- code: parent
+  label:
+    en: Parent
+    fr: Parent
+    es: Progenitor
+  definition:
+    en: A biological or adoptive parent who provides consent for a minor child under parental authority, as recognised by applicable family law. Distinct from legal_guardian in that no court appointment is required; the parental relationship itself is the authority. Parental authority typically ends at the age of majority, at which point the record should be flagged for re-consent.
+    fr: Un parent biologique ou adoptif qui donne le consentement pour un enfant mineur dans le cadre de l'autorité parentale, telle que reconnue par le droit de la famille applicable. Distinct de legal_guardian en ce qu'aucune nomination judiciaire n'est requise; la relation parentale elle-même est l'autorité. L'autorité parentale prend généralement fin à la majorité, après quoi l'enregistrement doit être marqué pour renouvellement du consentement.
+    es: Un padre o madre biológico o adoptivo que proporciona consentimiento para un hijo menor bajo autoridad parental, según lo reconocido por el derecho de familia aplicable. Distinto de legal_guardian en que no se requiere nombramiento judicial; la relación parental en sí misma es la autoridad. La autoridad parental típicamente termina con la mayoría de edad, momento en que el registro debe marcarse para renovación del consentimiento.
+- code: power_of_attorney
+  label:
+    en: Power of attorney
+    fr: Procuration
+    es: Poder notarial
+  definition:
+    en: A person authorised by a formal written instrument (a power of attorney) to act on behalf of the data subject in legal matters. The data subject had legal capacity at the time the power was granted. The power-of-attorney document should be referenced in evidence_ref and its scope should cover data processing decisions.
+    fr: Une personne autorisée par un instrument écrit formel (une procuration) à agir au nom de la personne concernée dans des affaires juridiques. La personne concernée avait la capacité juridique au moment de l'octroi du pouvoir. La procuration doit être référencée dans evidence_ref et sa portée doit couvrir les décisions de traitement des données.
+    es: Una persona autorizada por un instrumento escrito formal (un poder notarial) para actuar en nombre del interesado en asuntos legales. El interesado tenía capacidad jurídica en el momento en que se otorgó el poder. El documento de poder notarial debe referenciarse en evidence_ref y su alcance debe cubrir las decisiones de tratamiento de datos.
+- code: authorised_representative
+  label:
+    en: Authorised representative
+    fr: Représentant autorisé
+    es: Representante autorizado
+  definition:
+    en: A person or organisation formally designated to represent the data subject in administrative or program contexts, without a full power of attorney. The authorisation may be a program-specific form, a community-leader designation, or a written authority from the subject. The specific type of authorisation should be documented in evidence_ref.
+    fr: Une personne ou organisation formellement désignée pour représenter la personne concernée dans des contextes administratifs ou de programme, sans procuration complète. L'autorisation peut être un formulaire spécifique au programme, une désignation de chef communautaire ou une autorité écrite de la personne concernée. Le type spécifique d'autorisation doit être documenté dans evidence_ref.
+    es: Una persona u organización formalmente designada para representar al interesado en contextos administrativos o del programa, sin un poder notarial completo. La autorización puede ser un formulario específico del programa, una designación de líder comunitario o una autoridad escrita del interesado. El tipo específico de autorización debe documentarse en evidence_ref.
+- code: institutional_representative
+  label:
+    en: Institutional representative
+    fr: Représentant institutionnel
+    es: Representante institucional
+  definition:
+    en: An institution, such as a hospital, care facility, or government body, acting as the legal decision-maker for a data subject who lacks capacity and has no individual guardian, parent, or attorney. Examples include a public trustee or a care facility acting under a court appointment. The institutional authority should be documented in evidence_ref.
+    fr: Une institution, telle qu'un hôpital, un établissement de soins ou un organisme gouvernemental, agissant en tant que décideur légal pour une personne concernée qui manque de capacité et n'a pas de tuteur individuel, de parent ou de mandataire. Il peut s'agir par exemple d'un curateur public ou d'un établissement de soins agissant en vertu d'une nomination judiciaire. L'autorité institutionnelle doit être documentée dans evidence_ref.
+    es: Una institución, como un hospital, un centro de atención o un organismo gubernamental, que actúa como tomador de decisiones legal para un interesado que carece de capacidad y no tiene tutor individual, progenitor ni apoderado. Ejemplos incluyen un administrador público o un centro de atención que actúa bajo nombramiento judicial. La autoridad institucional debe documentarse en evidence_ref.

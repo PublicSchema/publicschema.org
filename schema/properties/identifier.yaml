@@ -1,0 +1,13 @@
+id: identifier
+maturity: draft
+
+definition:
+  en: "A unique identifier for this record (e.g., a ULID, UUID, or program-assigned ID). Scoped to the record's namespace; not necessarily globally unique."
+  fr: "Un identifiant unique pour cet enregistrement (par exemple, un ULID, UUID ou identifiant attribué par le programme). La portée est limitée à l'espace de nommage de l'enregistrement ; il n'est pas nécessairement unique à l'échelle mondiale."
+  es: "Un identificador único para este registro (por ejemplo, un ULID, UUID o ID asignado por el programa). Su alcance se limita al espacio de nombres del registro; no es necesariamente único a nivel global."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+category: administrative

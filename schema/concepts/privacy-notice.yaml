@@ -1,0 +1,145 @@
+id: PrivacyNotice
+label:
+  en: Privacy Notice
+  fr: Notice d'information
+  es: Aviso de privacidad
+maturity: draft
+
+definition:
+  en: >
+    PrivacyNotice is the artefact presented to a data subject describing
+    which personal data will be processed, by whom, for what purposes,
+    under which legal basis, and with what rights. It bounds the scope of
+    each ConsentRecord anchored to it: a record's processing scope must
+    fall within the notice's declared scope, or the notice must be
+    updated and re-consent obtained. Notice versioning is deliberate; a
+    substantive change (new purposes, new recipients, new data categories)
+    triggers re-consent, while editorial changes (typos, translation
+    fixes, contact refresh) do not.
+  fr: >
+    PrivacyNotice est l'artefact présenté à une personne concernée
+    décrivant quelles données personnelles seront traitées, par qui, à
+    quelles fins, sur quelle base juridique et avec quels droits. Elle
+    délimite le périmètre de chaque ConsentRecord qui y est rattaché:
+    le périmètre de traitement d'un enregistrement doit rester dans
+    celui déclaré par l'avis, sinon l'avis doit être mis à jour
+    et un nouveau consentement recueilli. Le versionnage de l'avis
+    est délibéré; un changement substantiel (nouvelles finalités,
+    nouveaux destinataires, nouvelles catégories de données) déclenche
+    un nouveau consentement, alors qu'un changement rédactionnel
+    (corrections, traductions, coordonnées) ne le déclenche pas.
+  es: >
+    PrivacyNotice es el artefacto presentado al interesado que describe
+    qué datos personales se tratarán, por quién, con qué fines, bajo
+    qué base jurídica y con qué derechos. Delimita el alcance de cada
+    ConsentRecord que lo referencia: el alcance de tratamiento de un
+    registro debe permanecer dentro del declarado por el aviso; de lo
+    contrario, el aviso debe actualizarse y obtenerse un nuevo
+    consentimiento. El versionado del aviso es deliberado; un cambio
+    sustantivo (nuevas finalidades, nuevos destinatarios, nuevas
+    categorías de datos) desencadena un nuevo consentimiento, mientras
+    que un cambio editorial (correcciones, traducciones, datos de
+    contacto) no lo hace.
+
+properties:
+  - identifier
+  - name
+  - version
+  - schema_version
+  - conforms_to
+  - created_at
+  - supersedes_ref
+  - controllers
+  - dpo_contact
+  - complaint_authority_contact
+  - purposes
+  - personal_data_categories
+  - processing_operations
+  - legal_basis
+  - special_category_basis
+  - recipient_categories
+  - recipients_described
+  - available_languages
+  - transfer_description
+  - automated_decision_description
+  - rights_description
+  - source_of_data
+  - withdrawal_description
+  - retention_description
+  - storage_duration_days
+  - effective_date
+  - expiry_date
+  - jurisdiction
+
+property_groups:
+  - category: administrative
+    properties:
+      - identifier
+      - name
+      - version
+      - schema_version
+      - conforms_to
+      - created_at
+  - category: consent_parties
+    properties:
+      - controllers
+      - dpo_contact
+      - complaint_authority_contact
+      - recipient_categories
+      - recipients_described
+  - category: consent_processing
+    properties:
+      - purposes
+      - personal_data_categories
+      - processing_operations
+      - legal_basis
+      - special_category_basis
+  - category: consent_notice
+    properties:
+      - supersedes_ref
+      - available_languages
+      - transfer_description
+      - automated_decision_description
+      - rights_description
+      - source_of_data
+  - category: consent_validity
+    properties:
+      - effective_date
+      - expiry_date
+      - jurisdiction
+  - category: consent_lifecycle
+    properties:
+      - withdrawal_description
+  - category: consent_retention
+    properties:
+      - retention_description
+      - storage_duration_days
+
+supertypes: []
+subtypes: []
+
+external_equivalents:
+  dpv:
+    label: "Privacy Notice"
+    uri: "https://w3id.org/dpv#PrivacyNotice"
+    match: exact
+    vocabulary: "W3C DPV v2"
+    note: "W3C DPV 2.0 defines dpv:PrivacyNotice as a notice of privacy practices. When legal_basis includes consent, the notice is also a dpv:ConsentNotice (same class, narrower role)."
+  dpv-consent-notice:
+    label: "Consent Notice"
+    uri: "https://w3id.org/dpv#ConsentNotice"
+    match: related
+    vocabulary: "W3C DPV v2"
+    note: "dpv:ConsentNotice is the consent-focused specialisation of dpv:PrivacyNotice. Our PrivacyNotice is the supertype; records with legal_basis = consent are anchored against notices that also satisfy the ConsentNotice specialisation."
+
+convergence:
+  system_count: 2
+  total_systems: 6
+  notes: >
+    PrivacyNotice as a first-class artefact is less widespread than
+    ConsentRecord. ISO/IEC 29184 specifies notice structure; W3C DPV
+    models it as dpv:PrivacyNotice. Most delivery systems handle notice
+    text as prose in program documentation rather than as a structured
+    record. This concept exists so adopters can version notices
+    alongside records, trace re-consent triggers, and generate
+    jurisdiction-aware notice text from structured inputs.

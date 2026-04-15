@@ -1,0 +1,13 @@
+id: available_languages
+maturity: draft
+
+definition:
+  en: "PrivacyNotice-only. ISO 639-3 codes of all languages in which this notice is available. See `notice_presentation_language` on the ConsentRecord for which one was actually presented to a given data subject."
+  fr: "Réservé au PrivacyNotice. Codes ISO 639-3 de toutes les langues dans lesquelles cet avis est disponible. Voir `notice_presentation_language` sur le ConsentRecord pour savoir laquelle a été effectivement présentée à une personne concernée donnée."
+  es: "Solo para PrivacyNotice. Códigos ISO 639-3 de todos los idiomas en que este aviso está disponible. Consulte `notice_presentation_language` en el ConsentRecord para saber cuál fue presentado realmente a una persona interesada concreta."
+
+type: string
+cardinality: multiple
+vocabulary: language
+references: null
+category: consent_notice

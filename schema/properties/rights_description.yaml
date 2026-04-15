@@ -1,0 +1,13 @@
+id: rights_description
+maturity: draft
+
+definition:
+  en: "PrivacyNotice-only. Prose description of the data subject's rights (access, rectification, erasure, objection, portability, restriction of processing, withdrawal of consent). Typically a paragraph covering the full rights bundle under the relevant jurisdiction."
+  fr: "Réservé au PrivacyNotice. Description en texte libre des droits de la personne concernée (accès, rectification, effacement, opposition, portabilité, limitation du traitement, retrait du consentement). Généralement un paragraphe couvrant l'ensemble des droits applicables dans la juridiction concernée."
+  es: "Solo para PrivacyNotice. Descripción en prosa de los derechos de la persona interesada (acceso, rectificación, supresión, oposición, portabilidad, limitación del tratamiento, retirada del consentimiento). Típicamente un párrafo que cubre el conjunto completo de derechos aplicables en la jurisdicción correspondiente."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+category: consent_notice

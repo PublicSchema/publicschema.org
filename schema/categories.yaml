@@ -165,3 +165,51 @@ vital_event:
     en: Vital event
     fr: "Événement d'état civil"
     es: Evento vital
+
+data_governance:
+  label:
+    en: Data governance
+    fr: Gouvernance des données
+    es: Gobernanza de datos
+
+consent_parties:
+  label:
+    en: Parties
+    fr: Parties
+    es: Partes
+
+consent_processing:
+  label:
+    en: Processing
+    fr: Traitement
+    es: Tratamiento
+
+consent_notice:
+  label:
+    en: Notice
+    fr: Information
+    es: Aviso
+
+consent_validity:
+  label:
+    en: Validity and jurisdiction
+    fr: Validité et juridiction
+    es: Validez y jurisdicción
+
+consent_evidence:
+  label:
+    en: Collection evidence
+    fr: Preuve de collecte
+    es: Prueba de recolección
+
+consent_lifecycle:
+  label:
+    en: Status and withdrawal
+    fr: Statut et retrait
+    es: Estado y retiro
+
+consent_retention:
+  label:
+    en: Retention
+    fr: Conservation
+    es: Conservación

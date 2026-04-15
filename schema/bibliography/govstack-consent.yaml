@@ -1,0 +1,16 @@
+id: govstack-consent
+title: "GovStack Consent Building Block Specification"
+short_title: "GovStack Consent BB"
+publisher: "GovStack"
+year: null
+type: specification
+domain: general
+uri: "https://govstack.gitbook.io/bb-consent/"
+access: open
+status: active
+
+informs:
+  concepts:
+    - ConsentRecord
+  properties: []
+  vocabularies: []

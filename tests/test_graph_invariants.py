@@ -253,6 +253,99 @@ class TestNoDanglingConceptReferences:
         )
 
 
+class TestDPVNamespacePinning:
+    """Every DPV URI cited in external_equivalents must resolve in the pinned snapshot.
+
+    ADR-009 decision 20: we reference DPV URIs (dpv:, dpv-gdpr:) as external
+    equivalents on concepts, properties, and vocabularies. Those URIs must exist
+    as classes or properties in the pinned Turtle snapshot under external/dpv/.
+    This test parses the snapshots with rdflib and checks each cited URI
+    resolves to rdfs:Class / rdf:Property / owl:Class / owl:ObjectProperty /
+    owl:DatatypeProperty. Prevents silent drift when DPV releases URI changes.
+    """
+
+    DPV_PREFIXES = ("dpv:", "dpv-gdpr:")
+    DPV_SNAPSHOTS = (
+        ("external/dpv/dpv-v2.ttl", "https://w3id.org/dpv#", "dpv:"),
+        (
+            "external/dpv/dpv-gdpr-v2.ttl",
+            "https://w3id.org/dpv/legal/eu/gdpr#",
+            "dpv-gdpr:",
+        ),
+    )
+
+    @pytest.fixture(scope="class")
+    def dpv_graph(self):
+        """Parse all pinned DPV snapshots into a single rdflib graph."""
+        from pathlib import Path
+
+        root = Path(__file__).parent.parent
+        g = rdflib.Graph()
+        for rel_path, _ns, _prefix in self.DPV_SNAPSHOTS:
+            path = root / rel_path
+            assert path.is_file(), (
+                f"Pinned DPV snapshot missing: {path}. Refresh per external/dpv/manifest.yaml."
+            )
+            g.parse(path, format="turtle")
+        return g
+
+    @pytest.fixture(scope="class")
+    def dpv_term_uris(self, dpv_graph):
+        """Collect every URI that is typed as a class or property in the snapshots."""
+        OWL = rdflib.Namespace("http://www.w3.org/2002/07/owl#")
+        type_targets = (
+            RDFS.Class,
+            RDF.Property,
+            OWL.Class,
+            OWL.ObjectProperty,
+            OWL.DatatypeProperty,
+            OWL.AnnotationProperty,
+        )
+        uris = set()
+        for target in type_targets:
+            for s, _p, _o in dpv_graph.triples((None, RDF.type, target)):
+                if isinstance(s, rdflib.URIRef):
+                    uris.add(str(s))
+        return uris
+
+    def test_cited_dpv_uris_resolve(self, dpv_graph, dpv_term_uris):
+        from pathlib import Path
+
+        import yaml
+
+        root = Path(__file__).parent.parent
+        cited = set()
+        schema_dir = root / "schema"
+        for sub in ("concepts", "properties", "vocabularies"):
+            for yaml_path in (schema_dir / sub).rglob("*.yaml"):
+                with yaml_path.open() as f:
+                    data = yaml.safe_load(f) or {}
+                eq = data.get("external_equivalents") or {}
+                for key, entry in eq.items():
+                    if not key.startswith(self.DPV_PREFIXES):
+                        continue
+                    uri = (entry or {}).get("uri")
+                    if uri:
+                        cited.add(uri)
+                values = data.get("values") or []
+                for v in values:
+                    v_eq = (v or {}).get("external_equivalents") or {}
+                    for key, entry in v_eq.items():
+                        if not key.startswith(self.DPV_PREFIXES):
+                            continue
+                        uri = (entry or {}).get("uri")
+                        if uri:
+                            cited.add(uri)
+
+        # Every cited DPV URI must exist as a class or property in the snapshots.
+        missing = sorted(uri for uri in cited if uri not in dpv_term_uris)
+        assert missing == [], (
+            f"Cited DPV URIs not present as class/property in pinned snapshots:\n"
+            + "\n".join(f"  - {u}" for u in missing)
+            + "\nRefresh snapshot per external/dpv/manifest.yaml or fix the YAML."
+        )
+
+
 class TestVocabularyValuesHaveNotation:
     """Every skos:Concept must have a skos:notation triple.
 

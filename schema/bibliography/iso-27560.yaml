@@ -1,0 +1,28 @@
+id: iso-27560
+title: "Information security, Consent record information structure"
+short_title: "ISO/IEC TS 27560:2023"
+standard_number: "ISO/IEC TS 27560:2023"
+publisher: "International Organization for Standardization"
+year: 2023
+type: international_standard
+domain: general
+uri: "https://www.iso.org/standard/80391.html"
+access: paywalled
+status: active
+
+informs:
+  concepts:
+    - ConsentRecord
+  properties:
+    - identifier
+    - created_at
+    - signed_date
+    - effective_date
+    - status
+    - controllers
+    - data_subject
+    - consent_record_type
+    - notice_ref
+    - notice_version
+    - evidence_ref
+  vocabularies: []

@@ -1,0 +1,28 @@
+id: kantara-consent-receipt
+title: "Consent Receipt Specification v1.1"
+short_title: "Kantara Consent Receipt v1.1"
+publisher: "Kantara Initiative"
+year: 2017
+version: "1.1"
+type: specification
+domain: general
+uri: "https://kantarainitiative.org/download/7902/"
+access: open
+status: active
+
+informs:
+  concepts:
+    - ConsentRecord
+  properties:
+    - consent_record_type
+    - identifier
+    - created_at
+    - signed_date
+    - controllers
+    - data_subject
+    - purposes
+    - personal_data_categories
+    - legal_basis
+    - evidence_ref
+  vocabularies:
+    - consent-record-type

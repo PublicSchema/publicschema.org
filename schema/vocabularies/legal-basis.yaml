@@ -1,0 +1,90 @@
+id: legal-basis
+maturity: candidate
+label:
+  en: Legal Basis
+  fr: Base juridique
+  es: Base jurídica
+definition:
+  en: The lawful ground under which a controller processes personal data, corresponding to the six bases enumerated in GDPR Article 6(1) and mirrored in most national data protection laws. Choosing the correct basis is a policy decision, not a technical one. Programs that claim consent when beneficiaries cannot realistically refuse without losing service should use legal-obligation or public-interest instead.
+  fr: Le fondement juridique sur lequel un responsable du traitement traite des données à caractère personnel, correspondant aux six bases énumérées à l'article 6, paragraphe 1, du RGPD et reprises dans la plupart des lois nationales sur la protection des données. Le choix de la base correcte est une décision de politique, non technique. Les programmes qui invoquent le consentement alors que les bénéficiaires ne peuvent pas raisonnablement refuser sans perdre l'accès au service devraient utiliser obligation-légale ou intérêt-public à la place.
+  es: El fundamento jurídico sobre el que un responsable trata datos personales, correspondiente a las seis bases enumeradas en el artículo 6, apartado 1, del RGPD y reflejadas en la mayoría de las leyes nacionales de protección de datos. Elegir la base correcta es una decisión de política, no técnica. Los programas que invocan el consentimiento cuando los beneficiarios no pueden negarse razonablemente sin perder el servicio deberían usar obligación-legal o interés-público en su lugar.
+external_equivalents:
+  dpv-gdpr:
+    label: "GDPR Article 6 - Lawfulness of processing"
+    uri: "https://w3id.org/dpv/legal/eu/gdpr#A6"
+    match: exact
+    vocabulary: "DPV GDPR extension v2"
+    note: "The six values of this vocabulary map one-to-one to GDPR Article 6(1)(a) through Article 6(1)(f). See individual value notes for per-value URIs."
+references:
+  - name: "GDPR Article 6 - Lawfulness of processing"
+    uri: "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32016R0679#d1e1888-1-1"
+    relationship: superset
+    machine_readable: false
+    notes: "Article 6(1)(a) through (f) define the six lawful bases."
+values:
+- code: consent
+  label:
+    en: Consent
+    fr: Consentement
+    es: Consentimiento
+  definition:
+    en: The data subject has freely given, specific, informed, and unambiguous consent to the processing for one or more defined purposes. Requires genuine choice. If the program is effectively unconditional (the beneficiary cannot refuse without losing service), consent is not the honest basis. Use legal-obligation or public-interest instead. DPV GDPR mapping, GDPR Article 6(1)(a), dpv-gdpr:A6-1-a.
+    fr: La personne concernée a donné son consentement libre, spécifique, éclairé et non ambigu au traitement pour une ou plusieurs finalités définies. Requiert un choix véritablement libre. Si le programme est effectivement inconditionnel (le bénéficiaire ne peut refuser sans perdre le service), le consentement n'est pas la base honnête. Utilisez obligation-légale ou intérêt-public. Correspondance DPV RGPD, article 6, paragraphe 1, point a, dpv-gdpr:A6-1-a.
+    es: El interesado ha dado su consentimiento libre, específico, informado e inequívoco para el tratamiento con uno o varios fines definidos. Requiere una elección genuinamente libre. Si el programa es efectivamente incondicional (el beneficiario no puede negarse sin perder el servicio), el consentimiento no es la base honesta. Use obligación-legal o interés-público. Correspondencia DPV RGPD, artículo 6, apartado 1, letra a, dpv-gdpr:A6-1-a.
+  notes:
+    en: "DPV GDPR: dpv-gdpr:A6-1-a, URI: https://w3id.org/dpv/legal/eu/gdpr#A6-1-a"
+- code: contract
+  label:
+    en: Contract
+    fr: Contrat
+    es: Contrato
+  definition:
+    en: Processing is necessary for the performance of a contract to which the data subject is party, or to take steps at the data subject's request before entering into a contract. Common in employment, housing, or financial service programs where a formal agreement exists between the program and the beneficiary. DPV GDPR mapping, GDPR Article 6(1)(b), dpv-gdpr:A6-1-b.
+    fr: Le traitement est nécessaire à l'exécution d'un contrat auquel la personne concernée est partie, ou pour prendre des mesures à la demande de la personne concernée avant la conclusion d'un contrat. Courant dans les programmes d'emploi, de logement ou de services financiers. Correspondance DPV RGPD, article 6, paragraphe 1, point b, dpv-gdpr:A6-1-b.
+    es: El tratamiento es necesario para la ejecución de un contrato en el que el interesado es parte, o para tomar medidas a petición del interesado antes de celebrar un contrato. Común en programas de empleo, vivienda o servicios financieros. Correspondencia DPV RGPD, artículo 6, apartado 1, letra b, dpv-gdpr:A6-1-b.
+  notes:
+    en: "DPV GDPR: dpv-gdpr:A6-1-b, URI: https://w3id.org/dpv/legal/eu/gdpr#A6-1-b"
+- code: legal_obligation
+  label:
+    en: Legal obligation
+    fr: Obligation légale
+    es: Obligación legal
+  definition:
+    en: Processing is necessary to comply with a legal obligation to which the controller is subject, such as a national law requiring registration of beneficiaries or mandatory reporting to a supervisory authority. Often the honest basis when program participation is mandatory. DPV GDPR mapping, GDPR Article 6(1)(c), dpv-gdpr:A6-1-c.
+    fr: Le traitement est nécessaire au respect d'une obligation légale à laquelle le responsable du traitement est soumis, par exemple une loi nationale imposant l'enregistrement des bénéficiaires ou la déclaration obligatoire à une autorité de contrôle. Souvent la base honnête lorsque la participation au programme est obligatoire. Correspondance DPV RGPD, article 6, paragraphe 1, point c, dpv-gdpr:A6-1-c.
+    es: El tratamiento es necesario para el cumplimiento de una obligación legal a la que está sujeto el responsable, como una ley nacional que exige el registro de beneficiarios o la notificación obligatoria a una autoridad supervisora. A menudo es la base honesta cuando la participación en el programa es obligatoria. Correspondencia DPV RGPD, artículo 6, apartado 1, letra c, dpv-gdpr:A6-1-c.
+  notes:
+    en: "DPV GDPR: dpv-gdpr:A6-1-c, URI: https://w3id.org/dpv/legal/eu/gdpr#A6-1-c"
+- code: vital_interest
+  label:
+    en: Vital interest
+    fr: Intérêt vital
+    es: Interés vital
+  definition:
+    en: Processing is necessary to protect the vital interests of the data subject or another natural person, typically in emergency or life-threatening situations such as disaster response where obtaining consent is not feasible. The scope is narrow; it does not cover routine program delivery. DPV GDPR mapping, GDPR Article 6(1)(d), dpv-gdpr:A6-1-d.
+    fr: Le traitement est nécessaire pour protéger les intérêts vitaux de la personne concernée ou d'une autre personne physique, généralement dans des situations d'urgence ou de risque vital telles que la réponse aux catastrophes où l'obtention du consentement n'est pas possible. La portée est étroite et ne couvre pas la prestation de programme ordinaire. Correspondance DPV RGPD, article 6, paragraphe 1, point d, dpv-gdpr:A6-1-d.
+    es: El tratamiento es necesario para proteger los intereses vitales del interesado o de otra persona física, típicamente en situaciones de emergencia o peligro para la vida, como la respuesta a desastres, donde no es factible obtener el consentimiento. El alcance es estrecho y no cubre la prestación rutinaria de programas. Correspondencia DPV RGPD, artículo 6, apartado 1, letra d, dpv-gdpr:A6-1-d.
+  notes:
+    en: "DPV GDPR: dpv-gdpr:A6-1-d, URI: https://w3id.org/dpv/legal/eu/gdpr#A6-1-d"
+- code: public_interest
+  label:
+    en: Public interest
+    fr: Intérêt public
+    es: Interés público
+  definition:
+    en: Processing is necessary for the performance of a task carried out in the public interest or in the exercise of official authority vested in the controller. The most common honest basis for government social protection programs, where delivery of the program itself is the public-interest task. The applicable national law should be cited in legal_basis_reference. DPV GDPR mapping, GDPR Article 6(1)(e), dpv-gdpr:A6-1-e.
+    fr: Le traitement est nécessaire à l'exécution d'une mission d'intérêt public ou relevant de l'exercice de l'autorité publique dont est investi le responsable du traitement. C'est la base honnête la plus courante pour les programmes gouvernementaux de protection sociale, où la mise en oeuvre du programme constitue la mission d'intérêt public. La loi nationale applicable doit être citée dans legal_basis_reference. Correspondance DPV RGPD, article 6, paragraphe 1, point e, dpv-gdpr:A6-1-e.
+    es: El tratamiento es necesario para el cumplimiento de una misión realizada en interés público o en el ejercicio de poderes públicos conferidos al responsable. Es la base honesta más común para los programas gubernamentales de protección social, donde la ejecución del propio programa constituye la misión de interés público. La ley nacional aplicable debe citarse en legal_basis_reference. Correspondencia DPV RGPD, artículo 6, apartado 1, letra e, dpv-gdpr:A6-1-e.
+  notes:
+    en: "DPV GDPR: dpv-gdpr:A6-1-e, URI: https://w3id.org/dpv/legal/eu/gdpr#A6-1-e"
+- code: legitimate_interest
+  label:
+    en: Legitimate interest
+    fr: Intérêt légitime
+    es: Interés legítimo
+  definition:
+    en: Processing is necessary for the purposes of the legitimate interests pursued by the controller or a third party, except where those interests are overridden by the interests or fundamental rights of the data subject. Requires a balancing test. Least commonly applicable in public-authority programs, which typically have a more specific basis available. DPV GDPR mapping, GDPR Article 6(1)(f), dpv-gdpr:A6-1-f.
+    fr: Le traitement est nécessaire aux fins des intérêts légitimes poursuivis par le responsable du traitement ou un tiers, sauf quand ces intérêts sont supplantés par les intérêts ou droits fondamentaux de la personne concernée. Nécessite un test d'équilibre. Rarement applicable aux programmes des autorités publiques, qui disposent généralement d'une base plus spécifique. Correspondance DPV RGPD, article 6, paragraphe 1, point f, dpv-gdpr:A6-1-f.
+    es: El tratamiento es necesario para los fines de los intereses legítimos perseguidos por el responsable o por un tercero, salvo cuando dichos intereses queden superados por los derechos e intereses del interesado. Requiere una prueba de ponderación. Raramente aplicable a los programas de autoridades públicas, que típicamente disponen de una base más específica. Correspondencia DPV RGPD, artículo 6, apartado 1, letra f, dpv-gdpr:A6-1-f.
+  notes:
+    en: "DPV GDPR: dpv-gdpr:A6-1-f, URI: https://w3id.org/dpv/legal/eu/gdpr#A6-1-f"

@@ -1,0 +1,13 @@
+id: indicated_by
+maturity: draft
+
+definition:
+  en: "The agent (usually a Person, sometimes a SoftwareAgent) who indicated the consent act. For self-consent, the same Person as 'data_subject'. For delegated consent, a legal guardian, parent, or representative. See 'delegation_type' to describe the delegation basis."
+  fr: "L'agent (généralement une Person, parfois un SoftwareAgent) qui a indiqué l'acte de consentement. Pour le consentement propre, la même Person que 'data_subject'. Pour le consentement délégué, un tuteur légal, un parent ou un représentant. Voir 'delegation_type' pour décrire la base de la délégation."
+  es: "El agente (generalmente una Person, a veces un SoftwareAgent) que indicó el acto de consentimiento. Para el consentimiento propio, la misma Person que 'data_subject'. Para el consentimiento delegado, un tutor legal, padre o representante. Véase 'delegation_type' para describir la base de la delegación."
+
+type: concept:Agent
+cardinality: single
+vocabulary: null
+references: Agent
+category: consent_parties

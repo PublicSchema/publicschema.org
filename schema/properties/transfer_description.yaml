@@ -1,0 +1,13 @@
+id: transfer_description
+maturity: draft
+
+definition:
+  en: "PrivacyNotice-only. Prose description of international or third-country data transfers (GDPR Chapter V). Free-form; should name destination countries, adequacy decision status, and safeguards (standard contractual clauses, binding corporate rules, etc.) where applicable."
+  fr: "Réservé au PrivacyNotice. Description en texte libre des transferts de données internationaux ou vers des pays tiers (RGPD Chapitre V). À renseigner librement ; doit nommer les pays de destination, le statut de la décision d'adéquation et les garanties (clauses contractuelles types, règles d'entreprise contraignantes, etc.) le cas échéant."
+  es: "Solo para PrivacyNotice. Descripción en prosa de las transferencias internacionales o a terceros países de datos (RGPD Capítulo V). Texto libre; debe nombrar los países de destino, el estado de la decisión de adecuación y las salvaguardas (cláusulas contractuales tipo, normas corporativas vinculantes, etc.) cuando corresponda."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+category: consent_notice

@@ -166,6 +166,34 @@ Guide général :
 - **Les données sensibles** (propriétés qui révèlent des circonstances comme l'état de santé, la pauvreté ou le statut de victime dans la plupart des contextes) nécessitent une justification pour être collectées ou divulguées. Consultez l'annotation `sensitivity` dans [Conception du schéma](../schema-design/#9-sensitivity-annotations).
 - **Les données restreintes** (scores d'évaluation, indices de vulnérabilité) nécessitent des protections renforcées : journalisation des accès, limitation des finalités, analyse d'impact sur la protection des données.
 
+### Attestation de reçu de consentement (Consent Receipt VC)
+
+Un `ConsentRecord` avec `consent_record_type = receipt` est un candidat naturel pour une attestation vérifiable (Verifiable Credential), en particulier pour les programmes qui s'orientent vers une gouvernance des données basée sur les portefeuilles numériques. Ce modèle est aligné sur la décision 24 de l'ADR-009 et est conçu pour de futurs déploiements avec portefeuilles numériques ; il ne constitue pas une attente immédiate.
+
+L'attestation de reçu de consentement (Consent Receipt VC) permet à un concerné de porter la preuve de ce qui a été convenu, de l'avis qui a été présenté et de l'identité des responsables du traitement, sans dépendre de la disponibilité en ligne du registre du programme. Ce modèle est cohérent avec l'intention de la spécification Kantara Consent Receipt v1.1 et la sémantique de reçu de la norme ISO/IEC TS 27560:2023. Il utilise le format SD-JWT VC défini ailleurs dans ce document.
+
+**Affirmations à divulgation obligatoire** (ne peuvent pas être masquées par le détenteur) :
+
+- `data_subject` (l'identité du concerné, sous forme d'identifiant ; les affirmations d'identité complètes figurent dans l'IdentityCredential)
+- `controllers` (les organisations responsables du traitement)
+- `purposes` (les URI de finalités DPV qui ont fait l'objet de l'accord)
+- `legal_basis` (le code de base légale, par ex. `consent`, `public_interest`)
+- `signed_date` (la date à laquelle le concerné a indiqué son accord)
+- `status` (l'état actuel du consentement, par ex. `given`, `withdrawn`)
+
+**Affirmations sélectivement divulgables :**
+
+- `evidence_ref` (le détenteur peut ne pas vouloir exposer l'emplacement des pièces justificatives)
+- `witnessed_by` (les identités des témoins ; le détenteur peut choisir de ne pas les divulguer)
+- Les valeurs individuelles de `personal_data_categories` (chaque URI DPV peut être divulgué indépendamment ; le détenteur peut divulguer les catégories de données de santé à un prestataire de santé sans exposer les catégories de données financières)
+- `recipients` (les identités des organisations destinataires spécifiques ; une divulgation par destinataire est possible)
+- `expiry_date` et `effective_date` (les dates de validité peuvent être divulguées indépendamment)
+- `notice_ref` et `notice_version` (référence à l'avis ; un détenteur peut divulguer ces informations à un vérificateur qui doit consulter l'avis complet)
+- `special_category_basis` (uniquement pertinent lorsque des données de catégorie spéciale sont impliquées)
+- `jurisdiction`
+
+**Note d'implémentation.** Dans la version 1, la plupart des programmes émettront des attestations de reçu de consentement sous forme de dossiers dans leur registre, pas comme des attestations détenues dans un portefeuille. La structure des affirmations ci-dessus est conçue de sorte que, lorsque l'infrastructure de portefeuille sera disponible, la même sérialisation de `ConsentRecord` s'applique directement à la charge utile de l'attestation sans restructuration. La valeur `vct` pour un ConsentReceiptCredential sera `https://publicschema.org/schemas/credentials/ConsentReceiptCredential` une fois ce type d'attestation formellement publié.
+
 ## Guide d'implémentation
 
 1. **Les émetteurs** doivent consulter les définitions de types d'attestation ci-dessus au moment de produire des SD-JWT VC. Les affirmations listées comme "toujours divulguées" figurent en clair dans la charge utile ; les affirmations "sélectivement divulgables" vont dans `_sd`. Pour les propriétés non couvertes par un type d'attestation défini, l'émetteur détermine le comportement de divulgation en fonction du contexte de l'attestation.

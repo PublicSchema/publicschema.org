@@ -1,0 +1,13 @@
+id: source_of_data
+maturity: draft
+
+definition:
+  en: "PrivacyNotice-only. Prose description of the source(s) from which personal data is obtained when not collected directly from the data subject (GDPR Art 14). Example: 'A government beneficiary registry maintained by the Ministry of Social Protection.'"
+  fr: "Réservé au PrivacyNotice. Description en texte libre de la ou des sources auprès desquelles les données personnelles sont obtenues lorsqu'elles ne sont pas collectées directement auprès de la personne concernée (RGPD Art 14). Exemple : 'Un registre gouvernemental des bénéficiaires géré par le Ministère de la Protection sociale.'"
+  es: "Solo para PrivacyNotice. Descripción en prosa de la(s) fuente(s) de las que se obtienen los datos personales cuando no son recogidos directamente de la persona interesada (RGPD Art 14). Ejemplo: 'Un registro gubernamental de beneficiarios administrado por el Ministerio de Protección Social.'"
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+category: consent_notice

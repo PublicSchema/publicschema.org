@@ -140,6 +140,8 @@ def _concept_property_jsonld(
     if prop_raw.get("references"):
         ref_concept = out_concepts.get(prop_raw["references"])
         entry["ps:references"] = ref_concept["uri"] if ref_concept else prop_raw["references"]
+    if prop_raw.get("immutable_after_status"):
+        entry["ps:immutableAfterStatus"] = prop_raw["immutable_after_status"]
     for predicate, uris in _external_equivalents_triples(prop_raw).items():
         entry[predicate] = uris if len(uris) > 1 else uris[0]
     return entry
@@ -217,6 +219,8 @@ def _property_to_jsonld(
     if prop_raw.get("references"):
         ref_concept = out_concepts.get(prop_raw["references"])
         doc["ps:references"] = ref_concept["uri"] if ref_concept else prop_raw["references"]
+    if prop_raw.get("immutable_after_status"):
+        doc["ps:immutableAfterStatus"] = prop_raw["immutable_after_status"]
     for predicate, uris in _external_equivalents_triples(prop_raw).items():
         doc[predicate] = uris if len(uris) > 1 else uris[0]
     used_by = prop_out.get("used_by", [])
@@ -478,6 +482,7 @@ def build_vocabulary(schema_dir: Path) -> dict:
             "category": data.get("category"),
             "age_applicability": data.get("age_applicability"),
             "valid_instruments": data.get("valid_instruments"),
+            "immutable_after_status": data.get("immutable_after_status"),
         }
 
     # Build output vocabularies. Vocabularies are keyed by their canonical
@@ -602,6 +607,11 @@ def build_vocabulary(schema_dir: Path) -> dict:
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
         "skos": "http://www.w3.org/2004/02/skos/core#",
+        "dpv": "https://w3id.org/dpv#",
+        "dpv-pd": "https://w3id.org/dpv/pd#",
+        "dpv-gdpr": "https://w3id.org/dpv/legal/eu/gdpr#",
+        "dpv-tech": "https://w3id.org/dpv/tech#",
+        "dpv-loc": "https://w3id.org/dpv/loc#",
         "type": "@type",
     }
     # URI-valued predicates need @type:@id so JSON-LD processors
