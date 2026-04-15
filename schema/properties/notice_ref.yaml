@@ -2,8 +2,8 @@ id: notice_ref
 maturity: draft
 label:
   en: "Privacy notice"
-  fr: "avis de confidentialité"
-  es: "aviso de privacidad"
+  fr: "Avis de confidentialité"
+  es: "Aviso de privacidad"
 
 definition:
   en: "The PrivacyNotice record that was presented to the data subject at the time of consent. Anchors the record to a specific notice version."

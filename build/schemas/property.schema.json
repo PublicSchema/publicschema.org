@@ -3,7 +3,7 @@
   "$id": "https://publicschema.org/schemas/property.schema.json",
   "title": "PublicSchema Property",
   "type": "object",
-  "required": ["id", "maturity", "definition", "type", "cardinality"],
+  "required": ["id", "maturity", "label", "definition", "type", "cardinality"],
   "additionalProperties": false,
   "properties": {
     "id": {

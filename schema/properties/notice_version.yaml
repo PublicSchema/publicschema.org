@@ -2,8 +2,8 @@ id: notice_version
 maturity: draft
 label:
   en: "Notice version"
-  fr: "version de l'avis"
-  es: "versión del aviso"
+  fr: "Version de l'avis"
+  es: "Versión del aviso"
 
 definition:
   en: "Denormalized snapshot of the PrivacyNotice `version` at the time of consent. Pinned by design: if the PrivacyNotice is later corrected or reversioned, this value MUST NOT be updated. Enables demonstrating which notice text the data subject actually saw (GDPR Art 7(1) demonstrability)."

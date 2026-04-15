@@ -2,8 +2,8 @@ id: performed_by
 maturity: draft
 label:
   en: "Performed by"
-  fr: "réalisé par"
-  es: "realizado por"
+  fr: "Réalisé par"
+  es: "Realizado por"
 
 definition:
   en: "The agent (enumerator, field officer, or agency) accountable for administering the instrument or taking the measurement. Typically a Person or an Organization. When a software tool captured or derived the data, record it separately as software_used; performed_by identifies who is responsible, not what ran the capture."

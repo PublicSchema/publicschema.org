@@ -3,7 +3,7 @@ maturity: draft
 label:
   en: "Storage duration (days)"
   fr: "Durée de conservation (jours)"
-  es: "Duración de almacenamiento (días)"
+  es: "Plazo de conservación (días)"
 
 definition:
   en: "Planned storage duration for the personal data covered by this record, expressed in days. Drives retention logic in downstream systems. Zero means: do not persist after processing. Null (unpopulated) means: duration is described in prose in the PrivacyNotice retention_description rather than coded."

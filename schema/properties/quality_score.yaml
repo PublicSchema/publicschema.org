@@ -2,8 +2,8 @@ id: quality_score
 maturity: draft
 label:
   en: "Quality score"
-  fr: "score de qualité"
-  es: "puntaje de calidad"
+  fr: "Score de qualité"
+  es: "Puntaje de calidad"
 
 definition:
   en: "A quality score for the biometric sample, on a 0-100 scale per ISO 29794-1. Higher values indicate better quality."

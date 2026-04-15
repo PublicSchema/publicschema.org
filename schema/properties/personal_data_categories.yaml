@@ -2,8 +2,8 @@ id: personal_data_categories
 maturity: draft
 label:
   en: "Personal data categories"
-  fr: "catégories de données personnelles"
-  es: "categorías de datos personales"
+  fr: "Catégories de données personnelles"
+  es: "Categorías de datos personales"
 
 definition:
   en: "Values are W3C DPV URIs, normatively subclasses of `dpv:PersonalData` (from the DPV core; the DPV-PD extension defines finer taxa). Cross-reference: this is distinct from biometric capture method, which is `consent_expression = opt-in-biometric` on this record. Biometric data categories are values of this property (e.g., a URI for fingerprint, face image)."

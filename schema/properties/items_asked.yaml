@@ -2,8 +2,8 @@ id: items_asked
 maturity: draft
 label:
   en: "Items asked"
-  fr: "items posés"
-  es: "ítems preguntados"
+  fr: "Items posés"
+  es: "Ítems preguntados"
 
 definition:
   en: "The property IDs that were actually asked during this administration. Lets adopters distinguish items that were asked and declined (answer absent) from items that were not asked at all. When omitted, the item set is assumed to be the default item_set of the instrument used."

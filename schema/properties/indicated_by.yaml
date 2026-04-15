@@ -2,8 +2,8 @@ id: indicated_by
 maturity: draft
 label:
   en: "Indicated by"
-  fr: "indiqué par"
-  es: "indicado por"
+  fr: "Indiqué par"
+  es: "Indicado por"
 
 definition:
   en: "The agent (usually a Person, sometimes a SoftwareAgent) who indicated the consent act. For self-consent, the same Person as 'data_subject'. For delegated consent, a legal guardian, parent, or representative. See 'delegation_type' to describe the delegation basis."

@@ -439,10 +439,10 @@ class TestPropertyLabelValidation:
         label_errors = [e for e in errors if "label" in str(e)]
         assert label_errors == []
 
-    def test_property_without_label_passes(
+    def test_property_without_label_fails(
         self, tmp_schema, write_property, write_concept,
     ):
-        """Property without label key at all passes (label is optional until Phase 5)."""
+        """Property without label key fails schema validation (label is required)."""
         data = make_property(id="no_label", maturity="candidate")
         del data["label"]
         write_property("no_label.yaml", data)
@@ -451,7 +451,7 @@ class TestPropertyLabelValidation:
         ))
         errors = validate_schema_dir(tmp_schema)
         label_errors = [e for e in errors if "label" in str(e)]
-        assert label_errors == []
+        assert len(label_errors) >= 1
 
 
 # ---------------------------------------------------------------------------

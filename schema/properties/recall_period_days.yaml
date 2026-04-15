@@ -3,7 +3,7 @@ maturity: draft
 label:
   en: "Recall period days"
   fr: "Jours de période de rappel"
-  es: "Días de período de recordatorio"
+  es: "Días del período de referencia"
 
 definition:
   en: "Number of days of recall for instrument items that allow a variable reference period, primarily FIES (commonly 30 or 365 days) and HDDS/WDDS variants. Populated only when the reference period is not fixed by the instrument protocol. For FCS, rCSI, LCS, HHS, and MAHFP, the recall window is part of the instrument definition and not separately recorded."

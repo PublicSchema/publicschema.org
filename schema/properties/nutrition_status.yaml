@@ -2,8 +2,8 @@ id: nutrition_status
 maturity: draft
 label:
   en: "Nutrition status"
-  fr: "statut nutritionnel"
-  es: "estado nutricional"
+  fr: "Statut nutritionnel"
+  es: "Estado nutricional"
 
 definition:
   en: "A coarse current-state summary of the person's acute malnutrition status, used by operational systems for targeting and referral queries. This is NOT a z-score classification on a specific measurement: band classifications depend on a growth reference, an age at measurement, and oedema status captured on an AnthropometricProfile. Populate nutrition_status from an AnthropometricProfile only by citing the cutoff rule alongside."
