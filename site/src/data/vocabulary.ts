@@ -84,6 +84,7 @@ export interface VocabValue {
   label: MultilingualText;
   standard_code: string | null;
   definition: MultilingualText;
+  group_type_applicability?: string[];
 }
 
 export interface SystemMappingValue {

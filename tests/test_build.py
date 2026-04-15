@@ -222,6 +222,23 @@ class TestURIGeneration:
         assert values[1]["level"] == 2
         assert values[1]["parent_code"] == "1"
 
+    def test_vocabulary_value_group_type_applicability_passed_through(
+        self, tmp_schema, write_vocabulary
+    ):
+        """Vocabulary values pass through advisory group-type applicability metadata."""
+        data = make_vocabulary(id="group-role")
+        data["values"] = [
+            {
+                "code": "head",
+                "label": {"en": "Head"},
+                "group_type_applicability": ["household", "family"],
+            }
+        ]
+        write_vocabulary("group-role.yaml", data)
+        result = build_vocabulary(tmp_schema)
+        value = result["vocabularies"]["group-role"]["values"][0]
+        assert value["group_type_applicability"] == ["household", "family"]
+
     def test_vocabulary_flat_values_omit_hierarchy_fields(
         self, tmp_schema, write_vocabulary
     ):

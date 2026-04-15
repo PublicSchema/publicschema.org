@@ -2,9 +2,9 @@ id: role
 maturity: candidate
 
 definition:
-  en: "The role of the person within the group (e.g., head, spouse, child, dependent)."
-  fr: "Le rôle de la personne au sein du groupe (par exemple, chef de ménage, conjoint, enfant, dépendant)."
-  es: "El rol de la persona dentro del grupo (por ejemplo, jefe de hogar, cónyuge, hijo, dependiente)."
+  en: "The role recorded for the person within the group membership. Applicable values depend on the kind of group (for example head, spouse, child, owner, operator, or worker)."
+  fr: "Le rôle enregistré pour la personne dans l'appartenance au groupe. Les valeurs applicables dépendent du type de groupe (par exemple chef, conjoint, enfant, propriétaire, exploitant ou travailleur)."
+  es: "El rol registrado para la persona dentro de la membresía del grupo. Los valores aplicables dependen del tipo de grupo (por ejemplo jefe, cónyuge, hijo, propietario, operador o trabajador)."
 
 type: string
 cardinality: single
@@ -14,4 +14,4 @@ references: null
 convergence:
   system_count: 2
   total_systems: 5
-  notes: "Present in 2 of 5 mapped systems. Role value sets vary widely across systems; no single standard covers the full range of social protection household roles."
+  notes: "Present in 2 of 5 mapped systems. Role value sets vary across group types and systems. The vocabulary documents intended applicability per value, but the schema does not enforce it."

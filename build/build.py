@@ -504,6 +504,8 @@ def build_vocabulary(schema_dir: Path) -> dict:
                 "standard_code": v.get("standard_code"),
                 "definition": v.get("definition", {}),
             }
+            if v.get("group_type_applicability") is not None:
+                value_out["group_type_applicability"] = list(v["group_type_applicability"])
             if v.get("level") is not None:
                 value_out["level"] = v["level"]
             if v.get("parent_code") is not None:

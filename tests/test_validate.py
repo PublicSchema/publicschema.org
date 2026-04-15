@@ -169,6 +169,22 @@ class TestSchemaValidation:
         errors = validate_schema_dir(tmp_schema)
         assert errors == []
 
+    def test_vocabulary_value_group_type_applicability_passes(
+        self, tmp_schema, write_vocabulary
+    ):
+        """Vocabulary values may include advisory group-type applicability metadata."""
+        data = make_vocabulary()
+        data["values"] = [
+            {
+                "code": "head",
+                "label": {"en": "Head"},
+                "group_type_applicability": ["household", "family"],
+            }
+        ]
+        write_vocabulary("group-role.yaml", data)
+        errors = validate_schema_dir(tmp_schema)
+        assert errors == []
+
     def test_vocabulary_duplicate_value_codes(self, tmp_schema, write_vocabulary):
         data = make_vocabulary()
         data["values"].append(data["values"][0].copy())  # duplicate first value

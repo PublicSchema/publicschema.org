@@ -2,11 +2,11 @@ id: respondent_relationship
 maturity: draft
 
 definition:
-  en: "The relationship of the respondent to the subject (parent, spouse, caregiver, etc.). Reuses the group-role vocabulary. Required whenever the administration mode is proxy or assisted."
-  fr: "La relation du répondant avec le sujet (parent, conjoint, aidant, etc.). Réutilise le vocabulaire group-role. Requise lorsque le mode d'administration est par procuration ou assisté."
-  es: "La relación del respondiente con el sujeto (padre, cónyuge, cuidador, etc.). Reutiliza el vocabulario group-role. Requerida cuando el modo de administración es por terceros o asistido."
+  en: "The relationship of the respondent to the subject (parent, spouse, guardian, caregiver, etc.). Uses relationship-type because it describes a person-to-person relationship, not a role within a group. Required whenever the administration mode is proxy or assisted."
+  fr: "La relation du répondant avec le sujet (parent, conjoint, tuteur, aidant, etc.). Utilise relationship-type parce qu'elle décrit une relation entre deux personnes, et non un rôle au sein d'un groupe. Requise lorsque le mode d'administration est par procuration ou assisté."
+  es: "La relación del respondiente con el sujeto (padre o madre, cónyuge, tutor, cuidador, etc.). Usa relationship-type porque describe una relación entre personas, no un rol dentro de un grupo. Requerida cuando el modo de administración es por terceros o asistido."
 
 type: string
 cardinality: single
-vocabulary: group-role
+vocabulary: relationship-type
 references: null

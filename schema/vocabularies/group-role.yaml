@@ -5,12 +5,17 @@ label:
   fr: Rôle dans le groupe
   es: Rol en el grupo
 definition:
-  en: The role a person plays within a group such as a household, family, or other organizational unit. Roles are defined
-    relative to the group's reference person (head).
-  fr: Le rôle qu'une personne joue au sein d'un groupe tel qu'un ménage, une famille ou une autre unité organisationnelle.
-    Les rôles sont définis par rapport à la personne de référence du groupe (chef).
-  es: El rol que una persona desempeña dentro de un grupo como un hogar, familia u otra unidad organizacional. Los roles se
-    definen en relación con la persona de referencia del grupo (jefe/a).
+  en: The role a person plays within a group membership. Some values describe position within a kinship-based roster, often
+    relative to a reference person, while others describe function within another group type such as a farm. Intended applicability
+    is documented per value and is not enforced by schema validation.
+  fr: Le rôle qu'une personne joue dans une appartenance à un groupe. Certaines valeurs décrivent une position dans une liste
+    de parenté, souvent par rapport à une personne de référence, tandis que d'autres décrivent une fonction dans un autre
+    type de groupe tel qu'une exploitation agricole. L'applicabilité prévue est documentée pour chaque valeur et n'est pas
+    imposée par la validation du schéma.
+  es: El rol que una persona desempeña dentro de una membresía de grupo. Algunos valores describen la posición dentro de un
+    registro basado en parentesco, a menudo en relación con una persona de referencia, mientras que otros describen una función
+    dentro de otro tipo de grupo como una finca. La aplicabilidad prevista se documenta por valor y no se aplica mediante la
+    validación del esquema.
 see_also:
   - vocabulary: relationship-type
     note: "group-role describes a person's role within a group (person-to-group); relationship-type describes connections between two persons (person-to-person). Values like 'spouse' and 'child' appear in both but answer different questions."
@@ -20,6 +25,11 @@ references:
     relationship: partial_overlap
     machine_readable: false
     notes: "UN census guidance defines household composition using a reference-person model."
+  - name: "FAO World Programme for the Census of Agriculture 2020, Volume I"
+    uri: "https://www.fao.org/family-farming/detail/en/c/341884/"
+    relationship: partial_overlap
+    machine_readable: false
+    notes: "FAO's agricultural holding model informed the farm-specific roles."
 values:
 - code: head
   label:
@@ -27,92 +37,152 @@ values:
     fr: Chef
     es: Jefe/a
   definition:
-    en: The person recognized as the primary decision-maker or representative of the group for administrative purposes.
-    fr: La personne reconnue comme le principal décideur ou représentant du groupe à des fins administratives.
-    es: La persona reconocida como el principal tomador de decisiones o representante del grupo para fines administrativos.
+    en: The member recognized as the reference person or primary representative of the group for administrative purposes.
+    fr: Le membre reconnu comme la personne de référence ou le représentant principal du groupe à des fins administratives.
+    es: El miembro reconocido como la persona de referencia o el representante principal del grupo para fines administrativos.
+  group_type_applicability:
+    - household
+    - family
 - code: spouse
   label:
     en: Spouse
     fr: Conjoint(e)
     es: Cónyuge
   definition:
-    en: The husband, wife, or legally recognized partner of the group head.
-    fr: Le mari, la femme ou le partenaire légalement reconnu du chef de groupe.
-    es: El esposo, esposa o pareja legalmente reconocida del jefe de grupo.
+    en: A member recorded as the spouse or legally recognized partner within the group's kinship roster.
+    fr: Un membre enregistré comme conjoint ou partenaire légalement reconnu dans la liste de parenté du groupe.
+    es: Un miembro registrado como cónyuge o pareja legalmente reconocida dentro del registro de parentesco del grupo.
+  group_type_applicability:
+    - household
+    - family
 - code: child
   label:
     en: Child
     fr: Enfant
     es: Hijo/a
   definition:
-    en: A son or daughter of the group head or spouse, whether biological, adopted, or fostered.
-    fr: Un fils ou une fille du chef de groupe ou du conjoint, biologique, adopté(e) ou placé(e).
-    es: Un hijo o hija del jefe de grupo o cónyuge, ya sea biológico, adoptado o en acogida.
+    en: A member recorded as a child within the group's kinship roster, whether biological, adopted, step, or foster.
+    fr: Un membre enregistré comme enfant dans la liste de parenté du groupe, qu'il soit biologique, adopté, beau-enfant ou accueilli.
+    es: Un miembro registrado como hijo o hija dentro del registro de parentesco del grupo, ya sea biológico, adoptado, hijastro o en acogida.
+  group_type_applicability:
+    - household
+    - family
 - code: dependent
   label:
     en: Dependent
     fr: Personne à charge
     es: Dependiente
   definition:
-    en: A person who relies on the group for financial support or daily living needs, not classified as spouse or child.
-    fr: Une personne qui dépend du groupe pour son soutien financier ou ses besoins quotidiens, non classée comme conjoint
-      ou enfant.
-    es: Una persona que depende del grupo para su sustento financiero o necesidades diarias, no clasificada como cónyuge o
-      hijo/a.
+    en: A member recorded as relying on the group or its principal members for financial support or daily living needs.
+    fr: Un membre enregistré comme dépendant du groupe ou de ses membres principaux pour son soutien financier ou ses besoins quotidiens.
+    es: Un miembro registrado como dependiente del grupo o de sus miembros principales para su sustento financiero o sus necesidades diarias.
+  group_type_applicability:
+    - household
+    - family
 - code: parent
   label:
     en: Parent
     fr: Parent
     es: Padre/Madre
   definition:
-    en: A parent of the group head or spouse living in the same group.
-    fr: Un parent du chef de groupe ou du conjoint vivant dans le même groupe.
-    es: Un padre o madre del jefe de grupo o cónyuge que vive en el mismo grupo.
+    en: A member recorded as a parent within the group's kinship roster.
+    fr: Un membre enregistré comme parent dans la liste de parenté du groupe.
+    es: Un miembro registrado como padre o madre dentro del registro de parentesco del grupo.
+  group_type_applicability:
+    - household
+    - family
 - code: sibling
   label:
     en: Sibling
     fr: Frère/Sœur
     es: Hermano/a
   definition:
-    en: A brother or sister of the group head or their spouse.
-    fr: Un frère ou une sœur du chef de groupe ou de son conjoint.
-    es: Un hermano o hermana del jefe de grupo o de su cónyuge.
+    en: A member recorded as a sibling within the group's kinship roster.
+    fr: Un membre enregistré comme frère ou sœur dans la liste de parenté du groupe.
+    es: Un miembro registrado como hermano o hermana dentro del registro de parentesco del grupo.
+  group_type_applicability:
+    - household
+    - family
 - code: grandparent
   label:
     en: Grandparent
     fr: Grand-parent
     es: Abuelo/a
   definition:
-    en: A parent of the group head's parent, living in the same group.
-    fr: Un parent du parent du chef de groupe, vivant dans le même groupe.
-    es: Un padre o madre del padre o madre del jefe de grupo, que vive en el mismo grupo.
+    en: A member recorded as a grandparent within the group's kinship roster.
+    fr: Un membre enregistré comme grand-parent dans la liste de parenté du groupe.
+    es: Un miembro registrado como abuelo o abuela dentro del registro de parentesco del grupo.
+  group_type_applicability:
+    - household
+    - family
 - code: grandchild
   label:
     en: Grandchild
     fr: Petit-enfant
     es: Nieto/a
   definition:
-    en: A child of the group head's child, living in the same group.
-    fr: Un enfant de l'enfant du chef de groupe, vivant dans le même groupe.
-    es: Un hijo o hija del hijo o hija del jefe de grupo, que vive en el mismo grupo.
+    en: A member recorded as a grandchild within the group's kinship roster.
+    fr: Un membre enregistré comme petit-enfant dans la liste de parenté du groupe.
+    es: Un miembro registrado como nieto o nieta dentro del registro de parentesco del grupo.
+  group_type_applicability:
+    - household
+    - family
 - code: other_relative
   label:
     en: Other relative
     fr: Autre parent
     es: Otro pariente
   definition:
-    en: A family member of the group head who does not fit the other kinship categories.
-    fr: Un membre de la famille du chef de groupe qui ne correspond pas aux autres catégories de parenté.
-    es: Un miembro de la familia del jefe de grupo que no encaja en las otras categorías de parentesco.
+    en: A member recorded as a relative who does not fit the other kinship categories.
+    fr: Un membre enregistré comme parent qui ne correspond pas aux autres catégories de parenté.
+    es: Un miembro registrado como pariente que no encaja en las otras categorías de parentesco.
+  group_type_applicability:
+    - household
+    - family
 - code: non_relative
   label:
     en: Non-relative
     fr: Non-parent
     es: No pariente
   definition:
-    en: A group member who has no kinship tie to the group head.
-    fr: Un membre du groupe qui n'a aucun lien de parenté avec le chef de groupe.
-    es: Un miembro del grupo que no tiene vínculo de parentesco con el jefe de grupo.
+    en: A member recorded as having no kinship tie to the group's reference person or kinship roster.
+    fr: Un membre enregistré comme n'ayant aucun lien de parenté avec la personne de référence ou la liste de parenté du groupe.
+    es: Un miembro registrado como no teniendo vínculo de parentesco con la persona de referencia o el registro de parentesco del grupo.
+  group_type_applicability:
+    - household
+- code: owner
+  label:
+    en: Owner
+    fr: Propriétaire
+    es: Propietario/a
+  definition:
+    en: The member who owns the farm or holds the principal ownership rights to it.
+    fr: Le membre qui possède l'exploitation agricole ou en détient les principaux droits de propriété.
+    es: El miembro que posee la finca o tiene los principales derechos de propiedad sobre ella.
+  group_type_applicability:
+    - farm
+- code: operator
+  label:
+    en: Operator
+    fr: Exploitant(e)
+    es: Operador/a
+  definition:
+    en: The member responsible for running the farm and making day-to-day production or management decisions.
+    fr: Le membre responsable de l'exploitation agricole et des décisions quotidiennes de production ou de gestion.
+    es: El miembro responsable de dirigir la finca y de tomar las decisiones diarias de producción o gestión.
+  group_type_applicability:
+    - farm
+- code: worker
+  label:
+    en: Worker
+    fr: Travailleur/Travailleuse
+    es: Trabajador/a
+  definition:
+    en: A member who performs regular labor on the farm, whether paid, unpaid, seasonal, or family-based.
+    fr: Un membre qui effectue un travail régulier sur l'exploitation agricole, qu'il soit rémunéré, non rémunéré, saisonnier ou familial.
+    es: Un miembro que realiza trabajo regular en la finca, ya sea remunerado, no remunerado, estacional o familiar.
+  group_type_applicability:
+    - farm
 system_mappings:
   openimis:
     vocabulary_name: GroupIndividualRole
@@ -161,6 +231,9 @@ system_mappings:
       maps_to: non_relative
     unmapped_canonical:
     - dependent
+    - owner
+    - operator
+    - worker
   openspp:
     vocabulary_name: GroupMembershipType
     values:
@@ -177,3 +250,6 @@ system_mappings:
     - grandchild
     - other_relative
     - non_relative
+    - owner
+    - operator
+    - worker
