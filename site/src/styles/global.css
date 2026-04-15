@@ -857,6 +857,65 @@ article .data-table.table-wide {
   line-height: 1.6;
 }
 
+/* Non-normative review banner */
+.nn-banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-sm) var(--space-md);
+  margin: var(--space-md) 0 var(--space-lg);
+  padding: 0.625rem 0.875rem;
+  border-left: 3px solid var(--color-accent);
+  background: var(--color-accent-light);
+  border-radius: 0 4px 4px 0;
+  font-size: 0.9rem;
+}
+
+.nn-banner__copy {
+  margin: 0;
+  color: var(--color-text);
+  line-height: 1.5;
+}
+
+.nn-banner__actions {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  align-items: center;
+}
+
+.nn-banner__action {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.625rem;
+  font: inherit;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: var(--color-accent);
+  background: transparent;
+  border: 1px solid var(--color-accent);
+  border-radius: 3px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.nn-banner__action:hover,
+.nn-banner__action:focus-visible {
+  background: var(--color-accent);
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.nn-banner__action--primary {
+  background: var(--color-accent);
+  color: #ffffff;
+}
+
+.nn-banner__action--primary:hover,
+.nn-banner__action--primary:focus-visible {
+  background: var(--color-accent-hover);
+}
+
 .definition-text {
   font-family: var(--font-serif);
   font-size: 1.05rem;
@@ -2473,6 +2532,7 @@ article .data-table.table-wide {
   .section-feedback-link,
   .page-feedback,
   .feedback-orientation,
+  .nn-banner,
   hypothesis-sidebar {
     display: none !important;
   }

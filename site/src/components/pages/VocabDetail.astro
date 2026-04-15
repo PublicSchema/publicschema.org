@@ -7,6 +7,7 @@ import type { Vocabulary } from '../../data/vocabulary';
 import { getSystemName } from '../../data/systems';
 import SectionFeedback from '../SectionFeedback.astro';
 import FeedbackOrientation from '../FeedbackOrientation.astro';
+import NonNormativeBanner from '../NonNormativeBanner.astro';
 
 interface Props {
   vocab: string;
@@ -27,8 +28,10 @@ const bibRefs = (vocabulary.bibliography_refs ?? [])
   .map((id) => bibliography[id])
   .filter((entry) => entry !== undefined);
 const otherRefs = vocabulary.references ?? [];
+
+const isNonNormative = vocabulary.maturity === 'draft' || vocabulary.maturity === 'candidate';
 ---
-<Base title={displayLabel} description={definition} alternateJsonLd={`/vocab/${vocab}.jsonld`} ogType="article" locale={locale} openHypothesisSidebar={vocabulary.maturity !== 'normative'}>
+<Base title={displayLabel} description={definition} alternateJsonLd={`/vocab/${vocab}.jsonld`} ogType="article" locale={locale} openHypothesisSidebar={isNonNormative}>
   <article>
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
@@ -55,6 +58,14 @@ const otherRefs = vocabulary.references ?? [];
       <span class={`badge badge-${vocabulary.maturity}`}>{vocabulary.maturity}</span>
     </div>
     <p class="definition-text">{definition}</p>
+    {isNonNormative && (
+      <NonNormativeBanner
+        maturity={vocabulary.maturity as 'draft' | 'candidate'}
+        pageType="vocabulary"
+        pageId={vocab}
+        locale={locale}
+      />
+    )}
   </div>
   <div class="download-links">
     <a href={`/vocab/${vocab}.csv`} class="btn btn-secondary" download>{t('download.csv')}</a>
@@ -225,6 +236,6 @@ const otherRefs = vocabulary.references ?? [];
     </div>
   )}
 
-  <FeedbackOrientation locale={locale} />
+  {!isNonNormative && <FeedbackOrientation locale={locale} />}
   </article>
 </Base>

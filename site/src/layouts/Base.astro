@@ -149,6 +149,10 @@ const navLinks = [
             }
           } catch (e) {}
           wasExpanded = !!layout.expanded;
+          var triggers = document.querySelectorAll('[data-hypothesis-trigger]');
+          for (var i = 0; i < triggers.length; i++) {
+            triggers[i].setAttribute('aria-expanded', layout.expanded ? 'true' : 'false');
+          }
         },
       };
       if (openByDefault && !dismissed) {

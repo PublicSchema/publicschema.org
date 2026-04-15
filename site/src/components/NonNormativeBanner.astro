@@ -1,0 +1,53 @@
+---
+import type { Locale } from '../i18n/languages';
+import { useTranslations } from '../i18n/utils';
+
+interface Props {
+  maturity: 'draft' | 'candidate';
+  pageType: 'concept' | 'property' | 'vocabulary';
+  pageId: string;
+  locale: Locale;
+}
+
+const { maturity, pageType, pageId, locale } = Astro.props;
+const t = useTranslations(locale);
+
+const GITHUB_REPO = 'https://github.com/PublicSchema/publicschema.org';
+
+const copy = maturity === 'draft'
+  ? t('feedback.banner_draft')
+  : t('feedback.banner_candidate');
+
+const issueTitle = `[${pageType}: ${pageId}] [${locale}] Feedback`;
+const pageUrl = new URL(Astro.url.pathname, Astro.site).href;
+const issueBody = [
+  `**Page:** ${pageUrl}`,
+  `**Locale:** ${locale}`,
+  `**Maturity:** ${maturity}`,
+  '',
+  '<!-- Describe the issue. Is this a translation problem or a content problem? -->',
+].join('\n');
+const issueUrl = `${GITHUB_REPO}/issues/new?title=${encodeURIComponent(issueTitle)}&body=${encodeURIComponent(issueBody)}&labels=${encodeURIComponent(`feedback,lang:${locale}`)}`;
+---
+<aside class={`nn-banner nn-banner--${maturity}`} aria-label={t('feedback.orientation_title')}>
+  <p class="nn-banner__copy">{copy}</p>
+  <div class="nn-banner__actions">
+    <button
+      type="button"
+      class="nn-banner__action nn-banner__action--primary"
+      data-hypothesis-trigger
+      aria-expanded="false"
+      aria-label={t('feedback.banner_trigger_aria')}
+    >
+      {t('feedback.banner_comment')}
+    </button>
+    <a
+      class="nn-banner__action"
+      href={issueUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      {t('feedback.banner_github')}
+    </a>
+  </div>
+</aside>

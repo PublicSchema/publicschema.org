@@ -14,6 +14,7 @@ import {
 } from '../../data/concept-utils';
 import SectionFeedback from '../SectionFeedback.astro';
 import FeedbackOrientation from '../FeedbackOrientation.astro';
+import NonNormativeBanner from '../NonNormativeBanner.astro';
 
 interface Props {
   termId: string;
@@ -55,8 +56,10 @@ const displayGroups = concept.property_groups
 const primitiveTypes = ['string', 'integer', 'decimal', 'boolean', 'date', 'datetime', 'uri', 'geojson_geometry'];
 
 const domainTitles: Record<string, string> = { sp: t('concepts.section_social_protection'), crvs: t('concepts.section_crvs') };
+
+const isNonNormative = concept.maturity === 'draft' || concept.maturity === 'candidate';
 ---
-<Base title={displayLabel} description={definition} alternateJsonLd={`${concept.path}.jsonld`} ogType="article" locale={locale} openHypothesisSidebar={concept.maturity !== 'normative'}>
+<Base title={displayLabel} description={definition} alternateJsonLd={`${concept.path}.jsonld`} ogType="article" locale={locale} openHypothesisSidebar={isNonNormative}>
   <article>
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
@@ -91,6 +94,14 @@ const domainTitles: Record<string, string> = { sp: t('concepts.section_social_pr
       )}
     </div>
     <p class="definition-text">{definition}</p>
+    {isNonNormative && (
+      <NonNormativeBanner
+        maturity={concept.maturity as 'draft' | 'candidate'}
+        pageType="concept"
+        pageId={termId}
+        locale={locale}
+      />
+    )}
   </div>
   <div class="download-links">
     <a href={`${concept.path}.jsonld`} class="btn btn-secondary">{t('download.jsonld')}</a>
@@ -310,6 +321,6 @@ const domainTitles: Record<string, string> = { sp: t('concepts.section_social_pr
     </div>
   )}
 
-  <FeedbackOrientation locale={locale} />
+  {!isNonNormative && <FeedbackOrientation locale={locale} />}
   </article>
 </Base>
