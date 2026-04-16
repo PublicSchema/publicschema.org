@@ -37,13 +37,13 @@ The same operational argument that justified keeping anthropometric bands applie
 - Three concept definitions are updated: `profile.yaml`, `food-security-profile.yaml`, `functioning-profile.yaml`. Their definitions now state that the profile carries canonical-rule derived outputs.
 - `design-principles.md` section 6 is corrected to match ADR-006's actual decision: Profiles record structured responses and may carry canonical-rule derived outputs; ScoringEvent records the act of applying a non-default rule, an alternate threshold, or recomputing a score.
 - New properties are added at `draft` maturity: nine score/classification properties on FoodSecurityProfile (FCS score, FCS consumption group, rCSI score, HDDS score, MDD-W score, MDD-W achieved, HHS score, HHS category, FIES raw score), two disability identifier properties on FunctioningProfile, one MUAC band property on AnthropometricProfile, and two JMP input properties on SocioEconomicProfile.
-- Four new vocabularies are added at `draft` maturity: `food-consumption-group`, `hhs-category`, `wg-ss-domain`, `muac-band`.
+- Five new vocabularies are added at `draft` maturity: `food-consumption-group`, `hhs-category`, `wg-ss-domain`, `muac-band`, `lcs-band`.
 - `cutoff_rule` is renamed to `muac_cutoff_rule` to make its scope explicit.
 
 ## Follow-on work
 
-- **LCS band:** the canonical LCS derived output (stress/crisis/emergency categorical band) is a legitimate addition to FoodSecurityProfile but was not in the original feedback. Deferred to a separate plan.
-- **CARI:** a second-order composite of FCS, HHS, and LCS. Because it consumes scores from other instruments rather than raw items, it belongs on ScoringEvent, not on FoodSecurityProfile.
+- **LCS band:** added. `lcs_band` property on FoodSecurityProfile with `lcs-band` vocabulary (none/stress/crisis/emergency).
+- **CARI:** a second-order composite of FCS, HHS, and LCS. Because it consumes scores from other instruments rather than raw items, it belongs on ScoringEvent, not on FoodSecurityProfile. No additional schema work needed; the existing ScoringEvent properties (`raw_score`, `assessment_band`, `inputs`, `rule_applied`) handle it.
 - **CFM / WG-ES disability identifiers:** different response scales and domain groupings from WG-SS. Deferred to a separate plan. FunctioningProfile's definition notes that no equivalent derived identifier is yet defined for CFM or WG-ES.
 - **`wdds_*` prefix cleanup:** the 10 existing `wdds_*_consumed` properties on FoodSecurityProfile encode MDD-W food groups but use the WDDS prefix. Renaming to `mdd_w_*` is a breaking change for adopters and should be handled separately.
 

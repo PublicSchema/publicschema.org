@@ -14,21 +14,22 @@ informs:
   concepts:
     - FoodSecurityProfile
   vocabularies:
-    - lcs-strategy
-    - lcs-frequency
     - instrument-id
+    - lcs-band
+    - lcs-frequency
+    - lcs-strategy
   properties:
-    - lcs_spent_savings
-    - lcs_sold_household_items
-    - lcs_reduced_nonfood_expenses
-    - lcs_borrowed_money_food
-    - lcs_sold_productive_assets
-    - lcs_withdrew_children_from_school
-    - lcs_reduced_essential_nonfood
-    - lcs_consumed_seed_stock
-    - lcs_harvested_immature_crops
-    - lcs_sold_house_or_land
-    - lcs_migrated_whole_household
-    - lcs_child_labor
-    - lcs_early_marriage
     - lcs_begging
+    - lcs_borrowed_money_food
+    - lcs_child_labor
+    - lcs_consumed_seed_stock
+    - lcs_early_marriage
+    - lcs_harvested_immature_crops
+    - lcs_migrated_whole_household
+    - lcs_reduced_essential_nonfood
+    - lcs_reduced_nonfood_expenses
+    - lcs_sold_house_or_land
+    - lcs_sold_household_items
+    - lcs_sold_productive_assets
+    - lcs_spent_savings
+    - lcs_withdrew_children_from_school

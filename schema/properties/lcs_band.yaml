@@ -1,0 +1,18 @@
+id: lcs_band
+maturity: draft
+label:
+  en: "LCS band"
+  fr: "Niveau SCM"
+  es: "Nivel EMV"
+
+definition:
+  en: "The livelihood coping severity band for this administration, derived by classifying the household into the highest severity tier of any strategy it adopted. Strategies are grouped into three tiers (stress, crisis, emergency) per the WFP CARI Guidelines. A strategy is considered adopted if the response is 'yes' or 'already exhausted'. If no strategy was adopted, the band is 'none'. This is the canonical worst-case classification used in WFP food security analysis."
+  fr: "Le niveau de sévérité des stratégies de moyens d'existence pour cette passation, dérivé en classant le ménage au niveau de sévérité le plus élevé de toute stratégie adoptée. Les stratégies sont regroupées en trois niveaux (stress, crise, urgence) selon les directives CARI du PAM. Une stratégie est considérée comme adoptée si la réponse est « oui » ou « déjà épuisée ». Si aucune stratégie n'a été adoptée, le niveau est « aucune ». Il s'agit de la classification canonique du pire cas utilisée dans l'analyse de sécurité alimentaire du PAM."
+  es: "El nivel de severidad de las estrategias de medios de vida para esta aplicación, derivado clasificando al hogar en el nivel de severidad más alto de cualquier estrategia adoptada. Las estrategias se agrupan en tres niveles (estrés, crisis, emergencia) según las directrices CARI del PMA. Una estrategia se considera adoptada si la respuesta es «sí» o «ya agotada». Si no se adoptó ninguna estrategia, el nivel es «ninguna». Es la clasificación canónica del peor caso utilizada en el análisis de seguridad alimentaria del PMA."
+
+type: string
+cardinality: single
+vocabulary: lcs-band
+references: null
+category: food_security
+valid_instruments: [wfp_lcs, wfp_cari]

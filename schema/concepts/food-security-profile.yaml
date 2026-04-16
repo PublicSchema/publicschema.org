@@ -16,10 +16,10 @@ definition:
     mode, respondent, recall period) and carries canonical-rule derived
     outputs for each instrument's standard scoring function (for example,
     the FCS weighted score and consumption group using WFP standard 21/35
-    thresholds, the rCSI sum score, or the HHS category). CARI, as a
-    second-order composite that consumes scores from multiple instruments,
-    is recorded via ScoringEvent rather than on this profile. No
-    equivalent derived output is yet defined for LCS (deferred).
+    thresholds, the rCSI sum score, the HHS category, or the LCS severity
+    band). CARI, as a second-order composite that consumes scores from
+    multiple instruments, is recorded via ScoringEvent rather than on this
+    profile.
   fr: >
     Un enregistrement ponctuel de données de sécurité alimentaire du
     ménage (ou, pour MDD-W, individuelles) collectées à l'aide d'un ou
@@ -30,11 +30,10 @@ definition:
     répondant, période de rappel) et porte les résultats dérivés
     canoniques pour la fonction de notation standard de chaque instrument
     (par exemple, le score pondéré FCS et le groupe de consommation selon
-    les seuils standard 21/35 du PAM, le score somme rCSI, ou la
-    catégorie HHS). CARI, en tant que composite de second ordre
-    consommant les scores de plusieurs instruments, est enregistré via
-    ScoringEvent plutôt que sur ce profil. Aucun résultat dérivé
-    équivalent n'est encore défini pour LCS (reporté).
+    les seuils standard 21/35 du PAM, le score somme rCSI, la catégorie
+    HHS ou le niveau de sévérité LCS). CARI, en tant que composite de
+    second ordre consommant les scores de plusieurs instruments, est
+    enregistré via ScoringEvent plutôt que sur ce profil.
   es: >
     Un registro puntual de datos de seguridad alimentaria del hogar
     (o, para MDD-W, individuales) recopilados mediante uno o más
@@ -45,11 +44,10 @@ definition:
     período de recordatorio) y lleva los resultados derivados canónicos
     para la función de puntuación estándar de cada instrumento (por
     ejemplo, el puntaje ponderado FCS y el grupo de consumo según los
-    umbrales estándar 21/35 del PMA, el puntaje suma rCSI, o la
-    categoría HHS). CARI, como un compuesto de segundo orden que consume
-    puntajes de múltiples instrumentos, se registra mediante ScoringEvent
-    en lugar de en este perfil. Aún no se define un resultado derivado
-    equivalente para LCS (diferido).
+    umbrales estándar 21/35 del PMA, el puntaje suma rCSI, la categoría
+    HHS o el nivel de severidad LCS). CARI, como un compuesto de segundo
+    orden que consume puntajes de múltiples instrumentos, se registra
+    mediante ScoringEvent en lugar de en este perfil.
 
 properties:
   - fcs_staples_days
@@ -124,6 +122,7 @@ properties:
   - hhs_score
   - hhs_category
   - fies_raw_score
+  - lcs_band
 
 property_groups:
   - category: administrative
@@ -216,6 +215,7 @@ property_groups:
       - hhs_score
       - hhs_category
       - fies_raw_score
+      - lcs_band
 
 subtypes: []
 supertypes: [Profile]
