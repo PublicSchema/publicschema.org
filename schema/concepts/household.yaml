@@ -28,6 +28,8 @@ properties:
   - address
   - location
   - food_security_level
+  - pregnant_or_lactating_count
+  - chronic_illness_in_household
 
 property_groups:
   - category: identity
@@ -41,6 +43,9 @@ property_groups:
       - formation_date
       - member_count
       - memberships
+  - category: demographics
+    properties:
+      - pregnant_or_lactating_count
   - category: location
     properties:
       - address
@@ -48,6 +53,9 @@ property_groups:
   - category: food_security
     properties:
       - food_security_level
+  - category: other
+    properties:
+      - chronic_illness_in_household
 
 supertypes: [Group]
 subtypes: []

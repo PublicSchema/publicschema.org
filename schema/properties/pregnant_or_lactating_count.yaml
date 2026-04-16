@@ -1,0 +1,18 @@
+id: pregnant_or_lactating_count
+maturity: draft
+label:
+  en: "Pregnant or lactating women count"
+  fr: "Nombre de femmes enceintes ou allaitantes"
+  es: "Número de mujeres embarazadas o lactantes"
+
+definition:
+  en: "The number of pregnant or lactating women currently living in the household. Used by humanitarian programs to size nutrition, health, and protection interventions (PLW-targeted food rations, antenatal care outreach, MIYCN counselling). Recorded at household level because the eligibility unit for most PLW programming is the household, not the individual; an individual-level pregnancy_status property is also available on Person for case-management workflows."
+  fr: "Le nombre de femmes enceintes ou allaitantes vivant actuellement dans le ménage. Utilisé par les programmes humanitaires pour dimensionner les interventions de nutrition, de santé et de protection (rations alimentaires ciblant les FEFA, sensibilisation aux soins prénatals, conseil ANJE). Enregistré au niveau du ménage car l'unité d'éligibilité de la plupart des programmes FEFA est le ménage, et non l'individu ; une propriété pregnancy_status au niveau individuel est également disponible sur Person pour les flux de gestion de cas."
+  es: "El número de mujeres embarazadas o lactantes que viven actualmente en el hogar. Utilizado por programas humanitarios para dimensionar intervenciones de nutrición, salud y protección (raciones alimentarias dirigidas a MEL, divulgación de atención prenatal, consejería ANIN). Registrado a nivel de hogar porque la unidad de elegibilidad para la mayoría de la programación dirigida a MEL es el hogar, no el individuo; también está disponible una propiedad pregnancy_status a nivel individual en Person para los flujos de gestión de casos."
+
+type: integer
+cardinality: single
+vocabulary: null
+references: null
+category: demographics
+sensitivity: sensitive

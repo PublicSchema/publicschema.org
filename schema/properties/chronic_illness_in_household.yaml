@@ -1,0 +1,17 @@
+id: chronic_illness_in_household
+maturity: draft
+label:
+  en: "Chronic illness in household"
+  fr: "Maladie chronique dans le ménage"
+  es: "Enfermedad crónica en el hogar"
+
+definition:
+  en: "Whether any household member is reported to have a chronic illness or long-term medical condition (e.g. hypertension, diabetes, HIV, TB, asthma). Recorded at household level for vulnerability triage and case-management referral; the specific condition and the affected member are recorded on Person-scoped or program-specific records, not here."
+  fr: "Si un membre du ménage est déclaré atteint d'une maladie chronique ou d'une condition médicale de longue durée (par exemple hypertension, diabète, VIH, tuberculose, asthme). Enregistré au niveau du ménage pour le triage de vulnérabilité et l'orientation de gestion de cas ; la condition spécifique et le membre concerné sont enregistrés sur des dossiers individuels (Person) ou propres au programme, pas ici."
+  es: "Si se reporta que algún miembro del hogar tiene una enfermedad crónica o una condición médica de largo plazo (por ejemplo hipertensión, diabetes, VIH, tuberculosis, asma). Registrado a nivel de hogar para el triaje de vulnerabilidad y la derivación de gestión de casos; la condición específica y el miembro afectado se registran en registros a nivel de Person o específicos del programa, no aquí."
+
+type: boolean
+cardinality: single
+vocabulary: null
+references: null
+sensitivity: sensitive
