@@ -58,6 +58,7 @@ properties:
   - wasting_status
   - underweight_status
   - acute_malnutrition_status
+  - muac_band
   - cutoff_rule
 
 property_groups:
@@ -90,6 +91,7 @@ property_groups:
       - wasting_status
       - underweight_status
       - acute_malnutrition_status
+      - muac_band
       - cutoff_rule
 
 subtypes: []

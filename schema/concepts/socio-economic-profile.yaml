@@ -75,8 +75,10 @@ properties:
   - roof_material
   - water_source
   - water_service_level
+  - water_collection_time_minutes
   - sanitation_facility
   - sanitation_service_level
+  - sanitation_shared_households
   - cooking_fuel
   - electricity_access
   - household_assets
@@ -108,8 +110,10 @@ property_groups:
     properties:
       - water_source
       - water_service_level
+      - water_collection_time_minutes
       - sanitation_facility
       - sanitation_service_level
+      - sanitation_shared_households
   - category: energy
     properties:
       - cooking_fuel

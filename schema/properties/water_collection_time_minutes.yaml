@@ -1,0 +1,18 @@
+id: water_collection_time_minutes
+maturity: draft
+label:
+  en: "Water collection time (minutes)"
+  fr: "Temps de collecte d'eau (minutes)"
+  es: "Tiempo de recolección de agua (minutos)"
+
+definition:
+  en: "Round-trip time in minutes to the household's main drinking water source, including queuing. JMP classifies an improved source with collection time of 30 minutes or less as Basic service; more than 30 minutes as Limited service. Zero or near-zero indicates water on premises."
+  fr: "Temps aller-retour en minutes vers la source d'eau potable principale du ménage, y compris l'attente. Le JMP classe une source améliorée avec un temps de collecte de 30 minutes ou moins comme service de Base ; plus de 30 minutes comme service Limité. Zéro ou proche de zéro indique l'eau sur place."
+  es: "Tiempo de ida y vuelta en minutos hasta la fuente principal de agua potable del hogar, incluyendo la espera. El JMP clasifica una fuente mejorada con tiempo de recolección de 30 minutos o menos como servicio Básico; más de 30 minutos como servicio Limitado. Cero o cercano a cero indica agua en las instalaciones."
+
+type: integer
+cardinality: single
+vocabulary: null
+references: null
+category: wash
+valid_instruments: [jmp_core_hh]

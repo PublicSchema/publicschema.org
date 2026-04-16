@@ -1,0 +1,19 @@
+id: disability_identified
+maturity: draft
+label:
+  en: "Disability identified"
+  fr: "Handicap identifié"
+  es: "Discapacidad identificada"
+
+definition:
+  en: "Whether the person meets the WG recommended disability identifier: at least one of the six core domains (seeing, hearing, walking, cognition, self-care, communication) reports 'a lot of difficulty' or 'cannot do at all'. This is a survey-based statistical identifier for population reporting, not a clinical disability determination. Use in individual eligibility decisions diverges from the instrument's intended purpose."
+  fr: "Si la personne satisfait l'identifiant de handicap recommandé par le WG : au moins un des six domaines fondamentaux (vision, audition, marche, cognition, soins personnels, communication) rapporte « beaucoup de difficulté » ou « ne peut pas du tout ». Il s'agit d'un identifiant statistique d'enquête pour le reporting de population, pas d'une détermination clinique du handicap. L'utilisation dans les décisions d'éligibilité individuelle s'écarte de l'usage prévu de l'instrument."
+  es: "Si la persona cumple el identificador de discapacidad recomendado por el WG: al menos uno de los seis dominios principales (visión, audición, caminar, cognición, cuidado personal, comunicación) reporta 'mucha dificultad' o 'no puede hacerlo'. Es un identificador estadístico de encuesta para reporte poblacional, no una determinación clínica de discapacidad. Su uso en decisiones de elegibilidad individual se aparta del propósito previsto del instrumento."
+
+type: boolean
+cardinality: single
+vocabulary: null
+references: null
+category: functioning
+sensitivity: sensitive
+valid_instruments: [wg_ss]

@@ -1,0 +1,18 @@
+id: sanitation_shared_households
+maturity: draft
+label:
+  en: "Sanitation shared households"
+  fr: "Ménages partageant l'assainissement"
+  es: "Hogares que comparten saneamiento"
+
+definition:
+  en: "Number of households sharing the sanitation facility. Zero or null indicates an unshared (private) facility. Any value greater than zero indicates a shared facility and prevents classification as JMP Basic service, regardless of count."
+  fr: "Nombre de ménages partageant l'installation d'assainissement. Zéro ou nul indique une installation non partagée (privée). Toute valeur supérieure à zéro indique une installation partagée et empêche la classification comme service de Base du JMP, quel que soit le nombre."
+  es: "Número de hogares que comparten la instalación de saneamiento. Cero o nulo indica una instalación no compartida (privada). Cualquier valor mayor que cero indica una instalación compartida e impide la clasificación como servicio Básico del JMP, independientemente del conteo."
+
+type: integer
+cardinality: single
+vocabulary: null
+references: null
+category: wash
+valid_instruments: [jmp_core_hh]

@@ -1,0 +1,19 @@
+id: disability_domains_identified
+maturity: draft
+label:
+  en: "Disability domains identified"
+  fr: "Domaines de handicap identifiés"
+  es: "Dominios de discapacidad identificados"
+
+definition:
+  en: "The WG-SS core domains in which the person reports 'a lot of difficulty' or 'cannot do at all'. Populated only when disability_identified is true. Values are drawn from the wg-ss-domain vocabulary (seeing, hearing, walking, cognition, self_care, communication)."
+  fr: "Les domaines fondamentaux du WG-SS dans lesquels la personne rapporte « beaucoup de difficulté » ou « ne peut pas du tout ». Renseigné uniquement lorsque disability_identified est vrai. Les valeurs proviennent du vocabulaire wg-ss-domain (vision, audition, marche, cognition, soins personnels, communication)."
+  es: "Los dominios principales del WG-SS en los que la persona reporta 'mucha dificultad' o 'no puede hacerlo'. Se completa solo cuando disability_identified es verdadero. Los valores provienen del vocabulario wg-ss-domain (visión, audición, caminar, cognición, cuidado personal, comunicación)."
+
+type: string
+cardinality: multiple
+vocabulary: wg-ss-domain
+references: null
+category: functioning
+sensitivity: sensitive
+valid_instruments: [wg_ss]

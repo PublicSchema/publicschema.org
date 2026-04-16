@@ -1,0 +1,21 @@
+id: muac_band
+maturity: draft
+label:
+  en: "MUAC band"
+  fr: "Bande PB"
+  es: "Banda MUAC"
+
+definition:
+  en: "The red/yellow/green screening band derived from MUAC for children 6-59 months using WHO/UNICEF cutoffs: red (< 115 mm, severe acute malnutrition), yellow (115-124 mm, moderate acute malnutrition), green (>= 125 mm, adequate). This is the field-level colour-coded tape classification used in community screening."
+  fr: "La bande de dépistage rouge/jaune/vert dérivée du périmètre brachial pour les enfants de 6 à 59 mois selon les seuils OMS/UNICEF : rouge (< 115 mm, malnutrition aiguë sévère), jaune (115-124 mm, malnutrition aiguë modérée), vert (>= 125 mm, adéquat). Il s'agit de la classification par code couleur du ruban de terrain utilisée dans le dépistage communautaire."
+  es: "La banda de tamizaje rojo/amarillo/verde derivada del perímetro braquial para niños de 6 a 59 meses según los puntos de corte OMS/UNICEF: rojo (< 115 mm, desnutrición aguda grave), amarillo (115-124 mm, desnutrición aguda moderada), verde (>= 125 mm, adecuado). Es la clasificación por código de color de la cinta de campo utilizada en el tamizaje comunitario."
+
+type: string
+cardinality: single
+vocabulary: muac-band
+references: null
+category: nutrition
+age_applicability:
+  - infant_0_1
+  - child_2_4
+valid_instruments: [smart]

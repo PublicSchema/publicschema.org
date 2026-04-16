@@ -101,6 +101,8 @@ properties:
   - fatigue_frequency
   - fatigue_duration
   - fatigue_intensity
+  - disability_identified
+  - disability_domains_identified
 
 property_groups:
   - category: administrative
@@ -150,6 +152,8 @@ property_groups:
       - fatigue_frequency
       - fatigue_duration
       - fatigue_intensity
+      - disability_identified
+      - disability_domains_identified
   - category: child_functioning
     properties:
       - difficulty_learning

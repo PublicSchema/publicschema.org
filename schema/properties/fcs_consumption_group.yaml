@@ -1,0 +1,18 @@
+id: fcs_consumption_group
+maturity: draft
+label:
+  en: "FCS consumption group"
+  fr: "Groupe de consommation FCS"
+  es: "Grupo de consumo FCS"
+
+definition:
+  en: "The food consumption group derived from fcs_score using WFP standard thresholds: poor (0-21), borderline (21.5-35), acceptable (> 35). In high-sugar or high-oil dietary contexts, WFP recommends adjusted thresholds of 28 and 42. When non-standard thresholds are applied, record via ScoringEvent instead."
+  fr: "Le groupe de consommation alimentaire dérivé du fcs_score selon les seuils standard du PAM : pauvre (0-21), limite (21,5-35), acceptable (> 35). Dans les contextes alimentaires à forte consommation de sucre ou d'huile, le PAM recommande des seuils ajustés de 28 et 42. Lorsque des seuils non standard sont appliqués, enregistrer via ScoringEvent."
+  es: "El grupo de consumo alimentario derivado del fcs_score según los umbrales estándar del PMA: pobre (0-21), límite (21,5-35), aceptable (> 35). En contextos dietéticos con alto consumo de azúcar o aceite, el PMA recomienda umbrales ajustados de 28 y 42. Cuando se aplican umbrales no estándar, registrar mediante ScoringEvent."
+
+type: string
+cardinality: single
+vocabulary: food-consumption-group
+references: null
+category: food_security
+valid_instruments: [wfp_fcs]

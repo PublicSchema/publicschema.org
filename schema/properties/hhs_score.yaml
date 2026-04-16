@@ -1,0 +1,18 @@
+id: hhs_score
+maturity: draft
+label:
+  en: "HHS score"
+  fr: "Score HHS"
+  es: "Puntaje HHS"
+
+definition:
+  en: "The Household Hunger Scale score for this administration, calculated by recoding the three HHS frequency questions into 0/1/2 and summing. Range 0-6. Higher scores indicate greater household hunger."
+  fr: "Le score de l'échelle de la faim des ménages (HHS) pour cette administration, calculé en recodant les trois questions de fréquence HHS en 0/1/2 et en sommant. Plage 0-6. Des scores plus élevés indiquent une faim plus importante du ménage."
+  es: "El puntaje de la Escala de Hambre del Hogar (HHS) para esta administración, calculado recodificando las tres preguntas de frecuencia HHS en 0/1/2 y sumando. Rango 0-6. Puntajes más altos indican mayor hambre del hogar."
+
+type: integer
+cardinality: single
+vocabulary: null
+references: null
+category: food_security
+valid_instruments: [fanta_hhs]

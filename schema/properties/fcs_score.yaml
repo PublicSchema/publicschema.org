@@ -1,0 +1,18 @@
+id: fcs_score
+maturity: draft
+label:
+  en: "FCS score"
+  fr: "Score FCS"
+  es: "Puntaje FCS"
+
+definition:
+  en: "The weighted Food Consumption Score for this administration, calculated as the sum of food-group frequency days multiplied by their WFP standard weights. Range 0-112. The canonical scoring uses nine food groups with weights from the WFP FCS Technical Guidance Note (2015)."
+  fr: "Le score de consommation alimentaire (FCS) pondéré pour cette administration, calculé comme la somme des jours de fréquence par groupe alimentaire multipliés par leurs poids standard du PAM. Plage 0-112. La notation canonique utilise neuf groupes alimentaires avec les poids du Guide technique FCS du PAM (2015)."
+  es: "El puntaje ponderado de consumo alimentario (FCS) para esta administración, calculado como la suma de los días de frecuencia por grupo alimentario multiplicados por sus pesos estándar del PMA. Rango 0-112. La puntuación canónica usa nueve grupos alimentarios con los pesos de la Guía Técnica FCS del PMA (2015)."
+
+type: decimal
+cardinality: single
+vocabulary: null
+references: null
+category: food_security
+valid_instruments: [wfp_fcs]

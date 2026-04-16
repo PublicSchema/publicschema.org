@@ -1,0 +1,18 @@
+id: mdd_w_achieved
+maturity: draft
+label:
+  en: "MDD-W achieved"
+  fr: "MDD-W atteint"
+  es: "MDD-W alcanzado"
+
+definition:
+  en: "True when mdd_w_score is 5 or more of the 10 MDD-W food groups, indicating that the woman met the minimum dietary diversity threshold. This is the FAO/FHI 360 standard binary indicator from the MDD-W guidelines (2016)."
+  fr: "Vrai lorsque le mdd_w_score est de 5 ou plus des 10 groupes alimentaires MDD-W, indiquant que la femme a atteint le seuil de diversité alimentaire minimum. Il s'agit de l'indicateur binaire standard FAO/FHI 360 des directives MDD-W (2016)."
+  es: "Verdadero cuando el mdd_w_score es 5 o más de los 10 grupos alimentarios MDD-W, indicando que la mujer alcanzó el umbral de diversidad dietética mínima. Es el indicador binario estándar FAO/FHI 360 de las directrices MDD-W (2016)."
+
+type: boolean
+cardinality: single
+vocabulary: null
+references: null
+category: food_security
+valid_instruments: [fao_mdd_w]

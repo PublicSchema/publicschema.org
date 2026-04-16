@@ -115,6 +115,15 @@ properties:
   - wdds_other_vegetables_consumed
   - wdds_other_fruits_consumed
   - recall_period_days
+  - fcs_score
+  - fcs_consumption_group
+  - rcsi_score
+  - hdds_score
+  - mdd_w_score
+  - mdd_w_achieved
+  - hhs_score
+  - hhs_category
+  - fies_raw_score
 
 property_groups:
   - category: administrative
@@ -196,6 +205,17 @@ property_groups:
   - category: context
     properties:
       - recall_period_days
+  - category: scores
+    properties:
+      - fcs_score
+      - fcs_consumption_group
+      - rcsi_score
+      - hdds_score
+      - mdd_w_score
+      - mdd_w_achieved
+      - hhs_score
+      - hhs_category
+      - fies_raw_score
 
 subtypes: []
 supertypes: [Profile]
