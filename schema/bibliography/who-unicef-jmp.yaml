@@ -18,7 +18,9 @@ informs:
     - sanitation-facility
     - sanitation-service-level
   properties:
+    - water_collection_time_minutes
     - water_source
     - water_service_level
     - sanitation_facility
     - sanitation_service_level
+    - sanitation_shared_households

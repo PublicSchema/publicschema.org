@@ -16,6 +16,7 @@ informs:
     - administration-mode
     - functional-difficulty-severity
     - instrument-id
+    - wg-ss-domain
   properties:
     - difficulty_cognition
     - difficulty_communication
@@ -23,3 +24,5 @@ informs:
     - difficulty_seeing
     - difficulty_self_care
     - difficulty_walking
+    - disability_domains_identified
+    - disability_identified

@@ -15,4 +15,6 @@ informs:
   vocabularies:
     - wdds-food-group
     - instrument-id
-  properties: []
+  properties:
+    - mdd_w_achieved
+    - mdd_w_score

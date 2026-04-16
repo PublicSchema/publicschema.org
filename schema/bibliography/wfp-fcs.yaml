@@ -15,8 +15,11 @@ informs:
     - FoodSecurityProfile
   vocabularies:
     - fcs-food-group
+    - food-consumption-group
     - instrument-id
   properties:
+    - fcs_consumption_group
+    - fcs_score
     - fcs_staples_days
     - fcs_pulses_days
     - fcs_vegetables_days

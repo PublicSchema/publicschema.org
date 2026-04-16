@@ -18,9 +18,12 @@ informs:
   concepts:
     - FoodSecurityProfile
   vocabularies:
+    - hhs-category
     - hhs-frequency
     - instrument-id
   properties:
+    - hhs_category
     - hhs_no_food
     - hhs_went_sleep_hungry
+    - hhs_score
     - hhs_went_whole_day_without

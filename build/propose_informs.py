@@ -104,6 +104,10 @@ VOCAB_STANDARD_LOOKUP: dict[str, str] = {
     "Sphere Handbook (2018) Shelter and Settlement chapter": "sphere-2018",
     "Global Shelter Cluster post-disaster shelter situation categories": "global-shelter-cluster",
     "ATC-20 Post-Earthquake Safety Evaluation of Buildings": "atc-20",
+    "WFP VAM Food Consumption Score Technical Guidance Note (2015)": "wfp-fcs",
+    "FANTA Household Hunger Scale: Indicator Definition and Measurement Guide (2010, revised 2017)": "fanta-hhs",
+    "Washington Group Short Set on Functioning (WG-SS), 2006/2016": "washington-group-ss",
+    "WHO/UNICEF/WFP/UNSCN Joint Statement on Community-based Management of Acute Malnutrition (2007/2009)": "who-muac-cutoffs",
 }
 
 SKIPPED_KEYS = {"opencrvs", "dhis2"}
