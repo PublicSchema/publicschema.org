@@ -22,7 +22,7 @@ Some concepts exist only as shared foundations for more specific subtypes. Agent
 
 ## 6. Observation and scoring separation
 
-Data collection and data scoring are distinct steps with different actors, timestamps, and audit trails. Profile subtypes capture raw observation data (questionnaire responses, measurements); ScoringEvent records the act of applying a rule to that data. This separation lets systems recompute scores without re-collecting data. See [ADR-006](../decisions/006-profile-hierarchy.md).
+Data collection and data scoring are distinct steps with different actors, timestamps, and audit trails. Profile subtypes record the structured responses from a single instrument administration and may also carry outputs derived by applying the instrument's canonical scoring rule (for example, z-scores and status bands on AnthropometricProfile, the FCS consumption group on FoodSecurityProfile, or the WG-SS disability identifier on FunctioningProfile). ScoringEvent records the act of applying a non-default rule, an alternate threshold, or recomputing a score after a rule revision. This separation lets systems recompute scores without re-collecting data while keeping canonical outputs close to the observations that produced them. See [ADR-006](../decisions/006-profile-hierarchy.md) and [ADR-010](../decisions/010-profile-derived-outputs.md).
 
 ## 7. Property categories
 

@@ -16,6 +16,22 @@ Les données de convergence orientent les priorités. Une propriété présente 
 
 Les définitions sont rédigées pour les agents de politique publique et les gestionnaires de programme, pas pour les développeurs. "Les états du cycle de vie d'une inscription à un programme" est préférable à "une énumération de codes de statut applicables à l'entité d'enregistrement des bénéficiaires."
 
+## 5. Supertypes abstraits
+
+Certains concepts n'existent que comme fondations partagees pour des sous-types plus specifiques. Agent, Event, Party et Profile portent `abstract: true`, ce qui signifie qu'ils definissent des proprietes communes mais ne sont jamais instancies directement. Les sous-types (par exemple FunctioningProfile, ScoringEvent, Organization) heritent de ces proprietes et ajoutent les leurs. Agent est le supertype cote acteur (Person, Organization, SoftwareAgent) ; Party est le supertype cote beneficiaire (Person, Group). Person appartient aux deux. Voir [ADR-006](../decisions/006-profile-hierarchy.md) et [ADR-008](../decisions/008-agent-organization.md).
+
+## 6. Separation observation et notation
+
+La collecte et la notation des donnees sont des etapes distinctes, avec des acteurs, des horodatages et des pistes d'audit differents. Les sous-types de Profile enregistrent les reponses structurees d'une administration unique d'instrument et peuvent aussi porter les resultats derives en appliquant la regle de notation canonique de l'instrument (par exemple, les z-scores et bandes de statut sur AnthropometricProfile, le groupe de consommation FCS sur FoodSecurityProfile, ou l'identifiant de handicap WG-SS sur FunctioningProfile). ScoringEvent enregistre l'acte d'appliquer une regle non standard, un seuil alternatif ou de recalculer un score apres une revision de regle. Cette separation permet aux systemes de recalculer les scores sans re-collecter les donnees, tout en gardant les resultats canoniques proches des observations qui les ont produits. Voir [ADR-006](../decisions/006-profile-hierarchy.md) et [ADR-010](../decisions/010-profile-derived-outputs.md).
+
+## 7. Categories de proprietes
+
+Les proprietes sont regroupees par categorie thematique (par exemple fonctionnement, nutrition, logement) plutot que listees a plat. Les categories sont definies dans `schema/categories.yaml` et rendues comme regroupements visuels sur les pages de detail des concepts. Cela aide les praticiens a localiser les proprietes pertinentes sur les concepts qui en portent beaucoup.
+
+## 8. Metadonnees d'instrument
+
+Les proprietes qui enregistrent le contexte de collecte (mode d'administration, repondant, relation avec le repondant, applicabilite par age) accompagnent les donnees d'observation, sans fichier de metadonnees separe. Cela garantit qu'un enregistrement de Profile est auto-descriptif : un consommateur peut determiner comment les donnees ont ete collectees sans consulter un registre externe. Voir [schema-design.md section 7](schema-design.md#7-age-applicability) pour les details d'applicabilite par age.
+
 ## Voir aussi
 
 - [Conception du schéma](../schema-design/) -- nommage, portée et modélisation
