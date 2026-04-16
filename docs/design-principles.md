@@ -12,13 +12,17 @@ Nothing is mandatory. Systems adopt the concepts, properties, and vocabularies t
 
 Convergence data drives priorities. A property present in 6 out of 6 systems is worth standardizing before one present in 2 out of 6. Start with what is confirmed, extend when adoption surfaces genuine need.
 
+Standards-body convergence supplements mapped-system convergence at the abstract-supertype level. Abstract concepts such as Agent, Event, and Instrument report `system_count: 0/6` against the v1 mapped-system corpus because no mapped system exposes an explicit supertype by that name, yet the abstractions are aligned with widely-deployed standards (PROV-O for Agent and Event, FOAF/schema.org for Agent and Organization, FHIR for Instrument). Convergence across those standards is acceptable evidence for introducing an abstract supertype, provided subtypes still carry mapped-system evidence of their own. See [ADR-008](../decisions/008-agent-organization.md) for this pattern applied to Agent and Organization.
+
 ## 4. Plain language for practitioners
 
 Definitions are written for policy officers and program managers, not developers. "The lifecycle states of an enrollment in a program" is preferable to "an enumeration of status codes applicable to the beneficiary registration entity."
 
 ## 5. Abstract supertypes
 
-Some concepts exist only as shared foundations for more specific subtypes. Agent, Event, Party, and Profile carry `abstract: true`, meaning they define common properties but are never instantiated directly. Subtypes (e.g., FunctioningProfile, ScoringEvent, Organization) inherit those properties and add their own. Agent is the actor-side supertype (Person, Organization, SoftwareAgent); Party is the beneficiary-side supertype (Person, Group). Person belongs to both. See [ADR-006](../decisions/006-profile-hierarchy.md) and [ADR-008](../decisions/008-agent-organization.md).
+Some concepts exist only as shared foundations for more specific subtypes. Agent, Event, Party, and Profile are the four **core abstract supertypes**. They carry `abstract: true`, define common properties, and are never instantiated directly. Subtypes (e.g., FunctioningProfile, ScoringEvent, Organization) inherit those properties and add their own. Agent is the actor-side supertype (Person, Organization, SoftwareAgent); Party is the beneficiary-side supertype (Person, Group). Person belongs to both. See [ADR-006](../decisions/006-profile-hierarchy.md) and [ADR-008](../decisions/008-agent-organization.md).
+
+A small number of **intermediate abstract categorisers** also carry `abstract: true` without being core supertypes. Group intermediates between Party and its concrete subtypes (Household, Family, Farm). VitalEvent intermediates between Event and the concrete vital events (Birth, Death, Marriage, etc.). MarriageTermination intermediates between VitalEvent and the concrete termination subtypes (Divorce, Annulment). Each intermediate groups siblings that share common structure but have no direct use of their own. They are abstract for the same reason as the core supertypes (never instantiated, always realised through a subtype) but they are not intended as cross-domain foundations.
 
 ## 6. Observation and scoring separation
 

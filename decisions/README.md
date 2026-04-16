@@ -15,3 +15,5 @@
 | [011](011-humanitarian-profile-extraction.md) | Humanitarian Profile subtypes live outside PublicSchema | Accepted |
 | [012](012-sex-vocabulary-iso5218-2022.md) | Sex vocabulary cites ISO/IEC 5218:2022, not the withdrawn 2004 revision | Accepted |
 | [013](013-marital-status-standard-codes.md) | Marital-status vocabulary reattributes single-letter codes to implementation peers | Accepted |
+| [014](014-crvs-person-naming.md) | CRVSPerson as a named exception to the domain-prefix rule | Accepted |
+| [015](015-consent-record-scalar-identifier.md) | Scalar `identifier` on consent and notice records alongside `identifiers` | Accepted |

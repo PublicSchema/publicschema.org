@@ -8,28 +8,37 @@ label:
 
 definition:
   en: >
-    A link entity that associates a Person with a parental role (biological
-    mother, biological father, legal mother, legal father, adoptive mother,
-    adoptive father, surrogate mother). Used on Birth, Adoption,
-    PaternityRecognition, and Legitimation so that biological and legal
-    parentage can be captured explicitly rather than collapsed into a single
-    parent slot. Parallel in structure to GroupMembership.
+    A CRVSPerson subtype that carries a parental role (biological mother,
+    biological father, legal mother, legal father, adoptive mother, adoptive
+    father, surrogate mother) alongside the inherited person-of-record
+    properties. Used on Birth, Adoption, PaternityRecognition, and
+    Legitimation so that biological and legal parentage can be captured
+    explicitly rather than collapsed into a single parent slot. Parent is a
+    role-qualified person-of-record, not a pure link entity: it inherits
+    demographic and identity properties from CRVSPerson and adds
+    parental_role.
   fr: >
-    Une entité de lien qui associe une Personne à un rôle parental (mère
-    biologique, père biologique, mère légale, père légal, mère adoptive,
-    père adoptif, mère porteuse). Utilisée sur les actes de Naissance,
-    d'Adoption, de Reconnaissance de paternité et de Légitimation afin que
-    les filiations biologique et juridique puissent être saisies de manière
-    explicite plutôt que fusionnées dans un seul champ parent. De structure
-    parallèle à GroupMembership.
+    Un sous-type de CRVSPerson qui porte un rôle parental (mère biologique,
+    père biologique, mère légale, père légal, mère adoptive, père adoptif,
+    mère porteuse) à côté des propriétés de personne concernée héritées.
+    Utilisé dans les actes de Naissance, d'Adoption, de Reconnaissance de
+    paternité et de Légitimation afin que les filiations biologique et
+    juridique puissent être saisies de manière explicite plutôt que
+    fusionnées dans un seul champ parent. Parent est une personne concernée
+    qualifiée par un rôle, pas une simple entité de lien : il hérite des
+    propriétés démographiques et d'identité de CRVSPerson et ajoute
+    parental_role.
   es: >
-    Una entidad de enlace que asocia una Persona con un rol parental (madre
-    biológica, padre biológico, madre legal, padre legal, madre adoptiva,
-    padre adoptivo, madre gestante). Utilizada en Nacimiento, Adopción,
+    Un subtipo de CRVSPerson que porta un rol parental (madre biológica,
+    padre biológico, madre legal, padre legal, madre adoptiva, padre
+    adoptivo, madre gestante) junto con las propiedades heredadas de
+    persona objeto del registro. Se utiliza en Nacimiento, Adopción,
     Reconocimiento de paternidad y Legitimación para que la filiación
-    biológica y la jurídica puedan representarse de forma explícita en lugar
-    de reducirse a un único campo de progenitor. De estructura paralela
-    a GroupMembership.
+    biológica y la jurídica puedan representarse de forma explícita en
+    lugar de reducirse a un único campo de progenitor. Parent es una
+    persona objeto del registro cualificada por un rol, no una simple
+    entidad de enlace: hereda las propiedades demográficas y de
+    identificación de CRVSPerson y añade parental_role.
 
 properties:
   - parental_role

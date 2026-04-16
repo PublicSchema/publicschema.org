@@ -15,17 +15,19 @@ sync:
   source_url: https://raw.githubusercontent.com/lukes/ISO-3166-Countries-with-Regional-Codes/master/all/all.json
   format: github-json
   last_synced: '2026-04-12'
+  note: "ISO 3166-1 is paywalled on iso.org (Country Codes Collection, PUB500001). The `lukes/ISO-3166-Countries-with-Regional-Codes` GitHub repository is a widely-used open mirror that combines ISO 3166-1 codes with UN M49 regional groupings. Authoritative citation for the standard itself is `standard.uri`."
 same_standard_systems:
 - openspp
 external_values: true
 external_equivalents:
   semic:
     label: Country
-    uri: http://publications.europa.eu/resource/authority/country
+    uri: http://publications.europa.eu/resource/dataset/country
     match: close
     vocabulary: Core Location
-    note: EU Country Named Authority List is based on ISO 3166-1 (same underlying standard). SEMIC uses URI-based resources;
-      PublicSchema uses alpha-2 codes.
+    note: The EU Publications Office publishes this country list as a Named Authority List that Core Location reuses (it
+      is not owned by Core Location). The list is derived from ISO 3166-1 and is keyed by ISO 3166-1 alpha-3 codes;
+      PublicSchema uses alpha-2 codes, so consumers crosswalking to SEMIC must translate between the two forms.
 values:
 - code: af
   label:

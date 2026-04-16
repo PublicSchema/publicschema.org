@@ -116,6 +116,10 @@
           "type": "string",
           "format": "date",
           "description": "Date of the most recent sync (ISO 8601)"
+        },
+        "note": {
+          "type": "string",
+          "description": "Documents provenance or policy context for the chosen source_url (for example, why a mirror is used when the authoritative source is paywalled)."
         }
       }
     }

@@ -15,6 +15,9 @@ sync:
   source_url: https://raw.githubusercontent.com/datasets/country-codes/main/data/country-codes.csv
   format: csv
   last_synced: '2026-04-12'
+  note: "UNSD publishes UN M49 directly at `standard.uri` but does not expose a stable machine-readable download on that
+    landing page. The `datasets/country-codes` GitHub mirror consolidates UN M49 codes with ISO 3166 for sync purposes;
+    authoritative citation for the standard itself is `standard.uri`."
 values:
 - code: af
   label:
