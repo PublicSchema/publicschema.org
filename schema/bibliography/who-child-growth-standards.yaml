@@ -10,7 +10,8 @@ access: open
 status: active
 
 informs:
-  concepts:
-    - Person
-  vocabularies: []
-  properties: []
+  concepts: []
+  vocabularies:
+    - acute-malnutrition-severity
+  properties:
+    - nutrition_status

@@ -25,4 +25,5 @@ informs:
     - notice_ref
     - notice_version
     - evidence_ref
-  vocabularies: []
+  vocabularies:
+    - consent-status

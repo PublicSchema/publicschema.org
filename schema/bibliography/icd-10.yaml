@@ -12,8 +12,10 @@ access: open
 status: active
 
 informs:
-  concepts: []
+  concepts:
+    - Death
   vocabularies: []
   properties:
+    - cause_of_death
     - cause_of_death_coding_system
     - cause_of_death_code

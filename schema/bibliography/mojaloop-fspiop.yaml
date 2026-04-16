@@ -10,7 +10,8 @@ access: open
 status: active
 
 informs:
-  concepts: []
+  concepts:
+    - PaymentEvent
   vocabularies:
     - payment-status
   properties:

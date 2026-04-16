@@ -11,8 +11,11 @@ access: open
 status: active
 
 informs:
-  concepts: []
+  concepts:
+    - Death
   vocabularies:
     - crvs/cause-of-death-method
   properties:
+    - cause_of_death
+    - cause_of_death_code
     - cause_of_death_method

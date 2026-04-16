@@ -11,8 +11,10 @@ access: open
 status: active
 
 informs:
-  concepts: []
+  concepts:
+    - FetalDeath
   vocabularies: []
   properties:
+    - cause_of_fetal_death
     - cause_of_fetal_death_coding_system
     - cause_of_fetal_death_code

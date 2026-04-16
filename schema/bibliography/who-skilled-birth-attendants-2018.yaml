@@ -11,7 +11,8 @@ access: open
 status: active
 
 informs:
-  concepts: []
+  concepts:
+    - Birth
   vocabularies:
     - crvs/birth-attendant
   properties:

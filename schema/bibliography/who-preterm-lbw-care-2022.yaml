@@ -12,7 +12,9 @@ status: active
 informs:
   concepts:
     - Birth
+    - FetalDeath
   vocabularies: []
   properties:
     - gestational_age
+    - weight
     - weight_at_birth

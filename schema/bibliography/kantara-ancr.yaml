@@ -5,11 +5,15 @@ publisher: "Kantara Initiative"
 year: null
 type: specification
 domain: general
-uri: "https://kantarainitiative.org/confluence/display/ANCR/ANCR+WG+Home"
+uri: "https://kantarainitiative.org/work-groups/ancr/"
 access: open
 status: draft
 
 informs:
-  concepts: []
-  properties: []
-  vocabularies: []
+  concepts:
+    - ConsentRecord
+    - PrivacyNotice
+  properties:
+    - conforms_to
+  vocabularies:
+    - consent-record-type

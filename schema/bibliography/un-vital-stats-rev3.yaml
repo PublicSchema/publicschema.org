@@ -27,7 +27,13 @@ informs:
     - FamilyRegister
     - Certificate
     - VitalEvent
+    - CRVSPerson
   vocabularies:
     - crvs/civil-status-record-type
     - crvs/manner-of-death
-  properties: []
+  properties:
+    - weight_at_birth
+    - gestational_age
+    - birth_order
+    - birth_type
+    - attendant_at_birth

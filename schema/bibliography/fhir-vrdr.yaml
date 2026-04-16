@@ -13,5 +13,13 @@ informs:
   concepts:
     - Death
     - FetalDeath
-  vocabularies: []
-  properties: []
+  vocabularies:
+    - crvs/manner-of-death
+    - crvs/cause-of-death-method
+  properties:
+    - cause_of_death
+    - cause_of_death_code
+    - cause_of_death_coding_system
+    - manner_of_death
+    - cause_of_death_method
+    - medical_certifier

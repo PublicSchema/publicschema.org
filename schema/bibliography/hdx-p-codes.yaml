@@ -5,12 +5,13 @@ publisher: "United Nations Office for the Coordination of Humanitarian Affairs (
 year: null
 type: classification
 domain: humanitarian
-uri: "https://data.humdata.org/dataset/p-codes"
+uri: "https://cod.unocha.org/"
 access: open
 status: active
 
 informs:
-  concepts: []
+  concepts:
+    - Location
   vocabularies:
     - identifier-type
   properties: []

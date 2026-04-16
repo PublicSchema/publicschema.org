@@ -15,3 +15,6 @@ informs:
   vocabularies: []
   properties:
     - cause_of_fetal_death
+    - cause_of_fetal_death_code
+    - cause_of_fetal_death_coding_system
+    - medical_certifier

@@ -11,6 +11,11 @@ access: open
 status: active
 
 informs:
-  concepts: []
-  vocabularies: []
-  properties: []
+  concepts:
+    - IdentityDocument
+  vocabularies:
+    - document-type
+    - identifier-type
+    - sp/eligibility-status
+  properties:
+    - is_enrolled

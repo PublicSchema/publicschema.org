@@ -14,4 +14,13 @@ informs:
     - Birth
     - FetalDeath
   vocabularies: []
-  properties: []
+  properties:
+    - gestational_age
+    - weight_at_birth
+    - attendant_at_birth
+    - sex_at_birth
+    - birth_type
+    - birth_order
+    - cause_of_fetal_death
+    - cause_of_fetal_death_code
+    - cause_of_fetal_death_coding_system

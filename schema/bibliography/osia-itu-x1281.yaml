@@ -11,6 +11,10 @@ access: open
 status: active
 
 informs:
-  concepts: []
-  vocabularies: []
+  concepts:
+    - BiometricSample
+  vocabularies:
+    - biometric-modality
+    - biometric-subtype
+    - impression-type
   properties: []

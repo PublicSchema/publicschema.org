@@ -11,6 +11,9 @@ access: open
 status: active
 
 informs:
-  concepts: []
-  vocabularies: []
+  concepts:
+    - Certificate
+    - CivilStatusRecord
+  vocabularies:
+    - crvs/certificate-format
   properties: []
