@@ -1,0 +1,42 @@
+id: food-consumption-group
+maturity: draft
+label:
+  en: Food Consumption Group
+  fr: Groupe de consommation alimentaire
+  es: Grupo de consumo alimentario
+definition:
+  en: "The food consumption group derived from the Food Consumption Score (FCS) using WFP standard thresholds. Standard thresholds are 21 and 35; in high-sugar or high-oil dietary contexts, WFP recommends adjusted thresholds of 28 and 42."
+  fr: "Le groupe de consommation alimentaire dérivé du score de consommation alimentaire (FCS) selon les seuils standard du PAM. Les seuils standard sont 21 et 35 ; dans les contextes alimentaires à forte consommation de sucre ou d'huile, le PAM recommande des seuils ajustés de 28 et 42."
+  es: "El grupo de consumo alimentario derivado del puntaje de consumo alimentario (FCS) según los umbrales estándar del PMA. Los umbrales estándar son 21 y 35; en contextos dietéticos con alto consumo de azúcar o aceite, el PMA recomienda umbrales ajustados de 28 y 42."
+standard:
+  name: "WFP VAM Food Consumption Score Technical Guidance Note (2015)"
+  uri: https://www.wfp.org/publications/food-consumption-score-technical-guidance
+  notes: "Three consumption groups using standard 21/35 or high-sugar/oil 28/42 thresholds."
+values:
+- code: poor
+  label:
+    en: Poor
+    fr: Pauvre
+    es: Pobre
+  definition:
+    en: "FCS 0-21 (standard thresholds) or 0-28 (high-sugar/oil thresholds). Indicates an inadequate diet with very low frequency and diversity of food group consumption."
+    fr: "FCS 0-21 (seuils standard) ou 0-28 (seuils sucre/huile élevés). Indique un régime alimentaire inadéquat avec une fréquence et une diversité très faibles de la consommation par groupe alimentaire."
+    es: "FCS 0-21 (umbrales estándar) o 0-28 (umbrales alto azúcar/aceite). Indica una dieta inadecuada con muy baja frecuencia y diversidad de consumo por grupo alimentario."
+- code: borderline
+  label:
+    en: Borderline
+    fr: Limite
+    es: Límite
+  definition:
+    en: "FCS 21.5-35 (standard thresholds) or 28.5-42 (high-sugar/oil thresholds). Indicates a diet at risk, with limited frequency and diversity of food group consumption."
+    fr: "FCS 21,5-35 (seuils standard) ou 28,5-42 (seuils sucre/huile élevés). Indique un régime alimentaire à risque, avec une fréquence et une diversité limitées de la consommation par groupe alimentaire."
+    es: "FCS 21,5-35 (umbrales estándar) o 28,5-42 (umbrales alto azúcar/aceite). Indica una dieta en riesgo, con frecuencia y diversidad limitadas de consumo por grupo alimentario."
+- code: acceptable
+  label:
+    en: Acceptable
+    fr: Acceptable
+    es: Aceptable
+  definition:
+    en: "FCS above 35 (standard thresholds) or above 42 (high-sugar/oil thresholds). Indicates an adequate diet with sufficient frequency and diversity of food group consumption."
+    fr: "FCS supérieur à 35 (seuils standard) ou supérieur à 42 (seuils sucre/huile élevés). Indique un régime alimentaire adéquat avec une fréquence et une diversité suffisantes de la consommation par groupe alimentaire."
+    es: "FCS superior a 35 (umbrales estándar) o superior a 42 (umbrales alto azúcar/aceite). Indica una dieta adecuada con suficiente frecuencia y diversidad de consumo por grupo alimentario."

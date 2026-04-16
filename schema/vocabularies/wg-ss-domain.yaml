@@ -1,0 +1,69 @@
+id: wg-ss-domain
+maturity: draft
+label:
+  en: WG-SS Functioning Domain
+  fr: Domaine de fonctionnement WG-SS
+  es: Dominio de funcionamiento WG-SS
+definition:
+  en: "The six core functioning domains of the Washington Group Short Set on Functioning (WG-SS). Used to identify which domains triggered a disability identifier."
+  fr: "Les six domaines fondamentaux de fonctionnement de l'ensemble court du Washington Group sur le fonctionnement (WG-SS). Utilisé pour identifier quels domaines ont déclenché un identifiant de handicap."
+  es: "Los seis dominios principales de funcionamiento del conjunto corto del Washington Group sobre funcionamiento (WG-SS). Se utiliza para identificar qué dominios activaron un identificador de discapacidad."
+standard:
+  name: "Washington Group Short Set on Functioning (WG-SS), 2006/2016"
+  uri: https://www.washingtongroup-disability.com/question-sets/wg-short-set-on-functioning-wg-ss/
+  notes: "Six core domains, each assessed with a single question on a four-level response scale (no difficulty, some difficulty, a lot of difficulty, cannot do at all)."
+values:
+- code: seeing
+  label:
+    en: Seeing
+    fr: Vision
+    es: "Visión"
+  definition:
+    en: "Difficulty seeing, even when wearing glasses."
+    fr: "Difficulté à voir, même en portant des lunettes."
+    es: "Dificultad para ver, incluso usando lentes."
+- code: hearing
+  label:
+    en: Hearing
+    fr: Audition
+    es: "Audición"
+  definition:
+    en: "Difficulty hearing, even when using a hearing aid."
+    fr: "Difficulté à entendre, même en utilisant un appareil auditif."
+    es: "Dificultad para oír, incluso usando un audífono."
+- code: walking
+  label:
+    en: Walking
+    fr: Marche
+    es: Caminar
+  definition:
+    en: "Difficulty walking or climbing steps."
+    fr: "Difficulté à marcher ou monter des marches."
+    es: "Dificultad para caminar o subir escalones."
+- code: cognition
+  label:
+    en: Cognition
+    fr: Cognition
+    es: "Cognición"
+  definition:
+    en: "Difficulty remembering or concentrating."
+    fr: "Difficulté à se souvenir ou à se concentrer."
+    es: "Dificultad para recordar o concentrarse."
+- code: self_care
+  label:
+    en: Self-care
+    fr: Soins personnels
+    es: Cuidado personal
+  definition:
+    en: "Difficulty with self-care, such as washing all over or dressing."
+    fr: "Difficulté avec les soins personnels, comme se laver entièrement ou s'habiller."
+    es: "Dificultad con el cuidado personal, como bañarse completamente o vestirse."
+- code: communication
+  label:
+    en: Communication
+    fr: Communication
+    es: "Comunicación"
+  definition:
+    en: "Difficulty communicating, for example understanding or being understood."
+    fr: "Difficulté à communiquer, par exemple comprendre ou être compris."
+    es: "Dificultad para comunicarse, por ejemplo comprender o ser comprendido."
