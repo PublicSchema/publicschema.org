@@ -1,0 +1,17 @@
+id: muac_cutoff_rule
+maturity: draft
+label:
+  en: "MUAC cutoff rule"
+  fr: "Règle de seuil PB"
+  es: "Regla de corte MUAC"
+
+definition:
+  en: "The population-specific cutoff rule used to classify acute malnutrition from MUAC measurements. MUAC cutoffs differ by population: WHO/UNICEF thresholds for children 6-59 months, z-score based for school-age children and adolescents, Sphere thresholds for pregnant and lactating women. Required whenever acute_malnutrition_status is populated from a MUAC measurement."
+  fr: "La règle de seuil spécifique à la population utilisée pour classer la malnutrition aiguë à partir des mesures de périmètre brachial. Les seuils de périmètre brachial varient selon la population : seuils OMS/UNICEF pour les enfants de 6 à 59 mois, fondés sur le z-score pour les enfants d'âge scolaire et adolescents, seuils Sphere pour les femmes enceintes et allaitantes. Requise dès que acute_malnutrition_status est renseigné à partir d'une mesure de périmètre brachial."
+  es: "La regla de corte específica para la población utilizada para clasificar la desnutrición aguda a partir de las mediciones del perímetro braquial. Los cortes de perímetro braquial difieren por población: umbrales OMS/UNICEF para niños de 6 a 59 meses, basados en puntaje z para niños en edad escolar y adolescentes, umbrales Sphere para mujeres embarazadas y lactantes. Requerida siempre que se complete acute_malnutrition_status a partir de una medición del perímetro braquial."
+
+type: string
+cardinality: single
+vocabulary: cutoff-rule
+references: null
+valid_instruments: [smart]

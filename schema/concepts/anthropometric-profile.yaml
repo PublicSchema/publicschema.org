@@ -59,7 +59,7 @@ properties:
   - underweight_status
   - acute_malnutrition_status
   - muac_band
-  - cutoff_rule
+  - muac_cutoff_rule
 
 property_groups:
   - category: administrative
@@ -92,7 +92,7 @@ property_groups:
       - underweight_status
       - acute_malnutrition_status
       - muac_band
-      - cutoff_rule
+      - muac_cutoff_rule
 
 subtypes: []
 supertypes: [Profile]

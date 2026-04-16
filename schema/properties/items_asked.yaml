@@ -6,9 +6,9 @@ label:
   es: "Ítems preguntados"
 
 definition:
-  en: "The property IDs that were actually asked during this administration. Lets adopters distinguish items that were asked and declined (answer absent) from items that were not asked at all. When omitted, the item set is assumed to be the default item_set of the instrument used."
-  fr: "Les identifiants des propriétés effectivement posées lors de cette administration. Permet aux adopteurs de distinguer les items posés et refusés (réponse absente) des items qui n'ont pas été posés du tout. En l'absence de cette liste, l'ensemble d'items est présumé correspondre à l'item_set par défaut de l'instrument utilisé."
-  es: "Los identificadores de las propiedades realmente preguntadas durante esta administración. Permite a los adoptantes distinguir ítems preguntados y rechazados (respuesta ausente) de ítems que no fueron preguntados. Cuando se omite, el conjunto de ítems se asume igual al item_set por defecto del instrumento utilizado."
+  en: "The PublicSchema property IDs that were actually asked during this administration. Lets adopters distinguish items that were asked and declined (answer absent) from items that were not asked at all. When omitted, the item set is assumed to be the default item_set of the instrument used. The intended producer is the form compiler or collection server, which populates this list from the form definition at submission time."
+  fr: "Les identifiants de propriétés PublicSchema effectivement posées lors de cette administration. Permet aux adopteurs de distinguer les items posés et refusés (réponse absente) des items qui n'ont pas été posés du tout. En l'absence de cette liste, l'ensemble d'items est présumé correspondre à l'item_set par défaut de l'instrument utilisé. Le producteur prévu est le compilateur de formulaire ou le serveur de collecte, qui remplit cette liste à partir de la définition du formulaire au moment de la soumission."
+  es: "Los identificadores de propiedades PublicSchema realmente preguntados durante esta administración. Permite a los adoptantes distinguir ítems preguntados y rechazados (respuesta ausente) de ítems que no fueron preguntados. Cuando se omite, el conjunto de ítems se asume igual al item_set por defecto del instrumento utilizado. El productor previsto es el compilador de formularios o el servidor de recolección, que completa esta lista a partir de la definición del formulario al momento del envío."
 
 type: string
 cardinality: multiple

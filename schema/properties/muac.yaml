@@ -6,9 +6,9 @@ label:
   es: "Circunferencia media del brazo (MUAC)"
 
 definition:
-  en: "The mid-upper arm circumference (MUAC) of the person, measured in millimeters. MUAC is a field screening measure for acute malnutrition in children aged 6-59 months."
-  fr: "Le périmètre brachial (PB) de la personne, mesuré en millimètres. Le périmètre brachial est une mesure de dépistage de terrain pour la malnutrition aiguë chez les enfants de 6 à 59 mois."
-  es: "La circunferencia media del brazo (MUAC) de la persona, medida en milímetros. Es una medida de tamizaje en campo para la desnutrición aguda en niños de 6 a 59 meses."
+  en: "The mid-upper arm circumference (MUAC) of the person, measured in millimeters (unit: mm, typical range 30-300). MUAC is a field screening measure for acute malnutrition in children aged 6-59 months."
+  fr: "Le périmètre brachial (PB) de la personne, mesuré en millimètres (unité : mm, plage typique 30-300). Le périmètre brachial est une mesure de dépistage de terrain pour la malnutrition aiguë chez les enfants de 6 à 59 mois."
+  es: "La circunferencia media del brazo (MUAC) de la persona, medida en milímetros (unidad: mm, rango típico 30-300). Es una medida de tamizaje en campo para la desnutrición aguda en niños de 6 a 59 meses."
 
 type: decimal
 cardinality: single
