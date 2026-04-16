@@ -13,10 +13,13 @@ definition:
     humanitarian food-security canon: WFP FCS, rCSI, LCS, and CARI; FAO
     HDDS, FIES, MDD-W, and MAHFP; and the FANTA HHS. Captures the raw
     item responses alongside the administration context (instrument,
-    mode, respondent, recall period). The profile does not itself
-    compute FCS, rCSI, LCS, CARI, HDDS, MDD-W, MAHFP, or HHS scores:
-    scoring is recorded separately as a ScoringEvent that cites the
-    rule and, for CARI, the upstream Profile outputs it consumed.
+    mode, respondent, recall period) and carries canonical-rule derived
+    outputs for each instrument's standard scoring function (for example,
+    the FCS weighted score and consumption group using WFP standard 21/35
+    thresholds, the rCSI sum score, or the HHS category). CARI, as a
+    second-order composite that consumes scores from multiple instruments,
+    is recorded via ScoringEvent rather than on this profile. No
+    equivalent derived output is yet defined for LCS (deferred).
   fr: >
     Un enregistrement ponctuel de données de sécurité alimentaire du
     ménage (ou, pour MDD-W, individuelles) collectées à l'aide d'un ou
@@ -24,11 +27,14 @@ definition:
     alimentaire : FCS, rCSI, LCS et CARI du PAM ; HDDS, FIES, MDD-W et
     MAHFP de la FAO ; et HHS de FANTA. Consigne les réponses brutes aux
     items ainsi que le contexte d'administration (instrument, mode,
-    répondant, période de rappel). Le profil ne calcule pas lui-même
-    les scores FCS, rCSI, LCS, CARI, HDDS, MDD-W, MAHFP ou HHS : la
-    notation est enregistrée séparément via un ScoringEvent citant la
-    règle et, pour CARI, les sorties de Profile en amont qu'il a
-    consommées.
+    répondant, période de rappel) et porte les résultats dérivés
+    canoniques pour la fonction de notation standard de chaque instrument
+    (par exemple, le score pondéré FCS et le groupe de consommation selon
+    les seuils standard 21/35 du PAM, le score somme rCSI, ou la
+    catégorie HHS). CARI, en tant que composite de second ordre
+    consommant les scores de plusieurs instruments, est enregistré via
+    ScoringEvent plutôt que sur ce profil. Aucun résultat dérivé
+    équivalent n'est encore défini pour LCS (reporté).
   es: >
     Un registro puntual de datos de seguridad alimentaria del hogar
     (o, para MDD-W, individuales) recopilados mediante uno o más
@@ -36,11 +42,14 @@ definition:
     rCSI, LCS y CARI del PMA; HDDS, FIES, MDD-W y MAHFP de la FAO; y
     HHS de FANTA. Consigna las respuestas brutas a los ítems junto con
     el contexto de administración (instrumento, modo, respondiente,
-    período de recordatorio). El perfil no calcula por sí mismo los
-    puntajes FCS, rCSI, LCS, CARI, HDDS, MDD-W, MAHFP o HHS: la
-    puntuación se registra aparte como un ScoringEvent que cita la
-    regla y, para CARI, las salidas de Profile aguas arriba que
-    consumió.
+    período de recordatorio) y lleva los resultados derivados canónicos
+    para la función de puntuación estándar de cada instrumento (por
+    ejemplo, el puntaje ponderado FCS y el grupo de consumo según los
+    umbrales estándar 21/35 del PMA, el puntaje suma rCSI, o la
+    categoría HHS). CARI, como un compuesto de segundo orden que consume
+    puntajes de múltiples instrumentos, se registra mediante ScoringEvent
+    en lugar de en este perfil. Aún no se define un resultado derivado
+    equivalente para LCS (diferido).
 
 properties:
   - fcs_staples_days

@@ -13,10 +13,14 @@ definition:
     structured item responses (seeing, hearing, walking, cognition,
     self-care, communication, affect, pain, fatigue, behaviour, and
     related extended items) alongside the administration context
-    (administration mode, respondent, instrument version). A functioning
-    profile is not a disability classification of the person: it is the
-    raw evidence from which disability identifiers can be constructed by
-    applying a documented cutoff rule.
+    (administration mode, respondent, instrument version). For WG-SS
+    administrations, the profile carries the canonical disability
+    identifier (recommended cutoff: at least one domain reports "a lot
+    of difficulty" or "cannot do at all") and the domains that triggered
+    it. This is a survey-based statistical identifier for population
+    reporting, not a clinical disability determination. Alternate cutoffs
+    are recorded via ScoringEvent. No equivalent derived identifier is
+    yet defined for CFM or WG-ES administrations.
   fr: >
     Un enregistrement ponctuel de données de fonctionnement collectées sur
     une personne à l'aide d'un instrument défini de la famille Washington
@@ -25,10 +29,15 @@ definition:
     audition, marche, cognition, soins personnels, communication, affect,
     douleur, fatigue, comportement et items étendus associés) ainsi que le
     contexte d'administration (mode d'administration, répondant, version
-    de l'instrument). Un profil de fonctionnement n'est pas une
-    classification du handicap de la personne : c'est la donnée brute à
-    partir de laquelle des indicateurs d'identification du handicap
-    peuvent être construits en appliquant une règle de seuil documentée.
+    de l'instrument). Pour les administrations WG-SS, le profil porte
+    l'identifiant canonique de handicap (seuil recommandé : au moins un
+    domaine rapporte « beaucoup de difficulté » ou « ne peut pas du
+    tout ») et les domaines qui l'ont déclenché. Il s'agit d'un
+    identifiant statistique d'enquête pour le reporting de population,
+    pas d'une détermination clinique du handicap. Les seuils alternatifs
+    sont enregistrés via ScoringEvent. Aucun identifiant dérivé
+    équivalent n'est encore défini pour les administrations CFM ou
+    WG-ES.
   es: >
     Un registro puntual de datos de funcionamiento recopilados sobre una
     persona mediante un instrumento definido de la familia Washington
@@ -37,10 +46,14 @@ definition:
     audición, caminar, cognición, cuidado personal, comunicación, afecto,
     dolor, fatiga, conducta e ítems extendidos relacionados) junto con el
     contexto de administración (modo de administración, respondiente,
-    versión del instrumento). Un perfil de funcionamiento no es una
-    clasificación de discapacidad de la persona: es la evidencia bruta a
-    partir de la cual pueden construirse identificadores de discapacidad
-    aplicando una regla de corte documentada.
+    versión del instrumento). Para administraciones WG-SS, el perfil
+    lleva el identificador canónico de discapacidad (corte recomendado:
+    al menos un dominio reporta "mucha dificultad" o "no puede hacerlo")
+    y los dominios que lo activaron. Es un identificador estadístico de
+    encuesta para reporte poblacional, no una determinación clínica de
+    discapacidad. Los cortes alternativos se registran mediante
+    ScoringEvent. Aún no se define un identificador derivado equivalente
+    para administraciones CFM o WG-ES.
 
 properties:
   - difficulty_seeing
