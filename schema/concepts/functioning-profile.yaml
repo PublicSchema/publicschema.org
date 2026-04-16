@@ -88,6 +88,10 @@ properties:
   - depression_intensity
   - depression_medication
   - difficulty_upper_body_reach
+  - difficulty_upper_body_fine_motor
+  - uses_sign_language
+  - mobility_aid_types
+  - cognition_remembering_frequency
   - difficulty_seeing_face_across_room
   - difficulty_seeing_coin
   - hearing_aid_use_frequency
@@ -139,6 +143,10 @@ property_groups:
       - depression_intensity
       - depression_medication
       - difficulty_upper_body_reach
+      - difficulty_upper_body_fine_motor
+      - uses_sign_language
+      - mobility_aid_types
+      - cognition_remembering_frequency
       - difficulty_seeing_face_across_room
       - difficulty_seeing_coin
       - hearing_aid_use_frequency

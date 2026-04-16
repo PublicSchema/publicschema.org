@@ -1,0 +1,21 @@
+id: uses_sign_language
+maturity: draft
+label:
+  en: "Uses sign language"
+  fr: "Utilise la langue des signes"
+  es: "Usa lengua de señas"
+
+definition:
+  en: "Whether the person uses sign language as a communication method. Applies to adults (WG-ES COM_2). This filter captures the communication modality used and may inform interpretation of difficulty_communication responses."
+  fr: "Si la personne utilise la langue des signes comme méthode de communication. S'applique aux adultes (WG-ES COM_2). Ce filtre capture la modalité de communication utilisée et peut contribuer à l'interprétation des réponses à difficulty_communication."
+  es: "Si la persona usa lengua de señas como método de comunicación. Se aplica a adultos (WG-ES COM_2). Este filtro captura la modalidad de comunicación utilizada y puede informar la interpretación de las respuestas de difficulty_communication."
+
+type: boolean
+cardinality: single
+vocabulary: null
+references: null
+category: functioning
+sensitivity: sensitive
+age_applicability:
+  - adult
+valid_instruments: [wg_es]

@@ -1,0 +1,21 @@
+id: mobility_aid_types
+maturity: draft
+label:
+  en: "Mobility aid types used"
+  fr: "Types d'aides à la mobilité utilisées"
+  es: "Tipos de ayudas para la movilidad utilizadas"
+
+definition:
+  en: "The specific types of mobility equipment or assistance the person uses, as recorded by the WG-ES MOB_3 multi-select checklist. Multiple values may be recorded. Applies to adults who reported using equipment or receiving help for getting around (WG-ES MOB_2 = Yes)."
+  fr: "Les types spécifiques d'équipements de mobilité ou d'assistance que la personne utilise, tels qu'enregistrés par la liste de contrôle multi-sélection MOB_3 du WG-ES. Plusieurs valeurs peuvent être enregistrées. S'applique aux adultes ayant déclaré utiliser des équipements ou recevoir de l'aide pour se déplacer (WG-ES MOB_2 = Oui)."
+  es: "Los tipos específicos de equipos de movilidad o asistencia que usa la persona, según lo registrado por la lista de verificación de selección múltiple MOB_3 del WG-ES. Se pueden registrar múltiples valores. Se aplica a adultos que informaron usar equipos o recibir ayuda para desplazarse (WG-ES MOB_2 = Sí)."
+
+type: string
+cardinality: multiple
+vocabulary: mobility-aid-type
+references: null
+category: functioning
+sensitivity: sensitive
+age_applicability:
+  - adult
+valid_instruments: [wg_es]

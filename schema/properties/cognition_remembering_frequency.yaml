@@ -1,0 +1,21 @@
+id: cognition_remembering_frequency
+maturity: draft
+label:
+  en: "Frequency of difficulty remembering"
+  fr: "Fréquence des difficultés à se souvenir"
+  es: "Frecuencia de dificultad para recordar"
+
+definition:
+  en: "How often the person has difficulty remembering. Applies to adults (WG-ES COG_3). Asked only of respondents whose cognition difficulty includes remembering (COG_2 result is not concentrating_only)."
+  fr: "À quelle fréquence la personne a des difficultés à se souvenir. S'applique aux adultes (WG-ES COG_3). Posée uniquement aux répondants dont la difficulté cognitive inclut la mémoire (le résultat COG_2 n'est pas concentration uniquement)."
+  es: "Con qué frecuencia la persona tiene dificultad para recordar. Se aplica a adultos (WG-ES COG_3). Se pregunta solo a los encuestados cuya dificultad cognitiva incluye recordar (el resultado COG_2 no es solo concentrarse)."
+
+type: string
+cardinality: single
+vocabulary: cognition-frequency-3pt
+references: null
+category: functioning
+sensitivity: sensitive
+age_applicability:
+  - adult
+valid_instruments: [wg_es]

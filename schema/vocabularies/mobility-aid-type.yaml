@@ -1,0 +1,104 @@
+id: mobility-aid-type
+maturity: draft
+label:
+  en: Mobility Aid Type
+  fr: "Type d'aide à la mobilité"
+  es: "Tipo de ayuda para la movilidad"
+definition:
+  en: "The type of mobility aid or assistance a person uses for getting around, drawn from the Washington Group Extended Set on Functioning (WG-ES) MOB_3 checklist. Multi-select: all applicable types should be recorded."
+  fr: "Le type d'aide à la mobilité ou d'assistance qu'une personne utilise pour se déplacer, tiré de la liste de contrôle MOB_3 de l'Ensemble étendu du Groupe de Washington sur le fonctionnement (WG-ES). Multi-sélection : tous les types applicables doivent être enregistrés."
+  es: "El tipo de ayuda para la movilidad o asistencia que una persona usa para desplazarse, tomado de la lista de verificación MOB_3 del Conjunto Extendido del Grupo de Washington sobre Funcionamiento (WG-ES). Selección múltiple: se deben registrar todos los tipos aplicables."
+standard:
+  name: "Washington Group Extended Set on Functioning (WG-ES)"
+  uri: https://www.washingtongroup-disability.com/question-sets/wg-extended-set-on-functioning-wg-es/
+  notes: "Used on WG-ES item MOB_3. Asked only of respondents who reported using equipment or receiving help for getting around (MOB_2 = Yes)."
+values:
+- code: cane_or_walking_stick
+  label:
+    en: Cane or walking stick
+    fr: "Canne ou bâton de marche"
+    es: "Bastón o palo de caminar"
+  definition:
+    en: "The person uses a cane or walking stick."
+    fr: "La personne utilise une canne ou un bâton de marche."
+    es: "La persona usa un bastón o palo de caminar."
+- code: walker_or_zimmer_frame
+  label:
+    en: Walker or Zimmer frame
+    fr: "Déambulateur ou cadre de marche"
+    es: "Andador o marco de deambulación"
+  definition:
+    en: "The person uses a walker or Zimmer frame."
+    fr: "La personne utilise un déambulateur ou un cadre de marche."
+    es: "La persona usa un andador o marco de deambulación."
+- code: crutches
+  label:
+    en: Crutches
+    fr: "Béquilles"
+    es: "Muletas"
+  definition:
+    en: "The person uses crutches."
+    fr: "La personne utilise des béquilles."
+    es: "La persona usa muletas."
+- code: wheelchair_or_scooter
+  label:
+    en: Wheelchair or scooter
+    fr: "Fauteuil roulant ou scooter"
+    es: "Silla de ruedas o scooter"
+  definition:
+    en: "The person uses a wheelchair or mobility scooter."
+    fr: "La personne utilise un fauteuil roulant ou un scooter de mobilité."
+    es: "La persona usa una silla de ruedas o scooter de movilidad."
+- code: artificial_limb
+  label:
+    en: Artificial limb
+    fr: "Membre artificiel"
+    es: "Miembro artificial"
+  definition:
+    en: "The person uses an artificial limb (leg or foot)."
+    fr: "La personne utilise un membre artificiel (jambe ou pied)."
+    es: "La persona usa un miembro artificial (pierna o pie)."
+- code: personal_assistance
+  label:
+    en: Personal assistance
+    fr: "Assistance personnelle"
+    es: "Asistencia personal"
+  definition:
+    en: "The person receives assistance from another person for mobility."
+    fr: "La personne reçoit l'aide d'une autre personne pour se déplacer."
+    es: "La persona recibe asistencia de otra persona para la movilidad."
+- code: other
+  label:
+    en: Other
+    fr: Autre
+    es: Otro
+  definition:
+    en: "The person uses another type of mobility aid not listed."
+    fr: "La personne utilise un autre type d'aide à la mobilité non répertorié."
+    es: "La persona usa otro tipo de ayuda para la movilidad no enumerado."
+system_mappings:
+  wg_es:
+    vocabulary_name: WG-ES MOB_3 mobility aid checklist
+    values:
+    - code: A
+      label: Cane or walking stick
+      maps_to: cane_or_walking_stick
+    - code: B
+      label: Walker or Zimmer frame
+      maps_to: walker_or_zimmer_frame
+    - code: C
+      label: Crutches
+      maps_to: crutches
+    - code: D
+      label: Wheelchair or scooter
+      maps_to: wheelchair_or_scooter
+    - code: E
+      label: Artificial limb (leg/foot)
+      maps_to: artificial_limb
+    - code: F
+      label: Someone's assistance
+      maps_to: personal_assistance
+    - code: G
+      label: Other (please specify)
+      maps_to: other
+    note: "WG-ES MOB_3 is a multi-select checklist. Each option is recorded as Yes/No; all affirmative responses map to the corresponding code in this vocabulary."

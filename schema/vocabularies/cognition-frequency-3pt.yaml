@@ -1,0 +1,42 @@
+id: cognition-frequency-3pt
+maturity: draft
+label:
+  en: Cognition Frequency (3-point)
+  fr: "Fréquence des difficultés cognitives (3 niveaux)"
+  es: "Frecuencia de dificultades cognitivas (3 niveles)"
+definition:
+  en: "A three-point frequency scale describing how often a person has difficulty remembering, used in the Washington Group Extended Set on Functioning (WG-ES) item COG_3."
+  fr: "Une échelle de fréquence à trois niveaux décrivant la fréquence des difficultés de mémoire d'une personne, utilisée dans l'item COG_3 de l'Ensemble étendu du Groupe de Washington sur le fonctionnement (WG-ES)."
+  es: "Una escala de frecuencia de tres niveles que describe con qué frecuencia una persona tiene dificultad para recordar, utilizada en el ítem COG_3 del Conjunto Extendido del Grupo de Washington sobre Funcionamiento (WG-ES)."
+standard:
+  name: "Washington Group Extended Set on Functioning (WG-ES)"
+  uri: https://www.washingtongroup-disability.com/question-sets/wg-extended-set-on-functioning-wg-es/
+  notes: "Used on WG-ES item COG_3. Asked only of respondents whose cognition difficulty includes remembering (COG_2 ≠ concentrating_only)."
+values:
+- code: sometimes
+  label:
+    en: Sometimes
+    fr: Parfois
+    es: A veces
+  definition:
+    en: "The person sometimes has difficulty remembering."
+    fr: "La personne a parfois des difficultés à se souvenir."
+    es: "La persona a veces tiene dificultad para recordar."
+- code: often
+  label:
+    en: Often
+    fr: "Souvent"
+    es: "A menudo"
+  definition:
+    en: "The person often has difficulty remembering."
+    fr: "La personne a souvent des difficultés à se souvenir."
+    es: "La persona a menudo tiene dificultad para recordar."
+- code: all_of_the_time
+  label:
+    en: All of the time
+    fr: "Tout le temps"
+    es: "Todo el tiempo"
+  definition:
+    en: "The person has difficulty remembering all of the time."
+    fr: "La personne a des difficultés à se souvenir tout le temps."
+    es: "La persona tiene dificultad para recordar todo el tiempo."
