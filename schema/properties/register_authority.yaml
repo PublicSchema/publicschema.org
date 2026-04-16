@@ -6,9 +6,9 @@ label:
   es: "Autoridad del registro"
 
 definition:
-  en: "The authority that maintains the family register. Typically a municipal or ward-level civil registration office."
-  fr: "L'autorité qui tient le registre familial. Généralement un bureau d'état civil au niveau municipal ou d'arrondissement."
-  es: "La autoridad que mantiene el registro familiar. Generalmente una oficina de registro civil a nivel municipal o de distrito."
+  en: "The authority that maintains the family register, modelled as a Location (typically a municipal or ward-level civil registration office). Distinct from issuer, which is the Agent legally accountable for issuance: the two often denote the same body, but register_authority names the site that holds the register while issuer names the issuing party."
+  fr: "L'autorité qui tient le registre familial, modélisée comme un Lieu (généralement un bureau d'état civil au niveau municipal ou d'arrondissement). Distinct d'issuer, qui est l'Agent juridiquement responsable de la délivrance : les deux désignent souvent le même organe, mais register_authority nomme le site qui détient le registre, tandis qu'issuer nomme la partie émettrice."
+  es: "La autoridad que mantiene el registro familiar, modelada como una Ubicación (generalmente una oficina de registro civil a nivel municipal o de distrito). Distinto de issuer, que es el Agent legalmente responsable de la emisión: ambos suelen referirse al mismo organismo, pero register_authority nombra el sitio que mantiene el registro, mientras que issuer nombra a la parte emisora."
 
 type: concept:Location
 cardinality: single

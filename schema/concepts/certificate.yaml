@@ -34,10 +34,6 @@ definition:
 properties:
   - vital_event
   - civil_status_record
-  - document_number
-  - identifiers
-  - issuer
-  - issue_date
   - expiry_date
   - issuing_office
   - certificate_document_type

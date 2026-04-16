@@ -40,11 +40,7 @@ definition:
 properties:
   - family
   - head_of_household
-  - document_number
-  - identifiers
   - register_authority
-  - issuer
-  - issue_date
   - creation_date
   - family_register_status
 

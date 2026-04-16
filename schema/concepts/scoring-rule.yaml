@@ -39,10 +39,6 @@ definition:
     mediante distintos instrumentos.
 
 properties:
-  - name
-  - version
-  - publisher
-  - publication_url
   - scoring_method
   - data_sources
   - cutoff_score
