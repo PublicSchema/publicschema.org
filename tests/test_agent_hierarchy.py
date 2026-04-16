@@ -27,10 +27,7 @@ BIBLIOGRAPHY = SCHEMA_DIR / "bibliography"
 
 PROFILE_SUBTYPES = [
     "functioning-profile.yaml",
-    "anthropometric-profile.yaml",
     "socio-economic-profile.yaml",
-    "food-security-profile.yaml",
-    "dwelling-damage-profile.yaml",
 ]
 
 ACTOR_PROPERTIES = ["performed_by", "evaluator", "publisher"]

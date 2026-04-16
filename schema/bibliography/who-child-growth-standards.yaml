@@ -12,13 +12,5 @@ status: active
 informs:
   concepts:
     - Person
-  vocabularies:
-    - growth-reference
-    - malnutrition-severity
-    - measurement-type
-  properties:
-    - body_weight
-    - height
-    - stunting_status
-    - underweight_status
-    - wasting_status
+  vocabularies: []
+  properties: []

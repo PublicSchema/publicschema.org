@@ -67,14 +67,14 @@ class TestRealSchema:
 
         # Verify counts are at or above the current floor. Bump these
         # whenever the floor shifts; do not use them as precise counts.
-        assert len(result["concepts"]) >= 59, (
-            f"Expected at least 59 concepts, got {len(result['concepts'])}"
+        assert len(result["concepts"]) >= 56, (
+            f"Expected at least 56 concepts, got {len(result['concepts'])}"
         )
-        assert len(result["properties"]) >= 444, (
-            f"Expected at least 444 properties, got {len(result['properties'])}"
+        assert len(result["properties"]) >= 345, (
+            f"Expected at least 345 properties, got {len(result['properties'])}"
         )
-        assert len(result["vocabularies"]) >= 114, (
-            f"Expected at least 114 vocabularies, got {len(result['vocabularies'])}"
+        assert len(result["vocabularies"]) >= 92, (
+            f"Expected at least 92 vocabularies, got {len(result['vocabularies'])}"
         )
 
         # Every concept should have a JSON Schema generated

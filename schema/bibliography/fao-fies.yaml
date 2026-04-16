@@ -22,10 +22,8 @@ status: active
 informs:
   concepts:
     - Household
-    - FoodSecurityProfile
   vocabularies:
     - food-security-level
     - instrument-id
   properties:
-    - fies_raw_score
     - food_security_level

@@ -135,8 +135,9 @@ convergence:
     Universal across all 6 mapped systems. The most consistently represented
     concept in social protection delivery systems. All systems maintain a
     person-level record as the primary unit of identity. Detailed
-    point-in-time functioning and anthropometric observations live on
-    FunctioningProfile and AnthropometricProfile records; Person keeps only
+    point-in-time functioning observations live on FunctioningProfile
+    records; anthropometric observations live on dedicated profile types
+    in domain-specific schemas (see schema.aidops.org). Person keeps only
     a coarse current-state summary (functioning_status, nutrition_status)
     for targeting and reporting workflows. Practitioner review confirmed
     this hybrid matches operational systems such as UNHCR proGres Specific

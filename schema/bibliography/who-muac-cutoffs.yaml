@@ -14,10 +14,4 @@ informs:
     - Person
   vocabularies:
     - acute-malnutrition-severity
-    - cutoff-rule
-    - muac-band
-  properties:
-    - acute_malnutrition_status
-    - muac
-    - muac_band
-    - muac_cutoff_rule
+  properties: []

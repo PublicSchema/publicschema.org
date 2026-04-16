@@ -94,18 +94,6 @@ food_security:
     fr: Sécurité alimentaire
     es: Seguridad alimentaria
 
-scores:
-  label:
-    en: Scores
-    fr: Scores
-    es: Puntajes
-
-nutrition:
-  label:
-    en: Nutrition
-    fr: Nutrition
-    es: Nutrición
-
 agriculture:
   label:
     en: Agriculture
@@ -124,47 +112,11 @@ biometrics:
     fr: Biométrie
     es: Biometría
 
-shelter:
-  label:
-    en: Shelter
-    fr: Abri
-    es: Refugio
-
-habitability:
-  label:
-    en: Habitability
-    fr: Habitabilité
-    es: Habitabilidad
-
-nfi:
-  label:
-    en: Non-food Items
-    fr: Articles non alimentaires
-    es: Artículos no alimentarios
-
-recovery:
-  label:
-    en: Recovery
-    fr: Relèvement
-    es: Recuperación
-
-context:
-  label:
-    en: Context
-    fr: Contexte
-    es: Contexto
-
 event:
   label:
     en: Event
     fr: Événement
     es: Evento
-
-hazard_event:
-  label:
-    en: Hazard event
-    fr: Événement dangereux
-    es: Evento de peligro
 
 vital_event:
   label:

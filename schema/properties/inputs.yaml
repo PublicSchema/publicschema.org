@@ -6,9 +6,9 @@ label:
   es: "Entradas de puntuación"
 
 definition:
-  en: "The profile records that provided the data scored in this scoring event. A PMT scoring event typically takes a SocioEconomicProfile as input; a Washington Group disability identifier takes a FunctioningProfile; a wasting classification takes an AnthropometricProfile."
-  fr: "Les enregistrements de profil ayant fourni les données notées lors de cet événement de notation. Un événement de notation PMT prend typiquement un SocioEconomicProfile en entrée ; un identifiant de handicap du Washington Group prend un FunctioningProfile ; une classification d'émaciation prend un AnthropometricProfile."
-  es: "Los registros de perfil que proporcionaron los datos puntuados en este evento de puntuación. Un evento de puntuación PMT típicamente toma un SocioEconomicProfile como entrada; un identificador de discapacidad del Washington Group toma un FunctioningProfile; una clasificación de emaciación toma un AnthropometricProfile."
+  en: "The profile records that provided the data scored in this scoring event. A PMT scoring event typically takes a SocioEconomicProfile as input; a Washington Group disability identifier takes a FunctioningProfile; a wasting classification takes an anthropometric profile (see schema.aidops.org)."
+  fr: "Les enregistrements de profil ayant fourni les données notées lors de cet événement de notation. Un événement de notation PMT prend typiquement un SocioEconomicProfile en entrée ; un identifiant de handicap du Washington Group prend un FunctioningProfile ; une classification d'émaciation prend un profil anthropométrique (voir schema.aidops.org)."
+  es: "Los registros de perfil que proporcionaron los datos puntuados en este evento de puntuación. Un evento de puntuación PMT típicamente toma un SocioEconomicProfile como entrada; un identificador de discapacidad del Washington Group toma un FunctioningProfile; una clasificación de emaciación toma un perfil antropométrico (ver schema.aidops.org)."
 
 type: concept:Profile
 cardinality: multiple

@@ -10,48 +10,44 @@ definition:
   en: >
     A point-in-time record of data collected about a subject using a
     defined instrument. Profile is the shared supertype for
-    SocioEconomicProfile, FunctioningProfile, AnthropometricProfile,
-    FoodSecurityProfile, and DwellingDamageProfile. Each profile captures
-    who was observed, when, using which instrument, under which
-    administration mode, and by whom. A profile records the structured
-    responses from a single administration, and may also carry outputs
-    derived from those responses by applying the canonical scoring rule
-    for the instrument (for example, z-scores and status bands on
-    AnthropometricProfile, or the FCS consumption group on
-    FoodSecurityProfile). Non-canonical scoring, alternate thresholds, a
-    different rule version, or recomputation after the canonical rule is
-    revised, is captured as a ScoringEvent rather than written back to the
-    profile.
+    SocioEconomicProfile and FunctioningProfile within PublicSchema, and
+    for additional profile subtypes in domain-specific schemas such as
+    AidOps (schema.aidops.org). Each profile captures who was observed,
+    when, using which instrument, under which administration mode, and
+    by whom. A profile records the structured responses from a single
+    administration, and may also carry outputs derived from those
+    responses by applying the canonical scoring rule for the instrument.
+    Non-canonical scoring, alternate thresholds, a different rule version,
+    or recomputation after the canonical rule is revised, is captured as
+    a ScoringEvent rather than written back to the profile.
   fr: >
     Un enregistrement ponctuel de données collectées sur un sujet à l'aide
     d'un instrument défini. Profile est le supertype partagé de
-    SocioEconomicProfile, FunctioningProfile, AnthropometricProfile,
-    FoodSecurityProfile et DwellingDamageProfile. Chaque profil consigne
-    qui a été observé, quand, avec quel instrument, selon quel mode
-    d'administration et par qui. Un profil enregistre les réponses
-    structurées d'une administration unique et peut aussi porter les
-    résultats dérivés de ces réponses en appliquant la règle de notation
-    canonique de l'instrument (par exemple, les z-scores et bandes de
-    statut sur AnthropometricProfile, ou le groupe de consommation FCS
-    sur FoodSecurityProfile). La notation non canonique, les seuils
-    alternatifs, une version différente de la règle ou un recalcul après
-    révision de la règle canonique sont consignés dans un ScoringEvent
-    plutôt que réécrits sur le profil.
+    SocioEconomicProfile et FunctioningProfile dans PublicSchema, et de
+    sous-types supplémentaires dans des schémas spécifiques au domaine
+    tels qu'AidOps (schema.aidops.org). Chaque profil consigne qui a été
+    observé, quand, avec quel instrument, selon quel mode d'administration
+    et par qui. Un profil enregistre les réponses structurées d'une
+    administration unique et peut aussi porter les résultats dérivés de
+    ces réponses en appliquant la règle de notation canonique de
+    l'instrument. La notation non canonique, les seuils alternatifs, une
+    version différente de la règle ou un recalcul après révision de la
+    règle canonique sont consignés dans un ScoringEvent plutôt que
+    réécrits sur le profil.
   es: >
     Un registro puntual de datos recopilados sobre un sujeto mediante un
     instrumento definido. Profile es el supertipo compartido de
-    SocioEconomicProfile, FunctioningProfile, AnthropometricProfile,
-    FoodSecurityProfile y DwellingDamageProfile. Cada perfil consigna
-    quién fue observado, cuándo, con qué instrumento, bajo qué modo de
-    administración y por quién. Un perfil registra las respuestas
-    estructuradas de una administración única, y también puede llevar
-    resultados derivados de esas respuestas aplicando la regla de
-    puntuación canónica del instrumento (por ejemplo, z-scores y bandas
-    de estado en AnthropometricProfile, o el grupo de consumo FCS en
-    FoodSecurityProfile). La puntuación no canónica, los umbrales
-    alternativos, una versión diferente de la regla o el recálculo tras
-    la revisión de la regla canónica se registran como un ScoringEvent
-    en lugar de reescribirse en el perfil.
+    SocioEconomicProfile y FunctioningProfile en PublicSchema, y de
+    subtipos adicionales en esquemas de dominio como AidOps
+    (schema.aidops.org). Cada perfil consigna quién fue observado,
+    cuándo, con qué instrumento, bajo qué modo de administración y por
+    quién. Un perfil registra las respuestas estructuradas de una
+    administración única, y también puede llevar resultados derivados
+    de esas respuestas aplicando la regla de puntuación canónica del
+    instrumento. La puntuación no canónica, los umbrales alternativos,
+    una versión diferente de la regla o el recálculo tras la revisión
+    de la regla canónica se registran como un ScoringEvent en lugar de
+    reescribirse en el perfil.
 
 properties:
   - subject
@@ -64,7 +60,7 @@ properties:
   - respondent_relationship
   - items_asked
 
-subtypes: [SocioEconomicProfile, FunctioningProfile, AnthropometricProfile, FoodSecurityProfile, DwellingDamageProfile]
+subtypes: [SocioEconomicProfile, FunctioningProfile]
 supertypes: [Event]
 
 external_equivalents:
@@ -73,7 +69,7 @@ external_equivalents:
     uri: "http://hl7.org/fhir/QuestionnaireResponse"
     match: close
     vocabulary: "FHIR R4"
-    note: "FHIR QuestionnaireResponse is the canonical peer for a single administration of a data-collection instrument. Our Profile is abstract and splits by instrument family; FunctioningProfile and SocioEconomicProfile align most closely because they serialize as a single QuestionnaireResponse. AnthropometricProfile relates to FHIR Observation instead and is documented on that concept."
+    note: "FHIR QuestionnaireResponse is the canonical peer for a single administration of a data-collection instrument. Our Profile is abstract and splits by instrument family; FunctioningProfile and SocioEconomicProfile align most closely because they serialize as a single QuestionnaireResponse."
 
 convergence:
   system_count: 1
