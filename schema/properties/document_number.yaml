@@ -1,0 +1,38 @@
+id: document_number
+maturity: draft
+label:
+  en: "Document number"
+  fr: "Numéro de document"
+  es: "Número de documento"
+
+definition:
+  en: "The primary printable reference number carried on the face of a document. This is the string a human reads off a physical certificate, ID card, voucher receipt, or SMS message, and the value that appears in Verifiable Credential claims and MRTD machine-readable zones. One string per document. For additional machine-searchable identifiers (national ID numbers, program IDs, cross-system registry keys), use identifiers instead. Do not populate both slots with the same value."
+  fr: "Le numéro de référence imprimable principal porté sur la face d'un document. Il s'agit de la chaîne qu'une personne lit sur un certificat physique, une carte d'identité, un reçu de bon ou un SMS, et de la valeur qui apparaît dans les revendications des Verifiable Credentials et dans les zones lisibles à la machine (MRZ) des documents MRTD. Une seule chaîne par document. Pour des identifiants supplémentaires interrogeables par machine (numéros d'identité nationale, identifiants de programme, clés de registre inter-systèmes), utilisez plutôt identifiers. Ne renseignez pas les deux emplacements avec la même valeur."
+  es: "El número de referencia imprimible principal que aparece en el anverso de un documento. Es la cadena que una persona lee en un certificado físico, un documento de identidad, un recibo de vale o un SMS, y el valor que aparece en las reclamaciones de Verifiable Credentials y en las zonas legibles por máquina (MRZ) de los documentos MRTD. Una sola cadena por documento. Para identificadores adicionales consultables por máquina (números de identidad nacional, identificadores de programa, claves de registro entre sistemas), use identifiers en su lugar. No rellene ambos espacios con el mismo valor."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+
+external_equivalents:
+  icao:
+    label: "Document Number (MRZ field)"
+    uri: "https://www.icao.int/publications/pages/publication.aspx?docnum=9303"
+    match: exact
+    vocabulary: "ICAO Doc 9303"
+    note: "ICAO 9303 MRZ carries a 'Document Number' field as the primary face reference on machine-readable travel documents; document_number is the generalization for any authority-issued document."
+  w3c-vc:
+    label: "credentialSubject.id / claim"
+    uri: "https://www.w3.org/TR/vc-data-model/"
+    match: related
+    vocabulary: "W3C Verifiable Credentials"
+    note: "VC credentials typically carry the document's face reference as a disclosable claim; document_number is the property VC issuers read to populate that claim."
+
+convergence:
+  system_count: 0
+  total_systems: 6
+  notes: >
+    Per-subtype string fields (certificate_number, register_number,
+    serial_number) previously carried this value; document_number
+    unifies them at the Document abstract level.

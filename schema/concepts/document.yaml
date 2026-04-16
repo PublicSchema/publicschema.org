@@ -1,0 +1,85 @@
+id: Document
+label:
+  en: Document
+  fr: Document
+  es: Documento
+maturity: draft
+abstract: true
+
+definition:
+  en: >
+    A material or digital artifact issued by an authority and held by or
+    redeemable by a party. Documents share an issuance event, a lifecycle
+    distinct from the underlying record or entitlement they reference, and a
+    public reference number that identifies them on their face. Document is
+    the shared supertype for civil registration certificates, family
+    registers, identity documents, and redeemable vouchers. It covers both
+    attestation artifacts (Certificate, IdentityDocument, CivilStatusRecord,
+    FamilyRegister) and redeemable instruments (Voucher), which share
+    issuance, expiry, and identification semantics even though their
+    downstream uses differ.
+  fr: >
+    Un artefact matériel ou numérique délivré par une autorité et détenu par
+    une partie ou échangeable par elle. Les documents partagent un événement
+    de délivrance, un cycle de vie distinct de l'enregistrement ou du droit
+    sous-jacent auquel ils renvoient, et un numéro de référence public qui
+    les identifie sur leur face. Document est le supertype partagé des actes
+    de l'état civil, des livrets de famille, des documents d'identité et des
+    bons échangeables. Il couvre à la fois les artefacts d'attestation
+    (Certificate, IdentityDocument, CivilStatusRecord, FamilyRegister) et
+    les instruments échangeables (Voucher), qui partagent les sémantiques
+    de délivrance, d'expiration et d'identification même si leurs usages
+    diffèrent.
+  es: >
+    Un artefacto material o digital emitido por una autoridad y en poder de
+    una parte o canjeable por ella. Los documentos comparten un evento de
+    emisión, un ciclo de vida distinto del registro o derecho subyacente al
+    que hacen referencia, y un número de referencia público que los
+    identifica en su anverso. Document es el supertipo compartido de los
+    certificados de registro civil, los libros de familia, los documentos
+    de identidad y los vales canjeables. Abarca tanto los artefactos de
+    atestación (Certificate, IdentityDocument, CivilStatusRecord,
+    FamilyRegister) como los instrumentos canjeables (Voucher), que
+    comparten la semántica de emisión, caducidad e identificación aunque
+    sus usos posteriores difieran.
+
+properties:
+  - document_number
+  - identifiers
+  - issuer
+  - issue_date
+  - expiry_date
+
+subtypes: [Certificate, CivilStatusRecord, FamilyRegister, IdentityDocument, Voucher]
+supertypes: []
+
+external_equivalents:
+  cpsv-ap:
+    label: "Evidence"
+    uri: "https://data.europa.eu/m8g/Evidence"
+    match: close
+    vocabulary: "SEMIC CPSV-AP"
+    note: "CPSV-AP Evidence is the broader peer: any documentary proof required by or issued from a public service. Our Document narrows to artifacts with their own lifecycle held by or redeemable by a party."
+  fhir:
+    label: "DocumentReference"
+    uri: "https://hl7.org/fhir/R4/documentreference.html"
+    match: broad
+    vocabulary: "FHIR R4"
+    note: "FHIR DocumentReference is broader: it points at any document (including clinical notes and scanned correspondence), not only authority-issued artifacts."
+  schema-org:
+    label: "CreativeWork"
+    uri: "https://schema.org/CreativeWork"
+    match: related
+    vocabulary: "schema.org"
+    note: "schema.org CreativeWork is the generic artifact supertype; Document is narrower (authority-issued, with a face reference and issuance lifecycle)."
+
+convergence:
+  system_count: 0
+  total_systems: 6
+  notes: >
+    No mapped delivery system carries a Document supertype directly.
+    External alignment is standards-level: SEMIC CPSV-AP (Evidence), FHIR
+    (DocumentReference), ICAO Doc 9303 (MRTDs), and schema.org
+    (CreativeWork). Document gives the five rootless document-like
+    concepts a shared supertype so issuance, expiry, and face-reference
+    semantics have one home.

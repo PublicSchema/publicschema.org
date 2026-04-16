@@ -1,0 +1,46 @@
+id: issuer
+maturity: draft
+label:
+  en: "Issuer"
+  fr: "Émetteur"
+  es: "Emisor"
+
+definition:
+  en: "The Agent (typically an Organization, occasionally a Person) that issued the document. Use this structured form when a reference to the issuing body is available; use issuing_authority (string) when only a name is known. Distinct from issuing_office and issuing_authority_location, which name the Location where issuance occurred. A SoftwareAgent is admitted by the Agent type system but not expected in practice: narrative accountability lies with a human or organizational body."
+  fr: "L'Agent (généralement une Organization, parfois une Person) qui a délivré le document. Utilisez cette forme structurée lorsqu'une référence à l'organe émetteur est disponible ; utilisez issuing_authority (chaîne) lorsque seul un nom est connu. Distinct d'issuing_office et d'issuing_authority_location, qui désignent le Lieu où la délivrance a eu lieu. Un SoftwareAgent est admis par le système de types Agent mais n'est pas attendu en pratique : la responsabilité narrative incombe à une personne ou à un organisme."
+  es: "El Agent (normalmente una Organization, ocasionalmente una Person) que emitió el documento. Use esta forma estructurada cuando haya disponible una referencia al organismo emisor; use issuing_authority (cadena) cuando solo se conozca un nombre. Distinto de issuing_office y de issuing_authority_location, que nombran la Ubicación donde se produjo la emisión. Un SoftwareAgent es admitido por el sistema de tipos Agent pero no se espera en la práctica: la responsabilidad narrativa recae en una persona o un organismo."
+
+type: concept:Agent
+cardinality: single
+vocabulary: null
+references: Agent
+
+external_equivalents:
+  cpsv-ap:
+    label: "hasCompetentAuthority"
+    uri: "https://data.europa.eu/m8g/hasCompetentAuthority"
+    match: related
+    vocabulary: "SEMIC CPSV-AP"
+    note: "CPSV-AP hasCompetentAuthority points at a PublicOrganisation competent to provide a public service. The role differs from issuer-of-record for a specific document, so the alignment is related rather than close."
+  fhir:
+    label: "Credential.issuer"
+    uri: "http://hl7.org/fhir/Credential#issuer"
+    match: close
+    vocabulary: "FHIR R4"
+    note: "FHIR Credential.issuer names the party legally accountable for a credential. Direct peer for our Document.issuer."
+  dcterms:
+    label: "publisher"
+    uri: "http://purl.org/dc/terms/publisher"
+    match: related
+    vocabulary: "Dublin Core"
+    note: "DCTerms publisher is the closest generic peer; we reserve publisher for Specification (authored methodology) and issuer for Document (issued artifact)."
+
+convergence:
+  system_count: 0
+  total_systems: 6
+  notes: >
+    No mapped system carries an issuer property ranged at a structured
+    Agent. Per-subtype string fields (issuing_authority) and Location
+    fields (issuing_office, register_authority) exist; issuer is the
+    structured Agent-ranged form introduced alongside the Document
+    supertype.
