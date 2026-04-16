@@ -258,7 +258,7 @@ concept_matches:
       but the fields diverge: OpenCRVS emphasises collection and payment
       (collector, payments, certificateTemplateId) while we emphasise issuance
       metadata (certificate_document_type, certificate_format, issue_date,
-      issuing_office, certificate_number). Field-level overlap is minimal.
+      issuing_office, document_number). Field-level overlap is minimal.
     decomposition:
       - opencrvs_field: collector
         target_concept: Certificate

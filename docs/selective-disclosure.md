@@ -79,7 +79,7 @@ Selectively disclosable:
 Always disclosed:
 - `type` (Voucher)
 - `voucher_status`
-- `serial_number`
+- `document_number`
 - `expiry_date`
 
 Selectively disclosable:
