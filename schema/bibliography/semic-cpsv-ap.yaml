@@ -11,6 +11,8 @@ access: open
 status: active
 
 informs:
-  concepts: []
+  concepts:
+    - Document
   vocabularies: []
-  properties: []
+  properties:
+    - issuer

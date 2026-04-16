@@ -12,4 +12,5 @@ status: active
 informs:
   concepts: []
   vocabularies: []
-  properties: []
+  properties:
+    - issuer

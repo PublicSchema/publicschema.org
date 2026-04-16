@@ -36,6 +36,8 @@ EXTERNAL_EQUIV_LOOKUP: dict[tuple[str, str | None], str | None] = {
     ("semic", "Core Person"): "semic-core-person",
     ("semic", "Core Location"): "semic-core-location",
     ("semic", "CCCEV"): "semic-cccev",
+    ("cccev", "SEMIC CCCEV"): "semic-cccev",
+    ("cpsv-ap", "SEMIC CPSV-AP"): "semic-cpsv-ap",
     ("semic", "CPOV"): "semic-cpov",
     ("semic", "Core Vocabularies"): None,  # match=none in practice; flag if not
     ("semic", "ADMS"): "semic-adms",
@@ -53,6 +55,8 @@ EXTERNAL_EQUIV_LOOKUP: dict[tuple[str, str | None], str | None] = {
     ("dpv", "DPV v2"): "w3c-dpv",
     ("dpv-gdpr", "DPV GDPR extension v2"): "w3c-dpv",
     ("dpv-consent-notice", "W3C DPV v2"): "w3c-dpv",
+    ("w3c-vc", "W3C Verifiable Credentials"): "w3c-vc-data-model-2",
+    ("dcterms", "Dublin Core"): "dcterms",
     # opencrvs is a system, not a standard; intentionally excluded.
 }
 
