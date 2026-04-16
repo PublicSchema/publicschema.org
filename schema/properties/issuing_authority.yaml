@@ -6,9 +6,9 @@ label:
   es: "Autoridad emisora"
 
 definition:
-  en: "The organization or government body that issued the document or credential."
-  fr: "L'organisation ou l'organe gouvernemental qui a délivré le document ou l'attestation."
-  es: "La organización o entidad gubernamental que emitió el documento o la credencial."
+  en: "The organization or government body that issued the document or credential, captured as a free-text name. For a structured Agent reference use issuer instead: Document records prefer issuer, and issuing_authority remains for cases where only a textual name is available."
+  fr: "L'organisation ou l'organe gouvernemental qui a délivré le document ou l'attestation, consigné sous forme de nom en texte libre. Pour une référence structurée à un Agent, utilisez plutôt issuer : les enregistrements Document privilégient issuer, et issuing_authority reste utile lorsque seul un nom textuel est disponible."
+  es: "La organización o entidad gubernamental que emitió el documento o la credencial, registrada como nombre en texto libre. Para una referencia estructurada a un Agent utilice issuer en su lugar: los registros Document prefieren issuer, e issuing_authority queda disponible cuando solo se dispone de un nombre textual."
 
 type: string
 cardinality: single
