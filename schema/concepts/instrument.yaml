@@ -52,7 +52,7 @@ properties:
   - language_of_administration
 
 subtypes: []
-supertypes: []
+supertypes: [Specification]
 
 external_equivalents:
   fhir:

@@ -40,13 +40,15 @@ definition:
 
 properties:
   - name
+  - version
+  - publisher
+  - publication_url
   - scoring_method
   - data_sources
   - cutoff_score
-  - publication_url
 
 subtypes: []
-supertypes: []
+supertypes: [Specification]
 
 external_equivalents:
   semic:
