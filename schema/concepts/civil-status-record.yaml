@@ -30,7 +30,6 @@ definition:
     certificados (los documentos que se producen a partir del acta a solicitud).
 
 properties:
-  - identifiers
   - record_type
   - originating_event
   - annotations
@@ -38,7 +37,7 @@ properties:
   - issuing_authority_location
 
 subtypes: []
-supertypes: []
+supertypes: [Document]
 
 external_equivalents:
   opencrvs:

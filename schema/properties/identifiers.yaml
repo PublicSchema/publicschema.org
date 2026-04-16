@@ -6,9 +6,9 @@ label:
   es: "Identificadores"
 
 definition:
-  en: "Identifiers carried by this entity, such as national ID numbers, program IDs, or identifiers asserted by an identity document."
-  fr: "Identifiants portés par cette entité, tels que numéros d'identité nationale, identifiants de programme ou identifiants attestés par un document d'identité."
-  es: "Identificadores que porta esta entidad, como números de identidad nacional, ID de programa o identificadores acreditados por un documento de identidad."
+  en: "Identifiers carried by this entity, such as national ID numbers, program IDs, or identifiers asserted by an identity document. For a Document record (certificate, identity document, civil status record, family register, voucher), identifiers is the bundle of cross-system references used to look the document up (database primary keys, registry lookup codes, external system keys), whereas document_number is the single face reference printed or displayed on the document itself."
+  fr: "Identifiants portés par cette entité, tels que numéros d'identité nationale, identifiants de programme ou identifiants attestés par un document d'identité. Pour un enregistrement Document (certificat, document d'identité, acte d'état civil, registre de famille, bon), identifiers est l'ensemble des références multi-systèmes utilisées pour retrouver le document (clés primaires de base de données, codes de recherche en registre, clés de systèmes externes), alors que document_number est la référence unique imprimée ou affichée sur le document lui-même."
+  es: "Identificadores que porta esta entidad, como números de identidad nacional, ID de programa o identificadores acreditados por un documento de identidad. Para un registro Document (certificado, documento de identidad, registro de estado civil, registro familiar, vale), identifiers es el conjunto de referencias multisistema usadas para localizar el documento (claves primarias de base de datos, códigos de búsqueda en registro, claves de sistemas externos), mientras que document_number es la referencia única impresa o mostrada en el documento mismo."
 
 type: concept:Identifier
 cardinality: multiple

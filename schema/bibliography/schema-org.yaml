@@ -13,11 +13,13 @@ informs:
   concepts:
     - Address
     - Agent
+    - Document
     - Event
     - Location
     - Organization
     - Party
     - Person
+    - Specification
   vocabularies: []
   properties:
     - administrative_area

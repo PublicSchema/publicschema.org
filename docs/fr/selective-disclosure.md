@@ -79,7 +79,7 @@ Sélectivement divulgable :
 Toujours divulgué :
 - `type` (Voucher)
 - `voucher_status`
-- `serial_number`
+- `document_number`
 - `expiry_date`
 
 Sélectivement divulgable :

@@ -1,0 +1,86 @@
+id: Specification
+label:
+  en: Specification
+  fr: Spécification
+  es: Especificación
+maturity: draft
+abstract: true
+
+definition:
+  en: >
+    A versioned, referenceable artifact that defines how something is to be
+    done, measured, or delivered. Specifications are persistent registry
+    entries: they exist independently of any particular application or
+    administration and are pointed at by the events that apply them.
+    Specification is the shared supertype for data-collection instruments
+    (Instrument), scoring methodologies (ScoringRule), and benefit plans
+    (BenefitSchedule). Narrower than CCCEV ReferenceFramework (which covers
+    legal and regulatory sources): Specification covers any versioned design
+    artifact downstream records instantiate, including program-internal
+    plans that do not originate from a regulatory authority.
+  fr: >
+    Un artefact référençable et versionné qui définit comment quelque chose
+    doit être fait, mesuré ou délivré. Les spécifications sont des entrées
+    de registre persistantes : elles existent indépendamment de toute
+    application ou administration particulière et sont désignées par les
+    événements qui les appliquent. Specification est le supertype partagé
+    des instruments de collecte de données (Instrument), des méthodologies
+    de notation (ScoringRule) et des plans de prestations (BenefitSchedule).
+    Plus étroite que CCCEV ReferenceFramework (qui couvre les sources
+    juridiques et réglementaires) : Specification couvre tout artefact de
+    conception versionné que les enregistrements en aval instancient, y
+    compris les plans internes à un programme qui n'émanent pas d'une
+    autorité réglementaire.
+  es: >
+    Un artefacto referenciable y versionado que define cómo se debe hacer,
+    medir o entregar algo. Las especificaciones son entradas de registro
+    persistentes: existen con independencia de cualquier aplicación o
+    administración particular y son señaladas por los eventos que las
+    aplican. Specification es el supertipo compartido de los instrumentos
+    de recolección de datos (Instrument), las metodologías de puntuación
+    (ScoringRule) y los planes de prestaciones (BenefitSchedule). Más
+    estrecha que CCCEV ReferenceFramework (que abarca fuentes legales y
+    reglamentarias): Specification abarca cualquier artefacto de diseño
+    versionado que los registros posteriores instancian, incluidos los
+    planes internos de un programa que no proceden de una autoridad
+    reguladora.
+
+properties:
+  - name
+  - version
+  - publisher
+  - publication_url
+
+subtypes: [BenefitSchedule, Instrument, ScoringRule]
+supertypes: []
+
+external_equivalents:
+  cccev:
+    label: "ReferenceFramework"
+    uri: "http://data.europa.eu/m8g/ReferenceFramework"
+    match: related
+    vocabulary: "SEMIC CCCEV"
+    note: "CCCEV ReferenceFramework is a legal or policy source from which requirements derive. Specification is broader (covers any versioned design artifact) and narrower (does not assume regulatory authority)."
+  prov:
+    label: "Plan"
+    uri: "http://www.w3.org/ns/prov#Plan"
+    match: close
+    vocabulary: "PROV-O"
+    note: "prov:Plan is a set of actions designed to achieve a goal; Specification is the versioned registry entry that prov:used or prov:wasUsedBy activities reference."
+  schema-org:
+    label: "CreativeWork"
+    uri: "https://schema.org/CreativeWork"
+    match: related
+    vocabulary: "schema.org"
+    note: "schema.org CreativeWork is the generic artifact supertype; Specification is narrower (versioned, referenceable design artifact used by downstream records)."
+
+convergence:
+  system_count: 0
+  total_systems: 6
+  notes: >
+    No mapped delivery system carries a Specification supertype directly.
+    External alignment is standards-level: SEMIC CCCEV (ReferenceFramework),
+    PROV-O (prov:Plan), and schema.org (CreativeWork). Specification gives
+    Instrument, ScoringRule, and BenefitSchedule a shared supertype so
+    shared properties (name, version, publisher, publication_url) have one
+    home.

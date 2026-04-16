@@ -40,15 +40,13 @@ definition:
     acreditar un IdentityDocument en forma digital).
 
 properties:
-  - identifiers
   - document_type
   - issued_to
   - issuing_authority
   - issuing_jurisdiction
-  - issue_date
   - expiry_date
 
-supertypes: []
+supertypes: [Document]
 subtypes: []
 
 external_equivalents:

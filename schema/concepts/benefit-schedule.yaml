@@ -38,7 +38,7 @@ properties:
   - end_date
 
 subtypes: []
-supertypes: []
+supertypes: [Specification]
 
 convergence:
   system_count: 4

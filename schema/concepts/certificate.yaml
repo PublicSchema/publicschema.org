@@ -34,14 +34,13 @@ definition:
 properties:
   - vital_event
   - civil_status_record
-  - certificate_number
-  - issue_date
+  - expiry_date
   - issuing_office
   - certificate_document_type
   - certificate_format
 
 subtypes: []
-supertypes: []
+supertypes: [Document]
 
 external_equivalents:
   opencrvs:

@@ -13,4 +13,5 @@ status: active
 informs:
   concepts: []
   vocabularies: []
-  properties: []
+  properties:
+    - document_number

@@ -6,9 +6,9 @@ label:
   es: "URL de publicación"
 
 definition:
-  en: "A canonical URL where the instrument, software agent, or scoring rule is published (typically a documentation page, a source repository, or a PDF hosted by the publisher)."
-  fr: "Une URL canonique à laquelle l'instrument, l'agent logiciel ou la règle de notation est publié (généralement une page de documentation, un dépôt de code ou un PDF hébergé par l'éditeur)."
-  es: "Una URL canónica donde se publica el instrumento, el agente de software o la regla de puntuación (normalmente una página de documentación, un repositorio de código o un PDF alojado por el editor)."
+  en: "A canonical URL where the instrument, software agent, scoring rule, or benefit schedule is published (typically a documentation page, a source repository, a PDF hosted by the publisher, or the official policy or program page that defines the benefit schedule)."
+  fr: "Une URL canonique à laquelle l'instrument, l'agent logiciel, la règle de notation ou le calendrier des prestations est publié (généralement une page de documentation, un dépôt de code, un PDF hébergé par l'éditeur ou la page officielle de la politique ou du programme qui définit le calendrier des prestations)."
+  es: "Una URL canónica donde se publica el instrumento, el agente de software, la regla de puntuación o el calendario de prestaciones (normalmente una página de documentación, un repositorio de código, un PDF alojado por el editor o la página oficial de la política o el programa que define el calendario de prestaciones)."
 
 type: uri
 cardinality: single
