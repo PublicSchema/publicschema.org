@@ -31,14 +31,17 @@ definition:
 
 properties:
   - identifiers
+  - document_number
   - record_type
   - originating_event
   - annotations
   - person
+  - issuer
   - issuing_authority_location
+  - issue_date
 
 subtypes: []
-supertypes: []
+supertypes: [Document]
 
 external_equivalents:
   opencrvs:

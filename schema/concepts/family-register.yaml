@@ -40,13 +40,16 @@ definition:
 properties:
   - family
   - head_of_household
-  - register_number
+  - document_number
+  - identifiers
   - register_authority
+  - issuer
+  - issue_date
   - creation_date
   - family_register_status
 
 subtypes: []
-supertypes: []
+supertypes: [Document]
 
 external_equivalents:
   opencrvs:

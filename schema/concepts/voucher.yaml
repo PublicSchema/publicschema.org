@@ -32,7 +32,9 @@ properties:
   - entitlement_ref
   - issued_to
   - redeemable_by
-  - serial_number
+  - document_number
+  - identifiers
+  - issuer
   - amount
   - currency
   - voucher_status
@@ -45,7 +47,7 @@ properties:
   - items
 
 subtypes: []
-supertypes: []
+supertypes: [Document]
 
 convergence:
   system_count: 0

@@ -41,14 +41,16 @@ definition:
 
 properties:
   - identifiers
+  - document_number
   - document_type
   - issued_to
+  - issuer
   - issuing_authority
   - issuing_jurisdiction
   - issue_date
   - expiry_date
 
-supertypes: []
+supertypes: [Document]
 subtypes: []
 
 external_equivalents:
