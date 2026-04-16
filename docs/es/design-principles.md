@@ -18,7 +18,7 @@ Las definiciones están escritas para responsables de políticas y gestores de p
 
 ## 5. Supertipos abstractos
 
-Algunos conceptos existen solo como fundamentos compartidos para subtipos más específicos. Agent, Event, Party y Profile llevan `abstract: true`, lo que significa que definen propiedades comunes pero nunca se instancian directamente. Los subtipos (por ejemplo, FunctioningProfile, ScoringEvent, Organization) heredan esas propiedades y agregan las suyas. Agent es el supertipo del lado del actor (Person, Organization, SoftwareAgent); Party es el supertipo del lado del beneficiario (Person, Group). Person pertenece a ambos. Consulte [ADR-006](../decisions/006-profile-hierarchy.md) y [ADR-008](../decisions/008-agent-organization.md).
+Algunos conceptos existen solo como fundamentos compartidos para subtipos más específicos. Agent, Event, Party, Profile, Document y Specification llevan `abstract: true`, lo que significa que definen propiedades comunes pero nunca se instancian directamente. Los subtipos (por ejemplo, FunctioningProfile, ScoringEvent, Organization, Certificate, Instrument) heredan esas propiedades y agregan las suyas. Agent es el supertipo del lado del actor (Person, Organization, SoftwareAgent); Party es el supertipo del lado del beneficiario (Person, Group). Person pertenece a ambos. Document agrupa los artefactos emitidos (Certificate, CivilStatusRecord, FamilyRegister, IdentityDocument, Voucher); Specification agrupa las publicaciones de registro (Instrument, ScoringRule, BenefitSchedule). Consulte [ADR-006](../decisions/006-profile-hierarchy.md), [ADR-008](../decisions/008-agent-organization.md) y [ADR-011](../decisions/011-document-specification-abstracts.md).
 
 ## 6. Separación entre observación y puntuación
 

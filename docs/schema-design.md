@@ -70,6 +70,15 @@ Use this decision tree to determine what kind of element to create.
 
 `Person` is the only concept that belongs to both hierarchies. A person can both receive services and perform them. `Organization` is an `Agent` only (it is not modelled as a receiver today). `SoftwareAgent` is an `Agent` only. See [ADR-008](../decisions/008-agent-organization.md).
 
+### Document and Specification supertypes
+
+Two further abstract supertypes group artefact-side concepts.
+
+- `Document` is the supertype for **issued artefacts**: records with a face reference (`document_number`), a multi-system identifier bundle (`identifiers`), a structured issuer (`issuer`), and an issue date. Subtypes: `Certificate`, `CivilStatusRecord`, `FamilyRegister`, `IdentityDocument`, `Voucher`.
+- `Specification` is the supertype for **registry publications**: persistent definitions with a name, version, publisher, and canonical URL. Subtypes: `Instrument`, `ScoringRule`, `BenefitSchedule`.
+
+On Document records, `document_number` is the single face reference printed or displayed on the document itself, while `identifiers` is the bundle of cross-system references used to look the document up. Both coexist. `issuing_authority` remains as a free-text fallback when only a textual name is available; `issuer` is the structured Agent reference. See [ADR-011](../decisions/011-document-specification-abstracts.md).
+
 ## 5. Temporal context
 
 Almost everything in public service delivery is time-bounded. A status snapshot without a validity period is incomplete. When designing a concept or property, ask: will this value change over time? If yes, model the temporal context explicitly (start/end dates, validity periods).
