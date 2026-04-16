@@ -123,10 +123,11 @@ class TestManifestPathCorrectness:
         """Every concept schema path in the manifest corresponds to a real file."""
         dist_dir, manifest, _ = dist_with_manifest
         for concept_id, entry in manifest["concepts"].items():
-            # Schema path is /schemas/Concept.schema.json -> dist/schemas/Concept.schema.json
-            schema_rel = entry["schema"].lstrip("/")
-            assert (dist_dir / schema_rel).exists(), (
-                f"Concept {concept_id} schema file missing: {schema_rel}"
+            # Schema path is /{path}.schema.json -> dist/schemas/{domain/}{id}.schema.json
+            schema_path = entry["schema"].lstrip("/")  # e.g. "sp/Entitlement.schema.json"
+            schema_file = dist_dir / "schemas" / schema_path
+            assert schema_file.exists(), (
+                f"Concept {concept_id} schema file missing: schemas/{schema_path}"
             )
 
     def test_concept_jsonld_files_exist(self, dist_with_manifest):
@@ -172,14 +173,14 @@ class TestManifestPathCorrectness:
                     f"prefix in jsonld path, got {entry['jsonld']}"
                 )
 
-    def test_domain_concept_has_flat_schema_path(self, dist_with_manifest):
-        """Domain-specific concepts still use flat /schemas/ path (no domain prefix)."""
+    def test_domain_concept_has_domain_schema_path(self, dist_with_manifest):
+        """Domain-specific concepts have domain segment in their schema path."""
         _, manifest, result = dist_with_manifest
         for concept_id, concept in result["concepts"].items():
             if concept.get("domain"):
                 entry = manifest["concepts"][concept_id]
-                assert entry["schema"] == f"/schemas/{concept_id}.schema.json", (
-                    f"Domain concept {concept_id} schema should be flat, "
+                assert entry["schema"] == f"/{concept['domain']}/{concept_id}.schema.json", (
+                    f"Domain concept {concept_id} schema should include domain, "
                     f"got {entry['schema']}"
                 )
 

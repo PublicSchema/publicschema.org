@@ -1038,7 +1038,7 @@ class TestJsonSchemaGeneration:
         assert "oneOf" in addr_schema
         assert len(addr_schema["oneOf"]) == 2
         ref_option = addr_schema["oneOf"][0]
-        assert ref_option["$ref"] == "https://test.example.org/schemas/Address.schema.json"
+        assert ref_option["$ref"] == "https://test.example.org/Address.schema.json"
         str_option = addr_schema["oneOf"][1]
         assert str_option["type"] == "string"
 
@@ -1058,7 +1058,7 @@ class TestJsonSchemaGeneration:
         result = build_vocabulary(tmp_schema)
         ref_schema = result["concept_schemas"]["Person"]["properties"]["enrollment_ref"]
         assert "oneOf" in ref_schema
-        assert ref_schema["oneOf"][0]["$ref"] == "https://test.example.org/sp/schemas/Enrollment.schema.json"
+        assert ref_schema["oneOf"][0]["$ref"] == "https://test.example.org/sp/Enrollment.schema.json"
 
 
 # ---------------------------------------------------------------------------

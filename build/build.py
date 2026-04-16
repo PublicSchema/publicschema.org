@@ -726,8 +726,8 @@ def build_vocabulary(schema_dir: Path) -> dict:
     concept_schema_uris: dict[str, str] = {}
     for concept_id, data in concepts_raw.items():
         concept_domain = data.get("domain")
-        schema_base = f"{base_uri}{concept_domain}/" if concept_domain else base_uri
-        concept_schema_uris[concept_id] = f"{schema_base}schemas/{concept_id}.schema.json"
+        concept_path = _compute_path(concept_domain, concept_id)
+        concept_schema_uris[concept_id] = f"{base_uri.rstrip('/')}{concept_path}.schema.json"
 
     # Build JSON Schema per concept
     concept_schemas = {}
@@ -780,10 +780,10 @@ def build_vocabulary(schema_dir: Path) -> dict:
                     schema_props[prop_key] = {"$ref": f"#/$defs/{vref}"}
 
         concept_domain = data.get("domain")
-        schema_base = f"{base_uri}{concept_domain}/" if concept_domain else base_uri
+        concept_path = _compute_path(concept_domain, concept_id)
         concept_schema: dict = {
             "$schema": "https://json-schema.org/draft/2020-12/schema",
-            "$id": f"{schema_base}schemas/{concept_id}.schema.json",
+            "$id": f"{base_uri.rstrip('/')}{concept_path}.schema.json",
             "title": concept_id,
         }
         concept_desc = data.get("definition", {}).get("en", "")
@@ -955,10 +955,16 @@ def write_outputs(result: dict, dist_dir: Path):
         json.dumps(result["context"], indent=2, ensure_ascii=False) + "\n"
     )
 
-    # Per-concept JSON Schemas
+    # Per-concept JSON Schemas (domain-scoped concepts go into subdirs)
     for concept_id, schema in result["concept_schemas"].items():
-        filename = f"{concept_id}.schema.json"
-        (schemas_dir / filename).write_text(
+        domain = result["concepts"][concept_id].get("domain")
+        if domain:
+            domain_dir = schemas_dir / domain
+            domain_dir.mkdir(exist_ok=True)
+            out_path = domain_dir / f"{concept_id}.schema.json"
+        else:
+            out_path = schemas_dir / f"{concept_id}.schema.json"
+        out_path.write_text(
             json.dumps(schema, indent=2, ensure_ascii=False) + "\n"
         )
 
@@ -1023,7 +1029,7 @@ def write_outputs(result: dict, dist_dir: Path):
         domain = concept.get("domain")
         dl_prefix = f"/downloads/{domain}" if domain else "/downloads"
         manifest["concepts"][concept_id] = {
-            "schema": f"/schemas/{concept_id}.schema.json",
+            "schema": f"{path}.schema.json",
             "jsonld": f"{path}.jsonld",
             "csv": f"{dl_prefix}/{concept_id}.csv",
             "xlsx_definition": f"{dl_prefix}/{concept_id}-definition.xlsx",

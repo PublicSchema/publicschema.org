@@ -105,7 +105,7 @@ const isNonNormative = concept.maturity === 'draft' || concept.maturity === 'can
   </div>
   <div class="download-links">
     <a href={`${concept.path}.jsonld`} class="btn btn-secondary">{t('download.jsonld')}</a>
-    <a href={`/schemas/${concept.id}.schema.json`} class="btn btn-secondary">{t('download.json_schema')}</a>
+    <a href={`${concept.path}.schema.json`} class="btn btn-secondary">{t('download.json_schema')}</a>
     <a href={`${concept.path}.csv`} class="btn btn-secondary" download>{t('download.csv')}</a>
     <a href={`${concept.path}-definition.xlsx`} class="btn btn-secondary" download>{t('download.definition_xlsx')}</a>
     <a href={`${concept.path}-template.xlsx`} class="btn btn-secondary" download>{t('download.template_xlsx')}</a>

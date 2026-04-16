@@ -12,6 +12,7 @@ releases/
 # Generated files (built by build pipeline, copied to site/public)
 site/public/*.csv
 site/public/*.xlsx
+site/public/*.schema.json
 site/public/sp/
 site/public/crvs/
 site/public/schemas/
