@@ -509,6 +509,7 @@ def build_vocabulary(schema_dir: Path) -> dict:
             "external_equivalents": data.get("external_equivalents"),
             "convergence": data.get("convergence"),
             "category": data.get("category"),
+            "core": data.get("core"),
             "age_applicability": data.get("age_applicability"),
             "valid_instruments": data.get("valid_instruments"),
             "immutable_after_status": data.get("immutable_after_status"),

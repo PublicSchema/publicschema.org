@@ -57,6 +57,10 @@
       "pattern": "^[a-z][a-z0-9_]*$",
       "description": "Display grouping for this property (e.g. wash, housing, demographics, identification). Used by the site to render properties in sections."
     },
+    "core": {
+      "type": "boolean",
+      "description": "Whether this property is part of the must-ask core subset of its owning profile. When omitted, defaults to false (extended). Form compilers can filter to core-only properties to produce a rapid-assessment variant of any form. Independent of valid_instruments: a property may be both core: true and tied to a specific instrument."
+    },
     "immutable_after_status": {
       "type": "string",
       "enum": ["given"],

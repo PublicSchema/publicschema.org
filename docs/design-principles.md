@@ -32,6 +32,12 @@ Properties are grouped by topical category (e.g., functioning, nutrition, housin
 
 Properties that record data-collection context (administration mode, respondent, respondent relationship, age applicability) travel with the observation data, not in a separate metadata sidecar. This ensures that a Profile record is self-describing: a consumer can determine how the data was collected without consulting an external registry. See [schema-design.md section 7](schema-design.md#7-age-applicability) for age applicability details.
 
+## 9. Core and extended property tiers
+
+Properties may carry an optional `core: true` flag, marking them as part of the must-ask subset of their owning profile. The flag enables a single profile definition to support both rapid and comprehensive assessments without duplicating the schema. Form compilers can filter to core-only properties to produce a rapid-assessment variant of any form (for example, a 9-item FCS-only food security screening derived from the full FoodSecurityProfile that also carries rCSI, LCS, HDDS, FIES, HHS, MAHFP, and WDDS items).
+
+When omitted, `core` defaults to `false` (extended). The flag is independent of `valid_instruments`: a property may be both `core: true` and tied to a specific instrument. Programs that need a different rapid subset can override the filter at the form layer.
+
 ## See also
 
 - [Schema Design](../schema-design/) -- naming, scoping, and modeling
