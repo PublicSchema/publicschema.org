@@ -6,9 +6,9 @@ label:
   es: "Versión"
 
 definition:
-  en: "The version identifier of an artefact such as an instrument, software agent, scoring rule, or privacy notice (for example, a release date such as 2022-10-11 or a semantic version like 6.2)."
-  fr: "L'identifiant de version d'un artefact tel qu'un instrument, un agent logiciel, une règle de notation ou une notice d'information (par exemple, une date de publication comme 2022-10-11 ou une version sémantique comme 6.2)."
-  es: "El identificador de versión de un artefacto como un instrumento, agente de software, regla de puntuación o aviso de privacidad (por ejemplo, una fecha de publicación como 2022-10-11 o una versión semántica como 6.2)."
+  en: "The version identifier of an artefact such as an instrument, software agent, scoring rule, benefit schedule, or privacy notice (for example, a release date such as 2022-10-11 or a semantic version like 6.2)."
+  fr: "L'identifiant de version d'un artefact tel qu'un instrument, un agent logiciel, une règle de notation, un calendrier des prestations ou une notice d'information (par exemple, une date de publication comme 2022-10-11 ou une version sémantique comme 6.2)."
+  es: "El identificador de versión de un artefacto como un instrumento, agente de software, regla de puntuación, calendario de prestaciones o aviso de privacidad (por ejemplo, una fecha de publicación como 2022-10-11 o una versión semántica como 6.2)."
 
 type: string
 cardinality: single

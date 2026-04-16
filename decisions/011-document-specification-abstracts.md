@@ -15,7 +15,7 @@ Three problems followed. Renaming one property (e.g., `certificate_number` → s
 ## Decision
 
 1. **Introduce two abstract concepts at the root namespace:**
-   - `Document` (abstract: true, supertypes: []). Shared properties: `document_number`, `identifiers`, `issuer`, `issue_date`, `expiry_date`. Subtypes: `Certificate`, `CivilStatusRecord`, `FamilyRegister`, `IdentityDocument`, `Voucher`.
+   - `Document` (abstract: true, supertypes: []). Shared properties: `document_number`, `identifiers`, `issuer`, `issue_date`. Subtypes: `Certificate`, `CivilStatusRecord`, `FamilyRegister`, `IdentityDocument`, `Voucher`. `expiry_date` is **not** hoisted onto Document: permanent records (`CivilStatusRecord`, `FamilyRegister`) do not expire, so the property lives only on the three subtypes where it applies (`Certificate`, `IdentityDocument`, `Voucher`).
    - `Specification` (abstract: true, supertypes: []). Shared properties: `name`, `version`, `publisher`, `publication_url`. Subtypes: `Instrument`, `ScoringRule`, `BenefitSchedule`.
 
 2. **Retire three near-duplicate properties** in favour of a single `document_number`: `certificate_number`, `register_number`, `serial_number`. All Document subtypes use `document_number` uniformly.

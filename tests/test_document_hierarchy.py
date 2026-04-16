@@ -5,8 +5,10 @@ These tests guard the decisions in ADR-011:
   FamilyRegister, IdentityDocument, Voucher.
 - Specification is an abstract supertype for BenefitSchedule, Instrument,
   ScoringRule.
-- document_number (string), identifiers, issuer, issue_date, expiry_date
-  are hoisted onto Document.
+- document_number (string), identifiers, issuer, issue_date are hoisted
+  onto Document. expiry_date is NOT on Document: it lives on the subtypes
+  where it applies (Certificate, IdentityDocument, Voucher) because civil
+  status actes and family registers are permanent.
 - name, version, publisher, publication_url are hoisted onto Specification.
 - issuer is Agent-ranged, mirroring the actor-typing pattern from ADR-008.
 - The three legacy per-subtype identifier properties (certificate_number,
@@ -70,8 +72,29 @@ class TestDocumentConcept:
 
     def test_document_hoisted_properties(self):
         doc = load(CONCEPTS / "document.yaml")
-        expected = {"document_number", "identifiers", "issuer", "issue_date", "expiry_date"}
+        expected = {"document_number", "identifiers", "issuer", "issue_date"}
         assert expected <= set(doc["properties"])
+
+    def test_document_does_not_hoist_expiry_date(self):
+        doc = load(CONCEPTS / "document.yaml")
+        assert "expiry_date" not in doc["properties"], (
+            "expiry_date must not live on Document: civil status actes and "
+            "family registers do not expire. See ADR-011."
+        )
+
+    def test_expiry_date_on_expiring_subtypes_only(self):
+        expiring = {"certificate.yaml", "identity-document.yaml", "voucher.yaml"}
+        non_expiring = {"civil-status-record.yaml", "family-register.yaml"}
+        for filename in expiring:
+            c = load(CONCEPTS / filename)
+            assert "expiry_date" in c["properties"], (
+                f"{filename} is an expiring Document subtype and must list expiry_date"
+            )
+        for filename in non_expiring:
+            c = load(CONCEPTS / filename)
+            assert "expiry_date" not in c["properties"], (
+                f"{filename} is a permanent Document subtype and must not list expiry_date"
+            )
 
     def test_document_has_multilingual_definition(self):
         doc = load(CONCEPTS / "document.yaml")
@@ -239,6 +262,30 @@ class TestBuiltGraphSubClassEdges:
             "Certificate is not rdfs:subClassOf Document in the built graph"
         )
 
+    def test_civil_status_record_is_subclass_of_document(self):
+        g = self._graph()
+        csr = rdflib.URIRef("https://publicschema.org/crvs/CivilStatusRecord")
+        doc = rdflib.URIRef("https://publicschema.org/Document")
+        assert (csr, RDFS.subClassOf, doc) in g, (
+            "CivilStatusRecord is not rdfs:subClassOf Document in the built graph"
+        )
+
+    def test_family_register_is_subclass_of_document(self):
+        g = self._graph()
+        fr = rdflib.URIRef("https://publicschema.org/crvs/FamilyRegister")
+        doc = rdflib.URIRef("https://publicschema.org/Document")
+        assert (fr, RDFS.subClassOf, doc) in g, (
+            "FamilyRegister is not rdfs:subClassOf Document in the built graph"
+        )
+
+    def test_identity_document_is_subclass_of_document(self):
+        g = self._graph()
+        ident = rdflib.URIRef("https://publicschema.org/IdentityDocument")
+        doc = rdflib.URIRef("https://publicschema.org/Document")
+        assert (ident, RDFS.subClassOf, doc) in g, (
+            "IdentityDocument is not rdfs:subClassOf Document in the built graph"
+        )
+
     def test_voucher_is_subclass_of_document(self):
         g = self._graph()
         voucher = rdflib.URIRef("https://publicschema.org/Voucher")
@@ -253,6 +300,14 @@ class TestBuiltGraphSubClassEdges:
         spec = rdflib.URIRef("https://publicschema.org/Specification")
         assert (instrument, RDFS.subClassOf, spec) in g, (
             "Instrument is not rdfs:subClassOf Specification in the built graph"
+        )
+
+    def test_scoring_rule_is_subclass_of_specification(self):
+        g = self._graph()
+        sr = rdflib.URIRef("https://publicschema.org/ScoringRule")
+        spec = rdflib.URIRef("https://publicschema.org/Specification")
+        assert (sr, RDFS.subClassOf, spec) in g, (
+            "ScoringRule is not rdfs:subClassOf Specification in the built graph"
         )
 
     def test_benefit_schedule_is_subclass_of_specification(self):

@@ -38,6 +38,7 @@ properties:
   - identifiers
   - issuer
   - issue_date
+  - expiry_date
   - issuing_office
   - certificate_document_type
   - certificate_format

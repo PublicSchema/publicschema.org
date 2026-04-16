@@ -16,8 +16,11 @@ definition:
     registers, identity documents, and redeemable vouchers. It covers both
     attestation artifacts (Certificate, IdentityDocument, CivilStatusRecord,
     FamilyRegister) and redeemable instruments (Voucher), which share
-    issuance, expiry, and identification semantics even though their
-    downstream uses differ.
+    issuance and identification semantics even though their downstream uses
+    differ. Expiry is not universal: permanent records such as civil status
+    actes and family registers do not expire, so `expiry_date` lives on the
+    subtypes where it applies (Certificate, IdentityDocument, Voucher)
+    rather than on Document itself.
   fr: >
     Un artefact matériel ou numérique délivré par une autorité et détenu par
     une partie ou échangeable par elle. Les documents partagent un événement
@@ -28,8 +31,12 @@ definition:
     bons échangeables. Il couvre à la fois les artefacts d'attestation
     (Certificate, IdentityDocument, CivilStatusRecord, FamilyRegister) et
     les instruments échangeables (Voucher), qui partagent les sémantiques
-    de délivrance, d'expiration et d'identification même si leurs usages
-    diffèrent.
+    de délivrance et d'identification même si leurs usages diffèrent.
+    L'expiration n'est pas universelle : les enregistrements permanents
+    comme les actes d'état civil et les livrets de famille n'expirent pas ;
+    `expiry_date` réside donc sur les sous-types où elle s'applique
+    (Certificate, IdentityDocument, Voucher) plutôt que sur Document
+    lui-même.
   es: >
     Un artefacto material o digital emitido por una autoridad y en poder de
     una parte o canjeable por ella. Los documentos comparten un evento de
@@ -40,15 +47,17 @@ definition:
     de identidad y los vales canjeables. Abarca tanto los artefactos de
     atestación (Certificate, IdentityDocument, CivilStatusRecord,
     FamilyRegister) como los instrumentos canjeables (Voucher), que
-    comparten la semántica de emisión, caducidad e identificación aunque
-    sus usos posteriores difieran.
+    comparten la semántica de emisión e identificación aunque sus usos
+    posteriores difieran. La caducidad no es universal: los registros
+    permanentes como las actas de estado civil y los libros de familia no
+    caducan; por eso `expiry_date` vive en los subtipos donde aplica
+    (Certificate, IdentityDocument, Voucher) y no en Document mismo.
 
 properties:
   - document_number
   - identifiers
   - issuer
   - issue_date
-  - expiry_date
 
 subtypes: [Certificate, CivilStatusRecord, FamilyRegister, IdentityDocument, Voucher]
 supertypes: []
