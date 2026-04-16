@@ -4,7 +4,7 @@ Chaque enregistrement de profil porte un contexte administratif sur la façon do
 
 ## `observation_date`
 
-La date de collecte des données. Pour la plupart des formulaires de terrain, c'est la date du jour (renseignée automatiquement à l'ouverture ou à la soumission du formulaire). Lorsque la saisie se fait après coup (par ex. transcription papier-numérique), la observation_date doit être la date de collecte originale, pas la date de transcription.
+La date de collecte des données. Pour la plupart des formulaires de terrain, c'est la date du jour (renseignée automatiquement à l'ouverture ou à la soumission du formulaire). Lorsque la saisie se fait après coup (par ex. transcription papier-numérique), l'`observation_date` doit être la date de collecte originale, pas la date de transcription.
 
 ## `performed_by`
 

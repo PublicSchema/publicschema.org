@@ -124,6 +124,16 @@ De nombreux concepts portent start_date et end_date. Une inscription n'est pas s
 
 Certains concepts sont universels (Personne, Localisation) et d'autres sont spécifiques à un domaine (Inscription est sous la protection sociale, `/sp/Enrollment`). Si vous construisez pour un secteur spécifique, vérifiez à quel domaine appartiennent vos concepts. Cela affecte les URI mais pas la façon dont vous utilisez les propriétés.
 
+### Les données d'observation appartiennent à un Profile, pas à Person ou Household
+
+Les items de fonctionnement du Washington Group (WG-SS, WG-ES, CFM), les mesures anthropométriques (taille, poids, périmètre brachial, z-scores, bandes de statut) et les réponses aux enquêtes socio-économiques (type de logement, service WASH, actifs, TIC, revenus) sont des enregistrements ponctuels produits par un instrument défini. Ils sont modélisés comme des enregistrements `Profile` (`FunctioningProfile`, `AnthropometricProfile`, `SocioEconomicProfile`), et non comme des colonnes sur Person ou Household.
+
+Un `Profile` porte l'information sur qui a été observé, quand, avec quel instrument, selon quel mode d'administration et par qui. Les Profiles peuvent aussi porter les résultats dérivés en appliquant la règle de notation canonique de l'instrument : par exemple, le groupe de consommation FCS sur `FoodSecurityProfile`, l'identifiant de handicap WG-SS sur `FunctioningProfile`, ou les bandes de dépistage PB sur `AnthropometricProfile`. Ces résultats canoniques sont directement sur le Profile car ils sont produits par une règle unique et bien définie, indissociable de l'instrument lui-même. Person conserve de petits indicateurs de synthèse (`functioning_status`, `nutrition_status`) pour que les systèmes opérationnels puissent interroger le ciblage et le reporting sans recalculer depuis chaque passation ; Household conserve de même `food_security_level`. Ces indicateurs sont des dénormalisations de commodité, pas des classifications. Le Profile reste la source de vérité.
+
+### La notation non canonique est un acte distinct de la passation d'instrument
+
+Les méthodologies de notation non canoniques (formules PMT, PPI, indices de pauvreté multidimensionnels, indices composites comme le CARI, seuils alternatifs ou seuils définis par des chercheurs) sont cataloguées comme des enregistrements `ScoringRule`. Appliquer une règle non canonique à un ou plusieurs Profiles ou données en ligne produit un `ScoringEvent`, qui porte le score brut et la bande. Séparer la notation non canonique du Profile permet de noter les mêmes données selon plusieurs règles sans re-collecter, tout en gardant les résultats canoniques proches des observations qui les ont produits. Voir [ADR-010](../decisions/010-profile-derived-outputs.md).
+
 ## Téléchargements disponibles
 
 **Par concept :**

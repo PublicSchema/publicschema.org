@@ -124,6 +124,16 @@ Muchos conceptos llevan start_date y end_date. Una inscripción no es solo un es
 
 Algunos conceptos son universales (Person, Location) y otros son específicos de dominio (Enrollment está bajo protección social, `/sp/Enrollment`). Si está construyendo para un sector específico, verifique a qué dominio pertenecen sus conceptos. Esto afecta a los URIs pero no a cómo usa las propiedades.
 
+### Los datos de observación pertenecen a un Profile, no a Person o Household
+
+Los ítems de funcionamiento del Washington Group (WG-SS, WG-ES, CFM), las mediciones antropométricas (talla, peso, perímetro braquial, z-scores, bandas de estado) y las respuestas de encuestas socioeconómicas (tipo de vivienda, servicio WASH, activos, TIC, ingresos) son registros puntuales producidos por un instrumento definido. Se modelan como registros `Profile` (`FunctioningProfile`, `AnthropometricProfile`, `SocioEconomicProfile`), no como columnas sobre Person o Household.
+
+Un `Profile` lleva la información de quién fue observado, cuándo, con qué instrumento, bajo qué modo de administración y por quién. Los Profiles también pueden llevar resultados derivados de aplicar la regla de puntuación canónica del instrumento: por ejemplo, el grupo de consumo FCS en `FoodSecurityProfile`, el identificador de discapacidad WG-SS en `FunctioningProfile`, o las bandas de tamizaje PB en `AnthropometricProfile`. Estos resultados canónicos residen directamente en el Profile porque son producidos por una regla única y bien definida, inseparable del instrumento mismo. Person conserva pequeños indicadores de síntesis (`functioning_status`, `nutrition_status`) para que los sistemas operativos puedan consultar focalización y reportes sin recalcular desde cada aplicación; Household conserva igualmente `food_security_level`. Estos indicadores son desnormalizaciones de conveniencia, no clasificaciones. El Profile sigue siendo la fuente de verdad.
+
+### La puntuación no canónica es un acto distinto de la aplicación del instrumento
+
+Las metodologías de puntuación no canónicas (fórmulas PMT, PPI, índices de pobreza multidimensional, índices compuestos como CARI, umbrales alternativos o cortes definidos por investigadores) se catalogan como registros `ScoringRule`. Aplicar una regla no canónica a uno o más Profiles o datos en línea produce un `ScoringEvent`, que lleva el puntaje bruto y la banda. Separar la puntuación no canónica del Profile permite puntuar los mismos datos con múltiples reglas sin re-recopilar, manteniendo los resultados canónicos cerca de las observaciones que los produjeron. Consulte [ADR-010](../decisions/010-profile-derived-outputs.md).
+
 ## Descargas disponibles
 
 **Por concepto:**

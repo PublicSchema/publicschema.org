@@ -3,11 +3,11 @@ maturity: draft
 label:
   en: MUAC Band
   fr: Bande PB
-  es: Banda MUAC
+  es: Banda PB
 definition:
   en: "The colour-coded MUAC screening band for children aged 6-59 months, derived from mid-upper arm circumference using WHO/UNICEF standard cutoffs."
   fr: "La bande de dépistage du périmètre brachial codée par couleur pour les enfants de 6 à 59 mois, dérivée de la mesure du périmètre brachial selon les seuils standard OMS/UNICEF."
-  es: "La banda de tamizaje MUAC codificada por color para niños de 6 a 59 meses, derivada de la circunferencia media del brazo según los puntos de corte estándar OMS/UNICEF."
+  es: "La banda de tamizaje del perímetro braquial (PB) codificada por color para niños de 6 a 59 meses, derivada del perímetro braquial según los puntos de corte estándar OMS/UNICEF."
 standard:
   name: "WHO/UNICEF/WFP/UNSCN Joint Statement on Community-based Management of Acute Malnutrition (2007/2009)"
   uri: https://www.who.int/publications/i/item/9789280641479
@@ -21,7 +21,7 @@ values:
   definition:
     en: "MUAC < 115 mm. Severe acute malnutrition (SAM). Requires immediate referral for therapeutic treatment."
     fr: "PB < 115 mm. Malnutrition aiguë sévère (MAS). Nécessite une orientation immédiate pour un traitement thérapeutique."
-    es: "MUAC < 115 mm. Desnutrición aguda grave (DAG). Requiere derivación inmediata para tratamiento terapéutico."
+    es: "PB < 115 mm. Desnutrición aguda grave (DAG). Requiere derivación inmediata para tratamiento terapéutico."
 - code: yellow
   label:
     en: Yellow
@@ -30,7 +30,7 @@ values:
   definition:
     en: "MUAC 115-124 mm. Moderate acute malnutrition (MAM). Typically requires supplementary feeding."
     fr: "PB 115-124 mm. Malnutrition aiguë modérée (MAM). Nécessite généralement une alimentation supplémentaire."
-    es: "MUAC 115-124 mm. Desnutrición aguda moderada (MAM). Generalmente requiere alimentación suplementaria."
+    es: "PB 115-124 mm. Desnutrición aguda moderada (MAM). Generalmente requiere alimentación suplementaria."
 - code: green
   label:
     en: Green
@@ -39,4 +39,4 @@ values:
   definition:
     en: "MUAC >= 125 mm. Adequate nutritional status. No acute malnutrition detected."
     fr: "PB >= 125 mm. État nutritionnel adéquat. Aucune malnutrition aiguë détectée."
-    es: "MUAC >= 125 mm. Estado nutricional adecuado. No se detecta desnutrición aguda."
+    es: "PB >= 125 mm. Estado nutricional adecuado. No se detecta desnutrición aguda."

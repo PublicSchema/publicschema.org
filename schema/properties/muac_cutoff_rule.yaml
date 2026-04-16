@@ -3,7 +3,7 @@ maturity: draft
 label:
   en: "MUAC cutoff rule"
   fr: "Règle de seuil PB"
-  es: "Regla de corte MUAC"
+  es: "Regla de corte PB"
 
 definition:
   en: "The population-specific cutoff rule used to classify acute malnutrition from MUAC measurements. MUAC cutoffs differ by population: WHO/UNICEF thresholds for children 6-59 months, z-score based for school-age children and adolescents, Sphere thresholds for pregnant and lactating women. Required whenever acute_malnutrition_status is populated from a MUAC measurement."
