@@ -11,8 +11,9 @@ definition:
   es: Categorías que describen el estado civil o matrimonial de una persona tal como se registra en un registro o sistema
     administrativo.
 standard:
-  name: UN UNSD Population Census Framework
+  name: "UN Principles and Recommendations for Population and Housing Censuses, Revision 3"
   uri: https://unstats.un.org/unsd/demographic-social/Standards-and-Methods/files/Principles_and_Recommendations/Population-and-Housing-Censuses/Series_M67rev3-E.pdf
+  notes: "UN P&R Rev.3 (ST/ESA/STAT/SER.M/67/Rev.3, 2017) prescribes five minimum marital-status categories in paragraph 4.164: Single (never married), Married, Married but separated, Widowed and not remarried, Divorced and not remarried. UN P&R does not assign letter codes to these categories. The single-letter codes (S, M, W, D, L) that appear in the system_mappings below are provenance of HL7 v3 / FHIR R4 and OpenSPP, not of UN P&R. PublicSchema adds consensual_union as an extension beyond the UN P&R minimum because most national registries and operational MIS systems represent it as a distinct status; UN P&R itself discusses consensual union separately in paragraph 4.171 as a related but distinct variable."
 values:
 - code: never_married
   label:
@@ -23,7 +24,6 @@ values:
     en: Person who has never been married.
     fr: "Personne qui n'a jamais été mariée."
     es: "Persona que nunca ha estado casada."
-  standard_code: S
 - code: married
   label:
     en: Married
@@ -33,7 +33,6 @@ values:
     en: Currently married.
     fr: "Actuellement marié(e)."
     es: "Actualmente casado/a."
-  standard_code: M
 - code: widowed
   label:
     en: Widowed
@@ -43,7 +42,6 @@ values:
     en: Person whose spouse has died and who has not remarried.
     fr: "Personne dont le conjoint est décédé et qui ne s'est pas remariée."
     es: "Persona cuyo cónyuge ha fallecido y que no se ha vuelto a casar."
-  standard_code: W
 - code: divorced
   label:
     en: Divorced
@@ -53,27 +51,24 @@ values:
     en: Person whose marriage has been legally dissolved and who has not remarried.
     fr: "Personne dont le mariage a été légalement dissous et qui ne s'est pas remariée."
     es: "Persona cuyo matrimonio ha sido legalmente disuelto y que no se ha vuelto a casar."
-  standard_code: D
 - code: legally_separated
   label:
     en: Legally Separated
     fr: Séparé(e) légalement
     es: Separado/a legalmente
   definition:
-    en: Person who is legally separated from their spouse.
-    fr: "Personne légalement séparée de son conjoint."
-    es: "Persona legalmente separada de su cónyuge."
-  standard_code: L
+    en: "Person who is legally separated from their spouse. Corresponds to the UN P&R Rev.3 category 'Married, but separated'."
+    fr: "Personne légalement séparée de son conjoint. Correspond à la catégorie 'Marié(e), mais séparé(e)' du P&R Rév.3 des Nations Unies."
+    es: "Persona legalmente separada de su cónyuge. Corresponde a la categoría 'Casado/a, pero separado/a' del P&R Rev.3 de las Naciones Unidas."
 - code: consensual_union
   label:
     en: Consensual Union
     fr: Union consensuelle
     es: Unión consensual
   definition:
-    en: Person living in a consensual union (cohabitation without formal marriage).
-    fr: "Personne vivant en union consensuelle (cohabitation sans mariage formel)."
-    es: "Persona que vive en unión consensual (cohabitación sin matrimonio formal)."
-  standard_code: C
+    en: "Person living in a consensual union (cohabitation without formal marriage). Extension beyond the UN P&R Rev.3 minimum category set; included because most national registries and operational MIS systems represent consensual union as a distinct status."
+    fr: "Personne vivant en union consensuelle (cohabitation sans mariage formel). Extension au-delà de l'ensemble minimum des catégories du P&R Rév.3 des Nations Unies ; incluse car la plupart des registres nationaux et des systèmes MIS opérationnels représentent l'union consensuelle comme un statut distinct."
+    es: "Persona que vive en unión consensual (cohabitación sin matrimonio formal). Extensión más allá del conjunto mínimo de categorías del P&R Rev.3 de las Naciones Unidas; incluida porque la mayoría de los registros nacionales y sistemas MIS operativos representan la unión consensual como un estado distinto."
 
 system_mappings:
   openspp:

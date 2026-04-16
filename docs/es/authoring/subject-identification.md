@@ -1,6 +1,6 @@
 # Patrones de identificación del sujeto
 
-Los registros de perfil (FoodSecurityProfile, FunctioningProfile, AnthropometricProfile, SocioEconomicProfile) referencian a su sujeto mediante la propiedad `subject`. Tres patrones cubren el rango de escenarios de identificación en la recolección en campo.
+Los registros de perfil (FunctioningProfile y SocioEconomicProfile en PublicSchema, además de subtipos humanitarios como AnthropometricProfile, FoodSecurityProfile y DwellingDamageProfile publicados en un esquema hermano) referencian a su sujeto mediante la propiedad `subject`. Tres patrones cubren el rango de escenarios de identificación en la recolección en campo.
 
 ## Patrón 1: Referencia
 

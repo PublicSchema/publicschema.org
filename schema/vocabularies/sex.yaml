@@ -11,12 +11,13 @@ definition:
   es: El sexo biológico de una persona tal como se registra en un registro oficial o documento de identidad, según la norma
     ISO/IEC 5218.
 standard:
-  name: ISO/IEC 5218
-  uri: https://www.iso.org/standard/36266.html
-  notes: 'Codes for the representation of human sexes. Numeric codes mapped to readable identifiers. EBSI PID schemas extend
-    ISO 5218 with additional codes: 3 (other), 4 (inter), 5 (diverse), 6 (open). PublicSchema follows the base ISO standard.
-    Systems using those extension values should leave them unmapped here or use a local extension rather than collapsing them
-    into ISO 5218 ''not applicable''.'
+  name: ISO/IEC 5218:2022
+  uri: https://www.iso.org/standard/81682.html
+  notes: 'Codes for the representation of human sexes, per ISO/IEC 5218:2022 (which supersedes the withdrawn ISO/IEC 5218:2004).
+    The 2022 revision retains the same four code points (0, 1, 2, 9) with the same semantics. Numeric codes mapped to readable
+    identifiers. EBSI PID schemas extend ISO 5218 with additional codes: 3 (other), 4 (inter), 5 (diverse), 6 (open). PublicSchema
+    follows the base ISO standard. Systems using those extension values should leave them unmapped here or use a local extension
+    rather than collapsing them into ISO 5218 ''not applicable''.'
 values:
 - code: not_known
   label:

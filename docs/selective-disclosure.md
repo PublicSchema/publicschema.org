@@ -112,7 +112,7 @@ Selectively disclosable:
 
 **Use case**: Proof of benefit entitlement. A beneficiary needs to demonstrate they are entitled to a benefit for a specific period (e.g., to access a complementary service). The holder discloses entitlement_status (approved) and coverage period, keeping program details and identity hidden. Note: per-cycle entitlements are short-lived, so credential rotation is frequent; `document_expiry_date` controls VC validity independent of the coverage period.
 
-### ProfileCredential (SocioEconomicProfile, FunctioningProfile, AnthropometricProfile)
+### ProfileCredential (SocioEconomicProfile, FunctioningProfile, plus humanitarian subtypes such as AnthropometricProfile)
 
 A Profile record can be used as a credential in two patterns, and adopters choose based on use case.
 

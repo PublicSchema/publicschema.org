@@ -1,6 +1,6 @@
 # Subject Identification Patterns
 
-Profile records (FoodSecurityProfile, FunctioningProfile, AnthropometricProfile, SocioEconomicProfile) reference their subject via the `subject` property. Three patterns cover the range of identification scenarios in field collection.
+Profile records (FunctioningProfile and SocioEconomicProfile in PublicSchema, plus humanitarian subtypes like AnthropometricProfile, FoodSecurityProfile, and DwellingDamageProfile published in a sibling schema) reference their subject via the `subject` property. Three patterns cover the range of identification scenarios in field collection.
 
 ## Pattern 1: Reference
 

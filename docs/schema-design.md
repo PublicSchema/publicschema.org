@@ -94,7 +94,7 @@ A property like `start_date` is defined once and reused across concepts. When a 
 
 ### Cross-concept property reuse
 
-Property independence is not limited to repeated structural fields. Substantive observables can be reused across concepts too. `water_source`, `sanitation_facility`, and `dwelling_type` appear on both `SocioEconomicProfile` (baseline registration context) and `DwellingDamageProfile` (post-shock assessment). In each case the property is declared once and listed in each concept's `properties`.
+Property independence is not limited to repeated structural fields. Substantive observables can be reused across concepts too. `water_source`, `sanitation_facility`, and `dwelling_type` appear on both `SocioEconomicProfile` (baseline registration context) and `DwellingDamageProfile` in a sibling schema (post-shock assessment). In each case the property is declared once and listed in each concept's `properties`; the pattern also illustrates how PublicSchema properties can be reused by domain-specific profile subtypes vendored in a sibling schema.
 
 The rules that keep this honest:
 

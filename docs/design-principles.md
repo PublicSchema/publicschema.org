@@ -22,7 +22,7 @@ Some concepts exist only as shared foundations for more specific subtypes. Agent
 
 ## 6. Observation and scoring separation
 
-Data collection and data scoring are distinct steps with different actors, timestamps, and audit trails. Profile subtypes record the structured responses from a single instrument administration and may also carry outputs derived by applying the instrument's canonical scoring rule (for example, z-scores and status bands on AnthropometricProfile, the FCS consumption group on FoodSecurityProfile, or the WG-SS disability identifier on FunctioningProfile). ScoringEvent records the act of applying a non-default rule, an alternate threshold, or recomputing a score after a rule revision. This separation lets systems recompute scores without re-collecting data while keeping canonical outputs close to the observations that produced them. See [ADR-006](../decisions/006-profile-hierarchy.md) and [ADR-010](../decisions/010-profile-derived-outputs.md).
+Data collection and data scoring are distinct steps with different actors, timestamps, and audit trails. Profile subtypes record the structured responses from a single instrument administration and may also carry outputs derived by applying the instrument's canonical scoring rule (for example, the WG-SS disability identifier on FunctioningProfile, or a PMT score on SocioEconomicProfile). ScoringEvent records the act of applying a non-default rule, an alternate threshold, or recomputing a score after a rule revision. This separation lets systems recompute scores without re-collecting data while keeping canonical outputs close to the observations that produced them. Domain-specific profile subtypes published in sibling schemas follow the same pattern. See [ADR-006](../decisions/006-profile-hierarchy.md), [ADR-010](../decisions/010-profile-derived-outputs.md), and [ADR-011](../decisions/011-humanitarian-profile-extraction.md).
 
 ## 7. Property categories
 
@@ -34,7 +34,7 @@ Properties that record data-collection context (administration mode, respondent,
 
 ## 9. Core and extended property tiers
 
-Properties may carry an optional `core: true` flag, marking them as part of the must-ask subset of their owning profile. The flag enables a single profile definition to support both rapid and comprehensive assessments without duplicating the schema. Form compilers can filter to core-only properties to produce a rapid-assessment variant of any form (for example, a 9-item FCS-only food security screening derived from the full FoodSecurityProfile that also carries rCSI, LCS, HDDS, FIES, HHS, MAHFP, and WDDS items).
+Properties may carry an optional `core: true` flag, marking them as part of the must-ask subset of their owning profile. The flag enables a single profile definition to support both rapid and comprehensive assessments without duplicating the schema. Form compilers can filter to core-only properties to produce a rapid-assessment variant of any form (for example, a short WG-SS subset derived from the full FunctioningProfile).
 
 When omitted, `core` defaults to `false` (extended). The flag is independent of `valid_instruments`: a property may be both `core: true` and tied to a specific instrument. Programs that need a different rapid subset can override the filter at the form layer.
 

@@ -1,6 +1,6 @@
 # Modes d'identification du sujet
 
-Les enregistrements de profil (FoodSecurityProfile, FunctioningProfile, AnthropometricProfile, SocioEconomicProfile) référencent leur sujet via la propriété `subject`. Trois modes couvrent l'éventail des scénarios d'identification lors de la collecte sur le terrain.
+Les enregistrements de profil (FunctioningProfile et SocioEconomicProfile dans PublicSchema, ainsi que les sous-types humanitaires comme AnthropometricProfile, FoodSecurityProfile et DwellingDamageProfile publiés dans un schéma frère) référencent leur sujet via la propriété `subject`. Trois modes couvrent l'éventail des scénarios d'identification lors de la collecte sur le terrain.
 
 ## Mode 1 : Référence
 

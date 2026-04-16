@@ -148,7 +148,9 @@ class TestBuildPassthrough:
     def test_marital_status_uses_un_standard(self, real_result):
         """marital-status should reference the UN census framework, not FHIR."""
         vocab = real_result["vocabularies"]["marital-status"]
-        assert vocab["standard"]["name"] == "UN UNSD Population Census Framework"
+        assert vocab["standard"]["name"] == (
+            "UN Principles and Recommendations for Population and Housing Censuses, Revision 3"
+        )
 
     def test_marital_status_has_consensual_union(self, real_result):
         """marital-status should have consensual_union (renamed from common_law)."""
