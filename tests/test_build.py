@@ -783,7 +783,7 @@ class TestJsonSchemaGeneration:
         ))
         result = build_vocabulary(tmp_schema)
         geom_schema = result["concept_schemas"]["Area"]["properties"]["geom"]
-        assert geom_schema == {"$ref": "https://geojson.org/schema/Geometry.json"}
+        assert geom_schema["$ref"] == "https://geojson.org/schema/Geometry.json"
 
     def test_concept_schema_geojson_geometry_multivalued(
         self, tmp_schema, write_concept, write_property
@@ -798,7 +798,267 @@ class TestJsonSchemaGeneration:
         result = build_vocabulary(tmp_schema)
         schema = result["concept_schemas"]["Area"]["properties"]["geoms"]
         assert schema["type"] == "array"
-        assert schema["items"] == {"$ref": "https://geojson.org/schema/Geometry.json"}
+        assert schema["items"]["$ref"] == "https://geojson.org/schema/Geometry.json"
+
+    # --- Phase 1: Descriptions ---
+
+    def test_concept_schema_has_description(
+        self, tmp_schema, write_concept, write_property
+    ):
+        """Concept schema includes English definition as description."""
+        write_property("name.yaml", make_property(id="name"))
+        write_concept("person.yaml", make_concept(
+            id="Person",
+            properties=["name"],
+            definition={"en": "An individual human being.", "fr": "Un.", "es": "Un."},
+        ))
+        result = build_vocabulary(tmp_schema)
+        schema = result["concept_schemas"]["Person"]
+        assert schema["description"] == "An individual human being."
+
+    def test_property_schema_has_description(
+        self, tmp_schema, write_concept, write_property
+    ):
+        """Property schema includes English definition as description."""
+        write_property("name.yaml", make_property(
+            id="name",
+            definition={"en": "Full legal name.", "fr": "Nom.", "es": "Nombre."},
+        ))
+        write_concept("person.yaml", make_concept(
+            id="Person", properties=["name"],
+        ))
+        result = build_vocabulary(tmp_schema)
+        name_schema = result["concept_schemas"]["Person"]["properties"]["name"]
+        assert name_schema["description"] == "Full legal name."
+
+    def test_property_schema_no_description_when_missing(
+        self, tmp_schema, write_concept, write_property
+    ):
+        """Property without definition.en should not have a description key."""
+        write_property("code.yaml", make_property(
+            id="code", definition={"en": "", "fr": "", "es": ""},
+        ))
+        write_concept("test.yaml", make_concept(
+            id="Test", properties=["code"],
+        ))
+        result = build_vocabulary(tmp_schema)
+        code_schema = result["concept_schemas"]["Test"]["properties"]["code"]
+        assert "description" not in code_schema
+
+    # --- Phase 2: Vocab size threshold ---
+
+    def test_concept_schema_large_vocab_omits_enum(
+        self, tmp_schema, write_concept, write_property, write_vocabulary
+    ):
+        """Vocab with >50 values should not inline enum, but should have $comment."""
+        values = [
+            {"code": f"v{i}", "label": {"en": f"V{i}", "fr": f"V{i}", "es": f"V{i}"},
+             "definition": {"en": f"Value {i}.", "fr": f"V {i}.", "es": f"V {i}."}}
+            for i in range(51)
+        ]
+        write_vocabulary("big-vocab.yaml", make_vocabulary(
+            id="big-vocab", values=values,
+        ))
+        write_property("field.yaml", make_property(
+            id="field", vocabulary="big-vocab",
+        ))
+        write_concept("test.yaml", make_concept(
+            id="Test", properties=["field"],
+        ))
+        result = build_vocabulary(tmp_schema)
+        field_schema = result["concept_schemas"]["Test"]["properties"]["field"]
+        assert "enum" not in field_schema
+        assert field_schema["type"] == "string"
+        assert "$comment" in field_schema
+
+    def test_concept_schema_small_vocab_still_has_enum(
+        self, tmp_schema, write_concept, write_property, write_vocabulary
+    ):
+        """Vocab with <=50 values should still inline enum."""
+        write_vocabulary("small-vocab.yaml", make_vocabulary(
+            id="small-vocab",
+            values=[
+                {"code": "a", "label": {"en": "A", "fr": "A", "es": "A"},
+                 "definition": {"en": "A.", "fr": "A.", "es": "A."}},
+                {"code": "b", "label": {"en": "B", "fr": "B", "es": "B"},
+                 "definition": {"en": "B.", "fr": "B.", "es": "B."}},
+            ],
+        ))
+        write_property("field.yaml", make_property(
+            id="field", vocabulary="small-vocab",
+        ))
+        write_concept("test.yaml", make_concept(
+            id="Test", properties=["field"],
+        ))
+        result = build_vocabulary(tmp_schema)
+        field_schema = result["concept_schemas"]["Test"]["properties"]["field"]
+        assert "enum" in field_schema
+        assert set(field_schema["enum"]) == {"a", "b"}
+
+    def test_concept_schema_vocab_threshold_boundary(
+        self, tmp_schema, write_concept, write_property, write_vocabulary
+    ):
+        """Exactly 50 values should inline; 51 should skip."""
+        values_50 = [
+            {"code": f"v{i}", "label": {"en": f"V{i}", "fr": f"V{i}", "es": f"V{i}"},
+             "definition": {"en": f"V{i}.", "fr": f"V{i}.", "es": f"V{i}."}}
+            for i in range(50)
+        ]
+        values_51 = values_50 + [
+            {"code": "v50", "label": {"en": "V50", "fr": "V50", "es": "V50"},
+             "definition": {"en": "V50.", "fr": "V50.", "es": "V50."}}
+        ]
+        write_vocabulary("exact50.yaml", make_vocabulary(id="exact50", values=values_50))
+        write_vocabulary("exact51.yaml", make_vocabulary(id="exact51", values=values_51))
+        write_property("f50.yaml", make_property(id="f50", vocabulary="exact50"))
+        write_property("f51.yaml", make_property(id="f51", vocabulary="exact51"))
+        write_concept("test.yaml", make_concept(
+            id="Test", properties=["f50", "f51"],
+        ))
+        result = build_vocabulary(tmp_schema)
+        props = result["concept_schemas"]["Test"]["properties"]
+        assert "enum" in props["f50"]
+        assert "enum" not in props["f51"]
+
+    # --- Phase 3: $defs for repeated vocab enums ---
+
+    def test_concept_schema_repeated_vocab_uses_defs(
+        self, tmp_schema, write_concept, write_property, write_vocabulary
+    ):
+        """Two properties sharing a vocab should produce $defs with $ref on both."""
+        write_vocabulary("status.yaml", make_vocabulary(
+            id="status",
+            values=[
+                {"code": "active", "label": {"en": "Active", "fr": "A", "es": "A"},
+                 "definition": {"en": "Active.", "fr": "A.", "es": "A."}},
+                {"code": "inactive", "label": {"en": "Inactive", "fr": "I", "es": "I"},
+                 "definition": {"en": "Inactive.", "fr": "I.", "es": "I."}},
+            ],
+        ))
+        write_property("status_a.yaml", make_property(id="status_a", vocabulary="status"))
+        write_property("status_b.yaml", make_property(id="status_b", vocabulary="status"))
+        write_concept("test.yaml", make_concept(
+            id="Test", properties=["status_a", "status_b"],
+        ))
+        result = build_vocabulary(tmp_schema)
+        schema = result["concept_schemas"]["Test"]
+        assert "$defs" in schema
+        assert "status" in schema["$defs"]
+        assert schema["$defs"]["status"]["enum"] == ["active", "inactive"]
+        # Both properties should use $ref
+        assert schema["properties"]["status_a"] == {"$ref": "#/$defs/status"}
+        assert schema["properties"]["status_b"] == {"$ref": "#/$defs/status"}
+
+    def test_concept_schema_single_use_vocab_stays_inline(
+        self, tmp_schema, write_concept, write_property, write_vocabulary
+    ):
+        """A vocab used by only one property should remain inline, no $defs."""
+        write_vocabulary("color.yaml", make_vocabulary(
+            id="color",
+            values=[
+                {"code": "red", "label": {"en": "Red", "fr": "R", "es": "R"},
+                 "definition": {"en": "Red.", "fr": "R.", "es": "R."}},
+            ],
+        ))
+        write_property("color.yaml", make_property(id="color", vocabulary="color"))
+        write_concept("test.yaml", make_concept(
+            id="Test", properties=["color"],
+        ))
+        result = build_vocabulary(tmp_schema)
+        schema = result["concept_schemas"]["Test"]
+        assert "$defs" not in schema
+        assert "enum" in schema["properties"]["color"]
+
+    def test_concept_schema_multivalued_with_defs(
+        self, tmp_schema, write_concept, write_property, write_vocabulary
+    ):
+        """Multi-valued property using a deduped vocab wraps $ref in array."""
+        write_vocabulary("tag.yaml", make_vocabulary(
+            id="tag",
+            values=[
+                {"code": "a", "label": {"en": "A", "fr": "A", "es": "A"},
+                 "definition": {"en": "A.", "fr": "A.", "es": "A."}},
+            ],
+        ))
+        write_property("tags.yaml", make_property(
+            id="tags", vocabulary="tag", cardinality="multiple",
+        ))
+        write_property("more_tags.yaml", make_property(
+            id="more_tags", vocabulary="tag", cardinality="multiple",
+        ))
+        write_concept("test.yaml", make_concept(
+            id="Test", properties=["tags", "more_tags"],
+        ))
+        result = build_vocabulary(tmp_schema)
+        schema = result["concept_schemas"]["Test"]
+        assert "$defs" in schema
+        assert "tag" in schema["$defs"]
+        assert schema["properties"]["tags"] == {
+            "type": "array", "items": {"$ref": "#/$defs/tag"},
+        }
+        assert schema["properties"]["more_tags"] == {
+            "type": "array", "items": {"$ref": "#/$defs/tag"},
+        }
+
+    def test_concept_schema_with_defs_is_valid_json_schema(
+        self, tmp_schema, write_concept, write_property, write_vocabulary
+    ):
+        """Schema with $defs should still pass JSON Schema meta-validation."""
+        write_vocabulary("status.yaml", make_vocabulary(
+            id="status",
+            values=[
+                {"code": "active", "label": {"en": "Active", "fr": "A", "es": "A"},
+                 "definition": {"en": "Active.", "fr": "A.", "es": "A."}},
+                {"code": "inactive", "label": {"en": "Inactive", "fr": "I", "es": "I"},
+                 "definition": {"en": "Inactive.", "fr": "I.", "es": "I."}},
+            ],
+        ))
+        write_property("status_a.yaml", make_property(id="status_a", vocabulary="status"))
+        write_property("status_b.yaml", make_property(id="status_b", vocabulary="status"))
+        write_concept("test.yaml", make_concept(
+            id="Test", properties=["status_a", "status_b"],
+        ))
+        result = build_vocabulary(tmp_schema)
+        schema = result["concept_schemas"]["Test"]
+        jsonschema.Draft202012Validator.check_schema(schema)
+
+    # --- Phase 4: $ref for concept references ---
+
+    def test_concept_schema_concept_ref_uses_oneOf(
+        self, tmp_schema, write_concept, write_property
+    ):
+        """concept:X property produces oneOf with $ref and string."""
+        write_property("addr.yaml", make_property(id="addr", type="concept:Address"))
+        write_concept("address.yaml", make_concept(id="Address", properties=[]))
+        write_concept("person.yaml", make_concept(
+            id="Person", properties=["addr"],
+        ))
+        result = build_vocabulary(tmp_schema)
+        addr_schema = result["concept_schemas"]["Person"]["properties"]["addr"]
+        assert "oneOf" in addr_schema
+        assert len(addr_schema["oneOf"]) == 2
+        ref_option = addr_schema["oneOf"][0]
+        assert ref_option["$ref"] == "https://test.example.org/schemas/Address.schema.json"
+        str_option = addr_schema["oneOf"][1]
+        assert str_option["type"] == "string"
+
+    def test_concept_schema_concept_ref_domain_scoped(
+        self, tmp_schema, write_concept, write_property
+    ):
+        """concept:Enrollment with domain: sp should produce domain-scoped $ref URI."""
+        write_property("enrollment_ref.yaml", make_property(
+            id="enrollment_ref", type="concept:Enrollment",
+        ))
+        write_concept("enrollment.yaml", make_concept(
+            id="Enrollment", domain="sp", properties=[],
+        ))
+        write_concept("person.yaml", make_concept(
+            id="Person", properties=["enrollment_ref"],
+        ))
+        result = build_vocabulary(tmp_schema)
+        ref_schema = result["concept_schemas"]["Person"]["properties"]["enrollment_ref"]
+        assert "oneOf" in ref_schema
+        assert ref_schema["oneOf"][0]["$ref"] == "https://test.example.org/sp/schemas/Enrollment.schema.json"
 
 
 # ---------------------------------------------------------------------------
@@ -989,6 +1249,83 @@ class TestCredentialSchemas:
         subject_props = schema["properties"]["credentialSubject"]["properties"]
         assert "payment_event" in subject_props
         assert "paymentEvent" not in subject_props
+
+    def test_credential_schema_propagates_defs_from_concept(
+        self, tmp_schema, write_concept, write_property, write_vocabulary,
+        write_credential
+    ):
+        """Credential schema should include $defs from its subject concept."""
+        write_vocabulary("status.yaml", make_vocabulary(
+            id="status",
+            values=[
+                {"code": "active", "label": {"en": "Active", "fr": "A", "es": "A"},
+                 "definition": {"en": "Active.", "fr": "A.", "es": "A."}},
+                {"code": "inactive", "label": {"en": "Inactive", "fr": "I", "es": "I"},
+                 "definition": {"en": "Inactive.", "fr": "I.", "es": "I."}},
+            ],
+        ))
+        write_property("status_a.yaml", make_property(id="status_a", vocabulary="status"))
+        write_property("status_b.yaml", make_property(id="status_b", vocabulary="status"))
+        write_concept("person.yaml", make_concept(
+            id="Person", properties=["status_a", "status_b"],
+        ))
+        write_credential("identity.yaml", make_credential(
+            id="IdentityCredential", subject_concept="Person",
+        ))
+        result = build_vocabulary(tmp_schema)
+        cred_schema = result["credential_schemas"]["IdentityCredential"]
+        # $defs from Person should be propagated
+        assert "$defs" in cred_schema
+        assert "status" in cred_schema["$defs"]
+        # credentialSubject properties should use $ref
+        subject_props = cred_schema["properties"]["credentialSubject"]["properties"]
+        assert subject_props["status_a"] == {"$ref": "#/$defs/status"}
+
+    def test_credential_schema_merges_defs_from_included_concepts(
+        self, tmp_schema, write_concept, write_property, write_vocabulary,
+        write_credential
+    ):
+        """Credential schema should merge $defs from both subject and included concepts."""
+        write_vocabulary("status.yaml", make_vocabulary(
+            id="status",
+            values=[
+                {"code": "active", "label": {"en": "Active", "fr": "A", "es": "A"},
+                 "definition": {"en": "Active.", "fr": "A.", "es": "A."}},
+                {"code": "inactive", "label": {"en": "Inactive", "fr": "I", "es": "I"},
+                 "definition": {"en": "Inactive.", "fr": "I.", "es": "I."}},
+            ],
+        ))
+        write_vocabulary("priority.yaml", make_vocabulary(
+            id="priority",
+            values=[
+                {"code": "high", "label": {"en": "High", "fr": "H", "es": "H"},
+                 "definition": {"en": "High.", "fr": "H.", "es": "H."}},
+                {"code": "low", "label": {"en": "Low", "fr": "L", "es": "L"},
+                 "definition": {"en": "Low.", "fr": "L.", "es": "L."}},
+            ],
+        ))
+        write_property("status_a.yaml", make_property(id="status_a", vocabulary="status"))
+        write_property("status_b.yaml", make_property(id="status_b", vocabulary="status"))
+        write_property("prio_a.yaml", make_property(id="prio_a", vocabulary="priority"))
+        write_property("prio_b.yaml", make_property(id="prio_b", vocabulary="priority"))
+        write_concept("person.yaml", make_concept(
+            id="Person", properties=["status_a", "status_b"],
+        ))
+        write_concept("enrollment.yaml", make_concept(
+            id="Enrollment", domain="sp",
+            properties=["prio_a", "prio_b"],
+        ))
+        write_credential("enrollment_cred.yaml", make_credential(
+            id="EnrollmentCredential",
+            subject_concept="Person",
+            included_concepts=["Enrollment"],
+        ))
+        result = build_vocabulary(tmp_schema)
+        cred_schema = result["credential_schemas"]["EnrollmentCredential"]
+        # Should have $defs from both Person (status) and Enrollment (priority)
+        assert "$defs" in cred_schema
+        assert "status" in cred_schema["$defs"]
+        assert "priority" in cred_schema["$defs"]
 
 
 # ---------------------------------------------------------------------------

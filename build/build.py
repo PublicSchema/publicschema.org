@@ -26,6 +26,11 @@ TYPE_MAP = {
     "geojson_geometry": {"$ref": "https://geojson.org/schema/Geometry.json"},
 }
 
+# Vocabularies with more values than this threshold are too large to inline as
+# enum constraints. They get type: string with a $comment pointing to the vocab URI.
+# Matches the threshold used in rdf_export.py for SHACL sh:in constraints.
+VOCAB_SIZE_THRESHOLD = 50
+
 # Type mappings from YAML types to JSON-LD @type coercion values.
 # Only non-string types need coercion; plain strings are left as bare URIs.
 JSONLD_TYPE_COERCION = {
@@ -382,7 +387,10 @@ def _compute_property_domain_namespace(
 
 
 def _property_to_json_schema(
-    prop_data: dict, vocabularies: dict, out_vocabularies: dict | None = None,
+    prop_data: dict,
+    vocabularies: dict,
+    out_vocabularies: dict | None = None,
+    concept_schema_uris: dict | None = None,
 ) -> dict:
     """Convert a property definition to a JSON Schema property definition."""
     prop_type = prop_data.get("type", "string")
@@ -393,15 +401,35 @@ def _property_to_json_schema(
     if vocab_ref and vocab_ref in vocabularies:
         vocab = vocabularies[vocab_ref]
         codes = [v["code"] for v in vocab.get("values", [])]
-        item_schema: dict = {"type": "string", "enum": codes}
-        # Link to the vocabulary URI so consumers can discover full semantics
-        if out_vocabularies and vocab_ref in out_vocabularies:
-            item_schema["$comment"] = out_vocabularies[vocab_ref]["uri"]
+        if len(codes) > VOCAB_SIZE_THRESHOLD:
+            # Too many values to inline; emit type + $comment only
+            item_schema: dict = {"type": "string"}
+            if out_vocabularies and vocab_ref in out_vocabularies:
+                item_schema["$comment"] = out_vocabularies[vocab_ref]["uri"]
+        else:
+            item_schema = {"type": "string", "enum": codes}
+            # Link to the vocabulary URI so consumers can discover full semantics
+            if out_vocabularies and vocab_ref in out_vocabularies:
+                item_schema["$comment"] = out_vocabularies[vocab_ref]["uri"]
     elif prop_type.startswith("concept:"):
-        # Reference to another concept: accept object or string
-        item_schema = {"type": ["object", "string"]}
+        # Reference to another concept: use oneOf with $ref when URI is known
+        ref_concept_id = prop_type.removeprefix("concept:")
+        if concept_schema_uris and ref_concept_id in concept_schema_uris:
+            item_schema = {
+                "oneOf": [
+                    {"$ref": concept_schema_uris[ref_concept_id]},
+                    {"type": "string", "description": "URI or identifier reference"},
+                ]
+            }
+        else:
+            item_schema = {"type": ["object", "string"]}
     else:
         item_schema = dict(TYPE_MAP.get(prop_type, {"type": "string"}))
+
+    # Add description from English definition if available
+    description = prop_data.get("definition", {}).get("en", "")
+    if description:
+        item_schema["description"] = description
 
     if cardinality == "multiple":
         return {"type": "array", "items": item_schema}
@@ -694,6 +722,13 @@ def build_vocabulary(schema_dir: Path) -> dict:
         "@context": context_map,
     }
 
+    # Pre-compute concept schema URIs for $ref lookups
+    concept_schema_uris: dict[str, str] = {}
+    for concept_id, data in concepts_raw.items():
+        concept_domain = data.get("domain")
+        schema_base = f"{base_uri}{concept_domain}/" if concept_domain else base_uri
+        concept_schema_uris[concept_id] = f"{schema_base}schemas/{concept_id}.schema.json"
+
     # Build JSON Schema per concept
     concept_schemas = {}
     for concept_id, data in concepts_raw.items():
@@ -704,17 +739,60 @@ def build_vocabulary(schema_dir: Path) -> dict:
             if prop_id in properties_raw:
                 schema_props[prop_id] = _property_to_json_schema(
                     properties_raw[prop_id], vocabularies_raw, out_vocabularies,
+                    concept_schema_uris,
                 )
+
+        # Extract repeated vocab enums into $defs
+        # Count how many times each vocab ref appears across properties
+        vocab_usage: dict[str, int] = {}
+        for entry in _collect_all_properties(concept_id, concepts_raw):
+            norm = _normalize_property_entry(entry)
+            prop_id = norm["id"]
+            if prop_id in properties_raw:
+                vref = properties_raw[prop_id].get("vocabulary")
+                if vref and vref in vocabularies_raw:
+                    codes = [v["code"] for v in vocabularies_raw[vref].get("values", [])]
+                    if len(codes) <= VOCAB_SIZE_THRESHOLD:
+                        vocab_usage[vref] = vocab_usage.get(vref, 0) + 1
+
+        defs: dict[str, dict] = {}
+        for vref, count in vocab_usage.items():
+            if count < 2:
+                continue
+            vocab = vocabularies_raw[vref]
+            codes = [v["code"] for v in vocab.get("values", [])]
+            def_entry: dict = {"type": "string", "enum": codes}
+            if out_vocabularies and vref in out_vocabularies:
+                def_entry["$comment"] = out_vocabularies[vref]["uri"]
+            vocab_desc = vocab.get("definition", {}).get("en", "")
+            if vocab_desc:
+                def_entry["description"] = vocab_desc
+            defs[vref] = def_entry
+
+        # Replace inline occurrences with $ref for deduped vocabs
+        for prop_key, prop_schema in schema_props.items():
+            for vref in defs:
+                if prop_schema.get("type") == "array":
+                    items = prop_schema.get("items", {})
+                    if items.get("enum") and items.get("$comment", "").endswith(f"/vocab/{vref}"):
+                        prop_schema["items"] = {"$ref": f"#/$defs/{vref}"}
+                elif prop_schema.get("enum") and prop_schema.get("$comment", "").endswith(f"/vocab/{vref}"):
+                    schema_props[prop_key] = {"$ref": f"#/$defs/{vref}"}
 
         concept_domain = data.get("domain")
         schema_base = f"{base_uri}{concept_domain}/" if concept_domain else base_uri
-        concept_schema = {
+        concept_schema: dict = {
             "$schema": "https://json-schema.org/draft/2020-12/schema",
             "$id": f"{schema_base}schemas/{concept_id}.schema.json",
             "title": concept_id,
-            "type": "object",
-            "properties": schema_props,
         }
+        concept_desc = data.get("definition", {}).get("en", "")
+        if concept_desc:
+            concept_schema["description"] = concept_desc
+        concept_schema["type"] = "object"
+        if defs:
+            concept_schema["$defs"] = defs
+        concept_schema["properties"] = schema_props
         concept_schemas[concept_id] = concept_schema
 
     # Build SD-JWT VC credential schemas
@@ -729,11 +807,16 @@ def build_vocabulary(schema_dir: Path) -> dict:
         subject_schema = dict(concept_schemas[subject_concept_id])
         subject_props = dict(subject_schema.get("properties", {}))
 
+        # Merge $defs from subject concept and included concepts
+        cred_defs: dict = {}
+        if "$defs" in subject_schema:
+            cred_defs.update(subject_schema["$defs"])
+
         # Add nested included concepts as sub-objects
         for included_id in cred_data.get("included_concepts", []):
             if included_id in concept_schemas:
                 nested = dict(concept_schemas[included_id])
-                nested_obj = {
+                nested_obj: dict = {
                     "type": "object",
                     "properties": nested.get("properties", {}),
                 }
@@ -741,52 +824,57 @@ def build_vocabulary(schema_dir: Path) -> dict:
                     nested_obj["required"] = nested["required"]
                 # Use snake_case concept name as the property key
                 subject_props[_to_snake_case(included_id)] = nested_obj
+                # Merge $defs from included concept
+                if "$defs" in nested:
+                    cred_defs.update(nested["$defs"])
 
         # Build SD-JWT VC schema
-        credential_schema = {
+        credential_schema: dict = {
             "$schema": "https://json-schema.org/draft/2020-12/schema",
             "$id": f"{base_uri}schemas/credentials/{cred_id}.schema.json",
             "title": cred_id,
             "type": "object",
             "required": ["vct", "iss", "iat"],
-            "properties": {
-                "vct": {
-                    "type": "string",
-                    "const": f"{base_uri}schemas/credentials/{cred_id}",
-                    "description": "Verifiable credential type identifier",
-                },
-                "iss": {
-                    "type": "string",
-                    "description": "Issuer identifier (DID or URL)",
-                },
-                "sub": {
-                    "type": "string",
-                    "description": "Subject identifier",
-                },
-                "iat": {
-                    "type": "integer",
-                    "description": "Issued at (Unix timestamp)",
-                },
-                "nbf": {
-                    "type": "integer",
-                    "description": "Not before (Unix timestamp)",
-                },
-                "exp": {
-                    "type": "integer",
-                    "description": "Expiration time (Unix timestamp)",
-                },
-                "cnf": {
-                    "type": "object",
-                    "description": "Confirmation claim for key binding",
-                },
-                "_sd_alg": {
-                    "type": "string",
-                    "description": "Selective disclosure hash algorithm",
-                },
-                "credentialSubject": {
-                    "type": "object",
-                    "properties": subject_props,
-                },
+        }
+        if cred_defs:
+            credential_schema["$defs"] = cred_defs
+        credential_schema["properties"] = {
+            "vct": {
+                "type": "string",
+                "const": f"{base_uri}schemas/credentials/{cred_id}",
+                "description": "Verifiable credential type identifier",
+            },
+            "iss": {
+                "type": "string",
+                "description": "Issuer identifier (DID or URL)",
+            },
+            "sub": {
+                "type": "string",
+                "description": "Subject identifier",
+            },
+            "iat": {
+                "type": "integer",
+                "description": "Issued at (Unix timestamp)",
+            },
+            "nbf": {
+                "type": "integer",
+                "description": "Not before (Unix timestamp)",
+            },
+            "exp": {
+                "type": "integer",
+                "description": "Expiration time (Unix timestamp)",
+            },
+            "cnf": {
+                "type": "object",
+                "description": "Confirmation claim for key binding",
+            },
+            "_sd_alg": {
+                "type": "string",
+                "description": "Selective disclosure hash algorithm",
+            },
+            "credentialSubject": {
+                "type": "object",
+                "properties": subject_props,
             },
         }
         credential_schemas[cred_id] = credential_schema

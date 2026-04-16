@@ -10,6 +10,7 @@ from pathlib import Path
 import jsonschema
 import pytest
 from pyld import jsonld
+from referencing import Registry, Resource
 
 from build.build import build_vocabulary
 from build.validate import validate_schema_dir
@@ -133,6 +134,13 @@ class TestRealSchema:
             # Validate against generated schema
             result = build_vocabulary(SCHEMA_DIR)
             cred_schemas = result["credential_schemas"]
+            concept_schemas = result["concept_schemas"]
+
+            # Build a registry of all concept schemas so $ref can resolve locally
+            registry = Registry()
+            for cs in concept_schemas.values():
+                resource = Resource.from_contents(cs)
+                registry = registry.with_resource(cs["$id"], resource)
 
             # Extract credential type from vct URI
             vct = example["vct"]
@@ -140,11 +148,12 @@ class TestRealSchema:
             assert cred_type in cred_schemas, (
                 f"{example_path.name}: no credential schema found for type '{cred_type}'"
             )
-            jsonschema.validate(
-                example,
+            validator = jsonschema.Draft202012Validator(
                 cred_schemas[cred_type],
+                registry=registry,
                 format_checker=jsonschema.FormatChecker(),
             )
+            validator.validate(example)
 
         else:
             pytest.skip(f"{example_path.name}: unrecognized file type, skipping")
