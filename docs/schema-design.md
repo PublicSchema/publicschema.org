@@ -22,6 +22,8 @@ Some concepts share a name across domains but carry different semantics ("Enroll
 
 The test: an element is universal if the same definition carries the same meaning regardless of domain. If not, it belongs in a domain namespace.
 
+The same test applies to properties and vocabularies in principle, but applying it is a judgment call. A controlled vocabulary whose values are tightly tied to a domain workflow (`sp/grievance-type`, `sp/grievance-status`, `sp/enrollment-status`) is clearly domain-scoped. A property that references such a vocabulary (`grievance_type`, `grievance_status`) may still sit at the root namespace when the property's primitive shape (a coded value, an ISO date, an identifier reference) is portable even though its value set is not. Several such "root property, domain vocabulary" pairs exist in the current schema. The split is deliberate: it keeps the property URI stable if the concept is later renamed or generalised across domains, while the vocabulary carries the domain-specific semantics.
+
 Names are never prefixed with a domain abbreviation. It is `Enrollment`, not `SPEnrollment`. The URI structure handles disambiguation. One named exception exists: `CRVSPerson`, documented in [ADR-014](../decisions/014-crvs-person-naming.md). It is not a precedent; any further exception requires its own ADR.
 
 | Code | Domain | Status |

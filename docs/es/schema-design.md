@@ -22,6 +22,8 @@ Algunos conceptos comparten un nombre entre dominios pero tienen semánticas dif
 
 La prueba: un elemento es universal si la misma definición tiene el mismo significado independientemente del dominio. Si no es así, pertenece a un espacio de nombres de dominio.
 
+La misma prueba se aplica en principio a propiedades y vocabularios, pero su aplicación es un juicio de valor. Un vocabulario controlado cuyos valores están estrechamente ligados a un flujo de trabajo de dominio (`sp/grievance-type`, `sp/grievance-status`, `sp/enrollment-status`) es claramente de alcance de dominio. Una propiedad que referencia tal vocabulario (`grievance_type`, `grievance_status`) puede, no obstante, permanecer en el espacio de nombres raíz cuando la forma primitiva de la propiedad (un valor codificado, una fecha ISO, una referencia de identificador) es portable aunque su conjunto de valores no lo sea. En el esquema actual existen varios pares de este tipo («propiedad en la raíz, vocabulario en el dominio»). Este reparto es deliberado: mantiene estable el URI de la propiedad si el concepto se renombra o se generaliza a otros dominios más adelante, mientras que el vocabulario lleva la semántica específica del dominio.
+
 Los nombres nunca se prefijan con una abreviación de dominio. Es `Enrollment`, no `SPEnrollment`. La estructura del URI se encarga de la disambiguación. Existe una excepción nombrada: `CRVSPerson`, documentada en [ADR-014](../../decisions/014-crvs-person-naming.md). No es un precedente; cualquier excepción adicional requiere su propio ADR.
 
 | Código | Dominio | Estado |

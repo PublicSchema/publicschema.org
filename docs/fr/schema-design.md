@@ -22,6 +22,8 @@ Certains concepts partagent un nom entre domaines mais portent une sémantique d
 
 Le test : un élément est universel si la même définition porte le même sens quel que soit le domaine. Dans le cas contraire, il appartient à un espace de noms de domaine.
 
+Le même test s'applique en principe aux propriétés et aux vocabulaires, mais son application relève du jugement. Un vocabulaire contrôlé dont les valeurs sont étroitement liées à un flux de travail de domaine (`sp/grievance-type`, `sp/grievance-status`, `sp/enrollment-status`) est clairement à portée de domaine. Une propriété qui référence un tel vocabulaire (`grievance_type`, `grievance_status`) peut toutefois rester dans l'espace de noms racine lorsque la forme primitive de la propriété (une valeur codée, une date ISO, une référence d'identifiant) est portable même si son ensemble de valeurs ne l'est pas. Plusieurs paires « propriété à la racine, vocabulaire à portée de domaine » existent dans le schéma actuel. Ce découpage est délibéré : il maintient l'URI de la propriété stable si le concept est renommé ou généralisé à d'autres domaines par la suite, tandis que le vocabulaire porte la sémantique spécifique au domaine.
+
 Les noms ne sont jamais préfixés par une abréviation de domaine. C'est `Enrollment`, pas `SPEnrollment`. La structure des URI gère la désambiguïsation. Une exception nommée existe : `CRVSPerson`, documentée dans [ADR-014](../../decisions/014-crvs-person-naming.md). Ce n'est pas un précédent ; toute exception supplémentaire nécessite son propre ADR.
 
 | Code | Domaine | Statut |
