@@ -29,7 +29,7 @@ definition:
 properties:
   - identifiers
 
-subtypes: [EligibilityDecision, HazardEvent, InKindDelivery, PaymentEvent, Profile, Referral, ScoringEvent, VitalEvent, VoucherRedemption]
+subtypes: [EligibilityDecision, Enrollment, Grievance, HazardEvent, InKindDelivery, PaymentEvent, Profile, Referral, ScoringEvent, VitalEvent, VoucherRedemption]
 supertypes: []
 
 external_equivalents:

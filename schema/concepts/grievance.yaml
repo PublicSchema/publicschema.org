@@ -34,7 +34,7 @@ properties:
   - resolution_date
 
 subtypes: []
-supertypes: []
+supertypes: [Event]
 
 external_equivalents:
   dci:
