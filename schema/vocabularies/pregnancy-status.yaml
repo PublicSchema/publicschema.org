@@ -5,13 +5,20 @@ label:
   fr: Statut de grossesse
   es: Estado de embarazo
 definition:
-  en: "The current pregnancy status of a person, based on the LOINC answer list for pregnancy status."
-  fr: "Le statut de grossesse actuel d'une personne, basé sur la liste de réponses LOINC pour le statut de grossesse."
-  es: "El estado de embarazo actual de una persona, basado en la lista de respuestas LOINC para el estado de embarazo."
+  en: "The current pregnancy status of a person. Aligned with the LOINC LL4129-4 answer list (pregnant, not pregnant, unknown), with an additional postpartum value for social-protection programs that target postpartum or lactating women separately."
+  fr: "Le statut de grossesse actuel d'une personne. Aligné sur la liste de réponses LOINC LL4129-4 (enceinte, pas enceinte, inconnu), avec une valeur supplémentaire post-partum pour les programmes de protection sociale qui ciblent séparément les femmes en post-partum ou allaitantes."
+  es: "El estado de embarazo actual de una persona. Alineado con la lista de respuestas LOINC LL4129-4 (embarazada, no embarazada, desconocido), con un valor posparto adicional para los programas de protección social que se dirigen por separado a mujeres posparto o lactantes."
 standard:
   name: "LOINC LL4129-4 Pregnancy Status"
   uri: https://loinc.org/LL4129-4/
-  notes: "LOINC answer list for LOINC code 82810-3 (Pregnancy status). Aligned with FHIR R4 IPS pregnancy status. The postpartum value is a PublicSchema extension for social protection programs that target postpartum or lactating women separately."
+  notes: >
+    LOINC answer list LL4129-4 (for LOINC observation code 82810-3) defines
+    three values: Pregnant, Not pregnant, Unknown. This vocabulary carries
+    those three verbatim and adds `postpartum` as a PublicSchema extension.
+    Note that the FHIR R4 International Patient Summary pregnancy-status
+    pattern uses SNOMED CT codes for the observation value, not the LOINC
+    answer list; implementations that need FHIR IPS conformance should map
+    through SNOMED CT rather than treat this vocabulary as a drop-in.
 values:
 - code: not_pregnant
   label:

@@ -14,6 +14,18 @@ definition:
 standard:
   name: WHO/ICD Manner of Death classification
   uri: https://www.who.int/standards/classifications/classification-of-diseases
+  notes: >
+    Category labels follow civil-registration convention, which diverges from
+    the WHO/ICD death-certificate term of art in two places. (1) The WHO
+    medical-certificate guidance uses "disease" for the category this
+    vocabulary codes as `natural`; the WHO running prose pairs them ("an entry
+    of 'disease' as the manner of death corresponds to a natural death"), and
+    CRVS systems (OpenCRVS, national registrars) use "natural" as the
+    published label. The code's definition names both. (2) The WHO list
+    includes "unknown"; this vocabulary uses `could_not_be_determined` (post
+    investigation) and `pending_investigation` (investigation ongoing) for the
+    same semantic ground. Adopters are expected to map WHO "unknown" to
+    `could_not_be_determined`.
 
 values:
   - code: natural
