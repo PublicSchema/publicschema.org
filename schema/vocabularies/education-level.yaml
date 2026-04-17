@@ -121,7 +121,7 @@ values:
     es: 'CINE nivel 8: nivel más alto de educación, que implica investigación original.'
 system_mappings:
   openspp:
-    vocabulary_name: Isced2011EducationLevels
+    vocabulary_name: Education Level (ISCED 2011)
     values:
     - code: '0'
       label: Early childhood education

@@ -129,7 +129,7 @@ system_mappings:
       label: Electricity
       maps_to: electricity
     - code: '2'
-      label: LPG/natural gas/biogas
+      label: LPG
       maps_to: lpg_natural_gas
     - code: '3'
       label: Natural gas
@@ -141,7 +141,7 @@ system_mappings:
       label: Kerosene
       maps_to: kerosene
     - code: '6'
-      label: Coal/lignite
+      label: Coal, lignite
       maps_to: coal_lignite
     - code: '7'
       label: Charcoal
@@ -164,7 +164,7 @@ system_mappings:
     - code: '96'
       label: Other
       maps_to: other
-    note: "DHS Recode7 hv226. Codes 2 and 3 both map to lpg_natural_gas because some DHS phases split LPG from natural gas."
+    note: "DHS Recode 7 hv226 lists codes 1-11 plus 95 (no food cooked in house) and 96 (other). Codes 2 (LPG) and 3 (Natural gas) both map to lpg_natural_gas; biogas maps to its own canonical value."
   mics:
     vocabulary_name: EU1 - Type of cookstove mainly used
     values:

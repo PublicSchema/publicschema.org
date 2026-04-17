@@ -47,8 +47,8 @@ values:
     fr: Mineure
     es: Menor
   definition:
-    en: Minimal or no known threat to life or property.
-    fr: Menace minimale ou nulle pour la vie ou les biens.
+    en: Minimal to no known threat to life or property.
+    fr: Menace minimale voire nulle pour la vie ou les biens.
     es: Amenaza mínima o nula para la vida o la propiedad.
 - code: unknown
   label:
@@ -61,6 +61,7 @@ values:
     es: La gravedad aún no se ha determinado.
 system_mappings:
   openspp:
+    vocabulary_name: spp_grm ticket severity
     values:
     - code: low
       label: Low
@@ -76,6 +77,7 @@ system_mappings:
       maps_to: extreme
     unmapped_canonical:
     - unknown
+    note: "OpenSPP's severity field is defined on the spp_grm grievance-ticket model (not on hazard events). The four-level scale (low/medium/high/critical) aligns with CAP-style severity semantics, so mapping is offered as a convenience for implementers who want to reuse a single severity scale across event types. HazardEvent implementations should prefer CAP-aligned severity directly."
   openimis:
     values:
     - code: Critical

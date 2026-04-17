@@ -11,7 +11,7 @@ definition:
 standard:
   name: ILO ICSE-18 (20th ICLS, 2018)
   uri: https://www.ilo.org/media/209766/download
-  notes: "International Classification of Status in Employment. Six top-level categories (ICSE-18 flattened): employer, own-account worker, dependent contractor, employee, contributing family worker, cooperative member. ICSE-18 organises these into Independent workers (employer, own-account worker, cooperative member) and Dependent workers (dependent contractor, employee, contributing family worker)."
+  notes: "International Classification of Status in Employment. ICSE-18 defines 7 aggregated and 10 detailed categories organised by two dichotomies (type of authority, type of economic risk). This vocabulary enumerates six high-level values most commonly used in social-protection registries: employer, own-account worker, dependent contractor, employee, contributing family worker, cooperative member. Implementers requiring the full ICSE-18 structure should extend or refine this list."
 values:
   - code: employee
     label:
