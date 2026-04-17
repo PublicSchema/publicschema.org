@@ -45,10 +45,12 @@ external_equivalents:
     note: "DCI does not define a generic event supertype. Timestamped occurrences are modeled as properties on domain entities."
 
 convergence:
-  system_count: 6
+  system_count: 0
   total_systems: 6
   notes: >
-    Event is a PublicSchema abstraction; no mapped system has an explicit
-    event supertype. All six systems model timestamped occurrence records
-    (payments, assessments, decisions, referrals) that correspond to Event
-    subtypes.
+    Event is a PublicSchema abstract supertype; no mapped system exposes an
+    event supertype by that name, so system_count is reported as 0/6 per the
+    convention stated in design-principles.md section 3. All six systems
+    nonetheless model timestamped occurrence records (payments, assessments,
+    decisions, referrals) that map to concrete Event subtypes, and those
+    subtypes carry their own convergence evidence.

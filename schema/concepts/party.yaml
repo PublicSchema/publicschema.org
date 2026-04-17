@@ -39,9 +39,14 @@ external_equivalents:
     note: "SEMIC Core Person covers the individual human. Party is the beneficiary-side supertype for persons and organized groups of persons (Household, Family, Farm) that can be enrolled in programs and receive services. The broader SEMIC/foaf:Agent vocabulary for acting entities maps to our Agent concept, not to Party."
 
 convergence:
-  system_count: 6
+  system_count: 0
   total_systems: 6
   notes: >
-    All mapped systems distinguish between individual and group-level records
-    but share common identification and naming properties across both.
-    OpenSPP models this explicitly as "Registrant."
+    Party is a PublicSchema abstract supertype; no mapped system exposes a
+    party supertype by that name, so system_count is reported as 0/6 per the
+    convention stated in design-principles.md section 3. All six systems do
+    distinguish between individual and group-level records and share common
+    identification and naming properties across both, with OpenSPP modelling
+    the split explicitly as "Registrant"; that evidence accrues to the
+    concrete Party subtypes (Person, Household, Family, Farm), not to the
+    supertype itself.

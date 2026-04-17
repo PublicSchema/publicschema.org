@@ -72,15 +72,21 @@ external_equivalents:
     note: "FHIR QuestionnaireResponse is the canonical peer for a single administration of a data-collection instrument. Our Profile is abstract and splits by instrument family; FunctioningProfile and SocioEconomicProfile align most closely because they serialize as a single QuestionnaireResponse."
 
 convergence:
-  system_count: 1
+  system_count: 0
   total_systems: 6
   notes: >
-    Only FHIR treats an instrument administration as a first-class record
-    (QuestionnaireResponse, Observation). DHIS2, OpenCRVS, OpenSPP, openIMIS,
-    and DCI Core flatten observation data into the subject record. Even so,
-    the observation pattern is how domain tools actually model this data
-    outside MIS cores: DHS and MICS store responses as separate survey
-    records, CommCare CMAM keeps nutrition measurements on a visit form, and
-    Washington Group analytics tabulate from raw item responses, not Person
-    flags. DCI's SocioEconomicProfile is the closest peer in the social
-    protection space and names the pattern explicitly.
+    Profile is a PublicSchema abstract supertype; no mapped system exposes a
+    profile supertype by that name, so system_count is reported as 0/6 per
+    the convention stated in design-principles.md section 3. FHIR models
+    instrument administration as a first-class record (QuestionnaireResponse,
+    Observation), which is the closest supertype-level analogue; the other
+    five mapped cores (DHIS2, OpenCRVS, OpenSPP, openIMIS, DCI Core) flatten
+    observation data into the subject record. The observation pattern is
+    nonetheless how domain tools model this data outside MIS cores: DHS and
+    MICS store responses as separate survey records, CommCare CMAM keeps
+    nutrition measurements on a visit form, and Washington Group analytics
+    tabulate from raw item responses, not Person flags. DCI's
+    SocioEconomicProfile is the closest peer in social protection and names
+    the pattern explicitly. Convergence evidence for the abstract sits with
+    the concrete Profile subtypes (FunctioningProfile, SocioEconomicProfile,
+    and domain-specific extensions in sibling schemas).
