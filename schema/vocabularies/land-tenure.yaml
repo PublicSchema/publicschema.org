@@ -96,7 +96,7 @@ values:
     es: Un régimen de tenencia no cubierto por las otras categorías.
 system_mappings:
   lsms_isa:
-    vocabulary_name: "LSMS-ISA harmonized tenure status"
+    vocabulary_name: "LSMS-ISA land tenure (indicative cross-walk, not a single authoritative variable)"
     values:
     - code: '1'
       label: Owned (purchased/inherited)
@@ -125,4 +125,4 @@ system_mappings:
       maps_to: other
     unmapped_canonical:
     - owned_without_title
-    note: "LSMS-ISA harmonized tenure codes from the Sub-Saharan Africa panel. The owned/untitled distinction is not captured in the harmonized layer but may exist in country-specific modules."
+    note: "This is an indicative cross-walk, not a direct mapping to a single LSMS-ISA variable. The LSMS Agricultural Survey Design reference questionnaire (Module 2, Parcel Details) carries 13 land-acquisition categories, and the World Bank harmonized panel dataset uses a binary plot_owned variable. The 8-code structure here collapses country-specific questionnaire codes into PublicSchema's canonical tenure categories. Adopters mapping from a specific country wave should consult that country's LSMS-ISA questionnaire directly."

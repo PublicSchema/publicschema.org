@@ -43,6 +43,7 @@ definition:
 
 properties:
   - identifier
+  - identifiers
   - name
   - version
   - schema_version
@@ -75,6 +76,7 @@ property_groups:
   - category: administrative
     properties:
       - identifier
+      - identifiers
       - name
       - version
       - schema_version

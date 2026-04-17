@@ -37,6 +37,7 @@ definition:
 
 properties:
   - identifier
+  - identifiers
   - external_id
   - consent_record_type
   - schema_version
@@ -81,6 +82,7 @@ property_groups:
   - category: administrative
     properties:
       - identifier
+      - identifiers
       - external_id
       - consent_record_type
       - schema_version

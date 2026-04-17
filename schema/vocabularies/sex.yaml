@@ -63,9 +63,9 @@ external_equivalents:
   semic:
     label: "Human Sex"
     uri: "http://publications.europa.eu/resource/authority/human-sex"
-    match: exact
+    match: close
     vocabulary: "Core Person"
-    note: "EU Named Authority List for human sex, based on ISO/IEC 5218. Same 4 concepts, different authority URIs."
+    note: "EU Named Authority List for human sex, based on ISO/IEC 5218. The NAL carries 5 non-deprecated concepts (MALE, FEMALE, NKN, NAP, NST); PublicSchema has 4. NST (not stated) distinguishes disclosure refusal from unknown status and has no counterpart here."
 system_mappings:
   openspp:
     vocabulary_name: Iso5218GenderCodes
@@ -145,3 +145,7 @@ system_mappings:
     - code: NAP
       label: Not applicable
       maps_to: not_applicable
+    - code: NST
+      label: Not stated
+      maps_to: null
+      unmapped_reason: no_equivalent

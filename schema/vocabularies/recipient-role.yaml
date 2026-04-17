@@ -12,9 +12,9 @@ external_equivalents:
   dpv:
     label: "DPV v2 data processing roles"
     uri: "https://w3id.org/dpv#"
-    match: exact
+    match: close
     vocabulary: "DPV v2"
-    note: "Each value maps to a DPV v2 class. See individual value notes for per-value URIs. DPV does not distinguish sub-processor as a separate class; that mapping note appears on the sub_processor value."
+    note: "Each value maps to a DPV v2 class: processor to dpv:DataProcessor, joint_controller to dpv:JointDataControllers, independent_controller to dpv:DataController, sub_processor to dpv:DataSubProcessor. The match is close (not exact) because dpv:DataController is broader than independent_controller; DPV does not carry a dedicated class for a controller-to-controller recipient relationship."
 values:
 - code: processor
   label:
@@ -55,8 +55,8 @@ values:
     fr: Sous-traitant ultérieur
     es: Subencargado del tratamiento
   definition:
-    en: An organisation engaged by a processor (not the controller directly) to carry out specific processing activities on behalf of the controller. The original processor is responsible for ensuring the sub-processor is bound by equivalent obligations. GDPR Article 28(4) requires the processor to obtain prior written authorisation from the controller before engaging a sub-processor. DPV does not distinguish sub-processors as a separate class; this value maps to dpv:DataProcessor for interoperability purposes. URI, https://w3id.org/dpv#DataProcessor.
-    fr: Une organisation engagée par un sous-traitant (et non par le responsable du traitement directement) pour effectuer des activités de traitement spécifiques au nom du responsable du traitement. Le sous-traitant initial est responsable de s'assurer que le sous-traitant ultérieur est lié par des obligations équivalentes. L'article 28, paragraphe 4, du RGPD exige que le sous-traitant obtienne une autorisation écrite préalable du responsable du traitement avant d'engager un sous-traitant ultérieur. DPV ne distingue pas les sous-traitants ultérieurs en tant que classe séparée; cette valeur correspond à dpv:DataProcessor à des fins d'interopérabilité. URI, https://w3id.org/dpv#DataProcessor.
-    es: Una organización contratada por un encargado del tratamiento (no por el responsable directamente) para llevar a cabo actividades de tratamiento específicas en nombre del responsable. El encargado original es responsable de garantizar que el subencargado esté sujeto a obligaciones equivalentes. El artículo 28, apartado 4, del RGPD exige que el encargado obtenga autorización escrita previa del responsable antes de contratar a un subencargado. DPV no distingue a los subencargados como una clase separada; este valor se corresponde con dpv:DataProcessor a efectos de interoperabilidad. URI, https://w3id.org/dpv#DataProcessor.
+    en: An organisation engaged by a processor (not the controller directly) to carry out specific processing activities on behalf of the controller. The original processor is responsible for ensuring the sub-processor is bound by equivalent obligations. GDPR Article 28(4) requires the processor to obtain prior written authorisation from the controller before engaging a sub-processor. DPV mapping, dpv:DataSubProcessor (a subclass of dpv:DataProcessor), URI, https://w3id.org/dpv#DataSubProcessor.
+    fr: Une organisation engagée par un sous-traitant (et non par le responsable du traitement directement) pour effectuer des activités de traitement spécifiques au nom du responsable du traitement. Le sous-traitant initial est responsable de s'assurer que le sous-traitant ultérieur est lié par des obligations équivalentes. L'article 28, paragraphe 4, du RGPD exige que le sous-traitant obtienne une autorisation écrite préalable du responsable du traitement avant d'engager un sous-traitant ultérieur. Correspondance DPV, dpv:DataSubProcessor (sous-classe de dpv:DataProcessor), URI, https://w3id.org/dpv#DataSubProcessor.
+    es: Una organización contratada por un encargado del tratamiento (no por el responsable directamente) para llevar a cabo actividades de tratamiento específicas en nombre del responsable. El encargado original es responsable de garantizar que el subencargado esté sujeto a obligaciones equivalentes. El artículo 28, apartado 4, del RGPD exige que el encargado obtenga autorización escrita previa del responsable antes de contratar a un subencargado. Correspondencia DPV, dpv:DataSubProcessor (subclase de dpv:DataProcessor), URI, https://w3id.org/dpv#DataSubProcessor.
   notes:
-    en: "DPV: dpv:DataProcessor (DPV does not define a separate sub-processor class; this value maps to DataProcessor for interoperability, with the sub-processor relationship conveyed by context), URI: https://w3id.org/dpv#DataProcessor"
+    en: "DPV: dpv:DataSubProcessor (subclass of dpv:DataProcessor), URI: https://w3id.org/dpv#DataSubProcessor"
