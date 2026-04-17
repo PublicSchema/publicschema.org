@@ -18,11 +18,11 @@ definition:
     household economy survey. The housing and WASH properties (dwelling_type,
     wall_material, floor_material, roof_material, water_source,
     sanitation_facility, electricity_access) may also appear on
-    shelter-damage assessment profiles (see schema.aidops.org); the
-    baseline reading here describes the dwelling's usual characteristics.
-    When a program collects item-level food security data (FCS, rCSI, LCS,
-    HDDS, FIES, HHS, MDD-W, MAHFP), those responses belong on a dedicated
-    food-security profile (see schema.aidops.org) rather than on this
+    shelter-damage assessment profiles published in a sibling schema (see
+    ADR-011); the baseline reading here describes the dwelling's usual
+    characteristics. When a program collects item-level food security data
+    (FCS, rCSI, LCS, HDDS, FIES, HHS, MDD-W, MAHFP), those responses belong
+    on a dedicated food-security profile in that sibling schema rather than on this
     profile; SocioEconomicProfile retains only the derived
     food_security_level summary.
   fr: >
@@ -39,12 +39,13 @@ definition:
     propriétés de logement et WASH (dwelling_type, wall_material,
     floor_material, roof_material, water_source, sanitation_facility,
     electricity_access) peuvent aussi figurer sur des profils d'évaluation
-    de dommages aux abris (voir schema.aidops.org) ; le relevé de base
-    décrit ici les caractéristiques habituelles du logement. Lorsqu'un
-    programme collecte des données de sécurité alimentaire au niveau des
-    items (FCS, rCSI, LCS, HDDS, FIES, HHS, MDD-W, MAHFP), ces réponses
-    appartiennent à un profil de sécurité alimentaire dédié (voir
-    schema.aidops.org) plutôt qu'à ce profil ; SocioEconomicProfile ne
+    de dommages aux abris publiés dans un schéma frère (voir ADR-011) ;
+    le relevé de base décrit ici les caractéristiques habituelles du
+    logement. Lorsqu'un programme collecte des données de sécurité
+    alimentaire au niveau des items (FCS, rCSI, LCS, HDDS, FIES, HHS,
+    MDD-W, MAHFP), ces réponses appartiennent à un profil de sécurité
+    alimentaire dédié dans ce schéma frère plutôt qu'à ce profil ;
+    SocioEconomicProfile ne
     conserve que le résumé food_security_level dérivé.
   es: >
     Un registro puntual de datos socioeconómicos y de condiciones de vida
@@ -58,12 +59,13 @@ definition:
     economía del hogar. Las propiedades de vivienda y WASH (dwelling_type,
     wall_material, floor_material, roof_material, water_source,
     sanitation_facility, electricity_access) también pueden aparecer en
-    perfiles de evaluación de daños a refugios (ver schema.aidops.org);
-    la lectura de base aquí describe las características habituales de la
-    vivienda. Cuando un programa recopila datos de seguridad alimentaria a
-    nivel de ítems (FCS, rCSI, LCS, HDDS, FIES, HHS, MDD-W, MAHFP), esas
-    respuestas pertenecen a un perfil de seguridad alimentaria dedicado
-    (ver schema.aidops.org) en lugar de a este perfil; SocioEconomicProfile
+    perfiles de evaluación de daños a refugios publicados en un esquema
+    hermano (véase ADR-011); la lectura de base aquí describe las
+    características habituales de la vivienda. Cuando un programa
+    recopila datos de seguridad alimentaria a nivel de ítems (FCS, rCSI,
+    LCS, HDDS, FIES, HHS, MDD-W, MAHFP), esas respuestas pertenecen a un
+    perfil de seguridad alimentaria dedicado en ese esquema hermano en
+    lugar de a este perfil; SocioEconomicProfile
     conserva solo el resumen food_security_level derivado.
 
 properties:

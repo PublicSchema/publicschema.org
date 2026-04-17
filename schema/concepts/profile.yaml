@@ -11,8 +11,8 @@ definition:
     A point-in-time record of data collected about a subject using a
     defined instrument. Profile is the shared supertype for
     SocioEconomicProfile and FunctioningProfile within PublicSchema, and
-    for additional profile subtypes in domain-specific schemas such as
-    AidOps (schema.aidops.org). Each profile captures who was observed,
+    for additional profile subtypes published in a sibling schema (see
+    ADR-011). Each profile captures who was observed,
     when, using which instrument, under which administration mode, and
     by whom. A profile records the structured responses from a single
     administration, and may also carry outputs derived from those
@@ -24,8 +24,8 @@ definition:
     Un enregistrement ponctuel de données collectées sur un sujet à l'aide
     d'un instrument défini. Profile est le supertype partagé de
     SocioEconomicProfile et FunctioningProfile dans PublicSchema, et de
-    sous-types supplémentaires dans des schémas spécifiques au domaine
-    tels qu'AidOps (schema.aidops.org). Chaque profil consigne qui a été
+    sous-types supplémentaires publiés dans un schéma frère (voir
+    ADR-011). Chaque profil consigne qui a été
     observé, quand, avec quel instrument, selon quel mode d'administration
     et par qui. Un profil enregistre les réponses structurées d'une
     administration unique et peut aussi porter les résultats dérivés de
@@ -38,8 +38,8 @@ definition:
     Un registro puntual de datos recopilados sobre un sujeto mediante un
     instrumento definido. Profile es el supertipo compartido de
     SocioEconomicProfile y FunctioningProfile en PublicSchema, y de
-    subtipos adicionales en esquemas de dominio como AidOps
-    (schema.aidops.org). Cada perfil consigna quién fue observado,
+    subtipos adicionales publicados en un esquema hermano (véase
+    ADR-011). Cada perfil consigna quién fue observado,
     cuándo, con qué instrumento, bajo qué modo de administración y por
     quién. Un perfil registra las respuestas estructuradas de una
     administración única, y también puede llevar resultados derivados
