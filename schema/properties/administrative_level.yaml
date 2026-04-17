@@ -34,9 +34,7 @@ system_mappings:
     - code: Admin4
       label: Fourth subnational
       maps_to: 4
-    - code: Admin5
-      label: Fifth subnational
-      maps_to: 5
+    note: "OCHA COD-AB's documented nomenclature stops at Admin4 (COD-AB datasets have as many as five administrative levels, ADM0 to ADM4). Values of 5 or more on this property are still valid PublicSchema depths but have no OCHA-provided AdminN label."
   openimis:
     vocabulary_name: LocationType
     values:

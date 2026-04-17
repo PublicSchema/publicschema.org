@@ -168,4 +168,9 @@ system_mappings:
         label: "unmarried"
         maps_to: null
         unmapped_reason: no_equivalent
+      - code: "UNK"
+        label: "unknown"
+        maps_to: null
+        unmapped_reason: no_equivalent
+        note: "UNK is drawn from the v3-NullFlavor code system, not v3-MaritalStatus; the canonical FHIR R4 ValueSet combines both and totals 11 concepts."
     unmapped_canonical: [consensual_union]

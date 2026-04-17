@@ -146,8 +146,8 @@ system_mappings:
     - code: BIWEEKLY
       label: Biweekly
       maps_to: every_two_weeks
-    - code: BIANNUAL
-      label: Biannual
+    - code: ANNUAL_2
+      label: semiannual
       maps_to: semi_annually
     - code: IRREG
       label: Irregular

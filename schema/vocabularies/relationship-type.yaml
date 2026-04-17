@@ -205,6 +205,7 @@ system_mappings:
     - survivor
   fhir_r4:
     vocabulary_name: PatientRelationshipType
+    note: "The canonical FHIR R4 PatientRelationshipType ValueSet (hl7.org/fhir/R4/valueset-relatedperson-relationshiptype.html) contains 117 concepts drawn from v2-0131 (all codes) and v3-RoleCode (descendants of _PersonalRelationshipRoleType). This mapping covers a curated subset of those codes; unmapped FHIR codes are omitted rather than enumerated."
     values:
     - code: child
       label: Child
