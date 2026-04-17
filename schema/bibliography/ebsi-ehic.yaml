@@ -8,6 +8,7 @@ domain: health
 uri: "https://ec.europa.eu/digital-building-blocks/sites/spaces/EUDIGITALIDENTITYWALLET/pages/930453001/EHIC"
 access: open
 status: active
+note: "The DC4EU pilot uses SD-JWT-VC format for EHIC attestations. No EBSI-published JSON schema artifact for EHIC has been located; this entry cites the EU Digital Identity Wallet reference page as the canonical public description."
 
 informs:
   concepts: []

@@ -82,8 +82,13 @@
       "type": "string",
       "enum": ["active", "draft", "superseded", "withdrawn"]
     },
+    "note": {
+      "type": "string",
+      "description": "Free-text provenance caveat. Use for source substitution rationale, pilot/deployment status, redirect chains, or version-drift notes that belong with the entry rather than in external docs."
+    },
     "informs": {
       "type": "object",
+      "description": "Lists the concepts, vocabularies, and properties whose design is shaped by this entry. 'Informs' means 'shapes design of', not 'formally defines'. A bibliography entry X informs concept Y if any of: (a) Y cites X as its standard; (b) Y's vocabulary cites X; (c) Y references a class/term defined by X as a broad supertype or semantic anchor (e.g. FOAF informs SoftwareAgent because SoftwareAgent points to foaf:Agent via external_equivalents, even though FOAF does not define a SoftwareAgent class). The drift test at tests/test_informs_drift.py enforces this by reading external_equivalents and standard.name from the schema YAMLs.",
       "required": ["concepts", "vocabularies", "properties"],
       "additionalProperties": false,
       "properties": {
