@@ -15,7 +15,7 @@ sync:
   source_url: https://raw.githubusercontent.com/lukes/ISO-3166-Countries-with-Regional-Codes/master/all/all.json
   format: github-json
   last_synced: '2026-04-12'
-  note: "ISO 3166-1 is paywalled on iso.org (Country Codes Collection, PUB500001). The `lukes/ISO-3166-Countries-with-Regional-Codes` GitHub repository is a widely-used open mirror that combines ISO 3166-1 codes with UN M49 regional groupings. Authoritative citation for the standard itself is `standard.uri`."
+  note: "ISO 3166-1 is paywalled on iso.org (Country Codes Collection, PUB500001); the ISO Online Browsing Platform is bot-blocked and not machine-accessible. The `lukes/ISO-3166-Countries-with-Regional-Codes` GitHub repository is a widely-used open mirror whose own README describes its data as Wikipedia-derived and `not authoritative`. ADR-016 records the decision to retain this mirror, with empirical verification that its 249 alpha-2 code points are identical to the UNSD-derived `datasets/country-codes` feed used for the sibling `region` vocabulary. Authoritative citation for the standard itself is `standard.uri`; this sync source is a machine-readable convenience, not the authority."
 same_standard_systems:
 - openspp
 external_values: true
