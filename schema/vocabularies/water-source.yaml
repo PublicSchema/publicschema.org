@@ -203,12 +203,12 @@ system_mappings:
     - code: '71'
       label: Bottled water
       maps_to: bottled_water
-    - code: '72'
-      label: Sachet water
-      maps_to: packaged_water
     - code: '96'
       label: Other
       maps_to: other
+    unmapped_canonical:
+    - packaged_water
+    note: "DHS Recode 7 hv201 ends at code 71 'Bottled water' and 96 'Other'. Sachet/packaged water has no standard Recode 7 code; some country-specific DHS adaptations add a non-standard code. The canonical packaged_water value is mapped under MICS WS1 code 92 instead."
   mics:
     vocabulary_name: WS1 - Main source of drinking water
     values:

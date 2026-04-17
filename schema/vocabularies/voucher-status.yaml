@@ -80,7 +80,7 @@ values:
     es: El vale ha sido anulado por el programa antes del canje.
 system_mappings:
   govstack_payments:
-    vocabulary_name: VoucherStatus
+    vocabulary_name: VoucherStatus (integer codes, labels inferred)
     values:
     - code: "01"
       label: Pre-Activated
@@ -106,3 +106,4 @@ system_mappings:
       unmapped_reason: out_of_scope
     unmapped_canonical:
     - partially_redeemed
+    note: "The GovStack bb-payments OpenAPI spec (VoucherStatus.yml) describes status as an integer from 01 to 06 plus 9 for error, but does not publish a code-to-label table. The labels above for 01 and 02 follow state-machine convention; the labels for 03-06 are inferred. The rendered GovStack specification narrative also mentions 'Blocked' and 'Not Existing' states which have no assigned integer code in the public spec; implementers should confirm code-label assignments with their GovStack deployment."

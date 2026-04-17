@@ -66,12 +66,10 @@ system_mappings:
     - code: '1'
       label: "Yes"
       maps_to: pregnant
-    - code: '8'
-      label: "Don't know"
-      maps_to: unknown
     unmapped_canonical:
     - postpartum
-    note: "DHS Recode7 v213. Postpartum status is not captured as a variable; DHS infers it from birth dates."
+    - unknown
+    note: "DHS Recode 7 v213 defines only two substantive codes (0=No or unsure, 1=Yes); uncertainty is folded into code 0 rather than carried as a separate value. The male recode variable mv213 (partner pregnancy) has an additional code 8 'Don't know' but that value is not present on v213 itself. Postpartum status is not captured as a DHS variable; it is inferred from birth dates."
   mics:
     vocabulary_name: "CP1 - Currently pregnant"
     values:
