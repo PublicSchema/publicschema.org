@@ -1,0 +1,17 @@
+id: facility_level
+maturity: draft
+label:
+  en: "Facility level"
+  fr: "Niveau d'établissement"
+  es: "Nivel de establecimiento"
+
+definition:
+  en: "The tier of care provided per national/WHO classification (primary, secondary, tertiary, quaternary)."
+  fr: "Le niveau de soins fourni selon la classification nationale/OMS (primaire, secondaire, tertiaire, quaternaire)."
+  es: "El nivel de atención proporcionado según la clasificación nacional/OMS (primario, secundario, terciario, cuaternario)."
+
+type: string
+cardinality: single
+vocabulary: health-facility-level
+references: null
+category: classification

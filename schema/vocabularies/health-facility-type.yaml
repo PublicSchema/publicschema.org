@@ -1,0 +1,96 @@
+id: health-facility-type
+maturity: draft
+label:
+  en: Health Facility Type
+  fr: Type d'établissement de santé
+  es: Tipo de establecimiento de salud
+definition:
+  en: The functional category of a health facility, such as hospital, health center, health post, dispensary, clinic, pharmacy, or laboratory. Codes follow the WHO Service Availability and Readiness Assessment (SARA) taxonomy, harmonized with the Harmonized Health Facility Assessment (HHFA).
+  fr: La catégorie fonctionnelle d'un établissement de santé, telle qu'hôpital, centre de santé, poste de santé, dispensaire, clinique, pharmacie ou laboratoire. Les codes suivent la taxonomie de l'Évaluation de la disponibilité et de la capacité opérationnelle des services (SARA) de l'OMS, harmonisée avec l'Évaluation harmonisée des établissements de santé (HHFA).
+  es: La categoría funcional de un establecimiento de salud, como hospital, centro de salud, puesto de salud, dispensario, clínica, farmacia o laboratorio. Los códigos siguen la taxonomía de la Evaluación de la disponibilidad y capacidad operativa de los servicios (SARA) de la OMS, armonizada con la Evaluación Armonizada de Establecimientos de Salud (HHFA).
+standard:
+  name: WHO Service Availability and Readiness Assessment (SARA) Reference Manual v2.2
+  uri: https://www.who.int/publications/i/item/WHO-HIS-HSI-2014.5-Rev.1
+  notes: "SARA provides the canonical categorization of health facility types used in national health facility assessments. The Harmonized Health Facility Assessment (HHFA) 2022 consolidates and extends SARA and the Service Delivery Indicators (SDI); its facility-type list maps cleanly onto SARA categories."
+values:
+- code: hospital
+  label:
+    en: Hospital
+    fr: Hôpital
+    es: Hospital
+  definition:
+    en: Facility providing inpatient care, surgical services, and a range of specialized services; typically includes emergency care and diagnostic imaging.
+    fr: Établissement fournissant des soins hospitaliers, des services chirurgicaux et une gamme de services spécialisés; comprend généralement les soins d'urgence et l'imagerie diagnostique.
+    es: Establecimiento que presta atención hospitalaria, servicios quirúrgicos y una gama de servicios especializados; suele incluir atención de emergencia y diagnóstico por imágenes.
+- code: health_center
+  label:
+    en: Health center
+    fr: Centre de santé
+    es: Centro de salud
+  definition:
+    en: Facility offering a range of primary care services, often with limited inpatient capacity for maternity or short-stay observation.
+    fr: Établissement offrant une gamme de services de soins primaires, souvent avec une capacité d'hospitalisation limitée pour la maternité ou l'observation de courte durée.
+    es: Establecimiento que ofrece una gama de servicios de atención primaria, a menudo con capacidad limitada de hospitalización para maternidad u observación de corta estancia.
+- code: health_post
+  label:
+    en: Health post
+    fr: Poste de santé
+    es: Puesto de salud
+  definition:
+    en: Small primary-care facility, typically the first point of access at community level and often staffed by nurses or community health workers.
+    fr: Petit établissement de soins primaires, généralement le premier point d'accès au niveau communautaire et souvent dirigé par des infirmières ou des agents de santé communautaires.
+    es: Pequeño establecimiento de atención primaria, generalmente el primer punto de acceso a nivel comunitario y atendido a menudo por enfermeras o trabajadores de salud comunitarios.
+- code: dispensary
+  label:
+    en: Dispensary
+    fr: Dispensaire
+    es: Dispensario
+  definition:
+    en: Outpatient-only facility providing basic curative care and dispensing medicines, without inpatient beds.
+    fr: Établissement exclusivement ambulatoire fournissant des soins curatifs de base et distribuant des médicaments, sans lits d'hospitalisation.
+    es: Establecimiento exclusivamente ambulatorio que presta atención curativa básica y dispensa medicamentos, sin camas de hospitalización.
+- code: clinic
+  label:
+    en: Clinic
+    fr: Clinique
+    es: Clínica
+  definition:
+    en: Outpatient specialized clinic focused on a specific service area (maternity, maternal and child health, sexually transmitted infections, eye, dental, etc.).
+    fr: Clinique spécialisée ambulatoire axée sur un domaine de service spécifique (maternité, santé maternelle et infantile, infections sexuellement transmissibles, ophtalmologie, dentaire, etc.).
+    es: Clínica especializada ambulatoria centrada en un área de servicio específica (maternidad, salud materno-infantil, infecciones de transmisión sexual, oftalmología, odontología, etc.).
+- code: pharmacy
+  label:
+    en: Pharmacy
+    fr: Pharmacie
+    es: Farmacia
+  definition:
+    en: Licensed retail or public pharmacy dispensing prescription and over-the-counter medicines.
+    fr: Pharmacie agréée, commerciale ou publique, délivrant des médicaments sur ordonnance et en vente libre.
+    es: Farmacia autorizada, comercial o pública, que dispensa medicamentos con receta y de venta libre.
+- code: laboratory
+  label:
+    en: Laboratory
+    fr: Laboratoire
+    es: Laboratorio
+  definition:
+    en: Standalone diagnostic laboratory providing clinical, microbiological, or public-health testing services.
+    fr: Laboratoire de diagnostic autonome fournissant des services d'analyses cliniques, microbiologiques ou de santé publique.
+    es: Laboratorio de diagnóstico independiente que presta servicios de pruebas clínicas, microbiológicas o de salud pública.
+- code: mobile_clinic
+  label:
+    en: Mobile clinic
+    fr: Clinique mobile
+    es: Clínica móvil
+  definition:
+    en: Mobile or outreach facility without a fixed physical structure, bringing clinical services to communities on a scheduled or emergency basis.
+    fr: Établissement mobile ou de proximité sans structure physique fixe, apportant des services cliniques aux communautés de manière programmée ou d'urgence.
+    es: Establecimiento móvil o de extensión sin estructura física fija, que lleva servicios clínicos a las comunidades de forma programada o de emergencia.
+- code: other
+  label:
+    en: Other
+    fr: Autre
+    es: Otro
+  definition:
+    en: A health facility type not covered by the other categories.
+    fr: Un type d'établissement de santé non couvert par les autres catégories.
+    es: Un tipo de establecimiento de salud no cubierto por las otras categorías.

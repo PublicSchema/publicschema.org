@@ -1,0 +1,17 @@
+id: service_point_name
+maturity: draft
+label:
+  en: "Service point name"
+  fr: "Nom du point de service"
+  es: "Nombre del punto de servicio"
+
+definition:
+  en: "The human-readable name of the service point."
+  fr: "Le nom lisible du point de service."
+  es: "El nombre legible del punto de servicio."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+category: identity

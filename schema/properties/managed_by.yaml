@@ -1,0 +1,17 @@
+id: managed_by
+maturity: draft
+label:
+  en: "Managed by"
+  fr: "Géré par"
+  es: "Gestionado por"
+
+definition:
+  en: "The organization that operates or manages this service point (government agency, NGO, UN agency, private provider)."
+  fr: "L'organisation qui exploite ou gère ce point de service (agence gouvernementale, ONG, agence des Nations unies, prestataire privé)."
+  es: "La organización que opera o gestiona este punto de servicio (agencia gubernamental, ONG, agencia de las Naciones Unidas, proveedor privado)."
+
+type: concept:Organization
+cardinality: single
+vocabulary: null
+references: Organization
+category: governance

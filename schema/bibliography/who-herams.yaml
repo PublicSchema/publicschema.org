@@ -1,0 +1,20 @@
+id: who-herams
+title: "WHO Health Resources and Services Availability Monitoring System (HeRAMS)"
+short_title: "WHO HeRAMS"
+publisher: "World Health Organization (WHO)"
+year: null
+type: guidance_publication
+domain: health
+uri: "https://www.who.int/initiatives/herams"
+access: open
+status: active
+note: "HeRAMS is the WHO-maintained monitoring framework for tracking the availability of health resources and services, particularly in emergency and humanitarian contexts. HeRAMS facility reporting distinguishes fully functioning, partially functioning, and non-functioning facilities alongside the reasons for any service disruption; this informs the PublicSchema facility-operational-status vocabulary used by ServicePoint and HealthFacility."
+
+informs:
+  concepts:
+    - ServicePoint
+    - HealthFacility
+  vocabularies:
+    - facility-operational-status
+  properties:
+    - operational_status

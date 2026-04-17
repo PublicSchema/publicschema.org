@@ -1,0 +1,60 @@
+id: health-facility-level
+maturity: draft
+label:
+  en: Health Facility Level
+  fr: Niveau d'établissement de santé
+  es: Nivel de establecimiento de salud
+definition:
+  en: The tier of care delivered by a health facility in a national or WHO health-system classification (primary, secondary, tertiary, quaternary), reflecting the scope of services and the referral position of the facility.
+  fr: Le niveau de soins fourni par un établissement de santé dans une classification nationale ou de l'OMS (primaire, secondaire, tertiaire, quaternaire), reflétant l'étendue des services et la position de référence de l'établissement.
+  es: El nivel de atención prestado por un establecimiento de salud en una clasificación nacional o de la OMS (primaria, secundaria, terciaria, cuaternaria), que refleja el alcance de los servicios y la posición de referencia del establecimiento.
+standard:
+  name: WHO Health Systems Strengthening Glossary
+  uri: https://www.who.int/health-topics/health-systems-strengthening
+  notes: "WHO uses primary/secondary/tertiary tiers as the common descriptive framework for health-system organisation, with many countries adding a quaternary tier for national referral or research hospitals. There is no single canonical URL listing the tiers as coded values; national health-facility registries apply the same tiering with local naming."
+values:
+- code: primary
+  label:
+    en: Primary
+    fr: Primaire
+    es: Primaria
+  definition:
+    en: First-level contact for primary care, typically health posts, health centers, and dispensaries providing basic curative, preventive, and promotive services.
+    fr: Premier niveau de contact pour les soins primaires, généralement les postes de santé, centres de santé et dispensaires fournissant des services curatifs, préventifs et promotionnels de base.
+    es: Primer nivel de contacto para la atención primaria, generalmente puestos de salud, centros de salud y dispensarios que prestan servicios curativos, preventivos y promocionales básicos.
+- code: secondary
+  label:
+    en: Secondary
+    fr: Secondaire
+    es: Secundaria
+  definition:
+    en: District-level referral care, typically general or district hospitals with inpatient wards, surgery, and basic specialty services.
+    fr: Soins de référence au niveau du district, généralement des hôpitaux généraux ou de district avec des services d'hospitalisation, de chirurgie et de spécialités de base.
+    es: Atención de referencia a nivel de distrito, generalmente hospitales generales o de distrito con salas de hospitalización, cirugía y servicios básicos de especialidad.
+- code: tertiary
+  label:
+    en: Tertiary
+    fr: Tertiaire
+    es: Terciaria
+  definition:
+    en: Specialized referral care at regional or national level, including regional hospitals, teaching hospitals, and specialty hospitals.
+    fr: Soins de référence spécialisés au niveau régional ou national, y compris les hôpitaux régionaux, les hôpitaux universitaires et les hôpitaux spécialisés.
+    es: Atención de referencia especializada a nivel regional o nacional, incluidos hospitales regionales, hospitales universitarios y hospitales especializados.
+- code: quaternary
+  label:
+    en: Quaternary
+    fr: Quaternaire
+    es: Cuaternaria
+  definition:
+    en: Highly specialized care, typically a national referral center, research hospital, or supraregional center providing advanced sub-specialty services.
+    fr: Soins hautement spécialisés, généralement un centre de référence national, un hôpital de recherche ou un centre suprarégional fournissant des services de sous-spécialité avancés.
+    es: Atención altamente especializada, generalmente un centro de referencia nacional, un hospital de investigación o un centro suprarregional que presta servicios de subespecialidad avanzados.
+- code: unknown
+  label:
+    en: Unknown
+    fr: Inconnu
+    es: Desconocido
+  definition:
+    en: Facility tier not known or not classified in the source system.
+    fr: Niveau de l'établissement inconnu ou non classé dans le système source.
+    es: Nivel del establecimiento desconocido o no clasificado en el sistema de origen.

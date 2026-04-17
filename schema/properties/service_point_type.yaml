@@ -1,0 +1,17 @@
+id: service_point_type
+maturity: draft
+label:
+  en: "Service point type"
+  fr: "Type de point de service"
+  es: "Tipo de punto de servicio"
+
+definition:
+  en: "The category of service this point provides (health, education, distribution, WASH, etc.)."
+  fr: "La catégorie de service fournie par ce point (santé, éducation, distribution, EAH, etc.)."
+  es: "La categoría de servicio que proporciona este punto (salud, educación, distribución, APS, etc.)."
+
+type: string
+cardinality: single
+vocabulary: service-point-type
+references: null
+category: classification

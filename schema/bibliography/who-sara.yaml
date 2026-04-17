@@ -1,0 +1,20 @@
+id: who-sara
+title: "WHO Service Availability and Readiness Assessment (SARA) Reference Manual"
+short_title: "WHO SARA"
+publisher: "World Health Organization (WHO)"
+year: 2015
+version: "v2.2"
+type: guidance_publication
+domain: health
+uri: "https://www.who.int/publications/i/item/WHO-HIS-HSI-2014.5-Rev.1"
+access: open
+status: active
+note: "SARA is the canonical WHO-maintained reference for national health facility assessments, providing the facility-type taxonomy (hospital, health center, health post, dispensary, clinic, pharmacy, laboratory, mobile clinic) and service-area readiness indicators. The Harmonized Health Facility Assessment (HHFA, 2022) consolidates SARA with the Service Delivery Indicators and extends it; the SARA facility typology remains the anchor."
+
+informs:
+  concepts:
+    - HealthFacility
+  vocabularies:
+    - health-facility-type
+  properties:
+    - facility_type

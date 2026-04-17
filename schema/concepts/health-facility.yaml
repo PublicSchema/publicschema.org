@@ -1,0 +1,106 @@
+id: HealthFacility
+label:
+  en: Health Facility
+  fr: Établissement de santé
+  es: Establecimiento de salud
+maturity: draft
+featured: true
+
+definition:
+  en: >
+    A service point where clinical or preventive health services are
+    delivered, such as a hospital, health center, health post, dispensary,
+    specialty clinic, pharmacy, or diagnostic laboratory. HealthFacility
+    specializes ServicePoint for the health sector and carries additional
+    properties for facility type (SARA/HHFA category) and facility level
+    (primary / secondary / tertiary / quaternary tier of care).
+    HealthFacility is distinct from the Organization that owns or manages
+    it (captured via managed_by) and from its administrative site
+    (captured via located_at): the organization can change without the
+    physical facility moving, and a facility can serve several
+    administrative Locations. Facility typology references the WHO
+    Service Availability and Readiness Assessment (SARA) and the
+    Harmonized Health Facility Assessment (HHFA) taxonomies.
+  fr: >
+    Un point de service où sont fournis des soins cliniques ou préventifs,
+    tels qu'un hôpital, un centre de santé, un poste de santé, un
+    dispensaire, une clinique spécialisée, une pharmacie ou un laboratoire
+    de diagnostic. HealthFacility spécialise ServicePoint pour le secteur
+    de la santé et porte des propriétés supplémentaires pour le type
+    d'établissement (catégorie SARA/HHFA) et le niveau d'établissement
+    (primaire / secondaire / tertiaire / quaternaire). HealthFacility est
+    distinct de l'Organization qui le possède ou le gère (capturée via
+    managed_by) et de son site administratif (capturé via located_at) :
+    l'organisation peut changer sans que l'établissement physique ne
+    bouge, et un établissement peut desservir plusieurs Locations
+    administratives. La typologie des établissements s'appuie sur
+    l'Évaluation de la disponibilité et de la capacité opérationnelle des
+    services (SARA) de l'OMS et sur l'Évaluation harmonisée des
+    établissements de santé (HHFA).
+  es: >
+    Un punto de servicio donde se prestan servicios de salud clínicos o
+    preventivos, como un hospital, centro de salud, puesto de salud,
+    dispensario, clínica especializada, farmacia o laboratorio
+    diagnóstico. HealthFacility especializa ServicePoint para el sector
+    salud y lleva propiedades adicionales para el tipo de establecimiento
+    (categoría SARA/HHFA) y el nivel de establecimiento (primaria /
+    secundaria / terciaria / cuaternaria). HealthFacility es distinto de
+    la Organization que lo posee o gestiona (capturada mediante
+    managed_by) y de su sitio administrativo (capturado mediante
+    located_at): la organización puede cambiar sin que el establecimiento
+    físico se mueva, y un establecimiento puede atender varias Locations
+    administrativas. La tipología de establecimientos se apoya en la
+    Evaluación de la disponibilidad y capacidad operativa de los
+    servicios (SARA) de la OMS y en la Evaluación Armonizada de
+    Establecimientos de Salud (HHFA).
+
+properties:
+  - facility_type
+  - facility_level
+
+property_groups:
+  - category: identity
+    properties:
+      - service_point_name
+      - identifiers
+  - category: classification
+    properties:
+      - service_point_type
+      - facility_type
+      - facility_level
+      - operational_status
+  - category: location
+    properties:
+      - located_at
+  - category: governance
+    properties:
+      - managed_by
+
+supertypes: [ServicePoint]
+subtypes: []
+
+external_equivalents:
+  schema-org:
+    label: "MedicalOrganization"
+    uri: "https://schema.org/MedicalOrganization"
+    match: close
+    vocabulary: "schema.org"
+    note: "schema.org MedicalOrganization conflates the medical organization and the physical place where care is delivered into a single class. PublicSchema separates them: HealthFacility is the physical facility (subtype of ServicePoint), and the operating Organization is referenced via managed_by. The overlap is close on the facility-level concept and partial on the organizational side."
+
+convergence:
+  system_count: 2
+  total_systems: 6
+  notes: >
+    HealthFacility is informed primarily by two WHO-maintained
+    non-PublicSchema systems: the Service Availability and Readiness
+    Assessment (SARA) Reference Manual, which defines the canonical
+    facility-type taxonomy, and the Harmonized Health Facility Assessment
+    (HHFA), which consolidates and extends SARA alongside the Service
+    Delivery Indicators (SDI) into a unified assessment framework.
+    Neither of the six v1 convergence systems (OpenCRVS, openIMIS,
+    OpenSPP, DHIS2, DCI, SEMIC) carries a first-class HealthFacility
+    concept at this level of specification, though DHIS2 organisation
+    units and openIMIS health facility records cover adjacent
+    responsibilities. A broader convergence pass including HeRAMS and
+    national health facility registries is expected to raise the
+    system_count.

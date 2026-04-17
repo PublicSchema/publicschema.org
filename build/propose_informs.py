@@ -111,6 +111,9 @@ VOCAB_STANDARD_LOOKUP: dict[str, str] = {
     "FANTA Household Hunger Scale: Indicator Definition and Measurement Guide (2010, revised 2017)": "fanta-hhs",
     "Washington Group Short Set on Functioning (WG-SS), 2006/2016": "washington-group-ss",
     "WHO/UNICEF/WFP/UNSCN Joint Statement on Community-based Management of Acute Malnutrition (2007/2009)": "who-muac-cutoffs",
+    "WHO Service Availability and Readiness Assessment (SARA) Reference Manual v2.2": "who-sara",
+    "WHO Health Systems Strengthening Glossary": "who-health-systems",
+    "WHO Health Resources and Services Availability Monitoring System (HeRAMS)": "who-herams",
 }
 
 SKIPPED_KEYS = {"opencrvs", "dhis2"}

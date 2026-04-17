@@ -1,0 +1,19 @@
+id: who-health-systems
+title: "WHO Health Systems Strengthening Glossary"
+short_title: "WHO Health Systems"
+publisher: "World Health Organization (WHO)"
+year: null
+type: guidance_publication
+domain: health
+uri: "https://www.who.int/health-topics/health-systems-strengthening"
+access: open
+status: active
+note: "WHO uses the primary / secondary / tertiary tier terminology as the common descriptive framework for national health-system organisation. Many countries extend this with a quaternary tier for national referral or research hospitals. There is no single canonical URL listing the tiers as coded values; this entry anchors the tier vocabulary to the WHO health-systems strengthening body of work."
+
+informs:
+  concepts:
+    - HealthFacility
+  vocabularies:
+    - health-facility-level
+  properties:
+    - facility_level

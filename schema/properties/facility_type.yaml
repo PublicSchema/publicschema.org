@@ -1,0 +1,17 @@
+id: facility_type
+maturity: draft
+label:
+  en: "Facility type"
+  fr: "Type d'établissement"
+  es: "Tipo de establecimiento"
+
+definition:
+  en: "The functional category of a health facility per WHO SARA/HHFA (hospital, health center, health post, etc.)."
+  fr: "La catégorie fonctionnelle d'un établissement de santé selon SARA/HHFA de l'OMS (hôpital, centre de santé, poste de santé, etc.)."
+  es: "La categoría funcional de un establecimiento de salud según SARA/HHFA de la OMS (hospital, centro de salud, puesto de salud, etc.)."
+
+type: string
+cardinality: single
+vocabulary: health-facility-type
+references: null
+category: classification

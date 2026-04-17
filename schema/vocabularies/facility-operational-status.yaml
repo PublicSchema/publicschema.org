@@ -1,0 +1,69 @@
+id: facility-operational-status
+maturity: draft
+label:
+  en: Facility Operational Status
+  fr: Statut opérationnel de l'établissement
+  es: Estado operativo del establecimiento
+definition:
+  en: Whether a service point or health facility is currently operational, partially operational, temporarily or permanently closed, not yet opened, or of unknown status. Aligned with WHO HeRAMS operational-status reporting used in humanitarian health-facility monitoring.
+  fr: Indique si un point de service ou un établissement de santé est actuellement opérationnel, partiellement opérationnel, temporairement ou définitivement fermé, pas encore ouvert, ou d'un statut inconnu. Aligné avec les rapports sur le statut opérationnel HeRAMS de l'OMS utilisés dans le suivi humanitaire des établissements de santé.
+  es: Indica si un punto de servicio o establecimiento de salud está actualmente operativo, parcialmente operativo, temporal o permanentemente cerrado, aún no abierto, o de estado desconocido. Alineado con el reporte de estado operativo HeRAMS de la OMS utilizado en el monitoreo humanitario de establecimientos de salud.
+standard:
+  name: WHO Health Resources and Services Availability Monitoring System (HeRAMS)
+  uri: https://www.who.int/initiatives/herams
+  notes: "HeRAMS is the WHO-maintained monitoring framework for tracking availability of health resources and services in emergencies. Its facility reporting distinguishes fully functioning, partially functioning, and non-functioning facilities and the reasons for disruption; these are summarized here in a compact status vocabulary suitable for non-emergency settings as well."
+values:
+- code: fully_operational
+  label:
+    en: Fully operational
+    fr: Pleinement opérationnel
+    es: Plenamente operativo
+  definition:
+    en: The service point is open and delivering its full range of expected services.
+    fr: Le point de service est ouvert et fournit la gamme complète de services attendus.
+    es: El punto de servicio está abierto y presta la gama completa de servicios previstos.
+- code: partially_operational
+  label:
+    en: Partially operational
+    fr: Partiellement opérationnel
+    es: Parcialmente operativo
+  definition:
+    en: The service point is open but delivering a reduced range of services, reduced hours, or with significant constraints (staff, supplies, infrastructure, security).
+    fr: Le point de service est ouvert mais fournit une gamme de services réduite, des horaires réduits ou avec des contraintes importantes (personnel, approvisionnements, infrastructure, sécurité).
+    es: El punto de servicio está abierto pero presta una gama reducida de servicios, horarios reducidos o con limitaciones significativas (personal, suministros, infraestructura, seguridad).
+- code: temporarily_closed
+  label:
+    en: Temporarily closed
+    fr: Temporairement fermé
+    es: Temporalmente cerrado
+  definition:
+    en: The service point is not currently delivering services but is expected to resume operations.
+    fr: Le point de service ne fournit pas actuellement de services mais devrait reprendre ses activités.
+    es: El punto de servicio no está prestando servicios actualmente pero se espera que reanude sus operaciones.
+- code: permanently_closed
+  label:
+    en: Permanently closed
+    fr: Définitivement fermé
+    es: Permanentemente cerrado
+  definition:
+    en: The service point has ceased operations and is not expected to reopen.
+    fr: Le point de service a cessé ses activités et n'est pas censé rouvrir.
+    es: El punto de servicio ha cesado sus operaciones y no se espera que vuelva a abrir.
+- code: not_yet_opened
+  label:
+    en: Not yet opened
+    fr: Pas encore ouvert
+    es: Aún no abierto
+  definition:
+    en: The service point is planned or under construction but has not yet started delivering services.
+    fr: Le point de service est prévu ou en construction mais n'a pas encore commencé à fournir des services.
+    es: El punto de servicio está planificado o en construcción pero aún no ha comenzado a prestar servicios.
+- code: unknown
+  label:
+    en: Unknown
+    fr: Inconnu
+    es: Desconocido
+  definition:
+    en: The operational status of the service point is not known or not reported.
+    fr: Le statut opérationnel du point de service est inconnu ou non signalé.
+    es: El estado operativo del punto de servicio es desconocido o no se ha reportado.

@@ -1,0 +1,17 @@
+id: located_at
+maturity: draft
+label:
+  en: "Located at"
+  fr: "Situé à"
+  es: "Ubicado en"
+
+definition:
+  en: "The administrative or geographic location where this service point sits."
+  fr: "La zone administrative ou géographique où se situe ce point de service."
+  es: "La ubicación administrativa o geográfica donde se encuentra este punto de servicio."
+
+type: concept:Location
+cardinality: single
+vocabulary: null
+references: Location
+category: location

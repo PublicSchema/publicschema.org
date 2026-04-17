@@ -14,10 +14,12 @@ informs:
     - Address
     - Agent
     - Event
+    - HealthFacility
     - Location
     - Organization
     - Party
     - Person
+    - ServicePoint
   vocabularies: []
   properties:
     - administrative_area

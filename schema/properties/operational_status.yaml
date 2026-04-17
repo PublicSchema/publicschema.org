@@ -1,0 +1,17 @@
+id: operational_status
+maturity: draft
+label:
+  en: "Operational status"
+  fr: "Statut opérationnel"
+  es: "Estado operativo"
+
+definition:
+  en: "Whether the service point is currently operational, partially operational, or non-functional."
+  fr: "Indique si le point de service est actuellement opérationnel, partiellement opérationnel ou non fonctionnel."
+  es: "Indica si el punto de servicio está actualmente operativo, parcialmente operativo o no funcional."
+
+type: string
+cardinality: single
+vocabulary: facility-operational-status
+references: null
+category: classification

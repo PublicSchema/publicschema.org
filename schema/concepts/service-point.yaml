@@ -1,0 +1,98 @@
+id: ServicePoint
+label:
+  en: Service Point
+  fr: Point de service
+  es: Punto de servicio
+maturity: draft
+featured: true
+
+definition:
+  en: >
+    A named physical point where an organization delivers a public service.
+    ServicePoint is domain-agnostic: it covers health facilities, schools,
+    water points, sanitation blocks, distribution sites, protection desks,
+    civil registration offices, community centers, libraries, and post
+    offices. A ServicePoint is distinct from a Location (a named
+    administrative or geographic area where the service point sits) and
+    from the Organization that operates it. Location answers "where on the
+    map or in the admin hierarchy?"; Organization answers "who runs it?";
+    ServicePoint answers "what is the operational facility?" and carries
+    service category, operational status, and the link back to the
+    managing organization.
+  fr: >
+    Un point physique nommé où une organisation fournit un service public.
+    ServicePoint est indépendant du domaine : il couvre les établissements
+    de santé, les écoles, les points d'eau, les blocs sanitaires, les
+    sites de distribution, les guichets de protection, les bureaux d'état
+    civil, les centres communautaires, les bibliothèques et les bureaux
+    de poste. Un ServicePoint est distinct d'une Location (une zone
+    administrative ou géographique nommée où se situe le point de service)
+    et de l'Organization qui l'exploite. Location répond à la question
+    « où sur la carte ou dans la hiérarchie administrative ? » ;
+    Organization répond à « qui le gère ? » ; ServicePoint répond à
+    « quel est l'établissement opérationnel ? » et porte la catégorie de
+    service, le statut opérationnel et le lien vers l'organisation
+    gestionnaire.
+  es: >
+    Un punto físico con nombre donde una organización presta un servicio
+    público. ServicePoint es independiente del dominio: abarca
+    establecimientos de salud, escuelas, puntos de agua, bloques
+    sanitarios, sitios de distribución, mostradores de protección,
+    oficinas de registro civil, centros comunitarios, bibliotecas y
+    oficinas de correos. Un ServicePoint es distinto de una Location
+    (un área administrativa o geográfica con nombre donde se sitúa el
+    punto de servicio) y de la Organization que lo opera. Location
+    responde a «¿dónde en el mapa o en la jerarquía administrativa?»;
+    Organization responde a «¿quién lo gestiona?»; ServicePoint responde
+    a «¿cuál es el establecimiento operativo?» y lleva la categoría de
+    servicio, el estado operativo y el vínculo con la organización
+    gestora.
+
+properties:
+  - service_point_name
+  - identifiers
+  - service_point_type
+  - located_at
+  - managed_by
+  - operational_status
+
+property_groups:
+  - category: identity
+    properties:
+      - service_point_name
+      - identifiers
+  - category: classification
+    properties:
+      - service_point_type
+      - operational_status
+  - category: location
+    properties:
+      - located_at
+  - category: governance
+    properties:
+      - managed_by
+
+supertypes: []
+subtypes: [HealthFacility]
+
+external_equivalents:
+  schema-org:
+    label: "Place"
+    uri: "https://schema.org/Place"
+    match: broad
+    vocabulary: "schema.org"
+    note: "schema.org Place is a geometric entity (any spatial thing with a geo location), whereas PS ServicePoint is a functional/operational entity (a named site where a public service is delivered with a service category, operational status, and managing organization). Every ServicePoint is a Place, but most Places are not ServicePoints."
+
+convergence:
+  system_count: 0
+  total_systems: 6
+  notes: >
+    ServicePoint is newly introduced in PublicSchema and has not yet been
+    mapped against the v1 convergence systems. No mapped social-protection
+    or CRVS delivery system carries a first-class ServicePoint concept
+    today; facility-like data appears as free-text site names or as
+    administrative location entries. Adjacent systems that do model the
+    concept (WHO HeRAMS, EMIS education registries, WASH facility
+    registries, humanitarian logistics service-delivery-point registries)
+    will be surveyed in a follow-up convergence pass, at which point the
+    system_count and external_equivalents are expected to grow.

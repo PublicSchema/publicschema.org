@@ -1,0 +1,98 @@
+id: service-point-type
+maturity: draft
+label:
+  en: Service Point Type
+  fr: Type de point de service
+  es: Tipo de punto de servicio
+definition:
+  en: The category of service delivered at a service point, covering health, education, distribution, WASH, protection, civil registration, and community services.
+  fr: La catégorie de service fournie à un point de service, couvrant la santé, l'éducation, la distribution, l'eau et l'assainissement, la protection, l'enregistrement civil et les services communautaires.
+  es: La categoría de servicio prestado en un punto de servicio, que abarca salud, educación, distribución, agua y saneamiento, protección, registro civil y servicios comunitarios.
+references:
+  - name: "OCHA Humanitarian Data Exchange (HDX) Common Operational Datasets"
+    uri: "https://data.humdata.org/"
+    relationship: prose_guidance
+    machine_readable: false
+    notes: "No single cross-sector standard defines service-point categories. This vocabulary is a cross-domain enumeration harmonized from common humanitarian operational datasets, civic-tech service registries, and sector-specific typologies (e.g. WHO SARA for health, JMP for WASH, cluster 4W reporting for distributions)."
+values:
+- code: health_facility
+  label:
+    en: Health facility
+    fr: Établissement de santé
+    es: Establecimiento de salud
+  definition:
+    en: Service point delivering clinical or preventive health care (hospital, health center, health post, dispensary, pharmacy, laboratory).
+    fr: Point de service fournissant des soins de santé cliniques ou préventifs (hôpital, centre de santé, poste de santé, dispensaire, pharmacie, laboratoire).
+    es: Punto de servicio que presta atención sanitaria clínica o preventiva (hospital, centro de salud, puesto de salud, dispensario, farmacia, laboratorio).
+- code: education_facility
+  label:
+    en: Education facility
+    fr: Établissement éducatif
+    es: Establecimiento educativo
+  definition:
+    en: Service point delivering formal or non-formal education, such as a school, learning center, or vocational training center.
+    fr: Point de service fournissant une éducation formelle ou non formelle, tel qu'une école, un centre d'apprentissage ou un centre de formation professionnelle.
+    es: Punto de servicio que presta educación formal o no formal, como una escuela, un centro de aprendizaje o un centro de formación profesional.
+- code: distribution_point
+  label:
+    en: Distribution point
+    fr: Point de distribution
+    es: Punto de distribución
+  definition:
+    en: Site where relief, cash, or in-kind aid is distributed to recipients.
+    fr: Site où l'aide d'urgence, en espèces ou en nature, est distribuée aux bénéficiaires.
+    es: Sitio donde se distribuye ayuda de socorro, en efectivo o en especie, a los beneficiarios.
+- code: water_point
+  label:
+    en: Water point
+    fr: Point d'eau
+    es: Punto de agua
+  definition:
+    en: Public water access point such as a tap, borehole, hand pump, or water kiosk.
+    fr: Point d'accès public à l'eau tel qu'un robinet, un forage, une pompe manuelle ou une borne-fontaine.
+    es: Punto público de acceso al agua como un grifo, un pozo, una bomba manual o un quiosco de agua.
+- code: sanitation_facility
+  label:
+    en: Sanitation facility
+    fr: Installation sanitaire
+    es: Instalación sanitaria
+  definition:
+    en: Public latrine, bathing block, handwashing station, or solid-waste collection point.
+    fr: Latrines publiques, bloc sanitaire, point de lavage des mains ou point de collecte des déchets solides.
+    es: Letrinas públicas, bloque de baños, estación de lavado de manos o punto de recolección de residuos sólidos.
+- code: protection_service_point
+  label:
+    en: Protection service point
+    fr: Point de services de protection
+    es: Punto de servicios de protección
+  definition:
+    en: Women's or child-friendly space, protection desk, safe space, or other site offering protection services.
+    fr: Espace ami des femmes ou des enfants, guichet de protection, espace sûr ou autre site offrant des services de protection.
+    es: Espacio amigable para mujeres o niños, mostrador de protección, espacio seguro u otro sitio que ofrece servicios de protección.
+- code: registration_center
+  label:
+    en: Registration center
+    fr: Centre d'enregistrement
+    es: Centro de registro
+  definition:
+    en: Civil registration office, refugee registration site, or identity enrollment center.
+    fr: Bureau d'état civil, site d'enregistrement des réfugiés ou centre d'enrôlement d'identité.
+    es: Oficina de registro civil, sitio de registro de refugiados o centro de enrolamiento de identidad.
+- code: community_center
+  label:
+    en: Community center
+    fr: Centre communautaire
+    es: Centro comunitario
+  definition:
+    en: Multi-purpose community hall, meeting point, or youth center serving as a gathering space for local services.
+    fr: Salle communautaire polyvalente, point de rencontre ou centre de jeunesse servant d'espace de rassemblement pour les services locaux.
+    es: Sala comunitaria polivalente, punto de encuentro o centro juvenil que sirve como espacio de reunión para los servicios locales.
+- code: other
+  label:
+    en: Other
+    fr: Autre
+    es: Otro
+  definition:
+    en: A service point type not covered by the other categories.
+    fr: Un type de point de service non couvert par les autres catégories.
+    es: Un tipo de punto de servicio no cubierto por las otras categorías.
