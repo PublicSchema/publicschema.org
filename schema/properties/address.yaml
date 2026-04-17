@@ -21,4 +21,9 @@ convergence:
   total_systems: 4
   notes: >
     DHIS2 and OpenSPP use a plain string; DCI uses a structured Address.
-    High convergence but type divergence between inline string and linked entity.
+    High convergence but type divergence between inline string and linked
+    entity. The definition still refers to "this household" because Household
+    is the only concept that currently carries this property; generalising
+    the definition and broadening applicability to other subject types was
+    considered alongside the Location generalisation in ADR-008 decision 8,
+    and deferred. Future extensions should revisit.

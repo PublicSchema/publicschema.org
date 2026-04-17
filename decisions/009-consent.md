@@ -151,15 +151,17 @@ Maturity: both concepts `draft`; most vocabularies `draft`; `legal-basis`, `spec
 - FHIR R4 and R5 `Consent` resource crosswalks (per-version; their `provision` hierarchies differ).
 - System mappings sweep on adjacent concepts (Enrollment, Profile subtypes, PaymentEvent) to pick up DPV mappings where semantic overlap exists.
 - **Monitor Kantara ANCR WG** ("Anchored Notice and Consent Receipt" profile extension of ISO 27560). Active 2026 work; pre-publication as of this ADR's drafting. Revisit before promoting `ConsentRecord` to `candidate` maturity. If ANCR publishes a stable schema with a notice-anchoring model compatible with our `PrivacyNotice`, add a system_mappings entry and reconsider whether any structural elements should be absorbed.
-- **Named follow-on ADRs:**
-  - ADR-010 (proposed): `DataSubjectRightsRequest`. Priority: high. Closes the withdrawal-versus-erasure gap flagged in the privacy-law review and introduces typed rights (access, rectification, erasure, portability, restriction, objection, automated-decision objection).
-  - ADR-011 (proposed): `DataSharingAgreement`. Controller-to-controller, joint controllers, processor contracts.
-  - ADR-012 (proposed): `RetentionPolicy` as a standalone concept, replacing inline `storage_duration_days`.
-  - ADR-013 (proposed): `CollectionSession`. Links consent records produced in one bulk-intake event; from practitioner review.
-  - ADR-014 (proposed): `RecordOfProcessingActivities` (GDPR Art 30 adjacent).
-  - ADR-015 (proposed): `DataBreachRecord`.
-  - ADR-016 (proposed): International transfer properties (`transfer_basis` on records and notices) pending DPV-LOC coverage confirmation.
-  - ADR-017 (proposed): `capacity_basis` and age-of-majority transitions on `ConsentRecord`.
+- **Named follow-on ADRs (topics; numbers assigned when each ADR is written):**
+  - `DataSubjectRightsRequest`. Priority: high. Closes the withdrawal-versus-erasure gap flagged in the privacy-law review and introduces typed rights (access, rectification, erasure, portability, restriction, objection, automated-decision objection).
+  - `DataSharingAgreement`. Controller-to-controller, joint controllers, processor contracts.
+  - `RetentionPolicy` as a standalone concept, replacing inline `storage_duration_days`.
+  - `CollectionSession`. Links consent records produced in one bulk-intake event; from practitioner review.
+  - `RecordOfProcessingActivities` (GDPR Art 30 adjacent).
+  - `DataBreachRecord`.
+  - International transfer properties (`transfer_basis` on records and notices) pending DPV-LOC coverage confirmation.
+  - `capacity_basis` and age-of-majority transitions on `ConsentRecord`.
+
+  (This section originally reserved ADR-010 through ADR-017 for these consent-layer topics; those numbers have since been used for unrelated work, so the list is kept topic-only.)
 
 ## References
 

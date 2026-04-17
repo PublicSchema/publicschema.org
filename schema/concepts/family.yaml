@@ -27,4 +27,11 @@ subtypes: []
 convergence:
   system_count: 5
   total_systems: 6
-  notes: "No OpenCRVS equivalent. OpenIMIS uses 'family' where other systems use 'household'."
+  notes: >
+    No OpenCRVS equivalent. OpenIMIS uses 'family' where other systems use
+    'household'. Family currently carries no local properties: it is a
+    labelling placeholder pending kinship-modelling scope (the kinship,
+    marriage, and adoption ties named in the definition are not yet
+    materialised as properties). Maturity is kept at draft until that scope
+    is decided; adopters that need kinship structure should use Relationship
+    records between Person instances in the meantime.
