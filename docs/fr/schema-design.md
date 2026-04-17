@@ -22,7 +22,7 @@ Certains concepts partagent un nom entre domaines mais portent une sémantique d
 
 Le test : un élément est universel si la même définition porte le même sens quel que soit le domaine. Dans le cas contraire, il appartient à un espace de noms de domaine.
 
-Les noms ne sont jamais préfixés par une abréviation de domaine. C'est `Enrollment`, pas `SPEnrollment`. La structure des URI gère la désambiguïsation.
+Les noms ne sont jamais préfixés par une abréviation de domaine. C'est `Enrollment`, pas `SPEnrollment`. La structure des URI gère la désambiguïsation. Une exception nommée existe : `CRVSPerson`, documentée dans [ADR-014](../../decisions/014-crvs-person-naming.md). Ce n'est pas un précédent ; toute exception supplémentaire nécessite son propre ADR.
 
 | Code | Domaine | Statut |
 |---|---|---|

@@ -22,7 +22,7 @@ Some concepts share a name across domains but carry different semantics ("Enroll
 
 The test: an element is universal if the same definition carries the same meaning regardless of domain. If not, it belongs in a domain namespace.
 
-Names are never prefixed with a domain abbreviation. It is `Enrollment`, not `SPEnrollment`. The URI structure handles disambiguation.
+Names are never prefixed with a domain abbreviation. It is `Enrollment`, not `SPEnrollment`. The URI structure handles disambiguation. One named exception exists: `CRVSPerson`, documented in [ADR-014](../decisions/014-crvs-person-naming.md). It is not a precedent; any further exception requires its own ADR.
 
 | Code | Domain | Status |
 |---|---|---|

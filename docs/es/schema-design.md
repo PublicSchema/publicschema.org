@@ -22,7 +22,7 @@ Algunos conceptos comparten un nombre entre dominios pero tienen semánticas dif
 
 La prueba: un elemento es universal si la misma definición tiene el mismo significado independientemente del dominio. Si no es así, pertenece a un espacio de nombres de dominio.
 
-Los nombres nunca se prefijan con una abreviación de dominio. Es `Enrollment`, no `SPEnrollment`. La estructura del URI se encarga de la disambiguación.
+Los nombres nunca se prefijan con una abreviación de dominio. Es `Enrollment`, no `SPEnrollment`. La estructura del URI se encarga de la disambiguación. Existe una excepción nombrada: `CRVSPerson`, documentada en [ADR-014](../../decisions/014-crvs-person-naming.md). No es un precedente; cualquier excepción adicional requiere su propio ADR.
 
 | Código | Dominio | Estado |
 |---|---|---|
