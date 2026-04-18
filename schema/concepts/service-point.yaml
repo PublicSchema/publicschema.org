@@ -11,8 +11,8 @@ definition:
     A named physical point where an organization delivers a public service.
     ServicePoint is domain-agnostic: it covers health facilities, schools,
     water points, sanitation blocks, distribution sites, protection desks,
-    civil registration offices, community centers, libraries, and post
-    offices. A ServicePoint is distinct from a Location (a named
+    civil registration offices, community centers, markets, libraries, and
+    post offices. A ServicePoint is distinct from a Location (a named
     administrative or geographic area where the service point sits) and
     from the Organization that operates it. Location answers "where on the
     map or in the admin hierarchy?"; Organization answers "who runs it?";
@@ -24,8 +24,8 @@ definition:
     ServicePoint est indépendant du domaine : il couvre les établissements
     de santé, les écoles, les points d'eau, les blocs sanitaires, les
     sites de distribution, les guichets de protection, les bureaux d'état
-    civil, les centres communautaires, les bibliothèques et les bureaux
-    de poste. Un ServicePoint est distinct d'une Location (une zone
+    civil, les centres communautaires, les marchés, les bibliothèques et
+    les bureaux de poste. Un ServicePoint est distinct d'une Location (une zone
     administrative ou géographique nommée où se situe le point de service)
     et de l'Organization qui l'exploite. Location répond à la question
     « où sur la carte ou dans la hiérarchie administrative ? » ;
@@ -38,8 +38,8 @@ definition:
     público. ServicePoint es independiente del dominio: abarca
     establecimientos de salud, escuelas, puntos de agua, bloques
     sanitarios, sitios de distribución, mostradores de protección,
-    oficinas de registro civil, centros comunitarios, bibliotecas y
-    oficinas de correos. Un ServicePoint es distinto de una Location
+    oficinas de registro civil, centros comunitarios, mercados,
+    bibliotecas y oficinas de correos. Un ServicePoint es distinto de una Location
     (un área administrativa o geográfica con nombre donde se sitúa el
     punto de servicio) y de la Organization que lo opera. Location
     responde a «¿dónde en el mapa o en la jerarquía administrativa?»;

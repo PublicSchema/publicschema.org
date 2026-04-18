@@ -5,9 +5,9 @@ label:
   fr: Type de point de service
   es: Tipo de punto de servicio
 definition:
-  en: The category of service delivered at a service point, covering health, education, distribution, WASH, protection, civil registration, and community services.
-  fr: La catégorie de service fournie à un point de service, couvrant la santé, l'éducation, la distribution, l'eau et l'assainissement, la protection, l'enregistrement civil et les services communautaires.
-  es: La categoría de servicio prestado en un punto de servicio, que abarca salud, educación, distribución, agua y saneamiento, protección, registro civil y servicios comunitarios.
+  en: The category of service delivered at a service point, covering health, education, distribution, WASH, protection, civil registration, community services, and markets.
+  fr: La catégorie de service fournie à un point de service, couvrant la santé, l'éducation, la distribution, l'eau et l'assainissement, la protection, l'enregistrement civil, les services communautaires et les marchés.
+  es: La categoría de servicio prestado en un punto de servicio, que abarca salud, educación, distribución, agua y saneamiento, protección, registro civil, servicios comunitarios y mercados.
 references:
   - name: "OCHA Humanitarian Data Exchange (HDX) Common Operational Datasets"
     uri: "https://data.humdata.org/"
@@ -87,6 +87,15 @@ values:
     en: Multi-purpose community hall, meeting point, or youth center serving as a gathering space for local services.
     fr: Salle communautaire polyvalente, point de rencontre ou centre de jeunesse servant d'espace de rassemblement pour les services locaux.
     es: Sala comunitaria polivalente, punto de encuentro o centro juvenil que sirve como espacio de reunión para los servicios locales.
+- code: market
+  label:
+    en: Market
+    fr: Marché
+    es: Mercado
+  definition:
+    en: Physical marketplace or local trading venue (permanent or periodic) where vendors supply food, non-food items, or services to a surrounding population. Used for market-functionality and price-monitoring assessments.
+    fr: Marché physique ou lieu de commerce local (permanent ou périodique) où les vendeurs fournissent des denrées alimentaires, des articles non alimentaires ou des services à une population environnante. Utilisé pour les évaluations de fonctionnalité des marchés et de suivi des prix.
+    es: Mercado físico o lugar de comercio local (permanente o periódico) donde los vendedores suministran alimentos, artículos no alimentarios o servicios a una población circundante. Utilizado para evaluaciones de funcionalidad de mercados y seguimiento de precios.
 - code: other
   label:
     en: Other
