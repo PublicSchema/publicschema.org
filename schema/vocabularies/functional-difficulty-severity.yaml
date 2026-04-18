@@ -65,7 +65,7 @@ system_mappings:
     - code: '4'
       label: Cannot do at all
       maps_to: cannot_do
-    note: "DHS optional Disability Module. Uses WG-SS verbatim for persons age 5+. Not included in all DHS surveys."
+    note: "DHS optional Disability Module. Uses the WG-SS response scale verbatim for persons age 5+; DHS reframes the question stems to third-person. Not included in all DHS surveys."
   mics:
     vocabulary_name: MICS6 WG-SS response scale
     values:
@@ -81,4 +81,4 @@ system_mappings:
     - code: '4'
       label: Cannot do at all
       maps_to: cannot_do
-    note: "MICS6 Functioning Module (AF1-AF6). Uses WG-SS verbatim for women 18-49 (men in some countries)."
+    note: "MICS6 Functioning Module (AF1-AF6). Uses the WG-SS response scale verbatim for women 18-49 (men in some countries); MICS reframes the question stems for the module."

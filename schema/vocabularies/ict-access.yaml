@@ -11,7 +11,7 @@ definition:
 standard:
   name: "ITU Core ICT Indicators"
   uri: "https://www.itu.int/en/ITU-D/Statistics/Pages/coreindicators/default.aspx"
-  notes: "ITU core household indicators for ICT access monitoring (SDG 17.8.1)."
+  notes: "ITU core household indicators for ICT access monitoring. The internet code aligns with SDG 17.8.1 (proportion of individuals using the Internet); the other codes cover the broader household ICT basket."
 see_also:
 - vocabulary: household-asset
   note: "Mobile phone, television, and radio appear in both vocabularies. household-asset captures wealth proxy indicators; ict-access captures information and communication access."
