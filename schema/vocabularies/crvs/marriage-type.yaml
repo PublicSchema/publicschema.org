@@ -57,4 +57,4 @@ external_equivalents:
     label: "MarriageRegistration.typeOfMarriage (country-configured)"
     match: none
     vocabulary: "OpenCRVS v1 GraphQL"
-    note: "The field is an untyped String; values are defined at country-deployment time and no reference values were observed in the Farajaland configuration."
+    note: "The field is an untyped String; values are defined at country-deployment time. Farajaland uses MONOGAMY/POLYGAMY."

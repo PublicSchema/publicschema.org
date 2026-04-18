@@ -39,7 +39,7 @@ external_equivalents:
     note: "OpenCRVS v1 does not include a literacy field or vocabulary."
 system_mappings:
   dhs:
-    vocabulary_name: "hv108 - Literacy"
+    vocabulary_name: "v155 - Literacy"
     values:
     - code: '0'
       label: Cannot read at all

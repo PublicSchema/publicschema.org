@@ -159,17 +159,17 @@ system_mappings:
       label: Pit latrine without slab/open pit
       maps_to: pit_latrine_without_slab
     - code: '31'
-      label: Composting toilet
-      maps_to: composting_toilet
-    - code: '41'
-      label: Bucket toilet
-      maps_to: bucket_latrine
-    - code: '42'
-      label: Hanging toilet/hanging latrine
-      maps_to: hanging_toilet
-    - code: '43'
       label: No facility/bush/field
       maps_to: open_defecation
+    - code: '41'
+      label: Composting toilet
+      maps_to: composting_toilet
+    - code: '42'
+      label: Bucket toilet
+      maps_to: bucket_latrine
+    - code: '43'
+      label: Hanging toilet/latrine
+      maps_to: hanging_toilet
     - code: '96'
       label: Other
       maps_to: other
