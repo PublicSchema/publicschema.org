@@ -114,6 +114,9 @@ VOCAB_STANDARD_LOOKUP: dict[str, str] = {
     "WHO Service Availability and Readiness Assessment (SARA) Reference Manual v2.2": "who-sara",
     "WHO Health Systems Strengthening Glossary": "who-health-systems",
     "WHO Health Resources and Services Availability Monitoring System (HeRAMS)": "who-herams",
+    "DHS-8 Woman's Questionnaire, Chapter 9 (m2, m3, rh_pnc_wm_pv series)": "dhs-woman-questionnaire",
+    "Sphere Handbook 2018, Standard 6 Security of Tenure; UNHCR HLP guidance": "sphere-2018",
+    "IOM Displacement Tracking Matrix (DTM) documentation indicator": "iom-dtm",
 }
 
 SKIPPED_KEYS = {"opencrvs", "dhis2"}

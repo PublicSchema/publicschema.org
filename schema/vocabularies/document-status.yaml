@@ -1,0 +1,68 @@
+id: document-status
+maturity: draft
+label:
+  en: Document Status
+  fr: "Statut du document"
+  es: "Estado del documento"
+definition:
+  en: "The availability and condition of an identity or civil documentation document held by a household member. Captures displacement-specific loss and confiscation states absent from standard document registries. Complements the PS document-type vocabulary."
+  fr: "La disponibilité et l'état d'un document d'identité ou d'état civil détenu par un membre du ménage. Capture les états de perte et de confiscation spécifiques au déplacement absents des registres documentaires standard. Complète le vocabulaire document-type du PS."
+  es: "La disponibilidad y el estado de un documento de identidad o de registro civil en posesión de un miembro del hogar. Captura los estados de pérdida y confiscación específicos del desplazamiento ausentes en los registros documentales estándar. Complementa el vocabulario document-type del PS."
+standard:
+  name: "IOM Displacement Tracking Matrix (DTM) documentation indicator"
+  uri: "https://dtm.iom.int/"
+values:
+- code: valid
+  label:
+    en: Valid and available
+    fr: "Valide et disponible"
+    es: "Válido y disponible"
+  definition:
+    en: "Document is current, has not expired, and is in the holder's possession."
+    fr: "Le document est à jour, n'a pas expiré et est en possession de son titulaire."
+    es: "El documento está vigente, no ha expirado y está en posesión del titular."
+- code: expired
+  label:
+    en: Expired
+    fr: "Expiré"
+    es: "Vencido"
+  definition:
+    en: "Document exists but its validity period has lapsed and has not been renewed."
+    fr: "Le document existe mais sa période de validité a expiré et n'a pas été renouvelée."
+    es: "El documento existe pero su período de validez ha vencido y no ha sido renovado."
+- code: lost_during_displacement
+  label:
+    en: Lost during displacement
+    fr: "Perdu lors du déplacement"
+    es: "Perdido durante el desplazamiento"
+  definition:
+    en: "Document existed but was lost, left behind, or destroyed during the displacement event."
+    fr: "Le document existait mais a été perdu, laissé derrière ou détruit lors de l'événement de déplacement."
+    es: "El documento existía pero se perdió, se dejó atrás o fue destruido durante el evento de desplazamiento."
+- code: confiscated
+  label:
+    en: Confiscated
+    fr: "Confisqué"
+    es: "Confiscado"
+  definition:
+    en: "Document was seized by authorities, armed actors, or employers. Note: this status may indicate persecution or trafficking; properties using this code carry sensitivity: sensitive."
+    fr: "Le document a été saisi par les autorités, des acteurs armés ou des employeurs."
+    es: "El documento fue incautado por autoridades, actores armados o empleadores."
+- code: never_had
+  label:
+    en: Never had a document
+    fr: "N'a jamais eu de document"
+    es: "Nunca tuvo un documento"
+  definition:
+    en: "Person has never been issued this type of document."
+    fr: "La personne n'a jamais reçu ce type de document."
+    es: "La persona nunca ha recibido este tipo de documento."
+- code: in_process
+  label:
+    en: In process
+    fr: "En cours d'obtention"
+    es: "En proceso"
+  definition:
+    en: "Application for a new or replacement document is underway."
+    fr: "Une demande de nouveau document ou de remplacement est en cours."
+    es: "Una solicitud de documento nuevo o de reemplazo está en curso."

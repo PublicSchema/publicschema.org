@@ -1,0 +1,15 @@
+id: global-shelter-cluster
+title: "Global Shelter Cluster Rapid Needs Assessment Guidance and Shelter Situation Categories"
+short_title: "Global Shelter Cluster"
+publisher: "Global Shelter Cluster (IFRC/UNHCR co-led)"
+type: guidance_publication
+domain: humanitarian
+uri: "https://sheltercluster.org/"
+access: open
+status: active
+
+informs:
+  concepts: []
+  vocabularies:
+    - shelter-situation-type
+  properties: []

@@ -1,0 +1,87 @@
+id: maternity-care-provider
+maturity: draft
+label:
+  en: Maternity Care Provider
+  fr: "Prestataire de soins de maternité"
+  es: Proveedor de atención de maternidad
+definition:
+  en: "The category of health provider who delivered antenatal care (ANC), attended the delivery, or gave postnatal care (PNC). Used across ANC provider, delivery attendant, and PNC provider properties in MaternalNewbornHealthProfile. Reflects the DHS-8 m2, m3, and rh_pnc_wm_pv hierarchy. The 'skilled' subset (doctor, nurse_midwife, auxiliary_midwife) aligns with the WHO skilled birth attendance definition."
+  fr: "La catégorie de prestataire de santé ayant assuré les soins prénataux (SPN), assisté à l'accouchement ou fourni des soins postnataux (SPN). Utilisée pour les propriétés de prestataire ANC, d'assistant à l'accouchement et de prestataire PNC dans le MaternalNewbornHealthProfile. Reflète la hiérarchie DHS-8 m2, m3 et rh_pnc_wm_pv. Le sous-ensemble « qualifié » (médecin, infirmière-sage-femme, sage-femme auxiliaire) s'aligne sur la définition OMS de l'assistance qualifiée à l'accouchement."
+  es: "La categoría del proveedor de salud que brindó atención prenatal (APN), asistió al parto o brindó atención posnatal (APN). Se utiliza en las propiedades de proveedor APN, asistente al parto y proveedor PPN en MaternalNewbornHealthProfile. Refleja la jerarquía DHS-8 m2, m3 y rh_pnc_wm_pv. El subconjunto 'calificado' (médico, enfermera-partera, partera auxiliar) se alinea con la definición de asistencia calificada al parto de la OMS."
+standard:
+  name: "DHS-8 Woman's Questionnaire, Chapter 9 (m2, m3, rh_pnc_wm_pv series)"
+  uri: "https://dhsprogram.com/publications/publication-dhsq8-dhs-questionnaires-and-manuals.cfm"
+  notes: "Codes aligned with DHS m2a–m2n (ANC provider) and m3a–m3n (delivery attendant) series. The PS CRVS birth-attendant vocabulary covers physician, midwife, nurse, traditional_birth_attendant, other, and none; this vocabulary extends that set with auxiliary_midwife, community_health_worker, and relative for field-survey use."
+values:
+  - code: doctor
+    label:
+      en: Doctor / Physician
+      fr: Médecin
+      es: Médico
+    definition:
+      en: "A licensed medical doctor (general practitioner or specialist). DHS m2a / m3a = 1. Classified as skilled."
+      fr: "Un médecin diplômé (généraliste ou spécialiste). DHS m2a / m3a = 1. Classé comme qualifié."
+      es: "Un médico titulado (médico general o especialista). DHS m2a / m3a = 1. Clasificado como calificado."
+  - code: nurse_midwife
+    label:
+      en: Nurse / Midwife
+      fr: Infirmière / Sage-femme
+      es: Enfermera / Partera
+    definition:
+      en: "A professionally trained nurse or midwife. DHS m2b / m3b = 1. Classified as skilled. In the DHS m2 series, m2b captures nurse/midwife as a combined category."
+      fr: "Une infirmière ou sage-femme formée professionnellement. DHS m2b / m3b = 1. Classée comme qualifiée. Dans la série DHS m2, m2b couvre les infirmières et sages-femmes comme catégorie combinée."
+      es: "Una enfermera o partera capacitada profesionalmente. DHS m2b / m3b = 1. Clasificada como calificada. En la serie DHS m2, m2b captura enfermera/partera como categoría combinada."
+  - code: auxiliary_midwife
+    label:
+      en: Auxiliary Midwife / Auxiliary Nurse-Midwife
+      fr: Sage-femme auxiliaire / Infirmière-sage-femme auxiliaire
+      es: Partera auxiliar / Enfermera-partera auxiliar
+    definition:
+      en: "A community-level auxiliary nurse-midwife or skilled birth attendant trained to conduct normal deliveries. Classified as skilled in many national skilled birth attendance definitions. DHS m2c / m3c = 1 in some country questionnaires."
+      fr: "Une infirmière-sage-femme auxiliaire ou une accoucheuse qualifiée communautaire formée pour mener des accouchements normaux. Classée comme qualifiée dans de nombreuses définitions nationales de l'assistance qualifiée à l'accouchement."
+      es: "Una enfermera-partera auxiliar a nivel comunitario o partera calificada capacitada para atender partos normales. Clasificada como calificada en muchas definiciones nacionales de asistencia calificada al parto."
+  - code: community_health_worker
+    label:
+      en: Community Health Worker
+      fr: Agent de santé communautaire
+      es: Agente de salud comunitaria
+    definition:
+      en: "A trained community health worker, health extension worker, or village health volunteer who is not a formally qualified midwife. Not classified as skilled for SDG 3.1.2 purposes."
+      fr: "Un agent de santé communautaire, un agent de vulgarisation sanitaire ou un bénévole de santé villageois qui n'est pas une sage-femme officiellement qualifiée. Non classé comme qualifié aux fins de l'ODD 3.1.2."
+      es: "Un agente de salud comunitaria, trabajador de extensión de salud o voluntario de salud de aldea que no es una partera formalmente calificada. No clasificado como calificado para los propósitos del ODS 3.1.2."
+  - code: traditional_birth_attendant
+    label:
+      en: Traditional Birth Attendant
+      fr: Accoucheuse traditionnelle
+      es: Partera tradicional
+    definition:
+      en: "A community member who assists with births based on traditional practice rather than formal medical training. DHS m3g = 1. Not classified as skilled."
+      fr: "Un membre de la communauté qui assiste aux accouchements sur la base de pratiques traditionnelles plutôt que d'une formation médicale formelle. DHS m3g = 1. Non classé comme qualifié."
+      es: "Un miembro de la comunidad que asiste en partos basándose en prácticas tradicionales en lugar de formación médica formal. DHS m3g = 1. No clasificado como calificado."
+  - code: relative
+    label:
+      en: Relative or Friend
+      fr: Parent ou ami
+      es: Familiar o amigo
+    definition:
+      en: "A family member, friend, or neighbor who assisted without health training. DHS m3h = 1. Not classified as skilled."
+      fr: "Un membre de la famille, un ami ou un voisin qui a assisté sans formation médicale. DHS m3h = 1. Non classé comme qualifié."
+      es: "Un familiar, amigo o vecino que asistió sin capacitación en salud. DHS m3h = 1. No clasificado como calificado."
+  - code: other
+    label:
+      en: Other
+      fr: Autre
+      es: Otro
+    definition:
+      en: "Another category of provider or attendant not covered by the codes above."
+      fr: "Une autre catégorie de prestataire ou d'assistant non couverte par les codes ci-dessus."
+      es: "Otra categoría de proveedor o asistente no cubierta por los códigos anteriores."
+  - code: none
+    label:
+      en: None / No attendant
+      fr: "Aucun / Sans assistance"
+      es: Ninguno / Sin asistente
+    definition:
+      en: "No provider or attendant was present. DHS m3n = 1. Unattended birth."
+      fr: "Aucun prestataire ou assistant n'était présent. DHS m3n = 1. Accouchement sans assistance."
+      es: "No hubo proveedor o asistente presente. DHS m3n = 1. Parto sin asistencia."

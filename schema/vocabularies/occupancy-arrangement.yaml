@@ -1,0 +1,86 @@
+id: occupancy-arrangement
+maturity: draft
+label:
+  en: Occupancy Arrangement
+  fr: "Arrangement d'occupation"
+  es: "Arreglo de ocupación"
+definition:
+  en: "The legal or social arrangement under which the household currently occupies its shelter. Captures ownership, rental, hosting, and informal occupation arrangements. Informs housing, land and property (HLP) protection analysis and Sphere Standard 6 security-of-tenure assessment."
+  fr: "L'arrangement légal ou social sous lequel le ménage occupe actuellement son abri. Couvre la propriété, la location, l'hébergement et les arrangements d'occupation informelle. Informe l'analyse de protection du logement, des terres et de la propriété (LTP) et l'évaluation de la sécurité d'occupation de la Norme Sphère 6."
+  es: "El arreglo legal o social bajo el cual el hogar ocupa actualmente su refugio. Abarca la propiedad, el arrendamiento, el alojamiento y los arreglos de ocupación informal. Informa el análisis de protección de vivienda, tierra y propiedad (VTP) y la evaluación de seguridad de tenencia de la Norma Esfera 6."
+standard:
+  name: "Sphere Handbook 2018, Standard 6 Security of Tenure; UNHCR HLP guidance"
+  uri: "https://spherestandards.org/handbook-2018/"
+values:
+- code: owned
+  label:
+    en: Owned
+    fr: "Propriété du ménage"
+    es: "Propiedad del hogar"
+  definition:
+    en: "The household owns the shelter it currently occupies."
+    fr: "Le ménage est propriétaire de l'abri qu'il occupe actuellement."
+    es: "El hogar es propietario del refugio que ocupa actualmente."
+- code: rented
+  label:
+    en: Rented
+    fr: "Loué"
+    es: "Alquilado"
+  definition:
+    en: "The household rents the shelter from a landlord in exchange for regular payment."
+    fr: "Le ménage loue l'abri d'un propriétaire en échange d'un paiement régulier."
+    es: "El hogar alquila el refugio a un arrendador a cambio de un pago regular."
+- code: hosted_by_family
+  label:
+    en: Hosted by family or relatives
+    fr: "Hébergé par la famille ou des proches"
+    es: "Alojado por familia o parientes"
+  definition:
+    en: "The household is hosted without payment by family members or relatives who own or rent the shelter."
+    fr: "Le ménage est hébergé sans paiement par des membres de la famille ou des proches qui sont propriétaires ou locataires de l'abri."
+    es: "El hogar está alojado sin pago por miembros de la familia o parientes que son propietarios o arrendatarios del refugio."
+- code: hosted_by_non_family
+  label:
+    en: Hosted by non-family
+    fr: "Hébergé par des non-membres de la famille"
+    es: "Alojado por no familiares"
+  definition:
+    en: "The household is hosted without payment by community members or others who are not family or relatives."
+    fr: "Le ménage est hébergé sans paiement par des membres de la communauté ou d'autres personnes qui ne sont pas des membres de la famille ou des proches."
+    es: "El hogar está alojado sin pago por miembros de la comunidad u otras personas que no son familiares o parientes."
+- code: collective_centre
+  label:
+    en: Collective centre
+    fr: "Centre collectif"
+    es: "Centro colectivo"
+  definition:
+    en: "The household resides in a managed collective centre such as a school, public hall, or community building used as temporary accommodation."
+    fr: "Le ménage réside dans un centre collectif géré tel qu'une école, une salle publique ou un bâtiment communautaire utilisé comme hébergement temporaire."
+    es: "El hogar reside en un centro colectivo gestionado como una escuela, salón público o edificio comunitario usado como alojamiento temporal."
+- code: emergency_shelter_programme
+  label:
+    en: Emergency shelter programme allocation
+    fr: "Attribution par programme d'abri d'urgence"
+    es: "Asignación de programa de refugio de emergencia"
+  definition:
+    en: "The household occupies shelter allocated to it through a humanitarian emergency shelter programme (tent, transitional shelter unit, etc.)."
+    fr: "Le ménage occupe un abri qui lui a été attribué par un programme humanitaire d'abri d'urgence (tente, unité d'abri transitionnel, etc.)."
+    es: "El hogar ocupa un refugio asignado a través de un programa humanitario de refugio de emergencia (tienda, unidad de refugio transicional, etc.)."
+- code: squatting_informal
+  label:
+    en: Squatting or informal occupation
+    fr: "Occupation informelle ou squat"
+    es: "Ocupación informal o invasión"
+  definition:
+    en: "The household occupies the shelter without the permission or knowledge of the owner or authority, with no legal basis for occupation."
+    fr: "Le ménage occupe l'abri sans la permission ou la connaissance du propriétaire ou de l'autorité, sans base légale d'occupation."
+    es: "El hogar ocupa el refugio sin el permiso o conocimiento del propietario o autoridad, sin base legal para la ocupación."
+- code: other
+  label:
+    en: Other
+    fr: Autre
+    es: Otro
+  definition:
+    en: "Occupancy arrangement not covered by the above categories."
+    fr: "Arrangement d'occupation non couvert par les catégories ci-dessus."
+    es: "Arreglo de ocupación no cubierto por las categorías anteriores."
