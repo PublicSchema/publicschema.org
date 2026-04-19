@@ -71,7 +71,6 @@ The convergence count on Agent is non-trivial: PROV, FOAF, schema.org, FHIR, SEM
 
 ## Follow-on work
 
-- **Implementation sweep.** A companion implementation plan enumerates every property, concept, and test file to touch. See `.work/plans/plan-agent-organization.md`.
 - **Organization richer properties.** `parent_organization` (for organizational hierarchy), `legal_form`, `jurisdiction`, multi-site `locations`, and contact points (phone, email, website) are deferred to a later ADR. Start minimal.
 - **Organization identifier schemes.** Which identifier schemes are recognised for organizations (DUNS, LEI, GS1, national agency registries, UN agency codes)? The `identifiers` slot accepts any, but a recommended vocabulary is out of scope here.
 - **PractitionerRole layer.** Reified role assignments (Person in role at Organization) are deferred. Revisit when a concrete use case appears (e.g., a credential whose evidence includes "issued by Person acting as registrar at Office").

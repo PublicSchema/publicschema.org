@@ -8,7 +8,7 @@ ADR-006 introduced the Profile hierarchy with three concrete subtypes at the roo
 
 After ADR-010 was written, the humanitarian Profile subtypes were extracted from this repo and now live in a sibling schema outside PublicSchema. The extraction moved AnthropometricProfile, FoodSecurityProfile, and a new DwellingDamageProfile, along with their instrument-specific properties, vocabularies, and bibliography. FunctioningProfile and SocioEconomicProfile stayed in PublicSchema because their instruments (Washington Group, SES/PMT questionnaires) are cross-sector and widely used outside humanitarian response.
 
-No ADR recorded the extraction. ADR-006 decision 2 and ADR-010 still describe the extracted subtypes as concrete PublicSchema concepts, and several documentation files still list AnthropometricProfile, FoodSecurityProfile, and DwellingDamageProfile as PublicSchema subtypes. This drift was flagged in the round-1 adversarial review (finding F1).
+No ADR recorded the extraction. ADR-006 decision 2 and ADR-010 still describe the extracted subtypes as concrete PublicSchema concepts, and several documentation files still list AnthropometricProfile, FoodSecurityProfile, and DwellingDamageProfile as PublicSchema subtypes.
 
 The extraction was driven by scope: instruments like SMART anthropometry, FCS/rCSI/HDDS, MDD-W, HHS, FIES, LCS, and post-disaster dwelling damage assessments are humanitarian-sector specific. Their vocabularies, cutoff rules, and source bibliography come from WFP, FAO, UNHCR, WHO/UNICEF, IPC, and cluster-system guidance. Keeping them in PublicSchema mixed humanitarian-program concerns with the cross-sector registry.
 
@@ -42,4 +42,3 @@ The extraction was driven by scope: instruments like SMART anthropometry, FCS/rC
 - [ADR-003: Domain-scoped URIs, not prefixed names](003-domain-namespacing.md)
 - [ADR-006: Extract observation-shaped data into a Profile hierarchy](006-profile-hierarchy.md) (decision 2 superseded as implemented)
 - [ADR-010: Canonical-rule derived outputs on Profile concepts](010-profile-derived-outputs.md) (superseded as implemented, the subtypes it names moved)
-- Round-1 adversarial review: `.work/reviews/adversarial/round-1/design-findings.md` (F1)

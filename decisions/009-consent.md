@@ -142,7 +142,6 @@ Maturity: both concepts `draft`; most vocabularies `draft`; `legal-basis`, `spec
 
 ## Follow-on work
 
-- Implementation plan enumerating every file to create or modify (`.work/plans/plan-consent-adr.md`).
 - `docs/dpv-vocabulary-reference.md`: curated starter list of DPV URIs (from `dpv:Purpose`, `dpv-pd:PersonalData`, `dpv:Processing`) that cover common public-program-delivery cases, cross-referenced with OpenSPP's seed data (`spp_consent/data/dpv_*.xml`). Published as guidance, not schema.
 - `docs/consent-lifecycle.md`: state transitions, notice-as-boundary, re-consent triggers, consent-versus-eligibility separation, age-of-majority transitions, performance guidance, decision tree for honest `legal_basis` selection. OpenSPP cited as reference implementation.
 - `docs/selective-disclosure.md` update: Consent Receipt VC pattern.
@@ -186,4 +185,3 @@ Maturity: both concepts `draft`; most vocabularies `draft`; `legal-basis`, `spec
 - W3C DID Core (Recommendation). Adjacent; cited for completeness.
 - ADR-003 (domain namespacing), ADR-005 (event identifier split), ADR-006 (Profile hierarchy), ADR-007 (property reuse), ADR-008 (Agent and Organization). Prior decisions that this ADR respects and extends.
 - `docs/selective-disclosure.md`, `docs/versioning-and-maturity.md`. Companion documentation.
-- Expert reviews (`.work/reviews/consent-adr/`): privacy-law-expert, standards-expert, schema-expert, practitioner-expert. The revisions in this ADR respond to their findings; see each file for the unabridged critique.

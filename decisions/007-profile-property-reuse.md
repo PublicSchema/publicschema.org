@@ -45,4 +45,3 @@ Site rendering: each property detail page lists the concepts that reference it. 
 
 - ADR-006: Extract observation-shaped data into a Profile hierarchy
 - `docs/schema-design.md` section 6 (Property independence)
-- `.work/plans/plan-humanitarian-profiles.md` (Batch 1 scope introducing this pattern to Profile subtypes beyond FunctioningProfile)

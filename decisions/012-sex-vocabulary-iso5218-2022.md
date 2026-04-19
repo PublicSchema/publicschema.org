@@ -6,7 +6,7 @@
 
 The `sex` vocabulary is `normative` maturity. Breaking changes require an ADR (per ADR-002).
 
-Until this ADR, the vocabulary's `standard.uri` pointed to `https://www.iso.org/standard/36266.html`, which is ISO/IEC 5218:2004. The round-1 adversarial review (finding T03) confirmed that ISO/IEC 5218:2004 is officially withdrawn and has been superseded by ISO/IEC 5218:2022, published under catalogue number 81682 (`https://www.iso.org/standard/81682.html`). The 2022 revision retains the same four code points (0, 1, 2, 9) with the same semantics; nothing about the value set, the codes, or the definitions changes.
+Until this ADR, the vocabulary's `standard.uri` pointed to `https://www.iso.org/standard/36266.html`, which is ISO/IEC 5218:2004. ISO/IEC 5218:2004 is officially withdrawn and has been superseded by ISO/IEC 5218:2022, published under catalogue number 81682 (`https://www.iso.org/standard/81682.html`). The 2022 revision retains the same four code points (0, 1, 2, 9) with the same semantics; nothing about the value set, the codes, or the definitions changes.
 
 Citing a withdrawn standard from a normative vocabulary is misleading on its own, and it is specifically a problem for adopters building VC-ready credential schemas who follow the URI to verify that a vocabulary reference is current. The standard is still referenced by the same name (ISO/IEC 5218) and the same code points; only the canonical URL and the revision year change.
 
@@ -34,5 +34,4 @@ Citing a withdrawn standard from a normative vocabulary is misleading on its own
 ## References
 
 - [ADR-002: Per-entity maturity plus release versioning](002-maturity-model.md)
-- Round-1 adversarial review finding T03: `.work/reviews/adversarial/round-1/standards-findings.md`
-- ISO/IEC 5218:2022, "Information technology — Codes for the representation of human sexes"
+- ISO/IEC 5218:2022, "Information technology, Codes for the representation of human sexes"

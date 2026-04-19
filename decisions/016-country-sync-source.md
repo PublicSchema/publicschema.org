@@ -8,7 +8,7 @@ The `country` vocabulary is `normative` maturity. Breaking changes require an AD
 
 The vocabulary's `sync.source_url` points to [`lukes/ISO-3166-Countries-with-Regional-Codes`](https://raw.githubusercontent.com/lukes/ISO-3166-Countries-with-Regional-Codes/master/all/all.json), a GitHub mirror of ISO 3166-1 alpha-2 data. The mirror's own README states that its data is "the result of merging data from two sources, the Wikipedia ISO 3166-1 article for alpha and numeric country codes, and the UN M49 Standard country or area codes for statistical use data." It cautions that "the data is not authoritative."
 
-The round-3 adversarial review finding R3B-22 flagged this as a provenance concern: an authoritative normative vocabulary should not depend on a Wikipedia-derived feed. The finding proposed switching to a more authoritative UNSD-direct source.
+This was flagged as a provenance concern: an authoritative normative vocabulary should not depend on a Wikipedia-derived feed. The concern proposed switching to a more authoritative UNSD-direct source.
 
 ## Options investigated
 
@@ -55,6 +55,5 @@ ISO publishes the official ISO 3166-1 list at `https://www.iso.org/obp/ui/#iso:p
 ## References
 
 - [ADR-002: Per-entity maturity plus release versioning](002-maturity-model.md)
-- [ADR-012: Sex vocabulary cites ISO/IEC 5218:2022](012-sex-vocabulary-iso5218-2022.md) — precedent for citation correction on a normative vocabulary without minting a new URI
-- Round-3 adversarial review, finding R3B-22: `.work/reviews/adversarial/round-3/scope-b/verdicts.yaml`
+- [ADR-012: Sex vocabulary cites ISO/IEC 5218:2022](012-sex-vocabulary-iso5218-2022.md): precedent for citation correction on a normative vocabulary without minting a new URI
 - ISO 3166-1, "Codes for the representation of names of countries and their subdivisions"

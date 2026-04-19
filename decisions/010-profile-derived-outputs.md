@@ -50,7 +50,6 @@ The same operational argument that justified keeping anthropometric bands applie
 ## References
 
 - [ADR-006: Extract observation-shaped data into a Profile hierarchy](006-profile-hierarchy.md)
-- aubex-tools feedback: `.work/reviews/ps-schema-feedback.md`
 - WFP VAM, Food Consumption Score Guidance Note (2015)
 - Washington Group, Analytic Guidelines for the Creation of Disability Identifiers (2020)
 - FANTA, Household Hunger Scale: Indicator Definition and Measurement Guide (2010, revised 2017)

@@ -6,7 +6,7 @@
 
 The `language` vocabulary is `normative` maturity. Breaking changes require an ADR (per ADR-002).
 
-Until this ADR, `standard.name` was `ISO 639-3`. The round-7 adversarial review (finding R7-06) confirmed that ISO 639-3:2007 was withdrawn and consolidated into ISO 639:2023 (published 2023, catalogue number 74575). ISO 639:2023 merged the six separate parts of ISO 639 (639-1 through 639-6) into a single multi-part standard whose "Set 3" corresponds to the former ISO 639-3 alpha-3 code set. SIL Global continues as the Language Coding Agency for Set 3.
+Until this ADR, `standard.name` was `ISO 639-3`. ISO 639-3:2007 was withdrawn and consolidated into ISO 639:2023 (published 2023, catalogue number 74575). ISO 639:2023 merged the six separate parts of ISO 639 (639-1 through 639-6) into a single multi-part standard whose "Set 3" corresponds to the former ISO 639-3 alpha-3 code set. SIL Global continues as the Language Coding Agency for Set 3.
 
 The `standard.uri` at `https://www.iso.org/iso-639-language-code` is already canonical and forward-compatible: it resolves to the consolidated ISO 639:2023 landing page. The alpha-3 code points, the SIL-maintained download URL, and every value in the vocabulary are unchanged between ISO 639-3:2007 and ISO 639:2023 Set 3.
 
@@ -38,6 +38,5 @@ Citing a withdrawn standard from a normative vocabulary is misleading for adopte
 ## References
 
 - [ADR-002: Per-entity maturity plus release versioning](002-maturity-model.md)
-- [ADR-012: Sex vocabulary cites ISO/IEC 5218:2022](012-sex-vocabulary-iso5218-2022.md) — precedent for citation correction without minting a new URI
-- Round-7 adversarial review, finding R7-06: `.work/reviews/adversarial/round-7/raw-findings/iso-un.yaml`
+- [ADR-012: Sex vocabulary cites ISO/IEC 5218:2022](012-sex-vocabulary-iso5218-2022.md): precedent for citation correction without minting a new URI
 - ISO 639:2023, "Code for individual languages and language groups"
