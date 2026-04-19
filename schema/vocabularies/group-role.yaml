@@ -235,7 +235,7 @@ system_mappings:
     - operator
     - worker
   openspp:
-    vocabulary_name: GroupMembershipType
+    vocabulary_name: Group Membership Type
     values:
     - code: head
       label: Head

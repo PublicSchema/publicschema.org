@@ -167,9 +167,6 @@ system_mappings:
     - code: ACCEPTED
       label: Accepted
       maps_to: processing
-    - code: PENDING_APPROVAL
-      label: Pending Approval
-      maps_to: pending
     - code: APPROVE_FOR_PAYMENT
       label: Approve For Payment
       maps_to: processing
@@ -182,6 +179,7 @@ system_mappings:
     - code: PENDING_DELETION
       label: Pending Deletion
       maps_to: cancelled
+      note: "Present in the openIMIS develop branch of openimis-be-payroll_py only; not yet released on main."
     - code: RECONCILED
       label: Reconciled
       maps_to: paid

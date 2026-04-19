@@ -724,6 +724,7 @@ system_mappings:
     - payment_proxy
     - survivor
   openimis:
+    note: "Sourced from the develop branch of openimis-be-individual_py (GroupIndividual.Role). The main branch has only HEAD and RECIPIENT; the 13 relationship codes below are from develop and not yet released on main."
     values:
     - code: SPOUSE
       label: Spouse

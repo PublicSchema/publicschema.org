@@ -68,7 +68,7 @@ external_equivalents:
     note: "EU Named Authority List for human sex, based on ISO/IEC 5218. The NAL carries 5 non-deprecated concepts (MALE, FEMALE, NKN, NAP, NST); PublicSchema has 4. NST (not stated) distinguishes disclosure refusal from unknown status and has no counterpart here."
 system_mappings:
   openspp:
-    vocabulary_name: Iso5218GenderCodes
+    vocabulary_name: "ISO 5218: Gender"
     values:
     - code: '0'
       label: Not known

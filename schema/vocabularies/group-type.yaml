@@ -56,7 +56,7 @@ values:
     es: Clasificador para un registro de grupo cuya categoría externa no encaja en los demás valores canónicos de tipo de grupo.
 system_mappings:
   openspp:
-    vocabulary_name: GroupType
+    vocabulary_name: Group Type
     values:
     - code: household
       label: Household

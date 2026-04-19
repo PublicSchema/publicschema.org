@@ -65,6 +65,7 @@ VOCAB_STANDARD_LOOKUP: dict[str, str] = {
     "ILO 19th ICLS Resolution concerning statistics of work, employment, and labour underutilization": "ilo-19th-icls-2013",
     "OASIS CAP v1.2": "oasis-cap-v1-2",
     "ISO 639-3": "iso-639-3",
+    "ISO 639:2023 (Set 3)": "iso-639-3",
     "UNSD Principles and Recommendations for Population and Housing Censuses, Rev.3": "un-census-rev3",
     "UN UNSD Population Census Framework": "un-census-rev3",
     "UN Principles and Recommendations for Population and Housing Censuses, Revision 3": "un-census-rev3",

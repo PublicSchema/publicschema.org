@@ -225,7 +225,7 @@ values:
     es: Un tipo de identificador no cubierto por las otras categorías.
 system_mappings:
   openspp:
-    vocabulary_name: IdType
+    vocabulary_name: ID Type
     values:
     - code: national_id
       label: National ID
