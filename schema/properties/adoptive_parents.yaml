@@ -6,9 +6,9 @@ label:
   es: "Padres adoptivos"
 
 definition:
-  en: "The parents who acquire parental rights through the adoption, each captured as a Parent link entity with an adoptive role."
-  fr: "Les parents qui acquièrent les droits parentaux par l'adoption, chacun représenté par une entité de lien Parent avec un rôle adoptif."
-  es: "Los padres o madres que adquieren derechos parentales mediante la adopción, cada uno representado como una entidad de enlace Parent con un rol adoptivo."
+  en: "The parents who acquire parental rights through the adoption, each captured as a Parent link entity with parental_role set to adoptive."
+  fr: "Les parents qui acquièrent les droits parentaux par l'adoption, chacun représenté par une entité de lien Parent dont le parental_role est défini sur adoptif."
+  es: "Los progenitores que adquieren derechos parentales mediante la adopción, cada uno representado como una entidad de enlace Parent con parental_role establecido en adoptivo."
 
 type: concept:Parent
 cardinality: multiple

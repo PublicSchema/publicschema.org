@@ -6,9 +6,9 @@ label:
   es: "Progenitores"
 
 definition:
-  en: "The parents of the child, each captured as a Parent link entity that combines a Person with a parental role (biological mother, adoptive father, etc.)."
-  fr: "Les parents de l'enfant, chacun représenté par une entité de lien Parent qui associe une Personne à un rôle parental (mère biologique, père adoptif, etc.)."
-  es: "Los padres del niño o de la niña, cada uno representado por una entidad de enlace Parent que combina una Persona con un rol parental (madre biológica, padre adoptivo, etc.)."
+  en: "The parents of the child, each captured as a Parent link entity that combines a Person with a parental role-nature (biological, gestational, legal, or adoptive)."
+  fr: "Les parents de l'enfant, chacun représenté par une entité de lien Parent qui associe une Personne à une nature de rôle parental (biologique, gestationnel, légal ou adoptif)."
+  es: "Los progenitores del niño o de la niña, cada uno representado por una entidad de enlace Parent que combina una Persona con una naturaleza de rol parental (biológico, gestacional, legal o adoptivo)."
 
 type: concept:Parent
 cardinality: multiple
@@ -22,4 +22,4 @@ external_equivalents:
     uri: "https://github.com/opencrvs/opencrvs-core/blob/develop/packages/client/src/tests/schema.graphql#BirthRegistration"
     match: broad
     vocabulary: "OpenCRVS v1 GraphQL"
-    note: "OpenCRVS splits parents across two gendered slots (mother, father); our parents list wraps each Person in a Parent link entity with an explicit parental_role. OpenCRVS v1 has no slot for adoptive, legal, or surrogate roles."
+    note: "OpenCRVS splits parents across two gendered slots (mother, father); our parents list wraps each Person in a Parent link entity with an explicit parental_role. OpenCRVS v1 has no slot for adoptive, legal, or gestational roles."

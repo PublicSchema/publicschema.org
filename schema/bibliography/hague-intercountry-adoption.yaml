@@ -13,8 +13,11 @@ status: active
 informs:
   concepts:
     - Adoption
+    - Parent
   vocabularies:
     - crvs/adoption-type
+    - crvs/parent-establishment-basis
   properties:
     - previous_parents
     - adoption_type
+    - establishment_basis

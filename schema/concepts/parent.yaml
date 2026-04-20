@@ -8,40 +8,74 @@ label:
 
 definition:
   en: >
-    A crvs/Person subtype that carries a parental role (biological mother,
-    biological father, legal mother, legal father, adoptive mother, adoptive
-    father, surrogate mother) alongside the inherited person-of-record
-    properties. Used on Birth, Adoption, PaternityRecognition, and
-    Legitimation so that biological and legal parentage can be captured
-    explicitly rather than collapsed into a single parent slot. Parent is a
-    role-qualified person-of-record, not a pure link entity: it inherits
-    demographic and identity properties from crvs/Person and adds
-    parental_role.
+    A crvs/Person subtype that captures a parental role alongside the inherited
+    person-of-record properties. Used on Birth, Adoption, PaternityRecognition,
+    and Legitimation so that biological and legal parentage can be captured
+    explicitly rather than collapsed into a single parent slot.
+
+    A Parent instance is scoped to a single event context: the parental_role,
+    establishment_basis, and certificate_label recorded here are the values
+    asserted at the time of that event. Reusing the same Parent instance across
+    multiple events would break snapshot semantics because the role or
+    establishment basis may differ. The canonical way to assert parenthood
+    across contexts is via Relationship records between Person instances, while
+    Parent captures a point-in-time declaration tied to an event.
+
+    The parental_role property carries the role-nature (biological, gestational,
+    legal, or adoptive), decoupled from gender. The establishment_basis property
+    captures the legal route by which parentage was established (for example,
+    marital presumption, voluntary recognition, or adoption order). The
+    certificate_label property is a free-text field for the jurisdiction-specific
+    label that must appear on the printed certificate.
   fr: >
-    Un sous-type de crvs/Person qui porte un rôle parental (mère biologique,
-    père biologique, mère légale, père légal, mère adoptive, père adoptif,
-    mère porteuse) à côté des propriétés de personne concernée héritées.
-    Utilisé dans les actes de Naissance, d'Adoption, de Reconnaissance de
-    paternité et de Légitimation afin que les filiations biologique et
-    juridique puissent être saisies de manière explicite plutôt que
-    fusionnées dans un seul champ parent. Parent est une personne concernée
-    qualifiée par un rôle, pas une simple entité de lien : il hérite des
-    propriétés démographiques et d'identité de crvs/Person et ajoute
-    parental_role.
+    Un sous-type de crvs/Person qui porte un rôle parental à côté des propriétés
+    de personne concernée héritées. Utilisé dans les actes de Naissance,
+    d'Adoption, de Reconnaissance de paternité et de Légitimation afin que les
+    filiations biologique et juridique puissent être saisies de manière explicite
+    plutôt que fusionnées dans un seul champ parent.
+
+    Une instance de Parent est délimitée à un seul contexte d'événement : le
+    parental_role, l'establishment_basis et le certificate_label consignés ici
+    sont les valeurs déclarées au moment de cet événement. Réutiliser la même
+    instance de Parent dans plusieurs événements romprait la sémantique de
+    l'instantané, car le rôle ou le fondement de l'établissement peut différer.
+    La manière canonique d'affirmer la parenté dans différents contextes est
+    d'utiliser des enregistrements Relationship entre des instances de Person,
+    tandis que Parent capture une déclaration ponctuelle liée à un événement.
+
+    La propriété parental_role porte la nature du rôle (biologique, gestationnel,
+    légal ou adoptif), découplée du genre. La propriété establishment_basis
+    capture la voie juridique par laquelle la parenté a été établie (par exemple,
+    présomption maritale, reconnaissance volontaire ou jugement d'adoption). La
+    propriété certificate_label est un champ de texte libre pour l'étiquette
+    spécifique à la juridiction qui doit figurer sur le certificat imprimé.
   es: >
-    Un subtipo de crvs/Person que porta un rol parental (madre biológica,
-    padre biológico, madre legal, padre legal, madre adoptiva, padre
-    adoptivo, madre gestante) junto con las propiedades heredadas de
-    persona objeto del registro. Se utiliza en Nacimiento, Adopción,
-    Reconocimiento de paternidad y Legitimación para que la filiación
-    biológica y la jurídica puedan representarse de forma explícita en
-    lugar de reducirse a un único campo de progenitor. Parent es una
-    persona objeto del registro cualificada por un rol, no una simple
-    entidad de enlace: hereda las propiedades demográficas y de
-    identificación de crvs/Person y añade parental_role.
+    Un subtipo de crvs/Person que porta un rol parental junto con las propiedades
+    heredadas de persona objeto del registro. Se utiliza en Nacimiento, Adopción,
+    Reconocimiento de paternidad y Legitimación para que la filiación biológica y
+    la jurídica puedan representarse de forma explícita en lugar de reducirse a un
+    único campo de progenitor.
+
+    Una instancia de Parent está delimitada a un único contexto de evento: el
+    parental_role, el establishment_basis y el certificate_label registrados aquí
+    son los valores declarados en el momento de ese evento. Reutilizar la misma
+    instancia de Parent en múltiples eventos rompería la semántica de la
+    instantánea, ya que el rol o la base de establecimiento pueden diferir. La
+    forma canónica de afirmar la parentalidad en distintos contextos es mediante
+    registros Relationship entre instancias de Person, mientras que Parent captura
+    una declaración puntual vinculada a un evento.
+
+    La propiedad parental_role lleva la naturaleza del rol (biológico, gestacional,
+    legal o adoptivo), desacoplada del género. La propiedad establishment_basis
+    captura la vía legal por la que se estableció la parentalidad (por ejemplo,
+    presunción matrimonial, reconocimiento voluntario o resolución de adopción).
+    La propiedad certificate_label es un campo de texto libre para la etiqueta
+    específica de la jurisdicción que debe aparecer en el certificado impreso.
 
 properties:
   - parental_role
+  - establishment_basis
+  - certificate_label
 
 subtypes: []
 supertypes: [Person]
@@ -51,4 +85,4 @@ external_equivalents:
     label: "No v1 equivalent"
     match: none
     vocabulary: "OpenCRVS v1 GraphQL"
-    note: "OpenCRVS v1 uses typed slots (mother, father) with roles implicit in field names rather than a reified link entity. Adoptive, legal, and surrogate roles are not representable in v1."
+    note: "OpenCRVS v1 uses typed slots (mother, father) with roles implicit in field names rather than a reified link entity. Adoptive, legal, and gestational roles are not representable in v1."

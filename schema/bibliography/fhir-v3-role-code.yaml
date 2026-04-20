@@ -13,7 +13,10 @@ status: active
 informs:
   concepts:
     - Relationship
+    - Parent
   vocabularies:
     - relationship-type
+    - crvs/parental-role
   properties:
     - relationship_type
+    - parental_role

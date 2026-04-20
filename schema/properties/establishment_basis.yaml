@@ -1,0 +1,17 @@
+id: establishment_basis
+maturity: draft
+label:
+  en: "Establishment basis"
+  fr: "Fondement de l'établissement"
+  es: "Base de establecimiento"
+
+definition:
+  en: "The legal route by which the parent's parentage was established: marital presumption, voluntary recognition, judicial declaration, adoption order, or surrogacy order. Complements parental_role, which captures the role-nature (biological, gestational, legal, adoptive); establishment_basis captures the mechanism."
+  fr: "Le fondement juridique par lequel la parenté du parent a été établie : présomption maritale, reconnaissance volontaire, déclaration judiciaire, jugement d'adoption ou jugement de gestation pour autrui. Complète parental_role, qui capture la nature du rôle (biologique, gestationnel, légal, adoptif) ; establishment_basis capture le mécanisme."
+  es: "La vía legal por la que se estableció la parentalidad del progenitor: presunción matrimonial, reconocimiento voluntario, declaración judicial, resolución de adopción o resolución de gestación subrogada. Complementa parental_role, que captura la naturaleza del rol (biológico, gestacional, legal, adoptivo); establishment_basis captura el mecanismo."
+
+type: string
+cardinality: single
+vocabulary: crvs/parent-establishment-basis
+references: null
+domain_override: crvs

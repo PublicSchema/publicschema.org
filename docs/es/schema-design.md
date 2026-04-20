@@ -168,3 +168,8 @@ Algunas propiedades revelan circunstancias sensibles independientemente de si id
 | `restricted` | No debe aparecer en credenciales en puntos de servicio rutinarios. | Requiere una Evaluación de Impacto en la Protección de Datos. |
 
 Esta es una advertencia para practicantes, no una etiqueta regulatoria. Si una propiedad constituye datos personales depende del registro en el que aparece, no de la propiedad en sí. Consulte [Divulgación selectiva](../selective-disclosure/) para la clasificación a nivel de credencial.
+
+
+## 10. Mecanismos de escape para visualización
+
+Algunas propiedades llevan semántica a nivel de esquema que está desacoplada intencionalmente de los requisitos de visualización específicos de cada jurisdicción. La propiedad `certificate_label` en `Parent` es un ejemplo: el modelo de datos almacena la naturaleza del rol (biológico, gestacional, legal, adoptivo) en `parental_role`, desacoplada del género, pero algunas jurisdicciones están obligadas por ley a imprimir etiquetas de género o posicionales ("madre", "padre", "progenitor 1", "progenitor 2") en el certificado civil. En lugar de forzar al esquema a llevar códigos de género, `certificate_label` proporciona un campo de texto libre para la etiqueta tal como debe aparecer en el documento impreso. La naturaleza del rol subyacente permanece legible por máquina y neutral en cuanto al género; el requisito de la capa de visualización se satisface sin contaminar el modelo de datos.

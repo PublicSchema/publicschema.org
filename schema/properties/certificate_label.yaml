@@ -1,0 +1,17 @@
+id: certificate_label
+maturity: draft
+label:
+  en: "Certificate label"
+  fr: "Étiquette de certificat"
+  es: "Etiqueta de certificado"
+
+definition:
+  en: "A free-text field carrying the role label as it must appear on the printed legal certificate. Jurisdictions that require gendered designations (for example, 'mother', 'father') or positional labels ('parent 1', 'parent 2') on the certificate use this field. The underlying role-nature is already carried on parental_role; certificate_label is purely a display hint for document generation."
+  fr: "Un champ de texte libre portant l'étiquette de rôle telle qu'elle doit figurer sur le certificat légal imprimé. Les juridictions qui exigent des désignations genrées (par exemple, 'mère', 'père') ou des étiquettes positionnelles ('parent 1', 'parent 2') sur le certificat utilisent ce champ. La nature du rôle sous-jacent est déjà portée par parental_role ; certificate_label est uniquement un indicateur d'affichage pour la génération de documents."
+  es: "Un campo de texto libre que contiene la etiqueta de rol tal como debe aparecer en el certificado legal impreso. Las jurisdicciones que exigen designaciones por género (por ejemplo, 'madre', 'padre') o etiquetas posicionales ('progenitor 1', 'progenitor 2') en el certificado utilizan este campo. La naturaleza del rol subyacente ya está recogida en parental_role; certificate_label es únicamente una indicación de visualización para la generación de documentos."
+
+type: string
+cardinality: single
+vocabulary: null
+references: null
+domain_override: crvs

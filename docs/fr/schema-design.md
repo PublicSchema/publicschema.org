@@ -168,3 +168,8 @@ Certaines propriétés révèlent des circonstances sensibles que la personne so
 | `restricted` | Ne devrait pas apparaître dans les attestations aux points de service courants. | Nécessite une analyse d'impact sur la protection des données. |
 
 C'est un avertissement pour les praticiens, pas une étiquette de conformité. Le fait qu'une propriété constitue une donnée personnelle dépend de l'enregistrement dans lequel elle apparaît, pas de la propriété elle-même. Consultez [Divulgation sélective](../selective-disclosure/) pour la classification au niveau de l'attestation.
+
+
+## 10. Échappatoires d'affichage
+
+Certaines propriétés portent une sémantique au niveau du schéma qui est intentionnellement découplée des exigences d'affichage propres à chaque juridiction. La propriété `certificate_label` sur `Parent` en est un exemple : le modèle de données stocke la nature du rôle (biologique, gestationnel, légal, adoptif) dans `parental_role`, découplée du genre, mais certaines juridictions sont tenues par la loi d'imprimer des étiquettes genrées ou positionnelles (« mère », « père », « parent 1 », « parent 2 ») sur le certificat d'état civil. Plutôt que d'imposer au schéma de porter des codes genrés, `certificate_label` fournit un champ de texte libre pour l'étiquette telle qu'elle doit apparaître sur le document imprimé. La nature du rôle sous-jacente reste lisible par une machine et neutre du point de vue du genre ; l'exigence de la couche d'affichage est satisfaite sans contaminer le modèle de données.

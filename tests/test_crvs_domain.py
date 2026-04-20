@@ -31,6 +31,7 @@ CRVS_VOCABULARIES = [
     "registration-status",
     "registration-type",
     "parental-role",
+    "parent-establishment-basis",
     "birth-type",
     "birth-attendant",
     "manner-of-death",
@@ -255,14 +256,16 @@ class TestCrvsVocabularies:
             ),
             (
                 "parental-role",
+                {"biological", "gestational", "legal", "adoptive"},
+            ),
+            (
+                "parent-establishment-basis",
                 {
-                    "biological_mother",
-                    "biological_father",
-                    "legal_mother",
-                    "legal_father",
-                    "adoptive_mother",
-                    "adoptive_father",
-                    "surrogate_mother",
+                    "marital_presumption",
+                    "voluntary_recognition",
+                    "judicial_declaration",
+                    "adoption_order",
+                    "surrogacy_order",
                 },
             ),
             (
@@ -575,3 +578,33 @@ class TestParentLinkEntity:
         """person is inherited from crvs/Person, not listed directly on Parent."""
         data = _load_yaml(SCHEMA_DIR / "concepts" / "parent.yaml")
         assert "person" not in data["properties"]
+
+    def test_parent_has_establishment_basis(self):
+        """Parent carries establishment_basis as a direct property."""
+        data = _load_yaml(SCHEMA_DIR / "concepts" / "parent.yaml")
+        assert "establishment_basis" in data["properties"]
+
+    def test_parent_has_certificate_label(self):
+        """Parent carries certificate_label as a direct property."""
+        data = _load_yaml(SCHEMA_DIR / "concepts" / "parent.yaml")
+        assert "certificate_label" in data["properties"]
+
+    def test_parental_role_definition_has_no_gendered_language(self):
+        """parental_role definition does not mention mother, father, etc."""
+        data = _load_yaml(SCHEMA_DIR / "properties" / "parental_role.yaml")
+        definition_en = data["definition"]["en"].lower()
+        for gendered_term in ("mother", "father", "biological_mother", "biological_father"):
+            assert gendered_term not in definition_en, (
+                f"parental_role definition should not contain '{gendered_term}'"
+            )
+
+    def test_parental_role_vocabulary_is_gender_neutral(self):
+        """parental-role vocabulary codes contain no gendered terms."""
+        data = _load_yaml(
+            SCHEMA_DIR / "vocabularies" / "crvs" / "parental-role.yaml"
+        )
+        codes = {v["code"] for v in data["values"]}
+        for code in codes:
+            assert "mother" not in code and "father" not in code, (
+                f"parental-role code '{code}' contains gendered language"
+            )

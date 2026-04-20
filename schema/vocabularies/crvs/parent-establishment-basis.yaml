@@ -1,0 +1,63 @@
+id: parent-establishment-basis
+maturity: draft
+domain: crvs
+label:
+  en: Parent Establishment Basis
+  fr: "Fondement de l'établissement de la parenté"
+  es: Base de establecimiento de la parentalidad
+
+definition:
+  en: "The legal route by which parentage was established for a given Parent record. Distinguishes automatic legal presumptions from voluntary acts, court orders, and adoption or surrogacy orders."
+  fr: "Le fondement juridique par lequel la parenté a été établie pour un enregistrement Parent donné. Distingue les présomptions légales automatiques des actes volontaires, des décisions judiciaires et des ordonnances d'adoption ou de gestation pour autrui."
+  es: "La vía legal por la que se estableció la parentalidad para un registro Parent determinado. Distingue las presunciones legales automáticas de los actos voluntarios, las resoluciones judiciales y las órdenes de adopción o gestación subrogada."
+
+values:
+  - code: marital_presumption
+    label:
+      en: Marital presumption
+      fr: "Présomption de paternité maritale"
+      es: Presunción matrimonial
+    definition:
+      en: "Parentage established automatically by operation of law because the parent was married to the other parent at the time of birth or within a specified period beforehand. No separate declaration or court order is required."
+      fr: "Parenté établie automatiquement par effet de la loi parce que le parent était marié à l'autre parent au moment de la naissance ou dans un délai spécifié avant celle-ci. Aucune déclaration ou décision judiciaire distincte n'est requise."
+      es: "Parentalidad establecida automáticamente por ministerio de la ley porque el progenitor estaba casado con el otro progenitor en el momento del nacimiento o en un período determinado anterior. No se requiere ninguna declaración ni resolución judicial por separado."
+
+  - code: voluntary_recognition
+    label:
+      en: Voluntary recognition
+      fr: Reconnaissance volontaire
+      es: Reconocimiento voluntario
+    definition:
+      en: "Parentage established by a formal declaration made voluntarily by the parent, typically before a civil registrar or notary. Common for establishing paternity outside marriage."
+      fr: "Parenté établie par une déclaration formelle faite volontairement par le parent, généralement devant un officier d'état civil ou un notaire. Courant pour établir la paternité hors mariage."
+      es: "Parentalidad establecida mediante una declaración formal realizada voluntariamente por el progenitor, generalmente ante un oficial del registro civil o notario. Habitual para establecer la paternidad fuera del matrimonio."
+
+  - code: judicial_declaration
+    label:
+      en: Judicial declaration
+      fr: "Déclaration judiciaire"
+      es: Declaración judicial
+    definition:
+      en: "Parentage established by a court order, for example following a contested paternity action, a legitimation proceeding, or a court-ordered parentage test."
+      fr: "Parenté établie par une décision judiciaire, par exemple à la suite d'une action en recherche de paternité contestée, d'une procédure de légitimation ou d'un test de parenté ordonné par le tribunal."
+      es: "Parentalidad establecida por resolución judicial, por ejemplo, tras una acción de paternidad impugnada, un procedimiento de legitimación o una prueba de parentalidad ordenada judicialmente."
+
+  - code: adoption_order
+    label:
+      en: Adoption order
+      fr: "Jugement d'adoption"
+      es: "Resolución de adopción"
+    definition:
+      en: "Parentage established through a formal adoption order issued by a competent authority. Applies to both domestic adoption and intercountry adoption under the Hague Convention on Intercountry Adoption (HCCH 1993)."
+      fr: "Parenté établie par une décision formelle d'adoption émise par une autorité compétente. S'applique à l'adoption nationale et à l'adoption internationale dans le cadre de la Convention de La Haye sur l'adoption internationale (HCCH 1993)."
+      es: "Parentalidad establecida mediante una resolución formal de adopción emitida por una autoridad competente. Se aplica tanto a la adopción nacional como a la adopción internacional en virtud del Convenio de La Haya sobre Adopción Internacional (HCCH 1993)."
+
+  - code: surrogacy_order
+    label:
+      en: Surrogacy order
+      fr: "Jugement de gestation pour autrui"
+      es: "Resolución de gestación subrogada"
+    definition:
+      en: "Parentage established by a court or administrative order recognizing the intended parent or parents following a surrogacy arrangement. The form and availability of such orders varies significantly across jurisdictions."
+      fr: "Parenté établie par une décision judiciaire ou administrative reconnaissant le ou les parents d'intention à la suite d'un accord de gestation pour autrui. La forme et la disponibilité de telles décisions varient considérablement selon les juridictions."
+      es: "Parentalidad establecida por una resolución judicial o administrativa que reconoce al progenitor o progenitores de intención tras un acuerdo de gestación subrogada. La forma y disponibilidad de dichas resoluciones varía considerablemente entre jurisdicciones."

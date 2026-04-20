@@ -6,9 +6,9 @@ label:
   es: "Rol parental"
 
 definition:
-  en: "The role a person holds as a parent (biological mother, biological father, legal mother, legal father, adoptive mother, adoptive father, surrogate mother). Makes biological vs. legal parentage explicit and separable."
-  fr: "Le rôle qu'une personne exerce en tant que parent (mère biologique, père biologique, mère légale, père légal, mère adoptive, père adoptif, mère porteuse). Rend explicites et séparables la filiation biologique et la filiation juridique."
-  es: "El rol que una persona desempeña como progenitor (madre biológica, padre biológico, madre legal, padre legal, madre adoptiva, padre adoptivo, madre gestante). Hace explícita y separable la filiación biológica de la legal."
+  en: "The role-nature of the parent relationship (biological, gestational, legal, or adoptive), decoupled from gender. Makes the nature of parentage explicit and separable from the parent's identity. For jurisdictions requiring gendered or positional labels on the printed certificate, use certificate_label alongside this property."
+  fr: "La nature du rôle parental (biologique, gestationnel, légal ou adoptif), découplée du genre. Rend explicite et séparable la nature de la parenté par rapport à l'identité du parent. Pour les juridictions qui exigent des étiquettes genrées ou positionnelles sur le certificat imprimé, utilisez certificate_label en complément de cette propriété."
+  es: "La naturaleza del rol parental (biológico, gestacional, legal o adoptivo), desacoplada del género. Hace explícita y separable la naturaleza de la parentalidad respecto a la identidad del progenitor. Para las jurisdicciones que exigen etiquetas de género o posicionales en el certificado impreso, use certificate_label junto con esta propiedad."
 
 type: string
 cardinality: single

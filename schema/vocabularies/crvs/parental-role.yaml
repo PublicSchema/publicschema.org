@@ -7,84 +7,71 @@ label:
   es: Rol parental
 
 definition:
-  en: "The type of parental relationship a person has in the context of a vital event. Distinguishes biological, legal, adoptive, and surrogate parental roles by gender to match civil law and paternity recognition conventions."
-  fr: "Le type de relation parentale d'une personne dans le contexte d'un événement d'état civil. Distingue les rôles biologiques, légaux, adoptifs et de maternité de substitution par genre pour correspondre aux conventions du droit civil et de la reconnaissance de paternité."
-  es: "El tipo de relación parental que tiene una persona en el contexto de un evento vital. Distingue los roles biológico, legal, adoptivo y de maternidad subrogada por género para ajustarse a las convenciones del derecho civil y del reconocimiento de paternidad."
+  en: "The role-nature of the parent relationship in the context of a vital event. Describes how parentage arose (biological, gestational, legal, adoptive) independently of the parent's gender. Gender of the parent is modeled via Person.sex; a jurisdiction-specific label for the printed certificate is carried on certificate_label."
+  fr: "La nature du rôle parental dans le contexte d'un événement d'état civil. Décrit comment la parenté est établie (biologique, gestationnelle, légale, adoptive) indépendamment du genre du parent. Le genre du parent est modélisé via Person.sex ; une étiquette spécifique à la juridiction pour le certificat imprimé est portée par certificate_label."
+  es: "La naturaleza del rol parental en el contexto de un evento vital. Describe cómo se originó la parentalidad (biológica, gestacional, legal, adoptiva) con independencia del género del progenitor. El género del progenitor se modela a través de Person.sex; una etiqueta específica de la jurisdicción para el certificado impreso se indica en certificate_label."
 
 values:
-  - code: biological_mother
+  - code: biological
     label:
-      en: Biological mother
-      fr: Mère biologique
-      es: Madre biológica
+      en: Biological
+      fr: Biologique
+      es: Biológico
     definition:
-      en: "The woman who gave birth to the child."
-      fr: "La femme qui a donné naissance à l'enfant."
-      es: "La mujer que dio a luz al niño."
+      en: "The person who is the genetic origin of the child, without regard to who carried the pregnancy or who holds legal parentage. Covers cases where genetics and gestation coincide in one person, as well as sperm or egg donors whose genetic contribution is legally recognized as parenthood."
+      fr: "La personne qui est l'origine génétique de l'enfant, indépendamment de qui a porté la grossesse ou de qui détient la parenté légale. Couvre les cas où génétique et gestation coïncident chez une même personne, ainsi que les donneurs de gamètes dont la contribution génétique est légalement reconnue comme parenté."
+      es: "La persona que es el origen genético del niño o niña, independientemente de quién llevó el embarazo o quién ostenta la filiación legal. Abarca los casos en que genética y gestación coinciden en una misma persona, así como donantes de gametos cuya contribución genética es legalmente reconocida como parentalidad."
 
-  - code: biological_father
+  - code: gestational
     label:
-      en: Biological father
-      fr: Père biologique
-      es: Padre biológico
+      en: Gestational
+      fr: Gestationnel
+      es: Gestacional
     definition:
-      en: "The man who is the biological father of the child."
-      fr: "L'homme qui est le père biologique de l'enfant."
-      es: "El hombre que es el padre biológico del niño."
+      en: "The person who carried and gave birth to the child, regardless of genetic relationship or legal status. Used when gestation and genetic parenthood are held by different people (surrogacy), but may also be used when they coincide. Fills a gap in FHIR RoleCode, which provides GESTM (gestational mother, female-coded) but no gender-neutral gestational code."
+      fr: "La personne qui a porté et donné naissance à l'enfant, indépendamment du lien génétique ou du statut légal. Utilisé lorsque la gestation et la parenté génétique appartiennent à des personnes différentes (gestation pour autrui), mais peut également être utilisé quand elles coïncident. Comble un manque dans le RoleCode FHIR, qui fournit GESTM (mère gestationnelle, codée féminin) mais aucun code gestationnel neutre du point de vue du genre."
+      es: "La persona que gestó y dio a luz al niño o niña, independientemente de la relación genética o el estatus legal. Se utiliza cuando la gestación y la parentalidad genética corresponden a personas distintas (gestación subrogada), pero también puede usarse cuando coinciden. Cubre una laguna en el RoleCode de FHIR, que proporciona GESTM (madre gestante, codificado femenino) pero ningún código gestacional neutro en cuanto al género."
 
-  - code: legal_mother
+  - code: legal
     label:
-      en: Legal mother
-      fr: Mère légale
-      es: Madre legal
+      en: Legal
+      fr: Légal
+      es: Legal
     definition:
-      en: "A woman recognized by law as the mother of the child, whether or not she is the biological mother."
-      fr: "Une femme reconnue par la loi comme la mère de l'enfant, qu'elle soit ou non la mère biologique."
-      es: "Una mujer reconocida por la ley como la madre del niño, sea o no la madre biológica."
+      en: "A person recognized by law as a parent of the child, whether or not they are the biological or gestational parent. Established by operation of law (for example, marital presumption), judicial declaration, or voluntary recognition. Use establishment_basis to record the specific legal route."
+      fr: "Une personne reconnue par la loi comme parent de l'enfant, qu'elle soit ou non le parent biologique ou gestationnel. Établie par effet de la loi (par exemple, présomption de parenté fondée sur le mariage), décision judiciaire ou reconnaissance volontaire. Utilisez establishment_basis pour consigner le fondement juridique spécifique."
+      es: "Una persona reconocida por la ley como progenitor del niño o niña, sea o no el progenitor biológico o gestacional. Establecida por ministerio de la ley (por ejemplo, presunción matrimonial), declaración judicial o reconocimiento voluntario. Use establishment_basis para registrar la vía legal específica."
 
-  - code: legal_father
+  - code: adoptive
     label:
-      en: Legal father
-      fr: Père légal
-      es: Padre legal
+      en: Adoptive
+      fr: Adoptif
+      es: Adoptivo
     definition:
-      en: "A man recognized by law as the father of the child, whether or not he is the biological father."
-      fr: "Un homme reconnu par la loi comme le père de l'enfant, qu'il soit ou non le père biologique."
-      es: "Un hombre reconocido por la ley como el padre del niño, sea o no el padre biológico."
+      en: "A person who has acquired parental rights and responsibilities through a formal adoption order. Applicable in both domestic and intercountry adoption."
+      fr: "Une personne qui a acquis les droits et responsabilités parentaux par une décision formelle d'adoption. Applicable à l'adoption nationale et internationale."
+      es: "Una persona que ha adquirido derechos y responsabilidades parentales mediante una resolución formal de adopción. Aplicable tanto en la adopción nacional como en la internacional."
 
-  - code: adoptive_mother
-    label:
-      en: Adoptive mother
-      fr: Mère adoptive
-      es: Madre adoptiva
-    definition:
-      en: "A woman who has adopted the child through a legal adoption process."
-      fr: "Une femme qui a adopté l'enfant par une procédure légale d'adoption."
-      es: "Una mujer que ha adoptado al niño mediante un proceso legal de adopción."
-
-  - code: adoptive_father
-    label:
-      en: Adoptive father
-      fr: Père adoptif
-      es: Padre adoptivo
-    definition:
-      en: "A man who has adopted the child through a legal adoption process."
-      fr: "Un homme qui a adopté l'enfant par une procédure légale d'adoption."
-      es: "Un hombre que ha adoptado al niño mediante un proceso legal de adopción."
-
-  - code: surrogate_mother
-    label:
-      en: Surrogate mother
-      fr: Mère porteuse
-      es: Madre sustituta
-    definition:
-      en: "A woman who carried and gave birth to the child on behalf of the intended parents."
-      fr: "Une femme qui a porté et donné naissance à l'enfant au nom des parents d'intention."
-      es: "Una mujer que gestó y dio a luz al niño en nombre de los padres previstos."
+system_mappings:
+  fhir_r5:
+    vocabulary_name: "v3 RoleCode (THO v7.0.1)"
+    note: "FHIR v3 RoleCode has no gender-neutral gestational code; GESTM is female-coded. Systems mapping gestational to FHIR should emit GESTM when the gestational parent is female, otherwise PRN with a local extension."
+    values:
+      - code: PRN
+        label: Parent
+        maps_to: biological
+        note: "PRN is the generic parent supertype; biological is the closest gender-neutral mapping. Used also for legal when no more specific code applies."
+      - code: GESTM
+        label: Gestational Mother
+        maps_to: gestational
+        note: "GESTM is female-coded; our gestational code is gender-neutral. The mapping is narrow."
+      - code: ADOPTP
+        label: Adoptive Parent
+        maps_to: adoptive
 
 external_equivalents:
   opencrvs:
     label: "Parental roles (country-configured)"
     match: none
     vocabulary: "OpenCRVS v1 GraphQL"
-    note: "OpenCRVS uses named field slots (mother, father) rather than an enumeration; RelatedPerson.relationship is a free String, and adoptive, legal, and surrogate roles are not representable in v1 core."
+    note: "OpenCRVS uses named field slots (mother, father) rather than an enumeration; RelatedPerson.relationship is a free String, and adoptive, legal, and gestational roles are not representable in v1 core."

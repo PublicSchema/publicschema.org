@@ -179,3 +179,7 @@ Some properties reveal sensitive circumstances regardless of whether they identi
 | `restricted` | Should not appear in credentials at routine service points. | Requires a Data Protection Impact Assessment. |
 
 This is a practitioner warning, not a compliance label. Whether a property constitutes personal data depends on the record it appears in, not the property itself. See [Selective Disclosure](../selective-disclosure/) for credential-level classification.
+
+## 10. Display escape hatches
+
+Some properties carry schema-level semantics that are intentionally decoupled from jurisdiction-specific display requirements. The `certificate_label` property on `Parent` is an example: the data model stores role-nature (biological, gestational, legal, adoptive) on `parental_role`, decoupled from gender, but some jurisdictions are required by law to print gendered or positional labels ("mother", "father", "parent 1", "parent 2") on the civil certificate. Rather than forcing the schema to carry gendered codes, `certificate_label` provides a free-text field for the label as it must appear on the printed document. The underlying role-nature remains machine-readable and gender-neutral; the display-layer requirement is satisfied without contaminating the data model.

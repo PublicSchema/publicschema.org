@@ -6,9 +6,9 @@ label:
   es: "Progenitor reconociente"
 
 definition:
-  en: "The parent who is formally recognizing parentage of a child, typically a father acknowledging a child born outside marriage. Captured as a Parent link entity so the parental role is explicit."
-  fr: "Le parent qui reconnaît formellement la filiation d'un enfant, généralement un père reconnaissant un enfant né hors mariage. Représenté comme une entité de lien Parent afin que le rôle parental soit explicite."
-  es: "El progenitor que reconoce formalmente la filiación de un hijo o hija, típicamente un padre que reconoce a un hijo nacido fuera del matrimonio. Representado como una entidad de enlace Parent para explicitar el rol parental."
+  en: "The parent who is formally recognizing parentage of a child, for example a person acknowledging a child born outside marriage. Captured as a Parent link entity so the parental role-nature and establishment basis are explicit."
+  fr: "Le parent qui reconnaît formellement la filiation d'un enfant, par exemple une personne reconnaissant un enfant né hors mariage. Représenté comme une entité de lien Parent afin que la nature du rôle parental et le fondement de l'établissement soient explicites."
+  es: "El progenitor que reconoce formalmente la filiación de un hijo o hija, por ejemplo una persona que reconoce a un hijo nacido fuera del matrimonio. Representado como una entidad de enlace Parent para que la naturaleza del rol parental y la base de establecimiento sean explícitas."
 
 type: concept:Parent
 cardinality: single

@@ -20,3 +20,4 @@
 | [016](016-country-sync-source.md) | Retain the lukes ISO-3166 GitHub mirror as the country-vocabulary sync source | Accepted |
 | [017](017-language-vocabulary-iso-639-2023.md) | Language vocabulary cites ISO 639-3 via SIL, not the withdrawn ISO 639-2 registry | Accepted |
 | [018](018-crvs-person-rename.md) | Rename CRVSPerson to crvs/Person | Accepted |
+| [019](019-parental-role-decoupled-from-gender.md) | Parental role vocabulary decoupled from gender | Accepted |
