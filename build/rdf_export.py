@@ -221,8 +221,12 @@ def build_shacl(result: dict) -> str:
             if prop_type.startswith("concept:"):
                 ref_id = prop_type.split(":", 1)[1]
                 # ref_id is a bare concept id from the YAML type field;
-                # resolve to the composite key used in concepts dict.
-                ref_key = _resolve_concept_key(ref_id, concepts)
+                # resolve to the composite key used in concepts dict, using
+                # the property's own domain (or the enclosing concept's
+                # domain as fallback) so ``concept:Person`` on a CRVS
+                # property resolves to ``crvs/Person`` when both exist.
+                caller_domain = prop.get("domain") or concept.get("domain")
+                ref_key = _resolve_concept_key(ref_id, concepts, caller_domain)
                 if ref_key in concepts:
                     g.add((prop_shape, SH["class"], rdflib.URIRef(concepts[ref_key]["uri"])))
                 g.add((prop_shape, SH.nodeKind, SH.BlankNodeOrIRI))

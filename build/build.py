@@ -113,13 +113,17 @@ def _language_tagged(texts: dict) -> list[dict]:
 
 def _resolve_range_includes(
     prop_type: str, out_concepts: dict[str, dict],
+    caller_domain: str | None = None,
 ) -> str:
-    """Map a property type to a JSON-LD rangeIncludes value."""
+    """Map a property type to a JSON-LD rangeIncludes value.
+
+    ``caller_domain`` is the domain of the concept or property that carries
+    this type, so a CRVS property referencing ``concept:Person`` resolves to
+    ``crvs/Person`` rather than root ``Person`` when both exist.
+    """
     if prop_type.startswith("concept:"):
         ref_id = prop_type.split(":", 1)[1]
-        # ref_id is a bare concept id from the YAML type field (e.g. "Person");
-        # resolve to the composite key used in out_concepts.
-        key = _resolve_concept_key(ref_id, out_concepts)
+        key = _resolve_concept_key(ref_id, out_concepts, caller_domain)
         if key in out_concepts:
             return out_concepts[key]["uri"]
         return ref_id
@@ -129,8 +133,14 @@ def _resolve_range_includes(
 def _concept_property_jsonld(
     prop_out: dict, prop_raw: dict, concept_uri: str,
     out_concepts: dict, out_vocabularies: dict,
+    caller_domain: str | None = None,
 ) -> dict:
-    """Build a property node for inclusion in a concept's @graph array."""
+    """Build a property node for inclusion in a concept's @graph array.
+
+    ``caller_domain`` is the domain of the enclosing concept; used to resolve
+    bare concept refs in the property's ``type`` and ``references`` fields
+    against a domain-local match before falling back to root.
+    """
     prop_type = prop_raw.get("type", "string")
     entry: dict = {
         "@id": prop_out["uri"],
@@ -139,14 +149,14 @@ def _concept_property_jsonld(
         "rdfs:comment": _language_tagged(prop_raw.get("definition", {})),
         "ps:maturity": prop_out["maturity"],
         "schema:domainIncludes": {"@id": concept_uri},
-        "schema:rangeIncludes": _resolve_range_includes(prop_type, out_concepts),
+        "schema:rangeIncludes": _resolve_range_includes(prop_type, out_concepts, caller_domain),
         "ps:cardinality": prop_out.get("cardinality"),
     }
     if prop_out.get("vocabulary"):
         vocab = out_vocabularies.get(prop_out["vocabulary"])
         entry["ps:vocabulary"] = vocab["uri"] if vocab else prop_out["vocabulary"]
     if prop_raw.get("references"):
-        ref_key = _resolve_concept_key(prop_raw["references"], out_concepts)
+        ref_key = _resolve_concept_key(prop_raw["references"], out_concepts, caller_domain)
         ref_concept = out_concepts.get(ref_key)
         entry["ps:references"] = ref_concept["uri"] if ref_concept else prop_raw["references"]
     if prop_raw.get("immutable_after_status"):
@@ -201,6 +211,7 @@ def _concept_to_jsonld(
                     _concept_property_jsonld(
                         out_properties[ref["id"]], properties_raw[ref["id"]],
                         concept_out["uri"], out_concepts, out_vocabularies,
+                        caller_domain=concept_out.get("domain"),
                     )
                 )
     return {"@context": context_url, "@graph": graph}
@@ -210,8 +221,14 @@ def _property_to_jsonld(
     prop_out: dict, prop_raw: dict, context_url: str,
     out_concepts: dict, out_vocabularies: dict,
 ) -> dict:
-    """Build a complete JSON-LD document for a standalone property."""
+    """Build a complete JSON-LD document for a standalone property.
+
+    The property's own domain (from ``prop_out["domain"]``) is used to resolve
+    bare concept refs in ``type`` and ``references`` against a domain-local
+    match before falling back to root.
+    """
     prop_type = prop_raw.get("type", "string")
+    caller_domain = prop_out.get("domain")
     doc: dict = {
         "@context": context_url,
         "@id": prop_out["uri"],
@@ -219,14 +236,14 @@ def _property_to_jsonld(
         "rdfs:label": _language_tagged(prop_raw.get("label", {})) or _language_tagged({"en": prop_out["id"]}),
         "rdfs:comment": _language_tagged(prop_raw.get("definition", {})),
         "ps:maturity": prop_out["maturity"],
-        "schema:rangeIncludes": _resolve_range_includes(prop_type, out_concepts),
+        "schema:rangeIncludes": _resolve_range_includes(prop_type, out_concepts, caller_domain),
         "ps:cardinality": prop_out.get("cardinality"),
     }
     if prop_out.get("vocabulary"):
         vocab = out_vocabularies.get(prop_out["vocabulary"])
         doc["ps:vocabulary"] = vocab["uri"] if vocab else prop_out["vocabulary"]
     if prop_raw.get("references"):
-        ref_key = _resolve_concept_key(prop_raw["references"], out_concepts)
+        ref_key = _resolve_concept_key(prop_raw["references"], out_concepts, caller_domain)
         ref_concept = out_concepts.get(ref_key)
         doc["ps:references"] = ref_concept["uri"] if ref_concept else prop_raw["references"]
     if prop_raw.get("immutable_after_status"):
@@ -295,21 +312,37 @@ def _concept_key(domain: str | None, id_str: str) -> str:
     return f"{domain}/{id_str}" if domain else id_str
 
 
-def _resolve_concept_key(ref: str, concepts: dict) -> str:
-    """Resolve a bare concept id reference to its internal composite key.
+def _resolve_concept_key(
+    ref: str, concepts: dict, caller_domain: str | None = None,
+) -> str:
+    """Resolve a concept id reference to its internal composite key.
 
     YAML supertype/subtype lists, property ``concept:X`` type references, and
-    bibliography ``informs.concepts`` entries all use the bare id (e.g.
-    ``Person``, ``Enrollment``). This function maps a bare id to the composite
-    key used internally in the build pipeline.
+    bibliography ``informs.concepts`` entries use either the bare id
+    (``Person``, ``Enrollment``) or an explicit composite key (``crvs/Person``).
+    This function maps either form to the composite key used internally.
+
+    When ``caller_domain`` is provided, a same-domain match is preferred over a
+    root match. This is what lets a property with ``domain_override: crvs`` or a
+    concept in the ``crvs`` domain resolve bare ``Person`` to ``crvs/Person``
+    rather than the root ``Person`` that happens to share the short id.
 
     Resolution order:
-    1. If the bare id is directly a key (universal concepts): return it.
-    2. Otherwise, collect all keys ending with ``/<ref>`` (domain-scoped
-       concepts). If exactly one match: return it (unambiguous).
-    3. If more than one match: raise ValueError (ambiguous reference).
-    4. If no match: return the bare id unchanged (caller handles unknown refs).
+    1. If ``ref`` is already a composite key present in ``concepts``: return it.
+    2. If ``caller_domain`` is set and ``<caller_domain>/<ref>`` is a key:
+       return that (domain-local match wins over root).
+    3. If the bare id is directly a key (root/universal concepts): return it.
+    4. Otherwise, collect all keys ending with ``/<ref>``. If exactly one
+       match: return it (unambiguous cross-domain reference).
+    5. If more than one match: raise ValueError (ambiguous reference).
+    6. If no match: return ``ref`` unchanged (caller handles unknown refs).
     """
+    if "/" in ref and ref in concepts:
+        return ref
+    if caller_domain:
+        qualified = f"{caller_domain}/{ref}"
+        if qualified in concepts:
+            return qualified
     if ref in concepts:
         return ref
     suffix = f"/{ref}"
@@ -388,8 +421,9 @@ def _collect_all_properties(concept_id: str, concepts_raw: dict) -> list:
         visited.add(cid)
         concept = concepts_raw[cid]
         for st in concept.get("supertypes", []):
-            # Supertype refs in YAML are bare ids; resolve to composite key.
-            walk(_resolve_concept_key(st, concepts_raw))
+            # Supertype refs in YAML are bare ids; resolve to composite key,
+            # preferring a match in the referring concept's own domain.
+            walk(_resolve_concept_key(st, concepts_raw, concept.get("domain")))
         for entry in concept.get("properties", []):
             norm = _normalize_property_entry(entry)
             if norm["id"] not in seen_ids:
@@ -451,8 +485,15 @@ def _property_to_json_schema(
     vocabularies: dict,
     out_vocabularies: dict | None = None,
     concept_schema_uris: dict | None = None,
+    caller_domain: str | None = None,
 ) -> dict:
-    """Convert a property definition to a JSON Schema property definition."""
+    """Convert a property definition to a JSON Schema property definition.
+
+    ``concept_schema_uris`` is keyed by composite concept key
+    (``<domain>/<id>`` or bare ``<id>``). Bare concept refs in ``prop_data``
+    are resolved against ``caller_domain`` so a CRVS property's
+    ``concept:Person`` links to ``crvs/Person.schema.json`` rather than root.
+    """
     prop_type = prop_data.get("type", "string")
     cardinality = prop_data.get("cardinality", "single")
     vocab_ref = prop_data.get("vocabulary")
@@ -472,12 +513,19 @@ def _property_to_json_schema(
             if out_vocabularies and vocab_ref in out_vocabularies:
                 item_schema["$comment"] = out_vocabularies[vocab_ref]["uri"]
     elif prop_type.startswith("concept:"):
-        # Reference to another concept: use oneOf with $ref when URI is known
+        # Reference to another concept: use oneOf with $ref when URI is known.
+        # Resolve the bare ref to a composite key using caller_domain so a
+        # CRVS property's concept:Person links to crvs/Person.schema.json.
         ref_concept_id = prop_type.removeprefix("concept:")
-        if concept_schema_uris and ref_concept_id in concept_schema_uris:
+        resolved_key = (
+            _resolve_concept_key(ref_concept_id, concept_schema_uris, caller_domain)
+            if concept_schema_uris is not None
+            else ref_concept_id
+        )
+        if concept_schema_uris and resolved_key in concept_schema_uris:
             item_schema = {
                 "oneOf": [
-                    {"$ref": concept_schema_uris[ref_concept_id]},
+                    {"$ref": concept_schema_uris[resolved_key]},
                     {"type": "string", "description": "URI or identifier reference"},
                 ]
             }
@@ -548,13 +596,15 @@ def build_vocabulary(schema_dir: Path) -> dict:
             ],
             # Resolve bare supertype/subtype refs to composite keys so
             # downstream iteration (rdf_export, SHACL, JSON-LD) can look
-            # them up in out_concepts without re-resolving.
+            # them up in out_concepts without re-resolving. The concept's
+            # own domain is passed so CRVS concepts declaring bare ``Person``
+            # resolve to ``crvs/Person`` before falling back to root ``Person``.
             "subtypes": [
-                _resolve_concept_key(s, concepts_raw)
+                _resolve_concept_key(s, concepts_raw, caller_domain=domain)
                 for s in data.get("subtypes", [])
             ],
             "supertypes": [
-                _resolve_concept_key(s, concepts_raw)
+                _resolve_concept_key(s, concepts_raw, caller_domain=domain)
                 for s in data.get("supertypes", [])
             ],
             "convergence": data.get("convergence"),
@@ -568,6 +618,7 @@ def build_vocabulary(schema_dir: Path) -> dict:
         prop_ns = _compute_property_domain_namespace(prop_id, concepts_raw, properties_raw)
         out_properties[prop_id] = {
             "id": prop_id,
+            "domain": prop_ns,
             "uri": _compute_uri(base_uri, prop_ns, prop_id),
             "path": _compute_path(prop_ns, prop_id),
             "maturity": data.get("maturity"),
@@ -670,8 +721,10 @@ def build_vocabulary(schema_dir: Path) -> dict:
             },
         }
         for cid in informs.get("concepts", []):
-            # Bibliography entries use bare concept ids; resolve to composite
-            # key before looking up in concept_bib_refs (keyed by composite).
+            # Bibliography entries use bare concept ids or explicit composite
+            # keys (``crvs/Person``). Resolve to composite key before looking
+            # up in concept_bib_refs (keyed by composite). No caller_domain:
+            # curators use composite keys to target domain-scoped concepts.
             resolved_cid = _resolve_concept_key(cid, out_concepts)
             if resolved_cid in concept_bib_refs:
                 concept_bib_refs[resolved_cid].append(bib_id)
@@ -804,15 +857,18 @@ def build_vocabulary(schema_dir: Path) -> dict:
         "@context": context_map,
     }
 
-    # Pre-compute concept schema URIs for $ref lookups.
-    # Keyed by bare concept id (e.g. "Enrollment") because property type
-    # fields like "concept:Enrollment" use bare ids, not composite keys.
+    # Pre-compute concept schema URIs for $ref lookups, keyed by the same
+    # composite key (``<domain>/<id>``) used for out_concepts. Property type
+    # fields use bare ids, so lookups must resolve them via
+    # ``_resolve_concept_key`` first, passing the referring property's domain
+    # so ``concept:Person`` inside a CRVS property resolves to
+    # ``crvs/Person.schema.json`` rather than root.
     concept_schema_uris: dict[str, str] = {}
     for concept_id, data in concepts_raw.items():
         bare_id = data["id"]
         concept_domain = data.get("domain")
         concept_path = _compute_path(concept_domain, bare_id)
-        concept_schema_uris[bare_id] = f"{base_uri.rstrip('/')}{concept_path}.schema.json"
+        concept_schema_uris[concept_id] = f"{base_uri.rstrip('/')}{concept_path}.schema.json"
 
     # Build JSON Schema per concept. Keys are composite (matching out_concepts).
     concept_schemas = {}
@@ -826,6 +882,7 @@ def build_vocabulary(schema_dir: Path) -> dict:
                 schema_props[prop_id] = _property_to_json_schema(
                     properties_raw[prop_id], vocabularies_raw, out_vocabularies,
                     concept_schema_uris,
+                    caller_domain=data.get("domain"),
                 )
 
         # Extract repeated vocab enums into $defs
@@ -886,8 +943,15 @@ def build_vocabulary(schema_dir: Path) -> dict:
     credential_schemas = {}
     for cred_id, cred_data in credentials_raw.items():
         subject_concept_id = cred_data.get("subject_concept")
-        # Credential YAML uses bare concept ids; resolve to composite keys.
-        subject_key = _resolve_concept_key(subject_concept_id, concept_schemas) if subject_concept_id else None
+        # Credential YAML uses bare ids or composite keys; resolve against the
+        # credential's own domain so a CRVS credential targeting bare ``Person``
+        # resolves to ``crvs/Person`` before falling back to root.
+        cred_domain = cred_data.get("domain")
+        subject_key = (
+            _resolve_concept_key(subject_concept_id, concept_schemas, cred_domain)
+            if subject_concept_id
+            else None
+        )
         if not subject_key or subject_key not in concept_schemas:
             continue
 
@@ -902,7 +966,7 @@ def build_vocabulary(schema_dir: Path) -> dict:
 
         # Add nested included concepts as sub-objects
         for included_id in cred_data.get("included_concepts", []):
-            included_key = _resolve_concept_key(included_id, concept_schemas)
+            included_key = _resolve_concept_key(included_id, concept_schemas, cred_domain)
             if included_key in concept_schemas:
                 nested = dict(concept_schemas[included_key])
                 nested_obj: dict = {

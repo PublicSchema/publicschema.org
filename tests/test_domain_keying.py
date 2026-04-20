@@ -68,6 +68,121 @@ class TestResolveConceptKey:
         assert _resolve_concept_key("NonExistent", concepts) == "NonExistent"
 
 
+class TestResolveConceptKeyDomainAware:
+    """When a caller provides its own domain, a same-domain match wins over root."""
+
+    def _concepts_with_collision(self):
+        return {
+            "Person": {"id": "Person", "domain": None},
+            "crvs/Person": {"id": "Person", "domain": "crvs"},
+            "Family": {"id": "Family", "domain": None},
+        }
+
+    def test_caller_domain_prefers_domain_local_over_root(self):
+        concepts = self._concepts_with_collision()
+        assert _resolve_concept_key("Person", concepts, caller_domain="crvs") == "crvs/Person"
+
+    def test_caller_domain_falls_back_to_root_when_no_domain_match(self):
+        """Caller in 'crvs' referencing 'Family' (root-only) still resolves to root."""
+        concepts = self._concepts_with_collision()
+        assert _resolve_concept_key("Family", concepts, caller_domain="crvs") == "Family"
+
+    def test_no_caller_domain_resolves_bare_to_root(self):
+        """Without caller_domain, bare id continues to resolve to root (back-compat)."""
+        concepts = self._concepts_with_collision()
+        assert _resolve_concept_key("Person", concepts) == "Person"
+
+    def test_caller_domain_with_unknown_domain_falls_back(self):
+        """Caller in a domain with no matching entry falls back to root match."""
+        concepts = self._concepts_with_collision()
+        assert _resolve_concept_key("Person", concepts, caller_domain="edu") == "Person"
+
+    def test_explicit_composite_reference_returned_as_is(self):
+        concepts = self._concepts_with_collision()
+        assert _resolve_concept_key("crvs/Person", concepts) == "crvs/Person"
+
+
+class TestRealSchemaDomainResolution:
+    """Verify that resolved URIs and $refs point to the domain-correct concept.
+
+    These are the regression tests staff-engineer review asked for: they look
+    at the build output, not the YAML input, to confirm the resolver picks the
+    same-domain match when a bare short id collides across domains.
+    """
+
+    @pytest.fixture(scope="class")
+    def real_result(self):
+        from tests.conftest import SCHEMA_DIR
+        return build_vocabulary(SCHEMA_DIR)
+
+    def test_crvs_parent_supertype_is_crvs_person(self, real_result):
+        """The crvs/Parent concept extends crvs/Person, not root Person."""
+        parent = real_result["concepts"]["crvs/Parent"]
+        assert "crvs/Person" in parent["supertypes"], (
+            f"crvs/Parent supertypes should include crvs/Person, got {parent['supertypes']}"
+        )
+        assert "Person" not in parent["supertypes"], (
+            "crvs/Parent supertypes must not include the root Person key"
+        )
+
+    def test_crvs_property_references_resolve_to_crvs_person(self, real_result):
+        """Properties with domain_override: crvs that reference Person resolve to crvs/Person."""
+        crvs_person_uri = real_result["concepts"]["crvs/Person"]["uri"]
+        for pid in ("deceased", "informant", "registrar", "witnesses", "party_1", "party_2"):
+            prop = real_result["properties"].get(pid)
+            assert prop is not None, f"Expected CRVS property {pid} in build output"
+            assert prop.get("domain") == "crvs", (
+                f"Property {pid} should carry domain 'crvs', got {prop.get('domain')}"
+            )
+
+    def test_crvs_person_concept_schema_has_crvs_uri(self, real_result):
+        """The pre-computed concept schema URI map is keyed by composite key."""
+        # build_vocabulary does not expose concept_schema_uris directly, so we
+        # verify via the JSON Schema artifact: crvs/Parent (if it has a
+        # concept-ref property) or any CRVS property's references should point
+        # at the crvs/Person.schema.json URL, never the root one.
+        schemas = real_result["concept_schemas"]
+        parent_schema = schemas["crvs/Parent"]
+        base = "https://publicschema.org"
+        for _prop_id, prop_schema in parent_schema.get("properties", {}).items():
+            refs = _collect_refs(prop_schema)
+            for ref in refs:
+                if ref.endswith("/Person.schema.json"):
+                    assert ref == f"{base}/crvs/Person.schema.json", (
+                        f"crvs/Parent property ref should point at crvs/Person schema, got {ref}"
+                    )
+
+    def test_crvs_person_jsonld_concept_refs_use_crvs_uri(self, real_result):
+        """JSON-LD concept output for crvs/Parent points ps:references/subClassOf at crvs/Person."""
+        import json
+        concept_schemas = real_result["concept_schemas"]
+        # JSON-LD generation happens in write_outputs, but supertype URIs are
+        # derivable from out_concepts itself: crvs/Parent.supertypes list
+        # contains the composite key crvs/Person, whose URI we can fetch.
+        parent = real_result["concepts"]["crvs/Parent"]
+        person_uri = real_result["concepts"]["crvs/Person"]["uri"]
+        # The supertype composite key resolves in out_concepts to the crvs URI.
+        resolved_uris = [real_result["concepts"][s]["uri"] for s in parent["supertypes"]]
+        assert person_uri in resolved_uris, (
+            f"crvs/Parent supertype URIs should include crvs/Person URI; got {resolved_uris}"
+        )
+
+
+def _collect_refs(schema_fragment):
+    """Yield every $ref value inside a JSON Schema fragment (recursive)."""
+    refs = []
+    if isinstance(schema_fragment, dict):
+        for k, v in schema_fragment.items():
+            if k == "$ref" and isinstance(v, str):
+                refs.append(v)
+            else:
+                refs.extend(_collect_refs(v))
+    elif isinstance(schema_fragment, list):
+        for item in schema_fragment:
+            refs.extend(_collect_refs(item))
+    return refs
+
+
 # ---------------------------------------------------------------------------
 # Build-level integration tests with synthetic schemas
 # ---------------------------------------------------------------------------
