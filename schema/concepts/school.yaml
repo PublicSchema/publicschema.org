@@ -1,0 +1,88 @@
+id: School
+label:
+  en: School
+  fr: École
+  es: Escuela
+maturity: draft
+
+definition:
+  en: >
+    A service point where formal or non-formal education is delivered,
+    such as a primary school, secondary school, vocational training center,
+    or early childhood education center. School specializes ServicePoint
+    for the education sector and carries additional properties for the
+    ISCED education level(s) served and the management type of the school
+    (public, private, faith-based, or community), per UNESCO UIS
+    classification. School is distinct from the Organization that manages
+    it (captured via managed_by) and from its administrative location
+    (captured via located_at). A single school campus may serve multiple
+    ISCED levels (e.g., a combined primary-and-lower-secondary school).
+  fr: >
+    Un point de service où est dispensée une éducation formelle ou non
+    formelle, tel qu'une école primaire, un collège ou lycée, un centre
+    de formation professionnelle ou un centre d'éducation de la petite
+    enfance. School spécialise ServicePoint pour le secteur éducatif et
+    porte des propriétés supplémentaires pour le ou les niveaux
+    d'éducation ISCED desservis et le type de gestion de l'école
+    (publique, privée, confessionnelle ou communautaire), selon la
+    classification de l'Institut de statistique de l'UNESCO. School est
+    distinct de l'Organization qui le gère (capturée via managed_by) et
+    de sa localisation administrative (capturée via located_at). Un
+    même établissement peut desservir plusieurs niveaux ISCED (par
+    exemple, une école combinant le primaire et le secondaire inférieur).
+  es: >
+    Un punto de servicio donde se imparte educación formal o no formal,
+    como una escuela primaria, un colegio secundario, un centro de
+    formación profesional o un centro de educación en la primera
+    infancia. School especializa ServicePoint para el sector educativo
+    y lleva propiedades adicionales para el o los niveles educativos
+    ISCED atendidos y el tipo de gestión de la escuela (pública,
+    privada, confesional o comunitaria), según la clasificación del
+    Instituto de Estadística de la UNESCO. School es distinto de la
+    Organization que lo gestiona (capturada mediante managed_by) y de
+    su ubicación administrativa (capturada mediante located_at). Un
+    mismo establecimiento puede atender varios niveles ISCED (por
+    ejemplo, una escuela que combina primaria y secundaria baja).
+
+properties:
+  - school_level_served
+  - school_type
+
+property_groups:
+  - category: identity
+    properties:
+      - service_point_name
+      - identifiers
+  - category: classification
+    properties:
+      - service_point_type
+      - school_type
+      - school_level_served
+      - operational_status
+  - category: location
+    properties:
+      - located_at
+  - category: governance
+    properties:
+      - managed_by
+
+supertypes: [ServicePoint]
+subtypes: []
+
+external_equivalents:
+  schema-org:
+    label: "School"
+    uri: "https://schema.org/School"
+    match: close
+    vocabulary: "schema.org"
+    note: "schema.org School is a subtype of EducationalOrganization, which conflates the organization and the physical facility. PublicSchema School is a subtype of ServicePoint (the physical facility), with the operating organization referenced separately via managed_by. The physical-facility semantics align closely; the organizational side diverges."
+
+convergence:
+  system_count: 0
+  total_systems: 6
+  notes: >
+    School is newly introduced in PublicSchema as a signal of cross-sector
+    extensibility for the ServicePoint hierarchy. No direct School concept
+    has been mapped in the six v1 convergence systems. Education management
+    information systems (EMIS) and UNESCO UIS education facility registries
+    are the natural candidates for a future convergence pass.

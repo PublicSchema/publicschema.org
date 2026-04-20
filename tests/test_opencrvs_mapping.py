@@ -337,8 +337,6 @@ class TestCoverage:
         "FetalDeath",
         "Marriage",
         "MarriageTermination",
-        "Divorce",
-        "Annulment",
         "Adoption",
         "PaternityRecognition",
         "Legitimation",

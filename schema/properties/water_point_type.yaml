@@ -1,0 +1,17 @@
+id: water_point_type
+maturity: draft
+label:
+  en: "Water point type"
+  fr: "Type de point d'eau"
+  es: "Tipo de punto de agua"
+
+definition:
+  en: "The physical type of this water access point per the WHO/UNICEF JMP improved-source typology (borehole, protected dug well, public tap, etc.). The water point type determines whether the source is classified as improved or unimproved on the JMP drinking water service ladder."
+  fr: "Le type physique de ce point d'accès à l'eau selon la typologie des sources améliorées JMP OMS/UNICEF (forage, puits creusé protégé, robinet public, etc.). Le type de point d'eau détermine si la source est classée améliorée ou non améliorée sur l'échelle des services d'eau potable JMP."
+  es: "El tipo físico de este punto de acceso al agua según la tipología de fuentes mejoradas del JMP OMS/UNICEF (perforación, pozo excavado protegido, grifo público, etc.). El tipo de punto de agua determina si la fuente se clasifica como mejorada o no mejorada en la escala del servicio de agua potable del JMP."
+
+type: string
+cardinality: single
+vocabulary: water-point-type
+references: null
+category: classification

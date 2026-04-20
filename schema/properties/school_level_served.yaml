@@ -1,0 +1,17 @@
+id: school_level_served
+maturity: draft
+label:
+  en: "School level served"
+  fr: "Niveau scolaire desservi"
+  es: "Nivel escolar atendido"
+
+definition:
+  en: "The ISCED 2011 education level(s) served by this school. A school covering multiple levels (e.g., combined primary and lower secondary) should list all applicable levels."
+  fr: "Le ou les niveaux d'éducation ISCED 2011 desservis par cette école. Une école couvrant plusieurs niveaux (par exemple, primaire et secondaire inférieur combinés) doit lister tous les niveaux applicables."
+  es: "El o los niveles educativos ISCED 2011 atendidos por esta escuela. Una escuela que cubre múltiples niveles (por ejemplo, primaria y secundaria baja combinadas) debe listar todos los niveles aplicables."
+
+type: string
+cardinality: multiple
+vocabulary: school-level
+references: null
+category: classification

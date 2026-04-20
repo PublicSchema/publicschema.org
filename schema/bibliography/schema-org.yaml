@@ -19,7 +19,10 @@ informs:
     - Organization
     - Party
     - Person
+    - RegistrationOffice
+    - School
     - ServicePoint
+    - WaterPoint
   vocabularies: []
   properties:
     - administrative_area

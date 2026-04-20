@@ -1,0 +1,96 @@
+id: WaterPoint
+label:
+  en: Water Point
+  fr: Point d'eau
+  es: Punto de agua
+maturity: draft
+
+definition:
+  en: >
+    A service point where drinking water or household water is made
+    accessible to a population, such as a borehole, public tap or
+    standpipe, protected dug well, protected spring, or water kiosk.
+    WaterPoint specializes ServicePoint for the water and sanitation
+    sector (WASH) and carries additional properties for the physical
+    type of the water source, per the WHO/UNICEF Joint Monitoring
+    Programme (JMP) improved-source typology, and for the JMP
+    drinking water service level (safely managed, basic, limited,
+    unimproved, or no service), which is derived from source type and
+    collection time. WaterPoint is relevant to SDG 6.1 monitoring
+    and to WASH-cluster operational tracking. It is distinct from a
+    sanitation facility or handwashing station, which are separate
+    service-point types.
+  fr: >
+    Un point de service où l'eau potable ou l'eau ménagère est rendue
+    accessible à une population, tel qu'un forage, un robinet public
+    ou une borne-fontaine, un puits creusé protégé, une source
+    protégée ou une borne-fontaine payante. WaterPoint spécialise
+    ServicePoint pour le secteur eau et assainissement (EAH) et porte
+    des propriétés supplémentaires pour le type physique de la source
+    d'eau, selon la typologie des sources améliorées du Programme
+    commun OMS/UNICEF de surveillance de l'approvisionnement en eau et
+    de l'assainissement (JMP), et pour le niveau de service d'eau
+    potable JMP (gestion sécurisée, de base, limité, non amélioré ou
+    sans service), dérivé du type de source et du temps de collecte.
+    WaterPoint est pertinent pour le suivi de l'ODD 6.1 et pour le
+    suivi opérationnel du cluster EAH. Il est distinct d'une
+    installation sanitaire ou d'une station de lavage des mains, qui
+    sont des types de points de service distincts.
+  es: >
+    Un punto de servicio donde el agua potable o el agua doméstica se
+    pone a disposición de una población, como una perforación, un
+    grifo público o surtidor, un pozo excavado protegido, un manantial
+    protegido o un quiosco de agua. WaterPoint especializa ServicePoint
+    para el sector agua y saneamiento (WASH) y lleva propiedades
+    adicionales para el tipo físico de la fuente de agua, según la
+    tipología de fuentes mejoradas del Programa Conjunto de Monitoreo
+    OMS/UNICEF (JMP), y para el nivel de servicio de agua potable JMP
+    (gestión segura, básico, limitado, no mejorado o sin servicio),
+    derivado del tipo de fuente y el tiempo de recolección. WaterPoint
+    es relevante para el monitoreo del ODS 6.1 y para el seguimiento
+    operacional del clúster WASH. Es distinto de una instalación
+    sanitaria o estación de lavado de manos, que son tipos de puntos
+    de servicio separados.
+
+properties:
+  - water_point_type
+  - water_service_level
+
+property_groups:
+  - category: identity
+    properties:
+      - service_point_name
+      - identifiers
+  - category: classification
+    properties:
+      - service_point_type
+      - water_point_type
+      - water_service_level
+      - operational_status
+  - category: location
+    properties:
+      - located_at
+  - category: governance
+    properties:
+      - managed_by
+
+supertypes: [ServicePoint]
+subtypes: []
+
+external_equivalents:
+  schema-org:
+    label: "Place"
+    uri: "https://schema.org/Place"
+    match: broad
+    vocabulary: "schema.org"
+    note: "schema.org has no specific water point or water facility type. The closest is schema.org Place (a broad geometric entity). PublicSchema WaterPoint is a functional operational concept carrying service-level and source-type semantics from the JMP monitoring framework."
+
+convergence:
+  system_count: 0
+  total_systems: 6
+  notes: >
+    WaterPoint is newly introduced in PublicSchema as a signal of cross-sector
+    extensibility for the ServicePoint hierarchy. No direct WaterPoint concept
+    has been mapped in the six v1 convergence systems. WHO/UNICEF JMP facility
+    assessment data and WASH-cluster service-delivery-point registries are
+    the natural candidates for a future convergence pass.

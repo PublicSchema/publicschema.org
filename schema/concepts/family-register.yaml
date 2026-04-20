@@ -46,7 +46,7 @@ properties:
   - family_register_status
 
 subtypes: []
-supertypes: []
+supertypes: [CivilStatusDocument]
 
 external_equivalents:
   opencrvs:

@@ -33,6 +33,8 @@ Les noms ne sont jamais préfixés par une abréviation de domaine. C'est `Enrol
 | `health` | Santé | Futur |
 | `crvs` | Enregistrement des faits d'état civil et statistiques de l'état civil | Actif |
 
+ServicePoint et ses sous-types (HealthFacility, School, WaterPoint, RegistrationOffice) restent à la racine plutôt que sous des segments de domaine. Ils sont classifiés par secteur au moyen du vocabulaire des types de points de service, et non par domaine d'URI. Cela permet aux enregistrements de points de service d'être utilisables de manière transversale dans les flux de travail de protection sociale, d'éducation, de santé et de CRVS, sans introduire de supertypes spécifiques à un domaine.
+
 ## 3. Persistance des URI
 
 Chaque élément obtient un URI stable. Une fois publié en usage expérimental ou au-dessus, un URI ne sera pas supprimé. Les termes dépréciés continuent de se résoudre avec des métadonnées indiquant le remplacement. Consultez [Versionnement et maturité](../versioning-and-maturity/) pour le modèle complet.
@@ -62,6 +64,28 @@ Utilisez cet arbre de décision pour déterminer quel type d'élément créer.
 | Valeur tirée d'un ensemble fermé d'options | Vocabulaire |
 | La valeur a sa propre identité et des sous-propriétés | Propriété référençant un concept |
 | Scalaire simple | Type primitif en ligne |
+
+## 4a. Concepts de type groupe
+
+Trois concepts de PublicSchema décrivent des regroupements de personnes mais ont des sémantiques distinctes. Choisir le bon concept est important pour la qualité des données et l'interopérabilité.
+
+**Household (Ménage)** est une unité économique corésidente. Les membres partagent un logement et, en général, de la nourriture et des ressources. La définition opérationnelle varie selon les pays et les programmes (combinant des critères de corésidence, de budget partagé, de cuisine commune et de parenté), mais le critère central reste toujours la colocalisation physique et les moyens de subsistance partagés. Household est le concept approprié pour l'enregistrement des unités bénéficiaires dans les programmes de protection sociale.
+
+**Family (Famille)** est un réseau de parenté. Les membres sont liés par le sang, le mariage ou l'adoption, indépendamment de leur lieu de résidence. Une famille peut s'étendre sur plusieurs ménages et zones géographiques. Les liens de parenté entre membres sont modélisés par des enregistrements Relationship entre instances Person ; Family elle-même ne porte pas de propriétés de parenté dédiées à ce stade. Family est le concept approprié lorsque l'unité d'intérêt est un réseau relationnel plutôt qu'un arrangement corésident.
+
+**FamilyRegister (Registre de famille)** est un document administratif, et non un groupe. C'est un acte d'état civil qui suit une unité familiale dans le temps à mesure que surviennent des événements vitaux (naissances, décès, mariages). Il référence une Family pour exposer la composition actuelle. FamilyRegister est le concept approprié pour modéliser des instruments administratifs de type koseki, hukou ou livret de famille.
+
+### Quand utiliser chaque concept
+
+| Vous souhaitez enregistrer... | Utilisez |
+|---|---|
+| Une unité bénéficiaire partageant un logement et des ressources | Household |
+| Un réseau de personnes liées par le sang, le mariage ou l'adoption | Family |
+| Un document administratif d'état civil suivant une famille | FamilyRegister |
+
+### Pont d'interopérabilité
+
+De nombreux systèmes utilisent le terme « famille » de façon familière pour désigner l'unité corésidente. Lors d'échanges de données avec de tels systèmes, définissez `group_type: family` sur l'enregistrement Household. Cela indique aux consommateurs que le ménage est représenté comme une famille à des fins d'interopérabilité, sans dénaturer la sémantique de PublicSchema.
 
 ## 5. Contexte temporel
 

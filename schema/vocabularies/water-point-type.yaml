@@ -1,0 +1,114 @@
+id: water-point-type
+maturity: draft
+label:
+  en: Water Point Type
+  fr: Type de point d'eau
+  es: Tipo de punto de agua
+definition:
+  en: The physical type of a water access point, classified per the WHO/UNICEF JMP improved-source typology. The type of water point is the primary determinant of whether a source is classified as improved or unimproved on the JMP drinking water service ladder.
+  fr: Le type physique d'un point d'accès à l'eau, classé selon la typologie des sources améliorées JMP OMS/UNICEF. Le type de point d'eau est le principal déterminant pour savoir si une source est classée améliorée ou non améliorée sur l'échelle des services d'eau potable JMP.
+  es: El tipo físico de un punto de acceso al agua, clasificado según la tipología de fuentes mejoradas del JMP OMS/UNICEF. El tipo de punto de agua es el principal determinante de si una fuente se clasifica como mejorada o no mejorada en la escala del servicio de agua potable del JMP.
+standard:
+  name: WHO/UNICEF JMP Core Questions on Drinking Water and Sanitation for Household Surveys
+  uri: https://washdata.org/monitoring/drinking-water
+  notes: "JMP defines improved and unimproved water sources based on source type. Improved sources: piped water, boreholes/tubewells, protected dug wells, protected springs, rainwater collection, packaged/delivered water. Unimproved: unprotected dug wells, unprotected springs, surface water, tanker trucks (in some contexts). This vocabulary follows the JMP source type list used in household surveys and facility assessments."
+values:
+- code: piped_into_dwelling
+  label:
+    en: Piped water into dwelling
+    fr: Eau courante dans le logement
+    es: Agua corriente en la vivienda
+  definition:
+    en: Piped water supply connected directly into the dwelling, yard, or plot (tap on premises). JMP improved source.
+    fr: Alimentation en eau courante connectée directement au logement, à la cour ou à la parcelle (robinet sur place). Source améliorée JMP.
+    es: Suministro de agua entubada conectada directamente a la vivienda, patio o parcela (grifo en las instalaciones). Fuente mejorada JMP.
+- code: public_tap_standpipe
+  label:
+    en: Public tap / standpipe
+    fr: Robinet public / borne-fontaine
+    es: Grifo público / surtidor
+  definition:
+    en: Community standpipe or public tap from a piped distribution system shared by several households. JMP improved source.
+    fr: Borne-fontaine communautaire ou robinet public d'un réseau de distribution par canalisation partagé par plusieurs ménages. Source améliorée JMP.
+    es: Surtidor comunitario o grifo público de un sistema de distribución entubado compartido por varios hogares. Fuente mejorada JMP.
+- code: borehole_tubewell
+  label:
+    en: Borehole / tubewell
+    fr: Forage / puits tubulaire
+    es: Perforación / pozo tubular
+  definition:
+    en: Borehole or tubewell equipped with a pump (hand pump or motorized). JMP improved source.
+    fr: Forage ou puits tubulaire équipé d'une pompe (manuelle ou motorisée). Source améliorée JMP.
+    es: Perforación o pozo tubular equipado con una bomba (manual o motorizada). Fuente mejorada JMP.
+- code: protected_dug_well
+  label:
+    en: Protected dug well
+    fr: Puits creusé protégé
+    es: Pozo excavado protegido
+  definition:
+    en: Dug well with a lining, cover, and protected opening that prevents surface-water contamination. JMP improved source.
+    fr: Puits creusé avec un revêtement, un couvercle et une ouverture protégée qui empêche la contamination par les eaux de surface. Source améliorée JMP.
+    es: Pozo excavado con revestimiento, tapa y abertura protegida que evita la contaminación por aguas superficiales. Fuente mejorada JMP.
+- code: protected_spring
+  label:
+    en: Protected spring
+    fr: Source protégée
+    es: Manantial protegido
+  definition:
+    en: Spring with a protected catchment structure preventing surface water from entering the supply. JMP improved source.
+    fr: Source avec une structure de captage protégée empêchant l'eau de surface d'entrer dans l'alimentation. Source améliorée JMP.
+    es: Manantial con una estructura de captación protegida que impide la entrada de agua superficial en el suministro. Fuente mejorada JMP.
+- code: rainwater_collection
+  label:
+    en: Rainwater collection
+    fr: Collecte des eaux de pluie
+    es: Recolección de agua de lluvia
+  definition:
+    en: Rainwater harvesting system with a collection surface, gutters, and a covered storage tank. JMP improved source.
+    fr: Système de collecte des eaux de pluie avec une surface de collecte, des gouttières et un réservoir de stockage couvert. Source améliorée JMP.
+    es: Sistema de recolección de agua de lluvia con superficie de captación, canalones y un tanque de almacenamiento cubierto. Fuente mejorada JMP.
+- code: water_kiosk
+  label:
+    en: Water kiosk / vendor
+    fr: Borne-fontaine / vendeur d'eau
+    es: Quiosco de agua / vendedor
+  definition:
+    en: Packaged or vendor-supplied water sold at a designated point (water kiosk, sachet vendor, refill station). JMP improved source when water quality meets standards.
+    fr: Eau en bouteille ou fournie par un vendeur vendue à un point désigné (borne-fontaine, vendeur de sachets, station de remplissage). Source améliorée JMP lorsque la qualité de l'eau répond aux normes.
+    es: Agua envasada o suministrada por un vendedor en un punto designado (quiosco de agua, vendedor de bolsas, estación de recarga). Fuente mejorada JMP cuando la calidad del agua cumple las normas.
+- code: unprotected_dug_well
+  label:
+    en: Unprotected dug well
+    fr: Puits creusé non protégé
+    es: Pozo excavado no protegido
+  definition:
+    en: Dug well without a lining, cover, or protective structure, susceptible to surface-water contamination. JMP unimproved source.
+    fr: Puits creusé sans revêtement, couverture ni structure de protection, susceptible d'être contaminé par les eaux de surface. Source non améliorée JMP.
+    es: Pozo excavado sin revestimiento, tapa ni estructura de protección, susceptible a la contaminación por aguas superficiales. Fuente no mejorada JMP.
+- code: unprotected_spring
+  label:
+    en: Unprotected spring
+    fr: Source non protégée
+    es: Manantial no protegido
+  definition:
+    en: Spring without a catchment structure, open to contamination from surrounding surface water or soil. JMP unimproved source.
+    fr: Source sans structure de captage, ouverte à la contamination par les eaux de surface ou le sol environnant. Source non améliorée JMP.
+    es: Manantial sin estructura de captación, expuesto a la contaminación por aguas superficiales o suelos circundantes. Fuente no mejorada JMP.
+- code: surface_water
+  label:
+    en: Surface water
+    fr: Eau de surface
+    es: Agua superficial
+  definition:
+    en: Water collected directly from a river, lake, dam, pond, stream, canal, or irrigation channel. JMP no-service source.
+    fr: Eau collectée directement dans une rivière, un lac, un barrage, un étang, un ruisseau, un canal ou un canal d'irrigation. Source sans service JMP.
+    es: Agua recolectada directamente de un río, lago, embalse, estanque, arroyo, canal o canal de riego. Fuente sin servicio JMP.
+- code: other
+  label:
+    en: Other
+    fr: Autre
+    es: Otro
+  definition:
+    en: A water point type not covered by the other categories, such as a tanker truck delivery point or emergency bladder tank.
+    fr: Un type de point d'eau non couvert par les autres catégories, tel qu'un point de livraison par camion-citerne ou un réservoir à vessie d'urgence.
+    es: Un tipo de punto de agua no cubierto por las otras categorías, como un punto de entrega por camión cisterna o un tanque de vejiga de emergencia.

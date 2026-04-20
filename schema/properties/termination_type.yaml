@@ -1,0 +1,17 @@
+id: termination_type
+maturity: draft
+label:
+  en: "Termination type"
+  fr: "Type de dissolution"
+  es: "Tipo de disolución"
+
+definition:
+  en: "Whether the marriage was terminated by divorce (dissolution of a valid marriage) or by annulment (declaration that the marriage was void from its inception)."
+  fr: "Indique si le mariage a été dissous par divorce (dissolution d'un mariage valide) ou par annulation (déclaration que le mariage était nul ab initio)."
+  es: "Indica si el matrimonio fue disuelto por divorcio (disolución de un matrimonio válido) o por anulación (declaración de que el matrimonio era nulo desde el origen)."
+
+type: string
+cardinality: single
+vocabulary: crvs/marriage-termination-type
+references: null
+domain_override: crvs

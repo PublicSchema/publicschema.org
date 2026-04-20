@@ -73,7 +73,7 @@ property_groups:
       - managed_by
 
 supertypes: []
-subtypes: [HealthFacility]
+subtypes: [HealthFacility, School, WaterPoint, RegistrationOffice]
 
 external_equivalents:
   schema-org:

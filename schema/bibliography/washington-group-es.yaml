@@ -14,17 +14,17 @@ informs:
     - FunctioningProfile
   vocabularies:
     - aid-use-frequency
-    - cognition-frequency-3pt
+    - cognition-remembering-frequency
     - cognition-remembering-extent
     - cognition-subdomain
     - daily-duration
     - functional-difficulty-severity
-    - functional-intensity-3pt
-    - instrument-id
+    - functional-intensity
+    - instrument-code
     - mobility-aid-type
-    - past-3-months-frequency
+    - symptom-period-frequency
     - symptom-chronicity
-    - symptom-frequency
+    - cfm-symptom-frequency
   properties:
     - anxiety_frequency
     - anxiety_intensity

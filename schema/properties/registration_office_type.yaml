@@ -1,0 +1,17 @@
+id: registration_office_type
+maturity: draft
+label:
+  en: "Registration office type"
+  fr: "Type de bureau d'enregistrement"
+  es: "Tipo de oficina de registro"
+
+definition:
+  en: "The functional category of a registration office (civil registration office, district branch, mobile unit, refugee registration center, or identity enrollment center)."
+  fr: "La catégorie fonctionnelle d'un bureau d'enregistrement (bureau d'état civil, branche de district, unité mobile, centre d'enregistrement des réfugiés ou centre d'enrôlement d'identité)."
+  es: "La categoría funcional de una oficina de registro (oficina de registro civil, sucursal de distrito, unidad móvil, centro de registro de refugiados o centro de enrolamiento de identidad)."
+
+type: string
+cardinality: single
+vocabulary: registration-office-type
+references: null
+category: classification

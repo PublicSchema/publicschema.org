@@ -1,0 +1,60 @@
+id: school-level
+maturity: draft
+label:
+  en: School Level
+  fr: Niveau scolaire
+  es: Nivel escolar
+definition:
+  en: The ISCED 2011 level of education served by a school, covering early childhood through post-secondary non-tertiary education. This is a subset of the full ISCED 2011 level range (0-8); tertiary levels (5-8) are excluded because institutions at those levels are universities and other higher-education bodies rather than schools.
+  fr: Le niveau d'éducation ISCED 2011 desservi par une école, couvrant l'éducation de la petite enfance jusqu'au post-secondaire non tertiaire. Il s'agit d'un sous-ensemble de la gamme complète des niveaux ISCED 2011 (0-8) ; les niveaux tertiaires (5-8) sont exclus car les établissements à ces niveaux sont des universités et autres établissements d'enseignement supérieur plutôt que des écoles.
+  es: El nivel educativo ISCED 2011 atendido por una escuela, cubriendo desde la educación en la primera infancia hasta la educación postsecundaria no terciaria. Este es un subconjunto del rango completo de niveles ISCED 2011 (0-8); los niveles terciarios (5-8) se excluyen porque las instituciones en esos niveles son universidades y otros organismos de educación superior, no escuelas.
+standard:
+  name: UNESCO International Standard Classification of Education (ISCED) 2011
+  uri: https://uis.unesco.org/en/topic/international-standard-classification-education-isced
+  notes: "ISCED 2011 is the authoritative international framework for classifying education levels. Codes here are the ISCED level integers 0-4. Many national school systems map directly to these levels (e.g., primary = ISCED 1, lower secondary = ISCED 2, upper secondary = ISCED 3). Tertiary levels 5-8 are outside the scope of this vocabulary."
+values:
+- code: isced_0
+  label:
+    en: Early childhood education (ISCED 0)
+    fr: Éducation de la petite enfance (ISCED 0)
+    es: Educación en la primera infancia (ISCED 0)
+  definition:
+    en: Programs providing holistic early childhood development and education for children below the age of entry into primary education, typically ages 0-5. Includes crèches, nurseries, kindergartens, and pre-schools.
+    fr: Programmes d'éveil et d'éducation de la petite enfance pour les enfants en dessous de l'âge d'entrée à l'école primaire, généralement de 0 à 5 ans. Comprend les crèches, pouponnières, jardins d'enfants et pré-écoles.
+    es: Programas de desarrollo y educación integral en la primera infancia para niños menores de la edad de ingreso a la educación primaria, típicamente entre 0 y 5 años. Incluye guarderías, jardines de infantes y preescuelas.
+- code: isced_1
+  label:
+    en: Primary education (ISCED 1)
+    fr: Enseignement primaire (ISCED 1)
+    es: Educación primaria (ISCED 1)
+  definition:
+    en: Programs designed to give students a sound basic education in reading, writing, and mathematics, along with an elementary understanding of other subjects. Typically ages 6-11, duration of 4-6 years.
+    fr: Programmes destinés à donner aux élèves une solide éducation de base en lecture, écriture et mathématiques, ainsi qu'une compréhension élémentaire d'autres matières. Généralement de 6 à 11 ans, d'une durée de 4 à 6 ans.
+    es: Programas diseñados para dar a los estudiantes una educación básica sólida en lectura, escritura y matemáticas, junto con una comprensión elemental de otras materias. Típicamente de 6 a 11 años, con una duración de 4 a 6 años.
+- code: isced_2
+  label:
+    en: Lower secondary education (ISCED 2)
+    fr: Enseignement secondaire inférieur (ISCED 2)
+    es: Educación secundaria baja (ISCED 2)
+  definition:
+    en: Programs completing the lower phase of secondary education, building on primary education and preparing for upper secondary or vocational pathways. Typically ages 12-14.
+    fr: Programmes complétant la phase inférieure de l'enseignement secondaire, construisant sur l'enseignement primaire et préparant aux voies secondaires supérieures ou professionnelles. Généralement de 12 à 14 ans.
+    es: Programas que completan la fase inferior de la educación secundaria, construyendo sobre la educación primaria y preparando para las vías de secundaria superior o vocacional. Típicamente de 12 a 14 años.
+- code: isced_3
+  label:
+    en: Upper secondary education (ISCED 3)
+    fr: Enseignement secondaire supérieur (ISCED 3)
+    es: Educación secundaria alta (ISCED 3)
+  definition:
+    en: Programs providing more subject- or skill-specific instruction than lower secondary, often leading to tertiary education or direct entry to employment. Typically ages 15-17.
+    fr: Programmes offrant un enseignement plus spécialisé par matière ou compétence que le secondaire inférieur, menant souvent à l'enseignement tertiaire ou à l'insertion directe dans l'emploi. Généralement de 15 à 17 ans.
+    es: Programas que ofrecen instrucción más específica por materia o habilidad que la secundaria baja, a menudo conduciendo a la educación terciaria o a la inserción laboral directa. Típicamente de 15 a 17 años.
+- code: isced_4
+  label:
+    en: Post-secondary non-tertiary education (ISCED 4)
+    fr: Enseignement post-secondaire non tertiaire (ISCED 4)
+    es: Educación postsecundaria no terciaria (ISCED 4)
+  definition:
+    en: Programs positioned between upper secondary and tertiary education, providing knowledge and skills below degree level. Includes vocational preparation programs and bridging courses. Typically delivered at technical colleges or vocational centers rather than universities.
+    fr: Programmes situés entre l'enseignement secondaire supérieur et l'enseignement tertiaire, fournissant des connaissances et des compétences inférieures au niveau du diplôme. Comprend les programmes de préparation professionnelle et les cours de rattrapage. Généralement dispensés dans des collèges techniques ou des centres de formation professionnelle plutôt qu'à l'université.
+    es: Programas situados entre la educación secundaria alta y la educación terciaria, que brindan conocimientos y habilidades por debajo del nivel de grado. Incluye programas de preparación vocacional y cursos de nivelación. Generalmente impartidos en institutos técnicos o centros vocacionales en lugar de universidades.

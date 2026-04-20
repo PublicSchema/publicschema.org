@@ -12,7 +12,7 @@ definition:
 
 type: string
 cardinality: single
-vocabulary: past-3-months-frequency
+vocabulary: symptom-period-frequency
 references: null
 category: functioning
 sensitivity: sensitive

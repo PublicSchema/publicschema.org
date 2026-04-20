@@ -33,6 +33,8 @@ Los nombres nunca se prefijan con una abreviación de dominio. Es `Enrollment`, 
 | `health` | Salud | Futuro |
 | `crvs` | Registro civil y estadísticas vitales | Activo |
 
+ServicePoint y sus subtipos (HealthFacility, School, WaterPoint, RegistrationOffice) permanecen en la raíz en lugar de estar bajo segmentos de dominio. Se clasifican por sector usando el vocabulario de tipos de puntos de servicio, no por dominio de URI. Esto permite que los registros de puntos de servicio sean utilizables de forma transversal en los flujos de trabajo de protección social, educación, salud y CRVS, sin introducir supertipos específicos de dominio.
+
 ## 3. Persistencia de URI
 
 Cada elemento obtiene un URI estable. Una vez publicado en uso experimental o superior, un URI no será eliminado. Los términos obsoletos continúan resolviendo con metadatos que indican el reemplazo. Consulte [Versionado y madurez](../versioning-and-maturity/) para el modelo completo.
@@ -62,6 +64,28 @@ Use este árbol de decisión para determinar qué tipo de elemento crear.
 | Valor de un conjunto cerrado de opciones | Vocabulario |
 | El valor tiene su propia identidad y subpropiedades | Propiedad que referencia un concepto |
 | Escalar simple | Tipo primitivo en línea |
+
+## 4a. Conceptos de tipo grupo
+
+Tres conceptos de PublicSchema describen colecciones de personas pero tienen semánticas distintas. Elegir el concepto correcto es importante para la calidad de los datos y la interoperabilidad.
+
+**Household (Hogar)** es una unidad económica corresidente. Los miembros comparten una vivienda y, por lo general, comparten alimentos y recursos. La definición operacional varía según el país y el programa (combinando criterios de corresidencia, presupuesto compartido, cocina común y parentesco), pero el criterio central siempre es la colocalización física y los medios de vida compartidos. Household es el concepto adecuado para registrar las unidades beneficiarias en programas de protección social.
+
+**Family (Familia)** es una red de parentesco. Los miembros están unidos por lazos de sangre, matrimonio o adopción, independientemente de dónde residan. Una familia puede abarcar varios hogares y áreas geográficas. Los vínculos de parentesco entre miembros se modelan como registros Relationship entre instancias Person; Family en sí misma no lleva propiedades de parentesco dedicadas en esta etapa. Family es el concepto adecuado cuando la unidad de interés es una red relacional en lugar de un arreglo corresidente.
+
+**FamilyRegister (Registro de familia)** es un documento administrativo, no un grupo. Es un acto de registro civil que da seguimiento a una unidad familiar a lo largo del tiempo a medida que ocurren eventos vitales (nacimientos, defunciones, matrimonios). Referencia una Family para exponer la composición actual. FamilyRegister es el concepto adecuado para modelar instrumentos administrativos al estilo del koseki, el hukou o el libro de familia.
+
+### Cuándo usar cada concepto
+
+| Quiere registrar... | Use |
+|---|---|
+| Una unidad beneficiaria que comparte vivienda y recursos | Household |
+| Una red de personas unidas por sangre, matrimonio o adopción | Family |
+| Un documento administrativo de registro civil que da seguimiento a una familia | FamilyRegister |
+
+### Puente de interoperabilidad
+
+Muchos sistemas usan el término "familia" coloquialmente para referirse a la unidad corresidente. Al intercambiar datos con esos sistemas, establezca `group_type: family` en el registro Household. Esto indica a los consumidores que el hogar se representa como una familia a efectos de interoperabilidad, sin distorsionar la semántica de PublicSchema.
 
 ## 5. Contexto temporal
 

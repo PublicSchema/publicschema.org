@@ -41,7 +41,7 @@ properties:
   - certificate_format
 
 subtypes: []
-supertypes: []
+supertypes: [CivilStatusDocument]
 
 external_equivalents:
   opencrvs:

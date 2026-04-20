@@ -35,6 +35,8 @@ The build pipeline keys concepts internally by `{domain}/{id}` (e.g., `sp/Enroll
 | `health` | Health | Future |
 | `crvs` | Civil registration and vital statistics | Active |
 
+ServicePoint and its subtypes (HealthFacility, School, WaterPoint, RegistrationOffice) remain at root rather than under domain segments. They are classified by sector using the service-point type vocabulary, not by URI domain. This keeps service-point records cross-cuttingly usable across social-protection, education, health, and CRVS workflows without introducing domain-specific supertypes.
+
 ## 3. URI persistence
 
 Every element gets a stable URI. Once published at candidate or above, a URI will not be removed. Deprecated terms continue to resolve with metadata indicating the replacement. See [Versioning and Maturity](../versioning-and-maturity/) for the full model.
@@ -73,6 +75,28 @@ Use this decision tree to determine what kind of element to create.
 - `Agent` is the **actor side**: the persons, organisations, and software that perform, publish, evaluate, decide, or execute. Actor-side references (`performed_by`, `evaluator`, `publisher`) range over `Agent`.
 
 `Person` is the only concept that belongs to both hierarchies. A person can both receive services and perform them. `Organization` is an `Agent` only (it is not modelled as a receiver today). `SoftwareAgent` is an `Agent` only. See [ADR-008](../decisions/008-agent-organization.md).
+
+## 4a. Group-like concepts
+
+Three concepts in PublicSchema describe collections of persons but have distinct semantics. Choosing the right one matters for data quality and interoperability.
+
+**Household** is a co-residential economic unit. Members share a dwelling and typically share food and resources. The operational definition varies by country and program (combining co-residence, shared budget, shared cooking, and kinship criteria), but the anchor is always physical co-location and shared livelihood. Household is the right concept for registering beneficiary units in social protection programs.
+
+**Family** is a kinship network. Members are connected by blood, marriage, or adoption, regardless of where they live. A family can span multiple households and geographic areas. Kinship links between members are modelled as Relationship records between Person instances; Family itself carries no dedicated kinship properties at this stage. Family is the right concept when the unit of interest is a relational network rather than a co-residential arrangement.
+
+**FamilyRegister** is an administrative document, not a group. It is a civil-registration record that tracks a family unit over time as vital events (births, deaths, marriages) occur. It references a Family to expose current membership. FamilyRegister is the right concept for modelling koseki-style, hukou-style, or livret-de-famille-style administrative instruments.
+
+### When to use each
+
+| You want to record... | Use |
+|---|---|
+| A beneficiary unit sharing a dwelling and resources | Household |
+| A network of persons connected by blood, marriage, or adoption | Family |
+| An administrative civil-registration document tracking a family | FamilyRegister |
+
+### Interoperability bridge
+
+Many systems use "family" colloquially to mean the co-residential unit. When exchanging data with such systems, set `group_type: family` on the Household record. This signals to consumers that the household is being represented as a family for interoperability purposes without misrepresenting the PublicSchema semantics.
 
 ## 5. Temporal context
 

@@ -16,8 +16,6 @@ CRVS_CONCEPTS = [
     "FetalDeath",
     "Marriage",
     "MarriageTermination",
-    "Divorce",
-    "Annulment",
     "Adoption",
     "PaternityRecognition",
     "Legitimation",
@@ -38,6 +36,7 @@ CRVS_VOCABULARIES = [
     "manner-of-death",
     "cause-of-death-method",
     "marriage-type",
+    "marriage-termination-type",
     "adoption-type",
     "annotation-type",
     "civil-status-record-type",
@@ -162,8 +161,6 @@ class TestSupertypeSubtypeSymmetry:
             ("adoption.yaml", "VitalEvent"),
             ("paternity-recognition.yaml", "VitalEvent"),
             ("legitimation.yaml", "VitalEvent"),
-            ("divorce.yaml", "MarriageTermination"),
-            ("annulment.yaml", "MarriageTermination"),
         ],
     )
     def test_supertype_chain(self, concept_file, expected_supertype):
@@ -174,14 +171,14 @@ class TestSupertypeSubtypeSymmetry:
             f"got {data['supertypes']}"
         )
 
-    def test_marriage_termination_subtypes(self):
-        """MarriageTermination lists Divorce and Annulment as subtypes."""
+    def test_marriage_termination_has_no_subtypes(self):
+        """MarriageTermination is concrete and has no subtypes."""
         data = _load_yaml(SCHEMA_DIR / "concepts" / "marriage-termination.yaml")
-        assert set(data["subtypes"]) == {"Divorce", "Annulment"}
+        assert data["subtypes"] == []
 
 
 class TestAbstractConcepts:
-    @pytest.mark.parametrize("concept_id", ["VitalEvent", "MarriageTermination"])
+    @pytest.mark.parametrize("concept_id", ["VitalEvent"])
     def test_abstract_flag_true_in_yaml(self, concept_id):
         """Abstract supertypes declare abstract: true in their YAML."""
         kebab = _concept_id_to_kebab(concept_id)
@@ -190,15 +187,21 @@ class TestAbstractConcepts:
             f"{concept_id} should be marked abstract"
         )
 
+    def test_marriage_termination_is_not_abstract(self):
+        """MarriageTermination is a concrete concept, not abstract."""
+        data = _load_yaml(SCHEMA_DIR / "concepts" / "marriage-termination.yaml")
+        assert data.get("abstract") is not True, (
+            "MarriageTermination should not be marked abstract"
+        )
+
     def test_abstract_flag_propagates_to_build_output(self):
         """Build output carries the abstract flag for abstract concepts."""
         result = build_vocabulary(SCHEMA_DIR)
         # CRVS concepts are keyed by composite key (crvs/<id>) in build output.
         assert result["concepts"]["crvs/VitalEvent"]["abstract"] is True
-        assert result["concepts"]["crvs/MarriageTermination"]["abstract"] is True
-        # Concrete subtypes default to False
+        assert result["concepts"]["crvs/MarriageTermination"]["abstract"] is False
+        # Other concrete concepts also default to False
         assert result["concepts"]["crvs/Birth"]["abstract"] is False
-        assert result["concepts"]["crvs/Divorce"]["abstract"] is False
 
 
 class TestCrvsVocabularies:
@@ -286,6 +289,7 @@ class TestCrvsVocabularies:
                 {"physician_certified", "verbal_autopsy", "coroner", "lay_reporting", "other"},
             ),
             ("marriage-type", {"civil", "religious", "customary", "common_law"}),
+            ("marriage-termination-type", {"divorce", "annulment"}),
             ("adoption-type", {"full", "simple"}),
             (
                 "annotation-type",

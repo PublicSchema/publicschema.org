@@ -1,0 +1,60 @@
+id: school-type
+maturity: draft
+label:
+  en: School Type
+  fr: Type d'école
+  es: Tipo de escuela
+definition:
+  en: The management and funding classification of a school, distinguishing public schools managed by government authorities from private, faith-based, and community-managed institutions. Based on UNESCO UIS categories for private/public school classification in the ISCED framework.
+  fr: La classification de gestion et de financement d'une école, distinguant les écoles publiques gérées par les autorités gouvernementales des institutions privées, confessionnelles et gérées par la communauté. Basé sur les catégories de l'Institut de statistique de l'UNESCO pour la classification des écoles privées/publiques dans le cadre ISCED.
+  es: La clasificación de gestión y financiamiento de una escuela, que distingue las escuelas públicas gestionadas por autoridades gubernamentales de las instituciones privadas, confesionales y gestionadas por la comunidad. Basado en las categorías del Instituto de Estadística de la UNESCO para la clasificación de escuelas privadas/públicas en el marco ISCED.
+standard:
+  name: UNESCO UIS ISCED 2011 — Operational Manual (Chapter 4, Management and Funding)
+  uri: https://uis.unesco.org/en/topic/international-standard-classification-education-isced
+  notes: "UNESCO UIS distinguishes government-managed, government-aided private, independent private, and international institutions in the ISCED operational manual. This vocabulary maps to those categories at the school level. The 'faith-based' and 'community' codes are commonly used in humanitarian and development contexts (e.g. Education Cluster 4W reporting) and correspond broadly to the UIS independent private / non-government categories."
+values:
+- code: public
+  label:
+    en: Public school
+    fr: École publique
+    es: Escuela pública
+  definition:
+    en: School managed and primarily funded by a government authority (national, regional, or local). Follows public education curricula and standards.
+    fr: École gérée et principalement financée par une autorité gouvernementale (nationale, régionale ou locale). Suit les programmes et normes de l'éducation publique.
+    es: Escuela gestionada y financiada principalmente por una autoridad gubernamental (nacional, regional o local). Sigue los planes de estudio y normas de la educación pública.
+- code: private
+  label:
+    en: Private school
+    fr: École privée
+    es: Escuela privada
+  definition:
+    en: School managed by a non-government body (individual owner, company, or non-profit foundation), operating independently of direct government management. May receive partial government funding.
+    fr: École gérée par un organisme non gouvernemental (propriétaire individuel, entreprise ou fondation à but non lucratif), fonctionnant indépendamment de la gestion directe du gouvernement. Peut recevoir un financement partiel du gouvernement.
+    es: Escuela gestionada por un organismo no gubernamental (propietario individual, empresa o fundación sin fines de lucro), que opera de forma independiente de la gestión gubernamental directa. Puede recibir financiamiento gubernamental parcial.
+- code: faith_based
+  label:
+    en: Faith-based school
+    fr: École confessionnelle
+    es: Escuela confesional
+  definition:
+    en: School established and operated by a religious organization (church, mosque, temple, or similar body), which may also deliver religious instruction as part of its curriculum.
+    fr: École établie et gérée par une organisation religieuse (église, mosquée, temple ou organisme similaire), qui peut également dispenser un enseignement religieux dans le cadre de son programme.
+    es: Escuela establecida y operada por una organización religiosa (iglesia, mezquita, templo u organismo similar), que también puede impartir instrucción religiosa como parte de su plan de estudios.
+- code: community
+  label:
+    en: Community school
+    fr: École communautaire
+    es: Escuela comunitaria
+  definition:
+    en: School established and managed by a local community or parent group, typically in areas where government or private provision is absent or insufficient. Common in humanitarian and fragile-state contexts.
+    fr: École établie et gérée par une communauté locale ou un groupe de parents, généralement dans des zones où l'offre publique ou privée est absente ou insuffisante. Fréquente dans les contextes humanitaires et d'États fragiles.
+    es: Escuela establecida y gestionada por una comunidad local o un grupo de padres, típicamente en áreas donde la provisión gubernamental o privada está ausente o es insuficiente. Común en contextos humanitarios y de estados frágiles.
+- code: other
+  label:
+    en: Other
+    fr: Autre
+    es: Otro
+  definition:
+    en: A school management type not covered by the other categories, such as international schools or joint government-private partnership schools.
+    fr: Un type de gestion d'école non couvert par les autres catégories, tel que les écoles internationales ou les écoles en partenariat public-privé.
+    es: Un tipo de gestión escolar no cubierto por las otras categorías, como escuelas internacionales o escuelas en régimen de asociación público-privada.

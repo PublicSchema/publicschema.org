@@ -5,38 +5,39 @@ label:
   en: Marriage Termination
   fr: Dissolution du mariage
   es: Disolución del matrimonio
-abstract: true
 
 definition:
   en: >
-    The legal end of a marriage while both parties are alive. Abstract
-    supertype grouping Divorce (dissolution of a valid marriage) and Annulment
-    (declaration that the marriage was invalid from the outset). Death of a
-    spouse ends the marriage but is recorded as a Death, not a
-    MarriageTermination.
+    The legal end of a marriage while both parties are alive, whether by
+    divorce (dissolution of a valid marriage) or annulment (declaration that
+    the marriage was invalid from the outset). The termination_type property
+    distinguishes the two. Death of a spouse ends the marriage but is
+    recorded as a Death, not a MarriageTermination.
   fr: >
-    La fin juridique d'un mariage du vivant des deux parties. Supertype
-    abstrait regroupant le Divorce (dissolution d'un mariage valide) et
-    l'Annulation (déclaration que le mariage était nul dès l'origine). Le
-    décès d'un conjoint met fin au mariage mais est enregistré comme un
-    Décès, pas comme une MarriageTermination.
+    La fin juridique d'un mariage du vivant des deux parties, que ce soit
+    par divorce (dissolution d'un mariage valide) ou par annulation
+    (déclaration que le mariage était nul dès l'origine). La propriété
+    termination_type distingue les deux cas. Le décès d'un conjoint met fin
+    au mariage mais est enregistré comme un Décès, pas comme une
+    MarriageTermination.
   es: >
-    El fin jurídico de un matrimonio cuando ambas partes están vivas.
-    Supertipo abstracto que agrupa el Divorcio (disolución de un matrimonio
-    válido) y la Anulación (declaración de que el matrimonio era nulo desde
-    el origen). La defunción de un cónyuge pone fin al matrimonio pero se
-    registra como una Defunción, no como una Terminación de matrimonio
-    (MarriageTermination).
+    El fin jurídico de un matrimonio cuando ambas partes están vivas, ya sea
+    por divorcio (disolución de un matrimonio válido) o por anulación
+    (declaración de que el matrimonio era nulo desde el origen). La propiedad
+    termination_type distingue ambos casos. La defunción de un cónyuge pone
+    fin al matrimonio pero se registra como una Defunción, no como una
+    MarriageTermination.
 
 properties:
   - party_1
   - party_2
   - marriage_ref
+  - termination_type
   - judgment_date
   - judgment_reference
   - court
 
-subtypes: [Divorce, Annulment]
+subtypes: []
 supertypes: [VitalEvent]
 
 external_equivalents:
@@ -44,4 +45,4 @@ external_equivalents:
     label: "No v1 equivalent"
     match: none
     vocabulary: "OpenCRVS v1 GraphQL"
-    note: "Neither divorce nor annulment is modelled in OpenCRVS v1 core, so this abstract grouping concept has no counterpart."
+    note: "Neither divorce nor annulment is modelled in OpenCRVS v1 core, so this concept has no counterpart."

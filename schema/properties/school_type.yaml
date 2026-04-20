@@ -1,0 +1,17 @@
+id: school_type
+maturity: draft
+label:
+  en: "School type"
+  fr: "Type d'école"
+  es: "Tipo de escuela"
+
+definition:
+  en: "The management and funding classification of a school (public, private, faith-based, or community), per UNESCO UIS categories."
+  fr: "La classification de gestion et de financement d'une école (publique, privée, confessionnelle ou communautaire), selon les catégories de l'Institut de statistique de l'UNESCO."
+  es: "La clasificación de gestión y financiamiento de una escuela (pública, privada, confesional o comunitaria), según las categorías del Instituto de Estadística de la UNESCO."
+
+type: string
+cardinality: single
+vocabulary: school-type
+references: null
+category: classification

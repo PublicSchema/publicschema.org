@@ -603,13 +603,7 @@ no_match:
       the fetal death itself.
 
   - v2_concept: MarriageTermination
-    reason: "Abstract concept; no v1 equivalent because neither divorce nor annulment is modelled."
-
-  - v2_concept: Divorce
-    reason: "Not modelled in v1 core. No divorce registration entity exists."
-
-  - v2_concept: Annulment
-    reason: "Not modelled in v1 core. No annulment registration entity exists."
+    reason: "Not modelled in v1 core. Neither divorce nor annulment registration exists as a first-class event type."
 
   - v2_concept: Adoption
     reason: >

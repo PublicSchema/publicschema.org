@@ -1,0 +1,71 @@
+id: registration-office-type
+maturity: draft
+label:
+  en: Registration Office Type
+  fr: Type de bureau d'enregistrement
+  es: Tipo de oficina de registro
+definition:
+  en: The functional category of a civil or administrative registration office, distinguishing general civil registration offices from specialized sub-offices, mobile registration units, and refugee or IDP registration centers. Based on office-type patterns from OpenCRVS and UNHCR operational frameworks.
+  fr: La catégorie fonctionnelle d'un bureau d'enregistrement civil ou administratif, distinguant les bureaux d'état civil généraux des sous-bureaux spécialisés, des unités d'enregistrement mobile et des centres d'enregistrement des réfugiés ou personnes déplacées. Basé sur les modèles de types de bureaux d'OpenCRVS et des cadres opérationnels du HCR.
+  es: La categoría funcional de una oficina de registro civil o administrativo, que distingue las oficinas de registro civil general de las sub-oficinas especializadas, las unidades de registro móvil y los centros de registro de refugiados o desplazados internos. Basado en los patrones de tipos de oficina de OpenCRVS y los marcos operacionales del ACNUR.
+references:
+  - name: "OpenCRVS Office and Location Management"
+    uri: "https://documentation.opencrvs.org"
+    relationship: prose_guidance
+    machine_readable: false
+    notes: "OpenCRVS models civil registration offices with a CRVS_OFFICE type distinct from administrative locations (ADMIN_STRUCTURE). This vocabulary follows the same conceptual split while adding humanitarian registration office types from UNHCR practice."
+values:
+- code: civil_registration_office
+  label:
+    en: Civil registration office
+    fr: Bureau d'état civil
+    es: Oficina de registro civil
+  definition:
+    en: A government office with legal authority to register vital events (births, deaths, marriages, divorces) and issue civil registration certificates. The primary CRVS_OFFICE type in national civil registration systems.
+    fr: Un bureau gouvernemental ayant l'autorité légale pour enregistrer les faits d'état civil (naissances, décès, mariages, divorces) et délivrer des actes d'état civil. Le type CRVS_OFFICE principal dans les systèmes nationaux d'enregistrement des faits d'état civil.
+    es: Una oficina gubernamental con autoridad legal para registrar hechos vitales (nacimientos, defunciones, matrimonios, divorcios) y emitir certificados de registro civil. El tipo principal de CRVS_OFFICE en los sistemas nacionales de registro civil.
+- code: district_registration_office
+  label:
+    en: District registration office
+    fr: Bureau d'enregistrement de district
+    es: Oficina de registro de distrito
+  definition:
+    en: A sub-national or district-level branch of the civil registration authority, operating under the authority of a national or provincial civil registrar and covering a defined administrative area.
+    fr: Une branche sous-nationale ou de district de l'autorité d'enregistrement civil, opérant sous l'autorité d'un registraire civil national ou provincial et couvrant une zone administrative définie.
+    es: Una sucursal sub-nacional o de nivel de distrito de la autoridad de registro civil, que opera bajo la autoridad de un registrador civil nacional o provincial y cubre un área administrativa definida.
+- code: mobile_registration_unit
+  label:
+    en: Mobile registration unit
+    fr: Unité d'enregistrement mobile
+    es: Unidad de registro móvil
+  definition:
+    en: A non-fixed registration team or vehicle that travels to remote or underserved communities to deliver civil registration or identity enrollment services. Used in outreach campaigns and disaster-response contexts.
+    fr: Une équipe ou un véhicule d'enregistrement non fixe qui se déplace dans des communautés éloignées ou mal desservies pour fournir des services d'enregistrement civil ou d'enrôlement d'identité. Utilisé dans les campagnes de sensibilisation et les contextes de réponse aux catastrophes.
+    es: Un equipo o vehículo de registro no fijo que viaja a comunidades remotas o con servicio insuficiente para prestar servicios de registro civil o enrolamiento de identidad. Se usa en campañas de alcance comunitario y contextos de respuesta a desastres.
+- code: refugee_registration_center
+  label:
+    en: Refugee registration center
+    fr: Centre d'enregistrement des réfugiés
+    es: Centro de registro de refugiados
+  definition:
+    en: An office where UNHCR or a national authority conducts refugee status determination and registration, issuing asylum-seeker or refugee identity documents. Typically operated in collaboration with national refugee agencies.
+    fr: Un bureau où le HCR ou une autorité nationale conduit la détermination du statut de réfugié et l'enregistrement, délivrant des documents d'identité pour demandeurs d'asile ou réfugiés. Généralement opéré en collaboration avec les agences nationales pour les réfugiés.
+    es: Una oficina donde el ACNUR o una autoridad nacional realiza la determinación del estatuto de refugiado y el registro, emitiendo documentos de identidad para solicitantes de asilo o refugiados. Generalmente operada en colaboración con agencias nacionales de refugiados.
+- code: identity_enrollment_center
+  label:
+    en: Identity enrollment center
+    fr: Centre d'enrôlement d'identité
+    es: Centro de enrolamiento de identidad
+  definition:
+    en: A service point dedicated to biometric or documentary identity enrollment for a national ID, social protection, or voter registration program, distinct from civil registration of vital events.
+    fr: Un point de service dédié à l'enrôlement d'identité biométrique ou documentaire pour un programme de carte d'identité nationale, de protection sociale ou d'inscription sur les listes électorales, distinct de l'enregistrement civil des faits d'état civil.
+    es: Un punto de servicio dedicado al enrolamiento de identidad biométrico o documental para un programa de identificación nacional, protección social o registro electoral, distinto del registro civil de hechos vitales.
+- code: other
+  label:
+    en: Other
+    fr: Autre
+    es: Otro
+  definition:
+    en: A registration office type not covered by the other categories.
+    fr: Un type de bureau d'enregistrement non couvert par les autres catégories.
+    es: Un tipo de oficina de registro no cubierto por las otras categorías.

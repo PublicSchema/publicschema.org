@@ -13,14 +13,15 @@ informs:
   concepts:
     - Household
   vocabularies:
-    - water-source
-    - water-service-level
     - sanitation-facility
     - sanitation-service-level
+    - water-point-type
+    - water-service-level
+    - water-source
   properties:
-    - water_collection_time_minutes
-    - water_source
-    - water_service_level
     - sanitation_facility
     - sanitation_service_level
     - sanitation_shared_households
+    - water_collection_time_minutes
+    - water_service_level
+    - water_source

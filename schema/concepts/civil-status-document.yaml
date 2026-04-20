@@ -1,0 +1,46 @@
+id: CivilStatusDocument
+maturity: draft
+domain: crvs
+abstract: true
+
+label:
+  en: Civil Status Document
+  fr: Document d'état civil
+  es: Documento de estado civil
+
+definition:
+  en: >
+    An administrative document that records civil-status facts about one or more
+    persons. Distinct from the concepts (Birth, Marriage, Death, etc.) that
+    describe the underlying events themselves: those are the occurrences;
+    CivilStatusDocument is the paper or electronic artefact that attests to or
+    summarises them. Examples include a birth certificate, a marriage
+    certificate, and a family register (livret de famille, koseki, hukou).
+  fr: >
+    Un document administratif qui consigne des faits d'état civil concernant une
+    ou plusieurs personnes. Distinct des concepts (Naissance, Mariage, Décès,
+    etc.) qui décrivent les événements sous-jacents eux-mêmes : ceux-ci sont les
+    faits; CivilStatusDocument est la pièce papier ou électronique qui en
+    atteste ou les résume. Exemples: certificat de naissance, certificat de
+    mariage, registre de famille (livret de famille, koseki, hukou).
+  es: >
+    Un documento administrativo que registra hechos del estado civil de una o
+    más personas. Distinto de los conceptos (Nacimiento, Matrimonio, Defunción,
+    etc.) que describen los propios eventos subyacentes: esos son las
+    ocurrencias; CivilStatusDocument es el artefacto en papel o electrónico que
+    los acredita o resume. Ejemplos: certificado de nacimiento, certificado de
+    matrimonio, registro familiar (livret de famille, koseki, hukou).
+
+properties:
+  - issuing_authority
+  - issue_date
+
+subtypes: [Certificate, FamilyRegister]
+supertypes: []
+
+external_equivalents:
+  opencrvs:
+    label: "No direct equivalent"
+    match: none
+    vocabulary: "OpenCRVS v1 GraphQL"
+    note: "OpenCRVS v1 models Certificate separately from registration records and has no family-register concept. A shared document supertype has no counterpart."

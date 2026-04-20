@@ -1,0 +1,40 @@
+id: marriage-termination-type
+maturity: draft
+domain: crvs
+label:
+  en: Marriage Termination Type
+  fr: Type de dissolution du mariage
+  es: Tipo de disolución del matrimonio
+
+definition:
+  en: "Whether the marriage was ended by divorce (dissolution of a valid marriage) or annulment (declaration that the marriage was invalid from its inception)."
+  fr: "Indique si le mariage a pris fin par divorce (dissolution d'un mariage valide) ou par annulation (déclaration que le mariage était nul dès son origine)."
+  es: "Indica si el matrimonio terminó por divorcio (disolución de un matrimonio válido) o por anulación (declaración de que el matrimonio era nulo desde su origen)."
+
+values:
+  - code: divorce
+    label:
+      en: Divorce
+      fr: Divorce
+      es: Divorcio
+    definition:
+      en: "The dissolution of a valid marriage by judicial or administrative decree."
+      fr: "La dissolution d'un mariage valide par décision judiciaire ou administrative."
+      es: "La disolución de un matrimonio válido mediante sentencia judicial o resolución administrativa."
+
+  - code: annulment
+    label:
+      en: Annulment
+      fr: Annulation
+      es: Anulación
+    definition:
+      en: "A judicial declaration that a marriage was invalid from its inception, typically because a legal impediment existed at the time of the ceremony (such as lack of consent, existing marriage, or prohibited degree of kinship)."
+      fr: "Une déclaration judiciaire selon laquelle un mariage était nul dès son origine, généralement parce qu'un empêchement légal existait au moment de la célébration (absence de consentement, mariage existant ou degré de parenté prohibé)."
+      es: "Una declaración judicial de que un matrimonio era nulo desde su origen, generalmente porque existía un impedimento legal al momento de la celebración (falta de consentimiento, matrimonio preexistente o grado de parentesco prohibido)."
+
+external_equivalents:
+  opencrvs:
+    label: "No v1 equivalent"
+    match: none
+    vocabulary: "OpenCRVS v1 GraphQL"
+    note: "Neither divorce nor annulment is modelled in OpenCRVS v1 core, so this vocabulary has no counterpart."

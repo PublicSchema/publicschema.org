@@ -15,8 +15,8 @@ informs:
   vocabularies:
     - comparative-behaviour-scale
     - functional-difficulty-severity
-    - instrument-id
-    - symptom-frequency
+    - instrument-code
+    - cfm-symptom-frequency
   properties:
     - anxiety_frequency
     - depression_frequency

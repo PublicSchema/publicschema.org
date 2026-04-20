@@ -1,0 +1,110 @@
+id: RegistrationOffice
+label:
+  en: Registration Office
+  fr: Bureau d'enregistrement
+  es: Oficina de registro
+maturity: draft
+
+definition:
+  en: >
+    A service point where civil or administrative registration services
+    are delivered, such as a civil registration office, a district
+    branch, a mobile registration unit, a refugee registration center,
+    or an identity enrollment center. RegistrationOffice specializes
+    ServicePoint for the registration and identity domain and carries
+    additional properties for the functional category of the office
+    and for the jurisdictional coverage of the office. RegistrationOffice
+    is domain-agnostic at the root level: it covers civil registration
+    (birth, death, marriage), refugee and asylum registration, and
+    national identity enrollment, which cuts across social protection,
+    CRVS, and humanitarian workflows. It is distinct from the Organization
+    that operates it (captured via managed_by) and from its administrative
+    location (captured via located_at). The CRVS domain uses
+    RegistrationOffice as the physical facility where civil registrars
+    operate; the same concept serves humanitarian identity programs and
+    social protection enrollment offices.
+  fr: >
+    Un point de service où sont fournis des services d'enregistrement
+    civil ou administratif, tel qu'un bureau d'état civil, une branche
+    de district, une unité d'enregistrement mobile, un centre
+    d'enregistrement des réfugiés ou un centre d'enrôlement d'identité.
+    RegistrationOffice spécialise ServicePoint pour le domaine de
+    l'enregistrement et de l'identité et porte des propriétés
+    supplémentaires pour la catégorie fonctionnelle du bureau et pour
+    la couverture juridictionnelle du bureau. RegistrationOffice est
+    indépendant du domaine au niveau racine : il couvre l'enregistrement
+    civil (naissances, décès, mariages), l'enregistrement des réfugiés
+    et des demandeurs d'asile, et l'enrôlement d'identité nationale, ce
+    qui traverse les flux de travail de la protection sociale, de l'état
+    civil et de l'action humanitaire. Il est distinct de l'Organization
+    qui l'exploite (capturée via managed_by) et de sa localisation
+    administrative (capturée via located_at). Le domaine CRVS utilise
+    RegistrationOffice comme l'établissement physique où opèrent les
+    officiers d'état civil ; le même concept s'applique aux programmes
+    humanitaires d'identité et aux bureaux d'enrôlement de la protection
+    sociale.
+  es: >
+    Un punto de servicio donde se prestan servicios de registro civil o
+    administrativo, como una oficina de registro civil, una sucursal de
+    distrito, una unidad de registro móvil, un centro de registro de
+    refugiados o un centro de enrolamiento de identidad.
+    RegistrationOffice especializa ServicePoint para el dominio del
+    registro y la identidad y lleva propiedades adicionales para la
+    categoría funcional de la oficina y para la cobertura jurisdiccional
+    de la oficina. RegistrationOffice es independiente del dominio en el
+    nivel raíz: abarca el registro civil (nacimientos, defunciones,
+    matrimonios), el registro de refugiados y solicitantes de asilo, y el
+    enrolamiento de identidad nacional, lo que atraviesa los flujos de
+    trabajo de protección social, CRVS y humanitarios. Es distinto de la
+    Organization que lo opera (capturada mediante managed_by) y de su
+    ubicación administrativa (capturada mediante located_at). El dominio
+    CRVS utiliza RegistrationOffice como el establecimiento físico donde
+    operan los registradores civiles; el mismo concepto sirve a los
+    programas humanitarios de identidad y a las oficinas de enrolamiento
+    de protección social.
+
+properties:
+  - registration_office_type
+  - jurisdiction
+
+property_groups:
+  - category: identity
+    properties:
+      - service_point_name
+      - identifiers
+  - category: classification
+    properties:
+      - service_point_type
+      - registration_office_type
+      - operational_status
+  - category: location
+    properties:
+      - located_at
+      - jurisdiction
+  - category: governance
+    properties:
+      - managed_by
+
+supertypes: [ServicePoint]
+subtypes: []
+
+external_equivalents:
+  schema-org:
+    label: "GovernmentOffice"
+    uri: "https://schema.org/GovernmentOffice"
+    match: close
+    vocabulary: "schema.org"
+    note: "schema.org GovernmentOffice is a subtype of LocalBusiness and Place, covering government offices broadly. PublicSchema RegistrationOffice is narrower (only registration and identity services) and is modelled as a ServicePoint (physical facility) rather than as an organization. The overlap on government registration premises is close; the organizational side and the WASH/distribution scopes diverge."
+
+convergence:
+  system_count: 1
+  total_systems: 6
+  notes: >
+    RegistrationOffice is informed primarily by the OpenCRVS office and
+    location management model, which distinguishes CRVS_OFFICE (a civil
+    registration facility) from ADMIN_STRUCTURE (an administrative location).
+    No other v1 convergence system carries a first-class RegistrationOffice
+    concept at this level of specification, though UNHCR refugee registration
+    operational frameworks and national civil registration systems manage
+    equivalent entities. A broader convergence pass including UNHCR ProGres
+    and national CRVS platform data is expected to raise the system_count.

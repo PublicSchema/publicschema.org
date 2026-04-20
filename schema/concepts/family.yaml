@@ -3,21 +3,35 @@ label:
   en: Family
   fr: Famille
   es: Familia
-maturity: draft
+maturity: candidate
 
 definition:
   en: >
-    A social unit defined by kinship, marriage, or adoption, regardless of
-    shared budget or co-residence. A family can span multiple households and
-    geographic boundaries.
+    A kinship network of persons connected by blood, marriage, or adoption.
+    A family is defined by relational ties, not by co-residence or shared
+    budget: members may live across multiple households or geographic areas.
+    Kinship links between members are represented as Relationship records
+    between Person instances. Systems that use "family" to mean the
+    co-residential unit should set group_type: family on their Household
+    record for interoperability.
   fr: >
-    Une unité sociale définie par la parenté, le mariage ou l'adoption,
-    indépendamment du budget partagé ou de la corésidence. Une famille peut
-    s'étendre sur plusieurs ménages et frontières géographiques.
+    Un réseau de parenté composé de personnes liées par le sang, le mariage
+    ou l'adoption. La famille est définie par les liens relationnels, et non
+    par la corésidence ou le budget commun : les membres peuvent résider dans
+    plusieurs ménages ou zones géographiques distinctes. Les liens de parenté
+    entre membres sont représentés par des enregistrements Relationship entre
+    instances Person. Les systèmes qui utilisent « famille » pour désigner
+    l'unité corésidente doivent définir group_type: family sur leur
+    enregistrement Household à des fins d'interopérabilité.
   es: >
-    Una unidad social definida por el parentesco, el matrimonio o la adopción,
-    independientemente del presupuesto compartido o la corresidencia. Una
-    familia puede abarcar varios hogares y fronteras geográficas.
+    Una red de parentesco formada por personas unidas por lazos de sangre,
+    matrimonio o adopción. La familia se define por los vínculos relacionales,
+    no por la corresidencia ni el presupuesto compartido: los miembros pueden
+    residir en varios hogares o áreas geográficas distintas. Los vínculos de
+    parentesco entre miembros se representan como registros Relationship entre
+    instancias Person. Los sistemas que usan "familia" para referirse a la
+    unidad corresidente deben establecer group_type: family en su registro
+    Household a efectos de interoperabilidad.
 
 properties: []
 
@@ -29,9 +43,9 @@ convergence:
   total_systems: 6
   notes: >
     No OpenCRVS equivalent. OpenIMIS uses 'family' where other systems use
-    'household'. Family currently carries no local properties: it is a
-    labelling placeholder pending kinship-modelling scope (the kinship,
-    marriage, and adoption ties named in the definition are not yet
-    materialised as properties). Maturity is kept at draft until that scope
-    is decided; adopters that need kinship structure should use Relationship
-    records between Person instances in the meantime.
+    'household'. Family currently carries no local properties: kinship,
+    marriage, and adoption ties named in the definition are represented via
+    Relationship records between Person instances rather than as dedicated
+    properties on Family. The group_type: family code on Household provides
+    an interoperability bridge for systems that model co-residential units
+    under the "family" label.

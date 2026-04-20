@@ -12,7 +12,7 @@ definition:
 
 type: string
 cardinality: single
-vocabulary: symptom-frequency
+vocabulary: cfm-symptom-frequency
 references: null
 category: functioning
 sensitivity: sensitive
