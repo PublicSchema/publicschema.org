@@ -83,10 +83,15 @@ class TestRealSchema:
                 f"Missing JSON Schema for concept {concept_id}"
             )
 
-        # JSON-LD context should have entries for all concepts and properties
+        # JSON-LD context should have entries for all concepts and properties.
+        # Context terms use the bare concept id (not the composite key), so we
+        # compare concept_out["id"] against the context.
         ctx = result["context"]["@context"]
-        for concept_id in result["concepts"]:
-            assert concept_id in ctx, f"Missing context entry for concept {concept_id}"
+        for concept_id, concept in result["concepts"].items():
+            bare_id = concept["id"]
+            assert bare_id in ctx, (
+                f"Missing context entry for concept {concept_id} (bare id: {bare_id})"
+            )
         for prop_id in result["properties"]:
             assert prop_id in ctx, f"Missing context entry for property {prop_id}"
 
@@ -94,14 +99,14 @@ class TestRealSchema:
         """Domain-specific concepts should have domain segments in their URIs."""
         result = build_vocabulary(SCHEMA_DIR)
 
-        # Enrollment is domain: sp
-        enrollment = result["concepts"].get("Enrollment")
+        # Enrollment is domain: sp; keyed as "sp/Enrollment" in build output.
+        enrollment = result["concepts"].get("sp/Enrollment")
         assert enrollment is not None, "Enrollment concept not found"
         assert enrollment["domain"] == "sp"
         assert "/sp/Enrollment" in enrollment["uri"]
         assert enrollment["path"] == "/sp/Enrollment"
 
-        # Person is universal (domain: null)
+        # Person is universal (domain: null); keyed by bare id.
         person = result["concepts"].get("Person")
         assert person is not None, "Person concept not found"
         assert person["domain"] is None

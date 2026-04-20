@@ -383,8 +383,9 @@ class TestSchemaFilenameIdConsistency:
             schema_id = schema["$id"]
             # Extract the filename from $id
             id_filename = schema_id.rsplit("/", 1)[-1]
-            # The actual filename written by write_outputs (PascalCase)
-            actual_filename = f"{concept_id}.schema.json"
+            # The actual filename written by write_outputs uses bare id (not composite key)
+            bare_id = real_result["concepts"][concept_id]["id"]
+            actual_filename = f"{bare_id}.schema.json"
 
             assert id_filename == actual_filename, (
                 f"Concept {concept_id}: $id references '{id_filename}' "

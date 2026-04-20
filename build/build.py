@@ -117,8 +117,11 @@ def _resolve_range_includes(
     """Map a property type to a JSON-LD rangeIncludes value."""
     if prop_type.startswith("concept:"):
         ref_id = prop_type.split(":", 1)[1]
-        if ref_id in out_concepts:
-            return out_concepts[ref_id]["uri"]
+        # ref_id is a bare concept id from the YAML type field (e.g. "Person");
+        # resolve to the composite key used in out_concepts.
+        key = _resolve_concept_key(ref_id, out_concepts)
+        if key in out_concepts:
+            return out_concepts[key]["uri"]
         return ref_id
     return RANGE_INCLUDES_MAP.get(prop_type, "xsd:string")
 
@@ -143,7 +146,8 @@ def _concept_property_jsonld(
         vocab = out_vocabularies.get(prop_out["vocabulary"])
         entry["ps:vocabulary"] = vocab["uri"] if vocab else prop_out["vocabulary"]
     if prop_raw.get("references"):
-        ref_concept = out_concepts.get(prop_raw["references"])
+        ref_key = _resolve_concept_key(prop_raw["references"], out_concepts)
+        ref_concept = out_concepts.get(ref_key)
         entry["ps:references"] = ref_concept["uri"] if ref_concept else prop_raw["references"]
     if prop_raw.get("immutable_after_status"):
         entry["ps:immutableAfterStatus"] = prop_raw["immutable_after_status"]
@@ -222,7 +226,8 @@ def _property_to_jsonld(
         vocab = out_vocabularies.get(prop_out["vocabulary"])
         doc["ps:vocabulary"] = vocab["uri"] if vocab else prop_out["vocabulary"]
     if prop_raw.get("references"):
-        ref_concept = out_concepts.get(prop_raw["references"])
+        ref_key = _resolve_concept_key(prop_raw["references"], out_concepts)
+        ref_concept = out_concepts.get(ref_key)
         doc["ps:references"] = ref_concept["uri"] if ref_concept else prop_raw["references"]
     if prop_raw.get("immutable_after_status"):
         doc["ps:immutableAfterStatus"] = prop_raw["immutable_after_status"]
@@ -230,6 +235,7 @@ def _property_to_jsonld(
         doc[predicate] = uris if len(uris) > 1 else uris[0]
     used_by = prop_out.get("used_by", [])
     if used_by:
+        # used_by contains composite keys (set when building out_properties).
         doc["schema:domainIncludes"] = [
             out_concepts[cid]["uri"] if cid in out_concepts else cid
             for cid in used_by
@@ -278,14 +284,62 @@ def _vocabulary_to_jsonld(
     return doc
 
 
+def _concept_key(domain: str | None, id_str: str) -> str:
+    """Compute the internal dictionary key for a concept.
+
+    Domain-scoped concepts use ``<domain>/<id>`` (e.g. ``sp/Enrollment``).
+    Universal concepts (domain is None) use the bare ``<id>`` (e.g. ``Person``).
+    This key is used internally throughout the build pipeline; the YAML ``id``
+    field always remains the bare name without a domain prefix.
+    """
+    return f"{domain}/{id_str}" if domain else id_str
+
+
+def _resolve_concept_key(ref: str, concepts: dict) -> str:
+    """Resolve a bare concept id reference to its internal composite key.
+
+    YAML supertype/subtype lists, property ``concept:X`` type references, and
+    bibliography ``informs.concepts`` entries all use the bare id (e.g.
+    ``Person``, ``Enrollment``). This function maps a bare id to the composite
+    key used internally in the build pipeline.
+
+    Resolution order:
+    1. If the bare id is directly a key (universal concepts): return it.
+    2. Otherwise, collect all keys ending with ``/<ref>`` (domain-scoped
+       concepts). If exactly one match: return it (unambiguous).
+    3. If more than one match: raise ValueError (ambiguous reference).
+    4. If no match: return the bare id unchanged (caller handles unknown refs).
+    """
+    if ref in concepts:
+        return ref
+    suffix = f"/{ref}"
+    matches = [k for k in concepts if k.endswith(suffix)]
+    if len(matches) == 1:
+        return matches[0]
+    if len(matches) > 1:
+        raise ValueError(
+            f"Ambiguous concept reference '{ref}': matches {sorted(matches)}. "
+            f"Use a domain-qualified key to disambiguate."
+        )
+    return ref  # not found; callers treat unknown refs gracefully
+
+
 def _load_all_yaml_by_id(directory: Path) -> dict[str, dict]:
+    """Load YAML files from a directory, keyed by composite concept key.
+
+    Domain-scoped concepts (``domain`` field set) are keyed as
+    ``<domain>/<id>``; universal concepts (``domain`` absent or null) are
+    keyed by bare ``<id>``. This prevents silent overwrites when two concepts
+    in different domains share the same short id.
+    """
     result = {}
     if not directory.exists():
         return result
     for p in sorted(directory.rglob("*.yaml")):
         data = load_yaml(p)
         if "id" in data:
-            result[data["id"]] = data
+            key = _concept_key(data.get("domain"), data["id"])
+            result[key] = data
     return result
 
 
@@ -318,7 +372,12 @@ def _normalize_property_entry(entry) -> dict:
 
 
 def _collect_all_properties(concept_id: str, concepts_raw: dict) -> list:
-    """Collect property entries from a concept and all its supertypes."""
+    """Collect property entries from a concept and all its supertypes.
+
+    ``concept_id`` must be a composite key as returned by ``_concept_key``.
+    Supertype references in the YAML are bare ids; they are resolved to their
+    composite keys via ``_resolve_concept_key`` before recursing.
+    """
     visited = set()
     all_props = []
     seen_ids = set()
@@ -329,7 +388,8 @@ def _collect_all_properties(concept_id: str, concepts_raw: dict) -> list:
         visited.add(cid)
         concept = concepts_raw[cid]
         for st in concept.get("supertypes", []):
-            walk(st)
+            # Supertype refs in YAML are bare ids; resolve to composite key.
+            walk(_resolve_concept_key(st, concepts_raw))
         for entry in concept.get("properties", []):
             norm = _normalize_property_entry(entry)
             if norm["id"] not in seen_ids:
@@ -462,15 +522,21 @@ def build_vocabulary(schema_dir: Path) -> dict:
             if prop_id in property_domains:
                 property_domains[prop_id].append(concept_id)
 
-    # Build output concepts
+    # Build output concepts.
+    # Keys are composite (``<domain>/<id>`` for domain-scoped, bare ``<id>``
+    # for universal). The ``id`` field inside each entry is always the bare
+    # short name; the key is used only for internal lookups.
+    # Supertype/subtype refs from YAML are bare ids; they are resolved to
+    # composite keys here so downstream lookups work without re-resolving.
     out_concepts = {}
     for concept_id, data in concepts_raw.items():
         domain = data.get("domain")
+        bare_id = data["id"]
         out_concepts[concept_id] = {
-            "id": concept_id,
+            "id": bare_id,
             "domain": domain,
-            "uri": _compute_uri(base_uri, domain, concept_id),
-            "path": _compute_path(domain, concept_id),
+            "uri": _compute_uri(base_uri, domain, bare_id),
+            "path": _compute_path(domain, bare_id),
             "maturity": data.get("maturity"),
             "abstract": data.get("abstract", False),
             "featured": bool(data.get("featured", False)),
@@ -480,8 +546,17 @@ def build_vocabulary(schema_dir: Path) -> dict:
                 _normalize_property_entry(e)
                 for e in data.get("properties", [])
             ],
-            "subtypes": data.get("subtypes", []),
-            "supertypes": data.get("supertypes", []),
+            # Resolve bare supertype/subtype refs to composite keys so
+            # downstream iteration (rdf_export, SHACL, JSON-LD) can look
+            # them up in out_concepts without re-resolving.
+            "subtypes": [
+                _resolve_concept_key(s, concepts_raw)
+                for s in data.get("subtypes", [])
+            ],
+            "supertypes": [
+                _resolve_concept_key(s, concepts_raw)
+                for s in data.get("supertypes", [])
+            ],
             "convergence": data.get("convergence"),
             "external_equivalents": data.get("external_equivalents"),
             "property_groups": data.get("property_groups"),
@@ -595,8 +670,11 @@ def build_vocabulary(schema_dir: Path) -> dict:
             },
         }
         for cid in informs.get("concepts", []):
-            if cid in concept_bib_refs:
-                concept_bib_refs[cid].append(bib_id)
+            # Bibliography entries use bare concept ids; resolve to composite
+            # key before looking up in concept_bib_refs (keyed by composite).
+            resolved_cid = _resolve_concept_key(cid, out_concepts)
+            if resolved_cid in concept_bib_refs:
+                concept_bib_refs[resolved_cid].append(bib_id)
             else:
                 print(
                     f"WARNING: bibliography {bib_id!r} informs concept {cid!r} which is not defined",
@@ -684,8 +762,11 @@ def build_vocabulary(schema_dir: Path) -> dict:
         "@id": "http://www.w3.org/2000/01/rdf-schema#seeAlso",
         "@type": "@id",
     }
-    for concept_id, concept_out in out_concepts.items():
-        context_map[concept_id] = concept_out["uri"]
+    for _concept_key_val, concept_out in out_concepts.items():
+        # Use the bare id (concept_out["id"]) as the JSON-LD context term, not
+        # the composite internal key. JSON-LD terms must be simple strings;
+        # slashes in keys like "sp/Enrollment" would not form valid terms.
+        context_map[concept_out["id"]] = concept_out["uri"]
     for prop_id, prop_out in out_properties.items():
         prop_uri = prop_out["uri"]
         prop_type = properties_raw[prop_id].get("type", "string")
@@ -723,16 +804,20 @@ def build_vocabulary(schema_dir: Path) -> dict:
         "@context": context_map,
     }
 
-    # Pre-compute concept schema URIs for $ref lookups
+    # Pre-compute concept schema URIs for $ref lookups.
+    # Keyed by bare concept id (e.g. "Enrollment") because property type
+    # fields like "concept:Enrollment" use bare ids, not composite keys.
     concept_schema_uris: dict[str, str] = {}
     for concept_id, data in concepts_raw.items():
+        bare_id = data["id"]
         concept_domain = data.get("domain")
-        concept_path = _compute_path(concept_domain, concept_id)
-        concept_schema_uris[concept_id] = f"{base_uri.rstrip('/')}{concept_path}.schema.json"
+        concept_path = _compute_path(concept_domain, bare_id)
+        concept_schema_uris[bare_id] = f"{base_uri.rstrip('/')}{concept_path}.schema.json"
 
-    # Build JSON Schema per concept
+    # Build JSON Schema per concept. Keys are composite (matching out_concepts).
     concept_schemas = {}
     for concept_id, data in concepts_raw.items():
+        bare_id = data["id"]
         schema_props = {}
         for entry in _collect_all_properties(concept_id, concepts_raw):
             norm = _normalize_property_entry(entry)
@@ -781,11 +866,11 @@ def build_vocabulary(schema_dir: Path) -> dict:
                     schema_props[prop_key] = {"$ref": f"#/$defs/{vref}"}
 
         concept_domain = data.get("domain")
-        concept_path = _compute_path(concept_domain, concept_id)
+        concept_path = _compute_path(concept_domain, bare_id)
         concept_schema: dict = {
             "$schema": "https://json-schema.org/draft/2020-12/schema",
             "$id": f"{base_uri.rstrip('/')}{concept_path}.schema.json",
-            "title": concept_id,
+            "title": bare_id,
         }
         concept_desc = data.get("definition", {}).get("en", "")
         if concept_desc:
@@ -801,11 +886,13 @@ def build_vocabulary(schema_dir: Path) -> dict:
     credential_schemas = {}
     for cred_id, cred_data in credentials_raw.items():
         subject_concept_id = cred_data.get("subject_concept")
-        if not subject_concept_id or subject_concept_id not in concept_schemas:
+        # Credential YAML uses bare concept ids; resolve to composite keys.
+        subject_key = _resolve_concept_key(subject_concept_id, concept_schemas) if subject_concept_id else None
+        if not subject_key or subject_key not in concept_schemas:
             continue
 
         # Start with the subject concept's properties as credentialSubject
-        subject_schema = dict(concept_schemas[subject_concept_id])
+        subject_schema = dict(concept_schemas[subject_key])
         subject_props = dict(subject_schema.get("properties", {}))
 
         # Merge $defs from subject concept and included concepts
@@ -815,8 +902,9 @@ def build_vocabulary(schema_dir: Path) -> dict:
 
         # Add nested included concepts as sub-objects
         for included_id in cred_data.get("included_concepts", []):
-            if included_id in concept_schemas:
-                nested = dict(concept_schemas[included_id])
+            included_key = _resolve_concept_key(included_id, concept_schemas)
+            if included_key in concept_schemas:
+                nested = dict(concept_schemas[included_key])
                 nested_obj: dict = {
                     "type": "object",
                     "properties": nested.get("properties", {}),
@@ -887,7 +975,8 @@ def build_vocabulary(schema_dir: Path) -> dict:
 
     for concept_id, concept_out in out_concepts.items():
         domain = concept_out.get("domain")
-        key = f"concepts/{domain}/{concept_id}.jsonld" if domain else f"concepts/{concept_id}.jsonld"
+        bare_id = concept_out["id"]
+        key = f"concepts/{domain}/{bare_id}.jsonld" if domain else f"concepts/{bare_id}.jsonld"
         jsonld_docs[key] = _concept_to_jsonld(
             concept_out, concepts_raw[concept_id], context_url,
             out_concepts, out_properties, properties_raw,
@@ -958,13 +1047,15 @@ def write_outputs(result: dict, dist_dir: Path):
 
     # Per-concept JSON Schemas (domain-scoped concepts go into subdirs)
     for concept_id, schema in result["concept_schemas"].items():
-        domain = result["concepts"][concept_id].get("domain")
+        concept = result["concepts"][concept_id]
+        domain = concept.get("domain")
+        bare_id = concept["id"]
         if domain:
             domain_dir = schemas_dir / domain
             domain_dir.mkdir(exist_ok=True)
-            out_path = domain_dir / f"{concept_id}.schema.json"
+            out_path = domain_dir / f"{bare_id}.schema.json"
         else:
-            out_path = schemas_dir / f"{concept_id}.schema.json"
+            out_path = schemas_dir / f"{bare_id}.schema.json"
         out_path.write_text(
             json.dumps(schema, indent=2, ensure_ascii=False) + "\n"
         )
@@ -1028,13 +1119,14 @@ def write_outputs(result: dict, dist_dir: Path):
     for concept_id, concept in result["concepts"].items():
         path = concept["path"]
         domain = concept.get("domain")
+        bare_id = concept["id"]
         dl_prefix = f"/downloads/{domain}" if domain else "/downloads"
         manifest["concepts"][concept_id] = {
             "schema": f"{path}.schema.json",
             "jsonld": f"{path}.jsonld",
-            "csv": f"{dl_prefix}/{concept_id}.csv",
-            "xlsx_definition": f"{dl_prefix}/{concept_id}-definition.xlsx",
-            "xlsx_template": f"{dl_prefix}/{concept_id}-template.xlsx",
+            "csv": f"{dl_prefix}/{bare_id}.csv",
+            "xlsx_definition": f"{dl_prefix}/{bare_id}-definition.xlsx",
+            "xlsx_template": f"{dl_prefix}/{bare_id}-template.xlsx",
         }
 
     for vocab_id, _vocab in result["vocabularies"].items():

@@ -26,6 +26,8 @@ The same test applies to properties and vocabularies in principle, but applying 
 
 Names are never prefixed with a domain abbreviation. It is `Enrollment`, not `SPEnrollment`. The URI structure handles disambiguation. One named exception exists: `CRVSPerson`, documented in [ADR-014](../decisions/014-crvs-person-naming.md). It is not a precedent; any further exception requires its own ADR.
 
+The build pipeline keys concepts internally by `{domain}/{id}` (e.g., `sp/Enrollment`, `crvs/Birth`) for domain-scoped concepts and by bare `id` (e.g., `Person`, `Event`) for universal ones. This prevents silent overwrites when two domains define concepts with the same short name.
+
 | Code | Domain | Status |
 |---|---|---|
 | `sp` | Social protection | Active |

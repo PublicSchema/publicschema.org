@@ -11,6 +11,8 @@ from pathlib import Path
 import rdflib
 from rdflib.namespace import RDF, RDFS, SKOS, XSD
 
+from build.build import _resolve_concept_key
+
 SCHEMA = rdflib.Namespace("https://schema.org/")
 PS = rdflib.Namespace("https://publicschema.org/meta/")
 
@@ -218,8 +220,11 @@ def build_shacl(result: dict) -> str:
             # Type constraints
             if prop_type.startswith("concept:"):
                 ref_id = prop_type.split(":", 1)[1]
-                if ref_id in concepts:
-                    g.add((prop_shape, SH["class"], rdflib.URIRef(concepts[ref_id]["uri"])))
+                # ref_id is a bare concept id from the YAML type field;
+                # resolve to the composite key used in concepts dict.
+                ref_key = _resolve_concept_key(ref_id, concepts)
+                if ref_key in concepts:
+                    g.add((prop_shape, SH["class"], rdflib.URIRef(concepts[ref_key]["uri"])))
                 g.add((prop_shape, SH.nodeKind, SH.BlankNodeOrIRI))
             elif prop_type == "geojson_geometry":
                 g.add((prop_shape, SH.datatype, RDF.JSON))

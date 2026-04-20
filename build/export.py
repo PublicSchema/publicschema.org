@@ -192,7 +192,8 @@ def generate_concept_csv(
         concept, vocab_result["properties"], vocab_result["concepts"],
     )
     out_dir = _concept_dir(concept, output_dir)
-    csv_path = out_dir / f"{concept_id}.csv"
+    bare_id = concept["id"]
+    csv_path = out_dir / f"{bare_id}.csv"
 
     schema_props = _load_property_schema_props()
     fieldnames = [
@@ -246,7 +247,8 @@ def generate_definition_xlsx(
     )
     vocabularies = vocab_result["vocabularies"]
     out_dir = _concept_dir(concept, output_dir)
-    xlsx_path = out_dir / f"{concept_id}-definition.xlsx"
+    bare_id = concept["id"]
+    xlsx_path = out_dir / f"{bare_id}-definition.xlsx"
 
     wb = Workbook()
 
@@ -424,7 +426,8 @@ def generate_template_xlsx(
     )
     vocabularies = vocab_result["vocabularies"]
     out_dir = _concept_dir(concept, output_dir)
-    xlsx_path = out_dir / f"{concept_id}-template.xlsx"
+    bare_id = concept["id"]
+    xlsx_path = out_dir / f"{bare_id}-template.xlsx"
 
     wb = Workbook()
     ws = wb.active

@@ -148,7 +148,7 @@ class TestPropertyInheritance:
 
 class TestConceptCSV:
     def test_csv_has_header_row(self, sample_vocab_result, tmp_path):
-        generate_concept_csv("Enrollment", sample_vocab_result, tmp_path)
+        generate_concept_csv("sp/Enrollment", sample_vocab_result, tmp_path)
         csv_path = tmp_path / "sp" / "Enrollment.csv"
         reader = csv.DictReader(csv_path.open())
         assert set(reader.fieldnames) == {
@@ -159,14 +159,14 @@ class TestConceptCSV:
         }
 
     def test_csv_has_one_row_per_property(self, sample_vocab_result, tmp_path):
-        generate_concept_csv("Enrollment", sample_vocab_result, tmp_path)
+        generate_concept_csv("sp/Enrollment", sample_vocab_result, tmp_path)
         csv_path = tmp_path / "sp" / "Enrollment.csv"
         reader = csv.DictReader(csv_path.open())
         rows = list(reader)
         assert len(rows) == 3
 
     def test_csv_property_values(self, sample_vocab_result, tmp_path):
-        generate_concept_csv("Enrollment", sample_vocab_result, tmp_path)
+        generate_concept_csv("sp/Enrollment", sample_vocab_result, tmp_path)
         csv_path = tmp_path / "sp" / "Enrollment.csv"
         reader = csv.DictReader(csv_path.open())
         rows = {r["property"]: r for r in reader}
@@ -305,12 +305,12 @@ class TestMetadataExport:
 
 class TestDefinitionXLSX:
     def test_has_concept_sheet(self, sample_vocab_result, tmp_path):
-        generate_definition_xlsx("Enrollment", sample_vocab_result, tmp_path)
+        generate_definition_xlsx("sp/Enrollment", sample_vocab_result, tmp_path)
         wb = load_workbook(tmp_path / "sp" / "Enrollment-definition.xlsx")
         assert "Concept" in wb.sheetnames
 
     def test_concept_sheet_has_metadata(self, sample_vocab_result, tmp_path):
-        generate_definition_xlsx("Enrollment", sample_vocab_result, tmp_path)
+        generate_definition_xlsx("sp/Enrollment", sample_vocab_result, tmp_path)
         wb = load_workbook(tmp_path / "sp" / "Enrollment-definition.xlsx")
         ws = wb["Concept"]
         # Collect all cell values from column A and B
@@ -327,12 +327,12 @@ class TestDefinitionXLSX:
         assert any("Social Protection" in str(v) for v in data.values())
 
     def test_has_properties_sheet(self, sample_vocab_result, tmp_path):
-        generate_definition_xlsx("Enrollment", sample_vocab_result, tmp_path)
+        generate_definition_xlsx("sp/Enrollment", sample_vocab_result, tmp_path)
         wb = load_workbook(tmp_path / "sp" / "Enrollment-definition.xlsx")
         assert "Properties" in wb.sheetnames
 
     def test_properties_sheet_has_header_and_rows(self, sample_vocab_result, tmp_path):
-        generate_definition_xlsx("Enrollment", sample_vocab_result, tmp_path)
+        generate_definition_xlsx("sp/Enrollment", sample_vocab_result, tmp_path)
         wb = load_workbook(tmp_path / "sp" / "Enrollment-definition.xlsx")
         ws = wb["Properties"]
         headers = [ws.cell(row=1, column=c).value for c in range(1, ws.max_column + 1)]
@@ -343,12 +343,12 @@ class TestDefinitionXLSX:
         assert ws.max_row == 4
 
     def test_has_vocabulary_sheets(self, sample_vocab_result, tmp_path):
-        generate_definition_xlsx("Enrollment", sample_vocab_result, tmp_path)
+        generate_definition_xlsx("sp/Enrollment", sample_vocab_result, tmp_path)
         wb = load_workbook(tmp_path / "sp" / "Enrollment-definition.xlsx")
         assert "enrollment-status" in wb.sheetnames
 
     def test_vocabulary_sheet_has_values(self, sample_vocab_result, tmp_path):
-        generate_definition_xlsx("Enrollment", sample_vocab_result, tmp_path)
+        generate_definition_xlsx("sp/Enrollment", sample_vocab_result, tmp_path)
         wb = load_workbook(tmp_path / "sp" / "Enrollment-definition.xlsx")
         ws = wb["enrollment-status"]
         headers = [ws.cell(row=1, column=c).value for c in range(1, ws.max_column + 1)]
@@ -377,12 +377,12 @@ class TestDefinitionXLSX:
 
 class TestTemplateXLSX:
     def test_has_data_sheet(self, sample_vocab_result, tmp_path):
-        generate_template_xlsx("Enrollment", sample_vocab_result, tmp_path)
+        generate_template_xlsx("sp/Enrollment", sample_vocab_result, tmp_path)
         wb = load_workbook(tmp_path / "sp" / "Enrollment-template.xlsx")
         assert "Data" in wb.sheetnames
 
     def test_row1_has_human_labels(self, sample_vocab_result, tmp_path):
-        generate_template_xlsx("Enrollment", sample_vocab_result, tmp_path)
+        generate_template_xlsx("sp/Enrollment", sample_vocab_result, tmp_path)
         wb = load_workbook(tmp_path / "sp" / "Enrollment-template.xlsx")
         ws = wb["Data"]
         labels = [ws.cell(row=1, column=c).value for c in range(1, ws.max_column + 1)]
@@ -392,7 +392,7 @@ class TestTemplateXLSX:
         assert "Enrollment date" in labels
 
     def test_row2_has_property_ids(self, sample_vocab_result, tmp_path):
-        generate_template_xlsx("Enrollment", sample_vocab_result, tmp_path)
+        generate_template_xlsx("sp/Enrollment", sample_vocab_result, tmp_path)
         wb = load_workbook(tmp_path / "sp" / "Enrollment-template.xlsx")
         ws = wb["Data"]
         ids = [ws.cell(row=2, column=c).value for c in range(1, ws.max_column + 1)]
@@ -401,7 +401,7 @@ class TestTemplateXLSX:
         assert "enrollment_date" in ids
 
     def test_vocabulary_columns_have_data_validation(self, sample_vocab_result, tmp_path):
-        generate_template_xlsx("Enrollment", sample_vocab_result, tmp_path)
+        generate_template_xlsx("sp/Enrollment", sample_vocab_result, tmp_path)
         wb = load_workbook(tmp_path / "sp" / "Enrollment-template.xlsx")
         ws = wb["Data"]
         # Find the enrollment_status column
@@ -416,7 +416,7 @@ class TestTemplateXLSX:
         assert has_validation, "enrollment_status column should have data validation"
 
     def test_header_cells_have_comments(self, sample_vocab_result, tmp_path):
-        generate_template_xlsx("Enrollment", sample_vocab_result, tmp_path)
+        generate_template_xlsx("sp/Enrollment", sample_vocab_result, tmp_path)
         wb = load_workbook(tmp_path / "sp" / "Enrollment-template.xlsx")
         ws = wb["Data"]
         # Row 1 (label row) should have comments with definitions
@@ -428,7 +428,7 @@ class TestTemplateXLSX:
         assert has_comment, "At least one header cell should have a comment"
 
     def test_rows_3_onward_are_empty(self, sample_vocab_result, tmp_path):
-        generate_template_xlsx("Enrollment", sample_vocab_result, tmp_path)
+        generate_template_xlsx("sp/Enrollment", sample_vocab_result, tmp_path)
         wb = load_workbook(tmp_path / "sp" / "Enrollment-template.xlsx")
         ws = wb["Data"]
         for c in range(1, ws.max_column + 1):

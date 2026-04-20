@@ -91,16 +91,19 @@ class TestCrvsConcepts:
     def test_concepts_load_in_build(self):
         """All CRVS concepts appear in the build output."""
         result = build_vocabulary(SCHEMA_DIR)
+        # CRVS concepts are keyed by composite key (crvs/<id>) in build output.
         for concept_id in CRVS_CONCEPTS:
-            assert concept_id in result["concepts"], (
-                f"Concept {concept_id} missing from build output"
+            composite = f"crvs/{concept_id}"
+            assert composite in result["concepts"], (
+                f"Concept {composite} missing from build output"
             )
 
     def test_crvs_scoped_concepts_have_domain_crvs(self):
         """CRVS concepts carry domain=crvs and produce /crvs/... URIs."""
         result = build_vocabulary(SCHEMA_DIR)
+        # CRVS concepts are keyed by composite key (crvs/<id>) in build output.
         for concept_id in CRVS_CONCEPTS:
-            concept = result["concepts"][concept_id]
+            concept = result["concepts"][f"crvs/{concept_id}"]
             assert concept["domain"] == "crvs", (
                 f"{concept_id} should have domain=crvs, got {concept['domain']}"
             )
@@ -190,11 +193,12 @@ class TestAbstractConcepts:
     def test_abstract_flag_propagates_to_build_output(self):
         """Build output carries the abstract flag for abstract concepts."""
         result = build_vocabulary(SCHEMA_DIR)
-        assert result["concepts"]["VitalEvent"]["abstract"] is True
-        assert result["concepts"]["MarriageTermination"]["abstract"] is True
+        # CRVS concepts are keyed by composite key (crvs/<id>) in build output.
+        assert result["concepts"]["crvs/VitalEvent"]["abstract"] is True
+        assert result["concepts"]["crvs/MarriageTermination"]["abstract"] is True
         # Concrete subtypes default to False
-        assert result["concepts"]["Birth"]["abstract"] is False
-        assert result["concepts"]["Divorce"]["abstract"] is False
+        assert result["concepts"]["crvs/Birth"]["abstract"] is False
+        assert result["concepts"]["crvs/Divorce"]["abstract"] is False
 
 
 class TestCrvsVocabularies:
@@ -539,8 +543,9 @@ class TestCRVSPerson:
     def test_crvs_person_in_build(self):
         """CRVSPerson appears in the build output."""
         result = build_vocabulary(SCHEMA_DIR)
-        assert "CRVSPerson" in result["concepts"]
-        crvs_person = result["concepts"]["CRVSPerson"]
+        # CRVS concepts are keyed by composite key (crvs/<id>) in build output.
+        assert "crvs/CRVSPerson" in result["concepts"]
+        crvs_person = result["concepts"]["crvs/CRVSPerson"]
         assert crvs_person["domain"] == "crvs"
 
 

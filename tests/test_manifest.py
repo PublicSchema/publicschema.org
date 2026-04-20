@@ -179,7 +179,8 @@ class TestManifestPathCorrectness:
         for concept_id, concept in result["concepts"].items():
             if concept.get("domain"):
                 entry = manifest["concepts"][concept_id]
-                assert entry["schema"] == f"/{concept['domain']}/{concept_id}.schema.json", (
+                bare_id = concept["id"]
+                assert entry["schema"] == f"/{concept['domain']}/{bare_id}.schema.json", (
                     f"Domain concept {concept_id} schema should include domain, "
                     f"got {entry['schema']}"
                 )
@@ -200,8 +201,9 @@ class TestManifestPathCorrectness:
         for concept_id, concept in result["concepts"].items():
             if concept.get("domain"):
                 domain = concept["domain"]
+                bare_id = concept["id"]
                 entry = manifest["concepts"][concept_id]
-                assert entry["csv"] == f"/downloads/{domain}/{concept_id}.csv", (
+                assert entry["csv"] == f"/downloads/{domain}/{bare_id}.csv", (
                     f"Domain concept {concept_id} csv should include /{domain}/, "
                     f"got {entry['csv']}"
                 )

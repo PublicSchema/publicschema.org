@@ -82,14 +82,14 @@ class TestURIGeneration:
             id="Enrollment", domain="sp",
         ))
         result = build_vocabulary(tmp_schema)
-        assert result["concepts"]["Enrollment"]["uri"] == "https://test.example.org/sp/Enrollment"
+        assert result["concepts"]["sp/Enrollment"]["uri"] == "https://test.example.org/sp/Enrollment"
 
     def test_domain_concept_path(self, tmp_schema, write_concept):
         write_concept("enrollment.yaml", make_concept(
             id="Enrollment", domain="sp",
         ))
         result = build_vocabulary(tmp_schema)
-        assert result["concepts"]["Enrollment"]["path"] == "/sp/Enrollment"
+        assert result["concepts"]["sp/Enrollment"]["path"] == "/sp/Enrollment"
 
     def test_universal_concept_path(self, tmp_schema, write_concept):
         write_concept("person.yaml", make_concept(id="Person"))
@@ -101,7 +101,7 @@ class TestURIGeneration:
             id="Enrollment", domain="sp",
         ))
         result = build_vocabulary(tmp_schema)
-        assert result["concepts"]["Enrollment"]["domain"] == "sp"
+        assert result["concepts"]["sp/Enrollment"]["domain"] == "sp"
 
     def test_universal_concept_domain_is_null(self, tmp_schema, write_concept):
         write_concept("person.yaml", make_concept(id="Person"))

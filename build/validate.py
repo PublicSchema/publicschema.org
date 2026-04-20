@@ -121,8 +121,29 @@ def validate_schema_dir(schema_dir: Path) -> list[ValidationError]:
         ))
     category_ids = set(categories.keys())
 
-    # Build lookup indexes
-    concept_ids = {data["id"] for data in concepts.values() if "id" in data}
+    # Build lookup indexes.
+    # concept_ids: bare short names (e.g. "Enrollment"), used for referential
+    #   integrity checks where YAML references (supertypes, bibliography informs)
+    #   also use bare names.
+    # concept_keys: composite keys (e.g. "sp/Enrollment", "Person"), used to
+    #   detect duplicate concept definitions that would silently overwrite each
+    #   other in the build pipeline's internal keying.
+    concept_ids = set()
+    concept_keys: set[str] = set()
+    for data in concepts.values():
+        if "id" not in data:
+            continue
+        bare_id = data["id"]
+        domain = data.get("domain")
+        composite = f"{domain}/{bare_id}" if domain else bare_id
+        concept_ids.add(bare_id)
+        if composite in concept_keys:
+            errors.append(ValidationError(
+                bare_id,
+                f"Duplicate concept key '{composite}': two concept files produce the same "
+                f"domain-qualified identifier. Rename one of them.",
+            ))
+        concept_keys.add(composite)
     property_ids = {data["id"] for data in properties.values() if "id" in data}
 
     # Vocabularies are referenced by their canonical form: '<domain>/<id>' for
