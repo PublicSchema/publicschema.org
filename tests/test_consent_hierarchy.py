@@ -192,10 +192,10 @@ class TestVocabularies:
         codes = {val["code"] for val in v["values"]}
         assert codes == {"internal_record", "receipt"}
 
-    def test_legal_basis_is_candidate(self):
-        """Law-locked values (GDPR Art 6(1)) justify candidate maturity."""
+    def test_legal_basis_is_normative(self):
+        """Law-locked values (GDPR Art 6(1)) are locked at normative."""
         v = load(VOCABULARIES / "legal-basis.yaml")
-        assert v["maturity"] == "candidate"
+        assert v["maturity"] == "normative"
 
     def test_consent_status_is_candidate(self):
         """DPV-aligned lifecycle states justify candidate per ADR-009 decision 5."""

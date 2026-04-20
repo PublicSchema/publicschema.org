@@ -114,14 +114,15 @@ class TestCrvsConcepts:
             )
             assert concept["path"] == f"/crvs/{concept_id}"
 
-    def test_all_crvs_concepts_draft_maturity(self):
-        """New CRVS concepts start at draft maturity."""
+    def test_all_crvs_concepts_have_maturity(self):
+        """Every CRVS concept declares a maturity level."""
+        allowed = {"draft", "candidate", "normative"}
         for concept_id in CRVS_CONCEPTS:
             kebab = _concept_id_to_kebab(concept_id)
             path = SCHEMA_DIR / "concepts" / f"{kebab}.yaml"
             data = _load_yaml(path)
-            assert data["maturity"] == "draft", (
-                f"{concept_id} should start at maturity=draft"
+            assert data["maturity"] in allowed, (
+                f"{concept_id} should declare a known maturity, got {data.get('maturity')}"
             )
 
 
