@@ -20,6 +20,12 @@ const conceptLabel = (c: { id: string; label?: { en?: string; fr?: string; es?: 
   c.label?.[locale] ?? c.label?.en ?? c.id;
 const showCanonical = locale !== defaultLocale;
 const concepts = Object.values(vocab.concepts).sort(byMaturityThenName);
+// Ids that appear in more than one domain (including root) need a domain prefix
+// in the link label to disambiguate. For example, "Person" exists at root and
+// under crvs/, so crvs/Person needs to show "crvs: Person".
+const idCounts: Record<string, number> = {};
+for (const c of concepts) { idCounts[c.id] = (idCounts[c.id] ?? 0) + 1; }
+const hasIdCollision = (c: { id: string }) => (idCounts[c.id] ?? 0) > 1;
 const coreConcepts = concepts.filter((c) => !c.domain);
 const domainLabels: Record<string, string> = { sp: t('concepts.section_social_protection'), crvs: t('concepts.section_crvs') };
 const domainCodes = [...new Set(concepts.filter((c) => c.domain).map((c) => c.domain as string))].sort();
@@ -80,7 +86,9 @@ const conceptsByDomain = Object.fromEntries(domainCodes.map((d) => [d, concepts.
           {conceptsByDomain[domain].map((c) => (
             <tr>
               <td>
-                <a href={localePath(c.path, locale)}>{conceptLabel(c)}</a>
+                <a href={localePath(c.path, locale)}>
+                  {hasIdCollision(c) && <span class="domain-prefix">{c.domain}:</span>}{conceptLabel(c)}
+                </a>
                 {showCanonical && conceptLabel(c) !== c.id && <span class="canonical-hint">{c.id}</span>}
               </td>
               <td data-label={t('concepts.table.definition')}>

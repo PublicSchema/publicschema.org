@@ -180,19 +180,25 @@ class TestRealSchemaKeying:
 
     def test_crvs_concepts_keyed_by_composite(self, real_result):
         """Known crvs/ concepts appear under composite keys."""
-        for name in ("Birth", "Death", "Marriage", "CRVSPerson"):
+        for name in ("Birth", "Death", "Marriage", "Person"):
             key = f"crvs/{name}"
             assert key in real_result["concepts"], (
                 f"Expected composite key '{key}' in concepts"
             )
 
     def test_universal_concepts_keyed_by_bare_id(self, real_result):
-        """Known universal concepts appear under bare id keys (no slash prefix)."""
+        """Known universal concepts appear under bare id keys (no slash prefix).
+        Person is excluded from the crvs/ assertion because crvs/Person is a
+        legitimate domain-scoped concept (a temporal snapshot of Person at event
+        time) introduced alongside the universal root Person.
+        """
         for name in ("Person", "Event", "Organization", "Household", "Location"):
             assert name in real_result["concepts"], (
                 f"Expected bare key '{name}' in concepts"
             )
             assert f"sp/{name}" not in real_result["concepts"]
+        # Only names that have no domain-specific subtype should be absent from crvs/.
+        for name in ("Event", "Organization", "Household", "Location"):
             assert f"crvs/{name}" not in real_result["concepts"]
 
     def test_no_concept_id_field_contains_slash(self, real_result):

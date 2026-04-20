@@ -41,6 +41,13 @@ const coreChips = featuredOrSlice(coreConcepts);
 const domainChips = Object.fromEntries(
   domainCodes.map((d) => [d, featuredOrSlice(conceptsByDomain[d])]),
 );
+// Ids that appear in more than one domain (including root) need a domain prefix
+// in chip labels to disambiguate. For example, "Person" exists at root and
+// under crvs/, so the crvs/Person chip shows "crvs: Person".
+const idCounts: Record<string, number> = {};
+for (const c of concepts) { idCounts[c.id] = (idCounts[c.id] ?? 0) + 1; }
+const chipLabel = (c: { id: string; domain?: string | null }) =>
+  (idCounts[c.id] ?? 0) > 1 && c.domain ? `${c.domain}: ${c.id}` : c.id;
 // Vocabularies are keyed by their canonical reference form (`<domain>/<id>`
 // for domain-scoped vocabs). Keep the entry key alongside so href links use
 // the prefixed path required by CRVS and other domain-scoped routes.
@@ -129,7 +136,7 @@ const { title, description } = titles[locale];
       <div class="h3-idx-chips">
         {coreChips.map((c) => (
           <a href={localePath(c.path, locale)} class="h3-chip">
-            {c.id}
+            {chipLabel(c)}
           </a>
         ))}
         {coreConcepts.length > coreChips.length && (
@@ -149,7 +156,7 @@ const { title, description } = titles[locale];
         <div class="h3-idx-chips">
           {domainChips[domain].map((c) => (
             <a href={localePath(c.path, locale)} class="h3-chip">
-              {c.id}
+              {chipLabel(c)}
             </a>
           ))}
           {conceptsByDomain[domain].length > domainChips[domain].length && (

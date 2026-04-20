@@ -299,30 +299,68 @@ def validate_schema_dir(schema_dir: Path) -> list[ValidationError]:
                     f"Subtype '{subtype}' referenced but not defined in concepts/",
                 ))
 
-    # Supertype/subtype symmetry
-    concept_by_id = {}
+    # Supertype/subtype symmetry.
+    # concept_by_composite keys concepts by "domain/id" (or bare "id" for
+    # universal concepts). This avoids collisions when two concepts in different
+    # domains share the same bare id (e.g. crvs/Person and root Person).
+    concept_by_composite: dict[str, tuple[str, dict]] = {}
     for filename, data in concepts.items():
+        cid = data.get("id")
+        if cid:
+            domain = data.get("domain")
+            composite = f"{domain}/{cid}" if domain else cid
+            concept_by_composite[composite] = (filename, data)
+
+    # Build an index from bare id -> list of composite keys, so supertype
+    # references (which use bare ids) can resolve to all matching concepts.
+    bare_to_composites: dict[str, list[str]] = {}
+    for composite, (_, data) in concept_by_composite.items():
+        cid = data.get("id")
+        if cid:
+            bare_to_composites.setdefault(cid, []).append(composite)
+
+    # Maintain a bare-id lookup that is still used by _collect_inherited_ids.
+    # When bare ids are ambiguous, prefer the domain-scoped entry (last writer
+    # wins here is acceptable because _collect_inherited_ids is only called for
+    # property_groups completeness where the domain context is local).
+    concept_by_id: dict[str, tuple[str, dict]] = {}
+    for composite, (filename, data) in concept_by_composite.items():
         cid = data.get("id")
         if cid:
             concept_by_id[cid] = (filename, data)
 
-    for cid, (filename, data) in concept_by_id.items():
+    for composite, (filename, data) in concept_by_composite.items():
+        cid = data.get("id")
+        if not cid:
+            continue
         for supertype in data.get("supertypes", []):
-            if supertype in concept_by_id:
-                parent_data = concept_by_id[supertype][1]
-                if cid not in parent_data.get("subtypes", []):
-                    errors.append(ValidationError(
-                        filename,
-                        f"'{cid}' lists '{supertype}' as supertype, but '{supertype}' does not list '{cid}' as subtype",
-                    ))
+            if supertype not in bare_to_composites:
+                continue
+            # The symmetry check passes if any concept with this bare id lists
+            # the current concept as a subtype.
+            any_match = any(
+                cid in concept_by_composite[sc][1].get("subtypes", [])
+                for sc in bare_to_composites[supertype]
+            )
+            if not any_match:
+                errors.append(ValidationError(
+                    filename,
+                    f"'{cid}' lists '{supertype}' as supertype, but '{supertype}' does not list '{cid}' as subtype",
+                ))
         for subtype in data.get("subtypes", []):
-            if subtype in concept_by_id:
-                child_data = concept_by_id[subtype][1]
-                if cid not in child_data.get("supertypes", []):
-                    errors.append(ValidationError(
-                        filename,
-                        f"'{cid}' lists '{subtype}' as subtype, but '{subtype}' does not list '{cid}' as supertype",
-                    ))
+            if subtype not in bare_to_composites:
+                continue
+            # The symmetry check passes if any concept with this bare id lists
+            # the current concept as a supertype.
+            any_match = any(
+                cid in concept_by_composite[sc][1].get("supertypes", [])
+                for sc in bare_to_composites[subtype]
+            )
+            if not any_match:
+                errors.append(ValidationError(
+                    filename,
+                    f"'{cid}' lists '{subtype}' as subtype, but '{subtype}' does not list '{cid}' as supertype",
+                ))
 
     # Validate bibliography entries
     for filename, data in bibliography.items():

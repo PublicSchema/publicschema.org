@@ -627,7 +627,7 @@ no_match:
       register (livret de famille, koseki, hukou); families are not modelled
       as a tracked unit.
 
-  - v2_concept: CRVSPerson
+  - v2_concept: Person
     reason: >
       OpenCRVS v1 has no temporal-snapshot concept. Demographic fields
       (occupation, education, marital status) sit directly on the Person type

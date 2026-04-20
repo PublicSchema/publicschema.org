@@ -34,8 +34,8 @@ test.describe("Concept detail: property groups", () => {
     await expect(page.locator("#properties")).not.toContainText(/wall_material/);
   });
 
-  test("CRVSPerson page shows category separators", async ({ page }) => {
-    await page.goto("/crvs/CRVSPerson/");
+  test("crvs/Person page shows category separators", async ({ page }) => {
+    await page.goto("/crvs/Person/");
 
     const separators = page.locator(".category-separator");
     const count = await separators.count();

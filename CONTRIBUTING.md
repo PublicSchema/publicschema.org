@@ -52,7 +52,7 @@ schema/ (YAML) --> build pipeline --> dist/ (JSON, CSV, XLSX, TTL, SHACL) --> si
 Create a YAML file in `schema/concepts/`. Follow existing files as a template.
 
 Key fields:
-- `name`: PascalCase, no domain prefix (use `Enrollment`, not `SPEnrollment`). One named exception: `CRVSPerson`, see [ADR-014](decisions/014-crvs-person-naming.md).
+- `name`: PascalCase, no domain prefix (use `Enrollment`, not `SPEnrollment`). Two concepts in different domains may share a short name; the build keys by `(domain, id)` so they coexist without collision. See [ADR-018](decisions/018-crvs-person-rename.md) for an example.
 - `definition`: plain language, written for a policy officer. 1-3 sentences.
 - `domain`: set to `sp` for social-protection-specific concepts, omit for universal concepts
 - `maturity`: one of `draft`, `candidate`, `normative`

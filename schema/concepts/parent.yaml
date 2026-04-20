@@ -8,17 +8,17 @@ label:
 
 definition:
   en: >
-    A CRVSPerson subtype that carries a parental role (biological mother,
+    A crvs/Person subtype that carries a parental role (biological mother,
     biological father, legal mother, legal father, adoptive mother, adoptive
     father, surrogate mother) alongside the inherited person-of-record
     properties. Used on Birth, Adoption, PaternityRecognition, and
     Legitimation so that biological and legal parentage can be captured
     explicitly rather than collapsed into a single parent slot. Parent is a
     role-qualified person-of-record, not a pure link entity: it inherits
-    demographic and identity properties from CRVSPerson and adds
+    demographic and identity properties from crvs/Person and adds
     parental_role.
   fr: >
-    Un sous-type de CRVSPerson qui porte un rôle parental (mère biologique,
+    Un sous-type de crvs/Person qui porte un rôle parental (mère biologique,
     père biologique, mère légale, père légal, mère adoptive, père adoptif,
     mère porteuse) à côté des propriétés de personne concernée héritées.
     Utilisé dans les actes de Naissance, d'Adoption, de Reconnaissance de
@@ -26,10 +26,10 @@ definition:
     juridique puissent être saisies de manière explicite plutôt que
     fusionnées dans un seul champ parent. Parent est une personne concernée
     qualifiée par un rôle, pas une simple entité de lien : il hérite des
-    propriétés démographiques et d'identité de CRVSPerson et ajoute
+    propriétés démographiques et d'identité de crvs/Person et ajoute
     parental_role.
   es: >
-    Un subtipo de CRVSPerson que porta un rol parental (madre biológica,
+    Un subtipo de crvs/Person que porta un rol parental (madre biológica,
     padre biológico, madre legal, padre legal, madre adoptiva, padre
     adoptivo, madre gestante) junto con las propiedades heredadas de
     persona objeto del registro. Se utiliza en Nacimiento, Adopción,
@@ -38,13 +38,13 @@ definition:
     lugar de reducirse a un único campo de progenitor. Parent es una
     persona objeto del registro cualificada por un rol, no una simple
     entidad de enlace: hereda las propiedades demográficas y de
-    identificación de CRVSPerson y añade parental_role.
+    identificación de crvs/Person y añade parental_role.
 
 properties:
   - parental_role
 
 subtypes: []
-supertypes: [CRVSPerson]
+supertypes: [Person]
 
 external_equivalents:
   opencrvs:

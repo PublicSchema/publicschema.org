@@ -25,7 +25,7 @@ informs:
     - FamilyRegister
     - Certificate
     - VitalEvent
-    - CRVSPerson
+    - Person
   vocabularies:
     - crvs/civil-status-record-type
     - crvs/manner-of-death

@@ -1,6 +1,6 @@
 # ADR-014: CRVSPerson as a named exception to the domain-prefix rule
 
-**Status:** Accepted
+**Status:** Superseded by ADR-018
 
 ## Context
 

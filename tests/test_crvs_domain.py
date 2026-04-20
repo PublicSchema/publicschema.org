@@ -22,7 +22,7 @@ CRVS_CONCEPTS = [
     "CivilStatusRecord",
     "CivilStatusAnnotation",
     "Parent",
-    "CRVSPerson",
+    "Person",
     "Certificate",
     "FamilyRegister",
 ]
@@ -53,8 +53,10 @@ def _load_yaml(path: Path) -> dict:
 
 # Concept IDs whose kebab-case filename doesn't follow the naive
 # "insert dash before each uppercase letter" algorithm.
+# crvs/Person lives in crvs-person.yaml to avoid filesystem collision with
+# the root person.yaml.
 _KEBAB_OVERRIDES = {
-    "CRVSPerson": "crvs-person",
+    "Person": "crvs-person",
 }
 
 
@@ -462,14 +464,14 @@ class TestDemographicVocabularies:
 
 
 class TestEventPropertyReferences:
-    """Event properties that reference CRVSPerson instead of Person."""
+    """Event properties that reference crvs/Person."""
 
     @pytest.mark.parametrize("prop_id", ["deceased", "party_1", "party_2"])
     def test_property_references_crvs_person(self, prop_id):
-        """deceased, party_1, party_2 reference CRVSPerson, not Person."""
+        """deceased, party_1, party_2 reference crvs/Person (id: Person in the crvs domain)."""
         data = _load_yaml(SCHEMA_DIR / "properties" / f"{prop_id}.yaml")
-        assert data["type"] == "concept:CRVSPerson"
-        assert data["references"] == "CRVSPerson"
+        assert data["type"] == "concept:Person"
+        assert data["references"] == "Person"
 
     def test_birth_does_not_have_place_of_usual_residence(self):
         """Birth no longer lists place_of_usual_residence directly."""
@@ -488,7 +490,7 @@ class TestEventPropertyReferences:
 
 
 class TestCRVSPerson:
-    """CRVSPerson is a temporal snapshot of a Person at the time of a vital event."""
+    """crvs/Person is a temporal snapshot of a Person at the time of a vital event."""
 
     CRVS_PERSON_PROPERTIES = [
         "person",
@@ -507,25 +509,30 @@ class TestCRVSPerson:
     ]
 
     def test_crvs_person_file_exists(self):
-        """CRVSPerson concept has a YAML file on disk."""
+        """crvs/Person concept lives in crvs-person.yaml (preserves filename to avoid collision with root person.yaml)."""
         path = SCHEMA_DIR / "concepts" / "crvs-person.yaml"
         assert path.exists()
 
     def test_crvs_person_domain_is_crvs(self):
-        """CRVSPerson belongs to the CRVS domain."""
+        """crvs/Person belongs to the CRVS domain."""
         data = _load_yaml(SCHEMA_DIR / "concepts" / "crvs-person.yaml")
         assert data["domain"] == "crvs"
 
+    def test_crvs_person_id_is_person(self):
+        """crvs-person.yaml declares id: Person (not CRVSPerson)."""
+        data = _load_yaml(SCHEMA_DIR / "concepts" / "crvs-person.yaml")
+        assert data["id"] == "Person"
+
     def test_crvs_person_has_all_snapshot_properties(self):
-        """CRVSPerson carries all demographic snapshot properties."""
+        """crvs/Person carries all demographic snapshot properties."""
         data = _load_yaml(SCHEMA_DIR / "concepts" / "crvs-person.yaml")
         for prop in self.CRVS_PERSON_PROPERTIES:
             assert prop in data["properties"], (
-                f"CRVSPerson should have property '{prop}'"
+                f"crvs/Person should have property '{prop}'"
             )
 
     def test_crvs_person_subtypes_include_parent(self):
-        """CRVSPerson lists Parent as a subtype."""
+        """crvs/Person lists Parent as a subtype."""
         data = _load_yaml(SCHEMA_DIR / "concepts" / "crvs-person.yaml")
         assert "Parent" in data["subtypes"]
 
@@ -545,11 +552,11 @@ class TestCRVSPerson:
         assert data.get("domain_override") == "crvs"
 
     def test_crvs_person_in_build(self):
-        """CRVSPerson appears in the build output."""
+        """crvs/Person appears in the build output under the composite key crvs/Person."""
         result = build_vocabulary(SCHEMA_DIR)
         # CRVS concepts are keyed by composite key (crvs/<id>) in build output.
-        assert "crvs/CRVSPerson" in result["concepts"]
-        crvs_person = result["concepts"]["crvs/CRVSPerson"]
+        assert "crvs/Person" in result["concepts"]
+        crvs_person = result["concepts"]["crvs/Person"]
         assert crvs_person["domain"] == "crvs"
 
 
@@ -560,11 +567,11 @@ class TestParentLinkEntity:
         assert "parental_role" in data["properties"]
 
     def test_parent_inherits_from_crvs_person(self):
-        """Parent is a subtype of CRVSPerson."""
+        """Parent is a subtype of crvs/Person."""
         data = _load_yaml(SCHEMA_DIR / "concepts" / "parent.yaml")
-        assert "CRVSPerson" in data["supertypes"]
+        assert "Person" in data["supertypes"]
 
     def test_parent_does_not_directly_list_person(self):
-        """person is inherited from CRVSPerson, not listed directly on Parent."""
+        """person is inherited from crvs/Person, not listed directly on Parent."""
         data = _load_yaml(SCHEMA_DIR / "concepts" / "parent.yaml")
         assert "person" not in data["properties"]
