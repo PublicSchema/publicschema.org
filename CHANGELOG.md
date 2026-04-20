@@ -92,3 +92,9 @@ breaking changes are permitted per ADR-002.
   fills the gap at the schema level; systems mapping to FHIR emit `GESTM`
   when the gestational parent is female and use `PRN` with a local extension
   otherwise. Documented in ADR-019.
+- `FamilyRegister` declares both the inherited `issuing_authority` /
+  `issue_date` (from its `CivilStatusDocument` supertype) and its own
+  `register_authority` / `creation_date`. The register book and a register
+  extract may legitimately carry different authorities and dates, but the
+  semantic split is not yet documented. A post-0.3.0 audit will either
+  consolidate the pair or clarify the distinction in the property definitions.

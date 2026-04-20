@@ -114,15 +114,49 @@ class TestCrvsConcepts:
             )
             assert concept["path"] == f"/crvs/{concept_id}"
 
-    def test_all_crvs_concepts_have_maturity(self):
-        """Every CRVS concept declares a maturity level."""
-        allowed = {"draft", "candidate", "normative"}
-        for concept_id in CRVS_CONCEPTS:
+    def test_crvs_concept_maturity_matches_release_plan(self):
+        """Each CRVS concept carries the maturity declared for the 0.3.0 release.
+
+        The expected values track the 'Maturity promotions' section of the
+        CHANGELOG. If a promotion is added or reverted, update both the
+        CHANGELOG and this map so we have one authoritative record of what is
+        locked at which maturity at release time.
+        """
+        expected_maturity = {
+            # Draft -> candidate (0.3.0)
+            "VitalEvent": "candidate",
+            "Birth": "candidate",
+            "Death": "candidate",
+            "Marriage": "candidate",
+            "MarriageTermination": "candidate",
+            "Person": "candidate",
+            # Holding at draft
+            "FetalDeath": "draft",
+            "Adoption": "draft",
+            "PaternityRecognition": "draft",
+            "Legitimation": "draft",
+            "CivilStatusRecord": "draft",
+            "CivilStatusAnnotation": "draft",
+            "Parent": "draft",
+            "Certificate": "draft",
+            "FamilyRegister": "draft",
+        }
+        # Every concept in CRVS_CONCEPTS has an expected value; this guards
+        # against a concept being added to the list without also being added
+        # here, which would let a silent maturity regression slip through.
+        missing = [c for c in CRVS_CONCEPTS if c not in expected_maturity]
+        assert not missing, (
+            f"CRVS concept(s) {missing} have no expected maturity in this test; "
+            f"add them to expected_maturity before promoting or demoting them."
+        )
+        for concept_id, expected in expected_maturity.items():
             kebab = _concept_id_to_kebab(concept_id)
             path = SCHEMA_DIR / "concepts" / f"{kebab}.yaml"
             data = _load_yaml(path)
-            assert data["maturity"] in allowed, (
-                f"{concept_id} should declare a known maturity, got {data.get('maturity')}"
+            actual = data.get("maturity")
+            assert actual == expected, (
+                f"{concept_id} expected maturity '{expected}', got '{actual}'. "
+                f"If this is intentional, update both the CHANGELOG and this test."
             )
 
 
