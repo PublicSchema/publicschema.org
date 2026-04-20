@@ -37,7 +37,7 @@ class TestManifestStructure:
     def test_meta_fields(self, manifest):
         """Manifest meta fields match _meta.yaml values."""
         assert manifest["name"] == "PublicSchema"
-        assert manifest["version"] == "0.2.0"
+        assert manifest["version"] == "0.3.0"
         assert manifest["maturity"] == "draft"
         assert manifest["base_uri"] == "https://publicschema.org/"
 
