@@ -238,12 +238,16 @@ const vocabDef = (v: { definition?: { en?: string; fr?: string; es?: string } })
     background: none;
     border: 1px solid #bbb;
     border-radius: 4px;
-    padding: 0.25rem 0.6rem;
+    padding: 0.4rem 0.75rem;
     cursor: pointer;
     align-self: flex-start;
     color: #444;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
   }
   .clear-btn:hover { background: #eee; }
+  .clear-btn:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; }
 
   .facet-group {
     border: none;
@@ -263,13 +267,17 @@ const vocabDef = (v: { definition?: { en?: string; fr?: string; es?: string } })
     align-items: center;
     gap: 0.4rem;
     font-size: 0.85rem;
-    padding: 0.1rem 0;
+    padding: 0.3rem 0;
     cursor: pointer;
     color: #333;
+    min-height: 44px;
   }
   .facet-group input[type="checkbox"] {
     accent-color: #2563eb;
     cursor: pointer;
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
   }
 
   .active-badge {
@@ -404,6 +412,7 @@ const vocabDef = (v: { definition?: { en?: string; fr?: string; es?: string } })
   .standard-name {
     color: #666;
     margin-left: 0.25rem;
+    overflow-wrap: anywhere;
   }
 
   .card-def {
@@ -454,6 +463,28 @@ const vocabDef = (v: { definition?: { en?: string; fr?: string; es?: string } })
     .facet-drawer:not([open]) .facet-content {
       display: none;
     }
+    /* Visible chevron arrow so users know the panel is toggleable */
+    .facet-drawer-toggle::after {
+      content: '▸';
+      margin-left: auto;
+      font-size: 0.8rem;
+      transition: transform 0.2s;
+    }
+    .facet-drawer[open] > .facet-drawer-toggle::after {
+      content: '▾';
+    }
+    /* Increase toggle tap height */
+    .facet-drawer-toggle {
+      min-height: 44px;
+    }
+    /* Grid: single column at narrow viewports */
+    .card-grid {
+      grid-template-columns: 1fr;
+    }
+    /* Result count can wrap under the search box */
+    .result-count {
+      white-space: normal;
+    }
   }
 
   @media (min-width: 701px) {
@@ -468,6 +499,12 @@ const vocabDef = (v: { definition?: { en?: string; fr?: string; es?: string } })
 
 <script>
   (() => {
+    // Close the filter drawer by default on mobile; keep open on desktop.
+    const drawer = document.querySelector<HTMLDetailsElement>('.facet-drawer');
+    if (drawer && window.innerWidth <= 700) {
+      drawer.removeAttribute('open');
+    }
+
     const grid = document.getElementById('card-grid')!;
     const cards = Array.from(grid.querySelectorAll<HTMLElement>('.concept-card'));
     const searchInput = document.getElementById('vocab-search') as HTMLInputElement;
