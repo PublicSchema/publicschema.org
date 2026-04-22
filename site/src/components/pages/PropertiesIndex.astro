@@ -12,46 +12,624 @@ const { locale = defaultLocale } = Astro.props;
 const t = useTranslations(locale);
 
 const vocab = loadVocabulary();
-const maturityRank: Record<string, number> = { normative: 0, candidate: 1, draft: 2 };
-const byMaturityThenName = (a: { maturity: string; id: string }, b: { maturity: string; id: string }) =>
-  (maturityRank[a.maturity] ?? 9) - (maturityRank[b.maturity] ?? 9) || a.id.localeCompare(b.id);
-const properties = Object.values(vocab.properties).sort(byMaturityThenName);
-const primitiveTypes = ["string", "integer", "decimal", "boolean", "date", "datetime", "uri", "geojson_geometry"];
+
+function typeKind(p: { type: string; vocabulary: string | null }): 'primitive' | 'concept' | 'vocabulary' {
+  if (p.type?.startsWith('concept:')) return 'concept';
+  if (p.vocabulary) return 'vocabulary';
+  return 'primitive';
+}
+
+// Order: universal first, then sp, then crvs; alphabetical within.
+const domainOrder: Record<string, number> = { '': 0, sp: 1, crvs: 2 };
+const properties = Object.values(vocab.properties).sort((a, b) => {
+  const da = domainOrder[a.domain ?? ''] ?? 99;
+  const db = domainOrder[b.domain ?? ''] ?? 99;
+  if (da !== db) return da - db;
+  return a.id.localeCompare(b.id);
+});
+
+const totalCount = properties.length;
+
+const propLabel = (p: { id: string; label?: { en?: string; fr?: string; es?: string } }) =>
+  p.label?.[locale] ?? p.label?.en ?? p.id;
+const propDef = (p: { definition?: { en?: string; fr?: string; es?: string } }) =>
+  p.definition?.[locale] ?? p.definition?.en ?? '';
+
+// Only surface sensitivity filter if at least one property has it set.
+const hasSensitive = properties.some((p) => p.sensitivity === 'sensitive');
+const hasRestricted = properties.some((p) => p.sensitivity === 'restricted');
 ---
 <Base title={t('properties.page_title')} description={t('properties.page_subtitle')} locale={locale}>
-  <div class="page-header">
+  <div class="faceted-page">
     <nav class="breadcrumb" aria-label={t('breadcrumb.home')}>
       <a href={localePath('/', locale)}>{t('breadcrumb.home')}</a><span class="separator">/</span>{t('common.properties')}
     </nav>
-    <h1>{t('properties.page_title')}</h1>
-    <p class="subtitle">{t('properties.page_subtitle')}</p>
-  </div>
 
-  <table class="data-table mobile-card-table">
-    <thead>
-      <tr>
-        <th>{t('properties.table.property')}</th>
-        <th>{t('properties.table.type')}</th>
-        <th>{t('properties.table.used_by')}</th>
-      </tr>
-    </thead>
-    <tbody>
-      {properties.map((p) => {
-        const conceptRef = p.type.match(/^concept:(.+)$/)?.[1];
-        const isPrimitive = primitiveTypes.includes(p.type);
-        return (
-          <tr>
-            <td><a href={localePath(p.path, locale)}>{p.label?.[locale] ?? p.label?.en ?? p.id}</a></td>
-            <td data-label={t('properties.table.type')}>{conceptRef
-              ? <a href={localePath(vocab.concepts[conceptRef]?.path || `/${conceptRef}`, locale)}><code>{p.type}</code></a>
-              : isPrimitive
-                ? <a href={localePath(`/types#${p.type}`, locale)}><code>{p.type}</code></a>
-                : <code>{p.type}</code>
-            }</td>
-            <td data-label={t('properties.table.used_by')}>{p.used_by.join(", ")}</td>
-          </tr>
-        );
-      })}
-    </tbody>
-  </table>
+    <header class="page-header">
+      <h1>{t('properties.page_title')}</h1>
+      <p class="intro">{t('properties.browse_intro', { count: totalCount })}</p>
+    </header>
+
+    <div class="layout">
+      <aside class="facet-panel">
+        <details class="facet-drawer" open>
+          <summary class="facet-drawer-toggle">
+            {t('browse.filters')}
+            <span class="active-badge" id="active-count" aria-live="polite"></span>
+          </summary>
+
+          <div class="facet-content">
+            <button class="clear-btn" id="clear-all" type="button">{t('browse.clear_all')}</button>
+
+            <fieldset class="facet-group">
+              <legend>{t('browse.facet_domain')}</legend>
+              <label><input type="checkbox" name="domain" value="root"> {t('browse.domain_universal')}</label>
+              <label><input type="checkbox" name="domain" value="sp"> {t('browse.domain_sp')}</label>
+              <label><input type="checkbox" name="domain" value="crvs"> {t('browse.domain_crvs')}</label>
+            </fieldset>
+
+            <fieldset class="facet-group">
+              <legend>{t('browse.facet_maturity')}</legend>
+              <label><input type="checkbox" name="maturity" value="draft"> {t('browse.maturity_draft')}</label>
+              <label><input type="checkbox" name="maturity" value="candidate"> {t('browse.maturity_candidate')}</label>
+              <label><input type="checkbox" name="maturity" value="normative"> {t('browse.maturity_normative')}</label>
+            </fieldset>
+
+            <fieldset class="facet-group">
+              <legend>{t('browse.facet_type')}</legend>
+              <label><input type="checkbox" name="kind" value="primitive"> {t('browse.type_primitive')}</label>
+              <label><input type="checkbox" name="kind" value="concept"> {t('browse.type_concept')}</label>
+              <label><input type="checkbox" name="kind" value="vocabulary"> {t('browse.type_vocabulary')}</label>
+            </fieldset>
+
+            <fieldset class="facet-group">
+              <legend>{t('browse.facet_cardinality')}</legend>
+              <label><input type="checkbox" name="cardinality" value="single"> {t('browse.cardinality_single')}</label>
+              <label><input type="checkbox" name="cardinality" value="multiple"> {t('browse.cardinality_multiple')}</label>
+            </fieldset>
+
+            {(hasSensitive || hasRestricted) && (
+              <fieldset class="facet-group">
+                <legend>{t('browse.facet_sensitivity')}</legend>
+                {hasSensitive && (
+                  <label><input type="checkbox" name="sensitivity" value="sensitive"> {t('browse.sensitivity_sensitive')}</label>
+                )}
+                {hasRestricted && (
+                  <label><input type="checkbox" name="sensitivity" value="restricted"> {t('browse.sensitivity_restricted')}</label>
+                )}
+              </fieldset>
+            )}
+          </div>
+        </details>
+      </aside>
+
+      <main class="results-area">
+        <div class="results-toolbar">
+          <div class="search-wrap">
+            <label for="property-search" class="sr-only">{t('browse.search_placeholder')}</label>
+            <input
+              type="search"
+              id="property-search"
+              placeholder={t('browse.search_placeholder')}
+              autocomplete="off"
+            />
+          </div>
+          <p class="result-count" id="result-count" data-showing-template={t('browse.showing', { visible: '__V__', total: totalCount })} aria-live="polite" aria-atomic="true">
+            {t('browse.showing', { visible: totalCount, total: totalCount })}
+          </p>
+        </div>
+
+        <div class="card-grid" id="card-grid">
+          {properties.map((p) => {
+            const domainVal = p.domain ?? 'root';
+            const kind = typeKind(p);
+            const defFull = propDef(p).replace(/\n/g, ' ');
+            const defSnippet = defFull.slice(0, 150);
+            const defDisplay = defSnippet.length === 150 ? defSnippet + '…' : defSnippet;
+            const href = p.path.endsWith('/') ? p.path : p.path + '/';
+            return (
+              <a
+                href={localePath(href, locale)}
+                class="concept-card"
+                data-id={p.id.toLowerCase()}
+                data-label={propLabel(p).toLowerCase()}
+                data-definition={defFull.toLowerCase()}
+                data-used-by={(p.used_by ?? []).join(' ').toLowerCase()}
+                data-domain={domainVal}
+                data-maturity={p.maturity}
+                data-kind={kind}
+                data-cardinality={p.cardinality}
+                data-sensitivity={p.sensitivity ?? ''}
+              >
+                <div class="card-header">
+                  <span class="concept-label">{propLabel(p)}</span>
+                  <div class="badges">
+                    {domainVal !== 'root' && (
+                      <span class={`badge badge-domain badge-domain-${domainVal}`}>
+                        {p.domain}
+                      </span>
+                    )}
+                    <span class={`badge badge-maturity badge-maturity-${p.maturity}`}>
+                      {t(`browse.maturity_${p.maturity}`)}
+                    </span>
+                    {p.sensitivity === 'sensitive' && (
+                      <span class="badge badge-sensitivity-sensitive">{t('browse.sensitivity_sensitive')}</span>
+                    )}
+                    {p.sensitivity === 'restricted' && (
+                      <span class="badge badge-sensitivity-restricted">{t('browse.sensitivity_restricted')}</span>
+                    )}
+                  </div>
+                </div>
+                <p class="card-id">{p.id}</p>
+                <p class="card-type">
+                  <code>{p.type}</code>
+                  {p.cardinality === 'multiple' && <span class="card-cardinality">· {t('browse.cardinality_multiple').toLowerCase()}</span>}
+                  {p.vocabulary && <span class="card-vocab">· {p.vocabulary}</span>}
+                </p>
+                {defDisplay && <p class="card-def">{defDisplay}</p>}
+                {p.used_by && p.used_by.length > 0 && (
+                  <p class="card-usedby">
+                    <span class="used-by-label">{t('browse.used_by')}:</span>
+                    {p.used_by.join(', ')}
+                  </p>
+                )}
+              </a>
+            );
+          })}
+        </div>
+
+        <p class="no-results" id="no-results" hidden>
+          {t('browse.no_results')} <button type="button" id="clear-all-2">{t('browse.clear_filters_link')}</button>
+        </p>
+      </main>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .faceted-page {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1.5rem 1rem 4rem;
+  }
+
+  .breadcrumb {
+    font-size: 0.875rem;
+    color: var(--color-text-muted, #666);
+    margin-bottom: 0.5rem;
+  }
+  .breadcrumb a { color: inherit; text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+  .breadcrumb .separator { margin: 0 0.3rem; }
+
+  .page-header {
+    margin-bottom: 1.5rem;
+  }
+  .page-header h1 {
+    font-size: 1.8rem;
+    margin: 0 0 0.4rem;
+  }
+  .intro {
+    color: #555;
+    margin: 0;
+    max-width: 65ch;
+  }
+
+  .layout {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+  }
+
+  .facet-panel {
+    flex: 0 0 220px;
+    min-width: 180px;
+  }
+
+  .facet-drawer {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: #fafafa;
+    overflow: hidden;
+    position: sticky;
+    top: 1rem;
+  }
+
+  .facet-drawer-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 0.9rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    list-style: none;
+    background: #f0f0f0;
+    border-bottom: 1px solid #ddd;
+    user-select: none;
+  }
+  .facet-drawer-toggle::-webkit-details-marker { display: none; }
+
+  .facet-content {
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  .clear-btn {
+    font-size: 0.8rem;
+    background: none;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    padding: 0.25rem 0.6rem;
+    cursor: pointer;
+    align-self: flex-start;
+    color: #444;
+  }
+  .clear-btn:hover { background: #eee; }
+
+  .facet-group {
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+  .facet-group legend {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #777;
+    margin-bottom: 0.35rem;
+  }
+  .facet-group label {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    padding: 0.1rem 0;
+    cursor: pointer;
+    color: #333;
+  }
+  .facet-group input[type="checkbox"] {
+    accent-color: #2563eb;
+    cursor: pointer;
+  }
+
+  .active-badge {
+    background: #2563eb;
+    color: #fff;
+    border-radius: 9999px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.05rem 0.4rem;
+    min-width: 1.2rem;
+    text-align: center;
+  }
+  .active-badge:empty { display: none; }
+
+  .results-area {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .results-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .search-wrap {
+    flex: 1;
+    min-width: 200px;
+  }
+
+  #property-search {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    box-sizing: border-box;
+  }
+  #property-search:focus {
+    outline: 2px solid #2563eb;
+    border-color: #2563eb;
+  }
+
+  .result-count {
+    font-size: 0.85rem;
+    color: #666;
+    white-space: nowrap;
+    margin: 0;
+  }
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 0.9rem;
+  }
+
+  .concept-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 0.9rem 1rem;
+    border: 1px solid #dde;
+    border-radius: 8px;
+    background: #fff;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .concept-card[hidden] { display: none; }
+
+  .concept-card:hover {
+    border-color: #2563eb;
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.1);
+  }
+
+  .card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  .concept-label {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #111;
+  }
+
+  .badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    flex-shrink: 0;
+  }
+
+  .badge {
+    font-size: 0.65rem;
+    font-weight: 700;
+    border-radius: 4px;
+    padding: 0.1rem 0.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+  }
+
+  .badge-domain-sp   { background: #dbeafe; color: #1d4ed8; }
+  .badge-domain-crvs { background: #ede9fe; color: #6d28d9; }
+
+  .badge-maturity-draft     { background: #fef9c3; color: #854d0e; }
+  .badge-maturity-candidate { background: #ffedd5; color: #9a3412; }
+  .badge-maturity-normative { background: #dcfce7; color: #166534; }
+
+  .badge-sensitivity-sensitive { background: #fff1f2; color: #be123c; }
+  .badge-sensitivity-restricted { background: #fee2e2; color: #991b1b; }
+
+  .card-id {
+    font-size: 0.75rem;
+    color: #888;
+    margin: 0;
+    font-family: monospace;
+  }
+
+  .card-type {
+    font-size: 0.8rem;
+    color: #555;
+    margin: 0;
+  }
+  .card-type code {
+    background: #f3f4f6;
+    padding: 0.05rem 0.3rem;
+    border-radius: 3px;
+    font-size: 0.85em;
+  }
+  .card-cardinality {
+    color: #777;
+    margin-left: 0.25rem;
+  }
+  .card-vocab {
+    color: #777;
+    margin-left: 0.25rem;
+    font-family: monospace;
+    font-size: 0.85em;
+  }
+
+  .card-def {
+    font-size: 0.82rem;
+    color: #444;
+    margin: 0;
+    line-height: 1.45;
+    flex: 1;
+  }
+
+  .card-usedby {
+    font-size: 0.75rem;
+    color: #666;
+    margin: 0;
+    line-height: 1.4;
+  }
+  .used-by-label {
+    font-weight: 600;
+    margin-right: 0.3rem;
+  }
+
+  .no-results {
+    text-align: center;
+    color: #777;
+    margin-top: 3rem;
+    font-size: 0.9rem;
+  }
+
+  .no-results button {
+    background: none;
+    border: none;
+    color: #2563eb;
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: inherit;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  @media (max-width: 700px) {
+    .layout {
+      flex-direction: column;
+    }
+    .facet-panel {
+      flex: unset;
+      width: 100%;
+    }
+    .facet-drawer {
+      position: static;
+    }
+    .facet-drawer:not([open]) .facet-content {
+      display: none;
+    }
+  }
+
+  @media (min-width: 701px) {
+    .facet-drawer-toggle {
+      pointer-events: none;
+    }
+    .facet-drawer[open] > .facet-drawer-toggle::after {
+      content: '';
+    }
+  }
+</style>
+
+<script>
+  (() => {
+    const grid = document.getElementById('card-grid')!;
+    const cards = Array.from(grid.querySelectorAll<HTMLElement>('.concept-card'));
+    const searchInput = document.getElementById('property-search') as HTMLInputElement;
+    const resultCountEl = document.getElementById('result-count')!;
+    const activeCountEl = document.getElementById('active-count')!;
+    const noResults = document.getElementById('no-results')!;
+    const total = cards.length;
+    const showingTpl = resultCountEl.dataset.showingTemplate ?? 'Showing __V__ of ' + total;
+
+    const domainBoxes      = document.querySelectorAll<HTMLInputElement>('input[name="domain"]');
+    const maturityBoxes    = document.querySelectorAll<HTMLInputElement>('input[name="maturity"]');
+    const kindBoxes        = document.querySelectorAll<HTMLInputElement>('input[name="kind"]');
+    const cardinalityBoxes = document.querySelectorAll<HTMLInputElement>('input[name="cardinality"]');
+    const sensitivityBoxes = document.querySelectorAll<HTMLInputElement>('input[name="sensitivity"]');
+
+    function getParam(key: string): string[] {
+      return new URLSearchParams(location.search).getAll(key);
+    }
+
+    function buildQueryString(): string {
+      const p = new URLSearchParams();
+      domainBoxes.forEach((cb) => { if (cb.checked) p.append('domain', cb.value); });
+      maturityBoxes.forEach((cb) => { if (cb.checked) p.append('maturity', cb.value); });
+      kindBoxes.forEach((cb) => { if (cb.checked) p.append('kind', cb.value); });
+      cardinalityBoxes.forEach((cb) => { if (cb.checked) p.append('cardinality', cb.value); });
+      sensitivityBoxes.forEach((cb) => { if (cb.checked) p.append('sensitivity', cb.value); });
+      const q = searchInput.value.trim();
+      if (q) p.set('q', q);
+      return p.toString();
+    }
+
+    function initFromUrl() {
+      const domains       = getParam('domain');
+      const maturities    = getParam('maturity');
+      const kinds         = getParam('kind');
+      const cardinalities = getParam('cardinality');
+      const sensitivities = getParam('sensitivity');
+      const q             = new URLSearchParams(location.search).get('q') ?? '';
+
+      domainBoxes.forEach((cb) => { cb.checked = domains.includes(cb.value); });
+      maturityBoxes.forEach((cb) => { cb.checked = maturities.includes(cb.value); });
+      kindBoxes.forEach((cb) => { cb.checked = kinds.includes(cb.value); });
+      cardinalityBoxes.forEach((cb) => { cb.checked = cardinalities.includes(cb.value); });
+      sensitivityBoxes.forEach((cb) => { cb.checked = sensitivities.includes(cb.value); });
+      searchInput.value = q;
+    }
+
+    function checkedValues(boxes: NodeListOf<HTMLInputElement>): string[] {
+      return Array.from(boxes).filter((cb) => cb.checked).map((cb) => cb.value);
+    }
+
+    function applyFilters() {
+      const domains       = checkedValues(domainBoxes);
+      const maturities    = checkedValues(maturityBoxes);
+      const kinds         = checkedValues(kindBoxes);
+      const cardinalities = checkedValues(cardinalityBoxes);
+      const sensitivities = checkedValues(sensitivityBoxes);
+      const query         = searchInput.value.trim().toLowerCase();
+
+      let visible = 0;
+
+      cards.forEach((card) => {
+        const cardDomain      = card.dataset.domain!;
+        const cardMaturity    = card.dataset.maturity!;
+        const cardKind        = card.dataset.kind!;
+        const cardCardinality = card.dataset.cardinality!;
+        const cardSensitivity = card.dataset.sensitivity ?? '';
+
+        const matchDomain      = domains.length === 0 || domains.includes(cardDomain);
+        const matchMaturity    = maturities.length === 0 || maturities.includes(cardMaturity);
+        const matchKind        = kinds.length === 0 || kinds.includes(cardKind);
+        const matchCardinality = cardinalities.length === 0 || cardinalities.includes(cardCardinality);
+        const matchSensitivity = sensitivities.length === 0 || sensitivities.includes(cardSensitivity);
+        const matchQuery       = !query || [
+          card.dataset.id ?? '',
+          card.dataset.label ?? '',
+          card.dataset.definition ?? '',
+          card.dataset.usedBy ?? '',
+        ].some((field) => field.includes(query));
+
+        const show = matchDomain && matchMaturity && matchKind && matchCardinality && matchSensitivity && matchQuery;
+        card.hidden = !show;
+        if (show) visible++;
+      });
+
+      resultCountEl.textContent = showingTpl.replace('__V__', String(visible));
+      noResults.hidden = visible > 0;
+
+      const activeCount = domains.length + maturities.length + kinds.length + cardinalities.length + sensitivities.length + (query ? 1 : 0);
+      activeCountEl.textContent = activeCount > 0 ? String(activeCount) : '';
+
+      const qs = buildQueryString();
+      history.replaceState(null, '', qs ? `?${qs}` : location.pathname);
+    }
+
+    function clearAll() {
+      domainBoxes.forEach((cb) => { cb.checked = false; });
+      maturityBoxes.forEach((cb) => { cb.checked = false; });
+      kindBoxes.forEach((cb) => { cb.checked = false; });
+      cardinalityBoxes.forEach((cb) => { cb.checked = false; });
+      sensitivityBoxes.forEach((cb) => { cb.checked = false; });
+      searchInput.value = '';
+      applyFilters();
+    }
+
+    document.getElementById('clear-all')!.addEventListener('click', clearAll);
+    document.getElementById('clear-all-2')!.addEventListener('click', clearAll);
+
+    domainBoxes.forEach((cb) => cb.addEventListener('change', applyFilters));
+    maturityBoxes.forEach((cb) => cb.addEventListener('change', applyFilters));
+    kindBoxes.forEach((cb) => cb.addEventListener('change', applyFilters));
+    cardinalityBoxes.forEach((cb) => cb.addEventListener('change', applyFilters));
+    sensitivityBoxes.forEach((cb) => cb.addEventListener('change', applyFilters));
+    searchInput.addEventListener('input', applyFilters);
+
+    initFromUrl();
+    applyFilters();
+  })();
+</script>
 </Base>
