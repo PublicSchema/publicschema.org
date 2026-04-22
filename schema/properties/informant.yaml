@@ -10,10 +10,10 @@ definition:
   fr: "La personne qui déclare l'événement à l'autorité d'état civil. Habituellement un parent pour les naissances, un proche ou un professionnel de santé pour les décès, ou les parties elles-mêmes pour les mariages."
   es: "La persona que declara el evento vital ante la autoridad de registro civil. Típicamente un padre o madre en nacimientos, un familiar o profesional médico en defunciones, o las propias partes en matrimonios."
 
-type: concept:Person
+type: concept:crvs/Person
 cardinality: single
 vocabulary: null
-references: Person
+references: crvs/Person
 domain_override: crvs
 
 external_equivalents:

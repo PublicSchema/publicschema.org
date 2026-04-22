@@ -10,10 +10,10 @@ definition:
   fr: "Les parents de l'enfant, chacun représenté par une entité de lien Parent qui associe une Personne à une nature de rôle parental (biologique, gestationnel, légal ou adoptif)."
   es: "Los progenitores del niño o de la niña, cada uno representado por una entidad de enlace Parent que combina una Persona con una naturaleza de rol parental (biológico, gestacional, legal o adoptivo)."
 
-type: concept:Parent
+type: concept:crvs/Parent
 cardinality: multiple
 vocabulary: null
-references: Parent
+references: crvs/Parent
 domain_override: crvs
 
 external_equivalents:

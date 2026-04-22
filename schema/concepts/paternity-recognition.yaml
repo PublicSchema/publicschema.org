@@ -38,7 +38,7 @@ properties:
   - court
 
 subtypes: []
-supertypes: [VitalEvent]
+supertypes: [crvs/VitalEvent]
 
 external_equivalents:
   opencrvs:

@@ -10,8 +10,8 @@ definition:
   fr: "Mentions marginales ajoutées à un acte d'état civil au fil du temps à mesure que surviennent des événements ultérieurs, par exemple l'indication d'un mariage en marge d'un acte de naissance."
   es: "Anotaciones marginales añadidas a un acta de estado civil a lo largo del tiempo a medida que ocurren eventos vitales posteriores, como la nota de un matrimonio consignada al margen de un acta de nacimiento."
 
-type: concept:CivilStatusAnnotation
+type: concept:crvs/CivilStatusAnnotation
 cardinality: multiple
 vocabulary: null
-references: CivilStatusAnnotation
+references: crvs/CivilStatusAnnotation
 domain_override: crvs

@@ -13,7 +13,7 @@ definition:
 type: uri
 cardinality: single
 vocabulary: null
-references: BenefitSchedule
+references: sp/BenefitSchedule
 
 convergence:
   system_count: 0

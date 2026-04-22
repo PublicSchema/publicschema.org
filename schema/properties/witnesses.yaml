@@ -10,10 +10,10 @@ definition:
   fr: "Personnes qui ont été témoins de l'événement d'état civil et qui l'ont attesté au moment de l'enregistrement. Les exigences en matière de témoins varient selon la juridiction et le type d'événement (les mariages en exigent le plus souvent)."
   es: "Personas que presenciaron el evento vital y lo atestiguaron al momento del registro. Los requisitos de testigos varían según la jurisdicción y el tipo de evento (los matrimonios los exigen con mayor frecuencia)."
 
-type: concept:Person
+type: concept:crvs/Person
 cardinality: multiple
 vocabulary: null
-references: Person
+references: crvs/Person
 domain_override: crvs
 
 external_equivalents:

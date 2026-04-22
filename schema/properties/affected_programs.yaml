@@ -10,7 +10,7 @@ definition:
   fr: "Les programmes dont les opérations ou les bénéficiaires sont affectés par cet événement."
   es: "Programas cuyas operaciones o beneficiarios se ven afectados por este evento."
 
-type: concept:Program
+type: concept:sp/Program
 cardinality: multiple
 vocabulary: null
-references: Program
+references: sp/Program

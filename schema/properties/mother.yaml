@@ -10,8 +10,8 @@ definition:
   fr: "Référence pratique à l'instance de Parent dont le parental_role est gestationnel (ou, en l'absence de parent gestationnel enregistré, dont le certificate_label indique 'mère'). Conservé pour la compatibilité avec les Principes et recommandations pour un système de statistiques de l'état civil de l'ONU DESA, Rév. 3 (2014), qui organise les variables statistiques relatives aux naissances sous 'Caractéristiques de la mère' (Tableau III.1). Les systèmes qui satisfont aux exigences de tabulation de l'ONU DESA Rév. 3 peuvent dériver la catégorie statistique 'mère' en associant parental_role : gestationnel à 'mère'. Ce champ est un auxiliaire de tabulation statistique, et non une affirmation de modélisation selon laquelle un seul parent serait une 'mère' ou que la parenté serait genrée."
   es: "Referencia de conveniencia a la instancia de Parent cuyo parental_role es gestacional (o, cuando no se registra ningún progenitor gestacional, cuyo certificate_label indica 'madre'). Se conserva para compatibilidad con los Principios y Recomendaciones para un Sistema de Estadísticas Vitales de ONU DESA, Rev. 3 (2014), que organiza las variables estadísticas de nacimientos bajo 'Características de la madre' (Tabla III.1). Los sistemas que satisfacen los requisitos de tabulación de ONU DESA Rev. 3 pueden derivar la categoría estadística 'madre' asignando parental_role: gestacional a 'madre'. Este es un campo auxiliar de tabulación estadística, no una afirmación de modelado de que solo un progenitor es 'madre' o de que la parentalidad esté determinada por el género."
 
-type: concept:Parent
+type: concept:crvs/Parent
 cardinality: single
 vocabulary: null
-references: Parent
+references: crvs/Parent
 domain_override: crvs

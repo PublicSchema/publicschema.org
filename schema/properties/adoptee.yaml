@@ -10,8 +10,8 @@ definition:
   fr: "La personne adoptée dans le cadre d'une adoption. Généralement un mineur, bien que l'adoption de majeurs existe dans certaines juridictions."
   es: "La persona que es adoptada en un evento de adopción. Generalmente un menor, aunque la adopción de personas adultas existe en algunas jurisdicciones."
 
-type: concept:Person
+type: concept:crvs/Person
 cardinality: single
 vocabulary: null
-references: Person
+references: crvs/Person
 domain_override: crvs

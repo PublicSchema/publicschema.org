@@ -35,7 +35,7 @@ properties:
   - issuing_authority
   - issue_date
 
-subtypes: [Certificate, FamilyRegister]
+subtypes: [crvs/Certificate, crvs/FamilyRegister]
 supertypes: []
 
 external_equivalents:

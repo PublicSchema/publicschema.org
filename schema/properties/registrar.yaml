@@ -10,8 +10,8 @@ definition:
   fr: "L'officier d'état civil qui a enregistré l'événement. Dans de nombreuses juridictions, il s'agit de l'officier dont la signature figure sur l'acte."
   es: "El funcionario de registro civil que registró el evento. En muchas jurisdicciones, es el funcionario cuya firma aparece en el acta."
 
-type: concept:Person
+type: concept:crvs/Person
 cardinality: single
 vocabulary: null
-references: Person
+references: crvs/Person
 domain_override: crvs

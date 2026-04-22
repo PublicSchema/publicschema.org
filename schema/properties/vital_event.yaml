@@ -10,8 +10,8 @@ definition:
   fr: "L'événement d'état civil attesté par ce certificat. Utilisé sur les certificats délivrés directement à partir d'un enregistrement d'événement d'état civil plutôt qu'à partir d'un acte d'état civil conservé."
   es: "El evento vital que acredita este certificado. Utilizado en certificados emitidos directamente a partir de un registro de evento vital, en lugar de un acta de estado civil almacenada."
 
-type: concept:VitalEvent
+type: concept:crvs/VitalEvent
 cardinality: single
 vocabulary: null
-references: VitalEvent
+references: crvs/VitalEvent
 domain_override: crvs

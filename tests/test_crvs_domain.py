@@ -162,10 +162,10 @@ class TestCrvsConcepts:
 
 class TestSupertypeSubtypeSymmetry:
     def test_event_has_vital_event_subtype(self):
-        """Event.subtypes must include VitalEvent after the update."""
+        """Event.subtypes must list crvs/VitalEvent (composite ref to the CRVS concept)."""
         event = _load_yaml(SCHEMA_DIR / "concepts" / "event.yaml")
-        assert "VitalEvent" in event["subtypes"], (
-            "Event.subtypes should include VitalEvent"
+        assert "crvs/VitalEvent" in event["subtypes"], (
+            "Event.subtypes should include crvs/VitalEvent"
         )
 
     def test_vital_event_supertype_is_event(self):
@@ -174,35 +174,35 @@ class TestSupertypeSubtypeSymmetry:
         assert vital_event["supertypes"] == ["Event"]
 
     def test_vital_event_subtypes(self):
-        """VitalEvent subtypes include all concrete vital event records."""
+        """VitalEvent subtypes include all concrete vital event records, composite-qualified."""
         vital_event = _load_yaml(SCHEMA_DIR / "concepts" / "vital-event.yaml")
         expected = {
-            "Birth",
-            "Death",
-            "FetalDeath",
-            "Marriage",
-            "MarriageTermination",
-            "Adoption",
-            "PaternityRecognition",
-            "Legitimation",
+            "crvs/Birth",
+            "crvs/Death",
+            "crvs/FetalDeath",
+            "crvs/Marriage",
+            "crvs/MarriageTermination",
+            "crvs/Adoption",
+            "crvs/PaternityRecognition",
+            "crvs/Legitimation",
         }
         assert set(vital_event["subtypes"]) == expected
 
     @pytest.mark.parametrize(
         "concept_file,expected_supertype",
         [
-            ("birth.yaml", "VitalEvent"),
-            ("death.yaml", "VitalEvent"),
-            ("fetal-death.yaml", "VitalEvent"),
-            ("marriage.yaml", "VitalEvent"),
-            ("marriage-termination.yaml", "VitalEvent"),
-            ("adoption.yaml", "VitalEvent"),
-            ("paternity-recognition.yaml", "VitalEvent"),
-            ("legitimation.yaml", "VitalEvent"),
+            ("birth.yaml", "crvs/VitalEvent"),
+            ("death.yaml", "crvs/VitalEvent"),
+            ("fetal-death.yaml", "crvs/VitalEvent"),
+            ("marriage.yaml", "crvs/VitalEvent"),
+            ("marriage-termination.yaml", "crvs/VitalEvent"),
+            ("adoption.yaml", "crvs/VitalEvent"),
+            ("paternity-recognition.yaml", "crvs/VitalEvent"),
+            ("legitimation.yaml", "crvs/VitalEvent"),
         ],
     )
     def test_supertype_chain(self, concept_file, expected_supertype):
-        """Concepts list the expected supertype."""
+        """Concepts list the expected (composite) supertype ref."""
         data = _load_yaml(SCHEMA_DIR / "concepts" / concept_file)
         assert expected_supertype in data["supertypes"], (
             f"{concept_file}: expected {expected_supertype} in supertypes, "
@@ -506,10 +506,10 @@ class TestEventPropertyReferences:
 
     @pytest.mark.parametrize("prop_id", ["deceased", "party_1", "party_2"])
     def test_property_references_crvs_person(self, prop_id):
-        """deceased, party_1, party_2 reference crvs/Person (id: Person in the crvs domain)."""
+        """deceased, party_1, party_2 reference crvs/Person by composite ref."""
         data = _load_yaml(SCHEMA_DIR / "properties" / f"{prop_id}.yaml")
-        assert data["type"] == "concept:Person"
-        assert data["references"] == "Person"
+        assert data["type"] == "concept:crvs/Person"
+        assert data["references"] == "crvs/Person"
 
     def test_birth_does_not_have_place_of_usual_residence(self):
         """Birth no longer lists place_of_usual_residence directly."""
@@ -570,9 +570,9 @@ class TestCRVSPerson:
             )
 
     def test_crvs_person_subtypes_include_parent(self):
-        """crvs/Person lists Parent as a subtype."""
+        """crvs/Person lists crvs/Parent as a subtype (composite ref)."""
         data = _load_yaml(SCHEMA_DIR / "concepts" / "crvs-person.yaml")
-        assert "Parent" in data["subtypes"]
+        assert "crvs/Parent" in data["subtypes"]
 
     def test_age_at_event_property_exists(self):
         """age_at_event property has a YAML file."""
@@ -605,9 +605,9 @@ class TestParentLinkEntity:
         assert "parental_role" in data["properties"]
 
     def test_parent_inherits_from_crvs_person(self):
-        """Parent is a subtype of crvs/Person."""
+        """Parent is a subtype of crvs/Person (composite ref)."""
         data = _load_yaml(SCHEMA_DIR / "concepts" / "parent.yaml")
-        assert "Person" in data["supertypes"]
+        assert "crvs/Person" in data["supertypes"]
 
     def test_parent_does_not_directly_list_person(self):
         """person is inherited from crvs/Person, not listed directly on Parent."""

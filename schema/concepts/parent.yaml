@@ -78,7 +78,7 @@ properties:
   - certificate_label
 
 subtypes: []
-supertypes: [Person]
+supertypes: [crvs/Person]
 
 external_equivalents:
   opencrvs:

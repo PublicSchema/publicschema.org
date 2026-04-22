@@ -46,7 +46,7 @@ properties:
   - informant
   - registration_status
 
-subtypes: [Birth, Death, FetalDeath, Marriage, MarriageTermination, Adoption, PaternityRecognition, Legitimation]
+subtypes: [crvs/Birth, crvs/Death, crvs/FetalDeath, crvs/Marriage, crvs/MarriageTermination, crvs/Adoption, crvs/PaternityRecognition, crvs/Legitimation]
 supertypes: [Event]
 
 external_equivalents:

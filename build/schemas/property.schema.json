@@ -23,8 +23,8 @@
     },
     "type": {
       "type": "string",
-      "pattern": "^(string|date|datetime|integer|decimal|boolean|uri|geojson_geometry|concept:[A-Z][a-zA-Z]*)$",
-      "description": "One of: string, date, datetime, integer, decimal, boolean, uri, geojson_geometry, or concept:{ConceptId}"
+      "pattern": "^(string|date|datetime|integer|decimal|boolean|uri|geojson_geometry|concept:([a-z][a-z0-9_]*/)?[A-Z][a-zA-Z]*)$",
+      "description": "One of: string, date, datetime, integer, decimal, boolean, uri, geojson_geometry, or concept:{ConceptRef}. ConceptRef is either a bare id (Person) for root concepts or a composite domain/id (crvs/Person) for domain-scoped concepts."
     },
     "cardinality": {
       "type": "string",

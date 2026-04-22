@@ -10,10 +10,10 @@ definition:
   fr: "L'enfant dont la naissance, l'adoption ou la légitimation est consignée dans cet événement."
   es: "El niño o la niña cuyo nacimiento, adopción o legitimación se registra en este evento."
 
-type: concept:Person
+type: concept:crvs/Person
 cardinality: single
 vocabulary: null
-references: Person
+references: crvs/Person
 domain_override: crvs
 
 external_equivalents:

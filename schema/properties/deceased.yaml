@@ -10,10 +10,10 @@ definition:
   fr: "La personne dont le décès est enregistré. Reste une entité Personne afin que les identifiants et attributs existants puissent toujours être référencés après le décès."
   es: "La persona cuyo fallecimiento se registra. Sigue siendo una entidad Persona para que los identificadores y atributos existentes puedan consultarse tras la defunción."
 
-type: concept:Person
+type: concept:crvs/Person
 cardinality: single
 vocabulary: null
-references: Person
+references: crvs/Person
 domain_override: crvs
 
 external_equivalents:

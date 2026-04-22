@@ -39,7 +39,7 @@ properties:
   - medical_certifier
 
 subtypes: []
-supertypes: [VitalEvent]
+supertypes: [crvs/VitalEvent]
 
 external_equivalents:
   opencrvs:

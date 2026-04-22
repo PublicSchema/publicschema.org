@@ -266,14 +266,25 @@ def validate_schema_dir(schema_dir: Path) -> list[ValidationError]:
                 f"Vocabulary '{vocab_ref}' referenced but not defined in vocabularies/",
             ))
 
-    # Referential integrity: property -> concept references
+    # Referential integrity: property -> concept references.
+    # References use the strict rule: bare id ("Person") resolves to a root
+    # concept, composite "domain/id" ("crvs/Person") resolves to a domain-scoped
+    # concept. Check against concept_keys (composite form) accordingly.
     for filename, data in properties.items():
         concept_ref = data.get("references")
-        if concept_ref and concept_ref not in concept_ids:
+        if concept_ref and concept_ref not in concept_keys:
             errors.append(ValidationError(
                 filename,
                 f"Concept '{concept_ref}' referenced but not defined in concepts/",
             ))
+        prop_type = data.get("type", "")
+        if prop_type.startswith("concept:"):
+            type_ref = prop_type.split(":", 1)[1]
+            if type_ref not in concept_keys:
+                errors.append(ValidationError(
+                    filename,
+                    f"Concept '{type_ref}' referenced in type but not defined in concepts/",
+                ))
 
     # Orphaned properties (defined but not used by any concept)
     for filename, data in properties.items():
@@ -284,16 +295,18 @@ def validate_schema_dir(schema_dir: Path) -> list[ValidationError]:
                 f"Property '{prop_id}' is defined but not used by any concept (orphaned)",
             ))
 
-    # Referential integrity: concept -> supertype/subtype references
+    # Referential integrity: concept -> supertype/subtype references.
+    # Refs use the strict rule: bare id for root concepts, composite
+    # "domain/id" for domain-scoped concepts.
     for filename, data in concepts.items():
         for supertype in data.get("supertypes", []):
-            if supertype not in concept_ids:
+            if supertype not in concept_keys:
                 errors.append(ValidationError(
                     filename,
                     f"Supertype '{supertype}' referenced but not defined in concepts/",
                 ))
         for subtype in data.get("subtypes", []):
-            if subtype not in concept_ids:
+            if subtype not in concept_keys:
                 errors.append(ValidationError(
                     filename,
                     f"Subtype '{subtype}' referenced but not defined in concepts/",
@@ -311,55 +324,26 @@ def validate_schema_dir(schema_dir: Path) -> list[ValidationError]:
             composite = f"{domain}/{cid}" if domain else cid
             concept_by_composite[composite] = (filename, data)
 
-    # Build an index from bare id -> list of composite keys, so supertype
-    # references (which use bare ids) can resolve to all matching concepts.
-    bare_to_composites: dict[str, list[str]] = {}
-    for composite, (_, data) in concept_by_composite.items():
-        cid = data.get("id")
-        if cid:
-            bare_to_composites.setdefault(cid, []).append(composite)
-
-    # Maintain a bare-id lookup that is still used by _collect_inherited_ids.
-    # When bare ids are ambiguous, prefer the domain-scoped entry (last writer
-    # wins here is acceptable because _collect_inherited_ids is only called for
-    # property_groups completeness where the domain context is local).
-    concept_by_id: dict[str, tuple[str, dict]] = {}
     for composite, (filename, data) in concept_by_composite.items():
-        cid = data.get("id")
-        if cid:
-            concept_by_id[cid] = (filename, data)
-
-    for composite, (filename, data) in concept_by_composite.items():
-        cid = data.get("id")
-        if not cid:
+        if not data.get("id"):
             continue
         for supertype in data.get("supertypes", []):
-            if supertype not in bare_to_composites:
+            if supertype not in concept_by_composite:
                 continue
-            # The symmetry check passes if any concept with this bare id lists
-            # the current concept as a subtype.
-            any_match = any(
-                cid in concept_by_composite[sc][1].get("subtypes", [])
-                for sc in bare_to_composites[supertype]
-            )
-            if not any_match:
+            # The symmetry check passes if the supertype lists this composite
+            # key as a subtype.
+            if composite not in concept_by_composite[supertype][1].get("subtypes", []):
                 errors.append(ValidationError(
                     filename,
-                    f"'{cid}' lists '{supertype}' as supertype, but '{supertype}' does not list '{cid}' as subtype",
+                    f"'{composite}' lists '{supertype}' as supertype, but '{supertype}' does not list '{composite}' as subtype",
                 ))
         for subtype in data.get("subtypes", []):
-            if subtype not in bare_to_composites:
+            if subtype not in concept_by_composite:
                 continue
-            # The symmetry check passes if any concept with this bare id lists
-            # the current concept as a supertype.
-            any_match = any(
-                cid in concept_by_composite[sc][1].get("supertypes", [])
-                for sc in bare_to_composites[subtype]
-            )
-            if not any_match:
+            if composite not in concept_by_composite[subtype][1].get("supertypes", []):
                 errors.append(ValidationError(
                     filename,
-                    f"'{cid}' lists '{subtype}' as subtype, but '{subtype}' does not list '{cid}' as supertype",
+                    f"'{composite}' lists '{subtype}' as subtype, but '{subtype}' does not list '{composite}' as supertype",
                 ))
 
     # Validate bibliography entries
@@ -473,10 +457,11 @@ def validate_schema_dir(schema_dir: Path) -> list[ValidationError]:
         for prop_entry in data.get("properties", []):
             pid = prop_entry["id"] if isinstance(prop_entry, dict) else prop_entry
             all_expected.add(pid)
-        # Inherited properties (walk supertype chain)
+        # Inherited properties (walk supertype chain). Supertype refs use
+        # the composite key form, so look up against concept_by_composite.
         visited_supers: set[str] = set()
         _collect_inherited_ids(
-            data, concept_by_id, all_expected, visited_supers,
+            data, concept_by_composite, all_expected, visited_supers,
         )
         # Collect all properties listed in groups
         grouped_ids = set()
@@ -509,20 +494,24 @@ def validate_schema_dir(schema_dir: Path) -> list[ValidationError]:
 
 def _collect_inherited_ids(
     concept_data: dict,
-    concept_by_id: dict[str, tuple[str, dict]],
+    concept_by_composite: dict[str, tuple[str, dict]],
     result: set[str],
     visited: set[str],
 ) -> None:
-    """Walk the supertype chain and collect all inherited property IDs."""
+    """Walk the supertype chain and collect all inherited property IDs.
+
+    Supertype refs use the strict rule: bare id for root concepts, composite
+    "domain/id" for domain-scoped concepts.
+    """
     for st in concept_data.get("supertypes", []):
-        if st in visited or st not in concept_by_id:
+        if st in visited or st not in concept_by_composite:
             continue
         visited.add(st)
-        _, parent_data = concept_by_id[st]
+        _, parent_data = concept_by_composite[st]
         for prop_entry in parent_data.get("properties", []):
             pid = prop_entry["id"] if isinstance(prop_entry, dict) else prop_entry
             result.add(pid)
-        _collect_inherited_ids(parent_data, concept_by_id, result, visited)
+        _collect_inherited_ids(parent_data, concept_by_composite, result, visited)
 
 
 def main():

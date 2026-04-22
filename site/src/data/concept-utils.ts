@@ -1,9 +1,43 @@
 import type { VocabularyData, Property, PropertyGroup } from './vocabulary';
 import type { Locale } from '../i18n/languages';
 
-/** Look up a concept's path by ID. Falls back to `/{id}` if unknown. */
-export function conceptPath(vocab: VocabularyData, id: string): string {
-  return vocab.concepts[id]?.path || `/${id}`;
+/**
+ * Return the concept reference as its key in ``vocab.concepts``.
+ *
+ * Refs are written in the same form they are stored: bare id for root
+ * concepts (``Person``, ``Event``), composite ``domain/id`` for domain-scoped
+ * concepts (``crvs/Person``, ``sp/Enrollment``). Unknown refs fall through
+ * unchanged so broken links stay visibly wrong rather than silently empty.
+ *
+ * Mirrors ``_resolve_concept_key`` in ``build/build.py``.
+ */
+export function resolveConceptKey(_vocab: VocabularyData, ref: string): string {
+  return ref;
+}
+
+/** Look up a concept's path by reference. Falls back to ``/{ref}`` if unknown. */
+export function conceptPath(vocab: VocabularyData, ref: string): string {
+  return vocab.concepts[ref]?.path || `/${ref}`;
+}
+
+/**
+ * Return the short display label for a concept reference.
+ *
+ * When a reference is a composite key like ``crvs/Person``, return the bare
+ * id ``Person`` so link text reads cleanly. Unknown references fall through
+ * unchanged so broken links stay visibly wrong rather than silently empty.
+ */
+export function conceptLabel(vocab: VocabularyData, ref: string): string {
+  return vocab.concepts[ref]?.id || ref;
+}
+
+/**
+ * Render the displayed form of a ``concept:X`` type string so that
+ * domain-scoped refs are visible as ``concept:crvs/Person`` and root refs
+ * as ``concept:Person``.
+ */
+export function conceptTypeDisplay(vocab: VocabularyData, ref: string): string {
+  return `concept:${ref}`;
 }
 
 /** Look up a property's path by ID. Falls back to `/{id}` if unknown. */
@@ -115,20 +149,25 @@ export function buildDisplayGroups(
   });
 }
 
-/** Flat list of every subtype (direct and indirect) of a concept. */
-export function collectAllSubtypes(vocab: VocabularyData, conceptId: string): string[] {
+/**
+ * Flat list of every subtype (direct and indirect) of a concept.
+ *
+ * ``ref`` must be the concept's key in ``vocab.concepts`` (bare for root,
+ * composite ``domain/id`` for domain-scoped concepts).
+ */
+export function collectAllSubtypes(vocab: VocabularyData, ref: string): string[] {
   const result: string[] = [];
   const visited = new Set<string>();
-  function walk(id: string) {
-    if (visited.has(id)) return;
-    visited.add(id);
-    const c = vocab.concepts[id];
+  function walk(key: string) {
+    if (visited.has(key)) return;
+    visited.add(key);
+    const c = vocab.concepts[key];
     if (!c) return;
     for (const st of c.subtypes) {
       result.push(st);
       walk(st);
     }
   }
-  walk(conceptId);
+  walk(ref);
   return result;
 }

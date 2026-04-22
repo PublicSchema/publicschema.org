@@ -43,7 +43,7 @@ properties:
   - attendant_at_birth
 
 subtypes: []
-supertypes: [VitalEvent]
+supertypes: [crvs/VitalEvent]
 
 external_equivalents:
   opencrvs:

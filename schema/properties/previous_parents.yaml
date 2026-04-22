@@ -10,8 +10,8 @@ definition:
   fr: "Les parents dont le lien juridique avec l'adopté est modifié ou rompu par l'adoption. Présents dans l'adoption plénière (où les droits parentaux biologiques cessent); souvent absents dans l'adoption simple (où ils sont conservés)."
   es: "Los padres cuya relación legal con la persona adoptada se modifica o termina con la adopción. Presentes en la adopción plena (donde cesan los derechos parentales biológicos); a menudo ausentes en la adopción simple (donde se conservan)."
 
-type: concept:Parent
+type: concept:crvs/Parent
 cardinality: multiple
 vocabulary: null
-references: Parent
+references: crvs/Parent
 domain_override: crvs

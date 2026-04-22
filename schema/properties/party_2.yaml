@@ -10,10 +10,10 @@ definition:
   fr: "La seconde des deux parties à un mariage, un divorce ou une annulation. L'ordre entre party_1 et party_2 est arbitraire et n'implique ni rôle ni préséance."
   es: "La segunda de las dos partes de un matrimonio, divorcio o anulación. El orden entre party_1 y party_2 es arbitrario y no implica rol ni precedencia."
 
-type: concept:Person
+type: concept:crvs/Person
 cardinality: single
 vocabulary: null
-references: Person
+references: crvs/Person
 domain_override: crvs
 
 external_equivalents:

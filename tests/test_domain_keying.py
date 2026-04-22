@@ -33,6 +33,14 @@ class TestConceptKey:
 
 
 class TestResolveConceptKey:
+    """Strict reference rule: refs map directly to their key in ``concepts``.
+
+    Bare ids ("Person") reference root concepts. Composite "domain/id"
+    ("crvs/Person", "sp/Enrollment") reference domain-scoped concepts.
+    The resolver is a pass-through; unknown refs are returned unchanged
+    so callers can surface the miss.
+    """
+
     def _concepts(self):
         return {
             "Person": {"id": "Person", "domain": None},
@@ -44,62 +52,19 @@ class TestResolveConceptKey:
         concepts = self._concepts()
         assert _resolve_concept_key("sp/Enrollment", concepts) == "sp/Enrollment"
 
-    def test_bare_id_resolves_to_universal_key(self):
+    def test_bare_id_resolves_to_root_key(self):
         concepts = self._concepts()
         assert _resolve_concept_key("Person", concepts) == "Person"
 
-    def test_bare_id_resolves_to_unique_domain_concept(self):
-        """A bare id that matches exactly one domain concept resolves to that key."""
+    def test_bare_id_is_not_magically_mapped_to_domain(self):
+        """A bare id never maps to a domain-scoped concept; the ref is identity."""
         concepts = self._concepts()
-        assert _resolve_concept_key("Enrollment", concepts) == "sp/Enrollment"
-
-    def test_ambiguous_bare_id_raises(self):
-        """A bare id matching multiple domains raises ValueError."""
-        concepts = {
-            "sp/Enrollment": {"id": "Enrollment", "domain": "sp"},
-            "edu/Enrollment": {"id": "Enrollment", "domain": "edu"},
-        }
-        with pytest.raises(ValueError, match="Ambiguous concept reference"):
-            _resolve_concept_key("Enrollment", concepts)
+        assert _resolve_concept_key("Enrollment", concepts) == "Enrollment"
 
     def test_unknown_ref_returns_unchanged(self):
         """An unknown ref is returned as-is; callers handle missing entries."""
         concepts = self._concepts()
         assert _resolve_concept_key("NonExistent", concepts) == "NonExistent"
-
-
-class TestResolveConceptKeyDomainAware:
-    """When a caller provides its own domain, a same-domain match wins over root."""
-
-    def _concepts_with_collision(self):
-        return {
-            "Person": {"id": "Person", "domain": None},
-            "crvs/Person": {"id": "Person", "domain": "crvs"},
-            "Family": {"id": "Family", "domain": None},
-        }
-
-    def test_caller_domain_prefers_domain_local_over_root(self):
-        concepts = self._concepts_with_collision()
-        assert _resolve_concept_key("Person", concepts, caller_domain="crvs") == "crvs/Person"
-
-    def test_caller_domain_falls_back_to_root_when_no_domain_match(self):
-        """Caller in 'crvs' referencing 'Family' (root-only) still resolves to root."""
-        concepts = self._concepts_with_collision()
-        assert _resolve_concept_key("Family", concepts, caller_domain="crvs") == "Family"
-
-    def test_no_caller_domain_resolves_bare_to_root(self):
-        """Without caller_domain, bare id continues to resolve to root (back-compat)."""
-        concepts = self._concepts_with_collision()
-        assert _resolve_concept_key("Person", concepts) == "Person"
-
-    def test_caller_domain_with_unknown_domain_falls_back(self):
-        """Caller in a domain with no matching entry falls back to root match."""
-        concepts = self._concepts_with_collision()
-        assert _resolve_concept_key("Person", concepts, caller_domain="edu") == "Person"
-
-    def test_explicit_composite_reference_returned_as_is(self):
-        concepts = self._concepts_with_collision()
-        assert _resolve_concept_key("crvs/Person", concepts) == "crvs/Person"
 
 
 class TestRealSchemaDomainResolution:
@@ -136,21 +101,27 @@ class TestRealSchemaDomainResolution:
             )
 
     def test_crvs_person_concept_schema_has_crvs_uri(self, real_result):
-        """The pre-computed concept schema URI map is keyed by composite key."""
-        # build_vocabulary does not expose concept_schema_uris directly, so we
-        # verify via the JSON Schema artifact: crvs/Parent (if it has a
-        # concept-ref property) or any CRVS property's references should point
-        # at the crvs/Person.schema.json URL, never the root one.
+        """Properties typed ``concept:crvs/Person`` produce crvs/Person schema refs.
+
+        The ``child`` property on crvs/Birth is typed ``concept:crvs/Person``.
+        Its JSON Schema ref must target the crvs/Person schema URL, not the
+        root Person schema.
+        """
         schemas = real_result["concept_schemas"]
-        parent_schema = schemas["crvs/Parent"]
+        birth_schema = schemas["crvs/Birth"]
         base = "https://publicschema.org"
-        for _prop_id, prop_schema in parent_schema.get("properties", {}).items():
-            refs = _collect_refs(prop_schema)
-            for ref in refs:
-                if ref.endswith("/Person.schema.json"):
-                    assert ref == f"{base}/crvs/Person.schema.json", (
-                        f"crvs/Parent property ref should point at crvs/Person schema, got {ref}"
-                    )
+        child_schema = birth_schema.get("properties", {}).get("child", {})
+        refs = _collect_refs(child_schema)
+        assert any(
+            ref == f"{base}/crvs/Person.schema.json" for ref in refs
+        ), (
+            f"crvs/Birth.child should $ref crvs/Person.schema.json, got {refs}"
+        )
+        assert not any(
+            ref == f"{base}/Person.schema.json" for ref in refs
+        ), (
+            f"crvs/Birth.child must not $ref root Person.schema.json, got {refs}"
+        )
 
     def test_crvs_person_jsonld_concept_refs_use_crvs_uri(self, real_result):
         """JSON-LD concept output for crvs/Parent points ps:references/subClassOf at crvs/Person."""
@@ -257,8 +228,12 @@ class TestDomainKeyedBuild:
         assert "Enrollment" in ctx, "Bare id 'Enrollment' should be a context term"
         assert "sp/Enrollment" not in ctx, "Composite key must not appear in context"
 
-    def test_supertype_resolved_to_composite_key(self, tmp_schema, write_concept):
-        """Subtypes reference supertypes by bare id in YAML; resolved to composite key in build."""
+    def test_supertype_preserved_as_written(self, tmp_schema, write_concept):
+        """Supertypes are stored in the build output exactly as written in YAML.
+
+        With the strict reference rule, ``supertypes: [Event]`` targets the
+        root Event; a domain-scoped supertype must be written ``domain/Event``.
+        """
         write_concept("Event.yaml", make_concept(id="Event", domain=None, abstract=True))
         write_concept(
             "Enrollment.yaml",
@@ -266,7 +241,6 @@ class TestDomainKeyedBuild:
         )
         result = build_vocabulary(tmp_schema)
         enrollment = result["concepts"]["sp/Enrollment"]
-        # Supertype should be resolved to the universal key "Event"
         assert "Event" in enrollment.get("supertypes", []), (
             f"Expected 'Event' in supertypes, got {enrollment.get('supertypes')}"
         )

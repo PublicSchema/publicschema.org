@@ -1045,9 +1045,9 @@ class TestJsonSchemaGeneration:
     def test_concept_schema_concept_ref_domain_scoped(
         self, tmp_schema, write_concept, write_property
     ):
-        """concept:Enrollment with domain: sp should produce domain-scoped $ref URI."""
+        """concept:sp/Enrollment produces the domain-scoped $ref URI."""
         write_property("enrollment_ref.yaml", make_property(
-            id="enrollment_ref", type="concept:Enrollment",
+            id="enrollment_ref", type="concept:sp/Enrollment",
         ))
         write_concept("enrollment.yaml", make_concept(
             id="Enrollment", domain="sp", properties=[],
@@ -1144,7 +1144,7 @@ class TestCredentialSchemas:
         write_credential("enrollment_cred.yaml", make_credential(
             id="EnrollmentCredential",
             subject_concept="Person",
-            included_concepts=["Enrollment"],
+            included_concepts=["sp/Enrollment"],
         ))
         result = build_vocabulary(tmp_schema)
         schema = result["credential_schemas"]["EnrollmentCredential"]
@@ -1318,7 +1318,7 @@ class TestCredentialSchemas:
         write_credential("enrollment_cred.yaml", make_credential(
             id="EnrollmentCredential",
             subject_concept="Person",
-            included_concepts=["Enrollment"],
+            included_concepts=["sp/Enrollment"],
         ))
         result = build_vocabulary(tmp_schema)
         cred_schema = result["credential_schemas"]["EnrollmentCredential"]

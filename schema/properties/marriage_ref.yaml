@@ -10,8 +10,8 @@ definition:
   fr: "Une référence à l'acte de Mariage que cette dissolution (divorce ou annulation) met fin. Relie la fin de l'union à sa formation."
   es: "Una referencia al registro de Matrimonio que esta terminación (divorcio o anulación) disuelve. Vincula el fin de la unión con su formación."
 
-type: concept:Marriage
+type: concept:crvs/Marriage
 cardinality: single
 vocabulary: null
-references: Marriage
+references: crvs/Marriage
 domain_override: crvs

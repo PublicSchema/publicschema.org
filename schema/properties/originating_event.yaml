@@ -10,8 +10,8 @@ definition:
   fr: "L'événement d'état civil que cet acte atteste (la naissance derrière un acte de naissance, le mariage derrière un acte de mariage, etc.). Rattache l'acte à l'événement sous-jacent."
   es: "El evento vital que esta acta de estado civil acredita (el nacimiento que dio origen al acta de nacimiento, el matrimonio que dio origen al acta de matrimonio, etc.). Vincula el acta al suceso subyacente."
 
-type: concept:VitalEvent
+type: concept:crvs/VitalEvent
 cardinality: single
 vocabulary: null
-references: VitalEvent
+references: crvs/VitalEvent
 domain_override: crvs

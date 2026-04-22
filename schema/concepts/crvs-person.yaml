@@ -69,7 +69,7 @@ property_groups:
     properties:
       - place_of_usual_residence
 
-subtypes: [Parent]
+subtypes: [crvs/Parent]
 supertypes: []
 
 external_equivalents:

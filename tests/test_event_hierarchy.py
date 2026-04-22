@@ -30,8 +30,8 @@ class TestEnrollmentAndGrievanceAreEvents:
 
     def test_event_lists_enrollment_as_subtype(self):
         event = _load(CONCEPTS / "event.yaml")
-        assert "Enrollment" in event["subtypes"]
+        assert "sp/Enrollment" in event["subtypes"]
 
     def test_event_lists_grievance_as_subtype(self):
         event = _load(CONCEPTS / "event.yaml")
-        assert "Grievance" in event["subtypes"]
+        assert "sp/Grievance" in event["subtypes"]
