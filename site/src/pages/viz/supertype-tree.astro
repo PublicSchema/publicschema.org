@@ -1,0 +1,577 @@
+---
+// @ts-ignore
+import vocab from '../../../../dist/vocabulary.json';
+import Base from '../../layouts/Base.astro';
+
+// Types for the vocabulary data
+interface Concept {
+  id: string;
+  domain: string | null;
+  path: string;
+  abstract: boolean;
+  label: { en: string; fr: string; es: string };
+  subtypes: string[];
+  supertypes: string[];
+}
+
+const concepts = vocab.concepts as Record<string, Concept>;
+
+// Multi-supertype strategy: each concept is placed under its primary supertype
+// (first entry in the supertypes array). Concepts with additional supertypes
+// show a "+ParentName" badge next to their label. This means Person appears
+// once (under Party) with a "+Agent" badge indicating the secondary parent.
+
+// Compute the standalone concepts server-side so the no-JS fallback is accurate.
+// "Covered" = reachable by following subtypes from any named root.
+const NAMED_ROOTS = ['Agent', 'Event', 'Party', 'Profile', 'crvs/CivilStatusDocument'];
+
+function getAllDescendantKeys(rootKey: string): Set<string> {
+  const result = new Set<string>();
+  const queue = [rootKey];
+  while (queue.length) {
+    const k = queue.shift()!;
+    if (result.has(k)) continue;
+    result.add(k);
+    const c = concepts[k];
+    if (c) c.subtypes.forEach(s => queue.push(s));
+  }
+  return result;
+}
+
+const coveredByRoots = new Set<string>();
+NAMED_ROOTS.forEach(r => {
+  getAllDescendantKeys(r).forEach(k => coveredByRoots.add(k));
+  coveredByRoots.add(r);
+});
+
+const standaloneKeys = Object.keys(concepts).filter(k => !coveredByRoots.has(k));
+const standaloneConcepts = standaloneKeys.map(k => concepts[k]).filter(Boolean);
+
+function domainClass(domain: string | null): string {
+  return domain ? `domain-${domain}` : 'domain-root';
+}
+---
+
+<Base
+  title="Type hierarchy"
+  description="Abstract supertypes define shared structure; concrete subtypes inherit their properties."
+>
+  <div class="tree-page">
+    <header class="tree-header">
+      <h1>Type hierarchy</h1>
+      <p class="tree-intro">
+        Abstract supertypes define shared structure; concrete subtypes inherit their properties.
+        Click a concept to open its page.
+      </p>
+      <p class="tree-note">
+        <strong>Multi-parent note:</strong> The type graph is a DAG, not a strict tree.
+        Each concept appears under its primary supertype (first listed in the schema).
+        Concepts with additional parents show a badge, e.g. <code>+Agent</code> on Person,
+        which also extends Agent beyond its primary parent Party.
+      </p>
+    </header>
+
+    <div class="legend" aria-label="Legend">
+      <div class="legend-item">
+        <span class="node-dot domain-root" aria-hidden="true"></span>
+        <span>root (universal)</span>
+      </div>
+      <div class="legend-item">
+        <span class="node-dot domain-sp" aria-hidden="true"></span>
+        <span>sp (social protection)</span>
+      </div>
+      <div class="legend-item">
+        <span class="node-dot domain-crvs" aria-hidden="true"></span>
+        <span>crvs (civil registration)</span>
+      </div>
+      <div class="legend-item">
+        <span class="abstract-marker" aria-hidden="true">A</span>
+        <span>abstract type</span>
+      </div>
+    </div>
+
+    <!--
+      The hierarchical tree sections are injected by the inline script below.
+      The script reads concepts from the embedded JSON element and builds
+      the full nested tree DOM client-side, since Astro does not support
+      recursive component rendering within a single file.
+    -->
+    <div class="tree-sections" id="tree-sections">
+      {standaloneKeys.length > 0 && (
+        <section class="tree-section tree-section--standalone">
+          <h2 class="standalone-heading">Other concepts</h2>
+          <p class="standalone-note">Not part of the named supertype hierarchy.</p>
+          <ul class="standalone-list">
+            {standaloneConcepts.map(concept => (
+              <li>
+                <a
+                  href={`/concepts${concept.path}/`}
+                  class={`node-link ${domainClass(concept.domain)}`}
+                >
+                  <span class="node-label">{concept.label.en}</span>
+                  {concept.domain && (
+                    <span class={`domain-badge domain-badge--${concept.domain}`}>{concept.domain}</span>
+                  )}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+    </div>
+  </div>
+</Base>
+
+<!-- Embedded concept data for the client-side tree renderer -->
+<script id="tree-data" type="application/json" set:html={JSON.stringify(concepts)}></script>
+
+<script is:inline>
+(function () {
+  var dataEl = document.getElementById('tree-data');
+  if (!dataEl) return;
+  var concepts = JSON.parse(dataEl.textContent || '{}');
+
+  // --- Tree building ---
+
+  function domainLabel(domain) {
+    return domain || 'root';
+  }
+
+  function buildTree(key, visited) {
+    if (!visited) visited = new Set();
+    if (visited.has(key)) return null;
+    visited.add(key);
+
+    var concept = concepts[key];
+    if (!concept) return null;
+
+    var secondaryParents = concept.supertypes.slice(1);
+
+    // Only attach a child under this node if this node is the child's primary supertype.
+    var childKeys = concept.subtypes.filter(function (childKey) {
+      var child = concepts[childKey];
+      return child && child.supertypes[0] === key;
+    });
+
+    var children = [];
+    for (var i = 0; i < childKeys.length; i++) {
+      var childNode = buildTree(childKeys[i], new Set(visited));
+      if (childNode) children.push(childNode);
+    }
+
+    return { key: key, concept: concept, children: children, secondaryParents: secondaryParents };
+  }
+
+  // --- DOM rendering ---
+
+  function renderNode(node, depth) {
+    var c = node.concept;
+    var domain = domainLabel(c.domain);
+    var hasChildren = node.children.length > 0;
+    var labelText = (c.label && c.label.en) ? c.label.en : c.id;
+
+    var li = document.createElement('li');
+    li.setAttribute('role', 'treeitem');
+    if (hasChildren) {
+      li.setAttribute('aria-expanded', 'true');
+      li.classList.add('tree-item--has-children');
+    }
+    li.style.setProperty('--depth', String(depth));
+
+    var row = document.createElement('div');
+    row.className = 'node-row';
+
+    if (hasChildren) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'toggle-btn';
+      btn.setAttribute('aria-expanded', 'true');
+      btn.setAttribute('aria-label', 'Collapse ' + labelText);
+      btn.innerHTML =
+        '<svg class="toggle-icon" width="10" height="10" viewBox="0 0 10 10" aria-hidden="true">' +
+        '<polyline points="2,3 5,7 8,3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>' +
+        '</svg>';
+      row.appendChild(btn);
+    } else {
+      var spacer = document.createElement('span');
+      spacer.className = 'node-spacer';
+      spacer.setAttribute('aria-hidden', 'true');
+      row.appendChild(spacer);
+    }
+
+    var link = document.createElement('a');
+    link.href = '/concepts' + c.path + '/';
+    link.className = 'node-link domain-' + domain;
+
+    if (c.abstract) {
+      var mark = document.createElement('span');
+      mark.className = 'node-abstract-mark';
+      mark.textContent = 'A';
+      mark.setAttribute('title', 'Abstract type');
+      mark.setAttribute('aria-label', 'Abstract type');
+      link.appendChild(mark);
+    }
+
+    var labelSpan = document.createElement('span');
+    labelSpan.className = 'node-label';
+    labelSpan.textContent = labelText;
+    link.appendChild(labelSpan);
+
+    if (c.domain) {
+      var domainBadge = document.createElement('span');
+      domainBadge.className = 'domain-badge domain-badge--' + c.domain;
+      domainBadge.textContent = c.domain;
+      link.appendChild(domainBadge);
+    }
+
+    row.appendChild(link);
+
+    node.secondaryParents.forEach(function (parentKey) {
+      var spBadge = document.createElement('span');
+      spBadge.className = 'secondary-parent-badge';
+      spBadge.textContent = '+' + parentKey;
+      spBadge.setAttribute('title', 'Also extends ' + parentKey);
+      row.appendChild(spBadge);
+    });
+
+    li.appendChild(row);
+
+    if (hasChildren) {
+      var ul = document.createElement('ul');
+      ul.setAttribute('role', 'group');
+      node.children.forEach(function (child) {
+        ul.appendChild(renderNode(child, depth + 1));
+      });
+      li.appendChild(ul);
+
+      // Wire collapse/expand on the button
+      btn.addEventListener('click', function () {
+        var expanded = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!expanded));
+        btn.setAttribute('aria-label', (!expanded ? 'Collapse ' : 'Expand ') + labelText);
+        ul.hidden = expanded;
+        li.setAttribute('aria-expanded', String(!expanded));
+        li.classList.toggle('collapsed', expanded);
+      });
+    }
+
+    return li;
+  }
+
+  // --- Root assembly ---
+
+  var NAMED_ROOTS = ['Agent', 'Event', 'Party', 'Profile', 'crvs/CivilStatusDocument'];
+
+  var treeSections = document.getElementById('tree-sections');
+  if (!treeSections) return;
+
+  var standaloneSection = treeSections.querySelector('.tree-section--standalone');
+
+  NAMED_ROOTS.forEach(function (rootKey) {
+    var tree = buildTree(rootKey);
+    if (!tree) return;
+
+    var section = document.createElement('section');
+    section.className = 'tree-section';
+
+    var ul = document.createElement('ul');
+    ul.setAttribute('role', 'tree');
+    ul.setAttribute('aria-label', tree.concept.label.en + ' hierarchy');
+    ul.appendChild(renderNode(tree, 0));
+
+    section.appendChild(ul);
+
+    if (standaloneSection) {
+      treeSections.insertBefore(section, standaloneSection);
+    } else {
+      treeSections.appendChild(section);
+    }
+  });
+})();
+</script>
+
+<style>
+  .tree-page {
+    padding: var(--space-xl) 0 var(--space-2xl);
+    max-width: var(--max-width);
+  }
+
+  .tree-header {
+    margin-bottom: var(--space-xl);
+  }
+
+  .tree-header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin: 0 0 var(--space-md);
+  }
+
+  .tree-intro {
+    font-size: 1.0625rem;
+    color: var(--color-text-muted);
+    margin: 0 0 var(--space-sm);
+    max-width: 60ch;
+  }
+
+  .tree-note {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-md);
+    padding: var(--space-sm) var(--space-md);
+    max-width: 64ch;
+    margin: var(--space-md) 0 0;
+  }
+
+  .tree-note code {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    background: var(--color-border-light);
+    padding: 0.1em 0.35em;
+    border-radius: var(--radius-sm);
+  }
+
+  /* Legend */
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md) var(--space-lg);
+    margin-bottom: var(--space-xl);
+    padding: var(--space-md);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-md);
+    max-width: 48rem;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+  }
+
+  .node-dot {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .node-dot.domain-root  { background: var(--color-accent); }
+  .node-dot.domain-sp    { background: #166534; }
+  .node-dot.domain-crvs  { background: #6b21a8; }
+
+  .abstract-marker {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px dashed var(--color-text-muted);
+    font-size: 0.625rem;
+    font-weight: 700;
+    font-family: var(--font-mono);
+    color: var(--color-text-muted);
+    flex-shrink: 0;
+  }
+
+  /* Tree sections */
+  .tree-sections {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xl);
+  }
+
+  .tree-section {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg) var(--space-xl);
+    background: var(--color-bg);
+  }
+
+  /* Reset list styles for tree */
+  .tree-section [role="tree"],
+  .tree-section [role="tree"] ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Tree rows */
+  .node-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: 3px 0;
+    min-height: 2rem;
+  }
+
+  /* Depth-driven indentation via CSS custom property set inline by JS */
+  li[role="treeitem"] {
+    position: relative;
+  }
+
+  li[role="treeitem"] > .node-row {
+    padding-left: calc(var(--depth, 0) * 1.5rem);
+  }
+
+  /* Toggle button */
+  .toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.25rem;
+    height: 1.25rem;
+    flex-shrink: 0;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: var(--color-surface);
+    cursor: pointer;
+    color: var(--color-text-muted);
+    padding: 0;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+  }
+
+  .toggle-btn:hover {
+    background: var(--color-accent-light);
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+
+  .toggle-btn:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  .toggle-icon {
+    display: block;
+    transition: transform 0.15s;
+  }
+
+  .collapsed .toggle-icon {
+    transform: rotate(-90deg);
+  }
+
+  /* Spacer aligns leaf labels with parent labels */
+  .node-spacer {
+    display: inline-block;
+    width: 1.25rem;
+    flex-shrink: 0;
+  }
+
+  /* Concept links */
+  .node-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    font-size: 0.9375rem;
+    text-decoration: none;
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--radius-sm);
+    transition: background 0.1s;
+  }
+
+  .node-link:hover {
+    text-decoration: underline;
+    background: var(--color-accent-light);
+  }
+
+  .node-link:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  .node-link.domain-root  { color: var(--color-accent); }
+  .node-link.domain-sp    { color: #166534; }
+  .node-link.domain-crvs  { color: #6b21a8; }
+
+  /* Abstract circle marker inside a link */
+  .node-abstract-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 1.5px dashed currentColor;
+    font-size: 0.5625rem;
+    font-weight: 700;
+    font-family: var(--font-mono);
+    opacity: 0.7;
+    flex-shrink: 0;
+  }
+
+  .node-label {
+    font-weight: 500;
+  }
+
+  /* Domain badge on nodes */
+  .domain-badge {
+    font-size: 0.6875rem;
+    font-family: var(--font-mono);
+    padding: 0.1em 0.4em;
+    border-radius: var(--radius-pill);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .domain-badge--sp {
+    background: #dcfce7;
+    color: #166534;
+  }
+
+  .domain-badge--crvs {
+    background: #f3e8ff;
+    color: #6b21a8;
+  }
+
+  /* Secondary supertype badge */
+  .secondary-parent-badge {
+    font-size: 0.6875rem;
+    font-family: var(--font-mono);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+    padding: 0.1em 0.4em;
+    border-radius: var(--radius-pill);
+    white-space: nowrap;
+  }
+
+  /* Standalone concepts section */
+  .tree-section--standalone {
+    background: var(--color-surface);
+  }
+
+  .standalone-heading {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    margin: 0 0 var(--space-xs);
+  }
+
+  .standalone-note {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    margin: 0 0 var(--space-md);
+  }
+
+  .standalone-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  .standalone-list .node-link {
+    border: 1px solid var(--color-border);
+    padding: 0.25rem 0.625rem;
+  }
+</style>

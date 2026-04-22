@@ -1,0 +1,839 @@
+---
+// @ts-ignore
+import vocab from '../../../../dist/vocabulary.json';
+import Base from '../../layouts/Base.astro';
+
+// ---- types ----------------------------------------------------------------
+
+interface ConceptEntry {
+  id: string;
+  domain: string | null;
+  uri: string;
+  path: string;
+  maturity: string;
+  abstract: boolean;
+  featured: boolean;
+  label: { en: string; fr?: string; es?: string };
+  definition: { en: string };
+  supertypes: string[];
+  subtypes: string[];
+  external_equivalents: Record<string, unknown> | null;
+  properties: Array<{ id: string }>;
+}
+
+// ---- build-time data prep -------------------------------------------------
+
+const allConcepts = vocab.concepts as Record<string, ConceptEntry>;
+
+// Per-concept node record used for layout
+type ConceptNode = {
+  key: string;
+  id: string;
+  label: string;
+  path: string;
+  domain: string;
+  ring: number; // 0 core-inner, 1 core-outer, 2 sp, 3 crvs
+  abstract: boolean;
+  maturity: string;
+};
+
+// Group concepts by domain (for sidebar + double-rowing)
+const byDomain: Record<string, ConceptNode[]> = { root: [], sp: [], crvs: [] };
+for (const [key, c] of Object.entries(allConcepts)) {
+  const domain = c.domain ?? 'root';
+  byDomain[domain].push({
+    key,
+    id: c.id,
+    label: c.label.en,
+    path: c.path,
+    domain,
+    ring: 0,
+    abstract: c.abstract,
+    maturity: c.maturity,
+  });
+}
+for (const d of Object.keys(byDomain)) {
+  byDomain[d].sort((a, b) => a.label.localeCompare(b.label));
+}
+
+// Double-row the universal core: alternate concepts between an inner and outer sub-ring.
+// This halves the angular crowding that makes the centre busy.
+const coreInner: ConceptNode[] = [];
+const coreOuter: ConceptNode[] = [];
+byDomain.root.forEach((n, i) => {
+  const sub = i % 2 === 0 ? coreInner : coreOuter;
+  n.ring = i % 2 === 0 ? 0 : 1;
+  sub.push(n);
+});
+const spNodes = byDomain.sp.map((n) => ({ ...n, ring: 2 }));
+const crvsNodes = byDomain.crvs.map((n) => ({ ...n, ring: 3 }));
+
+const byRingFinal: ConceptNode[][] = [coreInner, coreOuter, spNodes, crvsNodes];
+
+// Cross-domain reference pairs (supertype/subtype links that cross domains)
+const crossDomainEdges: Array<[string, string]> = [];
+for (const [key, c] of Object.entries(allConcepts)) {
+  const fromDomain = c.domain ?? 'root';
+  for (const sup of c.supertypes ?? []) {
+    const target = allConcepts[sup];
+    if (!target) continue;
+    const toDomain = target.domain ?? 'root';
+    if (fromDomain !== toDomain) crossDomainEdges.push([key, sup]);
+  }
+}
+
+// Adjacency map: for each concept, its direct neighbours (supertypes + subtypes in-repo).
+// Precomputed once at build time; emitted to the DOM via data-linked attributes so
+// highlight styling is pure CSS on a single data-active attribute (no per-hover DOM walk).
+const linkedOf: Record<string, string[]> = {};
+for (const [key, c] of Object.entries(allConcepts)) {
+  const set = new Set<string>([key]);
+  for (const sup of c.supertypes ?? []) if (allConcepts[sup]) set.add(sup);
+  for (const sub of c.subtypes ?? []) if (allConcepts[sub]) set.add(sub);
+  linkedOf[key] = Array.from(set);
+}
+
+// SVG layout constants. Larger viewBox + ring spacing gives the core room to breathe.
+const CX = 600;
+const CY = 600;
+const VB_W = 1200;
+const VB_H = 1200;
+// Four rings: core-inner, core-outer, sp, crvs.
+const RING_RADII = [200, 270, 390, 520];
+// Label radii sit OUTSIDE their ring (labels radiate outward from center like spokes).
+const LABEL_RADII = [218, 288, 408, 538];
+const DOT_R = 5;
+
+const TWO_PI = 2 * Math.PI;
+const nodeAngles: Record<string, number> = {};
+for (let r = 0; r < byRingFinal.length; r++) {
+  const nodes = byRingFinal[r];
+  const n = nodes.length;
+  for (let i = 0; i < n; i++) {
+    nodeAngles[nodes[i].key] = (TWO_PI * i) / n - Math.PI / 2;
+  }
+}
+
+function polar(cx: number, cy: number, r: number, angle: number): [number, number] {
+  return [cx + r * Math.cos(angle), cy + r * Math.sin(angle)];
+}
+
+// Radial label: text runs outward along the dot's radius like a clock hand.
+// Flip on the left half so it never reads upside-down.
+function radialLabel(angle: number): { rot: number; anchor: 'start' | 'end' } {
+  const deg = (angle * 180) / Math.PI;
+  if (Math.cos(angle) >= 0) return { rot: deg, anchor: 'start' };
+  return { rot: deg + 180, anchor: 'end' };
+}
+
+// Ring-index lookup for each concept
+const ringIndexOf: Record<string, number> = {};
+for (let r = 0; r < byRingFinal.length; r++) {
+  for (const n of byRingFinal[r]) ringIndexOf[n.key] = r;
+}
+
+// Build-time CSS rules: one per concept to un-dim it + its neighbours when active.
+// This replaces per-hover classList iteration over every node in JS.
+function cssEscape(s: string): string {
+  return s.replace(/"/g, '\\"').replace(/\\/g, '\\\\');
+}
+const highlightRules: string[] = [];
+for (const key of Object.keys(allConcepts)) {
+  const k = cssEscape(key);
+  highlightRules.push(
+    `.ring-svg[data-active="${k}"] .concept-node[data-linked~="${k}"]{opacity:1}`,
+    `.ring-svg[data-active="${k}"] .concept-node[data-key="${k}"] .concept-dot{r:8;filter:drop-shadow(0 0 4px currentColor)}`,
+    `.ring-svg[data-active="${k}"] .edge-line[data-from="${k}"],.ring-svg[data-active="${k}"] .edge-line[data-to="${k}"]{stroke:var(--edge-color);stroke-width:2;stroke-dasharray:none;opacity:1}`,
+    `.viz-sidebar[data-active="${k}"] .sidebar-item[data-linked~="${k}"]{opacity:1}`
+  );
+}
+const highlightCSS = highlightRules.join('\n');
+
+const counts = {
+  root: byDomain.root.length,
+  sp: byDomain.sp.length,
+  crvs: byDomain.crvs.length,
+};
+---
+
+<Base title="Domain map" description="Concentric ring visualization of PublicSchema concepts by domain.">
+  <style is:global set:html={highlightCSS}></style>
+  <div class="viz-page">
+    <header class="viz-header">
+      <h1>Domain map</h1>
+      <p class="viz-intro">
+        Universal core concepts sit in the center. Domain extensions occupy outer
+        rings: social protection (sp) in the middle ring, civil registration (crvs)
+        in the outer ring. Click any concept to open its page. The schema is
+        designed to be extensible; future domains (edu, health) would add further
+        rings.
+      </p>
+      <div class="viz-controls">
+        <label class="toggle-label">
+          <input type="checkbox" id="show-abstract" />
+          Show abstract concepts
+        </label>
+        <span class="legend">
+          <span class="legend-item"><span class="legend-dot root"></span>Universal core</span>
+          <span class="legend-item"><span class="legend-dot sp"></span>sp (social protection)</span>
+          <span class="legend-item"><span class="legend-dot crvs"></span>crvs (civil registration)</span>
+          <span class="legend-item"><span class="legend-dot abstract"></span>Abstract (hidden by default)</span>
+        </span>
+      </div>
+    </header>
+
+    <div class="viz-body">
+      <!-- SVG ring visualization -->
+      <div class="viz-svg-wrapper" role="img" aria-label="Domain ring map of PublicSchema concepts">
+        <svg
+          id="ring-svg"
+          viewBox={`0 0 ${VB_W} ${VB_H}`}
+          xmlns="http://www.w3.org/2000/svg"
+          class="ring-svg"
+          aria-describedby="svg-desc"
+        >
+          <title>PublicSchema domain ring map</title>
+          <desc id="svg-desc">
+            Concentric rings of PublicSchema concepts by domain. Universal core
+            concepts sit in the centre on a double-row layout. Social protection
+            (sp) concepts sit on the middle ring. Civil registration (crvs)
+            concepts sit on the outer ring. Thin lines connect related concepts
+            across domains.
+          </desc>
+
+          {/* Ring backgrounds (outermost first so inner layers paint on top) */}
+          <circle cx={CX} cy={CY} r={RING_RADII[3] + 25} fill="var(--crvs-bg)" />
+          <circle cx={CX} cy={CY} r={RING_RADII[2] + 25} fill="var(--sp-bg)" />
+          <circle cx={CX} cy={CY} r={RING_RADII[1] + 25} fill="var(--root-bg)" />
+
+          {/* Guide circles */}
+          <circle cx={CX} cy={CY} r={RING_RADII[0]} fill="none" stroke="var(--ring-stroke)" stroke-width="1" stroke-dasharray="3 5" opacity="0.35" />
+          <circle cx={CX} cy={CY} r={RING_RADII[1]} fill="none" stroke="var(--ring-stroke)" stroke-width="1" stroke-dasharray="3 5" opacity="0.35" />
+          <circle cx={CX} cy={CY} r={RING_RADII[2]} fill="none" stroke="var(--ring-stroke)" stroke-width="1" stroke-dasharray="3 5" opacity="0.45" />
+          <circle cx={CX} cy={CY} r={RING_RADII[3]} fill="none" stroke="var(--ring-stroke)" stroke-width="1" stroke-dasharray="3 5" opacity="0.45" />
+
+          {/* Ring labels */}
+          <text x={CX} y={CY - RING_RADII[3] - 35} text-anchor="middle" class="ring-label crvs-label">crvs</text>
+          <text x={CX} y={CY - RING_RADII[2] - 35} text-anchor="middle" class="ring-label sp-label">sp</text>
+          <text x={CX} y={CY + 8} text-anchor="middle" class="ring-label root-label">core</text>
+
+          {/* Cross-domain edge lines (rendered below dots) */}
+          <g class="edges-layer">
+            {crossDomainEdges.map(([from, to]) => {
+              const fAngle = nodeAngles[from] ?? 0;
+              const tAngle = nodeAngles[to] ?? 0;
+              const fr = ringIndexOf[from] ?? 0;
+              const tr = ringIndexOf[to] ?? 0;
+              const [x1, y1] = polar(CX, CY, RING_RADII[fr], fAngle);
+              const [x2, y2] = polar(CX, CY, RING_RADII[tr], tAngle);
+              return (
+                <line
+                  class="edge-line"
+                  data-from={from}
+                  data-to={to}
+                  x1={x1}
+                  y1={y1}
+                  x2={x2}
+                  y2={y2}
+                />
+              );
+            })}
+          </g>
+
+          {/* Concept nodes */}
+          <g class="nodes-layer">
+            {Object.entries(allConcepts).map(([key, c]) => {
+              const angle = nodeAngles[key] ?? 0;
+              const ring = ringIndexOf[key] ?? 0;
+              const r = RING_RADII[ring];
+              const lr = LABEL_RADII[ring];
+              const [nx, ny] = polar(CX, CY, r, angle);
+              const [lx, ly] = polar(CX, CY, lr, angle);
+              const { rot, anchor } = radialLabel(angle);
+              const domainKey = c.domain ?? 'root';
+              const isAbstract = c.abstract;
+              const linked = (linkedOf[key] ?? [key]).join(' ');
+
+              return (
+                <g
+                  class={`concept-node domain-${domainKey}${isAbstract ? ' abstract-node' : ''}`}
+                  data-key={key}
+                  data-linked={linked}
+                  data-ring={ring}
+                  data-abstract={isAbstract ? 'true' : 'false'}
+                >
+                  <a
+                    href={c.path}
+                    class="concept-link"
+                    aria-label={`${c.label.en}, ${domainKey} concept, ${c.maturity} maturity`}
+                    tabindex="0"
+                    data-key={key}
+                  >
+                    <circle
+                      cx={nx}
+                      cy={ny}
+                      r={DOT_R}
+                      class={`concept-dot maturity-${c.maturity}`}
+                    />
+                    <text
+                      x={lx}
+                      y={ly}
+                      text-anchor={anchor}
+                      dy="0.32em"
+                      transform={`rotate(${rot} ${lx} ${ly})`}
+                      class="concept-label"
+                    >
+                      {c.label.en}
+                    </text>
+                  </a>
+                </g>
+              );
+            })}
+          </g>
+        </svg>
+      </div>
+
+      {/* Sidebar: concept lists by domain */}
+      <aside class="viz-sidebar" aria-label="Concepts by domain">
+        <div class="sidebar-section">
+          <h2 class="sidebar-heading root-heading">
+            Universal core
+            <span class="sidebar-count">{counts.root}</span>
+          </h2>
+          <ul class="sidebar-list">
+            {byDomain.root.map((node) => (
+              <li
+                class={`sidebar-item${node.abstract ? ' is-abstract' : ''}`}
+                data-key={node.key}
+                data-linked={(linkedOf[node.key] ?? [node.key]).join(' ')}
+              >
+                <a href={node.path} class="sidebar-link" data-key={node.key} tabindex="0">
+                  {node.label}
+                  {node.abstract && <span class="abstract-badge" aria-label="abstract">A</span>}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="sidebar-section">
+          <h2 class="sidebar-heading sp-heading">
+            sp (social protection)
+            <span class="sidebar-count">{counts.sp}</span>
+          </h2>
+          <ul class="sidebar-list">
+            {byDomain.sp.map((node) => (
+              <li
+                class={`sidebar-item${node.abstract ? ' is-abstract' : ''}`}
+                data-key={node.key}
+                data-linked={(linkedOf[node.key] ?? [node.key]).join(' ')}
+              >
+                <a href={node.path} class="sidebar-link" data-key={node.key} tabindex="0">
+                  {node.label}
+                  {node.abstract && <span class="abstract-badge" aria-label="abstract">A</span>}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="sidebar-section">
+          <h2 class="sidebar-heading crvs-heading">
+            crvs (civil registration)
+            <span class="sidebar-count">{counts.crvs}</span>
+          </h2>
+          <ul class="sidebar-list">
+            {byDomain.crvs.map((node) => (
+              <li
+                class={`sidebar-item${node.abstract ? ' is-abstract' : ''}`}
+                data-key={node.key}
+                data-linked={(linkedOf[node.key] ?? [node.key]).join(' ')}
+              >
+                <a href={node.path} class="sidebar-link" data-key={node.key} tabindex="0">
+                  {node.label}
+                  {node.abstract && <span class="abstract-badge" aria-label="abstract">A</span>}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </aside>
+    </div>
+
+    {/* Accessible fallback: semantic list inside details */}
+    <details class="a11y-fallback">
+      <summary>Full concept list (text fallback)</summary>
+      <div class="fallback-columns">
+        <section>
+          <h3>Universal core ({counts.root} concepts)</h3>
+          <ul>
+            {byDomain.root.map((node) => (
+              <li><a href={node.path}>{node.label}{node.abstract ? ' (abstract)' : ''}</a></li>
+            ))}
+          </ul>
+        </section>
+        <section>
+          <h3>sp, social protection ({counts.sp} concepts)</h3>
+          <ul>
+            {byDomain.sp.map((node) => (
+              <li><a href={node.path}>{node.label}{node.abstract ? ' (abstract)' : ''}</a></li>
+            ))}
+          </ul>
+        </section>
+        <section>
+          <h3>crvs, civil registration ({counts.crvs} concepts)</h3>
+          <ul>
+            {byDomain.crvs.map((node) => (
+              <li><a href={node.path}>{node.label}{node.abstract ? ' (abstract)' : ''}</a></li>
+            ))}
+          </ul>
+        </section>
+      </div>
+    </details>
+  </div>
+
+  <script>
+    // Single-attribute CSS-driven highlight. All per-node dim/highlight decisions
+    // are made by build-time-generated CSS matching data-linked word lists.
+    const svg = document.getElementById('ring-svg');
+    const sidebar = document.querySelector('.viz-sidebar');
+    const showAbstractToggle = document.getElementById('show-abstract');
+    const root = document.documentElement;
+
+    let pinned: string | null = null;
+    let hover: string | null = null;
+
+    function apply() {
+      const k = pinned ?? hover;
+      if (!k) {
+        svg?.removeAttribute('data-active');
+        sidebar?.removeAttribute('data-active');
+      } else {
+        svg?.setAttribute('data-active', k);
+        sidebar?.setAttribute('data-active', k);
+      }
+    }
+
+    function keyFrom(el: EventTarget | null): string | null {
+      if (!(el instanceof Element)) return null;
+      const link = el.closest('.concept-link, .sidebar-link') as HTMLElement | null;
+      return link?.dataset.key ?? null;
+    }
+
+    // Hover: only affects display when nothing is pinned
+    document.body.addEventListener('mouseover', (e) => {
+      const key = keyFrom(e.target);
+      if (!key) return;
+      hover = key;
+      if (!pinned) apply();
+    });
+
+    document.body.addEventListener('mouseout', (e) => {
+      const key = keyFrom(e.target);
+      if (!key) return;
+      if (hover === key) hover = null;
+      if (!pinned) apply();
+    });
+
+    // Click: first click on a fresh concept pins it; second click navigates
+    const handleClick = (e: Event) => {
+      const key = keyFrom(e.target);
+      if (!key) return;
+      if (pinned === key) return; // allow navigation on second click
+      e.preventDefault();
+      pinned = key;
+      apply();
+    };
+    svg?.addEventListener('click', handleClick);
+    sidebar?.addEventListener('click', handleClick);
+
+    // Keyboard: Enter activates, Escape clears pin
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && pinned) {
+        pinned = null;
+        apply();
+      }
+    });
+
+    // Click outside viz area clears pin
+    document.addEventListener('click', (e) => {
+      if (!pinned) return;
+      const target = e.target as Element | null;
+      if (!target) return;
+      if (!target.closest('#ring-svg') && !target.closest('.viz-sidebar')) {
+        pinned = null;
+        apply();
+      }
+    });
+
+    // Abstract toggle (uses a class on the document root so CSS handles the hiding)
+    function applyAbstract() {
+      const show = !!showAbstractToggle && (showAbstractToggle as HTMLInputElement).checked;
+      root.classList.toggle('show-abstract', show);
+    }
+    showAbstractToggle?.addEventListener('change', applyAbstract);
+    applyAbstract();
+  </script>
+
+  <style>
+    /* ---- Color tokens ---------------------------------------------------- */
+    :root {
+      --root-color: #1e3a5f;
+      --root-bg: rgba(30, 58, 95, 0.06);
+      --sp-color: #b54a1a;
+      --sp-bg: rgba(181, 74, 26, 0.05);
+      --crvs-color: #166534;
+      --crvs-bg: rgba(22, 101, 52, 0.04);
+      --abstract-color: #6f6b66;
+      --ring-stroke: #9ca3af;
+      --edge-color: #6b21a8;
+    }
+
+    /* ---- Page layout ----------------------------------------------------- */
+    .viz-page {
+      padding: var(--space-xl) 0;
+    }
+
+    .viz-header {
+      margin-bottom: var(--space-xl);
+    }
+
+    .viz-header h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--color-accent);
+      margin-bottom: var(--space-sm);
+    }
+
+    .viz-intro {
+      max-width: 72ch;
+      color: var(--color-text-muted);
+      line-height: 1.65;
+      margin-bottom: var(--space-md);
+    }
+
+    /* ---- Controls -------------------------------------------------------- */
+    .viz-controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-md);
+    }
+
+    .toggle-label {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.875rem;
+      cursor: pointer;
+      color: var(--color-text);
+    }
+
+    .toggle-label input[type='checkbox'] {
+      accent-color: var(--color-accent);
+      width: 1rem;
+      height: 1rem;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      font-size: 0.8125rem;
+      color: var(--color-text-muted);
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .legend-dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .legend-dot.root { background: var(--root-color); }
+    .legend-dot.sp { background: var(--sp-color); }
+    .legend-dot.crvs { background: var(--crvs-color); }
+    .legend-dot.abstract {
+      background: var(--abstract-color);
+      border: 2px dashed #9ca3af;
+    }
+
+    /* ---- Main body: SVG + sidebar ---------------------------------------- */
+    .viz-body {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 260px;
+      gap: var(--space-lg);
+      align-items: start;
+    }
+
+    @media (max-width: 1100px) {
+      .viz-body {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ---- SVG wrapper ----------------------------------------------------- */
+    .viz-svg-wrapper {
+      width: 100%;
+      overflow: visible;
+    }
+
+    .ring-svg {
+      width: 100%;
+      height: auto;
+      max-width: 960px;
+      display: block;
+      margin: 0 auto;
+    }
+
+    /* SVG text elements */
+    .ring-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 18px;
+      font-weight: 600;
+      pointer-events: none;
+    }
+
+    .root-label { fill: var(--root-color); }
+    .sp-label { fill: var(--sp-color); }
+    .crvs-label { fill: var(--crvs-color); }
+
+    .concept-label {
+      font-family: 'IBM Plex Sans', system-ui, sans-serif;
+      font-size: 12px;
+      fill: var(--color-text);
+      user-select: none;
+      /* visiblePainted: only glyph pixels hit-test, so overlapping label
+         bounding boxes don't block each other; click/hover on the actual
+         letters targets this concept's anchor as expected. */
+      pointer-events: visiblePainted;
+    }
+    /* Denser ring (core sub-rings) gets smaller text */
+    .concept-node[data-ring="0"] .concept-label,
+    .concept-node[data-ring="1"] .concept-label {
+      font-size: 10.5px;
+    }
+
+    /* ---- Domain coloring on dots ----------------------------------------- */
+    .domain-root .concept-dot { fill: var(--root-color); }
+    .domain-sp .concept-dot { fill: var(--sp-color); }
+    .domain-crvs .concept-dot { fill: var(--crvs-color); }
+
+    /* Abstract dots use dashed stroke */
+    .abstract-node .concept-dot {
+      fill: white;
+      stroke-width: 2;
+    }
+    .abstract-node.domain-root .concept-dot { stroke: var(--root-color); }
+    .abstract-node.domain-sp .concept-dot { stroke: var(--sp-color); }
+    .abstract-node.domain-crvs .concept-dot { stroke: var(--crvs-color); }
+
+    /* Abstract concepts hidden unless the toggle is on */
+    .abstract-node { display: none; }
+    .sidebar-item.is-abstract { display: none; }
+    :root.show-abstract .abstract-node { display: inline; }
+    :root.show-abstract .sidebar-item.is-abstract { display: list-item; }
+
+    /* Maturity shading: draft concepts are slightly lighter */
+    .concept-dot.maturity-draft { opacity: 0.65; }
+    .concept-dot.maturity-candidate { opacity: 0.85; }
+    .concept-dot.maturity-normative { opacity: 1; }
+
+    /* ---- CSS-driven highlight (via data-active + data-linked word list) -- */
+    .concept-node {
+      transition: opacity 0.15s ease;
+    }
+    .concept-dot {
+      transition: r 0.15s ease;
+    }
+    /* Dim everything when any concept is active */
+    .ring-svg[data-active] .concept-node { opacity: 0.12; }
+    .viz-sidebar[data-active] .sidebar-item { opacity: 0.35; }
+    /* Build-time-generated rules below un-dim the active concept + its neighbours */
+
+    .concept-link {
+      cursor: pointer;
+      outline: none;
+    }
+    .concept-link:focus-visible .concept-dot {
+      outline: 2px solid var(--color-accent);
+      outline-offset: 2px;
+    }
+
+    /* Edge lines: invisible at rest. Only edges incident to the active concept
+       are revealed (via per-concept rules generated at build time). */
+    .edge-line {
+      stroke: var(--edge-color);
+      stroke-width: 1.25;
+      stroke-dasharray: 4 4;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.15s ease;
+    }
+
+    /* ---- Sidebar --------------------------------------------------------- */
+    .viz-sidebar {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      padding: var(--space-md);
+      max-height: 700px;
+      overflow-y: auto;
+    }
+
+    @media (max-width: 900px) {
+      .viz-sidebar {
+        max-height: 400px;
+      }
+    }
+
+    .sidebar-section {
+      margin-bottom: var(--space-lg);
+    }
+
+    .sidebar-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .sidebar-heading {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-sm);
+      padding-bottom: var(--space-xs);
+      border-bottom: 2px solid;
+    }
+
+    .root-heading {
+      color: var(--root-color);
+      border-color: var(--root-color);
+    }
+
+    .sp-heading {
+      color: var(--sp-color);
+      border-color: var(--sp-color);
+    }
+
+    .crvs-heading {
+      color: var(--crvs-color);
+      border-color: var(--crvs-color);
+    }
+
+    .sidebar-count {
+      background: var(--color-border);
+      color: var(--color-text-muted);
+      border-radius: 9999px;
+      padding: 0 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    .sidebar-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .sidebar-item {
+      border-radius: 4px;
+      transition: opacity 0.15s ease, background 0.1s ease;
+    }
+
+    .sidebar-item.dimmed {
+      opacity: 0.25;
+    }
+
+    .sidebar-item.highlighted {
+      background: var(--color-accent-light);
+    }
+
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.2rem 0.4rem;
+      font-size: 0.8125rem;
+      color: var(--color-text);
+      text-decoration: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .sidebar-link:hover {
+      background: var(--color-accent-light);
+      color: var(--color-accent);
+    }
+
+    .abstract-badge {
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: var(--abstract-color);
+      border: 1px solid currentColor;
+      border-radius: 3px;
+      padding: 0 3px;
+      line-height: 1.4;
+      flex-shrink: 0;
+    }
+
+    /* ---- Accessible fallback --------------------------------------------- */
+    .a11y-fallback {
+      margin-top: var(--space-xl);
+      border-top: 1px solid var(--color-border);
+      padding-top: var(--space-lg);
+    }
+
+    .a11y-fallback summary {
+      cursor: pointer;
+      font-size: 0.875rem;
+      color: var(--color-text-muted);
+      user-select: none;
+    }
+
+    .fallback-columns {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--space-lg);
+      margin-top: var(--space-md);
+    }
+
+    .fallback-columns h3 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: var(--space-sm);
+    }
+
+    .fallback-columns ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .fallback-columns li {
+      font-size: 0.8125rem;
+      padding: 0.15rem 0;
+    }
+
+    .fallback-columns a {
+      color: var(--color-accent);
+      text-decoration: none;
+    }
+
+    .fallback-columns a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</Base>

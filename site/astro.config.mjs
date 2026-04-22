@@ -13,6 +13,7 @@ export default defineConfig({
     routing: { prefixDefaultLocale: false },
   },
   integrations: [sitemap({
+    filter: (page) => !page.includes('/viz/'),
     i18n: {
       defaultLocale: 'en',
       locales: { en: 'en', fr: 'fr', es: 'es' },

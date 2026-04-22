@@ -1,0 +1,534 @@
+---
+// @ts-ignore
+import vocabData from '../../../../dist/vocabulary.json';
+import Base from '../../layouts/Base.astro';
+
+const MATCH_QUALITIES = new Set(['exact', 'close', 'broad', 'related']);
+
+type MatchQuality = 'exact' | 'close' | 'broad' | 'related' | 'none';
+
+interface ExternalEquivalent {
+  label?: string;
+  uri?: string;
+  match: MatchQuality;
+  vocabulary?: string;
+  note?: string;
+}
+
+interface ConceptEntry {
+  id: string;
+  domain: string | null;
+  path: string;
+  maturity: string;
+  abstract?: boolean;
+  label: { en: string; fr?: string; es?: string };
+  convergence?: { system_count: number; total_systems: number; notes?: string } | null;
+  external_equivalents?: Record<string, ExternalEquivalent>;
+}
+
+interface ConceptRow {
+  id: string;
+  domain: string;
+  path: string;
+  maturity: string;
+  label: string;
+  realCount: number;
+  reportedCount: number;
+  totalSystems: number;
+  matches: Array<{ system: string; match: MatchQuality }>;
+}
+
+const concepts = vocabData.concepts as unknown as Record<string, ConceptEntry>;
+
+// Compute real (non-none) match count per concept
+const rows: ConceptRow[] = Object.values(concepts).map((c) => {
+  const ext = c.external_equivalents ?? {};
+  const matches = Object.entries(ext)
+    .filter(([, v]) => MATCH_QUALITIES.has(v.match))
+    .map(([sys, v]) => ({ system: sys, match: v.match as MatchQuality }));
+
+  return {
+    id: c.id,
+    domain: c.domain ?? 'root',
+    path: c.path,
+    maturity: c.maturity,
+    label: c.label?.en ?? c.id,
+    realCount: matches.length,
+    reportedCount: c.convergence?.system_count ?? 0,
+    totalSystems: c.convergence?.total_systems ?? 0,
+    matches,
+  };
+});
+
+// Sort descending by coverage; ties alphabetically
+rows.sort((a, b) => b.realCount - a.realCount || a.label.localeCompare(b.label));
+
+const maxCount = rows[0]?.realCount ?? 1;
+
+// Domain color tokens (applied via class)
+const domainClass: Record<string, string> = {
+  root: 'domain-root',
+  sp: 'domain-sp',
+  crvs: 'domain-crvs',
+};
+
+const matchLetters: Record<MatchQuality, string> = {
+  exact: 'E',
+  close: 'C',
+  broad: 'B',
+  related: 'R',
+  none: '-',
+};
+
+const matchLabel: Record<MatchQuality, string> = {
+  exact: 'exact match',
+  close: 'close match',
+  broad: 'broad match',
+  related: 'related',
+  none: 'no match',
+};
+---
+
+<Base title="Convergence coverage" description="How many external systems recognize each PublicSchema concept.">
+  <div class="page-header">
+    <h1>Convergence coverage</h1>
+    <p class="intro">
+      How many external systems recognize each PublicSchema concept. Higher coverage means a concept
+      is battle-tested across real implementations.
+    </p>
+    <p class="caveat">
+      Match counts exclude explicit non-matches. System coverage is incomplete: PublicSchema maps
+      against a growing set of systems.
+    </p>
+  </div>
+
+  <!-- Filters -->
+  <div class="filters" role="group" aria-label="Filter options">
+    <fieldset class="filter-group">
+      <legend>Domain</legend>
+      <label><input type="checkbox" class="domain-toggle" value="root" checked /> Root</label>
+      <label><input type="checkbox" class="domain-toggle" value="sp" checked /> Social protection (sp/)</label>
+      <label><input type="checkbox" class="domain-toggle" value="crvs" checked /> Civil registration (crvs/)</label>
+    </fieldset>
+    <fieldset class="filter-group">
+      <legend>Min. match quality</legend>
+      <label>
+        <input type="radio" name="quality" value="all" checked /> All (E/C/B/R)
+      </label>
+      <label>
+        <input type="radio" name="quality" value="exact-close" /> Exact &amp; close only (E/C)
+      </label>
+    </fieldset>
+  </div>
+
+  <!-- Legend -->
+  <div class="legend" aria-label="Match quality legend">
+    <span class="legend-title">Match quality:</span>
+    <span class="chip chip-exact" aria-label="E = exact match">E</span> Exact
+    <span class="chip chip-close" aria-label="C = close match">C</span> Close
+    <span class="chip chip-broad" aria-label="B = broad match">B</span> Broad
+    <span class="chip chip-related" aria-label="R = related">R</span> Related
+    <span class="legend-sep">|</span>
+    <span class="swatch domain-root-swatch" aria-hidden="true"></span> Root
+    <span class="swatch domain-sp-swatch" aria-hidden="true"></span> sp/
+    <span class="swatch domain-crvs-swatch" aria-hidden="true"></span> crvs/
+  </div>
+
+  <!-- Bar chart (semantic list; bars are presentation layer) -->
+  <ul class="bar-chart" aria-label="Convergence coverage chart">
+    {rows.map((row) => {
+      const barPct = maxCount > 0 ? Math.round((row.realCount / maxCount) * 100) : 0;
+      const ariaLabel = `${row.label}: ${row.realCount} of ${row.totalSystems || maxCount} systems`;
+      return (
+        <li
+          class:list={['bar-item', domainClass[row.domain] ?? 'domain-root']}
+          data-domain={row.domain}
+          data-real-count={row.realCount}
+          data-match-qualities={row.matches.map((m) => m.match).join(',')}
+        >
+          <div class="bar-row" role="img" aria-label={ariaLabel}>
+            <a href={row.path} class="bar-label" tabindex="0">
+              {row.domain !== 'root' ? `${row.domain}/` : ''}{row.label}
+            </a>
+            <div class="bar-track">
+              <div
+                class:list={['bar-fill', domainClass[row.domain] ?? 'domain-root']}
+                style={`width: ${barPct}%`}
+                aria-hidden="true"
+              ></div>
+              <span class="bar-chips" aria-hidden="true">
+                {row.matches.map((m) => (
+                  <span
+                    class:list={['chip', `chip-${m.match}`]}
+                    title={`${m.system}: ${matchLabel[m.match]}`}
+                  >
+                    {matchLetters[m.match]}
+                  </span>
+                ))}
+              </span>
+            </div>
+            <span class="bar-count">{row.realCount}</span>
+          </div>
+        </li>
+      );
+    })}
+  </ul>
+
+  <!-- Accessible table fallback -->
+  <details class="table-fallback">
+    <summary>View as table</summary>
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Concept</th>
+          <th scope="col">Domain</th>
+          <th scope="col">Maturity</th>
+          <th scope="col">Real matches</th>
+          <th scope="col">Systems</th>
+        </tr>
+      </thead>
+      <tbody>
+        {rows.map((row) => (
+          <tr data-domain={row.domain} data-real-count={row.realCount} data-match-qualities={row.matches.map((m) => m.match).join(',')}>
+            <td><a href={row.path}>{row.label}</a></td>
+            <td>{row.domain === 'root' ? '(root)' : row.domain}</td>
+            <td>{row.maturity}</td>
+            <td>{row.realCount}</td>
+            <td>
+              {row.matches.map((m) => (
+                <span class:list={['chip', `chip-${m.match}`]} title={`${m.system}: ${matchLabel[m.match]}`}>
+                  {matchLetters[m.match]}
+                </span>
+              ))}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </details>
+</Base>
+
+<style>
+  /* Page layout */
+  .page-header {
+    padding: var(--space-lg) 0 var(--space-md);
+    border-bottom: 1px solid var(--color-border-light);
+    margin-bottom: var(--space-md);
+  }
+
+  .page-header h1 {
+    margin: 0 0 var(--space-sm);
+    font-size: 1.75rem;
+  }
+
+  .intro {
+    margin: 0 0 var(--space-xs);
+    font-size: 1.05rem;
+    color: var(--color-text-secondary, #444);
+    max-width: 68ch;
+  }
+
+  .caveat {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--color-text-muted, #777);
+    font-style: italic;
+    max-width: 68ch;
+  }
+
+  /* Filters */
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md, 1rem);
+    margin-bottom: var(--space-md, 1rem);
+  }
+
+  .filter-group {
+    border: 1px solid var(--color-border-light, #e0e0e0);
+    border-radius: 6px;
+    padding: 0.5rem 0.75rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .filter-group legend {
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted, #777);
+    padding: 0 0.25rem;
+  }
+
+  .filter-group label {
+    font-size: 0.875rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  /* Legend */
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: var(--space-md, 1rem);
+    font-size: 0.8rem;
+    color: var(--color-text-secondary, #555);
+  }
+
+  .legend-title {
+    font-weight: 600;
+  }
+
+  .legend-sep {
+    color: var(--color-border, #ccc);
+    margin: 0 0.2rem;
+  }
+
+  .swatch {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    vertical-align: middle;
+  }
+
+  .domain-root-swatch { background: #1e3a5f; }
+  .domain-sp-swatch   { background: #7c3aed; }
+  .domain-crvs-swatch { background: #047857; }
+
+  /* Chips */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.4em;
+    height: 1.4em;
+    border-radius: 3px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    font-family: 'IBM Plex Mono', monospace;
+    color: #fff;
+    line-height: 1;
+    vertical-align: middle;
+    cursor: default;
+  }
+
+  .chip-exact   { background: #1d6f42; }
+  .chip-close   { background: #2563eb; }
+  .chip-broad   { background: #d97706; }
+  .chip-related { background: #9ca3af; color: #1f2937; }
+
+  /* Bar chart list */
+  .bar-chart {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .bar-item {
+    border-left: 3px solid transparent;
+    border-radius: 4px;
+    transition: opacity 0.15s;
+  }
+
+  .bar-item[hidden] {
+    display: none;
+  }
+
+  .bar-item.domain-root  { border-color: #1e3a5f; }
+  .bar-item.domain-sp    { border-color: #7c3aed; }
+  .bar-item.domain-crvs  { border-color: #047857; }
+
+  .bar-row {
+    display: grid;
+    grid-template-columns: 14rem 1fr 2.5rem;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.2rem 0.4rem;
+  }
+
+  .bar-label {
+    font-size: 0.82rem;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--color-text, #111);
+    text-decoration: none;
+  }
+
+  .bar-label:hover,
+  .bar-label:focus {
+    text-decoration: underline;
+    outline-offset: 2px;
+  }
+
+  .bar-track {
+    position: relative;
+    height: 1.6rem;
+    background: var(--color-bg-subtle, #f3f4f6);
+    border-radius: 4px;
+    overflow: visible;
+    display: flex;
+    align-items: center;
+  }
+
+  .bar-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    border-radius: 4px;
+    min-width: 2px;
+    opacity: 0.25;
+    transition: width 0.3s ease;
+  }
+
+  .bar-fill.domain-root  { background: #1e3a5f; }
+  .bar-fill.domain-sp    { background: #7c3aed; }
+  .bar-fill.domain-crvs  { background: #047857; }
+
+  .bar-chips {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem;
+    padding: 0 0.4rem;
+  }
+
+  .bar-count {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--color-text-muted, #666);
+    text-align: right;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  /* Table fallback */
+  .table-fallback {
+    margin-top: var(--space-lg, 2rem);
+    border: 1px solid var(--color-border-light, #e0e0e0);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .table-fallback summary {
+    padding: 0.6rem 1rem;
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-text-secondary, #555);
+    background: var(--color-bg-subtle, #f9f9f9);
+  }
+
+  .table-fallback table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8rem;
+  }
+
+  .table-fallback th,
+  .table-fallback td {
+    padding: 0.4rem 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid var(--color-border-light, #e0e0e0);
+  }
+
+  .table-fallback th {
+    background: var(--color-bg-subtle, #f3f4f6);
+    font-weight: 600;
+  }
+
+  .table-fallback tr[hidden] {
+    display: none;
+  }
+
+  /* Mobile */
+  @media (max-width: 640px) {
+    .bar-row {
+      grid-template-columns: 9rem 1fr 2rem;
+      gap: 0.3rem;
+    }
+
+    .bar-label {
+      font-size: 0.74rem;
+    }
+
+    .bar-chips {
+      gap: 0.15rem;
+      padding: 0 0.25rem;
+    }
+
+    .chip {
+      width: 1.2em;
+      height: 1.2em;
+      font-size: 0.62rem;
+    }
+  }
+</style>
+
+<script>
+  // Filter toggles
+  function applyFilters() {
+    const domainToggles = document.querySelectorAll<HTMLInputElement>('.domain-toggle');
+    const qualityRadio = document.querySelector<HTMLInputElement>('input[name="quality"]:checked');
+
+    const enabledDomains = new Set(
+      Array.from(domainToggles).filter((cb) => cb.checked).map((cb) => cb.value)
+    );
+    const exactCloseOnly = qualityRadio?.value === 'exact-close';
+
+    // Bar items
+    const barItems = document.querySelectorAll<HTMLElement>('.bar-item');
+    barItems.forEach((item) => {
+      const domain = item.dataset.domain ?? 'root';
+      const realCount = parseInt(item.dataset.realCount ?? '0', 10);
+      const qualities = (item.dataset.matchQualities ?? '').split(',').filter(Boolean);
+      const passesQuality = exactCloseOnly
+        ? qualities.some((q) => q === 'exact' || q === 'close')
+        : realCount > 0 || qualities.length === 0;
+
+      if (enabledDomains.has(domain) && (realCount === 0 ? !exactCloseOnly : passesQuality)) {
+        item.hidden = false;
+      } else {
+        item.hidden = true;
+      }
+    });
+
+    // Table rows
+    const tableRows = document.querySelectorAll<HTMLElement>('.table-fallback tbody tr');
+    tableRows.forEach((row) => {
+      const domain = row.dataset.domain ?? 'root';
+      const realCount = parseInt(row.dataset.realCount ?? '0', 10);
+      const qualities = (row.dataset.matchQualities ?? '').split(',').filter(Boolean);
+      const passesQuality = exactCloseOnly
+        ? qualities.some((q) => q === 'exact' || q === 'close')
+        : realCount > 0 || qualities.length === 0;
+
+      if (enabledDomains.has(domain) && (realCount === 0 ? !exactCloseOnly : passesQuality)) {
+        row.hidden = false;
+      } else {
+        row.hidden = true;
+      }
+    });
+  }
+
+  document.querySelectorAll('.domain-toggle').forEach((el) => {
+    el.addEventListener('change', applyFilters);
+  });
+
+  document.querySelectorAll('input[name="quality"]').forEach((el) => {
+    el.addEventListener('change', applyFilters);
+  });
+</script>

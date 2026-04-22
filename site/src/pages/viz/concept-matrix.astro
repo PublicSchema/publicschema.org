@@ -1,0 +1,671 @@
+---
+// @ts-ignore
+import vocab from '../../../../dist/vocabulary.json';
+import Base from '../../layouts/Base.astro';
+
+// ── Types ─────────────────────────────────────────────────────────────────────
+
+type ConceptRow = {
+  key: string;
+  id: string;
+  domain: string;
+  path: string;
+  maturity: string;
+  abstract: boolean;
+  property_groups: Array<{ category: string; properties: string[] }> | null;
+};
+
+type TableRow =
+  | { kind: 'sep'; domain: string; label: string }
+  | { kind: 'concept'; concept: ConceptRow; counts: Record<string, number>; sparse: boolean };
+
+// ── Data extraction ───────────────────────────────────────────────────────────
+
+const categoriesMap = vocab.categories as Record<string, { label: { en: string } }>;
+const categoryIds = Object.keys(categoriesMap);
+
+const allConcepts: ConceptRow[] = Object.entries(vocab.concepts as Record<string, any>).map(
+  ([key, raw]) => ({
+    key,
+    id: raw.id as string,
+    domain: (raw.domain as string) ?? '',
+    path: raw.path as string,
+    maturity: (raw.maturity as string) ?? '',
+    abstract: (raw.abstract as boolean) ?? false,
+    property_groups: (raw.property_groups as ConceptRow['property_groups']) ?? null,
+  })
+);
+
+// Sort: root first, then sp, then crvs; alphabetical within each domain
+const domainOrder: Record<string, number> = { '': 0, sp: 1, crvs: 2 };
+allConcepts.sort((a, b) => {
+  const dA = domainOrder[a.domain] ?? 9;
+  const dB = domainOrder[b.domain] ?? 9;
+  if (dA !== dB) return dA - dB;
+  return a.id.localeCompare(b.id);
+});
+
+const richConcepts = allConcepts.filter((c) => c.property_groups && c.property_groups.length > 0);
+const sparseConcepts = allConcepts.filter(
+  (c) => !c.property_groups || c.property_groups.length === 0
+);
+
+// Only include categories that appear in at least one rich concept
+const usedCategoryIds = categoryIds.filter((catId) =>
+  richConcepts.some((c) =>
+    (c.property_groups ?? []).some((g) => g.category === catId)
+  )
+);
+
+function countsByCategory(concept: ConceptRow): Record<string, number> {
+  const counts: Record<string, number> = {};
+  for (const catId of usedCategoryIds) {
+    const group = (concept.property_groups ?? []).find((g) => g.category === catId);
+    counts[catId] = group ? group.properties.length : 0;
+  }
+  return counts;
+}
+
+// Build the flat list of table rows, inserting domain separator rows
+const sepLabels: Record<string, string> = {
+  '': 'Root (universal) concepts',
+  sp: 'Social protection (sp/) concepts',
+  crvs: 'Civil registration (crvs/) concepts',
+};
+
+function buildRows(concepts: ConceptRow[], sparse: boolean): TableRow[] {
+  const rows: TableRow[] = [];
+  let lastDomain: string | null = null;
+  for (const c of concepts) {
+    if (c.domain !== lastDomain) {
+      rows.push({ kind: 'sep', domain: c.domain, label: sepLabels[c.domain] ?? c.domain });
+      lastDomain = c.domain;
+    }
+    rows.push({ kind: 'concept', concept: c, counts: countsByCategory(c), sparse });
+  }
+  return rows;
+}
+
+const richRows = buildRows(richConcepts, false);
+const sparseRows = buildRows(sparseConcepts, true);
+
+// Helpers
+const domainLabels: Record<string, string> = { '': 'Root', sp: 'sp/', crvs: 'crvs/' };
+const domains = ['', 'sp', 'crvs'];
+const maturities = ['draft', 'candidate', 'normative'];
+
+function rowId(key: string): string {
+  return `row-${key.replace(/[^a-z0-9]/gi, '-')}`;
+}
+
+function cellColor(n: number): string {
+  if (n > 5) return '#1a4fa0';
+  if (n > 2) return '#2d72d2';
+  if (n > 0) return '#6a9cdc';
+  return 'transparent';
+}
+---
+
+<Base
+  title="Property category map"
+  description="Which concepts carry properties in which categories. Reveals shared structure across concepts."
+>
+  <style>
+    /* ── Page layout ─────────────────────────────────────────────── */
+    .matrix-page {
+      padding: 2rem 1.5rem 4rem;
+      max-width: 100%;
+      font-family: inherit;
+    }
+
+    .matrix-page h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin: 0 0 0.4rem;
+    }
+
+    .matrix-page .intro {
+      color: #555;
+      margin: 0 0 1.5rem;
+      max-width: 60ch;
+      line-height: 1.5;
+    }
+
+    /* ── Controls ────────────────────────────────────────────────── */
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      margin-bottom: 1.25rem;
+      padding: 0.75rem 1rem;
+      background: #f7f7f8;
+      border: 1px solid #e2e2e6;
+      border-radius: 6px;
+    }
+
+    .control-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .control-group label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #333;
+      white-space: nowrap;
+    }
+
+    .controls select {
+      font-size: 0.85rem;
+      padding: 0.3rem 0.6rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background: #fff;
+      cursor: pointer;
+    }
+
+    .controls button {
+      font-size: 0.82rem;
+      padding: 0.3rem 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background: #fff;
+      cursor: pointer;
+      white-space: nowrap;
+      color: #333;
+      transition: background 0.15s;
+    }
+
+    .controls button:hover {
+      background: #eef0f3;
+    }
+
+    .controls button[aria-pressed="true"] {
+      background: #1a56db;
+      color: #fff;
+      border-color: #1a56db;
+    }
+
+    /* ── Table container ─────────────────────────────────────────── */
+    .table-scroll {
+      overflow-x: auto;
+      border: 1px solid #d9d9e0;
+      border-radius: 6px;
+    }
+
+    /* ── Table ───────────────────────────────────────────────────── */
+    table.matrix {
+      border-collapse: collapse;
+      min-width: 600px;
+      width: max-content;
+      font-size: 0.82rem;
+    }
+
+    /* Sticky header row */
+    table.matrix thead tr {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+
+    table.matrix thead th {
+      background: #1e2330;
+      color: #f0f0f5;
+      padding: 0.55rem 0.6rem;
+      text-align: center;
+      font-weight: 600;
+      white-space: nowrap;
+      vertical-align: bottom;
+      border-right: 1px solid #333;
+    }
+
+    /* Sticky first column */
+    table.matrix th.concept-header,
+    table.matrix td.concept-cell {
+      position: sticky;
+      left: 0;
+      z-index: 1;
+    }
+
+    table.matrix thead th.concept-header {
+      z-index: 3;
+      text-align: left;
+      min-width: 200px;
+      background: #1e2330;
+    }
+
+    table.matrix td.concept-cell {
+      background: #fff;
+      border-right: 2px solid #d0d0da;
+    }
+
+    /* Column headers: rotated for compactness */
+    table.matrix thead th.cat-header {
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      min-width: 36px;
+      max-width: 36px;
+      font-size: 0.78rem;
+      padding: 0.6rem 0.4rem;
+    }
+
+    /* Body rows */
+    table.matrix tbody tr {
+      border-bottom: 1px solid #e8e8ed;
+    }
+
+    table.matrix tbody tr[data-hidden="true"] {
+      display: none;
+    }
+
+    table.matrix tbody tr:hover td {
+      background: #f4f6fb;
+    }
+
+    table.matrix tbody tr:hover td.concept-cell {
+      background: #e8ecf7;
+    }
+
+    /* Domain group separators */
+    table.matrix tbody tr.domain-sep td {
+      background: #f0f1f5;
+      color: #888;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.3rem 0.6rem;
+      border-bottom: none;
+      border-top: 2px solid #d0d0da;
+    }
+
+    /* Sparse concept rows */
+    table.matrix tbody tr.sparse-row td.concept-cell {
+      color: #999;
+      font-style: italic;
+    }
+
+    /* Concept cell */
+    table.matrix td.concept-cell {
+      padding: 0.4rem 0.75rem;
+      white-space: nowrap;
+    }
+
+    table.matrix td.concept-cell a {
+      color: #1a56db;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    table.matrix td.concept-cell a:hover {
+      text-decoration: underline;
+    }
+
+    .badge-domain {
+      display: inline-block;
+      font-size: 0.68rem;
+      padding: 0.1em 0.4em;
+      border-radius: 3px;
+      margin-left: 0.35rem;
+      vertical-align: middle;
+      font-weight: 600;
+    }
+
+    .badge-domain.root { background: #e8f0fe; color: #1a56db; }
+    .badge-domain.sp   { background: #fef3c7; color: #92400e; }
+    .badge-domain.crvs { background: #d1fae5; color: #065f46; }
+
+    .badge-maturity {
+      display: inline-block;
+      font-size: 0.65rem;
+      padding: 0.1em 0.4em;
+      border-radius: 3px;
+      margin-left: 0.25rem;
+      vertical-align: middle;
+    }
+
+    .badge-maturity.draft     { background: #f3f4f6; color: #6b7280; }
+    .badge-maturity.candidate { background: #fef3c7; color: #92400e; }
+    .badge-maturity.normative { background: #d1fae5; color: #065f46; }
+
+    /* Data cells */
+    table.matrix td.data-cell {
+      text-align: center;
+      padding: 0.3rem 0.25rem;
+      min-width: 36px;
+      border-right: 1px solid #e8e8ed;
+      vertical-align: middle;
+    }
+
+    .cell-dot {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 22px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    /* ── Legend ──────────────────────────────────────────────────── */
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      align-items: center;
+      margin: 1rem 0 0.75rem;
+      font-size: 0.8rem;
+      color: #555;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .legend-swatch {
+      width: 20px;
+      height: 16px;
+      border-radius: 3px;
+    }
+
+    /* ── Note ────────────────────────────────────────────────────── */
+    .matrix-note {
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      color: #777;
+      max-width: 70ch;
+      line-height: 1.55;
+    }
+
+    .matrix-note strong {
+      color: #444;
+    }
+
+    /* Screen-reader only */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
+    }
+  </style>
+
+  <div class="matrix-page">
+    <h1>Property category map</h1>
+    <p class="intro">
+      Which concepts carry properties in which categories. Reveals shared structure across concepts.
+    </p>
+
+    <!-- ── Controls ─────────────────────────────────────────────── -->
+    <div class="controls" role="group" aria-label="Table filters">
+      <div class="control-group">
+        <label for="domain-filter">Domain:</label>
+        <select id="domain-filter" aria-label="Filter by domain">
+          <option value="">All domains</option>
+          {domains.map((d) => (
+            <option value={d}>{domainLabels[d]}</option>
+          ))}
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label for="maturity-filter">Maturity:</label>
+        <select id="maturity-filter" aria-label="Filter by maturity">
+          <option value="">All maturities</option>
+          {maturities.map((m) => (
+            <option value={m}>{m.charAt(0).toUpperCase() + m.slice(1)}</option>
+          ))}
+        </select>
+      </div>
+
+      <div class="control-group">
+        <button id="toggle-sparse" aria-pressed="false">
+          Include concepts without category groupings
+        </button>
+      </div>
+    </div>
+
+    <!-- ── Legend ────────────────────────────────────────────────── -->
+    <div class="legend" aria-label="Color legend">
+      <span>Properties per category:</span>
+      <span class="legend-item">
+        <span class="legend-swatch" style="background:#e8edf8; border:1px solid #ccc;"></span>
+        0
+      </span>
+      <span class="legend-item">
+        <span class="legend-swatch" style="background:#6a9cdc;"></span>
+        1-2
+      </span>
+      <span class="legend-item">
+        <span class="legend-swatch" style="background:#2d72d2;"></span>
+        3-5
+      </span>
+      <span class="legend-item">
+        <span class="legend-swatch" style="background:#1a4fa0;"></span>
+        6+
+      </span>
+    </div>
+
+    <!-- ── Table ──────────────────────────────────────────────────── -->
+    <div
+      class="table-scroll"
+      role="region"
+      aria-label="Concept property category matrix"
+      tabindex="0"
+    >
+      <table class="matrix">
+        <caption class="sr-only">
+          Concept rows versus property-category columns. Cells show the number of properties in
+          that category for a given concept. Only concepts with property_groups populated show
+          filled cells.
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col" class="concept-header">Concept</th>
+            {usedCategoryIds.map((catId) => {
+              const label = categoriesMap[catId]?.label?.en ?? catId;
+              return (
+                <th scope="col" class="cat-header" title={label}>
+                  <span>{label}</span>
+                </th>
+              );
+            })}
+          </tr>
+        </thead>
+        <tbody id="matrix-body">
+
+          <!-- Rich rows (concepts with property_groups) -->
+          {richRows.map((row) => {
+            if (row.kind === 'sep') {
+              return (
+                <tr
+                  class="domain-sep"
+                  data-sep-domain={row.domain}
+                >
+                  <td colspan={usedCategoryIds.length + 1}>{row.label}</td>
+                </tr>
+              );
+            }
+            const c = row.concept;
+            const domainClass = c.domain === '' ? 'root' : c.domain;
+            return (
+              <tr
+                id={rowId(c.key)}
+                data-domain={c.domain}
+                data-maturity={c.maturity}
+                data-sparse="false"
+              >
+                <td class="concept-cell">
+                  <a href={c.path}>{c.id}</a>
+                  <span class={`badge-domain ${domainClass}`}>
+                    {c.domain || 'root'}
+                  </span>
+                  <span class={`badge-maturity ${c.maturity}`}>
+                    {c.maturity}
+                  </span>
+                </td>
+                {usedCategoryIds.map((catId) => {
+                  const n = row.counts[catId] ?? 0;
+                  const catLabel = categoriesMap[catId]?.label?.en ?? catId;
+                  const bg = cellColor(n);
+                  return (
+                    <td
+                      class="data-cell"
+                      aria-label={`${c.id} / ${catLabel}: ${n} ${n === 1 ? 'property' : 'properties'}`}
+                    >
+                      {n > 0
+                        ? <span class="cell-dot" style={`background:${bg};`}>{n}</span>
+                        : <span style="color:#ddd;" aria-hidden="true">·</span>
+                      }
+                    </td>
+                  );
+                })}
+              </tr>
+            );
+          })}
+
+          <!-- Sparse rows (concepts without property_groups) — hidden by default -->
+          <tr
+            id="sparse-sep"
+            class="domain-sep"
+            style="display:none;"
+          >
+            <td colspan={usedCategoryIds.length + 1}>
+              Concepts without category groupings (property_groups not yet populated)
+            </td>
+          </tr>
+
+          {sparseRows.map((row) => {
+            if (row.kind === 'sep') {
+              return (
+                <tr
+                  class="domain-sep sparse-domain-sep"
+                  data-sep-domain={row.domain}
+                  style="display:none;"
+                >
+                  <td colspan={usedCategoryIds.length + 1}>{row.label}</td>
+                </tr>
+              );
+            }
+            const c = row.concept;
+            const domainClass = c.domain === '' ? 'root' : c.domain;
+            return (
+              <tr
+                id={rowId(c.key)}
+                class="sparse-row"
+                data-domain={c.domain}
+                data-maturity={c.maturity}
+                data-sparse="true"
+                style="display:none;"
+              >
+                <td class="concept-cell">
+                  <a href={c.path}>{c.id}</a>
+                  <span class={`badge-domain ${domainClass}`}>
+                    {c.domain || 'root'}
+                  </span>
+                  <span class={`badge-maturity ${c.maturity}`}>
+                    {c.maturity}
+                  </span>
+                </td>
+                {usedCategoryIds.map((catId) => {
+                  const catLabel = categoriesMap[catId]?.label?.en ?? catId;
+                  return (
+                    <td
+                      class="data-cell"
+                      aria-label={`${c.id} / ${catLabel}: not categorized`}
+                    >
+                      <span style="color:#eee;" aria-hidden="true">·</span>
+                    </td>
+                  );
+                })}
+              </tr>
+            );
+          })}
+
+        </tbody>
+      </table>
+    </div>
+
+    <p class="matrix-note">
+      <strong>Data note:</strong> Only {richConcepts.length} of {allConcepts.length} concepts
+      currently have <code>property_groups</code> populated. The remaining {sparseConcepts.length}
+      concepts have properties but are not yet grouped by category. Use the toggle above to show
+      those rows as empty entries. Category groupings will fill in as the schema matures.
+    </p>
+  </div>
+
+  <script>
+    const domainFilter = document.getElementById('domain-filter') as HTMLSelectElement;
+    const maturityFilter = document.getElementById('maturity-filter') as HTMLSelectElement;
+    const toggleSparse = document.getElementById('toggle-sparse') as HTMLButtonElement;
+    const sparseSep = document.getElementById('sparse-sep') as HTMLTableRowElement | null;
+
+    let showSparse = false;
+
+    function applyFilters(): void {
+      const domain = domainFilter.value;
+      const maturity = maturityFilter.value;
+
+      // Show/hide sparse section header
+      if (sparseSep) {
+        sparseSep.style.display = showSparse ? '' : 'none';
+      }
+
+      // Show/hide sparse domain separators
+      document
+        .querySelectorAll<HTMLTableRowElement>('tr.sparse-domain-sep')
+        .forEach((sep) => {
+          sep.style.display = showSparse ? '' : 'none';
+        });
+
+      // Show/hide concept rows
+      document
+        .querySelectorAll<HTMLTableRowElement>('#matrix-body tr[data-domain][data-maturity]')
+        .forEach((row) => {
+          const isSparse = row.dataset.sparse === 'true';
+          if (isSparse && !showSparse) {
+            row.style.display = 'none';
+            return;
+          }
+          const matchDomain = domain === '' || row.dataset.domain === domain;
+          const matchMaturity = maturity === '' || row.dataset.maturity === maturity;
+          row.style.display = matchDomain && matchMaturity ? '' : 'none';
+        });
+
+      // Hide domain separator rows when all their concept rows are hidden
+      document
+        .querySelectorAll<HTMLTableRowElement>('#matrix-body tr.domain-sep[data-sep-domain]')
+        .forEach((sep) => {
+          // sparse domain seps are handled above already
+          if (sep.classList.contains('sparse-domain-sep')) return;
+          const sepDomain = sep.dataset.sepDomain ?? '';
+          const anyVisible = Array.from(
+            document.querySelectorAll<HTMLTableRowElement>(
+              `#matrix-body tr[data-domain="${sepDomain}"][data-sparse="false"]`
+            )
+          ).some((r) => r.style.display !== 'none');
+          sep.style.display = anyVisible ? '' : 'none';
+        });
+    }
+
+    domainFilter.addEventListener('change', applyFilters);
+    maturityFilter.addEventListener('change', applyFilters);
+
+    toggleSparse.addEventListener('click', () => {
+      showSparse = !showSparse;
+      toggleSparse.setAttribute('aria-pressed', String(showSparse));
+      applyFilters();
+    });
+  </script>
+</Base>

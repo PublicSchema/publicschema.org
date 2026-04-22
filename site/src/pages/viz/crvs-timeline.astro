@@ -1,0 +1,557 @@
+---
+// @ts-ignore
+import vocab from '../../../../dist/vocabulary.json';
+import Base from '../../layouts/Base.astro';
+
+// Canonical life-course order for the main ribbon:
+//   Birth -> Legitimation -> PaternityRecognition -> Adoption
+//     -> Marriage -> MarriageTermination -> Death
+//
+// Rationale: Legitimation and PaternityRecognition establish parentage and are
+// typically registered shortly after Birth. Adoption displaces birth family
+// ties and typically occurs in childhood. Marriage and MarriageTermination are
+// adult-life events and can repeat. Death closes the life course.
+//
+// FetalDeath is a parallel branch shown above the ribbon: it occurs before or
+// instead of a live birth, so it sits on an alternate track rather than the
+// main axis.
+
+type ConceptEntry = {
+  id: string;
+  domain: string | null;
+  uri: string;
+  path: string;
+  maturity: string;
+  abstract: boolean;
+  label: { en?: string; fr?: string; es?: string };
+  definition: { en?: string; fr?: string; es?: string };
+  properties: Array<{ id: string }>;
+  supertypes: string[];
+};
+
+const concepts = vocab.concepts as Record<string, ConceptEntry>;
+
+const MAIN_ORDER = [
+  'crvs/Birth',
+  'crvs/Legitimation',
+  'crvs/PaternityRecognition',
+  'crvs/Adoption',
+  'crvs/Marriage',
+  'crvs/MarriageTermination',
+  'crvs/Death',
+] as const;
+
+const FETAL_DEATH_KEY = 'crvs/FetalDeath';
+const VITAL_EVENT_KEY = 'crvs/VitalEvent';
+
+// Events that are meaningfully repeatable in a life course
+const REPEATABLE = new Set(['crvs/Marriage', 'crvs/MarriageTermination']);
+
+const vitalEvent = concepts[VITAL_EVENT_KEY];
+const fetalDeath = concepts[FETAL_DEATH_KEY];
+
+type MainEvent = {
+  key: string;
+  concept: ConceptEntry;
+  index: number;
+};
+
+const mainEvents: MainEvent[] = MAIN_ORDER.map((key, index) => ({
+  key,
+  concept: concepts[key],
+  index,
+}));
+
+// SVG layout constants
+const SVG_WIDTH = 900;
+const SVG_HEIGHT = 280;
+const RIBBON_Y = 180; // y of the main ribbon centerline
+const NODE_R = 22;    // radius of event circles
+const FIRST_X = 80;
+const LAST_X = SVG_WIDTH - 80;
+const STEP = (LAST_X - FIRST_X) / (MAIN_ORDER.length - 1);
+
+// FetalDeath branch (alternate track above Birth)
+const FETAL_Y = 80;
+const BIRTH_X = FIRST_X; // Birth is first node
+
+function nodeX(index: number): number {
+  return FIRST_X + index * STEP;
+}
+
+// Maturity badge colours match global CSS vars (inlined values for SVG)
+const MATURITY_FILL: Record<string, string> = {
+  normative: '#dcfce7',
+  candidate: '#fef3c7',
+  draft: '#fef9c3',
+};
+const MATURITY_STROKE: Record<string, string> = {
+  normative: '#166534',
+  candidate: '#92400e',
+  draft: '#92400e',
+};
+
+function maturityFill(m: string) { return MATURITY_FILL[m] ?? '#e5e7eb'; }
+function maturityStroke(m: string) { return MATURITY_STROKE[m] ?? '#6b7280'; }
+---
+
+<Base
+  title="Life-course events (CRVS)"
+  description="Civil registration captures events across a person's life. Each event extends the shared VitalEvent structure with context-specific properties."
+  noHreflang
+>
+  <article class="concept-narrative crvs-timeline-page">
+    <div class="page-header">
+      <h1>Life-course events (CRVS)</h1>
+      <p class="subtitle">
+        Civil registration captures events across a person's life. Each event
+        extends the shared VitalEvent structure with context-specific properties.
+      </p>
+    </div>
+
+    <!-- Main SVG visualization -->
+    <div class="timeline-wrapper" role="img" aria-label="Life-course event timeline">
+      <svg
+        viewBox={`0 0 ${SVG_WIDTH} ${SVG_HEIGHT}`}
+        width="100%"
+        preserveAspectRatio="xMidYMid meet"
+        class="timeline-svg"
+        aria-labelledby="svg-title svg-desc"
+      >
+        <title id="svg-title">Life-course event timeline (CRVS)</title>
+        <desc id="svg-desc">
+          A horizontal ribbon showing civil-registration events in chronological
+          order along a single person's life. Birth is at the left; Death at the
+          right. Fetal Death is shown as a dashed branch above Birth.
+          Legitimation, Paternity Recognition, and Adoption follow Birth.
+          Marriage and Marriage Termination (which can repeat) precede Death.
+        </desc>
+
+        <!-- Fetal-death branch: dashed line from a point before Birth up to the FETAL_Y track -->
+        <line
+          x1={BIRTH_X - 40}
+          y1={RIBBON_Y}
+          x2={BIRTH_X - 40}
+          y2={FETAL_Y + NODE_R}
+          stroke="#9ca3af"
+          stroke-width="2"
+          stroke-dasharray="5 4"
+        />
+        <line
+          x1={BIRTH_X - 40}
+          y1={RIBBON_Y}
+          x2={BIRTH_X + 10}
+          y2={RIBBON_Y}
+          stroke="#9ca3af"
+          stroke-width="2"
+          stroke-dasharray="5 4"
+        />
+
+        <!-- Fetal Death label "alternate branch" -->
+        <text
+          x={BIRTH_X - 40}
+          y={FETAL_Y - NODE_R - 8}
+          text-anchor="middle"
+          font-family="'IBM Plex Sans', system-ui, sans-serif"
+          font-size="9"
+          fill="#6f6b66"
+          font-style="italic"
+        >alternate track</text>
+
+        <!-- Fetal Death node -->
+        <a href={fetalDeath.path} aria-label={`${fetalDeath.label.en ?? fetalDeath.id} — view concept`}>
+          <circle
+            cx={BIRTH_X - 40}
+            cy={FETAL_Y}
+            r={NODE_R}
+            fill={maturityFill(fetalDeath.maturity)}
+            stroke={maturityStroke(fetalDeath.maturity)}
+            stroke-width="2"
+            stroke-dasharray="5 4"
+            class="event-node"
+          />
+          <text
+            x={BIRTH_X - 40}
+            y={FETAL_Y - 4}
+            text-anchor="middle"
+            dominant-baseline="middle"
+            font-family="'IBM Plex Sans', system-ui, sans-serif"
+            font-size="8"
+            font-weight="600"
+            fill="#1e1b18"
+          >Fetal</text>
+          <text
+            x={BIRTH_X - 40}
+            y={FETAL_Y + 8}
+            text-anchor="middle"
+            dominant-baseline="middle"
+            font-family="'IBM Plex Sans', system-ui, sans-serif"
+            font-size="8"
+            font-weight="600"
+            fill="#1e1b18"
+          >Death</text>
+          <!-- prop count badge -->
+          <circle cx={BIRTH_X - 40 + NODE_R - 2} cy={FETAL_Y - NODE_R + 2} r="8" fill="#1e3a5f" />
+          <text
+            x={BIRTH_X - 40 + NODE_R - 2}
+            y={FETAL_Y - NODE_R + 2}
+            text-anchor="middle"
+            dominant-baseline="middle"
+            font-family="'IBM Plex Mono', monospace"
+            font-size="7"
+            fill="white"
+          >+{fetalDeath.properties.length}</text>
+        </a>
+
+        <!-- Main ribbon line -->
+        <line
+          x1={FIRST_X}
+          y1={RIBBON_Y}
+          x2={LAST_X}
+          y2={RIBBON_Y}
+          stroke="#1e3a5f"
+          stroke-width="3"
+          stroke-linecap="round"
+        />
+
+        <!-- Main event nodes -->
+        {mainEvents.map(({ key, concept, index }) => {
+          const cx = nodeX(index);
+          const label = concept.label.en ?? concept.id;
+          const words = label.split(' ');
+          const propCount = concept.properties.length;
+          const repeatable = REPEATABLE.has(key);
+          // Place label above or below alternating to avoid overlap on narrow screens
+          const labelBelow = index % 2 === 0;
+          const labelY = labelBelow ? RIBBON_Y + NODE_R + 16 : RIBBON_Y - NODE_R - 16;
+
+          return (
+            <a href={concept.path} aria-label={`${label} — view concept`}>
+              {/* Outer ring for repeatability indicator */}
+              {repeatable && (
+                <circle
+                  cx={cx}
+                  cy={RIBBON_Y}
+                  r={NODE_R + 5}
+                  fill="none"
+                  stroke={maturityStroke(concept.maturity)}
+                  stroke-width="1.5"
+                  stroke-dasharray="3 3"
+                  opacity="0.6"
+                />
+              )}
+              <circle
+                cx={cx}
+                cy={RIBBON_Y}
+                r={NODE_R}
+                fill={maturityFill(concept.maturity)}
+                stroke={maturityStroke(concept.maturity)}
+                stroke-width="2"
+                class="event-node"
+              />
+              {/* Render one or two lines of text inside the circle */}
+              {words.length === 1 ? (
+                <text
+                  x={cx}
+                  y={RIBBON_Y}
+                  text-anchor="middle"
+                  dominant-baseline="middle"
+                  font-family="'IBM Plex Sans', system-ui, sans-serif"
+                  font-size="9"
+                  font-weight="600"
+                  fill="#1e1b18"
+                >{words[0]}</text>
+              ) : words.length === 2 ? (
+                <>
+                  <text
+                    x={cx}
+                    y={RIBBON_Y - 5}
+                    text-anchor="middle"
+                    dominant-baseline="middle"
+                    font-family="'IBM Plex Sans', system-ui, sans-serif"
+                    font-size="9"
+                    font-weight="600"
+                    fill="#1e1b18"
+                  >{words[0]}</text>
+                  <text
+                    x={cx}
+                    y={RIBBON_Y + 5}
+                    text-anchor="middle"
+                    dominant-baseline="middle"
+                    font-family="'IBM Plex Sans', system-ui, sans-serif"
+                    font-size="9"
+                    font-weight="600"
+                    fill="#1e1b18"
+                  >{words[1]}</text>
+                </>
+              ) : (
+                <>
+                  <text
+                    x={cx}
+                    y={RIBBON_Y - 6}
+                    text-anchor="middle"
+                    dominant-baseline="middle"
+                    font-family="'IBM Plex Sans', system-ui, sans-serif"
+                    font-size="8"
+                    font-weight="600"
+                    fill="#1e1b18"
+                  >{words[0]}</text>
+                  <text
+                    x={cx}
+                    y={RIBBON_Y + 1}
+                    text-anchor="middle"
+                    dominant-baseline="middle"
+                    font-family="'IBM Plex Sans', system-ui, sans-serif"
+                    font-size="8"
+                    font-weight="600"
+                    fill="#1e1b18"
+                  >{words[1]}</text>
+                  <text
+                    x={cx}
+                    y={RIBBON_Y + 8}
+                    text-anchor="middle"
+                    dominant-baseline="middle"
+                    font-family="'IBM Plex Sans', system-ui, sans-serif"
+                    font-size="8"
+                    font-weight="600"
+                    fill="#1e1b18"
+                  >{words[2]}</text>
+                </>
+              )}
+              {/* Property count badge */}
+              <circle
+                cx={cx + NODE_R - 2}
+                cy={RIBBON_Y - NODE_R + 2}
+                r={8}
+                fill="#1e3a5f"
+              />
+              <text
+                x={cx + NODE_R - 2}
+                y={RIBBON_Y - NODE_R + 2}
+                text-anchor="middle"
+                dominant-baseline="middle"
+                font-family="'IBM Plex Mono', monospace"
+                font-size="7"
+                fill="white"
+              >+{propCount}</text>
+              {/* Label below or above the ribbon */}
+              <text
+                x={cx}
+                y={labelY}
+                text-anchor="middle"
+                font-family="'IBM Plex Sans', system-ui, sans-serif"
+                font-size="10"
+                fill="#1e1b18"
+              >{label}</text>
+              {/* Repeatable indicator label */}
+              {repeatable && (
+                <text
+                  x={cx}
+                  y={labelY + 12}
+                  text-anchor="middle"
+                  font-family="'IBM Plex Sans', system-ui, sans-serif"
+                  font-size="8"
+                  fill="#6f6b66"
+                  font-style="italic"
+                >can repeat</text>
+              )}
+            </a>
+          );
+        })}
+
+        <!-- Legend -->
+        <g transform={`translate(${SVG_WIDTH - 170}, ${SVG_HEIGHT - 60})`}>
+          <rect x="0" y="0" width="160" height="52" rx="4" fill="white" fill-opacity="0.9" stroke="#ddd8d3" stroke-width="1" />
+          <text x="8" y="14" font-family="'IBM Plex Sans', system-ui, sans-serif" font-size="8" font-weight="600" fill="#1e1b18">Legend</text>
+          <!-- candidate -->
+          <circle cx="18" cy="26" r="6" fill="#fef3c7" stroke="#92400e" stroke-width="1.5" />
+          <text x="28" y="29" font-family="'IBM Plex Sans', system-ui, sans-serif" font-size="8" fill="#1e1b18">candidate maturity</text>
+          <!-- draft -->
+          <circle cx="18" cy="40" r="6" fill="#fef9c3" stroke="#92400e" stroke-width="1.5" stroke-dasharray="3 2" />
+          <text x="28" y="43" font-family="'IBM Plex Sans', system-ui, sans-serif" font-size="8" fill="#1e1b18">draft maturity</text>
+          <!-- prop badge -->
+          <circle cx="110" cy="26" r="6" fill="#1e3a5f" />
+          <text x="110" y="26" text-anchor="middle" dominant-baseline="middle" font-family="'IBM Plex Mono', monospace" font-size="7" fill="white">+n</text>
+          <text x="120" y="29" font-family="'IBM Plex Sans', system-ui, sans-serif" font-size="8" fill="#1e1b18">extra props</text>
+          <!-- repeatable -->
+          <circle cx="110" cy="40" r="6" fill="white" stroke="#92400e" stroke-width="1.5" stroke-dasharray="3 2" />
+          <text x="120" y="43" font-family="'IBM Plex Sans', system-ui, sans-serif" font-size="8" fill="#1e1b18">can repeat</text>
+        </g>
+      </svg>
+    </div>
+
+    <!-- Shared VitalEvent sidebar -->
+    <section class="vital-event-sidebar" aria-label="Shared VitalEvent properties">
+      <h2>
+        Shared supertype:
+        <a href={vitalEvent.path}>{vitalEvent.label.en ?? vitalEvent.id}</a>
+      </h2>
+      <p>All events above inherit these common properties from <code>crvs/VitalEvent</code>:</p>
+      <ul class="ve-props">
+        {vitalEvent.properties.map((p) => (
+          <li><code>{p.id}</code></li>
+        ))}
+      </ul>
+      <p class="ve-note">
+        Each event then adds its own context-specific properties (shown as the
+        <span class="badge-inline">+n</span> badge on each node).
+      </p>
+    </section>
+
+    <!-- Accessible fallback: semantic ordered list -->
+    <details class="fallback-list">
+      <summary>Event list (text version)</summary>
+      <p>
+        <strong>Alternate track (before or instead of a live birth):</strong>
+      </p>
+      <ul>
+        <li>
+          <a href={fetalDeath.path}>{fetalDeath.label.en ?? fetalDeath.id}</a>
+          &ndash; {fetalDeath.definition.en}
+          <span class="maturity-tag">{fetalDeath.maturity}</span>
+        </li>
+      </ul>
+      <p><strong>Main life-course ribbon (chronological):</strong></p>
+      <ol>
+        {mainEvents.map(({ key, concept }) => (
+          <li>
+            <a href={concept.path}>{concept.label.en ?? concept.id}</a>
+            {REPEATABLE.has(key) && <em> (can repeat)</em>}
+            &ndash; {concept.definition.en}
+            <span class="maturity-tag">{concept.maturity}</span>
+          </li>
+        ))}
+      </ol>
+    </details>
+  </article>
+</Base>
+
+<style>
+  .crvs-timeline-page {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .timeline-wrapper {
+    margin: var(--space-lg, 2rem) 0;
+    overflow-x: auto;
+    border: 1px solid var(--color-border, #ddd8d3);
+    border-radius: 8px;
+    background: white;
+    padding: 1rem 0;
+  }
+
+  .timeline-svg {
+    min-width: 600px;
+    display: block;
+  }
+
+  /* Hover effect on event nodes */
+  .event-node {
+    transition: filter 0.15s ease;
+    cursor: pointer;
+  }
+
+  a:hover .event-node,
+  a:focus .event-node {
+    filter: brightness(0.9);
+  }
+
+  /* Shared supertype section */
+  .vital-event-sidebar {
+    background: var(--color-accent-light, #e8eef5);
+    border: 1px solid var(--color-border, #ddd8d3);
+    border-radius: 8px;
+    padding: 1.25rem 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .vital-event-sidebar h2 {
+    font-size: 1rem;
+    margin: 0 0 0.5rem 0;
+    color: var(--color-accent, #1e3a5f);
+  }
+
+  .ve-props {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0;
+  }
+
+  .ve-props li code {
+    background: white;
+    border: 1px solid var(--color-border, #ddd8d3);
+    border-radius: 4px;
+    padding: 0.15rem 0.4rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--color-text, #1e1b18);
+  }
+
+  .ve-note {
+    font-size: 0.875rem;
+    color: var(--color-text-muted, #6f6b66);
+    margin-top: 0.5rem;
+  }
+
+  .badge-inline {
+    display: inline-block;
+    background: var(--color-accent, #1e3a5f);
+    color: white;
+    border-radius: 50%;
+    width: 1.4rem;
+    height: 1.4rem;
+    line-height: 1.4rem;
+    text-align: center;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    vertical-align: middle;
+  }
+
+  /* Accessible fallback */
+  .fallback-list {
+    margin: 1.5rem 0;
+    border: 1px solid var(--color-border, #ddd8d3);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+  }
+
+  .fallback-list summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--color-accent, #1e3a5f);
+    font-size: 0.9rem;
+  }
+
+  .fallback-list ol,
+  .fallback-list ul {
+    margin: 0.5rem 0 0.5rem 1.5rem;
+  }
+
+  .fallback-list li {
+    margin: 0.4rem 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .maturity-tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+    margin-left: 0.4rem;
+    background: var(--color-candidate-bg, #fef3c7);
+    color: var(--color-candidate, #92400e);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  /* Responsive: allow horizontal scroll on narrow screens */
+  @media (max-width: 640px) {
+    .timeline-wrapper {
+      padding: 0.5rem 0;
+    }
+  }
+</style>

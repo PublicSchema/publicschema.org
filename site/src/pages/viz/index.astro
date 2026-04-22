@@ -1,0 +1,193 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const prototypes = [
+  {
+    slug: 'domain-ring',
+    title: 'Domain ring',
+    blurb: 'Concentric rings with universal core in the centre and domain extensions around it. Orients a first-time visitor.',
+    audience: 'Policy officers, evaluators',
+    task: 'What is in scope? What is universal vs domain-specific?',
+  },
+  {
+    slug: 'supertype-tree',
+    title: 'Supertype tree',
+    blurb: 'Collapsible hierarchy of abstract supertypes (Agent, Event, Party, Profile) and their concrete subtypes.',
+    audience: 'Developers, architects',
+    task: 'How is the type system structured? What does concept X inherit?',
+  },
+  {
+    slug: 'crvs-timeline',
+    title: 'CRVS life-course timeline',
+    blurb: 'Vital events plotted along a life course: Birth, Legitimation, Marriage, Death, etc.',
+    audience: 'CRVS practitioners',
+    task: 'Which events does PublicSchema model, and in what order?',
+  },
+  {
+    slug: 'concept-matrix',
+    title: 'Concept x category matrix',
+    blurb: 'Table showing which concepts carry properties in which categories. Reveals shared structure.',
+    audience: 'Developers doing field mapping',
+    task: 'Which concepts share identity, location, or functioning properties?',
+  },
+  {
+    slug: 'concepts-faceted',
+    title: 'Faceted concept browse',
+    blurb: 'All 60 concepts with filters for domain, maturity, abstract, and external-system mapping. Shareable URL state.',
+    audience: 'Everyone',
+    task: 'Find me concepts that match these criteria.',
+  },
+  {
+    slug: 'convergence-bar',
+    title: 'Convergence coverage',
+    blurb: 'Horizontal bars ranked by how many external systems recognise each concept. Highlights battle-tested vs theoretical.',
+    audience: 'Standards people, architects',
+    task: 'Which concepts are proven across real implementations?',
+  },
+];
+---
+
+<Base title="Visualization prototypes" description="Prototype visualizations of the PublicSchema concept graph for evaluation.">
+  <article class="viz-index">
+    <header>
+      <h1>Visualization prototypes</h1>
+      <p class="lede">
+        Six prototype ways of rendering the PublicSchema concept graph. Each one serves a
+        different user and answers a different question. Click through to compare, then keep
+        the ones that earn their place on the live site.
+      </p>
+    </header>
+
+    <ul class="proto-grid">
+      {prototypes.map((p) => (
+        <li class="proto-card">
+          <a href={`/viz/${p.slug}/`} class="proto-link">
+            <h2>{p.title}</h2>
+            <p class="blurb">{p.blurb}</p>
+            <dl>
+              <dt>For</dt>
+              <dd>{p.audience}</dd>
+              <dt>Answers</dt>
+              <dd>{p.task}</dd>
+            </dl>
+            <span class="open">Open prototype &rarr;</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <aside class="notes">
+      <h2>Notes</h2>
+      <ul>
+        <li>Force-directed concept graph was considered and dropped after data + UX review (hub-and-spoke hairball, poor task fit).</li>
+        <li>Convergence chord/Sankey was considered and dropped (sparse, lopsided data; see the coverage-bar alternative).</li>
+        <li>Maturity dashboard was scoped down to a potential summary strip on <code>/concepts</code>, not a standalone viz.</li>
+      </ul>
+    </aside>
+  </article>
+
+  <style>
+    .viz-index {
+      max-width: 72rem;
+      margin: 2rem auto;
+      padding: 0 var(--space-md, 1rem);
+    }
+    header h1 {
+      font-family: 'IBM Plex Serif', Georgia, serif;
+      font-size: 2.5rem;
+      margin: 0 0 0.5rem;
+    }
+    .lede {
+      font-size: 1.125rem;
+      color: var(--color-text-muted, #555);
+      max-width: 48rem;
+      margin: 0 0 2rem;
+    }
+    .proto-grid {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+      gap: 1rem;
+    }
+    .proto-card {
+      border: 1px solid var(--color-border, #ddd);
+      border-radius: 8px;
+      background: var(--color-surface, #fff);
+      transition: border-color 0.15s, transform 0.15s;
+    }
+    .proto-card:hover {
+      border-color: var(--color-accent, #1e3a5f);
+      transform: translateY(-2px);
+    }
+    .proto-link {
+      display: block;
+      padding: 1.25rem;
+      color: inherit;
+      text-decoration: none;
+      height: 100%;
+    }
+    .proto-card h2 {
+      font-family: 'IBM Plex Serif', Georgia, serif;
+      font-size: 1.25rem;
+      margin: 0 0 0.5rem;
+      color: var(--color-accent, #1e3a5f);
+    }
+    .blurb {
+      font-size: 0.95rem;
+      line-height: 1.45;
+      margin: 0 0 1rem;
+      color: var(--color-text, #222);
+    }
+    dl {
+      font-size: 0.85rem;
+      margin: 0 0 1rem;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.25rem 0.75rem;
+    }
+    dt {
+      font-weight: 600;
+      color: var(--color-text-muted, #666);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      font-size: 0.75rem;
+    }
+    dd {
+      margin: 0;
+      color: var(--color-text, #222);
+    }
+    .open {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--color-accent, #1e3a5f);
+    }
+    .notes {
+      margin-top: 3rem;
+      padding: 1rem 1.25rem;
+      background: var(--color-surface-alt, #f5f3ec);
+      border-left: 3px solid var(--color-accent, #1e3a5f);
+      border-radius: 4px;
+    }
+    .notes h2 {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 1rem;
+      margin: 0 0 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .notes ul {
+      margin: 0;
+      padding-left: 1.25rem;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+    .notes code {
+      background: rgba(0, 0, 0, 0.05);
+      padding: 0 0.25rem;
+      border-radius: 3px;
+      font-size: 0.85em;
+    }
+  </style>
+</Base>
