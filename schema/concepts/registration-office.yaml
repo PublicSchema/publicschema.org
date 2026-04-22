@@ -70,7 +70,7 @@ properties:
 property_groups:
   - category: identity
     properties:
-      - service_point_name
+      - name
       - identifiers
   - category: classification
     properties:

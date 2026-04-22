@@ -49,7 +49,7 @@ definition:
     gestora.
 
 properties:
-  - service_point_name
+  - name
   - identifiers
   - service_point_type
   - located_at
@@ -59,7 +59,7 @@ properties:
 property_groups:
   - category: identity
     properties:
-      - service_point_name
+      - name
       - identifiers
   - category: classification
     properties:
