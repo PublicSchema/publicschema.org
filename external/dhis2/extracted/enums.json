@@ -1,0 +1,322 @@
+{
+  "EnrollmentStatus": {
+    "description": "Allowed values for EnrollmentStatus in DHIS2.",
+    "values": [
+      {
+        "code": "ACTIVE",
+        "label": "Active",
+        "description": ""
+      },
+      {
+        "code": "COMPLETED",
+        "label": "Completed",
+        "description": ""
+      },
+      {
+        "code": "CANCELLED",
+        "label": "Cancelled",
+        "description": ""
+      }
+    ]
+  },
+  "EventStatus": {
+    "description": "Allowed values for EventStatus in DHIS2.",
+    "values": [
+      {
+        "code": "ACTIVE",
+        "label": "Active",
+        "description": ""
+      },
+      {
+        "code": "COMPLETED",
+        "label": "Completed",
+        "description": ""
+      },
+      {
+        "code": "VISITED",
+        "label": "Visited",
+        "description": ""
+      },
+      {
+        "code": "SCHEDULE",
+        "label": "Schedule",
+        "description": ""
+      },
+      {
+        "code": "OVERDUE",
+        "label": "Overdue",
+        "description": ""
+      },
+      {
+        "code": "SKIPPED",
+        "label": "Skipped",
+        "description": ""
+      }
+    ]
+  },
+  "ValueType": {
+    "description": "Allowed values for ValueType in DHIS2.",
+    "values": [
+      {
+        "code": "TEXT",
+        "label": "Text",
+        "description": ""
+      },
+      {
+        "code": "LONG_TEXT",
+        "label": "Long Text",
+        "description": ""
+      },
+      {
+        "code": "MULTI_TEXT",
+        "label": "Multi Text",
+        "description": ""
+      },
+      {
+        "code": "LETTER",
+        "label": "Letter",
+        "description": ""
+      },
+      {
+        "code": "PHONE_NUMBER",
+        "label": "Phone Number",
+        "description": ""
+      },
+      {
+        "code": "EMAIL",
+        "label": "Email",
+        "description": ""
+      },
+      {
+        "code": "BOOLEAN",
+        "label": "Boolean",
+        "description": ""
+      },
+      {
+        "code": "TRUE_ONLY",
+        "label": "True Only",
+        "description": ""
+      },
+      {
+        "code": "DATE",
+        "label": "Date",
+        "description": ""
+      },
+      {
+        "code": "DATETIME",
+        "label": "Datetime",
+        "description": ""
+      },
+      {
+        "code": "TIME",
+        "label": "Time",
+        "description": ""
+      },
+      {
+        "code": "NUMBER",
+        "label": "Number",
+        "description": ""
+      },
+      {
+        "code": "UNIT_INTERVAL",
+        "label": "Unit Interval",
+        "description": ""
+      },
+      {
+        "code": "PERCENTAGE",
+        "label": "Percentage",
+        "description": ""
+      },
+      {
+        "code": "INTEGER",
+        "label": "Integer",
+        "description": ""
+      },
+      {
+        "code": "INTEGER_POSITIVE",
+        "label": "Integer Positive",
+        "description": ""
+      },
+      {
+        "code": "INTEGER_NEGATIVE",
+        "label": "Integer Negative",
+        "description": ""
+      },
+      {
+        "code": "INTEGER_ZERO_OR_POSITIVE",
+        "label": "Integer Zero Or Positive",
+        "description": ""
+      },
+      {
+        "code": "TRACKER_ASSOCIATE",
+        "label": "Tracker Associate",
+        "description": ""
+      },
+      {
+        "code": "USERNAME",
+        "label": "Username",
+        "description": ""
+      },
+      {
+        "code": "COORDINATE",
+        "label": "Coordinate",
+        "description": ""
+      },
+      {
+        "code": "ORGANISATION_UNIT",
+        "label": "Organisation Unit",
+        "description": ""
+      },
+      {
+        "code": "REFERENCE",
+        "label": "Reference",
+        "description": ""
+      },
+      {
+        "code": "AGE",
+        "label": "Age",
+        "description": ""
+      },
+      {
+        "code": "URL",
+        "label": "Url",
+        "description": ""
+      },
+      {
+        "code": "FILE_RESOURCE",
+        "label": "File Resource",
+        "description": ""
+      },
+      {
+        "code": "IMAGE",
+        "label": "Image",
+        "description": ""
+      },
+      {
+        "code": "GEOJSON",
+        "label": "Geojson",
+        "description": ""
+      }
+    ]
+  },
+  "FeatureType": {
+    "description": "Allowed values for FeatureType in DHIS2.",
+    "values": [
+      {
+        "code": "NONE",
+        "label": "None",
+        "description": ""
+      },
+      {
+        "code": "MULTI_POLYGON",
+        "label": "Multi Polygon",
+        "description": ""
+      },
+      {
+        "code": "POLYGON",
+        "label": "Polygon",
+        "description": ""
+      },
+      {
+        "code": "POINT",
+        "label": "Point",
+        "description": ""
+      },
+      {
+        "code": "SYMBOL",
+        "label": "Symbol",
+        "description": ""
+      }
+    ]
+  },
+  "AccessLevel": {
+    "description": "Allowed values for AccessLevel in DHIS2.",
+    "values": [
+      {
+        "code": "OPEN",
+        "label": "Open",
+        "description": ""
+      },
+      {
+        "code": "AUDITED",
+        "label": "Audited",
+        "description": ""
+      },
+      {
+        "code": "PROTECTED",
+        "label": "Protected",
+        "description": ""
+      },
+      {
+        "code": "CLOSED",
+        "label": "Closed",
+        "description": ""
+      }
+    ]
+  },
+  "RelationshipEntity": {
+    "description": "Allowed values for RelationshipEntity in DHIS2.",
+    "values": [
+      {
+        "code": "TRACKED_ENTITY_INSTANCE",
+        "label": "Tracked Entity Instance",
+        "description": ""
+      },
+      {
+        "code": "PROGRAM_INSTANCE",
+        "label": "Program Instance",
+        "description": ""
+      },
+      {
+        "code": "PROGRAM_STAGE_INSTANCE",
+        "label": "Program Stage Instance",
+        "description": ""
+      }
+    ]
+  },
+  "ProgramType": {
+    "description": "Allowed values for ProgramType in DHIS2.",
+    "values": [
+      {
+        "code": "WITH_REGISTRATION",
+        "label": "With Registration",
+        "description": ""
+      },
+      {
+        "code": "WITHOUT_REGISTRATION",
+        "label": "Without Registration",
+        "description": ""
+      }
+    ]
+  },
+  "Civil status": {
+    "description": "Allowed values for Civil status in DHIS2.",
+    "values": [
+      {
+        "code": "Single or widow",
+        "label": "Single or widow",
+        "description": ""
+      },
+      {
+        "code": "Married (conjugal cohabitation)",
+        "label": "Married (conjugal cohabitation)",
+        "description": ""
+      }
+    ]
+  },
+  "Gender": {
+    "description": "Allowed values for Gender in DHIS2.",
+    "values": [
+      {
+        "code": "Male",
+        "label": "Male",
+        "description": ""
+      },
+      {
+        "code": "Female",
+        "label": "Female",
+        "description": ""
+      }
+    ]
+  }
+}

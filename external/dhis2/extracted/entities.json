@@ -1,0 +1,1991 @@
+[
+  {
+    "id": "Person",
+    "name": "Person",
+    "description": "A person tracked across programs. In DHIS2, Person is a TrackedEntityType whose fields are configurable attributes. The fields shown here are the defaults from the DHIS2 demo instance.",
+    "parent": null,
+    "source_url": "https://docs.dhis2.org/en/develop/using-the-api/dhis-core-version-master/tracker.html",
+    "fields": [
+      {
+        "name": "Unique ID",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": "Unique identiifer"
+      },
+      {
+        "name": "First name",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": "First name"
+      },
+      {
+        "name": "Last name",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": "Last name"
+      },
+      {
+        "name": "Gender",
+        "type": "Gender",
+        "required": false,
+        "cardinality": "0..1",
+        "description": "Gender",
+        "enum": "Gender"
+      },
+      {
+        "name": "Email",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": "Email address"
+      },
+      {
+        "name": "Date of birth",
+        "type": "date",
+        "required": false,
+        "cardinality": "0..1",
+        "description": "Date of birth"
+      },
+      {
+        "name": "Address",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": "Country"
+      },
+      {
+        "name": "City",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": "City"
+      },
+      {
+        "name": "National identifier",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": "National identifier"
+      },
+      {
+        "name": "Mobile number",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": "Mobile number"
+      },
+      {
+        "name": "Civil status",
+        "type": "Civil status",
+        "required": false,
+        "cardinality": "0..1",
+        "description": "Civil status",
+        "enum": "Civil status"
+      }
+    ]
+  },
+  {
+    "id": "TrackerEnrollment",
+    "name": "TrackerEnrollment",
+    "description": "The registration of a tracked entity into a specific program, with enrollment dates, status, and associated events.",
+    "parent": null,
+    "source_url": "https://docs.dhis2.org/en/develop/using-the-api/dhis-core-version-master/tracker.html",
+    "fields": [
+      {
+        "name": "attributes",
+        "type": "TrackerAttribute",
+        "required": false,
+        "cardinality": "0..*",
+        "description": ""
+      },
+      {
+        "name": "completedAt",
+        "type": "dateTime",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "completedBy",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "enrolledAt",
+        "type": "dateTime",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "enrollment",
+        "type": "string (UID)",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "events",
+        "type": "TrackerEvent",
+        "required": false,
+        "cardinality": "0..*",
+        "description": ""
+      },
+      {
+        "name": "followUp",
+        "type": "boolean",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "geometry",
+        "type": "object",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "notes",
+        "type": "TrackerNote",
+        "required": false,
+        "cardinality": "0..*",
+        "description": ""
+      },
+      {
+        "name": "occurredAt",
+        "type": "dateTime",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "orgUnit",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "program",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "relationships",
+        "type": "TrackerRelationship",
+        "required": false,
+        "cardinality": "0..*",
+        "description": ""
+      },
+      {
+        "name": "status",
+        "type": "EnrollmentStatus",
+        "required": true,
+        "cardinality": "1..1",
+        "description": ""
+      },
+      {
+        "name": "trackedEntity",
+        "type": "string (UID)",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "id": "TrackerEvent",
+    "name": "TrackerEvent",
+    "description": "A single data-collection occurrence within a program stage, carrying data values, dates, and assignment.",
+    "parent": null,
+    "source_url": "https://docs.dhis2.org/en/develop/using-the-api/dhis-core-version-master/tracker.html",
+    "fields": [
+      {
+        "name": "assignedUser",
+        "type": "TrackerUser",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "attributeCategoryOptions",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "attributeOptionCombo",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "completedAt",
+        "type": "dateTime",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "completedBy",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "dataValues",
+        "type": "TrackerDataValue",
+        "required": false,
+        "cardinality": "0..*",
+        "description": ""
+      },
+      {
+        "name": "enrollment",
+        "type": "string (UID)",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "event",
+        "type": "string (UID)",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "followUp",
+        "type": "boolean",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "geometry",
+        "type": "object",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "notes",
+        "type": "TrackerNote",
+        "required": false,
+        "cardinality": "0..*",
+        "description": ""
+      },
+      {
+        "name": "occurredAt",
+        "type": "dateTime",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "orgUnit",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "program",
+        "type": "string (UID)",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "programStage",
+        "type": "string (UID)",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "relationships",
+        "type": "TrackerRelationship",
+        "required": false,
+        "cardinality": "0..*",
+        "description": ""
+      },
+      {
+        "name": "scheduledAt",
+        "type": "dateTime",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "status",
+        "type": "EventStatus",
+        "required": true,
+        "cardinality": "1..1",
+        "description": ""
+      },
+      {
+        "name": "trackedEntity",
+        "type": "string (UID)",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "id": "TrackerRelationship",
+    "name": "TrackerRelationship",
+    "description": "A typed, optionally bidirectional link between two tracker items (tracked entities, enrollments, or events).",
+    "parent": null,
+    "source_url": "https://docs.dhis2.org/en/develop/using-the-api/dhis-core-version-master/tracker.html",
+    "fields": [
+      {
+        "name": "bidirectional",
+        "type": "boolean",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "from",
+        "type": "TrackerRelationshipItem",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "relationship",
+        "type": "string (UID)",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "relationshipName",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "relationshipType",
+        "type": "string (UID)",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "to",
+        "type": "TrackerRelationshipItem",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "id": "TrackerRelationshipItem",
+    "name": "TrackerRelationshipItem",
+    "description": "One side of a tracker relationship, referencing either a tracked entity, enrollment, or event.",
+    "parent": null,
+    "source_url": "https://docs.dhis2.org/en/develop/using-the-api/dhis-core-version-master/tracker.html",
+    "fields": [
+      {
+        "name": "enrollment",
+        "type": "TrackerEnrollment",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "event",
+        "type": "TrackerEvent",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "trackedEntity",
+        "type": "TrackerTrackedEntity",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "id": "TrackerDataValue",
+    "name": "TrackerDataValue",
+    "description": "A single data value recorded for a data element within an event.",
+    "parent": null,
+    "source_url": "https://docs.dhis2.org/en/develop/using-the-api/dhis-core-version-master/tracker.html",
+    "fields": [
+      {
+        "name": "dataElement",
+        "type": "string (UID)",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "providedElsewhere",
+        "type": "boolean",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "id": "TrackerNote",
+    "name": "TrackerNote",
+    "description": "A timestamped text note attached to an enrollment or event.",
+    "parent": null,
+    "source_url": "https://docs.dhis2.org/en/develop/using-the-api/dhis-core-version-master/tracker.html",
+    "fields": [
+      {
+        "name": "note",
+        "type": "string (UID)",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "storedAt",
+        "type": "dateTime",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "id": "TrackerUser",
+    "name": "TrackerUser",
+    "description": "A lightweight user reference carrying UID, username, and display name.",
+    "parent": null,
+    "source_url": "https://docs.dhis2.org/en/develop/using-the-api/dhis-core-version-master/tracker.html",
+    "fields": [
+      {
+        "name": "firstName",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "surname",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "uid",
+        "type": "string (UID)",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "username",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "id": "TrackerProgramOwner",
+    "name": "TrackerProgramOwner",
+    "description": "Links a tracked entity to the organisation unit that owns it within a given program.",
+    "parent": null,
+    "source_url": "https://docs.dhis2.org/en/develop/using-the-api/dhis-core-version-master/tracker.html",
+    "fields": [
+      {
+        "name": "orgUnit",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "program",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "trackedEntity",
+        "type": "string (UID)",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "id": "Program",
+    "name": "Program",
+    "description": "A program definition that configures how tracked entities are enrolled, what data is collected, and access rules.",
+    "parent": null,
+    "source_url": "https://docs.dhis2.org/en/develop/using-the-api/dhis-core-version-master/tracker.html",
+    "fields": [
+      {
+        "name": "accessLevel",
+        "type": "AccessLevel",
+        "required": true,
+        "cardinality": "1..1",
+        "description": ""
+      },
+      {
+        "name": "categoryCombo",
+        "type": "BaseIdentifiableObject",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "categoryMappings",
+        "type": "ProgramCategoryMapping",
+        "required": false,
+        "cardinality": "0..*",
+        "description": ""
+      },
+      {
+        "name": "code",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "completeEventsExpiryDays",
+        "type": "integer",
+        "required": true,
+        "cardinality": "1..1",
+        "description": ""
+      },
+      {
+        "name": "dataEntryForm",
+        "type": "DataEntryForm",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "displayEnrollmentDateLabel",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "displayEnrollmentLabel",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "displayFollowUpLabel",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "displayFrontPageList",
+        "type": "boolean",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "displayIncidentDate",
+        "type": "boolean",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "displayIncidentDateLabel",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "displayNoteLabel",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "displayOrgUnitLabel",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "displayRelationshipLabel",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "displayTrackedEntityAttributeLabel",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "enrollmentDateLabel",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "enrollmentLabel",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "eventLabel",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "expiryDays",
+        "type": "integer",
+        "required": true,
+        "cardinality": "1..1",
+        "description": ""
+      },
+      {
+        "name": "expiryPeriodType",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "featureType",
+        "type": "FeatureType",
+        "required": true,
+        "cardinality": "1..1",
+        "description": ""
+      },
+      {
+        "name": "followUpLabel",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "ignoreOverdueEvents",
+        "type": "boolean",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "incidentDateLabel",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "maxTeiCountToReturn",
+        "type": "integer",
+        "required": true,
+        "cardinality": "1..1",
+        "description": ""
+      },
+      {
+        "name": "minAttributesRequiredToSearch",
+        "type": "integer",
+        "required": true,
+        "cardinality": "1..1",
+        "description": ""
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "noteLabel",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "notificationTemplates",
+        "type": "BaseIdentifiableObject",
+        "required": false,
+        "cardinality": "0..*",
+        "description": ""
+      },
+      {
+        "name": "onlyEnrollOnce",
+        "type": "boolean",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "openDaysAfterCoEndDate",
+        "type": "integer",
+        "required": true,
+        "cardinality": "1..1",
+        "description": ""
+      },
+      {
+        "name": "orgUnitLabel",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "organisationUnits",
+        "type": "BaseIdentifiableObject",
+        "required": false,
+        "cardinality": "0..*",
+        "description": ""
+      },
+      {
+        "name": "programIndicators",
+        "type": "BaseIdentifiableObject",
+        "required": false,
+        "cardinality": "0..*",
+        "description": ""
+      },
+      {
+        "name": "programRuleVariables",
+        "type": "BaseIdentifiableObject",
+        "required": false,
+        "cardinality": "0..*",
+        "description": ""
+      },
+      {
+        "name": "programSections",
+        "type": "BaseIdentifiableObject",
+        "required": false,
+        "cardinality": "0..*",
+        "description": ""
+      },
+      {
+        "name": "programStageLabel",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "programStages",
+        "type": "BaseIdentifiableObject",
+        "required": false,
+        "cardinality": "0..*",
+        "description": ""
+      },
+      {
+        "name": "programTrackedEntityAttributes",
+        "type": "BaseIdentifiableObject",
+        "required": false,
+        "cardinality": "0..*",
+        "description": ""
+      },
+      {
+        "name": "programType",
+        "type": "ProgramType",
+        "required": true,
+        "cardinality": "1..1",
+        "description": ""
+      },
+      {
+        "name": "registration",
+        "type": "boolean",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "relatedProgram",
+        "type": "BaseIdentifiableObject",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "relationshipLabel",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "selectEnrollmentDatesInFuture",
+        "type": "boolean",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "selectIncidentDatesInFuture",
+        "type": "boolean",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "shortName",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "skipOffline",
+        "type": "boolean",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "style",
+        "type": "ObjectStyle",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "trackedEntityAttributeLabel",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "trackedEntityType",
+        "type": "TrackedEntityType",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "useFirstStageDuringRegistration",
+        "type": "boolean",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "userRoles",
+        "type": "BaseIdentifiableObject",
+        "required": false,
+        "cardinality": "0..*",
+        "description": ""
+      },
+      {
+        "name": "version",
+        "type": "integer",
+        "required": true,
+        "cardinality": "1..1",
+        "description": ""
+      },
+      {
+        "name": "withoutRegistration",
+        "type": "boolean",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "id": "ProgramStage",
+    "name": "ProgramStage",
+    "description": "A stage within a program that defines a repeatable or one-time data collection step with its own data elements.",
+    "parent": null,
+    "source_url": "https://docs.dhis2.org/en/develop/using-the-api/dhis-core-version-master/tracker.html",
+    "fields": [
+      {
+        "name": "allowGenerateNextVisit",
+        "type": "boolean",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "autoGenerateEvent",
+        "type": "boolean",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "blockEntryForm",
+        "type": "boolean",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "code",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "dataEntryForm",
+        "type": "DataEntryForm",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "dueDateLabel",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "enableUserAssignment",
+        "type": "boolean",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "eventLabel",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "executionDateLabel",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "featureType",
+        "type": "FeatureType",
+        "required": true,
+        "cardinality": "1..1",
+        "description": ""
+      },
+      {
+        "name": "formType",
+        "type": "FormType",
+        "required": true,
+        "cardinality": "1..1",
+        "description": ""
+      },
+      {
+        "name": "generatedByEnrollmentDate",
+        "type": "boolean",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "hideDueDate",
+        "type": "boolean",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "minDaysFromStart",
+        "type": "integer",
+        "required": true,
+        "cardinality": "1..1",
+        "description": ""
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "nextScheduleDate",
+        "type": "DataElement",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "notificationTemplates",
+        "type": "BaseIdentifiableObject",
+        "required": false,
+        "cardinality": "0..*",
+        "description": ""
+      },
+      {
+        "name": "openAfterEnrollment",
+        "type": "boolean",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "periodType",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "preGenerateUID",
+        "type": "boolean",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "program",
+        "type": "BaseIdentifiableObject",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "programStageDataElements",
+        "type": "BaseIdentifiableObject",
+        "required": false,
+        "cardinality": "0..*",
+        "description": ""
+      },
+      {
+        "name": "programStageLabel",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "programStageSections",
+        "type": "BaseIdentifiableObject",
+        "required": false,
+        "cardinality": "0..*",
+        "description": ""
+      },
+      {
+        "name": "referral",
+        "type": "boolean",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "remindCompleted",
+        "type": "boolean",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "repeatable",
+        "type": "boolean",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "reportDateToUse",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "shortName",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "sortOrder",
+        "type": "integer",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "standardInterval",
+        "type": "integer",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "style",
+        "type": "ObjectStyle",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "validationStrategy",
+        "type": "ValidationStrategy",
+        "required": true,
+        "cardinality": "1..1",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "id": "TrackedEntityType",
+    "name": "TrackedEntityType",
+    "description": "A type definition for tracked entities (e.g. Person, Commodity), specifying which attributes apply and search rules.",
+    "parent": null,
+    "source_url": "https://docs.dhis2.org/en/develop/using-the-api/dhis-core-version-master/tracker.html",
+    "fields": [
+      {
+        "name": "allowAuditLog",
+        "type": "boolean",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "code",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "featureType",
+        "type": "FeatureType",
+        "required": true,
+        "cardinality": "1..1",
+        "description": ""
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "maxTeiCountToReturn",
+        "type": "integer",
+        "required": true,
+        "cardinality": "1..1",
+        "description": ""
+      },
+      {
+        "name": "minAttributesRequiredToSearch",
+        "type": "integer",
+        "required": true,
+        "cardinality": "1..1",
+        "description": ""
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "shortName",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "style",
+        "type": "ObjectStyle",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "trackedEntityTypeAttributes",
+        "type": "BaseIdentifiableObject",
+        "required": false,
+        "cardinality": "0..*",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "id": "TrackedEntityAttribute",
+    "name": "TrackedEntityAttribute",
+    "description": "A metadata definition for an attribute that can be attached to tracked entities, with value type, uniqueness, and display rules.",
+    "parent": null,
+    "source_url": "https://docs.dhis2.org/en/develop/using-the-api/dhis-core-version-master/tracker.html",
+    "fields": [
+      {
+        "name": "aggregationType",
+        "type": "AggregationType",
+        "required": true,
+        "cardinality": "1..1",
+        "description": ""
+      },
+      {
+        "name": "code",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "confidential",
+        "type": "boolean",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "displayInListNoProgram",
+        "type": "boolean",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "displayOnVisitSchedule",
+        "type": "boolean",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "expression",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "fieldMask",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "generated",
+        "type": "boolean",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "inherit",
+        "type": "boolean",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "legendSet",
+        "type": "LegendSet",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "legendSets",
+        "type": "LegendSet",
+        "required": false,
+        "cardinality": "0..*",
+        "description": ""
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "optionSet",
+        "type": "BaseIdentifiableObject",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "optionSetValue",
+        "type": "boolean",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "orgunitScope",
+        "type": "boolean",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "pattern",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "shortName",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "skipSynchronization",
+        "type": "boolean",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "sortOrderInListNoProgram",
+        "type": "integer",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "sortOrderInVisitSchedule",
+        "type": "integer",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "style",
+        "type": "ObjectStyle",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "unique",
+        "type": "boolean",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "valueType",
+        "type": "ValueType",
+        "required": true,
+        "cardinality": "1..1",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "id": "OrganisationUnit",
+    "name": "OrganisationUnit",
+    "description": "A node in the organisational hierarchy (country, region, district, facility) that owns data and tracked entities.",
+    "parent": null,
+    "source_url": "https://docs.dhis2.org/en/develop/using-the-api/dhis-core-version-master/tracker.html",
+    "fields": [
+      {
+        "name": "address",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "aggregationType",
+        "type": "AggregationType",
+        "required": true,
+        "cardinality": "1..1",
+        "description": ""
+      },
+      {
+        "name": "ancestors",
+        "type": "BaseIdentifiableObject",
+        "required": false,
+        "cardinality": "0..*",
+        "description": ""
+      },
+      {
+        "name": "children",
+        "type": "BaseIdentifiableObject",
+        "required": false,
+        "cardinality": "0..*",
+        "description": ""
+      },
+      {
+        "name": "closedDate",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "code",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "comment",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "contactPerson",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "dataSets",
+        "type": "BaseIdentifiableObject",
+        "required": false,
+        "cardinality": "0..*",
+        "description": ""
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "email",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "geometry",
+        "type": "object",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "image",
+        "type": "FileResource",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "leaf",
+        "type": "boolean",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "legendSet",
+        "type": "LegendSet",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "legendSets",
+        "type": "LegendSet",
+        "required": false,
+        "cardinality": "0..*",
+        "description": ""
+      },
+      {
+        "name": "level",
+        "type": "integer",
+        "required": true,
+        "cardinality": "1..1",
+        "description": ""
+      },
+      {
+        "name": "memberCount",
+        "type": "integer",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "openingDate",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "organisationUnitGroups",
+        "type": "BaseIdentifiableObject",
+        "required": false,
+        "cardinality": "0..*",
+        "description": ""
+      },
+      {
+        "name": "parent",
+        "type": "BaseIdentifiableObject",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "path",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "phoneNumber",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "programs",
+        "type": "BaseIdentifiableObject",
+        "required": false,
+        "cardinality": "0..*",
+        "description": ""
+      },
+      {
+        "name": "shortName",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "url",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "users",
+        "type": "UserDto",
+        "required": false,
+        "cardinality": "0..*",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "id": "RelationshipType",
+    "name": "RelationshipType",
+    "description": "Defines a type of relationship between tracker items, with directional names and constraints on what can be linked.",
+    "parent": null,
+    "source_url": "https://docs.dhis2.org/en/develop/using-the-api/dhis-core-version-master/tracker.html",
+    "fields": [
+      {
+        "name": "bidirectional",
+        "type": "boolean",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "code",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "fromConstraint",
+        "type": "RelationshipConstraint",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "fromToName",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "referral",
+        "type": "boolean",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "toConstraint",
+        "type": "RelationshipConstraint",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "toFromName",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "id": "RelationshipConstraint",
+    "name": "RelationshipConstraint",
+    "description": "Constrains one side of a relationship type to a specific entity type, program, or program stage.",
+    "parent": null,
+    "source_url": "https://docs.dhis2.org/en/develop/using-the-api/dhis-core-version-master/tracker.html",
+    "fields": [
+      {
+        "name": "program",
+        "type": "Program",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "programStage",
+        "type": "ProgramStage",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "relationshipEntity",
+        "type": "RelationshipEntity",
+        "required": true,
+        "cardinality": "1..1",
+        "description": ""
+      },
+      {
+        "name": "trackedEntityType",
+        "type": "TrackedEntityType",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "trackerDataView",
+        "type": "TrackerDataView",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "id": "DataElement",
+    "name": "DataElement",
+    "description": "A metadata definition for a single data point (question/indicator) with value type, aggregation rules, and categorization.",
+    "parent": null,
+    "source_url": "https://docs.dhis2.org/en/develop/using-the-api/dhis-core-version-master/tracker.html",
+    "fields": [
+      {
+        "name": "aggregationLevels",
+        "type": "integer",
+        "required": false,
+        "cardinality": "0..*",
+        "description": ""
+      },
+      {
+        "name": "aggregationType",
+        "type": "AggregationType",
+        "required": true,
+        "cardinality": "1..1",
+        "description": ""
+      },
+      {
+        "name": "categoryCombo",
+        "type": "BaseIdentifiableObject",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "code",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "commentOptionSet",
+        "type": "OptionSet",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "dataElementGroups",
+        "type": "BaseIdentifiableObject",
+        "required": false,
+        "cardinality": "0..*",
+        "description": ""
+      },
+      {
+        "name": "dataSetElements",
+        "type": "DataSetElement",
+        "required": false,
+        "cardinality": "0..*",
+        "description": ""
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "domainType",
+        "type": "DataElementDomain",
+        "required": true,
+        "cardinality": "1..1",
+        "description": ""
+      },
+      {
+        "name": "fieldMask",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "legendSet",
+        "type": "LegendSet",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "legendSets",
+        "type": "LegendSet",
+        "required": false,
+        "cardinality": "0..*",
+        "description": ""
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "optionSet",
+        "type": "OptionSet",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "optionSetValue",
+        "type": "boolean",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "shortName",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "style",
+        "type": "ObjectStyle",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "url",
+        "type": "string",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "valueType",
+        "type": "ValueType",
+        "required": true,
+        "cardinality": "1..1",
+        "description": ""
+      },
+      {
+        "name": "valueTypeOptions",
+        "type": "FileTypeValueOptions",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      },
+      {
+        "name": "zeroIsSignificant",
+        "type": "boolean",
+        "required": false,
+        "cardinality": "0..1",
+        "description": ""
+      }
+    ]
+  }
+]

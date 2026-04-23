@@ -32,9 +32,13 @@ translations/glossary.yaml
 
 # Generated external schema extractions
 external/*/extracted/
+# DHIS2 extracts are committed: the only source is a live demo server, so
+# snapshotting them keeps the mapping reproducible offline.
+!external/dhis2/extracted/
 
 # Cloned external repos (large, fetched on demand)
 external/semic/
+external/*/repo/
 
 # Node
 node_modules/
