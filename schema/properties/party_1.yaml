@@ -18,8 +18,8 @@ domain_override: crvs
 
 external_equivalents:
   opencrvs:
-    label: "MarriageRegistration.bride"
-    uri: "https://github.com/opencrvs/opencrvs-core/blob/develop/packages/client/src/tests/schema.graphql#MarriageRegistration"
+    label: "Marriage party_1 declaration field (country-configured)"
+    uri: "https://github.com/opencrvs/opencrvs-farajaland/blob/develop/src/events/utils/types.ts#Event"
     match: close
-    vocabulary: "OpenCRVS v1 GraphQL"
-    note: "Gendered-to-neutral mapping: our party_1 is gender-neutral, OpenCRVS uses gendered slots. Assignment is arbitrary (party_1 = bride); applied symmetrically with party_2 = groom so the structural correspondence is honest."
+    vocabulary: "OpenCRVS v2 country config (Farajaland)"
+    note: "In v2 there are no core gendered marriage party slots. Party data lives in country-configured EventConfig.declaration fields. The gender-neutral party_1 maps to the first spouse defined by the country config."

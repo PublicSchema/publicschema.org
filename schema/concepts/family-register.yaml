@@ -52,5 +52,5 @@ external_equivalents:
   opencrvs:
     label: "No v1 equivalent"
     match: none
-    vocabulary: "OpenCRVS v1 GraphQL"
-    note: "OpenCRVS v1 is event-record centric and has no concept of a family register (livret de famille, koseki, hukou). Families are not modelled as a tracked unit."
+    vocabulary: "OpenCRVS v2 event service"
+    note: "OpenCRVS v2 is event-record centric and has no concept of a family register (livret de famille, koseki, hukou). Families are not modelled as a tracked unit."

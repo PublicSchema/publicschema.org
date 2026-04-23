@@ -76,5 +76,5 @@ external_equivalents:
   opencrvs:
     label: "Certificate.certificateTemplateId (country-configured)"
     match: none
-    vocabulary: "OpenCRVS v1 GraphQL"
+    vocabulary: "OpenCRVS v2 event service"
     note: "OpenCRVS v1 uses a free String template identifier rather than a typed document type; the mapping from template ID to document type is decided at country-deployment time."

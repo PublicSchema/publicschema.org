@@ -46,5 +46,5 @@ external_equivalents:
   opencrvs:
     label: "No v1 equivalent"
     match: none
-    vocabulary: "OpenCRVS v1 GraphQL"
-    note: "OpenCRVS makes no core-level distinction between full copy, extract, and multilingual extract; any such distinction would live inside the certificate template definition itself."
+    vocabulary: "OpenCRVS v2 event service"
+    note: "V2 makes no core-level distinction between full copy, extract, and multilingual extract; any such distinction would live inside the certificate template definition itself."

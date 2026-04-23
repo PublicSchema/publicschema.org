@@ -18,8 +18,8 @@ domain_override: crvs
 
 external_equivalents:
   opencrvs:
-    label: "MarriageRegistration.typeOfMarriage"
-    uri: "https://github.com/opencrvs/opencrvs-core/blob/develop/packages/client/src/tests/schema.graphql#MarriageRegistration"
+    label: "Type of marriage declaration field (country-configured)"
+    uri: "https://github.com/opencrvs/opencrvs-farajaland/blob/develop/src/events/utils/types.ts#Event"
     match: close
-    vocabulary: "OpenCRVS v1 GraphQL"
-    note: "OpenCRVS types this as a free String populated from country configuration; our marriage-type vocabulary recommends a canonical set."
+    vocabulary: "OpenCRVS v2 country config (Farajaland)"
+    note: "In v2 there is no core typeOfMarriage field. The field is a country-configured SELECT in EventConfig.declaration. Our marriage-type vocabulary recommends a canonical set."

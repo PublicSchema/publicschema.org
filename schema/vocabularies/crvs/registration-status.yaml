@@ -84,62 +84,36 @@ values:
 
 system_mappings:
   opencrvs:
-    vocabulary_name: "RegStatus"
+    vocabulary_name: "EventStatus"
     values:
+      - code: "CREATED"
+        label: "Created"
+        maps_to: declared
+        note: "Draft event created; maps to declared as the earliest declared state."
+      - code: "NOTIFIED"
+        label: "Notified"
+        maps_to: declared
+        note: "Birth or death notified before formal declaration; maps to declared."
       - code: "DECLARED"
         label: "Declared"
         maps_to: declared
-      - code: "WAITING_VALIDATION"
-        label: "Waiting Validation"
-        maps_to: pending_validation
       - code: "REGISTERED"
         label: "Registered"
         maps_to: registered
-      - code: "REJECTED"
-        label: "Rejected"
-        maps_to: rejected
       - code: "ARCHIVED"
         label: "Archived"
         maps_to: archived
-      - code: "IN_PROGRESS"
-        label: "In Progress"
-        maps_to: null
-        unmapped_reason: no_equivalent
-        note: "Pre-declaration draft state; PublicSchema has no analog."
-      - code: "DECLARATION_UPDATED"
-        label: "Declaration Updated"
-        maps_to: null
-        unmapped_reason: no_equivalent
-        note: "Declaration edited after submission; no distinct PublicSchema state."
-      - code: "CORRECTION_REQUESTED"
-        label: "Correction Requested"
-        maps_to: null
-        unmapped_reason: no_equivalent
-        note: "Correction pending registrar review; no distinct PublicSchema state."
-      - code: "VALIDATED"
-        label: "Validated"
-        maps_to: null
-        unmapped_reason: no_equivalent
-        note: "Pre-registration review complete; PublicSchema collapses this into registered."
-      - code: "CERTIFIED"
-        label: "Certified"
-        maps_to: null
-        unmapped_reason: no_equivalent
-        note: "Certificate printed; PublicSchema collapses this into registered."
-      - code: "ISSUED"
-        label: "Issued"
-        maps_to: null
-        unmapped_reason: no_equivalent
-        note: "Certificate handed to collector; PublicSchema collapses this into registered."
     unmapped_canonical:
       - cancelled
       - corrected
-    note: "RegStatus enumerates the OpenCRVS workflow lifecycle with finer granularity than PublicSchema; several post-registration states (VALIDATED, CERTIFIED, ISSUED) collapse into registered."
+      - pending_validation
+      - rejected
+    note: "EventStatus is a 5-value enum in v2. CREATED and NOTIFIED both map to declared as pre-registration draft states. The v1 granularity (WAITING_VALIDATION, VALIDATED, CERTIFIED, ISSUED, CORRECTION_REQUESTED) is no longer present; correction outcomes are expressed through action sequences rather than a terminal status."
 
 external_equivalents:
   opencrvs:
-    label: "RegStatus"
-    uri: "https://github.com/opencrvs/opencrvs-core/blob/develop/packages/client/src/tests/schema.graphql#RegStatus"
+    label: "EventStatus"
+    uri: "https://github.com/opencrvs/opencrvs-core/blob/develop/packages/commons/src/events/EventMetadata.ts#EventStatus"
     match: close
-    vocabulary: "OpenCRVS v1 GraphQL"
-    note: "Close match overall; see system_mappings for the value-level detail, where six OpenCRVS states have no PublicSchema equivalent and two canonical values (cancelled, corrected) have no OpenCRVS equivalent."
+    vocabulary: "OpenCRVS v2 event service"
+    note: "EventStatus is a 5-value enum (CREATED, NOTIFIED, DECLARED, REGISTERED, ARCHIVED); a cleaner semantic fit than v1 RegStatus. See system_mappings for value-level detail; cancelled, corrected, pending_validation, and rejected have no EventStatus equivalent."

@@ -66,5 +66,5 @@ external_equivalents:
   opencrvs:
     label: "Location.type (country-configured)"
     match: none
-    vocabulary: "OpenCRVS v1 GraphQL"
+    vocabulary: "OpenCRVS v2 event service"
     note: "OpenCRVS eventLocation is typed as a Location entity rather than a coded place-type; Location.type is an untyped String defined at country-deployment time, not a core enum."

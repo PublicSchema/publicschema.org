@@ -18,8 +18,8 @@ domain_override: crvs
 
 external_equivalents:
   opencrvs:
-    label: "BirthRegistration.weightAtBirth"
-    uri: "https://github.com/opencrvs/opencrvs-core/blob/develop/packages/client/src/tests/schema.graphql#BirthRegistration"
+    label: "Weight at birth declaration field (country-configured)"
+    uri: "https://github.com/opencrvs/opencrvs-farajaland/blob/develop/src/events/birth/index.ts#birthEvent"
     match: exact
-    vocabulary: "OpenCRVS v1 GraphQL"
-    note: "Direct numeric field on both sides; OpenCRVS types it as Float."
+    vocabulary: "OpenCRVS v2 country config (Farajaland)"
+    note: "In v2 there is no core weightAtBirth field. The field is a country-configured numeric field in EventConfig.declaration."

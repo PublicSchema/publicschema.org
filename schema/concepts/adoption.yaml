@@ -47,5 +47,5 @@ external_equivalents:
   opencrvs:
     label: "No v1 equivalent"
     match: none
-    vocabulary: "OpenCRVS v1 GraphQL"
-    note: "Adoption is not modelled as a distinct registration type in OpenCRVS v1 core. Adoption scenarios are handled in country extensions or via the correction workflow, not as a first-class event."
+    vocabulary: "OpenCRVS v2 event service"
+    note: "Adoption is not modelled as a distinct event type in OpenCRVS v2 core or the Farajaland reference config. Adoption scenarios would require a country-specific EventConfig."

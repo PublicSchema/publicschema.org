@@ -66,5 +66,5 @@ external_equivalents:
   opencrvs:
     label: "DeathRegistration.causeOfDeathMethod (country-configured)"
     match: none
-    vocabulary: "OpenCRVS v1 GraphQL"
+    vocabulary: "OpenCRVS v2 event service"
     note: "The field is an untyped String; values are defined at country-deployment time (e.g. Farajaland uses PHYSICIAN/LAY_REPORTED/VERBAL_AUTOPSY/MEDICALLY_CERTIFIED, which partially overlaps our vocabulary)."

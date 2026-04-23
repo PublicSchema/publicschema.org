@@ -42,5 +42,5 @@ external_equivalents:
   opencrvs:
     label: "No direct equivalent"
     match: none
-    vocabulary: "OpenCRVS v1 GraphQL"
-    note: "OpenCRVS v1 models Certificate separately from registration records and has no family-register concept. A shared document supertype has no counterpart."
+    vocabulary: "OpenCRVS v2 event service"
+    note: "OpenCRVS v2 models Certificate separately from registration records and has no family-register concept. A shared document supertype has no counterpart."

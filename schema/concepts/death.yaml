@@ -43,8 +43,8 @@ supertypes: [crvs/VitalEvent]
 
 external_equivalents:
   opencrvs:
-    label: "DeathRegistration"
-    uri: "https://github.com/opencrvs/opencrvs-core/blob/develop/packages/client/src/tests/schema.graphql#DeathRegistration"
+    label: "EventDocument (type='death', country-configured)"
+    uri: "https://github.com/opencrvs/opencrvs-farajaland/blob/develop/src/events/death/index.ts#deathEvent"
     match: broad
-    vocabulary: "OpenCRVS v1 GraphQL"
-    note: "DeathRegistration follows the same bundling pattern: event, civil status record, and workflow in one type. It also carries cause-of-death fields that sit directly on Death in PublicSchema."
+    vocabulary: "OpenCRVS v2 country config (Farajaland)"
+    note: "In v2 core, a death is an EventDocument whose type string is the country-configured death event id. All death-specific fields (deceased name, cause of death, manner of death, medical certifier) live in EventConfig.declaration. Farajaland's deathEvent defines the reference implementation."

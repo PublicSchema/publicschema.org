@@ -18,8 +18,8 @@ domain_override: crvs
 
 external_equivalents:
   opencrvs:
-    label: "Person.birthDate / Person.deceased.deathDate"
-    uri: "https://github.com/opencrvs/opencrvs-core/blob/develop/packages/client/src/tests/schema.graphql#Person"
+    label: "EventMetadata.dateOfEvent (country-configured)"
+    uri: "https://github.com/opencrvs/opencrvs-core/blob/develop/packages/commons/src/events/EventMetadata.ts#EventMetadata"
     match: related
-    vocabulary: "OpenCRVS v1 GraphQL"
-    note: "No top-level event_date exists on OpenCRVS *Registration types; the event date is derived from the child's birthDate or the deceased's deathDate, nested inside the Person payload."
+    vocabulary: "OpenCRVS v2 event service"
+    note: "In v2, EventMetadata.dateOfEvent is a nullable date field set from the country-configured declaration field referenced by EventConfig.dateOfEvent. For births, Farajaland uses the child's date of birth; for deaths, the date of death. No top-level event date exists at the v2 core level independent of country configuration."

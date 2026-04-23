@@ -18,8 +18,8 @@ domain_override: crvs
 
 external_equivalents:
   opencrvs:
-    label: "DeathRegistration.causeOfDeathMethod"
-    uri: "https://github.com/opencrvs/opencrvs-core/blob/develop/packages/client/src/tests/schema.graphql#DeathRegistration"
+    label: "Cause-of-death method declaration field (country-configured)"
+    uri: "https://github.com/opencrvs/opencrvs-farajaland/blob/develop/src/events/death/index.ts#deathEvent"
     match: close
-    vocabulary: "OpenCRVS v1 GraphQL"
-    note: "OpenCRVS types this as a free String populated from country configuration; our cause-of-death-method vocabulary recommends a canonical set."
+    vocabulary: "OpenCRVS v2 country config (Farajaland)"
+    note: "In v2 there is no core causeOfDeathMethod field. The field is a country-configured SELECT in EventConfig.declaration. Our cause-of-death-method vocabulary recommends a canonical set."

@@ -84,5 +84,5 @@ external_equivalents:
   opencrvs:
     label: "No v1 equivalent"
     match: none
-    vocabulary: "OpenCRVS v1 GraphQL"
-    note: "OpenCRVS v1 uses typed slots (mother, father) with roles implicit in field names rather than a reified link entity. Adoptive, legal, and gestational roles are not representable in v1."
+    vocabulary: "OpenCRVS v2 event service"
+    note: "OpenCRVS v2 uses declaration field-key conventions (e.g. mother.*, father.*) with roles implicit in field names rather than a reified link entity. Adoptive, legal, and gestational roles are not representable in v1."

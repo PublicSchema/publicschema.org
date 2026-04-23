@@ -18,8 +18,8 @@ domain_override: crvs
 
 external_equivalents:
   opencrvs:
-    label: "DeathRegistration.medicalPractitioner"
-    uri: "https://github.com/opencrvs/opencrvs-core/blob/develop/packages/client/src/tests/schema.graphql#DeathRegistration"
+    label: "Medical certifier declaration field group (country-configured)"
+    uri: "https://github.com/opencrvs/opencrvs-farajaland/blob/develop/src/events/death/index.ts#deathEvent"
     match: close
-    vocabulary: "OpenCRVS v1 GraphQL"
-    note: "OpenCRVS uses a dedicated MedicalPractitioner entity with role and signature fields; our slot is a plain Person reference."
+    vocabulary: "OpenCRVS v2 country config (Farajaland)"
+    note: "In v2 there is no core medicalPractitioner field. Medical certifier data is a country-configured field group in EventConfig.declaration."

@@ -56,5 +56,5 @@ external_equivalents:
   opencrvs:
     label: "No v1 equivalent (semantic mismatch)"
     match: none
-    vocabulary: "OpenCRVS v1 GraphQL"
+    vocabulary: "OpenCRVS v2 event service"
     note: "OpenCRVS RegistrationType describes which event is being registered (BIRTH, DEATH, MARRIAGE), which maps to our civil-status-record-type; our registration-type describes timing and procedural route (current, late, court_ordered, reconstruction), a dimension that OpenCRVS does not model."

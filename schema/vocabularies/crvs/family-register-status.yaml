@@ -56,5 +56,5 @@ external_equivalents:
   opencrvs:
     label: "No v1 equivalent"
     match: none
-    vocabulary: "OpenCRVS v1 GraphQL"
+    vocabulary: "OpenCRVS v2 event service"
     note: "OpenCRVS v1 has no family-register construct; it is event-record centric and does not track families as a registered unit."

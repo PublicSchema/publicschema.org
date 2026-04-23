@@ -18,8 +18,8 @@ domain_override: crvs
 
 external_equivalents:
   opencrvs:
-    label: "Registration.status[].type"
-    uri: "https://github.com/opencrvs/opencrvs-core/blob/develop/packages/client/src/tests/schema.graphql#RegStatus"
+    label: "EventMetadata.status (EventStatus)"
+    uri: "https://github.com/opencrvs/opencrvs-core/blob/develop/packages/commons/src/events/EventMetadata.ts#EventStatus"
     match: related
-    vocabulary: "OpenCRVS v1 GraphQL"
-    note: "OpenCRVS tracks a full workflow as Registration.status (array of RegWorkflow entries); the current registration status is the type on the most recent entry. PublicSchema records only the current status, not the workflow history."
+    vocabulary: "OpenCRVS v2 event service"
+    note: "In v2, EventMetadata.status is derived from the action log and carries one of five values (CREATED, NOTIFIED, DECLARED, REGISTERED, ARCHIVED). PublicSchema records only the current status; the action log provides the full audit trail."

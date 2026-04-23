@@ -18,8 +18,8 @@ domain_override: crvs
 
 external_equivalents:
   opencrvs:
-    label: "Person.gender"
-    uri: "https://github.com/opencrvs/opencrvs-core/blob/develop/packages/client/src/tests/schema.graphql#Person"
+    label: "Child gender/sex declaration field (country-configured)"
+    uri: "https://github.com/opencrvs/opencrvs-farajaland/blob/develop/src/events/birth/forms/pages/child.ts"
     match: close
-    vocabulary: "OpenCRVS v1 GraphQL"
-    note: "OpenCRVS Gender enum maps through the sex vocabulary system_mappings (male, female, other, unknown)."
+    vocabulary: "OpenCRVS v2 country config (Farajaland)"
+    note: "In v2 there is no core gender/sex enum. Farajaland's birth declaration defines a gender field on the child field group as a country-configured SELECT. The sex vocabulary system_mappings apply."

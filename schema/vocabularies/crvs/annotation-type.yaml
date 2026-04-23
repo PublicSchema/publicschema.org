@@ -56,5 +56,5 @@ external_equivalents:
   opencrvs:
     label: "No v1 equivalent"
     match: none
-    vocabulary: "OpenCRVS v1 GraphQL"
+    vocabulary: "OpenCRVS v2 event service"
     note: "OpenCRVS v1 core has no annotation concept; corrections flow through the RegAction workflow recorded in History, which is an audit trail rather than a typed marginal annotation."

@@ -74,27 +74,27 @@ values:
 
 system_mappings:
   opencrvs:
-    vocabulary_name: "Event"
+    vocabulary_name: "EventDocument.type (country-configured string)"
     values:
       - code: "birth"
-        label: "Birth"
+        label: "birth"
         maps_to: birth
       - code: "death"
-        label: "Death"
+        label: "death"
         maps_to: death
       - code: "marriage"
-        label: "Marriage"
+        label: "marriage"
         maps_to: marriage
     unmapped_canonical:
       - paternity_recognition
       - supplementary_judgment
       - court_ordered_substitute
-    note: "OpenCRVS Event covers three event types while PublicSchema civil-status-record-type covers six; the three shared values align cleanly."
+    note: "In v2, EventDocument.type is a free string set by the country config. Farajaland uses 'birth', 'death', 'marriage' as event type strings. The three shared values align; PublicSchema covers three additional types (paternity_recognition, supplementary_judgment, court_ordered_substitute) with no v2 core equivalent."
 
 external_equivalents:
   opencrvs:
-    label: "Event"
-    uri: "https://github.com/opencrvs/opencrvs-core/blob/develop/packages/client/src/tests/schema.graphql#Event"
+    label: "EventDocument.type (country-configured string)"
+    uri: "https://github.com/opencrvs/opencrvs-farajaland/blob/develop/src/events/utils/types.ts#Event"
     match: narrow
-    vocabulary: "OpenCRVS v1 GraphQL"
-    note: "OpenCRVS models three event types (birth, death, marriage) while PublicSchema models six; the OpenCRVS set is a strict subset of ours."
+    vocabulary: "OpenCRVS v2 country config (Farajaland)"
+    note: "In v2 EventDocument.type is a country-configured string; Farajaland defines birth/death/marriage as event type values. PublicSchema models six record types; the three shared values align and the v2 set is a subset of ours."

@@ -18,8 +18,8 @@ domain_override: crvs
 
 external_equivalents:
   opencrvs:
-    label: "*Registration.eventLocation"
-    uri: "https://github.com/opencrvs/opencrvs-core/blob/develop/packages/client/src/tests/schema.graphql#Location"
+    label: "EventMetadata.placeOfEvent (UUID reference)"
+    uri: "https://github.com/opencrvs/opencrvs-core/blob/develop/packages/commons/src/events/EventMetadata.ts#EventMetadata"
     match: close
-    vocabulary: "OpenCRVS v1 GraphQL"
-    note: "OpenCRVS Location carries additional administrative-hierarchy metadata; semantically the same \"where the event occurred\" slot."
+    vocabulary: "OpenCRVS v2 event service"
+    note: "In v2, EventMetadata.placeOfEvent is a nullable UUID referencing a location in the Location service. Farajaland's EventConfig sets this from a country-configured location picker field. The semantic role (where the event occurred) aligns well."

@@ -20,5 +20,5 @@ external_equivalents:
   opencrvs:
     label: "No v1 equivalent"
     match: none
-    vocabulary: "OpenCRVS v1 GraphQL"
-    note: "OpenCRVS v1 Person type does not include an employment status field."
+    vocabulary: "OpenCRVS v2 event service"
+    note: "OpenCRVS v2 does not include an employment status field."

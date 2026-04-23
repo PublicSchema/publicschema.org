@@ -1,4 +1,4 @@
-"""Tests for the OpenCRVS v1 GraphQL mapping.
+"""Tests for the OpenCRVS v2 event-service mapping.
 
 Validates:
 1. Structural integrity of external/opencrvs/matching.yaml (required keys,
@@ -8,8 +8,9 @@ Validates:
 3. Cross-reference consistency: every concept and CRVS vocabulary with a
    non-null match in matching.yaml carries a corresponding
    external_equivalents.opencrvs entry on its YAML file.
-4. Content expectations: the locked decisions from Phase 1-3 (Birth=broad,
-   Death=broad, Marriage=broad, etc.) are present in the committed file.
+4. Content expectations: locked decisions for v2 (VitalEvent surface is
+   event_v2, Birth/Death/Marriage surface is country_config, EventStatus
+   has 5 codes mapped in crvs/registration-status, etc.).
 5. No em dashes in any authored OpenCRVS content.
 """
 
@@ -29,9 +30,19 @@ ALLOWED_MATCH_VALUES = {
     "name_match",
     "none",
 }
-OPENCRVS_URI_PREFIX = (
+
+# V2 event-service URIs point at packages/commons/src/events/*.ts
+OPENCRVS_V2_URI_PREFIX = (
     "https://github.com/opencrvs/opencrvs-core/blob/develop/"
-    "packages/client/src/tests/schema.graphql#"
+    "packages/commons/src/events/"
+)
+# Country-config URIs point at the Farajaland reference config
+OPENCRVS_FARAJALAND_URI_PREFIX = (
+    "https://github.com/opencrvs/opencrvs-farajaland/blob/develop/"
+)
+ALLOWED_OPENCRVS_URI_PREFIXES = (
+    OPENCRVS_V2_URI_PREFIX,
+    OPENCRVS_FARAJALAND_URI_PREFIX,
 )
 
 
@@ -108,18 +119,30 @@ class TestStructure:
     def test_system_identifier(self, matching):
         assert matching["system"] == "opencrvs"
 
+    def test_system_version_is_v2(self, matching):
+        assert matching.get("system_version") == "v2-event-service"
+
     def test_concept_matches_required_fields(self, matching):
+        """Required fields per entry. external_source is exempt for
+        country_config entries where the v2 core has no fixed type."""
         missing = []
         for i, entry in enumerate(matching["concept_matches"]):
-            for field in ["v2_concept", "external_entity", "external_source", "match", "notes"]:
+            for field in ["v2_concept", "external_entity", "match", "notes"]:
                 if field not in entry:
-                    missing.append(f"concept_matches[{i}] ({entry.get('v2_concept', '?')}) missing '{field}'")
+                    missing.append(
+                        f"concept_matches[{i}] ({entry.get('v2_concept', '?')}) missing '{field}'"
+                    )
+            if not entry.get("country_config") and "external_source" not in entry:
+                missing.append(
+                    f"concept_matches[{i}] ({entry.get('v2_concept', '?')}) "
+                    f"missing 'external_source' (not a country_config entry)"
+                )
         assert missing == [], "\n".join(missing)
 
     def test_vocabulary_matches_required_fields(self, matching):
         """Every vocabulary match must identify both sides and carry notes.
-        `external_source` is optional for country_config entries where the
-        GraphQL field is a free String with no fixed enumeration."""
+        external_source is optional for country_config entries where the
+        field is a free String with no fixed enumeration."""
         missing = []
         for i, entry in enumerate(matching["matches"]):
             tag = entry.get("v2_vocabulary", f"[{i}]")
@@ -256,8 +279,9 @@ class TestCrossReferenceConsistency:
     def test_external_equivalent_uris_use_correct_prefix(
         self, all_concepts, all_properties, all_vocabularies
     ):
-        """OpenCRVS URIs must point at the GraphQL schema anchor URL. Skips
-        match=none entries, which legitimately have no target URI."""
+        """OpenCRVS URIs must point at either the v2 core event-service path or
+        the Farajaland country-config path. Skips match=none entries, which
+        legitimately have no target URI."""
         bad = []
         for group_name, entities in [
             ("concept", all_concepts),
@@ -269,25 +293,25 @@ class TestCrossReferenceConsistency:
                 if ext is None or ext.get("match") == "none":
                     continue
                 uri = ext.get("uri", "")
-                if not uri.startswith(OPENCRVS_URI_PREFIX):
+                if not any(uri.startswith(prefix) for prefix in ALLOWED_OPENCRVS_URI_PREFIXES):
                     bad.append(f"{group_name} {eid}: uri={uri!r}")
         assert bad == [], "OpenCRVS URIs with wrong prefix:\n" + "\n".join(bad)
 
 
 # ---------------------------------------------------------------------------
-# Locked decisions: specific match values must remain as agreed
+# Locked decisions: specific match values and surfaces must remain as agreed
 # ---------------------------------------------------------------------------
 
 class TestLockedDecisions:
     @pytest.mark.parametrize(
         "concept_id,expected_match",
         [
-            ("VitalEvent", "related"),
+            ("VitalEvent", "close"),
             ("Birth", "broad"),
             ("Death", "broad"),
             ("Marriage", "broad"),
             ("CivilStatusRecord", "related"),
-            ("Certificate", "close"),
+            ("Certificate", "related"),
             ("PaternityRecognition", "related"),
         ],
     )
@@ -299,34 +323,96 @@ class TestLockedDecisions:
         assert entry is not None, f"{concept_id} missing from concept_matches"
         assert entry["match"] == expected_match
 
-    def test_party_assignment_symmetry(self, all_properties):
-        """party_1 maps to bride and party_2 maps to groom (or vice versa,
-        symmetrically). The assignment is arbitrary but must be consistent."""
-        p1 = all_properties["party_1"]["external_equivalents"]["opencrvs"]
-        p2 = all_properties["party_2"]["external_equivalents"]["opencrvs"]
-        labels = {p1["label"], p2["label"]}
-        assert "MarriageRegistration.bride" in labels
-        assert "MarriageRegistration.groom" in labels
-        # Both should be close matches with the same rationale
-        assert p1["match"] == "close"
-        assert p2["match"] == "close"
+    def test_vitalevent_surface_is_event_v2(self, matching):
+        """VitalEvent maps to the v2 core EventDocument, not country config."""
+        entry = next(
+            (e for e in matching["concept_matches"] if e["v2_concept"] == "VitalEvent"),
+            None,
+        )
+        assert entry is not None
+        assert entry.get("surface") == "event_v2", (
+            "VitalEvent must have surface=event_v2 (maps to EventDocument in v2 core)"
+        )
 
-    def test_paternity_recognition_reference_is_reg_action(self, all_concepts):
-        """PaternityRecognition maps to RegAction (the correction workflow),
-        not to a first-class event type."""
-        ext = all_concepts["PaternityRecognition"]["external_equivalents"]["opencrvs"]
-        assert "RegAction" in ext["label"] or "CORRECTED" in ext["label"]
+    def test_birth_death_marriage_are_country_config(self, matching):
+        """Birth, Death, Marriage have no typed v2 core fields; they are
+        country-configured event types."""
+        for concept_id in ("Birth", "Death", "Marriage"):
+            entry = next(
+                (e for e in matching["concept_matches"] if e["v2_concept"] == concept_id),
+                None,
+            )
+            assert entry is not None, f"{concept_id} missing from concept_matches"
+            assert entry.get("surface") == "country_config", (
+                f"{concept_id} must have surface=country_config (v2 core has no typed fields)"
+            )
+            assert entry.get("country_config") is True, (
+                f"{concept_id} must carry country_config: true"
+            )
+
+    def test_registration_status_maps_event_status(self, matching):
+        """crvs/registration-status maps to EventStatus (5-value enum), not RegStatus."""
+        entry = next(
+            (e for e in matching["matches"] if e.get("v2_vocabulary") == "crvs/registration-status"),
+            None,
+        )
+        assert entry is not None, "crvs/registration-status missing from matches"
+        assert entry.get("surface") == "event_v2"
+        assert entry.get("external_vocabulary") == "EventStatus"
+        # EventStatus has exactly 5 values; check they are all mapped
+        mapped = set(entry.get("value_mapping", {}).keys())
+        expected = {"CREATED", "NOTIFIED", "DECLARED", "REGISTERED", "ARCHIVED"}
+        assert mapped == expected, (
+            f"EventStatus value_mapping keys should be exactly {expected}; got {mapped}"
+        )
 
     def test_registration_status_has_unmapped_canonicals(self, all_vocabularies):
-        """cancelled and corrected exist in PublicSchema but not in OpenCRVS's
-        RegStatus enum."""
+        """cancelled and corrected exist in PublicSchema but not in EventStatus."""
         vocab = all_vocabularies["crvs/registration-status"]
         sm = vocab["system_mappings"]["opencrvs"]
         assert set(sm.get("unmapped_canonical", [])) >= {"cancelled", "corrected"}
 
+    def test_paternity_recognition_references_correction_action(self, all_concepts):
+        """PaternityRecognition maps to the v2 correction workflow actions."""
+        ext = all_concepts["PaternityRecognition"]["external_equivalents"]["opencrvs"]
+        label = ext.get("label", "")
+        uri = ext.get("uri", "")
+        # Must reference the correction action types in v2
+        assert (
+            "Correction" in label or "RequestedCorrection" in label
+            or "ActionDocument" in uri
+        ), (
+            f"PaternityRecognition external_equivalents.opencrvs label/uri should "
+            f"reference v2 correction actions; got label={label!r}, uri={uri!r}"
+        )
+
+    def test_civil_status_record_maps_register_action(self, matching):
+        """CivilStatusRecord maps to RegisterAction, not the graphql Registration."""
+        entry = next(
+            (e for e in matching["concept_matches"] if e["v2_concept"] == "CivilStatusRecord"),
+            None,
+        )
+        assert entry is not None
+        assert entry.get("surface") == "event_v2"
+        assert "RegisterAction" in entry.get("external_entity", ""), (
+            f"CivilStatusRecord should map to RegisterAction; got {entry.get('external_entity')!r}"
+        )
+
+    def test_certificate_maps_print_certificate_action(self, matching):
+        """Certificate maps to PrintCertificateAction."""
+        entry = next(
+            (e for e in matching["concept_matches"] if e["v2_concept"] == "Certificate"),
+            None,
+        )
+        assert entry is not None
+        assert entry.get("surface") == "event_v2"
+        assert "PrintCertificateAction" in entry.get("external_entity", ""), (
+            f"Certificate should map to PrintCertificateAction; got {entry.get('external_entity')!r}"
+        )
+
 
 # ---------------------------------------------------------------------------
-# Coverage: all 16 CRVS concepts are accounted for
+# Coverage: all CRVS concepts are accounted for
 # ---------------------------------------------------------------------------
 
 class TestCoverage:
@@ -366,8 +452,8 @@ class TestCoverage:
 class TestNoEmDashes:
     def test_matching_yaml_has_no_em_dashes(self):
         text = MATCHING_PATH.read_text()
-        assert "\u2014" not in text, (
-            "matching.yaml contains em dashes (\u2014); use commas, colons, "
+        assert "—" not in text, (
+            "matching.yaml contains em dashes (—); use commas, colons, "
             "semicolons, periods, or parentheses instead."
         )
 
@@ -386,7 +472,7 @@ class TestNoEmDashes:
             # Take from opencrvs: to the next top-level key or EOF
             tail = text[idx:]
             # Stop at the next blank line followed by a non-indented key, approximated.
-            if "\u2014" in tail:
+            if "—" in tail:
                 offenders.append(str(path.relative_to(V2_ROOT)))
         return offenders
 

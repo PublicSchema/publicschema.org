@@ -36,5 +36,5 @@ external_equivalents:
   opencrvs:
     label: "No v1 equivalent"
     match: none
-    vocabulary: "OpenCRVS v1 GraphQL"
+    vocabulary: "OpenCRVS v2 event service"
     note: "Neither divorce nor annulment is modelled in OpenCRVS v1 core, so this vocabulary has no counterpart."

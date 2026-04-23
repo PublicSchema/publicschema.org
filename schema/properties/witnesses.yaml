@@ -18,8 +18,8 @@ domain_override: crvs
 
 external_equivalents:
   opencrvs:
-    label: "MarriageRegistration.witnessOne + MarriageRegistration.witnessTwo"
-    uri: "https://github.com/opencrvs/opencrvs-core/blob/develop/packages/client/src/tests/schema.graphql#MarriageRegistration"
+    label: "Witness declaration field group (country-configured)"
+    uri: "https://github.com/opencrvs/opencrvs-farajaland/blob/develop/src/events/utils/types.ts#Event"
     match: broad
-    vocabulary: "OpenCRVS v1 GraphQL"
-    note: "OpenCRVS uses exactly two named slots (witnessOne, witnessTwo); our witnesses list has unlimited cardinality."
+    vocabulary: "OpenCRVS v2 country config (Farajaland)"
+    note: "In v2 there are no core witness fields. Witness data is a country-configured field group in EventConfig.declaration. Our witnesses list has unlimited cardinality."

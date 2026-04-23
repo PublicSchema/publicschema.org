@@ -46,5 +46,5 @@ external_equivalents:
   opencrvs:
     label: "No v1 equivalent"
     match: none
-    vocabulary: "OpenCRVS v1 GraphQL"
-    note: "OpenCRVS v1 has no reified marginal-annotation type. Corrections flow through the RegAction workflow recorded in the audit history, which is a trail of actions rather than a typed annotation with its own authority and triggering event."
+    vocabulary: "OpenCRVS v2 event service"
+    note: "OpenCRVS v2 has no reified marginal-annotation type. Corrections flow through the correction action sequence (REQUEST_CORRECTION/APPROVE_CORRECTION) recorded in the action log, which is a trail of actions rather than a typed annotation with its own authority and triggering event."

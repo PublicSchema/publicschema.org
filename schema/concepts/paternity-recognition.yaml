@@ -42,8 +42,8 @@ supertypes: [crvs/VitalEvent]
 
 external_equivalents:
   opencrvs:
-    label: "RegAction.CORRECTED"
-    uri: "https://github.com/opencrvs/opencrvs-core/blob/develop/packages/client/src/tests/schema.graphql#RegAction"
+    label: "RequestedCorrectionAction / ApprovedCorrectionAction"
+    uri: "https://github.com/opencrvs/opencrvs-core/blob/develop/packages/commons/src/events/ActionDocument.ts#RequestedCorrectionAction"
     match: related
-    vocabulary: "OpenCRVS v1 GraphQL"
-    note: "Paternity recognition is not a first-class type in OpenCRVS v1. In practice it is handled through the correction workflow on an existing BirthRegistration, recorded as a RegAction of CORRECTED in the audit history."
+    vocabulary: "OpenCRVS v2 event service"
+    note: "PaternityRecognition has no first-class event type in v2. The correction workflow (ActionType.REQUEST_CORRECTION followed by ActionType.APPROVE_CORRECTION) is the operational mechanism for amending a birth record to add or change parentage. The match is related because the target is a workflow action pair, not an event type."

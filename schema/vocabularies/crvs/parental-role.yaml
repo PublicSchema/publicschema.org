@@ -73,5 +73,5 @@ external_equivalents:
   opencrvs:
     label: "Parental roles (country-configured)"
     match: none
-    vocabulary: "OpenCRVS v1 GraphQL"
-    note: "OpenCRVS uses named field slots (mother, father) rather than an enumeration; RelatedPerson.relationship is a free String, and adoptive, legal, and gestational roles are not representable in v1 core."
+    vocabulary: "OpenCRVS v2 event service"
+    note: "OpenCRVS uses named field slots (mother, father) rather than an enumeration; RelatedPerson.relationship is a free String, and adoptive, legal, and gestational roles are not representable in v2 core."

@@ -42,8 +42,8 @@ supertypes: []
 
 external_equivalents:
   opencrvs:
-    label: "Registration"
-    uri: "https://github.com/opencrvs/opencrvs-core/blob/develop/packages/client/src/tests/schema.graphql#Registration"
+    label: "RegisterAction"
+    uri: "https://github.com/opencrvs/opencrvs-core/blob/develop/packages/commons/src/events/ActionDocument.ts#RegisterAction"
     match: related
-    vocabulary: "OpenCRVS v1 GraphQL"
-    note: "Registration is an administrative sub-object embedded inside each *Registration type, carrying tracking IDs and workflow status. PublicSchema CivilStatusRecord is the legal acte itself; the roles differ despite the conceptual overlap."
+    vocabulary: "OpenCRVS v2 event service"
+    note: "RegisterAction is an ActionDocument variant (type=REGISTER) that carries the registrationNumber. This is the closest v2 core equivalent to CivilStatusRecord: the act of registration produces a legal identifier. However, RegisterAction is an action within an EventDocument, not a standalone record; the structural roles differ."

@@ -40,5 +40,5 @@ external_equivalents:
   opencrvs:
     label: "No v1 equivalent"
     match: none
-    vocabulary: "OpenCRVS v1 GraphQL"
-    note: "Legitimation is not modelled in OpenCRVS v1 core. Like paternity recognition, it would be handled operationally as a correction on an existing birth record rather than as a distinct event type."
+    vocabulary: "OpenCRVS v2 event service"
+    note: "Legitimation is not modelled in OpenCRVS v2 core. Like paternity recognition, it would be handled operationally as a correction on an existing birth record rather than as a distinct event type."

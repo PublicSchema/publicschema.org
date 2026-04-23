@@ -36,5 +36,5 @@ external_equivalents:
   opencrvs:
     label: "No v1 equivalent"
     match: none
-    vocabulary: "OpenCRVS v1 GraphQL"
+    vocabulary: "OpenCRVS v2 event service"
     note: "Adoption is not a v1 event type; an OpenCRVS deployment supporting adoption would define this vocabulary in country configuration."
