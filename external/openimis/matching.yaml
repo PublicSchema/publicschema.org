@@ -1,78 +1,64 @@
 system: openimis
+system_version: "develop"
+source_repository: "https://github.com/openimis/openimis-be_py"
+source_branch: "develop"
+fhir_repository: "https://github.com/openimis/openimis-be-api_fhir_r4_py"
+fhir_branch: "develop"
+
+# Scope: OpenIMIS vocabulary and concept mappings against PublicSchema v2.
+#
+# Mapping strategy: hybrid.
+#   FHIR R4 surface  for concepts the openIMIS FHIR R4 module exposes.
+#   Internal model   for social-protection concepts with no FHIR API surface.
+#
+# Per-entry fields:
+#   v2_vocabulary       PublicSchema vocabulary id
+#   external_vocabulary Human-readable OpenIMIS name
+#   surface             fhir_r4 | internal_model (see api_coverage)
+#   fhir_resource       FHIR resource type (fhir_r4 entries only)
+#   external_source     Path relative to fhir_repository/fhir_branch/ (fhir_r4)
+#                       or path within the relevant Django module repo
+#                       (internal_model entries).
+#   api_coverage: none  Flag on internal_model entries indicating no FHIR or
+#                       REST surface exposes this concept/vocabulary. The Django
+#                       model file is the canonical machine-readable source.
+#   confidence          high | medium | low
+#   notes, value_mapping, gaps (as before)
+#
+# Confidence levels:
+#   high   - same standard or very close semantic alignment with clear code mapping
+#   medium - similar concept, partial overlap or some codes do not map cleanly
+#   low    - related domain but significant structural differences
 
 matches:
-  - v2_vocabulary: enrollment-status
-    external_vocabulary: BeneficiaryStatus
-    external_source: "social_protection/models.py:13"
-    confidence: high
-    notes: "BeneficiaryStatus tracks the lifecycle of an individual or group enrolled in a benefit plan. POTENTIAL maps to pending_verification because those records have not yet been confirmed as active beneficiaries. GRADUATED is a named exit route (program goals met), distinct from the broader closed state."
-    value_mapping:
-      "POTENTIAL": pending_verification
-      "ACTIVE": active
-      "GRADUATED": graduated
-      "SUSPENDED": suspended
-    gaps:
-      v2_only: [closed]
-      external_only: []
 
-  - v2_vocabulary: group-role
-    external_vocabulary: GroupIndividual.Role
-    external_source: "individual/models.py:152"
-    confidence: high
-    notes: "Role describes a person's position within a group (household) in the social protection module. OpenIMIS uses gendered terms (SON/DAUGHTER, GRANDFATHER/GRANDMOTHER) that collapse to gender-neutral v2 codes. GRANDSON/GRANDDAUGHTER map to dependent because grandchildren in a household head's group are typically dependents, not the same as the grandparent relationship type."
-    value_mapping:
-      "HEAD": head
-      "SPOUSE": spouse
-      "SON": child
-      "DAUGHTER": child
-      "FATHER": parent
-      "MOTHER": parent
-      "GRANDFATHER": parent
-      "GRANDMOTHER": parent
-      "GRANDSON": dependent
-      "GRANDDAUGHTER": dependent
-      "BROTHER": other_relative
-      "SISTER": other_relative
-      "OTHER RELATIVE": other_relative
-      "NOT RELATED": non_relative
-    gaps:
-      v2_only: []
-      external_only: []
+  # -----------------------------------------------------------------------
+  # FHIR R4 surface: Patient (maps Insuree)
+  # -----------------------------------------------------------------------
 
   - v2_vocabulary: gender-type
-    external_vocabulary: Gender
-    external_source: "insuree/models.py:16"
+    external_vocabulary: "Patient.gender (administrative-gender CodeSystem)"
+    surface: fhir_r4
+    fhir_resource: Patient
+    external_source: "api_fhir_r4/mapping/patientMapping.py#PatientCategoryMapping"
     confidence: high
-    notes: "OpenIMIS Gender is a DB lookup table (tblGender) seeded with M/F/O. These align directly with the v2 male/female/other codes. The v2 not_stated code has no equivalent in OpenIMIS; the system does not record a 'not stated' option."
+    notes: "The FHIR Patient resource carries gender as a string drawn from the FHIR administrative-gender CodeSystem (male/female/other/unknown). The patientConverter.py builds this from the OpenIMIS tblGender lookup (M/F/O), mapping M->male, F->female, O->other. When the internal gender code is absent the converter defaults to unknown. The v2 not_stated code has no FHIR administrative-gender equivalent."
     value_mapping:
-      "M": male
-      "F": female
-      "O": other
+      "male": male
+      "female": female
+      "other": other
+      "unknown": ~
     gaps:
       v2_only: [not_stated]
       external_only: []
 
-  - v2_vocabulary: group-type
-    external_vocabulary: FamilyType
-    external_source: "insuree/models.py:61"
-    confidence: medium
-    notes: "FamilyType classifies a family/household unit in the legacy health insurance module. Nuclear Family, Extended Family, and Single Parent all map to the family v2 code because they are kinship-defined units. HouseHold maps to household. Group maps to other because it is a catch-all administrative grouping, not a kinship unit. The v2 farm code has no OpenIMIS equivalent."
-    value_mapping:
-      "N": family
-      "E": family
-      "S": family
-      "O": other
-      "H": household
-      "G": other
-    gaps:
-      v2_only: [farm]
-      external_only: []
-
   - v2_vocabulary: identifier-type
-    external_vocabulary: IdentificationType
-    external_source: "insuree/models.py:180"
+    external_vocabulary: "IdentificationType (Patient.identifier type coding)"
+    surface: fhir_r4
+    fhir_resource: Patient
+    external_source: "api_fhir_r4/converters/patientConverter.py#PatientConverter"
     confidence: high
-    notes: "IdentificationType lists the identifier number categories accepted to identify an insuree. All four have direct v2 equivalents since the identifier-type vocab was normalized around _number suffixes."
+    notes: "The patientConverter builds FHIR Patient.identifier entries for each insuree ID, typing each identifier via the IdentificationType lookup (N=national_id, P=passport, V=voter, D=drivers_license). All four codes have direct v2 equivalents. V2 carries many additional identifier types (social security, program, household, birth/marriage/death registration, location codes) with no OpenIMIS equivalent."
     value_mapping:
       "N": national_id_number
       "P": passport_number
@@ -98,10 +84,12 @@ matches:
       external_only: []
 
   - v2_vocabulary: relationship-type
-    external_vocabulary: Relation
-    external_source: "insuree/models.py:193"
+    external_vocabulary: "Relation (Patient.contact.relationship)"
+    surface: fhir_r4
+    fhir_resource: Patient
+    external_source: "api_fhir_r4/converters/patientConverter.py#PatientConverter"
     confidence: medium
-    notes: "Relation describes how an insuree relates to the family head in the legacy health insurance module. The values use gender-neutral combined terms (Brother/Sister -> sibling) and partial kinship terms. Employee (code 6) has no family relationship equivalent and maps to other. This is a separate table from GroupIndividual.Role; both cover person-to-group relationships but in different modules."
+    notes: "The patientConverter builds Patient.contact entries for each insuree's listed relations using the Relation lookup table. Values use numeric codes (1=sibling, 2=parent, 3=other, 4=child, 5=grandparent, 6=employee/other, 7=other, 8=spouse). The mapping collapses gendered and employment codes to gender-neutral v2 terms. This is a separate table from GroupIndividual.Role, which maps to group-role. V2 adds guardian, caregiver, dependent, in_law, extended_family, payment_proxy, survivor with no OpenIMIS equivalent."
     value_mapping:
       "1": sibling
       "2": parent
@@ -116,10 +104,12 @@ matches:
       external_only: []
 
   - v2_vocabulary: education-level
-    external_vocabulary: Education
-    external_source: "insuree/models.py:167"
+    external_vocabulary: "Education (Patient.extension education level)"
+    surface: fhir_r4
+    fhir_resource: Patient
+    external_source: "api_fhir_r4/converters/patientConverter.py#PatientConverter"
     confidence: medium
-    notes: "OpenIMIS Education uses a small flat list (7 values) versus the full ISCED 2011 hierarchy in v2. Nursery maps to early_childhood. The OpenIMIS list combines lower and upper secondary into a single 'Secondary school' value, so it maps to upper_secondary as the broader category. University maps to bachelor as the most common degree-level outcome. Postgraduate studies maps to master. PHD maps to doctoral. The v2 vocabulary has several levels (lower_secondary, post_secondary_non_tertiary, short_cycle_tertiary) with no OpenIMIS equivalent."
+    notes: "The patientConverter carries insuree education level as a FHIR extension using the Education lookup (7 values). OpenIMIS uses a small flat list versus the full ISCED 2011 hierarchy. Nursery (1) maps to early_childhood. Secondary school (3) collapses lower and upper secondary into upper_secondary as the broader category. University (4) maps to bachelor. Postgraduate (5) to master. PHD (6) to doctoral. Code 7 (Other) has no v2 equivalent because v2 education-level does not define an 'other' catch-all. V2 has lower_secondary, post_secondary_non_tertiary, and short_cycle_tertiary with no OpenIMIS equivalent."
     value_mapping:
       "1": early_childhood
       "2": primary
@@ -127,16 +117,132 @@ matches:
       "4": bachelor
       "5": master
       "6": doctoral
-      "7": other
+      "7": ~
     gaps:
       v2_only: [lower_secondary, post_secondary_non_tertiary, short_cycle_tertiary]
       external_only: []
 
+  - v2_vocabulary: occupation
+    external_vocabulary: "Profession (Patient.extension profession)"
+    surface: fhir_r4
+    fhir_resource: Patient
+    external_source: "api_fhir_r4/converters/patientConverter.py#PatientConverter"
+    confidence: low
+    notes: "The patientConverter carries insuree profession as a FHIR extension using the Profession lookup (Housewife, Employee, Self Employee, Others). OpenIMIS has only 4 broad values versus the full ISCO-08 hierarchy (436 codes) in v2. The granularity gap makes value-level mapping impractical, but the conceptual relationship is worth tracking."
+    value_mapping: {}
+    gaps:
+      v2_only: ["all ISCO-08 codes"]
+      external_only: ["Housewife (not an ISCO-08 category)", "Self Employee (employment status, not occupation)"]
+
+  # -----------------------------------------------------------------------
+  # FHIR R4 surface: Group (maps Family)
+  # -----------------------------------------------------------------------
+
+  - v2_vocabulary: group-type
+    external_vocabulary: "FamilyType (Group.extension family-type)"
+    surface: fhir_r4
+    fhir_resource: Group
+    external_source: "api_fhir_r4/converters/groupConverter.py#GroupConverter"
+    confidence: medium
+    notes: "The groupConverter carries family type as a FHIR extension using the FamilyType lookup. Nuclear Family (N), Extended Family (E), and Single Parent (S) all map to the family v2 code because they are kinship-defined units. HouseHold (H) maps to household. Group (G) and Other (O) map to other as catch-all administrative groupings. The v2 farm code has no OpenIMIS equivalent."
+    value_mapping:
+      "N": family
+      "E": family
+      "S": family
+      "O": other
+      "H": household
+      "G": other
+    gaps:
+      v2_only: [farm]
+      external_only: []
+
+  # -----------------------------------------------------------------------
+  # FHIR R4 surface: Coverage (maps Policy)
+  # -----------------------------------------------------------------------
+
+  # No vocabulary-level mappings currently; Coverage is a concept-level match.
+  # The coverageConverter.py maps Policy fields to FHIR Coverage.status,
+  # Coverage.period, and Coverage.class (product tier). No v2 vocabulary maps
+  # directly to FHIR Coverage fields in the extracted data.
+
+  # -----------------------------------------------------------------------
+  # FHIR R4 surface: Claim + ClaimResponse
+  # -----------------------------------------------------------------------
+
+  # ClaimStatus and ClaimReviewStatus are health-insurance concepts with no v2
+  # equivalent; see no_match section. The claim converters are cited at the
+  # concept level only.
+
+  # -----------------------------------------------------------------------
+  # FHIR R4 surface: Organization (maps HealthFacility)
+  # -----------------------------------------------------------------------
+
+  # No vocabulary-level mappings for Organization at present. HealthFacility
+  # type, level, and care-type vocabularies are all health-module concepts
+  # with no v2 equivalent; see no_match section.
+
+  # -----------------------------------------------------------------------
+  # FHIR R4 surface: Practitioner + PractitionerRole
+  # -----------------------------------------------------------------------
+
+  # No vocabulary-level mappings for Practitioner at present. ClaimAdmin and
+  # Officer are mapped at concept level to FHIR Practitioner/PractitionerRole
+  # via claimAdminPractitionerConverter.py and
+  # enrolmentOfficerPractitionerConverter.py respectively.
+
+  # -----------------------------------------------------------------------
+  # Internal model entries: social protection concepts (no FHIR surface)
+  # -----------------------------------------------------------------------
+
+  - v2_vocabulary: enrollment-status
+    external_vocabulary: BeneficiaryStatus
+    surface: internal_model
+    api_coverage: none
+    external_source: "social_protection/models.py"
+    confidence: high
+    notes: "BeneficiaryStatus tracks the lifecycle of an individual or group enrolled in a benefit plan. This enum lives in openimis-be-social_protection_py and is not exposed through the FHIR R4 API. POTENTIAL maps to pending_verification because those records have not yet been confirmed as active beneficiaries. GRADUATED is a named exit route (program goals met), distinct from the broader closed state."
+    value_mapping:
+      "POTENTIAL": pending_verification
+      "ACTIVE": active
+      "GRADUATED": graduated
+      "SUSPENDED": suspended
+    gaps:
+      v2_only: [closed]
+      external_only: []
+
+  - v2_vocabulary: group-role
+    external_vocabulary: GroupIndividual.Role
+    surface: internal_model
+    api_coverage: none
+    external_source: "individual/models.py"
+    confidence: high
+    notes: "Role describes a person's position within a group (household) in the social protection module. This enum lives in openimis-be-individual_py and is not exposed through the FHIR R4 API. OpenIMIS uses gendered terms (SON/DAUGHTER, GRANDFATHER/GRANDMOTHER) that collapse to gender-neutral v2 codes. GRANDSON/GRANDDAUGHTER map to dependent because grandchildren in a household head's group are typically dependents, not the same as the grandparent relationship type."
+    value_mapping:
+      "HEAD": head
+      "SPOUSE": spouse
+      "SON": child
+      "DAUGHTER": child
+      "FATHER": parent
+      "MOTHER": parent
+      "GRANDFATHER": parent
+      "GRANDMOTHER": parent
+      "GRANDSON": dependent
+      "GRANDDAUGHTER": dependent
+      "BROTHER": other_relative
+      "SISTER": other_relative
+      "OTHER RELATIVE": other_relative
+      "NOT RELATED": non_relative
+    gaps:
+      v2_only: []
+      external_only: []
+
   - v2_vocabulary: payment-status
     external_vocabulary: BenefitConsumptionStatus
-    external_source: "openimis-be-payroll_py/payroll/models.py:20"
+    surface: internal_model
+    api_coverage: none
+    external_source: "payroll/models.py"
     confidence: medium
-    notes: "BenefitConsumptionStatus tracks individual benefit disbursement records within a payroll run in the social protection module. CREATED represents an early-stage record mapping to pending. ACCEPTED and APPROVE_FOR_PAYMENT represent records accepted for payment execution, mapping to processing. REJECTED maps to rejected (a business decision denial). DUPLICATE and PENDING_DELETION represent records that will be cancelled before payment, mapping to cancelled. RECONCILED maps directly."
+    notes: "BenefitConsumptionStatus tracks individual benefit disbursement records within a payroll run in the social protection module. This enum lives in openimis-be-payroll_py and is not exposed through the FHIR R4 API. CREATED represents an early-stage record mapping to pending. ACCEPTED and APPROVE_FOR_PAYMENT represent records accepted for payment execution, mapping to processing. REJECTED maps to rejected (a business decision denial). DUPLICATE and PENDING_DELETION represent records that will be cancelled before payment, mapping to cancelled. RECONCILED maps to paid because reconciliation confirms that payment was made."
     value_mapping:
       "CREATED": pending
       "ACCEPTED": processing
@@ -144,16 +250,18 @@ matches:
       "REJECTED": rejected
       "DUPLICATE": cancelled
       "PENDING_DELETION": cancelled
-      "RECONCILED": reconciled
+      "RECONCILED": paid
     gaps:
       v2_only: [paid, failed, returned]
       external_only: []
 
   - v2_vocabulary: delivery-channel
     external_vocabulary: PayTypeChoices
-    external_source: "openimis-be-contribution_py/contribution/models.py:13"
+    surface: internal_model
+    api_coverage: none
+    external_source: "contribution/models.py"
     confidence: medium
-    notes: "PayTypeChoices records how a contribution (insurance premium) was collected, not how a benefit was disbursed. Despite the semantic difference, the payment methods (bank transfer, cash, mobile phone) map directly to v2 delivery channels. FUNDING (code F) represents donor or institutional transfers with no clear delivery channel equivalent, so it maps to other."
+    notes: "PayTypeChoices records how a contribution (insurance premium) was collected, not how a benefit was disbursed. Despite the semantic difference, the payment methods (bank transfer, cash, mobile phone) map directly to v2 delivery channels. This field lives in openimis-be-contribution_py and is not exposed through the FHIR R4 API. FUNDING (code F) represents donor or institutional transfers with no clear delivery channel equivalent, so it maps to other."
     value_mapping:
       "B": bank_transfer
       "C": cash
@@ -165,9 +273,11 @@ matches:
 
   - v2_vocabulary: grievance-status
     external_vocabulary: TicketStatus
-    external_source: "openimis-be-grievance_py/grievance/migrations/0004_auto_20230425_1638.py:82"
+    surface: internal_model
+    api_coverage: none
+    external_source: "grievance/migrations/0004_auto_20230425_1638.py"
     confidence: medium
-    notes: "TicketStatus was defined in a migration (later removed as a constrained choice in migration 0005). Waiting maps to submitted as the initial received state. Todo maps to submitted as it has not yet been picked up. Inprogress maps to under_review. Review maps to under_review as it is still an active assessment stage. CLOSE maps to closed. The v2 escalated and rejected states have no OpenIMIS equivalent."
+    notes: "TicketStatus was defined in a migration (later removed as a constrained choice in migration 0005). This lives in openimis-be-grievance_social_protection_py and is not exposed through the FHIR R4 API. Waiting maps to submitted as the initial received state. Todo maps to submitted as it has not yet been picked up. Inprogress maps to under_review. Review maps to under_review as it is still an active assessment stage. CLOSE maps to closed. The v2 escalated and rejected states have no OpenIMIS equivalent."
     value_mapping:
       "Waiting": submitted
       "Todo": submitted
@@ -180,9 +290,11 @@ matches:
 
   - v2_vocabulary: event-severity
     external_vocabulary: TicketPriority
-    external_source: "openimis-be-grievance_py/grievance/migrations/0004_auto_20230425_1638.py:83"
+    surface: internal_model
+    api_coverage: none
+    external_source: "grievance/migrations/0004_auto_20230425_1638.py"
     confidence: low
-    notes: "TicketPriority is a grievance ticket priority, not a hazard severity. The semantic match is partial: both vocabularies express a graduated scale of urgency. Critical maps to extreme, High to severe, Normal to moderate, Low to minor. The mapping is defensible for analytical comparisons but the concepts are not identical: one is about grievance urgency, the other about disaster impact."
+    notes: "TicketPriority is a grievance ticket priority, not a hazard severity. The semantic match is partial: both vocabularies express a graduated scale of urgency. Critical maps to extreme, High to severe, Normal to moderate, Low to minor. The mapping is defensible for analytical comparisons but the concepts are not identical: one is about grievance urgency, the other about disaster impact. This field lives in openimis-be-grievance_social_protection_py and is not exposed through the FHIR R4 API."
     value_mapping:
       "Critical": extreme
       "High": severe
@@ -191,16 +303,6 @@ matches:
     gaps:
       v2_only: [unknown]
       external_only: []
-
-  - v2_vocabulary: occupation
-    external_vocabulary: Profession
-    external_source: "insuree/models.py:154"
-    confidence: low
-    notes: "OpenIMIS Profession covers the same domain (what a person does for work) but with only 4 broad values (Housewife, Employee, Self Employee, Others) versus the full ISCO-08 hierarchy (436 codes) in v2. The granularity gap makes value-level mapping impractical, but the conceptual relationship is worth tracking."
-    value_mapping: {}
-    gaps:
-      v2_only: ["all ISCO-08 codes"]
-      external_only: ["Housewife (not an ISCO-08 category)", "Self Employee (employment status, not occupation)"]
 
 no_match:
   # v2 vocabularies with no OpenIMIS equivalent
