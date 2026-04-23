@@ -1,10 +1,30 @@
 system: openspp
+system_version: "19.0"
+source_repository: "https://github.com/OpenSPP/OpenSPP2"
+source_branch: "19.0"
 
-# This file maps OpenSPP vocabularies (Pass A structured vocabs + Pass B selections)
-# against PublicSchema v2 vocabularies.
+# Scope: OpenSPP vocabularies mapped against PublicSchema v2 vocabularies.
 #
-# Pass A vocabularies are backed by spp.vocabulary (XML/JSON source files).
-# Pass B vocabularies are fields.Selection enumerations in Odoo model code.
+# Primary target surface: OpenSPP REST API v2 (/api/v2/spp/...).
+# Documented as Production/Stable, OAuth 2.0, auto-generated OpenAPI, Pydantic
+# schemas under spp_api_v2*/schemas/. See external/openspp/README.md for why we
+# target the API rather than internal Odoo models.
+#
+# Per-entry fields:
+#   v2_vocabulary       PublicSchema vocabulary id
+#   external_vocabulary Human-readable OpenSPP name
+#   surface             rest_api_v2 | internal_model (see api_coverage)
+#   external_source     Path relative to source_repository/source_branch/
+#                       For vocabulary passthroughs this is the XML that the
+#                       API serves unchanged. For Pass-B enums exposed through
+#                       the API this is the Pydantic schema (ClassName.field).
+#                       For internal_model entries this is the Odoo model file.
+#   api_endpoint        REST path integrators consume (passthrough vocabularies)
+#   api_coverage: none  Flag indicating no API surface maps this vocabulary;
+#                       internal model is the canonical machine-readable source.
+#   same_standard       Both sides reference the same international standard.
+#   confidence          high | medium | low
+#   notes, value_mapping, gaps (as before)
 #
 # Confidence levels:
 #   high   - same standard or very close semantic alignment with clear code mapping
@@ -14,12 +34,15 @@ system: openspp
 matches:
 
   # -----------------------------------------------------------------------
-  # Standard equivalences (same international standard on both sides)
+  # Standard equivalences served by GET /api/v2/spp/Vocabulary/{uri}
+  # The XML file is the authoritative code list; the API passes it through.
   # -----------------------------------------------------------------------
 
   - v2_vocabulary: country
     external_vocabulary: "Country (ISO 3166-1)"
+    surface: rest_api_v2
     external_source: "spp_vocabulary/data/vocabulary_country.xml"
+    api_endpoint: "/api/v2/spp/Vocabulary/urn:iso:std:iso:3166"
     confidence: high
     same_standard: true
     notes: "Both use ISO 3166-1 alpha-2 codes. OpenSPP adds three non-standard codes (XA=Stateless, XK=Kosovo, ZZ=Unknown/Not Stated) not present in the v2 vocabulary."
@@ -32,7 +55,9 @@ matches:
 
   - v2_vocabulary: currency
     external_vocabulary: "Currency (ISO 4217)"
+    surface: rest_api_v2
     external_source: "spp_vocabulary/data/vocabulary_currency.xml"
+    api_endpoint: "/api/v2/spp/Vocabulary/urn:iso:std:iso:4217"
     confidence: high
     same_standard: true
     notes: "Both use ISO 4217 alphabetic codes. OpenSPP XML is more complete (~180 codes) than the v2 sync from the Six Group XML, but the code space is identical."
@@ -42,7 +67,9 @@ matches:
 
   - v2_vocabulary: language
     external_vocabulary: "Language (ISO 639)"
+    surface: rest_api_v2
     external_source: "spp_vocabulary/data/vocabulary_language.xml"
+    api_endpoint: "/api/v2/spp/Vocabulary/urn:iso:std:iso:639"
     confidence: high
     same_standard: true
     notes: "Both use ISO 639-1 two-letter codes. OpenSPP adds three non-standard codes (sgn, und, zxx) for sign language, undetermined, and no linguistic content."
@@ -55,7 +82,9 @@ matches:
 
   - v2_vocabulary: occupation
     external_vocabulary: "Occupation (ISCO-08)"
+    surface: rest_api_v2
     external_source: "spp_vocabulary/data/vocabulary_occupation.xml"
+    api_endpoint: "/api/v2/spp/Vocabulary/urn:ilo:isco:08"
     confidence: high
     same_standard: true
     notes: "Both use ISCO-08 codes. OpenSPP exposes two levels (major groups and sub-major groups, 53 codes total). The v2 vocabulary is synced from the same ILO standard."
@@ -69,10 +98,13 @@ matches:
 
   - v2_vocabulary: sex
     external_vocabulary: "Gender (ISO 5218)"
+    surface: rest_api_v2
     external_source: "spp_vocabulary/data/vocabulary_gender.xml"
+    api_endpoint: "/api/v2/spp/Vocabulary/urn:iso:std:iso:5218"
+    api_field: "Individual.gender.coding[system=urn:iso:std:iso:5218]"
     confidence: high
     same_standard: true
-    notes: "Both use ISO 5218. OpenSPP stores the numeric codes directly (0, 1, 2, 9); v2 maps those same numeric codes to named identifiers. The value_mapping translates OpenSPP db_values to v2 codes."
+    notes: "OpenSPP stores numeric ISO 5218 codes (0, 1, 2, 9); v2 maps those same numeric codes to named identifiers. The API exposes this as a CodeableConcept on Individual.gender with system=urn:iso:std:iso:5218 (see spp_api_v2/schemas/individual.py example payload)."
     value_mapping:
       "0": not_known
       "1": male
@@ -82,24 +114,11 @@ matches:
       v2_only: []
       external_only: []
 
-  - v2_vocabulary: gender-type
-    external_vocabulary: "Gender (ISO 5218)"
-    external_source: "spp_vocabulary/data/vocabulary_gender.xml"
-    external_model: "res.partner (field: gender)"
-    confidence: high
-    notes: "OpenSPP models use text values ('male', 'female', 'other') via FHIR-style labels on the res.partner model, not the numeric ISO codes. The v2 system_mappings for openspp already capture this. The 'other' code maps to v2 'other'; the numeric ISO not_known/not_applicable codes have no direct equivalent in this field."
-    value_mapping:
-      "male": male
-      "female": female
-      "other": other
-    gaps:
-      v2_only:
-        - not_stated  # No model field for 'not stated' gender in OpenSPP
-      external_only: []
-
   - v2_vocabulary: education-level
     external_vocabulary: "Education Level (ISCED 2011)"
+    surface: rest_api_v2
     external_source: "spp_vocabulary/data/vocabulary_education_level.xml"
+    api_endpoint: "/api/v2/spp/Vocabulary/urn:unesco:isced:2011"
     confidence: high
     same_standard: true
     notes: "Both use ISCED 2011 levels 0-8. OpenSPP adds code 'N' (No Formal Education) and code '9' (Not Stated / Unknown) which have no v2 equivalents. The numeric codes 0-8 map directly."
@@ -121,29 +140,27 @@ matches:
 
   - v2_vocabulary: marital-status
     external_vocabulary: "Marital Status"
+    surface: rest_api_v2
     external_source: "spp_vocabulary/data/vocabulary_marital_status.xml"
+    api_endpoint: "/api/v2/spp/Vocabulary/urn:openspp:vocab:marital-status"
     confidence: medium
-    notes: "OpenSPP uses UN census letter codes (S, M, W, D, L, C). V2 uses FHIR v3-MaritalStatus codes, which is a richer set. OpenSPP 'C' (Consensual Union) maps to v2 'common_law' / 'domestic_partner'; the v2 system_mappings file already maps it to 'domestic_partner'. Several v2 codes (annulled, interlocutory, polygamous, domestic_partner, unmarried) have no OpenSPP equivalent."
+    notes: "OpenSPP uses UN census letter codes (S, M, W, D, L, C). Both sides derive from the UN Principles and Recommendations for Population and Housing Censuses. OpenSPP 'C' (Consensual Union) maps to v2 'consensual_union'. All six OpenSPP codes map cleanly; v2 adds no extra codes beyond the UN set OpenSPP exposes."
     value_mapping:
       "S": never_married
       "M": married
       "W": widowed
       "D": divorced
       "L": legally_separated
-      "C": domestic_partner
+      "C": consensual_union
     gaps:
-      v2_only:
-        - annulled          # FHIR A code, not in OpenSPP
-        - interlocutory     # FHIR I code, not in OpenSPP
-        - polygamous        # FHIR P code, not in OpenSPP
-        - common_law        # FHIR C code overlaps with domestic_partner; no distinct OpenSPP code
-        - domestic_partner  # FHIR T code; OpenSPP C maps here, not to a separate T code
-        - unmarried         # FHIR U code; OpenSPP uses S (Never Married) for this concept
+      v2_only: []
       external_only: []
 
   - v2_vocabulary: relationship-type
     external_vocabulary: "Relationship Type"
+    surface: rest_api_v2
     external_source: "spp_vocabulary/data/vocabulary_relationship.xml"
+    api_endpoint: "/api/v2/spp/Vocabulary/urn:openspp:vocab:relationship"
     confidence: medium
     notes: "OpenSPP covers individual-to-individual kinship and group-to-group organizational relationships. V2 covers individual kinship only. OpenSPP organizational codes (parent_organization, subsidiary, partner_organization, affiliated_with) have no v2 equivalent. OpenSPP 'child_in_law' and 'parent_in_law' map to v2 'in_law'. V2 adds guardian, caregiver, dependent, in_law, extended_family, payment_proxy, survivor which OpenSPP does not define in this vocabulary. OpenSPP 'head' is a group role, not a person-to-person relationship; it belongs in group-role, not relationship-type."
     value_mapping:
@@ -177,7 +194,9 @@ matches:
 
   - v2_vocabulary: identifier-type
     external_vocabulary: "ID Type"
+    surface: rest_api_v2
     external_source: "spp_vocabulary/data/vocabulary_id_type.xml"
+    api_endpoint: "/api/v2/spp/Vocabulary/urn:openspp:vocab:id-type"
     confidence: high
     notes: "OpenSPP defines 4 active ID types. All 4 map cleanly to v2 number categories. V2 covers additional number categories (social security, voter, program, household, drivers licence, civil registration numbers, location codes) with no OpenSPP equivalent. OpenSPP source file has additional commented-out codes (child and spouse types) that are not active."
     value_mapping:
@@ -206,23 +225,29 @@ matches:
 
   - v2_vocabulary: group-type
     external_vocabulary: "Group Type"
-    external_source: "spp_vocabulary/data/vocabulary_group_type.xml"
+    surface: rest_api_v2
+    external_source: "spp_api_v2/schemas/group.py#Group.group_type"
+    api_field: "Group.groupType"
     confidence: high
-    notes: "OpenSPP defines two group types (household, family). Both map exactly to v2. V2 adds 'farm' and 'other' which OpenSPP does not define in this vocabulary (OpenSPP farms are a separate registry object, not a group type)."
+    notes: "The Group.groupType API field is a Literal pattern ^(household|family|organization|other)$ (spp_api_v2/schemas/group.py). The spp.vocabulary XML backs only two of those codes (household, family); organization and other are added at the API layer for orgs and fallback typing. Household and family map cleanly to v2. V2 'farm' is not a group type in OpenSPP (farmer registry is a separate registry object, not a group-type code). The API-only codes 'organization' and 'other' are documented as external_only gaps rather than value mappings: 'organization' has no v2 Group-type analogue (use the Organization concept), and 'other' is a generic fallback rather than a semantic equivalent of v2 'other'."
     value_mapping:
       "household": household
       "family": family
     gaps:
       v2_only:
         - farm   # OpenSPP has a dedicated farmer registry, not a group-type code
-        - other  # not in OpenSPP vocabulary
-      external_only: []
+      external_only:
+        - organization   # API-level code; Organization is a separate concept in v2
+        - other          # API-level fallback; not backed by the XML vocabulary
 
   - v2_vocabulary: group-role
     external_vocabulary: "Group Membership Type"
+    surface: rest_api_v2
     external_source: "spp_vocabulary/data/vocabulary_group_membership_type.xml"
+    api_endpoint: "/api/v2/spp/Vocabulary/urn:openspp:vocab:relationship"
+    api_field: "Group.member[].role.coding[system=urn:openspp:vocab:relationship]"
     confidence: medium
-    notes: "OpenSPP only has one active code ('head') in this vocabulary. The other roles (child, spouse, etc.) are commented out in the source file. V2 has a full role set. The single OpenSPP code maps cleanly; all other v2 codes are v2-only from this vocabulary's perspective."
+    notes: "OpenSPP only has one active code ('head') in this vocabulary. Other roles (child, spouse, etc.) are commented out in the source file. The API exposes the role via Group.member[].role as a CodeableConcept using the urn:openspp:vocab:relationship system. The single OpenSPP code maps cleanly; all other v2 codes are v2-only from this vocabulary's perspective."
     value_mapping:
       "head": head
     gaps:
@@ -236,11 +261,12 @@ matches:
       external_only: []
 
   - v2_vocabulary: enrollment-status
-    external_vocabulary: "ProgramMembershipState"
-    external_model: "spp.program.membership"
-    external_source: "spp_programs/models/program_membership.py"
+    external_vocabulary: "ProgramMembership.status"
+    surface: rest_api_v2
+    external_source: "spp_api_v2/schemas/program_membership.py#ProgramMembership.status"
+    api_field: "ProgramMembership.status"
     confidence: medium
-    notes: "OpenSPP ProgramMembershipState is the closest equivalent to v2 enrollment-status. 'draft' maps to v2 'pending_verification' (not yet confirmed). 'enrolled' maps to 'active'. 'paused' maps to 'suspended'. 'exited' maps to 'closed'. 'not_eligible' has no dedicated v2 enrollment-status code; it is a determination outcome, not an enrollment state. 'duplicated' has no v2 equivalent. V2 'graduated' has no OpenSPP equivalent in this enum (graduation is handled by a separate spp_graduation module)."
+    notes: "The ProgramMembership.status field exposes ProgramMembershipState codes verbatim as a Literal pattern ^(draft|enrolled|paused|exited|not_eligible|duplicated)$. Internal source is spp_programs/models/program_membership.py. 'draft' maps to v2 'pending_verification' (not yet confirmed). 'enrolled' maps to 'active'. 'paused' maps to 'suspended'. 'exited' maps to 'closed'. 'not_eligible' has no dedicated v2 enrollment-status code; it is a determination outcome, not an enrollment state. 'duplicated' has no v2 equivalent. V2 'graduated' has no OpenSPP equivalent in this enum (graduation is handled by a separate spp_graduation module)."
     value_mapping:
       "draft": pending_verification
       "enrolled": active
@@ -256,18 +282,21 @@ matches:
         - duplicated    # deduplication flag, not an enrollment lifecycle state
 
   - v2_vocabulary: payment-status
-    external_vocabulary: "PaymentState + PaymentStatus + EntitlementPaymentStatus"
-    external_sources:
+    external_vocabulary: "Entitlement.state + internal PaymentState / PaymentStatus"
+    surface: rest_api_v2
+    external_source: "spp_api_v2_entitlements/schemas/entitlement.py#Entitlement.state"
+    api_field: "Entitlement.state"
+    notes_internal_sources:
       - "spp_programs/models/payment.py (PaymentState: issued, sent, reconciled)"
       - "spp_programs/models/payment.py (PaymentStatus: paid, failed)"
       - "spp_programs/models/entitlement.py (EntitlementPaymentStatus: paid, notpaid)"
     confidence: medium
-    notes: "OpenSPP splits payment lifecycle across three separate enumerations. PaymentState tracks FSP transmission steps; PaymentStatus records the reconciliation outcome; EntitlementPaymentStatus is a simple paid/notpaid flag computed on entitlements. Together they cover the v2 payment-status codes, but there is no single one-to-one mapping. V2 'returned' has no OpenSPP equivalent; OpenSPP 'sent' maps to v2 'pending' (in transit but not yet confirmed). V2 'cancelled' is covered by EntitlementState (cancelled, expired) rather than payment status fields."
+    notes: "OpenSPP splits payment lifecycle across three separate internal enumerations; the API exposes the unified Entitlement.state (a free-form string in the schema; values come from the internal EntitlementState machine: draft, pending_validation, approved, trans2FSP, rdpd2ben, rejected, cancelled, expired). PaymentState and PaymentStatus are not surfaced directly through a payment-specific API resource. Together the internal enums cover the v2 payment-status codes, but there is no single one-to-one mapping. 'issued' maps to 'pending', 'sent' to 'processing' (in transit), 'reconciled' to 'paid' (v2 does not distinguish reconciliation from paid). V2 'returned' has no OpenSPP equivalent. V2 'cancelled' is covered by EntitlementState (cancelled, expired) rather than payment status fields."
     value_mapping:
       # PaymentState
       "issued": pending
-      "sent": pending
-      "reconciled": reconciled
+      "sent": processing
+      "reconciled": paid
       # PaymentStatus
       "paid": paid
       "failed": failed
@@ -277,17 +306,71 @@ matches:
       v2_only:
         - returned    # no OpenSPP payment status for returned/reversed payments
         - cancelled   # covered in EntitlementState, not payment status fields
-      external_only:
-        - issued      # intermediate transmission state with no direct v2 equivalent (maps to pending)
-        - sent        # intermediate transmission state with no direct v2 equivalent (maps to pending)
-        - notpaid     # computed flag; maps to pending but semantically different
+        - rejected    # v2 has rejected; OpenSPP PaymentState/PaymentStatus do not
+        - partial     # v2 has partial; no OpenSPP equivalent
+      external_only: []
+
+  - v2_vocabulary: eligibility-status
+    external_vocabulary: "ProgramMembership.status (partial)"
+    surface: rest_api_v2
+    external_source: "spp_api_v2/schemas/program_membership.py#ProgramMembership.status"
+    api_field: "ProgramMembership.status"
+    confidence: low
+    notes: "OpenSPP does not have a dedicated eligibility determination vocabulary. The closest is ProgramMembership.status 'not_eligible', which overlaps with v2 eligibility-status.ineligible. OpenSPP's spp_scoring module computes scores and classifications but does not expose a formal eligibility-status enum. The mapping is partial: only 'not_eligible' from ProgramMembership.status has a direct v2 equivalent."
+    value_mapping:
+      "not_eligible": ineligible
+    gaps:
+      v2_only:
+        - eligible          # no standalone OpenSPP eligibility status; implied by enrolled state
+        - pending           # no OpenSPP eligibility pending status; implied by draft membership
+        - under_review      # no OpenSPP eligibility review status
+        - conditional       # no OpenSPP eligibility conditional status
+      external_only: []
+
+  - v2_vocabulary: benefit-modality
+    external_vocabulary: "Entitlement.entitlementType"
+    surface: rest_api_v2
+    external_source: "spp_api_v2_entitlements/schemas/entitlement.py#Entitlement.entitlement_type"
+    api_field: "Entitlement.entitlementType"
+    confidence: low
+    notes: "Entitlement.entitlementType is a Literal['cash', 'inkind'] that only partially covers v2 benefit-modality. OpenSPP 'cash' maps to v2 'cash'; 'inkind' maps to v2 'in_kind'. V2 voucher, service, and fee_waiver modalities are not distinguished in the OpenSPP entitlement type."
+    value_mapping:
+      "cash": cash
+      "inkind": in_kind
+    gaps:
+      v2_only:
+        - voucher     # not distinguished in OpenSPP entitlement type
+        - service     # not distinguished in OpenSPP entitlement type
+        - fee_waiver  # not distinguished in OpenSPP entitlement type
+      external_only: []
+
+  # -----------------------------------------------------------------------
+  # Internal-model entries (no API surface exposes these directly)
+  # -----------------------------------------------------------------------
+
+  - v2_vocabulary: gender-type
+    external_vocabulary: "res.partner.gender (text enum)"
+    surface: internal_model
+    api_coverage: none
+    external_source: "spp_base/models/res_partner.py#res_partner.gender"
+    confidence: high
+    notes: "The res.partner.gender text enum ('male', 'female', 'other') exists in the internal model but is not exposed through the REST API in this form. The API projects partner.gender into Individual.gender as a CodeableConcept using ISO 5218 numeric codes (see the sex mapping above). This entry is retained to document the internal-model shape; integrators consuming the API should use the sex mapping."
+    value_mapping:
+      "male": male
+      "female": female
+      "other": other
+    gaps:
+      v2_only:
+        - not_stated  # No model field for 'not stated' gender in OpenSPP
+      external_only: []
 
   - v2_vocabulary: grievance-status
     external_vocabulary: "GRMTicketStageType"
-    external_model: "spp.grm.ticket.stage"
+    surface: internal_model
+    api_coverage: none
     external_source: "spp_grm/models/grm_ticket_stage.py"
     confidence: medium
-    notes: "OpenSPP GRMTicketStageType categorizes ticket stages for workflow logic. 'new' maps to v2 'submitted'. 'in_progress' and 'waiting' both map to 'under_review'. 'escalated' maps to 'escalated'. 'resolved' maps to 'resolved'. 'closed' maps to 'closed'. 'cancelled' has no direct v2 equivalent; v2 does not model grievance cancellation as a distinct status. V2 'rejected' has no OpenSPP equivalent in GRMTicketStageType (rejection is tracked via the GRMTicketDecision field instead)."
+    notes: "OpenSPP GRMTicketStageType categorizes ticket stages for workflow logic. GRM is not exposed through the REST API v2 (no grm resource in spp_api_v2*/schemas/). 'new' maps to v2 'submitted'. 'in_progress' and 'waiting' both map to 'under_review'. 'escalated' to 'escalated'. 'resolved' to 'resolved'. 'closed' to 'closed'. 'cancelled' has no direct v2 equivalent; v2 does not model grievance cancellation as a distinct status. V2 'rejected' has no OpenSPP equivalent in GRMTicketStageType (rejection is tracked via the GRMTicketDecision field instead)."
     value_mapping:
       "new": submitted
       "in_progress": under_review
@@ -305,10 +388,11 @@ matches:
 
   - v2_vocabulary: event-severity
     external_vocabulary: "GRMTicketSeverity"
-    external_model: "spp.grm.ticket"
+    surface: internal_model
+    api_coverage: none
     external_source: "spp_grm/models/grm_ticket.py"
     confidence: medium
-    notes: "GRMTicketSeverity is the best OpenSPP match for v2 severity (OASIS CAP). OpenSPP uses a 4-level scale (low, medium, high, critical); v2 uses a 5-level OASIS CAP scale (extreme, severe, moderate, minor, unknown). 'critical' maps to 'extreme', 'high' to 'severe', 'medium' to 'moderate', 'low' to 'minor'. V2 'unknown' and 'extreme' have no OpenSPP GRM equivalent. OpenSPP also has HazardIncidentSeverity (numeric 1-5 scale) which maps more directly to CAP levels but covers a different domain."
+    notes: "GRMTicketSeverity is the best OpenSPP match for v2 severity (OASIS CAP). GRM is not exposed through the REST API v2. OpenSPP uses a 4-level scale (low, medium, high, critical); v2 uses a 5-level OASIS CAP scale (extreme, severe, moderate, minor, unknown). 'critical' maps to 'extreme', 'high' to 'severe', 'medium' to 'moderate', 'low' to 'minor'. V2 'unknown' and 'extreme' have no OpenSPP GRM equivalent. OpenSPP also has HazardIncidentSeverity (numeric 1-5 scale) which maps more directly to CAP levels but covers a different domain."
     value_mapping:
       "low": minor
       "medium": moderate
@@ -321,10 +405,11 @@ matches:
 
   - v2_vocabulary: event-severity
     external_vocabulary: "HazardIncidentSeverity"
-    external_model: "spp.hazard.incident"
+    surface: internal_model
+    api_coverage: none
     external_source: "spp_hazard/models/hazard_incident.py"
     confidence: low
-    notes: "HazardIncidentSeverity uses a numeric 1-5 scale (Minor through Catastrophic), which aligns structurally with OASIS CAP but has 5 levels to v2's 5 levels. The semantic mapping is approximate: '1' (Minor) maps to 'minor', '2' (Moderate) to 'moderate', '3' (Significant) to 'severe', '4' (Severe) to 'severe', '5' (Catastrophic) to 'extreme'. Levels 3 and 4 both collapse to 'severe', which is a lossy mapping."
+    notes: "HazardIncidentSeverity uses a numeric 1-5 scale (Minor through Catastrophic), which aligns structurally with OASIS CAP but has 5 levels to v2's 5 levels. The semantic mapping is approximate: '1' (Minor) maps to 'minor', '2' (Moderate) to 'moderate', '3' (Significant) to 'severe', '4' (Severe) to 'severe', '5' (Catastrophic) to 'extreme'. Levels 3 and 4 both collapse to 'severe', which is a lossy mapping. Not exposed through the REST API v2."
     value_mapping:
       "1": minor
       "2": moderate
@@ -335,40 +420,8 @@ matches:
       v2_only:
         - unknown   # no OpenSPP hazard severity for undetermined severity
       external_only:
-        - "3"  # Significant — distinct from both moderate and severe, collapses to severe
-        - "4"  # Severe — collapses with level 3 into v2 severe
-
-  - v2_vocabulary: eligibility-status
-    external_vocabulary: "ProgramMembershipState (partial)"
-    external_model: "spp.program.membership"
-    external_source: "spp_programs/models/program_membership.py"
-    confidence: low
-    notes: "OpenSPP does not have a dedicated eligibility determination vocabulary. The closest is ProgramMembershipState.not_eligible, which overlaps with v2 eligibility-status.ineligible. OpenSPP's spp_scoring module computes scores and classifications but does not expose a formal eligibility-status enum. The mapping is partial: only 'not_eligible' from ProgramMembershipState has a direct v2 equivalent."
-    value_mapping:
-      "not_eligible": ineligible
-    gaps:
-      v2_only:
-        - eligible          # no standalone OpenSPP eligibility status; implied by enrolled state
-        - pending           # no OpenSPP eligibility pending status; implied by draft membership
-        - under_review      # no OpenSPP eligibility review status
-        - conditional       # no OpenSPP eligibility conditional status
-      external_only: []
-
-  - v2_vocabulary: benefit-modality
-    external_vocabulary: "ProgramEntitlementType"
-    external_model: "wizard (spp.create.program.wizard)"
-    external_source: "spp_programs/wizard/create_program_wizard.py"
-    confidence: low
-    notes: "ProgramEntitlementType is a 2-value enum (cash, inkind) that only partially covers v2 benefit-modality. OpenSPP 'cash' maps to v2 'cash'; 'inkind' maps to v2 'in_kind'. V2 voucher, service, and fee_waiver modalities are not distinguished in OpenSPP's program setup wizard."
-    value_mapping:
-      "cash": cash
-      "inkind": in_kind
-    gaps:
-      v2_only:
-        - voucher     # not distinguished in OpenSPP entitlement type
-        - service     # not distinguished in OpenSPP entitlement type
-        - fee_waiver  # not distinguished in OpenSPP entitlement type
-      external_only: []
+        - "3"  # Significant: distinct from both moderate and severe, collapses to severe
+        - "4"  # Severe: collapses with level 3 into v2 severe
 
 # -----------------------------------------------------------------------
 # No-match entries
@@ -503,7 +556,7 @@ no_match:
 
   - external_vocabulary: "EntitlementState"
     external_source: "spp_programs/models/entitlement.py"
-    reason: "No v2 vocabulary for cash or in-kind entitlement lifecycle state. The OpenSPP entitlement state machine (draft, pending_validation, approved, trans2FSP, rdpd2ben, rejected, cancelled, expired) is more granular than v2 payment-status and covers a different object type."
+    reason: "No v2 vocabulary for cash or in-kind entitlement lifecycle state. The OpenSPP entitlement state machine (draft, pending_validation, approved, trans2FSP, rdpd2ben, rejected, cancelled, expired) is more granular than v2 payment-status and covers a different object type. Surfaced through the API as Entitlement.state."
 
   - external_vocabulary: "InKindEntitlementState"
     external_source: "spp_programs/models/entitlement.py"
@@ -650,8 +703,8 @@ no_match:
     reason: "No v2 vocabulary for batch job state (pending, processing, done, failed). Infrastructure/operational concept."
 
   - external_vocabulary: "ProgramTargetType"
-    external_source: "spp_programs/wizard/create_program_wizard.py"
-    reason: "No v2 vocabulary for program target type (individual vs group). This is a program configuration setting, not a domain vocabulary."
+    external_source: "spp_api_v2/schemas/program.py#Program.target_type"
+    reason: "Program.targetType (individual|group) is a program configuration setting exposed on the API's Program resource, not a domain vocabulary that maps to a v2 concept."
 
   - external_vocabulary: "SimulationRunState"
     external_source: "spp_simulation/models/simulation_run.py"

@@ -39,6 +39,7 @@ external/*/extracted/
 # Cloned external repos (large, fetched on demand)
 external/semic/
 external/*/repo/
+external/*/repo-*/
 
 # Node
 node_modules/
