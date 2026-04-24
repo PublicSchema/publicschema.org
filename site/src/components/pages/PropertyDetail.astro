@@ -9,6 +9,8 @@ import {
   conceptLabel,
   conceptTypeDisplay,
   collectAllSubtypes,
+  conceptPreviewKey,
+  vocabularyPreviewKey,
 } from '../../data/concept-utils';
 import { getSystemName } from '../../data/systems';
 import SectionFeedback from '../SectionFeedback.astro';
@@ -137,7 +139,7 @@ const isNonNormative = prop.maturity === 'draft' || prop.maturity === 'candidate
           <td style="font-weight: 600; color: var(--color-text-muted); width: 10rem;">{t('property_detail.type')}</td>
           <td>
             {typeConceptRef
-              ? <a href={conceptLink(typeConceptRef)}><code>{conceptTypeDisplay(vocab, typeConceptRef)}</code></a>
+              ? <a href={conceptLink(typeConceptRef)} data-preview-key={conceptPreviewKey(vocab, typeConceptRef) ?? undefined}><code>{conceptTypeDisplay(vocab, typeConceptRef)}</code></a>
               : isPrimitiveType
                 ? <a href={localePath(`/types#${prop.type}`, locale)}><code>{prop.type}</code></a>
                 : <code>{prop.type}</code>
@@ -146,7 +148,7 @@ const isNonNormative = prop.maturity === 'draft' || prop.maturity === 'candidate
               const subs = collectAllSubtypes(vocab, typeConceptRef);
               return subs.length > 0 && (
                 <span class="subtype-hint">
-                  {t('concept_detail.includes')} {subs.map((s, i) => <>{i > 0 && ', '}<a href={conceptLink(s)}>{conceptLabel(vocab, s)}</a></>)}
+                  {t('concept_detail.includes')} {subs.map((s, i) => <>{i > 0 && ', '}<a href={conceptLink(s)} data-preview-key={conceptPreviewKey(vocab, s) ?? undefined}>{conceptLabel(vocab, s)}</a></>)}
                 </span>
               );
             })()}
@@ -159,19 +161,19 @@ const isNonNormative = prop.maturity === 'draft' || prop.maturity === 'candidate
         {prop.vocabulary && (
           <tr>
             <td style="font-weight: 600; color: var(--color-text-muted);">{t('property_detail.vocabulary')}</td>
-            <td><a href={localePath(`/vocab/${prop.vocabulary}`, locale)}>{prop.vocabulary}</a></td>
+            <td><a href={localePath(`/vocab/${prop.vocabulary}`, locale)} data-preview-key={vocabularyPreviewKey(vocab, prop.vocabulary) ?? undefined}>{prop.vocabulary}</a></td>
           </tr>
         )}
         {prop.references && (
           <tr>
             <td style="font-weight: 600; color: var(--color-text-muted);">{t('property_detail.references')}</td>
             <td>
-              <a href={conceptLink(prop.references)}>{prop.references}</a>
+              <a href={conceptLink(prop.references)} data-preview-key={conceptPreviewKey(vocab, prop.references) ?? undefined}>{prop.references}</a>
               {(() => {
                 const subs = collectAllSubtypes(vocab, prop.references as string);
                 return subs.length > 0 && (
                   <span class="subtype-hint">
-                    {t('concept_detail.includes')} {subs.map((s, i) => <>{i > 0 && ', '}<a href={conceptLink(s)}>{conceptLabel(vocab, s)}</a></>)}
+                    {t('concept_detail.includes')} {subs.map((s, i) => <>{i > 0 && ', '}<a href={conceptLink(s)} data-preview-key={conceptPreviewKey(vocab, s) ?? undefined}>{conceptLabel(vocab, s)}</a></>)}
                   </span>
                 );
               })()}
@@ -186,7 +188,7 @@ const isNonNormative = prop.maturity === 'draft' || prop.maturity === 'candidate
     <h2>{t('property_detail.used_by')}<SectionFeedback pageType="property" pageId={termId} sectionId="used-by" sectionLabel={t('property_detail.used_by')} locale={locale} /></h2>
     {prop.used_by.length > 0 ? (
       <div class="type-links">
-        {prop.used_by.map((d) => <a href={conceptLink(d)}>{conceptLabel(vocab, d)}</a>)}
+        {prop.used_by.map((d) => <a href={conceptLink(d)} data-preview-key={conceptPreviewKey(vocab, d) ?? undefined}>{conceptLabel(vocab, d)}</a>)}
       </div>
     ) : (
       <p style="color: var(--color-text-muted);">{t('property_detail.no_uses')}</p>

@@ -13,6 +13,9 @@ import {
   collectInheritedProperties,
   collectAllSubtypes,
   buildDisplayGroups,
+  conceptPreviewKey,
+  propertyPreviewKey,
+  vocabularyPreviewKey,
 } from '../../data/concept-utils';
 import SectionFeedback from '../SectionFeedback.astro';
 import FeedbackOrientation from '../FeedbackOrientation.astro';
@@ -118,7 +121,7 @@ const isNonNormative = concept.maturity === 'draft' || concept.maturity === 'can
     <div class="concept-section" id="supertypes">
       <h2>{t('concept_detail.supertypes')}<SectionFeedback pageType="concept" pageId={termId} sectionId="supertypes" sectionLabel={t('concept_detail.supertypes')} locale={locale} /></h2>
       <div class="type-links">
-        {concept.supertypes.map((s) => <a href={conceptLink(s)}>{conceptLabel(vocab, s)}</a>)}
+        {concept.supertypes.map((s) => <a href={conceptLink(s)} data-preview-key={conceptPreviewKey(vocab, s) ?? undefined}>{conceptLabel(vocab, s)}</a>)}
       </div>
     </div>
   )}
@@ -132,12 +135,12 @@ const isNonNormative = concept.maturity === 'draft' || concept.maturity === 'can
         if (isRoot) {
           return (
             <span class="subtype-entry">
-              <a href={conceptLink(st)}>{conceptLabel(vocab, st)}</a>
+              <a href={conceptLink(st)} data-preview-key={conceptPreviewKey(vocab, st) ?? undefined}>{conceptLabel(vocab, st)}</a>
               {children.length > 0 && <span class="subtype-children">{renderSubtypes(st, false)}</span>}
             </span>
           );
         }
-        return <>{i > 0 && ', '}<a href={conceptLink(st)}>{conceptLabel(vocab, st)}</a></>;
+        return <>{i > 0 && ', '}<a href={conceptLink(st)} data-preview-key={conceptPreviewKey(vocab, st) ?? undefined}>{conceptLabel(vocab, st)}</a></>;
       });
     }
     return (
@@ -175,12 +178,12 @@ const isNonNormative = concept.maturity === 'draft' || concept.maturity === 'can
                 return (
                   <tr class={p.from ? 'inherited-row' : ''} id={`prop-${p.id}`}>
                     <td>
-                      <a href={propLink(p.id)}>{p.detail?.label?.[locale] ?? p.detail?.label?.en ?? p.id}</a>
-                      {p.from && <span class="inherited-badge">{t('concept_detail.inherited_from')} <a href={conceptLink(p.from)}>{conceptLabel(vocab, p.from)}</a></span>}
+                      <a href={propLink(p.id)} data-preview-key={propertyPreviewKey(vocab, p.id) ?? undefined}>{p.detail?.label?.[locale] ?? p.detail?.label?.en ?? p.id}</a>
+                      {p.from && <span class="inherited-badge">{t('concept_detail.inherited_from')} <a href={conceptLink(p.from)} data-preview-key={conceptPreviewKey(vocab, p.from) ?? undefined}>{conceptLabel(vocab, p.from)}</a></span>}
                     </td>
                     <td data-label={t('concept_detail.table.type')}>
                       {conceptRef
-                        ? <a href={conceptLink(conceptRef)}><code>{conceptTypeDisplay(vocab, conceptRef)}</code></a>
+                        ? <a href={conceptLink(conceptRef)} data-preview-key={conceptPreviewKey(vocab, conceptRef) ?? undefined}><code>{conceptTypeDisplay(vocab, conceptRef)}</code></a>
                         : isPrimitive
                           ? <a href={localePath(`/types#${typeStr}`, locale)}><code>{typeStr}</code></a>
                           : <code>{typeStr}</code>
@@ -189,12 +192,12 @@ const isNonNormative = concept.maturity === 'draft' || concept.maturity === 'can
                         const subs = collectAllSubtypes(vocab, conceptRef);
                         return subs.length > 0 && (
                           <span class="subtype-hint">
-                            {t('concept_detail.includes')} {subs.map((s, i) => <>{i > 0 && ', '}<a href={conceptLink(s)}>{conceptLabel(vocab, s)}</a></>)}
+                            {t('concept_detail.includes')} {subs.map((s, i) => <>{i > 0 && ', '}<a href={conceptLink(s)} data-preview-key={conceptPreviewKey(vocab, s) ?? undefined}>{conceptLabel(vocab, s)}</a></>)}
                           </span>
                         );
                       })()}
                       {p.detail?.vocabulary && (
-                        <> (<a href={localePath(`/vocab/${p.detail.vocabulary}`, locale)}>{p.detail.vocabulary}</a>)</>
+                        <> (<a href={localePath(`/vocab/${p.detail.vocabulary}`, locale)} data-preview-key={vocabularyPreviewKey(vocab, p.detail.vocabulary) ?? undefined}>{p.detail.vocabulary}</a>)</>
                       )}
                     </td>
                     <td data-label={t('concept_detail.table.definition')}>
@@ -225,12 +228,12 @@ const isNonNormative = concept.maturity === 'draft' || concept.maturity === 'can
             return (
               <tr class={p.from ? 'inherited-row' : ''} id={`prop-${p.id}`}>
                 <td>
-                  <a href={propLink(p.id)}>{p.detail?.label?.[locale] ?? p.detail?.label?.en ?? p.id}</a>
-                  {p.from && <span class="inherited-badge">{t('concept_detail.inherited_from')} <a href={conceptLink(p.from)}>{conceptLabel(vocab, p.from)}</a></span>}
+                  <a href={propLink(p.id)} data-preview-key={propertyPreviewKey(vocab, p.id) ?? undefined}>{p.detail?.label?.[locale] ?? p.detail?.label?.en ?? p.id}</a>
+                  {p.from && <span class="inherited-badge">{t('concept_detail.inherited_from')} <a href={conceptLink(p.from)} data-preview-key={conceptPreviewKey(vocab, p.from) ?? undefined}>{conceptLabel(vocab, p.from)}</a></span>}
                 </td>
                 <td data-label={t('concept_detail.table.type')}>
                   {conceptRef
-                    ? <a href={conceptLink(conceptRef)}><code>{conceptTypeDisplay(vocab, conceptRef)}</code></a>
+                    ? <a href={conceptLink(conceptRef)} data-preview-key={conceptPreviewKey(vocab, conceptRef) ?? undefined}><code>{conceptTypeDisplay(vocab, conceptRef)}</code></a>
                     : isPrimitive
                       ? <a href={localePath(`/types#${typeStr}`, locale)}><code>{typeStr}</code></a>
                       : <code>{typeStr}</code>
@@ -239,12 +242,12 @@ const isNonNormative = concept.maturity === 'draft' || concept.maturity === 'can
                     const subs = collectAllSubtypes(vocab, conceptRef);
                     return subs.length > 0 && (
                       <span class="subtype-hint">
-                        {t('concept_detail.includes')} {subs.map((s, i) => <>{i > 0 && ', '}<a href={conceptLink(s)}>{conceptLabel(vocab, s)}</a></>)}
+                        {t('concept_detail.includes')} {subs.map((s, i) => <>{i > 0 && ', '}<a href={conceptLink(s)} data-preview-key={conceptPreviewKey(vocab, s) ?? undefined}>{conceptLabel(vocab, s)}</a></>)}
                       </span>
                     );
                   })()}
                   {p.detail?.vocabulary && (
-                    <> (<a href={localePath(`/vocab/${p.detail.vocabulary}`, locale)}>{p.detail.vocabulary}</a>)</>
+                    <> (<a href={localePath(`/vocab/${p.detail.vocabulary}`, locale)} data-preview-key={vocabularyPreviewKey(vocab, p.detail.vocabulary) ?? undefined}>{p.detail.vocabulary}</a>)</>
                   )}
                 </td>
                 <td data-label={t('concept_detail.table.definition')}>
