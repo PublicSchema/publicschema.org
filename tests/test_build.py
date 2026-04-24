@@ -9,7 +9,7 @@ from pathlib import Path
 import jsonschema
 import pytest
 
-from build.build import _to_snake_case, build_vocabulary
+from build.build import _external_equivalents_triples, _to_snake_case, build_vocabulary
 from tests.conftest import make_concept, make_credential, make_property, make_vocabulary
 
 # ---------------------------------------------------------------------------
@@ -1622,6 +1622,29 @@ class TestJsonLdDocuments:
 # ---------------------------------------------------------------------------
 # Helper: _to_snake_case
 # ---------------------------------------------------------------------------
+
+class TestExternalEquivalentsTriples:
+    def test_exact_match_emits_skos_exact(self):
+        raw = {"id": "X", "external_equivalents": {
+            "sys": {"uri": "http://ex/a", "match": "exact"},
+        }}
+        assert _external_equivalents_triples(raw) == {"skos:exactMatch": ["http://ex/a"]}
+
+    def test_match_none_without_uri_is_silent(self, capsys):
+        """match: none declares 'no equivalent'; the missing URI is intentional."""
+        raw = {"id": "X", "external_equivalents": {
+            "sys": {"match": "none", "label": "N/A"},
+        }}
+        assert _external_equivalents_triples(raw) == {}
+        assert "missing 'uri'" not in capsys.readouterr().err
+
+    def test_missing_uri_without_match_none_warns(self, capsys):
+        raw = {"id": "X", "external_equivalents": {
+            "sys": {"match": "close", "label": "something"},
+        }}
+        assert _external_equivalents_triples(raw) == {}
+        assert "missing 'uri'" in capsys.readouterr().err
+
 
 class TestToSnakeCase:
     def test_pascal_to_snake(self):

@@ -83,15 +83,18 @@ def _external_equivalents_triples(raw_data: dict) -> dict[str, list[str]]:
     entity_id = raw_data.get("id", "<unknown>")
     triples: dict[str, list[str]] = {}
     for system, entry in equivalents.items():
+        match_type = entry.get("match")
         uri = entry.get("uri")
         if not uri:
-            print(
-                f"WARNING: external_equivalents[{system}] on {entity_id} "
-                f"is missing 'uri' field, skipping",
-                file=sys.stderr,
-            )
+            # match: none explicitly declares "no equivalent in that system",
+            # so the missing URI is intentional. Other missing URIs are bugs.
+            if match_type != "none":
+                print(
+                    f"WARNING: external_equivalents[{system}] on {entity_id} "
+                    f"is missing 'uri' field, skipping",
+                    file=sys.stderr,
+                )
             continue
-        match_type = entry.get("match")
         predicate = MATCH_PREDICATES.get(match_type, MATCH_FALLBACK)
         triples.setdefault(predicate, []).append(uri)
     return triples
