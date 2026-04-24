@@ -288,22 +288,6 @@ matches:
       v2_only: [resolved, escalated, rejected]
       external_only: []
 
-  - v2_vocabulary: event-severity
-    external_vocabulary: TicketPriority
-    surface: internal_model
-    api_coverage: none
-    external_source: "grievance/migrations/0004_auto_20230425_1638.py"
-    confidence: low
-    notes: "TicketPriority is a grievance ticket priority, not a hazard severity. The semantic match is partial: both vocabularies express a graduated scale of urgency. Critical maps to extreme, High to severe, Normal to moderate, Low to minor. The mapping is defensible for analytical comparisons but the concepts are not identical: one is about grievance urgency, the other about disaster impact. This field lives in openimis-be-grievance_social_protection_py and is not exposed through the FHIR R4 API."
-    value_mapping:
-      "Critical": extreme
-      "High": severe
-      "Normal": moderate
-      "Low": minor
-    gaps:
-      v2_only: [unknown]
-      external_only: []
-
 no_match:
   # v2 vocabularies with no OpenIMIS equivalent
   - v2_vocabulary: benefit-frequency
@@ -329,6 +313,9 @@ no_match:
 
   - v2_vocabulary: targeting-approach
     reason: "OpenIMIS does not expose a targeting approach vocabulary. The benefit plan configuration does not categorise the method used to identify beneficiaries as a controlled value set."
+
+  - v2_vocabulary: event-severity
+    reason: "v2 event-severity classifies hazard/disaster impact (OASIS CAP v1.2). OpenIMIS's closest scale is grievance TicketPriority (Critical/High/Normal/Low) on the grievance_social_protection module, which measures grievance urgency, not disaster impact. The domains differ, so no semantic mapping is offered. If OpenIMIS deployments record hazard events, they would need a separate severity field aligned with CAP."
 
   - v2_vocabulary: event-certainty
     reason: "OpenIMIS does not model event certainty. This vocabulary is used for shock or hazard events, which are outside the scope of the openIMIS modules."

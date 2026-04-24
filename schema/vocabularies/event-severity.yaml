@@ -61,36 +61,23 @@ values:
     es: La gravedad aún no se ha determinado.
 system_mappings:
   openspp:
-    vocabulary_name: spp_grm ticket severity
+    vocabulary_name: HazardIncidentSeverity
     values:
-    - code: low
-      label: Low
+    - code: "1"
+      label: Minor
       maps_to: minor
-    - code: medium
-      label: Medium
+    - code: "2"
+      label: Moderate
       maps_to: moderate
-    - code: high
-      label: High
+    - code: "3"
+      label: Significant
       maps_to: severe
-    - code: critical
-      label: Critical
+    - code: "4"
+      label: Severe
+      maps_to: severe
+    - code: "5"
+      label: Catastrophic
       maps_to: extreme
     unmapped_canonical:
     - unknown
-    note: "OpenSPP's severity field is defined on the spp_grm grievance-ticket model (not on hazard events). The four-level scale (low/medium/high/critical) aligns with CAP-style severity semantics, so mapping is offered as a convenience for implementers who want to reuse a single severity scale across event types. HazardEvent implementations should prefer CAP-aligned severity directly."
-  openimis:
-    values:
-    - code: Critical
-      label: Critical
-      maps_to: extreme
-    - code: High
-      label: High
-      maps_to: severe
-    - code: Normal
-      label: Normal
-      maps_to: moderate
-    - code: Low
-      label: Low
-      maps_to: minor
-    unmapped_canonical:
-    - unknown
+    note: "Mapped against OpenSPP's spp_hazard HazardIncidentSeverity (numeric 1-5 scale), which shares the hazard/disaster-impact domain with v2 event-severity. GRMTicketSeverity (grievance urgency) is deliberately not mapped here because it classifies a different domain."

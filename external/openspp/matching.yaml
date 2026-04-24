@@ -229,13 +229,13 @@ matches:
     external_source: "spp_api_v2/schemas/group.py#Group.group_type"
     api_field: "Group.groupType"
     confidence: high
-    notes: "The Group.groupType API field is a Literal pattern ^(household|family|organization|other)$ (spp_api_v2/schemas/group.py). The spp.vocabulary XML backs only two of those codes (household, family); organization and other are added at the API layer for orgs and fallback typing. Household and family map cleanly to v2. V2 'farm' is not a group type in OpenSPP (farmer registry is a separate registry object, not a group-type code). The API-only codes 'organization' and 'other' are documented as external_only gaps rather than value mappings: 'organization' has no v2 Group-type analogue (use the Organization concept), and 'other' is a generic fallback rather than a semantic equivalent of v2 'other'."
+    notes: "The Group.groupType API field is a Literal pattern ^(household|family|organization|other)$ (spp_api_v2/schemas/group.py). The spp.vocabulary XML backs only two of those codes (household, family); organization and other are added at the API layer for orgs and fallback typing. Household and family map cleanly to v2. V2 'farm' has no direct group-type code in OpenSPP: farms are represented as household-typed groups annotated by the spp_farmer_registry module, and OpenSPP's Farm Type vocabulary (urn:openspp:vocab:farm-type, values crop/livestock/aquaculture/mixed) classifies farming activity rather than the group as a whole. Deployments that want to round-trip v2 'farm' need to preserve the farmer-registry annotation separately. The API-only codes 'organization' and 'other' are documented as external_only gaps rather than value mappings: 'organization' has no v2 Group-type analogue (use the Organization concept), and 'other' is a generic fallback rather than a semantic equivalent of v2 'other'."
     value_mapping:
       "household": household
       "family": family
     gaps:
       v2_only:
-        - farm   # OpenSPP has a dedicated farmer registry, not a group-type code
+        - farm   # farms are household groups + spp_farmer_registry annotation, not a distinct group-type code
       external_only:
         - organization   # API-level code; Organization is a separate concept in v2
         - other          # API-level fallback; not backed by the XML vocabulary
@@ -387,29 +387,12 @@ matches:
         - waiting     # merged into under_review; v2 does not distinguish waiting from active review
 
   - v2_vocabulary: event-severity
-    external_vocabulary: "GRMTicketSeverity"
-    surface: internal_model
-    api_coverage: none
-    external_source: "spp_grm/models/grm_ticket.py"
-    confidence: medium
-    notes: "GRMTicketSeverity is the best OpenSPP match for v2 severity (OASIS CAP). GRM is not exposed through the REST API v2. OpenSPP uses a 4-level scale (low, medium, high, critical); v2 uses a 5-level OASIS CAP scale (extreme, severe, moderate, minor, unknown). 'critical' maps to 'extreme', 'high' to 'severe', 'medium' to 'moderate', 'low' to 'minor'. V2 'unknown' and 'extreme' have no OpenSPP GRM equivalent. OpenSPP also has HazardIncidentSeverity (numeric 1-5 scale) which maps more directly to CAP levels but covers a different domain."
-    value_mapping:
-      "low": minor
-      "medium": moderate
-      "high": severe
-      "critical": extreme
-    gaps:
-      v2_only:
-        - unknown   # no OpenSPP GRM severity code for unknown/not yet determined
-      external_only: []
-
-  - v2_vocabulary: event-severity
     external_vocabulary: "HazardIncidentSeverity"
     surface: internal_model
     api_coverage: none
     external_source: "spp_hazard/models/hazard_incident.py"
     confidence: low
-    notes: "HazardIncidentSeverity uses a numeric 1-5 scale (Minor through Catastrophic), which aligns structurally with OASIS CAP but has 5 levels to v2's 5 levels. The semantic mapping is approximate: '1' (Minor) maps to 'minor', '2' (Moderate) to 'moderate', '3' (Significant) to 'severe', '4' (Severe) to 'severe', '5' (Catastrophic) to 'extreme'. Levels 3 and 4 both collapse to 'severe', which is a lossy mapping. Not exposed through the REST API v2."
+    notes: "v2 event-severity is used on HazardEvent to classify disaster impact (OASIS CAP v1.2). The domain-appropriate OpenSPP counterpart is HazardIncidentSeverity from spp_hazard (a 5-level numeric scale), not GRMTicketSeverity (which measures grievance urgency, a different domain). Semantic alignment is approximate: '1' (Minor) maps to 'minor', '2' (Moderate) to 'moderate', '3' (Significant) and '4' (Severe) both collapse to 'severe', '5' (Catastrophic) to 'extreme'. Not exposed through the REST API v2."
     value_mapping:
       "1": minor
       "2": moderate
@@ -463,6 +446,10 @@ no_match:
     reason: "No OpenSPP vocabulary for UN M49 geographic regions. Country selection uses ISO 3166-1; regional groupings are not exposed as a controlled vocabulary."
 
   # OpenSPP vocabularies with no v2 equivalent
+
+  - external_vocabulary: "GRMTicketSeverity"
+    external_source: "spp_grm/models/grm_ticket.py"
+    reason: "GRMTicketSeverity (low/medium/high/critical) classifies grievance ticket urgency, not hazard impact. v2 event-severity is domain-specific to HazardEvent (OASIS CAP v1.2), so mapping grievance priority into it would conflate domains. v2 has no dedicated grievance-priority vocabulary; deployments that need one should define a separate severity scale rather than reuse event-severity."
 
   - external_vocabulary: "Religion (UN Census Framework)"
     external_source: "spp_vocabulary/data/vocabulary_religion.xml"
