@@ -176,7 +176,7 @@ const { title, description } = titles[locale];
       <div class="h3-idx-chips">
         {vocabularies.slice(0, 8).map((v) => (
           <a href={localePath(`/vocab/${v.key}`, locale)} class="h3-chip">
-            {v.key}
+            {v.label[locale] ?? v.label.en ?? v.key}
             <span class="h3-chip-meta">{v.values.length}</span>
           </a>
         ))}

@@ -35,68 +35,6 @@ const {
   </div>
 </div>
 
-<!-- What the schema contains -->
-<div class="h3-band" id="contents">
-  <div class="h3-band-inner">
-    <h2>What the schema contains</h2>
-    <p class="h3-band-lead">
-      PublicSchema is not an API standard, a software product, or a compliance
-      framework. It is a shared set of definitions. When one program says
-      "Person", "Household", or "Enrollment", another program reading the same
-      schema knows exactly what is meant, not just what fields to expect. Each
-      definition has a permanent web address, so it can be cited, referenced,
-      and carried inside digital credentials that travel with the person they
-      describe. Everything is optional: adopt the parts that fit your country's
-      context, and add your own where they don't.
-    </p>
-
-    <div class="h3-layers">
-      <div class="h3-layer">
-        <a href={localePath('/concepts/', locale)} class="h3-layer-header">
-          <h3>Concepts and properties</h3>
-          <span class="h3-layer-count">{conceptsCount} concepts, {propertiesCount} properties</span>
-        </a>
-        <p>
-          Entities like Person, Enrollment, and Payment get clear definitions
-          written for program managers. Each concept carries named, typed
-          properties (<code>given_name</code>, <code>date_of_birth</code>,
-          <code>enrollment_status</code>) defined once and reused across
-          concepts.
-        </p>
-        <div class="h3-layer-examples">
-          <a href={localePath('/Person', locale)}>Person</a><a href={localePath('/Household', locale)}>Household</a><a href={localePath('/sp/Enrollment', locale)}>Enrollment</a><a href={localePath('/PaymentEvent', locale)}>Payment</a><a href={localePath('/sp/Grievance', locale)}>Grievance</a><a class="h3-layer-more" href={localePath('/concepts/', locale)}>…</a>
-        </div>
-        <p class="h3-layer-standards">
-          <span class="h3-layer-standards-label">Aligned with</span>
-          <a href={localePath('/systems/openspp', locale)}>OpenSPP</a> ·
-          <a href={localePath('/systems/opencrvs', locale)}>OpenCRVS</a> ·
-          <a href={localePath('/systems/openimis', locale)}>OpenIMIS</a> ·
-          <a href={localePath('/systems/dhis2', locale)}>DHIS2</a>
-        </p>
-      </div>
-      <div class="h3-layer">
-        <a href={localePath('/vocab/', locale)} class="h3-layer-header">
-          <h3>Vocabularies</h3>
-          <span class="h3-layer-count">{vocabulariesCount} vocabularies</span>
-        </a>
-        <p>
-          Controlled value sets for fields like gender, country, benefit
-          modality, and enrollment status. Where international standards exist
-          (ISO, FHIR), we reference them. Where they don't, we define a common
-          set based on observed convergence across systems.
-        </p>
-        <div class="h3-layer-examples">
-          <a href={localePath('/vocab/gender-type', locale)}>Gender</a><a href={localePath('/vocab/country', locale)}>Country</a><a href={localePath('/vocab/currency', locale)}>Currency</a><a href={localePath('/vocab/occupation', locale)}>Occupation</a><a href={localePath('/vocab/education-level', locale)}>Education level</a><a class="h3-layer-more" href={localePath('/vocab/', locale)}>…</a>
-        </div>
-        <p class="h3-layer-standards">
-          <span class="h3-layer-standards-label">Based on</span>
-          ISO · ILO · UN M49 · UNESCO · FHIR
-        </p>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- Why this matters -->
 <div class="h3-prose">
   <h2>Why a shared vocabulary matters</h2>
@@ -204,9 +142,94 @@ const {
   </p>
 </div>
 
+<!-- What the schema contains -->
+<div class="h3-band" id="contents">
+  <div class="h3-band-inner">
+    <h2>What the schema contains</h2>
+    <p class="h3-band-lead">
+      PublicSchema is a shared set of definitions. When one program says
+      "Person", "Household", or "Enrollment", another program reading the same
+      schema knows exactly what is meant, not just what fields to expect.
+    </p>
+
+    <div class="h3-principles">
+      <div class="h3-principle">
+        <span class="h3-principle-num">01</span>
+        <h3>Shared meaning, not shared software</h3>
+        <p>Definitions for what the words mean. Your systems stay yours.</p>
+      </div>
+      <div class="h3-principle">
+        <span class="h3-principle-num">02</span>
+        <h3>Use what fits</h3>
+        <p>Everything is optional. Adopt the parts you need, extend the rest.</p>
+      </div>
+      <div class="h3-principle">
+        <span class="h3-principle-num">03</span>
+        <h3>Built on what already exists</h3>
+        <p>International standards (ISO, UN, FHIR) reused wherever they cover the ground.</p>
+      </div>
+      <div class="h3-principle">
+        <span class="h3-principle-num">04</span>
+        <h3>Citable, permanently</h3>
+        <p>Every definition has a stable web address that can be referenced or carried in a digital credential.</p>
+      </div>
+    </div>
+
+    <div class="h3-layers">
+      <div class="h3-layer">
+        <a href={localePath('/concepts/', locale)} class="h3-layer-header">
+          <h3>Concepts and properties</h3>
+          <span class="h3-layer-count">{conceptsCount} concepts, {propertiesCount} properties</span>
+        </a>
+        <p>
+          Entities like Person, Enrollment, and Payment get clear definitions
+          written for program managers. Each concept carries named, typed
+          properties (<code>given_name</code>, <code>date_of_birth</code>,
+          <code>enrollment_status</code>) defined once and reused across
+          concepts.
+        </p>
+        <div class="h3-layer-examples">
+          <a href={localePath('/Person', locale)}>Person</a><a href={localePath('/Household', locale)}>Household</a><a href={localePath('/sp/Enrollment', locale)}>Enrollment</a><a href={localePath('/PaymentEvent', locale)}>Payment</a><a href={localePath('/sp/Grievance', locale)}>Grievance</a><a class="h3-layer-more" href={localePath('/concepts/', locale)}>…</a>
+        </div>
+        <p class="h3-layer-standards">
+          <span class="h3-layer-standards-label">Aligned with</span>
+          <a href={localePath('/systems/openspp', locale)}>OpenSPP</a> ·
+          <a href={localePath('/systems/opencrvs', locale)}>OpenCRVS</a> ·
+          <a href={localePath('/systems/openimis', locale)}>OpenIMIS</a> ·
+          <a href={localePath('/systems/dhis2', locale)}>DHIS2</a>
+        </p>
+      </div>
+      <div class="h3-layer">
+        <a href={localePath('/vocab/', locale)} class="h3-layer-header">
+          <h3>Vocabularies</h3>
+          <span class="h3-layer-count">{vocabulariesCount} vocabularies</span>
+        </a>
+        <p>
+          Controlled value sets for fields like gender, country, benefit
+          modality, and enrollment status. Where international standards exist
+          (ISO, FHIR), we reference them. Where they don't, we define a common
+          set based on observed convergence across systems.
+        </p>
+        <div class="h3-layer-examples">
+          <a href={localePath('/vocab/gender-type', locale)}>Gender</a><a href={localePath('/vocab/country', locale)}>Country</a><a href={localePath('/vocab/currency', locale)}>Currency</a><a href={localePath('/vocab/occupation', locale)}>Occupation</a><a href={localePath('/vocab/education-level', locale)}>Education level</a><a class="h3-layer-more" href={localePath('/vocab/', locale)}>…</a>
+        </div>
+        <p class="h3-layer-standards">
+          <span class="h3-layer-standards-label">Based on</span>
+          ISO · ILO · UN M49 · UNESCO · FHIR
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Where it fits -->
 <div class="h3-prose">
-  <h2>Where it fits in the standards landscape</h2>
+  <h2>How it relates to other standards</h2>
+  <p>
+    If you work with digital public infrastructure, you have probably
+    encountered standards like DCI, GovStack, or the EU Core Person Vocabulary.
+    Here is how PublicSchema fits alongside them.
+  </p>
   <p>
     Standards like DCI and GovStack define how data moves between
     systems: API contracts, transport protocols, building blocks. They
@@ -246,7 +269,6 @@ const {
 
 <!-- Where to start -->
 <div class="h3-prose">
-  <p class="h3-overline">Choose your path</p>
   <h2>Where to start</h2>
   <div class="h3-personas">
     <div class="h3-persona">
@@ -278,11 +300,15 @@ const {
       <p>
         You need concrete interoperability specifications for your RFP, not
         &ldquo;the system must be interoperable.&rdquo; Reference PublicSchema
-        properties and vocabulary codes so vendors have a testable target.
+        properties and vocabulary codes so vendors have a testable target. Where
+        your country's programs need more (specific benefit categories, legacy
+        identifiers), extend PublicSchema in your own namespace; interoperability
+        is preserved.
       </p>
       <div class="h3-persona-links">
         <a href={localePath('/docs/use-cases/', locale)}>Read the use cases</a>
         <a href={localePath('/docs/data-model-guide/', locale)}>Data model guide</a>
+        <a href={localePath('/docs/extension-mechanism/', locale)}>How to extend</a>
       </div>
     </div>
     <div class="h3-persona">
@@ -295,19 +321,6 @@ const {
       <div class="h3-persona-links">
         <a href={localePath('/concepts/', locale)}>Browse concepts</a>
         <a href={localePath('/vocab/', locale)}>Browse vocabularies</a>
-      </div>
-    </div>
-    <div class="h3-persona h3-persona-wide">
-      <h3>&ldquo;I&rsquo;m adapting a standard for my country&rsquo;s context&rdquo;</h3>
-      <p>
-        Universal concepts like Person and Household apply as-is. Where your
-        country's programs need more (specific benefit categories, proxy-means
-        codes, legacy identifiers), extend PublicSchema in your own namespace.
-        Interoperability is preserved; local specificity is not lost.
-      </p>
-      <div class="h3-persona-links">
-        <a href={localePath('/docs/extension-mechanism/', locale)}>How to extend</a>
-        <a href={localePath('/about/', locale)}>About the project</a>
       </div>
     </div>
   </div>

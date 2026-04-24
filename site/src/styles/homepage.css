@@ -354,6 +354,43 @@
   letter-spacing: 0.01em;
 }
 
+/* Design principles */
+.h3-principles {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-xl) var(--space-lg);
+  margin: var(--space-xl) 0;
+}
+
+.h3-principle {
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--color-border);
+}
+
+.h3-principle-num {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--color-accent);
+  margin-bottom: var(--space-xs);
+}
+
+.h3-principle h3 {
+  font-size: 1rem;
+  margin: 0 0 0.3rem;
+  color: var(--color-text);
+}
+
+.h3-principle p {
+  font-family: var(--font-serif);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
 /* Evidence section */
 .h3-evidence {
   background: var(--color-accent);
@@ -426,16 +463,6 @@ a.h3-system:hover {
 }
 
 /* Persona cards */
-.h3-overline {
-  font-family: var(--font-sans) !important;
-  font-size: 0.75rem !important;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--color-accent);
-  margin: 0 0 var(--space-xs) !important;
-}
-
 .h3-personas {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -450,10 +477,6 @@ a.h3-system:hover {
   padding: var(--space-lg);
   display: flex;
   flex-direction: column;
-}
-
-.h3-persona-wide {
-  grid-column: 1 / -1;
 }
 
 .h3-persona h3 {
@@ -614,6 +637,11 @@ a.h3-system:hover {
 
   .h3-layers {
     grid-template-columns: 1fr;
+  }
+
+  .h3-principles {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
   }
 
   .h3-personas {

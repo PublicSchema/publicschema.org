@@ -35,68 +35,6 @@ const {
   </div>
 </div>
 
-<!-- What the schema contains -->
-<div class="h3-band" id="contents">
-  <div class="h3-band-inner">
-    <h2>Qué contiene el esquema</h2>
-    <p class="h3-band-lead">
-      PublicSchema no es un estándar de API, un producto de software ni un
-      marco de cumplimiento. Es un conjunto compartido de definiciones. Cuando un
-      programa dice «Persona», «Hogar» o «Inscripción», otro programa que use el
-      mismo esquema sabe exactamente a qué se refiere, no solo qué campos esperar.
-      Cada definición tiene una dirección web permanente, por lo que puede citarse,
-      referenciarse e incluirse en credenciales digitales que viajan con la persona
-      a la que describen. Todo es opcional: adopte las partes que se apliquen al
-      contexto de su país, y añada las suyas donde no sea así.
-    </p>
-
-    <div class="h3-layers">
-      <div class="h3-layer">
-        <a href={localePath('/concepts/', locale)} class="h3-layer-header">
-          <h3>Conceptos y propiedades</h3>
-          <span class="h3-layer-count">{conceptsCount} conceptos, {propertiesCount} propiedades</span>
-        </a>
-        <p>
-          Entidades como Persona, Inscripción y Pago reciben definiciones claras
-          redactadas para responsables de programas. Cada concepto tiene propiedades
-          con nombre y tipo (<code>given_name</code>, <code>date_of_birth</code>,
-          <code>enrollment_status</code>) definidas una sola vez y reutilizadas
-          entre conceptos.
-        </p>
-        <div class="h3-layer-examples">
-          <a href={localePath('/Person', locale)}>Person</a><a href={localePath('/Household', locale)}>Household</a><a href={localePath('/sp/Enrollment', locale)}>Enrollment</a><a href={localePath('/PaymentEvent', locale)}>Payment</a><a href={localePath('/sp/Grievance', locale)}>Grievance</a><a class="h3-layer-more" href={localePath('/concepts/', locale)}>…</a>
-        </div>
-        <p class="h3-layer-standards">
-          <span class="h3-layer-standards-label">Alineado con</span>
-          <a href={localePath('/systems/openspp', locale)}>OpenSPP</a> ·
-          <a href={localePath('/systems/opencrvs', locale)}>OpenCRVS</a> ·
-          <a href={localePath('/systems/openimis', locale)}>OpenIMIS</a> ·
-          <a href={localePath('/systems/dhis2', locale)}>DHIS2</a>
-        </p>
-      </div>
-      <div class="h3-layer">
-        <a href={localePath('/vocab/', locale)} class="h3-layer-header">
-          <h3>Vocabularios</h3>
-          <span class="h3-layer-count">{vocabulariesCount} vocabularios</span>
-        </a>
-        <p>
-          Conjuntos de valores controlados para campos como género, país, modalidad
-          de beneficio y estado de inscripción. Cuando existen estándares internacionales
-          (ISO, FHIR), hacemos referencia a ellos. Cuando no existen, definimos un conjunto común
-          basado en la convergencia observada entre sistemas.
-        </p>
-        <div class="h3-layer-examples">
-          <a href={localePath('/vocab/gender-type', locale)}>Género</a><a href={localePath('/vocab/country', locale)}>País</a><a href={localePath('/vocab/currency', locale)}>Moneda</a><a href={localePath('/vocab/occupation', locale)}>Ocupación</a><a href={localePath('/vocab/education-level', locale)}>Nivel educativo</a><a class="h3-layer-more" href={localePath('/vocab/', locale)}>…</a>
-        </div>
-        <p class="h3-layer-standards">
-          <span class="h3-layer-standards-label">Basado en</span>
-          ISO · ILO · UN M49 · UNESCO · FHIR
-        </p>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- Why this matters -->
 <div class="h3-prose">
   <h2>Por qué importa un vocabulario compartido</h2>
@@ -202,9 +140,94 @@ const {
   </p>
 </div>
 
+<!-- What the schema contains -->
+<div class="h3-band" id="contents">
+  <div class="h3-band-inner">
+    <h2>Qué contiene el esquema</h2>
+    <p class="h3-band-lead">
+      PublicSchema es un conjunto compartido de definiciones. Cuando un programa dice
+      «Persona», «Hogar» o «Inscripción», otro programa que use el mismo esquema sabe
+      exactamente a qué se refiere, no solo qué campos esperar.
+    </p>
+
+    <div class="h3-principles">
+      <div class="h3-principle">
+        <span class="h3-principle-num">01</span>
+        <h3>Significado compartido, no software compartido</h3>
+        <p>Definiciones de lo que significan las palabras. Sus sistemas siguen siendo suyos.</p>
+      </div>
+      <div class="h3-principle">
+        <span class="h3-principle-num">02</span>
+        <h3>Use lo que encaje</h3>
+        <p>Todo es opcional. Adopte las partes que necesite, amplíe el resto.</p>
+      </div>
+      <div class="h3-principle">
+        <span class="h3-principle-num">03</span>
+        <h3>Construido sobre lo que ya existe</h3>
+        <p>Estándares internacionales (ISO, ONU, FHIR) reutilizados donde cubren el terreno.</p>
+      </div>
+      <div class="h3-principle">
+        <span class="h3-principle-num">04</span>
+        <h3>Citable, de forma permanente</h3>
+        <p>Cada definición tiene una dirección web estable que puede referenciarse o incluirse en una credencial digital.</p>
+      </div>
+    </div>
+
+    <div class="h3-layers">
+      <div class="h3-layer">
+        <a href={localePath('/concepts/', locale)} class="h3-layer-header">
+          <h3>Conceptos y propiedades</h3>
+          <span class="h3-layer-count">{conceptsCount} conceptos, {propertiesCount} propiedades</span>
+        </a>
+        <p>
+          Entidades como Persona, Inscripción y Pago reciben definiciones claras
+          redactadas para responsables de programas. Cada concepto tiene propiedades
+          con nombre y tipo (<code>given_name</code>, <code>date_of_birth</code>,
+          <code>enrollment_status</code>) definidas una sola vez y reutilizadas
+          entre conceptos.
+        </p>
+        <div class="h3-layer-examples">
+          <a href={localePath('/Person', locale)}>Person</a><a href={localePath('/Household', locale)}>Household</a><a href={localePath('/sp/Enrollment', locale)}>Enrollment</a><a href={localePath('/PaymentEvent', locale)}>Payment</a><a href={localePath('/sp/Grievance', locale)}>Grievance</a><a class="h3-layer-more" href={localePath('/concepts/', locale)}>…</a>
+        </div>
+        <p class="h3-layer-standards">
+          <span class="h3-layer-standards-label">Alineado con</span>
+          <a href={localePath('/systems/openspp', locale)}>OpenSPP</a> ·
+          <a href={localePath('/systems/opencrvs', locale)}>OpenCRVS</a> ·
+          <a href={localePath('/systems/openimis', locale)}>OpenIMIS</a> ·
+          <a href={localePath('/systems/dhis2', locale)}>DHIS2</a>
+        </p>
+      </div>
+      <div class="h3-layer">
+        <a href={localePath('/vocab/', locale)} class="h3-layer-header">
+          <h3>Vocabularios</h3>
+          <span class="h3-layer-count">{vocabulariesCount} vocabularios</span>
+        </a>
+        <p>
+          Conjuntos de valores controlados para campos como género, país, modalidad
+          de beneficio y estado de inscripción. Cuando existen estándares internacionales
+          (ISO, FHIR), hacemos referencia a ellos. Cuando no existen, definimos un conjunto común
+          basado en la convergencia observada entre sistemas.
+        </p>
+        <div class="h3-layer-examples">
+          <a href={localePath('/vocab/gender-type', locale)}>Género</a><a href={localePath('/vocab/country', locale)}>País</a><a href={localePath('/vocab/currency', locale)}>Moneda</a><a href={localePath('/vocab/occupation', locale)}>Ocupación</a><a href={localePath('/vocab/education-level', locale)}>Nivel educativo</a><a class="h3-layer-more" href={localePath('/vocab/', locale)}>…</a>
+        </div>
+        <p class="h3-layer-standards">
+          <span class="h3-layer-standards-label">Basado en</span>
+          ISO · ILO · UN M49 · UNESCO · FHIR
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Where it fits -->
 <div class="h3-prose">
-  <h2>Su lugar en el panorama de estándares</h2>
+  <h2>Cómo se relaciona con otros estándares</h2>
+  <p>
+    Si trabaja con infraestructura digital pública, probablemente haya encontrado
+    estándares como DCI, GovStack o el EU Core Person Vocabulary. Así es como
+    PublicSchema encaja junto a ellos.
+  </p>
   <p>
     Estándares como DCI y GovStack definen cómo se mueven los datos entre
     sistemas: contratos de API, protocolos de transporte, bloques funcionales. Incluyen
@@ -244,7 +267,6 @@ const {
 
 <!-- Where to start -->
 <div class="h3-prose">
-  <p class="h3-overline">Elija su camino</p>
   <h2>Por dónde empezar</h2>
   <div class="h3-personas">
     <div class="h3-persona">
@@ -277,11 +299,14 @@ const {
         Necesita especificaciones concretas de interoperabilidad para su convocatoria,
         no &ldquo;el sistema debe ser interoperable.&rdquo; Referencie las propiedades
         y los códigos de vocabulario de PublicSchema para que los proveedores tengan
-        un objetivo verificable.
+        un objetivo verificable. Donde los programas de su país necesiten más (categorías
+        específicas de prestaciones, identificadores heredados), amplíe PublicSchema en su
+        propio espacio de nombres; la interoperabilidad se preserva.
       </p>
       <div class="h3-persona-links">
         <a href={localePath('/docs/use-cases/', locale)}>Leer los casos de uso</a>
         <a href={localePath('/docs/data-model-guide/', locale)}>Guía del modelo de datos</a>
+        <a href={localePath('/docs/extension-mechanism/', locale)}>Cómo extender</a>
       </div>
     </div>
     <div class="h3-persona">
@@ -294,19 +319,6 @@ const {
       <div class="h3-persona-links">
         <a href={localePath('/concepts/', locale)}>Explorar conceptos</a>
         <a href={localePath('/vocab/', locale)}>Explorar vocabularios</a>
-      </div>
-    </div>
-    <div class="h3-persona h3-persona-wide">
-      <h3>&ldquo;Estoy adaptando un estándar al contexto de mi país&rdquo;</h3>
-      <p>
-        Los conceptos universales como Persona y Hogar se aplican tal cual. Donde los programas
-        de su país necesiten más (categorías específicas de prestaciones, códigos de focalización
-        mediante indicadores indirectos, identificadores heredados), amplíe PublicSchema en su propio
-        espacio de nombres. La interoperabilidad se preserva; la especificidad local no se pierde.
-      </p>
-      <div class="h3-persona-links">
-        <a href={localePath('/docs/extension-mechanism/', locale)}>Cómo extender</a>
-        <a href={localePath('/about/', locale)}>Acerca del proyecto</a>
       </div>
     </div>
   </div>
