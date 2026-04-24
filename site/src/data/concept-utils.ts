@@ -45,6 +45,25 @@ export function propPath(vocab: VocabularyData, id: string): string {
   return vocab.properties[id]?.path || `/${id}`;
 }
 
+/**
+ * Preview-card key for a concept reference. Returns the entity's path
+ * exactly as used as the key in `/preview/{locale}.json`. Returns null
+ * when the ref is unknown, so callers can skip attaching `data-preview-key`.
+ */
+export function conceptPreviewKey(vocab: VocabularyData, ref: string): string | null {
+  return vocab.concepts[ref]?.path ?? null;
+}
+
+/** Preview-card key for a property id. See `conceptPreviewKey`. */
+export function propertyPreviewKey(vocab: VocabularyData, id: string): string | null {
+  return vocab.properties[id]?.path ?? null;
+}
+
+/** Preview-card key for a vocabulary id. See `conceptPreviewKey`. */
+export function vocabularyPreviewKey(vocab: VocabularyData, id: string): string | null {
+  return vocab.vocabularies[id]?.path ?? null;
+}
+
 export interface InheritedProperty {
   id: string;
   detail: Property | undefined;

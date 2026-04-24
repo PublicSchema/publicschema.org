@@ -3,6 +3,7 @@ import '../styles/global.css';
 import { defaultLocale, languages, localesLive, type Locale } from '../i18n/languages';
 import { localePath, switchLocalePath, useTranslations } from '../i18n/utils';
 import LanguageSwitcher from '../components/LanguageSwitcher.astro';
+import HoverCard from '../components/HoverCard.astro';
 
 interface Props {
   title: string;
@@ -309,6 +310,7 @@ const navLinks = [
       </div>
     </div>
   </footer>
+  <HoverCard />
   <button class="back-to-top" type="button" aria-label={t('nav.back_to_top')} hidden>
     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
       <polyline points="5,12 10,7 15,12"></polyline>

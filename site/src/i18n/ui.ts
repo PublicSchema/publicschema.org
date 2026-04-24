@@ -217,6 +217,16 @@ const en = {
   'property_detail.age_band.adult': 'adult',
   'property_detail.age_band.adult.range': '18+ years',
 
+  // Hover-card preview
+  'hover_card.open_link': 'Open →',
+  'hover_card.fallback_tag': 'shown in {locale}',
+  'hover_card.property_type': 'Type',
+  'hover_card.property_vocabulary': 'Vocabulary',
+  'hover_card.badge_draft': 'draft',
+  'hover_card.badge_candidate': 'candidate',
+  'hover_card.badge_stable': 'stable',
+  'hover_card.badge_abstract': 'abstract',
+
   // Shared download labels
   'download.jsonld': 'JSON-LD',
   'download.json_schema': 'JSON Schema',
@@ -514,6 +524,16 @@ export const ui: Record<Locale, Partial<Dict>> = {
     'property_detail.age_band.adult': 'adulte',
     'property_detail.age_band.adult.range': '18 ans et plus',
 
+    // Hover-card preview
+    'hover_card.open_link': 'Ouvrir →',
+    'hover_card.fallback_tag': 'affiché en {locale}',
+    'hover_card.property_type': 'Type',
+    'hover_card.property_vocabulary': 'Vocabulaire',
+    'hover_card.badge_draft': 'ébauche',
+    'hover_card.badge_candidate': 'candidat',
+    'hover_card.badge_stable': 'stable',
+    'hover_card.badge_abstract': 'abstrait',
+
     // Shared download labels
     'download.jsonld': 'JSON-LD',
     'download.json_schema': 'JSON Schema',
@@ -805,6 +825,16 @@ export const ui: Record<Locale, Partial<Dict>> = {
     'property_detail.age_band.adolescent.range': '10-19 años (OMS)',
     'property_detail.age_band.adult': 'adulto',
     'property_detail.age_band.adult.range': '18 años o más',
+
+    // Hover-card preview
+    'hover_card.open_link': 'Abrir →',
+    'hover_card.fallback_tag': 'mostrado en {locale}',
+    'hover_card.property_type': 'Tipo',
+    'hover_card.property_vocabulary': 'Vocabulario',
+    'hover_card.badge_draft': 'borrador',
+    'hover_card.badge_candidate': 'candidato',
+    'hover_card.badge_stable': 'estable',
+    'hover_card.badge_abstract': 'abstracto',
 
     // Shared download labels
     'download.jsonld': 'JSON-LD',
