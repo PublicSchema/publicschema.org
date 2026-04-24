@@ -1018,6 +1018,7 @@ def build_vocabulary(schema_dir: Path) -> dict:
 def write_outputs(result: dict, dist_dir: Path):
     """Write build outputs to the dist directory."""
     from build.export import generate_all_downloads
+    from build.preview_export import build_preview
     from build.rdf_export import write_full_jsonld, write_shacl, write_turtle
 
     dist_dir.mkdir(parents=True, exist_ok=True)
@@ -1036,6 +1037,21 @@ def write_outputs(result: dict, dist_dir: Path):
     (dist_dir / "vocabulary.json").write_text(
         json.dumps(vocabulary, indent=2, ensure_ascii=False) + "\n"
     )
+
+    # preview/{locale}.json — compact per-locale lookup consumed by the
+    # site's hover cards. Keyed by entity site path.
+    preview = build_preview(result)
+    preview_dir = dist_dir / "preview"
+    preview_dir.mkdir(exist_ok=True)
+    for locale in ("en", "fr", "es"):
+        per_locale = {
+            key: entry[locale]
+            for key, entry in preview.items()
+            if locale in entry
+        }
+        (preview_dir / f"{locale}.json").write_text(
+            json.dumps(per_locale, ensure_ascii=False) + "\n"
+        )
 
     # context.jsonld
     (dist_dir / "context.jsonld").write_text(
