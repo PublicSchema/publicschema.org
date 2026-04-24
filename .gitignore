@@ -48,6 +48,7 @@ site/dist/
 site/.astro/
 site/playwright-report/
 site/test-results/
+site/playwright.config.local.ts
 
 # OS
 .DS_Store
