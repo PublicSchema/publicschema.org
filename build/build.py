@@ -1018,11 +1018,19 @@ def build_vocabulary(schema_dir: Path) -> dict:
     }
 
 
-def write_outputs(result: dict, dist_dir: Path):
-    """Write build outputs to the dist directory."""
+def write_outputs(result: dict, dist_dir: Path, schema_dir: Path | None = None):
+    """Write build outputs to the dist directory.
+
+    ``schema_dir`` is used to locate the sibling ``external/`` tree for
+    system_matchings.json; defaults to ``Path("schema")``.
+    """
     from build.export import generate_all_downloads
     from build.preview_export import build_preview
     from build.rdf_export import write_full_jsonld, write_shacl, write_turtle
+    from build.system_matchings import build_system_matchings
+
+    if schema_dir is None:
+        schema_dir = Path("schema")
 
     dist_dir.mkdir(parents=True, exist_ok=True)
     schemas_dir = dist_dir / "schemas"
@@ -1055,6 +1063,13 @@ def write_outputs(result: dict, dist_dir: Path):
         (preview_dir / f"{locale}.json").write_text(
             json.dumps(per_locale, ensure_ascii=False) + "\n"
         )
+
+    # system_matchings.json — projected from external/<system>/matching.yaml
+    # for the site's system detail pages (concept matches + documented gaps).
+    system_matchings = build_system_matchings(schema_dir.parent / "external")
+    (dist_dir / "system_matchings.json").write_text(
+        json.dumps(system_matchings, indent=2, ensure_ascii=False) + "\n"
+    )
 
     # context.jsonld
     (dist_dir / "context.jsonld").write_text(
@@ -1171,7 +1186,7 @@ def main():
         dist_dir = Path(sys.argv[2])
 
     result = build_vocabulary(schema_dir)
-    write_outputs(result, dist_dir)
+    write_outputs(result, dist_dir, schema_dir=schema_dir)
     print(f"Built {len(result['concepts'])} concepts, "
           f"{len(result['properties'])} properties, "
           f"{len(result['vocabularies'])} vocabularies, "
