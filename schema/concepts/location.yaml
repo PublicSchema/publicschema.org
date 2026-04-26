@@ -56,6 +56,12 @@ external_equivalents:
     match: close
     vocabulary: "Core Location"
     note: "SEMIC dc:Location is a generic spatial thing; ours is a hierarchical administrative node with level and parent"
+  semic-adminunit:
+    label: "Administrative Unit"
+    uri: "http://data.europa.eu/m8g/AdminUnit"
+    match: broad
+    vocabulary: "Core Location"
+    note: "SEMIC AdminUnit is strictly an administrative hierarchy node; ours also covers non-administrative boundaries like flood zones and program coverage areas"
   dci:
     label: "Place"
     uri: "https://schema.spdci.org/core/v1/data/Place"

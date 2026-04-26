@@ -35,6 +35,7 @@ EXTERNAL_EQUIV_LOOKUP: dict[tuple[str, str | None], str | None] = {
     ("dci", "DCI Social Registry"): "spdci-social-registry",
     ("semic", "Core Person"): "semic-core-person",
     ("semic", "Core Location"): "semic-core-location",
+    ("semic-adminunit", "Core Location"): "semic-core-location",
     ("semic", "CCCEV"): "semic-cccev",
     ("semic", "CPOV"): "semic-cpov",
     ("semic", "Core Vocabularies"): None,  # match=none in practice; flag if not

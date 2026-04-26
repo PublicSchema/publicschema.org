@@ -57,7 +57,7 @@ These concepts have no fixed canonical type in v2 core; the Farajaland country c
 |---|---|
 | `Birth`, `Death`, `Marriage` | `EventDocument.type = "BIRTH"/"DEATH"/"MARRIAGE"` (country-configured string) |
 | `Person`, `Parent` | Declaration form fields in EventConfig; no dedicated type |
-| `Location`, `GeographicArea` | Location service (separate from events); UUID reference in EventDocument |
+| `Location` | Location service (separate from events); UUID reference in EventDocument |
 | `crvs/birth-type`, `crvs/birth-attendant`, etc. | SELECT fields in EventConfig.declaration; country-defined options |
 | `crvs/civil-status-record-type` | `EventDocument.type` (free string) |
 

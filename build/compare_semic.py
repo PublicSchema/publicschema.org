@@ -287,7 +287,6 @@ CONCEPT_HINTS: dict[str, tuple[str, str]] = {
     "Identifier": ("http://www.w3.org/ns/adms#Identifier", "exact"),
     "Location": ("http://purl.org/dc/terms/Location", "close"),  # ours is hierarchical admin node; dc:Location is generic spatial
     "Party": ("http://xmlns.com/foaf/0.1/Agent", "close"),
-    "GeographicArea": ("http://data.europa.eu/m8g/AdminUnit", "broad"),  # ours includes flood zones/boundaries; AdminUnit is hierarchy only
     "ScoringRule": ("http://data.europa.eu/m8g/ReferenceFramework", "close"),  # policy/rules from which requirements derive
     # REJECTED after review:
     # Event -> m8g:PublicEvent: PublicEvent is conference/ceremony with audience; our Event is a delivery transaction record
