@@ -122,9 +122,9 @@ def validate_schema_dir(schema_dir: Path) -> list[ValidationError]:
     category_ids = set(categories.keys())
 
     # Build lookup indexes.
-    # concept_ids: bare short names (e.g. "Enrollment"), used for referential
-    #   integrity checks where YAML references (supertypes, bibliography informs)
-    #   also use bare names.
+    # concept_ids: composite keys (e.g. "sp/Enrollment", "Person"), used for
+    #   referential integrity checks where YAML references (bibliography informs)
+    #   must use the same composite form expected by the build resolver.
     # concept_keys: composite keys (e.g. "sp/Enrollment", "Person"), used to
     #   detect duplicate concept definitions that would silently overwrite each
     #   other in the build pipeline's internal keying.
@@ -136,7 +136,7 @@ def validate_schema_dir(schema_dir: Path) -> list[ValidationError]:
         bare_id = data["id"]
         domain = data.get("domain")
         composite = f"{domain}/{bare_id}" if domain else bare_id
-        concept_ids.add(bare_id)
+        concept_ids.add(composite)
         if composite in concept_keys:
             errors.append(ValidationError(
                 bare_id,

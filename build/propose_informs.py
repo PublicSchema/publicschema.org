@@ -280,7 +280,12 @@ def build_report() -> Report:
     for p in sorted((SCHEMA / "concepts").glob("*.yaml")):
         d = load_yaml(p)
         cid = d.get("id") or p.stem
-        process_external_equivalents(d, p, "concepts", cid, report)
+        domain = d.get("domain")
+        # Domain-scoped concepts must be referenced as `<domain>/<id>` so
+        # references match the build's concept registry, which keys by
+        # (domain, id). Root concepts (domain absent/null) stay bare.
+        target_id = f"{domain}/{cid}" if domain else cid
+        process_external_equivalents(d, p, "concepts", target_id, report)
 
     for p in sorted((SCHEMA / "properties").glob("*.yaml")):
         d = load_yaml(p)

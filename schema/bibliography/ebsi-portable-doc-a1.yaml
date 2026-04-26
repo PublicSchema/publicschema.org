@@ -12,8 +12,8 @@ note: "Hosting repository (code.europa.eu/ebsi/json-schema) is archived read-onl
 
 informs:
   concepts:
-    - Enrollment
-    - Entitlement
+    - sp/Enrollment
+    - sp/Entitlement
   vocabularies: []
   properties:
     - governing_jurisdiction

@@ -15,10 +15,10 @@ informs:
   concepts:
     - Person
     - Household
-    - Program
-    - Enrollment
-    - EligibilityDecision
-    - Entitlement
+    - sp/Program
+    - sp/Enrollment
+    - sp/EligibilityDecision
+    - sp/Entitlement
     - ScoringEvent
     - ScoringRule
     - Identifier

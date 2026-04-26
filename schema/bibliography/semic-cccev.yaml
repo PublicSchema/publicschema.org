@@ -13,6 +13,6 @@ status: active
 informs:
   concepts:
     - ScoringRule
-    - EligibilityDecision
+    - sp/EligibilityDecision
   vocabularies: []
   properties: []

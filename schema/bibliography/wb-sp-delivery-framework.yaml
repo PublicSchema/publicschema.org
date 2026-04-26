@@ -11,9 +11,9 @@ status: active
 
 informs:
   concepts:
-    - Enrollment
-    - Entitlement
-    - EligibilityDecision
+    - sp/Enrollment
+    - sp/Entitlement
+    - sp/EligibilityDecision
     - PaymentEvent
   vocabularies:
     - sp/enrollment-status

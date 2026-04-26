@@ -12,8 +12,8 @@ status: active
 
 informs:
   concepts:
-    - Adoption
-    - Parent
+    - crvs/Adoption
+    - crvs/Parent
   vocabularies:
     - crvs/adoption-type
     - crvs/parent-establishment-basis

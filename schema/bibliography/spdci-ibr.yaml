@@ -12,9 +12,9 @@ status: active
 
 informs:
   concepts:
-    - Enrollment
-    - Entitlement
-    - Program
+    - sp/Enrollment
+    - sp/Entitlement
+    - sp/Program
   vocabularies: []
   properties:
     - benefit_description

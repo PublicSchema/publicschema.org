@@ -16,7 +16,7 @@ status: active
 informs:
   concepts:
     - Person
-    - Enrollment
+    - sp/Enrollment
     - ScoringEvent
     - FunctioningProfile
   vocabularies:

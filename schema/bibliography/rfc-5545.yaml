@@ -12,7 +12,7 @@ status: active
 
 informs:
   concepts:
-    - BenefitSchedule
+    - sp/BenefitSchedule
   vocabularies:
     - sp/benefit-frequency
   properties:

@@ -13,18 +13,18 @@ status: active
 
 informs:
   concepts:
-    - Birth
-    - Death
-    - FetalDeath
-    - Marriage
-    - Adoption
-    - Legitimation
-    - PaternityRecognition
-    - MarriageTermination
-    - CivilStatusRecord
-    - FamilyRegister
-    - Certificate
-    - VitalEvent
+    - crvs/Birth
+    - crvs/Death
+    - crvs/FetalDeath
+    - crvs/Marriage
+    - crvs/Adoption
+    - crvs/Legitimation
+    - crvs/PaternityRecognition
+    - crvs/MarriageTermination
+    - crvs/CivilStatusRecord
+    - crvs/FamilyRegister
+    - crvs/Certificate
+    - crvs/VitalEvent
     - Person
   vocabularies:
     - crvs/civil-status-record-type

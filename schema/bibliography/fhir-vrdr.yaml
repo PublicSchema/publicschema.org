@@ -11,8 +11,8 @@ status: active
 
 informs:
   concepts:
-    - Death
-    - FetalDeath
+    - crvs/Death
+    - crvs/FetalDeath
   vocabularies:
     - crvs/manner-of-death
     - crvs/cause-of-death-method

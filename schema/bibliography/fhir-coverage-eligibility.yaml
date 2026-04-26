@@ -12,7 +12,7 @@ status: active
 
 informs:
   concepts:
-    - EligibilityDecision
+    - sp/EligibilityDecision
   vocabularies:
     - sp/eligibility-status
   properties:

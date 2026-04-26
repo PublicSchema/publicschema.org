@@ -11,8 +11,8 @@ status: active
 
 informs:
   concepts:
-    - Birth
-    - FetalDeath
+    - crvs/Birth
+    - crvs/FetalDeath
   vocabularies: []
   properties:
     - gestational_age
