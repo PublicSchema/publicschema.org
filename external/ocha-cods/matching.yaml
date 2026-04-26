@@ -1,0 +1,123 @@
+system: ocha_cods
+system_version: COD-AB (current)
+source_repository: https://data.humdata.org/dataset/cod-ab-global
+concept_matches:
+- v2_concept: Location
+  external_entity: COD-AB feature (one row per admin unit)
+  external_source: Per-country COD-AB layer at https://data.humdata.org/dataset/cod-ab-<iso3>
+  match: close
+  notes: 'A COD-AB feature is an administrative boundary at a specific level. PublicSchema Location is
+    broader (also covers non-administrative named places and bounded regions like flood zones and program
+    coverage areas), so the relationship is: every COD-AB feature is a Location, but not every Location
+    is a COD-AB feature. Each COD-AB layer holds one admin level; multi-level country coverage is split
+    across files (adm0.shp, adm1.shp, ...). Hierarchy between levels is encoded redundantly in the lower-level
+    rows (an adm2 row carries adm0_pcode, adm1_pcode, and adm2_pcode), and Location''s `parent_location`
+    reference reconstructs that hierarchy on the v2 side.
+
+    '
+matches:
+- v2_property: geocodes
+  external_field: adm{n}_pcode
+  level_pattern: 0..max_level
+  match: close
+  confidence: high
+  notes: 'P-codes are the COD identifier system. A feature at admin level k carries adm0_pcode through
+    admk_pcode (each level''s code is repeated on lower-level features for join purposes). On a v2 Location
+    record, the deepest non-null adm{n}_pcode (i.e., the feature''s own code) is its primary geocode;
+    ancestor codes are represented through `parent_location` rather than redundant geocodes entries.
+
+    '
+  transformation: 'Emit Identifier{ value: adm{level}_pcode, scheme: "p-code:{iso3}:adm{level}" } for
+    the feature''s own level. Ancestor codes resolve via parent_location links to ancestor Locations.
+
+    '
+  gaps:
+  - No canonical scheme URI for P-codes. ISO 3166 covers adm0; subnational P-codes are country-specific
+    and OCHA does not mint a global identifier-scheme URI.
+- v2_property: administrative_level
+  external_field: (layer / feature admin level)
+  match: close
+  confidence: high
+  notes: 'COD-AB encodes admin level via filename / layer name (adm0, adm1, ...) and via the count of
+    populated adm{n}_pcode fields on a feature. v2 Location carries `administrative_level` as a typed
+    property.
+
+    '
+  transformation: Set administrative_level to the integer level (0=country, 1=first-order subdivision,
+    ...).
+  gaps: []
+- v2_property: parent_location
+  external_field: adm{n-1}_pcode (and lower)
+  level_pattern: 0..(level-1)
+  match: close
+  confidence: high
+  notes: 'COD-AB encodes hierarchy by copying ancestor codes onto each row. v2 Location carries an explicit
+    `parent_location` reference. The immediate parent is the Location whose own geocode equals the feature''s
+    adm{level-1}_pcode; deeper ancestors compose via transitive parent_location traversal.
+
+    '
+  transformation: 'Set parent_location to the Location whose primary geocode equals the feature''s adm{level-1}_pcode
+    (resolved within the same country). Top-level features (admin 0) have no parent_location.
+
+    '
+  gaps: []
+- v2_property: location_name
+  external_field: adm{n}_{lang}
+  level_pattern: lang is a 2- or 3-letter language code (en, fr, es, ar, dv, ...); same level n as the
+    feature
+  match: related
+  confidence: low
+  notes: 'COD-AB carries one or more localized names per admin unit (adm1_en, adm1_fr, adm1_es, adm1_ar,
+    adm1_dv, ...). Some countries also publish alternate names (adm{n}_alt1{lang}, adm{n}_alt2{lang}).
+    v2 Location has only `location_name` (a single `string`, no language tag, no alt-names). A faithful
+    materialization cannot round-trip COD-AB names without lossy collapse. See gap.
+
+    '
+  gaps:
+  - 'GAP: Location has no multilingual name property. Possible fixes: (a) type location_name as a language-tagged
+    map (lang -> string), parallel to label/definition on concepts; (b) add a separate `names` collection
+    with language and name-type (primary/alternate).'
+- v2_property: geometry
+  external_field: (layer geometry)
+  match: close
+  confidence: high
+  notes: 'The shapefile / GeoJSON / GeoPackage geometry on the feature. v2 `geometry` is GeoJSON-typed.
+    Conversion from Shapefile or GeoPackage to GeoJSON is mechanical. Multi-polygon admin units (countries
+    with islands, etc.) are common.
+
+    '
+  transformation: Convert source geometry to GeoJSON (Polygon or MultiPolygon).
+  gaps: []
+no_match:
+- reason: COD-AB features are polygons, not points; no centroid is published. Derivable from geometry
+    if needed.
+  v2_property: latitude
+- reason: Same as latitude.
+  v2_property: longitude
+- reason: COD-AB does not carry the localized name of the level itself (e.g., 'Region', 'District'); only
+    the unit's own name.
+  v2_property: level_name
+external_excess:
+- external_field: validon
+  reason: 'OCHA-standard temporal validity field: the date the feature became authoritative.
+
+    '
+- external_field: validto
+  reason: Companion to validon. See gap above; same fix covers both.
+- external_field: date
+  reason: 'The data reference date (when the dataset was prepared / sourced). Distinct from validon, which
+    is the unit''s effective date.
+
+    '
+- external_field: ogc_fid
+  reason: 'Layer-internal feature ID (sequential integer assigned by the file format). Not stable across
+    publications. Not a candidate for `geocodes` (which expects scheme-bearing identifiers).
+
+    '
+- external_field: area_sqkm
+  reason: Pre-computed area in square kilometres. Derivable from geometry; not modeled as a property in
+    v2.
+- external_field: shape_leng
+  reason: Pre-computed perimeter. Derivable from geometry; not modeled.
+- external_field: shape_area
+  reason: Pre-computed area in projected units. Derivable from geometry; not modeled.
