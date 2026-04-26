@@ -49,17 +49,17 @@ test.describe("System detail page", () => {
     await page.goto("/systems/openspp/");
 
     // Should have a vocabularies table
-    const table = page.locator("table");
+    const table = page.locator("#vocabularies table");
     await expect(table).toBeVisible();
 
     // gender-type should be listed with value mapping
-    const genderRow = page.locator("tr", { hasText: "gender-type" });
+    const genderRow = page.locator("#vocabularies tr", { hasText: "gender-type" });
     await expect(genderRow).toBeVisible();
     await expect(genderRow.getByText("Value mapping")).toBeVisible();
 
     // education-level should be listed (has both value mapping and same standard,
     // but shows as value mapping per plan)
-    const educationRow = page.locator("tr", { hasText: "education-level" });
+    const educationRow = page.locator("#vocabularies tr", { hasText: "education-level" });
     await expect(educationRow).toBeVisible();
   });
 
@@ -67,7 +67,7 @@ test.describe("System detail page", () => {
     await page.goto("/systems/openspp/");
 
     // country is same-standard only for openspp
-    const countryRow = page.locator("tr", { hasText: "country" });
+    const countryRow = page.locator("#vocabularies tr", { hasText: "country" });
     await expect(countryRow).toBeVisible();
     await expect(countryRow.getByText("Same standard")).toBeVisible();
     await expect(countryRow.getByText("All values")).toBeVisible();
@@ -77,7 +77,7 @@ test.describe("System detail page", () => {
     await page.goto("/systems/dhis2/");
     await expect(page.locator("main h1")).toContainText("DHIS2");
 
-    const rows = page.locator("main table tbody tr");
+    const rows = page.locator("#vocabularies table tbody tr");
     const count = await rows.count();
     // DHIS2 has 3 vocabularies
     expect(count).toBeLessThanOrEqual(5);
@@ -96,6 +96,27 @@ test.describe("System detail page", () => {
     await page.goto("/systems/openspp/");
     const buttons = page.locator('a.btn', { hasText: "Report an issue" });
     await expect(buttons).toBeVisible();
+  });
+
+  test("DHIS2 page shows concept matches section", async ({ page }) => {
+    await page.goto("/systems/dhis2/");
+    const heading = page.locator("h2", { hasText: "Concept matches" });
+    await expect(heading).toBeVisible();
+    // Person row with a link to the concept page and a match-level badge.
+    const personRow = page.locator("#concept-matches tr", { hasText: "Person" }).first();
+    await expect(personRow).toBeVisible();
+    await expect(personRow.locator('a[href="/Person/"]')).toBeVisible();
+    await expect(personRow.locator(".badge")).toBeVisible();
+  });
+
+  test("OpenSPP page shows documented gaps section", async ({ page }) => {
+    await page.goto("/systems/openspp/");
+    const heading = page.locator("h2", { hasText: "Documented gaps" });
+    await expect(heading).toBeVisible();
+    // Each gap row links to the v2 item it references.
+    const gapRows = page.locator("#documented-gaps tbody tr");
+    const count = await gapRows.count();
+    expect(count).toBeGreaterThan(0);
   });
 });
 

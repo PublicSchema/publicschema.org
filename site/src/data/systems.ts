@@ -10,6 +10,8 @@
 
 import { loadVocabulary } from "./vocabulary";
 import type { Vocabulary } from "./vocabulary";
+// @ts-ignore - resolved by Vite alias
+import systemMatchingsData from "@system-matchings";
 
 export interface SystemMeta {
   name: string;
@@ -63,6 +65,18 @@ export const systemRegistry: Record<string, SystemMeta> = {
     description: "OCHA Common Operational Datasets for administrative boundaries.",
     reviewStatus: "unreviewed",
   },
+  mosip: {
+    name: "MOSIP",
+    url: "https://mosip.io",
+    description: "Modular Open Source Identity Platform.",
+    reviewStatus: "unreviewed",
+  },
+  govstack_payments: {
+    name: "GovStack Payments BB",
+    url: "https://govstack.global/specifications/payments/",
+    description: "GovStack Payments Building Block specification.",
+    reviewStatus: "unreviewed",
+  },
 };
 
 export function getSystemName(id: string): string {
@@ -97,6 +111,46 @@ export function isEnrichedMapping(mapping: unknown): mapping is EnrichedMapping 
     "values" in mapping &&
     Array.isArray((mapping as EnrichedMapping).values)
   );
+}
+
+export type MatchLevel = "exact" | "close" | "broad" | "narrow" | "related";
+
+export interface ConceptMatch {
+  v2_concept: string;
+  external_entity: string;
+  match: MatchLevel;
+  external_source?: string;
+  surface?: string;
+  notes?: string;
+}
+
+export interface NoMatchEntry {
+  v2_concept?: string;
+  v2_vocabulary?: string;
+  v2_property?: string;
+  reason: string;
+}
+
+export interface SystemMatching {
+  system: string;
+  system_version?: string;
+  source_repository?: string;
+  source_branch?: string;
+  fhir_repository?: string;
+  fhir_branch?: string;
+  last_reviewed?: string;
+  concept_matches: ConceptMatch[];
+  no_match: NoMatchEntry[];
+}
+
+const systemMatchings = systemMatchingsData as Record<string, SystemMatching>;
+
+export function getSystemMatching(id: string): SystemMatching | null {
+  return systemMatchings[id] ?? null;
+}
+
+export function listSystemsWithMatching(): string[] {
+  return Object.keys(systemMatchings);
 }
 
 export interface SystemVocabEntry {

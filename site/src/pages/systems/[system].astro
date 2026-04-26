@@ -1,10 +1,15 @@
 ---
 import SystemDetail from '../../components/pages/SystemDetail.astro';
-import { buildSystemIndex } from '../../data/systems';
+import { buildSystemIndex, listSystemsWithMatching, systemRegistry } from '../../data/systems';
 
 export function getStaticPaths() {
   const index = buildSystemIndex();
-  return Object.keys(index).map((id) => ({
+  const ids = new Set([
+    ...Object.keys(index),
+    ...Object.keys(systemRegistry),
+    ...listSystemsWithMatching(),
+  ]);
+  return Array.from(ids).map((id) => ({
     params: { system: id },
   }));
 }

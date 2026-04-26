@@ -2,7 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import { defaultLocale, type Locale } from '../../i18n/languages';
 import { useTranslations, localePath } from '../../i18n/utils';
-import { buildSystemIndex, getSystemMeta, getIssueUrl } from '../../data/systems';
+import { buildSystemIndex, getSystemMatching, getSystemMeta, getIssueUrl } from '../../data/systems';
 import SectionFeedback from '../SectionFeedback.astro';
 import FeedbackOrientation from '../FeedbackOrientation.astro';
 
@@ -23,6 +23,26 @@ const vocabEntries = entries.filter((e) => e.kind === "vocabulary");
 const propEntries = entries.filter((e) => e.kind === "property");
 const valueMapped = vocabEntries.filter((e) => e.relationship === "value_mapping").length;
 const sameStandard = vocabEntries.filter((e) => e.relationship === "same_standard").length;
+
+const matching = getSystemMatching(systemId);
+const conceptMatches = matching?.concept_matches ?? [];
+const noMatchEntries = matching?.no_match ?? [];
+
+function v2ConceptHref(ref: string): string {
+  // Concept refs are bare ('Person') or composite ('crvs/Birth').
+  return localePath(`/${ref}`, locale);
+}
+
+function v2ItemHref(entry: { v2_concept?: string; v2_vocabulary?: string; v2_property?: string }): string | null {
+  if (entry.v2_concept) return localePath(`/${entry.v2_concept}`, locale);
+  if (entry.v2_vocabulary) return localePath(`/vocab/${entry.v2_vocabulary}`, locale);
+  if (entry.v2_property) return localePath(`/${entry.v2_property}`, locale);
+  return null;
+}
+
+function v2ItemLabel(entry: { v2_concept?: string; v2_vocabulary?: string; v2_property?: string }): string {
+  return entry.v2_concept ?? entry.v2_vocabulary ?? entry.v2_property ?? "";
+}
 ---
 <Base title={meta.name} description={t('system_detail.page_description', { name: meta.name })} ogType="article" locale={locale}>
   <article>
@@ -54,10 +74,12 @@ const sameStandard = vocabEntries.filter((e) => e.relationship === "same_standar
       This page shows how {meta.name} vocabulary codes map to PublicSchema canonical values.
       If you work with {meta.name} and spot an error, please <a href={issueUrl} target="_blank" rel="noopener noreferrer">report it</a>.
     </p>
-    <p style="color: var(--color-text-muted); font-size: 0.85rem;">
-      {vocabEntries.length} {t('system_detail.vocabularies').toLowerCase()} covered: {valueMapped} {t('system_detail.relationship_value_mapping').toLowerCase()}{sameStandard > 0 ? `, ${sameStandard} ${t('system_detail.relationship_same_standard').toLowerCase()}` : ""}.
-      {propEntries.length > 0 && ` ${propEntries.length} property mapping${propEntries.length > 1 ? "s" : ""}.`}
-    </p>
+    {(vocabEntries.length > 0 || propEntries.length > 0) && (
+      <p style="color: var(--color-text-muted); font-size: 0.85rem;">
+        {vocabEntries.length} {t('system_detail.vocabularies').toLowerCase()} covered: {valueMapped} {t('system_detail.relationship_value_mapping').toLowerCase()}{sameStandard > 0 ? `, ${sameStandard} ${t('system_detail.relationship_same_standard').toLowerCase()}` : ""}.
+        {propEntries.length > 0 && ` ${propEntries.length} property mapping${propEntries.length > 1 ? "s" : ""}.`}
+      </p>
+    )}
   </div>
 
   {vocabEntries.length > 0 && (
@@ -123,6 +145,66 @@ const sameStandard = vocabEntries.filter((e) => e.relationship === "same_standar
             </td>
           </tr>
         ))}
+      </tbody>
+    </table>
+  </div>
+  )}
+
+  {conceptMatches.length > 0 && (
+  <div class="concept-section" id="concept-matches">
+    <h2>{t('system_detail.concept_matches')}<SectionFeedback pageType="system" pageId={systemId} sectionId="concept-matches" sectionLabel={t('system_detail.concept_matches')} locale={locale} /></h2>
+    <p>{t('system_detail.concept_matches.intro', { name: meta.name })}</p>
+    <table class="data-table mobile-card-table">
+      <thead>
+        <tr>
+          <th>{t('system_detail.table.publicschema_concept')}</th>
+          <th>{t('system_detail.table.external_entity')}</th>
+          <th>{t('system_detail.table.match_level')}</th>
+          <th>{t('system_detail.table.notes')}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {conceptMatches.map((cm) => (
+          <tr>
+            <td data-label={t('system_detail.table.publicschema_concept')}>
+              <a href={v2ConceptHref(cm.v2_concept)}>{cm.v2_concept}</a>
+            </td>
+            <td data-label={t('system_detail.table.external_entity')}>{cm.external_entity}</td>
+            <td data-label={t('system_detail.table.match_level')}>
+              <span class={`badge badge-${cm.match}`}>{t(`system_detail.match.${cm.match}` as any)}</span>
+            </td>
+            <td data-label={t('system_detail.table.notes')}>{cm.notes ?? ""}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  )}
+
+  {noMatchEntries.length > 0 && (
+  <div class="concept-section" id="documented-gaps">
+    <h2>{t('system_detail.documented_gaps')}<SectionFeedback pageType="system" pageId={systemId} sectionId="documented-gaps" sectionLabel={t('system_detail.documented_gaps')} locale={locale} /></h2>
+    <p>{t('system_detail.documented_gaps.intro', { name: meta.name })}</p>
+    <table class="data-table mobile-card-table">
+      <thead>
+        <tr>
+          <th>{t('system_detail.table.publicschema_item')}</th>
+          <th>{t('system_detail.table.reason')}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {noMatchEntries.map((nm) => {
+          const href = v2ItemHref(nm);
+          const label = v2ItemLabel(nm);
+          return (
+            <tr>
+              <td data-label={t('system_detail.table.publicschema_item')}>
+                {href ? <a href={href}>{label}</a> : label}
+              </td>
+              <td data-label={t('system_detail.table.reason')}>{nm.reason}</td>
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   </div>

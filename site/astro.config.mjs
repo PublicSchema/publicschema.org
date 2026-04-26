@@ -32,6 +32,7 @@ export default defineConfig({
     resolve: {
       alias: {
         '@vocab-data': resolve('../dist/vocabulary.json'),
+        '@system-matchings': resolve('../dist/system_matchings.json'),
       },
     },
   },
