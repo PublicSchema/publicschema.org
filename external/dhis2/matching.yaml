@@ -1,922 +1,804 @@
 system: dhis2
 system_version: stable-2-42-4
-
-# Scope: DHIS2 meta-model only. The tracker model (TrackerEnrollment,
-# TrackerEvent, TrackerRelationship, TrackerDataValue, TrackerNote) and the
-# configuration model (Program, ProgramStage, TrackedEntityType,
-# TrackedEntityAttribute, OrganisationUnit, RelationshipType, DataElement)
-# are in scope. Aggregate analytics (DataSet, indicators, category option
-# combos) are out of scope.
-#
-# Sources:
-#   - extracted/openapi.json: DHIS2 Web API OpenAPI 3 spec (structural types)
-#   - extracted/entities.json: distilled structural entities
-#   - extracted/enums.json: distilled enums (core OpenAPI enums + demo option sets)
-#   - extracted/tracked-entity-types.json, programs.json, option-sets.json:
-#     raw metadata API responses from play.im.dhis2.org/stable-2-42-4
-#
-# --- Structural note 1: the OrganisationUnit conflation ---
-# DHIS2 uses a single OrganisationUnit tree to model everything place-shaped:
-# countries, regions, districts, facilities. It blends what PublicSchema
-# separates into GeographicArea, Location, Organization, and HealthFacility.
-# Each of those v2 concepts therefore matches OrganisationUnit as `related`,
-# with the differentiation captured implicitly in tree level / featureType.
-#
-# --- Structural note 2: observations vs Profile ---
-# DHIS2 has no reified Profile concept. Observation data lives as
-# TrackerDataValue records collected inside a TrackerEvent bound to a
-# ProgramStage. Reading a v2 Profile out of DHIS2 requires projecting the
-# DataValues of a given ProgramStage-as-profile-form into a Profile shape;
-# the ProgramStage entry below documents the pattern.
-#
-# --- Structural note 3: tracker operational vs metadata layers ---
-# TrackerEnrollment and TrackerEvent are operational records (individual
-# registrations, data-collection occurrences). Program and ProgramStage are
-# the metadata that describe them. V2's sp/Program is closer to DHIS2's
-# Program (a defined benefit programme configuration); v2's sp/Enrollment
-# is closer to DHIS2's TrackerEnrollment (an individual's participation).
-# Both pairings need decomposition because DHIS2 bundles fields that v2
-# splits across multiple concepts.
-#
-# --- Instance variability caveat ---
-# DHIS2 is a platform: most domain content (gender, marital status,
-# occupation, education, identifier types) is configured per-deployment
-# as TrackedEntityAttributes bound to option sets. The demo instance
-# (play.im.dhis2.org) has minimal option sets. A production deployment
-# can and typically does carry richer vocabularies. Vocabulary matches
-# below are anchored to core OpenAPI enums where possible and to the
-# demo option sets otherwise. Per-deployment matching is out of scope.
-
 concept_matches:
+- v2_concept: Person
+  external_entity: TrackedEntityType(name="Person")
+  external_source: extracted/tracked-entity-types.json
+  match: broad
+  notes: 'DHIS2 Person is not a fixed type: it is a TrackedEntityType whose attributes are configured
+    per deployment. The demo instance ships eleven attributes (Unique ID, First name, Last name, Gender,
+    Email, Date of birth, Address, City, National identifier, Mobile number, Civil status). This aligns
+    semantically with v2 Person but DHIS2 treats the attribute set as open and deployment-specific. PersonName
+    components are flat string fields on the DHIS2 side; v2 Person uses a structured `name` object.
 
-  # --- Universal concepts ---
+    '
+  decomposition:
+  - dhis2_field: Unique ID
+    target_concept: Identifier
+    target_property: '*'
+    notes: Would become an Identifier record linked to the Person. DHIS2 stores it as a TrackedEntityAttribute
+      with unique=true.
+  - dhis2_field: First name
+    target_concept: Person
+    target_property: name.given
+  - dhis2_field: Last name
+    target_concept: Person
+    target_property: name.family
+  - dhis2_field: Gender
+    target_concept: Person
+    target_property: gender
+    notes: Demo option set 'Gender' value-mapped via gender-type system_mappings.
+  - dhis2_field: Email
+    target_concept: Person
+    target_property: contact_points
+    notes: Would be decomposed into a ContactPoint with type=email. DHIS2 stores it flat.
+  - dhis2_field: Date of birth
+    target_concept: Person
+    target_property: date_of_birth
+  - dhis2_field: Address
+    target_concept: Person
+    target_property: addresses
+    notes: DHIS2 holds a free-text address string; v2 Address is structured.
+  - dhis2_field: City
+    target_concept: Person
+    target_property: addresses
+    notes: Would be folded into an Address record with locality set.
+  - dhis2_field: National identifier
+    target_concept: Identifier
+    target_property: '*'
+    notes: Separate Identifier with identifier_type=national_id_number.
+  - dhis2_field: Mobile number
+    target_concept: Person
+    target_property: contact_points
+    notes: ContactPoint with type=mobile_phone.
+  - dhis2_field: Civil status
+    target_concept: Person
+    target_property: marital_status
+    notes: Demo option set value-mapped via marital-status system_mappings.
+- v2_concept: Organization
+  external_entity: OrganisationUnit
+  external_source: extracted/entities.json:OrganisationUnit
+  match: related
+  notes: 'OrganisationUnit is the single tree DHIS2 uses for anything place-shaped (countries, regions,
+    districts, facilities, offices). It conflates what v2 separates into Organization, Location, GeographicArea,
+    and HealthFacility. Mapping to Organization applies when an OrganisationUnit represents a service-delivery
+    actor (a ministry, a facility''s administrative owner) rather than a geographical or physical place.
 
-  - v2_concept: Person
-    external_entity: TrackedEntityType(name="Person")
-    external_source: extracted/tracked-entity-types.json
-    match: broad
-    notes: >
-      DHIS2 Person is not a fixed type: it is a TrackedEntityType whose
-      attributes are configured per deployment. The demo instance ships
-      eleven attributes (Unique ID, First name, Last name, Gender, Email,
-      Date of birth, Address, City, National identifier, Mobile number,
-      Civil status). This aligns semantically with v2 Person but DHIS2
-      treats the attribute set as open and deployment-specific. PersonName
-      components are flat string fields on the DHIS2 side; v2 Person uses
-      a structured `name` object.
-    decomposition:
-      - dhis2_field: "Unique ID"
-        target_concept: Identifier
-        target_property: "*"
-        notes: "Would become an Identifier record linked to the Person. DHIS2 stores it as a TrackedEntityAttribute with unique=true."
-      - dhis2_field: "First name"
-        target_concept: Person
-        target_property: name.given
-      - dhis2_field: "Last name"
-        target_concept: Person
-        target_property: name.family
-      - dhis2_field: "Gender"
-        target_concept: Person
-        target_property: gender
-        notes: "Demo option set 'Gender' value-mapped via gender-type system_mappings."
-      - dhis2_field: "Email"
-        target_concept: Person
-        target_property: contact_points
-        notes: "Would be decomposed into a ContactPoint with type=email. DHIS2 stores it flat."
-      - dhis2_field: "Date of birth"
-        target_concept: Person
-        target_property: date_of_birth
-      - dhis2_field: "Address"
-        target_concept: Person
-        target_property: addresses
-        notes: "DHIS2 holds a free-text address string; v2 Address is structured."
-      - dhis2_field: "City"
-        target_concept: Person
-        target_property: addresses
-        notes: "Would be folded into an Address record with locality set."
-      - dhis2_field: "National identifier"
-        target_concept: Identifier
-        target_property: "*"
-        notes: "Separate Identifier with identifier_type=national_id_number."
-      - dhis2_field: "Mobile number"
-        target_concept: Person
-        target_property: contact_points
-        notes: "ContactPoint with type=mobile_phone."
-      - dhis2_field: "Civil status"
-        target_concept: Person
-        target_property: marital_status
-        notes: "Demo option set value-mapped via marital-status system_mappings."
+    '
+- v2_concept: Location
+  external_entity: OrganisationUnit
+  external_source: extracted/entities.json:OrganisationUnit
+  match: related
+  notes: 'When an OrganisationUnit carries `geometry` (point or polygon) or `featureType` it functions
+    as a physical place. v2 Location covers that physical-place aspect; the same OrganisationUnit record
+    may simultaneously be a v2 Organization and a v2 Location.
 
-  - v2_concept: Organization
-    external_entity: OrganisationUnit
-    external_source: extracted/entities.json:OrganisationUnit
-    match: related
-    notes: >
-      OrganisationUnit is the single tree DHIS2 uses for anything
-      place-shaped (countries, regions, districts, facilities, offices).
-      It conflates what v2 separates into Organization, Location,
-      GeographicArea, and HealthFacility. Mapping to Organization applies
-      when an OrganisationUnit represents a service-delivery actor
-      (a ministry, a facility's administrative owner) rather than a
-      geographical or physical place.
+    '
+- v2_concept: HealthFacility
+  external_entity: OrganisationUnit
+  external_source: extracted/entities.json:OrganisationUnit
+  match: related
+  notes: 'DHIS2 has no HealthFacility type. Facilities are leaf-ish nodes in the OrganisationUnit tree,
+    typically distinguished by level or by an OrganisationUnitGroup tagging. Deployments often define
+    a "Facility type" option set configured per country.
 
-  - v2_concept: Location
-    external_entity: OrganisationUnit
-    external_source: extracted/entities.json:OrganisationUnit
-    match: related
-    notes: >
-      When an OrganisationUnit carries `geometry` (point or polygon) or
-      `featureType` it functions as a physical place. v2 Location covers
-      that physical-place aspect; the same OrganisationUnit record may
-      simultaneously be a v2 Organization and a v2 Location.
+    '
+  decomposition:
+  - dhis2_field: level
+    target_concept: HealthFacility
+    target_property: null
+    notes: Tree level is how deployments distinguish facility nodes from district/region nodes.
+  - dhis2_field: organisationUnitGroups
+    target_concept: HealthFacility
+    target_property: facility_type
+    notes: OU groups commonly carry 'Hospital', 'Health centre', 'Clinic' classifications; these would
+      map via the health-facility-type vocabulary.
+  - dhis2_field: geometry
+    target_concept: Location
+    target_property: geometry
+  - dhis2_field: featureType
+    target_concept: Location
+    target_property: geometry
+    notes: NONE/POINT/POLYGON/MULTI_POLYGON/SYMBOL; shapes the geometry representation.
+- v2_concept: GeographicArea
+  external_entity: OrganisationUnit
+  external_source: extracted/entities.json:OrganisationUnit
+  match: related
+  notes: 'Upper levels of the OrganisationUnit tree (country, region, district) function as geographic
+    areas. The same conflation note applies: v2 GeographicArea is one projection of an OrganisationUnit,
+    not a dedicated DHIS2 type.
 
-  - v2_concept: HealthFacility
-    external_entity: OrganisationUnit
-    external_source: extracted/entities.json:OrganisationUnit
-    match: related
-    notes: >
-      DHIS2 has no HealthFacility type. Facilities are leaf-ish nodes in
-      the OrganisationUnit tree, typically distinguished by level or by
-      an OrganisationUnitGroup tagging. Deployments often define a
-      "Facility type" option set configured per country.
-    decomposition:
-      - dhis2_field: "level"
-        target_concept: HealthFacility
-        target_property: null
-        notes: "Tree level is how deployments distinguish facility nodes from district/region nodes."
-      - dhis2_field: "organisationUnitGroups"
-        target_concept: HealthFacility
-        target_property: facility_type
-        notes: "OU groups commonly carry 'Hospital', 'Health centre', 'Clinic' classifications; these would map via the health-facility-type vocabulary."
-      - dhis2_field: "geometry"
-        target_concept: Location
-        target_property: geometry
-      - dhis2_field: "featureType"
-        target_concept: Location
-        target_property: geometry
-        notes: "NONE/POINT/POLYGON/MULTI_POLYGON/SYMBOL; shapes the geometry representation."
+    '
+- v2_concept: Event
+  external_entity: TrackerEvent
+  external_source: extracted/entities.json:TrackerEvent
+  match: related
+  notes: 'v2 Event is an abstract supertype for real-world occurrences with temporal grounding (vital
+    events, payment events, hazard events). DHIS2 TrackerEvent is a data-collection occurrence: when a
+    form was filled in, by whom, at which OrganisationUnit. The semantic overlap is partial: a TrackerEvent
+    can represent a vaccination administration (real-world event) or a household survey completion (collection
+    event). Deployments need to inspect the ProgramStage to know which.
 
-  - v2_concept: GeographicArea
-    external_entity: OrganisationUnit
-    external_source: extracted/entities.json:OrganisationUnit
-    match: related
-    notes: >
-      Upper levels of the OrganisationUnit tree (country, region, district)
-      function as geographic areas. The same conflation note applies: v2
-      GeographicArea is one projection of an OrganisationUnit, not a
-      dedicated DHIS2 type.
+    '
+  decomposition:
+  - dhis2_field: occurredAt
+    target_concept: Event
+    target_property: event_date
+  - dhis2_field: scheduledAt
+    target_concept: Event
+    target_property: null
+    notes: Scheduling metadata; not a v2 Event property.
+  - dhis2_field: orgUnit
+    target_concept: Event
+    target_property: event_location
+  - dhis2_field: dataValues
+    target_concept: Profile
+    target_property: observations
+    notes: Observation data collected at this event. Maps to a v2 Profile whose subtype depends on the
+      ProgramStage semantics.
+  - dhis2_field: enrollment
+    target_concept: Event
+    target_property: null
+    notes: Backlink to TrackerEnrollment; not a v2 Event field. Surfaces in the sp/Enrollment decomposition
+      instead.
+  - dhis2_field: status
+    target_concept: Event
+    target_property: null
+    notes: EventStatus (ACTIVE, COMPLETED, VISITED, SCHEDULE, OVERDUE, SKIPPED) is a workflow state, not
+      an event property.
+- v2_concept: Relationship
+  external_entity: TrackerRelationship
+  external_source: extracted/entities.json:TrackerRelationship
+  match: broad
+  notes: 'TrackerRelationship links any two tracker items (TrackedEntity, Enrollment, or Event). v2 Relationship
+    is narrower: it links parties only. The type and direction metadata live in RelationshipType, not
+    on the Relationship itself.
 
-  - v2_concept: Event
-    external_entity: TrackerEvent
-    external_source: extracted/entities.json:TrackerEvent
-    match: related
-    notes: >
-      v2 Event is an abstract supertype for real-world occurrences with
-      temporal grounding (vital events, payment events, hazard events).
-      DHIS2 TrackerEvent is a data-collection occurrence: when a form was
-      filled in, by whom, at which OrganisationUnit. The semantic overlap
-      is partial: a TrackerEvent can represent a vaccination administration
-      (real-world event) or a household survey completion (collection event).
-      Deployments need to inspect the ProgramStage to know which.
-    decomposition:
-      - dhis2_field: occurredAt
-        target_concept: Event
-        target_property: event_date
-      - dhis2_field: scheduledAt
-        target_concept: Event
-        target_property: null
-        notes: "Scheduling metadata; not a v2 Event property."
-      - dhis2_field: orgUnit
-        target_concept: Event
-        target_property: event_location
-      - dhis2_field: dataValues
-        target_concept: Profile
-        target_property: observations
-        notes: "Observation data collected at this event. Maps to a v2 Profile whose subtype depends on the ProgramStage semantics."
-      - dhis2_field: enrollment
-        target_concept: Event
-        target_property: null
-        notes: "Backlink to TrackerEnrollment; not a v2 Event field. Surfaces in the sp/Enrollment decomposition instead."
-      - dhis2_field: status
-        target_concept: Event
-        target_property: null
-        notes: "EventStatus (ACTIVE, COMPLETED, VISITED, SCHEDULE, OVERDUE, SKIPPED) is a workflow state, not an event property."
+    '
+  decomposition:
+  - dhis2_field: from
+    target_concept: Relationship
+    target_property: party_a
+    notes: TrackerRelationshipItem resolves to one of TrackedEntity/Enrollment/Event. Only the TrackedEntity
+      case maps cleanly to v2 party slots.
+  - dhis2_field: to
+    target_concept: Relationship
+    target_property: party_b
+  - dhis2_field: relationshipType
+    target_concept: Relationship
+    target_property: relationship_type
+    notes: Country-configured; no fixed enum. RelationshipType additionally carries bidirectionality via
+      fromConstraint/toConstraint.
+  - dhis2_field: bidirectional
+    target_concept: Relationship
+    target_property: null
+    notes: Property of the RelationshipType, not the Relationship record in v2.
+- v2_concept: Identifier
+  external_entity: TrackedEntityAttribute
+  external_source: extracted/entities.json:TrackedEntityAttribute
+  match: narrow
+  notes: 'DHIS2 TrackedEntityAttributes with `unique=true` and (typically) `valueType=TEXT` function as
+    identifiers. The demo instance uses "Unique ID" and "National identifier" this way. v2 Identifier
+    is a first-class entity with type, issuer, validity; DHIS2 collapses all of that into a TEA configuration
+    plus the stored attribute value.
 
-  - v2_concept: Relationship
-    external_entity: TrackerRelationship
-    external_source: extracted/entities.json:TrackerRelationship
-    match: broad
-    notes: >
-      TrackerRelationship links any two tracker items (TrackedEntity,
-      Enrollment, or Event). v2 Relationship is narrower: it links parties
-      only. The type and direction metadata live in RelationshipType, not
-      on the Relationship itself.
-    decomposition:
-      - dhis2_field: from
-        target_concept: Relationship
-        target_property: party_a
-        notes: "TrackerRelationshipItem resolves to one of TrackedEntity/Enrollment/Event. Only the TrackedEntity case maps cleanly to v2 party slots."
-      - dhis2_field: to
-        target_concept: Relationship
-        target_property: party_b
-      - dhis2_field: relationshipType
-        target_concept: Relationship
-        target_property: relationship_type
-        notes: "Country-configured; no fixed enum. RelationshipType additionally carries bidirectionality via fromConstraint/toConstraint."
-      - dhis2_field: bidirectional
-        target_concept: Relationship
-        target_property: null
-        notes: "Property of the RelationshipType, not the Relationship record in v2."
+    '
+- v2_concept: Profile
+  external_entity: ProgramStage
+  external_source: extracted/entities.json:ProgramStage
+  match: related
+  notes: 'v2 Profile is an abstract supertype for observation records (FunctioningProfile, SocioEconomicProfile,
+    etc.). DHIS2 expresses the same intent structurally: a ProgramStage defines which data elements are
+    collected; a TrackerEvent is an instance; each TrackerDataValue on that event is one observation.
+    Reading a v2 Profile from DHIS2 means projecting an event''s DataValues into the Profile shape. The
+    mapping is a pattern, not a type equivalence.
 
-  - v2_concept: Identifier
-    external_entity: TrackedEntityAttribute
-    external_source: extracted/entities.json:TrackedEntityAttribute
-    match: narrow
-    notes: >
-      DHIS2 TrackedEntityAttributes with `unique=true` and (typically)
-      `valueType=TEXT` function as identifiers. The demo instance uses
-      "Unique ID" and "National identifier" this way. v2 Identifier is a
-      first-class entity with type, issuer, validity; DHIS2 collapses all
-      of that into a TEA configuration plus the stored attribute value.
+    '
+- v2_concept: sp/Enrollment
+  external_entity: TrackerEnrollment
+  external_source: extracted/entities.json:TrackerEnrollment
+  match: broad
+  notes: 'TrackerEnrollment is DHIS2''s operational record of a TrackedEntity joining a Program. It is
+    broader than sp/Enrollment: it applies to any tracker program, health or otherwise. The eligibility/entitlement
+    side of sp/Enrollment has no DHIS2 counterpart; a TrackerEnrollment has been admitted by the time
+    it exists.
 
-  - v2_concept: Profile
-    external_entity: ProgramStage
-    external_source: extracted/entities.json:ProgramStage
-    match: related
-    notes: >
-      v2 Profile is an abstract supertype for observation records
-      (FunctioningProfile, SocioEconomicProfile, etc.). DHIS2 expresses
-      the same intent structurally: a ProgramStage defines which data
-      elements are collected; a TrackerEvent is an instance; each
-      TrackerDataValue on that event is one observation. Reading a v2
-      Profile from DHIS2 means projecting an event's DataValues into the
-      Profile shape. The mapping is a pattern, not a type equivalence.
+    '
+  decomposition:
+  - dhis2_field: trackedEntity
+    target_concept: sp/Enrollment
+    target_property: participant
+  - dhis2_field: program
+    target_concept: sp/Enrollment
+    target_property: program
+  - dhis2_field: enrolledAt
+    target_concept: sp/Enrollment
+    target_property: start_date
+  - dhis2_field: occurredAt
+    target_concept: sp/Enrollment
+    target_property: null
+    notes: Date of an incident event captured on enrollment (e.g., date of diagnosis). No direct v2 slot;
+      often a domain-specific field.
+  - dhis2_field: completedAt
+    target_concept: sp/Enrollment
+    target_property: end_date
+  - dhis2_field: status
+    target_concept: sp/Enrollment
+    target_property: status
+    notes: EnrollmentStatus (ACTIVE, COMPLETED, CANCELLED) value-mapped via sp/enrollment-status system_mappings.
+  - dhis2_field: orgUnit
+    target_concept: sp/Enrollment
+    target_property: null
+    notes: OwningOU. In v2 this sits on Program or the enrolling office, not on Enrollment itself.
+  - dhis2_field: events
+    target_concept: sp/Enrollment
+    target_property: null
+    notes: Child events within this enrollment. In v2 each would be a separate Event or Profile record
+      referencing the Enrollment.
+  - dhis2_field: notes
+    target_concept: sp/Enrollment
+    target_property: null
+    notes: Free-form caseworker notes. No v2 equivalent field.
+- v2_concept: sp/Program
+  external_entity: Program
+  external_source: extracted/entities.json:Program
+  match: broad
+  notes: 'DHIS2 Program is broader than sp/Program: it covers any tracker or event programme, including
+    health surveillance and data collection forms. The benefit-schedule / entitlement side of sp/Program
+    has no counterpart.
 
-  # --- Domain concepts (sp/) ---
-
-  - v2_concept: sp/Enrollment
-    external_entity: TrackerEnrollment
-    external_source: extracted/entities.json:TrackerEnrollment
-    match: broad
-    notes: >
-      TrackerEnrollment is DHIS2's operational record of a TrackedEntity
-      joining a Program. It is broader than sp/Enrollment: it applies to
-      any tracker program, health or otherwise. The eligibility/entitlement
-      side of sp/Enrollment has no DHIS2 counterpart; a TrackerEnrollment
-      has been admitted by the time it exists.
-    decomposition:
-      - dhis2_field: trackedEntity
-        target_concept: sp/Enrollment
-        target_property: participant
-      - dhis2_field: program
-        target_concept: sp/Enrollment
-        target_property: program
-      - dhis2_field: enrolledAt
-        target_concept: sp/Enrollment
-        target_property: start_date
-      - dhis2_field: occurredAt
-        target_concept: sp/Enrollment
-        target_property: null
-        notes: "Date of an incident event captured on enrollment (e.g., date of diagnosis). No direct v2 slot; often a domain-specific field."
-      - dhis2_field: completedAt
-        target_concept: sp/Enrollment
-        target_property: end_date
-      - dhis2_field: status
-        target_concept: sp/Enrollment
-        target_property: status
-        notes: "EnrollmentStatus (ACTIVE, COMPLETED, CANCELLED) value-mapped via sp/enrollment-status system_mappings."
-      - dhis2_field: orgUnit
-        target_concept: sp/Enrollment
-        target_property: null
-        notes: "OwningOU. In v2 this sits on Program or the enrolling office, not on Enrollment itself."
-      - dhis2_field: events
-        target_concept: sp/Enrollment
-        target_property: null
-        notes: "Child events within this enrollment. In v2 each would be a separate Event or Profile record referencing the Enrollment."
-      - dhis2_field: notes
-        target_concept: sp/Enrollment
-        target_property: null
-        notes: "Free-form caseworker notes. No v2 equivalent field."
-
-  - v2_concept: sp/Program
-    external_entity: Program
-    external_source: extracted/entities.json:Program
-    match: broad
-    notes: >
-      DHIS2 Program is broader than sp/Program: it covers any tracker
-      or event programme, including health surveillance and data
-      collection forms. The benefit-schedule / entitlement side of
-      sp/Program has no counterpart.
-    decomposition:
-      - dhis2_field: name
-        target_concept: sp/Program
-        target_property: name
-      - dhis2_field: description
-        target_concept: sp/Program
-        target_property: description
-      - dhis2_field: programType
-        target_concept: sp/Program
-        target_property: null
-        notes: "WITH_REGISTRATION vs WITHOUT_REGISTRATION is DHIS2 architecture, not a v2 property."
-      - dhis2_field: trackedEntityType
-        target_concept: sp/Program
-        target_property: eligible_party_type
-        notes: "Approximate: restricts which kind of Party can enrol."
-      - dhis2_field: programStages
-        target_concept: sp/Program
-        target_property: null
-        notes: "Workflow steps; not directly modeled in sp/Program. Would surface through linked Profile or Event configurations."
-      - dhis2_field: programTrackedEntityAttributes
-        target_concept: sp/Program
-        target_property: null
-        notes: "Attributes to collect on enrollment. In v2 these drive Profile/Identifier records rather than living on Program."
-      - dhis2_field: accessLevel
-        target_concept: sp/Program
-        target_property: null
-        notes: "OPEN/AUDITED/PROTECTED/CLOSED — confidentiality policy. No v2 equivalent."
-      - dhis2_field: organisationUnits
-        target_concept: sp/Program
-        target_property: null
-        notes: "Which OUs this program is rolled out to. v2 handles coverage through a different construct."
-
-
+    '
+  decomposition:
+  - dhis2_field: name
+    target_concept: sp/Program
+    target_property: name
+  - dhis2_field: description
+    target_concept: sp/Program
+    target_property: description
+  - dhis2_field: programType
+    target_concept: sp/Program
+    target_property: null
+    notes: WITH_REGISTRATION vs WITHOUT_REGISTRATION is DHIS2 architecture, not a v2 property.
+  - dhis2_field: trackedEntityType
+    target_concept: sp/Program
+    target_property: eligible_party_type
+    notes: 'Approximate: restricts which kind of Party can enrol.'
+  - dhis2_field: programStages
+    target_concept: sp/Program
+    target_property: null
+    notes: Workflow steps; not directly modeled in sp/Program. Would surface through linked Profile or
+      Event configurations.
+  - dhis2_field: programTrackedEntityAttributes
+    target_concept: sp/Program
+    target_property: null
+    notes: Attributes to collect on enrollment. In v2 these drive Profile/Identifier records rather than
+      living on Program.
+  - dhis2_field: accessLevel
+    target_concept: sp/Program
+    target_property: null
+    notes: OPEN/AUDITED/PROTECTED/CLOSED — confidentiality policy. No v2 equivalent.
+  - dhis2_field: organisationUnits
+    target_concept: sp/Program
+    target_property: null
+    notes: Which OUs this program is rolled out to. v2 handles coverage through a different construct.
 matches:
+- v2_vocabulary: sp/enrollment-status
+  external_vocabulary: EnrollmentStatus
+  external_source: extracted/enums.json:EnrollmentStatus
+  confidence: medium
+  notes: 'DHIS2 has three enrollment states (ACTIVE, COMPLETED, CANCELLED) vs. v2''s richer lifecycle.
+    Both COMPLETED and CANCELLED map to `closed` because DHIS2 does not distinguish graduation, voluntary
+    exit, administrative termination, or error cancellation. v2 state `pending_verification` has no DHIS2
+    equivalent: a TrackerEnrollment only exists once registration is accepted. `suspended` is not modelled;
+    DHIS2 implementations typically use event status or auxiliary attributes to record suspension.
 
-  # --- sp/enrollment-status vs EnrollmentStatus ---
-  # Core OpenAPI enum, stable across deployments. The mapping matches the
-  # one already present in schema/vocabularies/sp/enrollment-status.yaml
-  # system_mappings.dhis2.
+    '
+  value_mapping:
+    ACTIVE: active
+    COMPLETED: closed
+    CANCELLED: closed
+  gaps:
+    v2_only:
+    - pending_verification
+    - waitlisted
+    - suspended
+    - graduated
+    - on_hold
+    external_only: []
+- v2_vocabulary: gender-type
+  external_vocabulary: Gender
+  external_source: extracted/enums.json:Gender
+  confidence: low
+  notes: 'Gender is a demo-instance option set with only two values (Male, Female). This is demo-specific;
+    production DHIS2 deployments configure their own option sets, often with richer vocabularies. v2 codes
+    `other` and `not_stated` have no equivalent in this snapshot. The mapping matches schema/vocabularies/gender-type.yaml
+    system_mappings.dhis2.
 
-  - v2_vocabulary: sp/enrollment-status
-    external_vocabulary: EnrollmentStatus
-    external_source: extracted/enums.json:EnrollmentStatus
-    confidence: medium
-    notes: >
-      DHIS2 has three enrollment states (ACTIVE, COMPLETED, CANCELLED) vs.
-      v2's richer lifecycle. Both COMPLETED and CANCELLED map to `closed`
-      because DHIS2 does not distinguish graduation, voluntary exit,
-      administrative termination, or error cancellation. v2 state
-      `pending_verification` has no DHIS2 equivalent: a TrackerEnrollment
-      only exists once registration is accepted. `suspended` is not
-      modelled; DHIS2 implementations typically use event status or
-      auxiliary attributes to record suspension.
-    value_mapping:
-      ACTIVE: active
-      COMPLETED: closed
-      CANCELLED: closed
-    gaps:
-      v2_only:
-        - pending_verification
-        - waitlisted
-        - suspended
-        - graduated
-        - on_hold
-      external_only: []
+    '
+  value_mapping:
+    Male: male
+    Female: female
+  gaps:
+    v2_only:
+    - other
+    - not_stated
+    external_only: []
+- v2_vocabulary: marital-status
+  external_vocabulary: Civil status
+  external_source: extracted/enums.json:Civil status
+  confidence: low
+  notes: 'Civil status is a demo-instance option set with only two values. "Single or widow" conflates
+    two distinct v2 statuses (never_married and widowed) and therefore cannot be value-mapped safely;
+    it is left unmapped. "Married (conjugal cohabitation)" maps cleanly to `married`. Production DHIS2
+    deployments configure their own civil status option sets with finer distinctions. Matches schema/vocabularies/marital-status.yaml
+    system_mappings.dhis2.
 
-  # --- gender-type vs Gender (demo option set) ---
-
-  - v2_vocabulary: gender-type
-    external_vocabulary: "Gender"
-    external_source: extracted/enums.json:Gender
-    confidence: low
-    notes: >
-      Gender is a demo-instance option set with only two values (Male,
-      Female). This is demo-specific; production DHIS2 deployments
-      configure their own option sets, often with richer vocabularies.
-      v2 codes `other` and `not_stated` have no equivalent in this
-      snapshot. The mapping matches schema/vocabularies/gender-type.yaml
-      system_mappings.dhis2.
-    value_mapping:
-      Male: male
-      Female: female
-    gaps:
-      v2_only:
-        - other
-        - not_stated
-      external_only: []
-
-  # --- marital-status vs Civil status (demo option set) ---
-
-  - v2_vocabulary: marital-status
-    external_vocabulary: "Civil status"
-    external_source: extracted/enums.json:Civil status
-    confidence: low
-    notes: >
-      Civil status is a demo-instance option set with only two values.
-      "Single or widow" conflates two distinct v2 statuses (never_married
-      and widowed) and therefore cannot be value-mapped safely; it is
-      left unmapped. "Married (conjugal cohabitation)" maps cleanly to
-      `married`. Production DHIS2 deployments configure their own civil
-      status option sets with finer distinctions. Matches
-      schema/vocabularies/marital-status.yaml system_mappings.dhis2.
-    value_mapping:
-      "Married (conjugal cohabitation)": married
-    gaps:
-      v2_only:
-        - never_married
-        - widowed
-        - divorced
-        - legally_separated
-        - consensual_union
-      external_only:
-        - "Single or widow"
-
-
+    '
+  value_mapping:
+    Married (conjugal cohabitation): married
+  gaps:
+    v2_only:
+    - never_married
+    - widowed
+    - divorced
+    - legally_separated
+    - consensual_union
+    external_only:
+    - Single or widow
 no_match:
+- v2_concept: Agent
+  reason: 'Abstract supertype for Person/Organization/SoftwareAgent. DHIS2 has no analogous abstraction;
+    User, TrackedEntity, and OrganisationUnit are unrelated types.
 
-  # --- v2 concepts with no DHIS2 meta-model equivalent ---
-  # DHIS2 is a health information system. Almost every concept outside
-  # Person, OrganisationUnit, Program, and the tracker operations is
-  # either absent from the meta-model or handled as configuration content
-  # per-deployment (TrackedEntityAttributes, DataElements, option sets).
+    '
+- v2_concept: Party
+  reason: 'Abstract supertype for Person/Group. DHIS2 does not abstract "beneficiary-side" actors; TrackedEntity
+    (the closest construct) is concrete and has no sibling for Group.
 
-  # Universal abstract supertypes
-  - v2_concept: Agent
-    reason: >
-      Abstract supertype for Person/Organization/SoftwareAgent. DHIS2
-      has no analogous abstraction; User, TrackedEntity, and
-      OrganisationUnit are unrelated types.
-  - v2_concept: Party
-    reason: >
-      Abstract supertype for Person/Group. DHIS2 does not abstract
-      "beneficiary-side" actors; TrackedEntity (the closest construct)
-      is concrete and has no sibling for Group.
+    '
+- v2_concept: Address
+  reason: 'DHIS2 stores address as a free-text string TEA on Person. There is no structured Address type
+    in the meta-model.
 
-  # Universal structural concepts
-  - v2_concept: Address
-    reason: >
-      DHIS2 stores address as a free-text string TEA on Person. There
-      is no structured Address type in the meta-model.
-  - v2_concept: BiometricSample
-    reason: >
-      DHIS2 core does not model biometric enrolment. Attachments on a
-      tracked entity via file resource TEAs are possible but carry no
-      modality, template, or capture metadata.
-  - v2_concept: ConsentRecord
-    reason: >
-      No consent-record construct in DHIS2. Programs can be configured
-      with a `captureCoordinates` or `selectIncidentDatesInFuture` flag,
-      but consent as a reified record is not modelled.
-  - v2_concept: DeliveryItem
-    reason: "DHIS2 is not a benefit-delivery system; no delivery-item concept."
-  - v2_concept: Family
-    reason: >
-      DHIS2 tracker has no first-class Family construct. Some deployments
-      model kinship via Relationships between tracked entities; no
-      reified Family group exists.
-  - v2_concept: Farm
-    reason: "DHIS2 does not model agricultural holdings."
-  - v2_concept: Group
-    reason: >
-      Abstract supertype for Family/Household/Farm. DHIS2 has no
-      equivalent abstraction over collective parties.
-  - v2_concept: GroupMembership
-    reason: >
-      No group-membership construct. The closest pattern is a
-      TrackerRelationship with a parent/child-of-household
-      RelationshipType, which does not carry role or validity.
-  - v2_concept: HazardEvent
-    reason: "DHIS2 does not model hazard events as a first-class type."
-  - v2_concept: Household
-    reason: "No household construct in DHIS2 core (see Group above)."
-  - v2_concept: IdentityDocument
-    reason: >
-      DHIS2 records identifier values on a Person via unique TEAs, but
-      does not reify the issuing document, its validity period, or
-      jurisdiction.
-  - v2_concept: InKindDelivery
-    reason: "DHIS2 is not a benefit-delivery system."
-  - v2_concept: Instrument
-    reason: >
-      DHIS2 does not catalog data-collection instruments as reified
-      records with authorship, version, and provenance. A ProgramStage
-      plus its DataElements is the closest operational analogue but
-      carries no Instrument metadata.
-  - v2_concept: PaymentEvent
-    reason: "DHIS2 is not a payment system."
-  - v2_concept: PrivacyNotice
-    reason: "No privacy-notice construct in DHIS2 core."
-  - v2_concept: RegistrationOffice
-    reason: >
-      No registration-office construct. OrganisationUnits can represent
-      offices but carry no distinct registration-office typing.
-  - v2_concept: School
-    reason: "DHIS2 does not model schools as a typed OrganisationUnit subtype."
-  - v2_concept: ScoringEvent
-    reason: >
-      DHIS2 has no construct recording the application of a scoring rule
-      to observation data. Indicators exist in the aggregate analytics
-      side but are out of scope for the meta-model mapping.
-  - v2_concept: ScoringRule
-    reason: >
-      DHIS2 programIndicators and predictors can compute values, but
-      they live in the analytics layer rather than in tracker metadata.
-      They are out of scope here.
-  - v2_concept: ServicePoint
-    reason: "No generic service-point construct distinct from OrganisationUnit."
-  - v2_concept: SocioEconomicProfile
-    reason: >
-      Profile subtypes are not reified as types in DHIS2. A deployment
-      could encode a socio-economic assessment as a ProgramStage but the
-      meta-model does not name it.
-  - v2_concept: FunctioningProfile
-    reason: >
-      Same pattern as SocioEconomicProfile: no Profile-subtype
-      reification in the meta-model.
-  - v2_concept: SoftwareAgent
-    reason: >
-      DHIS2 has a User model and API tokens, but no SoftwareAgent
-      concept for recording the identity/version of scoring software
-      or other automated actors.
-  - v2_concept: Voucher
-    reason: "DHIS2 is not a voucher-delivery system."
-  - v2_concept: VoucherRedemption
-    reason: "Same as Voucher."
-  - v2_concept: WaterPoint
-    reason: "No water-point construct; would be an OrganisationUnit subtype if modelled."
+    '
+- v2_concept: BiometricSample
+  reason: 'DHIS2 core does not model biometric enrolment. Attachments on a tracked entity via file resource
+    TEAs are possible but carry no modality, template, or capture metadata.
 
-  # sp/ domain
-  - v2_concept: sp/BenefitSchedule
-    reason: "DHIS2 does not model benefit schedules."
-  - v2_concept: sp/EligibilityDecision
-    reason: "DHIS2 has no eligibility-decision record. Admission is implicit in the existence of a TrackerEnrollment."
-  - v2_concept: sp/Entitlement
-    reason: "DHIS2 is not an entitlement-management system."
-  - v2_concept: sp/Grievance
-    reason: "No grievance/complaint workflow in DHIS2 core."
-  - v2_concept: sp/Referral
-    reason: >
-      DHIS2 can model referrals as tracker relationships or program
-      events but has no first-class Referral type with status, origin,
-      and destination facility semantics.
+    '
+- v2_concept: ConsentRecord
+  reason: 'No consent-record construct in DHIS2. Programs can be configured with a `captureCoordinates`
+    or `selectIncidentDatesInFuture` flag, but consent as a reified record is not modelled.
 
-  # crvs/ domain — DHIS2 is not a civil registration system
-  - v2_concept: crvs/VitalEvent
-    reason: "DHIS2 is not a CRVS. Births/deaths can be recorded as tracker events within a health programme, but not as legal vital events."
-  - v2_concept: crvs/Birth
-    reason: "Not modelled in DHIS2. Birth Notification programs exist as deployment content; the meta-model does not name them."
-  - v2_concept: crvs/Death
-    reason: "Not modelled in DHIS2. Mortality surveillance deployments exist; the meta-model does not name them."
-  - v2_concept: crvs/FetalDeath
-    reason: "Not modelled in DHIS2."
-  - v2_concept: crvs/Marriage
-    reason: "Not modelled in DHIS2."
-  - v2_concept: crvs/MarriageTermination
-    reason: "Not modelled in DHIS2."
-  - v2_concept: crvs/Adoption
-    reason: "Not modelled in DHIS2."
-  - v2_concept: crvs/Legitimation
-    reason: "Not modelled in DHIS2."
-  - v2_concept: crvs/PaternityRecognition
-    reason: "Not modelled in DHIS2."
-  - v2_concept: crvs/Parent
-    reason: "No parent link type. Kinship can be expressed via tracker relationships but carries no parental-role semantics."
-  - v2_concept: crvs/Certificate
-    reason: "No civil-status certificate record in DHIS2."
-  - v2_concept: crvs/CivilStatusDocument
-    reason: "Abstract CRVS document supertype. DHIS2 does not model any civil-status documents."
-  - v2_concept: crvs/CivilStatusRecord
-    reason: "No reified civil-status-record type in DHIS2."
-  - v2_concept: crvs/CivilStatusAnnotation
-    reason: "No annotation construct for civil status updates."
-  - v2_concept: crvs/FamilyRegister
-    reason: "DHIS2 does not model family registers (livret de famille, koseki, hukou)."
-  - v2_concept: crvs/Person
-    reason: >
-      Separate from universal Person, crvs/Person is the CRVS projection
-      with civil-status-specific fields. DHIS2 has no CRVS layer, so the
-      universal Person match already covers what DHIS2 represents.
+    '
+- v2_concept: DeliveryItem
+  reason: DHIS2 is not a benefit-delivery system; no delivery-item concept.
+- v2_concept: Family
+  reason: 'DHIS2 tracker has no first-class Family construct. Some deployments model kinship via Relationships
+    between tracked entities; no reified Family group exists.
 
-  # --- v2 vocabularies with no DHIS2 equivalent ---
-  # DHIS2 is a platform: most domain vocabularies are per-deployment
-  # option sets, not core enums. Only three core OpenAPI enums
-  # (EnrollmentStatus, EventStatus, ProgramType) and handful of
-  # structural enums (ValueType, FeatureType, AccessLevel,
-  # RelationshipEntity) are shipped. Everything else is option-set
-  # configuration that would vary by country and programme.
+    '
+- v2_concept: Farm
+  reason: DHIS2 does not model agricultural holdings.
+- v2_concept: Group
+  reason: 'Abstract supertype for Family/Household/Farm. DHIS2 has no equivalent abstraction over collective
+    parties.
 
-  # Identity and person-demographic vocabularies
-  - v2_vocabulary: sex
-    reason: "DHIS2 uses a single 'Gender' option set per deployment; no separate biological-sex vocabulary."
-  - v2_vocabulary: identifier-type
-    reason: "Identifier types are per-TEA configuration, not a shared vocabulary."
-  - v2_vocabulary: document-type
-    reason: "No identity-document model; no document-type vocabulary."
-  - v2_vocabulary: document-status
-    reason: "No document model; no status vocabulary."
+    '
+- v2_concept: GroupMembership
+  reason: 'No group-membership construct. The closest pattern is a TrackerRelationship with a parent/child-of-household
+    RelationshipType, which does not carry role or validity.
 
-  # Biometrics
-  - v2_vocabulary: biometric-modality
-    reason: "DHIS2 does not model biometrics."
-  - v2_vocabulary: biometric-subtype
-    reason: "No biometrics in DHIS2."
-  - v2_vocabulary: biometric-exception-reason
-    reason: "No biometrics in DHIS2."
-  - v2_vocabulary: impression-type
-    reason: "No biometrics in DHIS2."
+    '
+- v2_concept: HazardEvent
+  reason: DHIS2 does not model hazard events as a first-class type.
+- v2_concept: Household
+  reason: No household construct in DHIS2 core (see Group above).
+- v2_concept: IdentityDocument
+  reason: 'DHIS2 records identifier values on a Person via unique TEAs, but does not reify the issuing
+    document, its validity period, or jurisdiction.
 
-  # Relationships and groups
-  - v2_vocabulary: relationship-type
-    reason: "DHIS2 RelationshipType is country-configured, not a fixed vocabulary."
-  - v2_vocabulary: group-type
-    reason: "No Group supertype; no group-type vocabulary."
-  - v2_vocabulary: group-role
-    reason: "No group-membership model; no role vocabulary."
+    '
+- v2_concept: InKindDelivery
+  reason: DHIS2 is not a benefit-delivery system.
+- v2_concept: Instrument
+  reason: 'DHIS2 does not catalog data-collection instruments as reified records with authorship, version,
+    and provenance. A ProgramStage plus its DataElements is the closest operational analogue but carries
+    no Instrument metadata.
 
-  # Geography and administrative codes
-  - v2_vocabulary: country
-    reason: "Countries are OrganisationUnits at the top level; DHIS2 has no ISO 3166 enum."
-  - v2_vocabulary: region
-    reason: "UN M49 regions are not part of the DHIS2 meta-model."
-  - v2_vocabulary: language
-    reason: "DHIS2 supports UI translations but has no ISO 639 vocabulary as such."
-  - v2_vocabulary: script
-    reason: "No ISO 15924 script vocabulary in DHIS2."
-  - v2_vocabulary: currency
-    reason: "No currency handling in DHIS2 core."
-  - v2_vocabulary: unit-of-measure
-    reason: "Units are free-text on DataElement.valueType formatting; no shared UoM vocabulary."
+    '
+- v2_concept: PaymentEvent
+  reason: DHIS2 is not a payment system.
+- v2_concept: PrivacyNotice
+  reason: No privacy-notice construct in DHIS2 core.
+- v2_concept: RegistrationOffice
+  reason: 'No registration-office construct. OrganisationUnits can represent offices but carry no distinct
+    registration-office typing.
 
-  # Education
-  - v2_vocabulary: education-level
-    reason: "Per-deployment option set, not a core enum."
-  - v2_vocabulary: literacy
-    reason: "Per-deployment option set."
-  - v2_vocabulary: school-level
-    reason: "No school construct; no vocabulary."
-  - v2_vocabulary: school-type
-    reason: "No school construct."
+    '
+- v2_concept: School
+  reason: DHIS2 does not model schools as a typed OrganisationUnit subtype.
+- v2_concept: ScoringEvent
+  reason: 'DHIS2 has no construct recording the application of a scoring rule to observation data. Indicators
+    exist in the aggregate analytics side but are out of scope for the meta-model mapping.
 
-  # Employment and income
-  - v2_vocabulary: occupation
-    reason: "Per-deployment option set; no ISCO alignment in core."
-  - v2_vocabulary: employment-status
-    reason: "Per-deployment option set."
-  - v2_vocabulary: status-in-employment
-    reason: "Per-deployment option set."
-  - v2_vocabulary: income-source
-    reason: "Per-deployment option set."
+    '
+- v2_concept: ScoringRule
+  reason: 'DHIS2 programIndicators and predictors can compute values, but they live in the analytics layer
+    rather than in tracker metadata. They are out of scope here.
 
-  # Health facilities and organizations
-  - v2_vocabulary: health-facility-type
-    reason: "OrganisationUnit classifications are per-deployment via OU groups."
-  - v2_vocabulary: health-facility-level
-    reason: "Per-deployment."
-  - v2_vocabulary: facility-operational-status
-    reason: "Per-deployment option set."
-  - v2_vocabulary: care-provider-type
-    reason: "No shared vocabulary in DHIS2 core."
-  - v2_vocabulary: maternity-care-provider
-    reason: "Per-deployment option set."
-  - v2_vocabulary: organization-type
-    reason: "OrganisationUnitGroups serve this role but carry no fixed type vocabulary."
-  - v2_vocabulary: service-point-type
-    reason: "No service-point concept."
-  - v2_vocabulary: registration-office-type
-    reason: "No registration-office concept."
+    '
+- v2_concept: ServicePoint
+  reason: No generic service-point construct distinct from OrganisationUnit.
+- v2_concept: SocioEconomicProfile
+  reason: 'Profile subtypes are not reified as types in DHIS2. A deployment could encode a socio-economic
+    assessment as a ProgramStage but the meta-model does not name it.
 
-  # Housing, shelter, WASH
-  - v2_vocabulary: dwelling-type
-    reason: "Per-deployment option set."
-  - v2_vocabulary: roof-material
-    reason: "Per-deployment option set."
-  - v2_vocabulary: wall-material
-    reason: "Per-deployment option set."
-  - v2_vocabulary: floor-material
-    reason: "Per-deployment option set."
-  - v2_vocabulary: cooking-fuel
-    reason: "Per-deployment option set."
-  - v2_vocabulary: sanitation-facility
-    reason: "Per-deployment option set."
-  - v2_vocabulary: sanitation-service-level
-    reason: "Per-deployment option set."
-  - v2_vocabulary: water-source
-    reason: "Per-deployment option set."
-  - v2_vocabulary: water-point-type
-    reason: "No water-point concept."
-  - v2_vocabulary: water-service-level
-    reason: "Per-deployment option set."
-  - v2_vocabulary: settlement-type
-    reason: "Per-deployment option set."
-  - v2_vocabulary: shelter-situation-type
-    reason: "Per-deployment; typically humanitarian context."
-  - v2_vocabulary: land-tenure
-    reason: "Per-deployment option set."
-  - v2_vocabulary: occupancy-arrangement
-    reason: "Per-deployment option set."
-  - v2_vocabulary: household-asset
-    reason: "Per-deployment option set."
-  - v2_vocabulary: ict-access
-    reason: "Per-deployment option set."
-  - v2_vocabulary: livestock-type
-    reason: "No livestock/agriculture model."
+    '
+- v2_concept: FunctioningProfile
+  reason: 'Same pattern as SocioEconomicProfile: no Profile-subtype reification in the meta-model.
 
-  # Consent and legal
-  - v2_vocabulary: consent-status
-    reason: "No consent-record model."
-  - v2_vocabulary: consent-record-type
-    reason: "No consent-record model."
-  - v2_vocabulary: consent-expression
-    reason: "No consent-record model."
-  - v2_vocabulary: legal-basis
-    reason: "No consent-record model."
-  - v2_vocabulary: delegation-type
-    reason: "No delegation model."
-  - v2_vocabulary: special-category-basis
-    reason: "No consent-record model."
+    '
+- v2_concept: SoftwareAgent
+  reason: 'DHIS2 has a User model and API tokens, but no SoftwareAgent concept for recording the identity/version
+    of scoring software or other automated actors.
 
-  # Vital events / CRVS vocabularies — out of scope for DHIS2
-  - v2_vocabulary: crvs/adoption-type
-    reason: "DHIS2 is not a CRVS."
-  - v2_vocabulary: crvs/annotation-type
-    reason: "DHIS2 is not a CRVS."
-  - v2_vocabulary: crvs/birth-attendant
-    reason: "DHIS2 is not a CRVS. (Deployments can configure this via option sets in health programmes.)"
-  - v2_vocabulary: crvs/birth-type
-    reason: "Same."
-  - v2_vocabulary: crvs/cause-of-death-method
-    reason: "Same."
-  - v2_vocabulary: crvs/certificate-document-type
-    reason: "No certificate model."
-  - v2_vocabulary: crvs/certificate-format
-    reason: "No certificate model."
-  - v2_vocabulary: crvs/civil-status-record-type
-    reason: "No civil-status-record model."
-  - v2_vocabulary: crvs/family-register-status
-    reason: "No family-register model."
-  - v2_vocabulary: crvs/manner-of-death
-    reason: "DHIS2 is not a CRVS."
-  - v2_vocabulary: crvs/marriage-termination-type
-    reason: "DHIS2 is not a CRVS."
-  - v2_vocabulary: crvs/marriage-type
-    reason: "DHIS2 is not a CRVS."
-  - v2_vocabulary: crvs/parent-establishment-basis
-    reason: "DHIS2 is not a CRVS."
-  - v2_vocabulary: crvs/parental-role
-    reason: "No Parent link type."
-  - v2_vocabulary: crvs/place-type
-    reason: "DHIS2 is not a CRVS."
-  - v2_vocabulary: crvs/registration-status
-    reason: "DHIS2 is not a CRVS."
-  - v2_vocabulary: crvs/registration-type
-    reason: "DHIS2 is not a CRVS."
+    '
+- v2_concept: Voucher
+  reason: DHIS2 is not a voucher-delivery system.
+- v2_concept: VoucherRedemption
+  reason: Same as Voucher.
+- v2_concept: WaterPoint
+  reason: No water-point construct; would be an OrganisationUnit subtype if modelled.
+- v2_concept: sp/BenefitSchedule
+  reason: DHIS2 does not model benefit schedules.
+- v2_concept: sp/EligibilityDecision
+  reason: DHIS2 has no eligibility-decision record. Admission is implicit in the existence of a TrackerEnrollment.
+- v2_concept: sp/Entitlement
+  reason: DHIS2 is not an entitlement-management system.
+- v2_concept: sp/Grievance
+  reason: No grievance/complaint workflow in DHIS2 core.
+- v2_concept: sp/Referral
+  reason: 'DHIS2 can model referrals as tracker relationships or program events but has no first-class
+    Referral type with status, origin, and destination facility semantics.
 
-  # sp/ vocabularies — DHIS2 is not a social-protection system
-  - v2_vocabulary: sp/benefit-frequency
-    reason: "DHIS2 is not a benefit-delivery system."
-  - v2_vocabulary: sp/benefit-modality
-    reason: "Same."
-  - v2_vocabulary: sp/conditionality-type
-    reason: "No conditionality construct."
-  - v2_vocabulary: sp/eligibility-status
-    reason: "No eligibility-decision model."
-  - v2_vocabulary: sp/enrollment-exit-reason
-    reason: "No exit-reason vocabulary in core; DHIS2 EnrollmentStatus collapses COMPLETED/CANCELLED."
-  - v2_vocabulary: sp/entitlement-status
-    reason: "No entitlement model."
-  - v2_vocabulary: sp/grievance-status
-    reason: "No grievance model."
-  - v2_vocabulary: sp/grievance-type
-    reason: "No grievance model."
-  - v2_vocabulary: sp/referral-status
-    reason: "No Referral model."
-  - v2_vocabulary: sp/targeting-approach
-    reason: "No targeting-approach vocabulary."
+    '
+- v2_concept: crvs/VitalEvent
+  reason: DHIS2 is not a CRVS. Births/deaths can be recorded as tracker events within a health programme,
+    but not as legal vital events.
+- v2_concept: crvs/Birth
+  reason: Not modelled in DHIS2. Birth Notification programs exist as deployment content; the meta-model
+    does not name them.
+- v2_concept: crvs/Death
+  reason: Not modelled in DHIS2. Mortality surveillance deployments exist; the meta-model does not name
+    them.
+- v2_concept: crvs/FetalDeath
+  reason: Not modelled in DHIS2.
+- v2_concept: crvs/Marriage
+  reason: Not modelled in DHIS2.
+- v2_concept: crvs/MarriageTermination
+  reason: Not modelled in DHIS2.
+- v2_concept: crvs/Adoption
+  reason: Not modelled in DHIS2.
+- v2_concept: crvs/Legitimation
+  reason: Not modelled in DHIS2.
+- v2_concept: crvs/PaternityRecognition
+  reason: Not modelled in DHIS2.
+- v2_concept: crvs/Parent
+  reason: No parent link type. Kinship can be expressed via tracker relationships but carries no parental-role
+    semantics.
+- v2_concept: crvs/Certificate
+  reason: No civil-status certificate record in DHIS2.
+- v2_concept: crvs/CivilStatusDocument
+  reason: Abstract CRVS document supertype. DHIS2 does not model any civil-status documents.
+- v2_concept: crvs/CivilStatusRecord
+  reason: No reified civil-status-record type in DHIS2.
+- v2_concept: crvs/CivilStatusAnnotation
+  reason: No annotation construct for civil status updates.
+- v2_concept: crvs/FamilyRegister
+  reason: DHIS2 does not model family registers (livret de famille, koseki, hukou).
+- v2_concept: crvs/Person
+  reason: 'Separate from universal Person, crvs/Person is the CRVS projection with civil-status-specific
+    fields. DHIS2 has no CRVS layer, so the universal Person match already covers what DHIS2 represents.
 
-  # Payment and delivery vocabularies
-  - v2_vocabulary: payment-status
-    reason: "DHIS2 is not a payment system."
-  - v2_vocabulary: delivery-channel
-    reason: "DHIS2 is not a delivery system."
-  - v2_vocabulary: withdrawal-channel
-    reason: "DHIS2 is not a payment/delivery system."
-  - v2_vocabulary: administration-mode
-    reason: "No administration-mode concept in DHIS2 core."
-  - v2_vocabulary: voucher-format
-    reason: "No voucher model."
-  - v2_vocabulary: voucher-status
-    reason: "No voucher model."
-  - v2_vocabulary: recipient-role
-    reason: "No delivery model."
+    '
+- v2_vocabulary: sex
+  reason: DHIS2 uses a single 'Gender' option set per deployment; no separate biological-sex vocabulary.
+- v2_vocabulary: identifier-type
+  reason: Identifier types are per-TEA configuration, not a shared vocabulary.
+- v2_vocabulary: document-type
+  reason: No identity-document model; no document-type vocabulary.
+- v2_vocabulary: document-status
+  reason: No document model; no status vocabulary.
+- v2_vocabulary: biometric-modality
+  reason: DHIS2 does not model biometrics.
+- v2_vocabulary: biometric-subtype
+  reason: No biometrics in DHIS2.
+- v2_vocabulary: biometric-exception-reason
+  reason: No biometrics in DHIS2.
+- v2_vocabulary: impression-type
+  reason: No biometrics in DHIS2.
+- v2_vocabulary: relationship-type
+  reason: DHIS2 RelationshipType is country-configured, not a fixed vocabulary.
+- v2_vocabulary: group-type
+  reason: No Group supertype; no group-type vocabulary.
+- v2_vocabulary: group-role
+  reason: No group-membership model; no role vocabulary.
+- v2_vocabulary: country
+  reason: Countries are OrganisationUnits at the top level; DHIS2 has no ISO 3166 enum.
+- v2_vocabulary: region
+  reason: UN M49 regions are not part of the DHIS2 meta-model.
+- v2_vocabulary: language
+  reason: DHIS2 supports UI translations but has no ISO 639 vocabulary as such.
+- v2_vocabulary: script
+  reason: No ISO 15924 script vocabulary in DHIS2.
+- v2_vocabulary: currency
+  reason: No currency handling in DHIS2 core.
+- v2_vocabulary: unit-of-measure
+  reason: Units are free-text on DataElement.valueType formatting; no shared UoM vocabulary.
+- v2_vocabulary: education-level
+  reason: Per-deployment option set, not a core enum.
+- v2_vocabulary: literacy
+  reason: Per-deployment option set.
+- v2_vocabulary: school-level
+  reason: No school construct; no vocabulary.
+- v2_vocabulary: school-type
+  reason: No school construct.
+- v2_vocabulary: occupation
+  reason: Per-deployment option set; no ISCO alignment in core.
+- v2_vocabulary: employment-status
+  reason: Per-deployment option set.
+- v2_vocabulary: status-in-employment
+  reason: Per-deployment option set.
+- v2_vocabulary: income-source
+  reason: Per-deployment option set.
+- v2_vocabulary: health-facility-type
+  reason: OrganisationUnit classifications are per-deployment via OU groups.
+- v2_vocabulary: health-facility-level
+  reason: Per-deployment.
+- v2_vocabulary: facility-operational-status
+  reason: Per-deployment option set.
+- v2_vocabulary: care-provider-type
+  reason: No shared vocabulary in DHIS2 core.
+- v2_vocabulary: maternity-care-provider
+  reason: Per-deployment option set.
+- v2_vocabulary: organization-type
+  reason: OrganisationUnitGroups serve this role but carry no fixed type vocabulary.
+- v2_vocabulary: service-point-type
+  reason: No service-point concept.
+- v2_vocabulary: registration-office-type
+  reason: No registration-office concept.
+- v2_vocabulary: dwelling-type
+  reason: Per-deployment option set.
+- v2_vocabulary: roof-material
+  reason: Per-deployment option set.
+- v2_vocabulary: wall-material
+  reason: Per-deployment option set.
+- v2_vocabulary: floor-material
+  reason: Per-deployment option set.
+- v2_vocabulary: cooking-fuel
+  reason: Per-deployment option set.
+- v2_vocabulary: sanitation-facility
+  reason: Per-deployment option set.
+- v2_vocabulary: sanitation-service-level
+  reason: Per-deployment option set.
+- v2_vocabulary: water-source
+  reason: Per-deployment option set.
+- v2_vocabulary: water-point-type
+  reason: No water-point concept.
+- v2_vocabulary: water-service-level
+  reason: Per-deployment option set.
+- v2_vocabulary: settlement-type
+  reason: Per-deployment option set.
+- v2_vocabulary: shelter-situation-type
+  reason: Per-deployment; typically humanitarian context.
+- v2_vocabulary: land-tenure
+  reason: Per-deployment option set.
+- v2_vocabulary: occupancy-arrangement
+  reason: Per-deployment option set.
+- v2_vocabulary: household-asset
+  reason: Per-deployment option set.
+- v2_vocabulary: ict-access
+  reason: Per-deployment option set.
+- v2_vocabulary: livestock-type
+  reason: No livestock/agriculture model.
+- v2_vocabulary: consent-status
+  reason: No consent-record model.
+- v2_vocabulary: consent-record-type
+  reason: No consent-record model.
+- v2_vocabulary: consent-expression
+  reason: No consent-record model.
+- v2_vocabulary: legal-basis
+  reason: No consent-record model.
+- v2_vocabulary: delegation-type
+  reason: No delegation model.
+- v2_vocabulary: special-category-basis
+  reason: No consent-record model.
+- v2_vocabulary: crvs/adoption-type
+  reason: DHIS2 is not a CRVS.
+- v2_vocabulary: crvs/annotation-type
+  reason: DHIS2 is not a CRVS.
+- v2_vocabulary: crvs/birth-attendant
+  reason: DHIS2 is not a CRVS. (Deployments can configure this via option sets in health programmes.)
+- v2_vocabulary: crvs/birth-type
+  reason: Same.
+- v2_vocabulary: crvs/cause-of-death-method
+  reason: Same.
+- v2_vocabulary: crvs/certificate-document-type
+  reason: No certificate model.
+- v2_vocabulary: crvs/certificate-format
+  reason: No certificate model.
+- v2_vocabulary: crvs/civil-status-record-type
+  reason: No civil-status-record model.
+- v2_vocabulary: crvs/family-register-status
+  reason: No family-register model.
+- v2_vocabulary: crvs/manner-of-death
+  reason: DHIS2 is not a CRVS.
+- v2_vocabulary: crvs/marriage-termination-type
+  reason: DHIS2 is not a CRVS.
+- v2_vocabulary: crvs/marriage-type
+  reason: DHIS2 is not a CRVS.
+- v2_vocabulary: crvs/parent-establishment-basis
+  reason: DHIS2 is not a CRVS.
+- v2_vocabulary: crvs/parental-role
+  reason: No Parent link type.
+- v2_vocabulary: crvs/place-type
+  reason: DHIS2 is not a CRVS.
+- v2_vocabulary: crvs/registration-status
+  reason: DHIS2 is not a CRVS.
+- v2_vocabulary: crvs/registration-type
+  reason: DHIS2 is not a CRVS.
+- v2_vocabulary: sp/benefit-frequency
+  reason: DHIS2 is not a benefit-delivery system.
+- v2_vocabulary: sp/benefit-modality
+  reason: Same.
+- v2_vocabulary: sp/conditionality-type
+  reason: No conditionality construct.
+- v2_vocabulary: sp/eligibility-status
+  reason: No eligibility-decision model.
+- v2_vocabulary: sp/enrollment-exit-reason
+  reason: No exit-reason vocabulary in core; DHIS2 EnrollmentStatus collapses COMPLETED/CANCELLED.
+- v2_vocabulary: sp/entitlement-status
+  reason: No entitlement model.
+- v2_vocabulary: sp/grievance-status
+  reason: No grievance model.
+- v2_vocabulary: sp/grievance-type
+  reason: No grievance model.
+- v2_vocabulary: sp/referral-status
+  reason: No Referral model.
+- v2_vocabulary: sp/targeting-approach
+  reason: No targeting-approach vocabulary.
+- v2_vocabulary: payment-status
+  reason: DHIS2 is not a payment system.
+- v2_vocabulary: delivery-channel
+  reason: DHIS2 is not a delivery system.
+- v2_vocabulary: withdrawal-channel
+  reason: DHIS2 is not a payment/delivery system.
+- v2_vocabulary: administration-mode
+  reason: No administration-mode concept in DHIS2 core.
+- v2_vocabulary: voucher-format
+  reason: No voucher model.
+- v2_vocabulary: voucher-status
+  reason: No voucher model.
+- v2_vocabulary: recipient-role
+  reason: No delivery model.
+- v2_vocabulary: hazard-type
+  reason: No hazard-event model.
+- v2_vocabulary: event-severity
+  reason: Per-deployment.
+- v2_vocabulary: event-certainty
+  reason: Per-deployment.
+- v2_vocabulary: displacement-status
+  reason: Per-deployment.
+- v2_vocabulary: acute-malnutrition-severity
+  reason: Per-deployment; would be configured on a nutrition ProgramStage.
+- v2_vocabulary: food-security-level
+  reason: Per-deployment.
+- v2_vocabulary: wg-ss-domain
+  reason: The WG Short Set is deployed as a ProgramStage with specific DataElements and option sets in
+    country configurations; not a core DHIS2 vocabulary.
+- v2_vocabulary: functional-difficulty-severity
+  reason: Per-deployment; typically the WG-SS Likert scale.
+- v2_vocabulary: functional-intensity
+  reason: Per-deployment.
+- v2_vocabulary: aid-use-frequency
+  reason: Per-deployment.
+- v2_vocabulary: mobility-aid-type
+  reason: Per-deployment.
+- v2_vocabulary: daily-duration
+  reason: Per-deployment.
+- v2_vocabulary: cfm-symptom-frequency
+  reason: Per-deployment (Child Functioning Module).
+- v2_vocabulary: cognition-remembering-extent
+  reason: Per-deployment.
+- v2_vocabulary: cognition-remembering-frequency
+  reason: Per-deployment.
+- v2_vocabulary: cognition-subdomain
+  reason: Per-deployment.
+- v2_vocabulary: comparative-behaviour-scale
+  reason: Per-deployment.
+- v2_vocabulary: symptom-chronicity
+  reason: Per-deployment.
+- v2_vocabulary: symptom-period-frequency
+  reason: Per-deployment.
+- v2_vocabulary: collection-medium
+  reason: No instrument/collection-medium model in DHIS2 meta-model.
+- v2_vocabulary: instrument-code
+  reason: No Instrument catalogue.
+- v2_vocabulary: pregnancy-status
+  reason: Per-deployment.
+external_excess:
+- external_entity: TrackedEntityAttribute
+  reason: 'Meta-model record describing one configurable attribute. In v2, attributes are not reified;
+    properties live on concepts directly. TEAs surface through Identifier (for unique=true TEAs) but there
+    is no general "attribute definition" concept.
 
-  # Humanitarian / crisis / hazard
-  - v2_vocabulary: hazard-type
-    reason: "No hazard-event model."
-  - v2_vocabulary: event-severity
-    reason: "Per-deployment."
-  - v2_vocabulary: event-certainty
-    reason: "Per-deployment."
-  - v2_vocabulary: displacement-status
-    reason: "Per-deployment."
+    '
+- external_entity: TrackedEntityType
+  reason: 'Meta-model record describing what attributes apply to a kind of tracked entity. v2 does not
+    reify per-type configuration at the schema level.
 
-  # Nutrition, food security, functioning (WG-SS and related)
-  - v2_vocabulary: acute-malnutrition-severity
-    reason: "Per-deployment; would be configured on a nutrition ProgramStage."
-  - v2_vocabulary: food-security-level
-    reason: "Per-deployment."
-  - v2_vocabulary: wg-ss-domain
-    reason: "The WG Short Set is deployed as a ProgramStage with specific DataElements and option sets in country configurations; not a core DHIS2 vocabulary."
-  - v2_vocabulary: functional-difficulty-severity
-    reason: "Per-deployment; typically the WG-SS Likert scale."
-  - v2_vocabulary: functional-intensity
-    reason: "Per-deployment."
-  - v2_vocabulary: aid-use-frequency
-    reason: "Per-deployment."
-  - v2_vocabulary: mobility-aid-type
-    reason: "Per-deployment."
-  - v2_vocabulary: daily-duration
-    reason: "Per-deployment."
-  - v2_vocabulary: cfm-symptom-frequency
-    reason: "Per-deployment (Child Functioning Module)."
-  - v2_vocabulary: cognition-remembering-extent
-    reason: "Per-deployment."
-  - v2_vocabulary: cognition-remembering-frequency
-    reason: "Per-deployment."
-  - v2_vocabulary: cognition-subdomain
-    reason: "Per-deployment."
-  - v2_vocabulary: comparative-behaviour-scale
-    reason: "Per-deployment."
-  - v2_vocabulary: symptom-chronicity
-    reason: "Per-deployment."
-  - v2_vocabulary: symptom-period-frequency
-    reason: "Per-deployment."
-  - v2_vocabulary: collection-medium
-    reason: "No instrument/collection-medium model in DHIS2 meta-model."
-  - v2_vocabulary: instrument-code
-    reason: "No Instrument catalogue."
-  - v2_vocabulary: pregnancy-status
-    reason: "Per-deployment."
+    '
+- external_entity: ProgramStage
+  reason: 'Meta-model record for a workflow step within a program. V2 Profile is related (see concept_matches)
+    but ProgramStage itself is configuration metadata, not a v2 concept.
 
-  # --- DHIS2 entities and enums with no v2 equivalent ---
+    '
+- external_entity: DataElement
+  reason: 'Meta-model record for a data point (question or indicator). Equivalent to a v2 property definition,
+    which is not a concept.
 
-  - external_entity: TrackedEntityAttribute
-    reason: >
-      Meta-model record describing one configurable attribute. In v2,
-      attributes are not reified; properties live on concepts directly.
-      TEAs surface through Identifier (for unique=true TEAs) but there
-      is no general "attribute definition" concept.
-  - external_entity: TrackedEntityType
-    reason: >
-      Meta-model record describing what attributes apply to a kind of
-      tracked entity. v2 does not reify per-type configuration at the
-      schema level.
-  - external_entity: ProgramStage
-    reason: >
-      Meta-model record for a workflow step within a program. V2
-      Profile is related (see concept_matches) but ProgramStage itself
-      is configuration metadata, not a v2 concept.
-  - external_entity: DataElement
-    reason: >
-      Meta-model record for a data point (question or indicator).
-      Equivalent to a v2 property definition, which is not a concept.
-  - external_entity: RelationshipType
-    reason: >
-      Configuration of a relationship class (bidirectional flag,
-      constraints). Surfaces in the Relationship decomposition above;
-      not a v2 concept.
-  - external_entity: RelationshipConstraint
-    reason: "Configuration attached to RelationshipType; not a v2 concept."
-  - external_entity: TrackerRelationshipItem
-    reason: "Wrapper around one side of a TrackerRelationship; plumbing, not a concept."
-  - external_entity: TrackerDataValue
-    reason: >
-      A single observed value within a TrackerEvent. v2 does not reify
-      individual observations as a concept; observations live inside
-      Profile records as property values.
-  - external_entity: TrackerNote
-    reason: "Free-form caseworker note. No v2 concept for this."
-  - external_entity: TrackerUser
-    reason: "User reference carrying UID and display name. V2 has no User concept."
-  - external_entity: TrackerProgramOwner
-    reason: >
-      Links a tracked entity to its owning OrganisationUnit for a given
-      Program. Access-control metadata, not a v2 concept.
+    '
+- external_entity: RelationshipType
+  reason: 'Configuration of a relationship class (bidirectional flag, constraints). Surfaces in the Relationship
+    decomposition above; not a v2 concept.
 
-  - external_vocabulary: EventStatus
-    reason: >
-      Workflow status of a TrackerEvent (ACTIVE, COMPLETED, VISITED,
-      SCHEDULE, OVERDUE, SKIPPED). v2 does not reify tracker-event
-      workflow status; Event records model the real-world occurrence.
-  - external_vocabulary: ValueType
-    reason: >
-      DHIS2 primitive value type for DataElement / TEA configuration
-      (TEXT, NUMBER, DATE, etc.). v2 types are implicit in property
-      definitions and not surfaced as a shared enum.
-  - external_vocabulary: FeatureType
-    reason: >
-      Geometry shape type for OrganisationUnit / TrackerEvent
-      (NONE, POINT, POLYGON, MULTI_POLYGON, SYMBOL). v2 Location
-      geometry is expressed via GeoJSON directly; no shape-type enum.
-  - external_vocabulary: AccessLevel
-    reason: >
-      Program confidentiality policy (OPEN, AUDITED, PROTECTED, CLOSED).
-      V2 does not model access policy at the concept level.
-  - external_vocabulary: RelationshipEntity
-    reason: >
-      Which kind of tracker item each side of a RelationshipType can
-      link (TRACKED_ENTITY_INSTANCE, PROGRAM_INSTANCE,
-      PROGRAM_STAGE_INSTANCE). V2 Relationship only links parties.
-  - external_vocabulary: ProgramType
-    reason: >
-      WITH_REGISTRATION vs WITHOUT_REGISTRATION — DHIS2 architecture
-      distinction between tracker and event programmes. No v2 equivalent.
+    '
+- external_entity: RelationshipConstraint
+  reason: Configuration attached to RelationshipType; not a v2 concept.
+- external_entity: TrackerRelationshipItem
+  reason: Wrapper around one side of a TrackerRelationship; plumbing, not a concept.
+- external_entity: TrackerDataValue
+  reason: 'A single observed value within a TrackerEvent. v2 does not reify individual observations as
+    a concept; observations live inside Profile records as property values.
+
+    '
+- external_entity: TrackerNote
+  reason: Free-form caseworker note. No v2 concept for this.
+- external_entity: TrackerUser
+  reason: User reference carrying UID and display name. V2 has no User concept.
+- external_entity: TrackerProgramOwner
+  reason: 'Links a tracked entity to its owning OrganisationUnit for a given Program. Access-control metadata,
+    not a v2 concept.
+
+    '
+- external_vocabulary: EventStatus
+  reason: 'Workflow status of a TrackerEvent (ACTIVE, COMPLETED, VISITED, SCHEDULE, OVERDUE, SKIPPED).
+    v2 does not reify tracker-event workflow status; Event records model the real-world occurrence.
+
+    '
+- external_vocabulary: ValueType
+  reason: 'DHIS2 primitive value type for DataElement / TEA configuration (TEXT, NUMBER, DATE, etc.).
+    v2 types are implicit in property definitions and not surfaced as a shared enum.
+
+    '
+- external_vocabulary: FeatureType
+  reason: 'Geometry shape type for OrganisationUnit / TrackerEvent (NONE, POINT, POLYGON, MULTI_POLYGON,
+    SYMBOL). v2 Location geometry is expressed via GeoJSON directly; no shape-type enum.
+
+    '
+- external_vocabulary: AccessLevel
+  reason: 'Program confidentiality policy (OPEN, AUDITED, PROTECTED, CLOSED). V2 does not model access
+    policy at the concept level.
+
+    '
+- external_vocabulary: RelationshipEntity
+  reason: 'Which kind of tracker item each side of a RelationshipType can link (TRACKED_ENTITY_INSTANCE,
+    PROGRAM_INSTANCE, PROGRAM_STAGE_INSTANCE). V2 Relationship only links parties.
+
+    '
+- external_vocabulary: ProgramType
+  reason: 'WITH_REGISTRATION vs WITHOUT_REGISTRATION — DHIS2 architecture distinction between tracker
+    and event programmes. No v2 equivalent.
+
+    '

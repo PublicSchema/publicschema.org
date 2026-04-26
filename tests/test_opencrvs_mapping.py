@@ -140,17 +140,19 @@ class TestStructure:
         assert missing == [], "\n".join(missing)
 
     def test_vocabulary_matches_required_fields(self, matching):
-        """Every vocabulary match must identify both sides and carry notes.
-        external_source is optional for country_config entries where the
-        field is a free String with no fixed enumeration."""
+        """Every vocabulary match must identify the v2 side and carry notes.
+        For country_config entries, neither external_vocabulary nor
+        external_source is required: by definition there is no central
+        enumeration to point at."""
         missing = []
         for i, entry in enumerate(matching["matches"]):
             tag = entry.get("v2_vocabulary", f"[{i}]")
-            for field in ["v2_vocabulary", "external_vocabulary", "notes"]:
+            required = ["v2_vocabulary", "notes"]
+            if not entry.get("country_config"):
+                required.extend(["external_vocabulary", "external_source"])
+            for field in required:
                 if field not in entry:
                     missing.append(f"matches[{i}] ({tag}) missing '{field}'")
-            if not entry.get("country_config") and "external_source" not in entry:
-                missing.append(f"matches[{i}] ({tag}) missing 'external_source' (not a country_config entry)")
         assert missing == [], "\n".join(missing)
 
     def test_no_match_entries_have_reason(self, matching):

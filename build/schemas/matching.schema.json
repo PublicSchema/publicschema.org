@@ -1,0 +1,215 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://publicschema.org/schemas/matching.schema.json",
+  "title": "PublicSchema External System Matching",
+  "description": "Documents how an external system's concepts, vocabularies, and properties align with PublicSchema. One file per system at external/<system>/matching.yaml. The build pipeline projects this into dist/system_matchings.json which the site consumes.",
+  "type": "object",
+  "required": ["system", "concept_matches", "matches", "no_match", "external_excess"],
+  "additionalProperties": false,
+  "properties": {
+    "system": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*$",
+      "description": "snake_case system identifier. Must match a key in site/src/data/systems.ts systemRegistry."
+    },
+    "system_version": {
+      "type": ["string", "null"],
+      "description": "Version of the external system the matching was performed against (e.g. '19.0', 'v2-event-service', 'stable-2-42-4')."
+    },
+    "source_repository": {
+      "type": "string",
+      "format": "uri",
+      "description": "Authoritative source the matching was derived from (typically a GitHub URL)."
+    },
+    "source_branch": {
+      "type": "string",
+      "description": "Branch or tag name within source_repository."
+    },
+    "fhir_repository": {
+      "type": "string",
+      "format": "uri",
+      "description": "Optional secondary FHIR repository (used by openimis where FHIR mappings live in a separate repo)."
+    },
+    "fhir_branch": {
+      "type": "string"
+    },
+    "country_config_reference": {
+      "type": "object",
+      "description": "Optional reference to a country configuration repository (used by opencrvs where many vocabularies are country-configured rather than core)."
+    },
+    "last_reviewed": {
+      "type": "string",
+      "format": "date",
+      "description": "ISO date (YYYY-MM-DD) when the matching was last verified against the external system. Surfaced on the site as a freshness indicator."
+    },
+    "concept_matches": {
+      "type": "array",
+      "description": "Concept-level alignments between PublicSchema concepts and external system entities. Empty array if not yet researched.",
+      "items": { "$ref": "#/$defs/concept_match" }
+    },
+    "matches": {
+      "type": "array",
+      "description": "Vocabulary- and property-level matches. May include code-by-code value_mapping tables, same_standard flags, and gap notes.",
+      "items": { "$ref": "#/$defs/match" }
+    },
+    "no_match": {
+      "type": "array",
+      "description": "PublicSchema concepts, vocabularies, or properties that the external system does not model, with a reason. Each entry MUST reference a v2_concept, v2_vocabulary, or v2_property; entries describing external-only items belong in external_excess.",
+      "items": { "$ref": "#/$defs/no_match_entry" }
+    },
+    "external_excess": {
+      "type": "array",
+      "description": "External system fields, vocabularies, or entities that PublicSchema does not currently model, with a reason. This is a PublicSchema coverage backlog signal, not a system-coverage signal, and is intentionally not surfaced on system detail pages.",
+      "items": { "$ref": "#/$defs/external_excess_entry" }
+    }
+  },
+  "$defs": {
+    "match_level": {
+      "type": "string",
+      "enum": ["exact", "close", "broad", "narrow", "related"],
+      "description": "Strength of alignment. exact = identical scope and codes; close = same scope, minor differences; broad = external is broader than PublicSchema; narrow = external is narrower; related = adjacent but not directly substitutable."
+    },
+    "confidence": {
+      "type": "string",
+      "enum": ["high", "medium", "low"],
+      "description": "Reviewer confidence in the match. Independent of match_level: a 'related' match can be high-confidence."
+    },
+    "concept_match": {
+      "type": "object",
+      "required": ["v2_concept", "external_entity", "match"],
+      "additionalProperties": true,
+      "properties": {
+        "v2_concept": {
+          "type": "string",
+          "description": "PublicSchema concept reference. Domain-scoped concepts use composite form (e.g. 'sp/Enrollment', 'crvs/Birth'); root concepts use bare id (e.g. 'Person')."
+        },
+        "external_entity": {
+          "type": "string",
+          "description": "Name or identifier of the corresponding external entity (class, resource, model)."
+        },
+        "match": { "$ref": "#/$defs/match_level" },
+        "external_source": {
+          "type": "string",
+          "description": "Path or URL pointing at the external definition."
+        },
+        "surface": {
+          "type": "string",
+          "description": "Where in the external system the entity is exposed (e.g. 'rest_api_v2', 'event_v2', 'internal_model'). Useful when a system distinguishes a public API surface from internal models."
+        },
+        "notes": {
+          "type": "string",
+          "description": "Free-text rationale, caveats, or shape differences."
+        },
+        "decomposition": {
+          "type": "array",
+          "description": "Optional field-by-field projection, used when a single external entity decomposes into multiple PublicSchema concepts.",
+          "items": { "type": "object" }
+        }
+      }
+    },
+    "match": {
+      "type": "object",
+      "additionalProperties": true,
+      "oneOf": [
+        { "required": ["v2_vocabulary"] },
+        { "required": ["v2_property"] }
+      ],
+      "properties": {
+        "v2_vocabulary": {
+          "type": "string",
+          "description": "PublicSchema vocabulary reference (canonical '<domain>/<id>' or bare '<id>' form)."
+        },
+        "v2_property": {
+          "type": "string",
+          "description": "PublicSchema property id."
+        },
+        "external_vocabulary": { "type": "string" },
+        "external_field": { "type": "string" },
+        "external_source": { "type": "string" },
+        "external_context": { "type": "string" },
+        "surface": { "type": "string" },
+        "match": { "$ref": "#/$defs/match_level" },
+        "confidence": { "$ref": "#/$defs/confidence" },
+        "same_standard": {
+          "type": "boolean",
+          "description": "Both sides reference the same international standard (e.g. ISO 4217 currencies). Implies value-by-value equivalence without an explicit value_mapping."
+        },
+        "value_mapping": {
+          "type": "object",
+          "description": "Code-by-code map. Keys are external codes, values are PublicSchema codes (or null when no PublicSchema equivalent exists)."
+        },
+        "gaps": {
+          "description": "Codes or aspects present on one side but not the other. Two accepted shapes: (a) an object with v2_only/external_only code lists (used by most systems for vocabulary mappings); (b) an array of free-text gap descriptions (used by ocha-cods for property-level mappings where gaps are prose, not enumerable codes).",
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "v2_only": {
+                  "type": "array",
+                  "items": { "type": "string" }
+                },
+                "external_only": {
+                  "type": "array",
+                  "items": { "type": "string" }
+                }
+              }
+            },
+            {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          ]
+        },
+        "notes": { "type": "string" },
+        "fhir_resource": {
+          "type": "string",
+          "description": "openimis-specific: the FHIR resource the vocabulary is exposed through."
+        },
+        "level_pattern": { "type": "string" },
+        "transformation": { "type": "string" },
+        "api_endpoint": { "type": "string" },
+        "api_coverage": { "type": "string" }
+      }
+    },
+    "no_match_entry": {
+      "type": "object",
+      "required": ["reason"],
+      "additionalProperties": false,
+      "oneOf": [
+        { "required": ["v2_concept"] },
+        { "required": ["v2_vocabulary"] },
+        { "required": ["v2_property"] }
+      ],
+      "properties": {
+        "v2_concept": { "type": "string" },
+        "v2_vocabulary": { "type": "string" },
+        "v2_property": { "type": "string" },
+        "reason": {
+          "type": "string",
+          "description": "Why the external system does not model this PublicSchema item. Surfaced on the system detail page."
+        }
+      }
+    },
+    "external_excess_entry": {
+      "type": "object",
+      "required": ["reason"],
+      "additionalProperties": false,
+      "oneOf": [
+        { "required": ["external_vocabulary"] },
+        { "required": ["external_field"] },
+        { "required": ["external_entity"] }
+      ],
+      "properties": {
+        "external_vocabulary": { "type": "string" },
+        "external_field": { "type": "string" },
+        "external_entity": { "type": "string" },
+        "external_source": { "type": "string" },
+        "reason": {
+          "type": "string",
+          "description": "Why PublicSchema does not currently model this external item. Feeds the PublicSchema coverage backlog, not the public system page."
+        }
+      }
+    }
+  }
+}

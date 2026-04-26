@@ -23,9 +23,13 @@ build:
     mkdir -p {{site_dir}}/public/preview
     cp {{dist_dir}}/preview/*.json {{site_dir}}/public/preview/
 
-# Validate all YAML source files (schema, referential integrity, translations)
+# Validate all YAML source files (schema, referential integrity, translations, system matchings)
 validate:
     uv run python -m build.validate
+
+# Validate external/<system>/matching.yaml files against build/schemas/matching.schema.json
+validate-matchings:
+    uv run python -m build.validate_matchings
 
 # Sync external standard vocabularies (countries, currencies, languages, etc.)
 sync-standards:

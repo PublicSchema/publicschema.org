@@ -516,11 +516,14 @@ def _collect_inherited_ids(
 
 def main():
     """CLI entry point for validation."""
+    from build.validate_matchings import validate_matchings_dir
+
     schema_dir = Path("schema")
     if len(sys.argv) > 1:
         schema_dir = Path(sys.argv[1])
 
     issues = validate_schema_dir(schema_dir)
+    issues.extend(validate_matchings_dir(schema_dir.parent / "external"))
     warnings = [i for i in issues if i.severity == "warning"]
     errors = [i for i in issues if i.severity == "error"]
 

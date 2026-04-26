@@ -1,243 +1,221 @@
 system: govstack_payments
-
-# This file maps GovStack Payment Building Block (BB) vocabularies against
-# PublicSchema v2 vocabularies.
-#
-# The GovStack Payment BB is an API specification for payment processing
-# infrastructure, not a program management data model. It defines three
-# API families: G2P (government-to-person disbursement), Voucher (voucher
-# lifecycle), and P2G (person-to-government bill payment).
-#
-# Source: bb-payments/api/ (OpenAPI 3.0.0 YAMLs) and bb-payments/spec/
-# (specification document with data structure definitions).
-#
-# Confidence levels:
-#   high   - same standard or very close semantic alignment with clear code mapping
-#   medium - similar concept, partial overlap or some codes don't map cleanly
-#   low    - related domain but significant structural differences
-
+concept_matches: []
 matches:
-
-  # -----------------------------------------------------------------------
-  # Standard equivalences
-  # -----------------------------------------------------------------------
-
-  - v2_vocabulary: currency
-    external_vocabulary: "currency (ISO 4217)"
-    external_source: "spec/7-data-structures.md (String(3) currency fields throughout)"
-    confidence: high
-    same_standard: true
-    notes: "All currency fields in the Payment BB use ISO 4217 alpha-3 codes with maxLength 3. No mapping needed."
-    gaps:
-      v2_only: []
-      external_only: []
-
-  # -----------------------------------------------------------------------
-  # G2P vocabularies
-  # -----------------------------------------------------------------------
-
-  - v2_vocabulary: delivery-channel
-    external_vocabulary: paymentModality
-    external_source: "spec/7-data-structures.md section 7.1.1; RegisterBeneficiaryResponse.yml"
-    confidence: medium
-    notes: "paymentModality describes the payment instrument used to deliver a benefit. Two codes (00, 01) map directly to delivery channels. Code 02 (Voucher) is a benefit modality rather than a delivery mechanism. Code 03 (Digital Wallet) is broader than mobile_money but similar. Code 04 (Proxy) describes an intermediary arrangement, orthogonal to delivery channel."
-    value_mapping:
-      "00": bank_transfer
-      "01": mobile_money
-      "02": ~
-      "03": ~
-      "04": ~
-    gaps:
-      v2_only: [cash, agent_network, prepaid_card, service_point, other]
-      external_only:
-        - "02 (Voucher: maps to benefit-modality, not delivery-channel)"
-        - "03 (Digital Wallet: no exact match; closest is mobile_money)"
-        - "04 (Proxy: intermediary receiving on behalf; closest is agent_network)"
-
-  - v2_vocabulary: benefit-modality
-    external_vocabulary: paymentModality (partial)
-    external_source: "spec/7-data-structures.md section 7.1.1; RegisterBeneficiaryResponse.yml"
-    confidence: low
-    notes: "paymentModality is primarily a delivery channel vocabulary, but code 02 (Voucher) crosses into benefit modality. The Payment BB does not distinguish cash transfer from in-kind or service delivery at the modality level; it only handles monetary and voucher instruments."
-    value_mapping:
-      "02": voucher
-    gaps:
-      v2_only: [cash, in_kind, service, fee_waiver, insurance]
-      external_only:
-        - "00 (Bank Account: delivery channel, not modality)"
-        - "01 (Mobile Money: delivery channel, not modality)"
-        - "03 (Digital Wallet: delivery channel, not modality)"
-        - "04 (Proxy: delivery channel, not modality)"
-
-  - v2_vocabulary: payment-status
-    external_vocabulary: "BatchTransactionStatus (implied)"
-    external_source: "BulkPaymentStatusUpdate.yml (batch counters); BatchDetails.yml (status field)"
-    confidence: low
-    notes: "The Payment BB does not enumerate individual transaction statuses. The batch-level counters in BulkPaymentStatusUpdate use field names (ongoing, completed, failed) that imply three lifecycle states. The status field in BatchDetails is a free string. This mapping is based on the batch counter semantics, not a formal enum."
-    value_mapping:
-      "ongoing": processing
-      "completed": paid
-      "failed": failed
-    gaps:
-      v2_only: [pending, returned, rejected, cancelled, reconciled]
-      external_only: []
-
-  # -----------------------------------------------------------------------
-  # Voucher vocabularies
-  # -----------------------------------------------------------------------
-
-  - v2_vocabulary: voucher-status
-    external_vocabulary: VoucherStatus
-    external_source: "VoucherStatus.yml (status integer 01-06, 9); spec/7-data-structures.md section 7.3"
-    confidence: high
-    notes: "GovStack defines a two-phase lifecycle (pre-activation then activation) that maps cleanly to PublicSchema's created/issued distinction. Six of seven GovStack statuses map directly. Code 9 (Error) is an operational state, not a lifecycle status. The spec narrative also mentions Blocked and Not Existing states which may correspond to unnamed codes."
-    value_mapping:
-      "01": created
-      "02": issued
-      "03": redeemed
-      "04": cancelled
-      "05": suspended
-      "06": expired
-      "9": ~
-    gaps:
-      v2_only: [partially_redeemed]
-      external_only:
-        - "9 (Error: operational state, not a lifecycle status)"
-
-  # -----------------------------------------------------------------------
-  # P2G vocabularies
-  # -----------------------------------------------------------------------
-
-  - v2_vocabulary: payment-status
-    external_vocabulary: requestStatus (P2G RTP)
-    external_source: "rtpStatusUpdateResponse.yml"
-    external_context: "P2G (person-to-government bill payment), reverse flow from social protection delivery"
-    confidence: low
-    notes: "requestStatus tracks the lifecycle of a Request-to-Pay in the P2G bill payment flow. Although the status codes overlap semantically with payment-status, the domain context is reversed: this is a citizen paying a government bill, not a program disbursing a benefit. The mapping is included for completeness but should be interpreted with care."
-    value_mapping:
-      "COM": paid
-      "PND": pending
-      "EXP": ~
-      "CAN": cancelled
-      "RJC": rejected
-    gaps:
-      v2_only: [processing, failed, returned, reconciled]
-      external_only:
-        - "EXP (Expired: no equivalent in payment-status)"
-
+- v2_vocabulary: currency
+  external_vocabulary: currency (ISO 4217)
+  external_source: spec/7-data-structures.md (String(3) currency fields throughout)
+  confidence: high
+  same_standard: true
+  notes: All currency fields in the Payment BB use ISO 4217 alpha-3 codes with maxLength 3. No mapping
+    needed.
+  gaps:
+    v2_only: []
+    external_only: []
+- v2_vocabulary: delivery-channel
+  external_vocabulary: paymentModality
+  external_source: spec/7-data-structures.md section 7.1.1; RegisterBeneficiaryResponse.yml
+  confidence: medium
+  notes: paymentModality describes the payment instrument used to deliver a benefit. Two codes (00, 01)
+    map directly to delivery channels. Code 02 (Voucher) is a benefit modality rather than a delivery
+    mechanism. Code 03 (Digital Wallet) is broader than mobile_money but similar. Code 04 (Proxy) describes
+    an intermediary arrangement, orthogonal to delivery channel.
+  value_mapping:
+    '00': bank_transfer
+    '01': mobile_money
+    '02': null
+    '03': null
+    '04': null
+  gaps:
+    v2_only:
+    - cash
+    - agent_network
+    - prepaid_card
+    - service_point
+    - other
+    external_only:
+    - '02 (Voucher: maps to benefit-modality, not delivery-channel)'
+    - '03 (Digital Wallet: no exact match; closest is mobile_money)'
+    - '04 (Proxy: intermediary receiving on behalf; closest is agent_network)'
+- v2_vocabulary: benefit-modality
+  external_vocabulary: paymentModality (partial)
+  external_source: spec/7-data-structures.md section 7.1.1; RegisterBeneficiaryResponse.yml
+  confidence: low
+  notes: paymentModality is primarily a delivery channel vocabulary, but code 02 (Voucher) crosses into
+    benefit modality. The Payment BB does not distinguish cash transfer from in-kind or service delivery
+    at the modality level; it only handles monetary and voucher instruments.
+  value_mapping:
+    '02': voucher
+  gaps:
+    v2_only:
+    - cash
+    - in_kind
+    - service
+    - fee_waiver
+    - insurance
+    external_only:
+    - '00 (Bank Account: delivery channel, not modality)'
+    - '01 (Mobile Money: delivery channel, not modality)'
+    - '03 (Digital Wallet: delivery channel, not modality)'
+    - '04 (Proxy: delivery channel, not modality)'
+- v2_vocabulary: payment-status
+  external_vocabulary: BatchTransactionStatus (implied)
+  external_source: BulkPaymentStatusUpdate.yml (batch counters); BatchDetails.yml (status field)
+  confidence: low
+  notes: The Payment BB does not enumerate individual transaction statuses. The batch-level counters in
+    BulkPaymentStatusUpdate use field names (ongoing, completed, failed) that imply three lifecycle states.
+    The status field in BatchDetails is a free string. This mapping is based on the batch counter semantics,
+    not a formal enum.
+  value_mapping:
+    ongoing: processing
+    completed: paid
+    failed: failed
+  gaps:
+    v2_only:
+    - pending
+    - returned
+    - rejected
+    - cancelled
+    - reconciled
+    external_only: []
+- v2_vocabulary: voucher-status
+  external_vocabulary: VoucherStatus
+  external_source: VoucherStatus.yml (status integer 01-06, 9); spec/7-data-structures.md section 7.3
+  confidence: high
+  notes: GovStack defines a two-phase lifecycle (pre-activation then activation) that maps cleanly to
+    PublicSchema's created/issued distinction. Six of seven GovStack statuses map directly. Code 9 (Error)
+    is an operational state, not a lifecycle status. The spec narrative also mentions Blocked and Not
+    Existing states which may correspond to unnamed codes.
+  value_mapping:
+    '01': created
+    '02': issued
+    '03': redeemed
+    '04': cancelled
+    '05': suspended
+    '06': expired
+    '9': null
+  gaps:
+    v2_only:
+    - partially_redeemed
+    external_only:
+    - '9 (Error: operational state, not a lifecycle status)'
+- v2_vocabulary: payment-status
+  external_vocabulary: requestStatus (P2G RTP)
+  external_source: rtpStatusUpdateResponse.yml
+  external_context: P2G (person-to-government bill payment), reverse flow from social protection delivery
+  confidence: low
+  notes: 'requestStatus tracks the lifecycle of a Request-to-Pay in the P2G bill payment flow. Although
+    the status codes overlap semantically with payment-status, the domain context is reversed: this is
+    a citizen paying a government bill, not a program disbursing a benefit. The mapping is included for
+    completeness but should be interpreted with care.'
+  value_mapping:
+    COM: paid
+    PND: pending
+    EXP: null
+    CAN: cancelled
+    RJC: rejected
+  gaps:
+    v2_only:
+    - processing
+    - failed
+    - returned
+    - reconciled
+    external_only:
+    - 'EXP (Expired: no equivalent in payment-status)'
 no_match:
-
-  # -----------------------------------------------------------------------
-  # v2 vocabularies with no GovStack Payment BB equivalent
-  # -----------------------------------------------------------------------
-
-  - v2_vocabulary: enrollment-status
-    reason: "The Payment BB does not model program enrollment. Enrollment is managed by the upstream Source BB (e.g., OpenSPP, openIMIS)."
-
-  - v2_vocabulary: eligibility-status
-    reason: "The Payment BB does not model eligibility decisions. Eligibility is determined by the upstream Source BB before payment instructions are sent."
-
-  - v2_vocabulary: entitlement-status
-    reason: "The Payment BB receives payment instructions but does not track entitlement lifecycle. Entitlement management belongs to the Source BB."
-
-  - v2_vocabulary: grievance-status
-    reason: "The Payment BB does not include a grievance or complaints module."
-
-  - v2_vocabulary: grievance-type
-    reason: "The Payment BB does not include a grievance or complaints module."
-
-  - v2_vocabulary: referral-status
-    reason: "The Payment BB does not model inter-program referrals."
-
-  - v2_vocabulary: gender-type
-    reason: "The Payment BB does not collect or store demographic data. Person identity is limited to a functional ID for payment routing."
-
-  - v2_vocabulary: sex
-    reason: "The Payment BB does not collect or store demographic data."
-
-  - v2_vocabulary: marital-status
-    reason: "The Payment BB does not collect or store demographic data."
-
-  - v2_vocabulary: education-level
-    reason: "The Payment BB does not collect or store demographic data."
-
-  - v2_vocabulary: relationship-type
-    reason: "The Payment BB does not model person-to-person or person-to-group relationships."
-
-  - v2_vocabulary: group-type
-    reason: "The Payment BB does not model households, families, or groups. It operates at the individual beneficiary level for payment routing."
-
-  - v2_vocabulary: group-role
-    reason: "The Payment BB does not model group membership or roles."
-
-  - v2_vocabulary: identifier-type
-    reason: "The Payment BB uses a single opaque functional ID (payeeIdentity/payeeFunctionalID) for beneficiary identification. It does not categorize identifier types."
-
-  - v2_vocabulary: hazard-type
-    reason: "The Payment BB does not model hazard or shock events."
-
-  - v2_vocabulary: event-severity
-    reason: "The Payment BB does not model event severity or priority."
-
-  - v2_vocabulary: event-certainty
-    reason: "The Payment BB does not model event certainty."
-
-  - v2_vocabulary: targeting-approach
-    reason: "The Payment BB does not model targeting methodology. Targeting is done by the upstream Source BB."
-
-  - v2_vocabulary: conditionality-type
-    reason: "The Payment BB does not model benefit conditionality."
-
-  - v2_vocabulary: voucher-format
-    reason: "The Payment BB does not distinguish physical vs. electronic voucher format. Vouchers are created with a serial number and encrypted secret number; the delivery mechanism to the beneficiary is outside the BB scope."
-
-  - v2_vocabulary: benefit-frequency
-    reason: "The Payment BB does not model payment frequency. It executes individual batch payment instructions on demand; scheduling and frequency are managed by the Source BB."
-
-  # -----------------------------------------------------------------------
-  # GovStack Payment BB enums with no v2 vocabulary equivalent
-  # -----------------------------------------------------------------------
-
-  - external_vocabulary: "beneficiaryStatus (0/1)"
-    external_source: "UpdateBeneficiaryRequest.yml"
-    reason: "Active/inactive status of a beneficiary record in the ID Mapper. This is an infrastructure record management state, not a program enrollment or payment lifecycle status."
-
-  - external_vocabulary: "fundsAuthorizationStatus (Y/N)"
-    external_source: "GetAuthorizationResponse.yml"
-    reason: "Bank-level funds availability check for a payment batch. This is a financial operations concept with no domain-level equivalent in PublicSchema."
-
-  - external_vocabulary: "billPaymentStatus (ACK/RJC)"
-    external_source: "markBillPpaymentResponse.yml"
-    reason: "Biller acknowledgment of a bill payment notification in the P2G flow. This is a P2G operational acknowledgment, not a benefit delivery status."
-
-  - external_vocabulary: "billRejectReason (Def/Dup/Und)"
-    external_source: "markBillPpaymentResponse.yml"
-    reason: "Reason codes for a biller rejecting a bill payment notification. P2G operational codes with no social protection delivery equivalent."
-
-  - external_vocabulary: "rtpStatus (00/01)"
-    external_source: "billerRtpResponse.yml"
-    reason: "Success/failure of a Request-to-Pay response. Binary outcome code for P2G payment requests with no direct PublicSchema equivalent."
-
-  - external_vocabulary: "rtpRejectReason (R/E/W)"
-    external_source: "billerRtpResponse.yml"
-    reason: "Reject reason codes for a Request-to-Pay. P2G operational codes (Rejected, Error, Warning) with no social protection delivery equivalent."
-
-  - external_vocabulary: "rtpRequestType (00/01)"
-    external_source: "billerRtpReq.yml"
-    reason: "Type of Request-to-Pay. The two values are not labeled in the spec. P2G-specific concept."
-
-  - external_vocabulary: "aliasType (00/01/02)"
-    external_source: "billerRtpReq.yml"
-    reason: "Payment alias type for P2G routing (phone, email, national ID). PublicSchema models identifiers but not payment aliases. The overlap with identifier-type is incidental; aliasType is about payment routing, not person identification."
-
-  - external_vocabulary: "voucherRedemptionResult (0/1)"
-    external_source: "VoucherRedemption.yml"
-    reason: "Success/failure of a synchronous voucher redemption operation. This is a transaction outcome, not a voucher lifecycle status."
-
-  - external_vocabulary: "voucherGroupCode"
-    external_source: "spec/7-data-structures.md section 7.3"
-    reason: "Voucher group codes restrict voucher use cases and serve as a reporting dimension. PublicSchema does not model voucher grouping or categorization."
-
-  - external_vocabulary: "billStatus (paid/unpaid)"
-    external_source: "billInquiryBillerResponse.yml"
-    reason: "Payment status of a government bill. P2G-specific concept with no social protection delivery equivalent."
+- v2_vocabulary: enrollment-status
+  reason: The Payment BB does not model program enrollment. Enrollment is managed by the upstream Source
+    BB (e.g., OpenSPP, openIMIS).
+- v2_vocabulary: eligibility-status
+  reason: The Payment BB does not model eligibility decisions. Eligibility is determined by the upstream
+    Source BB before payment instructions are sent.
+- v2_vocabulary: entitlement-status
+  reason: The Payment BB receives payment instructions but does not track entitlement lifecycle. Entitlement
+    management belongs to the Source BB.
+- v2_vocabulary: grievance-status
+  reason: The Payment BB does not include a grievance or complaints module.
+- v2_vocabulary: grievance-type
+  reason: The Payment BB does not include a grievance or complaints module.
+- v2_vocabulary: referral-status
+  reason: The Payment BB does not model inter-program referrals.
+- v2_vocabulary: gender-type
+  reason: The Payment BB does not collect or store demographic data. Person identity is limited to a functional
+    ID for payment routing.
+- v2_vocabulary: sex
+  reason: The Payment BB does not collect or store demographic data.
+- v2_vocabulary: marital-status
+  reason: The Payment BB does not collect or store demographic data.
+- v2_vocabulary: education-level
+  reason: The Payment BB does not collect or store demographic data.
+- v2_vocabulary: relationship-type
+  reason: The Payment BB does not model person-to-person or person-to-group relationships.
+- v2_vocabulary: group-type
+  reason: The Payment BB does not model households, families, or groups. It operates at the individual
+    beneficiary level for payment routing.
+- v2_vocabulary: group-role
+  reason: The Payment BB does not model group membership or roles.
+- v2_vocabulary: identifier-type
+  reason: The Payment BB uses a single opaque functional ID (payeeIdentity/payeeFunctionalID) for beneficiary
+    identification. It does not categorize identifier types.
+- v2_vocabulary: hazard-type
+  reason: The Payment BB does not model hazard or shock events.
+- v2_vocabulary: event-severity
+  reason: The Payment BB does not model event severity or priority.
+- v2_vocabulary: event-certainty
+  reason: The Payment BB does not model event certainty.
+- v2_vocabulary: targeting-approach
+  reason: The Payment BB does not model targeting methodology. Targeting is done by the upstream Source
+    BB.
+- v2_vocabulary: conditionality-type
+  reason: The Payment BB does not model benefit conditionality.
+- v2_vocabulary: voucher-format
+  reason: The Payment BB does not distinguish physical vs. electronic voucher format. Vouchers are created
+    with a serial number and encrypted secret number; the delivery mechanism to the beneficiary is outside
+    the BB scope.
+- v2_vocabulary: benefit-frequency
+  reason: The Payment BB does not model payment frequency. It executes individual batch payment instructions
+    on demand; scheduling and frequency are managed by the Source BB.
+external_excess:
+- external_vocabulary: beneficiaryStatus (0/1)
+  external_source: UpdateBeneficiaryRequest.yml
+  reason: Active/inactive status of a beneficiary record in the ID Mapper. This is an infrastructure record
+    management state, not a program enrollment or payment lifecycle status.
+- external_vocabulary: fundsAuthorizationStatus (Y/N)
+  external_source: GetAuthorizationResponse.yml
+  reason: Bank-level funds availability check for a payment batch. This is a financial operations concept
+    with no domain-level equivalent in PublicSchema.
+- external_vocabulary: billPaymentStatus (ACK/RJC)
+  external_source: markBillPpaymentResponse.yml
+  reason: Biller acknowledgment of a bill payment notification in the P2G flow. This is a P2G operational
+    acknowledgment, not a benefit delivery status.
+- external_vocabulary: billRejectReason (Def/Dup/Und)
+  external_source: markBillPpaymentResponse.yml
+  reason: Reason codes for a biller rejecting a bill payment notification. P2G operational codes with
+    no social protection delivery equivalent.
+- external_vocabulary: rtpStatus (00/01)
+  external_source: billerRtpResponse.yml
+  reason: Success/failure of a Request-to-Pay response. Binary outcome code for P2G payment requests with
+    no direct PublicSchema equivalent.
+- external_vocabulary: rtpRejectReason (R/E/W)
+  external_source: billerRtpResponse.yml
+  reason: Reject reason codes for a Request-to-Pay. P2G operational codes (Rejected, Error, Warning) with
+    no social protection delivery equivalent.
+- external_vocabulary: rtpRequestType (00/01)
+  external_source: billerRtpReq.yml
+  reason: Type of Request-to-Pay. The two values are not labeled in the spec. P2G-specific concept.
+- external_vocabulary: aliasType (00/01/02)
+  external_source: billerRtpReq.yml
+  reason: Payment alias type for P2G routing (phone, email, national ID). PublicSchema models identifiers
+    but not payment aliases. The overlap with identifier-type is incidental; aliasType is about payment
+    routing, not person identification.
+- external_vocabulary: voucherRedemptionResult (0/1)
+  external_source: VoucherRedemption.yml
+  reason: Success/failure of a synchronous voucher redemption operation. This is a transaction outcome,
+    not a voucher lifecycle status.
+- external_vocabulary: voucherGroupCode
+  external_source: spec/7-data-structures.md section 7.3
+  reason: Voucher group codes restrict voucher use cases and serve as a reporting dimension. PublicSchema
+    does not model voucher grouping or categorization.
+- external_vocabulary: billStatus (paid/unpaid)
+  external_source: billInquiryBillerResponse.yml
+  reason: Payment status of a government bill. P2G-specific concept with no social protection delivery
+    equivalent.

@@ -5,674 +5,516 @@ source_branch: develop
 country_config_reference:
   repository: https://github.com/opencrvs/opencrvs-farajaland
   branch: develop
-  note: >
-    Farajaland is OpenCRVS's reference country config. Entries flagged
-    country_config: true have no fixed canonical type in v2 core; the
-    Farajaland config is the canonical example of how a deployment
+  note: 'Farajaland is OpenCRVS''s reference country config. Entries flagged country_config: true have
+    no fixed canonical type in v2 core; the Farajaland config is the canonical example of how a deployment
     defines birth, death, and marriage events.
 
-# Scope: OpenCRVS v2 event service only.
-# V1 GraphQL entries have been dropped (v1 is superseded; consult git
-# history for the v1 mapping).
-#
-# --- Architecture note: v2 is envelope-only ---
-# The v2 event service defines a generic event envelope (EventDocument)
-# and an action log (ActionDocument, 18 action variants). Every registered
-# event, regardless of type, is an EventDocument. There are no typed
-# domain fields at the core level. Field-level content (child name,
-# cause of death, etc.) lives in per-country EventConfig.declaration,
-# a Record<string, FieldValue> keyed by country-specific string IDs.
-# This means:
-#   - Envelope-level concepts (VitalEvent, CivilStatusRecord, Certificate,
-#     registration-status) have clean v2 core mappings.
-#   - Event-type-specific concepts (Birth, Death, Marriage, etc.) and all
-#     field-level properties are country-configured, not core-typed.
-#     They are flagged country_config: true with a Farajaland pointer.
-#
-# --- surface discriminator ---
-# event_v2:     The v2 core event service. Types live in
-#               packages/commons/src/events/*.ts (published as @opencrvs/commons).
-# country_config: Lives in the per-country EventConfig (Farajaland example
-#               cited in external_source for illustration).
-#
-# --- Per-entry fields ---
-#   v2_concept / v2_vocabulary   PublicSchema concept or vocabulary id
-#   external_entity / external_vocabulary   Human-readable v2 name
-#   surface          event_v2 | country_config
-#   external_source  Path relative to source_repository (event_v2) or
-#                    path relative to country_config_reference.repository
-#                    (country_config entries).
-#   country_config: true  Flag indicating the mapping depends on per-country
-#                    EventConfig; not dictated by v2 core.
-#   confidence       high | medium | low | null (unknown, country-configurable)
-#   match, notes, decomposition, value_mapping, gaps (as before)
-
-
+    '
 concept_matches:
+- v2_concept: VitalEvent
+  external_entity: EventDocument
+  surface: event_v2
+  external_source: packages/commons/src/events/EventDocument.ts#EventDocument
+  match: close
+  notes: 'EventDocument is the generic event envelope in v2: id, type (a free string such as "BIRTH" or
+    "DEATH"), createdAt, updatedAt, actions, and trackingId. Our VitalEvent is the abstract supertype
+    for civil registration events. The correspondence is close: both represent the occurrence entity,
+    but EventDocument carries no domain fields; all content lives in the EventConfig.declaration fields
+    of individual actions.
 
-  - v2_concept: VitalEvent
-    external_entity: EventDocument
-    surface: event_v2
-    external_source: packages/commons/src/events/EventDocument.ts#EventDocument
-    match: close
-    notes: >
-      EventDocument is the generic event envelope in v2: id, type (a free
-      string such as "BIRTH" or "DEATH"), createdAt, updatedAt, actions,
-      and trackingId. Our VitalEvent is the abstract supertype for civil
-      registration events. The correspondence is close: both represent
-      the occurrence entity, but EventDocument carries no domain fields;
-      all content lives in the EventConfig.declaration fields of individual
-      actions.
-    decomposition:
-      - opencrvs_field: id
-        target_concept: VitalEvent
-        target_property: null
-        notes: "System UUID. No direct PublicSchema equivalent at the concept level; maps to an Identifier entry with identifier_type=tracking_id if persisted."
-      - opencrvs_field: type
-        target_concept: VitalEvent
-        target_property: null
-        notes: "Free string event type identifier (e.g. 'v2/BIRTH'). Country-configured; not a core enum."
-      - opencrvs_field: trackingId
-        target_concept: VitalEvent
-        target_property: null
-        notes: "Human-readable tracking ID (e.g. BKPX7CE). No PublicSchema property."
-      - opencrvs_field: actions
-        target_concept: CivilStatusRecord
-        target_property: null
-        notes: "Ordered list of ActionDocument entries. The most recent action with type=REGISTER carries registrationNumber, which maps to CivilStatusRecord.identifiers."
-      - opencrvs_field: createdAt
-        target_concept: VitalEvent
-        target_property: null
-        notes: "Timestamp of event creation in the system, not the occurrence date. PublicSchema event_date comes from country-configured declaration fields."
+    '
+  decomposition:
+  - opencrvs_field: id
+    target_concept: VitalEvent
+    target_property: null
+    notes: System UUID. No direct PublicSchema equivalent at the concept level; maps to an Identifier
+      entry with identifier_type=tracking_id if persisted.
+  - opencrvs_field: type
+    target_concept: VitalEvent
+    target_property: null
+    notes: Free string event type identifier (e.g. 'v2/BIRTH'). Country-configured; not a core enum.
+  - opencrvs_field: trackingId
+    target_concept: VitalEvent
+    target_property: null
+    notes: Human-readable tracking ID (e.g. BKPX7CE). No PublicSchema property.
+  - opencrvs_field: actions
+    target_concept: CivilStatusRecord
+    target_property: null
+    notes: Ordered list of ActionDocument entries. The most recent action with type=REGISTER carries registrationNumber,
+      which maps to CivilStatusRecord.identifiers.
+  - opencrvs_field: createdAt
+    target_concept: VitalEvent
+    target_property: null
+    notes: Timestamp of event creation in the system, not the occurrence date. PublicSchema event_date
+      comes from country-configured declaration fields.
+- v2_concept: Birth
+  external_entity: EventDocument (type='BIRTH', country-configured)
+  surface: country_config
+  external_source: src/events/birth/index.ts#birthEvent
+  country_config: true
+  match: broad
+  confidence: low
+  notes: 'In v2 core there is no BirthRegistration type. A birth event is an EventDocument whose type
+    string is set to the country''s birth event id (e.g. the Farajaland constant Event.Birth). All birth-specific
+    fields (child name, birthDate, parentage, birthType, attendant, weight) live in the EventConfig.declaration
+    form defined by the country config. Match is broad because the EventDocument envelope is genuinely
+    wider than our Birth concept.
 
-  - v2_concept: Birth
-    external_entity: "EventDocument (type='BIRTH', country-configured)"
-    surface: country_config
-    external_source: src/events/birth/index.ts#birthEvent
-    country_config: true
-    match: broad
-    confidence: low
-    notes: >
-      In v2 core there is no BirthRegistration type. A birth event is an
-      EventDocument whose type string is set to the country's birth event id
-      (e.g. the Farajaland constant Event.Birth). All birth-specific fields
-      (child name, birthDate, parentage, birthType, attendant, weight) live
-      in the EventConfig.declaration form defined by the country config.
-      Match is broad because the EventDocument envelope is genuinely wider
-      than our Birth concept.
+    '
+- v2_concept: Death
+  external_entity: EventDocument (type='DEATH', country-configured)
+  surface: country_config
+  external_source: src/events/death/index.ts#deathEvent
+  country_config: true
+  match: broad
+  confidence: low
+  notes: 'Same pattern as Birth. A death event is an EventDocument whose type string is set to the country''s
+    death event id. Death-specific fields (deceased name, cause of death, manner of death, medical certifier)
+    are country-configured EventConfig.declaration fields; none are typed at the v2 core level.
 
-  - v2_concept: Death
-    external_entity: "EventDocument (type='DEATH', country-configured)"
-    surface: country_config
-    external_source: src/events/death/index.ts#deathEvent
-    country_config: true
-    match: broad
-    confidence: low
-    notes: >
-      Same pattern as Birth. A death event is an EventDocument whose type
-      string is set to the country's death event id. Death-specific fields
-      (deceased name, cause of death, manner of death, medical certifier)
-      are country-configured EventConfig.declaration fields; none are typed
-      at the v2 core level.
+    '
+- v2_concept: Marriage
+  external_entity: EventDocument (type='marriage', country-configured)
+  surface: country_config
+  external_source: src/events/utils/types.ts#Event
+  country_config: true
+  match: broad
+  notes: 'The Farajaland Event enum defines Event.Marriage = ''marriage'', confirming the convention.
+    A full EventConfig for marriage is not present in the Farajaland reference clone; the same EventDocument
+    + country EventConfig pattern applies. Marriage-specific fields (bride/groom or party_1/party_2, witnesses,
+    typeOfMarriage) would be country-configured EventConfig.declaration fields. Match is broad and confidence
+    is null pending a concrete EventConfig example.
 
-  - v2_concept: Marriage
-    external_entity: "EventDocument (type='marriage', country-configured)"
-    surface: country_config
-    external_source: src/events/utils/types.ts#Event
-    country_config: true
-    match: broad
-    confidence: null
-    notes: >
-      The Farajaland Event enum defines Event.Marriage = 'marriage', confirming
-      the convention. A full EventConfig for marriage is not present in the
-      Farajaland reference clone; the same EventDocument + country EventConfig
-      pattern applies. Marriage-specific fields (bride/groom or party_1/party_2,
-      witnesses, typeOfMarriage) would be country-configured EventConfig.declaration
-      fields. Match is broad and confidence is null pending a concrete
-      EventConfig example.
+    '
+- v2_concept: CivilStatusRecord
+  external_entity: RegisterAction
+  surface: event_v2
+  external_source: packages/commons/src/events/ActionDocument.ts#RegisterAction
+  match: related
+  notes: 'RegisterAction is an ActionDocument variant (type=REGISTER) that carries a registrationNumber
+    field. This is the closest v2 core equivalent to our CivilStatusRecord: the act of registration produces
+    a registration number, which is the legal acte identifier. However, RegisterAction is an action within
+    an EventDocument, not a standalone record; the structural roles differ. The registrationNumber field
+    is optional (nullable) and is always present on accepted registrations.
 
-  - v2_concept: CivilStatusRecord
-    external_entity: RegisterAction
-    surface: event_v2
-    external_source: packages/commons/src/events/ActionDocument.ts#RegisterAction
-    match: related
-    notes: >
-      RegisterAction is an ActionDocument variant (type=REGISTER) that
-      carries a registrationNumber field. This is the closest v2 core
-      equivalent to our CivilStatusRecord: the act of registration produces
-      a registration number, which is the legal acte identifier. However,
-      RegisterAction is an action within an EventDocument, not a standalone
-      record; the structural roles differ. The registrationNumber field is
-      optional (nullable) and is always present on accepted registrations.
-    decomposition:
-      - opencrvs_field: registrationNumber
-        target_concept: CivilStatusRecord
-        target_property: identifiers
-        notes: "Maps to an Identifier entry with identifier_type following the event type (birth_registration_number, death_registration_number, etc.)."
-      - opencrvs_field: declaration
-        target_concept: CivilStatusRecord
-        target_property: null
-        notes: "ActionUpdate record of field-level changes at registration time; country-configured, not typed at core level."
-      - opencrvs_field: createdAt
-        target_concept: CivilStatusRecord
-        target_property: null
-        notes: "Timestamp of the register action. Approximates the record creation date."
-      - opencrvs_field: createdBy
-        target_concept: CivilStatusRecord
-        target_property: null
-        notes: "Registrar identity; no direct PublicSchema property."
+    '
+  decomposition:
+  - opencrvs_field: registrationNumber
+    target_concept: CivilStatusRecord
+    target_property: identifiers
+    notes: Maps to an Identifier entry with identifier_type following the event type (birth_registration_number,
+      death_registration_number, etc.).
+  - opencrvs_field: declaration
+    target_concept: CivilStatusRecord
+    target_property: null
+    notes: ActionUpdate record of field-level changes at registration time; country-configured, not typed
+      at core level.
+  - opencrvs_field: createdAt
+    target_concept: CivilStatusRecord
+    target_property: null
+    notes: Timestamp of the register action. Approximates the record creation date.
+  - opencrvs_field: createdBy
+    target_concept: CivilStatusRecord
+    target_property: null
+    notes: Registrar identity; no direct PublicSchema property.
+- v2_concept: Certificate
+  external_entity: PrintCertificateAction
+  surface: event_v2
+  external_source: packages/commons/src/events/ActionDocument.ts#PrintCertificateAction
+  match: related
+  notes: 'PrintCertificateAction is an ActionDocument variant (type=PRINT_CERTIFICATE). It carries an
+    optional templateId content field. This is structurally narrower than our Certificate concept, which
+    models the issued document with issuance metadata (issue date, issuing office, format, certificate
+    number). PrintCertificateAction records the act of printing; it does not fully represent the certificate
+    as a legal document object. Match is related rather than close because the scope has narrowed from
+    v1''s Certificate type.
 
-  - v2_concept: Certificate
-    external_entity: PrintCertificateAction
-    surface: event_v2
-    external_source: packages/commons/src/events/ActionDocument.ts#PrintCertificateAction
-    match: related
-    notes: >
-      PrintCertificateAction is an ActionDocument variant (type=PRINT_CERTIFICATE).
-      It carries an optional templateId content field. This is structurally
-      narrower than our Certificate concept, which models the issued document
-      with issuance metadata (issue date, issuing office, format, certificate
-      number). PrintCertificateAction records the act of printing; it does not
-      fully represent the certificate as a legal document object. Match is
-      related rather than close because the scope has narrowed from v1's
-      Certificate type.
-    decomposition:
-      - opencrvs_field: content.templateId
-        target_concept: Certificate
-        target_property: certificate_document_type
-        notes: "Country-configured template identifier. Mapping to document type requires knowledge of the local template catalogue."
-      - opencrvs_field: createdAt
-        target_concept: Certificate
-        target_property: null
-        notes: "Print timestamp. Approximates issue date."
-      - opencrvs_field: createdBy
-        target_concept: Certificate
-        target_property: null
-        notes: "Who printed the certificate; no direct PublicSchema property."
-      - opencrvs_field: createdAtLocation
-        target_concept: Certificate
-        target_property: null
-        notes: "Location of the registrar who printed; approximates issuing office."
+    '
+  decomposition:
+  - opencrvs_field: content.templateId
+    target_concept: Certificate
+    target_property: certificate_document_type
+    notes: Country-configured template identifier. Mapping to document type requires knowledge of the
+      local template catalogue.
+  - opencrvs_field: createdAt
+    target_concept: Certificate
+    target_property: null
+    notes: Print timestamp. Approximates issue date.
+  - opencrvs_field: createdBy
+    target_concept: Certificate
+    target_property: null
+    notes: Who printed the certificate; no direct PublicSchema property.
+  - opencrvs_field: createdAtLocation
+    target_concept: Certificate
+    target_property: null
+    notes: Location of the registrar who printed; approximates issuing office.
+- v2_concept: PaternityRecognition
+  external_entity: RequestedCorrectionAction / ApprovedCorrectionAction
+  surface: event_v2
+  external_source: packages/commons/src/events/ActionDocument.ts#RequestedCorrectionAction
+  match: related
+  notes: 'PaternityRecognition remains without a first-class event type in v2. The correction workflow
+    (ActionType.REQUEST_CORRECTION followed by ActionType.APPROVE_CORRECTION) is the operational mechanism
+    for amending a birth record to add or change parentage information. The match is related for the same
+    reason as v1: the target is a workflow action pair, not an event type. A country config could define
+    a dedicated "paternity recognition" event type using a separate EventConfig.
 
-  - v2_concept: PaternityRecognition
-    external_entity: "RequestedCorrectionAction / ApprovedCorrectionAction"
-    surface: event_v2
-    external_source: packages/commons/src/events/ActionDocument.ts#RequestedCorrectionAction
-    match: related
-    notes: >
-      PaternityRecognition remains without a first-class event type in v2.
-      The correction workflow (ActionType.REQUEST_CORRECTION followed by
-      ActionType.APPROVE_CORRECTION) is the operational mechanism for amending
-      a birth record to add or change parentage information. The match is
-      related for the same reason as v1: the target is a workflow action pair,
-      not an event type. A country config could define a dedicated "paternity
-      recognition" event type using a separate EventConfig.
-
-
+    '
 matches:
+- v2_vocabulary: crvs/registration-status
+  external_vocabulary: EventStatus
+  surface: event_v2
+  external_source: packages/commons/src/events/EventMetadata.ts#EventStatus
+  confidence: high
+  notes: 'EventStatus is a 5-value enum: CREATED, NOTIFIED, DECLARED, REGISTERED, ARCHIVED. This is a
+    cleaner semantic fit than v1 RegStatus (10 values) because the v2 model separates lifecycle status
+    (EventStatus) from audit granularity (ActionType). CREATED maps to our declared bucket at the draft
+    stage; NOTIFIED covers birth notifications before formal declaration; DECLARED is a formal declaration
+    pending registration; REGISTERED is the legally registered state; ARCHIVED is the administrative closure
+    state. Our cancelled and corrected values have no EventStatus equivalent; correction outcomes are
+    expressed through action sequences rather than a terminal status.
 
-  # -----------------------------------------------------------------------
-  # Envelope-level status vocabulary (surface: event_v2)
-  # -----------------------------------------------------------------------
+    '
+  value_mapping:
+    CREATED: declared
+    NOTIFIED: declared
+    DECLARED: declared
+    REGISTERED: registered
+    ARCHIVED: archived
+  gaps:
+    v2_only:
+    - cancelled
+    - corrected
+    - pending_validation
+    - rejected
+    external_only: []
+- v2_vocabulary: sex
+  external_vocabulary: Gender (country-configured declaration field)
+  surface: country_config
+  country_config: true
+  confidence: medium
+  notes: 'In v2 there is no core Gender enum. Sex and gender values live in country-configured declaration
+    fields typed as SELECT with country- defined options. Farajaland''s birth declaration uses a field
+    for biological sex; the options map similarly to the v1 Gender enum. The name mismatch (Gender vs
+    biological sex) is a common CRVS conflation present in v1 and often carried into v2 country configs.
 
-  - v2_vocabulary: crvs/registration-status
-    external_vocabulary: EventStatus
-    surface: event_v2
-    external_source: packages/commons/src/events/EventMetadata.ts#EventStatus
-    confidence: high
-    notes: >
-      EventStatus is a 5-value enum: CREATED, NOTIFIED, DECLARED, REGISTERED,
-      ARCHIVED. This is a cleaner semantic fit than v1 RegStatus (10 values)
-      because the v2 model separates lifecycle status (EventStatus) from
-      audit granularity (ActionType). CREATED maps to our declared bucket at
-      the draft stage; NOTIFIED covers birth notifications before formal
-      declaration; DECLARED is a formal declaration pending registration;
-      REGISTERED is the legally registered state; ARCHIVED is the
-      administrative closure state. Our cancelled and corrected values have
-      no EventStatus equivalent; correction outcomes are expressed through
-      action sequences rather than a terminal status.
-    value_mapping:
-      CREATED: declared
-      NOTIFIED: declared
-      DECLARED: declared
-      REGISTERED: registered
-      ARCHIVED: archived
-    gaps:
-      v2_only:
-        - cancelled
-        - corrected
-        - pending_validation
-        - rejected
-      external_only: []
+    '
+- v2_vocabulary: gender-type
+  external_vocabulary: Gender (country-configured declaration field)
+  surface: country_config
+  country_config: true
+  confidence: medium
+  notes: 'Same source as sex above. Country configs may include a gender identity field distinct from
+    biological sex; Farajaland''s reference config does not. Confidence medium because the alignment depends
+    entirely on how each deployment defines its declaration fields.
 
-  # --- sex vs Gender (country-configured in v2 declaration fields) ---
-  # V2 core has no Gender enum at all. Gender/sex are declaration fields
-  # typed by the country's EventConfig. Farajaland's birth declaration
-  # uses a country-configured SELECT field for the child's sex. The
-  # vocabulary match is preserved for continuity.
+    '
+- v2_vocabulary: payment-status
+  surface: event_v2
+  country_config: true
+  notes: 'The v2 event service does not model fee payments. PrintCertificateAction carries no payment
+    fields; payment tracking, if any, is external to the event log. The v1 PaymentOutcomeType mapping
+    is no longer applicable.
 
-  - v2_vocabulary: sex
-    external_vocabulary: "Gender (country-configured declaration field)"
-    surface: country_config
-    country_config: true
-    confidence: medium
-    notes: >
-      In v2 there is no core Gender enum. Sex and gender values live in
-      country-configured declaration fields typed as SELECT with country-
-      defined options. Farajaland's birth declaration uses a field for
-      biological sex; the options map similarly to the v1 Gender enum.
-      The name mismatch (Gender vs biological sex) is a common CRVS
-      conflation present in v1 and often carried into v2 country configs.
+    '
+- v2_vocabulary: identifier-type
+  external_vocabulary: Identifier type (country-configured declaration field)
+  surface: country_config
+  country_config: true
+  confidence: low
+  notes: 'V2 core has no identity document type enum. Identifier types appear in country-configured declaration
+    fields as SELECT options. The BIRTH_REGISTRATION_NUMBER, DEATH_REGISTRATION_NUMBER constants used
+    in integration code still map directly to v2 identifier-type codes. A full value mapping requires
+    a specific country deployment config.
 
-  - v2_vocabulary: gender-type
-    external_vocabulary: "Gender (country-configured declaration field)"
-    surface: country_config
-    country_config: true
-    confidence: medium
-    notes: >
-      Same source as sex above. Country configs may include a gender
-      identity field distinct from biological sex; Farajaland's reference
-      config does not. Confidence medium because the alignment depends
-      entirely on how each deployment defines its declaration fields.
+    '
+- v2_vocabulary: marital-status
+  external_vocabulary: Marital status (country-configured declaration field)
+  surface: country_config
+  country_config: true
+  notes: 'V2 core does not define marital status values. The field is a country-configured SELECT in EventConfig.declaration.
+    V2 uses FHIR v3-MaritalStatus as its reference standard.
 
-  # --- payment-status vs v2 (no core payment type) ---
-  # V2 has no fee payment enum at the event-service level. Certificate
-  # printing (PrintCertificateAction) does not carry payment information.
-  # Payment tracking is out of scope for the v2 event service.
+    '
+- v2_vocabulary: education-level
+  external_vocabulary: Education level (country-configured declaration field)
+  surface: country_config
+  country_config: true
+  notes: 'V2 core does not define education level values. The field is a country-configured SELECT in
+    EventConfig.declaration. V2 uses ISCED 2011 as its reference standard.
 
-  - v2_vocabulary: payment-status
-    external_vocabulary: null
-    surface: event_v2
-    country_config: true
-    confidence: null
-    notes: >
-      The v2 event service does not model fee payments. PrintCertificateAction
-      carries no payment fields; payment tracking, if any, is external to the
-      event log. The v1 PaymentOutcomeType mapping is no longer applicable.
+    '
+- v2_vocabulary: occupation
+  external_vocabulary: Occupation (country-configured declaration field)
+  surface: country_config
+  country_config: true
+  notes: 'V2 core does not define occupation values. The field is a country- configured SELECT in EventConfig.declaration.
+    V2 uses ISCO-08 as its reference standard.
 
-  # --- identifier-type (country-configurable) ---
+    '
+- v2_vocabulary: crvs/civil-status-record-type
+  external_vocabulary: EventDocument.type (country-configured string)
+  surface: country_config
+  country_config: true
+  confidence: medium
+  notes: 'V2 has no core enum for civil registration event types. EventDocument.type is a free string
+    assigned by the country config (e.g. Farajaland uses constants like Event.Birth=''v2/BIRTH''). The
+    three-way birth/death/marriage distinction is country-configured, not enforced by core. Our civil-status-record-type
+    vocabulary covers a broader set including paternity_recognition, supplementary_judgment, and court_ordered_substitute.
 
-  - v2_vocabulary: identifier-type
-    external_vocabulary: "Identifier type (country-configured declaration field)"
-    surface: country_config
-    country_config: true
-    confidence: low
-    notes: >
-      V2 core has no identity document type enum. Identifier types appear in
-      country-configured declaration fields as SELECT options. The
-      BIRTH_REGISTRATION_NUMBER, DEATH_REGISTRATION_NUMBER constants used
-      in integration code still map directly to v2 identifier-type codes.
-      A full value mapping requires a specific country deployment config.
+    '
+  gaps:
+    v2_only:
+    - paternity_recognition
+    - supplementary_judgment
+    - court_ordered_substitute
+    external_only: []
+- v2_vocabulary: crvs/birth-type
+  external_vocabulary: Birth type (country-configured declaration field)
+  surface: country_config
+  country_config: true
+  notes: 'V2 has no core birth-type enum. The field is a country-configured SELECT in EventConfig.declaration.
+    Farajaland does not define a birth-type SELECT in its current v2 config; v1 Farajaland used SINGLE/TWIN/TRIPLET/QUADRUPLET/HIGHER_MULTIPLE_DELIVERY.
 
-  # --- CRVS country-configured vocabularies ---
-  # V2 core defines no vocabularies for these domains; all values live in
-  # EventConfig.declaration SELECT fields defined by each country's config.
-  # Match is none or null-confidence for all.
+    '
+- v2_vocabulary: crvs/birth-attendant
+  external_vocabulary: Birth attendant (country-configured declaration field)
+  surface: country_config
+  country_config: true
+  notes: 'V2 has no core birth-attendant enum. The field is a country-configured SELECT in EventConfig.declaration.
+    Farajaland v1 used PHYSICIAN/NURSE/MIDWIFE/OTHER_PARAMEDICAL_PERSONNEL/LAYPERSON/ TRADITIONAL_BIRTH_ATTENDANT/NONE;
+    v2 country config may differ.
 
-  - v2_vocabulary: marital-status
-    external_vocabulary: "Marital status (country-configured declaration field)"
-    surface: country_config
-    country_config: true
-    confidence: null
-    notes: >
-      V2 core does not define marital status values. The field is a
-      country-configured SELECT in EventConfig.declaration. V2 uses FHIR
-      v3-MaritalStatus as its reference standard.
+    '
+- v2_vocabulary: crvs/manner-of-death
+  external_vocabulary: Manner of death (country-configured declaration field)
+  surface: country_config
+  country_config: true
+  notes: 'V2 has no core manner-of-death enum. The field is a country-configured SELECT in EventConfig.declaration.
+    Farajaland v1 used NATURAL_CAUSES/ACCIDENT/SUICIDE/HOMICIDE/MANNER_UNDETERMINED; v2 country config
+    may differ.
 
-  - v2_vocabulary: education-level
-    external_vocabulary: "Education level (country-configured declaration field)"
-    surface: country_config
-    country_config: true
-    confidence: null
-    notes: >
-      V2 core does not define education level values. The field is a
-      country-configured SELECT in EventConfig.declaration. V2 uses
-      ISCED 2011 as its reference standard.
+    '
+- v2_vocabulary: crvs/cause-of-death-method
+  external_vocabulary: Cause-of-death method (country-configured declaration field)
+  surface: country_config
+  country_config: true
+  notes: 'V2 has no core cause-of-death-method enum. The field is a country- configured SELECT in EventConfig.declaration.
+    Farajaland v1 used PHYSICIAN/LAY_REPORTED/VERBAL_AUTOPSY/MEDICALLY_CERTIFIED; v2 country config may
+    differ.
 
-  - v2_vocabulary: occupation
-    external_vocabulary: "Occupation (country-configured declaration field)"
-    surface: country_config
-    country_config: true
-    confidence: null
-    notes: >
-      V2 core does not define occupation values. The field is a country-
-      configured SELECT in EventConfig.declaration. V2 uses ISCO-08 as its
-      reference standard.
+    '
+- v2_vocabulary: crvs/marriage-type
+  external_vocabulary: Marriage type (country-configured declaration field)
+  surface: country_config
+  country_config: true
+  notes: 'V2 has no core marriage-type enum. The field is a country-configured SELECT in EventConfig.declaration.
+    No Farajaland marriage event is present in the reference config; country-configurable.
 
-  # --- CRVS event-type vocabulary ---
+    '
+- v2_vocabulary: crvs/parental-role
+  surface: country_config
+  country_config: true
+  notes: 'Parental roles are implicit in declaration field naming conventions (e.g. Farajaland uses mother.*,
+    father.* key prefixes). There is no parental-role enum at either the v2 core level or in the Farajaland
+    config; the role is embedded in the field key string.
 
-  - v2_vocabulary: crvs/civil-status-record-type
-    external_vocabulary: "EventDocument.type (country-configured string)"
-    surface: country_config
-    country_config: true
-    confidence: medium
-    notes: >
-      V2 has no core enum for civil registration event types. EventDocument.type
-      is a free string assigned by the country config (e.g. Farajaland uses
-      constants like Event.Birth='v2/BIRTH'). The three-way birth/death/marriage
-      distinction is country-configured, not enforced by core. Our
-      civil-status-record-type vocabulary covers a broader set including
-      paternity_recognition, supplementary_judgment, and court_ordered_substitute.
-    gaps:
-      v2_only:
-        - paternity_recognition
-        - supplementary_judgment
-        - court_ordered_substitute
-      external_only: []
+    '
+- v2_vocabulary: crvs/place-type
+  surface: country_config
+  country_config: true
+  notes: 'V2 separates location data from event declaration fields; location references are UUID pointers
+    to a separate Location service, not a typed place-type enum in the event payload. A place_type vocabulary
+    might appear in the Location service schema but is not visible in the event service types.
 
-  # --- CRVS country-configured CRVS domain vocabularies ---
+    '
+- v2_vocabulary: crvs/certificate-document-type
+  external_vocabulary: PrintCertificateAction.content.templateId (country-configured)
+  surface: event_v2
+  external_source: packages/commons/src/events/ActionDocument.ts#PrintCertificateAction
+  country_config: true
+  notes: 'PrintCertificateAction carries an optional templateId string. The mapping from template ID to
+    document type is decided at country- deployment time; v2 core imposes no constraint on template identifier
+    values.
 
-  - v2_vocabulary: crvs/birth-type
-    external_vocabulary: "Birth type (country-configured declaration field)"
-    surface: country_config
-    country_config: true
-    confidence: null
-    notes: >
-      V2 has no core birth-type enum. The field is a country-configured
-      SELECT in EventConfig.declaration. Farajaland does not define a
-      birth-type SELECT in its current v2 config; v1 Farajaland used
-      SINGLE/TWIN/TRIPLET/QUADRUPLET/HIGHER_MULTIPLE_DELIVERY.
+    '
+- v2_vocabulary: crvs/certificate-format
+  surface: country_config
+  country_config: true
+  notes: 'V2 makes no core-level distinction between full copy, extract, and multilingual extract. Any
+    such distinction lives inside the certificate template definition at country level.
 
-  - v2_vocabulary: crvs/birth-attendant
-    external_vocabulary: "Birth attendant (country-configured declaration field)"
-    surface: country_config
-    country_config: true
-    confidence: null
-    notes: >
-      V2 has no core birth-attendant enum. The field is a country-configured
-      SELECT in EventConfig.declaration. Farajaland v1 used
-      PHYSICIAN/NURSE/MIDWIFE/OTHER_PARAMEDICAL_PERSONNEL/LAYPERSON/
-      TRADITIONAL_BIRTH_ATTENDANT/NONE; v2 country config may differ.
+    '
+- v2_vocabulary: crvs/adoption-type
+  surface: country_config
+  country_config: true
+  notes: 'Adoption is not a Farajaland or v2 core event type. A country config adding adoption support
+    would define this vocabulary in its own EventConfig.declaration. No canonical example available.
 
-  - v2_vocabulary: crvs/manner-of-death
-    external_vocabulary: "Manner of death (country-configured declaration field)"
-    surface: country_config
-    country_config: true
-    confidence: null
-    notes: >
-      V2 has no core manner-of-death enum. The field is a country-configured
-      SELECT in EventConfig.declaration. Farajaland v1 used
-      NATURAL_CAUSES/ACCIDENT/SUICIDE/HOMICIDE/MANNER_UNDETERMINED; v2
-      country config may differ.
+    '
+- v2_vocabulary: crvs/annotation-type
+  surface: country_config
+  country_config: true
+  notes: 'V2 core has no annotation concept. The annotation field on ActionBase is an untyped ActionUpdate
+    (key-value record) used for action-specific metadata; it is not a typed annotation vocabulary.
 
-  - v2_vocabulary: crvs/cause-of-death-method
-    external_vocabulary: "Cause-of-death method (country-configured declaration field)"
-    surface: country_config
-    country_config: true
-    confidence: null
-    notes: >
-      V2 has no core cause-of-death-method enum. The field is a country-
-      configured SELECT in EventConfig.declaration. Farajaland v1 used
-      PHYSICIAN/LAY_REPORTED/VERBAL_AUTOPSY/MEDICALLY_CERTIFIED; v2
-      country config may differ.
+    '
+- v2_vocabulary: crvs/family-register-status
+  surface: country_config
+  country_config: true
+  notes: 'V2 core has no family-register construct. A deployment adding one would define this vocabulary
+    in its EventConfig. No canonical example.
 
-  - v2_vocabulary: crvs/marriage-type
-    external_vocabulary: "Marriage type (country-configured declaration field)"
-    surface: country_config
-    country_config: true
-    confidence: null
-    notes: >
-      V2 has no core marriage-type enum. The field is a country-configured
-      SELECT in EventConfig.declaration. No Farajaland marriage event is
-      present in the reference config; country-configurable.
-
-  - v2_vocabulary: crvs/parental-role
-    external_vocabulary: null
-    surface: country_config
-    country_config: true
-    confidence: null
-    notes: >
-      Parental roles are implicit in declaration field naming conventions
-      (e.g. Farajaland uses mother.*, father.* key prefixes). There is no
-      parental-role enum at either the v2 core level or in the Farajaland
-      config; the role is embedded in the field key string.
-
-  - v2_vocabulary: crvs/place-type
-    external_vocabulary: null
-    surface: country_config
-    country_config: true
-    confidence: null
-    notes: >
-      V2 separates location data from event declaration fields; location
-      references are UUID pointers to a separate Location service, not
-      a typed place-type enum in the event payload. A place_type vocabulary
-      might appear in the Location service schema but is not visible in the
-      event service types.
-
-  - v2_vocabulary: crvs/certificate-document-type
-    external_vocabulary: "PrintCertificateAction.content.templateId (country-configured)"
-    surface: event_v2
-    external_source: packages/commons/src/events/ActionDocument.ts#PrintCertificateAction
-    country_config: true
-    confidence: null
-    notes: >
-      PrintCertificateAction carries an optional templateId string. The
-      mapping from template ID to document type is decided at country-
-      deployment time; v2 core imposes no constraint on template identifier
-      values.
-
-  - v2_vocabulary: crvs/certificate-format
-    external_vocabulary: null
-    surface: country_config
-    country_config: true
-    confidence: null
-    notes: >
-      V2 makes no core-level distinction between full copy, extract, and
-      multilingual extract. Any such distinction lives inside the certificate
-      template definition at country level.
-
-  - v2_vocabulary: crvs/adoption-type
-    external_vocabulary: null
-    surface: country_config
-    country_config: true
-    confidence: null
-    notes: >
-      Adoption is not a Farajaland or v2 core event type. A country config
-      adding adoption support would define this vocabulary in its own
-      EventConfig.declaration. No canonical example available.
-
-  - v2_vocabulary: crvs/annotation-type
-    external_vocabulary: null
-    surface: country_config
-    country_config: true
-    confidence: null
-    notes: >
-      V2 core has no annotation concept. The annotation field on ActionBase
-      is an untyped ActionUpdate (key-value record) used for action-specific
-      metadata; it is not a typed annotation vocabulary.
-
-  - v2_vocabulary: crvs/family-register-status
-    external_vocabulary: null
-    surface: country_config
-    country_config: true
-    confidence: null
-    notes: >
-      V2 core has no family-register construct. A deployment adding one
-      would define this vocabulary in its EventConfig. No canonical example.
-
-
+    '
 no_match:
+- v2_concept: FetalDeath
+  reason: 'Not modelled as a distinct event type in v2 core. A country config could define a fetal death
+    event; the Farajaland reference config does not. No fixed v2 core equivalent.
 
-  # --- v2 concepts with no OpenCRVS v2 equivalent ---
+    '
+- v2_concept: MarriageTermination
+  reason: 'Not modelled in v2 core or the Farajaland reference config. Neither divorce nor annulment registration
+    exists as a first-class event type.
 
-  - v2_concept: FetalDeath
-    reason: >
-      Not modelled as a distinct event type in v2 core. A country config
-      could define a fetal death event; the Farajaland reference config
-      does not. No fixed v2 core equivalent.
+    '
+- v2_concept: Adoption
+  reason: 'Not modelled in v2 core or the Farajaland reference config. Adoption scenarios would require
+    a country-specific EventConfig.
 
-  - v2_concept: MarriageTermination
-    reason: >
-      Not modelled in v2 core or the Farajaland reference config. Neither
-      divorce nor annulment registration exists as a first-class event type.
+    '
+- v2_concept: Legitimation
+  reason: 'Not modelled in v2 core. Same pattern as PaternityRecognition: operationally a correction action
+    on an existing birth record.
 
-  - v2_concept: Adoption
-    reason: >
-      Not modelled in v2 core or the Farajaland reference config. Adoption
-      scenarios would require a country-specific EventConfig.
+    '
+- v2_concept: CivilStatusAnnotation
+  reason: 'No reified marginal-annotation type in v2. ActionBase carries an annotation field (an untyped
+    key-value record) for action-specific metadata, but this is not an annotation in the legal CRVS sense
+    (a signed marginal note on a register entry).
 
-  - v2_concept: Legitimation
-    reason: >
-      Not modelled in v2 core. Same pattern as PaternityRecognition:
-      operationally a correction action on an existing birth record.
+    '
+- v2_concept: FamilyRegister
+  reason: 'V2 is event-record centric. There is no concept of a family register (livret de famille, koseki,
+    hukou); families are not modelled as a tracked unit in v2 core or the Farajaland reference config.
 
-  - v2_concept: CivilStatusAnnotation
-    reason: >
-      No reified marginal-annotation type in v2. ActionBase carries an
-      annotation field (an untyped key-value record) for action-specific
-      metadata, but this is not an annotation in the legal CRVS sense
-      (a signed marginal note on a register entry).
+    '
+- v2_concept: Person
+  reason: 'V2 core has no Person type. All person data (name, date of birth, demographic attributes) lives
+    in country-configured declaration fields inside EventDocument.actions[].declaration, a Record<string,
+    FieldValue> keyed by country-specific strings. There is no reified temporal-snapshot Person entity
+    in the event service.
 
-  - v2_concept: FamilyRegister
-    reason: >
-      V2 is event-record centric. There is no concept of a family register
-      (livret de famille, koseki, hukou); families are not modelled as a
-      tracked unit in v2 core or the Farajaland reference config.
+    '
+- v2_concept: Parent
+  reason: 'Our Parent is a reified link entity (Person + parental_role). V2 core has no such type. In
+    Farajaland, parent data appears as declaration field groups with keys like mother.firstname, father.surname;
+    the role is encoded in the field-key prefix, not a typed enum.
 
-  - v2_concept: Person
-    reason: >
-      V2 core has no Person type. All person data (name, date of birth,
-      demographic attributes) lives in country-configured declaration fields
-      inside EventDocument.actions[].declaration, a Record<string, FieldValue>
-      keyed by country-specific strings. There is no reified temporal-snapshot
-      Person entity in the event service.
+    '
+- v2_vocabulary: enrollment-status
+  reason: 'OpenCRVS has no concept of program enrollment. Civil registration records vital events; it
+    does not track program participation.
 
-  - v2_concept: Parent
-    reason: >
-      Our Parent is a reified link entity (Person + parental_role). V2 core
-      has no such type. In Farajaland, parent data appears as declaration
-      field groups with keys like mother.firstname, father.surname; the
-      role is encoded in the field-key prefix, not a typed enum.
+    '
+- v2_vocabulary: eligibility-status
+  reason: 'No eligibility assessment in OpenCRVS. Eligibility determination is a social protection function
+    with no CRVS equivalent.
 
-  # --- v2 vocabularies with no OpenCRVS v2 equivalent ---
-  # SP vocabularies. OpenCRVS is a civil registration system and has no
-  # enrollment, eligibility, benefit, or grievance constructs.
+    '
+- v2_vocabulary: benefit-frequency
+  reason: 'No benefit disbursement cycle in OpenCRVS. Payments in OpenCRVS are one-time service fees,
+    not recurring benefit transfers.
 
-  - v2_vocabulary: enrollment-status
-    reason: >
-      OpenCRVS has no concept of program enrollment. Civil registration records
-      vital events; it does not track program participation.
+    '
+- v2_vocabulary: benefit-modality
+  reason: 'No benefit type or modality concept in OpenCRVS. Cash, in-kind, and voucher transfers are social
+    protection constructs absent from CRVS.
 
-  - v2_vocabulary: eligibility-status
-    reason: >
-      No eligibility assessment in OpenCRVS. Eligibility determination is a
-      social protection function with no CRVS equivalent.
+    '
+- v2_vocabulary: event-certainty
+  reason: 'No probability or certainty scoring in OpenCRVS. Used in v2 for targeting and assessment confidence
+    levels with no CRVS analog.
 
-  - v2_vocabulary: benefit-frequency
-    reason: >
-      No benefit disbursement cycle in OpenCRVS. Payments in OpenCRVS are
-      one-time service fees, not recurring benefit transfers.
+    '
+- v2_vocabulary: conditionality-type
+  reason: 'Conditionalities (co-responsibilities attached to benefits) are a social protection concept
+    with no equivalent in civil registration.
 
-  - v2_vocabulary: benefit-modality
-    reason: >
-      No benefit type or modality concept in OpenCRVS. Cash, in-kind, and
-      voucher transfers are social protection constructs absent from CRVS.
+    '
+- v2_vocabulary: delivery-channel
+  reason: 'Delivery channel (how benefits reach beneficiaries) is a disbursement concept absent from OpenCRVS.
 
-  - v2_vocabulary: event-certainty
-    reason: >
-      No probability or certainty scoring in OpenCRVS. Used in v2 for
-      targeting and assessment confidence levels with no CRVS analog.
+    '
+- v2_vocabulary: grievance-status
+  reason: 'OpenCRVS has no formal grievance management module. Complaints and appeals are social protection
+    constructs.
 
-  - v2_vocabulary: conditionality-type
-    reason: >
-      Conditionalities (co-responsibilities attached to benefits) are a
-      social protection concept with no equivalent in civil registration.
+    '
+- v2_vocabulary: grievance-type
+  reason: 'Same as grievance-status: no grievance classification in OpenCRVS.'
+- v2_vocabulary: group-role
+  reason: 'V2 group-role covers household membership roles in a social protection context. OpenCRVS captures
+    family relationships as field-key prefixes in declaration data, not a shared enumeration.
 
-  - v2_vocabulary: delivery-channel
-    reason: >
-      Delivery channel (how benefits reach beneficiaries) is a disbursement
-      concept absent from OpenCRVS.
+    '
+- v2_vocabulary: group-type
+  reason: 'V2 group-type distinguishes household, family, farm, and other group structures used in social
+    protection targeting. OpenCRVS has no equivalent grouping concept.
 
-  - v2_vocabulary: grievance-status
-    reason: >
-      OpenCRVS has no formal grievance management module. Complaints and
-      appeals are social protection constructs.
+    '
+- v2_vocabulary: hazard-type
+  reason: 'Hazard classification is used in social protection for shock-responsive programming. No analog
+    in civil registration.
 
-  - v2_vocabulary: grievance-type
-    reason: "Same as grievance-status: no grievance classification in OpenCRVS."
+    '
+- v2_vocabulary: referral-status
+  reason: 'Referral tracking between programs is a social protection construct with no civil registration
+    equivalent.
 
-  - v2_vocabulary: group-role
-    reason: >
-      V2 group-role covers household membership roles in a social protection
-      context. OpenCRVS captures family relationships as field-key prefixes
-      in declaration data, not a shared enumeration.
+    '
+- v2_vocabulary: event-severity
+  reason: 'Severity scoring (for shocks, grievances, or needs) is a social protection assessment concept
+    absent from OpenCRVS.
 
-  - v2_vocabulary: group-type
-    reason: >
-      V2 group-type distinguishes household, family, farm, and other group
-      structures used in social protection targeting. OpenCRVS has no
-      equivalent grouping concept.
+    '
+- v2_vocabulary: targeting-approach
+  reason: 'Program targeting methodology is a social protection planning concept with no civil registration
+    equivalent.
 
-  - v2_vocabulary: hazard-type
-    reason: >
-      Hazard classification is used in social protection for shock-responsive
-      programming. No analog in civil registration.
+    '
+- v2_vocabulary: literacy
+  reason: 'OpenCRVS v2 (and the Farajaland reference config) does not include a literacy field. The UNSD
+    binary literacy classification has no counterpart in v2 core or country configuration patterns.
 
-  - v2_vocabulary: referral-status
-    reason: >
-      Referral tracking between programs is a social protection construct
-      with no civil registration equivalent.
+    '
+- v2_vocabulary: employment-status
+  reason: 'OpenCRVS v2 does not include an employment status field. The ILO tripartite classification
+    has no counterpart in v2 core.
 
-  - v2_vocabulary: event-severity
-    reason: >
-      Severity scoring (for shocks, grievances, or needs) is a social
-      protection assessment concept absent from OpenCRVS.
+    '
+- v2_vocabulary: status-in-employment
+  reason: 'OpenCRVS v2 does not include a status-in-employment field. The ILO ICSE-18 categories have
+    no counterpart in v2 core.
 
-  - v2_vocabulary: targeting-approach
-    reason: >
-      Program targeting methodology is a social protection planning concept
-      with no civil registration equivalent.
+    '
+- v2_vocabulary: crvs/registration-type
+  reason: 'Semantic mismatch. Our registration-type describes the timing and procedural route of registration
+    (current, late, court_ordered, reconstruction). V2 EventDocument.type describes which event category
+    is being registered (birth, death, marriage); that dimension maps to our civil-status-record-type
+    vocabulary, not registration-type.
 
-  # Universal demographic vocabularies with no OpenCRVS v2 equivalent:
+    '
+external_excess:
+- external_vocabulary: ActionType
+  reason: 'V2 action taxonomy (CREATE, NOTIFY, DECLARE, REGISTER, REJECT, PRINT_CERTIFICATE, REQUEST_CORRECTION,
+    APPROVE_CORRECTION, REJECT_CORRECTION, ARCHIVE, EDIT, ASSIGN, UNASSIGN, READ, DUPLICATE_DETECTED,
+    MARK_AS_DUPLICATE, MARK_AS_NOT_DUPLICATE, CUSTOM). Civil registration workflow actions; no corresponding
+    v2 vocabulary. ActionType provides audit granularity within EventStatus; the registration-status mapping
+    uses EventStatus rather than ActionType.
 
-  - v2_vocabulary: literacy
-    reason: >
-      OpenCRVS v2 (and the Farajaland reference config) does not include a
-      literacy field. The UNSD binary literacy classification has no
-      counterpart in v2 core or country configuration patterns.
+    '
+- external_vocabulary: ActionStatus
+  reason: 'Lifecycle of an individual action (Requested, Accepted, Rejected). Internal to the OpenCRVS
+    events engine; no v2 vocabulary equivalent.
 
-  - v2_vocabulary: employment-status
-    reason: >
-      OpenCRVS v2 does not include an employment status field. The ILO
-      tripartite classification has no counterpart in v2 core.
-
-  - v2_vocabulary: status-in-employment
-    reason: >
-      OpenCRVS v2 does not include a status-in-employment field. The ILO
-      ICSE-18 categories have no counterpart in v2 core.
-
-  # v2 CRVS vocabulary with a semantic mismatch:
-
-  - v2_vocabulary: crvs/registration-type
-    reason: >
-      Semantic mismatch. Our registration-type describes the timing and
-      procedural route of registration (current, late, court_ordered,
-      reconstruction). V2 EventDocument.type describes which event category
-      is being registered (birth, death, marriage); that dimension maps to
-      our civil-status-record-type vocabulary, not registration-type.
-
-  # --- OpenCRVS domain-relevant v2 types with no v2 vocabulary equivalent ---
-
-  - external_vocabulary: ActionType
-    reason: >
-      V2 action taxonomy (CREATE, NOTIFY, DECLARE, REGISTER, REJECT,
-      PRINT_CERTIFICATE, REQUEST_CORRECTION, APPROVE_CORRECTION,
-      REJECT_CORRECTION, ARCHIVE, EDIT, ASSIGN, UNASSIGN, READ,
-      DUPLICATE_DETECTED, MARK_AS_DUPLICATE, MARK_AS_NOT_DUPLICATE, CUSTOM).
-      Civil registration workflow actions; no corresponding v2 vocabulary.
-      ActionType provides audit granularity within EventStatus; the
-      registration-status mapping uses EventStatus rather than ActionType.
-
-  - external_vocabulary: ActionStatus
-    reason: >
-      Lifecycle of an individual action (Requested, Accepted, Rejected).
-      Internal to the OpenCRVS events engine; no v2 vocabulary equivalent.
-
-  # --- Pure infrastructure types (listed for completeness) ---
-  # The following v2 types are pure application infrastructure with no
-  # meaningful domain mapping:
-  #   EventIndex, EventSearchIndex, EventMetadata (flattened search view),
-  #   LegalStatuses, ActionCreationMetadata, FieldValue, FieldType,
-  #   FormConfig, PageConfig, ActionConfig, AdvancedSearchConfig,
-  #   FlagConfig, TranslationConfig, TemplateConfig, SummaryConfig,
-  #   scopes (USER, FIELD_AGENT, LOCAL_REGISTRAR, etc.)
+    '
