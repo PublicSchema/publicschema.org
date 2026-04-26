@@ -39,11 +39,14 @@ const {
 <div class="h3-prose">
   <h2>Pourquoi un vocabulaire partagé est essentiel</h2>
   <p>
-    Un programme de protection sociale souhaite orienter des bénéficiaires en situation de handicap
-    vers un service d'accompagnement spécialisé. Mais les deux systèmes ne s'accordent pas
-    sur ce que signifie « handicap », sur la structure d'un « ménage », ni sur ce que représente
-    le statut « inscrit ». L'orientation nécessite un exercice de mise en correspondance manuelle,
-    qui prend des semaines et génère des erreurs.
+    Un gouvernement souhaite savoir si l'enfant qui s'inscrit à l'école est
+    bien le même que celui enregistré à la naissance et le même que celui
+    suivi dans le calendrier vaccinal. Le registre d'état civil détient le
+    document officiel. L'hôpital a enregistré l'accouchement. L'école admet
+    un enfant dont l'âge est estimé, faute d'acte présenté. Les trois
+    enregistrements décrivent la même personne, mais leurs champs et leurs
+    valeurs ne s'alignent pas, si bien que la réconciliation exige un travail
+    manuel qui prend des semaines et génère des erreurs.
   </p>
 
   <div class="h3-example">
@@ -57,23 +60,23 @@ const {
       </thead>
       <tbody>
         <tr>
-          <td>Système A</td>
-          <td><code>has_disability</code></td>
-          <td><code>yes</code>, <code>no</code></td>
+          <td>Système d'information hospitalier</td>
+          <td><code>delivery_record</code></td>
+          <td>Date et heure de l'accouchement, sexe attribué, identifiant hospitalier de la mère</td>
         </tr>
         <tr>
-          <td>Système B</td>
-          <td><code>disability_level</code></td>
-          <td>Ensemble court du Washington Group (6 domaines, 4 niveaux de sévérité chacun)</td>
+          <td>Registre d'état civil</td>
+          <td><code>birth_record</code></td>
+          <td>Date exacte, nom légal complet, identifiants nationaux des parents, lieu de naissance</td>
         </tr>
         <tr>
-          <td>Système C</td>
-          <td><code>medical_condition</code></td>
-          <td>Codes diagnostiques CIM-10</td>
+          <td>Inscription scolaire</td>
+          <td><code>pupil_record</code></td>
+          <td>Âge estimé en années</td>
         </tr>
       </tbody>
     </table>
-    <p class="h3-example-caption">Le même concept. Trois systèmes. Trois modèles fondamentalement différents.</p>
+    <p class="h3-example-caption">La même personne, trois systèmes, trois modèles différents de qui elle est et de sa date de naissance.</p>
   </div>
 
   <p>
@@ -82,13 +85,15 @@ const {
     fragile, et tout recommence à zéro à chaque mise à niveau d'un système.
   </p>
   <p>
-    Ce ne sont pas des problèmes qu'une simple table de correspondance peut résoudre. On ne peut pas
-    retrouver les niveaux de sévérité du Washington Group à partir d'un booléen oui/non, et les codes
-    diagnostiques CIM-10 mesurent autre chose que les deux premiers. Par ailleurs, un système modélise
-    le ménage comme un groupe avec des rôles (chef, conjoint, personne à charge) ; un autre le stocke
-    sous forme de champs individuels sur un seul enregistrement. Les concepts eux-mêmes ne s'alignent pas.
-    Les définitions partagées ne font pas qu'économiser du temps ; elles rendent tout simplement possible
-    un échange précis.
+    Ce ne sont pas des problèmes qu'une simple table de correspondance peut
+    résoudre. On ne peut pas reconstruire une date de naissance exacte à
+    partir d'un âge estimé, et les identifiants utilisés par chaque système
+    ne pointent vers rien que les autres puissent vérifier. Par ailleurs,
+    un système décrit le foyer par l'admission hospitalière, un autre par
+    le lien parental dans un registre, et un troisième pas du tout. Les
+    concepts eux-mêmes ne s'alignent pas. Les définitions partagées ne font
+    pas qu'économiser du temps ; elles rendent tout simplement possible un
+    échange précis.
   </p>
 
   <div class="h3-diagram">
@@ -227,7 +232,8 @@ const {
   <h2>Sa relation avec les autres normes</h2>
   <p>
     Si vous travaillez avec des infrastructures numériques publiques, vous avez probablement
-    rencontré des normes comme DCI, GovStack ou EU Core Person Vocabulary. Voici comment
+    rencontré des normes comme la <a href="https://spdci.org" target="_blank" rel="noopener noreferrer">Digital Convergence Initiative (DCI)</a>,
+    <a href="https://govstack.global" target="_blank" rel="noopener noreferrer">GovStack</a> ou EU Core Person Vocabulary. Voici comment
     PublicSchema s'articule avec elles.
   </p>
   <p>
@@ -253,11 +259,14 @@ const {
   <div class="h3-evidence-inner">
     <h2>Ancré dans des données probantes</h2>
     <p>
-      PublicSchema est fondé sur une analyse comparative de six systèmes de
-      protection sociale. Lorsque des normes internationales existent (ISO pour
-      le genre, les pays, les devises ; FHIR pour la santé), nous nous y référons.
-      Lorsqu'elles n'existent pas, nous définissons un ensemble commun fondé sur le fonctionnement
-      réel de ces systèmes.
+      PublicSchema est fondé sur une analyse comparative de systèmes réels
+      couvrant l'identité (MOSIP), la protection sociale (OpenSPP, openIMIS),
+      la santé (DHIS2) et l'état civil (OpenCRVS), aux côtés des normes
+      d'interopérabilité de référence (DCI, FHIR). Lorsque des normes
+      internationales (ISO pour le genre, les pays, les devises) couvrent le
+      domaine, nous nous y référons. Lorsqu'elles n'existent pas, nous
+      définissons un ensemble commun fondé sur le fonctionnement réel de ces
+      systèmes.
     </p>
     <div class="h3-systems">
       {systems.map((s) => (

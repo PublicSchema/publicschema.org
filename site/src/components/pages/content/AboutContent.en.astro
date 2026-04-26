@@ -101,15 +101,23 @@
 
 <h2>Scope</h2>
 <p>
-  PublicSchema starts with social protection: a well-understood domain with
-  active digital transformation, multiple open-source systems, and immediate
-  interoperability pain. See the full list of
-  <a href="/concepts/">concepts</a> for current coverage.
+  PublicSchema provides concepts and vocabularies shared across public
+  service delivery: identity, civil status, household composition,
+  location, payment, hazard events, and others. Two domain-specific layers
+  are currently active: <strong>social protection</strong> (enrolment,
+  entitlements, grievances, referrals) and <strong>civil registration</strong>
+  (births, deaths, marriages, adoptions). Humanitarian assessment is
+  extended through the
+  <a href="https://schema.aidops.org/" target="_blank" rel="noopener noreferrer">AidOps schema</a>,
+  which vendors PublicSchema's foundations. Health and education domains
+  are planned.
 </p>
 <p>
-  The model is designed to extend to adjacent domains (civil registration,
-  health, education, humanitarian response) as adoption grows. The structure
-  is the same; only the concepts and vocabularies change.
+  See the full list of <a href="/concepts/">concepts</a> for current coverage.
+</p>
+<p>
+  The structure is the same across domains; only the concepts and
+  vocabularies change.
 </p>
 
 <h2>How countries and programs adopt it</h2>
@@ -133,8 +141,8 @@
 <h2>How it's built</h2>
 <p>
   PublicSchema synthesizes a large body of prior work: literature on public
-  service delivery, open-source systems (openIMIS, OpenSPP, OpenCRVS, SEMIC,
-  GovStack), and international standards (ISO, FHIR, UN M49, DCI). AI tooling
+  service delivery, open-source systems (openIMIS, OpenSPP, OpenCRVS, MOSIP,
+  SEMIC, GovStack), and international standards (ISO, FHIR, UN M49, DCI). AI tooling
   accelerates that analysis at scale; humans review every definition,
   mapping, and design decision, and each non-trivial architectural choice is
   captured as a public decision record. Concepts carry a
@@ -148,27 +156,29 @@
 
 <h2>Governance and roadmap</h2>
 <p>
-  The project is maintained by Jeremi Joslin to enable fast, opinionated
-  decisions in the early stages. Feedback is actively sought from domain
-  experts, system implementers, and standards bodies.
+  PublicSchema is open source and free to use. The project is stewarded by
+  Jeremi Joslin, with decisions taken in public so contributors and adopters
+  can see how the schema evolves.
 </p>
+<h3>Where we are now</h3>
 <p>
-  As adoption grows, governance will expand: first to an advisory group of
-  contributors and domain experts, then to a formal multi-stakeholder
-  structure.
+  Concepts, properties, and credential schemas are published with stable URIs.
+  Vocabularies reference international standards (ISO, UN, FHIR) where they
+  exist. Cross-system mappings cover identity (MOSIP), social protection
+  (OpenSPP, openIMIS), civil registration (OpenCRVS), and health (DHIS2),
+  alongside interoperability standards (DCI, FHIR, GovStack). The schema has
+  not yet been validated against a production country deployment.
 </p>
-<h3>Phase 1: Foundation <span class="badge badge-draft">in progress</span></h3>
+<h3>How decisions are made</h3>
+<ul>
+  <li>Every concept, property, and vocabulary value carries a <a href="/docs/versioning-and-maturity/">maturity flag</a> (draft, candidate, normative), so adopters see where we are confident and where input is still open.</li>
+  <li>Non-trivial architectural decisions are captured as public Architecture Decision Records in the <a href="https://github.com/PublicSchema/publicschema.org" target="_blank" rel="noopener noreferrer">project repository</a>.</li>
+  <li>Contributions are welcome from domain experts, system implementers, and standards bodies.</li>
+</ul>
+<h3>How governance will evolve</h3>
 <p>
-  Concepts and properties with stable URIs. Definitions written for domain
-  practitioners. Published as a reference website.
-</p>
-<h3>Phase 2: Standards and mappings</h3>
-<p>
-  International standards adopted for each value set. Cross-system
-  vocabulary mappings. Pilot with at least one country deployment.
-</p>
-<h3>Phase 3: Adoption and extension</h3>
-<p>
-  Formalized governance. Real-world validation with system implementers.
-  Extension to adjacent public service domains.
+  The current setup enables fast iteration before adoption. As countries and
+  programs take up the schema, governance will expand: first to an advisory
+  group of contributors and domain experts, then to a formal multi-stakeholder
+  structure when adoption commitments justify it.
 </p>

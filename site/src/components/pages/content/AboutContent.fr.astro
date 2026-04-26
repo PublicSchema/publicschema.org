@@ -109,15 +109,24 @@ const { locale = defaultLocale } = Astro.props;
 
 <h2>Périmètre</h2>
 <p>
-  PublicSchema prend pour point de départ la protection sociale : un domaine bien balisé, en pleine
-  transformation numérique, disposant de plusieurs systèmes open source et confronté à des enjeux
-  immédiats d'interopérabilité. Voir la liste complète des
+  PublicSchema fournit des concepts et vocabulaires partagés à travers la
+  prestation de services publics : identité, état civil, composition du
+  ménage, localisation, paiement, événements catastrophiques, et d'autres.
+  Deux couches sectorielles sont actuellement actives :
+  <strong>la protection sociale</strong> (inscriptions, droits, plaintes,
+  orientations) et <strong>l'état civil</strong> (naissances, décès,
+  mariages, adoptions). L'évaluation humanitaire est étendue par le
+  <a href="https://schema.aidops.org/" target="_blank" rel="noopener noreferrer">schéma AidOps</a>,
+  qui réutilise les fondations de PublicSchema. Les domaines de la santé
+  et de l'éducation sont prévus.
+</p>
+<p>
+  Voir la liste complète des
   <a href={localePath('/concepts/', locale)}>concepts</a> pour la couverture actuelle.
 </p>
 <p>
-  Le modèle est conçu pour s'étendre aux domaines adjacents (état civil,
-  santé, éducation, aide humanitaire) au fur et à mesure que l'adoption progresse. La structure
-  est la même ; seuls les concepts et les vocabulaires changent.
+  La structure est la même d'un domaine à l'autre ; seuls les concepts et
+  les vocabulaires changent.
 </p>
 
 <h2>Comment les pays et les programmes l'adoptent</h2>
@@ -142,7 +151,7 @@ const { locale = defaultLocale } = Astro.props;
 <p>
   PublicSchema synthétise un large corpus de travaux antérieurs : la
   littérature sur la prestation de services publics, des systèmes open
-  source (openIMIS, OpenSPP, OpenCRVS, SEMIC, GovStack) et des normes
+  source (openIMIS, OpenSPP, OpenCRVS, MOSIP, SEMIC, GovStack) et des normes
   internationales (ISO, FHIR, UN M49, DCI). L'outillage IA accélère cette
   analyse à grande échelle ; les humains examinent chaque définition,
   correspondance et décision de conception, et chaque choix architectural
@@ -160,26 +169,31 @@ const { locale = defaultLocale } = Astro.props;
 
 <h2>Gouvernance et feuille de route</h2>
 <p>
-  Le projet est maintenu par Jeremi Joslin pour permettre des prises de décision rapides et assumées
-  dans les premières phases. Les contributions des experts du domaine, des intégrateurs de systèmes
-  et des organismes de normalisation sont activement sollicitées.
+  PublicSchema est open source et libre d'utilisation. Le projet est porté par
+  Jeremi Joslin, avec des décisions prises en public afin que les contributeurs
+  et les adoptants puissent voir comment le schéma évolue.
 </p>
+<h3>Où nous en sommes</h3>
 <p>
-  À mesure que l'adoption progresse, la gouvernance s'élargira : d'abord à un groupe consultatif
-  de contributeurs et d'experts du domaine, puis à une structure formelle multipartite.
+  Les concepts, propriétés et schémas d'attestations sont publiés avec des
+  URI stables. Les vocabulaires référencent des normes internationales (ISO,
+  ONU, FHIR) lorsqu'elles existent. Les correspondances inter-systèmes
+  couvrent l'identité (MOSIP), la protection sociale (OpenSPP, openIMIS),
+  l'état civil (OpenCRVS) et la santé (DHIS2), ainsi que les normes
+  d'interopérabilité (DCI, FHIR, GovStack). Le schéma n'a pas encore été
+  validé en conditions réelles dans un déploiement national.
 </p>
-<h3>Phase 1 : Fondation <span class="badge badge-draft">en cours</span></h3>
+<h3>Comment les décisions sont prises</h3>
+<ul>
+  <li>Chaque concept, propriété et valeur de vocabulaire porte un <a href={localePath('/docs/versioning-and-maturity/', locale)}>indicateur de maturité</a> (brouillon, usage expérimental, normatif), afin que les adoptants voient où nous sommes confiants et où les retours restent attendus.</li>
+  <li>Les décisions architecturales non triviales sont consignées dans des Architecture Decision Records publics, dans le <a href="https://github.com/PublicSchema/publicschema.org" target="_blank" rel="noopener noreferrer">dépôt du projet</a>.</li>
+  <li>Les contributions sont bienvenues de la part des experts du domaine, des intégrateurs de systèmes et des organismes de normalisation.</li>
+</ul>
+<h3>Comment la gouvernance évoluera</h3>
 <p>
-  Concepts et propriétés avec des URI stables. Définitions rédigées pour les professionnels
-  du domaine. Publication sous forme de site de référence.
-</p>
-<h3>Phase 2 : Normes et correspondances</h3>
-<p>
-  Normes internationales adoptées pour chaque ensemble de valeurs. Correspondances de
-  vocabulaires entre systèmes. Pilote avec au moins un déploiement national.
-</p>
-<h3>Phase 3 : Adoption et extension</h3>
-<p>
-  Gouvernance formalisée. Validation en conditions réelles avec les intégrateurs de systèmes.
-  Extension aux domaines de services publics adjacents.
+  Le dispositif actuel permet une itération rapide avant l'adoption. À mesure
+  que les pays et les programmes adoptent le schéma, la gouvernance
+  s'élargira : d'abord à un groupe consultatif de contributeurs et d'experts
+  du domaine, puis à une structure formelle multipartite lorsque les
+  engagements d'adoption le justifieront.
 </p>

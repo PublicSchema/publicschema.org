@@ -39,11 +39,13 @@ const {
 <div class="h3-prose">
   <h2>Why a shared vocabulary matters</h2>
   <p>
-    A social protection program wants to refer beneficiaries with disabilities
-    to a specialized support service. But the two systems don't agree on what
-    "disability" means, how a "household" is structured, or what "enrolled"
-    looks like. The referral requires a manual mapping exercise that takes
-    weeks and introduces errors.
+    A government wants to know whether the child enrolling in school is the
+    same child registered at birth and the same child seen in the immunization
+    roster. The civil registry has the authoritative record. The hospital
+    recorded the delivery. The school admits a child whose age is estimated
+    because no certificate was presented. The three records describe the same
+    person, but their fields and values do not align, so reconciliation
+    requires manual work that takes weeks and introduces errors.
   </p>
 
   <div class="h3-example">
@@ -57,23 +59,23 @@ const {
       </thead>
       <tbody>
         <tr>
-          <td>System A</td>
-          <td><code>has_disability</code></td>
-          <td><code>yes</code>, <code>no</code></td>
+          <td>Hospital information system</td>
+          <td><code>delivery_record</code></td>
+          <td>Date and time of delivery, sex assigned, mother's hospital MRN</td>
         </tr>
         <tr>
-          <td>System B</td>
-          <td><code>disability_level</code></td>
-          <td>Washington Group short set (6 domains, 4 severity levels each)</td>
+          <td>Civil registry</td>
+          <td><code>birth_record</code></td>
+          <td>Exact date, full legal name, parents' national identifiers, place of birth</td>
         </tr>
         <tr>
-          <td>System C</td>
-          <td><code>medical_condition</code></td>
-          <td>ICD-10 diagnostic codes</td>
+          <td>School enrolment</td>
+          <td><code>pupil_record</code></td>
+          <td>Estimated age in years</td>
         </tr>
       </tbody>
     </table>
-    <p class="h3-example-caption">Same concept. Three systems. Three fundamentally different models.</p>
+    <p class="h3-example-caption">Same person, three systems, three different models of who they are and when they were born.</p>
   </div>
 
   <p>
@@ -83,11 +85,11 @@ const {
   </p>
   <p>
     These aren't problems you solve with a lookup table. You cannot recover
-    Washington Group severity categories from a yes/no boolean, and ICD-10
-    diagnostic codes measure something different from either. Meanwhile, one
-    system models a household as a group with roles (head, spouse, dependent);
-    another stores it as flat fields on a single record. The concepts themselves
-    don't align. Shared definitions don't just save time; they make accurate
+    an exact date of birth from an estimated age, and the identifiers used by
+    each system point to nothing the others can verify. Meanwhile, one system
+    describes the family unit by hospital admission, another by parental link
+    in a register, and a third not at all. The concepts themselves don't
+    align. Shared definitions don't just save time; they make accurate
     exchange possible in the first place.
   </p>
 
@@ -227,7 +229,8 @@ const {
   <h2>How it relates to other standards</h2>
   <p>
     If you work with digital public infrastructure, you have probably
-    encountered standards like DCI, GovStack, or the EU Core Person Vocabulary.
+    encountered standards like the <a href="https://spdci.org" target="_blank" rel="noopener noreferrer">Digital Convergence Initiative (DCI)</a>,
+    <a href="https://govstack.global" target="_blank" rel="noopener noreferrer">GovStack</a>, or the EU Core Person Vocabulary.
     Here is how PublicSchema fits alongside them.
   </p>
   <p>
@@ -252,11 +255,13 @@ const {
   <div class="h3-evidence-inner">
     <h2>Grounded in evidence</h2>
     <p>
-      PublicSchema is grounded in a comparative analysis of six social
-      protection systems. Where international standards exist (ISO for
-      gender, countries, currencies; FHIR for health), we reference them.
-      Where they don't, we define a common set based on how these systems
-      actually work.
+      PublicSchema is grounded in a comparative analysis of real-world systems
+      spanning identity (MOSIP), social protection (OpenSPP, openIMIS), health
+      (DHIS2), and civil registration (OpenCRVS), alongside the relevant
+      interoperability standards (DCI, FHIR). Where international standards
+      (ISO for gender, countries, currencies) cover the ground, we reference
+      them. Where they don't, we define a common set based on how these
+      systems actually work.
     </p>
     <div class="h3-systems">
       {systems.map((s) => (

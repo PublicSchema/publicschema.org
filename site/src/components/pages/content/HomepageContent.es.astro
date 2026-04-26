@@ -39,11 +39,14 @@ const {
 <div class="h3-prose">
   <h2>Por qué importa un vocabulario compartido</h2>
   <p>
-    Un programa de protección social quiere derivar a beneficiarios con discapacidad
-    hacia un servicio de apoyo especializado. Pero los dos sistemas no coinciden en
-    qué significa "discapacidad", cómo se estructura un "hogar", ni qué representa
-    el estado "inscrito". La derivación requiere un ejercicio manual de mapeo
-    que puede llevar semanas e introduce errores.
+    Un gobierno quiere saber si el niño que se matricula en la escuela es
+    el mismo niño registrado al nacer y el mismo niño que aparece en el
+    registro de inmunizaciones. El registro civil tiene el documento
+    oficial. El hospital registró el parto. La escuela admite a un niño
+    cuya edad se estima porque no se presentó certificado. Los tres
+    registros describen a la misma persona, pero sus campos y valores no
+    se alinean, por lo que la reconciliación requiere un trabajo manual
+    que lleva semanas e introduce errores.
   </p>
 
   <div class="h3-example">
@@ -57,23 +60,23 @@ const {
       </thead>
       <tbody>
         <tr>
-          <td>Sistema A</td>
-          <td><code>has_disability</code></td>
-          <td><code>yes</code>, <code>no</code></td>
+          <td>Sistema de información hospitalaria</td>
+          <td><code>delivery_record</code></td>
+          <td>Fecha y hora del parto, sexo asignado, identificador hospitalario de la madre</td>
         </tr>
         <tr>
-          <td>Sistema B</td>
-          <td><code>disability_level</code></td>
-          <td>Conjunto corto del Washington Group (6 dominios, 4 niveles de severidad cada uno)</td>
+          <td>Registro civil</td>
+          <td><code>birth_record</code></td>
+          <td>Fecha exacta, nombre legal completo, identificadores nacionales de los padres, lugar de nacimiento</td>
         </tr>
         <tr>
-          <td>Sistema C</td>
-          <td><code>medical_condition</code></td>
-          <td>Códigos diagnósticos CIE-10</td>
+          <td>Matrícula escolar</td>
+          <td><code>pupil_record</code></td>
+          <td>Edad estimada en años</td>
         </tr>
       </tbody>
     </table>
-    <p class="h3-example-caption">El mismo concepto. Tres sistemas. Tres modelos fundamentalmente diferentes.</p>
+    <p class="h3-example-caption">La misma persona, tres sistemas, tres modelos distintos de quién es y cuándo nació.</p>
   </div>
 
   <p>
@@ -82,12 +85,15 @@ const {
     frágil y el proceso se reinicia cada vez que un sistema se actualiza.
   </p>
   <p>
-    Estos no son problemas que se resuelvan con una tabla de correspondencia. No se pueden
-    recuperar los niveles de severidad del Washington Group a partir de un booleano sí/no, y los
-    códigos diagnósticos CIE-10 miden algo distinto a ambos. Mientras tanto, un sistema modela
-    el hogar como un grupo con roles (jefe, cónyuge, dependiente); otro lo almacena como campos
-    individuales en un solo registro. Los conceptos mismos no se alinean. Las definiciones compartidas
-    no solo ahorran tiempo; hacen posible el intercambio preciso desde el principio.
+    Estos no son problemas que se resuelvan con una tabla de
+    correspondencia. No se puede reconstruir una fecha exacta de nacimiento
+    a partir de una edad estimada, y los identificadores que utiliza cada
+    sistema no apuntan a nada que los demás puedan verificar. Mientras
+    tanto, un sistema describe la unidad familiar por la admisión
+    hospitalaria, otro por el vínculo parental en un registro y un tercero
+    no la describe en absoluto. Los conceptos mismos no se alinean. Las
+    definiciones compartidas no solo ahorran tiempo; hacen posible el
+    intercambio preciso desde el principio.
   </p>
 
   <div class="h3-diagram">
@@ -225,7 +231,8 @@ const {
   <h2>Cómo se relaciona con otros estándares</h2>
   <p>
     Si trabaja con infraestructura digital pública, probablemente haya encontrado
-    estándares como DCI, GovStack o el EU Core Person Vocabulary. Así es como
+    estándares como la <a href="https://spdci.org" target="_blank" rel="noopener noreferrer">Digital Convergence Initiative (DCI)</a>,
+    <a href="https://govstack.global" target="_blank" rel="noopener noreferrer">GovStack</a> o el EU Core Person Vocabulary. Así es como
     PublicSchema encaja junto a ellos.
   </p>
   <p>
@@ -241,7 +248,7 @@ const {
     registros de inscripción entre sistemas; PublicSchema especifica qué
     significan "inscripción", "activo" y "benefit_modality" en esos registros.
     EU Core Person Vocabulary gestiona los atributos de identidad; PublicSchema
-    se extiende al ciclo de vida de la provisión de servicios, más allá del nombre y la fecha de nacimiento.
+    se extiende al ciclo de vida de la prestación de servicios, más allá del nombre y la fecha de nacimiento.
   </p>
 </div>
 
@@ -250,11 +257,13 @@ const {
   <div class="h3-evidence-inner">
     <h2>Basado en evidencia</h2>
     <p>
-      PublicSchema se basa en un análisis comparativo de seis sistemas de
-      protección social. Cuando existen estándares internacionales (ISO para
-      género, países y monedas; FHIR para salud), hacemos referencia a ellos.
-      Cuando no existen, definimos un conjunto común basado en cómo estos sistemas
-      funcionan en la práctica.
+      PublicSchema se basa en un análisis comparativo de sistemas reales que
+      abarcan identidad (MOSIP), protección social (OpenSPP, openIMIS), salud
+      (DHIS2) y registro civil (OpenCRVS), junto con los estándares de
+      interoperabilidad de referencia (DCI, FHIR). Cuando existen estándares
+      internacionales (ISO para género, países y monedas) que cubren el
+      ámbito, hacemos referencia a ellos. Cuando no existen, definimos un
+      conjunto común basado en cómo funcionan estos sistemas en la práctica.
     </p>
     <div class="h3-systems">
       {systems.map((s) => (

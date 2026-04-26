@@ -109,15 +109,25 @@ const { locale = defaultLocale } = Astro.props;
 
 <h2>Alcance</h2>
 <p>
-  PublicSchema comienza con la protección social: un dominio bien comprendido con
-  transformación digital activa, múltiples sistemas de código abierto y una necesidad
-  inmediata de interoperabilidad. Consulte la lista completa de
+  PublicSchema proporciona conceptos y vocabularios compartidos en la
+  prestación de servicios públicos: identidad, estado civil, composición
+  del hogar, ubicación, pago, eventos peligrosos, y otros. Actualmente
+  hay dos capas sectoriales activas:
+  <strong>protección social</strong> (inscripciones, prestaciones,
+  reclamos, derivaciones) y <strong>registro civil</strong> (nacimientos,
+  defunciones, matrimonios, adopciones). La evaluación humanitaria se
+  extiende a través del
+  <a href="https://schema.aidops.org/" target="_blank" rel="noopener noreferrer">esquema AidOps</a>,
+  que reutiliza las bases de PublicSchema. Los dominios de salud y
+  educación están planificados.
+</p>
+<p>
+  Consulte la lista completa de
   <a href={localePath('/concepts/', locale)}>conceptos</a> para conocer la cobertura actual.
 </p>
 <p>
-  El modelo está diseñado para extenderse a dominios adyacentes (registro civil,
-  salud, educación, respuesta humanitaria) a medida que crece la adopción. La estructura
-  es la misma; solo cambian los conceptos y los vocabularios.
+  La estructura es la misma entre dominios; solo cambian los conceptos y
+  los vocabularios.
 </p>
 
 <h2>Cómo lo adoptan los países y los programas</h2>
@@ -141,7 +151,7 @@ const { locale = defaultLocale } = Astro.props;
 <p>
   PublicSchema sintetiza un amplio cuerpo de trabajo previo: literatura
   sobre la prestación de servicios públicos, sistemas de código abierto
-  (openIMIS, OpenSPP, OpenCRVS, SEMIC, GovStack) y estándares
+  (openIMIS, OpenSPP, OpenCRVS, MOSIP, SEMIC, GovStack) y estándares
   internacionales (ISO, FHIR, UN M49, DCI). La IA acelera ese análisis a
   escala; los humanos revisan cada definición, correspondencia y decisión
   de diseño, y cada decisión arquitectónica no trivial queda registrada
@@ -158,27 +168,31 @@ const { locale = defaultLocale } = Astro.props;
 
 <h2>Gobernanza y hoja de ruta</h2>
 <p>
-  El proyecto es mantenido por Jeremi Joslin para permitir decisiones rápidas y con
-  criterio en las etapas iniciales. Se reciben activamente aportes de
-  expertos en el dominio, implementadores de sistemas y organismos de normalización.
+  PublicSchema es de código abierto y de uso libre. El proyecto es liderado
+  por Jeremi Joslin, con decisiones tomadas en público para que los
+  colaboradores y los adoptantes puedan ver cómo evoluciona el esquema.
 </p>
+<h3>Dónde estamos hoy</h3>
 <p>
-  A medida que crezca la adopción, la gobernanza se ampliará: primero a un grupo asesor
-  de colaboradores y expertos en el dominio, luego a una estructura formal de múltiples
-  partes interesadas.
+  Los conceptos, propiedades y esquemas de credenciales se publican con URIs
+  estables. Los vocabularios hacen referencia a estándares internacionales
+  (ISO, ONU, FHIR) cuando existen. Las correspondencias entre sistemas
+  cubren identidad (MOSIP), protección social (OpenSPP, openIMIS), registro
+  civil (OpenCRVS) y salud (DHIS2), junto con estándares de
+  interoperabilidad (DCI, FHIR, GovStack). El esquema aún no ha sido
+  validado en condiciones reales en un despliegue nacional.
 </p>
-<h3>Fase 1: Fundación <span class="badge badge-draft">en curso</span></h3>
+<h3>Cómo se toman las decisiones</h3>
+<ul>
+  <li>Cada concepto, propiedad y valor de vocabulario lleva un <a href={localePath('/docs/versioning-and-maturity/', locale)}>indicador de madurez</a> (borrador, uso experimental, normativo), para que los adoptantes vean dónde tenemos confianza y dónde los aportes siguen abiertos.</li>
+  <li>Las decisiones arquitectónicas no triviales se registran como Architecture Decision Records públicos en el <a href="https://github.com/PublicSchema/publicschema.org" target="_blank" rel="noopener noreferrer">repositorio del proyecto</a>.</li>
+  <li>Se agradecen las contribuciones de expertos en el dominio, implementadores de sistemas y organismos de normalización.</li>
+</ul>
+<h3>Cómo evolucionará la gobernanza</h3>
 <p>
-  Conceptos y propiedades con URIs estables. Definiciones redactadas para
-  profesionales del dominio. Publicado como sitio web de referencia.
-</p>
-<h3>Fase 2: Estándares y correspondencias</h3>
-<p>
-  Estándares internacionales adoptados para cada conjunto de valores. Correspondencias
-  de vocabularios entre sistemas. Experiencia piloto con al menos una implementación en un país.
-</p>
-<h3>Fase 3: Adopción y extensión</h3>
-<p>
-  Gobernanza formalizada. Validación en el mundo real con implementadores de sistemas.
-  Extensión a dominios adyacentes de servicios públicos.
+  El dispositivo actual permite iterar con rapidez antes de la adopción. A
+  medida que los países y los programas adopten el esquema, la gobernanza se
+  ampliará: primero a un grupo asesor de colaboradores y expertos en el
+  dominio, luego a una estructura formal de múltiples partes interesadas
+  cuando los compromisos de adopción lo justifiquen.
 </p>

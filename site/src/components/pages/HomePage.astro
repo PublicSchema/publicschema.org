@@ -57,6 +57,7 @@ const vocabularies = Object.entries(vocab.vocabularies)
     (maturityRank[a.maturity] ?? 9) - (maturityRank[b.maturity] ?? 9) || a.key.localeCompare(b.key)
   );
 const systems = [
+  { id: 'mosip', name: 'MOSIP' },
   { id: 'openspp', name: 'OpenSPP' },
   { id: 'openimis', name: 'openIMIS' },
   { id: 'dci', name: 'DCI' },
