@@ -1,0 +1,12 @@
+schema_project:
+  id: publicschema
+  kind: core
+  name: PublicSchema
+  namespace: publicschema
+  base_uri: https://publicschema.org/
+  version: "0.3.0"
+  status: draft
+  languages:
+    primary: en
+    additional: [fr, es]
+  license: CC-BY-4.0
