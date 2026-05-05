@@ -52,3 +52,21 @@ site/playwright.config.local.ts
 
 # OS
 .DS_Store
+
+# Profile compiler paths (lives in publicschema-build, not here).
+# Backstop in case someone accidentally re-creates these in this repo.
+build/cel/
+build/cli.py
+build/generators/
+build/profile.py
+build/profile_compile.py
+build/profile_validate.py
+build/schemas/profile.schema.json
+build/templates/
+packages/
+package.json
+pnpm-lock.yaml
+pnpm-workspace.yaml
+scripts/publicschema
+tests/fixtures/profiles/
+tests/profile_pipeline/
