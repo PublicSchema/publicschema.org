@@ -1,0 +1,94 @@
+id: semic-core-person-terms
+source_id: semic-core-person
+source_version: 2.1.1
+terms:
+  - id: person.Person
+    iri: http://www.w3.org/ns/person#Person
+    curie: person:Person
+    term_type: class
+    label:
+      en: Person
+    definition:
+      en: A natural person as modeled by SEMIC Core Person.
+    namespace: http://www.w3.org/ns/person#
+    prefix: person
+    source_module: Core Person
+    is_defined_by: https://semiceu.github.io/Core-Person-Vocabulary/releases/2.1.1/
+    see_also:
+      - https://github.com/SEMICeu/Core-Person-Vocabulary
+    custodian: European Commission, SEMIC
+    license_snapshot:
+      id: CC-BY-4.0
+      uri: https://creativecommons.org/licenses/by/4.0/
+      attribution_text: Contains information from SEMIC Core Vocabularies, licensed under CC BY 4.0.
+    source_artifact_url: https://raw.githubusercontent.com/SEMICeu/Core-Person-Vocabulary/v2.1.1/releases/2.1.1/voc/core-person-voc.ttl
+    source_artifact_sha256: 98d8439aa3a21b797d3f7f1b6f63b87228f52ab7540de7c4b93e9f07f33db392
+    retrieved_at: "2026-05-07T00:00:00Z"
+    status: active
+    deprecated: false
+  - id: cv.gender
+    iri: http://data.europa.eu/m8g/gender
+    curie: cv:gender
+    term_type: property
+    label:
+      en: gender
+    definition:
+      en: The gender of a person as represented in SEMIC Core Person.
+    namespace: http://data.europa.eu/m8g/
+    prefix: cv
+    source_module: Core Person
+    is_defined_by: https://semiceu.github.io/Core-Person-Vocabulary/releases/2.1.1/
+    custodian: European Commission, SEMIC
+    license_snapshot:
+      id: CC-BY-4.0
+      uri: https://creativecommons.org/licenses/by/4.0/
+      attribution_text: Contains information from SEMIC Core Vocabularies, licensed under CC BY 4.0.
+    source_artifact_url: https://raw.githubusercontent.com/SEMICeu/Core-Person-Vocabulary/v2.1.1/releases/2.1.1/voc/core-person-voc.ttl
+    source_artifact_sha256: 98d8439aa3a21b797d3f7f1b6f63b87228f52ab7540de7c4b93e9f07f33db392
+    retrieved_at: "2026-05-07T00:00:00Z"
+    status: active
+    deprecated: false
+  - id: cv.sex
+    iri: http://data.europa.eu/m8g/sex
+    curie: cv:sex
+    term_type: property
+    label:
+      en: sex
+    definition:
+      en: The sex of a person as represented in SEMIC Core Person.
+    namespace: http://data.europa.eu/m8g/
+    prefix: cv
+    source_module: Core Person
+    is_defined_by: https://semiceu.github.io/Core-Person-Vocabulary/releases/2.1.1/
+    custodian: European Commission, SEMIC
+    license_snapshot:
+      id: CC-BY-4.0
+      uri: https://creativecommons.org/licenses/by/4.0/
+      attribution_text: Contains information from SEMIC Core Vocabularies, licensed under CC BY 4.0.
+    source_artifact_url: https://raw.githubusercontent.com/SEMICeu/Core-Person-Vocabulary/v2.1.1/releases/2.1.1/voc/core-person-voc.ttl
+    source_artifact_sha256: 98d8439aa3a21b797d3f7f1b6f63b87228f52ab7540de7c4b93e9f07f33db392
+    retrieved_at: "2026-05-07T00:00:00Z"
+    status: active
+    deprecated: false
+  - id: eu-human-sex.scheme
+    iri: http://publications.europa.eu/resource/authority/human-sex
+    curie: eu-human-sex:scheme
+    term_type: concept_scheme
+    label:
+      en: Human Sex
+    definition:
+      en: EU Named Authority List for human sex referenced by SEMIC Core Person.
+    namespace: http://publications.europa.eu/resource/authority/human-sex
+    prefix: eu-human-sex
+    source_module: Core Person
+    is_defined_by: https://semiceu.github.io/Core-Person-Vocabulary/releases/2.1.1/
+    custodian: European Union Publications Office
+    license_snapshot:
+      id: CC-BY-4.0
+      uri: https://creativecommons.org/licenses/by/4.0/
+      attribution_text: Contains information from SEMIC Core Vocabularies, licensed under CC BY 4.0.
+    source_artifact_url: https://raw.githubusercontent.com/SEMICeu/Core-Person-Vocabulary/v2.1.1/releases/2.1.1/voc/core-person-voc.ttl
+    source_artifact_sha256: 98d8439aa3a21b797d3f7f1b6f63b87228f52ab7540de7c4b93e9f07f33db392
+    retrieved_at: "2026-05-07T00:00:00Z"
+    status: active
+    deprecated: false
