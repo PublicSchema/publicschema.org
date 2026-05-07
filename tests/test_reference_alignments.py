@@ -24,6 +24,18 @@ def test_semic_core_person_reference_is_pinned() -> None:
     assert all(item.get("retrieved_at") for item in artifacts)
 
 
+def test_publicschema_declares_explicit_native_base() -> None:
+    base = _load_yaml(SCHEMA_DIR / "bases" / "active-base.yaml")
+
+    assert base["base_strategy"] == "publicschema-native"
+    assert base["primary_base"] == {
+        "id": "publicschema",
+        "reference_type": "local_project",
+        "source_project_id": "publicschema",
+    }
+    assert base["base_pack"]["adoption_behavior"] == "adopt_all_owned_resources"
+
+
 def test_semic_person_alignment_has_publicschema_assertion_owner() -> None:
     alignment_set = _load_yaml(SCHEMA_DIR / "alignments" / "semic-core-person.yaml")
 

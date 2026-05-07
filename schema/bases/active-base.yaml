@@ -1,0 +1,12 @@
+id: active-base
+label: PublicSchema native base
+base_strategy: publicschema-native
+primary_base:
+  id: publicschema
+  reference_type: local_project
+  source_project_id: publicschema
+base_pack:
+  id: publicschema-core
+  adoption_behavior: adopt_all_owned_resources
+rules:
+  publicschema_required: true
