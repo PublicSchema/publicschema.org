@@ -47,6 +47,23 @@ def test_semic_core_business_and_location_references_are_pinned() -> None:
         assert ref["artifacts"][0]["retrieved_at"] == "2026-05-07T00:00:00Z"
 
 
+def test_semic_external_references_have_refresh_procedures() -> None:
+    source_ids = ["semic-core-person", "semic-core-business", "semic-core-location"]
+
+    for source_id in source_ids:
+        ref = _load_yaml(SCHEMA_DIR / "external_references" / f"{source_id}.yaml")
+        procedure = ref["refresh_procedure"]
+
+        assert procedure["cadence"] == "manual-per-upstream-release"
+        assert procedure["steps"]
+        assert any("shasum -a 256" in step for step in procedure["steps"])
+        assert any(
+            "uv run pytest tests/test_reference_alignments.py -q" in step
+            for step in procedure["steps"]
+        )
+        assert procedure["expected_artifacts"]
+
+
 def test_publicschema_declares_explicit_native_base() -> None:
     base = _load_yaml(SCHEMA_DIR / "bases" / "active-base.yaml")
 

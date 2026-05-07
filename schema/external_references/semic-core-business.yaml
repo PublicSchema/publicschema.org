@@ -36,6 +36,16 @@ prefixes:
 parser:
   adapter: semic-rdf-shacl
   version: 1
+refresh_procedure:
+  cadence: manual-per-upstream-release
+  steps:
+    - Verify the latest SEMIC Core Business release tag and version page.
+    - Download the vocabulary artifact from the pinned release tag.
+    - Run `shasum -a 256 core-business.ttl`.
+    - Update `version`, `reference_url`, artifact URL, hash, and `retrieved_at` in one commit.
+    - Run `uv run pytest tests/test_reference_alignments.py -q`.
+  expected_artifacts:
+    - releases/{version}/voc/core-business.ttl
 notes: >
   PublicSchema treats SEMIC Core Business as an external reference source.
   Core Business terms remain externally owned and are referenced through
