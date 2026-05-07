@@ -1,22 +1,45 @@
 id: semic-core-person-terms
 source_id: semic-core-person
 source_version: 2.1.1
+index_role: reference-index
+generated_from:
+  source_id: semic-core-person
+  artifact_sha256: 98d8439aa3a21b797d3f7f1b6f63b87228f52ab7540de7c4b93e9f07f33db392
+  adapter: semic-rdf-shacl
+  parser_version: 1
 terms:
   - id: person.Person
     iri: http://www.w3.org/ns/person#Person
     curie: person:Person
     term_type: class
-    label:
-      en: Person
-    definition:
-      en: A natural person as modeled by SEMIC Core Person.
     namespace: http://www.w3.org/ns/person#
     prefix: person
+    canonical_identity:
+      iri: http://www.w3.org/ns/person#Person
+      defining_namespace: http://www.w3.org/ns/person#
+      namespace_owner: W3C
+      term_custodian: W3C
+    discovery:
+      source_id: semic-core-person
+      source_version: 2.1.1
+      source_module: Core Person
+      source_artifact_url: https://raw.githubusercontent.com/SEMICeu/Core-Person-Vocabulary/v2.1.1/releases/2.1.1/voc/core-person-voc.ttl
+      source_artifact_sha256: 98d8439aa3a21b797d3f7f1b6f63b87228f52ab7540de7c4b93e9f07f33db392
+      source_artifact_license:
+        id: CC-BY-4.0
+        uri: https://creativecommons.org/licenses/by/4.0/
+        attribution_text: Contains information from SEMIC Core Vocabularies, licensed under CC BY 4.0.
+        redistribution: embed-with-attribution
+    curation_source:
+      source_id: semic-core-person
+      custodian: European Commission, SEMIC
     source_module: Core Person
-    is_defined_by: https://semiceu.github.io/Core-Person-Vocabulary/releases/2.1.1/
+    namespace_owner: W3C
+    term_custodian: W3C
+    is_defined_by: http://www.w3.org/ns/person#
     see_also:
+      - https://semiceu.github.io/Core-Person-Vocabulary/releases/2.1.1/
       - https://github.com/SEMICeu/Core-Person-Vocabulary
-    custodian: European Commission, SEMIC
     license_snapshot:
       id: CC-BY-4.0
       uri: https://creativecommons.org/licenses/by/4.0/
@@ -30,15 +53,33 @@ terms:
     iri: http://data.europa.eu/m8g/gender
     curie: cv:gender
     term_type: property
-    label:
-      en: gender
-    definition:
-      en: The gender of a person as represented in SEMIC Core Person.
     namespace: http://data.europa.eu/m8g/
     prefix: cv
+    canonical_identity:
+      iri: http://data.europa.eu/m8g/gender
+      defining_namespace: http://data.europa.eu/m8g/
+      namespace_owner: European Commission, SEMIC
+      term_custodian: European Commission, SEMIC
+    discovery:
+      source_id: semic-core-person
+      source_version: 2.1.1
+      source_module: Core Person
+      source_artifact_url: https://raw.githubusercontent.com/SEMICeu/Core-Person-Vocabulary/v2.1.1/releases/2.1.1/voc/core-person-voc.ttl
+      source_artifact_sha256: 98d8439aa3a21b797d3f7f1b6f63b87228f52ab7540de7c4b93e9f07f33db392
+      source_artifact_license:
+        id: CC-BY-4.0
+        uri: https://creativecommons.org/licenses/by/4.0/
+        attribution_text: Contains information from SEMIC Core Vocabularies, licensed under CC BY 4.0.
+        redistribution: embed-with-attribution
+    curation_source:
+      source_id: semic-core-person
+      custodian: European Commission, SEMIC
     source_module: Core Person
-    is_defined_by: https://semiceu.github.io/Core-Person-Vocabulary/releases/2.1.1/
-    custodian: European Commission, SEMIC
+    namespace_owner: European Commission, SEMIC
+    term_custodian: European Commission, SEMIC
+    is_defined_by: http://data.europa.eu/m8g/
+    see_also:
+      - https://semiceu.github.io/Core-Person-Vocabulary/releases/2.1.1/
     license_snapshot:
       id: CC-BY-4.0
       uri: https://creativecommons.org/licenses/by/4.0/
@@ -52,15 +93,33 @@ terms:
     iri: http://data.europa.eu/m8g/sex
     curie: cv:sex
     term_type: property
-    label:
-      en: sex
-    definition:
-      en: The sex of a person as represented in SEMIC Core Person.
     namespace: http://data.europa.eu/m8g/
     prefix: cv
+    canonical_identity:
+      iri: http://data.europa.eu/m8g/sex
+      defining_namespace: http://data.europa.eu/m8g/
+      namespace_owner: European Commission, SEMIC
+      term_custodian: European Commission, SEMIC
+    discovery:
+      source_id: semic-core-person
+      source_version: 2.1.1
+      source_module: Core Person
+      source_artifact_url: https://raw.githubusercontent.com/SEMICeu/Core-Person-Vocabulary/v2.1.1/releases/2.1.1/voc/core-person-voc.ttl
+      source_artifact_sha256: 98d8439aa3a21b797d3f7f1b6f63b87228f52ab7540de7c4b93e9f07f33db392
+      source_artifact_license:
+        id: CC-BY-4.0
+        uri: https://creativecommons.org/licenses/by/4.0/
+        attribution_text: Contains information from SEMIC Core Vocabularies, licensed under CC BY 4.0.
+        redistribution: embed-with-attribution
+    curation_source:
+      source_id: semic-core-person
+      custodian: European Commission, SEMIC
     source_module: Core Person
-    is_defined_by: https://semiceu.github.io/Core-Person-Vocabulary/releases/2.1.1/
-    custodian: European Commission, SEMIC
+    namespace_owner: European Commission, SEMIC
+    term_custodian: European Commission, SEMIC
+    is_defined_by: http://data.europa.eu/m8g/
+    see_also:
+      - https://semiceu.github.io/Core-Person-Vocabulary/releases/2.1.1/
     license_snapshot:
       id: CC-BY-4.0
       uri: https://creativecommons.org/licenses/by/4.0/
@@ -74,15 +133,33 @@ terms:
     iri: http://publications.europa.eu/resource/authority/human-sex
     curie: eu-human-sex:scheme
     term_type: concept_scheme
-    label:
-      en: Human Sex
-    definition:
-      en: EU Named Authority List for human sex referenced by SEMIC Core Person.
     namespace: http://publications.europa.eu/resource/authority/human-sex
     prefix: eu-human-sex
+    canonical_identity:
+      iri: http://publications.europa.eu/resource/authority/human-sex
+      defining_namespace: http://publications.europa.eu/resource/authority/human-sex
+      namespace_owner: European Union Publications Office
+      term_custodian: European Union Publications Office
+    discovery:
+      source_id: semic-core-person
+      source_version: 2.1.1
+      source_module: Core Person
+      source_artifact_url: https://raw.githubusercontent.com/SEMICeu/Core-Person-Vocabulary/v2.1.1/releases/2.1.1/voc/core-person-voc.ttl
+      source_artifact_sha256: 98d8439aa3a21b797d3f7f1b6f63b87228f52ab7540de7c4b93e9f07f33db392
+      source_artifact_license:
+        id: CC-BY-4.0
+        uri: https://creativecommons.org/licenses/by/4.0/
+        attribution_text: Contains information from SEMIC Core Vocabularies, licensed under CC BY 4.0.
+        redistribution: embed-with-attribution
+    curation_source:
+      source_id: semic-core-person
+      custodian: European Commission, SEMIC
     source_module: Core Person
-    is_defined_by: https://semiceu.github.io/Core-Person-Vocabulary/releases/2.1.1/
-    custodian: European Union Publications Office
+    namespace_owner: European Union Publications Office
+    term_custodian: European Union Publications Office
+    is_defined_by: http://publications.europa.eu/resource/authority/human-sex
+    see_also:
+      - https://semiceu.github.io/Core-Person-Vocabulary/releases/2.1.1/
     license_snapshot:
       id: CC-BY-4.0
       uri: https://creativecommons.org/licenses/by/4.0/

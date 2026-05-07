@@ -64,7 +64,18 @@ def test_semic_external_terms_preserve_namespace_distinction() -> None:
     assert person["source_module"] == "Core Person"
     assert person["namespace"] == "http://www.w3.org/ns/person#"
     assert person["prefix"] == "person"
+    assert person["canonical_identity"] == {
+        "iri": "http://www.w3.org/ns/person#Person",
+        "defining_namespace": "http://www.w3.org/ns/person#",
+        "namespace_owner": "W3C",
+        "term_custodian": "W3C",
+    }
+    assert person["discovery"]["source_id"] == "semic-core-person"
+    assert person["curation_source"]["custodian"] == "European Commission, SEMIC"
+    assert person["term_custodian"] == "W3C"
 
     gender = by_id["cv.gender"]
     assert gender["namespace"] == "http://data.europa.eu/m8g/"
     assert gender["prefix"] == "cv"
+    assert gender["canonical_identity"]["namespace_owner"] == "European Commission, SEMIC"
+    assert gender["discovery"]["source_artifact_sha256"]
