@@ -1,0 +1,90 @@
+id: semic-core-business-terms
+source_id: semic-core-business
+source_version: 2.2.0
+index_role: reference-index
+generated_from:
+  source_id: semic-core-business
+  artifact_sha256: 01c25a325e25843d616989c035c438695ea25e85790a3a6b058e471455a52069
+  adapter: semic-rdf-shacl
+  parser_version: 1
+terms:
+  - id: legal.LegalEntity
+    iri: http://www.w3.org/ns/legal#LegalEntity
+    curie: legal:LegalEntity
+    term_type: class
+    namespace: http://www.w3.org/ns/legal#
+    prefix: legal
+    canonical_identity:
+      iri: http://www.w3.org/ns/legal#LegalEntity
+      defining_namespace: http://www.w3.org/ns/legal#
+      namespace_owner: European Commission, SEMIC
+      term_custodian: European Commission, SEMIC
+    discovery:
+      source_id: semic-core-business
+      source_version: 2.2.0
+      source_module: Core Business
+      source_artifact_url: https://raw.githubusercontent.com/SEMICeu/Core-Business-Vocabulary/V2.2.0/releases/2.2.0/voc/core-business.ttl
+      source_artifact_sha256: 01c25a325e25843d616989c035c438695ea25e85790a3a6b058e471455a52069
+      source_artifact_license:
+        id: CC-BY-4.0
+        uri: https://creativecommons.org/licenses/by/4.0/
+        attribution_text: Contains information from SEMIC Core Vocabularies, licensed under CC BY 4.0.
+        redistribution: embed-with-attribution
+    curation_source:
+      source_id: semic-core-business
+      custodian: Interoperable Europe / SEMIC
+    source_module: Core Business
+    namespace_owner: European Commission, SEMIC
+    term_custodian: European Commission, SEMIC
+    is_defined_by: http://www.w3.org/ns/legal#
+    see_also:
+      - https://semiceu.github.io/Core-Business-Vocabulary/releases/2.2.0/
+    license_snapshot:
+      id: CC-BY-4.0
+      uri: https://creativecommons.org/licenses/by/4.0/
+      attribution_text: Contains information from SEMIC Core Vocabularies, licensed under CC BY 4.0.
+    source_artifact_url: https://raw.githubusercontent.com/SEMICeu/Core-Business-Vocabulary/V2.2.0/releases/2.2.0/voc/core-business.ttl
+    source_artifact_sha256: 01c25a325e25843d616989c035c438695ea25e85790a3a6b058e471455a52069
+    retrieved_at: "2026-05-07T00:00:00Z"
+    status: active
+    deprecated: false
+  - id: legal.legalName
+    iri: http://www.w3.org/ns/legal#legalName
+    curie: legal:legalName
+    term_type: property
+    namespace: http://www.w3.org/ns/legal#
+    prefix: legal
+    canonical_identity:
+      iri: http://www.w3.org/ns/legal#legalName
+      defining_namespace: http://www.w3.org/ns/legal#
+      namespace_owner: European Commission, SEMIC
+      term_custodian: European Commission, SEMIC
+    discovery:
+      source_id: semic-core-business
+      source_version: 2.2.0
+      source_module: Core Business
+      source_artifact_url: https://raw.githubusercontent.com/SEMICeu/Core-Business-Vocabulary/V2.2.0/releases/2.2.0/voc/core-business.ttl
+      source_artifact_sha256: 01c25a325e25843d616989c035c438695ea25e85790a3a6b058e471455a52069
+      source_artifact_license:
+        id: CC-BY-4.0
+        uri: https://creativecommons.org/licenses/by/4.0/
+        attribution_text: Contains information from SEMIC Core Vocabularies, licensed under CC BY 4.0.
+        redistribution: embed-with-attribution
+    curation_source:
+      source_id: semic-core-business
+      custodian: Interoperable Europe / SEMIC
+    source_module: Core Business
+    namespace_owner: European Commission, SEMIC
+    term_custodian: European Commission, SEMIC
+    is_defined_by: http://www.w3.org/ns/legal#
+    see_also:
+      - https://semiceu.github.io/Core-Business-Vocabulary/releases/2.2.0/
+    license_snapshot:
+      id: CC-BY-4.0
+      uri: https://creativecommons.org/licenses/by/4.0/
+      attribution_text: Contains information from SEMIC Core Vocabularies, licensed under CC BY 4.0.
+    source_artifact_url: https://raw.githubusercontent.com/SEMICeu/Core-Business-Vocabulary/V2.2.0/releases/2.2.0/voc/core-business.ttl
+    source_artifact_sha256: 01c25a325e25843d616989c035c438695ea25e85790a3a6b058e471455a52069
+    retrieved_at: "2026-05-07T00:00:00Z"
+    status: active
+    deprecated: false

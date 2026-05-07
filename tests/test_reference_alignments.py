@@ -24,6 +24,29 @@ def test_semic_core_person_reference_is_pinned() -> None:
     assert all(item.get("retrieved_at") for item in artifacts)
 
 
+def test_semic_core_business_and_location_references_are_pinned() -> None:
+    expected = {
+        "semic-core-business": {
+            "version": "2.2.0",
+            "sha256": "01c25a325e25843d616989c035c438695ea25e85790a3a6b058e471455a52069",
+        },
+        "semic-core-location": {
+            "version": "2.1.1",
+            "sha256": "adf51f8052ca3e12fee2cc57284b3671c413d49c4fd1a0d333c9ec1bb3f55a0c",
+        },
+    }
+
+    for source_id, metadata in expected.items():
+        ref = _load_yaml(SCHEMA_DIR / "external_references" / f"{source_id}.yaml")
+
+        assert ref["id"] == source_id
+        assert ref["version"] == metadata["version"]
+        assert ref["license"]["id"] == "CC-BY-4.0"
+        assert ref["base_eligibility"] == "base_eligible"
+        assert ref["artifacts"][0]["sha256"] == metadata["sha256"]
+        assert ref["artifacts"][0]["retrieved_at"] == "2026-05-07T00:00:00Z"
+
+
 def test_publicschema_declares_explicit_native_base() -> None:
     base = _load_yaml(SCHEMA_DIR / "bases" / "active-base.yaml")
 
@@ -91,3 +114,35 @@ def test_semic_external_terms_preserve_namespace_distinction() -> None:
     assert gender["prefix"] == "cv"
     assert gender["canonical_identity"]["namespace_owner"] == "European Commission, SEMIC"
     assert gender["discovery"]["source_artifact_sha256"]
+
+
+def test_semic_core_business_and_location_terms_preserve_authority_distinction() -> None:
+    business = _load_yaml(SCHEMA_DIR / "external_terms" / "semic-core-business.yaml")
+    business_terms = {item["id"]: item for item in business["terms"]}
+    legal_entity = business_terms["legal.LegalEntity"]
+    assert legal_entity["canonical_identity"]["namespace_owner"] == "European Commission, SEMIC"
+    assert legal_entity["discovery"]["source_id"] == "semic-core-business"
+
+    location = _load_yaml(SCHEMA_DIR / "external_terms" / "semic-core-location.yaml")
+    location_terms = {item["id"]: item for item in location["terms"]}
+    address = location_terms["locn.Address"]
+    assert address["canonical_identity"]["namespace_owner"] == "W3C"
+    assert address["discovery"]["source_id"] == "semic-core-location"
+
+
+def test_semic_core_business_and_location_alignments_are_first_class() -> None:
+    business = _load_yaml(SCHEMA_DIR / "alignments" / "semic-core-business.yaml")
+    business_by_id = {item["id"]: item for item in business["alignments"]}
+    assert business["source_id"] == "semic-core-business"
+    assert business["standard"]["source_sha256"]
+    assert business_by_id["publicschema.Organization--skos.closeMatch--legal.LegalEntity"][
+        "object"
+    ]["iri"] == "http://www.w3.org/ns/legal#LegalEntity"
+
+    location = _load_yaml(SCHEMA_DIR / "alignments" / "semic-core-location.yaml")
+    location_by_id = {item["id"]: item for item in location["alignments"]}
+    assert location["source_id"] == "semic-core-location"
+    assert location["standard"]["source_sha256"]
+    assert location_by_id["publicschema.Address--skos.exactMatch--locn.Address"][
+        "object"
+    ]["iri"] == "http://www.w3.org/ns/locn#Address"

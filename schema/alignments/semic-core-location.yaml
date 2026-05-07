@@ -1,0 +1,85 @@
+id: semic-core-location
+label: SEMIC Core Location alignments
+source_id: semic-core-location
+source_version: 2.1.1
+alignment_set_owner: publicschema
+maintainer: publicschema-core-maintainers
+status: accepted
+standard:
+  source_id: semic-core-location
+  uri: http://www.w3.org/ns/locn#Address
+  custodian: Interoperable Europe / SEMIC
+  license: CC-BY-4.0
+  license_uri: https://creativecommons.org/licenses/by/4.0/
+  version: 2.1.1
+  attribution_required: true
+  attribution_text: Contains information from SEMIC Core Vocabularies, licensed under CC BY 4.0.
+  redistribution: embed-with-attribution
+  retrieved_at: "2026-05-07T00:00:00Z"
+  source_url: https://raw.githubusercontent.com/SEMICeu/Core-Location-Vocabulary/2.1.1/releases/2.1.1/index.html
+  source_sha256: adf51f8052ca3e12fee2cc57284b3671c413d49c4fd1a0d333c9ec1bb3f55a0c
+alignments:
+  - id: publicschema.Address--skos.exactMatch--locn.Address
+    subject:
+      id: Address
+      iri: https://publicschema.org/Address
+      kind: concept
+      source_project_id: publicschema
+    object:
+      term_id: locn.Address
+      iri: http://www.w3.org/ns/locn#Address
+      kind: class
+      source_id: semic-core-location
+    predicate: http://www.w3.org/2004/02/skos/core#exactMatch
+    quality: exact
+    direction: subject-to-object
+    mapping_level: class
+    evidence:
+      - kind: standard_source
+        source: https://semiceu.github.io/Core-Location-Vocabulary/releases/2.1.1/
+        ref: http://www.w3.org/ns/locn#Address
+        sha256: adf51f8052ca3e12fee2cc57284b3671c413d49c4fd1a0d333c9ec1bb3f55a0c
+    rationale: PublicSchema Address represents a structured address compatible with locn:Address for exchange.
+    confidence: high
+    review_status: accepted
+    asserted_by: publicschema-core-maintainers
+    asserted_at: "2026-05-07T00:00:00Z"
+    reciprocal: true
+    license_snapshot:
+      id: CC-BY-4.0
+      uri: https://creativecommons.org/licenses/by/4.0/
+      attribution_text: Contains information from SEMIC Core Vocabularies, licensed under CC BY 4.0.
+  - id: publicschema.geometry--skos.closeMatch--locn.geometry
+    subject:
+      id: geometry
+      iri: https://publicschema.org/geometry
+      kind: property
+      source_project_id: publicschema
+      qualified_id: Address.geometry
+    object:
+      term_id: locn.geometry
+      iri: http://www.w3.org/ns/locn#geometry
+      kind: property
+      source_id: semic-core-location
+    predicate: http://www.w3.org/2004/02/skos/core#closeMatch
+    quality: close
+    direction: bidirectional
+    mapping_level: property
+    evidence:
+      - kind: standard_source
+        source: https://semiceu.github.io/Core-Location-Vocabulary/releases/2.1.1/
+        ref: http://www.w3.org/ns/locn#geometry
+        sha256: adf51f8052ca3e12fee2cc57284b3671c413d49c4fd1a0d333c9ec1bb3f55a0c
+    rationale: SEMIC locn:geometry is encoding-agnostic, while PublicSchema geometry is specifically GeoJSON, so this is close rather than exact.
+    confidence: medium
+    review_status: accepted
+    asserted_by: publicschema-core-maintainers
+    asserted_at: "2026-05-07T00:00:00Z"
+    reciprocal: false
+    license_snapshot:
+      id: CC-BY-4.0
+      uri: https://creativecommons.org/licenses/by/4.0/
+      attribution_text: Contains information from SEMIC Core Vocabularies, licensed under CC BY 4.0.
+metadata:
+  artifact_kind: alignment_set
+  writes_operational_mapping: false

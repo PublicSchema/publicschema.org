@@ -1,0 +1,42 @@
+id: semic-core-business
+name: SEMIC Core Business Vocabulary
+custodian: Interoperable Europe / SEMIC
+kind: rdf_profile
+status: active
+version: 2.2.0
+version_status: recommendation
+homepage: https://github.com/SEMICeu/Core-Business-Vocabulary
+reference_url: https://semiceu.github.io/Core-Business-Vocabulary/releases/2.2.0/
+license:
+  id: CC-BY-4.0
+  uri: https://creativecommons.org/licenses/by/4.0/
+  attribution_required: true
+  attribution_text: Contains information from SEMIC Core Vocabularies, licensed under CC BY 4.0.
+  redistribution: embed-with-attribution
+allowed_hosts:
+  - github.com
+  - raw.githubusercontent.com
+  - semiceu.github.io
+source_class: external_standard
+machine_readability: native_semantic
+adapter_family: rdf-skos-shacl
+base_eligibility: base_eligible
+supported_modes:
+  - reference
+  - adoption
+  - base
+artifacts:
+  - url: https://raw.githubusercontent.com/SEMICeu/Core-Business-Vocabulary/V2.2.0/releases/2.2.0/voc/core-business.ttl
+    media_type: text/turtle
+    sha256: 01c25a325e25843d616989c035c438695ea25e85790a3a6b058e471455a52069
+    retrieved_at: "2026-05-07T00:00:00Z"
+prefixes:
+  legal: http://www.w3.org/ns/legal#
+  skos: http://www.w3.org/2004/02/skos/core#
+parser:
+  adapter: semic-rdf-shacl
+  version: 1
+notes: >
+  PublicSchema treats SEMIC Core Business as an external reference source.
+  Core Business terms remain externally owned and are referenced through
+  external terms and alignments.

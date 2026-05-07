@@ -1,0 +1,85 @@
+id: semic-core-business
+label: SEMIC Core Business alignments
+source_id: semic-core-business
+source_version: 2.2.0
+alignment_set_owner: publicschema
+maintainer: publicschema-core-maintainers
+status: accepted
+standard:
+  source_id: semic-core-business
+  uri: http://www.w3.org/ns/legal#LegalEntity
+  custodian: Interoperable Europe / SEMIC
+  license: CC-BY-4.0
+  license_uri: https://creativecommons.org/licenses/by/4.0/
+  version: 2.2.0
+  attribution_required: true
+  attribution_text: Contains information from SEMIC Core Vocabularies, licensed under CC BY 4.0.
+  redistribution: embed-with-attribution
+  retrieved_at: "2026-05-07T00:00:00Z"
+  source_url: https://raw.githubusercontent.com/SEMICeu/Core-Business-Vocabulary/V2.2.0/releases/2.2.0/voc/core-business.ttl
+  source_sha256: 01c25a325e25843d616989c035c438695ea25e85790a3a6b058e471455a52069
+alignments:
+  - id: publicschema.Organization--skos.closeMatch--legal.LegalEntity
+    subject:
+      id: Organization
+      iri: https://publicschema.org/Organization
+      kind: concept
+      source_project_id: publicschema
+    object:
+      term_id: legal.LegalEntity
+      iri: http://www.w3.org/ns/legal#LegalEntity
+      kind: class
+      source_id: semic-core-business
+    predicate: http://www.w3.org/2004/02/skos/core#closeMatch
+    quality: close
+    direction: subject-to-object
+    mapping_level: class
+    evidence:
+      - kind: standard_source
+        source: https://semiceu.github.io/Core-Business-Vocabulary/releases/2.2.0/
+        ref: http://www.w3.org/ns/legal#LegalEntity
+        sha256: 01c25a325e25843d616989c035c438695ea25e85790a3a6b058e471455a52069
+    rationale: PublicSchema Organization covers public and private organizations; Core Business LegalEntity is a close legal-identity alignment.
+    confidence: medium
+    review_status: accepted
+    asserted_by: publicschema-core-maintainers
+    asserted_at: "2026-05-07T00:00:00Z"
+    reciprocal: false
+    license_snapshot:
+      id: CC-BY-4.0
+      uri: https://creativecommons.org/licenses/by/4.0/
+      attribution_text: Contains information from SEMIC Core Vocabularies, licensed under CC BY 4.0.
+  - id: publicschema.name--skos.closeMatch--legal.legalName
+    subject:
+      id: name
+      iri: https://publicschema.org/name
+      kind: property
+      source_project_id: publicschema
+      qualified_id: Organization.name
+    object:
+      term_id: legal.legalName
+      iri: http://www.w3.org/ns/legal#legalName
+      kind: property
+      source_id: semic-core-business
+    predicate: http://www.w3.org/2004/02/skos/core#closeMatch
+    quality: close
+    direction: bidirectional
+    mapping_level: property
+    evidence:
+      - kind: standard_source
+        source: https://semiceu.github.io/Core-Business-Vocabulary/releases/2.2.0/
+        ref: http://www.w3.org/ns/legal#legalName
+        sha256: 01c25a325e25843d616989c035c438695ea25e85790a3a6b058e471455a52069
+    rationale: PublicSchema name can carry an organization label; legalName is the registered legal name when the organization is a legal entity.
+    confidence: medium
+    review_status: accepted
+    asserted_by: publicschema-core-maintainers
+    asserted_at: "2026-05-07T00:00:00Z"
+    reciprocal: false
+    license_snapshot:
+      id: CC-BY-4.0
+      uri: https://creativecommons.org/licenses/by/4.0/
+      attribution_text: Contains information from SEMIC Core Vocabularies, licensed under CC BY 4.0.
+metadata:
+  artifact_kind: alignment_set
+  writes_operational_mapping: false
