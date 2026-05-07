@@ -40,33 +40,33 @@ export function buildSearchIndex(locale: Locale = defaultLocale): SearchDocument
   const t = useTranslations(locale);
   const documents: SearchDocument[] = [];
 
-  for (const concept of Object.values(vocab.concepts)) {
+  for (const [conceptKey, concept] of Object.entries(vocab.concepts)) {
     const label = pick(concept.label, locale) || concept.id;
     documents.push({
-      id: `concept:${concept.id}`,
+      id: `concept:${conceptKey}`,
       type: 'concept',
       title: label,
       body: truncate(pick(concept.definition, locale), 200),
       path: concept.path,
       meta: concept.domain ? `Domain: ${concept.domain}` : '',
-      keywords: [concept.id, ...concept.properties.map((p) => p.id)].join(' '),
+      keywords: [conceptKey, concept.id, ...concept.properties.map((p) => p.id)].join(' '),
     });
   }
 
-  for (const prop of Object.values(vocab.properties)) {
+  for (const [propertyKey, prop] of Object.entries(vocab.properties)) {
     const usedByList = prop.used_by || [];
     documents.push({
-      id: `property:${prop.id}`,
+      id: `property:${propertyKey}`,
       type: 'property',
       title: prop.id,
       body: truncate(pick(prop.definition, locale), 200),
       path: prop.path,
       meta: usedByList.length > 0 ? `Used by: ${usedByList.join(', ')}` : '',
-      keywords: usedByList.join(' '),
+      keywords: [propertyKey, ...usedByList].join(' '),
     });
   }
 
-  for (const v of Object.values(vocab.vocabularies)) {
+  for (const [vocabularyKey, v] of Object.entries(vocab.vocabularies)) {
     const label = pick(v.label, locale) || v.id;
     const valueLabels: string[] = [];
     if (!v.external_values) {
@@ -77,13 +77,13 @@ export function buildSearchIndex(locale: Locale = defaultLocale): SearchDocument
     }
     const valueCount = v.values.length;
     documents.push({
-      id: `vocab:${v.id}`,
+      id: `vocab:${vocabularyKey}`,
       type: 'vocabulary',
       title: label,
       body: truncate(pick(v.definition, locale), 200),
-      path: `/vocab/${v.id}`,
+      path: v.path,
       meta: `${valueCount} values`,
-      keywords: [v.id, ...valueLabels].join('\t'),
+      keywords: [vocabularyKey, v.id, ...valueLabels].join('\t'),
     });
   }
 

@@ -24,6 +24,11 @@ test.describe("Search: build verification", () => {
     expect(types).toContain("property");
     expect(types).toContain("vocabulary");
     expect(types).toContain("doc");
+
+    const ids = docs.map((d: { id: string }) => d.id);
+    expect(new Set(ids).size).toBe(ids.length);
+    expect(ids).toContain("concept:Person");
+    expect(ids).toContain("concept:crvs/Person");
   });
 });
 
