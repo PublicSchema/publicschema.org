@@ -113,6 +113,15 @@ class TestRealSchema:
         assert "/sp/" not in person["uri"]
         assert person["path"] == "/Person"
 
+    def test_real_schema_bibliography_uses_declared_reference_ids(self):
+        """Generated bibliography ids stay aligned with source YAML ids."""
+        result = build_vocabulary(SCHEMA_DIR)
+
+        assert "semic-cpov" in result["bibliography"]
+        assert "general/semic-cpov" not in result["bibliography"]
+        assert result["bibliography"]["semic-cpov"]["id"] == "semic-cpov"
+        assert "semic-cpov" in result["concepts"]["sp/Program"]["bibliography_refs"]
+
     def test_credential_schemas_generated(self):
         """Credential schemas are generated for all credential YAML files."""
         result = build_vocabulary(SCHEMA_DIR)

@@ -66,6 +66,57 @@ class TestRoundTrip:
         dob_prop = next(p for p in props if p["id"] == "dob")
         assert "required" not in dob_prop
 
+    def test_bibliography_ids_preserve_source_id(
+        self, tmp_schema, write_concept, write_property, write_vocabulary
+    ):
+        """Bibliography ids stay bare while informed resources keep namespaces."""
+        (tmp_schema / "bibliography").mkdir()
+        (tmp_schema / "bibliography" / "sourcebook.yaml").write_text(
+            """
+id: sourcebook
+title: Test Sourcebook
+publisher: Test Publisher
+year: 2026
+type: guidance_publication
+domain: social_protection
+uri: https://example.org/sourcebook
+access: open
+status: active
+informs:
+  concepts:
+    - sp/Enrollment
+  vocabularies:
+    - sp/enrollment-status
+  properties:
+    - enrollment_status
+""".lstrip()
+        )
+        write_vocabulary(
+            "sp/enrollment-status.yaml",
+            make_vocabulary(id="enrollment-status", domain="sp"),
+        )
+        write_property(
+            "enrollment_status.yaml",
+            make_property(id="enrollment_status", vocabulary="sp/enrollment-status"),
+        )
+        write_concept(
+            "enrollment.yaml",
+            make_concept(id="Enrollment", domain="sp", properties=["enrollment_status"]),
+        )
+
+        result = build_vocabulary(tmp_schema)
+
+        assert "sourcebook" in result["bibliography"]
+        assert "social_protection/sourcebook" not in result["bibliography"]
+        assert result["bibliography"]["sourcebook"]["id"] == "sourcebook"
+        assert result["concepts"]["sp/Enrollment"]["bibliography_refs"] == ["sourcebook"]
+        assert result["vocabularies"]["sp/enrollment-status"]["bibliography_refs"] == [
+            "sourcebook"
+        ]
+        assert result["properties"]["enrollment_status"]["bibliography_refs"] == [
+            "sourcebook"
+        ]
+
 
 # ---------------------------------------------------------------------------
 # URI generation

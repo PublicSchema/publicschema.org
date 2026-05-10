@@ -330,6 +330,26 @@ def _load_all_yaml_by_id(directory: Path) -> dict[str, dict]:
     return result
 
 
+def _load_bibliography_by_id(directory: Path) -> dict[str, dict]:
+    """Load bibliography YAML files keyed by their declared bibliography id.
+
+    Bibliography entries classify themselves by subject area, but their
+    declared ids are not domain-scoped resource keys. Keep generated
+    bibliography ids aligned with the source schema's kebab-case ``id`` field
+    so downstream consumers can use stable reference ids directly. This does
+    not affect concept or vocabulary references such as ``sp/Program`` and
+    ``crvs/Person``, which remain namespace-qualified resource ids.
+    """
+    result = {}
+    if not directory.exists():
+        return result
+    for p in sorted(directory.rglob("*.yaml")):
+        data = load_yaml(p)
+        if "id" in data:
+            result[data["id"]] = data
+    return result
+
+
 def _load_vocabularies_indexed(directory: Path) -> dict[str, dict]:
     """Load vocabulary YAMLs keyed by their canonical reference form.
 
@@ -505,7 +525,7 @@ def build_vocabulary(schema_dir: Path) -> dict:
     concepts_raw = _load_all_yaml_by_id(schema_dir / "concepts")
     properties_raw = _load_all_yaml_by_id(schema_dir / "properties")
     vocabularies_raw = _load_vocabularies_indexed(schema_dir / "vocabularies")
-    bibliography_raw = _load_all_yaml_by_id(schema_dir / "bibliography")
+    bibliography_raw = _load_bibliography_by_id(schema_dir / "bibliography")
     categories_path = schema_dir / "categories.yaml"
     categories_raw = load_yaml(categories_path) if categories_path.exists() else {}
 
