@@ -40,12 +40,52 @@ import yaml
 
 ROOT = Path(__file__).resolve().parent.parent
 SOURCE_DIR = ROOT / "schema"
+META_FILE = SOURCE_DIR / "_meta.yaml"
+PROJECT_FILE = SOURCE_DIR / "project.yaml"
+BASES_DIR = SOURCE_DIR / "bases"
 PREFIXES_FILE = ROOT / "build" / "external_system_prefixes.yaml"
 EXTENSIONS_FILE = ROOT / "build" / "linkml_extensions.yaml"
 OUTPUT_DIR = ROOT / "dist" / "linkml"
 EXTERNAL_DIR = OUTPUT_DIR / "external"
 
 DEFAULT_PUBLICSCHEMA_BASE = "https://publicschema.org/"
+
+
+def load_publicschema_base() -> str:
+    """Read the authoritative PublicSchema base URI from schema/_meta.yaml,
+    cross-checking schema/project.yaml and (when present) schema/bases/active-base.yaml.
+
+    Returns the trailing-slash-terminated URI (e.g. 'https://publicschema.org/').
+    """
+    with META_FILE.open() as f:
+        meta = yaml.safe_load(f) or {}
+    base = meta.get("base_uri")
+    if not base:
+        raise SystemExit(f"schema/_meta.yaml has no base_uri")
+    if not base.endswith("/"):
+        base = base + "/"
+    # Cross-check project.yaml
+    if PROJECT_FILE.exists():
+        with PROJECT_FILE.open() as f:
+            proj = yaml.safe_load(f) or {}
+        proj_base = (proj.get("schema_project") or {}).get("base_uri")
+        if proj_base and not proj_base.endswith("/"):
+            proj_base = proj_base + "/"
+        if proj_base and proj_base != base:
+            print(f"warn: base_uri mismatch: _meta={base} vs project={proj_base}", file=sys.stderr)
+    # Cross-check bases/active-base.yaml strategy
+    active = BASES_DIR / "active-base.yaml"
+    if active.exists():
+        with active.open() as f:
+            bdoc = yaml.safe_load(f) or {}
+        strategy = bdoc.get("base_strategy")
+        if strategy and strategy != "publicschema-native":
+            print(
+                f"warn: bases/active-base.yaml declares base_strategy={strategy!r}; "
+                "migration assumes 'publicschema-native'",
+                file=sys.stderr,
+            )
+    return base
 
 STATUS_MAP = {
     "draft": "bibo:draft",
@@ -117,6 +157,25 @@ KNOWN_VOCAB_FIELDS = {
     "standard", "sync", "same_standard_systems", "external_values",
     "values", "external_equivalents", "system_mappings",
     "see_also", "tags", "domain", "references", "vc_guidance",
+}
+
+# Per-value fields inside `values:` of a vocabulary file. Anything not in this set
+# is surfaced in the migration report as unmapped. Derived from an audit of all
+# 115 vocabulary files (see build/AUDIT_NOTES.md for the inventory).
+PER_VALUE_KNOWN_FIELDS = {
+    "code", "label", "definition",
+    "standard_code", "note", "notes",
+    "parent_code", "level",
+    "domain",
+    "group_type_applicability",
+    "unmapped_reason", "migration_note",
+}
+
+# Per-value fields inside system_mappings.<system>.values[]. Same audit basis.
+SYSTEM_MAPPING_VALUE_KNOWN_FIELDS = {
+    "code", "label", "maps_to",
+    "note", "notes",
+    "unmapped_reason", "migration_note",
 }
 
 # ============================================================================
@@ -214,20 +273,6 @@ def load_systems() -> SystemRegistry:
         systems=data.get("systems", {}),
         vocab_prefixes=data.get("external_vocabulary_prefixes", {}),
     )
-
-
-def load_publicschema_base() -> str:
-    """Load the active PublicSchema base URI if the bases/ tree declares one."""
-    path = SOURCE_DIR / "bases" / "active-base.yaml"
-    if not path.exists():
-        return DEFAULT_PUBLICSCHEMA_BASE
-    with path.open() as f:
-        data = yaml.safe_load(f) or {}
-    for key in ("base_uri", "uri", "iri", "namespace", "prefix_uri"):
-        value = data.get(key)
-        if isinstance(value, str) and value:
-            return value if value.endswith("/") else f"{value}/"
-    return DEFAULT_PUBLICSCHEMA_BASE
 
 
 def source_key(kind: str, data: dict) -> str | None:
@@ -536,7 +581,8 @@ def convert_vocabulary(sf: SourceFile, ctx: MigrationContext) -> tuple[str, dict
     if maturity and maturity in STATUS_MAP:
         enum["status"] = STATUS_MAP[maturity]
 
-    # Permissible values
+    # Permissible values. Per the audit (build/AUDIT_NOTES.md), every recognised
+    # per-value field is read explicitly; anything else lands in ctx.unmapped.
     pvs: dict[str, dict] = {}
     for v in src.get("values") or []:
         if not isinstance(v, dict):
@@ -546,9 +592,73 @@ def convert_vocabulary(sf: SourceFile, ctx: MigrationContext) -> tuple[str, dict
             continue
         key = value_key(code)
         pv: dict[str, Any] = {"meaning": f"{publicschema_vocab_curie(source_ref)}/{key}"}
-        v_en, v_other = get_multilingual(v, "label")
-        if v_en:
-            pv["title"] = v_en
+        v_en_label, v_other_label = get_multilingual(v, "label")
+        if v_en_label:
+            pv["title"] = v_en_label
+        # Per-value definition (LinkML PermissibleValue.description is a first-class slot)
+        v_en_def, v_other_def = get_multilingual(v, "definition")
+        if v_en_def:
+            pv["description"] = v_en_def
+
+        v_annotations: dict[str, Any] = {}
+        # Multilingual labels and definitions for this value
+        for lang, text in sorted(v_other_label.items()):
+            v_annotations[f"label_{lang}"] = text.strip()
+        for lang, text in sorted(v_other_def.items()):
+            v_annotations[f"description_{lang}"] = text.strip()
+
+        # standard_code: canonical code in the parent vocabulary's `standard:`
+        # (e.g. ISO 3166 uppercase 'AF' for our 'af'). The audit found this in
+        # 10 files / 9,476 values, the largest silent-loss source.
+        if v.get("standard_code") is not None:
+            v_annotations["standard_code"] = str(v["standard_code"])
+
+        # note / notes - value-level mapping or reference guidance.
+        if v.get("note") is not None:
+            v_annotations["note"] = str(v["note"]).strip()
+        if v.get("notes") is not None:
+            notes_val = v["notes"]
+            if isinstance(notes_val, dict):
+                # multilingual notes - keep English where available, else flatten
+                en_notes = notes_val.get("en")
+                if en_notes:
+                    v_annotations.setdefault("note", str(en_notes).strip())
+                for lang, text in notes_val.items():
+                    if lang != "en":
+                        v_annotations[f"note_{lang}"] = str(text).strip()
+            else:
+                v_annotations.setdefault("note", str(notes_val).strip())
+
+        # parent_code / level - hierarchical vocabularies (occupation.yaml has 609/619).
+        if v.get("parent_code") is not None:
+            v_annotations["parent_code"] = str(v["parent_code"])
+        if v.get("level") is not None:
+            v_annotations["level"] = v["level"] if isinstance(v["level"], int) else str(v["level"])
+
+        # domain on a value (rare; 3 occurrences across 2 files)
+        if v.get("domain") is not None:
+            v_annotations["source_domain"] = str(v["domain"])
+
+        # group_type_applicability - list constraint (1 file / 13 values)
+        if v.get("group_type_applicability") is not None:
+            for jk, jv in [
+                json_annotation("group_type_applicability", v["group_type_applicability"]),
+            ]:
+                v_annotations[jk] = jv
+
+        # unmapped_reason / migration_note - value-level metadata
+        if v.get("unmapped_reason") is not None:
+            v_annotations["unmapped_reason"] = str(v["unmapped_reason"])
+        if v.get("migration_note") is not None:
+            v_annotations["migration_note"] = str(v["migration_note"]).strip()
+
+        # Surface anything else as unmapped (per-value).
+        for fname in v.keys():
+            if fname not in PER_VALUE_KNOWN_FIELDS:
+                ctx.unmapped.append(f"vocabulary:{sf.path.name}:values[].{fname}")
+
+        if v_annotations:
+            pv["annotations"] = v_annotations
         # Crosswalks via system_mappings (collected globally below; here we only
         # populate exact_mappings if a system_mappings entry maps to this value).
         # That happens in finalize step after the full enum is known.
@@ -663,6 +773,19 @@ def process_enum_system_mappings(
                 ctx.crosswalk_refs.append(
                     (ext_meaning_curie, f"{publicschema_enum_name}/{src_key}")
                 )
+                # Crosswalk-level note / unmapped_reason / migration_note end up
+                # as per-value annotations on the PublicSchema PV (keyed by system).
+                pv_annotations = pv.setdefault("annotations", {})
+                for fname in ("note", "unmapped_reason", "migration_note"):
+                    fval = vmap.get(fname)
+                    if fval is not None:
+                        pv_annotations[f"{fname}__{system_id}"] = str(fval).strip()
+            # Surface unknown system-mapping value fields
+            for fname in vmap.keys():
+                if fname not in SYSTEM_MAPPING_VALUE_KNOWN_FIELDS:
+                    ctx.unmapped.append(
+                        f"system_mappings.{system_id}.values[].{fname} (enum {publicschema_enum_name})"
+                    )
 
 
 # ============================================================================
@@ -1132,6 +1255,7 @@ def yaml_dump(d: Any) -> str:
 
 
 PUBLICSCHEMA_PREFIXES = {
+    "publicschema": DEFAULT_PUBLICSCHEMA_BASE,
     "linkml": "https://w3id.org/linkml/",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
     "bibo": "http://purl.org/ontology/bibo/",
@@ -1316,6 +1440,12 @@ def emit_domain_file(domain: str, ctx: MigrationContext) -> None:
                     elif isinstance(lbl, dict) and lbl.get("en"):
                         ext_pv["title"] = lbl["en"]
                     ctx.external_enums[sysid][ext_enum][tgt_key] = ext_pv
+                    # Surface unknown system-mapping value fields
+                    for fname in vmap.keys():
+                        if fname not in SYSTEM_MAPPING_VALUE_KNOWN_FIELDS:
+                            ctx.unmapped.append(
+                                f"property:{pid}:system_mappings.{sysid}.values[].{fname}"
+                            )
 
     for vid, ddom in ctx.vocab_domain.items():
         if ddom != domain:
@@ -1392,6 +1522,7 @@ def emit_external_schemas(ctx: MigrationContext) -> None:
             # Choose the prefix whose URI is the most-specific (longest) match
             # for the source_url's namespace; default to the first listed.
             default_prefix = next(iter(ref_prefixes), sysid)
+            schema_uri = ref_doc.get("homepage") or f"{ctx.publicschema_base}linkml/external/{sysid}"
             schema_prefixes = dict(ref_prefixes)
             schema_prefixes.setdefault("linkml", "https://w3id.org/linkml/")
             schema_prefixes.setdefault("xsd", "http://www.w3.org/2001/XMLSchema#")
@@ -1415,6 +1546,7 @@ def emit_external_schemas(ctx: MigrationContext) -> None:
         elif sysid in ctx.systems.systems:
             info = ctx.systems.systems[sysid]
             default_prefix = info["prefix"]
+            schema_uri = info.get("homepage") or f"{ctx.publicschema_base}linkml/external/{sysid}"
             schema_prefixes = {
                 info["prefix"]: info["uri"],
                 "linkml": "https://w3id.org/linkml/",
