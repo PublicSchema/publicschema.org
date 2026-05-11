@@ -141,5 +141,36 @@ def test_external_dhs_emits(migration_run):
     raise AssertionError("no permissible value with dhs: meaning found")
 
 
+def test_semic_alignment_integration(migration_run):
+    """The SEMIC alignment architecture (P4 series on main) flows into the LinkML output:
+    Person's exact_mappings includes person:Person (from alignments/semic-core-person.yaml),
+    and external/semic-core-person.yaml declares the canonical person:Person class with
+    provenance from external_references/.
+    """
+    # 1. PublicSchema Person has the SEMIC alignment in exact_mappings.
+    with (OUTPUT_DIR / "identity.yaml").open() as f:
+        identity = yaml.safe_load(f)
+    person = identity["classes"]["Person"]
+    assert "person:Person" in (person.get("exact_mappings") or []), \
+        f"Person.exact_mappings missing person:Person: {person.get('exact_mappings')}"
+
+    # 2. external/semic-core-person.yaml exists with prefix-qualified class name.
+    sem = EXTERNAL_DIR / "semic-core-person.yaml"
+    assert sem.exists()
+    with sem.open() as f:
+        sem_data = yaml.safe_load(f)
+    assert any(
+        cls.get("class_uri") == "person:Person"
+        for cls in (sem_data.get("classes") or {}).values()
+    ), "person:Person class_uri not found in external/semic-core-person.yaml"
+
+    # 3. Provenance annotation preserved.
+    prov = (sem_data.get("annotations") or {}).get("external_reference_provenance_json")
+    assert prov and "sha256" in prov, "provenance annotation missing or incomplete"
+
+    # 4. The cv: prefix from external_references is in the schema's prefixes block.
+    assert sem_data.get("prefixes", {}).get("person") == "http://www.w3.org/ns/person#"
+
+
 if __name__ == "__main__":
     sys.exit(pytest.main([__file__, "-v"]))

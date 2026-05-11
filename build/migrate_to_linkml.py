@@ -147,6 +147,11 @@ class MigrationContext:
     vocabularies: dict[str, SourceFile]  # id -> vocabulary SourceFile
     by_kind: dict[str, list[SourceFile]]
     systems: SystemRegistry
+    # SEMIC alignment architecture (P4 series on main):
+    external_references: dict[str, dict] = dataclasses.field(default_factory=dict)  # id -> doc
+    external_terms_by_source: dict[str, list[dict]] = dataclasses.field(default_factory=dict)  # source_id -> terms list
+    alignments_by_subject: dict[tuple[str, str], list[dict]] = dataclasses.field(default_factory=lambda: collections.defaultdict(list))  # (kind, id) -> list[alignment record]
+    bases: dict[str, dict] = dataclasses.field(default_factory=dict)  # id -> doc
     # Per-system enum aggregation: system -> { enum_name -> { values -> {meaning_curie, title} } }
     external_enums: dict[str, dict[str, dict[str, dict]]] = dataclasses.field(
         default_factory=lambda: collections.defaultdict(lambda: collections.defaultdict(dict))
@@ -189,6 +194,14 @@ def classify(path: Path) -> str:
         return "credential"
     if top == "bibliography":
         return "bibliography"
+    if top == "external_references":
+        return "external_reference"
+    if top == "external_terms":
+        return "external_terms"
+    if top == "alignments":
+        return "alignment"
+    if top == "bases":
+        return "base"
     return "other"
 
 
@@ -201,7 +214,7 @@ def load_systems() -> SystemRegistry:
     )
 
 
-def load_inventory() -> tuple[
+def load_inventory(ctx_holder: dict | None = None) -> tuple[
     dict[str, SourceFile],
     dict[str, SourceFile],
     dict[str, SourceFile],
@@ -212,12 +225,19 @@ def load_inventory() -> tuple[
 
     Property and vocabulary IDs collide on 5 names (country, currency, literacy,
     occupation, sex) — they must be indexed separately.
+
+    Also populates SEMIC alignment data (external_references, external_terms,
+    alignments, bases) into ctx_holder if provided.
     """
     inv: dict[str, SourceFile] = {}
     concepts: dict[str, SourceFile] = {}
     properties: dict[str, SourceFile] = {}
     vocabularies: dict[str, SourceFile] = {}
     by_kind: dict[str, list[SourceFile]] = collections.defaultdict(list)
+    external_references: dict[str, dict] = {}
+    external_terms_by_source: dict[str, list[dict]] = {}
+    alignments_by_subject: dict[tuple[str, str], list[dict]] = collections.defaultdict(list)
+    bases: dict[str, dict] = {}
     for p in sorted(SOURCE_DIR.rglob("*.yaml")):
         try:
             with p.open() as f:
@@ -240,10 +260,32 @@ def load_inventory() -> tuple[
             inv.setdefault(sf.id, sf)
         elif kind == "vocabulary":
             vocabularies[sf.id] = sf
-            # vocabulary id collides with property id for {country, currency,
-            # literacy, occupation, sex}; only register under combined `inv`
-            # if the slot is empty (i.e. property hasn't been seen yet).
             inv.setdefault(sf.id, sf)
+        elif kind == "external_reference":
+            external_references[sf.id] = data
+        elif kind == "external_terms":
+            src_id = data.get("source_id")
+            if src_id and isinstance(data.get("terms"), list):
+                external_terms_by_source[src_id] = data["terms"]
+        elif kind == "alignment":
+            for a in (data.get("alignments") or []):
+                if not isinstance(a, dict):
+                    continue
+                subj = a.get("subject") or {}
+                s_kind = subj.get("kind")
+                s_id = subj.get("id")
+                if s_kind and s_id:
+                    alignments_by_subject[(s_kind, s_id)].append({
+                        "alignment": a,
+                        "set": data,
+                    })
+        elif kind == "base":
+            bases[sf.id] = data
+    if ctx_holder is not None:
+        ctx_holder["external_references"] = external_references
+        ctx_holder["external_terms_by_source"] = external_terms_by_source
+        ctx_holder["alignments_by_subject"] = alignments_by_subject
+        ctx_holder["bases"] = bases
     return inv, concepts, properties, vocabularies, by_kind
 
 
@@ -382,16 +424,21 @@ def normalise_uri(uri: str) -> str:
 
 def uri_to_curie(uri: str, ctx: MigrationContext) -> str | None:
     uri = normalise_uri(uri)
-    # Built-in prefixes
-    candidates = []
+    # Candidate (prefix_uri, curie_prefix) pairs from all three sources.
+    candidates: list[tuple[str, str]] = []
     candidates.extend(
         (e["uri"], pid) for pid, e in ctx.systems.vocab_prefixes.items() if "uri" in e
     )
     candidates.extend(
         (e["uri"], e.get("prefix", sid)) for sid, e in ctx.systems.systems.items() if "uri" in e
     )
-    # Longest prefix wins.
-    candidates.sort(key=lambda x: -len(x[0]))
+    # SEMIC external_references publish accurate upstream prefix tables.
+    for ref_doc in ctx.external_references.values():
+        for ref_prefix, ref_uri in (ref_doc.get("prefixes") or {}).items():
+            if isinstance(ref_uri, str):
+                candidates.append((ref_uri, ref_prefix))
+    # Longest prefix URI wins; ties broken alphabetically by prefix.
+    candidates.sort(key=lambda x: (-len(x[0]), x[1]))
     for prefix_uri, curie_prefix in candidates:
         if uri.startswith(prefix_uri):
             return f"{curie_prefix}:{uri[len(prefix_uri):]}"
@@ -610,11 +657,18 @@ def convert_property(sf: SourceFile, ctx: MigrationContext) -> tuple[str, dict]:
     if maturity and maturity in STATUS_MAP:
         slot["status"] = STATUS_MAP[maturity]
 
-    # External equivalents + schema_org_equivalent
+    # External equivalents + schema_org_equivalent + alignments
     exact, close, alignments = map_external_equivalents(src.get("external_equivalents"), ctx)
     soe = src.get("schema_org_equivalent")
     if isinstance(soe, str) and soe:
         exact.append(soe)
+    for rec in get_alignments_for("property", slot_name, ctx):
+        curie = uri_to_curie(rec["uri"], ctx) or rec["uri"]
+        if rec.get("match") in ("close", "broad", "narrow", "related"):
+            close.append(curie)
+        else:
+            exact.append(curie)
+        alignments.append(rec)
     if exact:
         slot["exact_mappings"] = sorted(set(exact))
     if close:
@@ -694,8 +748,16 @@ def convert_concept(sf: SourceFile, ctx: MigrationContext) -> tuple[str, dict]:
     if maturity and maturity in STATUS_MAP:
         cls["status"] = STATUS_MAP[maturity]
 
-    # External equivalents
+    # External equivalents (from external_equivalents: on the source) + alignments
+    # (from schema/alignments/<vocab>.yaml). The two sources are merged.
     exact, close, alignments = map_external_equivalents(src.get("external_equivalents"), ctx)
+    for rec in get_alignments_for("concept", cls_name, ctx):
+        curie = uri_to_curie(rec["uri"], ctx) or rec["uri"]
+        if rec.get("match") in ("close", "broad", "narrow", "related"):
+            close.append(curie)
+        else:
+            exact.append(curie)
+        alignments.append(rec)
     if exact:
         cls["exact_mappings"] = sorted(set(exact))
     if close:
@@ -829,13 +891,31 @@ def derive_domains(ctx: MigrationContext) -> None:
 
 def write_inventory_report(ctx: MigrationContext) -> None:
     lines = ["# Inventory (Phase 0)", ""]
-    for kind in ("concept", "property", "vocabulary", "credential", "bibliography",
-                 "categories", "project", "meta", "other"):
+    kinds = (
+        "concept", "property", "vocabulary", "credential", "bibliography",
+        "categories", "external_reference", "external_terms", "alignment", "base",
+        "project", "meta", "other",
+    )
+    for kind in kinds:
         files = ctx.by_kind.get(kind, [])
         lines.append(f"## {kind} ({len(files)})")
         lines.append("")
         for sf in sorted(files, key=lambda s: s.path):
             lines.append(f"- `{sf.path.relative_to(ROOT)}` (id: `{sf.id or '—'}`)")
+        lines.append("")
+    # SEMIC alignment summary
+    if ctx.external_references or ctx.alignments_by_subject:
+        lines.append("## SEMIC alignment architecture (P4 series on main)")
+        lines.append("")
+        lines.append(f"- {len(ctx.external_references)} external_reference vocabulary(ies).")
+        n_alignments = sum(len(v) for v in ctx.alignments_by_subject.values())
+        lines.append(f"- {n_alignments} alignment(s) authored against PublicSchema concepts/properties.")
+        lines.append(f"- {len(ctx.external_terms_by_source)} external_terms file(s).")
+        lines.append(f"- {len(ctx.bases)} base declaration(s).")
+        lines.append("")
+        lines.append("These flow into emitted dist/linkml/external/<sysid>.yaml files alongside")
+        lines.append("the system_mappings-derived partial schemas; alignment records merge with")
+        lines.append("external_equivalents on the corresponding concept/property.")
         lines.append("")
     (OUTPUT_DIR / "_inventory.md").write_text("\n".join(lines))
 
@@ -939,17 +1019,27 @@ PUBLICSCHEMA_PREFIXES = {
 
 def build_prefixes(ctx: MigrationContext) -> dict[str, str]:
     """Build the prefixes dict, deduping by URI (LinkML / curies cannot handle multiple
-    prefixes mapping to the same namespace URI)."""
+    prefixes mapping to the same namespace URI).
+
+    Sources, in priority order:
+      1. Hard-coded PUBLICSCHEMA_PREFIXES (publicschema/linkml/xsd/bibo/skos)
+      2. build/external_system_prefixes.yaml vocab_prefixes (schema/foaf/cpov/dpv/...)
+      3. build/external_system_prefixes.yaml systems (dhs/dhis2/openspp/...)
+      4. schema/external_references/<vocab>.yaml `prefixes:` (SEMIC P4 architecture
+         — adms/cv/dct/foaf/locn/person/... from the actual upstream vocabularies)
+
+    On URI collision, the earlier entry wins. SEMIC reference prefixes are
+    additive (they introduce new prefix tokens like `person:` that weren't in
+    our hand-curated table).
+    """
     prefixes = dict(PUBLICSCHEMA_PREFIXES)
     seen_uris = {v: k for k, v in prefixes.items()}
-    # vocab_prefixes (publicschema/foaf/cpov/skos/bibo/etc) win priority.
     for sid, info in ctx.systems.vocab_prefixes.items():
         uri = info["uri"]
         if uri in seen_uris:
             continue
         prefixes[sid] = uri
         seen_uris[uri] = sid
-    # systems (per-system CURIE prefixes) yield to vocab_prefixes on URI collision.
     for sid, info in ctx.systems.systems.items():
         uri = info["uri"]
         prefix = info["prefix"]
@@ -957,7 +1047,60 @@ def build_prefixes(ctx: MigrationContext) -> dict[str, str]:
             continue
         prefixes[prefix] = uri
         seen_uris[uri] = prefix
+    # SEMIC external_references publish the actual upstream prefix tables.
+    for ref_id, ref_doc in ctx.external_references.items():
+        for ref_prefix, ref_uri in (ref_doc.get("prefixes") or {}).items():
+            if not isinstance(ref_uri, str):
+                continue
+            if ref_uri in seen_uris:
+                continue
+            if ref_prefix in prefixes:
+                continue
+            prefixes[ref_prefix] = ref_uri
+            seen_uris[ref_uri] = ref_prefix
     return prefixes
+
+
+def alignment_to_record(alignment_entry: dict, ctx: MigrationContext) -> dict | None:
+    """Convert one entry from schema/alignments/<vocab>.yaml.alignments[] into
+    an ExternalAlignment-shaped record (matching the extension metamodel).
+    Returns None if the entry doesn't have enough data to form a record."""
+    a = alignment_entry["alignment"]
+    aset = alignment_entry["set"]
+    obj = a.get("object") or {}
+    uri = obj.get("iri")
+    if not uri:
+        return None
+    standard = aset.get("standard") or {}
+    rec: dict[str, Any] = {
+        "vocabulary": aset.get("label") or standard.get("source_id") or aset.get("id"),
+        "uri": uri,
+        "match": a.get("quality") or "exact",
+    }
+    term_id = obj.get("term_id")
+    if term_id:
+        rec["label"] = term_id.split(".", 1)[-1]  # last path segment
+    rationale = a.get("rationale")
+    if rationale:
+        rec["note"] = rationale
+    rec["source_id"] = aset.get("source_id")
+    rec["source_version"] = aset.get("source_version")
+    rec["predicate"] = a.get("predicate")
+    rec["confidence"] = a.get("confidence")
+    rec["review_status"] = a.get("review_status")
+    return {k: v for k, v in rec.items() if v is not None}
+
+
+def get_alignments_for(kind: str, name: str, ctx: MigrationContext) -> list[dict]:
+    """Look up alignments for a PublicSchema element. Subject keys in
+    schema/alignments/*.yaml use kind=concept|property and id=PublicSchema id."""
+    entries = ctx.alignments_by_subject.get((kind, name), [])
+    records = []
+    for entry in entries:
+        rec = alignment_to_record(entry, ctx)
+        if rec:
+            records.append(rec)
+    return records
 
 
 def schema_header(domain: str, ctx: MigrationContext, *, extra_imports: list[str] | None = None) -> dict:
@@ -1100,13 +1243,74 @@ def emit_domain_file(domain: str, ctx: MigrationContext) -> None:
 
 
 def emit_external_schemas(ctx: MigrationContext) -> None:
+    """Emit dist/linkml/external/<sysid>.yaml partial schemas.
+
+    Two sources, merged on the same output file:
+      (a) ctx.external_enums (collected from schema/**/system_mappings:)
+          produces enum permissible values with explicit meaning: URIs.
+      (b) ctx.external_terms_by_source (from schema/external_terms/*.yaml)
+          produces classes and slots for the canonical terms in the upstream
+          vocabulary, with provenance and license metadata from
+          schema/external_references/*.yaml.
+    """
     EXTERNAL_DIR.mkdir(parents=True, exist_ok=True)
-    for sysid, enums in ctx.external_enums.items():
-        if not enums:
+    all_sysids = set(ctx.external_enums.keys()) | set(ctx.external_terms_by_source.keys())
+    for sysid in sorted(all_sysids):
+        enums = ctx.external_enums.get(sysid, {})
+        terms = ctx.external_terms_by_source.get(sysid, [])
+        # Find the canonical prefix + URI for this sysid:
+        # 1. external_references[sysid] is the new authoritative source (per P4 commits).
+        # 2. ctx.systems.systems[sysid] is our hand-curated table.
+        ref_doc = ctx.external_references.get(sysid)
+        if ref_doc:
+            # SEMIC-style external_reference. Use its declared prefixes.
+            ref_prefixes = ref_doc.get("prefixes") or {}
+            # Choose the prefix whose URI is the most-specific (longest) match
+            # for the source_url's namespace; default to the first listed.
+            default_prefix = next(iter(ref_prefixes), sysid)
+            schema_uri = ref_doc.get("homepage") or f"https://publicschema.org/linkml/external/{sysid}"
+            schema_prefixes = dict(ref_prefixes)
+            schema_prefixes.setdefault("linkml", "https://w3id.org/linkml/")
+            schema_prefixes.setdefault("xsd", "http://www.w3.org/2001/XMLSchema#")
+            title = ref_doc.get("name") or sysid
+            license_id = (ref_doc.get("license") or {}).get("id", "CC-BY-4.0")
+            description_extra = (
+                f"Generated from schema/external_terms/{sysid}.yaml (source_version: "
+                f"{ref_doc.get('version', '?')}). Provenance and license attribution "
+                f"are preserved from schema/external_references/{sysid}.yaml."
+            )
+            # Provenance annotation
+            provenance_ann = {
+                "version": ref_doc.get("version"),
+                "custodian": ref_doc.get("custodian"),
+                "kind": ref_doc.get("kind"),
+                "license": ref_doc.get("license"),
+                "homepage": ref_doc.get("homepage"),
+                "reference_url": ref_doc.get("reference_url"),
+                "artifacts": ref_doc.get("artifacts"),
+            }
+        elif sysid in ctx.systems.systems:
+            info = ctx.systems.systems[sysid]
+            default_prefix = info["prefix"]
+            schema_uri = info.get("homepage") or f"https://publicschema.org/linkml/external/{sysid}"
+            schema_prefixes = {
+                info["prefix"]: info["uri"],
+                "linkml": "https://w3id.org/linkml/",
+                "xsd": "http://www.w3.org/2001/XMLSchema#",
+            }
+            title = info.get("label", sysid)
+            license_id = "CC-BY-4.0"
+            description_extra = (
+                f"Minimal LinkML rendering of {info.get('label', sysid)} enumerations "
+                f"referenced by PublicSchema crosswalks. Not authoritative. See "
+                f"{info.get('homepage', '')} for the full specification."
+            )
+            provenance_ann = None
+        else:
+            # Unknown system. Skip.
             continue
-        info = ctx.systems.systems[sysid]
-        prefix = info["prefix"]
-        uri = info["uri"]
+
+        # Emit enums collected from system_mappings.
         emitted_enums: dict[str, dict] = {}
         for enum_name in sorted(enums):
             pvs_in: dict[str, dict] = enums[enum_name]
@@ -1114,29 +1318,74 @@ def emit_external_schemas(ctx: MigrationContext) -> None:
             for vkey in sorted(pvs_in):
                 pvs_out[vkey] = pvs_in[vkey]
             emitted_enums[enum_name] = {
-                "enum_uri": f"{prefix}:{enum_name}",
-                "title": enum_name,  # vocab_name often noisy; keep PascalCase
+                "enum_uri": f"{default_prefix}:{enum_name}" if default_prefix else enum_name,
+                "title": enum_name,
                 "permissible_values": pvs_out,
             }
-        out = {
+
+        # Emit classes/slots from external_terms.
+        # IMPORTANT: name them with the CURIE prefix included to avoid collisions
+        # with PublicSchema's own classes (e.g. locn:Address vs publicschema:Address).
+        # The class_uri / slot_uri uses the canonical CURIE; the LinkML local name
+        # is prefix-qualified.
+        emitted_classes: dict[str, dict] = {}
+        emitted_slots: dict[str, dict] = {}
+        for term in terms:
+            if not isinstance(term, dict):
+                continue
+            curie = term.get("curie") or term.get("id")
+            iri = term.get("iri")
+            term_type = term.get("term_type")
+            if not (curie and iri and term_type):
+                continue
+            term_prefix = term.get("prefix") or (curie.split(":", 1)[0] if ":" in curie else "")
+            local = curie.split(":", 1)[-1] if ":" in curie else curie
+            if term_type == "class":
+                qualified = pascal_case(term_prefix) + pascal_case(local) if term_prefix else pascal_case(local)
+                emitted_classes[qualified] = {
+                    "class_uri": curie,
+                    "title": local,
+                    "description": (
+                        f"External class {curie} ({iri}). Sourced from "
+                        f"schema/external_terms/{sysid}.yaml (term_id: {term.get('id')})."
+                    ),
+                }
+            elif term_type == "property":
+                qualified = f"{slugify(term_prefix)}_{slugify(local)}" if term_prefix else slugify(local)
+                emitted_slots[qualified] = {
+                    "slot_uri": curie,
+                    "title": local,
+                    "description": (
+                        f"External property {curie} ({iri}). Sourced from "
+                        f"schema/external_terms/{sysid}.yaml (term_id: {term.get('id')})."
+                    ),
+                }
+
+        if not (emitted_enums or emitted_classes or emitted_slots):
+            continue
+
+        out: dict[str, Any] = {
             "id": f"https://publicschema.org/linkml/external/{sysid}",
-            "name": f"publicschema-external-{prefix}",
-            "title": f"{info.get('label', sysid)} (PublicSchema partial view)",
-            "description": (
-                f"Minimal LinkML rendering of {info.get('label', sysid)} enumerations "
-                f"referenced by PublicSchema crosswalks. Not authoritative. See "
-                f"{info.get('homepage', '')} for the full specification."
-            ),
-            "license": "CC-BY-4.0",
-            "default_prefix": prefix,
-            "prefixes": {
-                prefix: uri,
-                "linkml": "https://w3id.org/linkml/",
-                "xsd": "http://www.w3.org/2001/XMLSchema#",
-            },
+            "name": f"publicschema-external-{default_prefix}",
+            "title": f"{title} (PublicSchema partial view)",
+            "description": description_extra,
+            "license": license_id,
+            "default_prefix": default_prefix,
+            "prefixes": schema_prefixes,
             "imports": ["linkml:types"],
-            "enums": emitted_enums,
         }
+        if emitted_classes:
+            out["classes"] = emitted_classes
+        if emitted_slots:
+            out["slots"] = emitted_slots
+        if emitted_enums:
+            out["enums"] = emitted_enums
+        if provenance_ann:
+            out["annotations"] = {
+                "external_reference_provenance_json": json.dumps(
+                    provenance_ann, sort_keys=True, ensure_ascii=False, default=str
+                ),
+            }
         (EXTERNAL_DIR / f"{sysid}.yaml").write_text(yaml_dump(out))
 
 
@@ -1146,6 +1395,10 @@ def emit_extension_metamodel() -> None:
 
 def emit_composite(ctx: MigrationContext, domains: list[str]) -> None:
     prefixes = build_prefixes(ctx)
+    # Import every external/<sysid>.yaml that was actually emitted.
+    emitted_external_sysids = sorted(
+        p.stem for p in EXTERNAL_DIR.glob("*.yaml")
+    )
     out = {
         "id": "https://publicschema.org/linkml/publicschema",
         "name": "publicschema",
@@ -1162,7 +1415,7 @@ def emit_composite(ctx: MigrationContext, domains: list[str]) -> None:
         "imports": (
             ["linkml:types", "publicschema-extensions"]
             + sorted(domains)
-            + [f"external/{sid}" for sid in sorted(ctx.external_enums.keys()) if ctx.external_enums[sid]]
+            + [f"external/{sid}" for sid in emitted_external_sysids]
         ),
     }
     (OUTPUT_DIR / "publicschema.yaml").write_text(yaml_dump(out))
@@ -1233,8 +1486,9 @@ def main() -> int:
     OUTPUT_DIR.mkdir(parents=True)
     EXTERNAL_DIR.mkdir(parents=True)
 
-    # Phase 0: inventory
-    inv, concepts, properties, vocabularies, by_kind = load_inventory()
+    # Phase 0: inventory (including SEMIC alignment architecture from P4 commits on main).
+    semic_data: dict = {}
+    inv, concepts, properties, vocabularies, by_kind = load_inventory(semic_data)
     systems = load_systems()
     ctx = MigrationContext(
         inv=inv,
@@ -1243,6 +1497,10 @@ def main() -> int:
         vocabularies=vocabularies,
         by_kind=by_kind,
         systems=systems,
+        external_references=semic_data.get("external_references", {}),
+        external_terms_by_source=semic_data.get("external_terms_by_source", {}),
+        alignments_by_subject=semic_data.get("alignments_by_subject", collections.defaultdict(list)),
+        bases=semic_data.get("bases", {}),
     )
     write_inventory_report(ctx)
 
