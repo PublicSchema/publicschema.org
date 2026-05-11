@@ -1,0 +1,65 @@
+name: LinkML migration
+
+on:
+  push:
+    paths:
+      - "schema/**"
+      - "build/migrate_to_linkml.py"
+      - "build/test_migrate.py"
+      - "build/external_system_prefixes.yaml"
+      - "build/linkml_extensions.yaml"
+      - ".github/workflows/linkml-migration.yml"
+  pull_request:
+    paths:
+      - "schema/**"
+      - "build/migrate_to_linkml.py"
+      - "build/test_migrate.py"
+      - "build/external_system_prefixes.yaml"
+      - "build/linkml_extensions.yaml"
+      - ".github/workflows/linkml-migration.yml"
+
+jobs:
+  migrate:
+    name: Verify LinkML migration
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          enable-cache: true
+          cache-dependency-glob: "uv.lock"
+
+      - name: Install dependencies (all groups, incl. linkml)
+        run: uv sync --all-groups
+
+      - name: Run migration script
+        run: |
+          set -o pipefail
+          .venv/bin/python build/migrate_to_linkml.py 2>&1 | tee migration.log
+          if ! grep -q "^Unmapped source fields: 0$" migration.log; then
+            echo "::error::Migration reported non-zero unmapped source fields (or missing summary line)"
+            grep -E "^Unmapped source fields:" migration.log || true
+            exit 1
+          fi
+
+      - name: Run migration test suite
+        run: .venv/bin/pytest build/test_migrate.py -v --tb=short
+
+      - name: Upload migration diagnostics on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: linkml-migration-diagnostics
+          path: |
+            dist/linkml/_migration_report.md
+            dist/linkml/_inventory.md
+            migration.log
+          if-no-files-found: ignore
