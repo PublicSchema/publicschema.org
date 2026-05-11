@@ -21,11 +21,34 @@ Rules:
   M002  Normative non-abstract concept without property_groups
   M003  Normative concept without convergence data
   X001  Category defined but never used by any concept
+
+Sources
+-------
+Default ``--source bespoke`` reads schema/**/*.yaml in the historical
+PublicSchema shape (label/definition as multilingual dicts, sync block at
+the top level, external_equivalents nested under each concept).
+
+``--source linkml`` reads dist/linkml/**/*.yaml (LinkML output from
+build/migrate_to_linkml.py). The LinkML shape stores the English label as
+``title``, English description as ``description``, and other locales under
+``annotations.label_fr`` / ``annotations.label_es`` /
+``annotations.description_fr`` / ``annotations.description_es``. The
+external alignments live under ``annotations.external_alignments_json``
+(a JSON string), the convergence summary under
+``annotations.convergence_json``, and the sync block under
+``annotations.sync_json``. The LinkML reader normalises these back to the
+bespoke shape so the same lint rules apply unchanged.
+
+The LinkML reader is a thin adapter; it is intentionally limited to the
+fields the rule set needs, not a full LinkML-to-PublicSchema round-trip.
 """
 
+import json
 import re
 import sys
 from pathlib import Path
+
+import yaml
 
 from build.loader import load_all_yaml, load_yaml
 
@@ -183,6 +206,198 @@ def _check_external_equivalents(data: dict, filename: str) -> list[LintIssue]:
 
 
 # ---------------------------------------------------------------------------
+# LinkML -> bespoke-shape adapter
+#
+# Reads dist/linkml/*.yaml and returns three dicts (concepts, properties,
+# vocabularies) plus a categories dict, in the same shape the bespoke
+# loader produces, so the lint rules below run unchanged. Only the fields
+# the rules actually inspect are filled in.
+# ---------------------------------------------------------------------------
+
+
+def _linkml_definition(entry: dict) -> dict:
+    """Reconstruct a multilingual definition dict from a LinkML class/slot/enum."""
+    ann = entry.get("annotations") or {}
+    definition: dict[str, str] = {}
+    if entry.get("description"):
+        definition["en"] = entry["description"]
+    for src_key, locale in (("description_fr", "fr"), ("description_es", "es")):
+        if ann.get(src_key):
+            definition[locale] = ann[src_key]
+    return definition
+
+
+def _linkml_label(entry: dict) -> dict:
+    """Reconstruct a multilingual label dict from a LinkML class/slot/enum."""
+    ann = entry.get("annotations") or {}
+    label: dict[str, str] = {}
+    if entry.get("title"):
+        label["en"] = entry["title"]
+    for src_key, locale in (("label_fr", "fr"), ("label_es", "es")):
+        if ann.get(src_key):
+            label[locale] = ann[src_key]
+    return label
+
+
+def _linkml_external_equivalents(entry: dict) -> dict:
+    """Decode the external_alignments_json annotation into a system->entry dict.
+
+    The bespoke shape keys by system (a free-form short id). The LinkML
+    annotation is a JSON array of alignment entries; we collapse them by
+    ``vocabulary_id`` (falling back to ``vocabulary``) to preserve a stable
+    key for the E001-E003 rule set. We only emit the fields the rules
+    inspect (match, uri, note).
+    """
+    ann = entry.get("annotations") or {}
+    raw = ann.get("external_alignments_json")
+    if not raw:
+        return {}
+    try:
+        alignments = json.loads(raw)
+    except (TypeError, ValueError):
+        return {}
+    out: dict[str, dict] = {}
+    for item in alignments:
+        if not isinstance(item, dict):
+            continue
+        key = item.get("vocabulary_id") or item.get("vocabulary") or item.get("uri")
+        if not key:
+            continue
+        entry_out = {}
+        if "match" in item:
+            entry_out["match"] = item["match"]
+        if "uri" in item:
+            entry_out["uri"] = item["uri"]
+        if "note" in item:
+            entry_out["note"] = item["note"]
+        out[key] = entry_out
+    return out
+
+
+def _linkml_decode_json_ann(entry: dict, key: str):
+    """Return a parsed JSON value from an annotation, or None if absent/invalid."""
+    ann = entry.get("annotations") or {}
+    raw = ann.get(key)
+    if not raw:
+        return None
+    try:
+        return json.loads(raw)
+    except (TypeError, ValueError):
+        return None
+
+
+def _linkml_status_to_maturity(status: str | None) -> str:
+    """Map LinkML ``status`` (bibo:status/...) back to PublicSchema maturity."""
+    if not status:
+        return "draft"
+    s = status.replace("bibo:status/", "").replace("bibo:", "")
+    if s in ("published", "normative"):
+        return "normative"
+    if s in ("forthcoming", "candidate"):
+        return "candidate"
+    return "draft"
+
+
+def _load_linkml_schema_files(linkml_dir: Path) -> list[dict]:
+    """Load every *.yaml under dist/linkml/, recursing one level for external/.
+
+    Skips the top-level composite (``publicschema.yaml``) and the
+    hand-authored ``publicschema-extensions.yaml`` because they only carry
+    prefixes and imports.
+    """
+    skip = {"publicschema.yaml", "publicschema-extensions.yaml"}
+    results: list[dict] = []
+    for path in sorted(linkml_dir.rglob("*.yaml")):
+        if path.name in skip:
+            continue
+        data = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+        results.append(data)
+    return results
+
+
+def load_linkml_as_bespoke(linkml_dir: Path) -> tuple[dict, dict, dict, dict]:
+    """Read dist/linkml/ and return (concepts, properties, vocabularies, categories).
+
+    Each return dict maps a filename-ish key (the LinkML class/slot/enum
+    name) to a dict shaped like the bespoke YAML the lint rules expect.
+    ``categories`` is reconstructed from the ``categories.yaml`` module if
+    present (LinkML emits each category as a class under that module).
+    """
+    concepts: dict[str, dict] = {}
+    properties: dict[str, dict] = {}
+    vocabularies: dict[str, dict] = {}
+    categories: dict[str, dict] = {}
+
+    for module in _load_linkml_schema_files(linkml_dir):
+        module_name = module.get("name", "")
+        is_categories_module = module_name == "categories"
+
+        for cname, cdef in (module.get("classes") or {}).items():
+            if not isinstance(cdef, dict):
+                continue
+            if is_categories_module:
+                categories[cname] = {
+                    "label": _linkml_label(cdef),
+                    "definition": _linkml_definition(cdef),
+                }
+                continue
+            entry = {
+                "id": cname,
+                "maturity": _linkml_status_to_maturity(cdef.get("status")),
+                "definition": _linkml_definition(cdef),
+                "label": _linkml_label(cdef),
+                "external_equivalents": _linkml_external_equivalents(cdef),
+                "abstract": bool(cdef.get("abstract")),
+            }
+            convergence = _linkml_decode_json_ann(cdef, "convergence_json")
+            if convergence:
+                entry["convergence"] = convergence
+            property_groups = _linkml_decode_json_ann(cdef, "property_groups_json")
+            if property_groups:
+                entry["property_groups"] = property_groups
+            concepts[cname] = entry
+
+        for sname, sdef in (module.get("slots") or {}).items():
+            if not isinstance(sdef, dict):
+                continue
+            properties[sname] = {
+                "id": sname,
+                "maturity": _linkml_status_to_maturity(sdef.get("status")),
+                "definition": _linkml_definition(sdef),
+                "label": _linkml_label(sdef),
+                "external_equivalents": _linkml_external_equivalents(sdef),
+            }
+
+        for ename, edef in (module.get("enums") or {}).items():
+            if not isinstance(edef, dict):
+                continue
+            sync_block = _linkml_decode_json_ann(edef, "sync_json")
+            values: list[dict] = []
+            for code, vdef in (edef.get("permissible_values") or {}).items():
+                if not isinstance(vdef, dict):
+                    values.append({"code": code})
+                    continue
+                values.append({
+                    "code": code,
+                    "label": _linkml_label(vdef),
+                    "definition": _linkml_definition(vdef),
+                })
+            entry = {
+                "id": ename,
+                "maturity": _linkml_status_to_maturity(edef.get("status")),
+                "definition": _linkml_definition(edef),
+                "label": _linkml_label(edef),
+                "external_equivalents": _linkml_external_equivalents(edef),
+                "values": values,
+            }
+            if sync_block:
+                entry["sync"] = sync_block
+            vocabularies[ename] = entry
+
+    return concepts, properties, vocabularies, categories
+
+
+# ---------------------------------------------------------------------------
 # Main linting function
 # ---------------------------------------------------------------------------
 
@@ -192,8 +407,6 @@ def lint_schema_dir(schema_dir: Path) -> list[LintIssue]:
 
     Returns a list of LintIssue objects. Empty list means clean.
     """
-    issues: list[LintIssue] = []
-
     # Load all files
     concepts = load_all_yaml(schema_dir / "concepts")
     properties = load_all_yaml(schema_dir / "properties")
@@ -202,6 +415,23 @@ def lint_schema_dir(schema_dir: Path) -> list[LintIssue]:
     # Load categories (optional)
     categories_path = schema_dir / "categories.yaml"
     categories = load_yaml(categories_path) if categories_path.exists() else {}
+
+    return _lint_loaded(concepts, properties, vocabularies, categories)
+
+
+def _lint_loaded(
+    concepts: dict,
+    properties: dict,
+    vocabularies: dict,
+    categories: dict,
+) -> list[LintIssue]:
+    """Run lint rules against already-loaded concept/property/vocabulary dicts.
+
+    Shared between the bespoke and LinkML entry points so the rule set lives
+    in one place. Both readers normalise to ``{filename_key: {id, maturity,
+    definition, label, ...}}`` before calling here.
+    """
+    issues: list[LintIssue] = []
 
     # Collect all category references from concepts' property_groups
     used_categories: set[str] = set()
@@ -472,6 +702,14 @@ def lint_schema_dir(schema_dir: Path) -> list[LintIssue]:
     return issues
 
 
+def lint_linkml_dir(linkml_dir: Path) -> list[LintIssue]:
+    """Lint a dist/linkml/ tree by reusing :func:`_lint_loaded` after
+    normalising LinkML output back to bespoke shape.
+    """
+    concepts, properties, vocabularies, categories = load_linkml_as_bespoke(linkml_dir)
+    return _lint_loaded(concepts, properties, vocabularies, categories)
+
+
 # ---------------------------------------------------------------------------
 # CLI entry point
 # ---------------------------------------------------------------------------
@@ -479,11 +717,37 @@ def lint_schema_dir(schema_dir: Path) -> list[LintIssue]:
 
 def main():
     """CLI entry point for the linter."""
-    schema_dir = Path("schema")
-    if len(sys.argv) > 1:
-        schema_dir = Path(sys.argv[1])
+    import argparse
 
-    issues = lint_schema_dir(schema_dir)
+    parser = argparse.ArgumentParser(
+        description="Lint PublicSchema YAML for content quality and style.",
+    )
+    parser.add_argument(
+        "path",
+        nargs="?",
+        default=None,
+        help="Schema directory. Defaults to schema/ (bespoke) or dist/linkml/ (linkml).",
+    )
+    parser.add_argument(
+        "--source",
+        choices=("bespoke", "linkml"),
+        default="bespoke",
+        help="Which source tree to lint. During the LinkML cutover the default "
+             "stays 'bespoke'; 'linkml' lints dist/linkml/ output instead.",
+    )
+    args = parser.parse_args()
+
+    if args.path:
+        target = Path(args.path)
+    elif args.source == "linkml":
+        target = Path("dist/linkml")
+    else:
+        target = Path("schema")
+
+    if args.source == "linkml":
+        issues = lint_linkml_dir(target)
+    else:
+        issues = lint_schema_dir(target)
     warnings = [i for i in issues if i.severity == "warning"]
     errors = [i for i in issues if i.severity == "error"]
 

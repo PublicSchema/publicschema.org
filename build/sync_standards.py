@@ -6,6 +6,33 @@ the existing vocabulary values.
 
 Preserves hand-written fields (definitions, translations, system_mappings)
 while adding/updating codes from the authoritative source.
+
+Source: bespoke schema only (during the LinkML cutover).
+-----------------------------------------------------------
+This script reads and **writes** schema/vocabularies/**/*.yaml. The
+source of truth during the transition is the bespoke YAML, so syncing
+into LinkML output would be discarded the next time
+build/migrate_to_linkml.py regenerates dist/linkml/. The script
+therefore intentionally targets the bespoke tree only.
+
+# TODO: adapt to LinkML after cutover. Once dist/linkml/ becomes the
+# source of truth, this script needs to either:
+#   1. Read the ``annotations.sync_json`` block on each enum in the
+#      LinkML output (per-vocabulary configuration), download the
+#      upstream source, run the existing parser, and write the merged
+#      ``permissible_values`` back as LinkML enum entries (preserving
+#      hand-written annotations.label_fr/label_es and any
+#      annotations.description_*). The CLDR translation pass already
+#      works on the parsed-value dict shape and would not need to
+#      change; the merge logic just needs a LinkML adapter on either
+#      end. OR
+#   2. Continue writing to schema/vocabularies/** during a deprecation
+#      window and rely on the migrator to re-emit the LinkML output.
+#      Pick (1) when there is no longer a bespoke source to migrate
+#      from. The ``find_syncable_vocabularies`` helper would gain a
+#      ``--source linkml`` mode that scans dist/linkml/*.yaml enums
+#      with annotations.sync_json instead of vocabularies/**/*.yaml
+#      with a top-level ``sync`` key.
 """
 
 import csv
