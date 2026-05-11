@@ -45,7 +45,7 @@ EXTENSIONS_FILE = ROOT / "build" / "linkml_extensions.yaml"
 OUTPUT_DIR = ROOT / "dist" / "linkml"
 EXTERNAL_DIR = OUTPUT_DIR / "external"
 
-PUBLICSCHEMA_BASE = "https://publicschema.org/"
+DEFAULT_PUBLICSCHEMA_BASE = "https://publicschema.org/"
 
 STATUS_MAP = {
     "draft": "bibo:draft",
@@ -129,6 +129,7 @@ class SourceFile:
     path: Path
     kind: str  # 'concept' | 'property' | 'vocabulary' | 'credential' | 'bibliography' | 'project' | 'meta' | 'categories' | 'other'
     id: str | None
+    key: str | None
     data: dict
 
 
@@ -147,6 +148,7 @@ class MigrationContext:
     vocabularies: dict[str, SourceFile]  # id -> vocabulary SourceFile
     by_kind: dict[str, list[SourceFile]]
     systems: SystemRegistry
+    publicschema_base: str = DEFAULT_PUBLICSCHEMA_BASE
     # SEMIC alignment architecture (P4 series on main):
     external_references: dict[str, dict] = dataclasses.field(default_factory=dict)  # id -> doc
     external_terms_by_source: dict[str, list[dict]] = dataclasses.field(default_factory=dict)  # source_id -> terms list
@@ -184,6 +186,14 @@ def classify(path: Path) -> str:
     if path.name == "categories.yaml":
         return "categories"
     top = rel[0]
+    if top == "bases":
+        return "base"
+    if top == "external_references":
+        return "external_reference"
+    if top == "external_terms":
+        return "external_terms"
+    if top == "alignments":
+        return "alignment"
     if top == "concepts":
         return "concept"
     if top == "properties":
@@ -194,14 +204,6 @@ def classify(path: Path) -> str:
         return "credential"
     if top == "bibliography":
         return "bibliography"
-    if top == "external_references":
-        return "external_reference"
-    if top == "external_terms":
-        return "external_terms"
-    if top == "alignments":
-        return "alignment"
-    if top == "bases":
-        return "base"
     return "other"
 
 
@@ -212,6 +214,36 @@ def load_systems() -> SystemRegistry:
         systems=data.get("systems", {}),
         vocab_prefixes=data.get("external_vocabulary_prefixes", {}),
     )
+
+
+def load_publicschema_base() -> str:
+    """Load the active PublicSchema base URI if the bases/ tree declares one."""
+    path = SOURCE_DIR / "bases" / "active-base.yaml"
+    if not path.exists():
+        return DEFAULT_PUBLICSCHEMA_BASE
+    with path.open() as f:
+        data = yaml.safe_load(f) or {}
+    for key in ("base_uri", "uri", "iri", "namespace", "prefix_uri"):
+        value = data.get(key)
+        if isinstance(value, str) and value:
+            return value if value.endswith("/") else f"{value}/"
+    return DEFAULT_PUBLICSCHEMA_BASE
+
+
+def source_key(kind: str, data: dict) -> str | None:
+    """Return the canonical source reference key for a schema element.
+
+    Concepts and vocabularies may be domain-scoped in source YAML. The rest of
+    the PublicSchema build pipeline keys those as ``<domain>/<id>``; the LinkML
+    migration must keep the same identity to avoid collapsing terms like
+    ``Person`` and ``crvs/Person``.
+    """
+    entity_id = data.get("id")
+    if not entity_id:
+        return None
+    if kind in {"concept", "vocabulary"} and data.get("domain"):
+        return f"{data['domain']}/{entity_id}"
+    return str(entity_id)
 
 
 def load_inventory(ctx_holder: dict | None = None) -> tuple[
@@ -248,19 +280,20 @@ def load_inventory(ctx_holder: dict | None = None) -> tuple[
         if not isinstance(data, dict):
             continue
         kind = classify(p)
-        sf = SourceFile(path=p, kind=kind, id=data.get("id"), data=data)
+        key = source_key(kind, data)
+        sf = SourceFile(path=p, kind=kind, id=data.get("id"), key=key, data=data)
         by_kind[kind].append(sf)
         if not sf.id:
             continue
         if kind == "concept":
-            concepts[sf.id] = sf
-            inv.setdefault(sf.id, sf)
+            concepts[sf.key or sf.id] = sf
+            inv.setdefault(sf.key or sf.id, sf)
         elif kind == "property":
-            properties[sf.id] = sf
-            inv.setdefault(sf.id, sf)
+            properties[sf.key or sf.id] = sf
+            inv.setdefault(sf.key or sf.id, sf)
         elif kind == "vocabulary":
-            vocabularies[sf.id] = sf
-            inv.setdefault(sf.id, sf)
+            vocabularies[sf.key or sf.id] = sf
+            inv.setdefault(sf.key or sf.id, sf)
         elif kind == "external_reference":
             external_references[sf.id] = data
         elif kind == "external_terms":
@@ -304,6 +337,29 @@ def slugify(s: str) -> str:
 def pascal_case(s: str) -> str:
     tokens = _NON_ALNUM.split(str(s))
     return "".join(t[:1].upper() + t[1:] for t in tokens if t)
+
+
+def linkml_name(source_ref: str) -> str:
+    """Stable LinkML class/enum name for a PublicSchema source reference key."""
+    return pascal_case(source_ref)
+
+
+def publicschema_curie(source_ref: str) -> str:
+    """CURIE for a PublicSchema concept/class key."""
+    return f"publicschema:{source_ref}"
+
+
+def publicschema_vocab_curie(source_ref: str) -> str:
+    """CURIE for a PublicSchema vocabulary key."""
+    return f"publicschema:vocab/{source_ref}"
+
+
+def publicschema_slot_curie(slot_name: str, source: dict) -> str:
+    """CURIE for a PublicSchema property, honoring domain_override."""
+    domain = source.get("domain_override")
+    if isinstance(domain, str) and domain:
+        return f"publicschema:{domain}/{slot_name}"
+    return f"publicschema:{slot_name}"
 
 
 # Reserved Python attribute names that conflict with jsonasobj2.ExtendedNamespace
@@ -377,13 +433,16 @@ def json_annotation(key: str, value: Any) -> tuple[str, str] | None:
 
 def map_external_equivalents(
     eqs: dict | None, ctx: MigrationContext
-) -> tuple[list[str], list[str], list[dict]]:
-    """Return (exact_mappings, close_mappings, alignments_records)."""
+) -> tuple[list[str], list[str], list[str], list[str], list[str], list[dict]]:
+    """Return LinkML mapping buckets plus structured alignment records."""
     exact: list[str] = []
     close: list[str] = []
+    broad: list[str] = []
+    narrow: list[str] = []
+    related: list[str] = []
     records: list[dict] = []
     if not isinstance(eqs, dict):
-        return exact, close, records
+        return exact, close, broad, narrow, related, records
     for vocab_id, entry in eqs.items():
         if not isinstance(entry, dict):
             continue
@@ -395,8 +454,14 @@ def map_external_equivalents(
         if target:
             if match == "exact":
                 exact.append(target)
-            elif match in ("close", "narrow", "broad", "related"):
+            elif match == "close":
                 close.append(target)
+            elif match == "broad":
+                broad.append(target)
+            elif match == "narrow":
+                narrow.append(target)
+            elif match == "related":
+                related.append(target)
         rec = {
             "vocabulary_id": vocab_id,
             "match": match,
@@ -405,7 +470,7 @@ def map_external_equivalents(
             if entry.get(k) is not None:
                 rec[k] = entry[k]
         records.append(rec)
-    return exact, close, records
+    return exact, close, broad, narrow, related, records
 
 
 # Source URIs sometimes use https:// where the canonical form is http:// (and
@@ -453,12 +518,13 @@ def uri_to_curie(uri: str, ctx: MigrationContext) -> str | None:
 def convert_vocabulary(sf: SourceFile, ctx: MigrationContext) -> tuple[str, dict]:
     """Return (enum_name, EnumDefinition dict)."""
     src = sf.data
-    enum_name = pascal_case(src.get("id") or sf.path.stem)
+    source_ref = sf.key or src.get("id") or sf.path.stem
+    enum_name = linkml_name(source_ref)
     en_label, label_other = get_multilingual(src, "label")
     en_def, def_other = get_multilingual(src, "definition")
 
     enum: dict[str, Any] = {
-        "enum_uri": f"publicschema:{enum_name}",
+        "enum_uri": publicschema_vocab_curie(source_ref),
     }
     if en_label:
         enum["title"] = en_label
@@ -479,7 +545,7 @@ def convert_vocabulary(sf: SourceFile, ctx: MigrationContext) -> tuple[str, dict
         if code is None:
             continue
         key = value_key(code)
-        pv: dict[str, Any] = {"meaning": f"publicschema:{enum_name}/{key}"}
+        pv: dict[str, Any] = {"meaning": f"{publicschema_vocab_curie(source_ref)}/{key}"}
         v_en, v_other = get_multilingual(v, "label")
         if v_en:
             pv["title"] = v_en
@@ -492,11 +558,19 @@ def convert_vocabulary(sf: SourceFile, ctx: MigrationContext) -> tuple[str, dict
         enum["permissible_values"] = pvs
 
     # External alignments at the enum level
-    exact, close, alignments = map_external_equivalents(src.get("external_equivalents"), ctx)
+    exact, close, broad, narrow, related, alignments = map_external_equivalents(
+        src.get("external_equivalents"), ctx
+    )
     if exact:
         enum["exact_mappings"] = exact
     if close:
         enum["close_mappings"] = close
+    if broad:
+        enum["broad_mappings"] = broad
+    if narrow:
+        enum["narrow_mappings"] = narrow
+    if related:
+        enum["related_mappings"] = related
 
     # i18n + structured annotations
     annotations: dict[str, Any] = i18n_annotations(label_other, def_other)
@@ -619,7 +693,7 @@ def convert_property(sf: SourceFile, ctx: MigrationContext) -> tuple[str, dict]:
     en_def, def_other = get_multilingual(src, "definition")
 
     slot: dict[str, Any] = {
-        "slot_uri": f"publicschema:{slot_name}",
+        "slot_uri": publicschema_slot_curie(slot_name, src),
     }
     if en_label:
         slot["title"] = en_label
@@ -631,14 +705,13 @@ def convert_property(sf: SourceFile, ctx: MigrationContext) -> tuple[str, dict]:
     refs = src.get("references")
     vocab = src.get("vocabulary")
     if isinstance(refs, str) and refs in ctx.concepts:
-        slot["range"] = refs  # Class-valued
+        slot["range"] = linkml_name(refs)  # Class-valued
     elif isinstance(vocab, str) and vocab in ctx.vocabularies:
-        slot["range"] = pascal_case(vocab)  # Enum-valued
+        slot["range"] = linkml_name(vocab)  # Enum-valued
     elif isinstance(ptype, str) and ptype.startswith("concept:"):
         # ptype like 'concept:Person' or 'concept:crvs/Person'
-        # Extract the class name (last path segment).
-        class_ref = ptype[len("concept:"):].rsplit("/", 1)[-1]
-        slot["range"] = class_ref
+        class_ref = ptype[len("concept:"):]
+        slot["range"] = linkml_name(class_ref) if class_ref in ctx.concepts else pascal_case(class_ref)
     elif isinstance(ptype, str) and ptype in PRIMITIVE_TYPE_MAP:
         slot["range"] = PRIMITIVE_TYPE_MAP[ptype]
     elif isinstance(ptype, str):
@@ -658,14 +731,23 @@ def convert_property(sf: SourceFile, ctx: MigrationContext) -> tuple[str, dict]:
         slot["status"] = STATUS_MAP[maturity]
 
     # External equivalents + schema_org_equivalent + alignments
-    exact, close, alignments = map_external_equivalents(src.get("external_equivalents"), ctx)
+    exact, close, broad, narrow, related, alignments = map_external_equivalents(
+        src.get("external_equivalents"), ctx
+    )
     soe = src.get("schema_org_equivalent")
     if isinstance(soe, str) and soe:
         exact.append(soe)
     for rec in get_alignments_for("property", slot_name, ctx):
         curie = uri_to_curie(rec["uri"], ctx) or rec["uri"]
-        if rec.get("match") in ("close", "broad", "narrow", "related"):
+        match = rec.get("match")
+        if match == "close":
             close.append(curie)
+        elif match == "broad":
+            broad.append(curie)
+        elif match == "narrow":
+            narrow.append(curie)
+        elif match == "related":
+            related.append(curie)
         else:
             exact.append(curie)
         alignments.append(rec)
@@ -673,6 +755,12 @@ def convert_property(sf: SourceFile, ctx: MigrationContext) -> tuple[str, dict]:
         slot["exact_mappings"] = sorted(set(exact))
     if close:
         slot["close_mappings"] = sorted(set(close))
+    if broad:
+        slot["broad_mappings"] = sorted(set(broad))
+    if narrow:
+        slot["narrow_mappings"] = sorted(set(narrow))
+    if related:
+        slot["related_mappings"] = sorted(set(related))
 
     # Annotations
     annotations: dict[str, Any] = i18n_annotations(label_other, def_other)
@@ -710,24 +798,21 @@ def convert_property(sf: SourceFile, ctx: MigrationContext) -> tuple[str, dict]:
 
 def convert_concept(sf: SourceFile, ctx: MigrationContext) -> tuple[str, dict]:
     src = sf.data
-    cls_name = src.get("id") or pascal_case(sf.path.stem)
+    source_ref = sf.key or src.get("id") or pascal_case(sf.path.stem)
+    cls_name = linkml_name(source_ref)
     en_label, label_other = get_multilingual(src, "label")
     en_def, def_other = get_multilingual(src, "definition")
 
     cls: dict[str, Any] = {
-        "class_uri": f"publicschema:{cls_name}",
+        "class_uri": publicschema_curie(source_ref),
     }
     if en_label:
         cls["title"] = en_label
     if en_def:
         cls["description"] = en_def
 
-    # Supertypes -> is_a + mixins (strip any path/domain prefix like "crvs/VitalEvent").
-    def _strip_path(name: str) -> str:
-        return name.rsplit("/", 1)[-1] if isinstance(name, str) else name
-
     supers = src.get("supertypes") or []
-    supers = [_strip_path(s) for s in supers if isinstance(s, str)]
+    supers = [linkml_name(s) if s in ctx.concepts else pascal_case(s) for s in supers if isinstance(s, str)]
     if supers:
         cls["is_a"] = supers[0]
         if len(supers) > 1:
@@ -735,7 +820,10 @@ def convert_concept(sf: SourceFile, ctx: MigrationContext) -> tuple[str, dict]:
         ctx.inheritance_choices[cls_name] = {
             "is_a": supers[0],
             "mixins": list(supers[1:]),
-            "rule": "first declared supertype = is_a; rest = mixins (path prefix stripped)",
+            "rule": (
+                "first declared supertype = is_a; rest = mixins; "
+                "domain-scoped refs become domain-prefixed LinkML names"
+            ),
         }
 
     # Slots (PublicSchema concept lists its properties by name)
@@ -750,11 +838,21 @@ def convert_concept(sf: SourceFile, ctx: MigrationContext) -> tuple[str, dict]:
 
     # External equivalents (from external_equivalents: on the source) + alignments
     # (from schema/alignments/<vocab>.yaml). The two sources are merged.
-    exact, close, alignments = map_external_equivalents(src.get("external_equivalents"), ctx)
-    for rec in get_alignments_for("concept", cls_name, ctx):
+    exact, close, broad, narrow, related, alignments = map_external_equivalents(
+        src.get("external_equivalents"), ctx
+    )
+    alignment_subject_id = source_ref if src.get("domain") else cls_name
+    for rec in get_alignments_for("concept", alignment_subject_id, ctx):
         curie = uri_to_curie(rec["uri"], ctx) or rec["uri"]
-        if rec.get("match") in ("close", "broad", "narrow", "related"):
+        match = rec.get("match")
+        if match == "close":
             close.append(curie)
+        elif match == "broad":
+            broad.append(curie)
+        elif match == "narrow":
+            narrow.append(curie)
+        elif match == "related":
+            related.append(curie)
         else:
             exact.append(curie)
         alignments.append(rec)
@@ -762,6 +860,12 @@ def convert_concept(sf: SourceFile, ctx: MigrationContext) -> tuple[str, dict]:
         cls["exact_mappings"] = sorted(set(exact))
     if close:
         cls["close_mappings"] = sorted(set(close))
+    if broad:
+        cls["broad_mappings"] = sorted(set(broad))
+    if narrow:
+        cls["narrow_mappings"] = sorted(set(narrow))
+    if related:
+        cls["related_mappings"] = sorted(set(related))
 
     # Annotations
     annotations: dict[str, Any] = i18n_annotations(label_other, def_other)
@@ -801,29 +905,33 @@ def convert_concept(sf: SourceFile, ctx: MigrationContext) -> tuple[str, dict]:
 # ============================================================================
 
 
-def assign_concept_domain(name: str, sf: SourceFile, ctx: MigrationContext) -> str:
+def assign_concept_domain(source_ref: str, sf: SourceFile, ctx: MigrationContext) -> str:
     # 1. Source-declared `domain:` is authoritative.
     src_domain = sf.data.get("domain")
     if isinstance(src_domain, str) and src_domain in SOURCE_DOMAIN_MAP:
         d = SOURCE_DOMAIN_MAP[src_domain]
-        ctx.domain_rationale[f"concept:{name}"] = f"source `domain: {src_domain}` -> {d}"
+        ctx.domain_rationale[f"concept:{source_ref}"] = f"source `domain: {src_domain}` -> {d}"
         return d
     # 2. Hand-curated concept domain map.
-    if name in CONCEPT_DOMAINS:
-        ctx.domain_rationale[f"concept:{name}"] = f"explicit map -> {CONCEPT_DOMAINS[name]}"
-        return CONCEPT_DOMAINS[name]
+    bare_id = sf.data.get("id") or source_ref
+    if source_ref in CONCEPT_DOMAINS:
+        ctx.domain_rationale[f"concept:{source_ref}"] = f"explicit map -> {CONCEPT_DOMAINS[source_ref]}"
+        return CONCEPT_DOMAINS[source_ref]
+    if bare_id in CONCEPT_DOMAINS:
+        ctx.domain_rationale[f"concept:{source_ref}"] = f"explicit map -> {CONCEPT_DOMAINS[bare_id]}"
+        return CONCEPT_DOMAINS[bare_id]
     # 3. Property_groups categories.
     cats = []
     pg = sf.data.get("property_groups")
     if isinstance(pg, list):
         cats = [g.get("category") for g in pg if isinstance(g, dict)]
     if "identity" in cats:
-        ctx.domain_rationale[f"concept:{name}"] = "property_groups.identity -> identity"
+        ctx.domain_rationale[f"concept:{source_ref}"] = "property_groups.identity -> identity"
         return "identity"
     if "demographics" in cats:
-        ctx.domain_rationale[f"concept:{name}"] = "property_groups.demographics -> identity"
+        ctx.domain_rationale[f"concept:{source_ref}"] = "property_groups.demographics -> identity"
         return "identity"
-    ctx.domain_rationale[f"concept:{name}"] = "fallback -> misc"
+    ctx.domain_rationale[f"concept:{source_ref}"] = "fallback -> misc"
     return "misc"
 
 
@@ -855,21 +963,21 @@ def assign_property_domain(prop_name: str, ctx: MigrationContext) -> str:
     return d
 
 
-def assign_vocab_domain(vocab_name: str, ctx: MigrationContext) -> str:
+def assign_vocab_domain(vocab_ref: str, ctx: MigrationContext) -> str:
     # Vocabularies referenced via a property's `vocabulary:` field
     refs = []
     for prop_id, sf in ctx.properties.items():
-        if sf.data.get("vocabulary") == vocab_name or sf.data.get("vocabulary") == sf.path.stem:
+        if sf.data.get("vocabulary") == vocab_ref:
             refs.append(prop_id)
     if not refs:
-        ctx.domain_rationale[f"vocabulary:{vocab_name}"] = "unreferenced -> vocabularies"
+        ctx.domain_rationale[f"vocabulary:{vocab_ref}"] = "unreferenced -> vocabularies"
         return DOMAIN_VOCABULARIES
     domains = collections.Counter(ctx.property_domain.get(p, "misc") for p in refs)
     if len(domains) == 1:
         d, _ = domains.most_common(1)[0]
-        ctx.domain_rationale[f"vocabulary:{vocab_name}"] = f"single-domain use -> {d}"
+        ctx.domain_rationale[f"vocabulary:{vocab_ref}"] = f"single-domain use -> {d}"
         return d
-    ctx.domain_rationale[f"vocabulary:{vocab_name}"] = (
+    ctx.domain_rationale[f"vocabulary:{vocab_ref}"] = (
         f"multi-domain ({dict(domains)}) -> vocabularies"
     )
     return DOMAIN_VOCABULARIES
@@ -878,9 +986,9 @@ def assign_vocab_domain(vocab_name: str, ctx: MigrationContext) -> str:
 def derive_domains(ctx: MigrationContext) -> None:
     for c, sf in ctx.concepts.items():
         ctx.concept_domain[c] = assign_concept_domain(c, sf, ctx)
-    for p, sf in ctx.properties.items():
+    for p in ctx.properties:
         ctx.property_domain[p] = assign_property_domain(p, ctx)
-    for v, sf in ctx.vocabularies.items():
+    for v in ctx.vocabularies:
         ctx.vocab_domain[v] = assign_vocab_domain(v, ctx)
 
 
@@ -954,10 +1062,25 @@ def write_migration_report(
         f"- External systems: {len(ctx.external_enums)} active, {n_external_enums} enums emitted.",
         f"- Crosswalk references: {len(ctx.crosswalk_refs)}.",
         f"- Unmapped source fields: {len(ctx.unmapped)}.",
+        f"- Base URI: {ctx.publicschema_base}.",
+        f"- External reference files: {len(ctx.by_kind.get('external_reference', []))}.",
+        f"- External term files: {len(ctx.by_kind.get('external_terms', []))}.",
+        f"- Alignment files: {len(ctx.by_kind.get('alignment', []))}.",
         f"- linkml-lint failures: {len(lint_failures)}.",
         f"- Referential integrity failures: {len(integrity_failures)}.",
         "",
     ]
+    if ctx.by_kind.get("external_reference") or ctx.by_kind.get("external_terms") or ctx.by_kind.get("alignment"):
+        lines.append("## External alignment source-of-truth note")
+        lines.append("")
+        lines.append(
+            "The migration inventory found the newer external alignment directories and "
+            "uses them as authoritative inputs where present. `schema/external_references` "
+            "contributes prefix/provenance metadata, `schema/external_terms` contributes "
+            "canonical external classes and slots, and `schema/alignments` contributes "
+            "reviewed mappings that merge with legacy `external_equivalents`."
+        )
+        lines.append("")
     if ctx.unmapped:
         lines.append("## Unmapped source fields")
         lines.append("")
@@ -1009,7 +1132,6 @@ def yaml_dump(d: Any) -> str:
 
 
 PUBLICSCHEMA_PREFIXES = {
-    "publicschema": "https://publicschema.org/",
     "linkml": "https://w3id.org/linkml/",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
     "bibo": "http://purl.org/ontology/bibo/",
@@ -1033,6 +1155,7 @@ def build_prefixes(ctx: MigrationContext) -> dict[str, str]:
     our hand-curated table).
     """
     prefixes = dict(PUBLICSCHEMA_PREFIXES)
+    prefixes["publicschema"] = ctx.publicschema_base
     seen_uris = {v: k for k, v in prefixes.items()}
     for sid, info in ctx.systems.vocab_prefixes.items():
         uri = info["uri"]
@@ -1040,7 +1163,8 @@ def build_prefixes(ctx: MigrationContext) -> dict[str, str]:
             continue
         prefixes[sid] = uri
         seen_uris[uri] = sid
-    for sid, info in ctx.systems.systems.items():
+    # systems (per-system CURIE prefixes) yield to vocab_prefixes on URI collision.
+    for info in ctx.systems.systems.values():
         uri = info["uri"]
         prefix = info["prefix"]
         if uri in seen_uris:
@@ -1048,7 +1172,7 @@ def build_prefixes(ctx: MigrationContext) -> dict[str, str]:
         prefixes[prefix] = uri
         seen_uris[uri] = prefix
     # SEMIC external_references publish the actual upstream prefix tables.
-    for ref_id, ref_doc in ctx.external_references.items():
+    for ref_doc in ctx.external_references.values():
         for ref_prefix, ref_uri in (ref_doc.get("prefixes") or {}).items():
             if not isinstance(ref_uri, str):
                 continue
@@ -1108,7 +1232,7 @@ def schema_header(domain: str, ctx: MigrationContext, *, extra_imports: list[str
     if extra_imports:
         imports.extend(extra_imports)
     return {
-        "id": f"https://publicschema.org/linkml/{domain}",
+        "id": f"{ctx.publicschema_base}linkml/{domain}",
         "name": f"publicschema-{domain}",
         "title": f"PublicSchema {domain.replace('_', ' ')} domain",
         "license": "CC-BY-4.0",
@@ -1124,6 +1248,8 @@ def emit_domain_file(domain: str, ctx: MigrationContext) -> None:
     enums: dict[str, dict] = {}
     used_external_systems: set[str] = set()
     cross_domain_imports: set[str] = set()
+    class_name_to_ref = {linkml_name(ref): ref for ref in ctx.concepts}
+    enum_name_to_ref = {linkml_name(ref): ref for ref in ctx.vocabularies}
 
     referenced_slots: set[str] = set()
     referenced_classes: set[str] = set()
@@ -1138,8 +1264,8 @@ def emit_domain_file(domain: str, ctx: MigrationContext) -> None:
         for s in cls.get("slots", []) or []:
             referenced_slots.add(s)
         for sup in [cls.get("is_a")] + (cls.get("mixins") or []):
-            if sup:
-                referenced_classes.add(sup)
+            if sup and sup in class_name_to_ref:
+                referenced_classes.add(class_name_to_ref[sup])
 
     for pid, ddom in ctx.property_domain.items():
         if ddom != domain:
@@ -1153,8 +1279,10 @@ def emit_domain_file(domain: str, ctx: MigrationContext) -> None:
             if rng in ctx.concept_domain:
                 referenced_classes.add(rng)
             # Enum names are PascalCase from vocab ids
-            elif rng[0].isupper() and rng not in PRIMITIVE_TYPE_MAP.values():
-                referenced_enums.add(rng)
+            elif rng in class_name_to_ref:
+                referenced_classes.add(class_name_to_ref[rng])
+            elif rng in enum_name_to_ref:
+                referenced_enums.add(enum_name_to_ref[rng])
         # Track external systems and populate ctx.external_enums so external
         # schema files are emitted (even when the property has no PublicSchema enum).
         sm = sf.data.get("system_mappings")
@@ -1213,12 +1341,8 @@ def emit_domain_file(domain: str, ctx: MigrationContext) -> None:
         d = ctx.concept_domain.get(c)
         if d and d != domain:
             cross_domain_imports.add(d)
-    # Enums: vocab_domain is keyed by source id (e.g. "country"), not PascalCase. Reverse-lookup.
-    enum_to_domain: dict[str, str] = {}
-    for vid in ctx.vocabularies:
-        enum_to_domain[pascal_case(vid)] = ctx.vocab_domain.get(vid, DOMAIN_VOCABULARIES)
     for e in referenced_enums:
-        d = enum_to_domain.get(e)
+        d = ctx.vocab_domain.get(e)
         if d and d != domain:
             cross_domain_imports.add(d)
 
@@ -1268,7 +1392,6 @@ def emit_external_schemas(ctx: MigrationContext) -> None:
             # Choose the prefix whose URI is the most-specific (longest) match
             # for the source_url's namespace; default to the first listed.
             default_prefix = next(iter(ref_prefixes), sysid)
-            schema_uri = ref_doc.get("homepage") or f"https://publicschema.org/linkml/external/{sysid}"
             schema_prefixes = dict(ref_prefixes)
             schema_prefixes.setdefault("linkml", "https://w3id.org/linkml/")
             schema_prefixes.setdefault("xsd", "http://www.w3.org/2001/XMLSchema#")
@@ -1292,7 +1415,6 @@ def emit_external_schemas(ctx: MigrationContext) -> None:
         elif sysid in ctx.systems.systems:
             info = ctx.systems.systems[sysid]
             default_prefix = info["prefix"]
-            schema_uri = info.get("homepage") or f"https://publicschema.org/linkml/external/{sysid}"
             schema_prefixes = {
                 info["prefix"]: info["uri"],
                 "linkml": "https://w3id.org/linkml/",
@@ -1365,7 +1487,7 @@ def emit_external_schemas(ctx: MigrationContext) -> None:
             continue
 
         out: dict[str, Any] = {
-            "id": f"https://publicschema.org/linkml/external/{sysid}",
+            "id": f"{ctx.publicschema_base}linkml/external/{sysid}",
             "name": f"publicschema-external-{default_prefix}",
             "title": f"{title} (PublicSchema partial view)",
             "description": description_extra,
@@ -1400,7 +1522,7 @@ def emit_composite(ctx: MigrationContext, domains: list[str]) -> None:
         p.stem for p in EXTERNAL_DIR.glob("*.yaml")
     )
     out = {
-        "id": "https://publicschema.org/linkml/publicschema",
+        "id": f"{ctx.publicschema_base}linkml/publicschema",
         "name": "publicschema",
         "title": "PublicSchema",
         "description": (
@@ -1427,7 +1549,13 @@ def emit_composite(ctx: MigrationContext, domains: list[str]) -> None:
 
 
 def run_lint(file: Path) -> tuple[bool, str]:
-    cmd = [str(ROOT / ".venv" / "bin" / "linkml-lint"), "--validate", str(file)]
+    tool = shutil.which("linkml-lint")
+    if tool is None:
+        return False, (
+            "linkml-lint not found on PATH. Run the migration through the project "
+            "environment, for example `uv run python build/migrate_to_linkml.py`."
+        )
+    cmd = [tool, "--validate", str(file)]
     res = subprocess.run(cmd, capture_output=True, text=True)
     # lint exits 1 if there are *any* problems (incl. warnings). Check stderr/stdout for 'error'.
     has_error = "error" in (res.stdout + res.stderr).lower() and "[Errno" not in res.stderr
@@ -1458,10 +1586,9 @@ def check_referential_integrity(ctx: MigrationContext) -> list[str]:
     """Every crosswalk CURIE points at a declared external enum meaning URI."""
     failures = []
     declared = set()
-    for sysid, enums in ctx.external_enums.items():
-        prefix = ctx.systems.systems[sysid]["prefix"]
-        for enum_name, pvs in enums.items():
-            for vkey, pv in pvs.items():
+    for enums in ctx.external_enums.values():
+        for pvs in enums.values():
+            for pv in pvs.values():
                 declared.add(pv["meaning"])
     for target, source in ctx.crosswalk_refs:
         if target not in declared:
@@ -1478,7 +1605,7 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--strict", action="store_true",
                     help="fail on lint warnings as well as errors")
-    args = ap.parse_args()
+    ap.parse_args()
 
     # Reset output dir
     if OUTPUT_DIR.exists():
@@ -1490,6 +1617,7 @@ def main() -> int:
     semic_data: dict = {}
     inv, concepts, properties, vocabularies, by_kind = load_inventory(semic_data)
     systems = load_systems()
+    publicschema_base = load_publicschema_base()
     ctx = MigrationContext(
         inv=inv,
         concepts=concepts,
@@ -1497,6 +1625,7 @@ def main() -> int:
         vocabularies=vocabularies,
         by_kind=by_kind,
         systems=systems,
+        publicschema_base=publicschema_base,
         external_references=semic_data.get("external_references", {}),
         external_terms_by_source=semic_data.get("external_terms_by_source", {}),
         alignments_by_subject=semic_data.get("alignments_by_subject", collections.defaultdict(list)),

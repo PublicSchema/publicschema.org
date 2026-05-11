@@ -14,11 +14,12 @@ Runs the migration script once (session-scoped), then asserts:
 Idempotency is verified separately by re-running the script and comparing
 output trees with diff -r (see Makefile or run by hand).
 
-Run with: .venv/bin/pytest build/test_migrate.py -v
+Run with: uv run pytest build/test_migrate.py -v
 """
 
 from __future__ import annotations
 
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -30,14 +31,13 @@ ROOT = Path(__file__).resolve().parent.parent
 SCRIPT = ROOT / "build" / "migrate_to_linkml.py"
 OUTPUT_DIR = ROOT / "dist" / "linkml"
 EXTERNAL_DIR = OUTPUT_DIR / "external"
-VENV = ROOT / ".venv" / "bin"
 
 
 @pytest.fixture(scope="session")
 def migration_run():
     """Run the migration once for the whole test session."""
     res = subprocess.run(
-        [str(VENV / "python"), str(SCRIPT)],
+        [sys.executable, str(SCRIPT)],
         cwd=ROOT,
         capture_output=True,
         text=True,
@@ -65,8 +65,10 @@ def test_output_structure(migration_run):
     ["gen-owl", "gen-shacl", "gen-jsonld-context", "gen-json-schema"],
 )
 def test_generator_succeeds_on_composite(migration_run, generator):
+    tool = shutil.which(generator)
+    assert tool is not None, f"{generator} not found on PATH"
     res = subprocess.run(
-        [str(VENV / generator), str(OUTPUT_DIR / "publicschema.yaml")],
+        [tool, str(OUTPUT_DIR / "publicschema.yaml")],
         cwd=ROOT,
         capture_output=True,
         text=True,
@@ -82,8 +84,8 @@ def test_referential_integrity(migration_run):
     for ext_file in EXTERNAL_DIR.glob("*.yaml"):
         with ext_file.open() as f:
             data = yaml.safe_load(f)
-        for enum_name, enum in (data.get("enums") or {}).items():
-            for pv_key, pv in (enum.get("permissible_values") or {}).items():
+        for enum in (data.get("enums") or {}).values():
+            for pv in (enum.get("permissible_values") or {}).values():
                 if isinstance(pv, dict) and pv.get("meaning"):
                     declared_meanings.add(pv["meaning"])
 
@@ -91,8 +93,8 @@ def test_referential_integrity(migration_run):
     for domain_file in OUTPUT_DIR.glob("*.yaml"):
         with domain_file.open() as f:
             data = yaml.safe_load(f)
-        for enum_name, enum in (data.get("enums") or {}).items():
-            for pv_key, pv in (enum.get("permissible_values") or {}).items():
+        for enum in (data.get("enums") or {}).values():
+            for pv in (enum.get("permissible_values") or {}).values():
                 if isinstance(pv, dict):
                     for mapping in (pv.get("exact_mappings") or []):
                         if ":" in mapping and not mapping.startswith("publicschema:"):
@@ -126,6 +128,19 @@ def test_person_multi_inheritance(migration_run):
     assert {person["is_a"]} | set(mixins) == {"Party", "Agent"}
 
 
+def test_domain_scoped_person_is_not_collapsed(migration_run):
+    """The CRVS Person snapshot and root Person must remain distinct terms."""
+    with (OUTPUT_DIR / "identity.yaml").open() as f:
+        identity = yaml.safe_load(f)
+    with (OUTPUT_DIR / "civil_status.yaml").open() as f:
+        civil_status = yaml.safe_load(f)
+
+    assert "Person" in identity["classes"]
+    assert "CrvsPerson" in civil_status["classes"]
+    assert civil_status["classes"]["CrvsPerson"]["class_uri"] == "publicschema:crvs/Person"
+    assert "person:Person" not in (civil_status["classes"]["CrvsPerson"].get("exact_mappings") or [])
+
+
 def test_external_dhs_emits(migration_run):
     """DHS partial schema is emitted and contains at least one enum with explicit meaning: URIs."""
     f = EXTERNAL_DIR / "dhs.yaml"
@@ -133,8 +148,8 @@ def test_external_dhs_emits(migration_run):
     with f.open() as fh:
         data = yaml.safe_load(fh)
     assert data.get("enums"), "dhs.yaml has no enums"
-    for enum_name, enum in data["enums"].items():
-        for pv_key, pv in (enum.get("permissible_values") or {}).items():
+    for enum in data["enums"].values():
+        for pv in (enum.get("permissible_values") or {}).values():
             if isinstance(pv, dict) and pv.get("meaning"):
                 assert pv["meaning"].startswith("dhs:"), pv["meaning"]
                 return
