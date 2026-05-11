@@ -1045,8 +1045,13 @@ def write_outputs(result: dict, dist_dir: Path, schema_dir: Path | None = None):
     system_matchings.json; defaults to ``Path("schema")``.
     """
     from build.export import generate_all_downloads
+    from build.linkml_rdf_export import (
+        ensure_linkml_composite,
+        write_full_jsonld,
+        write_shacl,
+        write_turtle,
+    )
     from build.preview_export import build_preview
-    from build.rdf_export import write_full_jsonld, write_shacl, write_turtle
     from build.system_matchings import build_system_matchings
 
     if schema_dir is None:
@@ -1134,10 +1139,26 @@ def write_outputs(result: dict, dist_dir: Path, schema_dir: Path | None = None):
                 json.dumps(doc, indent=2, ensure_ascii=False) + "\n"
             )
 
-    # RDF exports (Turtle, JSON-LD, SHACL)
-    write_turtle(result, dist_dir)
-    write_full_jsonld(result, dist_dir)
-    write_shacl(result, dist_dir)
+    # RDF exports (Turtle, JSON-LD, SHACL) are now produced by LinkML's
+    # stock generators against the migrated composite at
+    # dist/linkml/publicschema.yaml, with an rdflib bridge for the
+    # hosted-context JSON-LD shape. The migration is a prerequisite; we
+    # run it on demand if the composite is missing so build.py remains
+    # invokable end-to-end without a separate `just migrate` step.
+    ensure_linkml_composite()
+    meta_for_rdf = result["meta"]
+    base_uri_for_rdf = meta_for_rdf.get("base_uri", "https://publicschema.org/")
+    rdf_version = meta_for_rdf.get("version", "0.1.0")
+    rdf_maturity = meta_for_rdf.get("maturity", "draft")
+    rdf_version_label = (
+        "draft" if rdf_maturity == "draft" else ".".join(rdf_version.split(".")[:2])
+    )
+    rdf_context_url = f"{base_uri_for_rdf}ctx/{rdf_version_label}.jsonld"
+    write_turtle(dist_dir / "publicschema.ttl")
+    write_full_jsonld(
+        dist_dir / "publicschema.jsonld", context_url=rdf_context_url,
+    )
+    write_shacl(dist_dir / "publicschema.shacl.ttl")
 
     # CSV and Excel downloads per concept
     downloads_dir = dist_dir / "downloads"
