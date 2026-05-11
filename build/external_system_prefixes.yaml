@@ -1,0 +1,234 @@
+# build/external_system_prefixes.yaml
+#
+# Hand-curated mapping from each implementing system referenced in
+# schema/**/system_mappings: blocks to its CURIE prefix URI and label.
+#
+# The migration script (build/migrate_to_linkml.py) reads this file and
+# uses it to construct exact_mappings CURIEs and the prefixes: block of
+# every emitted LinkML schema. The script fails loudly if a system
+# appears in any system_mappings: block but is not registered here.
+#
+# Each entry:
+#   prefix:      the CURIE prefix used in emitted LinkML (lowercase, hyphen-free)
+#   uri:         the namespace URI the prefix expands to. Acts as the anchor for
+#                per-value meaning: URIs in dist/linkml/external/<system>.linkml.yaml.
+#                Must end in / or # so concatenation with EnumName/value is well-formed.
+#   label:       short human-readable name
+#   source:      "official" if the URI is published by the system itself,
+#                "site-anchor" if anchored at the system's official homepage as a
+#                stable identifier (not necessarily dereferenceable),
+#                "best-guess" if we invented a stable URI under publicschema.org/external/
+#                because upstream publishes no machine-readable identifier scheme.
+#                All non-"official" entries are surfaced in _migration_report.md.
+#   homepage:    canonical homepage for the system, for documentation.
+#   notes:       free-form rationale.
+
+systems:
+
+  dci:
+    prefix: dci
+    uri: https://schema.spdci.org/core/v1/
+    label: Digital Convergence Initiative
+    source: official
+    homepage: https://spdci.org/
+    notes: >
+      DCI publishes its data schemas at schema.spdci.org with explicit URI paths
+      such as /core/v1/data/Person. Anchoring at /core/v1/ matches what
+      schema/properties/name.yaml's external_equivalents already uses.
+
+  dhis2:
+    prefix: dhis2
+    uri: https://dhis2.org/schemas/
+    label: DHIS2
+    source: site-anchor
+    homepage: https://dhis2.org/
+    notes: >
+      DHIS2 does not publish a stable RDF namespace. Anchored at the dhis2.org
+      domain under /schemas/ to mark these as conceptual identifiers for DHIS2
+      metadata vocabularies (e.g. Gender option set).
+
+  dhs:
+    prefix: dhs
+    uri: https://dhsprogram.com/data/recode7/
+    label: DHS Program Recode 7
+    source: site-anchor
+    homepage: https://dhsprogram.com/data/
+    notes: >
+      DHS Program publishes Recode files (recode7 most common in current sources)
+      with documented variable codes (hv270, hv024, etc). No machine-readable
+      namespace; URI anchored at the DHS data site under /recode7/.
+
+  dhs-8:
+    prefix: dhs8
+    uri: https://dhsprogram.com/data/recode8/
+    label: DHS Program Recode 8
+    source: site-anchor
+    homepage: https://dhsprogram.com/data/
+    notes: >
+      Sibling to dhs:, distinguished because the value sets differ between
+      Recode 7 and Recode 8. Source uses "dhs-8" with a hyphen; CURIE prefix
+      is "dhs8" (hyphens are not allowed in NCNames / CURIE prefix tokens).
+
+  fhir_r4:
+    prefix: fhir-r4
+    uri: http://hl7.org/fhir/R4/
+    label: HL7 FHIR R4
+    source: official
+    homepage: https://hl7.org/fhir/R4/
+    notes: >
+      Official FHIR R4 namespace. Codes resolve under
+      http://hl7.org/fhir/R4/<resource-or-codesystem>.
+
+  fhir_r5:
+    prefix: fhir-r5
+    uri: http://hl7.org/fhir/R5/
+    label: HL7 FHIR R5
+    source: official
+    homepage: https://hl7.org/fhir/R5/
+    notes: >
+      Official FHIR R5 namespace.
+
+  govstack_payments:
+    prefix: govstack-payments
+    uri: https://govstack.global/specs/payments/
+    label: GovStack Payments Building Block
+    source: site-anchor
+    homepage: https://govstack.global/
+    notes: >
+      GovStack publishes building block specifications but no formal RDF
+      namespace. Anchored at govstack.global/specs/payments/.
+
+  lsms_isa:
+    prefix: lsms-isa
+    uri: https://www.worldbank.org/en/programs/lsms/initiatives/lsms-ISA/
+    label: LSMS-ISA (World Bank)
+    source: site-anchor
+    homepage: https://www.worldbank.org/en/programs/lsms/initiatives/lsms-ISA
+    notes: >
+      LSMS-Integrated Surveys on Agriculture. Anchored at the WB program page.
+
+  mics:
+    prefix: mics
+    uri: https://mics.unicef.org/tools/
+    label: UNICEF Multiple Indicator Cluster Surveys
+    source: site-anchor
+    homepage: https://mics.unicef.org/
+    notes: >
+      UNICEF MICS publishes its questionnaires and codebooks but no formal
+      RDF namespace. Anchored at /tools/ where instruments are published.
+
+  ocha_cod_ab:
+    prefix: ocha-cod-ab
+    uri: https://data.humdata.org/dataset/cod-ab/
+    label: OCHA Common Operational Datasets - Administrative Boundaries
+    source: site-anchor
+    homepage: https://cod.unocha.org/
+    notes: >
+      OCHA COD-AB datasets published on the HDX portal. Anchored at the
+      HDX dataset listing.
+
+  opencrvs:
+    prefix: opencrvs
+    uri: https://documentation.opencrvs.org/technology/event-service-v2/
+    label: OpenCRVS Event Service v2
+    source: site-anchor
+    homepage: https://www.opencrvs.org/
+    notes: >
+      Current sources crosswalk to OpenCRVS v2 event service per
+      8900952 "refactor(external): re-target OpenCRVS mapping from v1 GraphQL
+      to v2 event service" in the commit log. Anchored at the v2 docs path.
+
+  openimis:
+    prefix: openimis
+    uri: https://openimis.atlassian.net/wiki/spaces/OP/
+    label: openIMIS
+    source: site-anchor
+    homepage: https://openimis.org/
+    notes: >
+      openIMIS publishes operational documentation in its Atlassian wiki.
+      Anchored at the openIMIS Operations space.
+
+  openspp:
+    prefix: openspp
+    uri: https://docs.openspp.org/
+    label: OpenSPP
+    source: site-anchor
+    homepage: https://openspp.org/
+    notes: >
+      OpenSPP publishes documentation at docs.openspp.org. No formal RDF
+      namespace.
+
+  semic:
+    prefix: semic
+    uri: http://data.europa.eu/m8g/
+    label: SEMIC EU Core Vocabularies
+    source: official
+    homepage: https://semiceu.github.io/Core-Vocabularies/
+    notes: >
+      Official EU Core Vocabularies namespace, used by Core Person, Core
+      Location, CPSV-AP, CPOV. Matches what schema/concepts/organization.yaml
+      already uses in external_equivalents.semic.
+
+  wg_es:
+    prefix: wg-es
+    uri: https://www.washingtongroup-disability.com/question-sets/wg-extended-set/
+    label: Washington Group Extended Set
+    source: site-anchor
+    homepage: https://www.washingtongroup-disability.com/
+    notes: >
+      Washington Group on Disability Statistics, Extended Set question set.
+      Anchored at the WG question-sets page.
+
+# Prefixes for non-system external vocabularies referenced from
+# external_equivalents (NOT system_mappings). These are emitted as the
+# top-level prefixes: block of dist/linkml/publicschema.linkml.yaml.
+# Source: well-known.
+external_vocabulary_prefixes:
+  publicschema:
+    uri: https://publicschema.org/
+    source: official
+  schema:
+    uri: https://schema.org/
+    source: official
+  foaf:
+    uri: http://xmlns.com/foaf/0.1/
+    source: official
+  prov:
+    uri: http://www.w3.org/ns/prov#
+    source: official
+  fhir:
+    uri: http://hl7.org/fhir/
+    source: official
+    notes: >
+      Generic FHIR namespace used when external_equivalents.fhir does not
+      pin a specific version. Distinct from fhir-r4/fhir-r5 system prefixes.
+  cpov:
+    uri: http://data.europa.eu/m8g/
+    source: official
+    notes: >
+      SEMIC Core Public Organisation Vocabulary uses the same m8g namespace
+      as the rest of EU Core Vocabularies.
+  skos:
+    uri: http://www.w3.org/2004/02/skos/core#
+    source: official
+  bibo:
+    uri: http://purl.org/ontology/bibo/
+    source: official
+    notes: >
+      Bibliographic Ontology, used as the source vocabulary for `status:`
+      values (status: bibo:draft / bibo:status/published etc).
+  linkml:
+    uri: https://w3id.org/linkml/
+    source: official
+  dpv:
+    uri: https://w3id.org/dpv#
+    source: official
+    notes: >
+      W3C Data Privacy Vocabulary. Referenced from
+      schema/properties/<consent>.yaml external_equivalents but not via
+      system_mappings (DPV is a vocabulary alignment, not an implementing system).
+  dpv-gdpr:
+    uri: https://w3id.org/dpv/dpv-gdpr#
+    source: official
+    notes: >
+      DPV GDPR extension, same shape as dpv.

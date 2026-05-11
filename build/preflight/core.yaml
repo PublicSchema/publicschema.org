@@ -1,0 +1,40 @@
+id: https://publicschema.org/linkml/core
+name: publicschema-core
+title: PublicSchema core abstract supertypes
+description: >
+  Abstract supertypes for the PublicSchema delivery vocabulary: Agent
+  (actor side) and Party (receiver side). Mirrors decisions/008-agent-
+  organization.md. Person inherits from both; this schema declares the
+  supertypes only.
+license: CC-BY-4.0
+default_prefix: publicschema
+
+prefixes:
+  publicschema: https://publicschema.org/
+  linkml: https://w3id.org/linkml/
+  xsd: http://www.w3.org/2001/XMLSchema#
+  bibo: http://purl.org/ontology/bibo/
+
+imports:
+  - linkml:types
+
+classes:
+
+  Agent:
+    class_uri: publicschema:Agent
+    title: Agent
+    description: >
+      An actor capable of acting in a public delivery process. Abstract
+      supertype for Person (when acting), Organization, and SoftwareAgent.
+    abstract: true
+    status: bibo:draft
+
+  Party:
+    class_uri: publicschema:Party
+    title: Party
+    description: >
+      A beneficiary-side actor in a public delivery process. Abstract
+      supertype for Person (when receiving), Household, and similar
+      receiver-side concepts.
+    abstract: true
+    status: bibo:draft
