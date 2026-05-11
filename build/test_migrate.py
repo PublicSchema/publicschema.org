@@ -141,6 +141,42 @@ def test_external_dhs_emits(migration_run):
     raise AssertionError("no permissible value with dhs: meaning found")
 
 
+def test_per_value_fields_preserved(migration_run):
+    """Audit revealed standard_code, level, parent_code etc. were silently
+    dropped from values[]. Verify they now ride as annotations on the
+    permissible value."""
+    with (OUTPUT_DIR / "vocabularies.yaml").open() as f:
+        vocab = yaml.safe_load(f)
+
+    # standard_code preserved (Country: af -> AF per ISO 3166).
+    af = vocab["enums"]["Country"]["permissible_values"]["af"]
+    assert (af.get("annotations") or {}).get("standard_code") == "AF", \
+        f"Country.af missing standard_code annotation: {af}"
+
+    # level + parent_code preserved (Occupation hierarchy).
+    occ = vocab["enums"].get("Occupation", {}).get("permissible_values", {})
+    assert occ, "Occupation enum missing"
+    sample_level = next(
+        (pv for pv in occ.values() if isinstance(pv, dict)
+         and (pv.get("annotations") or {}).get("level") is not None),
+        None,
+    )
+    assert sample_level is not None, "no Occupation value carries a level annotation"
+
+
+def test_base_uri_from_meta(migration_run):
+    """The base URI in emitted schemas must match schema/_meta.yaml."""
+    with (ROOT / "schema" / "_meta.yaml").open() as f:
+        meta = yaml.safe_load(f)
+    expected = meta["base_uri"]
+    if not expected.endswith("/"):
+        expected += "/"
+    with (OUTPUT_DIR / "publicschema.yaml").open() as f:
+        composite = yaml.safe_load(f)
+    assert composite["prefixes"]["publicschema"] == expected, \
+        f"composite.prefixes.publicschema={composite['prefixes']['publicschema']} != _meta.base_uri={expected}"
+
+
 def test_semic_alignment_integration(migration_run):
     """The SEMIC alignment architecture (P4 series on main) flows into the LinkML output:
     Person's exact_mappings includes person:Person (from alignments/semic-core-person.yaml),
