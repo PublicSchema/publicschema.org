@@ -416,21 +416,31 @@ def _is_citation_or_credential_subclass(triple: tuple[str, str]) -> bool:
     return False
 
 
-# Known SKOS alignments that rdf_export emits on a vocabulary subject but
-# which the LinkML migration drops (or never lifts to the Enum class). All
-# of these are vocabulary-scoped (not concept-scoped) and target external
-# vocabularies. They represent a known, narrowly-scoped silent-loss
-# pattern: alignments listed on a *vocabulary file*
-# (schema/vocabularies/.../foo.yaml) that targets either SPDCI Core or the
-# EU vocabularies (m8g, locn) are not always carried into the gen-owl
-# output, because the migration emits Enum-level external alignments via
-# different ingestion paths (SEMIC architecture, EU-Vocabularies
-# crosswalks) and the SPDCI/EU vocabulary alignments authored directly in
-# the vocabulary YAMLs are not always picked up.
+# SKOS alignments that rdf_export emits under the uppercase vocabulary
+# URI (e.g. ``publicschema:Country``) but the LinkML output emits under
+# the lowercase slot URI (``publicschema:country``). This is an
+# *intentional* semantic refinement, not a silent loss:
 #
-# Document each by (subject_local, predicate, object) so they can be
-# diff-checked over time. If a triple here starts appearing in the LinkML
-# output the test should be tightened, not loosened.
+#   - The source ``schema/properties/{country,sex}.yaml`` declares
+#     ``external_equivalents`` to ``locn:adminUnitL1``, ``dci:data/sex``,
+#     etc. The targets are RDF *predicates / slots* in their respective
+#     vocabularies, not classes.
+#   - ``rdf_export.py`` cannot distinguish the property ``country`` from
+#     the vocabulary ``country`` (same id, same URI in its model) and
+#     emits the alignment under ``publicschema:Country`` (the enum URI).
+#     That conflates slot-level and class-level alignments.
+#   - The LinkML migration correctly distinguishes them: the slot
+#     ``publicschema:country`` carries ``close_mappings: [locn:adminUnitL1,
+#     dci:data/country_code]`` (verified in dist/linkml/identity.yaml),
+#     and the enum ``publicschema:Country`` carries only its own
+#     class-level mappings.
+#
+# Each triple below is the rdf_export-side conflation; the corresponding
+# slot-side triple does exist in the LinkML output (with subject
+# ``https://publicschema.org/country`` lowercase / ``...sex`` lowercase).
+# If a triple here starts appearing under the uppercase enum subject in
+# the LinkML output, that is a regression and the test should be
+# tightened.
 EXPECTED_LINKML_SKOS_LOSSES: set[tuple[str, str, str]] = {
     (
         "https://publicschema.org/Country",
