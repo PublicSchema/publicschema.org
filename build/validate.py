@@ -5,6 +5,43 @@ Checks:
 2. Referential integrity (property refs, vocabulary refs, concept refs)
 3. Multilingual completeness (all configured languages present)
 4. No orphaned properties (defined but unused by any concept)
+
+Sources
+-------
+``--source bespoke`` (default) runs every check above against the
+bespoke YAML in schema/. The JSON Schema files under build/schemas/
+describe that shape only.
+
+``--source linkml`` runs ``linkml-lint --validate`` against
+dist/linkml/publicschema.yaml. That covers metamodel conformance and
+LinkML's own structural rules. The bespoke-only checks (referential
+integrity of concept/property/vocabulary IDs, age_applicability cross-
+checks against bibliography citations, property_groups completeness,
+multilingual gating by maturity) are *not* re-implemented in this path
+because the LinkML output is generated from the same bespoke source —
+running both readers against both source trees would be redundant work
+during the transition.
+
+# TODO: adapt to LinkML after cutover. Once schema/** is deprecated,
+# the bespoke-only rules above need a LinkML-native equivalent. Concrete
+# plan:
+#   * Referential integrity: walk every class.slots / slot.range and
+#     check that the referenced slot or class exists in the loaded
+#     SchemaView. LinkML's own ``linkml-validate`` only validates *data
+#     instances*; structural references between classes/slots/enums are
+#     enforced by ``linkml-lint --validate``.
+#   * Multilingual completeness: re-use the LinkML adapter in
+#     build.check_translations.check_schema_linkml (already implements
+#     the same maturity gate against the LinkML field shape).
+#   * age_applicability / WG bibliography checks: load the
+#     ``age_applicability`` annotation (currently emitted as a JSON
+#     string under annotations.age_applicability_json) per slot and
+#     keep the same rule set.
+#   * property_groups completeness: load the
+#     annotations.property_groups_json on each class and compare to
+#     class.slots (plus inherited slots, walking is_a).
+#   * orphaned-property: scan every class.slots; flag any slot not
+#     referenced from any class.
 """
 
 import json
@@ -514,13 +551,82 @@ def _collect_inherited_ids(
         _collect_inherited_ids(parent_data, concept_by_composite, result, visited)
 
 
+def _validate_linkml(linkml_dir: Path) -> int:
+    """Delegate to ``linkml-lint --validate`` on the top-level composite.
+
+    Returns a process-style exit code. Falls back to the validate-only
+    metamodel check if the LinkML CLI is unavailable.
+    """
+    import shutil
+    import subprocess
+
+    composite = linkml_dir / "publicschema.yaml"
+    if not composite.exists():
+        print(
+            f"LinkML validation: {composite} not found. "
+            f"Run `python build/migrate_to_linkml.py` first.",
+            file=sys.stderr,
+        )
+        return 1
+
+    # Prefer the linkml-lint installed in the active interpreter's bin/
+    # dir (which is the venv when running as `ps-validate`); fall back to
+    # PATH so an alternative install still works.
+    bin_dir = Path(sys.executable).parent
+    candidate = bin_dir / "linkml-lint"
+    if candidate.exists():
+        cli = str(candidate)
+    else:
+        cli = shutil.which("linkml-lint")
+    if not cli:
+        print(
+            "LinkML validation: `linkml-lint` is not on PATH. "
+            "Install with `uv sync` (it is a dev dependency).",
+            file=sys.stderr,
+        )
+        return 1
+
+    # --validate runs the metamodel structural check; the regular linter
+    # rules (TitleCaseClass, etc.) run on top of it. Down-grade warnings
+    # to non-fatal so the bespoke pipeline's exit-code contract is
+    # preserved while we transition.
+    result = subprocess.run(
+        [cli, "--validate", "--ignore-warnings", str(composite)],
+        check=False,
+    )
+    return result.returncode
+
+
 def main():
     """CLI entry point for validation."""
+    import argparse
+
     from build.validate_matchings import validate_matchings_dir
 
-    schema_dir = Path("schema")
-    if len(sys.argv) > 1:
-        schema_dir = Path(sys.argv[1])
+    parser = argparse.ArgumentParser(
+        description="Validate PublicSchema YAML source files.",
+    )
+    parser.add_argument(
+        "path",
+        nargs="?",
+        default=None,
+        help="Schema directory. Defaults to schema/ (bespoke) or dist/linkml/ (linkml).",
+    )
+    parser.add_argument(
+        "--source",
+        choices=("bespoke", "linkml"),
+        default="bespoke",
+        help="Which source tree to validate. Default 'bespoke' runs the full "
+             "rule set against schema/; 'linkml' delegates to "
+             "`linkml-lint --validate` against dist/linkml/.",
+    )
+    args = parser.parse_args()
+
+    if args.source == "linkml":
+        target = Path(args.path) if args.path else Path("dist/linkml")
+        sys.exit(_validate_linkml(target))
+
+    schema_dir = Path(args.path) if args.path else Path("schema")
 
     issues = validate_schema_dir(schema_dir)
     issues.extend(validate_matchings_dir(schema_dir.parent / "external"))

@@ -513,21 +513,60 @@ def _property_to_json_schema(
     return item_schema
 
 
-def build_vocabulary(schema_dir: Path) -> dict:
+def _load_bespoke_raw(schema_dir: Path) -> dict:
+    """Load per-element raw dicts from the bespoke ``schema/**`` tree.
+
+    Returns the same shape that ``build/linkml_reader.load_raw_from_linkml``
+    returns: ``{meta, concepts, properties, vocabularies, bibliography,
+    credentials, categories}``. Keeping the two source-of-truth paths
+    behind a common dict shape lets ``build_vocabulary`` consume either
+    input identically.
+    """
+    return {
+        "meta": load_yaml(schema_dir / "_meta.yaml"),
+        "concepts": _load_all_yaml_by_id(schema_dir / "concepts"),
+        "properties": _load_all_yaml_by_id(schema_dir / "properties"),
+        "vocabularies": _load_vocabularies_indexed(schema_dir / "vocabularies"),
+        "bibliography": _load_bibliography_by_id(schema_dir / "bibliography"),
+        "credentials": _load_all_yaml_by_id(schema_dir / "credentials"),
+        "categories": (
+            load_yaml(schema_dir / "categories.yaml")
+            if (schema_dir / "categories.yaml").exists() else {}
+        ),
+    }
+
+
+def build_vocabulary(
+    schema_dir: Path | None = None,
+    *,
+    raws: dict | None = None,
+) -> dict:
     """Build the full vocabulary output from YAML source files.
 
+    ``schema_dir`` (default ``Path("schema")``) is read via the bespoke
+    YAML loaders when ``raws`` is not supplied. To consume pre-loaded raws
+    (e.g. projected from ``dist/linkml/`` via
+    ``build/linkml_reader.load_raw_from_linkml``), pass them as ``raws``;
+    in that case ``schema_dir`` is unused.
+
     Returns a dict with keys: meta, concepts, properties, vocabularies,
-    context, concept_schemas.
+    bibliography, categories, context, concept_schemas, credential_schemas,
+    jsonld_docs.
     """
-    meta = load_yaml(schema_dir / "_meta.yaml")
+    if raws is None:
+        if schema_dir is None:
+            schema_dir = Path("schema")
+        raws = _load_bespoke_raw(schema_dir)
+
+    meta = raws.get("meta") or {}
     base_uri = meta.get("base_uri", "https://publicschema.org/")
 
-    concepts_raw = _load_all_yaml_by_id(schema_dir / "concepts")
-    properties_raw = _load_all_yaml_by_id(schema_dir / "properties")
-    vocabularies_raw = _load_vocabularies_indexed(schema_dir / "vocabularies")
-    bibliography_raw = _load_bibliography_by_id(schema_dir / "bibliography")
-    categories_path = schema_dir / "categories.yaml"
-    categories_raw = load_yaml(categories_path) if categories_path.exists() else {}
+    concepts_raw: dict[str, dict] = raws.get("concepts") or {}
+    properties_raw: dict[str, dict] = raws.get("properties") or {}
+    vocabularies_raw: dict[str, dict] = raws.get("vocabularies") or {}
+    bibliography_raw: dict[str, dict] = raws.get("bibliography") or {}
+    categories_raw: dict[str, dict] = raws.get("categories") or {}
+    credentials_raw_preloaded: dict[str, dict] = raws.get("credentials") or {}
 
     # Compute property domains (which concepts use each property)
     property_domains: dict[str, list[str]] = {
@@ -806,8 +845,10 @@ def build_vocabulary(schema_dir: Path) -> dict:
             alias = schema_eq.split(":", 1)[1]
             # Alias points to the same context entry as the original property
             context_map[alias] = context_map[prop_id]
-    # Add credential types to context with explicit URIs
-    credentials_raw = _load_all_yaml_by_id(schema_dir / "credentials")
+    # Add credential types to context with explicit URIs.
+    # credentials_raw is supplied via raws (bespoke loader or linkml_reader);
+    # both produce the same per-id dict shape ({id, subject_concept, included_concepts}).
+    credentials_raw = credentials_raw_preloaded
     for cred_id in credentials_raw:
         context_map[cred_id] = f"{base_uri}credentials/{cred_id}"
     version = meta.get("version", "0.1.0")
@@ -1038,19 +1079,34 @@ def build_vocabulary(schema_dir: Path) -> dict:
     }
 
 
-def write_outputs(result: dict, dist_dir: Path, schema_dir: Path | None = None):
+def write_outputs(
+    result: dict,
+    dist_dir: Path,
+    schema_dir: Path | None = None,
+    external_dir: Path | None = None,
+):
     """Write build outputs to the dist directory.
 
     ``schema_dir`` is used to locate the sibling ``external/`` tree for
-    system_matchings.json; defaults to ``Path("schema")``.
+    system_matchings.json when ``external_dir`` is not supplied; defaults
+    to ``Path("schema")``. ``external_dir`` overrides that derivation
+    (useful for LinkML-driven builds that don't sit next to the bespoke
+    schema tree).
     """
     from build.export import generate_all_downloads
+    from build.linkml_rdf_export import (
+        ensure_linkml_composite,
+        write_full_jsonld,
+        write_shacl,
+        write_turtle,
+    )
     from build.preview_export import build_preview
-    from build.rdf_export import write_full_jsonld, write_shacl, write_turtle
     from build.system_matchings import build_system_matchings
 
     if schema_dir is None:
         schema_dir = Path("schema")
+    if external_dir is None:
+        external_dir = schema_dir.parent / "external"
 
     dist_dir.mkdir(parents=True, exist_ok=True)
     schemas_dir = dist_dir / "schemas"
@@ -1086,7 +1142,12 @@ def write_outputs(result: dict, dist_dir: Path, schema_dir: Path | None = None):
 
     # system_matchings.json — projected from external/<system>/matching.yaml
     # for the site's system detail pages (concept matches + documented gaps).
-    system_matchings = build_system_matchings(schema_dir.parent / "external")
+    # The bespoke ``external/<system>/matching.yaml`` partial schemas are
+    # the source-of-truth for system matchings regardless of whether the
+    # rest of the build reads from ``schema/**`` or ``dist/linkml/``: the
+    # matching files are hand-curated and were never derived from the
+    # legacy YAML.
+    system_matchings = build_system_matchings(external_dir)
     (dist_dir / "system_matchings.json").write_text(
         json.dumps(system_matchings, indent=2, ensure_ascii=False) + "\n"
     )
@@ -1134,10 +1195,26 @@ def write_outputs(result: dict, dist_dir: Path, schema_dir: Path | None = None):
                 json.dumps(doc, indent=2, ensure_ascii=False) + "\n"
             )
 
-    # RDF exports (Turtle, JSON-LD, SHACL)
-    write_turtle(result, dist_dir)
-    write_full_jsonld(result, dist_dir)
-    write_shacl(result, dist_dir)
+    # RDF exports (Turtle, JSON-LD, SHACL) are now produced by LinkML's
+    # stock generators against the migrated composite at
+    # dist/linkml/publicschema.yaml, with an rdflib bridge for the
+    # hosted-context JSON-LD shape. The migration is a prerequisite; we
+    # run it on demand if the composite is missing so build.py remains
+    # invokable end-to-end without a separate `just migrate` step.
+    ensure_linkml_composite()
+    meta_for_rdf = result["meta"]
+    base_uri_for_rdf = meta_for_rdf.get("base_uri", "https://publicschema.org/")
+    rdf_version = meta_for_rdf.get("version", "0.1.0")
+    rdf_maturity = meta_for_rdf.get("maturity", "draft")
+    rdf_version_label = (
+        "draft" if rdf_maturity == "draft" else ".".join(rdf_version.split(".")[:2])
+    )
+    rdf_context_url = f"{base_uri_for_rdf}ctx/{rdf_version_label}.jsonld"
+    write_turtle(dist_dir / "publicschema.ttl")
+    write_full_jsonld(
+        dist_dir / "publicschema.jsonld", context_url=rdf_context_url,
+    )
+    write_shacl(dist_dir / "publicschema.shacl.ttl")
 
     # CSV and Excel downloads per concept
     downloads_dir = dist_dir / "downloads"
@@ -1196,21 +1273,74 @@ def write_outputs(result: dict, dist_dir: Path, schema_dir: Path | None = None):
 
 
 def main():
-    """CLI entry point for build."""
-    schema_dir = Path("schema")
-    dist_dir = Path("dist")
+    """CLI entry point for build.
 
-    if len(sys.argv) > 1:
-        schema_dir = Path(sys.argv[1])
-    if len(sys.argv) > 2:
-        dist_dir = Path(sys.argv[2])
+    Two source modes are supported:
 
-    result = build_vocabulary(schema_dir)
-    write_outputs(result, dist_dir, schema_dir=schema_dir)
+    - ``--source bespoke`` (default): read per-element YAML from
+      ``schema/**``. This is the historical pipeline and remains the
+      default during the LinkML migration so nothing changes for
+      existing contributors.
+    - ``--source linkml``: read the migrated LinkML composite from
+      ``dist/linkml/`` via ``build/linkml_reader.py``. The renderer
+      output (``vocabulary.json``, ``preview/``, ``system_matchings.json``,
+      etc.) has the same shape as the bespoke path; known small
+      differences are documented in ``build/linkml_reader.py``.
+
+    Positional args are interpreted positionally for back-compat:
+    ``build.py [schema_dir] [dist_dir]``. Optional flags can appear in
+    any position.
+    """
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Build PublicSchema outputs.")
+    parser.add_argument(
+        "schema_dir", nargs="?", default="schema",
+        help="Bespoke schema directory (used when --source=bespoke).",
+    )
+    parser.add_argument(
+        "dist_dir", nargs="?", default="dist",
+        help="Output directory for build artifacts.",
+    )
+    parser.add_argument(
+        "--source", choices=("bespoke", "linkml"), default="bespoke",
+        help="Which source tree to read element definitions from.",
+    )
+    parser.add_argument(
+        "--linkml-dir", default="dist/linkml",
+        help="Path to the LinkML domain files (only used with --source=linkml).",
+    )
+    parser.add_argument(
+        "--external-dir", default=None,
+        help=(
+            "Path to the external/<system>/matching.yaml tree. Defaults to "
+            "the sibling 'external/' directory next to schema_dir."
+        ),
+    )
+    args = parser.parse_args()
+
+    schema_dir = Path(args.schema_dir)
+    dist_dir = Path(args.dist_dir)
+    external_dir = (
+        Path(args.external_dir) if args.external_dir is not None
+        else schema_dir.parent / "external"
+    )
+
+    if args.source == "linkml":
+        # Lazy import: linkml_reader pulls only stdlib + PyYAML, so this
+        # is safe even when the bespoke path is the only one exercised.
+        from build.linkml_reader import load_raw_from_linkml
+        raws = load_raw_from_linkml(Path(args.linkml_dir))
+        result = build_vocabulary(raws=raws)
+    else:
+        result = build_vocabulary(schema_dir)
+
+    write_outputs(result, dist_dir, schema_dir=schema_dir, external_dir=external_dir)
     print(f"Built {len(result['concepts'])} concepts, "
           f"{len(result['properties'])} properties, "
           f"{len(result['vocabularies'])} vocabularies, "
-          f"{len(result.get('bibliography', {}))} bibliography entries.")
+          f"{len(result.get('bibliography', {}))} bibliography entries "
+          f"(source={args.source}).")
 
 
 if __name__ == "__main__":

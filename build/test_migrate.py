@@ -19,6 +19,7 @@ Run with: uv run pytest build/test_migrate.py -v
 
 from __future__ import annotations
 
+import json
 import shutil
 import subprocess
 import sys
@@ -139,6 +140,102 @@ def test_domain_scoped_person_is_not_collapsed(migration_run):
     assert "CrvsPerson" in civil_status["classes"]
     assert civil_status["classes"]["CrvsPerson"]["class_uri"] == "publicschema:crvs/Person"
     assert "person:Person" not in (civil_status["classes"]["CrvsPerson"].get("exact_mappings") or [])
+
+
+def test_credentials_migrated(migration_run):
+    """credentials.yaml has one ClassDefinition per VC descriptor, all subclassing
+    a synthetic abstract Credential marker."""
+    f = OUTPUT_DIR / "credentials.yaml"
+    assert f.exists()
+    with f.open() as fh:
+        data = yaml.safe_load(fh)
+    classes = data.get("classes") or {}
+    assert "Credential" in classes
+    assert classes["Credential"].get("abstract") is True
+    # Each credential subclasses Credential and carries subject_concept annotation
+    cred_subclasses = [
+        n for n, c in classes.items()
+        if c.get("is_a") == "Credential"
+    ]
+    assert len(cred_subclasses) >= 3, f"expected >=3 credentials, found {cred_subclasses}"
+    for cname in cred_subclasses:
+        ann = (classes[cname].get("annotations") or {})
+        assert ann.get("subject_concept"), f"{cname} missing subject_concept annotation"
+
+
+def test_bibliography_migrated(migration_run):
+    """bibliography.yaml emits the Citation supertype plus one subclass per
+    source file in schema/bibliography/. Every citation carries a citation_id
+    annotation."""
+    f = OUTPUT_DIR / "bibliography.yaml"
+    assert f.exists()
+    with f.open() as fh:
+        data = yaml.safe_load(fh)
+    classes = data.get("classes") or {}
+    assert "Citation" in classes
+    assert classes["Citation"].get("abstract") is True
+    citations = [c for c in classes.values() if c.get("is_a") == "Citation"]
+    assert len(citations) > 100, f"expected >100 citations, got {len(citations)}"
+    # Every citation has a citation_id
+    for c in citations:
+        assert (c.get("annotations") or {}).get("citation_id"), c
+
+
+def test_categories_migrated(migration_run):
+    """categories.yaml emits a single PropertyCategory enum with one permissible
+    value per category, including 'identity' (used by Person concept)."""
+    f = OUTPUT_DIR / "categories.yaml"
+    assert f.exists()
+    with f.open() as fh:
+        data = yaml.safe_load(fh)
+    enums = data.get("enums") or {}
+    assert "PropertyCategory" in enums
+    pvs = enums["PropertyCategory"].get("permissible_values") or {}
+    assert "identity" in pvs, f"identity category missing; keys={list(pvs)[:10]}"
+    # Multilingual labels preserved as annotations
+    identity = pvs["identity"]
+    ann = identity.get("annotations") or {}
+    assert ann.get("label_fr") or ann.get("label_es"), \
+        f"identity missing multilingual label annotations: {identity}"
+
+
+def test_bibliography_refs_back_on_concepts(migration_run):
+    """A concept that's referenced in a bibliography entry's `informs:` list
+    should carry a `bibliography_refs` annotation in its emitted form."""
+    with (OUTPUT_DIR / "identity.yaml").open() as f:
+        identity = yaml.safe_load(f)
+    person = identity["classes"].get("Person", {})
+    refs_json = (person.get("annotations") or {}).get("bibliography_refs")
+    assert refs_json, "Person missing bibliography_refs annotation"
+    refs = json.loads(refs_json)
+    assert isinstance(refs, list) and len(refs) > 0, refs
+
+
+def test_geojson_geometry_handled(migration_run):
+    """The geometry property's geojson_geometry type must round-trip cleanly
+    (no longer in the unmapped report)."""
+    # Find the geometry slot in any domain file.
+    found = False
+    for f in OUTPUT_DIR.glob("*.yaml"):
+        with f.open() as fh:
+            d = yaml.safe_load(fh)
+        slots = (d.get("slots") or {})
+        if "geometry" in slots:
+            assert slots["geometry"].get("range") == "string"
+            found = True
+            break
+    assert found, "geometry slot not emitted in any domain file"
+
+
+def test_zero_unmapped_fields(migration_run):
+    """After all the migration work, the migration_report should report zero
+    unmapped source fields. Regressions on this signal silent data loss."""
+    report = (OUTPUT_DIR / "_migration_report.md").read_text()
+    # The first occurrence of "Unmapped source fields:" gives the count.
+    import re
+    m = re.search(r"Unmapped source fields:\s*(\d+)", report)
+    assert m, "migration report missing unmapped-fields count line"
+    assert int(m.group(1)) == 0, f"unmapped fields: {m.group(1)} (was 0)"
 
 
 def test_external_dhs_emits(migration_run):

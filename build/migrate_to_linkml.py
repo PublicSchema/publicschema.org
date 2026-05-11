@@ -159,6 +159,27 @@ KNOWN_VOCAB_FIELDS = {
     "see_also", "tags", "domain", "references", "vc_guidance",
 }
 
+# Credentials are W3C VC descriptor metadata: each declares a subject_concept
+# and an optional list of included_concepts.
+KNOWN_CREDENTIAL_FIELDS = {
+    "id", "label", "definition", "maturity",
+    "subject_concept", "included_concepts",
+    "see_also", "tags",
+}
+
+# Bibliography entries (citation records). One file per cited source.
+# The `informs:` block reverses into per-target `bibliography_refs` annotations.
+KNOWN_BIBLIOGRAPHY_FIELDS = {
+    "id", "title", "short_title", "publisher", "year",
+    "type", "domain", "uri", "access", "status",
+    "informs", "label", "definition", "tags",
+    "standard_number", "version", "authors", "note",
+}
+
+# Categories: UI taxonomy keys that property_groups[].category points at.
+# The file has top-level entries (category_id -> {label: {en, fr, es}}); no `id` key.
+KNOWN_CATEGORY_VALUE_FIELDS = {"label", "definition", "description"}
+
 # Per-value fields inside `values:` of a vocabulary file. Anything not in this set
 # is surfaced in the migration report as unmapped. Derived from an audit of all
 # 115 vocabulary files (see build/AUDIT_NOTES.md for the inventory).
@@ -213,6 +234,13 @@ class MigrationContext:
     external_terms_by_source: dict[str, list[dict]] = dataclasses.field(default_factory=dict)  # source_id -> terms list
     alignments_by_subject: dict[tuple[str, str], list[dict]] = dataclasses.field(default_factory=lambda: collections.defaultdict(list))  # (kind, id) -> list[alignment record]
     bases: dict[str, dict] = dataclasses.field(default_factory=dict)  # id -> doc
+    # Bibliography reverse index: (kind, id) -> list of bibliography ids that inform this element.
+    # Built from schema/bibliography/*.yaml `informs: { concepts, vocabularies, properties }`.
+    bibliography_refs: dict[tuple[str, str], list[str]] = dataclasses.field(
+        default_factory=lambda: collections.defaultdict(list)
+    )
+    # Categories taxonomy from schema/categories.yaml (flat key -> {label: {lang: text}}).
+    categories: dict[str, dict] = dataclasses.field(default_factory=dict)
     # Per-system enum aggregation: system -> { enum_name -> { values -> {meaning_curie, title} } }
     external_enums: dict[str, dict[str, dict[str, dict]]] = dataclasses.field(
         default_factory=lambda: collections.defaultdict(lambda: collections.defaultdict(dict))
@@ -359,11 +387,43 @@ def load_inventory(ctx_holder: dict | None = None) -> tuple[
                     })
         elif kind == "base":
             bases[sf.id] = data
+
+    # Bibliography reverse index: for each bibliography entry, fan out the
+    # `informs:` lists into (kind, id) -> [biblio_id] entries.
+    bibliography_refs: dict[tuple[str, str], list[str]] = collections.defaultdict(list)
+    for sf in by_kind.get("bibliography", []):
+        biblio_id = sf.id
+        if not biblio_id:
+            continue
+        informs = (sf.data.get("informs") or {})
+        for target_kind, informs_key in (
+            ("concept", "concepts"),
+            ("property", "properties"),
+            ("vocabulary", "vocabularies"),
+        ):
+            for target_id in (informs.get(informs_key) or []):
+                if not isinstance(target_id, str):
+                    continue
+                # Bibliography may reference path-form ids (e.g. "crvs/Person").
+                # Normalise to the bare id matching our index keys.
+                bare = target_id.rsplit("/", 1)[-1]
+                bibliography_refs[(target_kind, bare)].append(biblio_id)
+
+    # Categories: a single top-level file mapping category_id -> {label: {...}}.
+    # Stored as a flat dict; later emitted as an Enum.
+    categories: dict[str, dict] = {}
+    for sf in by_kind.get("categories", []):
+        for k, v in (sf.data or {}).items():
+            if isinstance(v, dict):
+                categories[k] = v
+
     if ctx_holder is not None:
         ctx_holder["external_references"] = external_references
         ctx_holder["external_terms_by_source"] = external_terms_by_source
         ctx_holder["alignments_by_subject"] = alignments_by_subject
         ctx_holder["bases"] = bases
+        ctx_holder["bibliography_refs"] = bibliography_refs
+        ctx_holder["categories"] = categories
     return inv, concepts, properties, vocabularies, by_kind
 
 
@@ -703,6 +763,14 @@ def convert_vocabulary(sf: SourceFile, ctx: MigrationContext) -> tuple[str, dict
         annotations[jk] = jv
     if src.get("external_values") is not None:
         annotations["external_values"] = bool(src["external_values"])
+    # Bibliography reverse-index: any biblio entry whose `informs:` lists this
+    # vocabulary id contributes a per-element annotation.
+    biblio_refs = ctx.bibliography_refs.get(("vocabulary", src.get("id") or sf.path.stem), [])
+    if biblio_refs:
+        annotations["bibliography_refs"] = json.dumps(
+            sorted(set(biblio_refs)), sort_keys=True, ensure_ascii=False
+        )
+
     if annotations:
         enum["annotations"] = annotations
 
@@ -806,6 +874,10 @@ PRIMITIVE_TYPE_MAP = {
     "datetime": "datetime",
     "uri": "uri",
     "object": "string",  # complex objects collapse to string here; deferred
+    # PublicSchema's `geojson_geometry` is a structured GeoJSON Geometry object
+    # (RFC 7946). LinkML has no native geo type, so it's represented as a
+    # serialised string with an explicit format annotation on the slot.
+    "geojson_geometry": "string",
 }
 
 
@@ -904,6 +976,14 @@ def convert_property(sf: SourceFile, ctx: MigrationContext) -> tuple[str, dict]:
         ],
     ):
         annotations[jk] = jv
+
+    # Bibliography reverse-index
+    biblio_refs = ctx.bibliography_refs.get(("property", slot_name), [])
+    if biblio_refs:
+        annotations["bibliography_refs"] = json.dumps(
+            sorted(set(biblio_refs)), sort_keys=True, ensure_ascii=False
+        )
+
     if annotations:
         slot["annotations"] = annotations
 
@@ -1009,6 +1089,14 @@ def convert_concept(sf: SourceFile, ctx: MigrationContext) -> tuple[str, dict]:
         ],
     ):
         annotations[jk] = jv
+
+    # Bibliography reverse-index
+    biblio_refs = ctx.bibliography_refs.get(("concept", cls_name), [])
+    if biblio_refs:
+        annotations["bibliography_refs"] = json.dumps(
+            sorted(set(biblio_refs)), sort_keys=True, ensure_ascii=False
+        )
+
     if annotations:
         cls["annotations"] = annotations
 
@@ -1364,6 +1452,224 @@ def schema_header(domain: str, ctx: MigrationContext, *, extra_imports: list[str
         "prefixes": build_prefixes(ctx),
         "imports": imports,
     }
+
+
+def convert_credential(sf: SourceFile, ctx: MigrationContext) -> tuple[str, dict]:
+    """A credential is a thin W3C VC descriptor: subject_concept + included_concepts
+    plus the same multilingual label/definition + maturity that concepts have."""
+    src = sf.data
+    cls_name = src.get("id") or pascal_case(sf.path.stem)
+    en_label, label_other = get_multilingual(src, "label")
+    en_def, def_other = get_multilingual(src, "definition")
+
+    cls: dict[str, Any] = {
+        "class_uri": f"publicschema:{cls_name}",
+        "is_a": "Credential",
+    }
+    if en_label:
+        cls["title"] = en_label
+    if en_def:
+        cls["description"] = en_def
+
+    maturity = src.get("maturity")
+    if maturity and maturity in STATUS_MAP:
+        cls["status"] = STATUS_MAP[maturity]
+
+    annotations: dict[str, Any] = i18n_annotations(label_other, def_other)
+    if src.get("subject_concept"):
+        annotations["subject_concept"] = str(src["subject_concept"])
+    inc = src.get("included_concepts")
+    if isinstance(inc, list) and inc:
+        ann = json_annotation("included_concepts", inc)
+        if ann:
+            annotations[ann[0]] = ann[1]
+    for jk, jv in filter(
+        None,
+        [
+            json_annotation("see_also", src.get("see_also")),
+            json_annotation("tags", src.get("tags")),
+        ],
+    ):
+        annotations[jk] = jv
+
+    biblio_refs = ctx.bibliography_refs.get(("credential", cls_name), [])
+    if biblio_refs:
+        annotations["bibliography_refs"] = json.dumps(
+            sorted(set(biblio_refs)), sort_keys=True, ensure_ascii=False
+        )
+
+    if annotations:
+        cls["annotations"] = annotations
+
+    extras = set(src.keys()) - KNOWN_CREDENTIAL_FIELDS
+    for x in sorted(extras):
+        ctx.unmapped.append(f"credential:{cls_name}:{x}")
+
+    return cls_name, cls
+
+
+def emit_credentials_file(ctx: MigrationContext) -> set[str]:
+    """Emit dist/linkml/credentials.yaml with one class per credential file plus
+    a synthetic abstract Credential marker. Returns the set of cross-domain
+    concept ids referenced (for the composite imports)."""
+    credential_files = ctx.by_kind.get("credential", [])
+    if not credential_files:
+        return set()
+
+    classes: dict[str, dict] = {
+        "Credential": {
+            "class_uri": "publicschema:Credential",
+            "title": "Credential",
+            "description": (
+                "Abstract supertype for PublicSchema verifiable credential "
+                "descriptors. Each subclass declares a subject_concept and an "
+                "optional list of included_concepts via annotations."
+            ),
+            "abstract": True,
+            "status": "bibo:draft",
+        }
+    }
+    referenced_concepts: set[str] = set()
+    for sf in credential_files:
+        name, cls = convert_credential(sf, ctx)
+        classes[name] = cls
+        subj = sf.data.get("subject_concept")
+        if isinstance(subj, str):
+            referenced_concepts.add(subj)
+        for c in sf.data.get("included_concepts") or []:
+            if isinstance(c, str):
+                referenced_concepts.add(c)
+
+    cross_domain_imports = {
+        ctx.concept_domain[c] for c in referenced_concepts if c in ctx.concept_domain
+    }
+    header = schema_header("credentials", ctx, extra_imports=sorted(cross_domain_imports))
+    out = dict(header)
+    out["classes"] = classes
+    (OUTPUT_DIR / "credentials.yaml").write_text(yaml_dump(out))
+    return referenced_concepts
+
+
+def emit_bibliography_file(ctx: MigrationContext) -> None:
+    """Emit dist/linkml/bibliography.yaml: one Citation instance class plus one
+    permissible-value-style record per source. Each citation is a class
+    instance, not a permissible value (rich structure), so we emit one
+    Citation subclass per source for typed access."""
+    biblio_files = ctx.by_kind.get("bibliography", [])
+    if not biblio_files:
+        return
+
+    # The Citation class — abstract marker only. We previously declared typed
+    # `attributes:` here but that broke gen-shacl's slot-uri lookup for slots
+    # inherited by every citation subclass. All citation data lives as
+    # annotations on each subclass instead, which round-trips cleanly through
+    # all four stock LinkML generators.
+    citation_cls = {
+        "class_uri": "publicschema:Citation",
+        "title": "Citation",
+        "description": (
+            "Abstract supertype for bibliographic references cited by "
+            "PublicSchema. Each subclass carries the citation record fields "
+            "(title, publisher, year, uri, access, status, ...) as annotations "
+            "for downstream JSON-loadable consumption."
+        ),
+        "abstract": True,
+    }
+
+    citations_classes: dict[str, dict] = {"Citation": citation_cls}
+    for sf in sorted(biblio_files, key=lambda s: s.path):
+        biblio_id = sf.id
+        if not biblio_id:
+            continue
+        src = sf.data
+        # Use the file id as the class name (PascalCased + Citation suffix).
+        local = pascal_case(biblio_id) + "Citation"
+        cls: dict[str, Any] = {
+            "class_uri": f"publicschema:Citation/{biblio_id}",
+            "is_a": "Citation",
+            "title": src.get("title") or biblio_id,
+        }
+        annotations: dict[str, Any] = {"citation_id": biblio_id}
+        for fname in (
+            "title", "short_title", "publisher", "year",
+            "type", "domain", "uri", "access", "status",
+            "standard_number", "version", "note",
+        ):
+            if src.get(fname) is not None:
+                annotations[fname] = src[fname] if isinstance(src[fname], (int, str)) else str(src[fname])
+        if src.get("authors") is not None:
+            ann = json_annotation("authors", src["authors"])
+            if ann:
+                annotations[ann[0]] = ann[1]
+        # The informs block is reversed elsewhere; preserve here as JSON for traceability.
+        if src.get("informs"):
+            ann = json_annotation("informs", src["informs"])
+            if ann:
+                annotations[ann[0]] = ann[1]
+        for fname in src.keys():
+            if fname not in KNOWN_BIBLIOGRAPHY_FIELDS:
+                ctx.unmapped.append(f"bibliography:{biblio_id}:{fname}")
+        cls["annotations"] = annotations
+        citations_classes[local] = cls
+
+    header = schema_header("bibliography", ctx)
+    out = dict(header)
+    out["classes"] = citations_classes
+    (OUTPUT_DIR / "bibliography.yaml").write_text(yaml_dump(out))
+
+
+def emit_categories_file(ctx: MigrationContext) -> None:
+    """Emit dist/linkml/categories.yaml as a flat Enum (PropertyCategory) whose
+    permissible values mirror schema/categories.yaml. Multilingual labels are
+    preserved as per-value annotations (label_<lang>)."""
+    if not ctx.categories:
+        return
+    permissible_values: dict[str, dict] = {}
+    for cat_key in sorted(ctx.categories):
+        meta = ctx.categories[cat_key]
+        if not isinstance(meta, dict):
+            continue
+        label = meta.get("label") or {}
+        en = label.get("en") if isinstance(label, dict) else None
+        pv: dict[str, Any] = {"meaning": f"publicschema:Category/{cat_key}"}
+        if en:
+            pv["title"] = en
+        v_annotations: dict[str, Any] = {}
+        if isinstance(label, dict):
+            for lang, text in sorted(label.items()):
+                if lang != "en" and isinstance(text, str):
+                    v_annotations[f"label_{lang}"] = text
+        # Per-value definition if present.
+        defn = meta.get("definition") or meta.get("description")
+        if isinstance(defn, dict):
+            d_en = defn.get("en")
+            if d_en:
+                pv["description"] = d_en
+            for lang, text in sorted(defn.items()):
+                if lang != "en" and isinstance(text, str):
+                    v_annotations[f"description_{lang}"] = text
+        elif isinstance(defn, str):
+            pv["description"] = defn
+        for fname in meta.keys():
+            if fname not in KNOWN_CATEGORY_VALUE_FIELDS:
+                ctx.unmapped.append(f"categories:{cat_key}:{fname}")
+        if v_annotations:
+            pv["annotations"] = v_annotations
+        permissible_values[cat_key] = pv
+
+    enum: dict[str, Any] = {
+        "enum_uri": "publicschema:PropertyCategory",
+        "title": "Property category",
+        "description": (
+            "UI taxonomy referenced by property_groups[].category on concept "
+            "files. Sourced from schema/categories.yaml."
+        ),
+        "permissible_values": permissible_values,
+    }
+    header = schema_header("categories", ctx)
+    out = dict(header)
+    out["enums"] = {"PropertyCategory": enum}
+    (OUTPUT_DIR / "categories.yaml").write_text(yaml_dump(out))
 
 
 def emit_domain_file(domain: str, ctx: MigrationContext) -> None:
@@ -1762,6 +2068,8 @@ def main() -> int:
         external_terms_by_source=semic_data.get("external_terms_by_source", {}),
         alignments_by_subject=semic_data.get("alignments_by_subject", collections.defaultdict(list)),
         bases=semic_data.get("bases", {}),
+        bibliography_refs=semic_data.get("bibliography_refs", collections.defaultdict(list)),
+        categories=semic_data.get("categories", {}),
     )
     write_inventory_report(ctx)
 
@@ -1783,6 +2091,14 @@ def main() -> int:
 
     for domain in sorted(domains_present):
         emit_domain_file(domain, ctx)
+
+    # Sibling content: credentials, bibliography, categories.
+    emit_credentials_file(ctx)
+    emit_bibliography_file(ctx)
+    emit_categories_file(ctx)
+    for d in ("credentials", "bibliography", "categories"):
+        if (OUTPUT_DIR / f"{d}.yaml").exists():
+            domains_present.add(d)
 
     # Phase 2b: external schemas (depends on Phase 3 having walked all vocabs/properties)
     emit_external_schemas(ctx)
