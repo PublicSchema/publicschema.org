@@ -11,8 +11,8 @@ dependencies = [
     "babel>=2.14",
 ]
 
-[tool.uv]
-dev-dependencies = [
+[dependency-groups]
+dev = [
     "linkml>=1.10.0",
     "pyld>=3.0.0",
     "pyshacl>=0.31.0",
