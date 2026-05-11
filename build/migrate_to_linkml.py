@@ -61,7 +61,7 @@ def load_publicschema_base() -> str:
         meta = yaml.safe_load(f) or {}
     base = meta.get("base_uri")
     if not base:
-        raise SystemExit(f"schema/_meta.yaml has no base_uri")
+        raise SystemExit("schema/_meta.yaml has no base_uri")
     if not base.endswith("/"):
         base = base + "/"
     # Cross-check project.yaml
@@ -449,6 +449,82 @@ def linkml_name(source_ref: str) -> str:
     return pascal_case(source_ref)
 
 
+def source_ref_bare_id(source_ref: str) -> str:
+    """Return the terminal source id from a possibly domain-scoped source ref."""
+    return source_ref.rsplit("/", 1)[-1]
+
+
+def concept_source_ref_for_id(ref: str, current: SourceFile, ctx: MigrationContext) -> str:
+    """Resolve a concept reference to the canonical source key.
+
+    Source YAML may refer to a domain-scoped concept by its bare id inside the
+    same domain, e.g. ``Birth`` has supertype ``VitalEvent`` while the inventory
+    key is ``crvs/VitalEvent``. Keep those relationships connected without
+    forcing every scoped concept to carry a prefixed LinkML class name.
+    """
+    if ref in ctx.concepts:
+        return ref
+    current_domain = current.data.get("domain")
+    if isinstance(current_domain, str):
+        scoped = f"{current_domain}/{ref}"
+        if scoped in ctx.concepts:
+            return scoped
+    matches = [
+        key for key, sf in ctx.concepts.items()
+        if source_ref_bare_id(key) == ref or sf.id == ref
+    ]
+    if len(matches) == 1:
+        return matches[0]
+    return ref
+
+
+def concept_source_ref_for_ref(ref: str, ctx: MigrationContext) -> str:
+    """Resolve a property/type concept reference to the canonical source key."""
+    if ref in ctx.concepts:
+        return ref
+    matches = [
+        key for key, sf in ctx.concepts.items()
+        if source_ref_bare_id(key) == ref or sf.id == ref
+    ]
+    if len(matches) == 1:
+        return matches[0]
+    return ref
+
+
+def concept_linkml_name(source_ref: str, ctx: MigrationContext) -> str:
+    """Return a LinkML class name for a concept source key.
+
+    Domain-scoped source keys keep their bare class name when that name is
+    unique in the current package. Only real collisions are prefixed, such as
+    ``Person`` and ``crvs/Person`` becoming ``Person`` and ``CrvsPerson``.
+    The semantic scope is still preserved in ``class_uri``.
+    """
+    bare_id = source_ref_bare_id(source_ref)
+    collisions = [
+        key for key, sf in ctx.concepts.items()
+        if source_ref_bare_id(key) == bare_id or sf.id == bare_id
+    ]
+    if len(collisions) <= 1:
+        return pascal_case(bare_id)
+    return pascal_case(source_ref)
+
+
+def vocabulary_linkml_name(source_ref: str, ctx: MigrationContext) -> str:
+    """Return a LinkML enum name for a vocabulary source key.
+
+    Mirrors concept naming: domain-scoped vocabularies keep bare enum names
+    unless the package contains another vocabulary with the same id.
+    """
+    bare_id = source_ref_bare_id(source_ref)
+    collisions = [
+        key for key, sf in ctx.vocabularies.items()
+        if source_ref_bare_id(key) == bare_id or sf.id == bare_id
+    ]
+    if len(collisions) <= 1:
+        return pascal_case(bare_id)
+    return pascal_case(source_ref)
+
+
 def publicschema_curie(source_ref: str) -> str:
     """CURIE for a PublicSchema concept/class key."""
     return f"publicschema:{source_ref}"
@@ -624,7 +700,7 @@ def convert_vocabulary(sf: SourceFile, ctx: MigrationContext) -> tuple[str, dict
     """Return (enum_name, EnumDefinition dict)."""
     src = sf.data
     source_ref = sf.key or src.get("id") or sf.path.stem
-    enum_name = linkml_name(source_ref)
+    enum_name = vocabulary_linkml_name(source_ref, ctx)
     en_label, label_other = get_multilingual(src, "label")
     en_def, def_other = get_multilingual(src, "definition")
 
@@ -900,13 +976,18 @@ def convert_property(sf: SourceFile, ctx: MigrationContext) -> tuple[str, dict]:
     refs = src.get("references")
     vocab = src.get("vocabulary")
     if isinstance(refs, str) and refs in ctx.concepts:
-        slot["range"] = linkml_name(refs)  # Class-valued
+        slot["range"] = concept_linkml_name(refs, ctx)  # Class-valued
     elif isinstance(vocab, str) and vocab in ctx.vocabularies:
-        slot["range"] = linkml_name(vocab)  # Enum-valued
+        slot["range"] = vocabulary_linkml_name(vocab, ctx)  # Enum-valued
     elif isinstance(ptype, str) and ptype.startswith("concept:"):
         # ptype like 'concept:Person' or 'concept:crvs/Person'
         class_ref = ptype[len("concept:"):]
-        slot["range"] = linkml_name(class_ref) if class_ref in ctx.concepts else pascal_case(class_ref)
+        resolved_ref = concept_source_ref_for_ref(class_ref, ctx)
+        slot["range"] = (
+            concept_linkml_name(resolved_ref, ctx)
+            if resolved_ref in ctx.concepts
+            else pascal_case(class_ref)
+        )
     elif isinstance(ptype, str) and ptype in PRIMITIVE_TYPE_MAP:
         slot["range"] = PRIMITIVE_TYPE_MAP[ptype]
     elif isinstance(ptype, str):
@@ -1002,7 +1083,7 @@ def convert_property(sf: SourceFile, ctx: MigrationContext) -> tuple[str, dict]:
 def convert_concept(sf: SourceFile, ctx: MigrationContext) -> tuple[str, dict]:
     src = sf.data
     source_ref = sf.key or src.get("id") or pascal_case(sf.path.stem)
-    cls_name = linkml_name(source_ref)
+    cls_name = concept_linkml_name(source_ref, ctx)
     en_label, label_other = get_multilingual(src, "label")
     en_def, def_other = get_multilingual(src, "definition")
 
@@ -1014,8 +1095,15 @@ def convert_concept(sf: SourceFile, ctx: MigrationContext) -> tuple[str, dict]:
     if en_def:
         cls["description"] = en_def
 
-    supers = src.get("supertypes") or []
-    supers = [linkml_name(s) if s in ctx.concepts else pascal_case(s) for s in supers if isinstance(s, str)]
+    supers = []
+    for super_ref in src.get("supertypes") or []:
+        if not isinstance(super_ref, str):
+            continue
+        resolved_ref = concept_source_ref_for_id(super_ref, sf, ctx)
+        if resolved_ref in ctx.concepts:
+            supers.append(concept_linkml_name(resolved_ref, ctx))
+        else:
+            supers.append(pascal_case(super_ref))
     if supers:
         cls["is_a"] = supers[0]
         if len(supers) > 1:
@@ -1025,7 +1113,7 @@ def convert_concept(sf: SourceFile, ctx: MigrationContext) -> tuple[str, dict]:
             "mixins": list(supers[1:]),
             "rule": (
                 "first declared supertype = is_a; rest = mixins; "
-                "domain-scoped refs become domain-prefixed LinkML names"
+                "domain-scoped refs use bare LinkML names unless they collide"
             ),
         }
 
@@ -1678,8 +1766,8 @@ def emit_domain_file(domain: str, ctx: MigrationContext) -> None:
     enums: dict[str, dict] = {}
     used_external_systems: set[str] = set()
     cross_domain_imports: set[str] = set()
-    class_name_to_ref = {linkml_name(ref): ref for ref in ctx.concepts}
-    enum_name_to_ref = {linkml_name(ref): ref for ref in ctx.vocabularies}
+    class_name_to_ref = {concept_linkml_name(ref, ctx): ref for ref in ctx.concepts}
+    enum_name_to_ref = {vocabulary_linkml_name(ref, ctx): ref for ref in ctx.vocabularies}
 
     referenced_slots: set[str] = set()
     referenced_classes: set[str] = set()
@@ -1828,7 +1916,6 @@ def emit_external_schemas(ctx: MigrationContext) -> None:
             # Choose the prefix whose URI is the most-specific (longest) match
             # for the source_url's namespace; default to the first listed.
             default_prefix = next(iter(ref_prefixes), sysid)
-            schema_uri = ref_doc.get("homepage") or f"{ctx.publicschema_base}linkml/external/{sysid}"
             schema_prefixes = dict(ref_prefixes)
             schema_prefixes.setdefault("linkml", "https://w3id.org/linkml/")
             schema_prefixes.setdefault("xsd", "http://www.w3.org/2001/XMLSchema#")
@@ -1852,7 +1939,6 @@ def emit_external_schemas(ctx: MigrationContext) -> None:
         elif sysid in ctx.systems.systems:
             info = ctx.systems.systems[sysid]
             default_prefix = info["prefix"]
-            schema_uri = info.get("homepage") or f"{ctx.publicschema_base}linkml/external/{sysid}"
             schema_prefixes = {
                 info["prefix"]: info["uri"],
                 "linkml": "https://w3id.org/linkml/",

@@ -13,8 +13,9 @@ representation differences between the two pipelines:
 
 1. ``rdfs:Class`` (rdf_export, AS/RDFS profile) and ``owl:Class``
    (LinkML's OWL projection) are treated as equivalent.
-2. Domain-prefixed URIs in rdf_export (``ps:crvs/Adoption``) are folded to
-   the unprefixed form LinkML emits (``ps:Adoption``).
+2. Domain-prefixed PublicSchema URIs (``ps:crvs/Adoption`` or
+   ``ps:civil_status/Adoption``) are folded to the unprefixed comparison
+   form (``ps:Adoption``).
 3. Vocabulary IDs in rdf_export use kebab-case (``ps:registration-status``)
    while LinkML emits PascalCase enum class IRIs (``ps:RegistrationStatus``).
 4. ``schema.org`` URI scheme differs: rdf_export emits ``https://`` per the
@@ -42,10 +43,13 @@ import re
 import shutil
 import subprocess
 import sys
+from collections import Counter
+from collections.abc import Iterable
+from functools import lru_cache
 from pathlib import Path
-from typing import Iterable
 
 import pytest
+import yaml
 
 # ---------------------------------------------------------------------------
 # Optional-dependency guards
@@ -186,12 +190,40 @@ def _kebab_to_pascal(local: str) -> str:
 _DOMAIN_RE = re.compile(r"^[a-z][a-z0-9_]*$")
 
 
+def _source_ref_to_pascal(ref: str) -> str:
+    tokens = re.split(r"[^A-Za-z0-9]+", ref)
+    return "".join(t[:1].upper() + t[1:] for t in tokens if t)
+
+
+@lru_cache(maxsize=1)
+def _domain_scoped_collision_aliases() -> dict[str, str]:
+    """Map scoped concept refs that collide with a root concept to LinkML names."""
+    records: list[tuple[str | None, str]] = []
+    for path in sorted((SCHEMA_DIR / "concepts").glob("*.yaml")):
+        with path.open() as f:
+            data = yaml.safe_load(f) or {}
+        concept_id = data.get("id")
+        if isinstance(concept_id, str):
+            domain = data.get("domain") if isinstance(data.get("domain"), str) else None
+            records.append((domain, concept_id))
+
+    counts = Counter(concept_id for _, concept_id in records)
+    aliases: dict[str, str] = {}
+    for domain, concept_id in records:
+        if domain and counts[concept_id] > 1:
+            aliases[f"{domain}/{concept_id}"] = _source_ref_to_pascal(
+                f"{domain}/{concept_id}"
+            )
+    return aliases
+
+
 def normalize_ps_uri(uri: str) -> str:
-    """Fold rdf_export's PS URIs to the form LinkML emits.
+    """Fold PS URIs to a common comparison form.
 
     rdf_export uses three URI shapes under the ``ps:`` namespace:
-      * ``ps:<Concept>`` and ``ps:<domain>/<Concept>`` for concepts
-        (PascalCase). LinkML emits ``ps:<Concept>``.
+      * ``ps:<Concept>`` and ``ps:<domain>/<Concept>`` for concepts.
+        LinkML may emit either shape depending on whether the source identity
+        is globally scoped or domain scoped.
       * ``ps:<property>`` (lowercase / snake_case) for properties. LinkML
         keeps the same form.
       * ``ps:vocab/<kebab>`` and ``ps:vocab/<domain>/<kebab>`` for
@@ -219,6 +251,9 @@ def normalize_ps_uri(uri: str) -> str:
     if "/" in rest:
         first, second = rest.split("/", 1)
         if _DOMAIN_RE.match(first) and not is_vocab:
+            scoped_alias = _domain_scoped_collision_aliases().get(rest)
+            if scoped_alias:
+                return PS + scoped_alias
             # For non-vocab URIs: strip exactly one domain prefix.
             rest = second
         elif _DOMAIN_RE.match(first) and is_vocab and "/" in second:
@@ -271,6 +306,11 @@ def _is_linkml_enum_value(uri: str) -> bool:
     if not uri.startswith(PS):
         return False
     rest = uri[len(PS):]
+    if rest.startswith("vocab/"):
+        parts = rest[len("vocab/"):].split("/")
+        if len(parts) >= 3:
+            return True
+        return len(parts) == 2 and parts[0] not in {"crvs", "sp"}
     if "/" not in rest:
         return False
     head = rest.split("/", 1)[0]
@@ -323,7 +363,7 @@ def linkml_type_pairs(g: rdflib.Graph) -> set[tuple[str, str]]:
             continue
         if _is_linkml_enum_value(str(s)):
             continue
-        out.add((str(s), normalize_class_iri(str(o))))
+        out.add((normalize_ps_uri(str(s)), normalize_class_iri(str(o))))
     return out
 
 
@@ -347,9 +387,11 @@ def linkml_subclass_triples(g: rdflib.Graph) -> set[tuple[str, str]]:
             continue
         if not isinstance(o, rdflib.URIRef):
             continue
-        if _is_linkml_enum_value(str(s)):
+        norm_s = normalize_ps_uri(str(s))
+        norm_o = normalize_ps_uri(str(o))
+        if _is_linkml_enum_value(str(s)) or _is_linkml_enum_value(norm_s):
             continue
-        out.add((str(s), str(o)))
+        out.add((norm_s, norm_o))
     return out
 
 
@@ -382,11 +424,13 @@ def linkml_skos_match_triples(g: rdflib.Graph) -> set[tuple[str, str, str]]:
                 continue
             if not isinstance(o, rdflib.URIRef):
                 continue
-            if str(s) == str(o):
+            norm_s = normalize_ps_uri(str(s))
+            norm_o = normalize_object_uri(str(o))
+            if norm_s == norm_o:
                 continue
-            if _is_linkml_enum_value(str(s)):
+            if _is_linkml_enum_value(str(s)) or _is_linkml_enum_value(norm_s):
                 continue
-            out.add((str(s), str(pred), str(o)))
+            out.add((norm_s, str(pred), norm_o))
     return out
 
 
@@ -649,7 +693,7 @@ class TestPipelineSanity:
             and o == RDFS.Class
         }
         linkml_classes = {
-            str(s)
+            normalize_ps_uri(str(s))
             for s, o in linkml_owl_graph.subject_objects(RDF.type)
             if isinstance(s, rdflib.URIRef)
             and str(s).startswith(PS)
