@@ -188,8 +188,14 @@ external_vocabulary_prefixes:
     uri: https://publicschema.org/
     source: official
   schema:
-    uri: https://schema.org/
+    uri: http://schema.org/
     source: official
+    notes: >
+      Canonical schema.org namespace per the W3C convention is http://, not
+      https://. This matches what linkml:types and most RDF tooling expects.
+      Source PublicSchema YAML uses "schema:" CURIE in external_equivalents
+      with https://schema.org/-shaped URIs; the migration script normalises
+      to http://schema.org/ on emit.
   foaf:
     uri: http://xmlns.com/foaf/0.1/
     source: official
