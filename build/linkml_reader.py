@@ -257,16 +257,24 @@ def _convert_enum_to_vocabulary(
         pv_ann = _normalise_annotations(pv.get("annotations"))
         v_title = pv.get("title")
         v_desc = pv.get("description")
-        # standard_code annotation is the original code if it was numeric or
-        # otherwise non-slugifiable. Restore it as the canonical code so the
-        # site renders the human-facing identifier exactly as before.
         original_code = pv_ann.get("standard_code")
-        if isinstance(original_code, str) and original_code.strip() and (
-            original_code != str(code)
-        ):
-            display_code: Any = original_code
+        # The PV key is the canonical bespoke ``code``. When the migration
+        # had to slugify a non-identifier source (e.g. ``"M-1"`` -> ``m_1``
+        # or ``"self"`` -> ``self_``), the original verbatim form is in
+        # ``standard_code``; reveal that as the canonical only when the
+        # PV key was a slug-mangle of the original.
+        sc_str = str(original_code) if original_code is not None else None
+        is_mangled = (
+            sc_str is not None and sc_str.strip() and sc_str != code
+            and (
+                code == "self_"
+                or (not sc_str.replace("_", "").replace("-", "").isalnum())
+                or sc_str.startswith(("-", "+"))
+            )
+        )
+        if is_mangled:
+            display_code: Any = sc_str
         else:
-            # ``self_`` collided with a Python attribute; restore the bare form.
             display_code = code[:-1] if code == "self_" else code
 
         v_entry: dict[str, Any] = {
@@ -275,7 +283,7 @@ def _convert_enum_to_vocabulary(
             "definition": _split_multilingual(v_desc, pv_ann, "description_"),
         }
         if original_code is not None:
-            v_entry["standard_code"] = str(original_code)
+            v_entry["standard_code"] = sc_str
         for opt_key in ("parent_code", "level", "unmapped_reason",
                         "migration_note", "note"):
             if opt_key in pv_ann and pv_ann[opt_key] is not None:
@@ -772,6 +780,20 @@ def load_raw_from_linkml(linkml_dir: Path) -> dict[str, Any]:
     categories_raw: dict[str, dict] = {}
     if categories_enum is not None:
         categories_raw = _convert_categories_enum(categories_enum)
+
+    # Reconstruct ``subtypes`` (the inverse of ``supertypes``). The migration
+    # records the directed edge once on the child via is_a/mixins; consumers
+    # that expect the bespoke shape (test_agent_hierarchy.py etc.) want the
+    # reverse edge populated as well. Subtype entries use composite keys
+    # (``<domain>/<id>``) so cross-domain hierarchies don't collapse.
+    short_name = {k: k.split("/")[-1] for k in concepts_raw}
+    for child_key, child in concepts_raw.items():
+        for parent in child.get("supertypes", []) or []:
+            parent_short = parent.split("/")[-1]
+            for cand_key, cand in concepts_raw.items():
+                if cand_key == parent or short_name[cand_key] == parent_short:
+                    cand.setdefault("subtypes", []).append(child_key)
+                    break
 
     return {
         "meta": meta,

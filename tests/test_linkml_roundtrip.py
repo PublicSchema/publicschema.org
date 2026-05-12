@@ -490,6 +490,24 @@ EXPECTED_LINKML_SKOS_LOSSES: set[tuple[str, str, str]] = {
         str(SKOS.exactMatch),
         "https://schema.spdci.org/core/v1/data/sex",
     ),
+    # DPV-GDPR article-level placeholders kept in rdf_export's
+    # ``external_alignments_json`` but deliberately not emitted by the
+    # LinkML composite: DPV-GDPR defines only the sub-clauses (A6-1-a,
+    # A6-1-b, ...) as resolvable classes, so ``dpv-gdpr:A6`` /
+    # ``dpv-gdpr:A9`` are aspirational article-level alignments without
+    # a matching ontology entity. The mapping survives as metadata in
+    # ``external_alignments_json``; it is intentionally absent from the
+    # LinkML enum-level ``exact_mappings``.
+    (
+        "https://publicschema.org/LegalBasis",
+        str(SKOS.exactMatch),
+        "https://w3id.org/dpv/legal/eu/gdpr#A6",
+    ),
+    (
+        "https://publicschema.org/SpecialCategoryBasis",
+        str(SKOS.exactMatch),
+        "https://w3id.org/dpv/legal/eu/gdpr#A9",
+    ),
 }
 
 

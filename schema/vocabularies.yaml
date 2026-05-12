@@ -50507,8 +50507,6 @@ enums:
             applicable aux programmes des autorités publiques, qui disposent généralement d'une base plus
             spécifique. Correspondance DPV RGPD, article 6, paragraphe 1, point f, dpv-gdpr:A6-1-f.
           note: 'DPV GDPR: dpv-gdpr:A6-1-f, URI: https://w3id.org/dpv/legal/eu/gdpr#A6-1-f'
-    exact_mappings:
-    - https://w3id.org/dpv/legal/eu/gdpr#A6
     annotations:
       label_es: Base jurídica
       label_fr: Base juridique
@@ -61858,8 +61856,6 @@ enums:
             personne concernée. Utilisé pour les évaluations de programmes, les études longitudinales
             et les rapports anonymisés. Correspondance DPV RGPD, article 9, paragraphe 2, point j, dpv-gdpr:A9-2-j.
           note: 'DPV GDPR: dpv-gdpr:A9-2-j, URI: https://w3id.org/dpv/legal/eu/gdpr#A9-2-j'
-    exact_mappings:
-    - https://w3id.org/dpv/legal/eu/gdpr#A9
     annotations:
       label_es: Base de categoría especial
       label_fr: Base pour catégories particulières
