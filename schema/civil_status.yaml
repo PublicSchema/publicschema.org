@@ -557,7 +557,7 @@ classes:
   Parent:
     class_uri: publicschema:Parent
     title: Parent
-    description: 'A crvs/Person subtype that captures a parental role alongside the inherited person-of-record
+    description: 'A Person subtype in the civil registration domain that captures a parental role alongside the inherited person-of-record
       properties. Used on Birth, Adoption, PaternityRecognition, and Legitimation so that biological and
       legal parentage can be captured explicitly rather than collapsed into a single parent slot.
 
@@ -583,7 +583,7 @@ classes:
     annotations:
       label_es: Progenitor
       label_fr: Parent
-      description_es: 'Un subtipo de crvs/Person que porta un rol parental junto con las propiedades heredadas
+      description_es: 'Un subtipo de Person en el dominio de registro civil que porta un rol parental junto con las propiedades heredadas
         de persona objeto del registro. Se utiliza en Nacimiento, Adopción, Reconocimiento de paternidad
         y Legitimación para que la filiación biológica y la jurídica puedan representarse de forma explícita
         en lugar de reducirse a un único campo de progenitor.
@@ -600,7 +600,7 @@ classes:
         la parentalidad (por ejemplo, presunción matrimonial, reconocimiento voluntario o resolución de
         adopción). La propiedad certificate_label es un campo de texto libre para la etiqueta específica
         de la jurisdicción que debe aparecer en el certificado impreso.'
-      description_fr: 'Un sous-type de crvs/Person qui porte un rôle parental à côté des propriétés de
+      description_fr: 'Un sous-type de Person dans le domaine de l''état civil qui porte un rôle parental à côté des propriétés de
         personne concernée héritées. Utilisé dans les actes de Naissance, d''Adoption, de Reconnaissance
         de paternité et de Légitimation afin que les filiations biologique et juridique puissent être
         saisies de manière explicite plutôt que fusionnées dans un seul champ parent.

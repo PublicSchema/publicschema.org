@@ -6,11 +6,11 @@ overwrites when two domains define concepts with the same short name.
 """
 
 import pytest
-import yaml
 
-from build.build import build_vocabulary, _concept_key, _resolve_concept_key
-from tests.conftest import make_concept, make_property
-
+from build.build import _concept_key, _resolve_concept_key, build_vocabulary
+from tests.conftest import make_concept
+from tests.schema_reader import concept as schema_concept
+from tests.schema_reader import property_, raw_schema
 
 # ---------------------------------------------------------------------------
 # Unit tests for helper functions
@@ -80,32 +80,31 @@ class TestRealSchemaDomainResolution:
         from tests.conftest import SCHEMA_DIR
         return build_vocabulary(SCHEMA_DIR)
 
-    def test_crvs_parent_supertype_is_crvs_person(self, real_result):
-        """The crvs/Parent concept extends crvs/Person, not root Person."""
+    def test_crvs_parent_supertype_is_universal_person(self, real_result):
+        """The crvs/Parent concept extends the universal Person concept."""
         parent = real_result["concepts"]["crvs/Parent"]
-        assert "crvs/Person" in parent["supertypes"], (
-            f"crvs/Parent supertypes should include crvs/Person, got {parent['supertypes']}"
+        assert "Person" in parent["supertypes"], (
+            f"crvs/Parent supertypes should include Person, got {parent['supertypes']}"
         )
-        assert "Person" not in parent["supertypes"], (
-            "crvs/Parent supertypes must not include the root Person key"
-        )
+        assert "crvs/Person" not in real_result["concepts"]
 
-    def test_crvs_property_references_resolve_to_crvs_person(self, real_result):
-        """Properties with domain_override: crvs that reference Person resolve to crvs/Person."""
-        crvs_person_uri = real_result["concepts"]["crvs/Person"]["uri"]
+    def test_crvs_property_references_resolve_to_universal_person(self, real_result):
+        """CRVS-scoped person-role properties reference universal Person."""
         for pid in ("deceased", "informant", "registrar", "witnesses", "party_1", "party_2"):
             prop = real_result["properties"].get(pid)
             assert prop is not None, f"Expected CRVS property {pid} in build output"
             assert prop.get("domain") == "crvs", (
                 f"Property {pid} should carry domain 'crvs', got {prop.get('domain')}"
             )
+            assert prop["references"] == "Person"
+            assert prop["type"] == "concept:Person"
 
-    def test_crvs_person_concept_schema_has_crvs_uri(self, real_result):
-        """Properties typed ``concept:crvs/Person`` produce crvs/Person schema refs.
+    def test_crvs_person_concept_schema_has_person_uri(self, real_result):
+        """Properties typed ``concept:Person`` produce root Person schema refs.
 
-        The ``child`` property on crvs/Birth is typed ``concept:crvs/Person``.
-        Its JSON Schema ref must target the crvs/Person schema URL, not the
-        root Person schema.
+        The ``child`` property on crvs/Birth is typed ``concept:Person``.
+        Its JSON Schema ref must target the root Person schema URL because
+        crvs/Person is no longer authored in LinkML.
         """
         schemas = real_result["concept_schemas"]
         birth_schema = schemas["crvs/Birth"]
@@ -113,30 +112,34 @@ class TestRealSchemaDomainResolution:
         child_schema = birth_schema.get("properties", {}).get("child", {})
         refs = _collect_refs(child_schema)
         assert any(
-            ref == f"{base}/crvs/Person.schema.json" for ref in refs
-        ), (
-            f"crvs/Birth.child should $ref crvs/Person.schema.json, got {refs}"
-        )
-        assert not any(
             ref == f"{base}/Person.schema.json" for ref in refs
         ), (
-            f"crvs/Birth.child must not $ref root Person.schema.json, got {refs}"
+            f"crvs/Birth.child should $ref Person.schema.json, got {refs}"
+        )
+        assert not any(
+            ref == f"{base}/crvs/Person.schema.json" for ref in refs
+        ), (
+            f"crvs/Birth.child must not $ref crvs/Person.schema.json, got {refs}"
         )
 
-    def test_crvs_person_jsonld_concept_refs_use_crvs_uri(self, real_result):
-        """JSON-LD concept output for crvs/Parent points ps:references/subClassOf at crvs/Person."""
-        import json
-        concept_schemas = real_result["concept_schemas"]
+    def test_crvs_parent_supertype_uri_uses_person_uri(self, real_result):
+        """JSON-LD concept output for crvs/Parent resolves subClassOf to Person."""
         # JSON-LD generation happens in write_outputs, but supertype URIs are
-        # derivable from out_concepts itself: crvs/Parent.supertypes list
-        # contains the composite key crvs/Person, whose URI we can fetch.
+        # derivable from out_concepts itself: crvs/Parent.supertypes contains
+        # Person, whose URI we can fetch.
         parent = real_result["concepts"]["crvs/Parent"]
-        person_uri = real_result["concepts"]["crvs/Person"]["uri"]
-        # The supertype composite key resolves in out_concepts to the crvs URI.
+        person_uri = real_result["concepts"]["Person"]["uri"]
         resolved_uris = [real_result["concepts"][s]["uri"] for s in parent["supertypes"]]
         assert person_uri in resolved_uris, (
-            f"crvs/Parent supertype URIs should include crvs/Person URI; got {resolved_uris}"
+            f"crvs/Parent supertype URIs should include Person URI; got {resolved_uris}"
         )
+
+    def test_linkml_source_has_no_crvs_person_concept(self):
+        """The authored LinkML source keeps Person universal, not crvs-scoped."""
+        assert "Person" in raw_schema()["concepts"]
+        assert "crvs/Person" not in raw_schema()["concepts"]
+        assert schema_concept("crvs/Parent")["supertypes"] == ["Person"]
+        assert property_("child")["references"] == "Person"
 
 
 def _collect_refs(schema_fragment):
@@ -269,7 +272,7 @@ class TestRealSchemaKeying:
 
     def test_crvs_concepts_keyed_by_composite(self, real_result):
         """Known crvs/ concepts appear under composite keys."""
-        for name in ("Birth", "Death", "Marriage", "Person"):
+        for name in ("Birth", "Death", "Marriage"):
             key = f"crvs/{name}"
             assert key in real_result["concepts"], (
                 f"Expected composite key '{key}' in concepts"
@@ -277,17 +280,15 @@ class TestRealSchemaKeying:
 
     def test_universal_concepts_keyed_by_bare_id(self, real_result):
         """Known universal concepts appear under bare id keys (no slash prefix).
-        Person is excluded from the crvs/ assertion because crvs/Person is a
-        legitimate domain-scoped concept (a temporal snapshot of Person at event
-        time) introduced alongside the universal root Person.
+        Person is included because the LinkML source no longer authors a
+        domain-scoped crvs/Person concept.
         """
         for name in ("Person", "Event", "Organization", "Household", "Location"):
             assert name in real_result["concepts"], (
                 f"Expected bare key '{name}' in concepts"
             )
             assert f"sp/{name}" not in real_result["concepts"]
-        # Only names that have no domain-specific subtype should be absent from crvs/.
-        for name in ("Event", "Organization", "Household", "Location"):
+        for name in ("Person", "Event", "Organization", "Household", "Location"):
             assert f"crvs/{name}" not in real_result["concepts"]
 
     def test_no_concept_id_field_contains_slash(self, real_result):

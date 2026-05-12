@@ -1,13 +1,11 @@
 """Tests for the CRVS domain: concepts, vocabularies, and event subtyping."""
 
-from pathlib import Path
-
 import pytest
-import yaml
 
 from build.build import build_vocabulary
 from build.validate import validate_schema_dir
 from tests.conftest import SCHEMA_DIR
+from tests.schema_reader import concept, property_, raw_schema, subtypes_of, vocabulary
 
 CRVS_CONCEPTS = [
     "VitalEvent",
@@ -22,7 +20,6 @@ CRVS_CONCEPTS = [
     "CivilStatusRecord",
     "CivilStatusAnnotation",
     "Parent",
-    "Person",
     "Certificate",
     "FamilyRegister",
 ]
@@ -48,29 +45,6 @@ CRVS_VOCABULARIES = [
 ]
 
 
-def _load_yaml(path: Path) -> dict:
-    return yaml.safe_load(path.read_text())
-
-
-# Concept IDs whose kebab-case filename doesn't follow the naive
-# "insert dash before each uppercase letter" algorithm.
-# crvs/Person lives in crvs-person.yaml to avoid filesystem collision with
-# the root person.yaml.
-_KEBAB_OVERRIDES = {
-    "Person": "crvs-person",
-}
-
-
-def _concept_id_to_kebab(concept_id: str) -> str:
-    """Convert a PascalCase concept ID to a kebab-case filename stem."""
-    if concept_id in _KEBAB_OVERRIDES:
-        return _KEBAB_OVERRIDES[concept_id]
-    return "".join(
-        ("-" + c.lower() if c.isupper() and i > 0 else c.lower())
-        for i, c in enumerate(concept_id)
-    )
-
-
 class TestCrvsSchemaValidation:
     def test_schema_validates_with_crvs_domain(self):
         """Adding the CRVS domain should not introduce validation errors."""
@@ -84,11 +58,9 @@ class TestCrvsSchemaValidation:
 
 class TestCrvsConcepts:
     @pytest.mark.parametrize("concept_id", CRVS_CONCEPTS)
-    def test_concept_file_exists(self, concept_id):
-        """Each CRVS concept has a YAML file on disk."""
-        kebab = _concept_id_to_kebab(concept_id)
-        path = SCHEMA_DIR / "concepts" / f"{kebab}.yaml"
-        assert path.exists(), f"Missing concept file: {path}"
+    def test_concept_exists_in_linkml_source(self, concept_id):
+        """Each CRVS concept exists in the authored LinkML source."""
+        assert f"crvs/{concept_id}" in raw_schema()["concepts"]
 
     def test_concepts_load_in_build(self):
         """All CRVS concepts appear in the build output."""
@@ -129,7 +101,6 @@ class TestCrvsConcepts:
             "Death": "candidate",
             "Marriage": "candidate",
             "MarriageTermination": "candidate",
-            "Person": "candidate",
             # Holding at draft
             "FetalDeath": "draft",
             "Adoption": "draft",
@@ -150,9 +121,7 @@ class TestCrvsConcepts:
             f"add them to expected_maturity before promoting or demoting them."
         )
         for concept_id, expected in expected_maturity.items():
-            kebab = _concept_id_to_kebab(concept_id)
-            path = SCHEMA_DIR / "concepts" / f"{kebab}.yaml"
-            data = _load_yaml(path)
+            data = concept(f"crvs/{concept_id}")
             actual = data.get("maturity")
             assert actual == expected, (
                 f"{concept_id} expected maturity '{expected}', got '{actual}'. "
@@ -163,19 +132,17 @@ class TestCrvsConcepts:
 class TestSupertypeSubtypeSymmetry:
     def test_event_has_vital_event_subtype(self):
         """Event.subtypes must list crvs/VitalEvent (composite ref to the CRVS concept)."""
-        event = _load_yaml(SCHEMA_DIR / "concepts" / "event.yaml")
-        assert "crvs/VitalEvent" in event["subtypes"], (
+        assert "crvs/VitalEvent" in subtypes_of("Event"), (
             "Event.subtypes should include crvs/VitalEvent"
         )
 
     def test_vital_event_supertype_is_event(self):
         """VitalEvent lists Event as its only supertype."""
-        vital_event = _load_yaml(SCHEMA_DIR / "concepts" / "vital-event.yaml")
+        vital_event = concept("crvs/VitalEvent")
         assert vital_event["supertypes"] == ["Event"]
 
     def test_vital_event_subtypes(self):
         """VitalEvent subtypes include all concrete vital event records, composite-qualified."""
-        vital_event = _load_yaml(SCHEMA_DIR / "concepts" / "vital-event.yaml")
         expected = {
             "crvs/Birth",
             "crvs/Death",
@@ -186,48 +153,46 @@ class TestSupertypeSubtypeSymmetry:
             "crvs/PaternityRecognition",
             "crvs/Legitimation",
         }
-        assert set(vital_event["subtypes"]) == expected
+        assert subtypes_of("crvs/VitalEvent") == expected
 
     @pytest.mark.parametrize(
-        "concept_file,expected_supertype",
+        "concept_id,expected_supertype",
         [
-            ("birth.yaml", "crvs/VitalEvent"),
-            ("death.yaml", "crvs/VitalEvent"),
-            ("fetal-death.yaml", "crvs/VitalEvent"),
-            ("marriage.yaml", "crvs/VitalEvent"),
-            ("marriage-termination.yaml", "crvs/VitalEvent"),
-            ("adoption.yaml", "crvs/VitalEvent"),
-            ("paternity-recognition.yaml", "crvs/VitalEvent"),
-            ("legitimation.yaml", "crvs/VitalEvent"),
+            ("Birth", "crvs/VitalEvent"),
+            ("Death", "crvs/VitalEvent"),
+            ("FetalDeath", "crvs/VitalEvent"),
+            ("Marriage", "crvs/VitalEvent"),
+            ("MarriageTermination", "crvs/VitalEvent"),
+            ("Adoption", "crvs/VitalEvent"),
+            ("PaternityRecognition", "crvs/VitalEvent"),
+            ("Legitimation", "crvs/VitalEvent"),
         ],
     )
-    def test_supertype_chain(self, concept_file, expected_supertype):
+    def test_supertype_chain(self, concept_id, expected_supertype):
         """Concepts list the expected (composite) supertype ref."""
-        data = _load_yaml(SCHEMA_DIR / "concepts" / concept_file)
+        data = concept(f"crvs/{concept_id}")
         assert expected_supertype in data["supertypes"], (
-            f"{concept_file}: expected {expected_supertype} in supertypes, "
+            f"{concept_id}: expected {expected_supertype} in supertypes, "
             f"got {data['supertypes']}"
         )
 
     def test_marriage_termination_has_no_subtypes(self):
         """MarriageTermination is concrete and has no subtypes."""
-        data = _load_yaml(SCHEMA_DIR / "concepts" / "marriage-termination.yaml")
-        assert data["subtypes"] == []
+        assert subtypes_of("crvs/MarriageTermination") == set()
 
 
 class TestAbstractConcepts:
     @pytest.mark.parametrize("concept_id", ["VitalEvent"])
-    def test_abstract_flag_true_in_yaml(self, concept_id):
-        """Abstract supertypes declare abstract: true in their YAML."""
-        kebab = _concept_id_to_kebab(concept_id)
-        data = _load_yaml(SCHEMA_DIR / "concepts" / f"{kebab}.yaml")
+    def test_abstract_flag_true_in_linkml_source(self, concept_id):
+        """Abstract supertypes declare abstract: true in authored LinkML."""
+        data = concept(f"crvs/{concept_id}")
         assert data.get("abstract") is True, (
             f"{concept_id} should be marked abstract"
         )
 
     def test_marriage_termination_is_not_abstract(self):
         """MarriageTermination is a concrete concept, not abstract."""
-        data = _load_yaml(SCHEMA_DIR / "concepts" / "marriage-termination.yaml")
+        data = concept("crvs/MarriageTermination")
         assert data.get("abstract") is not True, (
             "MarriageTermination should not be marked abstract"
         )
@@ -244,10 +209,9 @@ class TestAbstractConcepts:
 
 class TestCrvsVocabularies:
     @pytest.mark.parametrize("vocab_id", CRVS_VOCABULARIES)
-    def test_vocabulary_file_exists(self, vocab_id):
-        """Each CRVS vocabulary has a YAML file under vocabularies/crvs/."""
-        path = SCHEMA_DIR / "vocabularies" / "crvs" / f"{vocab_id}.yaml"
-        assert path.exists(), f"Missing vocabulary file: {path}"
+    def test_vocabulary_exists_in_linkml_source(self, vocab_id):
+        """Each CRVS vocabulary exists in the authored LinkML source."""
+        assert f"crvs/{vocab_id}" in raw_schema()["vocabularies"]
 
     def test_vocabularies_load_in_build(self):
         """All CRVS vocabularies appear in build output keyed as crvs/<id>."""
@@ -264,8 +228,7 @@ class TestCrvsVocabularies:
     def test_vocabularies_have_domain_crvs(self):
         """CRVS vocabularies carry domain=crvs."""
         for vocab_id in CRVS_VOCABULARIES:
-            path = SCHEMA_DIR / "vocabularies" / "crvs" / f"{vocab_id}.yaml"
-            data = _load_yaml(path)
+            data = vocabulary(f"crvs/{vocab_id}")
             assert data.get("domain") == "crvs", (
                 f"{vocab_id} should have domain=crvs"
             )
@@ -369,8 +332,7 @@ class TestCrvsVocabularies:
     )
     def test_vocabulary_codes(self, vocab_id, expected_codes):
         """Each vocabulary contains the expected set of codes."""
-        path = SCHEMA_DIR / "vocabularies" / "crvs" / f"{vocab_id}.yaml"
-        data = _load_yaml(path)
+        data = vocabulary(f"crvs/{vocab_id}")
         codes = {v["code"] for v in data["values"]}
         assert codes == expected_codes, (
             f"{vocab_id}: expected {expected_codes}, got {codes}"
@@ -391,22 +353,21 @@ class TestPersonDemographicProperties:
 
     def test_person_has_demographic_properties(self):
         """Person includes all universal demographic properties."""
-        data = _load_yaml(SCHEMA_DIR / "concepts" / "person.yaml")
+        data = concept("Person")
         for prop in self.DEMOGRAPHIC_PROPERTIES:
             assert prop in data["properties"], (
                 f"Person should have property '{prop}'"
             )
 
     @pytest.mark.parametrize("prop_id", DEMOGRAPHIC_PROPERTIES)
-    def test_demographic_property_file_exists(self, prop_id):
-        """Each demographic property has a YAML file on disk."""
-        path = SCHEMA_DIR / "properties" / f"{prop_id}.yaml"
-        assert path.exists(), f"Missing property file: {path}"
+    def test_demographic_property_exists_in_linkml_source(self, prop_id):
+        """Each demographic property exists in the authored LinkML source."""
+        assert prop_id in raw_schema()["properties"]
 
     @pytest.mark.parametrize("prop_id", DEMOGRAPHIC_PROPERTIES)
     def test_demographic_property_has_trilingual_definition(self, prop_id):
         """Each demographic property has en, fr, es definitions."""
-        data = _load_yaml(SCHEMA_DIR / "properties" / f"{prop_id}.yaml")
+        data = property_(prop_id)
         for lang in ("en", "fr", "es"):
             assert lang in data["definition"], (
                 f"{prop_id} missing '{lang}' definition"
@@ -424,27 +385,27 @@ class TestPersonDemographicProperties:
 
     def test_religion_has_no_vocabulary(self):
         """religion is free text (country-specific), no vocabulary."""
-        data = _load_yaml(SCHEMA_DIR / "properties" / "religion.yaml")
+        data = property_("religion")
         assert data.get("vocabulary") is None
 
     def test_ethnic_group_has_no_vocabulary(self):
         """ethnic_group is free text (country-specific), no vocabulary."""
-        data = _load_yaml(SCHEMA_DIR / "properties" / "ethnic_group.yaml")
+        data = property_("ethnic_group")
         assert data.get("vocabulary") is None
 
     def test_industry_has_no_vocabulary(self):
         """industry references ISIC Rev.4 but too large to enumerate."""
-        data = _load_yaml(SCHEMA_DIR / "properties" / "industry.yaml")
+        data = property_("industry")
         assert data.get("vocabulary") is None
 
     def test_religion_is_restricted(self):
         """religion is GDPR Art.9 special category data."""
-        data = _load_yaml(SCHEMA_DIR / "properties" / "religion.yaml")
+        data = property_("religion")
         assert data.get("sensitivity") == "restricted"
 
     def test_ethnic_group_is_restricted(self):
         """ethnic_group is GDPR Art.9 special category data."""
-        data = _load_yaml(SCHEMA_DIR / "properties" / "ethnic_group.yaml")
+        data = property_("ethnic_group")
         assert data.get("sensitivity") == "restricted"
 
 
@@ -456,10 +417,9 @@ class TestDemographicVocabularies:
         "employment-status",
         "status-in-employment",
     ])
-    def test_vocabulary_file_exists(self, vocab_id):
-        """Each new demographic vocabulary has a YAML file."""
-        path = SCHEMA_DIR / "vocabularies" / f"{vocab_id}.yaml"
-        assert path.exists(), f"Missing vocabulary file: {path}"
+    def test_vocabulary_exists_in_linkml_source(self, vocab_id):
+        """Each demographic vocabulary exists in the authored LinkML source."""
+        assert vocab_id in raw_schema()["vocabularies"]
 
     @pytest.mark.parametrize("vocab_id", [
         "literacy",
@@ -475,21 +435,19 @@ class TestDemographicVocabularies:
 
     def test_literacy_codes(self):
         """Literacy uses UNSD binary: literate / illiterate."""
-        data = _load_yaml(SCHEMA_DIR / "vocabularies" / "literacy.yaml")
+        data = vocabulary("literacy")
         codes = {v["code"] for v in data["values"]}
         assert codes == {"literate", "illiterate"}
 
     def test_employment_status_codes(self):
         """Employment status uses ILO 19th ICLS tripartite classification."""
-        data = _load_yaml(SCHEMA_DIR / "vocabularies" / "employment-status.yaml")
+        data = vocabulary("employment-status")
         codes = {v["code"] for v in data["values"]}
         assert codes == {"employed", "unemployed", "outside_labour_force"}
 
     def test_status_in_employment_codes(self):
         """Status in employment uses ILO ICSE-18 categories."""
-        data = _load_yaml(
-            SCHEMA_DIR / "vocabularies" / "status-in-employment.yaml"
-        )
+        data = vocabulary("status-in-employment")
         codes = {v["code"] for v in data["values"]}
         assert codes == {
             "employee",
@@ -502,131 +460,95 @@ class TestDemographicVocabularies:
 
 
 class TestEventPropertyReferences:
-    """Event properties that reference crvs/Person."""
+    """CRVS event properties that reference Person."""
 
     @pytest.mark.parametrize("prop_id", ["deceased", "party_1", "party_2"])
-    def test_property_references_crvs_person(self, prop_id):
-        """deceased, party_1, party_2 reference crvs/Person by composite ref."""
-        data = _load_yaml(SCHEMA_DIR / "properties" / f"{prop_id}.yaml")
-        assert data["type"] == "concept:crvs/Person"
-        assert data["references"] == "crvs/Person"
+    def test_property_references_person(self, prop_id):
+        """deceased, party_1, party_2 reference the universal Person concept."""
+        data = property_(prop_id)
+        assert data["type"] == "concept:Person"
+        assert data["references"] == "Person"
+        assert data["domain_override"] == "crvs"
 
     def test_birth_does_not_have_place_of_usual_residence(self):
         """Birth no longer lists place_of_usual_residence directly."""
-        data = _load_yaml(SCHEMA_DIR / "concepts" / "birth.yaml")
+        data = concept("crvs/Birth")
         assert "place_of_usual_residence" not in data["properties"]
 
     def test_death_does_not_have_place_of_usual_residence(self):
         """Death no longer lists place_of_usual_residence directly."""
-        data = _load_yaml(SCHEMA_DIR / "concepts" / "death.yaml")
+        data = concept("crvs/Death")
         assert "place_of_usual_residence" not in data["properties"]
 
     def test_fetal_death_does_not_have_place_of_usual_residence(self):
         """FetalDeath no longer lists place_of_usual_residence directly."""
-        data = _load_yaml(SCHEMA_DIR / "concepts" / "fetal-death.yaml")
+        data = concept("crvs/FetalDeath")
         assert "place_of_usual_residence" not in data["properties"]
 
 
-class TestCRVSPerson:
-    """crvs/Person is a temporal snapshot of a Person at the time of a vital event."""
+class TestCrvsPersonReferences:
+    """CRVS uses universal Person references plus CRVS-scoped properties."""
 
-    CRVS_PERSON_PROPERTIES = [
-        "person",
-        "nationality",
-        "occupation",
-        "education_level",
-        "marital_status",
-        "literacy",
-        "religion",
-        "ethnic_group",
-        "employment_status",
-        "status_in_employment",
-        "industry",
-        "place_of_usual_residence",
-        "age_at_event",
-    ]
+    def test_crvs_person_concept_is_not_authored(self):
+        """The LinkML source has no domain-scoped crvs/Person concept."""
+        assert "crvs/Person" not in raw_schema()["concepts"]
 
-    def test_crvs_person_file_exists(self):
-        """crvs/Person concept lives in crvs-person.yaml (preserves filename to avoid collision with root person.yaml)."""
-        path = SCHEMA_DIR / "concepts" / "crvs-person.yaml"
-        assert path.exists()
-
-    def test_crvs_person_domain_is_crvs(self):
-        """crvs/Person belongs to the CRVS domain."""
-        data = _load_yaml(SCHEMA_DIR / "concepts" / "crvs-person.yaml")
+    def test_parent_inherits_from_universal_person(self):
+        """Parent is a CRVS-scoped subtype of universal Person."""
+        data = concept("crvs/Parent")
         assert data["domain"] == "crvs"
-
-    def test_crvs_person_id_is_person(self):
-        """crvs-person.yaml declares id: Person (not CRVSPerson)."""
-        data = _load_yaml(SCHEMA_DIR / "concepts" / "crvs-person.yaml")
-        assert data["id"] == "Person"
-
-    def test_crvs_person_has_all_snapshot_properties(self):
-        """crvs/Person carries all demographic snapshot properties."""
-        data = _load_yaml(SCHEMA_DIR / "concepts" / "crvs-person.yaml")
-        for prop in self.CRVS_PERSON_PROPERTIES:
-            assert prop in data["properties"], (
-                f"crvs/Person should have property '{prop}'"
-            )
-
-    def test_crvs_person_subtypes_include_parent(self):
-        """crvs/Person lists crvs/Parent as a subtype (composite ref)."""
-        data = _load_yaml(SCHEMA_DIR / "concepts" / "crvs-person.yaml")
-        assert "crvs/Parent" in data["subtypes"]
+        assert data["supertypes"] == ["Person"]
 
     def test_age_at_event_property_exists(self):
-        """age_at_event property has a YAML file."""
-        path = SCHEMA_DIR / "properties" / "age_at_event.yaml"
-        assert path.exists()
+        """age_at_event exists in the authored LinkML source."""
+        assert "age_at_event" in raw_schema()["properties"]
 
     def test_age_at_event_is_integer(self):
         """age_at_event is an integer property."""
-        data = _load_yaml(SCHEMA_DIR / "properties" / "age_at_event.yaml")
+        data = property_("age_at_event")
         assert data["type"] == "integer"
 
     def test_age_at_event_has_crvs_domain(self):
         """age_at_event is CRVS-specific."""
-        data = _load_yaml(SCHEMA_DIR / "properties" / "age_at_event.yaml")
+        data = property_("age_at_event")
         assert data.get("domain_override") == "crvs"
 
-    def test_crvs_person_in_build(self):
-        """crvs/Person appears in the build output under the composite key crvs/Person."""
+    def test_no_crvs_person_in_build(self):
+        """Build output follows LinkML: only universal Person is authored."""
         result = build_vocabulary(SCHEMA_DIR)
-        # CRVS concepts are keyed by composite key (crvs/<id>) in build output.
-        assert "crvs/Person" in result["concepts"]
-        crvs_person = result["concepts"]["crvs/Person"]
-        assert crvs_person["domain"] == "crvs"
+        assert "Person" in result["concepts"]
+        assert "crvs/Person" not in result["concepts"]
 
 
 class TestParentLinkEntity:
     def test_parent_has_parental_role(self):
         """Parent carries parental_role as its own property."""
-        data = _load_yaml(SCHEMA_DIR / "concepts" / "parent.yaml")
+        data = concept("crvs/Parent")
         assert "parental_role" in data["properties"]
 
-    def test_parent_inherits_from_crvs_person(self):
-        """Parent is a subtype of crvs/Person (composite ref)."""
-        data = _load_yaml(SCHEMA_DIR / "concepts" / "parent.yaml")
-        assert "crvs/Person" in data["supertypes"]
+    def test_parent_inherits_from_person(self):
+        """Parent is a CRVS-scoped subtype of universal Person."""
+        data = concept("crvs/Parent")
+        assert "Person" in data["supertypes"]
 
     def test_parent_does_not_directly_list_person(self):
-        """person is inherited from crvs/Person, not listed directly on Parent."""
-        data = _load_yaml(SCHEMA_DIR / "concepts" / "parent.yaml")
+        """Person identity fields are inherited from Person, not listed directly on Parent."""
+        data = concept("crvs/Parent")
         assert "person" not in data["properties"]
 
     def test_parent_has_establishment_basis(self):
         """Parent carries establishment_basis as a direct property."""
-        data = _load_yaml(SCHEMA_DIR / "concepts" / "parent.yaml")
+        data = concept("crvs/Parent")
         assert "establishment_basis" in data["properties"]
 
     def test_parent_has_certificate_label(self):
         """Parent carries certificate_label as a direct property."""
-        data = _load_yaml(SCHEMA_DIR / "concepts" / "parent.yaml")
+        data = concept("crvs/Parent")
         assert "certificate_label" in data["properties"]
 
     def test_parental_role_definition_has_no_gendered_language(self):
         """parental_role definition does not mention mother, father, etc."""
-        data = _load_yaml(SCHEMA_DIR / "properties" / "parental_role.yaml")
+        data = property_("parental_role")
         definition_en = data["definition"]["en"].lower()
         for gendered_term in ("mother", "father", "biological_mother", "biological_father"):
             assert gendered_term not in definition_en, (
@@ -635,9 +557,7 @@ class TestParentLinkEntity:
 
     def test_parental_role_vocabulary_is_gender_neutral(self):
         """parental-role vocabulary codes contain no gendered terms."""
-        data = _load_yaml(
-            SCHEMA_DIR / "vocabularies" / "crvs" / "parental-role.yaml"
-        )
+        data = vocabulary("crvs/parental-role")
         codes = {v["code"] for v in data["values"]}
         for code in codes:
             assert "mother" not in code and "father" not in code, (

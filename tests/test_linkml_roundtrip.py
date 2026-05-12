@@ -49,7 +49,6 @@ from functools import lru_cache
 from pathlib import Path
 
 import pytest
-import yaml
 
 # ---------------------------------------------------------------------------
 # Optional-dependency guards
@@ -63,6 +62,8 @@ pytest.importorskip(
 )
 
 from rdflib.namespace import OWL, RDF, RDFS, SKOS  # noqa: E402
+
+from tests.schema_reader import raw_schema  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 SCHEMA_DIR = ROOT / "schema"
@@ -184,9 +185,7 @@ def _source_ref_to_pascal(ref: str) -> str:
 def _domain_scoped_collision_aliases() -> dict[str, str]:
     """Map scoped concept refs that collide with a root concept to LinkML names."""
     records: list[tuple[str | None, str]] = []
-    for path in sorted((SCHEMA_DIR / "concepts").glob("*.yaml")):
-        with path.open() as f:
-            data = yaml.safe_load(f) or {}
+    for data in raw_schema()["concepts"].values():
         concept_id = data.get("id")
         if isinstance(concept_id, str):
             domain = data.get("domain") if isinstance(data.get("domain"), str) else None
@@ -450,7 +449,7 @@ def _is_citation_or_credential_subclass(triple: tuple[str, str]) -> bool:
 # the lowercase slot URI (``publicschema:country``). This is an
 # *intentional* semantic refinement, not a silent loss:
 #
-#   - The source ``schema/properties/{country,sex}.yaml`` declares
+#   - The authored LinkML slots ``country`` and ``sex`` declare
 #     ``external_equivalents`` to ``locn:adminUnitL1``, ``dci:data/sex``,
 #     etc. The targets are RDF *predicates / slots* in their respective
 #     vocabularies, not classes.
@@ -668,8 +667,8 @@ class TestPipelineSanity:
         assert n > 0, "gen-owl Turtle has no PublicSchema subjects"
 
     def test_concept_classes_overlap(self, rdf_export_graph, linkml_owl_graph):
-        """The 59 schema/concepts/*.yaml entries should appear as classes
-        in both outputs (after normalization)."""
+        """The authored PublicSchema concepts should appear as classes in
+        both outputs (after normalization)."""
         rdf_classes = {
             normalize_ps_uri(str(s))
             for s, o in rdf_export_graph.subject_objects(RDF.type)

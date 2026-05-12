@@ -13,16 +13,7 @@ These tests guard the key decisions in ADR-009:
 
 from __future__ import annotations
 
-import yaml
-
-from tests.conftest import SCHEMA_DIR
-
-
-CONCEPTS = SCHEMA_DIR / "concepts"
-PROPERTIES = SCHEMA_DIR / "properties"
-VOCABULARIES = SCHEMA_DIR / "vocabularies"
-BIBLIOGRAPHY = SCHEMA_DIR / "bibliography"
-
+from tests.schema_reader import bibliography, concept, property_, vocabulary
 
 CONSENT_VOCABULARIES = [
     "consent-record-type",
@@ -59,35 +50,30 @@ IMMUTABLE_AFTER_GIVEN = {
 }
 
 
-def load(path):
-    with path.open() as f:
-        return yaml.safe_load(f)
-
-
 class TestConsentRecordConcept:
     def test_exists_and_concrete(self):
-        cr = load(CONCEPTS / "consent-record.yaml")
+        cr = concept("ConsentRecord")
         assert cr["id"] == "ConsentRecord"
         assert cr.get("abstract") is not True
 
     def test_is_root_namespace(self):
         """ConsentRecord is universal, not domain-scoped."""
-        cr = load(CONCEPTS / "consent-record.yaml")
+        cr = concept("ConsentRecord")
         assert cr.get("domain") in (None, "")
 
     def test_has_no_supertype(self):
-        cr = load(CONCEPTS / "consent-record.yaml")
+        cr = concept("ConsentRecord")
         assert cr.get("supertypes", []) == []
 
     def test_multilingual_definition(self):
-        cr = load(CONCEPTS / "consent-record.yaml")
+        cr = concept("ConsentRecord")
         for lang in ("en", "fr", "es"):
             assert lang in cr["definition"], f"Missing {lang} definition"
             assert cr["definition"][lang].strip()
 
     def test_definition_anchors_legal_basis_honesty(self):
         """First sentence frames consent as one of six bases, not the only basis."""
-        cr = load(CONCEPTS / "consent-record.yaml")
+        cr = concept("ConsentRecord")
         defn = cr["definition"]["en"].lower()
         assert "six" in defn and "legal bas" in defn, (
             "ConsentRecord definition must anchor that consent is one of six legal bases"
@@ -95,7 +81,7 @@ class TestConsentRecordConcept:
 
     def test_definition_anchors_bulk_intake(self):
         """Community intake is the operational norm; the schema does not distinguish it from office workflow."""
-        cr = load(CONCEPTS / "consent-record.yaml")
+        cr = concept("ConsentRecord")
         defn = cr["definition"]["en"].lower()
         assert "bulk" in defn or "community intake" in defn or "community-intake" in defn, (
             "ConsentRecord definition must mention bulk / community intake as operational reality"
@@ -104,23 +90,23 @@ class TestConsentRecordConcept:
 
 class TestPrivacyNoticeConcept:
     def test_exists_and_concrete(self):
-        pn = load(CONCEPTS / "privacy-notice.yaml")
+        pn = concept("PrivacyNotice")
         assert pn["id"] == "PrivacyNotice"
         assert pn.get("abstract") is not True
 
     def test_is_root_namespace(self):
-        pn = load(CONCEPTS / "privacy-notice.yaml")
+        pn = concept("PrivacyNotice")
         assert pn.get("domain") in (None, "")
 
     def test_multilingual_definition(self):
-        pn = load(CONCEPTS / "privacy-notice.yaml")
+        pn = concept("PrivacyNotice")
         for lang in ("en", "fr", "es"):
             assert lang in pn["definition"]
             assert pn["definition"][lang].strip()
 
     def test_has_effective_date_in_validity_group(self):
         """ADR-009 decision 14: PrivacyNotice Validity group covers effective_date, expiry_date, jurisdiction."""
-        pn = load(CONCEPTS / "privacy-notice.yaml")
+        pn = concept("PrivacyNotice")
         assert "effective_date" in pn["properties"]
         validity = next(
             g for g in pn["property_groups"] if g["category"] == "consent_validity"
@@ -130,81 +116,81 @@ class TestPrivacyNoticeConcept:
 
 class TestDataSubjectProperty:
     def test_type_is_party(self):
-        ds = load(PROPERTIES / "data_subject.yaml")
+        ds = property_("data_subject")
         assert ds["type"] == "concept:Party"
         assert ds["references"] == "Party"
 
     def test_cardinality_single(self):
-        ds = load(PROPERTIES / "data_subject.yaml")
+        ds = property_("data_subject")
         assert ds["cardinality"] == "single"
 
     def test_is_immutable_after_given(self):
-        ds = load(PROPERTIES / "data_subject.yaml")
+        ds = property_("data_subject")
         assert ds.get("immutable_after_status") == "given"
 
 
 class TestControllersProperty:
     def test_references_organization(self):
-        c = load(PROPERTIES / "controllers.yaml")
+        c = property_("controllers")
         assert c["references"] == "Organization"
         assert c["type"] == "concept:Organization"
 
     def test_cardinality_multiple(self):
         """Plural on both ConsentRecord and PrivacyNotice. No singular controller variant."""
-        c = load(PROPERTIES / "controllers.yaml")
+        c = property_("controllers")
         assert c["cardinality"] == "multiple"
 
 
 class TestRecipientsProperty:
     def test_references_organization(self):
-        r = load(PROPERTIES / "recipients.yaml")
+        r = property_("recipients")
         assert r["references"] == "Organization"
 
     def test_cardinality_multiple(self):
-        r = load(PROPERTIES / "recipients.yaml")
+        r = property_("recipients")
         assert r["cardinality"] == "multiple"
 
 
 class TestIndicatedByProperty:
     def test_references_agent(self):
-        p = load(PROPERTIES / "indicated_by.yaml")
+        p = property_("indicated_by")
         assert p["references"] == "Agent"
 
 
 class TestWitnessedByProperty:
     def test_references_person(self):
-        p = load(PROPERTIES / "witnessed_by.yaml")
+        p = property_("witnessed_by")
         assert p["references"] == "Person"
 
     def test_cardinality_multiple(self):
-        p = load(PROPERTIES / "witnessed_by.yaml")
+        p = property_("witnessed_by")
         assert p["cardinality"] == "multiple"
 
 
 class TestVocabularies:
     def test_all_consent_vocabularies_load(self):
         for vid in CONSENT_VOCABULARIES:
-            data = load(VOCABULARIES / f"{vid}.yaml")
+            data = vocabulary(vid)
             assert data["id"] == vid, f"{vid}.yaml id mismatch"
 
     def test_consent_record_type_values(self):
-        v = load(VOCABULARIES / "consent-record-type.yaml")
+        v = vocabulary("consent-record-type")
         codes = {val["code"] for val in v["values"]}
         assert codes == {"internal_record", "receipt"}
 
     def test_legal_basis_is_normative(self):
         """Law-locked values (GDPR Art 6(1)) are locked at normative."""
-        v = load(VOCABULARIES / "legal-basis.yaml")
+        v = vocabulary("legal-basis")
         assert v["maturity"] == "normative"
 
     def test_consent_status_is_candidate(self):
         """DPV-aligned lifecycle states justify candidate per ADR-009 decision 5."""
-        v = load(VOCABULARIES / "consent-status.yaml")
+        v = vocabulary("consent-status")
         assert v["maturity"] == "candidate"
 
     def test_withdrawal_channel_includes_non_digital(self):
         """Paper, verbal, and community-worker channels are non-negotiable."""
-        v = load(VOCABULARIES / "withdrawal-channel.yaml")
+        v = vocabulary("withdrawal-channel")
         codes = {val["code"] for val in v["values"]}
         assert {"paper", "verbal", "community_worker"} <= codes
         assert len(v["values"]) == 8
@@ -213,7 +199,7 @@ class TestVocabularies:
 class TestImmutabilityAnnotation:
     def test_all_terms_fields_are_immutable(self):
         for prop_id in sorted(IMMUTABLE_AFTER_GIVEN):
-            prop = load(PROPERTIES / f"{prop_id}.yaml")
+            prop = property_(prop_id)
             assert prop.get("immutable_after_status") == "given", (
                 f"{prop_id} should carry immutable_after_status: given"
             )
@@ -231,7 +217,7 @@ class TestImmutabilityAnnotation:
             "evidence_ref",
         ]
         for prop_id in non_terms:
-            prop = load(PROPERTIES / f"{prop_id}.yaml")
+            prop = property_(prop_id)
             assert prop.get("immutable_after_status") is None, (
                 f"{prop_id} must NOT carry immutable_after_status"
             )
@@ -239,18 +225,18 @@ class TestImmutabilityAnnotation:
 
 class TestBibliographyInforms:
     def test_dpv_informs_both_concepts(self):
-        bib = load(BIBLIOGRAPHY / "w3c-dpv.yaml")
+        bib = bibliography("w3c-dpv")
         concepts = set(bib["informs"]["concepts"])
         assert {"ConsentRecord", "PrivacyNotice"} <= concepts
 
     def test_iso_27560_informs_consent_record(self):
-        bib = load(BIBLIOGRAPHY / "iso-27560.yaml")
+        bib = bibliography("iso-27560")
         assert "ConsentRecord" in bib["informs"]["concepts"]
 
     def test_iso_29184_informs_privacy_notice(self):
-        bib = load(BIBLIOGRAPHY / "iso-29184.yaml")
+        bib = bibliography("iso-29184")
         assert "PrivacyNotice" in bib["informs"]["concepts"]
 
     def test_govstack_consent_informs_consent_record(self):
-        bib = load(BIBLIOGRAPHY / "govstack-consent.yaml")
+        bib = bibliography("govstack-consent")
         assert "ConsentRecord" in bib["informs"]["concepts"]

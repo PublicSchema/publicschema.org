@@ -441,8 +441,12 @@ def _convert_slot_to_property(
     if eqs:
         prop["external_equivalents"] = eqs
 
-    # schema_org_equivalent is folded into exact_mappings; not strictly
-    # recoverable but the legacy field is non-essential for rendering.
+    for mapping in (slot_def.get("exact_mappings") or []) + (
+        slot_def.get("close_mappings") or []
+    ):
+        if isinstance(mapping, str) and mapping.startswith("schema:"):
+            prop["schema_org_equivalent"] = mapping
+            break
 
     return slot_name, prop
 

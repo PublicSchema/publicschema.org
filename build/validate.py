@@ -125,6 +125,12 @@ def validate_schema_dir(schema_dir: Path) -> list[ValidationError]:
 
     Returns a list of ValidationError objects. Empty list means valid.
     """
+    if (schema_dir / "publicschema.yaml").exists():
+        code = _validate_linkml(schema_dir)
+        if code == 0:
+            return []
+        return [ValidationError("publicschema.yaml", "LinkML validation failed")]
+
     errors = []
 
     # Load meta

@@ -1,165 +1,75 @@
-"""Tests for first-class external reference and alignment seed data."""
-
-from pathlib import Path
+"""Tests for SEMIC reference metadata in the authored LinkML source."""
 
 import yaml
 
 from tests.conftest import SCHEMA_DIR
+from tests.schema_reader import bibliography, concept, property_, vocabulary
 
 
-def _load_yaml(path: Path) -> dict:
+def _load_yaml(path):
     return yaml.safe_load(path.read_text(encoding="utf-8")) or {}
 
 
-def test_semic_core_person_reference_is_pinned() -> None:
-    ref = _load_yaml(SCHEMA_DIR / "external_references" / "semic-core-person.yaml")
+def test_composite_imports_semic_reference_schemas() -> None:
+    composite = _load_yaml(SCHEMA_DIR / "publicschema.yaml")
 
-    assert ref["id"] == "semic-core-person"
-    assert ref["version"] == "2.1.1"
-    assert ref["license"]["id"] == "CC-BY-4.0"
-    assert ref["license"]["redistribution"] == "embed-with-attribution"
-    artifacts = ref["artifacts"]
-    assert artifacts
-    assert all(item.get("sha256") for item in artifacts)
-    assert all(item.get("retrieved_at") for item in artifacts)
+    assert "external/semic" in composite["imports"]
+    assert "external/semic-core-person" in composite["imports"]
+    assert "external/semic-core-business" in composite["imports"]
+    assert "external/semic-core-location" in composite["imports"]
 
 
-def test_semic_core_business_and_location_references_are_pinned() -> None:
+def test_semic_bibliography_entries_are_active_eu_vocabularies() -> None:
     expected = {
-        "semic-core-business": {
-            "version": "2.2.0",
-            "sha256": "01c25a325e25843d616989c035c438695ea25e85790a3a6b058e471455a52069",
-        },
-        "semic-core-location": {
-            "version": "2.1.1",
-            "sha256": "adf51f8052ca3e12fee2cc57284b3671c413d49c4fd1a0d333c9ec1bb3f55a0c",
-        },
+        "semic-core-person": "v2.1.1",
+        "semic-core-business": "v2.2.0",
+        "semic-core-location": "v2.1.1",
     }
 
-    for source_id, metadata in expected.items():
-        ref = _load_yaml(SCHEMA_DIR / "external_references" / f"{source_id}.yaml")
-
-        assert ref["id"] == source_id
-        assert ref["version"] == metadata["version"]
-        assert ref["license"]["id"] == "CC-BY-4.0"
-        assert ref["base_eligibility"] == "base_eligible"
-        assert ref["artifacts"][0]["sha256"] == metadata["sha256"]
-        assert ref["artifacts"][0]["retrieved_at"] == "2026-05-07T00:00:00Z"
+    for source_id, version in expected.items():
+        ref = bibliography(source_id)
+        assert ref["version"] == version
+        assert ref["type"] == "eu_vocabulary"
+        assert ref["access"] == "open"
+        assert ref["status"] == "active"
+        assert ref["uri"].startswith("https://semiceu.github.io/")
 
 
-def test_semic_external_references_have_refresh_procedures() -> None:
-    source_ids = ["semic-core-person", "semic-core-business", "semic-core-location"]
+def test_semic_person_alignment_is_authored_on_person_concept() -> None:
+    ext = concept("Person")["external_equivalents"]["semic"]
 
-    for source_id in source_ids:
-        ref = _load_yaml(SCHEMA_DIR / "external_references" / f"{source_id}.yaml")
-        procedure = ref["refresh_procedure"]
-
-        assert procedure["cadence"] == "manual-per-upstream-release"
-        assert procedure["steps"]
-        assert any("shasum -a 256" in step for step in procedure["steps"])
-        assert any(
-            "uv run pytest tests/test_reference_alignments.py -q" in step
-            for step in procedure["steps"]
-        )
-        assert procedure["expected_artifacts"]
+    assert ext["label"] == "Person"
+    assert ext["uri"] == "http://www.w3.org/ns/person#Person"
+    assert ext["match"] == "exact"
+    assert ext["vocabulary"] == "Core Person"
 
 
-def test_publicschema_declares_explicit_native_base() -> None:
-    base = _load_yaml(SCHEMA_DIR / "bases" / "active-base.yaml")
+def test_semic_gender_alignment_is_property_alignment() -> None:
+    ext = property_("gender")["external_equivalents"]["semic"]
 
-    assert base["base_strategy"] == "publicschema-native"
-    assert base["primary_base"] == {
-        "id": "publicschema",
-        "reference_type": "local_project",
-        "source_project_id": "publicschema",
-    }
-    assert base["base_pack"]["adoption_behavior"] == "adopt_all_owned_resources"
+    assert ext["label"] == "gender"
+    assert ext["uri"] == "http://data.europa.eu/m8g/gender"
+    assert ext["match"] == "exact"
+    assert ext["vocabulary"] == "Core Person"
 
 
-def test_semic_person_alignment_has_publicschema_assertion_owner() -> None:
-    alignment_set = _load_yaml(SCHEMA_DIR / "alignments" / "semic-core-person.yaml")
+def test_semic_gender_type_remains_vocabulary_level_only() -> None:
+    ext = vocabulary("gender-type")["external_equivalents"]["semic"]
 
-    assert alignment_set["source_id"] == "semic-core-person"
-    assert alignment_set["alignment_set_owner"] == "publicschema"
-    assert alignment_set["maintainer"] == "publicschema-core-maintainers"
-    assert alignment_set["standard"]["source_id"] == "semic-core-person"
-    assert alignment_set["standard"]["source_sha256"]
-    assert alignment_set["standard"]["retrieved_at"]
-
-    by_id = {item["id"]: item for item in alignment_set["alignments"]}
-    person = by_id["publicschema.Person--skos.exactMatch--person.Person"]
-    assert person["subject"]["source_project_id"] == "publicschema"
-    assert person["object"]["iri"] == "http://www.w3.org/ns/person#Person"
-    assert person["predicate"] == "http://www.w3.org/2004/02/skos/core#exactMatch"
-    assert person["quality"] == "exact"
-    assert person["review_status"] == "accepted"
-    assert person["license_snapshot"]["id"] == "CC-BY-4.0"
+    assert ext["label"] == "Gender"
+    assert ext["uri"] == "http://data.europa.eu/m8g/gender"
+    assert ext["match"] == "broad"
+    assert "leaving the choice to implementers" in ext["note"]
 
 
-def test_semic_gender_alignment_is_property_only_not_value_crosswalk() -> None:
-    alignment_set = _load_yaml(SCHEMA_DIR / "alignments" / "semic-core-person.yaml")
-    by_id = {item["id"]: item for item in alignment_set["alignments"]}
+def test_semic_business_and_location_alignments_are_authored() -> None:
+    organization = concept("Organization")["external_equivalents"]["semic"]
+    address = concept("Address")["external_equivalents"]["semic"]
 
-    gender = by_id["publicschema.gender--skos.exactMatch--cv.gender"]
-    assert gender["subject"]["id"] == "gender"
-    assert gender["subject"]["kind"] == "property"
-    assert gender["object"]["kind"] == "property"
-    assert gender["mapping_level"] == "property"
-    assert not any("gender-type" in item["id"] for item in alignment_set["alignments"])
+    assert organization["label"] == "Public Organisation"
+    assert organization["uri"] == "http://data.europa.eu/m8g/PublicOrganisation"
+    assert organization["match"] == "close"
 
-
-def test_semic_external_terms_preserve_namespace_distinction() -> None:
-    terms_doc = _load_yaml(SCHEMA_DIR / "external_terms" / "semic-core-person.yaml")
-    by_id = {item["id"]: item for item in terms_doc["terms"]}
-
-    person = by_id["person.Person"]
-    assert person["source_module"] == "Core Person"
-    assert person["namespace"] == "http://www.w3.org/ns/person#"
-    assert person["prefix"] == "person"
-    assert person["canonical_identity"] == {
-        "iri": "http://www.w3.org/ns/person#Person",
-        "defining_namespace": "http://www.w3.org/ns/person#",
-        "namespace_owner": "W3C",
-        "term_custodian": "W3C",
-    }
-    assert person["discovery"]["source_id"] == "semic-core-person"
-    assert person["curation_source"]["custodian"] == "European Commission, SEMIC"
-    assert person["term_custodian"] == "W3C"
-
-    gender = by_id["cv.gender"]
-    assert gender["namespace"] == "http://data.europa.eu/m8g/"
-    assert gender["prefix"] == "cv"
-    assert gender["canonical_identity"]["namespace_owner"] == "European Commission, SEMIC"
-    assert gender["discovery"]["source_artifact_sha256"]
-
-
-def test_semic_core_business_and_location_terms_preserve_authority_distinction() -> None:
-    business = _load_yaml(SCHEMA_DIR / "external_terms" / "semic-core-business.yaml")
-    business_terms = {item["id"]: item for item in business["terms"]}
-    legal_entity = business_terms["legal.LegalEntity"]
-    assert legal_entity["canonical_identity"]["namespace_owner"] == "European Commission, SEMIC"
-    assert legal_entity["discovery"]["source_id"] == "semic-core-business"
-
-    location = _load_yaml(SCHEMA_DIR / "external_terms" / "semic-core-location.yaml")
-    location_terms = {item["id"]: item for item in location["terms"]}
-    address = location_terms["locn.Address"]
-    assert address["canonical_identity"]["namespace_owner"] == "W3C"
-    assert address["discovery"]["source_id"] == "semic-core-location"
-
-
-def test_semic_core_business_and_location_alignments_are_first_class() -> None:
-    business = _load_yaml(SCHEMA_DIR / "alignments" / "semic-core-business.yaml")
-    business_by_id = {item["id"]: item for item in business["alignments"]}
-    assert business["source_id"] == "semic-core-business"
-    assert business["standard"]["source_sha256"]
-    assert business_by_id["publicschema.Organization--skos.closeMatch--legal.LegalEntity"][
-        "object"
-    ]["iri"] == "http://www.w3.org/ns/legal#LegalEntity"
-
-    location = _load_yaml(SCHEMA_DIR / "alignments" / "semic-core-location.yaml")
-    location_by_id = {item["id"]: item for item in location["alignments"]}
-    assert location["source_id"] == "semic-core-location"
-    assert location["standard"]["source_sha256"]
-    assert location_by_id["publicschema.Address--skos.exactMatch--locn.Address"][
-        "object"
-    ]["iri"] == "http://www.w3.org/ns/locn#Address"
+    assert address["label"] == "Address"
+    assert address["uri"] == "http://www.w3.org/ns/locn#Address"
+    assert address["match"] == "exact"
