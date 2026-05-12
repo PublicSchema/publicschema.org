@@ -19,7 +19,32 @@
     },
     "standard": {
       "type": "object",
-      "required": ["source_id", "uri", "custodian", "license", "license_uri", "version", "attribution_text", "redistribution", "retrieved_at", "source_sha256"],
+      "required": [
+        "source_id",
+        "uri",
+        "custodian",
+        "license",
+        "license_uri",
+        "version",
+        "attribution_text",
+        "redistribution",
+        "retrieved_at"
+      ],
+      "properties": {
+        "artifact_kind": { "enum": ["single_file", "manifest", "none"] },
+        "artifact_notes": { "type": "string", "minLength": 1 },
+        "source_sha256": { "type": "string", "minLength": 1 }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "artifact_kind": { "const": "none" } },
+            "required": ["artifact_kind"]
+          },
+          "then": { "required": ["artifact_notes"] },
+          "else": { "required": ["source_sha256"] }
+        }
+      ],
       "additionalProperties": true
     }
   },

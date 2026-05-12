@@ -44,5 +44,9 @@ standard:
   # No single canonical artifact exists for the COD-AB standard. The methodology is defined
   # in the OCHA IM Toolbox wiki (a living Confluence page, not a downloadable file). Individual
   # country datasets on HDX each have their own resources. source_sha256 cannot be assigned.
-  source_sha256: TODO  # no single canonical artifact; see version comment above
+  artifact_kind: none
+  artifact_notes: >-
+    No single canonical artifact: COD-AB is a living wiki spec (OCHA IM Toolbox
+    Confluence page) with per-country dataset resources on HDX, not a single
+    fetchable spec file.
 notes: OCHA COD-AB's documented nomenclature stops at Admin4 (COD-AB datasets have as many as five administrative levels, ADM0 to ADM4). Values of 5 or more on this property are still valid PublicSchema depths but have no OCHA-provided AdminN label.

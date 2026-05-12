@@ -38,5 +38,8 @@ standard:
   attribution_text: "Copyright (C) The OpenCRVS Authors. Source: https://github.com/opencrvs/opencrvs-core. Licensed under MPL-2.0."
   redistribution: permitted under MPL-2.0
   retrieved_at: "2026-05-12"
-  source_sha256: TODO  # EventDocument.type is a country-configured free string with no canonical enum artifact; no file to hash
+  artifact_kind: none
+  artifact_notes: >-
+    EventDocument.type is a country-configured free string with no canonical
+    enum artifact; no file to hash.
 notes: In v2, EventDocument.type is a free string set by the country config. Farajaland uses 'birth', 'death', 'marriage' as event type strings. The three shared values align; PublicSchema covers three additional types (paternity_recognition, supplementary_judgment, court_ordered_substitute) with no v2 core equivalent.

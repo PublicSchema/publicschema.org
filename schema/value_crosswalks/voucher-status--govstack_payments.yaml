@@ -58,5 +58,9 @@ standard:
     attribution notices from the original; modified files must carry prominent
     change notices; no trademark rights granted.
   retrieved_at: "2026-05-12"
-  source_sha256: TODO  # The spec is a GitBook site (payments.govstack.global) with no single canonical downloadable artifact; GitHub repo (GovStackWorkingGroup/bb-payments) has no versioned release tags. Latest main commit as of retrieval: d9bfef6f5ecf8f88ea308284836530c03bb8f855.
+  artifact_kind: none
+  artifact_notes: >-
+    Spec is a GitBook site (payments.govstack.global) with no single canonical
+    downloadable artifact; bb-payments repo has no versioned release tags.
+    Latest main commit at retrieval: d9bfef6f5ecf8f88ea308284836530c03bb8f855.
 notes: The GovStack bb-payments OpenAPI spec (VoucherStatus.yml) describes status as an integer from 01 to 06 plus 9 for error, but does not publish a code-to-label table. The labels above for 01 and 02 follow state-machine convention; the labels for 03-06 are inferred. The rendered GovStack specification narrative also mentions 'Blocked' and 'Not Existing' states which have no assigned integer code in the public spec; implementers should confirm code-label assignments with their GovStack deployment.

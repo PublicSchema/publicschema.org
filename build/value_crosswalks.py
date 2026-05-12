@@ -11,10 +11,19 @@ lossily into per-PV annotations).
 
 Synthesis is the inverse of extract_crosswalks_from_legacy.
 
-Strict TODO policy (option (a)): the build refuses to ship a crosswalk
-whose ``standard:`` block contains any literal ``"TODO"`` marker. Call
+Strict TODO policy: the build refuses to ship a crosswalk whose
+``standard:`` block contains any literal ``"TODO"`` marker. Call
 ``load_crosswalks(..., strict=True)`` to enforce; the default
 non-strict mode is for tests and one-off introspection.
+
+Documented "no canonical artifact" exception: some upstream standards
+(multi-repo assemblies, multi-country surveys, GitBook/wiki specs,
+country-configured enums) have no single fetchable artifact a SHA-256
+can represent. For those, the crosswalk file sets ``artifact_kind:
+none`` and provides a non-empty ``artifact_notes:`` explaining why.
+The JSON schema (``build/schemas/value_crosswalk.schema.json``) waives
+the ``source_sha256`` requirement in that case; the strict TODO gate
+still applies to every other field.
 """
 
 from __future__ import annotations

@@ -41,5 +41,8 @@ standard:
   attribution_text: "Copyright (c) 2004-2025, University of Oslo"
   redistribution: "Permitted under BSD-3-Clause terms; copyright notice must be retained"
   retrieved_at: "2026-05-12"
-  source_sha256: TODO
+  artifact_kind: none
+  artifact_notes: >-
+    DHIS2 option-set enums are defined across multiple configuration files in
+    dhis2-core; no single canonical downloadable artifact.
 notes: COMPLETED may map to graduated or closed + exit_reason depending on program context. CANCELLED maps to closed + exit_reason (administrative or voluntary_withdrawal).

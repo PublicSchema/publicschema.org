@@ -53,5 +53,11 @@ standard:
   attribution_text: "World Bank LSMS Team. Nigeria General Household Survey, Panel (GHS-Panel) Wave 5 2023-2024. World Bank Microdata Catalog. https://doi.org/10.48529/zd5s-tj25"
   redistribution: "Questionnaire/codebook documentation: permitted under CC-BY-4.0 with attribution. Unit-level microdata: redistribution prohibited without prior written agreement from the World Bank Microdata Library."
   retrieved_at: "2026-05-12"
-  source_sha256: "TODO: no single canonical artifact — LSMS-ISA is a multi-country program with per-country, per-wave questionnaire PDFs. Hash the specific country-wave PDF if a single artifact is needed (e.g. Nigeria GHS-Panel W5 agriculture questionnaire at https://microdata.worldbank.org/catalog/6410/download/180529)."
+  artifact_kind: none
+  artifact_notes: >-
+    No single canonical artifact: LSMS-ISA is a multi-country program with per-
+    country, per-wave questionnaire PDFs. Hash a specific country-wave PDF if a
+    single artifact is needed (e.g. Nigeria GHS-Panel W5 agriculture
+    questionnaire at
+    https://microdata.worldbank.org/catalog/6410/download/180529).
 notes: This is an indicative cross-walk, not a direct mapping to a single LSMS-ISA variable. The LSMS Agricultural Survey Design reference questionnaire (Module 2, Parcel Details) carries 13 land-acquisition categories, and the World Bank harmonized panel dataset uses a binary plot_owned variable. The 8-code structure here collapses country-specific questionnaire codes into PublicSchema's canonical tenure categories. Adopters mapping from a specific country wave should consult that country's LSMS-ISA questionnaire directly.

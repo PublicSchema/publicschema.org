@@ -64,4 +64,8 @@ standard:
     attribution notices from the original; modified files must carry prominent
     change notices; no trademark rights granted.
   retrieved_at: "2026-05-12"
-  source_sha256: TODO  # The spec is a GitBook site (payments.govstack.global) with no single canonical downloadable artifact; GitHub repo (GovStackWorkingGroup/bb-payments) has no versioned release tags. Latest main commit as of retrieval: d9bfef6f5ecf8f88ea308284836530c03bb8f855.
+  artifact_kind: none
+  artifact_notes: >-
+    Spec is a GitBook site (payments.govstack.global) with no single canonical
+    downloadable artifact; bb-payments repo has no versioned release tags.
+    Latest main commit at retrieval: d9bfef6f5ecf8f88ea308284836530c03bb8f855.

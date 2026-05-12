@@ -53,5 +53,8 @@ standard:
   attribution_text: "ICF. The DHS Program website. Originally funded by USAID. http://www.dhsprogram.com."
   redistribution: "restricted; users must register and agree to DHS Program terms of use; micro-level data must not be redistributed or shared without written consent of The DHS Program"
   retrieved_at: '2026-05-12'
-  source_sha256: TODO  # No DHS-8 recode manual; DHS-8 Model Questionnaires are split across HH/Woman/Man PDFs, no single canonical artifact
+  artifact_kind: none
+  artifact_notes: >-
+    No DHS-8 recode manual; DHS-8 Model Questionnaires are split across
+    HH/Woman/Man PDFs, no single canonical artifact.
 notes: DHS h12a–h12x codes are country-specific; the mapping above shows the standard sector categories. 'No care sought' is derived from h12==no or the gateway variable h12.

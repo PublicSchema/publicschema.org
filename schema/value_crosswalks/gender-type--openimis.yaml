@@ -32,4 +32,7 @@ standard:
   attribution_text: "openIMIS, developed by the openIMIS Initiative (Swiss TPH, GIZ, SDC). Source: https://openimis.org"
   redistribution: Permitted under AGPL-3.0-only; any distribution or network use must make source available under the same license.
   retrieved_at: "2026-05-12"
-  source_sha256: TODO  # No single canonical artifact; openIMIS is a multi-repo assembly with no unified release tarball.
+  artifact_kind: none
+  artifact_notes: >-
+    No single canonical artifact: openIMIS is a multi-repo assembly with no
+    unified release tarball.

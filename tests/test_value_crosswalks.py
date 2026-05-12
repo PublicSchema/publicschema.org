@@ -10,8 +10,10 @@ dict the renderer expects.
 
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
+import jsonschema
 import pytest
 import yaml
 
@@ -21,6 +23,14 @@ from build.value_crosswalks import (
     load_crosswalks,
     synthesize_system_mappings,
 )
+
+ROOT = Path(__file__).resolve().parents[1]
+SCHEMA_PATH = ROOT / "build" / "schemas" / "value_crosswalk.schema.json"
+
+
+@pytest.fixture(scope="module")
+def crosswalk_schema() -> dict:
+    return json.loads(SCHEMA_PATH.read_text(encoding="utf-8"))
 
 
 def _write(tmp: Path, name: str, doc: dict) -> Path:
@@ -319,6 +329,131 @@ class TestTodoStrict:
             load_crosswalks(d, strict=True)
         assert "broken--sys" in str(excinfo.value)
         assert "custodian" in str(excinfo.value)
+
+
+# ---------------------------------------------------------------------------
+# artifact_kind: none — documented "no canonical artifact" exception
+#
+# Some upstream standards (multi-repo assemblies, multi-country surveys,
+# GitBook/wiki specs, country-configured enums) have no single fetchable
+# artifact that a SHA-256 can represent. For those, the crosswalk file
+# sets ``artifact_kind: none`` and provides a non-empty
+# ``artifact_notes:`` explaining why. The schema then waives the
+# ``source_sha256`` requirement for that file.
+#
+# This is distinct from a literal ``TODO`` value, which still signals
+# "incomplete work" and is rejected by both the JSON schema (via
+# conditional required-ness) and the strict loader.
+# ---------------------------------------------------------------------------
+
+
+def _crosswalk_doc(standard: dict) -> dict:
+    return {
+        "id": "demo--sys",
+        "source_value_set": {
+            "id": "demo", "kind": "vocabulary", "source_id": "publicschema",
+        },
+        "target_value_set": {"id": "Demo", "source_id": "sys"},
+        "pairs": [
+            {"source_value": "a", "target_value": "A",
+             "quality": "exact", "target_label": "A"},
+        ],
+        "standard": standard,
+    }
+
+
+def _standard_without_sha(sysid: str, **overrides) -> dict:
+    base = _ok_standard(sysid)
+    del base["source_sha256"]
+    base.update(overrides)
+    return base
+
+
+class TestArtifactKindContract:
+    """The JSON schema is the single source of truth for the
+    ``standard.artifact_kind`` enum and its required-field implications.
+    """
+
+    def test_artifact_kind_none_accepts_without_source_sha256(self, crosswalk_schema):
+        doc = _crosswalk_doc(_standard_without_sha(
+            "sys", artifact_kind="none",
+            artifact_notes="multi-repo assembly; no single canonical artifact",
+        ))
+        jsonschema.Draft202012Validator(crosswalk_schema).validate(doc)
+
+    def test_artifact_kind_none_requires_artifact_notes(self, crosswalk_schema):
+        doc = _crosswalk_doc(_standard_without_sha(
+            "sys", artifact_kind="none",
+        ))
+        with pytest.raises(jsonschema.ValidationError) as exc:
+            jsonschema.Draft202012Validator(crosswalk_schema).validate(doc)
+        assert "artifact_notes" in str(exc.value)
+
+    def test_artifact_kind_none_rejects_empty_artifact_notes(self, crosswalk_schema):
+        doc = _crosswalk_doc(_standard_without_sha(
+            "sys", artifact_kind="none", artifact_notes="",
+        ))
+        with pytest.raises(jsonschema.ValidationError):
+            jsonschema.Draft202012Validator(crosswalk_schema).validate(doc)
+
+    def test_legacy_form_still_requires_source_sha256(self, crosswalk_schema):
+        # No artifact_kind set, no source_sha256 → schema must reject.
+        doc = _crosswalk_doc(_standard_without_sha("sys"))
+        with pytest.raises(jsonschema.ValidationError) as exc:
+            jsonschema.Draft202012Validator(crosswalk_schema).validate(doc)
+        assert "source_sha256" in str(exc.value)
+
+    def test_artifact_kind_single_file_requires_source_sha256(self, crosswalk_schema):
+        doc = _crosswalk_doc(_standard_without_sha(
+            "sys", artifact_kind="single_file",
+        ))
+        with pytest.raises(jsonschema.ValidationError) as exc:
+            jsonschema.Draft202012Validator(crosswalk_schema).validate(doc)
+        assert "source_sha256" in str(exc.value)
+
+    def test_artifact_kind_manifest_requires_source_sha256(self, crosswalk_schema):
+        doc = _crosswalk_doc(_standard_without_sha(
+            "sys", artifact_kind="manifest",
+        ))
+        with pytest.raises(jsonschema.ValidationError) as exc:
+            jsonschema.Draft202012Validator(crosswalk_schema).validate(doc)
+        assert "source_sha256" in str(exc.value)
+
+    def test_artifact_kind_unknown_value_rejected(self, crosswalk_schema):
+        doc = _crosswalk_doc({**_ok_standard("sys"), "artifact_kind": "bogus"})
+        with pytest.raises(jsonschema.ValidationError):
+            jsonschema.Draft202012Validator(crosswalk_schema).validate(doc)
+
+    def test_existing_form_with_source_sha256_still_accepted(self, crosswalk_schema):
+        # Pre-existing 62 files don't carry artifact_kind; they must continue
+        # to validate as-is so the conversion is non-breaking.
+        doc = _crosswalk_doc(_ok_standard("sys"))
+        jsonschema.Draft202012Validator(crosswalk_schema).validate(doc)
+
+    def test_loader_accepts_artifact_kind_none_in_strict_mode(self, tmp_path):
+        # The strict-loader gate rejects literal TODO. ``artifact_kind:
+        # none`` + ``artifact_notes:`` carries no TODOs and must pass.
+        d = tmp_path / "cw"
+        d.mkdir()
+        _write(d, "ok--sys.yaml", _crosswalk_doc(_standard_without_sha(
+            "sys", artifact_kind="none",
+            artifact_notes="multi-repo assembly; no single canonical artifact",
+        )))
+        # Should not raise:
+        load_crosswalks(d, strict=True)
+
+    def test_loader_still_rejects_todo_in_strict_mode_with_artifact_kind(self, tmp_path):
+        # If a file declares artifact_kind: none but leaves some other field
+        # as literal TODO, the strict gate must still catch it.
+        d = tmp_path / "cw"
+        d.mkdir()
+        std = _standard_without_sha(
+            "sys", artifact_kind="none", artifact_notes="reason",
+        )
+        std["custodian"] = "TODO"
+        _write(d, "broken--sys.yaml", _crosswalk_doc(std))
+        with pytest.raises(StandardTodoError):
+            load_crosswalks(d, strict=True)
 
 
 # ---------------------------------------------------------------------------
