@@ -227,6 +227,69 @@ class TestSynthesize:
 
 
 # ---------------------------------------------------------------------------
+# Build overlay merge: authored crosswalks override on shared target_system_id,
+# but reader-side entries for other target systems must survive.
+# ---------------------------------------------------------------------------
+
+
+class TestBuildOverlayMerge:
+    def test_reader_entries_preserved_when_crosswalk_partial(self, tmp_path):
+        """A crosswalk for one target system must not wipe reader entries for
+        other target systems on the same source vocabulary."""
+        from build.build import build_vocabulary
+
+        crosswalks = tmp_path / "cw"
+        crosswalks.mkdir()
+        _write(crosswalks, "demo--openspp.yaml", {
+            "id": "demo--openspp",
+            "source_value_set": {"id": "demo", "kind": "vocabulary", "source_id": "publicschema"},
+            "target_value_set": {"id": "ISO 5218: Gender", "source_id": "openspp"},
+            "pairs": [
+                {"source_value": "m", "target_value": "1",
+                 "quality": "exact", "target_label": "Male"},
+            ],
+            "standard": _ok_standard("openspp"),
+        })
+
+        raws = {
+            "meta": {"base_uri": "https://test.example/", "languages": ["en"]},
+            "concepts": {},
+            "properties": {},
+            "vocabularies": {
+                "demo": {
+                    "id": "demo",
+                    "values": [
+                        {"code": "m", "label": {"en": "Male"},
+                         "definition": {"en": "Male"}},
+                    ],
+                    "system_mappings": {
+                        "openspp": {
+                            "vocabulary_name": "stale-reader-name",
+                            "values": [{"code": "OLD", "label": "Old", "maps_to": "m"}],
+                        },
+                        "reader_only_sys": {
+                            "vocabulary_name": "ReaderOnly",
+                            "values": [{"code": "X", "label": "X-only", "maps_to": "m"}],
+                        },
+                    },
+                },
+            },
+        }
+
+        result = build_vocabulary(raws=raws, crosswalks_dir=crosswalks)
+        sm = result["vocabularies"]["demo"]["system_mappings"]
+
+        # Crosswalk overrides reader on the shared target system.
+        assert sm["openspp"]["vocabulary_name"] == "ISO 5218: Gender"
+        # Reader-only target system is preserved.
+        assert "reader_only_sys" in sm, (
+            f"reader-only target system was dropped by overlay; "
+            f"got keys: {sorted(sm.keys())}"
+        )
+        assert sm["reader_only_sys"]["vocabulary_name"] == "ReaderOnly"
+
+
+# ---------------------------------------------------------------------------
 # Strict TODO option (a): the build refuses to ship TODO standards
 # ---------------------------------------------------------------------------
 

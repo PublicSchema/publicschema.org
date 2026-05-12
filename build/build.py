@@ -718,6 +718,11 @@ def build_vocabulary(
     # ``unmapped_canonical``, and per-pair notes that the lossy LinkML
     # migration dropped, and keeps property crosswalks in sync with the
     # same authoring path the vocabularies now use.
+    #
+    # The overlay merges per target_system_id rather than replacing
+    # wholesale: reader-side mappings for target systems that have no
+    # authored crosswalk yet are preserved, so partial crosswalk coverage
+    # during the cutover does not silently drop reader entries.
     if crosswalks_dir is not None:
         from build.value_crosswalks import (
             load_crosswalks,
@@ -727,11 +732,13 @@ def build_vocabulary(
         for vocab_key in out_vocabularies:
             synth = synthesize_system_mappings(cw_index, "vocabulary", vocab_key)
             if synth is not None:
-                out_vocabularies[vocab_key]["system_mappings"] = synth
+                existing = out_vocabularies[vocab_key].get("system_mappings") or {}
+                out_vocabularies[vocab_key]["system_mappings"] = {**existing, **synth}
         for prop_id in out_properties:
             synth = synthesize_system_mappings(cw_index, "property", prop_id)
             if synth is not None:
-                out_properties[prop_id]["system_mappings"] = synth
+                existing = out_properties[prop_id].get("system_mappings") or {}
+                out_properties[prop_id]["system_mappings"] = {**existing, **synth}
 
     # Build bibliography output and reverse indexes. Each entry's `informs`
     # block points at concepts/vocabularies/properties; we mirror those edges
