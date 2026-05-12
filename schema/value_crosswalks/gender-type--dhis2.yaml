@@ -24,11 +24,11 @@ pairs:
 standard:
   source_id: dhis2
   uri: https://dhis2.org/schemas/
-  custodian: TODO
-  license: TODO
-  license_uri: TODO
-  version: TODO
-  attribution_text: TODO
-  redistribution: TODO
-  retrieved_at: TODO
+  custodian: "HISP Centre, University of Oslo"
+  license: BSD-3-Clause
+  license_uri: https://github.com/dhis2/dhis2-core/blob/master/LICENSE
+  version: 2.43.0
+  attribution_text: "Copyright (c) 2004-2025, University of Oslo"
+  redistribution: "Permitted under BSD-3-Clause terms; copyright notice must be retained"
+  retrieved_at: "2026-05-12"
   source_sha256: TODO

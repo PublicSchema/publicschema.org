@@ -30,12 +30,12 @@ pairs:
   unmapped_reason: no_equivalent
 standard:
   source_id: semic
-  uri: http://data.europa.eu/m8g/
-  custodian: TODO
-  license: TODO
-  license_uri: TODO
-  version: TODO
-  attribution_text: TODO
-  redistribution: TODO
-  retrieved_at: TODO
-  source_sha256: TODO
+  uri: http://publications.europa.eu/resource/authority/human-sex
+  custodian: Publications Office of the European Union (EU Vocabularies)
+  license: CC-BY-4.0
+  license_uri: https://creativecommons.org/licenses/by/4.0/
+  version: "20241211-0"
+  attribution_text: "© European Union, http://publications.europa.eu/resource/authority/human-sex. Reuse authorised under CC BY 4.0; appropriate credit must be given and any changes indicated."
+  redistribution: "Permitted under CC BY 4.0. Provide attribution to the European Union and indicate modifications."
+  retrieved_at: "2026-05-12"
+  source_sha256: 292607e42e0032187e9e49f4395bcc99151cd5cc1a08c5979d42acbc4108e0e8

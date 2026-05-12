@@ -41,13 +41,22 @@ pairs:
   quality: unmapped
 standard:
   source_id: govstack_payments
-  uri: https://govstack.global/specs/payments/
-  custodian: TODO
-  license: TODO
-  license_uri: TODO
-  version: TODO
-  attribution_text: TODO
-  redistribution: TODO
-  retrieved_at: TODO
-  source_sha256: TODO
+  uri: https://payments.govstack.global/
+  custodian: GovStack Initiative (ITU, GIZ, Germany/BMZ, Estonia, DIAL)
+  license: Apache-2.0
+  license_uri: https://www.apache.org/licenses/LICENSE-2.0
+  version: "3.0"
+  attribution_text: >-
+    GovStack Payments Building Block Specification v3.0, authored by Vijay
+    Mauree, Arnold Kibuuka, David Higgins, Oscar Correia, and Dr. P. S.
+    Ramkumar (ITU); editor Ali González-García. Copyright GovStack Initiative.
+    Licensed under the Apache License, Version 2.0. Retain all copyright and
+    attribution notices when redistributing.
+  redistribution: >-
+    Apache-2.0: royalty-free redistribution permitted; must include a copy of
+    the Apache-2.0 license; must retain all copyright, patent, trademark, and
+    attribution notices from the original; modified files must carry prominent
+    change notices; no trademark rights granted.
+  retrieved_at: "2026-05-12"
+  source_sha256: TODO  # The spec is a GitBook site (payments.govstack.global) with no single canonical downloadable artifact; GitHub repo (GovStackWorkingGroup/bb-payments) has no versioned release tags. Latest main commit as of retrieval: d9bfef6f5ecf8f88ea308284836530c03bb8f855.
 notes: The GovStack bb-payments OpenAPI spec (VoucherStatus.yml) describes status as an integer from 01 to 06 plus 9 for error, but does not publish a code-to-label table. The labels above for 01 and 02 follow state-machine convention; the labels for 03-06 are inferred. The rendered GovStack specification narrative also mentions 'Blocked' and 'Not Existing' states which have no assigned integer code in the public spec; implementers should confirm code-label assignments with their GovStack deployment.

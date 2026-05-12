@@ -27,11 +27,11 @@ pairs:
 standard:
   source_id: opencrvs
   uri: https://documentation.opencrvs.org/technology/event-service-v2/
-  custodian: TODO
-  license: TODO
-  license_uri: TODO
-  version: TODO
-  attribution_text: TODO
-  redistribution: TODO
-  retrieved_at: TODO
-  source_sha256: TODO
+  custodian: OpenCRVS Limited
+  license: MPL-2.0
+  license_uri: https://www.mozilla.org/en-US/MPL/2.0/
+  version: v1.9.13
+  attribution_text: "Copyright (C) The OpenCRVS Authors. Source: https://github.com/opencrvs/opencrvs-core. Licensed under MPL-2.0."
+  redistribution: permitted under MPL-2.0
+  retrieved_at: "2026-05-12"
+  source_sha256: befe44fda80162d7e1b5ee742abb79df80bec17aa8baeee1cd9aaa2cbc75337d  # packages/gateway/src/graphql/schema.graphql at v1.9.13 (defines Gender enum)

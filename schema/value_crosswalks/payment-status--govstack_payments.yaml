@@ -36,12 +36,21 @@ pairs:
   quality: unmapped
 standard:
   source_id: govstack_payments
-  uri: https://govstack.global/specs/payments/
-  custodian: TODO
-  license: TODO
-  license_uri: TODO
-  version: TODO
-  attribution_text: TODO
-  redistribution: TODO
-  retrieved_at: TODO
-  source_sha256: TODO
+  uri: https://payments.govstack.global/
+  custodian: GovStack Initiative (ITU, GIZ, Germany/BMZ, Estonia, DIAL)
+  license: Apache-2.0
+  license_uri: https://www.apache.org/licenses/LICENSE-2.0
+  version: "3.0"
+  attribution_text: >-
+    GovStack Payments Building Block Specification v3.0, authored by Vijay
+    Mauree, Arnold Kibuuka, David Higgins, Oscar Correia, and Dr. P. S.
+    Ramkumar (ITU); editor Ali González-García. Copyright GovStack Initiative.
+    Licensed under the Apache License, Version 2.0. Retain all copyright and
+    attribution notices when redistributing.
+  redistribution: >-
+    Apache-2.0: royalty-free redistribution permitted; must include a copy of
+    the Apache-2.0 license; must retain all copyright, patent, trademark, and
+    attribution notices from the original; modified files must carry prominent
+    change notices; no trademark rights granted.
+  retrieved_at: "2026-05-12"
+  source_sha256: TODO  # The spec is a GitBook site (payments.govstack.global) with no single canonical downloadable artifact; GitHub repo (GovStackWorkingGroup/bb-payments) has no versioned release tags. Latest main commit as of retrieval: d9bfef6f5ecf8f88ea308284836530c03bb8f855.

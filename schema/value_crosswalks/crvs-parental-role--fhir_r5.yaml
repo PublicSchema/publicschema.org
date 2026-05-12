@@ -23,13 +23,13 @@ pairs:
   target_label: Adoptive Parent
 standard:
   source_id: fhir_r5
-  uri: http://hl7.org/fhir/R5/
-  custodian: TODO
-  license: TODO
-  license_uri: TODO
-  version: TODO
-  attribution_text: TODO
-  redistribution: TODO
-  retrieved_at: TODO
-  source_sha256: TODO
+  uri: https://terminology.hl7.org/7.0.1/CodeSystem-v3-RoleCode.json
+  custodian: Health Level Seven International (HL7)
+  license: CC0-1.0
+  license_uri: https://creativecommons.org/publicdomain/zero/1.0/
+  version: 5.0.0
+  attribution_text: "This material derives from the HL7 Terminology THO. THO is copyright \xA91989+ Health Level Seven International and is made available under the CC0 designation. For more licensing information see: https://terminology.hl7.org/license.html"
+  redistribution: permitted under CC0-1.0 (no restrictions)
+  retrieved_at: 2026-05-12
+  source_sha256: 6a04d9b81cea50bf654fa414d004019e954b848042826fd16cf06d7e5b9de1dc
 notes: FHIR v3 RoleCode has no gender-neutral gestational code; GESTM is female-coded. Systems mapping gestational to FHIR should emit GESTM when the gestational parent is female, otherwise PRN with a local extension.

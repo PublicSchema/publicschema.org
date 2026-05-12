@@ -66,11 +66,13 @@ pairs:
 standard:
   source_id: mics
   uri: https://mics.unicef.org/tools/
-  custodian: TODO
-  license: TODO
-  license_uri: TODO
-  version: TODO
-  attribution_text: TODO
-  redistribution: TODO
-  retrieved_at: TODO
-  source_sha256: TODO
+  custodian: "UNICEF (MICS Programme)"
+  license: "UNICEF MICS Data Access Conditions"
+  license_uri: "https://mics.unicef.org/surveys"
+  version: "MICS6"
+  attribution_text: "UNICEF Multiple Indicator Cluster Surveys (MICS) Programme. MICS6 model questionnaires. New York: UNICEF. https://mics.unicef.org"
+  redistribution: "Registration required at mics.unicef.org; access granted under signed Conditions of Use that restrict redistribution and require sharing of publications with UNICEF and national implementing partners."
+  retrieved_at: "2026-05-12"
+  # Source: MICS6 Household questionnaire PDF via IPUMS MICS mirror (last-modified 2023-03-14)
+  # URL: https://mics.ipums.org/mics/resources/enum_materials_pdf/survey_form_mics6_hh.pdf
+  source_sha256: "c5b01908c382c0bfe82d96cd56c2dc3e9031af96447739ad2ca4c731193f67ae"

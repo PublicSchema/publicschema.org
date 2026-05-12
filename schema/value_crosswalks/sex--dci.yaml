@@ -27,11 +27,11 @@ pairs:
 standard:
   source_id: dci
   uri: https://schema.spdci.org/core/v1/
-  custodian: TODO
-  license: TODO
-  license_uri: TODO
-  version: TODO
-  attribution_text: TODO
-  redistribution: TODO
-  retrieved_at: TODO
+  custodian: Digital Convergence Initiative (DCI)
+  license: Apache-2.0
+  license_uri: https://www.apache.org/licenses/LICENSE-2.0
+  version: 1.0.0
+  attribution_text: Digital Convergence Initiative (DCI), spdci/schemas, Apache-2.0
+  redistribution: permitted under Apache-2.0
+  retrieved_at: 2026-05-12
   source_sha256: TODO

@@ -30,12 +30,19 @@ pairs:
 standard:
   source_id: ocha_cod_ab
   uri: https://data.humdata.org/dataset/cod-ab/
-  custodian: TODO
-  license: TODO
-  license_uri: TODO
-  version: TODO
-  attribution_text: TODO
-  redistribution: TODO
-  retrieved_at: TODO
-  source_sha256: TODO
+  custodian: United Nations Office for the Coordination of Humanitarian Affairs (OCHA)
+  license: Creative Commons Attribution for Intergovernmental Organisations (CC BY-IGO 3.0)
+  license_uri: https://creativecommons.org/licenses/by/3.0/igo/legalcode
+  # COD-AB is defined by a living process; the canonical methodology reference is the OCHA IM
+  # Toolbox wiki page (no versioned spec doc exists as of 2026-05-12).
+  # Source: https://knowledge.base.unocha.org/wiki/spaces/imtoolbox/pages/2557378679/Administrative+Boundaries+COD-AB
+  version: "2026-05-12 (OCHA IM Toolbox COD-AB wiki, living document)"
+  # CC BY-IGO 3.0 requires crediting the source and linking to the license.
+  attribution_text: "© OCHA – Licensed under Creative Commons Attribution for Intergovernmental Organisations (CC BY-IGO 3.0) https://creativecommons.org/licenses/by/3.0/igo/legalcode"
+  redistribution: "Permitted with attribution. You may share and adapt for any purpose, including commercial use, provided you credit OCHA, link to the license, and indicate any changes. No legal or technological measures may be applied that restrict others from exercising the rights granted."
+  retrieved_at: "2026-05-12"
+  # No single canonical artifact exists for the COD-AB standard. The methodology is defined
+  # in the OCHA IM Toolbox wiki (a living Confluence page, not a downloadable file). Individual
+  # country datasets on HDX each have their own resources. source_sha256 cannot be assigned.
+  source_sha256: TODO  # no single canonical artifact; see version comment above
 notes: OCHA COD-AB's documented nomenclature stops at Admin4 (COD-AB datasets have as many as five administrative levels, ADM0 to ADM4). Values of 5 or more on this property are still valid PublicSchema depths but have no OCHA-provided AdminN label.

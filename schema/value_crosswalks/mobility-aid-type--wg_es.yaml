@@ -37,13 +37,13 @@ pairs:
   target_label: Other (please specify)
 standard:
   source_id: wg_es
-  uri: https://www.washingtongroup-disability.com/question-sets/wg-extended-set/
-  custodian: TODO
-  license: TODO
-  license_uri: TODO
-  version: TODO
-  attribution_text: TODO
-  redistribution: TODO
-  retrieved_at: TODO
-  source_sha256: TODO
+  uri: https://www.washingtongroup-disability.com/question-sets/wg-extended-set-on-functioning-wg-es/
+  custodian: "Washington Group on Disability Statistics, secretariat hosted at the U.S. National Center for Health Statistics (NCHS/CDC)"
+  license: "All rights reserved. Reproduction or redistribution requires prior written consent of the Washington Group on Disability Statistics. Personal and private study use of reasonable extracts is permitted."
+  license_uri: https://www.washingtongroup-disability.com/terms-conditions/
+  version: "October 2022"
+  attribution_text: "Washington Group on Disability Statistics. The Washington Group Extended Set on Functioning (WG-ES). October 2022. https://www.washingtongroup-disability.com/question-sets/wg-extended-set-on-functioning-wg-es/"
+  redistribution: "Not freely redistributable. Written consent from the Washington Group on Disability Statistics is required before reproducing or distributing this material in any form. Commercial use is explicitly prohibited."
+  retrieved_at: "2026-05-12"
+  source_sha256: "3a248ebab606825314df0eecf9897353c01ce96c4595f474a1cb259b7336c063"
 notes: WG-ES MOB_3 is a multi-select checklist. Each option is recorded as Yes/No; all affirmative responses map to the corresponding code in this vocabulary.

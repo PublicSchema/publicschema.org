@@ -83,12 +83,12 @@ pairs:
 standard:
   source_id: openimis
   uri: https://openimis.atlassian.net/wiki/spaces/OP/
-  custodian: TODO
-  license: TODO
-  license_uri: TODO
-  version: TODO
-  attribution_text: TODO
-  redistribution: TODO
-  retrieved_at: TODO
-  source_sha256: TODO
+  custodian: openIMIS Initiative
+  license: AGPL-3.0-only
+  license_uri: https://www.gnu.org/licenses/agpl-3.0.html
+  version: "25.10"
+  attribution_text: "openIMIS, developed by the openIMIS Initiative (Swiss TPH, GIZ, SDC). Source: https://openimis.org"
+  redistribution: Permitted under AGPL-3.0-only; any distribution or network use must make source available under the same license.
+  retrieved_at: "2026-05-12"
+  source_sha256: TODO  # No single canonical artifact; openIMIS is a multi-repo assembly with no unified release tarball.
 notes: Sourced from the develop branch of openimis-be-individual_py (GroupIndividual.Role). The main branch has only HEAD and RECIPIENT; the 13 relationship codes below are from develop and not yet released on main.
