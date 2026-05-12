@@ -1,0 +1,27 @@
+id: https://publicschema.org/linkml/external/fhir_r5
+name: publicschema-external-fhir-r5
+title: HL7 FHIR R5 (PublicSchema partial view)
+description: Minimal LinkML rendering of HL7 FHIR R5 enumerations referenced by PublicSchema crosswalks.
+  Not authoritative. See https://hl7.org/fhir/R5/ for the full specification.
+license: CC-BY-4.0
+default_prefix: fhir-r5
+prefixes:
+  fhir-r5: http://hl7.org/fhir/R5/
+  linkml: https://w3id.org/linkml/
+  xsd: http://www.w3.org/2001/XMLSchema#
+imports:
+- linkml:types
+enums:
+  FhirR5V3RoleCodeTHOV701:
+    enum_uri: fhir-r5:FhirR5V3RoleCodeTHOV701
+    title: FhirR5V3RoleCodeTHOV701
+    permissible_values:
+      adoptive:
+        meaning: fhir-r5:FhirR5V3RoleCodeTHOV701/adoptive
+        title: Adoptive Parent
+      biological:
+        meaning: fhir-r5:FhirR5V3RoleCodeTHOV701/biological
+        title: Parent
+      gestational:
+        meaning: fhir-r5:FhirR5V3RoleCodeTHOV701/gestational
+        title: Gestational Mother

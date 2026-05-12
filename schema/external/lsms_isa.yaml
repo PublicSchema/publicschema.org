@@ -1,0 +1,43 @@
+id: https://publicschema.org/linkml/external/lsms_isa
+name: publicschema-external-lsms-isa
+title: LSMS-ISA (World Bank) (PublicSchema partial view)
+description: Minimal LinkML rendering of LSMS-ISA (World Bank) enumerations referenced by PublicSchema
+  crosswalks. Not authoritative. See https://www.worldbank.org/en/programs/lsms/initiatives/lsms-ISA for
+  the full specification.
+license: CC-BY-4.0
+default_prefix: lsms-isa
+prefixes:
+  lsms-isa: https://www.worldbank.org/en/programs/lsms/initiatives/lsms-ISA/
+  linkml: https://w3id.org/linkml/
+  xsd: http://www.w3.org/2001/XMLSchema#
+imports:
+- linkml:types
+enums:
+  LSMSISALandTenureIndicativeCrossWalkNotASingleAuthoritativeVariable:
+    enum_uri: lsms-isa:LSMSISALandTenureIndicativeCrossWalkNotASingleAuthoritativeVariable
+    title: LSMSISALandTenureIndicativeCrossWalkNotASingleAuthoritativeVariable
+    permissible_values:
+      borrowed:
+        meaning: lsms-isa:LSMSISALandTenureIndicativeCrossWalkNotASingleAuthoritativeVariable/borrowed
+        title: Borrowed/given for free
+      communal:
+        meaning: lsms-isa:LSMSISALandTenureIndicativeCrossWalkNotASingleAuthoritativeVariable/communal
+        title: Communal/village
+      informal:
+        meaning: lsms-isa:LSMSISALandTenureIndicativeCrossWalkNotASingleAuthoritativeVariable/informal
+        title: Squatting
+      other:
+        meaning: lsms-isa:LSMSISALandTenureIndicativeCrossWalkNotASingleAuthoritativeVariable/other
+        title: Other
+      owned_with_title:
+        meaning: lsms-isa:LSMSISALandTenureIndicativeCrossWalkNotASingleAuthoritativeVariable/owned_with_title
+        title: Owned (purchased/inherited)
+      rented:
+        meaning: lsms-isa:LSMSISALandTenureIndicativeCrossWalkNotASingleAuthoritativeVariable/rented
+        title: Rented in
+      sharecropped:
+        meaning: lsms-isa:LSMSISALandTenureIndicativeCrossWalkNotASingleAuthoritativeVariable/sharecropped
+        title: Sharecropped
+      state_allocated:
+        meaning: lsms-isa:LSMSISALandTenureIndicativeCrossWalkNotASingleAuthoritativeVariable/state_allocated
+        title: Allocated by government

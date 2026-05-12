@@ -1,0 +1,34 @@
+id: https://publicschema.org/linkml/external/semic-core-location
+name: publicschema-external-locn
+title: SEMIC Core Location Vocabulary (PublicSchema partial view)
+description: 'Generated from schema/external_terms/semic-core-location.yaml (source_version: 2.1.1). Provenance
+  and license attribution are preserved from schema/external_references/semic-core-location.yaml.'
+license: CC-BY-4.0
+default_prefix: locn
+prefixes:
+  locn: http://www.w3.org/ns/locn#
+  skos: http://www.w3.org/2004/02/skos/core#
+  linkml: https://w3id.org/linkml/
+  xsd: http://www.w3.org/2001/XMLSchema#
+imports:
+- linkml:types
+classes:
+  LocnAddress:
+    class_uri: locn:Address
+    title: Address
+    description: 'External class locn:Address (http://www.w3.org/ns/locn#Address). Sourced from schema/external_terms/semic-core-location.yaml
+      (term_id: locn.Address).'
+slots:
+  locn_geometry:
+    slot_uri: locn:geometry
+    title: geometry
+    description: 'External property locn:geometry (http://www.w3.org/ns/locn#geometry). Sourced from schema/external_terms/semic-core-location.yaml
+      (term_id: locn.geometry).'
+annotations:
+  external_reference_provenance_json: '{"artifacts": [{"media_type": "text/html", "retrieved_at": "2026-05-07T00:00:00Z",
+    "sha256": "adf51f8052ca3e12fee2cc57284b3671c413d49c4fd1a0d333c9ec1bb3f55a0c", "url": "https://raw.githubusercontent.com/SEMICeu/Core-Location-Vocabulary/2.1.1/releases/2.1.1/index.html"}],
+    "custodian": "Interoperable Europe / SEMIC", "homepage": "https://github.com/SEMICeu/Core-Location-Vocabulary",
+    "kind": "rdf_profile", "license": {"attribution_required": true, "attribution_text": "Contains information
+    from SEMIC Core Vocabularies, licensed under CC BY 4.0.", "id": "CC-BY-4.0", "redistribution": "embed-with-attribution",
+    "uri": "https://creativecommons.org/licenses/by/4.0/"}, "reference_url": "https://semiceu.github.io/Core-Location-Vocabulary/releases/2.1.1/",
+    "version": "2.1.1"}'

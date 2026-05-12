@@ -1,0 +1,72 @@
+id: https://publicschema.org/linkml/external/opencrvs
+name: publicschema-external-opencrvs
+title: OpenCRVS Event Service v2 (PublicSchema partial view)
+description: Minimal LinkML rendering of OpenCRVS Event Service v2 enumerations referenced by PublicSchema
+  crosswalks. Not authoritative. See https://www.opencrvs.org/ for the full specification.
+license: CC-BY-4.0
+default_prefix: opencrvs
+prefixes:
+  opencrvs: https://documentation.opencrvs.org/technology/event-service-v2/
+  linkml: https://w3id.org/linkml/
+  xsd: http://www.w3.org/2001/XMLSchema#
+imports:
+- linkml:types
+enums:
+  OpencrvsEventDocumentTypeCountryConfiguredString:
+    enum_uri: opencrvs:OpencrvsEventDocumentTypeCountryConfiguredString
+    title: OpencrvsEventDocumentTypeCountryConfiguredString
+    permissible_values:
+      birth:
+        meaning: opencrvs:OpencrvsEventDocumentTypeCountryConfiguredString/birth
+        title: birth
+      death:
+        meaning: opencrvs:OpencrvsEventDocumentTypeCountryConfiguredString/death
+        title: death
+      marriage:
+        meaning: opencrvs:OpencrvsEventDocumentTypeCountryConfiguredString/marriage
+        title: marriage
+  OpencrvsEventStatus:
+    enum_uri: opencrvs:OpencrvsEventStatus
+    title: OpencrvsEventStatus
+    permissible_values:
+      archived:
+        meaning: opencrvs:OpencrvsEventStatus/archived
+        title: Archived
+      declared:
+        meaning: opencrvs:OpencrvsEventStatus/declared
+        title: Created
+      registered:
+        meaning: opencrvs:OpencrvsEventStatus/registered
+        title: Registered
+  OpencrvsGender:
+    enum_uri: opencrvs:OpencrvsGender
+    title: OpencrvsGender
+    permissible_values:
+      female:
+        meaning: opencrvs:OpencrvsGender/female
+        title: Female
+      male:
+        meaning: opencrvs:OpencrvsGender/male
+        title: Male
+      not_known:
+        meaning: opencrvs:OpencrvsGender/not_known
+        title: Unknown
+      not_stated:
+        meaning: opencrvs:OpencrvsGender/not_stated
+        title: Unknown
+      other:
+        meaning: opencrvs:OpencrvsGender/other
+        title: Other
+  OpencrvsPaymentOutcomeType:
+    enum_uri: opencrvs:OpencrvsPaymentOutcomeType
+    title: OpencrvsPaymentOutcomeType
+    permissible_values:
+      failed:
+        meaning: opencrvs:OpencrvsPaymentOutcomeType/failed
+        title: Error
+      paid:
+        meaning: opencrvs:OpencrvsPaymentOutcomeType/paid
+        title: Completed
+      partial:
+        meaning: opencrvs:OpencrvsPaymentOutcomeType/partial
+        title: Partial

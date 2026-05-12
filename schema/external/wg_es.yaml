@@ -1,0 +1,39 @@
+id: https://publicschema.org/linkml/external/wg_es
+name: publicschema-external-wg-es
+title: Washington Group Extended Set (PublicSchema partial view)
+description: Minimal LinkML rendering of Washington Group Extended Set enumerations referenced by PublicSchema
+  crosswalks. Not authoritative. See https://www.washingtongroup-disability.com/ for the full specification.
+license: CC-BY-4.0
+default_prefix: wg-es
+prefixes:
+  wg-es: https://www.washingtongroup-disability.com/question-sets/wg-extended-set/
+  linkml: https://w3id.org/linkml/
+  xsd: http://www.w3.org/2001/XMLSchema#
+imports:
+- linkml:types
+enums:
+  WGESMOB3MobilityAidChecklist:
+    enum_uri: wg-es:WGESMOB3MobilityAidChecklist
+    title: WGESMOB3MobilityAidChecklist
+    permissible_values:
+      artificial_limb:
+        meaning: wg-es:WGESMOB3MobilityAidChecklist/artificial_limb
+        title: Artificial limb (leg/foot)
+      cane_or_walking_stick:
+        meaning: wg-es:WGESMOB3MobilityAidChecklist/cane_or_walking_stick
+        title: Cane or walking stick
+      crutches:
+        meaning: wg-es:WGESMOB3MobilityAidChecklist/crutches
+        title: Crutches
+      other:
+        meaning: wg-es:WGESMOB3MobilityAidChecklist/other
+        title: Other (please specify)
+      personal_assistance:
+        meaning: wg-es:WGESMOB3MobilityAidChecklist/personal_assistance
+        title: Someone's assistance
+      walker_or_zimmer_frame:
+        meaning: wg-es:WGESMOB3MobilityAidChecklist/walker_or_zimmer_frame
+        title: Walker or Zimmer frame
+      wheelchair_or_scooter:
+        meaning: wg-es:WGESMOB3MobilityAidChecklist/wheelchair_or_scooter
+        title: Wheelchair or scooter

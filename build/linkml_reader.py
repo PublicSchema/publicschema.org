@@ -1,29 +1,22 @@
-"""Adapter: read ``dist/linkml/*.yaml`` and re-project to the bespoke shape.
+"""Adapter: read ``schema/*.yaml`` (LinkML) and re-project to the renderer shape.
 
-The website renderer ultimately consumes ``dist/vocabulary.json`` (plus
-``dist/preview/*.json`` and ``dist/system_matchings.json``), all produced by
-``build/build.py``. ``build.py`` currently sources its raw inputs from
-``schema/**`` via single-file loaders.
+The website renderer (``build/build.py``) ultimately consumes
+``dist/vocabulary.json`` plus ``dist/preview/*.json`` and
+``dist/system_matchings.json``. Its internal model is per-element raw dicts
+(``concepts_raw``, ``properties_raw``, ``vocabularies_raw``,
+``bibliography_raw``, ``categories_raw``, ``credentials_raw``).
 
-After the LinkML cutover the source of truth is ``dist/linkml/`` instead. The
-domain files there each contain many classes/slots/enums, so the 1:1
-file-per-element shape that ``build.py`` expects no longer matches. This
-module bridges the gap: it reads the LinkML domain files and re-projects
-them into the same per-element dicts (``concepts_raw``, ``properties_raw``,
-``vocabularies_raw``, ``bibliography_raw``, ``categories_raw``,
-``credentials_raw``) that the bespoke loaders return.
+The canonical source-of-truth at ``schema/`` is a LinkML composite where each
+domain file contains many classes/slots/enums. This module bridges the gap:
+it reads those domain files and re-projects them into per-element dicts.
 
-Field-by-field mapping follows ``docs/migration-cheatsheet.md``. Where the
-migration stringifies structured data into ``annotations.<name>_json`` the
-adapter parses the JSON back into the original shape; where the migration is
-inherently lossy (e.g. domain-prefixed ``vocabulary:`` references that don't
-round-trip through LinkML's ``range`` slot), the adapter recovers what it
-can and falls back to a best-effort default that keeps the public site
-shape stable.
+Field-by-field mapping follows ``docs/migration-cheatsheet.md``. Where
+structured data lives under ``annotations.<name>_json`` the adapter parses
+the JSON back into the original shape; lossy areas (e.g. domain-prefixed
+``vocabulary:`` references that don't round-trip through LinkML's ``range``
+slot) get best-effort fallbacks that keep the public site shape stable.
 
-The adapter is read-only: it never mutates the on-disk LinkML files, and
-the bespoke YAML tree is untouched. Both source paths coexist so the build
-pipeline can choose at the CLI level which input to consume.
+The adapter is read-only.
 """
 
 from __future__ import annotations
@@ -189,7 +182,7 @@ def _domain_from_source(source_domain: Any) -> str | None:
 
 
 def _is_external_domain_file(path: Path) -> bool:
-    """External partial schemas live under ``dist/linkml/external/`` and do
+    """External partial schemas live under ``schema/external/`` and do
     not contribute to PublicSchema's own catalog of concepts/slots/enums.
     They're separate inputs (mapping targets), so the adapter skips them.
     """
@@ -637,7 +630,7 @@ def _bibliography_refs_from_annotations(
 
 
 def load_raw_from_linkml(linkml_dir: Path) -> dict[str, Any]:
-    """Load and re-project all ``dist/linkml/*.yaml`` files.
+    """Load and re-project all LinkML domain files under ``linkml_dir``.
 
     Returns a dict with the keys:
     ``meta``, ``concepts``, ``properties``, ``vocabularies``, ``bibliography``,
