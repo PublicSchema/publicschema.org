@@ -1,0 +1,62 @@
+id: education-level--mics
+source_value_set:
+  id: education-level
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: melevel - Education level of mother/caretaker
+  source_id: mics
+pairs:
+- source_value: none
+  target_value: '0'
+  quality: exact
+  target_label: None or ECE
+  note: MICS combines 'no education' and 'early childhood education' into a single code
+- source_value: primary
+  target_value: '1'
+  quality: exact
+  target_label: Primary
+- source_value: lower_secondary
+  target_value: '2'
+  quality: exact
+  target_label: Lower secondary
+- source_value: upper_secondary
+  target_value: '3'
+  quality: exact
+  target_label: Upper secondary
+- source_value: bachelor
+  target_value: '4'
+  quality: exact
+  target_label: Higher
+  note: MICS 'Higher' covers all tertiary; mapped to bachelor as the most common tertiary completion level
+- source_value: null
+  target_value: '9'
+  quality: unmapped
+  target_label: Missing/DK
+  unmapped_reason: no_equivalent
+- source_value: early_childhood
+  target_value: null
+  quality: unmapped
+- source_value: post_secondary_non_tertiary
+  target_value: null
+  quality: unmapped
+- source_value: short_cycle_tertiary
+  target_value: null
+  quality: unmapped
+- source_value: master
+  target_value: null
+  quality: unmapped
+- source_value: doctoral
+  target_value: null
+  quality: unmapped
+standard:
+  source_id: mics
+  uri: https://mics.unicef.org/tools/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO

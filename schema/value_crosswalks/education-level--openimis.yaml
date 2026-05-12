@@ -1,0 +1,58 @@
+id: education-level--openimis
+source_value_set:
+  id: education-level
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: Education
+  source_id: openimis
+pairs:
+- source_value: early_childhood
+  target_value: '1'
+  quality: exact
+  target_label: Nursery
+- source_value: primary
+  target_value: '2'
+  quality: exact
+  target_label: Primary School
+- source_value: upper_secondary
+  target_value: '3'
+  quality: exact
+  target_label: Secondary School
+- source_value: bachelor
+  target_value: '4'
+  quality: exact
+  target_label: University
+- source_value: master
+  target_value: '5'
+  quality: exact
+  target_label: Postgraduate
+- source_value: doctoral
+  target_value: '6'
+  quality: exact
+  target_label: PHD
+- source_value: null
+  target_value: '7'
+  quality: unmapped
+  target_label: Other
+  unmapped_reason: no_equivalent
+- source_value: lower_secondary
+  target_value: null
+  quality: unmapped
+- source_value: post_secondary_non_tertiary
+  target_value: null
+  quality: unmapped
+- source_value: short_cycle_tertiary
+  target_value: null
+  quality: unmapped
+standard:
+  source_id: openimis
+  uri: https://openimis.atlassian.net/wiki/spaces/OP/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO

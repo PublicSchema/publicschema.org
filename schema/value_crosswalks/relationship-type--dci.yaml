@@ -1,0 +1,434 @@
+id: relationship-type--dci
+source_value_set:
+  id: relationship-type
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: RelationshipTypeEnum
+  source_id: dci
+pairs:
+- source_value: spouse
+  target_value: SPS
+  quality: exact
+  target_label: spouse
+- source_value: spouse
+  target_value: HUSB
+  quality: exact
+  target_label: husband
+- source_value: spouse
+  target_value: WIFE
+  quality: exact
+  target_label: wife
+- source_value: parent
+  target_value: PRN
+  quality: exact
+  target_label: parent
+- source_value: parent
+  target_value: FTH
+  quality: exact
+  target_label: father
+- source_value: parent
+  target_value: MTH
+  quality: exact
+  target_label: mother
+- source_value: child
+  target_value: CHILD
+  quality: exact
+  target_label: child
+- source_value: child
+  target_value: DAUC
+  quality: exact
+  target_label: daughter
+- source_value: child
+  target_value: SONC
+  quality: exact
+  target_label: son
+- source_value: sibling
+  target_value: SIB
+  quality: exact
+  target_label: sibling
+- source_value: sibling
+  target_value: BRO
+  quality: exact
+  target_label: brother
+- source_value: sibling
+  target_value: SIS
+  quality: exact
+  target_label: sister
+- source_value: grandparent
+  target_value: GRPRN
+  quality: exact
+  target_label: grandparent
+- source_value: grandparent
+  target_value: GRFTH
+  quality: exact
+  target_label: grandfather
+- source_value: grandparent
+  target_value: GRMTH
+  quality: exact
+  target_label: grandmother
+- source_value: grandchild
+  target_value: GRNDCHILD
+  quality: exact
+  target_label: grandchild
+- source_value: grandchild
+  target_value: GRNDDAU
+  quality: exact
+  target_label: granddaughter
+- source_value: guardian
+  target_value: PRNFOST
+  quality: exact
+  target_label: foster parent
+- source_value: spouse
+  target_value: DOMPART
+  quality: exact
+  target_label: domestic partner
+- source_value: extended_family
+  target_value: EXT
+  quality: exact
+  target_label: extended family member
+- source_value: in_law
+  target_value: INLAW
+  quality: exact
+  target_label: inlaw
+- source_value: null
+  target_value: SELF
+  quality: unmapped
+  target_label: Self
+  unmapped_reason: no_equivalent
+- source_value: null
+  target_value: PRIMSPOUS
+  quality: unmapped
+  target_label: Primary Spouse
+  unmapped_reason: not_yet_mapped
+- source_value: other
+  target_value: FAMMEMB
+  quality: exact
+  target_label: family member
+- source_value: child
+  target_value: DAUADOPT
+  quality: exact
+  target_label: adopted daughter
+- source_value: child
+  target_value: SONADOPT
+  quality: exact
+  target_label: adopted son
+- source_value: child
+  target_value: DAUFOST
+  quality: exact
+  target_label: foster daughter
+- source_value: child
+  target_value: SONFOST
+  quality: exact
+  target_label: foster son
+- source_value: child
+  target_value: DAU
+  quality: exact
+  target_label: natural daughter
+- source_value: child
+  target_value: STPDAU
+  quality: exact
+  target_label: stepdaughter
+- source_value: child
+  target_value: NCHILD
+  quality: exact
+  target_label: natural child
+- source_value: child
+  target_value: SON
+  quality: exact
+  target_label: natural son
+- source_value: child
+  target_value: STPSON
+  quality: exact
+  target_label: stepson
+- source_value: child
+  target_value: STPCHILD
+  quality: exact
+  target_label: step child
+- source_value: extended_family
+  target_value: AUNT
+  quality: exact
+  target_label: aunt
+- source_value: extended_family
+  target_value: MAUNT
+  quality: exact
+  target_label: maternal aunt
+- source_value: extended_family
+  target_value: PAUNT
+  quality: exact
+  target_label: paternal aunt
+- source_value: extended_family
+  target_value: COUSN
+  quality: exact
+  target_label: cousin
+- source_value: extended_family
+  target_value: MCOUSN
+  quality: exact
+  target_label: maternal cousin
+- source_value: extended_family
+  target_value: PCOUSN
+  quality: exact
+  target_label: paternal cousin
+- source_value: grandparent
+  target_value: GGRPRN
+  quality: exact
+  target_label: great grandparent
+- source_value: grandparent
+  target_value: GGRFTH
+  quality: exact
+  target_label: great grandfather
+- source_value: grandparent
+  target_value: MGGRFTH
+  quality: exact
+  target_label: maternal great-grandfather
+- source_value: grandparent
+  target_value: PGGRFTH
+  quality: exact
+  target_label: paternal great-grandfather
+- source_value: grandparent
+  target_value: GGRMTH
+  quality: exact
+  target_label: great grandmother
+- source_value: grandparent
+  target_value: PGGRMTH
+  quality: exact
+  target_label: paternal great-grandmother
+- source_value: grandparent
+  target_value: MGGRPRN
+  quality: exact
+  target_label: maternal great-grandparent
+- source_value: grandparent
+  target_value: PGGRPRN
+  quality: exact
+  target_label: paternal great-grandparent
+- source_value: grandparent
+  target_value: MGRFTH
+  quality: exact
+  target_label: maternal grandfather
+- source_value: grandparent
+  target_value: PGRFTH
+  quality: exact
+  target_label: paternal grandfather
+- source_value: grandparent
+  target_value: MGRMTH
+  quality: exact
+  target_label: maternal grandmother
+- source_value: grandparent
+  target_value: PGRMTH
+  quality: exact
+  target_label: paternal grandmother
+- source_value: grandparent
+  target_value: MGRPRN
+  quality: exact
+  target_label: maternal grandparent
+- source_value: grandparent
+  target_value: PGRPRN
+  quality: exact
+  target_label: paternal grandparent
+- source_value: in_law
+  target_value: CHLDINLAW
+  quality: exact
+  target_label: child-in-law
+- source_value: in_law
+  target_value: DAUINLAW
+  quality: exact
+  target_label: daughter in-law
+- source_value: in_law
+  target_value: SONINLAW
+  quality: exact
+  target_label: son in-law
+- source_value: in_law
+  target_value: PRNINLAW
+  quality: exact
+  target_label: parent in-law
+- source_value: in_law
+  target_value: FTHINLAW
+  quality: exact
+  target_label: father-in-law
+- source_value: in_law
+  target_value: MTHINLAW
+  quality: exact
+  target_label: mother-in-law
+- source_value: in_law
+  target_value: SIBINLAW
+  quality: exact
+  target_label: sibling in-law
+- source_value: in_law
+  target_value: BROINLAW
+  quality: exact
+  target_label: brother in-law
+- source_value: in_law
+  target_value: SISINLAW
+  quality: exact
+  target_label: sister in-law
+- source_value: extended_family
+  target_value: NIENEPH
+  quality: exact
+  target_label: niece/nephew
+- source_value: extended_family
+  target_value: NEPHEW
+  quality: exact
+  target_label: nephew
+- source_value: extended_family
+  target_value: NEICE
+  quality: exact
+  target_label: neice
+- source_value: extended_family
+  target_value: UNCLE
+  quality: exact
+  target_label: uncle
+- source_value: extended_family
+  target_value: MUNCLE
+  quality: exact
+  target_label: maternal uncle
+- source_value: extended_family
+  target_value: PUNCLE
+  quality: exact
+  target_label: parental uncle
+- source_value: parent
+  target_value: ADOPTP
+  quality: exact
+  target_label: adoptive parent
+- source_value: parent
+  target_value: ADOPTF
+  quality: exact
+  target_label: adoptive father
+- source_value: parent
+  target_value: ADOPTM
+  quality: exact
+  target_label: adoptive mother
+- source_value: parent
+  target_value: FTHFOST
+  quality: exact
+  target_label: foster father
+- source_value: parent
+  target_value: NFTH
+  quality: exact
+  target_label: natural father
+- source_value: parent
+  target_value: NFTHF
+  quality: exact
+  target_label: natural father of fetus
+- source_value: parent
+  target_value: STPFTH
+  quality: exact
+  target_label: stepfather
+- source_value: parent
+  target_value: GESTM
+  quality: exact
+  target_label: gestational mother
+- source_value: parent
+  target_value: NMTH
+  quality: exact
+  target_label: natural mother
+- source_value: parent
+  target_value: NMTHF
+  quality: exact
+  target_label: natural mother of fetus
+- source_value: parent
+  target_value: STPMTH
+  quality: exact
+  target_label: stepmother
+- source_value: parent
+  target_value: NPRN
+  quality: exact
+  target_label: natural parent
+- source_value: parent
+  target_value: STPPRN
+  quality: exact
+  target_label: step parent
+- source_value: sibling
+  target_value: HBRO
+  quality: exact
+  target_label: half-brother
+- source_value: sibling
+  target_value: NBRO
+  quality: exact
+  target_label: natural brother
+- source_value: sibling
+  target_value: TWINBRO
+  quality: exact
+  target_label: twin brother
+- source_value: sibling
+  target_value: FTWINBRO
+  quality: exact
+  target_label: faternal twin brother
+- source_value: sibling
+  target_value: ITWINBRO
+  quality: exact
+  target_label: identical twin brother
+- source_value: sibling
+  target_value: STPBRO
+  quality: exact
+  target_label: stepbrother
+- source_value: sibling
+  target_value: HSIB
+  quality: exact
+  target_label: half-sibling
+- source_value: sibling
+  target_value: HSIS
+  quality: exact
+  target_label: half-sister
+- source_value: sibling
+  target_value: NSIB
+  quality: exact
+  target_label: natural sibling
+- source_value: sibling
+  target_value: NSIS
+  quality: exact
+  target_label: natural sister
+- source_value: sibling
+  target_value: TWINSIS
+  quality: exact
+  target_label: twin sister
+- source_value: sibling
+  target_value: FTWINSIS
+  quality: exact
+  target_label: faternal twin sister
+- source_value: sibling
+  target_value: ITWINSIS
+  quality: exact
+  target_label: identical twin sister
+- source_value: sibling
+  target_value: TWIN
+  quality: exact
+  target_label: twin
+- source_value: sibling
+  target_value: FTWIN
+  quality: exact
+  target_label: faternal twin
+- source_value: sibling
+  target_value: ITWIN
+  quality: exact
+  target_label: identical twin
+- source_value: spouse
+  target_value: SIGOTHR
+  quality: exact
+  target_label: significant other
+- source_value: other
+  target_value: FRMSPS
+  quality: exact
+  target_label: former spouse
+- source_value: caregiver
+  target_value: null
+  quality: unmapped
+- source_value: dependent
+  target_value: null
+  quality: unmapped
+- source_value: payment_proxy
+  target_value: null
+  quality: unmapped
+- source_value: survivor
+  target_value: null
+  quality: unmapped
+standard:
+  source_id: dci
+  uri: https://schema.spdci.org/core/v1/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO

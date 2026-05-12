@@ -1,0 +1,36 @@
+id: pregnancy-status--mics
+source_value_set:
+  id: pregnancy-status
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: CP1 - Currently pregnant
+  source_id: mics
+pairs:
+- source_value: pregnant
+  target_value: '1'
+  quality: exact
+  target_label: 'Yes'
+- source_value: not_pregnant
+  target_value: '2'
+  quality: exact
+  target_label: 'No'
+- source_value: unknown
+  target_value: '8'
+  quality: exact
+  target_label: Don't know
+- source_value: postpartum
+  target_value: null
+  quality: unmapped
+standard:
+  source_id: mics
+  uri: https://mics.unicef.org/tools/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO
+notes: MICS6 Contraception/Unmet Need module (CP1). Same gap for postpartum as DHS.

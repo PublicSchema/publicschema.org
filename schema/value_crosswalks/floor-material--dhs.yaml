@@ -1,0 +1,60 @@
+id: floor-material--dhs
+source_value_set:
+  id: floor-material
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: hv213 - Main floor material
+  source_id: dhs
+pairs:
+- source_value: earth_sand
+  target_value: '11'
+  quality: exact
+  target_label: Earth/sand
+- source_value: dung
+  target_value: '12'
+  quality: exact
+  target_label: Dung
+- source_value: wood_planks
+  target_value: '21'
+  quality: exact
+  target_label: Wood planks
+- source_value: palm_bamboo
+  target_value: '22'
+  quality: exact
+  target_label: Palm/bamboo
+- source_value: parquet_polished_wood
+  target_value: '31'
+  quality: exact
+  target_label: Parquet or polished wood
+- source_value: vinyl_asphalt
+  target_value: '32'
+  quality: exact
+  target_label: Vinyl or asphalt strips
+- source_value: ceramic_tiles
+  target_value: '33'
+  quality: exact
+  target_label: Ceramic tiles
+- source_value: cement
+  target_value: '34'
+  quality: exact
+  target_label: Cement
+- source_value: carpet
+  target_value: '35'
+  quality: exact
+  target_label: Carpet
+- source_value: other
+  target_value: '96'
+  quality: exact
+  target_label: Other
+standard:
+  source_id: dhs
+  uri: https://dhsprogram.com/data/recode7/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO

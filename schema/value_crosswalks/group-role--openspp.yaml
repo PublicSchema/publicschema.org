@@ -1,0 +1,60 @@
+id: group-role--openspp
+source_value_set:
+  id: group-role
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: Group Membership Type
+  source_id: openspp
+pairs:
+- source_value: head
+  target_value: head
+  quality: exact
+  target_label: Head
+- source_value: spouse
+  target_value: null
+  quality: unmapped
+- source_value: child
+  target_value: null
+  quality: unmapped
+- source_value: dependent
+  target_value: null
+  quality: unmapped
+- source_value: parent
+  target_value: null
+  quality: unmapped
+- source_value: sibling
+  target_value: null
+  quality: unmapped
+- source_value: grandparent
+  target_value: null
+  quality: unmapped
+- source_value: grandchild
+  target_value: null
+  quality: unmapped
+- source_value: other_relative
+  target_value: null
+  quality: unmapped
+- source_value: non_relative
+  target_value: null
+  quality: unmapped
+- source_value: owner
+  target_value: null
+  quality: unmapped
+- source_value: operator
+  target_value: null
+  quality: unmapped
+- source_value: worker
+  target_value: null
+  quality: unmapped
+standard:
+  source_id: openspp
+  uri: https://docs.openspp.org/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO

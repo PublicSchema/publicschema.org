@@ -1,0 +1,84 @@
+id: water-source--mics
+source_value_set:
+  id: water-source
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: WS1 - Main source of drinking water
+  source_id: mics
+pairs:
+- source_value: piped_into_dwelling
+  target_value: '11'
+  quality: exact
+  target_label: Piped into dwelling
+- source_value: piped_to_yard
+  target_value: '12'
+  quality: exact
+  target_label: Piped to yard/plot
+- source_value: piped_to_neighbor
+  target_value: '13'
+  quality: exact
+  target_label: Piped to neighbor
+- source_value: public_tap_standpipe
+  target_value: '14'
+  quality: exact
+  target_label: Public tap/standpipe
+- source_value: tube_well_borehole
+  target_value: '21'
+  quality: exact
+  target_label: Tube well/borehole
+- source_value: protected_well
+  target_value: '31'
+  quality: exact
+  target_label: Protected dug well
+- source_value: unprotected_well
+  target_value: '32'
+  quality: exact
+  target_label: Unprotected dug well
+- source_value: protected_spring
+  target_value: '41'
+  quality: exact
+  target_label: Protected spring
+- source_value: unprotected_spring
+  target_value: '42'
+  quality: exact
+  target_label: Unprotected spring
+- source_value: rainwater
+  target_value: '51'
+  quality: exact
+  target_label: Rainwater collection
+- source_value: tanker_truck
+  target_value: '61'
+  quality: exact
+  target_label: Tanker truck
+- source_value: cart_with_small_tank
+  target_value: '71'
+  quality: exact
+  target_label: Cart with small tank/drum
+- source_value: surface_water
+  target_value: '81'
+  quality: exact
+  target_label: Surface water
+- source_value: bottled_water
+  target_value: '91'
+  quality: exact
+  target_label: Bottled water
+- source_value: packaged_water
+  target_value: '92'
+  quality: exact
+  target_label: Sachet water
+- source_value: other
+  target_value: '96'
+  quality: exact
+  target_label: Other
+standard:
+  source_id: mics
+  uri: https://mics.unicef.org/tools/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO

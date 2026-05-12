@@ -1,0 +1,84 @@
+id: identifier-type--openspp
+source_value_set:
+  id: identifier-type
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: ID Type
+  source_id: openspp
+pairs:
+- source_value: national_id_number
+  target_value: national_id
+  quality: exact
+  target_label: National ID
+- source_value: passport_number
+  target_value: passport
+  quality: exact
+  target_label: Passport
+- source_value: tax_id_number
+  target_value: tax_id
+  quality: exact
+  target_label: Tax ID
+- source_value: birth_registration_number
+  target_value: birth_certificate
+  quality: exact
+  target_label: Birth Certificate
+- source_value: social_security_number
+  target_value: null
+  quality: unmapped
+- source_value: program_id_number
+  target_value: null
+  quality: unmapped
+- source_value: household_id_number
+  target_value: null
+  quality: unmapped
+- source_value: drivers_license_number
+  target_value: null
+  quality: unmapped
+- source_value: voter_id_number
+  target_value: null
+  quality: unmapped
+- source_value: marriage_registration_number
+  target_value: null
+  quality: unmapped
+- source_value: death_registration_number
+  target_value: null
+  quality: unmapped
+- source_value: country_code
+  target_value: null
+  quality: unmapped
+- source_value: subdivision_code
+  target_value: null
+  quality: unmapped
+- source_value: postal_code
+  target_value: null
+  quality: unmapped
+- source_value: p_code
+  target_value: null
+  quality: unmapped
+- source_value: fips_code
+  target_value: null
+  quality: unmapped
+- source_value: hasc_code
+  target_value: null
+  quality: unmapped
+- source_value: un_locode
+  target_value: null
+  quality: unmapped
+- source_value: transaction_reference
+  target_value: null
+  quality: unmapped
+- source_value: other
+  target_value: null
+  quality: unmapped
+standard:
+  source_id: openspp
+  uri: https://docs.openspp.org/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO

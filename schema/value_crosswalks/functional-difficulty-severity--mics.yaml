@@ -1,0 +1,37 @@
+id: functional-difficulty-severity--mics
+source_value_set:
+  id: functional-difficulty-severity
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: MICS6 WG-SS response scale
+  source_id: mics
+pairs:
+- source_value: no_difficulty
+  target_value: '1'
+  quality: exact
+  target_label: No difficulty
+- source_value: some_difficulty
+  target_value: '2'
+  quality: exact
+  target_label: Some difficulty
+- source_value: a_lot_of_difficulty
+  target_value: '3'
+  quality: exact
+  target_label: A lot of difficulty
+- source_value: cannot_do
+  target_value: '4'
+  quality: exact
+  target_label: Cannot do at all
+standard:
+  source_id: mics
+  uri: https://mics.unicef.org/tools/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO
+notes: MICS6 Functioning Module (AF1-AF6). Uses the WG-SS response scale verbatim for women 18-49 (men in some countries); MICS reframes the question stems for the module.

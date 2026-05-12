@@ -1,0 +1,84 @@
+id: identifier-type--openimis
+source_value_set:
+  id: identifier-type
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: openimis
+  source_id: openimis
+pairs:
+- source_value: national_id_number
+  target_value: N
+  quality: exact
+  target_label: National ID
+- source_value: passport_number
+  target_value: P
+  quality: exact
+  target_label: Passport
+- source_value: voter_id_number
+  target_value: V
+  quality: exact
+  target_label: Voter ID
+- source_value: drivers_license_number
+  target_value: D
+  quality: exact
+  target_label: Driver's License
+- source_value: social_security_number
+  target_value: null
+  quality: unmapped
+- source_value: tax_id_number
+  target_value: null
+  quality: unmapped
+- source_value: program_id_number
+  target_value: null
+  quality: unmapped
+- source_value: household_id_number
+  target_value: null
+  quality: unmapped
+- source_value: birth_registration_number
+  target_value: null
+  quality: unmapped
+- source_value: marriage_registration_number
+  target_value: null
+  quality: unmapped
+- source_value: death_registration_number
+  target_value: null
+  quality: unmapped
+- source_value: country_code
+  target_value: null
+  quality: unmapped
+- source_value: subdivision_code
+  target_value: null
+  quality: unmapped
+- source_value: postal_code
+  target_value: null
+  quality: unmapped
+- source_value: p_code
+  target_value: null
+  quality: unmapped
+- source_value: fips_code
+  target_value: null
+  quality: unmapped
+- source_value: hasc_code
+  target_value: null
+  quality: unmapped
+- source_value: un_locode
+  target_value: null
+  quality: unmapped
+- source_value: transaction_reference
+  target_value: null
+  quality: unmapped
+- source_value: other
+  target_value: null
+  quality: unmapped
+standard:
+  source_id: openimis
+  uri: https://openimis.atlassian.net/wiki/spaces/OP/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO

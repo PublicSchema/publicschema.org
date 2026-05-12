@@ -1,0 +1,66 @@
+id: education-level--dhs
+source_value_set:
+  id: education-level
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: hv106 - Highest educational level
+  source_id: dhs
+pairs:
+- source_value: none
+  target_value: '0'
+  quality: exact
+  target_label: No education
+- source_value: primary
+  target_value: '1'
+  quality: exact
+  target_label: Primary
+- source_value: upper_secondary
+  target_value: '2'
+  quality: exact
+  target_label: Secondary
+  note: DHS does not distinguish lower from upper secondary; mapped to upper_secondary as the completed-level interpretation
+- source_value: bachelor
+  target_value: '3'
+  quality: exact
+  target_label: Higher
+  note: DHS 'Higher' covers all tertiary; mapped to bachelor as the most common tertiary completion level
+- source_value: null
+  target_value: '8'
+  quality: unmapped
+  target_label: Don't know
+  unmapped_reason: no_equivalent
+- source_value: null
+  target_value: '9'
+  quality: unmapped
+  target_label: Missing
+  unmapped_reason: no_equivalent
+- source_value: lower_secondary
+  target_value: null
+  quality: unmapped
+- source_value: post_secondary_non_tertiary
+  target_value: null
+  quality: unmapped
+- source_value: short_cycle_tertiary
+  target_value: null
+  quality: unmapped
+- source_value: master
+  target_value: null
+  quality: unmapped
+- source_value: doctoral
+  target_value: null
+  quality: unmapped
+- source_value: early_childhood
+  target_value: null
+  quality: unmapped
+standard:
+  source_id: dhs
+  uri: https://dhsprogram.com/data/recode7/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO

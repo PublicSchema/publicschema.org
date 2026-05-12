@@ -1,0 +1,34 @@
+id: gender-type--dhis2
+source_value_set:
+  id: gender-type
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: Gender
+  source_id: dhis2
+pairs:
+- source_value: male
+  target_value: Male
+  quality: exact
+  target_label: Male
+- source_value: female
+  target_value: Female
+  quality: exact
+  target_label: Female
+- source_value: other
+  target_value: null
+  quality: unmapped
+- source_value: not_stated
+  target_value: null
+  quality: unmapped
+standard:
+  source_id: dhis2
+  uri: https://dhis2.org/schemas/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO

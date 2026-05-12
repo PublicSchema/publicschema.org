@@ -1,0 +1,40 @@
+id: sp-benefit-modality--openspp
+source_value_set:
+  id: sp/benefit-modality
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: openspp
+  source_id: openspp
+pairs:
+- source_value: cash
+  target_value: cash
+  quality: exact
+  target_label: Cash
+- source_value: in_kind
+  target_value: inkind
+  quality: exact
+  target_label: In-Kind
+- source_value: voucher
+  target_value: null
+  quality: unmapped
+- source_value: service
+  target_value: null
+  quality: unmapped
+- source_value: fee_waiver
+  target_value: null
+  quality: unmapped
+- source_value: insurance
+  target_value: null
+  quality: unmapped
+standard:
+  source_id: openspp
+  uri: https://docs.openspp.org/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO

@@ -1,0 +1,32 @@
+id: settlement-type--dhs
+source_value_set:
+  id: settlement-type
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: hv025 - Type of place of residence
+  source_id: dhs
+pairs:
+- source_value: urban
+  target_value: '1'
+  quality: exact
+  target_label: Urban
+- source_value: rural
+  target_value: '2'
+  quality: exact
+  target_label: Rural
+- source_value: semi_urban
+  target_value: null
+  quality: unmapped
+standard:
+  source_id: dhs
+  uri: https://dhsprogram.com/data/recode7/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO
+notes: DHS Recode7 hv025. Binary urban/rural classification. The semi-urban category is not captured.

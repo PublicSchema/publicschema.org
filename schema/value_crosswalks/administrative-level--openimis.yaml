@@ -1,0 +1,39 @@
+id: administrative-level--openimis
+source_value_set:
+  id: administrative_level
+  kind: property
+  source_id: publicschema
+target_value_set:
+  id: LocationType
+  source_id: openimis
+pairs:
+- source_value: 1
+  target_value: R
+  quality: exact
+  target_label: Region
+- source_value: 2
+  target_value: D
+  quality: exact
+  target_label: District
+- source_value: 3
+  target_value: W
+  quality: exact
+  target_label: Ward
+- source_value: 4
+  target_value: V
+  quality: exact
+  target_label: Village
+- source_value: 0 (country)
+  target_value: null
+  quality: unmapped
+standard:
+  source_id: openimis
+  uri: https://openimis.atlassian.net/wiki/spaces/OP/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO

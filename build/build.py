@@ -540,6 +540,8 @@ def build_vocabulary(
     schema_dir: Path | None = None,
     *,
     raws: dict | None = None,
+    crosswalks_dir: Path | None = None,
+    strict_crosswalks: bool = False,
 ) -> dict:
     """Build the full vocabulary output from a schema directory.
 
@@ -548,6 +550,15 @@ def build_vocabulary(
     the bespoke per-element YAML loaders are used (legacy / tests).
 
     Pass ``raws`` to bypass file I/O and feed a pre-loaded dict.
+
+    ``crosswalks_dir`` overrides where authored value_crosswalks are read
+    from; defaults to ``<schema_dir>/value_crosswalks``. Authored
+    crosswalks are the post-cutover source of truth for per-system
+    ``system_mappings`` blocks; where one exists for a given
+    (vocabulary/property, target_system), it replaces whatever the
+    reader produced. Set ``strict_crosswalks=True`` to fail the build
+    on any crosswalk whose ``standard:`` block contains a literal
+    ``"TODO"`` placeholder.
 
     Returns a dict with keys: meta, concepts, properties, vocabularies,
     bibliography, categories, context, concept_schemas, credential_schemas,
@@ -562,6 +573,9 @@ def build_vocabulary(
             raws = load_raw_from_linkml(schema_dir)
         else:
             raws = _load_bespoke_raw(schema_dir)
+
+    if crosswalks_dir is None and schema_dir is not None:
+        crosswalks_dir = Path(schema_dir) / "value_crosswalks"
 
     meta = raws.get("meta") or {}
     base_uri = meta.get("base_uri", "https://publicschema.org/")
@@ -694,6 +708,30 @@ def build_vocabulary(
             "external_values": data.get("external_values", False),
             "references": data.get("references", []),
         }
+
+    # Overlay authored value_crosswalks back onto out_vocabularies and
+    # out_properties as the canonical post-cutover source of truth for
+    # ``system_mappings``. Authored crosswalks (under
+    # schema/value_crosswalks/) replace whatever system_mappings the
+    # reader produced for the same (source, target_system) pair: this
+    # restores per-(vocab, system) ``vocabulary_name``,
+    # ``unmapped_canonical``, and per-pair notes that the lossy LinkML
+    # migration dropped, and keeps property crosswalks in sync with the
+    # same authoring path the vocabularies now use.
+    if crosswalks_dir is not None:
+        from build.value_crosswalks import (
+            load_crosswalks,
+            synthesize_system_mappings,
+        )
+        cw_index = load_crosswalks(crosswalks_dir, strict=strict_crosswalks)
+        for vocab_key in out_vocabularies:
+            synth = synthesize_system_mappings(cw_index, "vocabulary", vocab_key)
+            if synth is not None:
+                out_vocabularies[vocab_key]["system_mappings"] = synth
+        for prop_id in out_properties:
+            synth = synthesize_system_mappings(cw_index, "property", prop_id)
+            if synth is not None:
+                out_properties[prop_id]["system_mappings"] = synth
 
     # Build bibliography output and reverse indexes. Each entry's `informs`
     # block points at concepts/vocabularies/properties; we mirror those edges

@@ -1,0 +1,74 @@
+id: household-asset--dhs
+source_value_set:
+  id: household-asset
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: DHS Recode7 household assets
+  source_id: dhs
+pairs:
+- source_value: radio
+  target_value: hv207
+  quality: exact
+  target_label: Radio
+- source_value: television
+  target_value: hv208
+  quality: exact
+  target_label: Television
+- source_value: mobile_phone
+  target_value: hv243a
+  quality: exact
+  target_label: Mobile telephone
+- source_value: landline_phone
+  target_value: hv221
+  quality: exact
+  target_label: Telephone (land-line)
+- source_value: refrigerator
+  target_value: hv209
+  quality: exact
+  target_label: Refrigerator
+- source_value: bicycle
+  target_value: hv210
+  quality: exact
+  target_label: Bicycle
+- source_value: motorcycle_scooter
+  target_value: hv211
+  quality: exact
+  target_label: Motorcycle/scooter
+- source_value: car_truck
+  target_value: hv212
+  quality: exact
+  target_label: Car/truck
+- source_value: animal_drawn_cart
+  target_value: hv243c
+  quality: exact
+  target_label: Animal-drawn cart
+- source_value: motorized_boat
+  target_value: hv243d
+  quality: exact
+  target_label: Boat with a motor
+- source_value: watch
+  target_value: hv243b
+  quality: exact
+  target_label: Watch
+- source_value: computer_tablet
+  target_value: null
+  quality: unmapped
+- source_value: bank_account
+  target_value: null
+  quality: unmapped
+- source_value: other
+  target_value: null
+  quality: unmapped
+standard:
+  source_id: dhs
+  uri: https://dhsprogram.com/data/recode7/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO
+notes: DHS Recode7 asset variables. Each is a binary (0/1) indicator. Code here is the variable name, not a numeric code. DHS does not collect computer ownership or bank account as standard recode variables.

@@ -1,0 +1,44 @@
+id: marital-status--openspp
+source_value_set:
+  id: marital-status
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: MaritalStatus
+  source_id: openspp
+pairs:
+- source_value: never_married
+  target_value: S
+  quality: exact
+  target_label: Never Married
+- source_value: married
+  target_value: M
+  quality: exact
+  target_label: Married
+- source_value: widowed
+  target_value: W
+  quality: exact
+  target_label: Widowed
+- source_value: divorced
+  target_value: D
+  quality: exact
+  target_label: Divorced
+- source_value: legally_separated
+  target_value: L
+  quality: exact
+  target_label: Separated
+- source_value: consensual_union
+  target_value: C
+  quality: exact
+  target_label: Consensual Union
+standard:
+  source_id: openspp
+  uri: https://docs.openspp.org/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO

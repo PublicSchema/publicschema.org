@@ -1,0 +1,35 @@
+id: crvs-parental-role--fhir_r5
+source_value_set:
+  id: crvs/parental-role
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: v3 RoleCode (THO v7.0.1)
+  source_id: fhir_r5
+pairs:
+- source_value: biological
+  target_value: PRN
+  quality: exact
+  target_label: Parent
+  note: PRN is the generic parent supertype; biological is the closest gender-neutral mapping. Used also for legal when no more specific code applies.
+- source_value: gestational
+  target_value: GESTM
+  quality: exact
+  target_label: Gestational Mother
+  note: GESTM is female-coded; our gestational code is gender-neutral. The mapping is narrow.
+- source_value: adoptive
+  target_value: ADOPTP
+  quality: exact
+  target_label: Adoptive Parent
+standard:
+  source_id: fhir_r5
+  uri: http://hl7.org/fhir/R5/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO
+notes: FHIR v3 RoleCode has no gender-neutral gestational code; GESTM is female-coded. Systems mapping gestational to FHIR should emit GESTM when the gestational parent is female, otherwise PRN with a local extension.

@@ -1,0 +1,41 @@
+id: assessment-band--dhs
+source_value_set:
+  id: assessment_band
+  kind: property
+  source_id: publicschema
+target_value_set:
+  id: hv270 - Wealth index
+  source_id: dhs
+pairs:
+- source_value: '1'
+  target_value: '1'
+  quality: exact
+  target_label: Poorest
+- source_value: '2'
+  target_value: '2'
+  quality: exact
+  target_label: Poorer
+- source_value: '3'
+  target_value: '3'
+  quality: exact
+  target_label: Middle
+- source_value: '4'
+  target_value: '4'
+  quality: exact
+  target_label: Richer
+- source_value: '5'
+  target_value: '5'
+  quality: exact
+  target_label: Richest
+standard:
+  source_id: dhs
+  uri: https://dhsprogram.com/data/recode7/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO
+notes: DHS Recode7 hv270. Wealth index quintile classification based on the DHS wealth index factor score (hv271). Quintile boundaries are survey-specific.

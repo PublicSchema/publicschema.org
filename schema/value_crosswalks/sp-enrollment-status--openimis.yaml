@@ -1,0 +1,43 @@
+id: sp-enrollment-status--openimis
+source_value_set:
+  id: sp/enrollment-status
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: BeneficiaryStatus
+  source_id: openimis
+pairs:
+- source_value: pending_verification
+  target_value: POTENTIAL
+  quality: exact
+  target_label: Potential
+  note: Potential is the closest openIMIS equivalent for a beneficiary record that is not yet fully admitted or activated.
+- source_value: active
+  target_value: ACTIVE
+  quality: exact
+  target_label: Active
+- source_value: graduated
+  target_value: GRADUATED
+  quality: exact
+  target_label: Graduated
+- source_value: suspended
+  target_value: SUSPENDED
+  quality: exact
+  target_label: Suspended
+- source_value: waitlisted
+  target_value: null
+  quality: unmapped
+- source_value: closed
+  target_value: null
+  quality: unmapped
+standard:
+  source_id: openimis
+  uri: https://openimis.atlassian.net/wiki/spaces/OP/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO

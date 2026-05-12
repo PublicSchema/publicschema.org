@@ -1,0 +1,37 @@
+id: functional-difficulty-severity--dhs
+source_value_set:
+  id: functional-difficulty-severity
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: DHS Disability Module response scale
+  source_id: dhs
+pairs:
+- source_value: no_difficulty
+  target_value: '1'
+  quality: exact
+  target_label: No difficulty
+- source_value: some_difficulty
+  target_value: '2'
+  quality: exact
+  target_label: Some difficulty
+- source_value: a_lot_of_difficulty
+  target_value: '3'
+  quality: exact
+  target_label: A lot of difficulty
+- source_value: cannot_do
+  target_value: '4'
+  quality: exact
+  target_label: Cannot do at all
+standard:
+  source_id: dhs
+  uri: https://dhsprogram.com/data/recode7/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO
+notes: DHS optional Disability Module. Uses the WG-SS response scale verbatim for persons age 5+; DHS reframes the question stems to third-person. Not included in all DHS surveys.

@@ -1,0 +1,29 @@
+id: electricity-access--mics
+source_value_set:
+  id: electricity_access
+  kind: property
+  source_id: publicschema
+target_value_set:
+  id: HC8 - Electricity
+  source_id: mics
+pairs:
+- source_value: 1
+  target_value: '1'
+  quality: exact
+  target_label: 'Yes'
+- source_value: 0
+  target_value: '2'
+  quality: exact
+  target_label: 'No'
+standard:
+  source_id: mics
+  uri: https://mics.unicef.org/tools/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO
+notes: 'MICS6 HC8. Binary indicator. Maps to boolean: 1=true, 2=false. MICS also captures source type (HC8A-HC8E) which is not represented in this boolean property.'

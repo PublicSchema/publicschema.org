@@ -1,0 +1,74 @@
+id: sp-benefit-frequency--semic
+source_value_set:
+  id: sp/benefit-frequency
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: EU Frequency NAL
+  source_id: semic
+pairs:
+- source_value: annually
+  target_value: ANNUAL
+  quality: exact
+  target_label: Annual
+- source_value: daily
+  target_value: DAILY
+  quality: exact
+  target_label: Daily
+- source_value: weekly
+  target_value: WEEKLY
+  quality: exact
+  target_label: Weekly
+- source_value: monthly
+  target_value: MONTHLY
+  quality: exact
+  target_label: Monthly
+- source_value: quarterly
+  target_value: QUARTERLY
+  quality: exact
+  target_label: Quarterly
+- source_value: every_two_weeks
+  target_value: BIWEEKLY
+  quality: exact
+  target_label: Biweekly
+- source_value: semi_annually
+  target_value: ANNUAL_2
+  quality: exact
+  target_label: semiannual
+- source_value: as_needed
+  target_value: IRREG
+  quality: exact
+  target_label: Irregular
+- source_value: custom
+  target_value: OTHER
+  quality: exact
+  target_label: Other
+- source_value: null
+  target_value: BIMONTHLY
+  quality: unmapped
+  target_label: Bimonthly
+  unmapped_reason: not_yet_mapped
+- source_value: null
+  target_value: CONT
+  quality: unmapped
+  target_label: Continuous
+  unmapped_reason: out_of_scope
+- source_value: null
+  target_value: NEVER
+  quality: unmapped
+  target_label: Never
+  unmapped_reason: out_of_scope
+- source_value: one_time
+  target_value: null
+  quality: unmapped
+standard:
+  source_id: semic
+  uri: http://data.europa.eu/m8g/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO

@@ -1,0 +1,41 @@
+id: sex--semic
+source_value_set:
+  id: sex
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: EU Human Sex NAL
+  source_id: semic
+pairs:
+- source_value: male
+  target_value: MALE
+  quality: exact
+  target_label: Male
+- source_value: female
+  target_value: FEMALE
+  quality: exact
+  target_label: Female
+- source_value: not_known
+  target_value: NKN
+  quality: exact
+  target_label: Not known
+- source_value: not_applicable
+  target_value: NAP
+  quality: exact
+  target_label: Not applicable
+- source_value: null
+  target_value: NST
+  quality: unmapped
+  target_label: Not stated
+  unmapped_reason: no_equivalent
+standard:
+  source_id: semic
+  uri: http://data.europa.eu/m8g/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO

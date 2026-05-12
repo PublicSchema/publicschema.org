@@ -1,0 +1,39 @@
+id: ict-access--dhs
+source_value_set:
+  id: ict-access
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: DHS ICT-related variables
+  source_id: dhs
+pairs:
+- source_value: mobile_phone
+  target_value: hv243a
+  quality: exact
+  target_label: Mobile telephone
+- source_value: television
+  target_value: hv208
+  quality: exact
+  target_label: Television
+- source_value: radio
+  target_value: hv207
+  quality: exact
+  target_label: Radio
+- source_value: computer_tablet
+  target_value: null
+  quality: unmapped
+- source_value: internet
+  target_value: null
+  quality: unmapped
+standard:
+  source_id: dhs
+  uri: https://dhsprogram.com/data/recode7/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO
+notes: DHS captures mobile phone, TV, and radio as household asset binary indicators. Computer and internet access are not standard DHS recode variables.

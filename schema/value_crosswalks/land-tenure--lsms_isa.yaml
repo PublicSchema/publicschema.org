@@ -1,0 +1,57 @@
+id: land-tenure--lsms_isa
+source_value_set:
+  id: land-tenure
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: LSMS-ISA land tenure (indicative cross-walk, not a single authoritative variable)
+  source_id: lsms_isa
+pairs:
+- source_value: owned_with_title
+  target_value: '1'
+  quality: exact
+  target_label: Owned (purchased/inherited)
+  note: LSMS-ISA does not distinguish titled from untitled ownership in the harmonized variable. Mapped to owned_with_title as default; field context may indicate otherwise.
+- source_value: rented
+  target_value: '2'
+  quality: exact
+  target_label: Rented in
+- source_value: sharecropped
+  target_value: '3'
+  quality: exact
+  target_label: Sharecropped
+- source_value: borrowed
+  target_value: '4'
+  quality: exact
+  target_label: Borrowed/given for free
+- source_value: communal
+  target_value: '5'
+  quality: exact
+  target_label: Communal/village
+- source_value: state_allocated
+  target_value: '6'
+  quality: exact
+  target_label: Allocated by government
+- source_value: informal
+  target_value: '7'
+  quality: exact
+  target_label: Squatting
+- source_value: other
+  target_value: '96'
+  quality: exact
+  target_label: Other
+- source_value: owned_without_title
+  target_value: null
+  quality: unmapped
+standard:
+  source_id: lsms_isa
+  uri: https://www.worldbank.org/en/programs/lsms/initiatives/lsms-ISA/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO
+notes: This is an indicative cross-walk, not a direct mapping to a single LSMS-ISA variable. The LSMS Agricultural Survey Design reference questionnaire (Module 2, Parcel Details) carries 13 land-acquisition categories, and the World Bank harmonized panel dataset uses a binary plot_owned variable. The 8-code structure here collapses country-specific questionnaire codes into PublicSchema's canonical tenure categories. Adopters mapping from a specific country wave should consult that country's LSMS-ISA questionnaire directly.

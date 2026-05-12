@@ -1,0 +1,53 @@
+id: voucher-status--govstack_payments
+source_value_set:
+  id: voucher-status
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: VoucherStatus (integer codes, labels inferred)
+  source_id: govstack_payments
+pairs:
+- source_value: created
+  target_value: '01'
+  quality: exact
+  target_label: Pre-Activated
+- source_value: issued
+  target_value: '02'
+  quality: exact
+  target_label: Activated
+- source_value: redeemed
+  target_value: '03'
+  quality: exact
+  target_label: Redeemed
+- source_value: cancelled
+  target_value: '04'
+  quality: exact
+  target_label: Cancelled
+- source_value: suspended
+  target_value: '05'
+  quality: exact
+  target_label: Suspended
+- source_value: expired
+  target_value: '06'
+  quality: exact
+  target_label: Expired
+- source_value: null
+  target_value: '9'
+  quality: unmapped
+  target_label: Error
+  unmapped_reason: out_of_scope
+- source_value: partially_redeemed
+  target_value: null
+  quality: unmapped
+standard:
+  source_id: govstack_payments
+  uri: https://govstack.global/specs/payments/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO
+notes: The GovStack bb-payments OpenAPI spec (VoucherStatus.yml) describes status as an integer from 01 to 06 plus 9 for error, but does not publish a code-to-label table. The labels above for 01 and 02 follow state-machine convention; the labels for 03-06 are inferred. The rendered GovStack specification narrative also mentions 'Blocked' and 'Not Existing' states which have no assigned integer code in the public spec; implementers should confirm code-label assignments with their GovStack deployment.

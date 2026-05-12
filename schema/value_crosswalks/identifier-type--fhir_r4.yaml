@@ -1,0 +1,154 @@
+id: identifier-type--fhir_r4
+source_value_set:
+  id: identifier-type
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: Identifier Type Codes
+  source_id: fhir_r4
+pairs:
+- source_value: passport_number
+  target_value: PPN
+  quality: exact
+  target_label: Passport Number
+- source_value: drivers_license_number
+  target_value: DL
+  quality: exact
+  target_label: Driver's License Number
+- source_value: tax_id_number
+  target_value: TAX
+  quality: exact
+  target_label: Tax ID Number
+- source_value: program_id_number
+  target_value: SB
+  quality: exact
+  target_label: Social Beneficiary Identifier
+- source_value: null
+  target_value: BRN
+  quality: unmapped
+  target_label: Breed Registry Number
+  unmapped_reason: out_of_scope
+- source_value: null
+  target_value: MR
+  quality: unmapped
+  target_label: Medical Record Number
+  unmapped_reason: out_of_scope
+- source_value: null
+  target_value: MCN
+  quality: unmapped
+  target_label: Microchip Number
+  unmapped_reason: out_of_scope
+- source_value: null
+  target_value: EN
+  quality: unmapped
+  target_label: Employer Number
+  unmapped_reason: out_of_scope
+- source_value: null
+  target_value: NIIP
+  quality: unmapped
+  target_label: National Insurance Payor Identifier
+  unmapped_reason: out_of_scope
+- source_value: null
+  target_value: PRN
+  quality: unmapped
+  target_label: Provider Number
+  unmapped_reason: out_of_scope
+- source_value: null
+  target_value: MD
+  quality: unmapped
+  target_label: Medical License Number
+  unmapped_reason: out_of_scope
+- source_value: null
+  target_value: DR
+  quality: unmapped
+  target_label: Donor Registration Number
+  unmapped_reason: out_of_scope
+- source_value: null
+  target_value: ACSN
+  quality: unmapped
+  target_label: Accession ID
+  unmapped_reason: out_of_scope
+- source_value: null
+  target_value: UDI
+  quality: unmapped
+  target_label: Universal Device Identifier
+  unmapped_reason: out_of_scope
+- source_value: null
+  target_value: SNO
+  quality: unmapped
+  target_label: Serial Number
+  unmapped_reason: out_of_scope
+- source_value: null
+  target_value: PLAC
+  quality: unmapped
+  target_label: Placer Identifier
+  unmapped_reason: out_of_scope
+- source_value: null
+  target_value: FILL
+  quality: unmapped
+  target_label: Filler Identifier
+  unmapped_reason: out_of_scope
+- source_value: null
+  target_value: JHN
+  quality: unmapped
+  target_label: Jurisdictional Health Number
+  unmapped_reason: not_yet_mapped
+- source_value: national_id_number
+  target_value: null
+  quality: unmapped
+- source_value: social_security_number
+  target_value: null
+  quality: unmapped
+- source_value: household_id_number
+  target_value: null
+  quality: unmapped
+- source_value: voter_id_number
+  target_value: null
+  quality: unmapped
+- source_value: birth_registration_number
+  target_value: null
+  quality: unmapped
+- source_value: marriage_registration_number
+  target_value: null
+  quality: unmapped
+- source_value: death_registration_number
+  target_value: null
+  quality: unmapped
+- source_value: country_code
+  target_value: null
+  quality: unmapped
+- source_value: subdivision_code
+  target_value: null
+  quality: unmapped
+- source_value: postal_code
+  target_value: null
+  quality: unmapped
+- source_value: p_code
+  target_value: null
+  quality: unmapped
+- source_value: fips_code
+  target_value: null
+  quality: unmapped
+- source_value: hasc_code
+  target_value: null
+  quality: unmapped
+- source_value: un_locode
+  target_value: null
+  quality: unmapped
+- source_value: transaction_reference
+  target_value: null
+  quality: unmapped
+- source_value: other
+  target_value: null
+  quality: unmapped
+standard:
+  source_id: fhir_r4
+  uri: http://hl7.org/fhir/R4/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO

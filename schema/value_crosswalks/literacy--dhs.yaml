@@ -1,0 +1,33 @@
+id: literacy--dhs
+source_value_set:
+  id: literacy
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: v155 - Literacy
+  source_id: dhs
+pairs:
+- source_value: illiterate
+  target_value: '0'
+  quality: exact
+  target_label: Cannot read at all
+- source_value: illiterate
+  target_value: '1'
+  quality: exact
+  target_label: Able to read only parts of sentence
+  note: Partial reading ability does not meet the UNSD standard of being able to read AND write a short simple statement
+- source_value: literate
+  target_value: '2'
+  quality: exact
+  target_label: Able to read a whole sentence
+standard:
+  source_id: dhs
+  uri: https://dhsprogram.com/data/recode7/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO

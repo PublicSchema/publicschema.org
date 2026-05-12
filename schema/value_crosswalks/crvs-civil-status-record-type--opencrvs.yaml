@@ -1,0 +1,42 @@
+id: crvs-civil-status-record-type--opencrvs
+source_value_set:
+  id: crvs/civil-status-record-type
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: EventDocument.type (country-configured string)
+  source_id: opencrvs
+pairs:
+- source_value: birth
+  target_value: birth
+  quality: exact
+  target_label: birth
+- source_value: death
+  target_value: death
+  quality: exact
+  target_label: death
+- source_value: marriage
+  target_value: marriage
+  quality: exact
+  target_label: marriage
+- source_value: paternity_recognition
+  target_value: null
+  quality: unmapped
+- source_value: supplementary_judgment
+  target_value: null
+  quality: unmapped
+- source_value: court_ordered_substitute
+  target_value: null
+  quality: unmapped
+standard:
+  source_id: opencrvs
+  uri: https://documentation.opencrvs.org/technology/event-service-v2/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO
+notes: In v2, EventDocument.type is a free string set by the country config. Farajaland uses 'birth', 'death', 'marriage' as event type strings. The three shared values align; PublicSchema covers three additional types (paternity_recognition, supplementary_judgment, court_ordered_substitute) with no v2 core equivalent.

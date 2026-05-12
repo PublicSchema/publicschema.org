@@ -1,0 +1,39 @@
+id: ict-access--mics
+source_value_set:
+  id: ict-access
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: MICS6 ICT indicators
+  source_id: mics
+pairs:
+- source_value: mobile_phone
+  target_value: HC12
+  quality: exact
+  target_label: Mobile phone
+- source_value: computer_tablet
+  target_value: HC11
+  quality: exact
+  target_label: Computer/tablet
+- source_value: internet
+  target_value: HC13
+  quality: exact
+  target_label: Internet access
+- source_value: television
+  target_value: null
+  quality: unmapped
+- source_value: radio
+  target_value: null
+  quality: unmapped
+standard:
+  source_id: mics
+  uri: https://mics.unicef.org/tools/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO
+notes: MICS6 HC11-HC13. Television and radio are not part of the standard MICS6 ICT module but may appear in country-specific adaptations.

@@ -1,0 +1,35 @@
+id: gender-type--openimis
+source_value_set:
+  id: gender-type
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: Gender
+  source_id: openimis
+pairs:
+- source_value: male
+  target_value: M
+  quality: exact
+  target_label: Male
+- source_value: female
+  target_value: F
+  quality: exact
+  target_label: Female
+- source_value: other
+  target_value: O
+  quality: exact
+  target_label: Other
+- source_value: not_stated
+  target_value: null
+  quality: unmapped
+standard:
+  source_id: openimis
+  uri: https://openimis.atlassian.net/wiki/spaces/OP/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO

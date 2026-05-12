@@ -1,0 +1,47 @@
+id: payment-status--opencrvs
+source_value_set:
+  id: payment-status
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: PaymentOutcomeType
+  source_id: opencrvs
+pairs:
+- source_value: paid
+  target_value: COMPLETED
+  quality: exact
+  target_label: Completed
+- source_value: failed
+  target_value: ERROR
+  quality: exact
+  target_label: Error
+- source_value: partial
+  target_value: PARTIAL
+  quality: exact
+  target_label: Partial
+- source_value: pending
+  target_value: null
+  quality: unmapped
+- source_value: returned
+  target_value: null
+  quality: unmapped
+- source_value: cancelled
+  target_value: null
+  quality: unmapped
+- source_value: processing
+  target_value: null
+  quality: unmapped
+- source_value: rejected
+  target_value: null
+  quality: unmapped
+standard:
+  source_id: opencrvs
+  uri: https://documentation.opencrvs.org/technology/event-service-v2/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO

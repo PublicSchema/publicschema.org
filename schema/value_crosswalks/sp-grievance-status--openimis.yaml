@@ -1,0 +1,52 @@
+id: sp-grievance-status--openimis
+source_value_set:
+  id: sp/grievance-status
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: openimis
+  source_id: openimis
+pairs:
+- source_value: submitted
+  target_value: Waiting
+  quality: exact
+  target_label: Waiting
+- source_value: submitted
+  target_value: Todo
+  quality: exact
+  target_label: Todo
+- source_value: under_review
+  target_value: Inprogress
+  quality: exact
+  target_label: In Progress
+- source_value: under_review
+  target_value: Review
+  quality: exact
+  target_label: Review
+- source_value: closed
+  target_value: CLOSE
+  quality: exact
+  target_label: Close
+- source_value: resolved
+  target_value: null
+  quality: unmapped
+- source_value: escalated
+  target_value: null
+  quality: unmapped
+- source_value: rejected
+  target_value: null
+  quality: unmapped
+- source_value: withdrawn
+  target_value: null
+  quality: unmapped
+standard:
+  source_id: openimis
+  uri: https://openimis.atlassian.net/wiki/spaces/OP/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO

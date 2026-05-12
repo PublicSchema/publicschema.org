@@ -1,0 +1,47 @@
+id: payment-status--govstack_payments
+source_value_set:
+  id: payment-status
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: BatchTransactionStatus (implied)
+  source_id: govstack_payments
+pairs:
+- source_value: processing
+  target_value: ongoing
+  quality: exact
+  target_label: Ongoing
+- source_value: paid
+  target_value: completed
+  quality: exact
+  target_label: Completed
+- source_value: failed
+  target_value: failed
+  quality: exact
+  target_label: Failed
+- source_value: partial
+  target_value: null
+  quality: unmapped
+- source_value: pending
+  target_value: null
+  quality: unmapped
+- source_value: returned
+  target_value: null
+  quality: unmapped
+- source_value: rejected
+  target_value: null
+  quality: unmapped
+- source_value: cancelled
+  target_value: null
+  quality: unmapped
+standard:
+  source_id: govstack_payments
+  uri: https://govstack.global/specs/payments/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO

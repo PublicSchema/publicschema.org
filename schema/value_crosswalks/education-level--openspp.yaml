@@ -1,0 +1,61 @@
+id: education-level--openspp
+source_value_set:
+  id: education-level
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: Education Level (ISCED 2011)
+  source_id: openspp
+pairs:
+- source_value: early_childhood
+  target_value: '0'
+  quality: exact
+  target_label: Early childhood education
+- source_value: primary
+  target_value: '1'
+  quality: exact
+  target_label: Primary education
+- source_value: lower_secondary
+  target_value: '2'
+  quality: exact
+  target_label: Lower secondary education
+- source_value: upper_secondary
+  target_value: '3'
+  quality: exact
+  target_label: Upper secondary education
+- source_value: post_secondary_non_tertiary
+  target_value: '4'
+  quality: exact
+  target_label: Post-secondary non-tertiary education
+- source_value: short_cycle_tertiary
+  target_value: '5'
+  quality: exact
+  target_label: Short-cycle tertiary education
+- source_value: bachelor
+  target_value: '6'
+  quality: exact
+  target_label: Bachelor's or equivalent level
+- source_value: master
+  target_value: '7'
+  quality: exact
+  target_label: Master's or equivalent level
+- source_value: doctoral
+  target_value: '8'
+  quality: exact
+  target_label: Doctoral or equivalent level
+- source_value: null
+  target_value: '9'
+  quality: unmapped
+  target_label: Not elsewhere classified
+  unmapped_reason: no_equivalent
+standard:
+  source_id: openspp
+  uri: https://docs.openspp.org/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO

@@ -1,0 +1,55 @@
+id: crvs-registration-status--opencrvs
+source_value_set:
+  id: crvs/registration-status
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: EventStatus
+  source_id: opencrvs
+pairs:
+- source_value: declared
+  target_value: CREATED
+  quality: exact
+  target_label: Created
+  note: Draft event created; maps to declared as the earliest declared state.
+- source_value: declared
+  target_value: NOTIFIED
+  quality: exact
+  target_label: Notified
+  note: Birth or death notified before formal declaration; maps to declared.
+- source_value: declared
+  target_value: DECLARED
+  quality: exact
+  target_label: Declared
+- source_value: registered
+  target_value: REGISTERED
+  quality: exact
+  target_label: Registered
+- source_value: archived
+  target_value: ARCHIVED
+  quality: exact
+  target_label: Archived
+- source_value: cancelled
+  target_value: null
+  quality: unmapped
+- source_value: corrected
+  target_value: null
+  quality: unmapped
+- source_value: pending_validation
+  target_value: null
+  quality: unmapped
+- source_value: rejected
+  target_value: null
+  quality: unmapped
+standard:
+  source_id: opencrvs
+  uri: https://documentation.opencrvs.org/technology/event-service-v2/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO
+notes: EventStatus is a 5-value enum in v2. CREATED and NOTIFIED both map to declared as pre-registration draft states. The v1 granularity (WAITING_VALIDATION, VALIDATED, CERTIFIED, ISSUED, CORRECTION_REQUESTED) is no longer present; correction outcomes are expressed through action sequences rather than a terminal status.

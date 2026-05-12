@@ -1,0 +1,45 @@
+id: sp-enrollment-status--dhis2
+source_value_set:
+  id: sp/enrollment-status
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: EnrollmentStatus
+  source_id: dhis2
+pairs:
+- source_value: active
+  target_value: ACTIVE
+  quality: exact
+  target_label: Active
+- source_value: closed
+  target_value: COMPLETED
+  quality: exact
+  target_label: Completed
+- source_value: closed
+  target_value: CANCELLED
+  quality: exact
+  target_label: Cancelled
+- source_value: pending_verification
+  target_value: null
+  quality: unmapped
+- source_value: waitlisted
+  target_value: null
+  quality: unmapped
+- source_value: suspended
+  target_value: null
+  quality: unmapped
+- source_value: graduated
+  target_value: null
+  quality: unmapped
+standard:
+  source_id: dhis2
+  uri: https://dhis2.org/schemas/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO
+notes: COMPLETED may map to graduated or closed + exit_reason depending on program context. CANCELLED maps to closed + exit_reason (administrative or voluntary_withdrawal).

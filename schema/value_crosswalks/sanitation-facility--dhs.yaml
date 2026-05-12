@@ -1,0 +1,72 @@
+id: sanitation-facility--dhs
+source_value_set:
+  id: sanitation-facility
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: hv205 - Type of toilet facility
+  source_id: dhs
+pairs:
+- source_value: flush_to_piped_sewer
+  target_value: '11'
+  quality: exact
+  target_label: Flush to piped sewer system
+- source_value: flush_to_septic_tank
+  target_value: '12'
+  quality: exact
+  target_label: Flush to septic tank
+- source_value: flush_to_pit_latrine
+  target_value: '13'
+  quality: exact
+  target_label: Flush to pit latrine
+- source_value: flush_to_open_drain
+  target_value: '14'
+  quality: exact
+  target_label: Flush to somewhere else
+- source_value: flush_to_unknown
+  target_value: '15'
+  quality: exact
+  target_label: Flush, don't know where
+- source_value: ventilated_improved_pit
+  target_value: '21'
+  quality: exact
+  target_label: Ventilated improved pit latrine (VIP)
+- source_value: pit_latrine_with_slab
+  target_value: '22'
+  quality: exact
+  target_label: Pit latrine with slab
+- source_value: pit_latrine_without_slab
+  target_value: '23'
+  quality: exact
+  target_label: Pit latrine without slab/open pit
+- source_value: open_defecation
+  target_value: '31'
+  quality: exact
+  target_label: No facility/bush/field
+- source_value: composting_toilet
+  target_value: '41'
+  quality: exact
+  target_label: Composting toilet
+- source_value: bucket_latrine
+  target_value: '42'
+  quality: exact
+  target_label: Bucket toilet
+- source_value: hanging_toilet
+  target_value: '43'
+  quality: exact
+  target_label: Hanging toilet/latrine
+- source_value: other
+  target_value: '96'
+  quality: exact
+  target_label: Other
+standard:
+  source_id: dhs
+  uri: https://dhsprogram.com/data/recode7/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO

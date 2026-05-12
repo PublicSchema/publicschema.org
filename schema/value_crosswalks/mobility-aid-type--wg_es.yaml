@@ -1,0 +1,49 @@
+id: mobility-aid-type--wg_es
+source_value_set:
+  id: mobility-aid-type
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: WG-ES MOB_3 mobility aid checklist
+  source_id: wg_es
+pairs:
+- source_value: cane_or_walking_stick
+  target_value: A
+  quality: exact
+  target_label: Cane or walking stick
+- source_value: walker_or_zimmer_frame
+  target_value: B
+  quality: exact
+  target_label: Walker or Zimmer frame
+- source_value: crutches
+  target_value: C
+  quality: exact
+  target_label: Crutches
+- source_value: wheelchair_or_scooter
+  target_value: D
+  quality: exact
+  target_label: Wheelchair or scooter
+- source_value: artificial_limb
+  target_value: E
+  quality: exact
+  target_label: Artificial limb (leg/foot)
+- source_value: personal_assistance
+  target_value: F
+  quality: exact
+  target_label: Someone's assistance
+- source_value: other
+  target_value: G
+  quality: exact
+  target_label: Other (please specify)
+standard:
+  source_id: wg_es
+  uri: https://www.washingtongroup-disability.com/question-sets/wg-extended-set/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO
+notes: WG-ES MOB_3 is a multi-select checklist. Each option is recorded as Yes/No; all affirmative responses map to the corresponding code in this vocabulary.

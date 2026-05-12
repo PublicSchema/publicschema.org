@@ -1,0 +1,41 @@
+id: cfm-symptom-frequency--mics
+source_value_set:
+  id: cfm-symptom-frequency
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: MICS6 CFM Anxiety/Depression scale
+  source_id: mics
+pairs:
+- source_value: daily
+  target_value: '1'
+  quality: exact
+  target_label: Daily
+- source_value: weekly
+  target_value: '2'
+  quality: exact
+  target_label: Weekly
+- source_value: monthly
+  target_value: '3'
+  quality: exact
+  target_label: Monthly
+- source_value: a_few_times_a_year
+  target_value: '4'
+  quality: exact
+  target_label: A few times a year
+- source_value: never
+  target_value: '5'
+  quality: exact
+  target_label: Never
+standard:
+  source_id: mics
+  uri: https://mics.unicef.org/tools/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO
+notes: 'MICS6 Child Functioning Module, ages 5-17: CF23 (anxiety), CF24 (depression) per the 19 March 2020 CFM PDF. Some older secondary sources number these CF15/CF16; the 2020 PDF is canonical.'

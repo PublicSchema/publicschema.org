@@ -1,0 +1,44 @@
+id: marital-status--dhis2
+source_value_set:
+  id: marital-status
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: Civil status
+  source_id: dhis2
+pairs:
+- source_value: null
+  target_value: Single or widow
+  quality: unmapped
+  target_label: Single or widow
+  unmapped_reason: no_equivalent
+- source_value: married
+  target_value: Married (conjugal cohabitation)
+  quality: exact
+  target_label: Married (conjugal cohabitation)
+- source_value: never_married
+  target_value: null
+  quality: unmapped
+- source_value: widowed
+  target_value: null
+  quality: unmapped
+- source_value: divorced
+  target_value: null
+  quality: unmapped
+- source_value: legally_separated
+  target_value: null
+  quality: unmapped
+- source_value: consensual_union
+  target_value: null
+  quality: unmapped
+standard:
+  source_id: dhis2
+  uri: https://dhis2.org/schemas/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO

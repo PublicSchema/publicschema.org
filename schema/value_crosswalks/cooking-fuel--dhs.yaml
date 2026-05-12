@@ -1,0 +1,73 @@
+id: cooking-fuel--dhs
+source_value_set:
+  id: cooking-fuel
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: hv226 - Type of cooking fuel
+  source_id: dhs
+pairs:
+- source_value: electricity
+  target_value: '1'
+  quality: exact
+  target_label: Electricity
+- source_value: lpg_natural_gas
+  target_value: '2'
+  quality: exact
+  target_label: LPG
+- source_value: lpg_natural_gas
+  target_value: '3'
+  quality: exact
+  target_label: Natural gas
+- source_value: biogas
+  target_value: '4'
+  quality: exact
+  target_label: Biogas
+- source_value: kerosene
+  target_value: '5'
+  quality: exact
+  target_label: Kerosene
+- source_value: coal_lignite
+  target_value: '6'
+  quality: exact
+  target_label: Coal, lignite
+- source_value: charcoal
+  target_value: '7'
+  quality: exact
+  target_label: Charcoal
+- source_value: wood
+  target_value: '8'
+  quality: exact
+  target_label: Wood
+- source_value: straw_shrubs_grass
+  target_value: '9'
+  quality: exact
+  target_label: Straw/shrubs/grass
+- source_value: agricultural_crop_waste
+  target_value: '10'
+  quality: exact
+  target_label: Agricultural crop
+- source_value: animal_dung
+  target_value: '11'
+  quality: exact
+  target_label: Animal dung
+- source_value: no_food_cooked
+  target_value: '95'
+  quality: exact
+  target_label: No food cooked in house
+- source_value: other
+  target_value: '96'
+  quality: exact
+  target_label: Other
+standard:
+  source_id: dhs
+  uri: https://dhsprogram.com/data/recode7/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO
+notes: DHS Recode 7 hv226 lists codes 1-11 plus 95 (no food cooked in house) and 96 (other). Codes 2 (LPG) and 3 (Natural gas) both map to lpg_natural_gas; biogas maps to its own canonical value.

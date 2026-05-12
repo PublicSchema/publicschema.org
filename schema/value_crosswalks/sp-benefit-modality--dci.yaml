@@ -1,0 +1,47 @@
+id: sp-benefit-modality--dci
+source_value_set:
+  id: sp/benefit-modality
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: BenefitTypeEnum
+  source_id: dci
+pairs:
+- source_value: cash
+  target_value: '1'
+  quality: exact
+  target_label: Cash
+- source_value: voucher
+  target_value: '2'
+  quality: exact
+  target_label: Voucher
+- source_value: in_kind
+  target_value: '3'
+  quality: exact
+  target_label: In-kind
+- source_value: service
+  target_value: '4'
+  quality: exact
+  target_label: Training
+- source_value: service
+  target_value: '5'
+  quality: exact
+  target_label: Work Opportunity
+- source_value: insurance
+  target_value: '6'
+  quality: exact
+  target_label: Insurance
+- source_value: fee_waiver
+  target_value: null
+  quality: unmapped
+standard:
+  source_id: dci
+  uri: https://schema.spdci.org/core/v1/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO

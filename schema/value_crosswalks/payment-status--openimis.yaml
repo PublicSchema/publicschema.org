@@ -1,0 +1,62 @@
+id: payment-status--openimis
+source_value_set:
+  id: payment-status
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: BenefitConsumptionStatus
+  source_id: openimis
+pairs:
+- source_value: pending
+  target_value: CREATED
+  quality: exact
+  target_label: Created
+- source_value: processing
+  target_value: ACCEPTED
+  quality: exact
+  target_label: Accepted
+- source_value: processing
+  target_value: APPROVE_FOR_PAYMENT
+  quality: exact
+  target_label: Approve For Payment
+- source_value: rejected
+  target_value: REJECTED
+  quality: exact
+  target_label: Rejected
+- source_value: cancelled
+  target_value: DUPLICATE
+  quality: exact
+  target_label: Duplicate
+- source_value: cancelled
+  target_value: PENDING_DELETION
+  quality: exact
+  target_label: Pending Deletion
+  note: Present in the openIMIS develop branch of openimis-be-payroll_py only; not yet released on main.
+- source_value: paid
+  target_value: RECONCILED
+  quality: exact
+  target_label: Reconciled
+  migration_note: 'Also set is_reconciled: true. Reconciliation is modeled separately from payment lifecycle state.'
+- source_value: partial
+  target_value: null
+  quality: unmapped
+- source_value: paid
+  target_value: null
+  quality: unmapped
+- source_value: failed
+  target_value: null
+  quality: unmapped
+- source_value: returned
+  target_value: null
+  quality: unmapped
+standard:
+  source_id: openimis
+  uri: https://openimis.atlassian.net/wiki/spaces/OP/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO

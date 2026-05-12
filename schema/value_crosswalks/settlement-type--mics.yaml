@@ -1,0 +1,32 @@
+id: settlement-type--mics
+source_value_set:
+  id: settlement-type
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: HH6 - Area
+  source_id: mics
+pairs:
+- source_value: urban
+  target_value: '1'
+  quality: exact
+  target_label: Urban
+- source_value: rural
+  target_value: '2'
+  quality: exact
+  target_label: Rural
+- source_value: semi_urban
+  target_value: null
+  quality: unmapped
+standard:
+  source_id: mics
+  uri: https://mics.unicef.org/tools/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO
+notes: MICS6 HH6. Binary urban/rural classification. Same gap as DHS for semi-urban.

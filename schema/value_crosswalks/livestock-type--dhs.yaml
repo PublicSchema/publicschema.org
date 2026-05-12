@@ -1,0 +1,70 @@
+id: livestock-type--dhs
+source_value_set:
+  id: livestock-type
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: DHS Recode7 livestock variables (hv246a-j)
+  source_id: dhs
+pairs:
+- source_value: cattle
+  target_value: hv246a
+  quality: exact
+  target_label: Cattle
+- source_value: cattle
+  target_value: hv246b
+  quality: exact
+  target_label: Cows/bulls
+- source_value: horses
+  target_value: hv246c
+  quality: exact
+  target_label: Horses/donkeys/mules
+  note: DHS combines horses, donkeys, and mules. Maps to horses as primary; donkeys_mules is not separately identifiable.
+- source_value: goats
+  target_value: hv246d
+  quality: exact
+  target_label: Goats
+- source_value: sheep
+  target_value: hv246e
+  quality: exact
+  target_label: Sheep
+- source_value: chickens
+  target_value: hv246f
+  quality: exact
+  target_label: Chickens/poultry
+  note: DHS combines chickens with other poultry. Maps to chickens as the dominant category.
+- source_value: pigs
+  target_value: hv246g
+  quality: exact
+  target_label: Pigs
+- source_value: other_livestock
+  target_value: hv246h
+  quality: exact
+  target_label: Other
+- source_value: other_poultry
+  target_value: null
+  quality: unmapped
+- source_value: donkeys_mules
+  target_value: null
+  quality: unmapped
+- source_value: camels
+  target_value: null
+  quality: unmapped
+- source_value: rabbits
+  target_value: null
+  quality: unmapped
+- source_value: beehives
+  target_value: null
+  quality: unmapped
+standard:
+  source_id: dhs
+  uri: https://dhsprogram.com/data/recode7/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO
+notes: DHS Recode7 hv246a-h. Each variable records the count of animals owned by the household. Code here is the variable name. Some DHS phases use different subsets of these variables.

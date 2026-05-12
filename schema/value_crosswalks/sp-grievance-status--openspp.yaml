@@ -1,0 +1,50 @@
+id: sp-grievance-status--openspp
+source_value_set:
+  id: sp/grievance-status
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: openspp
+  source_id: openspp
+pairs:
+- source_value: submitted
+  target_value: new
+  quality: exact
+  target_label: New
+- source_value: under_review
+  target_value: in_progress
+  quality: exact
+  target_label: In Progress
+- source_value: under_review
+  target_value: waiting
+  quality: exact
+  target_label: Waiting
+- source_value: escalated
+  target_value: escalated
+  quality: exact
+  target_label: Escalated
+- source_value: resolved
+  target_value: resolved
+  quality: exact
+  target_label: Resolved
+- source_value: closed
+  target_value: closed
+  quality: exact
+  target_label: Closed
+- source_value: rejected
+  target_value: null
+  quality: unmapped
+- source_value: withdrawn
+  target_value: null
+  quality: unmapped
+standard:
+  source_id: openspp
+  uri: https://docs.openspp.org/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO

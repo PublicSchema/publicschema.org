@@ -1,0 +1,35 @@
+id: pregnancy-status--dhs
+source_value_set:
+  id: pregnancy-status
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: v213 - Currently pregnant
+  source_id: dhs
+pairs:
+- source_value: not_pregnant
+  target_value: '0'
+  quality: exact
+  target_label: No or unsure
+- source_value: pregnant
+  target_value: '1'
+  quality: exact
+  target_label: 'Yes'
+- source_value: postpartum
+  target_value: null
+  quality: unmapped
+- source_value: unknown
+  target_value: null
+  quality: unmapped
+standard:
+  source_id: dhs
+  uri: https://dhsprogram.com/data/recode7/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO
+notes: DHS Recode 7 v213 defines only two substantive codes (0=No or unsure, 1=Yes); uncertainty is folded into code 0 rather than carried as a separate value. The male recode variable mv213 (partner pregnancy) has an additional code 8 'Don't know' but that value is not present on v213 itself. Postpartum status is not captured as a DHS variable; it is inferred from birth dates.

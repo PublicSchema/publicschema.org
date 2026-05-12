@@ -1,0 +1,58 @@
+id: sp-entitlement-status--openspp
+source_value_set:
+  id: sp/entitlement-status
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: EntitlementState
+  source_id: openspp
+pairs:
+- source_value: pending
+  target_value: draft
+  quality: exact
+  target_label: Draft
+- source_value: pending
+  target_value: pending_validation
+  quality: exact
+  target_label: Pending Validation
+- source_value: approved
+  target_value: approved
+  quality: exact
+  target_label: Approved
+- source_value: approved
+  target_value: trans2FSP
+  quality: exact
+  target_label: Transferred to FSP
+- source_value: fulfilled
+  target_value: rdpd2ben
+  quality: exact
+  target_label: Redeemed/Paid to Beneficiary
+- source_value: rejected
+  target_value: reject
+  quality: exact
+  target_label: Rejected
+- source_value: cancelled
+  target_value: cancelled
+  quality: exact
+  target_label: Cancelled
+- source_value: expired
+  target_value: expired
+  quality: exact
+  target_label: Expired
+- source_value: suspended
+  target_value: null
+  quality: unmapped
+- source_value: partially_fulfilled
+  target_value: null
+  quality: unmapped
+standard:
+  source_id: openspp
+  uri: https://docs.openspp.org/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO

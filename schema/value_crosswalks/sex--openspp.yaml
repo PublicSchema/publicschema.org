@@ -1,0 +1,36 @@
+id: sex--openspp
+source_value_set:
+  id: sex
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: 'ISO 5218: Gender'
+  source_id: openspp
+pairs:
+- source_value: not_known
+  target_value: '0'
+  quality: exact
+  target_label: Not known
+- source_value: male
+  target_value: '1'
+  quality: exact
+  target_label: Male
+- source_value: female
+  target_value: '2'
+  quality: exact
+  target_label: Female
+- source_value: not_applicable
+  target_value: '9'
+  quality: exact
+  target_label: Not applicable
+standard:
+  source_id: openspp
+  uri: https://docs.openspp.org/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO

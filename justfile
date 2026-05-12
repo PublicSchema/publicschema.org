@@ -32,6 +32,12 @@ validate:
 validate-matchings:
     uv run python -m build.validate_matchings
 
+# Validate schema/value_crosswalks/*.yaml: schema conformance, TODO-free
+# standards, and known source ids. Fails the build until every authored
+# crosswalk has fully-populated standard metadata.
+validate-crosswalks:
+    uv run python -m build.validate_crosswalks
+
 # Sync external standard vocabularies (countries, currencies, languages, etc.)
 sync-standards:
     uv run python -m build.sync_standards
@@ -69,7 +75,7 @@ check-translations:
     uv run python -m build.check_translations
 
 # Validate, lint, test, build, and check everything is clean
-check: validate lint check-translations test build
+check: validate validate-crosswalks lint check-translations test build
     @echo "All checks passed."
 
 # Install all dependencies (Python + Node)

@@ -1,0 +1,29 @@
+id: electricity-access--dhs
+source_value_set:
+  id: electricity_access
+  kind: property
+  source_id: publicschema
+target_value_set:
+  id: hv206 - Has electricity
+  source_id: dhs
+pairs:
+- source_value: 0
+  target_value: '0'
+  quality: exact
+  target_label: 'No'
+- source_value: 1
+  target_value: '1'
+  quality: exact
+  target_label: 'Yes'
+standard:
+  source_id: dhs
+  uri: https://dhsprogram.com/data/recode7/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO
+notes: 'DHS Recode7 hv206. Binary indicator. Maps to boolean: 0=false, 1=true.'

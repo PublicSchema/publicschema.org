@@ -1,0 +1,71 @@
+id: household-asset--mics
+source_value_set:
+  id: household-asset
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: MICS6 household assets
+  source_id: mics
+pairs:
+- source_value: watch
+  target_value: HC10A
+  quality: exact
+  target_label: Watch
+- source_value: bicycle
+  target_value: HC10B
+  quality: exact
+  target_label: Bicycle
+- source_value: motorcycle_scooter
+  target_value: HC10C
+  quality: exact
+  target_label: Motorcycle/scooter
+- source_value: animal_drawn_cart
+  target_value: HC10D
+  quality: exact
+  target_label: Animal-drawn cart
+- source_value: car_truck
+  target_value: HC10E
+  quality: exact
+  target_label: Car/truck
+- source_value: motorized_boat
+  target_value: HC10F
+  quality: exact
+  target_label: Boat with a motor
+- source_value: computer_tablet
+  target_value: HC11
+  quality: exact
+  target_label: Computer/tablet
+- source_value: mobile_phone
+  target_value: HC12
+  quality: exact
+  target_label: Mobile phone
+- source_value: radio
+  target_value: null
+  quality: unmapped
+- source_value: television
+  target_value: null
+  quality: unmapped
+- source_value: landline_phone
+  target_value: null
+  quality: unmapped
+- source_value: refrigerator
+  target_value: null
+  quality: unmapped
+- source_value: bank_account
+  target_value: null
+  quality: unmapped
+- source_value: other
+  target_value: null
+  quality: unmapped
+standard:
+  source_id: mics
+  uri: https://mics.unicef.org/tools/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO
+notes: MICS6 HC10-HC12 asset checklist. Each is a binary indicator. Code is the variable name. MICS does not collect radio, television, landline, or refrigerator as standard checklist items (some country adaptations add them).

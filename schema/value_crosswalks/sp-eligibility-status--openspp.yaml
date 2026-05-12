@@ -1,0 +1,36 @@
+id: sp-eligibility-status--openspp
+source_value_set:
+  id: sp/eligibility-status
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: openspp
+  source_id: openspp
+pairs:
+- source_value: ineligible
+  target_value: not_eligible
+  quality: exact
+  target_label: Not Eligible
+- source_value: eligible
+  target_value: null
+  quality: unmapped
+- source_value: pending
+  target_value: null
+  quality: unmapped
+- source_value: under_review
+  target_value: null
+  quality: unmapped
+- source_value: conditional
+  target_value: null
+  quality: unmapped
+standard:
+  source_id: openspp
+  uri: https://docs.openspp.org/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO

@@ -1,0 +1,45 @@
+id: literacy--mics
+source_value_set:
+  id: literacy
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: FN3 - Literacy
+  source_id: mics
+pairs:
+- source_value: illiterate
+  target_value: '1'
+  quality: exact
+  target_label: Cannot read at all
+- source_value: illiterate
+  target_value: '2'
+  quality: exact
+  target_label: Able to read only parts of sentence
+  note: Partial reading ability does not meet the UNSD standard of being able to read AND write a short simple statement
+- source_value: literate
+  target_value: '3'
+  quality: exact
+  target_label: Able to read a whole sentence
+- source_value: null
+  target_value: '4'
+  quality: unmapped
+  target_label: No card with required language
+  note: Assessment could not be completed; does not indicate literacy status
+  unmapped_reason: context_dependent
+- source_value: null
+  target_value: '5'
+  quality: unmapped
+  target_label: Blind/visually impaired
+  note: Visual impairment prevents standard literacy assessment; does not indicate literacy status
+  unmapped_reason: context_dependent
+standard:
+  source_id: mics
+  uri: https://mics.unicef.org/tools/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO

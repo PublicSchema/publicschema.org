@@ -1,0 +1,44 @@
+id: event-severity--openspp
+source_value_set:
+  id: event-severity
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: HazardIncidentSeverity
+  source_id: openspp
+pairs:
+- source_value: minor
+  target_value: '1'
+  quality: exact
+  target_label: Minor
+- source_value: moderate
+  target_value: '2'
+  quality: exact
+  target_label: Moderate
+- source_value: severe
+  target_value: '3'
+  quality: exact
+  target_label: Significant
+- source_value: severe
+  target_value: '4'
+  quality: exact
+  target_label: Severe
+- source_value: extreme
+  target_value: '5'
+  quality: exact
+  target_label: Catastrophic
+- source_value: unknown
+  target_value: null
+  quality: unmapped
+standard:
+  source_id: openspp
+  uri: https://docs.openspp.org/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO
+notes: Mapped against OpenSPP's spp_hazard HazardIncidentSeverity (numeric 1-5 scale), which shares the hazard/disaster-impact domain with v2 event-severity. GRMTicketSeverity (grievance urgency) is deliberately not mapped here because it classifies a different domain.

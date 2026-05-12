@@ -1,0 +1,36 @@
+id: gender-type--fhir_r4
+source_value_set:
+  id: gender-type
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: AdministrativeGender
+  source_id: fhir_r4
+pairs:
+- source_value: male
+  target_value: male
+  quality: exact
+  target_label: Male
+- source_value: female
+  target_value: female
+  quality: exact
+  target_label: Female
+- source_value: other
+  target_value: other
+  quality: exact
+  target_label: Other
+- source_value: not_stated
+  target_value: unknown
+  quality: exact
+  target_label: Unknown
+standard:
+  source_id: fhir_r4
+  uri: http://hl7.org/fhir/R4/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO

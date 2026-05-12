@@ -1,0 +1,41 @@
+id: administrative-level--ocha_cod_ab
+source_value_set:
+  id: administrative_level
+  kind: property
+  source_id: publicschema
+target_value_set:
+  id: COD-AB AdminN
+  source_id: ocha_cod_ab
+pairs:
+- source_value: 0
+  target_value: Admin0
+  quality: exact
+  target_label: Country
+- source_value: 1
+  target_value: Admin1
+  quality: exact
+  target_label: First subnational
+- source_value: 2
+  target_value: Admin2
+  quality: exact
+  target_label: Second subnational
+- source_value: 3
+  target_value: Admin3
+  quality: exact
+  target_label: Third subnational
+- source_value: 4
+  target_value: Admin4
+  quality: exact
+  target_label: Fourth subnational
+standard:
+  source_id: ocha_cod_ab
+  uri: https://data.humdata.org/dataset/cod-ab/
+  custodian: TODO
+  license: TODO
+  license_uri: TODO
+  version: TODO
+  attribution_text: TODO
+  redistribution: TODO
+  retrieved_at: TODO
+  source_sha256: TODO
+notes: OCHA COD-AB's documented nomenclature stops at Admin4 (COD-AB datasets have as many as five administrative levels, ADM0 to ADM4). Values of 5 or more on this property are still valid PublicSchema depths but have no OCHA-provided AdminN label.
