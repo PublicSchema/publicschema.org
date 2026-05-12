@@ -8,7 +8,9 @@ build/schemas/value_crosswalk.schema.json (byte-identical to upstream).
 
 from __future__ import annotations
 
+import io
 import json
+import sys
 from pathlib import Path
 
 import jsonschema
@@ -18,6 +20,7 @@ from build.extract_crosswalks_from_legacy import (
     crosswalk_filename,
     crosswalk_id,
     extract_crosswalk,
+    main,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -316,7 +319,9 @@ class TestTodoPlaceholders:
         # uri and source_id are always derivable from build/external_system_prefixes.yaml
         assert std["source_id"] == "opencrvs"
         assert std["uri"] == "https://documentation.opencrvs.org/technology/event-service-v2/"
-        # The rest are TODO because no schema/external_references/opencrvs.yaml exists.
+        # The rest are TODO because no schema/external_references/opencrvs.yaml exists,
+        # except the artifact fields: no external_reference means no artifacts, so
+        # artifact_kind: none is emitted (not source_sha256: TODO).
         for k in (
             "custodian",
             "license",
@@ -325,9 +330,12 @@ class TestTodoPlaceholders:
             "attribution_text",
             "redistribution",
             "retrieved_at",
-            "source_sha256",
         ):
             assert std[k] == "TODO", f"expected TODO placeholder at standard.{k}, got {std[k]!r}"
+        # No artifacts available: emits artifact_kind: none, not source_sha256: TODO.
+        assert std.get("artifact_kind") == "none"
+        assert isinstance(std.get("artifact_notes"), str)
+        assert "source_sha256" not in std
 
     def test_unknown_target_system_raises(self, system_registry, external_references):
         # A system id that isn't in the registry is a hard error — we
@@ -342,3 +350,245 @@ class TestTodoPlaceholders:
                 system_registry=system_registry,
                 external_references=external_references,
             )
+
+
+# ---------------------------------------------------------------------------
+# Part A: artifact_kind: none when no sha256 is available
+# ---------------------------------------------------------------------------
+
+
+class TestArtifactKindNone:
+    def test_no_artifacts_block_emits_artifact_kind_none(self, system_registry):
+        # external_references entry has no artifacts block at all.
+        ext_refs_no_artifacts = {
+            "openspp": {
+                "id": "openspp",
+                "name": "OpenSPP",
+                "custodian": "OpenSPP Community",
+                "version": "1.3.0",
+                "license": {
+                    "id": "Apache-2.0",
+                    "uri": "https://www.apache.org/licenses/LICENSE-2.0",
+                    "attribution_text": "Contains information from OpenSPP, licensed under Apache 2.0.",
+                    "redistribution": "embed-with-attribution",
+                },
+                # No 'artifacts' key at all.
+            },
+        }
+        entry = {
+            "vocabulary_name": "ISO 5218: Gender",
+            "values": [{"code": "1", "label": "Male", "maps_to": "male"}],
+        }
+        out = extract_crosswalk(
+            source_kind="vocabulary",
+            source_id="sex",
+            target_system_id="openspp",
+            entry=entry,
+            system_registry=system_registry,
+            external_references=ext_refs_no_artifacts,
+        )
+        std = out["standard"]
+        assert std.get("artifact_kind") == "none"
+        assert isinstance(std.get("artifact_notes"), str)
+        assert std["artifact_notes"].strip()
+        assert "source_sha256" not in std
+
+    def test_empty_artifacts_list_emits_artifact_kind_none(self, system_registry):
+        # artifacts: [] is present but empty.
+        ext_refs_empty_artifacts = {
+            "openspp": {
+                "id": "openspp",
+                "name": "OpenSPP",
+                "custodian": "OpenSPP Community",
+                "version": "1.3.0",
+                "license": {
+                    "id": "Apache-2.0",
+                    "uri": "https://www.apache.org/licenses/LICENSE-2.0",
+                    "attribution_text": "Contains information from OpenSPP, licensed under Apache 2.0.",
+                    "redistribution": "embed-with-attribution",
+                },
+                "artifacts": [],
+            },
+        }
+        entry = {
+            "vocabulary_name": "ISO 5218: Gender",
+            "values": [{"code": "1", "label": "Male", "maps_to": "male"}],
+        }
+        out = extract_crosswalk(
+            source_kind="vocabulary",
+            source_id="sex",
+            target_system_id="openspp",
+            entry=entry,
+            system_registry=system_registry,
+            external_references=ext_refs_empty_artifacts,
+        )
+        std = out["standard"]
+        assert std.get("artifact_kind") == "none"
+        assert isinstance(std.get("artifact_notes"), str)
+        assert std["artifact_notes"].strip()
+        assert "source_sha256" not in std
+
+    def test_artifact_without_sha256_emits_artifact_kind_none(self, system_registry):
+        # Artifact entry exists but has no sha256 key.
+        ext_refs_no_sha256 = {
+            "openspp": {
+                "id": "openspp",
+                "name": "OpenSPP",
+                "custodian": "OpenSPP Community",
+                "version": "1.3.0",
+                "license": {
+                    "id": "Apache-2.0",
+                    "uri": "https://www.apache.org/licenses/LICENSE-2.0",
+                    "attribution_text": "Contains information from OpenSPP, licensed under Apache 2.0.",
+                    "redistribution": "embed-with-attribution",
+                },
+                "artifacts": [{"retrieved_at": "2026-05-07T00:00:00Z"}],
+            },
+        }
+        entry = {
+            "vocabulary_name": "ISO 5218: Gender",
+            "values": [{"code": "1", "label": "Male", "maps_to": "male"}],
+        }
+        out = extract_crosswalk(
+            source_kind="vocabulary",
+            source_id="sex",
+            target_system_id="openspp",
+            entry=entry,
+            system_registry=system_registry,
+            external_references=ext_refs_no_sha256,
+        )
+        std = out["standard"]
+        assert std.get("artifact_kind") == "none"
+        assert isinstance(std.get("artifact_notes"), str)
+        assert std["artifact_notes"].strip()
+        assert "source_sha256" not in std
+
+    def test_sha256_present_still_emits_source_sha256(self, system_registry, external_references):
+        # Sanity: when sha256 IS present, the old field is still emitted.
+        entry = {
+            "vocabulary_name": "ISO 5218: Gender",
+            "values": [{"code": "1", "label": "Male", "maps_to": "male"}],
+        }
+        out = extract_crosswalk(
+            source_kind="vocabulary",
+            source_id="sex",
+            target_system_id="openspp",
+            entry=entry,
+            system_registry=system_registry,
+            external_references=external_references,
+        )
+        std = out["standard"]
+        assert "source_sha256" in std
+        assert "artifact_kind" not in std
+
+
+# ---------------------------------------------------------------------------
+# Part B: --force guard against accidental re-runs
+# ---------------------------------------------------------------------------
+
+
+class TestForceFlag:
+    """Integration tests for the --force / no-force write guard.
+
+    These tests drive main() directly against a temp directory populated by
+    a minimal stub of the git-history scan. To avoid network/git calls, we
+    monkey-patch the two git helpers and the registry/reference loaders.
+    """
+
+    @pytest.fixture
+    def _patch_main(self, monkeypatch, tmp_path):
+        """Patch main()'s git and registry helpers to return one crosswalk's
+        worth of data without touching the actual git repo."""
+        import build.extract_crosswalks_from_legacy as mod
+
+        fake_system_registry = {
+            "openspp": {
+                "prefix": "openspp",
+                "uri": "https://docs.openspp.org/",
+                "label": "OpenSPP",
+                "source": "official",
+                "homepage": "https://openspp.org/",
+            }
+        }
+        fake_external_refs = {
+            "openspp": {
+                "id": "openspp",
+                "custodian": "OpenSPP Community",
+                "version": "1.0",
+                "license": {
+                    "id": "Apache-2.0",
+                    "uri": "https://apache.org/",
+                    "attribution_text": "OpenSPP",
+                    "redistribution": "embed-with-attribution",
+                },
+                "artifacts": [
+                    {
+                        "sha256": "abc123" * 10 + "abcd",
+                        "retrieved_at": "2026-01-01",
+                    }
+                ],
+            }
+        }
+        # One vocabulary with one system_mapping
+        fake_vocabs = [
+            (
+                "vocabulary",
+                "sex",
+                {
+                    "system_mappings": {
+                        "openspp": {
+                            "vocabulary_name": "Gender",
+                            "values": [{"code": "M", "label": "Male", "maps_to": "male"}],
+                        }
+                    }
+                },
+            )
+        ]
+
+        monkeypatch.setattr(mod, "_load_system_registry", lambda _root: fake_system_registry)
+        monkeypatch.setattr(mod, "_load_external_references", lambda _root: fake_external_refs)
+        monkeypatch.setattr(
+            mod, "_load_legacy_resources", lambda _root, _rev: (fake_vocabs, [])
+        )
+        return tmp_path
+
+    def test_second_run_without_force_skips_and_warns(self, _patch_main, capsys):
+        out_dir = _patch_main
+        expected_file = out_dir / "sex--openspp.yaml"
+
+        # First run writes the file.
+        rc = main(["--out", str(out_dir)])
+        assert rc == 0
+        assert expected_file.exists()
+
+        # Write a sentinel so we can detect if the file was overwritten.
+        sentinel = "SENTINEL_CONTENT_DO_NOT_OVERWRITE\n"
+        expected_file.write_text(sentinel, encoding="utf-8")
+
+        # Second run without --force should skip.
+        rc = main(["--out", str(out_dir)])
+        assert rc == 0
+
+        # File must not have been overwritten.
+        assert expected_file.read_text(encoding="utf-8") == sentinel
+
+        # stderr must mention the skipped file and hint about --force.
+        captured = capsys.readouterr()
+        assert expected_file.name in captured.err
+        assert "--force" in captured.err
+
+    def test_second_run_with_force_overwrites(self, _patch_main, capsys):
+        out_dir = _patch_main
+        expected_file = out_dir / "sex--openspp.yaml"
+
+        # First run.
+        rc = main(["--out", str(out_dir)])
+        assert rc == 0
+
+        sentinel = "SENTINEL_CONTENT_DO_NOT_OVERWRITE\n"
+        expected_file.write_text(sentinel, encoding="utf-8")
+
+        # Second run with --force should overwrite.
+        rc = main(["--out", str(out_dir), "--force"])
+        assert rc == 0
+        assert expected_file.read_text(encoding="utf-8") != sentinel

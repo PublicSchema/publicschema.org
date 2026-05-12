@@ -28,6 +28,7 @@ still applies to every other field.
 
 from __future__ import annotations
 
+import sys
 from pathlib import Path
 from typing import Any, NamedTuple
 
@@ -76,9 +77,18 @@ def load_crosswalks(
     if not crosswalks_dir.is_dir():
         return index
 
+    # Track which file first claimed each (SourceKey, tsid) pair so we can
+    # warn deterministically when a second file targets the same pair.
+    first_seen: dict[tuple[SourceKey, str], str] = {}
+
     for path in sorted(crosswalks_dir.glob("*.yaml")):
         doc = yaml.safe_load(path.read_text(encoding="utf-8"))
         if not isinstance(doc, dict):
+            print(
+                f"value_crosswalks: skipping {path.name}: "
+                "top-level document is not a YAML mapping",
+                file=sys.stderr,
+            )
             continue
         if strict:
             _check_no_todo(doc, path.name)
@@ -89,17 +99,47 @@ def load_crosswalks(
         sid = src.get("id")
         tsid = tgt.get("source_id")
         if not isinstance(kind, str) or not isinstance(sid, str) or not isinstance(tsid, str):
+            print(
+                f"value_crosswalks: skipping {path.name}: "
+                "missing or non-string source_value_set.kind / source_value_set.id "
+                "/ target_value_set.source_id",
+                file=sys.stderr,
+            )
             continue
         key = SourceKey(kind, sid)
+        pair_key = (key, tsid)
+        if pair_key in first_seen:
+            # Keep first-loaded (alphabetical sort order is deterministic).
+            print(
+                f"value_crosswalks: duplicate crosswalk for "
+                f"({kind!r}, {sid!r}) -> {tsid!r}: "
+                f"first loaded from {first_seen[pair_key]!r}, "
+                f"ignoring {path.name!r}",
+                file=sys.stderr,
+            )
+            continue
+        first_seen[pair_key] = path.name
         index.setdefault(key, {})[tsid] = doc
     return index
+
+
+def _has_todo(value: Any) -> bool:
+    """Return True if ``value`` contains a literal ``"TODO"`` string anywhere
+    in its structure (recursively walks dicts and lists)."""
+    if value == TODO:
+        return True
+    if isinstance(value, dict):
+        return any(_has_todo(v) for v in value.values())
+    if isinstance(value, list):
+        return any(_has_todo(item) for item in value)
+    return False
 
 
 def _check_no_todo(doc: dict[str, Any], filename: str) -> None:
     std = doc.get("standard") or {}
     if not isinstance(std, dict):
         return
-    bad = [k for k, v in std.items() if v == TODO]
+    bad = [k for k, v in std.items() if _has_todo(v)]
     if bad:
         raise StandardTodoError(
             f"{filename}: standard metadata still has TODO placeholders "

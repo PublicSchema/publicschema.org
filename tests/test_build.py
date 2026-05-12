@@ -1985,3 +1985,97 @@ class TestPropertySchemaDrift:
             f"property.schema.json fields not in build output: {sorted(missing)}. "
             f"Add them to build_vocabulary in build.py, or to BUILD_ONLY_FIELDS if intentional."
         )
+
+
+# ---------------------------------------------------------------------------
+# Fix #10: crosswalks_dir kwarg — explicit path overrides schema_dir default
+# ---------------------------------------------------------------------------
+
+class TestCrosswalksDir:
+    """build_vocabulary(crosswalks_dir=...) loads crosswalks from the given path.
+
+    Regression guard: when --linkml-dir overrides schema_dir in main(),
+    crosswalks must still be read from the canonical schema_dir's
+    value_crosswalks/, not from the override directory.
+    """
+
+    def _make_crosswalk(self, crosswalks_dir: Path, vocab_id: str, sysid: str) -> None:
+        """Write a minimal valid crosswalk YAML into crosswalks_dir."""
+        import yaml
+        doc = {
+            "id": f"{vocab_id}--{sysid}",
+            "source_value_set": {
+                "id": vocab_id, "kind": "vocabulary", "source_id": "publicschema",
+            },
+            "target_value_set": {"id": "TargetVocab", "source_id": sysid},
+            "pairs": [
+                {"source_value": "val_a", "target_value": "T1",
+                 "quality": "exact", "target_label": "Target One"},
+            ],
+            "standard": {
+                "source_id": sysid, "uri": "https://example.org/",
+                "custodian": "X", "license": "X",
+                "license_uri": "https://example.org/license",
+                "version": "1", "attribution_text": "x",
+                "redistribution": "embed-with-attribution",
+                "retrieved_at": "2026-01-01",
+                "source_sha256": "a" * 64,
+            },
+        }
+        (crosswalks_dir / f"{vocab_id}--{sysid}.yaml").write_text(
+            yaml.safe_dump(doc, sort_keys=False), encoding="utf-8"
+        )
+
+    def test_crosswalks_loaded_from_explicit_dir(self, tmp_path):
+        """Crosswalks in crosswalks_dir are applied even when schema_dir has none.
+
+        The schema lives at tmp_path/schema (no value_crosswalks/ subdir).
+        Crosswalks live at tmp_path/cw/. Passing crosswalks_dir=cw must cause
+        the crosswalk to be applied; not passing it would silently skip them.
+        """
+        import yaml
+
+        schema_dir = tmp_path / "schema"
+        schema_dir.mkdir()
+        (schema_dir / "concepts").mkdir()
+        (schema_dir / "properties").mkdir()
+        (schema_dir / "vocabularies").mkdir()
+        meta = {
+            "name": "TestSchema",
+            "base_uri": "https://test.example.org/",
+            "version": "0.1.0",
+            "maturity": "draft",
+            "languages": ["en"],
+            "license": "CC-BY-4.0",
+        }
+        (schema_dir / "_meta.yaml").write_text(yaml.dump(meta))
+
+        vocab_id = "test-vocab"
+        vocab_data = {
+            "id": vocab_id,
+            "values": [{"code": "val_a", "label": {"en": "Value A"},
+                        "definition": {"en": "First value"}}],
+        }
+        (schema_dir / "vocabularies" / f"{vocab_id}.yaml").write_text(
+            yaml.dump(vocab_data)
+        )
+
+        # Crosswalks live in a separate directory (simulating --linkml-dir pointing elsewhere).
+        custom_cw = tmp_path / "cw"
+        custom_cw.mkdir()
+        self._make_crosswalk(custom_cw, vocab_id, "testsys")
+
+        # With explicit crosswalks_dir: crosswalk is applied.
+        result_with = build_vocabulary(schema_dir, crosswalks_dir=custom_cw)
+        sm_with = result_with["vocabularies"][vocab_id].get("system_mappings", {})
+        assert "testsys" in sm_with, (
+            f"Crosswalk from custom_cw not applied; system_mappings keys: {list(sm_with)}"
+        )
+
+        # Without crosswalks_dir (default): schema_dir has no value_crosswalks/, so none applied.
+        result_without = build_vocabulary(schema_dir)
+        sm_without = result_without["vocabularies"][vocab_id].get("system_mappings") or {}
+        assert "testsys" not in sm_without, (
+            "Crosswalk should not be applied when crosswalks_dir is not passed "
+            "and schema_dir has no value_crosswalks/ subdir"
+        )

@@ -156,14 +156,19 @@ def _build_standard(
     Option (a) per Jeremi: ``TODO`` is a literal marker the build refuses
     to ship. The lint step in build/value_crosswalks.py rejects any
     crosswalk where any standard field equals ``TODO``.
+
+    When no artifact is available (no artifacts block, empty list, or
+    artifact entry with no sha256), ``artifact_kind: none`` and
+    ``artifact_notes`` are emitted instead of ``source_sha256: TODO``,
+    matching the contract established by commit 7befd18.
     """
     uri = target_system.get("uri") or TODO
     ext = external_references.get(target_system_id) or {}
     license_doc = ext.get("license") or {}
     artifacts = ext.get("artifacts") or []
-    first_artifact = artifacts[0] if isinstance(artifacts, list) and artifacts else {}
+    first_artifact = artifacts[0] if isinstance(artifacts, list) and artifacts else None
 
-    return {
+    out: dict[str, Any] = {
         "source_id": target_system_id,
         "uri": uri,
         "custodian": ext.get("custodian") or TODO,
@@ -172,9 +177,17 @@ def _build_standard(
         "version": ext.get("version") or TODO,
         "attribution_text": license_doc.get("attribution_text") or TODO,
         "redistribution": license_doc.get("redistribution") or TODO,
-        "retrieved_at": first_artifact.get("retrieved_at") or TODO,
-        "source_sha256": first_artifact.get("sha256") or TODO,
+        "retrieved_at": (first_artifact or {}).get("retrieved_at") or TODO,
     }
+
+    sha256 = (first_artifact or {}).get("sha256") if first_artifact is not None else None
+    if sha256:
+        out["source_sha256"] = sha256
+    else:
+        out["artifact_kind"] = "none"
+        out["artifact_notes"] = "No addressable upstream artifact available at extraction time."
+
+    return out
 
 
 # ---------------------------------------------------------------------------
@@ -293,6 +306,12 @@ def main(argv: list[str] | None = None) -> int:
         default=Path("schema/value_crosswalks"),
         help="output directory (default: schema/value_crosswalks)",
     )
+    parser.add_argument(
+        "--force",
+        action="store_true",
+        default=False,
+        help="overwrite existing output files (default: skip existing files and warn)",
+    )
     args = parser.parse_args(argv)
 
     repo_root = Path(__file__).resolve().parent.parent
@@ -304,6 +323,7 @@ def main(argv: list[str] | None = None) -> int:
     vocabs, props = _load_legacy_resources(repo_root, args.rev)
 
     written = 0
+    skipped = 0
     todo_systems: set[str] = set()
     for source_kind, source_id, doc in (*vocabs, *props):
         sm = doc.get("system_mappings") or {}
@@ -319,12 +339,24 @@ def main(argv: list[str] | None = None) -> int:
                 external_references=external_references,
             )
             path = out_dir / crosswalk_filename(cw["id"])
+            if path.exists() and not args.force:
+                print(
+                    f"skip: {path.name} already exists; use --force to overwrite",
+                    file=sys.stderr,
+                )
+                skipped += 1
+                continue
             path.write_text(_yaml_dump(cw), encoding="utf-8")
             written += 1
             if any(v == TODO for v in cw["standard"].values()):
                 todo_systems.add(target_system_id)
 
     print(f"Wrote {written} value_crosswalk YAMLs to {out_dir}", file=sys.stderr)
+    if skipped:
+        print(
+            f"Skipped {skipped} existing file(s); re-run with --force to overwrite.",
+            file=sys.stderr,
+        )
     if todo_systems:
         print(
             "TODO standard metadata for these systems (option (a) fails the "

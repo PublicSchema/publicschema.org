@@ -27,7 +27,10 @@ from __future__ import annotations
 from build.linkml_reader import (
     _bespoke_id_and_domain_from_class,
     _convert_class_to_concept,
+    _convert_enum_to_vocabulary,
     _convert_slot_to_property,
+    _parse_json_annotation,
+    load_raw_from_linkml,
 )
 
 
@@ -197,3 +200,176 @@ class TestDomainOverrideSentinel:
         )
         assert "domain_override" in prop
         assert prop["domain_override"] is None
+
+
+# ---------------------------------------------------------------------------
+# Fix 1: subtypes reconstruction must not use fuzzy short-name fallback
+# ---------------------------------------------------------------------------
+
+
+class TestSubtypesFuzzyMatchRemoved:
+    """The subtypes reconstruction loop must match parent references only by
+    exact composite key. The short-name fallback (``short_name[cand_key] ==
+    parent_short``) can attach a child to the wrong parent when two concepts
+    share a bare name across domains (e.g. ``crvs/Person`` and a bare
+    ``Person``).
+
+    This test drives ``load_raw_from_linkml`` against a minimal in-memory
+    fixture (written to a temp directory) that has exactly this collision,
+    then asserts ``crvs/Person`` does NOT gain a subtype that references
+    only the bare name.
+    """
+
+    def test_domain_scoped_parent_not_matched_by_bare_name(self, tmp_path):
+        # The subtypes reconstruction loop must use exact composite-key
+        # matching only. The scenario here has:
+        # - ``CrvsPerson`` (composite key ``crvs/Person``)
+        # - ``Person``     (composite key ``Person``, a distinct root concept)
+        # - ``Child``      (composite key ``Child``) whose is_a is bare ``Person``
+        #
+        # The two-pass resolution rewrites Child's supertypes to ``["Person"]``
+        # (bare, because bare ``Person`` exists as a direct composite key).
+        # The subtypes loop must then add ``Child`` to bare ``Person``'s
+        # subtypes — NOT to ``crvs/Person``'s subtypes. Before the fix the
+        # fuzzy fallback would also add Child to ``crvs/Person`` because both
+        # share the bare name ``Person``.
+        domain_yaml = """
+id: https://publicschema.org/schema
+name: publicschema
+prefixes:
+  publicschema: https://publicschema.org/
+classes:
+  CrvsPerson:
+    class_uri: publicschema:crvs/Person
+    title: Person (CRVS)
+    description: A person in CRVS.
+  Person:
+    class_uri: publicschema:Person
+    title: Person
+    description: A generic person.
+  Child:
+    class_uri: publicschema:Child
+    title: Child
+    description: A child entity.
+    is_a: Person
+"""
+        schema_dir = tmp_path / "schema"
+        schema_dir.mkdir()
+        (schema_dir / "publicschema.yaml").write_text(
+            "id: test\nname: test\n"
+        )
+        (schema_dir / "domain.yaml").write_text(domain_yaml)
+
+        result = load_raw_from_linkml(schema_dir)
+        concepts = result["concepts"]
+
+        assert "crvs/Person" in concepts
+        assert "Person" in concepts
+        assert "Child" in concepts
+
+        # Child's is_a resolves to bare ``Person`` (direct composite-key hit
+        # takes priority over domain-scoped candidate in _resolve_super).
+        # Therefore Child must appear in bare Person's subtypes ...
+        assert "Child" in concepts["Person"].get("subtypes", [])
+        # ... and must NOT appear in crvs/Person's subtypes (the fuzzy
+        # short-name fallback was the only path that caused this).
+        crvs_person_subtypes = concepts["crvs/Person"].get("subtypes", [])
+        assert "Child" not in crvs_person_subtypes, (
+            "Fuzzy short-name fallback incorrectly attached Child to crvs/Person"
+        )
+
+
+# ---------------------------------------------------------------------------
+# Fix 2: self_ PV key with no standard_code must not strip the trailing _
+# ---------------------------------------------------------------------------
+
+
+class TestSelfUnderscoreRoundtrip:
+    """A PermissibleValue keyed ``self_`` with no ``standard_code`` annotation
+    should round-trip as ``display_code == "self_"``.
+
+    Before the fix the else branch always ran ``code[:-1] if code == "self_"``
+    so a missing ``standard_code`` would produce ``"self"`` instead of ``"self_"``.
+    """
+
+    def test_self_underscore_no_standard_code_roundtrips(self):
+        enum_def = {
+            "permissible_values": {
+                "self_": {
+                    "title": "Self",
+                    # No standard_code annotation: the PV key is canonical.
+                },
+            },
+        }
+        result = _convert_enum_to_vocabulary("MaritalStatus", enum_def)
+        assert result is not None
+        _, vocab = result
+        values = vocab["values"]
+        assert len(values) == 1
+        assert values[0]["code"] == "self_", (
+            f"Expected 'self_' but got {values[0]['code']!r}"
+        )
+
+    def test_self_underscore_with_standard_code_self_strips(self):
+        # When standard_code is ``self`` (the Python keyword) and the PV
+        # key is ``self_`` (the slug), the mangling logic should fire and
+        # set display_code to ``"self"`` (the original).
+        enum_def = {
+            "permissible_values": {
+                "self_": {
+                    "title": "Self",
+                    "annotations": {"standard_code": "self"},
+                },
+            },
+        }
+        result = _convert_enum_to_vocabulary("MaritalStatus", enum_def)
+        assert result is not None
+        _, vocab = result
+        values = vocab["values"]
+        assert len(values) == 1
+        assert values[0]["code"] == "self", (
+            f"Expected 'self' but got {values[0]['code']!r}"
+        )
+
+
+# ---------------------------------------------------------------------------
+# Fix 3: _parse_json_annotation must warn and return None on parse failure
+# ---------------------------------------------------------------------------
+
+
+class TestParseJsonAnnotationWarnsOnBadJson:
+    """When _parse_json_annotation receives a string that is not valid JSON,
+    it must emit a warning to stderr and return ``None`` instead of the raw
+    string. Callers guard with ``if parsed is not None`` so returning the raw
+    string would silently corrupt structured fields.
+    """
+
+    def test_invalid_json_returns_none(self):
+        result = _parse_json_annotation("{not valid json")
+        assert result is None
+
+    def test_invalid_json_emits_stderr_warning(self, capsys):
+        _parse_json_annotation("{not valid json")
+        captured = capsys.readouterr()
+        assert captured.err, "Expected a warning on stderr for bad JSON"
+
+    def test_valid_json_returns_parsed(self):
+        result = _parse_json_annotation('{"key": "value"}')
+        assert result == {"key": "value"}
+
+    def test_none_input_returns_none(self):
+        result = _parse_json_annotation(None)
+        assert result is None
+
+    def test_non_string_non_dict_passes_through(self):
+        # Integers and booleans are valid annotation scalars; pass through.
+        assert _parse_json_annotation(42) == 42
+        assert _parse_json_annotation(True) is True
+
+    def test_plain_scalar_string_returns_none_with_warning(self, capsys):
+        # A plain non-JSON word (e.g. a bare string that should have been
+        # JSON-encoded) must also warn and return None so callers don't
+        # accidentally use it as a structured value.
+        _parse_json_annotation("not-json-at-all")
+        captured = capsys.readouterr()
+        assert captured.err

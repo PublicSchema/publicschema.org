@@ -282,7 +282,7 @@ def check_prose_components(prose_dir: Path = PROSE_DIR) -> Report:
 
 def _check_definition(
     data: dict,
-    path: Path,
+    path: Path | str,
     report: Report,
 ) -> None:
     """Validate that a concept/property/vocab YAML has FR/ES definitions.
@@ -294,7 +294,7 @@ def _check_definition(
     if maturity not in MATURITY_REQUIRES_TRANSLATION:
         return
     definition = data.get("definition") or {}
-    entity_id = data.get("id", path.stem)
+    entity_id = data.get("id", Path(path).stem)
     for locale in LOCALES:
         value = definition.get(locale)
         if not value or not str(value).strip():
@@ -306,7 +306,7 @@ def _check_definition(
 
 def _check_label(
     data: dict,
-    path: Path,
+    path: Path | str,
     report: Report,
 ) -> None:
     """Validate that a schema entity's label has FR/ES translations.
@@ -322,7 +322,7 @@ def _check_label(
     if maturity not in MATURITY_REQUIRES_TRANSLATION:
         return
     label = data.get("label") or {}
-    entity_id = data.get("id", path.stem)
+    entity_id = data.get("id", Path(path).stem)
     for locale in LOCALES:
         value = label.get(locale)
         if not value or not str(value).strip():
@@ -411,7 +411,7 @@ def check_schema_linkml(linkml_dir: Path = LINKML_DIR) -> Report:
                 bespoke["id"] = name
                 # Force-emit label only when title is present (consistent
                 # with the bespoke check, which fires only when label is set).
-                pseudo_path = path.with_name(f"{path.stem}::{name}")
+                pseudo_path = f"{path}::{name}"
                 _check_definition(bespoke, pseudo_path, report)
                 if "label" not in bespoke or not bespoke["label"]:
                     continue

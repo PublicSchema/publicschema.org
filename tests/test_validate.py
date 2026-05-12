@@ -3,6 +3,9 @@
 TDD: these tests define expected behavior before implementation.
 """
 
+import subprocess
+import types
+import unittest.mock
 import yaml
 
 from build.validate import validate_schema_dir
@@ -711,3 +714,46 @@ class TestAgeApplicability:
         errors = validate_schema_dir(tmp_schema)
         enum_errors = [e for e in errors if "toddler" in str(e)]
         assert len(enum_errors) == 1
+
+
+# ---------------------------------------------------------------------------
+# LinkML subprocess output surfacing (fix #7 regression)
+# ---------------------------------------------------------------------------
+
+class TestLinkmlOutputSurfaced:
+    """linkml-lint error output must appear in the returned ValidationError."""
+
+    def test_linkml_failure_surfaces_subprocess_output(self, tmp_path):
+        """When linkml-lint exits non-zero, the captured output is in the error message."""
+        # Write a minimal publicschema.yaml so the linkml path is triggered.
+        schema_file = tmp_path / "publicschema.yaml"
+        schema_file.write_text("id: https://example.org/bad\nname: bad\n")
+
+        fake_stderr = "ERROR BrokenClass: is_a target 'NoSuchParent' does not exist"
+        fake_stdout = ""
+        fake_result = types.SimpleNamespace(
+            returncode=1,
+            stdout=fake_stdout,
+            stderr=fake_stderr,
+        )
+
+        with unittest.mock.patch("subprocess.run", return_value=fake_result):
+            errors = validate_schema_dir(tmp_path)
+
+        assert len(errors) == 1
+        assert errors[0].file == "publicschema.yaml"
+        # The concrete linkml-lint output must be present in the error message,
+        # not just the generic "LinkML validation failed" fallback.
+        assert "NoSuchParent" in errors[0].message or "BrokenClass" in errors[0].message
+
+    def test_linkml_success_returns_no_errors(self, tmp_path):
+        """When linkml-lint exits zero, validate_schema_dir returns an empty list."""
+        schema_file = tmp_path / "publicschema.yaml"
+        schema_file.write_text("id: https://example.org/ok\nname: ok\n")
+
+        fake_result = types.SimpleNamespace(returncode=0, stdout="", stderr="")
+
+        with unittest.mock.patch("subprocess.run", return_value=fake_result):
+            errors = validate_schema_dir(tmp_path)
+
+        assert errors == []

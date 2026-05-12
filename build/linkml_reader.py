@@ -23,6 +23,7 @@ from __future__ import annotations
 
 import json
 import re
+import sys
 from pathlib import Path
 from typing import Any
 
@@ -88,7 +89,13 @@ def _parse_json_annotation(value: Any) -> Any:
         try:
             return json.loads(value)
         except (TypeError, ValueError):
-            return value
+            snippet = value[:80] + "..." if len(value) > 80 else value
+            print(
+                f"WARNING: _parse_json_annotation: invalid JSON annotation value"
+                f" (returning None): {snippet!r}",
+                file=sys.stderr,
+            )
+            return None
     return value
 
 
@@ -263,7 +270,7 @@ def _convert_enum_to_vocabulary(
         if is_mangled:
             display_code: Any = sc_str
         else:
-            display_code = code[:-1] if code == "self_" else code
+            display_code = code
 
         v_entry: dict[str, Any] = {
             "code": display_code,
@@ -834,14 +841,14 @@ def load_raw_from_linkml(linkml_dir: Path) -> dict[str, Any]:
     # that expect the bespoke shape (test_agent_hierarchy.py etc.) want the
     # reverse edge populated as well. Subtype entries use composite keys
     # (``<domain>/<id>``) so cross-domain hierarchies don't collapse.
-    short_name = {k: k.split("/")[-1] for k in concepts_raw}
     for child_key, child in concepts_raw.items():
         for parent in child.get("supertypes", []) or []:
-            parent_short = parent.split("/")[-1]
-            for cand_key, cand in concepts_raw.items():
-                if cand_key == parent or short_name[cand_key] == parent_short:
-                    cand.setdefault("subtypes", []).append(child_key)
-                    break
+            # Match only by exact composite key. After the two-pass resolution
+            # above every supertypes entry is already a composite key; a
+            # fuzzy short-name fallback could attach a child to the wrong
+            # parent when two concepts share a bare name across domains.
+            if parent in concepts_raw:
+                concepts_raw[parent].setdefault("subtypes", []).append(child_key)
 
     return {
         "meta": meta,

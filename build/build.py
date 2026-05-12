@@ -924,8 +924,9 @@ def build_vocabulary(
     concept_schemas = {}
     for concept_id, data in concepts_raw.items():
         bare_id = data["id"]
+        all_props_entries = _collect_all_properties(concept_id, concepts_raw)
         schema_props = {}
-        for entry in _collect_all_properties(concept_id, concepts_raw):
+        for entry in all_props_entries:
             norm = _normalize_property_entry(entry)
             prop_id = norm["id"]
             if prop_id in properties_raw:
@@ -937,7 +938,7 @@ def build_vocabulary(
         # Extract repeated vocab enums into $defs
         # Count how many times each vocab ref appears across properties
         vocab_usage: dict[str, int] = {}
-        for entry in _collect_all_properties(concept_id, concepts_raw):
+        for entry in all_props_entries:
             norm = _normalize_property_entry(entry)
             prop_id = norm["id"]
             if prop_id in properties_raw:
@@ -1371,8 +1372,11 @@ def main():
     else:
         # The default --source=linkml path: build_vocabulary reads schema_dir
         # (or args.linkml_dir if explicitly supplied) via load_raw_from_linkml.
+        # crosswalks_dir is always derived from schema_dir so that an
+        # --linkml-dir override (e.g. restoring an old release) does not
+        # silently skip crosswalks.
         linkml_dir = Path(args.linkml_dir) if args.linkml_dir else schema_dir
-        result = build_vocabulary(linkml_dir)
+        result = build_vocabulary(linkml_dir, crosswalks_dir=schema_dir / "value_crosswalks")
 
     write_outputs(result, dist_dir, schema_dir=schema_dir, external_dir=external_dir)
     print(f"Built {len(result['concepts'])} concepts, "

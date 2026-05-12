@@ -51,6 +51,7 @@ from pathlib import Path
 
 import yaml
 
+from build.linkml_reader import _normalise_annotations
 from build.loader import load_all_yaml, load_yaml
 
 # ---------------------------------------------------------------------------
@@ -218,7 +219,7 @@ def _check_external_equivalents(data: dict, filename: str) -> list[LintIssue]:
 
 def _linkml_definition(entry: dict) -> dict:
     """Reconstruct a multilingual definition dict from a LinkML class/slot/enum."""
-    ann = entry.get("annotations") or {}
+    ann = _normalise_annotations(entry.get("annotations"))
     definition: dict[str, str] = {}
     if entry.get("description"):
         definition["en"] = entry["description"]
@@ -230,7 +231,7 @@ def _linkml_definition(entry: dict) -> dict:
 
 def _linkml_label(entry: dict) -> dict:
     """Reconstruct a multilingual label dict from a LinkML class/slot/enum."""
-    ann = entry.get("annotations") or {}
+    ann = _normalise_annotations(entry.get("annotations"))
     label: dict[str, str] = {}
     if entry.get("title"):
         label["en"] = entry["title"]
@@ -249,7 +250,7 @@ def _linkml_external_equivalents(entry: dict) -> dict:
     key for the E001-E003 rule set. We only emit the fields the rules
     inspect (match, uri, note).
     """
-    ann = entry.get("annotations") or {}
+    ann = _normalise_annotations(entry.get("annotations"))
     raw = ann.get("external_alignments_json")
     if not raw:
         return {}
@@ -277,7 +278,7 @@ def _linkml_external_equivalents(entry: dict) -> dict:
 
 def _linkml_decode_json_ann(entry: dict, key: str):
     """Return a parsed JSON value from an annotation, or None if absent/invalid."""
-    ann = entry.get("annotations") or {}
+    ann = _normalise_annotations(entry.get("annotations"))
     raw = ann.get(key)
     if not raw:
         return None

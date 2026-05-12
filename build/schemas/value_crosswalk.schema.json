@@ -6,7 +6,15 @@
   "required": ["id", "source_value_set", "target_value_set", "pairs", "standard"],
   "properties": {
     "id": { "type": "string", "minLength": 1 },
-    "source_value_set": { "type": "object" },
+    "source_value_set": {
+      "type": "object",
+      "properties": {
+        "kind": { "enum": ["vocabulary", "property"] },
+        "id": { "type": "string", "minLength": 1 },
+        "source_id": { "type": "string", "minLength": 1 }
+      },
+      "required": ["kind", "id", "source_id"]
+    },
     "target_value_set": { "type": "object" },
     "pairs": {
       "type": "array",
@@ -33,7 +41,8 @@
       "properties": {
         "artifact_kind": { "enum": ["single_file", "manifest", "none"] },
         "artifact_notes": { "type": "string", "minLength": 1 },
-        "source_sha256": { "type": "string", "minLength": 1 }
+        "source_sha256": { "type": "string", "minLength": 1 },
+        "retrieved_at": { "type": "string", "format": "date" }
       },
       "allOf": [
         {
@@ -41,7 +50,10 @@
             "properties": { "artifact_kind": { "const": "none" } },
             "required": ["artifact_kind"]
           },
-          "then": { "required": ["artifact_notes"] },
+          "then": {
+            "required": ["artifact_notes"],
+            "not": { "required": ["source_sha256"] }
+          },
           "else": { "required": ["source_sha256"] }
         }
       ],

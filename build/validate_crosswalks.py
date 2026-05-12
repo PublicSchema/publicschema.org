@@ -28,6 +28,8 @@ from typing import Any
 import jsonschema
 import yaml
 
+from build.value_crosswalks import _has_todo
+
 ROOT = Path(__file__).resolve().parent.parent
 SCHEMA_PATH = ROOT / "build" / "schemas" / "value_crosswalk.schema.json"
 CROSSWALKS_DIR = ROOT / "schema" / "value_crosswalks"
@@ -47,9 +49,10 @@ def _known_sources(schema_dir: Path) -> tuple[set[str], set[str]]:
     """
     from build.build import build_vocabulary
 
-    # crosswalks_dir explicitly None so we don't recursively load the
-    # crosswalks we're about to validate.
-    result = build_vocabulary(schema_dir, crosswalks_dir=Path("/nonexistent"))
+    # Pass a path that doesn't exist so load_crosswalks returns {} and we
+    # don't recursively load the crosswalks we're about to validate.
+    # The name is intentionally descriptive so the intent is clear in logs.
+    result = build_vocabulary(schema_dir, crosswalks_dir=Path(__file__).parent / "__skip_crosswalks_during_validation__")
     return set(result["vocabularies"].keys()), set(result["properties"].keys())
 
 
@@ -63,7 +66,9 @@ def validate_all(
         return [f"crosswalks directory missing: {crosswalks_dir}"]
 
     schema = _load_schema()
-    validator = jsonschema.Draft202012Validator(schema)
+    validator = jsonschema.Draft202012Validator(
+        schema, format_checker=jsonschema.FormatChecker()
+    )
     known_vocabs, known_properties = _known_sources(schema_dir)
 
     for path in sorted(crosswalks_dir.glob("*.yaml")):
@@ -82,7 +87,7 @@ def validate_all(
 
         std = doc.get("standard") or {}
         if isinstance(std, dict):
-            todo_fields = sorted(k for k, v in std.items() if v == "TODO")
+            todo_fields = sorted(k for k, v in std.items() if _has_todo(v))
             if todo_fields:
                 errors.append(
                     f"{path.name}: standard metadata has TODO placeholders for "
