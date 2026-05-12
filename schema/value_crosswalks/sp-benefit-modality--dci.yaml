@@ -36,7 +36,7 @@ pairs:
   quality: unmapped
 standard:
   source_id: dci
-  uri: https://schema.spdci.org/core/v1/
+  uri: https://github.com/spdci/schemas/tree/main/core/v1
   custodian: Digital Convergence Initiative (DCI)
   license: Apache-2.0
   license_uri: https://www.apache.org/licenses/LICENSE-2.0
