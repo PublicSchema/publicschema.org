@@ -191,14 +191,6 @@ def _domain_from_source(source_domain: Any) -> str | None:
     return source_domain
 
 
-def _is_external_domain_file(path: Path) -> bool:
-    """External partial schemas live under ``schema/external/`` and do
-    not contribute to PublicSchema's own catalog of concepts/slots/enums.
-    They're separate inputs (mapping targets), so the adapter skips them.
-    """
-    return path.parent.name == "external"
-
-
 # ---------------------------------------------------------------------------
 # Enum reverse mapping (PascalCase enum name -> kebab-case vocab id)
 # ---------------------------------------------------------------------------
@@ -216,20 +208,6 @@ def _pascal_to_kebab(name: str) -> str:
     """
     s = _PASCAL_RE.sub(r"-\1", name).lower()
     return s
-
-
-def _vocab_key_from_range(
-    range_value: str,
-    enum_to_vocab_key: dict[str, str],
-) -> str | None:
-    """Resolve a property's LinkML ``range`` to a bespoke vocabulary key.
-
-    ``range`` is the PascalCase enum name. We look it up in the index of
-    enums actually defined in the LinkML schema. Returns the composite
-    vocabulary key (``<domain>/<id>`` or bare ``<id>``) or ``None`` if the
-    range isn't an enum.
-    """
-    return enum_to_vocab_key.get(range_value)
 
 
 # ---------------------------------------------------------------------------
@@ -634,7 +612,7 @@ def _convert_class_to_concept(
 
 
 def _convert_citation_to_bibliography(
-    cls_name: str, cls_def: dict,
+    cls_def: dict,
 ) -> tuple[str, dict] | None:
     annotations = _normalise_annotations(cls_def.get("annotations"))
     biblio_id = _scalar_annotation(annotations.get("citation_id"))
@@ -701,17 +679,6 @@ def _convert_categories_enum(enum_def: dict) -> dict[str, dict]:
 # ---------------------------------------------------------------------------
 # Public API
 # ---------------------------------------------------------------------------
-
-
-def _bibliography_refs_from_annotations(
-    annotations: dict | None,
-) -> list[str]:
-    if not annotations:
-        return []
-    refs = _parse_json_annotation(annotations.get("bibliography_refs"))
-    if isinstance(refs, list):
-        return [r for r in refs if isinstance(r, str)]
-    return []
 
 
 def load_raw_from_linkml(linkml_dir: Path) -> dict[str, Any]:
@@ -841,8 +808,8 @@ def load_raw_from_linkml(linkml_dir: Path) -> dict[str, Any]:
 
     # Bibliography (one Citation subclass per entry).
     bibliography_raw: dict[str, dict] = {}
-    for cls_name, cls_def in citation_classes.items():
-        converted = _convert_citation_to_bibliography(cls_name, cls_def)
+    for cls_def in citation_classes.values():
+        converted = _convert_citation_to_bibliography(cls_def)
         if not converted:
             continue
         biblio_id, entry = converted
