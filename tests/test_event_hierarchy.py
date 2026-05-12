@@ -7,16 +7,30 @@ subtypes to keep the hierarchy symmetric.
 """
 from __future__ import annotations
 
-import yaml
+from functools import lru_cache
+from pathlib import PurePath
 
+from build.linkml_reader import load_raw_from_linkml
 from tests.conftest import SCHEMA_DIR
 
-CONCEPTS = SCHEMA_DIR / "concepts"
+CONCEPTS = PurePath("concepts")
 
 
-def _load(path):
-    with path.open() as f:
-        return yaml.safe_load(f)
+@lru_cache(maxsize=1)
+def _raws():
+    return load_raw_from_linkml(SCHEMA_DIR)
+
+
+def _kebab_to_pascal(stem: str) -> str:
+    return "".join(p.capitalize() for p in stem.split("-"))
+
+
+def _load(path: PurePath):
+    target = _kebab_to_pascal(path.stem)
+    for key, concept in _raws()["concepts"].items():
+        if key.split("/")[-1] == target:
+            return concept
+    raise KeyError(f"{path} not found in re-projected LinkML schema")
 
 
 class TestEnrollmentAndGrievanceAreEvents:

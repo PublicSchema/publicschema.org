@@ -1,5 +1,14 @@
 """Round-trip semantic equivalence between rdf_export.py and the LinkML migration.
 
+OBSOLETE POST-CUTOVER. This test ran the bespoke-format migration script as
+a fixture to compare its output against the legacy RDF export. After the
+LinkML cutover the source-of-truth is the LinkML composite directly and the
+migration script is HISTORICAL/REFERENCE ONLY (it expects a bespoke YAML tree
+that no longer exists). The entire module is skipped; remove it or rewrite
+it as a pure linkml-composite invariant suite in a follow-up.
+
+Below remains the original docstring for reference.
+
 This is a cross-pipeline integration test, not a unit test of either pipeline.
 It runs both ``build/rdf_export.py`` (via ``build.build.build_vocabulary`` +
 ``build.rdf_export``) and ``build/migrate_to_linkml.py`` followed by
@@ -59,6 +68,12 @@ pytest.importorskip(
 )
 
 from rdflib.namespace import OWL, RDF, RDFS, SKOS  # noqa: E402
+
+pytestmark = pytest.mark.skip(
+    reason="Obsolete after LinkML cutover; build/migrate_to_linkml.py no "
+    "longer applies to schema/ (which now contains LinkML rather than "
+    "bespoke YAML)."
+)
 
 ROOT = Path(__file__).resolve().parent.parent
 SCHEMA_DIR = ROOT / "schema"

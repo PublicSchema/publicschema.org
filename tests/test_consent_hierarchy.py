@@ -13,15 +13,26 @@ These tests guard the key decisions in ADR-009:
 
 from __future__ import annotations
 
-import yaml
+from functools import lru_cache
+from pathlib import PurePath
 
+from build.linkml_reader import load_raw_from_linkml
 from tests.conftest import SCHEMA_DIR
 
 
-CONCEPTS = SCHEMA_DIR / "concepts"
-PROPERTIES = SCHEMA_DIR / "properties"
-VOCABULARIES = SCHEMA_DIR / "vocabularies"
-BIBLIOGRAPHY = SCHEMA_DIR / "bibliography"
+CONCEPTS = PurePath("concepts")
+PROPERTIES = PurePath("properties")
+VOCABULARIES = PurePath("vocabularies")
+BIBLIOGRAPHY = PurePath("bibliography")
+
+
+@lru_cache(maxsize=1)
+def _raws():
+    return load_raw_from_linkml(SCHEMA_DIR)
+
+
+def _kebab_to_pascal(stem: str) -> str:
+    return "".join(p.capitalize() for p in stem.split("-"))
 
 
 CONSENT_VOCABULARIES = [
@@ -59,9 +70,40 @@ IMMUTABLE_AFTER_GIVEN = {
 }
 
 
-def load(path):
-    with path.open() as f:
-        return yaml.safe_load(f)
+def load(path: PurePath):
+    """Resolve ``concepts/X.yaml`` / ``properties/Y.yaml`` / ``vocabularies/Z.yaml``
+    / ``bibliography/W.yaml`` via the LinkML reader.
+
+    Falls back to the raw composite for cases where the path includes a
+    domain subdirectory (e.g. ``vocabularies/crvs/registration-status.yaml``).
+    """
+    kind = path.parts[0]
+    rest = list(path.parts[1:])
+    stem = path.stem
+    raws = _raws()
+    if kind == "concepts":
+        target = _kebab_to_pascal(stem)
+        for key, c in raws["concepts"].items():
+            if key.split("/")[-1] == target:
+                return c
+    elif kind == "properties":
+        for key, p in raws["properties"].items():
+            if key.split("/")[-1] == stem:
+                return p
+    elif kind == "vocabularies":
+        # vocabularies can be domain-scoped: ``vocabularies/crvs/<stem>.yaml``.
+        domain = rest[0] if len(rest) > 1 else None
+        composite = f"{domain}/{stem}" if domain else stem
+        if composite in raws["vocabularies"]:
+            return raws["vocabularies"][composite]
+        for key, v in raws["vocabularies"].items():
+            if key.split("/")[-1] == stem:
+                return v
+    elif kind == "bibliography":
+        for key, b in raws.get("bibliography", {}).items():
+            if key == stem:
+                return b
+    raise KeyError(f"{path} not found in re-projected LinkML schema")
 
 
 class TestConsentRecordConcept:

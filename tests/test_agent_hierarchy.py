@@ -13,17 +13,19 @@ These tests guard the decisions in ADR-008:
 from __future__ import annotations
 
 import json
+from functools import lru_cache
+from pathlib import PurePath
 
 import rdflib
-import yaml
 from rdflib.namespace import OWL, RDFS
 
+from build.linkml_reader import load_raw_from_linkml
 from tests.conftest import SCHEMA_DIR
 
 
-CONCEPTS = SCHEMA_DIR / "concepts"
-PROPERTIES = SCHEMA_DIR / "properties"
-BIBLIOGRAPHY = SCHEMA_DIR / "bibliography"
+CONCEPTS = PurePath("concepts")
+PROPERTIES = PurePath("properties")
+BIBLIOGRAPHY = PurePath("bibliography")
 
 PROFILE_SUBTYPES = [
     "functioning-profile.yaml",
@@ -33,9 +35,40 @@ PROFILE_SUBTYPES = [
 ACTOR_PROPERTIES = ["performed_by", "evaluator", "publisher"]
 
 
-def load(path):
-    with path.open() as f:
-        return yaml.safe_load(f)
+@lru_cache(maxsize=1)
+def _raws():
+    return load_raw_from_linkml(SCHEMA_DIR)
+
+
+def _kebab_to_pascal(stem: str) -> str:
+    return "".join(p.capitalize() for p in stem.split("-"))
+
+
+def load(path: PurePath):
+    """Lookup helper: replaces ``yaml.safe_load`` of bespoke per-element files.
+
+    The path looks like ``concepts/agent.yaml`` /
+    ``properties/performed_by.yaml`` / ``bibliography/foaf.yaml``; we route
+    based on the first segment.
+    """
+    kind = path.parts[0]
+    stem = path.stem
+    raws = _raws()
+    if kind == "concepts":
+        # File stem is kebab-case; concept id is PascalCase. Find by short id.
+        target = _kebab_to_pascal(stem)
+        for key, concept in raws["concepts"].items():
+            if key.split("/")[-1] == target:
+                return concept
+    elif kind == "properties":
+        for key, prop in raws["properties"].items():
+            if key.split("/")[-1] == stem:
+                return prop
+    elif kind == "bibliography":
+        for key, entry in raws.get("bibliography", {}).items():
+            if key == stem:
+                return entry
+    raise KeyError(f"{path} not found in re-projected LinkML schema")
 
 
 class TestAgentConcept:
