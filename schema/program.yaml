@@ -319,6 +319,7 @@ slots:
     annotations:
       label_es: Solicitante
       label_fr: Demandeur
+      domain_override: "null"
       description_es: La persona o grupo que solicitó y recibió esta decisión de elegibilidad.
       description_fr: La personne ou le groupe ayant demandé et obtenu cette décision d'admissibilité.
       convergence_json: '{"system_count": 2, "total_systems": 2}'
@@ -332,6 +333,7 @@ slots:
     annotations:
       label_es: Beneficiario
       label_fr: Bénéficiaire
+      domain_override: "null"
       description_es: La persona o grupo inscrito en el programa.
       description_fr: La personne ou le groupe inscrit dans le programme.
       convergence_json: '{"system_count": 5, "total_systems": 6}'
@@ -358,7 +360,7 @@ slots:
     slot_uri: publicschema:benefit_modality
     title: Benefit modality
     description: The form of benefit the entitlement specifies (cash, voucher, in-kind, service, fee waiver).
-    range: string
+    range: BenefitModality
     multivalued: true
     status: bibo:status/published
     close_mappings:
@@ -399,7 +401,7 @@ slots:
     title: Conditionality type
     description: Whether the program requires beneficiaries to meet behavioral conditions to receive benefits
       (unconditional, conditional, soft conditional, labelled).
-    range: string
+    range: ConditionalityType
     multivalued: false
     status: bibo:draft
     annotations:
@@ -462,6 +464,7 @@ slots:
     annotations:
       label_es: Base de la decisión
       label_fr: Base de la décision
+      domain_override: "null"
       description_es: El evento de puntuación, perfil, puntuación o regla administrativa que fundamentó
         la decisión.
       description_fr: L'événement de notation, le profil, le score ou la règle administrative ayant constitué
@@ -477,6 +480,7 @@ slots:
     annotations:
       label_es: Fecha de decisión
       label_fr: Date de décision
+      domain_override: "null"
       description_es: La fecha en que se registró la decisión de elegibilidad.
       description_fr: La date à laquelle la décision d'admissibilité a été enregistrée.
       convergence_json: '{"system_count": 1, "total_systems": 2}'
@@ -516,12 +520,13 @@ slots:
     slot_uri: publicschema:eligibility_status
     title: Eligibility status
     description: The outcome of the eligibility determination.
-    range: string
+    range: EligibilityStatus
     multivalued: false
     status: bibo:draft
     annotations:
       label_es: Estado de elegibilidad
       label_fr: Statut d'admissibilité
+      domain_override: "null"
       description_es: El resultado de la determinación de elegibilidad.
       description_fr: Le résultat de la détermination de l'admissibilité.
       sensitivity: sensitive
@@ -539,6 +544,7 @@ slots:
     annotations:
       label_es: Fecha de inscripción
       label_fr: Date d'inscription
+      domain_override: "null"
       description_es: La fecha en que la inscripción se activó y se autorizó la entrega de beneficios.
       description_fr: La date à laquelle l'inscription est devenue active et la distribution des prestations
         a été autorisée.
@@ -551,7 +557,7 @@ slots:
     slot_uri: publicschema:enrollment_status
     title: Enrollment status
     description: The current lifecycle state of the enrollment.
-    range: string
+    range: EnrollmentStatus
     multivalued: false
     status: bibo:status/published
     close_mappings:
@@ -559,6 +565,7 @@ slots:
     annotations:
       label_es: Estado de inscripción
       label_fr: Statut d'inscription
+      domain_override: "null"
       description_es: El estado actual del ciclo de vida de la inscripción.
       description_fr: L'état actuel du cycle de vie de l'inscription.
       external_alignments_json: '[{"label": "enrollment_status", "match": "close", "note": "Same concept
@@ -570,7 +577,7 @@ slots:
     slot_uri: publicschema:entitlement_status
     title: Entitlement status
     description: The lifecycle state of this entitlement instance.
-    range: string
+    range: EntitlementStatus
     multivalued: false
     status: bibo:status/published
     annotations:
@@ -593,6 +600,7 @@ slots:
     annotations:
       label_es: Fecha de salida
       label_fr: Date de sortie
+      domain_override: "null"
       description_es: La fecha en que la inscripción dejó de estar activa, ya sea por cierre o graduación.
         No se aplica a la suspensión temporal.
       description_fr: La date à laquelle l'inscription a cessé d'être active, que ce soit par clôture
@@ -608,12 +616,13 @@ slots:
     title: Exit reason
     description: The reason the enrollment was permanently closed. Applies when enrollment status is closed,
       not when graduated.
-    range: string
+    range: EnrollmentExitReason
     multivalued: false
     status: bibo:draft
     annotations:
       label_es: Motivo de salida
       label_fr: Motif de sortie
+      domain_override: "null"
       description_es: La razón por la cual la inscripción fue cerrada permanentemente. Se aplica cuando
         el estado de inscripción es "cerrado", no cuando es "graduado".
       description_fr: La raison pour laquelle l'inscription a été définitivement clôturée. S'applique
@@ -622,12 +631,13 @@ slots:
     slot_uri: publicschema:frequency
     title: Delivery frequency
     description: How often the entitlement is delivered (monthly, quarterly, annual, one-time).
-    range: string
+    range: BenefitFrequency
     multivalued: false
     status: bibo:draft
     annotations:
       label_es: Frecuencia de entrega
       label_fr: Fréquence de versement
+      domain_override: "null"
       description_es: Con qué frecuencia se entrega el derecho (mensual, trimestral, anual, única vez).
       description_fr: La fréquence à laquelle la prestation est versée (mensuelle, trimestrielle, annuelle,
         unique).
@@ -644,6 +654,7 @@ slots:
     annotations:
       label_es: Regla de frecuencia
       label_fr: Règle de fréquence
+      domain_override: "null"
       description_es: Una regla de recurrencia iCalendar (RRULE RFC 5545) que especifica un calendario
         personalizado. Se utiliza cuando la propiedad frequency se establece en 'custom'.
       description_fr: Une règle de récurrence iCalendar (RRULE RFC 5545) spécifiant un calendrier personnalisé.
@@ -675,7 +686,7 @@ slots:
     slot_uri: publicschema:grievance_status
     title: Grievance status
     description: The current processing state of the grievance.
-    range: string
+    range: GrievanceStatus
     multivalued: false
     status: bibo:status/published
     annotations:
@@ -706,7 +717,7 @@ slots:
     title: Grievance type
     description: The primary category of issue recorded for the grievance, such as an appeal, payment
       complaint, correction request, or misconduct allegation.
-    range: string
+    range: GrievanceType
     multivalued: false
     status: bibo:status/published
     annotations:
@@ -759,7 +770,7 @@ slots:
     title: Program
     description: A link to the program under which this enrollment, entitlement, eligibility decision,
       or benefit schedule exists.
-    range: uri
+    range: Program
     multivalued: false
     status: bibo:status/forthcoming
     annotations:
@@ -770,6 +781,7 @@ slots:
       description_fr: Un lien vers le programme dans le cadre duquel cette inscription, ce droit, cette
         décision d'éligibilité ou ce calendrier de prestations existe.
       sensitivity: sensitive
+      bespoke_type: uri
       convergence_json: '{"system_count": 5, "total_systems": 6}'
   receiving_program:
     slot_uri: publicschema:receiving_program
@@ -781,6 +793,7 @@ slots:
     annotations:
       label_es: Programa destinatario
       label_fr: Programme destinataire
+      domain_override: "null"
       description_es: Referencia al programa u organización al que se dirige la derivación.
       description_fr: Référence au programme ou à l'organisation vers lesquels l'orientation est dirigée.
       convergence_json: '{"system_count": 0, "total_systems": 3}'
@@ -794,6 +807,7 @@ slots:
     annotations:
       label_es: Fecha de derivación
       label_fr: Date d'orientation
+      domain_override: "null"
       description_es: La fecha en que se realizó la derivación.
       description_fr: La date à laquelle l'orientation a été effectuée.
       convergence_json: '{"system_count": 1, "total_systems": 3}'
@@ -808,6 +822,7 @@ slots:
     annotations:
       label_es: Motivo de derivación
       label_fr: Motif d'orientation
+      domain_override: "null"
       description_es: Una explicación en texto libre de por qué la persona u hogar fue derivado de un
         programa a otro.
       description_fr: Une explication en texte libre de la raison pour laquelle la personne ou le ménage
@@ -817,12 +832,13 @@ slots:
     slot_uri: publicschema:referral_status
     title: Referral status
     description: The current state of the referral (pending, accepted, declined, completed).
-    range: string
+    range: ReferralStatus
     multivalued: false
     status: bibo:draft
     annotations:
       label_es: Estado de la derivación
       label_fr: Statut de l'orientation
+      domain_override: "null"
       description_es: El estado actual de la derivación (pendiente, aceptada, rechazada, completada).
       description_fr: L'état actuel de l'orientation (en attente, acceptée, refusée, terminée).
       convergence_json: '{"system_count": 1, "total_systems": 3}'
@@ -836,6 +852,7 @@ slots:
     annotations:
       label_es: Persona derivada
       label_fr: Personne orientée
+      domain_override: "null"
       description_es: La persona que es objeto de la derivación.
       description_fr: La personne qui fait l'objet de l'orientation.
       convergence_json: '{"system_count": 1, "total_systems": 3}'
@@ -849,6 +866,7 @@ slots:
     annotations:
       label_es: Programa derivador
       label_fr: Programme orienteur
+      domain_override: "null"
       description_es: Referencia al programa u organización que realiza la derivación.
       description_fr: Référence au programme ou à l'organisation effectuant l'orientation.
       convergence_json: '{"system_count": 0, "total_systems": 3}'
@@ -862,6 +880,7 @@ slots:
     annotations:
       label_es: Fecha de resolución
       label_fr: Date de résolution
+      domain_override: "null"
       description_es: La fecha en que se emitió la decisión de resolución de la queja.
       description_fr: La date à laquelle une décision de résolution a été rendue pour le grief.
       convergence_json: '{"system_count": 1, "total_systems": 5}'
@@ -869,7 +888,7 @@ slots:
     slot_uri: publicschema:schedule_ref
     title: Schedule reference
     description: Reference to the benefit schedule that this entitlement corresponds to.
-    range: uri
+    range: BenefitSchedule
     multivalued: false
     status: bibo:status/forthcoming
     annotations:
@@ -877,6 +896,7 @@ slots:
       label_fr: Référence au calendrier
       description_es: Referencia al calendario de beneficios al que corresponde este derecho.
       description_fr: Référence au calendrier de prestations auquel ce droit correspond.
+      bespoke_type: uri
       convergence_json: '{"system_count": 0, "total_systems": 6}'
   submission_date:
     slot_uri: publicschema:submission_date
@@ -888,6 +908,7 @@ slots:
     annotations:
       label_es: Fecha de presentación
       label_fr: Date de soumission
+      domain_override: "null"
       description_es: La fecha en que la queja fue presentada o registrada.
       description_fr: La date à laquelle le grief a été soumis ou enregistré.
       convergence_json: '{"system_count": 4, "total_systems": 5}'
@@ -895,7 +916,7 @@ slots:
     slot_uri: publicschema:targeting_approach
     title: Targeting approach
     description: The method used to identify eligible beneficiaries.
-    range: string
+    range: TargetingApproach
     multivalued: false
     status: bibo:draft
     annotations:
@@ -914,6 +935,7 @@ slots:
     annotations:
       label_es: Válido hasta
       label_fr: Valide jusqu'au
+      domain_override: "null"
       description_es: La fecha hasta la cual la decisión de elegibilidad permanece válida.
       description_fr: La date jusqu'à laquelle la décision d'admissibilité reste valide.
       convergence_json: '{"system_count": 0, "total_systems": 2}'

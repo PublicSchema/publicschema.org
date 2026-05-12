@@ -554,10 +554,56 @@ classes:
         reference clone; the Event enum confirms the convention.", "uri": "https://github.com/opencrvs/opencrvs-farajaland/blob/develop/src/events/utils/types.ts#Event",
         "vocabulary": "OpenCRVS v2 country config (Farajaland)", "vocabulary_id": "opencrvs"}]'
       bibliography_refs: '["un-vital-stats-rev3"]'
+  CrvsPerson:
+    class_uri: publicschema:crvs/Person
+    title: Person
+    description: "A temporal snapshot of a Person as observed at the time of a vital event. Carries the
+      same demographic properties as Person, but frozen at event time rather than reflecting current values.
+      Used wherever a vital event needs to record who a person was (occupation, residence, education, etc.)
+      at the moment the event occurred.\n"
+    slots:
+    - person
+    - nationality
+    - occupation
+    - education_level
+    - marital_status
+    - literacy
+    - religion
+    - ethnic_group
+    - employment_status
+    - status_in_employment
+    - industry
+    - place_of_usual_residence
+    - age_at_event
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: Persona
+      label_fr: Personne
+      description_es: "Una instantánea temporal de una Persona tal como se observó en el momento de un
+        evento vital. Lleva las mismas propiedades demográficas que Persona, pero fijadas en el momento
+        del evento, en lugar de reflejar los valores actuales. Se utiliza siempre que un evento vital
+        necesite registrar quién era una persona (ocupación, residencia, educación, etc.) en el momento
+        en que ocurrió el evento.\n"
+      description_fr: "Un instantané temporel d'une Personne telle qu'observée au moment d'un événement
+        d'état civil. Porte les mêmes propriétés démographiques que Personne, mais figées au moment de
+        l'événement plutôt que de refléter les valeurs actuelles. Utilisé partout où un événement d'état
+        civil doit enregistrer qui était une personne (profession, résidence, éducation, etc.) au moment
+        où l'événement s'est produit.\n"
+      featured: true
+      source_domain: crvs
+      property_groups_json: '[{"category": "other", "properties": ["person"]}, {"category": "demographics",
+        "properties": ["nationality", "marital_status", "religion", "ethnic_group", "age_at_event"]}, {"category":
+        "education", "properties": ["education_level", "literacy"]}, {"category": "employment", "properties":
+        ["occupation", "employment_status", "status_in_employment", "industry"]}, {"category": "location",
+        "properties": ["place_of_usual_residence"]}]'
+      external_alignments_json: '[{"label": "No v1 equivalent", "match": "none", "note": "OpenCRVS v2
+        has no temporal-snapshot concept. Demographic fields (occupation, education, marital status) sit
+        directly on the Person type and are implicitly current-at-registration.", "vocabulary": "OpenCRVS
+        v2 event service", "vocabulary_id": "opencrvs"}]'
   Parent:
     class_uri: publicschema:Parent
     title: Parent
-    description: 'A Person subtype in the civil registration domain that captures a parental role alongside the inherited person-of-record
+    description: 'A crvs/Person subtype that captures a parental role alongside the inherited person-of-record
       properties. Used on Birth, Adoption, PaternityRecognition, and Legitimation so that biological and
       legal parentage can be captured explicitly rather than collapsed into a single parent slot.
 
@@ -574,7 +620,7 @@ classes:
       on the printed certificate.
 
       '
-    is_a: Person
+    is_a: CrvsPerson
     slots:
     - parental_role
     - establishment_basis
@@ -583,7 +629,7 @@ classes:
     annotations:
       label_es: Progenitor
       label_fr: Parent
-      description_es: 'Un subtipo de Person en el dominio de registro civil que porta un rol parental junto con las propiedades heredadas
+      description_es: 'Un subtipo de crvs/Person que porta un rol parental junto con las propiedades heredadas
         de persona objeto del registro. Se utiliza en Nacimiento, Adopción, Reconocimiento de paternidad
         y Legitimación para que la filiación biológica y la jurídica puedan representarse de forma explícita
         en lugar de reducirse a un único campo de progenitor.
@@ -600,7 +646,7 @@ classes:
         la parentalidad (por ejemplo, presunción matrimonial, reconocimiento voluntario o resolución de
         adopción). La propiedad certificate_label es un campo de texto libre para la etiqueta específica
         de la jurisdicción que debe aparecer en el certificado impreso.'
-      description_fr: 'Un sous-type de Person dans le domaine de l''état civil qui porte un rôle parental à côté des propriétés de
+      description_fr: 'Un sous-type de crvs/Person qui porte un rôle parental à côté des propriétés de
         personne concernée héritées. Utilisé dans les actes de Naissance, d''Adoption, de Reconnaissance
         de paternité et de Légitimation afin que les filiations biologique et juridique puissent être
         saisies de manière explicite plutôt que fusionnées dans un seul champ parent.
@@ -718,7 +764,7 @@ slots:
     title: Adoptee
     description: The person being adopted in an adoption event. Typically a minor, but adult adoption
       exists in some jurisdictions.
-    range: Person
+    range: CrvsPerson
     multivalued: false
     status: bibo:draft
     annotations:
@@ -734,7 +780,7 @@ slots:
     title: Adoption type
     description: Whether the adoption is full (biological filiation is entirely replaced) or simple (biological
       filiation is preserved alongside the new parental link). Key distinction in civil-law traditions.
-    range: string
+    range: AdoptionType
     multivalued: false
     status: bibo:draft
     annotations:
@@ -817,7 +863,7 @@ slots:
     title: Annotation type
     description: 'The category of annotation: a court-ordered correction, a nationality change, or similar
       administrative modifications to the record''s meaning.'
-    range: string
+    range: AnnotationType
     multivalued: false
     status: bibo:draft
     annotations:
@@ -851,7 +897,7 @@ slots:
     title: Attendant at birth
     description: The type of person who attended the delivery (physician, midwife, nurse, traditional
       birth attendant, other, or none). Used as a proxy for safe delivery in health statistics.
-    range: string
+    range: BirthAttendant
     multivalued: false
     status: bibo:draft
     close_mappings:
@@ -917,7 +963,7 @@ slots:
     title: Birth type
     description: Whether the birth was single, twin, triplet, or higher-order multiple. Captured at the
       level of the delivery, not per infant.
-    range: string
+    range: BirthType
     multivalued: false
     status: bibo:draft
     close_mappings:
@@ -1002,7 +1048,7 @@ slots:
     description: 'The method used to ascertain the cause of death: physician certified, verbal autopsy,
       coroner, lay reporting, or other. Important for judging data quality, since verbal autopsy and lay
       reporting are less precise than physician certification.'
-    range: string
+    range: CauseOfDeathMethod
     multivalued: false
     status: bibo:draft
     close_mappings:
@@ -1081,7 +1127,7 @@ slots:
     title: Certificate document type
     description: The type of event the certificate attests to (birth, death, marriage, divorce, adoption).
       Describes what the document is about, orthogonal to its format.
-    range: string
+    range: CertificateDocumentType
     multivalued: false
     status: bibo:draft
     close_mappings:
@@ -1104,7 +1150,7 @@ slots:
     title: Certificate format
     description: 'The format of the certificate: full copy (reproducing the acte including marginal annotations),
       extract (summary only), or a multilingual extract for international use.'
-    range: string
+    range: CertificateFormat
     multivalued: false
     status: bibo:draft
     annotations:
@@ -1163,7 +1209,7 @@ slots:
     slot_uri: publicschema:child
     title: Child
     description: The child whose birth, adoption, or legitimation is recorded in this event.
-    range: Person
+    range: CrvsPerson
     multivalued: false
     status: bibo:draft
     close_mappings:
@@ -1236,7 +1282,7 @@ slots:
     title: Deceased
     description: The person whose death is recorded. Remains a Person entity so that existing identifiers
       and attributes can still be referenced after death.
-    range: Person
+    range: CrvsPerson
     multivalued: false
     status: bibo:draft
     close_mappings:
@@ -1261,7 +1307,7 @@ slots:
       voluntary recognition, judicial declaration, adoption order, or surrogacy order. Complements parental_role,
       which captures the role-nature (biological, gestational, legal, adoptive); establishment_basis captures
       the mechanism.'
-    range: string
+    range: ParentEstablishmentBasis
     multivalued: false
     status: bibo:draft
     annotations:
@@ -1364,7 +1410,7 @@ slots:
     title: Family register status
     description: 'The lifecycle status of the family register: active, closed, split into multiple registers,
       or merged with another. Tracks how vital events reshape the register over time.'
-    range: string
+    range: FamilyRegisterStatus
     multivalued: false
     status: bibo:draft
     annotations:
@@ -1402,7 +1448,7 @@ slots:
     description: The person designated as head of the family register, around whom the register is organized.
       Terminology and legal significance vary (koseki hittosha in Japan, hu zhu in China, chef de famille
       in French-inspired systems).
-    range: Person
+    range: CrvsPerson
     multivalued: false
     status: bibo:draft
     annotations:
@@ -1422,7 +1468,7 @@ slots:
     description: The person who declares the vital event to the civil registration authority. Typically
       a parent for births, a relative or medical professional for deaths, or the parties themselves for
       marriages.
-    range: Person
+    range: CrvsPerson
     multivalued: false
     status: bibo:draft
     close_mappings:
@@ -1516,7 +1562,7 @@ slots:
     description: 'The circumstances under which the death occurred: natural, accident, intentional self-harm,
       assault, legal intervention, war, pending investigation, or could not be determined. Follows the
       WHO death certificate structure.'
-    range: string
+    range: MannerOfDeath
     multivalued: false
     status: bibo:draft
     close_mappings:
@@ -1558,7 +1604,7 @@ slots:
     title: Medical certifier
     description: The medical practitioner who certified the cause of death. Distinct from the registrar,
       who records the death with the civil registration authority.
-    range: Person
+    range: CrvsPerson
     multivalued: false
     status: bibo:draft
     close_mappings:
@@ -1654,7 +1700,7 @@ slots:
       decoupled from gender. Makes the nature of parentage explicit and separable from the parent's identity.
       For jurisdictions requiring gendered or positional labels on the printed certificate, use certificate_label
       alongside this property.
-    range: string
+    range: ParentalRole
     multivalued: false
     status: bibo:draft
     annotations:
@@ -1700,7 +1746,7 @@ slots:
     title: Party 1
     description: One of the two parties to a marriage, divorce, or annulment. Ordering between party_1
       and party_2 is arbitrary and does not imply a role or precedence.
-    range: Person
+    range: CrvsPerson
     multivalued: false
     status: bibo:draft
     close_mappings:
@@ -1723,7 +1769,7 @@ slots:
     title: Party 2
     description: The second of the two parties to a marriage, divorce, or annulment. Ordering between
       party_1 and party_2 is arbitrary and does not imply a role or precedence.
-    range: Person
+    range: CrvsPerson
     multivalued: false
     status: bibo:draft
     close_mappings:
@@ -1746,7 +1792,7 @@ slots:
     title: Place type
     description: The category of place where the vital event occurred (health facility, home, en route,
       etc.). Complements the specific Location by describing what kind of setting it was.
-    range: string
+    range: PlaceType
     multivalued: false
     status: bibo:draft
     annotations:
@@ -1803,7 +1849,7 @@ slots:
     description: 'The type of civil status record: birth, marriage, death, paternity recognition, supplementary
       judgment (jugement supplétif), or a court-ordered substitute record. Determines which original vital
       event the record attests to.'
-    range: string
+    range: CivilStatusRecordType
     multivalued: false
     status: bibo:draft
     close_mappings:
@@ -1859,7 +1905,7 @@ slots:
     title: Registrar
     description: The civil registration officer who recorded the event. In many jurisdictions this is
       the officer whose signature appears on the acte.
-    range: Person
+    range: CrvsPerson
     multivalued: false
     status: bibo:draft
     annotations:
@@ -1908,7 +1954,7 @@ slots:
     title: Registration status
     description: 'The lifecycle state of the registration process for this vital event: whether it is
       declared, pending validation, registered, rejected, cancelled, or has been corrected or archived.'
-    range: string
+    range: RegistrationStatus
     multivalued: false
     status: bibo:draft
     close_mappings:
@@ -1931,7 +1977,7 @@ slots:
     title: Registration type
     description: 'The regime under which the registration was processed: current (within the legal window),
       late, court-ordered, or reconstruction of a lost record. Affects legal weight and downstream uses.'
-    range: string
+    range: RegistrationType
     multivalued: false
     status: bibo:draft
     annotations:
@@ -1973,7 +2019,7 @@ slots:
     title: Termination type
     description: Whether the marriage was terminated by divorce (dissolution of a valid marriage) or by
       annulment (declaration that the marriage was void from its inception).
-    range: string
+    range: MarriageTerminationType
     multivalued: false
     status: bibo:draft
     annotations:
@@ -2009,7 +2055,7 @@ slots:
     description: 'The legal regime under which the marriage was contracted: civil, religious, customary,
       or common law. Determines which authority registered or recognized the union and how subsequent
       terminations are handled.'
-    range: string
+    range: MarriageType
     multivalued: false
     status: bibo:draft
     close_mappings:
@@ -2093,7 +2139,7 @@ slots:
     title: Witnesses
     description: People who witnessed the vital event and attested to it at the time of registration.
       Witness requirements vary by jurisdiction and event type (marriages most commonly require them).
-    range: Person
+    range: CrvsPerson
     multivalued: true
     status: bibo:draft
     close_mappings:

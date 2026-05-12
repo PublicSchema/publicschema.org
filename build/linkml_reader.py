@@ -106,10 +106,18 @@ def _split_multilingual(
 ) -> dict[str, str]:
     """Reconstruct a ``{en, fr, es, ...}`` dict from title/description and
     ``label_<lang>`` / ``description_<lang>`` annotations.
+
+    When ``en_text`` ends with a newline (block scalar style in source),
+    normalise translated values to also end with a newline. The bespoke
+    schema authored fr/es definitions with folded block scalars that
+    preserved the trailing newline; LinkML round-trip can drop it for
+    plain/folded scalars, so we re-attach it to keep emitted output
+    consistent across languages.
     """
     out: dict[str, str] = {}
     if en_text:
         out["en"] = en_text
+    en_has_trailing_nl = isinstance(en_text, str) and en_text.endswith("\n")
     for key, val in (annotations or {}).items():
         if not isinstance(key, str) or not key.startswith(prefix):
             continue
@@ -118,6 +126,8 @@ def _split_multilingual(
             continue
         text = _scalar_annotation(val)
         if isinstance(text, str):
+            if en_has_trailing_nl and text and not text.endswith("\n"):
+                text = text + "\n"
             out[lang] = text
     return out
 
@@ -346,6 +356,7 @@ def _convert_enum_to_vocabulary(
 def _resolve_class_ref(
     bare_name: str,
     class_name_to_composite: dict[str, list[str]],
+    linkml_name_to_composite: dict[str, str] | None = None,
 ) -> str:
     """Pick the best composite key for a bare class reference.
 
@@ -356,7 +367,16 @@ def _resolve_class_ref(
     only one domain-scoped class with that name exists. When both a
     universal and a domain-scoped class share the name we prefer the
     universal — that matches the original schema's most common case.
+
+    ``linkml_name_to_composite`` lets the caller resolve directly by the
+    LinkML class identifier (e.g. ``CrvsPerson``) when the authored name
+    differs from the bespoke bare id (here ``Person``). Direct hits take
+    priority over the heuristic bare-name lookup.
     """
+    if linkml_name_to_composite is not None:
+        direct = linkml_name_to_composite.get(bare_name)
+        if direct is not None:
+            return direct
     candidates = class_name_to_composite.get(bare_name, [])
     if not candidates:
         return bare_name
@@ -375,6 +395,7 @@ def _convert_slot_to_property(
     enum_to_vocab_key: dict[str, str],
     class_names: set[str],
     class_name_to_composite: dict[str, list[str]] | None = None,
+    linkml_name_to_composite: dict[str, str] | None = None,
 ) -> tuple[str, dict]:
     annotations = _normalise_annotations(slot_def.get("annotations"))
     title = slot_def.get("title")
@@ -398,7 +419,10 @@ def _convert_slot_to_property(
             # generation would dangle off the bare URI instead of the
             # ``/sp/Program``-style URI the site expects.
             resolved = (
-                _resolve_class_ref(range_val, class_name_to_composite)
+                _resolve_class_ref(
+                    range_val, class_name_to_composite,
+                    linkml_name_to_composite=linkml_name_to_composite,
+                )
                 if class_name_to_composite is not None else range_val
             )
             bespoke_type = f"concept:{resolved}"
@@ -407,6 +431,15 @@ def _convert_slot_to_property(
             bespoke_type = LINKML_RANGE_TO_BESPOKE_TYPE[range_val]
         else:
             bespoke_type = "string"
+
+    # ``bespoke_type`` annotation overrides the inferred bespoke type.
+    # Used when LinkML's range vocabulary can't express the bespoke type
+    # directly (e.g. ``geojson_geometry`` on a ``range: string`` slot, or
+    # ``uri`` on a slot whose ``range`` points at a class to retain the
+    # ``references`` link without switching the JSON Schema shape).
+    bespoke_type_override = _scalar_annotation(annotations.get("bespoke_type"))
+    if isinstance(bespoke_type_override, str) and bespoke_type_override:
+        bespoke_type = bespoke_type_override
 
     cardinality = "multiple" if slot_def.get("multivalued") else "single"
 
@@ -423,14 +456,23 @@ def _convert_slot_to_property(
     if references is not None:
         prop["references"] = references
 
-    # Scalar annotations restored verbatim.
+    # Scalar annotations restored verbatim. ``domain_override`` is special:
+    # the bespoke shape distinguishes "no override" (key absent) from
+    # "explicit universal" (key present with value ``None``). LinkML
+    # annotations can't carry a ``None`` value, so the literal string
+    # ``"null"`` is the encoded form for explicit universal.
     for scalar_key in (
-        "category", "sensitivity", "domain_override", "vc_guidance",
-        "immutable_after_status",
+        "category", "sensitivity", "vc_guidance", "immutable_after_status",
     ):
         if scalar_key in annotations and annotations[scalar_key] is not None:
             val = _scalar_annotation(annotations[scalar_key])
             prop[scalar_key] = val
+    if "domain_override" in annotations and annotations["domain_override"] is not None:
+        val = _scalar_annotation(annotations["domain_override"])
+        if isinstance(val, str) and val == "null":
+            prop["domain_override"] = None
+        else:
+            prop["domain_override"] = val
 
     # JSON-stringified structured annotations.
     for src_key, dest_key in (
@@ -464,9 +506,32 @@ def _convert_slot_to_property(
 # ---------------------------------------------------------------------------
 
 
+def _bespoke_id_and_domain_from_class(
+    cls_name: str, class_uri: str, annotation_domain: str | None,
+) -> tuple[str, str | None]:
+    """Resolve the bespoke ``id`` and domain code for a LinkML class.
+
+    When ``class_uri`` has the shape ``publicschema:<domain>/<BareId>``,
+    the LinkML class name is a fused identifier (e.g. ``CrvsPerson``) and
+    the bespoke catalog stores it as bare ``Person`` under domain ``crvs``.
+    The URI is the canonical source for both. For plain
+    ``publicschema:<BareId>`` URIs (or missing URIs) we fall back to the
+    LinkML name plus the ``source_domain`` annotation.
+    """
+    prefix = "publicschema:"
+    if class_uri.startswith(prefix):
+        local = class_uri[len(prefix):]
+        if "/" in local:
+            uri_domain, bare = local.split("/", 1)
+            if uri_domain and bare:
+                return bare, uri_domain
+    return cls_name, annotation_domain
+
+
 def _convert_class_to_concept(
     cls_name: str, cls_def: dict,
     class_name_to_composite: dict[str, list[str]] | None = None,
+    linkml_name_to_composite: dict[str, str] | None = None,
 ) -> tuple[str, dict] | None:
     """Return ``(composite_key, concept_dict)`` for a class.
 
@@ -491,14 +556,22 @@ def _convert_class_to_concept(
     description = cls_def.get("description")
     label = _split_multilingual(title, annotations, "label_")
     definition = _split_multilingual(description, annotations, "description_")
-    domain = _domain_from_source(annotations.get("source_domain"))
-    composite_key = f"{domain}/{cls_name}" if domain else cls_name
+    annotation_domain = _domain_from_source(annotations.get("source_domain"))
+    bespoke_id, domain = _bespoke_id_and_domain_from_class(
+        cls_name, class_uri, annotation_domain,
+    )
+    composite_key = f"{domain}/{bespoke_id}" if domain else bespoke_id
 
     # Supertypes: is_a + mixins; both are bare class names in LinkML. The
     # bespoke ``supertypes:`` field stores composite keys for domain-scoped
     # supertypes (e.g. ``crvs/VitalEvent``); we re-attach the prefix when
-    # the bare name resolves unambiguously.
+    # the bare name resolves unambiguously. Direct hits via the LinkML
+    # class name index take priority (handles ``CrvsPerson`` -> ``crvs/Person``).
     def _resolve_super(name: str) -> str:
+        if linkml_name_to_composite is not None:
+            direct = linkml_name_to_composite.get(name)
+            if direct is not None:
+                return direct
         if class_name_to_composite is None:
             return name
         candidates = class_name_to_composite.get(name, [])
@@ -517,7 +590,7 @@ def _convert_class_to_concept(
     slots = [s for s in (cls_def.get("slots") or []) if isinstance(s, str)]
 
     concept: dict[str, Any] = {
-        "id": cls_name,
+        "id": bespoke_id,
         "maturity": _maturity_from_status(cls_def.get("status")),
         "label": label,
         "definition": definition,
@@ -726,8 +799,13 @@ def load_raw_from_linkml(linkml_dir: Path) -> dict[str, Any]:
     # Concepts. We do a first pass without composite resolution to learn
     # which bare class names correspond to which composite keys, then a
     # second pass to re-attach domain prefixes on supertype references.
+    # ``linkml_name_to_composite`` maps the authored LinkML class name
+    # (e.g. ``CrvsPerson``) to its composite key (``crvs/Person``);
+    # ``composite_index_first_pass`` maps the bespoke bare id (``Person``)
+    # to the list of composite keys that share it.
     class_names = set(all_classes.keys())
     composite_index_first_pass: dict[str, list[str]] = {}
+    linkml_name_to_composite: dict[str, str] = {}
     for cls_name, cls_def in all_classes.items():
         converted = _convert_class_to_concept(cls_name, cls_def)
         if not converted:
@@ -735,12 +813,14 @@ def load_raw_from_linkml(linkml_dir: Path) -> dict[str, Any]:
         composite_key, _ = converted
         bare = composite_key.split("/", 1)[-1] if "/" in composite_key else composite_key
         composite_index_first_pass.setdefault(bare, []).append(composite_key)
+        linkml_name_to_composite[cls_name] = composite_key
 
     concepts_raw: dict[str, dict] = {}
     for cls_name, cls_def in all_classes.items():
         converted = _convert_class_to_concept(
             cls_name, cls_def,
             class_name_to_composite=composite_index_first_pass,
+            linkml_name_to_composite=linkml_name_to_composite,
         )
         if not converted:
             continue
@@ -755,6 +835,7 @@ def load_raw_from_linkml(linkml_dir: Path) -> dict[str, Any]:
         slot_id, prop_dict = _convert_slot_to_property(
             slot_name, slot_def, enum_to_vocab_key, class_names,
             class_name_to_composite=class_name_to_composite,
+            linkml_name_to_composite=linkml_name_to_composite,
         )
         properties_raw[slot_id] = prop_dict
 

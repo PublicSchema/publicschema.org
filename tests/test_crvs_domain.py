@@ -464,10 +464,10 @@ class TestEventPropertyReferences:
 
     @pytest.mark.parametrize("prop_id", ["deceased", "party_1", "party_2"])
     def test_property_references_person(self, prop_id):
-        """deceased, party_1, party_2 reference the universal Person concept."""
+        """deceased, party_1, party_2 reference the CRVS-scoped Person snapshot."""
         data = property_(prop_id)
-        assert data["type"] == "concept:Person"
-        assert data["references"] == "Person"
+        assert data["type"] == "concept:crvs/Person"
+        assert data["references"] == "crvs/Person"
         assert data["domain_override"] == "crvs"
 
     def test_birth_does_not_have_place_of_usual_residence(self):
@@ -487,17 +487,17 @@ class TestEventPropertyReferences:
 
 
 class TestCrvsPersonReferences:
-    """CRVS uses universal Person references plus CRVS-scoped properties."""
+    """CRVS authors a domain-scoped Person snapshot alongside universal Person."""
 
-    def test_crvs_person_concept_is_not_authored(self):
-        """The LinkML source has no domain-scoped crvs/Person concept."""
-        assert "crvs/Person" not in raw_schema()["concepts"]
+    def test_crvs_person_concept_is_authored(self):
+        """The LinkML source carries a CRVS-scoped Person snapshot concept."""
+        assert "crvs/Person" in raw_schema()["concepts"]
 
-    def test_parent_inherits_from_universal_person(self):
-        """Parent is a CRVS-scoped subtype of universal Person."""
+    def test_parent_inherits_from_crvs_person(self):
+        """Parent is a CRVS-scoped subtype of the CRVS Person snapshot."""
         data = concept("crvs/Parent")
         assert data["domain"] == "crvs"
-        assert data["supertypes"] == ["Person"]
+        assert data["supertypes"] == ["crvs/Person"]
 
     def test_age_at_event_property_exists(self):
         """age_at_event exists in the authored LinkML source."""
@@ -513,11 +513,11 @@ class TestCrvsPersonReferences:
         data = property_("age_at_event")
         assert data.get("domain_override") == "crvs"
 
-    def test_no_crvs_person_in_build(self):
-        """Build output follows LinkML: only universal Person is authored."""
+    def test_crvs_person_in_build(self):
+        """Build output exposes both universal Person and CRVS Person snapshot."""
         result = build_vocabulary(SCHEMA_DIR)
         assert "Person" in result["concepts"]
-        assert "crvs/Person" not in result["concepts"]
+        assert "crvs/Person" in result["concepts"]
 
 
 class TestParentLinkEntity:
@@ -527,9 +527,9 @@ class TestParentLinkEntity:
         assert "parental_role" in data["properties"]
 
     def test_parent_inherits_from_person(self):
-        """Parent is a CRVS-scoped subtype of universal Person."""
+        """Parent is a CRVS-scoped subtype of the CRVS Person snapshot."""
         data = concept("crvs/Parent")
-        assert "Person" in data["supertypes"]
+        assert "crvs/Person" in data["supertypes"]
 
     def test_parent_does_not_directly_list_person(self):
         """Person identity fields are inherited from Person, not listed directly on Parent."""
