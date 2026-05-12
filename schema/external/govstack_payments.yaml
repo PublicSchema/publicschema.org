@@ -1,0 +1,59 @@
+id: https://publicschema.org/linkml/external/govstack_payments
+name: publicschema-external-govstack-payments
+title: GovStack Payments Building Block (PublicSchema partial view)
+description: Minimal LinkML rendering of GovStack Payments Building Block enumerations referenced by PublicSchema
+  crosswalks. Not authoritative. See https://govstack.global/ for the full specification.
+license: CC-BY-4.0
+default_prefix: govstack-payments
+prefixes:
+  govstack-payments: https://govstack.global/specs/payments/
+  linkml: https://w3id.org/linkml/
+  xsd: http://www.w3.org/2001/XMLSchema#
+imports:
+- linkml:types
+enums:
+  GovstackPaymentsBatchTransactionStatusImplied:
+    enum_uri: govstack-payments:GovstackPaymentsBatchTransactionStatusImplied
+    title: GovstackPaymentsBatchTransactionStatusImplied
+    permissible_values:
+      failed:
+        meaning: govstack-payments:GovstackPaymentsBatchTransactionStatusImplied/failed
+        title: Failed
+      paid:
+        meaning: govstack-payments:GovstackPaymentsBatchTransactionStatusImplied/paid
+        title: Completed
+      processing:
+        meaning: govstack-payments:GovstackPaymentsBatchTransactionStatusImplied/processing
+        title: Ongoing
+  GovstackPaymentsPaymentModality:
+    enum_uri: govstack-payments:GovstackPaymentsPaymentModality
+    title: GovstackPaymentsPaymentModality
+    permissible_values:
+      bank_transfer:
+        meaning: govstack-payments:GovstackPaymentsPaymentModality/bank_transfer
+        title: Bank Account
+      mobile_money:
+        meaning: govstack-payments:GovstackPaymentsPaymentModality/mobile_money
+        title: Mobile Money
+  GovstackPaymentsVoucherStatusIntegerCodesLabelsInferred:
+    enum_uri: govstack-payments:GovstackPaymentsVoucherStatusIntegerCodesLabelsInferred
+    title: GovstackPaymentsVoucherStatusIntegerCodesLabelsInferred
+    permissible_values:
+      cancelled:
+        meaning: govstack-payments:GovstackPaymentsVoucherStatusIntegerCodesLabelsInferred/cancelled
+        title: Cancelled
+      created:
+        meaning: govstack-payments:GovstackPaymentsVoucherStatusIntegerCodesLabelsInferred/created
+        title: Pre-Activated
+      expired:
+        meaning: govstack-payments:GovstackPaymentsVoucherStatusIntegerCodesLabelsInferred/expired
+        title: Expired
+      issued:
+        meaning: govstack-payments:GovstackPaymentsVoucherStatusIntegerCodesLabelsInferred/issued
+        title: Activated
+      redeemed:
+        meaning: govstack-payments:GovstackPaymentsVoucherStatusIntegerCodesLabelsInferred/redeemed
+        title: Redeemed
+      suspended:
+        meaning: govstack-payments:GovstackPaymentsVoucherStatusIntegerCodesLabelsInferred/suspended
+        title: Suspended

@@ -1,0 +1,444 @@
+id: https://publicschema.org/linkml/external/dhs
+name: publicschema-external-dhs
+title: DHS Program Recode 7 (PublicSchema partial view)
+description: Minimal LinkML rendering of DHS Program Recode 7 enumerations referenced by PublicSchema
+  crosswalks. Not authoritative. See https://dhsprogram.com/data/ for the full specification.
+license: CC-BY-4.0
+default_prefix: dhs
+prefixes:
+  dhs: https://dhsprogram.com/data/recode7/
+  linkml: https://w3id.org/linkml/
+  xsd: http://www.w3.org/2001/XMLSchema#
+imports:
+- linkml:types
+enums:
+  DHSDisabilityModuleResponseScale:
+    enum_uri: dhs:DHSDisabilityModuleResponseScale
+    title: DHSDisabilityModuleResponseScale
+    permissible_values:
+      a_lot_of_difficulty:
+        meaning: dhs:DHSDisabilityModuleResponseScale/a_lot_of_difficulty
+        title: A lot of difficulty
+      cannot_do:
+        meaning: dhs:DHSDisabilityModuleResponseScale/cannot_do
+        title: Cannot do at all
+      no_difficulty:
+        meaning: dhs:DHSDisabilityModuleResponseScale/no_difficulty
+        title: No difficulty
+      some_difficulty:
+        meaning: dhs:DHSDisabilityModuleResponseScale/some_difficulty
+        title: Some difficulty
+  DHSICTRelatedVariables:
+    enum_uri: dhs:DHSICTRelatedVariables
+    title: DHSICTRelatedVariables
+    permissible_values:
+      mobile_phone:
+        meaning: dhs:DHSICTRelatedVariables/mobile_phone
+        title: Mobile telephone
+      radio:
+        meaning: dhs:DHSICTRelatedVariables/radio
+        title: Radio
+      television:
+        meaning: dhs:DHSICTRelatedVariables/television
+        title: Television
+  DHSRecode7HouseholdAssets:
+    enum_uri: dhs:DHSRecode7HouseholdAssets
+    title: DHSRecode7HouseholdAssets
+    permissible_values:
+      animal_drawn_cart:
+        meaning: dhs:DHSRecode7HouseholdAssets/animal_drawn_cart
+        title: Animal-drawn cart
+      bicycle:
+        meaning: dhs:DHSRecode7HouseholdAssets/bicycle
+        title: Bicycle
+      car_truck:
+        meaning: dhs:DHSRecode7HouseholdAssets/car_truck
+        title: Car/truck
+      landline_phone:
+        meaning: dhs:DHSRecode7HouseholdAssets/landline_phone
+        title: Telephone (land-line)
+      mobile_phone:
+        meaning: dhs:DHSRecode7HouseholdAssets/mobile_phone
+        title: Mobile telephone
+      motorcycle_scooter:
+        meaning: dhs:DHSRecode7HouseholdAssets/motorcycle_scooter
+        title: Motorcycle/scooter
+      motorized_boat:
+        meaning: dhs:DHSRecode7HouseholdAssets/motorized_boat
+        title: Boat with a motor
+      radio:
+        meaning: dhs:DHSRecode7HouseholdAssets/radio
+        title: Radio
+      refrigerator:
+        meaning: dhs:DHSRecode7HouseholdAssets/refrigerator
+        title: Refrigerator
+      television:
+        meaning: dhs:DHSRecode7HouseholdAssets/television
+        title: Television
+      watch:
+        meaning: dhs:DHSRecode7HouseholdAssets/watch
+        title: Watch
+  DHSRecode7LivestockVariablesHv246aJ:
+    enum_uri: dhs:DHSRecode7LivestockVariablesHv246aJ
+    title: DHSRecode7LivestockVariablesHv246aJ
+    permissible_values:
+      cattle:
+        meaning: dhs:DHSRecode7LivestockVariablesHv246aJ/cattle
+        title: Cattle
+      chickens:
+        meaning: dhs:DHSRecode7LivestockVariablesHv246aJ/chickens
+        title: Chickens/poultry
+      goats:
+        meaning: dhs:DHSRecode7LivestockVariablesHv246aJ/goats
+        title: Goats
+      horses:
+        meaning: dhs:DHSRecode7LivestockVariablesHv246aJ/horses
+        title: Horses/donkeys/mules
+      other_livestock:
+        meaning: dhs:DHSRecode7LivestockVariablesHv246aJ/other_livestock
+        title: Other
+      pigs:
+        meaning: dhs:DHSRecode7LivestockVariablesHv246aJ/pigs
+        title: Pigs
+      sheep:
+        meaning: dhs:DHSRecode7LivestockVariablesHv246aJ/sheep
+        title: Sheep
+  DhsHv025TypeOfPlaceOfResidence:
+    enum_uri: dhs:DhsHv025TypeOfPlaceOfResidence
+    title: DhsHv025TypeOfPlaceOfResidence
+    permissible_values:
+      rural:
+        meaning: dhs:DhsHv025TypeOfPlaceOfResidence/rural
+        title: Rural
+      urban:
+        meaning: dhs:DhsHv025TypeOfPlaceOfResidence/urban
+        title: Urban
+  DhsHv106HighestEducationalLevel:
+    enum_uri: dhs:DhsHv106HighestEducationalLevel
+    title: DhsHv106HighestEducationalLevel
+    permissible_values:
+      bachelor:
+        meaning: dhs:DhsHv106HighestEducationalLevel/bachelor
+        title: Higher
+      none:
+        meaning: dhs:DhsHv106HighestEducationalLevel/none
+        title: No education
+      primary:
+        meaning: dhs:DhsHv106HighestEducationalLevel/primary
+        title: Primary
+      upper_secondary:
+        meaning: dhs:DhsHv106HighestEducationalLevel/upper_secondary
+        title: Secondary
+  DhsHv201SourceOfDrinkingWater:
+    enum_uri: dhs:DhsHv201SourceOfDrinkingWater
+    title: DhsHv201SourceOfDrinkingWater
+    permissible_values:
+      bottled_water:
+        meaning: dhs:DhsHv201SourceOfDrinkingWater/bottled_water
+        title: Bottled water
+      cart_with_small_tank:
+        meaning: dhs:DhsHv201SourceOfDrinkingWater/cart_with_small_tank
+        title: Cart with small tank
+      other:
+        meaning: dhs:DhsHv201SourceOfDrinkingWater/other
+        title: Other
+      piped_into_dwelling:
+        meaning: dhs:DhsHv201SourceOfDrinkingWater/piped_into_dwelling
+        title: Piped into dwelling
+      piped_to_neighbor:
+        meaning: dhs:DhsHv201SourceOfDrinkingWater/piped_to_neighbor
+        title: Piped to neighbor
+      piped_to_yard:
+        meaning: dhs:DhsHv201SourceOfDrinkingWater/piped_to_yard
+        title: Piped to yard/plot
+      protected_spring:
+        meaning: dhs:DhsHv201SourceOfDrinkingWater/protected_spring
+        title: Protected spring
+      protected_well:
+        meaning: dhs:DhsHv201SourceOfDrinkingWater/protected_well
+        title: Protected well
+      public_tap_standpipe:
+        meaning: dhs:DhsHv201SourceOfDrinkingWater/public_tap_standpipe
+        title: Public tap/standpipe
+      rainwater:
+        meaning: dhs:DhsHv201SourceOfDrinkingWater/rainwater
+        title: Rainwater
+      surface_water:
+        meaning: dhs:DhsHv201SourceOfDrinkingWater/surface_water
+        title: Surface water
+      tanker_truck:
+        meaning: dhs:DhsHv201SourceOfDrinkingWater/tanker_truck
+        title: Tanker truck
+      tube_well_borehole:
+        meaning: dhs:DhsHv201SourceOfDrinkingWater/tube_well_borehole
+        title: Tube well or borehole
+      unprotected_spring:
+        meaning: dhs:DhsHv201SourceOfDrinkingWater/unprotected_spring
+        title: Unprotected spring
+      unprotected_well:
+        meaning: dhs:DhsHv201SourceOfDrinkingWater/unprotected_well
+        title: Unprotected well
+  DhsHv205TypeOfToiletFacility:
+    enum_uri: dhs:DhsHv205TypeOfToiletFacility
+    title: DhsHv205TypeOfToiletFacility
+    permissible_values:
+      bucket_latrine:
+        meaning: dhs:DhsHv205TypeOfToiletFacility/bucket_latrine
+        title: Bucket toilet
+      composting_toilet:
+        meaning: dhs:DhsHv205TypeOfToiletFacility/composting_toilet
+        title: Composting toilet
+      flush_to_open_drain:
+        meaning: dhs:DhsHv205TypeOfToiletFacility/flush_to_open_drain
+        title: Flush to somewhere else
+      flush_to_piped_sewer:
+        meaning: dhs:DhsHv205TypeOfToiletFacility/flush_to_piped_sewer
+        title: Flush to piped sewer system
+      flush_to_pit_latrine:
+        meaning: dhs:DhsHv205TypeOfToiletFacility/flush_to_pit_latrine
+        title: Flush to pit latrine
+      flush_to_septic_tank:
+        meaning: dhs:DhsHv205TypeOfToiletFacility/flush_to_septic_tank
+        title: Flush to septic tank
+      flush_to_unknown:
+        meaning: dhs:DhsHv205TypeOfToiletFacility/flush_to_unknown
+        title: Flush, don't know where
+      hanging_toilet:
+        meaning: dhs:DhsHv205TypeOfToiletFacility/hanging_toilet
+        title: Hanging toilet/latrine
+      open_defecation:
+        meaning: dhs:DhsHv205TypeOfToiletFacility/open_defecation
+        title: No facility/bush/field
+      other:
+        meaning: dhs:DhsHv205TypeOfToiletFacility/other
+        title: Other
+      pit_latrine_with_slab:
+        meaning: dhs:DhsHv205TypeOfToiletFacility/pit_latrine_with_slab
+        title: Pit latrine with slab
+      pit_latrine_without_slab:
+        meaning: dhs:DhsHv205TypeOfToiletFacility/pit_latrine_without_slab
+        title: Pit latrine without slab/open pit
+      ventilated_improved_pit:
+        meaning: dhs:DhsHv205TypeOfToiletFacility/ventilated_improved_pit
+        title: Ventilated improved pit latrine (VIP)
+  DhsHv206HasElectricity:
+    enum_uri: dhs:DhsHv206HasElectricity
+    title: DhsHv206HasElectricity
+    permissible_values:
+      '0':
+        meaning: dhs:DhsHv206HasElectricity/0
+        title: 'No'
+      '1':
+        meaning: dhs:DhsHv206HasElectricity/1
+        title: 'Yes'
+  DhsHv213MainFloorMaterial:
+    enum_uri: dhs:DhsHv213MainFloorMaterial
+    title: DhsHv213MainFloorMaterial
+    permissible_values:
+      carpet:
+        meaning: dhs:DhsHv213MainFloorMaterial/carpet
+        title: Carpet
+      cement:
+        meaning: dhs:DhsHv213MainFloorMaterial/cement
+        title: Cement
+      ceramic_tiles:
+        meaning: dhs:DhsHv213MainFloorMaterial/ceramic_tiles
+        title: Ceramic tiles
+      dung:
+        meaning: dhs:DhsHv213MainFloorMaterial/dung
+        title: Dung
+      earth_sand:
+        meaning: dhs:DhsHv213MainFloorMaterial/earth_sand
+        title: Earth/sand
+      other:
+        meaning: dhs:DhsHv213MainFloorMaterial/other
+        title: Other
+      palm_bamboo:
+        meaning: dhs:DhsHv213MainFloorMaterial/palm_bamboo
+        title: Palm/bamboo
+      parquet_polished_wood:
+        meaning: dhs:DhsHv213MainFloorMaterial/parquet_polished_wood
+        title: Parquet or polished wood
+      vinyl_asphalt:
+        meaning: dhs:DhsHv213MainFloorMaterial/vinyl_asphalt
+        title: Vinyl or asphalt strips
+      wood_planks:
+        meaning: dhs:DhsHv213MainFloorMaterial/wood_planks
+        title: Wood planks
+  DhsHv214MainWallMaterial:
+    enum_uri: dhs:DhsHv214MainWallMaterial
+    title: DhsHv214MainWallMaterial
+    permissible_values:
+      bamboo_with_mud:
+        meaning: dhs:DhsHv214MainWallMaterial/bamboo_with_mud
+        title: Bamboo with mud
+      bricks:
+        meaning: dhs:DhsHv214MainWallMaterial/bricks
+        title: Bricks
+      cane_palm_trunks:
+        meaning: dhs:DhsHv214MainWallMaterial/cane_palm_trunks
+        title: Cane/palm/trunks
+      cardboard:
+        meaning: dhs:DhsHv214MainWallMaterial/cardboard
+        title: Cardboard
+      cement:
+        meaning: dhs:DhsHv214MainWallMaterial/cement
+        title: Cement
+      cement_blocks:
+        meaning: dhs:DhsHv214MainWallMaterial/cement_blocks
+        title: Cement blocks
+      covered_adobe:
+        meaning: dhs:DhsHv214MainWallMaterial/covered_adobe
+        title: Covered adobe
+      dirt:
+        meaning: dhs:DhsHv214MainWallMaterial/dirt
+        title: Dirt
+      no_walls:
+        meaning: dhs:DhsHv214MainWallMaterial/no_walls
+        title: No walls
+      other:
+        meaning: dhs:DhsHv214MainWallMaterial/other
+        title: Other
+      plywood:
+        meaning: dhs:DhsHv214MainWallMaterial/plywood
+        title: Plywood
+      reused_wood:
+        meaning: dhs:DhsHv214MainWallMaterial/reused_wood
+        title: Reused wood
+      stone_with_lime_cement:
+        meaning: dhs:DhsHv214MainWallMaterial/stone_with_lime_cement
+        title: Stone with lime/cement
+      stone_with_mud:
+        meaning: dhs:DhsHv214MainWallMaterial/stone_with_mud
+        title: Stone with mud
+      uncovered_adobe:
+        meaning: dhs:DhsHv214MainWallMaterial/uncovered_adobe
+        title: Uncovered adobe
+      wood_planks_shingles:
+        meaning: dhs:DhsHv214MainWallMaterial/wood_planks_shingles
+        title: Wood planks/shingles
+  DhsHv215MainRoofMaterial:
+    enum_uri: dhs:DhsHv215MainRoofMaterial
+    title: DhsHv215MainRoofMaterial
+    permissible_values:
+      calamine_cement_fiber:
+        meaning: dhs:DhsHv215MainRoofMaterial/calamine_cement_fiber
+        title: Calamine/cement fiber
+      cardboard:
+        meaning: dhs:DhsHv215MainRoofMaterial/cardboard
+        title: Cardboard
+      cement:
+        meaning: dhs:DhsHv215MainRoofMaterial/cement
+        title: Cement
+      ceramic_tiles:
+        meaning: dhs:DhsHv215MainRoofMaterial/ceramic_tiles
+        title: Ceramic tiles
+      metal:
+        meaning: dhs:DhsHv215MainRoofMaterial/metal
+        title: Metal
+      no_roof:
+        meaning: dhs:DhsHv215MainRoofMaterial/no_roof
+        title: No roof
+      other:
+        meaning: dhs:DhsHv215MainRoofMaterial/other
+        title: Other
+      palm_bamboo:
+        meaning: dhs:DhsHv215MainRoofMaterial/palm_bamboo
+        title: Palm/bamboo
+      roofing_shingles:
+        meaning: dhs:DhsHv215MainRoofMaterial/roofing_shingles
+        title: Roofing shingles
+      rustic_mat:
+        meaning: dhs:DhsHv215MainRoofMaterial/rustic_mat
+        title: Rustic mat
+      sod_grass:
+        meaning: dhs:DhsHv215MainRoofMaterial/sod_grass
+        title: Sod
+      thatch_palm_leaf:
+        meaning: dhs:DhsHv215MainRoofMaterial/thatch_palm_leaf
+        title: Thatch/palm leaf
+      wood:
+        meaning: dhs:DhsHv215MainRoofMaterial/wood
+        title: Wood
+      wood_planks:
+        meaning: dhs:DhsHv215MainRoofMaterial/wood_planks
+        title: Wood planks
+  DhsHv226TypeOfCookingFuel:
+    enum_uri: dhs:DhsHv226TypeOfCookingFuel
+    title: DhsHv226TypeOfCookingFuel
+    permissible_values:
+      agricultural_crop_waste:
+        meaning: dhs:DhsHv226TypeOfCookingFuel/agricultural_crop_waste
+        title: Agricultural crop
+      animal_dung:
+        meaning: dhs:DhsHv226TypeOfCookingFuel/animal_dung
+        title: Animal dung
+      biogas:
+        meaning: dhs:DhsHv226TypeOfCookingFuel/biogas
+        title: Biogas
+      charcoal:
+        meaning: dhs:DhsHv226TypeOfCookingFuel/charcoal
+        title: Charcoal
+      coal_lignite:
+        meaning: dhs:DhsHv226TypeOfCookingFuel/coal_lignite
+        title: Coal, lignite
+      electricity:
+        meaning: dhs:DhsHv226TypeOfCookingFuel/electricity
+        title: Electricity
+      kerosene:
+        meaning: dhs:DhsHv226TypeOfCookingFuel/kerosene
+        title: Kerosene
+      lpg_natural_gas:
+        meaning: dhs:DhsHv226TypeOfCookingFuel/lpg_natural_gas
+        title: LPG
+      no_food_cooked:
+        meaning: dhs:DhsHv226TypeOfCookingFuel/no_food_cooked
+        title: No food cooked in house
+      other:
+        meaning: dhs:DhsHv226TypeOfCookingFuel/other
+        title: Other
+      straw_shrubs_grass:
+        meaning: dhs:DhsHv226TypeOfCookingFuel/straw_shrubs_grass
+        title: Straw/shrubs/grass
+      wood:
+        meaning: dhs:DhsHv226TypeOfCookingFuel/wood
+        title: Wood
+  DhsHv270WealthIndex:
+    enum_uri: dhs:DhsHv270WealthIndex
+    title: DhsHv270WealthIndex
+    permissible_values:
+      '1':
+        meaning: dhs:DhsHv270WealthIndex/1
+        title: Poorest
+      '2':
+        meaning: dhs:DhsHv270WealthIndex/2
+        title: Poorer
+      '3':
+        meaning: dhs:DhsHv270WealthIndex/3
+        title: Middle
+      '4':
+        meaning: dhs:DhsHv270WealthIndex/4
+        title: Richer
+      '5':
+        meaning: dhs:DhsHv270WealthIndex/5
+        title: Richest
+  DhsV155Literacy:
+    enum_uri: dhs:DhsV155Literacy
+    title: DhsV155Literacy
+    permissible_values:
+      illiterate:
+        meaning: dhs:DhsV155Literacy/illiterate
+        title: Cannot read at all
+      literate:
+        meaning: dhs:DhsV155Literacy/literate
+        title: Able to read a whole sentence
+  DhsV213CurrentlyPregnant:
+    enum_uri: dhs:DhsV213CurrentlyPregnant
+    title: DhsV213CurrentlyPregnant
+    permissible_values:
+      not_pregnant:
+        meaning: dhs:DhsV213CurrentlyPregnant/not_pregnant
+        title: No or unsure
+      pregnant:
+        meaning: dhs:DhsV213CurrentlyPregnant/pregnant
+        title: 'Yes'

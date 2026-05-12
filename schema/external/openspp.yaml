@@ -1,0 +1,256 @@
+id: https://publicschema.org/linkml/external/openspp
+name: publicschema-external-openspp
+title: OpenSPP (PublicSchema partial view)
+description: Minimal LinkML rendering of OpenSPP enumerations referenced by PublicSchema crosswalks. Not
+  authoritative. See https://openspp.org/ for the full specification.
+license: CC-BY-4.0
+default_prefix: openspp
+prefixes:
+  openspp: https://docs.openspp.org/
+  linkml: https://w3id.org/linkml/
+  xsd: http://www.w3.org/2001/XMLSchema#
+imports:
+- linkml:types
+enums:
+  OpensppBenefitModality:
+    enum_uri: openspp:OpensppBenefitModality
+    title: OpensppBenefitModality
+    permissible_values:
+      cash:
+        meaning: openspp:OpensppBenefitModality/cash
+        title: Cash
+      in_kind:
+        meaning: openspp:OpensppBenefitModality/in_kind
+        title: In-Kind
+  OpensppEducationLevelISCED2011:
+    enum_uri: openspp:OpensppEducationLevelISCED2011
+    title: OpensppEducationLevelISCED2011
+    permissible_values:
+      bachelor:
+        meaning: openspp:OpensppEducationLevelISCED2011/bachelor
+        title: Bachelor's or equivalent level
+      doctoral:
+        meaning: openspp:OpensppEducationLevelISCED2011/doctoral
+        title: Doctoral or equivalent level
+      early_childhood:
+        meaning: openspp:OpensppEducationLevelISCED2011/early_childhood
+        title: Early childhood education
+      lower_secondary:
+        meaning: openspp:OpensppEducationLevelISCED2011/lower_secondary
+        title: Lower secondary education
+      master:
+        meaning: openspp:OpensppEducationLevelISCED2011/master
+        title: Master's or equivalent level
+      post_secondary_non_tertiary:
+        meaning: openspp:OpensppEducationLevelISCED2011/post_secondary_non_tertiary
+        title: Post-secondary non-tertiary education
+      primary:
+        meaning: openspp:OpensppEducationLevelISCED2011/primary
+        title: Primary education
+      short_cycle_tertiary:
+        meaning: openspp:OpensppEducationLevelISCED2011/short_cycle_tertiary
+        title: Short-cycle tertiary education
+      upper_secondary:
+        meaning: openspp:OpensppEducationLevelISCED2011/upper_secondary
+        title: Upper secondary education
+  OpensppEligibilityStatus:
+    enum_uri: openspp:OpensppEligibilityStatus
+    title: OpensppEligibilityStatus
+    permissible_values:
+      ineligible:
+        meaning: openspp:OpensppEligibilityStatus/ineligible
+        title: Not Eligible
+  OpensppEnrollmentStatus:
+    enum_uri: openspp:OpensppEnrollmentStatus
+    title: OpensppEnrollmentStatus
+    permissible_values:
+      active:
+        meaning: openspp:OpensppEnrollmentStatus/active
+        title: Enrolled
+      closed:
+        meaning: openspp:OpensppEnrollmentStatus/closed
+        title: Exited
+      pending_verification:
+        meaning: openspp:OpensppEnrollmentStatus/pending_verification
+        title: Draft
+      suspended:
+        meaning: openspp:OpensppEnrollmentStatus/suspended
+        title: Paused
+  OpensppEntitlementState:
+    enum_uri: openspp:OpensppEntitlementState
+    title: OpensppEntitlementState
+    permissible_values:
+      approved:
+        meaning: openspp:OpensppEntitlementState/approved
+        title: Approved
+      cancelled:
+        meaning: openspp:OpensppEntitlementState/cancelled
+        title: Cancelled
+      expired:
+        meaning: openspp:OpensppEntitlementState/expired
+        title: Expired
+      fulfilled:
+        meaning: openspp:OpensppEntitlementState/fulfilled
+        title: Redeemed/Paid to Beneficiary
+      pending:
+        meaning: openspp:OpensppEntitlementState/pending
+        title: Draft
+      rejected:
+        meaning: openspp:OpensppEntitlementState/rejected
+        title: Rejected
+  OpensppGrievanceStatus:
+    enum_uri: openspp:OpensppGrievanceStatus
+    title: OpensppGrievanceStatus
+    permissible_values:
+      closed:
+        meaning: openspp:OpensppGrievanceStatus/closed
+        title: Closed
+      escalated:
+        meaning: openspp:OpensppGrievanceStatus/escalated
+        title: Escalated
+      resolved:
+        meaning: openspp:OpensppGrievanceStatus/resolved
+        title: Resolved
+      submitted:
+        meaning: openspp:OpensppGrievanceStatus/submitted
+        title: New
+      under_review:
+        meaning: openspp:OpensppGrievanceStatus/under_review
+        title: In Progress
+  OpensppGroupMembershipType:
+    enum_uri: openspp:OpensppGroupMembershipType
+    title: OpensppGroupMembershipType
+    permissible_values:
+      head:
+        meaning: openspp:OpensppGroupMembershipType/head
+        title: Head
+  OpensppGroupType:
+    enum_uri: openspp:OpensppGroupType
+    title: OpensppGroupType
+    permissible_values:
+      family:
+        meaning: openspp:OpensppGroupType/family
+        title: Family
+      household:
+        meaning: openspp:OpensppGroupType/household
+        title: Household
+  OpensppHazardIncidentSeverity:
+    enum_uri: openspp:OpensppHazardIncidentSeverity
+    title: OpensppHazardIncidentSeverity
+    permissible_values:
+      extreme:
+        meaning: openspp:OpensppHazardIncidentSeverity/extreme
+        title: Catastrophic
+      minor:
+        meaning: openspp:OpensppHazardIncidentSeverity/minor
+        title: Minor
+      moderate:
+        meaning: openspp:OpensppHazardIncidentSeverity/moderate
+        title: Moderate
+      severe:
+        meaning: openspp:OpensppHazardIncidentSeverity/severe
+        title: Significant
+  OpensppIDType:
+    enum_uri: openspp:OpensppIDType
+    title: OpensppIDType
+    permissible_values:
+      birth_registration_number:
+        meaning: openspp:OpensppIDType/birth_registration_number
+        title: Birth Certificate
+      national_id_number:
+        meaning: openspp:OpensppIDType/national_id_number
+        title: National ID
+      passport_number:
+        meaning: openspp:OpensppIDType/passport_number
+        title: Passport
+      tax_id_number:
+        meaning: openspp:OpensppIDType/tax_id_number
+        title: Tax ID
+  OpensppISO5218Gender:
+    enum_uri: openspp:OpensppISO5218Gender
+    title: OpensppISO5218Gender
+    permissible_values:
+      female:
+        meaning: openspp:OpensppISO5218Gender/female
+        title: Female
+      male:
+        meaning: openspp:OpensppISO5218Gender/male
+        title: Male
+      not_applicable:
+        meaning: openspp:OpensppISO5218Gender/not_applicable
+        title: Not applicable
+      not_known:
+        meaning: openspp:OpensppISO5218Gender/not_known
+        title: Not known
+      not_stated:
+        meaning: openspp:OpensppISO5218Gender/not_stated
+        title: Not known
+  OpensppMaritalStatus:
+    enum_uri: openspp:OpensppMaritalStatus
+    title: OpensppMaritalStatus
+    permissible_values:
+      consensual_union:
+        meaning: openspp:OpensppMaritalStatus/consensual_union
+        title: Consensual Union
+      divorced:
+        meaning: openspp:OpensppMaritalStatus/divorced
+        title: Divorced
+      legally_separated:
+        meaning: openspp:OpensppMaritalStatus/legally_separated
+        title: Separated
+      married:
+        meaning: openspp:OpensppMaritalStatus/married
+        title: Married
+      never_married:
+        meaning: openspp:OpensppMaritalStatus/never_married
+        title: Never Married
+      widowed:
+        meaning: openspp:OpensppMaritalStatus/widowed
+        title: Widowed
+  OpensppPaymentStatus:
+    enum_uri: openspp:OpensppPaymentStatus
+    title: OpensppPaymentStatus
+    permissible_values:
+      failed:
+        meaning: openspp:OpensppPaymentStatus/failed
+        title: Failed
+      paid:
+        meaning: openspp:OpensppPaymentStatus/paid
+        title: Reconciled
+      pending:
+        meaning: openspp:OpensppPaymentStatus/pending
+        title: Issued
+      processing:
+        meaning: openspp:OpensppPaymentStatus/processing
+        title: Sent
+  OpensppRelationshipType:
+    enum_uri: openspp:OpensppRelationshipType
+    title: OpensppRelationshipType
+    permissible_values:
+      child:
+        meaning: openspp:OpensppRelationshipType/child
+        title: Child
+      grandchild:
+        meaning: openspp:OpensppRelationshipType/grandchild
+        title: Grandchild
+      grandparent:
+        meaning: openspp:OpensppRelationshipType/grandparent
+        title: Grandparent
+      in_law:
+        meaning: openspp:OpensppRelationshipType/in_law
+        title: Child In Law
+      non_relative:
+        meaning: openspp:OpensppRelationshipType/non_relative
+        title: Non Relative
+      other:
+        meaning: openspp:OpensppRelationshipType/other
+        title: Other Relative
+      parent:
+        meaning: openspp:OpensppRelationshipType/parent
+        title: Parent
+      sibling:
+        meaning: openspp:OpensppRelationshipType/sibling
+        title: Sibling
+      spouse:
+        meaning: openspp:OpensppRelationshipType/spouse
+        title: Spouse

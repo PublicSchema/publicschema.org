@@ -1,0 +1,172 @@
+id: https://publicschema.org/linkml/external/dci
+name: publicschema-external-dci
+title: Digital Convergence Initiative (PublicSchema partial view)
+description: Minimal LinkML rendering of Digital Convergence Initiative enumerations referenced by PublicSchema
+  crosswalks. Not authoritative. See https://spdci.org/ for the full specification.
+license: CC-BY-4.0
+default_prefix: dci
+prefixes:
+  dci: https://schema.spdci.org/core/v1/
+  linkml: https://w3id.org/linkml/
+  xsd: http://www.w3.org/2001/XMLSchema#
+imports:
+- linkml:types
+enums:
+  DciAssistanceUnitEnum:
+    enum_uri: dci:DciAssistanceUnitEnum
+    title: DciAssistanceUnitEnum
+    permissible_values:
+      family:
+        meaning: dci:DciAssistanceUnitEnum/family
+        title: Family
+      household:
+        meaning: dci:DciAssistanceUnitEnum/household
+        title: Household
+  DciBenefitTypeEnum:
+    enum_uri: dci:DciBenefitTypeEnum
+    title: DciBenefitTypeEnum
+    permissible_values:
+      cash:
+        meaning: dci:DciBenefitTypeEnum/cash
+        title: Cash
+      in_kind:
+        meaning: dci:DciBenefitTypeEnum/in_kind
+        title: In-kind
+      insurance:
+        meaning: dci:DciBenefitTypeEnum/insurance
+        title: Insurance
+      service:
+        meaning: dci:DciBenefitTypeEnum/service
+        title: Training
+      voucher:
+        meaning: dci:DciBenefitTypeEnum/voucher
+        title: Voucher
+  DciEducationCodeEnum:
+    enum_uri: dci:DciEducationCodeEnum
+    title: DciEducationCodeEnum
+    permissible_values:
+      bachelor:
+        meaning: dci:DciEducationCodeEnum/bachelor
+        title: Bachelor's or equivalent
+      doctoral:
+        meaning: dci:DciEducationCodeEnum/doctoral
+        title: Doctorate or equivalent
+      early_childhood:
+        meaning: dci:DciEducationCodeEnum/early_childhood
+        title: Early childhood education
+      lower_secondary:
+        meaning: dci:DciEducationCodeEnum/lower_secondary
+        title: Lower secondary education
+      master:
+        meaning: dci:DciEducationCodeEnum/master
+        title: Master's or equivalent
+      post_secondary_non_tertiary:
+        meaning: dci:DciEducationCodeEnum/post_secondary_non_tertiary
+        title: Post-secondary non-tertiary education
+      primary:
+        meaning: dci:DciEducationCodeEnum/primary
+        title: Primary education
+      short_cycle_tertiary:
+        meaning: dci:DciEducationCodeEnum/short_cycle_tertiary
+        title: Short-cycle tertiary education
+      upper_secondary:
+        meaning: dci:DciEducationCodeEnum/upper_secondary
+        title: Upper secondary education
+  DciEnrollmentStatusEnum:
+    enum_uri: dci:DciEnrollmentStatusEnum
+    title: DciEnrollmentStatusEnum
+    permissible_values:
+      active:
+        meaning: dci:DciEnrollmentStatusEnum/active
+        title: Active
+      closed:
+        meaning: dci:DciEnrollmentStatusEnum/closed
+        title: Deceased
+      graduated:
+        meaning: dci:DciEnrollmentStatusEnum/graduated
+        title: Graduated
+      suspended:
+        meaning: dci:DciEnrollmentStatusEnum/suspended
+        title: Suspended
+  DciIdentifierTypeEnum:
+    enum_uri: dci:DciIdentifierTypeEnum
+    title: DciIdentifierTypeEnum
+    permissible_values:
+      birth_registration_number:
+        meaning: dci:DciIdentifierTypeEnum/birth_registration_number
+        title: Birth Registration Number
+      death_registration_number:
+        meaning: dci:DciIdentifierTypeEnum/death_registration_number
+        title: Death Registration Number
+      marriage_registration_number:
+        meaning: dci:DciIdentifierTypeEnum/marriage_registration_number
+        title: Marriage Registration Number
+      national_id_number:
+        meaning: dci:DciIdentifierTypeEnum/national_id_number
+        title: Unique Identification Number
+  DciMaritalStatusEnum:
+    enum_uri: dci:DciMaritalStatusEnum
+    title: DciMaritalStatusEnum
+    permissible_values:
+      divorced:
+        meaning: dci:DciMaritalStatusEnum/divorced
+        title: Divorced
+      legally_separated:
+        meaning: dci:DciMaritalStatusEnum/legally_separated
+        title: Legally Separated
+      married:
+        meaning: dci:DciMaritalStatusEnum/married
+        title: Married
+      never_married:
+        meaning: dci:DciMaritalStatusEnum/never_married
+        title: Never Married
+      widowed:
+        meaning: dci:DciMaritalStatusEnum/widowed
+        title: Widow
+  DciRelationshipTypeEnum:
+    enum_uri: dci:DciRelationshipTypeEnum
+    title: DciRelationshipTypeEnum
+    permissible_values:
+      child:
+        meaning: dci:DciRelationshipTypeEnum/child
+        title: child
+      extended_family:
+        meaning: dci:DciRelationshipTypeEnum/extended_family
+        title: extended family member
+      grandchild:
+        meaning: dci:DciRelationshipTypeEnum/grandchild
+        title: grandchild
+      grandparent:
+        meaning: dci:DciRelationshipTypeEnum/grandparent
+        title: grandparent
+      guardian:
+        meaning: dci:DciRelationshipTypeEnum/guardian
+        title: foster parent
+      in_law:
+        meaning: dci:DciRelationshipTypeEnum/in_law
+        title: inlaw
+      other:
+        meaning: dci:DciRelationshipTypeEnum/other
+        title: family member
+      parent:
+        meaning: dci:DciRelationshipTypeEnum/parent
+        title: parent
+      sibling:
+        meaning: dci:DciRelationshipTypeEnum/sibling
+        title: sibling
+      spouse:
+        meaning: dci:DciRelationshipTypeEnum/spouse
+        title: spouse
+  DciSexCategoryEnum:
+    enum_uri: dci:DciSexCategoryEnum
+    title: DciSexCategoryEnum
+    permissible_values:
+      female:
+        meaning: dci:DciSexCategoryEnum/female
+        title: Female
+      male:
+        meaning: dci:DciSexCategoryEnum/male
+        title: Male
+      not_known:
+        meaning: dci:DciSexCategoryEnum/not_known
+        title: Unknown

@@ -1,26 +1,15 @@
 #!/usr/bin/env python3
 """
-Migrate PublicSchema YAML to LinkML.
+Migrate PublicSchema bespoke YAML to LinkML. HISTORICAL/REFERENCE ONLY.
 
-Reads:
-  schema/**/*.yaml                       - source PublicSchema YAML
-  build/external_system_prefixes.yaml    - curated CURIE prefix file
-  build/linkml_extensions.yaml           - hand-authored extension metamodel
+After the LinkML cutover this script is no longer invoked by the build
+pipeline. It is preserved so that an old bespoke source tree can be
+re-migrated if needed (e.g., during release archaeology). The current
+source of truth is the LinkML composite under ``schema/`` directly.
 
-Writes (all under dist/linkml/, gitignored):
-  publicschema.yaml                      - top-level composite
-  publicschema-extensions.yaml           - copy of build/linkml_extensions.yaml
-  <domain>.yaml                          - one per derived domain
-  external/<system>.yaml                 - one per implementing system
-  _inventory.md                          - Phase 0 inventory
-  _domain_split.md                       - Phase 1 derived split
-  _migration_report.md                   - Phase 5 validation summary
-
-Exit code 0 on success; non-zero on validation failure (referential
-integrity, linkml-lint, unmapped sources).
-
-Design notes documented in /root/.claude/plans/linkml-full-migration.md
-and build/preflight/FINDINGS.md.
+When run, the script reads bespoke YAML from the directory passed as a
+positional arg (default ``schema/``, which after cutover no longer
+matches the expected shape) and writes to ``dist/linkml/`` (gitignored).
 """
 
 from __future__ import annotations

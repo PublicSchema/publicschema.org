@@ -541,13 +541,13 @@ def build_vocabulary(
     *,
     raws: dict | None = None,
 ) -> dict:
-    """Build the full vocabulary output from YAML source files.
+    """Build the full vocabulary output from a schema directory.
 
-    ``schema_dir`` (default ``Path("schema")``) is read via the bespoke
-    YAML loaders when ``raws`` is not supplied. To consume pre-loaded raws
-    (e.g. projected from ``dist/linkml/`` via
-    ``build/linkml_reader.load_raw_from_linkml``), pass them as ``raws``;
-    in that case ``schema_dir`` is unused.
+    The directory layout selects the reader: ``schema_dir/publicschema.yaml``
+    triggers the LinkML reader (the post-cutover canonical shape); otherwise
+    the bespoke per-element YAML loaders are used (legacy / tests).
+
+    Pass ``raws`` to bypass file I/O and feed a pre-loaded dict.
 
     Returns a dict with keys: meta, concepts, properties, vocabularies,
     bibliography, categories, context, concept_schemas, credential_schemas,
@@ -556,7 +556,12 @@ def build_vocabulary(
     if raws is None:
         if schema_dir is None:
             schema_dir = Path("schema")
-        raws = _load_bespoke_raw(schema_dir)
+        schema_dir = Path(schema_dir)
+        if (schema_dir / "publicschema.yaml").exists():
+            from build.linkml_reader import load_raw_from_linkml
+            raws = load_raw_from_linkml(schema_dir)
+        else:
+            raws = _load_bespoke_raw(schema_dir)
 
     meta = raws.get("meta") or {}
     base_uri = meta.get("base_uri", "https://publicschema.org/")
@@ -1095,7 +1100,6 @@ def write_outputs(
     """
     from build.export import generate_all_downloads
     from build.linkml_rdf_export import (
-        ensure_linkml_composite,
         write_full_jsonld,
         write_shacl,
         write_turtle,
@@ -1195,13 +1199,10 @@ def write_outputs(
                 json.dumps(doc, indent=2, ensure_ascii=False) + "\n"
             )
 
-    # RDF exports (Turtle, JSON-LD, SHACL) are now produced by LinkML's
-    # stock generators against the migrated composite at
-    # dist/linkml/publicschema.yaml, with an rdflib bridge for the
-    # hosted-context JSON-LD shape. The migration is a prerequisite; we
-    # run it on demand if the composite is missing so build.py remains
-    # invokable end-to-end without a separate `just migrate` step.
-    ensure_linkml_composite()
+    # RDF exports (Turtle, JSON-LD, SHACL) are produced by LinkML's
+    # stock generators against the canonical composite at
+    # schema/publicschema.yaml, with an rdflib bridge for the
+    # hosted-context JSON-LD shape.
     meta_for_rdf = result["meta"]
     base_uri_for_rdf = meta_for_rdf.get("base_uri", "https://publicschema.org/")
     rdf_version = meta_for_rdf.get("version", "0.1.0")
@@ -1275,40 +1276,33 @@ def write_outputs(
 def main():
     """CLI entry point for build.
 
-    Two source modes are supported:
+    Reads the LinkML source tree at ``schema/`` (post-cutover canonical
+    location) and produces the renderer outputs (``vocabulary.json``,
+    ``preview/``, ``system_matchings.json``, the three RDF artifacts,
+    JSON Schema files, etc.).
 
-    - ``--source bespoke`` (default): read per-element YAML from
-      ``schema/**``. This is the historical pipeline and remains the
-      default during the LinkML migration so nothing changes for
-      existing contributors.
-    - ``--source linkml``: read the migrated LinkML composite from
-      ``dist/linkml/`` via ``build/linkml_reader.py``. The renderer
-      output (``vocabulary.json``, ``preview/``, ``system_matchings.json``,
-      etc.) has the same shape as the bespoke path; known small
-      differences are documented in ``build/linkml_reader.py``.
-
-    Positional args are interpreted positionally for back-compat:
-    ``build.py [schema_dir] [dist_dir]``. Optional flags can appear in
-    any position.
+    ``--source bespoke`` is retained for historical bespoke YAML trees,
+    e.g. when restoring an old release; it reads single-file
+    per-element YAML from ``schema_dir``.
     """
     import argparse
 
     parser = argparse.ArgumentParser(description="Build PublicSchema outputs.")
     parser.add_argument(
         "schema_dir", nargs="?", default="schema",
-        help="Bespoke schema directory (used when --source=bespoke).",
+        help="LinkML source directory (or bespoke tree when --source=bespoke).",
     )
     parser.add_argument(
         "dist_dir", nargs="?", default="dist",
         help="Output directory for build artifacts.",
     )
     parser.add_argument(
-        "--source", choices=("bespoke", "linkml"), default="bespoke",
+        "--source", choices=("bespoke", "linkml"), default="linkml",
         help="Which source tree to read element definitions from.",
     )
     parser.add_argument(
-        "--linkml-dir", default="dist/linkml",
-        help="Path to the LinkML domain files (only used with --source=linkml).",
+        "--linkml-dir", default=None,
+        help="Path to the LinkML domain files (defaults to schema_dir when --source=linkml).",
     )
     parser.add_argument(
         "--external-dir", default=None,
@@ -1326,14 +1320,14 @@ def main():
         else schema_dir.parent / "external"
     )
 
-    if args.source == "linkml":
-        # Lazy import: linkml_reader pulls only stdlib + PyYAML, so this
-        # is safe even when the bespoke path is the only one exercised.
-        from build.linkml_reader import load_raw_from_linkml
-        raws = load_raw_from_linkml(Path(args.linkml_dir))
+    if args.source == "bespoke":
+        raws = _load_bespoke_raw(schema_dir)
         result = build_vocabulary(raws=raws)
     else:
-        result = build_vocabulary(schema_dir)
+        # The default --source=linkml path: build_vocabulary reads schema_dir
+        # (or args.linkml_dir if explicitly supplied) via load_raw_from_linkml.
+        linkml_dir = Path(args.linkml_dir) if args.linkml_dir else schema_dir
+        result = build_vocabulary(linkml_dir)
 
     write_outputs(result, dist_dir, schema_dir=schema_dir, external_dir=external_dir)
     print(f"Built {len(result['concepts'])} concepts, "

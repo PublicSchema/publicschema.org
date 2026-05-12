@@ -1,11 +1,8 @@
 """LinkML-driven RDF export for site-facing artifacts.
 
-Replaces ``build/rdf_export.py`` (now preserved as
-``build/rdf_export_legacy.py``) for production builds. The three site
-artifacts (Turtle OWL, SHACL shapes, full JSON-LD ``@graph``) are now
-produced by LinkML's stock generators against the migrated composite at
-``dist/linkml/publicschema.yaml`` (output of
-``build/migrate_to_linkml.py``):
+The three site artifacts (Turtle OWL, SHACL shapes, full JSON-LD
+``@graph``) are produced by LinkML's stock generators against the
+canonical composite at ``schema/publicschema.yaml``:
 
 * ``write_turtle``      -> ``gen-owl``   -> ``dist/publicschema.ttl``
 * ``write_shacl``       -> ``gen-shacl`` -> ``dist/publicschema.shacl.ttl``
@@ -14,12 +11,7 @@ produced by LinkML's stock generators against the migrated composite at
 
 The JSON-LD bridge re-parses the gen-owl Turtle into rdflib and emits
 JSON-LD, then rewrites the inline ``@context`` to a string reference to
-the hosted draft context URL — matching the pre-LinkML behaviour so the
-site can serve the document unchanged.
-
-The semantic equivalence with the legacy pipeline (modulo four
-documented enum-alignment losses for Country/Sex) is exercised by
-``tests/test_linkml_roundtrip.py`` and is the basis for cutting over.
+the hosted draft context URL so the site can serve a compact document.
 """
 
 from __future__ import annotations
@@ -32,7 +24,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-DEFAULT_LINKML_COMPOSITE = ROOT / "dist" / "linkml" / "publicschema.yaml"
+DEFAULT_LINKML_COMPOSITE = ROOT / "schema" / "publicschema.yaml"
 DEFAULT_CONTEXT_URL = "https://publicschema.org/ctx/draft.jsonld"
 
 
@@ -65,8 +57,7 @@ def _require_composite(composite: Path = DEFAULT_LINKML_COMPOSITE) -> Path:
     """Ensure the LinkML composite schema exists before invoking a generator."""
     if not composite.exists():
         raise FileNotFoundError(
-            f"LinkML composite not found at {composite}. Run "
-            f"`build/migrate_to_linkml.py` first to produce it."
+            f"LinkML composite not found at {composite}."
         )
     return composite
 
@@ -162,30 +153,3 @@ def write_full_jsonld(
     return output_path
 
 
-def ensure_linkml_composite(
-    composite: Path = DEFAULT_LINKML_COMPOSITE,
-    *,
-    run_migration: bool = True,
-) -> Path:
-    """Make sure the LinkML composite schema exists.
-
-    If ``run_migration`` is True and the composite is missing, invoke
-    ``build/migrate_to_linkml.py`` to produce it. Otherwise just assert
-    its presence. Returns the path of the composite.
-    """
-    if composite.exists():
-        return composite
-    if not run_migration:
-        return _require_composite(composite)
-    migrate_script = ROOT / "build" / "migrate_to_linkml.py"
-    if not migrate_script.exists():
-        raise FileNotFoundError(
-            f"Cannot bootstrap LinkML composite: {migrate_script} is missing."
-        )
-    subprocess.run(
-        [sys.executable, str(migrate_script)],
-        cwd=ROOT,
-        env={**os.environ, "PYTHONPATH": str(ROOT)},
-        check=True,
-    )
-    return _require_composite(composite)
