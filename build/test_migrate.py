@@ -33,6 +33,11 @@ SCRIPT = ROOT / "build" / "migrate_to_linkml.py"
 OUTPUT_DIR = ROOT / "dist" / "linkml"
 EXTERNAL_DIR = OUTPUT_DIR / "external"
 
+pytestmark = pytest.mark.skipif(
+    not (ROOT / "schema" / "_meta.yaml").exists(),
+    reason="historical bespoke schema tree is not present after LinkML source cutover",
+)
+
 
 @pytest.fixture(scope="session")
 def migration_run():

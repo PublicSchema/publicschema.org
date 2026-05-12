@@ -8,19 +8,19 @@ Checks:
 
 Sources
 -------
-``--source bespoke`` (default) runs every check above against the
-bespoke YAML in schema/. The JSON Schema files under build/schemas/
-describe that shape only.
+``--source linkml`` (default) runs ``linkml-lint --validate`` against
+schema/publicschema.yaml.
 
-``--source linkml`` runs ``linkml-lint --validate`` against
-dist/linkml/publicschema.yaml. That covers metamodel conformance and
-LinkML's own structural rules. The bespoke-only checks (referential
+``--source bespoke`` runs every historical check above against a legacy
+bespoke YAML tree. The JSON Schema files under build/schemas/ describe
+that shape only.
+
+The LinkML path covers metamodel conformance and LinkML's own structural rules.
+The bespoke-only checks (referential
 integrity of concept/property/vocabulary IDs, age_applicability cross-
 checks against bibliography citations, property_groups completeness,
 multilingual gating by maturity) are *not* re-implemented in this path
-because the LinkML output is generated from the same bespoke source —
-running both readers against both source trees would be redundant work
-during the transition.
+yet.
 
 # TODO: adapt to LinkML after cutover. Once schema/** is deprecated,
 # the bespoke-only rules above need a LinkML-native equivalent. Concrete
@@ -564,7 +564,7 @@ def _validate_linkml(linkml_dir: Path) -> int:
     if not composite.exists():
         print(
             f"LinkML validation: {composite} not found. "
-            f"Run `python build/migrate_to_linkml.py` first.",
+            f"Pass the LinkML source directory or run from the repository root.",
             file=sys.stderr,
         )
         return 1
@@ -610,20 +610,20 @@ def main():
         "path",
         nargs="?",
         default=None,
-        help="Schema directory. Defaults to schema/ (bespoke) or dist/linkml/ (linkml).",
+        help="Schema directory. Defaults to schema/.",
     )
     parser.add_argument(
         "--source",
         choices=("bespoke", "linkml"),
-        default="bespoke",
-        help="Which source tree to validate. Default 'bespoke' runs the full "
-             "rule set against schema/; 'linkml' delegates to "
-             "`linkml-lint --validate` against dist/linkml/.",
+        default="linkml",
+        help="Which source tree to validate. Default 'linkml' validates "
+             "schema/publicschema.yaml; 'bespoke' runs the historical rule "
+             "set against a legacy bespoke tree.",
     )
     args = parser.parse_args()
 
     if args.source == "linkml":
-        target = Path(args.path) if args.path else Path("dist/linkml")
+        target = Path(args.path) if args.path else Path("schema")
         sys.exit(_validate_linkml(target))
 
     schema_dir = Path(args.path) if args.path else Path("schema")

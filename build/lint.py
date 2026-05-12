@@ -24,12 +24,13 @@ Rules:
 
 Sources
 -------
-Default ``--source bespoke`` reads schema/**/*.yaml in the historical
-PublicSchema shape (label/definition as multilingual dicts, sync block at
-the top level, external_equivalents nested under each concept).
+Default ``--source linkml`` reads schema/**/*.yaml in the canonical
+LinkML source format.
 
-``--source linkml`` reads dist/linkml/**/*.yaml (LinkML output from
-build/migrate_to_linkml.py). The LinkML shape stores the English label as
+``--source bespoke`` reads a historical bespoke source tree in the old
+PublicSchema shape (label/definition as multilingual dicts, sync block at
+the top level, external_equivalents nested under each concept). The
+LinkML shape stores the English label as
 ``title``, English description as ``description``, and other locales under
 ``annotations.label_fr`` / ``annotations.label_es`` /
 ``annotations.description_fr`` / ``annotations.description_es``. The
@@ -703,7 +704,7 @@ def _lint_loaded(
 
 
 def lint_linkml_dir(linkml_dir: Path) -> list[LintIssue]:
-    """Lint a dist/linkml/ tree by reusing :func:`_lint_loaded` after
+    """Lint a LinkML tree by reusing :func:`_lint_loaded` after
     normalising LinkML output back to bespoke shape.
     """
     concepts, properties, vocabularies, categories = load_linkml_as_bespoke(linkml_dir)
@@ -726,25 +727,27 @@ def main():
         "path",
         nargs="?",
         default=None,
-        help="Schema directory. Defaults to schema/ (bespoke) or dist/linkml/ (linkml).",
+        help="Schema directory. Defaults to schema/.",
     )
     parser.add_argument(
         "--source",
         choices=("bespoke", "linkml"),
-        default="bespoke",
-        help="Which source tree to lint. During the LinkML cutover the default "
-             "stays 'bespoke'; 'linkml' lints dist/linkml/ output instead.",
+        default=None,
+        help="Which source tree to lint. Default 'linkml' reads schema/; "
+             "'bespoke' lints a historical bespoke tree.",
     )
     args = parser.parse_args()
 
     if args.path:
         target = Path(args.path)
-    elif args.source == "linkml":
-        target = Path("dist/linkml")
+        source = args.source or (
+            "linkml" if (target / "publicschema.yaml").exists() else "bespoke"
+        )
     else:
         target = Path("schema")
+        source = args.source or "linkml"
 
-    if args.source == "linkml":
+    if source == "linkml":
         issues = lint_linkml_dir(target)
     else:
         issues = lint_schema_dir(target)

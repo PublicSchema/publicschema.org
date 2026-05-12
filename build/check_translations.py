@@ -24,16 +24,16 @@ This is acceptable for a warning-only signal and documented here.
 
 Sources
 -------
-``--source bespoke`` (default during cutover) reads schema/**/*.yaml
-where the shape is ``label.{en,fr,es}`` and ``definition.{en,fr,es}``.
-
-``--source linkml`` reads dist/linkml/**/*.yaml where the English
+``--source linkml`` (default) reads schema/**/*.yaml where the English
 ``label`` lives at ``title``, English ``definition`` at ``description``,
 and the FR/ES translations live under ``annotations.label_fr``,
 ``annotations.label_es``, ``annotations.description_fr``,
 ``annotations.description_es``. The schema check normalises both shapes
 to the same set of checks. The UI/docs/prose checks are independent of
 schema source.
+
+``--source bespoke`` reads a historical bespoke schema tree where the shape is
+``label.{en,fr,es}`` and ``definition.{en,fr,es}``.
 """
 
 from __future__ import annotations
@@ -52,7 +52,7 @@ DOCS_DIR = Path("docs")
 DOCS_MANIFEST_PATH = Path("site/src/data/docs.ts")
 PROSE_DIR = Path("site/src/components/pages/content")
 SCHEMA_DIR = Path("schema")
-LINKML_DIR = Path("dist/linkml")
+LINKML_DIR = Path("schema")
 LOCALES: tuple[str, ...] = ("fr", "es")
 MATURITY_REQUIRES_TRANSLATION: tuple[str, ...] = ("candidate", "normative")
 
@@ -356,7 +356,7 @@ def check_schema(schema_dir: Path = SCHEMA_DIR) -> Report:
 # ---------------------------------------------------------------------------
 # LinkML schema check
 #
-# Walks dist/linkml/*.yaml (excluding the top-level composite and the
+# Walks schema/*.yaml (excluding the top-level composite and the
 # hand-authored extensions module), inspects every class, slot, and enum,
 # and reapplies the same FR/ES requirement against the LinkML field shape
 # (title/description + annotations.label_*/description_*).
@@ -424,12 +424,12 @@ def check_schema_linkml(linkml_dir: Path = LINKML_DIR) -> Report:
 # ---------------------------------------------------------------------------
 
 
-def run_all(source: str = "bespoke") -> Report:
+def run_all(source: str = "linkml") -> Report:
     """Run every translation check.
 
     ``source`` selects which schema tree feeds the schema completeness
     check (UI, docs, and prose checks are unchanged). Use 'linkml' to
-    target dist/linkml/ once the cutover lands.
+    target schema/ after the LinkML cutover.
     """
     combined = Report()
     combined.merge(check_ui_dictionary())
@@ -451,9 +451,10 @@ def main() -> int:
     parser.add_argument(
         "--source",
         choices=("bespoke", "linkml"),
-        default="bespoke",
+        default="linkml",
         help="Schema source to use for the schema completeness check. "
-             "Default 'bespoke' reads schema/; 'linkml' reads dist/linkml/.",
+             "Default 'linkml' reads schema/; 'bespoke' reads a historical "
+             "bespoke tree.",
     )
     args = parser.parse_args()
 

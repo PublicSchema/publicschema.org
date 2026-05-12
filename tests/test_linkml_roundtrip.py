@@ -1,9 +1,9 @@
-"""Round-trip semantic equivalence between rdf_export.py and the LinkML migration.
+"""Round-trip semantic equivalence between rdf_export.py and the LinkML source.
 
 This is a cross-pipeline integration test, not a unit test of either pipeline.
 It runs both ``build/rdf_export.py`` (via ``build.build.build_vocabulary`` +
-``build.rdf_export``) and ``build/migrate_to_linkml.py`` followed by
-``gen-owl`` on the resulting LinkML composite schema, then loads both Turtle
+``build.rdf_export``) and ``gen-owl`` on the authored LinkML composite schema,
+then loads both Turtle
 outputs into rdflib graphs and asserts three triple-set invariants on
 PublicSchema-owned subjects.
 
@@ -66,9 +66,7 @@ from rdflib.namespace import OWL, RDF, RDFS, SKOS  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 SCHEMA_DIR = ROOT / "schema"
-MIGRATE_SCRIPT = ROOT / "build" / "migrate_to_linkml.py"
-LINKML_OUT_DIR = ROOT / "dist" / "linkml"
-LINKML_COMPOSITE = LINKML_OUT_DIR / "publicschema.yaml"
+LINKML_COMPOSITE = SCHEMA_DIR / "publicschema.yaml"
 
 PS = "https://publicschema.org/"
 
@@ -127,27 +125,14 @@ def rdf_export_graph(tmp_path_factory) -> rdflib.Graph:
 
 @pytest.fixture(scope="session")
 def linkml_owl_graph(tmp_path_factory) -> rdflib.Graph:
-    """Run the migration + ``gen-owl`` and return the OWL Turtle as a graph.
+    """Run ``gen-owl`` over the authored LinkML source and return a graph.
 
-    The migration script writes to a hard-coded ``dist/linkml/`` path. We
-    invoke it (always re-running, to keep the test hermetic) and then point
-    gen-owl at the resulting composite. gen-owl's Turtle output is captured
-    to a tmp file purely for post-mortem inspection on failure.
+    gen-owl's Turtle output is captured to a tmp file purely for post-mortem
+    inspection on failure.
     """
-    if not MIGRATE_SCRIPT.exists():
-        pytest.skip(f"migration script not found at {MIGRATE_SCRIPT}")
-
-    # Run the migration. The script is idempotent: it resets dist/linkml/.
     env = {**os.environ, "PYTHONPATH": str(ROOT)}
-    subprocess.run(
-        [sys.executable, str(MIGRATE_SCRIPT)],
-        cwd=ROOT,
-        env=env,
-        check=True,
-        capture_output=True,
-    )
     if not LINKML_COMPOSITE.exists():
-        pytest.fail(f"migration did not produce {LINKML_COMPOSITE}")
+        pytest.fail(f"LinkML composite not found at {LINKML_COMPOSITE}")
 
     # Run gen-owl. It prints OWL Turtle to stdout.
     out_dir = tmp_path_factory.mktemp("linkml_owl")
