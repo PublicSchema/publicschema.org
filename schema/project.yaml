@@ -11,3 +11,61 @@ schema_project:
     primary: en
     additional: [fr, es]
   license: CC-BY-4.0
+  authoring:
+    linkml:
+      source_root: schema
+      entrypoints:
+        - publicschema.yaml
+      writable_packages:
+        - path: assessment.yaml
+          label: Assessment
+          families: [concepts, properties]
+          domains: [assessment]
+        - path: biometric.yaml
+          label: Biometric
+          families: [concepts, properties]
+          domains: [biometric]
+        - path: categories.yaml
+          label: Categories
+          families: [vocabularies]
+          domains: [categories]
+        - path: civil_status.yaml
+          label: Civil status
+          families: [concepts, properties]
+          domains: [civil_status]
+        - path: common.yaml
+          label: Common
+          families: [concepts, properties]
+          domains: [common]
+        - path: consent.yaml
+          label: Consent
+          families: [concepts, properties]
+          domains: [consent]
+        - path: core.yaml
+          label: Core
+          families: [concepts, properties]
+          domains: [core]
+        - path: document.yaml
+          label: Document
+          families: [concepts, properties]
+          domains: [document]
+        - path: identity.yaml
+          label: Identity
+          families: [concepts, properties]
+          domains: [identity]
+        - path: misc.yaml
+          label: Misc
+          families: [concepts, properties]
+          domains: [misc]
+        - path: payment.yaml
+          label: Payment
+          families: [concepts, properties]
+          domains: [payment]
+        - path: program.yaml
+          label: Program
+          families: [concepts, properties]
+          domains: [program]
+        - path: vocabularies.yaml
+          label: Vocabularies
+          families: [vocabularies]
+          default_for: [vocabularies]
