@@ -106,20 +106,30 @@ KNOWN_ACRONYMS = {
     # Standards and interop
     "ISO", "UN", "FHIR", "SEMIC", "DCI", "EBSI", "SKOS", "RDF",
     "HTTP", "HTTPS", "URI", "URL", "JWT", "VC", "RFC", "PDF", "MIME",
+    "JSON",
     # Organizations
     "UNHCR", "UNICEF", "WFP", "FAO", "OCHA", "WHO", "ILO", "IMF",
-    "UNSD", "CDC", "NCHS",
+    "UNSD", "CDC", "NCHS", "UNESCO", "UIS", "DESA", "NGO",
+    # Privacy and regulation
+    "GDPR", "DPA", "DPV",
     # Domain-specific
     "WG", "CFM", "PMT", "PPI", "DHS", "JMP",
     "ICD", "ICCS", "CIEC", "ISIC", "ISCO", "ISCED", "RRULE",
     "OASIS", "CAP", "COD", "FIPS", "CLDR",
+    "CRM", "CRVS", "IEC", "SDG", "ADR",
     # Measurement and health
     "DNA", "RNA", "BMI", "MUAC", "HIV", "BAZ", "HAZ", "WAZ", "WHZ",
     "SMART", "CMAM",
+    "FCS", "FIES", "HDDS", "HHFA", "HHS", "LCS",
+    "MAHFP", "MDD", "MIYCN", "PLW", "SARA",
     # Technology
     "WASH", "ICT", "SMS", "PDA", "GIS", "GPS", "GPC", "SSN", "TIC",
-    # RFC-style emphasis (used in definitions for clarity)
-    "NOT", "OPTIONAL", "MUST", "SHALL",
+    "UUID", "ULID",
+    # RFC 2119 + RFC 8174 normative keywords (emphasis in definitions)
+    "MUST", "SHALL", "REQUIRED", "SHOULD", "RECOMMENDED", "MAY",
+    "OPTIONAL", "NOT", "IMPORTANT",
+    # Roman numerals in citations (e.g. UN DESA "Table III.1")
+    "III",
     # Other
     "SD",
 }
