@@ -528,9 +528,19 @@ def _is_linkml_alignment_extra(triple: tuple[str, str, str]) -> bool:
         # SEMIC / EU vocabularies
         "http://data.europa.eu/",
         "http://publications.europa.eu/",
-        # FHIR
+        # FHIR (HL7 base and the terminology subdomain that hosts CodeSystem URIs)
         "http://hl7.org/",
         "https://hl7.org/",
+        "http://terminology.hl7.org/",
+        "https://terminology.hl7.org/",
+        # W3C RDF Data Cube vocabulary (qb:) — metrics alignment
+        "http://purl.org/linked-data/cube#",
+        # SDMX information model URNs — metrics alignment
+        "urn:sdmx:org.sdmx.infomodel.",
+        # W3C DCAT — metrics alignment
+        "http://www.w3.org/ns/dcat#",
+        # Dublin Core Terms — metrics alignment
+        "http://purl.org/dc/terms/",
         # FOAF, PROV, schema.org, W3C vocabularies
         "http://xmlns.com/foaf/",
         "http://www.w3.org/ns/prov#",

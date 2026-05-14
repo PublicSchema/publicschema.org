@@ -1,0 +1,1587 @@
+id: https://publicschema.org/linkml/metrics
+name: publicschema-metrics
+title: PublicSchema metrics domain
+license: CC-BY-4.0
+default_prefix: publicschema
+prefixes:
+  publicschema: https://publicschema.org/
+  linkml: https://w3id.org/linkml/
+  xsd: http://www.w3.org/2001/XMLSchema#
+  bibo: http://purl.org/ontology/bibo/
+  skos: http://www.w3.org/2004/02/skos/core#
+  schema: http://schema.org/
+  foaf: http://xmlns.com/foaf/0.1/
+  prov: http://www.w3.org/ns/prov#
+  fhir: http://hl7.org/fhir/
+  cpov: http://data.europa.eu/m8g/
+  dpv: https://w3id.org/dpv#
+  dpv-gdpr: https://w3id.org/dpv/dpv-gdpr#
+  dci: https://schema.spdci.org/core/v1/
+  dhis2: https://dhis2.org/schemas/
+  dhs: https://dhsprogram.com/data/recode7/
+  dhs8: https://dhsprogram.com/data/recode8/
+  fhir-r4: http://hl7.org/fhir/R4/
+  fhir-r5: http://hl7.org/fhir/R5/
+  govstack-payments: https://govstack.global/specs/payments/
+  lsms-isa: https://www.worldbank.org/en/programs/lsms/initiatives/lsms-ISA/
+  mics: https://mics.unicef.org/tools/
+  ocha-cod-ab: https://data.humdata.org/dataset/cod-ab/
+  opencrvs: https://documentation.opencrvs.org/technology/event-service-v2/
+  openimis: https://openimis.atlassian.net/wiki/spaces/OP/
+  openspp: https://docs.openspp.org/
+  wg-es: https://www.washingtongroup-disability.com/question-sets/wg-extended-set/
+  legal: http://www.w3.org/ns/legal#
+  locn: http://www.w3.org/ns/locn#
+  adms: http://www.w3.org/ns/adms#
+  dct: http://purl.org/dc/terms/
+  person: http://www.w3.org/ns/person#
+  rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#
+  rdfs: http://www.w3.org/2000/01/rdf-schema#
+  qb: http://purl.org/linked-data/cube#
+  sdmx: urn:sdmx:org.sdmx.infomodel.
+imports:
+- linkml:types
+- publicschema-extensions
+- civil_status
+- common
+- core
+- misc
+classes:
+  Metric:
+    class_uri: publicschema:Metric
+    title: Metric
+    description: 'A named, derivable indicator with a stable URI, a prose definition, a value type, a unit,
+      declared dimensions, declared observation-level attributes, declared external alignments, and a single
+      primary computation. A Metric is the catalogue definition; values reported against it are MetricObservation
+      records. The per-record analog is ScoringRule (schema/misc.yaml), which captures the rule applied
+      to a single subject; MetricCalculation aggregates the same shape across many subjects.
+
+      '
+    slots:
+    - description
+    - value_type
+    - unit
+    - multiplier
+    - decimals
+    - dimensions
+    - attributes
+    - calculation
+    - topic
+    - concept_uri
+    - metric_family
+    - aligns_with
+    - core
+    - version
+    - replaces
+    - replaced_by
+    status: bibo:status/forthcoming
+    close_mappings:
+    - qb:MeasureProperty
+    - fhir:Measure
+    annotations:
+      label_es: Métrica
+      label_fr: Métrique
+      description_es: Un indicador derivable y nombrado, con URI estable, definición en prosa, tipo de valor,
+        unidad, dimensiones declaradas, atributos a nivel de observación declarados, alineaciones externas
+        declaradas y un único cálculo primario. Una Metric es la definición del catálogo; los valores reportados
+        contra ella son registros MetricObservation. El análogo a nivel de registro es ScoringRule (schema/misc.yaml),
+        que captura la regla aplicada a un único sujeto; MetricCalculation agrega la misma forma a través
+        de muchos sujetos.
+      description_fr: Un indicateur dérivable et nommé, avec un URI stable, une définition en prose, un
+        type de valeur, une unité, des dimensions déclarées, des attributs au niveau de l'observation déclarés,
+        des alignements externes déclarés et un seul calcul primaire. Une Metric est la définition de catalogue ;
+        les valeurs rapportées par rapport à elle sont des enregistrements MetricObservation. L'analogue
+        au niveau de l'enregistrement est ScoringRule (schema/misc.yaml), qui capture la règle appliquée
+        à un seul sujet ; MetricCalculation agrège la même forme à travers de nombreux sujets.
+      featured: true
+      source_domain: metrics
+      convergence_json: '{"notes": "Metric is aligned to standards bodies (SDMX 3.0 information model,
+        FHIR R5 Measure, W3C RDF Data Cube vocabulary) rather than to a mapped delivery system. Per design-principles.md
+        section 3, the system_count denominator follows the standards-aligned convention: the supertype
+        is anchored in widely-deployed standards, and convergence evidence accrues to derivable metric
+        instances rather than to the catalogue class itself.\n", "system_count": 0, "total_systems": 6}'
+  MetricDimension:
+    class_uri: publicschema:MetricDimension
+    title: Metric Dimension
+    description: 'A typed dimension that disaggregates a metric. References a code list, which may be a
+      PublicSchema vocabulary or an external SDMX agency codelist. PublicSchema vocabularies are canonical;
+      the SDMX emitter wraps them for downstream consumers.
+
+      '
+    slots:
+    - description
+    - concept_uri
+    - value_range
+    - code_list_uri
+    - is_required
+    - ordering
+    status: bibo:status/forthcoming
+    close_mappings:
+    - qb:DimensionProperty
+    annotations:
+      label_es: Dimensión de métrica
+      label_fr: Dimension de métrique
+      description_es: Una dimensión tipada que desagrega una métrica. Referencia una lista de códigos,
+        que puede ser un vocabulario de PublicSchema o una lista de códigos de una agencia SDMX externa.
+        Los vocabularios de PublicSchema son canónicos; el emisor SDMX los envuelve para los consumidores
+        descendentes.
+      description_fr: Une dimension typée qui désagrège une métrique. Référence une liste de codes, qui
+        peut être un vocabulaire PublicSchema ou une liste de codes d'agence SDMX externe. Les vocabulaires
+        PublicSchema sont canoniques ; l'émetteur SDMX les enveloppe pour les consommateurs en aval.
+      source_domain: metrics
+      convergence_json: '{"notes": "MetricDimension wraps SDMX cross-domain concepts (REF_AREA, SEX, AGE,
+        TIME_PERIOD, FREQ, UNIT_MEASURE) plus PublicSchema vocabularies (urban_rural, wealth_quintile,
+        program_type, benefit_modality). The class itself is a catalogue type aligned to qb:DimensionProperty
+        and SDMX 3.0 Dimension; convergence evidence accrues to the dimension instances PublicSchema ships,
+        not to the class.\n", "system_count": 0, "total_systems": 6}'
+  MetricAttribute:
+    class_uri: publicschema:MetricAttribute
+    title: Metric Attribute
+    description: 'A non-key annotation on an observation, series, or dataset. Mirrors SDMX cross-domain
+      concepts (OBS_STATUS, UNIT_MEASURE, DECIMALS, CONF_STATUS, COMMENT_OBS) so the SDMX emitter has zero
+      translation work, and adds PublicSchema extensions (cell_count, data_quality_flag) where SDMX has
+      no equivalent. The attachment_level slot drives where the SDMX emitter places each attribute (dataset,
+      series, or observation).
+
+      '
+    slots:
+    - description
+    - concept_uri
+    - value_range
+    - attachment_level
+    status: bibo:status/forthcoming
+    close_mappings:
+    - qb:AttributeProperty
+    annotations:
+      label_es: Atributo de métrica
+      label_fr: Attribut de métrique
+      description_es: Una anotación no clave sobre una observación, una serie o un conjunto de datos. Refleja
+        los conceptos transversales de SDMX (OBS_STATUS, UNIT_MEASURE, DECIMALS, CONF_STATUS, COMMENT_OBS)
+        para que el emisor SDMX no tenga trabajo de traducción, y añade extensiones de PublicSchema (cell_count,
+        data_quality_flag) cuando SDMX no tiene un equivalente. El slot attachment_level determina dónde
+        coloca cada atributo el emisor SDMX (conjunto de datos, serie u observación).
+      description_fr: Une annotation non-clé sur une observation, une série ou un jeu de données. Reflète
+        les concepts transversaux SDMX (OBS_STATUS, UNIT_MEASURE, DECIMALS, CONF_STATUS, COMMENT_OBS) pour
+        que l'émetteur SDMX n'ait aucun travail de traduction, et ajoute des extensions PublicSchema (cell_count,
+        data_quality_flag) lorsque SDMX n'a pas d'équivalent. Le slot attachment_level dirige l'endroit
+        où l'émetteur SDMX place chaque attribut (jeu de données, série ou observation).
+      source_domain: metrics
+      convergence_json: '{"notes": "MetricAttribute wraps SDMX cross-domain concepts treated as attributes
+        in the SDMX 3.0 information model. Convergence evidence accrues to attribute instances rather
+        than to the catalogue class.\n", "system_count": 0, "total_systems": 6}'
+  MetricCalculation:
+    class_uri: publicschema:MetricCalculation
+    title: Metric Calculation
+    description: 'A declarative computation that turns record-level PublicSchema data into a metric value.
+      Borrows the population / stratifier / scoring shape from FHIR R5 Measure; the criteria language is
+      pluggable via IANA media type, with application/sql, application/vtl, and text/cql first-class. The
+      per-record analog is ScoringRule (schema/misc.yaml); MetricCalculation aggregates across subjects.
+
+      '
+    slots:
+    - scoring
+    - subject_class
+    - populations
+    - stratifiers
+    - rate_aggregation
+    - improvement_notation
+    - libraries
+    status: bibo:status/forthcoming
+    close_mappings:
+    - fhir:Measure
+    annotations:
+      label_es: Cálculo de métrica
+      label_fr: Calcul de métrique
+      description_es: Un cálculo declarativo que convierte los datos de PublicSchema a nivel de registro
+        en el valor de una métrica. Toma prestada la forma de poblaciones, estratificadores y método de
+        puntuación de FHIR R5 Measure; el lenguaje de criterios es pluggable mediante un tipo de medio
+        IANA, siendo application/sql, application/vtl y text/cql de primera clase. El análogo a nivel de
+        registro es ScoringRule (schema/misc.yaml); MetricCalculation agrega entre sujetos.
+      description_fr: Un calcul déclaratif qui transforme les données PublicSchema au niveau de l'enregistrement
+        en valeur de métrique. Emprunte la forme populations / stratificateurs / méthode de notation à
+        FHIR R5 Measure ; le langage de critères est enfichable via un type de média IANA, avec application/sql,
+        application/vtl et text/cql de première classe. L'analogue au niveau de l'enregistrement est ScoringRule
+        (schema/misc.yaml) ; MetricCalculation agrège à travers les sujets.
+      source_domain: metrics
+      convergence_json: '{"notes": "MetricCalculation borrows the FHIR R5 Measure shape (CMS eCQMs, NCQA
+        HEDIS digital measures). Standards alignment, not mapped-system convergence.\n", "system_count":
+        0, "total_systems": 6}'
+  PopulationCriterion:
+    class_uri: publicschema:PopulationCriterion
+    title: Population Criterion
+    description: 'One population in a MetricCalculation, paired with the language and criteria that select
+      the records belonging to it. The population_type follows FHIR R5 Measure: initial-population, denominator,
+      denominator-exclusion, denominator-exception, numerator, numerator-exclusion, measure-population,
+      measure-population-exclusion, measure-observation. Authors validate population_type against the
+      MetricCalculation.scoring value at schema-load time.
+
+      '
+    slots:
+    - population_type
+    - language
+    - criteria
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: Criterio de población
+      label_fr: Critère de population
+      description_es: Una población en un MetricCalculation, emparejada con el lenguaje y los criterios
+        que seleccionan los registros pertenecientes a ella. El population_type sigue FHIR R5 Measure;
+        los autores validan population_type contra el valor scoring del MetricCalculation en el momento
+        de la carga del esquema.
+      description_fr: Une population dans un MetricCalculation, associée au langage et aux critères qui
+        sélectionnent les enregistrements lui appartenant. Le population_type suit FHIR R5 Measure ; les
+        auteurs valident population_type par rapport à la valeur scoring du MetricCalculation au moment
+        du chargement du schéma.
+      source_domain: metrics
+  Stratifier:
+    class_uri: publicschema:Stratifier
+    title: Stratifier
+    description: 'A disaggregation expression evaluated against the populations of a MetricCalculation.
+      Stratifiers may nest via components, allowing cross-cutting disaggregations such as by-sex-and-age.
+
+      '
+    slots:
+    - stratifier_code
+    - language
+    - criteria
+    - components
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: Estratificador
+      label_fr: Stratificateur
+      description_es: Una expresión de desagregación evaluada contra las poblaciones de un MetricCalculation.
+        Los estratificadores pueden anidarse mediante components, permitiendo desagregaciones cruzadas
+        como por-sexo-y-edad.
+      description_fr: Une expression de désagrégation évaluée par rapport aux populations d'un MetricCalculation.
+        Les stratificateurs peuvent s'imbriquer via components, permettant des désagrégations croisées
+        telles que par-sexe-et-âge.
+      source_domain: metrics
+  MetricObservation:
+    class_uri: publicschema:MetricObservation
+    title: Metric Observation
+    description: 'One reported value against a Metric, with dimension values, period, and observation-level
+      attributes. The observation / scoring separation extends from per-record scoring (Principle 6) to
+      aggregate metrics: a MetricObservation is to a Metric what a ScoringEvent is to a ScoringRule. Scale
+      is fixed by Metric.unit and Metric.multiplier; when UNIT_MEASURE also appears in attribute_values,
+      it must equal Metric.unit. The observation cannot override scale.
+
+      '
+    is_a: Event
+    slots:
+    - metric
+    - period
+    - dimension_values
+    - metric_value
+    - attribute_values
+    - calculation_uri
+    - execution_uri
+    status: bibo:status/forthcoming
+    exact_mappings:
+    - qb:Observation
+    annotations:
+      label_es: Observación de métrica
+      label_fr: Observation de métrique
+      description_es: Un valor reportado contra una Metric, con valores de dimensión, período y atributos
+        a nivel de observación. La separación observación / puntuación se extiende de la puntuación por
+        registro (Principio 6) a las métricas agregadas. Una MetricObservation es a una Metric lo que
+        un ScoringEvent es a una ScoringRule. La escala está fijada por Metric.unit y Metric.multiplier;
+        cuando UNIT_MEASURE también aparece en attribute_values, debe ser igual a Metric.unit. La observación
+        no puede anular la escala.
+      description_fr: Une valeur rapportée par rapport à une Metric, avec des valeurs de dimension, une
+        période et des attributs au niveau de l'observation. La séparation observation / notation s'étend
+        de la notation par enregistrement (Principe 6) aux métriques agrégées. Une MetricObservation
+        est à une Metric ce qu'un ScoringEvent est à une ScoringRule. L'échelle est fixée par Metric.unit
+        et Metric.multiplier ; lorsque UNIT_MEASURE apparaît également dans attribute_values, il doit être
+        égal à Metric.unit. L'observation ne peut pas remplacer l'échelle.
+      featured: true
+      source_domain: metrics
+      convergence_json: '{"notes": "MetricObservation is bound to qb:Observation (W3C RDF Data Cube) and
+        to the SDMX 3.0 Observation. Standards-aligned, not mapped-system-derived.\n", "system_count":
+        0, "total_systems": 6}'
+  MetricReport:
+    class_uri: publicschema:MetricReport
+    title: Metric Report
+    description: 'A bundle of MetricObservation records with publisher metadata. Maps to an SDMX Dataset
+      and to qb:DataSet on RDF emission.
+
+      '
+    slots:
+    - publisher
+    - published_at
+    - reference_date
+    - methodology_uri
+    - license
+    - contact_uri
+    - observations
+    - dsd_uri
+    status: bibo:status/forthcoming
+    exact_mappings:
+    - qb:DataSet
+    close_mappings:
+    - http://www.w3.org/ns/dcat#Dataset
+    - fhir:MeasureReport
+    annotations:
+      label_es: Informe de métricas
+      label_fr: Rapport de métriques
+      description_es: Un conjunto de registros MetricObservation con metadatos del editor. Se asigna a
+        un Dataset SDMX y a qb:DataSet en la emisión RDF.
+      description_fr: Un ensemble d'enregistrements MetricObservation avec des métadonnées d'éditeur. Correspond
+        à un Dataset SDMX et à qb:DataSet à l'émission RDF.
+      source_domain: metrics
+  Period:
+    class_uri: publicschema:Period
+    title: Period
+    description: 'The temporal coverage of a MetricObservation. PublicSchema reifies the period as a separate
+      class (rather than carrying inline start_date / end_date like other Event subtypes) because the
+      SDMX and Data Cube emitters need a single URI-addressable interval to satisfy W3C Data Cube integrity
+      constraint IC-11 (every observation has a value for every dimension, including time).
+
+      '
+    slots:
+    - period_type
+    - start_date
+    - end_date
+    - granularity
+    - reference_period_type
+    - observation_frequency
+    status: bibo:status/forthcoming
+    close_mappings:
+    - dct:PeriodOfTime
+    - fhir:Period
+    annotations:
+      label_es: Período
+      label_fr: Période
+      description_es: La cobertura temporal de una MetricObservation. PublicSchema reifica el período como
+        una clase separada (en lugar de llevar inline start_date / end_date como otros subtipos de Event)
+        porque los emisores SDMX y Data Cube necesitan un único intervalo direccionable por URI para satisfacer
+        la restricción de integridad IC-11 de W3C Data Cube (toda observación tiene un valor para cada
+        dimensión, incluido el tiempo).
+      description_fr: La couverture temporelle d'une MetricObservation. PublicSchema réifie la période
+        en classe distincte (plutôt que de porter start_date / end_date en ligne comme les autres sous-types
+        d'Event) car les émetteurs SDMX et Data Cube ont besoin d'un seul intervalle adressable par URI
+        pour satisfaire la contrainte d'intégrité IC-11 du W3C Data Cube (toute observation a une valeur
+        pour chaque dimension, y compris le temps).
+      source_domain: metrics
+  DimensionValue:
+    class_uri: publicschema:DimensionValue
+    title: Dimension Value
+    description: 'One {dimension_uri, code} pair carried by a MetricObservation. Ordering matters for SDMX
+      DSD round-trip, so this is modelled as an ordered list of structured pairs rather than as a map.
+
+      '
+    slots:
+    - dimension_uri
+    - code
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: Valor de dimensión
+      label_fr: Valeur de dimension
+      description_es: Un par {dimension_uri, code} portado por una MetricObservation. El orden importa
+        para el ida y vuelta del DSD SDMX, por lo que se modela como una lista ordenada de pares estructurados
+        en lugar de como un mapa.
+      description_fr: Une paire {dimension_uri, code} portée par une MetricObservation. L'ordre importe
+        pour l'aller-retour de la DSD SDMX, c'est pourquoi cela est modélisé comme une liste ordonnée
+        de paires structurées plutôt que comme une map.
+      source_domain: metrics
+  AttributeValue:
+    class_uri: publicschema:AttributeValue
+    title: Attribute Value
+    description: 'One {attribute_uri, value} pair carried by a MetricObservation. Modelled as a list of
+      structured pairs rather than a map so attribute ordering and emitter behaviour are stable.
+
+      '
+    slots:
+    - attribute_uri
+    - attribute_value
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: Valor de atributo
+      label_fr: Valeur d'attribut
+      description_es: Un par {attribute_uri, value} portado por una MetricObservation. Se modela como una
+        lista de pares estructurados en lugar de como un mapa, para que el orden de los atributos y el
+        comportamiento del emisor sean estables.
+      description_fr: Une paire {attribute_uri, value} portée par une MetricObservation. Modélisée comme
+        une liste de paires structurées plutôt qu'une map, afin que l'ordre des attributs et le comportement
+        de l'émetteur soient stables.
+      source_domain: metrics
+slots:
+  value_type:
+    slot_uri: publicschema:value_type
+    title: Value type
+    description: The kind of numeric or categorical value a metric carries (count, proportion, ratio, currency
+      amount, index, duration, nominal, ordinal, qualitative).
+    range: ValueType
+    multivalued: false
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: Tipo de valor
+      label_fr: Type de valeur
+      description_es: El tipo de valor numérico o categórico que lleva una métrica (recuento, proporción,
+        ratio, monto monetario, índice, duración, nominal, ordinal, cualitativo).
+      description_fr: Le type de valeur numérique ou catégorielle porté par une métrique (compte, proportion,
+        ratio, montant monétaire, indice, durée, nominal, ordinal, qualitatif).
+  unit:
+    slot_uri: publicschema:unit
+    title: Unit
+    description: The unit of measure for a metric. May be a UCUM unit code, an ISO 4217 currency code for
+      currency amounts, the SDMX UNIT_MEASURE code 'PT' for percentages, or the literal 'unitless' for
+      proportions expressed in 0..1.
+    range: string
+    multivalued: false
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: Unidad
+      label_fr: Unité
+      description_es: La unidad de medida de una métrica. Puede ser un código UCUM, un código ISO 4217
+        de moneda para montos monetarios, el código SDMX UNIT_MEASURE 'PT' para porcentajes, o el literal
+        'unitless' para proporciones expresadas en 0..1.
+      description_fr: L'unité de mesure d'une métrique. Peut être un code UCUM, un code monétaire ISO 4217
+        pour les montants monétaires, le code SDMX UNIT_MEASURE 'PT' pour les pourcentages, ou le littéral
+        'unitless' pour les proportions exprimées en 0..1.
+  multiplier:
+    slot_uri: publicschema:multiplier
+    title: Multiplier
+    description: SDMX-style scale exponent. 0 for units, 3 for thousands, 6 for millions, 9 for billions.
+      Default 0.
+    range: integer
+    multivalued: false
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: Multiplicador
+      label_fr: Multiplicateur
+      description_es: Exponente de escala al estilo SDMX. 0 para unidades, 3 para miles, 6 para millones,
+        9 para miles de millones. Valor predeterminado 0.
+      description_fr: Exposant d'échelle au format SDMX. 0 pour les unités, 3 pour les milliers, 6 pour
+        les millions, 9 pour les milliards. Valeur par défaut 0.
+  decimals:
+    slot_uri: publicschema:decimals
+    title: Decimals
+    description: The number of decimal places to use when reporting the metric.
+    range: integer
+    multivalued: false
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: Decimales
+      label_fr: Décimales
+      description_es: El número de cifras decimales que se deben usar al reportar la métrica.
+      description_fr: Le nombre de décimales à utiliser lors du rapport de la métrique.
+  dimensions:
+    slot_uri: publicschema:dimensions
+    title: Dimensions
+    description: The ordered list of MetricDimension references that disaggregate this metric. Ordering
+      drives the DSD round-trip and the column order on SDMX-CSV emission.
+    range: MetricDimension
+    multivalued: true
+    inlined: false
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: Dimensiones
+      label_fr: Dimensions
+      description_es: La lista ordenada de referencias a MetricDimension que desagregan esta métrica. El
+        orden determina el ida y vuelta del DSD y el orden de las columnas en la emisión SDMX-CSV.
+      description_fr: La liste ordonnée des références MetricDimension qui désagrègent cette métrique.
+        L'ordre détermine l'aller-retour de la DSD et l'ordre des colonnes lors de l'émission SDMX-CSV.
+  attributes:
+    slot_uri: publicschema:attributes
+    title: Attributes
+    description: The list of MetricAttribute references that may decorate observations, series, or the
+      dataset for this metric.
+    range: MetricAttribute
+    multivalued: true
+    inlined: false
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: Atributos
+      label_fr: Attributs
+      description_es: La lista de referencias a MetricAttribute que pueden anotar observaciones, series
+        o el conjunto de datos para esta métrica.
+      description_fr: La liste des références MetricAttribute pouvant annoter les observations, les séries
+        ou le jeu de données de cette métrique.
+  calculation:
+    slot_uri: publicschema:calculation
+    title: Calculation
+    description: The single primary computation that turns PublicSchema record-level data into a value
+      for this metric. Variant computations are carried by libraries.
+    range: MetricCalculation
+    multivalued: false
+    inlined: true
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: Cálculo
+      label_fr: Calcul
+      description_es: El cálculo primario único que convierte los datos a nivel de registro de PublicSchema
+        en un valor para esta métrica. Las variantes son llevadas por las librerías.
+      description_fr: Le calcul primaire unique qui transforme les données PublicSchema au niveau de l'enregistrement
+        en une valeur pour cette métrique. Les variantes sont portées par les librairies.
+  topic:
+    slot_uri: publicschema:topic
+    title: Topic
+    description: The substantive topic family of the metric (coverage, adequacy, expenditure, leakage,
+      targeting, inclusion error, exclusion error, regularity, processing time, satisfaction). Drives
+      browsing and faceting on the website.
+    range: MetricTopic
+    multivalued: false
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: Tema
+      label_fr: Thématique
+      description_es: La familia temática sustantiva de la métrica (cobertura, adecuación, gasto, fuga,
+        focalización, error de inclusión, error de exclusión, regularidad, tiempo de procesamiento, satisfacción).
+        Impulsa la navegación y el facetado en el sitio web.
+      description_fr: La famille thématique substantielle de la métrique (couverture, adéquation, dépenses,
+        fuite, ciblage, erreur d'inclusion, erreur d'exclusion, régularité, temps de traitement, satisfaction).
+        Pilote la navigation et le facettage sur le site web.
+  concept_uri:
+    slot_uri: publicschema:concept_uri
+    title: Concept URI
+    description: The skos:Concept URI this metric, dimension, or attribute realises. Multiple metrics may
+      share a single concept_uri when they measure the same underlying notion through different operationalisations.
+    range: uri
+    multivalued: false
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: URI de concepto
+      label_fr: URI de concept
+      description_es: El URI skos:Concept que esta métrica, dimensión o atributo realiza. Múltiples métricas
+        pueden compartir un único concept_uri cuando miden la misma noción subyacente mediante diferentes
+        operacionalizaciones.
+      description_fr: L'URI skos:Concept que cette métrique, dimension ou attribut réalise. Plusieurs métriques
+        peuvent partager un seul concept_uri lorsqu'elles mesurent la même notion sous-jacente via différentes
+        opérationnalisations.
+  metric_family:
+    slot_uri: publicschema:metric_family
+    title: Metric family
+    description: 'Optional URI tagging this metric with a metric-family group. Metrics sharing a family
+      value also share dimensions and observation-level attributes; the family value drives DSD generation.
+      Modelled as a tag rather than a separate MetricFamily class until there are at least three real
+      families. Named metric_family to avoid collision with the family slot in schema/civil_status.yaml.
+
+      '
+    range: uri
+    multivalued: false
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: Familia de métricas
+      label_fr: Famille de métriques
+      description_es: URI opcional que etiqueta esta métrica con un grupo de familia. Las métricas que
+        comparten un valor de familia también comparten dimensiones y atributos a nivel de observación;
+        el valor de familia impulsa la generación del DSD. Se modela como una etiqueta en lugar de una
+        clase MetricFamily separada hasta que existan al menos tres familias reales.
+      description_fr: URI optionnel marquant cette métrique avec un groupe de famille. Les métriques partageant
+        une valeur de famille partagent également des dimensions et des attributs au niveau de l'observation ;
+        la valeur de famille pilote la génération de la DSD. Modélisée comme une étiquette plutôt qu'une
+        classe MetricFamily séparée jusqu'à ce qu'il y ait au moins trois familles réelles.
+  aligns_with:
+    slot_uri: publicschema:aligns_with
+    title: Aligns with
+    description: 'External URIs to which this metric, dimension, or attribute aligns: SDMX agency DSDs,
+      UN SDG indicators, ASPIRE families, ESSPROS reference metadata, SOCX DSDs, DHIS2 indicator UIDs,
+      IATI indicator codes, HXL hashtags. Alignment is one-way semantic; PublicSchema does not synchronise
+      with these registries.
+
+      '
+    range: uri
+    multivalued: true
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: Se alinea con
+      label_fr: S'aligne avec
+      description_es: 'URIs externos con los que esta métrica, dimensión o atributo se alinea: DSDs de agencias
+        SDMX, indicadores ODS de la ONU, familias ASPIRE, metadatos de referencia ESSPROS, DSDs SOCX,
+        UIDs de indicadores DHIS2, códigos de indicador IATI, hashtags HXL. La alineación es semántica
+        unidireccional; PublicSchema no se sincroniza con estos registros.'
+      description_fr: 'URIs externes auxquels cette métrique, dimension ou attribut s''aligne : DSDs d''agences
+        SDMX, indicateurs ODD de l''ONU, familles ASPIRE, métadonnées de référence ESSPROS, DSDs SOCX,
+        UIDs d''indicateurs DHIS2, codes d''indicateur IATI, hashtags HXL. L''alignement est sémantique
+        à sens unique ; PublicSchema ne se synchronise pas avec ces registres.'
+  core:
+    slot_uri: publicschema:core
+    title: Core catalogue
+    description: 'True if the metric belongs to the core tier (shipped with every PublicSchema deployment),
+      false if it belongs to the extended tier (opt-in, country or program-specific). Per design-principles.md
+      principle 9.
+
+      '
+    range: boolean
+    multivalued: false
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: Núcleo del catálogo
+      label_fr: Coeur du catalogue
+      description_es: Verdadero si la métrica pertenece al nivel central (incluido en todas las implementaciones
+        de PublicSchema), falso si pertenece al nivel extendido (opcional, específico de un país o programa).
+        Conforme al principio 9 de design-principles.md.
+      description_fr: Vrai si la métrique appartient au niveau central (livré avec toutes les implémentations
+        PublicSchema), faux si elle appartient au niveau étendu (optionnel, spécifique à un pays ou à un
+        programme). Conformément au principe 9 de design-principles.md.
+  replaces:
+    slot_uri: publicschema:replaces
+    title: Replaces
+    description: URI of the metric record that this metric supersedes.
+    range: uri
+    multivalued: false
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: Reemplaza
+      label_fr: Remplace
+      description_es: URI del registro de métrica que esta métrica reemplaza.
+      description_fr: URI de l'enregistrement de métrique que cette métrique remplace.
+  replaced_by:
+    slot_uri: publicschema:replaced_by
+    title: Replaced by
+    description: URI of the metric record that supersedes this metric.
+    range: uri
+    multivalued: false
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: Reemplazado por
+      label_fr: Remplacé par
+      description_es: URI del registro de métrica que reemplaza esta métrica.
+      description_fr: URI de l'enregistrement de métrique qui remplace cette métrique.
+  value_range:
+    slot_uri: publicschema:value_range
+    title: Value range
+    description: 'The LinkML range or external code list URI that constrains the values of a dimension
+      or attribute. Named ''value_range'' rather than ''range'' to avoid shadowing the LinkML keyword.
+
+      '
+    range: string
+    multivalued: false
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: Rango de valores
+      label_fr: Plage de valeurs
+      description_es: El rango LinkML o el URI de la lista de códigos externa que restringe los valores
+        de una dimensión o atributo. Se llama 'value_range' en lugar de 'range' para evitar colisionar
+        con la palabra clave de LinkML.
+      description_fr: La plage LinkML ou l'URI de la liste de codes externe qui contraint les valeurs d'une
+        dimension ou d'un attribut. Nommée 'value_range' plutôt que 'range' pour éviter de masquer le
+        mot-clé LinkML.
+  code_list_uri:
+    slot_uri: publicschema:code_list_uri
+    title: Code list URI
+    description: 'The canonical URI of the code list that supplies permissible values for this dimension
+      or attribute. May be a PublicSchema vocabulary URI or an SDMX agency codelist URN (e.g., urn:sdmx:org.sdmx.infomodel.codelist.Codelist=SDMX:CL_AREA(2.1)).
+
+      '
+    range: uri
+    multivalued: false
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: URI de lista de códigos
+      label_fr: URI de liste de codes
+      description_es: El URI canónico de la lista de códigos que proporciona los valores permitidos para
+        esta dimensión o atributo. Puede ser el URI de un vocabulario de PublicSchema o un URN de lista
+        de códigos de agencia SDMX.
+      description_fr: L'URI canonique de la liste de codes qui fournit les valeurs autorisées pour cette
+        dimension ou cet attribut. Peut être un URI de vocabulaire PublicSchema ou un URN de liste de
+        codes d'agence SDMX.
+  is_required:
+    slot_uri: publicschema:is_required
+    title: Is required
+    description: Whether this dimension or attribute is required on every observation.
+    range: boolean
+    multivalued: false
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: Es obligatorio
+      label_fr: Est requis
+      description_es: Si esta dimensión o atributo es obligatorio en cada observación.
+      description_fr: Indique si cette dimension ou cet attribut est requis sur chaque observation.
+  ordering:
+    slot_uri: publicschema:ordering
+    title: Ordering
+    description: The integer position of this dimension within the DSD. Drives column order on SDMX-CSV
+      emission and the dimension order on observation records.
+    range: integer
+    multivalued: false
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: Orden
+      label_fr: Ordre
+      description_es: La posición entera de esta dimensión dentro del DSD. Determina el orden de columnas
+        en la emisión SDMX-CSV y el orden de dimensiones en los registros de observación.
+      description_fr: La position entière de cette dimension au sein de la DSD. Pilote l'ordre des colonnes
+        à l'émission SDMX-CSV et l'ordre des dimensions sur les enregistrements d'observation.
+  attachment_level:
+    slot_uri: publicschema:attachment_level
+    title: Attachment level
+    description: 'The SDMX attachment level for this attribute: dataset, series (dimension-group), or observation.
+      The level determines where the SDMX emitter places the attribute on output.
+
+      '
+    range: AttachmentLevel
+    multivalued: false
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: Nivel de adjunción
+      label_fr: Niveau de rattachement
+      description_es: 'El nivel de adjunción SDMX para este atributo: conjunto de datos, serie (grupo de
+        dimensiones) u observación. El nivel determina dónde coloca el emisor SDMX el atributo en la salida.'
+      description_fr: 'Le niveau de rattachement SDMX pour cet attribut : jeu de données, série (groupe
+        de dimensions) ou observation. Le niveau détermine où l''émetteur SDMX place l''attribut en sortie.'
+  scoring:
+    slot_uri: publicschema:scoring
+    title: Scoring
+    description: 'The scoring method applied by this calculation. Mirrors FHIR R5 Measure.scoring: proportion,
+      ratio, continuous-variable, cohort. Authors validate the populations against this value at schema-load
+      time.
+
+      '
+    range: ScoringMethod
+    multivalued: false
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: Método de puntuación
+      label_fr: Méthode de notation
+      description_es: 'El método de puntuación aplicado por este cálculo. Refleja FHIR R5 Measure.scoring:
+        proportion, ratio, continuous-variable, cohort. Los autores validan las poblaciones contra este
+        valor en el momento de la carga del esquema.'
+      description_fr: 'La méthode de notation appliquée par ce calcul. Reflète FHIR R5 Measure.scoring :
+        proportion, ratio, continuous-variable, cohort. Les auteurs valident les populations par rapport
+        à cette valeur au moment du chargement du schéma.'
+  subject_class:
+    slot_uri: publicschema:subject_class
+    title: Subject class
+    description: 'The PublicSchema class URI whose records the populations select over (for example, publicschema:Person
+      or publicschema:Enrollment). Diverges from FHIR Measure.subject[x], which is CodeableConcept | Reference(Group);
+      PublicSchema subjects are PS class URIs.
+
+      '
+    range: uri
+    multivalued: false
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: Clase del sujeto
+      label_fr: Classe du sujet
+      description_es: El URI de la clase de PublicSchema sobre cuyos registros se evalúan las poblaciones
+        (por ejemplo, publicschema:Person o publicschema:Enrollment). Diverge de FHIR Measure.subject[x],
+        que es CodeableConcept | Reference(Group); los sujetos de PublicSchema son URIs de clases de PS.
+      description_fr: L'URI de classe PublicSchema dont les populations sélectionnent les enregistrements
+        (par exemple, publicschema:Person ou publicschema:Enrollment). Diverge de FHIR Measure.subject[x],
+        qui est CodeableConcept | Reference(Group) ; les sujets PublicSchema sont des URIs de classes
+        PS.
+  populations:
+    slot_uri: publicschema:populations
+    title: Populations
+    description: The ordered list of PopulationCriterion records that select records for the numerator,
+      denominator, exclusions, exceptions, and the per-record observation in a continuous-variable scoring
+      method.
+    range: PopulationCriterion
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: Poblaciones
+      label_fr: Populations
+      description_es: La lista ordenada de registros PopulationCriterion que seleccionan registros para
+        el numerador, denominador, exclusiones, excepciones y la observación por registro en un método
+        de puntuación continuous-variable.
+      description_fr: La liste ordonnée d'enregistrements PopulationCriterion qui sélectionnent les enregistrements
+        pour le numérateur, le dénominateur, les exclusions, les exceptions et l'observation par enregistrement
+        dans une méthode de notation continuous-variable.
+  stratifiers:
+    slot_uri: publicschema:stratifiers
+    title: Stratifiers
+    description: The list of Stratifier expressions evaluated against the populations of this calculation.
+    range: Stratifier
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: Estratificadores
+      label_fr: Stratificateurs
+      description_es: La lista de expresiones Stratifier evaluadas contra las poblaciones de este cálculo.
+      description_fr: La liste des expressions Stratifier évaluées par rapport aux populations de ce calcul.
+  rate_aggregation:
+    slot_uri: publicschema:rate_aggregation
+    title: Rate aggregation
+    description: 'How per-stratum rates are aggregated back to a single metric value: average, sum, or
+      none (report per-stratum only).
+
+      '
+    range: RateAggregation
+    multivalued: false
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: Agregación de tasa
+      label_fr: Agrégation du taux
+      description_es: 'Cómo se agregan las tasas por estrato en un único valor de métrica: promedio, suma
+        o ninguna (reportar solo por estrato).'
+      description_fr: 'Comment les taux par strate sont agrégés en une seule valeur de métrique : moyenne,
+        somme ou aucun (rapport par strate uniquement).'
+  improvement_notation:
+    slot_uri: publicschema:improvement_notation
+    title: Improvement notation
+    description: 'Whether an increase in the metric value is desirable, undesirable, or policy-dependent.
+      Extends FHIR R5 Measure.improvementNotation with policy_dependent for non-clinical metrics (e.g.,
+      expenditure-to-GDP ratios where the desirable direction depends on policy framing).
+
+      '
+    range: ImprovementNotation
+    multivalued: false
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: Notación de mejora
+      label_fr: Notation d'amélioration
+      description_es: Si un aumento en el valor de la métrica es deseable, indeseable o depende de la política.
+        Extiende FHIR R5 Measure.improvementNotation con policy_dependent para métricas no clínicas (por
+        ejemplo, ratios de gasto sobre PIB cuyo sentido deseable depende del enfoque de política).
+      description_fr: Si une augmentation de la valeur de la métrique est souhaitable, indésirable ou dépend
+        de la politique. Étend FHIR R5 Measure.improvementNotation avec policy_dependent pour les métriques
+        non cliniques (par exemple, les ratios dépenses-sur-PIB dont la direction souhaitable dépend du
+        cadrage politique).
+  libraries:
+    slot_uri: publicschema:libraries
+    title: Libraries
+    description: 'HTTPS-dereferenceable library URIs hosting reusable criteria definitions referenced by
+      @ref:LibraryName.Symbol expressions in the calculation. PublicSchema recommends content-addressed
+      URIs so a metric''s calculation is bit-stable across publications.
+
+      '
+    range: uri
+    multivalued: true
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: Librerías
+      label_fr: Librairies
+      description_es: URIs de librerías que pueden ser dereferenciados por HTTPS y que alojan definiciones
+        de criterios reutilizables, referenciadas mediante expresiones @ref:LibraryName.Symbol en el cálculo.
+        PublicSchema recomienda URIs direccionables por contenido para que el cálculo de una métrica sea
+        estable bit a bit entre publicaciones.
+      description_fr: URIs de librairies déréférençables par HTTPS hébergeant des définitions de critères
+        réutilisables référencées par des expressions @ref:LibraryName.Symbol dans le calcul. PublicSchema
+        recommande des URIs adressées par le contenu afin que le calcul d'une métrique soit stable au
+        bit près entre les publications.
+  population_type:
+    slot_uri: publicschema:population_type
+    title: Population type
+    description: 'The role this population plays in the calculation: initial-population, denominator, denominator-exclusion,
+      denominator-exception, numerator, numerator-exclusion, measure-population, measure-population-exclusion,
+      or measure-observation. Follows FHIR R5 Measure.
+
+      '
+    range: PopulationType
+    multivalued: false
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: Tipo de población
+      label_fr: Type de population
+      description_es: 'El rol que esta población juega en el cálculo: initial-population, denominator,
+        denominator-exclusion, denominator-exception, numerator, numerator-exclusion, measure-population,
+        measure-population-exclusion o measure-observation. Sigue FHIR R5 Measure.'
+      description_fr: 'Le rôle joué par cette population dans le calcul : initial-population, denominator,
+        denominator-exclusion, denominator-exception, numerator, numerator-exclusion, measure-population,
+        measure-population-exclusion ou measure-observation. Suit FHIR R5 Measure.'
+  language:
+    slot_uri: publicschema:language
+    title: Language
+    description: 'The IANA media type identifying the language of a criteria expression: application/sql,
+      application/vtl, text/cql, text/fhirpath. PublicSchema pins the media type so consumers know which
+      engine to invoke; it does not pick a winner.
+
+      '
+    range: string
+    multivalued: false
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: Lenguaje
+      label_fr: Langage
+      description_es: 'El tipo de medio IANA que identifica el lenguaje de una expresión de criterios:
+        application/sql, application/vtl, text/cql, text/fhirpath. PublicSchema fija el tipo de medio
+        para que los consumidores sepan qué motor invocar; no elige un ganador.'
+      description_fr: 'Le type de média IANA identifiant le langage d''une expression de critères : application/sql,
+        application/vtl, text/cql, text/fhirpath. PublicSchema fixe le type de média afin que les consommateurs
+        sachent quel moteur invoquer ; il ne désigne pas de gagnant.'
+  criteria:
+    slot_uri: publicschema:criteria
+    title: Criteria
+    description: 'A criteria expression in the language identified by the paired language slot. May be
+      inline source code or a reference of the form @ref:LibraryName.Symbol resolved against the calculation''s
+      libraries list.
+
+      '
+    range: string
+    multivalued: false
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: Criterios
+      label_fr: Critères
+      description_es: Una expresión de criterios en el lenguaje identificado por el slot language emparejado.
+        Puede ser código fuente inline o una referencia de la forma @ref:LibraryName.Symbol resuelta contra
+        la lista de librerías del cálculo.
+      description_fr: Une expression de critères dans le langage identifié par le slot language associé.
+        Peut être du code source en ligne ou une référence de la forme @ref:LibraryName.Symbol résolue
+        par rapport à la liste des librairies du calcul.
+  stratifier_code:
+    slot_uri: publicschema:stratifier_code
+    title: Stratifier code
+    description: A short identifier for a stratifier, used when emitting per-stratum rates (for example,
+      'by-sex', 'by-age-band').
+    range: string
+    multivalued: false
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: Código de estratificador
+      label_fr: Code de stratificateur
+      description_es: Un identificador corto para un estratificador, utilizado al emitir tasas por estrato
+        (por ejemplo, 'por-sexo', 'por-grupo-de-edad').
+      description_fr: Un identifiant court pour un stratificateur, utilisé lors de l'émission de taux par
+        strate (par exemple, 'par-sexe', 'par-tranche-d-âge').
+  components:
+    slot_uri: publicschema:components
+    title: Components
+    description: Nested stratifiers that compose with their parent (for example, by-sex-and-age nests inside
+      by-sex).
+    range: Stratifier
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: Componentes
+      label_fr: Composants
+      description_es: Estratificadores anidados que se componen con su padre (por ejemplo, by-sex-and-age
+        anidado dentro de by-sex).
+      description_fr: Stratificateurs imbriqués qui se composent avec leur parent (par exemple, by-sex-and-age
+        imbriqué dans by-sex).
+  metric:
+    slot_uri: publicschema:metric
+    title: Metric
+    description: The URI of the Metric this observation reports a value against.
+    range: uri
+    multivalued: false
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: Métrica
+      label_fr: Métrique
+      description_es: El URI de la Metric contra la cual esta observación reporta un valor.
+      description_fr: L'URI de la Metric par rapport à laquelle cette observation rapporte une valeur.
+  period:
+    slot_uri: publicschema:period
+    title: Period
+    description: The temporal coverage of this observation.
+    range: Period
+    multivalued: false
+    inlined: true
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: Período
+      label_fr: Période
+      description_es: La cobertura temporal de esta observación.
+      description_fr: La couverture temporelle de cette observation.
+  dimension_values:
+    slot_uri: publicschema:dimension_values
+    title: Dimension values
+    description: 'The ordered list of {dimension_uri, code} pairs that locate this observation in the metric''s
+      DSD. Ordering matches Metric.dimensions; every dimension declared on the Metric must have a value
+      on every observation (W3C Data Cube integrity constraint IC-11).
+
+      '
+    range: DimensionValue
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: Valores de dimensión
+      label_fr: Valeurs de dimension
+      description_es: La lista ordenada de pares {dimension_uri, code} que localizan esta observación en
+        el DSD de la métrica. El orden coincide con Metric.dimensions; cada dimensión declarada en la
+        Metric debe tener un valor en cada observación (restricción de integridad IC-11 de W3C Data Cube).
+      description_fr: La liste ordonnée de paires {dimension_uri, code} qui localisent cette observation
+        dans la DSD de la métrique. L'ordre correspond à Metric.dimensions ; chaque dimension déclarée
+        sur la Metric doit avoir une valeur sur chaque observation (contrainte d'intégrité IC-11 du W3C
+        Data Cube).
+  metric_value:
+    slot_uri: publicschema:metric_value
+    title: Value
+    description: 'The numeric value reported by this observation. Scale is fixed by Metric.unit and Metric.multiplier:
+      for value_type proportion with unit unitless, the value is in 0..1; with unit PT, the value is in
+      0..100. The observation cannot override scale.
+
+      '
+    range: float
+    multivalued: false
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: Valor
+      label_fr: Valeur
+      description_es: 'El valor numérico reportado por esta observación. La escala está fijada por Metric.unit
+        y Metric.multiplier: para value_type proportion con unit unitless, el valor está en 0..1; con
+        unit PT, el valor está en 0..100. La observación no puede anular la escala.'
+      description_fr: 'La valeur numérique rapportée par cette observation. L''échelle est fixée par Metric.unit
+        et Metric.multiplier : pour value_type proportion avec unit unitless, la valeur est dans 0..1 ;
+        avec unit PT, la valeur est dans 0..100. L''observation ne peut pas remplacer l''échelle.'
+  attribute_values:
+    slot_uri: publicschema:attribute_values
+    title: Attribute values
+    description: 'The list of {attribute_uri, value} pairs that decorate this observation, series, or dataset.
+      When UNIT_MEASURE appears here, it must equal Metric.unit.
+
+      '
+    range: AttributeValue
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: Valores de atributo
+      label_fr: Valeurs d'attribut
+      description_es: La lista de pares {attribute_uri, value} que anotan esta observación, serie o conjunto
+        de datos. Cuando UNIT_MEASURE aparece aquí, debe ser igual a Metric.unit.
+      description_fr: La liste de paires {attribute_uri, value} qui décorent cette observation, série
+        ou jeu de données. Lorsque UNIT_MEASURE apparaît ici, il doit être égal à Metric.unit.
+  calculation_uri:
+    slot_uri: publicschema:calculation_uri
+    title: Calculation URI
+    description: The URI of the MetricCalculation definition this observation realises.
+    range: uri
+    multivalued: false
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: URI del cálculo
+      label_fr: URI du calcul
+      description_es: El URI de la definición MetricCalculation que esta observación realiza.
+      description_fr: L'URI de la définition MetricCalculation que cette observation réalise.
+  execution_uri:
+    slot_uri: publicschema:execution_uri
+    title: Execution URI
+    description: 'Optional URI of an execution record (provenance: software agent, run timestamp, parameter
+      set). Light PROV-O alignment recommended; full execution-provenance shape is deferred.
+
+      '
+    range: uri
+    multivalued: false
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: URI de ejecución
+      label_fr: URI d'exécution
+      description_es: 'URI opcional de un registro de ejecución (procedencia: agente de software, marca
+        de tiempo de ejecución, conjunto de parámetros). Se recomienda una alineación ligera con PROV-O;
+        la forma completa de la procedencia de ejecución se difiere.'
+      description_fr: 'URI optionnel d''un enregistrement d''exécution (provenance : agent logiciel, horodatage
+        d''exécution, jeu de paramètres). Alignement léger sur PROV-O recommandé ; la forme complète de
+        la provenance d''exécution est différée.'
+  dimension_uri:
+    slot_uri: publicschema:dimension_uri
+    title: Dimension URI
+    description: The URI of the MetricDimension whose code this DimensionValue carries.
+    range: uri
+    multivalued: false
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: URI de dimensión
+      label_fr: URI de dimension
+      description_es: El URI de la MetricDimension cuyo código lleva este DimensionValue.
+      description_fr: L'URI de la MetricDimension dont ce DimensionValue porte le code.
+  code:
+    slot_uri: publicschema:code
+    title: Code
+    description: The code from the dimension's code list that locates the observation along this dimension.
+    range: string
+    multivalued: false
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: Código
+      label_fr: Code
+      description_es: El código de la lista de códigos de la dimensión que localiza la observación a lo
+        largo de esta dimensión.
+      description_fr: Le code de la liste de codes de la dimension qui localise l'observation le long de
+        cette dimension.
+  attribute_uri:
+    slot_uri: publicschema:attribute_uri
+    title: Attribute URI
+    description: The URI of the MetricAttribute whose value this AttributeValue carries.
+    range: uri
+    multivalued: false
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: URI de atributo
+      label_fr: URI d'attribut
+      description_es: El URI del MetricAttribute cuyo valor lleva este AttributeValue.
+      description_fr: L'URI du MetricAttribute dont ce AttributeValue porte la valeur.
+  attribute_value:
+    slot_uri: publicschema:attribute_value
+    title: Attribute value
+    description: 'The literal value of an attribute on an observation, series, or dataset. Typed as string
+      because attribute values are heterogeneous (status codes, integer counts, free text); cast at emission
+      time against the attribute''s declared value_range.
+
+      '
+    range: string
+    multivalued: false
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: Valor de atributo
+      label_fr: Valeur d'attribut
+      description_es: El valor literal de un atributo en una observación, serie o conjunto de datos. Tipado
+        como string porque los valores de los atributos son heterogéneos (códigos de estado, recuentos
+        enteros, texto libre); se convierten en el momento de la emisión contra el value_range declarado
+        del atributo.
+      description_fr: La valeur littérale d'un attribut sur une observation, série ou jeu de données.
+        Typé string car les valeurs d'attributs sont hétérogènes (codes de statut, comptes entiers, texte
+        libre) ; converties au moment de l'émission par rapport au value_range déclaré de l'attribut.
+  published_at:
+    slot_uri: publicschema:published_at
+    title: Published at
+    description: The datetime at which this MetricReport was published.
+    range: datetime
+    multivalued: false
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: Publicado en
+      label_fr: Publié le
+      description_es: La fecha y hora en que se publicó este MetricReport.
+      description_fr: La date et l'heure auxquelles ce MetricReport a été publié.
+  reference_date:
+    slot_uri: publicschema:reference_date
+    title: Reference date
+    description: The reference date for the values reported in this bundle. May differ from published_at
+      when reports are issued retrospectively.
+    range: date
+    multivalued: false
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: Fecha de referencia
+      label_fr: Date de référence
+      description_es: La fecha de referencia de los valores reportados en este conjunto. Puede diferir
+        de published_at cuando los informes se emiten de forma retrospectiva.
+      description_fr: La date de référence des valeurs rapportées dans ce paquet. Peut différer de published_at
+        lorsque les rapports sont émis rétrospectivement.
+  methodology_uri:
+    slot_uri: publicschema:methodology_uri
+    title: Methodology URI
+    description: URI of the methodology document, code book, or technical note that describes how the values
+      in this report were produced.
+    range: uri
+    multivalued: false
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: URI de metodología
+      label_fr: URI de méthodologie
+      description_es: URI del documento de metodología, libro de códigos o nota técnica que describe cómo
+        se produjeron los valores en este informe.
+      description_fr: URI du document de méthodologie, du livre de codes ou de la note technique décrivant
+        comment les valeurs de ce rapport ont été produites.
+  license:
+    slot_uri: publicschema:license
+    title: License
+    description: The license under which this MetricReport is released (for example, CC-BY-4.0, CC0-1.0).
+    range: string
+    multivalued: false
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: Licencia
+      label_fr: Licence
+      description_es: La licencia bajo la cual se publica este MetricReport (por ejemplo, CC-BY-4.0, CC0-1.0).
+      description_fr: La licence sous laquelle ce MetricReport est publié (par exemple, CC-BY-4.0, CC0-1.0).
+  contact_uri:
+    slot_uri: publicschema:contact_uri
+    title: Contact URI
+    description: URI of the contact point for questions about this MetricReport (a mailto URI, a person
+      page, or an agency contact page).
+    range: uri
+    multivalued: false
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: URI de contacto
+      label_fr: URI de contact
+      description_es: URI del punto de contacto para preguntas sobre este MetricReport (un URI mailto,
+        una página de persona o una página de contacto de la agencia).
+      description_fr: URI du point de contact pour les questions concernant ce MetricReport (un URI mailto,
+        une page de personne ou une page de contact d'agence).
+  observations:
+    slot_uri: publicschema:observations
+    title: Observations
+    description: The MetricObservation records bundled in this report.
+    range: MetricObservation
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: Observaciones
+      label_fr: Observations
+      description_es: Los registros MetricObservation incluidos en este informe.
+      description_fr: Les enregistrements MetricObservation regroupés dans ce rapport.
+  dsd_uri:
+    slot_uri: publicschema:dsd_uri
+    title: DSD URI
+    description: The URN of the SDMX Data Structure Definition this report claims conformance to. Composes
+      as urn:sdmx:org.sdmx.infomodel.datastructure.DataStructure=<Agency>:<ID>(<Version>).
+    range: uri
+    multivalued: false
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: URI del DSD
+      label_fr: URI de la DSD
+      description_es: La URN de la Data Structure Definition SDMX a la que este informe afirma conformidad.
+        Se compone como urn:sdmx:org.sdmx.infomodel.datastructure.DataStructure=<Agency>:<ID>(<Version>).
+      description_fr: L'URN de la Data Structure Definition SDMX à laquelle ce rapport déclare se conformer.
+        Composée comme urn:sdmx:org.sdmx.infomodel.datastructure.DataStructure=<Agency>:<ID>(<Version>).
+  period_type:
+    slot_uri: publicschema:period_type
+    title: Period type
+    description: 'The kind of period: point_in_time, span, cohort, fiscal_year, or calendar_year.'
+    range: PeriodType
+    multivalued: false
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: Tipo de período
+      label_fr: Type de période
+      description_es: 'El tipo de período: point_in_time, span, cohort, fiscal_year o calendar_year.'
+      description_fr: 'Le type de période : point_in_time, span, cohort, fiscal_year ou calendar_year.'
+  granularity:
+    slot_uri: publicschema:granularity
+    title: Granularity
+    description: 'The granularity of the period: year, quarter, month, week, day, or hour.'
+    range: Granularity
+    multivalued: false
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: Granularidad
+      label_fr: Granularité
+      description_es: 'La granularidad del período: year, quarter, month, week, day o hour.'
+      description_fr: 'La granularité de la période : year, quarter, month, week, day ou hour.'
+  reference_period_type:
+    slot_uri: publicschema:reference_period_type
+    title: Reference period type
+    description: An SDMX REF_PERIOD type identifier when relevant (for example, the reference week for
+      labour force surveys, the academic year for school-attendance metrics).
+    range: string
+    multivalued: false
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: Tipo de período de referencia
+      label_fr: Type de période de référence
+      description_es: Un identificador de tipo SDMX REF_PERIOD cuando es relevante (por ejemplo, la semana
+        de referencia para encuestas de fuerza laboral, el año académico para métricas de asistencia escolar).
+      description_fr: Un identifiant de type SDMX REF_PERIOD lorsque pertinent (par exemple, la semaine
+        de référence pour les enquêtes sur la population active, l'année académique pour les métriques
+        de fréquentation scolaire).
+  observation_frequency:
+    slot_uri: publicschema:observation_frequency
+    title: Observation frequency
+    description: 'The SDMX FREQ code for this period: A (annual), Q (quarterly), M (monthly), W (weekly),
+      D (daily), H (hourly). Carried as a single-letter code; resolves to urn:sdmx:org.sdmx.infomodel.codelist.Codelist=SDMX:CL_FREQ.
+      Named observation_frequency to avoid collision with the benefit-delivery frequency slot in schema/program.yaml.
+
+      '
+    range: Frequency
+    multivalued: false
+    status: bibo:status/forthcoming
+    annotations:
+      label_es: Frecuencia de observación
+      label_fr: Fréquence d'observation
+      description_es: 'El código SDMX FREQ para este período: A (anual), Q (trimestral), M (mensual), W
+        (semanal), D (diario), H (horario). Se lleva como un código de una sola letra; se resuelve a urn:sdmx:org.sdmx.infomodel.codelist.Codelist=SDMX:CL_FREQ.'
+      description_fr: 'Le code SDMX FREQ pour cette période : A (annuel), Q (trimestriel), M (mensuel),
+        W (hebdomadaire), D (quotidien), H (horaire). Porté comme un code à une seule lettre ; se résout
+        en urn:sdmx:org.sdmx.infomodel.codelist.Codelist=SDMX:CL_FREQ.'
+enums:
+  ValueType:
+    enum_uri: publicschema:ValueType
+    title: Value type
+    description: The kind of numeric or categorical value a metric carries.
+    status: bibo:status/forthcoming
+    permissible_values:
+      count:
+        meaning: publicschema:ValueType/count
+        title: Count
+        description: An integer count of records or events.
+      proportion:
+        meaning: publicschema:ValueType/proportion
+        title: Proportion
+        description: A value in the range 0..1 (unit unitless) or 0..100 (unit PT).
+      ratio:
+        meaning: publicschema:ValueType/ratio
+        title: Ratio
+        description: A ratio of two independent quantities. The numerator and denominator come from independent
+          populations.
+      currency_amount:
+        meaning: publicschema:ValueType/currency_amount
+        title: Currency amount
+        description: A monetary amount, with currency identified by Metric.unit (ISO 4217).
+      index:
+        meaning: publicschema:ValueType/index
+        title: Index
+        description: A scaled or composite indicator value (for example, a Gini coefficient or composite
+          index).
+      duration:
+        meaning: publicschema:ValueType/duration
+        title: Duration
+        description: A time duration, with unit identified by Metric.unit (UCUM).
+      nominal:
+        meaning: publicschema:ValueType/nominal
+        title: Nominal
+        description: A categorical value from a code list with no inherent ordering.
+      ordinal:
+        meaning: publicschema:ValueType/ordinal
+        title: Ordinal
+        description: A categorical value from a code list with inherent ordering.
+      qualitative:
+        meaning: publicschema:ValueType/qualitative
+        title: Qualitative
+        description: A free-text value or coded qualitative judgement.
+    annotations:
+      label_es: Tipo de valor
+      label_fr: Type de valeur
+  ScoringMethod:
+    enum_uri: publicschema:ScoringMethod
+    title: Scoring method
+    description: 'The scoring method applied by a MetricCalculation. Mirrors FHIR R5 Measure.scoring with
+      one shared semantics; PublicSchema adds no new methods.
+
+      '
+    status: bibo:status/forthcoming
+    permissible_values:
+      proportion:
+        meaning: publicschema:ScoringMethod/proportion
+        title: Proportion
+        description: Numerator is a subset of denominator; reports a value in 0..1 (or 0..100 with unit
+          PT).
+      ratio:
+        meaning: publicschema:ScoringMethod/ratio
+        title: Ratio
+        description: Numerator and denominator come from independent populations.
+      continuous-variable:
+        meaning: publicschema:ScoringMethod/continuous-variable
+        title: Continuous variable
+        description: Each member of the measure-population contributes a per-record value, aggregated by
+          rate_aggregation.
+      cohort:
+        meaning: publicschema:ScoringMethod/cohort
+        title: Cohort
+        description: Reports the size of the initial-population.
+    exact_mappings:
+    - http://terminology.hl7.org/CodeSystem/measure-scoring
+    annotations:
+      label_es: Método de puntuación
+      label_fr: Méthode de notation
+  ImprovementNotation:
+    enum_uri: publicschema:ImprovementNotation
+    title: Improvement notation
+    description: Whether an increase in the metric value is desirable, undesirable, or policy-dependent.
+    status: bibo:status/forthcoming
+    permissible_values:
+      increase:
+        meaning: publicschema:ImprovementNotation/increase
+        title: Increase is desirable
+      decrease:
+        meaning: publicschema:ImprovementNotation/decrease
+        title: Decrease is desirable
+      policy_dependent:
+        meaning: publicschema:ImprovementNotation/policy_dependent
+        title: Direction depends on policy framing
+        description: PublicSchema extension to FHIR R5 Measure.improvementNotation for non-clinical metrics
+          (for example, expenditure-to-GDP ratios).
+    close_mappings:
+    - http://terminology.hl7.org/CodeSystem/measure-improvement-notation
+    annotations:
+      label_es: Notación de mejora
+      label_fr: Notation d'amélioration
+  RateAggregation:
+    enum_uri: publicschema:RateAggregation
+    title: Rate aggregation
+    description: How per-stratum rates are aggregated back to a single metric value.
+    status: bibo:status/forthcoming
+    permissible_values:
+      average:
+        meaning: publicschema:RateAggregation/average
+        title: Average
+      sum:
+        meaning: publicschema:RateAggregation/sum
+        title: Sum
+      none:
+        meaning: publicschema:RateAggregation/none
+        title: None
+        description: Report per-stratum rates only; do not aggregate.
+    annotations:
+      label_es: Agregación de tasa
+      label_fr: Agrégation du taux
+  MetricTopic:
+    enum_uri: publicschema:MetricTopic
+    title: Metric topic
+    description: The substantive topic family of a metric. Drives browsing and faceting on the website.
+    status: bibo:status/forthcoming
+    permissible_values:
+      coverage:
+        meaning: publicschema:MetricTopic/coverage
+        title: Coverage
+      adequacy:
+        meaning: publicschema:MetricTopic/adequacy
+        title: Adequacy
+      expenditure:
+        meaning: publicschema:MetricTopic/expenditure
+        title: Expenditure
+      leakage:
+        meaning: publicschema:MetricTopic/leakage
+        title: Leakage
+      targeting:
+        meaning: publicschema:MetricTopic/targeting
+        title: Targeting
+      inclusion_error:
+        meaning: publicschema:MetricTopic/inclusion_error
+        title: Inclusion error
+      exclusion_error:
+        meaning: publicschema:MetricTopic/exclusion_error
+        title: Exclusion error
+      regularity:
+        meaning: publicschema:MetricTopic/regularity
+        title: Regularity
+      processing_time:
+        meaning: publicschema:MetricTopic/processing_time
+        title: Processing time
+      satisfaction:
+        meaning: publicschema:MetricTopic/satisfaction
+        title: Satisfaction
+    annotations:
+      label_es: Tema de la métrica
+      label_fr: Thématique de la métrique
+  AttachmentLevel:
+    enum_uri: publicschema:AttachmentLevel
+    title: Attachment level
+    description: The SDMX attachment level for a MetricAttribute.
+    status: bibo:status/forthcoming
+    permissible_values:
+      dataset:
+        meaning: publicschema:AttachmentLevel/dataset
+        title: Dataset
+      series:
+        meaning: publicschema:AttachmentLevel/series
+        title: Series (dimension-group)
+      observation:
+        meaning: publicschema:AttachmentLevel/observation
+        title: Observation
+    annotations:
+      label_es: Nivel de adjunción
+      label_fr: Niveau de rattachement
+  PopulationType:
+    enum_uri: publicschema:PopulationType
+    title: Population type
+    description: The role a PopulationCriterion plays in a MetricCalculation. Mirrors FHIR R5 Measure.
+    status: bibo:status/forthcoming
+    permissible_values:
+      initial-population:
+        meaning: publicschema:PopulationType/initial-population
+        title: Initial population
+        description: The universe of records the metric considers.
+      denominator:
+        meaning: publicschema:PopulationType/denominator
+        title: Denominator
+      denominator-exclusion:
+        meaning: publicschema:PopulationType/denominator-exclusion
+        title: Denominator exclusion
+      denominator-exception:
+        meaning: publicschema:PopulationType/denominator-exception
+        title: Denominator exception
+        description: Records counted toward the denominator but exempt from the numerator (FHIR Measure
+          term of art).
+      numerator:
+        meaning: publicschema:PopulationType/numerator
+        title: Numerator
+      numerator-exclusion:
+        meaning: publicschema:PopulationType/numerator-exclusion
+        title: Numerator exclusion
+      measure-population:
+        meaning: publicschema:PopulationType/measure-population
+        title: Measure population
+        description: Records whose per-record observation is aggregated, in continuous-variable scoring.
+      measure-population-exclusion:
+        meaning: publicschema:PopulationType/measure-population-exclusion
+        title: Measure population exclusion
+      measure-observation:
+        meaning: publicschema:PopulationType/measure-observation
+        title: Measure observation
+        description: The value computed per record in measure-population.
+    exact_mappings:
+    - http://terminology.hl7.org/CodeSystem/measure-population
+    annotations:
+      label_es: Tipo de población
+      label_fr: Type de population
+  PeriodType:
+    enum_uri: publicschema:PeriodType
+    title: Period type
+    description: The kind of period represented by a Period.
+    status: bibo:status/forthcoming
+    permissible_values:
+      point_in_time:
+        meaning: publicschema:PeriodType/point_in_time
+        title: Point in time
+      span:
+        meaning: publicschema:PeriodType/span
+        title: Span
+      cohort:
+        meaning: publicschema:PeriodType/cohort
+        title: Cohort
+      fiscal_year:
+        meaning: publicschema:PeriodType/fiscal_year
+        title: Fiscal year
+      calendar_year:
+        meaning: publicschema:PeriodType/calendar_year
+        title: Calendar year
+    annotations:
+      label_es: Tipo de período
+      label_fr: Type de période
+  Granularity:
+    enum_uri: publicschema:Granularity
+    title: Granularity
+    description: The granularity of a Period.
+    status: bibo:status/forthcoming
+    permissible_values:
+      year:
+        meaning: publicschema:Granularity/year
+        title: Year
+      quarter:
+        meaning: publicschema:Granularity/quarter
+        title: Quarter
+      month:
+        meaning: publicschema:Granularity/month
+        title: Month
+      week:
+        meaning: publicschema:Granularity/week
+        title: Week
+      day:
+        meaning: publicschema:Granularity/day
+        title: Day
+      hour:
+        meaning: publicschema:Granularity/hour
+        title: Hour
+    annotations:
+      label_es: Granularidad
+      label_fr: Granularité
+  Frequency:
+    enum_uri: publicschema:Frequency
+    title: Frequency
+    description: 'SDMX cross-domain FREQ codes used by Period.observation_frequency. Codes resolve to
+      urn:sdmx:org.sdmx.infomodel.codelist.Codelist=SDMX:CL_FREQ; PublicSchema does not republish them.
+
+      '
+    status: bibo:status/forthcoming
+    permissible_values:
+      A:
+        meaning: publicschema:Frequency/A
+        title: Annual
+      Q:
+        meaning: publicschema:Frequency/Q
+        title: Quarterly
+      M:
+        meaning: publicschema:Frequency/M
+        title: Monthly
+      W:
+        meaning: publicschema:Frequency/W
+        title: Weekly
+      D:
+        meaning: publicschema:Frequency/D
+        title: Daily
+      H:
+        meaning: publicschema:Frequency/H
+        title: Hourly
+    close_mappings:
+    - urn:sdmx:org.sdmx.infomodel.codelist.Codelist=SDMX:CL_FREQ(2.1)
+    annotations:
+      label_es: Frecuencia
+      label_fr: Fréquence
