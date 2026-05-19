@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://publicschema.org/metrics/MetricCalculation.schema.json",
+  "title": "MetricCalculation",
+  "description": "A declarative computation that turns record-level PublicSchema data into a metric value. Borrows the population / stratifier / scoring shape from FHIR R5 Measure; the criteria language is pluggable via IANA media type, with application/sql, application/vtl, and text/cql first-class. The per-record analog is ScoringRule (schema/misc.yaml); MetricCalculation aggregates across subjects.\n",
+  "type": "object",
+  "properties": {
+    "scoring": {
+      "type": "string",
+      "enum": [
+        "proportion",
+        "ratio",
+        "continuous-variable",
+        "cohort"
+      ],
+      "$comment": "https://publicschema.org/vocab/scoring-method",
+      "description": "The scoring method applied by this calculation. Mirrors FHIR R5 Measure.scoring: proportion, ratio, continuous-variable, cohort. Authors validate the populations against this value at schema-load time.\n"
+    },
+    "subject_class": {
+      "type": "string",
+      "format": "uri",
+      "description": "The PublicSchema class URI whose records the populations select over (for example, publicschema:Person or publicschema:Enrollment). Diverges from FHIR Measure.subject[x], which is CodeableConcept | Reference(Group); PublicSchema subjects are PS class URIs.\n"
+    },
+    "populations": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "$ref": "https://publicschema.org/metrics/PopulationCriterion.schema.json"
+          },
+          {
+            "type": "string",
+            "description": "URI or identifier reference"
+          }
+        ],
+        "description": "The ordered list of PopulationCriterion records that select records for the numerator, denominator, exclusions, exceptions, and the per-record observation in a continuous-variable scoring method."
+      }
+    },
+    "stratifiers": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "$ref": "https://publicschema.org/metrics/Stratifier.schema.json"
+          },
+          {
+            "type": "string",
+            "description": "URI or identifier reference"
+          }
+        ],
+        "description": "The list of Stratifier expressions evaluated against the populations of this calculation."
+      }
+    },
+    "rate_aggregation": {
+      "type": "string",
+      "enum": [
+        "average",
+        "sum",
+        "none"
+      ],
+      "$comment": "https://publicschema.org/vocab/rate-aggregation",
+      "description": "How per-stratum rates are aggregated back to a single metric value: average, sum, or none (report per-stratum only).\n"
+    },
+    "improvement_notation": {
+      "type": "string",
+      "enum": [
+        "increase",
+        "decrease",
+        "policy_dependent"
+      ],
+      "$comment": "https://publicschema.org/vocab/improvement-notation",
+      "description": "Whether an increase in the metric value is desirable, undesirable, or policy-dependent. Extends FHIR R5 Measure.improvementNotation with policy_dependent for non-clinical metrics (e.g., expenditure-to-GDP ratios where the desirable direction depends on policy framing).\n"
+    },
+    "libraries": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uri",
+        "description": "HTTPS-dereferenceable library URIs hosting reusable criteria definitions referenced by @ref:LibraryName.Symbol expressions in the calculation. PublicSchema recommends content-addressed URIs so a metric's calculation is bit-stable across publications.\n"
+      }
+    }
+  }
+}

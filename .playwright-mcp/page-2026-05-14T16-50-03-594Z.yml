@@ -1,0 +1,223 @@
+- generic [active] [ref=e1]:
+  - link "Skip to main content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - navigation [ref=e3]:
+    - generic [ref=e4]:
+      - link "PublicSchema Public Service Data Reference Model" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e6]:
+          - generic [ref=e7]: PublicSchema
+          - generic [ref=e8]: Public Service Data Reference Model
+      - list [ref=e9]:
+        - listitem [ref=e10]:
+          - link "Concepts" [ref=e11] [cursor=pointer]:
+            - /url: /concepts/
+        - listitem [ref=e12]:
+          - link "Vocabularies" [ref=e13] [cursor=pointer]:
+            - /url: /vocab/
+        - listitem [ref=e14]:
+          - link "Docs" [ref=e15] [cursor=pointer]:
+            - /url: /docs/
+        - listitem [ref=e16]:
+          - link "About" [ref=e17] [cursor=pointer]:
+            - /url: /about/
+      - generic [ref=e19]:
+        - combobox "Search PublicSchema" [ref=e20]
+        - generic: ⌘K
+      - group [ref=e23]:
+        - 'generic "Current language: English" [ref=e24] [cursor=pointer]':
+          - img [ref=e25]
+          - generic [ref=e28]: EN
+          - img [ref=e29]
+        - text: ✓
+      - text: ✓ ✓
+  - main [ref=e31]:
+    - article [ref=e32]:
+      - generic [ref=e33]:
+        - navigation "Home" [ref=e34]:
+          - link "Home" [ref=e35] [cursor=pointer]:
+            - /url: /
+          - text: /
+          - link "Metrics" [ref=e36] [cursor=pointer]:
+            - /url: /metrics/
+          - text: /
+          - link "dhs_household" [ref=e37] [cursor=pointer]:
+            - /url: /metrics/dhs_household/
+          - text: / hc_hhhd_h_fem
+        - heading "Female-headed households" [level=1] [ref=e38]
+        - paragraph [ref=e39]:
+          - generic [ref=e40]: hc_hhhd_h_fem
+          - generic [ref=e41]: ·
+          - generic [ref=e42]: https://publicschema.org/metrics/dhs_household/hc_hhhd_h_fem
+        - generic [ref=e43]:
+          - generic [ref=e44]: draft
+          - generic [ref=e45]: core
+        - paragraph [ref=e46]: Percentage of households headed by women
+      - generic [ref=e47]:
+        - heading "Overview" [level=2] [ref=e48]
+        - generic [ref=e49]:
+          - term [ref=e50]: Catalog
+          - definition [ref=e51]:
+            - link "DHS Program — Household and SP-adjacent indicator seed metric catalog" [ref=e52] [cursor=pointer]:
+              - /url: /metrics/dhs_household/
+          - term [ref=e53]: Value type
+          - definition [ref=e54]:
+            - code [ref=e55]: proportion
+          - term [ref=e56]: Decimals
+          - definition [ref=e57]: "1"
+          - term [ref=e58]: Version
+          - definition [ref=e59]: 1.0.0
+          - term [ref=e60]: Status
+          - definition [ref=e61]:
+            - code [ref=e62]: bibo:draft
+          - term [ref=e63]: Core
+          - definition [ref=e64]: Yes — must-have subset
+          - term [ref=e65]: Stable URI
+          - definition [ref=e66]:
+            - code [ref=e67]: https://publicschema.org/metrics/dhs_household/hc_hhhd_h_fem
+      - generic [ref=e68]:
+        - heading "Linked concept" [level=2] [ref=e69]
+        - generic [ref=e70]:
+          - generic [ref=e71]:
+            - generic [ref=e72]: dhs
+            - generic [ref=e73]: household headship
+          - code [ref=e74]: publicschema:concept/dhs/household_headship
+      - generic [ref=e75]:
+        - heading "Dimensions" [level=2] [ref=e76]
+        - list [ref=e77]:
+          - listitem [ref=e78]:
+            - code [ref=e79]: dim/ref_area
+          - listitem [ref=e80]:
+            - code [ref=e81]: dim/time_period
+      - generic [ref=e82]:
+        - heading "External alignments" [level=2] [ref=e83]
+        - list [ref=e84]:
+          - listitem [ref=e85]:
+            - link "api.dhsprogram.com /rest/dhs/indicators/HC_HHHD_H_FEM" [ref=e86] [cursor=pointer]:
+              - /url: https://api.dhsprogram.com/rest/dhs/indicators/HC_HHHD_H_FEM
+              - generic [ref=e87]: api.dhsprogram.com
+              - generic [ref=e88]: /rest/dhs/indicators/HC_HHHD_H_FEM
+      - generic [ref=e89]:
+        - heading "Calculation" [level=2] [ref=e90]
+        - generic [ref=e91]:
+          - list [ref=e92]:
+            - listitem [ref=e93]:
+              - generic [ref=e94]: Scoring
+              - code [ref=e95]: proportion
+            - listitem [ref=e96]:
+              - generic [ref=e97]: Subject class
+              - link "Household" [ref=e98] [cursor=pointer]:
+                - /url: /Household/
+          - generic [ref=e99]:
+            - heading "Populations" [level=3] [ref=e100]
+            - list [ref=e101]:
+              - listitem [ref=e102]:
+                - generic [ref=e103]:
+                  - code [ref=e104]: initial-population
+                  - code [ref=e105]: application/sql
+                - code [ref=e107]: "SELECT id FROM ${ps.Household}"
+              - listitem [ref=e108]:
+                - generic [ref=e109]:
+                  - code [ref=e110]: denominator
+                  - code [ref=e111]: application/sql
+                - code [ref=e113]: "SELECT id FROM ${ps.Household}"
+              - listitem [ref=e114]:
+                - generic [ref=e115]:
+                  - code [ref=e116]: numerator
+                  - code [ref=e117]: application/sql
+                - code [ref=e119]: "SELECT DISTINCT h.id FROM ${ps.Household} h JOIN ${ps.GroupMembership} gm ON gm.group = h.id JOIN ${ps.Person} p ON p.id = gm.person WHERE gm.role = 'head' AND gm.is_active = true AND p.sex = 'female'"
+  - contentinfo [ref=e120]:
+    - generic [ref=e121]:
+      - generic [ref=e122]:
+        - generic [ref=e123]:
+          - generic [ref=e124]: PublicSchema
+          - paragraph [ref=e125]: Common definitions for public service delivery. Built so programs can coordinate, share data, and reach the people they serve.
+        - generic [ref=e126]:
+          - generic [ref=e127]:
+            - heading "Explore" [level=4] [ref=e128]
+            - list [ref=e129]:
+              - listitem [ref=e130]:
+                - link "Concepts" [ref=e131] [cursor=pointer]:
+                  - /url: /concepts/
+              - listitem [ref=e132]:
+                - link "Properties" [ref=e133] [cursor=pointer]:
+                  - /url: /properties/
+              - listitem [ref=e134]:
+                - link "Vocabularies" [ref=e135] [cursor=pointer]:
+                  - /url: /vocab/
+              - listitem [ref=e136]:
+                - link "Systems" [ref=e137] [cursor=pointer]:
+                  - /url: /systems/
+              - listitem [ref=e138]:
+                - link "Standards & References" [ref=e139] [cursor=pointer]:
+                  - /url: /references/
+          - generic [ref=e140]:
+            - heading "Docs" [level=4] [ref=e141]
+            - list [ref=e142]:
+              - listitem [ref=e143]:
+                - link "Use Cases" [ref=e144] [cursor=pointer]:
+                  - /url: /docs/use-cases/
+              - listitem [ref=e145]:
+                - link "Extension Mechanism" [ref=e146] [cursor=pointer]:
+                  - /url: /docs/extension-mechanism/
+              - listitem [ref=e147]:
+                - link "All documentation" [ref=e148] [cursor=pointer]:
+                  - /url: /docs/
+          - generic [ref=e149]:
+            - heading "Project" [level=4] [ref=e150]
+            - list [ref=e151]:
+              - listitem [ref=e152]:
+                - link "About" [ref=e153] [cursor=pointer]:
+                  - /url: /about/
+              - listitem [ref=e154]:
+                - link "Source on GitHub" [ref=e155] [cursor=pointer]:
+                  - /url: https://github.com/PublicSchema/publicschema.org
+              - listitem [ref=e156]:
+                - link "Terms and License" [ref=e157] [cursor=pointer]:
+                  - /url: /terms/
+              - listitem [ref=e158]:
+                - link "Join review group" [ref=e159] [cursor=pointer]:
+                  - /url: https://hypothes.is/groups/6EELqkDo/public-schema-review
+      - generic [ref=e160]:
+        - generic [ref=e161]:
+          - text: "Reference model:"
+          - link "CC BY 4.0" [ref=e162] [cursor=pointer]:
+            - /url: https://creativecommons.org/licenses/by/4.0/
+          - text: "| Code:"
+          - link "Apache 2.0" [ref=e163] [cursor=pointer]:
+            - /url: https://www.apache.org/licenses/LICENSE-2.0
+        - generic [ref=e164]:
+          - text: Built with
+          - link "Astro" [ref=e165] [cursor=pointer]:
+            - /url: https://astro.build/
+  - generic [ref=e168]:
+    - button "Menu" [ref=e169]:
+      - img [ref=e171]
+      - generic: Menu
+    - button "Inspect" [ref=e175]:
+      - img [ref=e177]
+      - generic: Inspect
+    - button "Audit" [ref=e179]:
+      - generic [ref=e180]:
+        - img [ref=e181]
+        - img [ref=e184]
+      - generic: Audit
+    - button "Settings" [ref=e187]:
+      - img [ref=e189]
+      - generic: Settings
+  - generic:
+    - generic [ref=e192]:
+      - generic:
+        - generic [ref=e194]:
+          - button "Annotation sidebar" [ref=e195]:
+            - img [ref=e196]
+          - generic [ref=e200]:
+            - button "Show highlights" [ref=e201]:
+              - img [ref=e202]
+            - button "New page note" [ref=e206]:
+              - img [ref=e207]
+          - status [ref=e211]: Highlights hidden
+        - generic:
+          - list
+    - generic:
+      - list

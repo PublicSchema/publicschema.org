@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://publicschema.org/metrics/AttributeValue.schema.json",
+  "title": "AttributeValue",
+  "description": "One {attribute_uri, value} pair carried by a MetricObservation. Modelled as a list of structured pairs rather than a map so attribute ordering and emitter behaviour are stable.\n",
+  "type": "object",
+  "properties": {
+    "attribute_uri": {
+      "type": "string",
+      "format": "uri",
+      "description": "The URI of the MetricAttribute whose value this AttributeValue carries."
+    },
+    "attribute_value": {
+      "type": "string",
+      "description": "The literal value of an attribute on an observation, series, or dataset. Typed as string because attribute values are heterogeneous (status codes, integer counts, free text); cast at emission time against the attribute's declared value_range.\n"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+---
+/**
+ * Catch-all route for metric catalogs and individual metrics.
+ *  - /metrics/ilo_sdg               → catalog page
+ *  - /metrics/ilo_sdg/sdg_0111_...  → metric detail page
+ */
+import MetricCatalogPage from '../../components/pages/MetricCatalogPage.astro';
+import MetricDetail from '../../components/pages/MetricDetail.astro';
+import { loadMetricsCatalog } from '../../data/metrics';
+
+export function getStaticPaths() {
+  const data = loadMetricsCatalog();
+  const paths: Array<{ params: { slug: string }; props: { kind: 'catalog' | 'metric'; key: string } }> = [];
+
+  for (const catalogKey of Object.keys(data.catalogs)) {
+    paths.push({ params: { slug: catalogKey }, props: { kind: 'catalog', key: catalogKey } });
+  }
+  for (const metricKey of Object.keys(data.metrics)) {
+    paths.push({ params: { slug: metricKey }, props: { kind: 'metric', key: metricKey } });
+  }
+
+  return paths;
+}
+
+const { kind, key } = Astro.props;
+---
+{kind === 'catalog' ? <MetricCatalogPage catalogKey={key} locale="en" /> : <MetricDetail metricKey={key} locale="en" />}

@@ -1,0 +1,20 @@
+property,type,cardinality,definition,vocabulary,maturity,sensitivity,category,age_applicability,valid_instruments
+description,string,single,"A free-text summary describing the event, situation, or record.",,draft,,,,
+value_type,string,single,"The kind of numeric or categorical value a metric carries (count, proportion, ratio, currency amount, index, duration, nominal, ordinal, qualitative).",value-type,candidate,,,,
+unit,string,single,"The unit of measure for a metric. May be a UCUM unit code, an ISO 4217 currency code for currency amounts, the SDMX UNIT_MEASURE code 'PT' for percentages, or the literal 'unitless' for proportions expressed in 0..1.",,candidate,,,,
+multiplier,integer,single,"SDMX-style scale exponent. 0 for units, 3 for thousands, 6 for millions, 9 for billions. Default 0.",,candidate,,,,
+decimals,integer,single,The number of decimal places to use when reporting the metric.,,candidate,,,,
+dimensions,concept:metrics/MetricDimension,multiple,The ordered list of MetricDimension references that disaggregate this metric. Ordering drives the DSD round-trip and the column order on SDMX-CSV emission.,,candidate,,,,
+attributes,concept:metrics/MetricAttribute,multiple,"The list of MetricAttribute references that may decorate observations, series, or the dataset for this metric.",,candidate,,,,
+calculation,concept:metrics/MetricCalculation,single,The single primary computation that turns PublicSchema record-level data into a value for this metric. Variant computations are carried by libraries.,,candidate,,,,
+topic,string,single,"The substantive topic family of the metric (coverage, adequacy, expenditure, leakage, targeting, inclusion error, exclusion error, regularity, processing time, satisfaction). Drives browsing and faceting on the website.",metric-topic,candidate,,,,
+concept_uri,uri,single,"The skos:Concept URI this metric, dimension, or attribute realises. Multiple metrics may share a single concept_uri when they measure the same underlying notion through different operationalisations.",,candidate,,,,
+metric_family,uri,single,"Optional URI tagging this metric with a metric-family group. Metrics sharing a family value also share dimensions and observation-level attributes; the family value drives DSD generation. Modelled as a tag rather than a separate MetricFamily class until there are at least three real families. Named metric_family to avoid collision with the family slot in schema/civil_status.yaml.
+",,candidate,,,,
+aligns_with,uri,multiple,"External URIs to which this metric, dimension, or attribute aligns: SDMX agency DSDs, UN SDG indicators, ASPIRE families, ESSPROS reference metadata, SOCX DSDs, DHIS2 indicator UIDs, IATI indicator codes, HXL hashtags. Alignment is one-way semantic; PublicSchema does not synchronise with these registries.
+",,candidate,,,,
+core,boolean,single,"True if the metric belongs to the core tier (shipped with every PublicSchema deployment), false if it belongs to the extended tier (opt-in, country or program-specific). Per design-principles.md principle 9.
+",,candidate,,,,
+version,string,single,"The version identifier of an artefact such as an instrument, software agent, scoring rule, or privacy notice (for example, a release date such as 2022-10-11 or a semantic version like 6.2).",,draft,,,,
+replaces,uri,single,URI of the metric record that this metric supersedes.,,candidate,,,,
+replaced_by,uri,single,URI of the metric record that supersedes this metric.,,candidate,,,,

@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://publicschema.org/metrics/MetricDimension.schema.json",
+  "title": "MetricDimension",
+  "description": "A typed dimension that disaggregates a metric. References a code list, which may be a PublicSchema vocabulary or an external SDMX agency codelist. PublicSchema vocabularies are canonical; the SDMX emitter wraps them for downstream consumers.\n",
+  "type": "object",
+  "properties": {
+    "description": {
+      "type": "string",
+      "description": "A free-text summary describing the event, situation, or record."
+    },
+    "concept_uri": {
+      "type": "string",
+      "format": "uri",
+      "description": "The skos:Concept URI this metric, dimension, or attribute realises. Multiple metrics may share a single concept_uri when they measure the same underlying notion through different operationalisations."
+    },
+    "value_range": {
+      "type": "string",
+      "description": "The LinkML range or external code list URI that constrains the values of a dimension or attribute. Named 'value_range' rather than 'range' to avoid shadowing the LinkML keyword.\n"
+    },
+    "code_list_uri": {
+      "type": "string",
+      "format": "uri",
+      "description": "The canonical URI of the code list that supplies permissible values for this dimension or attribute. May be a PublicSchema vocabulary URI or an SDMX agency codelist URN (e.g., urn:sdmx:org.sdmx.infomodel.codelist.Codelist=SDMX:CL_AREA(2.1)).\n"
+    },
+    "is_required": {
+      "type": "boolean",
+      "description": "Whether this dimension or attribute is required on every observation."
+    },
+    "ordering": {
+      "type": "integer",
+      "description": "The integer position of this dimension within the DSD. Drives column order on SDMX-CSV emission and the dimension order on observation records."
+    }
+  }
+}

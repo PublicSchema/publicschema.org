@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://publicschema.org/metrics/Period.schema.json",
+  "title": "Period",
+  "description": "The temporal coverage of a MetricObservation. PublicSchema reifies the period as a separate class (rather than carrying inline start_date / end_date like other Event subtypes) because the SDMX and Data Cube emitters need a single URI-addressable interval to satisfy W3C Data Cube integrity constraint IC-11 (every observation has a value for every dimension, including time).\n",
+  "type": "object",
+  "properties": {
+    "period_type": {
+      "type": "string",
+      "enum": [
+        "point_in_time",
+        "span",
+        "cohort",
+        "fiscal_year",
+        "calendar_year"
+      ],
+      "$comment": "https://publicschema.org/vocab/period-type",
+      "description": "The kind of period: point_in_time, span, cohort, fiscal_year, or calendar_year."
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date",
+      "description": "The date on which this became effective."
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date",
+      "description": "The date on which this ceased to be effective."
+    },
+    "granularity": {
+      "type": "string",
+      "enum": [
+        "year",
+        "quarter",
+        "month",
+        "week",
+        "day",
+        "hour"
+      ],
+      "$comment": "https://publicschema.org/vocab/granularity",
+      "description": "The granularity of the period: year, quarter, month, week, day, or hour."
+    },
+    "reference_period_type": {
+      "type": "string",
+      "description": "An SDMX REF_PERIOD type identifier when relevant (for example, the reference week for labour force surveys, the academic year for school-attendance metrics)."
+    },
+    "observation_frequency": {
+      "type": "string",
+      "enum": [
+        "A",
+        "Q",
+        "M",
+        "W",
+        "D",
+        "H"
+      ],
+      "$comment": "https://publicschema.org/vocab/frequency",
+      "description": "The SDMX FREQ code for this period: A (annual), Q (quarterly), M (monthly), W (weekly), D (daily), H (hourly). Carried as a single-letter code; resolves to urn:sdmx:org.sdmx.infomodel.codelist.Codelist=SDMX:CL_FREQ. Named observation_frequency to avoid collision with the benefit-delivery frequency slot in schema/program.yaml.\n"
+    }
+  }
+}

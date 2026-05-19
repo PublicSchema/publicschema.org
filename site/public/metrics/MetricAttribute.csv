@@ -1,0 +1,7 @@
+property,type,cardinality,definition,vocabulary,maturity,sensitivity,category,age_applicability,valid_instruments
+description,string,single,"A free-text summary describing the event, situation, or record.",,draft,,,,
+concept_uri,uri,single,"The skos:Concept URI this metric, dimension, or attribute realises. Multiple metrics may share a single concept_uri when they measure the same underlying notion through different operationalisations.",,candidate,,,,
+value_range,string,single,"The LinkML range or external code list URI that constrains the values of a dimension or attribute. Named 'value_range' rather than 'range' to avoid shadowing the LinkML keyword.
+",,candidate,,,,
+attachment_level,string,single,"The SDMX attachment level for this attribute: dataset, series (dimension-group), or observation. The level determines where the SDMX emitter places the attribute on output.
+",attachment-level,candidate,,,,

@@ -1,0 +1,147 @@
+- generic [active] [ref=e1]:
+  - link "Skip to main content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - navigation [ref=e3]:
+    - generic [ref=e4]:
+      - link "PublicSchema Public Service Data Reference Model" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e6]:
+          - generic [ref=e7]: PublicSchema
+          - generic [ref=e8]: Public Service Data Reference Model
+      - list [ref=e9]:
+        - listitem [ref=e10]:
+          - link "Concepts" [ref=e11] [cursor=pointer]:
+            - /url: /concepts/
+        - listitem [ref=e12]:
+          - link "Vocabularies" [ref=e13] [cursor=pointer]:
+            - /url: /vocab/
+        - listitem [ref=e14]:
+          - link "Docs" [ref=e15] [cursor=pointer]:
+            - /url: /docs/
+        - listitem [ref=e16]:
+          - link "About" [ref=e17] [cursor=pointer]:
+            - /url: /about/
+      - generic [ref=e19]:
+        - combobox "Search PublicSchema" [ref=e20]
+        - generic: ⌘K
+      - group [ref=e23]:
+        - 'generic "Current language: English" [ref=e24] [cursor=pointer]':
+          - img [ref=e25]
+          - generic [ref=e28]: EN
+          - img [ref=e29]
+        - text: ✓
+      - text: ✓ ✓
+  - main [ref=e31]:
+    - article [ref=e32]:
+      - generic [ref=e33]:
+        - heading "Page not found" [level=1] [ref=e34]
+        - paragraph [ref=e35]: The page you’re looking for doesn’t exist or has been moved.
+      - paragraph [ref=e36]:
+        - text: You can
+        - link "go back to the homepage" [ref=e37] [cursor=pointer]:
+          - /url: /
+        - text: or browse
+        - link "concepts" [ref=e38] [cursor=pointer]:
+          - /url: /concepts/
+        - text: ","
+        - link "properties" [ref=e39] [cursor=pointer]:
+          - /url: /properties/
+        - text: ", or"
+        - link "vocabularies" [ref=e40] [cursor=pointer]:
+          - /url: /vocab/
+        - text: .
+  - contentinfo [ref=e41]:
+    - generic [ref=e42]:
+      - generic [ref=e43]:
+        - generic [ref=e44]:
+          - generic [ref=e45]: PublicSchema
+          - paragraph [ref=e46]: Common definitions for public service delivery. Built so programs can coordinate, share data, and reach the people they serve.
+        - generic [ref=e47]:
+          - generic [ref=e48]:
+            - heading "Explore" [level=4] [ref=e49]
+            - list [ref=e50]:
+              - listitem [ref=e51]:
+                - link "Concepts" [ref=e52] [cursor=pointer]:
+                  - /url: /concepts/
+              - listitem [ref=e53]:
+                - link "Properties" [ref=e54] [cursor=pointer]:
+                  - /url: /properties/
+              - listitem [ref=e55]:
+                - link "Vocabularies" [ref=e56] [cursor=pointer]:
+                  - /url: /vocab/
+              - listitem [ref=e57]:
+                - link "Systems" [ref=e58] [cursor=pointer]:
+                  - /url: /systems/
+              - listitem [ref=e59]:
+                - link "Standards & References" [ref=e60] [cursor=pointer]:
+                  - /url: /references/
+          - generic [ref=e61]:
+            - heading "Docs" [level=4] [ref=e62]
+            - list [ref=e63]:
+              - listitem [ref=e64]:
+                - link "Use Cases" [ref=e65] [cursor=pointer]:
+                  - /url: /docs/use-cases/
+              - listitem [ref=e66]:
+                - link "Extension Mechanism" [ref=e67] [cursor=pointer]:
+                  - /url: /docs/extension-mechanism/
+              - listitem [ref=e68]:
+                - link "All documentation" [ref=e69] [cursor=pointer]:
+                  - /url: /docs/
+          - generic [ref=e70]:
+            - heading "Project" [level=4] [ref=e71]
+            - list [ref=e72]:
+              - listitem [ref=e73]:
+                - link "About" [ref=e74] [cursor=pointer]:
+                  - /url: /about/
+              - listitem [ref=e75]:
+                - link "Source on GitHub" [ref=e76] [cursor=pointer]:
+                  - /url: https://github.com/PublicSchema/publicschema.org
+              - listitem [ref=e77]:
+                - link "Terms and License" [ref=e78] [cursor=pointer]:
+                  - /url: /terms/
+              - listitem [ref=e79]:
+                - link "Join review group" [ref=e80] [cursor=pointer]:
+                  - /url: https://hypothes.is/groups/6EELqkDo/public-schema-review
+      - generic [ref=e81]:
+        - generic [ref=e82]:
+          - text: "Reference model:"
+          - link "CC BY 4.0" [ref=e83] [cursor=pointer]:
+            - /url: https://creativecommons.org/licenses/by/4.0/
+          - text: "| Code:"
+          - link "Apache 2.0" [ref=e84] [cursor=pointer]:
+            - /url: https://www.apache.org/licenses/LICENSE-2.0
+        - generic [ref=e85]:
+          - text: Built with
+          - link "Astro" [ref=e86] [cursor=pointer]:
+            - /url: https://astro.build/
+  - generic [ref=e89]:
+    - button "Menu" [ref=e90]:
+      - img [ref=e92]
+      - generic: Menu
+    - button "Inspect" [ref=e96]:
+      - img [ref=e98]
+      - generic: Inspect
+    - button "Audit" [ref=e100]:
+      - generic [ref=e101]:
+        - img [ref=e102]
+        - img [ref=e105]
+      - generic: Audit
+    - button "Settings" [ref=e108]:
+      - img [ref=e110]
+      - generic: Settings
+  - generic:
+    - generic [ref=e113]:
+      - generic:
+        - generic [ref=e115]:
+          - button "Annotation sidebar" [ref=e116]:
+            - img [ref=e117]
+          - generic [ref=e121]:
+            - button "Show highlights" [ref=e122]:
+              - img [ref=e123]
+            - button "New page note" [ref=e127]:
+              - img [ref=e128]
+          - status [ref=e132]: Highlights hidden
+        - generic:
+          - list
+    - generic:
+      - list

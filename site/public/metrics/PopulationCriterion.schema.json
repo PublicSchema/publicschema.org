@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://publicschema.org/metrics/PopulationCriterion.schema.json",
+  "title": "PopulationCriterion",
+  "description": "One population in a MetricCalculation, paired with the language and criteria that select the records belonging to it. The population_type follows FHIR R5 Measure: initial-population, denominator, denominator-exclusion, denominator-exception, numerator, numerator-exclusion, measure-population, measure-population-exclusion, measure-observation. Authors validate population_type against the MetricCalculation.scoring value at schema-load time.\n",
+  "type": "object",
+  "properties": {
+    "population_type": {
+      "type": "string",
+      "enum": [
+        "initial-population",
+        "denominator",
+        "denominator-exclusion",
+        "denominator-exception",
+        "numerator",
+        "numerator-exclusion",
+        "measure-population",
+        "measure-population-exclusion",
+        "measure-observation"
+      ],
+      "$comment": "https://publicschema.org/vocab/population-type",
+      "description": "The role this population plays in the calculation: initial-population, denominator, denominator-exclusion, denominator-exception, numerator, numerator-exclusion, measure-population, measure-population-exclusion, or measure-observation. Follows FHIR R5 Measure.\n"
+    },
+    "language": {
+      "type": "string",
+      "description": "The IANA media type identifying the language of a criteria expression: application/sql, application/vtl, text/cql, text/fhirpath. PublicSchema pins the media type so consumers know which engine to invoke; it does not pick a winner.\n"
+    },
+    "criteria": {
+      "type": "string",
+      "description": "A criteria expression in the language identified by the paired language slot. May be inline source code or a reference of the form @ref:LibraryName.Symbol resolved against the calculation's libraries list.\n"
+    }
+  }
+}

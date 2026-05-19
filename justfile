@@ -6,6 +6,10 @@ set dotenv-load := false
 schema_dir := "schema"
 dist_dir := "dist"
 site_dir := "site"
+# Sibling repo that hosts the metrics-catalog projector and CLI.
+# Path A migration: publicschema-build is meant to replace build/build.py over time.
+build_repo := "../publicschema-build"
+site_generated_dir := site_dir / "src/data/generated"
 
 # List available recipes
 default:
@@ -13,8 +17,15 @@ default:
 
 # --- Build ---
 
+# Regenerate site/src/data/generated/metrics_catalog.json from schema/metric_catalog/.
+# Owned by the sibling publicschema-build repo (Path A migration target).
+metrics-data:
+    cd {{build_repo}} && uv run publicschema build-site-data \
+      --schema-dir {{justfile_directory()}}/{{schema_dir}} \
+      --out {{justfile_directory()}}/{{site_generated_dir}}
+
 # Generate vocabulary.json, context.jsonld, JSON Schemas, and downloadable files from YAML sources
-build:
+build: metrics-data
     uv run python -m build.build
     rsync -a --include='*.csv' --include='*.xlsx' --include='*/' --exclude='*' {{dist_dir}}/downloads/ {{site_dir}}/public/
     rsync -a --exclude='credentials/' --include='*.schema.json' --include='*/' --exclude='*' {{dist_dir}}/schemas/ {{site_dir}}/public/

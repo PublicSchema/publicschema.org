@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://publicschema.org/metrics/MetricObservation.schema.json",
+  "title": "MetricObservation",
+  "description": "One reported value against a Metric, with dimension values, period, and observation-level attributes. The observation / scoring separation extends from per-record scoring (Principle 6) to aggregate metrics: a MetricObservation is to a Metric what a ScoringEvent is to a ScoringRule. Scale is fixed by Metric.unit and Metric.multiplier; when UNIT_MEASURE also appears in attribute_values, it must equal Metric.unit. The observation cannot override scale.\n",
+  "type": "object",
+  "properties": {
+    "identifiers": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "$ref": "https://publicschema.org/Identifier.schema.json"
+          },
+          {
+            "type": "string",
+            "description": "URI or identifier reference"
+          }
+        ],
+        "description": "Identifiers carried by this entity, such as national ID numbers, program IDs, or identifiers asserted by an identity document."
+      }
+    },
+    "metric": {
+      "type": "string",
+      "format": "uri",
+      "description": "The URI of the Metric this observation reports a value against."
+    },
+    "period": {
+      "oneOf": [
+        {
+          "$ref": "https://publicschema.org/metrics/Period.schema.json"
+        },
+        {
+          "type": "string",
+          "description": "URI or identifier reference"
+        }
+      ],
+      "description": "The temporal coverage of this observation."
+    },
+    "dimension_values": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "$ref": "https://publicschema.org/metrics/DimensionValue.schema.json"
+          },
+          {
+            "type": "string",
+            "description": "URI or identifier reference"
+          }
+        ],
+        "description": "The ordered list of {dimension_uri, code} pairs that locate this observation in the metric's DSD. Ordering matches Metric.dimensions; every dimension declared on the Metric must have a value on every observation (W3C Data Cube integrity constraint IC-11).\n"
+      }
+    },
+    "metric_value": {
+      "type": "string",
+      "description": "The numeric value reported by this observation. Scale is fixed by Metric.unit and Metric.multiplier: for value_type proportion with unit unitless, the value is in 0..1; with unit PT, the value is in 0..100. The observation cannot override scale.\n"
+    },
+    "attribute_values": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "$ref": "https://publicschema.org/metrics/AttributeValue.schema.json"
+          },
+          {
+            "type": "string",
+            "description": "URI or identifier reference"
+          }
+        ],
+        "description": "The list of {attribute_uri, value} pairs that decorate this observation, series, or dataset. When UNIT_MEASURE appears here, it must equal Metric.unit.\n"
+      }
+    },
+    "calculation_uri": {
+      "type": "string",
+      "format": "uri",
+      "description": "The URI of the MetricCalculation definition this observation realises."
+    },
+    "execution_uri": {
+      "type": "string",
+      "format": "uri",
+      "description": "Optional URI of an execution record (provenance: software agent, run timestamp, parameter set). Light PROV-O alignment recommended; full execution-provenance shape is deferred.\n"
+    }
+  }
+}

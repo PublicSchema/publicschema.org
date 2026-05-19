@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://publicschema.org/metrics/MetricAttribute.schema.json",
+  "title": "MetricAttribute",
+  "description": "A non-key annotation on an observation, series, or dataset. Mirrors SDMX cross-domain concepts (OBS_STATUS, UNIT_MEASURE, DECIMALS, CONF_STATUS, COMMENT_OBS) so the SDMX emitter has zero translation work, and adds PublicSchema extensions (cell_count, data_quality_flag) where SDMX has no equivalent. The attachment_level slot drives where the SDMX emitter places each attribute (dataset, series, or observation).\n",
+  "type": "object",
+  "properties": {
+    "description": {
+      "type": "string",
+      "description": "A free-text summary describing the event, situation, or record."
+    },
+    "concept_uri": {
+      "type": "string",
+      "format": "uri",
+      "description": "The skos:Concept URI this metric, dimension, or attribute realises. Multiple metrics may share a single concept_uri when they measure the same underlying notion through different operationalisations."
+    },
+    "value_range": {
+      "type": "string",
+      "description": "The LinkML range or external code list URI that constrains the values of a dimension or attribute. Named 'value_range' rather than 'range' to avoid shadowing the LinkML keyword.\n"
+    },
+    "attachment_level": {
+      "type": "string",
+      "enum": [
+        "dataset",
+        "series",
+        "observation"
+      ],
+      "$comment": "https://publicschema.org/vocab/attachment-level",
+      "description": "The SDMX attachment level for this attribute: dataset, series (dimension-group), or observation. The level determines where the SDMX emitter places the attribute on output.\n"
+    }
+  }
+}

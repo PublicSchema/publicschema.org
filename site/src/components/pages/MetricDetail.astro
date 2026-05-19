@@ -1,0 +1,594 @@
+---
+import Base from '../../layouts/Base.astro';
+import { defaultLocale, type Locale } from '../../i18n/languages';
+import { useTranslations, localePath } from '../../i18n/utils';
+import { loadMetricsCatalog } from '../../data/metrics';
+import { loadVocabulary } from '../../data/vocabulary';
+
+interface Props {
+  metricKey: string;
+  locale?: Locale;
+}
+
+const { metricKey, locale = defaultLocale } = Astro.props;
+const t = useTranslations(locale);
+
+const data = loadMetricsCatalog();
+const metric = data.metrics[metricKey];
+if (!metric) {
+  throw new Error(`Unknown metric: ${metricKey}`);
+}
+const catalog = data.catalogs[metric.catalog_key];
+const vocab = loadVocabulary();
+
+const label = metric.label[locale] ?? metric.label.en ?? metric.id;
+const definition = metric.definition[locale] ?? metric.definition.en ?? '';
+
+const draftStatuses = new Set(['bibo:draft', 'bibo:status/forthcoming']);
+const isDraft = draftStatuses.has(metric.status);
+const statusLabel = metric.status.replace(/^bibo:(status\/)?/, '');
+const statusBadgeClass = isDraft ? 'badge-draft' : 'badge-normative';
+
+/**
+ * Map an annotation-style concept URI (``publicschema:concept/<domain>/<name>``
+ * or ``publicschema:<Name>``) to a vocabulary key so we can build an internal
+ * link when one exists.
+ */
+function vocabKeyFromUri(uri: string): string | null {
+  if (!uri) return null;
+  if (uri.startsWith('publicschema:concept/')) {
+    return null; // mechanical scheme entries (e.g. DHS Level2 buckets); not in vocab
+  }
+  if (uri.startsWith('publicschema:')) {
+    const bare = uri.slice('publicschema:'.length);
+    if (vocab.concepts[bare]) return bare;
+  }
+  return null;
+}
+
+const linkedConceptKey = metric.concept_uri ? vocabKeyFromUri(metric.concept_uri) : null;
+const linkedConcept = linkedConceptKey ? vocab.concepts[linkedConceptKey] : null;
+
+// Best-effort label for short URI references used in dimension/attribute lists.
+function shortenUri(uri: string): string {
+  if (uri.startsWith('publicschema:dim/')) return `dim/${uri.slice('publicschema:dim/'.length)}`;
+  if (uri.startsWith('publicschema:attr/')) return `attr/${uri.slice('publicschema:attr/'.length)}`;
+  if (uri.startsWith('publicschema:')) return uri.slice('publicschema:'.length);
+  return uri;
+}
+
+function isExternalUrl(uri: string): boolean {
+  return uri.startsWith('http://') || uri.startsWith('https://');
+}
+
+interface ConceptSchemeRef {
+  source: string;
+  slug: string;
+}
+
+/** Parse a mechanical scheme URI like ``publicschema:concept/dhs/household_headship``
+ *  into its source (catalog) and slug, so the unlinked-concept section can show
+ *  something more useful than a raw URI dump. */
+function parseConceptSchemeUri(uri: string): ConceptSchemeRef | null {
+  const m = uri.match(/^publicschema:concept\/([^/]+)\/(.+)$/);
+  if (!m) return null;
+  return { source: m[1], slug: m[2] };
+}
+
+interface AlignmentRef {
+  href: string | null;
+  label: string;
+  hint: string;
+  fullUri: string;
+}
+
+/** Parse an alignment URI into a renderable card with a label, a hint, and an
+ *  optional href. Supports http(s) URLs and SDMX-style URNs. */
+function parseAlignment(uri: string): AlignmentRef {
+  if (isExternalUrl(uri)) {
+    try {
+      const u = new URL(uri);
+      const path = u.pathname === '/' ? '' : u.pathname;
+      return { href: uri, label: u.host, hint: path + u.search, fullUri: uri };
+    } catch {
+      return { href: uri, label: uri, hint: '', fullUri: uri };
+    }
+  }
+  if (uri.startsWith('urn:')) {
+    const eq = uri.lastIndexOf('=');
+    if (eq >= 0) {
+      return { href: null, label: uri.slice(eq + 1), hint: uri.slice(0, eq + 1), fullUri: uri };
+    }
+  }
+  return { href: null, label: uri, hint: '', fullUri: uri };
+}
+
+interface SubjectClassResolution {
+  vocabKey: string;
+  conceptLabel: string;
+  conceptPath: string;
+}
+
+/** Resolve a calculation.subject_class URI to a vocabulary concept when one
+ *  exists, so we can render a link rather than a bare URI. */
+function resolveSubjectClass(uri: string | undefined): SubjectClassResolution | null {
+  if (!uri) return null;
+  const key = vocabKeyFromUri(uri);
+  if (!key) return null;
+  const concept = vocab.concepts[key];
+  if (!concept) return null;
+  return {
+    vocabKey: key,
+    conceptLabel: concept.label?.[locale] ?? concept.label?.en ?? concept.id,
+    conceptPath: concept.path,
+  };
+}
+
+const subjectClass = resolveSubjectClass(metric.calculation?.subject_class);
+---
+<Base title={label} description={definition} locale={locale} ogType="article">
+  <article>
+    <div class="page-header">
+      <nav class="breadcrumb" aria-label={t('breadcrumb.home')}>
+        <a href={localePath('/', locale)}>{t('breadcrumb.home')}</a>
+        <span class="separator">/</span>
+        <a href={localePath('/metrics/', locale)}>{t('metrics.page_title')}</a>
+        <span class="separator">/</span>
+        <a href={localePath(catalog.path, locale)}>{catalog.key}</a>
+        <span class="separator">/</span>
+        {metric.id}
+      </nav>
+      <h1>{label}</h1>
+      <p class="canonical-line">
+        <span class="canonical-name">{metric.id}</span>
+        <span class="canonical-sep">&middot;</span>
+        <span class="uri">{metric.uri}</span>
+      </p>
+      <div class="meta-line">
+        <span class={`badge ${statusBadgeClass}`}>{statusLabel}</span>
+        {metric.core && <span class="badge badge-core">core</span>}
+      </div>
+      <p class="definition-text">{definition}</p>
+    </div>
+
+    <section class="concept-section" id="overview">
+      <h2>{t('metrics.metric.heading_overview')}</h2>
+      <dl class="metric-meta">
+        <dt>{t('metrics.metric.field_catalog')}</dt>
+        <dd><a href={localePath(catalog.path, locale)}>{catalog.title}</a></dd>
+        <dt>{t('metrics.metric.field_value_type')}</dt>
+        <dd><code>{metric.value_type}</code></dd>
+        {metric.unit && (<>
+          <dt>{t('metrics.metric.field_unit')}</dt>
+          <dd>{metric.unit}</dd>
+        </>)}
+        {metric.decimals !== null && (<>
+          <dt>{t('metrics.metric.field_decimals')}</dt>
+          <dd>{metric.decimals}</dd>
+        </>)}
+        <dt>{t('metrics.metric.field_version')}</dt>
+        <dd>{metric.version}</dd>
+        <dt>{t('metrics.metric.field_status')}</dt>
+        <dd><code>{metric.status}</code></dd>
+        <dt>{t('metrics.metric.field_core')}</dt>
+        <dd>{metric.core ? t('metrics.metric.field_core_yes') : t('metrics.metric.field_core_no')}</dd>
+        <dt>{t('metrics.metric.field_uri')}</dt>
+        <dd><code>{metric.uri}</code></dd>
+      </dl>
+    </section>
+
+    {linkedConcept && (
+      <section class="concept-section" id="concept">
+        <h2>{t('metrics.metric.heading_concept')}</h2>
+        <p class="concept-link-row">
+          <a class="concept-link" href={localePath(linkedConcept.path, locale)}>
+            {linkedConcept.label?.[locale] ?? linkedConcept.label?.en ?? linkedConcept.id}
+          </a>
+          <code class="concept-link-uri">{metric.concept_uri}</code>
+        </p>
+      </section>
+    )}
+
+    {!linkedConcept && metric.concept_uri && (
+      <section class="concept-section" id="concept">
+        <h2>{t('metrics.metric.heading_concept')}</h2>
+        {(() => {
+          const ref = parseConceptSchemeUri(metric.concept_uri);
+          return ref ? (
+            <div class="concept-ref-card">
+              <div class="concept-ref-headline">
+                <span class="concept-ref-source">{ref.source}</span>
+                <span class="concept-ref-slug">{ref.slug.replace(/_/g, ' ')}</span>
+              </div>
+              <code class="concept-ref-uri">{metric.concept_uri}</code>
+            </div>
+          ) : (
+            <p><code class="concept-ref-uri">{metric.concept_uri}</code></p>
+          );
+        })()}
+      </section>
+    )}
+
+    {metric.dimensions.length > 0 && (
+      <section class="concept-section" id="dimensions">
+        <h2>{t('metrics.metric.heading_dimensions')}</h2>
+        <ul class="code-tag-row">
+          {metric.dimensions.map((d) => (
+            <li><code class="code-tag" title={d}>{shortenUri(d)}</code></li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    {metric.attributes.length > 0 && (
+      <section class="concept-section" id="attributes">
+        <h2>{t('metrics.metric.heading_attributes')}</h2>
+        <ul class="code-tag-row">
+          {metric.attributes.map((a) => (
+            <li><code class="code-tag" title={a}>{shortenUri(a)}</code></li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    {metric.aligns_with.length > 0 && (
+      <section class="concept-section" id="aligns-with">
+        <h2>{t('metrics.metric.heading_aligns_with')}</h2>
+        <ul class="alignment-list">
+          {metric.aligns_with.map((uri) => {
+            const a = parseAlignment(uri);
+            const body = (
+              <>
+                <span class="alignment-label">{a.label}</span>
+                {a.hint && <span class="alignment-hint">{a.hint}</span>}
+              </>
+            );
+            return (
+              <li>
+                {a.href
+                  ? <a class="alignment-card" href={a.href} rel="noopener noreferrer" title={a.fullUri}>{body}</a>
+                  : <div class="alignment-card alignment-card-static" title={a.fullUri}>{body}</div>
+                }
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+    )}
+
+    <section class="concept-section" id="calculation">
+      <h2>{t('metrics.metric.heading_calculation')}</h2>
+      {metric.calculation ? (
+        <div class="calc-content">
+          <ul class="calc-pill-row">
+            {metric.calculation.scoring && (
+              <li class="calc-pill">
+                <span class="calc-pill-label">{t('metrics.metric.calc_scoring')}</span>
+                <code class="calc-pill-value">{metric.calculation.scoring}</code>
+              </li>
+            )}
+            {metric.calculation.subject_class && (
+              <li class="calc-pill">
+                <span class="calc-pill-label">{t('metrics.metric.calc_subject_class')}</span>
+                {subjectClass
+                  ? <a class="calc-pill-link" href={localePath(subjectClass.conceptPath, locale)}>{subjectClass.conceptLabel}</a>
+                  : <code class="calc-pill-value">{metric.calculation.subject_class}</code>
+                }
+              </li>
+            )}
+            {metric.calculation.rate_aggregation && (
+              <li class="calc-pill">
+                <span class="calc-pill-label">{t('metrics.metric.calc_rate_aggregation')}</span>
+                <code class="calc-pill-value">{metric.calculation.rate_aggregation}</code>
+              </li>
+            )}
+            {metric.calculation.improvement_notation && (
+              <li class="calc-pill">
+                <span class="calc-pill-label">{t('metrics.metric.calc_improvement_notation')}</span>
+                <code class="calc-pill-value">{metric.calculation.improvement_notation}</code>
+              </li>
+            )}
+          </ul>
+
+          {metric.calculation.populations && metric.calculation.populations.length > 0 && (
+            <div class="calc-block-group">
+              <h3 class="calc-group-heading">{t('metrics.metric.calc_populations')}</h3>
+              <ol class="calc-criterion-list">
+                {metric.calculation.populations.map((p) => (
+                  <li class="calc-criterion" data-role={p.population_type}>
+                    <div class="calc-criterion-header">
+                      <code class="calc-criterion-label">{p.population_type}</code>
+                      {p.language && <code class="calc-criterion-lang">{p.language}</code>}
+                    </div>
+                    {p.criteria
+                      ? <pre class="calc-code"><code>{p.criteria}</code></pre>
+                      : <p class="calc-empty">{t('metrics.metric.calc_no_criteria')}</p>
+                    }
+                  </li>
+                ))}
+              </ol>
+            </div>
+          )}
+
+          {metric.calculation.stratifiers && metric.calculation.stratifiers.length > 0 && (
+            <div class="calc-block-group">
+              <h3 class="calc-group-heading">{t('metrics.metric.calc_stratifiers')}</h3>
+              <ol class="calc-criterion-list">
+                {metric.calculation.stratifiers.map((s) => (
+                  <li class="calc-criterion" data-role="stratifier">
+                    <div class="calc-criterion-header">
+                      {s.code && <code class="calc-criterion-label">{s.code}</code>}
+                      {s.language && <code class="calc-criterion-lang">{s.language}</code>}
+                    </div>
+                    {s.criteria
+                      ? <pre class="calc-code"><code>{s.criteria}</code></pre>
+                      : <p class="calc-empty">{t('metrics.metric.calc_no_criteria')}</p>
+                    }
+                  </li>
+                ))}
+              </ol>
+            </div>
+          )}
+
+          {metric.calculation.libraries && metric.calculation.libraries.length > 0 && (
+            <div class="calc-block-group">
+              <h3>{t('metrics.metric.calc_libraries')}</h3>
+              <ul class="uri-list">
+                {metric.calculation.libraries.map((uri) => (
+                  <li>
+                    {isExternalUrl(uri)
+                      ? <a href={uri} rel="noopener noreferrer">{uri}</a>
+                      : <code>{uri}</code>}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      ) : (
+        <p class="calc-empty">{t('metrics.metric.no_calculation')}</p>
+      )}
+    </section>
+  </article>
+</Base>
+
+<style>
+.metric-meta {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.4rem 1rem;
+  margin: 0;
+}
+.metric-meta dt {
+  font-weight: 600;
+  color: var(--color-text-muted, #555);
+}
+.metric-meta dd {
+  margin: 0;
+}
+.uri-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.uri-list li {
+  margin: 0.2rem 0;
+  font-size: 0.95rem;
+}
+.concept-link-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-sm);
+  margin: 0;
+}
+.concept-link {
+  font-weight: 600;
+}
+.concept-link-uri {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+}
+.concept-ref-card {
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding: 0.6rem 0.85rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+.concept-ref-headline {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-sm);
+}
+.concept-ref-source {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+.concept-ref-slug {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+.concept-ref-uri {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+}
+.code-tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.code-tag {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+}
+.alignment-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.alignment-card {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-sm);
+  padding: 0.5rem 0.85rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  color: var(--color-text);
+  transition: border-color 0.15s, background 0.15s;
+}
+a.alignment-card:hover {
+  border-color: var(--color-accent);
+  background: var(--color-accent-light);
+}
+.alignment-label {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+a.alignment-card .alignment-label {
+  color: var(--color-accent);
+}
+.alignment-hint {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  word-break: break-all;
+}
+.badge-core {
+  background: var(--color-accent-light);
+  color: var(--color-accent);
+}
+.calc-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+.calc-pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.calc-pill {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-xs);
+  padding: 0.3rem 0.7rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+.calc-pill-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+.calc-pill-value {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+}
+.calc-pill-link {
+  font-weight: 600;
+}
+.calc-block-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+.calc-group-heading {
+  display: block !important;
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+.calc-criterion-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  width: 100%;
+}
+.calc-criterion {
+  width: 100%;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg);
+  overflow: hidden;
+}
+.calc-criterion-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  align-items: baseline;
+  padding: 0.5rem 0.85rem;
+  border-bottom: 1px solid var(--color-border-light);
+  background: var(--color-surface);
+}
+.calc-criterion-label {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+.calc-criterion-lang {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  padding: 0.05rem 0.45rem;
+  border-radius: var(--radius-pill);
+  background: var(--color-bg);
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border-light);
+}
+.calc-code {
+  margin: 0;
+  padding: 0.85rem 1rem;
+  background: var(--color-bg);
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--color-text);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.calc-empty {
+  margin: 0;
+  padding: 0.85rem 1rem;
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+</style>

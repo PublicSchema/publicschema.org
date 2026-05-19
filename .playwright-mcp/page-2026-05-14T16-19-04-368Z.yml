@@ -1,0 +1,292 @@
+- generic [active] [ref=e1]:
+  - link "Skip to main content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - navigation [ref=e3]:
+    - generic [ref=e4]:
+      - link "PublicSchema Public Service Data Reference Model" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e6]:
+          - generic [ref=e7]: PublicSchema
+          - generic [ref=e8]: Public Service Data Reference Model
+      - list [ref=e9]:
+        - listitem [ref=e10]:
+          - link "Concepts" [ref=e11] [cursor=pointer]:
+            - /url: /concepts/
+        - listitem [ref=e12]:
+          - link "Vocabularies" [ref=e13] [cursor=pointer]:
+            - /url: /vocab/
+        - listitem [ref=e14]:
+          - link "Docs" [ref=e15] [cursor=pointer]:
+            - /url: /docs/
+        - listitem [ref=e16]:
+          - link "About" [ref=e17] [cursor=pointer]:
+            - /url: /about/
+      - generic [ref=e19]:
+        - combobox "Search PublicSchema" [ref=e20]
+        - generic: ⌘K
+      - group [ref=e23]:
+        - 'generic "Current language: English" [ref=e24] [cursor=pointer]':
+          - img [ref=e25]
+          - generic [ref=e28]: EN
+          - img [ref=e29]
+        - text: ✓
+      - text: ✓ ✓
+  - main [ref=e31]:
+    - article [ref=e32]:
+      - generic [ref=e33]:
+        - navigation "Home" [ref=e34]:
+          - link "Home" [ref=e35] [cursor=pointer]:
+            - /url: /
+          - text: /
+          - link "Metrics" [ref=e36] [cursor=pointer]:
+            - /url: /metrics/
+          - text: / ilo_sdg
+        - heading "ILO SDMX SDG indicators relevant to social protection — seed metric catalog" [level=1] [ref=e37]
+        - paragraph [ref=e38]:
+          - generic [ref=e39]: ilo_sdg_seed
+        - paragraph [ref=e40]: "Auto-generated seed from ILO's SDMX 2.1 dataflow registry, filtered to SDG indicators relevant to social protection delivery. The selection rule is derivability from PublicSchema record-level data: each kept indicator can be computed (now or with a small slot addition) from Person.employment_status, Person.occupation, Person.industry, Person.status_in_employment, Enrollment in Program, etc. Macro indicators and country-level qualitative ratings are excluded. Trilingual labels (en/es/fr) come from the SDMX <common:Name> elements; dimensions and attributes are derived from each DSD's authoritative DimensionList and AttributeList. Calculations, concept URIs, and dimension/attribute catalogue definitions are out of scope for this seed and tracked as TODOs."
+        - generic [ref=e41]:
+          - generic [ref=e42]:
+            - term [ref=e43]: Source
+            - definition [ref=e44]: ILO SDMX (https://sdmx.ilo.org/rest/)
+          - generic [ref=e45]:
+            - term [ref=e46]: License
+            - definition [ref=e47]: Reproduction of ILO material is permitted for non-commercial purposes per https://www.ilo.org/rights-and-permissions
+        - paragraph [ref=e48]:
+          - generic [ref=e49]: 17 metrics (17 draft)
+      - table [ref=e51]:
+        - rowgroup [ref=e52]:
+          - row "Metric Definition Status" [ref=e53]:
+            - columnheader "Metric" [ref=e54]
+            - columnheader "Definition" [ref=e55]
+            - columnheader "Status" [ref=e56]
+        - rowgroup [ref=e57]:
+          - row "SDG indicator 1.1.1 - Working poverty rate by sex and age (percentage of employed living below US$3 PPP) core SDG indicator 1.1.1 - Working poverty rate by sex and age (percentage of employed living below US$3 PPP) draft" [ref=e58]:
+            - cell "SDG indicator 1.1.1 - Working poverty rate by sex and age (percentage of employed living below US$3 PPP) core" [ref=e59]:
+              - link "SDG indicator 1.1.1 - Working poverty rate by sex and age (percentage of employed living below US$3 PPP)" [ref=e60] [cursor=pointer]:
+                - /url: /metrics/ilo_sdg/sdg_0111_sex_age_rt/
+              - generic [ref=e61]: core
+            - cell "SDG indicator 1.1.1 - Working poverty rate by sex and age (percentage of employed living below US$3 PPP)" [ref=e62]
+            - cell "draft" [ref=e63]:
+              - code [ref=e64]: draft
+          - row "SDG indicator 1.3.1 - Proportion of population covered by social protection floors/systems by sex and function core SDG indicator 1.3.1 - Proportion of population covered by social protection floors/systems by sex and function draft" [ref=e65]:
+            - cell "SDG indicator 1.3.1 - Proportion of population covered by social protection floors/systems by sex and function core" [ref=e66]:
+              - link "SDG indicator 1.3.1 - Proportion of population covered by social protection floors/systems by sex and function" [ref=e67] [cursor=pointer]:
+                - /url: /metrics/ilo_sdg/sdg_0131_sex_soc_rt/
+              - generic [ref=e68]: core
+            - cell "SDG indicator 1.3.1 - Proportion of population covered by social protection floors/systems by sex and function" [ref=e69]
+            - cell "draft" [ref=e70]:
+              - code [ref=e71]: draft
+          - row "SDG indicator 5.5.2 - Proportion of women in senior and middle management positions core SDG indicator 5.5.2 - Proportion of women in senior and middle management positions draft" [ref=e72]:
+            - cell "SDG indicator 5.5.2 - Proportion of women in senior and middle management positions core" [ref=e73]:
+              - link "SDG indicator 5.5.2 - Proportion of women in senior and middle management positions" [ref=e74] [cursor=pointer]:
+                - /url: /metrics/ilo_sdg/sdg_0552_noc_rt/
+              - generic [ref=e75]: core
+            - cell "SDG indicator 5.5.2 - Proportion of women in senior and middle management positions" [ref=e76]
+            - cell "draft" [ref=e77]:
+              - code [ref=e78]: draft
+          - row "SDG indicator 8.3.1 - Proportion of informal employment in total employment by sex and economic activity core SDG indicator 8.3.1 - Proportion of informal employment in total employment by sex and economic activity draft" [ref=e79]:
+            - cell "SDG indicator 8.3.1 - Proportion of informal employment in total employment by sex and economic activity core" [ref=e80]:
+              - link "SDG indicator 8.3.1 - Proportion of informal employment in total employment by sex and economic activity" [ref=e81] [cursor=pointer]:
+                - /url: /metrics/ilo_sdg/sdg_0831_sex_eco_rt/
+              - generic [ref=e82]: core
+            - cell "SDG indicator 8.3.1 - Proportion of informal employment in total employment by sex and economic activity" [ref=e83]
+            - cell "draft" [ref=e84]:
+              - code [ref=e85]: draft
+          - row "SDG indicator 8.5.2 - Unemployment rate by sex and age core SDG indicator 8.5.2 - Unemployment rate by sex and age draft" [ref=e86]:
+            - cell "SDG indicator 8.5.2 - Unemployment rate by sex and age core" [ref=e87]:
+              - link "SDG indicator 8.5.2 - Unemployment rate by sex and age" [ref=e88] [cursor=pointer]:
+                - /url: /metrics/ilo_sdg/sdg_0852_sex_age_rt/
+              - generic [ref=e89]: core
+            - cell "SDG indicator 8.5.2 - Unemployment rate by sex and age" [ref=e90]
+            - cell "draft" [ref=e91]:
+              - code [ref=e92]: draft
+          - row "SDG indicator 8.5.2 - Unemployment rate by sex and disability status core SDG indicator 8.5.2 - Unemployment rate by sex and disability status draft" [ref=e93]:
+            - cell "SDG indicator 8.5.2 - Unemployment rate by sex and disability status core" [ref=e94]:
+              - link "SDG indicator 8.5.2 - Unemployment rate by sex and disability status" [ref=e95] [cursor=pointer]:
+                - /url: /metrics/ilo_sdg/sdg_0852_sex_dsb_rt/
+              - generic [ref=e96]: core
+            - cell "SDG indicator 8.5.2 - Unemployment rate by sex and disability status" [ref=e97]
+            - cell "draft" [ref=e98]:
+              - code [ref=e99]: draft
+          - row "SDG indicator 8.6.1 - Proportion of youth (aged 15-24 years) not in education, employment or training by sex core SDG indicator 8.6.1 - Proportion of youth (aged 15-24 years) not in education, employment or training by sex draft" [ref=e100]:
+            - cell "SDG indicator 8.6.1 - Proportion of youth (aged 15-24 years) not in education, employment or training by sex core" [ref=e101]:
+              - link "SDG indicator 8.6.1 - Proportion of youth (aged 15-24 years) not in education, employment or training by sex" [ref=e102] [cursor=pointer]:
+                - /url: /metrics/ilo_sdg/sdg_0861_sex_rt/
+              - generic [ref=e103]: core
+            - cell "SDG indicator 8.6.1 - Proportion of youth (aged 15-24 years) not in education, employment or training by sex" [ref=e104]
+            - cell "draft" [ref=e105]:
+              - code [ref=e106]: draft
+          - row "SDG indicator 9.2.2 - Manufacturing employment as a proportion of total employment core SDG indicator 9.2.2 - Manufacturing employment as a proportion of total employment draft" [ref=e107]:
+            - cell "SDG indicator 9.2.2 - Manufacturing employment as a proportion of total employment core" [ref=e108]:
+              - link "SDG indicator 9.2.2 - Manufacturing employment as a proportion of total employment" [ref=e109] [cursor=pointer]:
+                - /url: /metrics/ilo_sdg/sdg_0922_noc_rt/
+              - generic [ref=e110]: core
+            - cell "SDG indicator 9.2.2 - Manufacturing employment as a proportion of total employment" [ref=e111]
+            - cell "draft" [ref=e112]:
+              - code [ref=e113]: draft
+          - row "SDG indicator 8.7.1 - Proportion of children engaged in economic activity by sex and age core SDG indicator 8.7.1 - Proportion of children engaged in economic activity by sex and age draft" [ref=e114]:
+            - cell "SDG indicator 8.7.1 - Proportion of children engaged in economic activity by sex and age core" [ref=e115]:
+              - link "SDG indicator 8.7.1 - Proportion of children engaged in economic activity by sex and age" [ref=e116] [cursor=pointer]:
+                - /url: /metrics/ilo_sdg/sdg_a871_sex_age_rt/
+              - generic [ref=e117]: core
+            - cell "SDG indicator 8.7.1 - Proportion of children engaged in economic activity by sex and age" [ref=e118]
+            - cell "draft" [ref=e119]:
+              - code [ref=e120]: draft
+          - row "SDG indicator 5.5.2 - Proportion of women in senior and middle management positions -- 19th ICLS core SDG indicator 5.5.2 - Proportion of women in senior and middle management positions -- 19th ICLS draft" [ref=e121]:
+            - cell "SDG indicator 5.5.2 - Proportion of women in senior and middle management positions -- 19th ICLS core" [ref=e122]:
+              - link "SDG indicator 5.5.2 - Proportion of women in senior and middle management positions -- 19th ICLS" [ref=e123] [cursor=pointer]:
+                - /url: /metrics/ilo_sdg/sdg_b552_noc_rt/
+              - generic [ref=e124]: core
+            - cell "SDG indicator 5.5.2 - Proportion of women in senior and middle management positions -- 19th ICLS" [ref=e125]
+            - cell "draft" [ref=e126]:
+              - code [ref=e127]: draft
+          - row "SDG indicator 8.3.1 - Proportion of informal employment in total employment by sex and economic activity -- 19th ICLS core SDG indicator 8.3.1 - Proportion of informal employment in total employment by sex and economic activity -- 19th ICLS draft" [ref=e128]:
+            - cell "SDG indicator 8.3.1 - Proportion of informal employment in total employment by sex and economic activity -- 19th ICLS core" [ref=e129]:
+              - link "SDG indicator 8.3.1 - Proportion of informal employment in total employment by sex and economic activity -- 19th ICLS" [ref=e130] [cursor=pointer]:
+                - /url: /metrics/ilo_sdg/sdg_b831_sex_eco_rt/
+              - generic [ref=e131]: core
+            - cell "SDG indicator 8.3.1 - Proportion of informal employment in total employment by sex and economic activity -- 19th ICLS" [ref=e132]
+            - cell "draft" [ref=e133]:
+              - code [ref=e134]: draft
+          - row "SDG indicator 8.5.2 - Unemployment rate by sex and age -- 19th ICLS core SDG indicator 8.5.2 - Unemployment rate by sex and age -- 19th ICLS draft" [ref=e135]:
+            - cell "SDG indicator 8.5.2 - Unemployment rate by sex and age -- 19th ICLS core" [ref=e136]:
+              - link "SDG indicator 8.5.2 - Unemployment rate by sex and age -- 19th ICLS" [ref=e137] [cursor=pointer]:
+                - /url: /metrics/ilo_sdg/sdg_b852_sex_age_rt/
+              - generic [ref=e138]: core
+            - cell "SDG indicator 8.5.2 - Unemployment rate by sex and age -- 19th ICLS" [ref=e139]
+            - cell "draft" [ref=e140]:
+              - code [ref=e141]: draft
+          - row "SDG indicator 8.5.2 - Unemployment rate by sex and disability status -- 19th ICLS core SDG indicator 8.5.2 - Unemployment rate by sex and disability status -- 19th ICLS draft" [ref=e142]:
+            - cell "SDG indicator 8.5.2 - Unemployment rate by sex and disability status -- 19th ICLS core" [ref=e143]:
+              - link "SDG indicator 8.5.2 - Unemployment rate by sex and disability status -- 19th ICLS" [ref=e144] [cursor=pointer]:
+                - /url: /metrics/ilo_sdg/sdg_b852_sex_dsb_rt/
+              - generic [ref=e145]: core
+            - cell "SDG indicator 8.5.2 - Unemployment rate by sex and disability status -- 19th ICLS" [ref=e146]
+            - cell "draft" [ref=e147]:
+              - code [ref=e148]: draft
+          - row "SDG indicator 8.7.1 - Proportion of children engaged in economic activity and household chores by sex and age core SDG indicator 8.7.1 - Proportion of children engaged in economic activity and household chores by sex and age draft" [ref=e149]:
+            - cell "SDG indicator 8.7.1 - Proportion of children engaged in economic activity and household chores by sex and age core" [ref=e150]:
+              - link "SDG indicator 8.7.1 - Proportion of children engaged in economic activity and household chores by sex and age" [ref=e151] [cursor=pointer]:
+                - /url: /metrics/ilo_sdg/sdg_b871_sex_age_rt/
+              - generic [ref=e152]: core
+            - cell "SDG indicator 8.7.1 - Proportion of children engaged in economic activity and household chores by sex and age" [ref=e153]
+            - cell "draft" [ref=e154]:
+              - code [ref=e155]: draft
+          - row "SDG indicator 9.2.2 - Manufacturing employment as a proportion of total employment -- 19th ICLS core SDG indicator 9.2.2 - Manufacturing employment as a proportion of total employment -- 19th ICLS draft" [ref=e156]:
+            - cell "SDG indicator 9.2.2 - Manufacturing employment as a proportion of total employment -- 19th ICLS core" [ref=e157]:
+              - link "SDG indicator 9.2.2 - Manufacturing employment as a proportion of total employment -- 19th ICLS" [ref=e158] [cursor=pointer]:
+                - /url: /metrics/ilo_sdg/sdg_b922_noc_rt/
+              - generic [ref=e159]: core
+            - cell "SDG indicator 9.2.2 - Manufacturing employment as a proportion of total employment -- 19th ICLS" [ref=e160]
+            - cell "draft" [ref=e161]:
+              - code [ref=e162]: draft
+          - row "SDG indicator 5.5.2 - Proportion of women in managerial positions core SDG indicator 5.5.2 - Proportion of women in managerial positions draft" [ref=e163]:
+            - cell "SDG indicator 5.5.2 - Proportion of women in managerial positions core" [ref=e164]:
+              - link "SDG indicator 5.5.2 - Proportion of women in managerial positions" [ref=e165] [cursor=pointer]:
+                - /url: /metrics/ilo_sdg/sdg_t552_noc_rt/
+              - generic [ref=e166]: core
+            - cell "SDG indicator 5.5.2 - Proportion of women in managerial positions" [ref=e167]
+            - cell "draft" [ref=e168]:
+              - code [ref=e169]: draft
+          - row "SDG indicator 5.5.2 - Proportion of women in managerial positions -- 19th ICLS core SDG indicator 5.5.2 - Proportion of women in managerial positions -- 19th ICLS draft" [ref=e170]:
+            - cell "SDG indicator 5.5.2 - Proportion of women in managerial positions -- 19th ICLS core" [ref=e171]:
+              - link "SDG indicator 5.5.2 - Proportion of women in managerial positions -- 19th ICLS" [ref=e172] [cursor=pointer]:
+                - /url: /metrics/ilo_sdg/sdg_u552_noc_rt/
+              - generic [ref=e173]: core
+            - cell "SDG indicator 5.5.2 - Proportion of women in managerial positions -- 19th ICLS" [ref=e174]
+            - cell "draft" [ref=e175]:
+              - code [ref=e176]: draft
+  - contentinfo [ref=e177]:
+    - generic [ref=e178]:
+      - generic [ref=e179]:
+        - generic [ref=e180]:
+          - generic [ref=e181]: PublicSchema
+          - paragraph [ref=e182]: Common definitions for public service delivery. Built so programs can coordinate, share data, and reach the people they serve.
+        - generic [ref=e183]:
+          - generic [ref=e184]:
+            - heading "Explore" [level=4] [ref=e185]
+            - list [ref=e186]:
+              - listitem [ref=e187]:
+                - link "Concepts" [ref=e188] [cursor=pointer]:
+                  - /url: /concepts/
+              - listitem [ref=e189]:
+                - link "Properties" [ref=e190] [cursor=pointer]:
+                  - /url: /properties/
+              - listitem [ref=e191]:
+                - link "Vocabularies" [ref=e192] [cursor=pointer]:
+                  - /url: /vocab/
+              - listitem [ref=e193]:
+                - link "Systems" [ref=e194] [cursor=pointer]:
+                  - /url: /systems/
+              - listitem [ref=e195]:
+                - link "Standards & References" [ref=e196] [cursor=pointer]:
+                  - /url: /references/
+          - generic [ref=e197]:
+            - heading "Docs" [level=4] [ref=e198]
+            - list [ref=e199]:
+              - listitem [ref=e200]:
+                - link "Use Cases" [ref=e201] [cursor=pointer]:
+                  - /url: /docs/use-cases/
+              - listitem [ref=e202]:
+                - link "Extension Mechanism" [ref=e203] [cursor=pointer]:
+                  - /url: /docs/extension-mechanism/
+              - listitem [ref=e204]:
+                - link "All documentation" [ref=e205] [cursor=pointer]:
+                  - /url: /docs/
+          - generic [ref=e206]:
+            - heading "Project" [level=4] [ref=e207]
+            - list [ref=e208]:
+              - listitem [ref=e209]:
+                - link "About" [ref=e210] [cursor=pointer]:
+                  - /url: /about/
+              - listitem [ref=e211]:
+                - link "Source on GitHub" [ref=e212] [cursor=pointer]:
+                  - /url: https://github.com/PublicSchema/publicschema.org
+              - listitem [ref=e213]:
+                - link "Terms and License" [ref=e214] [cursor=pointer]:
+                  - /url: /terms/
+              - listitem [ref=e215]:
+                - link "Join review group" [ref=e216] [cursor=pointer]:
+                  - /url: https://hypothes.is/groups/6EELqkDo/public-schema-review
+      - generic [ref=e217]:
+        - generic [ref=e218]:
+          - text: "Reference model:"
+          - link "CC BY 4.0" [ref=e219] [cursor=pointer]:
+            - /url: https://creativecommons.org/licenses/by/4.0/
+          - text: "| Code:"
+          - link "Apache 2.0" [ref=e220] [cursor=pointer]:
+            - /url: https://www.apache.org/licenses/LICENSE-2.0
+        - generic [ref=e221]:
+          - text: Built with
+          - link "Astro" [ref=e222] [cursor=pointer]:
+            - /url: https://astro.build/
+  - generic [ref=e225]:
+    - button "Menu" [ref=e226]:
+      - img [ref=e228]
+      - generic: Menu
+    - button "Inspect" [ref=e232]:
+      - img [ref=e234]
+      - generic: Inspect
+    - button "Audit" [ref=e236]:
+      - img [ref=e238]
+      - generic: Audit
+    - button "Settings" [ref=e241]:
+      - img [ref=e243]
+      - generic: Settings
+  - generic:
+    - generic [ref=e246]:
+      - generic:
+        - generic [ref=e248]:
+          - button "Annotation sidebar" [ref=e249]:
+            - img [ref=e250]
+          - generic [ref=e254]:
+            - button "Show highlights" [ref=e255]:
+              - img [ref=e256]
+            - button "New page note" [ref=e260]:
+              - img [ref=e261]
+          - status [ref=e265]: Highlights hidden
+        - generic:
+          - list
+    - generic:
+      - list

@@ -1,0 +1,198 @@
+- generic [active] [ref=e1]:
+  - link "Skip to main content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - navigation [ref=e3]:
+    - generic [ref=e4]:
+      - link "PublicSchema Public Service Data Reference Model" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e6]:
+          - generic [ref=e7]: PublicSchema
+          - generic [ref=e8]: Public Service Data Reference Model
+      - list [ref=e9]:
+        - listitem [ref=e10]:
+          - link "Concepts" [ref=e11] [cursor=pointer]:
+            - /url: /concepts/
+        - listitem [ref=e12]:
+          - link "Vocabularies" [ref=e13] [cursor=pointer]:
+            - /url: /vocab/
+        - listitem [ref=e14]:
+          - link "Docs" [ref=e15] [cursor=pointer]:
+            - /url: /docs/
+        - listitem [ref=e16]:
+          - link "About" [ref=e17] [cursor=pointer]:
+            - /url: /about/
+      - generic [ref=e19]:
+        - combobox "Search PublicSchema" [ref=e20]
+        - generic: ⌘K
+      - group [ref=e23]:
+        - 'generic "Current language: English" [ref=e24] [cursor=pointer]':
+          - img [ref=e25]
+          - generic [ref=e28]: EN
+          - img [ref=e29]
+        - text: ✓
+      - text: ✓ ✓
+  - main [ref=e31]:
+    - article [ref=e32]:
+      - generic [ref=e33]:
+        - navigation "Home" [ref=e34]:
+          - link "Home" [ref=e35] [cursor=pointer]:
+            - /url: /
+          - text: / Metrics
+        - heading "Metrics" [level=1] [ref=e36]
+        - paragraph [ref=e37]:
+          - text: Derivable aggregate indicators with declarative computations, dimensional structure, and external alignments. See the
+          - link "Metrics Specification" [ref=e38] [cursor=pointer]:
+            - /url: /docs/metrics-spec/
+          - text: for the full design.
+        - paragraph [ref=e39]:
+          - generic [ref=e40]: 597 metrics · 2 catalogs
+      - generic [ref=e41]:
+        - heading "Catalogs" [level=2] [ref=e42]
+        - paragraph [ref=e43]: Seeded indicator catalogs grouped by upstream source.
+        - generic [ref=e44]:
+          - 'link "DHS Program — Household and SP-adjacent indicator seed metric catalog 580 indicators Source: ICF, The DHS Program — DHS API License: DHS indicator definitions are publicly available; data downloads require DHS Program registration" [ref=e45] [cursor=pointer]':
+            - /url: /metrics/dhs_household/
+            - heading "DHS Program — Household and SP-adjacent indicator seed metric catalog" [level=3] [ref=e46]
+            - paragraph [ref=e47]: 580 indicators
+            - paragraph [ref=e48]:
+              - strong [ref=e49]: "Source:"
+              - text: ICF, The DHS Program — DHS API
+            - paragraph [ref=e50]:
+              - strong [ref=e51]: "License:"
+              - text: DHS indicator definitions are publicly available; data downloads require DHS Program registration
+          - 'link "ILO SDMX SDG indicators relevant to social protection — seed metric catalog 17 indicators Source: ILO SDMX (https://sdmx.ilo.org/rest/) License: Reproduction of ILO material is permitted for non-commercial purposes per https://www.ilo.org/rights-and-permissions" [ref=e52] [cursor=pointer]':
+            - /url: /metrics/ilo_sdg/
+            - heading "ILO SDMX SDG indicators relevant to social protection — seed metric catalog" [level=3] [ref=e53]
+            - paragraph [ref=e54]: 17 indicators
+            - paragraph [ref=e55]:
+              - strong [ref=e56]: "Source:"
+              - text: ILO SDMX (https://sdmx.ilo.org/rest/)
+            - paragraph [ref=e57]:
+              - strong [ref=e58]: "License:"
+              - text: Reproduction of ILO material is permitted for non-commercial purposes per https://www.ilo.org/rights-and-permissions
+  - contentinfo [ref=e59]:
+    - generic [ref=e60]:
+      - generic [ref=e61]:
+        - generic [ref=e62]:
+          - generic [ref=e63]: PublicSchema
+          - paragraph [ref=e64]: Common definitions for public service delivery. Built so programs can coordinate, share data, and reach the people they serve.
+        - generic [ref=e65]:
+          - generic [ref=e66]:
+            - heading "Explore" [level=4] [ref=e67]
+            - list [ref=e68]:
+              - listitem [ref=e69]:
+                - link "Concepts" [ref=e70] [cursor=pointer]:
+                  - /url: /concepts/
+              - listitem [ref=e71]:
+                - link "Properties" [ref=e72] [cursor=pointer]:
+                  - /url: /properties/
+              - listitem [ref=e73]:
+                - link "Vocabularies" [ref=e74] [cursor=pointer]:
+                  - /url: /vocab/
+              - listitem [ref=e75]:
+                - link "Systems" [ref=e76] [cursor=pointer]:
+                  - /url: /systems/
+              - listitem [ref=e77]:
+                - link "Standards & References" [ref=e78] [cursor=pointer]:
+                  - /url: /references/
+          - generic [ref=e79]:
+            - heading "Docs" [level=4] [ref=e80]
+            - list [ref=e81]:
+              - listitem [ref=e82]:
+                - link "Use Cases" [ref=e83] [cursor=pointer]:
+                  - /url: /docs/use-cases/
+              - listitem [ref=e84]:
+                - link "Extension Mechanism" [ref=e85] [cursor=pointer]:
+                  - /url: /docs/extension-mechanism/
+              - listitem [ref=e86]:
+                - link "All documentation" [ref=e87] [cursor=pointer]:
+                  - /url: /docs/
+          - generic [ref=e88]:
+            - heading "Project" [level=4] [ref=e89]
+            - list [ref=e90]:
+              - listitem [ref=e91]:
+                - link "About" [ref=e92] [cursor=pointer]:
+                  - /url: /about/
+              - listitem [ref=e93]:
+                - link "Source on GitHub" [ref=e94] [cursor=pointer]:
+                  - /url: https://github.com/PublicSchema/publicschema.org
+              - listitem [ref=e95]:
+                - link "Terms and License" [ref=e96] [cursor=pointer]:
+                  - /url: /terms/
+              - listitem [ref=e97]:
+                - link "Join review group" [ref=e98] [cursor=pointer]:
+                  - /url: https://hypothes.is/groups/6EELqkDo/public-schema-review
+      - generic [ref=e99]:
+        - generic [ref=e100]:
+          - text: "Reference model:"
+          - link "CC BY 4.0" [ref=e101] [cursor=pointer]:
+            - /url: https://creativecommons.org/licenses/by/4.0/
+          - text: "| Code:"
+          - link "Apache 2.0" [ref=e102] [cursor=pointer]:
+            - /url: https://www.apache.org/licenses/LICENSE-2.0
+        - generic [ref=e103]:
+          - text: Built with
+          - link "Astro" [ref=e104] [cursor=pointer]:
+            - /url: https://astro.build/
+  - generic [ref=e107]:
+    - button "Menu" [ref=e108]:
+      - img [ref=e110]
+      - generic: Menu
+    - button "Inspect" [ref=e114]:
+      - img [ref=e116]
+      - generic: Inspect
+    - button "Audit" [ref=e118]:
+      - generic [ref=e119]:
+        - img [ref=e120]
+        - img [ref=e123]
+      - generic: Audit
+    - button "Settings" [ref=e126]:
+      - img [ref=e128]
+      - generic: Settings
+  - generic:
+    - generic [ref=e131]:
+      - generic:
+        - generic [ref=e133]:
+          - button "Annotation sidebar" [ref=e134]:
+            - img [ref=e135]
+          - generic [ref=e139]:
+            - button "Show highlights" [ref=e140]:
+              - img [ref=e141]
+            - button "New page note" [ref=e145]:
+              - img [ref=e146]
+          - status [ref=e150]: Highlights hidden
+        - generic:
+          - list
+      - iframe [ref=e151]:
+        - generic [ref=f1e3]:
+          - generic [ref=f1e5]:
+            - button "Select group" [ref=f1e7]:
+              - generic [ref=f1e8]: …
+              - img [ref=f1e10]
+            - generic [ref=f1e12]:
+              - img [ref=f1e13]
+              - button "Sort by location" [ref=f1e21]:
+                - img [ref=f1e23]
+              - button "Show share panel" [ref=f1e27]:
+                - img [ref=f1e28]
+              - button "Show help panel" [ref=f1e32]:
+                - img [ref=f1e33]
+              - generic [ref=f1e37]:
+                - button "Sign up" [ref=f1e38]
+                - generic [ref=f1e39]: /
+                - button "Log in" [ref=f1e40]
+          - generic [ref=f1e41]:
+            - generic:
+              - list
+            - main [ref=f1e42]:
+              - generic [ref=f1e43]:
+                - heading "Annotations" [level=2] [ref=f1e44]
+                - status [ref=f1e45]
+                - generic [ref=f1e46]:
+                  - tablist [ref=f1e47]:
+                    - tab "Annotations" [selected] [ref=f1e48]
+                    - tab "Page notes" [ref=f1e49]: Page Notes
+                  - tabpanel "Annotations":
+                    - list
+    - generic:
+      - list
