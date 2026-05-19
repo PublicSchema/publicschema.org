@@ -1,5 +1,6 @@
 import { loadVocabulary } from '../data/vocabulary';
 import { docs } from '../data/docs';
+import { handbook } from '../data/handbook';
 import { readFileSync, existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 
@@ -158,6 +159,32 @@ export function GET() {
       lines.push(content.trim());
     } else {
       lines.push(doc.description.en);
+    }
+
+    lines.push('');
+    lines.push('');
+  }
+
+  // --- Handbook ---
+  lines.push('---');
+  lines.push('');
+  lines.push('## Handbook');
+  lines.push('');
+
+  const handbookDir = resolve(process.cwd(), '../docs/handbook');
+  for (const [slug, page] of Object.entries(handbook)) {
+    lines.push(`### ${page.title}`);
+    lines.push('');
+    lines.push(`URL: https://publicschema.org/handbook/${slug}/`);
+    lines.push('');
+
+    const pagePath = resolve(handbookDir, page.file);
+    if (existsSync(pagePath)) {
+      let content = readFileSync(pagePath, 'utf-8');
+      content = content.replace(/^#\s+.+\n+/, '');
+      lines.push(content.trim());
+    } else {
+      lines.push(page.description);
     }
 
     lines.push('');

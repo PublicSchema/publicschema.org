@@ -1,0 +1,123 @@
+---
+import Base from '../../layouts/Base.astro';
+import TranslationBanner from '../TranslationBanner.astro';
+import PageFeedback from '../PageFeedback.astro';
+import FeedbackOrientation from '../FeedbackOrientation.astro';
+import { defaultLocale, type Locale } from '../../i18n/languages';
+import { localePath, useTranslations } from '../../i18n/utils';
+import {
+  handbook,
+  handbookEntries,
+  nextHandbookSlug,
+  previousHandbookSlug,
+} from '../../data/handbook';
+import { Marked } from 'marked';
+import { gfmHeadingId } from 'marked-gfm-heading-id';
+import { markedHighlight } from 'marked-highlight';
+import hljs from 'highlight.js';
+import 'highlight.js/styles/github-dark.css';
+import { existsSync, readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+
+interface Props {
+  slug: string;
+  locale?: Locale;
+}
+
+const { slug, locale = defaultLocale } = Astro.props;
+const t = useTranslations(locale);
+const entry = handbook[slug];
+
+const renderer = new Marked(
+  gfmHeadingId(),
+  markedHighlight({
+    langPrefix: 'hljs language-',
+    highlight(code, lang) {
+      if (lang && hljs.getLanguage(lang)) {
+        return hljs.highlight(code, { language: lang }).value;
+      }
+      return hljs.highlightAuto(code).value;
+    },
+  })
+);
+
+const handbookDir = resolve(process.cwd(), '../docs/handbook');
+const localePath_ = locale === defaultLocale ? entry.file : `${locale}/${entry.file}`;
+const resolvedPath = resolve(handbookDir, localePath_);
+const fellBack = locale !== defaultLocale && !existsSync(resolvedPath);
+const finalPath = fellBack ? resolve(handbookDir, entry.file) : resolvedPath;
+const raw = readFileSync(finalPath, 'utf-8');
+const withoutH1 = raw.replace(/^#\s+.+\n+/, '');
+let html = await renderer.parse(withoutH1);
+
+if (locale !== defaultLocale) {
+  const sharedAssetPrefix = /^\/(images|v|_astro|ctx|favicon|sitemap|robots\.txt)(\/|$|\.)/;
+  const localePrefix = new RegExp(`^\\/${locale}(\\/|$)`);
+  html = html.replace(/href="(\/[^"#]*)(#[^"]*)?"/g, (match, path, anchor) => {
+    if (sharedAssetPrefix.test(path)) return match;
+    if (localePrefix.test(path)) return match;
+    return `href="${localePath(path, locale)}${anchor ?? ''}"`;
+  });
+}
+
+const previousSlug = previousHandbookSlug(slug);
+const nextSlug = nextHandbookSlug(slug);
+const previousEntry = previousSlug ? handbook[previousSlug] : undefined;
+const nextEntry = nextSlug ? handbook[nextSlug] : undefined;
+---
+<Base title={entry.title} description={entry.description} ogType="article" locale={locale}>
+  <article class="handbook-layout">
+    <aside class="handbook-sidebar" aria-label="Handbook contents">
+      <a class="handbook-sidebar-title" href={localePath('/handbook/', locale)}>{t('nav.handbook')}</a>
+      <ol>
+        {handbookEntries().map(([itemSlug, item]) => (
+          <li>
+            <a
+              href={localePath(`/handbook/${itemSlug}/`, locale)}
+              class:list={[{ active: itemSlug === slug }]}
+            >
+              {item.title}
+            </a>
+          </li>
+        ))}
+      </ol>
+    </aside>
+
+    <div class="handbook-main">
+      {fellBack && <TranslationBanner locale={locale} />}
+      <div class="page-header">
+        <nav class="breadcrumb" aria-label={t('breadcrumb.home')}>
+          <a href={localePath('/', locale)}>{t('breadcrumb.home')}</a>
+          <span class="separator">/</span>
+          <a href={localePath('/handbook/', locale)}>{t('nav.handbook')}</a>
+          <span class="separator">/</span>
+          {entry.title}
+        </nav>
+        <h1>{entry.title}</h1>
+        <p class="definition-text">{entry.description}</p>
+      </div>
+
+      <div class="concept-narrative doc-content">
+        <Fragment set:html={html} />
+      </div>
+
+      <nav class="handbook-prev-next" aria-label="Handbook pagination">
+        {previousEntry && previousSlug ? (
+          <a href={localePath(`/handbook/${previousSlug}/`, locale)} rel="prev">
+            <span>Previous</span>
+            <strong>{previousEntry.title}</strong>
+          </a>
+        ) : <span />}
+        {nextEntry && nextSlug ? (
+          <a href={localePath(`/handbook/${nextSlug}/`, locale)} rel="next">
+            <span>Next</span>
+            <strong>{nextEntry.title}</strong>
+          </a>
+        ) : <span />}
+      </nav>
+
+      <PageFeedback pageId={`handbook-${slug}`} pageTitle={entry.title} locale={locale} />
+      <FeedbackOrientation locale={locale} />
+    </div>
+  </article>
+</Base>

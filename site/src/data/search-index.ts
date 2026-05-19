@@ -1,5 +1,6 @@
 import { loadVocabulary } from './vocabulary';
 import { docs } from './docs';
+import { handbook } from './handbook';
 import { defaultLocale, type Locale } from '../i18n/languages';
 import { useTranslations } from '../i18n/utils';
 
@@ -95,6 +96,18 @@ export function buildSearchIndex(locale: Locale = defaultLocale): SearchDocument
       body: truncate(doc.description[locale] ?? doc.description.en, 200),
       path: `/docs/${slug}/`,
       meta: t(`docs.category.${doc.category}`),
+      keywords: '',
+    });
+  }
+
+  for (const [slug, page] of Object.entries(handbook)) {
+    documents.push({
+      id: `handbook:${slug}`,
+      type: 'doc',
+      title: page.title,
+      body: truncate(page.description, 200),
+      path: `/handbook/${slug}/`,
+      meta: t('nav.handbook'),
       keywords: '',
     });
   }

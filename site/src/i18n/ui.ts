@@ -13,6 +13,7 @@ const en = {
   'nav.concepts': 'Concepts',
   'nav.properties': 'Properties',
   'nav.vocabularies': 'Vocabularies',
+  'nav.handbook': 'Handbook',
   'nav.docs': 'Docs',
   'nav.about': 'About',
   'nav.menu': 'Menu',
@@ -41,6 +42,7 @@ const en = {
   'footer.docs': 'Docs',
   'footer.project': 'Project',
   'footer.use_cases': 'Use Cases',
+  'footer.handbook': 'Handbook',
   'footer.extension_mechanism': 'Extension Mechanism',
   'footer.all_docs': 'All documentation',
   'footer.systems': 'Systems',
@@ -255,6 +257,10 @@ const en = {
   'docs.category.getting_started': 'Getting Started',
   'docs.category.technical': 'Technical Documentation',
   'docs.category.landscape': 'Landscape',
+
+  // Handbook
+  'handbook.page_title': 'Handbook',
+  'handbook.page_subtitle': 'A practical guide to adopting PublicSchema through vocabulary alignment, system mapping, new system design, data exchanges, credentials, validation, and governance.',
 
   // Homepage schema index (data-driven section)
   'home.browse_schema': 'Browse the schema',

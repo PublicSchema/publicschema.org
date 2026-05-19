@@ -1586,6 +1586,154 @@ article .data-table.table-wide {
   line-height: 1.55;
 }
 
+/* Handbook */
+.handbook-path-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-md);
+  margin: 0 0 var(--space-xl);
+}
+
+.handbook-path-summary a {
+  display: grid;
+  gap: var(--space-xs);
+  padding: var(--space-lg);
+  color: var(--color-text);
+  text-decoration: none;
+  background: white;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.handbook-path-summary a:hover {
+  border-color: var(--color-accent);
+  box-shadow: 0 4px 16px rgba(30, 58, 95, 0.08);
+}
+
+.handbook-path-summary strong {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+}
+
+.handbook-path-summary span:last-child {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.path-kicker {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.handbook-layout {
+  display: grid;
+  grid-template-columns: minmax(12rem, 16rem) minmax(0, 1fr);
+  gap: var(--space-xl);
+  align-items: start;
+  width: 100%;
+  max-width: none;
+}
+
+.handbook-sidebar {
+  position: sticky;
+  top: calc(var(--nav-height) + var(--space-lg));
+  max-height: calc(100vh - var(--nav-height) - var(--space-xl));
+  overflow-y: auto;
+  padding: var(--space-md);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.handbook-sidebar-title {
+  display: inline-block;
+  margin-bottom: var(--space-sm);
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.handbook-sidebar ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.handbook-sidebar li {
+  margin: 0;
+}
+
+.handbook-sidebar a {
+  display: block;
+  padding: 0.35rem 0;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  line-height: 1.35;
+  text-decoration: none;
+}
+
+.handbook-sidebar a:hover,
+.handbook-sidebar a.active {
+  color: var(--color-accent);
+}
+
+.handbook-main {
+  min-width: 0;
+}
+
+.illustration-placeholder {
+  margin: var(--space-xl) 0;
+  padding: var(--space-lg);
+  color: var(--color-text);
+  background:
+    linear-gradient(135deg, rgba(30, 58, 95, 0.06), rgba(76, 130, 109, 0.08)),
+    var(--color-surface);
+  border: 1px dashed var(--color-accent);
+  border-radius: var(--radius-md);
+}
+
+.illustration-placeholder strong {
+  display: block;
+  margin-bottom: var(--space-xs);
+  font-family: var(--font-sans);
+}
+
+.handbook-prev-next {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-md);
+  margin: var(--space-xl) 0;
+}
+
+.handbook-prev-next a {
+  display: grid;
+  gap: var(--space-xs);
+  padding: var(--space-md);
+  color: var(--color-text);
+  text-decoration: none;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: white;
+}
+
+.handbook-prev-next a:last-child {
+  text-align: right;
+}
+
+.handbook-prev-next span {
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+}
+
+.handbook-prev-next strong {
+  font-family: var(--font-display);
+}
+
 /* Markdown-rendered doc content */
 .doc-content h2 {
   font-family: var(--font-display);
@@ -2491,6 +2639,27 @@ article .data-table.table-wide {
   .doc-content td {
     white-space: nowrap;
     padding: 0.5rem 0.75rem;
+  }
+
+  .handbook-path-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .handbook-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .handbook-sidebar {
+    position: static;
+    max-height: none;
+  }
+
+  .handbook-prev-next {
+    grid-template-columns: 1fr;
+  }
+
+  .handbook-prev-next a:last-child {
+    text-align: left;
   }
 }
 

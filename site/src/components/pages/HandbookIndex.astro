@@ -1,0 +1,87 @@
+---
+import Base from '../../layouts/Base.astro';
+import TranslationBanner from '../TranslationBanner.astro';
+import { defaultLocale, type Locale } from '../../i18n/languages';
+import { localePath, useTranslations } from '../../i18n/utils';
+import {
+  handbookEntries,
+  handbookSectionLabels,
+  handbookSectionOrder,
+  type HandbookEntry,
+} from '../../data/handbook';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = defaultLocale } = Astro.props;
+const t = useTranslations(locale);
+
+const grouped = new Map<HandbookEntry['section'], Array<[string, HandbookEntry]>>();
+for (const section of handbookSectionOrder) grouped.set(section, []);
+for (const entry of handbookEntries()) grouped.get(entry[1].section)!.push(entry);
+---
+<Base
+  title={t('handbook.page_title')}
+  description={t('handbook.page_subtitle')}
+  locale={locale}
+>
+  <div class="page-header">
+    <nav class="breadcrumb" aria-label={t('breadcrumb.home')}>
+      <a href={localePath('/', locale)}>{t('breadcrumb.home')}</a>
+      <span class="separator">/</span>
+      {t('nav.handbook')}
+    </nav>
+    <h1>{t('handbook.page_title')}</h1>
+    <p class="definition-text">{t('handbook.page_subtitle')}</p>
+  </div>
+
+  {locale !== defaultLocale && <TranslationBanner locale={locale} />}
+
+  <section class="handbook-path-summary" aria-label="Handbook adoption paths">
+    <a href={localePath('/handbook/worked-example/', locale)}>
+      <span class="path-kicker">End-to-end</span>
+      <strong>Worked example</strong>
+      <span>See one package from scope to release.</span>
+    </a>
+    <a href={localePath('/handbook/adopt-vocabularies/', locale)}>
+      <span class="path-kicker">Lightest path</span>
+      <strong>Adopt vocabularies</strong>
+      <span>Align local codes first.</span>
+    </a>
+    <a href={localePath('/handbook/map-existing-systems/', locale)}>
+      <span class="path-kicker">Most common path</span>
+      <strong>Map existing systems</strong>
+      <span>Connect platforms without redesigning them.</span>
+    </a>
+    <a href={localePath('/handbook/design-new-system/', locale)}>
+      <span class="path-kicker">Greenfield path</span>
+      <strong>Design a new system</strong>
+      <span>Build compatibility from the start.</span>
+    </a>
+    <a href={localePath('/handbook/procurement-vendor-acceptance/', locale)}>
+      <span class="path-kicker">Buying path</span>
+      <strong>Procurement acceptance</strong>
+      <span>Turn interoperability into evidence.</span>
+    </a>
+    <a href={localePath('/handbook/templates-and-checklists/', locale)}>
+      <span class="path-kicker">Toolkit</span>
+      <strong>Templates</strong>
+      <span>Copy practical tables and checklists.</span>
+    </a>
+  </section>
+
+  {handbookSectionOrder.map((section) => (
+    <section class="doc-category">
+      <h2>{handbookSectionLabels[section]}</h2>
+      <div class="doc-list">
+        {grouped.get(section)!.map(([slug, entry]) => (
+          <a href={localePath(`/handbook/${slug}/`, locale)} class="doc-card">
+            <h3>{entry.title}</h3>
+            <p>{entry.description}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+  ))}
+</Base>
