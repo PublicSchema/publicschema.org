@@ -280,7 +280,7 @@ classes:
       bibliography_refs: '["fao-wca-2020-vol1"]'
     is_a: Group
   HealthFacility:
-    class_uri: publicschema:HealthFacility
+    class_uri: publicschema:health/HealthFacility
     title: Health Facility
     description: 'A service point where clinical or preventive health services are delivered, such as
       a hospital, health center, health post, dispensary, specialty clinic, pharmacy, or diagnostic laboratory.
@@ -301,6 +301,7 @@ classes:
     close_mappings:
     - schema:MedicalOrganization
     annotations:
+      source_domain: health
       label_es: Establecimiento de salud
       label_fr: Établissement de santé
       description_es: 'Un punto de servicio donde se prestan servicios de salud clínicos o preventivos,
@@ -623,7 +624,7 @@ classes:
         "relationship_type"]}, {"category": "administrative", "properties": ["start_date", "end_date"]}]'
       bibliography_refs: '["fhir-v3-role-code", "spdci-common-standards"]'
   School:
-    class_uri: publicschema:School
+    class_uri: publicschema:edu/School
     title: School
     description: 'A service point where formal or non-formal education is delivered, such as a primary
       school, secondary school, vocational training center, or early childhood education center. School
@@ -642,6 +643,7 @@ classes:
     close_mappings:
     - schema:School
     annotations:
+      source_domain: edu
       label_es: Escuela
       label_fr: École
       description_es: Un punto de servicio donde se imparte educación formal o no formal, como una escuela
@@ -1326,7 +1328,7 @@ slots:
         does not include an ethnicity field.", "vocabulary": "OpenCRVS v2 event service", "vocabulary_id":
         "opencrvs"}]'
   facility_level:
-    slot_uri: publicschema:facility_level
+    slot_uri: publicschema:health/facility_level
     title: Facility level
     description: The tier of care provided per national/WHO classification (primary, secondary, tertiary,
       quaternary).
@@ -1334,6 +1336,7 @@ slots:
     multivalued: false
     status: bibo:draft
     annotations:
+      source_domain: health
       label_es: Nivel de establecimiento
       label_fr: Niveau d'établissement
       description_es: El nivel de atención proporcionado según la clasificación nacional/OMS (primario,
@@ -1343,7 +1346,7 @@ slots:
       category: classification
       bibliography_refs: '["who-health-systems"]'
   facility_type:
-    slot_uri: publicschema:facility_type
+    slot_uri: publicschema:health/facility_type
     title: Facility type
     description: The functional category of a health facility per WHO SARA/HHFA (hospital, health center,
       health post, etc.).
@@ -1351,6 +1354,7 @@ slots:
     multivalued: false
     status: bibo:draft
     annotations:
+      source_domain: health
       label_es: Tipo de establecimiento
       label_fr: Type d'établissement
       description_es: La categoría funcional de un establecimiento de salud según SARA/HHFA de la OMS
@@ -2411,7 +2415,7 @@ slots:
       valid_instruments_json: '["jmp_core_hh"]'
       bibliography_refs: '["who-unicef-jmp"]'
   school_level_served:
-    slot_uri: publicschema:school_level_served
+    slot_uri: publicschema:edu/school_level_served
     title: School level served
     description: The ISCED 2011 education level(s) served by this school. A school covering multiple levels
       (e.g., combined primary and lower secondary) should list all applicable levels.
@@ -2419,6 +2423,7 @@ slots:
     multivalued: true
     status: bibo:draft
     annotations:
+      source_domain: edu
       label_es: Nivel escolar atendido
       label_fr: Niveau scolaire desservi
       description_es: El o los niveles educativos ISCED 2011 atendidos por esta escuela. Una escuela que
@@ -2429,7 +2434,7 @@ slots:
         niveaux applicables.
       category: classification
   school_type:
-    slot_uri: publicschema:school_type
+    slot_uri: publicschema:edu/school_type
     title: School type
     description: The management and funding classification of a school (public, private, faith-based,
       or community), per UNESCO UIS categories.
@@ -2437,6 +2442,7 @@ slots:
     multivalued: false
     status: bibo:draft
     annotations:
+      source_domain: edu
       label_es: Tipo de escuela
       label_fr: Type d'école
       description_es: La clasificación de gestión y financiamiento de una escuela (pública, privada, confesional

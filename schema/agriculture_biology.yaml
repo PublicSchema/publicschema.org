@@ -69,7 +69,7 @@ classes:
     annotations:
       bibliography_refs: '["woah-identification-2024"]'
   AnimalBreed:
-    class_uri: publicschema:AnimalBreed
+    class_uri: publicschema:agri/AnimalBreed
     title: Animal Breed
     description: A named livestock population recognized as a breed in a stated source or community. It
       is distinct from any individual animal and from a dated national breed population or risk assessment.
@@ -82,9 +82,10 @@ classes:
     see_also:
     - https://www.fao.org/dad-is/data/en/
     annotations:
+      source_domain: agri
       bibliography_refs: '["fao-dad-is-data"]'
   CropPlanting:
-    class_uri: publicschema:CropPlanting
+    class_uri: publicschema:agri/CropPlanting
     title: Crop Planting
     description: A cultivation episode involving one or more crop components on a holding or agricultural
       parcel. It can include mixed crops and perennial establishment; a declaration about it is a separate
@@ -99,9 +100,10 @@ classes:
     see_also:
     - https://www.fao.org/4/a0135e/a0135e05.htm
     annotations:
+      source_domain: agri
       bibliography_refs: '["fao-wca-2010-crop-concepts"]'
   CropPlantingComponent:
-    class_uri: publicschema:CropPlantingComponent
+    class_uri: publicschema:agri/CropPlantingComponent
     title: Crop Planting Component
     description: One crop or variety cultivated within a planting episode. Components preserve mixed cropping
       without assuming their areas partition the land or have a common planting date.
@@ -114,6 +116,7 @@ classes:
     see_also:
     - https://www.fao.org/4/a0135e/a0135e05.htm
     annotations:
+      source_domain: agri
       bibliography_refs: '["fao-wca-2010-crop-concepts"]'
   PlantVariety:
     class_uri: publicschema:PlantVariety
@@ -170,7 +173,7 @@ classes:
     annotations:
       bibliography_refs: '["cfia-qsp-152-1"]'
   AnimalResidence:
-    class_uri: publicschema:AnimalResidence
+    class_uri: publicschema:agri/AnimalResidence
     title: Animal Residence
     description: Association of an individual animal or animal group with a holding or facility where
       it is kept during a period. A change of keeper need not change residence. This association does
@@ -178,12 +181,13 @@ classes:
     slots:
     - animal_subject
     - animal_residence_site
-    - valid_from
-    - valid_to
+    - start_date
+    - end_date
     - recorded_at
     status: bibo:draft
     see_also: *id001
     annotations:
+      source_domain: agri
       bibliography_refs: '["woah-identification-2024"]'
   AnimalResponsibility:
     class_uri: publicschema:AnimalResponsibility
@@ -195,8 +199,8 @@ classes:
     - animal_subject
     - animal_responsible_actor
     - animal_responsibility_role
-    - valid_from
-    - valid_to
+    - start_date
+    - end_date
     - recorded_at
     status: bibo:draft
     see_also: *id001
@@ -245,13 +249,14 @@ slots:
     annotations:
       category: agriculture
   animal_breed:
-    slot_uri: publicschema:animal_breed
+    slot_uri: publicschema:agri/animal_breed
     title: Animal breed
     description: Breed attributed to this animal; attribution is not pedigree certification.
     range: AnimalBreed
     multivalued: false
     status: bibo:draft
     annotations:
+      source_domain: agri
       category: agriculture
   animal_birth_date:
     slot_uri: publicschema:animal_birth_date
@@ -365,16 +370,17 @@ slots:
     annotations:
       category: agriculture
   breed_source:
-    slot_uri: publicschema:breed_source
+    slot_uri: publicschema:agri/breed_source
     title: Breed source
     description: Source defining or recognizing this breed concept.
     range: uri
     multivalued: false
     status: bibo:draft
     annotations:
+      source_domain: agri
       category: agriculture
   breed_context:
-    slot_uri: publicschema:breed_context
+    slot_uri: publicschema:agri/breed_context
     title: Breed context
     description: Community or geographic context of breed recognition; a matching name alone does not
       establish cross-country identity.
@@ -382,9 +388,10 @@ slots:
     multivalued: false
     status: bibo:draft
     annotations:
+      source_domain: agri
       category: agriculture
   planting_holding:
-    slot_uri: publicschema:planting_holding
+    slot_uri: publicschema:agri/planting_holding
     title: Planting holding
     description: Agricultural holding responsible for this cultivation episode; not necessarily the owner
       of its land.
@@ -392,72 +399,80 @@ slots:
     multivalued: false
     status: bibo:draft
     annotations:
+      source_domain: agri
       category: agriculture
   planting_parcel:
-    slot_uri: publicschema:planting_parcel
+    slot_uri: publicschema:agri/planting_parcel
     title: Planting parcel
     description: Agricultural parcel on which this cultivation episode takes place.
     range: AgriculturalParcel
     multivalued: false
     status: bibo:draft
     annotations:
+      source_domain: agri
       category: agriculture
   planting_components:
-    slot_uri: publicschema:planting_components
+    slot_uri: publicschema:agri/planting_components
     title: Planting components
     description: Crops cultivated in this episode, preserving mixtures.
     range: CropPlantingComponent
     multivalued: true
     status: bibo:draft
     annotations:
+      source_domain: agri
       category: agriculture
   planting_date:
-    slot_uri: publicschema:planting_date
+    slot_uri: publicschema:agri/planting_date
     title: Planting date
     description: Date of planting when a complete common date is known.
     range: date
     multivalued: false
     status: bibo:draft
     annotations:
+      source_domain: agri
       category: agriculture
   planting_season:
-    slot_uri: publicschema:planting_season
+    slot_uri: publicschema:agri/planting_season
     title: Planting season
     description: Locally defined season designation with scheme context; it need not be a calendar year.
     range: CodedValue
     multivalued: false
     status: bibo:draft
     annotations:
+      source_domain: agri
       category: agriculture
   crop_kind:
-    slot_uri: publicschema:crop_kind
+    slot_uri: publicschema:agri/crop_kind
     title: Crop kind
     description: Crop classification for this component, preserving the source code and terminology.
     range: CodedValue
     multivalued: false
     status: bibo:draft
     annotations:
+      source_domain: agri
       category: agriculture
   planted_variety:
-    slot_uri: publicschema:planted_variety
+    slot_uri: publicschema:agri/planted_variety
     title: Planted variety
     description: Variety cultivated in this crop component, if identified.
     range: PlantVariety
     multivalued: false
     status: bibo:draft
     annotations:
+      source_domain: agri
       category: agriculture
   component_planting_date:
-    slot_uri: publicschema:component_planting_date
+    slot_uri: publicschema:agri/component_planting_date
     title: Component planting date
     description: Date this component was planted when known; components may be planted on different dates.
     range: date
     multivalued: false
     status: bibo:draft
     annotations:
+      source_domain: agri
       category: agriculture
   component_planted_area:
-    slot_uri: publicschema:component_planted_area
+    slot_uri: publicschema:agri/component_planted_area
     title: Component planted area
     description: Reported area for this component with an area unit; components can overlap, so their
       sum need not equal parcel area.
@@ -465,6 +480,7 @@ slots:
     multivalued: false
     status: bibo:draft
     annotations:
+      source_domain: agri
       category: agriculture
   variety_denomination:
     slot_uri: publicschema:variety_denomination
@@ -608,7 +624,7 @@ slots:
     annotations:
       category: agriculture
   animal_residence_site:
-    slot_uri: publicschema:animal_residence_site
+    slot_uri: publicschema:agri/animal_residence_site
     title: Animal residence site
     description: URI of the Farm or AgriculturalFacility where the animal or group is kept. This is not
       the keeper's home address.
@@ -616,6 +632,7 @@ slots:
     multivalued: false
     status: bibo:draft
     annotations:
+      source_domain: agri
       category: agriculture
   animal_responsible_actor:
     slot_uri: publicschema:animal_responsible_actor

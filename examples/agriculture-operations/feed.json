@@ -1,6 +1,6 @@
 {
   "@id": "https://example.org/product/feed",
-  "@type": "FeedProduct",
+  "@type": "agri/FeedProduct",
   "name": "Synthetic feed specification",
   "product_component": [
     {

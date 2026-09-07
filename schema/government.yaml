@@ -16,6 +16,8 @@ imports:
 - core
 - identity
 - registry
+- assets
+- government_relationships
 classes:
   PublicOrganization:
     class_uri: publicschema:PublicOrganization
@@ -75,8 +77,8 @@ classes:
   OwnershipInterest:
     class_uri: publicschema:OwnershipInterest
     title: Ownership Interest
-    description: An assertion of one ownership or control interest in an organization, held by a person
-      or another organization. Separate interests may coexist. An indirect interest is not a verified
+    description: An assertion of one ownership or control interest in an organization or legal arrangement, held by a person,
+      organization or legal arrangement. Separate interests may coexist. An indirect interest is not a verified
       ownership chain or a determination of beneficial ownership under a particular law.
     slots:
     - interest_holder
@@ -84,6 +86,10 @@ classes:
     - interest_type
     - interest_directness
     - interest_percentage
+    - interest_minimum_percentage
+    - interest_exclusive_minimum_percentage
+    - interest_maximum_percentage
+    - interest_exclusive_maximum_percentage
     - interest_description
     - start_date
     - end_date
@@ -91,7 +97,7 @@ classes:
     annotations:
       bibliography_refs: '["gov-bods-04"]'
   EducationProvider:
-    class_uri: publicschema:EducationProvider
+    class_uri: publicschema:edu/EducationProvider
     title: Education Provider
     description: An organization responsible for providing education or training, independently of its
       physical premises or online delivery sites. This is the institutional provider; School describes
@@ -101,9 +107,10 @@ classes:
     status: bibo:draft
     is_a: Organization
     annotations:
+      source_domain: edu
       bibliography_refs: '["gov-gias", "gov-org"]'
   ProviderSite:
-    class_uri: publicschema:ProviderSite
+    class_uri: publicschema:edu/ProviderSite
     title: Provider Site
     description: A physical or virtual site through which an education provider delivers learning. A virtual
       site has no implied street address; a provider may use several sites and a physical School may be
@@ -116,9 +123,10 @@ classes:
     - virtual_site_url
     status: bibo:draft
     annotations:
+      source_domain: edu
       bibliography_refs: '["gov-gias", "gov-org"]'
   EducationProgramme:
-    class_uri: publicschema:EducationProgramme
+    class_uri: publicschema:edu/EducationProgramme
     title: Education Programme
     description: An organized programme of learning offered by an education provider. It is distinct from
       a campus, an individual enrolment, and the qualification awarded on completion.
@@ -129,6 +137,7 @@ classes:
     - programme_award
     status: bibo:draft
     annotations:
+      source_domain: edu
       bibliography_refs: '["gov-isced"]'
   ProfessionalLicense:
     class_uri: publicschema:ProfessionalLicense
@@ -171,7 +180,7 @@ classes:
     annotations:
       bibliography_refs: '["gov-fhir-role"]'
   DrivingEntitlement:
-    class_uri: publicschema:DrivingEntitlement
+    class_uri: publicschema:transport/DrivingEntitlement
     title: Driving Entitlement
     description: An authorization for a person to drive a stated vehicle category, with any conditions
       and its own validity period. A licence document may evidence several entitlements with different
@@ -182,9 +191,10 @@ classes:
     status: bibo:draft
     is_a: Authorization
     annotations:
+      source_domain: transport
       bibliography_refs: '["gov-driving"]'
   TaxRegistration:
-    class_uri: publicschema:TaxRegistration
+    class_uri: publicschema:tax/TaxRegistration
     title: Tax Registration
     description: Recognition of a subject by a tax authority for a specified tax regime. Subjects may
       be persons or organizations; a tax identifier does not itself prove tax liability, residence, compliance
@@ -194,9 +204,10 @@ classes:
     status: bibo:draft
     is_a: Registration
     annotations:
+      source_domain: tax
       bibliography_refs: '["gov-oecd-tin", "gov-irs-tin"]'
   VoterRegistration:
-    class_uri: publicschema:VoterRegistration
+    class_uri: publicschema:elections/VoterRegistration
     title: Voter Registration
     description: Registration of a person for electoral administration in a jurisdiction. It records registration
       rather than an unconditional conclusion that the person may vote in every election.
@@ -206,6 +217,7 @@ classes:
     status: bibo:draft
     is_a: Registration
     annotations:
+      source_domain: elections
       bibliography_refs: '["gov-nist-vri"]'
   Building:
     class_uri: publicschema:Building
@@ -236,7 +248,7 @@ classes:
     annotations:
       bibliography_refs: '["gov-inspire-buildings"]'
   Road:
-    class_uri: publicschema:Road
+    class_uri: publicschema:transport/Road
     title: Road
     description: An identified road comprising one or more network segments. A road name or number describes
       the road; it is not an address or a complete routable network.
@@ -246,9 +258,10 @@ classes:
     - road_segments
     status: bibo:draft
     annotations:
+      source_domain: transport
       bibliography_refs: '["gov-inspire-transport"]'
   RoadNode:
-    class_uri: publicschema:RoadNode
+    class_uri: publicschema:transport/RoadNode
     title: Road Node
     description: An identified point used to describe connectivity in a road network, such as a junction
       or the end of a road segment. Connectivity is a modeled relationship, not inferred from coincident
@@ -258,9 +271,10 @@ classes:
     - asset_geometry
     status: bibo:draft
     annotations:
+      source_domain: transport
       bibliography_refs: '["gov-inspire-transport"]'
   RoadSegment:
-    class_uri: publicschema:RoadSegment
+    class_uri: publicschema:transport/RoadSegment
     title: Road Segment
     description: A connected section of a road network between two nodes. The node order gives a reference
       direction, not a legal permission to travel in that direction.
@@ -272,9 +286,10 @@ classes:
     - road_classification
     status: bibo:draft
     annotations:
+      source_domain: transport
       bibliography_refs: '["gov-inspire-transport"]'
   Vehicle:
-    class_uri: publicschema:Vehicle
+    class_uri: publicschema:transport/Vehicle
     title: Vehicle
     description: An individually identifiable vehicle used for transport. Physical identity persists through
       registration or keeper changes; identifying a keeper does not establish ownership.
@@ -286,9 +301,10 @@ classes:
     - manufacture_year
     status: bibo:draft
     annotations:
+      source_domain: transport
       bibliography_refs: '["gov-dvla"]'
   EnvironmentalFacility:
-    class_uri: publicschema:EnvironmentalFacility
+    class_uri: publicschema:environment/EnvironmentalFacility
     title: Environmental Facility
     description: A physical site associated with an activity of environmental interest. Site identity
       is distinct from its operator, installations, program records and permits. A site may be associated
@@ -302,9 +318,10 @@ classes:
     - environmental_activities
     status: bibo:draft
     annotations:
+      source_domain: environment
       bibliography_refs: '["gov-epa-frs"]'
   InstallationUnit:
-    class_uri: publicschema:InstallationUnit
+    class_uri: publicschema:environment/InstallationUnit
     title: Installation Unit
     description: An identifiable technical unit within an environmental facility at which an activity
       occurs. Multiple installations may share a site without sharing every permit or measurement.
@@ -315,6 +332,7 @@ classes:
     - environmental_activities
     status: bibo:draft
     annotations:
+      source_domain: environment
       bibliography_refs: '["gov-inspire-production", "gov-epa-frs"]'
   ComplianceAssessment:
     class_uri: publicschema:ComplianceAssessment
@@ -333,13 +351,14 @@ classes:
     annotations:
       bibliography_refs: '["gov-epa-echo"]'
   EnvironmentalRelease:
-    class_uri: publicschema:EnvironmentalRelease
+    class_uri: publicschema:environment/EnvironmentalRelease
     title: Environmental Release
     description: A reported release of a substance from a facility into an environmental medium over a
       stated period. A measurement or estimate of release is separate from a permitted limit and does
       not by itself establish a violation.
     slots:
     - release_facility
+    - release_installation
     - release_substance
     - release_medium
     - release_quantity
@@ -348,6 +367,7 @@ classes:
     - end_date
     status: bibo:draft
     annotations:
+      source_domain: environment
       bibliography_refs: '["gov-epa-tri"]'
   RegulatoryAction:
     class_uri: publicschema:RegulatoryAction
@@ -376,33 +396,6 @@ classes:
     status: bibo:draft
     annotations:
       bibliography_refs: '["gov-fhir-substance"]'
-  MedicinalProduct:
-    class_uri: publicschema:MedicinalProduct
-    title: Medicinal Product
-    description: A medicinal product definition used in a regulatory context, distinct from a dispensed
-      item, package, batch or authorization to market it. It can describe a human or veterinary medicine.
-    slots:
-    - name
-    - identifiers
-    - medicinal_dose_form
-    - medicinal_ingredients
-    - medicinal_classification
-    status: bibo:draft
-    annotations:
-      bibliography_refs: '["gov-fhir-product"]'
-  MedicinalIngredient:
-    class_uri: publicschema:MedicinalIngredient
-    title: Medicinal Ingredient
-    description: The role of a substance in the composition of a medicinal product, with an optional strength
-      numerator and denominator. Several ingredient roles can refer to the same substance.
-    slots:
-    - ingredient_substance
-    - ingredient_function
-    - strength_numerator
-    - strength_denominator
-    status: bibo:draft
-    annotations:
-      bibliography_refs: '["gov-fhir-ingredient"]'
   BuildingPart:
     class_uri: publicschema:BuildingPart
     title: Building Part
@@ -418,20 +411,6 @@ classes:
     status: bibo:draft
     annotations:
       bibliography_refs: '["gov-inspire-buildings"]'
-  AssetPartyRole:
-    class_uri: publicschema:AssetPartyRole
-    title: Asset Party Role
-    description: A dated assertion that a person or organization has a stated role in relation to a physical
-      asset, such as vehicle keeper, owner or operator. A keeper role does not entail an ownership role.
-    slots:
-    - asset_subject
-    - asset_actor
-    - asset_role_type
-    - start_date
-    - end_date
-    status: bibo:draft
-    annotations:
-      bibliography_refs: '["gov-dvla"]'
   RepresentationRole:
     class_uri: publicschema:RepresentationRole
     title: Representation Role
@@ -448,7 +427,7 @@ classes:
     annotations:
       bibliography_refs: '["gov-irs-representation"]'
   RoadRestriction:
-    class_uri: publicschema:RoadRestriction
+    class_uri: publicschema:transport/RoadRestriction
     title: Road Restriction
     description: A temporally scoped assertion of a restriction applying to a road network element, such
       as access prohibition or a maximum vehicle mass. Interpretation and routing enforcement depend on
@@ -463,39 +442,8 @@ classes:
     - valid_to
     status: bibo:draft
     annotations:
+      source_domain: transport
       bibliography_refs: '["gov-inspire-transport"]'
-  AdministrableProduct:
-    class_uri: publicschema:AdministrableProduct
-    title: Administrable Product
-    description: A definition of the final form of a medicinal product suitable for administration after
-      any required preparation. It is distinct from the regulatory product, manufactured components, package
-      and an actual administration event.
-    slots:
-    - name
-    - identifiers
-    - presentation_of
-    - administrable_dose_form
-    - administration_routes
-    - medicinal_ingredients
-    status: bibo:draft
-    annotations:
-      bibliography_refs: '["gov-fhir-administrable"]'
-  PackagedMedicinalProduct:
-    class_uri: publicschema:PackagedMedicinalProduct
-    title: Packaged Medicinal Product
-    description: A defined packaged presentation of one or more medicinal products, identifying the package
-      configuration rather than a particular physical pack or batch. Different pack sizes have distinct
-      presentation identities.
-    slots:
-    - name
-    - identifiers
-    - packaged_medicines
-    - package_type
-    - package_quantity
-    - package_description
-    status: bibo:draft
-    annotations:
-      bibliography_refs: '["gov-fhir-packaged"]'
 slots:
   public_mandate:
     slot_uri: publicschema:public_mandate
@@ -593,8 +541,8 @@ slots:
   interest_holder:
     slot_uri: publicschema:interest_holder
     title: Interest holder
-    description: The URI of the person or organization asserted to hold this ownership or control interest.
-      It identifies the actor, not a source statement.
+    description: The URI of the person, organization or legal arrangement asserted to hold this
+      interest. The consuming profile checks existence and kind.
     range: uri
     multivalued: false
     status: bibo:draft
@@ -604,8 +552,9 @@ slots:
   interest_entity:
     slot_uri: publicschema:interest_entity
     title: Interest entity
-    description: The organization in which the ownership or control interest is asserted.
-    range: Organization
+    description: The URI of the organization or legal arrangement in which this interest is held.
+      The consuming profile checks existence and kind; a Person is not the target entity.
+    range: uri
     multivalued: false
     status: bibo:draft
     annotations:
@@ -650,25 +599,27 @@ slots:
     annotations:
       category: governance
   provider_programmes:
-    slot_uri: publicschema:provider_programmes
+    slot_uri: publicschema:edu/provider_programmes
     title: Provider programmes
     description: Programmes offered by the education provider.
     range: EducationProgramme
     multivalued: true
     status: bibo:draft
     annotations:
+      source_domain: edu
       category: classification
   education_provider:
-    slot_uri: publicschema:education_provider
+    slot_uri: publicschema:edu/education_provider
     title: Education provider
     description: The institutional provider using this delivery site.
     range: EducationProvider
     multivalued: false
     status: bibo:draft
     annotations:
+      source_domain: edu
       category: governance
   physical_service_point:
-    slot_uri: publicschema:physical_service_point
+    slot_uri: publicschema:edu/physical_service_point
     title: Physical service point
     description: A physical service point associated with this provider site. Omit for an entirely virtual
       site.
@@ -676,9 +627,10 @@ slots:
     multivalued: false
     status: bibo:draft
     annotations:
+      source_domain: edu
       category: location
   virtual_site_url:
-    slot_uri: publicschema:virtual_site_url
+    slot_uri: publicschema:edu/virtual_site_url
     title: Virtual site url
     description: The address of an online environment through which learning is delivered, rather than
       merely the provider home page.
@@ -686,9 +638,10 @@ slots:
     multivalued: false
     status: bibo:draft
     annotations:
+      source_domain: edu
       category: location
   programme_classification:
-    slot_uri: publicschema:programme_classification
+    slot_uri: publicschema:edu/programme_classification
     title: Programme classification
     description: Scheme-qualified classification of the educational programme, such as an ISCED programme
       level.
@@ -696,15 +649,17 @@ slots:
     multivalued: true
     status: bibo:draft
     annotations:
+      source_domain: edu
       category: classification
   programme_award:
-    slot_uri: publicschema:programme_award
+    slot_uri: publicschema:edu/programme_award
     title: Programme award
     description: The qualification or other recognition normally awarded on completing the programme.
     range: string
     multivalued: false
     status: bibo:draft
     annotations:
+      source_domain: edu
       category: classification
   profession_code:
     slot_uri: publicschema:profession_code
@@ -744,7 +699,7 @@ slots:
     annotations:
       category: location
   driving_category:
-    slot_uri: publicschema:driving_category
+    slot_uri: publicschema:transport/driving_category
     title: Driving category
     description: The scheme-qualified vehicle category covered by this driving entitlement. Category meanings
       depend on jurisdiction and edition.
@@ -752,9 +707,10 @@ slots:
     multivalued: false
     status: bibo:draft
     annotations:
+      source_domain: transport
       category: classification
   entitlement_conditions:
-    slot_uri: publicschema:entitlement_conditions
+    slot_uri: publicschema:transport/entitlement_conditions
     title: Entitlement conditions
     description: Scheme-qualified conditions restricting this entitlement, such as an adapted vehicle
       requirement.
@@ -762,18 +718,20 @@ slots:
     multivalued: true
     status: bibo:draft
     annotations:
+      source_domain: transport
       category: classification
   tax_regime:
-    slot_uri: publicschema:tax_regime
+    slot_uri: publicschema:tax/tax_regime
     title: Tax regime
     description: The scheme-qualified tax or taxation regime for which the subject is registered.
     range: CodedValue
     multivalued: false
     status: bibo:draft
     annotations:
+      source_domain: tax
       category: classification
   electoral_districts:
-    slot_uri: publicschema:electoral_districts
+    slot_uri: publicschema:elections/electoral_districts
     title: Electoral districts
     description: Electoral districts associated with this registration; district assignment does not establish
       eligibility for every election.
@@ -781,15 +739,17 @@ slots:
     multivalued: true
     status: bibo:draft
     annotations:
+      source_domain: elections
       category: location
   polling_service_point:
-    slot_uri: publicschema:polling_service_point
+    slot_uri: publicschema:elections/polling_service_point
     title: Polling service point
     description: The assigned physical polling service point, if one is known.
     range: ServicePoint
     multivalued: false
     status: bibo:draft
     annotations:
+      source_domain: elections
       category: location
   building_use:
     slot_uri: publicschema:building_use
@@ -800,16 +760,6 @@ slots:
     status: bibo:draft
     annotations:
       category: classification
-  asset_geometry:
-    slot_uri: publicschema:asset_geometry
-    title: Asset geometry
-    description: A geometric representation of the physical asset or network element. It is separate from
-      an address or a named administrative area.
-    range: SpatialGeometry
-    multivalued: true
-    status: bibo:draft
-    annotations:
-      category: location
   building_addresses:
     slot_uri: publicschema:building_addresses
     title: Building addresses
@@ -830,70 +780,77 @@ slots:
     annotations:
       category: location
   road_segments:
-    slot_uri: publicschema:road_segments
+    slot_uri: publicschema:transport/road_segments
     title: Road segments
     description: Network segments belonging to the identified road. This list is not an ordered route.
     range: RoadSegment
     multivalued: true
     status: bibo:draft
     annotations:
+      source_domain: transport
       category: location
   segment_start_node:
-    slot_uri: publicschema:segment_start_node
+    slot_uri: publicschema:transport/segment_start_node
     title: Segment start node
     description: The initial node in the reference direction of this road segment.
     range: RoadNode
     multivalued: false
     status: bibo:draft
     annotations:
+      source_domain: transport
       category: location
   segment_end_node:
-    slot_uri: publicschema:segment_end_node
+    slot_uri: publicschema:transport/segment_end_node
     title: Segment end node
     description: The terminal node in the reference direction of this road segment.
     range: RoadNode
     multivalued: false
     status: bibo:draft
     annotations:
+      source_domain: transport
       category: location
   road_classification:
-    slot_uri: publicschema:road_classification
+    slot_uri: publicschema:transport/road_classification
     title: Road classification
     description: Scheme-qualified road classification, separate from travel restrictions.
     range: CodedValue
     multivalued: true
     status: bibo:draft
     annotations:
+      source_domain: transport
       category: classification
   vehicle_make:
-    slot_uri: publicschema:vehicle_make
+    slot_uri: publicschema:transport/vehicle_make
     title: Vehicle make
     description: The manufacturer or make recorded for the vehicle.
     range: string
     multivalued: false
     status: bibo:draft
     annotations:
+      source_domain: transport
       category: assets
   vehicle_model:
-    slot_uri: publicschema:vehicle_model
+    slot_uri: publicschema:transport/vehicle_model
     title: Vehicle model
     description: The model designation recorded for the vehicle.
     range: string
     multivalued: false
     status: bibo:draft
     annotations:
+      source_domain: transport
       category: assets
   vehicle_category:
-    slot_uri: publicschema:vehicle_category
+    slot_uri: publicschema:transport/vehicle_category
     title: Vehicle category
     description: A scheme-qualified vehicle classification, not a driving entitlement.
     range: CodedValue
     multivalued: false
     status: bibo:draft
     annotations:
+      source_domain: transport
       category: classification
   manufacture_year:
-    slot_uri: publicschema:manufacture_year
+    slot_uri: publicschema:transport/manufacture_year
     title: Manufacture year
     description: The calendar year in which the vehicle was manufactured, when known. A missing month
       or day is not invented.
@@ -901,9 +858,10 @@ slots:
     multivalued: false
     status: bibo:draft
     annotations:
+      source_domain: transport
       category: assets
   environmental_operator:
-    slot_uri: publicschema:environmental_operator
+    slot_uri: publicschema:environment/environmental_operator
     title: Facility operator
     description: The organization operating this environmental facility. Operator identity is separate
       from facility identity.
@@ -911,33 +869,37 @@ slots:
     multivalued: false
     status: bibo:draft
     annotations:
+      source_domain: environment
       category: governance
   facility_addresses:
-    slot_uri: publicschema:facility_addresses
+    slot_uri: publicschema:environment/facility_addresses
     title: Facility addresses
     description: Addresses associated with the physical environmental facility.
     range: Address
     multivalued: true
     status: bibo:draft
     annotations:
+      source_domain: environment
       category: location
   environmental_activities:
-    slot_uri: publicschema:environmental_activities
+    slot_uri: publicschema:environment/environmental_activities
     title: Environmental activities
     description: Scheme-qualified activities conducted at an environmental site or installation.
     range: CodedValue
     multivalued: true
     status: bibo:draft
     annotations:
+      source_domain: environment
       category: classification
   installation_facility:
-    slot_uri: publicschema:installation_facility
+    slot_uri: publicschema:environment/installation_facility
     title: Installation facility
     description: The environmental facility containing the technical installation.
     range: EnvironmentalFacility
     multivalued: false
     status: bibo:draft
     annotations:
+      source_domain: environment
       category: location
   assessed_subject:
     slot_uri: publicschema:assessed_subject
@@ -998,25 +960,27 @@ slots:
       category: administrative
       sensitivity: sensitive
   release_facility:
-    slot_uri: publicschema:release_facility
+    slot_uri: publicschema:environment/release_facility
     title: Release facility
     description: The facility from which the environmental release is reported.
     range: EnvironmentalFacility
     multivalued: false
     status: bibo:draft
     annotations:
+      source_domain: environment
       category: location
   release_substance:
-    slot_uri: publicschema:release_substance
+    slot_uri: publicschema:environment/release_substance
     title: Release substance
     description: The substance reported as released.
     range: Substance
     multivalued: false
     status: bibo:draft
     annotations:
+      source_domain: environment
       category: classification
   release_medium:
-    slot_uri: publicschema:release_medium
+    slot_uri: publicschema:environment/release_medium
     title: Release medium
     description: A scheme-qualified environmental medium receiving the release, such as air or surface
       water.
@@ -1024,9 +988,10 @@ slots:
     multivalued: false
     status: bibo:draft
     annotations:
+      source_domain: environment
       category: classification
   release_quantity:
-    slot_uri: publicschema:release_quantity
+    slot_uri: publicschema:environment/release_quantity
     title: Release quantity
     description: The quantity released over the stated period; the quantity is not a rate unless its unit
       explicitly expresses one.
@@ -1034,6 +999,7 @@ slots:
     multivalued: false
     status: bibo:draft
     annotations:
+      source_domain: environment
       category: administrative
   measurement_method:
     slot_uri: publicschema:measurement_method
@@ -1100,72 +1066,6 @@ slots:
     annotations:
       category: administrative
       sensitivity: sensitive
-  medicinal_dose_form:
-    slot_uri: publicschema:medicinal_dose_form
-    title: Medicinal dose form
-    description: A scheme-qualified pharmaceutical dose form of the medicinal product as described for
-      regulation.
-    range: CodedValue
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      category: classification
-  medicinal_ingredients:
-    slot_uri: publicschema:medicinal_ingredients
-    title: Medicinal ingredients
-    description: Ingredient roles describing the composition of the medicinal product.
-    range: MedicinalIngredient
-    multivalued: true
-    status: bibo:draft
-    annotations:
-      category: classification
-  medicinal_classification:
-    slot_uri: publicschema:medicinal_classification
-    title: Medicinal classification
-    description: Scheme-qualified therapeutic or regulatory classifications of the medicinal product.
-    range: CodedValue
-    multivalued: true
-    status: bibo:draft
-    annotations:
-      category: classification
-  ingredient_substance:
-    slot_uri: publicschema:ingredient_substance
-    title: Ingredient substance
-    description: The substance serving this ingredient role.
-    range: Substance
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      category: classification
-  ingredient_function:
-    slot_uri: publicschema:ingredient_function
-    title: Ingredient function
-    description: A scheme-qualified function of the ingredient, such as active substance or excipient.
-    range: CodedValue
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      category: classification
-  strength_numerator:
-    slot_uri: publicschema:strength_numerator
-    title: Strength numerator
-    description: The amount of ingredient in the basis quantity specified by strength_denominator. Use
-      both values together when expressing a ratio.
-    range: QuantityValue
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      category: administrative
-  strength_denominator:
-    slot_uri: publicschema:strength_denominator
-    title: Strength denominator
-    description: The basis quantity for the ingredient strength, such as one tablet or five millilitres.
-      It is not inferred when absent.
-    range: QuantityValue
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      category: administrative
   part_of_building:
     slot_uri: publicschema:part_of_building
     title: Part of building
@@ -1184,34 +1084,6 @@ slots:
     status: bibo:draft
     annotations:
       category: assets
-  asset_subject:
-    slot_uri: publicschema:asset_subject
-    title: Asset subject
-    description: The URI of the physical asset to which the party role applies.
-    range: uri
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      category: assets
-  asset_actor:
-    slot_uri: publicschema:asset_actor
-    title: Asset actor
-    description: The URI of the person or organization holding the stated role in relation to the asset.
-    range: uri
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      category: governance
-  asset_role_type:
-    slot_uri: publicschema:asset_role_type
-    title: Asset role type
-    description: The scheme-qualified kind of asset role, distinguishing ownership, custody, keeper and
-      operator roles.
-    range: CodedValue
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      category: classification
   representative_actor:
     slot_uri: publicschema:representative_actor
     title: Representative actor
@@ -1241,7 +1113,7 @@ slots:
     annotations:
       category: governance
   restricted_road_element:
-    slot_uri: publicschema:restricted_road_element
+    slot_uri: publicschema:transport/restricted_road_element
     title: Restricted road element
     description: The URI of the Road, RoadSegment or RoadNode to which the restriction applies. Target
       kind is verified by the consuming profile.
@@ -1249,18 +1121,20 @@ slots:
     multivalued: false
     status: bibo:draft
     annotations:
+      source_domain: transport
       category: location
   road_restriction_type:
-    slot_uri: publicschema:road_restriction_type
+    slot_uri: publicschema:transport/road_restriction_type
     title: Road restriction type
     description: The scheme-qualified type of road restriction; it determines how any limit is interpreted.
     range: CodedValue
     multivalued: false
     status: bibo:draft
     annotations:
+      source_domain: transport
       category: classification
   restriction_limit:
-    slot_uri: publicschema:restriction_limit
+    slot_uri: publicschema:transport/restriction_limit
     title: Restriction limit
     description: A measured limit associated with the restriction, such as maximum permitted gross vehicle
       mass.
@@ -1268,9 +1142,10 @@ slots:
     multivalued: false
     status: bibo:draft
     annotations:
+      source_domain: transport
       category: assets
   restriction_conditions:
-    slot_uri: publicschema:restriction_conditions
+    slot_uri: publicschema:transport/restriction_conditions
     title: Restriction conditions
     description: Conditions limiting the applicability of the road restriction, such as exceptions or
       recurring hours. Free text is not an executable routing rule.
@@ -1278,84 +1153,18 @@ slots:
     multivalued: false
     status: bibo:draft
     annotations:
+      source_domain: transport
       category: administrative
   restriction_legal_basis:
-    slot_uri: publicschema:restriction_legal_basis
+    slot_uri: publicschema:transport/restriction_legal_basis
     title: Restriction legal basis
     description: The legal instrument establishing the road restriction.
     range: uri
     multivalued: true
     status: bibo:draft
     annotations:
+      source_domain: transport
       category: governance
-  presentation_of:
-    slot_uri: publicschema:presentation_of
-    title: Presentation of
-    description: Regulatory medicinal products from which this administrable form is prepared.
-    range: MedicinalProduct
-    multivalued: true
-    status: bibo:draft
-    annotations:
-      category: classification
-  administrable_dose_form:
-    slot_uri: publicschema:administrable_dose_form
-    title: Administrable dose form
-    description: The scheme-qualified dose form after preparation, distinct from a manufactured powder
-      or other supplied form.
-    range: CodedValue
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      category: classification
-  administration_routes:
-    slot_uri: publicschema:administration_routes
-    title: Administration routes
-    description: Scheme-qualified routes by which this administrable product is intended to be administered.
-      This does not constitute patient-specific clinical guidance.
-    range: CodedValue
-    multivalued: true
-    status: bibo:draft
-    annotations:
-      category: classification
-  packaged_medicines:
-    slot_uri: publicschema:packaged_medicines
-    title: Packaged medicines
-    description: Medicinal products included in this defined packaged presentation.
-    range: MedicinalProduct
-    multivalued: true
-    status: bibo:draft
-    annotations:
-      category: classification
-  package_type:
-    slot_uri: publicschema:package_type
-    title: Package type
-    description: A scheme-qualified classification of the defined packaging, such as a bottle or blister
-      carton.
-    range: CodedValue
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      category: classification
-  package_quantity:
-    slot_uri: publicschema:package_quantity
-    title: Package quantity
-    description: The total quantity associated with the defined package, with an explicit unit. For heterogeneous
-      contents use package_description rather than summing unlike units.
-    range: QuantityValue
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      category: assets
-  package_description:
-    slot_uri: publicschema:package_description
-    title: Package description
-    description: A description of the package configuration and contents, preserving distinctions not
-      expressed by a single quantity.
-    range: string
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      category: administrative
 enums:
   InterestDirectness:
     enum_uri: publicschema:InterestDirectness

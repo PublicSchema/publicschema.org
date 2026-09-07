@@ -25,40 +25,55 @@
     "full_address": "1 Example Road"
   },
   {
+    "@id": "https://example.org/geometry/clinic",
+    "@type": "SpatialGeometry",
+    "geometry_encoding": "application/geo+json",
+    "geometry_literal": "{\"type\":\"Point\",\"coordinates\":[100,13]}",
+    "coordinate_reference_system": "http://www.opengis.net/def/crs/OGC/1.3/CRS84"
+  },
+  {
     "@id": "https://example.org/facility/clinic",
-    "@type": "HealthFacility",
+    "@type": "health/HealthFacility",
     "name": "Example clinic",
     "managed_by": "https://example.org/org/cooperative",
     "located_at": "https://example.org/area/district"
   },
   {
     "@id": "https://example.org/management/old",
-    "@type": "FacilityManagementAssignment",
-    "managed_facility": "https://example.org/facility/clinic",
-    "managing_organization": "https://example.org/org/ministry",
-    "valid_to": "2026-06-30"
+    "@type": "AssetPartyRole",
+    "asset_subject": "https://example.org/facility/clinic",
+    "asset_actor": "https://example.org/org/ministry",
+    "asset_role_type": {
+      "@type": "CodedValue",
+      "code_value": "operator",
+      "code_scheme": "https://example.org/facility-roles/role-types"
+    },
+    "end_date": "2026-07-01"
   },
   {
     "@id": "https://example.org/management/current",
-    "@type": "FacilityManagementAssignment",
-    "managed_facility": "https://example.org/facility/clinic",
-    "managing_organization": "https://example.org/org/cooperative",
-    "valid_from": "2026-07-01"
+    "@type": "AssetPartyRole",
+    "asset_subject": "https://example.org/facility/clinic",
+    "asset_actor": "https://example.org/org/cooperative",
+    "asset_role_type": {
+      "@type": "CodedValue",
+      "code_value": "operator",
+      "code_scheme": "https://example.org/facility-roles/role-types"
+    },
+    "start_date": "2026-07-01"
   },
   {
     "@id": "https://example.org/facility-address/one",
-    "@type": "FacilityAddressAssignment",
-    "addressed_facility": "https://example.org/facility/clinic",
-    "facility_address": "https://example.org/address/clinic"
-  },
-  {
-    "@id": "https://example.org/service/clinic",
-    "@type": "HealthcareServiceOffering",
-    "name": "Maternal health clinic",
-    "healthcare_provider": "https://example.org/org/cooperative",
-    "service_facilities": [
-      "https://example.org/facility/clinic"
-    ]
+    "@type": "AssetAddressAssignment",
+    "asset_subject": "https://example.org/facility/clinic",
+    "assigned_address": "https://example.org/address/clinic",
+    "address_purpose": {
+      "@type": "CodedValue",
+      "code_value": "physical",
+      "code_scheme": "https://example.org/facility-roles/address-purposes"
+    },
+    "address_geometry": "https://example.org/geometry/clinic",
+    "start_date": "2026-01-01"
   },
   {
     "@id": "https://example.org/register/facilities",
@@ -72,27 +87,27 @@
     "register_uri": "https://example.org/register/facilities",
     "record_id": "001",
     "subject_uri": "https://example.org/facility/clinic",
-    "subject_type": "https://publicschema.org/HealthFacility",
+    "subject_type": "https://publicschema.org/health/HealthFacility",
     "recorded_at": "2026-09-01T09:00:00Z"
   },
   {
     "@id": "https://example.org/holding/one",
-    "@type": "Farm",
+    "@type": "agri/Farm",
     "name": "Synthetic mixed holding"
   },
   {
     "@id": "https://example.org/holding/two",
-    "@type": "Farm",
+    "@type": "agri/Farm",
     "name": "Neighbor holding"
   },
   {
     "@id": "https://example.org/holding/landless",
-    "@type": "Farm",
+    "@type": "agri/Farm",
     "name": "Landless livestock holding"
   },
   {
     "@id": "https://example.org/parcel/one",
-    "@type": "AgriculturalParcel",
+    "@type": "agri/AgriculturalParcel",
     "name": "Shared parcel",
     "parcel_area": {
       "@type": "QuantityValue",
@@ -103,49 +118,49 @@
   },
   {
     "@id": "https://example.org/parcel/two",
-    "@type": "AgriculturalParcel",
+    "@type": "agri/AgriculturalParcel",
     "name": "Second parcel"
   },
   {
     "@id": "https://example.org/holding-parcel/one",
-    "@type": "HoldingParcelLink",
+    "@type": "agri/HoldingParcelLink",
     "linked_holding": "https://example.org/holding/one",
     "linked_parcel": "https://example.org/parcel/one"
   },
   {
     "@id": "https://example.org/holding-parcel/two",
-    "@type": "HoldingParcelLink",
+    "@type": "agri/HoldingParcelLink",
     "linked_holding": "https://example.org/holding/one",
     "linked_parcel": "https://example.org/parcel/two"
   },
   {
     "@id": "https://example.org/holding-parcel/shared",
-    "@type": "HoldingParcelLink",
+    "@type": "agri/HoldingParcelLink",
     "linked_holding": "https://example.org/holding/two",
     "linked_parcel": "https://example.org/parcel/one"
   },
   {
     "@id": "https://example.org/registration/farmer",
-    "@type": "FarmerRegistration",
+    "@type": "agri/FarmerRegistration",
     "registered_subject": "https://example.org/org/cooperative",
     "registration_authority": "https://example.org/org/ministry",
     "registration_purpose": "Producer registry only"
   },
   {
     "@id": "https://example.org/land/unit",
-    "@type": "LandSpatialUnit",
+    "@type": "land/LandSpatialUnit",
     "name": "Cadastral unit"
   },
   {
     "@id": "https://example.org/title/unit",
-    "@type": "LandAdministrativeUnit",
+    "@type": "land/LandAdministrativeUnit",
     "administrative_spatial_units": [
       "https://example.org/land/unit"
     ]
   },
   {
     "@id": "https://example.org/claim/one",
-    "@type": "LandTenureAssertion",
+    "@type": "land/LandTenureAssertion",
     "tenure_holder": "https://example.org/person/one",
     "tenure_object": "https://example.org/parcel/one",
     "tenure_type": {
@@ -156,7 +171,7 @@
   },
   {
     "@id": "https://example.org/claim/two",
-    "@type": "LandTenureAssertion",
+    "@type": "land/LandTenureAssertion",
     "tenure_holder": "https://example.org/org/cooperative",
     "tenure_object": "https://example.org/parcel/one",
     "tenure_type": {
@@ -171,16 +186,6 @@
     "subject_uri": "https://example.org/facility/clinic",
     "effective_at": "2026-07-01T00:00:00Z",
     "recorded_at": "2026-07-03T12:00:00Z"
-  },
-  {
-    "@type": "HealthcareAccreditation",
-    "@id": "https://example.org/accreditation/clinic",
-    "registered_subject": "https://example.org/facility/clinic",
-    "registration_authority": "https://example.org/org/ministry",
-    "accreditation_standard": "https://example.org/standards/clinic-quality-v1",
-    "accreditation_scope": "Outpatient services",
-    "valid_from": "2026-01-01",
-    "valid_to": "2026-12-31"
   },
   {
     "@id": "https://example.org/org/trade-office",

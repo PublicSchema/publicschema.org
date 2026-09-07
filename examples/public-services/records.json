@@ -1,0 +1,448 @@
+[
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/public-services/former-office",
+    "@type": "PublicOrganization",
+    "name": "Synthetic Permit Office",
+    "public_mandate": [
+      "https://example.org/public-services/law/permit-rules/v1"
+    ]
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/public-services/successor-agency",
+    "@type": "PublicOrganization",
+    "name": "Synthetic Licensing Agency",
+    "public_mandate": [
+      "https://example.org/public-services/law/succession/v1"
+    ]
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/public-services/review-board",
+    "@type": "PublicOrganization",
+    "name": "Synthetic Administrative Review Board",
+    "public_mandate": [
+      "https://example.org/public-services/law/review/v1"
+    ]
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/public-services/resident",
+    "@type": "Person",
+    "name": "Synthetic Resident"
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/public-services/representative",
+    "@type": "Person",
+    "name": "Synthetic Representative"
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/public-services/business",
+    "@type": "LegalEntity",
+    "name": "Synthetic Workshop Cooperative"
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/public-services/permit-service",
+    "@type": "PublicService",
+    "name": "Synthetic small workshop permit",
+    "description": "Example public service accepting applications from individuals and legal entities to operate a small workshop.",
+    "service_competent_authorities": [
+      {
+        "@id": "https://example.org/public-services/successor-agency",
+        "@type": "PublicOrganization"
+      }
+    ],
+    "service_audience": [
+      {
+        "@type": "CodedValue",
+        "code_value": "individual",
+        "code_scheme": "https://example.org/public-services/codes/audience/v1"
+      },
+      {
+        "@type": "CodedValue",
+        "code_value": "business",
+        "code_scheme": "https://example.org/public-services/codes/audience/v1"
+      }
+    ],
+    "legal_resources": [
+      "https://example.org/public-services/law/permit-rules/v1"
+    ]
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/public-services/business-representation",
+    "@type": "RepresentationRole",
+    "representative_actor": "https://example.org/public-services/representative",
+    "represented_subject": "https://example.org/public-services/business",
+    "representation_scope": "The source instrument describes permit applications and appeals. The example profile binds the separately reviewed grant; this text is not executable permission.",
+    "start_date": "2026-01-01",
+    "end_date": "2026-12-31"
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/public-services/business-application",
+    "@type": "ServiceApplication",
+    "public_service": {
+      "@id": "https://example.org/public-services/permit-service",
+      "@type": "PublicService"
+    },
+    "service_applicant": "https://example.org/public-services/business",
+    "application_subject": "https://example.org/public-services/business",
+    "submitted_by": "https://example.org/public-services/representative",
+    "submission_representation": {
+      "@id": "https://example.org/public-services/business-representation",
+      "@type": "RepresentationRole"
+    },
+    "receiving_authority": {
+      "@id": "https://example.org/public-services/former-office",
+      "@type": "PublicOrganization"
+    },
+    "submitted_at": "2026-05-02T08:00:00Z",
+    "recorded_at": "2026-05-02T08:05:00Z",
+    "evidence_assertions": [
+      {
+        "@type": "EvidenceAssertion",
+        "assertion_uri": "https://example.org/public-services/business-application",
+        "evidence_source": "https://example.org/public-services/documents/business-application",
+        "evidence_role": {
+          "@type": "CodedValue",
+          "code_value": "supports",
+          "code_scheme": "https://example.org/public-services/codes/evidence-role/v1"
+        },
+        "evidence_authority": {
+          "@id": "https://example.org/public-services/former-office",
+          "@type": "PublicOrganization"
+        },
+        "recorded_at": "2026-09-07T11:00:00Z"
+      }
+    ]
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/public-services/resident-application",
+    "@type": "ServiceApplication",
+    "public_service": {
+      "@id": "https://example.org/public-services/permit-service",
+      "@type": "PublicService"
+    },
+    "service_applicant": "https://example.org/public-services/resident",
+    "application_subject": "https://example.org/public-services/resident",
+    "submitted_by": "https://example.org/public-services/resident",
+    "receiving_authority": {
+      "@id": "https://example.org/public-services/successor-agency",
+      "@type": "PublicOrganization"
+    },
+    "submitted_at": "2026-09-03T08:00:00Z",
+    "recorded_at": "2026-09-03T08:01:00Z"
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/public-services/grant-decision",
+    "@type": "AdministrativeDecision",
+    "decides_application": {
+      "@id": "https://example.org/public-services/business-application",
+      "@type": "ServiceApplication"
+    },
+    "decision_subject": "https://example.org/public-services/business",
+    "decision_authority": {
+      "@id": "https://example.org/public-services/former-office",
+      "@type": "PublicOrganization"
+    },
+    "decision_outcome": {
+      "@type": "CodedValue",
+      "code_value": "granted",
+      "code_scheme": "https://example.org/public-services/codes/decision-outcome/v1"
+    },
+    "decision_made_at": "2026-05-10T09:00:00Z",
+    "effective_at": "2026-05-11T00:00:00Z",
+    "recorded_at": "2026-05-10T09:10:00Z",
+    "legal_resources": [
+      "https://example.org/public-services/law/permit-rules/v1"
+    ],
+    "decision_authorizations": [
+      {
+        "@id": "https://example.org/public-services/business-permit",
+        "@type": "Authorization"
+      }
+    ],
+    "evidence_assertions": [
+      {
+        "@type": "EvidenceAssertion",
+        "assertion_uri": "https://example.org/public-services/grant-decision",
+        "evidence_source": "https://example.org/public-services/documents/permit-grant",
+        "evidence_role": {
+          "@type": "CodedValue",
+          "code_value": "supports",
+          "code_scheme": "https://example.org/public-services/codes/evidence-role/v1"
+        },
+        "evidence_authority": {
+          "@id": "https://example.org/public-services/former-office",
+          "@type": "PublicOrganization"
+        },
+        "recorded_at": "2026-09-07T11:00:00Z"
+      }
+    ]
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/public-services/business-permit",
+    "@type": "Authorization",
+    "registered_subject": "https://example.org/public-services/business",
+    "registration_authority": {
+      "@id": "https://example.org/public-services/former-office",
+      "@type": "PublicOrganization"
+    },
+    "registration_purpose": "Recognition of the workshop operator for the synthetic permit service.",
+    "authorized_activity": "Operate the small workshop identified in the original grant.",
+    "authorization_conditions": "Applies only to the workshop activity described in the original grant.",
+    "valid_from": "2026-05-11",
+    "valid_to": "2026-12-31",
+    "evidence_assertions": [
+      {
+        "@type": "EvidenceAssertion",
+        "assertion_uri": "https://example.org/public-services/business-permit",
+        "evidence_source": "https://example.org/public-services/documents/permit-grant",
+        "evidence_role": {
+          "@type": "CodedValue",
+          "code_value": "supports",
+          "code_scheme": "https://example.org/public-services/codes/evidence-role/v1"
+        },
+        "evidence_authority": {
+          "@id": "https://example.org/public-services/former-office",
+          "@type": "PublicOrganization"
+        },
+        "recorded_at": "2026-09-07T11:00:00Z"
+      }
+    ]
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/public-services/office-name-correction",
+    "@type": "RecordLifecycleEvent",
+    "subject_uri": "https://example.org/public-services/former-office",
+    "lifecycle_kind": {
+      "@type": "CodedValue",
+      "code_value": "name-record-correction",
+      "code_scheme": "https://example.org/public-services/codes/record-change/v1"
+    },
+    "effective_at": "2026-04-01T00:00:00Z",
+    "recorded_at": "2026-04-04T12:00:00Z",
+    "event_authority": {
+      "@id": "https://example.org/public-services/former-office",
+      "@type": "PublicOrganization"
+    },
+    "evidence_assertions": [
+      {
+        "@type": "EvidenceAssertion",
+        "assertion_uri": "https://example.org/public-services/office-name-correction",
+        "evidence_source": "https://example.org/public-services/documents/name-correction",
+        "evidence_role": {
+          "@type": "CodedValue",
+          "code_value": "supports",
+          "code_scheme": "https://example.org/public-services/codes/evidence-role/v1"
+        },
+        "evidence_authority": {
+          "@id": "https://example.org/public-services/former-office",
+          "@type": "PublicOrganization"
+        },
+        "recorded_at": "2026-09-07T11:00:00Z"
+      }
+    ]
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/public-services/authority-succession",
+    "@type": "OrganizationalChangeEvent",
+    "original_organizations": [
+      {
+        "@id": "https://example.org/public-services/former-office",
+        "@type": "PublicOrganization"
+      }
+    ],
+    "resulting_organizations": [
+      {
+        "@id": "https://example.org/public-services/successor-agency",
+        "@type": "PublicOrganization"
+      }
+    ],
+    "lifecycle_kind": {
+      "@type": "CodedValue",
+      "code_value": "succession",
+      "code_scheme": "https://example.org/public-services/codes/organization-change/v1"
+    },
+    "effective_at": "2026-08-01T00:00:00Z",
+    "recorded_at": "2026-08-03T12:00:00Z",
+    "event_authority": {
+      "@id": "https://example.org/public-services/successor-agency",
+      "@type": "PublicOrganization"
+    },
+    "legal_resources": [
+      "https://example.org/public-services/law/succession/v1"
+    ],
+    "evidence_assertions": [
+      {
+        "@type": "EvidenceAssertion",
+        "assertion_uri": "https://example.org/public-services/authority-succession",
+        "evidence_source": "https://example.org/public-services/documents/succession-instrument",
+        "evidence_role": {
+          "@type": "CodedValue",
+          "code_value": "supports",
+          "code_scheme": "https://example.org/public-services/codes/evidence-role/v1"
+        },
+        "evidence_authority": {
+          "@id": "https://example.org/public-services/successor-agency",
+          "@type": "PublicOrganization"
+        },
+        "recorded_at": "2026-09-07T11:00:00Z"
+      }
+    ]
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/public-services/permit-suspension",
+    "@type": "RegulatoryAction",
+    "action_subject": "https://example.org/public-services/business-permit",
+    "action_authority": {
+      "@id": "https://example.org/public-services/successor-agency",
+      "@type": "PublicOrganization"
+    },
+    "action_type": {
+      "@type": "CodedValue",
+      "code_value": "suspension",
+      "code_scheme": "https://example.org/public-services/codes/regulatory-action/v1"
+    },
+    "action_legal_basis": [
+      "https://example.org/public-services/law/permit-rules/v1"
+    ],
+    "action_date": "2026-09-01",
+    "action_description": "This synthetic action suspends only the identified workshop permit. It does not suspend the legal entity or determine the status of any other permission."
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/public-services/suspension-decision",
+    "@type": "AdministrativeDecision",
+    "decision_subject": "https://example.org/public-services/business-permit",
+    "decision_authority": {
+      "@id": "https://example.org/public-services/successor-agency",
+      "@type": "PublicOrganization"
+    },
+    "decision_outcome": {
+      "@type": "CodedValue",
+      "code_value": "suspended",
+      "code_scheme": "https://example.org/public-services/codes/decision-outcome/v1"
+    },
+    "decision_made_at": "2026-09-01T09:00:00Z",
+    "effective_at": "2026-09-02T00:00:00Z",
+    "recorded_at": "2026-09-01T09:30:00Z",
+    "legal_resources": [
+      "https://example.org/public-services/law/permit-rules/v1"
+    ],
+    "decision_regulatory_actions": [
+      {
+        "@id": "https://example.org/public-services/permit-suspension",
+        "@type": "RegulatoryAction"
+      }
+    ],
+    "evidence_assertions": [
+      {
+        "@type": "EvidenceAssertion",
+        "assertion_uri": "https://example.org/public-services/suspension-decision",
+        "evidence_source": "https://example.org/public-services/documents/suspension-notice",
+        "evidence_role": {
+          "@type": "CodedValue",
+          "code_value": "supports",
+          "code_scheme": "https://example.org/public-services/codes/evidence-role/v1"
+        },
+        "evidence_authority": {
+          "@id": "https://example.org/public-services/successor-agency",
+          "@type": "PublicOrganization"
+        },
+        "recorded_at": "2026-09-07T11:00:00Z"
+      }
+    ]
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/public-services/business-appeal",
+    "@type": "AdministrativeAppeal",
+    "challenged_decision": {
+      "@id": "https://example.org/public-services/suspension-decision",
+      "@type": "AdministrativeDecision"
+    },
+    "appellant": "https://example.org/public-services/business",
+    "submitted_by": "https://example.org/public-services/representative",
+    "submission_representation": {
+      "@id": "https://example.org/public-services/business-representation",
+      "@type": "RepresentationRole"
+    },
+    "reviewing_authority": {
+      "@id": "https://example.org/public-services/review-board",
+      "@type": "PublicOrganization"
+    },
+    "submitted_at": "2026-09-03T10:00:00Z",
+    "recorded_at": "2026-09-03T10:03:00Z",
+    "evidence_assertions": [
+      {
+        "@type": "EvidenceAssertion",
+        "assertion_uri": "https://example.org/public-services/business-appeal",
+        "evidence_source": "https://example.org/public-services/documents/appeal-submission",
+        "evidence_role": {
+          "@type": "CodedValue",
+          "code_value": "supports",
+          "code_scheme": "https://example.org/public-services/codes/evidence-role/v1"
+        },
+        "evidence_authority": {
+          "@id": "https://example.org/public-services/review-board",
+          "@type": "PublicOrganization"
+        },
+        "recorded_at": "2026-09-07T11:00:00Z"
+      }
+    ]
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/public-services/review-decision",
+    "@type": "AdministrativeDecision",
+    "decision_subject": "https://example.org/public-services/business-permit",
+    "decision_authority": {
+      "@id": "https://example.org/public-services/review-board",
+      "@type": "PublicOrganization"
+    },
+    "decision_outcome": {
+      "@type": "CodedValue",
+      "code_value": "upheld",
+      "code_scheme": "https://example.org/public-services/codes/decision-outcome/v1"
+    },
+    "decision_made_at": "2026-09-07T09:00:00Z",
+    "effective_at": "2026-09-07T09:00:00Z",
+    "recorded_at": "2026-09-07T09:15:00Z",
+    "legal_resources": [
+      "https://example.org/public-services/law/review/v1"
+    ],
+    "resolves_appeal": {
+      "@id": "https://example.org/public-services/business-appeal",
+      "@type": "AdministrativeAppeal"
+    },
+    "evidence_assertions": [
+      {
+        "@type": "EvidenceAssertion",
+        "assertion_uri": "https://example.org/public-services/review-decision",
+        "evidence_source": "https://example.org/public-services/documents/review-determination",
+        "evidence_role": {
+          "@type": "CodedValue",
+          "code_value": "supports",
+          "code_scheme": "https://example.org/public-services/codes/evidence-role/v1"
+        },
+        "evidence_authority": {
+          "@id": "https://example.org/public-services/review-board",
+          "@type": "PublicOrganization"
+        },
+        "recorded_at": "2026-09-07T11:00:00Z"
+      }
+    ]
+  }
+]

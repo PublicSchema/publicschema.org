@@ -33,14 +33,14 @@
   },
   {
     "@id": "https://example.org/breeds/local",
-    "@type": "AnimalBreed",
+    "@type": "agri/AnimalBreed",
     "name": "Local synthetic cattle",
     "breed_context": "Example community",
     "breed_source": "https://example.org/breed-catalogue"
   },
   {
     "@id": "https://example.org/plantings/1",
-    "@type": "CropPlanting",
+    "@type": "agri/CropPlanting",
     "planting_holding": "https://example.org/farms/1",
     "planting_parcel": "https://example.org/parcels/1",
     "planting_components": [
@@ -50,7 +50,7 @@
   },
   {
     "@id": "https://example.org/components/maize",
-    "@type": "CropPlantingComponent",
+    "@type": "agri/CropPlantingComponent",
     "crop_kind": {
       "code_value": "maize-local",
       "code_scheme": "https://example.org/crops",
@@ -61,7 +61,7 @@
   },
   {
     "@id": "https://example.org/components/beans",
-    "@type": "CropPlantingComponent",
+    "@type": "agri/CropPlantingComponent",
     "crop_kind": {
       "code_value": "beans-local",
       "code_scheme": "https://example.org/crops",
@@ -110,10 +110,10 @@
   },
   {
     "@id": "https://example.org/residences/1",
-    "@type": "AnimalResidence",
+    "@type": "agri/AnimalResidence",
     "animal_subject": "https://example.org/animals/1",
     "animal_residence_site": "https://example.org/farms/1",
-    "valid_from": "2025-01-01"
+    "start_date": "2025-01-01"
   },
   {
     "@id": "https://example.org/responsibilities/1",
@@ -125,8 +125,8 @@
       "code_value": "keeper",
       "code_scheme": "https://example.org/animal-responsibilities"
     },
-    "valid_from": "2025-01-01",
-    "valid_to": "2026-06-30"
+    "start_date": "2025-01-01",
+    "end_date": "2026-07-01"
   },
   {
     "@id": "https://example.org/responsibilities/2",
@@ -138,7 +138,7 @@
       "code_value": "keeper",
       "code_scheme": "https://example.org/animal-responsibilities"
     },
-    "valid_from": "2026-07-01"
+    "start_date": "2026-07-01"
   },
   {
     "@id": "https://example.org/responsibilities/3",
@@ -150,6 +150,6 @@
       "code_value": "owner",
       "code_scheme": "https://example.org/animal-responsibilities"
     },
-    "valid_from": "2025-01-01"
+    "start_date": "2025-01-01"
   }
 ]

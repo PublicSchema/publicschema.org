@@ -130,6 +130,7 @@ The same `Observation` pattern applies to:
 
 ## Related resources
 
+- [Native FHIR R5 registry integration](fhir-registry-integration.md) covers medicinal definitions and healthcare directories separately from the R4 functioning mappings in this guide.
 - FHIR R4 Observation: `http://hl7.org/fhir/R4/observation.html`
 - FHIR R4 QuestionnaireResponse: `http://hl7.org/fhir/R4/questionnaireresponse.html`
 - LOINC FHIR terminology server: `https://fhir.loinc.org`

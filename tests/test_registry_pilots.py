@@ -9,7 +9,7 @@ import jsonschema
 import pytest
 from pyld import jsonld
 from pyshacl import validate
-from rdflib import Graph, Namespace
+from rdflib import Graph, Namespace, URIRef
 from rdflib.namespace import RDF
 from referencing import Registry, Resource
 from build.build import build_vocabulary
@@ -17,6 +17,9 @@ from build.linkml_rdf_export import write_shacl
 
 ROOT = Path(__file__).resolve().parents[1]
 PS = Namespace('https://publicschema.org/')
+AGRI = Namespace('https://publicschema.org/agri/')
+HEALTH = Namespace('https://publicschema.org/health/')
+LAND = Namespace('https://publicschema.org/land/')
 spec = importlib.util.spec_from_file_location('pilot_profile', ROOT / 'examples/registry-pilots/profile.py')
 profile = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(profile)
@@ -45,20 +48,27 @@ def test_actual_pilot_exports_and_identity(exports):
     data = graph(records,result['context'])
     ok, _, report = validate(data, shacl_graph=shapes, inference='rdfs')
     assert ok, report
-    assert len(set(data.subjects(RDF.type,PS.HealthFacility))) == 1
-    assert len(set(data.subjects(RDF.type,PS.FacilityManagementAssignment))) == 2
-    assert len(list(data.subjects(PS.linked_parcel,Namespace('https://example.org/')['parcel/one']))) == 2
-    assert len(set(data.subjects(RDF.type,PS.LandTenureAssertion))) == 2
-    for name in ('RegistryEntry','Farm','AgriculturalParcel','Registration'):
+    assert len(set(data.subjects(RDF.type, HEALTH.HealthFacility))) == 1
+    assert len(set(data.subjects(RDF.type, PS.AssetPartyRole))) == 2
+    assert len(list(data.subjects(AGRI.linked_parcel,Namespace('https://example.org/')['parcel/one']))) == 2
+    assert len(set(data.subjects(RDF.type, LAND.LandTenureAssertion))) == 2
+    for name in ('RegistryEntry','agri/Farm','agri/AgriculturalParcel','Registration'):
         jsonschema.Draft202012Validator(result['concept_schemas'][name],registry=registry).validate({})
 
 
-def test_wrong_facility_manager_type_fails_shacl(exports):
+def test_asset_actor_kind_is_a_local_profile_rule(exports):
     result, shapes, records, _ = exports
     changed = copy.deepcopy(records)
-    assignment = next(r for r in changed if r['@type']=='FacilityManagementAssignment')
-    assignment['managing_organization'] = 'https://example.org/person/one'
-    assert not validate(graph(changed,result['context']),shacl_graph=shapes,inference='rdfs')[0]
+    assignment = next(r for r in changed if r['@type']=='AssetPartyRole')
+    changed.append({'@id': 'https://example.org/group/one', '@type': 'InformalGroup'})
+    assignment['asset_actor'] = 'https://example.org/group/one'
+    # Shared SHACL permits URI-shaped actors; the locally resolved profile owns
+    # this pilot's narrower Person/Organization rule.
+    assert validate(graph(changed,result['context']),shacl_graph=shapes,inference='rdfs')[0]
+    types = {name: concept['uri'] for name, concept in result['concepts'].items()}
+    subjects = profile.subject_index(changed, types)
+    with pytest.raises(ValueError, match='wrong asset actor kind'):
+        profile.validate_asset_party_role(assignment, subjects)
 
 
 def test_qualified_reference_resolves_without_collapsing_local_ids():
@@ -75,7 +85,7 @@ def test_qualified_reference_resolves_without_collapsing_local_ids():
 
 
 def test_submission_requiredness_and_late_recording():
-    entry = {'register_uri':'https://example.org/r','record_id':'001','subject_uri':'https://example.org/s','subject_type':str(PS.Farm),'recorded_at':'2026-09-07T00:00:00Z','valid_from':'2026-01-01','valid_to':'2026-12-31'}
+    entry = {'register_uri':'https://example.org/r','record_id':'001','subject_uri':'https://example.org/s','subject_type':str(AGRI.Farm),'recorded_at':'2026-09-07T00:00:00Z','valid_from':'2026-01-01','valid_to':'2026-12-31'}
     profile.validate_entry(entry)
     with pytest.raises(KeyError):profile.validate_entry({})
     with pytest.raises(ValueError):profile.validate_period({'valid_from':'2026-03-01','valid_to':'2026-02-01'})
@@ -119,7 +129,7 @@ def test_reference_resolution_of_the_actual_pilot_records(exports):
     reference = {k: entry[k] for k in ('register_uri', 'record_id', 'subject_uri', 'subject_type')}
     resolved = profile.resolve_reference(reference, {(entry['register_uri'], entry['record_id']): entry}, subjects)
     assert resolved['state'] == 'resolved'
-    assert resolved['subject']['@type'] == str(PS.HealthFacility)
+    assert resolved['subject']['@type'] == str(HEALTH.HealthFacility)
     assert resolved['subject_uri'] != entry['@id']
 
 
@@ -154,13 +164,19 @@ def test_every_authored_shared_class_and_field_survives_exports(exports):
     import yaml
     from rdflib.namespace import SH
     result, shapes, _, _ = exports
-    for module in ('registry', 'work', 'agriculture', 'health_services', 'farm_operators', 'agriculture_biology'):
+    context = result['context']['@context']
+    for module in ('registry', 'work', 'agriculture', 'farm_operators', 'agriculture_biology'):
         authored = yaml.safe_load((ROOT / f'schema/{module}.yaml').read_text())
         for name, definition in authored.get('classes', {}).items():
-            assert name in result['concepts']
-            assert result['concepts'][name]['maturity'] == 'draft'
-            assert result['concepts'][name]['bibliography_refs'], name
-            assert set(definition.get('slots', [])) <= result['concept_schemas'][name]['properties'].keys()
+            value = context[name]
+            class_uri = value['@id'] if isinstance(value, dict) else value
+            class_key = class_uri.removeprefix(str(PS))
+            assert class_key in result['concepts']
+            assert result['concepts'][class_key]['maturity'] == 'draft'
+            assert result['concepts'][class_key]['bibliography_refs'], name
+            assert set(definition.get('slots', [])) <= result['concept_schemas'][class_key]['properties'].keys()
         for name in authored.get('slots', {}):
             assert name in result['properties']
-            assert list(shapes.subjects(SH.path, PS[name])), name
+            value = context[name]
+            property_uri = value['@id'] if isinstance(value, dict) else value
+            assert list(shapes.subjects(SH.path, URIRef(property_uri))), name

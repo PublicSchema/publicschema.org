@@ -9,13 +9,13 @@ from pathlib import Path
 from urllib.parse import urlsplit
 
 ROLE_ENDPOINTS = {
-    "PersonHoldingOperatorRole": ("holding_operator_person", {"Person"}),
-    "OrganizationHoldingOperatorRole": ("holding_operator_organization", {"Organization"}),
-    "GroupHoldingOperatorRole": ("holding_operator_group", {"Household", "Family", "InformalGroup"}),
+    "agri/PersonHoldingOperatorRole": ("holding_operator_person", {"Person"}),
+    "agri/OrganizationHoldingOperatorRole": ("holding_operator_organization", {"Organization"}),
+    "agri/GroupHoldingOperatorRole": ("holding_operator_group", {"Household", "Family", "InformalGroup"}),
 }
 ENDPOINTS = {pair[0] for pair in ROLE_ENDPOINTS.values()}
-WORK_TYPES = {"WorkRelationship", "HoldingWorkAssignment"}
-ECONOMIC_UNIT_TYPES = {"Organization", "Household", "InformalGroup", "Farm"}
+WORK_TYPES = {"WorkRelationship", "agri/HoldingWorkAssignment"}
+ECONOMIC_UNIT_TYPES = {"Organization", "Household", "InformalGroup", "agri/Farm"}
 WORK_CLASSIFICATIONS = {"work_form", "work_status", "work_remuneration", "work_seasonality"}
 
 
@@ -103,7 +103,7 @@ def validate_profile(records):
                     raise ValueError("The work economic unit requires a subject URI")
                 typed(unit_uri, ECONOMIC_UNIT_TYPES)
             else:
-                typed(record.get("assigned_holding"), {"Farm"})
+                typed(record.get("assigned_holding"), {"agri/Farm"})
                 if "assignment_work_relationship" in record:
                     relationship = typed(record["assignment_work_relationship"], {"WorkRelationship"})
                     related_person = typed(relationship.get("work_person"), {"Person"})
@@ -129,13 +129,13 @@ def validate_profile(records):
                 raise ValueError("Exactly the concrete type's operator endpoint is required")
             if resolve(record[endpoint]).get("@type") not in accepted:
                 raise ValueError("Wrong operator target type")
-            if resolve(record.get("operated_holding")).get("@type") != "Farm":
+            if resolve(record.get("operated_holding")).get("@type") != "agri/Farm":
                 raise ValueError("The operated holding must resolve to a Farm")
             start = date.fromisoformat(record["start_date"]) if "start_date" in record else None
             end = date.fromisoformat(record["end_date"]) if "end_date" in record else None
             if start and end and end < start:
                 raise ValueError("Responsibility ends before it starts")
-        if kind == "Farm":
+        if kind == "agri/Farm":
             for value in record.get("holding_operator_roles", []):
                 role = resolve(value)
                 if role.get("@type") not in ROLE_ENDPOINTS:

@@ -22,20 +22,30 @@ Some concepts share a name across domains but carry different semantics ("Enroll
 
 The test: an element is universal if the same definition carries the same meaning regardless of domain. If not, it belongs in a domain namespace.
 
-The same test applies to properties and vocabularies in principle, but applying it is a judgment call. A controlled vocabulary whose values are tightly tied to a domain workflow (`sp/grievance-type`, `sp/grievance-status`, `sp/enrollment-status`) is clearly domain-scoped. A property that references such a vocabulary (`grievance_type`, `grievance_status`) may still sit at the root namespace when the property's primitive shape (a coded value, an ISO date, an identifier reference) is portable even though its value set is not. Several such "root property, domain vocabulary" pairs exist in the current schema. The split is deliberate: it keeps the property URI stable if the concept is later renamed or generalised across domains, while the vocabulary carries the domain-specific semantics.
+Apply the same meaning-based test to properties and vocabularies. A portable primitive shape does not make a property universal: a tax identifier and a vehicle identifier can both be strings while naming different facts. Shared properties such as `start_date` retain their root URI when used by a sector concept. Existing candidate and normative terms retain their published identities, including older root-property/domain-vocabulary pairs; those are compatibility constraints, not a precedent for assigning new terms by shape alone.
 
-Names are never prefixed with a domain abbreviation. It is `Enrollment`, not `SPEnrollment`. The URI structure handles disambiguation. The build pipeline keys concepts by `(domain, id)`, so two concepts can share a short name as long as their domains differ. In the current LinkML source, `Person` is universal and civil registration roles such as `crvs/Parent` inherit from that universal concept rather than defining a separate `crvs/Person`.
+Public names do not need domain abbreviations: use `Enrollment`, not `SPEnrollment`. LinkML identifiers must nevertheless be unique within the composite. For example, the authored `CrvsPerson` represents `crvs/Person`, a civil-registration snapshot distinct from universal `Person`; `crvs/Parent` inherits from that snapshot. See [ADR-018](../decisions/018-crvs-person-rename.md).
 
 The build pipeline keys concepts internally by `{domain}/{id}` (e.g., `sp/Enrollment`, `crvs/Birth`) for domain-scoped concepts and by bare `id` (e.g., `Person`, `Event`) for universal ones. This prevents silent overwrites when two domains define concepts with the same short name.
 
-| Code | Domain | Status |
+| Code | Domain | Current scope |
 |---|---|---|
-| `sp` | Social protection | Active |
-| `edu` | Education | Future |
-| `health` | Health | Future |
-| `crvs` | Civil registration and vital statistics | Active |
+| `sp` | Social protection | Benefit programmes and delivery relationships |
+| `crvs` | Civil registration and vital statistics | Vital events and registration roles |
+| `agri` | Agriculture | Production holdings, cultivation, livestock establishments, inputs and production roles |
+| `land` | Land administration | Spatial and administrative units, tenure and boundaries |
+| `environment` | Environment | Facilities, installations, releases and water-use permissions |
+| `transport` | Transport | Vehicles, roads, network restrictions and driving permissions |
+| `edu` | Education | Providers, programmes, offerings and educational premises |
+| `health` | Health | Physical healthcare facilities; medical content integrates through native FHIR |
+| `tax` | Tax administration | Tax registration |
+| `elections` | Electoral administration | Voter registration |
 
-ServicePoint and its subtypes (HealthFacility, School, WaterPoint, RegistrationOffice) remain at root rather than under domain segments. They are classified by sector using the service-point type vocabulary, not by URI domain. This keeps service-point records cross-cuttingly usable across social-protection, education, health, and CRVS workflows without introducing domain-specific supertypes.
+These labels describe represented slices, not complete sector standards. A domain is a namespace and discovery aid, not a superclass or access-control boundary. Any domain can reuse a shared concept or refer to another domain's concept. Module filenames organize authorship and do not determine public namespaces.
+
+ServicePoint stays shared. Its draft School and HealthFacility subtypes use `edu/School` and `health/HealthFacility`. RegistrationOffice remains at root because its definition also covers identity and refugee registration. WaterPoint retains its existing root identity as a disclosed scope exception; a complete water and sanitation namespace has not been designed. Generic animal and plant identities remain shared where their definitions do not require agricultural production. See [domain placement and migration](domain-migration.md) for individual dispositions.
+
+Author explicit `class_uri`, `slot_uri`, `enum_uri` and permissible-value `meaning` values with consistent `annotations.source_domain`. The renderer uses a property's authored URI to place its page; adding a new consumer must not move that property. Vocabulary catalog paths remain `/vocab/<domain>/<kebab-case-id>`. `schema/publicschema.yaml` supplies domain labels through `annotations.domains_json`; the site shows domains actually present in each collection and keeps unknown codes visible.
 
 ## 3. URI persistence
 
@@ -123,12 +133,15 @@ name the first and last applicable calendar dates, including the last day. `reco
 instead records when the source entered the assertion. Missing dates remain unknown;
 an omitted end does not prove perpetual validity.
 
-Use `start_date` / `end_date` for new relationship and membership concepts. Existing
-draft associations, including HoldingParcelLink, AnimalResidence, AnimalResponsibility,
-ProducerMembership and FacilityManagementAssignment, still use the inclusive validity
-pair. These are exceptions to the preferred authoring convention, not a reason to add
-both pairs or reinterpret their current payloads. Registration, LandTenureAssertion and
-RoadRestriction also retain their declared calendar validity.
+Use `start_date` / `end_date` for relationship and membership concepts. The draft
+HoldingParcelLink, AnimalResidence, AnimalResponsibility, ProducerMembership,
+AgriculturalServiceRole (including InputSupplierRole, PesticideApplicatorRole and SeedOperatorRole), IdentifierAssignment, NameUsage
+and ContactPoint now follow this convention. AssetPartyRole and AssetAddressAssignment
+also use it. Registration, RegistryEntry, AgriculturalParcel, AgriculturalCertification,
+LandTenureAssertion and RoadRestriction retain their declared calendar validity.
+The [relationship migration guide](relationship-date-migration.md) describes the
+explicit conversion contract and the retired facility assignments. Renaming an
+inclusive `valid_to` to `end_date` without changing the boundary loses an effective day.
 
 A consuming profile must state its interval boundaries before comparing or converting
 dates. For example, under an explicitly agreed whole-day convention, `valid_to:
@@ -147,7 +160,7 @@ Property independence is not limited to repeated structural fields. Substantive 
 
 The rules that keep this honest:
 
-1. **One property file per named concept.** `water_source` is a single YAML file referenced from both profiles.
+1. **One reusable slot per named fact.** `water_source` is declared once under `slots:` and referenced from both profiles.
 2. **Contextual framing lives on the concept, not the property.** The property definition names the observable ("the household's primary source of drinking water"). Each concept definition names how that observable is interpreted in that concept (baseline vs. post-shock).
 3. **Reuse must be disclosed in both concepts' narrative definitions.** A reader on either page must be able to see that the field also appears elsewhere and why.
 4. **Reuse does not make records type-compatible.** A `SocioEconomicProfile` record and a `DwellingDamageProfile` record are different things even when their property values overlap. Adopters should consult the concept page, not the property list, when serialising into a strongly typed shape.

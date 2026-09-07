@@ -145,8 +145,8 @@ classes:
     - assigned_identifier
     - identifier_subject
     - identifier_issuer
-    - valid_from
-    - valid_to
+    - start_date
+    - end_date
     status: bibo:draft
     annotations:
       bibliography_refs: '["w3c-adms-2013"]'
@@ -208,8 +208,8 @@ classes:
     - name
     - name_language
     - name_use
-    - valid_from
-    - valid_to
+    - start_date
+    - end_date
     status: bibo:draft
     annotations:
       bibliography_refs: '["w3c-vcard-2014"]'
@@ -224,8 +224,8 @@ classes:
     - contact_channel
     - contact_value
     - contact_purpose
-    - valid_from
-    - valid_to
+    - start_date
+    - end_date
     status: bibo:draft
     annotations:
       bibliography_refs: '["w3c-vcard-2014"]'

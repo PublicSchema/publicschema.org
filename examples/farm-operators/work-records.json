@@ -1,7 +1,7 @@
 [
   {
     "@id": "https://example.org/farm-pilot/holding",
-    "@type": "Farm",
+    "@type": "agri/Farm",
     "name": "River holding",
     "holding_operator_roles": [
       "https://example.org/farm-pilot/cooperative-role",
@@ -32,7 +32,7 @@
   },
   {
     "@id": "https://example.org/farm-pilot/cooperative-role",
-    "@type": "OrganizationHoldingOperatorRole",
+    "@type": "agri/OrganizationHoldingOperatorRole",
     "operated_holding": "https://example.org/farm-pilot/holding",
     "holding_operator_organization": "https://example.org/farm-pilot/cooperative",
     "start_date": "2024-01-01",
@@ -40,21 +40,21 @@
   },
   {
     "@id": "https://example.org/farm-pilot/person-role",
-    "@type": "PersonHoldingOperatorRole",
+    "@type": "agri/PersonHoldingOperatorRole",
     "operated_holding": "https://example.org/farm-pilot/holding",
     "holding_operator_person": "https://example.org/farm-pilot/person",
     "start_date": "2025-01-01"
   },
   {
     "@id": "https://example.org/farm-pilot/joint-role",
-    "@type": "PersonHoldingOperatorRole",
+    "@type": "agri/PersonHoldingOperatorRole",
     "operated_holding": "https://example.org/farm-pilot/holding",
     "holding_operator_person": "https://example.org/farm-pilot/joint-person",
     "start_date": "2025-01-01"
   },
   {
     "@id": "https://example.org/farm-pilot/collective-role",
-    "@type": "GroupHoldingOperatorRole",
+    "@type": "agri/GroupHoldingOperatorRole",
     "operated_holding": "https://example.org/farm-pilot/holding",
     "holding_operator_group": "https://example.org/farm-pilot/collective",
     "end_date": "2024-01-01"
@@ -91,7 +91,7 @@
   },
   {
     "@id": "https://example.org/farm-pilot/second-holding",
-    "@type": "Farm",
+    "@type": "agri/Farm",
     "name": "Hill holding"
   },
   {
@@ -111,7 +111,7 @@
   },
   {
     "@id": "https://example.org/farm-pilot/amina-management",
-    "@type": "HoldingWorkAssignment",
+    "@type": "agri/HoldingWorkAssignment",
     "work_person": "https://example.org/farm-pilot/amina",
     "assigned_holding": "https://example.org/farm-pilot/holding",
     "start_date": "2025-03-01",
@@ -146,7 +146,7 @@
   },
   {
     "@id": "https://example.org/farm-pilot/unpaid-management",
-    "@type": "HoldingWorkAssignment",
+    "@type": "agri/HoldingWorkAssignment",
     "work_person": "https://example.org/farm-pilot/unpaid-manager",
     "assigned_holding": "https://example.org/farm-pilot/holding",
     "start_date": "2025-07-01",
@@ -166,7 +166,7 @@
   },
   {
     "@id": "https://example.org/farm-pilot/holder-management",
-    "@type": "HoldingWorkAssignment",
+    "@type": "agri/HoldingWorkAssignment",
     "work_person": "https://example.org/farm-pilot/person",
     "assigned_holding": "https://example.org/farm-pilot/holding",
     "start_date": "2025-10-01",
@@ -180,7 +180,7 @@
   },
   {
     "@id": "https://example.org/farm-pilot/own-use-family-work",
-    "@type": "HoldingWorkAssignment",
+    "@type": "agri/HoldingWorkAssignment",
     "work_person": "https://example.org/farm-pilot/family-grower",
     "assigned_holding": "https://example.org/farm-pilot/holding",
     "start_date": "2025-04-01",
@@ -204,7 +204,7 @@
   },
   {
     "@id": "https://example.org/farm-pilot/market-family-work",
-    "@type": "HoldingWorkAssignment",
+    "@type": "agri/HoldingWorkAssignment",
     "work_person": "https://example.org/farm-pilot/market-family-worker",
     "assigned_holding": "https://example.org/farm-pilot/holding",
     "start_date": "2025-04-01",
@@ -261,7 +261,7 @@
   },
   {
     "@id": "https://example.org/farm-pilot/agency-river",
-    "@type": "HoldingWorkAssignment",
+    "@type": "agri/HoldingWorkAssignment",
     "work_person": "https://example.org/farm-pilot/agency-worker",
     "assigned_holding": "https://example.org/farm-pilot/holding",
     "start_date": "2025-05-01",
@@ -282,7 +282,7 @@
   },
   {
     "@id": "https://example.org/farm-pilot/agency-hill",
-    "@type": "HoldingWorkAssignment",
+    "@type": "agri/HoldingWorkAssignment",
     "work_person": "https://example.org/farm-pilot/agency-worker",
     "assigned_holding": "https://example.org/farm-pilot/second-holding",
     "start_date": "2025-06-01",
@@ -325,7 +325,7 @@
   },
   {
     "@id": "https://example.org/farm-pilot/contractor-river",
-    "@type": "HoldingWorkAssignment",
+    "@type": "agri/HoldingWorkAssignment",
     "work_person": "https://example.org/farm-pilot/contractor",
     "assigned_holding": "https://example.org/farm-pilot/holding",
     "start_date": "2025-06-01",
@@ -341,7 +341,7 @@
   },
   {
     "@id": "https://example.org/farm-pilot/contractor-hill",
-    "@type": "HoldingWorkAssignment",
+    "@type": "agri/HoldingWorkAssignment",
     "work_person": "https://example.org/farm-pilot/contractor",
     "assigned_holding": "https://example.org/farm-pilot/second-holding",
     "start_date": "2025-06-15",

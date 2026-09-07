@@ -53,15 +53,20 @@ def validator(exports, kind):
     )
 
 
+def context_uri(context, term):
+    value = context[term]
+    return URIRef(value["@id"] if isinstance(value, dict) else value)
+
+
 def example_profile_errors(records):
     """Deliberately local profile, not reference-vocabulary or runtime enforcement.
 
     Complete typed subjects must be present; same-URI references do not mint new
-    actors. Dates, ownership percentage and strength pairing are application rules.
+    actors. Dates and ownership percentage are application rules.
     """
     index = {record["@id"]: record for record in records}
     errors = []
-    organization_types = {"Organization", "PublicOrganization", "LegalEntity", "EducationProvider"}
+    organization_types = {"Organization", "PublicOrganization", "LegalEntity", "edu/EducationProvider"}
     for record in records:
         kind = record["@type"]
         for begin, end in [("valid_from", "valid_to"), ("start_date", "end_date")]:
@@ -69,9 +74,9 @@ def example_profile_errors(records):
                 errors.append("reversed period")
         field = None
         allowed = set()
-        if kind in {"ProfessionalLicense", "DrivingEntitlement", "VoterRegistration"}:
+        if kind in {"ProfessionalLicense", "transport/DrivingEntitlement", "elections/VoterRegistration"}:
             field, allowed = "registered_subject", {"Person"}
-        elif kind == "TaxRegistration":
+        elif kind == "tax/TaxRegistration":
             field, allowed = "registered_subject", organization_types | {"Person"}
         elif kind in {"OwnershipInterest", "InstitutionalRole"}:
             field = "interest_holder" if kind == "OwnershipInterest" else "role_actor"
@@ -83,9 +88,9 @@ def example_profile_errors(records):
             represented = index.get(record.get("represented_subject"))
             if represented is None or represented["@type"] not in allowed:
                 errors.append("invalid represented subject")
-        if kind == "RoadRestriction":
+        if kind == "transport/RoadRestriction":
             target = index.get(record.get("restricted_road_element"))
-            if target is None or target["@type"] not in {"Road", "RoadSegment", "RoadNode"}:
+            if target is None or target["@type"] not in {"transport/Road", "transport/RoadSegment", "transport/RoadNode"}:
                 errors.append("invalid restricted road element")
         if field:
             target = index.get(record.get(field))
@@ -96,22 +101,20 @@ def example_profile_errors(records):
         if kind == "OwnershipInterest" and "interest_percentage" in record:
             if not 0 <= record["interest_percentage"] <= 100:
                 errors.append("percentage outside zero to one hundred")
-        if kind == "MedicinalIngredient":
-            if ("strength_numerator" in record) != ("strength_denominator" in record):
-                errors.append("incomplete strength ratio")
-            if record.get("strength_denominator", {}).get("quantity_value", 1) <= 0:
-                errors.append("nonpositive strength denominator")
     return errors
 
 
 def test_every_government_term_survives_actual_exports(exports):
     built, shapes, ontology, _ = exports
     example_types = {record["@type"] for record in RECORDS}
+    context = built["context"]["@context"]
     for name, definition in AUTHORED["classes"].items():
-        assert name in example_types
-        assert name in built["concepts"]
-        assert (PS[name], RDF.type, OWL.Class) in ontology
-        targets = list(shapes.subjects(SH.targetClass, PS[name]))
+        class_uri = context_uri(context, name)
+        class_key = str(class_uri).removeprefix(str(PS))
+        assert class_key in example_types
+        assert class_key in built["concepts"]
+        assert (class_uri, RDF.type, OWL.Class) in ontology
+        targets = list(shapes.subjects(SH.targetClass, class_uri))
         assert targets, name
         paths = {
             path for target in targets
@@ -119,12 +122,13 @@ def test_every_government_term_survives_actual_exports(exports):
             for path in shapes.objects(shape, SH.path)
         }
         for slot in definition["slots"]:
-            assert slot in built["concept_schemas"][name]["properties"], (name, slot)
-            assert PS[slot] in paths, (name, slot)
+            assert slot in built["concept_schemas"][class_key]["properties"], (name, slot)
+            assert context_uri(context, slot) in paths, (name, slot)
     for name in AUTHORED["slots"]:
         assert name in built["properties"]
-        assert (PS[name], RDF.type, OWL.ObjectProperty) in ontology or (
-            PS[name], RDF.type, OWL.DatatypeProperty
+        property_uri = context_uri(context, name)
+        assert (property_uri, RDF.type, OWL.ObjectProperty) in ontology or (
+            property_uri, RDF.type, OWL.DatatypeProperty
         ) in ontology
 
 
@@ -142,15 +146,13 @@ def test_same_synthetic_records_validate_json_schema_and_context_shacl(exports):
     # URI values remain object identities in RDF, including subclass subjects.
     assert (URIRef("https://example.org/tax-company"), PS.registered_subject,
             URIRef("https://example.org/company")) in graph
-    assert (URIRef("https://example.org/ingredient"), PS.ingredient_substance,
-            URIRef("https://example.org/substance")) in graph
 
 
 @pytest.mark.parametrize("kind,changes", [
     ("OwnershipInterest", {"interest_directness": "not-a-code"}),
     ("OwnershipInterest", {"interest_percentage": "twenty"}),
-    ("Vehicle", {"manufacture_year": "unknown"}),
-    ("ProviderSite", {"virtual_site_url": ["https://example.org/learning", "https://example.org/second"]}),
+    ("transport/Vehicle", {"manufacture_year": "unknown"}),
+    ("edu/ProviderSite", {"virtual_site_url": ["https://example.org/learning", "https://example.org/second"]}),
     ("ComplianceAssessment", {"assessment_date": "yesterday"}),
 ])
 def test_invalid_public_shapes_fail_both_formats(exports, kind, changes):
@@ -173,7 +175,6 @@ def test_invalid_public_shapes_fail_both_formats(exports, kind, changes):
     ("drive-B", {"registered_subject": "https://example.org/unavailable"}, "missing actor"),
     ("professional-license", {"valid_to": "2024-01-01"}, "reversed period"),
     ("interest-person", {"interest_percentage": 101}, "percentage outside zero to one hundred"),
-    ("ingredient", {"strength_denominator": {"quantity_value": 0}}, "nonpositive strength denominator"),
 ])
 def test_example_profile_rejects_semantic_counterexamples(suffix, changes, message):
     records = copy.deepcopy(RECORDS)
@@ -184,8 +185,8 @@ def test_example_profile_rejects_semantic_counterexamples(suffix, changes, messa
 
 def test_partial_vocabulary_record_is_valid_but_not_complete_example_profile(exports):
     partial = {"@context": DEFAULT_CONTEXT_URL, "@id": "https://example.org/partial",
-               "@type": "DrivingEntitlement"}
-    validator(exports, "DrivingEntitlement").validate(partial)
+               "@type": "transport/DrivingEntitlement"}
+    validator(exports, "transport/DrivingEntitlement").validate(partial)
     assert "missing actor" in example_profile_errors([partial])
 
 
@@ -196,7 +197,6 @@ def test_counterexamples_preserve_neighboring_identities():
     assert records["tax-company"]["registered_subject"] == records["company"]["@id"]
     assert records["vehicle-registration"]["registered_subject"] == records["inspection"]["assessed_subject"]
     assert "interest_percentage" not in records["interest-organization"]
-    assert records["medicine"]["@id"] != records["product-authorization"]["@id"]
 
 
 def test_revised_reference_distinctions_are_not_profile_only():
@@ -205,6 +205,5 @@ def test_revised_reference_distinctions_are_not_profile_only():
     assert records["unit"]["@type"] == "BuildingUnit"
     assert records["vehicle-keeper"]["asset_actor"] != records["vehicle-owner"]["asset_actor"]
     assert records["vehicle-keeper"]["asset_subject"] == records["vehicle-owner"]["asset_subject"]
-    assert records["package"]["@id"] != records["administrable"]["@id"]
     assert records["interest-statement"]["subject_uri"] == records["interest-person"]["@id"]
     assert records["interest-statement"]["recorded_at"][:10] > records["interest-person"]["start_date"]

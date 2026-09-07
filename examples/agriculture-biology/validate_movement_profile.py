@@ -76,9 +76,9 @@ def validate_profile(records):
         if "movement_source_group" in record:
             typed_target(record["movement_source_group"], {"AnimalGroup"}, "movement_source_group")
         for field in ("movement_origin_site", "movement_destination_site"):
-            typed_target(record[field], {"AgriculturalFacility"}, field)
+            typed_target(record[field], {"agri/AgriculturalFacility"}, field)
         for site in record.get("movement_transit_sites", []):
-            typed_target(site, {"AgriculturalFacility"}, "movement_transit_sites")
+            typed_target(site, {"agri/AgriculturalFacility"}, "movement_transit_sites")
 
 
 if __name__ == "__main__":

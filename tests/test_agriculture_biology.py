@@ -17,6 +17,7 @@ from build.linkml_rdf_export import write_shacl
 
 ROOT = Path(__file__).resolve().parents[1]
 PS = Namespace("https://publicschema.org/")
+AGRI = Namespace("https://publicschema.org/agri/")
 PROFILE_SPEC = importlib.util.spec_from_file_location(
     "movement_profile", ROOT / "examples/agriculture-biology/validate_movement_profile.py",
 )
@@ -52,8 +53,8 @@ def test_all_families_export_and_keep_distinct_identity(biology):
     for concept in {r["@type"] for r in records}:
         assert result["concepts"][concept]["maturity"] == "draft"
     linked_records = records + [
-        {"@id": "https://example.org/farms/1", "@type": "Farm"},
-        {"@id": "https://example.org/parcels/1", "@type": "AgriculturalParcel"},
+        {"@id": "https://example.org/farms/1", "@type": "agri/Farm"},
+        {"@id": "https://example.org/parcels/1", "@type": "agri/AgriculturalParcel"},
         {"@id": "https://example.org/organizations/bank", "@type": "Organization"},
     ]
     data = graph_for(linked_records, result["context"])
@@ -62,7 +63,7 @@ def test_all_families_export_and_keep_distinct_identity(biology):
     assert len(set(data.subjects(RDF.type, PS.SeedLot))) == 2
     assert len(set(data.subjects(RDF.type, PS.GeneticResourceAccession))) == 1
     assert len(set(data.subjects(RDF.type, PS.PlantVariety))) == 1
-    assert len(list(data.triples((None, PS.planting_components, None)))) == 2
+    assert len(list(data.triples((None, AGRI.planting_components, None)))) == 2
     assert len(list(data.triples((None, PS.known_animal_members, None)))) == 1
     assert (None, PS.animal_count, Literal(12)) in data
     assert not list(data.triples((None, PS.animal_birth_date, None)))
@@ -104,17 +105,17 @@ def test_shacl_rejects_variety_used_as_accession(biology):
 def test_keeper_change_preserves_animal_residence_and_owner(biology):
     result, _, records, registry = biology
     data = graph_for(records, result["context"])
-    residences = [r for r in records if r["@type"] == "AnimalResidence"]
+    residences = [r for r in records if r["@type"] == "agri/AnimalResidence"]
     responsibilities = [r for r in records if r["@type"] == "AnimalResponsibility"]
     assert len(residences) == 1
     keepers = [r for r in responsibilities if r["animal_responsibility_role"]["code_value"] == "keeper"]
     owners = [r for r in responsibilities if r["animal_responsibility_role"]["code_value"] == "owner"]
     assert len(keepers) == 2 and len(owners) == 1
     assert keepers[0]["animal_responsible_actor"] != keepers[1]["animal_responsible_actor"]
-    assert keepers[0]["valid_to"] < keepers[1]["valid_from"]
+    assert keepers[0]["end_date"] == keepers[1]["start_date"]
     assert len({r["animal_subject"] for r in responsibilities + residences}) == 1
-    assert "valid_to" not in residences[0] and "valid_to" not in owners[0]
-    assert len(list(data.triples((None, PS.animal_residence_site, None)))) == 1
+    assert "end_date" not in residences[0] and "end_date" not in owners[0]
+    assert len(list(data.triples((None, AGRI.animal_residence_site, None)))) == 1
     assert not list(data.subjects(RDF.type, PS.AnimalMovement))
     # Residence is neither a keeper assignment nor an ownership assertion.
     assert not list(data.triples((URIRef(residences[0]["@id"]), PS.animal_responsible_actor, None)))
@@ -154,11 +155,11 @@ def test_movement_exports_keep_population_participants_and_residence_distinct(bi
     assert set(data.objects(movement, PS.movement_transit_sites)) == transit_sites
     assert not any(list(data.subjects(PS.animal_residence_site, site)) for site in transit_sites)
     assert not list(data.objects(movement, PS.animal_responsible_actor))
-    residences = [r for r in movement_records if r["@type"] == "AnimalResidence"]
+    residences = [r for r in movement_records if r["@type"] == "agri/AnimalResidence"]
     moving_residences = [r for r in residences if r["animal_subject"] == str(moving)]
     assert len(moving_residences) == 2
     owner = next(r for r in movement_records if r["@type"] == "AnimalResponsibility")
-    assert owner["animal_subject"] == str(moving) and "valid_to" not in owner
+    assert owner["animal_subject"] == str(moving) and "end_date" not in owner
     # Differing residence sites are valid assertions without a movement assertion.
     no_movement = [r for r in movement_records if r["@type"] != "AnimalMovement"]
     data = graph_for(no_movement, result["context"])

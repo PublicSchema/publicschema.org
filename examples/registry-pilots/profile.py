@@ -80,6 +80,21 @@ def validate_period(record):
         raise ValueError('valid_from must not follow valid_to')
 
 
+def validate_asset_party_role(record, subjects):
+    """Apply this pilot's concrete actor-kind rule to an asset role assertion.
+
+    The shared vocabulary deliberately accepts URI references. This profile
+    resolves local identities and permits only a Person or Organization actor.
+    """
+    actor = absolute_uri(record['asset_actor'])
+    if actor not in subjects:
+        raise ValueError('unresolved asset actor')
+    if subjects[actor]['@type'] not in {
+        'https://publicschema.org/Person', 'https://publicschema.org/Organization',
+    }:
+        raise ValueError('wrong asset actor kind')
+
+
 def area_hectares(quantity):
     """Exact decimal conversion for this example's two supported UCUM units."""
     if quantity.get('unit_scheme') != UCUM:

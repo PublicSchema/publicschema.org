@@ -66,9 +66,7 @@ classes:
       access: open
       status: active
       authors_json: '["Valentina Barca"]'
-      informs_json: '{"concepts": ["Person", "Household", "sp/Program", "sp/Enrollment", "sp/EligibilityDecision",
-        "sp/Entitlement", "ScoringEvent", "ScoringRule", "Identifier"], "properties": [], "vocabularies":
-        ["sp/eligibility-status", "sp/enrollment-status", "sp/targeting-approach"]}'
+      informs_json: '{"concepts": ["Household", "Identifier", "Person", "ScoringEvent", "ScoringRule", "sp/EligibilityDecision", "sp/Enrollment", "sp/Entitlement", "sp/Program"], "vocabularies": ["sp/eligibility-status", "sp/enrollment-status", "sp/targeting-approach"]}'
   Barca2021InclusiveInformationSystemsCitation:
     class_uri: publicschema:Citation/barca-2021-inclusive-information-systems
     is_a: Citation
@@ -87,8 +85,7 @@ classes:
       access: open
       status: active
       authors_json: '["Valentina Barca", "Madhumitha Hebbar", "Alexandre Cote"]'
-      informs_json: '{"concepts": ["Person", "sp/Enrollment", "ScoringEvent", "FunctioningProfile"], "properties":
-        ["sex", "gender"], "vocabularies": ["sex", "gender-type"]}'
+      informs_json: '{"concepts": ["FunctioningProfile", "Person", "ScoringEvent", "sp/Enrollment"], "properties": ["gender", "sex"], "vocabularies": ["gender-type", "sex"]}'
   CalpGlossaryCitation:
     class_uri: publicschema:Citation/calp-glossary
     is_a: Citation
@@ -104,7 +101,7 @@ classes:
       uri: https://www.calpnetwork.org/publication/glossary-of-terminology-for-cash-and-voucher-assistance/
       access: open
       status: active
-      informs_json: '{"concepts": [], "properties": ["benefit_modality"], "vocabularies": ["sp/benefit-modality"]}'
+      informs_json: '{"properties": ["benefit_modality"], "vocabularies": ["sp/benefit-modality"]}'
   CrcConventionCitation:
     class_uri: publicschema:Citation/crc-convention
     is_a: Citation
@@ -121,7 +118,7 @@ classes:
       access: open
       status: active
       standard_number: UN CRC
-      informs_json: '{"concepts": ["crvs/Birth", "crvs/Adoption"], "properties": [], "vocabularies": []}'
+      informs_json: '{"concepts": ["crvs/Adoption", "crvs/Birth"]}'
   DctermsCitation:
     class_uri: publicschema:Citation/dcterms
     is_a: Citation
@@ -136,7 +133,7 @@ classes:
       uri: https://www.dublincore.org/specifications/dublin-core/dcmi-terms/
       access: open
       status: active
-      informs_json: '{"concepts": [], "properties": [], "vocabularies": []}'
+      informs_json: '{}'
   DhsRecode7Citation:
     class_uri: publicschema:Citation/dhs-recode7
     is_a: Citation
@@ -152,14 +149,7 @@ classes:
       uri: https://dhsprogram.com/publications/publication-dhsg4-dhs-questionnaires-and-manuals.cfm
       access: open
       status: active
-      informs_json: '{"concepts": ["ScoringEvent", "Household", "Person", "FunctioningProfile", "SocioEconomicProfile"],
-        "properties": ["assessment_band", "cooking_fuel", "difficulty_cognition", "difficulty_communication",
-        "difficulty_hearing", "difficulty_seeing", "difficulty_self_care", "difficulty_walking", "education_level",
-        "electricity_access", "floor_material", "household_assets", "ict_access", "literacy", "livestock_type",
-        "pregnancy_status", "roof_material", "sanitation_facility", "settlement_type", "wall_material",
-        "water_source"], "vocabularies": ["cooking-fuel", "education-level", "floor-material", "functional-difficulty-severity",
-        "household-asset", "ict-access", "literacy", "livestock-type", "pregnancy-status", "roof-material",
-        "sanitation-facility", "settlement-type", "wall-material", "water-source"]}'
+      informs_json: '{"concepts": ["FunctioningProfile", "Household", "Person", "ScoringEvent", "SocioEconomicProfile"], "properties": ["assessment_band", "cooking_fuel", "difficulty_cognition", "difficulty_communication", "difficulty_hearing", "difficulty_seeing", "difficulty_self_care", "difficulty_walking", "education_level", "electricity_access", "floor_material", "household_assets", "ict_access", "literacy", "livestock_type", "pregnancy_status", "roof_material", "sanitation_facility", "settlement_type", "wall_material", "water_source"], "vocabularies": ["agri/livestock-type", "cooking-fuel", "education-level", "floor-material", "functional-difficulty-severity", "household-asset", "ict-access", "literacy", "pregnancy-status", "roof-material", "sanitation-facility", "settlement-type", "wall-material", "water-source"]}'
   DhsWomanQuestionnaireCitation:
     class_uri: publicschema:Citation/dhs-woman-questionnaire
     is_a: Citation
@@ -175,7 +165,7 @@ classes:
       uri: https://dhsprogram.com/publications/publication-dhsq8-dhs-questionnaires-and-manuals.cfm
       access: open
       status: active
-      informs_json: '{"concepts": [], "properties": [], "vocabularies": ["maternity-care-provider"]}'
+      informs_json: '{"vocabularies": ["maternity-care-provider"]}'
   EbsiEhicCitation:
     class_uri: publicschema:Citation/ebsi-ehic
     is_a: Citation
@@ -193,7 +183,7 @@ classes:
       note: The DC4EU pilot uses SD-JWT-VC format for EHIC attestations. No EBSI-published JSON schema
         artifact for EHIC has been located; this entry cites the EU Digital Identity Wallet reference
         page as the canonical public description.
-      informs_json: '{"concepts": [], "properties": [], "vocabularies": []}'
+      informs_json: '{}'
   EbsiEidasPidCitation:
     class_uri: publicschema:Citation/ebsi-eidas-pid
     is_a: Citation
@@ -208,9 +198,7 @@ classes:
       uri: https://code.europa.eu/ebsi/json-schema/-/tree/main/schemas/vcdm2.0/vid/natural-person-nested-pid
       access: open
       status: active
-      informs_json: '{"concepts": ["Person", "Address", "Identifier"], "properties": ["given_name_at_birth",
-        "family_name_at_birth", "preferred_name", "house_number", "building_name", "identifier_scheme_id",
-        "identifier_scheme_name"], "vocabularies": []}'
+      informs_json: '{"concepts": ["Address", "Identifier", "Person"], "properties": ["building_name", "family_name_at_birth", "given_name_at_birth", "house_number", "identifier_scheme_id", "identifier_scheme_name", "preferred_name"]}'
   EbsiEuropassElmCitation:
     class_uri: publicschema:Citation/ebsi-europass-elm
     is_a: Citation
@@ -227,7 +215,7 @@ classes:
       access: open
       status: active
       version: v3
-      informs_json: '{"concepts": [], "properties": [], "vocabularies": []}'
+      informs_json: '{}'
   EbsiPortableDocA1Citation:
     class_uri: publicschema:Citation/ebsi-portable-doc-a1
     is_a: Citation
@@ -244,8 +232,7 @@ classes:
       status: active
       note: Hosting repository (code.europa.eu/ebsi/json-schema) is archived read-only; current active
         reference pointer is https://hub.ebsi.eu/vc-framework/data-models/inventory.
-      informs_json: '{"concepts": ["sp/Enrollment", "sp/Entitlement"], "properties": ["governing_jurisdiction",
-        "document_expiry_date"], "vocabularies": []}'
+      informs_json: '{"concepts": ["sp/Enrollment", "sp/Entitlement"], "properties": ["document_expiry_date", "governing_jurisdiction"]}'
   EgrissIrisCitation:
     class_uri: publicschema:Citation/egriss-iris
     is_a: Citation
@@ -280,7 +267,7 @@ classes:
       access: open
       status: active
       standard_number: Regulation (EU) 2016/1191
-      informs_json: '{"concepts": ["crvs/Certificate"], "properties": [], "vocabularies": []}'
+      informs_json: '{"concepts": ["crvs/Certificate"]}'
   FaoFiesCitation:
     class_uri: publicschema:Citation/fao-fies
     is_a: Citation
@@ -302,8 +289,7 @@ classes:
       standard_number: FAO i4830e
       authors_json: '["Carlo Cafiero", "Mark Nord", "Sara Viviani", "M. E. Del Grosso", "Terri Ballard",
         "A. Kepple", "M. Miller", "C. Nwosu"]'
-      informs_json: '{"concepts": ["Household"], "properties": ["food_security_level"], "vocabularies":
-        ["food-security-level", "instrument-code"]}'
+      informs_json: '{"concepts": ["Household"], "properties": ["food_security_level"], "vocabularies": ["food-security-level", "instrument-code"]}'
   FaoVggtCitation:
     class_uri: publicschema:Citation/fao-vggt
     is_a: Citation
@@ -321,8 +307,7 @@ classes:
       uri: https://www.fao.org/tenure/voluntary-guidelines/en/
       access: open
       status: active
-      informs_json: '{"concepts": ["Farm", "HoldingParcelLink", "LandBoundaryAssertion", "LandTenureAssertion"],
-        "properties": ["land_tenure"], "vocabularies": ["land-tenure"]}'
+      informs_json: '{"concepts": ["agri/Farm", "agri/HoldingParcelLink", "land/LandBoundaryAssertion", "land/LandTenureAssertion"], "properties": ["land_tenure"], "vocabularies": ["land/land-tenure"]}'
   FaoWca2020Vol1Citation:
     class_uri: publicschema:Citation/fao-wca-2020-vol1
     is_a: Citation
@@ -339,10 +324,7 @@ classes:
       access: open
       status: active
       standard_number: ISBN 978-92-5-108865-4
-      informs_json: '{"concepts": ["AgriculturalParcel", "Farm", "FarmerRegistration", "GroupHoldingOperatorRole",
-        "HoldingOperatorRole", "HoldingParcelLink", "InformalGroup", "OrganizationHoldingOperatorRole",
-        "PersonHoldingOperatorRole"], "properties": ["farm_area_hectares", "primary_crop", "livestock_type"],
-        "vocabularies": ["livestock-type"]}'
+      informs_json: '{"concepts": ["InformalGroup", "agri/AgriculturalParcel", "agri/Farm", "agri/FarmerRegistration", "agri/GroupHoldingOperatorRole", "agri/HoldingOperatorRole", "agri/HoldingParcelLink", "agri/OrganizationHoldingOperatorRole", "agri/PersonHoldingOperatorRole"], "properties": ["farm_area_hectares", "holding_operator_group", "holding_operator_organization", "holding_operator_person", "holding_operator_roles", "livestock_type", "operated_holding", "primary_crop"], "vocabularies": ["agri/livestock-type"]}'
   FhirAdministrativeGenderCitation:
     class_uri: publicschema:Citation/fhir-administrative-gender
     is_a: Citation
@@ -358,7 +340,7 @@ classes:
       access: open
       status: active
       version: R4
-      informs_json: '{"concepts": [], "properties": ["gender"], "vocabularies": ["gender-type"]}'
+      informs_json: '{"properties": ["gender"], "vocabularies": ["gender-type"]}'
   FhirBfdrCitation:
     class_uri: publicschema:Citation/fhir-bfdr
     is_a: Citation
@@ -373,9 +355,7 @@ classes:
       uri: https://hl7.org/fhir/us/bfdr/
       access: open
       status: active
-      informs_json: '{"concepts": ["crvs/Birth", "crvs/FetalDeath"], "properties": ["gestational_age",
-        "weight_at_birth", "attendant_at_birth", "sex_at_birth", "birth_type", "birth_order", "cause_of_fetal_death",
-        "cause_of_fetal_death_code", "cause_of_fetal_death_coding_system"], "vocabularies": []}'
+      informs_json: '{"concepts": ["crvs/Birth", "crvs/FetalDeath"], "properties": ["attendant_at_birth", "birth_order", "birth_type", "cause_of_fetal_death", "cause_of_fetal_death_code", "cause_of_fetal_death_coding_system", "gestational_age", "sex_at_birth", "weight_at_birth"]}'
   FhirCoverageEligibilityCitation:
     class_uri: publicschema:Citation/fhir-coverage-eligibility
     is_a: Citation
@@ -391,8 +371,7 @@ classes:
       access: open
       status: active
       version: R4
-      informs_json: '{"concepts": ["sp/EligibilityDecision"], "properties": ["eligibility_status"], "vocabularies":
-        ["sp/eligibility-status"]}'
+      informs_json: '{"concepts": ["sp/EligibilityDecision"], "properties": ["eligibility_status"], "vocabularies": ["sp/eligibility-status"]}'
   FhirEpisodeOfCareStatusCitation:
     class_uri: publicschema:Citation/fhir-episode-of-care-status
     is_a: Citation
@@ -408,8 +387,7 @@ classes:
       access: open
       status: active
       version: R4
-      informs_json: '{"concepts": ["sp/Enrollment"], "properties": ["enrollment_status"], "vocabularies":
-        ["sp/enrollment-status"]}'
+      informs_json: '{"concepts": ["sp/Enrollment"], "properties": ["enrollment_status"], "vocabularies": ["sp/enrollment-status"]}'
   FhirFmStatusCitation:
     class_uri: publicschema:Citation/fhir-fm-status
     is_a: Citation
@@ -425,8 +403,7 @@ classes:
       access: open
       status: active
       version: R4
-      informs_json: '{"concepts": ["sp/Entitlement"], "properties": ["entitlement_status"], "vocabularies":
-        ["sp/entitlement-status"]}'
+      informs_json: '{"concepts": ["sp/Entitlement"], "properties": ["entitlement_status"], "vocabularies": ["sp/entitlement-status"]}'
   FhirIdentifierTypeV20203Citation:
     class_uri: publicschema:Citation/fhir-identifier-type-v2-0203
     is_a: Citation
@@ -459,19 +436,7 @@ classes:
       access: open
       status: active
       version: R4
-      informs_json: '{"concepts": ["Agent", "ConsentRecord", "FunctioningProfile", "IdentityDocument",
-        "Instrument", "Organization", "Profile"], "properties": ["anxiety_frequency", "anxiety_intensity",
-        "anxiety_medication", "cognition_subdomain", "depression_frequency", "depression_intensity", "depression_medication",
-        "difficulty_accepting_change", "difficulty_being_understood", "difficulty_being_understood_inside_household",
-        "difficulty_being_understood_outside_household", "difficulty_climbing_steps", "difficulty_cognition",
-        "difficulty_communication", "difficulty_concentrating", "difficulty_controlling_behaviour", "difficulty_dexterity",
-        "difficulty_disruptive_behaviour", "difficulty_hearing", "difficulty_hearing_noisy_room", "difficulty_hearing_quiet_room",
-        "difficulty_learning", "difficulty_making_friends", "difficulty_playing", "difficulty_remembering",
-        "difficulty_seeing", "difficulty_seeing_coin", "difficulty_seeing_face_across_room", "difficulty_self_care",
-        "difficulty_understanding_others", "difficulty_upper_body_reach", "difficulty_walking", "difficulty_walking_100m",
-        "difficulty_walking_500m", "fatigue_duration", "fatigue_frequency", "fatigue_intensity", "hearing_aid_use_frequency",
-        "pain_frequency", "pain_intensity", "pregnancy_status", "remembering_extent", "remembering_frequency",
-        "uses_glasses", "uses_hearing_aid", "uses_mobility_aid"], "vocabularies": []}'
+      informs_json: '{"concepts": ["Agent", "ConsentRecord", "FunctioningProfile", "IdentityDocument", "Instrument", "Organization", "Profile"], "properties": ["anxiety_frequency", "anxiety_intensity", "anxiety_medication", "cognition_subdomain", "depression_frequency", "depression_intensity", "depression_medication", "difficulty_accepting_change", "difficulty_being_understood", "difficulty_being_understood_inside_household", "difficulty_being_understood_outside_household", "difficulty_climbing_steps", "difficulty_cognition", "difficulty_communication", "difficulty_concentrating", "difficulty_controlling_behaviour", "difficulty_dexterity", "difficulty_disruptive_behaviour", "difficulty_hearing", "difficulty_hearing_noisy_room", "difficulty_hearing_quiet_room", "difficulty_learning", "difficulty_making_friends", "difficulty_playing", "difficulty_remembering", "difficulty_seeing", "difficulty_seeing_coin", "difficulty_seeing_face_across_room", "difficulty_self_care", "difficulty_understanding_others", "difficulty_upper_body_reach", "difficulty_walking", "difficulty_walking_100m", "difficulty_walking_500m", "fatigue_duration", "fatigue_frequency", "fatigue_intensity", "hearing_aid_use_frequency", "pain_frequency", "pain_intensity", "pregnancy_status", "remembering_extent", "remembering_frequency", "uses_glasses", "uses_hearing_aid", "uses_mobility_aid"]}'
   FhirV3MaritalStatusCitation:
     class_uri: publicschema:Citation/fhir-v3-marital-status
     is_a: Citation
@@ -487,7 +452,7 @@ classes:
       access: open
       status: active
       version: R4
-      informs_json: '{"concepts": [], "properties": ["marital_status"], "vocabularies": ["marital-status"]}'
+      informs_json: '{"properties": ["marital_status"], "vocabularies": ["marital-status"]}'
   FhirV3RoleCodeCitation:
     class_uri: publicschema:Citation/fhir-v3-role-code
     is_a: Citation
@@ -503,8 +468,7 @@ classes:
       access: open
       status: active
       version: v3
-      informs_json: '{"concepts": ["Relationship", "crvs/Parent"], "properties": ["relationship_type",
-        "parental_role"], "vocabularies": ["relationship-type", "crvs/parental-role"]}'
+      informs_json: '{"concepts": ["Relationship", "crvs/Parent"], "properties": ["parental_role", "relationship_type"], "vocabularies": ["crvs/parental-role", "relationship-type"]}'
   FhirVrdrCitation:
     class_uri: publicschema:Citation/fhir-vrdr
     is_a: Citation
@@ -519,9 +483,7 @@ classes:
       uri: https://hl7.org/fhir/us/vrdr/
       access: open
       status: active
-      informs_json: '{"concepts": ["crvs/Death", "crvs/FetalDeath"], "properties": ["cause_of_death",
-        "cause_of_death_code", "cause_of_death_coding_system", "manner_of_death", "cause_of_death_method",
-        "medical_certifier"], "vocabularies": ["crvs/manner-of-death", "crvs/cause-of-death-method"]}'
+      informs_json: '{"concepts": ["crvs/Death", "crvs/FetalDeath"], "properties": ["cause_of_death", "cause_of_death_code", "cause_of_death_coding_system", "cause_of_death_method", "manner_of_death", "medical_certifier"], "vocabularies": ["crvs/cause-of-death-method", "crvs/manner-of-death"]}'
   FoafCitation:
     class_uri: publicschema:Citation/foaf
     is_a: Citation
@@ -538,8 +500,7 @@ classes:
       access: open
       status: active
       version: '0.99'
-      informs_json: '{"concepts": ["Agent", "Organization", "SoftwareAgent"], "properties": [], "vocabularies":
-        []}'
+      informs_json: '{"concepts": ["Agent", "Organization", "SoftwareAgent"]}'
   GlobalShelterClusterCitation:
     class_uri: publicschema:Citation/global-shelter-cluster
     is_a: Citation
@@ -554,7 +515,7 @@ classes:
       uri: https://sheltercluster.org/
       access: open
       status: active
-      informs_json: '{"concepts": [], "properties": [], "vocabularies": ["shelter-situation-type"]}'
+      informs_json: '{"vocabularies": ["shelter-situation-type"]}'
   GovstackConsentCitation:
     class_uri: publicschema:Citation/govstack-consent
     is_a: Citation
@@ -571,7 +532,7 @@ classes:
       access: open
       status: active
       version: 1.3.0
-      informs_json: '{"concepts": ["ConsentRecord"], "properties": [], "vocabularies": []}'
+      informs_json: '{"concepts": ["ConsentRecord"]}'
   GovstackPaymentsCitation:
     class_uri: publicschema:Citation/govstack-payments
     is_a: Citation
@@ -586,8 +547,7 @@ classes:
       uri: https://payments.govstack.global/2-description
       access: open
       status: active
-      informs_json: '{"concepts": ["PaymentEvent", "Voucher"], "properties": ["delivery_channel", "payment_status",
-        "voucher_status"], "vocabularies": ["delivery-channel", "voucher-status", "payment-status"]}'
+      informs_json: '{"concepts": ["PaymentEvent", "Voucher"], "properties": ["delivery_channel", "payment_status", "voucher_status"], "vocabularies": ["delivery-channel", "payment-status", "voucher-status"]}'
   GsmaMobileMoneyCitation:
     class_uri: publicschema:Citation/gsma-mobile-money
     is_a: Citation
@@ -602,8 +562,7 @@ classes:
       uri: https://developer.mobilemoneyapi.io/api-versions-1.2/
       access: open
       status: active
-      informs_json: '{"concepts": ["PaymentEvent"], "properties": ["delivery_channel"], "vocabularies":
-        ["delivery-channel"]}'
+      informs_json: '{"concepts": ["PaymentEvent"], "properties": ["delivery_channel"], "vocabularies": ["delivery-channel"]}'
   HagueIntercountryAdoptionCitation:
     class_uri: publicschema:Citation/hague-intercountry-adoption
     is_a: Citation
@@ -622,8 +581,7 @@ classes:
       access: open
       status: active
       standard_number: HCCH 1993 Convention No. 33
-      informs_json: '{"concepts": ["crvs/Adoption", "crvs/Parent"], "properties": ["previous_parents",
-        "adoption_type", "establishment_basis"], "vocabularies": ["crvs/adoption-type", "crvs/parent-establishment-basis"]}'
+      informs_json: '{"concepts": ["crvs/Adoption", "crvs/Parent"], "properties": ["adoption_type", "establishment_basis", "previous_parents"], "vocabularies": ["crvs/adoption-type", "crvs/parent-establishment-basis"]}'
   HdxPCodesCitation:
     class_uri: publicschema:Citation/hdx-p-codes
     is_a: Citation
@@ -639,7 +597,7 @@ classes:
       uri: https://data.humdata.org/dataset/global-pcodes
       access: open
       status: active
-      informs_json: '{"concepts": ["Location"], "properties": [], "vocabularies": ["identifier-type"]}'
+      informs_json: '{"concepts": ["Location"], "vocabularies": ["identifier-type"]}'
   IcaoDoc9303Citation:
     class_uri: publicschema:Citation/icao-doc-9303
     is_a: Citation
@@ -655,8 +613,7 @@ classes:
       access: open
       status: active
       standard_number: ICAO Doc 9303
-      informs_json: '{"concepts": ["Identifier", "IdentityDocument"], "properties": ["identifier_type"],
-        "vocabularies": ["identifier-type"]}'
+      informs_json: '{"concepts": ["Identifier", "IdentityDocument"], "properties": ["identifier_type"], "vocabularies": ["identifier-type"]}'
   IccsConvention16Citation:
     class_uri: publicschema:Citation/iccs-convention-16
     is_a: Citation
@@ -673,8 +630,7 @@ classes:
       access: open
       status: active
       standard_number: ICCS Convention No. 16
-      informs_json: '{"concepts": ["crvs/Certificate"], "properties": ["certificate_format"], "vocabularies":
-        ["crvs/certificate-format"]}'
+      informs_json: '{"concepts": ["crvs/Certificate"], "properties": ["certificate_format"], "vocabularies": ["crvs/certificate-format"]}'
   IccsConvention26Citation:
     class_uri: publicschema:Citation/iccs-convention-26
     is_a: Citation
@@ -691,8 +647,7 @@ classes:
       access: open
       status: active
       standard_number: ICCS Convention No. 26
-      informs_json: '{"concepts": ["crvs/Certificate", "crvs/CivilStatusRecord"], "properties": [], "vocabularies":
-        ["crvs/certificate-format"]}'
+      informs_json: '{"concepts": ["crvs/Certificate", "crvs/CivilStatusRecord"], "vocabularies": ["crvs/certificate-format"]}'
   IccsConvention33Citation:
     class_uri: publicschema:Citation/iccs-convention-33
     is_a: Citation
@@ -711,8 +666,7 @@ classes:
       access: open
       status: active
       standard_number: ICCS Convention No. 33
-      informs_json: '{"concepts": ["crvs/Certificate", "crvs/CivilStatusRecord"], "properties": [], "vocabularies":
-        ["crvs/certificate-format"]}'
+      informs_json: '{"concepts": ["crvs/Certificate", "crvs/CivilStatusRecord"], "vocabularies": ["crvs/certificate-format"]}'
   IccsConvention34Citation:
     class_uri: publicschema:Citation/iccs-convention-34
     is_a: Citation
@@ -731,8 +685,7 @@ classes:
       access: open
       status: active
       standard_number: ICCS Convention No. 34
-      informs_json: '{"concepts": ["crvs/Certificate"], "properties": ["certificate_format"], "vocabularies":
-        ["crvs/certificate-format"]}'
+      informs_json: '{"concepts": ["crvs/Certificate"], "properties": ["certificate_format"], "vocabularies": ["crvs/certificate-format"]}'
   Icd10Citation:
     class_uri: publicschema:Citation/icd-10
     is_a: Citation
@@ -749,8 +702,7 @@ classes:
       status: active
       standard_number: ICD-10
       version: 10th Revision
-      informs_json: '{"concepts": ["crvs/Death"], "properties": ["cause_of_death", "cause_of_death_coding_system",
-        "cause_of_death_code"], "vocabularies": []}'
+      informs_json: '{"concepts": ["crvs/Death"], "properties": ["cause_of_death", "cause_of_death_code", "cause_of_death_coding_system"]}'
   Icd11Citation:
     class_uri: publicschema:Citation/icd-11
     is_a: Citation
@@ -767,8 +719,7 @@ classes:
       status: active
       standard_number: ICD-11
       version: 11th Revision
-      informs_json: '{"concepts": ["crvs/Death"], "properties": ["cause_of_death", "cause_of_death_coding_system",
-        "cause_of_death_code"], "vocabularies": []}'
+      informs_json: '{"concepts": ["crvs/Death"], "properties": ["cause_of_death", "cause_of_death_code", "cause_of_death_coding_system"]}'
   IcdPmCitation:
     class_uri: publicschema:Citation/icd-pm
     is_a: Citation
@@ -785,8 +736,7 @@ classes:
       access: open
       status: active
       standard_number: ICD-PM
-      informs_json: '{"concepts": ["crvs/FetalDeath"], "properties": ["cause_of_fetal_death", "cause_of_fetal_death_coding_system",
-        "cause_of_fetal_death_code"], "vocabularies": []}'
+      informs_json: '{"concepts": ["crvs/FetalDeath"], "properties": ["cause_of_fetal_death", "cause_of_fetal_death_code", "cause_of_fetal_death_coding_system"]}'
   Ieee7012Citation:
     class_uri: publicschema:Citation/ieee-7012
     is_a: Citation
@@ -803,7 +753,7 @@ classes:
       access: open
       status: active
       standard_number: IEEE 7012-2025
-      informs_json: '{"concepts": [], "properties": [], "vocabularies": []}'
+      informs_json: '{}'
   Ilo19thIcls2013Citation:
     class_uri: publicschema:Citation/ilo-19th-icls-2013
     is_a: Citation
@@ -819,7 +769,7 @@ classes:
       uri: https://ilostat.ilo.org/methods/concepts-and-definitions/description-work-statistics-icls19/
       access: open
       status: active
-      informs_json: '{"concepts": [], "properties": [], "vocabularies": ["employment-status"]}'
+      informs_json: '{"vocabularies": ["employment-status"]}'
   Ilo20thIcls2018Citation:
     class_uri: publicschema:Citation/ilo-20th-icls-2018
     is_a: Citation
@@ -835,7 +785,7 @@ classes:
       uri: https://www.ilo.org/media/209766/download
       access: open
       status: active
-      informs_json: '{"concepts": [], "properties": [], "vocabularies": ["status-in-employment"]}'
+      informs_json: '{"vocabularies": ["status-in-employment"]}'
   IloAspireCitation:
     class_uri: publicschema:Citation/ilo-aspire
     is_a: Citation
@@ -850,7 +800,7 @@ classes:
       uri: https://www.worldbank.org/en/data/datatopics/aspire
       access: open
       status: active
-      informs_json: '{"concepts": [], "properties": [], "vocabularies": []}'
+      informs_json: '{}'
   IloSocialProtectionFloorCitation:
     class_uri: publicschema:Citation/ilo-social-protection-floor
     is_a: Citation
@@ -867,7 +817,7 @@ classes:
       access: open
       status: active
       standard_number: ILO Recommendation No. 202
-      informs_json: '{"concepts": [], "properties": [], "vocabularies": []}'
+      informs_json: '{}'
   IomDtmCitation:
     class_uri: publicschema:Citation/iom-dtm
     is_a: Citation
@@ -882,7 +832,7 @@ classes:
       uri: https://dtm.iom.int/
       access: open
       status: active
-      informs_json: '{"concepts": [], "properties": [], "vocabularies": ["document-status"]}'
+      informs_json: '{"vocabularies": ["document-status"]}'
   Isced2011Citation:
     class_uri: publicschema:Citation/isced-2011
     is_a: Citation
@@ -899,8 +849,7 @@ classes:
       access: open
       status: active
       standard_number: ISCED 2011
-      informs_json: '{"concepts": [], "properties": ["education_level"], "vocabularies": ["education-level",
-        "school-level", "school-type"]}'
+      informs_json: '{"properties": ["education_level"], "vocabularies": ["edu/school-level", "edu/school-type", "education-level"]}'
   Isco08Citation:
     class_uri: publicschema:Citation/isco-08
     is_a: Citation
@@ -917,7 +866,7 @@ classes:
       access: open
       status: active
       standard_number: ISCO-08
-      informs_json: '{"concepts": [], "properties": ["occupation"], "vocabularies": ["occupation"]}'
+      informs_json: '{"properties": ["occupation"], "vocabularies": ["occupation"]}'
   Iso10002Citation:
     class_uri: publicschema:Citation/iso-10002
     is_a: Citation
@@ -934,8 +883,7 @@ classes:
       access: paywalled
       status: active
       standard_number: ISO 10002:2018
-      informs_json: '{"concepts": ["sp/Grievance"], "properties": [], "vocabularies": ["sp/grievance-status",
-        "sp/grievance-type"]}'
+      informs_json: '{"concepts": ["sp/Grievance"], "vocabularies": ["sp/grievance-status", "sp/grievance-type"]}'
   Iso15924Citation:
     class_uri: publicschema:Citation/iso-15924
     is_a: Citation
@@ -951,7 +899,7 @@ classes:
       access: open
       status: active
       standard_number: ISO 15924
-      informs_json: '{"concepts": [], "properties": [], "vocabularies": ["script"]}'
+      informs_json: '{"vocabularies": ["script"]}'
   Iso20022FrequencyCitation:
     class_uri: publicschema:Citation/iso-20022-frequency
     is_a: Citation
@@ -967,7 +915,7 @@ classes:
       access: open
       status: active
       standard_number: ISO 20022 ExternalDateFrequency1Code
-      informs_json: '{"concepts": [], "properties": ["frequency"], "vocabularies": ["sp/benefit-frequency"]}'
+      informs_json: '{"properties": ["frequency"], "vocabularies": ["sp/benefit-frequency"]}'
   Iso20022PaymentStatusCitation:
     class_uri: publicschema:Citation/iso-20022-payment-status
     is_a: Citation
@@ -983,7 +931,7 @@ classes:
       access: open
       status: active
       standard_number: ISO 20022 ExternalPaymentTransactionStatus1Code
-      informs_json: '{"concepts": [], "properties": [], "vocabularies": ["payment-status"]}'
+      informs_json: '{"vocabularies": ["payment-status"]}'
   Iso27560Citation:
     class_uri: publicschema:Citation/iso-27560
     is_a: Citation
@@ -1000,9 +948,7 @@ classes:
       access: paywalled
       status: active
       standard_number: ISO/IEC TS 27560:2023
-      informs_json: '{"concepts": ["ConsentRecord"], "properties": ["identifier", "created_at", "signed_date",
-        "effective_date", "status", "controllers", "data_subject", "consent_record_type", "notice_ref",
-        "notice_version", "evidence_ref"], "vocabularies": ["consent-status"]}'
+      informs_json: '{"concepts": ["ConsentRecord"], "properties": ["consent_record_type", "controllers", "created_at", "data_subject", "effective_date", "evidence_ref", "identifier", "notice_ref", "notice_version", "signed_date", "status"], "vocabularies": ["consent-status"]}'
   Iso29184Citation:
     class_uri: publicschema:Citation/iso-29184
     is_a: Citation
@@ -1019,10 +965,7 @@ classes:
       access: paywalled
       status: active
       standard_number: ISO/IEC 29184:2020
-      informs_json: '{"concepts": ["PrivacyNotice"], "properties": ["name", "version", "controllers",
-        "purposes", "personal_data_categories", "recipient_categories", "recipients_described", "retention_description",
-        "transfer_description", "automated_decision_description", "rights_description", "withdrawal_description",
-        "complaint_authority_contact", "available_languages", "source_of_data"], "vocabularies": []}'
+      informs_json: '{"concepts": ["PrivacyNotice"], "properties": ["automated_decision_description", "available_languages", "complaint_authority_contact", "controllers", "name", "personal_data_categories", "purposes", "recipient_categories", "recipients_described", "retention_description", "rights_description", "source_of_data", "transfer_description", "version", "withdrawal_description"]}'
   Iso31661Citation:
     class_uri: publicschema:Citation/iso-3166-1
     is_a: Citation
@@ -1040,8 +983,7 @@ classes:
       access: open
       status: active
       standard_number: ISO 3166-1
-      informs_json: '{"concepts": [], "properties": ["nationality", "nationality_at_birth", "country_of_birth",
-        "country", "issuing_jurisdiction"], "vocabularies": ["country", "identifier-type"]}'
+      informs_json: '{"properties": ["country", "country_of_birth", "issuing_jurisdiction", "nationality", "nationality_at_birth"], "vocabularies": ["country", "identifier-type"]}'
   Iso31662Citation:
     class_uri: publicschema:Citation/iso-3166-2
     is_a: Citation
@@ -1059,7 +1001,7 @@ classes:
       access: open
       status: active
       standard_number: ISO 3166-2
-      informs_json: '{"concepts": [], "properties": ["issuing_jurisdiction"], "vocabularies": ["identifier-type"]}'
+      informs_json: '{"properties": ["issuing_jurisdiction"], "vocabularies": ["identifier-type"]}'
   Iso4217Citation:
     class_uri: publicschema:Citation/iso-4217
     is_a: Citation
@@ -1075,8 +1017,7 @@ classes:
       access: open
       status: active
       standard_number: ISO 4217
-      informs_json: '{"concepts": [], "properties": ["currency", "payment_currency"], "vocabularies":
-        ["currency"]}'
+      informs_json: '{"properties": ["currency", "payment_currency"], "vocabularies": ["currency"]}'
   Iso5218Citation:
     class_uri: publicschema:Citation/iso-5218
     is_a: Citation
@@ -1093,7 +1034,7 @@ classes:
       access: paywalled
       status: active
       standard_number: ISO/IEC 5218:2004
-      informs_json: '{"concepts": [], "properties": ["sex", "sex_at_birth"], "vocabularies": ["sex"]}'
+      informs_json: '{"properties": ["sex", "sex_at_birth"], "vocabularies": ["sex"]}'
   Iso6393Citation:
     class_uri: publicschema:Citation/iso-639-3
     is_a: Citation
@@ -1111,7 +1052,7 @@ classes:
       access: open
       status: active
       standard_number: ISO 639-3
-      informs_json: '{"concepts": [], "properties": ["preferred_language"], "vocabularies": ["language"]}'
+      informs_json: '{"properties": ["preferred_language"], "vocabularies": ["language"]}'
   Iso8601Citation:
     class_uri: publicschema:Citation/iso-8601
     is_a: Citation
@@ -1128,7 +1069,7 @@ classes:
       access: paywalled
       status: active
       standard_number: ISO 8601:2019
-      informs_json: '{"concepts": [], "properties": [], "vocabularies": []}'
+      informs_json: '{}'
   ItuCoreIctCitation:
     class_uri: publicschema:Citation/itu-core-ict
     is_a: Citation
@@ -1160,7 +1101,7 @@ classes:
       access: open
       status: active
       version: '1.1'
-      informs_json: '{"concepts": [], "properties": [], "vocabularies": []}'
+      informs_json: '{}'
   KantaraAncrCitation:
     class_uri: publicschema:Citation/kantara-ancr
     is_a: Citation
@@ -1175,8 +1116,7 @@ classes:
       uri: https://kantarainitiative.org/work-groups/ancr/
       access: open
       status: draft
-      informs_json: '{"concepts": ["ConsentRecord", "PrivacyNotice"], "properties": ["conforms_to"], "vocabularies":
-        ["consent-record-type"]}'
+      informs_json: '{"concepts": ["ConsentRecord", "PrivacyNotice"], "properties": ["conforms_to"], "vocabularies": ["consent-record-type"]}'
   KantaraConsentReceiptCitation:
     class_uri: publicschema:Citation/kantara-consent-receipt
     is_a: Citation
@@ -1193,9 +1133,7 @@ classes:
       access: open
       status: active
       version: '1.1'
-      informs_json: '{"concepts": ["ConsentRecord"], "properties": ["consent_record_type", "identifier",
-        "created_at", "signed_date", "controllers", "data_subject", "purposes", "personal_data_categories",
-        "legal_basis", "evidence_ref"], "vocabularies": ["consent-record-type"]}'
+      informs_json: '{"concepts": ["ConsentRecord"], "properties": ["consent_record_type", "controllers", "created_at", "data_subject", "evidence_ref", "identifier", "legal_basis", "personal_data_categories", "purposes", "signed_date"], "vocabularies": ["consent-record-type"]}'
   LoincPregnancyStatusCitation:
     class_uri: publicschema:Citation/loinc-pregnancy-status
     is_a: Citation
@@ -1227,8 +1165,7 @@ classes:
       uri: https://www.worldbank.org/en/programs/lsms/initiatives/lsms-ISA
       access: open
       status: active
-      informs_json: '{"concepts": ["Farm"], "properties": ["land_tenure", "livestock_type"], "vocabularies":
-        ["land-tenure", "livestock-type"]}'
+      informs_json: '{"concepts": ["agri/Farm"], "properties": ["land_tenure", "livestock_type"], "vocabularies": ["agri/livestock-type", "land/land-tenure"]}'
   Mics6Citation:
     class_uri: publicschema:Citation/mics6
     is_a: Citation
@@ -1244,18 +1181,7 @@ classes:
       uri: https://mics.unicef.org/tools
       access: open
       status: active
-      informs_json: '{"concepts": ["Household", "Person", "FunctioningProfile", "SocioEconomicProfile"],
-        "properties": ["cooking_fuel", "anxiety_frequency", "depression_frequency", "difficulty_accepting_change",
-        "difficulty_being_understood", "difficulty_being_understood_inside_household", "difficulty_being_understood_outside_household",
-        "difficulty_cognition", "difficulty_communication", "difficulty_concentrating", "difficulty_controlling_behaviour",
-        "difficulty_dexterity", "difficulty_disruptive_behaviour", "difficulty_hearing", "difficulty_learning",
-        "difficulty_making_friends", "difficulty_playing", "difficulty_remembering", "difficulty_seeing",
-        "difficulty_self_care", "difficulty_understanding_others", "difficulty_walking", "education_level",
-        "electricity_access", "floor_material", "household_assets", "ict_access", "literacy", "pregnancy_status",
-        "roof_material", "sanitation_facility", "settlement_type", "wall_material", "water_source"], "vocabularies":
-        ["comparative-behaviour-scale", "cooking-fuel", "education-level", "floor-material", "functional-difficulty-severity",
-        "household-asset", "ict-access", "literacy", "pregnancy-status", "roof-material", "sanitation-facility",
-        "settlement-type", "cfm-symptom-frequency", "wall-material", "water-source"]}'
+      informs_json: '{"concepts": ["FunctioningProfile", "Household", "Person", "SocioEconomicProfile"], "properties": ["anxiety_frequency", "cooking_fuel", "depression_frequency", "difficulty_accepting_change", "difficulty_being_understood", "difficulty_being_understood_inside_household", "difficulty_being_understood_outside_household", "difficulty_cognition", "difficulty_communication", "difficulty_concentrating", "difficulty_controlling_behaviour", "difficulty_dexterity", "difficulty_disruptive_behaviour", "difficulty_hearing", "difficulty_learning", "difficulty_making_friends", "difficulty_playing", "difficulty_remembering", "difficulty_seeing", "difficulty_self_care", "difficulty_understanding_others", "difficulty_walking", "education_level", "electricity_access", "floor_material", "household_assets", "ict_access", "literacy", "pregnancy_status", "roof_material", "sanitation_facility", "settlement_type", "wall_material", "water_source"], "vocabularies": ["cfm-symptom-frequency", "comparative-behaviour-scale", "cooking-fuel", "education-level", "floor-material", "functional-difficulty-severity", "household-asset", "ict-access", "literacy", "pregnancy-status", "roof-material", "sanitation-facility", "settlement-type", "wall-material", "water-source"]}'
   MojaloopFspiopCitation:
     class_uri: publicschema:Citation/mojaloop-fspiop
     is_a: Citation
@@ -1270,8 +1196,7 @@ classes:
       uri: https://docs.mojaloop.io/technical/api/fspiop/logical-data-model.html
       access: open
       status: active
-      informs_json: '{"concepts": ["PaymentEvent"], "properties": ["payment_status"], "vocabularies":
-        ["payment-status"]}'
+      informs_json: '{"concepts": ["PaymentEvent"], "properties": ["payment_status"], "vocabularies": ["payment-status"]}'
   MosipIdentitySchemaCitation:
     class_uri: publicschema:Citation/mosip-identity-schema
     is_a: Citation
@@ -1287,8 +1212,7 @@ classes:
       access: open
       status: active
       version: v1.2.0
-      informs_json: '{"concepts": ["Identifier", "Person"], "properties": ["identifier_type"], "vocabularies":
-        ["identifier-type"]}'
+      informs_json: '{"concepts": ["Identifier", "Person"], "properties": ["identifier_type"], "vocabularies": ["identifier-type"]}'
   OasisCapV12Citation:
     class_uri: publicschema:Citation/oasis-cap-v1-2
     is_a: Citation
@@ -1306,8 +1230,7 @@ classes:
       status: active
       standard_number: OASIS CAP v1.2
       version: v1.2
-      informs_json: '{"concepts": ["HazardEvent"], "properties": ["severity", "certainty", "hazard_type"],
-        "vocabularies": ["event-severity", "event-certainty", "hazard-type"]}'
+      informs_json: '{"concepts": ["HazardEvent"], "properties": ["certainty", "hazard_type", "severity"], "vocabularies": ["event-certainty", "event-severity", "hazard-type"]}'
   Openid4vciCitation:
     class_uri: publicschema:Citation/openid4vci
     is_a: Citation
@@ -1323,7 +1246,7 @@ classes:
       uri: https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html
       access: open
       status: active
-      informs_json: '{"concepts": [], "properties": [], "vocabularies": []}'
+      informs_json: '{}'
   Openid4vpCitation:
     class_uri: publicschema:Citation/openid4vp
     is_a: Citation
@@ -1339,7 +1262,7 @@ classes:
       uri: https://openid.net/specs/openid-4-verifiable-presentations-1_0.html
       access: open
       status: active
-      informs_json: '{"concepts": [], "properties": [], "vocabularies": []}'
+      informs_json: '{}'
   OsiaItuX1281Citation:
     class_uri: publicschema:Citation/osia-itu-x1281
     is_a: Citation
@@ -1356,8 +1279,7 @@ classes:
       access: open
       status: active
       standard_number: ITU-T X.1281
-      informs_json: '{"concepts": ["BiometricSample"], "properties": [], "vocabularies": ["biometric-modality",
-        "biometric-subtype", "impression-type"]}'
+      informs_json: '{"concepts": ["BiometricSample"], "vocabularies": ["biometric-modality", "biometric-subtype", "impression-type"]}'
   Rfc5545Citation:
     class_uri: publicschema:Citation/rfc-5545
     is_a: Citation
@@ -1374,8 +1296,7 @@ classes:
       access: open
       status: active
       standard_number: RFC 5545
-      informs_json: '{"concepts": ["sp/BenefitSchedule"], "properties": ["frequency_rule", "frequency"],
-        "vocabularies": ["sp/benefit-frequency"]}'
+      informs_json: '{"concepts": ["sp/BenefitSchedule"], "properties": ["frequency", "frequency_rule"], "vocabularies": ["sp/benefit-frequency"]}'
   Rfc7946Citation:
     class_uri: publicschema:Citation/rfc-7946
     is_a: Citation
@@ -1392,8 +1313,7 @@ classes:
       access: open
       status: active
       standard_number: RFC 7946
-      informs_json: '{"concepts": ["HazardEvent", "Location"], "properties": ["geometry"], "vocabularies":
-        []}'
+      informs_json: '{"concepts": ["HazardEvent", "Location"], "properties": ["geometry"]}'
   SchemaOrgCitation:
     class_uri: publicschema:Citation/schema-org
     is_a: Citation
@@ -1408,11 +1328,7 @@ classes:
       uri: https://schema.org/
       access: open
       status: active
-      informs_json: '{"concepts": ["Address", "Agent", "Event", "HealthFacility", "Location", "Organization",
-        "Party", "Person", "RegistrationOffice", "School", "ServicePoint", "WaterPoint"], "properties":
-        ["administrative_area", "city", "country", "date_of_birth", "date_of_death", "email_address",
-        "end_date", "family_name", "given_name", "latitude", "longitude", "name", "phone_number", "postal_code",
-        "preferred_name", "start_date", "street_address"], "vocabularies": []}'
+      informs_json: '{"concepts": ["Address", "Agent", "Event", "Location", "Organization", "Party", "Person", "RegistrationOffice", "ServicePoint", "WaterPoint", "edu/School", "health/HealthFacility"], "properties": ["administrative_area", "city", "country", "date_of_birth", "date_of_death", "email_address", "end_date", "family_name", "given_name", "latitude", "longitude", "name", "phone_number", "postal_code", "preferred_name", "start_date", "street_address"]}'
   SdJwtVcCitation:
     class_uri: publicschema:Citation/sd-jwt-vc
     is_a: Citation
@@ -1428,7 +1344,7 @@ classes:
       access: open
       status: draft
       standard_number: draft-ietf-oauth-sd-jwt-vc
-      informs_json: '{"concepts": [], "properties": [], "vocabularies": []}'
+      informs_json: '{}'
   SemicAdmsCitation:
     class_uri: publicschema:Citation/semic-adms
     is_a: Citation
@@ -1445,7 +1361,7 @@ classes:
       access: open
       status: active
       version: v2.00
-      informs_json: '{"concepts": ["Identifier"], "properties": [], "vocabularies": []}'
+      informs_json: '{"concepts": ["Identifier"]}'
   SemicCccevCitation:
     class_uri: publicschema:Citation/semic-cccev
     is_a: Citation
@@ -1461,8 +1377,7 @@ classes:
       access: open
       status: active
       version: v2.1.0
-      informs_json: '{"concepts": ["ScoringRule", "sp/EligibilityDecision"], "properties": [], "vocabularies":
-        []}'
+      informs_json: '{"concepts": ["ScoringRule", "sp/EligibilityDecision"]}'
   SemicCoreBusinessCitation:
     class_uri: publicschema:Citation/semic-core-business
     is_a: Citation
@@ -1478,7 +1393,7 @@ classes:
       access: open
       status: active
       version: v2.2.0
-      informs_json: '{"concepts": [], "properties": [], "vocabularies": []}'
+      informs_json: '{}'
   SemicCoreLocationCitation:
     class_uri: publicschema:Citation/semic-core-location
     is_a: Citation
@@ -1494,9 +1409,7 @@ classes:
       access: open
       status: active
       version: v2.1.1
-      informs_json: '{"concepts": ["Address", "Location"], "properties": ["address_area", "administrative_area",
-        "building_name", "city", "country", "full_address", "geometry", "house_number", "latitude", "location_name",
-        "longitude", "postal_code", "street_address"], "vocabularies": ["country"]}'
+      informs_json: '{"concepts": ["Address", "Location"], "properties": ["address_area", "administrative_area", "building_name", "city", "country", "full_address", "geometry", "house_number", "latitude", "location_name", "longitude", "postal_code", "street_address"], "vocabularies": ["country"]}'
   SemicCorePersonCitation:
     class_uri: publicschema:Citation/semic-core-person
     is_a: Citation
@@ -1512,12 +1425,7 @@ classes:
       access: open
       status: active
       version: v2.1.1
-      informs_json: '{"concepts": ["Identifier", "Party", "Person"], "properties": ["country_of_birth",
-        "date_of_birth", "date_of_death", "domicile", "email_address", "family_name", "family_name_at_birth",
-        "gender", "given_name", "given_name_at_birth", "identifier_scheme_id", "identifier_scheme_name",
-        "identifier_value", "issue_date", "issuing_authority", "matronymic_name", "name", "nationality",
-        "patronymic_name", "phone_number", "place_of_usual_residence", "preferred_name", "sex"], "vocabularies":
-        ["gender-type", "sex"]}'
+      informs_json: '{"concepts": ["Identifier", "Party", "Person"], "properties": ["country_of_birth", "date_of_birth", "date_of_death", "domicile", "email_address", "family_name", "family_name_at_birth", "gender", "given_name", "given_name_at_birth", "identifier_scheme_id", "identifier_scheme_name", "identifier_value", "issue_date", "issuing_authority", "matronymic_name", "name", "nationality", "patronymic_name", "phone_number", "place_of_usual_residence", "preferred_name", "sex"], "vocabularies": ["gender-type", "sex"]}'
   SemicCorePublicEventCitation:
     class_uri: publicschema:Citation/semic-core-public-event
     is_a: Citation
@@ -1533,7 +1441,7 @@ classes:
       access: open
       status: active
       version: v1.1.0
-      informs_json: '{"concepts": ["Event"], "properties": [], "vocabularies": []}'
+      informs_json: '{"concepts": ["Event"]}'
   SemicCpovCitation:
     class_uri: publicschema:Citation/semic-cpov
     is_a: Citation
@@ -1549,8 +1457,7 @@ classes:
       access: open
       status: active
       version: v2.1.1
-      informs_json: '{"concepts": ["Organization", "sp/Program"], "properties": ["implementing_agency"],
-        "vocabularies": []}'
+      informs_json: '{"concepts": ["Organization", "sp/Program"], "properties": ["implementing_agency"]}'
   SemicCpsvApCitation:
     class_uri: publicschema:Citation/semic-cpsv-ap
     is_a: Citation
@@ -1567,7 +1474,7 @@ classes:
       access: open
       status: active
       version: v3.2.0
-      informs_json: '{"concepts": [], "properties": [], "vocabularies": []}'
+      informs_json: '{}'
   SkosCitation:
     class_uri: publicschema:Citation/skos
     is_a: Citation
@@ -1583,7 +1490,7 @@ classes:
       uri: https://www.w3.org/TR/skos-reference/
       access: open
       status: active
-      informs_json: '{"concepts": [], "properties": [], "vocabularies": []}'
+      informs_json: '{}'
   SpdciCommonStandardsCitation:
     class_uri: publicschema:Citation/spdci-common-standards
     is_a: Citation
@@ -1598,14 +1505,7 @@ classes:
       uri: https://standards.spdci.org/standards/standards-for-interoperability-interfaces/common-standards-for-interoperability-interfaces
       access: open
       status: active
-      informs_json: '{"concepts": ["Address", "Group", "GroupMembership", "Household", "Identifier", "Location",
-        "Person", "Relationship"], "properties": ["address", "administrative_area", "city", "country",
-        "date_of_birth", "date_of_death", "education_level", "email_address", "family_name", "family_name_at_birth",
-        "formation_date", "given_name", "given_name_at_birth", "group_type", "identifier_type", "identifier_value",
-        "identifiers", "latitude", "location_name", "longitude", "marital_status", "matronymic_name",
-        "member_count", "memberships", "name", "nationality", "object_person", "occupation", "parent_location",
-        "patronymic_name", "phone_number", "postal_code", "preferred_language", "preferred_name", "relationship_type",
-        "sex", "street_address", "subject_person"], "vocabularies": []}'
+      informs_json: '{"concepts": ["Address", "Group", "GroupMembership", "Household", "Identifier", "Location", "Person", "Relationship"], "properties": ["address", "administrative_area", "city", "country", "date_of_birth", "date_of_death", "education_level", "email_address", "family_name", "family_name_at_birth", "formation_date", "given_name", "given_name_at_birth", "group_type", "identifier_type", "identifier_value", "identifiers", "latitude", "location_name", "longitude", "marital_status", "matronymic_name", "member_count", "memberships", "name", "nationality", "object_person", "occupation", "parent_location", "patronymic_name", "phone_number", "postal_code", "preferred_language", "preferred_name", "relationship_type", "sex", "street_address", "subject_person"]}'
   SpdciIbrCitation:
     class_uri: publicschema:Citation/spdci-ibr
     is_a: Citation
@@ -1622,8 +1522,7 @@ classes:
       access: open
       status: active
       version: v1.0.0
-      informs_json: '{"concepts": ["sp/Enrollment", "sp/Entitlement", "sp/Program"], "properties": ["benefit_description",
-        "benefit_modality", "enrollment_date", "enrollment_status", "exit_date"], "vocabularies": []}'
+      informs_json: '{"concepts": ["sp/Enrollment", "sp/Entitlement", "sp/Program"], "properties": ["benefit_description", "benefit_modality", "enrollment_date", "enrollment_status", "exit_date"]}'
   SpdciSocialRegistryCitation:
     class_uri: publicschema:Citation/spdci-social-registry
     is_a: Citation
@@ -1638,8 +1537,7 @@ classes:
       uri: https://standards.spdci.org/standards/dci-standards/wip-social-registry-v1.0.0
       access: open
       status: active
-      informs_json: '{"concepts": ["Profile", "SocioEconomicProfile"], "properties": [], "vocabularies":
-        []}'
+      informs_json: '{"concepts": ["Profile", "SocioEconomicProfile"]}'
   Sphere2018Citation:
     class_uri: publicschema:Citation/sphere-2018
     is_a: Citation
@@ -1655,7 +1553,7 @@ classes:
       uri: https://spherestandards.org/handbook-2018/
       access: open
       status: active
-      informs_json: '{"concepts": [], "properties": [], "vocabularies": ["occupancy-arrangement"]}'
+      informs_json: '{"vocabularies": ["occupancy-arrangement"]}'
   SssomCitation:
     class_uri: publicschema:Citation/sssom
     is_a: Citation
@@ -1671,7 +1569,7 @@ classes:
       access: open
       status: active
       version: v1.1
-      informs_json: '{"concepts": [], "properties": [], "vocabularies": []}'
+      informs_json: '{}'
   UnCefactRec20Citation:
     class_uri: publicschema:Citation/un-cefact-rec20
     is_a: Citation
@@ -1687,7 +1585,7 @@ classes:
       access: open
       status: active
       standard_number: UN/CEFACT Recommendation 20
-      informs_json: '{"concepts": [], "properties": ["unit_of_measure"], "vocabularies": ["unit-of-measure"]}'
+      informs_json: '{"properties": ["unit_of_measure"], "vocabularies": ["unit-of-measure"]}'
   UnCensusRev3Citation:
     class_uri: publicschema:Citation/un-census-rev3
     is_a: Citation
@@ -1705,9 +1603,7 @@ classes:
       status: active
       standard_number: ST/ESA/STAT/SER.M/67/Rev.3
       version: Rev.3
-      informs_json: '{"concepts": ["Family", "GroupMembership", "Household"], "properties": ["dwelling_type",
-        "head_of_household", "marital_status", "relationship_type"], "vocabularies": ["dwelling-type",
-        "group-role", "group-type", "literacy", "marital-status", "relationship-type"]}'
+      informs_json: '{"concepts": ["Family", "GroupMembership", "Household"], "properties": ["dwelling_type", "head_of_household", "marital_status", "relationship_type"], "vocabularies": ["dwelling-type", "group-role", "group-type", "literacy", "marital-status", "relationship-type"]}'
   UnCensusRev4Citation:
     class_uri: publicschema:Citation/un-census-rev4
     is_a: Citation
@@ -1724,7 +1620,7 @@ classes:
       access: open
       status: active
       version: Rev.4
-      informs_json: '{"concepts": [], "properties": ["marital_status"], "vocabularies": ["marital-status"]}'
+      informs_json: '{"properties": ["marital_status"], "vocabularies": ["marital-status"]}'
   UnDegurbaCitation:
     class_uri: publicschema:Citation/un-degurba
     is_a: Citation
@@ -1758,7 +1654,7 @@ classes:
       access: open
       status: active
       standard_number: UN M49
-      informs_json: '{"concepts": [], "properties": [], "vocabularies": ["region"]}'
+      informs_json: '{"vocabularies": ["region"]}'
   UnVitalStatsRev3Citation:
     class_uri: publicschema:Citation/un-vital-stats-rev3
     is_a: Citation
@@ -1776,11 +1672,7 @@ classes:
       status: active
       standard_number: ST/ESA/STAT/SER.M/19/Rev.3
       version: Rev.3
-      informs_json: '{"concepts": ["crvs/Birth", "crvs/Death", "crvs/FetalDeath", "crvs/Marriage", "crvs/Adoption",
-        "crvs/Legitimation", "crvs/PaternityRecognition", "crvs/MarriageTermination", "crvs/CivilStatusRecord",
-        "crvs/FamilyRegister", "crvs/Certificate", "crvs/VitalEvent", "Person"], "properties": ["weight_at_birth",
-        "gestational_age", "birth_order", "birth_type", "attendant_at_birth", "mother"], "vocabularies":
-        ["crvs/civil-status-record-type", "crvs/manner-of-death"]}'
+      informs_json: '{"concepts": ["Person", "crvs/Adoption", "crvs/Birth", "crvs/Certificate", "crvs/CivilStatusRecord", "crvs/Death", "crvs/FamilyRegister", "crvs/FetalDeath", "crvs/Legitimation", "crvs/Marriage", "crvs/MarriageTermination", "crvs/PaternityRecognition", "crvs/VitalEvent"], "properties": ["attendant_at_birth", "birth_order", "birth_type", "gestational_age", "mother", "weight_at_birth"], "vocabularies": ["crvs/civil-status-record-type", "crvs/manner-of-death"]}'
   UnWorldMarriage2019Citation:
     class_uri: publicschema:Citation/un-world-marriage-2019
     is_a: Citation
@@ -1796,7 +1688,7 @@ classes:
       uri: https://www.un.org/development/desa/pd/content/methodology-world-marriage-data-2019
       access: open
       status: active
-      informs_json: '{"concepts": [], "properties": ["marital_status"], "vocabularies": ["marital-status"]}'
+      informs_json: '{"properties": ["marital_status"], "vocabularies": ["marital-status"]}'
   W3cDataIntegrityCitation:
     class_uri: publicschema:Citation/w3c-data-integrity
     is_a: Citation
@@ -1813,7 +1705,7 @@ classes:
       access: open
       status: active
       version: '1.0'
-      informs_json: '{"concepts": [], "properties": [], "vocabularies": []}'
+      informs_json: '{}'
   W3cDpvCitation:
     class_uri: publicschema:Citation/w3c-dpv
     is_a: Citation
@@ -1830,10 +1722,7 @@ classes:
       access: open
       status: active
       version: '2.0'
-      informs_json: '{"concepts": ["ConsentRecord", "PrivacyNotice"], "properties": ["data_subject", "controllers",
-        "recipients", "purposes", "personal_data_categories", "processing_operations", "indicated_by",
-        "legal_basis", "status", "effective_date", "expiry_date"], "vocabularies": ["legal-basis", "special-category-basis",
-        "recipient-role"]}'
+      informs_json: '{"concepts": ["ConsentRecord", "PrivacyNotice"], "properties": ["controllers", "data_subject", "effective_date", "expiry_date", "indicated_by", "legal_basis", "personal_data_categories", "processing_operations", "purposes", "recipients", "status"], "vocabularies": ["legal-basis", "recipient-role", "special-category-basis"]}'
   W3cProvOCitation:
     class_uri: publicschema:Citation/w3c-prov-o
     is_a: Citation
@@ -1850,8 +1739,7 @@ classes:
       access: open
       status: active
       version: Recommendation 30 April 2013
-      informs_json: '{"concepts": ["Agent", "Organization", "SoftwareAgent"], "properties": [], "vocabularies":
-        []}'
+      informs_json: '{"concepts": ["Agent", "Organization", "SoftwareAgent"]}'
   W3cRdfc10Citation:
     class_uri: publicschema:Citation/w3c-rdfc-1-0
     is_a: Citation
@@ -1868,7 +1756,7 @@ classes:
       access: open
       status: active
       version: '1.0'
-      informs_json: '{"concepts": [], "properties": [], "vocabularies": []}'
+      informs_json: '{}'
   W3cVcDataModel2Citation:
     class_uri: publicschema:Citation/w3c-vc-data-model-2
     is_a: Citation
@@ -1885,8 +1773,7 @@ classes:
       access: open
       status: active
       version: '2.0'
-      informs_json: '{"concepts": ["IdentityDocument"], "properties": ["is_enrolled"], "vocabularies":
-        ["document-type", "identifier-type", "sp/eligibility-status"]}'
+      informs_json: '{"concepts": ["IdentityDocument"], "properties": ["is_enrolled"], "vocabularies": ["document-type", "identifier-type", "sp/eligibility-status"]}'
   WashingtonGroupCfmCitation:
     class_uri: publicschema:Citation/washington-group-cfm
     is_a: Citation
@@ -1902,14 +1789,7 @@ classes:
       uri: https://www.washingtongroup-disability.com/question-sets/wg-unicef-child-functioning-module-cfm/
       access: open
       status: active
-      informs_json: '{"concepts": ["Person"], "properties": ["anxiety_frequency", "depression_frequency",
-        "difficulty_accepting_change", "difficulty_being_understood", "difficulty_being_understood_inside_household",
-        "difficulty_being_understood_outside_household", "difficulty_concentrating", "difficulty_controlling_behaviour",
-        "difficulty_dexterity", "difficulty_disruptive_behaviour", "difficulty_hearing", "difficulty_learning",
-        "difficulty_making_friends", "difficulty_playing", "difficulty_remembering", "difficulty_seeing",
-        "difficulty_self_care", "difficulty_understanding_others", "difficulty_walking", "difficulty_walking_100m",
-        "difficulty_walking_500m", "uses_glasses", "uses_hearing_aid", "uses_mobility_aid"], "vocabularies":
-        ["comparative-behaviour-scale", "functional-difficulty-severity", "instrument-code", "cfm-symptom-frequency"]}'
+      informs_json: '{"concepts": ["Person"], "properties": ["anxiety_frequency", "depression_frequency", "difficulty_accepting_change", "difficulty_being_understood", "difficulty_being_understood_inside_household", "difficulty_being_understood_outside_household", "difficulty_concentrating", "difficulty_controlling_behaviour", "difficulty_dexterity", "difficulty_disruptive_behaviour", "difficulty_hearing", "difficulty_learning", "difficulty_making_friends", "difficulty_playing", "difficulty_remembering", "difficulty_seeing", "difficulty_self_care", "difficulty_understanding_others", "difficulty_walking", "difficulty_walking_100m", "difficulty_walking_500m", "uses_glasses", "uses_hearing_aid", "uses_mobility_aid"], "vocabularies": ["cfm-symptom-frequency", "comparative-behaviour-scale", "functional-difficulty-severity", "instrument-code"]}'
   WashingtonGroupEsCitation:
     class_uri: publicschema:Citation/washington-group-es
     is_a: Citation
@@ -1925,17 +1805,7 @@ classes:
       uri: https://www.washingtongroup-disability.com/question-sets/wg-extended-set-on-functioning-wg-es/
       access: open
       status: active
-      informs_json: '{"concepts": ["FunctioningProfile"], "properties": ["anxiety_frequency", "anxiety_intensity",
-        "anxiety_medication", "cognition_subdomain", "depression_frequency", "depression_intensity", "depression_medication",
-        "difficulty_climbing_steps", "difficulty_cognition", "difficulty_communication", "difficulty_dexterity",
-        "difficulty_hearing", "difficulty_hearing_noisy_room", "difficulty_hearing_quiet_room", "difficulty_seeing",
-        "difficulty_seeing_coin", "difficulty_seeing_face_across_room", "difficulty_self_care", "difficulty_upper_body_reach",
-        "difficulty_walking", "difficulty_walking_100m", "difficulty_walking_500m", "fatigue_duration",
-        "fatigue_frequency", "fatigue_intensity", "hearing_aid_use_frequency", "pain_frequency", "pain_intensity",
-        "remembering_extent", "remembering_frequency", "uses_glasses", "uses_hearing_aid", "uses_mobility_aid"],
-        "vocabularies": ["aid-use-frequency", "cognition-remembering-frequency", "cognition-remembering-extent",
-        "cognition-subdomain", "daily-duration", "functional-difficulty-severity", "functional-intensity",
-        "instrument-code", "mobility-aid-type", "symptom-period-frequency", "symptom-chronicity", "cfm-symptom-frequency"]}'
+      informs_json: '{"concepts": ["FunctioningProfile"], "properties": ["anxiety_frequency", "anxiety_intensity", "anxiety_medication", "cognition_subdomain", "depression_frequency", "depression_intensity", "depression_medication", "difficulty_climbing_steps", "difficulty_cognition", "difficulty_communication", "difficulty_dexterity", "difficulty_hearing", "difficulty_hearing_noisy_room", "difficulty_hearing_quiet_room", "difficulty_seeing", "difficulty_seeing_coin", "difficulty_seeing_face_across_room", "difficulty_self_care", "difficulty_upper_body_reach", "difficulty_walking", "difficulty_walking_100m", "difficulty_walking_500m", "fatigue_duration", "fatigue_frequency", "fatigue_intensity", "hearing_aid_use_frequency", "pain_frequency", "pain_intensity", "remembering_extent", "remembering_frequency", "uses_glasses", "uses_hearing_aid", "uses_mobility_aid"], "vocabularies": ["aid-use-frequency", "cfm-symptom-frequency", "cognition-remembering-extent", "cognition-remembering-frequency", "cognition-subdomain", "daily-duration", "functional-difficulty-severity", "functional-intensity", "instrument-code", "mobility-aid-type", "symptom-chronicity", "symptom-period-frequency"]}'
   WashingtonGroupSsCitation:
     class_uri: publicschema:Citation/washington-group-ss
     is_a: Citation
@@ -1951,10 +1821,7 @@ classes:
       uri: https://www.washingtongroup-disability.com/question-sets/wg-short-set-on-functioning-wg-ss/
       access: open
       status: active
-      informs_json: '{"concepts": ["FunctioningProfile"], "properties": ["difficulty_cognition", "difficulty_communication",
-        "difficulty_hearing", "difficulty_seeing", "difficulty_self_care", "difficulty_walking", "disability_domains_identified",
-        "disability_identified"], "vocabularies": ["administration-mode", "functional-difficulty-severity",
-        "instrument-code", "wg-ss-domain"]}'
+      informs_json: '{"concepts": ["FunctioningProfile"], "properties": ["difficulty_cognition", "difficulty_communication", "difficulty_hearing", "difficulty_seeing", "difficulty_self_care", "difficulty_walking", "disability_domains_identified", "disability_identified"], "vocabularies": ["administration-mode", "functional-difficulty-severity", "instrument-code", "wg-ss-domain"]}'
   WbGrmGuidanceCitation:
     class_uri: publicschema:Citation/wb-grm-guidance
     is_a: Citation
@@ -1970,8 +1837,7 @@ classes:
       uri: https://openknowledge.worldbank.org/bitstreams/b4a57d20-24bf-518a-93b1-1a5db3bdbae1/download
       access: open
       status: active
-      informs_json: '{"concepts": ["sp/Grievance"], "properties": ["grievance_status", "grievance_type"],
-        "vocabularies": ["sp/grievance-status", "sp/grievance-type"]}'
+      informs_json: '{"concepts": ["sp/Grievance"], "properties": ["grievance_status", "grievance_type"], "vocabularies": ["sp/grievance-status", "sp/grievance-type"]}'
   WbId4dCitation:
     class_uri: publicschema:Citation/wb-id4d
     is_a: Citation
@@ -1986,7 +1852,7 @@ classes:
       uri: https://id4d.worldbank.org/guide/about-guide
       access: open
       status: active
-      informs_json: '{"concepts": [], "properties": [], "vocabularies": []}'
+      informs_json: '{}'
   WbSourcebookCh8Citation:
     class_uri: publicschema:Citation/wb-sourcebook-ch8
     is_a: Citation
@@ -2004,8 +1870,7 @@ classes:
       uri: https://openknowledge.worldbank.org/handle/10986/34044
       access: open
       status: active
-      informs_json: '{"concepts": ["sp/Grievance"], "properties": ["grievance_type"], "vocabularies":
-        ["sp/grievance-type"]}'
+      informs_json: '{"concepts": ["sp/Grievance"], "properties": ["grievance_type"], "vocabularies": ["sp/grievance-type"]}'
   WbSpDeliveryFrameworkCitation:
     class_uri: publicschema:Citation/wb-sp-delivery-framework
     is_a: Citation
@@ -2021,8 +1886,7 @@ classes:
       uri: https://thedocs.worldbank.org/en/doc/882c0c1238394fef0d3a308d9d47946f-0380022024/related/1-2-Delivery-Systems-Framing-ASP-Rome-Course.pdf
       access: open
       status: active
-      informs_json: '{"concepts": ["sp/Enrollment", "sp/Entitlement", "sp/EligibilityDecision", "PaymentEvent"],
-        "properties": ["enrollment_status"], "vocabularies": ["sp/enrollment-status"]}'
+      informs_json: '{"concepts": ["PaymentEvent", "sp/EligibilityDecision", "sp/Enrollment", "sp/Entitlement"], "properties": ["enrollment_status"], "vocabularies": ["sp/enrollment-status"]}'
   WfpTransferModalityCitation:
     class_uri: publicschema:Citation/wfp-transfer-modality
     is_a: Citation
@@ -2038,7 +1902,7 @@ classes:
       uri: https://executiveboard.wfp.org/document_download/WFP-0000148946
       access: open
       status: active
-      informs_json: '{"concepts": [], "properties": ["benefit_modality"], "vocabularies": ["sp/benefit-modality"]}'
+      informs_json: '{"properties": ["benefit_modality"], "vocabularies": ["sp/benefit-modality"]}'
   WhoCertPerinatalDeathCitation:
     class_uri: publicschema:Citation/who-cert-perinatal-death
     is_a: Citation
@@ -2054,8 +1918,7 @@ classes:
       uri: https://www.who.int/publications/i/item/9789241549752
       access: open
       status: active
-      informs_json: '{"concepts": ["crvs/FetalDeath"], "properties": ["cause_of_fetal_death", "cause_of_fetal_death_code",
-        "cause_of_fetal_death_coding_system", "medical_certifier"], "vocabularies": []}'
+      informs_json: '{"concepts": ["crvs/FetalDeath"], "properties": ["cause_of_fetal_death", "cause_of_fetal_death_code", "cause_of_fetal_death_coding_system", "medical_certifier"]}'
   WhoChildGrowthStandardsCitation:
     class_uri: publicschema:Citation/who-child-growth-standards
     is_a: Citation
@@ -2071,7 +1934,7 @@ classes:
       uri: https://www.who.int/tools/child-growth-standards
       access: open
       status: active
-      informs_json: '{"concepts": [], "properties": ["nutrition_status"], "vocabularies": ["acute-malnutrition-severity"]}'
+      informs_json: '{"properties": ["nutrition_status"], "vocabularies": ["acute-malnutrition-severity"]}'
   WhoHealthSystemsCitation:
     class_uri: publicschema:Citation/who-health-systems
     is_a: Citation
@@ -2091,8 +1954,7 @@ classes:
         national referral or research hospitals. There is no single canonical URL listing the tiers as
         coded values; this entry anchors the tier vocabulary to the WHO health-systems strengthening body
         of work.
-      informs_json: '{"concepts": ["HealthFacility"], "properties": ["facility_level"], "vocabularies":
-        ["health-facility-level"]}'
+      informs_json: '{"concepts": ["health/HealthFacility"], "properties": ["facility_level"], "vocabularies": ["health/health-facility-level"]}'
   WhoHeramsCitation:
     class_uri: publicschema:Citation/who-herams
     is_a: Citation
@@ -2112,8 +1974,7 @@ classes:
         distinguishes fully functioning, partially functioning, and non-functioning facilities alongside
         the reasons for any service disruption; this informs the PublicSchema facility-operational-status
         vocabulary used by ServicePoint and HealthFacility.
-      informs_json: '{"concepts": ["ServicePoint", "HealthFacility"], "properties": ["operational_status"],
-        "vocabularies": ["facility-operational-status"]}'
+      informs_json: '{"concepts": ["ServicePoint", "health/HealthFacility"], "properties": ["operational_status"], "vocabularies": ["facility-operational-status"]}'
   WhoHouseholdEnergyCitation:
     class_uri: publicschema:Citation/who-household-energy
     is_a: Citation
@@ -2159,7 +2020,7 @@ classes:
       uri: https://www.who.int/publications/i/item/9789241550215
       access: open
       status: active
-      informs_json: '{"concepts": ["crvs/Birth"], "properties": [], "vocabularies": []}'
+      informs_json: '{"concepts": ["crvs/Birth"]}'
   WhoMedicalCertDeathCitation:
     class_uri: publicschema:Citation/who-medical-cert-death
     is_a: Citation
@@ -2177,8 +2038,7 @@ classes:
       uri: https://www.who.int/publications/m/item/medical-certification-of-cause-of-death
       access: open
       status: active
-      informs_json: '{"concepts": ["crvs/Death"], "properties": ["cause_of_death", "cause_of_death_method",
-        "medical_certifier"], "vocabularies": []}'
+      informs_json: '{"concepts": ["crvs/Death"], "properties": ["cause_of_death", "cause_of_death_method", "medical_certifier"]}'
   WhoMuacCutoffsCitation:
     class_uri: publicschema:Citation/who-muac-cutoffs
     is_a: Citation
@@ -2196,7 +2056,7 @@ classes:
       uri: https://www.who.int/publications/i/item/9789241598163
       access: open
       status: active
-      informs_json: '{"concepts": ["Person"], "properties": [], "vocabularies": ["acute-malnutrition-severity"]}'
+      informs_json: '{"concepts": ["Person"], "vocabularies": ["acute-malnutrition-severity"]}'
   WhoPretermLbwCare2022Citation:
     class_uri: publicschema:Citation/who-preterm-lbw-care-2022
     is_a: Citation
@@ -2212,8 +2072,7 @@ classes:
       uri: https://www.who.int/publications/i/item/9789240058262
       access: open
       status: active
-      informs_json: '{"concepts": ["crvs/Birth", "crvs/FetalDeath"], "properties": ["gestational_age",
-        "weight", "weight_at_birth"], "vocabularies": []}'
+      informs_json: '{"concepts": ["crvs/Birth", "crvs/FetalDeath"], "properties": ["gestational_age", "weight", "weight_at_birth"]}'
   WhoSaraCitation:
     class_uri: publicschema:Citation/who-sara
     is_a: Citation
@@ -2235,8 +2094,7 @@ classes:
         laboratory, mobile clinic) and service-area readiness indicators. The Harmonized Health Facility
         Assessment (HHFA, 2022) consolidates SARA with the Service Delivery Indicators and extends it;
         the SARA facility typology remains the anchor.
-      informs_json: '{"concepts": ["HealthFacility"], "properties": ["facility_type"], "vocabularies":
-        ["health-facility-type"]}'
+      informs_json: '{"concepts": ["health/HealthFacility"], "properties": ["facility_type"], "vocabularies": ["health/health-facility-type"]}'
   WhoSkilledBirthAttendants2018Citation:
     class_uri: publicschema:Citation/who-skilled-birth-attendants-2018
     is_a: Citation
@@ -2253,8 +2111,7 @@ classes:
       access: open
       status: active
       standard_number: WHO/RHR/18.14
-      informs_json: '{"concepts": ["crvs/Birth"], "properties": ["attendant_at_birth"], "vocabularies":
-        ["crvs/birth-attendant"]}'
+      informs_json: '{"concepts": ["crvs/Birth"], "properties": ["attendant_at_birth"], "vocabularies": ["crvs/birth-attendant"]}'
   WhoUnicefJmpCitation:
     class_uri: publicschema:Citation/who-unicef-jmp
     is_a: Citation
@@ -2269,10 +2126,7 @@ classes:
       uri: https://washdata.org/
       access: open
       status: active
-      informs_json: '{"concepts": ["Household"], "properties": ["sanitation_facility", "sanitation_service_level",
-        "sanitation_shared_households", "water_collection_time_minutes", "water_service_level", "water_source"],
-        "vocabularies": ["sanitation-facility", "sanitation-service-level", "water-point-type", "water-service-level",
-        "water-source"]}'
+      informs_json: '{"concepts": ["Household"], "properties": ["sanitation_facility", "sanitation_service_level", "sanitation_shared_households", "water_collection_time_minutes", "water_service_level", "water_source"], "vocabularies": ["sanitation-facility", "sanitation-service-level", "water-point-type", "water-service-level", "water-source"]}'
   WhoVerbalAutopsy2022Citation:
     class_uri: publicschema:Citation/who-verbal-autopsy-2022
     is_a: Citation
@@ -2289,8 +2143,7 @@ classes:
       access: open
       status: active
       version: '2022'
-      informs_json: '{"concepts": ["crvs/Death"], "properties": ["cause_of_death", "cause_of_death_code",
-        "cause_of_death_method"], "vocabularies": ["crvs/cause-of-death-method"]}'
+      informs_json: '{"concepts": ["crvs/Death"], "properties": ["cause_of_death", "cause_of_death_code", "cause_of_death_method"], "vocabularies": ["crvs/cause-of-death-method"]}'
   FaoGlosolanCitation:
     class_uri: publicschema:Citation/fao-glosolan
     is_a: Citation
@@ -2306,7 +2159,7 @@ classes:
       access: open
       status: active
       notes: Network registration and proficiency disclaimer
-      informs_json: '{"concepts": ["AgriculturalFacility", "AgriculturalLaboratory"]}'
+      informs_json: '{"concepts": ["agri/AgriculturalFacility", "agri/AgriculturalLaboratory"]}'
   WoahTerrestrial2024Citation:
     class_uri: publicschema:Citation/woah-terrestrial-2024
     is_a: Citation
@@ -2322,7 +2175,7 @@ classes:
       access: open
       status: active
       notes: 'Glossary: establishment'
-      informs_json: '{"concepts": ["LivestockEstablishment"]}'
+      informs_json: '{"concepts": ["agri/LivestockEstablishment"]}'
   BeebaseApiariesCitation:
     class_uri: publicschema:Citation/beebase-apiaries
     is_a: Citation
@@ -2338,7 +2191,7 @@ classes:
       access: open
       status: active
       notes: Apiary name, address and map reference
-      informs_json: '{"concepts": ["Apiary"]}'
+      informs_json: '{"concepts": ["agri/Apiary"]}'
   ScotlandAquacultureRegisterCitation:
     class_uri: publicschema:Citation/scotland-aquaculture-register
     is_a: Citation
@@ -2354,7 +2207,7 @@ classes:
       access: open
       status: active
       notes: Separate business and establishment registers
-      informs_json: '{"concepts": ["AquacultureEstablishment"]}'
+      informs_json: '{"concepts": ["agri/AquacultureEstablishment"]}'
   UkPlantPassportsCitation:
     class_uri: publicschema:Citation/uk-plant-passports
     is_a: Citation
@@ -2370,7 +2223,7 @@ classes:
       access: open
       status: active
       notes: Register as a professional operator and get authorised
-      informs_json: '{"concepts": ["PlantNursery"]}'
+      informs_json: '{"concepts": ["agri/PlantNursery"]}'
   IndiaFarmsCitation:
     class_uri: publicschema:Citation/india-farms
     is_a: Citation
@@ -2386,7 +2239,7 @@ classes:
       access: open
       status: active
       notes: Hiring and sale/purchase of machinery
-      informs_json: '{"concepts": ["AgriculturalMachinery", "AgriculturalServiceRole"]}'
+      informs_json: '{"concepts": ["agri/AgriculturalMachinery", "agri/AgriculturalServiceRole"]}'
   FaoVesselUviCitation:
     class_uri: publicschema:Citation/fao-vessel-uvi
     is_a: Citation
@@ -2402,7 +2255,7 @@ classes:
       access: open
       status: active
       notes: UVI continuity across ownership, flag and name changes
-      informs_json: '{"concepts": ["FishingVessel"]}'
+      informs_json: '{"concepts": ["agri/FishingVessel"]}'
   UkPesticideWorkCitation:
     class_uri: publicschema:Citation/uk-pesticide-work
     is_a: Citation
@@ -2418,7 +2271,7 @@ classes:
       access: open
       status: active
       notes: Professional users and suppliers
-      informs_json: '{"concepts": ["InputSupplierRole", "PesticideApplicatorRole"]}'
+      informs_json: '{"concepts": ["agri/InputSupplierRole", "agri/PesticideApplicatorRole"]}'
   SasaSeedRegisterCitation:
     class_uri: publicschema:Citation/sasa-seed-register
     is_a: Citation
@@ -2434,7 +2287,7 @@ classes:
       access: open
       status: active
       notes: Public registry activity distinctions
-      informs_json: '{"concepts": ["SeedOperatorRole"]}'
+      informs_json: '{"concepts": ["agri/SeedOperatorRole"]}'
   EcProducerOrganizationsCitation:
     class_uri: publicschema:Citation/ec-producer-organizations
     is_a: Citation
@@ -2450,7 +2303,7 @@ classes:
       access: open
       status: active
       notes: Recognition of producer organizations
-      informs_json: '{"concepts": ["ProducerMembership", "ProducerOrganization"]}'
+      informs_json: '{"concepts": ["agri/ProducerMembership", "agri/ProducerOrganization"]}'
   UkFeedBusinessCitation:
     class_uri: publicschema:Citation/uk-feed-business
     is_a: Citation
@@ -2466,7 +2319,7 @@ classes:
       access: open
       status: active
       notes: Business registration and approval
-      informs_json: '{"concepts": ["FeedProduct"]}'
+      informs_json: '{"concepts": ["agri/FeedProduct"]}'
   EuFertilizer2019Citation:
     class_uri: publicschema:Citation/eu-fertilizer-2019
     is_a: Citation
@@ -2482,7 +2335,7 @@ classes:
       access: open
       status: active
       notes: Article 2 and Annex I PFC 1
-      informs_json: '{"concepts": ["FertilizerProduct"]}'
+      informs_json: '{"concepts": ["agri/FertilizerProduct"]}'
   EcPesticidesDatabaseCitation:
     class_uri: publicschema:Citation/ec-pesticides-database
     is_a: Citation
@@ -2498,7 +2351,7 @@ classes:
       access: open
       status: active
       notes: Active substances and emergency authorizations
-      informs_json: '{"concepts": ["AgriculturalProduct", "PesticideProduct", "ProductComponent"]}'
+      informs_json: '{"concepts": ["ProductComponent", "agri/AgriculturalProduct", "agri/PesticideProduct"]}'
   EmaUpdCitation:
     class_uri: publicschema:Citation/ema-upd
     is_a: Citation
@@ -2514,7 +2367,7 @@ classes:
       access: open
       status: active
       notes: Product information and Veterinary Medicines information website
-      informs_json: '{"concepts": ["VeterinaryMedicinalProduct"]}'
+      informs_json: '{}'
   UsdaIntegrityCitation:
     class_uri: publicschema:Citation/usda-integrity
     is_a: Citation
@@ -2530,7 +2383,7 @@ classes:
       access: open
       status: active
       notes: Certified operation information
-      informs_json: '{"concepts": ["AgriculturalCertification"]}'
+      informs_json: '{"concepts": ["agri/AgriculturalCertification"]}'
   FaoAquastatIrrigationCitation:
     class_uri: publicschema:Citation/fao-aquastat-irrigation
     is_a: Citation
@@ -2546,7 +2399,7 @@ classes:
       access: open
       status: active
       notes: Equipped area and water-source typology
-      informs_json: '{"concepts": ["IrrigationScheme"]}'
+      informs_json: '{"concepts": ["agri/IrrigationScheme"]}'
   UkWaterAuthorizationCitation:
     class_uri: publicschema:Citation/uk-water-authorization
     is_a: Citation
@@ -2562,7 +2415,7 @@ classes:
       access: open
       status: active
       notes: Types of water resources licence
-      informs_json: '{"concepts": ["WaterUseAuthorization"]}'
+      informs_json: '{"concepts": ["environment/WaterUseAuthorization"]}'
   IndiaEnamFacilitiesCitation:
     class_uri: publicschema:Citation/india-enam-facilities
     is_a: Citation
@@ -2578,7 +2431,7 @@ classes:
       access: open
       status: active
       notes: 'How e-NAM operates: existing physical market yards and online platform'
-      informs_json: '{"concepts": ["AgriculturalFacility"]}'
+      informs_json: '{"concepts": ["agri/AgriculturalFacility"]}'
   W3cDcat32024Citation:
     class_uri: publicschema:Citation/w3c-dcat-3-2024
     is_a: Citation
@@ -2594,8 +2447,7 @@ classes:
       access: open
       status: active
       notes: 'Sections 5.6 and 6.5: catalog record distinct from its primary topic'
-      informs_json: '{"concepts": ["Authorization", "CodedValue", "RecordReference", "Register", "Registration",
-        "RegistryEntry"]}'
+      informs_json: '{"concepts": ["Authorization", "CodedValue", "RecordReference", "Register", "Registration", "RegistryEntry"]}'
   W3cProvO2013Citation:
     class_uri: publicschema:Citation/w3c-prov-o-2013
     is_a: Citation
@@ -2644,7 +2496,7 @@ classes:
       access: open
       status: active
       notes: 'Sections 8 and 10: features, geometries and serialization'
-      informs_json: '{"concepts": ["FacilityAddressAssignment", "SpatialGeometry"]}'
+      informs_json: '{"concepts": ["AssetAddressAssignment", "SpatialGeometry"]}'
   IetfGeojson7946Citation:
     class_uri: publicschema:Citation/ietf-geojson-7946
     is_a: Citation
@@ -2676,8 +2528,7 @@ classes:
       access: open
       status: active
       notes: Property-unit and parcel identification; title administration distinct from spatial identity
-      informs_json: '{"concepts": ["AgriculturalParcel", "LandAdministrativeUnit", "LandBoundaryAssertion",
-        "LandSpatialUnit", "LandTenureAssertion"]}'
+      informs_json: '{"concepts": ["agri/AgriculturalParcel", "land/LandAdministrativeUnit", "land/LandBoundaryAssertion", "land/LandSpatialUnit", "land/LandTenureAssertion"]}'
   Hl7HealthcareServiceR4Citation:
     class_uri: publicschema:Citation/hl7-healthcare-service-r4
     is_a: Citation
@@ -2694,8 +2545,7 @@ classes:
       status: active
       notes: HealthcareService providedBy/location/endpoint and Location managingOrganization; conceptual
         comparison only
-      informs_json: '{"concepts": ["FacilityAddressAssignment", "FacilityManagementAssignment", "HealthcareServiceOffering",
-        "ServiceCapacityObservation"]}'
+      informs_json: '{"concepts": ["AssetAddressAssignment", "ServiceCapacityObservation"]}'
   UcumSpecificationCitation:
     class_uri: publicschema:Citation/ucum-specification
     is_a: Citation
@@ -2711,7 +2561,7 @@ classes:
       access: open
       status: active
       notes: Unit tables and syntax; hectare har and square metre m2
-      informs_json: '{"concepts": ["QuantityValue"]}'
+      informs_json: '{"concepts": ["QuantityValue", "ServiceCapacityObservation"]}'
   W3cVcard2014Citation:
     class_uri: publicschema:Citation/w3c-vcard-2014
     is_a: Citation
@@ -2727,7 +2577,7 @@ classes:
       access: open
       status: active
       notes: Names and communication channels; no direct serialization mapping
-      informs_json: '{"concepts": ["ContactPoint", "NameUsage"]}'
+      informs_json: '{"concepts": ["AssetAddressAssignment", "ContactPoint", "NameUsage"]}'
   WoahIdentification2024Citation:
     class_uri: publicschema:Citation/woah-identification-2024
     is_a: Citation
@@ -2746,10 +2596,7 @@ classes:
         movements and changes of owner or keeper. Movement records include origin, destination,
         transit establishments, date and animals involved. PublicSchema shapes, source-group
         interpretation and optionality are design choices. Movement locators rechecked 2026-09-08.
-      informs_json: '{"concepts": ["AnimalGroup", "AnimalGroupCount", "AnimalMovement", "AnimalResidence",
-        "AnimalResponsibility", "IndividualAnimal"], "properties": ["moved_animals", "movement_source_group",
-        "moved_animal_count", "movement_origin_site", "movement_destination_site", "movement_transit_sites",
-        "animal_movement_date"]}'
+      informs_json: '{"concepts": ["AnimalGroup", "AnimalGroupCount", "AnimalMovement", "AnimalResponsibility", "IndividualAnimal", "agri/AnimalResidence"], "properties": ["moved_animals", "movement_source_group", "moved_animal_count", "movement_origin_site", "movement_destination_site", "movement_transit_sites", "animal_movement_date"]}'
       year: 2024
   FaoDadIsDataCitation:
     class_uri: publicschema:Citation/fao-dad-is-data
@@ -2765,7 +2612,7 @@ classes:
       uri: https://www.fao.org/dad-is/data/en/
       access: open
       status: active
-      informs_json: '{"concepts": ["AnimalBreed"]}'
+      informs_json: '{"concepts": ["agri/AnimalBreed"]}'
   FaoWca2010CropConceptsCitation:
     class_uri: publicschema:Citation/fao-wca-2010-crop-concepts
     is_a: Citation
@@ -2780,7 +2627,7 @@ classes:
       uri: https://www.fao.org/4/a0135e/a0135e05.htm
       access: open
       status: active
-      informs_json: '{"concepts": ["CropPlanting", "CropPlantingComponent"]}'
+      informs_json: '{"concepts": ["agri/CropPlanting", "agri/CropPlantingComponent"]}'
       year: 2005
   UpovPlutoTagFormatCitation:
     class_uri: publicschema:Citation/upov-pluto-tag-format
@@ -2891,8 +2738,7 @@ classes:
       access: open
       status: active
       notes: 2014 recommendation; Organization, OrganizationalUnit, Membership, Site and ChangeEvent
-      informs_json: '{"concepts": ["EducationProvider", "InstitutionalRelationship", "InstitutionalRole",
-        "ProviderSite"]}'
+      informs_json: '{"concepts": ["InstitutionalRelationship", "InstitutionalRole", "OrganizationalChangeEvent", "edu/EducationProvider", "edu/ProviderSite"]}'
   GovBods04Citation:
     class_uri: publicschema:Citation/gov-bods-04
     is_a: Citation
@@ -2908,7 +2754,7 @@ classes:
       access: open
       status: active
       notes: Version 0.4, May 2024; Relationship Statement and Interest; records separate from statements
-      informs_json: '{"concepts": ["OwnershipInterest"]}'
+      informs_json: '{"concepts": ["LegalArrangement", "OwnershipChainAssertion", "OwnershipInterest"]}'
   GovGiasCitation:
     class_uri: publicschema:Citation/gov-gias
     is_a: Citation
@@ -2925,7 +2771,7 @@ classes:
       status: active
       notes: Retrieved 2026-09-07; establishment and establishment-group records; download implementation
         https://dfe-digital.github.io/get-information-about-schools/service/front-end-component/reference/downloads/
-      informs_json: '{"concepts": ["EducationProvider", "ProviderSite"]}'
+      informs_json: '{"concepts": ["edu/EducationProvider", "edu/ProviderSite"]}'
   GovIscedCitation:
     class_uri: publicschema:Citation/gov-isced
     is_a: Citation
@@ -2941,7 +2787,7 @@ classes:
       access: open
       status: active
       notes: ISCED 2011, section 2, especially paragraphs 19-22; programme and qualification
-      informs_json: '{"concepts": ["EducationProgramme"]}'
+      informs_json: '{"concepts": ["edu/EducationProgramme"]}'
   GovFhirPractitionerCitation:
     class_uri: publicschema:Citation/gov-fhir-practitioner
     is_a: Citation
@@ -2990,7 +2836,7 @@ classes:
       status: active
       notes: Retrieved 2026-09-07; categories, https://www.gov.uk/driving-licence-codes and https://www.gov.uk/guidance/changes-to-the-driving-licence-and-categories
         for category-specific validity
-      informs_json: '{"concepts": ["DrivingEntitlement"]}'
+      informs_json: '{"concepts": ["transport/DrivingEntitlement"]}'
   GovOecdTinCitation:
     class_uri: publicschema:Citation/gov-oecd-tin
     is_a: Citation
@@ -3006,7 +2852,7 @@ classes:
       access: open
       status: active
       notes: Retrieved 2026-09-07; separate individual and entity jurisdiction documentation
-      informs_json: '{"concepts": ["TaxRegistration"]}'
+      informs_json: '{"concepts": ["tax/TaxRegistration"]}'
   GovIrsTinCitation:
     class_uri: publicschema:Citation/gov-irs-tin
     is_a: Citation
@@ -3022,7 +2868,7 @@ classes:
       access: open
       status: active
       notes: Retrieved 2026-09-07; identifier categories and purposes
-      informs_json: '{"concepts": ["TaxRegistration"]}'
+      informs_json: '{"concepts": ["tax/TaxRegistration"]}'
   GovNistVriCitation:
     class_uri: publicschema:Citation/gov-nist-vri
     is_a: Citation
@@ -3039,7 +2885,7 @@ classes:
       status: active
       notes: NIST SP 1500-102 V1, March 2020 web edition; VoterRecord, ReportingUnit and Voter; official
         JSON/XML schema repository linked
-      informs_json: '{"concepts": ["VoterRegistration"]}'
+      informs_json: '{"concepts": ["elections/VoterRegistration"]}'
   GovInspireBuildingsCitation:
     class_uri: publicschema:Citation/gov-inspire-buildings
     is_a: Citation
@@ -3071,7 +2917,7 @@ classes:
       access: open
       status: active
       notes: RoadLink section 5.4.2.1.15, RoadNode and transport restriction properties; retrieved 2026-09-07
-      informs_json: '{"concepts": ["Road", "RoadNode", "RoadRestriction", "RoadSegment"]}'
+      informs_json: '{"concepts": ["transport/Road", "transport/RoadNode", "transport/RoadRestriction", "transport/RoadSegment"]}'
   GovDvlaCitation:
     class_uri: publicschema:Citation/gov-dvla
     is_a: Citation
@@ -3088,7 +2934,7 @@ classes:
       status: active
       notes: Vehicle response; make, yearOfManufacture and registration number; https://www.gov.uk/vehicle-log-book
         for keeper record context
-      informs_json: '{"concepts": ["AssetPartyRole", "Vehicle"]}'
+      informs_json: '{"concepts": ["AssetPartyRole", "transport/Vehicle"]}'
   GovEpaFrsCitation:
     class_uri: publicschema:Citation/gov-epa-frs
     is_a: Citation
@@ -3105,7 +2951,7 @@ classes:
       status: active
       notes: Retrieved 2026-09-07; site/program-record distinction, Facility Site Identification Standard
         2.0 (2006) and physical model links
-      informs_json: '{"concepts": ["EnvironmentalFacility", "InstallationUnit"]}'
+      informs_json: '{"concepts": ["environment/EnvironmentalFacility", "environment/InstallationUnit"]}'
   GovInspireProductionCitation:
     class_uri: publicschema:Citation/gov-inspire-production
     is_a: Citation
@@ -3121,7 +2967,7 @@ classes:
       access: open
       status: active
       notes: Production facility and installation distinctions; retrieved 2026-09-07
-      informs_json: '{"concepts": ["InstallationUnit"]}'
+      informs_json: '{"concepts": ["environment/InstallationUnit"]}'
   GovEpaEchoCitation:
     class_uri: publicschema:Citation/gov-epa-echo
     is_a: Citation
@@ -3155,7 +3001,7 @@ classes:
       status: active
       notes: Retrieved 2026-09-07; annual reporting forms, facility/chemical identity and released quantities.
         Field documentation https://www3.epa.gov/tri/public/TRI_Basic_Data_File_Documentation_RY2021_102522.pdf
-      informs_json: '{"concepts": ["EnvironmentalRelease"]}'
+      informs_json: '{"concepts": ["environment/EnvironmentalRelease"]}'
   GovFhirSubstanceCitation:
     class_uri: publicschema:Citation/gov-fhir-substance
     is_a: Citation
@@ -3187,7 +3033,7 @@ classes:
       access: open
       status: active
       notes: FHIR 5.0.0 (2023); product definition, dose form and ingredient; not package or batch identity
-      informs_json: '{"concepts": ["MedicinalProduct"]}'
+      informs_json: '{}'
   GovFhirIngredientCitation:
     class_uri: publicschema:Citation/gov-fhir-ingredient
     is_a: Citation
@@ -3203,7 +3049,7 @@ classes:
       access: open
       status: active
       notes: FHIR 5.0.0 (2023); ingredient function, substance and strength
-      informs_json: '{"concepts": ["MedicinalIngredient"]}'
+      informs_json: '{}'
   GovFhirAdministrableCitation:
     class_uri: publicschema:Citation/gov-fhir-administrable
     is_a: Citation
@@ -3219,7 +3065,7 @@ classes:
       access: open
       status: active
       notes: FHIR 5.0.0 (2023); final prepared form, formOf, administrableDoseForm and routeOfAdministration
-      informs_json: '{"concepts": ["AdministrableProduct"]}'
+      informs_json: '{}'
   GovFhirPackagedCitation:
     class_uri: publicschema:Citation/gov-fhir-packaged
     is_a: Citation
@@ -3235,7 +3081,7 @@ classes:
       access: open
       status: active
       notes: FHIR 5.0.0 (2023); defined package and contained products
-      informs_json: '{"concepts": ["PackagedMedicinalProduct"]}'
+      informs_json: '{}'
   GovIrsRepresentationCitation:
     class_uri: publicschema:Citation/gov-irs-representation
     is_a: Citation
@@ -3270,7 +3116,7 @@ classes:
       status: active
       notes: Healthcare external assessment and accreditation distinguished from licensing and certification;
         conceptual scope, no accreditation conformance claim
-      informs_json: '{"concepts": ["HealthcareAccreditation"]}'
+      informs_json: '{}'
   IloIcse18Manual2023Citation:
     class_uri: publicschema:Citation/ilo-icse18-manual-2023
     is_a: Citation
@@ -3289,9 +3135,7 @@ classes:
       notes: Verified August 2023 edition; printed pages 4–5 distinguish persons, economic units, employment
         and other work relationships; page 21 describes contributing family workers. Supports meaning, not
         an exact mapping or a mandated PublicSchema serialization. Accessed 2026-09-08.
-      informs_json: '{"concepts": ["WorkRelationship", "HoldingWorkAssignment"], "properties": ["work_person",
-        "work_economic_unit", "work_functions", "work_form", "work_status", "work_remuneration", "work_seasonality",
-        "assigned_holding", "assignment_work_relationship"], "vocabularies": []}'
+      informs_json: '{"concepts": ["WorkRelationship", "agri/HoldingWorkAssignment"], "properties": ["assigned_holding", "assignment_work_relationship", "work_economic_unit", "work_form", "work_functions", "work_person", "work_remuneration", "work_seasonality", "work_status"]}'
   FaoWca2030January2026DraftCitation:
     class_uri: publicschema:Citation/fao-wca2030-jan2026-draft
     is_a: Citation
@@ -3311,9 +3155,7 @@ classes:
         distinguish holder and paid/unpaid manager; 7.9.16–7.9.18 distinguish employees, contractors and
         repeated work. FAO lists a final publication dated 4 May 2026; this inspected PDF is not that final
         edition. Refresh against the final edition before maturity promotion. Accessed 2026-09-08.
-      informs_json: '{"concepts": ["WorkRelationship", "HoldingWorkAssignment"], "properties": ["work_person",
-        "work_economic_unit", "work_functions", "work_form", "work_status", "work_remuneration", "work_seasonality",
-        "assigned_holding", "assignment_work_relationship"], "vocabularies": []}'
+      informs_json: '{"concepts": ["WorkRelationship", "agri/HoldingWorkAssignment"], "properties": ["assigned_holding", "assignment_work_relationship", "work_economic_unit", "work_form", "work_functions", "work_person", "work_remuneration", "work_seasonality", "work_status"]}'
   InspireRegisterGuidance2017Citation:
     class_uri: publicschema:Citation/ec-inspire-registers-2017
     is_a: Citation
@@ -3334,4 +3176,74 @@ classes:
         4.2.4 and 4.2.5, printed pages 4, 8 and 10-14. Non-binding guidance.
         PublicSchema applies these precedents to administrative records; its qualified
         key, jurisdiction slot and subject-continuity semantics are design choices.'
-      informs_json: '{"concepts": ["Register", "RegistryEntry", "RecordLifecycleEvent"], "properties": ["maintaining_authority", "register_uri", "supersedes_record", "lifecycle_kind"], "vocabularies": []}'
+      informs_json: '{"concepts": ["RecordLifecycleEvent", "Register", "RegistryEntry"], "properties": ["maintaining_authority", "register_uri", "supersedes_record", "lifecycle_kind"]}'
+  GovCpsvAp311Citation:
+    class_uri: publicschema:Citation/gov-cpsv-ap-311
+    is_a: Citation
+    title: Core Public Service Vocabulary Application Profile 3.1.1
+    annotations:
+      citation_id: gov-cpsv-ap-311
+      title: Core Public Service Vocabulary Application Profile 3.1.1
+      short_title: Core Public Service Vocabulary Application Profile 3.1.1
+      publisher: SEMIC, European Commission
+      type: guidance_publication
+      domain: registry
+      uri: https://semiceu.github.io/CPSV-AP/releases/3.1.1/
+      access: open
+      status: active
+      notes: SEMIC Recommendation 31 May 2023; Public Service, Participation, Evidence, Output and Legal
+        Resource. Service applications, decision and appeal links here are PublicSchema design choices,
+        not a CPSV-AP serialization claim.
+      informs_json: '{"concepts": ["AdministrativeAppeal", "AdministrativeDecision", "PublicService", "ServiceApplication"]}'
+  GovSchemaCourseCitation:
+    class_uri: publicschema:Citation/gov-schema-course
+    is_a: Citation
+    title: Schema.org Course and CourseInstance
+    annotations:
+      citation_id: gov-schema-course
+      title: Schema.org Course and CourseInstance
+      short_title: Schema.org Course and CourseInstance
+      publisher: Schema.org
+      type: guidance_publication
+      domain: registry
+      uri: https://schema.org/CourseInstance
+      access: open
+      status: active
+      notes: Inspected 8 September 2026 with https://schema.org/Course; course offerings, provider, place,
+        period and educational credentials. No exact mapping or Schema.org conformance is claimed.
+      informs_json: '{"concepts": ["edu/EducationOffering"]}'
+  GovEuIndustrialEmissionsPortalCitation:
+    class_uri: publicschema:Citation/gov-eu-industrial-emissions-portal
+    is_a: Citation
+    title: Industrial Emissions Portal Regulation (EU) 2024/1244
+    annotations:
+      citation_id: gov-eu-industrial-emissions-portal
+      title: Industrial Emissions Portal Regulation (EU) 2024/1244
+      short_title: Industrial Emissions Portal Regulation (EU) 2024/1244
+      publisher: European Union
+      type: guidance_publication
+      domain: registry
+      uri: https://eur-lex.europa.eu/eli/reg/2024/1244/oj/eng
+      access: open
+      status: active
+      notes: 'Articles 3, 5 and 6: installation-level reporting and the containing facility. This vocabulary
+        does not implement EU reporting duties or thresholds.'
+      informs_json: '{"properties": ["release_installation"]}'
+  W3cSosa2017Citation:
+    class_uri: publicschema:Citation/w3c-sosa-2017
+    is_a: Citation
+    title: Semantic Sensor Network Ontology, W3C Recommendation 19 October 2017
+    annotations:
+      citation_id: w3c-sosa-2017
+      title: Semantic Sensor Network Ontology, W3C Recommendation 19 October 2017
+      short_title: Semantic Sensor Network Ontology, W3C Recommendation 19 October 2017
+      publisher: W3C and OGC
+      type: guidance_publication
+      domain: registry
+      uri: https://www.w3.org/TR/2017/REC-vocab-ssn-20171019/
+      access: open
+      status: active
+      notes: Sections 4.3, 4.6 and 4.7 distinguish an observation, observed property, feature, result and
+        time. Supports the shared observation pattern; PublicSchema capacity fields and quantity serialization
+        are explicit local choices.
+      informs_json: '{"concepts": ["ServiceCapacityObservation"]}'

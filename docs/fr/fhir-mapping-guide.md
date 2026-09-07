@@ -25,6 +25,7 @@ Si aucun code LOINC n'existe pour un item donné, les implémenteurs utilisent u
 
 ## Voir aussi
 
+- [Intégration de registres en FHIR R5 natif](/fr/docs/fhir-registry-integration/) : définitions de médicaments et répertoires de soins, distincts des correspondances R4 du fonctionnement présentées ici. Ce nouveau guide est disponible en anglais.
 - La version anglaise de ce guide contient les exemples JSON complets et la discussion détaillée de IPS et des profils nationaux.
 - [Guide d'interopérabilité et de correspondance](/fr/docs/interoperability-guide/)
 - [Divulgation sélective](/fr/docs/selective-disclosure/)

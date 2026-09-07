@@ -1,7 +1,7 @@
 [
   {
     "@id": "https://example.org/farm-pilot/holding",
-    "@type": "Farm",
+    "@type": "agri/Farm",
     "name": "River holding",
     "holding_operator_roles": [
       "https://example.org/farm-pilot/cooperative-role",
@@ -32,7 +32,7 @@
   },
   {
     "@id": "https://example.org/farm-pilot/cooperative-role",
-    "@type": "OrganizationHoldingOperatorRole",
+    "@type": "agri/OrganizationHoldingOperatorRole",
     "operated_holding": "https://example.org/farm-pilot/holding",
     "holding_operator_organization": "https://example.org/farm-pilot/cooperative",
     "start_date": "2024-01-01",
@@ -40,21 +40,21 @@
   },
   {
     "@id": "https://example.org/farm-pilot/person-role",
-    "@type": "PersonHoldingOperatorRole",
+    "@type": "agri/PersonHoldingOperatorRole",
     "operated_holding": "https://example.org/farm-pilot/holding",
     "holding_operator_person": "https://example.org/farm-pilot/person",
     "start_date": "2025-01-01"
   },
   {
     "@id": "https://example.org/farm-pilot/joint-role",
-    "@type": "PersonHoldingOperatorRole",
+    "@type": "agri/PersonHoldingOperatorRole",
     "operated_holding": "https://example.org/farm-pilot/holding",
     "holding_operator_person": "https://example.org/farm-pilot/joint-person",
     "start_date": "2025-01-01"
   },
   {
     "@id": "https://example.org/farm-pilot/collective-role",
-    "@type": "GroupHoldingOperatorRole",
+    "@type": "agri/GroupHoldingOperatorRole",
     "operated_holding": "https://example.org/farm-pilot/holding",
     "holding_operator_group": "https://example.org/farm-pilot/collective",
     "end_date": "2024-01-01"

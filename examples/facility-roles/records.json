@@ -1,0 +1,393 @@
+[
+  {
+    "@id": "https://example.org/facility-roles/school",
+    "@type": "School",
+    "name": "Synthetic Riverside school campus"
+  },
+  {
+    "@id": "https://example.org/facility-roles/school-provider",
+    "@type": "EducationProvider",
+    "name": "Synthetic Riverside education trust"
+  },
+  {
+    "@id": "https://example.org/facility-roles/replacement-provider",
+    "@type": "EducationProvider",
+    "name": "Synthetic Community education trust"
+  },
+  {
+    "@id": "https://example.org/facility-roles/council",
+    "@type": "PublicOrganization",
+    "name": "Synthetic district property authority"
+  },
+  {
+    "@id": "https://example.org/facility-roles/maintenance",
+    "@type": "Organization",
+    "name": "Synthetic estate maintenance cooperative"
+  },
+  {
+    "@id": "https://example.org/facility-roles/school-site",
+    "@type": "ProviderSite",
+    "name": "Synthetic Riverside teaching site",
+    "education_provider": "https://example.org/facility-roles/replacement-provider",
+    "physical_service_point": "https://example.org/facility-roles/school"
+  },
+  {
+    "@id": "https://example.org/facility-roles/online-site",
+    "@type": "ProviderSite",
+    "name": "Synthetic remote teaching channel",
+    "education_provider": "https://example.org/facility-roles/replacement-provider",
+    "virtual_site_url": "https://example.org/learning"
+  },
+  {
+    "@id": "https://example.org/facility-roles/school-owner",
+    "@type": "AssetPartyRole",
+    "asset_subject": "https://example.org/facility-roles/school",
+    "asset_actor": "https://example.org/facility-roles/council",
+    "asset_role_type": {
+      "@type": "CodedValue",
+      "code_value": "owner",
+      "code_scheme": "https://example.org/facility-roles/role-types"
+    },
+    "start_date": "2020-01-01"
+  },
+  {
+    "@id": "https://example.org/facility-roles/school-operator-before",
+    "@type": "AssetPartyRole",
+    "asset_subject": "https://example.org/facility-roles/school",
+    "asset_actor": "https://example.org/facility-roles/school-provider",
+    "asset_role_type": {
+      "@type": "CodedValue",
+      "code_value": "operator",
+      "code_scheme": "https://example.org/facility-roles/role-types"
+    },
+    "start_date": "2020-01-01",
+    "end_date": "2026-07-01"
+  },
+  {
+    "@id": "https://example.org/facility-roles/school-operator-after",
+    "@type": "AssetPartyRole",
+    "asset_subject": "https://example.org/facility-roles/school",
+    "asset_actor": "https://example.org/facility-roles/replacement-provider",
+    "asset_role_type": {
+      "@type": "CodedValue",
+      "code_value": "operator",
+      "code_scheme": "https://example.org/facility-roles/role-types"
+    },
+    "start_date": "2026-07-01",
+    "end_date": "2027-07-01"
+  },
+  {
+    "@id": "https://example.org/facility-roles/school-upkeep",
+    "@type": "AssetPartyRole",
+    "asset_subject": "https://example.org/facility-roles/school",
+    "asset_actor": "https://example.org/facility-roles/maintenance",
+    "asset_role_type": {
+      "@type": "CodedValue",
+      "code_value": "upkeep",
+      "code_scheme": "https://example.org/facility-roles/role-types"
+    },
+    "start_date": "2025-01-01",
+    "end_date": "2028-01-01"
+  },
+  {
+    "@id": "https://example.org/facility-roles/warehouse",
+    "@type": "AgriculturalFacility",
+    "name": "Synthetic grain drying and storage premises"
+  },
+  {
+    "@id": "https://example.org/facility-roles/holding",
+    "@type": "Farm",
+    "name": "Synthetic river holding"
+  },
+  {
+    "@id": "https://example.org/facility-roles/holding-holder",
+    "@type": "Person",
+    "name": "Synthetic agricultural holder"
+  },
+  {
+    "@id": "https://example.org/facility-roles/warehouse-operator-one",
+    "@type": "Person",
+    "name": "Synthetic former warehouse operator"
+  },
+  {
+    "@id": "https://example.org/facility-roles/warehouse-operator-two",
+    "@type": "Person",
+    "name": "Synthetic replacement warehouse operator"
+  },
+  {
+    "@id": "https://example.org/facility-roles/growers",
+    "@type": "ProducerOrganization",
+    "name": "Synthetic growers cooperative"
+  },
+  {
+    "@id": "https://example.org/facility-roles/holder-role",
+    "@type": "PersonHoldingOperatorRole",
+    "operated_holding": "https://example.org/facility-roles/holding",
+    "holding_operator_person": "https://example.org/facility-roles/holding-holder",
+    "start_date": "2020-01-01"
+  },
+  {
+    "@id": "https://example.org/facility-roles/warehouse-owner",
+    "@type": "AssetPartyRole",
+    "asset_subject": "https://example.org/facility-roles/warehouse",
+    "asset_actor": "https://example.org/facility-roles/growers",
+    "asset_role_type": {
+      "@type": "CodedValue",
+      "code_value": "owner",
+      "code_scheme": "https://example.org/facility-roles/role-types"
+    },
+    "start_date": "2020-01-01"
+  },
+  {
+    "@id": "https://example.org/facility-roles/warehouse-operator-before",
+    "@type": "AssetPartyRole",
+    "asset_subject": "https://example.org/facility-roles/warehouse",
+    "asset_actor": "https://example.org/facility-roles/warehouse-operator-one",
+    "asset_role_type": {
+      "@type": "CodedValue",
+      "code_value": "operator",
+      "code_scheme": "https://example.org/facility-roles/role-types"
+    },
+    "start_date": "2025-01-01",
+    "end_date": "2026-03-01"
+  },
+  {
+    "@id": "https://example.org/facility-roles/warehouse-operator-after",
+    "@type": "AssetPartyRole",
+    "asset_subject": "https://example.org/facility-roles/warehouse",
+    "asset_actor": "https://example.org/facility-roles/warehouse-operator-two",
+    "asset_role_type": {
+      "@type": "CodedValue",
+      "code_value": "operator",
+      "code_scheme": "https://example.org/facility-roles/role-types"
+    },
+    "start_date": "2026-03-01",
+    "end_date": "2027-01-01"
+  },
+  {
+    "@id": "https://example.org/facility-roles/warehouse-upkeep",
+    "@type": "AssetPartyRole",
+    "asset_subject": "https://example.org/facility-roles/warehouse",
+    "asset_actor": "https://example.org/facility-roles/growers",
+    "asset_role_type": {
+      "@type": "CodedValue",
+      "code_value": "upkeep",
+      "code_scheme": "https://example.org/facility-roles/role-types"
+    },
+    "start_date": "2020-01-01",
+    "end_date": "2028-01-01"
+  },
+  {
+    "@id": "https://example.org/facility-roles/nursery-group",
+    "@type": "InformalGroup",
+    "name": "Synthetic jointly operated nursery group"
+  },
+  {
+    "@id": "https://example.org/facility-roles/nursery",
+    "@type": "PlantNursery",
+    "name": "Synthetic community nursery",
+    "facility_operator": "https://example.org/facility-roles/nursery-group"
+  },
+  {
+    "@id": "https://example.org/facility-roles/hospital",
+    "@type": "HealthFacility",
+    "name": "Synthetic East hospital premises"
+  },
+  {
+    "@id": "https://example.org/facility-roles/hospital-provider",
+    "@type": "Organization",
+    "name": "Synthetic East hospital service provider"
+  },
+  {
+    "@id": "https://example.org/facility-roles/public-estates",
+    "@type": "PublicOrganization",
+    "name": "Synthetic regional public estates authority"
+  },
+  {
+    "@id": "https://example.org/facility-roles/replacement-maintenance",
+    "@type": "Organization",
+    "name": "Synthetic regional maintenance service"
+  },
+  {
+    "@id": "https://example.org/facility-roles/hospital-owner",
+    "@type": "AssetPartyRole",
+    "asset_subject": "https://example.org/facility-roles/hospital",
+    "asset_actor": "https://example.org/facility-roles/public-estates",
+    "asset_role_type": {
+      "@type": "CodedValue",
+      "code_value": "owner",
+      "code_scheme": "https://example.org/facility-roles/role-types"
+    },
+    "start_date": "2020-01-01"
+  },
+  {
+    "@id": "https://example.org/facility-roles/hospital-operator",
+    "@type": "AssetPartyRole",
+    "asset_subject": "https://example.org/facility-roles/hospital",
+    "asset_actor": "https://example.org/facility-roles/hospital-provider",
+    "asset_role_type": {
+      "@type": "CodedValue",
+      "code_value": "operator",
+      "code_scheme": "https://example.org/facility-roles/role-types"
+    },
+    "start_date": "2020-01-01",
+    "end_date": "2028-01-01"
+  },
+  {
+    "@id": "https://example.org/facility-roles/hospital-upkeep-before",
+    "@type": "AssetPartyRole",
+    "asset_subject": "https://example.org/facility-roles/hospital",
+    "asset_actor": "https://example.org/facility-roles/maintenance",
+    "asset_role_type": {
+      "@type": "CodedValue",
+      "code_value": "upkeep",
+      "code_scheme": "https://example.org/facility-roles/role-types"
+    },
+    "start_date": "2025-01-01",
+    "end_date": "2026-09-01"
+  },
+  {
+    "@id": "https://example.org/facility-roles/hospital-upkeep-after",
+    "@type": "AssetPartyRole",
+    "asset_subject": "https://example.org/facility-roles/hospital",
+    "asset_actor": "https://example.org/facility-roles/replacement-maintenance",
+    "asset_role_type": {
+      "@type": "CodedValue",
+      "code_value": "upkeep",
+      "code_scheme": "https://example.org/facility-roles/role-types"
+    },
+    "start_date": "2026-09-01",
+    "end_date": "2027-09-01"
+  },
+  {
+    "@id": "https://example.org/facility-roles/school-physical-address",
+    "@type": "Address",
+    "full_address": "17 Synthetic River Road"
+  },
+  {
+    "@id": "https://example.org/facility-roles/school-postal-address-before",
+    "@type": "Address",
+    "full_address": "PO Box 40, Synthetic District"
+  },
+  {
+    "@id": "https://example.org/facility-roles/school-postal-address-after",
+    "@type": "Address",
+    "full_address": "PO Box 82, Synthetic District"
+  },
+  {
+    "@id": "https://example.org/facility-roles/school-position",
+    "@type": "SpatialGeometry",
+    "geometry_encoding": "application/geo+json",
+    "geometry_literal": "{\"type\":\"Point\",\"coordinates\":[100.5,13.7]}",
+    "coordinate_reference_system": "http://www.opengis.net/def/crs/OGC/1.3/CRS84"
+  },
+  {
+    "@id": "https://example.org/facility-roles/warehouse-postal-address-before",
+    "@type": "Address",
+    "full_address": "PO Box 21, Synthetic Market"
+  },
+  {
+    "@id": "https://example.org/facility-roles/warehouse-postal-address-after",
+    "@type": "Address",
+    "full_address": "PO Box 36, Synthetic Market"
+  },
+  {
+    "@id": "https://example.org/facility-roles/school-physical",
+    "@type": "AssetAddressAssignment",
+    "asset_subject": "https://example.org/facility-roles/school",
+    "assigned_address": "https://example.org/facility-roles/school-physical-address",
+    "address_purpose": {
+      "@type": "CodedValue",
+      "code_value": "physical",
+      "code_scheme": "https://example.org/facility-roles/address-purposes"
+    },
+    "start_date": "2020-01-01",
+    "address_geometry": "https://example.org/facility-roles/school-position"
+  },
+  {
+    "@id": "https://example.org/facility-roles/school-postal-before",
+    "@type": "AssetAddressAssignment",
+    "asset_subject": "https://example.org/facility-roles/school",
+    "assigned_address": "https://example.org/facility-roles/school-postal-address-before",
+    "address_purpose": {
+      "@type": "CodedValue",
+      "code_value": "postal",
+      "code_scheme": "https://example.org/facility-roles/address-purposes"
+    },
+    "start_date": "2020-01-01",
+    "end_date": "2026-08-01"
+  },
+  {
+    "@id": "https://example.org/facility-roles/school-postal-after",
+    "@type": "AssetAddressAssignment",
+    "asset_subject": "https://example.org/facility-roles/school",
+    "assigned_address": "https://example.org/facility-roles/school-postal-address-after",
+    "address_purpose": {
+      "@type": "CodedValue",
+      "code_value": "postal",
+      "code_scheme": "https://example.org/facility-roles/address-purposes"
+    },
+    "start_date": "2026-08-01",
+    "end_date": "2027-08-01"
+  },
+  {
+    "@id": "https://example.org/facility-roles/warehouse-postal-before",
+    "@type": "AssetAddressAssignment",
+    "asset_subject": "https://example.org/facility-roles/warehouse",
+    "assigned_address": "https://example.org/facility-roles/warehouse-postal-address-before",
+    "address_purpose": {
+      "@type": "CodedValue",
+      "code_value": "postal",
+      "code_scheme": "https://example.org/facility-roles/address-purposes"
+    },
+    "start_date": "2025-01-01",
+    "end_date": "2026-04-01"
+  },
+  {
+    "@id": "https://example.org/facility-roles/warehouse-postal-after",
+    "@type": "AssetAddressAssignment",
+    "asset_subject": "https://example.org/facility-roles/warehouse",
+    "assigned_address": "https://example.org/facility-roles/warehouse-postal-address-after",
+    "address_purpose": {
+      "@type": "CodedValue",
+      "code_value": "postal",
+      "code_scheme": "https://example.org/facility-roles/address-purposes"
+    },
+    "start_date": "2026-04-01",
+    "end_date": "2027-04-01"
+  },
+  {
+    "@id": "https://example.org/facility-roles/school-capacity",
+    "@type": "ServiceCapacityObservation",
+    "capacity_subject": "https://example.org/facility-roles/school",
+    "capacity_measure": {
+      "@type": "CodedValue",
+      "code_value": "staffed-learning-places",
+      "code_scheme": "https://example.org/facility-roles/capacity-measures"
+    },
+    "capacity_quantity": {
+      "@type": "QuantityValue",
+      "quantity_value": 160,
+      "unit_code": "1",
+      "unit_scheme": "http://unitsofmeasure.org"
+    },
+    "capacity_observed_at": "2026-09-01T08:00:00Z"
+  },
+  {
+    "@id": "https://example.org/facility-roles/hospital-capacity",
+    "@type": "ServiceCapacityObservation",
+    "capacity_subject": "https://example.org/facility-roles/hospital",
+    "capacity_measure": {
+      "@type": "CodedValue",
+      "code_value": "staffed-beds",
+      "code_scheme": "https://example.org/facility-roles/capacity-measures"
+    },
+    "capacity_quantity": {
+      "@type": "QuantityValue",
+      "quantity_value": 42,
+      "unit_code": "1",
+      "unit_scheme": "http://unitsofmeasure.org"
+    },
+    "capacity_observed_at": "2026-09-01T09:00:00Z"
+  }
+]

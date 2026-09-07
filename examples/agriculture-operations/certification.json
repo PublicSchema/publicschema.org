@@ -1,6 +1,6 @@
 {
   "@id": "https://example.org/certificate/1",
-  "@type": "AgriculturalCertification",
+  "@type": "agri/AgriculturalCertification",
   "certified_subject": "https://example.org/facility/lab",
   "certification_scheme": "https://example.org/schemes/testing-v1",
   "certification_scope": [

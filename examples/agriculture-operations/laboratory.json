@@ -1,6 +1,6 @@
 {
   "@id": "https://example.org/facility/lab",
-  "@type": "AgriculturalLaboratory",
+  "@type": "agri/AgriculturalLaboratory",
   "name": "Synthetic soil laboratory",
   "facility_operator": "https://example.org/org/lab",
   "laboratory_capability": [

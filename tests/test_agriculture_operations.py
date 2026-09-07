@@ -14,6 +14,8 @@ from build.build import build_vocabulary
 from build.linkml_rdf_export import DEFAULT_LINKML_COMPOSITE, write_shacl, write_turtle
 
 PS = Namespace('https://publicschema.org/')
+AGRI = Namespace('https://publicschema.org/agri/')
+ENVIRONMENT = Namespace('https://publicschema.org/environment/')
 EXAMPLES = Path(__file__).resolve().parents[1] / 'examples/agriculture-operations'
 
 
@@ -78,12 +80,11 @@ def test_composition_quantity_must_be_numeric(exports):
 
 def test_asset_roles_and_permissions_do_not_collapse(exports):
     _, _, ontology = exports
-    assert (PS.WaterUseAuthorization, RDFS.subClassOf, PS.Authorization) in ontology
-    assert (PS.VeterinaryMedicinalProduct, RDFS.subClassOf, PS.MedicinalProduct) in ontology
-    assert (PS.ProducerOrganization, RDFS.subClassOf, PS.Organization) in ontology
+    assert (ENVIRONMENT.WaterUseAuthorization, RDFS.subClassOf, PS.Authorization) in ontology
+    assert (AGRI.ProducerOrganization, RDFS.subClassOf, PS.Organization) in ontology
     for name in ('AgriculturalFacility', 'FishingVessel', 'AgriculturalCertification', 'AgriculturalServiceRole'):
-        assert (PS[name], RDFS.subClassOf, PS.Registration) not in ontology
-    assert (PS.AgriculturalFacility, RDFS.subClassOf, PS.Organization) not in ontology
+        assert (AGRI[name], RDFS.subClassOf, PS.Registration) not in ontology
+    assert (AGRI.AgriculturalFacility, RDFS.subClassOf, PS.Organization) not in ontology
 
 
 def test_certification_scope_survives_jsonld(exports):
@@ -94,12 +95,17 @@ def test_certification_scope_survives_jsonld(exports):
     assert not list(graph.triples((None, PS.authorized_activity, None)))
 
 
-def test_every_operations_class_has_a_direct_example():
+def test_every_operations_class_has_a_direct_example(exports):
     import yaml
 
     authored = yaml.safe_load((EXAMPLES.parents[1] / 'schema/agriculture_operations.yaml').read_text())
     represented = {json.loads(path.read_text())['@type'] for path in EXAMPLES.glob('*.json')}
-    assert set(authored['classes']) <= represented
+    result, _, _ = exports
+    expected = {
+        result['context']['@context'][name].removeprefix('https://publicschema.org/')
+        for name in authored['classes']
+    }
+    assert expected <= represented
 
 
 def test_membership_preserves_actor_identity_and_interval(exports):
@@ -110,6 +116,6 @@ def test_membership_preserves_actor_identity_and_interval(exports):
         graph = data_graph(record, result)
         conforms, _, report = validate(graph, shacl_graph=shapes)
         assert conforms, report
-        assert list(graph.objects(predicate=PS.producer_member))
+        assert list(graph.objects(predicate=AGRI.producer_member))
         assert not list(graph.objects(predicate=PS.service_provider))
-    assert (PS.ProducerMembership, RDFS.subClassOf, PS.GroupMembership) not in ontology
+    assert (AGRI.ProducerMembership, RDFS.subClassOf, PS.GroupMembership) not in ontology

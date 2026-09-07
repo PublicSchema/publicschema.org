@@ -1,0 +1,267 @@
+[
+  {
+    "@id": "https://example.org/government-relationships/controller",
+    "@type": "Person",
+    "name": "Example trustee"
+  },
+  {
+    "@id": "https://example.org/government-relationships/trust",
+    "@type": "LegalArrangement",
+    "name": "Example family arrangement",
+    "arrangement_type": {
+      "@type": "CodedValue",
+      "code_value": "trust",
+      "code_scheme": "https://standard.openownership.org/en/0.4.0/standard/reference.html#entity-subtype"
+    }
+  },
+  {
+    "@id": "https://example.org/government-relationships/holding-company",
+    "@type": "LegalEntity",
+    "name": "Example Holding Company"
+  },
+  {
+    "@id": "https://example.org/government-relationships/trading-company",
+    "@type": "LegalEntity",
+    "name": "Example Trading Company"
+  },
+  {
+    "@id": "https://example.org/government-relationships/trust-control",
+    "@type": "OwnershipInterest",
+    "interest_holder": "https://example.org/government-relationships/controller",
+    "interest_entity": "https://example.org/government-relationships/trust",
+    "interest_type": {
+      "@type": "CodedValue",
+      "code_value": "trustee",
+      "code_scheme": "https://standard.openownership.org/en/0.4.0/standard/reference.html#interest-type"
+    },
+    "interest_directness": "direct",
+    "start_date": "2025-01-01",
+    "end_date": "2028-01-01"
+  },
+  {
+    "@id": "https://example.org/government-relationships/trust-shares",
+    "@type": "OwnershipInterest",
+    "interest_holder": "https://example.org/government-relationships/trust",
+    "interest_entity": "https://example.org/government-relationships/holding-company",
+    "interest_type": {
+      "@type": "CodedValue",
+      "code_value": "shareholding",
+      "code_scheme": "https://standard.openownership.org/en/0.4.0/standard/reference.html#interest-type"
+    },
+    "interest_directness": "direct",
+    "start_date": "2025-01-01",
+    "end_date": "2028-01-01",
+    "interest_percentage": 100
+  },
+  {
+    "@id": "https://example.org/government-relationships/holding-shares",
+    "@type": "OwnershipInterest",
+    "interest_holder": "https://example.org/government-relationships/holding-company",
+    "interest_entity": "https://example.org/government-relationships/trading-company",
+    "interest_type": {
+      "@type": "CodedValue",
+      "code_value": "shareholding",
+      "code_scheme": "https://standard.openownership.org/en/0.4.0/standard/reference.html#interest-type"
+    },
+    "interest_directness": "direct",
+    "start_date": "2025-01-01",
+    "end_date": "2028-01-01",
+    "interest_exclusive_minimum_percentage": 25,
+    "interest_maximum_percentage": 50
+  },
+  {
+    "@id": "https://example.org/government-relationships/indirect-control",
+    "@type": "OwnershipInterest",
+    "interest_holder": "https://example.org/government-relationships/controller",
+    "interest_entity": "https://example.org/government-relationships/trading-company",
+    "interest_type": {
+      "@type": "CodedValue",
+      "code_value": "otherInfluenceOrControl",
+      "code_scheme": "https://standard.openownership.org/en/0.4.0/standard/reference.html#interest-type"
+    },
+    "interest_directness": "indirect",
+    "start_date": "2025-01-01",
+    "end_date": "2028-01-01"
+  },
+  {
+    "@id": "https://example.org/government-relationships/claimed-route",
+    "@type": "OwnershipChainAssertion",
+    "indirect_interest": "https://example.org/government-relationships/indirect-control",
+    "component_interests": [
+      "https://example.org/government-relationships/holding-shares",
+      "https://example.org/government-relationships/trust-control",
+      "https://example.org/government-relationships/trust-shares"
+    ]
+  },
+  {
+    "@id": "https://example.org/government-relationships/route-record",
+    "@type": "RegistryEntry",
+    "register_uri": "https://example.org/government-relationships/register/ownership",
+    "record_id": "route-1",
+    "subject_uri": "https://example.org/government-relationships/claimed-route",
+    "subject_type": "https://publicschema.org/OwnershipChainAssertion",
+    "recorded_at": "2026-09-08T09:00:00Z",
+    "evidence_assertions": [
+      {
+        "@type": "EvidenceAssertion",
+        "assertion_uri": "https://example.org/government-relationships/claimed-route",
+        "evidence_source": "https://example.org/government-relationships/source/ownership-declaration",
+        "evidence_role": {
+          "@type": "CodedValue",
+          "code_value": "supporting",
+          "code_scheme": "https://example.org/government-relationships/codes/evidence-role"
+        },
+        "evidence_authority": "https://example.org/government-relationships/authority"
+      }
+    ]
+  },
+  {
+    "@id": "https://example.org/government-relationships/authority",
+    "@type": "Organization",
+    "name": "Example review authority"
+  },
+  {
+    "@id": "https://example.org/government-relationships/provider",
+    "@type": "edu/EducationProvider",
+    "name": "Example Community College",
+    "provider_programmes": [
+      "https://example.org/government-relationships/programme"
+    ]
+  },
+  {
+    "@id": "https://example.org/government-relationships/programme",
+    "@type": "edu/EducationProgramme",
+    "name": "Example industrial maintenance diploma",
+    "programme_award": "Example industrial maintenance diploma"
+  },
+  {
+    "@id": "https://example.org/government-relationships/north-school",
+    "@type": "edu/School",
+    "name": "Example North Campus"
+  },
+  {
+    "@id": "https://example.org/government-relationships/north-site",
+    "@type": "edu/ProviderSite",
+    "name": "North delivery site",
+    "education_provider": "https://example.org/government-relationships/provider",
+    "physical_service_point": "https://example.org/government-relationships/north-school"
+  },
+  {
+    "@id": "https://example.org/government-relationships/online-site",
+    "@type": "edu/ProviderSite",
+    "name": "Remote delivery site",
+    "education_provider": "https://example.org/government-relationships/provider",
+    "virtual_site_url": "https://example.org/government-relationships/learning/online"
+  },
+  {
+    "@id": "https://example.org/government-relationships/north-offering",
+    "@type": "edu/EducationOffering",
+    "offering_programme": "https://example.org/government-relationships/programme",
+    "offering_provider": "https://example.org/government-relationships/provider",
+    "offering_sites": [
+      "https://example.org/government-relationships/north-site"
+    ],
+    "offering_mode": [
+      {
+        "@type": "CodedValue",
+        "code_value": "onsite",
+        "code_scheme": "https://example.org/government-relationships/codes/delivery-mode"
+      }
+    ],
+    "offering_award": "https://example.org/government-relationships/qualifications/maintenance-diploma-2026",
+    "start_date": "2026-09-01",
+    "end_date": "2027-07-01"
+  },
+  {
+    "@id": "https://example.org/government-relationships/online-offering",
+    "@type": "edu/EducationOffering",
+    "offering_programme": "https://example.org/government-relationships/programme",
+    "offering_provider": "https://example.org/government-relationships/provider",
+    "offering_sites": [
+      "https://example.org/government-relationships/online-site"
+    ],
+    "offering_mode": [
+      {
+        "@type": "CodedValue",
+        "code_value": "online",
+        "code_scheme": "https://example.org/government-relationships/codes/delivery-mode"
+      }
+    ],
+    "offering_award": "https://example.org/government-relationships/qualifications/maintenance-diploma-2026",
+    "start_date": "2027-01-01",
+    "end_date": "2027-10-01"
+  },
+  {
+    "@id": "https://example.org/government-relationships/north-recognition",
+    "@type": "Registration",
+    "registered_subject": "https://example.org/government-relationships/north-offering",
+    "registration_authority": "https://example.org/government-relationships/authority",
+    "registration_purpose": "Synthetic recognition of this offering against stated education standards",
+    "valid_from": "2026-09-01",
+    "valid_to": "2027-06-30"
+  },
+  {
+    "@id": "https://example.org/government-relationships/site",
+    "@type": "environment/EnvironmentalFacility",
+    "name": "Example industrial site"
+  },
+  {
+    "@id": "https://example.org/government-relationships/boiler",
+    "@type": "environment/InstallationUnit",
+    "name": "Boiler unit",
+    "installation_facility": "https://example.org/government-relationships/site"
+  },
+  {
+    "@id": "https://example.org/government-relationships/furnace",
+    "@type": "environment/InstallationUnit",
+    "name": "Furnace unit",
+    "installation_facility": "https://example.org/government-relationships/site"
+  },
+  {
+    "@id": "https://example.org/government-relationships/substance",
+    "@type": "Substance",
+    "name": "Example reported substance"
+  },
+  {
+    "@id": "https://example.org/government-relationships/boiler-release",
+    "@type": "environment/EnvironmentalRelease",
+    "release_facility": "https://example.org/government-relationships/site",
+    "release_installation": "https://example.org/government-relationships/boiler",
+    "release_substance": "https://example.org/government-relationships/substance",
+    "release_medium": {
+      "@type": "CodedValue",
+      "code_value": "air",
+      "code_scheme": "https://example.org/government-relationships/codes/environmental-medium"
+    },
+    "release_quantity": {
+      "@type": "QuantityValue",
+      "quantity_value": 12,
+      "unit_code": "kg",
+      "unit_scheme": "https://ucum.org/ucum.html"
+    },
+    "measurement_method": "Synthetic measured annual total",
+    "start_date": "2025-01-01",
+    "end_date": "2026-01-01"
+  },
+  {
+    "@id": "https://example.org/government-relationships/furnace-release",
+    "@type": "environment/EnvironmentalRelease",
+    "release_facility": "https://example.org/government-relationships/site",
+    "release_installation": "https://example.org/government-relationships/furnace",
+    "release_substance": "https://example.org/government-relationships/substance",
+    "release_medium": {
+      "@type": "CodedValue",
+      "code_value": "air",
+      "code_scheme": "https://example.org/government-relationships/codes/environmental-medium"
+    },
+    "release_quantity": {
+      "@type": "QuantityValue",
+      "quantity_value": 7,
+      "unit_code": "kg",
+      "unit_scheme": "https://ucum.org/ucum.html"
+    },
+    "measurement_method": "Synthetic measured annual total",
+    "start_date": "2025-01-01",
+    "end_date": "2026-01-01"
+  }
+]

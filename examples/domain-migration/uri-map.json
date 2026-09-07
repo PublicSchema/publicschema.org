@@ -1,0 +1,2026 @@
+{
+  "source_revision": "19bd61c0ec2ad79c375f8d3e4d2f727081c132bc",
+  "scope": "Draft URI dispositions for this revision. Source schemas remain authoritative. No equivalence or automatic data conversion is asserted.",
+  "related_guides": [
+    "/docs/domain-migration/",
+    "/docs/relationship-date-migration/",
+    "/docs/fhir-registry-integration/"
+  ],
+  "changes": [
+    {
+      "kind": "class",
+      "id": "AdministrableProduct",
+      "old_uri": "https://publicschema.org/AdministrableProduct",
+      "new_uri": null,
+      "action": "retire",
+      "note": "Use the native FHIR R5 integration guide for the field-level disposition; no automatic URI or payload conversion is asserted."
+    },
+    {
+      "kind": "class",
+      "id": "AgriculturalCertification",
+      "old_uri": "https://publicschema.org/AgriculturalCertification",
+      "new_uri": "https://publicschema.org/agri/AgriculturalCertification",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "AgriculturalFacility",
+      "old_uri": "https://publicschema.org/AgriculturalFacility",
+      "new_uri": "https://publicschema.org/agri/AgriculturalFacility",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "AgriculturalLaboratory",
+      "old_uri": "https://publicschema.org/AgriculturalLaboratory",
+      "new_uri": "https://publicschema.org/agri/AgriculturalLaboratory",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "AgriculturalMachinery",
+      "old_uri": "https://publicschema.org/AgriculturalMachinery",
+      "new_uri": "https://publicschema.org/agri/AgriculturalMachinery",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "AgriculturalParcel",
+      "old_uri": "https://publicschema.org/AgriculturalParcel",
+      "new_uri": "https://publicschema.org/agri/AgriculturalParcel",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "AgriculturalProduct",
+      "old_uri": "https://publicschema.org/AgriculturalProduct",
+      "new_uri": "https://publicschema.org/agri/AgriculturalProduct",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "AgriculturalServiceRole",
+      "old_uri": "https://publicschema.org/AgriculturalServiceRole",
+      "new_uri": "https://publicschema.org/agri/AgriculturalServiceRole",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "AnimalBreed",
+      "old_uri": "https://publicschema.org/AnimalBreed",
+      "new_uri": "https://publicschema.org/agri/AnimalBreed",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "AnimalResidence",
+      "old_uri": "https://publicschema.org/AnimalResidence",
+      "new_uri": "https://publicschema.org/agri/AnimalResidence",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "Apiary",
+      "old_uri": "https://publicschema.org/Apiary",
+      "new_uri": "https://publicschema.org/agri/Apiary",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "AquacultureEstablishment",
+      "old_uri": "https://publicschema.org/AquacultureEstablishment",
+      "new_uri": "https://publicschema.org/agri/AquacultureEstablishment",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "CropPlanting",
+      "old_uri": "https://publicschema.org/CropPlanting",
+      "new_uri": "https://publicschema.org/agri/CropPlanting",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "CropPlantingComponent",
+      "old_uri": "https://publicschema.org/CropPlantingComponent",
+      "new_uri": "https://publicschema.org/agri/CropPlantingComponent",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "DrivingEntitlement",
+      "old_uri": "https://publicschema.org/DrivingEntitlement",
+      "new_uri": "https://publicschema.org/transport/DrivingEntitlement",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "EducationProgramme",
+      "old_uri": "https://publicschema.org/EducationProgramme",
+      "new_uri": "https://publicschema.org/edu/EducationProgramme",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "EducationProvider",
+      "old_uri": "https://publicschema.org/EducationProvider",
+      "new_uri": "https://publicschema.org/edu/EducationProvider",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "EnvironmentalFacility",
+      "old_uri": "https://publicschema.org/EnvironmentalFacility",
+      "new_uri": "https://publicschema.org/environment/EnvironmentalFacility",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "EnvironmentalRelease",
+      "old_uri": "https://publicschema.org/EnvironmentalRelease",
+      "new_uri": "https://publicschema.org/environment/EnvironmentalRelease",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "FacilityAddressAssignment",
+      "old_uri": "https://publicschema.org/FacilityAddressAssignment",
+      "new_uri": "https://publicschema.org/AssetAddressAssignment",
+      "action": "reviewed-replacement",
+      "note": "Select physical or postal purpose; migrate endpoint fields and date boundaries explicitly."
+    },
+    {
+      "kind": "class",
+      "id": "FacilityManagementAssignment",
+      "old_uri": "https://publicschema.org/FacilityManagementAssignment",
+      "new_uri": "https://publicschema.org/AssetPartyRole",
+      "action": "reviewed-replacement",
+      "note": "Select and evidence the precise operator, owner or upkeep responsibility; migrate endpoints and dates explicitly."
+    },
+    {
+      "kind": "class",
+      "id": "Farm",
+      "old_uri": "https://publicschema.org/Farm",
+      "new_uri": "https://publicschema.org/agri/Farm",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "FarmerRegistration",
+      "old_uri": "https://publicschema.org/FarmerRegistration",
+      "new_uri": "https://publicschema.org/agri/FarmerRegistration",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "FeedProduct",
+      "old_uri": "https://publicschema.org/FeedProduct",
+      "new_uri": "https://publicschema.org/agri/FeedProduct",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "FertilizerProduct",
+      "old_uri": "https://publicschema.org/FertilizerProduct",
+      "new_uri": "https://publicschema.org/agri/FertilizerProduct",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "FishingVessel",
+      "old_uri": "https://publicschema.org/FishingVessel",
+      "new_uri": "https://publicschema.org/agri/FishingVessel",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "GroupHoldingOperatorRole",
+      "old_uri": "https://publicschema.org/GroupHoldingOperatorRole",
+      "new_uri": "https://publicschema.org/agri/GroupHoldingOperatorRole",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "HealthFacility",
+      "old_uri": "https://publicschema.org/HealthFacility",
+      "new_uri": "https://publicschema.org/health/HealthFacility",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "HealthcareAccreditation",
+      "old_uri": "https://publicschema.org/HealthcareAccreditation",
+      "new_uri": null,
+      "action": "retire",
+      "note": "Use the native FHIR R5 integration guide for the field-level disposition; no automatic URI or payload conversion is asserted."
+    },
+    {
+      "kind": "class",
+      "id": "HealthcareServiceOffering",
+      "old_uri": "https://publicschema.org/HealthcareServiceOffering",
+      "new_uri": null,
+      "action": "retire",
+      "note": "Use the native FHIR R5 integration guide for the field-level disposition; no automatic URI or payload conversion is asserted."
+    },
+    {
+      "kind": "class",
+      "id": "HoldingOperatorRole",
+      "old_uri": "https://publicschema.org/HoldingOperatorRole",
+      "new_uri": "https://publicschema.org/agri/HoldingOperatorRole",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "HoldingParcelLink",
+      "old_uri": "https://publicschema.org/HoldingParcelLink",
+      "new_uri": "https://publicschema.org/agri/HoldingParcelLink",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "HoldingWorkAssignment",
+      "old_uri": "https://publicschema.org/HoldingWorkAssignment",
+      "new_uri": "https://publicschema.org/agri/HoldingWorkAssignment",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "InputSupplierRole",
+      "old_uri": "https://publicschema.org/InputSupplierRole",
+      "new_uri": "https://publicschema.org/agri/InputSupplierRole",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "InstallationUnit",
+      "old_uri": "https://publicschema.org/InstallationUnit",
+      "new_uri": "https://publicschema.org/environment/InstallationUnit",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "IrrigationScheme",
+      "old_uri": "https://publicschema.org/IrrigationScheme",
+      "new_uri": "https://publicschema.org/agri/IrrigationScheme",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "LandAdministrativeUnit",
+      "old_uri": "https://publicschema.org/LandAdministrativeUnit",
+      "new_uri": "https://publicschema.org/land/LandAdministrativeUnit",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "LandBoundaryAssertion",
+      "old_uri": "https://publicschema.org/LandBoundaryAssertion",
+      "new_uri": "https://publicschema.org/land/LandBoundaryAssertion",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "LandSpatialUnit",
+      "old_uri": "https://publicschema.org/LandSpatialUnit",
+      "new_uri": "https://publicschema.org/land/LandSpatialUnit",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "LandTenureAssertion",
+      "old_uri": "https://publicschema.org/LandTenureAssertion",
+      "new_uri": "https://publicschema.org/land/LandTenureAssertion",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "LivestockEstablishment",
+      "old_uri": "https://publicschema.org/LivestockEstablishment",
+      "new_uri": "https://publicschema.org/agri/LivestockEstablishment",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "MedicinalIngredient",
+      "old_uri": "https://publicschema.org/MedicinalIngredient",
+      "new_uri": null,
+      "action": "retire",
+      "note": "Use the native FHIR R5 integration guide for the field-level disposition; no automatic URI or payload conversion is asserted."
+    },
+    {
+      "kind": "class",
+      "id": "MedicinalProduct",
+      "old_uri": "https://publicschema.org/MedicinalProduct",
+      "new_uri": null,
+      "action": "retire",
+      "note": "Use the native FHIR R5 integration guide for the field-level disposition; no automatic URI or payload conversion is asserted."
+    },
+    {
+      "kind": "class",
+      "id": "OrganizationHoldingOperatorRole",
+      "old_uri": "https://publicschema.org/OrganizationHoldingOperatorRole",
+      "new_uri": "https://publicschema.org/agri/OrganizationHoldingOperatorRole",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "PackagedMedicinalProduct",
+      "old_uri": "https://publicschema.org/PackagedMedicinalProduct",
+      "new_uri": null,
+      "action": "retire",
+      "note": "Use the native FHIR R5 integration guide for the field-level disposition; no automatic URI or payload conversion is asserted."
+    },
+    {
+      "kind": "class",
+      "id": "PersonHoldingOperatorRole",
+      "old_uri": "https://publicschema.org/PersonHoldingOperatorRole",
+      "new_uri": "https://publicschema.org/agri/PersonHoldingOperatorRole",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "PesticideApplicatorRole",
+      "old_uri": "https://publicschema.org/PesticideApplicatorRole",
+      "new_uri": "https://publicschema.org/agri/PesticideApplicatorRole",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "PesticideProduct",
+      "old_uri": "https://publicschema.org/PesticideProduct",
+      "new_uri": "https://publicschema.org/agri/PesticideProduct",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "PlantNursery",
+      "old_uri": "https://publicschema.org/PlantNursery",
+      "new_uri": "https://publicschema.org/agri/PlantNursery",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "ProducerMembership",
+      "old_uri": "https://publicschema.org/ProducerMembership",
+      "new_uri": "https://publicschema.org/agri/ProducerMembership",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "ProducerOrganization",
+      "old_uri": "https://publicschema.org/ProducerOrganization",
+      "new_uri": "https://publicschema.org/agri/ProducerOrganization",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "ProviderSite",
+      "old_uri": "https://publicschema.org/ProviderSite",
+      "new_uri": "https://publicschema.org/edu/ProviderSite",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "Road",
+      "old_uri": "https://publicschema.org/Road",
+      "new_uri": "https://publicschema.org/transport/Road",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "RoadNode",
+      "old_uri": "https://publicschema.org/RoadNode",
+      "new_uri": "https://publicschema.org/transport/RoadNode",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "RoadRestriction",
+      "old_uri": "https://publicschema.org/RoadRestriction",
+      "new_uri": "https://publicschema.org/transport/RoadRestriction",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "RoadSegment",
+      "old_uri": "https://publicschema.org/RoadSegment",
+      "new_uri": "https://publicschema.org/transport/RoadSegment",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "School",
+      "old_uri": "https://publicschema.org/School",
+      "new_uri": "https://publicschema.org/edu/School",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "SeedOperatorRole",
+      "old_uri": "https://publicschema.org/SeedOperatorRole",
+      "new_uri": "https://publicschema.org/agri/SeedOperatorRole",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "TaxRegistration",
+      "old_uri": "https://publicschema.org/TaxRegistration",
+      "new_uri": "https://publicschema.org/tax/TaxRegistration",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "Vehicle",
+      "old_uri": "https://publicschema.org/Vehicle",
+      "new_uri": "https://publicschema.org/transport/Vehicle",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "VeterinaryMedicinalProduct",
+      "old_uri": "https://publicschema.org/VeterinaryMedicinalProduct",
+      "new_uri": null,
+      "action": "retire",
+      "note": "Use the native FHIR R5 integration guide for the field-level disposition; no automatic URI or payload conversion is asserted."
+    },
+    {
+      "kind": "class",
+      "id": "VoterRegistration",
+      "old_uri": "https://publicschema.org/VoterRegistration",
+      "new_uri": "https://publicschema.org/elections/VoterRegistration",
+      "action": "relocate"
+    },
+    {
+      "kind": "class",
+      "id": "WaterUseAuthorization",
+      "old_uri": "https://publicschema.org/WaterUseAuthorization",
+      "new_uri": "https://publicschema.org/environment/WaterUseAuthorization",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "accreditation_scope",
+      "old_uri": "https://publicschema.org/accreditation_scope",
+      "new_uri": null,
+      "action": "retire",
+      "note": "Use the native FHIR R5 integration guide for the field-level disposition; no automatic URI or payload conversion is asserted."
+    },
+    {
+      "kind": "property",
+      "id": "accreditation_standard",
+      "old_uri": "https://publicschema.org/accreditation_standard",
+      "new_uri": null,
+      "action": "retire",
+      "note": "Use the native FHIR R5 integration guide for the field-level disposition; no automatic URI or payload conversion is asserted."
+    },
+    {
+      "kind": "property",
+      "id": "addressed_facility",
+      "old_uri": "https://publicschema.org/addressed_facility",
+      "new_uri": "https://publicschema.org/asset_subject",
+      "action": "reviewed-replacement",
+      "note": "Use within a reviewed AssetAddressAssignment, preserving the physical subject identity."
+    },
+    {
+      "kind": "property",
+      "id": "administrable_dose_form",
+      "old_uri": "https://publicschema.org/administrable_dose_form",
+      "new_uri": null,
+      "action": "retire",
+      "note": "Use the native FHIR R5 integration guide for the field-level disposition; no automatic URI or payload conversion is asserted."
+    },
+    {
+      "kind": "property",
+      "id": "administration_routes",
+      "old_uri": "https://publicschema.org/administration_routes",
+      "new_uri": null,
+      "action": "retire",
+      "note": "Use the native FHIR R5 integration guide for the field-level disposition; no automatic URI or payload conversion is asserted."
+    },
+    {
+      "kind": "property",
+      "id": "administrative_spatial_units",
+      "old_uri": "https://publicschema.org/administrative_spatial_units",
+      "new_uri": "https://publicschema.org/land/administrative_spatial_units",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "agricultural_service",
+      "old_uri": "https://publicschema.org/agricultural_service",
+      "new_uri": "https://publicschema.org/agri/agricultural_service",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "animal_breed",
+      "old_uri": "https://publicschema.org/animal_breed",
+      "new_uri": "https://publicschema.org/agri/animal_breed",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "animal_residence_site",
+      "old_uri": "https://publicschema.org/animal_residence_site",
+      "new_uri": "https://publicschema.org/agri/animal_residence_site",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "assigned_holding",
+      "old_uri": "https://publicschema.org/assigned_holding",
+      "new_uri": "https://publicschema.org/agri/assigned_holding",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "assignment_work_relationship",
+      "old_uri": "https://publicschema.org/assignment_work_relationship",
+      "new_uri": "https://publicschema.org/agri/assignment_work_relationship",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "authorized_water_quantity",
+      "old_uri": "https://publicschema.org/authorized_water_quantity",
+      "new_uri": "https://publicschema.org/environment/authorized_water_quantity",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "authorized_water_source",
+      "old_uri": "https://publicschema.org/authorized_water_source",
+      "new_uri": "https://publicschema.org/environment/authorized_water_source",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "boundary_geometry",
+      "old_uri": "https://publicschema.org/boundary_geometry",
+      "new_uri": "https://publicschema.org/land/boundary_geometry",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "boundary_recognition",
+      "old_uri": "https://publicschema.org/boundary_recognition",
+      "new_uri": "https://publicschema.org/land/boundary_recognition",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "boundary_unit",
+      "old_uri": "https://publicschema.org/boundary_unit",
+      "new_uri": "https://publicschema.org/land/boundary_unit",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "breed_context",
+      "old_uri": "https://publicschema.org/breed_context",
+      "new_uri": "https://publicschema.org/agri/breed_context",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "breed_source",
+      "old_uri": "https://publicschema.org/breed_source",
+      "new_uri": "https://publicschema.org/agri/breed_source",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "component_planted_area",
+      "old_uri": "https://publicschema.org/component_planted_area",
+      "new_uri": "https://publicschema.org/agri/component_planted_area",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "component_planting_date",
+      "old_uri": "https://publicschema.org/component_planting_date",
+      "new_uri": "https://publicschema.org/agri/component_planting_date",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "crop_kind",
+      "old_uri": "https://publicschema.org/crop_kind",
+      "new_uri": "https://publicschema.org/agri/crop_kind",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "driving_category",
+      "old_uri": "https://publicschema.org/driving_category",
+      "new_uri": "https://publicschema.org/transport/driving_category",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "education_provider",
+      "old_uri": "https://publicschema.org/education_provider",
+      "new_uri": "https://publicschema.org/edu/education_provider",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "electoral_districts",
+      "old_uri": "https://publicschema.org/electoral_districts",
+      "new_uri": "https://publicschema.org/elections/electoral_districts",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "entitlement_conditions",
+      "old_uri": "https://publicschema.org/entitlement_conditions",
+      "new_uri": "https://publicschema.org/transport/entitlement_conditions",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "environmental_activities",
+      "old_uri": "https://publicschema.org/environmental_activities",
+      "new_uri": "https://publicschema.org/environment/environmental_activities",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "environmental_operator",
+      "old_uri": "https://publicschema.org/environmental_operator",
+      "new_uri": "https://publicschema.org/environment/environmental_operator",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "facility_address",
+      "old_uri": "https://publicschema.org/facility_address",
+      "new_uri": "https://publicschema.org/assigned_address",
+      "action": "reviewed-replacement",
+      "note": "Preserve Address content within a reviewed AssetAddressAssignment with an explicit purpose."
+    },
+    {
+      "kind": "property",
+      "id": "facility_addresses",
+      "old_uri": "https://publicschema.org/facility_addresses",
+      "new_uri": "https://publicschema.org/environment/facility_addresses",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "facility_function",
+      "old_uri": "https://publicschema.org/facility_function",
+      "new_uri": "https://publicschema.org/agri/facility_function",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "facility_level",
+      "old_uri": "https://publicschema.org/facility_level",
+      "new_uri": "https://publicschema.org/health/facility_level",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "facility_type",
+      "old_uri": "https://publicschema.org/facility_type",
+      "new_uri": "https://publicschema.org/health/facility_type",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "farm_area_hectares",
+      "old_uri": "https://publicschema.org/farm_area_hectares",
+      "new_uri": "https://publicschema.org/agri/farm_area_hectares",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "healthcare_provider",
+      "old_uri": "https://publicschema.org/healthcare_provider",
+      "new_uri": null,
+      "action": "retire",
+      "note": "Use the native FHIR R5 integration guide for the field-level disposition; no automatic URI or payload conversion is asserted."
+    },
+    {
+      "kind": "property",
+      "id": "healthcare_service_kind",
+      "old_uri": "https://publicschema.org/healthcare_service_kind",
+      "new_uri": null,
+      "action": "retire",
+      "note": "Use the native FHIR R5 integration guide for the field-level disposition; no automatic URI or payload conversion is asserted."
+    },
+    {
+      "kind": "property",
+      "id": "holding_operator_group",
+      "old_uri": "https://publicschema.org/holding_operator_group",
+      "new_uri": "https://publicschema.org/agri/holding_operator_group",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "holding_operator_organization",
+      "old_uri": "https://publicschema.org/holding_operator_organization",
+      "new_uri": "https://publicschema.org/agri/holding_operator_organization",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "holding_operator_person",
+      "old_uri": "https://publicschema.org/holding_operator_person",
+      "new_uri": "https://publicschema.org/agri/holding_operator_person",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "holding_operator_roles",
+      "old_uri": "https://publicschema.org/holding_operator_roles",
+      "new_uri": "https://publicschema.org/agri/holding_operator_roles",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "ingredient_function",
+      "old_uri": "https://publicschema.org/ingredient_function",
+      "new_uri": null,
+      "action": "retire",
+      "note": "Use the native FHIR R5 integration guide for the field-level disposition; no automatic URI or payload conversion is asserted."
+    },
+    {
+      "kind": "property",
+      "id": "ingredient_substance",
+      "old_uri": "https://publicschema.org/ingredient_substance",
+      "new_uri": null,
+      "action": "retire",
+      "note": "Use the native FHIR R5 integration guide for the field-level disposition; no automatic URI or payload conversion is asserted."
+    },
+    {
+      "kind": "property",
+      "id": "installation_facility",
+      "old_uri": "https://publicschema.org/installation_facility",
+      "new_uri": "https://publicschema.org/environment/installation_facility",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "irrigation_component",
+      "old_uri": "https://publicschema.org/irrigation_component",
+      "new_uri": "https://publicschema.org/agri/irrigation_component",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "irrigation_scheme",
+      "old_uri": "https://publicschema.org/irrigation_scheme",
+      "new_uri": "https://publicschema.org/agri/irrigation_scheme",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "irrigation_service_area",
+      "old_uri": "https://publicschema.org/irrigation_service_area",
+      "new_uri": "https://publicschema.org/agri/irrigation_service_area",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "land_area",
+      "old_uri": "https://publicschema.org/land_area",
+      "new_uri": "https://publicschema.org/land/land_area",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "land_geometry",
+      "old_uri": "https://publicschema.org/land_geometry",
+      "new_uri": "https://publicschema.org/land/land_geometry",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "land_tenure",
+      "old_uri": "https://publicschema.org/land_tenure",
+      "new_uri": "https://publicschema.org/agri/land_tenure",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "linked_holding",
+      "old_uri": "https://publicschema.org/linked_holding",
+      "new_uri": "https://publicschema.org/agri/linked_holding",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "linked_parcel",
+      "old_uri": "https://publicschema.org/linked_parcel",
+      "new_uri": "https://publicschema.org/agri/linked_parcel",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "livestock_type",
+      "old_uri": "https://publicschema.org/livestock_type",
+      "new_uri": "https://publicschema.org/agri/livestock_type",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "managed_facility",
+      "old_uri": "https://publicschema.org/managed_facility",
+      "new_uri": "https://publicschema.org/asset_subject",
+      "action": "reviewed-replacement",
+      "note": "Use within a reviewed AssetPartyRole, preserving the physical subject identity."
+    },
+    {
+      "kind": "property",
+      "id": "managing_organization",
+      "old_uri": "https://publicschema.org/managing_organization",
+      "new_uri": "https://publicschema.org/asset_actor",
+      "action": "reviewed-replacement",
+      "note": "Use within a reviewed AssetPartyRole; this is not proof of any particular responsibility."
+    },
+    {
+      "kind": "property",
+      "id": "manufacture_year",
+      "old_uri": "https://publicschema.org/manufacture_year",
+      "new_uri": "https://publicschema.org/transport/manufacture_year",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "medicinal_classification",
+      "old_uri": "https://publicschema.org/medicinal_classification",
+      "new_uri": null,
+      "action": "retire",
+      "note": "Use the native FHIR R5 integration guide for the field-level disposition; no automatic URI or payload conversion is asserted."
+    },
+    {
+      "kind": "property",
+      "id": "medicinal_dose_form",
+      "old_uri": "https://publicschema.org/medicinal_dose_form",
+      "new_uri": null,
+      "action": "retire",
+      "note": "Use the native FHIR R5 integration guide for the field-level disposition; no automatic URI or payload conversion is asserted."
+    },
+    {
+      "kind": "property",
+      "id": "medicinal_ingredients",
+      "old_uri": "https://publicschema.org/medicinal_ingredients",
+      "new_uri": null,
+      "action": "retire",
+      "note": "Use the native FHIR R5 integration guide for the field-level disposition; no automatic URI or payload conversion is asserted."
+    },
+    {
+      "kind": "property",
+      "id": "operated_holding",
+      "old_uri": "https://publicschema.org/operated_holding",
+      "new_uri": "https://publicschema.org/agri/operated_holding",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "package_description",
+      "old_uri": "https://publicschema.org/package_description",
+      "new_uri": null,
+      "action": "retire",
+      "note": "Use the native FHIR R5 integration guide for the field-level disposition; no automatic URI or payload conversion is asserted."
+    },
+    {
+      "kind": "property",
+      "id": "package_quantity",
+      "old_uri": "https://publicschema.org/package_quantity",
+      "new_uri": null,
+      "action": "retire",
+      "note": "Use the native FHIR R5 integration guide for the field-level disposition; no automatic URI or payload conversion is asserted."
+    },
+    {
+      "kind": "property",
+      "id": "package_type",
+      "old_uri": "https://publicschema.org/package_type",
+      "new_uri": null,
+      "action": "retire",
+      "note": "Use the native FHIR R5 integration guide for the field-level disposition; no automatic URI or payload conversion is asserted."
+    },
+    {
+      "kind": "property",
+      "id": "packaged_medicines",
+      "old_uri": "https://publicschema.org/packaged_medicines",
+      "new_uri": null,
+      "action": "retire",
+      "note": "Use the native FHIR R5 integration guide for the field-level disposition; no automatic URI or payload conversion is asserted."
+    },
+    {
+      "kind": "property",
+      "id": "parcel_area",
+      "old_uri": "https://publicschema.org/parcel_area",
+      "new_uri": "https://publicschema.org/agri/parcel_area",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "parcel_geometry",
+      "old_uri": "https://publicschema.org/parcel_geometry",
+      "new_uri": "https://publicschema.org/agri/parcel_geometry",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "physical_service_point",
+      "old_uri": "https://publicschema.org/physical_service_point",
+      "new_uri": "https://publicschema.org/edu/physical_service_point",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "planted_variety",
+      "old_uri": "https://publicschema.org/planted_variety",
+      "new_uri": "https://publicschema.org/agri/planted_variety",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "planting_components",
+      "old_uri": "https://publicschema.org/planting_components",
+      "new_uri": "https://publicschema.org/agri/planting_components",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "planting_date",
+      "old_uri": "https://publicschema.org/planting_date",
+      "new_uri": "https://publicschema.org/agri/planting_date",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "planting_holding",
+      "old_uri": "https://publicschema.org/planting_holding",
+      "new_uri": "https://publicschema.org/agri/planting_holding",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "planting_parcel",
+      "old_uri": "https://publicschema.org/planting_parcel",
+      "new_uri": "https://publicschema.org/agri/planting_parcel",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "planting_season",
+      "old_uri": "https://publicschema.org/planting_season",
+      "new_uri": "https://publicschema.org/agri/planting_season",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "polling_service_point",
+      "old_uri": "https://publicschema.org/polling_service_point",
+      "new_uri": "https://publicschema.org/elections/polling_service_point",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "presentation_of",
+      "old_uri": "https://publicschema.org/presentation_of",
+      "new_uri": null,
+      "action": "retire",
+      "note": "Use the native FHIR R5 integration guide for the field-level disposition; no automatic URI or payload conversion is asserted."
+    },
+    {
+      "kind": "property",
+      "id": "primary_crop",
+      "old_uri": "https://publicschema.org/primary_crop",
+      "new_uri": "https://publicschema.org/agri/primary_crop",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "producer_member",
+      "old_uri": "https://publicschema.org/producer_member",
+      "new_uri": "https://publicschema.org/agri/producer_member",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "producer_membership_role",
+      "old_uri": "https://publicschema.org/producer_membership_role",
+      "new_uri": "https://publicschema.org/agri/producer_membership_role",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "producer_organization",
+      "old_uri": "https://publicschema.org/producer_organization",
+      "new_uri": "https://publicschema.org/agri/producer_organization",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "producer_sector",
+      "old_uri": "https://publicschema.org/producer_sector",
+      "new_uri": "https://publicschema.org/agri/producer_sector",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "programme_award",
+      "old_uri": "https://publicschema.org/programme_award",
+      "new_uri": "https://publicschema.org/edu/programme_award",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "programme_classification",
+      "old_uri": "https://publicschema.org/programme_classification",
+      "new_uri": "https://publicschema.org/edu/programme_classification",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "provider_programmes",
+      "old_uri": "https://publicschema.org/provider_programmes",
+      "new_uri": "https://publicschema.org/edu/provider_programmes",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "release_facility",
+      "old_uri": "https://publicschema.org/release_facility",
+      "new_uri": "https://publicschema.org/environment/release_facility",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "release_medium",
+      "old_uri": "https://publicschema.org/release_medium",
+      "new_uri": "https://publicschema.org/environment/release_medium",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "release_quantity",
+      "old_uri": "https://publicschema.org/release_quantity",
+      "new_uri": "https://publicschema.org/environment/release_quantity",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "release_substance",
+      "old_uri": "https://publicschema.org/release_substance",
+      "new_uri": "https://publicschema.org/environment/release_substance",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "restricted_road_element",
+      "old_uri": "https://publicschema.org/restricted_road_element",
+      "new_uri": "https://publicschema.org/transport/restricted_road_element",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "restriction_conditions",
+      "old_uri": "https://publicschema.org/restriction_conditions",
+      "new_uri": "https://publicschema.org/transport/restriction_conditions",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "restriction_legal_basis",
+      "old_uri": "https://publicschema.org/restriction_legal_basis",
+      "new_uri": "https://publicschema.org/transport/restriction_legal_basis",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "restriction_limit",
+      "old_uri": "https://publicschema.org/restriction_limit",
+      "new_uri": "https://publicschema.org/transport/restriction_limit",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "road_classification",
+      "old_uri": "https://publicschema.org/road_classification",
+      "new_uri": "https://publicschema.org/transport/road_classification",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "road_restriction_type",
+      "old_uri": "https://publicschema.org/road_restriction_type",
+      "new_uri": "https://publicschema.org/transport/road_restriction_type",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "road_segments",
+      "old_uri": "https://publicschema.org/road_segments",
+      "new_uri": "https://publicschema.org/transport/road_segments",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "scheme_operator",
+      "old_uri": "https://publicschema.org/scheme_operator",
+      "new_uri": "https://publicschema.org/agri/scheme_operator",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "school_level_served",
+      "old_uri": "https://publicschema.org/school_level_served",
+      "new_uri": "https://publicschema.org/edu/school_level_served",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "school_type",
+      "old_uri": "https://publicschema.org/school_type",
+      "new_uri": "https://publicschema.org/edu/school_type",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "segment_end_node",
+      "old_uri": "https://publicschema.org/segment_end_node",
+      "new_uri": "https://publicschema.org/transport/segment_end_node",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "segment_start_node",
+      "old_uri": "https://publicschema.org/segment_start_node",
+      "new_uri": "https://publicschema.org/transport/segment_start_node",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "service_channel",
+      "old_uri": "https://publicschema.org/service_channel",
+      "new_uri": null,
+      "action": "retire",
+      "note": "Use the native FHIR R5 integration guide for the field-level disposition; no automatic URI or payload conversion is asserted."
+    },
+    {
+      "kind": "property",
+      "id": "service_endpoints",
+      "old_uri": "https://publicschema.org/service_endpoints",
+      "new_uri": null,
+      "action": "retire",
+      "note": "Use the native FHIR R5 integration guide for the field-level disposition; no automatic URI or payload conversion is asserted."
+    },
+    {
+      "kind": "property",
+      "id": "service_equipment",
+      "old_uri": "https://publicschema.org/service_equipment",
+      "new_uri": "https://publicschema.org/agri/service_equipment",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "service_facilities",
+      "old_uri": "https://publicschema.org/service_facilities",
+      "new_uri": null,
+      "action": "retire",
+      "note": "Use the native FHIR R5 integration guide for the field-level disposition; no automatic URI or payload conversion is asserted."
+    },
+    {
+      "kind": "property",
+      "id": "strength_denominator",
+      "old_uri": "https://publicschema.org/strength_denominator",
+      "new_uri": null,
+      "action": "retire",
+      "note": "Use the native FHIR R5 integration guide for the field-level disposition; no automatic URI or payload conversion is asserted."
+    },
+    {
+      "kind": "property",
+      "id": "strength_numerator",
+      "old_uri": "https://publicschema.org/strength_numerator",
+      "new_uri": null,
+      "action": "retire",
+      "note": "Use the native FHIR R5 integration guide for the field-level disposition; no automatic URI or payload conversion is asserted."
+    },
+    {
+      "kind": "property",
+      "id": "supplied_product",
+      "old_uri": "https://publicschema.org/supplied_product",
+      "new_uri": "https://publicschema.org/agri/supplied_product",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "tax_regime",
+      "old_uri": "https://publicschema.org/tax_regime",
+      "new_uri": "https://publicschema.org/tax/tax_regime",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "tenure_category",
+      "old_uri": "https://publicschema.org/tenure_category",
+      "new_uri": "https://publicschema.org/land/tenure_category",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "tenure_holder",
+      "old_uri": "https://publicschema.org/tenure_holder",
+      "new_uri": "https://publicschema.org/land/tenure_holder",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "tenure_object",
+      "old_uri": "https://publicschema.org/tenure_object",
+      "new_uri": "https://publicschema.org/land/tenure_object",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "tenure_share",
+      "old_uri": "https://publicschema.org/tenure_share",
+      "new_uri": "https://publicschema.org/land/tenure_share",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "tenure_type",
+      "old_uri": "https://publicschema.org/tenure_type",
+      "new_uri": "https://publicschema.org/land/tenure_type",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "used_area",
+      "old_uri": "https://publicschema.org/used_area",
+      "new_uri": "https://publicschema.org/agri/used_area",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "vehicle_category",
+      "old_uri": "https://publicschema.org/vehicle_category",
+      "new_uri": "https://publicschema.org/transport/vehicle_category",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "vehicle_make",
+      "old_uri": "https://publicschema.org/vehicle_make",
+      "new_uri": "https://publicschema.org/transport/vehicle_make",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "vehicle_model",
+      "old_uri": "https://publicschema.org/vehicle_model",
+      "new_uri": "https://publicschema.org/transport/vehicle_model",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "vessel_flag",
+      "old_uri": "https://publicschema.org/vessel_flag",
+      "new_uri": "https://publicschema.org/transport/vessel_flag",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "vessel_length",
+      "old_uri": "https://publicschema.org/vessel_length",
+      "new_uri": "https://publicschema.org/transport/vessel_length",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "virtual_site_url",
+      "old_uri": "https://publicschema.org/virtual_site_url",
+      "new_uri": "https://publicschema.org/edu/virtual_site_url",
+      "action": "relocate"
+    },
+    {
+      "kind": "property",
+      "id": "water_quantity_period",
+      "old_uri": "https://publicschema.org/water_quantity_period",
+      "new_uri": "https://publicschema.org/environment/water_quantity_period",
+      "action": "relocate"
+    },
+    {
+      "kind": "linkml-enum",
+      "id": "HealthFacilityLevel",
+      "old_uri": "https://publicschema.org/HealthFacilityLevel",
+      "new_uri": "https://publicschema.org/health/HealthFacilityLevel",
+      "action": "relocate"
+    },
+    {
+      "kind": "linkml-enum-value",
+      "id": "HealthFacilityLevel/primary",
+      "old_uri": "https://publicschema.org/HealthFacilityLevel/primary",
+      "new_uri": "https://publicschema.org/health/HealthFacilityLevel/primary",
+      "action": "relocate"
+    },
+    {
+      "kind": "linkml-enum-value",
+      "id": "HealthFacilityLevel/secondary",
+      "old_uri": "https://publicschema.org/HealthFacilityLevel/secondary",
+      "new_uri": "https://publicschema.org/health/HealthFacilityLevel/secondary",
+      "action": "relocate"
+    },
+    {
+      "kind": "linkml-enum-value",
+      "id": "HealthFacilityLevel/tertiary",
+      "old_uri": "https://publicschema.org/HealthFacilityLevel/tertiary",
+      "new_uri": "https://publicschema.org/health/HealthFacilityLevel/tertiary",
+      "action": "relocate"
+    },
+    {
+      "kind": "linkml-enum-value",
+      "id": "HealthFacilityLevel/quaternary",
+      "old_uri": "https://publicschema.org/HealthFacilityLevel/quaternary",
+      "new_uri": "https://publicschema.org/health/HealthFacilityLevel/quaternary",
+      "action": "relocate"
+    },
+    {
+      "kind": "linkml-enum-value",
+      "id": "HealthFacilityLevel/unknown",
+      "old_uri": "https://publicschema.org/HealthFacilityLevel/unknown",
+      "new_uri": "https://publicschema.org/health/HealthFacilityLevel/unknown",
+      "action": "relocate"
+    },
+    {
+      "kind": "catalog-vocabulary",
+      "id": "health-facility-level",
+      "old_uri": "https://publicschema.org/vocab/health-facility-level",
+      "new_uri": "https://publicschema.org/vocab/health/health-facility-level",
+      "action": "relocate"
+    },
+    {
+      "kind": "catalog-vocabulary-value",
+      "id": "health-facility-level/primary",
+      "old_uri": "https://publicschema.org/vocab/health-facility-level/primary",
+      "new_uri": "https://publicschema.org/vocab/health/health-facility-level/primary",
+      "action": "relocate"
+    },
+    {
+      "kind": "catalog-vocabulary-value",
+      "id": "health-facility-level/secondary",
+      "old_uri": "https://publicschema.org/vocab/health-facility-level/secondary",
+      "new_uri": "https://publicschema.org/vocab/health/health-facility-level/secondary",
+      "action": "relocate"
+    },
+    {
+      "kind": "catalog-vocabulary-value",
+      "id": "health-facility-level/tertiary",
+      "old_uri": "https://publicschema.org/vocab/health-facility-level/tertiary",
+      "new_uri": "https://publicschema.org/vocab/health/health-facility-level/tertiary",
+      "action": "relocate"
+    },
+    {
+      "kind": "catalog-vocabulary-value",
+      "id": "health-facility-level/quaternary",
+      "old_uri": "https://publicschema.org/vocab/health-facility-level/quaternary",
+      "new_uri": "https://publicschema.org/vocab/health/health-facility-level/quaternary",
+      "action": "relocate"
+    },
+    {
+      "kind": "catalog-vocabulary-value",
+      "id": "health-facility-level/unknown",
+      "old_uri": "https://publicschema.org/vocab/health-facility-level/unknown",
+      "new_uri": "https://publicschema.org/vocab/health/health-facility-level/unknown",
+      "action": "relocate"
+    },
+    {
+      "kind": "linkml-enum",
+      "id": "HealthFacilityType",
+      "old_uri": "https://publicschema.org/HealthFacilityType",
+      "new_uri": "https://publicschema.org/health/HealthFacilityType",
+      "action": "relocate"
+    },
+    {
+      "kind": "linkml-enum-value",
+      "id": "HealthFacilityType/hospital",
+      "old_uri": "https://publicschema.org/HealthFacilityType/hospital",
+      "new_uri": "https://publicschema.org/health/HealthFacilityType/hospital",
+      "action": "relocate"
+    },
+    {
+      "kind": "linkml-enum-value",
+      "id": "HealthFacilityType/health_center",
+      "old_uri": "https://publicschema.org/HealthFacilityType/health_center",
+      "new_uri": "https://publicschema.org/health/HealthFacilityType/health_center",
+      "action": "relocate"
+    },
+    {
+      "kind": "linkml-enum-value",
+      "id": "HealthFacilityType/health_post",
+      "old_uri": "https://publicschema.org/HealthFacilityType/health_post",
+      "new_uri": "https://publicschema.org/health/HealthFacilityType/health_post",
+      "action": "relocate"
+    },
+    {
+      "kind": "linkml-enum-value",
+      "id": "HealthFacilityType/dispensary",
+      "old_uri": "https://publicschema.org/HealthFacilityType/dispensary",
+      "new_uri": "https://publicschema.org/health/HealthFacilityType/dispensary",
+      "action": "relocate"
+    },
+    {
+      "kind": "linkml-enum-value",
+      "id": "HealthFacilityType/clinic",
+      "old_uri": "https://publicschema.org/HealthFacilityType/clinic",
+      "new_uri": "https://publicschema.org/health/HealthFacilityType/clinic",
+      "action": "relocate"
+    },
+    {
+      "kind": "linkml-enum-value",
+      "id": "HealthFacilityType/pharmacy",
+      "old_uri": "https://publicschema.org/HealthFacilityType/pharmacy",
+      "new_uri": "https://publicschema.org/health/HealthFacilityType/pharmacy",
+      "action": "relocate"
+    },
+    {
+      "kind": "linkml-enum-value",
+      "id": "HealthFacilityType/laboratory",
+      "old_uri": "https://publicschema.org/HealthFacilityType/laboratory",
+      "new_uri": "https://publicschema.org/health/HealthFacilityType/laboratory",
+      "action": "relocate"
+    },
+    {
+      "kind": "linkml-enum-value",
+      "id": "HealthFacilityType/mobile_clinic",
+      "old_uri": "https://publicschema.org/HealthFacilityType/mobile_clinic",
+      "new_uri": "https://publicschema.org/health/HealthFacilityType/mobile_clinic",
+      "action": "relocate"
+    },
+    {
+      "kind": "linkml-enum-value",
+      "id": "HealthFacilityType/other",
+      "old_uri": "https://publicschema.org/HealthFacilityType/other",
+      "new_uri": "https://publicschema.org/health/HealthFacilityType/other",
+      "action": "relocate"
+    },
+    {
+      "kind": "catalog-vocabulary",
+      "id": "health-facility-type",
+      "old_uri": "https://publicschema.org/vocab/health-facility-type",
+      "new_uri": "https://publicschema.org/vocab/health/health-facility-type",
+      "action": "relocate"
+    },
+    {
+      "kind": "catalog-vocabulary-value",
+      "id": "health-facility-type/hospital",
+      "old_uri": "https://publicschema.org/vocab/health-facility-type/hospital",
+      "new_uri": "https://publicschema.org/vocab/health/health-facility-type/hospital",
+      "action": "relocate"
+    },
+    {
+      "kind": "catalog-vocabulary-value",
+      "id": "health-facility-type/health_center",
+      "old_uri": "https://publicschema.org/vocab/health-facility-type/health_center",
+      "new_uri": "https://publicschema.org/vocab/health/health-facility-type/health_center",
+      "action": "relocate"
+    },
+    {
+      "kind": "catalog-vocabulary-value",
+      "id": "health-facility-type/health_post",
+      "old_uri": "https://publicschema.org/vocab/health-facility-type/health_post",
+      "new_uri": "https://publicschema.org/vocab/health/health-facility-type/health_post",
+      "action": "relocate"
+    },
+    {
+      "kind": "catalog-vocabulary-value",
+      "id": "health-facility-type/dispensary",
+      "old_uri": "https://publicschema.org/vocab/health-facility-type/dispensary",
+      "new_uri": "https://publicschema.org/vocab/health/health-facility-type/dispensary",
+      "action": "relocate"
+    },
+    {
+      "kind": "catalog-vocabulary-value",
+      "id": "health-facility-type/clinic",
+      "old_uri": "https://publicschema.org/vocab/health-facility-type/clinic",
+      "new_uri": "https://publicschema.org/vocab/health/health-facility-type/clinic",
+      "action": "relocate"
+    },
+    {
+      "kind": "catalog-vocabulary-value",
+      "id": "health-facility-type/pharmacy",
+      "old_uri": "https://publicschema.org/vocab/health-facility-type/pharmacy",
+      "new_uri": "https://publicschema.org/vocab/health/health-facility-type/pharmacy",
+      "action": "relocate"
+    },
+    {
+      "kind": "catalog-vocabulary-value",
+      "id": "health-facility-type/laboratory",
+      "old_uri": "https://publicschema.org/vocab/health-facility-type/laboratory",
+      "new_uri": "https://publicschema.org/vocab/health/health-facility-type/laboratory",
+      "action": "relocate"
+    },
+    {
+      "kind": "catalog-vocabulary-value",
+      "id": "health-facility-type/mobile_clinic",
+      "old_uri": "https://publicschema.org/vocab/health-facility-type/mobile_clinic",
+      "new_uri": "https://publicschema.org/vocab/health/health-facility-type/mobile_clinic",
+      "action": "relocate"
+    },
+    {
+      "kind": "catalog-vocabulary-value",
+      "id": "health-facility-type/other",
+      "old_uri": "https://publicschema.org/vocab/health-facility-type/other",
+      "new_uri": "https://publicschema.org/vocab/health/health-facility-type/other",
+      "action": "relocate"
+    },
+    {
+      "kind": "linkml-enum",
+      "id": "LandTenure",
+      "old_uri": "https://publicschema.org/LandTenure",
+      "new_uri": "https://publicschema.org/land/LandTenure",
+      "action": "relocate"
+    },
+    {
+      "kind": "linkml-enum-value",
+      "id": "LandTenure/owned_with_title",
+      "old_uri": "https://publicschema.org/LandTenure/owned_with_title",
+      "new_uri": "https://publicschema.org/land/LandTenure/owned_with_title",
+      "action": "relocate"
+    },
+    {
+      "kind": "linkml-enum-value",
+      "id": "LandTenure/owned_without_title",
+      "old_uri": "https://publicschema.org/LandTenure/owned_without_title",
+      "new_uri": "https://publicschema.org/land/LandTenure/owned_without_title",
+      "action": "relocate"
+    },
+    {
+      "kind": "linkml-enum-value",
+      "id": "LandTenure/rented",
+      "old_uri": "https://publicschema.org/LandTenure/rented",
+      "new_uri": "https://publicschema.org/land/LandTenure/rented",
+      "action": "relocate"
+    },
+    {
+      "kind": "linkml-enum-value",
+      "id": "LandTenure/sharecropped",
+      "old_uri": "https://publicschema.org/LandTenure/sharecropped",
+      "new_uri": "https://publicschema.org/land/LandTenure/sharecropped",
+      "action": "relocate"
+    },
+    {
+      "kind": "linkml-enum-value",
+      "id": "LandTenure/communal",
+      "old_uri": "https://publicschema.org/LandTenure/communal",
+      "new_uri": "https://publicschema.org/land/LandTenure/communal",
+      "action": "relocate"
+    },
+    {
+      "kind": "linkml-enum-value",
+      "id": "LandTenure/state_allocated",
+      "old_uri": "https://publicschema.org/LandTenure/state_allocated",
+      "new_uri": "https://publicschema.org/land/LandTenure/state_allocated",
+      "action": "relocate"
+    },
+    {
+      "kind": "linkml-enum-value",
+      "id": "LandTenure/informal",
+      "old_uri": "https://publicschema.org/LandTenure/informal",
+      "new_uri": "https://publicschema.org/land/LandTenure/informal",
+      "action": "relocate"
+    },
+    {
+      "kind": "linkml-enum-value",
+      "id": "LandTenure/borrowed",
+      "old_uri": "https://publicschema.org/LandTenure/borrowed",
+      "new_uri": "https://publicschema.org/land/LandTenure/borrowed",
+      "action": "relocate"
+    },
+    {
+      "kind": "linkml-enum-value",
+      "id": "LandTenure/other",
+      "old_uri": "https://publicschema.org/LandTenure/other",
+      "new_uri": "https://publicschema.org/land/LandTenure/other",
+      "action": "relocate"
+    },
+    {
+      "kind": "catalog-vocabulary",
+      "id": "land-tenure",
+      "old_uri": "https://publicschema.org/vocab/land-tenure",
+      "new_uri": "https://publicschema.org/vocab/land/land-tenure",
+      "action": "relocate"
+    },
+    {
+      "kind": "catalog-vocabulary-value",
+      "id": "land-tenure/owned_with_title",
+      "old_uri": "https://publicschema.org/vocab/land-tenure/owned_with_title",
+      "new_uri": "https://publicschema.org/vocab/land/land-tenure/owned_with_title",
+      "action": "relocate"
+    },
+    {
+      "kind": "catalog-vocabulary-value",
+      "id": "land-tenure/owned_without_title",
+      "old_uri": "https://publicschema.org/vocab/land-tenure/owned_without_title",
+      "new_uri": "https://publicschema.org/vocab/land/land-tenure/owned_without_title",
+      "action": "relocate"
+    },
+    {
+      "kind": "catalog-vocabulary-value",
+      "id": "land-tenure/rented",
+      "old_uri": "https://publicschema.org/vocab/land-tenure/rented",
+      "new_uri": "https://publicschema.org/vocab/land/land-tenure/rented",
+      "action": "relocate"
+    },
+    {
+      "kind": "catalog-vocabulary-value",
+      "id": "land-tenure/sharecropped",
+      "old_uri": "https://publicschema.org/vocab/land-tenure/sharecropped",
+      "new_uri": "https://publicschema.org/vocab/land/land-tenure/sharecropped",
+      "action": "relocate"
+    },
+    {
+      "kind": "catalog-vocabulary-value",
+      "id": "land-tenure/communal",
+      "old_uri": "https://publicschema.org/vocab/land-tenure/communal",
+      "new_uri": "https://publicschema.org/vocab/land/land-tenure/communal",
+      "action": "relocate"
+    },
+    {
+      "kind": "catalog-vocabulary-value",
+      "id": "land-tenure/state_allocated",
+      "old_uri": "https://publicschema.org/vocab/land-tenure/state_allocated",
+      "new_uri": "https://publicschema.org/vocab/land/land-tenure/state_allocated",
+      "action": "relocate"
+    },
+    {
+      "kind": "catalog-vocabulary-value",
+      "id": "land-tenure/informal",
+      "old_uri": "https://publicschema.org/vocab/land-tenure/informal",
+      "new_uri": "https://publicschema.org/vocab/land/land-tenure/informal",
+      "action": "relocate"
+    },
+    {
+      "kind": "catalog-vocabulary-value",
+      "id": "land-tenure/borrowed",
+      "old_uri": "https://publicschema.org/vocab/land-tenure/borrowed",
+      "new_uri": "https://publicschema.org/vocab/land/land-tenure/borrowed",
+      "action": "relocate"
+    },
+    {
+      "kind": "catalog-vocabulary-value",
+      "id": "land-tenure/other",
+      "old_uri": "https://publicschema.org/vocab/land-tenure/other",
+      "new_uri": "https://publicschema.org/vocab/land/land-tenure/other",
+      "action": "relocate"
+    },
+    {
+      "kind": "linkml-enum",
+      "id": "LivestockType",
+      "old_uri": "https://publicschema.org/LivestockType",
+      "new_uri": "https://publicschema.org/agri/LivestockType",
+      "action": "relocate"
+    },
+    {
+      "kind": "linkml-enum-value",
+      "id": "LivestockType/cattle",
+      "old_uri": "https://publicschema.org/LivestockType/cattle",
+      "new_uri": "https://publicschema.org/agri/LivestockType/cattle",
+      "action": "relocate"
+    },
+    {
+      "kind": "linkml-enum-value",
+      "id": "LivestockType/sheep",
+      "old_uri": "https://publicschema.org/LivestockType/sheep",
+      "new_uri": "https://publicschema.org/agri/LivestockType/sheep",
+      "action": "relocate"
+    },
+    {
+      "kind": "linkml-enum-value",
+      "id": "LivestockType/goats",
+      "old_uri": "https://publicschema.org/LivestockType/goats",
+      "new_uri": "https://publicschema.org/agri/LivestockType/goats",
+      "action": "relocate"
+    },
+    {
+      "kind": "linkml-enum-value",
+      "id": "LivestockType/pigs",
+      "old_uri": "https://publicschema.org/LivestockType/pigs",
+      "new_uri": "https://publicschema.org/agri/LivestockType/pigs",
+      "action": "relocate"
+    },
+    {
+      "kind": "linkml-enum-value",
+      "id": "LivestockType/chickens",
+      "old_uri": "https://publicschema.org/LivestockType/chickens",
+      "new_uri": "https://publicschema.org/agri/LivestockType/chickens",
+      "action": "relocate"
+    },
+    {
+      "kind": "linkml-enum-value",
+      "id": "LivestockType/other_poultry",
+      "old_uri": "https://publicschema.org/LivestockType/other_poultry",
+      "new_uri": "https://publicschema.org/agri/LivestockType/other_poultry",
+      "action": "relocate"
+    },
+    {
+      "kind": "linkml-enum-value",
+      "id": "LivestockType/horses",
+      "old_uri": "https://publicschema.org/LivestockType/horses",
+      "new_uri": "https://publicschema.org/agri/LivestockType/horses",
+      "action": "relocate"
+    },
+    {
+      "kind": "linkml-enum-value",
+      "id": "LivestockType/donkeys_mules",
+      "old_uri": "https://publicschema.org/LivestockType/donkeys_mules",
+      "new_uri": "https://publicschema.org/agri/LivestockType/donkeys_mules",
+      "action": "relocate"
+    },
+    {
+      "kind": "linkml-enum-value",
+      "id": "LivestockType/camels",
+      "old_uri": "https://publicschema.org/LivestockType/camels",
+      "new_uri": "https://publicschema.org/agri/LivestockType/camels",
+      "action": "relocate"
+    },
+    {
+      "kind": "linkml-enum-value",
+      "id": "LivestockType/rabbits",
+      "old_uri": "https://publicschema.org/LivestockType/rabbits",
+      "new_uri": "https://publicschema.org/agri/LivestockType/rabbits",
+      "action": "relocate"
+    },
+    {
+      "kind": "linkml-enum-value",
+      "id": "LivestockType/beehives",
+      "old_uri": "https://publicschema.org/LivestockType/beehives",
+      "new_uri": "https://publicschema.org/agri/LivestockType/beehives",
+      "action": "relocate"
+    },
+    {
+      "kind": "linkml-enum-value",
+      "id": "LivestockType/other_livestock",
+      "old_uri": "https://publicschema.org/LivestockType/other_livestock",
+      "new_uri": "https://publicschema.org/agri/LivestockType/other_livestock",
+      "action": "relocate"
+    },
+    {
+      "kind": "catalog-vocabulary",
+      "id": "livestock-type",
+      "old_uri": "https://publicschema.org/vocab/livestock-type",
+      "new_uri": "https://publicschema.org/vocab/agri/livestock-type",
+      "action": "relocate"
+    },
+    {
+      "kind": "catalog-vocabulary-value",
+      "id": "livestock-type/cattle",
+      "old_uri": "https://publicschema.org/vocab/livestock-type/cattle",
+      "new_uri": "https://publicschema.org/vocab/agri/livestock-type/cattle",
+      "action": "relocate"
+    },
+    {
+      "kind": "catalog-vocabulary-value",
+      "id": "livestock-type/sheep",
+      "old_uri": "https://publicschema.org/vocab/livestock-type/sheep",
+      "new_uri": "https://publicschema.org/vocab/agri/livestock-type/sheep",
+      "action": "relocate"
+    },
+    {
+      "kind": "catalog-vocabulary-value",
+      "id": "livestock-type/goats",
+      "old_uri": "https://publicschema.org/vocab/livestock-type/goats",
+      "new_uri": "https://publicschema.org/vocab/agri/livestock-type/goats",
+      "action": "relocate"
+    },
+    {
+      "kind": "catalog-vocabulary-value",
+      "id": "livestock-type/pigs",
+      "old_uri": "https://publicschema.org/vocab/livestock-type/pigs",
+      "new_uri": "https://publicschema.org/vocab/agri/livestock-type/pigs",
+      "action": "relocate"
+    },
+    {
+      "kind": "catalog-vocabulary-value",
+      "id": "livestock-type/chickens",
+      "old_uri": "https://publicschema.org/vocab/livestock-type/chickens",
+      "new_uri": "https://publicschema.org/vocab/agri/livestock-type/chickens",
+      "action": "relocate"
+    },
+    {
+      "kind": "catalog-vocabulary-value",
+      "id": "livestock-type/other_poultry",
+      "old_uri": "https://publicschema.org/vocab/livestock-type/other_poultry",
+      "new_uri": "https://publicschema.org/vocab/agri/livestock-type/other_poultry",
+      "action": "relocate"
+    },
+    {
+      "kind": "catalog-vocabulary-value",
+      "id": "livestock-type/horses",
+      "old_uri": "https://publicschema.org/vocab/livestock-type/horses",
+      "new_uri": "https://publicschema.org/vocab/agri/livestock-type/horses",
+      "action": "relocate"
+    },
+    {
+      "kind": "catalog-vocabulary-value",
+      "id": "livestock-type/donkeys_mules",
+      "old_uri": "https://publicschema.org/vocab/livestock-type/donkeys_mules",
+      "new_uri": "https://publicschema.org/vocab/agri/livestock-type/donkeys_mules",
+      "action": "relocate"
+    },
+    {
+      "kind": "catalog-vocabulary-value",
+      "id": "livestock-type/camels",
+      "old_uri": "https://publicschema.org/vocab/livestock-type/camels",
+      "new_uri": "https://publicschema.org/vocab/agri/livestock-type/camels",
+      "action": "relocate"
+    },
+    {
+      "kind": "catalog-vocabulary-value",
+      "id": "livestock-type/rabbits",
+      "old_uri": "https://publicschema.org/vocab/livestock-type/rabbits",
+      "new_uri": "https://publicschema.org/vocab/agri/livestock-type/rabbits",
+      "action": "relocate"
+    },
+    {
+      "kind": "catalog-vocabulary-value",
+      "id": "livestock-type/beehives",
+      "old_uri": "https://publicschema.org/vocab/livestock-type/beehives",
+      "new_uri": "https://publicschema.org/vocab/agri/livestock-type/beehives",
+      "action": "relocate"
+    },
+    {
+      "kind": "catalog-vocabulary-value",
+      "id": "livestock-type/other_livestock",
+      "old_uri": "https://publicschema.org/vocab/livestock-type/other_livestock",
+      "new_uri": "https://publicschema.org/vocab/agri/livestock-type/other_livestock",
+      "action": "relocate"
+    },
+    {
+      "kind": "linkml-enum",
+      "id": "SchoolLevel",
+      "old_uri": "https://publicschema.org/SchoolLevel",
+      "new_uri": "https://publicschema.org/edu/SchoolLevel",
+      "action": "relocate"
+    },
+    {
+      "kind": "linkml-enum-value",
+      "id": "SchoolLevel/isced_0",
+      "old_uri": "https://publicschema.org/SchoolLevel/isced_0",
+      "new_uri": "https://publicschema.org/edu/SchoolLevel/isced_0",
+      "action": "relocate"
+    },
+    {
+      "kind": "linkml-enum-value",
+      "id": "SchoolLevel/isced_1",
+      "old_uri": "https://publicschema.org/SchoolLevel/isced_1",
+      "new_uri": "https://publicschema.org/edu/SchoolLevel/isced_1",
+      "action": "relocate"
+    },
+    {
+      "kind": "linkml-enum-value",
+      "id": "SchoolLevel/isced_2",
+      "old_uri": "https://publicschema.org/SchoolLevel/isced_2",
+      "new_uri": "https://publicschema.org/edu/SchoolLevel/isced_2",
+      "action": "relocate"
+    },
+    {
+      "kind": "linkml-enum-value",
+      "id": "SchoolLevel/isced_3",
+      "old_uri": "https://publicschema.org/SchoolLevel/isced_3",
+      "new_uri": "https://publicschema.org/edu/SchoolLevel/isced_3",
+      "action": "relocate"
+    },
+    {
+      "kind": "linkml-enum-value",
+      "id": "SchoolLevel/isced_4",
+      "old_uri": "https://publicschema.org/SchoolLevel/isced_4",
+      "new_uri": "https://publicschema.org/edu/SchoolLevel/isced_4",
+      "action": "relocate"
+    },
+    {
+      "kind": "catalog-vocabulary",
+      "id": "school-level",
+      "old_uri": "https://publicschema.org/vocab/school-level",
+      "new_uri": "https://publicschema.org/vocab/edu/school-level",
+      "action": "relocate"
+    },
+    {
+      "kind": "catalog-vocabulary-value",
+      "id": "school-level/isced_0",
+      "old_uri": "https://publicschema.org/vocab/school-level/isced_0",
+      "new_uri": "https://publicschema.org/vocab/edu/school-level/isced_0",
+      "action": "relocate"
+    },
+    {
+      "kind": "catalog-vocabulary-value",
+      "id": "school-level/isced_1",
+      "old_uri": "https://publicschema.org/vocab/school-level/isced_1",
+      "new_uri": "https://publicschema.org/vocab/edu/school-level/isced_1",
+      "action": "relocate"
+    },
+    {
+      "kind": "catalog-vocabulary-value",
+      "id": "school-level/isced_2",
+      "old_uri": "https://publicschema.org/vocab/school-level/isced_2",
+      "new_uri": "https://publicschema.org/vocab/edu/school-level/isced_2",
+      "action": "relocate"
+    },
+    {
+      "kind": "catalog-vocabulary-value",
+      "id": "school-level/isced_3",
+      "old_uri": "https://publicschema.org/vocab/school-level/isced_3",
+      "new_uri": "https://publicschema.org/vocab/edu/school-level/isced_3",
+      "action": "relocate"
+    },
+    {
+      "kind": "catalog-vocabulary-value",
+      "id": "school-level/isced_4",
+      "old_uri": "https://publicschema.org/vocab/school-level/isced_4",
+      "new_uri": "https://publicschema.org/vocab/edu/school-level/isced_4",
+      "action": "relocate"
+    },
+    {
+      "kind": "linkml-enum",
+      "id": "SchoolType",
+      "old_uri": "https://publicschema.org/SchoolType",
+      "new_uri": "https://publicschema.org/edu/SchoolType",
+      "action": "relocate"
+    },
+    {
+      "kind": "linkml-enum-value",
+      "id": "SchoolType/public",
+      "old_uri": "https://publicschema.org/SchoolType/public",
+      "new_uri": "https://publicschema.org/edu/SchoolType/public",
+      "action": "relocate"
+    },
+    {
+      "kind": "linkml-enum-value",
+      "id": "SchoolType/private",
+      "old_uri": "https://publicschema.org/SchoolType/private",
+      "new_uri": "https://publicschema.org/edu/SchoolType/private",
+      "action": "relocate"
+    },
+    {
+      "kind": "linkml-enum-value",
+      "id": "SchoolType/faith_based",
+      "old_uri": "https://publicschema.org/SchoolType/faith_based",
+      "new_uri": "https://publicschema.org/edu/SchoolType/faith_based",
+      "action": "relocate"
+    },
+    {
+      "kind": "linkml-enum-value",
+      "id": "SchoolType/community",
+      "old_uri": "https://publicschema.org/SchoolType/community",
+      "new_uri": "https://publicschema.org/edu/SchoolType/community",
+      "action": "relocate"
+    },
+    {
+      "kind": "linkml-enum-value",
+      "id": "SchoolType/other",
+      "old_uri": "https://publicschema.org/SchoolType/other",
+      "new_uri": "https://publicschema.org/edu/SchoolType/other",
+      "action": "relocate"
+    },
+    {
+      "kind": "catalog-vocabulary",
+      "id": "school-type",
+      "old_uri": "https://publicschema.org/vocab/school-type",
+      "new_uri": "https://publicschema.org/vocab/edu/school-type",
+      "action": "relocate"
+    },
+    {
+      "kind": "catalog-vocabulary-value",
+      "id": "school-type/public",
+      "old_uri": "https://publicschema.org/vocab/school-type/public",
+      "new_uri": "https://publicschema.org/vocab/edu/school-type/public",
+      "action": "relocate"
+    },
+    {
+      "kind": "catalog-vocabulary-value",
+      "id": "school-type/private",
+      "old_uri": "https://publicschema.org/vocab/school-type/private",
+      "new_uri": "https://publicschema.org/vocab/edu/school-type/private",
+      "action": "relocate"
+    },
+    {
+      "kind": "catalog-vocabulary-value",
+      "id": "school-type/faith_based",
+      "old_uri": "https://publicschema.org/vocab/school-type/faith_based",
+      "new_uri": "https://publicschema.org/vocab/edu/school-type/faith_based",
+      "action": "relocate"
+    },
+    {
+      "kind": "catalog-vocabulary-value",
+      "id": "school-type/community",
+      "old_uri": "https://publicschema.org/vocab/school-type/community",
+      "new_uri": "https://publicschema.org/vocab/edu/school-type/community",
+      "action": "relocate"
+    },
+    {
+      "kind": "catalog-vocabulary-value",
+      "id": "school-type/other",
+      "old_uri": "https://publicschema.org/vocab/school-type/other",
+      "new_uri": "https://publicschema.org/vocab/edu/school-type/other",
+      "action": "relocate"
+    }
+  ]
+}

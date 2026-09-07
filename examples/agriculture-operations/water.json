@@ -1,6 +1,6 @@
 {
   "@id": "https://example.org/water/1",
-  "@type": "WaterUseAuthorization",
+  "@type": "environment/WaterUseAuthorization",
   "registered_subject": "https://example.org/org/cooperative",
   "authorized_activity": "irrigation abstraction",
   "authorized_water_source": [
@@ -13,7 +13,7 @@
   },
   "water_quantity_period": "calendar year",
   "irrigation_scheme": {
-    "@type": "IrrigationScheme",
+    "@type": "agri/IrrigationScheme",
     "name": "Synthetic canal network",
     "irrigation_service_area": {
       "@type": "QuantityValue",

@@ -1,0 +1,16 @@
+{
+  "profile_id": "https://example.org/public-services/profiles/synthetic-permit-journey/v1",
+  "representation_grants": [
+    {
+      "representation_uri": "https://example.org/public-services/business-representation",
+      "service_uri": "https://example.org/public-services/permit-service",
+      "allowed_submission_types": [
+        "ServiceApplication",
+        "AdministrativeAppeal"
+      ],
+      "source": "https://example.org/public-services/documents/reviewed-representation-grant"
+    }
+  ],
+  "decision_outcome_scheme": "https://example.org/public-services/codes/decision-outcome/v1",
+  "regulatory_action_scheme": "https://example.org/public-services/codes/regulatory-action/v1"
+}

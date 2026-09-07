@@ -1,0 +1,146 @@
+[
+  {
+    "@id": "https://example.org/date-migration/holding",
+    "@type": "Farm",
+    "name": "Synthetic market holding"
+  },
+  {
+    "@id": "https://example.org/date-migration/parcel",
+    "@type": "AgriculturalParcel",
+    "name": "Synthetic river parcel"
+  },
+  {
+    "@id": "https://example.org/date-migration/animal",
+    "@type": "IndividualAnimal",
+    "name": "Synthetic cow"
+  },
+  {
+    "@id": "https://example.org/date-migration/person",
+    "@type": "Person",
+    "name": "Synthetic keeper"
+  },
+  {
+    "@id": "https://example.org/date-migration/producer",
+    "@type": "ProducerOrganization",
+    "name": "Synthetic growers cooperative"
+  },
+  {
+    "@id": "https://example.org/date-migration/parcel-use",
+    "@type": "HoldingParcelLink",
+    "linked_holding": "https://example.org/date-migration/holding",
+    "linked_parcel": "https://example.org/date-migration/parcel",
+    "start_date": "2024-02-28",
+    "end_date": "2024-03-01"
+  },
+  {
+    "@id": "https://example.org/date-migration/residence",
+    "@type": "AnimalResidence",
+    "animal_subject": "https://example.org/date-migration/animal",
+    "animal_residence_site": "https://example.org/date-migration/holding",
+    "start_date": "2026-01-01"
+  },
+  {
+    "@id": "https://example.org/date-migration/keeper",
+    "@type": "AnimalResponsibility",
+    "animal_subject": "https://example.org/date-migration/animal",
+    "animal_responsible_actor": "https://example.org/date-migration/person",
+    "animal_responsibility_role": {
+      "@type": "CodedValue",
+      "code_value": "keeper",
+      "code_scheme": "https://example.org/date-migration/animal-roles"
+    },
+    "recorded_at": "2026-07-03T09:00:00Z",
+    "end_date": "2026-07-01"
+  },
+  {
+    "@id": "https://example.org/date-migration/membership",
+    "@type": "ProducerMembership",
+    "producer_member": "https://example.org/date-migration/person",
+    "producer_organization": "https://example.org/date-migration/producer",
+    "start_date": "2026-12-31",
+    "end_date": "2027-01-01"
+  },
+  {
+    "@id": "https://example.org/date-migration/service",
+    "@type": "AgriculturalServiceRole",
+    "service_provider": "https://example.org/date-migration/producer",
+    "start_date": "2026-04-01",
+    "end_date": "2026-05-01"
+  },
+  {
+    "@id": "https://example.org/date-migration/supplier",
+    "@type": "InputSupplierRole",
+    "service_provider": "https://example.org/date-migration/person",
+    "end_date": "2027-01-01"
+  },
+  {
+    "@id": "https://example.org/date-migration/registration",
+    "@type": "Registration",
+    "valid_from": "2026-01-01",
+    "valid_to": "2026-12-31"
+  },
+  {
+    "@id": "https://example.org/date-migration/tenure",
+    "@type": "LandTenureAssertion",
+    "valid_from": "2026-01-01",
+    "valid_to": "2026-12-31"
+  },
+  {
+    "@id": "https://example.org/date-migration/restriction",
+    "@type": "RoadRestriction",
+    "valid_from": "2026-01-01",
+    "valid_to": "2026-12-31"
+  },
+  {
+    "@id": "https://example.org/date-migration/certification",
+    "@type": "AgriculturalCertification",
+    "valid_from": "2026-01-01",
+    "valid_to": "2026-12-31"
+  },
+  {
+    "@id": "https://example.org/date-migration/identifier-assignment",
+    "@type": "IdentifierAssignment",
+    "identifier_subject": "https://example.org/date-migration/person",
+    "assigned_identifier": {
+      "@type": "Identifier",
+      "identifier_value": "P-001"
+    },
+    "start_date": "2026-01-01",
+    "end_date": "2026-10-01"
+  },
+  {
+    "@id": "https://example.org/date-migration/name-usage",
+    "@type": "NameUsage",
+    "named_subject": "https://example.org/date-migration/producer",
+    "name": "Synthetic former cooperative trading name",
+    "name_language": "en",
+    "start_date": "2020-01-01",
+    "end_date": "2026-06-01"
+  },
+  {
+    "@id": "https://example.org/date-migration/contact",
+    "@type": "ContactPoint",
+    "contact_subject": "https://example.org/date-migration/producer",
+    "contact_channel": {
+      "@type": "CodedValue",
+      "code_value": "email",
+      "code_scheme": "https://example.org/date-migration/contact-channels"
+    },
+    "contact_value": "registry@example.org",
+    "end_date": "2026-09-01"
+  },
+  {
+    "@id": "https://example.org/date-migration/pesticide-applicator",
+    "@type": "PesticideApplicatorRole",
+    "service_provider": "https://example.org/date-migration/person",
+    "start_date": "2024-02-28",
+    "end_date": "2024-03-01"
+  },
+  {
+    "@id": "https://example.org/date-migration/seed-operator",
+    "@type": "SeedOperatorRole",
+    "service_provider": "https://example.org/date-migration/producer",
+    "start_date": "2026-12-31",
+    "end_date": "2027-01-01"
+  }
+]
