@@ -13,13 +13,13 @@ jobs:
 
       - uses: astral-sh/setup-uv@v4
 
-      - run: uv sync
+      - run: uv sync --locked
 
       - name: Validate schema
-        run: uv run python -m build.validate
+        run: uv run --locked python -m build.validate
 
       - name: Run tests
-        run: uv run pytest
+        run: uv run --locked pytest
 
       - name: Build vocabulary data
-        run: uv run python -m build.build
+        run: uv run --locked python -m build.build --site-public-dir site/public

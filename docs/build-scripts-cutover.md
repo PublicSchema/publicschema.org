@@ -1,50 +1,27 @@
-# Build-scripts cutover plan
+# Build scripts after the LinkML cutover
 
-The PublicSchema build pipeline now reads authored LinkML from `schema/`.
-This note records how the main scripts behave after the cutover and what
-still needs follow-up.
+PublicSchema authors its reference model in modular LinkML under `schema/`. The migration is complete for the default read/build path. This page records current script boundaries; use [Contributing](../CONTRIBUTING.md) for the normal contribution workflow.
 
-## `ps-validate` (`build/validate.py`) — adapted
+## Validation and content checks
 
-Today the script runs JSON Schema validation, referential integrity,
-multilingual completeness, age_applicability cross-checks against
-bibliography citations, and property_groups completeness. The full rule
-set has no direct equivalent in stock LinkML tooling: `linkml-validate`
-validates *data instances*, and `linkml-lint --validate` only covers
-the metamodel.
+`just validate` runs `build.validate`, which delegates to `linkml-lint --validate --ignore-warnings` on `schema/publicschema.yaml`. This checks the LinkML metamodel. It does not run the former bespoke JSON Schema and referential-integrity validation suite against the current source. Stock `linkml-validate` validates data instances, not the schema itself.
 
-Current behavior: LinkML is the CLI default. `uv run python -m build.validate`
-delegates to `linkml-lint --validate --ignore-warnings` on
-`schema/publicschema.yaml`. The historical bespoke validator remains available
-for synthetic legacy tests and explicitly requested legacy trees.
+`just lint` runs PublicSchema content rules against the LinkML read model, including definition quality and maturity gates. `just check-translations` checks candidate/normative schema translations as well as documentation and UI coverage. The reader maps English `title` and `description`, and `annotations.label_fr/es` and `description_fr/es`, into the multilingual read model.
 
-## `ps-lint` (`build/lint.py`) — adapted
+`just validate-crosswalks` separately checks authored `schema/value_crosswalks/*.yaml` against the crosswalk schema, verifies known source IDs, and rejects incomplete standard metadata. Use these files for system value mappings; migrated per-value annotations are not their source of truth.
 
-Custom content linter (jargon, definition quality, em-dash, maturity
-gates, external_equivalents URI checks). Stock `linkml-lint` does not
-replace any of these rules.
+Explicit legacy-source options remain for old-format fixtures and historical trees. They are not needed for contributions to the current schema.
 
-Current behavior: the linter defaults to the LinkML reader and projects
-classes, slots, and enums into the site/build read model before running the
-same content rules. Explicit bespoke paths are still supported for old-format
-unit fixtures.
+## Generation and site preparation
 
-## `ps-check-translations` (`build/check_translations.py`) — adapted
+`just build` uses repository-local Python tools to generate `dist/` exports and `dist/metrics_catalog.json`, then prepare generated artifacts in `site/public/`. It requires no sibling build repository. `just metrics-data` regenerates only the metric catalog from `schema/metric_catalog/`.
 
-The schema check requires every candidate/normative entity to carry FR
-and ES `definition` (and `label`, when present). The UI/docs/prose
-checks are independent of schema source.
+For direct invocation, use `uv run --locked python -m build.build --site-public-dir site/public`. Without `--site-public-dir`, the canonical build generates `dist/` but does not copy site public artifacts. Astro also serves context, RDF, JSON-LD, and manifest routes from `dist/` through its endpoints.
 
-Current behavior: LinkML is the default source. The reader
-maps LinkML `title` → `label.en`, `description` → `definition.en`,
-`annotations.label_fr/es` → `label.fr/es`, `annotations.description_fr/
-es` → `definition.fr/es`, then runs the same `_check_definition` /
-`_check_label` helpers. Both paths report zero schema errors today.
+`just check` runs validation, crosswalk validation, content lint, translation checks, tests, and generation. It does not check Git cleanliness or compile Astro. Use `just site-build` for a production site build and inspect the diff after generation.
 
-## `ps-sync` (`build/sync_standards.py`) — kept (with TODO)
+## Standards refresh limitation
 
-Pulls vocabulary values from authoritative external sources (FHIR, ISO,
-SIL, etc.). This is the remaining script with old write assumptions: it still
-expects `schema/vocabularies/**/*.yaml`. Keep it out of the default v1 path
-until it is either rewritten to update LinkML enums directly or replaced by a
-separate standards-refresh workflow.
+`build/sync_standards.py` still writes the legacy `schema/vocabularies/**/*.yaml` format. `just sync-standards` intentionally refuses the current LinkML tree, even with the script's `--dry-run` option. It is outside the supported contribution workflow until a LinkML enum writer exists.
+
+Refresh a standard by reviewing its authoritative release and editing the relevant LinkML enum and provenance annotations, preserving stable meanings and local translations. Review related external partial schemas and authored value crosswalks, then run the normal checks. See [Refreshing external standards](../CONTRIBUTING.md#refreshing-external-standards).

@@ -111,3 +111,32 @@ class TestCreateRelease:
 
         with pytest.raises(FileNotFoundError, match="does not exist or is empty"):
             create_release(schema_dir, missing_dist, releases_dir)
+
+    @pytest.mark.parametrize(
+        ("status", "maturity"),
+        [(None, "draft"), ("bibo:status/forthcoming", "candidate"),
+         ("bibo:status/published", "normative")],
+    )
+    def test_linkml_release_uses_canonical_metadata(self, release_env, status, maturity):
+        schema_dir, dist_dir, releases_dir = release_env
+        (schema_dir / "_meta.yaml").unlink()
+        composite = {
+            "id": "https://publicschema.org/linkml/publicschema",
+            "name": "publicschema",
+            "version": "0.3.0",
+        }
+        if status:
+            composite["status"] = status
+        (schema_dir / "publicschema.yaml").write_text(yaml.safe_dump(composite))
+
+        release_path = create_release(schema_dir, dist_dir, releases_dir)
+
+        assert release_path.name == "0.3.0"
+        assert (release_path / "vocabulary.json").read_bytes() == (
+            dist_dir / "vocabulary.json"
+        ).read_bytes()
+        entry = json.loads((releases_dir / "versions.json").read_text())["releases"][0]
+        assert entry["version"] == "0.3.0"
+        assert entry["maturity"] == maturity
+        with pytest.raises(ValueError, match="already exists"):
+            create_release(schema_dir, dist_dir, releases_dir)

@@ -53,7 +53,7 @@
       }
     },
     "metric_value": {
-      "type": "string",
+      "type": "number",
       "description": "The numeric value reported by this observation. Scale is fixed by Metric.unit and Metric.multiplier: for value_type proportion with unit unitless, the value is in 0..1; with unit PT, the value is in 0..100. The observation cannot override scale.\n"
     },
     "attribute_values": {

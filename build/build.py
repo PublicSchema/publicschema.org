@@ -9,6 +9,7 @@ Reads all YAML files from schema/ and generates:
 
 import json
 import re
+import shutil
 import sys
 from pathlib import Path
 
@@ -20,6 +21,8 @@ TYPE_MAP = {
     "date": {"type": "string", "format": "date"},
     "datetime": {"type": "string", "format": "date-time"},
     "integer": {"type": "integer"},
+    "number": {"type": "number"},
+    "float": {"type": "number"},
     "decimal": {"type": "number"},
     "boolean": {"type": "boolean"},
     "uri": {"type": "string", "format": "uri"},
@@ -37,6 +40,9 @@ JSONLD_TYPE_COERCION = {
     "date": "xsd:date",
     "datetime": "xsd:dateTime",
     "integer": "xsd:integer",
+    # The LinkML reader represents its float range as the legacy number type.
+    "number": "xsd:float",
+    "float": "xsd:float",
     "decimal": "xsd:decimal",
     "boolean": "xsd:boolean",
     "uri": "@id",
@@ -50,6 +56,8 @@ RANGE_INCLUDES_MAP = {
     "date": "xsd:date",
     "datetime": "xsd:dateTime",
     "integer": "xsd:integer",
+    "number": "xsd:float",
+    "float": "xsd:float",
     "decimal": "xsd:decimal",
     "boolean": "xsd:boolean",
     "uri": "xsd:anyURI",
@@ -639,7 +647,7 @@ def build_vocabulary(
         out_properties[prop_id] = {
             "id": prop_id,
             "domain": prop_ns,
-            "uri": _compute_uri(base_uri, prop_ns, prop_id),
+            "uri": data.get("uri") or _compute_uri(base_uri, prop_ns, prop_id),
             "path": _compute_path(prop_ns, prop_id),
             "maturity": data.get("maturity"),
             "label": data.get("label", {}),
@@ -865,11 +873,21 @@ def build_vocabulary(
         "@id": "http://www.w3.org/2000/01/rdf-schema#seeAlso",
         "@type": "@id",
     }
-    for _concept_key_val, concept_out in out_concepts.items():
-        # Use the bare id (concept_out["id"]) as the JSON-LD context term, not
-        # the composite internal key. JSON-LD terms must be simple strings;
-        # slashes in keys like "sp/Enrollment" would not form valid terms.
-        context_map[concept_out["id"]] = concept_out["uri"]
+    concepts_by_name: dict[str, list[dict]] = {}
+    for concept_key in sorted(out_concepts):
+        concept_out = out_concepts[concept_key]
+        concepts_by_name.setdefault(concept_out["id"], []).append(concept_out)
+        if concept_out.get("domain"):
+            context_map[f"{concept_out['domain']}/{concept_out['id']}"] = concept_out["uri"]
+    for name, candidates in concepts_by_name.items():
+        # Root concepts own their established bare names. Domain concepts keep
+        # a bare alias only when unambiguous, and always have a qualified alias.
+        # Import traversal order must never choose a different RDF identity.
+        root = next((candidate for candidate in candidates if not candidate.get("domain")), None)
+        if root is not None:
+            context_map[name] = root["uri"]
+        elif len(candidates) == 1:
+            context_map[name] = candidates[0]["uri"]
     for prop_id, prop_out in out_properties.items():
         prop_uri = prop_out["uri"]
         prop_type = properties_raw[prop_id].get("type", "string")
@@ -1135,6 +1153,9 @@ def write_outputs(
     dist_dir: Path,
     schema_dir: Path | None = None,
     external_dir: Path | None = None,
+    *,
+    rdf_composite: Path | None = None,
+    source: str = "linkml",
 ):
     """Write build outputs to the dist directory.
 
@@ -1142,7 +1163,8 @@ def write_outputs(
     system_matchings.json when ``external_dir`` is not supplied; defaults
     to ``Path("schema")``. ``external_dir`` overrides that derivation
     (useful for LinkML-driven builds that don't sit next to the bespoke
-    schema tree).
+    schema tree). ``rdf_composite`` selects the same LinkML source used for
+    the vocabulary; ``source="bespoke"`` uses the historical RDF renderer.
     """
     from build.export import generate_all_downloads
     from build.linkml_rdf_export import (
@@ -1150,6 +1172,7 @@ def write_outputs(
         write_shacl,
         write_turtle,
     )
+    from build.metrics_catalog import write_metrics_catalog
     from build.preview_export import build_preview
     from build.system_matchings import build_system_matchings
 
@@ -1159,6 +1182,10 @@ def write_outputs(
         external_dir = schema_dir.parent / "external"
 
     dist_dir.mkdir(parents=True, exist_ok=True)
+    write_metrics_catalog(
+        schema_dir, dist_dir / "metrics_catalog.json",
+        result["meta"].get("base_uri", "https://publicschema.org/"),
+    )
     schemas_dir = dist_dir / "schemas"
     schemas_dir.mkdir(exist_ok=True)
 
@@ -1257,11 +1284,20 @@ def write_outputs(
         "draft" if rdf_maturity == "draft" else ".".join(rdf_version.split(".")[:2])
     )
     rdf_context_url = f"{base_uri_for_rdf}ctx/{rdf_version_label}.jsonld"
-    write_turtle(dist_dir / "publicschema.ttl")
-    write_full_jsonld(
-        dist_dir / "publicschema.jsonld", context_url=rdf_context_url,
-    )
-    write_shacl(dist_dir / "publicschema.shacl.ttl")
+    if source == "bespoke":
+        from build import rdf_export_legacy
+
+        rdf_export_legacy.write_turtle(result, dist_dir)
+        rdf_export_legacy.write_full_jsonld(result, dist_dir)
+        rdf_export_legacy.write_shacl(result, dist_dir)
+    else:
+        composite = rdf_composite if rdf_composite is not None else schema_dir / "publicschema.yaml"
+        write_turtle(dist_dir / "publicschema.ttl", composite=composite)
+        write_full_jsonld(
+            dist_dir / "publicschema.jsonld", context_url=rdf_context_url,
+            composite=composite,
+        )
+        write_shacl(dist_dir / "publicschema.shacl.ttl", composite=composite)
 
     # CSV and Excel downloads per concept
     downloads_dir = dist_dir / "downloads"
@@ -1319,6 +1355,34 @@ def write_outputs(
     )
 
 
+def prepare_site_artifacts(dist_dir: Path, public_dir: Path):
+    """Copy generated downloads to their public URLs for local and CI builds.
+
+    Astro serves the context, RDF, manifest and per-term JSON-LD directly from
+    dist through its existing endpoints. Only static downloads belong here.
+    """
+    def copy_file(source: Path, relative: Path):
+        target = public_dir / relative
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(source, target)
+
+    for source in sorted((dist_dir / "downloads").rglob("*")):
+        if source.is_file() and source.suffix in {".csv", ".xlsx"}:
+            relative = source.relative_to(dist_dir / "downloads")
+            copy_file(source, relative)
+            # The artifact manifest also exposes a stable /downloads/ prefix.
+            copy_file(source, Path("downloads") / relative)
+    for source in sorted((dist_dir / "schemas").rglob("*.schema.json")):
+        relative = source.relative_to(dist_dir / "schemas")
+        if relative.parts[0] == "credentials":
+            relative = Path("schemas") / relative
+        copy_file(source, relative)
+    for name in ("vocabulary.json", "system_matchings.json"):
+        copy_file(dist_dir / name, Path(name))
+    for source in sorted((dist_dir / "preview").glob("*.json")):
+        copy_file(source, Path("preview") / source.name)
+
+
 def main():
     """CLI entry point for build.
 
@@ -1357,7 +1421,13 @@ def main():
             "the sibling 'external/' directory next to schema_dir."
         ),
     )
+    parser.add_argument(
+        "--site-public-dir", type=Path, default=None,
+        help="Copy fresh static downloads to this site's public directory after building.",
+    )
     args = parser.parse_args()
+    if args.source == "bespoke" and args.linkml_dir:
+        parser.error("--linkml-dir cannot be used with --source=bespoke")
 
     schema_dir = Path(args.schema_dir)
     dist_dir = Path(args.dist_dir)
@@ -1366,6 +1436,7 @@ def main():
         else schema_dir.parent / "external"
     )
 
+    rdf_composite = None
     if args.source == "bespoke":
         raws = _load_bespoke_raw(schema_dir)
         result = build_vocabulary(raws=raws)
@@ -1377,8 +1448,14 @@ def main():
         # silently skip crosswalks.
         linkml_dir = Path(args.linkml_dir) if args.linkml_dir else schema_dir
         result = build_vocabulary(linkml_dir, crosswalks_dir=schema_dir / "value_crosswalks")
+        rdf_composite = linkml_dir / "publicschema.yaml"
 
-    write_outputs(result, dist_dir, schema_dir=schema_dir, external_dir=external_dir)
+    write_outputs(
+        result, dist_dir, schema_dir=schema_dir, external_dir=external_dir,
+        rdf_composite=rdf_composite, source=args.source,
+    )
+    if args.site_public_dir is not None:
+        prepare_site_artifacts(dist_dir, args.site_public_dir)
     print(f"Built {len(result['concepts'])} concepts, "
           f"{len(result['properties'])} properties, "
           f"{len(result['vocabularies'])} vocabularies, "

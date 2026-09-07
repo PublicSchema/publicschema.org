@@ -47,7 +47,7 @@ imports:
 - misc
 classes:
   Metric:
-    class_uri: publicschema:Metric
+    class_uri: publicschema:metrics/Metric
     title: Metric
     description: 'A named, derivable indicator with a stable URI, a prose definition, a value type, a unit,
       declared dimensions, declared observation-level attributes, declared external alignments, and a single
@@ -100,7 +100,7 @@ classes:
         is anchored in widely-deployed standards, and convergence evidence accrues to derivable metric
         instances rather than to the catalogue class itself.\n", "system_count": 0, "total_systems": 6}'
   MetricDimension:
-    class_uri: publicschema:MetricDimension
+    class_uri: publicschema:metrics/MetricDimension
     title: Metric Dimension
     description: 'A typed dimension that disaggregates a metric. References a code list, which may be a
       PublicSchema vocabulary or an external SDMX agency codelist. PublicSchema vocabularies are canonical;
@@ -134,7 +134,7 @@ classes:
         and SDMX 3.0 Dimension; convergence evidence accrues to the dimension instances PublicSchema ships,
         not to the class.\n", "system_count": 0, "total_systems": 6}'
   MetricAttribute:
-    class_uri: publicschema:MetricAttribute
+    class_uri: publicschema:metrics/MetricAttribute
     title: Metric Attribute
     description: 'A non-key annotation on an observation, series, or dataset. Mirrors SDMX cross-domain
       concepts (OBS_STATUS, UNIT_MEASURE, DECIMALS, CONF_STATUS, COMMENT_OBS) so the SDMX emitter has zero
@@ -169,7 +169,7 @@ classes:
         in the SDMX 3.0 information model. Convergence evidence accrues to attribute instances rather
         than to the catalogue class.\n", "system_count": 0, "total_systems": 6}'
   MetricCalculation:
-    class_uri: publicschema:MetricCalculation
+    class_uri: publicschema:metrics/MetricCalculation
     title: Metric Calculation
     description: 'A declarative computation that turns record-level PublicSchema data into a metric value.
       Borrows the population / stratifier / scoring shape from FHIR R5 Measure; the criteria language is
@@ -206,7 +206,7 @@ classes:
         HEDIS digital measures). Standards alignment, not mapped-system convergence.\n", "system_count":
         0, "total_systems": 6}'
   PopulationCriterion:
-    class_uri: publicschema:PopulationCriterion
+    class_uri: publicschema:metrics/PopulationCriterion
     title: Population Criterion
     description: 'One population in a MetricCalculation, paired with the language and criteria that select
       the records belonging to it. The population_type follows FHIR R5 Measure: initial-population, denominator,
@@ -233,7 +233,7 @@ classes:
         du chargement du schéma.
       source_domain: metrics
   Stratifier:
-    class_uri: publicschema:Stratifier
+    class_uri: publicschema:metrics/Stratifier
     title: Stratifier
     description: 'A disaggregation expression evaluated against the populations of a MetricCalculation.
       Stratifiers may nest via components, allowing cross-cutting disaggregations such as by-sex-and-age.
@@ -256,7 +256,7 @@ classes:
         telles que par-sexe-et-âge.
       source_domain: metrics
   MetricObservation:
-    class_uri: publicschema:MetricObservation
+    class_uri: publicschema:metrics/MetricObservation
     title: Metric Observation
     description: 'One reported value against a Metric, with dimension values, period, and observation-level
       attributes. The observation / scoring separation extends from per-record scoring (Principle 6) to
@@ -298,7 +298,7 @@ classes:
         to the SDMX 3.0 Observation. Standards-aligned, not mapped-system-derived.\n", "system_count":
         0, "total_systems": 6}'
   MetricReport:
-    class_uri: publicschema:MetricReport
+    class_uri: publicschema:metrics/MetricReport
     title: Metric Report
     description: 'A bundle of MetricObservation records with publisher metadata. Maps to an SDMX Dataset
       and to qb:DataSet on RDF emission.
@@ -328,7 +328,7 @@ classes:
         à un Dataset SDMX et à qb:DataSet à l'émission RDF.
       source_domain: metrics
   Period:
-    class_uri: publicschema:Period
+    class_uri: publicschema:metrics/Period
     title: Period
     description: 'The temporal coverage of a MetricObservation. PublicSchema reifies the period as a separate
       class (rather than carrying inline start_date / end_date like other Event subtypes) because the
@@ -362,7 +362,7 @@ classes:
         pour chaque dimension, y compris le temps).
       source_domain: metrics
   DimensionValue:
-    class_uri: publicschema:DimensionValue
+    class_uri: publicschema:metrics/DimensionValue
     title: Dimension Value
     description: 'One {dimension_uri, code} pair carried by a MetricObservation. Ordering matters for SDMX
       DSD round-trip, so this is modelled as an ordered list of structured pairs rather than as a map.
@@ -383,7 +383,7 @@ classes:
         de paires structurées plutôt que comme une map.
       source_domain: metrics
   AttributeValue:
-    class_uri: publicschema:AttributeValue
+    class_uri: publicschema:metrics/AttributeValue
     title: Attribute Value
     description: 'One {attribute_uri, value} pair carried by a MetricObservation. Modelled as a list of
       structured pairs rather than a map so attribute ordering and emitter behaviour are stable.
@@ -405,7 +405,7 @@ classes:
       source_domain: metrics
 slots:
   value_type:
-    slot_uri: publicschema:value_type
+    slot_uri: publicschema:metrics/value_type
     title: Value type
     description: The kind of numeric or categorical value a metric carries (count, proportion, ratio, currency
       amount, index, duration, nominal, ordinal, qualitative).
@@ -420,7 +420,7 @@ slots:
       description_fr: Le type de valeur numérique ou catégorielle porté par une métrique (compte, proportion,
         ratio, montant monétaire, indice, durée, nominal, ordinal, qualitatif).
   unit:
-    slot_uri: publicschema:unit
+    slot_uri: publicschema:metrics/unit
     title: Unit
     description: The unit of measure for a metric. May be a UCUM unit code, an ISO 4217 currency code for
       currency amounts, the SDMX UNIT_MEASURE code 'PT' for percentages, or the literal 'unitless' for
@@ -438,7 +438,7 @@ slots:
         pour les montants monétaires, le code SDMX UNIT_MEASURE 'PT' pour les pourcentages, ou le littéral
         'unitless' pour les proportions exprimées en 0..1.
   multiplier:
-    slot_uri: publicschema:multiplier
+    slot_uri: publicschema:metrics/multiplier
     title: Multiplier
     description: SDMX-style scale exponent. 0 for units, 3 for thousands, 6 for millions, 9 for billions.
       Default 0.
@@ -453,7 +453,7 @@ slots:
       description_fr: Exposant d'échelle au format SDMX. 0 pour les unités, 3 pour les milliers, 6 pour
         les millions, 9 pour les milliards. Valeur par défaut 0.
   decimals:
-    slot_uri: publicschema:decimals
+    slot_uri: publicschema:metrics/decimals
     title: Decimals
     description: The number of decimal places to use when reporting the metric.
     range: integer
@@ -465,7 +465,7 @@ slots:
       description_es: El número de cifras decimales que se deben usar al reportar la métrica.
       description_fr: Le nombre de décimales à utiliser lors du rapport de la métrique.
   dimensions:
-    slot_uri: publicschema:dimensions
+    slot_uri: publicschema:metrics/dimensions
     title: Dimensions
     description: The ordered list of MetricDimension references that disaggregate this metric. Ordering
       drives the DSD round-trip and the column order on SDMX-CSV emission.
@@ -481,7 +481,7 @@ slots:
       description_fr: La liste ordonnée des références MetricDimension qui désagrègent cette métrique.
         L'ordre détermine l'aller-retour de la DSD et l'ordre des colonnes lors de l'émission SDMX-CSV.
   attributes:
-    slot_uri: publicschema:attributes
+    slot_uri: publicschema:metrics/attributes
     title: Attributes
     description: The list of MetricAttribute references that may decorate observations, series, or the
       dataset for this metric.
@@ -497,7 +497,7 @@ slots:
       description_fr: La liste des références MetricAttribute pouvant annoter les observations, les séries
         ou le jeu de données de cette métrique.
   calculation:
-    slot_uri: publicschema:calculation
+    slot_uri: publicschema:metrics/calculation
     title: Calculation
     description: The single primary computation that turns PublicSchema record-level data into a value
       for this metric. Variant computations are carried by libraries.
@@ -513,7 +513,7 @@ slots:
       description_fr: Le calcul primaire unique qui transforme les données PublicSchema au niveau de l'enregistrement
         en une valeur pour cette métrique. Les variantes sont portées par les librairies.
   topic:
-    slot_uri: publicschema:topic
+    slot_uri: publicschema:metrics/topic
     title: Topic
     description: The substantive topic family of the metric (coverage, adequacy, expenditure, leakage,
       targeting, inclusion error, exclusion error, regularity, processing time, satisfaction). Drives
@@ -531,7 +531,7 @@ slots:
         fuite, ciblage, erreur d'inclusion, erreur d'exclusion, régularité, temps de traitement, satisfaction).
         Pilote la navigation et le facettage sur le site web.
   concept_uri:
-    slot_uri: publicschema:concept_uri
+    slot_uri: publicschema:metrics/concept_uri
     title: Concept URI
     description: The skos:Concept URI this metric, dimension, or attribute realises. Multiple metrics may
       share a single concept_uri when they measure the same underlying notion through different operationalisations.
@@ -548,7 +548,7 @@ slots:
         peuvent partager un seul concept_uri lorsqu'elles mesurent la même notion sous-jacente via différentes
         opérationnalisations.
   metric_family:
-    slot_uri: publicschema:metric_family
+    slot_uri: publicschema:metrics/metric_family
     title: Metric family
     description: 'Optional URI tagging this metric with a metric-family group. Metrics sharing a family
       value also share dimensions and observation-level attributes; the family value drives DSD generation.
@@ -571,7 +571,7 @@ slots:
         la valeur de famille pilote la génération de la DSD. Modélisée comme une étiquette plutôt qu'une
         classe MetricFamily séparée jusqu'à ce qu'il y ait au moins trois familles réelles.
   aligns_with:
-    slot_uri: publicschema:aligns_with
+    slot_uri: publicschema:metrics/aligns_with
     title: Aligns with
     description: 'External URIs to which this metric, dimension, or attribute aligns: SDMX agency DSDs,
       UN SDG indicators, ASPIRE families, ESSPROS reference metadata, SOCX DSDs, DHIS2 indicator UIDs,
@@ -594,7 +594,7 @@ slots:
         UIDs d''indicateurs DHIS2, codes d''indicateur IATI, hashtags HXL. L''alignement est sémantique
         à sens unique ; PublicSchema ne se synchronise pas avec ces registres.'
   core:
-    slot_uri: publicschema:core
+    slot_uri: publicschema:metrics/core
     title: Core catalogue
     description: 'True if the metric belongs to the core tier (shipped with every PublicSchema deployment),
       false if it belongs to the extended tier (opt-in, country or program-specific). Per design-principles.md
@@ -614,7 +614,7 @@ slots:
         PublicSchema), faux si elle appartient au niveau étendu (optionnel, spécifique à un pays ou à un
         programme). Conformément au principe 9 de design-principles.md.
   replaces:
-    slot_uri: publicschema:replaces
+    slot_uri: publicschema:metrics/replaces
     title: Replaces
     description: URI of the metric record that this metric supersedes.
     range: uri
@@ -626,7 +626,7 @@ slots:
       description_es: URI del registro de métrica que esta métrica reemplaza.
       description_fr: URI de l'enregistrement de métrique que cette métrique remplace.
   replaced_by:
-    slot_uri: publicschema:replaced_by
+    slot_uri: publicschema:metrics/replaced_by
     title: Replaced by
     description: URI of the metric record that supersedes this metric.
     range: uri
@@ -638,7 +638,7 @@ slots:
       description_es: URI del registro de métrica que reemplaza esta métrica.
       description_fr: URI de l'enregistrement de métrique qui remplace cette métrique.
   value_range:
-    slot_uri: publicschema:value_range
+    slot_uri: publicschema:metrics/value_range
     title: Value range
     description: 'The LinkML range or external code list URI that constrains the values of a dimension
       or attribute. Named ''value_range'' rather than ''range'' to avoid shadowing the LinkML keyword.
@@ -657,7 +657,7 @@ slots:
         dimension ou d'un attribut. Nommée 'value_range' plutôt que 'range' pour éviter de masquer le
         mot-clé LinkML.
   code_list_uri:
-    slot_uri: publicschema:code_list_uri
+    slot_uri: publicschema:metrics/code_list_uri
     title: Code list URI
     description: 'The canonical URI of the code list that supplies permissible values for this dimension
       or attribute. May be a PublicSchema vocabulary URI or an SDMX agency codelist URN (e.g., urn:sdmx:org.sdmx.infomodel.codelist.Codelist=SDMX:CL_AREA(2.1)).
@@ -676,7 +676,7 @@ slots:
         dimension ou cet attribut. Peut être un URI de vocabulaire PublicSchema ou un URN de liste de
         codes d'agence SDMX.
   is_required:
-    slot_uri: publicschema:is_required
+    slot_uri: publicschema:metrics/is_required
     title: Is required
     description: Whether this dimension or attribute is required on every observation.
     range: boolean
@@ -688,7 +688,7 @@ slots:
       description_es: Si esta dimensión o atributo es obligatorio en cada observación.
       description_fr: Indique si cette dimension ou cet attribut est requis sur chaque observation.
   ordering:
-    slot_uri: publicschema:ordering
+    slot_uri: publicschema:metrics/ordering
     title: Ordering
     description: The integer position of this dimension within the DSD. Drives column order on SDMX-CSV
       emission and the dimension order on observation records.
@@ -703,7 +703,7 @@ slots:
       description_fr: La position entière de cette dimension au sein de la DSD. Pilote l'ordre des colonnes
         à l'émission SDMX-CSV et l'ordre des dimensions sur les enregistrements d'observation.
   attachment_level:
-    slot_uri: publicschema:attachment_level
+    slot_uri: publicschema:metrics/attachment_level
     title: Attachment level
     description: 'The SDMX attachment level for this attribute: dataset, series (dimension-group), or observation.
       The level determines where the SDMX emitter places the attribute on output.
@@ -720,7 +720,7 @@ slots:
       description_fr: 'Le niveau de rattachement SDMX pour cet attribut : jeu de données, série (groupe
         de dimensions) ou observation. Le niveau détermine où l''émetteur SDMX place l''attribut en sortie.'
   scoring:
-    slot_uri: publicschema:scoring
+    slot_uri: publicschema:metrics/scoring
     title: Scoring
     description: 'The scoring method applied by this calculation. Mirrors FHIR R5 Measure.scoring: proportion,
       ratio, continuous-variable, cohort. Authors validate the populations against this value at schema-load
@@ -740,7 +740,7 @@ slots:
         proportion, ratio, continuous-variable, cohort. Les auteurs valident les populations par rapport
         à cette valeur au moment du chargement du schéma.'
   subject_class:
-    slot_uri: publicschema:subject_class
+    slot_uri: publicschema:metrics/subject_class
     title: Subject class
     description: 'The PublicSchema class URI whose records the populations select over (for example, publicschema:Person
       or publicschema:Enrollment). Diverges from FHIR Measure.subject[x], which is CodeableConcept | Reference(Group);
@@ -761,7 +761,7 @@ slots:
         qui est CodeableConcept | Reference(Group) ; les sujets PublicSchema sont des URIs de classes
         PS.
   populations:
-    slot_uri: publicschema:populations
+    slot_uri: publicschema:metrics/populations
     title: Populations
     description: The ordered list of PopulationCriterion records that select records for the numerator,
       denominator, exclusions, exceptions, and the per-record observation in a continuous-variable scoring
@@ -781,7 +781,7 @@ slots:
         pour le numérateur, le dénominateur, les exclusions, les exceptions et l'observation par enregistrement
         dans une méthode de notation continuous-variable.
   stratifiers:
-    slot_uri: publicschema:stratifiers
+    slot_uri: publicschema:metrics/stratifiers
     title: Stratifiers
     description: The list of Stratifier expressions evaluated against the populations of this calculation.
     range: Stratifier
@@ -795,7 +795,7 @@ slots:
       description_es: La lista de expresiones Stratifier evaluadas contra las poblaciones de este cálculo.
       description_fr: La liste des expressions Stratifier évaluées par rapport aux populations de ce calcul.
   rate_aggregation:
-    slot_uri: publicschema:rate_aggregation
+    slot_uri: publicschema:metrics/rate_aggregation
     title: Rate aggregation
     description: 'How per-stratum rates are aggregated back to a single metric value: average, sum, or
       none (report per-stratum only).
@@ -812,7 +812,7 @@ slots:
       description_fr: 'Comment les taux par strate sont agrégés en une seule valeur de métrique : moyenne,
         somme ou aucun (rapport par strate uniquement).'
   improvement_notation:
-    slot_uri: publicschema:improvement_notation
+    slot_uri: publicschema:metrics/improvement_notation
     title: Improvement notation
     description: 'Whether an increase in the metric value is desirable, undesirable, or policy-dependent.
       Extends FHIR R5 Measure.improvementNotation with policy_dependent for non-clinical metrics (e.g.,
@@ -833,7 +833,7 @@ slots:
         non cliniques (par exemple, les ratios dépenses-sur-PIB dont la direction souhaitable dépend du
         cadrage politique).
   libraries:
-    slot_uri: publicschema:libraries
+    slot_uri: publicschema:metrics/libraries
     title: Libraries
     description: 'HTTPS-dereferenceable library URIs hosting reusable criteria definitions referenced by
       @ref:LibraryName.Symbol expressions in the calculation. PublicSchema recommends content-addressed
@@ -855,7 +855,7 @@ slots:
         recommande des URIs adressées par le contenu afin que le calcul d'une métrique soit stable au
         bit près entre les publications.
   population_type:
-    slot_uri: publicschema:population_type
+    slot_uri: publicschema:metrics/population_type
     title: Population type
     description: 'The role this population plays in the calculation: initial-population, denominator, denominator-exclusion,
       denominator-exception, numerator, numerator-exclusion, measure-population, measure-population-exclusion,
@@ -875,7 +875,7 @@ slots:
         denominator-exclusion, denominator-exception, numerator, numerator-exclusion, measure-population,
         measure-population-exclusion ou measure-observation. Suit FHIR R5 Measure.'
   language:
-    slot_uri: publicschema:language
+    slot_uri: publicschema:metrics/language
     title: Language
     description: 'The IANA media type identifying the language of a criteria expression: application/sql,
       application/vtl, text/cql, text/fhirpath. PublicSchema pins the media type so consumers know which
@@ -895,7 +895,7 @@ slots:
         application/vtl, text/cql, text/fhirpath. PublicSchema fixe le type de média afin que les consommateurs
         sachent quel moteur invoquer ; il ne désigne pas de gagnant.'
   criteria:
-    slot_uri: publicschema:criteria
+    slot_uri: publicschema:metrics/criteria
     title: Criteria
     description: 'A criteria expression in the language identified by the paired language slot. May be
       inline source code or a reference of the form @ref:LibraryName.Symbol resolved against the calculation''s
@@ -915,7 +915,7 @@ slots:
         Peut être du code source en ligne ou une référence de la forme @ref:LibraryName.Symbol résolue
         par rapport à la liste des librairies du calcul.
   stratifier_code:
-    slot_uri: publicschema:stratifier_code
+    slot_uri: publicschema:metrics/stratifier_code
     title: Stratifier code
     description: A short identifier for a stratifier, used when emitting per-stratum rates (for example,
       'by-sex', 'by-age-band').
@@ -930,7 +930,7 @@ slots:
       description_fr: Un identifiant court pour un stratificateur, utilisé lors de l'émission de taux par
         strate (par exemple, 'par-sexe', 'par-tranche-d-âge').
   components:
-    slot_uri: publicschema:components
+    slot_uri: publicschema:metrics/components
     title: Components
     description: Nested stratifiers that compose with their parent (for example, by-sex-and-age nests inside
       by-sex).
@@ -947,7 +947,7 @@ slots:
       description_fr: Stratificateurs imbriqués qui se composent avec leur parent (par exemple, by-sex-and-age
         imbriqué dans by-sex).
   metric:
-    slot_uri: publicschema:metric
+    slot_uri: publicschema:metrics/metric
     title: Metric
     description: The URI of the Metric this observation reports a value against.
     range: uri
@@ -959,7 +959,7 @@ slots:
       description_es: El URI de la Metric contra la cual esta observación reporta un valor.
       description_fr: L'URI de la Metric par rapport à laquelle cette observation rapporte une valeur.
   period:
-    slot_uri: publicschema:period
+    slot_uri: publicschema:metrics/period
     title: Period
     description: The temporal coverage of this observation.
     range: Period
@@ -972,7 +972,7 @@ slots:
       description_es: La cobertura temporal de esta observación.
       description_fr: La couverture temporelle de cette observation.
   dimension_values:
-    slot_uri: publicschema:dimension_values
+    slot_uri: publicschema:metrics/dimension_values
     title: Dimension values
     description: 'The ordered list of {dimension_uri, code} pairs that locate this observation in the metric''s
       DSD. Ordering matches Metric.dimensions; every dimension declared on the Metric must have a value
@@ -995,7 +995,7 @@ slots:
         sur la Metric doit avoir une valeur sur chaque observation (contrainte d'intégrité IC-11 du W3C
         Data Cube).
   metric_value:
-    slot_uri: publicschema:metric_value
+    slot_uri: publicschema:metrics/metric_value
     title: Value
     description: 'The numeric value reported by this observation. Scale is fixed by Metric.unit and Metric.multiplier:
       for value_type proportion with unit unitless, the value is in 0..1; with unit PT, the value is in
@@ -1015,7 +1015,7 @@ slots:
         et Metric.multiplier : pour value_type proportion avec unit unitless, la valeur est dans 0..1 ;
         avec unit PT, la valeur est dans 0..100. L''observation ne peut pas remplacer l''échelle.'
   attribute_values:
-    slot_uri: publicschema:attribute_values
+    slot_uri: publicschema:metrics/attribute_values
     title: Attribute values
     description: 'The list of {attribute_uri, value} pairs that decorate this observation, series, or dataset.
       When UNIT_MEASURE appears here, it must equal Metric.unit.
@@ -1034,7 +1034,7 @@ slots:
       description_fr: La liste de paires {attribute_uri, value} qui décorent cette observation, série
         ou jeu de données. Lorsque UNIT_MEASURE apparaît ici, il doit être égal à Metric.unit.
   calculation_uri:
-    slot_uri: publicschema:calculation_uri
+    slot_uri: publicschema:metrics/calculation_uri
     title: Calculation URI
     description: The URI of the MetricCalculation definition this observation realises.
     range: uri
@@ -1046,7 +1046,7 @@ slots:
       description_es: El URI de la definición MetricCalculation que esta observación realiza.
       description_fr: L'URI de la définition MetricCalculation que cette observation réalise.
   execution_uri:
-    slot_uri: publicschema:execution_uri
+    slot_uri: publicschema:metrics/execution_uri
     title: Execution URI
     description: 'Optional URI of an execution record (provenance: software agent, run timestamp, parameter
       set). Light PROV-O alignment recommended; full execution-provenance shape is deferred.
@@ -1065,7 +1065,7 @@ slots:
         d''exécution, jeu de paramètres). Alignement léger sur PROV-O recommandé ; la forme complète de
         la provenance d''exécution est différée.'
   dimension_uri:
-    slot_uri: publicschema:dimension_uri
+    slot_uri: publicschema:metrics/dimension_uri
     title: Dimension URI
     description: The URI of the MetricDimension whose code this DimensionValue carries.
     range: uri
@@ -1077,7 +1077,7 @@ slots:
       description_es: El URI de la MetricDimension cuyo código lleva este DimensionValue.
       description_fr: L'URI de la MetricDimension dont ce DimensionValue porte le code.
   code:
-    slot_uri: publicschema:code
+    slot_uri: publicschema:metrics/code
     title: Code
     description: The code from the dimension's code list that locates the observation along this dimension.
     range: string
@@ -1091,7 +1091,7 @@ slots:
       description_fr: Le code de la liste de codes de la dimension qui localise l'observation le long de
         cette dimension.
   attribute_uri:
-    slot_uri: publicschema:attribute_uri
+    slot_uri: publicschema:metrics/attribute_uri
     title: Attribute URI
     description: The URI of the MetricAttribute whose value this AttributeValue carries.
     range: uri
@@ -1103,7 +1103,7 @@ slots:
       description_es: El URI del MetricAttribute cuyo valor lleva este AttributeValue.
       description_fr: L'URI du MetricAttribute dont ce AttributeValue porte la valeur.
   attribute_value:
-    slot_uri: publicschema:attribute_value
+    slot_uri: publicschema:metrics/attribute_value
     title: Attribute value
     description: 'The literal value of an attribute on an observation, series, or dataset. Typed as string
       because attribute values are heterogeneous (status codes, integer counts, free text); cast at emission
@@ -1124,7 +1124,7 @@ slots:
         Typé string car les valeurs d'attributs sont hétérogènes (codes de statut, comptes entiers, texte
         libre) ; converties au moment de l'émission par rapport au value_range déclaré de l'attribut.
   published_at:
-    slot_uri: publicschema:published_at
+    slot_uri: publicschema:metrics/published_at
     title: Published at
     description: The datetime at which this MetricReport was published.
     range: datetime
@@ -1136,7 +1136,7 @@ slots:
       description_es: La fecha y hora en que se publicó este MetricReport.
       description_fr: La date et l'heure auxquelles ce MetricReport a été publié.
   reference_date:
-    slot_uri: publicschema:reference_date
+    slot_uri: publicschema:metrics/reference_date
     title: Reference date
     description: The reference date for the values reported in this bundle. May differ from published_at
       when reports are issued retrospectively.
@@ -1151,7 +1151,7 @@ slots:
       description_fr: La date de référence des valeurs rapportées dans ce paquet. Peut différer de published_at
         lorsque les rapports sont émis rétrospectivement.
   methodology_uri:
-    slot_uri: publicschema:methodology_uri
+    slot_uri: publicschema:metrics/methodology_uri
     title: Methodology URI
     description: URI of the methodology document, code book, or technical note that describes how the values
       in this report were produced.
@@ -1166,7 +1166,7 @@ slots:
       description_fr: URI du document de méthodologie, du livre de codes ou de la note technique décrivant
         comment les valeurs de ce rapport ont été produites.
   license:
-    slot_uri: publicschema:license
+    slot_uri: publicschema:metrics/license
     title: License
     description: The license under which this MetricReport is released (for example, CC-BY-4.0, CC0-1.0).
     range: string
@@ -1178,7 +1178,7 @@ slots:
       description_es: La licencia bajo la cual se publica este MetricReport (por ejemplo, CC-BY-4.0, CC0-1.0).
       description_fr: La licence sous laquelle ce MetricReport est publié (par exemple, CC-BY-4.0, CC0-1.0).
   contact_uri:
-    slot_uri: publicschema:contact_uri
+    slot_uri: publicschema:metrics/contact_uri
     title: Contact URI
     description: URI of the contact point for questions about this MetricReport (a mailto URI, a person
       page, or an agency contact page).
@@ -1193,7 +1193,7 @@ slots:
       description_fr: URI du point de contact pour les questions concernant ce MetricReport (un URI mailto,
         une page de personne ou une page de contact d'agence).
   observations:
-    slot_uri: publicschema:observations
+    slot_uri: publicschema:metrics/observations
     title: Observations
     description: The MetricObservation records bundled in this report.
     range: MetricObservation
@@ -1207,7 +1207,7 @@ slots:
       description_es: Los registros MetricObservation incluidos en este informe.
       description_fr: Les enregistrements MetricObservation regroupés dans ce rapport.
   dsd_uri:
-    slot_uri: publicschema:dsd_uri
+    slot_uri: publicschema:metrics/dsd_uri
     title: DSD URI
     description: The URN of the SDMX Data Structure Definition this report claims conformance to. Composes
       as urn:sdmx:org.sdmx.infomodel.datastructure.DataStructure=<Agency>:<ID>(<Version>).
@@ -1222,7 +1222,7 @@ slots:
       description_fr: L'URN de la Data Structure Definition SDMX à laquelle ce rapport déclare se conformer.
         Composée comme urn:sdmx:org.sdmx.infomodel.datastructure.DataStructure=<Agency>:<ID>(<Version>).
   period_type:
-    slot_uri: publicschema:period_type
+    slot_uri: publicschema:metrics/period_type
     title: Period type
     description: 'The kind of period: point_in_time, span, cohort, fiscal_year, or calendar_year.'
     range: PeriodType
@@ -1234,7 +1234,7 @@ slots:
       description_es: 'El tipo de período: point_in_time, span, cohort, fiscal_year o calendar_year.'
       description_fr: 'Le type de période : point_in_time, span, cohort, fiscal_year ou calendar_year.'
   granularity:
-    slot_uri: publicschema:granularity
+    slot_uri: publicschema:metrics/granularity
     title: Granularity
     description: 'The granularity of the period: year, quarter, month, week, day, or hour.'
     range: Granularity
@@ -1246,7 +1246,7 @@ slots:
       description_es: 'La granularidad del período: year, quarter, month, week, day o hour.'
       description_fr: 'La granularité de la période : year, quarter, month, week, day ou hour.'
   reference_period_type:
-    slot_uri: publicschema:reference_period_type
+    slot_uri: publicschema:metrics/reference_period_type
     title: Reference period type
     description: An SDMX REF_PERIOD type identifier when relevant (for example, the reference week for
       labour force surveys, the academic year for school-attendance metrics).
@@ -1262,7 +1262,7 @@ slots:
         de référence pour les enquêtes sur la population active, l'année académique pour les métriques
         de fréquentation scolaire).
   observation_frequency:
-    slot_uri: publicschema:observation_frequency
+    slot_uri: publicschema:metrics/observation_frequency
     title: Observation frequency
     description: 'The SDMX FREQ code for this period: A (annual), Q (quarterly), M (monthly), W (weekly),
       D (daily), H (hourly). Carried as a single-letter code; resolves to urn:sdmx:org.sdmx.infomodel.codelist.Codelist=SDMX:CL_FREQ.
@@ -1326,6 +1326,8 @@ enums:
         title: Qualitative
         description: A free-text value or coded qualitative judgement.
     annotations:
+      description_fr: "Le type de valeur numérique ou catégorielle porté par un indicateur."
+      description_es: "El tipo de valor numérico o categórico que contiene un indicador."
       label_es: Tipo de valor
       label_fr: Type de valeur
   ScoringMethod:
@@ -1358,6 +1360,8 @@ enums:
     exact_mappings:
     - http://terminology.hl7.org/CodeSystem/measure-scoring
     annotations:
+      description_fr: "La méthode de notation appliquée par un MetricCalculation. Reprend FHIR R5 Measure.scoring avec une sémantique commune ; PublicSchema n’ajoute aucune méthode."
+      description_es: "El método de puntuación aplicado por un MetricCalculation. Reproduce FHIR R5 Measure.scoring con una semántica compartida; PublicSchema no añade métodos."
       label_es: Método de puntuación
       label_fr: Méthode de notation
   ImprovementNotation:
@@ -1380,6 +1384,8 @@ enums:
     close_mappings:
     - http://terminology.hl7.org/CodeSystem/measure-improvement-notation
     annotations:
+      description_fr: "Indique si une augmentation de la valeur de l’indicateur est souhaitable, indésirable ou dépend du cadre de politique publique."
+      description_es: "Indica si un aumento del valor del indicador es deseable, indeseable o depende del marco de política pública."
       label_es: Notación de mejora
       label_fr: Notation d'amélioration
   RateAggregation:
@@ -1399,6 +1405,8 @@ enums:
         title: None
         description: Report per-stratum rates only; do not aggregate.
     annotations:
+      description_fr: "La manière dont les taux par strate sont agrégés en une valeur unique pour l’indicateur."
+      description_es: "La forma en que las tasas por estrato se agregan en un único valor del indicador."
       label_es: Agregación de tasa
       label_fr: Agrégation du taux
   MetricTopic:
@@ -1438,6 +1446,8 @@ enums:
         meaning: publicschema:MetricTopic/satisfaction
         title: Satisfaction
     annotations:
+      description_fr: "La famille thématique d’un indicateur. Sert à la navigation et au filtrage par facettes sur le site."
+      description_es: "La familia temática de un indicador. Se utiliza para la navegación y el filtrado por facetas en el sitio."
       label_es: Tema de la métrica
       label_fr: Thématique de la métrique
   AttachmentLevel:
@@ -1456,6 +1466,8 @@ enums:
         meaning: publicschema:AttachmentLevel/observation
         title: Observation
     annotations:
+      description_fr: "Le niveau de rattachement SDMX d’un MetricAttribute."
+      description_es: "El nivel de adjunción SDMX de un MetricAttribute."
       label_es: Nivel de adjunción
       label_fr: Niveau de rattachement
   PopulationType:
@@ -1499,6 +1511,8 @@ enums:
     exact_mappings:
     - http://terminology.hl7.org/CodeSystem/measure-population
     annotations:
+      description_fr: "Le rôle d’un PopulationCriterion dans un MetricCalculation. Reprend FHIR R5 Measure."
+      description_es: "El papel de un PopulationCriterion en un MetricCalculation. Reproduce FHIR R5 Measure."
       label_es: Tipo de población
       label_fr: Type de population
   PeriodType:
@@ -1523,6 +1537,8 @@ enums:
         meaning: publicschema:PeriodType/calendar_year
         title: Calendar year
     annotations:
+      description_fr: "Le type de période représenté par un Period."
+      description_es: "El tipo de período representado por un Period."
       label_es: Tipo de período
       label_fr: Type de période
   Granularity:
@@ -1550,6 +1566,8 @@ enums:
         meaning: publicschema:Granularity/hour
         title: Hour
     annotations:
+      description_fr: "La granularité d’un Period."
+      description_es: "La granularidad de un Period."
       label_es: Granularidad
       label_fr: Granularité
   Frequency:
@@ -1582,5 +1600,7 @@ enums:
     close_mappings:
     - urn:sdmx:org.sdmx.infomodel.codelist.Codelist=SDMX:CL_FREQ(2.1)
     annotations:
+      description_fr: "Codes SDMX interdomaines FREQ utilisés par Period.observation_frequency. Les codes renvoient à urn:sdmx:org.sdmx.infomodel.codelist.Codelist=SDMX:CL_FREQ ; PublicSchema ne les republie pas."
+      description_es: "Códigos SDMX interdominio FREQ utilizados por Period.observation_frequency. Los códigos remiten a urn:sdmx:org.sdmx.infomodel.codelist.Codelist=SDMX:CL_FREQ; PublicSchema no los vuelve a publicar."
       label_es: Frecuencia
       label_fr: Fréquence

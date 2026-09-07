@@ -36,7 +36,7 @@ jobs:
           cache-dependency-glob: "uv.lock"
 
       - name: Install dependencies (all groups, incl. linkml)
-        run: uv sync --all-groups
+        run: uv sync --locked --all-groups
 
       - name: linkml-lint composite
         run: .venv/bin/linkml-lint --validate --ignore-warnings schema/publicschema.yaml

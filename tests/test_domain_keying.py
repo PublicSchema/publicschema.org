@@ -217,13 +217,13 @@ class TestDomainKeyedBuild:
             f"Expected bare id 'Enrollment', got '{concept['id']}'"
         )
 
-    def test_jsonld_context_uses_bare_id(self, tmp_schema, write_concept):
-        """JSON-LD context terms use bare concept ids, not composite keys."""
+    def test_jsonld_context_keeps_bare_and_qualified_aliases(self, tmp_schema, write_concept):
+        """Unambiguous domain concepts retain their bare alias and qualified key."""
         write_concept("Enrollment.yaml", make_concept(id="Enrollment", domain="sp"))
         result = build_vocabulary(tmp_schema)
         ctx = result["context"]["@context"]
-        assert "Enrollment" in ctx, "Bare id 'Enrollment' should be a context term"
-        assert "sp/Enrollment" not in ctx, "Composite key must not appear in context"
+        assert ctx["Enrollment"] == "https://test.example.org/sp/Enrollment"
+        assert ctx["sp/Enrollment"] == ctx["Enrollment"]
 
     def test_supertype_preserved_as_written(self, tmp_schema, write_concept):
         """Supertypes are stored in the build output exactly as written in YAML.

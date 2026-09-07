@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import TranslationBanner from '../TranslationBanner.astro';
 import { defaultLocale, type Locale } from '../../i18n/languages';
 import { useTranslations, localePath } from '../../i18n/utils';
 import { loadMetricsCatalog } from '../../data/metrics';
@@ -128,6 +129,7 @@ const subjectClass = resolveSubjectClass(metric.calculation?.subject_class);
 ---
 <Base title={label} description={definition} locale={locale} ogType="article">
   <article>
+    {locale !== defaultLocale && (!metric.label[locale] || !metric.definition[locale]) && <TranslationBanner locale={locale} />}
     <div class="page-header">
       <nav class="breadcrumb" aria-label={t('breadcrumb.home')}>
         <a href={localePath('/', locale)}>{t('breadcrumb.home')}</a>
@@ -146,7 +148,7 @@ const subjectClass = resolveSubjectClass(metric.calculation?.subject_class);
       </p>
       <div class="meta-line">
         <span class={`badge ${statusBadgeClass}`}>{statusLabel}</span>
-        {metric.core && <span class="badge badge-core">core</span>}
+        {metric.core && <span class="badge badge-core">{t('metrics.metric.field_core')}</span>}
       </div>
       <p class="definition-text">{definition}</p>
     </div>

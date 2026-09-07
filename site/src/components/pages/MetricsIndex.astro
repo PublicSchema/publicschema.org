@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import TranslationBanner from '../TranslationBanner.astro';
 import { defaultLocale, type Locale } from '../../i18n/languages';
 import { useTranslations, localePath } from '../../i18n/utils';
 import { loadMetricsCatalog } from '../../data/metrics';
@@ -20,6 +21,7 @@ const subtitleParts = t('metrics.page_subtitle').split('{spec_link}');
 ---
 <Base title={t('metrics.page_title')} description={t('metrics.page_subtitle').replace('{spec_link}', t('metrics.spec_link_text'))} locale={locale}>
   <article>
+    {locale !== defaultLocale && <TranslationBanner locale={locale} />}
     <div class="page-header">
       <nav class="breadcrumb" aria-label={t('breadcrumb.home')}>
         <a href={localePath('/', locale)}>{t('breadcrumb.home')}</a>
@@ -32,7 +34,7 @@ const subtitleParts = t('metrics.page_subtitle').split('{spec_link}');
       </p>
       <p class="meta-line">
         <span class="uri">
-          {t('metrics.results.count_other', { count: totalMetrics })} · {catalogs.length} catalogs
+          {t('metrics.results.count_other', { count: totalMetrics })} · {t('metrics.catalogs_count', { count: catalogs.length })}
         </span>
       </p>
     </div>

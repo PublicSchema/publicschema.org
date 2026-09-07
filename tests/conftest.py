@@ -37,13 +37,14 @@ def _key_by_short_id(elements: dict) -> dict:
     The bespoke-format tests look up entries by their declared ``id``
     (e.g. ``"PaternityRecognition"``); the build pipeline keys them as
     ``"crvs/PaternityRecognition"`` to disambiguate cross-domain collisions.
-    Across the current schema there are no short-id collisions, so the
-    re-keying is loss-free.
+    Prefer the root concept when it shares a name with a domain snapshot.
+    Tests that need both entries use the composite-keyed fixture instead.
     """
     out: dict = {}
     for k, v in elements.items():
         short = k.split("/")[-1]
-        out[short] = v
+        if short not in out or k == short:
+            out[short] = v
     return out
 
 

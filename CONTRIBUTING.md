@@ -14,52 +14,45 @@
 just setup
 ```
 
-This installs both Python (`uv sync`) and Node (`npm install`) dependencies.
+This installs both Python (`uv sync --locked`) and Node (`npm install`) dependencies.
 
 ### Common commands
 
-```bash
-just build          # generate vocabulary data from YAML sources
-just validate       # validate all YAML source files
-just dev            # start dev server (rebuilds data first)
-just site-build     # full production build (validates + builds data + builds site)
-just check          # validate + build, verify everything is clean
-just sync-standards # re-sync external standard vocabularies
-```
-
-### Running tests
+Run these from the repository root:
 
 ```bash
-uv run pytest       # Python tests (schema validation, build pipeline, exports)
+just build               # regenerate exports, metric catalog, and site public artifacts
+just validate            # validate the composite LinkML schema
+just validate-crosswalks # validate authored value crosswalks and standard metadata
+just lint                # check content quality and maturity rules
+just check-translations  # check schema, documentation, and UI translations
+just test                # run the Python test suite
+just dev                 # regenerate data and start the site dev server
+just site-build          # validate, regenerate data, and build the production site
+just check               # validate, lint, check translations, test, and regenerate data
 ```
+
+`just check` does not build the production site or assert a clean Git working tree. Inspect the diff after generation; use `just site-build` to verify rendered site compilation.
 
 ## How the build works
 
-Data flows one direction:
+The authored schema is modular LinkML. `schema/publicschema.yaml` imports the modules containing concepts (`classes`), reusable properties (`slots`), and controlled vocabularies (`enums`). Supporting sources include authored `schema/value_crosswalks/` and `schema/metric_catalog/` files.
 
-```
-schema/ (YAML) --> build pipeline --> dist/ (JSON, CSV, XLSX, TTL, SHACL) --> site/ (Astro) --> static HTML
-```
+1. `build.validate` validates the composite schema with LinkML metamodel validation. Content lint, translation checks, and crosswalk validation are separate commands.
+2. `build.build` reads the LinkML source and supporting data, then generates the vocabulary read model, JSON Schemas, JSON-LD, RDF, SHACL, and CSV/Excel downloads under `dist/`.
+3. `just build` also prepares the metric catalog and public artifacts consumed by the Astro site. The build uses tools in this repository; no sibling build repository is required.
 
-1. `build.validate` checks all YAML files against JSON Schemas and validates referential integrity.
-2. `build.build` reads YAML sources and generates `dist/vocabulary.json`, `dist/context.jsonld`, JSON Schemas, RDF exports (Turtle, JSON-LD, SHACL), and downloadable files (CSV, Excel).
-3. The Astro site reads `dist/vocabulary.json` and renders the website.
+Edit source files rather than `dist/` or generated artifacts in `site/public/`. Not everything in `site/public/` is generated: it also contains maintained static assets.
 
 ## Adding vocabulary entries
 
+Use [Authoring PublicSchema in LinkML](docs/authoring-linkml.md) for examples and annotation conventions. Add entries to an existing module with related content; when adding a module, import it from `schema/publicschema.yaml` and declare the imports its references need.
+
 ### Adding a concept
 
-Create a YAML file in `schema/concepts/`. Follow existing files as a template.
+Add a PascalCase class under `classes:` in a module such as `schema/identity.yaml` or `schema/program.yaml`. Reuse slots through its `slots:` list. Use `is_a` for its primary supertype and `mixins` for additional supertypes. Preserve stable `class_uri` values when changing existing concepts.
 
-Key fields:
-- `name`: PascalCase, no domain prefix (use `Enrollment`, not `SPEnrollment`). Two concepts in different domains may share a short name; the build keys by `(domain, id)` so they coexist without collision. See [ADR-018](decisions/018-crvs-person-rename.md) for an example.
-- `definition`: plain language, written for a policy officer. 1-3 sentences.
-- `domain`: set to `sp` for social-protection-specific concepts, omit for universal concepts
-- `maturity`: one of `draft`, `candidate`, `normative`
-- `featured`: `true` (optional) marks the concept for homepage and summary views
-- `abstract`: `true` (optional) marks the concept as a supertype that is not instantiated directly. Agent, Event, Party, and Profile are examples.
-- `properties`: list of property references
-- `translations`: definitions in `fr` and `es`
+Write plain-language `title` and `description` values. Maturity is expressed with `status`: `bibo:draft` (draft), `bibo:status/forthcoming` (candidate), or `bibo:status/published` (normative). French and Spanish labels and definitions use `annotations.label_fr`, `label_es`, `description_fr`, and `description_es`. Candidate and normative entries must meet the translation checks. Use `annotations.featured: true` for featured concepts and native `abstract: true` for concepts that should not be instantiated.
 
 #### Abstract supertypes and registry concepts
 
@@ -71,57 +64,27 @@ Instrument and SoftwareAgent are registry concepts. Instrument describes a data-
 
 ### Adding a property
 
-Create a YAML file in `schema/properties/`. Properties are independent and reusable across concepts.
+Add a snake_case entry under `slots:` in the appropriate LinkML module and reference it from each class that uses it. Its `range` names a primitive (`string`, `integer`, `date`, etc.), a class, or an enum; `multivalued` controls whether it accepts a list. Use the same title, description, maturity, and translation conventions as classes.
 
-Key fields:
-- `name`: snake_case
-- `definition`: plain language
-- `type`: the data type (string, date, integer, concept reference, vocabulary reference)
-- `category` (optional but recommended): a key from `schema/categories.yaml` that groups the property in the site UI. Valid keys include `identity`, `demographics`, `functioning`, `child_functioning`, `housing`, `wash`, `energy`, `economic`, `assets`, `ict`, `food_security`, `nutrition`, `agriculture`, `administrative`, `biometrics`, and others defined in `schema/categories.yaml`.
-- `used_by`: list of concepts that use this property
+Set `annotations.category` to a key in the `Category` enum in `schema/categories.yaml`. Add a category there before referencing a new key. Structured annotations use JSON strings, for example `annotations.age_applicability_json: '["adult"]'` for instrument-gated Person properties. See [schema-design.md](docs/schema-design.md) for age applicability and cardinality guidance.
 
-`schema/categories.yaml` is the registry of valid property category keys. Adding a new category requires a new entry there first.
+For properties revealing circumstances such as health status or poverty, use `annotations.sensitivity`:
 
-#### Sensitivity annotations
+- `standard` (default): no special handling beyond normal data protection.
+- `sensitive`: reveals circumstances in most contexts and needs justification to collect or disclose.
+- `restricted`: should not appear in credentials presented at routine service points.
 
-Properties that reveal circumstances (health status, poverty, victimhood) in most contexts should include a `sensitivity` field:
-
-- `standard` (default, can be omitted): no special handling beyond normal data protection
-- `sensitive`: reveals circumstances in most contexts; requires justification to collect or disclose (e.g., `program_ref`, `grievance_type`, `education_level`)
-- `restricted`: should not appear in credentials presented at routine service points; requires a data protection impact assessment (e.g., assessment scores, vulnerability indices)
-
-This is a practitioner warning about the nature of the information, not a compliance label. See `docs/schema-design.md` section 9 (Sensitivity annotations) for the full rationale.
-
-#### Age applicability
-
-For Person-scoped properties that are instrument-gated by age, include an `age_applicability` field:
-
-- `age_applicability` (optional): array of age-band tags indicating which age groups the property concerns. Valid tags: `infant_0_1`, `child_2_4`, `child_5_17`, `adolescent`, `adult`.
-
-Only populate this for properties where the instrument or collection protocol restricts the age range. For example, WG-SS items carry `adult`, CFM items carry `child_2_4` or `child_5_17`. See `docs/schema-design.md` section 7 for details.
+This annotation warns practitioners about the information; it is not a compliance label. See the sensitivity section of [schema-design.md](docs/schema-design.md) for the rationale.
 
 ### Adding a vocabulary
 
-Create a YAML file in `schema/vocabularies/`.
+Add a PascalCase entry under `enums:` with stable keys under `permissible_values:`. Each value has an explicit `meaning` URI and a `title`; translations and upstream codes use annotations. Put standard provenance in `annotations.standard_json`. Follow an existing enum in the relevant module or `schema/vocabularies.yaml`.
 
-For vocabularies that reference international standards, include `sync` metadata so the sync script can update values automatically. For domain-specific vocabularies, define values by hand with clear definitions.
+For external standards, review the authoritative source and update LinkML values by hand using the workflow below. Automatic standards refresh does not yet support the current source format.
 
 ## Domain namespacing
 
-Concepts are namespaced by domain in their URI, not prefixed in their name.
-
-- Domain-specific concepts get a domain segment: `publicschema.org/sp/Enrollment`
-- Universal concepts live at the root: `publicschema.org/Person`
-- The `domain` field in concept YAML drives this
-
-Current domain codes:
-
-| Code | Domain | Status |
-|---|---|---|
-| `sp` | Social protection | Active |
-| `edu` | Education | Future |
-| `health` | Health | Future |
-| `crvs` | Civil registration and vital statistics | Active |
+Module filenames organize authoring; they do not by themselves set a public domain. Existing domain-specific terms use `annotations.source_domain` (for example `sp` or `crvs`). Preserve their public URIs and annotation conventions. A domain-qualified `class_uri`, such as `publicschema:crvs/Person`, distinguishes a term from the universal `publicschema:Person`; its LinkML class name is `CrvsPerson` so both can coexist. See [ADR-018](decisions/018-crvs-person-rename.md).
 
 ## Writing style
 
@@ -130,38 +93,30 @@ Current domain codes:
 
 ## System mappings
 
-System mappings show how external systems represent the same concept: their code, their label, and the mapping to our canonical value. They can live on vocabulary YAMLs (`schema/vocabularies/*.yaml`) or property YAMLs (`schema/properties/*.yaml`). Use property-level mappings when the PublicSchema side is a typed value (e.g., integer) but the external system uses a vocabulary or enum. Gaps are explicit in both directions: system values with no PublicSchema equivalent appear as unmapped rows (`maps_to: null`), and PublicSchema values with no system equivalent are listed in `unmapped_canonical`.
+Author value mappings in `schema/value_crosswalks/*.yaml`. These files are the source of truth for the system mappings displayed by the site, including property mappings where PublicSchema uses a typed value and the external system uses codes. LinkML `exact_mappings` and `close_mappings` still describe term alignments; they do not replace an authored value crosswalk.
 
-This serves two audiences:
-- **Integration developers** who need to know what codes a system sends and how to convert them
-- **Domain experts** who need to see where vocabularies diverge across systems
+Start from an existing crosswalk for the same system, such as `schema/value_crosswalks/marital-status--openspp.yaml`, and follow `build/schemas/value_crosswalk.schema.json`:
 
-When adding or updating system mappings:
+1. Identify the PublicSchema vocabulary or property in `source_value_set` and the external system and value set in `target_value_set`.
+2. Add `pairs` using canonical `source_value`, actual upstream `target_value` codes, their `target_label`, and mapping `quality`.
+3. Record gaps as pairs with `quality: unmapped`: set `source_value: null` for an external code without a canonical equivalent, or `target_value: null` for a canonical value without an external equivalent. Include `unmapped_reason` for unmapped external codes. Do not silently omit values that lack an equivalent.
+4. Complete the `standard` provenance and license metadata. For sources without a single canonical artifact, use `artifact_kind: none` with an explanation in `artifact_notes`; otherwise supply the artifact checksum required by the schema.
+5. Run `just validate-crosswalks` and regenerate outputs with `just build`.
 
-1. Use the enriched format (code + label + maps_to), not the flat format
-2. Get codes and labels from `enums.json` when available (see `docs/vocabulary-extraction-process.md`)
-3. The `code` must be what the system stores in its database, not a human label
-4. Show the full picture: include all system values, even those with no canonical equivalent
-5. List all canonical values not covered by the system in `unmapped_canonical`
-6. When `maps_to` is null, include `unmapped_reason` to explain why:
-   - `no_equivalent`: the system code has no semantic match in our vocabulary
-   - `not_yet_mapped`: a canonical value could exist but hasn't been added yet
-   - `out_of_scope`: the code is from a domain we don't cover
-   - `context_dependent`: the mapping varies by deployment
+Keep external terms and provenance consistent with `schema/external/<system>.yaml` and bibliography citations.
 
-See `docs/vocabulary-extraction-process.md` Phase 4 for the complete format specification.
+## Refreshing external standards
 
-## External standard syncing
+`build/sync_standards.py` supports legacy `schema/vocabularies/**/*.yaml` trees only. `just sync-standards` intentionally exits with an error on the current LinkML tree, including in dry-run mode. Do not use it to refresh this repository or recreate the removed directories to bypass the guard.
 
-Vocabularies that reference international standards are synced from authoritative sources using `build/sync_standards.py`. Synced vocabularies have `sync: { source_url, format, last_synced }` in their YAML. The sync script updates the `values` list and `last_synced` timestamp but never overwrites hand-written fields.
-
-Run `just sync-standards` to re-sync all external vocabularies.
+Until a LinkML enum writer is implemented, compare the authoritative release with the relevant enum, review additions and removals, and edit its `permissible_values` directly. Preserve stable meanings, translations, and local notes; update `annotations.standard_json` and any `sync_json` provenance to describe the reviewed source. Review affected crosswalks and external partial schemas, then run the checks below. The normal build does not fetch upstream standards.
 
 ## Submitting changes
 
 1. Fork the repository and create a branch.
-2. Make your changes and ensure `just check` passes.
-3. Run `uv run pytest` to verify tests pass.
-4. Submit a pull request with a clear description of what you changed and why.
+2. Edit the authored LinkML or supporting source, including translations and crosswalks affected by the change.
+3. Run `just check`, then `just site-build` for the production site. Resolve errors and inspect warnings rather than assuming generation validates every content rule.
+4. Inspect `git diff` and `git status --short`. Review generated changes alongside the source; do not commit build caches or unrelated work.
+5. Submit a pull request explaining the semantic change, its sources, and the checks run.
 
 By submitting a pull request, you agree that your contribution is licensed under CC-BY-4.0 (reference model content in `schema/`) and Apache-2.0 (code in `build/`, `tests/`, `site/`).

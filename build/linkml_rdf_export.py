@@ -1,17 +1,18 @@
 """LinkML-driven RDF export for site-facing artifacts.
 
 The three site artifacts (Turtle OWL, SHACL shapes, full JSON-LD
-``@graph``) are produced by LinkML's stock generators against the
+``@graph``) are produced by LinkML's generators against the
 canonical composite at ``schema/publicschema.yaml``:
 
 * ``write_turtle``      -> ``gen-owl``   -> ``dist/publicschema.ttl``
-* ``write_shacl``       -> ``gen-shacl`` -> ``dist/publicschema.shacl.ttl``
+* ``write_shacl``       -> LinkML SHACL with public literal enum codes
+                           -> ``dist/publicschema.shacl.ttl``
 * ``write_full_jsonld`` -> ``gen-owl`` + rdflib JSON-LD bridge ->
                            ``dist/publicschema.jsonld``
 
 The JSON-LD bridge re-parses the gen-owl Turtle into rdflib and emits
-JSON-LD, then rewrites the inline ``@context`` to a string reference to
-the hosted draft context URL so the site can serve a compact document.
+JSON-LD with expanded IRIs. This preserves the Turtle graph's meaning
+when the document references the hosted public instance context.
 """
 
 from __future__ import annotations
@@ -26,6 +27,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_LINKML_COMPOSITE = ROOT / "schema" / "publicschema.yaml"
 DEFAULT_CONTEXT_URL = "https://publicschema.org/ctx/draft.jsonld"
+# Publish authored class_uri/slot_uri identities, matching the public context
+# and SHACL shapes, rather than LinkML's implementation names.
+OWL_GENERATOR_ARGS = ["--no-use-native-uris"]
 
 
 def _find_linkml_generator(name: str) -> str:
@@ -59,7 +63,9 @@ def _require_composite(composite: Path = DEFAULT_LINKML_COMPOSITE) -> Path:
         raise FileNotFoundError(
             f"LinkML composite not found at {composite}."
         )
-    return composite
+    # Generator subprocesses run from ROOT, which can differ from the
+    # caller's working directory when --linkml-dir is a relative path.
+    return composite.resolve()
 
 
 def _run_generator(
@@ -93,19 +99,57 @@ def write_turtle(
     composite: Path = DEFAULT_LINKML_COMPOSITE,
 ) -> Path:
     """Generate the full vocabulary as OWL Turtle via ``gen-owl``."""
-    return _run_generator("gen-owl", output_path, composite=composite)
+    return _run_generator(
+        "gen-owl", output_path, extra_args=OWL_GENERATOR_ARGS, composite=composite,
+    )
 
 
 def write_shacl(
     output_path: Path,
     composite: Path = DEFAULT_LINKML_COMPOSITE,
 ) -> Path:
-    """Generate SHACL shapes via ``gen-shacl``.
+    """Generate LinkML SHACL shapes for the public JSON-LD representation.
 
-    Uses LinkML's default closed-shapes profile (which matches the SHACL
-    semantics consumers expect from a published shape file).
+    The public context and JSON schemas use literal vocabulary codes.
+    LinkML's default enum projection uses ``meaning`` IRIs instead, so
+    adapt only enum emission, including enums in ``any_of`` ranges.
+    Source meanings remain intact for OWL and other LinkML consumers.
     """
-    return _run_generator("gen-shacl", output_path, composite=composite)
+    from dataclasses import asdict
+
+    from linkml.generators.shaclgen import ShaclGenerator
+    from rdflib import BNode, Literal
+    from rdflib.collection import Collection
+    from rdflib.namespace import SH, XSD
+
+    from build.linkml_reader import _convert_enum_to_vocabulary
+
+    class PublicCodeShaclGenerator(ShaclGenerator):
+        def _add_enum(self, graph, emit, enum_name):
+            enum = self.schemaview.get_enum(enum_name)
+            # Reuse the reader's restoration of migrated codes, rather than
+            # confusing external standard_code annotations with public codes.
+            _, vocabulary = _convert_enum_to_vocabulary(enum_name, asdict(enum))
+            # RDF 1.1 treats a plain string and explicit xsd:string as the
+            # same value. RDFLib/pySHACL retain the distinction in sh:in, so
+            # support both public JSON-LD strings and explicitly typed RDF.
+            values = [
+                literal
+                for value in vocabulary["values"]
+                for literal in (
+                    Literal(str(value["code"])),
+                    Literal(str(value["code"]), datatype=XSD.string),
+                )
+            ]
+            node = BNode()
+            Collection(graph, node, values)
+            emit(SH.datatype, XSD.string)
+            emit(SH["in"], node)
+
+    generator = PublicCodeShaclGenerator(str(_require_composite(composite)))
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(generator.serialize(), encoding="utf-8")
+    return output_path
 
 
 def write_full_jsonld(
@@ -117,10 +161,10 @@ def write_full_jsonld(
 
     Strategy: run ``gen-owl`` to produce Turtle (the OWL projection
     is the single canonical RDF rendering of the schema), parse it
-    with rdflib, re-serialise as JSON-LD, then rewrite the inline
-    ``@context`` with a string reference to the hosted draft context.
-    This matches the pre-LinkML behaviour where the published JSON-LD
-    referenced a hosted context so the file stays compact.
+    with rdflib, re-serialise with expanded IRIs, then reference the hosted
+    public context. Compacting with rdflib's generated prefixes and then
+    discarding that context changes IRIs that the public context does not
+    define, or defines differently.
     """
     # Lazy import: rdflib is only required when emitting JSON-LD.
     import rdflib  # noqa: WPS433 — local import is intentional.
@@ -128,7 +172,7 @@ def write_full_jsonld(
     composite = _require_composite(composite)
     binary = _find_linkml_generator("gen-owl")
     proc = subprocess.run(
-        [binary, str(composite)],
+        [binary, *OWL_GENERATOR_ARGS, str(composite)],
         cwd=ROOT,
         check=True,
         capture_output=True,
@@ -136,20 +180,17 @@ def write_full_jsonld(
     g = rdflib.Graph()
     g.parse(data=proc.stdout, format="turtle")
 
-    # rdflib's JSON-LD serializer emits a {"@graph": [...], "@context": {...}}
-    # document. We replace the inline @context with the hosted URL so the
-    # served file is self-describing but compact.
-    raw = g.serialize(format="json-ld", auto_compact=True)
+    # The public context describes instance fields, not every namespace
+    # in the OWL vocabulary. Expanded IRIs need no serializer-only context.
+    raw = g.serialize(format="json-ld", auto_compact=False)
     doc = json.loads(raw)
     if isinstance(doc, list):
-        # rdflib occasionally returns a bare graph array. Wrap it.
+        # Expanded JSON-LD is a bare graph array. Keep the public envelope.
         doc = {"@graph": doc}
     doc["@context"] = context_url
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(
-        json.dumps(doc, indent=2, ensure_ascii=False) + "\n"
+        json.dumps(doc, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
     )
     return output_path
-
-

@@ -1,4 +1,4 @@
-import MiniSearch from "minisearch";
+import MiniSearch, { type SearchResult } from "minisearch";
 
 interface SearchDocument {
   id: string;
@@ -161,7 +161,7 @@ interface GroupedResults {
 }
 
 function groupResults(
-  results: Array<MiniSearch.SearchResult & SearchDocument>,
+  results: Array<SearchResult & SearchDocument>,
   query: string,
   labels: Record<string, string>
 ): GroupedResults[] {
@@ -352,7 +352,7 @@ function initSearch(): void {
       // Check that query hasn't changed during async wait
       if (currentQuery !== query) return;
       const results = ms.search(q) as Array<
-        MiniSearch.SearchResult & SearchDocument
+        SearchResult & SearchDocument
       >;
 
       if (results.length === 0) {
@@ -548,7 +548,7 @@ function initSearch(): void {
         const ms = await ensureIndex(strings.locale);
         if (overlayQuery !== query) return;
         const results = ms.search(q) as Array<
-          MiniSearch.SearchResult & SearchDocument
+          SearchResult & SearchDocument
         >;
 
         if (results.length === 0) {

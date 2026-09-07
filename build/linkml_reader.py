@@ -436,6 +436,8 @@ def _convert_slot_to_property(
         "type": bespoke_type,
         "cardinality": cardinality,
     }
+    if slot_def.get("slot_uri"):
+        prop["uri"] = slot_def["slot_uri"]
     if vocabulary is not None:
         prop["vocabulary"] = vocabulary
     if references is not None:
@@ -499,9 +501,9 @@ def _bespoke_id_and_domain_from_class(
     When ``class_uri`` has the shape ``publicschema:<domain>/<BareId>``,
     the LinkML class name is a fused identifier (e.g. ``CrvsPerson``) and
     the bespoke catalog stores it as bare ``Person`` under domain ``crvs``.
-    The URI is the canonical source for both. For plain
-    ``publicschema:<BareId>`` URIs (or missing URIs) we fall back to the
-    LinkML name plus the ``source_domain`` annotation.
+    The URI is the canonical source for both. A plain
+    ``publicschema:<BareId>`` URI supplies the id while ``source_domain``
+    supplies its domain. Without a product URI, fall back to the LinkML name.
     """
     prefix = "publicschema:"
     if class_uri.startswith(prefix):
@@ -510,6 +512,8 @@ def _bespoke_id_and_domain_from_class(
             uri_domain, bare = local.split("/", 1)
             if uri_domain and bare:
                 return bare, uri_domain
+        elif local:
+            return local, annotation_domain
     return cls_name, annotation_domain
 
 
@@ -688,23 +692,19 @@ def _convert_categories_enum(enum_def: dict) -> dict[str, dict]:
 # ---------------------------------------------------------------------------
 
 
-def load_raw_from_linkml(linkml_dir: Path) -> dict[str, Any]:
-    """Load and re-project all LinkML domain files under ``linkml_dir``.
-
-    Returns a dict with the keys:
-    ``meta``, ``concepts``, ``properties``, ``vocabularies``, ``bibliography``,
-    ``credentials``, ``categories``. Each entry is shaped to match the
-    bespoke loader output (see ``build/build.py``'s ``build_vocabulary``).
-    """
+def load_linkml_metadata(linkml_dir: Path) -> dict[str, Any]:
+    """Read release and renderer metadata from the canonical composite header."""
     composite = _load_yaml(linkml_dir / "publicschema.yaml")
-    # Meta is reconstructed from the composite header. The bespoke
-    # ``schema/_meta.yaml`` carries name/base_uri/version/maturity/languages/license;
-    # only base_uri/version/name/license/maturity survive the migration.
+    default_prefix = composite.get("default_prefix") or "publicschema"
+    prefixes = composite.get("prefixes") or {}
+    base_uri = _prefix_reference(prefixes.get(default_prefix))
+    if not base_uri and isinstance(default_prefix, str) and ":" in default_prefix:
+        base_uri = default_prefix
     meta = {
         "name": composite.get("name") or "PublicSchema",
-        "base_uri": "https://publicschema.org/",
+        "base_uri": base_uri or "https://publicschema.org/",
         "version": str(composite.get("version") or "0.1.0"),
-        "maturity": "draft",
+        "maturity": _maturity_from_status(composite.get("status")),
         "languages": ["en", "fr", "es"],
         "license": composite.get("license") or "CC-BY-4.0",
     }
@@ -713,16 +713,93 @@ def load_raw_from_linkml(linkml_dir: Path) -> dict[str, Any]:
     title = composite.get("title")
     if isinstance(title, str) and title:
         meta["name"] = title
+    return meta
 
-    # Walk every domain file (skip external partials).
-    domain_files: list[Path] = []
-    if linkml_dir.exists():
-        for p in sorted(linkml_dir.glob("*.yaml")):
-            if p.name in {"publicschema.yaml", "publicschema-extensions.yaml"}:
+
+def _prefix_reference(value: Any) -> str | None:
+    """Read compact and expanded LinkML prefix declarations."""
+    if isinstance(value, dict):
+        value = value.get("prefix_reference")
+    return value if isinstance(value, str) else None
+
+
+def _expand_linkml_uri(uri: str, prefixes: dict) -> str:
+    """Expand an authored CURIE while preserving already absolute URIs."""
+    if ":" in uri:
+        prefix, local = uri.split(":", 1)
+        reference = _prefix_reference(prefixes.get(prefix))
+        if reference:
+            return reference + local
+    return uri
+
+
+def _renderer_class_uri(class_uri: str, prefixes: dict, base_uri: str) -> str:
+    """Normalize the selected product namespace for the existing URI decoder."""
+    class_uri = _expand_linkml_uri(class_uri, prefixes)
+    if class_uri.startswith(base_uri):
+        return "publicschema:" + class_uri[len(base_uri):]
+    return class_uri
+
+
+def _load_local_imports(composite_path: Path) -> list[tuple[Path, dict]]:
+    """Read the composite's local import closure in definition override order.
+
+    Imported definitions precede their importer, so inline definitions win.
+    Resolve each relative import against its declaring file, and visit cycles
+    only once. PublicSchema's external partials and extension metamodel are
+    inputs to RDF generation, not entries in the product catalog. Built-in
+    LinkML schemas likewise do not contribute product entries.
+
+    Keep raw YAML annotations intact without requiring the LinkML runtime for
+    the renderer. Other CURIE/URL imports are unsupported here; report those
+    explicitly instead of silently rendering an incomplete catalog.
+    """
+    root = composite_path.parent.resolve()
+    visited: set[Path] = set()
+    documents: list[tuple[Path, dict]] = []
+
+    def visit(path: Path) -> None:
+        path = path.resolve()
+        if path in visited:
+            return
+        visited.add(path)
+        if path.name == "publicschema-extensions.yaml" or path.is_relative_to(root / "external"):
+            return
+        if not path.is_file():
+            raise FileNotFoundError(f"LinkML schema import not found: {path}")
+        doc = _load_yaml(path)
+        for imported in doc.get("imports") or []:
+            if not isinstance(imported, str):
+                raise ValueError(f"LinkML import must be a string in {path}: {imported!r}")
+            if imported.startswith("linkml:"):
                 continue
-            if p.stem.startswith("_"):
-                continue
-            domain_files.append(p)
+            if ":" in imported:
+                raise ValueError(
+                    f"Unsupported non-local LinkML import {imported!r} in {path}; "
+                    "use a local schema file for product definitions"
+                )
+            import_path = Path(imported)
+            if import_path.suffix not in {".yaml", ".yml"}:
+                import_path = Path(f"{imported}.yaml")
+            visit(path.parent / import_path)
+        documents.append((path, doc))
+
+    visit(composite_path)
+    return documents
+
+
+def load_raw_from_linkml(linkml_dir: Path) -> dict[str, Any]:
+    """Load the local import closure and inline definitions of the composite.
+
+    Returns a dict with the keys:
+    ``meta``, ``concepts``, ``properties``, ``vocabularies``, ``bibliography``,
+    ``credentials``, ``categories``. Each entry is shaped to match the
+    bespoke loader output (see ``build/build.py``'s ``build_vocabulary``).
+    """
+    meta = load_linkml_metadata(linkml_dir)
+
+    documents = _load_local_imports(linkml_dir / "publicschema.yaml")
+    composite_prefixes = documents[-1][1].get("prefixes") or {}
 
     # First pass: index every class/enum/slot so cross-refs resolve. This
     # is necessary because slots reference enums (vocabulary look-ups) and
@@ -734,27 +811,30 @@ def load_raw_from_linkml(linkml_dir: Path) -> dict[str, Any]:
     credential_classes: dict[str, dict] = {}
     categories_enum: dict | None = None
 
-    for path in domain_files:
-        doc = _load_yaml(path)
+    for path, doc in documents:
+        prefixes = {**composite_prefixes, **(doc.get("prefixes") or {})}
         for k, v in (doc.get("classes") or {}).items():
             if not isinstance(v, dict):
                 continue
-            class_uri = v.get("class_uri", "")
+            class_uri = _renderer_class_uri(v.get("class_uri", ""), prefixes, meta["base_uri"])
+            v = {**v, "class_uri": class_uri}
             if path.name == "bibliography.yaml" or class_uri.startswith(
                 "publicschema:Citation"
             ):
                 citation_classes[k] = v
-            elif path.name == "credentials.yaml":
+            elif path.name == "credentials.yaml" or k == "Credential" or v.get("is_a") == "Credential":
                 credential_classes[k] = v
             else:
                 all_classes[k] = v
         for k, v in (doc.get("slots") or {}).items():
             if isinstance(v, dict):
+                if v.get("slot_uri"):
+                    v = {**v, "slot_uri": _expand_linkml_uri(v["slot_uri"], prefixes)}
                 all_slots[k] = v
         for k, v in (doc.get("enums") or {}).items():
             if not isinstance(v, dict):
                 continue
-            if path.name == "categories.yaml" and k == "PropertyCategory":
+            if k == "PropertyCategory":
                 categories_enum = v
             else:
                 all_enums[k] = v

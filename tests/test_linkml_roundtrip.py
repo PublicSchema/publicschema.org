@@ -135,11 +135,11 @@ def linkml_owl_graph(tmp_path_factory) -> rdflib.Graph:
     if not LINKML_COMPOSITE.exists():
         pytest.fail(f"LinkML composite not found at {LINKML_COMPOSITE}")
 
-    # Run gen-owl. It prints OWL Turtle to stdout.
+    # Use authored class_uri/slot_uri identities, matching production exports.
     out_dir = tmp_path_factory.mktemp("linkml_owl")
     owl_path = out_dir / "publicschema.owl.ttl"
     proc = subprocess.run(
-        [str(GEN_OWL), str(LINKML_COMPOSITE)],
+        [str(GEN_OWL), "--no-use-native-uris", str(LINKML_COMPOSITE)],
         cwd=ROOT,
         env=env,
         check=True,

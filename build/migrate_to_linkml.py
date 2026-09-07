@@ -737,6 +737,9 @@ def convert_vocabulary(sf: SourceFile, ctx: MigrationContext) -> tuple[str, dict
         # 10 files / 9,476 values, the largest silent-loss source.
         if v.get("standard_code") is not None:
             v_annotations["standard_code"] = str(v["standard_code"])
+        elif str(code) == "self" and key == "self_":
+            # Preserve the public code when escaping LinkML's Python name.
+            v_annotations["standard_code"] = str(code)
 
         # note / notes - value-level mapping or reference guidance.
         if v.get("note") is not None:

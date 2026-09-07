@@ -256,7 +256,7 @@ classes:
         schema_dir = tmp_path / "schema"
         schema_dir.mkdir()
         (schema_dir / "publicschema.yaml").write_text(
-            "id: test\nname: test\n"
+            "id: test\nname: test\nimports: [domain]\n"
         )
         (schema_dir / "domain.yaml").write_text(domain_yaml)
 

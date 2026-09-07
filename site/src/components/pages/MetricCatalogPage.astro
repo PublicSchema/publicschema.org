@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import TranslationBanner from '../TranslationBanner.astro';
 import { defaultLocale, type Locale } from '../../i18n/languages';
 import { useTranslations, localePath } from '../../i18n/utils';
 import { loadMetricsCatalog, metricsByCatalog } from '../../data/metrics';
@@ -29,6 +30,7 @@ const draftCount = metrics.filter((m) => draftStatuses.has(m.status)).length;
 ---
 <Base title={t('metrics.catalog.page_title', { catalog: catalog.title })} description={catalog.description} locale={locale}>
   <article>
+    {locale !== defaultLocale && <TranslationBanner locale={locale} />}
     <div class="page-header">
       <nav class="breadcrumb" aria-label={t('breadcrumb.home')}>
         <a href={localePath('/', locale)}>{t('breadcrumb.home')}</a>
@@ -53,7 +55,7 @@ const draftCount = metrics.filter((m) => draftStatuses.has(m.status)).length;
         </div>
       </dl>
       <p class="meta-line">
-        <span class="uri">{t('metrics.results.count_other', { count: metrics.length })}{draftCount > 0 ? ` (${draftCount} draft)` : ''}</span>
+        <span class="uri">{t('metrics.results.count_other', { count: metrics.length })}{draftCount > 0 ? ` (${t('metrics.drafts_count', { count: draftCount })})` : ''}</span>
       </p>
     </div>
 
@@ -71,7 +73,7 @@ const draftCount = metrics.filter((m) => draftStatuses.has(m.status)).length;
             <tr>
               <td data-label={t('metrics.table.metric')}>
                 <a href={localePath(m.path, locale)}>{metricLabel(m)}</a>
-                {m.core && <span class="badge badge-core">core</span>}
+                {m.core && <span class="badge badge-core">{t('metrics.metric.field_core')}</span>}
               </td>
               <td data-label={t('metrics.table.definition')}>{metricDef(m)}</td>
               <td data-label={t('metrics.table.status')}>

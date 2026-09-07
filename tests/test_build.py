@@ -1633,7 +1633,7 @@ class TestJsonLdDocuments:
         write_concept("person.yaml", make_concept(id="Person"))
         result = build_vocabulary(tmp_schema)
         dist = tmp_path / "dist"
-        write_outputs(result, dist)
+        write_outputs(result, dist, schema_dir=tmp_schema, source="bespoke")
         jsonld_path = dist / "jsonld" / "concepts" / "Person.jsonld"
         assert jsonld_path.exists()
         doc = json.loads(jsonld_path.read_text())
@@ -1649,7 +1649,7 @@ class TestJsonLdDocuments:
         ))
         result = build_vocabulary(tmp_schema)
         dist = tmp_path / "dist"
-        write_outputs(result, dist)
+        write_outputs(result, dist, schema_dir=tmp_schema, source="bespoke")
         assert (dist / "jsonld" / "concepts" / "sp" / "Enrollment.jsonld").exists()
 
     def test_vocabulary_jsonld_domain_specific_uses_prefixed_path(
@@ -2079,3 +2079,209 @@ class TestCrosswalksDir:
             "Crosswalk should not be applied when crosswalks_dir is not passed "
             "and schema_dir has no value_crosswalks/ subdir"
         )
+
+
+@pytest.mark.parametrize("override", [False, True])
+def test_cli_forwards_selected_linkml_composite(tmp_path, monkeypatch, override):
+    from build import build
+
+    schema = tmp_path / "schema"
+    selected = tmp_path / "selected" if override else schema
+    calls = {}
+    result = {"concepts": {}, "properties": {}, "vocabularies": {}}
+
+    def capture_vocabulary(directory, **kwargs):
+        calls["directory"] = directory
+        calls["crosswalks"] = kwargs["crosswalks_dir"]
+        return result
+
+    def capture_outputs(value, directory, **kwargs):
+        calls["outputs"] = kwargs
+
+    monkeypatch.setattr(build, "build_vocabulary", capture_vocabulary)
+    monkeypatch.setattr(build, "write_outputs", capture_outputs)
+    argv = ["build", str(schema), str(tmp_path / "dist")]
+    if override:
+        argv.extend(["--linkml-dir", str(selected)])
+    monkeypatch.setattr("sys.argv", argv)
+    build.main()
+    assert calls["directory"] == selected
+    assert calls["crosswalks"] == schema / "value_crosswalks"
+    assert calls["outputs"]["rdf_composite"] == selected / "publicschema.yaml"
+    assert calls["outputs"]["schema_dir"] == schema
+    assert calls["outputs"]["source"] == "linkml"
+
+
+def test_bespoke_build_emits_its_own_rdf_and_static_downloads(
+    tmp_schema, write_concept, write_property, tmp_path, monkeypatch,
+):
+    from build import build, linkml_rdf_export
+
+    def unexpected_linkml(*args, **kwargs):
+        pytest.fail("Bespoke output must not load the current LinkML composite")
+
+    for name in ("write_turtle", "write_full_jsonld", "write_shacl"):
+        monkeypatch.setattr(linkml_rdf_export, name, unexpected_linkml)
+    write_property("amount.yaml", make_property(id="amount", type="decimal"))
+    write_concept("sample.yaml", make_concept(id="Sample", properties=["amount"]))
+    dist = tmp_path / "output"
+    public = tmp_path / "public"
+    public.mkdir()
+    (public / "Sample.schema.json").write_text('{"stale": true}')
+    monkeypatch.setattr("sys.argv", [
+        "build", str(tmp_schema), str(dist), "--source", "bespoke",
+        "--site-public-dir", str(public),
+    ])
+    build.main()
+    import rdflib
+
+    graph = rdflib.Graph().parse(dist / "publicschema.ttl")
+    assert any(graph.triples((rdflib.URIRef("https://test.example.org/Sample"), None, None)))
+    schema = json.loads((public / "Sample.schema.json").read_text())
+    assert schema["properties"]["amount"]["type"] == "number"
+    for suffix in (".csv", "-definition.xlsx", "-template.xlsx"):
+        assert (public / f"Sample{suffix}").read_bytes() == (dist / "downloads" / f"Sample{suffix}").read_bytes()
+        assert (public / "downloads" / f"Sample{suffix}").read_bytes() == (public / f"Sample{suffix}").read_bytes()
+    assert (public / "vocabulary.json").read_bytes() == (dist / "vocabulary.json").read_bytes()
+    assert (public / "preview" / "en.json").exists()
+    assert json.loads((dist / "metrics_catalog.json").read_text())["meta"]["metric_count"] == 0
+
+
+def test_write_outputs_passes_explicit_composite_to_all_rdf_generators(
+    tmp_schema, write_concept, tmp_path, monkeypatch,
+):
+    from build import build, linkml_rdf_export
+
+    write_concept("sample.yaml", make_concept(id="Sample"))
+    calls = []
+
+    def capture(path, **kwargs):
+        calls.append((path.name, kwargs))
+
+    for name in ("write_turtle", "write_full_jsonld", "write_shacl"):
+        monkeypatch.setattr(linkml_rdf_export, name, capture)
+    composite = tmp_path / "custom" / "publicschema.yaml"
+    build.write_outputs(
+        build.build_vocabulary(tmp_schema), tmp_path / "output",
+        schema_dir=tmp_schema, rdf_composite=composite,
+    )
+    assert {name for name, _ in calls} == {"publicschema.ttl", "publicschema.jsonld", "publicschema.shacl.ttl"}
+    assert all(kwargs["composite"] == composite for _, kwargs in calls)
+    assert next(kwargs for name, kwargs in calls if name.endswith(".jsonld"))["context_url"] == "https://test.example.org/ctx/draft.jsonld"
+
+
+def test_published_metric_observation_preserves_linkml_numeric_value(tmp_path, monkeypatch):
+    """The downloaded schema and context preserve the source float contract."""
+    from build import build, linkml_rdf_export
+    from tests.conftest import SCHEMA_DIR
+    import rdflib
+
+    # RDF generators have their own production integration tests. This test
+    # follows the public JSON Schema and context through the actual publisher.
+    for name in ("write_turtle", "write_full_jsonld", "write_shacl"):
+        monkeypatch.setattr(linkml_rdf_export, name, lambda *args, **kwargs: None)
+    result = build.build_vocabulary(SCHEMA_DIR)
+    dist = tmp_path / "dist"
+    public = tmp_path / "public"
+    build.write_outputs(result, dist, schema_dir=SCHEMA_DIR)
+    build.prepare_site_artifacts(dist, public)
+
+    schema = json.loads((public / "metrics" / "MetricObservation.schema.json").read_text())
+    jsonschema.validate({"metric_value": 42.5}, schema)
+    with pytest.raises(jsonschema.ValidationError):
+        jsonschema.validate({"metric_value": "not a number"}, schema)
+    context = json.loads((dist / "context.jsonld").read_text())
+    assert context["@context"]["metric_value"]["@type"] == "xsd:float"
+    graph = rdflib.Graph().parse(data=json.dumps({
+        "@context": context["@context"], "@id": "urn:test:observation", "metric_value": 42.5,
+    }), format="json-ld")
+    value = graph.value(rdflib.URIRef("urn:test:observation"), rdflib.URIRef("https://publicschema.org/metrics/metric_value"))
+    assert value.datatype == rdflib.XSD.float
+    assert float(value) == 42.5
+    prop = json.loads((dist / "jsonld" / "properties" / "metrics" / "metric_value.jsonld").read_text())
+    assert prop["schema:rangeIncludes"] == "xsd:float"
+
+
+def test_metrics_authored_uris_match_public_context_and_downloads():
+    """LinkML RDF identities and the site's domain paths describe the same terms."""
+    from build.loader import load_yaml
+    from tests.conftest import SCHEMA_DIR
+
+    authored = load_yaml(SCHEMA_DIR / "metrics.yaml")
+    result = build_vocabulary(SCHEMA_DIR)
+    context = result["context"]["@context"]
+    base = authored["prefixes"]["publicschema"]
+    for name, definition in authored["classes"].items():
+        uri = definition["class_uri"].replace("publicschema:", base, 1)
+        concept = result["concepts"][f"metrics/{name}"]
+        assert uri == concept["uri"] == context[name]
+        assert result["concept_schemas"][f"metrics/{name}"]["$id"] == uri + ".schema.json"
+    for name, definition in authored["slots"].items():
+        uri = definition["slot_uri"].replace("publicschema:", base, 1)
+        term = context[name]
+        assert uri == result["properties"][name]["uri"]
+        assert uri == (term["@id"] if isinstance(term, dict) else term)
+
+
+@pytest.mark.parametrize("reverse", [False, True])
+def test_context_root_name_precedes_domain_collision_regardless_of_order(reverse):
+    from pyld import jsonld
+
+    concepts = {
+        "Person": make_concept(id="Person"),
+        "crvs/Person": make_concept(id="Person", domain="crvs"),
+        "sp/Enrollment": make_concept(id="Enrollment", domain="sp"),
+    }
+    if reverse:
+        concepts = dict(reversed(concepts.items()))
+    result = build_vocabulary(raws={"concepts": concepts})
+    context = result["context"]["@context"]
+    assert context["Person"] == "https://publicschema.org/Person"
+    assert context["crvs/Person"] == "https://publicschema.org/crvs/Person"
+    assert context["Enrollment"] == context["sp/Enrollment"] == "https://publicschema.org/sp/Enrollment"
+    for name, expected in (("Person", "Person"), ("crvs/Person", "crvs/Person")):
+        expanded = jsonld.expand({"@context": context, "@id": "urn:test:person", "@type": name})
+        assert expanded[0]["@type"] == ["https://publicschema.org/" + expected]
+
+
+@pytest.mark.parametrize("reverse", [False, True])
+def test_context_ambiguous_domain_names_require_qualified_alias(reverse):
+    from pyld import jsonld
+
+    concepts = {
+        "first/Record": make_concept(id="Record", domain="first"),
+        "second/Record": make_concept(id="Record", domain="second"),
+    }
+    if reverse:
+        concepts = dict(reversed(concepts.items()))
+    context = build_vocabulary(raws={"concepts": concepts})["context"]["@context"]
+    assert "Record" not in context
+    for domain in ("first", "second"):
+        expected = f"https://publicschema.org/{domain}/Record"
+        assert context[f"{domain}/Record"] == expected
+        expanded = jsonld.expand({"@context": context, "@id": "urn:test:record", "@type": f"{domain}/Record"})
+        assert expanded[0]["@type"] == [expected]
+
+
+def test_authored_property_uri_preserves_json_field_and_site_path():
+    from pyld import jsonld
+
+    result = build_vocabulary(raws={
+        "meta": {"base_uri": "https://example.org/"},
+        "concepts": {"Record": make_concept(id="Record", properties=["display_name"])},
+        "properties": {"display_name": make_property(
+            id="display_name", uri="https://example.org/label", type="string",
+        )},
+    })
+    prop = result["properties"]["display_name"]
+    assert prop["id"] == "display_name"
+    assert prop["path"] == "/display_name"
+    assert prop["uri"] == "https://example.org/label"
+    assert "display_name" in result["concept_schemas"]["Record"]["properties"]
+    context = result["context"]["@context"]
+    assert context["display_name"] == "https://example.org/label"
+    expanded = jsonld.expand({
+        "@context": context, "@id": "urn:test:record", "@type": "Record", "display_name": "Ada",
+    })
+    assert expanded[0]["https://example.org/label"] == [{"@value": "Ada"}]
+    assert result["jsonld_docs"]["properties/display_name.jsonld"]["@id"] == prop["uri"]
