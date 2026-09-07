@@ -1,0 +1,9 @@
+property,type,cardinality,definition,vocabulary,maturity,sensitivity,category,age_applicability,valid_instruments
+publisher,concept:Agent,single,"The agent that publishes or maintains the instrument, software agent, or scoring rule. Typically an Organization (for example, the Washington Group on Disability Statistics, UNICEF, the SMART initiative, the openIMIS Initiative, or a national statistics office), but may be a named Person for standards methodologies and individual research publications. A SoftwareAgent is not expected to appear here: the publisher of a SoftwareAgent record is the Person or Organization that publishes the software, not another piece of software. The type system admits SoftwareAgent via the Agent supertype, but that case is excluded by convention.",,draft,,,,
+published_at,datetime,single,The datetime at which this MetricReport was published.,,candidate,,,,
+reference_date,date,single,The reference date for the values reported in this bundle. May differ from published_at when reports are issued retrospectively.,,candidate,,,,
+methodology_uri,uri,single,"URI of the methodology document, code book, or technical note that describes how the values in this report were produced.",,candidate,,,,
+license,string,single,"The license under which this MetricReport is released (for example, CC-BY-4.0, CC0-1.0).",,candidate,,,,
+contact_uri,uri,single,"URI of the contact point for questions about this MetricReport (a mailto URI, a person page, or an agency contact page).",,candidate,,,,
+observations,concept:metrics/MetricObservation,multiple,The MetricObservation records bundled in this report.,,candidate,,,,
+dsd_uri,uri,single,The URN of the SDMX Data Structure Definition this report claims conformance to. Composes as urn:sdmx:org.sdmx.infomodel.datastructure.DataStructure=<Agency>:<ID>(<Version>).,,candidate,,,,

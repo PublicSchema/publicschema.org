@@ -1,0 +1,43 @@
+id: group-type--dci
+source_value_set:
+  id: group-type
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: AssistanceUnitEnum
+  source_id: dci
+pairs:
+- source_value: household
+  target_value: '2'
+  quality: exact
+  target_label: Household
+- source_value: family
+  target_value: '3'
+  quality: exact
+  target_label: Family
+- source_value: null
+  target_value: '1'
+  quality: unmapped
+  target_label: Member (Person/Individual)
+  unmapped_reason: out_of_scope
+- source_value: farm
+  target_value: null
+  quality: unmapped
+- source_value: other
+  target_value: null
+  quality: unmapped
+standard:
+  source_id: dci
+  uri: https://github.com/spdci/schemas/tree/main/core/v1
+  custodian: Digital Convergence Initiative (DCI)
+  license: Apache-2.0
+  license_uri: https://www.apache.org/licenses/LICENSE-2.0
+  version: 1.0.0
+  attribution_text: Digital Convergence Initiative (DCI), spdci/schemas, Apache-2.0
+  redistribution: permitted under Apache-2.0
+  retrieved_at: "2026-05-12"
+  artifact_kind: none
+  artifact_notes: >-
+    Source schemas are a directory of individual JSON-LD files at
+    github.com/spdci/schemas/tree/main/core/v1/code/ with no single canonical
+    download artifact.

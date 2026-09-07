@@ -1,0 +1,48 @@
+id: sp-enrollment-status--dhis2
+source_value_set:
+  id: sp/enrollment-status
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: EnrollmentStatus
+  source_id: dhis2
+pairs:
+- source_value: active
+  target_value: ACTIVE
+  quality: exact
+  target_label: Active
+- source_value: closed
+  target_value: COMPLETED
+  quality: exact
+  target_label: Completed
+- source_value: closed
+  target_value: CANCELLED
+  quality: exact
+  target_label: Cancelled
+- source_value: pending_verification
+  target_value: null
+  quality: unmapped
+- source_value: waitlisted
+  target_value: null
+  quality: unmapped
+- source_value: suspended
+  target_value: null
+  quality: unmapped
+- source_value: graduated
+  target_value: null
+  quality: unmapped
+standard:
+  source_id: dhis2
+  uri: https://docs.dhis2.org/en/develop/using-the-api/dhis-core-version-243/metadata.html
+  custodian: "HISP Centre, University of Oslo"
+  license: BSD-3-Clause
+  license_uri: https://github.com/dhis2/dhis2-core/blob/master/LICENSE
+  version: 2.43.0
+  attribution_text: "Copyright (c) 2004-2025, University of Oslo"
+  redistribution: "Permitted under BSD-3-Clause terms; copyright notice must be retained"
+  retrieved_at: "2026-05-12"
+  artifact_kind: none
+  artifact_notes: >-
+    DHIS2 option-set enums are defined across multiple configuration files in
+    dhis2-core; no single canonical downloadable artifact.
+notes: COMPLETED may map to graduated or closed + exit_reason depending on program context. CANCELLED maps to closed + exit_reason (administrative or voluntary_withdrawal).

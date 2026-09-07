@@ -6,6 +6,13 @@ the existing vocabulary values.
 
 Preserves hand-written fields (definitions, translations, system_mappings)
 while adding/updating codes from the authoritative source.
+
+Source: legacy bespoke schema only.
+-----------------------------------
+This script still reads and writes legacy ``schema/vocabularies/**/*.yaml``
+files. The canonical v1 source is now authored LinkML under ``schema/*.yaml``,
+so the CLI refuses to run against the default LinkML tree until this workflow
+is rewritten to update LinkML enums directly.
 """
 
 import csv
@@ -531,6 +538,17 @@ def main():
     args = parser.parse_args()
 
     schema_dir = Path(args.schema_dir)
+    if (schema_dir / "publicschema.yaml").exists() and not (
+        schema_dir / "vocabularies"
+    ).exists():
+        print(
+            "Error: sync_standards only supports legacy "
+            "schema/vocabularies/**/*.yaml trees. The current schema is "
+            "authored LinkML, so standards sync needs a LinkML enum writer "
+            "before it can run.",
+            file=sys.stderr,
+        )
+        sys.exit(1)
 
     if args.vocab_id:
         vocab_path = schema_dir / "vocabularies" / f"{args.vocab_id}.yaml"

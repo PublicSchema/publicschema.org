@@ -6,35 +6,37 @@ set dotenv-load := false
 schema_dir := "schema"
 dist_dir := "dist"
 site_dir := "site"
-
 # List available recipes
 default:
     @just --list
 
 # --- Build ---
 
-# Generate vocabulary.json, context.jsonld, JSON Schemas, and downloadable files from YAML sources
-build:
-    uv run python -m build.build
-    rsync -a --include='*.csv' --include='*.xlsx' --include='*/' --exclude='*' {{dist_dir}}/downloads/ {{site_dir}}/public/
-    rsync -a --exclude='credentials/' --include='*.schema.json' --include='*/' --exclude='*' {{dist_dir}}/schemas/ {{site_dir}}/public/
-    rsync -a --delete {{dist_dir}}/schemas/credentials/ {{site_dir}}/public/schemas/credentials/
-    cp {{dist_dir}}/vocabulary.json {{site_dir}}/public/vocabulary.json
-    cp {{dist_dir}}/system_matchings.json {{site_dir}}/public/system_matchings.json
-    mkdir -p {{site_dir}}/public/preview
-    cp {{dist_dir}}/preview/*.json {{site_dir}}/public/preview/
+# Regenerate the metrics projection from the checked-in catalog sources (offline)
+metrics-data:
+    uv run --locked python -m build.metrics_catalog
 
-# Validate all YAML source files (schema, referential integrity, translations, system matchings)
+# Generate vocabulary data and prepare every static site download from YAML sources
+build:
+    uv run --locked python -m build.build --site-public-dir {{site_dir}}/public
+
+# Validate the canonical LinkML metamodel and composite
 validate:
-    uv run python -m build.validate
+    uv run --locked python -m build.validate
 
 # Validate external/<system>/matching.yaml files against build/schemas/matching.schema.json
 validate-matchings:
-    uv run python -m build.validate_matchings
+    uv run --locked python -m build.validate_matchings
 
-# Sync external standard vocabularies (countries, currencies, languages, etc.)
+# Validate schema/value_crosswalks/*.yaml: schema conformance, TODO-free
+# standards, and known source ids. Fails the build until every authored
+# crosswalk has fully-populated standard metadata.
+validate-crosswalks:
+    uv run --locked python -m build.validate_crosswalks
+
+# Legacy bespoke sources only: sync external standard vocabularies (refuses LinkML)
 sync-standards:
-    uv run python -m build.sync_standards
+    uv run --locked python -m build.sync_standards
 
 # --- Site ---
 
@@ -58,23 +60,23 @@ site-install:
 
 # Run all tests
 test:
-    uv run pytest
+    uv run --locked pytest
 
 # Lint schema content for quality and style issues
 lint:
-    uv run python -m build.lint
+    uv run --locked python -m build.lint
 
 # Check translation completeness and staleness
 check-translations:
-    uv run python -m build.check_translations
+    uv run --locked python -m build.check_translations
 
 # Validate, lint, test, build, and check everything is clean
-check: validate lint check-translations test build
+check: validate validate-crosswalks lint check-translations test build
     @echo "All checks passed."
 
 # Install all dependencies (Python + Node)
 setup:
-    uv sync
+    uv sync --locked
     cd {{site_dir}} && npm install
 
 # Full clean rebuild: install deps, validate, build data, build site

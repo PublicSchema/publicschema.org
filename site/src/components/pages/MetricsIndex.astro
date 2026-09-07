@@ -1,0 +1,98 @@
+---
+import Base from '../../layouts/Base.astro';
+import TranslationBanner from '../TranslationBanner.astro';
+import { defaultLocale, type Locale } from '../../i18n/languages';
+import { useTranslations, localePath } from '../../i18n/utils';
+import { loadMetricsCatalog } from '../../data/metrics';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = defaultLocale } = Astro.props;
+const t = useTranslations(locale);
+
+const data = loadMetricsCatalog();
+const catalogs = Object.values(data.catalogs).sort((a, b) => a.key.localeCompare(b.key));
+const totalMetrics = data.meta.metric_count;
+
+const specHref = localePath('/docs/metrics-spec/', locale);
+const subtitleParts = t('metrics.page_subtitle').split('{spec_link}');
+---
+<Base title={t('metrics.page_title')} description={t('metrics.page_subtitle').replace('{spec_link}', t('metrics.spec_link_text'))} locale={locale}>
+  <article>
+    {locale !== defaultLocale && <TranslationBanner locale={locale} />}
+    <div class="page-header">
+      <nav class="breadcrumb" aria-label={t('breadcrumb.home')}>
+        <a href={localePath('/', locale)}>{t('breadcrumb.home')}</a>
+        <span class="separator">/</span>
+        {t('metrics.page_title')}
+      </nav>
+      <h1>{t('metrics.page_title')}</h1>
+      <p class="definition-text">
+        {subtitleParts[0]}<a href={specHref}>{t('metrics.spec_link_text')}</a>{subtitleParts[1]}
+      </p>
+      <p class="meta-line">
+        <span class="uri">
+          {t('metrics.results.count_other', { count: totalMetrics })} · {t('metrics.catalogs_count', { count: catalogs.length })}
+        </span>
+      </p>
+    </div>
+
+    <section class="concept-section" id="catalogs">
+      <h2>{t('metrics.catalogs_heading')}</h2>
+      <p class="catalog-intro">{t('metrics.catalog_intro')}</p>
+      <div class="catalog-grid">
+        {catalogs.map((c) => (
+          <a class="catalog-card" href={localePath(c.path, locale)}>
+            <h3>{c.title}</h3>
+            <p class="catalog-card-count">{t('metrics.catalog_card.count', { count: c.metric_count })}</p>
+            <p class="catalog-card-source"><strong>{t('metrics.catalog_card.source')}:</strong> {c.source}</p>
+            <p class="catalog-card-license"><strong>{t('metrics.catalog_card.license')}:</strong> {c.license}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+  </article>
+</Base>
+
+<style>
+.catalog-intro {
+  color: var(--color-text-muted, #555);
+  margin-bottom: 1.25rem;
+}
+.catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+.catalog-card {
+  display: block;
+  padding: 1rem;
+  border: 1px solid var(--color-border, #ddd);
+  border-radius: 8px;
+  text-decoration: none;
+  color: inherit;
+  background: var(--color-surface, #fff);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.catalog-card:hover {
+  border-color: var(--color-accent, #2e6fdf);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+.catalog-card h3 {
+  margin: 0 0 0.25rem;
+  font-size: 1.05rem;
+}
+.catalog-card-count {
+  margin: 0 0 0.5rem;
+  color: var(--color-text-muted, #555);
+  font-size: 0.9rem;
+}
+.catalog-card-source,
+.catalog-card-license {
+  margin: 0.25rem 0;
+  font-size: 0.85rem;
+  color: var(--color-text-muted, #555);
+}
+</style>

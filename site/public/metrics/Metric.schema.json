@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://publicschema.org/metrics/Metric.schema.json",
+  "title": "Metric",
+  "description": "A named, derivable indicator with a stable URI, a prose definition, a value type, a unit, declared dimensions, declared observation-level attributes, declared external alignments, and a single primary computation. A Metric is the catalogue definition; values reported against it are MetricObservation records. The per-record analog is ScoringRule (schema/misc.yaml), which captures the rule applied to a single subject; MetricCalculation aggregates the same shape across many subjects.\n",
+  "type": "object",
+  "properties": {
+    "description": {
+      "type": "string",
+      "description": "A free-text summary describing the event, situation, or record."
+    },
+    "value_type": {
+      "type": "string",
+      "enum": [
+        "count",
+        "proportion",
+        "ratio",
+        "currency_amount",
+        "index",
+        "duration",
+        "nominal",
+        "ordinal",
+        "qualitative"
+      ],
+      "$comment": "https://publicschema.org/vocab/value-type",
+      "description": "The kind of numeric or categorical value a metric carries (count, proportion, ratio, currency amount, index, duration, nominal, ordinal, qualitative)."
+    },
+    "unit": {
+      "type": "string",
+      "description": "The unit of measure for a metric. May be a UCUM unit code, an ISO 4217 currency code for currency amounts, the SDMX UNIT_MEASURE code 'PT' for percentages, or the literal 'unitless' for proportions expressed in 0..1."
+    },
+    "multiplier": {
+      "type": "integer",
+      "description": "SDMX-style scale exponent. 0 for units, 3 for thousands, 6 for millions, 9 for billions. Default 0."
+    },
+    "decimals": {
+      "type": "integer",
+      "description": "The number of decimal places to use when reporting the metric."
+    },
+    "dimensions": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "$ref": "https://publicschema.org/metrics/MetricDimension.schema.json"
+          },
+          {
+            "type": "string",
+            "description": "URI or identifier reference"
+          }
+        ],
+        "description": "The ordered list of MetricDimension references that disaggregate this metric. Ordering drives the DSD round-trip and the column order on SDMX-CSV emission."
+      }
+    },
+    "attributes": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "$ref": "https://publicschema.org/metrics/MetricAttribute.schema.json"
+          },
+          {
+            "type": "string",
+            "description": "URI or identifier reference"
+          }
+        ],
+        "description": "The list of MetricAttribute references that may decorate observations, series, or the dataset for this metric."
+      }
+    },
+    "calculation": {
+      "oneOf": [
+        {
+          "$ref": "https://publicschema.org/metrics/MetricCalculation.schema.json"
+        },
+        {
+          "type": "string",
+          "description": "URI or identifier reference"
+        }
+      ],
+      "description": "The single primary computation that turns PublicSchema record-level data into a value for this metric. Variant computations are carried by libraries."
+    },
+    "topic": {
+      "type": "string",
+      "enum": [
+        "coverage",
+        "adequacy",
+        "expenditure",
+        "leakage",
+        "targeting",
+        "inclusion_error",
+        "exclusion_error",
+        "regularity",
+        "processing_time",
+        "satisfaction"
+      ],
+      "$comment": "https://publicschema.org/vocab/metric-topic",
+      "description": "The substantive topic family of the metric (coverage, adequacy, expenditure, leakage, targeting, inclusion error, exclusion error, regularity, processing time, satisfaction). Drives browsing and faceting on the website."
+    },
+    "concept_uri": {
+      "type": "string",
+      "format": "uri",
+      "description": "The skos:Concept URI this metric, dimension, or attribute realises. Multiple metrics may share a single concept_uri when they measure the same underlying notion through different operationalisations."
+    },
+    "metric_family": {
+      "type": "string",
+      "format": "uri",
+      "description": "Optional URI tagging this metric with a metric-family group. Metrics sharing a family value also share dimensions and observation-level attributes; the family value drives DSD generation. Modelled as a tag rather than a separate MetricFamily class until there are at least three real families. Named metric_family to avoid collision with the family slot in schema/civil_status.yaml.\n"
+    },
+    "aligns_with": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uri",
+        "description": "External URIs to which this metric, dimension, or attribute aligns: SDMX agency DSDs, UN SDG indicators, ASPIRE families, ESSPROS reference metadata, SOCX DSDs, DHIS2 indicator UIDs, IATI indicator codes, HXL hashtags. Alignment is one-way semantic; PublicSchema does not synchronise with these registries.\n"
+      }
+    },
+    "core": {
+      "type": "boolean",
+      "description": "True if the metric belongs to the core tier (shipped with every PublicSchema deployment), false if it belongs to the extended tier (opt-in, country or program-specific). Per design-principles.md principle 9.\n"
+    },
+    "version": {
+      "type": "string",
+      "description": "The version identifier of an artefact such as an instrument, software agent, scoring rule, or privacy notice (for example, a release date such as 2022-10-11 or a semantic version like 6.2)."
+    },
+    "replaces": {
+      "type": "string",
+      "format": "uri",
+      "description": "URI of the metric record that this metric supersedes."
+    },
+    "replaced_by": {
+      "type": "string",
+      "format": "uri",
+      "description": "URI of the metric record that supersedes this metric."
+    }
+  }
+}

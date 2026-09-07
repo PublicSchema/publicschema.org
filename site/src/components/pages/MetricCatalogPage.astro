@@ -1,0 +1,120 @@
+---
+import Base from '../../layouts/Base.astro';
+import TranslationBanner from '../TranslationBanner.astro';
+import { defaultLocale, type Locale } from '../../i18n/languages';
+import { useTranslations, localePath } from '../../i18n/utils';
+import { loadMetricsCatalog, metricsByCatalog } from '../../data/metrics';
+
+interface Props {
+  catalogKey: string;
+  locale?: Locale;
+}
+
+const { catalogKey, locale = defaultLocale } = Astro.props;
+const t = useTranslations(locale);
+
+const data = loadMetricsCatalog();
+const catalog = data.catalogs[catalogKey];
+if (!catalog) {
+  throw new Error(`Unknown metric catalog: ${catalogKey}`);
+}
+const metrics = metricsByCatalog(data)[catalogKey] ?? [];
+
+const metricLabel = (m: { id: string; label: { en: string; fr?: string; es?: string } }) =>
+  m.label[locale] ?? m.label.en ?? m.id;
+const metricDef = (m: { definition: { en: string; fr?: string; es?: string } }) =>
+  m.definition[locale] ?? m.definition.en ?? '';
+
+const draftStatuses = new Set(['bibo:draft', 'bibo:status/forthcoming']);
+const draftCount = metrics.filter((m) => draftStatuses.has(m.status)).length;
+---
+<Base title={t('metrics.catalog.page_title', { catalog: catalog.title })} description={catalog.description} locale={locale}>
+  <article>
+    {locale !== defaultLocale && <TranslationBanner locale={locale} />}
+    <div class="page-header">
+      <nav class="breadcrumb" aria-label={t('breadcrumb.home')}>
+        <a href={localePath('/', locale)}>{t('breadcrumb.home')}</a>
+        <span class="separator">/</span>
+        <a href={localePath('/metrics/', locale)}>{t('metrics.page_title')}</a>
+        <span class="separator">/</span>
+        {catalog.key}
+      </nav>
+      <h1>{catalog.title}</h1>
+      <p class="canonical-line">
+        <span class="uri">{catalog.id}</span>
+      </p>
+      <p class="definition-text">{catalog.description}</p>
+      <dl class="catalog-meta">
+        <div>
+          <dt>{t('metrics.catalog_card.source')}</dt>
+          <dd>{catalog.source}</dd>
+        </div>
+        <div>
+          <dt>{t('metrics.catalog_card.license')}</dt>
+          <dd>{catalog.license}</dd>
+        </div>
+      </dl>
+      <p class="meta-line">
+        <span class="uri">{t('metrics.results.count_other', { count: metrics.length })}{draftCount > 0 ? ` (${t('metrics.drafts_count', { count: draftCount })})` : ''}</span>
+      </p>
+    </div>
+
+    <section class="concept-section">
+      <table class="data-table mobile-card-table">
+        <thead>
+          <tr>
+            <th>{t('metrics.table.metric')}</th>
+            <th>{t('metrics.table.definition')}</th>
+            <th>{t('metrics.table.status')}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {metrics.map((m) => (
+            <tr>
+              <td data-label={t('metrics.table.metric')}>
+                <a href={localePath(m.path, locale)}>{metricLabel(m)}</a>
+                {m.core && <span class="badge badge-core">{t('metrics.metric.field_core')}</span>}
+              </td>
+              <td data-label={t('metrics.table.definition')}>{metricDef(m)}</td>
+              <td data-label={t('metrics.table.status')}>
+                <code class="status-code">{m.status.replace(/^bibo:/, '')}</code>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      {metrics.length === 0 && <p>{t('metrics.empty')}</p>}
+    </section>
+  </article>
+</Base>
+
+<style>
+.catalog-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin: 0.75rem 0 1rem;
+}
+.catalog-meta div { display: contents; }
+.catalog-meta dt {
+  font-weight: 600;
+  color: var(--color-text-muted, #555);
+  margin-right: 0.4rem;
+}
+.catalog-meta dd { margin: 0 1rem 0 0; }
+.badge-core {
+  display: inline-block;
+  margin-left: 0.5em;
+  padding: 0.1em 0.5em;
+  border-radius: 4px;
+  font-size: 0.75em;
+  background: var(--color-accent-bg, #e7f0ff);
+  color: var(--color-accent, #2e6fdf);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.status-code {
+  font-size: 0.85em;
+  color: var(--color-text-muted, #555);
+}
+</style>

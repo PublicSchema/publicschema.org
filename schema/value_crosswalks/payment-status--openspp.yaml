@@ -1,0 +1,57 @@
+id: payment-status--openspp
+source_value_set:
+  id: payment-status
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: openspp
+  source_id: openspp
+pairs:
+- source_value: pending
+  target_value: issued
+  quality: exact
+  target_label: Issued
+- source_value: processing
+  target_value: sent
+  quality: exact
+  target_label: Sent
+- source_value: paid
+  target_value: reconciled
+  quality: exact
+  target_label: Reconciled
+  migration_note: 'Also set is_reconciled: true. Reconciliation is modeled separately from payment lifecycle state.'
+- source_value: paid
+  target_value: paid
+  quality: exact
+  target_label: Paid
+- source_value: failed
+  target_value: failed
+  quality: exact
+  target_label: Failed
+- source_value: pending
+  target_value: notpaid
+  quality: exact
+  target_label: Not Paid
+- source_value: partial
+  target_value: null
+  quality: unmapped
+- source_value: returned
+  target_value: null
+  quality: unmapped
+- source_value: cancelled
+  target_value: null
+  quality: unmapped
+- source_value: rejected
+  target_value: null
+  quality: unmapped
+standard:
+  source_id: openspp
+  uri: https://docs.openspp.org/
+  custodian: OpenSPP
+  license: LGPL-3.0-only
+  license_uri: https://www.gnu.org/licenses/lgpl-3.0.html
+  version: 17.0.1.4
+  attribution_text: Copyright (c) 2022-2024 OpenSPP.org
+  redistribution: Permitted under LGPL-3.0 terms; modified versions must carry the same license.
+  retrieved_at: '2026-05-12'
+  source_sha256: c3946f844205df6e2a0bd96eb7087388cc643491d1e794cddf900f18efdfaaff

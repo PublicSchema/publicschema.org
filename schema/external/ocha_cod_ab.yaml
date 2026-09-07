@@ -1,0 +1,34 @@
+id: https://publicschema.org/linkml/external/ocha_cod_ab
+name: publicschema-external-ocha-cod-ab
+title: OCHA Common Operational Datasets - Administrative Boundaries (PublicSchema partial view)
+description: Minimal LinkML rendering of OCHA Common Operational Datasets - Administrative Boundaries
+  enumerations referenced by PublicSchema crosswalks. Not authoritative. See https://cod.unocha.org/ for
+  the full specification.
+license: CC-BY-4.0
+default_prefix: ocha-cod-ab
+prefixes:
+  ocha-cod-ab: https://data.humdata.org/dataset/cod-ab/
+  linkml: https://w3id.org/linkml/
+  xsd: http://www.w3.org/2001/XMLSchema#
+imports:
+- linkml:types
+enums:
+  OchaCodAbCODABAdminN:
+    enum_uri: ocha-cod-ab:OchaCodAbCODABAdminN
+    title: OchaCodAbCODABAdminN
+    permissible_values:
+      '0':
+        meaning: ocha-cod-ab:OchaCodAbCODABAdminN/0
+        title: Country
+      '1':
+        meaning: ocha-cod-ab:OchaCodAbCODABAdminN/1
+        title: First subnational
+      '2':
+        meaning: ocha-cod-ab:OchaCodAbCODABAdminN/2
+        title: Second subnational
+      '3':
+        meaning: ocha-cod-ab:OchaCodAbCODABAdminN/3
+        title: Third subnational
+      '4':
+        meaning: ocha-cod-ab:OchaCodAbCODABAdminN/4
+        title: Fourth subnational

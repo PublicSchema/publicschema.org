@@ -10,6 +10,20 @@ export interface DocEntry {
 }
 
 export const docs: Record<string, DocEntry> = {
+  "metrics-spec": {
+    file: "metrics-spec.md",
+    title: {
+      en: "Metrics Specification",
+      fr: "Spécification des indicateurs",
+      es: "Especificación de indicadores",
+    },
+    description: {
+      en: "Aggregate indicators, declarative calculations, dimensions, and alignment with external standards.",
+      fr: "Indicateurs agrégés, calculs déclaratifs, dimensions et alignement avec les normes externes.",
+      es: "Indicadores agregados, cálculos declarativos, dimensiones y alineación con normas externas.",
+    },
+    category: "technical",
+  },
   "integration-patterns": {
     file: "integration-patterns.md",
     title: {

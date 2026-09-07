@@ -1,0 +1,36 @@
+id: gender-type--opencrvs
+source_value_set:
+  id: gender-type
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: Gender
+  source_id: opencrvs
+pairs:
+- source_value: male
+  target_value: male
+  quality: exact
+  target_label: Male
+- source_value: female
+  target_value: female
+  quality: exact
+  target_label: Female
+- source_value: other
+  target_value: other
+  quality: exact
+  target_label: Other
+- source_value: not_stated
+  target_value: unknown
+  quality: exact
+  target_label: Unknown
+standard:
+  source_id: opencrvs
+  uri: https://documentation.opencrvs.org/technology/event-service-v2/
+  custodian: OpenCRVS Limited
+  license: MPL-2.0
+  license_uri: https://www.mozilla.org/en-US/MPL/2.0/
+  version: v1.9.13
+  attribution_text: "Copyright (C) The OpenCRVS Authors. Source: https://github.com/opencrvs/opencrvs-core. Licensed under MPL-2.0."
+  redistribution: permitted under MPL-2.0
+  retrieved_at: "2026-05-12"
+  source_sha256: befe44fda80162d7e1b5ee742abb79df80bec17aa8baeee1cd9aaa2cbc75337d  # packages/gateway/src/graphql/schema.graphql at v1.9.13 (defines Gender enum)

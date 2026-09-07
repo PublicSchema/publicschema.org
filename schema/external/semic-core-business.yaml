@@ -1,0 +1,34 @@
+id: https://publicschema.org/linkml/external/semic-core-business
+name: publicschema-external-legal
+title: SEMIC Core Business Vocabulary (PublicSchema partial view)
+description: 'Generated from schema/external_terms/semic-core-business.yaml (source_version: 2.2.0). Provenance
+  and license attribution are preserved from schema/external_references/semic-core-business.yaml.'
+license: CC-BY-4.0
+default_prefix: legal
+prefixes:
+  legal: http://www.w3.org/ns/legal#
+  skos: http://www.w3.org/2004/02/skos/core#
+  linkml: https://w3id.org/linkml/
+  xsd: http://www.w3.org/2001/XMLSchema#
+imports:
+- linkml:types
+classes:
+  LegalLegalEntity:
+    class_uri: legal:LegalEntity
+    title: LegalEntity
+    description: 'External class legal:LegalEntity (http://www.w3.org/ns/legal#LegalEntity). Sourced from
+      schema/external_terms/semic-core-business.yaml (term_id: legal.LegalEntity).'
+slots:
+  legal_legalname:
+    slot_uri: legal:legalName
+    title: legalName
+    description: 'External property legal:legalName (http://www.w3.org/ns/legal#legalName). Sourced from
+      schema/external_terms/semic-core-business.yaml (term_id: legal.legalName).'
+annotations:
+  external_reference_provenance_json: '{"artifacts": [{"media_type": "text/turtle", "retrieved_at": "2026-05-07T00:00:00Z",
+    "sha256": "01c25a325e25843d616989c035c438695ea25e85790a3a6b058e471455a52069", "url": "https://raw.githubusercontent.com/SEMICeu/Core-Business-Vocabulary/V2.2.0/releases/2.2.0/voc/core-business.ttl"}],
+    "custodian": "Interoperable Europe / SEMIC", "homepage": "https://github.com/SEMICeu/Core-Business-Vocabulary",
+    "kind": "rdf_profile", "license": {"attribution_required": true, "attribution_text": "Contains information
+    from SEMIC Core Vocabularies, licensed under CC BY 4.0.", "id": "CC-BY-4.0", "redistribution": "embed-with-attribution",
+    "uri": "https://creativecommons.org/licenses/by/4.0/"}, "reference_url": "https://semiceu.github.io/Core-Business-Vocabulary/releases/2.2.0/",
+    "version": "2.2.0"}'

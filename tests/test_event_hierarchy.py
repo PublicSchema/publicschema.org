@@ -7,31 +7,20 @@ subtypes to keep the hierarchy symmetric.
 """
 from __future__ import annotations
 
-import yaml
-
-from tests.conftest import SCHEMA_DIR
-
-CONCEPTS = SCHEMA_DIR / "concepts"
-
-
-def _load(path):
-    with path.open() as f:
-        return yaml.safe_load(f)
+from tests.schema_reader import concept, subtypes_of
 
 
 class TestEnrollmentAndGrievanceAreEvents:
     def test_enrollment_supertype_is_event(self):
-        data = _load(CONCEPTS / "enrollment.yaml")
+        data = concept("sp/Enrollment")
         assert data["supertypes"] == ["Event"]
 
     def test_grievance_supertype_is_event(self):
-        data = _load(CONCEPTS / "grievance.yaml")
+        data = concept("sp/Grievance")
         assert data["supertypes"] == ["Event"]
 
     def test_event_lists_enrollment_as_subtype(self):
-        event = _load(CONCEPTS / "event.yaml")
-        assert "sp/Enrollment" in event["subtypes"]
+        assert "sp/Enrollment" in subtypes_of("Event")
 
     def test_event_lists_grievance_as_subtype(self):
-        event = _load(CONCEPTS / "event.yaml")
-        assert "sp/Grievance" in event["subtypes"]
+        assert "sp/Grievance" in subtypes_of("Event")

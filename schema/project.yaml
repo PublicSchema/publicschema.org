@@ -11,3 +11,99 @@ schema_project:
     primary: en
     additional: [fr, es]
   license: CC-BY-4.0
+  authoring:
+    linkml:
+      source_root: schema
+      entrypoints:
+        - publicschema.yaml
+      localization:
+        annotation_style: scalar_suffix
+        label_annotation: label_{locale}
+        description_annotation: description_{locale}
+        primary_language_required: true
+        additional_languages_optional: true
+      create:
+        default_family_targets:
+          concepts: core
+          properties: core
+          vocabularies: vocabularies
+        require_writable_target: true
+        allow_domain_target_routing: true
+      read_only_source_globs:
+        - bibliography.yaml
+        - credentials.yaml
+        - metrics.yaml
+        - publicschema-extensions.yaml
+        - external/**/*.yaml
+        - concept_schemes/**/*.yaml
+        - metric_catalog/**/*.yaml
+        - value_crosswalks/**/*.yaml
+      excluded_source_globs:
+        - project.yaml
+      writable_packages:
+        - id: assessment
+          path: assessment.yaml
+          label: Assessment
+          families: [concepts, properties]
+          domains: [assessment]
+        - id: biometric
+          path: biometric.yaml
+          label: Biometric
+          families: [concepts, properties]
+          domains: [biometric]
+        - id: categories
+          path: categories.yaml
+          label: Categories
+          families: [vocabularies]
+          domains: [categories]
+        - id: civil_status
+          path: civil_status.yaml
+          label: Civil status
+          families: [concepts, properties]
+          domains: [civil_status]
+        - id: common
+          path: common.yaml
+          label: Common
+          families: [concepts, properties]
+          domains: [common]
+        - id: consent
+          path: consent.yaml
+          label: Consent
+          families: [concepts, properties]
+          domains: [consent]
+        - id: core
+          path: core.yaml
+          label: Core
+          families: [concepts, properties]
+          domains: [core]
+          default_for: [concepts, properties]
+        - id: document
+          path: document.yaml
+          label: Document
+          families: [concepts, properties]
+          domains: [document]
+        - id: identity
+          path: identity.yaml
+          label: Identity
+          families: [concepts, properties]
+          domains: [identity]
+        - id: misc
+          path: misc.yaml
+          label: Misc
+          families: [concepts, properties]
+          domains: [misc]
+        - id: payment
+          path: payment.yaml
+          label: Payment
+          families: [concepts, properties]
+          domains: [payment]
+        - id: program
+          path: program.yaml
+          label: Program
+          families: [concepts, properties]
+          domains: [program]
+        - id: vocabularies
+          path: vocabularies.yaml
+          label: Vocabularies
+          families: [vocabularies]
+          default_for: [vocabularies]

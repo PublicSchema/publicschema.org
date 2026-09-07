@@ -1,0 +1,37 @@
+id: gender-type--openspp
+source_value_set:
+  id: gender-type
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: 'ISO 5218: Gender'
+  source_id: openspp
+pairs:
+- source_value: male
+  target_value: '1'
+  quality: exact
+  target_label: Male
+- source_value: female
+  target_value: '2'
+  quality: exact
+  target_label: Female
+- source_value: null
+  target_value: '9'
+  quality: unmapped
+  target_label: Not applicable
+  unmapped_reason: no_equivalent
+- source_value: not_stated
+  target_value: '0'
+  quality: exact
+  target_label: Not known
+standard:
+  source_id: openspp
+  uri: https://docs.openspp.org/
+  custodian: OpenSPP
+  license: LGPL-3.0-only
+  license_uri: https://www.gnu.org/licenses/lgpl-3.0.html
+  version: 17.0.1.4
+  attribution_text: Copyright (c) 2022-2024 OpenSPP.org
+  redistribution: Permitted under LGPL-3.0 terms; modified versions must carry the same license.
+  retrieved_at: '2026-05-12'
+  source_sha256: c3946f844205df6e2a0bd96eb7087388cc643491d1e794cddf900f18efdfaaff

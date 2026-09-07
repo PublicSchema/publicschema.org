@@ -9,6 +9,7 @@ Reads all YAML files from schema/ and generates:
 
 import json
 import re
+import shutil
 import sys
 from pathlib import Path
 
@@ -20,6 +21,8 @@ TYPE_MAP = {
     "date": {"type": "string", "format": "date"},
     "datetime": {"type": "string", "format": "date-time"},
     "integer": {"type": "integer"},
+    "number": {"type": "number"},
+    "float": {"type": "number"},
     "decimal": {"type": "number"},
     "boolean": {"type": "boolean"},
     "uri": {"type": "string", "format": "uri"},
@@ -37,6 +40,9 @@ JSONLD_TYPE_COERCION = {
     "date": "xsd:date",
     "datetime": "xsd:dateTime",
     "integer": "xsd:integer",
+    # The LinkML reader represents its float range as the legacy number type.
+    "number": "xsd:float",
+    "float": "xsd:float",
     "decimal": "xsd:decimal",
     "boolean": "xsd:boolean",
     "uri": "@id",
@@ -50,6 +56,8 @@ RANGE_INCLUDES_MAP = {
     "date": "xsd:date",
     "datetime": "xsd:dateTime",
     "integer": "xsd:integer",
+    "number": "xsd:float",
+    "float": "xsd:float",
     "decimal": "xsd:decimal",
     "boolean": "xsd:boolean",
     "uri": "xsd:anyURI",
@@ -513,21 +521,79 @@ def _property_to_json_schema(
     return item_schema
 
 
-def build_vocabulary(schema_dir: Path) -> dict:
-    """Build the full vocabulary output from YAML source files.
+def _load_bespoke_raw(schema_dir: Path) -> dict:
+    """Load per-element raw dicts from the bespoke ``schema/**`` tree.
+
+    Returns the same shape that ``build/linkml_reader.load_raw_from_linkml``
+    returns: ``{meta, concepts, properties, vocabularies, bibliography,
+    credentials, categories}``. Keeping the two source-of-truth paths
+    behind a common dict shape lets ``build_vocabulary`` consume either
+    input identically.
+    """
+    return {
+        "meta": load_yaml(schema_dir / "_meta.yaml"),
+        "concepts": _load_all_yaml_by_id(schema_dir / "concepts"),
+        "properties": _load_all_yaml_by_id(schema_dir / "properties"),
+        "vocabularies": _load_vocabularies_indexed(schema_dir / "vocabularies"),
+        "bibliography": _load_bibliography_by_id(schema_dir / "bibliography"),
+        "credentials": _load_all_yaml_by_id(schema_dir / "credentials"),
+        "categories": (
+            load_yaml(schema_dir / "categories.yaml")
+            if (schema_dir / "categories.yaml").exists() else {}
+        ),
+    }
+
+
+def build_vocabulary(
+    schema_dir: Path | None = None,
+    *,
+    raws: dict | None = None,
+    crosswalks_dir: Path | None = None,
+    strict_crosswalks: bool = False,
+) -> dict:
+    """Build the full vocabulary output from a schema directory.
+
+    The directory layout selects the reader: ``schema_dir/publicschema.yaml``
+    triggers the LinkML reader (the post-cutover canonical shape); otherwise
+    the bespoke per-element YAML loaders are used (legacy / tests).
+
+    Pass ``raws`` to bypass file I/O and feed a pre-loaded dict.
+
+    ``crosswalks_dir`` overrides where authored value_crosswalks are read
+    from; defaults to ``<schema_dir>/value_crosswalks``. Authored
+    crosswalks are the post-cutover source of truth for per-system
+    ``system_mappings`` blocks; where one exists for a given
+    (vocabulary/property, target_system), it replaces whatever the
+    reader produced. Set ``strict_crosswalks=True`` to fail the build
+    on any crosswalk whose ``standard:`` block contains a literal
+    ``"TODO"`` placeholder.
 
     Returns a dict with keys: meta, concepts, properties, vocabularies,
-    context, concept_schemas.
+    bibliography, categories, context, concept_schemas, credential_schemas,
+    jsonld_docs.
     """
-    meta = load_yaml(schema_dir / "_meta.yaml")
+    if raws is None:
+        if schema_dir is None:
+            schema_dir = Path("schema")
+        schema_dir = Path(schema_dir)
+        if (schema_dir / "publicschema.yaml").exists():
+            from build.linkml_reader import load_raw_from_linkml
+            raws = load_raw_from_linkml(schema_dir)
+        else:
+            raws = _load_bespoke_raw(schema_dir)
+
+    if crosswalks_dir is None and schema_dir is not None:
+        crosswalks_dir = Path(schema_dir) / "value_crosswalks"
+
+    meta = raws.get("meta") or {}
     base_uri = meta.get("base_uri", "https://publicschema.org/")
 
-    concepts_raw = _load_all_yaml_by_id(schema_dir / "concepts")
-    properties_raw = _load_all_yaml_by_id(schema_dir / "properties")
-    vocabularies_raw = _load_vocabularies_indexed(schema_dir / "vocabularies")
-    bibliography_raw = _load_bibliography_by_id(schema_dir / "bibliography")
-    categories_path = schema_dir / "categories.yaml"
-    categories_raw = load_yaml(categories_path) if categories_path.exists() else {}
+    concepts_raw: dict[str, dict] = raws.get("concepts") or {}
+    properties_raw: dict[str, dict] = raws.get("properties") or {}
+    vocabularies_raw: dict[str, dict] = raws.get("vocabularies") or {}
+    bibliography_raw: dict[str, dict] = raws.get("bibliography") or {}
+    categories_raw: dict[str, dict] = raws.get("categories") or {}
+    credentials_raw_preloaded: dict[str, dict] = raws.get("credentials") or {}
 
     # Compute property domains (which concepts use each property)
     property_domains: dict[str, list[str]] = {
@@ -581,7 +647,7 @@ def build_vocabulary(schema_dir: Path) -> dict:
         out_properties[prop_id] = {
             "id": prop_id,
             "domain": prop_ns,
-            "uri": _compute_uri(base_uri, prop_ns, prop_id),
+            "uri": data.get("uri") or _compute_uri(base_uri, prop_ns, prop_id),
             "path": _compute_path(prop_ns, prop_id),
             "maturity": data.get("maturity"),
             "label": data.get("label", {}),
@@ -650,6 +716,37 @@ def build_vocabulary(schema_dir: Path) -> dict:
             "external_values": data.get("external_values", False),
             "references": data.get("references", []),
         }
+
+    # Overlay authored value_crosswalks back onto out_vocabularies and
+    # out_properties as the canonical post-cutover source of truth for
+    # ``system_mappings``. Authored crosswalks (under
+    # schema/value_crosswalks/) replace whatever system_mappings the
+    # reader produced for the same (source, target_system) pair: this
+    # restores per-(vocab, system) ``vocabulary_name``,
+    # ``unmapped_canonical``, and per-pair notes that the lossy LinkML
+    # migration dropped, and keeps property crosswalks in sync with the
+    # same authoring path the vocabularies now use.
+    #
+    # The overlay merges per target_system_id rather than replacing
+    # wholesale: reader-side mappings for target systems that have no
+    # authored crosswalk yet are preserved, so partial crosswalk coverage
+    # during the cutover does not silently drop reader entries.
+    if crosswalks_dir is not None:
+        from build.value_crosswalks import (
+            load_crosswalks,
+            synthesize_system_mappings,
+        )
+        cw_index = load_crosswalks(crosswalks_dir, strict=strict_crosswalks)
+        for vocab_key in out_vocabularies:
+            synth = synthesize_system_mappings(cw_index, "vocabulary", vocab_key)
+            if synth is not None:
+                existing = out_vocabularies[vocab_key].get("system_mappings") or {}
+                out_vocabularies[vocab_key]["system_mappings"] = {**existing, **synth}
+        for prop_id in out_properties:
+            synth = synthesize_system_mappings(cw_index, "property", prop_id)
+            if synth is not None:
+                existing = out_properties[prop_id].get("system_mappings") or {}
+                out_properties[prop_id]["system_mappings"] = {**existing, **synth}
 
     # Build bibliography output and reverse indexes. Each entry's `informs`
     # block points at concepts/vocabularies/properties; we mirror those edges
@@ -776,11 +873,21 @@ def build_vocabulary(schema_dir: Path) -> dict:
         "@id": "http://www.w3.org/2000/01/rdf-schema#seeAlso",
         "@type": "@id",
     }
-    for _concept_key_val, concept_out in out_concepts.items():
-        # Use the bare id (concept_out["id"]) as the JSON-LD context term, not
-        # the composite internal key. JSON-LD terms must be simple strings;
-        # slashes in keys like "sp/Enrollment" would not form valid terms.
-        context_map[concept_out["id"]] = concept_out["uri"]
+    concepts_by_name: dict[str, list[dict]] = {}
+    for concept_key in sorted(out_concepts):
+        concept_out = out_concepts[concept_key]
+        concepts_by_name.setdefault(concept_out["id"], []).append(concept_out)
+        if concept_out.get("domain"):
+            context_map[f"{concept_out['domain']}/{concept_out['id']}"] = concept_out["uri"]
+    for name, candidates in concepts_by_name.items():
+        # Root concepts own their established bare names. Domain concepts keep
+        # a bare alias only when unambiguous, and always have a qualified alias.
+        # Import traversal order must never choose a different RDF identity.
+        root = next((candidate for candidate in candidates if not candidate.get("domain")), None)
+        if root is not None:
+            context_map[name] = root["uri"]
+        elif len(candidates) == 1:
+            context_map[name] = candidates[0]["uri"]
     for prop_id, prop_out in out_properties.items():
         prop_uri = prop_out["uri"]
         prop_type = properties_raw[prop_id].get("type", "string")
@@ -806,8 +913,10 @@ def build_vocabulary(schema_dir: Path) -> dict:
             alias = schema_eq.split(":", 1)[1]
             # Alias points to the same context entry as the original property
             context_map[alias] = context_map[prop_id]
-    # Add credential types to context with explicit URIs
-    credentials_raw = _load_all_yaml_by_id(schema_dir / "credentials")
+    # Add credential types to context with explicit URIs.
+    # credentials_raw is supplied via raws (bespoke loader or linkml_reader);
+    # both produce the same per-id dict shape ({id, subject_concept, included_concepts}).
+    credentials_raw = credentials_raw_preloaded
     for cred_id in credentials_raw:
         context_map[cred_id] = f"{base_uri}credentials/{cred_id}"
     version = meta.get("version", "0.1.0")
@@ -833,8 +942,9 @@ def build_vocabulary(schema_dir: Path) -> dict:
     concept_schemas = {}
     for concept_id, data in concepts_raw.items():
         bare_id = data["id"]
+        all_props_entries = _collect_all_properties(concept_id, concepts_raw)
         schema_props = {}
-        for entry in _collect_all_properties(concept_id, concepts_raw):
+        for entry in all_props_entries:
             norm = _normalize_property_entry(entry)
             prop_id = norm["id"]
             if prop_id in properties_raw:
@@ -846,7 +956,7 @@ def build_vocabulary(schema_dir: Path) -> dict:
         # Extract repeated vocab enums into $defs
         # Count how many times each vocab ref appears across properties
         vocab_usage: dict[str, int] = {}
-        for entry in _collect_all_properties(concept_id, concepts_raw):
+        for entry in all_props_entries:
             norm = _normalize_property_entry(entry)
             prop_id = norm["id"]
             if prop_id in properties_raw:
@@ -1038,21 +1148,44 @@ def build_vocabulary(schema_dir: Path) -> dict:
     }
 
 
-def write_outputs(result: dict, dist_dir: Path, schema_dir: Path | None = None):
+def write_outputs(
+    result: dict,
+    dist_dir: Path,
+    schema_dir: Path | None = None,
+    external_dir: Path | None = None,
+    *,
+    rdf_composite: Path | None = None,
+    source: str = "linkml",
+):
     """Write build outputs to the dist directory.
 
     ``schema_dir`` is used to locate the sibling ``external/`` tree for
-    system_matchings.json; defaults to ``Path("schema")``.
+    system_matchings.json when ``external_dir`` is not supplied; defaults
+    to ``Path("schema")``. ``external_dir`` overrides that derivation
+    (useful for LinkML-driven builds that don't sit next to the bespoke
+    schema tree). ``rdf_composite`` selects the same LinkML source used for
+    the vocabulary; ``source="bespoke"`` uses the historical RDF renderer.
     """
     from build.export import generate_all_downloads
+    from build.linkml_rdf_export import (
+        write_full_jsonld,
+        write_shacl,
+        write_turtle,
+    )
+    from build.metrics_catalog import write_metrics_catalog
     from build.preview_export import build_preview
-    from build.rdf_export import write_full_jsonld, write_shacl, write_turtle
     from build.system_matchings import build_system_matchings
 
     if schema_dir is None:
         schema_dir = Path("schema")
+    if external_dir is None:
+        external_dir = schema_dir.parent / "external"
 
     dist_dir.mkdir(parents=True, exist_ok=True)
+    write_metrics_catalog(
+        schema_dir, dist_dir / "metrics_catalog.json",
+        result["meta"].get("base_uri", "https://publicschema.org/"),
+    )
     schemas_dir = dist_dir / "schemas"
     schemas_dir.mkdir(exist_ok=True)
 
@@ -1086,7 +1219,12 @@ def write_outputs(result: dict, dist_dir: Path, schema_dir: Path | None = None):
 
     # system_matchings.json — projected from external/<system>/matching.yaml
     # for the site's system detail pages (concept matches + documented gaps).
-    system_matchings = build_system_matchings(schema_dir.parent / "external")
+    # The bespoke ``external/<system>/matching.yaml`` partial schemas are
+    # the source-of-truth for system matchings regardless of whether the
+    # rest of the build reads from ``schema/**`` or ``dist/linkml/``: the
+    # matching files are hand-curated and were never derived from the
+    # legacy YAML.
+    system_matchings = build_system_matchings(external_dir)
     (dist_dir / "system_matchings.json").write_text(
         json.dumps(system_matchings, indent=2, ensure_ascii=False) + "\n"
     )
@@ -1134,10 +1272,32 @@ def write_outputs(result: dict, dist_dir: Path, schema_dir: Path | None = None):
                 json.dumps(doc, indent=2, ensure_ascii=False) + "\n"
             )
 
-    # RDF exports (Turtle, JSON-LD, SHACL)
-    write_turtle(result, dist_dir)
-    write_full_jsonld(result, dist_dir)
-    write_shacl(result, dist_dir)
+    # RDF exports (Turtle, JSON-LD, SHACL) are produced by LinkML's
+    # stock generators against the canonical composite at
+    # schema/publicschema.yaml, with an rdflib bridge for the
+    # hosted-context JSON-LD shape.
+    meta_for_rdf = result["meta"]
+    base_uri_for_rdf = meta_for_rdf.get("base_uri", "https://publicschema.org/")
+    rdf_version = meta_for_rdf.get("version", "0.1.0")
+    rdf_maturity = meta_for_rdf.get("maturity", "draft")
+    rdf_version_label = (
+        "draft" if rdf_maturity == "draft" else ".".join(rdf_version.split(".")[:2])
+    )
+    rdf_context_url = f"{base_uri_for_rdf}ctx/{rdf_version_label}.jsonld"
+    if source == "bespoke":
+        from build import rdf_export_legacy
+
+        rdf_export_legacy.write_turtle(result, dist_dir)
+        rdf_export_legacy.write_full_jsonld(result, dist_dir)
+        rdf_export_legacy.write_shacl(result, dist_dir)
+    else:
+        composite = rdf_composite if rdf_composite is not None else schema_dir / "publicschema.yaml"
+        write_turtle(dist_dir / "publicschema.ttl", composite=composite)
+        write_full_jsonld(
+            dist_dir / "publicschema.jsonld", context_url=rdf_context_url,
+            composite=composite,
+        )
+        write_shacl(dist_dir / "publicschema.shacl.ttl", composite=composite)
 
     # CSV and Excel downloads per concept
     downloads_dir = dist_dir / "downloads"
@@ -1195,22 +1355,112 @@ def write_outputs(result: dict, dist_dir: Path, schema_dir: Path | None = None):
     )
 
 
+def prepare_site_artifacts(dist_dir: Path, public_dir: Path):
+    """Copy generated downloads to their public URLs for local and CI builds.
+
+    Astro serves the context, RDF, manifest and per-term JSON-LD directly from
+    dist through its existing endpoints. Only static downloads belong here.
+    """
+    def copy_file(source: Path, relative: Path):
+        target = public_dir / relative
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(source, target)
+
+    for source in sorted((dist_dir / "downloads").rglob("*")):
+        if source.is_file() and source.suffix in {".csv", ".xlsx"}:
+            relative = source.relative_to(dist_dir / "downloads")
+            copy_file(source, relative)
+            # The artifact manifest also exposes a stable /downloads/ prefix.
+            copy_file(source, Path("downloads") / relative)
+    for source in sorted((dist_dir / "schemas").rglob("*.schema.json")):
+        relative = source.relative_to(dist_dir / "schemas")
+        if relative.parts[0] == "credentials":
+            relative = Path("schemas") / relative
+        copy_file(source, relative)
+    for name in ("vocabulary.json", "system_matchings.json"):
+        copy_file(dist_dir / name, Path(name))
+    for source in sorted((dist_dir / "preview").glob("*.json")):
+        copy_file(source, Path("preview") / source.name)
+
+
 def main():
-    """CLI entry point for build."""
-    schema_dir = Path("schema")
-    dist_dir = Path("dist")
+    """CLI entry point for build.
 
-    if len(sys.argv) > 1:
-        schema_dir = Path(sys.argv[1])
-    if len(sys.argv) > 2:
-        dist_dir = Path(sys.argv[2])
+    Reads the LinkML source tree at ``schema/`` (post-cutover canonical
+    location) and produces the renderer outputs (``vocabulary.json``,
+    ``preview/``, ``system_matchings.json``, the three RDF artifacts,
+    JSON Schema files, etc.).
 
-    result = build_vocabulary(schema_dir)
-    write_outputs(result, dist_dir, schema_dir=schema_dir)
+    ``--source bespoke`` is retained for historical bespoke YAML trees,
+    e.g. when restoring an old release; it reads single-file
+    per-element YAML from ``schema_dir``.
+    """
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Build PublicSchema outputs.")
+    parser.add_argument(
+        "schema_dir", nargs="?", default="schema",
+        help="LinkML source directory (or bespoke tree when --source=bespoke).",
+    )
+    parser.add_argument(
+        "dist_dir", nargs="?", default="dist",
+        help="Output directory for build artifacts.",
+    )
+    parser.add_argument(
+        "--source", choices=("bespoke", "linkml"), default="linkml",
+        help="Which source tree to read element definitions from.",
+    )
+    parser.add_argument(
+        "--linkml-dir", default=None,
+        help="Path to the LinkML domain files (defaults to schema_dir when --source=linkml).",
+    )
+    parser.add_argument(
+        "--external-dir", default=None,
+        help=(
+            "Path to the external/<system>/matching.yaml tree. Defaults to "
+            "the sibling 'external/' directory next to schema_dir."
+        ),
+    )
+    parser.add_argument(
+        "--site-public-dir", type=Path, default=None,
+        help="Copy fresh static downloads to this site's public directory after building.",
+    )
+    args = parser.parse_args()
+    if args.source == "bespoke" and args.linkml_dir:
+        parser.error("--linkml-dir cannot be used with --source=bespoke")
+
+    schema_dir = Path(args.schema_dir)
+    dist_dir = Path(args.dist_dir)
+    external_dir = (
+        Path(args.external_dir) if args.external_dir is not None
+        else schema_dir.parent / "external"
+    )
+
+    rdf_composite = None
+    if args.source == "bespoke":
+        raws = _load_bespoke_raw(schema_dir)
+        result = build_vocabulary(raws=raws)
+    else:
+        # The default --source=linkml path: build_vocabulary reads schema_dir
+        # (or args.linkml_dir if explicitly supplied) via load_raw_from_linkml.
+        # crosswalks_dir is always derived from schema_dir so that an
+        # --linkml-dir override (e.g. restoring an old release) does not
+        # silently skip crosswalks.
+        linkml_dir = Path(args.linkml_dir) if args.linkml_dir else schema_dir
+        result = build_vocabulary(linkml_dir, crosswalks_dir=schema_dir / "value_crosswalks")
+        rdf_composite = linkml_dir / "publicschema.yaml"
+
+    write_outputs(
+        result, dist_dir, schema_dir=schema_dir, external_dir=external_dir,
+        rdf_composite=rdf_composite, source=args.source,
+    )
+    if args.site_public_dir is not None:
+        prepare_site_artifacts(dist_dir, args.site_public_dir)
     print(f"Built {len(result['concepts'])} concepts, "
           f"{len(result['properties'])} properties, "
           f"{len(result['vocabularies'])} vocabularies, "
-          f"{len(result.get('bibliography', {}))} bibliography entries.")
+          f"{len(result.get('bibliography', {}))} bibliography entries "
+          f"(source={args.source}).")
 
 
 if __name__ == "__main__":

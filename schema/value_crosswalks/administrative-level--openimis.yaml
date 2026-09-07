@@ -1,0 +1,42 @@
+id: administrative-level--openimis
+source_value_set:
+  id: administrative_level
+  kind: property
+  source_id: publicschema
+target_value_set:
+  id: LocationType
+  source_id: openimis
+pairs:
+- source_value: 1
+  target_value: R
+  quality: exact
+  target_label: Region
+- source_value: 2
+  target_value: D
+  quality: exact
+  target_label: District
+- source_value: 3
+  target_value: W
+  quality: exact
+  target_label: Ward
+- source_value: 4
+  target_value: V
+  quality: exact
+  target_label: Village
+- source_value: 0 (country)
+  target_value: null
+  quality: unmapped
+standard:
+  source_id: openimis
+  uri: https://openimis.atlassian.net/wiki/spaces/OP/
+  custodian: openIMIS Initiative
+  license: AGPL-3.0-only
+  license_uri: https://www.gnu.org/licenses/agpl-3.0.html
+  version: "25.10"
+  attribution_text: "openIMIS, developed by the openIMIS Initiative (Swiss TPH, GIZ, SDC). Source: https://openimis.org"
+  redistribution: Permitted under AGPL-3.0-only; any distribution or network use must make source available under the same license.
+  retrieved_at: "2026-05-12"
+  artifact_kind: none
+  artifact_notes: >-
+    No single canonical artifact: openIMIS is a multi-repo assembly with no
+    unified release tarball.

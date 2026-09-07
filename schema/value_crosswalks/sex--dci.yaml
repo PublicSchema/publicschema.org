@@ -1,0 +1,41 @@
+id: sex--dci
+source_value_set:
+  id: sex
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: SexCategoryEnum
+  source_id: dci
+pairs:
+- source_value: male
+  target_value: male
+  quality: exact
+  target_label: Male
+- source_value: female
+  target_value: female
+  quality: exact
+  target_label: Female
+- source_value: null
+  target_value: other
+  quality: unmapped
+  target_label: Others
+  unmapped_reason: no_equivalent
+- source_value: not_known
+  target_value: unknown
+  quality: exact
+  target_label: Unknown
+standard:
+  source_id: dci
+  uri: https://github.com/spdci/schemas/tree/main/core/v1
+  custodian: Digital Convergence Initiative (DCI)
+  license: Apache-2.0
+  license_uri: https://www.apache.org/licenses/LICENSE-2.0
+  version: 1.0.0
+  attribution_text: Digital Convergence Initiative (DCI), spdci/schemas, Apache-2.0
+  redistribution: permitted under Apache-2.0
+  retrieved_at: "2026-05-12"
+  artifact_kind: none
+  artifact_notes: >-
+    Source schemas are a directory of individual JSON-LD files at
+    github.com/spdci/schemas/tree/main/core/v1/code/ with no single canonical
+    download artifact.

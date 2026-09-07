@@ -1,0 +1,71 @@
+id: delivery-channel--govstack_payments
+source_value_set:
+  id: delivery-channel
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: paymentModality
+  source_id: govstack_payments
+pairs:
+- source_value: bank_transfer
+  target_value: '00'
+  quality: exact
+  target_label: Bank Account
+- source_value: mobile_money
+  target_value: '01'
+  quality: exact
+  target_label: Mobile Money
+- source_value: null
+  target_value: '02'
+  quality: unmapped
+  target_label: Voucher
+  unmapped_reason: out_of_scope
+- source_value: null
+  target_value: '03'
+  quality: unmapped
+  target_label: Digital Wallet
+  unmapped_reason: no_equivalent
+- source_value: null
+  target_value: '04'
+  quality: unmapped
+  target_label: Proxy
+  unmapped_reason: no_equivalent
+- source_value: cash
+  target_value: null
+  quality: unmapped
+- source_value: agent_network
+  target_value: null
+  quality: unmapped
+- source_value: prepaid_card
+  target_value: null
+  quality: unmapped
+- source_value: service_point
+  target_value: null
+  quality: unmapped
+- source_value: other
+  target_value: null
+  quality: unmapped
+standard:
+  source_id: govstack_payments
+  uri: https://payments.govstack.global/
+  custodian: GovStack Initiative (ITU, GIZ, Germany/BMZ, Estonia, DIAL)
+  license: Apache-2.0
+  license_uri: https://www.apache.org/licenses/LICENSE-2.0
+  version: "3.0"
+  attribution_text: >-
+    GovStack Payments Building Block Specification v3.0, authored by Vijay
+    Mauree, Arnold Kibuuka, David Higgins, Oscar Correia, and Dr. P. S.
+    Ramkumar (ITU); editor Ali González-García. Copyright GovStack Initiative.
+    Licensed under the Apache License, Version 2.0. Retain all copyright and
+    attribution notices when redistributing.
+  redistribution: >-
+    Apache-2.0: royalty-free redistribution permitted; must include a copy of
+    the Apache-2.0 license; must retain all copyright, patent, trademark, and
+    attribution notices from the original; modified files must carry prominent
+    change notices; no trademark rights granted.
+  retrieved_at: "2026-05-12"
+  artifact_kind: none
+  artifact_notes: >-
+    Spec is a GitBook site (payments.govstack.global) with no single canonical
+    downloadable artifact; bb-payments repo has no versioned release tags.
+    Latest main commit at retrieval: d9bfef6f5ecf8f88ea308284836530c03bb8f855.

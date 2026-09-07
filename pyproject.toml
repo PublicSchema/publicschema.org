@@ -11,12 +11,15 @@ dependencies = [
     "babel>=2.14",
 ]
 
-[tool.uv]
-dev-dependencies = [
+[dependency-groups]
+dev = [
+    "linkml>=1.10.0",
+    "oaklib>=0.6.23",
     "pyld>=3.0.0",
     "pyshacl>=0.31.0",
     "pytest>=8.0",
     "rdflib>=7.6.0",
+    "yamllint>=1.35",
 ]
 
 [tool.ruff]

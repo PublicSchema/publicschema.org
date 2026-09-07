@@ -1,0 +1,61 @@
+id: https://publicschema.org/linkml/external/semic
+name: publicschema-external-semic
+title: SEMIC EU Core Vocabularies (PublicSchema partial view)
+description: Minimal LinkML rendering of SEMIC EU Core Vocabularies enumerations referenced by PublicSchema
+  crosswalks. Not authoritative. See https://semiceu.github.io/Core-Vocabularies/ for the full specification.
+license: CC-BY-4.0
+default_prefix: semic
+prefixes:
+  semic: http://data.europa.eu/m8g/
+  linkml: https://w3id.org/linkml/
+  xsd: http://www.w3.org/2001/XMLSchema#
+imports:
+- linkml:types
+enums:
+  SemicEUFrequencyNAL:
+    enum_uri: semic:SemicEUFrequencyNAL
+    title: SemicEUFrequencyNAL
+    permissible_values:
+      annually:
+        meaning: semic:SemicEUFrequencyNAL/annually
+        title: Annual
+      as_needed:
+        meaning: semic:SemicEUFrequencyNAL/as_needed
+        title: Irregular
+      custom:
+        meaning: semic:SemicEUFrequencyNAL/custom
+        title: Other
+      daily:
+        meaning: semic:SemicEUFrequencyNAL/daily
+        title: Daily
+      every_two_weeks:
+        meaning: semic:SemicEUFrequencyNAL/every_two_weeks
+        title: Biweekly
+      monthly:
+        meaning: semic:SemicEUFrequencyNAL/monthly
+        title: Monthly
+      quarterly:
+        meaning: semic:SemicEUFrequencyNAL/quarterly
+        title: Quarterly
+      semi_annually:
+        meaning: semic:SemicEUFrequencyNAL/semi_annually
+        title: semiannual
+      weekly:
+        meaning: semic:SemicEUFrequencyNAL/weekly
+        title: Weekly
+  SemicEUHumanSexNAL:
+    enum_uri: semic:SemicEUHumanSexNAL
+    title: SemicEUHumanSexNAL
+    permissible_values:
+      female:
+        meaning: semic:SemicEUHumanSexNAL/female
+        title: Female
+      male:
+        meaning: semic:SemicEUHumanSexNAL/male
+        title: Male
+      not_applicable:
+        meaning: semic:SemicEUHumanSexNAL/not_applicable
+        title: Not applicable
+      not_known:
+        meaning: semic:SemicEUHumanSexNAL/not_known
+        title: Not known

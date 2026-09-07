@@ -1,0 +1,74 @@
+id: sp-benefit-frequency--semic
+source_value_set:
+  id: sp/benefit-frequency
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: EU Frequency NAL
+  source_id: semic
+pairs:
+- source_value: annually
+  target_value: ANNUAL
+  quality: exact
+  target_label: Annual
+- source_value: daily
+  target_value: DAILY
+  quality: exact
+  target_label: Daily
+- source_value: weekly
+  target_value: WEEKLY
+  quality: exact
+  target_label: Weekly
+- source_value: monthly
+  target_value: MONTHLY
+  quality: exact
+  target_label: Monthly
+- source_value: quarterly
+  target_value: QUARTERLY
+  quality: exact
+  target_label: Quarterly
+- source_value: every_two_weeks
+  target_value: BIWEEKLY
+  quality: exact
+  target_label: Biweekly
+- source_value: semi_annually
+  target_value: ANNUAL_2
+  quality: exact
+  target_label: semiannual
+- source_value: as_needed
+  target_value: IRREG
+  quality: exact
+  target_label: Irregular
+- source_value: custom
+  target_value: OTHER
+  quality: exact
+  target_label: Other
+- source_value: null
+  target_value: BIMONTHLY
+  quality: unmapped
+  target_label: Bimonthly
+  unmapped_reason: not_yet_mapped
+- source_value: null
+  target_value: CONT
+  quality: unmapped
+  target_label: Continuous
+  unmapped_reason: out_of_scope
+- source_value: null
+  target_value: NEVER
+  quality: unmapped
+  target_label: Never
+  unmapped_reason: out_of_scope
+- source_value: one_time
+  target_value: null
+  quality: unmapped
+standard:
+  source_id: semic
+  uri: http://publications.europa.eu/resource/authority/frequency
+  custodian: Publications Office of the European Union (EU Vocabularies)
+  license: CC-BY-4.0
+  license_uri: https://creativecommons.org/licenses/by/4.0/
+  version: "20260318-0"
+  attribution_text: "© European Union, http://publications.europa.eu/resource/authority/frequency. Reuse authorised under CC BY 4.0; appropriate credit must be given and any changes indicated."
+  redistribution: "Permitted under CC BY 4.0. Provide attribution to the European Union and indicate modifications."
+  retrieved_at: "2026-05-12"
+  source_sha256: 2d4f992db6382939f804a186e38713d8ac3b4604412de1b7a018f2479a114c4b

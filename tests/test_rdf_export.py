@@ -651,3 +651,49 @@ class TestShaclIntegration:
             shacl_graph_format="turtle",
         )
         assert not conforms, "Two date_of_birth values should violate maxCount 1"
+
+
+# ---------------------------------------------------------------------------
+# Deprecation warnings on legacy write_* shim functions
+# ---------------------------------------------------------------------------
+
+class TestShimDeprecationWarnings:
+    """build.rdf_export write_* shim functions emit DeprecationWarning.
+
+    The production build uses build.linkml_rdf_export for write_turtle,
+    write_shacl, and write_full_jsonld. The shim re-exports the legacy
+    versions and must warn callers they are on the wrong path.
+    """
+
+    @pytest.fixture
+    def minimal_result(self, tmp_schema, write_concept, write_property):
+        write_concept("thing.yaml", make_concept(id="Thing", properties=["name"]))
+        write_property("name.yaml", make_property(id="name"))
+        return build_vocabulary(tmp_schema)
+
+    def test_write_turtle_emits_deprecation_warning(
+        self, minimal_result, tmp_path,
+    ):
+        """write_turtle via the shim emits DeprecationWarning."""
+        dist_dir = tmp_path / "dist"
+        dist_dir.mkdir()
+        with pytest.warns(DeprecationWarning, match="legacy"):
+            write_turtle(minimal_result, dist_dir)
+
+    def test_write_shacl_emits_deprecation_warning(
+        self, minimal_result, tmp_path,
+    ):
+        """write_shacl via the shim emits DeprecationWarning."""
+        dist_dir = tmp_path / "dist"
+        dist_dir.mkdir()
+        with pytest.warns(DeprecationWarning, match="legacy"):
+            write_shacl(minimal_result, dist_dir)
+
+    def test_write_full_jsonld_emits_deprecation_warning(
+        self, minimal_result, tmp_path,
+    ):
+        """write_full_jsonld via the shim emits DeprecationWarning."""
+        dist_dir = tmp_path / "dist"
+        dist_dir.mkdir()
+        with pytest.warns(DeprecationWarning, match="legacy"):
+            write_full_jsonld(minimal_result, dist_dir)

@@ -1,5 +1,6 @@
 import { loadVocabulary } from '../data/vocabulary';
 import { docs } from '../data/docs';
+import { handbook } from '../data/handbook';
 
 export function GET() {
   const vocab = loadVocabulary();
@@ -43,6 +44,13 @@ export function GET() {
   lines.push('');
   for (const [slug, doc] of Object.entries(docs)) {
     lines.push(`- [${doc.title.en}](https://publicschema.org/docs/${slug}/): ${doc.description.en}`);
+  }
+  lines.push('');
+
+  lines.push('## Handbook');
+  lines.push('');
+  for (const [slug, page] of Object.entries(handbook)) {
+    lines.push(`- [${page.title}](https://publicschema.org/handbook/${slug}/): ${page.description}`);
   }
   lines.push('');
 

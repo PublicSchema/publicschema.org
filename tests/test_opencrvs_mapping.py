@@ -18,7 +18,8 @@ Validates:
 import pytest
 import yaml
 
-from tests.conftest import SCHEMA_DIR, V2_ROOT
+from tests.conftest import V2_ROOT
+from tests.schema_reader import raw_schema
 
 MATCHING_PATH = V2_ROOT / "external" / "opencrvs" / "matching.yaml"
 ALLOWED_MATCH_VALUES = {
@@ -58,35 +59,21 @@ def matching():
 
 @pytest.fixture(scope="module")
 def all_concepts():
-    result = {}
-    for path in sorted((SCHEMA_DIR / "concepts").glob("*.yaml")):
-        with open(path) as f:
-            data = yaml.safe_load(f)
-        result[data["id"]] = data
+    result = dict(raw_schema()["concepts"])
+    for data in raw_schema()["concepts"].values():
+        result.setdefault(data["id"], data)
     return result
 
 
 @pytest.fixture(scope="module")
 def all_properties():
-    result = {}
-    for path in sorted((SCHEMA_DIR / "properties").glob("*.yaml")):
-        with open(path) as f:
-            data = yaml.safe_load(f)
-        result[data["id"]] = data
-    return result
+    return raw_schema()["properties"]
 
 
 @pytest.fixture(scope="module")
 def all_vocabularies():
     """Vocabularies keyed as their build output key: 'id' or 'domain/id'."""
-    result = {}
-    for path in sorted((SCHEMA_DIR / "vocabularies").rglob("*.yaml")):
-        with open(path) as f:
-            data = yaml.safe_load(f)
-        domain = data.get("domain")
-        key = f"{domain}/{data['id']}" if domain else data["id"]
-        result[key] = data
-    return result
+    return raw_schema()["vocabularies"]
 
 
 def _resolve_vocab(ref: str, all_vocabularies: dict) -> dict | None:
@@ -368,11 +355,19 @@ class TestLockedDecisions:
             f"EventStatus value_mapping keys should be exactly {expected}; got {mapped}"
         )
 
-    def test_registration_status_has_unmapped_canonicals(self, all_vocabularies):
+    def test_registration_status_has_unmapped_canonicals(self, matching, all_vocabularies):
         """cancelled and corrected exist in PublicSchema but not in EventStatus."""
         vocab = all_vocabularies["crvs/registration-status"]
-        sm = vocab["system_mappings"]["opencrvs"]
-        assert set(sm.get("unmapped_canonical", [])) >= {"cancelled", "corrected"}
+        codes = {value["code"] for value in vocab["values"]}
+        assert {"cancelled", "corrected"} <= codes
+
+        entry = next(
+            (e for e in matching["matches"] if e.get("v2_vocabulary") == "crvs/registration-status"),
+            None,
+        )
+        mapped = set((entry or {}).get("value_mapping", {}).values())
+        assert "cancelled" not in mapped
+        assert "corrected" not in mapped
 
     def test_paternity_recognition_references_correction_action(self, all_concepts):
         """PaternityRecognition maps to the v2 correction workflow actions."""
@@ -459,36 +454,23 @@ class TestNoEmDashes:
             "semicolons, periods, or parentheses instead."
         )
 
-    def _check_files(self, paths):
-        """Return a list of files containing em dashes inside an
-        external_equivalents.opencrvs block."""
+    def _check_entities(self, entities):
+        """Return entities with em dashes inside external_equivalents.opencrvs."""
         offenders = []
-        for path in paths:
-            text = path.read_text()
-            if "opencrvs" not in text:
-                continue
-            # Find the opencrvs block and check for em dashes within a reasonable window.
-            idx = text.find("opencrvs:")
-            if idx == -1:
-                continue
-            # Take from opencrvs: to the next top-level key or EOF
-            tail = text[idx:]
-            # Stop at the next blank line followed by a non-indented key, approximated.
-            if "—" in tail:
-                offenders.append(str(path.relative_to(V2_ROOT)))
+        for key, data in entities.items():
+            ext = (data.get("external_equivalents") or {}).get("opencrvs")
+            if ext is not None and "—" in str(ext):
+                offenders.append(key)
         return offenders
 
-    def test_concept_opencrvs_blocks_have_no_em_dashes(self):
-        paths = list((SCHEMA_DIR / "concepts").glob("*.yaml"))
-        offenders = self._check_files(paths)
+    def test_concept_opencrvs_blocks_have_no_em_dashes(self, all_concepts):
+        offenders = self._check_entities(all_concepts)
         assert offenders == [], f"Em dashes found near opencrvs blocks: {offenders}"
 
-    def test_property_opencrvs_blocks_have_no_em_dashes(self):
-        paths = list((SCHEMA_DIR / "properties").glob("*.yaml"))
-        offenders = self._check_files(paths)
+    def test_property_opencrvs_blocks_have_no_em_dashes(self, all_properties):
+        offenders = self._check_entities(all_properties)
         assert offenders == [], f"Em dashes found near opencrvs blocks: {offenders}"
 
-    def test_vocabulary_opencrvs_blocks_have_no_em_dashes(self):
-        paths = list((SCHEMA_DIR / "vocabularies").rglob("*.yaml"))
-        offenders = self._check_files(paths)
+    def test_vocabulary_opencrvs_blocks_have_no_em_dashes(self, all_vocabularies):
+        offenders = self._check_entities(all_vocabularies)
         assert offenders == [], f"Em dashes found near opencrvs blocks: {offenders}"

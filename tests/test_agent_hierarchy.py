@@ -15,45 +15,34 @@ from __future__ import annotations
 import json
 
 import rdflib
-import yaml
 from rdflib.namespace import OWL, RDFS
 
 from tests.conftest import SCHEMA_DIR
-
-
-CONCEPTS = SCHEMA_DIR / "concepts"
-PROPERTIES = SCHEMA_DIR / "properties"
-BIBLIOGRAPHY = SCHEMA_DIR / "bibliography"
+from tests.schema_reader import bibliography, concept, property_, subtypes_of
 
 PROFILE_SUBTYPES = [
-    "functioning-profile.yaml",
-    "socio-economic-profile.yaml",
+    "FunctioningProfile",
+    "SocioEconomicProfile",
 ]
 
 ACTOR_PROPERTIES = ["performed_by", "evaluator", "publisher"]
 
 
-def load(path):
-    with path.open() as f:
-        return yaml.safe_load(f)
-
-
 class TestAgentConcept:
     def test_agent_is_abstract(self):
-        agent = load(CONCEPTS / "agent.yaml")
+        agent = concept("Agent")
         assert agent["id"] == "Agent"
         assert agent.get("abstract") is True
 
     def test_agent_subtypes(self):
-        agent = load(CONCEPTS / "agent.yaml")
-        assert set(agent["subtypes"]) == {"Person", "Organization", "SoftwareAgent"}
+        assert subtypes_of("Agent") == {"Person", "Organization", "SoftwareAgent"}
 
     def test_agent_has_no_supertype(self):
-        agent = load(CONCEPTS / "agent.yaml")
+        agent = concept("Agent")
         assert agent["supertypes"] == []
 
     def test_agent_has_multilingual_definition(self):
-        agent = load(CONCEPTS / "agent.yaml")
+        agent = concept("Agent")
         for lang in ("en", "fr", "es"):
             assert lang in agent["definition"], f"Missing {lang} definition on Agent"
             assert agent["definition"][lang].strip()
@@ -61,20 +50,20 @@ class TestAgentConcept:
 
 class TestOrganizationConcept:
     def test_organization_is_concrete(self):
-        org = load(CONCEPTS / "organization.yaml")
+        org = concept("Organization")
         assert org["id"] == "Organization"
         assert org.get("abstract") is not True
 
     def test_organization_supertype_is_agent(self):
-        org = load(CONCEPTS / "organization.yaml")
+        org = concept("Organization")
         assert org["supertypes"] == ["Agent"]
 
     def test_organization_min_properties(self):
-        org = load(CONCEPTS / "organization.yaml")
+        org = concept("Organization")
         assert set(org["properties"]) == {"name", "identifiers", "location"}
 
     def test_organization_has_multilingual_definition(self):
-        org = load(CONCEPTS / "organization.yaml")
+        org = concept("Organization")
         for lang in ("en", "fr", "es"):
             assert lang in org["definition"], f"Missing {lang} definition on Organization"
             assert org["definition"][lang].strip()
@@ -82,13 +71,13 @@ class TestOrganizationConcept:
 
 class TestPersonDualSupertype:
     def test_person_supertypes_include_party_and_agent(self):
-        person = load(CONCEPTS / "person.yaml")
+        person = concept("Person")
         assert set(person["supertypes"]) == {"Party", "Agent"}
 
 
 class TestSoftwareAgentIsAgent:
     def test_software_agent_supertype_is_agent(self):
-        sw = load(CONCEPTS / "software-agent.yaml")
+        sw = concept("SoftwareAgent")
         assert sw["supertypes"] == ["Agent"]
 
 
@@ -96,29 +85,27 @@ class TestPartyScopeUnchanged:
     """Party stays beneficiary-side. Organization is NOT a Party."""
 
     def test_party_subtypes_are_person_and_group(self):
-        party = load(CONCEPTS / "party.yaml")
-        assert set(party["subtypes"]) == {"Person", "Group"}
+        assert subtypes_of("Party") == {"Person", "Group"}
 
     def test_organization_is_not_a_party_subtype(self):
-        party = load(CONCEPTS / "party.yaml")
-        assert "Organization" not in party["subtypes"]
+        assert "Organization" not in subtypes_of("Party")
 
 
 class TestActorPropertyRanges:
     """performed_by, evaluator, and publisher must reference Agent, not Party."""
 
     def test_performed_by_references_agent(self):
-        prop = load(PROPERTIES / "performed_by.yaml")
+        prop = property_("performed_by")
         assert prop["references"] == "Agent"
         assert prop["type"] == "concept:Agent"
 
     def test_evaluator_references_agent(self):
-        prop = load(PROPERTIES / "evaluator.yaml")
+        prop = property_("evaluator")
         assert prop["references"] == "Agent"
         assert prop["type"] == "concept:Agent"
 
     def test_publisher_references_agent(self):
-        prop = load(PROPERTIES / "publisher.yaml")
+        prop = property_("publisher")
         assert prop["references"] == "Agent"
         assert prop["type"] == "concept:Agent"
 
@@ -127,19 +114,19 @@ class TestProfileSoftwareUsed:
     """Profile gains software_used; each subtype surfaces it in property_groups."""
 
     def test_profile_lists_software_used(self):
-        profile = load(CONCEPTS / "profile.yaml")
+        profile = concept("Profile")
         assert "software_used" in profile["properties"]
 
     def test_all_profile_subtypes_include_software_used_in_admin_group(self):
-        for fname in PROFILE_SUBTYPES:
-            data = load(CONCEPTS / fname)
+        for concept_id in PROFILE_SUBTYPES:
+            data = concept(concept_id)
             admin_group = next(
                 (g for g in data.get("property_groups", []) if g.get("category") == "administrative"),
                 None,
             )
-            assert admin_group is not None, f"{fname} has no administrative group"
+            assert admin_group is not None, f"{concept_id} has no administrative group"
             assert "software_used" in admin_group["properties"], (
-                f"{fname} administrative group is missing software_used"
+                f"{concept_id} administrative group is missing software_used"
             )
 
 
@@ -147,7 +134,7 @@ class TestLocationConceptAgnostic:
     """location's definition no longer mentions household."""
 
     def test_location_definition_is_not_household_specific(self):
-        loc = load(PROPERTIES / "location.yaml")
+        loc = property_("location")
         for lang in ("en", "fr", "es"):
             defn = loc["definition"][lang].lower()
             for household_word in ("household", "ménage", "hogar"):
@@ -158,22 +145,22 @@ class TestLocationConceptAgnostic:
 
 class TestBibliographyInforms:
     def test_prov_informs_includes_agent_and_organization(self):
-        bib = load(BIBLIOGRAPHY / "w3c-prov-o.yaml")
+        bib = bibliography("w3c-prov-o")
         concepts = set(bib["informs"]["concepts"])
         assert {"Agent", "Organization", "SoftwareAgent"} <= concepts
 
     def test_foaf_informs_includes_agent_and_organization(self):
-        bib = load(BIBLIOGRAPHY / "foaf.yaml")
+        bib = bibliography("foaf")
         concepts = set(bib["informs"]["concepts"])
         assert {"Agent", "Organization", "SoftwareAgent"} <= concepts
 
     def test_schema_org_informs_includes_agent_and_organization(self):
-        bib = load(BIBLIOGRAPHY / "schema-org.yaml")
+        bib = bibliography("schema-org")
         concepts = set(bib["informs"]["concepts"])
         assert {"Agent", "Organization", "Person"} <= concepts
 
     def test_fhir_informs_includes_agent_and_organization(self):
-        bib = load(BIBLIOGRAPHY / "fhir-r4.yaml")
+        bib = bibliography("fhir-r4")
         concepts = set(bib["informs"]["concepts"])
         assert {"Agent", "Organization"} <= concepts
 

@@ -1,0 +1,47 @@
+id: marital-status--dhis2
+source_value_set:
+  id: marital-status
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: Civil status
+  source_id: dhis2
+pairs:
+- source_value: null
+  target_value: Single or widow
+  quality: unmapped
+  target_label: Single or widow
+  unmapped_reason: no_equivalent
+- source_value: married
+  target_value: Married (conjugal cohabitation)
+  quality: exact
+  target_label: Married (conjugal cohabitation)
+- source_value: never_married
+  target_value: null
+  quality: unmapped
+- source_value: widowed
+  target_value: null
+  quality: unmapped
+- source_value: divorced
+  target_value: null
+  quality: unmapped
+- source_value: legally_separated
+  target_value: null
+  quality: unmapped
+- source_value: consensual_union
+  target_value: null
+  quality: unmapped
+standard:
+  source_id: dhis2
+  uri: https://docs.dhis2.org/en/develop/using-the-api/dhis-core-version-243/metadata.html
+  custodian: "HISP Centre, University of Oslo"
+  license: BSD-3-Clause
+  license_uri: https://github.com/dhis2/dhis2-core/blob/master/LICENSE
+  version: 2.43.0
+  attribution_text: "Copyright (c) 2004-2025, University of Oslo"
+  redistribution: "Permitted under BSD-3-Clause terms; copyright notice must be retained"
+  retrieved_at: "2026-05-12"
+  artifact_kind: none
+  artifact_notes: >-
+    DHIS2 option-set enums are defined across multiple configuration files in
+    dhis2-core; no single canonical downloadable artifact.

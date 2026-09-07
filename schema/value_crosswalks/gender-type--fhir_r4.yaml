@@ -1,0 +1,36 @@
+id: gender-type--fhir_r4
+source_value_set:
+  id: gender-type
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: AdministrativeGender
+  source_id: fhir_r4
+pairs:
+- source_value: male
+  target_value: male
+  quality: exact
+  target_label: Male
+- source_value: female
+  target_value: female
+  quality: exact
+  target_label: Female
+- source_value: other
+  target_value: other
+  quality: exact
+  target_label: Other
+- source_value: not_stated
+  target_value: unknown
+  quality: exact
+  target_label: Unknown
+standard:
+  source_id: fhir_r4
+  uri: https://hl7.org/fhir/R4/codesystem-administrative-gender.json
+  custodian: Health Level Seven International (HL7)
+  license: CC0-1.0
+  license_uri: https://creativecommons.org/publicdomain/zero/1.0/
+  version: "4.0.1"
+  attribution_text: "HL7® FHIR® standard Copyright © 2011+ HL7. Licensed under CC0 1.0 Universal. HL7, FHIR and the FHIR [FLAME DESIGN] are registered trademarks of Health Level Seven International."
+  redistribution: permitted under CC0-1.0 (no restrictions)
+  retrieved_at: "2026-05-12"
+  source_sha256: eac25a89140f028bb7872a165cf39438dd5a5c779d9385eb6997f567e4fa6efa

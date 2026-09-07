@@ -1,0 +1,91 @@
+id: https://publicschema.org/linkml/external/fhir_r4
+name: publicschema-external-fhir-r4
+title: HL7 FHIR R4 (PublicSchema partial view)
+description: Minimal LinkML rendering of HL7 FHIR R4 enumerations referenced by PublicSchema crosswalks.
+  Not authoritative. See https://hl7.org/fhir/R4/ for the full specification.
+license: CC-BY-4.0
+default_prefix: fhir-r4
+prefixes:
+  fhir-r4: http://hl7.org/fhir/R4/
+  linkml: https://w3id.org/linkml/
+  xsd: http://www.w3.org/2001/XMLSchema#
+imports:
+- linkml:types
+enums:
+  FhirR4AdministrativeGender:
+    enum_uri: fhir-r4:FhirR4AdministrativeGender
+    title: FhirR4AdministrativeGender
+    permissible_values:
+      female:
+        meaning: fhir-r4:FhirR4AdministrativeGender/female
+        title: Female
+      male:
+        meaning: fhir-r4:FhirR4AdministrativeGender/male
+        title: Male
+      not_known:
+        meaning: fhir-r4:FhirR4AdministrativeGender/not_known
+        title: Unknown
+      not_stated:
+        meaning: fhir-r4:FhirR4AdministrativeGender/not_stated
+        title: Unknown
+      other:
+        meaning: fhir-r4:FhirR4AdministrativeGender/other
+        title: Other
+  FhirR4IdentifierTypeCodes:
+    enum_uri: fhir-r4:FhirR4IdentifierTypeCodes
+    title: FhirR4IdentifierTypeCodes
+    permissible_values:
+      drivers_license_number:
+        meaning: fhir-r4:FhirR4IdentifierTypeCodes/drivers_license_number
+        title: Driver's License Number
+      passport_number:
+        meaning: fhir-r4:FhirR4IdentifierTypeCodes/passport_number
+        title: Passport Number
+      program_id_number:
+        meaning: fhir-r4:FhirR4IdentifierTypeCodes/program_id_number
+        title: Social Beneficiary Identifier
+      tax_id_number:
+        meaning: fhir-r4:FhirR4IdentifierTypeCodes/tax_id_number
+        title: Tax ID Number
+  FhirR4MaritalStatusCodes:
+    enum_uri: fhir-r4:FhirR4MaritalStatusCodes
+    title: FhirR4MaritalStatusCodes
+    permissible_values:
+      divorced:
+        meaning: fhir-r4:FhirR4MaritalStatusCodes/divorced
+        title: Divorced
+      legally_separated:
+        meaning: fhir-r4:FhirR4MaritalStatusCodes/legally_separated
+        title: Legally Separated
+      married:
+        meaning: fhir-r4:FhirR4MaritalStatusCodes/married
+        title: Married
+      never_married:
+        meaning: fhir-r4:FhirR4MaritalStatusCodes/never_married
+        title: Never Married
+      widowed:
+        meaning: fhir-r4:FhirR4MaritalStatusCodes/widowed
+        title: Widowed
+  FhirR4PatientRelationshipType:
+    enum_uri: fhir-r4:FhirR4PatientRelationshipType
+    title: FhirR4PatientRelationshipType
+    permissible_values:
+      child:
+        meaning: fhir-r4:FhirR4PatientRelationshipType/child
+        title: Child
+      other:
+        meaning: fhir-r4:FhirR4PatientRelationshipType/other
+        title: Other
+      parent:
+        meaning: fhir-r4:FhirR4PatientRelationshipType/parent
+        title: Parent
+      spouse:
+        meaning: fhir-r4:FhirR4PatientRelationshipType/spouse
+        title: Spouse
+  FhirR4PaymentStatusCodes:
+    enum_uri: fhir-r4:FhirR4PaymentStatusCodes
+    title: FhirR4PaymentStatusCodes
+    permissible_values:
+      paid:
+        meaning: fhir-r4:FhirR4PaymentStatusCodes/paid
+        title: Paid

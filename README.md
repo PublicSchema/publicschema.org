@@ -29,7 +29,7 @@ Requires Python 3.12+ ([uv](https://docs.astral.sh/uv/)), Node.js 22.12+ and [ju
 
 ```bash
 just setup      # install Python and Node dependencies
-just build      # generate vocabulary data from YAML sources
+just build      # generate exports and site data from authored LinkML
 just dev        # start the dev server
 ```
 
@@ -38,17 +38,22 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for full development setup and how to add
 ## Project structure
 
 ```
-schema/           Vocabulary source files (YAML)
-  concepts/       Concept definitions
-  properties/     Property definitions
-  vocabularies/   Controlled value sets
-  credentials/    Verifiable Credential schemas
-build/            Python build pipeline
-site/             Astro static site
-tests/            Python test suite
-docs/             Documentation (rendered on the site)
-examples/         Example Verifiable Credentials
+schema/                 Authored reference model and supporting data
+  publicschema.yaml     Composite LinkML schema and module imports
+  core.yaml, ...        Modular LinkML classes, slots, and enums
+  credentials.yaml      Credential descriptors
+  external/             LinkML partial schemas for external systems
+  value_crosswalks/     Authored mappings between value sets
+  metric_catalog/       Metric catalog sources
+build/                  Python validation and build tools
+dist/                   Generated exports (do not edit)
+site/                   Astro site, including generated data and public artifacts
+tests/                  Python test suite
+docs/                   Documentation (rendered on the site)
+examples/               Example Verifiable Credentials
 ```
+
+For source conventions and examples, see [Authoring PublicSchema in LinkML](docs/authoring-linkml.md). Edit the source files and regenerate outputs with `just build`.
 
 ## License
 

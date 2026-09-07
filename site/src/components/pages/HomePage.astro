@@ -1,4 +1,5 @@
 ---
+import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
 import Base from '../../layouts/Base.astro';
 import TranslationBanner from '../TranslationBanner.astro';
 import { defaultLocale, type Locale } from '../../i18n/languages';
@@ -66,7 +67,7 @@ const systems = [
   { id: 'opencrvs', name: 'OpenCRVS' },
 ];
 
-const modules = import.meta.glob('./content/HomepageContent.*.astro');
+const modules = import.meta.glob<{ default: AstroComponentFactory }>('./content/HomepageContent.*.astro');
 const wantedKey = `./content/HomepageContent.${locale}.astro`;
 const fallbackKey = './content/HomepageContent.en.astro';
 const loader = modules[wantedKey] ?? modules[fallbackKey];

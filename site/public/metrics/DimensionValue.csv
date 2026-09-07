@@ -1,0 +1,3 @@
+property,type,cardinality,definition,vocabulary,maturity,sensitivity,category,age_applicability,valid_instruments
+dimension_uri,uri,single,The URI of the MetricDimension whose code this DimensionValue carries.,,candidate,,,,
+code,string,single,The code from the dimension's code list that locates the observation along this dimension.,,candidate,,,,

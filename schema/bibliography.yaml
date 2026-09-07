@@ -1,0 +1,2290 @@
+id: https://publicschema.org/linkml/bibliography
+name: publicschema-bibliography
+title: PublicSchema bibliography domain
+license: CC-BY-4.0
+default_prefix: publicschema
+prefixes:
+  publicschema: https://publicschema.org/
+  linkml: https://w3id.org/linkml/
+  xsd: http://www.w3.org/2001/XMLSchema#
+  bibo: http://purl.org/ontology/bibo/
+  skos: http://www.w3.org/2004/02/skos/core#
+  schema: http://schema.org/
+  foaf: http://xmlns.com/foaf/0.1/
+  prov: http://www.w3.org/ns/prov#
+  fhir: http://hl7.org/fhir/
+  cpov: http://data.europa.eu/m8g/
+  dpv: https://w3id.org/dpv#
+  dpv-gdpr: https://w3id.org/dpv/dpv-gdpr#
+  dci: https://schema.spdci.org/core/v1/
+  dhis2: https://dhis2.org/schemas/
+  dhs: https://dhsprogram.com/data/recode7/
+  dhs8: https://dhsprogram.com/data/recode8/
+  fhir-r4: http://hl7.org/fhir/R4/
+  fhir-r5: http://hl7.org/fhir/R5/
+  govstack-payments: https://govstack.global/specs/payments/
+  lsms-isa: https://www.worldbank.org/en/programs/lsms/initiatives/lsms-ISA/
+  mics: https://mics.unicef.org/tools/
+  ocha-cod-ab: https://data.humdata.org/dataset/cod-ab/
+  opencrvs: https://documentation.opencrvs.org/technology/event-service-v2/
+  openimis: https://openimis.atlassian.net/wiki/spaces/OP/
+  openspp: https://docs.openspp.org/
+  wg-es: https://www.washingtongroup-disability.com/question-sets/wg-extended-set/
+  legal: http://www.w3.org/ns/legal#
+  locn: http://www.w3.org/ns/locn#
+  adms: http://www.w3.org/ns/adms#
+  dct: http://purl.org/dc/terms/
+  person: http://www.w3.org/ns/person#
+  rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#
+  rdfs: http://www.w3.org/2000/01/rdf-schema#
+imports:
+- linkml:types
+- publicschema-extensions
+classes:
+  Citation:
+    class_uri: publicschema:Citation
+    title: Citation
+    description: Abstract supertype for bibliographic references cited by PublicSchema. Each subclass
+      carries the citation record fields (title, publisher, year, uri, access, status, ...) as annotations
+      for downstream JSON-loadable consumption.
+    abstract: true
+  Barca2017IntegratingDataCitation:
+    class_uri: publicschema:Citation/barca-2017-integrating-data
+    is_a: Citation
+    title: 'Integrating data and information management for social protection: social registries and integrated
+      beneficiary registries'
+    annotations:
+      citation_id: barca-2017-integrating-data
+      title: 'Integrating data and information management for social protection: social registries and
+        integrated beneficiary registries'
+      short_title: Social and beneficiary registries
+      publisher: Australian Government Department of Foreign Affairs and Trade (DFAT)
+      year: 2017
+      type: guidance_publication
+      domain: social_protection
+      uri: https://www.dfat.gov.au/about-us/publications/Pages/integrating-data-information-management-social-protection
+      access: open
+      status: active
+      authors_json: '["Valentina Barca"]'
+      informs_json: '{"concepts": ["Person", "Household", "sp/Program", "sp/Enrollment", "sp/EligibilityDecision",
+        "sp/Entitlement", "ScoringEvent", "ScoringRule", "Identifier"], "properties": [], "vocabularies":
+        ["sp/eligibility-status", "sp/enrollment-status", "sp/targeting-approach"]}'
+  Barca2021InclusiveInformationSystemsCitation:
+    class_uri: publicschema:Citation/barca-2021-inclusive-information-systems
+    is_a: Citation
+    title: 'Inclusive Information Systems for Social Protection: Intentionally Integrating Gender and
+      Disability'
+    annotations:
+      citation_id: barca-2021-inclusive-information-systems
+      title: 'Inclusive Information Systems for Social Protection: Intentionally Integrating Gender and
+        Disability'
+      short_title: Inclusive Information Systems
+      publisher: 'Social Protection Approaches to COVID-19: Expert Advice (SPACE), FCDO/GIZ/DFAT'
+      year: 2021
+      type: guidance_publication
+      domain: social_protection
+      uri: https://socialprotection.org/discover/publications/inclusive-information-systems-social-protection-intentionally-integrating
+      access: open
+      status: active
+      authors_json: '["Valentina Barca", "Madhumitha Hebbar", "Alexandre Cote"]'
+      informs_json: '{"concepts": ["Person", "sp/Enrollment", "ScoringEvent", "FunctioningProfile"], "properties":
+        ["sex", "gender"], "vocabularies": ["sex", "gender-type"]}'
+  CalpGlossaryCitation:
+    class_uri: publicschema:Citation/calp-glossary
+    is_a: Citation
+    title: Glossary of Terminology for Cash and Voucher Assistance
+    annotations:
+      citation_id: calp-glossary
+      title: Glossary of Terminology for Cash and Voucher Assistance
+      short_title: CaLP Glossary
+      publisher: CALP Network
+      year: 2023
+      type: guidance_publication
+      domain: humanitarian
+      uri: https://www.calpnetwork.org/publication/glossary-of-terminology-for-cash-and-voucher-assistance/
+      access: open
+      status: active
+      informs_json: '{"concepts": [], "properties": ["benefit_modality"], "vocabularies": ["sp/benefit-modality"]}'
+  CrcConventionCitation:
+    class_uri: publicschema:Citation/crc-convention
+    is_a: Citation
+    title: Convention on the Rights of the Child
+    annotations:
+      citation_id: crc-convention
+      title: Convention on the Rights of the Child
+      short_title: CRC
+      publisher: United Nations General Assembly
+      year: 1989
+      type: legal_instrument
+      domain: crvs
+      uri: https://www.ohchr.org/en/instruments-mechanisms/instruments/convention-rights-child
+      access: open
+      status: active
+      standard_number: UN CRC
+      informs_json: '{"concepts": ["crvs/Birth", "crvs/Adoption"], "properties": [], "vocabularies": []}'
+  DctermsCitation:
+    class_uri: publicschema:Citation/dcterms
+    is_a: Citation
+    title: DCMI Metadata Terms
+    annotations:
+      citation_id: dcterms
+      title: DCMI Metadata Terms
+      short_title: DC Terms
+      publisher: Dublin Core Metadata Initiative (DCMI)
+      type: specification
+      domain: general
+      uri: https://www.dublincore.org/specifications/dublin-core/dcmi-terms/
+      access: open
+      status: active
+      informs_json: '{"concepts": [], "properties": [], "vocabularies": []}'
+  DhsRecode7Citation:
+    class_uri: publicschema:Citation/dhs-recode7
+    is_a: Citation
+    title: 'DHS Recode7: Standard Recode Manual for DHS 7'
+    annotations:
+      citation_id: dhs-recode7
+      title: 'DHS Recode7: Standard Recode Manual for DHS 7'
+      short_title: DHS Recode7
+      publisher: ICF International / USAID
+      year: 2018
+      type: classification
+      domain: general
+      uri: https://dhsprogram.com/publications/publication-dhsg4-dhs-questionnaires-and-manuals.cfm
+      access: open
+      status: active
+      informs_json: '{"concepts": ["ScoringEvent", "Household", "Person", "FunctioningProfile", "SocioEconomicProfile"],
+        "properties": ["assessment_band", "cooking_fuel", "difficulty_cognition", "difficulty_communication",
+        "difficulty_hearing", "difficulty_seeing", "difficulty_self_care", "difficulty_walking", "education_level",
+        "electricity_access", "floor_material", "household_assets", "ict_access", "literacy", "livestock_type",
+        "pregnancy_status", "roof_material", "sanitation_facility", "settlement_type", "wall_material",
+        "water_source"], "vocabularies": ["cooking-fuel", "education-level", "floor-material", "functional-difficulty-severity",
+        "household-asset", "ict-access", "literacy", "livestock-type", "pregnancy-status", "roof-material",
+        "sanitation-facility", "settlement-type", "wall-material", "water-source"]}'
+  DhsWomanQuestionnaireCitation:
+    class_uri: publicschema:Citation/dhs-woman-questionnaire
+    is_a: Citation
+    title: Demographic and Health Surveys (DHS-8) Woman's Questionnaire
+    annotations:
+      citation_id: dhs-woman-questionnaire
+      title: Demographic and Health Surveys (DHS-8) Woman's Questionnaire
+      short_title: DHS-8 Woman's Questionnaire
+      publisher: ICF International / USAID
+      year: 2022
+      type: guidance_publication
+      domain: general
+      uri: https://dhsprogram.com/publications/publication-dhsq8-dhs-questionnaires-and-manuals.cfm
+      access: open
+      status: active
+      informs_json: '{"concepts": [], "properties": [], "vocabularies": ["maternity-care-provider"]}'
+  EbsiEhicCitation:
+    class_uri: publicschema:Citation/ebsi-ehic
+    is_a: Citation
+    title: European Health Insurance Card (EHIC) as a Verifiable Credential (DC4EU pilot)
+    annotations:
+      citation_id: ebsi-ehic
+      title: European Health Insurance Card (EHIC) as a Verifiable Credential (DC4EU pilot)
+      short_title: EHIC as VC
+      publisher: European Commission, DC4EU consortium
+      type: eu_credential_schema
+      domain: health
+      uri: https://ec.europa.eu/digital-building-blocks/sites/spaces/EUDIGITALIDENTITYWALLET/pages/930453001/EHIC
+      access: open
+      status: active
+      note: The DC4EU pilot uses SD-JWT-VC format for EHIC attestations. No EBSI-published JSON schema
+        artifact for EHIC has been located; this entry cites the EU Digital Identity Wallet reference
+        page as the canonical public description.
+      informs_json: '{"concepts": [], "properties": [], "vocabularies": []}'
+  EbsiEidasPidCitation:
+    class_uri: publicschema:Citation/ebsi-eidas-pid
+    is_a: Citation
+    title: eIDAS Person Identification Data (PID) Verifiable Credential schema
+    annotations:
+      citation_id: ebsi-eidas-pid
+      title: eIDAS Person Identification Data (PID) Verifiable Credential schema
+      short_title: EBSI eIDAS PID
+      publisher: European Blockchain Services Infrastructure (EBSI), European Commission
+      type: eu_credential_schema
+      domain: identity
+      uri: https://code.europa.eu/ebsi/json-schema/-/tree/main/schemas/vcdm2.0/vid/natural-person-nested-pid
+      access: open
+      status: active
+      informs_json: '{"concepts": ["Person", "Address", "Identifier"], "properties": ["given_name_at_birth",
+        "family_name_at_birth", "preferred_name", "house_number", "building_name", "identifier_scheme_id",
+        "identifier_scheme_name"], "vocabularies": []}'
+  EbsiEuropassElmCitation:
+    class_uri: publicschema:Citation/ebsi-europass-elm
+    is_a: Citation
+    title: European Learning Model (ELM)
+    annotations:
+      citation_id: ebsi-europass-elm
+      title: European Learning Model (ELM)
+      short_title: Europass ELM
+      publisher: European Commission, DG EMPL / Cedefop
+      year: 2023
+      type: eu_credential_schema
+      domain: education
+      uri: https://europass.europa.eu/en/stakeholders/information-developers
+      access: open
+      status: active
+      version: v3
+      informs_json: '{"concepts": [], "properties": [], "vocabularies": []}'
+  EbsiPortableDocA1Citation:
+    class_uri: publicschema:Citation/ebsi-portable-doc-a1
+    is_a: Citation
+    title: ESSP Portable Document A1
+    annotations:
+      citation_id: ebsi-portable-doc-a1
+      title: ESSP Portable Document A1
+      short_title: EBSI PDA1
+      publisher: European Blockchain Services Infrastructure (EBSI), European Commission
+      type: eu_credential_schema
+      domain: social_protection
+      uri: https://code.europa.eu/ebsi/json-schema/-/tree/main/schemas/vcdm1.1/essp/pda1
+      access: open
+      status: active
+      note: Hosting repository (code.europa.eu/ebsi/json-schema) is archived read-only; current active
+        reference pointer is https://hub.ebsi.eu/vc-framework/data-models/inventory.
+      informs_json: '{"concepts": ["sp/Enrollment", "sp/Entitlement"], "properties": ["governing_jurisdiction",
+        "document_expiry_date"], "vocabularies": []}'
+  EgrissIrisCitation:
+    class_uri: publicschema:Citation/egriss-iris
+    is_a: Citation
+    title: International Recommendations on Internally Displaced Persons Statistics (IRIS)
+    annotations:
+      citation_id: egriss-iris
+      title: International Recommendations on Internally Displaced Persons Statistics (IRIS)
+      short_title: EGRISS IRIS
+      publisher: Expert Group on Refugee, IDP and Statelessness Statistics (EGRISS)
+      year: 2020
+      type: international_standard
+      domain: general
+      uri: https://egrisstats.org/recommendations/international-recommendations-on-idp-statistics-iris/
+      access: open
+      status: active
+      informs_json: '{"concepts": ["Person"], "properties": ["displacement_status"], "vocabularies": ["displacement-status"]}'
+  EuReg20161191Citation:
+    class_uri: publicschema:Citation/eu-reg-2016-1191
+    is_a: Citation
+    title: Regulation (EU) 2016/1191 on promoting the free movement of citizens by simplifying the requirements
+      for presenting certain public documents in the European Union
+    annotations:
+      citation_id: eu-reg-2016-1191
+      title: Regulation (EU) 2016/1191 on promoting the free movement of citizens by simplifying the requirements
+        for presenting certain public documents in the European Union
+      short_title: EU Reg. 2016/1191
+      publisher: European Parliament and Council of the European Union
+      year: 2016
+      type: legal_instrument
+      domain: crvs
+      uri: https://eur-lex.europa.eu/eli/reg/2016/1191/oj
+      access: open
+      status: active
+      standard_number: Regulation (EU) 2016/1191
+      informs_json: '{"concepts": ["crvs/Certificate"], "properties": [], "vocabularies": []}'
+  FaoFiesCitation:
+    class_uri: publicschema:Citation/fao-fies
+    is_a: Citation
+    title: Methods for Estimating Comparable Prevalence Rates of Food Insecurity Experienced by Adults
+      Throughout the World
+    annotations:
+      citation_id: fao-fies
+      title: Methods for Estimating Comparable Prevalence Rates of Food Insecurity Experienced by Adults
+        Throughout the World
+      short_title: FAO FIES
+      publisher: Food and Agriculture Organization of the United Nations (FAO), Voices of the Hungry Technical
+        Report No. 1
+      year: 2016
+      type: guidance_publication
+      domain: humanitarian
+      uri: https://www.fao.org/3/i4830e/i4830e.pdf
+      access: open
+      status: active
+      standard_number: FAO i4830e
+      authors_json: '["Carlo Cafiero", "Mark Nord", "Sara Viviani", "M. E. Del Grosso", "Terri Ballard",
+        "A. Kepple", "M. Miller", "C. Nwosu"]'
+      informs_json: '{"concepts": ["Household"], "properties": ["food_security_level"], "vocabularies":
+        ["food-security-level", "instrument-code"]}'
+  FaoVggtCitation:
+    class_uri: publicschema:Citation/fao-vggt
+    is_a: Citation
+    title: Voluntary Guidelines on the Responsible Governance of Tenure of Land, Fisheries and Forests
+      in the Context of National Food Security
+    annotations:
+      citation_id: fao-vggt
+      title: Voluntary Guidelines on the Responsible Governance of Tenure of Land, Fisheries and Forests
+        in the Context of National Food Security
+      short_title: FAO VGGT
+      publisher: Food and Agriculture Organization of the United Nations (FAO)
+      year: 2012
+      type: guidance_publication
+      domain: general
+      uri: https://www.fao.org/tenure/voluntary-guidelines/en/
+      access: open
+      status: active
+      informs_json: '{"concepts": ["Farm"], "properties": ["land_tenure"], "vocabularies": ["land-tenure"]}'
+  FaoWca2020Vol1Citation:
+    class_uri: publicschema:Citation/fao-wca-2020-vol1
+    is_a: Citation
+    title: 'World Programme for the Census of Agriculture 2020. Volume I: Programme, concepts and definitions'
+    annotations:
+      citation_id: fao-wca-2020-vol1
+      title: 'World Programme for the Census of Agriculture 2020. Volume I: Programme, concepts and definitions'
+      short_title: FAO WCA 2020 Vol.I
+      publisher: Food and Agriculture Organization of the United Nations (FAO)
+      year: 2017
+      type: guidance_publication
+      domain: general
+      uri: https://www.fao.org/world-census-agriculture/wca-round/wca-round-2020/en
+      access: open
+      status: active
+      standard_number: ISBN 978-92-5-108865-4
+      informs_json: '{"concepts": ["Farm"], "properties": ["farm_area_hectares", "primary_crop", "livestock_type"],
+        "vocabularies": ["livestock-type"]}'
+  FhirAdministrativeGenderCitation:
+    class_uri: publicschema:Citation/fhir-administrative-gender
+    is_a: Citation
+    title: AdministrativeGender
+    annotations:
+      citation_id: fhir-administrative-gender
+      title: AdministrativeGender
+      short_title: FHIR AdministrativeGender
+      publisher: Health Level Seven International (HL7)
+      type: classification
+      domain: health
+      uri: https://hl7.org/fhir/R4/codesystem-administrative-gender.html
+      access: open
+      status: active
+      version: R4
+      informs_json: '{"concepts": [], "properties": ["gender"], "vocabularies": ["gender-type"]}'
+  FhirBfdrCitation:
+    class_uri: publicschema:Citation/fhir-bfdr
+    is_a: Citation
+    title: Birth And Fetal Death (BFDR) FHIR Implementation Guide
+    annotations:
+      citation_id: fhir-bfdr
+      title: Birth And Fetal Death (BFDR) FHIR Implementation Guide
+      short_title: FHIR BFDR
+      publisher: Health Level Seven International (HL7)
+      type: specification
+      domain: crvs
+      uri: https://hl7.org/fhir/us/bfdr/
+      access: open
+      status: active
+      informs_json: '{"concepts": ["crvs/Birth", "crvs/FetalDeath"], "properties": ["gestational_age",
+        "weight_at_birth", "attendant_at_birth", "sex_at_birth", "birth_type", "birth_order", "cause_of_fetal_death",
+        "cause_of_fetal_death_code", "cause_of_fetal_death_coding_system"], "vocabularies": []}'
+  FhirCoverageEligibilityCitation:
+    class_uri: publicschema:Citation/fhir-coverage-eligibility
+    is_a: Citation
+    title: FHIR CoverageEligibilityResponse resource
+    annotations:
+      citation_id: fhir-coverage-eligibility
+      title: FHIR CoverageEligibilityResponse resource
+      short_title: FHIR CoverageEligibilityResponse
+      publisher: Health Level Seven International (HL7)
+      type: specification
+      domain: health
+      uri: https://hl7.org/fhir/R4/coverageeligibilityresponse-definitions.html
+      access: open
+      status: active
+      version: R4
+      informs_json: '{"concepts": ["sp/EligibilityDecision"], "properties": ["eligibility_status"], "vocabularies":
+        ["sp/eligibility-status"]}'
+  FhirEpisodeOfCareStatusCitation:
+    class_uri: publicschema:Citation/fhir-episode-of-care-status
+    is_a: Citation
+    title: EpisodeOfCareStatus
+    annotations:
+      citation_id: fhir-episode-of-care-status
+      title: EpisodeOfCareStatus
+      short_title: FHIR EpisodeOfCareStatus
+      publisher: Health Level Seven International (HL7)
+      type: classification
+      domain: health
+      uri: https://hl7.org/fhir/R4/codesystem-episode-of-care-status.html
+      access: open
+      status: active
+      version: R4
+      informs_json: '{"concepts": ["sp/Enrollment"], "properties": ["enrollment_status"], "vocabularies":
+        ["sp/enrollment-status"]}'
+  FhirFmStatusCitation:
+    class_uri: publicschema:Citation/fhir-fm-status
+    is_a: Citation
+    title: Financial Resource Status Codes
+    annotations:
+      citation_id: fhir-fm-status
+      title: Financial Resource Status Codes
+      short_title: FHIR FinancialResourceStatus
+      publisher: Health Level Seven International (HL7)
+      type: classification
+      domain: health
+      uri: https://hl7.org/fhir/R4/codesystem-fm-status.html
+      access: open
+      status: active
+      version: R4
+      informs_json: '{"concepts": ["sp/Entitlement"], "properties": ["entitlement_status"], "vocabularies":
+        ["sp/entitlement-status"]}'
+  FhirIdentifierTypeV20203Citation:
+    class_uri: publicschema:Citation/fhir-identifier-type-v2-0203
+    is_a: Citation
+    title: Identifier Type Codes
+    annotations:
+      citation_id: fhir-identifier-type-v2-0203
+      title: Identifier Type Codes
+      short_title: FHIR IdentifierType v2-0203
+      publisher: Health Level Seven International (HL7)
+      type: classification
+      domain: health
+      uri: https://hl7.org/fhir/R4/valueset-identifier-type.html
+      access: open
+      status: active
+      version: R4
+      informs_json: '{"concepts": ["Identifier"], "properties": ["identifier_type"], "vocabularies": ["identifier-type"]}'
+  FhirR4Citation:
+    class_uri: publicschema:Citation/fhir-r4
+    is_a: Citation
+    title: Fast Healthcare Interoperability Resources (FHIR), Release 4
+    annotations:
+      citation_id: fhir-r4
+      title: Fast Healthcare Interoperability Resources (FHIR), Release 4
+      short_title: FHIR R4
+      publisher: Health Level Seven International (HL7)
+      year: 2019
+      type: specification
+      domain: health
+      uri: https://hl7.org/fhir/R4/
+      access: open
+      status: active
+      version: R4
+      informs_json: '{"concepts": ["Agent", "ConsentRecord", "FunctioningProfile", "IdentityDocument",
+        "Instrument", "Organization", "Profile"], "properties": ["anxiety_frequency", "anxiety_intensity",
+        "anxiety_medication", "cognition_subdomain", "depression_frequency", "depression_intensity", "depression_medication",
+        "difficulty_accepting_change", "difficulty_being_understood", "difficulty_being_understood_inside_household",
+        "difficulty_being_understood_outside_household", "difficulty_climbing_steps", "difficulty_cognition",
+        "difficulty_communication", "difficulty_concentrating", "difficulty_controlling_behaviour", "difficulty_dexterity",
+        "difficulty_disruptive_behaviour", "difficulty_hearing", "difficulty_hearing_noisy_room", "difficulty_hearing_quiet_room",
+        "difficulty_learning", "difficulty_making_friends", "difficulty_playing", "difficulty_remembering",
+        "difficulty_seeing", "difficulty_seeing_coin", "difficulty_seeing_face_across_room", "difficulty_self_care",
+        "difficulty_understanding_others", "difficulty_upper_body_reach", "difficulty_walking", "difficulty_walking_100m",
+        "difficulty_walking_500m", "fatigue_duration", "fatigue_frequency", "fatigue_intensity", "hearing_aid_use_frequency",
+        "pain_frequency", "pain_intensity", "pregnancy_status", "remembering_extent", "remembering_frequency",
+        "uses_glasses", "uses_hearing_aid", "uses_mobility_aid"], "vocabularies": []}'
+  FhirV3MaritalStatusCitation:
+    class_uri: publicschema:Citation/fhir-v3-marital-status
+    is_a: Citation
+    title: FHIR v3 MaritalStatus CodeSystem
+    annotations:
+      citation_id: fhir-v3-marital-status
+      title: FHIR v3 MaritalStatus CodeSystem
+      short_title: FHIR v3 MaritalStatus
+      publisher: Health Level Seven International (HL7)
+      type: classification
+      domain: health
+      uri: https://terminology.hl7.org/CodeSystem-v3-MaritalStatus.html
+      access: open
+      status: active
+      version: R4
+      informs_json: '{"concepts": [], "properties": ["marital_status"], "vocabularies": ["marital-status"]}'
+  FhirV3RoleCodeCitation:
+    class_uri: publicschema:Citation/fhir-v3-role-code
+    is_a: Citation
+    title: PersonalRelationshipRoleType
+    annotations:
+      citation_id: fhir-v3-role-code
+      title: PersonalRelationshipRoleType
+      short_title: FHIR v3 PersonalRelationshipRoleType
+      publisher: Health Level Seven International (HL7)
+      type: classification
+      domain: health
+      uri: https://terminology.hl7.org/ValueSet-v3-PersonalRelationshipRoleType.html
+      access: open
+      status: active
+      version: v3
+      informs_json: '{"concepts": ["Relationship", "crvs/Parent"], "properties": ["relationship_type",
+        "parental_role"], "vocabularies": ["relationship-type", "crvs/parental-role"]}'
+  FhirVrdrCitation:
+    class_uri: publicschema:Citation/fhir-vrdr
+    is_a: Citation
+    title: Vital Records Death Reporting (VRDR) FHIR Implementation Guide
+    annotations:
+      citation_id: fhir-vrdr
+      title: Vital Records Death Reporting (VRDR) FHIR Implementation Guide
+      short_title: FHIR VRDR
+      publisher: Health Level Seven International (HL7)
+      type: specification
+      domain: crvs
+      uri: https://hl7.org/fhir/us/vrdr/
+      access: open
+      status: active
+      informs_json: '{"concepts": ["crvs/Death", "crvs/FetalDeath"], "properties": ["cause_of_death",
+        "cause_of_death_code", "cause_of_death_coding_system", "manner_of_death", "cause_of_death_method",
+        "medical_certifier"], "vocabularies": ["crvs/manner-of-death", "crvs/cause-of-death-method"]}'
+  FoafCitation:
+    class_uri: publicschema:Citation/foaf
+    is_a: Citation
+    title: FOAF Vocabulary Specification
+    annotations:
+      citation_id: foaf
+      title: FOAF Vocabulary Specification
+      short_title: FOAF
+      publisher: FOAF Project
+      year: 2014
+      type: specification
+      domain: general
+      uri: http://xmlns.com/foaf/spec/
+      access: open
+      status: active
+      version: '0.99'
+      informs_json: '{"concepts": ["Agent", "Organization", "SoftwareAgent"], "properties": [], "vocabularies":
+        []}'
+  GlobalShelterClusterCitation:
+    class_uri: publicschema:Citation/global-shelter-cluster
+    is_a: Citation
+    title: Global Shelter Cluster Rapid Needs Assessment Guidance and Shelter Situation Categories
+    annotations:
+      citation_id: global-shelter-cluster
+      title: Global Shelter Cluster Rapid Needs Assessment Guidance and Shelter Situation Categories
+      short_title: Global Shelter Cluster
+      publisher: Global Shelter Cluster (IFRC/UNHCR co-led)
+      type: guidance_publication
+      domain: humanitarian
+      uri: https://sheltercluster.org/
+      access: open
+      status: active
+      informs_json: '{"concepts": [], "properties": [], "vocabularies": ["shelter-situation-type"]}'
+  GovstackConsentCitation:
+    class_uri: publicschema:Citation/govstack-consent
+    is_a: Citation
+    title: GovStack Consent Building Block Specification
+    annotations:
+      citation_id: govstack-consent
+      title: GovStack Consent Building Block Specification
+      short_title: GovStack Consent BB
+      publisher: GovStack
+      year: 2025
+      type: specification
+      domain: general
+      uri: https://consent.govstack.global/
+      access: open
+      status: active
+      version: 1.3.0
+      informs_json: '{"concepts": ["ConsentRecord"], "properties": [], "vocabularies": []}'
+  GovstackPaymentsCitation:
+    class_uri: publicschema:Citation/govstack-payments
+    is_a: Citation
+    title: GovStack Payments Building Block Specification
+    annotations:
+      citation_id: govstack-payments
+      title: GovStack Payments Building Block Specification
+      short_title: GovStack Payments
+      publisher: GovStack (ITU, GIZ, DIAL, Estonia)
+      type: specification
+      domain: payments
+      uri: https://payments.govstack.global/2-description
+      access: open
+      status: active
+      informs_json: '{"concepts": ["PaymentEvent", "Voucher"], "properties": ["delivery_channel", "payment_status",
+        "voucher_status"], "vocabularies": ["delivery-channel", "voucher-status", "payment-status"]}'
+  GsmaMobileMoneyCitation:
+    class_uri: publicschema:Citation/gsma-mobile-money
+    is_a: Citation
+    title: GSMA Mobile Money API
+    annotations:
+      citation_id: gsma-mobile-money
+      title: GSMA Mobile Money API
+      short_title: GSMA Mobile Money API
+      publisher: GSMA
+      type: specification
+      domain: payments
+      uri: https://developer.mobilemoneyapi.io/api-versions-1.2/
+      access: open
+      status: active
+      informs_json: '{"concepts": ["PaymentEvent"], "properties": ["delivery_channel"], "vocabularies":
+        ["delivery-channel"]}'
+  HagueIntercountryAdoptionCitation:
+    class_uri: publicschema:Citation/hague-intercountry-adoption
+    is_a: Citation
+    title: Convention of 29 May 1993 on Protection of Children and Co-operation in Respect of Intercountry
+      Adoption
+    annotations:
+      citation_id: hague-intercountry-adoption
+      title: Convention of 29 May 1993 on Protection of Children and Co-operation in Respect of Intercountry
+        Adoption
+      short_title: Hague Adoption Convention
+      publisher: Hague Conference on Private International Law (HCCH)
+      year: 1993
+      type: legal_instrument
+      domain: crvs
+      uri: https://www.hcch.net/en/instruments/conventions/full-text/?cid=69
+      access: open
+      status: active
+      standard_number: HCCH 1993 Convention No. 33
+      informs_json: '{"concepts": ["crvs/Adoption", "crvs/Parent"], "properties": ["previous_parents",
+        "adoption_type", "establishment_basis"], "vocabularies": ["crvs/adoption-type", "crvs/parent-establishment-basis"]}'
+  HdxPCodesCitation:
+    class_uri: publicschema:Citation/hdx-p-codes
+    is_a: Citation
+    title: Global P-code List
+    annotations:
+      citation_id: hdx-p-codes
+      title: Global P-code List
+      short_title: HDX P-codes
+      publisher: United Nations Office for the Coordination of Humanitarian Affairs (UN OCHA), Humanitarian
+        Data Exchange
+      type: classification
+      domain: humanitarian
+      uri: https://data.humdata.org/dataset/global-pcodes
+      access: open
+      status: active
+      informs_json: '{"concepts": ["Location"], "properties": [], "vocabularies": ["identifier-type"]}'
+  IcaoDoc9303Citation:
+    class_uri: publicschema:Citation/icao-doc-9303
+    is_a: Citation
+    title: Machine Readable Travel Documents (Doc 9303)
+    annotations:
+      citation_id: icao-doc-9303
+      title: Machine Readable Travel Documents (Doc 9303)
+      short_title: ICAO Doc 9303
+      publisher: International Civil Aviation Organization (ICAO)
+      type: international_standard
+      domain: identity
+      uri: https://www.icao.int/publications/doc-series/doc-9303
+      access: open
+      status: active
+      standard_number: ICAO Doc 9303
+      informs_json: '{"concepts": ["Identifier", "IdentityDocument"], "properties": ["identifier_type"],
+        "vocabularies": ["identifier-type"]}'
+  IccsConvention16Citation:
+    class_uri: publicschema:Citation/iccs-convention-16
+    is_a: Citation
+    title: Convention No. 16 on the issue of multilingual extracts from civil-status records
+    annotations:
+      citation_id: iccs-convention-16
+      title: Convention No. 16 on the issue of multilingual extracts from civil-status records
+      short_title: ICCS Convention 16
+      publisher: International Commission on Civil Status (ICCS/CIEC)
+      year: 1976
+      type: legal_instrument
+      domain: crvs
+      uri: https://ciec1.org/en/convention/convention-no-16-on-the-issue-of-multilingual-extracts-from-civil-status-records/
+      access: open
+      status: active
+      standard_number: ICCS Convention No. 16
+      informs_json: '{"concepts": ["crvs/Certificate"], "properties": ["certificate_format"], "vocabularies":
+        ["crvs/certificate-format"]}'
+  IccsConvention26Citation:
+    class_uri: publicschema:Citation/iccs-convention-26
+    is_a: Citation
+    title: Convention No. 26 on the international exchange of information relating to civil status
+    annotations:
+      citation_id: iccs-convention-26
+      title: Convention No. 26 on the international exchange of information relating to civil status
+      short_title: ICCS Convention 26
+      publisher: International Commission on Civil Status (ICCS/CIEC)
+      year: 1997
+      type: legal_instrument
+      domain: crvs
+      uri: https://ciec1.org/en/convention/convention-no-26-on-the-international-exchange-of-information-relating-to-civil-status/
+      access: open
+      status: active
+      standard_number: ICCS Convention No. 26
+      informs_json: '{"concepts": ["crvs/Certificate", "crvs/CivilStatusRecord"], "properties": [], "vocabularies":
+        ["crvs/certificate-format"]}'
+  IccsConvention33Citation:
+    class_uri: publicschema:Citation/iccs-convention-33
+    is_a: Citation
+    title: Convention No. 33 on the use of the International Commission on Civil Status Platform for the
+      international communication of civil-status data by electronic means
+    annotations:
+      citation_id: iccs-convention-33
+      title: Convention No. 33 on the use of the International Commission on Civil Status Platform for
+        the international communication of civil-status data by electronic means
+      short_title: ICCS Convention 33
+      publisher: International Commission on Civil Status (ICCS/CIEC)
+      year: 2012
+      type: legal_instrument
+      domain: crvs
+      uri: https://ciec1.org/en/convention/convention-no-33-on-the-use-of-the-international-commission-on-civil-status-platform-for-the-international-communication-of-civil-status-data-by-electronic-means/
+      access: open
+      status: active
+      standard_number: ICCS Convention No. 33
+      informs_json: '{"concepts": ["crvs/Certificate", "crvs/CivilStatusRecord"], "properties": [], "vocabularies":
+        ["crvs/certificate-format"]}'
+  IccsConvention34Citation:
+    class_uri: publicschema:Citation/iccs-convention-34
+    is_a: Citation
+    title: Convention No. 34 on the issue of multilingual and coded certificates and extracts from civil-status
+      records
+    annotations:
+      citation_id: iccs-convention-34
+      title: Convention No. 34 on the issue of multilingual and coded certificates and extracts from civil-status
+        records
+      short_title: ICCS Convention 34
+      publisher: International Commission on Civil Status (ICCS/CIEC)
+      year: 2014
+      type: legal_instrument
+      domain: crvs
+      uri: https://ciec1.org/en/convention/convention-no-34-on-the-issue-of-multilingual-and-coded-certificates-and-extracts-from-civil-status-records/
+      access: open
+      status: active
+      standard_number: ICCS Convention No. 34
+      informs_json: '{"concepts": ["crvs/Certificate"], "properties": ["certificate_format"], "vocabularies":
+        ["crvs/certificate-format"]}'
+  Icd10Citation:
+    class_uri: publicschema:Citation/icd-10
+    is_a: Citation
+    title: International Statistical Classification of Diseases and Related Health Problems 10th Revision
+    annotations:
+      citation_id: icd-10
+      title: International Statistical Classification of Diseases and Related Health Problems 10th Revision
+      short_title: ICD-10
+      publisher: World Health Organization
+      type: classification
+      domain: health
+      uri: https://icd.who.int/browse10/
+      access: open
+      status: active
+      standard_number: ICD-10
+      version: 10th Revision
+      informs_json: '{"concepts": ["crvs/Death"], "properties": ["cause_of_death", "cause_of_death_coding_system",
+        "cause_of_death_code"], "vocabularies": []}'
+  Icd11Citation:
+    class_uri: publicschema:Citation/icd-11
+    is_a: Citation
+    title: International Classification of Diseases 11th Revision
+    annotations:
+      citation_id: icd-11
+      title: International Classification of Diseases 11th Revision
+      short_title: ICD-11
+      publisher: World Health Organization
+      type: classification
+      domain: health
+      uri: https://icd.who.int/en
+      access: open
+      status: active
+      standard_number: ICD-11
+      version: 11th Revision
+      informs_json: '{"concepts": ["crvs/Death"], "properties": ["cause_of_death", "cause_of_death_coding_system",
+        "cause_of_death_code"], "vocabularies": []}'
+  IcdPmCitation:
+    class_uri: publicschema:Citation/icd-pm
+    is_a: Citation
+    title: ICD-10 for the classification of perinatal mortality (ICD-PM)
+    annotations:
+      citation_id: icd-pm
+      title: ICD-10 for the classification of perinatal mortality (ICD-PM)
+      short_title: ICD-PM
+      publisher: World Health Organization
+      year: 2016
+      type: classification
+      domain: health
+      uri: https://www.who.int/publications/i/item/9789241549752
+      access: open
+      status: active
+      standard_number: ICD-PM
+      informs_json: '{"concepts": ["crvs/FetalDeath"], "properties": ["cause_of_fetal_death", "cause_of_fetal_death_coding_system",
+        "cause_of_fetal_death_code"], "vocabularies": []}'
+  Ieee7012Citation:
+    class_uri: publicschema:Citation/ieee-7012
+    is_a: Citation
+    title: IEEE 7012-2025 Standard for Machine Readable Personal Privacy Terms
+    annotations:
+      citation_id: ieee-7012
+      title: IEEE 7012-2025 Standard for Machine Readable Personal Privacy Terms
+      short_title: IEEE 7012-2025
+      publisher: Institute of Electrical and Electronics Engineers (IEEE)
+      year: 2025
+      type: specification
+      domain: general
+      uri: https://standards.ieee.org/ieee/7012/6092/
+      access: open
+      status: active
+      standard_number: IEEE 7012-2025
+      informs_json: '{"concepts": [], "properties": [], "vocabularies": []}'
+  Ilo19thIcls2013Citation:
+    class_uri: publicschema:Citation/ilo-19th-icls-2013
+    is_a: Citation
+    title: Resolution concerning statistics of work, employment and labour underutilization
+    annotations:
+      citation_id: ilo-19th-icls-2013
+      title: Resolution concerning statistics of work, employment and labour underutilization
+      short_title: ILO 19th ICLS (2013)
+      publisher: International Labour Organization (ILO)
+      year: 2013
+      type: international_standard
+      domain: social_protection
+      uri: https://ilostat.ilo.org/methods/concepts-and-definitions/description-work-statistics-icls19/
+      access: open
+      status: active
+      informs_json: '{"concepts": [], "properties": [], "vocabularies": ["employment-status"]}'
+  Ilo20thIcls2018Citation:
+    class_uri: publicschema:Citation/ilo-20th-icls-2018
+    is_a: Citation
+    title: Resolution concerning statistics on work relationships
+    annotations:
+      citation_id: ilo-20th-icls-2018
+      title: Resolution concerning statistics on work relationships
+      short_title: ILO ICSE-18 (20th ICLS, 2018)
+      publisher: International Labour Organization (ILO)
+      year: 2018
+      type: international_standard
+      domain: social_protection
+      uri: https://www.ilo.org/media/209766/download
+      access: open
+      status: active
+      informs_json: '{"concepts": [], "properties": [], "vocabularies": ["status-in-employment"]}'
+  IloAspireCitation:
+    class_uri: publicschema:Citation/ilo-aspire
+    is_a: Citation
+    title: Atlas of Social Protection Indicators of Resilience and Equity (ASPIRE)
+    annotations:
+      citation_id: ilo-aspire
+      title: Atlas of Social Protection Indicators of Resilience and Equity (ASPIRE)
+      short_title: ASPIRE
+      publisher: World Bank
+      type: guidance_publication
+      domain: social_protection
+      uri: https://www.worldbank.org/en/data/datatopics/aspire
+      access: open
+      status: active
+      informs_json: '{"concepts": [], "properties": [], "vocabularies": []}'
+  IloSocialProtectionFloorCitation:
+    class_uri: publicschema:Citation/ilo-social-protection-floor
+    is_a: Citation
+    title: Social Protection Floors Recommendation, 2012 (No. 202)
+    annotations:
+      citation_id: ilo-social-protection-floor
+      title: Social Protection Floors Recommendation, 2012 (No. 202)
+      short_title: ILO Social Protection Floor
+      publisher: International Labour Organization (ILO)
+      year: 2012
+      type: guidance_publication
+      domain: social_protection
+      uri: https://www.ilo.org/publications/social-protection-floors-recommendation-2012-no-202
+      access: open
+      status: active
+      standard_number: ILO Recommendation No. 202
+      informs_json: '{"concepts": [], "properties": [], "vocabularies": []}'
+  IomDtmCitation:
+    class_uri: publicschema:Citation/iom-dtm
+    is_a: Citation
+    title: IOM Displacement Tracking Matrix (DTM)
+    annotations:
+      citation_id: iom-dtm
+      title: IOM Displacement Tracking Matrix (DTM)
+      short_title: IOM DTM
+      publisher: International Organization for Migration
+      type: guidance_publication
+      domain: humanitarian
+      uri: https://dtm.iom.int/
+      access: open
+      status: active
+      informs_json: '{"concepts": [], "properties": [], "vocabularies": ["document-status"]}'
+  Isced2011Citation:
+    class_uri: publicschema:Citation/isced-2011
+    is_a: Citation
+    title: International Standard Classification of Education (ISCED 2011)
+    annotations:
+      citation_id: isced-2011
+      title: International Standard Classification of Education (ISCED 2011)
+      short_title: ISCED 2011
+      publisher: UNESCO Institute for Statistics
+      year: 2011
+      type: classification
+      domain: education
+      uri: https://www.uis.unesco.org/en/methods-and-tools/isced
+      access: open
+      status: active
+      standard_number: ISCED 2011
+      informs_json: '{"concepts": [], "properties": ["education_level"], "vocabularies": ["education-level",
+        "school-level", "school-type"]}'
+  Isco08Citation:
+    class_uri: publicschema:Citation/isco-08
+    is_a: Citation
+    title: International Standard Classification of Occupations (ISCO-08)
+    annotations:
+      citation_id: isco-08
+      title: International Standard Classification of Occupations (ISCO-08)
+      short_title: ISCO-08
+      publisher: International Labour Organization (ILO)
+      year: 2008
+      type: classification
+      domain: general
+      uri: https://isco.ilo.org/en/isco-08/
+      access: open
+      status: active
+      standard_number: ISCO-08
+      informs_json: '{"concepts": [], "properties": ["occupation"], "vocabularies": ["occupation"]}'
+  Iso10002Citation:
+    class_uri: publicschema:Citation/iso-10002
+    is_a: Citation
+    title: Quality management, Customer satisfaction, Guidelines for complaints handling in organizations
+    annotations:
+      citation_id: iso-10002
+      title: Quality management, Customer satisfaction, Guidelines for complaints handling in organizations
+      short_title: ISO 10002
+      publisher: International Organization for Standardization
+      year: 2018
+      type: international_standard
+      domain: social_protection
+      uri: https://www.iso.org/standard/71580.html
+      access: paywalled
+      status: active
+      standard_number: ISO 10002:2018
+      informs_json: '{"concepts": ["sp/Grievance"], "properties": [], "vocabularies": ["sp/grievance-status",
+        "sp/grievance-type"]}'
+  Iso15924Citation:
+    class_uri: publicschema:Citation/iso-15924
+    is_a: Citation
+    title: Codes for the representation of names of scripts
+    annotations:
+      citation_id: iso-15924
+      title: Codes for the representation of names of scripts
+      short_title: ISO 15924
+      publisher: Unicode Consortium (ISO 15924 registration authority)
+      type: international_standard
+      domain: general
+      uri: https://unicode.org/iso15924/
+      access: open
+      status: active
+      standard_number: ISO 15924
+      informs_json: '{"concepts": [], "properties": [], "vocabularies": ["script"]}'
+  Iso20022FrequencyCitation:
+    class_uri: publicschema:Citation/iso-20022-frequency
+    is_a: Citation
+    title: ISO 20022 External Code Sets, ExternalDateFrequency1Code
+    annotations:
+      citation_id: iso-20022-frequency
+      title: ISO 20022 External Code Sets, ExternalDateFrequency1Code
+      short_title: ISO 20022 ExternalDateFrequency
+      publisher: ISO 20022 Registration Management Group
+      type: international_standard
+      domain: payments
+      uri: https://www.iso20022.org/catalogue-messages/additional-content-messages/external-code-sets
+      access: open
+      status: active
+      standard_number: ISO 20022 ExternalDateFrequency1Code
+      informs_json: '{"concepts": [], "properties": ["frequency"], "vocabularies": ["sp/benefit-frequency"]}'
+  Iso20022PaymentStatusCitation:
+    class_uri: publicschema:Citation/iso-20022-payment-status
+    is_a: Citation
+    title: ISO 20022 External Code Sets, ExternalPaymentTransactionStatus1Code
+    annotations:
+      citation_id: iso-20022-payment-status
+      title: ISO 20022 External Code Sets, ExternalPaymentTransactionStatus1Code
+      short_title: ISO 20022 PaymentStatus
+      publisher: ISO 20022 Registration Management Group
+      type: international_standard
+      domain: payments
+      uri: https://www.iso20022.org/catalogue-messages/additional-content-messages/external-code-sets
+      access: open
+      status: active
+      standard_number: ISO 20022 ExternalPaymentTransactionStatus1Code
+      informs_json: '{"concepts": [], "properties": [], "vocabularies": ["payment-status"]}'
+  Iso27560Citation:
+    class_uri: publicschema:Citation/iso-27560
+    is_a: Citation
+    title: Information security, Consent record information structure
+    annotations:
+      citation_id: iso-27560
+      title: Information security, Consent record information structure
+      short_title: ISO/IEC TS 27560:2023
+      publisher: International Organization for Standardization
+      year: 2023
+      type: international_standard
+      domain: general
+      uri: https://www.iso.org/standard/80391.html
+      access: paywalled
+      status: active
+      standard_number: ISO/IEC TS 27560:2023
+      informs_json: '{"concepts": ["ConsentRecord"], "properties": ["identifier", "created_at", "signed_date",
+        "effective_date", "status", "controllers", "data_subject", "consent_record_type", "notice_ref",
+        "notice_version", "evidence_ref"], "vocabularies": ["consent-status"]}'
+  Iso29184Citation:
+    class_uri: publicschema:Citation/iso-29184
+    is_a: Citation
+    title: Information technology, Online privacy notices and consent
+    annotations:
+      citation_id: iso-29184
+      title: Information technology, Online privacy notices and consent
+      short_title: ISO/IEC 29184:2020
+      publisher: ISO/IEC
+      year: 2020
+      type: international_standard
+      domain: general
+      uri: https://www.iso.org/standard/70331.html
+      access: paywalled
+      status: active
+      standard_number: ISO/IEC 29184:2020
+      informs_json: '{"concepts": ["PrivacyNotice"], "properties": ["name", "version", "controllers",
+        "purposes", "personal_data_categories", "recipient_categories", "recipients_described", "retention_description",
+        "transfer_description", "automated_decision_description", "rights_description", "withdrawal_description",
+        "complaint_authority_contact", "available_languages", "source_of_data"], "vocabularies": []}'
+  Iso31661Citation:
+    class_uri: publicschema:Citation/iso-3166-1
+    is_a: Citation
+    title: 'Codes for the representation of names of countries and their subdivisions, Part 1: Country
+      code'
+    annotations:
+      citation_id: iso-3166-1
+      title: 'Codes for the representation of names of countries and their subdivisions, Part 1: Country
+        code'
+      short_title: ISO 3166-1
+      publisher: International Organization for Standardization
+      type: international_standard
+      domain: general
+      uri: https://www.iso.org/standard/72482.html
+      access: open
+      status: active
+      standard_number: ISO 3166-1
+      informs_json: '{"concepts": [], "properties": ["nationality", "nationality_at_birth", "country_of_birth",
+        "country", "issuing_jurisdiction"], "vocabularies": ["country", "identifier-type"]}'
+  Iso31662Citation:
+    class_uri: publicschema:Citation/iso-3166-2
+    is_a: Citation
+    title: 'Codes for the representation of names of countries and their subdivisions, Part 2: Country
+      subdivision code'
+    annotations:
+      citation_id: iso-3166-2
+      title: 'Codes for the representation of names of countries and their subdivisions, Part 2: Country
+        subdivision code'
+      short_title: ISO 3166-2
+      publisher: International Organization for Standardization
+      type: international_standard
+      domain: general
+      uri: https://www.iso.org/standard/72483.html
+      access: open
+      status: active
+      standard_number: ISO 3166-2
+      informs_json: '{"concepts": [], "properties": ["issuing_jurisdiction"], "vocabularies": ["identifier-type"]}'
+  Iso4217Citation:
+    class_uri: publicschema:Citation/iso-4217
+    is_a: Citation
+    title: Codes for the representation of currencies
+    annotations:
+      citation_id: iso-4217
+      title: Codes for the representation of currencies
+      short_title: ISO 4217
+      publisher: International Organization for Standardization
+      type: international_standard
+      domain: payments
+      uri: https://www.iso.org/standard/64758.html
+      access: open
+      status: active
+      standard_number: ISO 4217
+      informs_json: '{"concepts": [], "properties": ["currency", "payment_currency"], "vocabularies":
+        ["currency"]}'
+  Iso5218Citation:
+    class_uri: publicschema:Citation/iso-5218
+    is_a: Citation
+    title: Information technology, Codes for the representation of human sexes
+    annotations:
+      citation_id: iso-5218
+      title: Information technology, Codes for the representation of human sexes
+      short_title: ISO/IEC 5218
+      publisher: International Organization for Standardization
+      year: 2004
+      type: international_standard
+      domain: identity
+      uri: https://www.iso.org/standard/36266.html
+      access: paywalled
+      status: active
+      standard_number: ISO/IEC 5218:2004
+      informs_json: '{"concepts": [], "properties": ["sex", "sex_at_birth"], "vocabularies": ["sex"]}'
+  Iso6393Citation:
+    class_uri: publicschema:Citation/iso-639-3
+    is_a: Citation
+    title: 'Codes for the representation of names of languages, Part 3: Alpha-3 code for comprehensive
+      coverage of languages'
+    annotations:
+      citation_id: iso-639-3
+      title: 'Codes for the representation of names of languages, Part 3: Alpha-3 code for comprehensive
+        coverage of languages'
+      short_title: ISO 639-3
+      publisher: SIL Global (ISO 639-3 registration authority)
+      type: international_standard
+      domain: general
+      uri: https://iso639-3.sil.org/
+      access: open
+      status: active
+      standard_number: ISO 639-3
+      informs_json: '{"concepts": [], "properties": ["preferred_language"], "vocabularies": ["language"]}'
+  Iso8601Citation:
+    class_uri: publicschema:Citation/iso-8601
+    is_a: Citation
+    title: Date and time, Representations for information interchange
+    annotations:
+      citation_id: iso-8601
+      title: Date and time, Representations for information interchange
+      short_title: ISO 8601
+      publisher: International Organization for Standardization
+      year: 2019
+      type: international_standard
+      domain: general
+      uri: https://www.iso.org/standard/70907.html
+      access: paywalled
+      status: active
+      standard_number: ISO 8601:2019
+      informs_json: '{"concepts": [], "properties": [], "vocabularies": []}'
+  ItuCoreIctCitation:
+    class_uri: publicschema:Citation/itu-core-ict
+    is_a: Citation
+    title: ITU Core ICT Indicators
+    annotations:
+      citation_id: itu-core-ict
+      title: ITU Core ICT Indicators
+      short_title: ITU Core ICT
+      publisher: International Telecommunication Union (ITU)
+      type: international_standard
+      domain: general
+      uri: https://www.itu.int/en/ITU-D/Statistics/Pages/coreindicators/default.aspx
+      access: open
+      status: active
+      informs_json: '{"concepts": ["Household"], "properties": ["ict_access"], "vocabularies": ["ict-access"]}'
+  JsonLd11Citation:
+    class_uri: publicschema:Citation/json-ld-1-1
+    is_a: Citation
+    title: JSON-LD 1.1, A JSON-based Serialization for Linked Data
+    annotations:
+      citation_id: json-ld-1-1
+      title: JSON-LD 1.1, A JSON-based Serialization for Linked Data
+      short_title: JSON-LD 1.1
+      publisher: World Wide Web Consortium (W3C)
+      year: 2020
+      type: specification
+      domain: general
+      uri: https://www.w3.org/TR/json-ld11/
+      access: open
+      status: active
+      version: '1.1'
+      informs_json: '{"concepts": [], "properties": [], "vocabularies": []}'
+  KantaraAncrCitation:
+    class_uri: publicschema:Citation/kantara-ancr
+    is_a: Citation
+    title: Anchored Notice & Consent Receipts
+    annotations:
+      citation_id: kantara-ancr
+      title: Anchored Notice & Consent Receipts
+      short_title: Kantara ANCR WG
+      publisher: Kantara Initiative
+      type: specification
+      domain: general
+      uri: https://kantarainitiative.org/work-groups/ancr/
+      access: open
+      status: draft
+      informs_json: '{"concepts": ["ConsentRecord", "PrivacyNotice"], "properties": ["conforms_to"], "vocabularies":
+        ["consent-record-type"]}'
+  KantaraConsentReceiptCitation:
+    class_uri: publicschema:Citation/kantara-consent-receipt
+    is_a: Citation
+    title: Consent Receipt Specification v1.1
+    annotations:
+      citation_id: kantara-consent-receipt
+      title: Consent Receipt Specification v1.1
+      short_title: Kantara Consent Receipt v1.1
+      publisher: Kantara Initiative
+      year: 2018
+      type: specification
+      domain: general
+      uri: https://kantarainitiative.org/download/7902/
+      access: open
+      status: active
+      version: '1.1'
+      informs_json: '{"concepts": ["ConsentRecord"], "properties": ["consent_record_type", "identifier",
+        "created_at", "signed_date", "controllers", "data_subject", "purposes", "personal_data_categories",
+        "legal_basis", "evidence_ref"], "vocabularies": ["consent-record-type"]}'
+  LoincPregnancyStatusCitation:
+    class_uri: publicschema:Citation/loinc-pregnancy-status
+    is_a: Citation
+    title: 'LOINC 82810-3: Pregnancy status'
+    annotations:
+      citation_id: loinc-pregnancy-status
+      title: 'LOINC 82810-3: Pregnancy status'
+      short_title: LOINC Pregnancy Status
+      publisher: Regenstrief Institute
+      year: 2016
+      type: international_standard
+      domain: general
+      uri: https://loinc.org/82810-3/
+      access: open
+      status: active
+      informs_json: '{"concepts": ["Person"], "properties": ["pregnancy_status"], "vocabularies": ["pregnancy-status"]}'
+  LsmsIsaCitation:
+    class_uri: publicschema:Citation/lsms-isa
+    is_a: Citation
+    title: Living Standards Measurement Study - Integrated Surveys on Agriculture (LSMS-ISA)
+    annotations:
+      citation_id: lsms-isa
+      title: Living Standards Measurement Study - Integrated Surveys on Agriculture (LSMS-ISA)
+      short_title: LSMS-ISA
+      publisher: World Bank
+      year: 2012
+      type: classification
+      domain: general
+      uri: https://www.worldbank.org/en/programs/lsms/initiatives/lsms-ISA
+      access: open
+      status: active
+      informs_json: '{"concepts": ["Farm"], "properties": ["land_tenure", "livestock_type"], "vocabularies":
+        ["land-tenure", "livestock-type"]}'
+  Mics6Citation:
+    class_uri: publicschema:Citation/mics6
+    is_a: Citation
+    title: Multiple Indicator Cluster Surveys Round 6 (MICS6)
+    annotations:
+      citation_id: mics6
+      title: Multiple Indicator Cluster Surveys Round 6 (MICS6)
+      short_title: MICS6
+      publisher: UNICEF
+      year: 2017
+      type: classification
+      domain: general
+      uri: https://mics.unicef.org/tools
+      access: open
+      status: active
+      informs_json: '{"concepts": ["Household", "Person", "FunctioningProfile", "SocioEconomicProfile"],
+        "properties": ["cooking_fuel", "anxiety_frequency", "depression_frequency", "difficulty_accepting_change",
+        "difficulty_being_understood", "difficulty_being_understood_inside_household", "difficulty_being_understood_outside_household",
+        "difficulty_cognition", "difficulty_communication", "difficulty_concentrating", "difficulty_controlling_behaviour",
+        "difficulty_dexterity", "difficulty_disruptive_behaviour", "difficulty_hearing", "difficulty_learning",
+        "difficulty_making_friends", "difficulty_playing", "difficulty_remembering", "difficulty_seeing",
+        "difficulty_self_care", "difficulty_understanding_others", "difficulty_walking", "education_level",
+        "electricity_access", "floor_material", "household_assets", "ict_access", "literacy", "pregnancy_status",
+        "roof_material", "sanitation_facility", "settlement_type", "wall_material", "water_source"], "vocabularies":
+        ["comparative-behaviour-scale", "cooking-fuel", "education-level", "floor-material", "functional-difficulty-severity",
+        "household-asset", "ict-access", "literacy", "pregnancy-status", "roof-material", "sanitation-facility",
+        "settlement-type", "cfm-symptom-frequency", "wall-material", "water-source"]}'
+  MojaloopFspiopCitation:
+    class_uri: publicschema:Citation/mojaloop-fspiop
+    is_a: Citation
+    title: Mojaloop FSPIOP API, TransferState data model
+    annotations:
+      citation_id: mojaloop-fspiop
+      title: Mojaloop FSPIOP API, TransferState data model
+      short_title: Mojaloop FSPIOP
+      publisher: Mojaloop Foundation
+      type: specification
+      domain: payments
+      uri: https://docs.mojaloop.io/technical/api/fspiop/logical-data-model.html
+      access: open
+      status: active
+      informs_json: '{"concepts": ["PaymentEvent"], "properties": ["payment_status"], "vocabularies":
+        ["payment-status"]}'
+  MosipIdentitySchemaCitation:
+    class_uri: publicschema:Citation/mosip-identity-schema
+    is_a: Citation
+    title: MOSIP Identity Schema
+    annotations:
+      citation_id: mosip-identity-schema
+      title: MOSIP Identity Schema
+      short_title: MOSIP Identity Schema
+      publisher: MOSIP Foundation
+      type: specification
+      domain: identity
+      uri: https://docs.mosip.io/1.2.0/id-lifecycle-management/identity-management/id-schema
+      access: open
+      status: active
+      version: v1.2.0
+      informs_json: '{"concepts": ["Identifier", "Person"], "properties": ["identifier_type"], "vocabularies":
+        ["identifier-type"]}'
+  OasisCapV12Citation:
+    class_uri: publicschema:Citation/oasis-cap-v1-2
+    is_a: Citation
+    title: Common Alerting Protocol Version 1.2
+    annotations:
+      citation_id: oasis-cap-v1-2
+      title: Common Alerting Protocol Version 1.2
+      short_title: OASIS CAP v1.2
+      publisher: OASIS
+      year: 2010
+      type: specification
+      domain: humanitarian
+      uri: http://docs.oasis-open.org/emergency/cap/v1.2/CAP-v1.2.html
+      access: open
+      status: active
+      standard_number: OASIS CAP v1.2
+      version: v1.2
+      informs_json: '{"concepts": ["HazardEvent"], "properties": ["severity", "certainty", "hazard_type"],
+        "vocabularies": ["event-severity", "event-certainty", "hazard-type"]}'
+  Openid4vciCitation:
+    class_uri: publicschema:Citation/openid4vci
+    is_a: Citation
+    title: OpenID for Verifiable Credential Issuance
+    annotations:
+      citation_id: openid4vci
+      title: OpenID for Verifiable Credential Issuance
+      short_title: OpenID4VCI
+      publisher: OpenID Foundation
+      year: 2025
+      type: specification
+      domain: identity
+      uri: https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html
+      access: open
+      status: active
+      informs_json: '{"concepts": [], "properties": [], "vocabularies": []}'
+  Openid4vpCitation:
+    class_uri: publicschema:Citation/openid4vp
+    is_a: Citation
+    title: OpenID for Verifiable Presentations
+    annotations:
+      citation_id: openid4vp
+      title: OpenID for Verifiable Presentations
+      short_title: OpenID4VP
+      publisher: OpenID Foundation
+      year: 2025
+      type: specification
+      domain: identity
+      uri: https://openid.net/specs/openid-4-verifiable-presentations-1_0.html
+      access: open
+      status: active
+      informs_json: '{"concepts": [], "properties": [], "vocabularies": []}'
+  OsiaItuX1281Citation:
+    class_uri: publicschema:Citation/osia-itu-x1281
+    is_a: Citation
+    title: APIs for interoperability of identity management systems (ITU-T Recommendation X.1281)
+    annotations:
+      citation_id: osia-itu-x1281
+      title: APIs for interoperability of identity management systems (ITU-T Recommendation X.1281)
+      short_title: ITU-T X.1281 (OSIA)
+      publisher: International Telecommunication Union (ITU-T)
+      year: 2024
+      type: international_standard
+      domain: identity
+      uri: https://www.itu.int/rec/T-REC-X.1281/en
+      access: open
+      status: active
+      standard_number: ITU-T X.1281
+      informs_json: '{"concepts": ["BiometricSample"], "properties": [], "vocabularies": ["biometric-modality",
+        "biometric-subtype", "impression-type"]}'
+  Rfc5545Citation:
+    class_uri: publicschema:Citation/rfc-5545
+    is_a: Citation
+    title: Internet Calendaring and Scheduling Core Object Specification (iCalendar)
+    annotations:
+      citation_id: rfc-5545
+      title: Internet Calendaring and Scheduling Core Object Specification (iCalendar)
+      short_title: RFC 5545 (iCalendar)
+      publisher: Internet Engineering Task Force (IETF)
+      year: 2009
+      type: specification
+      domain: general
+      uri: https://datatracker.ietf.org/doc/html/rfc5545
+      access: open
+      status: active
+      standard_number: RFC 5545
+      informs_json: '{"concepts": ["sp/BenefitSchedule"], "properties": ["frequency_rule", "frequency"],
+        "vocabularies": ["sp/benefit-frequency"]}'
+  Rfc7946Citation:
+    class_uri: publicschema:Citation/rfc-7946
+    is_a: Citation
+    title: The GeoJSON Format
+    annotations:
+      citation_id: rfc-7946
+      title: The GeoJSON Format
+      short_title: RFC 7946 (GeoJSON)
+      publisher: Internet Engineering Task Force (IETF)
+      year: 2016
+      type: specification
+      domain: general
+      uri: https://datatracker.ietf.org/doc/html/rfc7946
+      access: open
+      status: active
+      standard_number: RFC 7946
+      informs_json: '{"concepts": ["HazardEvent", "Location"], "properties": ["geometry"], "vocabularies":
+        []}'
+  SchemaOrgCitation:
+    class_uri: publicschema:Citation/schema-org
+    is_a: Citation
+    title: Schema.org
+    annotations:
+      citation_id: schema-org
+      title: Schema.org
+      short_title: Schema.org
+      publisher: Schema.org Community Group (W3C)
+      type: specification
+      domain: general
+      uri: https://schema.org/
+      access: open
+      status: active
+      informs_json: '{"concepts": ["Address", "Agent", "Event", "HealthFacility", "Location", "Organization",
+        "Party", "Person", "RegistrationOffice", "School", "ServicePoint", "WaterPoint"], "properties":
+        ["administrative_area", "city", "country", "date_of_birth", "date_of_death", "email_address",
+        "end_date", "family_name", "given_name", "latitude", "longitude", "name", "phone_number", "postal_code",
+        "preferred_name", "start_date", "street_address"], "vocabularies": []}'
+  SdJwtVcCitation:
+    class_uri: publicschema:Citation/sd-jwt-vc
+    is_a: Citation
+    title: SD-JWT-based Verifiable Digital Credentials (SD-JWT VC)
+    annotations:
+      citation_id: sd-jwt-vc
+      title: SD-JWT-based Verifiable Digital Credentials (SD-JWT VC)
+      short_title: SD-JWT VC
+      publisher: Internet Engineering Task Force (IETF), OAuth WG
+      type: specification
+      domain: identity
+      uri: https://datatracker.ietf.org/doc/html/draft-ietf-oauth-sd-jwt-vc
+      access: open
+      status: draft
+      standard_number: draft-ietf-oauth-sd-jwt-vc
+      informs_json: '{"concepts": [], "properties": [], "vocabularies": []}'
+  SemicAdmsCitation:
+    class_uri: publicschema:Citation/semic-adms
+    is_a: Citation
+    title: Asset Description Metadata Schema (ADMS) Vocabulary
+    annotations:
+      citation_id: semic-adms
+      title: Asset Description Metadata Schema (ADMS) Vocabulary
+      short_title: SEMIC ADMS
+      publisher: SEMIC, Interoperable Europe (European Commission)
+      year: 2024
+      type: eu_vocabulary
+      domain: general
+      uri: https://semiceu.github.io/ADMS/releases/2.00/
+      access: open
+      status: active
+      version: v2.00
+      informs_json: '{"concepts": ["Identifier"], "properties": [], "vocabularies": []}'
+  SemicCccevCitation:
+    class_uri: publicschema:Citation/semic-cccev
+    is_a: Citation
+    title: Core Criterion and Core Evidence Vocabulary (CCCEV)
+    annotations:
+      citation_id: semic-cccev
+      title: Core Criterion and Core Evidence Vocabulary (CCCEV)
+      short_title: SEMIC CCCEV
+      publisher: SEMIC, Interoperable Europe (European Commission)
+      type: eu_vocabulary
+      domain: general
+      uri: https://semiceu.github.io/CCCEV/releases/2.1.0/
+      access: open
+      status: active
+      version: v2.1.0
+      informs_json: '{"concepts": ["ScoringRule", "sp/EligibilityDecision"], "properties": [], "vocabularies":
+        []}'
+  SemicCoreBusinessCitation:
+    class_uri: publicschema:Citation/semic-core-business
+    is_a: Citation
+    title: Core Business Vocabulary
+    annotations:
+      citation_id: semic-core-business
+      title: Core Business Vocabulary
+      short_title: SEMIC Core Business
+      publisher: SEMIC, Interoperable Europe (European Commission)
+      type: eu_vocabulary
+      domain: general
+      uri: https://semiceu.github.io/Core-Business-Vocabulary/releases/2.2.0/
+      access: open
+      status: active
+      version: v2.2.0
+      informs_json: '{"concepts": [], "properties": [], "vocabularies": []}'
+  SemicCoreLocationCitation:
+    class_uri: publicschema:Citation/semic-core-location
+    is_a: Citation
+    title: Core Location Vocabulary
+    annotations:
+      citation_id: semic-core-location
+      title: Core Location Vocabulary
+      short_title: SEMIC Core Location
+      publisher: SEMIC, Interoperable Europe (European Commission)
+      type: eu_vocabulary
+      domain: general
+      uri: https://semiceu.github.io/Core-Location-Vocabulary/releases/2.1.1/
+      access: open
+      status: active
+      version: v2.1.1
+      informs_json: '{"concepts": ["Address", "Location"], "properties": ["address_area", "administrative_area",
+        "building_name", "city", "country", "full_address", "geometry", "house_number", "latitude", "location_name",
+        "longitude", "postal_code", "street_address"], "vocabularies": ["country"]}'
+  SemicCorePersonCitation:
+    class_uri: publicschema:Citation/semic-core-person
+    is_a: Citation
+    title: Core Person Vocabulary
+    annotations:
+      citation_id: semic-core-person
+      title: Core Person Vocabulary
+      short_title: SEMIC Core Person
+      publisher: SEMIC, Interoperable Europe (European Commission)
+      type: eu_vocabulary
+      domain: identity
+      uri: https://semiceu.github.io/Core-Person-Vocabulary/releases/2.1.1/
+      access: open
+      status: active
+      version: v2.1.1
+      informs_json: '{"concepts": ["Identifier", "Party", "Person"], "properties": ["country_of_birth",
+        "date_of_birth", "date_of_death", "domicile", "email_address", "family_name", "family_name_at_birth",
+        "gender", "given_name", "given_name_at_birth", "identifier_scheme_id", "identifier_scheme_name",
+        "identifier_value", "issue_date", "issuing_authority", "matronymic_name", "name", "nationality",
+        "patronymic_name", "phone_number", "place_of_usual_residence", "preferred_name", "sex"], "vocabularies":
+        ["gender-type", "sex"]}'
+  SemicCorePublicEventCitation:
+    class_uri: publicschema:Citation/semic-core-public-event
+    is_a: Citation
+    title: Core Public Event Vocabulary
+    annotations:
+      citation_id: semic-core-public-event
+      title: Core Public Event Vocabulary
+      short_title: SEMIC Core Public Event
+      publisher: SEMIC, Interoperable Europe (European Commission)
+      type: eu_vocabulary
+      domain: general
+      uri: https://semiceu.github.io/Core-Public-Event-Vocabulary/releases/1.1.0/
+      access: open
+      status: active
+      version: v1.1.0
+      informs_json: '{"concepts": ["Event"], "properties": [], "vocabularies": []}'
+  SemicCpovCitation:
+    class_uri: publicschema:Citation/semic-cpov
+    is_a: Citation
+    title: Core Public Organisation Vocabulary (CPOV)
+    annotations:
+      citation_id: semic-cpov
+      title: Core Public Organisation Vocabulary (CPOV)
+      short_title: SEMIC CPOV
+      publisher: SEMIC, Interoperable Europe (European Commission)
+      type: eu_vocabulary
+      domain: general
+      uri: https://semiceu.github.io/CPOV/releases/2.1.1/
+      access: open
+      status: active
+      version: v2.1.1
+      informs_json: '{"concepts": ["Organization", "sp/Program"], "properties": ["implementing_agency"],
+        "vocabularies": []}'
+  SemicCpsvApCitation:
+    class_uri: publicschema:Citation/semic-cpsv-ap
+    is_a: Citation
+    title: Core Public Service Vocabulary Application Profile (CPSV-AP)
+    annotations:
+      citation_id: semic-cpsv-ap
+      title: Core Public Service Vocabulary Application Profile (CPSV-AP)
+      short_title: SEMIC CPSV-AP
+      publisher: SEMIC, Interoperable Europe (European Commission)
+      year: 2024
+      type: eu_vocabulary
+      domain: general
+      uri: https://semiceu.github.io/CPSV-AP/releases/3.2.0/
+      access: open
+      status: active
+      version: v3.2.0
+      informs_json: '{"concepts": [], "properties": [], "vocabularies": []}'
+  SkosCitation:
+    class_uri: publicschema:Citation/skos
+    is_a: Citation
+    title: SKOS Simple Knowledge Organization System Reference
+    annotations:
+      citation_id: skos
+      title: SKOS Simple Knowledge Organization System Reference
+      short_title: SKOS
+      publisher: World Wide Web Consortium (W3C)
+      year: 2009
+      type: specification
+      domain: general
+      uri: https://www.w3.org/TR/skos-reference/
+      access: open
+      status: active
+      informs_json: '{"concepts": [], "properties": [], "vocabularies": []}'
+  SpdciCommonStandardsCitation:
+    class_uri: publicschema:Citation/spdci-common-standards
+    is_a: Citation
+    title: Common Standards for Interoperability Interfaces
+    annotations:
+      citation_id: spdci-common-standards
+      title: Common Standards for Interoperability Interfaces
+      short_title: DCI Common Standards
+      publisher: Digital Convergence Initiative (DCI)
+      type: specification
+      domain: social_protection
+      uri: https://standards.spdci.org/standards/standards-for-interoperability-interfaces/common-standards-for-interoperability-interfaces
+      access: open
+      status: active
+      informs_json: '{"concepts": ["Address", "Group", "GroupMembership", "Household", "Identifier", "Location",
+        "Person", "Relationship"], "properties": ["address", "administrative_area", "city", "country",
+        "date_of_birth", "date_of_death", "education_level", "email_address", "family_name", "family_name_at_birth",
+        "formation_date", "given_name", "given_name_at_birth", "group_type", "identifier_type", "identifier_value",
+        "identifiers", "latitude", "location_name", "longitude", "marital_status", "matronymic_name",
+        "member_count", "memberships", "name", "nationality", "object_person", "occupation", "parent_location",
+        "patronymic_name", "phone_number", "postal_code", "preferred_language", "preferred_name", "relationship_type",
+        "sex", "street_address", "subject_person"], "vocabularies": []}'
+  SpdciIbrCitation:
+    class_uri: publicschema:Citation/spdci-ibr
+    is_a: Citation
+    title: Integrated Beneficiary Registry (IBR) v1.0.0
+    annotations:
+      citation_id: spdci-ibr
+      title: Integrated Beneficiary Registry (IBR) v1.0.0
+      short_title: DCI IBR
+      publisher: Digital Convergence Initiative (DCI)
+      year: 2024
+      type: specification
+      domain: social_protection
+      uri: https://standards.spdci.org/standards/dci-standards/wip-integrated-beneficiary-registry-v1.0.0
+      access: open
+      status: active
+      version: v1.0.0
+      informs_json: '{"concepts": ["sp/Enrollment", "sp/Entitlement", "sp/Program"], "properties": ["benefit_description",
+        "benefit_modality", "enrollment_date", "enrollment_status", "exit_date"], "vocabularies": []}'
+  SpdciSocialRegistryCitation:
+    class_uri: publicschema:Citation/spdci-social-registry
+    is_a: Citation
+    title: Social Registry v1.0.0
+    annotations:
+      citation_id: spdci-social-registry
+      title: Social Registry v1.0.0
+      short_title: DCI Social Registry
+      publisher: Digital Convergence Initiative (DCI)
+      type: specification
+      domain: social_protection
+      uri: https://standards.spdci.org/standards/dci-standards/wip-social-registry-v1.0.0
+      access: open
+      status: active
+      informs_json: '{"concepts": ["Profile", "SocioEconomicProfile"], "properties": [], "vocabularies":
+        []}'
+  Sphere2018Citation:
+    class_uri: publicschema:Citation/sphere-2018
+    is_a: Citation
+    title: 'The Sphere Handbook: Humanitarian Charter and Minimum Standards in Humanitarian Response'
+    annotations:
+      citation_id: sphere-2018
+      title: 'The Sphere Handbook: Humanitarian Charter and Minimum Standards in Humanitarian Response'
+      short_title: Sphere 2018
+      publisher: Sphere Association
+      year: 2018
+      type: guidance_publication
+      domain: humanitarian
+      uri: https://spherestandards.org/handbook-2018/
+      access: open
+      status: active
+      informs_json: '{"concepts": [], "properties": [], "vocabularies": ["occupancy-arrangement"]}'
+  SssomCitation:
+    class_uri: publicschema:Citation/sssom
+    is_a: Citation
+    title: A Simple Standard for Sharing Ontology Mappings (SSSOM)
+    annotations:
+      citation_id: sssom
+      title: A Simple Standard for Sharing Ontology Mappings (SSSOM)
+      short_title: SSSOM
+      publisher: Mapping Commons
+      type: specification
+      domain: general
+      uri: https://mapping-commons.github.io/sssom/spec-intro/
+      access: open
+      status: active
+      version: v1.1
+      informs_json: '{"concepts": [], "properties": [], "vocabularies": []}'
+  UnCefactRec20Citation:
+    class_uri: publicschema:Citation/un-cefact-rec20
+    is_a: Citation
+    title: 'Recommendation 20: Codes for Units of Measure Used in International Trade'
+    annotations:
+      citation_id: un-cefact-rec20
+      title: 'Recommendation 20: Codes for Units of Measure Used in International Trade'
+      short_title: UN/CEFACT Rec.20
+      publisher: United Nations Centre for Trade Facilitation and Electronic Business (UN/CEFACT)
+      type: international_standard
+      domain: general
+      uri: https://unece.org/trade/uncefact/cl-recommendations
+      access: open
+      status: active
+      standard_number: UN/CEFACT Recommendation 20
+      informs_json: '{"concepts": [], "properties": ["unit_of_measure"], "vocabularies": ["unit-of-measure"]}'
+  UnCensusRev3Citation:
+    class_uri: publicschema:Citation/un-census-rev3
+    is_a: Citation
+    title: Principles and Recommendations for Population and Housing Censuses, Revision 3
+    annotations:
+      citation_id: un-census-rev3
+      title: Principles and Recommendations for Population and Housing Censuses, Revision 3
+      short_title: UN Census Rev.3
+      publisher: United Nations Statistics Division
+      year: 2017
+      type: international_standard
+      domain: general
+      uri: https://unstats.un.org/unsd/demographic-social/Standards-and-Methods/files/Principles_and_Recommendations/Population-and-Housing-Censuses/Series_M67rev3-E.pdf
+      access: open
+      status: active
+      standard_number: ST/ESA/STAT/SER.M/67/Rev.3
+      version: Rev.3
+      informs_json: '{"concepts": ["Family", "GroupMembership", "Household"], "properties": ["dwelling_type",
+        "head_of_household", "marital_status", "relationship_type"], "vocabularies": ["dwelling-type",
+        "group-role", "group-type", "literacy", "marital-status", "relationship-type"]}'
+  UnCensusRev4Citation:
+    class_uri: publicschema:Citation/un-census-rev4
+    is_a: Citation
+    title: Principles and Recommendations for Population and Housing Censuses, Revision 4
+    annotations:
+      citation_id: un-census-rev4
+      title: Principles and Recommendations for Population and Housing Censuses, Revision 4
+      short_title: UN Census Rev.4
+      publisher: United Nations Statistics Division
+      year: 2025
+      type: international_standard
+      domain: general
+      uri: https://unstats.un.org/unsd/publication/SeriesM/Series_M67Rev4en.pdf
+      access: open
+      status: active
+      version: Rev.4
+      informs_json: '{"concepts": [], "properties": ["marital_status"], "vocabularies": ["marital-status"]}'
+  UnDegurbaCitation:
+    class_uri: publicschema:Citation/un-degurba
+    is_a: Citation
+    title: A recommendation on the method to delineate cities, urban and rural areas for international
+      statistical comparisons
+    annotations:
+      citation_id: un-degurba
+      title: A recommendation on the method to delineate cities, urban and rural areas for international
+        statistical comparisons
+      short_title: DEGURBA
+      publisher: European Commission (Eurostat), ILO, FAO, OECD, UN-Habitat, World Bank
+      year: 2020
+      type: international_standard
+      domain: general
+      uri: https://unstats.un.org/unsd/statcom/51st-session/documents/BG-Item3j-Recommendation-E.pdf
+      access: open
+      status: active
+      informs_json: '{"concepts": ["Household"], "properties": ["settlement_type"], "vocabularies": ["settlement-type"]}'
+  UnM49Citation:
+    class_uri: publicschema:Citation/un-m49
+    is_a: Citation
+    title: Standard country or area codes for statistical use (M49)
+    annotations:
+      citation_id: un-m49
+      title: Standard country or area codes for statistical use (M49)
+      short_title: UN M49
+      publisher: United Nations Statistics Division
+      type: international_standard
+      domain: general
+      uri: https://unstats.un.org/unsd/methodology/m49/
+      access: open
+      status: active
+      standard_number: UN M49
+      informs_json: '{"concepts": [], "properties": [], "vocabularies": ["region"]}'
+  UnVitalStatsRev3Citation:
+    class_uri: publicschema:Citation/un-vital-stats-rev3
+    is_a: Citation
+    title: Principles and Recommendations for a Vital Statistics System, Revision 3
+    annotations:
+      citation_id: un-vital-stats-rev3
+      title: Principles and Recommendations for a Vital Statistics System, Revision 3
+      short_title: UN Vital Stats Rev.3
+      publisher: United Nations Statistics Division
+      year: 2014
+      type: international_standard
+      domain: crvs
+      uri: https://unstats.un.org/unsd/demographic-social/Standards-and-Methods/files/Principles_and_Recommendations/CRVS/M19Rev3-E.pdf
+      access: open
+      status: active
+      standard_number: ST/ESA/STAT/SER.M/19/Rev.3
+      version: Rev.3
+      informs_json: '{"concepts": ["crvs/Birth", "crvs/Death", "crvs/FetalDeath", "crvs/Marriage", "crvs/Adoption",
+        "crvs/Legitimation", "crvs/PaternityRecognition", "crvs/MarriageTermination", "crvs/CivilStatusRecord",
+        "crvs/FamilyRegister", "crvs/Certificate", "crvs/VitalEvent", "Person"], "properties": ["weight_at_birth",
+        "gestational_age", "birth_order", "birth_type", "attendant_at_birth", "mother"], "vocabularies":
+        ["crvs/civil-status-record-type", "crvs/manner-of-death"]}'
+  UnWorldMarriage2019Citation:
+    class_uri: publicschema:Citation/un-world-marriage-2019
+    is_a: Citation
+    title: World Marriage Data 2019, Metadata
+    annotations:
+      citation_id: un-world-marriage-2019
+      title: World Marriage Data 2019, Metadata
+      short_title: UN World Marriage 2019
+      publisher: United Nations Department of Economic and Social Affairs, Population Division
+      year: 2019
+      type: guidance_publication
+      domain: general
+      uri: https://www.un.org/development/desa/pd/content/methodology-world-marriage-data-2019
+      access: open
+      status: active
+      informs_json: '{"concepts": [], "properties": ["marital_status"], "vocabularies": ["marital-status"]}'
+  W3cDataIntegrityCitation:
+    class_uri: publicschema:Citation/w3c-data-integrity
+    is_a: Citation
+    title: Verifiable Credential Data Integrity 1.0
+    annotations:
+      citation_id: w3c-data-integrity
+      title: Verifiable Credential Data Integrity 1.0
+      short_title: VC Data Integrity 1.0
+      publisher: World Wide Web Consortium (W3C)
+      year: 2025
+      type: specification
+      domain: identity
+      uri: https://www.w3.org/TR/vc-data-integrity/
+      access: open
+      status: active
+      version: '1.0'
+      informs_json: '{"concepts": [], "properties": [], "vocabularies": []}'
+  W3cDpvCitation:
+    class_uri: publicschema:Citation/w3c-dpv
+    is_a: Citation
+    title: Data Privacy Vocabulary (DPV)
+    annotations:
+      citation_id: w3c-dpv
+      title: Data Privacy Vocabulary (DPV)
+      short_title: W3C DPV v2
+      publisher: W3C Data Privacy Vocabularies and Controls Community Group (DPVCG)
+      year: 2024
+      type: specification
+      domain: general
+      uri: https://w3id.org/dpv
+      access: open
+      status: active
+      version: '2.0'
+      informs_json: '{"concepts": ["ConsentRecord", "PrivacyNotice"], "properties": ["data_subject", "controllers",
+        "recipients", "purposes", "personal_data_categories", "processing_operations", "indicated_by",
+        "legal_basis", "status", "effective_date", "expiry_date"], "vocabularies": ["legal-basis", "special-category-basis",
+        "recipient-role"]}'
+  W3cProvOCitation:
+    class_uri: publicschema:Citation/w3c-prov-o
+    is_a: Citation
+    title: 'PROV-O: The PROV Ontology'
+    annotations:
+      citation_id: w3c-prov-o
+      title: 'PROV-O: The PROV Ontology'
+      short_title: PROV-O
+      publisher: World Wide Web Consortium (W3C)
+      year: 2013
+      type: specification
+      domain: general
+      uri: https://www.w3.org/TR/prov-o/
+      access: open
+      status: active
+      version: Recommendation 30 April 2013
+      informs_json: '{"concepts": ["Agent", "Organization", "SoftwareAgent"], "properties": [], "vocabularies":
+        []}'
+  W3cRdfc10Citation:
+    class_uri: publicschema:Citation/w3c-rdfc-1-0
+    is_a: Citation
+    title: RDF Dataset Canonicalization 1.0
+    annotations:
+      citation_id: w3c-rdfc-1-0
+      title: RDF Dataset Canonicalization 1.0
+      short_title: RDFC 1.0
+      publisher: World Wide Web Consortium (W3C)
+      year: 2024
+      type: specification
+      domain: general
+      uri: https://www.w3.org/TR/rdf-canon/
+      access: open
+      status: active
+      version: '1.0'
+      informs_json: '{"concepts": [], "properties": [], "vocabularies": []}'
+  W3cVcDataModel2Citation:
+    class_uri: publicschema:Citation/w3c-vc-data-model-2
+    is_a: Citation
+    title: Verifiable Credentials Data Model v2.0
+    annotations:
+      citation_id: w3c-vc-data-model-2
+      title: Verifiable Credentials Data Model v2.0
+      short_title: VC Data Model 2.0
+      publisher: World Wide Web Consortium (W3C)
+      year: 2025
+      type: specification
+      domain: identity
+      uri: https://www.w3.org/TR/vc-data-model-2.0/
+      access: open
+      status: active
+      version: '2.0'
+      informs_json: '{"concepts": ["IdentityDocument"], "properties": ["is_enrolled"], "vocabularies":
+        ["document-type", "identifier-type", "sp/eligibility-status"]}'
+  WashingtonGroupCfmCitation:
+    class_uri: publicschema:Citation/washington-group-cfm
+    is_a: Citation
+    title: WG/UNICEF Child Functioning Module (CFM)
+    annotations:
+      citation_id: washington-group-cfm
+      title: WG/UNICEF Child Functioning Module (CFM)
+      short_title: WG/UNICEF CFM
+      publisher: Washington Group on Disability Statistics / UNICEF
+      year: 2016
+      type: international_standard
+      domain: general
+      uri: https://www.washingtongroup-disability.com/question-sets/wg-unicef-child-functioning-module-cfm/
+      access: open
+      status: active
+      informs_json: '{"concepts": ["Person"], "properties": ["anxiety_frequency", "depression_frequency",
+        "difficulty_accepting_change", "difficulty_being_understood", "difficulty_being_understood_inside_household",
+        "difficulty_being_understood_outside_household", "difficulty_concentrating", "difficulty_controlling_behaviour",
+        "difficulty_dexterity", "difficulty_disruptive_behaviour", "difficulty_hearing", "difficulty_learning",
+        "difficulty_making_friends", "difficulty_playing", "difficulty_remembering", "difficulty_seeing",
+        "difficulty_self_care", "difficulty_understanding_others", "difficulty_walking", "difficulty_walking_100m",
+        "difficulty_walking_500m", "uses_glasses", "uses_hearing_aid", "uses_mobility_aid"], "vocabularies":
+        ["comparative-behaviour-scale", "functional-difficulty-severity", "instrument-code", "cfm-symptom-frequency"]}'
+  WashingtonGroupEsCitation:
+    class_uri: publicschema:Citation/washington-group-es
+    is_a: Citation
+    title: Washington Group Extended Set on Functioning (WG-ES)
+    annotations:
+      citation_id: washington-group-es
+      title: Washington Group Extended Set on Functioning (WG-ES)
+      short_title: WG-ES
+      publisher: Washington Group on Disability Statistics
+      year: 2022
+      type: international_standard
+      domain: general
+      uri: https://www.washingtongroup-disability.com/question-sets/wg-extended-set-on-functioning-wg-es/
+      access: open
+      status: active
+      informs_json: '{"concepts": ["FunctioningProfile"], "properties": ["anxiety_frequency", "anxiety_intensity",
+        "anxiety_medication", "cognition_subdomain", "depression_frequency", "depression_intensity", "depression_medication",
+        "difficulty_climbing_steps", "difficulty_cognition", "difficulty_communication", "difficulty_dexterity",
+        "difficulty_hearing", "difficulty_hearing_noisy_room", "difficulty_hearing_quiet_room", "difficulty_seeing",
+        "difficulty_seeing_coin", "difficulty_seeing_face_across_room", "difficulty_self_care", "difficulty_upper_body_reach",
+        "difficulty_walking", "difficulty_walking_100m", "difficulty_walking_500m", "fatigue_duration",
+        "fatigue_frequency", "fatigue_intensity", "hearing_aid_use_frequency", "pain_frequency", "pain_intensity",
+        "remembering_extent", "remembering_frequency", "uses_glasses", "uses_hearing_aid", "uses_mobility_aid"],
+        "vocabularies": ["aid-use-frequency", "cognition-remembering-frequency", "cognition-remembering-extent",
+        "cognition-subdomain", "daily-duration", "functional-difficulty-severity", "functional-intensity",
+        "instrument-code", "mobility-aid-type", "symptom-period-frequency", "symptom-chronicity", "cfm-symptom-frequency"]}'
+  WashingtonGroupSsCitation:
+    class_uri: publicschema:Citation/washington-group-ss
+    is_a: Citation
+    title: Washington Group Short Set on Functioning (WG-SS)
+    annotations:
+      citation_id: washington-group-ss
+      title: Washington Group Short Set on Functioning (WG-SS)
+      short_title: WG-SS
+      publisher: Washington Group on Disability Statistics
+      year: 2006
+      type: international_standard
+      domain: general
+      uri: https://www.washingtongroup-disability.com/question-sets/wg-short-set-on-functioning-wg-ss/
+      access: open
+      status: active
+      informs_json: '{"concepts": ["FunctioningProfile"], "properties": ["difficulty_cognition", "difficulty_communication",
+        "difficulty_hearing", "difficulty_seeing", "difficulty_self_care", "difficulty_walking", "disability_domains_identified",
+        "disability_identified"], "vocabularies": ["administration-mode", "functional-difficulty-severity",
+        "instrument-code", "wg-ss-domain"]}'
+  WbGrmGuidanceCitation:
+    class_uri: publicschema:Citation/wb-grm-guidance
+    is_a: Citation
+    title: GRM in Social Protection Delivery Systems (Sourcebook Summary, Chapter 8.5)
+    annotations:
+      citation_id: wb-grm-guidance
+      title: GRM in Social Protection Delivery Systems (Sourcebook Summary, Chapter 8.5)
+      short_title: World Bank GRM Guidance
+      publisher: World Bank
+      year: 2022
+      type: guidance_publication
+      domain: social_protection
+      uri: https://openknowledge.worldbank.org/bitstreams/b4a57d20-24bf-518a-93b1-1a5db3bdbae1/download
+      access: open
+      status: active
+      informs_json: '{"concepts": ["sp/Grievance"], "properties": ["grievance_status", "grievance_type"],
+        "vocabularies": ["sp/grievance-status", "sp/grievance-type"]}'
+  WbId4dCitation:
+    class_uri: publicschema:Citation/wb-id4d
+    is_a: Citation
+    title: ID4D Practitioner's Guide
+    annotations:
+      citation_id: wb-id4d
+      title: ID4D Practitioner's Guide
+      short_title: World Bank ID4D Guide
+      publisher: World Bank
+      type: guidance_publication
+      domain: identity
+      uri: https://id4d.worldbank.org/guide/about-guide
+      access: open
+      status: active
+      informs_json: '{"concepts": [], "properties": [], "vocabularies": []}'
+  WbSourcebookCh8Citation:
+    class_uri: publicschema:Citation/wb-sourcebook-ch8
+    is_a: Citation
+    title: 'Sourcebook on the Foundations of Social Protection Delivery Systems, Chapter 8: Beneficiary
+      Operations Management'
+    annotations:
+      citation_id: wb-sourcebook-ch8
+      title: 'Sourcebook on the Foundations of Social Protection Delivery Systems, Chapter 8: Beneficiary
+        Operations Management'
+      short_title: WB Sourcebook Ch.8
+      publisher: World Bank
+      year: 2020
+      type: guidance_publication
+      domain: social_protection
+      uri: https://openknowledge.worldbank.org/handle/10986/34044
+      access: open
+      status: active
+      informs_json: '{"concepts": ["sp/Grievance"], "properties": ["grievance_type"], "vocabularies":
+        ["sp/grievance-type"]}'
+  WbSpDeliveryFrameworkCitation:
+    class_uri: publicschema:Citation/wb-sp-delivery-framework
+    is_a: Citation
+    title: Social Protection Delivery Systems Framework
+    annotations:
+      citation_id: wb-sp-delivery-framework
+      title: Social Protection Delivery Systems Framework
+      short_title: WB SP Delivery Framework
+      publisher: World Bank
+      year: 2024
+      type: guidance_publication
+      domain: social_protection
+      uri: https://thedocs.worldbank.org/en/doc/882c0c1238394fef0d3a308d9d47946f-0380022024/related/1-2-Delivery-Systems-Framing-ASP-Rome-Course.pdf
+      access: open
+      status: active
+      informs_json: '{"concepts": ["sp/Enrollment", "sp/Entitlement", "sp/EligibilityDecision", "PaymentEvent"],
+        "properties": ["enrollment_status"], "vocabularies": ["sp/enrollment-status"]}'
+  WfpTransferModalityCitation:
+    class_uri: publicschema:Citation/wfp-transfer-modality
+    is_a: Citation
+    title: Cash policy
+    annotations:
+      citation_id: wfp-transfer-modality
+      title: Cash policy
+      short_title: WFP Cash Policy
+      publisher: World Food Programme (WFP)
+      year: 2023
+      type: guidance_publication
+      domain: humanitarian
+      uri: https://executiveboard.wfp.org/document_download/WFP-0000148946
+      access: open
+      status: active
+      informs_json: '{"concepts": [], "properties": ["benefit_modality"], "vocabularies": ["sp/benefit-modality"]}'
+  WhoCertPerinatalDeathCitation:
+    class_uri: publicschema:Citation/who-cert-perinatal-death
+    is_a: Citation
+    title: 'The WHO application of ICD-10 to deaths during the perinatal period: ICD-PM'
+    annotations:
+      citation_id: who-cert-perinatal-death
+      title: 'The WHO application of ICD-10 to deaths during the perinatal period: ICD-PM'
+      short_title: WHO ICD-PM
+      publisher: World Health Organization
+      year: 2016
+      type: guidance_publication
+      domain: health
+      uri: https://www.who.int/publications/i/item/9789241549752
+      access: open
+      status: active
+      informs_json: '{"concepts": ["crvs/FetalDeath"], "properties": ["cause_of_fetal_death", "cause_of_fetal_death_code",
+        "cause_of_fetal_death_coding_system", "medical_certifier"], "vocabularies": []}'
+  WhoChildGrowthStandardsCitation:
+    class_uri: publicschema:Citation/who-child-growth-standards
+    is_a: Citation
+    title: WHO Child Growth Standards (2006)
+    annotations:
+      citation_id: who-child-growth-standards
+      title: WHO Child Growth Standards (2006)
+      short_title: WHO CGS
+      publisher: World Health Organization
+      year: 2006
+      type: international_standard
+      domain: general
+      uri: https://www.who.int/tools/child-growth-standards
+      access: open
+      status: active
+      informs_json: '{"concepts": [], "properties": ["nutrition_status"], "vocabularies": ["acute-malnutrition-severity"]}'
+  WhoHealthSystemsCitation:
+    class_uri: publicschema:Citation/who-health-systems
+    is_a: Citation
+    title: WHO Health Systems Strengthening Glossary
+    annotations:
+      citation_id: who-health-systems
+      title: WHO Health Systems Strengthening Glossary
+      short_title: WHO Health Systems
+      publisher: World Health Organization (WHO)
+      type: guidance_publication
+      domain: health
+      uri: https://www.who.int/health-topics/health-systems-strengthening
+      access: open
+      status: active
+      note: WHO uses the primary / secondary / tertiary tier terminology as the common descriptive framework
+        for national health-system organisation. Many countries extend this with a quaternary tier for
+        national referral or research hospitals. There is no single canonical URL listing the tiers as
+        coded values; this entry anchors the tier vocabulary to the WHO health-systems strengthening body
+        of work.
+      informs_json: '{"concepts": ["HealthFacility"], "properties": ["facility_level"], "vocabularies":
+        ["health-facility-level"]}'
+  WhoHeramsCitation:
+    class_uri: publicschema:Citation/who-herams
+    is_a: Citation
+    title: WHO Health Resources and Services Availability Monitoring System (HeRAMS)
+    annotations:
+      citation_id: who-herams
+      title: WHO Health Resources and Services Availability Monitoring System (HeRAMS)
+      short_title: WHO HeRAMS
+      publisher: World Health Organization (WHO)
+      type: guidance_publication
+      domain: health
+      uri: https://www.who.int/initiatives/herams
+      access: open
+      status: active
+      note: HeRAMS is the WHO-maintained monitoring framework for tracking the availability of health
+        resources and services, particularly in emergency and humanitarian contexts. HeRAMS facility reporting
+        distinguishes fully functioning, partially functioning, and non-functioning facilities alongside
+        the reasons for any service disruption; this informs the PublicSchema facility-operational-status
+        vocabulary used by ServicePoint and HealthFacility.
+      informs_json: '{"concepts": ["ServicePoint", "HealthFacility"], "properties": ["operational_status"],
+        "vocabularies": ["facility-operational-status"]}'
+  WhoHouseholdEnergyCitation:
+    class_uri: publicschema:Citation/who-household-energy
+    is_a: Citation
+    title: WHO Household Energy Database
+    annotations:
+      citation_id: who-household-energy
+      title: WHO Household Energy Database
+      short_title: WHO HH Energy
+      publisher: World Health Organization (WHO)
+      type: classification
+      domain: general
+      uri: https://www.who.int/data/gho/data/themes/air-pollution/household-air-pollution
+      access: open
+      status: active
+      informs_json: '{"concepts": ["Household"], "properties": ["cooking_fuel"], "vocabularies": ["cooking-fuel"]}'
+  WhoIcdMannerOfDeathCitation:
+    class_uri: publicschema:Citation/who-icd-manner-of-death
+    is_a: Citation
+    title: ICD Manner of Death Classification
+    annotations:
+      citation_id: who-icd-manner-of-death
+      title: ICD Manner of Death Classification
+      short_title: WHO Manner of Death
+      publisher: World Health Organization
+      type: classification
+      domain: health
+      uri: https://icd.who.int/browse/2024-01/mms/en
+      access: open
+      status: active
+      informs_json: '{"concepts": ["crvs/Death"], "properties": ["manner_of_death"], "vocabularies": ["crvs/manner-of-death"]}'
+  WhoIntrapartumCare2018Citation:
+    class_uri: publicschema:Citation/who-intrapartum-care-2018
+    is_a: Citation
+    title: 'WHO recommendations: Intrapartum care for a positive childbirth experience'
+    annotations:
+      citation_id: who-intrapartum-care-2018
+      title: 'WHO recommendations: Intrapartum care for a positive childbirth experience'
+      short_title: WHO Intrapartum Care
+      publisher: World Health Organization
+      year: 2018
+      type: guidance_publication
+      domain: health
+      uri: https://www.who.int/publications/i/item/9789241550215
+      access: open
+      status: active
+      informs_json: '{"concepts": ["crvs/Birth"], "properties": [], "vocabularies": []}'
+  WhoMedicalCertDeathCitation:
+    class_uri: publicschema:Citation/who-medical-cert-death
+    is_a: Citation
+    title: 'Medical certification of cause of death: instructions for physicians on use of international
+      form of medical certificate of cause of death'
+    annotations:
+      citation_id: who-medical-cert-death
+      title: 'Medical certification of cause of death: instructions for physicians on use of international
+        form of medical certificate of cause of death'
+      short_title: WHO Medical Cert. of Death
+      publisher: World Health Organization
+      year: 1979
+      type: guidance_publication
+      domain: health
+      uri: https://www.who.int/publications/m/item/medical-certification-of-cause-of-death
+      access: open
+      status: active
+      informs_json: '{"concepts": ["crvs/Death"], "properties": ["cause_of_death", "cause_of_death_method",
+        "medical_certifier"], "vocabularies": []}'
+  WhoMuacCutoffsCitation:
+    class_uri: publicschema:Citation/who-muac-cutoffs
+    is_a: Citation
+    title: 'WHO child growth standards and the identification of severe acute malnutrition in infants
+      and children: A Joint Statement'
+    annotations:
+      citation_id: who-muac-cutoffs
+      title: 'WHO child growth standards and the identification of severe acute malnutrition in infants
+        and children: A Joint Statement'
+      short_title: WHO/UNICEF MUAC Cutoff (2009)
+      publisher: World Health Organization / UNICEF
+      year: 2009
+      type: international_standard
+      domain: general
+      uri: https://www.who.int/publications/i/item/9789241598163
+      access: open
+      status: active
+      informs_json: '{"concepts": ["Person"], "properties": [], "vocabularies": ["acute-malnutrition-severity"]}'
+  WhoPretermLbwCare2022Citation:
+    class_uri: publicschema:Citation/who-preterm-lbw-care-2022
+    is_a: Citation
+    title: WHO recommendations for care of the preterm or low-birth-weight infant
+    annotations:
+      citation_id: who-preterm-lbw-care-2022
+      title: WHO recommendations for care of the preterm or low-birth-weight infant
+      short_title: WHO Preterm/LBW Care
+      publisher: World Health Organization
+      year: 2022
+      type: guidance_publication
+      domain: health
+      uri: https://www.who.int/publications/i/item/9789240058262
+      access: open
+      status: active
+      informs_json: '{"concepts": ["crvs/Birth", "crvs/FetalDeath"], "properties": ["gestational_age",
+        "weight", "weight_at_birth"], "vocabularies": []}'
+  WhoSaraCitation:
+    class_uri: publicschema:Citation/who-sara
+    is_a: Citation
+    title: WHO Service Availability and Readiness Assessment (SARA) Reference Manual
+    annotations:
+      citation_id: who-sara
+      title: WHO Service Availability and Readiness Assessment (SARA) Reference Manual
+      short_title: WHO SARA
+      publisher: World Health Organization (WHO)
+      year: 2015
+      type: guidance_publication
+      domain: health
+      uri: https://www.who.int/publications/i/item/WHO-HIS-HSI-2014.5-Rev.1
+      access: open
+      status: active
+      version: v2.2
+      note: SARA is the canonical WHO-maintained reference for national health facility assessments, providing
+        the facility-type taxonomy (hospital, health center, health post, dispensary, clinic, pharmacy,
+        laboratory, mobile clinic) and service-area readiness indicators. The Harmonized Health Facility
+        Assessment (HHFA, 2022) consolidates SARA with the Service Delivery Indicators and extends it;
+        the SARA facility typology remains the anchor.
+      informs_json: '{"concepts": ["HealthFacility"], "properties": ["facility_type"], "vocabularies":
+        ["health-facility-type"]}'
+  WhoSkilledBirthAttendants2018Citation:
+    class_uri: publicschema:Citation/who-skilled-birth-attendants-2018
+    is_a: Citation
+    title: Definition of skilled health personnel providing care during childbirth
+    annotations:
+      citation_id: who-skilled-birth-attendants-2018
+      title: Definition of skilled health personnel providing care during childbirth
+      short_title: WHO Skilled Birth Attendants
+      publisher: World Health Organization (WHO), UNFPA, UNICEF, ICM, ICN, FIGO, IPA
+      year: 2018
+      type: guidance_publication
+      domain: crvs
+      uri: https://www.who.int/publications/i/item/WHO-RHR-18.14
+      access: open
+      status: active
+      standard_number: WHO/RHR/18.14
+      informs_json: '{"concepts": ["crvs/Birth"], "properties": ["attendant_at_birth"], "vocabularies":
+        ["crvs/birth-attendant"]}'
+  WhoUnicefJmpCitation:
+    class_uri: publicschema:Citation/who-unicef-jmp
+    is_a: Citation
+    title: WHO/UNICEF Joint Monitoring Programme for Water Supply, Sanitation and Hygiene (JMP)
+    annotations:
+      citation_id: who-unicef-jmp
+      title: WHO/UNICEF Joint Monitoring Programme for Water Supply, Sanitation and Hygiene (JMP)
+      short_title: JMP
+      publisher: WHO / UNICEF
+      type: classification
+      domain: general
+      uri: https://washdata.org/
+      access: open
+      status: active
+      informs_json: '{"concepts": ["Household"], "properties": ["sanitation_facility", "sanitation_service_level",
+        "sanitation_shared_households", "water_collection_time_minutes", "water_service_level", "water_source"],
+        "vocabularies": ["sanitation-facility", "sanitation-service-level", "water-point-type", "water-service-level",
+        "water-source"]}'
+  WhoVerbalAutopsy2022Citation:
+    class_uri: publicschema:Citation/who-verbal-autopsy-2022
+    is_a: Citation
+    title: 2022 WHO Verbal Autopsy instrument
+    annotations:
+      citation_id: who-verbal-autopsy-2022
+      title: 2022 WHO Verbal Autopsy instrument
+      short_title: WHO Verbal Autopsy 2022
+      publisher: World Health Organization (WHO)
+      year: 2022
+      type: specification
+      domain: crvs
+      uri: https://www.who.int/publications/m/item/2022-who-verbal-autopsy-instrument
+      access: open
+      status: active
+      version: '2022'
+      informs_json: '{"concepts": ["crvs/Death"], "properties": ["cause_of_death", "cause_of_death_code",
+        "cause_of_death_method"], "vocabularies": ["crvs/cause-of-death-method"]}'

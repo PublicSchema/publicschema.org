@@ -1,0 +1,37 @@
+id: gender-type--dhis2
+source_value_set:
+  id: gender-type
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: Gender
+  source_id: dhis2
+pairs:
+- source_value: male
+  target_value: Male
+  quality: exact
+  target_label: Male
+- source_value: female
+  target_value: Female
+  quality: exact
+  target_label: Female
+- source_value: other
+  target_value: null
+  quality: unmapped
+- source_value: not_stated
+  target_value: null
+  quality: unmapped
+standard:
+  source_id: dhis2
+  uri: https://docs.dhis2.org/en/develop/using-the-api/dhis-core-version-243/metadata.html
+  custodian: "HISP Centre, University of Oslo"
+  license: BSD-3-Clause
+  license_uri: https://github.com/dhis2/dhis2-core/blob/master/LICENSE
+  version: 2.43.0
+  attribution_text: "Copyright (c) 2004-2025, University of Oslo"
+  redistribution: "Permitted under BSD-3-Clause terms; copyright notice must be retained"
+  retrieved_at: "2026-05-12"
+  artifact_kind: none
+  artifact_notes: >-
+    DHIS2 option-set enums are defined across multiple configuration files in
+    dhis2-core; no single canonical downloadable artifact.

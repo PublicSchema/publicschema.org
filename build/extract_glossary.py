@@ -2,11 +2,10 @@
 
 Produces translations/glossary.yaml with two sections:
 
-- domain_terms: auto-extracted from schema/concepts/, schema/properties/, and
-  schema/vocabularies/. Entries mirror whatever label/definition translations
-  the YAML files already provide. The script overwrites this section on every
-  run, so hand edits to domain_terms will be lost; edit the source YAML
-  instead.
+- domain_terms: auto-extracted from the authored LinkML schema. Entries mirror
+  whatever label/definition translations the schema already provides. The
+  script overwrites this section on every run, so hand edits to domain_terms
+  will be lost; edit the source YAML instead.
 
 - ui_terms: manually curated UI labels (buttons, nav, status text). Preserved
   across runs. Seeded from the OpenSPP glossary plus overrides/additions
@@ -25,6 +24,7 @@ from typing import Any
 
 import yaml
 
+from build.linkml_reader import load_raw_from_linkml
 from build.loader import load_yaml
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
@@ -135,6 +135,9 @@ def _pick_definition(entry: dict) -> dict[str, str]:
 
 def _extract_domain_terms() -> list[dict]:
     """Extract concepts, properties, vocabularies, and vocabulary values."""
+    if (SCHEMA_DIR / "publicschema.yaml").exists():
+        return _extract_domain_terms_from_linkml()
+
     terms: list[dict] = []
 
     for concept in _load_all_yaml_with_paths(SCHEMA_DIR / "concepts"):
@@ -183,6 +186,63 @@ def _extract_domain_terms() -> list[dict]:
                         loc: (definition.get(loc) or "").strip() for loc in LOCALES
                     },
                     "source": vocab["_source_path"],
+                }
+            )
+
+    return terms
+
+
+def _extract_domain_terms_from_linkml() -> list[dict]:
+    """Extract glossary terms from the canonical authored LinkML schema."""
+    raw = load_raw_from_linkml(SCHEMA_DIR)
+    terms: list[dict] = []
+
+    for key, concept in sorted(raw["concepts"].items()):
+        terms.append(
+            {
+                "kind": "concept",
+                "id": key,
+                "labels": _pick_labels(concept),
+                "definition": _pick_definition(concept),
+                "source": "schema/publicschema.yaml",
+            }
+        )
+
+    for key, prop in sorted(raw["properties"].items()):
+        terms.append(
+            {
+                "kind": "property",
+                "id": key,
+                "labels": _pick_labels(prop),
+                "definition": _pick_definition(prop),
+                "source": "schema/publicschema.yaml",
+            }
+        )
+
+    for key, vocab in sorted(raw["vocabularies"].items()):
+        terms.append(
+            {
+                "kind": "vocabulary",
+                "id": key,
+                "labels": _pick_labels(vocab),
+                "definition": _pick_definition(vocab),
+                "source": "schema/publicschema.yaml",
+            }
+        )
+        for value in vocab.get("values") or []:
+            label = value.get("label") or {}
+            definition = value.get("definition") or {}
+            terms.append(
+                {
+                    "kind": "vocabulary_value",
+                    "id": f"{key}/{value['code']}",
+                    "labels": {
+                        loc: (label.get(loc) or "").strip() for loc in LOCALES
+                    },
+                    "definition": {
+                        loc: (definition.get(loc) or "").strip() for loc in LOCALES
+                    },
+                    "source": "schema/publicschema.yaml",
                 }
             )
 

@@ -1,0 +1,201 @@
+id: https://publicschema.org/linkml/identity
+name: publicschema-identity
+title: PublicSchema identity domain
+description: >
+  Identity concepts: Person and Organization. Used to validate the
+  Phase 0.5 preflight: multi-inheritance (Person is_a Party + mixins
+  Agent), multilingual labels and definitions via annotations, external
+  alignments via annotations with structured values.
+license: CC-BY-4.0
+default_prefix: publicschema
+
+prefixes:
+  publicschema: https://publicschema.org/
+  linkml: https://w3id.org/linkml/
+  xsd: http://www.w3.org/2001/XMLSchema#
+  bibo: http://purl.org/ontology/bibo/
+  foaf: http://xmlns.com/foaf/0.1/
+  schema: https://schema.org/
+  prov: http://www.w3.org/ns/prov#
+  semic: http://data.europa.eu/m8g/
+  dci: https://schema.spdci.org/core/v1/
+  fhir: http://hl7.org/fhir/
+  skos: http://www.w3.org/2004/02/skos/core#
+
+imports:
+  - linkml:types
+  - core
+  - publicschema-extensions
+
+slots:
+
+  name:
+    slot_uri: publicschema:name
+    title: Name
+    description: >
+      The full display name of the record. Depending on the concept,
+      this is a person's or group's name, or the title of a program,
+      instrument, scoring rule, or software product.
+    range: string
+    multivalued: false
+    exact_mappings:
+      - schema:name
+      - foaf:name
+    close_mappings:
+      - dci:data/name
+    status: bibo:status/published
+    annotations:
+      label_fr: Nom
+      label_es: Nombre
+      description_fr: >
+        Le nom d'affichage complet de l'enregistrement.
+      description_es: >
+        El nombre de visualización completo del registro.
+      category: identity
+      external_alignments:
+        value:
+          entries:
+            - vocabulary: Core Person
+              uri: http://xmlns.com/foaf/0.1/name
+              match: exact
+              label: name
+            - vocabulary: DCI Core
+              uri: https://schema.spdci.org/core/v1/data/name
+              match: close
+              label: name
+              note: >
+                PublicSchema 'name' is a flat display string; DCI 'name' is
+                a structured Name object.
+
+  identifiers:
+    slot_uri: publicschema:identifiers
+    title: Identifiers
+    description: External identifier records for an entity.
+    range: string
+    multivalued: true
+
+  location:
+    slot_uri: publicschema:location
+    title: Location
+    description: Primary or registered site for an entity.
+    range: string
+    multivalued: false
+
+classes:
+
+  Organization:
+    class_uri: publicschema:Organization
+    title: Organization
+    description: >
+      A legally or administratively identifiable body that can act
+      within a public delivery process: a government agency, ministry,
+      NGO, UN agency, statistical office, health facility, civil
+      registration office, court, or standards publisher.
+    is_a: Agent
+    slots:
+      - name
+      - identifiers
+      - location
+    exact_mappings:
+      - foaf:Organization
+      - schema:Organization
+      - prov:Organization
+    close_mappings:
+      - semic:PublicOrganisation
+      - fhir:Organization
+    status: bibo:status/forthcoming
+    annotations:
+      label_fr: Organisation
+      label_es: Organización
+      description_fr: >
+        Un organisme identifiable juridiquement ou administrativement
+        capable d'agir dans un processus de prestation publique.
+      description_es: >
+        Un organismo identificable jurídica o administrativamente capaz
+        de actuar en un proceso de prestación pública.
+      property_groups:
+        value:
+          entries:
+            - category: identity
+              properties: [name, identifiers]
+            - category: location
+              properties: [location]
+      convergence:
+        value:
+          system_count: 0
+          total_systems: 6
+          notes: >
+            No mapped delivery system carries a first-class Organization
+            concept. Organizations appear as free-text publisher names on
+            instruments, as implicit issuers on certificates, and as
+            unmodelled administrative context around program operations.
+      external_alignments:
+        value:
+          entries:
+            - vocabulary: FOAF
+              uri: http://xmlns.com/foaf/0.1/Organization
+              match: exact
+            - vocabulary: schema.org
+              uri: https://schema.org/Organization
+              match: exact
+            - vocabulary: PROV-O
+              uri: http://www.w3.org/ns/prov#Organization
+              match: exact
+            - vocabulary: CPOV
+              uri: http://data.europa.eu/m8g/PublicOrganisation
+              match: close
+              note: >
+                CPOV PublicOrganisation is a formally recognised public-
+                sector body. Our Organization covers the broader set of
+                institutional actors in public delivery.
+            - vocabulary: FHIR R4
+              uri: http://hl7.org/fhir/Organization
+              match: close
+
+  Person:
+    class_uri: publicschema:Person
+    title: Person
+    description: >
+      The unique individual human being who is a subject of record
+      within a social protection system.
+    is_a: Party
+    mixins:
+      - Agent
+    slots:
+      - name
+    exact_mappings:
+      - semic:Person
+    close_mappings:
+      - dci:data/Person
+    status: bibo:status/forthcoming
+    annotations:
+      label_fr: Personne
+      label_es: Persona
+      description_fr: >
+        L'individu unique qui fait l'objet d'un enregistrement dans un
+        système de protection sociale.
+      description_es: >
+        El individuo único que es sujeto de registro en un sistema de
+        protección social.
+      convergence:
+        value:
+          system_count: 6
+          total_systems: 6
+          notes: >
+            Universal across all 6 mapped systems. The most consistently
+            represented concept in social protection delivery systems.
+      external_alignments:
+        value:
+          entries:
+            - vocabulary: Core Person
+              uri: http://www.w3.org/ns/person#Person
+              match: exact
+              label: Person
+            - vocabulary: DCI Core
+              uri: https://schema.spdci.org/core/v1/data/Person
+              match: close
+              label: Person
+              note: >
+                DCI Person carries only basic demographics; attributes like
+                marital status, education, and occupation live on DCI Member
+                instead.

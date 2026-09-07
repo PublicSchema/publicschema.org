@@ -68,6 +68,7 @@ const breadcrumbJsonLd = JSON.stringify({
 const navLinks = [
   { href: '/concepts/', label: t('nav.concepts') },
   { href: '/vocab/', label: t('nav.vocabularies') },
+  { href: '/handbook/', label: t('nav.handbook') },
   { href: '/docs/', label: t('nav.docs') },
   { href: '/about/', label: t('nav.about') },
 ];
@@ -289,6 +290,7 @@ const navLinks = [
             <h4>{t('footer.docs')}</h4>
             <ul>
               <li><a href={localePath('/docs/use-cases/', locale)}>{t('footer.use_cases')}</a></li>
+              <li><a href={localePath('/handbook/', locale)}>{t('footer.handbook')}</a></li>
               <li><a href={localePath('/docs/extension-mechanism/', locale)}>{t('footer.extension_mechanism')}</a></li>
               <li><a href={localePath('/docs/', locale)}>{t('footer.all_docs')}</a></li>
             </ul>

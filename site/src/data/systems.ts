@@ -190,7 +190,7 @@ export function buildSystemIndex(): Record<string, SystemVocabEntry[]> {
             unmappedCanonicalCount: mapping.unmapped_canonical?.length ?? 0,
           });
         } else {
-          const count = Object.keys(mapping as Record<string, string>).length;
+          const count = Object.keys(mapping).length;
           index[systemId].push({
             kind: "vocabulary",
             vocabId: vocabKey,

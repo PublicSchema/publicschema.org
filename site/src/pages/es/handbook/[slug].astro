@@ -1,0 +1,9 @@
+---
+import HandbookDetail from '../../../components/pages/HandbookDetail.astro';
+import { handbook } from '../../../data/handbook';
+
+export function getStaticPaths() {
+  return Object.keys(handbook).map((slug) => ({ params: { slug } }));
+}
+---
+<HandbookDetail slug={Astro.params.slug!} locale="es" />

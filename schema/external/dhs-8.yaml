@@ -1,0 +1,45 @@
+id: https://publicschema.org/linkml/external/dhs-8
+name: publicschema-external-dhs8
+title: DHS Program Recode 8 (PublicSchema partial view)
+description: Minimal LinkML rendering of DHS Program Recode 8 enumerations referenced by PublicSchema
+  crosswalks. Not authoritative. See https://dhsprogram.com/data/ for the full specification.
+license: CC-BY-4.0
+default_prefix: dhs8
+prefixes:
+  dhs8: https://dhsprogram.com/data/recode8/
+  linkml: https://w3id.org/linkml/
+  xsd: http://www.w3.org/2001/XMLSchema#
+imports:
+- linkml:types
+enums:
+  Dhs8DHSH12H23H32ProviderCodesCountryAdapted:
+    enum_uri: dhs8:Dhs8DHSH12H23H32ProviderCodesCountryAdapted
+    title: Dhs8DHSH12H23H32ProviderCodesCountryAdapted
+    permissible_values:
+      community_health_worker:
+        meaning: dhs8:Dhs8DHSH12H23H32ProviderCodesCountryAdapted/community_health_worker
+        title: Community health worker
+      health_post:
+        meaning: dhs8:Dhs8DHSH12H23H32ProviderCodesCountryAdapted/health_post
+        title: Public health post
+      other:
+        meaning: dhs8:Dhs8DHSH12H23H32ProviderCodesCountryAdapted/other
+        title: Other
+      pharmacy:
+        meaning: dhs8:Dhs8DHSH12H23H32ProviderCodesCountryAdapted/pharmacy
+        title: Pharmacy
+      private_clinic:
+        meaning: dhs8:Dhs8DHSH12H23H32ProviderCodesCountryAdapted/private_clinic
+        title: Private doctor
+      private_hospital:
+        meaning: dhs8:Dhs8DHSH12H23H32ProviderCodesCountryAdapted/private_hospital
+        title: Private hospital / clinic
+      public_clinic:
+        meaning: dhs8:Dhs8DHSH12H23H32ProviderCodesCountryAdapted/public_clinic
+        title: Public health centre / clinic
+      public_hospital:
+        meaning: dhs8:Dhs8DHSH12H23H32ProviderCodesCountryAdapted/public_hospital
+        title: Public sector hospital
+      traditional_healer:
+        meaning: dhs8:Dhs8DHSH12H23H32ProviderCodesCountryAdapted/traditional_healer
+        title: Traditional practitioner

@@ -21,16 +21,23 @@ def create_release(
 ) -> Path:
     """Create a versioned release snapshot.
 
-    Reads the version from schema_dir/_meta.yaml, copies dist_dir contents
-    into releases_dir/{version}/, and updates releases_dir/versions.json.
+    Reads the version and maturity from the canonical LinkML composite (or
+    _meta.yaml for historical sources), copies dist_dir contents into
+    releases_dir/{version}/, and updates releases_dir/versions.json.
 
     Returns the path to the created release directory.
 
     Raises ValueError if the version already exists in releases_dir.
     Raises FileNotFoundError if dist_dir does not exist or is empty.
     """
-    meta_path = schema_dir / "_meta.yaml"
-    meta = yaml.safe_load(meta_path.read_text())
+    meta_path = schema_dir / "publicschema.yaml"
+    if meta_path.exists():
+        from build.linkml_reader import load_linkml_metadata
+
+        meta = load_linkml_metadata(schema_dir)
+    else:
+        meta_path = schema_dir / "_meta.yaml"
+        meta = yaml.safe_load(meta_path.read_text())
     version = meta.get("version", "0.0.0")
 
     if not dist_dir.exists() or not any(dist_dir.iterdir()):

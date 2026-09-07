@@ -1,0 +1,74 @@
+id: marital-status--fhir_r4
+source_value_set:
+  id: marital-status
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: Marital Status Codes
+  source_id: fhir_r4
+pairs:
+- source_value: never_married
+  target_value: S
+  quality: exact
+  target_label: Never Married
+- source_value: married
+  target_value: M
+  quality: exact
+  target_label: Married
+- source_value: widowed
+  target_value: W
+  quality: exact
+  target_label: Widowed
+- source_value: divorced
+  target_value: D
+  quality: exact
+  target_label: Divorced
+- source_value: legally_separated
+  target_value: L
+  quality: exact
+  target_label: Legally Separated
+- source_value: null
+  target_value: A
+  quality: unmapped
+  target_label: Annulled
+  unmapped_reason: no_equivalent
+- source_value: null
+  target_value: I
+  quality: unmapped
+  target_label: Interlocutory
+  unmapped_reason: no_equivalent
+- source_value: married
+  target_value: P
+  quality: exact
+  target_label: Polygamous
+  note: Per UN census standards (Rev. 3/4), all parties in a polygamous union are 'married.' Polygamy is a union characteristic, not a marital status. Use the number_of_spouses property to capture union type.
+- source_value: null
+  target_value: T
+  quality: unmapped
+  target_label: Domestic partner
+  unmapped_reason: not_yet_mapped
+- source_value: null
+  target_value: U
+  quality: unmapped
+  target_label: unmarried
+  unmapped_reason: no_equivalent
+- source_value: null
+  target_value: UNK
+  quality: unmapped
+  target_label: unknown
+  note: UNK is drawn from the v3-NullFlavor code system, not v3-MaritalStatus; the canonical FHIR R4 ValueSet combines both and totals 11 concepts.
+  unmapped_reason: no_equivalent
+- source_value: consensual_union
+  target_value: null
+  quality: unmapped
+standard:
+  source_id: fhir_r4
+  uri: https://terminology.hl7.org/5.5.0/CodeSystem-v3-MaritalStatus.json
+  custodian: Health Level Seven International (HL7)
+  license: CC0-1.0
+  license_uri: https://creativecommons.org/publicdomain/zero/1.0/
+  version: "4.0.1"
+  attribution_text: "HL7® FHIR® standard Copyright © 2011+ HL7. Licensed under CC0 1.0 Universal. HL7, FHIR and the FHIR [FLAME DESIGN] are registered trademarks of Health Level Seven International."
+  redistribution: permitted under CC0-1.0 (no restrictions)
+  retrieved_at: "2026-05-12"
+  source_sha256: 3adc934fe280b8fe7c385438196bd277acfb902f594e3d8f3167561173791276

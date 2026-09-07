@@ -5,21 +5,21 @@ Validates:
    required per-entry fields, allowed surface values, no duplicates).
 2. Referential integrity: every v2_vocabulary in matching.yaml resolves to a
    real PublicSchema vocabulary.
-3. Cross-reference consistency: every vocabulary with a value_mapping in
-   matching.yaml carries a corresponding system_mappings.openimis entry on its
-   vocabulary YAML.
-4. Content expectations: locked decisions from the FHIR re-targeting are
+3. Content expectations: locked decisions from the FHIR re-targeting are
    present (Insuree/Patient surface is fhir_r4, BeneficiaryStatus surface is
    internal_model with api_coverage=none, gender-type uses FHIR
    administrative-gender codes, etc.).
-5. No em dashes in matching.yaml.
+4. No em dashes in matching.yaml.
 """
 
+import re
+from functools import lru_cache
 
 import pytest
 import yaml
 
 from tests.conftest import SCHEMA_DIR, V2_ROOT
+from tests.schema_reader import raw_schema
 
 MATCHING_PATH = V2_ROOT / "external" / "openimis" / "matching.yaml"
 ALLOWED_SURFACES = {"fhir_r4", "internal_model"}
@@ -50,14 +50,7 @@ def matching():
 @pytest.fixture(scope="module")
 def all_vocabularies():
     """Vocabularies keyed as their build output key: 'id' or 'domain/id'."""
-    result = {}
-    for path in sorted((SCHEMA_DIR / "vocabularies").rglob("*.yaml")):
-        with open(path) as f:
-            data = yaml.safe_load(f)
-        domain = data.get("domain")
-        key = f"{domain}/{data['id']}" if domain else data["id"]
-        result[key] = data
-    return result
+    return raw_schema()["vocabularies"]
 
 
 def _resolve_vocab(ref: str, all_vocabularies: dict) -> dict | None:
@@ -73,6 +66,36 @@ def _resolve_vocab(ref: str, all_vocabularies: dict) -> dict | None:
         if vocab["id"] == ref:
             return vocab
     return None
+
+
+def _kebab_to_pascal(value: str) -> str:
+    return "".join(part[:1].upper() + part[1:] for part in value.split("-") if part)
+
+
+@lru_cache
+def _authored_permissible_value_keys() -> dict[str, set[str]]:
+    """Return LinkML enum permissible-value keys by vocabulary id."""
+    doc = yaml.safe_load((SCHEMA_DIR / "vocabularies.yaml").read_text()) or {}
+    result = {}
+    for enum_name, enum_def in (doc.get("enums") or {}).items():
+        vocab_id = "-".join(
+            part.lower() for part in re.split(r"(?<!^)(?=[A-Z])", enum_name) if part
+        )
+        result[vocab_id] = set((enum_def.get("permissible_values") or {}).keys())
+    return result
+
+
+def _valid_value_targets(ref: str, all_vocabularies: dict) -> set[str]:
+    vocab = _resolve_vocab(ref, all_vocabularies)
+    if vocab is None:
+        return set()
+    targets = {str(v["code"]) for v in vocab.get("values", [])}
+    targets.update(
+        str(v["standard_code"]) for v in vocab.get("values", []) if "standard_code" in v
+    )
+    targets.update(_authored_permissible_value_keys().get(vocab["id"], set()))
+    targets.update(_authored_permissible_value_keys().get(_kebab_to_pascal(vocab["id"]), set()))
+    return targets
 
 
 # ---------------------------------------------------------------------------
@@ -234,11 +257,11 @@ class TestReferentialIntegrity:
             vocab = _resolve_vocab(entry["v2_vocabulary"], all_vocabularies)
             if vocab is None:
                 continue  # caught by test_vocabulary_match_targets_exist
-            canonical = {v["code"] for v in vocab.get("values", [])}
+            canonical = _valid_value_targets(entry["v2_vocabulary"], all_vocabularies)
             for src, target in vm.items():
                 if target is None:
                     continue
-                if target not in canonical:
+                if str(target) not in canonical:
                     bad.append(
                         f"{entry['v2_vocabulary']}: {src!r} maps to {target!r} "
                         f"which is not a canonical code"
@@ -255,74 +278,6 @@ class TestReferentialIntegrity:
         assert overlap == [], (
             f"Vocabularies in both matches and no_match: {overlap}"
         )
-
-
-# ---------------------------------------------------------------------------
-# Cross-reference: matching.yaml <-> schema YAML system_mappings
-# ---------------------------------------------------------------------------
-
-class TestCrossReferenceConsistency:
-    """OpenIMIS uses system_mappings (value-level) rather than
-    external_equivalents (URI-level). A vocabulary with a value_mapping in
-    matching.yaml should have a matching system_mappings.openimis block on
-    its YAML, and vice versa."""
-
-    def test_every_value_mapping_has_system_mapping(self, matching, all_vocabularies):
-        missing = []
-        for entry in matching["matches"]:
-            if not entry.get("value_mapping"):
-                continue
-            vocab = _resolve_vocab(entry["v2_vocabulary"], all_vocabularies)
-            if vocab is None:
-                continue
-            sm = (vocab.get("system_mappings") or {}).get("openimis")
-            if sm is None:
-                missing.append(entry["v2_vocabulary"])
-        assert missing == [], (
-            f"Vocabularies with value_mapping in matching.yaml but no "
-            f"system_mappings.openimis on vocab YAML: {missing}"
-        )
-
-    def test_mapped_codes_appear_in_system_mappings(
-        self, matching, all_vocabularies
-    ):
-        """Every non-null value_mapping in matching.yaml must correspond to a
-        code present in the vocab YAML's system_mappings.openimis. This catches
-        mapping drift where matching.yaml adds a mapping that the vocab YAML
-        does not know about.
-
-        The reverse direction is not enforced: the vocab YAML may legitimately
-        describe a different surface than matching.yaml.
-        Multi-enum cases (event-severity: TicketPriority) are also exempted
-        from bidirectional parity.
-        """
-        missing = []
-        for entry in matching["matches"]:
-            vm = entry.get("value_mapping") or {}
-            if not vm:
-                continue
-            vocab = _resolve_vocab(entry["v2_vocabulary"], all_vocabularies)
-            if vocab is None:
-                continue
-            sm = (vocab.get("system_mappings") or {}).get("openimis")
-            if sm is None:
-                continue
-            sm_codes = {str(v["code"]) for v in sm.get("values", [])}
-            # Skip entries where the vocab YAML describes an entirely different
-            # surface (disjoint code sets). These are documented differences.
-            vm_codes = {str(k) for k in vm.keys()}
-            if not (vm_codes & sm_codes):
-                continue
-            for src, target in vm.items():
-                if target is None:
-                    continue
-                if str(src) not in sm_codes:
-                    missing.append(
-                        f"{entry['v2_vocabulary']}: {src!r} mapped in "
-                        f"matching.yaml but not listed in "
-                        f"system_mappings.openimis.values"
-                    )
-        assert missing == [], "\n".join(missing)
 
 
 # ---------------------------------------------------------------------------

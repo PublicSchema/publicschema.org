@@ -1,7 +1,7 @@
 """
 Compare PublicSchema concepts/properties with SEMIC EU Core Vocabularies.
 
-Parses SEMIC Turtle (OWL + SHACL) files and PublicSchema YAML files,
+Parses SEMIC Turtle (OWL + SHACL) files and PublicSchema LinkML source,
 then produces a structured gap analysis report in Markdown.
 
 Usage:
@@ -14,9 +14,10 @@ import re
 from dataclasses import dataclass, field
 from pathlib import Path
 
-import yaml
 from rdflib import Graph, Namespace
 from rdflib.namespace import OWL, RDF, RDFS
+
+from build.linkml_reader import load_raw_from_linkml
 
 ROOT = Path(__file__).resolve().parent.parent
 SEMIC_DIR = ROOT / "external" / "semic"
@@ -233,17 +234,14 @@ def parse_semic() -> dict[str, SemicClass]:
 # ---------------------------------------------------------------------------
 
 def parse_ps_concepts() -> dict[str, PSConcept]:
-    """Parse PublicSchema concept YAML files."""
+    """Parse PublicSchema concepts from the authored LinkML source."""
     concepts = {}
-    concept_dir = SCHEMA_DIR / "concepts"
-    for path in sorted(concept_dir.glob("*.yaml")):
-        with open(path) as f:
-            data = yaml.safe_load(f)
+    for key, data in sorted(load_raw_from_linkml(SCHEMA_DIR)["concepts"].items()):
         if not data or "id" not in data:
             continue
         defn = data.get("definition", {})
-        concepts[data["id"]] = PSConcept(
-            id=data["id"],
+        concepts[key] = PSConcept(
+            id=key,
             definition_en=defn.get("en", "").strip() if defn else "",
             properties=data.get("properties", []) or [],
             supertypes=data.get("supertypes", []) or [],
@@ -253,17 +251,14 @@ def parse_ps_concepts() -> dict[str, PSConcept]:
 
 
 def parse_ps_properties() -> dict[str, PSProperty]:
-    """Parse PublicSchema property YAML files."""
+    """Parse PublicSchema properties from the authored LinkML source."""
     props = {}
-    prop_dir = SCHEMA_DIR / "properties"
-    for path in sorted(prop_dir.glob("*.yaml")):
-        with open(path) as f:
-            data = yaml.safe_load(f)
+    for key, data in sorted(load_raw_from_linkml(SCHEMA_DIR)["properties"].items()):
         if not data or "id" not in data:
             continue
         defn = data.get("definition", {})
-        props[data["id"]] = PSProperty(
-            id=data["id"],
+        props[key] = PSProperty(
+            id=key,
             definition_en=defn.get("en", "").strip() if defn else "",
             type=data.get("type", ""),
             cardinality=data.get("cardinality", ""),

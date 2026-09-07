@@ -1,0 +1,44 @@
+id: marital-status--openspp
+source_value_set:
+  id: marital-status
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: MaritalStatus
+  source_id: openspp
+pairs:
+- source_value: never_married
+  target_value: S
+  quality: exact
+  target_label: Never Married
+- source_value: married
+  target_value: M
+  quality: exact
+  target_label: Married
+- source_value: widowed
+  target_value: W
+  quality: exact
+  target_label: Widowed
+- source_value: divorced
+  target_value: D
+  quality: exact
+  target_label: Divorced
+- source_value: legally_separated
+  target_value: L
+  quality: exact
+  target_label: Separated
+- source_value: consensual_union
+  target_value: C
+  quality: exact
+  target_label: Consensual Union
+standard:
+  source_id: openspp
+  uri: https://docs.openspp.org/
+  custodian: OpenSPP
+  license: LGPL-3.0-only
+  license_uri: https://www.gnu.org/licenses/lgpl-3.0.html
+  version: 17.0.1.4
+  attribution_text: Copyright (c) 2022-2024 OpenSPP.org
+  redistribution: Permitted under LGPL-3.0 terms; modified versions must carry the same license.
+  retrieved_at: '2026-05-12'
+  source_sha256: c3946f844205df6e2a0bd96eb7087388cc643491d1e794cddf900f18efdfaaff

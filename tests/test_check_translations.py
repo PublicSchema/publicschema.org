@@ -306,6 +306,62 @@ class TestCheckPropertyLabel:
 
 
 # ---------------------------------------------------------------------------
+# LinkML schema translation checks
+# ---------------------------------------------------------------------------
+
+
+class TestCheckSchemaLinkml:
+    def test_error_message_includes_file_and_element_name(self, tmp_path: Path):
+        """Pseudo-path for LinkML elements must render as 'file::name', not a
+        filesystem path with '::' in the filename."""
+        linkml_dir = tmp_path / "schema"
+        linkml_dir.mkdir()
+        schema_file = linkml_dir / "identity.yaml"
+        # status maps to "candidate" via _LINKML_STATUS_TO_MATURITY;
+        # title sets an English label so the label check also fires.
+        schema_file.write_text(textwrap.dedent(
+            """\
+            classes:
+              Person:
+                status: "bibo:status/forthcoming"
+                title: Person
+            """
+        ))
+        report = ct.check_schema_linkml(linkml_dir)
+        assert not report.ok
+        # Error must reference the file and the element name separated by '::'
+        assert any("identity.yaml::Person" in e for e in report.errors), (
+            f"Expected 'identity.yaml::Person' in errors; got: {report.errors}"
+        )
+
+    def test_multiple_elements_each_produce_distinct_pseudo_paths(self, tmp_path: Path):
+        """Each element in a file produces an error message scoped to that
+        element, not a generic file-level message."""
+        linkml_dir = tmp_path / "schema"
+        linkml_dir.mkdir()
+        schema_file = linkml_dir / "multi.yaml"
+        schema_file.write_text(textwrap.dedent(
+            """\
+            classes:
+              Alpha:
+                status: "bibo:status/forthcoming"
+                title: Alpha
+              Beta:
+                status: "bibo:status/forthcoming"
+                title: Beta
+            """
+        ))
+        report = ct.check_schema_linkml(linkml_dir)
+        assert not report.ok
+        assert any("multi.yaml::Alpha" in e for e in report.errors), (
+            f"Expected 'multi.yaml::Alpha' in errors; got: {report.errors}"
+        )
+        assert any("multi.yaml::Beta" in e for e in report.errors), (
+            f"Expected 'multi.yaml::Beta' in errors; got: {report.errors}"
+        )
+
+
+# ---------------------------------------------------------------------------
 # End-to-end against the real repo
 # ---------------------------------------------------------------------------
 

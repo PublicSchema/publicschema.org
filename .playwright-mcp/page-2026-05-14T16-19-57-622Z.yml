@@ -1,0 +1,193 @@
+- generic [active] [ref=e1]:
+  - link "Skip to main content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - navigation [ref=e3]:
+    - generic [ref=e4]:
+      - link "PublicSchema Public Service Data Reference Model" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e6]:
+          - generic [ref=e7]: PublicSchema
+          - generic [ref=e8]: Public Service Data Reference Model
+      - list [ref=e9]:
+        - listitem [ref=e10]:
+          - link "Concepts" [ref=e11] [cursor=pointer]:
+            - /url: /concepts/
+        - listitem [ref=e12]:
+          - link "Vocabularies" [ref=e13] [cursor=pointer]:
+            - /url: /vocab/
+        - listitem [ref=e14]:
+          - link "Docs" [ref=e15] [cursor=pointer]:
+            - /url: /docs/
+        - listitem [ref=e16]:
+          - link "About" [ref=e17] [cursor=pointer]:
+            - /url: /about/
+      - generic [ref=e19]:
+        - combobox "Search PublicSchema" [ref=e20]
+        - generic: ⌘K
+      - group [ref=e23]:
+        - 'generic "Current language: English" [ref=e24] [cursor=pointer]':
+          - img [ref=e25]
+          - generic [ref=e28]: EN
+          - img [ref=e29]
+        - text: ✓
+      - text: ✓ ✓
+  - main [ref=e31]:
+    - article [ref=e32]:
+      - generic [ref=e33]:
+        - navigation "Home" [ref=e34]:
+          - link "Home" [ref=e35] [cursor=pointer]:
+            - /url: /
+          - text: /
+          - link "Metrics" [ref=e36] [cursor=pointer]:
+            - /url: /metrics/
+          - text: /
+          - link "dhs_household" [ref=e37] [cursor=pointer]:
+            - /url: /metrics/dhs_household/
+          - text: / ed_edat_b_cpr
+        - heading "Population age 6 and over with completed primary education" [level=1] [ref=e38]
+        - paragraph [ref=e39]:
+          - generic [ref=e40]: ed_edat_b_cpr
+          - generic [ref=e41]: ·
+          - generic [ref=e42]: https://publicschema.org/metrics/dhs_household/ed_edat_b_cpr
+        - generic [ref=e43]:
+          - code [ref=e44]: draft
+          - generic [ref=e45]: core
+          - generic [ref=e46]: v1.0.0
+        - paragraph [ref=e47]: Percentage of the de facto household population age 6 and over with some primary education
+      - generic [ref=e48]:
+        - heading "Overview" [level=2] [ref=e49]
+        - generic [ref=e50]:
+          - term [ref=e51]: Catalog
+          - definition [ref=e52]:
+            - link "DHS Program — Household and SP-adjacent indicator seed metric catalog" [ref=e53] [cursor=pointer]:
+              - /url: /metrics/dhs_household/
+          - term [ref=e54]: Value type
+          - definition [ref=e55]:
+            - code [ref=e56]: proportion
+          - term [ref=e57]: Decimals
+          - definition [ref=e58]: "1"
+          - term [ref=e59]: Version
+          - definition [ref=e60]: 1.0.0
+          - term [ref=e61]: Status
+          - definition [ref=e62]:
+            - code [ref=e63]: bibo:draft
+          - term [ref=e64]: Core
+          - definition [ref=e65]: Yes — must-have subset
+          - term [ref=e66]: Stable URI
+          - definition [ref=e67]:
+            - code [ref=e68]: https://publicschema.org/metrics/dhs_household/ed_edat_b_cpr
+      - generic [ref=e69]:
+        - heading "Linked concept" [level=2] [ref=e70]
+        - paragraph [ref=e71]:
+          - code [ref=e72]: publicschema:concept/dhs/educational_attainment_of_the_household_population
+      - generic [ref=e73]:
+        - heading "Dimensions" [level=2] [ref=e74]
+        - list [ref=e75]:
+          - listitem [ref=e76]:
+            - code [ref=e77]: dim/ref_area
+          - listitem [ref=e78]:
+            - code [ref=e79]: dim/time_period
+      - generic [ref=e80]:
+        - heading "External alignments" [level=2] [ref=e81]
+        - list [ref=e82]:
+          - listitem [ref=e83]:
+            - link "https://api.dhsprogram.com/rest/dhs/indicators/ED_EDAT_B_CPR" [ref=e84] [cursor=pointer]:
+              - /url: https://api.dhsprogram.com/rest/dhs/indicators/ED_EDAT_B_CPR
+      - generic [ref=e85]:
+        - heading "Calculation" [level=2] [ref=e86]
+        - paragraph [ref=e87]: No calculation block has been authored yet for this metric. The catalog source and external alignments are populated; the executable definition is tracked as follow-up work.
+  - contentinfo [ref=e88]:
+    - generic [ref=e89]:
+      - generic [ref=e90]:
+        - generic [ref=e91]:
+          - generic [ref=e92]: PublicSchema
+          - paragraph [ref=e93]: Common definitions for public service delivery. Built so programs can coordinate, share data, and reach the people they serve.
+        - generic [ref=e94]:
+          - generic [ref=e95]:
+            - heading "Explore" [level=4] [ref=e96]
+            - list [ref=e97]:
+              - listitem [ref=e98]:
+                - link "Concepts" [ref=e99] [cursor=pointer]:
+                  - /url: /concepts/
+              - listitem [ref=e100]:
+                - link "Properties" [ref=e101] [cursor=pointer]:
+                  - /url: /properties/
+              - listitem [ref=e102]:
+                - link "Vocabularies" [ref=e103] [cursor=pointer]:
+                  - /url: /vocab/
+              - listitem [ref=e104]:
+                - link "Systems" [ref=e105] [cursor=pointer]:
+                  - /url: /systems/
+              - listitem [ref=e106]:
+                - link "Standards & References" [ref=e107] [cursor=pointer]:
+                  - /url: /references/
+          - generic [ref=e108]:
+            - heading "Docs" [level=4] [ref=e109]
+            - list [ref=e110]:
+              - listitem [ref=e111]:
+                - link "Use Cases" [ref=e112] [cursor=pointer]:
+                  - /url: /docs/use-cases/
+              - listitem [ref=e113]:
+                - link "Extension Mechanism" [ref=e114] [cursor=pointer]:
+                  - /url: /docs/extension-mechanism/
+              - listitem [ref=e115]:
+                - link "All documentation" [ref=e116] [cursor=pointer]:
+                  - /url: /docs/
+          - generic [ref=e117]:
+            - heading "Project" [level=4] [ref=e118]
+            - list [ref=e119]:
+              - listitem [ref=e120]:
+                - link "About" [ref=e121] [cursor=pointer]:
+                  - /url: /about/
+              - listitem [ref=e122]:
+                - link "Source on GitHub" [ref=e123] [cursor=pointer]:
+                  - /url: https://github.com/PublicSchema/publicschema.org
+              - listitem [ref=e124]:
+                - link "Terms and License" [ref=e125] [cursor=pointer]:
+                  - /url: /terms/
+              - listitem [ref=e126]:
+                - link "Join review group" [ref=e127] [cursor=pointer]:
+                  - /url: https://hypothes.is/groups/6EELqkDo/public-schema-review
+      - generic [ref=e128]:
+        - generic [ref=e129]:
+          - text: "Reference model:"
+          - link "CC BY 4.0" [ref=e130] [cursor=pointer]:
+            - /url: https://creativecommons.org/licenses/by/4.0/
+          - text: "| Code:"
+          - link "Apache 2.0" [ref=e131] [cursor=pointer]:
+            - /url: https://www.apache.org/licenses/LICENSE-2.0
+        - generic [ref=e132]:
+          - text: Built with
+          - link "Astro" [ref=e133] [cursor=pointer]:
+            - /url: https://astro.build/
+  - generic [ref=e136]:
+    - button "Menu" [ref=e137]:
+      - img [ref=e139]
+      - generic: Menu
+    - button "Inspect" [ref=e143]:
+      - img [ref=e145]
+      - generic: Inspect
+    - button "Audit" [ref=e147]:
+      - generic [ref=e148]:
+        - img [ref=e149]
+        - img [ref=e152]
+      - generic: Audit
+    - button "Settings" [ref=e155]:
+      - img [ref=e157]
+      - generic: Settings
+  - generic:
+    - generic [ref=e160]:
+      - generic:
+        - generic [ref=e162]:
+          - button "Annotation sidebar" [ref=e163]:
+            - img [ref=e164]
+          - generic [ref=e168]:
+            - button "Show highlights" [ref=e169]:
+              - img [ref=e170]
+            - button "New page note" [ref=e174]:
+              - img [ref=e175]
+          - status [ref=e179]: Highlights hidden
+        - generic:
+          - list
+    - generic:
+      - list

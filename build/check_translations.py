@@ -21,6 +21,19 @@ The script exits non-zero when any error surfaces; warnings are
 informational only. Staleness is derived from git commit timestamps, so
 rebasing a commit without touching content can produce a false positive.
 This is acceptable for a warning-only signal and documented here.
+
+Sources
+-------
+``--source linkml`` (default) reads schema/**/*.yaml where the English
+``label`` lives at ``title``, English ``definition`` at ``description``,
+and the FR/ES translations live under ``annotations.label_fr``,
+``annotations.label_es``, ``annotations.description_fr``,
+``annotations.description_es``. The schema check normalises both shapes
+to the same set of checks. The UI/docs/prose checks are independent of
+schema source.
+
+``--source bespoke`` reads a historical bespoke schema tree where the shape is
+``label.{en,fr,es}`` and ``definition.{en,fr,es}``.
 """
 
 from __future__ import annotations
@@ -39,8 +52,17 @@ DOCS_DIR = Path("docs")
 DOCS_MANIFEST_PATH = Path("site/src/data/docs.ts")
 PROSE_DIR = Path("site/src/components/pages/content")
 SCHEMA_DIR = Path("schema")
+LINKML_DIR = Path("schema")
 LOCALES: tuple[str, ...] = ("fr", "es")
 MATURITY_REQUIRES_TRANSLATION: tuple[str, ...] = ("candidate", "normative")
+
+# LinkML status -> PublicSchema maturity, used by the linkml schema reader to
+# decide whether translations are required.
+_LINKML_STATUS_TO_MATURITY = {
+    "bibo:status/published": "normative",
+    "bibo:status/forthcoming": "candidate",
+    "bibo:draft": "draft",
+}
 
 
 # ---------------------------------------------------------------------------
@@ -260,7 +282,7 @@ def check_prose_components(prose_dir: Path = PROSE_DIR) -> Report:
 
 def _check_definition(
     data: dict,
-    path: Path,
+    path: Path | str,
     report: Report,
 ) -> None:
     """Validate that a concept/property/vocab YAML has FR/ES definitions.
@@ -272,7 +294,7 @@ def _check_definition(
     if maturity not in MATURITY_REQUIRES_TRANSLATION:
         return
     definition = data.get("definition") or {}
-    entity_id = data.get("id", path.stem)
+    entity_id = data.get("id", Path(path).stem)
     for locale in LOCALES:
         value = definition.get(locale)
         if not value or not str(value).strip():
@@ -284,7 +306,7 @@ def _check_definition(
 
 def _check_label(
     data: dict,
-    path: Path,
+    path: Path | str,
     report: Report,
 ) -> None:
     """Validate that a schema entity's label has FR/ES translations.
@@ -300,7 +322,7 @@ def _check_label(
     if maturity not in MATURITY_REQUIRES_TRANSLATION:
         return
     label = data.get("label") or {}
-    entity_id = data.get("id", path.stem)
+    entity_id = data.get("id", Path(path).stem)
     for locale in LOCALES:
         value = label.get(locale)
         if not value or not str(value).strip():
@@ -332,21 +354,111 @@ def check_schema(schema_dir: Path = SCHEMA_DIR) -> Report:
 
 
 # ---------------------------------------------------------------------------
+# LinkML schema check
+#
+# Walks schema/*.yaml (excluding the top-level composite and the
+# hand-authored extensions module), inspects every class, slot, and enum,
+# and reapplies the same FR/ES requirement against the LinkML field shape
+# (title/description + annotations.label_*/description_*).
+# ---------------------------------------------------------------------------
+
+
+def _linkml_entry_to_bespoke(linkml_entry: dict) -> dict:
+    """Project a LinkML class/slot/enum onto the bespoke {label, definition, maturity} shape."""
+    ann = linkml_entry.get("annotations") or {}
+    label: dict[str, str] = {}
+    definition: dict[str, str] = {}
+    if linkml_entry.get("title"):
+        label["en"] = linkml_entry["title"]
+    if linkml_entry.get("description"):
+        definition["en"] = linkml_entry["description"]
+    if ann.get("label_fr"):
+        label["fr"] = ann["label_fr"]
+    if ann.get("label_es"):
+        label["es"] = ann["label_es"]
+    if ann.get("description_fr"):
+        definition["fr"] = ann["description_fr"]
+    if ann.get("description_es"):
+        definition["es"] = ann["description_es"]
+    status = linkml_entry.get("status")
+    maturity = _LINKML_STATUS_TO_MATURITY.get(status, "draft")
+    return {"label": label, "definition": definition, "maturity": maturity}
+
+
+def check_schema_linkml(linkml_dir: Path = LINKML_DIR) -> Report:
+    report = Report()
+    if not linkml_dir.exists():
+        return report
+    skip = {"publicschema.yaml", "publicschema-extensions.yaml"}
+    for path in sorted(linkml_dir.rglob("*.yaml")):
+        if path.name in skip:
+            continue
+        try:
+            data = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+        except yaml.YAMLError as e:
+            report.error(f"Schema: failed to parse {path}: {e}")
+            continue
+        # LinkML modules group entities under classes/slots/enums.
+        for section in ("classes", "slots", "enums"):
+            for name, entry in (data.get(section) or {}).items():
+                if not isinstance(entry, dict):
+                    continue
+                # ``label`` is required on properties in the bespoke shape;
+                # in LinkML, only slots carry a meaningful en label (via
+                # title). Concepts and enums also have title, so we always
+                # check label here. The maturity gate filters draft items.
+                bespoke = _linkml_entry_to_bespoke(entry)
+                bespoke["id"] = name
+                # Force-emit label only when title is present (consistent
+                # with the bespoke check, which fires only when label is set).
+                pseudo_path = f"{path}::{name}"
+                _check_definition(bespoke, pseudo_path, report)
+                if "label" not in bespoke or not bespoke["label"]:
+                    continue
+                _check_label(bespoke, pseudo_path, report)
+    return report
+
+
+# ---------------------------------------------------------------------------
 # Entry point
 # ---------------------------------------------------------------------------
 
 
-def run_all() -> Report:
+def run_all(source: str = "linkml") -> Report:
+    """Run every translation check.
+
+    ``source`` selects which schema tree feeds the schema completeness
+    check (UI, docs, and prose checks are unchanged). Use 'linkml' to
+    target schema/ after the LinkML cutover.
+    """
     combined = Report()
     combined.merge(check_ui_dictionary())
-    combined.merge(check_schema())
+    if source == "linkml":
+        combined.merge(check_schema_linkml())
+    else:
+        combined.merge(check_schema())
     combined.merge(check_docs())
     combined.merge(check_prose_components())
     return combined
 
 
 def main() -> int:
-    report = run_all()
+    import argparse
+
+    parser = argparse.ArgumentParser(
+        description="Check for missing or stale translations across the codebase.",
+    )
+    parser.add_argument(
+        "--source",
+        choices=("bespoke", "linkml"),
+        default="linkml",
+        help="Schema source to use for the schema completeness check. "
+             "Default 'linkml' reads schema/; 'bespoke' reads a historical "
+             "bespoke tree.",
+    )
+    args = parser.parse_args()
+
+    report = run_all(source=args.source)
     for warning in report.warnings:
         print(f"WARN  {warning}")
     for error in report.errors:

@@ -1,0 +1,41 @@
+id: https://publicschema.org/linkml/external/dhis2
+name: publicschema-external-dhis2
+title: DHIS2 (PublicSchema partial view)
+description: Minimal LinkML rendering of DHIS2 enumerations referenced by PublicSchema crosswalks. Not
+  authoritative. See https://dhis2.org/ for the full specification.
+license: CC-BY-4.0
+default_prefix: dhis2
+prefixes:
+  dhis2: https://dhis2.org/schemas/
+  linkml: https://w3id.org/linkml/
+  xsd: http://www.w3.org/2001/XMLSchema#
+imports:
+- linkml:types
+enums:
+  Dhis2CivilStatus:
+    enum_uri: dhis2:Dhis2CivilStatus
+    title: Dhis2CivilStatus
+    permissible_values:
+      married:
+        meaning: dhis2:Dhis2CivilStatus/married
+        title: Married (conjugal cohabitation)
+  Dhis2EnrollmentStatus:
+    enum_uri: dhis2:Dhis2EnrollmentStatus
+    title: Dhis2EnrollmentStatus
+    permissible_values:
+      active:
+        meaning: dhis2:Dhis2EnrollmentStatus/active
+        title: Active
+      closed:
+        meaning: dhis2:Dhis2EnrollmentStatus/closed
+        title: Completed
+  Dhis2Gender:
+    enum_uri: dhis2:Dhis2Gender
+    title: Dhis2Gender
+    permissible_values:
+      female:
+        meaning: dhis2:Dhis2Gender/female
+        title: Female
+      male:
+        meaning: dhis2:Dhis2Gender/male
+        title: Male

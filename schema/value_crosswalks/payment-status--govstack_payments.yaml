@@ -1,0 +1,60 @@
+id: payment-status--govstack_payments
+source_value_set:
+  id: payment-status
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: BatchTransactionStatus (implied)
+  source_id: govstack_payments
+pairs:
+- source_value: processing
+  target_value: ongoing
+  quality: exact
+  target_label: Ongoing
+- source_value: paid
+  target_value: completed
+  quality: exact
+  target_label: Completed
+- source_value: failed
+  target_value: failed
+  quality: exact
+  target_label: Failed
+- source_value: partial
+  target_value: null
+  quality: unmapped
+- source_value: pending
+  target_value: null
+  quality: unmapped
+- source_value: returned
+  target_value: null
+  quality: unmapped
+- source_value: rejected
+  target_value: null
+  quality: unmapped
+- source_value: cancelled
+  target_value: null
+  quality: unmapped
+standard:
+  source_id: govstack_payments
+  uri: https://payments.govstack.global/
+  custodian: GovStack Initiative (ITU, GIZ, Germany/BMZ, Estonia, DIAL)
+  license: Apache-2.0
+  license_uri: https://www.apache.org/licenses/LICENSE-2.0
+  version: "3.0"
+  attribution_text: >-
+    GovStack Payments Building Block Specification v3.0, authored by Vijay
+    Mauree, Arnold Kibuuka, David Higgins, Oscar Correia, and Dr. P. S.
+    Ramkumar (ITU); editor Ali González-García. Copyright GovStack Initiative.
+    Licensed under the Apache License, Version 2.0. Retain all copyright and
+    attribution notices when redistributing.
+  redistribution: >-
+    Apache-2.0: royalty-free redistribution permitted; must include a copy of
+    the Apache-2.0 license; must retain all copyright, patent, trademark, and
+    attribution notices from the original; modified files must carry prominent
+    change notices; no trademark rights granted.
+  retrieved_at: "2026-05-12"
+  artifact_kind: none
+  artifact_notes: >-
+    Spec is a GitBook site (payments.govstack.global) with no single canonical
+    downloadable artifact; bb-payments repo has no versioned release tags.
+    Latest main commit at retrieval: d9bfef6f5ecf8f88ea308284836530c03bb8f855.

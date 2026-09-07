@@ -1,0 +1,50 @@
+id: https://publicschema.org/linkml/external/semic-core-person
+name: publicschema-external-adms
+title: SEMIC Core Person Vocabulary (PublicSchema partial view)
+description: 'Generated from schema/external_terms/semic-core-person.yaml (source_version: 2.1.1). Provenance
+  and license attribution are preserved from schema/external_references/semic-core-person.yaml.'
+license: CC-BY-4.0
+default_prefix: adms
+prefixes:
+  adms: http://www.w3.org/ns/adms#
+  cv: http://data.europa.eu/m8g/
+  dct: http://purl.org/dc/terms/
+  foaf: http://xmlns.com/foaf/0.1/
+  locn: http://www.w3.org/ns/locn#
+  person: http://www.w3.org/ns/person#
+  rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#
+  rdfs: http://www.w3.org/2000/01/rdf-schema#
+  skos: http://www.w3.org/2004/02/skos/core#
+  xsd: http://www.w3.org/2001/XMLSchema#
+  linkml: https://w3id.org/linkml/
+imports:
+- linkml:types
+classes:
+  PersonPerson:
+    class_uri: person:Person
+    title: Person
+    description: 'External class person:Person (http://www.w3.org/ns/person#Person). Sourced from schema/external_terms/semic-core-person.yaml
+      (term_id: person.Person).'
+slots:
+  cv_gender:
+    slot_uri: cv:gender
+    title: gender
+    description: 'External property cv:gender (http://data.europa.eu/m8g/gender). Sourced from schema/external_terms/semic-core-person.yaml
+      (term_id: cv.gender).'
+  cv_sex:
+    slot_uri: cv:sex
+    title: sex
+    description: 'External property cv:sex (http://data.europa.eu/m8g/sex). Sourced from schema/external_terms/semic-core-person.yaml
+      (term_id: cv.sex).'
+annotations:
+  external_reference_provenance_json: '{"artifacts": [{"media_type": "text/turtle", "retrieved_at": "2026-05-07T00:00:00Z",
+    "sha256": "98d8439aa3a21b797d3f7f1b6f63b87228f52ab7540de7c4b93e9f07f33db392", "url": "https://raw.githubusercontent.com/SEMICeu/Core-Person-Vocabulary/v2.1.1/releases/2.1.1/voc/core-person-voc.ttl"},
+    {"media_type": "text/turtle", "retrieved_at": "2026-05-07T00:00:00Z", "sha256": "335602c4ad6d71274b6dec48f433e3a8f809b600c82b5cbe0d23e528c6fe874b",
+    "url": "https://raw.githubusercontent.com/SEMICeu/Core-Person-Vocabulary/v2.1.1/releases/2.1.1/shacl/core-person-ap-SHACL.ttl"},
+    {"media_type": "application/ld+json", "retrieved_at": "2026-05-07T00:00:00Z", "sha256": "02fc822da4ec9f438b20825708843859a4df804a70c45900a0191cbb33f3458c",
+    "url": "https://raw.githubusercontent.com/SEMICeu/Core-Person-Vocabulary/v2.1.1/releases/2.1.1/context/core-person-ap.jsonld"}],
+    "custodian": "European Commission, SEMIC", "homepage": "https://github.com/SEMICeu/Core-Person-Vocabulary",
+    "kind": "rdf_profile", "license": {"attribution_required": true, "attribution_text": "Contains information
+    from SEMIC Core Vocabularies, licensed under CC BY 4.0.", "id": "CC-BY-4.0", "redistribution": "embed-with-attribution",
+    "uri": "https://creativecommons.org/licenses/by/4.0/"}, "reference_url": "https://semiceu.github.io/Core-Person-Vocabulary/releases/2.1.1/",
+    "version": "2.1.1"}'

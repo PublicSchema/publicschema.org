@@ -1,0 +1,51 @@
+id: sp-benefit-modality--dci
+source_value_set:
+  id: sp/benefit-modality
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: BenefitTypeEnum
+  source_id: dci
+pairs:
+- source_value: cash
+  target_value: '1'
+  quality: exact
+  target_label: Cash
+- source_value: voucher
+  target_value: '2'
+  quality: exact
+  target_label: Voucher
+- source_value: in_kind
+  target_value: '3'
+  quality: exact
+  target_label: In-kind
+- source_value: service
+  target_value: '4'
+  quality: exact
+  target_label: Training
+- source_value: service
+  target_value: '5'
+  quality: exact
+  target_label: Work Opportunity
+- source_value: insurance
+  target_value: '6'
+  quality: exact
+  target_label: Insurance
+- source_value: fee_waiver
+  target_value: null
+  quality: unmapped
+standard:
+  source_id: dci
+  uri: https://github.com/spdci/schemas/tree/main/core/v1
+  custodian: Digital Convergence Initiative (DCI)
+  license: Apache-2.0
+  license_uri: https://www.apache.org/licenses/LICENSE-2.0
+  version: 1.0.0
+  attribution_text: Digital Convergence Initiative (DCI), spdci/schemas, Apache-2.0
+  redistribution: permitted under Apache-2.0
+  retrieved_at: "2026-05-12"
+  artifact_kind: none
+  artifact_notes: >-
+    Source schemas are a directory of individual JSON-LD files at
+    github.com/spdci/schemas/tree/main/core/v1/code/ with no single canonical
+    download artifact.

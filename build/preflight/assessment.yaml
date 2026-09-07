@@ -1,0 +1,78 @@
+id: https://publicschema.org/linkml/assessment
+name: publicschema-assessment
+title: PublicSchema assessment domain
+description: >
+  Assessment / scoring concepts. Used in the Phase 0.5 preflight to
+  validate that exact_mappings: pointing at meaning: URIs in an
+  imported external partial schema (build/preflight/external/dhs.linkml.yaml)
+  resolves correctly through the LinkML pipeline.
+license: CC-BY-4.0
+default_prefix: publicschema
+
+prefixes:
+  publicschema: https://publicschema.org/
+  linkml: https://w3id.org/linkml/
+  xsd: http://www.w3.org/2001/XMLSchema#
+  bibo: http://purl.org/ontology/bibo/
+  dhs: https://dhsprogram.com/data/recode7/
+  skos: http://www.w3.org/2004/02/skos/core#
+
+imports:
+  - linkml:types
+  - external/dhs
+
+enums:
+
+  AssessmentBand:
+    enum_uri: publicschema:AssessmentBand
+    title: Assessment band
+    description: >
+      The ordinal or categorical classification result of an assessment,
+      such as a wealth quintile, poverty band, or other grouping defined
+      by the assessment framework.
+    permissible_values:
+      poorest:
+        title: Poorest
+        meaning: publicschema:AssessmentBand/poorest
+        exact_mappings:
+          - dhs:DHSWealthIndex/1
+      poorer:
+        title: Poorer
+        meaning: publicschema:AssessmentBand/poorer
+        exact_mappings:
+          - dhs:DHSWealthIndex/2
+      middle:
+        title: Middle
+        meaning: publicschema:AssessmentBand/middle
+        exact_mappings:
+          - dhs:DHSWealthIndex/3
+      richer:
+        title: Richer
+        meaning: publicschema:AssessmentBand/richer
+        exact_mappings:
+          - dhs:DHSWealthIndex/4
+      richest:
+        title: Richest
+        meaning: publicschema:AssessmentBand/richest
+        exact_mappings:
+          - dhs:DHSWealthIndex/5
+
+slots:
+
+  assessment_band:
+    slot_uri: publicschema:assessment_band
+    title: Assessment band
+    description: >
+      The ordinal or categorical classification result of an assessment.
+    range: AssessmentBand
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      label_fr: Tranche d'évaluation
+      label_es: Banda de evaluación
+      description_fr: >
+        Le résultat de classification ordinale ou catégorielle d'une
+        évaluation.
+      description_es: >
+        El resultado de clasificación ordinal o categórica de una
+        evaluación.

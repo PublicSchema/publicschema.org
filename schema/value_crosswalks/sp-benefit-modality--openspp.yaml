@@ -1,0 +1,40 @@
+id: sp-benefit-modality--openspp
+source_value_set:
+  id: sp/benefit-modality
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: openspp
+  source_id: openspp
+pairs:
+- source_value: cash
+  target_value: cash
+  quality: exact
+  target_label: Cash
+- source_value: in_kind
+  target_value: inkind
+  quality: exact
+  target_label: In-Kind
+- source_value: voucher
+  target_value: null
+  quality: unmapped
+- source_value: service
+  target_value: null
+  quality: unmapped
+- source_value: fee_waiver
+  target_value: null
+  quality: unmapped
+- source_value: insurance
+  target_value: null
+  quality: unmapped
+standard:
+  source_id: openspp
+  uri: https://docs.openspp.org/
+  custodian: OpenSPP
+  license: LGPL-3.0-only
+  license_uri: https://www.gnu.org/licenses/lgpl-3.0.html
+  version: 17.0.1.4
+  attribution_text: Copyright (c) 2022-2024 OpenSPP.org
+  redistribution: Permitted under LGPL-3.0 terms; modified versions must carry the same license.
+  retrieved_at: '2026-05-12'
+  source_sha256: c3946f844205df6e2a0bd96eb7087388cc643491d1e794cddf900f18efdfaaff

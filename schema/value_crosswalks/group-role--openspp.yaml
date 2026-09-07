@@ -1,0 +1,60 @@
+id: group-role--openspp
+source_value_set:
+  id: group-role
+  kind: vocabulary
+  source_id: publicschema
+target_value_set:
+  id: Group Membership Type
+  source_id: openspp
+pairs:
+- source_value: head
+  target_value: head
+  quality: exact
+  target_label: Head
+- source_value: spouse
+  target_value: null
+  quality: unmapped
+- source_value: child
+  target_value: null
+  quality: unmapped
+- source_value: dependent
+  target_value: null
+  quality: unmapped
+- source_value: parent
+  target_value: null
+  quality: unmapped
+- source_value: sibling
+  target_value: null
+  quality: unmapped
+- source_value: grandparent
+  target_value: null
+  quality: unmapped
+- source_value: grandchild
+  target_value: null
+  quality: unmapped
+- source_value: other_relative
+  target_value: null
+  quality: unmapped
+- source_value: non_relative
+  target_value: null
+  quality: unmapped
+- source_value: owner
+  target_value: null
+  quality: unmapped
+- source_value: operator
+  target_value: null
+  quality: unmapped
+- source_value: worker
+  target_value: null
+  quality: unmapped
+standard:
+  source_id: openspp
+  uri: https://docs.openspp.org/
+  custodian: OpenSPP
+  license: LGPL-3.0-only
+  license_uri: https://www.gnu.org/licenses/lgpl-3.0.html
+  version: 17.0.1.4
+  attribution_text: Copyright (c) 2022-2024 OpenSPP.org
+  redistribution: Permitted under LGPL-3.0 terms; modified versions must carry the same license.
+  retrieved_at: '2026-05-12'
+  source_sha256: c3946f844205df6e2a0bd96eb7087388cc643491d1e794cddf900f18efdfaaff

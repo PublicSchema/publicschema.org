@@ -1,0 +1,122 @@
+id: https://publicschema.org/linkml/extensions
+name: publicschema-extensions
+title: PublicSchema LinkML extensions
+description: >
+  Auxiliary classes that hold PublicSchema-specific structured metadata
+  not covered by stock LinkML. These classes are consumed by PublicSchema
+  YAML files via structured annotation values, not as first-class slots on
+  LinkML metaclasses. Stock LinkML generators (gen-owl, gen-shacl,
+  gen-jsonschema, gen-jsonld-context) treat the annotation values as
+  opaque blobs; the publicschema-extensions schema gives downstream
+  PublicSchema consumers (website renderer, validators) typed access to
+  the data.
+license: CC-BY-4.0
+default_prefix: publicschema_ext
+
+prefixes:
+  publicschema_ext: https://publicschema.org/linkml/extensions/
+  linkml: https://w3id.org/linkml/
+  xsd: http://www.w3.org/2001/XMLSchema#
+  skos: http://www.w3.org/2004/02/skos/core#
+
+imports:
+  - linkml:types
+
+enums:
+  MatchStrength:
+    description: SKOS-style alignment strength between two terms.
+    permissible_values:
+      exact:
+        description: Identical meaning.
+        meaning: skos:exactMatch
+      close:
+        description: Close but not identical meaning.
+        meaning: skos:closeMatch
+      broad:
+        description: External term is broader.
+        meaning: skos:broadMatch
+      narrow:
+        description: External term is narrower.
+        meaning: skos:narrowMatch
+      related:
+        description: Related, neither broader nor narrower.
+        meaning: skos:relatedMatch
+
+classes:
+
+  ExternalAlignment:
+    description: >
+      A single alignment from a PublicSchema element to an external
+      vocabulary term, with strength and provenance prose. Mirrors
+      one entry under schema/**/external_equivalents.<vocab>.
+    attributes:
+      vocabulary:
+        range: string
+        required: true
+        description: Human-readable vocabulary name (FOAF, Core Person, DCI Core, etc.).
+      uri:
+        range: uri
+        required: true
+        description: Full URI of the external term.
+      match:
+        range: MatchStrength
+        required: true
+      label:
+        range: string
+        description: External term's label (for display only).
+      note:
+        range: string
+        description: Free-form alignment note carried from the source.
+
+  Convergence:
+    description: >
+      Adoption signal for a concept or property across mapped delivery
+      systems. Mirrors the convergence: block in schema/**.
+    attributes:
+      system_count:
+        range: integer
+        required: true
+      total_systems:
+        range: integer
+        required: true
+      notes:
+        range: string
+
+  PropertyGroup:
+    description: >
+      UI/categorisation grouping. Mirrors one entry under
+      schema/concepts/*.property_groups[].
+    attributes:
+      category:
+        range: string
+        required: true
+      properties:
+        range: string
+        multivalued: true
+        required: true
+
+  SyncSource:
+    description: >
+      Provenance for a vocabulary's machine-readable mirror feed.
+      Mirrors the sync: block on schema/vocabularies/*.
+    attributes:
+      source_url:
+        range: uri
+      format:
+        range: string
+      last_synced:
+        range: date
+      note:
+        range: string
+
+  Standard:
+    description: >
+      Pointer to the authoritative standard a vocabulary references.
+      Mirrors the standard: block on schema/vocabularies/*.
+    attributes:
+      name:
+        range: string
+        required: true
+      uri:
+        range: uri
+        required: true

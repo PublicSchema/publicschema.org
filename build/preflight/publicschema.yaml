@@ -1,0 +1,34 @@
+id: https://publicschema.org/linkml/publicschema
+name: publicschema
+title: PublicSchema (LinkML preflight composite)
+description: >
+  Top-level composite schema for the Phase 0.5 preflight. Imports every
+  domain file plus the extension metamodel and every external partial
+  schema referenced via system_mappings. Mirrors what the full
+  dist/linkml/publicschema.yaml will look like after the migration
+  script runs.
+license: CC-BY-4.0
+default_prefix: publicschema
+default_range: string
+
+prefixes:
+  publicschema: https://publicschema.org/
+  linkml: https://w3id.org/linkml/
+  xsd: http://www.w3.org/2001/XMLSchema#
+  bibo: http://purl.org/ontology/bibo/
+  foaf: http://xmlns.com/foaf/0.1/
+  schema: https://schema.org/
+  prov: http://www.w3.org/ns/prov#
+  semic: http://data.europa.eu/m8g/
+  dci: https://schema.spdci.org/core/v1/
+  fhir: http://hl7.org/fhir/
+  skos: http://www.w3.org/2004/02/skos/core#
+  dhs: https://dhsprogram.com/data/recode7/
+
+imports:
+  - linkml:types
+  - publicschema-extensions
+  - core
+  - identity
+  - assessment
+  - external/dhs

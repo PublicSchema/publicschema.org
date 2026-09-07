@@ -1,0 +1,435 @@
+id: https://publicschema.org/linkml/external/mics
+name: publicschema-external-mics
+title: UNICEF Multiple Indicator Cluster Surveys (PublicSchema partial view)
+description: Minimal LinkML rendering of UNICEF Multiple Indicator Cluster Surveys enumerations referenced
+  by PublicSchema crosswalks. Not authoritative. See https://mics.unicef.org/ for the full specification.
+license: CC-BY-4.0
+default_prefix: mics
+prefixes:
+  mics: https://mics.unicef.org/tools/
+  linkml: https://w3id.org/linkml/
+  xsd: http://www.w3.org/2001/XMLSchema#
+imports:
+- linkml:types
+enums:
+  MICS6CFMAnxietyDepressionScale:
+    enum_uri: mics:MICS6CFMAnxietyDepressionScale
+    title: MICS6CFMAnxietyDepressionScale
+    permissible_values:
+      a_few_times_a_year:
+        meaning: mics:MICS6CFMAnxietyDepressionScale/a_few_times_a_year
+        title: A few times a year
+      daily:
+        meaning: mics:MICS6CFMAnxietyDepressionScale/daily
+        title: Daily
+      monthly:
+        meaning: mics:MICS6CFMAnxietyDepressionScale/monthly
+        title: Monthly
+      never:
+        meaning: mics:MICS6CFMAnxietyDepressionScale/never
+        title: Never
+      weekly:
+        meaning: mics:MICS6CFMAnxietyDepressionScale/weekly
+        title: Weekly
+  MICS6CFMBehaviourScale:
+    enum_uri: mics:MICS6CFMBehaviourScale
+    title: MICS6CFMBehaviourScale
+    permissible_values:
+      a_lot_more:
+        meaning: mics:MICS6CFMBehaviourScale/a_lot_more
+        title: A lot more
+      more:
+        meaning: mics:MICS6CFMBehaviourScale/more
+        title: More
+      not_at_all:
+        meaning: mics:MICS6CFMBehaviourScale/not_at_all
+        title: Not at all
+      same_or_less:
+        meaning: mics:MICS6CFMBehaviourScale/same_or_less
+        title: The same or less
+  MICS6HouseholdAssets:
+    enum_uri: mics:MICS6HouseholdAssets
+    title: MICS6HouseholdAssets
+    permissible_values:
+      animal_drawn_cart:
+        meaning: mics:MICS6HouseholdAssets/animal_drawn_cart
+        title: Animal-drawn cart
+      bicycle:
+        meaning: mics:MICS6HouseholdAssets/bicycle
+        title: Bicycle
+      car_truck:
+        meaning: mics:MICS6HouseholdAssets/car_truck
+        title: Car/truck
+      computer_tablet:
+        meaning: mics:MICS6HouseholdAssets/computer_tablet
+        title: Computer/tablet
+      mobile_phone:
+        meaning: mics:MICS6HouseholdAssets/mobile_phone
+        title: Mobile phone
+      motorcycle_scooter:
+        meaning: mics:MICS6HouseholdAssets/motorcycle_scooter
+        title: Motorcycle/scooter
+      motorized_boat:
+        meaning: mics:MICS6HouseholdAssets/motorized_boat
+        title: Boat with a motor
+      watch:
+        meaning: mics:MICS6HouseholdAssets/watch
+        title: Watch
+  MICS6ICTIndicators:
+    enum_uri: mics:MICS6ICTIndicators
+    title: MICS6ICTIndicators
+    permissible_values:
+      computer_tablet:
+        meaning: mics:MICS6ICTIndicators/computer_tablet
+        title: Computer/tablet
+      internet:
+        meaning: mics:MICS6ICTIndicators/internet
+        title: Internet access
+      mobile_phone:
+        meaning: mics:MICS6ICTIndicators/mobile_phone
+        title: Mobile phone
+  MICS6WGSSResponseScale:
+    enum_uri: mics:MICS6WGSSResponseScale
+    title: MICS6WGSSResponseScale
+    permissible_values:
+      a_lot_of_difficulty:
+        meaning: mics:MICS6WGSSResponseScale/a_lot_of_difficulty
+        title: A lot of difficulty
+      cannot_do:
+        meaning: mics:MICS6WGSSResponseScale/cannot_do
+        title: Cannot do at all
+      no_difficulty:
+        meaning: mics:MICS6WGSSResponseScale/no_difficulty
+        title: No difficulty
+      some_difficulty:
+        meaning: mics:MICS6WGSSResponseScale/some_difficulty
+        title: Some difficulty
+  MicsCP1CurrentlyPregnant:
+    enum_uri: mics:MicsCP1CurrentlyPregnant
+    title: MicsCP1CurrentlyPregnant
+    permissible_values:
+      not_pregnant:
+        meaning: mics:MicsCP1CurrentlyPregnant/not_pregnant
+        title: 'No'
+      pregnant:
+        meaning: mics:MicsCP1CurrentlyPregnant/pregnant
+        title: 'Yes'
+      unknown:
+        meaning: mics:MicsCP1CurrentlyPregnant/unknown
+        title: Don't know
+  MicsEU1TypeOfCookstoveMainlyUsed:
+    enum_uri: mics:MicsEU1TypeOfCookstoveMainlyUsed
+    title: MicsEU1TypeOfCookstoveMainlyUsed
+    permissible_values:
+      agricultural_crop_waste:
+        meaning: mics:MicsEU1TypeOfCookstoveMainlyUsed/agricultural_crop_waste
+        title: Agricultural crop
+      animal_dung:
+        meaning: mics:MicsEU1TypeOfCookstoveMainlyUsed/animal_dung
+        title: Animal dung
+      biogas:
+        meaning: mics:MicsEU1TypeOfCookstoveMainlyUsed/biogas
+        title: Biogas
+      charcoal:
+        meaning: mics:MicsEU1TypeOfCookstoveMainlyUsed/charcoal
+        title: Charcoal
+      coal_lignite:
+        meaning: mics:MicsEU1TypeOfCookstoveMainlyUsed/coal_lignite
+        title: Coal/lignite
+      electricity:
+        meaning: mics:MicsEU1TypeOfCookstoveMainlyUsed/electricity
+        title: Electricity
+      kerosene:
+        meaning: mics:MicsEU1TypeOfCookstoveMainlyUsed/kerosene
+        title: Kerosene
+      lpg_natural_gas:
+        meaning: mics:MicsEU1TypeOfCookstoveMainlyUsed/lpg_natural_gas
+        title: LPG/cooking gas
+      no_food_cooked:
+        meaning: mics:MicsEU1TypeOfCookstoveMainlyUsed/no_food_cooked
+        title: No food cooked in household
+      other:
+        meaning: mics:MicsEU1TypeOfCookstoveMainlyUsed/other
+        title: Other
+      straw_shrubs_grass:
+        meaning: mics:MicsEU1TypeOfCookstoveMainlyUsed/straw_shrubs_grass
+        title: Straw/shrubs/grass
+      wood:
+        meaning: mics:MicsEU1TypeOfCookstoveMainlyUsed/wood
+        title: Wood
+  MicsFN3Literacy:
+    enum_uri: mics:MicsFN3Literacy
+    title: MicsFN3Literacy
+    permissible_values:
+      illiterate:
+        meaning: mics:MicsFN3Literacy/illiterate
+        title: Cannot read at all
+      literate:
+        meaning: mics:MicsFN3Literacy/literate
+        title: Able to read a whole sentence
+  MicsHC3MainMaterialOfTheFloor:
+    enum_uri: mics:MicsHC3MainMaterialOfTheFloor
+    title: MicsHC3MainMaterialOfTheFloor
+    permissible_values:
+      carpet:
+        meaning: mics:MicsHC3MainMaterialOfTheFloor/carpet
+        title: Carpet
+      cement:
+        meaning: mics:MicsHC3MainMaterialOfTheFloor/cement
+        title: Cement
+      ceramic_tiles:
+        meaning: mics:MicsHC3MainMaterialOfTheFloor/ceramic_tiles
+        title: Ceramic tiles
+      dung:
+        meaning: mics:MicsHC3MainMaterialOfTheFloor/dung
+        title: Dung
+      earth_sand:
+        meaning: mics:MicsHC3MainMaterialOfTheFloor/earth_sand
+        title: Earth/sand
+      other:
+        meaning: mics:MicsHC3MainMaterialOfTheFloor/other
+        title: Other
+      palm_bamboo:
+        meaning: mics:MicsHC3MainMaterialOfTheFloor/palm_bamboo
+        title: Palm/bamboo
+      parquet_polished_wood:
+        meaning: mics:MicsHC3MainMaterialOfTheFloor/parquet_polished_wood
+        title: Parquet or polished wood
+      vinyl_asphalt:
+        meaning: mics:MicsHC3MainMaterialOfTheFloor/vinyl_asphalt
+        title: Vinyl or asphalt strips
+      wood_planks:
+        meaning: mics:MicsHC3MainMaterialOfTheFloor/wood_planks
+        title: Wood planks
+  MicsHC4MainMaterialOfTheRoof:
+    enum_uri: mics:MicsHC4MainMaterialOfTheRoof
+    title: MicsHC4MainMaterialOfTheRoof
+    permissible_values:
+      calamine_cement_fiber:
+        meaning: mics:MicsHC4MainMaterialOfTheRoof/calamine_cement_fiber
+        title: Calamine/cement fiber
+      cardboard:
+        meaning: mics:MicsHC4MainMaterialOfTheRoof/cardboard
+        title: Cardboard
+      cement:
+        meaning: mics:MicsHC4MainMaterialOfTheRoof/cement
+        title: Cement
+      ceramic_tiles:
+        meaning: mics:MicsHC4MainMaterialOfTheRoof/ceramic_tiles
+        title: Ceramic tiles
+      metal:
+        meaning: mics:MicsHC4MainMaterialOfTheRoof/metal
+        title: Metal/tin
+      no_roof:
+        meaning: mics:MicsHC4MainMaterialOfTheRoof/no_roof
+        title: No roof
+      other:
+        meaning: mics:MicsHC4MainMaterialOfTheRoof/other
+        title: Other
+      palm_bamboo:
+        meaning: mics:MicsHC4MainMaterialOfTheRoof/palm_bamboo
+        title: Palm/bamboo
+      roofing_shingles:
+        meaning: mics:MicsHC4MainMaterialOfTheRoof/roofing_shingles
+        title: Roofing shingles
+      rustic_mat:
+        meaning: mics:MicsHC4MainMaterialOfTheRoof/rustic_mat
+        title: Rustic mat
+      sod_grass:
+        meaning: mics:MicsHC4MainMaterialOfTheRoof/sod_grass
+        title: Sod/grass
+      thatch_palm_leaf:
+        meaning: mics:MicsHC4MainMaterialOfTheRoof/thatch_palm_leaf
+        title: Thatch/palm leaf
+      wood:
+        meaning: mics:MicsHC4MainMaterialOfTheRoof/wood
+        title: Wood
+      wood_planks:
+        meaning: mics:MicsHC4MainMaterialOfTheRoof/wood_planks
+        title: Wood planks
+  MicsHC5MainMaterialOfTheExteriorWalls:
+    enum_uri: mics:MicsHC5MainMaterialOfTheExteriorWalls
+    title: MicsHC5MainMaterialOfTheExteriorWalls
+    permissible_values:
+      bamboo_with_mud:
+        meaning: mics:MicsHC5MainMaterialOfTheExteriorWalls/bamboo_with_mud
+        title: Bamboo with mud
+      bricks:
+        meaning: mics:MicsHC5MainMaterialOfTheExteriorWalls/bricks
+        title: Bricks
+      cane_palm_trunks:
+        meaning: mics:MicsHC5MainMaterialOfTheExteriorWalls/cane_palm_trunks
+        title: Cane/palm/trunks
+      cardboard:
+        meaning: mics:MicsHC5MainMaterialOfTheExteriorWalls/cardboard
+        title: Cardboard
+      cement:
+        meaning: mics:MicsHC5MainMaterialOfTheExteriorWalls/cement
+        title: Cement
+      cement_blocks:
+        meaning: mics:MicsHC5MainMaterialOfTheExteriorWalls/cement_blocks
+        title: Cement blocks
+      covered_adobe:
+        meaning: mics:MicsHC5MainMaterialOfTheExteriorWalls/covered_adobe
+        title: Covered adobe
+      dirt:
+        meaning: mics:MicsHC5MainMaterialOfTheExteriorWalls/dirt
+        title: Dirt
+      no_walls:
+        meaning: mics:MicsHC5MainMaterialOfTheExteriorWalls/no_walls
+        title: No walls
+      other:
+        meaning: mics:MicsHC5MainMaterialOfTheExteriorWalls/other
+        title: Other
+      plywood:
+        meaning: mics:MicsHC5MainMaterialOfTheExteriorWalls/plywood
+        title: Plywood
+      reused_wood:
+        meaning: mics:MicsHC5MainMaterialOfTheExteriorWalls/reused_wood
+        title: Reused wood
+      stone_with_lime_cement:
+        meaning: mics:MicsHC5MainMaterialOfTheExteriorWalls/stone_with_lime_cement
+        title: Stone with lime/cement
+      stone_with_mud:
+        meaning: mics:MicsHC5MainMaterialOfTheExteriorWalls/stone_with_mud
+        title: Stone with mud
+      uncovered_adobe:
+        meaning: mics:MicsHC5MainMaterialOfTheExteriorWalls/uncovered_adobe
+        title: Uncovered adobe
+      wood_planks_shingles:
+        meaning: mics:MicsHC5MainMaterialOfTheExteriorWalls/wood_planks_shingles
+        title: Wood planks/shingles
+  MicsHC8Electricity:
+    enum_uri: mics:MicsHC8Electricity
+    title: MicsHC8Electricity
+    permissible_values:
+      '0':
+        meaning: mics:MicsHC8Electricity/0
+        title: 'No'
+      '1':
+        meaning: mics:MicsHC8Electricity/1
+        title: 'Yes'
+  MicsHH6Area:
+    enum_uri: mics:MicsHH6Area
+    title: MicsHH6Area
+    permissible_values:
+      rural:
+        meaning: mics:MicsHH6Area/rural
+        title: Rural
+      urban:
+        meaning: mics:MicsHH6Area/urban
+        title: Urban
+  MicsMelevelEducationLevelOfMotherCaretaker:
+    enum_uri: mics:MicsMelevelEducationLevelOfMotherCaretaker
+    title: MicsMelevelEducationLevelOfMotherCaretaker
+    permissible_values:
+      bachelor:
+        meaning: mics:MicsMelevelEducationLevelOfMotherCaretaker/bachelor
+        title: Higher
+      lower_secondary:
+        meaning: mics:MicsMelevelEducationLevelOfMotherCaretaker/lower_secondary
+        title: Lower secondary
+      none:
+        meaning: mics:MicsMelevelEducationLevelOfMotherCaretaker/none
+        title: None or ECE
+      primary:
+        meaning: mics:MicsMelevelEducationLevelOfMotherCaretaker/primary
+        title: Primary
+      upper_secondary:
+        meaning: mics:MicsMelevelEducationLevelOfMotherCaretaker/upper_secondary
+        title: Upper secondary
+  MicsWS11TypeOfToiletFacility:
+    enum_uri: mics:MicsWS11TypeOfToiletFacility
+    title: MicsWS11TypeOfToiletFacility
+    permissible_values:
+      bucket_latrine:
+        meaning: mics:MicsWS11TypeOfToiletFacility/bucket_latrine
+        title: Bucket
+      composting_toilet:
+        meaning: mics:MicsWS11TypeOfToiletFacility/composting_toilet
+        title: Composting toilet
+      flush_to_open_drain:
+        meaning: mics:MicsWS11TypeOfToiletFacility/flush_to_open_drain
+        title: Flush to open drain
+      flush_to_piped_sewer:
+        meaning: mics:MicsWS11TypeOfToiletFacility/flush_to_piped_sewer
+        title: Flush to piped sewer system
+      flush_to_pit_latrine:
+        meaning: mics:MicsWS11TypeOfToiletFacility/flush_to_pit_latrine
+        title: Flush to pit latrine
+      flush_to_septic_tank:
+        meaning: mics:MicsWS11TypeOfToiletFacility/flush_to_septic_tank
+        title: Flush to septic tank
+      flush_to_unknown:
+        meaning: mics:MicsWS11TypeOfToiletFacility/flush_to_unknown
+        title: Flush to don't know where
+      hanging_toilet:
+        meaning: mics:MicsWS11TypeOfToiletFacility/hanging_toilet
+        title: Hanging toilet/hanging latrine
+      open_defecation:
+        meaning: mics:MicsWS11TypeOfToiletFacility/open_defecation
+        title: No facility/bush/field
+      other:
+        meaning: mics:MicsWS11TypeOfToiletFacility/other
+        title: Other
+      pit_latrine_with_slab:
+        meaning: mics:MicsWS11TypeOfToiletFacility/pit_latrine_with_slab
+        title: Pit latrine with slab
+      pit_latrine_without_slab:
+        meaning: mics:MicsWS11TypeOfToiletFacility/pit_latrine_without_slab
+        title: Pit latrine without slab/open pit
+      ventilated_improved_pit:
+        meaning: mics:MicsWS11TypeOfToiletFacility/ventilated_improved_pit
+        title: Ventilated improved pit (VIP)
+  MicsWS1MainSourceOfDrinkingWater:
+    enum_uri: mics:MicsWS1MainSourceOfDrinkingWater
+    title: MicsWS1MainSourceOfDrinkingWater
+    permissible_values:
+      bottled_water:
+        meaning: mics:MicsWS1MainSourceOfDrinkingWater/bottled_water
+        title: Bottled water
+      cart_with_small_tank:
+        meaning: mics:MicsWS1MainSourceOfDrinkingWater/cart_with_small_tank
+        title: Cart with small tank/drum
+      other:
+        meaning: mics:MicsWS1MainSourceOfDrinkingWater/other
+        title: Other
+      packaged_water:
+        meaning: mics:MicsWS1MainSourceOfDrinkingWater/packaged_water
+        title: Sachet water
+      piped_into_dwelling:
+        meaning: mics:MicsWS1MainSourceOfDrinkingWater/piped_into_dwelling
+        title: Piped into dwelling
+      piped_to_neighbor:
+        meaning: mics:MicsWS1MainSourceOfDrinkingWater/piped_to_neighbor
+        title: Piped to neighbor
+      piped_to_yard:
+        meaning: mics:MicsWS1MainSourceOfDrinkingWater/piped_to_yard
+        title: Piped to yard/plot
+      protected_spring:
+        meaning: mics:MicsWS1MainSourceOfDrinkingWater/protected_spring
+        title: Protected spring
+      protected_well:
+        meaning: mics:MicsWS1MainSourceOfDrinkingWater/protected_well
+        title: Protected dug well
+      public_tap_standpipe:
+        meaning: mics:MicsWS1MainSourceOfDrinkingWater/public_tap_standpipe
+        title: Public tap/standpipe
+      rainwater:
+        meaning: mics:MicsWS1MainSourceOfDrinkingWater/rainwater
+        title: Rainwater collection
+      surface_water:
+        meaning: mics:MicsWS1MainSourceOfDrinkingWater/surface_water
+        title: Surface water
+      tanker_truck:
+        meaning: mics:MicsWS1MainSourceOfDrinkingWater/tanker_truck
+        title: Tanker truck
+      tube_well_borehole:
+        meaning: mics:MicsWS1MainSourceOfDrinkingWater/tube_well_borehole
+        title: Tube well/borehole
+      unprotected_spring:
+        meaning: mics:MicsWS1MainSourceOfDrinkingWater/unprotected_spring
+        title: Unprotected spring
+      unprotected_well:
+        meaning: mics:MicsWS1MainSourceOfDrinkingWater/unprotected_well
+        title: Unprotected dug well

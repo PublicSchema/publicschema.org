@@ -1,0 +1,48 @@
+name: LinkML schema validation
+
+on:
+  push:
+    paths:
+      - "schema/**"
+      - "build/build.py"
+      - "build/linkml_reader.py"
+      - "build/linkml_rdf_export.py"
+      - ".github/workflows/linkml-migration.yml"
+  pull_request:
+    paths:
+      - "schema/**"
+      - "build/build.py"
+      - "build/linkml_reader.py"
+      - "build/linkml_rdf_export.py"
+      - ".github/workflows/linkml-migration.yml"
+
+jobs:
+  validate:
+    name: Validate LinkML composite
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          enable-cache: true
+          cache-dependency-glob: "uv.lock"
+
+      - name: Install dependencies (all groups, incl. linkml)
+        run: uv sync --locked --all-groups
+
+      - name: linkml-lint composite
+        run: .venv/bin/linkml-lint --validate --ignore-warnings schema/publicschema.yaml
+
+      - name: Build pipeline end-to-end
+        run: .venv/bin/python -m build.build schema dist
+
+      - name: Round-trip + invariants
+        run: .venv/bin/pytest tests/test_linkml_roundtrip.py -q --tb=short

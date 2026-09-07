@@ -1,0 +1,214 @@
+id: https://publicschema.org/linkml/external/openimis
+name: publicschema-external-openimis
+title: openIMIS (PublicSchema partial view)
+description: Minimal LinkML rendering of openIMIS enumerations referenced by PublicSchema crosswalks.
+  Not authoritative. See https://openimis.org/ for the full specification.
+license: CC-BY-4.0
+default_prefix: openimis
+prefixes:
+  openimis: https://openimis.atlassian.net/wiki/spaces/OP/
+  linkml: https://w3id.org/linkml/
+  xsd: http://www.w3.org/2001/XMLSchema#
+imports:
+- linkml:types
+enums:
+  OpenimisBeneficiaryStatus:
+    enum_uri: openimis:OpenimisBeneficiaryStatus
+    title: OpenimisBeneficiaryStatus
+    permissible_values:
+      active:
+        meaning: openimis:OpenimisBeneficiaryStatus/active
+        title: Active
+      graduated:
+        meaning: openimis:OpenimisBeneficiaryStatus/graduated
+        title: Graduated
+      pending_verification:
+        meaning: openimis:OpenimisBeneficiaryStatus/pending_verification
+        title: Potential
+      suspended:
+        meaning: openimis:OpenimisBeneficiaryStatus/suspended
+        title: Suspended
+  OpenimisBenefitConsumptionStatus:
+    enum_uri: openimis:OpenimisBenefitConsumptionStatus
+    title: OpenimisBenefitConsumptionStatus
+    permissible_values:
+      cancelled:
+        meaning: openimis:OpenimisBenefitConsumptionStatus/cancelled
+        title: Duplicate
+      paid:
+        meaning: openimis:OpenimisBenefitConsumptionStatus/paid
+        title: Reconciled
+      pending:
+        meaning: openimis:OpenimisBenefitConsumptionStatus/pending
+        title: Created
+      processing:
+        meaning: openimis:OpenimisBenefitConsumptionStatus/processing
+        title: Accepted
+      rejected:
+        meaning: openimis:OpenimisBenefitConsumptionStatus/rejected
+        title: Rejected
+  OpenimisEducation:
+    enum_uri: openimis:OpenimisEducation
+    title: OpenimisEducation
+    permissible_values:
+      bachelor:
+        meaning: openimis:OpenimisEducation/bachelor
+        title: University
+      doctoral:
+        meaning: openimis:OpenimisEducation/doctoral
+        title: PHD
+      early_childhood:
+        meaning: openimis:OpenimisEducation/early_childhood
+        title: Nursery
+      master:
+        meaning: openimis:OpenimisEducation/master
+        title: Postgraduate
+      primary:
+        meaning: openimis:OpenimisEducation/primary
+        title: Primary School
+      upper_secondary:
+        meaning: openimis:OpenimisEducation/upper_secondary
+        title: Secondary School
+  OpenimisFamilyType:
+    enum_uri: openimis:OpenimisFamilyType
+    title: OpenimisFamilyType
+    permissible_values:
+      family:
+        meaning: openimis:OpenimisFamilyType/family
+        title: Nuclear
+      household:
+        meaning: openimis:OpenimisFamilyType/household
+        title: Household
+      other:
+        meaning: openimis:OpenimisFamilyType/other
+        title: Other
+  OpenimisGender:
+    enum_uri: openimis:OpenimisGender
+    title: OpenimisGender
+    permissible_values:
+      female:
+        meaning: openimis:OpenimisGender/female
+        title: Female
+      male:
+        meaning: openimis:OpenimisGender/male
+        title: Male
+      other:
+        meaning: openimis:OpenimisGender/other
+        title: Other
+  OpenimisGrievanceStatus:
+    enum_uri: openimis:OpenimisGrievanceStatus
+    title: OpenimisGrievanceStatus
+    permissible_values:
+      closed:
+        meaning: openimis:OpenimisGrievanceStatus/closed
+        title: Close
+      submitted:
+        meaning: openimis:OpenimisGrievanceStatus/submitted
+        title: Waiting
+      under_review:
+        meaning: openimis:OpenimisGrievanceStatus/under_review
+        title: In Progress
+  OpenimisGroupIndividualRole:
+    enum_uri: openimis:OpenimisGroupIndividualRole
+    title: OpenimisGroupIndividualRole
+    permissible_values:
+      child:
+        meaning: openimis:OpenimisGroupIndividualRole/child
+        title: Son
+      grandchild:
+        meaning: openimis:OpenimisGroupIndividualRole/grandchild
+        title: Grandson
+      grandparent:
+        meaning: openimis:OpenimisGroupIndividualRole/grandparent
+        title: Grandfather
+      head:
+        meaning: openimis:OpenimisGroupIndividualRole/head
+        title: Head
+      non_relative:
+        meaning: openimis:OpenimisGroupIndividualRole/non_relative
+        title: Not Related
+      other_relative:
+        meaning: openimis:OpenimisGroupIndividualRole/other_relative
+        title: Other Relative
+      parent:
+        meaning: openimis:OpenimisGroupIndividualRole/parent
+        title: Father
+      sibling:
+        meaning: openimis:OpenimisGroupIndividualRole/sibling
+        title: Brother
+      spouse:
+        meaning: openimis:OpenimisGroupIndividualRole/spouse
+        title: Spouse
+  OpenimisIdentifierType:
+    enum_uri: openimis:OpenimisIdentifierType
+    title: OpenimisIdentifierType
+    permissible_values:
+      drivers_license_number:
+        meaning: openimis:OpenimisIdentifierType/drivers_license_number
+        title: Driver's License
+      national_id_number:
+        meaning: openimis:OpenimisIdentifierType/national_id_number
+        title: National ID
+      passport_number:
+        meaning: openimis:OpenimisIdentifierType/passport_number
+        title: Passport
+      voter_id_number:
+        meaning: openimis:OpenimisIdentifierType/voter_id_number
+        title: Voter ID
+  OpenimisLocationType:
+    enum_uri: openimis:OpenimisLocationType
+    title: OpenimisLocationType
+    permissible_values:
+      '1':
+        meaning: openimis:OpenimisLocationType/1
+        title: Region
+      '2':
+        meaning: openimis:OpenimisLocationType/2
+        title: District
+      '3':
+        meaning: openimis:OpenimisLocationType/3
+        title: Ward
+      '4':
+        meaning: openimis:OpenimisLocationType/4
+        title: Village
+  OpenimisPayTypeChoices:
+    enum_uri: openimis:OpenimisPayTypeChoices
+    title: OpenimisPayTypeChoices
+    permissible_values:
+      bank_transfer:
+        meaning: openimis:OpenimisPayTypeChoices/bank_transfer
+        title: Bank Transfer
+      cash:
+        meaning: openimis:OpenimisPayTypeChoices/cash
+        title: Cash
+      mobile_money:
+        meaning: openimis:OpenimisPayTypeChoices/mobile_money
+        title: Mobile
+  OpenimisRelationshipType:
+    enum_uri: openimis:OpenimisRelationshipType
+    title: OpenimisRelationshipType
+    permissible_values:
+      child:
+        meaning: openimis:OpenimisRelationshipType/child
+        title: Son
+      grandchild:
+        meaning: openimis:OpenimisRelationshipType/grandchild
+        title: Grandson
+      grandparent:
+        meaning: openimis:OpenimisRelationshipType/grandparent
+        title: Grandfather
+      non_relative:
+        meaning: openimis:OpenimisRelationshipType/non_relative
+        title: Not Related
+      other:
+        meaning: openimis:OpenimisRelationshipType/other
+        title: Other Relative
+      parent:
+        meaning: openimis:OpenimisRelationshipType/parent
+        title: Father
+      sibling:
+        meaning: openimis:OpenimisRelationshipType/sibling
+        title: Brother
+      spouse:
+        meaning: openimis:OpenimisRelationshipType/spouse
+        title: Spouse

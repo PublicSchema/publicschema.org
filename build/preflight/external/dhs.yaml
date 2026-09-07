@@ -1,0 +1,45 @@
+id: https://publicschema.org/linkml/external/dhs
+name: publicschema-external-dhs
+title: DHS Program Recode 7 (PublicSchema partial view)
+description: >
+  Minimal LinkML rendering of DHS Program Recode 7 enumerations referenced
+  by PublicSchema crosswalks. Not authoritative: this file only declares
+  the value sets PublicSchema's system_mappings: blocks point at, with
+  explicit meaning: URIs so that PublicSchema exact_mappings: entries
+  resolve. For the full DHS Recode 7 specification see dhsprogram.com.
+license: CC-BY-4.0
+default_prefix: dhs
+
+prefixes:
+  dhs: https://dhsprogram.com/data/recode7/
+  linkml: https://w3id.org/linkml/
+  xsd: http://www.w3.org/2001/XMLSchema#
+
+imports:
+  - linkml:types
+
+enums:
+
+  DHSWealthIndex:
+    enum_uri: dhs:DHSWealthIndex
+    title: hv270 - Wealth index
+    description: >
+      DHS Recode7 hv270. Wealth index quintile classification based on the
+      DHS wealth index factor score (hv271). Quintile boundaries are
+      survey-specific.
+    permissible_values:
+      '1':
+        title: Poorest
+        meaning: dhs:DHSWealthIndex/1
+      '2':
+        title: Poorer
+        meaning: dhs:DHSWealthIndex/2
+      '3':
+        title: Middle
+        meaning: dhs:DHSWealthIndex/3
+      '4':
+        title: Richer
+        meaning: dhs:DHSWealthIndex/4
+      '5':
+        title: Richest
+        meaning: dhs:DHSWealthIndex/5

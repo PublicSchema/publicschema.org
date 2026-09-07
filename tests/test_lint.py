@@ -809,3 +809,77 @@ class TestRealSchema:
             assert issue.rule
             assert issue.file
             assert issue.message
+
+
+# ---------------------------------------------------------------------------
+# Regression: full-form LinkML annotations must not crash lint helpers
+# ---------------------------------------------------------------------------
+
+
+class TestLinkmlFullFormAnnotations:
+    """Regression for AttributeError when annotations arrive in full form.
+
+    LinkML annotations can appear as either a scalar (``key: value``) or the
+    full form (``key: {tag: key, value: "..."}``).  The lint helpers
+    ``_linkml_definition``, ``_linkml_label``, and
+    ``_linkml_external_equivalents`` previously read annotation values without
+    unwrapping, so calling ``.strip()`` on a dict crashed with
+    ``AttributeError``, silently dropping all subsequent checks.
+    """
+
+    def test_full_form_annotations_do_not_raise(self, tmp_path):
+        """load_linkml_as_bespoke completes without AttributeError on full-form annotations."""
+        import json
+        from build.lint import load_linkml_as_bespoke
+
+        linkml_dir = tmp_path / "linkml"
+        linkml_dir.mkdir()
+
+        # A minimal LinkML schema module whose translated annotations are all
+        # in the full {tag, value} form that LinkML serialisers can emit.
+        schema = {
+            "id": "https://example.org/test",
+            "name": "test",
+            "classes": {
+                "Person": {
+                    "description": "The unique individual human being who is a subject of record.",
+                    "title": "Person",
+                    "annotations": {
+                        "label_fr": {"tag": "label_fr", "value": "Personne"},
+                        "label_es": {"tag": "label_es", "value": "Persona"},
+                        "description_fr": {
+                            "tag": "description_fr",
+                            "value": "L'individu unique qui fait l'objet d'un enregistrement.",
+                        },
+                        "description_es": {
+                            "tag": "description_es",
+                            "value": "El individuo único que es sujeto de registro.",
+                        },
+                        "external_alignments_json": {
+                            "tag": "external_alignments_json",
+                            "value": json.dumps([
+                                {
+                                    "vocabulary_id": "semic",
+                                    "uri": "http://www.w3.org/ns/person#Person",
+                                    "match": "exact",
+                                }
+                            ]),
+                        },
+                    },
+                }
+            },
+        }
+
+        import yaml
+        (linkml_dir / "test.yaml").write_text(yaml.dump(schema, allow_unicode=True))
+
+        # Must not raise AttributeError (or any other exception).
+        concepts, properties, vocabularies, categories = load_linkml_as_bespoke(linkml_dir)
+
+        assert "Person" in concepts
+        person = concepts["Person"]
+        assert person["definition"]["en"].startswith("The unique individual")
+        assert person["definition"]["fr"] == "L'individu unique qui fait l'objet d'un enregistrement."
+        assert person["label"]["fr"] == "Personne"
+        assert "semic" in person["external_equivalents"]
+        assert person["external_equivalents"]["semic"]["match"] == "exact"
