@@ -264,6 +264,21 @@ classes:
       convergence_json: '{"system_count": 5, "total_systems": 6}'
       bibliography_refs: '["spdci-common-standards"]'
     abstract: true
+  InformalGroup:
+    class_uri: publicschema:InformalGroup
+    title: Informal Group
+    description: A collection of persons identified together for a shared activity or purpose, without
+      asserting a separate institutional body, common residence or kinship. The group can be identified
+      even when its individual members are not enumerated. Use Household or Family when their more specific
+      meanings apply, and Organization when the subject is an institutional body. Joint agricultural holders
+      are one example.
+    slots: []
+    status: bibo:draft
+    see_also:
+    - https://www.fao.org/4/i4913e/i4913e.pdf
+    annotations:
+      bibliography_refs: '["fao-wca-2020-vol1"]'
+    is_a: Group
   HealthFacility:
     class_uri: publicschema:HealthFacility
     title: Health Facility

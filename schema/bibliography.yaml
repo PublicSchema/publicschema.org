@@ -3265,3 +3265,46 @@ classes:
       notes: Healthcare external assessment and accreditation distinguished from licensing and certification;
         conceptual scope, no accreditation conformance claim
       informs_json: '{"concepts": ["HealthcareAccreditation"]}'
+  IloIcse18Manual2023Citation:
+    class_uri: publicschema:Citation/ilo-icse18-manual-2023
+    is_a: Citation
+    title: International Classification of Status in Employment (ICSE-18) Manual, August 2023
+    annotations:
+      citation_id: ilo-icse18-manual-2023
+      title: International Classification of Status in Employment (ICSE-18) Manual, August 2023
+      short_title: International Classification of Status in Employment (ICSE-18) Manual, August 2023
+      publisher: International Labour Organization
+      year: 2023
+      type: guidance_publication
+      domain: general
+      uri: https://webapps.ilo.org/ilostat-files/Documents/ICSE-18_manual.pdf
+      access: open
+      status: active
+      notes: Verified August 2023 edition; printed pages 4–5 distinguish persons, economic units, employment
+        and other work relationships; page 21 describes contributing family workers. Supports meaning, not
+        an exact mapping or a mandated PublicSchema serialization. Accessed 2026-09-08.
+      informs_json: '{"concepts": ["WorkRelationship", "HoldingWorkAssignment"], "properties": ["work_person",
+        "work_economic_unit", "work_functions", "work_form", "work_status", "work_remuneration", "work_seasonality",
+        "assigned_holding", "assignment_work_relationship"], "vocabularies": []}'
+  FaoWca2030January2026DraftCitation:
+    class_uri: publicschema:Citation/fao-wca2030-jan2026-draft
+    is_a: Citation
+    title: World Programme for the Census of Agriculture 2030, January 2026 master draft
+    annotations:
+      citation_id: fao-wca2030-jan2026-draft
+      title: World Programme for the Census of Agriculture 2030, January 2026 master draft
+      short_title: World Programme for the Census of Agriculture 2030, January 2026 master draft
+      publisher: Food and Agriculture Organization of the United Nations
+      year: 2026
+      type: guidance_publication
+      domain: general
+      uri: https://unstats.un.org/UNSDWebsite/statcom/session_57/documents/BG-3g-1-Background_document_WCA_2030-E.pdf
+      access: open
+      status: active
+      notes: January master draft prepared for UN Statistical Commission session 57. Paragraphs 4.21–4.24
+        distinguish holder and paid/unpaid manager; 7.9.16–7.9.18 distinguish employees, contractors and
+        repeated work. FAO lists a final publication dated 4 May 2026; this inspected PDF is not that final
+        edition. Refresh against the final edition before maturity promotion. Accessed 2026-09-08.
+      informs_json: '{"concepts": ["WorkRelationship", "HoldingWorkAssignment"], "properties": ["work_person",
+        "work_economic_unit", "work_functions", "work_form", "work_status", "work_remuneration", "work_seasonality",
+        "assigned_holding", "assignment_work_relationship"], "vocabularies": []}'
