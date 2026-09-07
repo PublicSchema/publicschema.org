@@ -2742,8 +2742,14 @@ classes:
       uri: https://www.woah.org/fileadmin/Home/eng/Health_standards/tahc/2024/en_chapitre_ident_design.htm
       access: open
       status: active
-      informs_json: '{"concepts": ["AnimalGroup", "AnimalGroupCount", "AnimalResidence", "AnimalResponsibility",
-        "IndividualAnimal"]}'
+      notes: Article 4.3.3, registration and other events, distinguishes animal identification,
+        movements and changes of owner or keeper. Movement records include origin, destination,
+        transit establishments, date and animals involved. PublicSchema shapes, source-group
+        interpretation and optionality are design choices. Movement locators rechecked 2026-09-08.
+      informs_json: '{"concepts": ["AnimalGroup", "AnimalGroupCount", "AnimalMovement", "AnimalResidence",
+        "AnimalResponsibility", "IndividualAnimal"], "properties": ["moved_animals", "movement_source_group",
+        "moved_animal_count", "movement_origin_site", "movement_destination_site", "movement_transit_sites",
+        "animal_movement_date"]}'
       year: 2024
   FaoDadIsDataCitation:
     class_uri: publicschema:Citation/fao-dad-is-data

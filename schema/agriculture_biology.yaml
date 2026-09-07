@@ -10,6 +10,7 @@ prefixes:
 imports:
 - linkml:types
 - publicschema-extensions
+- core
 - common
 - identity
 - registry
@@ -196,6 +197,27 @@ classes:
     - animal_responsibility_role
     - valid_from
     - valid_to
+    - recorded_at
+    status: bibo:draft
+    see_also: *id001
+    annotations:
+      bibliography_refs: '["woah-identification-2024"]'
+  AnimalMovement:
+    class_uri: publicschema:AnimalMovement
+    title: Animal Movement
+    is_a: Event
+    description: An actual movement of one or more animals from a physical origin site to a destination site,
+      possibly through transit sites. Identified animals and a source managed group retain their identities.
+      The number moved does not assert that every member of the source group moved. Movement alone does
+      not establish a residence period or change of keeper or owner.
+    slots:
+    - moved_animals
+    - movement_source_group
+    - moved_animal_count
+    - movement_origin_site
+    - movement_destination_site
+    - movement_transit_sites
+    - animal_movement_date
     - recorded_at
     status: bibo:draft
     see_also: *id001
@@ -611,6 +633,78 @@ slots:
     description: Scheme-qualified responsibility such as keeper or owner. The role must not be inferred
       from residence or treated as proof of legal title.
     range: CodedValue
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: agriculture
+  moved_animals:
+    slot_uri: publicschema:moved_animals
+    title: Moved animals
+    description: Individually identified animals known to have participated in this movement. The list
+      may be incomplete; members of a referenced source group must not be added without movement evidence.
+    range: IndividualAnimal
+    multivalued: true
+    status: bibo:draft
+    annotations:
+      category: agriculture
+  movement_source_group:
+    slot_uri: publicschema:movement_source_group
+    title: Movement source group
+    description: Managed animal group from which the moved animals were drawn. This identifies the
+      source population, not a claim that the whole group or every known member moved.
+    range: AnimalGroup
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: agriculture
+  moved_animal_count:
+    slot_uri: publicschema:moved_animal_count
+    title: Moved animal count
+    description: Number of animals participating in this movement, including any not individually
+      identified. It is distinct from a dated observation of the source group's population and does
+      not determine that group's remaining inventory.
+    range: integer
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: agriculture
+  movement_origin_site:
+    slot_uri: publicschema:movement_origin_site
+    title: Movement origin site
+    description: URI of the identified physical site from which the animals departed. A holding's
+      economic identity or an owner or keeper address alone does not identify the departure premises.
+    range: uri
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: agriculture
+  movement_destination_site:
+    slot_uri: publicschema:movement_destination_site
+    title: Movement destination site
+    description: URI of the identified physical site to which the animals moved. A holding's economic
+      identity alone does not identify arrival premises. Arrival does not by itself establish a period
+      of residence or a change of responsibility.
+    range: uri
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: agriculture
+  movement_transit_sites:
+    slot_uri: publicschema:movement_transit_sites
+    title: Movement transit sites
+    description: URIs of identified physical sites through which the animals passed during
+      this movement. This collection does not assert visit order, arrival dates or residence periods.
+    range: uri
+    multivalued: true
+    status: bibo:draft
+    annotations:
+      category: agriculture
+  animal_movement_date:
+    slot_uri: publicschema:animal_movement_date
+    title: Animal movement date
+    description: Calendar date on which the animals departed the origin site, when known. This is the
+      occurrence date used by this draft, distinct from an arrival date or the time the event was recorded.
+    range: date
     multivalued: false
     status: bibo:draft
     annotations:

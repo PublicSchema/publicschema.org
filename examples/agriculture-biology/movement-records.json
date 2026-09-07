@@ -1,0 +1,107 @@
+[
+  {
+    "@id": "https://example.org/animals/moving-cow",
+    "@type": "IndividualAnimal",
+    "name": "Synthetic moving cow"
+  },
+  {
+    "@id": "https://example.org/animals/staying-cow",
+    "@type": "IndividualAnimal",
+    "name": "Synthetic cow remaining at the origin"
+  },
+  {
+    "@id": "https://example.org/herds/source",
+    "@type": "AnimalGroup",
+    "name": "Synthetic managed herd",
+    "known_animal_members": [
+      "https://example.org/animals/moving-cow",
+      "https://example.org/animals/staying-cow"
+    ],
+    "animal_group_counts": ["https://example.org/counts/before-movement"]
+  },
+  {
+    "@id": "https://example.org/counts/before-movement",
+    "@type": "AnimalGroupCount",
+    "counted_animal_group": "https://example.org/herds/source",
+    "animal_count": 12,
+    "count_date": "2026-08-01"
+  },
+  {
+    "@id": "https://example.org/facilities/origin-premises",
+    "@type": "AgriculturalFacility",
+    "name": "Synthetic origin premises"
+  },
+  {
+    "@id": "https://example.org/facilities/destination-premises",
+    "@type": "AgriculturalFacility",
+    "name": "Synthetic destination premises"
+  },
+  {
+    "@id": "https://example.org/farms/managed-holding",
+    "@type": "Farm",
+    "name": "Synthetic managed holding"
+  },
+  {
+    "@id": "https://example.org/facilities/transit-market",
+    "@type": "AgriculturalFacility",
+    "name": "Synthetic market used in transit"
+  },
+  {
+    "@id": "https://example.org/facilities/transit-centre",
+    "@type": "AgriculturalFacility",
+    "name": "Synthetic transit centre"
+  },
+  {
+    "@id": "https://example.org/movements/partial-herd",
+    "@type": "AnimalMovement",
+    "moved_animals": ["https://example.org/animals/moving-cow"],
+    "movement_source_group": "https://example.org/herds/source",
+    "moved_animal_count": 3,
+    "movement_origin_site": "https://example.org/facilities/origin-premises",
+    "movement_destination_site": "https://example.org/facilities/destination-premises",
+    "movement_transit_sites": [
+      "https://example.org/facilities/transit-market",
+      "https://example.org/facilities/transit-centre"
+    ],
+    "animal_movement_date": "2026-08-02",
+    "recorded_at": "2026-08-05T14:00:00Z"
+  },
+  {
+    "@id": "https://example.org/residences/moving-cow-origin",
+    "@type": "AnimalResidence",
+    "animal_subject": "https://example.org/animals/moving-cow",
+    "animal_residence_site": "https://example.org/facilities/origin-premises",
+    "valid_from": "2025-01-01",
+    "valid_to": "2026-08-01"
+  },
+  {
+    "@id": "https://example.org/residences/moving-cow-destination",
+    "@type": "AnimalResidence",
+    "animal_subject": "https://example.org/animals/moving-cow",
+    "animal_residence_site": "https://example.org/facilities/destination-premises",
+    "valid_from": "2026-08-03"
+  },
+  {
+    "@id": "https://example.org/residences/staying-cow",
+    "@type": "AnimalResidence",
+    "animal_subject": "https://example.org/animals/staying-cow",
+    "animal_residence_site": "https://example.org/facilities/origin-premises",
+    "valid_from": "2025-01-01"
+  },
+  {
+    "@id": "https://example.org/people/continuing-owner",
+    "@type": "Person"
+  },
+  {
+    "@id": "https://example.org/responsibilities/continuing-owner",
+    "@type": "AnimalResponsibility",
+    "animal_subject": "https://example.org/animals/moving-cow",
+    "animal_responsible_actor": "https://example.org/people/continuing-owner",
+    "animal_responsibility_role": {
+      "@type": "CodedValue",
+      "code_value": "owner",
+      "code_scheme": "https://example.org/animal-responsibilities"
+    },
+    "valid_from": "2025-01-01"
+  }
+]
