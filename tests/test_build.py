@@ -2147,6 +2147,70 @@ def test_bespoke_build_emits_its_own_rdf_and_static_downloads(
     assert json.loads((dist / "metrics_catalog.json").read_text())["meta"]["metric_count"] == 0
 
 
+def test_rebuild_prunes_renamed_and_retired_generated_artifacts(
+    tmp_schema, write_concept, write_property, tmp_path,
+):
+    """A second build removes only artifacts owned by the earlier build."""
+    from build import build
+
+    write_property("farm_name.yaml", make_property(id="farm_name"))
+    farm = write_concept("farm.yaml", make_concept(
+        id="Farm", properties=["farm_name"],
+    ))
+    medicinal_product = write_concept("medicinal-product.yaml", make_concept(
+        id="MedicinalProduct",
+    ))
+    dist = tmp_path / "dist"
+    public = tmp_path / "public"
+    public.mkdir()
+    static_asset = public / "robots.txt"
+    static_asset.write_text("User-agent: *\n")
+
+    build.write_outputs(
+        build.build_vocabulary(tmp_schema), dist, schema_dir=tmp_schema,
+        source="bespoke",
+    )
+    build.prepare_site_artifacts(dist, public)
+    assert (public / "Farm.schema.json").exists()
+    assert (public / "MedicinalProduct.schema.json").exists()
+
+    write_concept("farm.yaml", make_concept(
+        id="Farm", domain="agri", properties=["farm_name"],
+    ))
+    medicinal_product.unlink()
+    build.write_outputs(
+        build.build_vocabulary(tmp_schema), dist, schema_dir=tmp_schema,
+        source="bespoke",
+    )
+    # A build-only invocation replaces dist without touching site/public. A
+    # later normal build must still recover the last copied public ownership.
+    build.write_outputs(
+        build.build_vocabulary(tmp_schema), dist, schema_dir=tmp_schema,
+        source="bespoke",
+    )
+    build.prepare_site_artifacts(dist, public)
+
+    assert (dist / "schemas" / "agri" / "Farm.schema.json").exists()
+    assert not (dist / "schemas" / "Farm.schema.json").exists()
+    assert not (dist / "schemas" / "MedicinalProduct.schema.json").exists()
+    assert (dist / "jsonld" / "concepts" / "agri" / "Farm.jsonld").exists()
+    assert not (dist / "jsonld" / "concepts" / "Farm.jsonld").exists()
+    assert not (dist / "jsonld" / "concepts" / "MedicinalProduct.jsonld").exists()
+    assert (dist / "jsonld" / "properties" / "agri" / "farm_name.jsonld").exists()
+    assert not (dist / "jsonld" / "properties" / "farm_name.jsonld").exists()
+    assert (dist / "downloads" / "agri" / "Farm.csv").exists()
+    assert not (dist / "downloads" / "Farm.csv").exists()
+    assert not (dist / "downloads" / "MedicinalProduct.csv").exists()
+    assert (public / "agri" / "Farm.schema.json").exists()
+    assert not (public / "Farm.schema.json").exists()
+    assert not (public / "MedicinalProduct.schema.json").exists()
+    assert (public / "agri" / "Farm.csv").exists()
+    assert (public / "downloads" / "agri" / "Farm.csv").exists()
+    assert not (public / "Farm.csv").exists()
+    assert not (public / "downloads" / "MedicinalProduct.csv").exists()
+    assert static_asset.read_text() == "User-agent: *\n"
+
+
 def test_write_outputs_passes_explicit_composite_to_all_rdf_generators(
     tmp_schema, write_concept, tmp_path, monkeypatch,
 ):
