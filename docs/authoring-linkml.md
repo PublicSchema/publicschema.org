@@ -124,7 +124,7 @@ JSON-string encoding is deliberate: it survives `linkml-lint`'s scalar-annotatio
 
 `system_mappings_json` may appear in migrated data, but current system value mappings belong in `schema/value_crosswalks/`. Do not author new mappings in that compatibility annotation.
 
-Bibliography is represented as citation classes in `bibliography.yaml`. The build reader exposes `bibliography_refs` on the target terms for site rendering.
+Bibliography is represented as citation classes in `bibliography.yaml`. Keep the target term's `annotations.bibliography_refs` and the citation's `annotations.informs_json` concept/property lists consistent. The build derives the site's `bibliography_refs` from these reverse `informs_json` lists, so a target annotation alone does not display a source on the term page. Verify the generated term page when adding evidence.
 
 ## 6. Cross-references
 

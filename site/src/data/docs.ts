@@ -10,6 +10,76 @@ export interface DocEntry {
 }
 
 export const docs: Record<string, DocEntry> = {
+  "registry-foundations-draft": {
+    file: "registry-foundations-draft.md",
+    title: {
+      en: "Registry foundations draft",
+      fr: "Registry foundations draft",
+      es: "Registry foundations draft",
+    },
+    description: {
+      en: "Records, recognition, evidence, spatial values and the health and land pilots.",
+      fr: "Records, recognition, evidence, spatial values and the health and land pilots.",
+      es: "Records, recognition, evidence, spatial values and the health and land pilots.",
+    },
+    category: "technical",
+  },
+  "farm-operators-draft": {
+    file: "farm-operators-draft.md",
+    title: {
+      en: "Farm and holder responsibilities",
+      fr: "Farm and holder responsibilities",
+      es: "Farm and holder responsibilities",
+    },
+    description: {
+      en: "Draft production-unit correction, typed holders and migration examples.",
+      fr: "Draft production-unit correction, typed holders and migration examples.",
+      es: "Draft production-unit correction, typed holders and migration examples.",
+    },
+    category: "technical",
+  },
+  "government-registry-draft": {
+    file: "government-registry-draft.md",
+    title: {
+      en: "Government registry draft",
+      fr: "Government registry draft",
+      es: "Government registry draft",
+    },
+    description: {
+      en: "Institutions, roles, assets, regulation and contribution questions.",
+      fr: "Institutions, roles, assets, regulation and contribution questions.",
+      es: "Institutions, roles, assets, regulation and contribution questions.",
+    },
+    category: "technical",
+  },
+  "agriculture-biology-draft": {
+    file: "agriculture-biology-draft.md",
+    title: {
+      en: "Agricultural biology draft",
+      fr: "Agricultural biology draft",
+      es: "Agricultural biology draft",
+    },
+    description: {
+      en: "Animals, crops, varieties, accessions and seed lots.",
+      fr: "Animals, crops, varieties, accessions and seed lots.",
+      es: "Animals, crops, varieties, accessions and seed lots.",
+    },
+    category: "technical",
+  },
+  "agriculture-operations-draft": {
+    file: "agriculture-operations-draft.md",
+    title: {
+      en: "Agricultural operations draft",
+      fr: "Agricultural operations draft",
+      es: "Agricultural operations draft",
+    },
+    description: {
+      en: "Facilities, products, service roles, certification and water use.",
+      fr: "Facilities, products, service roles, certification and water use.",
+      es: "Facilities, products, service roles, certification and water use.",
+    },
+    category: "technical",
+  },
   "metrics-spec": {
     file: "metrics-spec.md",
     title: {
