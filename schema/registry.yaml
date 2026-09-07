@@ -28,7 +28,7 @@ classes:
     - description
     status: bibo:draft
     annotations:
-      bibliography_refs: '["w3c-dcat-3-2024"]'
+      bibliography_refs: '["w3c-dcat-3-2024", "ec-inspire-registers-2017"]'
   RegistryEntry:
     class_uri: publicschema:RegistryEntry
     title: Registry Entry
@@ -48,7 +48,7 @@ classes:
     - evidence_assertions
     status: bibo:draft
     annotations:
-      bibliography_refs: '["w3c-dcat-3-2024"]'
+      bibliography_refs: '["w3c-dcat-3-2024", "ec-inspire-registers-2017"]'
   RecordReference:
     class_uri: publicschema:RecordReference
     title: Record Reference
@@ -181,7 +181,7 @@ classes:
     - supersedes_record
     status: bibo:draft
     annotations:
-      bibliography_refs: '["w3c-prov-o-2013"]'
+      bibliography_refs: '["w3c-prov-o-2013", "ec-inspire-registers-2017"]'
   SubjectMatchAssertion:
     class_uri: publicschema:SubjectMatchAssertion
     title: Subject Match Assertion

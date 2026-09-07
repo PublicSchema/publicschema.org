@@ -123,6 +123,26 @@ def test_reference_resolution_of_the_actual_pilot_records(exports):
     assert resolved['subject_uri'] != entry['@id']
 
 
+def test_licence_number_and_record_key_preserve_separate_identities(exports):
+    result, _, records, _ = exports
+    types = {name: concept['uri'] for name, concept in result['concepts'].items()}
+    subjects = profile.subject_index(records, types)
+    assignment = next(record for record in records if record['@type'] == 'IdentifierAssignment')
+    entry = next(record for record in records if record.get('subject_type') == str(PS.Authorization))
+    reference = {
+        key: entry[key]
+        for key in ('register_uri', 'record_id', 'subject_uri', 'subject_type')
+    }
+    entries = {(entry['register_uri'], entry['record_id']): entry}
+    resolved = profile.resolve_reference(reference, entries, subjects)
+    assert resolved['state'] == 'resolved'
+    assert resolved['subject_uri'] == assignment['identifier_subject']
+    assert assignment['assigned_identifier']['identifier_value'] != entry['record_id']
+    assert len({entry['@id'], resolved['subject_uri'], resolved['subject']['registered_subject']}) == 3
+    wrong_key = {**reference, 'record_id': assignment['assigned_identifier']['identifier_value']}
+    assert profile.resolve_reference(wrong_key, entries, subjects)['state'] == 'missing-record'
+
+
 def test_area_conversion_does_not_round_long_decimal_coefficients():
     value = Decimal('12345678901234567890123456789.123456789')
     assert profile.area_hectares({'quantity_value': value, 'unit_code': 'har', 'unit_scheme':profile.UCUM}) == value
@@ -134,7 +154,7 @@ def test_every_authored_shared_class_and_field_survives_exports(exports):
     import yaml
     from rdflib.namespace import SH
     result, shapes, _, _ = exports
-    for module in ('registry', 'agriculture', 'health_services', 'farm_operators', 'agriculture_biology'):
+    for module in ('registry', 'work', 'agriculture', 'health_services', 'farm_operators', 'agriculture_biology'):
         authored = yaml.safe_load((ROOT / f'schema/{module}.yaml').read_text())
         for name, definition in authored.get('classes', {}).items():
             assert name in result['concepts']

@@ -35,7 +35,18 @@ PublicSchema's existing `address` property explicitly refers to a household, `lo
 
 A second option was to create Person subclasses named Taxpayer, Voter and Practitioner. That obscures canonical identity and the jurisdictional, dated nature of recognition. Another option was copying every registry's specialized containers and records. That conflates exchange envelopes, legal records and real-world subjects. The draft instead specializes relationships when meaning warrants it and uses shared registration, authorization, evidence and record constructs.
 
-Not every statement about a government registry becomes a new universal class. Business filings, professional test evidence and registration certificates can be described through the shared evidence/record layer. Building parts, packaged and administrable products, asset roles and road restrictions have optional reference concepts because their identities and meanings exist independently of workflow. Detailed pharmaceutical manufacturing stages, recursive packaging encodings and executable road-routing rules remain with the corresponding interchange profile; the draft does not flatten these into its simpler quantities or free text. The concepts delivered here are coherent reference units, not lossy renamed stand-ins for those structures. There is no claimed lossless projection back to any source registry.
+Not every statement about a government registry becomes a new universal class. Business filings, professional test evidence and registration certificates can be described through the shared evidence/record layer. Building parts, packaged and administrable products, asset roles and road restrictions have optional reference concepts because their identities and meanings exist independently of workflow. Detailed pharmaceutical manufacturing stages, recursive packaging encodings and executable road-routing rules remain with the corresponding interchange profile; the draft does not flatten these into its simpler quantities or free text. These reference concepts answer selected questions; no lossless projection back to a source registry is claimed.
+
+For medical meaning, prefer published FHIR resources and profiles. The native medicinal
+classes in this draft are provisional projections whose independent consuming need must
+be established before promotion. FHIR R5 already supports human and veterinary products
+in [MedicinalProductDefinition](https://hl7.org/fhir/R5/medicinalproductdefinition-definitions.html#MedicinalProductDefinition.domain).
+Moving a native copy into another module would not establish that need or make its
+serialization FHIR-compatible. Preserve medical detail in its selected source model and
+link it to PublicSchema's registry and shared identities. Cross-sector Substance also
+serves environmental data and requires a separate reuse decision. See the
+[medical reuse boundary](/docs/registry-foundations-draft/#medical-reuse-boundary) for
+the current integration limits.
 
 ## Examples and checks
 
@@ -53,7 +64,7 @@ The intended reader is a registry implementer deciding which identity and assert
 - Which provider establishment structures are independently identified apart from provider and site? GIAS distinguishes groups and establishments, but its national categories are not universal. The virtual-site generalization is a PublicSchema design choice, supported by the need to avoid inventing premises, not a claimed GIAS field equivalence.
 - Are intervals or minimum/maximum bounds essential for your ownership exchange? The exact scalar and qualified description preserve that distinction but do not compute on bounds.
 - Which regulatory inspection outcomes require assertion source, evidence and finality beyond the shared record layer? Supply a profile rule rather than assuming a finding is final.
-- Do medicinal strengths need reference-substance bases, presentation-specific strengths or multiple dose forms? This draft intentionally makes no IDMP/FHIR conformance claim; these additions need examples that preserve the distinction between product, presentation and package.
+- Which cross-sector question requires a native medicinal projection when FHIR resources are available? Supply the source release/profile, consuming query and any information lost, preserving product, presentation and package identities. No IDMP/FHIR conformance is claimed.
 - Which building parts and traffic restrictions need shared identities beyond the bounded asset/network model? Provide the geometry encoding, temporal scope and downstream question before expanding the vocabulary.
 
 External domain review and adopter interchange demonstrations remain needed for maturity promotion. No outside reviewer was contacted and no live registry compatibility is asserted by these local examples.

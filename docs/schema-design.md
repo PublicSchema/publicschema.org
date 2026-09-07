@@ -113,8 +113,29 @@ Lifecycle concepts use domain-specific named dates that describe the domain even
 | Lifecycle (Grievance) | Domain-specific event dates | `submission_date`, `resolution_date` |
 | Single event (PaymentEvent) | Single event date | `payment_date` |
 | Relationship (GroupMembership, Relationship) | Generic dates | `start_date`, `end_date` |
+| Calendar validity of an assertion (RegistryEntry, Registration) | First and last applicable dates | `valid_from`, `valid_to` |
 
 Do not mix both patterns on the same concept. A lifecycle concept should not carry both `enrollment_date` and `start_date`.
+
+The two generic pairs are not aliases. `start_date` names the date effectiveness began;
+`end_date` names the date effectiveness ceased. The draft `valid_from` and `valid_to`
+name the first and last applicable calendar dates, including the last day. `recorded_at`
+instead records when the source entered the assertion. Missing dates remain unknown;
+an omitted end does not prove perpetual validity.
+
+Use `start_date` / `end_date` for new relationship and membership concepts. Existing
+draft associations, including HoldingParcelLink, AnimalResidence, AnimalResponsibility,
+ProducerMembership and FacilityManagementAssignment, still use the inclusive validity
+pair. These are exceptions to the preferred authoring convention, not a reason to add
+both pairs or reinterpret their current payloads. Registration, LandTenureAssertion and
+RoadRestriction also retain their declared calendar validity.
+
+A consuming profile must state its interval boundaries before comparing or converting
+dates. For example, under an explicitly agreed whole-day convention, `valid_to:
+2026-06-30` corresponds to cessation on `end_date: 2026-07-01`. Renaming the key while
+keeping 30 June would change the meaning. Do not apply that conversion when source
+precision or boundary semantics are unknown. The farm-work example documents its own
+whole-day convention; it does not change the normative date-property definitions.
 
 ## 6. Property independence
 

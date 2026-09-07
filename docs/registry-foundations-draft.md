@@ -6,11 +6,12 @@ See the [Farm decision](/docs/farm-operators-draft/), [government families](/doc
 
 ## Evidence and design judgment
 
-Sources were consulted on 7 September 2026. Definitions are original PublicSchema wording informed by these sources. No source requires these class names, optionality, public URIs or serialization, and none is claimed as a complete interchange mapping.
+Sources were consulted on 7–8 September 2026. Definitions are original PublicSchema wording informed by these sources. No source requires these class names, optionality, public URIs or serialization, and none is claimed as a complete interchange mapping.
 
 | Question | Evidence and decision |
 | --- | --- |
 | Record versus subject | [DCAT 3 Recommendation, 22 August 2024, §§5.6 and 6.5](https://www.w3.org/TR/2024/REC-vocab-dcat-3-20240822/) distinguishes a catalog record from its primary topic. Administrative register records are a broader design application, not exact DCAT CatalogRecord equivalents. `Register`, `RegistryEntry`, and `RecordReference` retain those separate identities. |
+| Register responsibility and lifecycle | [INSPIRE register guidance, v1.0, 31 May 2017](https://knowledge-base.inspire.ec.europa.eu/publications/best-practices-registers-and-registries-technical-guidelines-inspire-register-federation_en), §§4.2.1–4.2.2, printed pp. 10–12, distinguishes owner/manager responsibilities and persistent register/item identifiers; §§4.2.4–4.2.5, pp. 13–14, describes supersession, retirement and retention. PublicSchema applies those precedents to administrative records. Its single maintaining-authority field is not an exact mapping of every governance role. |
 | Provenance and time | [PROV-O Recommendation, 30 April 2013, §§3.2–3.3](https://www.w3.org/TR/2013/REC-prov-o-20130430/) distinguishes entities, activities and qualified influence. `EvidenceAssertion`, `RecordLifecycleEvent`, and `SubjectMatchAssertion` make a source's role, effective time, recording time and reconciliation explicit. They do not establish truth, perform a merge or implement an audit log. |
 | Identifier and assignment | [ADMS Note, 1 August 2013, §5.2.6](https://www.w3.org/TR/2013/NOTE-vocab-adms-20130801/) supplies a historical scheme/agency distinction. The W3C note was retired in 2023 and ADMS is now maintained by SEMIC. Reuse existing `Identifier` for the value and scheme; `IdentifierAssignment` records issuer, subject and period. No exact property mapping to starter IdentifierType strings is asserted. |
 | Names and contact channels | [vCard Ontology Note, 22 May 2014, §§2.3 and 2.5](https://www.w3.org/TR/vcard-rdf/) distinguishes names and communications. `NameUsage` and `ContactPoint` retain purpose, subject and dates without modifying personal name or household-address contracts. |
@@ -20,11 +21,38 @@ Sources were consulted on 7 September 2026. Definitions are original PublicSchem
 | Agricultural versus cadastral land | [FAO WCA 2020 Volume 1, 2017, §§6.2–6.21](https://www.fao.org/4/i4913e/i4913e.pdf) informs holding and parcel use. [UNECE Guidelines on Real Property Units and Identifiers, 2004](https://unece.org/DAM/hlm/documents/Publications/guidelines.real.property.e.pdf) distinguishes parcel identification and property administration units. `AgriculturalParcel`, `LandSpatialUnit` and `LandAdministrativeUnit` therefore remain distinct. This does not claim full LADM or cadastral interchange conformance. |
 | Tenure and boundary claims | [FAO VGGT, endorsed 11 May 2012](https://www.fao.org/tenure/voluntary-guidelines/en/) includes customary and informal tenure. `LandTenureAssertion` permits competing claims rather than reducing tenure to one owner. `LandBoundaryAssertion` separates geometry from recognition and evidence. National adjudication, priority and title validity require their own rules. |
 
+PublicSchema chooses a register URI plus an unchanged local string as its record key.
+Its optional jurisdiction is a named area, and its supersession links replace records
+without asserting replacement of their subjects. These are draft design choices, not
+an exact external register-model mapping. The vocabulary and example do not require
+HTTP resolution or implement register governance. DCAT provides background for the
+record/subject boundary; it does not define administrative recognition, permission,
+the Authorization hierarchy or the complete CodedValue structure.
+
 ## Reference and profile contract
 
 `RecordReference` is an assertion about `(register_uri, record_id)`. The optional `subject_uri` and `subject_type` must agree with the locally supplied entry before expansion to a subject. Missing records and unavailable registers remain `missing-record`; a known entry without local subject data remains `missing-subject`. Wrong type or conflicting explicit subject identity is an error in the illustrative profile. Two registers with local ID `001` do not become one record. The example never fetches a URI, performs a remote lookup or concatenates identifiers ambiguously.
 
 The [local example profile](/registry-draft/examples/registry-pilots/profile.py) demonstrates submission rules separately from the vocabulary. It requires register, record and subject identity and a timezone-bearing recording timestamp, checks date ordering, converts only the two supported area units without rounding, and validates the chosen geometry subset. An empty Farm can still be vocabulary-valid. Kilograms fail the area profile; unknown units are retained as source values but cannot be converted. Missing dates are not fabricated. RecordLifecycleEvent permits a change to take effect before it is recorded. Supersession links replace records, not necessarily their subjects.
+
+For an issued registration or licence number, use an `Identifier` with its issuing scheme
+and an `IdentifierAssignment` whose `identifier_subject` is the recognition or permission
+it identifies. Use `RegistryEntry.record_id` for the register's own entry key. A register
+may use the issued number as that key, but the vocabulary does not assume it does. The
+pilot includes a trade permission numbered `LIC-2026-0081` stored as record `row-104`;
+the permission, its entry and the licensed cooperative retain separate identities.
+
+`Authorization` inherits `Registration` because permission is a specific form of
+administrative recognition in this draft. A registration is not simply a database entry.
+[ADR-020](/registry-draft/decisions/020-registry-foundations.md) records the alternative
+of sibling recognition and permission concepts under an administrative-act supertype,
+and the evidence that would justify changing this choice.
+
+The pilot's `valid_from` / `valid_to` dates include the first and last applicable calendar
+days. Other relationships use `start_date` / `end_date` for the beginning and cessation
+of effectiveness. They must not be converted by simply renaming fields; see the
+[date conventions](/docs/schema-design/#date-property-conventions). Neither pair is a
+recording timestamp.
 
 Typed vocabulary references provide more information than arbitrary URI ranges. For general subjects, the example profile checks the locally resolved type. JSON Schema's accepted string reference alone proves neither existence nor identity. No v0.3/v0.4 starter adapter is claimed, so source-local class strings and semantic type URIs are not silently interchanged. No whole-kit lossless projection, national compliance or RegistryStack compatibility is claimed.
 
@@ -49,3 +77,21 @@ The local resolver expects full semantic type URIs. Its `subject_index(records, 
 AgriculturalParcel is deliberately a broader agricultural-use unit than FAO's census parcel, whose tenure-homogeneous boundary rules may be stricter. A profile needing that census unit must state and check those boundaries; no exact parcel equivalence is claimed.
 
 HealthcareAccreditation specializes Registration for recognition after external quality assessment. [WHO, Health care accreditation and quality of care (2022)](https://iris.who.int/bitstream/handle/10665/363528/9789240055230-eng.pdf) distinguishes healthcare accreditation from licensing and certification. The clinic fixture names a synthetic standard and scope. It does not claim an accredited laboratory or permission to operate, and no national assessment procedure is encoded.
+
+## Medical reuse boundary
+
+For medical exchange, prefer applicable published FHIR resources and profiles, including
+[Organization, Location and HealthcareService](https://hl7.org/fhir/R5/healthcareservice.html).
+The native healthcare classes here are
+provisional reference projections. Their independent cross-sector purpose must be
+demonstrated before promotion; medical detail should remain in the selected external
+model where it fits. FHIR's provider and premises relationships also need their precise
+meanings preserved: [Location.managingOrganization](https://hl7.org/fhir/R5/location-definitions.html#Location.managingOrganization)
+concerns provisioning and upkeep.
+
+This draft does not serialize these examples as FHIR. The current external FHIR YAML
+contains partial code-list views, and changing a class URI would not produce a valid FHIR
+resource. A future integration must select a release/profile, preserve record-versus-subject
+identity and verify representative native FHIR payloads. Premises-only accreditation,
+historical responsibility and healthcare capacity reporting still need explicit mapping
+decisions. These are open integration questions, not conformance established by the pilot.

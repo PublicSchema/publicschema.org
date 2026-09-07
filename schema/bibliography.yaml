@@ -3314,3 +3314,24 @@ classes:
       informs_json: '{"concepts": ["WorkRelationship", "HoldingWorkAssignment"], "properties": ["work_person",
         "work_economic_unit", "work_functions", "work_form", "work_status", "work_remuneration", "work_seasonality",
         "assigned_holding", "assignment_work_relationship"], "vocabularies": []}'
+  InspireRegisterGuidance2017Citation:
+    class_uri: publicschema:Citation/ec-inspire-registers-2017
+    is_a: Citation
+    title: Best Practices for registers and registries & Technical Guidelines for the INSPIRE register federation
+    annotations:
+      citation_id: ec-inspire-registers-2017
+      title: Best Practices for registers and registries & Technical Guidelines for the INSPIRE register federation
+      short_title: INSPIRE registers and register federation
+      publisher: INSPIRE Maintenance and Implementation Group (MIG)
+      year: 2017
+      version: '1.0'
+      type: guidance_publication
+      domain: general
+      uri: https://knowledge-base.inspire.ec.europa.eu/publications/best-practices-registers-and-registries-technical-guidelines-inspire-register-federation_en
+      access: open
+      status: active
+      notes: 'Published 2017-05-31; retrieved 2026-09-08. Sections 3.1, 4, 4.2.1, 4.2.2,
+        4.2.4 and 4.2.5, printed pages 4, 8 and 10-14. Non-binding guidance.
+        PublicSchema applies these precedents to administrative records; its qualified
+        key, jurisdiction slot and subject-continuity semantics are design choices.'
+      informs_json: '{"concepts": ["Register", "RegistryEntry", "RecordLifecycleEvent"], "properties": ["maintaining_authority", "register_uri", "supersedes_record", "lifecycle_kind"], "vocabularies": []}'

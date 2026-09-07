@@ -12,4 +12,21 @@ New modules use root URIs like existing Farm, HealthFacility and Organization. T
 
 The strongest alternative was copying registered-record base classes and all starter-required fields. It would produce quick apparent coverage but would imply that unregistered holdings or partial vocabulary descriptions cannot exist. A second alternative, only external alignments, would leave real shared semantic gaps. The adopted design delivers researched reference distinctions and keeps application-requiredness, live lookup, lifecycle enforcement and legal decisions with their profiles.
 
+`Authorization` specializes `Registration` because this draft defines registration as
+administrative recognition, not merely insertion into a database. A permission is the
+more specific recognition of a subject for a permitted activity. The credible alternative
+is an abstract `AdministrativeAct` with sibling `Registration` and `Authorization`
+concepts. That would accommodate procedural acts beyond recognition, but it adds a
+foundation whose wider meaning is not needed by the present examples. Retain the current
+hierarchy while registration keeps this recognition meaning. Reconsider it if a concrete
+authorization falls outside recognition, or a reusable administrative-act family is
+established. DCAT does not prescribe this hierarchy. No URI or payload changes follow
+from recording this alternative.
+
+An issued licence number identifies the permission or document according to its issuing
+scheme. It can be represented with `IdentifierAssignment` pointing to that subject.
+`RegistryEntry.record_id` instead identifies the entry within its register; use a licence
+number there only when the register actually uses it as the entry key. The two values
+need not match, and neither should replace the identity of the licensed person or organization.
+
 The [public evidence brief](../docs/registry-foundations-draft.md) distinguishes source-backed meanings from PublicSchema layout choices. [ADR-021](021-farm-production-unit.md) owns the intentional draft Farm hierarchy correction. No stronger-maturity field or code is repurposed. Revisit these decisions when concrete adopter payloads demonstrate a missing identity boundary, a wrongly reused meaning or necessary constraints that fail to survive the actual exports. Such evidence should include the conflicting example and its governing source, rather than only a preferred starter serialization.

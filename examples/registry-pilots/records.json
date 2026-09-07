@@ -181,5 +181,46 @@
     "accreditation_scope": "Outpatient services",
     "valid_from": "2026-01-01",
     "valid_to": "2026-12-31"
+  },
+  {
+    "@id": "https://example.org/org/trade-office",
+    "@type": "Organization",
+    "name": "Synthetic district trade office"
+  },
+  {
+    "@id": "https://example.org/register/trading-licences",
+    "@type": "Register",
+    "name": "Synthetic market trading licences",
+    "maintaining_authority": "https://example.org/org/trade-office"
+  },
+  {
+    "@id": "https://example.org/authorization/market-trading",
+    "@type": "Authorization",
+    "registered_subject": "https://example.org/org/cooperative",
+    "registration_authority": "https://example.org/org/trade-office",
+    "registration_purpose": "Market trading permission",
+    "authorized_activity": "Sell produce at the district market",
+    "valid_from": "2026-01-01",
+    "valid_to": "2026-12-31"
+  },
+  {
+    "@id": "https://example.org/entry/trade-permission",
+    "@type": "RegistryEntry",
+    "register_uri": "https://example.org/register/trading-licences",
+    "record_id": "row-104",
+    "subject_uri": "https://example.org/authorization/market-trading",
+    "subject_type": "https://publicschema.org/Authorization",
+    "recorded_at": "2026-01-02T09:00:00Z"
+  },
+  {
+    "@id": "https://example.org/identifier-assignment/trade-licence",
+    "@type": "IdentifierAssignment",
+    "identifier_subject": "https://example.org/authorization/market-trading",
+    "identifier_issuer": "https://example.org/org/trade-office",
+    "assigned_identifier": {
+      "@type": "Identifier",
+      "identifier_value": "LIC-2026-0081",
+      "identifier_scheme_id": "https://example.org/schemes/trading-licence-number"
+    }
   }
 ]
