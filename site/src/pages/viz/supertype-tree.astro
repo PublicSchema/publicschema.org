@@ -1,7 +1,9 @@
 ---
-// @ts-ignore
-import vocab from '../../../../dist/vocabulary.json';
+import { loadVocabulary } from '../../data/vocabulary';
+import { createDomainCatalog } from '../../data/domains';
 import Base from '../../layouts/Base.astro';
+
+const vocab = loadVocabulary();
 
 // Types for the vocabulary data
 interface Concept {
@@ -15,6 +17,9 @@ interface Concept {
 }
 
 const concepts = vocab.concepts as Record<string, Concept>;
+const domainCatalog = createDomainCatalog(vocab);
+const domains = domainCatalog.present(Object.values(concepts));
+const domainInfo = Object.fromEntries(domains.map((domain) => [domain.value, domain]));
 
 // Multi-supertype strategy: each concept is placed under its primary supertype
 // (first entry in the supertypes array). Concepts with additional supertypes
@@ -72,18 +77,12 @@ function domainClass(domain: string | null): string {
     </header>
 
     <div class="legend" aria-label="Legend">
-      <div class="legend-item">
-        <span class="node-dot domain-root" aria-hidden="true"></span>
-        <span>root (universal)</span>
-      </div>
-      <div class="legend-item">
-        <span class="node-dot domain-sp" aria-hidden="true"></span>
-        <span>sp (social protection)</span>
-      </div>
-      <div class="legend-item">
-        <span class="node-dot domain-crvs" aria-hidden="true"></span>
-        <span>crvs (civil registration)</span>
-      </div>
+      {domains.map((domain) => (
+        <div class="legend-item">
+          <span class="node-dot" style={`background: ${domain.color}`} aria-hidden="true"></span>
+          <span>{domain.filterLabel}</span>
+        </div>
+      ))}
       <div class="legend-item">
         <span class="abstract-marker" aria-hidden="true">A</span>
         <span>abstract type</span>
@@ -105,12 +104,13 @@ function domainClass(domain: string | null): string {
             {standaloneConcepts.map(concept => (
               <li>
                 <a
-                  href={`/concepts${concept.path}/`}
+                  href={concept.path}
                   class={`node-link ${domainClass(concept.domain)}`}
+                  style={`--domain-color: ${domainCatalog.get(concept.domain).color}`}
                 >
                   <span class="node-label">{concept.label.en}</span>
                   {concept.domain && (
-                    <span class={`domain-badge domain-badge--${concept.domain}`}>{concept.domain}</span>
+                    <span class={`domain-badge domain-badge--${concept.domain}`} title={domainCatalog.get(concept.domain).label}>{concept.domain}</span>
                   )}
                 </a>
               </li>
@@ -123,13 +123,15 @@ function domainClass(domain: string | null): string {
 </Base>
 
 <!-- Embedded concept data for the client-side tree renderer -->
-<script id="tree-data" type="application/json" set:html={JSON.stringify(concepts)}></script>
+<script id="tree-data" type="application/json" set:html={JSON.stringify({ concepts, domains: domainInfo })}></script>
 
 <script is:inline>
 (function () {
   var dataEl = document.getElementById('tree-data');
   if (!dataEl) return;
-  var concepts = JSON.parse(dataEl.textContent || '{}');
+  var data = JSON.parse(dataEl.textContent || '{}');
+  var concepts = data.concepts;
+  var domains = data.domains;
 
   // --- Tree building ---
 
@@ -200,8 +202,9 @@ function domainClass(domain: string | null): string {
     }
 
     var link = document.createElement('a');
-    link.href = '/concepts' + c.path + '/';
+    link.href = c.path;
     link.className = 'node-link domain-' + domain;
+    link.style.setProperty('--domain-color', domains[domain].color);
 
     if (c.abstract) {
       var mark = document.createElement('span');
@@ -221,6 +224,7 @@ function domainClass(domain: string | null): string {
       var domainBadge = document.createElement('span');
       domainBadge.className = 'domain-badge domain-badge--' + c.domain;
       domainBadge.textContent = c.domain;
+      domainBadge.title = domains[domain].label;
       link.appendChild(domainBadge);
     }
 
@@ -362,10 +366,6 @@ function domainClass(domain: string | null): string {
     flex-shrink: 0;
   }
 
-  .node-dot.domain-root  { background: var(--color-accent); }
-  .node-dot.domain-sp    { background: #166534; }
-  .node-dot.domain-crvs  { background: #6b21a8; }
-
   .abstract-marker {
     display: inline-flex;
     align-items: center;
@@ -487,9 +487,7 @@ function domainClass(domain: string | null): string {
     outline-offset: 2px;
   }
 
-  .node-link.domain-root  { color: var(--color-accent); }
-  .node-link.domain-sp    { color: #166534; }
-  .node-link.domain-crvs  { color: #6b21a8; }
+  .node-link { color: var(--domain-color); }
 
   /* Abstract circle marker inside a link */
   .node-abstract-mark {
@@ -521,15 +519,7 @@ function domainClass(domain: string | null): string {
     white-space: nowrap;
   }
 
-  .domain-badge--sp {
-    background: #dcfce7;
-    color: #166534;
-  }
-
-  .domain-badge--crvs {
-    background: #f3e8ff;
-    color: #6b21a8;
-  }
+  .domain-badge { background: #e8edf3; color: var(--domain-color); }
 
   /* Secondary supertype badge */
   .secondary-parent-badge {

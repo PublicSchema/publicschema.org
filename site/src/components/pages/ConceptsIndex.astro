@@ -3,6 +3,7 @@ import Base from '../../layouts/Base.astro';
 import { defaultLocale, type Locale } from '../../i18n/languages';
 import { useTranslations, localePath } from '../../i18n/utils';
 import { loadVocabulary } from '../../data/vocabulary';
+import { createDomainCatalog } from '../../data/domains';
 
 interface Props {
   locale?: Locale;
@@ -13,14 +14,9 @@ const t = useTranslations(locale);
 
 const vocab = loadVocabulary();
 
-// Order: universal first, then sp, then crvs; alphabetical within.
-const domainOrder: Record<string, number> = { '': 0, sp: 1, crvs: 2 };
-const concepts = Object.values(vocab.concepts).sort((a, b) => {
-  const da = domainOrder[a.domain ?? ''] ?? 99;
-  const db = domainOrder[b.domain ?? ''] ?? 99;
-  if (da !== db) return da - db;
-  return a.id.localeCompare(b.id);
-});
+const domainCatalog = createDomainCatalog(vocab, locale);
+const concepts = Object.values(vocab.concepts).sort(domainCatalog.compare);
+const domains = domainCatalog.present(concepts);
 
 const totalCount = concepts.length;
 
@@ -62,9 +58,9 @@ const conceptDef = (c: { definition?: { en?: string; fr?: string; es?: string } 
 
             <fieldset class="facet-group">
               <legend>{t('browse.facet_domain')}</legend>
-              <label><input type="checkbox" name="domain" value="root"> {t('browse.domain_universal')}</label>
-              <label><input type="checkbox" name="domain" value="sp"> {t('browse.domain_sp')}</label>
-              <label><input type="checkbox" name="domain" value="crvs"> {t('browse.domain_crvs')}</label>
+              {domains.map((domain) => (
+                <label title={domain.description}><input type="checkbox" name="domain" value={domain.value}> {domain.filterLabel}</label>
+              ))}
             </fieldset>
 
             <fieldset class="facet-group">
@@ -132,7 +128,7 @@ const conceptDef = (c: { definition?: { en?: string; fr?: string; es?: string } 
                   <span class="concept-label">{conceptLabel(c)}</span>
                   <div class="badges">
                     {domainVal !== 'root' && (
-                      <span class={`badge badge-domain badge-domain-${domainVal}`}>
+                      <span class={`badge badge-domain badge-domain-${domainVal}`} title={domainCatalog.get(domainVal).label}>
                         {c.domain}
                       </span>
                     )}
@@ -390,6 +386,7 @@ const conceptDef = (c: { definition?: { en?: string; fr?: string; es?: string } 
     white-space: nowrap;
   }
 
+  .badge-domain { background: #e8edf3; color: #334155; }
   .badge-domain-sp   { background: #dbeafe; color: #1d4ed8; }
   .badge-domain-crvs { background: #ede9fe; color: #6d28d9; }
 

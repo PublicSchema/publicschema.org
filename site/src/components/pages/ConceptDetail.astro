@@ -4,6 +4,7 @@ import ExpandableDefinition from '../ExpandableDefinition.astro';
 import { defaultLocale, type Locale } from '../../i18n/languages';
 import { useTranslations, localePath } from '../../i18n/utils';
 import { loadVocabulary } from '../../data/vocabulary';
+import { createDomainCatalog } from '../../data/domains';
 import type { Concept } from '../../data/vocabulary';
 import {
   conceptPath as conceptPathFor,
@@ -61,7 +62,7 @@ const displayGroups = concept.property_groups
 
 const primitiveTypes = ['string', 'integer', 'decimal', 'boolean', 'date', 'datetime', 'uri', 'geojson_geometry'];
 
-const domainTitles: Record<string, string> = { sp: t('concepts.section_social_protection'), crvs: t('concepts.section_crvs') };
+const domain = createDomainCatalog(vocab, locale).get(concept.domain);
 
 const isNonNormative = concept.maturity === 'draft' || concept.maturity === 'candidate';
 ---
@@ -85,9 +86,10 @@ const isNonNormative = concept.maturity === 'draft' || concept.maturity === 'can
       <span class="separator">/</span>
       <a href={localePath('/concepts/', locale)}>{t('common.concepts')}</a>
       <span class="separator">/</span>
+      {concept.domain && <><a href={`${localePath('/concepts/', locale)}?domain=${encodeURIComponent(concept.domain)}`}>{domain.label}</a><span class="separator">/</span></>}
       {displayLabel}
     </nav>
-    <h1>{concept.domain && <span class="domain-prefix" title={domainTitles[concept.domain] || concept.domain}>{concept.domain}:</span>}{displayLabel}</h1>
+    <h1>{concept.domain && <span class="domain-prefix" title={domain.label}>{concept.domain}:</span>}{displayLabel}</h1>
     <p class="canonical-line">
       {showCanonicalName && <span class="canonical-name">{concept.id}</span>}
       {showCanonicalName && <span class="canonical-sep">&middot;</span>}

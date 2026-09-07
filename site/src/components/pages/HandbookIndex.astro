@@ -3,6 +3,7 @@ import Base from '../../layouts/Base.astro';
 import TranslationBanner from '../TranslationBanner.astro';
 import { defaultLocale, type Locale } from '../../i18n/languages';
 import { localePath, useTranslations } from '../../i18n/utils';
+import { docs, implementationGuideSlugs } from '../../data/docs';
 import {
   handbookEntries,
   handbookSectionLabels,
@@ -84,4 +85,16 @@ for (const entry of handbookEntries()) grouped.get(entry[1].section)!.push(entry
       </div>
     </section>
   ))}
+
+  <section class="doc-category">
+    <h2>{t('docs.category.technical')}</h2>
+    <div class="doc-list">
+      {implementationGuideSlugs.map((slug) => (
+        <a href={localePath(`/docs/${slug}/`, locale)} class="doc-card">
+          <h3>{docs[slug].title[locale]}</h3>
+          <p>{docs[slug].description[locale]}</p>
+        </a>
+      ))}
+    </div>
+  </section>
 </Base>

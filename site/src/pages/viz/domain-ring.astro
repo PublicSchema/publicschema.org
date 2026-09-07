@@ -1,7 +1,9 @@
 ---
-// @ts-ignore
-import vocab from '../../../../dist/vocabulary.json';
+import { loadVocabulary } from '../../data/vocabulary';
+import { createDomainCatalog } from '../../data/domains';
 import Base from '../../layouts/Base.astro';
+
+const vocab = loadVocabulary();
 
 // ---- types ----------------------------------------------------------------
 
@@ -32,18 +34,19 @@ type ConceptNode = {
   label: string;
   path: string;
   domain: string;
-  ring: number; // 0 core-inner, 1 core-outer, 2 sp, 3 crvs
+  ring: number; // Core sub-rings first, followed by one ring per domain.
   abstract: boolean;
   maturity: string;
 };
 
-// Group concepts by domain (for sidebar + double-rowing). Unknown domains are
-// kept in an outer "other" ring so newly generated domains do not break builds.
-const byDomain: Record<string, ConceptNode[]> = { root: [], sp: [], crvs: [], other: [] };
-function displayDomain(domain: string | null): string {
-  const normalized = domain ?? 'root';
-  return normalized in byDomain ? normalized : 'other';
-}
+// Every represented domain keeps its own ring and list, including unknown codes.
+const domainCatalog = createDomainCatalog(vocab);
+const domains = domainCatalog.present(Object.values(allConcepts));
+const extensionDomains = domains.filter((domain) => domain.code);
+const byDomain: Record<string, ConceptNode[]> = Object.fromEntries(
+  domains.map((domain) => [domain.value, []]),
+);
+const displayDomain = (domain: string | null) => domainCatalog.get(domain).value;
 for (const [key, c] of Object.entries(allConcepts)) {
   const domain = displayDomain(c.domain);
   byDomain[domain].push({
@@ -65,16 +68,18 @@ for (const d of Object.keys(byDomain)) {
 // This halves the angular crowding that makes the centre busy.
 const coreInner: ConceptNode[] = [];
 const coreOuter: ConceptNode[] = [];
-byDomain.root.forEach((n, i) => {
+(byDomain.root ?? []).forEach((n, i) => {
   const sub = i % 2 === 0 ? coreInner : coreOuter;
   n.ring = i % 2 === 0 ? 0 : 1;
   sub.push(n);
 });
-const spNodes = byDomain.sp.map((n) => ({ ...n, ring: 2 }));
-const crvsNodes = byDomain.crvs.map((n) => ({ ...n, ring: 3 }));
-const otherNodes = byDomain.other.map((n) => ({ ...n, ring: 4 }));
-
-const byRingFinal: ConceptNode[][] = [coreInner, coreOuter, spNodes, crvsNodes, otherNodes];
+const byRingFinal: ConceptNode[][] = [
+  coreInner,
+  coreOuter,
+  ...extensionDomains.map((domain, index) =>
+    byDomain[domain.value].map((node) => ({ ...node, ring: index + 2 })),
+  ),
+];
 
 // Cross-domain reference pairs (supertype/subtype links that cross domains)
 const crossDomainEdges: Array<[string, string]> = [];
@@ -99,15 +104,14 @@ for (const [key, c] of Object.entries(allConcepts)) {
   linkedOf[key] = Array.from(set);
 }
 
-// SVG layout constants. Larger viewBox + ring spacing gives the core room to breathe.
-const CX = 600;
-const CY = 600;
-const VB_W = 1200;
-const VB_H = 1200;
-// Five rings: core-inner, core-outer, sp, crvs, other domains.
-const RING_RADII = [170, 240, 350, 460, 560];
-// Label radii sit OUTSIDE their ring (labels radiate outward from center like spokes).
-const LABEL_RADII = [188, 258, 368, 478, 578];
+// Keep ring spacing as domains grow; the map scrolls at readable label size.
+const RING_RADII = [170, 240, ...extensionDomains.map((_, index) => 350 + index * 110)];
+const LABEL_RADII = RING_RADII.map((radius) => radius + 18);
+const outerRadius = RING_RADII[RING_RADII.length - 1];
+const CX = outerRadius + 200;
+const CY = CX;
+const VB_W = CX * 2;
+const VB_H = CY * 2;
 const DOT_R = 5;
 
 const TWO_PI = 2 * Math.PI;
@@ -155,12 +159,6 @@ for (const key of Object.keys(allConcepts)) {
 }
 const highlightCSS = highlightRules.join('\n');
 
-const counts = {
-  root: byDomain.root.length,
-  sp: byDomain.sp.length,
-  crvs: byDomain.crvs.length,
-  other: byDomain.other.length,
-};
 ---
 
 <Base title="Domain map" description="Concentric ring visualization of PublicSchema concepts by domain.">
@@ -169,9 +167,9 @@ const counts = {
     <header class="viz-header">
       <h1>Domain map</h1>
       <p class="viz-intro">
-        Universal core concepts sit in the center. Domain extensions occupy outer
-        rings: social protection (sp), civil registration (crvs), and other
-        generated domains. Click any concept to open its page.
+        Universal core concepts sit in the center. Each domain extension has its
+        own outer ring and concept list. Scroll the map to explore every domain,
+        or use the lists below. Click any concept to open its page.
       </p>
       <div class="viz-controls">
         <label class="toggle-label">
@@ -179,10 +177,9 @@ const counts = {
           Show abstract concepts
         </label>
         <span class="legend">
-          <span class="legend-item"><span class="legend-dot root"></span>Universal core</span>
-          <span class="legend-item"><span class="legend-dot sp"></span>sp (social protection)</span>
-          <span class="legend-item"><span class="legend-dot crvs"></span>crvs (civil registration)</span>
-          <span class="legend-item"><span class="legend-dot other"></span>other domains</span>
+          {domains.map((domain) => (
+            <span class="legend-item"><span class="legend-dot" style={`background: ${domain.color}`}></span>{domain.filterLabel}</span>
+          ))}
           <span class="legend-item"><span class="legend-dot abstract"></span>Abstract (hidden by default)</span>
         </span>
       </div>
@@ -190,41 +187,37 @@ const counts = {
 
     <div class="viz-body">
       <!-- SVG ring visualization -->
-      <div class="viz-svg-wrapper" role="img" aria-label="Domain ring map of PublicSchema concepts">
+      <div class="viz-svg-wrapper" role="region" tabindex="0" aria-label="Scrollable domain ring map of PublicSchema concepts">
         <svg
           id="ring-svg"
           viewBox={`0 0 ${VB_W} ${VB_H}`}
           xmlns="http://www.w3.org/2000/svg"
           class="ring-svg"
+          style={`min-width: ${VB_W * 0.85}px`}
           aria-describedby="svg-desc"
         >
           <title>PublicSchema domain ring map</title>
           <desc id="svg-desc">
             Concentric rings of PublicSchema concepts by domain. Universal core
-            concepts sit in the centre on a double-row layout. Social protection
-            (sp) concepts sit on the middle ring. Civil registration (crvs)
-            concepts and other generated domains sit on the outer rings. Thin
-            lines connect related concepts across domains.
+            concepts sit in the centre on two rings. Each domain has a separate
+            outer ring. Thin lines connect related concepts across domains.
           </desc>
 
-          {/* Ring backgrounds (outermost first so inner layers paint on top) */}
-          <circle cx={CX} cy={CY} r={RING_RADII[4] + 25} fill="var(--other-bg)" />
-          <circle cx={CX} cy={CY} r={RING_RADII[3] + 25} fill="var(--crvs-bg)" />
-          <circle cx={CX} cy={CY} r={RING_RADII[2] + 25} fill="var(--sp-bg)" />
-          <circle cx={CX} cy={CY} r={RING_RADII[1] + 25} fill="var(--root-bg)" />
+          {/* Paint outer backgrounds first. */}
+          {extensionDomains.slice().reverse().map((domain, index) => (
+            <circle cx={CX} cy={CY} r={RING_RADII[extensionDomains.length + 1 - index] + 25} fill={domain.color} fill-opacity="0.05" />
+          ))}
+          <circle cx={CX} cy={CY} r={RING_RADII[1] + 25} fill="white" />
+          <circle cx={CX} cy={CY} r={RING_RADII[1] + 25} fill={domainCatalog.get(null).color} fill-opacity="0.06" />
 
-          {/* Guide circles */}
-          <circle cx={CX} cy={CY} r={RING_RADII[0]} fill="none" stroke="var(--ring-stroke)" stroke-width="1" stroke-dasharray="3 5" opacity="0.35" />
-          <circle cx={CX} cy={CY} r={RING_RADII[1]} fill="none" stroke="var(--ring-stroke)" stroke-width="1" stroke-dasharray="3 5" opacity="0.35" />
-          <circle cx={CX} cy={CY} r={RING_RADII[2]} fill="none" stroke="var(--ring-stroke)" stroke-width="1" stroke-dasharray="3 5" opacity="0.45" />
-          <circle cx={CX} cy={CY} r={RING_RADII[3]} fill="none" stroke="var(--ring-stroke)" stroke-width="1" stroke-dasharray="3 5" opacity="0.45" />
-          <circle cx={CX} cy={CY} r={RING_RADII[4]} fill="none" stroke="var(--ring-stroke)" stroke-width="1" stroke-dasharray="3 5" opacity="0.45" />
+          {RING_RADII.map((radius) => (
+            <circle cx={CX} cy={CY} r={radius} fill="none" stroke="var(--ring-stroke)" stroke-width="1" stroke-dasharray="3 5" opacity="0.4" />
+          ))}
 
-          {/* Ring labels */}
-          <text x={CX} y={CY - RING_RADII[4] - 15} text-anchor="middle" class="ring-label other-label">other</text>
-          <text x={CX} y={CY - RING_RADII[3] - 35} text-anchor="middle" class="ring-label crvs-label">crvs</text>
-          <text x={CX} y={CY - RING_RADII[2] - 35} text-anchor="middle" class="ring-label sp-label">sp</text>
-          <text x={CX} y={CY + 8} text-anchor="middle" class="ring-label root-label">core</text>
+          {extensionDomains.map((domain, index) => (
+            <text x={CX} y={CY - RING_RADII[index + 2] - 35} text-anchor="middle" class="ring-label" fill={domain.color}>{domain.code}</text>
+          ))}
+          <text x={CX} y={CY + 8} text-anchor="middle" class="ring-label" fill={domainCatalog.get(null).color}>core</text>
 
           {/* Cross-domain edge lines (rendered below dots) */}
           <g class="edges-layer">
@@ -265,7 +258,9 @@ const counts = {
 
               return (
                 <g
-                  class={`concept-node domain-${domainKey}${isAbstract ? ' abstract-node' : ''}`}
+                  class={`concept-node${isAbstract ? ' abstract-node' : ''}`}
+                  style={`--domain-color: ${domainCatalog.get(c.domain).color}`}
+                  data-domain={domainKey}
                   data-key={key}
                   data-linked={linked}
                   data-ring={ring}
@@ -304,89 +299,28 @@ const counts = {
 
       {/* Sidebar: concept lists by domain */}
       <aside class="viz-sidebar" aria-label="Concepts by domain">
-        <div class="sidebar-section">
-          <h2 class="sidebar-heading root-heading">
-            Universal core
-            <span class="sidebar-count">{counts.root}</span>
-          </h2>
-          <ul class="sidebar-list">
-            {byDomain.root.map((node) => (
-              <li
-                class={`sidebar-item${node.abstract ? ' is-abstract' : ''}`}
-                data-key={node.key}
-                data-linked={(linkedOf[node.key] ?? [node.key]).join(' ')}
-              >
-                <a href={node.path} class="sidebar-link" data-key={node.key} tabindex="0">
-                  {node.label}
-                  {node.abstract && <span class="abstract-badge" aria-label="abstract">A</span>}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div class="sidebar-section">
-          <h2 class="sidebar-heading sp-heading">
-            sp (social protection)
-            <span class="sidebar-count">{counts.sp}</span>
-          </h2>
-          <ul class="sidebar-list">
-            {byDomain.sp.map((node) => (
-              <li
-                class={`sidebar-item${node.abstract ? ' is-abstract' : ''}`}
-                data-key={node.key}
-                data-linked={(linkedOf[node.key] ?? [node.key]).join(' ')}
-              >
-                <a href={node.path} class="sidebar-link" data-key={node.key} tabindex="0">
-                  {node.label}
-                  {node.abstract && <span class="abstract-badge" aria-label="abstract">A</span>}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div class="sidebar-section">
-          <h2 class="sidebar-heading crvs-heading">
-            crvs (civil registration)
-            <span class="sidebar-count">{counts.crvs}</span>
-          </h2>
-          <ul class="sidebar-list">
-            {byDomain.crvs.map((node) => (
-              <li
-                class={`sidebar-item${node.abstract ? ' is-abstract' : ''}`}
-                data-key={node.key}
-                data-linked={(linkedOf[node.key] ?? [node.key]).join(' ')}
-              >
-                <a href={node.path} class="sidebar-link" data-key={node.key} tabindex="0">
-                  {node.label}
-                  {node.abstract && <span class="abstract-badge" aria-label="abstract">A</span>}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div class="sidebar-section">
-          <h2 class="sidebar-heading other-heading">
-            other domains
-            <span class="sidebar-count">{counts.other}</span>
-          </h2>
-          <ul class="sidebar-list">
-            {byDomain.other.map((node) => (
-              <li
-                class={`sidebar-item${node.abstract ? ' is-abstract' : ''}`}
-                data-key={node.key}
-                data-linked={(linkedOf[node.key] ?? [node.key]).join(' ')}
-              >
-                <a href={node.path} class="sidebar-link" data-key={node.key} tabindex="0">
-                  {node.label}
-                  {node.abstract && <span class="abstract-badge" aria-label="abstract">A</span>}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
+        {domains.map((domain) => (
+          <div class="sidebar-section" data-domain={domain.value}>
+            <h2 class="sidebar-heading" style={`color: ${domain.color}`}>
+              {domain.filterLabel}
+              <span class="sidebar-count">{byDomain[domain.value].length}</span>
+            </h2>
+            <ul class="sidebar-list">
+              {byDomain[domain.value].map((node) => (
+                <li
+                  class={`sidebar-item${node.abstract ? ' is-abstract' : ''}`}
+                  data-key={node.key}
+                  data-linked={(linkedOf[node.key] ?? [node.key]).join(' ')}
+                >
+                  <a href={node.path} class="sidebar-link" data-key={node.key} tabindex="0">
+                    {node.label}
+                    {node.abstract && <span class="abstract-badge" aria-label="abstract">A</span>}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </aside>
     </div>
 
@@ -394,38 +328,16 @@ const counts = {
     <details class="a11y-fallback">
       <summary>Full concept list (text fallback)</summary>
       <div class="fallback-columns">
-        <section>
-          <h3>Universal core ({counts.root} concepts)</h3>
-          <ul>
-            {byDomain.root.map((node) => (
-              <li><a href={node.path}>{node.label}{node.abstract ? ' (abstract)' : ''}</a></li>
-            ))}
-          </ul>
-        </section>
-        <section>
-          <h3>sp, social protection ({counts.sp} concepts)</h3>
-          <ul>
-            {byDomain.sp.map((node) => (
-              <li><a href={node.path}>{node.label}{node.abstract ? ' (abstract)' : ''}</a></li>
-            ))}
-          </ul>
-        </section>
-        <section>
-          <h3>crvs, civil registration ({counts.crvs} concepts)</h3>
-          <ul>
-            {byDomain.crvs.map((node) => (
-              <li><a href={node.path}>{node.label}{node.abstract ? ' (abstract)' : ''}</a></li>
-            ))}
-          </ul>
-        </section>
-        <section>
-          <h3>other domains ({counts.other} concepts)</h3>
-          <ul>
-            {byDomain.other.map((node) => (
-              <li><a href={node.path}>{node.label}{node.abstract ? ' (abstract)' : ''}</a></li>
-            ))}
-          </ul>
-        </section>
+        {domains.map((domain) => (
+          <section>
+            <h3>{domain.filterLabel} ({byDomain[domain.value].length} concepts)</h3>
+            <ul>
+              {byDomain[domain.value].map((node) => (
+                <li><a href={node.path}>{node.label}{node.abstract ? ' (abstract)' : ''}</a></li>
+              ))}
+            </ul>
+          </section>
+        ))}
       </div>
     </details>
   </div>
@@ -437,6 +349,11 @@ const counts = {
     const sidebar = document.querySelector('.viz-sidebar');
     const showAbstractToggle = document.getElementById('show-abstract');
     const root = document.documentElement;
+    const map = document.querySelector<HTMLElement>('.viz-svg-wrapper');
+    if (map) {
+      map.scrollLeft = (map.scrollWidth - map.clientWidth) / 2;
+      map.scrollTop = (map.scrollHeight - map.clientHeight) / 2;
+    }
 
     let pinned: string | null = null;
     let hover: string | null = null;
@@ -516,14 +433,6 @@ const counts = {
   <style>
     /* ---- Color tokens ---------------------------------------------------- */
     :root {
-      --root-color: #1e3a5f;
-      --root-bg: rgba(30, 58, 95, 0.06);
-      --sp-color: #b54a1a;
-      --sp-bg: rgba(181, 74, 26, 0.05);
-      --crvs-color: #166534;
-      --crvs-bg: rgba(22, 101, 52, 0.04);
-      --other-color: #6b21a8;
-      --other-bg: rgba(107, 33, 168, 0.035);
       --abstract-color: #6f6b66;
       --ring-stroke: #9ca3af;
       --edge-color: #6b21a8;
@@ -597,10 +506,6 @@ const counts = {
       flex-shrink: 0;
     }
 
-    .legend-dot.root { background: var(--root-color); }
-    .legend-dot.sp { background: var(--sp-color); }
-    .legend-dot.crvs { background: var(--crvs-color); }
-    .legend-dot.other { background: var(--other-color); }
     .legend-dot.abstract {
       background: var(--abstract-color);
       border: 2px dashed #9ca3af;
@@ -623,13 +528,13 @@ const counts = {
     /* ---- SVG wrapper ----------------------------------------------------- */
     .viz-svg-wrapper {
       width: 100%;
-      overflow: visible;
+      overflow: auto;
+      max-height: 75vh;
     }
 
     .ring-svg {
       width: 100%;
       height: auto;
-      max-width: 960px;
       display: block;
       margin: 0 auto;
     }
@@ -641,11 +546,6 @@ const counts = {
       font-weight: 600;
       pointer-events: none;
     }
-
-    .root-label { fill: var(--root-color); }
-    .sp-label { fill: var(--sp-color); }
-    .crvs-label { fill: var(--crvs-color); }
-    .other-label { fill: var(--other-color); }
 
     .concept-label {
       font-family: 'IBM Plex Sans', system-ui, sans-serif;
@@ -664,20 +564,15 @@ const counts = {
     }
 
     /* ---- Domain coloring on dots ----------------------------------------- */
-    .domain-root .concept-dot { fill: var(--root-color); }
-    .domain-sp .concept-dot { fill: var(--sp-color); }
-    .domain-crvs .concept-dot { fill: var(--crvs-color); }
-    .domain-other .concept-dot { fill: var(--other-color); }
+
+    .concept-dot { fill: var(--domain-color); }
 
     /* Abstract dots use dashed stroke */
     .abstract-node .concept-dot {
       fill: white;
       stroke-width: 2;
+      stroke: var(--domain-color);
     }
-    .abstract-node.domain-root .concept-dot { stroke: var(--root-color); }
-    .abstract-node.domain-sp .concept-dot { stroke: var(--sp-color); }
-    .abstract-node.domain-crvs .concept-dot { stroke: var(--crvs-color); }
-    .abstract-node.domain-other .concept-dot { stroke: var(--other-color); }
 
     /* Abstract concepts hidden unless the toggle is on */
     .abstract-node { display: none; }
@@ -757,21 +652,6 @@ const counts = {
       margin-bottom: var(--space-sm);
       padding-bottom: var(--space-xs);
       border-bottom: 2px solid;
-    }
-
-    .root-heading {
-      color: var(--root-color);
-      border-color: var(--root-color);
-    }
-
-    .sp-heading {
-      color: var(--sp-color);
-      border-color: var(--sp-color);
-    }
-
-    .crvs-heading {
-      color: var(--crvs-color);
-      border-color: var(--crvs-color);
     }
 
     .sidebar-count {

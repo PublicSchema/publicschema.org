@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import { resolve } from 'node:path';
+import { collectDraftDownloads } from './src/data/draft-downloads';
 
 // https://astro.build/config
 export default defineConfig({
@@ -12,7 +13,21 @@ export default defineConfig({
     defaultLocale: 'en',
     routing: { prefixDefaultLocale: false },
   },
-  integrations: [sitemap({
+  integrations: [{
+    name: 'draft-downloads',
+    hooks: {
+      'astro:config:setup': ({ injectRoute }) => {
+        // Explicit file routes keep their extensions in Astro's route manifest.
+        // A catch-all endpoint instead inherits the page trailing-slash rule.
+        for (const { params } of collectDraftDownloads(resolve('..'))) {
+          injectRoute({
+            pattern: `/registry-draft/${params.path}`,
+            entrypoint: './src/endpoints/draft-download.ts',
+          });
+        }
+      },
+    },
+  }, sitemap({
     filter: (page) => !page.includes('/viz/'),
     i18n: {
       defaultLocale: 'en',

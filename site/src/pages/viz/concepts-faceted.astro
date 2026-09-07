@@ -1,7 +1,9 @@
 ---
-// @ts-ignore
-import vocab from '../../../../dist/vocabulary.json';
+import { loadVocabulary } from '../../data/vocabulary';
+import { createDomainCatalog } from '../../data/domains';
 import Base from '../../layouts/Base.astro';
+
+const vocab = loadVocabulary();
 
 type ConceptEntry = {
   id: string;
@@ -18,15 +20,9 @@ type ConceptEntry = {
 
 const conceptsMap: Record<string, ConceptEntry> = (vocab as any).concepts;
 
-// Build a sorted list: root first, then sp, then crvs; alphabetical within each group.
-const domainOrder: Record<string, number> = { '': 0, sp: 1, crvs: 2 };
-
-const concepts = Object.values(conceptsMap).sort((a, b) => {
-  const da = domainOrder[a.domain ?? ''] ?? 99;
-  const db = domainOrder[b.domain ?? ''] ?? 99;
-  if (da !== db) return da - db;
-  return a.id.localeCompare(b.id);
-});
+const domainCatalog = createDomainCatalog(vocab);
+const concepts = Object.values(conceptsMap).sort(domainCatalog.compare);
+const domains = domainCatalog.present(concepts);
 
 const totalCount = concepts.length;
 
@@ -61,9 +57,9 @@ const allSystems: string[] = [
             <!-- Domain -->
             <fieldset class="facet-group">
               <legend>Domain</legend>
-              <label><input type="checkbox" name="domain" value="root"> Universal</label>
-              <label><input type="checkbox" name="domain" value="sp"> sp (social protection)</label>
-              <label><input type="checkbox" name="domain" value="crvs"> crvs (civil registration)</label>
+              {domains.map((domain) => (
+                <label title={domain.description}><input type="checkbox" name="domain" value={domain.value}> {domain.filterLabel}</label>
+              ))}
             </fieldset>
 
             <!-- Maturity -->
@@ -131,7 +127,7 @@ const allSystems: string[] = [
                   <span class="concept-label">{c.label.en}</span>
                   <div class="badges">
                     {domainVal !== 'root' && (
-                      <span class={`badge badge-domain badge-domain-${domainVal}`}>
+                      <span class={`badge badge-domain badge-domain-${domainVal}`} title={domainCatalog.get(domainVal).label}>
                         {c.domain}
                       </span>
                     )}
@@ -386,6 +382,7 @@ const allSystems: string[] = [
   }
 
   .badge-domain-root { background: #e5e7eb; color: #374151; }
+  .badge-domain { background: #e8edf3; color: #334155; }
   .badge-domain-sp   { background: #dbeafe; color: #1d4ed8; }
   .badge-domain-crvs { background: #ede9fe; color: #6d28d9; }
 

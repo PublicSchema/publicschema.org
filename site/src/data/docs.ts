@@ -9,7 +9,60 @@ export interface DocEntry {
   category: DocCategoryKey;
 }
 
+// Draft guides use English metadata until reviewed translations are available.
+function draftGuide({ file, title, description }: {
+  file: string;
+  title: string;
+  description: string;
+}): DocEntry {
+  return {
+    file,
+    title: { en: title, fr: title, es: title },
+    description: { en: description, fr: description, es: description },
+    category: 'technical',
+  };
+}
+
+export const implementationGuideSlugs = [
+  'domain-migration',
+  'fhir-registry-integration',
+  'facility-roles',
+  'relationship-date-migration',
+  'public-services-draft',
+  'government-relationships-draft',
+];
+
 export const docs: Record<string, DocEntry> = {
+  'domain-migration': draftGuide({
+    file: 'domain-migration.md',
+    title: 'Domain migration',
+    description: 'Canonical domains, moved draft terms and migration of existing references.',
+  }),
+  'fhir-registry-integration': draftGuide({
+    file: 'fhir-registry-integration.md',
+    title: 'FHIR registry integration',
+    description: 'Connecting health facilities and registry records to FHIR resources.',
+  }),
+  'facility-roles': draftGuide({
+    file: 'facility-roles.md',
+    title: 'Facility roles',
+    description: 'Distinguishing facilities, their operators and their service delivery roles.',
+  }),
+  'relationship-date-migration': draftGuide({
+    file: 'relationship-date-migration.md',
+    title: 'Relationship date migration',
+    description: 'Migrating dates that describe relationships and periods of responsibility.',
+  }),
+  'public-services-draft': draftGuide({
+    file: 'public-services-draft.md',
+    title: 'Public services draft',
+    description: 'Public services, applications, decisions, appeals and organizational succession.',
+  }),
+  'government-relationships-draft': draftGuide({
+    file: 'government-relationships-draft.md',
+    title: 'Government relationships draft',
+    description: 'Ownership interests, legal arrangements, education offerings and installation-level releases.',
+  }),
   "registry-foundations-draft": {
     file: "registry-foundations-draft.md",
     title: {
