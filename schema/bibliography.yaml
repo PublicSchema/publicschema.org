@@ -307,8 +307,8 @@ classes:
   FaoVggtCitation:
     class_uri: publicschema:Citation/fao-vggt
     is_a: Citation
-    title: Voluntary Guidelines on the Responsible Governance of Tenure of Land, Fisheries and Forests
-      in the Context of National Food Security
+    title: Voluntary Guidelines on the Responsible Governance of Tenure of Land, Fisheries and Forests in
+      the Context of National Food Security
     annotations:
       citation_id: fao-vggt
       title: Voluntary Guidelines on the Responsible Governance of Tenure of Land, Fisheries and Forests
@@ -321,7 +321,8 @@ classes:
       uri: https://www.fao.org/tenure/voluntary-guidelines/en/
       access: open
       status: active
-      informs_json: '{"concepts": ["Farm"], "properties": ["land_tenure"], "vocabularies": ["land-tenure"]}'
+      informs_json: '{"concepts": ["Farm", "HoldingParcelLink", "LandBoundaryAssertion", "LandTenureAssertion"],
+        "properties": ["land_tenure"], "vocabularies": ["land-tenure"]}'
   FaoWca2020Vol1Citation:
     class_uri: publicschema:Citation/fao-wca-2020-vol1
     is_a: Citation
@@ -338,7 +339,9 @@ classes:
       access: open
       status: active
       standard_number: ISBN 978-92-5-108865-4
-      informs_json: '{"concepts": ["Farm"], "properties": ["farm_area_hectares", "primary_crop", "livestock_type"],
+      informs_json: '{"concepts": ["AgriculturalParcel", "Farm", "FarmerRegistration", "GroupHoldingOperatorRole",
+        "HoldingOperatorRole", "HoldingParcelLink", "InformalGroup", "OrganizationHoldingOperatorRole",
+        "PersonHoldingOperatorRole"], "properties": ["farm_area_hectares", "primary_crop", "livestock_type"],
         "vocabularies": ["livestock-type"]}'
   FhirAdministrativeGenderCitation:
     class_uri: publicschema:Citation/fhir-administrative-gender
@@ -2288,3 +2291,977 @@ classes:
       version: '2022'
       informs_json: '{"concepts": ["crvs/Death"], "properties": ["cause_of_death", "cause_of_death_code",
         "cause_of_death_method"], "vocabularies": ["crvs/cause-of-death-method"]}'
+  FaoGlosolanCitation:
+    class_uri: publicschema:Citation/fao-glosolan
+    is_a: Citation
+    title: FAO Global Soil Laboratory Network
+    annotations:
+      citation_id: fao-glosolan
+      title: FAO Global Soil Laboratory Network
+      short_title: FAO Global Soil Laboratory Network
+      publisher: FAO
+      type: guidance_publication
+      domain: registry
+      uri: https://www.fao.org/global-soil-partnership/glosolan/en/
+      access: open
+      status: active
+      notes: Network registration and proficiency disclaimer
+      informs_json: '{"concepts": ["AgriculturalFacility", "AgriculturalLaboratory"]}'
+  WoahTerrestrial2024Citation:
+    class_uri: publicschema:Citation/woah-terrestrial-2024
+    is_a: Citation
+    title: Terrestrial Animal Health Code glossary, 2024
+    annotations:
+      citation_id: woah-terrestrial-2024
+      title: Terrestrial Animal Health Code glossary, 2024
+      short_title: Terrestrial Animal Health Code glossary, 2024
+      publisher: WOAH
+      type: guidance_publication
+      domain: registry
+      uri: https://www.woah.org/fileadmin/Home/eng/Health_standards/tahc/2024/en_glossaire.htm
+      access: open
+      status: active
+      notes: 'Glossary: establishment'
+      informs_json: '{"concepts": ["LivestockEstablishment"]}'
+  BeebaseApiariesCitation:
+    class_uri: publicschema:Citation/beebase-apiaries
+    is_a: Citation
+    title: Hive Count frequently asked questions, 2021
+    annotations:
+      citation_id: beebase-apiaries
+      title: Hive Count frequently asked questions, 2021
+      short_title: Hive Count frequently asked questions, 2021
+      publisher: National Bee Unit
+      type: guidance_publication
+      domain: registry
+      uri: https://www.nationalbeeunit.com/assets/PDFs/6_Bees_and_the_Law/Hive_count/FAQs_for_Hive_Count_2021.pdf
+      access: open
+      status: active
+      notes: Apiary name, address and map reference
+      informs_json: '{"concepts": ["Apiary"]}'
+  ScotlandAquacultureRegisterCitation:
+    class_uri: publicschema:Citation/scotland-aquaculture-register
+    is_a: Citation
+    title: Registers of authorised aquaculture production businesses
+    annotations:
+      citation_id: scotland-aquaculture-register
+      title: Registers of authorised aquaculture production businesses
+      short_title: Registers of authorised aquaculture production businesses
+      publisher: Scottish Government
+      type: guidance_publication
+      domain: registry
+      uri: https://www.gov.scot/publications/registers-of-authorised-aquaculture-production-businesses-and-authorised-processing-establishments/
+      access: open
+      status: active
+      notes: Separate business and establishment registers
+      informs_json: '{"concepts": ["AquacultureEstablishment"]}'
+  UkPlantPassportsCitation:
+    class_uri: publicschema:Citation/uk-plant-passports
+    is_a: Citation
+    title: Issuing plant passports to trade plants in Great Britain
+    annotations:
+      citation_id: uk-plant-passports
+      title: Issuing plant passports to trade plants in Great Britain
+      short_title: Issuing plant passports to trade plants in Great Britain
+      publisher: APHA
+      type: guidance_publication
+      domain: registry
+      uri: https://www.gov.uk/guidance/issuing-plant-passports-to-trade-plants-in-great-britain
+      access: open
+      status: active
+      notes: Register as a professional operator and get authorised
+      informs_json: '{"concepts": ["PlantNursery"]}'
+  IndiaFarmsCitation:
+    class_uri: publicschema:Citation/india-farms
+    is_a: Citation
+    title: FARMS Farm Machinery Solutions
+    annotations:
+      citation_id: india-farms
+      title: FARMS Farm Machinery Solutions
+      short_title: FARMS Farm Machinery Solutions
+      publisher: Government of India
+      type: guidance_publication
+      domain: registry
+      uri: https://agrimachinery.nic.in/Index/farmsapp
+      access: open
+      status: active
+      notes: Hiring and sale/purchase of machinery
+      informs_json: '{"concepts": ["AgriculturalMachinery", "AgriculturalServiceRole"]}'
+  FaoVesselUviCitation:
+    class_uri: publicschema:Citation/fao-vessel-uvi
+    is_a: Citation
+    title: Global Record Unique Vessel Identifier
+    annotations:
+      citation_id: fao-vessel-uvi
+      title: Global Record Unique Vessel Identifier
+      short_title: Global Record Unique Vessel Identifier
+      publisher: FAO
+      type: guidance_publication
+      domain: registry
+      uri: https://www.fao.org/global-record/background/unique-vessel-identifier/en/
+      access: open
+      status: active
+      notes: UVI continuity across ownership, flag and name changes
+      informs_json: '{"concepts": ["FishingVessel"]}'
+  UkPesticideWorkCitation:
+    class_uri: publicschema:Citation/uk-pesticide-work
+    is_a: Citation
+    title: Register work involving pesticides
+    annotations:
+      citation_id: uk-pesticide-work
+      title: Register work involving pesticides
+      short_title: Register work involving pesticides
+      publisher: HSE
+      type: guidance_publication
+      domain: registry
+      uri: https://www.hse.gov.uk/pesticides/register.htm
+      access: open
+      status: active
+      notes: Professional users and suppliers
+      informs_json: '{"concepts": ["InputSupplierRole", "PesticideApplicatorRole"]}'
+  SasaSeedRegisterCitation:
+    class_uri: publicschema:Citation/sasa-seed-register
+    is_a: Citation
+    title: Public Register of Seeds Merchants, Processors and Packers
+    annotations:
+      citation_id: sasa-seed-register
+      title: Public Register of Seeds Merchants, Processors and Packers
+      short_title: Public Register of Seeds Merchants, Processors and Packers
+      publisher: SASA
+      type: guidance_publication
+      domain: registry
+      uri: https://www.sasa.gov.uk/document-library/public-register-seeds-merchants-processors-packers
+      access: open
+      status: active
+      notes: Public registry activity distinctions
+      informs_json: '{"concepts": ["SeedOperatorRole"]}'
+  EcProducerOrganizationsCitation:
+    class_uri: publicschema:Citation/ec-producer-organizations
+    is_a: Citation
+    title: Producer and interbranch organisations
+    annotations:
+      citation_id: ec-producer-organizations
+      title: Producer and interbranch organisations
+      short_title: Producer and interbranch organisations
+      publisher: European Commission
+      type: guidance_publication
+      domain: registry
+      uri: https://agriculture.ec.europa.eu/common-agricultural-policy/agri-food-supply-chain/producer-and-interbranch-organisations_en
+      access: open
+      status: active
+      notes: Recognition of producer organizations
+      informs_json: '{"concepts": ["ProducerMembership", "ProducerOrganization"]}'
+  UkFeedBusinessCitation:
+    class_uri: publicschema:Citation/uk-feed-business
+    is_a: Citation
+    title: Starting an animal feed business
+    annotations:
+      citation_id: uk-feed-business
+      title: Starting an animal feed business
+      short_title: Starting an animal feed business
+      publisher: Food Standards Agency
+      type: guidance_publication
+      domain: registry
+      uri: https://www.gov.uk/government/publications/starting-an-animal-feed-business/starting-an-animal-feed-business
+      access: open
+      status: active
+      notes: Business registration and approval
+      informs_json: '{"concepts": ["FeedProduct"]}'
+  EuFertilizer2019Citation:
+    class_uri: publicschema:Citation/eu-fertilizer-2019
+    is_a: Citation
+    title: Regulation (EU) 2019/1009
+    annotations:
+      citation_id: eu-fertilizer-2019
+      title: Regulation (EU) 2019/1009
+      short_title: Regulation (EU) 2019/1009
+      publisher: European Union
+      type: guidance_publication
+      domain: registry
+      uri: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex%3A32019R1009
+      access: open
+      status: active
+      notes: Article 2 and Annex I PFC 1
+      informs_json: '{"concepts": ["FertilizerProduct"]}'
+  EcPesticidesDatabaseCitation:
+    class_uri: publicschema:Citation/ec-pesticides-database
+    is_a: Citation
+    title: EU Pesticides Database
+    annotations:
+      citation_id: ec-pesticides-database
+      title: EU Pesticides Database
+      short_title: EU Pesticides Database
+      publisher: European Commission
+      type: guidance_publication
+      domain: registry
+      uri: https://food.ec.europa.eu/plants/pesticides/eu-pesticides-database_en
+      access: open
+      status: active
+      notes: Active substances and emergency authorizations
+      informs_json: '{"concepts": ["AgriculturalProduct", "PesticideProduct", "ProductComponent"]}'
+  EmaUpdCitation:
+    class_uri: publicschema:Citation/ema-upd
+    is_a: Citation
+    title: Union Product Database
+    annotations:
+      citation_id: ema-upd
+      title: Union Product Database
+      short_title: Union Product Database
+      publisher: European Medicines Agency
+      type: guidance_publication
+      domain: registry
+      uri: https://www.ema.europa.eu/en/veterinary-regulatory-overview/veterinary-medicinal-products-regulation/union-product-database
+      access: open
+      status: active
+      notes: Product information and Veterinary Medicines information website
+      informs_json: '{"concepts": ["VeterinaryMedicinalProduct"]}'
+  UsdaIntegrityCitation:
+    class_uri: publicschema:Citation/usda-integrity
+    is_a: Citation
+    title: Organic INTEGRITY Database
+    annotations:
+      citation_id: usda-integrity
+      title: Organic INTEGRITY Database
+      short_title: Organic INTEGRITY Database
+      publisher: USDA
+      type: guidance_publication
+      domain: registry
+      uri: https://agdatacommons.nal.usda.gov/articles/dataset/The_Organic_INTEGRITY_Database/24661722
+      access: open
+      status: active
+      notes: Certified operation information
+      informs_json: '{"concepts": ["AgriculturalCertification"]}'
+  FaoAquastatIrrigationCitation:
+    class_uri: publicschema:Citation/fao-aquastat-irrigation
+    is_a: Citation
+    title: AQUASTAT irrigation and drainage methodology
+    annotations:
+      citation_id: fao-aquastat-irrigation
+      title: AQUASTAT irrigation and drainage methodology
+      short_title: AQUASTAT irrigation and drainage methodology
+      publisher: FAO
+      type: guidance_publication
+      domain: registry
+      uri: https://www.fao.org/aquastat/en/overview/methodology/irrig-drainage/index.html
+      access: open
+      status: active
+      notes: Equipped area and water-source typology
+      informs_json: '{"concepts": ["IrrigationScheme"]}'
+  UkWaterAuthorizationCitation:
+    class_uri: publicschema:Citation/uk-water-authorization
+    is_a: Citation
+    title: Apply for a water abstraction or impounding licence
+    annotations:
+      citation_id: uk-water-authorization
+      title: Apply for a water abstraction or impounding licence
+      short_title: Apply for a water abstraction or impounding licence
+      publisher: Environment Agency
+      type: guidance_publication
+      domain: registry
+      uri: https://www.gov.uk/guidance/water-management-apply-for-a-water-abstraction-or-impoundment-licence
+      access: open
+      status: active
+      notes: Types of water resources licence
+      informs_json: '{"concepts": ["WaterUseAuthorization"]}'
+  IndiaEnamFacilitiesCitation:
+    class_uri: publicschema:Citation/india-enam-facilities
+    is_a: Citation
+    title: e-NAM frequently asked questions
+    annotations:
+      citation_id: india-enam-facilities
+      title: e-NAM frequently asked questions
+      short_title: e-NAM frequently asked questions
+      publisher: Government of India
+      type: guidance_publication
+      domain: registry
+      uri: https://www.enam.gov.in/web/resources/FAQs-of-eNam
+      access: open
+      status: active
+      notes: 'How e-NAM operates: existing physical market yards and online platform'
+      informs_json: '{"concepts": ["AgriculturalFacility"]}'
+  W3cDcat32024Citation:
+    class_uri: publicschema:Citation/w3c-dcat-3-2024
+    is_a: Citation
+    title: Data Catalog Vocabulary Version 3, Recommendation 22 August 2024
+    annotations:
+      citation_id: w3c-dcat-3-2024
+      title: Data Catalog Vocabulary Version 3, Recommendation 22 August 2024
+      short_title: Data Catalog Vocabulary Version 3, Recommendation 22 August 2024
+      publisher: W3C
+      type: guidance_publication
+      domain: registry
+      uri: https://www.w3.org/TR/2024/REC-vocab-dcat-3-20240822/
+      access: open
+      status: active
+      notes: 'Sections 5.6 and 6.5: catalog record distinct from its primary topic'
+      informs_json: '{"concepts": ["Authorization", "CodedValue", "RecordReference", "Register", "Registration",
+        "RegistryEntry"]}'
+  W3cProvO2013Citation:
+    class_uri: publicschema:Citation/w3c-prov-o-2013
+    is_a: Citation
+    title: PROV-O, Recommendation 30 April 2013
+    annotations:
+      citation_id: w3c-prov-o-2013
+      title: PROV-O, Recommendation 30 April 2013
+      short_title: PROV-O, Recommendation 30 April 2013
+      publisher: W3C
+      type: guidance_publication
+      domain: registry
+      uri: https://www.w3.org/TR/2013/REC-prov-o-20130430/
+      access: open
+      status: active
+      notes: 'Sections 3.2 and 3.3: entities, activities and qualified influence'
+      informs_json: '{"concepts": ["EvidenceAssertion", "RecordLifecycleEvent", "SubjectMatchAssertion"]}'
+  W3cAdms2013Citation:
+    class_uri: publicschema:Citation/w3c-adms-2013
+    is_a: Citation
+    title: Asset Description Metadata Schema, retired W3C Note 1 August 2013
+    annotations:
+      citation_id: w3c-adms-2013
+      title: Asset Description Metadata Schema, retired W3C Note 1 August 2013
+      short_title: Asset Description Metadata Schema, retired W3C Note 1 August 2013
+      publisher: W3C
+      type: guidance_publication
+      domain: registry
+      uri: https://www.w3.org/TR/2013/NOTE-vocab-adms-20130801/
+      access: open
+      status: active
+      notes: 'Section 5.2.6: identifier scheme and issuing agency. Historical precedent; SEMIC maintains
+        ADMS since 2023.'
+      informs_json: '{"concepts": ["IdentifierAssignment"]}'
+  OgcGeosparql11Citation:
+    class_uri: publicschema:Citation/ogc-geosparql-11
+    is_a: Citation
+    title: GeoSPARQL 1.1, OGC 22-047r1
+    annotations:
+      citation_id: ogc-geosparql-11
+      title: GeoSPARQL 1.1, OGC 22-047r1
+      short_title: GeoSPARQL 1.1, OGC 22-047r1
+      publisher: Open Geospatial Consortium
+      type: guidance_publication
+      domain: registry
+      uri: https://docs.ogc.org/is/22-047r1/22-047r1.html
+      access: open
+      status: active
+      notes: 'Sections 8 and 10: features, geometries and serialization'
+      informs_json: '{"concepts": ["FacilityAddressAssignment", "SpatialGeometry"]}'
+  IetfGeojson7946Citation:
+    class_uri: publicschema:Citation/ietf-geojson-7946
+    is_a: Citation
+    title: RFC 7946, The GeoJSON Format, August 2016
+    annotations:
+      citation_id: ietf-geojson-7946
+      title: RFC 7946, The GeoJSON Format, August 2016
+      short_title: RFC 7946, The GeoJSON Format, August 2016
+      publisher: IETF
+      type: guidance_publication
+      domain: registry
+      uri: https://datatracker.ietf.org/doc/html/rfc7946
+      access: open
+      status: active
+      notes: 'Sections 3.1.1, 3.1.6 and 4: positions, polygons and coordinate reference system'
+      informs_json: '{"concepts": ["SpatialGeometry"]}'
+  UnecePropertyUnits2004Citation:
+    class_uri: publicschema:Citation/unece-property-units-2004
+    is_a: Citation
+    title: Guidelines on Real Property Units and Identifiers, 2004
+    annotations:
+      citation_id: unece-property-units-2004
+      title: Guidelines on Real Property Units and Identifiers, 2004
+      short_title: Guidelines on Real Property Units and Identifiers, 2004
+      publisher: UNECE
+      type: guidance_publication
+      domain: registry
+      uri: https://unece.org/DAM/hlm/documents/Publications/guidelines.real.property.e.pdf
+      access: open
+      status: active
+      notes: Property-unit and parcel identification; title administration distinct from spatial identity
+      informs_json: '{"concepts": ["AgriculturalParcel", "LandAdministrativeUnit", "LandBoundaryAssertion",
+        "LandSpatialUnit", "LandTenureAssertion"]}'
+  Hl7HealthcareServiceR4Citation:
+    class_uri: publicschema:Citation/hl7-healthcare-service-r4
+    is_a: Citation
+    title: FHIR R4 4.0.1 HealthcareService and Location
+    annotations:
+      citation_id: hl7-healthcare-service-r4
+      title: FHIR R4 4.0.1 HealthcareService and Location
+      short_title: FHIR R4 4.0.1 HealthcareService and Location
+      publisher: HL7
+      type: guidance_publication
+      domain: registry
+      uri: https://www.hl7.org/fhir/R4/healthcareservice.html
+      access: open
+      status: active
+      notes: HealthcareService providedBy/location/endpoint and Location managingOrganization; conceptual
+        comparison only
+      informs_json: '{"concepts": ["FacilityAddressAssignment", "FacilityManagementAssignment", "HealthcareServiceOffering",
+        "ServiceCapacityObservation"]}'
+  UcumSpecificationCitation:
+    class_uri: publicschema:Citation/ucum-specification
+    is_a: Citation
+    title: Unified Code for Units of Measure specification
+    annotations:
+      citation_id: ucum-specification
+      title: Unified Code for Units of Measure specification
+      short_title: Unified Code for Units of Measure specification
+      publisher: Regenstrief Institute
+      type: guidance_publication
+      domain: registry
+      uri: https://ucum.org/ucum
+      access: open
+      status: active
+      notes: Unit tables and syntax; hectare har and square metre m2
+      informs_json: '{"concepts": ["QuantityValue"]}'
+  W3cVcard2014Citation:
+    class_uri: publicschema:Citation/w3c-vcard-2014
+    is_a: Citation
+    title: vCard Ontology, W3C Note 22 May 2014
+    annotations:
+      citation_id: w3c-vcard-2014
+      title: vCard Ontology, W3C Note 22 May 2014
+      short_title: vCard Ontology, W3C Note 22 May 2014
+      publisher: W3C
+      type: guidance_publication
+      domain: registry
+      uri: https://www.w3.org/TR/vcard-rdf/
+      access: open
+      status: active
+      notes: Names and communication channels; no direct serialization mapping
+      informs_json: '{"concepts": ["ContactPoint", "NameUsage"]}'
+  WoahIdentification2024Citation:
+    class_uri: publicschema:Citation/woah-identification-2024
+    is_a: Citation
+    title: Terrestrial Animal Health Code 2024, chapter 4.3
+    annotations:
+      citation_id: woah-identification-2024
+      title: Terrestrial Animal Health Code 2024, chapter 4.3
+      short_title: Terrestrial Animal Health Code 2024, chapter 4.3
+      publisher: World Organisation for Animal Health
+      type: guidance_publication
+      domain: agriculture
+      uri: https://www.woah.org/fileadmin/Home/eng/Health_standards/tahc/2024/en_chapitre_ident_design.htm
+      access: open
+      status: active
+      informs_json: '{"concepts": ["AnimalGroup", "AnimalGroupCount", "AnimalResidence", "AnimalResponsibility",
+        "IndividualAnimal"]}'
+      year: 2024
+  FaoDadIsDataCitation:
+    class_uri: publicschema:Citation/fao-dad-is-data
+    is_a: Citation
+    title: 'Domestic Animal Diversity Information System: Data'
+    annotations:
+      citation_id: fao-dad-is-data
+      title: 'Domestic Animal Diversity Information System: Data'
+      short_title: 'Domestic Animal Diversity Information System: Data'
+      publisher: Food and Agriculture Organization
+      type: guidance_publication
+      domain: agriculture
+      uri: https://www.fao.org/dad-is/data/en/
+      access: open
+      status: active
+      informs_json: '{"concepts": ["AnimalBreed"]}'
+  FaoWca2010CropConceptsCitation:
+    class_uri: publicschema:Citation/fao-wca-2010-crop-concepts
+    is_a: Citation
+    title: 'WCA 2010, chapter 11: Concepts and definitions'
+    annotations:
+      citation_id: fao-wca-2010-crop-concepts
+      title: 'WCA 2010, chapter 11: Concepts and definitions'
+      short_title: 'WCA 2010, chapter 11: Concepts and definitions'
+      publisher: Food and Agriculture Organization
+      type: guidance_publication
+      domain: agriculture
+      uri: https://www.fao.org/4/a0135e/a0135e05.htm
+      access: open
+      status: active
+      informs_json: '{"concepts": ["CropPlanting", "CropPlantingComponent"]}'
+      year: 2005
+  UpovPlutoTagFormatCitation:
+    class_uri: publicschema:Citation/upov-pluto-tag-format
+    is_a: Citation
+    title: 'PLUTO: Guidance for the preparation of data in TAG format'
+    annotations:
+      citation_id: upov-pluto-tag-format
+      title: 'PLUTO: Guidance for the preparation of data in TAG format'
+      short_title: 'PLUTO: Guidance for the preparation of data in TAG format'
+      publisher: International Union for the Protection of New Varieties of Plants
+      type: guidance_publication
+      domain: agriculture
+      uri: https://www.upov.int/documents/d/upov/docs-en-pluto-contribute-pluto-tag-format-description.pdf
+      access: open
+      status: active
+      informs_json: '{"concepts": ["PlantVariety"]}'
+  GenesysApiPassportCitation:
+    class_uri: publicschema:Citation/genesys-api-passport
+    is_a: Citation
+    title: 'Genesys API reference manual: accession passport model'
+    annotations:
+      citation_id: genesys-api-passport
+      title: 'Genesys API reference manual: accession passport model'
+      short_title: 'Genesys API reference manual: accession passport model'
+      publisher: Crop Trust
+      type: guidance_publication
+      domain: agriculture
+      uri: https://www.genesys-pgr.org/documentation/apis
+      access: open
+      status: active
+      informs_json: '{"concepts": ["GeneticResourceAccession"]}'
+  CfiaQsp1521Citation:
+    class_uri: publicschema:Citation/cfia-qsp-152-1
+    is_a: Citation
+    title: 'QSP 152.1: Implementation of the OECD seed schemes and EU seed directives'
+    annotations:
+      citation_id: cfia-qsp-152-1
+      title: 'QSP 152.1: Implementation of the OECD seed schemes and EU seed directives'
+      short_title: 'QSP 152.1: Implementation of the OECD seed schemes and EU seed directives'
+      publisher: Canadian Food Inspection Agency
+      type: guidance_publication
+      domain: agriculture
+      uri: https://inspection.canada.ca/en/plant-health/seeds/seed-inspection-procedures/oecd-and-eu
+      access: open
+      status: active
+      informs_json: '{"concepts": ["SeedLot"]}'
+  GovCpov212Citation:
+    class_uri: publicschema:Citation/gov-cpov-212
+    is_a: Citation
+    title: Core Public Organisation Vocabulary 2.1.2
+    annotations:
+      citation_id: gov-cpov-212
+      title: Core Public Organisation Vocabulary 2.1.2
+      short_title: Core Public Organisation Vocabulary 2.1.2
+      publisher: European Commission SEMIC
+      type: guidance_publication
+      domain: registry
+      uri: https://semiceu.github.io/CPOV/releases/2.1.2/
+      access: open
+      status: active
+      notes: 2026-05-12 recommendation; Public Organisation, mandate and spatial jurisdiction
+      informs_json: '{"concepts": ["PublicOrganization"]}'
+  GovRegorgCitation:
+    class_uri: publicschema:Citation/gov-regorg
+    is_a: Citation
+    title: Registered Organization Vocabulary
+    annotations:
+      citation_id: gov-regorg
+      title: Registered Organization Vocabulary
+      short_title: Registered Organization Vocabulary
+      publisher: W3C
+      type: guidance_publication
+      domain: registry
+      uri: https://www.w3.org/TR/vocab-regorg/
+      access: open
+      status: active
+      notes: 2013 Working Group Note; RegisteredOrganization
+      informs_json: '{"concepts": ["LegalEntity"]}'
+  GovCompaniesHouseCitation:
+    class_uri: publicschema:Citation/gov-companies-house
+    is_a: Citation
+    title: 'Companies House Public Data API: companyProfile'
+    annotations:
+      citation_id: gov-companies-house
+      title: 'Companies House Public Data API: companyProfile'
+      short_title: 'Companies House Public Data API: companyProfile'
+      publisher: UK Companies House
+      type: guidance_publication
+      domain: registry
+      uri: https://developer-specs.company-information.service.gov.uk/companies-house-public-data-api/resources/companyprofile?v=latest
+      access: open
+      status: active
+      notes: Retrieved 2026-09-07; type, jurisdiction, date_of_creation, foreign_company_details and registered
+        office
+      informs_json: '{"concepts": ["InstitutionalRole", "LegalEntity"]}'
+  GovOrgCitation:
+    class_uri: publicschema:Citation/gov-org
+    is_a: Citation
+    title: The Organization Ontology
+    annotations:
+      citation_id: gov-org
+      title: The Organization Ontology
+      short_title: The Organization Ontology
+      publisher: W3C
+      type: guidance_publication
+      domain: registry
+      uri: https://www.w3.org/TR/vocab-org/
+      access: open
+      status: active
+      notes: 2014 recommendation; Organization, OrganizationalUnit, Membership, Site and ChangeEvent
+      informs_json: '{"concepts": ["EducationProvider", "InstitutionalRelationship", "InstitutionalRole",
+        "ProviderSite"]}'
+  GovBods04Citation:
+    class_uri: publicschema:Citation/gov-bods-04
+    is_a: Citation
+    title: Beneficial Ownership Data Standard 0.4
+    annotations:
+      citation_id: gov-bods-04
+      title: Beneficial Ownership Data Standard 0.4
+      short_title: Beneficial Ownership Data Standard 0.4
+      publisher: Open Ownership
+      type: guidance_publication
+      domain: registry
+      uri: https://standard.openownership.org/en/latest/standard/reference.html
+      access: open
+      status: active
+      notes: Version 0.4, May 2024; Relationship Statement and Interest; records separate from statements
+      informs_json: '{"concepts": ["OwnershipInterest"]}'
+  GovGiasCitation:
+    class_uri: publicschema:Citation/gov-gias
+    is_a: Citation
+    title: Get Information about Schools
+    annotations:
+      citation_id: gov-gias
+      title: Get Information about Schools
+      short_title: Get Information about Schools
+      publisher: UK Department for Education
+      type: guidance_publication
+      domain: registry
+      uri: https://www.get-information-schools.service.gov.uk/
+      access: open
+      status: active
+      notes: Retrieved 2026-09-07; establishment and establishment-group records; download implementation
+        https://dfe-digital.github.io/get-information-about-schools/service/front-end-component/reference/downloads/
+      informs_json: '{"concepts": ["EducationProvider", "ProviderSite"]}'
+  GovIscedCitation:
+    class_uri: publicschema:Citation/gov-isced
+    is_a: Citation
+    title: 'International Standard Classification of Education: ISCED 2011'
+    annotations:
+      citation_id: gov-isced
+      title: 'International Standard Classification of Education: ISCED 2011'
+      short_title: 'International Standard Classification of Education: ISCED 2011'
+      publisher: UNESCO Institute for Statistics
+      type: guidance_publication
+      domain: registry
+      uri: https://uis.unesco.org/sites/default/files/documents/international-standard-classification-of-education-isced-2011-en.pdf
+      access: open
+      status: active
+      notes: ISCED 2011, section 2, especially paragraphs 19-22; programme and qualification
+      informs_json: '{"concepts": ["EducationProgramme"]}'
+  GovFhirPractitionerCitation:
+    class_uri: publicschema:Citation/gov-fhir-practitioner
+    is_a: Citation
+    title: FHIR R5 Practitioner
+    annotations:
+      citation_id: gov-fhir-practitioner
+      title: FHIR R5 Practitioner
+      short_title: FHIR R5 Practitioner
+      publisher: HL7 International
+      type: guidance_publication
+      domain: registry
+      uri: https://hl7.org/fhir/R5/practitioner-definitions.html
+      access: open
+      status: active
+      notes: FHIR 5.0.0 (2023); Practitioner.qualification
+      informs_json: '{"concepts": ["ProfessionalLicense", "ProfessionalQualification"]}'
+  GovFhirRoleCitation:
+    class_uri: publicschema:Citation/gov-fhir-role
+    is_a: Citation
+    title: FHIR R5 PractitionerRole
+    annotations:
+      citation_id: gov-fhir-role
+      title: FHIR R5 PractitionerRole
+      short_title: FHIR R5 PractitionerRole
+      publisher: HL7 International
+      type: guidance_publication
+      domain: registry
+      uri: https://hl7.org/fhir/R5/practitionerrole-definitions.html
+      access: open
+      status: active
+      notes: FHIR 5.0.0 (2023); practitioner, organization, period and location
+      informs_json: '{"concepts": ["PracticeRole"]}'
+  GovDrivingCitation:
+    class_uri: publicschema:Citation/gov-driving
+    is_a: Citation
+    title: Driving licence categories and codes
+    annotations:
+      citation_id: gov-driving
+      title: Driving licence categories and codes
+      short_title: Driving licence categories and codes
+      publisher: UK Driver and Vehicle Licensing Agency
+      type: guidance_publication
+      domain: registry
+      uri: https://www.gov.uk/driving-licence-categories
+      access: open
+      status: active
+      notes: Retrieved 2026-09-07; categories, https://www.gov.uk/driving-licence-codes and https://www.gov.uk/guidance/changes-to-the-driving-licence-and-categories
+        for category-specific validity
+      informs_json: '{"concepts": ["DrivingEntitlement"]}'
+  GovOecdTinCitation:
+    class_uri: publicschema:Citation/gov-oecd-tin
+    is_a: Citation
+    title: Tax identification numbers
+    annotations:
+      citation_id: gov-oecd-tin
+      title: Tax identification numbers
+      short_title: Tax identification numbers
+      publisher: OECD Global Forum on Transparency and Exchange of Information for Tax Purposes
+      type: guidance_publication
+      domain: registry
+      uri: https://www.oecd.org/en/networks/global-forum-tax-transparency/resources/aeoi-implementation-portal/tax-identification-numbers.html
+      access: open
+      status: active
+      notes: Retrieved 2026-09-07; separate individual and entity jurisdiction documentation
+      informs_json: '{"concepts": ["TaxRegistration"]}'
+  GovIrsTinCitation:
+    class_uri: publicschema:Citation/gov-irs-tin
+    is_a: Citation
+    title: Taxpayer identification numbers (TIN)
+    annotations:
+      citation_id: gov-irs-tin
+      title: Taxpayer identification numbers (TIN)
+      short_title: Taxpayer identification numbers (TIN)
+      publisher: US Internal Revenue Service
+      type: guidance_publication
+      domain: registry
+      uri: https://www.irs.gov/tin/taxpayer-identification-numbers-tin
+      access: open
+      status: active
+      notes: Retrieved 2026-09-07; identifier categories and purposes
+      informs_json: '{"concepts": ["TaxRegistration"]}'
+  GovNistVriCitation:
+    class_uri: publicschema:Citation/gov-nist-vri
+    is_a: Citation
+    title: Voter Records Interchange Common Data Format Specification, Version 1.0
+    annotations:
+      citation_id: gov-nist-vri
+      title: Voter Records Interchange Common Data Format Specification, Version 1.0
+      short_title: Voter Records Interchange Common Data Format Specification, Version 1.0
+      publisher: US National Institute of Standards and Technology
+      type: guidance_publication
+      domain: registry
+      uri: https://pages.nist.gov/VoterRecordsInterchange/
+      access: open
+      status: active
+      notes: NIST SP 1500-102 V1, March 2020 web edition; VoterRecord, ReportingUnit and Voter; official
+        JSON/XML schema repository linked
+      informs_json: '{"concepts": ["VoterRegistration"]}'
+  GovInspireBuildingsCitation:
+    class_uri: publicschema:Citation/gov-inspire-buildings
+    is_a: Citation
+    title: 'INSPIRE Data Specification on Buildings: Technical Guidelines'
+    annotations:
+      citation_id: gov-inspire-buildings
+      title: 'INSPIRE Data Specification on Buildings: Technical Guidelines'
+      short_title: 'INSPIRE Data Specification on Buildings: Technical Guidelines'
+      publisher: European Commission INSPIRE
+      type: guidance_publication
+      domain: registry
+      uri: https://inspire-mif.github.io/technical-guidelines/data/bu/dataspecification_bu.html
+      access: open
+      status: active
+      notes: Building, BuildingUnit, BuildingPart; BuildingsBase 4.0 application schema; retrieved 2026-09-07
+      informs_json: '{"concepts": ["Building", "BuildingPart", "BuildingUnit"]}'
+  GovInspireTransportCitation:
+    class_uri: publicschema:Citation/gov-inspire-transport
+    is_a: Citation
+    title: 'INSPIRE Data Specification on Transport Networks: Technical Guidelines'
+    annotations:
+      citation_id: gov-inspire-transport
+      title: 'INSPIRE Data Specification on Transport Networks: Technical Guidelines'
+      short_title: 'INSPIRE Data Specification on Transport Networks: Technical Guidelines'
+      publisher: European Commission INSPIRE
+      type: guidance_publication
+      domain: registry
+      uri: https://inspire-mif.github.io/technical-guidelines/data/tn/dataspecification_tn.html
+      access: open
+      status: active
+      notes: RoadLink section 5.4.2.1.15, RoadNode and transport restriction properties; retrieved 2026-09-07
+      informs_json: '{"concepts": ["Road", "RoadNode", "RoadRestriction", "RoadSegment"]}'
+  GovDvlaCitation:
+    class_uri: publicschema:Citation/gov-dvla
+    is_a: Citation
+    title: DVLA Vehicle Enquiry API 1.2.0
+    annotations:
+      citation_id: gov-dvla
+      title: DVLA Vehicle Enquiry API 1.2.0
+      short_title: DVLA Vehicle Enquiry API 1.2.0
+      publisher: UK Driver and Vehicle Licensing Agency
+      type: guidance_publication
+      domain: registry
+      uri: https://developer-portal.driver-vehicle-licensing.api.gov.uk/apis/vehicle-enquiry-service/v1.2.0-vehicle-enquiry-service.html
+      access: open
+      status: active
+      notes: Vehicle response; make, yearOfManufacture and registration number; https://www.gov.uk/vehicle-log-book
+        for keeper record context
+      informs_json: '{"concepts": ["AssetPartyRole", "Vehicle"]}'
+  GovEpaFrsCitation:
+    class_uri: publicschema:Citation/gov-epa-frs
+    is_a: Citation
+    title: Facility Registry Service description
+    annotations:
+      citation_id: gov-epa-frs
+      title: Facility Registry Service description
+      short_title: Facility Registry Service description
+      publisher: US Environmental Protection Agency
+      type: guidance_publication
+      domain: registry
+      uri: https://www.epa.gov/frs/frs-description
+      access: open
+      status: active
+      notes: Retrieved 2026-09-07; site/program-record distinction, Facility Site Identification Standard
+        2.0 (2006) and physical model links
+      informs_json: '{"concepts": ["EnvironmentalFacility", "InstallationUnit"]}'
+  GovInspireProductionCitation:
+    class_uri: publicschema:Citation/gov-inspire-production
+    is_a: Citation
+    title: 'INSPIRE Data Specification on Production and Industrial Facilities: Technical Guidelines'
+    annotations:
+      citation_id: gov-inspire-production
+      title: 'INSPIRE Data Specification on Production and Industrial Facilities: Technical Guidelines'
+      short_title: 'INSPIRE Data Specification on Production and Industrial Facilities: Technical Guidelines'
+      publisher: European Commission INSPIRE
+      type: guidance_publication
+      domain: registry
+      uri: https://inspire-mif.github.io/technical-guidelines/data/pf/
+      access: open
+      status: active
+      notes: Production facility and installation distinctions; retrieved 2026-09-07
+      informs_json: '{"concepts": ["InstallationUnit"]}'
+  GovEpaEchoCitation:
+    class_uri: publicschema:Citation/gov-epa-echo
+    is_a: Citation
+    title: ECHO Detailed Facility Report web services
+    annotations:
+      citation_id: gov-epa-echo
+      title: ECHO Detailed Facility Report web services
+      short_title: ECHO Detailed Facility Report web services
+      publisher: US Environmental Protection Agency
+      type: guidance_publication
+      domain: registry
+      uri: https://echo.epa.gov/tools/web-services/detailed-facility-report
+      access: open
+      status: active
+      notes: Retrieved 2026-09-07; facility report interface. EPA data portal https://data.epa.gov/ describes
+        inspections, violations and penalties as separate program data
+      informs_json: '{"concepts": ["ComplianceAssessment", "RegulatoryAction"]}'
+  GovEpaTriCitation:
+    class_uri: publicschema:Citation/gov-epa-tri
+    is_a: Citation
+    title: 'TRI Basic Data Files: Calendar Years 1987-Present'
+    annotations:
+      citation_id: gov-epa-tri
+      title: 'TRI Basic Data Files: Calendar Years 1987-Present'
+      short_title: 'TRI Basic Data Files: Calendar Years 1987-Present'
+      publisher: US Environmental Protection Agency
+      type: guidance_publication
+      domain: registry
+      uri: https://www.epa.gov/toxics-release-inventory-tri-program/tri-basic-data-files-calendar-years-1987-present
+      access: open
+      status: active
+      notes: Retrieved 2026-09-07; annual reporting forms, facility/chemical identity and released quantities.
+        Field documentation https://www3.epa.gov/tri/public/TRI_Basic_Data_File_Documentation_RY2021_102522.pdf
+      informs_json: '{"concepts": ["EnvironmentalRelease"]}'
+  GovFhirSubstanceCitation:
+    class_uri: publicschema:Citation/gov-fhir-substance
+    is_a: Citation
+    title: FHIR R5 SubstanceDefinition
+    annotations:
+      citation_id: gov-fhir-substance
+      title: FHIR R5 SubstanceDefinition
+      short_title: FHIR R5 SubstanceDefinition
+      publisher: HL7 International
+      type: guidance_publication
+      domain: registry
+      uri: https://hl7.org/fhir/R5/substancedefinition.html
+      access: open
+      status: active
+      notes: FHIR 5.0.0 (2023); substance identity distinct from medicinal products
+      informs_json: '{"concepts": ["Substance"]}'
+  GovFhirProductCitation:
+    class_uri: publicschema:Citation/gov-fhir-product
+    is_a: Citation
+    title: FHIR R5 MedicinalProductDefinition
+    annotations:
+      citation_id: gov-fhir-product
+      title: FHIR R5 MedicinalProductDefinition
+      short_title: FHIR R5 MedicinalProductDefinition
+      publisher: HL7 International
+      type: guidance_publication
+      domain: registry
+      uri: https://hl7.org/fhir/R5/medicinalproductdefinition-definitions.html
+      access: open
+      status: active
+      notes: FHIR 5.0.0 (2023); product definition, dose form and ingredient; not package or batch identity
+      informs_json: '{"concepts": ["MedicinalProduct"]}'
+  GovFhirIngredientCitation:
+    class_uri: publicschema:Citation/gov-fhir-ingredient
+    is_a: Citation
+    title: FHIR R5 Ingredient
+    annotations:
+      citation_id: gov-fhir-ingredient
+      title: FHIR R5 Ingredient
+      short_title: FHIR R5 Ingredient
+      publisher: HL7 International
+      type: guidance_publication
+      domain: registry
+      uri: https://hl7.org/fhir/R5/ingredient-definitions.html
+      access: open
+      status: active
+      notes: FHIR 5.0.0 (2023); ingredient function, substance and strength
+      informs_json: '{"concepts": ["MedicinalIngredient"]}'
+  GovFhirAdministrableCitation:
+    class_uri: publicschema:Citation/gov-fhir-administrable
+    is_a: Citation
+    title: FHIR R5 AdministrableProductDefinition
+    annotations:
+      citation_id: gov-fhir-administrable
+      title: FHIR R5 AdministrableProductDefinition
+      short_title: FHIR R5 AdministrableProductDefinition
+      publisher: HL7 International
+      type: guidance_publication
+      domain: registry
+      uri: https://hl7.org/fhir/R5/administrableproductdefinition-definitions.html
+      access: open
+      status: active
+      notes: FHIR 5.0.0 (2023); final prepared form, formOf, administrableDoseForm and routeOfAdministration
+      informs_json: '{"concepts": ["AdministrableProduct"]}'
+  GovFhirPackagedCitation:
+    class_uri: publicschema:Citation/gov-fhir-packaged
+    is_a: Citation
+    title: FHIR R5 PackagedProductDefinition
+    annotations:
+      citation_id: gov-fhir-packaged
+      title: FHIR R5 PackagedProductDefinition
+      short_title: FHIR R5 PackagedProductDefinition
+      publisher: HL7 International
+      type: guidance_publication
+      domain: registry
+      uri: https://hl7.org/fhir/R5/packagedproductdefinition-definitions.html
+      access: open
+      status: active
+      notes: FHIR 5.0.0 (2023); defined package and contained products
+      informs_json: '{"concepts": ["PackagedMedicinalProduct"]}'
+  GovIrsRepresentationCitation:
+    class_uri: publicschema:Citation/gov-irs-representation
+    is_a: Citation
+    title: About Form 2848, Power of Attorney and Declaration of Representative
+    annotations:
+      citation_id: gov-irs-representation
+      title: About Form 2848, Power of Attorney and Declaration of Representative
+      short_title: About Form 2848, Power of Attorney and Declaration of Representative
+      publisher: US Internal Revenue Service
+      type: guidance_publication
+      domain: registry
+      uri: https://www.irs.gov/forms-pubs/about-form-2848
+      access: open
+      status: active
+      notes: Retrieved 2026-09-07; IRS permits eligible individual representatives. Compare HMRC https://www.gov.uk/appoint-tax-agent,
+        which also describes voluntary organization assistance; generic endpoints deliberately permit persons
+        or organizations under a scoped profile
+      informs_json: '{"concepts": ["RepresentationRole"]}'
+  WhoHealthAccreditation2022Citation:
+    class_uri: publicschema:Citation/who-health-accreditation-2022
+    is_a: Citation
+    title: Health care accreditation and quality of care, 2022
+    annotations:
+      citation_id: who-health-accreditation-2022
+      title: Health care accreditation and quality of care, 2022
+      short_title: Health care accreditation and quality of care, 2022
+      publisher: World Health Organization
+      type: guidance_publication
+      domain: registry
+      uri: https://iris.who.int/bitstream/handle/10665/363528/9789240055230-eng.pdf
+      access: open
+      status: active
+      notes: Healthcare external assessment and accreditation distinguished from licensing and certification;
+        conceptual scope, no accreditation conformance claim
+      informs_json: '{"concepts": ["HealthcareAccreditation"]}'

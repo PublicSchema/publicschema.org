@@ -1,0 +1,239 @@
+id: https://publicschema.org/linkml/health_services
+name: publicschema-health-services
+title: Health facilities and service offerings
+license: CC-BY-4.0
+default_prefix: publicschema
+prefixes:
+  publicschema: https://publicschema.org/
+  linkml: https://w3id.org/linkml/
+  bibo: http://purl.org/ontology/bibo/
+imports:
+- linkml:types
+- registry
+- common
+- identity
+classes:
+  FacilityManagementAssignment:
+    class_uri: publicschema:FacilityManagementAssignment
+    title: Facility Management Assignment
+    description: A dated responsibility of an organization for managing a health facility.
+      A change of manager does not itself identify a different physical facility.
+    slots:
+    - managed_facility
+    - managing_organization
+    - valid_from
+    - valid_to
+    status: bibo:draft
+    annotations:
+      bibliography_refs: '["hl7-healthcare-service-r4"]'
+  FacilityAddressAssignment:
+    class_uri: publicschema:FacilityAddressAssignment
+    title: Facility Address Assignment
+    description: A dated association of a health facility with a physical or postal
+      address and, when known, a separate geometry. A named administrative Location
+      and a geographic position are not interchangeable.
+    slots:
+    - addressed_facility
+    - facility_address
+    - address_geometry
+    - valid_from
+    - valid_to
+    status: bibo:draft
+    annotations:
+      bibliography_refs: '["hl7-healthcare-service-r4", "ogc-geosparql-11"]'
+  HealthcareServiceOffering:
+    class_uri: publicschema:HealthcareServiceOffering
+    title: Healthcare Service Offering
+    description: A described healthcare service offered by an organization at one
+      or more health facilities or through an explicitly named remote channel. It
+      is distinct from a delivered encounter and from facility identity.
+    slots:
+    - name
+    - healthcare_provider
+    - service_facilities
+    - healthcare_service_kind
+    - service_channel
+    - service_endpoints
+    - valid_from
+    - valid_to
+    status: bibo:draft
+    annotations:
+      bibliography_refs: '["hl7-healthcare-service-r4"]'
+  ServiceCapacityObservation:
+    class_uri: publicschema:ServiceCapacityObservation
+    title: Service Capacity Observation
+    description: An observation of the capacity of a service or facility for a stated
+      measure and time. Capacity is not an unconditional promise of current availability
+      or an accreditation.
+    slots:
+    - capacity_subject
+    - capacity_measure
+    - capacity_quantity
+    - capacity_observed_at
+    status: bibo:draft
+    annotations:
+      bibliography_refs: '["hl7-healthcare-service-r4"]'
+  HealthcareAccreditation:
+    class_uri: publicschema:HealthcareAccreditation
+    title: Healthcare accreditation
+    description: Recognition of a healthcare organization or facility following external
+      assessment against stated quality standards. It is distinct from permission
+      to operate and does not guarantee every service outcome.
+    is_a: Registration
+    slots:
+    - accreditation_standard
+    - accreditation_scope
+    status: bibo:draft
+    annotations:
+      bibliography_refs: '["who-health-accreditation-2022"]'
+slots:
+  managed_facility:
+    slot_uri: publicschema:managed_facility
+    title: Managed facility
+    description: The health facility whose management responsibility is described.
+    range: HealthFacility
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: administrative
+  managing_organization:
+    slot_uri: publicschema:managing_organization
+    title: Managing organization
+    description: The organization accountable for management during the stated period.
+    range: Organization
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: administrative
+  addressed_facility:
+    slot_uri: publicschema:addressed_facility
+    title: Addressed facility
+    description: The health facility associated with this address.
+    range: HealthFacility
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: administrative
+  facility_address:
+    slot_uri: publicschema:facility_address
+    title: Facility address
+    description: The structured address used to reach the health facility during the
+      stated period.
+    range: Address
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: administrative
+  address_geometry:
+    slot_uri: publicschema:address_geometry
+    title: Address geometry
+    description: A separate geometric position associated with the address; never
+      substituted for a named Location.
+    range: SpatialGeometry
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: administrative
+  healthcare_provider:
+    slot_uri: publicschema:healthcare_provider
+    title: Service provider
+    description: The organization providing the described healthcare service.
+    range: Organization
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: administrative
+  service_facilities:
+    slot_uri: publicschema:service_facilities
+    title: Service facilities
+    description: Physical facilities at which the service is offered, if applicable.
+    range: HealthFacility
+    multivalued: true
+    status: bibo:draft
+    annotations:
+      category: administrative
+  healthcare_service_kind:
+    slot_uri: publicschema:healthcare_service_kind
+    title: Healthcare service kind
+    description: A scheme-qualified category of healthcare service.
+    range: CodedValue
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: administrative
+  service_channel:
+    slot_uri: publicschema:service_channel
+    title: Service channel
+    description: The named delivery channel, including telephone or remote delivery
+      where no physical facility applies.
+    range: string
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: administrative
+  service_endpoints:
+    slot_uri: publicschema:service_endpoints
+    title: Service endpoints
+    description: Technical endpoints offering access to the service; listing a URI
+      does not contact it or grant access.
+    range: uri
+    multivalued: true
+    status: bibo:draft
+    annotations:
+      category: administrative
+  capacity_subject:
+    slot_uri: publicschema:capacity_subject
+    title: Capacity subject
+    description: The URI of the facility or service whose capacity was observed.
+    range: uri
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: administrative
+  capacity_measure:
+    slot_uri: publicschema:capacity_measure
+    title: Capacity measure
+    description: The scheme-qualified capacity measure, such as staffed beds rather
+      than building beds.
+    range: CodedValue
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: administrative
+  capacity_quantity:
+    slot_uri: publicschema:capacity_quantity
+    title: Capacity quantity
+    description: The amount measured for the stated capacity kind.
+    range: QuantityValue
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: administrative
+  capacity_observed_at:
+    slot_uri: publicschema:capacity_observed_at
+    title: Capacity observed at
+    description: The timestamp to which the capacity observation applies, not the
+      time a record was entered.
+    range: datetime
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: administrative
+  accreditation_standard:
+    slot_uri: publicschema:accreditation_standard
+    title: Accreditation standard
+    description: The identified standard or edition against which healthcare quality
+      was assessed.
+    range: uri
+    status: bibo:draft
+    annotations:
+      category: administrative
+  accreditation_scope:
+    slot_uri: publicschema:accreditation_scope
+    title: Accreditation scope
+    description: The services and organizational boundaries covered by healthcare
+      accreditation.
+    range: string
+    status: bibo:draft
+    annotations:
+      category: administrative

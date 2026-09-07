@@ -1,0 +1,13 @@
+{
+  "@id": "https://example.org/facility/lab",
+  "@type": "AgriculturalLaboratory",
+  "name": "Synthetic soil laboratory",
+  "facility_operator": "https://example.org/org/lab",
+  "laboratory_capability": [
+    {
+      "@type": "CodedValue",
+      "code_value": "soil-ph",
+      "code_scheme": "https://example.org/methods"
+    }
+  ]
+}

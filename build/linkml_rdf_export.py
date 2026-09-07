@@ -68,30 +68,45 @@ def _require_composite(composite: Path = DEFAULT_LINKML_COMPOSITE) -> Path:
     return composite.resolve()
 
 
-def _run_generator(
-    generator: str,
-    output_path: Path,
-    extra_args: list[str] | None = None,
-    composite: Path = DEFAULT_LINKML_COMPOSITE,
-) -> Path:
-    """Invoke a LinkML generator CLI and write the stdout to ``output_path``.
+def _uri_slot_paths(composite: Path) -> set:
+    """Return RDF paths for induced slots authored with LinkML's ``uri`` range."""
+    from linkml_runtime.utils.schemaview import SchemaView
+    from rdflib import URIRef
 
-    Generators write Turtle to stdout when no ``--output`` is given. We
-    capture stdout and write it ourselves so the parent directory is
-    created consistently with the rest of the build pipeline.
-    """
-    binary = _find_linkml_generator(generator)
+    schemaview = SchemaView(str(_require_composite(composite)))
+    return {
+        URIRef(schemaview.get_uri(slot, expand=True))
+        for class_definition in schemaview.all_classes(imports=True).values()
+        for slot in schemaview.class_induced_slots(class_definition.name)
+        if slot.range == "uri"
+    }
+
+
+def _generate_owl_graph(composite: Path):
+    """Generate OWL and align authored URI slots with the public IRI contract."""
+    import rdflib  # noqa: WPS433 — local import is intentional.
+    from rdflib.namespace import OWL, RDF, RDFS, XSD
+
     composite = _require_composite(composite)
-    args = [binary, *(extra_args or []), str(composite)]
+    binary = _find_linkml_generator("gen-owl")
     proc = subprocess.run(
-        args,
+        [binary, *OWL_GENERATOR_ARGS, str(composite)],
         cwd=ROOT,
         check=True,
         capture_output=True,
     )
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-    output_path.write_bytes(proc.stdout)
-    return output_path
+    graph = rdflib.Graph()
+    graph.parse(data=proc.stdout, format="turtle")
+
+    for property_uri in _uri_slot_paths(composite):
+        graph.remove((property_uri, RDF.type, OWL.DatatypeProperty))
+        graph.add((property_uri, RDF.type, OWL.ObjectProperty))
+        graph.remove((property_uri, RDFS.range, XSD.anyURI))
+        for restriction in graph.subjects(OWL.onProperty, property_uri):
+            if (restriction, OWL.allValuesFrom, XSD.anyURI) in graph:
+                graph.remove((restriction, OWL.allValuesFrom, XSD.anyURI))
+                graph.add((restriction, OWL.allValuesFrom, OWL.Thing))
+    return graph
 
 
 def write_turtle(
@@ -99,9 +114,10 @@ def write_turtle(
     composite: Path = DEFAULT_LINKML_COMPOSITE,
 ) -> Path:
     """Generate the full vocabulary as OWL Turtle via ``gen-owl``."""
-    return _run_generator(
-        "gen-owl", output_path, extra_args=OWL_GENERATOR_ARGS, composite=composite,
-    )
+    graph = _generate_owl_graph(composite)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(graph.serialize(format="turtle"), encoding="utf-8")
+    return output_path
 
 
 def write_shacl(
@@ -118,13 +134,38 @@ def write_shacl(
     from dataclasses import asdict
 
     from linkml.generators.shaclgen import ShaclGenerator
-    from rdflib import BNode, Literal
+    from rdflib import BNode, Literal, URIRef
     from rdflib.collection import Collection
     from rdflib.namespace import SH, XSD
 
     from build.linkml_reader import _convert_enum_to_vocabulary
 
     class PublicCodeShaclGenerator(ShaclGenerator):
+        def as_graph(self):
+            """Make authored ``uri`` slots match their JSON-LD IRI coercion.
+
+            LinkML's generic SHACL generator renders its built-in ``uri`` type
+            as an ``xsd:anyURI`` literal. PublicSchema's generated JSON-LD
+            context deliberately expands the same fields as ``@id`` values, so
+            their RDF representation is an IRI. Convert only those induced
+            slots, leaving every other primitive and enum constraint untouched.
+            """
+            graph = super().as_graph()
+            uri_slot_paths = {
+                URIRef(self.schemaview.get_uri(slot, expand=True))
+                for class_definition in self.schemaview.all_classes(
+                    imports=not self.exclude_imports
+                ).values()
+                for slot in self.schemaview.class_induced_slots(class_definition.name)
+                if slot.range == "uri"
+            }
+            for path in uri_slot_paths:
+                for property_shape in graph.subjects(SH.path, path):
+                    graph.remove((property_shape, SH.datatype, XSD.anyURI))
+                    graph.remove((property_shape, SH.nodeKind, SH.Literal))
+                    graph.add((property_shape, SH.nodeKind, SH.IRI))
+            return graph
+
         def _add_enum(self, graph, emit, enum_name):
             enum = self.schemaview.get_enum(enum_name)
             # Reuse the reader's restoration of migrated codes, rather than
@@ -166,19 +207,7 @@ def write_full_jsonld(
     discarding that context changes IRIs that the public context does not
     define, or defines differently.
     """
-    # Lazy import: rdflib is only required when emitting JSON-LD.
-    import rdflib  # noqa: WPS433 — local import is intentional.
-
-    composite = _require_composite(composite)
-    binary = _find_linkml_generator("gen-owl")
-    proc = subprocess.run(
-        [binary, *OWL_GENERATOR_ARGS, str(composite)],
-        cwd=ROOT,
-        check=True,
-        capture_output=True,
-    )
-    g = rdflib.Graph()
-    g.parse(data=proc.stdout, format="turtle")
+    g = _generate_owl_graph(composite)
 
     # The public context describes instance fields, not every namespace
     # in the OWL vocabulary. Expanded IRIs need no serializer-only context.

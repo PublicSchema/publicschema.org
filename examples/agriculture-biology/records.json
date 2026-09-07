@@ -1,0 +1,155 @@
+[
+  {
+    "@id": "https://example.org/animals/1",
+    "@type": "IndividualAnimal",
+    "name": "Synthetic cow",
+    "animal_birth_year": 2021,
+    "animal_identifiers": [
+      {
+        "identifier_value": "replacement-tag-2",
+        "@type": "Identifier",
+        "identifier_scheme_id": "https://example.org/tag-scheme"
+      }
+    ],
+    "animal_breed": "https://example.org/breeds/local"
+  },
+  {
+    "@id": "https://example.org/herds/1",
+    "@type": "AnimalGroup",
+    "name": "Synthetic herd",
+    "known_animal_members": [
+      "https://example.org/animals/1"
+    ],
+    "animal_group_counts": [
+      "https://example.org/counts/1"
+    ]
+  },
+  {
+    "@id": "https://example.org/counts/1",
+    "@type": "AnimalGroupCount",
+    "counted_animal_group": "https://example.org/herds/1",
+    "animal_count": 12,
+    "count_date": "2026-08-01"
+  },
+  {
+    "@id": "https://example.org/breeds/local",
+    "@type": "AnimalBreed",
+    "name": "Local synthetic cattle",
+    "breed_context": "Example community",
+    "breed_source": "https://example.org/breed-catalogue"
+  },
+  {
+    "@id": "https://example.org/plantings/1",
+    "@type": "CropPlanting",
+    "planting_holding": "https://example.org/farms/1",
+    "planting_parcel": "https://example.org/parcels/1",
+    "planting_components": [
+      "https://example.org/components/maize",
+      "https://example.org/components/beans"
+    ]
+  },
+  {
+    "@id": "https://example.org/components/maize",
+    "@type": "CropPlantingComponent",
+    "crop_kind": {
+      "code_value": "maize-local",
+      "code_scheme": "https://example.org/crops",
+      "code_label": "Maize",
+      "@type": "CodedValue"
+    },
+    "component_planting_date": "2026-05-01"
+  },
+  {
+    "@id": "https://example.org/components/beans",
+    "@type": "CropPlantingComponent",
+    "crop_kind": {
+      "code_value": "beans-local",
+      "code_scheme": "https://example.org/crops",
+      "code_label": "Beans",
+      "@type": "CodedValue"
+    },
+    "component_planting_date": "2026-05-08"
+  },
+  {
+    "@id": "https://example.org/varieties/1",
+    "@type": "PlantVariety",
+    "variety_denomination": [
+      "Synthetic variety A"
+    ]
+  },
+  {
+    "@id": "https://example.org/accessions/1",
+    "@type": "GeneticResourceAccession",
+    "accession_number": "001",
+    "holding_institute": "https://example.org/organizations/bank",
+    "collection_date_text": "1990----",
+    "accession_variety": "https://example.org/varieties/1"
+  },
+  {
+    "@id": "https://example.org/lots/1",
+    "@type": "SeedLot",
+    "seed_lot_varieties": [
+      "https://example.org/varieties/1"
+    ],
+    "seed_lot_accessions": [
+      "https://example.org/accessions/1"
+    ]
+  },
+  {
+    "@id": "https://example.org/lots/2",
+    "@type": "SeedLot",
+    "seed_lot_varieties": [
+      "https://example.org/varieties/1"
+    ],
+    "seed_lot_accessions": [
+      "https://example.org/accessions/1"
+    ],
+    "source_seed_lots": [
+      "https://example.org/lots/1"
+    ]
+  },
+  {
+    "@id": "https://example.org/residences/1",
+    "@type": "AnimalResidence",
+    "animal_subject": "https://example.org/animals/1",
+    "animal_residence_site": "https://example.org/farms/1",
+    "valid_from": "2025-01-01"
+  },
+  {
+    "@id": "https://example.org/responsibilities/1",
+    "@type": "AnimalResponsibility",
+    "animal_subject": "https://example.org/animals/1",
+    "animal_responsible_actor": "https://example.org/people/keeper-a",
+    "animal_responsibility_role": {
+      "@type": "CodedValue",
+      "code_value": "keeper",
+      "code_scheme": "https://example.org/animal-responsibilities"
+    },
+    "valid_from": "2025-01-01",
+    "valid_to": "2026-06-30"
+  },
+  {
+    "@id": "https://example.org/responsibilities/2",
+    "@type": "AnimalResponsibility",
+    "animal_subject": "https://example.org/animals/1",
+    "animal_responsible_actor": "https://example.org/people/keeper-b",
+    "animal_responsibility_role": {
+      "@type": "CodedValue",
+      "code_value": "keeper",
+      "code_scheme": "https://example.org/animal-responsibilities"
+    },
+    "valid_from": "2026-07-01"
+  },
+  {
+    "@id": "https://example.org/responsibilities/3",
+    "@type": "AnimalResponsibility",
+    "animal_subject": "https://example.org/animals/1",
+    "animal_responsible_actor": "https://example.org/people/owner",
+    "animal_responsibility_role": {
+      "@type": "CodedValue",
+      "code_value": "owner",
+      "code_scheme": "https://example.org/animal-responsibilities"
+    },
+    "valid_from": "2025-01-01"
+  }
+]

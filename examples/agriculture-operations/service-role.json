@@ -1,0 +1,21 @@
+{
+  "@type": "AgriculturalServiceRole",
+  "service_provider": "https://example.org/org/cooperative",
+  "agricultural_service": [
+    {
+      "@type": "CodedValue",
+      "code_value": "machinery-hire",
+      "code_scheme": "https://example.org/services"
+    }
+  ],
+  "service_equipment": [
+    {
+      "@type": "AgriculturalMachinery",
+      "name": "Synthetic shared tractor",
+      "machine_model": "Example model"
+    }
+  ],
+  "valid_from": "2026-01-01",
+  "valid_to": "2026-12-31",
+  "@id": "https://example.org/agriculture/service-role"
+}

@@ -1,0 +1,11 @@
+{
+  "@id": "https://example.org/certificate/1",
+  "@type": "AgriculturalCertification",
+  "certified_subject": "https://example.org/facility/lab",
+  "certification_scheme": "https://example.org/schemes/testing-v1",
+  "certification_scope": [
+    "soil pH testing"
+  ],
+  "valid_from": "2026-01-01",
+  "valid_to": "2026-12-31"
+}

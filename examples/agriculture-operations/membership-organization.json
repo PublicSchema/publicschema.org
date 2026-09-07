@@ -1,0 +1,10 @@
+{
+  "@type": "ProducerMembership",
+  "producer_member": "https://example.org/org/family-enterprise",
+  "producer_organization": {
+    "@type": "ProducerOrganization",
+    "name": "Synthetic cooperative"
+  },
+  "valid_from": "2026-01-01",
+  "@id": "https://example.org/agriculture/membership-organization"
+}

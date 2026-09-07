@@ -1,0 +1,10 @@
+{
+  "@type": "FishingVessel",
+  "name": "Synthetic fishing vessel",
+  "vessel_length": {
+    "@type": "QuantityValue",
+    "quantity_value": 12,
+    "unit_code": "m"
+  },
+  "@id": "https://example.org/agriculture/vessel"
+}

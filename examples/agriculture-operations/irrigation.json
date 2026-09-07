@@ -1,0 +1,15 @@
+{
+  "@type": "IrrigationScheme",
+  "name": "Synthetic canal network",
+  "scheme_operator": "https://example.org/org/water-users",
+  "irrigation_component": [
+    "https://example.org/asset/pump",
+    "https://example.org/asset/canal"
+  ],
+  "irrigation_service_area": {
+    "@type": "QuantityValue",
+    "quantity_value": 100,
+    "unit_code": "ha"
+  },
+  "@id": "https://example.org/agriculture/irrigation"
+}
