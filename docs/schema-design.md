@@ -71,7 +71,7 @@ Use this decision tree to determine what kind of element to create.
 
 `Agent` and `Party` are two abstract supertypes that carry different semantics.
 
-- `Party` is the **receiver side**: the persons and organised groups of persons (Household, Family, Farm) that can be identified, enrolled in programs, and receive benefits or services. Beneficiary-side references (`beneficiary`, `recipient`, `subject`, `redeemable_by`, `issued_to`) range over `Party`.
+- `Party` is the **receiver side**: the persons and organised groups of persons (Household, Family) that can be identified, enrolled in programs, and receive benefits or services. Beneficiary-side references (`beneficiary`, `recipient`, `subject`, `redeemable_by`, `issued_to`) range over `Party`.
 - `Agent` is the **actor side**: the persons, organisations, and software that perform, publish, evaluate, decide, or execute. Actor-side references (`performed_by`, `evaluator`, `publisher`) range over `Agent`.
 
 `Person` is the only concept that belongs to both hierarchies. A person can both receive services and perform them. `Organization` is an `Agent` only (it is not modelled as a receiver today). `SoftwareAgent` is an `Agent` only. See [ADR-008](../decisions/008-agent-organization.md).

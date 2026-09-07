@@ -51,6 +51,7 @@ imports:
 - external/dhs
 - external/ocha_cod_ab
 - external/openimis
+- farm_operators
 classes:
   Farm:
     class_uri: publicschema:Farm
@@ -62,8 +63,10 @@ classes:
       and climate adaptation programs.
 
       '
-    is_a: Group
     slots:
+    - name
+    - identifiers
+    - holding_operator_roles
     - farm_area_hectares
     - primary_crop
     - livestock_type

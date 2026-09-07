@@ -1,0 +1,145 @@
+id: https://publicschema.org/linkml/farm-operators
+name: publicschema-farm-operators
+title: Farm management responsibilities
+license: CC-BY-4.0
+default_prefix: publicschema
+prefixes:
+  publicschema: https://publicschema.org/
+  linkml: https://w3id.org/linkml/
+  bibo: http://purl.org/ontology/bibo/
+imports:
+- linkml:types
+- publicschema-extensions
+- common
+- identity
+- misc
+classes:
+  HoldingOperatorRole:
+    class_uri: publicschema:HoldingOperatorRole
+    title: Agricultural Holder Responsibility
+    description: Agricultural holder responsibility for major resource decisions and management control
+      of a Farm, alone or jointly, during an optionally known period. This responsibility is distinct
+      from daily management, ownership, employment and program entitlement. The same subject can bear
+      several of these roles. Multiple simultaneous holder responsibilities may describe
+      joint responsibility for one production unit. Dates describe effectiveness, not when a record was
+      entered.
+    slots:
+    - operated_holding
+    - start_date
+    - end_date
+    - identifiers
+    status: bibo:draft
+    see_also:
+    - https://www.fao.org/4/i4913e/i4913e.pdf
+    annotations:
+      bibliography_refs: '["fao-wca-2020-vol1"]'
+    abstract: true
+  PersonHoldingOperatorRole:
+    class_uri: publicschema:PersonHoldingOperatorRole
+    title: Person Holder Responsibility
+    description: A holding management responsibility borne by one person. This identifies the responsible
+      subject without asserting ownership, registration or benefit entitlement.
+    slots:
+    - holding_operator_person
+    status: bibo:draft
+    see_also:
+    - https://www.fao.org/4/i4913e/i4913e.pdf
+    annotations:
+      bibliography_refs: '["fao-wca-2020-vol1"]'
+    is_a: HoldingOperatorRole
+  OrganizationHoldingOperatorRole:
+    class_uri: publicschema:OrganizationHoldingOperatorRole
+    title: Organization Holder Responsibility
+    description: A holding management responsibility borne by one organization. This identifies the responsible
+      subject without asserting ownership, registration or benefit entitlement.
+    slots:
+    - holding_operator_organization
+    status: bibo:draft
+    see_also:
+    - https://www.fao.org/4/i4913e/i4913e.pdf
+    annotations:
+      bibliography_refs: '["fao-wca-2020-vol1"]'
+    is_a: HoldingOperatorRole
+  GroupHoldingOperatorRole:
+    class_uri: publicschema:GroupHoldingOperatorRole
+    title: Group Holder Responsibility
+    description: A holding management responsibility borne by one group. This identifies the responsible
+      subject without asserting ownership, registration or benefit entitlement.
+    slots:
+    - holding_operator_group
+    status: bibo:draft
+    see_also:
+    - https://www.fao.org/4/i4913e/i4913e.pdf
+    annotations:
+      bibliography_refs: '["fao-wca-2020-vol1"]'
+    is_a: HoldingOperatorRole
+  InformalGroup:
+    class_uri: publicschema:InformalGroup
+    title: Informal Group
+    description: A collection of persons identified together for a shared activity or purpose, without
+      asserting a separate institutional body, common residence or kinship. The group can be identified
+      even when its individual members are not enumerated. Use Household or Family when their more specific
+      meanings apply, and Organization when the subject is an institutional body. Joint agricultural holders
+      are one example.
+    slots: []
+    status: bibo:draft
+    see_also:
+    - https://www.fao.org/4/i4913e/i4913e.pdf
+    annotations:
+      bibliography_refs: '["fao-wca-2020-vol1"]'
+    is_a: Group
+slots:
+  operated_holding:
+    slot_uri: publicschema:operated_holding
+    title: Operated holding
+    description: The agricultural production unit for which this management responsibility is asserted.
+    range: Farm
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: administrative
+      bibliography_refs: '["fao-wca-2020-vol1"]'
+  holding_operator_roles:
+    slot_uri: publicschema:holding_operator_roles
+    title: Holding operator roles
+    description: Responsibilities for management of this Farm. Each referenced role must identify this
+      same Farm through operated_holding; a complete exchange profile checks that consistency.
+    range: HoldingOperatorRole
+    multivalued: true
+    status: bibo:draft
+    annotations:
+      category: administrative
+      bibliography_refs: '["fao-wca-2020-vol1"]'
+  holding_operator_person:
+    slot_uri: publicschema:holding_operator_person
+    title: Holding operator person
+    description: The person bearing this responsibility for major resource decisions and management control.
+      This is not inferred from membership, ownership or employment.
+    range: Person
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: administrative
+      bibliography_refs: '["fao-wca-2020-vol1"]'
+  holding_operator_organization:
+    slot_uri: publicschema:holding_operator_organization
+    title: Holding operator organization
+    description: The organization bearing this responsibility for major resource decisions and management
+      control. This is not inferred from membership, ownership or employment.
+    range: Organization
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: administrative
+      bibliography_refs: '["fao-wca-2020-vol1"]'
+  holding_operator_group:
+    slot_uri: publicschema:holding_operator_group
+    title: Holding operator group
+    description: The group bearing this responsibility for major resource decisions and management control.
+      This is not inferred from membership, ownership or employment.
+    range: Group
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: administrative
+      bibliography_refs: '["fao-wca-2020-vol1"]'
