@@ -20,6 +20,8 @@ These commands use the existing Python dependencies and local artifacts. They re
 
 This example pins **FHIR R5 5.0.0** and the published base profiles `http://hl7.org/fhir/StructureDefinition/{ResourceType}|5.0.0`, including Bundle. Each resource declares that exact profile in `meta.profile`. These base profiles do not establish compliance with a jurisdictional implementation guide, EMA UPD, ISO IDMP, or a clinical exchange contract. Several medicinal definition resources are Trial Use with different maturity levels.
 
+R5 is the selected contract for this example because it supplies the medicinal-definition resources and directory fields used together here. R4 has a different [MedicinalProduct model](https://hl7.org/fhir/R4/medicinalproduct.html); the definition-resource family also exists in R4B, but this example validates only R5. An existing R4 or R4B exchange should retain its required release and profiles and use an explicit mapping, rather than relabel its payload as R5. See HL7's [cross-version guidance](https://hl7.org/fhir/R5/versions.html).
+
 | Concern | Native resource and example |
 | --- | --- |
 | Human and veterinary product definitions | [MedicinalProductDefinition](https://hl7.org/fhir/R5/medicinalproductdefinition.html), using distinct product records and `domain`. Neither record denotes a physical batch, a prescription, or interchangeability with the other product. |

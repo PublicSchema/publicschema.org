@@ -63,6 +63,8 @@ Every element gets a stable URI:
 
 Once published at candidate or above, a URI will not be removed. Deprecated terms continue to resolve with metadata indicating the replacement.
 
+Publishing a draft on the site does not start that persistence guarantee: draft URIs may still change with notice. Candidate publication is the persistence threshold; normative maturity additionally locks meaning as described above. Draft adopters should pin a source revision and consult the [domain migration dispositions](domain-migration.md) before updating. A recorded replacement explains the change; it does not by itself assert semantic equivalence.
+
 ## Licensing
 
 The reference model in `schema/` is licensed under **CC-BY-4.0**. Build tooling and tests under **Apache-2.0**.

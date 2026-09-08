@@ -63,6 +63,8 @@ Cada elemento obtiene un URI estable:
 
 Una vez publicado en uso experimental o superior, un URI no será eliminado. Los términos obsoletos continúan resolviendo con metadatos que indican el reemplazo.
 
+Publicar un borrador en el sitio no inicia esa garantía de persistencia: sus URI todavía pueden cambiar con aviso previo. La publicación en el nivel «Uso experimental» (`candidate`) marca el inicio de la garantía; el nivel normativo también fija el significado, como se describe arriba. Quienes utilicen borradores deberían fijar una revisión de las fuentes y consultar las [disposiciones de migración de dominios](../domain-migration.md) antes de actualizar. Un reemplazo documentado explica el cambio, pero no establece por sí solo una equivalencia semántica.
+
 ## Licencia
 
 El modelo de referencia en `schema/` está licenciado bajo **CC-BY-4.0**. Las herramientas de construcción y las pruebas bajo **Apache-2.0**.
