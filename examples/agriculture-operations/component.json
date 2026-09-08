@@ -1,0 +1,15 @@
+{
+  "@type": "ProductComponent",
+  "component_substance": {
+    "@type": "CodedValue",
+    "code_value": "nitrogen",
+    "code_scheme": "https://example.org/nutrients"
+  },
+  "component_amount": {
+    "@type": "QuantityValue",
+    "quantity_value": 10,
+    "unit_code": "percent"
+  },
+  "component_basis": "mass fraction",
+  "@id": "https://example.org/agriculture/component"
+}

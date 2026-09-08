@@ -1,0 +1,13 @@
+{
+  "@type": "agri/AgriculturalFacility",
+  "name": "Synthetic grain warehouse",
+  "facility_function": [
+    {
+      "@type": "CodedValue",
+      "code_value": "storage",
+      "code_scheme": "https://example.org/facility-functions"
+    }
+  ],
+  "facility_operator": "https://example.org/org/cooperative",
+  "@id": "https://example.org/agriculture/facility"
+}

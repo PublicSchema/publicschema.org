@@ -1,0 +1,450 @@
+{
+  "contract": "publicschema-fhir-r5-local-v1",
+  "fhir_release": "5.0.0",
+  "fhir_media_type": "application/fhir+json",
+  "subjects": [
+    {
+      "@id": "https://example.org/subjects/clinic-provider",
+      "@type": "Organization",
+      "name": "Example clinical provider"
+    },
+    {
+      "@id": "https://example.org/subjects/premises-upkeep",
+      "@type": "Organization",
+      "name": "Example premises upkeep organization"
+    },
+    {
+      "@id": "https://example.org/subjects/accreditor",
+      "@type": "Organization",
+      "name": "Example organization accreditor"
+    },
+    {
+      "@id": "https://example.org/subjects/medicines-regulator",
+      "@type": "Organization",
+      "name": "Example medicines regulator"
+    },
+    {
+      "@id": "https://example.org/subjects/manufacturer",
+      "@type": "Organization",
+      "name": "Example medicinal product manufacturer"
+    },
+    {
+      "@id": "https://example.org/subjects/example-substance",
+      "@type": "Substance",
+      "name": "Synthetic substance A"
+    },
+    {
+      "@id": "https://example.org/subjects/clinic-site",
+      "@type": "health/HealthFacility",
+      "name": "Synthetic clinic premises"
+    }
+  ],
+  "records": [
+    {
+      "entry": {
+        "@type": "RegistryEntry",
+        "register_uri": "https://example.org/registers/medical-source",
+        "record_id": "0001",
+        "subject_uri": "https://example.org/subjects/clinic-provider",
+        "recorded_at": "2026-09-08T00:00:00Z",
+        "subject_type": "https://publicschema.org/Organization"
+      },
+      "fhir_full_url": "https://example.org/fhir/Organization/clinic-provider",
+      "resource_type": "Organization",
+      "profile": "http://hl7.org/fhir/StructureDefinition/Organization|5.0.0",
+      "business_identifier": {
+        "system": "https://example.org/identifiers/Organization",
+        "value": "BUS-CLINIC-PROVIDER"
+      }
+    },
+    {
+      "entry": {
+        "@type": "RegistryEntry",
+        "register_uri": "https://example.org/registers/medical-source",
+        "record_id": "0002",
+        "subject_uri": "https://example.org/subjects/premises-upkeep",
+        "recorded_at": "2026-09-08T00:00:00Z",
+        "subject_type": "https://publicschema.org/Organization"
+      },
+      "fhir_full_url": "https://example.org/fhir/Organization/premises-upkeep",
+      "resource_type": "Organization",
+      "profile": "http://hl7.org/fhir/StructureDefinition/Organization|5.0.0",
+      "business_identifier": {
+        "system": "https://example.org/identifiers/Organization",
+        "value": "BUS-PREMISES-UPKEEP"
+      }
+    },
+    {
+      "entry": {
+        "@type": "RegistryEntry",
+        "register_uri": "https://example.org/registers/medical-source",
+        "record_id": "0003",
+        "subject_uri": "https://example.org/subjects/accreditor",
+        "recorded_at": "2026-09-08T00:00:00Z",
+        "subject_type": "https://publicschema.org/Organization"
+      },
+      "fhir_full_url": "https://example.org/fhir/Organization/accreditor",
+      "resource_type": "Organization",
+      "profile": "http://hl7.org/fhir/StructureDefinition/Organization|5.0.0",
+      "business_identifier": {
+        "system": "https://example.org/identifiers/Organization",
+        "value": "BUS-ACCREDITOR"
+      }
+    },
+    {
+      "entry": {
+        "@type": "RegistryEntry",
+        "register_uri": "https://example.org/registers/medical-source",
+        "record_id": "0004",
+        "subject_uri": "https://example.org/subjects/medicines-regulator",
+        "recorded_at": "2026-09-08T00:00:00Z",
+        "subject_type": "https://publicschema.org/Organization"
+      },
+      "fhir_full_url": "https://example.org/fhir/Organization/medicines-regulator",
+      "resource_type": "Organization",
+      "profile": "http://hl7.org/fhir/StructureDefinition/Organization|5.0.0",
+      "business_identifier": {
+        "system": "https://example.org/identifiers/Organization",
+        "value": "BUS-MEDICINES-REGULATOR"
+      }
+    },
+    {
+      "entry": {
+        "@type": "RegistryEntry",
+        "register_uri": "https://example.org/registers/medical-source",
+        "record_id": "0005",
+        "subject_uri": "https://example.org/subjects/manufacturer",
+        "recorded_at": "2026-09-08T00:00:00Z",
+        "subject_type": "https://publicschema.org/Organization"
+      },
+      "fhir_full_url": "https://example.org/fhir/Organization/manufacturer",
+      "resource_type": "Organization",
+      "profile": "http://hl7.org/fhir/StructureDefinition/Organization|5.0.0",
+      "business_identifier": {
+        "system": "https://example.org/identifiers/Organization",
+        "value": "BUS-MANUFACTURER"
+      }
+    },
+    {
+      "entry": {
+        "@type": "RegistryEntry",
+        "register_uri": "https://example.org/registers/medical-source",
+        "record_id": "0006",
+        "subject_uri": "https://example.org/subjects/example-substance",
+        "recorded_at": "2026-09-08T00:00:00Z",
+        "subject_type": "https://publicschema.org/Substance"
+      },
+      "fhir_full_url": "https://example.org/fhir/SubstanceDefinition/example-substance",
+      "resource_type": "SubstanceDefinition",
+      "profile": "http://hl7.org/fhir/StructureDefinition/SubstanceDefinition|5.0.0",
+      "business_identifier": {
+        "system": "https://example.org/identifiers/SubstanceDefinition",
+        "value": "BUS-EXAMPLE-SUBSTANCE"
+      }
+    },
+    {
+      "entry": {
+        "@type": "RegistryEntry",
+        "register_uri": "https://example.org/registers/medical-source",
+        "record_id": "0007",
+        "subject_uri": "https://example.org/subjects/human-product",
+        "recorded_at": "2026-09-08T00:00:00Z"
+      },
+      "fhir_full_url": "https://example.org/fhir/MedicinalProductDefinition/human-product",
+      "resource_type": "MedicinalProductDefinition",
+      "profile": "http://hl7.org/fhir/StructureDefinition/MedicinalProductDefinition|5.0.0",
+      "business_identifier": {
+        "system": "https://example.org/identifiers/MedicinalProductDefinition",
+        "value": "BUS-HUMAN-PRODUCT"
+      }
+    },
+    {
+      "entry": {
+        "@type": "RegistryEntry",
+        "register_uri": "https://example.org/registers/medical-source",
+        "record_id": "0008",
+        "subject_uri": "https://example.org/subjects/human-ingredient",
+        "recorded_at": "2026-09-08T00:00:00Z"
+      },
+      "fhir_full_url": "https://example.org/fhir/Ingredient/human-ingredient",
+      "resource_type": "Ingredient",
+      "profile": "http://hl7.org/fhir/StructureDefinition/Ingredient|5.0.0",
+      "business_identifier": {
+        "system": "https://example.org/identifiers/Ingredient",
+        "value": "BUS-HUMAN-INGREDIENT"
+      }
+    },
+    {
+      "entry": {
+        "@type": "RegistryEntry",
+        "register_uri": "https://example.org/registers/medical-source",
+        "record_id": "0009",
+        "subject_uri": "https://example.org/subjects/human-form",
+        "recorded_at": "2026-09-08T00:00:00Z"
+      },
+      "fhir_full_url": "https://example.org/fhir/AdministrableProductDefinition/human-form",
+      "resource_type": "AdministrableProductDefinition",
+      "profile": "http://hl7.org/fhir/StructureDefinition/AdministrableProductDefinition|5.0.0",
+      "business_identifier": {
+        "system": "https://example.org/identifiers/AdministrableProductDefinition",
+        "value": "BUS-HUMAN-FORM"
+      }
+    },
+    {
+      "entry": {
+        "@type": "RegistryEntry",
+        "register_uri": "https://example.org/registers/medical-source",
+        "record_id": "0010",
+        "subject_uri": "https://example.org/subjects/human-package",
+        "recorded_at": "2026-09-08T00:00:00Z"
+      },
+      "fhir_full_url": "https://example.org/fhir/PackagedProductDefinition/human-package",
+      "resource_type": "PackagedProductDefinition",
+      "profile": "http://hl7.org/fhir/StructureDefinition/PackagedProductDefinition|5.0.0",
+      "business_identifier": {
+        "system": "https://example.org/identifiers/PackagedProductDefinition",
+        "value": "BUS-HUMAN-PACKAGE"
+      }
+    },
+    {
+      "entry": {
+        "@type": "RegistryEntry",
+        "register_uri": "https://example.org/registers/medical-source",
+        "record_id": "0011",
+        "subject_uri": "https://example.org/subjects/human-authorization",
+        "recorded_at": "2026-09-08T00:00:00Z"
+      },
+      "fhir_full_url": "https://example.org/fhir/RegulatedAuthorization/human-authorization",
+      "resource_type": "RegulatedAuthorization",
+      "profile": "http://hl7.org/fhir/StructureDefinition/RegulatedAuthorization|5.0.0",
+      "business_identifier": {
+        "system": "https://example.org/identifiers/RegulatedAuthorization",
+        "value": "BUS-HUMAN-AUTHORIZATION"
+      }
+    },
+    {
+      "entry": {
+        "@type": "RegistryEntry",
+        "register_uri": "https://example.org/registers/medical-source",
+        "record_id": "0012",
+        "subject_uri": "https://example.org/subjects/veterinary-product",
+        "recorded_at": "2026-09-08T00:00:00Z"
+      },
+      "fhir_full_url": "https://example.org/fhir/MedicinalProductDefinition/veterinary-product",
+      "resource_type": "MedicinalProductDefinition",
+      "profile": "http://hl7.org/fhir/StructureDefinition/MedicinalProductDefinition|5.0.0",
+      "business_identifier": {
+        "system": "https://example.org/identifiers/MedicinalProductDefinition",
+        "value": "BUS-VETERINARY-PRODUCT"
+      }
+    },
+    {
+      "entry": {
+        "@type": "RegistryEntry",
+        "register_uri": "https://example.org/registers/medical-source",
+        "record_id": "0013",
+        "subject_uri": "https://example.org/subjects/veterinary-ingredient",
+        "recorded_at": "2026-09-08T00:00:00Z"
+      },
+      "fhir_full_url": "https://example.org/fhir/Ingredient/veterinary-ingredient",
+      "resource_type": "Ingredient",
+      "profile": "http://hl7.org/fhir/StructureDefinition/Ingredient|5.0.0",
+      "business_identifier": {
+        "system": "https://example.org/identifiers/Ingredient",
+        "value": "BUS-VETERINARY-INGREDIENT"
+      }
+    },
+    {
+      "entry": {
+        "@type": "RegistryEntry",
+        "register_uri": "https://example.org/registers/medical-source",
+        "record_id": "0014",
+        "subject_uri": "https://example.org/subjects/veterinary-form",
+        "recorded_at": "2026-09-08T00:00:00Z"
+      },
+      "fhir_full_url": "https://example.org/fhir/AdministrableProductDefinition/veterinary-form",
+      "resource_type": "AdministrableProductDefinition",
+      "profile": "http://hl7.org/fhir/StructureDefinition/AdministrableProductDefinition|5.0.0",
+      "business_identifier": {
+        "system": "https://example.org/identifiers/AdministrableProductDefinition",
+        "value": "BUS-VETERINARY-FORM"
+      }
+    },
+    {
+      "entry": {
+        "@type": "RegistryEntry",
+        "register_uri": "https://example.org/registers/medical-source",
+        "record_id": "0015",
+        "subject_uri": "https://example.org/subjects/veterinary-package",
+        "recorded_at": "2026-09-08T00:00:00Z"
+      },
+      "fhir_full_url": "https://example.org/fhir/PackagedProductDefinition/veterinary-package",
+      "resource_type": "PackagedProductDefinition",
+      "profile": "http://hl7.org/fhir/StructureDefinition/PackagedProductDefinition|5.0.0",
+      "business_identifier": {
+        "system": "https://example.org/identifiers/PackagedProductDefinition",
+        "value": "BUS-VETERINARY-PACKAGE"
+      }
+    },
+    {
+      "entry": {
+        "@type": "RegistryEntry",
+        "register_uri": "https://example.org/registers/medical-source",
+        "record_id": "0016",
+        "subject_uri": "https://example.org/subjects/veterinary-authorization",
+        "recorded_at": "2026-09-08T00:00:00Z"
+      },
+      "fhir_full_url": "https://example.org/fhir/RegulatedAuthorization/veterinary-authorization",
+      "resource_type": "RegulatedAuthorization",
+      "profile": "http://hl7.org/fhir/StructureDefinition/RegulatedAuthorization|5.0.0",
+      "business_identifier": {
+        "system": "https://example.org/identifiers/RegulatedAuthorization",
+        "value": "BUS-VETERINARY-AUTHORIZATION"
+      }
+    },
+    {
+      "entry": {
+        "@type": "RegistryEntry",
+        "register_uri": "https://example.org/registers/medical-source",
+        "record_id": "0017",
+        "subject_uri": "https://example.org/subjects/clinic-site",
+        "recorded_at": "2026-09-08T00:00:00Z",
+        "subject_type": "https://publicschema.org/health/HealthFacility"
+      },
+      "fhir_full_url": "https://example.org/fhir/Location/clinic-site",
+      "resource_type": "Location",
+      "profile": "http://hl7.org/fhir/StructureDefinition/Location|5.0.0",
+      "business_identifier": {
+        "system": "https://example.org/identifiers/Location",
+        "value": "BUS-CLINIC-SITE"
+      }
+    },
+    {
+      "entry": {
+        "@type": "RegistryEntry",
+        "register_uri": "https://example.org/registers/medical-source",
+        "record_id": "0018",
+        "subject_uri": "https://example.org/subjects/clinic-endpoint",
+        "recorded_at": "2026-09-08T00:00:00Z"
+      },
+      "fhir_full_url": "https://example.org/fhir/Endpoint/clinic-endpoint",
+      "resource_type": "Endpoint",
+      "profile": "http://hl7.org/fhir/StructureDefinition/Endpoint|5.0.0",
+      "business_identifier": {
+        "system": "https://example.org/identifiers/Endpoint",
+        "value": "BUS-CLINIC-ENDPOINT"
+      }
+    },
+    {
+      "entry": {
+        "@type": "RegistryEntry",
+        "register_uri": "https://example.org/registers/medical-source",
+        "record_id": "0019",
+        "subject_uri": "https://example.org/subjects/outpatient-service",
+        "recorded_at": "2026-09-08T00:00:00Z",
+        "source_records": [
+          {
+            "@type": "RecordReference",
+            "register_uri": "https://example.org/registers/legacy-health",
+            "record_id": "0007"
+          }
+        ]
+      },
+      "fhir_full_url": "https://example.org/fhir/HealthcareService/outpatient-service",
+      "resource_type": "HealthcareService",
+      "profile": "http://hl7.org/fhir/StructureDefinition/HealthcareService|5.0.0",
+      "business_identifier": {
+        "system": "https://example.org/identifiers/HealthcareService",
+        "value": "BUS-OUTPATIENT-SERVICE"
+      }
+    }
+  ],
+  "links": [
+    {
+      "purpose": "Human product lookup",
+      "expected_resource_type": "MedicinalProductDefinition",
+      "record": {
+        "@type": "RecordReference",
+        "register_uri": "https://example.org/registers/medical-source",
+        "record_id": "0007",
+        "subject_uri": "https://example.org/subjects/human-product"
+      }
+    },
+    {
+      "purpose": "Veterinary product lookup",
+      "expected_resource_type": "MedicinalProductDefinition",
+      "record": {
+        "@type": "RecordReference",
+        "register_uri": "https://example.org/registers/medical-source",
+        "record_id": "0012",
+        "subject_uri": "https://example.org/subjects/veterinary-product"
+      }
+    },
+    {
+      "purpose": "Species and tissue withdrawal lookup",
+      "expected_resource_type": "AdministrableProductDefinition",
+      "record": {
+        "@type": "RecordReference",
+        "register_uri": "https://example.org/registers/medical-source",
+        "record_id": "0014",
+        "subject_uri": "https://example.org/subjects/veterinary-form"
+      }
+    },
+    {
+      "purpose": "Cross-sector physical premises lookup",
+      "expected_resource_type": "Location",
+      "record": {
+        "@type": "RecordReference",
+        "register_uri": "https://example.org/registers/medical-source",
+        "record_id": "0017",
+        "subject_uri": "https://example.org/subjects/clinic-site",
+        "subject_type": "https://publicschema.org/health/HealthFacility"
+      }
+    },
+    {
+      "purpose": "Healthcare directory lookup",
+      "expected_resource_type": "HealthcareService",
+      "record": {
+        "@type": "RecordReference",
+        "register_uri": "https://example.org/registers/medical-source",
+        "record_id": "0019",
+        "subject_uri": "https://example.org/subjects/outpatient-service"
+      }
+    }
+  ],
+  "migration_outcomes": [
+    {
+      "source_record": {
+        "@type": "RecordReference",
+        "register_uri": "https://example.org/registers/legacy-health",
+        "record_id": "0007"
+      },
+      "state": "unmapped",
+      "source_path": "healthcare_service.valid_from",
+      "source_value": "2025-01-01",
+      "reason": "Base R5 HealthcareService has no general service validity period. Active status and opening times do not encode this date."
+    },
+    {
+      "source_record": {
+        "@type": "RecordReference",
+        "register_uri": "https://example.org/registers/legacy-health",
+        "record_id": "0007"
+      },
+      "state": "unmapped",
+      "source_path": "management.valid_to",
+      "source_value": "2025-12-31",
+      "reason": "The source management role is ambiguous, and Location.managingOrganization has no management period. No upkeep or operation is inferred."
+    },
+    {
+      "source_record": {
+        "@type": "RecordReference",
+        "register_uri": "https://example.org/registers/legacy-health",
+        "record_id": "0007"
+      },
+      "state": "unmapped",
+      "source_path": "accreditation.registered_subject",
+      "source_value": "https://example.org/subjects/clinic-site",
+      "reason": "A premises-only accreditation cannot be moved to Organization.qualification without changing the accredited subject."
+    }
+  ]
+}

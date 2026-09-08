@@ -22,18 +22,28 @@ Algunos conceptos comparten un nombre entre dominios pero tienen semánticas dif
 
 La prueba: un elemento es universal si la misma definición tiene el mismo significado independientemente del dominio. Si no es así, pertenece a un espacio de nombres de dominio.
 
-La misma prueba se aplica en principio a propiedades y vocabularios, pero su aplicación es un juicio de valor. Un vocabulario controlado cuyos valores están estrechamente ligados a un flujo de trabajo de dominio (`sp/grievance-type`, `sp/grievance-status`, `sp/enrollment-status`) es claramente de alcance de dominio. Una propiedad que referencia tal vocabulario (`grievance_type`, `grievance_status`) puede, no obstante, permanecer en el espacio de nombres raíz cuando la forma primitiva de la propiedad (un valor codificado, una fecha ISO, una referencia de identificador) es portable aunque su conjunto de valores no lo sea. En el esquema actual existen varios pares de este tipo («propiedad en la raíz, vocabulario en el dominio»). Este reparto es deliberado: mantiene estable el URI de la propiedad si el concepto se renombra o se generaliza a otros dominios más adelante, mientras que el vocabulario lleva la semántica específica del dominio.
+Aplique la misma prueba basada en el significado a propiedades y vocabularios. Una forma primitiva portable no hace que una propiedad sea universal: un identificador fiscal y un identificador de vehículo pueden ser ambos cadenas y, sin embargo, nombrar hechos diferentes. Las propiedades compartidas como `start_date` conservan su URI raíz cuando las usa un concepto sectorial. Los términos existentes en estado candidato o normativo conservan sus identidades publicadas, incluidos los pares heredados de propiedad raíz y vocabulario de dominio; son restricciones de compatibilidad, no un precedente para asignar términos nuevos solo por su forma.
 
-Los nombres nunca se prefijan con una abreviación de dominio. Es `Enrollment`, no `SPEnrollment`. La estructura del URI se encarga de la disambiguación. El pipeline de construcción indexa los conceptos por `(dominio, id)`, lo que permite que dos conceptos compartan un nombre corto siempre que sus dominios difieran. En la fuente LinkML actual, `Person` es universal y los roles de registro civil como `crvs/Parent` heredan de ese concepto universal en lugar de definir un `crvs/Person` separado.
+Los nombres públicos no necesitan abreviaciones de dominio: use `Enrollment`, no `SPEnrollment`. Sin embargo, los identificadores LinkML deben ser únicos dentro del compuesto. Por ejemplo, el `CrvsPerson` redactado representa `crvs/Person`, una instantánea de registro civil distinta de `Person` universal; `crvs/Parent` hereda de esa instantánea. Consulte [ADR-018](../decisions/018-crvs-person-rename.md).
 
-| Código | Dominio | Estado |
+| Código | Dominio | Alcance actual |
 |---|---|---|
-| `sp` | Protección social | Activo |
-| `edu` | Educación | Futuro |
-| `health` | Salud | Futuro |
-| `crvs` | Registro civil y estadísticas vitales | Activo |
+| `sp` | Protección social | Programas de prestaciones y relaciones de prestación |
+| `crvs` | Registro civil y estadísticas vitales | Eventos vitales y roles de registro |
+| `agri` | Agricultura | Explotaciones de producción, cultivos, establecimientos ganaderos, insumos y roles de producción |
+| `land` | Administración de tierras | Unidades espaciales y administrativas, tenencia y límites |
+| `environment` | Medio ambiente | Instalaciones, unidades técnicas, emisiones y autorizaciones de uso de agua |
+| `transport` | Transporte | Vehículos, carreteras, restricciones de red y permisos de conducir |
+| `edu` | Educación | Proveedores, programas, ofertas y centros educativos |
+| `health` | Salud | Instalaciones físicas de atención sanitaria; el contenido médico se integra mediante FHIR nativo |
+| `tax` | Administración tributaria | Registro tributario |
+| `elections` | Administración electoral | Registro de votantes |
 
-ServicePoint y sus subtipos (HealthFacility, School, WaterPoint, RegistrationOffice) permanecen en la raíz en lugar de estar bajo segmentos de dominio. Se clasifican por sector usando el vocabulario de tipos de puntos de servicio, no por dominio de URI. Esto permite que los registros de puntos de servicio sean utilizables de forma transversal en los flujos de trabajo de protección social, educación, salud y CRVS, sin introducir supertipos específicos de dominio.
+Estas etiquetas describen partes representadas, no estándares sectoriales completos. Un dominio es un espacio de nombres y una ayuda para el descubrimiento, no una superclase ni un límite de control de acceso. Cualquier dominio puede reutilizar un concepto compartido o referirse al concepto de otro dominio. Los nombres de archivos de módulo organizan la autoría y no determinan los espacios de nombres públicos.
+
+`ServicePoint` permanece compartido. Sus subtipos provisionales `School` y `HealthFacility` usan `edu/School` y `health/HealthFacility`. `RegistrationOffice` permanece en la raíz porque su definición también cubre el registro de identidad y de personas refugiadas. `WaterPoint` conserva su identidad raíz existente como excepción de alcance declarada; no se ha diseñado un espacio de nombres completo para agua y saneamiento. Las identidades genéricas de animales y plantas permanecen compartidas cuando sus definiciones no requieren producción agrícola. Consulte [ubicación y migración de dominios](domain-migration.md) para disposiciones individuales.
+
+Redacte valores explícitos de `class_uri`, `slot_uri`, `enum_uri` y `meaning` de valores permitidos, con `annotations.source_domain` coherentes. El renderizador usa el URI redactado de una propiedad para ubicar su página; añadir un nuevo consumidor no debe mover esa propiedad. Las rutas del catálogo de vocabularios siguen siendo `/vocab/<domain>/<kebab-case-id>`. `schema/publicschema.yaml` proporciona etiquetas de dominio mediante `annotations.domains_json`; el sitio muestra los dominios realmente presentes en cada colección y mantiene visibles los códigos desconocidos.
 
 ## 3. Persistencia de URI
 
@@ -102,8 +112,15 @@ Los conceptos de ciclo de vida usan fechas con nombre específico del dominio qu
 | Ciclo de vida (Grievance) | Fechas de evento específicas del dominio | `submission_date`, `resolution_date` |
 | Evento único (PaymentEvent) | Fecha de evento único | `payment_date` |
 | Relación (GroupMembership, Relationship) | Fechas genéricas | `start_date`, `end_date` |
+| Validez calendaria de una aserción (RegistryEntry, Registration) | Primer y último día aplicable | `valid_from`, `valid_to` |
 
 No mezcle ambos patrones en el mismo concepto. Un concepto de ciclo de vida no debe llevar tanto `enrollment_date` como `start_date`.
+
+Los dos pares genéricos no son alias. `start_date` nombra la fecha en que comenzó la efectividad; `end_date` nombra la fecha en que cesó. Los `valid_from` y `valid_to` provisionales nombran el primer y último día calendario aplicables, incluido el último día. `recorded_at` registra en cambio cuándo la fuente introdujo la aserción. Las fechas ausentes siguen siendo desconocidas; un fin omitido no demuestra validez perpetua.
+
+Use `start_date` / `end_date` para conceptos de relación y membresía. Los borradores HoldingParcelLink, AnimalResidence, AnimalResponsibility, ProducerMembership, AgriculturalServiceRole (incluidos InputSupplierRole, PesticideApplicatorRole y SeedOperatorRole), IdentifierAssignment, NameUsage y ContactPoint ahora siguen esta convención. AssetPartyRole y AssetAddressAssignment también la usan. Registration, RegistryEntry, AgriculturalParcel, AgriculturalCertification, LandTenureAssertion y RoadRestriction conservan su validez calendaria declarada. La [guía de migración de relaciones](relationship-date-migration.md) describe el contrato explícito de conversión y las asignaciones de instalaciones retiradas. Renombrar un `valid_to` inclusivo como `end_date` sin cambiar el límite pierde un día efectivo.
+
+Un perfil consumidor debe declarar los límites de sus intervalos antes de comparar o convertir fechas. Por ejemplo, bajo una convención de días completos acordada explícitamente, `valid_to: 2026-06-30` corresponde a un cese con `end_date: 2026-07-01`. Renombrar la clave y conservar el 30 de junio cambiaría el significado. No aplique esta conversión cuando la precisión de la fuente o la semántica de sus límites sea desconocida. El ejemplo de trabajo agrícola documenta su propia convención de días completos; no cambia las definiciones normativas de propiedades de fecha.
 
 ## 6. Independencia de propiedades
 
@@ -115,7 +132,7 @@ La independencia de propiedades no se limita a campos estructurales repetidos. T
 
 Las reglas que mantienen la coherencia:
 
-1. **Un archivo de propiedad por concepto nombrado.** `water_source` es un único archivo YAML referenciado desde ambos perfiles.
+1. **Un slot reutilizable por hecho nombrado.** `water_source` se declara una vez bajo `slots:` y se referencia desde ambos perfiles.
 2. **El encuadre contextual vive en el concepto, no en la propiedad.** La definición de la propiedad nombra el observable ("la fuente principal de agua potable del hogar"). La definición de cada concepto nombra cómo se interpreta ese observable en ese concepto (registro de base o posterior al choque).
 3. **La reutilización debe anunciarse en la definición narrativa de ambos conceptos.** Un lector en cualquiera de las dos páginas debe poder ver que el campo aparece también en otro lugar y por qué.
 4. **La reutilización no hace que los registros sean compatibles en tipo.** Un registro `SocioEconomicProfile` y un registro `DwellingDamageProfile` son cosas distintas aun cuando sus valores de propiedad se solapen. Los adoptantes deben consultar la página del concepto, no la lista de propiedades, al serializar hacia una forma fuertemente tipada.

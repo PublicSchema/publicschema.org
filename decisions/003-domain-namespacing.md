@@ -18,4 +18,6 @@ Domain-specific concepts get a domain segment in their URI (`publicschema.org/sp
 
 ## Consequences
 
-Concept names stay clean and human-readable. The URI structure handles disambiguation. Domain derivation for properties and vocabularies can be computed algorithmically from concept usage. Adding a new domain does not require renaming existing concepts.
+Concept names stay clean and human-readable. The URI structure handles disambiguation. Adding a new domain does not require renaming existing shared concepts.
+
+[ADR-025](025-domain-and-external-model-boundaries.md) clarifies the authoring rule: choose property and vocabulary namespaces by meaning, not by current concept usage. Their public identities must not move when another domain reuses them. Explicit authored property URIs own renderer placement; usage-based inference remains only a compatibility fallback for older sources without those URIs. Candidate and normative identities are preserved.

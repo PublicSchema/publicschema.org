@@ -1,7 +1,9 @@
 ---
-// @ts-ignore
-import vocab from '../../../../dist/vocabulary.json';
+import { loadVocabulary } from '../../data/vocabulary';
+import { createDomainCatalog } from '../../data/domains';
 import Base from '../../layouts/Base.astro';
+
+const vocab = loadVocabulary();
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -28,7 +30,7 @@ const allConcepts: ConceptRow[] = Object.entries(vocab.concepts as Record<string
   ([key, raw]) => ({
     key,
     id: raw.id as string,
-    domain: (raw.domain as string) ?? '',
+    domain: (raw.domain as string) ?? 'root',
     path: raw.path as string,
     maturity: (raw.maturity as string) ?? '',
     abstract: (raw.abstract as boolean) ?? false,
@@ -36,14 +38,9 @@ const allConcepts: ConceptRow[] = Object.entries(vocab.concepts as Record<string
   })
 );
 
-// Sort: root first, then sp, then crvs; alphabetical within each domain
-const domainOrder: Record<string, number> = { '': 0, sp: 1, crvs: 2 };
-allConcepts.sort((a, b) => {
-  const dA = domainOrder[a.domain] ?? 9;
-  const dB = domainOrder[b.domain] ?? 9;
-  if (dA !== dB) return dA - dB;
-  return a.id.localeCompare(b.id);
-});
+const domainCatalog = createDomainCatalog(vocab);
+allConcepts.sort(domainCatalog.compare);
+const domains = domainCatalog.present(allConcepts);
 
 const richConcepts = allConcepts.filter((c) => c.property_groups && c.property_groups.length > 0);
 const sparseConcepts = allConcepts.filter(
@@ -67,18 +64,13 @@ function countsByCategory(concept: ConceptRow): Record<string, number> {
 }
 
 // Build the flat list of table rows, inserting domain separator rows
-const sepLabels: Record<string, string> = {
-  '': 'Root (universal) concepts',
-  sp: 'Social protection (sp/) concepts',
-  crvs: 'Civil registration (crvs/) concepts',
-};
 
 function buildRows(concepts: ConceptRow[], sparse: boolean): TableRow[] {
   const rows: TableRow[] = [];
   let lastDomain: string | null = null;
   for (const c of concepts) {
     if (c.domain !== lastDomain) {
-      rows.push({ kind: 'sep', domain: c.domain, label: sepLabels[c.domain] ?? c.domain });
+      rows.push({ kind: 'sep', domain: c.domain, label: `${domainCatalog.get(c.domain).filterLabel} concepts` });
       lastDomain = c.domain;
     }
     rows.push({ kind: 'concept', concept: c, counts: countsByCategory(c), sparse });
@@ -90,8 +82,6 @@ const richRows = buildRows(richConcepts, false);
 const sparseRows = buildRows(sparseConcepts, true);
 
 // Helpers
-const domainLabels: Record<string, string> = { '': 'Root', sp: 'sp/', crvs: 'crvs/' };
-const domains = ['', 'sp', 'crvs'];
 const maturities = ['draft', 'candidate', 'normative'];
 
 function rowId(key: string): string {
@@ -314,6 +304,7 @@ function cellColor(n: number): string {
     }
 
     .badge-domain.root { background: #e8f0fe; color: #1a56db; }
+    .badge-domain { background: #e8edf3; color: #334155; }
     .badge-domain.sp   { background: #fef3c7; color: #92400e; }
     .badge-domain.crvs { background: #d1fae5; color: #065f46; }
 
@@ -414,7 +405,7 @@ function cellColor(n: number): string {
         <select id="domain-filter" aria-label="Filter by domain">
           <option value="">All domains</option>
           {domains.map((d) => (
-            <option value={d}>{domainLabels[d]}</option>
+            <option value={d.value}>{d.filterLabel}</option>
           ))}
         </select>
       </div>
@@ -498,7 +489,7 @@ function cellColor(n: number): string {
               );
             }
             const c = row.concept;
-            const domainClass = c.domain === '' ? 'root' : c.domain;
+            const domain = domainCatalog.get(c.domain);
             return (
               <tr
                 id={rowId(c.key)}
@@ -508,8 +499,8 @@ function cellColor(n: number): string {
               >
                 <td class="concept-cell">
                   <a href={c.path}>{c.id}</a>
-                  <span class={`badge-domain ${domainClass}`}>
-                    {c.domain || 'root'}
+                  <span class={`badge-domain ${domain.value}`} title={domain.label}>
+                    {domain.value}
                   </span>
                   <span class={`badge-maturity ${c.maturity}`}>
                     {c.maturity}
@@ -559,7 +550,7 @@ function cellColor(n: number): string {
               );
             }
             const c = row.concept;
-            const domainClass = c.domain === '' ? 'root' : c.domain;
+            const domain = domainCatalog.get(c.domain);
             return (
               <tr
                 id={rowId(c.key)}
@@ -571,8 +562,8 @@ function cellColor(n: number): string {
               >
                 <td class="concept-cell">
                   <a href={c.path}>{c.id}</a>
-                  <span class={`badge-domain ${domainClass}`}>
-                    {c.domain || 'root'}
+                  <span class={`badge-domain ${domain.value}`} title={domain.label}>
+                    {domain.value}
                   </span>
                   <span class={`badge-maturity ${c.maturity}`}>
                     {c.maturity}
@@ -622,13 +613,6 @@ function cellColor(n: number): string {
         sparseSep.style.display = showSparse ? '' : 'none';
       }
 
-      // Show/hide sparse domain separators
-      document
-        .querySelectorAll<HTMLTableRowElement>('tr.sparse-domain-sep')
-        .forEach((sep) => {
-          sep.style.display = showSparse ? '' : 'none';
-        });
-
       // Show/hide concept rows
       document
         .querySelectorAll<HTMLTableRowElement>('#matrix-body tr[data-domain][data-maturity]')
@@ -647,12 +631,11 @@ function cellColor(n: number): string {
       document
         .querySelectorAll<HTMLTableRowElement>('#matrix-body tr.domain-sep[data-sep-domain]')
         .forEach((sep) => {
-          // sparse domain seps are handled above already
-          if (sep.classList.contains('sparse-domain-sep')) return;
+          const sparse = sep.classList.contains('sparse-domain-sep');
           const sepDomain = sep.dataset.sepDomain ?? '';
           const anyVisible = Array.from(
             document.querySelectorAll<HTMLTableRowElement>(
-              `#matrix-body tr[data-domain="${sepDomain}"][data-sparse="false"]`
+              `#matrix-body tr[data-domain="${sepDomain}"][data-sparse="${sparse}"]`
             )
           ).some((r) => r.style.display !== 'none');
           sep.style.display = anyVisible ? '' : 'none';

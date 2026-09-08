@@ -24,6 +24,12 @@ refactor can't regress them without a clear unit-level failure.
 
 from __future__ import annotations
 
+import json
+
+import pytest
+import yaml
+
+from build.build import build_vocabulary
 from build.linkml_reader import (
     _bespoke_id_and_domain_from_class,
     _convert_class_to_concept,
@@ -200,6 +206,52 @@ class TestDomainOverrideSentinel:
         )
         assert "domain_override" in prop
         assert prop["domain_override"] is None
+
+
+@pytest.mark.parametrize("base_uri", ["https://publicschema.org/", "https://registry.example/schema/"])
+def test_authored_property_namespace_survives_a_consumer_domain_change(tmp_path, base_uri):
+    """A root date stays root and a sector fact stays scoped when consumers move."""
+    definition = {
+        "id": base_uri + "linkml/test", "name": "test", "default_prefix": "product",
+        "prefixes": {"product": base_uri},
+        "classes": {
+            "Premises": {
+                "class_uri": "product:Premises", "title": "Premises",
+                "slots": ["observed_on", "cultivation_kind"],
+            },
+        },
+        "slots": {
+            "observed_on": {
+                "slot_uri": "product:observed_on", "range": "date",
+                "annotations": {"domain_override": "health"},
+            },
+            "cultivation_kind": {
+                "slot_uri": "product:agri/cultivation_kind", "range": "string",
+                "annotations": {"domain_override": "null"},
+            },
+        },
+        "annotations": {"domains_json": json.dumps({
+            "agri": {"label": {"en": "Agriculture", "fr": "Agriculture"}},
+            "health": {"label": {"en": "Health"}},
+        })},
+    }
+    source = tmp_path / "publicschema.yaml"
+    for consumer_uri in ("product:Premises", "product:health/Premises"):
+        definition["classes"]["Premises"]["class_uri"] = consumer_uri
+        source.write_text(yaml.safe_dump(definition))
+        built = build_vocabulary(tmp_path)
+        shared = built["properties"]["observed_on"]
+        scoped = built["properties"]["cultivation_kind"]
+        assert (shared["uri"], shared["path"], shared["domain"]) == (
+            base_uri + "observed_on", "/observed_on", None,
+        )
+        assert (scoped["uri"], scoped["path"], scoped["domain"]) == (
+            base_uri + "agri/cultivation_kind", "/agri/cultivation_kind", "agri",
+        )
+        assert built["context"]["@context"]["observed_on"]["@id"] == shared["uri"]
+        assert built["context"]["@context"]["cultivation_kind"] == scoped["uri"]
+        assert list(built["meta"]["domains"]) == ["agri", "health"]
+        assert built["meta"]["domains"]["agri"]["label"]["fr"] == "Agriculture"
 
 
 # ---------------------------------------------------------------------------

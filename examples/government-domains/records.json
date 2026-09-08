@@ -1,0 +1,651 @@
+[
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/person",
+    "@type": "Person",
+    "name": "Synthetic Example Person"
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/agency",
+    "@type": "PublicOrganization",
+    "name": "Example Public Authority",
+    "public_mandate": [
+      "https://example.org/law/public-functions"
+    ],
+    "governmental_area": [
+      {
+        "@id": "https://example.org/district",
+        "@type": "Location"
+      }
+    ]
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/company",
+    "@type": "LegalEntity",
+    "name": "Example Company",
+    "legal_form": {
+      "@type": "CodedValue",
+      "code_value": "cooperative",
+      "code_scheme": "https://example.org/codes/legal-form"
+    },
+    "incorporation_date": "2020-01-01"
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/district",
+    "@type": "Location",
+    "location_name": "Example District"
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/subordination",
+    "@type": "InstitutionalRelationship",
+    "institution_from": {
+      "@id": "https://example.org/agency",
+      "@type": "PublicOrganization"
+    },
+    "institution_to": {
+      "@id": "https://example.org/company",
+      "@type": "LegalEntity"
+    },
+    "institutional_relationship_type": {
+      "@type": "CodedValue",
+      "code_value": "supervises",
+      "code_scheme": "https://example.org/codes/institution-links"
+    },
+    "start_date": "2025-01-01"
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/officer",
+    "@type": "InstitutionalRole",
+    "role_actor": "https://example.org/person",
+    "role_organization": {
+      "@id": "https://example.org/company",
+      "@type": "LegalEntity"
+    },
+    "institutional_role_type": {
+      "@type": "CodedValue",
+      "code_value": "director",
+      "code_scheme": "https://example.org/codes/roles"
+    },
+    "start_date": "2025-01-01"
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/interest-person",
+    "@type": "OwnershipInterest",
+    "interest_holder": "https://example.org/person",
+    "interest_entity": "https://example.org/company",
+    "interest_type": {
+      "@type": "CodedValue",
+      "code_value": "voting-rights",
+      "code_scheme": "https://example.org/codes/interests"
+    },
+    "interest_directness": "direct",
+    "interest_percentage": 25.5,
+    "start_date": "2025-01-01"
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/interest-organization",
+    "@type": "OwnershipInterest",
+    "interest_holder": "https://example.org/agency",
+    "interest_entity": "https://example.org/company",
+    "interest_type": {
+      "@type": "CodedValue",
+      "code_value": "shareholding",
+      "code_scheme": "https://example.org/codes/interests"
+    },
+    "interest_directness": "indirect",
+    "interest_description": "Source reports more than 25 percent and no more than 50 percent. Intermediates are not supplied."
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/provider",
+    "@type": "edu/EducationProvider",
+    "name": "Example Learning Cooperative",
+    "provider_programmes": [
+      {
+        "@id": "https://example.org/programme",
+        "@type": "edu/EducationProgramme"
+      }
+    ]
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/online-site",
+    "@type": "edu/ProviderSite",
+    "name": "Example Online Campus",
+    "education_provider": {
+      "@id": "https://example.org/provider",
+      "@type": "edu/EducationProvider"
+    },
+    "virtual_site_url": "https://example.org/learning"
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/programme",
+    "@type": "edu/EducationProgramme",
+    "name": "Example Adult Learning Programme",
+    "programme_classification": [
+      {
+        "@type": "CodedValue",
+        "code_value": "local-adult-1",
+        "code_scheme": "https://example.org/codes/programme-level"
+      }
+    ],
+    "programme_award": "Example completion certificate"
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/professional-license",
+    "@type": "ProfessionalLicense",
+    "registered_subject": "https://example.org/person",
+    "registration_authority": {
+      "@id": "https://example.org/agency",
+      "@type": "PublicOrganization"
+    },
+    "registration_jurisdiction": {
+      "@id": "https://example.org/district",
+      "@type": "Location"
+    },
+    "authorized_activity": "Practise example profession",
+    "valid_from": "2025-01-01",
+    "valid_to": "2027-12-31",
+    "profession_code": [
+      {
+        "@type": "CodedValue",
+        "code_value": "example-profession",
+        "code_scheme": "https://example.org/codes/professions"
+      }
+    ]
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/qualification",
+    "@type": "ProfessionalQualification",
+    "person": {
+      "@id": "https://example.org/person",
+      "@type": "Person"
+    },
+    "qualification_title": "Example professional diploma",
+    "qualification_awarder": {
+      "@id": "https://example.org/provider",
+      "@type": "edu/EducationProvider"
+    },
+    "issue_date": "2024-01-01"
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/practice-role",
+    "@type": "PracticeRole",
+    "person": {
+      "@id": "https://example.org/person",
+      "@type": "Person"
+    },
+    "role_organization": {
+      "@id": "https://example.org/company",
+      "@type": "LegalEntity"
+    },
+    "profession_code": [
+      {
+        "@type": "CodedValue",
+        "code_value": "example-profession",
+        "code_scheme": "https://example.org/codes/professions"
+      }
+    ],
+    "start_date": "2025-02-01"
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/drive-B",
+    "@type": "transport/DrivingEntitlement",
+    "registered_subject": "https://example.org/person",
+    "registration_authority": {
+      "@id": "https://example.org/agency",
+      "@type": "PublicOrganization"
+    },
+    "registration_jurisdiction": {
+      "@id": "https://example.org/district",
+      "@type": "Location"
+    },
+    "authorized_activity": "Drive vehicles in the stated category",
+    "valid_from": "2025-01-01",
+    "valid_to": "2030-01-01",
+    "driving_category": {
+      "@type": "CodedValue",
+      "code_value": "B",
+      "code_scheme": "https://example.org/codes/driving-categories"
+    },
+    "entitlement_conditions": [
+      {
+        "@type": "CodedValue",
+        "code_value": "adapted-vehicle",
+        "code_scheme": "https://example.org/codes/driving-conditions"
+      }
+    ]
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/drive-C",
+    "@type": "transport/DrivingEntitlement",
+    "registered_subject": "https://example.org/person",
+    "registration_authority": {
+      "@id": "https://example.org/agency",
+      "@type": "PublicOrganization"
+    },
+    "registration_jurisdiction": {
+      "@id": "https://example.org/district",
+      "@type": "Location"
+    },
+    "authorized_activity": "Drive vehicles in the stated category",
+    "valid_from": "2025-01-01",
+    "valid_to": "2027-01-01",
+    "driving_category": {
+      "@type": "CodedValue",
+      "code_value": "C",
+      "code_scheme": "https://example.org/codes/driving-categories"
+    },
+    "entitlement_conditions": [
+      {
+        "@type": "CodedValue",
+        "code_value": "adapted-vehicle",
+        "code_scheme": "https://example.org/codes/driving-conditions"
+      }
+    ]
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/tax-person",
+    "@type": "tax/TaxRegistration",
+    "registered_subject": "https://example.org/person",
+    "registration_authority": {
+      "@id": "https://example.org/agency",
+      "@type": "PublicOrganization"
+    },
+    "registration_jurisdiction": {
+      "@id": "https://example.org/district",
+      "@type": "Location"
+    },
+    "tax_regime": {
+      "@type": "CodedValue",
+      "code_value": "income",
+      "code_scheme": "https://example.org/codes/tax-regimes"
+    },
+    "valid_from": "2025-01-01"
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/tax-company",
+    "@type": "tax/TaxRegistration",
+    "registered_subject": "https://example.org/company",
+    "registration_authority": {
+      "@id": "https://example.org/agency",
+      "@type": "PublicOrganization"
+    },
+    "registration_jurisdiction": {
+      "@id": "https://example.org/district",
+      "@type": "Location"
+    },
+    "tax_regime": {
+      "@type": "CodedValue",
+      "code_value": "income",
+      "code_scheme": "https://example.org/codes/tax-regimes"
+    },
+    "valid_from": "2025-01-01"
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/voter",
+    "@type": "elections/VoterRegistration",
+    "registered_subject": "https://example.org/person",
+    "registration_authority": {
+      "@id": "https://example.org/agency",
+      "@type": "PublicOrganization"
+    },
+    "registration_jurisdiction": {
+      "@id": "https://example.org/district",
+      "@type": "Location"
+    },
+    "electoral_districts": [
+      {
+        "@id": "https://example.org/district",
+        "@type": "Location"
+      }
+    ],
+    "valid_from": "2025-01-01"
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/building",
+    "@type": "Building",
+    "name": "Example Workshop",
+    "building_use": [
+      {
+        "@type": "CodedValue",
+        "code_value": "workshop",
+        "code_scheme": "https://example.org/codes/building-use"
+      }
+    ]
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/unit",
+    "@type": "BuildingUnit",
+    "name": "Example Unit 2",
+    "within_building": {
+      "@id": "https://example.org/building",
+      "@type": "Building"
+    },
+    "building_use": [
+      {
+        "@type": "CodedValue",
+        "code_value": "office",
+        "code_scheme": "https://example.org/codes/building-use"
+      }
+    ]
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/road",
+    "@type": "transport/Road",
+    "name": "Example Road",
+    "road_segments": [
+      {
+        "@id": "https://example.org/segment",
+        "@type": "transport/RoadSegment"
+      }
+    ]
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/node-a",
+    "@type": "transport/RoadNode",
+    "identifiers": [
+      {
+        "@type": "Identifier",
+        "identifier_value": "node-a",
+        "identifier_scheme_id": "https://example.org/road-nodes"
+      }
+    ]
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/node-b",
+    "@type": "transport/RoadNode",
+    "identifiers": [
+      {
+        "@type": "Identifier",
+        "identifier_value": "node-b",
+        "identifier_scheme_id": "https://example.org/road-nodes"
+      }
+    ]
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/segment",
+    "@type": "transport/RoadSegment",
+    "segment_start_node": {
+      "@id": "https://example.org/node-a",
+      "@type": "transport/RoadNode"
+    },
+    "segment_end_node": {
+      "@id": "https://example.org/node-b",
+      "@type": "transport/RoadNode"
+    },
+    "road_classification": [
+      {
+        "@type": "CodedValue",
+        "code_value": "local",
+        "code_scheme": "https://example.org/codes/roads"
+      }
+    ]
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/vehicle",
+    "@type": "transport/Vehicle",
+    "vehicle_make": "Example Make",
+    "vehicle_model": "Example Model",
+    "manufacture_year": 2023,
+    "vehicle_category": {
+      "@type": "CodedValue",
+      "code_value": "goods",
+      "code_scheme": "https://example.org/codes/vehicles"
+    }
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/vehicle-registration",
+    "@type": "Registration",
+    "registered_subject": "https://example.org/vehicle",
+    "registration_authority": {
+      "@id": "https://example.org/agency",
+      "@type": "PublicOrganization"
+    },
+    "registration_purpose": "Vehicle registration",
+    "valid_from": "2025-01-01"
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/facility",
+    "@type": "environment/EnvironmentalFacility",
+    "name": "Example Processing Site",
+    "environmental_operator": "https://example.org/company",
+    "environmental_activities": [
+      {
+        "@type": "CodedValue",
+        "code_value": "processing",
+        "code_scheme": "https://example.org/codes/environmental-activities"
+      }
+    ]
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/installation",
+    "@type": "environment/InstallationUnit",
+    "name": "Example Processing Unit",
+    "installation_facility": {
+      "@id": "https://example.org/facility",
+      "@type": "environment/EnvironmentalFacility"
+    },
+    "environmental_activities": [
+      {
+        "@type": "CodedValue",
+        "code_value": "processing",
+        "code_scheme": "https://example.org/codes/environmental-activities"
+      }
+    ]
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/inspection",
+    "@type": "ComplianceAssessment",
+    "assessed_subject": "https://example.org/vehicle",
+    "assessed_requirement": [
+      "https://example.org/requirements/vehicle-inspection"
+    ],
+    "assessment_authority": {
+      "@id": "https://example.org/agency",
+      "@type": "PublicOrganization"
+    },
+    "assessment_date": "2025-02-01",
+    "assessment_result": {
+      "@type": "CodedValue",
+      "code_value": "pass",
+      "code_scheme": "https://example.org/codes/inspection-results"
+    }
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/environment-inspection",
+    "@type": "ComplianceAssessment",
+    "assessed_subject": "https://example.org/facility",
+    "assessed_requirement": [
+      "https://example.org/requirements/permit-condition"
+    ],
+    "assessment_authority": {
+      "@id": "https://example.org/agency",
+      "@type": "PublicOrganization"
+    },
+    "assessment_date": "2025-02-02",
+    "assessment_result": {
+      "@type": "CodedValue",
+      "code_value": "requires-review",
+      "code_scheme": "https://example.org/codes/inspection-results"
+    },
+    "assessment_findings": "Synthetic preliminary finding; no final violation determination."
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/substance",
+    "@type": "Substance",
+    "name": "Synthetic example substance"
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/release",
+    "@type": "environment/EnvironmentalRelease",
+    "release_facility": {
+      "@id": "https://example.org/facility",
+      "@type": "environment/EnvironmentalFacility"
+    },
+    "release_substance": {
+      "@id": "https://example.org/substance",
+      "@type": "Substance"
+    },
+    "release_medium": {
+      "@type": "CodedValue",
+      "code_value": "air",
+      "code_scheme": "https://example.org/codes/environmental-media"
+    },
+    "release_quantity": {
+      "@type": "QuantityValue",
+      "quantity_value": 1.25,
+      "unit_code": "kg",
+      "unit_scheme": "http://unitsofmeasure.org"
+    },
+    "measurement_method": "Synthetic estimate",
+    "start_date": "2025-01-01",
+    "end_date": "2025-01-31"
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/action",
+    "@type": "RegulatoryAction",
+    "action_subject": "https://example.org/facility",
+    "action_authority": {
+      "@id": "https://example.org/agency",
+      "@type": "PublicOrganization"
+    },
+    "action_type": {
+      "@type": "CodedValue",
+      "code_value": "information-notice",
+      "code_scheme": "https://example.org/codes/regulatory-actions"
+    },
+    "action_legal_basis": [
+      "https://example.org/law/information-notices"
+    ],
+    "action_date": "2025-02-03",
+    "action_description": "Request supporting information; this is not a finding of guilt."
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/building-wing",
+    "@type": "BuildingPart",
+    "name": "Example West Wing",
+    "part_of_building": {
+      "@id": "https://example.org/building",
+      "@type": "Building"
+    },
+    "building_part_description": "A structurally distinct single-storey wing containing more than one functional unit."
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/vehicle-keeper",
+    "@type": "AssetPartyRole",
+    "asset_subject": "https://example.org/vehicle",
+    "asset_actor": "https://example.org/person",
+    "asset_role_type": {
+      "@type": "CodedValue",
+      "code_value": "keeper",
+      "code_scheme": "https://example.org/codes/synthetic"
+    },
+    "start_date": "2025-01-01"
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/vehicle-owner",
+    "@type": "AssetPartyRole",
+    "asset_subject": "https://example.org/vehicle",
+    "asset_actor": "https://example.org/company",
+    "asset_role_type": {
+      "@type": "CodedValue",
+      "code_value": "owner",
+      "code_scheme": "https://example.org/codes/synthetic"
+    },
+    "start_date": "2024-01-01"
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/tax-representative",
+    "@type": "RepresentationRole",
+    "representative_actor": "https://example.org/company",
+    "represented_subject": "https://example.org/person",
+    "representation_scope": "Receive correspondence for the synthetic income-tax registration.",
+    "start_date": "2025-01-01"
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/road-restriction",
+    "@type": "transport/RoadRestriction",
+    "restricted_road_element": "https://example.org/segment",
+    "road_restriction_type": {
+      "@type": "CodedValue",
+      "code_value": "maximum-gross-mass",
+      "code_scheme": "https://example.org/codes/synthetic"
+    },
+    "restriction_limit": {
+      "@type": "QuantityValue",
+      "quantity_value": 7500,
+      "unit_code": "kg",
+      "unit_scheme": "http://unitsofmeasure.org"
+    },
+    "restriction_conditions": "Except emergency vehicles.",
+    "restriction_legal_basis": [
+      "https://example.org/law/road-order"
+    ],
+    "valid_from": "2025-01-01"
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/interest-statement",
+    "@type": "RegistryEntry",
+    "register_uri": "https://example.org/register/ownership",
+    "record_id": "statement-7",
+    "subject_uri": "https://example.org/interest-person",
+    "subject_type": "https://publicschema.org/OwnershipInterest",
+    "recorded_at": "2025-03-01T00:00:00Z",
+    "valid_from": "2025-01-01",
+    "evidence_assertions": [
+      {
+        "@type": "EvidenceAssertion",
+        "assertion_uri": "https://example.org/interest-person",
+        "evidence_source": "https://example.org/source/declaration-7",
+        "evidence_role": {
+          "@type": "CodedValue",
+          "code_value": "declared-by-subject",
+          "code_scheme": "https://example.org/codes/evidence-roles"
+        },
+        "evidence_authority": {
+          "@id": "https://example.org/agency",
+          "@type": "PublicOrganization"
+        },
+        "recorded_at": "2025-03-01T00:00:00Z"
+      }
+    ]
+  }
+]

@@ -1,0 +1,13 @@
+{
+  "@type": "agri/InputSupplierRole",
+  "service_provider": "https://example.org/org/cooperative",
+  "agricultural_service": [
+    {
+      "@type": "CodedValue",
+      "code_value": "feed-retail",
+      "code_scheme": "https://example.org/services"
+    }
+  ],
+  "@id": "https://example.org/agriculture/supplier",
+  "start_date": "2026-01-01"
+}

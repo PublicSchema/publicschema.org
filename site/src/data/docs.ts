@@ -9,7 +9,130 @@ export interface DocEntry {
   category: DocCategoryKey;
 }
 
+// Draft guides use English metadata until reviewed translations are available.
+function draftGuide({ file, title, description }: {
+  file: string;
+  title: string;
+  description: string;
+}): DocEntry {
+  return {
+    file,
+    title: { en: title, fr: title, es: title },
+    description: { en: description, fr: description, es: description },
+    category: 'technical',
+  };
+}
+
+export const implementationGuideSlugs = [
+  'domain-migration',
+  'fhir-registry-integration',
+  'facility-roles',
+  'relationship-date-migration',
+  'public-services-draft',
+  'government-relationships-draft',
+];
+
 export const docs: Record<string, DocEntry> = {
+  'domain-migration': draftGuide({
+    file: 'domain-migration.md',
+    title: 'Domain migration',
+    description: 'Canonical domains, moved draft terms and migration of existing references.',
+  }),
+  'fhir-registry-integration': draftGuide({
+    file: 'fhir-registry-integration.md',
+    title: 'FHIR registry integration',
+    description: 'Connecting health facilities and registry records to FHIR resources.',
+  }),
+  'facility-roles': draftGuide({
+    file: 'facility-roles.md',
+    title: 'Facility roles',
+    description: 'Distinguishing facilities, their operators and their service delivery roles.',
+  }),
+  'relationship-date-migration': draftGuide({
+    file: 'relationship-date-migration.md',
+    title: 'Relationship date migration',
+    description: 'Migrating dates that describe relationships and periods of responsibility.',
+  }),
+  'public-services-draft': draftGuide({
+    file: 'public-services-draft.md',
+    title: 'Public services draft',
+    description: 'Public services, applications, decisions, appeals and organizational succession.',
+  }),
+  'government-relationships-draft': draftGuide({
+    file: 'government-relationships-draft.md',
+    title: 'Government relationships draft',
+    description: 'Ownership interests, legal arrangements, education offerings and installation-level releases.',
+  }),
+  "registry-foundations-draft": {
+    file: "registry-foundations-draft.md",
+    title: {
+      en: "Registry foundations draft",
+      fr: "Registry foundations draft",
+      es: "Registry foundations draft",
+    },
+    description: {
+      en: "Records, recognition, evidence, spatial values and the health and land pilots.",
+      fr: "Records, recognition, evidence, spatial values and the health and land pilots.",
+      es: "Records, recognition, evidence, spatial values and the health and land pilots.",
+    },
+    category: "technical",
+  },
+  "farm-operators-draft": {
+    file: "farm-operators-draft.md",
+    title: {
+      en: "Farm and holder responsibilities",
+      fr: "Farm and holder responsibilities",
+      es: "Farm and holder responsibilities",
+    },
+    description: {
+      en: "Draft production-unit correction, typed holders and migration examples.",
+      fr: "Draft production-unit correction, typed holders and migration examples.",
+      es: "Draft production-unit correction, typed holders and migration examples.",
+    },
+    category: "technical",
+  },
+  "government-registry-draft": {
+    file: "government-registry-draft.md",
+    title: {
+      en: "Government registry draft",
+      fr: "Government registry draft",
+      es: "Government registry draft",
+    },
+    description: {
+      en: "Institutions, roles, assets, regulation and contribution questions.",
+      fr: "Institutions, roles, assets, regulation and contribution questions.",
+      es: "Institutions, roles, assets, regulation and contribution questions.",
+    },
+    category: "technical",
+  },
+  "agriculture-biology-draft": {
+    file: "agriculture-biology-draft.md",
+    title: {
+      en: "Agricultural biology draft",
+      fr: "Agricultural biology draft",
+      es: "Agricultural biology draft",
+    },
+    description: {
+      en: "Animals, crops, varieties, accessions and seed lots.",
+      fr: "Animals, crops, varieties, accessions and seed lots.",
+      es: "Animals, crops, varieties, accessions and seed lots.",
+    },
+    category: "technical",
+  },
+  "agriculture-operations-draft": {
+    file: "agriculture-operations-draft.md",
+    title: {
+      en: "Agricultural operations draft",
+      fr: "Agricultural operations draft",
+      es: "Agricultural operations draft",
+    },
+    description: {
+      en: "Facilities, products, service roles, certification and water use.",
+      fr: "Facilities, products, service roles, certification and water use.",
+      es: "Facilities, products, service roles, certification and water use.",
+    },
+    category: "technical",
+  },
   "metrics-spec": {
     file: "metrics-spec.md",
     title: {

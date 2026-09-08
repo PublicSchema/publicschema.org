@@ -3,6 +3,7 @@ import Base from '../../layouts/Base.astro';
 import { defaultLocale, type Locale } from '../../i18n/languages';
 import { useTranslations, localePath } from '../../i18n/utils';
 import { loadVocabulary } from '../../data/vocabulary';
+import { createDomainCatalog } from '../../data/domains';
 
 interface Props {
   locale?: Locale;
@@ -19,14 +20,9 @@ function typeKind(p: { type: string; vocabulary: string | null }): 'primitive' |
   return 'primitive';
 }
 
-// Order: universal first, then sp, then crvs; alphabetical within.
-const domainOrder: Record<string, number> = { '': 0, sp: 1, crvs: 2 };
-const properties = Object.values(vocab.properties).sort((a, b) => {
-  const da = domainOrder[a.domain ?? ''] ?? 99;
-  const db = domainOrder[b.domain ?? ''] ?? 99;
-  if (da !== db) return da - db;
-  return a.id.localeCompare(b.id);
-});
+const domainCatalog = createDomainCatalog(vocab, locale);
+const properties = Object.values(vocab.properties).sort(domainCatalog.compare);
+const domains = domainCatalog.present(properties);
 
 const totalCount = properties.length;
 
@@ -63,9 +59,9 @@ const hasRestricted = properties.some((p) => p.sensitivity === 'restricted');
 
             <fieldset class="facet-group">
               <legend>{t('browse.facet_domain')}</legend>
-              <label><input type="checkbox" name="domain" value="root"> {t('browse.domain_universal')}</label>
-              <label><input type="checkbox" name="domain" value="sp"> {t('browse.domain_sp')}</label>
-              <label><input type="checkbox" name="domain" value="crvs"> {t('browse.domain_crvs')}</label>
+              {domains.map((domain) => (
+                <label title={domain.description}><input type="checkbox" name="domain" value={domain.value}> {domain.filterLabel}</label>
+              ))}
             </fieldset>
 
             <fieldset class="facet-group">
@@ -145,7 +141,7 @@ const hasRestricted = properties.some((p) => p.sensitivity === 'restricted');
                   <span class="concept-label">{propLabel(p)}</span>
                   <div class="badges">
                     {domainVal !== 'root' && (
-                      <span class={`badge badge-domain badge-domain-${domainVal}`}>
+                      <span class={`badge badge-domain badge-domain-${domainVal}`} title={domainCatalog.get(domainVal).label}>
                         {p.domain}
                       </span>
                     )}
@@ -409,6 +405,7 @@ const hasRestricted = properties.some((p) => p.sensitivity === 'restricted');
     white-space: nowrap;
   }
 
+  .badge-domain { background: #e8edf3; color: #334155; }
   .badge-domain-sp   { background: #dbeafe; color: #1d4ed8; }
   .badge-domain-crvs { background: #ede9fe; color: #6d28d9; }
 

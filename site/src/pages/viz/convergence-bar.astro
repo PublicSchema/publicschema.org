@@ -1,7 +1,9 @@
 ---
-// @ts-ignore
-import vocabData from '../../../../dist/vocabulary.json';
+import { loadVocabulary } from '../../data/vocabulary';
+import { createDomainCatalog } from '../../data/domains';
 import Base from '../../layouts/Base.astro';
+
+const vocabData = loadVocabulary();
 
 const MATCH_QUALITIES = new Set(['exact', 'close', 'broad', 'related']);
 
@@ -65,12 +67,8 @@ rows.sort((a, b) => b.realCount - a.realCount || a.label.localeCompare(b.label))
 
 const maxCount = rows[0]?.realCount ?? 1;
 
-// Domain color tokens (applied via class)
-const domainClass: Record<string, string> = {
-  root: 'domain-root',
-  sp: 'domain-sp',
-  crvs: 'domain-crvs',
-};
+const domainCatalog = createDomainCatalog(vocabData);
+const domains = domainCatalog.present(rows);
 
 const matchLetters: Record<MatchQuality, string> = {
   exact: 'E',
@@ -106,9 +104,9 @@ const matchLabel: Record<MatchQuality, string> = {
   <div class="filters" role="group" aria-label="Filter options">
     <fieldset class="filter-group">
       <legend>Domain</legend>
-      <label><input type="checkbox" class="domain-toggle" value="root" checked /> Root</label>
-      <label><input type="checkbox" class="domain-toggle" value="sp" checked /> Social protection (sp/)</label>
-      <label><input type="checkbox" class="domain-toggle" value="crvs" checked /> Civil registration (crvs/)</label>
+      {domains.map((domain) => (
+        <label title={domain.description}><input type="checkbox" class="domain-toggle" value={domain.value} checked /> {domain.filterLabel}</label>
+      ))}
     </fieldset>
     <fieldset class="filter-group">
       <legend>Min. match quality</legend>
@@ -129,9 +127,9 @@ const matchLabel: Record<MatchQuality, string> = {
     <span class="chip chip-broad" aria-label="B = broad match">B</span> Broad
     <span class="chip chip-related" aria-label="R = related">R</span> Related
     <span class="legend-sep">|</span>
-    <span class="swatch domain-root-swatch" aria-hidden="true"></span> Root
-    <span class="swatch domain-sp-swatch" aria-hidden="true"></span> sp/
-    <span class="swatch domain-crvs-swatch" aria-hidden="true"></span> crvs/
+    {domains.map((domain) => (
+      <span><span class="swatch" style={`background: ${domain.color}`} aria-hidden="true"></span> {domain.filterLabel}</span>
+    ))}
   </div>
 
   <!-- Bar chart (semantic list; bars are presentation layer) -->
@@ -141,7 +139,8 @@ const matchLabel: Record<MatchQuality, string> = {
       const ariaLabel = `${row.label}: ${row.realCount} of ${row.totalSystems || maxCount} systems`;
       return (
         <li
-          class:list={['bar-item', domainClass[row.domain] ?? 'domain-root']}
+          class="bar-item"
+          style={`--domain-color: ${domainCatalog.get(row.domain).color}`}
           data-domain={row.domain}
           data-real-count={row.realCount}
           data-match-qualities={row.matches.map((m) => m.match).join(',')}
@@ -152,7 +151,7 @@ const matchLabel: Record<MatchQuality, string> = {
             </a>
             <div class="bar-track">
               <div
-                class:list={['bar-fill', domainClass[row.domain] ?? 'domain-root']}
+                class="bar-fill"
                 style={`width: ${barPct}%`}
                 aria-hidden="true"
               ></div>
@@ -191,7 +190,7 @@ const matchLabel: Record<MatchQuality, string> = {
         {rows.map((row) => (
           <tr data-domain={row.domain} data-real-count={row.realCount} data-match-qualities={row.matches.map((m) => m.match).join(',')}>
             <td><a href={row.path}>{row.label}</a></td>
-            <td>{row.domain === 'root' ? '(root)' : row.domain}</td>
+            <td>{domainCatalog.get(row.domain).filterLabel}</td>
             <td>{row.maturity}</td>
             <td>{row.realCount}</td>
             <td>
@@ -299,10 +298,6 @@ const matchLabel: Record<MatchQuality, string> = {
     vertical-align: middle;
   }
 
-  .domain-root-swatch { background: #1e3a5f; }
-  .domain-sp-swatch   { background: #7c3aed; }
-  .domain-crvs-swatch { background: #047857; }
-
   /* Chips */
   .chip {
     display: inline-flex;
@@ -345,9 +340,7 @@ const matchLabel: Record<MatchQuality, string> = {
     display: none;
   }
 
-  .bar-item.domain-root  { border-color: #1e3a5f; }
-  .bar-item.domain-sp    { border-color: #7c3aed; }
-  .bar-item.domain-crvs  { border-color: #047857; }
+  .bar-item { border-color: var(--domain-color); }
 
   .bar-row {
     display: grid;
@@ -394,9 +387,7 @@ const matchLabel: Record<MatchQuality, string> = {
     transition: width 0.3s ease;
   }
 
-  .bar-fill.domain-root  { background: #1e3a5f; }
-  .bar-fill.domain-sp    { background: #7c3aed; }
-  .bar-fill.domain-crvs  { background: #047857; }
+  .bar-fill { background: var(--domain-color); }
 
   .bar-chips {
     position: relative;

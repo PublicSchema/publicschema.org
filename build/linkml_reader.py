@@ -381,6 +381,7 @@ def _convert_slot_to_property(
     class_names: set[str],
     class_name_to_composite: dict[str, list[str]] | None = None,
     linkml_name_to_composite: dict[str, str] | None = None,
+    base_uri: str = "https://publicschema.org/",
 ) -> tuple[str, dict]:
     annotations = _normalise_annotations(slot_def.get("annotations"))
     title = slot_def.get("title")
@@ -460,6 +461,17 @@ def _convert_slot_to_property(
             prop["domain_override"] = None
         else:
             prop["domain_override"] = val
+
+    # The authored property URI owns its namespace. Deriving it from current
+    # consumers would move a shared property's page when its only consumer
+    # moves domains, even though its RDF identity remains unchanged. Keep the
+    # legacy inference only for sources without an explicit PublicSchema URI.
+    slot_uri = slot_def.get("slot_uri", "")
+    for prefix in (base_uri, "publicschema:"):
+        if slot_uri.startswith(prefix):
+            local = slot_uri[len(prefix):]
+            prop["domain_override"] = local.split("/", 1)[0] if "/" in local else None
+            break
 
     # JSON-stringified structured annotations.
     for src_key, dest_key in (
@@ -713,6 +725,10 @@ def load_linkml_metadata(linkml_dir: Path) -> dict[str, Any]:
     title = composite.get("title")
     if isinstance(title, str) and title:
         meta["name"] = title
+    annotations = _normalise_annotations(composite.get("annotations"))
+    domains = _parse_json_annotation(annotations.get("domains_json"))
+    if isinstance(domains, dict):
+        meta["domains"] = domains
     return meta
 
 
@@ -890,6 +906,7 @@ def load_raw_from_linkml(linkml_dir: Path) -> dict[str, Any]:
             slot_name, slot_def, enum_to_vocab_key, class_names,
             class_name_to_composite=class_name_to_composite,
             linkml_name_to_composite=linkml_name_to_composite,
+            base_uri=meta["base_uri"],
         )
         properties_raw[slot_id] = prop_dict
 

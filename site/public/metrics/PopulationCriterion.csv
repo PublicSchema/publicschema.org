@@ -1,7 +1,0 @@
-property,type,cardinality,definition,vocabulary,maturity,sensitivity,category,age_applicability,valid_instruments
-population_type,string,single,"The role this population plays in the calculation: initial-population, denominator, denominator-exclusion, denominator-exception, numerator, numerator-exclusion, measure-population, measure-population-exclusion, or measure-observation. Follows FHIR R5 Measure.
-",population-type,candidate,,,,
-language,string,single,"The IANA media type identifying the language of a criteria expression: application/sql, application/vtl, text/cql, text/fhirpath. PublicSchema pins the media type so consumers know which engine to invoke; it does not pick a winner.
-",,candidate,,,,
-criteria,string,single,"A criteria expression in the language identified by the paired language slot. May be inline source code or a reference of the form @ref:LibraryName.Symbol resolved against the calculation's libraries list.
-",,candidate,,,,

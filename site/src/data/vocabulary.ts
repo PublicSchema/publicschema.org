@@ -13,6 +13,11 @@ interface MultilingualText {
   es?: string;
 }
 
+export interface DomainDefinition {
+  label: MultilingualText;
+  description?: MultilingualText;
+}
+
 interface Convergence {
   system_count: number;
   total_systems: number;
@@ -188,6 +193,7 @@ export interface VocabularyData {
     name: string;
     base_uri: string;
     version: string;
+    domains?: Record<string, DomainDefinition>;
   };
   concepts: Record<string, Concept>;
   properties: Record<string, Property>;

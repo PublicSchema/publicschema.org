@@ -5,7 +5,11 @@ concepts and by bare ``id`` for universal ones. This prevents silent
 overwrites when two domains define concepts with the same short name.
 """
 
+import json
+from pathlib import Path
+
 import pytest
+from pyld import jsonld
 
 from build.build import _concept_key, _resolve_concept_key, build_vocabulary
 from tests.conftest import make_concept
@@ -134,6 +138,60 @@ class TestRealSchemaDomainResolution:
         assert "crvs/Person" in raw_schema()["concepts"]
         assert schema_concept("crvs/Parent")["supertypes"] == ["crvs/Person"]
         assert property_("child")["references"] == "crvs/Person"
+
+    def test_sector_types_reuse_shared_supertypes_and_other_sector_properties(self, real_result):
+        concepts = real_result["concepts"]
+        assert concepts["edu/School"]["supertypes"] == ["ServicePoint"]
+        assert concepts["health/HealthFacility"]["supertypes"] == ["ServicePoint"]
+        assert "vessel_flag" in real_result["concept_schemas"]["agri/FishingVessel"]["properties"]
+        assert real_result["properties"]["vessel_flag"]["uri"] == "https://publicschema.org/transport/vessel_flag"
+        assert concepts["agri/Farm"]["supertypes"] == []
+        for shared in ("IndividualAnimal", "AnimalMovement", "Substance", "AssetPartyRole",
+                       "ServiceCapacityObservation", "RegistrationOffice", "WaterPoint"):
+            assert concepts[shared]["domain"] is None
+        for retired in ("MedicinalProduct", "VeterinaryMedicinalProduct", "HealthcareServiceOffering",
+                        "HealthcareAccreditation", "FacilityManagementAssignment", "FacilityAddressAssignment"):
+            assert retired not in concepts
+
+    def test_context_does_not_rewrite_historical_absolute_type_uris(self, real_result):
+        context = real_result["context"]["@context"]
+        old = "https://publicschema.org/Farm"
+        new = "https://publicschema.org/agri/Farm"
+        assert jsonld.expand({"@context": context, "@type": old})[0]["@type"] == [old]
+        for alias in ("Farm", "agri/Farm", new):
+            assert jsonld.expand({"@context": context, "@type": alias})[0]["@type"] == [new]
+
+    def test_uri_dispositions_target_real_catalog_entries(self, real_result):
+        path = Path(__file__).resolve().parents[1] / "examples/domain-migration/uri-map.json"
+        rows = json.loads(path.read_text())["changes"]
+        catalog_uris = {
+            entry["uri"] for kind in ("concepts", "properties", "vocabularies")
+            for entry in real_result[kind].values()
+        }
+        catalog_uris.update(v["uri"] for vocab in real_result["vocabularies"].values()
+                            for v in vocab["values"])
+        assert len({(row["kind"], row["old_uri"]) for row in rows}) == len(rows)
+        for row in rows:
+            if row["kind"].startswith("linkml-"):
+                continue  # Native LinkML enum identities are distinct from catalog paths.
+            assert row["old_uri"] not in catalog_uris
+            if row["new_uri"] is not None:
+                assert row["new_uri"] in catalog_uris
+            if row["action"] != "relocate":
+                assert row["note"]
+
+    def test_moved_terms_keep_their_bibliography_links(self, real_result):
+        for kind, key, citation in (
+            ("concepts", "agri/Farm", "fao-wca-2020-vol1"),
+            ("concepts", "PublicService", "gov-cpsv-ap-311"),
+            ("concepts", "ServiceCapacityObservation", "w3c-sosa-2017"),
+            ("concepts", "edu/EducationOffering", "gov-schema-course"),
+        ):
+            assert citation in real_result[kind][key]["bibliography_refs"]
+
+    def test_moved_vocabularies_retain_authored_crosswalks(self, real_result):
+        for key, system in (("land/land-tenure", "lsms_isa"), ("agri/livestock-type", "dhs")):
+            assert system in real_result["vocabularies"][key]["system_mappings"]
 
 
 def _collect_refs(schema_fragment):

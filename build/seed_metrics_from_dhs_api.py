@@ -36,7 +36,7 @@ OUT_CONCEPT_FILE.parent.mkdir(parents=True, exist_ok=True)
 # curated SKOS concept scheme. Some Level2 buckets (notably "Age of population"
 # with 29 indicators) contain multiple underlying concepts and should be
 # reviewed before treating these as authoritative. See
-# docs/follow-ups/dhs-concept-scheme.md for the curation backlog.
+# docs/follow-ups/dhs-concept-scheme.md for grouping and stability limits.
 # ---------------------------------------------------------------------------
 CONCEPT_URI_PREFIX = "publicschema:concept/dhs/"
 _NON_ALNUM = re.compile(r"[^a-z0-9]+")

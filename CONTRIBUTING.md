@@ -44,6 +44,8 @@ The authored schema is modular LinkML. `schema/publicschema.yaml` imports the mo
 
 Edit source files rather than `dist/` or generated artifacts in `site/public/`. Not everything in `site/public/` is generated: it also contains maintained static assets.
 
+Keep browser logs, screenshots, local API caches and generated downloads out of commits. Catalog refresh scripts may populate `build/cache/`; ordinary builds use the checked-in catalog YAML and do not need that cache. Put temporary screenshots and experiments in the ignored `.work/` directory. Keep intentional offline reference artifacts, such as the pinned FHIR validation archives and their provenance, with the examples that require them.
+
 ## Adding vocabulary entries
 
 Use [Authoring PublicSchema in LinkML](docs/authoring-linkml.md) for examples and annotation conventions. Add entries to an existing module with related content; when adding a module, import it from `schema/publicschema.yaml` and declare the imports its references need.
@@ -84,7 +86,9 @@ For external standards, review the authoritative source and update LinkML values
 
 ## Domain namespacing
 
-Module filenames organize authoring; they do not by themselves set a public domain. Existing domain-specific terms use `annotations.source_domain` (for example `sp` or `crvs`). Preserve their public URIs and annotation conventions. A domain-qualified `class_uri`, such as `publicschema:crvs/Person`, distinguishes a term from the universal `publicschema:Person`; its LinkML class name is `CrvsPerson` so both can coexist. See [ADR-018](decisions/018-crvs-person-rename.md).
+Module filenames organize authoring; they do not set a public domain. Choose a domain by the element's meaning, independently of who consumes it. Use consistent explicit `class_uri`, `slot_uri`, `enum_uri`, permissible-value `meaning` and `annotations.source_domain`. A shared property keeps its root URI when a domain concept reuses it. Candidate and normative URIs and meanings remain stable; intentional draft changes require a migration disposition.
+
+A domain-qualified `class_uri`, such as `publicschema:crvs/Person`, distinguishes a term from universal `publicschema:Person`; its LinkML class name is `CrvsPerson` so both can coexist. See [ADR-018](decisions/018-crvs-person-rename.md). Add domain labels to `annotations.domains_json` in the composite when introducing a researched domain; the site discovers represented domains from generated entries. Review the [current domain boundaries and migration guide](docs/domain-migration.md) before adding terms, including native FHIR reuse for medical content.
 
 ## Writing style
 

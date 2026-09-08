@@ -1,0 +1,358 @@
+[
+  {
+    "@id": "https://example.org/farm-pilot/holding",
+    "@type": "agri/Farm",
+    "name": "River holding",
+    "holding_operator_roles": [
+      "https://example.org/farm-pilot/cooperative-role",
+      "https://example.org/farm-pilot/person-role",
+      "https://example.org/farm-pilot/joint-role",
+      "https://example.org/farm-pilot/collective-role"
+    ]
+  },
+  {
+    "@id": "https://example.org/farm-pilot/cooperative",
+    "@type": "Organization",
+    "name": "River cooperative"
+  },
+  {
+    "@id": "https://example.org/farm-pilot/person",
+    "@type": "Person",
+    "name": "Ana"
+  },
+  {
+    "@id": "https://example.org/farm-pilot/joint-person",
+    "@type": "Person",
+    "name": "Bo"
+  },
+  {
+    "@id": "https://example.org/farm-pilot/collective",
+    "@type": "InformalGroup",
+    "name": "Joint growers"
+  },
+  {
+    "@id": "https://example.org/farm-pilot/cooperative-role",
+    "@type": "agri/OrganizationHoldingOperatorRole",
+    "operated_holding": "https://example.org/farm-pilot/holding",
+    "holding_operator_organization": "https://example.org/farm-pilot/cooperative",
+    "start_date": "2024-01-01",
+    "end_date": "2025-01-01"
+  },
+  {
+    "@id": "https://example.org/farm-pilot/person-role",
+    "@type": "agri/PersonHoldingOperatorRole",
+    "operated_holding": "https://example.org/farm-pilot/holding",
+    "holding_operator_person": "https://example.org/farm-pilot/person",
+    "start_date": "2025-01-01"
+  },
+  {
+    "@id": "https://example.org/farm-pilot/joint-role",
+    "@type": "agri/PersonHoldingOperatorRole",
+    "operated_holding": "https://example.org/farm-pilot/holding",
+    "holding_operator_person": "https://example.org/farm-pilot/joint-person",
+    "start_date": "2025-01-01"
+  },
+  {
+    "@id": "https://example.org/farm-pilot/collective-role",
+    "@type": "agri/GroupHoldingOperatorRole",
+    "operated_holding": "https://example.org/farm-pilot/holding",
+    "holding_operator_group": "https://example.org/farm-pilot/collective",
+    "end_date": "2024-01-01"
+  },
+  {
+    "@id": "https://example.org/farm-pilot/amina",
+    "@type": "Person",
+    "name": "Amina"
+  },
+  {
+    "@id": "https://example.org/farm-pilot/unpaid-manager",
+    "@type": "Person",
+    "name": "Unpaid Manager"
+  },
+  {
+    "@id": "https://example.org/farm-pilot/family-grower",
+    "@type": "Person",
+    "name": "Family Grower"
+  },
+  {
+    "@id": "https://example.org/farm-pilot/market-family-worker",
+    "@type": "Person",
+    "name": "Market Family Worker"
+  },
+  {
+    "@id": "https://example.org/farm-pilot/agency-worker",
+    "@type": "Person",
+    "name": "Agency Worker"
+  },
+  {
+    "@id": "https://example.org/farm-pilot/contractor",
+    "@type": "Person",
+    "name": "Contractor"
+  },
+  {
+    "@id": "https://example.org/farm-pilot/second-holding",
+    "@type": "agri/Farm",
+    "name": "Hill holding"
+  },
+  {
+    "@id": "https://example.org/farm-pilot/household",
+    "@type": "Household",
+    "name": "Grower household"
+  },
+  {
+    "@id": "https://example.org/farm-pilot/agency",
+    "@type": "Organization",
+    "name": "Field staffing agency"
+  },
+  {
+    "@id": "https://example.org/farm-pilot/contractor-enterprise",
+    "@type": "Organization",
+    "name": "Independent agricultural services"
+  },
+  {
+    "@id": "https://example.org/farm-pilot/amina-management",
+    "@type": "agri/HoldingWorkAssignment",
+    "work_person": "https://example.org/farm-pilot/amina",
+    "assigned_holding": "https://example.org/farm-pilot/holding",
+    "start_date": "2025-03-01",
+    "end_date": "2025-07-01",
+    "work_functions": [
+      {
+        "@type": "CodedValue",
+        "code_scheme": "https://example.org/farm-work/v1/work_functions",
+        "code_value": "daily_management"
+      }
+    ],
+    "work_form": {
+      "@type": "CodedValue",
+      "code_scheme": "https://example.org/farm-work/v1/work_form",
+      "code_value": "employment"
+    },
+    "work_status": {
+      "@type": "CodedValue",
+      "code_scheme": "https://example.org/farm-work/v1/work_status",
+      "code_value": "employee"
+    },
+    "work_remuneration": {
+      "@type": "CodedValue",
+      "code_scheme": "https://example.org/farm-work/v1/work_remuneration",
+      "code_value": "wage"
+    },
+    "work_seasonality": {
+      "@type": "CodedValue",
+      "code_scheme": "https://example.org/farm-work/v1/work_seasonality",
+      "code_value": "year_round"
+    }
+  },
+  {
+    "@id": "https://example.org/farm-pilot/unpaid-management",
+    "@type": "agri/HoldingWorkAssignment",
+    "work_person": "https://example.org/farm-pilot/unpaid-manager",
+    "assigned_holding": "https://example.org/farm-pilot/holding",
+    "start_date": "2025-07-01",
+    "end_date": "2025-10-01",
+    "work_functions": [
+      {
+        "@type": "CodedValue",
+        "code_scheme": "https://example.org/farm-work/v1/work_functions",
+        "code_value": "daily_management"
+      }
+    ],
+    "work_remuneration": {
+      "@type": "CodedValue",
+      "code_scheme": "https://example.org/farm-work/v1/work_remuneration",
+      "code_value": "unpaid"
+    }
+  },
+  {
+    "@id": "https://example.org/farm-pilot/holder-management",
+    "@type": "agri/HoldingWorkAssignment",
+    "work_person": "https://example.org/farm-pilot/person",
+    "assigned_holding": "https://example.org/farm-pilot/holding",
+    "start_date": "2025-10-01",
+    "work_functions": [
+      {
+        "@type": "CodedValue",
+        "code_scheme": "https://example.org/farm-work/v1/work_functions",
+        "code_value": "daily_management"
+      }
+    ]
+  },
+  {
+    "@id": "https://example.org/farm-pilot/own-use-family-work",
+    "@type": "agri/HoldingWorkAssignment",
+    "work_person": "https://example.org/farm-pilot/family-grower",
+    "assigned_holding": "https://example.org/farm-pilot/holding",
+    "start_date": "2025-04-01",
+    "work_functions": [
+      {
+        "@type": "CodedValue",
+        "code_scheme": "https://example.org/farm-work/v1/work_functions",
+        "code_value": "cultivation"
+      }
+    ],
+    "work_form": {
+      "@type": "CodedValue",
+      "code_scheme": "https://example.org/farm-work/v1/work_form",
+      "code_value": "own_use_production"
+    },
+    "work_remuneration": {
+      "@type": "CodedValue",
+      "code_scheme": "https://example.org/farm-work/v1/work_remuneration",
+      "code_value": "unpaid"
+    }
+  },
+  {
+    "@id": "https://example.org/farm-pilot/market-family-work",
+    "@type": "agri/HoldingWorkAssignment",
+    "work_person": "https://example.org/farm-pilot/market-family-worker",
+    "assigned_holding": "https://example.org/farm-pilot/holding",
+    "start_date": "2025-04-01",
+    "work_functions": [
+      {
+        "@type": "CodedValue",
+        "code_scheme": "https://example.org/farm-work/v1/work_functions",
+        "code_value": "harvesting"
+      }
+    ],
+    "work_form": {
+      "@type": "CodedValue",
+      "code_scheme": "https://example.org/farm-work/v1/work_form",
+      "code_value": "employment"
+    },
+    "work_status": {
+      "@type": "CodedValue",
+      "code_scheme": "https://example.org/farm-work/v1/work_status",
+      "code_value": "contributing_family_worker"
+    },
+    "work_remuneration": {
+      "@type": "CodedValue",
+      "code_scheme": "https://example.org/farm-work/v1/work_remuneration",
+      "code_value": "no_regular_wage"
+    },
+    "work_seasonality": {
+      "@type": "CodedValue",
+      "code_scheme": "https://example.org/farm-work/v1/work_seasonality",
+      "code_value": "seasonal"
+    }
+  },
+  {
+    "@id": "https://example.org/farm-pilot/agency-employment",
+    "@type": "WorkRelationship",
+    "work_person": "https://example.org/farm-pilot/agency-worker",
+    "work_economic_unit": "https://example.org/farm-pilot/agency",
+    "start_date": "2025-01-01",
+    "end_date": "2026-01-01",
+    "work_form": {
+      "@type": "CodedValue",
+      "code_scheme": "https://example.org/farm-work/v1/work_form",
+      "code_value": "employment"
+    },
+    "work_status": {
+      "@type": "CodedValue",
+      "code_scheme": "https://example.org/farm-work/v1/work_status",
+      "code_value": "employee"
+    },
+    "work_remuneration": {
+      "@type": "CodedValue",
+      "code_scheme": "https://example.org/farm-work/v1/work_remuneration",
+      "code_value": "wage"
+    }
+  },
+  {
+    "@id": "https://example.org/farm-pilot/agency-river",
+    "@type": "agri/HoldingWorkAssignment",
+    "work_person": "https://example.org/farm-pilot/agency-worker",
+    "assigned_holding": "https://example.org/farm-pilot/holding",
+    "start_date": "2025-05-01",
+    "end_date": "2025-08-01",
+    "assignment_work_relationship": "https://example.org/farm-pilot/agency-employment",
+    "work_functions": [
+      {
+        "@type": "CodedValue",
+        "code_scheme": "https://example.org/farm-work/v1/work_functions",
+        "code_value": "harvesting"
+      }
+    ],
+    "work_seasonality": {
+      "@type": "CodedValue",
+      "code_scheme": "https://example.org/farm-work/v1/work_seasonality",
+      "code_value": "seasonal"
+    }
+  },
+  {
+    "@id": "https://example.org/farm-pilot/agency-hill",
+    "@type": "agri/HoldingWorkAssignment",
+    "work_person": "https://example.org/farm-pilot/agency-worker",
+    "assigned_holding": "https://example.org/farm-pilot/second-holding",
+    "start_date": "2025-06-01",
+    "end_date": "2025-09-01",
+    "assignment_work_relationship": "https://example.org/farm-pilot/agency-employment",
+    "work_functions": [
+      {
+        "@type": "CodedValue",
+        "code_scheme": "https://example.org/farm-work/v1/work_functions",
+        "code_value": "harvesting"
+      }
+    ],
+    "work_seasonality": {
+      "@type": "CodedValue",
+      "code_scheme": "https://example.org/farm-work/v1/work_seasonality",
+      "code_value": "seasonal"
+    }
+  },
+  {
+    "@id": "https://example.org/farm-pilot/contractor-work",
+    "@type": "WorkRelationship",
+    "work_person": "https://example.org/farm-pilot/contractor",
+    "work_economic_unit": "https://example.org/farm-pilot/contractor-enterprise",
+    "start_date": "2025-01-01",
+    "work_form": {
+      "@type": "CodedValue",
+      "code_scheme": "https://example.org/farm-work/v1/work_form",
+      "code_value": "employment"
+    },
+    "work_status": {
+      "@type": "CodedValue",
+      "code_scheme": "https://example.org/farm-work/v1/work_status",
+      "code_value": "independent_contractor"
+    },
+    "work_remuneration": {
+      "@type": "CodedValue",
+      "code_scheme": "https://example.org/farm-work/v1/work_remuneration",
+      "code_value": "service_fee"
+    }
+  },
+  {
+    "@id": "https://example.org/farm-pilot/contractor-river",
+    "@type": "agri/HoldingWorkAssignment",
+    "work_person": "https://example.org/farm-pilot/contractor",
+    "assigned_holding": "https://example.org/farm-pilot/holding",
+    "start_date": "2025-06-01",
+    "end_date": "2025-06-15",
+    "assignment_work_relationship": "https://example.org/farm-pilot/contractor-work",
+    "work_functions": [
+      {
+        "@type": "CodedValue",
+        "code_scheme": "https://example.org/farm-work/v1/work_functions",
+        "code_value": "machinery_services"
+      }
+    ]
+  },
+  {
+    "@id": "https://example.org/farm-pilot/contractor-hill",
+    "@type": "agri/HoldingWorkAssignment",
+    "work_person": "https://example.org/farm-pilot/contractor",
+    "assigned_holding": "https://example.org/farm-pilot/second-holding",
+    "start_date": "2025-06-15",
+    "end_date": "2025-07-01",
+    "assignment_work_relationship": "https://example.org/farm-pilot/contractor-work",
+    "work_functions": [
+      {
+        "@type": "CodedValue",
+        "code_scheme": "https://example.org/farm-work/v1/work_functions",
+        "code_value": "machinery_services"
+      }
+    ]
+  }
+]

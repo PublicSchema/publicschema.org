@@ -1,0 +1,231 @@
+[
+  {
+    "@id": "https://example.org/org/ministry",
+    "@type": "Organization",
+    "name": "Synthetic district health office"
+  },
+  {
+    "@id": "https://example.org/org/cooperative",
+    "@type": "Organization",
+    "name": "Synthetic growers cooperative"
+  },
+  {
+    "@id": "https://example.org/person/one",
+    "@type": "Person",
+    "given_name": "Ari"
+  },
+  {
+    "@id": "https://example.org/area/district",
+    "@type": "Location",
+    "location_name": "Synthetic district"
+  },
+  {
+    "@id": "https://example.org/address/clinic",
+    "@type": "Address",
+    "full_address": "1 Example Road"
+  },
+  {
+    "@id": "https://example.org/geometry/clinic",
+    "@type": "SpatialGeometry",
+    "geometry_encoding": "application/geo+json",
+    "geometry_literal": "{\"type\":\"Point\",\"coordinates\":[100,13]}",
+    "coordinate_reference_system": "http://www.opengis.net/def/crs/OGC/1.3/CRS84"
+  },
+  {
+    "@id": "https://example.org/facility/clinic",
+    "@type": "health/HealthFacility",
+    "name": "Example clinic",
+    "managed_by": "https://example.org/org/cooperative",
+    "located_at": "https://example.org/area/district"
+  },
+  {
+    "@id": "https://example.org/management/old",
+    "@type": "AssetPartyRole",
+    "asset_subject": "https://example.org/facility/clinic",
+    "asset_actor": "https://example.org/org/ministry",
+    "asset_role_type": {
+      "@type": "CodedValue",
+      "code_value": "operator",
+      "code_scheme": "https://example.org/facility-roles/role-types"
+    },
+    "end_date": "2026-07-01"
+  },
+  {
+    "@id": "https://example.org/management/current",
+    "@type": "AssetPartyRole",
+    "asset_subject": "https://example.org/facility/clinic",
+    "asset_actor": "https://example.org/org/cooperative",
+    "asset_role_type": {
+      "@type": "CodedValue",
+      "code_value": "operator",
+      "code_scheme": "https://example.org/facility-roles/role-types"
+    },
+    "start_date": "2026-07-01"
+  },
+  {
+    "@id": "https://example.org/facility-address/one",
+    "@type": "AssetAddressAssignment",
+    "asset_subject": "https://example.org/facility/clinic",
+    "assigned_address": "https://example.org/address/clinic",
+    "address_purpose": {
+      "@type": "CodedValue",
+      "code_value": "physical",
+      "code_scheme": "https://example.org/facility-roles/address-purposes"
+    },
+    "address_geometry": "https://example.org/geometry/clinic",
+    "start_date": "2026-01-01"
+  },
+  {
+    "@id": "https://example.org/register/facilities",
+    "@type": "Register",
+    "name": "Synthetic facility register",
+    "maintaining_authority": "https://example.org/org/ministry"
+  },
+  {
+    "@id": "https://example.org/entry/facility",
+    "@type": "RegistryEntry",
+    "register_uri": "https://example.org/register/facilities",
+    "record_id": "001",
+    "subject_uri": "https://example.org/facility/clinic",
+    "subject_type": "https://publicschema.org/health/HealthFacility",
+    "recorded_at": "2026-09-01T09:00:00Z"
+  },
+  {
+    "@id": "https://example.org/holding/one",
+    "@type": "agri/Farm",
+    "name": "Synthetic mixed holding"
+  },
+  {
+    "@id": "https://example.org/holding/two",
+    "@type": "agri/Farm",
+    "name": "Neighbor holding"
+  },
+  {
+    "@id": "https://example.org/holding/landless",
+    "@type": "agri/Farm",
+    "name": "Landless livestock holding"
+  },
+  {
+    "@id": "https://example.org/parcel/one",
+    "@type": "agri/AgriculturalParcel",
+    "name": "Shared parcel",
+    "parcel_area": {
+      "@type": "QuantityValue",
+      "quantity_value": 12500.25,
+      "unit_code": "m2",
+      "unit_scheme": "http://unitsofmeasure.org"
+    }
+  },
+  {
+    "@id": "https://example.org/parcel/two",
+    "@type": "agri/AgriculturalParcel",
+    "name": "Second parcel"
+  },
+  {
+    "@id": "https://example.org/holding-parcel/one",
+    "@type": "agri/HoldingParcelLink",
+    "linked_holding": "https://example.org/holding/one",
+    "linked_parcel": "https://example.org/parcel/one"
+  },
+  {
+    "@id": "https://example.org/holding-parcel/two",
+    "@type": "agri/HoldingParcelLink",
+    "linked_holding": "https://example.org/holding/one",
+    "linked_parcel": "https://example.org/parcel/two"
+  },
+  {
+    "@id": "https://example.org/holding-parcel/shared",
+    "@type": "agri/HoldingParcelLink",
+    "linked_holding": "https://example.org/holding/two",
+    "linked_parcel": "https://example.org/parcel/one"
+  },
+  {
+    "@id": "https://example.org/registration/farmer",
+    "@type": "agri/FarmerRegistration",
+    "registered_subject": "https://example.org/org/cooperative",
+    "registration_authority": "https://example.org/org/ministry",
+    "registration_purpose": "Producer registry only"
+  },
+  {
+    "@id": "https://example.org/land/unit",
+    "@type": "land/LandSpatialUnit",
+    "name": "Cadastral unit"
+  },
+  {
+    "@id": "https://example.org/title/unit",
+    "@type": "land/LandAdministrativeUnit",
+    "administrative_spatial_units": [
+      "https://example.org/land/unit"
+    ]
+  },
+  {
+    "@id": "https://example.org/claim/one",
+    "@type": "land/LandTenureAssertion",
+    "tenure_holder": "https://example.org/person/one",
+    "tenure_object": "https://example.org/parcel/one",
+    "tenure_type": {
+      "@type": "CodedValue",
+      "code_scheme": "https://example.org/codes/tenure",
+      "code_value": "customary-use"
+    }
+  },
+  {
+    "@id": "https://example.org/claim/two",
+    "@type": "land/LandTenureAssertion",
+    "tenure_holder": "https://example.org/org/cooperative",
+    "tenure_object": "https://example.org/parcel/one",
+    "tenure_type": {
+      "@type": "CodedValue",
+      "code_scheme": "https://example.org/codes/tenure",
+      "code_value": "disputed-lease"
+    }
+  },
+  {
+    "@id": "https://example.org/event/late",
+    "@type": "RecordLifecycleEvent",
+    "subject_uri": "https://example.org/facility/clinic",
+    "effective_at": "2026-07-01T00:00:00Z",
+    "recorded_at": "2026-07-03T12:00:00Z"
+  },
+  {
+    "@id": "https://example.org/org/trade-office",
+    "@type": "Organization",
+    "name": "Synthetic district trade office"
+  },
+  {
+    "@id": "https://example.org/register/trading-licences",
+    "@type": "Register",
+    "name": "Synthetic market trading licences",
+    "maintaining_authority": "https://example.org/org/trade-office"
+  },
+  {
+    "@id": "https://example.org/authorization/market-trading",
+    "@type": "Authorization",
+    "registered_subject": "https://example.org/org/cooperative",
+    "registration_authority": "https://example.org/org/trade-office",
+    "registration_purpose": "Market trading permission",
+    "authorized_activity": "Sell produce at the district market",
+    "valid_from": "2026-01-01",
+    "valid_to": "2026-12-31"
+  },
+  {
+    "@id": "https://example.org/entry/trade-permission",
+    "@type": "RegistryEntry",
+    "register_uri": "https://example.org/register/trading-licences",
+    "record_id": "row-104",
+    "subject_uri": "https://example.org/authorization/market-trading",
+    "subject_type": "https://publicschema.org/Authorization",
+    "recorded_at": "2026-01-02T09:00:00Z"
+  },
+  {
+    "@id": "https://example.org/identifier-assignment/trade-licence",
+    "@type": "IdentifierAssignment",
+    "identifier_subject": "https://example.org/authorization/market-trading",
+    "identifier_issuer": "https://example.org/org/trade-office",
+    "assigned_identifier": {
+      "@type": "Identifier",
+      "identifier_value": "LIC-2026-0081",
+      "identifier_scheme_id": "https://example.org/schemes/trading-licence-number"
+    }
+  }
+]

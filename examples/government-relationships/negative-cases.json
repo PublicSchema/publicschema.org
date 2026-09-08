@@ -1,0 +1,127 @@
+[
+  {
+    "name": "exact and bounded are different statements",
+    "target": "https://example.org/government-relationships/holding-shares",
+    "expected": "cannot also be an interval",
+    "set": {
+      "interest_percentage": 30
+    }
+  },
+  {
+    "name": "one lower boundary convention",
+    "target": "https://example.org/government-relationships/holding-shares",
+    "expected": "same side",
+    "set": {
+      "interest_minimum_percentage": 25
+    }
+  },
+  {
+    "name": "empty ownership interval",
+    "target": "https://example.org/government-relationships/holding-shares",
+    "expected": "empty interval",
+    "set": {
+      "interest_exclusive_minimum_percentage": 50
+    }
+  },
+  {
+    "name": "a person is not the entity controlled",
+    "target": "https://example.org/government-relationships/holding-shares",
+    "expected": "Wrong resolved target type",
+    "set": {
+      "interest_entity": "https://example.org/government-relationships/controller"
+    }
+  },
+  {
+    "name": "unresolved chain component",
+    "target": "https://example.org/government-relationships/claimed-route",
+    "expected": "Unresolved local target",
+    "set": {
+      "component_interests": [
+        "https://example.org/government-relationships/trust-control",
+        "https://example.org/government-relationships/unavailable-interest"
+      ]
+    }
+  },
+  {
+    "name": "disconnected asserted route",
+    "target": "https://example.org/government-relationships/trust-shares",
+    "expected": "connected and must not branch",
+    "set": {
+      "interest_holder": "https://example.org/government-relationships/controller"
+    }
+  },
+  {
+    "name": "component period contradicts indirect assertion",
+    "target": "https://example.org/government-relationships/trust-shares",
+    "expected": "period contradicts",
+    "set": {
+      "end_date": "2026-01-01"
+    }
+  },
+  {
+    "name": "a delivery site must resolve",
+    "target": "https://example.org/government-relationships/north-offering",
+    "expected": "Unresolved local target",
+    "set": {
+      "offering_sites": [
+        "https://example.org/government-relationships/unknown-site"
+      ]
+    }
+  },
+  {
+    "name": "physical school and provider site differ",
+    "target": "https://example.org/government-relationships/north-offering",
+    "expected": "Wrong resolved target type",
+    "set": {
+      "offering_sites": [
+        "https://example.org/government-relationships/north-school"
+      ]
+    }
+  },
+  {
+    "name": "offering and site provider must agree",
+    "target": "https://example.org/government-relationships/north-site",
+    "expected": "different providers",
+    "set": {
+      "education_provider": "https://example.org/government-relationships/other-provider"
+    },
+    "append": [
+      {
+        "@id": "https://example.org/government-relationships/other-provider",
+        "@type": "edu/EducationProvider",
+        "name": "Other provider"
+      }
+    ]
+  },
+  {
+    "name": "a facility is not a technical installation",
+    "target": "https://example.org/government-relationships/boiler-release",
+    "expected": "Wrong resolved target type",
+    "set": {
+      "release_installation": "https://example.org/government-relationships/site"
+    }
+  },
+  {
+    "name": "installation and release facility must agree",
+    "target": "https://example.org/government-relationships/boiler",
+    "expected": "different facility",
+    "set": {
+      "installation_facility": "https://example.org/government-relationships/other-facility"
+    },
+    "append": [
+      {
+        "@id": "https://example.org/government-relationships/other-facility",
+        "@type": "environment/EnvironmentalFacility"
+      }
+    ]
+  },
+  {
+    "name": "attribution must identify its actual level",
+    "target": "https://example.org/government-relationships/boiler-release",
+    "expected": "reported facility or installation",
+    "remove": [
+      "release_facility",
+      "release_installation"
+    ]
+  }
+]
