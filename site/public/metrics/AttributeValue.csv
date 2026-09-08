@@ -1,4 +1,0 @@
-property,type,cardinality,definition,vocabulary,maturity,sensitivity,category,age_applicability,valid_instruments
-attribute_uri,uri,single,The URI of the MetricAttribute whose value this AttributeValue carries.,,candidate,,,,
-attribute_value,string,single,"The literal value of an attribute on an observation, series, or dataset. Typed as string because attribute values are heterogeneous (status codes, integer counts, free text); cast at emission time against the attribute's declared value_range.
-",,candidate,,,,

@@ -44,6 +44,8 @@ The authored schema is modular LinkML. `schema/publicschema.yaml` imports the mo
 
 Edit source files rather than `dist/` or generated artifacts in `site/public/`. Not everything in `site/public/` is generated: it also contains maintained static assets.
 
+Keep browser logs, screenshots, local API caches and generated downloads out of commits. Catalog refresh scripts may populate `build/cache/`; ordinary builds use the checked-in catalog YAML and do not need that cache. Put temporary screenshots and experiments in the ignored `.work/` directory. Keep intentional offline reference artifacts, such as the pinned FHIR validation archives and their provenance, with the examples that require them.
+
 ## Adding vocabulary entries
 
 Use [Authoring PublicSchema in LinkML](docs/authoring-linkml.md) for examples and annotation conventions. Add entries to an existing module with related content; when adding a module, import it from `schema/publicschema.yaml` and declare the imports its references need.

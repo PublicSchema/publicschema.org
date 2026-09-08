@@ -40,6 +40,11 @@ AGENTS.md
 
 # Local browser automation logs and snapshots
 .playwright-mcp/
+/metric-*.png
+/metrics-*.png
+
+# Local upstream API caches used only by catalog refresh scripts
+/build/cache/
 
 # Generated glossary (built by extract_glossary.py)
 translations/glossary.yaml
@@ -77,10 +82,10 @@ build/profile_validate.py
 build/schemas/profile.schema.json
 build/templates/
 packages/
-package.json
-pnpm-lock.yaml
-pnpm-workspace.yaml
+/package.json
+/pnpm-lock.yaml
+/pnpm-workspace.yaml
 scripts/publicschema
 tests/fixtures/profiles/
 tests/profile_pipeline/
-build/preflight/_generated/
+/build/preflight/
