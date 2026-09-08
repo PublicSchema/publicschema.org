@@ -2352,6 +2352,24 @@ classes:
       status: active
       notes: Active substances and emergency authorizations
       informs_json: '{"concepts": ["ProductComponent", "agri/AgriculturalProduct", "agri/PesticideProduct"]}'
+  FaotermPesticideCitation:
+    class_uri: publicschema:Citation/faoterm-pesticide
+    is_a: Citation
+    title: FAOTERM pesticide definitions
+    annotations:
+      citation_id: faoterm-pesticide
+      title: FAOTERM pesticide definitions
+      short_title: FAOTERM pesticide
+      publisher: Food and Agriculture Organization of the United Nations
+      type: guidance_publication
+      domain: registry
+      uri: https://faoterm.fao.org/viewEntry.html?entryId=182628&language=en
+      access: open
+      status: active
+      notes: English entry 182628, pesticide definitions and their identified FAO/WHO and Codex sources.
+        Includes plant-growth regulation, defoliants and desiccants. Accessed 8 September 2026;
+        conceptual evidence, not a jurisdiction-specific legal classification.
+      informs_json: '{"concepts": ["agri/PesticideProduct"]}'
   EmaUpdCitation:
     class_uri: publicschema:Citation/ema-upd
     is_a: Citation

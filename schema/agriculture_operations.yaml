@@ -250,16 +250,18 @@ classes:
   PesticideProduct:
     class_uri: publicschema:agri/PesticideProduct
     title: Pesticide Product
-    description: A prepared product intended to prevent, destroy or control pests. Active substances,
-      permitted uses and national product authorizations remain separate from product identity.
+    description: A prepared agricultural input product intended to control pests or regulate plant growth,
+      including defoliants and desiccants. Active substances, permitted uses and national product authorizations
+      remain separate from product identity.
     status: bibo:draft
     slots: []
     see_also:
+    - https://faoterm.fao.org/viewEntry.html?entryId=182628&language=en
     - https://food.ec.europa.eu/plants/pesticides/eu-pesticides-database_en
     is_a: AgriculturalProduct
     annotations:
       source_domain: agri
-      bibliography_refs: '["ec-pesticides-database"]'
+      bibliography_refs: '["ec-pesticides-database", "faoterm-pesticide"]'
   ProductComponent:
     class_uri: publicschema:ProductComponent
     title: Product Component

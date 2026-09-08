@@ -14,7 +14,7 @@ const exampleFiles: Record<string, string[]> = {
     'component.json', 'facility.json', 'feed.json', 'fertilizer.json',
     'irrigation.json', 'laboratory.json', 'livestock.json', 'machinery.json',
     'membership-organization.json', 'membership-person.json', 'nursery.json',
-    'pesticide.json', 'producer-organization.json', 'product.json',
+    'pesticide.json', 'pesticide-growth-regulator.json', 'producer-organization.json', 'product.json',
     'seed-operator.json', 'service-role.json', 'supplier.json', 'vessel.json',
     'water.json',
   ],

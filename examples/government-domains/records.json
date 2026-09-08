@@ -434,10 +434,7 @@
     "@id": "https://example.org/facility",
     "@type": "environment/EnvironmentalFacility",
     "name": "Example Processing Site",
-    "environmental_operator": {
-      "@id": "https://example.org/company",
-      "@type": "LegalEntity"
-    },
+    "environmental_operator": "https://example.org/company",
     "environmental_activities": [
       {
         "@type": "CodedValue",

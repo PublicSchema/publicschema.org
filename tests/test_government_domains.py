@@ -81,6 +81,8 @@ def example_profile_errors(records):
         elif kind in {"OwnershipInterest", "InstitutionalRole"}:
             field = "interest_holder" if kind == "OwnershipInterest" else "role_actor"
             allowed = organization_types | {"Person"}
+        if kind == "environment/EnvironmentalFacility" and "environmental_operator" in record:
+            field, allowed = "environmental_operator", organization_types | {"Person"}
         if kind == "AssetPartyRole":
             field, allowed = "asset_actor", organization_types | {"Person"}
         if kind == "RepresentationRole":
@@ -149,6 +151,7 @@ def test_same_synthetic_records_validate_json_schema_and_context_shacl(exports):
 
 
 @pytest.mark.parametrize("kind,changes", [
+    ("environment/EnvironmentalFacility", {"environmental_operator": True}),
     ("OwnershipInterest", {"interest_directness": "not-a-code"}),
     ("OwnershipInterest", {"interest_percentage": "twenty"}),
     ("transport/Vehicle", {"manufacture_year": "unknown"}),
@@ -169,6 +172,8 @@ def test_invalid_public_shapes_fail_both_formats(exports, kind, changes):
 
 
 @pytest.mark.parametrize("suffix,changes,message", [
+    ("facility", {"environmental_operator": "https://example.org/road"}, "wrong actor kind"),
+    ("facility", {"environmental_operator": "https://example.org/unavailable"}, "missing actor"),
     ("road-restriction", {"restricted_road_element": "https://example.org/vehicle"}, "invalid restricted road element"),
     ("tax-representative", {"represented_subject": "https://example.org/road"}, "invalid represented subject"),
     ("voter", {"registered_subject": "https://example.org/company"}, "wrong actor kind"),
@@ -207,3 +212,27 @@ def test_revised_reference_distinctions_are_not_profile_only():
     assert records["vehicle-keeper"]["asset_subject"] == records["vehicle-owner"]["asset_subject"]
     assert records["interest-statement"]["subject_uri"] == records["interest-person"]["@id"]
     assert records["interest-statement"]["recorded_at"][:10] > records["interest-person"]["start_date"]
+
+
+@pytest.mark.parametrize("operator", ["person", "company", None])
+def test_facility_operator_preserves_person_organization_or_unknown(exports, operator):
+    records = copy.deepcopy(RECORDS)
+    facility = next(record for record in records if record["@type"] == "environment/EnvironmentalFacility")
+    if operator is None:
+        facility.pop("environmental_operator")
+    else:
+        facility["environmental_operator"] = "https://example.org/" + operator
+    validator(exports, facility["@type"]).validate(facility)
+    built, shapes, ontology, _ = exports
+    graph = expand_graph(records, built["context"])
+    hierarchy = Graph()
+    for triple in ontology.triples((None, RDFS.subClassOf, None)):
+        hierarchy.add(triple)
+    conforms, _, report = validate(graph, shacl_graph=shapes, ont_graph=hierarchy)
+    assert conforms, report
+    assert not example_profile_errors(records)
+    predicate = URIRef(str(PS) + "environment/environmental_operator")
+    if operator is not None:
+        assert (URIRef(facility["@id"]), predicate, URIRef(facility["environmental_operator"])) in graph
+    else:
+        assert not list(graph.objects(URIRef(facility["@id"]), predicate))

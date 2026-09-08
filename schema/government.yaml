@@ -863,14 +863,15 @@ slots:
   environmental_operator:
     slot_uri: publicschema:environment/environmental_operator
     title: Facility operator
-    description: The organization operating this environmental facility. Operator identity is separate
-      from facility identity.
-    range: Organization
+    description: The URI of the person or organization operating this environmental facility. Operator
+      identity is separate from facility identity. A consuming profile verifies the actor's type.
+    range: uri
     multivalued: false
     status: bibo:draft
     annotations:
       source_domain: environment
       category: governance
+      bibliography_refs: '["gov-eu-industrial-emissions-portal"]'
   facility_addresses:
     slot_uri: publicschema:environment/facility_addresses
     title: Facility addresses
