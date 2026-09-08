@@ -38,6 +38,9 @@ CLAUDE.md
 .agents/
 AGENTS.md
 
+# Local browser automation logs and snapshots
+.playwright-mcp/
+
 # Generated glossary (built by extract_glossary.py)
 translations/glossary.yaml
 
