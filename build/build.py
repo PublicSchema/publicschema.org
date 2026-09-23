@@ -1260,40 +1260,74 @@ def _generated_outputs(manifest: dict, vocabulary: dict) -> dict[str, set[Path]]
     return {"dist": dist_paths, "public": public_paths}
 
 
+def _read_generated_index(*paths: Path) -> list[dict] | None:
+    """Read a prior build's JSON ownership files; ``None`` skips pruning.
+
+    A missing file is a first build. A malformed one leaves stale files in
+    place, so say so rather than silently skipping the cleanup.
+    """
+    documents = []
+    for path in paths:
+        try:
+            document = json.loads(path.read_text())
+        except FileNotFoundError:
+            return None
+        except json.JSONDecodeError as error:
+            reason = str(error)
+        else:
+            if isinstance(document, dict):
+                documents.append(document)
+                continue
+            reason = f"expected a JSON object, got {type(document).__name__}"
+        print(
+            f"WARNING: {path} is not a usable generated-artifact index ({reason}); "
+            "stale generated files from the previous build are not pruned",
+            file=sys.stderr,
+        )
+        return None
+    return documents
+
+
 def _read_generated_outputs(dist_dir: Path) -> dict[str, set[Path]]:
     """Read the previous build's ownership data without trusting malformed JSON."""
-    try:
-        manifest = json.loads((dist_dir / "manifest.json").read_text())
-        vocabulary = json.loads((dist_dir / "vocabulary.json").read_text())
-    except (FileNotFoundError, json.JSONDecodeError):
+    documents = _read_generated_index(dist_dir / "manifest.json", dist_dir / "vocabulary.json")
+    if documents is None:
         return {"dist": set(), "public": set()}
-    if not isinstance(manifest, dict) or not isinstance(vocabulary, dict):
-        return {"dist": set(), "public": set()}
-    return _generated_outputs(manifest, vocabulary)
+    return _generated_outputs(*documents)
 
 
 def _read_public_generated_outputs(public_dir: Path) -> dict[str, set[Path]]:
     """Recover copied-artifact ownership from the prior public vocabulary."""
-    try:
-        vocabulary = json.loads((public_dir / "vocabulary.json").read_text())
-    except (FileNotFoundError, json.JSONDecodeError):
+    documents = _read_generated_index(public_dir / "vocabulary.json")
+    if documents is None:
         return {"dist": set(), "public": set()}
-    if not isinstance(vocabulary, dict):
-        return {"dist": set(), "public": set()}
-    return _generated_outputs({}, vocabulary)
+    return _generated_outputs({}, *documents)
 
 
-def _remove_generated_files(root: Path, paths: set[Path]):
-    """Remove obsolete files identified by a prior generated-artifact index."""
+def _remove_generated_files(root: Path, paths: set[Path]) -> int:
+    """Remove obsolete files identified by a prior generated-artifact index.
+
+    Directories left empty below ``root`` are removed too. Nothing is followed
+    through a symlink. Returns the number of files removed.
+    """
     if root.is_symlink():
-        return
-    for relative in paths:
+        return 0
+    removed = 0
+    for relative in sorted(paths):
         target = root / relative
         if any((root / Path(*relative.parts[:index])).is_symlink()
                for index in range(1, len(relative.parts))):
             continue
         if target.is_symlink() or target.is_file():
             target.unlink()
+            removed += 1
+            parent = target.parent
+            while parent != root and not any(parent.iterdir()):
+                parent.rmdir()
+                parent = parent.parent
+    if removed:
+        print(f"Pruned {removed} stale generated files from {root}")
+    return removed
 
 
 def write_outputs(
@@ -1314,8 +1348,8 @@ def write_outputs(
     schema tree). ``rdf_composite`` selects the same LinkML source used for
     the vocabulary; ``source="bespoke"`` uses the historical RDF renderer.
     """
-    from build.export import generate_all_downloads
     from build import linkml_rdf_export
+    from build.export import generate_all_downloads
     from build.metrics_catalog import write_metrics_catalog
     from build.preview_export import build_preview
     from build.system_matchings import build_system_matchings

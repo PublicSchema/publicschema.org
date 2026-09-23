@@ -2254,6 +2254,66 @@ def test_rebuild_prunes_renamed_and_retired_generated_artifacts(
     assert static_asset.read_text() == "User-agent: *\n"
 
 
+@pytest.mark.parametrize("content", ["{", "[]"])
+def test_malformed_previous_index_warns_that_pruning_is_skipped(tmp_path, capsys, content):
+    from build import build
+
+    dist = tmp_path / "dist"
+    dist.mkdir()
+    (dist / "manifest.json").write_text(content)
+    (dist / "vocabulary.json").write_text("{}")
+    assert build._read_generated_outputs(dist) == {"dist": set(), "public": set()}
+    assert f"WARNING: {dist / 'manifest.json'} is not a usable generated-artifact index" in capsys.readouterr().err
+
+    public = tmp_path / "public"
+    public.mkdir()
+    (public / "vocabulary.json").write_text(content)
+    assert build._read_public_generated_outputs(public) == {"dist": set(), "public": set()}
+    assert f"WARNING: {public / 'vocabulary.json'} is not a usable generated-artifact index" in capsys.readouterr().err
+
+
+def test_missing_previous_index_is_a_first_build(tmp_path, capsys):
+    from build import build
+
+    assert build._read_generated_outputs(tmp_path) == {"dist": set(), "public": set()}
+    assert build._read_public_generated_outputs(tmp_path) == {"dist": set(), "public": set()}
+    assert capsys.readouterr().err == ""
+
+
+def test_pruning_reports_its_count_and_removes_emptied_directories(tmp_path, capsys):
+    from build import build
+
+    root = tmp_path / "dist"
+    for path in ("agri/Farm.csv", "agri/nested/Farm.jsonld", "land/Parcel.csv", "land/keep.txt"):
+        (root / path).parent.mkdir(parents=True, exist_ok=True)
+        (root / path).write_text("x")
+    assert build._remove_generated_files(root, {
+        Path("agri/Farm.csv"), Path("agri/nested/Farm.jsonld"), Path("land/Parcel.csv"),
+        Path("absent.csv"),
+    }) == 3
+    assert not (root / "agri").exists()
+    assert (root / "land/keep.txt").exists()
+    assert root.is_dir()
+    assert f"Pruned 3 stale generated files from {root}" in capsys.readouterr().out
+
+
+def test_pruning_does_not_follow_symlinks(tmp_path, capsys):
+    from build import build
+
+    outside = tmp_path / "outside"
+    (outside / "agri").mkdir(parents=True)
+    (outside / "agri/Farm.csv").write_text("x")
+    root = tmp_path / "dist"
+    root.mkdir()
+    (root / "agri").symlink_to(outside / "agri")
+    assert build._remove_generated_files(root, {Path("agri/Farm.csv")}) == 0
+    linked_root = tmp_path / "linked"
+    linked_root.symlink_to(outside)
+    assert build._remove_generated_files(linked_root, {Path("agri/Farm.csv")}) == 0
+    assert (outside / "agri/Farm.csv").exists()
+    assert "Pruned" not in capsys.readouterr().out
+
+
 def test_write_outputs_passes_explicit_composite_to_all_rdf_generators(
     tmp_schema, write_concept, tmp_path, monkeypatch,
 ):
