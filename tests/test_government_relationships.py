@@ -191,6 +191,14 @@ def test_impossible_percentages_fail_the_profile(changes):
         PROFILE.validate_profile(records)
 
 
+@pytest.mark.parametrize("slot", ("interest_percentage", *PROFILE.BOUNDS))
+@pytest.mark.parametrize("value", [-1, 101])
+def test_percentages_outside_zero_to_one_hundred_fail_the_public_schema(exports, slot, value):
+    changed = copy.deepcopy(record(RECORDS, "holding-shares"))
+    changed[slot] = value
+    assert list(validator(exports, changed["@type"]).iter_errors(changed))
+
+
 def test_components_with_unknown_primary_dates_still_need_a_common_day():
     records = copy.deepcopy(RECORDS)
     primary = record(records, "indirect-control")

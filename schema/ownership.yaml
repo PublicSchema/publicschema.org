@@ -99,6 +99,8 @@ slots:
     description: An exact asserted percentage for this interest, on a scale from zero to one hundred.
       Omit when only a band or uncertain amount is known; preserve that qualification in interest_description.
     range: decimal
+    minimum_value: 0
+    maximum_value: 100
     multivalued: false
     status: bibo:draft
     annotations:
@@ -143,6 +145,8 @@ slots:
     description: An inclusive lower percentage bound for an asserted interest on a zero-to-one-hundred
       scale. This is a bound, not an exact value; omit when unknown.
     range: decimal
+    minimum_value: 0
+    maximum_value: 100
     multivalued: false
     status: bibo:draft
     annotations:
@@ -155,6 +159,8 @@ slots:
       An interest exceeding twenty-five percent may use 25 here without inventing an exact amount.
       This is alternative to an inclusive lower bound.
     range: decimal
+    minimum_value: 0
+    maximum_value: 100
     multivalued: false
     status: bibo:draft
     annotations:
@@ -166,6 +172,8 @@ slots:
     description: An inclusive upper percentage bound for an asserted interest on a zero-to-one-hundred
       scale. Omission means that this upper bound was not supplied; it does not imply an exact amount.
     range: decimal
+    minimum_value: 0
+    maximum_value: 100
     multivalued: false
     status: bibo:draft
     annotations:
@@ -177,6 +185,8 @@ slots:
     description: A percentage strictly above the asserted interest, on a zero-to-one-hundred scale.
       This is alternative to an inclusive upper bound and never an exact percentage.
     range: decimal
+    minimum_value: 0
+    maximum_value: 100
     multivalued: false
     status: bibo:draft
     annotations:
