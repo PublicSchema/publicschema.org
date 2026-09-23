@@ -30,9 +30,9 @@ const exampleFiles: Record<string, string[]> = {
 const decisionFiles = [
   '020-registry-foundations.md',
   '021-farm-production-unit.md',
-  '023-public-services-and-administrative-history.md',
-  '024-government-qualified-relationships.md',
-  '025-domain-and-external-model-boundaries.md',
+  '022-public-services-and-administrative-history.md',
+  '023-government-qualified-relationships.md',
+  '024-domain-and-external-model-boundaries.md',
 ];
 
 const files = new Set([

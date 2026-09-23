@@ -1,4 +1,4 @@
-# ADR-024: Preserve qualified ownership, education delivery and release attribution
+# ADR-023: Preserve qualified ownership, education delivery and release attribution
 
 Status: accepted for the local draft.
 

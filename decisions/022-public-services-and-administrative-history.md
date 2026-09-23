@@ -1,4 +1,4 @@
-# ADR-023: Separate public services, applications and administrative history
+# ADR-022: Separate public services, applications and administrative history
 
 Status: accepted for the local draft.
 

@@ -126,4 +126,4 @@ standing, appeal deadlines, stays, notice, reasons, fees, delegation, retention,
 disclosure and enforceable transition rules remain explicit deployment decisions.
 
 The choice of native boundaries and the rejected alternatives are recorded in
-[ADR-023](../decisions/023-public-services-and-administrative-history.md).
+[ADR-022](../decisions/022-public-services-and-administrative-history.md).

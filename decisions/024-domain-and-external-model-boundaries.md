@@ -1,4 +1,4 @@
-# ADR-025: Domain placement and external medical model boundaries
+# ADR-024: Domain placement and external medical model boundaries
 
 **Status:** Accepted for draft implementation. Clarifies ADR-003; no maturity promotion.
 

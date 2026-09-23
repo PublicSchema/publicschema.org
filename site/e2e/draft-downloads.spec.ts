@@ -109,8 +109,8 @@ test('guide links resolve declared downloads before locale prefixes', () => {
       .toBe('/registry-draft/examples/fhir-registry/artifacts/fhir.schema.json.zip');
     expect(documentationLink('../examples/domain-migration/uri-map.json', source, locale))
       .toBe('/registry-draft/examples/domain-migration/uri-map.json');
-    expect(documentationLink('../decisions/025-domain-and-external-model-boundaries.md#decision', source, locale))
-      .toBe('/registry-draft/decisions/025-domain-and-external-model-boundaries.md#decision');
+    expect(documentationLink('../decisions/024-domain-and-external-model-boundaries.md#decision', source, locale))
+      .toBe('/registry-draft/decisions/024-domain-and-external-model-boundaries.md#decision');
     expect(documentationLink('../CONTRIBUTING.md', source, locale))
       .toBe('https://github.com/PublicSchema/publicschema.org/blob/main/CONTRIBUTING.md');
     expect(documentationLink('../../examples/facility-roles/records.json', 'docs/fr/facility-roles.md', locale))
