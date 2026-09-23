@@ -46,6 +46,24 @@ classes:
     narrow_mappings:
     - schema:EmployeeRole
     annotations:
+      label_es: Relación de trabajo
+      label_fr: Relation de travail
+      description_es: El conjunto de tareas y funciones que una persona desempeña, o debe desempeñar,
+        para una unidad económica durante un período eventualmente conocido. Abarca un empleo
+        asalariado y una actividad de trabajo en cualquier otra forma de trabajo, como el trabajo de
+        producción para uso propio o el trabajo voluntario. La unidad económica es la unidad para la
+        que se realiza el trabajo, sin ser necesariamente un empleador legal, una organización o un
+        lugar de trabajo. Los clientes de un trabajador independiente no crean por sí solos
+        relaciones de trabajo separadas. Esto es distinto de la situación global de la persona
+        respecto a la actividad económica.
+      description_fr: L'ensemble des tâches et des fonctions qu'une personne exerce, ou est censée
+        exercer, pour une unité économique pendant une période éventuellement connue. Elle couvre un
+        emploi salarié ainsi qu'une activité de travail relevant de toute autre forme de travail,
+        telle que le travail de production pour usage propre ou le travail bénévole. L'unité
+        économique est l'unité pour laquelle le travail est effectué, sans être nécessairement un
+        employeur légal, une organisation ou un lieu de travail. Les clients d'un travailleur
+        indépendant ne créent pas à eux seuls des relations de travail distinctes. Ceci est distinct
+        du statut global de la personne au regard de l'activité.
       bibliography_refs: '["fao-wca-2030", "ilo-19th-icls-2013", "ilo-20th-icls-2018", "ilo-icse18-manual-2023",
         "schema-org"]'
       external_alignments_json: '[{"label": "EmployeeRole", "match": "narrow", "note": "schema.org EmployeeRole
@@ -65,6 +83,16 @@ classes:
     broad_mappings:
     - schema:Permit
     annotations:
+      label_es: Licencia profesional
+      label_fr: Licence professionnelle
+      description_es: Una autorización que permite a una persona ejercer una profesión regulada, o
+        una parte definida de ella, en una jurisdicción durante un período indicado. Es distinta de
+        las cualificaciones requeridas para obtenerla y de cualquier función que la persona
+        desempeñe en una organización.
+      description_fr: Une autorisation permettant à une personne d'exercer une profession
+        réglementée, ou une partie définie de celle-ci, dans une juridiction pendant une période
+        indiquée. Elle est distincte des qualifications requises pour l'obtenir et de tout rôle que
+        la personne occupe au sein d'une organisation.
       bibliography_refs: '["eu-dir-2005-36", "fhir-r5", "schema-org"]'
       external_alignments_json: '[{"label": "Permit", "match": "broad", "note": "A schema.org permit is any
         permit issued by an organization. FHIR R5 Practitioner.qualification is also broader: it covers
@@ -91,6 +119,17 @@ classes:
     - org:Membership
     - schema:EmployeeRole
     annotations:
+      label_es: Función de ejercicio
+      label_fr: Rôle d'exercice
+      description_es: Una función fechada en la que una persona ejerce una profesión para una
+        organización, opcionalmente en puntos de servicio especificados. Ocupar esta función no
+        muestra que la persona posea actualmente una licencia profesional requerida. Solo una
+        persona ejerce; un cargo ocupado por una persona o una organización es una InstitutionalRole.
+      description_fr: Un rôle daté dans lequel une personne exerce une profession pour une
+        organisation, éventuellement dans des points de service précisés. Occuper ce rôle ne montre
+        pas que la personne détient actuellement une licence professionnelle requise. Seule une
+        personne exerce ; une fonction occupée par une personne ou une organisation est une
+        InstitutionalRole.
       bibliography_refs: '["fhir-r5", "schema-org", "w3c-org"]'
       external_alignments_json: '[{"label": "PractitionerRole", "match": "close", "note": "FHIR R5 makes
         the practitioner and the organization optional, separates the role code from the specialty, and
@@ -112,6 +151,10 @@ slots:
     multivalued: false
     status: bibo:draft
     annotations:
+      label_es: Persona que trabaja
+      label_fr: Personne travaillant
+      description_es: La persona que realiza, o debe realizar, el trabajo.
+      description_fr: La personne qui exerce, ou est censée exercer, le travail.
       category: employment
       sensitivity: sensitive
       bibliography_refs: '["fao-wca-2030", "ilo-20th-icls-2018", "ilo-icse18-manual-2023"]'
@@ -125,6 +168,15 @@ slots:
     multivalued: false
     status: bibo:draft
     annotations:
+      label_es: Unidad económica del trabajo
+      label_fr: Unité économique du travail
+      description_es: El URI de la unidad económica para la que se realiza el trabajo, por ejemplo
+        una empresa, una unidad pública o sin fines de lucro, o un hogar que produce para su propio
+        consumo. No es automáticamente un cliente, un lugar de trabajo o un empleador legal.
+      description_fr: L'URI de l'unité économique pour laquelle le travail est effectué, par exemple
+        une entreprise, une unité publique ou à but non lucratif, ou un ménage produisant pour sa
+        propre consommation. Elle n'est pas automatiquement un client, un lieu de travail ou un
+        employeur légal.
       category: employment
       bibliography_refs: '["fao-wca-2030", "ilo-19th-icls-2013", "ilo-20th-icls-2018", "ilo-icse18-manual-2023"]'
   work_form:
@@ -137,6 +189,16 @@ slots:
     multivalued: false
     status: bibo:draft
     annotations:
+      label_es: Forma de trabajo
+      label_fr: Forme de travail
+      description_es: La forma de trabajo a la que pertenece esta relación según las normas
+        estadísticas internacionales del trabajo, por ejemplo el empleo o el trabajo de producción
+        para uso propio. El hecho de que el trabajo sea remunerado no determina por sí solo su
+        forma.
+      description_fr: La forme de travail à laquelle appartient cette relation selon les normes
+        statistiques internationales du travail, par exemple l'emploi ou le travail de production
+        pour usage propre. Le fait que le travail soit rémunéré ne détermine pas à lui seul sa
+        forme.
       category: employment
       bibliography_refs: '["fao-wca-2030", "ilo-19th-icls-2013", "ilo-20th-icls-2018", "ilo-icse18-manual-2023"]'
   work_status:
@@ -150,6 +212,17 @@ slots:
     multivalued: false
     status: bibo:draft
     annotations:
+      label_es: Situación en el trabajo
+      label_fr: Situation au travail
+      description_es: La situación en el trabajo de la persona en esta relación, codificada en una
+        clasificación designada como la ICSaW-18 o, únicamente para el empleo, la Clasificación
+        Internacional de 2018 de la Situación en el Empleo. El código identifica la clasificación y
+        su edición. No es la situación global de la persona respecto a la actividad económica.
+      description_fr: La situation au travail de la personne dans cette relation, codée dans une
+        classification nommée telle que l'ICSaW-18 ou, pour l'emploi uniquement, la Classification
+        internationale de 2018 de la situation dans la profession. Le code identifie la
+        classification et son édition. Elle n'est pas le statut global de la personne au regard de
+        l'activité.
       category: employment
       bibliography_refs: '["fao-wca-2030", "ilo-20th-icls-2018", "ilo-icse18-manual-2023"]'
   work_remuneration:
@@ -162,6 +235,17 @@ slots:
     multivalued: false
     status: bibo:draft
     annotations:
+      label_es: Modalidad de remuneración del trabajo
+      label_fr: Modalité de rémunération du travail
+      description_es: La forma principal de remuneración de este trabajo, por ejemplo el pago por
+        tiempo trabajado, a destajo, honorarios por servicios prestados o una parte de las
+        ganancias, codificada en un esquema designado. El trabajo no remunerado se indica mediante
+        la forma de trabajo, y la ausencia de salario no sitúa por sí sola el trabajo fuera del
+        empleo.
+      description_fr: La principale forme de rémunération de ce travail, par exemple la paie au
+        temps travaillé, à la pièce, des honoraires pour services rendus ou une part de bénéfice,
+        codée dans un schéma nommé. Le travail non rémunéré est indiqué par la forme de travail, et
+        l'absence de salaire ne place pas à elle seule le travail hors de l'emploi.
       category: employment
       sensitivity: sensitive
       bibliography_refs: '["fao-wca-2030", "ilo-20th-icls-2018", "ilo-icse18-manual-2023"]'
@@ -175,6 +259,16 @@ slots:
     multivalued: false
     status: bibo:draft
     annotations:
+      label_es: Estacionalidad del trabajo
+      label_fr: Saisonnalité du travail
+      description_es: Si y cómo el momento y la duración de este trabajo dependen de factores
+        estacionales, tales como el clima, las vacaciones o las cosechas, codificado en un esquema
+        designado. No determina por sí sola la situación de empleo, la duración del contrato, el
+        tiempo de trabajo o las fechas de la relación.
+      description_fr: Si et comment le moment et la durée de ce travail dépendent de facteurs
+        saisonniers, tels que le climat, les vacances ou les récoltes, codé dans un schéma nommé.
+        Elle ne détermine pas à elle seule le statut d'emploi, la durée du contrat, le temps de
+        travail ou les dates de la relation.
       category: employment
       bibliography_refs: '["fao-wca-2030", "ilo-20th-icls-2018", "ilo-icse18-manual-2023"]'
   profession_code:
@@ -189,6 +283,16 @@ slots:
     related_mappings:
     - schema:occupationalCategory
     annotations:
+      label_es: Código de la profesión
+      label_fr: Code de la profession
+      description_es: La profesión, ocupación o especialidad cubierta por esta licencia o función,
+        en forma de código tomado de un esquema designado, por ejemplo una lista de profesiones
+        reguladas mantenida por un regulador, la CIUO-08 o la Clasificación europea de
+        capacidades/competencias, cualificaciones y ocupaciones.
+      description_fr: La profession, l'occupation ou la spécialité couverte par cette licence ou ce
+        rôle, sous forme de code tiré d'un schéma nommé, par exemple une liste des professions
+        réglementées tenue par un régulateur, la CITP-08 ou la Classification européenne des
+        aptitudes/compétences, certifications et professions.
       category: classification
       bibliography_refs: '["esco", "isco-08", "schema-org"]'
       external_alignments_json: '[{"label": "occupationalCategory", "match": "related", "note": "schema.org
@@ -203,4 +307,8 @@ slots:
     multivalued: true
     status: bibo:draft
     annotations:
+      label_es: Sitios de ejercicio
+      label_fr: Sites d'exercice
+      description_es: Los puntos de servicio en los que la persona ejerce en esta función.
+      description_fr: Les points de service où la personne exerce dans ce rôle.
       category: location
