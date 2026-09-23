@@ -299,6 +299,8 @@ classes:
     - facility_level
     status: bibo:draft
     close_mappings:
+    - fhir:Location
+    related_mappings:
     - schema:MedicalOrganization
     annotations:
       source_domain: health
@@ -326,12 +328,17 @@ classes:
         opérationnelle des services (SARA) de l''OMS et sur l''Évaluation harmonisée des établissements
         de santé (HHFA).'
       featured: true
-      external_alignments_json: '[{"label": "MedicalOrganization", "match": "close", "note": "schema.org
-        MedicalOrganization conflates the medical organization and the physical place where care is delivered
-        into a single class. PublicSchema separates them: HealthFacility is the physical facility (subtype
-        of ServicePoint), and the operating Organization is referenced via managed_by. The overlap is
-        close on the facility-level concept and partial on the organizational side.", "uri": "https://schema.org/MedicalOrganization",
-        "vocabulary": "schema.org", "vocabulary_id": "schema-org"}]'
+      external_alignments_json: '[{"label": "Location", "match": "close", "note": "A FHIR R5 Location with
+        mode instance and a site or building physical form describes the same physical place where care
+        is delivered. FHIR Location also covers rooms, beds, vehicles and location kinds. managed_by relates
+        to Location.managingOrganization, which is the organization responsible for provisioning and upkeep,
+        but is not an exact mapping; the clinical provider of a service is HealthcareService.providedBy.",
+        "uri": "http://hl7.org/fhir/Location", "vocabulary": "FHIR R5", "vocabulary_id": "fhir-r5"}, {"label":
+        "MedicalOrganization", "match": "related", "note": "schema.org MedicalOrganization is an organization
+        that provides medical services, and is also used for the place where they are delivered. PublicSchema
+        separates them: HealthFacility is the physical facility, and the operating Organization is referenced
+        via managed_by.", "uri": "https://schema.org/MedicalOrganization", "vocabulary": "schema.org", "vocabulary_id":
+        "schema-org"}]'
       convergence_json: '{"notes": "HealthFacility is informed primarily by two WHO-maintained non-PublicSchema
         systems: the Service Availability and Readiness Assessment (SARA) Reference Manual, which defines
         the canonical facility-type taxonomy, and the Harmonized Health Facility Assessment (HHFA), which

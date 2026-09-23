@@ -1,5 +1,6 @@
 """Invariants for the education, work and health facility reference terms."""
 
+import json
 from pathlib import Path
 
 import jsonschema
@@ -12,6 +13,7 @@ from build.build import build_vocabulary
 ROOT = Path(__file__).resolve().parents[1]
 EDUCATION = yaml.safe_load((ROOT / "schema/education.yaml").read_text())
 WORK = yaml.safe_load((ROOT / "schema/work.yaml").read_text())
+IDENTITY = yaml.safe_load((ROOT / "schema/identity.yaml").read_text())
 VOCABULARIES = yaml.safe_load((ROOT / "schema/vocabularies.yaml").read_text())
 FORMS_OF_WORK = ["own_use_production_work", "employment_work", "unpaid_trainee_work",
                  "volunteer_work", "other_work_activities"]
@@ -29,6 +31,10 @@ def schema_validator(built, kind):
         (schema["$id"], Resource.from_contents(schema)) for schema in built["concept_schemas"].values()
     )
     return jsonschema.Draft202012Validator(built["concept_schemas"][kind], registry=registry)
+
+
+def alignments(definition):
+    return {record["uri"]: record for record in json.loads(definition["annotations"]["external_alignments_json"])}
 
 
 def test_form_of_work_is_the_closed_19th_icls_list():
@@ -87,6 +93,17 @@ def test_replaced_education_terms_stay_removed(name):
         authored = yaml.safe_load(module.read_text()) or {}
         assert name not in (authored.get("classes") or {}), module.name
         assert name not in (authored.get("slots") or {}), module.name
+
+
+def test_health_facility_aligns_with_fhir_location_not_an_organization():
+    facility = IDENTITY["classes"]["HealthFacility"]
+    assert facility["class_uri"] == "publicschema:health/HealthFacility"
+    assert facility["close_mappings"] == ["fhir:Location"]
+    assert facility["related_mappings"] == ["schema:MedicalOrganization"]
+    records = alignments(facility)
+    assert records["http://hl7.org/fhir/Location"]["match"] == "close"
+    assert "managingOrganization" in records["http://hl7.org/fhir/Location"]["note"]
+    assert records["https://schema.org/MedicalOrganization"]["match"] == "related"
 
 
 def test_definitions_carry_no_process_wording():
