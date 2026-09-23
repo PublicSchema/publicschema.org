@@ -393,3 +393,26 @@ def test_declared_reference_type_does_not_override_resolved_record_type():
 def test_duplicate_identifiers_do_not_silently_replace_historical_records():
     with pytest.raises(profile.ProfileError, match="duplicate record identity"):
         profile.validate_journey(RECORDS + [copy.deepcopy(record(RECORDS, "grant-decision"))], CONFIG)
+
+
+def test_node_reference_form_compares_by_identity():
+    # reference() accepts a URI or a {"@id": ...} node; identity checks must see the same subject.
+    changed = copy.deepcopy(RECORDS)
+    for suffix, field in (
+        ("business-application", "subject_uri"),
+        ("business-permit", "registered_subject"),
+        ("permit-suspension", "subject_uri"),
+        ("suspension-decision", "subject_uri"),
+    ):
+        target = record(changed, suffix)
+        target[field] = {"@id": target[field]}
+    profile.validate_journey(changed, CONFIG)
+
+
+def test_missing_recording_time_is_a_profile_error():
+    changed = copy.deepcopy(RECORDS)
+    event = record(changed, "office-name-correction")
+    del event["recorded_at"]
+    event["submission_date"] = "2026-05-01"
+    with pytest.raises(profile.ProfileError, match="office-name-correction.recorded_at: required"):
+        profile.validate_journey(changed, CONFIG)

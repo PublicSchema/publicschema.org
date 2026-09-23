@@ -6,8 +6,12 @@ The sidecar grants are trusted synthetic profile configuration, never caller cla
 
 import argparse
 import json
-from datetime import UTC, date, datetime
+import sys
+from datetime import UTC, datetime
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "shared"))
+from profile_support import check_period, parse_day  # noqa: E402
 
 ORGANIZATIONS = {"Organization", "PublicOrganization"}
 APPLICANTS = ORGANIZATIONS | {"Person"}
@@ -70,6 +74,8 @@ def validate_journey(records, config):
         return target
 
     def timestamp(record, field):
+        if field not in record:
+            raise ProfileError(f"{record['@id']}.{field}: required to check this record's dates")
         value = record[field]
         try:
             parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
@@ -80,14 +86,18 @@ def validate_journey(records, config):
         return parsed
 
     def calendar_date(record, field):
-        value = record[field]
         try:
-            parsed = date.fromisoformat(value)
-            if parsed.isoformat() != value:
-                raise ValueError("not an extended calendar date")
-        except (TypeError, ValueError) as exc:
+            return parse_day(record.get(field), field)
+        except ValueError as exc:
             raise ProfileError(f"{record['@id']}.{field}: calendar date required") from exc
-        return parsed
+
+    def period(record, start, end, *, exclusive, label):
+        try:
+            check_period(calendar_date(record, start), calendar_date(record, end), exclusive=exclusive)
+        except ProfileError:
+            raise
+        except ValueError as exc:
+            raise ProfileError(f"{record['@id']}.{end}: empty or reversed {label}") from exc
 
     def utc_day(record, field):
         # This synthetic profile compares calendar dates with the UTC day of a timestamp.
@@ -147,11 +157,11 @@ def validate_journey(records, config):
 
     for record in records:
         key, kind = record["@id"], record["@type"]
-        for start, end in (("start_date", "end_date"), ("valid_from", "valid_to")):
-            if start in record and end in record and record[start] > record[end]:
-                raise ProfileError(f"{key}.{end}: reversed period")
-        if kind == "RepresentationRole" and record.get("end_date") == record["start_date"]:
-            raise ProfileError(f"{key}.end_date: empty or reversed representation period")
+        label = "representation period" if kind == "RepresentationRole" else "period"
+        # end_date is the first inactive day; valid_to is the last valid day.
+        for start, end, exclusive in (("start_date", "end_date", True), ("valid_from", "valid_to", False)):
+            if start in record and end in record:
+                period(record, start, end, exclusive=exclusive, label=label)
         for field in ("effective_at", "recorded_at"):
             if field in record:
                 timestamp(record, field)
@@ -194,8 +204,9 @@ def validate_journey(records, config):
                     raise ProfileError(f"{key}.submission_representation: representative or represented party mismatch")
                 # The start day is included and the end day is the first inactive day.
                 # Permission validity is separate.
-                day = when.isoformat()
-                if day < role["start_date"] or (role.get("end_date") and day >= role["end_date"]):
+                starts = calendar_date(role, "start_date")
+                ends = calendar_date(role, "end_date") if "end_date" in role else None
+                if when < starts or (ends is not None and when >= ends):
                     raise ProfileError(f"{key}.submission_representation: outside representation period")
                 if not any(
                     grant["representation_uri"] == role["@id"]
@@ -213,20 +224,20 @@ def validate_journey(records, config):
             raise ProfileError(f"{key}.authority: authority predates its creation")
         if "decides_application" in record:
             application = linked(record, "decides_application", {"ServiceApplication"})
-            if subject["@id"] != application["subject_uri"]:
+            if subject["@id"] != linked(application, "subject_uri", None)["@id"]:
                 raise ProfileError(f"{key}.subject_uri: differs from application subject")
             if made_on < calendar_date(application, "submission_date"):
                 raise ProfileError(f"{key}.decision_date: precedes application")
         for value in record.get("decision_authorizations", []):
             permit = reference(value, {"Authorization"}, f"{key}.decision_authorizations")
-            if permit["registered_subject"] != subject["@id"]:
+            if linked(permit, "registered_subject", None)["@id"] != subject["@id"]:
                 raise ProfileError(f"{key}.decision_authorizations: permit subject differs from decision subject")
             issuer = linked(permit, "registration_authority", {"PublicOrganization"})
             if issuer["@id"] != authority["@id"]:
                 raise ProfileError(f"{key}.decision_authorizations: permit issuer differs from deciding authority")
         for value in record.get("decision_regulatory_actions", []):
             action = reference(value, {"RegulatoryAction"}, f"{key}.decision_regulatory_actions")
-            if action["subject_uri"] != subject["@id"]:
+            if linked(action, "subject_uri", None)["@id"] != subject["@id"]:
                 raise ProfileError(f"{key}.decision_regulatory_actions: action subject differs from decision subject")
             if linked(action, "authority", {"PublicOrganization"})["@id"] != authority["@id"]:
                 raise ProfileError(f"{key}.decision_regulatory_actions: action authority differs from deciding authority")
@@ -257,7 +268,7 @@ def validate_journey(records, config):
             challenged = linked(appeal, "challenged_decision", {"AdministrativeDecision"})
             if challenged["@id"] == key:
                 raise ProfileError(f"{key}.resolves_appeal: cannot resolve an appeal against itself")
-            if challenged["subject_uri"] != subject["@id"]:
+            if linked(challenged, "subject_uri", None)["@id"] != subject["@id"]:
                 raise ProfileError(f"{key}.subject_uri: differs from challenged decision subject")
             if made_on < calendar_date(appeal, "submission_date"):
                 raise ProfileError(f"{key}.decision_date: precedes appeal")
