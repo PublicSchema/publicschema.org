@@ -1,7 +1,7 @@
 {
   "@id": "https://example.org/agriculture/irrigation-operator",
   "@type": "AssetPartyRole",
-  "asset_subject": "https://example.org/agriculture/irrigation",
+  "subject_uri": "https://example.org/agriculture/irrigation",
   "asset_actor": "https://example.org/org/water-users",
   "asset_role_type": {
     "@type": "CodedValue",

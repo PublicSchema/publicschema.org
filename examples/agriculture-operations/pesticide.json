@@ -23,7 +23,7 @@
         "@type": "QuantityValue",
         "quantity_value": 250,
         "unit_code": "g/L",
-        "unit_scheme": "http://unitsofmeasure.org"
+        "unit_scheme": "ucum"
       },
       "component_basis": {
         "@type": "CodedValue",

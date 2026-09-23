@@ -15,7 +15,7 @@
     "@type": "QuantityValue",
     "quantity_value": 10,
     "unit_code": "%",
-    "unit_scheme": "http://unitsofmeasure.org"
+    "unit_scheme": "ucum"
   },
   "component_basis": {
     "@type": "CodedValue",

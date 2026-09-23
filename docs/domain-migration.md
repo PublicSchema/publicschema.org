@@ -11,7 +11,7 @@ All relocated or refactored elements remain **draft**. Candidate and normative d
 | An agricultural production holding | `agri/Farm`. A production unit has agricultural meaning even when social protection consumes its record. |
 | A person, organization, work relationship or physical asset responsibility | Root. The same definition can apply in multiple sectors. |
 | Agricultural land use versus legal tenure | `agri/AgriculturalParcel` and `land/LandTenureAssertion` remain distinct. A shared physical area does not equate cultivation with legal title. |
-| A fishing vessel | `agri/FishingVessel` uses `transport/vessel_flag` and `transport/vessel_length`. Its defining purpose is fishing; flag-state and length-overall facts have general transport meaning. |
+| A fishing vessel | `agri/FishingVessel` uses `transport/vessel_flag` and `transport/vessel_length_overall`. Its defining purpose is fishing; flag-state and length-overall facts have general transport meaning. |
 | Physical educational or healthcare premises | `edu/School` and `health/HealthFacility` inherit from shared ServicePoint. Moving the subtype does not duplicate the shared facility model. |
 | Educational delivery | `edu/EducationOffering` joins a programme, provider and sites. A programme identity alone does not identify a particular offering. |
 | Generic animal, plant-variety, accession or seed-lot identity | Root where the definition does not require agricultural use. Keep the meaning broader than the source module filename. |
