@@ -466,11 +466,21 @@ def _convert_slot_to_property(
     # consumers would move a shared property's page when its only consumer
     # moves domains, even though its RDF identity remains unchanged. Keep the
     # legacy inference only for sources without an explicit PublicSchema URI.
+    # An authored domain_override must agree with that namespace.
     slot_uri = slot_def.get("slot_uri", "")
     for prefix in (base_uri, "publicschema:"):
         if slot_uri.startswith(prefix):
             local = slot_uri[len(prefix):]
-            prop["domain_override"] = local.split("/", 1)[0] if "/" in local else None
+            domain = local.split("/", 1)[0] if "/" in local else None
+            if "domain_override" in prop and prop["domain_override"] != domain:
+                authored = "null" if prop["domain_override"] is None else prop["domain_override"]
+                namespace = f"the {domain} namespace" if domain else "the root namespace"
+                raise ValueError(
+                    f"{slot_name}: domain_override {authored!r} disagrees with slot_uri "
+                    f"{slot_uri!r}, which places the property in {namespace}; "
+                    "correct the slot_uri or the annotation"
+                )
+            prop["domain_override"] = domain
             break
 
     # JSON-stringified structured annotations.
@@ -738,6 +748,12 @@ def load_linkml_metadata(linkml_dir: Path) -> dict[str, Any]:
     domains = _parse_json_annotation(annotations.get("domains_json"))
     if isinstance(domains, dict):
         meta["domains"] = domains
+    elif domains is not None:
+        print(
+            "WARNING: domains_json must be a JSON object keyed by domain; "
+            f"got {type(domains).__name__}. Domain labels are omitted.",
+            file=sys.stderr,
+        )
     return meta
 
 

@@ -223,11 +223,11 @@ def test_authored_property_namespace_survives_a_consumer_domain_change(tmp_path,
         "slots": {
             "observed_on": {
                 "slot_uri": "product:observed_on", "range": "date",
-                "annotations": {"domain_override": "health"},
+                "annotations": {"domain_override": "null"},
             },
             "cultivation_kind": {
                 "slot_uri": "product:agri/cultivation_kind", "range": "string",
-                "annotations": {"domain_override": "null"},
+                "annotations": {"domain_override": "agri"},
             },
         },
         "annotations": {"domains_json": json.dumps({
@@ -252,6 +252,68 @@ def test_authored_property_namespace_survives_a_consumer_domain_change(tmp_path,
         assert built["context"]["@context"]["cultivation_kind"] == scoped["uri"]
         assert list(built["meta"]["domains"]) == ["agri", "health"]
         assert built["meta"]["domains"]["agri"]["label"]["fr"] == "Agriculture"
+
+
+@pytest.mark.parametrize("slot_uri,annotation,expected", [
+    ("publicschema:observed_on", "null", None),
+    ("publicschema:agri/cultivation_kind", "agri", "agri"),
+    ("publicschema:agri/cultivation_kind", None, "agri"),
+    ("https://publicschema.org/agri/cultivation_kind", "agri", "agri"),
+])
+def test_domain_override_that_agrees_with_the_slot_uri_is_accepted(slot_uri, annotation, expected):
+    annotations = {"domain_override": annotation} if annotation else {}
+    _, prop = _convert_slot_to_property(
+        "slot", {"slot_uri": slot_uri, "range": "string", "annotations": annotations},
+        enum_to_vocab_key={}, class_names=set(),
+    )
+    assert prop["domain_override"] == expected
+
+
+@pytest.mark.parametrize("slot_uri,annotation,namespace", [
+    ("publicschema:observed_on", "health", "the root namespace"),
+    ("publicschema:agri/cultivation_kind", "null", "the agri namespace"),
+    ("publicschema:agri/cultivation_kind", "land", "the agri namespace"),
+    ("https://publicschema.org/agri/cultivation_kind", "land", "the agri namespace"),
+])
+def test_domain_override_that_disagrees_with_the_slot_uri_is_a_build_error(slot_uri, annotation, namespace):
+    # The slot_uri owns the property's namespace; an authored annotation that
+    # says otherwise is a mistake to report, not a value to ignore silently.
+    with pytest.raises(ValueError, match=(
+        f"^slot: domain_override '{annotation}' disagrees with slot_uri '{slot_uri}', "
+        f"which places the property in {namespace}"
+    )):
+        _convert_slot_to_property(
+            "slot",
+            {"slot_uri": slot_uri, "range": "string", "annotations": {"domain_override": annotation}},
+            enum_to_vocab_key={}, class_names=set(),
+        )
+
+
+def test_composite_domain_metadata_must_be_an_object(tmp_path, capsys):
+    from build.linkml_reader import load_linkml_metadata
+
+    (tmp_path / "publicschema.yaml").write_text(yaml.safe_dump({
+        "id": "https://publicschema.org/linkml/test", "name": "test",
+        "annotations": {"domains_json": json.dumps(["agri"])},
+    }))
+    assert "domains" not in load_linkml_metadata(tmp_path)
+    assert "WARNING: domains_json must be a JSON object keyed by domain; got list" in capsys.readouterr().err
+
+
+def test_every_used_domain_is_declared_in_the_composite(built_vocabulary):
+    declared = set(built_vocabulary["meta"]["domains"])
+    used = {
+        entry["domain"]
+        for kind in ("concepts", "properties", "vocabularies")
+        for entry in built_vocabulary[kind].values()
+        if entry.get("domain")
+    }
+    assert used
+    # metrics is used but not yet declared in the composite's domains_json, so
+    # the site shows its raw code. Declaring it is a schema change; remove it
+    # from this set when it is declared.
+    known_undeclared = {"metrics"}
+    assert used - declared == known_undeclared
 
 
 # ---------------------------------------------------------------------------
