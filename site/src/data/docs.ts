@@ -42,8 +42,8 @@ export const docs: Record<string, DocEntry> = {
     },
     description: {
       en: 'Connecting health facilities and registry records to FHIR resources.',
-      fr: 'Relier les établissements de santé et les enregistrements du registre aux ressources FHIR.',
-      es: 'Conectar los establecimientos de salud y las actas del registro con los recursos FHIR.',
+      fr: 'Relier les établissements de santé et les entrées de registre aux ressources FHIR.',
+      es: 'Conectar los establecimientos de salud y las entradas de registro con los recursos FHIR.',
     },
     category: 'technical',
   },

@@ -4811,8 +4811,8 @@ enums:
           description_es: Se determinó que el registro no describe al sujeto.
           description_fr: L'enregistrement a été jugé ne pas décrire le sujet.
     annotations:
-      label_es: Resultado de la vinculación
-      label_fr: Résultat d'appariement
+      label_es: Resultado de la coincidencia
+      label_fr: Résultat de la correspondance
       description_es: El juicio alcanzado sobre si un registro de origen describe a un sujeto
         determinado.
       description_fr: Le jugement porté sur la question de savoir si un enregistrement source
@@ -60822,7 +60822,7 @@ enums:
         annotations:
           label_es: Almacenamiento
           label_fr: Stockage
-          description_es: Un lugar donde se almacenan productos agrícolas o insumos agrícolas.
+          description_es: Un lugar donde se almacenan productos o insumos agropecuarios.
           description_fr: Un site où des produits agricoles ou des intrants agricoles sont
             stockés.
       processing:
@@ -60855,16 +60855,16 @@ enums:
         annotations:
           label_es: Otro
           label_fr: Autre
-          description_es: Una función de instalación agrícola no cubierta por los demás valores.
+          description_es: Una función de instalación agropecuaria no cubierta por los demás valores.
           description_fr: Une fonction d'installation agricole non couverte par les autres
             valeurs.
     annotations:
       source_domain: agri
-      label_es: Función de la instalación agrícola
+      label_es: Función de la instalación agropecuaria
       label_fr: Fonction de l'installation agricole
-      description_es: El tipo de actividad agrícola que se realiza en una instalación agrícola,
-        como la cría de animales, la propagación de plantas, el almacenamiento de productos o el
-        comercio. Una misma instalación puede desempeñar varias funciones.
+      description_es: El tipo de actividad agropecuaria que se realiza en una instalación
+        agropecuaria, como la cría de animales, la propagación de plantas, el almacenamiento de
+        productos o el comercio. Una misma instalación puede desempeñar varias funciones.
       description_fr: Le type d'activité agricole exercée dans une installation agricole, comme
         l'élevage d'animaux, la multiplication de végétaux, le stockage de produits ou le
         commerce. Une même installation peut exercer plusieurs fonctions.
@@ -60886,7 +60886,7 @@ enums:
           label_es: Suministro de insumos
           label_fr: Fourniture d'intrants
           description_es: Vender o poner de otro modo a disposición de los productores insumos
-            agrícolas, como semillas, piensos, productos fertilizantes o plaguicidas.
+            agropecuarios, como semillas, piensos, productos fertilizantes o plaguicidas.
           description_fr: Le fait de vendre ou de mettre à la disposition des producteurs des
             intrants agricoles, tels que semences, aliments pour animaux, produits fertilisants
             ou pesticides.
@@ -60993,14 +60993,14 @@ enums:
         annotations:
           label_es: Otro
           label_fr: Autre
-          description_es: Un servicio agrícola no cubierto por los demás valores.
+          description_es: Un servicio agropecuario no cubierto por los demás valores.
           description_fr: Un service agricole non couvert par les autres valeurs.
     annotations:
       source_domain: agri
-      label_es: Tipo de servicio agrícola
+      label_es: Tipo de servicio agropecuario
       label_fr: Type de service agricole
       description_es: Un tipo de servicio o actividad que un actor ofrece o presta a productores
-        agrícolas.
+        agropecuarios.
       description_fr: Un type de service ou d'activité qu'un acteur propose ou exerce pour des
         producteurs agricoles.
       bibliography_refs: '["eu-dir-2009-128", "india-farms", "sasa-seed-register", "uk-pesticide-work",
@@ -61072,16 +61072,16 @@ enums:
         annotations:
           label_es: Otro
           label_fr: Autre
-          description_es: Una categoría de producto que constituye un insumo agrícola no
+          description_es: Una categoría de producto que constituye un insumo agropecuario no
             cubierta por los demás valores.
           description_fr: Une catégorie de produit intrant agricole non couverte par les autres
             valeurs.
     annotations:
       source_domain: agri
-      label_es: Categoría de insumo agrícola
+      label_es: Categoría de insumo agropecuario
       label_fr: Catégorie d'intrant agricole
       description_es: La categoría reglamentaria de un producto que constituye un insumo
-        agrícola. Un mismo producto puede pertenecer a más de una categoría.
+        agropecuario. Un mismo producto puede pertenecer a más de una categoría.
       description_fr: La catégorie réglementaire d'un produit intrant agricole. Un même produit
         peut relever de plusieurs catégories.
       bibliography_refs: '["codex-cxc-54-2004", "ec-pesticides-database", "eu-dir-2009-128", "eu-reg-2005-183",

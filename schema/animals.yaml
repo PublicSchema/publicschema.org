@@ -300,14 +300,14 @@ slots:
     multivalued: false
     status: bibo:draft
     annotations:
-      label_es: Fecha de defunción del animal
-      label_fr: Date de décès de l'animal
+      label_es: Fecha de muerte del animal
+      label_fr: Date de mort de l'animal
       description_es: La fecha en la que el animal murió o fue sacrificado. Un animal perdido o
-        desaparecido no tiene fecha de defunción hasta que se conoce su muerte, y el cierre de un
-        registro no implica la defunción.
+        desaparecido no tiene fecha de muerte hasta que se conoce su muerte, y el cierre de un
+        registro no implica la muerte.
       description_fr: La date à laquelle l'animal est mort ou a été abattu. Un animal perdu ou
-        disparu n'a pas de date de décès tant que sa mort n'est pas connue, et la clôture d'un
-        enregistrement n'implique pas le décès.
+        disparu n'a pas de date de mort tant que sa mort n'est pas connue, et la clôture d'un
+        enregistrement n'implique pas la mort.
       category: agriculture
   animal_sex:
     slot_uri: publicschema:animal_sex
