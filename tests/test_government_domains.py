@@ -135,6 +135,13 @@ def test_inclusive_validity_allows_a_single_day():
     assert not PROFILE.profile_errors(records)
 
 
+def test_example_profile_rejects_a_repeated_record_identity():
+    # A flat record list cannot say which of two records for one URI is current.
+    records = copy.deepcopy(RECORDS)
+    records.append({**records[0], "name": "Another record"})
+    assert f"{records[0]['@id']}: duplicate record identity" in PROFILE.profile_errors(records)
+
+
 def test_partial_vocabulary_record_is_valid_but_not_complete_example_profile(exports):
     partial = {"@context": DEFAULT_CONTEXT_URL, "@id": "https://example.org/partial",
                "@type": "transport/DrivingEntitlement"}
@@ -143,6 +150,7 @@ def test_partial_vocabulary_record_is_valid_but_not_complete_example_profile(exp
 
 
 def test_counterexamples_preserve_neighboring_identities():
+    # Protects the registry-foundations decision: each counterexample changes one fact, so neighbours stay distinct.
     records = {record["@id"].rsplit("/", 1)[-1]: record for record in RECORDS}
     assert "physical_service_point" not in records["online-site"]
     assert records["drive-B"]["valid_to"] != records["drive-C"]["valid_to"]
@@ -152,6 +160,7 @@ def test_counterexamples_preserve_neighboring_identities():
 
 
 def test_revised_reference_distinctions_are_not_profile_only():
+    # Protects the registry-foundations decision: asset roles and statements are separate records about one subject.
     records = {record["@id"].rsplit("/", 1)[-1]: record for record in RECORDS}
     assert records["unit"]["@type"] == "BuildingUnit"
     assert records["vehicle-keeper"]["asset_actor"] != records["vehicle-owner"]["asset_actor"]

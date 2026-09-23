@@ -37,8 +37,12 @@ def period_errors(record):
 
 def profile_errors(records):
     """Return every profile error; an empty list means the records pass."""
-    index = {record["@id"]: record for record in records}
+    index = {}
     errors = []
+    for record in records:
+        if record["@id"] in index:
+            errors.append(f"{record['@id']}: duplicate record identity")
+        index[record["@id"]] = record
     for record in records:
         kind = record["@type"]
         errors.extend(period_errors(record))
