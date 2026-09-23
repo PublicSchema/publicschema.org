@@ -321,7 +321,8 @@ slots:
   animal_responsible_actor:
     slot_uri: publicschema:animal_responsible_actor
     title: Animal responsible actor
-    description: The person or organization that holds the stated responsibility for the animal or group.
+    description: The agent, usually a person or organization, that holds the stated responsibility for
+      the animal or group.
     range: Agent
     multivalued: false
     status: bibo:draft
