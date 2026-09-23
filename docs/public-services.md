@@ -90,7 +90,9 @@ profile requires complete local service, submission, decision and succession lin
 calendar submission and decision dates; timezone-qualified timestamps elsewhere;
 resolved actor types; consistent permit subjects and
 issuers; and a distinct identity for a material successor. It rejects missing or
-mis-typed targets, duplicate identities, empty or reversed representation periods, an appeal
+mis-typed targets, duplicate identities, empty or reversed `start_date`/`end_date` periods on any
+record, reversed `valid_from`/`valid_to`, compact or impossible dates, a compared record
+without `recorded_at`, an appeal
 that precedes its challenged determination and a historical authority assigned before
 its synthetic creation event.
 
