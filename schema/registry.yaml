@@ -137,7 +137,7 @@ classes:
     - record_change_kind
     - effective_at
     - recorded_at
-    - assertion_authority
+    - authority
     - evidence_assertions
     - supersedes_record
     status: bibo:draft

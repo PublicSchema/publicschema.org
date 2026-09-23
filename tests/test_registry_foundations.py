@@ -84,7 +84,7 @@ def test_statements_about_a_subject_share_subject_uri(result):
 def test_accountable_organization_is_one_attribution_slot(result):
     prop = result["properties"]["assertion_authority"]
     assert prop["type"] == "concept:Organization"
-    assert set(prop["used_by"]) == {"EvidenceAssertion", "SubjectMatchAssertion", "RecordLifecycleEvent"}
+    assert set(prop["used_by"]) == {"EvidenceAssertion", "SubjectMatchAssertion"}
     assert prop["external_equivalents"]["prov"]["uri"] == "http://www.w3.org/ns/prov#wasAttributedTo"
     owner = result["properties"]["register_owner"]
     assert owner["type"] == "concept:Organization"
@@ -95,8 +95,8 @@ def test_record_lifecycle_event_is_an_event_about_a_record(result):
     concept = result["concepts"]["RecordLifecycleEvent"]
     assert concept["supertypes"] == ["Event"]
     slots = {entry["id"] for entry in concept["properties"]}
-    assert {"affected_record", "record_change_kind", "assertion_authority"} <= slots
-    assert not {"subject_uri", "lifecycle_kind", "event_authority"} & slots
+    assert {"affected_record", "record_change_kind", "authority"} <= slots
+    assert not {"subject_uri", "lifecycle_kind", "event_authority", "assertion_authority"} & slots
     assert result["properties"]["affected_record"]["type"] == "concept:RecordReference"
 
 

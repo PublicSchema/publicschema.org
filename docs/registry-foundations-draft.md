@@ -41,9 +41,10 @@ subject slot does not repeat it. `registered_subject` and `matched_subject` keep
 names because they mean something narrower: the recipient of recognition, and the subject a
 record is proposed to describe.
 
-`EvidenceAssertion`, `SubjectMatchAssertion` and `RecordLifecycleEvent` use
-`assertion_authority` for the organization accountable for the statement. Organizations with
-other roles keep their own slots: `register_owner` on `Register`, `registration_authority` on
+`EvidenceAssertion` and `SubjectMatchAssertion` use `assertion_authority` for the
+organization accountable for the statement. `RecordLifecycleEvent`, like the other events,
+uses `authority` for the organization responsible for the change. Organizations with other
+roles keep their own slots: `register_owner` on `Register`, `registration_authority` on
 `Registration`, and `identifier_issuer` on `IdentifierAssignment`.
 
 `RecordReference` has the same shape as an `Identifier` whose scheme is the register, but it

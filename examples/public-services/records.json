@@ -226,7 +226,7 @@
     "record_change_kind": "invalidation",
     "effective_at": "2026-04-01T00:00:00Z",
     "recorded_at": "2026-04-04T12:00:00Z",
-    "assertion_authority": {
+    "authority": {
       "@id": "https://example.org/public-services/former-office",
       "@type": "PublicOrganization"
     },
