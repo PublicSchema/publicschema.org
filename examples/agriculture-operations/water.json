@@ -11,13 +11,13 @@
       "@type": "QuantityValue",
       "quantity_value": 50,
       "unit_code": "m3/d",
-      "unit_scheme": "http://unitsofmeasure.org"
+      "unit_scheme": "ucum"
     },
     {
       "@type": "QuantityValue",
       "quantity_value": 5000,
       "unit_code": "m3/a",
-      "unit_scheme": "http://unitsofmeasure.org"
+      "unit_scheme": "ucum"
     }
   ],
   "irrigation_scheme": {
@@ -27,7 +27,7 @@
       "@type": "QuantityValue",
       "quantity_value": 100,
       "unit_code": "har",
-      "unit_scheme": "http://unitsofmeasure.org"
+      "unit_scheme": "ucum"
     }
   }
 }

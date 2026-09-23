@@ -222,7 +222,7 @@ def test_facility_operator_is_a_dated_asset_role_for_person_organization_or_unkn
     facility = next(record for record in records if record["@type"] == "environment/EnvironmentalFacility")
     role = next(record for record in records if record["@id"] == "https://example.org/facility-operator")
     assert role["@type"] == "AssetPartyRole"
-    assert role["asset_subject"] == facility["@id"]
+    assert role["subject_uri"] == facility["@id"]
     assert "start_date" in role
     if operator is None:
         records.remove(role)
@@ -236,7 +236,7 @@ def test_facility_operator_is_a_dated_asset_role_for_person_organization_or_unkn
     conforms, _, report = validate(graph, shacl_graph=shapes, ont_graph=hierarchy)
     assert conforms, report
     assert not example_profile_errors(records)
-    roles = set(graph.subjects(PS.asset_subject, URIRef(facility["@id"]))) & set(
+    roles = set(graph.subjects(PS.subject_uri, URIRef(facility["@id"]))) & set(
         graph.subjects(RDF.type, PS.AssetPartyRole))
     if operator is not None:
         assert roles == {URIRef(role["@id"])}

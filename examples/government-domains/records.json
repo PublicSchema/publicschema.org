@@ -482,7 +482,7 @@
     "@context": "https://publicschema.org/ctx/draft.jsonld",
     "@id": "https://example.org/facility-operator",
     "@type": "AssetPartyRole",
-    "asset_subject": "https://example.org/facility",
+    "subject_uri": "https://example.org/facility",
     "asset_actor": "https://example.org/company",
     "asset_role_type": {
       "@type": "CodedValue",
@@ -501,7 +501,7 @@
     "@context": "https://publicschema.org/ctx/draft.jsonld",
     "@id": "https://example.org/facility-address",
     "@type": "AssetAddressAssignment",
-    "asset_subject": "https://example.org/facility",
+    "subject_uri": "https://example.org/facility",
     "assigned_address": "https://example.org/address/facility",
     "address_purpose": {
       "@type": "CodedValue",
