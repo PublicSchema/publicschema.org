@@ -4,16 +4,20 @@ This example never fetches a record or context. The caller supplies a reviewed
 local record index and decides whether an unresolved reference is acceptable.
 """
 import json
-from datetime import date, datetime
+import sys
+from datetime import datetime
 from decimal import Decimal, localcontext
-from urllib.parse import urlparse
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "shared"))
+import profile_support  # noqa: E402
 
 UCUM = 'ucum'
 CRS84 = 'http://www.opengis.net/def/crs/OGC/1.3/CRS84'
 
 
 def absolute_uri(value):
-    if not isinstance(value, str) or not urlparse(value).scheme:
+    if not profile_support.absolute_uri(value):
         raise ValueError('expected an absolute URI')
     return value
 
@@ -74,10 +78,10 @@ def validate_entry(entry):
 
 
 def validate_period(record):
-    start = date.fromisoformat(record['valid_from']) if 'valid_from' in record else None
-    end = date.fromisoformat(record['valid_to']) if 'valid_to' in record else None
-    if start is not None and end is not None and start > end:
-        raise ValueError('valid_from must not follow valid_to')
+    # valid_to is the last valid day, so a one-day validity has valid_from == valid_to.
+    start, end = (profile_support.parse_day(record[field], field) if field in record else None
+                  for field in ('valid_from', 'valid_to'))
+    profile_support.check_period(start, end, exclusive=False, message='valid_from must not follow valid_to')
 
 
 def validate_asset_party_role(record, subjects):

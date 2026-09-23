@@ -6,9 +6,13 @@ references. It does not fetch records, validate a complete traceability programm
 calculate inventories or derive residence and responsibility changes.
 """
 import json
+import sys
 from pathlib import Path
 
 import jsonschema
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "shared"))
+from profile_support import check_period, parse_day  # noqa: E402
 
 MOVEMENT_PROFILE = {
     "type": "object",
@@ -72,9 +76,12 @@ def validate_profile(records):
         moved = record.get("moved_animals", [])
         if record["moved_animal_count"] < len(moved):
             raise ValueError("moved_animal_count: fewer animals than identified participants")
+        departure = parse_day(record["movement_departure_date"], "movement_departure_date")
         arrival = record.get("movement_arrival_date")
-        if arrival is not None and arrival < record["movement_departure_date"]:
-            raise ValueError("movement_arrival_date: before departure")
+        if arrival is not None:
+            # Arrival on the departure day is allowed.
+            check_period(departure, parse_day(arrival, "movement_arrival_date"), exclusive=False,
+                         message="movement_arrival_date: before departure")
         for animal in moved:
             typed_target(animal, {"IndividualAnimal"}, "moved_animals")
         if "movement_source_group" in record:

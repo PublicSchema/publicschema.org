@@ -6,7 +6,7 @@ import { basename, extname, join } from 'node:path';
 const exampleFiles: Record<string, string[]> = {
   'registry-pilots': ['records.json', 'profile.py'],
   'farm-operators': ['records.json', 'work-records.json', 'validate_profile.py'],
-  'government-domains': ['records.json'],
+  'government-domains': ['records.json', 'profile.py'],
   'agriculture-biology': ['records.json', 'movement-records.json', 'validate_movement_profile.py'],
   'agriculture-operations': [
     'README.md',
@@ -25,6 +25,7 @@ const exampleFiles: Record<string, string[]> = {
   'public-services': ['records.json', 'profile.json', 'profile.py'],
   'relationship-date-migration': ['legacy-records.json', 'records.json', 'migrate.py'],
   'domain-migration': ['uri-map.json'],
+  'shared': ['profile_support.py'],
 };
 
 const decisionFiles = [

@@ -117,6 +117,14 @@ def test_submission_requiredness_and_late_recording():
         profile.validate_entry({**entry,'recorded_at':'2026-09-07T00:00:00'})
 
 
+def test_validity_is_inclusive_and_uses_exact_calendar_days():
+    # valid_to is the last valid day, so a one-day validity is allowed.
+    profile.validate_period({'valid_from': '2026-03-01', 'valid_to': '2026-03-01'})
+    for value in ('20260301', 20260301, '2026-02-30'):
+        with pytest.raises(ValueError, match='valid_from'):
+            profile.validate_period({'valid_from': value})
+
+
 def test_area_conversion_preserves_precision_and_rejects_wrong_dimension():
     quantity={'quantity_value':Decimal('12500.25'),'unit_code':'m2','unit_scheme':profile.UCUM}
     assert profile.area_hectares(quantity)==Decimal('1.250025')

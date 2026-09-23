@@ -3,10 +3,12 @@
 This is an example submission profile; the vocabulary itself accepts any URI.
 """
 import json
-import re
+import sys
 from datetime import date
 from pathlib import Path
-from urllib.parse import urlsplit
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "shared"))
+from profile_support import absolute_uri, check_period, parse_day  # noqa: E402
 
 ROLE_SCHEME = "https://example.org/facility-roles/role-types"
 ROLE_TYPES = {"owner", "operator", "upkeep"}
@@ -25,21 +27,10 @@ def period(record):
     """Return known bounds; end_date is the first inactive calendar day here."""
     if "valid_from" in record or "valid_to" in record:
         raise ValueError("period: use start_date/end_date; legacy validity cannot be renamed without review")
-    bounds = []
-    for field in ("start_date", "end_date"):
-        if field not in record:
-            bounds.append(None)
-            continue
-        value = record[field]
-        if not isinstance(value, str) or not re.fullmatch(r"\d{4}-\d{2}-\d{2}", value):
-            raise ValueError(f"{field}: expected an exact YYYY-MM-DD calendar date")
-        try:
-            bounds.append(date.fromisoformat(value))
-        except ValueError:
-            raise ValueError(f"{field}: impossible calendar date") from None
-    start, end = bounds
-    if start and end and end <= start:
-        raise ValueError("end_date: an assignment must contain at least one effective calendar day")
+    start, end = (parse_day(record[field], field) if field in record else None
+                  for field in ("start_date", "end_date"))
+    check_period(start, end, exclusive=True,
+                 message="end_date: an assignment must contain at least one effective calendar day")
     return start, end
 
 
@@ -68,7 +59,7 @@ def validate_profile(records):
         if not isinstance(record, dict):
             raise ValueError("record: expected an object")
         identifier = record.get("@id")
-        if not isinstance(identifier, str) or not urlsplit(identifier).scheme:
+        if not absolute_uri(identifier):
             raise ValueError("@id: expected an absolute subject URI")
         if identifier in index:
             raise ValueError("@id: duplicate subject URI; reconcile the records before validation")
@@ -76,7 +67,7 @@ def validate_profile(records):
 
     def typed_uri(record, field, accepted):
         value = record.get(field)
-        if not isinstance(value, str) or not urlsplit(value).scheme:
+        if not absolute_uri(value):
             raise ValueError(f"{field}: expected an absolute subject URI")
         if value not in index:
             raise ValueError(f"{field}: unresolved local subject URI")
