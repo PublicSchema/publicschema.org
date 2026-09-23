@@ -32,7 +32,7 @@ preserving previous identities and issuer links. It is an `Event`, not a subtype
 or supersede one record. Identity-preserving name corrections can still use
 `RecordLifecycleEvent`.
 
-The [source and field guide](../docs/public-services-draft.md) pins CPSV-AP 3.1.1 and
+The [source and field guide](../docs/public-services.md) pins CPSV-AP 3.1.1 and
 W3C ORG's 2014 Recommendation. It identifies conceptual alignments and their limits.
 The native application, decision and appeal classes are PublicSchema design choices,
 not classes attributed to CPSV-AP. Upstream catalogue exchange remains an explicit

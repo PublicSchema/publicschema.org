@@ -2,7 +2,7 @@
 
 A register, its record and the subject of that record have different identities. `RegistryEntry` uses a register URI and local record ID as its qualified key and an explicit `subject_uri` for the described thing. `Registration` records administrative recognition; `Authorization` adds permission for a stated activity. Neither is the Person, Organization, facility, product or Farm receiving it. These terms are draft, optional reference vocabulary. They are not a registry submission format, a full-domain model or a normative specification.
 
-See the [government families](government-registry-draft.md), [biology](agriculture-biology-draft.md), [agricultural operations](agriculture-operations-draft.md), [facility responsibilities and addresses](facility-roles.md), and [relationship date migration](relationship-date-migration.md) for neighboring concepts. ADR-020 records the common choices and alternatives.
+See the [government families](government-registry.md), [biology](agriculture-biology.md), [agricultural operations](agriculture-operations.md), [facility responsibilities and addresses](facility-roles.md), and [relationship date migration](relationship-date-migration.md) for neighboring concepts. ADR-020 records the common choices and alternatives.
 
 ## Evidence and design judgment
 

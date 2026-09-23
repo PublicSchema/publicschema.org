@@ -9,7 +9,7 @@ export interface DocEntry {
   category: DocCategoryKey;
 }
 
-// Draft guides use English metadata until reviewed translations are available.
+// Guides without translated metadata reuse the English title and description in every locale.
 function draftGuide({ file, title, description }: {
   file: string;
   title: string;
@@ -28,15 +28,15 @@ export const implementationGuideSlugs = [
   'fhir-registry-integration',
   'facility-roles',
   'relationship-date-migration',
-  'public-services-draft',
-  'government-relationships-draft',
+  'public-services',
+  'government-relationships',
 ];
 
 export const docs: Record<string, DocEntry> = {
   'domain-migration': draftGuide({
     file: 'domain-migration.md',
     title: 'Domain migration',
-    description: 'Canonical domains, moved draft terms and migration of existing references.',
+    description: 'Canonical domains, moved terms and migration of existing references.',
   }),
   'fhir-registry-integration': draftGuide({
     file: 'fhir-registry-integration.md',
@@ -53,64 +53,64 @@ export const docs: Record<string, DocEntry> = {
     title: 'Relationship date migration',
     description: 'Migrating dates that describe relationships and periods of responsibility.',
   }),
-  'public-services-draft': draftGuide({
-    file: 'public-services-draft.md',
-    title: 'Public services draft',
+  'public-services': draftGuide({
+    file: 'public-services.md',
+    title: 'Public services',
     description: 'Public services, applications, decisions, appeals and organizational succession.',
   }),
-  'government-relationships-draft': draftGuide({
-    file: 'government-relationships-draft.md',
-    title: 'Government relationships draft',
-    description: 'Ownership interests, legal arrangements, education offerings and installation-level releases.',
+  'government-relationships': draftGuide({
+    file: 'government-relationships.md',
+    title: 'Ownership and education delivery',
+    description: 'Ownership interests, legal arrangements, education programs, offerings and awarded qualifications.',
   }),
-  "registry-foundations-draft": {
-    file: "registry-foundations-draft.md",
+  "registry-foundations": {
+    file: "registry-foundations.md",
     title: {
-      en: "Registry foundations draft",
-      fr: "Registry foundations draft",
-      es: "Registry foundations draft",
+      en: "Registry foundations",
+      fr: "Registry foundations",
+      es: "Registry foundations",
     },
     description: {
-      en: "Records, recognition, evidence, spatial values and the health and land pilots.",
-      fr: "Records, recognition, evidence, spatial values and the health and land pilots.",
-      es: "Records, recognition, evidence, spatial values and the health and land pilots.",
+      en: "Registers, records, recognition, evidence, coded values, quantities and geometry.",
+      fr: "Registers, records, recognition, evidence, coded values, quantities and geometry.",
+      es: "Registers, records, recognition, evidence, coded values, quantities and geometry.",
     },
     category: "technical",
   },
-  "farm-operators-draft": {
-    file: "farm-operators-draft.md",
+  "farm-holders": {
+    file: "farm-holders.md",
     title: {
       en: "Farm and holder responsibilities",
       fr: "Farm and holder responsibilities",
       es: "Farm and holder responsibilities",
     },
     description: {
-      en: "Draft production-unit correction, typed holders and migration examples.",
-      fr: "Draft production-unit correction, typed holders and migration examples.",
-      es: "Draft production-unit correction, typed holders and migration examples.",
+      en: "Farms, agricultural holder roles, farmer registration and work on a holding.",
+      fr: "Farms, agricultural holder roles, farmer registration and work on a holding.",
+      es: "Farms, agricultural holder roles, farmer registration and work on a holding.",
     },
     category: "technical",
   },
-  "government-registry-draft": {
-    file: "government-registry-draft.md",
+  "government-registry": {
+    file: "government-registry.md",
     title: {
-      en: "Government registry draft",
-      fr: "Government registry draft",
-      es: "Government registry draft",
+      en: "Government registries",
+      fr: "Government registries",
+      es: "Government registries",
     },
     description: {
-      en: "Institutions, roles, assets, regulation and contribution questions.",
-      fr: "Institutions, roles, assets, regulation and contribution questions.",
-      es: "Institutions, roles, assets, regulation and contribution questions.",
+      en: "Public organizations, institutional roles, assets, ownership, regulation, tax, elections and transport.",
+      fr: "Public organizations, institutional roles, assets, ownership, regulation, tax, elections and transport.",
+      es: "Public organizations, institutional roles, assets, ownership, regulation, tax, elections and transport.",
     },
     category: "technical",
   },
-  "agriculture-biology-draft": {
-    file: "agriculture-biology-draft.md",
+  "agriculture-biology": {
+    file: "agriculture-biology.md",
     title: {
-      en: "Agricultural biology draft",
-      fr: "Agricultural biology draft",
-      es: "Agricultural biology draft",
+      en: "Animals and plants",
+      fr: "Animals and plants",
+      es: "Animals and plants",
     },
     description: {
       en: "Animals, crops, varieties, accessions and seed lots.",
@@ -119,17 +119,17 @@ export const docs: Record<string, DocEntry> = {
     },
     category: "technical",
   },
-  "agriculture-operations-draft": {
-    file: "agriculture-operations-draft.md",
+  "agriculture-operations": {
+    file: "agriculture-operations.md",
     title: {
-      en: "Agricultural operations draft",
-      fr: "Agricultural operations draft",
-      es: "Agricultural operations draft",
+      en: "Agricultural operations",
+      fr: "Agricultural operations",
+      es: "Agricultural operations",
     },
     description: {
-      en: "Facilities, products, service roles, certification and water use.",
-      fr: "Facilities, products, service roles, certification and water use.",
-      es: "Facilities, products, service roles, certification and water use.",
+      en: "Facilities, input products, service roles, certification and water use.",
+      fr: "Facilities, input products, service roles, certification and water use.",
+      es: "Facilities, input products, service roles, certification and water use.",
     },
     category: "technical",
   },

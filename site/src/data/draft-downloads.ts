@@ -50,8 +50,8 @@ export const guideExampleFolders: Record<string, string> = {
   'fhir-registry-integration': 'fhir-registry',
   'facility-roles': 'facility-roles',
   'relationship-date-migration': 'relationship-date-migration',
-  'public-services-draft': 'public-services',
-  'government-relationships-draft': 'government-relationships',
+  'public-services': 'public-services',
+  'government-relationships': 'government-relationships',
 };
 
 /** Return a public URL only for a declared file or its directory index. */

@@ -12,7 +12,7 @@ Add optional reference relationships for facts that exist independently of a con
 
 `edu/EducationOffering` identifies a programme delivered by a provider at specified provider sites for a period. Sites can be physical or virtual. The expected award can reference its existing catalog identity without duplicating a qualification model or an individual's awarded qualification. `environment/release_installation` preserves source-reported installation attribution alongside the existing facility-level release link. Neither relationship establishes accreditation or compliance.
 
-The [public evidence brief](../docs/government-relationships-draft.md) identifies primary sources and concrete counterexamples. These are PublicSchema reference choices, not exact BODS, Schema.org or EU-reporting mappings.
+The [public evidence brief](../docs/government-relationships.md) identifies primary sources and concrete counterexamples. These are PublicSchema reference choices, not exact BODS, Schema.org or EU-reporting mappings.
 
 ## Alternatives
 
