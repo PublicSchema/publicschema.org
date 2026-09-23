@@ -29,6 +29,14 @@ classes:
     status: bibo:draft
     annotations:
       source_domain: land
+      label_es: Unidad espacial de tierra
+      label_fr: Unité spatiale foncière
+      description_es: Una superficie de tierra, o un volumen de espacio, identificada por separado y
+        registrada en la administración de tierras. Una parcela catastral es un tipo de unidad espacial.
+        Una unidad espacial no es en sí misma un derecho ni un título.
+      description_fr: Une zone de terre, ou un volume d'espace, identifiée séparément et enregistrée
+        dans l'administration foncière. Une parcelle cadastrale est un type d'unité spatiale. Une unité
+        spatiale n'est pas elle-même un droit ni un titre.
       bibliography_refs: '["iso-19152-1-2024", "unece-property-units-2004"]'
   LandAdministrativeUnit:
     class_uri: publicschema:land/LandAdministrativeUnit
@@ -43,6 +51,16 @@ classes:
     status: bibo:draft
     annotations:
       source_domain: land
+      label_es: Unidad administrativa de tierra
+      label_fr: Unité administrative foncière
+      description_es: Una unidad registrada en la administración de tierras a la que se aplican uno
+        o más derechos, restricciones o responsabilidades uniformes. Puede estar registrada formalmente
+        o consignada de manera informal o consuetudinaria. Agrupa cero o más unidades espaciales. No
+        es un área administrativa territorial.
+      description_fr: Une unité enregistrée dans l'administration foncière à laquelle s'appliquent un
+        ou plusieurs droits, restrictions ou responsabilités uniformes. Elle peut être enregistrée formellement
+        ou consignée de manière informelle ou coutumière. Elle regroupe zéro ou plusieurs unités spatiales.
+        Ce n'est pas une zone administrative territoriale.
       bibliography_refs: '["iso-19152-1-2024", "unece-property-units-2004"]'
   LandTenureAssertion:
     class_uri: publicschema:land/LandTenureAssertion
@@ -63,6 +81,18 @@ classes:
     status: bibo:draft
     annotations:
       source_domain: land
+      label_es: Aseveración de tenencia de la tierra
+      label_fr: Assertion de régime foncier
+      description_es: Una declaración de que una parte posee, o reclama, un derecho, una restricción
+        o una responsabilidad sobre una unidad administrativa de tierra identificada durante un período
+        determinado. Registra la reclamación y sus pruebas. No decide entre reclamaciones en competencia
+        ni convierte la tenencia consuetudinaria o informal en propiedad registrada. Algunas restricciones
+        y responsabilidades no tienen un titular nombrado.
+      description_fr: Une déclaration selon laquelle une partie détient, ou revendique, un droit, une
+        restriction ou une responsabilité sur une unité administrative foncière identifiée pendant une
+        période donnée. Elle enregistre la revendication et ses preuves. Elle ne tranche pas entre des
+        revendications concurrentes et ne convertit pas la tenure coutumière ou informelle en propriété
+        enregistrée. Certaines restrictions et responsabilités n'ont pas de détenteur nommé.
       bibliography_refs: '["fao-vggt", "iso-19152-1-2024", "unece-property-units-2004"]'
   LandBoundaryAssertion:
     class_uri: publicschema:land/LandBoundaryAssertion
@@ -78,6 +108,14 @@ classes:
     status: bibo:draft
     annotations:
       source_domain: land
+      label_es: Aseveración de límite de tierra
+      label_fr: Assertion de limite foncière
+      description_es: Una declaración de dónde se sitúa el límite de una unidad espacial de tierra y
+        hasta qué punto está reconocido o acordado, con sus pruebas de respaldo. La geometría por sí
+        sola no establece un acuerdo jurídico.
+      description_fr: Une déclaration indiquant où se situe la limite d'une unité spatiale foncière et
+        dans quelle mesure elle est reconnue ou convenue, avec ses preuves à l'appui. La géométrie seule
+        n'établit pas un accord juridique.
       bibliography_refs: '["fao-vggt", "iso-19152-1-2024", "unece-property-units-2004"]'
 slots:
   land_area:
@@ -90,6 +128,11 @@ slots:
     status: bibo:draft
     annotations:
       source_domain: land
+      label_es: Superficie de tierra
+      label_fr: Superficie foncière
+      description_es: La superficie medida de una unidad espacial de tierra, distinta de la parte de
+        propiedad.
+      description_fr: La superficie mesurée d'une unité spatiale foncière, distincte de la part de propriété.
       category: administrative
   administrative_spatial_units:
     slot_uri: publicschema:land/administrative_spatial_units
@@ -101,6 +144,14 @@ slots:
     status: bibo:draft
     annotations:
       source_domain: land
+      label_es: Unidades espaciales administrativas
+      label_fr: Unités spatiales administratives
+      description_es: Las unidades espaciales agrupadas por esta unidad administrativa de tierra. Puede
+        estar vacía cuando no existe un mapa catastral. Una unidad espacial puede pertenecer a más de
+        una unidad administrativa.
+      description_fr: Les unités spatiales regroupées par cette unité administrative foncière. Elle peut
+        être vide lorsqu'aucune carte cadastrale n'existe. Une unité spatiale peut appartenir à plus d'une
+        unité administrative.
       category: administrative
   tenure_holder:
     slot_uri: publicschema:land/tenure_holder
@@ -113,6 +164,14 @@ slots:
     status: bibo:draft
     annotations:
       source_domain: land
+      label_es: Titular de la tenencia
+      label_fr: Détenteur de tenure
+      description_es: La persona, organización o grupo que posee o reclama el derecho, o que soporta
+        la restricción o la responsabilidad. Puede estar ausente en las restricciones vinculadas únicamente
+        a la tierra. El URI no crea personalidad jurídica.
+      description_fr: La personne, l'organisation ou le groupe qui détient ou revendique le droit, ou
+        qui supporte la restriction ou la responsabilité. Elle peut être absente pour les restrictions
+        attachées à la terre seule. L'URI ne crée pas de personnalité juridique.
       category: administrative
       sensitivity: sensitive
       bibliography_refs: '["iso-19152-1-2024"]'
@@ -125,6 +184,12 @@ slots:
     status: bibo:draft
     annotations:
       source_domain: land
+      label_es: Objeto de la tenencia
+      label_fr: Objet de la tenure
+      description_es: La unidad administrativa de tierra a la que se aplica el derecho, la restricción
+        o la responsabilidad.
+      description_fr: L'unité administrative foncière à laquelle s'applique le droit, la restriction
+        ou la responsabilité.
       category: administrative
       bibliography_refs: '["iso-19152-1-2024"]'
   tenure_category:
@@ -136,6 +201,10 @@ slots:
     status: bibo:draft
     annotations:
       source_domain: land
+      label_es: Categoría de tenencia
+      label_fr: Catégorie de tenure
+      description_es: Si la aseveración se refiere a un derecho, una restricción o una responsabilidad.
+      description_fr: Si l'assertion concerne un droit, une restriction ou une responsabilité.
       category: administrative
       bibliography_refs: '["iso-19152-1-2024"]'
   tenure_type:
@@ -148,6 +217,12 @@ slots:
     status: bibo:draft
     annotations:
       source_domain: land
+      label_es: Tipo de tenencia
+      label_fr: Type de tenure
+      description_es: El tipo de tenencia estatutaria, consuetudinaria o informal declarado, codificado
+        en una clasificación indicada y conservado tal como se registró, sin conversión en propiedad.
+      description_fr: Le type de tenure statutaire, coutumière ou informelle revendiqué, codé dans une
+        classification indiquée et conservé tel qu'enregistré, sans conversion en propriété.
       category: administrative
       sensitivity: sensitive
   tenure_share:
@@ -163,6 +238,14 @@ slots:
     status: bibo:draft
     annotations:
       source_domain: land
+      label_es: Parte de la tenencia
+      label_fr: Part de tenure
+      description_es: La parte del titular en el derecho, la restricción o la responsabilidad, expresada
+        como una fracción del total de 0 a 1, donde 1 representa el interés completo. No es un porcentaje.
+        Las partes de reclamaciones en competencia no se normalizan ni se suman.
+      description_fr: La part du détenteur dans le droit, la restriction ou la responsabilité, exprimée
+        comme une fraction du tout de 0 à 1, où 1 représente l'intérêt entier. Ce n'est pas un pourcentage.
+        Les parts de revendications concurrentes ne sont ni normalisées ni additionnées.
       category: administrative
       bibliography_refs: '["iso-19152-1-2024"]'
   boundary_unit:
@@ -174,6 +257,10 @@ slots:
     status: bibo:draft
     annotations:
       source_domain: land
+      label_es: Unidad de límite
+      label_fr: Unité de limite
+      description_es: La unidad espacial cuyo límite se describe.
+      description_fr: L'unité spatiale dont la limite est décrite.
       category: administrative
   boundary_recognition:
     slot_uri: publicschema:land/boundary_recognition
@@ -184,5 +271,11 @@ slots:
     status: bibo:draft
     annotations:
       source_domain: land
+      label_es: Reconocimiento del límite
+      label_fr: Reconnaissance de la limite
+      description_es: Hasta qué punto el límite declarado está reconocido o acordado, codificado en
+        una clasificación indicada.
+      description_fr: Dans quelle mesure la limite revendiquée est reconnue ou convenue, codée dans une
+        classification indiquée.
       category: administrative
       sensitivity: sensitive
