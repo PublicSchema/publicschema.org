@@ -267,6 +267,12 @@ def validate_integration(bundle, envelope):
     require(envelope.get("fhir_release") == FHIR_RELEASE, "FHIR release mismatch")
     require(envelope.get("fhir_media_type") == "application/fhir+json", "native FHIR media type required")
     resources = resource_index(bundle)
+    for resource in resources.values():
+        if resource["resourceType"] == "HealthcareService":
+            # An absent providedBy defaults to Location.managingOrganization, which
+            # would silently merge the clinical provider with the upkeep organization.
+            require("providedBy" in resource,
+                    "HealthcareService.providedBy is required; the provider is not inferred from the Location")
     reference_count = validate_fhir_references(resources)
     records = registry_index(envelope)
     subjects = {}

@@ -111,6 +111,15 @@ def test_directory_preserves_provider_upkeep_and_organization_qualification(inpu
     assert binding(envelope, "clinic-site")["entry"]["subject_type"] == "https://publicschema.org/health/HealthFacility"
 
 
+def test_healthcare_service_requires_explicit_provider(inputs):
+    # FHIR reads an absent providedBy as the Location.managingOrganization, which
+    # would merge the clinical provider with the upkeep organization.
+    bundle, envelope = inputs
+    resource(bundle, "outpatient-service").pop("providedBy")
+    with pytest.raises(integration.ContractError, match="HealthcareService.providedBy is required"):
+        integration.validate_integration(bundle, envelope)
+
+
 @pytest.mark.parametrize("mode,form", [("kind", "si"), ("instance", "vi")])
 def test_virtual_or_conceptual_fhir_location_is_not_a_physical_health_facility(inputs, mode, form):
     bundle, envelope = inputs
