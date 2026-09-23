@@ -6,7 +6,7 @@ AgriculturalHolderRole means **holder responsibility**: the key decisions on res
 
 The [synthetic example records](../examples/farm-operators/records.json) describe one holding, an earlier cooperative holder, two current joint individual holders and an earlier informal collective. Neither individual needs a national identifier. The collective has a name without a complete membership roster. The example gives the holding's total area, land tenure types and livestock kept, but no parcels. Farm's vocabulary does not require land ownership, a positive land area or a parcel list; a farm without land has a `farm_area` of zero. The dated succession is an explicit example of asserted unit continuity, not a universal rule for sales, mergers or splits.
 
-These distinctions follow [FAO WCA 2020 Volume 1, Rome 2017](https://www.fao.org/4/i4913e/i4913e.pdf), paragraphs 6.2, 6.7–6.14 and 6.17–6.21. Class names, date slots and persistence are PublicSchema draft design choices. The FAO WCA 2030 [January 2026 master draft](https://unstats.un.org/UNSDWebsite/statcom/session_57/documents/BG-3g-1-Background_document_WCA_2030-E.pdf), paragraphs 4.21–4.24, also distinguishes unpaid daily managers. No census conformance is claimed.
+These distinctions follow [FAO WCA 2020 Volume 1, Rome 2017](https://www.fao.org/4/i4913e/i4913e.pdf), paragraphs 6.2, 6.7–6.14 and 6.17–6.21. Class names, date slots and persistence are PublicSchema design choices. The FAO WCA 2030 [January 2026 master draft](https://unstats.un.org/UNSDWebsite/statcom/session_57/documents/BG-3g-1-Background_document_WCA_2030-E.pdf), paragraphs 4.21–4.24, also distinguishes unpaid daily managers. No census conformance is claimed.
 
 ## Summary fields and registration
 
@@ -21,22 +21,22 @@ All vocabulary fields are optional so partial descriptions remain useful. Genera
 Run the independently named demonstration profile from the repository root:
 
 ```sh
-.venv/bin/python examples/farm-operators/validate_profile.py
+uv run --locked python examples/farm-operators/validate_profile.py
 ```
 
 The profile requires concrete holder roles to identify a Farm through `holder_farm` and exactly their own typed holder endpoint. It resolves strings and embedded objects locally, rejects missing or wrong-type targets, rejects the abstract AgriculturalHolderRole, checks effective-date order and rejects fields that the vocabulary no longer defines on Farm and WorkRelationship. Unknown dates stay absent and do not prove whether a responsibility is current. This profile supports the listed concrete types only; extending it to other group or person subtypes requires an explicit change.
 
 The profile is a reproducible example, not an operational registry service. It does not establish ownership, registration, entitlement or disclosure permissions. A group's eligibility remains a program decision. Cooperative grants cannot be inserted into Party-ranged beneficiary fields without a separate contract.
 
-## Migration and review questions
+## Migration from Group-based farms
 
-Farm no longer inherits person-group membership fields. Preserve legacy source values before deciding which subject they describe. Normative GroupType/farm remains the classifier for external group records representing production units, including flat agricultural or social-protection models. It has not been redefined as a roster classifier. GroupRole/operator still describes its original daily-management membership function; do not automatically map it to the new holder role. GroupMembership itself remains Person-to-Group.
+Farm no longer inherits person-group membership fields. Preserve legacy source values before deciding which subject they describe. Normative GroupType/farm remains the classifier for external group records representing production units, including flat agricultural or social-protection models. It has not been redefined as a roster classifier. GroupRole/operator still describes its original daily-management membership function; do not automatically map it to a holder role. GroupMembership itself remains Person-to-Group.
 
-All new terms remain draft. Reviewers should supply counterexamples for collective identities, holder versus manager responsibilities, and continuity across transfers or restructuring. Evidence from real registry payloads can refine these choices. [ADR-021](../decisions/021-farm-production-unit.md) records alternatives and maturity handling.
+[ADR-021](../decisions/021-farm-production-unit.md) records the alternatives considered.
 
 ## Work on a holding
 
-Use `HoldingWorkAssignment` to connect a Person to a Farm where they work or are expected to work. This is the native destination for a worker or daily manager after the Farm/Group refactor. A direct assignment needs no employer assertion, employment contract or second relationship. It can describe an unpaid daily manager, a family contribution or paid work without turning that person into a holder.
+Use `HoldingWorkAssignment` to connect a Person to a Farm where they work or are expected to work. It describes a worker or daily manager on the holding. A direct assignment needs no employer assertion, employment contract or second relationship. It can describe an unpaid daily manager, a family contribution or paid work without turning that person into a holder.
 
 Use `WorkRelationship` when the economic relationship has its own identity: one person's work for one economic unit. That unit can be household production or an enterprise and need not be a legally incorporated organization. `work_economic_unit` holds its subject URI. The example profile resolves that URI locally to an Organization, Household, InformalGroup or Farm; asserting this endpoint means the subject is the relevant economic unit, not that every instance of those types is automatically one.
 
@@ -68,4 +68,4 @@ For these work examples, `start_date` is the first effective calendar day and `e
 
 A legacy Person-to-Farm membership with a daily-manager or worker role can become a HoldingWorkAssignment once its work meaning and target identity are confirmed. Preserve the original role code and scheme in `work_functions` when appropriate; do not infer pay, form, status, seasonality or holder responsibility from that role. A GroupRole/operator code describes daily management and is not automatically a holder. A membership that describes ownership needs an ownership assertion, not a work assignment. GroupMembership remains Person-to-Group and cannot target Farm.
 
-The strongest simpler alternative is a single FarmWorkerRole. It serves a roster but conflates the agency or contractor's economic relationship with each work site. Requiring WorkRelationship plus assignment for every participant introduces unnecessary records when only participation is known. The optional link supports both cases. Remaining review questions concern job boundaries, multi-unit economic structures, precise national classification profiles and evidence for working-time measurements; no hours, employment-law entitlement or automatic census counts are claimed here.
+The strongest simpler alternative is a single FarmWorkerRole. It serves a roster but conflates the agency or contractor's economic relationship with each work site. Requiring WorkRelationship plus assignment for every participant introduces unnecessary records when only participation is known. The optional link supports both cases. No hours, employment-law entitlement or automatic census counts are claimed here.

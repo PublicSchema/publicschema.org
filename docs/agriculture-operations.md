@@ -1,11 +1,11 @@
-# Agricultural operations draft
+# Agricultural operations
 
-These draft terms describe the physical facilities, machines, vessels and
+These terms describe the physical facilities, machines, vessels and
 irrigation works used in agriculture; the people and organizations that provide
 agricultural services; producer organizations; and agricultural input products
 with their declared composition. Agricultural concepts and properties use the
 `agri/` namespace. Terms whose meaning is not specific to agriculture, such as
-`ProductComponent` and `service_provider`, keep root URIs. Every term is draft.
+`ProductComponent` and `service_provider`, keep root URIs. The terms are at draft maturity.
 Definitions are PublicSchema design choices informed by the sources below; they
 do not claim equivalence with, or conformance to, any national register.
 
@@ -70,7 +70,7 @@ seed lot or a veterinary medicinal product keeps its own classification.
 Membership of a producer organization is an `InstitutionalRole`: `role_actor`
 identifies the member, `role_organization` the producer organization and
 `institutional_role_type` the member role, from a published scheme. The member
-may be a person or an organization. Membership does not imply employment or
+may be a person, a group or an organization. Membership does not imply employment or
 ownership.
 
 ## Composition and quantities
@@ -112,12 +112,8 @@ moving bee colonies does not move the site; hectares equipped for irrigation
 cannot stand in for cubic metres abstracted. Schema validation cannot determine
 legal permission or whether a URI targets the intended real-world object.
 
-## Open questions
+## Scope
 
-Please supply source records for mobile laboratories and apiaries; composition
-declarations whose basis is not a mass fraction or mass per volume; service
-roles held by informal groups; and services provided to one named holding,
-which may need a service engagement record rather than a service area.
 National profiles can tighten requiredness, code schemes and date ordering.
 Laboratory samples and results, irrigation network topology, dosing
 instructions, inspection workflows and transaction ledgers describe process or

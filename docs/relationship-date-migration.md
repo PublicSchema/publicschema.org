@@ -1,18 +1,18 @@
-# Migrating draft relationship dates
+# Migrating relationship dates
 
-The named draft relationships now use `start_date` and `end_date`, following the
-[relationship convention](/docs/schema-design/#5-temporal-context). Their former
-`valid_from` and `valid_to` pair described inclusive calendar validity. Changing
-the keys without changing the end boundary would change the last effective day.
+The relationships named below use `start_date` and `end_date`, following the
+[relationship convention](/docs/schema-design/#5-temporal-context). Source records
+that carry a `valid_from` and `valid_to` pair for them usually describe
+inclusive calendar validity. Changing the keys without changing the end boundary would change the last effective day.
 
 This migration leaves the existing normative date-property definitions intact.
-For these migrated draft relationships, the agreed convention is whole calendar
+For these relationships, the convention is whole calendar
 days: `start_date` is included and `end_date` is the first inactive day. These
 fields are not timestamps and do not describe the time a source recorded a fact.
 
 ## Which concepts change
 
-| Draft relationships or usages | Date change |
+| Relationships or usages | Date change |
 | --- | --- |
 | HoldingParcelLink | The period during which a holding uses a parcel. |
 | AnimalResidence | The period during which an animal or group is kept at the identified agricultural site. |
@@ -29,9 +29,9 @@ their certification or substantive legal validity. These
 are not silently converted when another relationship concerning the same subject
 changes. `recorded_at` also stays unchanged.
 
-AssetPartyRole already used `start_date`/`end_date`. AssetAddressAssignment uses
-them from its creation. The retired health-only facility assignments need the
-semantic review below before their dates can be converted.
+AssetPartyRole and AssetAddressAssignment use `start_date`/`end_date`. Legacy
+health-only facility assignments need the semantic step below before their dates
+can be converted.
 
 ## Preserve every effective day
 
@@ -60,10 +60,10 @@ Unknown precision, partial dates, timestamps and unspecified boundary convention
 require source clarification. `9999-12-31` has no representable following day in
 the supported calendar and must not silently become a missing end.
 
-## Review the retired facility meanings
+## Interpret legacy facility assignments
 
 `FacilityManagementAssignment` did not distinguish running premises from their
-upkeep. Inspect its source evidence before selecting a scheme-qualified role for
+upkeep. Inspect its source evidence before selecting a role code, with its scheme, for
 AssetPartyRole. Transform `managed_facility` to `subject_uri` and
 `managing_organization` to `asset_actor`, with an explicit `asset_role_type`.
 Preserve the physical subject identity. If the evidence establishes several
@@ -71,9 +71,9 @@ responsibilities, represent distinct assertions and retain their source links.
 Do not invent those responsibilities or claim that the old generic management
 assertion proves them.
 
-For an independently needed former FacilityAddressAssignment:
+For an independently needed legacy FacilityAddressAssignment:
 
-| Former field or class | Reviewed replacement |
+| Legacy field or class | Replacement |
 | --- | --- |
 | `FacilityAddressAssignment` | `AssetAddressAssignment` |
 | `addressed_facility` | `subject_uri`, referring to the same physical facility |
@@ -82,8 +82,8 @@ For an independently needed former FacilityAddressAssignment:
 | No explicit purpose | Add source-supported `address_purpose` as a CodedValue, retaining its scheme. |
 
 Choosing the role or address purpose is a semantic step. The helper refuses both
-retired class names and does not perform this step. After an implementer has
-explicitly transformed the class and endpoint fields and supplied the reviewed
+legacy class names and does not perform this step. After an implementer has
+explicitly transformed the class and endpoint fields and supplied the
 code, it can convert the remaining legacy dates on AssetPartyRole or
 AssetAddressAssignment. A code's presence does not prove its source evidence;
 that remains the implementer's responsibility.
@@ -125,7 +125,7 @@ HoldingParcelLink, AnimalResidence and AgriculturalServiceRole. AnimalResponsibi
 at root. Type identifiers are preserved; this tool does not perform namespace
 migration. An arbitrary namespace with the same local name is rejected, as are
 multiple types involving these concepts. Context alias interpretation and
-expanded JSON-LD require a separately reviewed adapter. Unrelated classes retain
+expanded JSON-LD require a separate adapter. Unrelated classes retain
 their original dates.
 
 Mixed old and current date pairs are rejected even when they appear to agree.

@@ -1,6 +1,6 @@
 # Public services and administrative history
 
-This draft describes a public service, an application to use it, an authority's
+These terms describe a public service, an application to use it, an authority's
 decision, an appeal and a material organizational change as separate things.
 The native terms use shared root URIs, including
 `https://publicschema.org/PublicService`. They can be used across public-service
@@ -27,13 +27,13 @@ detailed executable rules outside the profile. These distinctions inform the nat
 provides a before/after organizational pattern for material changes involving distinct
 identity. An original organization need not cease to exist. The native
 `OrganizationalChangeEvent` uses this pattern for mergers, splits and succession.
-A name correction with the same identity can use `RecordLifecycleEvent` instead.
+A change of name with the same identity is a `NameUsage` record instead.
 
 | Native concept or field | Reuse and boundary |
 |---|---|
 | `PublicService` | Close alignment to `cpsv:PublicService`; a smaller native description with its own scope and optional fields. |
 | `service_competent_authorities` | Close alignment to `m8g:hasCompetentAuthority`; references existing `PublicOrganization` records. |
-| `service_audience`, `legal_resources` | Native scheme-qualified audience values and legal-resource URIs. No upstream code list is copied or silently normalized. |
+| `service_audience`, `legal_resources` | Native audience codes from a stated scheme, and legal-resource URIs. No upstream code list is copied or silently normalized. |
 | `ServiceApplication`, `AdministrativeDecision`, `AdministrativeAppeal` | Native administrative events. No CPSV-AP class equivalence or universal legal procedure is claimed. |
 | `OrganizationalChangeEvent`, `original_organizations`, `resulting_organizations` | Close alignment to the ORG change pattern; native recording/effective timestamps do not implement a PROV activity interval or ORG inference rules. |
 
@@ -54,7 +54,7 @@ is public.
 | `AdministrativeAppeal` | `challenged_decision`, `appellant`, `submitted_by`, `submission_representation`, `authority`, `submission_date`, `recorded_at`, `evidence_assertions` describe the filing and requested review; `authority` is the reviewing body. |
 | `OrganizationalChangeEvent` | `original_organizations`, `resulting_organizations`, `lifecycle_kind`, `effective_at`, `recorded_at`, `authority`, `legal_resources`, `evidence_assertions` retain participants, timing and basis without replacing historical actors. |
 
-Applicant and appellant URI fields allow a person or organization without widening
+Applicant and appellant URI fields allow a person, group or organization without widening
 the existing recipient hierarchy. The submitter and both ends of a `RepresentationRole`
 reference an `Agent`. A local profile resolves each target and checks its kind. A `RepresentationRole` reference identifies a claimed relationship;
 it does not prove the actor can file this particular request. Identity, period and
@@ -74,7 +74,7 @@ mandate, merge records or assign earlier decisions to a new body.
 
 ## Run the bounded example
 
-From the repository root after the documented development setup:
+From the repository root:
 
 ```bash
 uv run --locked python examples/public-services/profile.py
@@ -94,7 +94,7 @@ mis-typed targets, duplicate identities, empty or reversed representation period
 that precedes its challenged determination and a historical authority assigned before
 its synthetic creation event.
 
-The [profile sidecar](../examples/public-services/profile.json) binds reviewed synthetic
+The [profile sidecar](../examples/public-services/profile.json) binds synthetic
 grants to a `RepresentationRole` URI, a service URI and allowed submission classes.
 It is trusted test configuration, not a caller-supplied claim. A correspondence-only
 grant cannot authorize either filing. Changing `representation_scope` prose does not

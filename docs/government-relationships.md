@@ -1,6 +1,6 @@
-# Qualified government relationships: draft
+# Ownership interests and education offerings
 
-An ownership band and a program offered at one campus each need a precise relationship. These draft terms preserve those facts without deciding beneficial ownership or educational accreditation. The reference fields remain optional; the accompanying example profile checks a complete, locally resolved exchange.
+An ownership band and a program offered at one campus each need a precise relationship. These terms preserve those facts without deciding beneficial ownership or educational accreditation. The reference fields remain optional; the accompanying example profile checks a complete, locally resolved exchange.
 
 ## Meanings and source boundaries
 
@@ -10,7 +10,7 @@ An ownership band and a program offered at one campus each need a precise relati
 | Arrangement and indirect route | `LegalArrangement` identifies a mechanism without inventing an Organization. An indirect `OwnershipInterest` can list, as `component_interests`, the direct interests offered as its route. | [BODS 0.4 entity types and relationship details](https://standard.openownership.org/en/0.4.0/standard/reference.html) include arrangements and component records. PublicSchema references interest identities; BODS references record identifiers. These are different contracts. |
 | Education offering | `edu/EducationOffering` connects program, provider, sites, period, optional mode and, when it differs from the program's, the qualification definition URI. | The [European Learning Model](https://europass.europa.eu/en/stakeholders/information-developers) LearningOpportunity is a provider's offering with location, mode and the achievement it leads to. [Schema.org CourseInstance](https://schema.org/CourseInstance) distinguishes delivery by time, place or mode. PublicSchema chooses its narrower provider/site relationships. |
 
-These sources were consulted on 8 September 2026. They support the distinctions, not exact mappings or implemented BODS or Schema.org interchange compatibility. All new concepts and properties are draft. Domain-specific education meanings use `edu/`; shared ownership and legal arrangement meanings use root URIs. The module filename does not determine the URI namespace.
+These sources support the distinctions, not exact mappings or implemented BODS or Schema.org interchange compatibility. The concepts and properties on this page are at draft maturity. Domain-specific education meanings use `edu/`; shared ownership and legal arrangement meanings use root URIs. The module filename does not determine the URI namespace.
 
 ## Ownership: amounts, arrangements and asserted routes
 
@@ -35,10 +35,10 @@ The local profile checks program, provider and site identities, the site's provi
 From the repository root:
 
 ```sh
-uv run python examples/government-relationships/validate_profile.py --negative
-uv run pytest tests/test_government_relationships.py
+uv run --locked python examples/government-relationships/validate_profile.py --negative
+uv run --locked pytest tests/test_government_relationships.py
 ```
 
 `records.json` contains the synthetic exchange. `negative-cases.json` describes independent changes that must be rejected, including conflicting percentage bounds, unresolved and disconnected ownership routes, incompatible periods and the wrong site provider. The validator runs without remote lookups or authority decisions.
 
-The tests also use the production catalog, JSON Schema, RDF, JSON-LD context and SHACL exporters. Invalid decimal values fail in both public representations. JSON requires array syntax for `offering_sites`; RDF preserves the site relationships without retaining scalar-versus-array syntax, so this constraint is checked at the JSON boundary. Semantic counterexamples exercise the separately named example profile. Passing these checks establishes local fixture behavior. Independent domain review, reviewed translations and adopter exchanges remain necessary before maturity promotion. See [ADR-023](../decisions/023-government-qualified-relationships.md) for alternatives and compatibility boundaries.
+The tests also use the production catalog, JSON Schema, RDF, JSON-LD context and SHACL exporters. Invalid decimal values fail in both public representations. JSON requires array syntax for `offering_sites`; RDF preserves the site relationships without retaining scalar-versus-array syntax, so this constraint is checked at the JSON boundary. Semantic counterexamples exercise the separately named example profile. Passing these checks establishes local fixture behavior only. See [ADR-023](../decisions/023-government-qualified-relationships.md) for alternatives and compatibility boundaries.

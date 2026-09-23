@@ -1,8 +1,8 @@
-# Registry foundations and the health/land pilots
+# Registry foundations
 
-A register, its record and the subject of that record have different identities. `RegistryEntry` uses a register URI and local record ID as its qualified key and an explicit `subject_uri` for the described thing. `Registration` records administrative recognition; `Authorization` adds permission for a stated activity. Neither is the Person, Organization, facility, product or Farm receiving it. These terms are draft, optional reference vocabulary. They are not a registry submission format, a full-domain model or a normative specification.
+A register, its record and the subject of that record have different identities. `RegistryEntry` uses a register URI and local record ID as its qualified key and an explicit `subject_uri` for the described thing. `Registration` records administrative recognition; `Authorization` adds permission for a stated activity. Neither is the Person, Organization, facility, product or Farm receiving it. These terms are optional reference vocabulary at draft maturity. They are not a registry submission format, a full-domain model or a normative specification.
 
-See the [government families](government-registry.md), [biology](agriculture-biology.md), [agricultural operations](agriculture-operations.md), [facility responsibilities and addresses](facility-roles.md), and [relationship date migration](relationship-date-migration.md) for neighboring concepts. ADR-020 records the common choices and alternatives.
+See the [government families](government-registry.md), [biology](agriculture-biology.md), [agricultural operations](agriculture-operations.md), [facility responsibilities and addresses](facility-roles.md), and [relationship date migration](relationship-date-migration.md) for neighboring concepts. [ADR-020](../decisions/020-registry-foundations.md) records the common choices and alternatives.
 
 ## Evidence and design judgment
 
@@ -23,8 +23,8 @@ Definitions are original PublicSchema wording informed by these sources. No sour
 
 PublicSchema chooses a register URI plus an unchanged local string as its record key.
 Its optional `register_jurisdiction` is a named area, and its supersession links replace
-records without asserting replacement of their subjects. These are draft design choices,
-not an exact external register-model mapping. The vocabulary and example do not require
+records without asserting replacement of their subjects. These are PublicSchema design
+choices, not an exact external register-model mapping. The vocabulary and example do not require
 HTTP resolution or implement register governance. DCAT provides background for the
 record and subject boundary; it does not define administrative recognition, permission,
 the Authorization hierarchy or the complete CodedValue structure.
@@ -109,7 +109,7 @@ pilot includes a trade permission numbered `LIC-2026-0081` stored as record `row
 the permission, its entry and the licensed cooperative retain separate identities.
 
 `Authorization` inherits `Registration` because permission is a specific form of
-administrative recognition in this draft. A registration is not simply a database entry.
+administrative recognition. A registration is not simply a database entry.
 ADR-020 records the alternative
 of sibling recognition and permission concepts under an administrative-act supertype,
 and the evidence that would justify changing this choice.
@@ -129,7 +129,7 @@ Typed vocabulary references provide more information than arbitrary URI ranges. 
 
 The holding pilot uses two parcels, one shared by two holdings, and overlapping customary-use and disputed-lease claims. It also includes a landless livestock holding. Those records do not establish ownership, eligibility or beneficiary enrollment. The agricultural terms use their explicit `agri/` or `land/` namespaces, while shared biological identities remain root concepts where their meanings are cross-sector. [Mixed-crop components](../examples/agriculture-biology/records.json) exercise seasonal production semantics; one primary crop would lose the second component and its dates. No such lossy projection is offered.
 
-`tests/test_registry_pilots.py` validates the same records with actual generated JSON Schemas and context-expanded production SHACL. It exercises qualified references, unknown records, wrong targets, quantities, dates and geometry. This is local semantic and export evidence, not a tested live registry importer. Run the documented `just check` and `just site-build` for the integrated source and site.
+`tests/test_registry_pilots.py` validates the same records with actual generated JSON Schemas and context-expanded production SHACL. It exercises qualified references, unknown records, wrong targets, quantities, dates and geometry. This is local semantic and export evidence, not a tested live registry importer. Run it with `uv run --locked pytest tests/test_registry_pilots.py`; `just check` and `just site-build` cover the integrated source and site.
 
 The local resolver expects full semantic type URIs. Its `subject_index(records, type_uris)` helper normalizes the supplied synthetic compact types using the caller's locally built catalog before resolution; the golden-fixture test exercises this path. No remote context is required.
 
@@ -141,22 +141,20 @@ Address structure reuses Address without replacing its named Location with geome
 
 AgriculturalParcel is deliberately a broader agricultural-use unit than FAO's census parcel, whose tenure-homogeneous boundary rules may be stricter. A profile needing that census unit must state and check those boundaries; no exact parcel equivalence is claimed.
 
-Useful counterexamples include register and subject continuity, revoked versus expired recognition, unenumerated collectives, overlapping land units, disputed boundaries, unit precision and virtual healthcare. A contribution should name the affected URI, source edition and locator, alternative definition and a synthetic fixture.
-
 ## Medical reuse boundary
 
 For medical exchange, use the selected native FHIR R5 5.0.0 resources and profiles,
 including [Organization, Location and HealthcareService](https://hl7.org/fhir/R5/healthcareservice.html).
-The [FHIR registry integration guide](fhir-registry-integration.md) provides 19 synthetic
+The [FHIR registry integration guide](fhir-registry-integration.md) provides synthetic
 native resources and separate PublicSchema registry links. It documents the official
 artifact-based shape checks and their limits; it does not claim clinical, jurisdictional or
 implementation-guide conformance. FHIR's provider and premises relationships retain their
 precise meanings: [Location.managingOrganization](https://hl7.org/fhir/R5/location-definitions.html#Location.managingOrganization)
 concerns provisioning and upkeep.
 
-`FacilityManagementAssignment`, `FacilityAddressAssignment`, `HealthcareServiceOffering`
-and `HealthcareAccreditation` are retired draft classes. Determine whether a former source
-fact is a native FHIR fact, a dated `AssetPartyRole`, an `AssetAddressAssignment`, or an
-unmapped fact that must retain its source evidence. A premises-only accreditation, historical
-responsibility, service effective period, and capacity measure still require explicit mapping
-decisions. Root `ServiceCapacityObservation` has no automatic FHIR mapping.
+PublicSchema has no native classes for healthcare service offerings, facility management
+assignments or healthcare accreditation. A source fact about a health facility is a native
+FHIR fact, a dated `AssetPartyRole`, an `AssetAddressAssignment`, or an unmapped fact that
+retains its source evidence. A premises-only accreditation, historical responsibility,
+service effective period and capacity measure each need an explicit mapping decision. Root
+`ServiceCapacityObservation` has no automatic FHIR mapping.

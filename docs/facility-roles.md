@@ -50,9 +50,8 @@ with an explicit encoding and coordinate reference system. The example's school
 keeps its physical address while its mailing box changes a month after its
 operator changes.
 
-The former health-only `FacilityAddressAssignment` is replaced by this shared
-assignment. It requires a reviewed address purpose when migrating an old
-exchange. The [relationship date migration guide](/docs/relationship-date-migration/)
+Migrating an existing facility address exchange needs an explicitly stated address
+purpose for each assignment. The [relationship date migration guide](/docs/relationship-date-migration/)
 describes the field and date changes. It does not infer physical versus postal
 purpose from address text.
 
@@ -73,8 +72,9 @@ time. Both retain their local measure scheme and a QuantityValue with UCUM unit
 not their provider organizations. These dated counts do not establish current
 availability, accreditation or a mapping to a FHIR resource.
 
-The hospital example answers a cross-sector estate question. Medical exchange
-should preserve the selected native FHIR resources and their source identities.
+The hospital example answers a cross-sector estate question. `health/HealthFacility`
+has a close mapping to FHIR R5 Location, and medical exchange should preserve the
+selected native FHIR resources and their source identities.
 FHIR R5 `Location.managingOrganization` identifies the organization responsible
 for premises provisioning and upkeep. It is a single optional reference, without
 a responsibility period on that element. A dated AssetPartyRole is therefore
@@ -97,7 +97,7 @@ uv run --locked python examples/facility-roles/validate_profile.py
 uv run --locked pytest tests/test_facility_roles.py
 ```
 
-This submission profile requires locally resolved facility and actor URIs and a
+The example profile requires locally resolved facility and actor URIs and a
 declared role or address-purpose code. It admits the concrete facility, actor
 and group types listed in `validate_profile.py`. Additional types and
 source schemes require a profile decision; URI syntax alone cannot establish
