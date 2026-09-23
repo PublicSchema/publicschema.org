@@ -277,6 +277,20 @@ classes:
     see_also:
     - https://www.fao.org/4/i4913e/i4913e.pdf
     annotations:
+      label_es: Grupo informal
+      label_fr: Groupe informel
+      description_es: Un conjunto de personas identificadas conjuntamente para una actividad o finalidad
+        compartida, sin afirmar un organismo institucional propio, una residencia común ni un parentesco.
+        El grupo puede identificarse incluso cuando sus miembros individuales no están enumerados.
+        Utilice Household o Family cuando se aplique su significado más específico, y Organization
+        cuando el sujeto sea un organismo institucional. Los cotitulares agropecuarios conjuntos son
+        un ejemplo.
+      description_fr: Un ensemble de personnes identifiées conjointement pour une activité ou une finalité
+        partagée, sans affirmer d'organisme institutionnel propre, de résidence commune ni de lien
+        de parenté. Le groupe peut être identifié même lorsque ses membres individuels ne sont pas
+        énumérés. Utiliser Household ou Family lorsque leur signification plus spécifique s'applique,
+        et Organization lorsque le sujet est un organisme institutionnel. Les cotitulaires agricoles
+        conjoints en sont un exemple.
       bibliography_refs: '["fao-wca-2020-vol1"]'
     is_a: Group
   HealthFacility:
@@ -1861,6 +1875,13 @@ slots:
     multivalued: false
     status: bibo:draft
     annotations:
+      label_es: Forma jurídica
+      label_fr: Forme juridique
+      description_es: La forma jurídica de una organización conforme a la ley bajo la cual se constituyó,
+        como una sociedad limitada, una cooperativa o un organismo estatutario.
+      description_fr: La forme juridique d'une organisation en vertu de la loi sous laquelle elle a
+        été constituée, par exemple une société à responsabilité limitée, une coopérative ou un organisme
+        statutaire.
       category: classification
       bibliography_refs: '["w3c-regorg"]'
   literacy:
