@@ -7,7 +7,7 @@
       "@type": "QuantityValue",
       "quantity_value": 3.5,
       "unit_code": "har",
-      "unit_scheme": "http://unitsofmeasure.org"
+      "unit_scheme": "ucum"
     },
     "land_tenure": ["owned_without_title", "rented"],
     "livestock_type": ["goats", "chickens"]
