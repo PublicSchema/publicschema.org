@@ -48,7 +48,7 @@ Use [AssetPartyRole and AssetAddressAssignment](facility-roles.md) when consumer
 
 The [relationship date guide and helper](relationship-date-migration.md) cover the selected relationships changing from `valid_from`/`valid_to` to `start_date`/`end_date`. Under the helper's explicit inclusive-calendar-day source contract, an inclusive end of `2026-12-31` becomes the first inactive day `2027-01-01`. Missing dates stay missing. Legal validity, registration and certification intervals keep their existing contracts. Namespace migration and date conversion are separate reviewed steps.
 
-ServiceCapacityObservation also remains shared: it records a scheme-qualified measure, quantity, subject and observation time. Its observation pattern is informed by SOSA and its units by UCUM. It can describe capacity at a school, an agricultural service or a healthcare facility; it does not prove current availability and has no automatic mapping to a FHIR resource.
+ServiceCapacityObservation also remains shared: it records the kind of capacity as a coded value, the quantity, the subject observed and the observation time. Its observation pattern is informed by SOSA and its units by UCUM. It can describe capacity at a school, an agricultural service or a healthcare facility; it does not prove current availability and has no automatic mapping to a FHIR resource.
 
 ## Native medical records
 
@@ -56,8 +56,8 @@ The [FHIR integration guide](fhir-registry-integration.md) replaces duplicate dr
 
 Retirement is not a lossless conversion claim. Premises-only accreditation and historical service validity, for example, must not be forced into a superficially similar FHIR field. The synthetic example preserves its unmapped facts explicitly. Clinical encounters, patient records and a complete medical terminology are outside this revision.
 
-## Review questions
+## Related guides
 
-Reviewers can improve this draft with cases where a domain assignment changes a term's intended meaning, a supposedly shared relationship has a sector-specific invariant, or a proposed FHIR mapping loses information. Supply a source edition and a concrete payload or counterexample. The [qualified government relationships](government-relationships-draft.md) and [public-service journeys](public-services-draft.md) describe the additional questions for those slices.
+The [qualified government relationships](government-relationships.md) and [public-service journeys](public-services.md) guides describe the relationships that cross these domains.
 
-Changing a draft boundary remains possible when evidence supports it. Promotion to candidate or normative still requires the repository's maturity evidence, translations and review; local examples and agent review do not substitute for external adoption.
+Changing a draft boundary remains possible when evidence supports it, for example a domain assignment that changes a term's intended meaning, a shared relationship with a sector-specific invariant, or a FHIR mapping that loses information. Promotion to candidate or normative still requires the repository's maturity evidence, translations and review; local examples and agent review do not substitute for external adoption.
