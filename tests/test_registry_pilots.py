@@ -37,6 +37,7 @@ def test_actual_pilot_exports_and_identity(exports):
     data = graph(records,result['context'])
     ok, _, report = validate(data, shacl_graph=shapes, inference='rdfs')
     assert ok, report
+    # Protects the registry-foundations decision: each role and tenure assertion is its own record, not a merged field.
     assert len(set(data.subjects(RDF.type, HEALTH.HealthFacility))) == 1
     assert len(set(data.subjects(RDF.type, PS.AssetPartyRole))) == 2
     assert len(list(data.subjects(AGRI.linked_parcel,Namespace('https://example.org/')['parcel/one']))) == 2

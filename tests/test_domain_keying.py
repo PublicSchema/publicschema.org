@@ -139,6 +139,7 @@ class TestRealSchemaDomainResolution:
         assert property_("child")["references"] == "crvs/Person"
 
     def test_sector_types_reuse_shared_supertypes_and_other_sector_properties(self, real_result):
+        # Protects the domain-and-external-model-boundaries decision: sectors reuse shared terms; retired terms stay out.
         concepts = real_result["concepts"]
         assert concepts["edu/School"]["supertypes"] == ["ServicePoint"]
         assert concepts["health/HealthFacility"]["supertypes"] == ["ServicePoint"]

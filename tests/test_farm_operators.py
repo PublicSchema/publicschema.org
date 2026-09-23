@@ -30,6 +30,7 @@ def graph_for(records, result, hierarchy):
 
 
 def test_farm_hierarchy_and_locked_membership_contracts(farm):
+    # Protects the farm-production-unit decision: a Farm is not a Group; membership and holder roles are separate records.
     result, _, _, _ = farm
     assert result["concepts"]["agri/Farm"]["supertypes"] == []
     properties = result["concept_schemas"]["agri/Farm"]["properties"]
