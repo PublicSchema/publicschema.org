@@ -851,6 +851,49 @@ class TestJsonSchemaGeneration:
         assert schema["type"] == "array"
         assert schema["items"]["$ref"] == "https://geojson.org/schema/Geometry.json"
 
+    def test_numeric_bounds_and_pattern_constrain_single_value(
+        self, tmp_schema, write_concept, write_property
+    ):
+        """Property bounds and patterns become JSON Schema keywords."""
+        write_property("share.yaml", make_property(
+            id="share", type="decimal", minimum=0, maximum=1,
+        ))
+        write_property("code.yaml", make_property(
+            id="code", pattern="^[0-9]{4}$",
+        ))
+        write_concept("holding.yaml", make_concept(
+            id="Holding", properties=["share", "code"],
+        ))
+        result = build_vocabulary(tmp_schema)
+        schema = result["concept_schemas"]["Holding"]["properties"]
+        assert (schema["share"]["minimum"], schema["share"]["maximum"]) == (0, 1)
+        assert schema["code"]["pattern"] == "^[0-9]{4}$"
+        assert (result["properties"]["share"]["minimum"], result["properties"]["share"]["maximum"]) == (0, 1)
+        assert result["properties"]["code"]["pattern"] == "^[0-9]{4}$"
+
+    def test_numeric_bounds_apply_to_items_of_multivalued_property(
+        self, tmp_schema, write_concept, write_property
+    ):
+        """Bounds on a multivalued property constrain each array item."""
+        write_property("counts.yaml", make_property(
+            id="counts", type="integer", cardinality="multiple", minimum=1,
+        ))
+        write_concept("tally.yaml", make_concept(id="Tally", properties=["counts"]))
+        result = build_vocabulary(tmp_schema)
+        schema = result["concept_schemas"]["Tally"]["properties"]["counts"]
+        assert schema["type"] == "array"
+        assert schema["items"]["minimum"] == 1
+        assert "minimum" not in schema
+
+    def test_unbounded_property_has_no_bound_keywords(
+        self, tmp_schema, write_concept, write_property
+    ):
+        write_property("count.yaml", make_property(id="count", type="integer"))
+        write_concept("tally.yaml", make_concept(id="Tally", properties=["count"]))
+        result = build_vocabulary(tmp_schema)
+        schema = result["concept_schemas"]["Tally"]["properties"]["count"]
+        assert not {"minimum", "maximum", "pattern"} & schema.keys()
+
     # --- Phase 1: Descriptions ---
 
     def test_concept_schema_has_description(

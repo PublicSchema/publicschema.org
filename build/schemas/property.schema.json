@@ -38,6 +38,18 @@
       "type": ["string", "null"],
       "description": "Reference to a concept ID"
     },
+    "minimum": {
+      "type": ["number", "null"],
+      "description": "Inclusive lower bound on each numeric value (LinkML minimum_value)."
+    },
+    "maximum": {
+      "type": ["number", "null"],
+      "description": "Inclusive upper bound on each numeric value (LinkML maximum_value)."
+    },
+    "pattern": {
+      "type": ["string", "null"],
+      "description": "Regular expression each string value must match (LinkML pattern). Anchor it with ^ and $ for whole-value matching."
+    },
     "domain_override": {
       "type": ["string", "null"],
       "description": "Explicit domain namespace override. Set to null to force universal URI, or to a domain code (e.g. 'sp') to force domain-specific URI, regardless of which concepts use this property."

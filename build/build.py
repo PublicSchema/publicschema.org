@@ -516,6 +516,11 @@ def _property_to_json_schema(
     if description:
         item_schema["description"] = description
 
+    # Value constraints apply to each value, so they sit on the item schema.
+    for key in ("minimum", "maximum", "pattern"):
+        if prop_data.get(key) is not None:
+            item_schema[key] = prop_data[key]
+
     if cardinality == "multiple":
         return {"type": "array", "items": item_schema}
     return item_schema
@@ -656,6 +661,9 @@ def build_vocabulary(
             "cardinality": data.get("cardinality"),
             "vocabulary": data.get("vocabulary"),
             "references": data.get("references"),
+            "minimum": data.get("minimum"),
+            "maximum": data.get("maximum"),
+            "pattern": data.get("pattern"),
             "used_by": property_domains.get(prop_id, []),
             "schema_org_equivalent": data.get("schema_org_equivalent"),
             "sensitivity": data.get("sensitivity"),

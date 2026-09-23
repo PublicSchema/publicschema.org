@@ -425,3 +425,109 @@ class TestParseJsonAnnotationWarnsOnBadJson:
         _parse_json_annotation("not-json-at-all")
         captured = capsys.readouterr()
         assert captured.err
+
+
+# ---------------------------------------------------------------------------
+# Slot value constraints: minimum_value, maximum_value and pattern
+# ---------------------------------------------------------------------------
+
+
+class TestSlotValueConstraints:
+    """LinkML value constraints reach the bespoke property, JSON Schema and SHACL."""
+
+    def test_bounds_and_pattern_carry_into_the_property(self):
+        _, prop = _convert_slot_to_property(
+            "share", {"range": "decimal", "minimum_value": 0, "maximum_value": 1},
+            enum_to_vocab_key={}, class_names=set(),
+        )
+        assert (prop["minimum"], prop["maximum"]) == (0, 1)
+        _, prop = _convert_slot_to_property(
+            "year", {"range": "string", "pattern": "^[0-9]{4}$"},
+            enum_to_vocab_key={}, class_names=set(),
+        )
+        assert prop["pattern"] == "^[0-9]{4}$"
+
+    def test_unconstrained_slot_has_no_constraint_keys(self):
+        _, prop = _convert_slot_to_property(
+            "count", {"range": "integer"},
+            enum_to_vocab_key={}, class_names=set(),
+        )
+        assert not {"minimum", "maximum", "pattern"} & prop.keys()
+
+    @pytest.fixture
+    def constrained_composite(self, tmp_path):
+        definition = {
+            "id": "https://example.org/linkml/test", "name": "test",
+            "default_prefix": "product", "default_range": "string",
+            "prefixes": {
+                "product": "https://example.org/",
+                "linkml": "https://w3id.org/linkml/",
+            },
+            "imports": ["linkml:types"],
+            "classes": {
+                "Tally": {
+                    "class_uri": "product:Tally",
+                    "slots": ["head_count", "share", "batch_counts", "observed"],
+                },
+            },
+            "slots": {
+                "head_count": {
+                    "slot_uri": "product:head_count", "range": "integer",
+                    "minimum_value": 0,
+                },
+                "share": {
+                    "slot_uri": "product:share", "range": "decimal",
+                    "minimum_value": 0, "maximum_value": 1,
+                },
+                "batch_counts": {
+                    "slot_uri": "product:batch_counts", "range": "integer",
+                    "multivalued": True, "minimum_value": 1,
+                },
+                "observed": {
+                    "slot_uri": "product:observed", "range": "string",
+                    "pattern": "^[0-9]{4}(-[0-9]{2})?$",
+                },
+            },
+        }
+        source = tmp_path / "publicschema.yaml"
+        source.write_text(yaml.safe_dump(definition))
+        return source
+
+    def test_json_schema_enforces_bounds_and_pattern(self, constrained_composite):
+        import jsonschema
+
+        built = build_vocabulary(constrained_composite.parent)
+        schema = built["concept_schemas"]["Tally"]
+        props = schema["properties"]
+        assert props["head_count"]["minimum"] == 0
+        assert (props["share"]["minimum"], props["share"]["maximum"]) == (0, 1)
+        assert props["batch_counts"]["items"]["minimum"] == 1
+        assert props["observed"]["pattern"] == "^[0-9]{4}(-[0-9]{2})?$"
+        validator = jsonschema.Draft202012Validator(schema)
+        valid = {"head_count": 0, "share": 1, "batch_counts": [1], "observed": "2024-05"}
+        assert not list(validator.iter_errors(valid))
+        for change in (
+            {"head_count": -1}, {"share": 1.5}, {"batch_counts": [0]},
+            {"observed": "May 2024"},
+        ):
+            assert list(validator.iter_errors({**valid, **change})), change
+
+    def test_shacl_enforces_bounds_and_pattern(self, constrained_composite, tmp_path):
+        from rdflib import Graph, Literal, Namespace, URIRef
+        from rdflib.namespace import SH
+
+        from build.linkml_rdf_export import write_shacl
+
+        shapes_path = write_shacl(tmp_path / "shapes.ttl", composite=constrained_composite)
+        shapes = Graph().parse(shapes_path)
+        product = Namespace("https://example.org/")
+
+        def constraint(path: URIRef, predicate: URIRef):
+            shape = next(shapes.subjects(SH.path, path))
+            return shapes.value(shape, predicate)
+
+        assert constraint(product.head_count, SH.minInclusive) == Literal(0)
+        assert constraint(product.share, SH.minInclusive).toPython() == 0
+        assert constraint(product.share, SH.maxInclusive).toPython() == 1
+        assert constraint(product.batch_counts, SH.minInclusive) == Literal(1)
+        assert str(constraint(product.observed, SH.pattern)) == "^[0-9]{4}(-[0-9]{2})?$"

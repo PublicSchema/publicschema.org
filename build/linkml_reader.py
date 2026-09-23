@@ -486,6 +486,15 @@ def _convert_slot_to_property(
         if parsed is not None:
             prop[dest_key] = parsed
 
+    # LinkML value constraints keep their meaning under bespoke names.
+    for src_key, dest_key in (
+        ("minimum_value", "minimum"),
+        ("maximum_value", "maximum"),
+        ("pattern", "pattern"),
+    ):
+        if slot_def.get(src_key) is not None:
+            prop[dest_key] = slot_def[src_key]
+
     eqs = _split_external_alignments(annotations.get("external_alignments_json"))
     if eqs:
         prop["external_equivalents"] = eqs
