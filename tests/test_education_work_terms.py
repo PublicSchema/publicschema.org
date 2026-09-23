@@ -58,7 +58,8 @@ def test_work_form_accepts_only_a_form_of_work(built):
 def test_work_classes_stay_distinct():
     assert {"WorkRelationship", "ProfessionalLicense", "PracticeRole"} == set(WORK["classes"])
     assert "person" in WORK["classes"]["PracticeRole"]["slots"]
-    assert "work_functions" in WORK["classes"]["WorkRelationship"]["slots"]
+    # Agricultural work functions belong to the holding work assignment, not to general work.
+    assert "work_functions" not in WORK["classes"]["WorkRelationship"]["slots"]
 
 
 def test_education_programs_use_split_classifications_and_one_qualification_slot():
