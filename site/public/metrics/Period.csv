@@ -1,8 +1,0 @@
-property,type,cardinality,definition,vocabulary,maturity,sensitivity,category,age_applicability,valid_instruments
-period_type,string,single,"The kind of period: point_in_time, span, cohort, fiscal_year, or calendar_year.",period-type,candidate,,,,
-start_date,date,single,The date on which this became effective.,,normative,,,,
-end_date,date,single,The date on which this ceased to be effective.,,normative,,,,
-granularity,string,single,"The granularity of the period: year, quarter, month, week, day, or hour.",granularity,candidate,,,,
-reference_period_type,string,single,"An SDMX REF_PERIOD type identifier when relevant (for example, the reference week for labour force surveys, the academic year for school-attendance metrics).",,candidate,,,,
-observation_frequency,string,single,"The SDMX FREQ code for this period: A (annual), Q (quarterly), M (monthly), W (weekly), D (daily), H (hourly). Carried as a single-letter code; resolves to urn:sdmx:org.sdmx.infomodel.codelist.Codelist=SDMX:CL_FREQ. Named observation_frequency to avoid collision with the benefit-delivery frequency slot in schema/program.yaml.
-",frequency,candidate,,,,

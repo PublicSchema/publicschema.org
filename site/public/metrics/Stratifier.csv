@@ -1,7 +1,0 @@
-property,type,cardinality,definition,vocabulary,maturity,sensitivity,category,age_applicability,valid_instruments
-stratifier_code,string,single,"A short identifier for a stratifier, used when emitting per-stratum rates (for example, 'by-sex', 'by-age-band').",,candidate,,,,
-language,string,single,"The IANA media type identifying the language of a criteria expression: application/sql, application/vtl, text/cql, text/fhirpath. PublicSchema pins the media type so consumers know which engine to invoke; it does not pick a winner.
-",,candidate,,,,
-criteria,string,single,"A criteria expression in the language identified by the paired language slot. May be inline source code or a reference of the form @ref:LibraryName.Symbol resolved against the calculation's libraries list.
-",,candidate,,,,
-components,concept:metrics/Stratifier,multiple,"Nested stratifiers that compose with their parent (for example, by-sex-and-age nests inside by-sex).",,candidate,,,,

@@ -1,9 +1,0 @@
-property,type,cardinality,definition,vocabulary,maturity,sensitivity,category,age_applicability,valid_instruments
-description,string,single,"A free-text summary describing the event, situation, or record.",,draft,,,,
-concept_uri,uri,single,"The skos:Concept URI this metric, dimension, or attribute realises. Multiple metrics may share a single concept_uri when they measure the same underlying notion through different operationalisations.",,candidate,,,,
-value_range,string,single,"The LinkML range or external code list URI that constrains the values of a dimension or attribute. Named 'value_range' rather than 'range' to avoid shadowing the LinkML keyword.
-",,candidate,,,,
-code_list_uri,uri,single,"The canonical URI of the code list that supplies permissible values for this dimension or attribute. May be a PublicSchema vocabulary URI or an SDMX agency codelist URN (e.g., urn:sdmx:org.sdmx.infomodel.codelist.Codelist=SDMX:CL_AREA(2.1)).
-",,candidate,,,,
-is_required,boolean,single,Whether this dimension or attribute is required on every observation.,,candidate,,,,
-ordering,integer,single,The integer position of this dimension within the DSD. Drives column order on SDMX-CSV emission and the dimension order on observation records.,,candidate,,,,
