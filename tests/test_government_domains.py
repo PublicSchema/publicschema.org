@@ -90,10 +90,6 @@ def example_profile_errors(records):
             represented = index.get(record.get("represented_subject"))
             if represented is None or represented["@type"] not in allowed:
                 errors.append("invalid represented subject")
-        if kind == "transport/RoadRestriction":
-            target = index.get(record.get("restricted_road_element"))
-            if target is None or target["@type"] not in {"transport/Road", "transport/RoadSegment", "transport/RoadNode"}:
-                errors.append("invalid restricted road element")
         if field:
             target = index.get(record.get(field))
             if target is None:
@@ -172,10 +168,9 @@ def test_invalid_public_shapes_fail_both_formats(exports, kind, changes):
 
 
 @pytest.mark.parametrize("suffix,changes,message", [
-    ("facility", {"environmental_operator": "https://example.org/road"}, "wrong actor kind"),
+    ("facility", {"environmental_operator": "https://example.org/vehicle"}, "wrong actor kind"),
     ("facility", {"environmental_operator": "https://example.org/unavailable"}, "missing actor"),
-    ("road-restriction", {"restricted_road_element": "https://example.org/vehicle"}, "invalid restricted road element"),
-    ("tax-representative", {"represented_subject": "https://example.org/road"}, "invalid represented subject"),
+    ("tax-representative", {"represented_subject": "https://example.org/vehicle"}, "invalid represented subject"),
     ("voter", {"registered_subject": "https://example.org/company"}, "wrong actor kind"),
     ("drive-B", {"registered_subject": "https://example.org/unavailable"}, "missing actor"),
     ("professional-license", {"valid_to": "2024-01-01"}, "reversed period"),
@@ -206,7 +201,6 @@ def test_counterexamples_preserve_neighboring_identities():
 
 def test_revised_reference_distinctions_are_not_profile_only():
     records = {record["@id"].rsplit("/", 1)[-1]: record for record in RECORDS}
-    assert records["building-wing"]["@type"] == "BuildingPart"
     assert records["unit"]["@type"] == "BuildingUnit"
     assert records["vehicle-keeper"]["asset_actor"] != records["vehicle-owner"]["asset_actor"]
     assert records["vehicle-keeper"]["asset_subject"] == records["vehicle-owner"]["asset_subject"]

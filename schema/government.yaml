@@ -247,47 +247,6 @@ classes:
     status: bibo:draft
     annotations:
       bibliography_refs: '["gov-inspire-buildings"]'
-  Road:
-    class_uri: publicschema:transport/Road
-    title: Road
-    description: An identified road comprising one or more network segments. A road name or number describes
-      the road; it is not an address or a complete routable network.
-    slots:
-    - name
-    - identifiers
-    - road_segments
-    status: bibo:draft
-    annotations:
-      source_domain: transport
-      bibliography_refs: '["gov-inspire-transport"]'
-  RoadNode:
-    class_uri: publicschema:transport/RoadNode
-    title: Road Node
-    description: An identified point used to describe connectivity in a road network, such as a junction
-      or the end of a road segment. Connectivity is a modeled relationship, not inferred from coincident
-      coordinates.
-    slots:
-    - identifiers
-    - asset_geometry
-    status: bibo:draft
-    annotations:
-      source_domain: transport
-      bibliography_refs: '["gov-inspire-transport"]'
-  RoadSegment:
-    class_uri: publicschema:transport/RoadSegment
-    title: Road Segment
-    description: A connected section of a road network between two nodes. The node order gives a reference
-      direction, not a legal permission to travel in that direction.
-    slots:
-    - identifiers
-    - segment_start_node
-    - segment_end_node
-    - asset_geometry
-    - road_classification
-    status: bibo:draft
-    annotations:
-      source_domain: transport
-      bibliography_refs: '["gov-inspire-transport"]'
   Vehicle:
     class_uri: publicschema:transport/Vehicle
     title: Vehicle
@@ -320,20 +279,6 @@ classes:
     annotations:
       source_domain: environment
       bibliography_refs: '["gov-epa-frs"]'
-  InstallationUnit:
-    class_uri: publicschema:environment/InstallationUnit
-    title: Installation Unit
-    description: An identifiable technical unit within an environmental facility at which an activity
-      occurs. Multiple installations may share a site without sharing every permit or measurement.
-    slots:
-    - name
-    - identifiers
-    - installation_facility
-    - environmental_activities
-    status: bibo:draft
-    annotations:
-      source_domain: environment
-      bibliography_refs: '["gov-inspire-production", "gov-epa-frs"]'
   ComplianceAssessment:
     class_uri: publicschema:ComplianceAssessment
     title: Compliance Assessment
@@ -350,25 +295,6 @@ classes:
     status: bibo:draft
     annotations:
       bibliography_refs: '["gov-epa-echo"]'
-  EnvironmentalRelease:
-    class_uri: publicschema:environment/EnvironmentalRelease
-    title: Environmental Release
-    description: A reported release of a substance from a facility into an environmental medium over a
-      stated period. A measurement or estimate of release is separate from a permitted limit and does
-      not by itself establish a violation.
-    slots:
-    - release_facility
-    - release_installation
-    - release_substance
-    - release_medium
-    - release_quantity
-    - measurement_method
-    - start_date
-    - end_date
-    status: bibo:draft
-    annotations:
-      source_domain: environment
-      bibliography_refs: '["gov-epa-tri"]'
   RegulatoryAction:
     class_uri: publicschema:RegulatoryAction
     title: Regulatory Action
@@ -385,32 +311,6 @@ classes:
     status: bibo:draft
     annotations:
       bibliography_refs: '["gov-epa-echo"]'
-  Substance:
-    class_uri: publicschema:Substance
-    title: Substance
-    description: A material identified by its chemical or biological identity, distinct from a branded
-      product or a manufacturing batch. A substance may be used in medicines or released into the environment.
-    slots:
-    - name
-    - identifiers
-    status: bibo:draft
-    annotations:
-      bibliography_refs: '["gov-fhir-substance"]'
-  BuildingPart:
-    class_uri: publicschema:BuildingPart
-    title: Building Part
-    description: A structurally distinguishable portion of a building, such as a wing with different height
-      or construction characteristics. Structural parts differ from functional BuildingUnits and do not
-      imply separate legal title.
-    slots:
-    - name
-    - identifiers
-    - part_of_building
-    - asset_geometry
-    - building_part_description
-    status: bibo:draft
-    annotations:
-      bibliography_refs: '["gov-inspire-buildings"]'
   RepresentationRole:
     class_uri: publicschema:RepresentationRole
     title: Representation Role
@@ -426,24 +326,6 @@ classes:
     status: bibo:draft
     annotations:
       bibliography_refs: '["gov-irs-representation"]'
-  RoadRestriction:
-    class_uri: publicschema:transport/RoadRestriction
-    title: Road Restriction
-    description: A temporally scoped assertion of a restriction applying to a road network element, such
-      as access prohibition or a maximum vehicle mass. Interpretation and routing enforcement depend on
-      its type, conditions and legal basis.
-    slots:
-    - restricted_road_element
-    - road_restriction_type
-    - restriction_limit
-    - restriction_conditions
-    - restriction_legal_basis
-    - valid_from
-    - valid_to
-    status: bibo:draft
-    annotations:
-      source_domain: transport
-      bibliography_refs: '["gov-inspire-transport"]'
 slots:
   public_mandate:
     slot_uri: publicschema:public_mandate
@@ -779,46 +661,6 @@ slots:
     status: bibo:draft
     annotations:
       category: location
-  road_segments:
-    slot_uri: publicschema:transport/road_segments
-    title: Road segments
-    description: Network segments belonging to the identified road. This list is not an ordered route.
-    range: RoadSegment
-    multivalued: true
-    status: bibo:draft
-    annotations:
-      source_domain: transport
-      category: location
-  segment_start_node:
-    slot_uri: publicschema:transport/segment_start_node
-    title: Segment start node
-    description: The initial node in the reference direction of this road segment.
-    range: RoadNode
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      source_domain: transport
-      category: location
-  segment_end_node:
-    slot_uri: publicschema:transport/segment_end_node
-    title: Segment end node
-    description: The terminal node in the reference direction of this road segment.
-    range: RoadNode
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      source_domain: transport
-      category: location
-  road_classification:
-    slot_uri: publicschema:transport/road_classification
-    title: Road classification
-    description: Scheme-qualified road classification, separate from travel restrictions.
-    range: CodedValue
-    multivalued: true
-    status: bibo:draft
-    annotations:
-      source_domain: transport
-      category: classification
   vehicle_make:
     slot_uri: publicschema:transport/vehicle_make
     title: Vehicle make
@@ -892,16 +734,6 @@ slots:
     annotations:
       source_domain: environment
       category: classification
-  installation_facility:
-    slot_uri: publicschema:environment/installation_facility
-    title: Installation facility
-    description: The environmental facility containing the technical installation.
-    range: EnvironmentalFacility
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      source_domain: environment
-      category: location
   assessed_subject:
     slot_uri: publicschema:assessed_subject
     title: Assessed subject
@@ -960,57 +792,6 @@ slots:
     annotations:
       category: administrative
       sensitivity: sensitive
-  release_facility:
-    slot_uri: publicschema:environment/release_facility
-    title: Release facility
-    description: The facility from which the environmental release is reported.
-    range: EnvironmentalFacility
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      source_domain: environment
-      category: location
-  release_substance:
-    slot_uri: publicschema:environment/release_substance
-    title: Release substance
-    description: The substance reported as released.
-    range: Substance
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      source_domain: environment
-      category: classification
-  release_medium:
-    slot_uri: publicschema:environment/release_medium
-    title: Release medium
-    description: A scheme-qualified environmental medium receiving the release, such as air or surface
-      water.
-    range: CodedValue
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      source_domain: environment
-      category: classification
-  release_quantity:
-    slot_uri: publicschema:environment/release_quantity
-    title: Release quantity
-    description: The quantity released over the stated period; the quantity is not a rate unless its unit
-      explicitly expresses one.
-    range: QuantityValue
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      source_domain: environment
-      category: administrative
-  measurement_method:
-    slot_uri: publicschema:measurement_method
-    title: Measurement method
-    description: The measurement or estimation method used to obtain the reported quantity.
-    range: string
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      category: administrative
   action_subject:
     slot_uri: publicschema:action_subject
     title: Action subject
@@ -1067,24 +848,6 @@ slots:
     annotations:
       category: administrative
       sensitivity: sensitive
-  part_of_building:
-    slot_uri: publicschema:part_of_building
-    title: Part of building
-    description: The building of which this structural portion forms a part.
-    range: Building
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      category: location
-  building_part_description:
-    slot_uri: publicschema:building_part_description
-    title: Building part description
-    description: The structural characteristics distinguishing this building part from adjoining parts.
-    range: string
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      category: assets
   representative_actor:
     slot_uri: publicschema:representative_actor
     title: Representative actor
@@ -1112,59 +875,6 @@ slots:
     multivalued: false
     status: bibo:draft
     annotations:
-      category: governance
-  restricted_road_element:
-    slot_uri: publicschema:transport/restricted_road_element
-    title: Restricted road element
-    description: The URI of the Road, RoadSegment or RoadNode to which the restriction applies. Target
-      kind is verified by the consuming profile.
-    range: uri
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      source_domain: transport
-      category: location
-  road_restriction_type:
-    slot_uri: publicschema:transport/road_restriction_type
-    title: Road restriction type
-    description: The scheme-qualified type of road restriction; it determines how any limit is interpreted.
-    range: CodedValue
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      source_domain: transport
-      category: classification
-  restriction_limit:
-    slot_uri: publicschema:transport/restriction_limit
-    title: Restriction limit
-    description: A measured limit associated with the restriction, such as maximum permitted gross vehicle
-      mass.
-    range: QuantityValue
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      source_domain: transport
-      category: assets
-  restriction_conditions:
-    slot_uri: publicschema:transport/restriction_conditions
-    title: Restriction conditions
-    description: Conditions limiting the applicability of the road restriction, such as exceptions or
-      recurring hours. Free text is not an executable routing rule.
-    range: string
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      source_domain: transport
-      category: administrative
-  restriction_legal_basis:
-    slot_uri: publicschema:transport/restriction_legal_basis
-    title: Restriction legal basis
-    description: The legal instrument establishing the road restriction.
-    range: uri
-    multivalued: true
-    status: bibo:draft
-    annotations:
-      source_domain: transport
       category: governance
 enums:
   InterestDirectness:

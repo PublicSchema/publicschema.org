@@ -146,7 +146,7 @@ class TestRealSchemaDomainResolution:
         assert "vessel_flag" in real_result["concept_schemas"]["agri/FishingVessel"]["properties"]
         assert real_result["properties"]["vessel_flag"]["uri"] == "https://publicschema.org/transport/vessel_flag"
         assert concepts["agri/Farm"]["supertypes"] == []
-        for shared in ("IndividualAnimal", "AnimalMovement", "Substance", "AssetPartyRole",
+        for shared in ("IndividualAnimal", "AnimalMovement", "AssetPartyRole",
                        "ServiceCapacityObservation", "RegistrationOffice", "WaterPoint"):
             assert concepts[shared]["domain"] is None
         for retired in ("MedicinalProduct", "VeterinaryMedicinalProduct", "HealthcareServiceOffering",

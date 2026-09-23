@@ -86,12 +86,6 @@
     "valid_to": "2026-12-31"
   },
   {
-    "@id": "https://example.org/date-migration/restriction",
-    "@type": "RoadRestriction",
-    "valid_from": "2026-01-01",
-    "valid_to": "2026-12-31"
-  },
-  {
     "@id": "https://example.org/date-migration/certification",
     "@type": "AgriculturalCertification",
     "valid_from": "2026-01-01",

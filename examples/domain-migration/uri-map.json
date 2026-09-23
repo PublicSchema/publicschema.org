@@ -136,13 +136,6 @@
     },
     {
       "kind": "class",
-      "id": "EnvironmentalRelease",
-      "old_uri": "https://publicschema.org/EnvironmentalRelease",
-      "new_uri": "https://publicschema.org/environment/EnvironmentalRelease",
-      "action": "relocate"
-    },
-    {
-      "kind": "class",
       "id": "FacilityAddressAssignment",
       "old_uri": "https://publicschema.org/FacilityAddressAssignment",
       "new_uri": "https://publicschema.org/AssetAddressAssignment",
@@ -248,13 +241,6 @@
       "id": "InputSupplierRole",
       "old_uri": "https://publicschema.org/InputSupplierRole",
       "new_uri": "https://publicschema.org/agri/InputSupplierRole",
-      "action": "relocate"
-    },
-    {
-      "kind": "class",
-      "id": "InstallationUnit",
-      "old_uri": "https://publicschema.org/InstallationUnit",
-      "new_uri": "https://publicschema.org/environment/InstallationUnit",
       "action": "relocate"
     },
     {
@@ -377,34 +363,6 @@
       "id": "ProviderSite",
       "old_uri": "https://publicschema.org/ProviderSite",
       "new_uri": "https://publicschema.org/edu/ProviderSite",
-      "action": "relocate"
-    },
-    {
-      "kind": "class",
-      "id": "Road",
-      "old_uri": "https://publicschema.org/Road",
-      "new_uri": "https://publicschema.org/transport/Road",
-      "action": "relocate"
-    },
-    {
-      "kind": "class",
-      "id": "RoadNode",
-      "old_uri": "https://publicschema.org/RoadNode",
-      "new_uri": "https://publicschema.org/transport/RoadNode",
-      "action": "relocate"
-    },
-    {
-      "kind": "class",
-      "id": "RoadRestriction",
-      "old_uri": "https://publicschema.org/RoadRestriction",
-      "new_uri": "https://publicschema.org/transport/RoadRestriction",
-      "action": "relocate"
-    },
-    {
-      "kind": "class",
-      "id": "RoadSegment",
-      "old_uri": "https://publicschema.org/RoadSegment",
-      "new_uri": "https://publicschema.org/transport/RoadSegment",
       "action": "relocate"
     },
     {
@@ -756,13 +714,6 @@
     },
     {
       "kind": "property",
-      "id": "installation_facility",
-      "old_uri": "https://publicschema.org/installation_facility",
-      "new_uri": "https://publicschema.org/environment/installation_facility",
-      "action": "relocate"
-    },
-    {
-      "kind": "property",
       "id": "irrigation_component",
       "old_uri": "https://publicschema.org/irrigation_component",
       "new_uri": "https://publicschema.org/agri/irrigation_component",
@@ -1046,83 +997,6 @@
     },
     {
       "kind": "property",
-      "id": "release_facility",
-      "old_uri": "https://publicschema.org/release_facility",
-      "new_uri": "https://publicschema.org/environment/release_facility",
-      "action": "relocate"
-    },
-    {
-      "kind": "property",
-      "id": "release_medium",
-      "old_uri": "https://publicschema.org/release_medium",
-      "new_uri": "https://publicschema.org/environment/release_medium",
-      "action": "relocate"
-    },
-    {
-      "kind": "property",
-      "id": "release_quantity",
-      "old_uri": "https://publicschema.org/release_quantity",
-      "new_uri": "https://publicschema.org/environment/release_quantity",
-      "action": "relocate"
-    },
-    {
-      "kind": "property",
-      "id": "release_substance",
-      "old_uri": "https://publicschema.org/release_substance",
-      "new_uri": "https://publicschema.org/environment/release_substance",
-      "action": "relocate"
-    },
-    {
-      "kind": "property",
-      "id": "restricted_road_element",
-      "old_uri": "https://publicschema.org/restricted_road_element",
-      "new_uri": "https://publicschema.org/transport/restricted_road_element",
-      "action": "relocate"
-    },
-    {
-      "kind": "property",
-      "id": "restriction_conditions",
-      "old_uri": "https://publicschema.org/restriction_conditions",
-      "new_uri": "https://publicschema.org/transport/restriction_conditions",
-      "action": "relocate"
-    },
-    {
-      "kind": "property",
-      "id": "restriction_legal_basis",
-      "old_uri": "https://publicschema.org/restriction_legal_basis",
-      "new_uri": "https://publicschema.org/transport/restriction_legal_basis",
-      "action": "relocate"
-    },
-    {
-      "kind": "property",
-      "id": "restriction_limit",
-      "old_uri": "https://publicschema.org/restriction_limit",
-      "new_uri": "https://publicschema.org/transport/restriction_limit",
-      "action": "relocate"
-    },
-    {
-      "kind": "property",
-      "id": "road_classification",
-      "old_uri": "https://publicschema.org/road_classification",
-      "new_uri": "https://publicschema.org/transport/road_classification",
-      "action": "relocate"
-    },
-    {
-      "kind": "property",
-      "id": "road_restriction_type",
-      "old_uri": "https://publicschema.org/road_restriction_type",
-      "new_uri": "https://publicschema.org/transport/road_restriction_type",
-      "action": "relocate"
-    },
-    {
-      "kind": "property",
-      "id": "road_segments",
-      "old_uri": "https://publicschema.org/road_segments",
-      "new_uri": "https://publicschema.org/transport/road_segments",
-      "action": "relocate"
-    },
-    {
-      "kind": "property",
       "id": "scheme_operator",
       "old_uri": "https://publicschema.org/scheme_operator",
       "new_uri": "https://publicschema.org/agri/scheme_operator",
@@ -1140,20 +1014,6 @@
       "id": "school_type",
       "old_uri": "https://publicschema.org/school_type",
       "new_uri": "https://publicschema.org/edu/school_type",
-      "action": "relocate"
-    },
-    {
-      "kind": "property",
-      "id": "segment_end_node",
-      "old_uri": "https://publicschema.org/segment_end_node",
-      "new_uri": "https://publicschema.org/transport/segment_end_node",
-      "action": "relocate"
-    },
-    {
-      "kind": "property",
-      "id": "segment_start_node",
-      "old_uri": "https://publicschema.org/segment_start_node",
-      "new_uri": "https://publicschema.org/transport/segment_start_node",
       "action": "relocate"
     },
     {

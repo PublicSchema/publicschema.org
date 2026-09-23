@@ -29,11 +29,6 @@
       "name": "Example medicinal product manufacturer"
     },
     {
-      "@id": "https://example.org/subjects/example-substance",
-      "@type": "Substance",
-      "name": "Synthetic substance A"
-    },
-    {
       "@id": "https://example.org/subjects/clinic-site",
       "@type": "health/HealthFacility",
       "name": "Synthetic clinic premises"
@@ -131,8 +126,7 @@
         "register_uri": "https://example.org/registers/medical-source",
         "record_id": "0006",
         "subject_uri": "https://example.org/subjects/example-substance",
-        "recorded_at": "2026-09-08T00:00:00Z",
-        "subject_type": "https://publicschema.org/Substance"
+        "recorded_at": "2026-09-08T00:00:00Z"
       },
       "fhir_full_url": "https://example.org/fhir/SubstanceDefinition/example-substance",
       "resource_type": "SubstanceDefinition",

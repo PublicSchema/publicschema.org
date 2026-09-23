@@ -22,7 +22,6 @@ EXAMPLES = ROOT / "examples/government-relationships"
 EX = "https://example.org/government-relationships/"
 PS = Namespace("https://publicschema.org/")
 EDU = Namespace("https://publicschema.org/edu/")
-ENVIRONMENT = Namespace("https://publicschema.org/environment/")
 RECORDS = json.loads((EXAMPLES / "records.json").read_text())
 CASES = json.loads((EXAMPLES / "negative-cases.json").read_text())
 AUTHORED = yaml.safe_load((ROOT / "schema/government_relationships.yaml").read_text())
@@ -81,7 +80,6 @@ def test_real_exports_preserve_qualified_relationships(exports):
 
     graph = graph_for(RECORDS, exports)
     assert (URIRef(EX + "north-offering"), EDU.offering_programme, URIRef(EX + "programme")) in graph
-    assert (URIRef(EX + "boiler-release"), ENVIRONMENT.release_installation, URIRef(EX + "boiler")) in graph
     assert (URIRef(EX + "trust-control"), PS.interest_entity, URIRef(EX + "trust")) in graph
     assert (PS.LegalArrangement, RDFS.subClassOf, PS.Organization) not in ontology
     assert (PS.LegalArrangement, RDFS.subClassOf, PS.Party) not in ontology
@@ -103,7 +101,6 @@ def test_real_exports_preserve_qualified_relationships(exports):
 @pytest.mark.parametrize("suffix,changes,rdf_conforms", [
     ("holding-shares", {"interest_exclusive_minimum_percentage": "more than twenty-five"}, False),
     ("north-offering", {"offering_sites": EX + "north-site"}, True),
-    ("boiler-release", {"release_installation": True}, False),
 ])
 def test_malformed_relationship_values_respect_each_public_format(exports, suffix, changes, rdf_conforms):
     records = copy.deepcopy(RECORDS)
@@ -138,9 +135,6 @@ def test_scope_queries_do_not_infer_approval_or_beneficial_ownership():
     assert len(offerings) == 2
     assert {item["@id"] for item in offerings} & recognized == {EX + "north-offering"}
     assert record(RECORDS, "north-offering")["offering_award"] == record(RECORDS, "online-offering")["offering_award"]
-    releases = {item["release_installation"]: item["release_quantity"]["quantity_value"]
-                for item in RECORDS if item["@type"] == "environment/EnvironmentalRelease"}
-    assert releases == {EX + "boiler": 12, EX + "furnace": 7}
 
 
 @pytest.mark.parametrize("changes", [
@@ -208,14 +202,6 @@ def test_route_components_cannot_repeat_or_refer_to_the_primary(case, expected):
         chain["component_interests"].append(chain["indirect_interest"])
     with pytest.raises(ValueError, match=expected):
         PROFILE.validate_profile(records)
-
-
-def test_facility_total_and_installation_only_release_both_preserve_source_granularity():
-    for removed in ("release_installation", "release_facility"):
-        records = copy.deepcopy(RECORDS)
-        record(records, "boiler-release").pop(removed)
-        PROFILE.validate_profile(records)
-        assert removed not in record(records, "boiler-release")
 
 
 def test_optional_reference_shapes_do_not_assert_complete_exchange(exports):

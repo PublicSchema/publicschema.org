@@ -25,8 +25,8 @@ fields are not timestamps and do not describe the time a source recorded a fact.
 
 RegistryEntry and Registration retain inclusive `valid_from`/`valid_to`, including
 registration and authorization specializations. AgriculturalParcel retains its
-description validity; AgriculturalCertification, LandTenureAssertion and
-RoadRestriction retain their certification or substantive legal validity. These
+description validity; AgriculturalCertification and LandTenureAssertion retain
+their certification or substantive legal validity. These
 are not silently converted when another relationship concerning the same subject
 changes. `recorded_at` also stays unchanged.
 

@@ -26,7 +26,6 @@ PROFILE_BASE = "http://hl7.org/fhir/StructureDefinition/"
 LOCATION_FORM_SYSTEM = "http://terminology.hl7.org/CodeSystem/location-physical-type"
 NATIVE_SUBJECTS = {
     "Organization": ("Organization", "https://publicschema.org/Organization"),
-    "SubstanceDefinition": ("Substance", "https://publicschema.org/Substance"),
     "Location": ("health/HealthFacility", "https://publicschema.org/health/HealthFacility"),
 }
 

@@ -32,8 +32,8 @@ Les noms publics n'ont pas besoin d'abréviation de domaine : utilisez `Enrollme
 | `crvs` | Enregistrement des faits d'état civil et statistiques de l'état civil | Événements vitaux et rôles d'enregistrement |
 | `agri` | Agriculture | Exploitations de production, cultures, établissements d'élevage, intrants et rôles de production |
 | `land` | Administration foncière | Unités spatiales et administratives, tenure et limites |
-| `environment` | Environnement | Installations, unités techniques, rejets et autorisations d'utilisation de l'eau |
-| `transport` | Transport | Véhicules, routes, restrictions de réseau et permis de conduire |
+| `environment` | Environnement | Installations et autorisations d'utilisation de l'eau |
+| `transport` | Transport | Véhicules et permis de conduire |
 | `edu` | Éducation | Prestataires, programmes, offres et locaux d'enseignement |
 | `health` | Santé | Établissements de soins physiques ; le contenu médical s'intègre par FHIR natif |
 | `tax` | Administration fiscale | Enregistrement fiscal |
@@ -118,7 +118,7 @@ Ne combinez pas les deux modèles sur un même concept. Un concept à cycle de v
 
 Les deux paires génériques ne sont pas des alias. `start_date` nomme la date où l'effectivité a commencé ; `end_date` nomme la date où elle a cessé. Les `valid_from` et `valid_to` provisoires nomment le premier et le dernier jour calendaire applicables, y compris ce dernier jour. `recorded_at` enregistre plutôt le moment où la source a saisi l'assertion. Les dates absentes restent inconnues ; une fin omise ne prouve pas une validité perpétuelle.
 
-Utilisez `start_date` / `end_date` pour les concepts de relation et d'appartenance. Les brouillons HoldingParcelLink, AnimalResidence, AnimalResponsibility, ProducerMembership, AgriculturalServiceRole (y compris InputSupplierRole, PesticideApplicatorRole et SeedOperatorRole), IdentifierAssignment, NameUsage et ContactPoint suivent maintenant cette convention. AssetPartyRole et AssetAddressAssignment l'utilisent aussi. Registration, RegistryEntry, AgriculturalParcel, AgriculturalCertification, LandTenureAssertion et RoadRestriction conservent leur validité calendaire déclarée. Le [guide de migration des relations](relationship-date-migration.md) décrit le contrat de conversion explicite et les anciennes attributions d'établissement retirées. Renommer un `valid_to` inclusif en `end_date` sans modifier la frontière fait perdre un jour effectif.
+Utilisez `start_date` / `end_date` pour les concepts de relation et d'appartenance. Les brouillons HoldingParcelLink, AnimalResidence, AnimalResponsibility, ProducerMembership, AgriculturalServiceRole (y compris InputSupplierRole, PesticideApplicatorRole et SeedOperatorRole), IdentifierAssignment, NameUsage et ContactPoint suivent maintenant cette convention. AssetPartyRole et AssetAddressAssignment l'utilisent aussi. Registration (y compris les spécialisations d'Authorization telles que DrivingEntitlement), RegistryEntry, AgriculturalParcel, AgriculturalCertification et LandTenureAssertion conservent leur validité calendaire déclarée. Le [guide de migration des relations](relationship-date-migration.md) décrit le contrat de conversion explicite et les anciennes attributions d'établissement retirées. Renommer un `valid_to` inclusif en `end_date` sans modifier la frontière fait perdre un jour effectif.
 
 Un profil consommateur doit indiquer les frontières de ses intervalles avant de comparer ou convertir les dates. Par exemple, selon une convention de jours entiers explicitement convenue, `valid_to: 2026-06-30` correspond à une cessation avec `end_date: 2026-07-01`. Renommer la clé en conservant le 30 juin changerait le sens. N'appliquez pas cette conversion lorsque la précision de la source ou sa sémantique de frontière est inconnue. L'exemple de travail agricole documente sa propre convention de jours entiers ; il ne modifie pas les définitions normatives des propriétés de date.
 

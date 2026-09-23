@@ -350,62 +350,6 @@
   },
   {
     "@context": "https://publicschema.org/ctx/draft.jsonld",
-    "@id": "https://example.org/road",
-    "@type": "transport/Road",
-    "name": "Example Road",
-    "road_segments": [
-      {
-        "@id": "https://example.org/segment",
-        "@type": "transport/RoadSegment"
-      }
-    ]
-  },
-  {
-    "@context": "https://publicschema.org/ctx/draft.jsonld",
-    "@id": "https://example.org/node-a",
-    "@type": "transport/RoadNode",
-    "identifiers": [
-      {
-        "@type": "Identifier",
-        "identifier_value": "node-a",
-        "identifier_scheme_id": "https://example.org/road-nodes"
-      }
-    ]
-  },
-  {
-    "@context": "https://publicschema.org/ctx/draft.jsonld",
-    "@id": "https://example.org/node-b",
-    "@type": "transport/RoadNode",
-    "identifiers": [
-      {
-        "@type": "Identifier",
-        "identifier_value": "node-b",
-        "identifier_scheme_id": "https://example.org/road-nodes"
-      }
-    ]
-  },
-  {
-    "@context": "https://publicschema.org/ctx/draft.jsonld",
-    "@id": "https://example.org/segment",
-    "@type": "transport/RoadSegment",
-    "segment_start_node": {
-      "@id": "https://example.org/node-a",
-      "@type": "transport/RoadNode"
-    },
-    "segment_end_node": {
-      "@id": "https://example.org/node-b",
-      "@type": "transport/RoadNode"
-    },
-    "road_classification": [
-      {
-        "@type": "CodedValue",
-        "code_value": "local",
-        "code_scheme": "https://example.org/codes/roads"
-      }
-    ]
-  },
-  {
-    "@context": "https://publicschema.org/ctx/draft.jsonld",
     "@id": "https://example.org/vehicle",
     "@type": "transport/Vehicle",
     "vehicle_make": "Example Make",
@@ -435,23 +379,6 @@
     "@type": "environment/EnvironmentalFacility",
     "name": "Example Processing Site",
     "environmental_operator": "https://example.org/company",
-    "environmental_activities": [
-      {
-        "@type": "CodedValue",
-        "code_value": "processing",
-        "code_scheme": "https://example.org/codes/environmental-activities"
-      }
-    ]
-  },
-  {
-    "@context": "https://publicschema.org/ctx/draft.jsonld",
-    "@id": "https://example.org/installation",
-    "@type": "environment/InstallationUnit",
-    "name": "Example Processing Unit",
-    "installation_facility": {
-      "@id": "https://example.org/facility",
-      "@type": "environment/EnvironmentalFacility"
-    },
     "environmental_activities": [
       {
         "@type": "CodedValue",
@@ -501,39 +428,6 @@
   },
   {
     "@context": "https://publicschema.org/ctx/draft.jsonld",
-    "@id": "https://example.org/substance",
-    "@type": "Substance",
-    "name": "Synthetic example substance"
-  },
-  {
-    "@context": "https://publicschema.org/ctx/draft.jsonld",
-    "@id": "https://example.org/release",
-    "@type": "environment/EnvironmentalRelease",
-    "release_facility": {
-      "@id": "https://example.org/facility",
-      "@type": "environment/EnvironmentalFacility"
-    },
-    "release_substance": {
-      "@id": "https://example.org/substance",
-      "@type": "Substance"
-    },
-    "release_medium": {
-      "@type": "CodedValue",
-      "code_value": "air",
-      "code_scheme": "https://example.org/codes/environmental-media"
-    },
-    "release_quantity": {
-      "@type": "QuantityValue",
-      "quantity_value": 1.25,
-      "unit_code": "kg",
-      "unit_scheme": "http://unitsofmeasure.org"
-    },
-    "measurement_method": "Synthetic estimate",
-    "start_date": "2025-01-01",
-    "end_date": "2025-01-31"
-  },
-  {
-    "@context": "https://publicschema.org/ctx/draft.jsonld",
     "@id": "https://example.org/action",
     "@type": "RegulatoryAction",
     "action_subject": "https://example.org/facility",
@@ -551,17 +445,6 @@
     ],
     "action_date": "2025-02-03",
     "action_description": "Request supporting information; this is not a finding of guilt."
-  },
-  {
-    "@context": "https://publicschema.org/ctx/draft.jsonld",
-    "@id": "https://example.org/building-wing",
-    "@type": "BuildingPart",
-    "name": "Example West Wing",
-    "part_of_building": {
-      "@id": "https://example.org/building",
-      "@type": "Building"
-    },
-    "building_part_description": "A structurally distinct single-storey wing containing more than one functional unit."
   },
   {
     "@context": "https://publicschema.org/ctx/draft.jsonld",
@@ -597,28 +480,6 @@
     "represented_subject": "https://example.org/person",
     "representation_scope": "Receive correspondence for the synthetic income-tax registration.",
     "start_date": "2025-01-01"
-  },
-  {
-    "@context": "https://publicschema.org/ctx/draft.jsonld",
-    "@id": "https://example.org/road-restriction",
-    "@type": "transport/RoadRestriction",
-    "restricted_road_element": "https://example.org/segment",
-    "road_restriction_type": {
-      "@type": "CodedValue",
-      "code_value": "maximum-gross-mass",
-      "code_scheme": "https://example.org/codes/synthetic"
-    },
-    "restriction_limit": {
-      "@type": "QuantityValue",
-      "quantity_value": 7500,
-      "unit_code": "kg",
-      "unit_scheme": "http://unitsofmeasure.org"
-    },
-    "restriction_conditions": "Except emergency vehicles.",
-    "restriction_legal_basis": [
-      "https://example.org/law/road-order"
-    ],
-    "valid_from": "2025-01-01"
   },
   {
     "@context": "https://publicschema.org/ctx/draft.jsonld",

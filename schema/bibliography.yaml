@@ -2919,23 +2919,7 @@ classes:
       access: open
       status: active
       notes: Building, BuildingUnit, BuildingPart; BuildingsBase 4.0 application schema; retrieved 2026-09-07
-      informs_json: '{"concepts": ["Building", "BuildingPart", "BuildingUnit"]}'
-  GovInspireTransportCitation:
-    class_uri: publicschema:Citation/gov-inspire-transport
-    is_a: Citation
-    title: 'INSPIRE Data Specification on Transport Networks: Technical Guidelines'
-    annotations:
-      citation_id: gov-inspire-transport
-      title: 'INSPIRE Data Specification on Transport Networks: Technical Guidelines'
-      short_title: 'INSPIRE Data Specification on Transport Networks: Technical Guidelines'
-      publisher: European Commission INSPIRE
-      type: guidance_publication
-      domain: registry
-      uri: https://inspire-mif.github.io/technical-guidelines/data/tn/dataspecification_tn.html
-      access: open
-      status: active
-      notes: RoadLink section 5.4.2.1.15, RoadNode and transport restriction properties; retrieved 2026-09-07
-      informs_json: '{"concepts": ["transport/Road", "transport/RoadNode", "transport/RoadRestriction", "transport/RoadSegment"]}'
+      informs_json: '{"concepts": ["Building", "BuildingUnit"]}'
   GovDvlaCitation:
     class_uri: publicschema:Citation/gov-dvla
     is_a: Citation
@@ -2969,23 +2953,7 @@ classes:
       status: active
       notes: Retrieved 2026-09-07; site/program-record distinction, Facility Site Identification Standard
         2.0 (2006) and physical model links
-      informs_json: '{"concepts": ["environment/EnvironmentalFacility", "environment/InstallationUnit"]}'
-  GovInspireProductionCitation:
-    class_uri: publicschema:Citation/gov-inspire-production
-    is_a: Citation
-    title: 'INSPIRE Data Specification on Production and Industrial Facilities: Technical Guidelines'
-    annotations:
-      citation_id: gov-inspire-production
-      title: 'INSPIRE Data Specification on Production and Industrial Facilities: Technical Guidelines'
-      short_title: 'INSPIRE Data Specification on Production and Industrial Facilities: Technical Guidelines'
-      publisher: European Commission INSPIRE
-      type: guidance_publication
-      domain: registry
-      uri: https://inspire-mif.github.io/technical-guidelines/data/pf/
-      access: open
-      status: active
-      notes: Production facility and installation distinctions; retrieved 2026-09-07
-      informs_json: '{"concepts": ["environment/InstallationUnit"]}'
+      informs_json: '{"concepts": ["environment/EnvironmentalFacility"]}'
   GovEpaEchoCitation:
     class_uri: publicschema:Citation/gov-epa-echo
     is_a: Citation
@@ -3003,39 +2971,6 @@ classes:
       notes: Retrieved 2026-09-07; facility report interface. EPA data portal https://data.epa.gov/ describes
         inspections, violations and penalties as separate program data
       informs_json: '{"concepts": ["ComplianceAssessment", "RegulatoryAction"]}'
-  GovEpaTriCitation:
-    class_uri: publicschema:Citation/gov-epa-tri
-    is_a: Citation
-    title: 'TRI Basic Data Files: Calendar Years 1987-Present'
-    annotations:
-      citation_id: gov-epa-tri
-      title: 'TRI Basic Data Files: Calendar Years 1987-Present'
-      short_title: 'TRI Basic Data Files: Calendar Years 1987-Present'
-      publisher: US Environmental Protection Agency
-      type: guidance_publication
-      domain: registry
-      uri: https://www.epa.gov/toxics-release-inventory-tri-program/tri-basic-data-files-calendar-years-1987-present
-      access: open
-      status: active
-      notes: Retrieved 2026-09-07; annual reporting forms, facility/chemical identity and released quantities.
-        Field documentation https://www3.epa.gov/tri/public/TRI_Basic_Data_File_Documentation_RY2021_102522.pdf
-      informs_json: '{"concepts": ["environment/EnvironmentalRelease"]}'
-  GovFhirSubstanceCitation:
-    class_uri: publicschema:Citation/gov-fhir-substance
-    is_a: Citation
-    title: FHIR R5 SubstanceDefinition
-    annotations:
-      citation_id: gov-fhir-substance
-      title: FHIR R5 SubstanceDefinition
-      short_title: FHIR R5 SubstanceDefinition
-      publisher: HL7 International
-      type: guidance_publication
-      domain: registry
-      uri: https://hl7.org/fhir/R5/substancedefinition.html
-      access: open
-      status: active
-      notes: FHIR 5.0.0 (2023); substance identity distinct from medicinal products
-      informs_json: '{"concepts": ["Substance"]}'
   GovFhirProductCitation:
     class_uri: publicschema:Citation/gov-fhir-product
     is_a: Citation
@@ -3246,7 +3181,7 @@ classes:
       status: active
       notes: 'Articles 3, 5 and 6: installation-level reporting and the containing facility. This vocabulary
         does not implement EU reporting duties or thresholds.'
-      informs_json: '{"properties": ["release_installation"]}'
+      informs_json: '{"properties": ["environmental_operator"]}'
   W3cSosa2017Citation:
     class_uri: publicschema:Citation/w3c-sosa-2017
     is_a: Citation

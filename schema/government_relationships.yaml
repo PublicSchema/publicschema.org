@@ -202,17 +202,3 @@ slots:
     annotations:
       category: classification
       domain_override: edu
-  release_installation:
-    slot_uri: publicschema:environment/release_installation
-    title: Release installation
-    description: The identified technical installation from which this release is reported, when the
-      source distinguishes it. A facility-level total must not be assigned to an invented installation.
-      If release_facility is also given, the consuming profile checks consistent facility attribution.
-      An undated containment link does not establish historical membership for the release period.
-    range: InstallationUnit
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      category: location
-      domain_override: environment
-      bibliography_refs: '["gov-eu-industrial-emissions-portal"]'

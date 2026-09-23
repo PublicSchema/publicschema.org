@@ -52,7 +52,7 @@ ServiceCapacityObservation also remains shared: it records a scheme-qualified me
 
 ## Native medical records
 
-The [FHIR integration guide](fhir-registry-integration.md) replaces duplicate draft medicine and healthcare-directory shapes with native FHIR R5 resources. It accounts for each retired class and field, preserves separate subject and qualified source-record identities, and documents facts that require an adopter's profile or remain unmapped. Shared Substance and physical HealthFacility identities remain useful without reproducing pharmaceutical definitions.
+The [FHIR integration guide](fhir-registry-integration.md) replaces duplicate draft medicine and healthcare-directory shapes with native FHIR R5 resources. It accounts for each retired class and field, preserves separate subject and qualified source-record identities, and documents facts that require an adopter's profile or remain unmapped. Physical HealthFacility identities remain useful without reproducing healthcare-directory definitions.
 
 Retirement is not a lossless conversion claim. Premises-only accreditation and historical service validity, for example, must not be forced into a superficially similar FHIR field. The synthetic example preserves its unmapped facts explicitly. Clinical encounters, patient records and a complete medical terminology are outside this revision.
 

@@ -169,7 +169,7 @@ def validate_profile(records):
     index = index_records(records)
     for record in records:
         kind = record["@type"]
-        if kind in {"OwnershipInterest", "edu/EducationOffering", "environment/EnvironmentalRelease"}:
+        if kind in {"OwnershipInterest", "edu/EducationOffering"}:
             period(record)
         if kind == "LegalArrangement":
             coded_value(record.get("arrangement_type"))
@@ -203,18 +203,6 @@ def validate_profile(records):
                 award = reference_uri(record["offering_award"])
                 if award in index:
                     raise ValueError("This example uses an external award definition, not a local awarded qualification")
-        if kind == "environment/EnvironmentalRelease":
-            facility = None
-            if "release_facility" in record:
-                facility = resolve(record["release_facility"], index, {"environment/EnvironmentalFacility"})
-            if "release_installation" in record:
-                installation = resolve(record["release_installation"], index, {"environment/InstallationUnit"})
-                containing = resolve(installation.get("installation_facility"), index,
-                                     {"environment/EnvironmentalFacility"})
-                if facility and containing["@id"] != facility["@id"]:
-                    raise ValueError("The release installation belongs to a different facility")
-            elif facility is None:
-                raise ValueError("A release requires its reported facility or installation")
     for record in records:
         if record["@type"] == "OwnershipChainAssertion":
             ownership_route(record, index)

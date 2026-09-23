@@ -1,6 +1,6 @@
 # Qualified government relationships: draft
 
-An ownership band, a programme offered at one campus and a release from one technical installation each need a precise relationship. These draft terms preserve those facts without deciding beneficial ownership, educational accreditation or environmental compliance. The reference fields remain optional; the accompanying example profile checks a complete, locally resolved exchange.
+An ownership band and a programme offered at one campus each need a precise relationship. These draft terms preserve those facts without deciding beneficial ownership or educational accreditation. The reference fields remain optional; the accompanying example profile checks a complete, locally resolved exchange.
 
 ## Meanings and source boundaries
 
@@ -9,9 +9,8 @@ An ownership band, a programme offered at one campus and a release from one tech
 | Ownership bounds | `OwnershipInterest` retains exact `interest_percentage`. Four separate fields preserve inclusive or exclusive lower and upper bounds. Missing amounts remain unknown. | [BODS 0.4 Share](https://standard.openownership.org/en/0.4.0/standard/reference.html#share) distinguishes exact values and these four boundary meanings. |
 | Arrangement and indirect route | `LegalArrangement` identifies a mechanism without inventing an Organization. `OwnershipChainAssertion` connects a separately asserted indirect interest to the component interests offered as its route. | [BODS 0.4 entity types and relationship details](https://standard.openownership.org/en/0.4.0/standard/reference.html) include arrangements and component records. PublicSchema references interest identities; BODS references record identifiers. These are different contracts. |
 | Education offering | `edu/EducationOffering` connects programme, provider, sites, period, optional mode and expected award-definition URI. | [Schema.org CourseInstance](https://schema.org/CourseInstance) distinguishes delivery by time, place or mode. [Course](https://schema.org/Course) can identify an expected educational award. PublicSchema chooses its narrower provider/site relationships. |
-| Installation attribution | `environment/release_installation` identifies the technical installation behind an `EnvironmentalRelease`, where the source reports that detail. | [Regulation (EU) 2024/1244](https://eur-lex.europa.eu/eli/reg/2024/1244/oj/eng), Articles 3, 5 and 6, distinguishes installations and facilities and describes installation-level release reporting. This field implements no EU reporting obligations. |
 
-These sources were consulted on 8 September 2026. They support the distinctions, not exact mappings or implemented BODS, Schema.org or regulatory interchange compatibility. All new concepts and properties are draft. Domain-specific education and environment meanings use `edu/` and `environment/`; shared ownership and legal arrangement meanings use root URIs. The module filename does not determine the URI namespace.
+These sources were consulted on 8 September 2026. They support the distinctions, not exact mappings or implemented BODS or Schema.org interchange compatibility. All new concepts and properties are draft. Domain-specific education meanings use `edu/`; shared ownership and legal arrangement meanings use root URIs. The module filename does not determine the URI namespace.
 
 ## Ownership: amounts, arrangements and asserted routes
 
@@ -31,12 +30,6 @@ The fixture gives one programme a campus offering and a later online offering. B
 
 The local profile checks programme, provider and site identities, the site's provider, supplied modes and a coherent offering period. A physical School is connected through ProviderSite, while a virtual site needs no invented premises. Joint providers, session timetables, actual enrolments and accreditation criteria remain outside this bounded example. An offering can be a registration or authorization subject where the applicable scheme recognizes or permits that offering.
 
-## Environment: preserve the reported level
-
-The example records releases of the same substance from a boiler and furnace within one facility. The quantity remains attached to the reported installation. A source reporting only a facility total can omit `release_installation`; an installation-level source can identify the installation without repeating `release_facility`. When both are supplied, the profile checks that their facility identities agree.
-
-The current installation-to-facility link is undated. This example checks consistency with that supplied link, not historical containment, source completeness or reporting-period coverage. It does not allocate a facility total across installations, add totals at different aggregation levels, compare a release with a permit limit or infer a violation. A historical or regulatory exchange must establish those additional contracts.
-
 ## Runnable example and verification
 
 From the repository root:
@@ -46,6 +39,6 @@ uv run python examples/government-relationships/validate_profile.py --negative
 uv run pytest tests/test_government_relationships.py
 ```
 
-`records.json` contains the synthetic exchange. `negative-cases.json` describes independent changes that must be rejected, including conflicting percentage bounds, unresolved and disconnected ownership routes, incompatible periods, the wrong site provider and mismatched installation attribution. The validator runs without remote lookups or authority decisions.
+`records.json` contains the synthetic exchange. `negative-cases.json` describes independent changes that must be rejected, including conflicting percentage bounds, unresolved and disconnected ownership routes, incompatible periods and the wrong site provider. The validator runs without remote lookups or authority decisions.
 
-The tests also use the production catalog, JSON Schema, RDF, JSON-LD context and SHACL exporters. Invalid decimal and installation values fail in both public representations. JSON requires array syntax for `offering_sites`; RDF preserves the site relationships without retaining scalar-versus-array syntax, so this constraint is checked at the JSON boundary. Semantic counterexamples exercise the separately named example profile. Passing these checks establishes local fixture behavior. Independent domain review, reviewed translations and adopter exchanges remain necessary before maturity promotion. See [ADR-024](../decisions/024-government-qualified-relationships.md) for alternatives and compatibility boundaries.
+The tests also use the production catalog, JSON Schema, RDF, JSON-LD context and SHACL exporters. Invalid decimal values fail in both public representations. JSON requires array syntax for `offering_sites`; RDF preserves the site relationships without retaining scalar-versus-array syntax, so this constraint is checked at the JSON boundary. Semantic counterexamples exercise the separately named example profile. Passing these checks establishes local fixture behavior. Independent domain review, reviewed translations and adopter exchanges remain necessary before maturity promotion. See [ADR-024](../decisions/024-government-qualified-relationships.md) for alternatives and compatibility boundaries.

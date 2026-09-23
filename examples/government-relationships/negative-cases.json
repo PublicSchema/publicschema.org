@@ -92,36 +92,5 @@
         "name": "Other provider"
       }
     ]
-  },
-  {
-    "name": "a facility is not a technical installation",
-    "target": "https://example.org/government-relationships/boiler-release",
-    "expected": "Wrong resolved target type",
-    "set": {
-      "release_installation": "https://example.org/government-relationships/site"
-    }
-  },
-  {
-    "name": "installation and release facility must agree",
-    "target": "https://example.org/government-relationships/boiler",
-    "expected": "different facility",
-    "set": {
-      "installation_facility": "https://example.org/government-relationships/other-facility"
-    },
-    "append": [
-      {
-        "@id": "https://example.org/government-relationships/other-facility",
-        "@type": "environment/EnvironmentalFacility"
-      }
-    ]
-  },
-  {
-    "name": "attribution must identify its actual level",
-    "target": "https://example.org/government-relationships/boiler-release",
-    "expected": "reported facility or installation",
-    "remove": [
-      "release_facility",
-      "release_installation"
-    ]
   }
 ]

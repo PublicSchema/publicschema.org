@@ -34,8 +34,8 @@ The build pipeline keys concepts internally by `{domain}/{id}` (e.g., `sp/Enroll
 | `crvs` | Civil registration and vital statistics | Vital events and registration roles |
 | `agri` | Agriculture | Production holdings, cultivation, livestock establishments, inputs and production roles |
 | `land` | Land administration | Spatial and administrative units, tenure and boundaries |
-| `environment` | Environment | Facilities, installations, releases and water-use permissions |
-| `transport` | Transport | Vehicles, roads, network restrictions and driving permissions |
+| `environment` | Environment | Facilities and water-use permissions |
+| `transport` | Transport | Vehicles and driving permissions |
 | `edu` | Education | Providers, programmes, offerings and educational premises |
 | `health` | Health | Physical healthcare facilities; medical content integrates through native FHIR |
 | `tax` | Tax administration | Tax registration |
@@ -137,8 +137,9 @@ Use `start_date` / `end_date` for relationship and membership concepts. The draf
 HoldingParcelLink, AnimalResidence, AnimalResponsibility, ProducerMembership,
 AgriculturalServiceRole (including InputSupplierRole, PesticideApplicatorRole and SeedOperatorRole), IdentifierAssignment, NameUsage
 and ContactPoint now follow this convention. AssetPartyRole and AssetAddressAssignment
-also use it. Registration, RegistryEntry, AgriculturalParcel, AgriculturalCertification,
-LandTenureAssertion and RoadRestriction retain their declared calendar validity.
+also use it. Registration (including Authorization specializations such as DrivingEntitlement),
+RegistryEntry, AgriculturalParcel, AgriculturalCertification and LandTenureAssertion retain
+their declared calendar validity.
 The [relationship migration guide](relationship-date-migration.md) describes the
 explicit conversion contract and the retired facility assignments. Renaming an
 inclusive `valid_to` to `end_date` without changing the boundary loses an effective day.
