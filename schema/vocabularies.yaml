@@ -60601,35 +60601,35 @@ enums:
     annotations:
       source_domain: agri
       bibliography_refs: '["uk-pesticide-work", "sasa-seed-register", "india-farms"]'
-  AgriculturalInputProductCategory:
-    enum_uri: publicschema:agri/AgriculturalInputProductCategory
-    title: Agricultural Input Product Category
+  AgriculturalInputCategory:
+    enum_uri: publicschema:agri/AgriculturalInputCategory
+    title: Agricultural Input Category
     description: The regulatory category of an agricultural input product. One product can belong to more
       than one category.
     status: bibo:draft
     permissible_values:
       feed:
-        meaning: publicschema:agri/AgriculturalInputProductCategory/feed
+        meaning: publicschema:agri/AgriculturalInputCategory/feed
         title: Feed
         description: A product intended for oral feeding to animals, including feed materials, compound feed
           and feed additives.
         status: bibo:draft
       fertilising_product:
-        meaning: publicschema:agri/AgriculturalInputProductCategory/fertilising_product
+        meaning: publicschema:agri/AgriculturalInputCategory/fertilising_product
         title: Fertilising product
         description: A product applied to plants, their root zone or their growing medium to supply nutrients
           or improve nutrient use, including fertilisers, liming materials, soil improvers, growing media,
           inhibitors and plant biostimulants.
         status: bibo:draft
       pesticide:
-        meaning: publicschema:agri/AgriculturalInputProductCategory/pesticide
+        meaning: publicschema:agri/AgriculturalInputCategory/pesticide
         title: Pesticide
         description: A formulated product intended to repel, destroy or control pests or to regulate plant
           growth, including plant protection products and biocidal products. It excludes fertilising products
           and veterinary medicines.
         status: bibo:draft
       other:
-        meaning: publicschema:agri/AgriculturalInputProductCategory/other
+        meaning: publicschema:agri/AgriculturalInputCategory/other
         title: Other
         description: An agricultural input product category not covered by the other values.
         status: bibo:draft

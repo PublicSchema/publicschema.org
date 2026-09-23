@@ -303,7 +303,7 @@ slots:
     title: Input product category
     description: A regulatory category to which the agricultural input product belongs, such as feed, fertilising
       product or pesticide.
-    range: AgriculturalInputProductCategory
+    range: AgriculturalInputCategory
     multivalued: true
     status: bibo:draft
     annotations:

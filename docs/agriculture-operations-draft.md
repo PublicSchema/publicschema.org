@@ -39,7 +39,7 @@ business may process and pack seed.
 | --- | --- | --- |
 | `facility_function` | `AgriculturalFacilityFunction` | `apiary`, `aquaculture_establishment`, `livestock_establishment`, `plant_nursery`, `storage`, `processing`, `market`, `other` |
 | `agricultural_service` | `AgriculturalServiceType` | `input_supply`, `pesticide_application`, `seed_processing`, `seed_packing`, `seed_marketing`, `machinery_hire`, `advisory`, `animal_health_service`, `post_harvest`, `other` |
-| `input_product_category` | `AgriculturalInputProductCategory` | `feed`, `fertilising_product`, `pesticide`, `other` |
+| `input_product_category` | `AgriculturalInputCategory` | `feed`, `fertilising_product`, `pesticide`, `other` |
 
 A laboratory is an `AgriculturalLaboratory`, because it carries
 `laboratory_capability`. `fertilising_product` follows the umbrella category of
@@ -92,9 +92,9 @@ property.
 The shared `Certification` records a scoped conformity assertion by a
 certifying body; it is not a permission to operate. `WaterUseAuthorization`
 records allowed quantities, each stated as a rate such as cubic metres per
-day, not actual abstraction.
-Registrations and authorizations refer to facilities, products and operators
-as their subjects; product identity is not duplicated in them.
+day, not actual abstraction. Registrations and authorizations refer to
+facilities, products and operators as their subjects; product identity is not
+duplicated in them.
 
 ## Examples and counterexamples
 

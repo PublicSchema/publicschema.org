@@ -17,7 +17,7 @@ PS = Namespace('https://publicschema.org/')
 AGRI = Namespace('https://publicschema.org/agri/')
 ENVIRONMENT = Namespace('https://publicschema.org/environment/')
 TRANSPORT = Namespace('https://publicschema.org/transport/')
-UCUM = 'http://unitsofmeasure.org'
+UCUM = 'ucum'
 EXAMPLES = Path(__file__).resolve().parents[1] / 'examples/agriculture-operations'
 
 
@@ -204,7 +204,7 @@ def test_collapsed_subtypes_are_closed_codes(exports, filename, field, codes):
 
 
 @pytest.mark.parametrize('vocabulary', [
-    'agricultural-facility-function', 'agricultural-service-type', 'agricultural-input-product-category',
+    'agricultural-facility-function', 'agricultural-service-type', 'agricultural-input-category',
 ])
 def test_code_vocabularies_are_published_in_the_agri_domain(exports, vocabulary):
     result, _, _ = exports
@@ -241,7 +241,7 @@ def test_operation_is_a_dated_asset_party_role(role_file, subject_file):
     role = json.loads((EXAMPLES / role_file).read_text())
     subject = json.loads((EXAMPLES / subject_file).read_text())
     assert role['@type'] == 'AssetPartyRole'
-    assert role['asset_subject'] == subject['@id']
+    assert role['subject_uri'] == subject['@id']
     assert role['asset_role_type']['code_value'] == 'operator'
     assert role['start_date']
 
