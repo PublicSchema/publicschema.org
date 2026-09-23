@@ -41,7 +41,7 @@
   {
     "@id": "https://example.org/facility-roles/school-owner",
     "@type": "AssetPartyRole",
-    "asset_subject": "https://example.org/facility-roles/school",
+    "subject_uri": "https://example.org/facility-roles/school",
     "asset_actor": "https://example.org/facility-roles/council",
     "asset_role_type": {
       "@type": "CodedValue",
@@ -53,7 +53,7 @@
   {
     "@id": "https://example.org/facility-roles/school-operator-before",
     "@type": "AssetPartyRole",
-    "asset_subject": "https://example.org/facility-roles/school",
+    "subject_uri": "https://example.org/facility-roles/school",
     "asset_actor": "https://example.org/facility-roles/school-provider",
     "asset_role_type": {
       "@type": "CodedValue",
@@ -66,7 +66,7 @@
   {
     "@id": "https://example.org/facility-roles/school-operator-after",
     "@type": "AssetPartyRole",
-    "asset_subject": "https://example.org/facility-roles/school",
+    "subject_uri": "https://example.org/facility-roles/school",
     "asset_actor": "https://example.org/facility-roles/replacement-provider",
     "asset_role_type": {
       "@type": "CodedValue",
@@ -79,7 +79,7 @@
   {
     "@id": "https://example.org/facility-roles/school-upkeep",
     "@type": "AssetPartyRole",
-    "asset_subject": "https://example.org/facility-roles/school",
+    "subject_uri": "https://example.org/facility-roles/school",
     "asset_actor": "https://example.org/facility-roles/maintenance",
     "asset_role_type": {
       "@type": "CodedValue",
@@ -129,7 +129,7 @@
   {
     "@id": "https://example.org/facility-roles/warehouse-owner",
     "@type": "AssetPartyRole",
-    "asset_subject": "https://example.org/facility-roles/warehouse",
+    "subject_uri": "https://example.org/facility-roles/warehouse",
     "asset_actor": "https://example.org/facility-roles/growers",
     "asset_role_type": {
       "@type": "CodedValue",
@@ -141,7 +141,7 @@
   {
     "@id": "https://example.org/facility-roles/warehouse-operator-before",
     "@type": "AssetPartyRole",
-    "asset_subject": "https://example.org/facility-roles/warehouse",
+    "subject_uri": "https://example.org/facility-roles/warehouse",
     "asset_actor": "https://example.org/facility-roles/warehouse-operator-one",
     "asset_role_type": {
       "@type": "CodedValue",
@@ -154,7 +154,7 @@
   {
     "@id": "https://example.org/facility-roles/warehouse-operator-after",
     "@type": "AssetPartyRole",
-    "asset_subject": "https://example.org/facility-roles/warehouse",
+    "subject_uri": "https://example.org/facility-roles/warehouse",
     "asset_actor": "https://example.org/facility-roles/warehouse-operator-two",
     "asset_role_type": {
       "@type": "CodedValue",
@@ -167,7 +167,7 @@
   {
     "@id": "https://example.org/facility-roles/warehouse-upkeep",
     "@type": "AssetPartyRole",
-    "asset_subject": "https://example.org/facility-roles/warehouse",
+    "subject_uri": "https://example.org/facility-roles/warehouse",
     "asset_actor": "https://example.org/facility-roles/growers",
     "asset_role_type": {
       "@type": "CodedValue",
@@ -211,7 +211,7 @@
   {
     "@id": "https://example.org/facility-roles/hospital-owner",
     "@type": "AssetPartyRole",
-    "asset_subject": "https://example.org/facility-roles/hospital",
+    "subject_uri": "https://example.org/facility-roles/hospital",
     "asset_actor": "https://example.org/facility-roles/public-estates",
     "asset_role_type": {
       "@type": "CodedValue",
@@ -223,7 +223,7 @@
   {
     "@id": "https://example.org/facility-roles/hospital-operator",
     "@type": "AssetPartyRole",
-    "asset_subject": "https://example.org/facility-roles/hospital",
+    "subject_uri": "https://example.org/facility-roles/hospital",
     "asset_actor": "https://example.org/facility-roles/hospital-provider",
     "asset_role_type": {
       "@type": "CodedValue",
@@ -236,7 +236,7 @@
   {
     "@id": "https://example.org/facility-roles/hospital-upkeep-before",
     "@type": "AssetPartyRole",
-    "asset_subject": "https://example.org/facility-roles/hospital",
+    "subject_uri": "https://example.org/facility-roles/hospital",
     "asset_actor": "https://example.org/facility-roles/maintenance",
     "asset_role_type": {
       "@type": "CodedValue",
@@ -249,7 +249,7 @@
   {
     "@id": "https://example.org/facility-roles/hospital-upkeep-after",
     "@type": "AssetPartyRole",
-    "asset_subject": "https://example.org/facility-roles/hospital",
+    "subject_uri": "https://example.org/facility-roles/hospital",
     "asset_actor": "https://example.org/facility-roles/replacement-maintenance",
     "asset_role_type": {
       "@type": "CodedValue",
@@ -275,13 +275,6 @@
     "full_address": "PO Box 82, Synthetic District"
   },
   {
-    "@id": "https://example.org/facility-roles/school-position",
-    "@type": "SpatialGeometry",
-    "geometry_encoding": "application/geo+json",
-    "geometry_literal": "{\"type\":\"Point\",\"coordinates\":[100.5,13.7]}",
-    "coordinate_reference_system": "http://www.opengis.net/def/crs/OGC/1.3/CRS84"
-  },
-  {
     "@id": "https://example.org/facility-roles/warehouse-postal-address-before",
     "@type": "Address",
     "full_address": "PO Box 21, Synthetic Market"
@@ -294,20 +287,19 @@
   {
     "@id": "https://example.org/facility-roles/school-physical",
     "@type": "AssetAddressAssignment",
-    "asset_subject": "https://example.org/facility-roles/school",
+    "subject_uri": "https://example.org/facility-roles/school",
     "assigned_address": "https://example.org/facility-roles/school-physical-address",
     "address_purpose": {
       "@type": "CodedValue",
       "code_value": "physical",
       "code_scheme": "https://example.org/facility-roles/address-purposes"
     },
-    "start_date": "2020-01-01",
-    "address_geometry": "https://example.org/facility-roles/school-position"
+    "start_date": "2020-01-01"
   },
   {
     "@id": "https://example.org/facility-roles/school-postal-before",
     "@type": "AssetAddressAssignment",
-    "asset_subject": "https://example.org/facility-roles/school",
+    "subject_uri": "https://example.org/facility-roles/school",
     "assigned_address": "https://example.org/facility-roles/school-postal-address-before",
     "address_purpose": {
       "@type": "CodedValue",
@@ -320,7 +312,7 @@
   {
     "@id": "https://example.org/facility-roles/school-postal-after",
     "@type": "AssetAddressAssignment",
-    "asset_subject": "https://example.org/facility-roles/school",
+    "subject_uri": "https://example.org/facility-roles/school",
     "assigned_address": "https://example.org/facility-roles/school-postal-address-after",
     "address_purpose": {
       "@type": "CodedValue",
@@ -333,7 +325,7 @@
   {
     "@id": "https://example.org/facility-roles/warehouse-postal-before",
     "@type": "AssetAddressAssignment",
-    "asset_subject": "https://example.org/facility-roles/warehouse",
+    "subject_uri": "https://example.org/facility-roles/warehouse",
     "assigned_address": "https://example.org/facility-roles/warehouse-postal-address-before",
     "address_purpose": {
       "@type": "CodedValue",
@@ -346,7 +338,7 @@
   {
     "@id": "https://example.org/facility-roles/warehouse-postal-after",
     "@type": "AssetAddressAssignment",
-    "asset_subject": "https://example.org/facility-roles/warehouse",
+    "subject_uri": "https://example.org/facility-roles/warehouse",
     "assigned_address": "https://example.org/facility-roles/warehouse-postal-address-after",
     "address_purpose": {
       "@type": "CodedValue",
@@ -369,7 +361,7 @@
       "@type": "QuantityValue",
       "quantity_value": 160,
       "unit_code": "1",
-      "unit_scheme": "http://unitsofmeasure.org"
+      "unit_scheme": "ucum"
     },
     "capacity_observed_at": "2026-09-01T08:00:00Z"
   },
@@ -386,7 +378,7 @@
       "@type": "QuantityValue",
       "quantity_value": 42,
       "unit_code": "1",
-      "unit_scheme": "http://unitsofmeasure.org"
+      "unit_scheme": "ucum"
     },
     "capacity_observed_at": "2026-09-01T09:00:00Z"
   }

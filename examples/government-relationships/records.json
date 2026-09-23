@@ -106,12 +106,8 @@
         "@type": "EvidenceAssertion",
         "assertion_uri": "https://example.org/government-relationships/claimed-route",
         "evidence_source": "https://example.org/government-relationships/source/ownership-declaration",
-        "evidence_role": {
-          "@type": "CodedValue",
-          "code_value": "supporting",
-          "code_scheme": "https://example.org/government-relationships/codes/evidence-role"
-        },
-        "evidence_authority": "https://example.org/government-relationships/authority"
+        "evidence_role": "supports",
+        "assertion_authority": "https://example.org/government-relationships/authority"
       }
     ]
   },

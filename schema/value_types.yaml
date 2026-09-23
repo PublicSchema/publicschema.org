@@ -1,22 +1,27 @@
 id: https://publicschema.org/linkml/value_types
 name: publicschema-value-types
 title: Coded, quantity and spatial values
-description: Draft value structures for coded values, measured quantities and spatial geometry.
+description: Value structures for codes interpreted within a named scheme, measured quantities with
+  their unit, and spatial geometries with their encoding and coordinate reference system.
 license: CC-BY-4.0
 default_prefix: publicschema
 prefixes:
   publicschema: https://publicschema.org/
   linkml: https://w3id.org/linkml/
   bibo: http://purl.org/ontology/bibo/
+  skos: http://www.w3.org/2004/02/skos/core#
+  geo: http://www.opengis.net/ont/geosparql#
+  locn: http://www.w3.org/ns/locn#
 imports:
 - linkml:types
+- vocabularies
 classes:
   CodedValue:
     class_uri: publicschema:CodedValue
     title: Coded Value
-    description: A code interpreted within an identified scheme, optionally retaining
-      its source label and a known meaning URI. Unknown, retired and local codes remain
-      representable; a label alone does not establish equivalence.
+    description: A code together with the code scheme that gives it meaning, optionally with the display
+      label supplied by the source and the URI of the concept it denotes. Unknown, retired and local
+      codes remain representable; a label alone does not establish equivalence.
     slots:
     - code_value
     - code_scheme
@@ -24,26 +29,25 @@ classes:
     - code_meaning
     status: bibo:draft
     annotations:
-      bibliography_refs: '["w3c-dcat-3-2024"]'
+      bibliography_refs: '["w3c-dcat-3-2024", "skos", "fhir-r4"]'
   QuantityValue:
     class_uri: publicschema:QuantityValue
     title: Quantity Value
-    description: A numerical magnitude together with a unit identified within a scheme.
-      The surrounding property establishes the measured kind; conversion and dimension
-      checks belong to the consuming profile.
+    description: A numeric amount with its unit of measure, where the unit is a code from a named unit
+      system. The property holding the value says what is measured.
     slots:
     - quantity_value
     - unit_code
     - unit_scheme
     status: bibo:draft
     annotations:
-      bibliography_refs: '["ucum-specification"]'
+      bibliography_refs: '["ucum-specification", "un-cefact-rec20"]'
   SpatialGeometry:
     class_uri: publicschema:SpatialGeometry
     title: Spatial Geometry
-    description: A geometric representation of a feature, with explicit serialization
-      and coordinate reference system. This value is distinct from a named area, postal
-      address, land title or physical facility.
+    description: A shape or position written in a named geometry encoding and coordinate reference
+      system. It says where something is, not what it is; addresses, named areas and land parcels are
+      described separately.
     slots:
     - geometry_encoding
     - geometry_literal
@@ -55,107 +59,133 @@ slots:
   code_value:
     slot_uri: publicschema:code_value
     title: Code value
-    description: The original code as issued by its scheme, including an unknown or
-      retired code.
+    description: The code exactly as issued by its scheme, including codes that are unknown or retired.
     range: string
     multivalued: false
+    close_mappings:
+    - skos:notation
     status: bibo:draft
     annotations:
-      category: administrative
+      category: classification
+      external_alignments_json: '[{"label": "notation", "match": "close", "note": "A string that identifies
+        a concept within the scope of its concept scheme.", "uri": "http://www.w3.org/2004/02/skos/core#notation",
+        "vocabulary": "SKOS", "vocabulary_id": "skos"}]'
   code_scheme:
     slot_uri: publicschema:code_scheme
     title: Code scheme
-    description: The URI identifying the scheme and, where relevant, the edition that
-      gives a code meaning.
+    description: The URI of the code scheme, including its edition when the edition changes what codes
+      mean.
     range: uri
     multivalued: false
+    close_mappings:
+    - skos:inScheme
     status: bibo:draft
     annotations:
-      category: administrative
+      category: classification
+      external_alignments_json: '[{"label": "inScheme", "match": "close", "note": "Relates a concept to
+        the concept scheme it belongs to. Here the scheme is named by URI on the coded value rather than
+        on a concept resource.", "uri": "http://www.w3.org/2004/02/skos/core#inScheme", "vocabulary":
+        "SKOS", "vocabulary_id": "skos"}]'
   code_label:
     slot_uri: publicschema:code_label
     title: Code label
-    description: The original or supplied display label; it is not a replacement for
-      scheme and code.
+    description: The display text supplied with the code by its source. It does not replace the scheme
+      and code.
     range: string
     multivalued: false
     status: bibo:draft
     annotations:
-      category: administrative
+      category: classification
   code_meaning:
     slot_uri: publicschema:code_meaning
     title: Code meaning
-    description: A known semantic meaning URI; leave absent when no verified interpretation
-      exists.
+    description: The URI of the concept the code denotes, when that concept has been confirmed. Leave
+      it absent when no verified interpretation exists.
     range: uri
     multivalued: false
     status: bibo:draft
     annotations:
-      category: administrative
+      category: classification
   quantity_value:
     slot_uri: publicschema:quantity_value
     title: Quantity value
-    description: The numerical magnitude expressed in the accompanying unit; no implicit
-      conversion or rounding is applied.
+    description: The numeric amount, expressed in the stated unit without implicit conversion or rounding.
     range: decimal
     multivalued: false
     status: bibo:draft
     annotations:
-      category: administrative
+      category: other
   unit_code:
     slot_uri: publicschema:unit_code
     title: Unit code
-    description: The unit symbol or code interpreted within unit_scheme.
+    description: The code of the unit of measure within the unit system named by unit_scheme.
     range: string
     multivalued: false
     status: bibo:draft
     annotations:
-      category: administrative
+      category: other
   unit_scheme:
     slot_uri: publicschema:unit_scheme
     title: Unit scheme
-    description: The URI of the unit system used to interpret unit_code, such as UCUM.
-    range: uri
+    description: The unit system that defines unit_code, such as the Unified Code for Units of Measure.
+    range: UnitSystem
     multivalued: false
     status: bibo:draft
     annotations:
-      category: administrative
+      category: other
   geometry_encoding:
     slot_uri: publicschema:geometry_encoding
     title: Geometry encoding
-    description: The explicitly named geometry serialization, such as application/geo+json.
-    range: string
+    description: The format in which the geometry is written, such as GeoJSON or Well-Known Text.
+    range: GeometryEncoding
     multivalued: false
     status: bibo:draft
     annotations:
-      category: administrative
+      category: location
   geometry_literal:
     slot_uri: publicschema:geometry_literal
     title: Geometry literal
-    description: The geometry serialized in the declared encoding. Coordinate order
-      is determined by that encoding and reference system.
+    description: The geometry written in the stated encoding. Coordinate order is determined by that
+      encoding and the coordinate reference system.
     range: string
     multivalued: false
+    close_mappings:
+    - geo:hasSerialization
     status: bibo:draft
     annotations:
-      category: administrative
+      category: location
+      external_alignments_json: '[{"label": "hasSerialization", "match": "close", "note": "Connects a
+        geometry with its text serialization. GeoSPARQL carries the encoding in the literal datatype;
+        here it is stated in geometry_encoding.", "uri": "http://www.opengis.net/ont/geosparql#hasSerialization",
+        "vocabulary": "GeoSPARQL 1.1", "vocabulary_id": "geosparql"}]'
   coordinate_reference_system:
     slot_uri: publicschema:coordinate_reference_system
     title: Coordinate reference system
-    description: The URI identifying the coordinate reference system used by the geometry.
+    description: The URI of the coordinate reference system for the coordinates. When it is absent,
+      the longitude-then-latitude system named CRS84 applies, which GeoJSON always uses.
     range: uri
     multivalued: false
     status: bibo:draft
     annotations:
-      category: administrative
+      category: location
   spatial_geometry:
     slot_uri: publicschema:spatial_geometry
     title: Spatial geometry
-    description: A geometric representation of the described resource. The type of that resource, not this
-      property, says what the shape belongs to. It is separate from an address or a named administrative
+    description: A geometric representation of the described resource. The type of that resource, not
+      this property, says what the shape belongs to. It is separate from an address or a named administrative
       area.
     range: SpatialGeometry
     multivalued: true
+    close_mappings:
+    - geo:hasGeometry
+    - locn:geometry
     status: bibo:draft
     annotations:
       category: location
+      external_alignments_json: '[{"label": "hasGeometry", "match": "close", "note": "A spatial representation
+        for a given feature. The value here is a structured geometry with an explicit encoding and coordinate
+        reference system.", "uri": "http://www.opengis.net/ont/geosparql#hasGeometry", "vocabulary": "GeoSPARQL
+        1.1", "vocabulary_id": "geosparql"}, {"label": "geometry", "match": "close", "note": "Associates
+        any resource with its geometry.", "uri": "http://www.w3.org/ns/locn#geometry", "vocabulary": "Core
+        Location", "vocabulary_id": "semic"}]'
+      bibliography_refs: '["ogc-geosparql-11", "semic-core-location"]'

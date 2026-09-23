@@ -99,7 +99,7 @@
   {
     "@id": "https://example.org/date-migration/identifier-assignment",
     "@type": "IdentifierAssignment",
-    "identifier_subject": "https://example.org/date-migration/person",
+    "subject_uri": "https://example.org/date-migration/person",
     "assigned_identifier": {
       "@type": "Identifier",
       "identifier_value": "P-001"
@@ -110,7 +110,7 @@
   {
     "@id": "https://example.org/date-migration/name-usage",
     "@type": "NameUsage",
-    "named_subject": "https://example.org/date-migration/producer",
+    "subject_uri": "https://example.org/date-migration/producer",
     "name": "Synthetic former cooperative trading name",
     "name_language": "en",
     "start_date": "2020-01-01",
@@ -119,12 +119,8 @@
   {
     "@id": "https://example.org/date-migration/contact",
     "@type": "ContactPoint",
-    "contact_subject": "https://example.org/date-migration/producer",
-    "contact_channel": {
-      "@type": "CodedValue",
-      "code_value": "email",
-      "code_scheme": "https://example.org/date-migration/contact-channels"
-    },
+    "subject_uri": "https://example.org/date-migration/producer",
+    "contact_channel": "email",
     "contact_value": "registry@example.org",
     "end_date": "2026-09-01"
   },

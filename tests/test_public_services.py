@@ -333,7 +333,7 @@ def test_successor_does_not_rewrite_historical_authorities_or_permission():
     service = record(RECORDS, "permit-service")
     assert grant["decision_authority"]["@id"] == permit["registration_authority"]["@id"]
     assert grant["decision_authority"] not in service["service_competent_authorities"]
-    assert record(RECORDS, "office-name-correction")["subject_uri"] == BASE + "former-office"
+    assert record(RECORDS, "office-name-correction")["affected_record"]["subject_uri"] == BASE + "former-office"
     changed = copy.deepcopy(RECORDS)
     record(changed, "grant-decision")["decision_authority"] = ref("successor-agency", "PublicOrganization")
     record(changed, "business-permit")["registration_authority"] = ref("successor-agency", "PublicOrganization")
@@ -343,6 +343,17 @@ def test_successor_does_not_rewrite_historical_authorities_or_permission():
     assert permit["valid_to"] == "2026-12-31"
     assert "decision_authorizations" not in record(RECORDS, "review-decision")
     assert record(RECORDS, "authority-succession")["effective_at"] < record(RECORDS, "authority-succession")["recorded_at"]
+
+
+def test_record_lifecycle_event_must_name_a_resolvable_record_subject():
+    changed = copy.deepcopy(RECORDS)
+    del record(changed, "office-name-correction")["affected_record"]
+    with pytest.raises(profile.ProfileError, match="affected_record: required"):
+        profile.validate_journey(changed, CONFIG)
+    changed = copy.deepcopy(RECORDS)
+    record(changed, "office-name-correction")["affected_record"]["subject_uri"] = BASE + "unknown-office"
+    with pytest.raises(profile.ProfileError, match="affected_record.subject_uri: missing referenced record"):
+        profile.validate_journey(changed, CONFIG)
 
 
 def test_partial_reference_description_is_not_a_complete_local_submission(exports):

@@ -4557,6 +4557,151 @@ enums:
         "OpenCRVS eventLocation is typed as a Location entity rather than a coded place-type; Location.type
         is an untyped String defined at country-deployment time, not a core enum.", "vocabulary": "OpenCRVS
         v2 event service", "vocabulary_id": "opencrvs"}]'
+  EvidenceRole:
+    enum_uri: publicschema:EvidenceRole
+    title: Evidence Role
+    description: Whether a cited source supports or contradicts the claim it is offered for. Citing
+      a source does not verify the claim.
+    status: bibo:draft
+    permissible_values:
+      supports:
+        meaning: publicschema:EvidenceRole/supports
+        title: Supports
+        description: The source provides factual support for the claim.
+      contradicts:
+        meaning: publicschema:EvidenceRole/contradicts
+        title: Contradicts
+        description: The source refutes or disputes the claim.
+    annotations:
+      bibliography_refs: '["w3c-prov-o"]'
+  ContactChannel:
+    enum_uri: publicschema:ContactChannel
+    title: Contact Channel
+    description: The kind of communication channel through which a subject can be reached, following
+      the FHIR contact point system codes.
+    status: bibo:draft
+    permissible_values:
+      phone:
+        meaning: publicschema:ContactChannel/phone
+        title: Phone
+        description: A telephone number used for voice calls.
+      fax:
+        meaning: publicschema:ContactChannel/fax
+        title: Fax
+        description: A number for a fax machine.
+      email:
+        meaning: publicschema:ContactChannel/email
+        title: Email
+        description: An email address.
+      pager:
+        meaning: publicschema:ContactChannel/pager
+        title: Pager
+        description: A pager number, which may be usable only on a particular pager system.
+      url:
+        meaning: publicschema:ContactChannel/url
+        title: Web address
+        description: A web address, such as a web page or chat link, that is not one of the other channels.
+      sms:
+        meaning: publicschema:ContactChannel/sms
+        title: SMS
+        description: A number that can receive text messages.
+      other:
+        meaning: publicschema:ContactChannel/other
+        title: Other
+        description: A channel that is none of the listed kinds, such as an internal mail address.
+    exact_mappings:
+    - http://hl7.org/fhir/contact-point-system
+    annotations:
+      external_alignments_json: '[{"label": "ContactPointSystem", "match": "exact", "note": "The same
+        seven codes with the same meanings.", "uri": "http://hl7.org/fhir/contact-point-system", "vocabulary":
+        "FHIR R4", "vocabulary_id": "fhir"}]'
+      bibliography_refs: '["fhir-r4"]'
+  GeometryEncoding:
+    enum_uri: publicschema:GeometryEncoding
+    title: Geometry Encoding
+    description: The text format in which a geometry is written, following the geometry literal types
+      that GeoSPARQL defines.
+    status: bibo:draft
+    permissible_values:
+      geojson:
+        meaning: publicschema:GeometryEncoding/geojson
+        title: GeoJSON
+        description: GeoJSON as defined by RFC 7946, with coordinates in longitude then latitude order.
+      wkt:
+        meaning: publicschema:GeometryEncoding/wkt
+        title: Well-Known Text
+        description: Well-Known Text as profiled by GeoSPARQL, optionally preceded by the URI of its
+          coordinate reference system.
+      gml:
+        meaning: publicschema:GeometryEncoding/gml
+        title: Geography Markup Language
+        description: Geography Markup Language as profiled by GeoSPARQL.
+      kml:
+        meaning: publicschema:GeometryEncoding/kml
+        title: Keyhole Markup Language
+        description: Keyhole Markup Language as profiled by GeoSPARQL.
+    annotations:
+      bibliography_refs: '["ogc-geosparql-11", "ietf-geojson-7946"]'
+  UnitSystem:
+    enum_uri: publicschema:UnitSystem
+    title: Unit System
+    description: The system of codes that defines a unit of measure used in a quantity value.
+    status: bibo:draft
+    permissible_values:
+      ucum:
+        meaning: publicschema:UnitSystem/ucum
+        title: Unified Code for Units of Measure
+        description: Case-sensitive codes formed by the Unified Code for Units of Measure grammar, such
+          as m2 for square metre and har for hectare.
+      unece_rec20:
+        meaning: publicschema:UnitSystem/unece_rec20
+        title: UN/CEFACT Recommendation 20
+        description: Common codes from UN/CEFACT Recommendation 20, such as MTK for square metre and
+          HAR for hectare.
+    annotations:
+      bibliography_refs: '["ucum-specification", "un-cefact-rec20"]'
+  MatchOutcome:
+    enum_uri: publicschema:MatchOutcome
+    title: Match Outcome
+    description: The judgement reached about whether a source record describes a given subject.
+    status: bibo:draft
+    permissible_values:
+      match:
+        meaning: publicschema:MatchOutcome/match
+        title: Match
+        description: The record was judged to describe the subject.
+      possible_match:
+        meaning: publicschema:MatchOutcome/possible_match
+        title: Possible match
+        description: The record may describe the subject and needs further review before it is treated
+          as a match.
+      non_match:
+        meaning: publicschema:MatchOutcome/non_match
+        title: Non-match
+        description: The record was judged not to describe the subject.
+    annotations:
+      bibliography_refs: '["sssom"]'
+  RecordChangeKind:
+    enum_uri: publicschema:RecordChangeKind
+    title: Record Change Kind
+    description: The kind of change to the standing of a register record, following the register item
+      actions of ISO 19135. Records are marked rather than deleted.
+    status: bibo:draft
+    permissible_values:
+      invalidation:
+        meaning: publicschema:RecordChangeKind/invalidation
+        title: Invalidation
+        description: The record was found to contain a substantive error and is marked invalid.
+      retirement:
+        meaning: publicschema:RecordChangeKind/retirement
+        title: Retirement
+        description: The record is no longer suitable for use in new data but remains in the register.
+      supersession:
+        meaning: publicschema:RecordChangeKind/supersession
+        title: Supersession
+        description: The record was retired and replaced by one or more new records.
+    annotations:
+      bibliography_refs: '["ec-inspire-registers-2017"]'
   RegistrationStatus:
     enum_uri: publicschema:RegistrationStatus
     title: Registration Status

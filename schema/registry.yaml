@@ -7,6 +7,9 @@ prefixes:
   publicschema: https://publicschema.org/
   linkml: https://w3id.org/linkml/
   bibo: http://purl.org/ontology/bibo/
+  foaf: http://xmlns.com/foaf/0.1/
+  prov: http://www.w3.org/ns/prov#
+  dct: http://purl.org/dc/terms/
 imports:
 - linkml:types
 - common
@@ -19,12 +22,12 @@ classes:
   Register:
     class_uri: publicschema:Register
     title: Register
-    description: An organized collection of records maintained by an identified authority
-      for a stated administrative purpose. Its identity is separate from the identities
-      of its records and their subjects.
+    description: An authoritative collection of records about subjects of stated types, kept by an accountable
+      organization for a stated administrative purpose. A register is distinct from the records it holds,
+      from the subjects they describe and from the information system that stores it.
     slots:
     - name
-    - maintaining_authority
+    - register_owner
     - register_jurisdiction
     - register_subject_types
     - description
@@ -34,9 +37,9 @@ classes:
   RegistryEntry:
     class_uri: publicschema:RegistryEntry
     title: Registry Entry
-    description: A record about a subject in a register. The register and local record
-      identifier identify the record; subject_uri identifies the thing described.
-      Recording does not itself grant legal recognition or prove the assertion.
+    description: A record in a register that describes one subject. The register and the record's local
+      identifier together identify the record; the subject has its own separate identity. Entering a record
+      does not in itself grant recognition or prove what the record states.
     slots:
     - register_uri
     - record_id
@@ -54,10 +57,9 @@ classes:
   RecordReference:
     class_uri: publicschema:RecordReference
     title: Record Reference
-    description: A reference to a record qualified by its register. An optional subject
-      URI is an explicit assertion about that record, not a replacement for its qualified
-      key. Resolving a record to a subject requires a checked local record or an explicit
-      unresolved result.
+    description: A reference to a record, given by the register that holds it and the record's identifier
+      within that register. It may also state which subject the record describes. It identifies a record
+      in the way an Identifier identifies a subject, and a record identifier is not a subject identifier.
     slots:
     - register_uri
     - record_id
@@ -65,14 +67,13 @@ classes:
     - subject_type
     status: bibo:draft
     annotations:
-      bibliography_refs: '["w3c-dcat-3-2024"]'
+      bibliography_refs: '["w3c-dcat-3-2024", "ec-inspire-registers-2017"]'
   Registration:
     class_uri: publicschema:Registration
     title: Registration
-    description: An authority's recognition of a subject for a stated administrative
-      purpose and jurisdiction. Recognition is separate from subject identity and
-      from the record that describes it; it does not inherently authorize an activity
-      or confer benefits.
+    description: An authority's formal recognition of a subject for a stated administrative purpose within
+      a jurisdiction. Recognition is distinct from the subject, from the record that documents it and
+      from any permission or benefit.
     slots:
     - registered_subject
     - registration_authority
@@ -87,9 +88,8 @@ classes:
   Authorization:
     class_uri: publicschema:Authorization
     title: Authorization
-    description: An authority's grant of permission to a subject to carry out a specified
-      activity within stated conditions. A record of permission does not establish
-      that the activity occurred.
+    description: An authority's grant of permission to a subject to carry out a stated activity, subject
+      to stated conditions. A permission does not show that the activity took place.
     slots:
     - authorized_activity
     - authorization_conditions
@@ -100,12 +100,11 @@ classes:
   IdentifierAssignment:
     class_uri: publicschema:IdentifierAssignment
     title: Identifier Assignment
-    description: An assertion that an issuer assigned an Identifier to a subject for
-      a period. It preserves the distinction between the identifier value and the
-      act of assignment.
+    description: The assignment of an identifier to a subject by an issuing organization, valid over a
+      stated period. The identifier is distinct from the act of assigning it.
     slots:
     - assigned_identifier
-    - identifier_subject
+    - subject_uri
     - identifier_issuer
     - start_date
     - end_date
@@ -115,14 +114,13 @@ classes:
   EvidenceAssertion:
     class_uri: publicschema:EvidenceAssertion
     title: Evidence Assertion
-    description: A statement linking an assertion to supporting or contradicting source
-      material, with its evidential role and responsible organization. Merely attaching
-      a source is not verification of its truth.
+    description: A statement that a source supports or contradicts a claim, made by an accountable organization.
+      Citing a source does not verify the claim.
     slots:
     - assertion_uri
     - evidence_source
     - evidence_role
-    - evidence_authority
+    - assertion_authority
     - recorded_at
     status: bibo:draft
     annotations:
@@ -130,15 +128,16 @@ classes:
   RecordLifecycleEvent:
     class_uri: publicschema:RecordLifecycleEvent
     title: Record Lifecycle Event
-    description: A reported change affecting a registry subject, with the effective
-      time distinguished from when the change was recorded. Correction and supersession
-      describe records and need not change the subject's identity.
+    description: A change in the standing of a register record, such as invalidation, retirement or supersession,
+      with the time the change takes effect and the time it was recorded. Changes to the subject itself,
+      such as a death or a dissolution, are recorded as domain events.
+    is_a: Event
     slots:
-    - subject_uri
-    - lifecycle_kind
+    - affected_record
+    - record_change_kind
     - effective_at
     - recorded_at
-    - event_authority
+    - assertion_authority
     - evidence_assertions
     - supersedes_record
     status: bibo:draft
@@ -147,26 +146,27 @@ classes:
   SubjectMatchAssertion:
     class_uri: publicschema:SubjectMatchAssertion
     title: Subject Match Assertion
-    description: A reviewed or automated assertion that a source record describes
-      a subject. It records the method and responsible authority without asserting
-      universal identity or instructing automatic record merging.
+    description: A reviewed or automated judgement about whether a source record describes a given subject,
+      with the method used and the accountable organization. It does not merge records or declare two
+      identities interchangeable everywhere.
     slots:
     - matched_source
     - matched_subject
+    - match_outcome
     - match_method
-    - match_authority
+    - assertion_authority
     - recorded_at
     - evidence_assertions
     status: bibo:draft
     annotations:
-      bibliography_refs: '["w3c-prov-o-2013"]'
+      bibliography_refs: '["w3c-prov-o-2013", "sssom"]'
   NameUsage:
     class_uri: publicschema:NameUsage
     title: Name Usage
-    description: A name used for a subject in a stated language and context over a
-      period. Multiple usages can coexist without changing the subject identity.
+    description: A name by which a subject is known, with its language, the context of use and the period
+      of use. A subject can have several names at once.
     slots:
-    - named_subject
+    - subject_uri
     - name
     - name_language
     - name_use
@@ -178,11 +178,11 @@ classes:
   ContactPoint:
     class_uri: publicschema:ContactPoint
     title: Contact Point
-    description: A communication channel for reaching a subject for a stated purpose
-      during a period. Possession of the channel does not prove subject identity or
-      consent to contact.
+    description: A single means of reaching a subject, such as a telephone number or email address, offered
+      for a stated purpose over a period. Holding a contact detail does not prove identity or consent to
+      be contacted.
     slots:
-    - contact_subject
+    - subject_uri
     - contact_channel
     - contact_value
     - contact_purpose
@@ -190,31 +190,37 @@ classes:
     - end_date
     status: bibo:draft
     annotations:
-      bibliography_refs: '["w3c-vcard-2014"]'
+      bibliography_refs: '["w3c-vcard-2014", "fhir-r4"]'
 slots:
-  maintaining_authority:
-    slot_uri: publicschema:maintaining_authority
-    title: Register authority
-    description: The organization responsible for maintaining this register.
+  register_owner:
+    slot_uri: publicschema:register_owner
+    title: Register owner
+    description: The organization accountable for the register and its content.
     range: Organization
     multivalued: false
     status: bibo:draft
     annotations:
       category: administrative
+      bibliography_refs: '["ec-inspire-registers-2017"]'
   register_jurisdiction:
     slot_uri: publicschema:register_jurisdiction
     title: Register jurisdiction
-    description: The named geographic or administrative area in which this register
-      operates.
+    description: The geographic or administrative area that the register covers.
     range: Location
     multivalued: false
+    close_mappings:
+    - dct:spatial
     status: bibo:draft
     annotations:
       category: administrative
+      external_alignments_json: '[{"label": "spatial", "match": "close", "note": "Links a resource to
+        the area it covers, as the Core Public Organisation Vocabulary uses it for the administrative
+        regions an organization covers.", "uri": "http://purl.org/dc/terms/spatial", "vocabulary": "DCMI
+        Metadata Terms", "vocabulary_id": "dcterms"}]'
   register_subject_types:
     slot_uri: publicschema:register_subject_types
     title: Register subject types
-    description: Semantic type URIs of the subjects described by the register.
+    description: The classes of subject that records in this register describe, identified by URI.
     range: uri
     multivalued: true
     status: bibo:draft
@@ -222,19 +228,20 @@ slots:
       category: administrative
   register_uri:
     slot_uri: publicschema:register_uri
-    title: Register uri
-    description: The stable URI of the register that scopes record_id; it is not a
-      fetch instruction.
+    title: Register URI
+    description: The persistent URI of the register that holds the record and gives meaning to its local
+      identifier. It reveals which register a subject appears in.
     range: uri
     multivalued: false
     status: bibo:draft
     annotations:
       category: administrative
+      sensitivity: sensitive
   record_id:
     slot_uri: publicschema:record_id
     title: Record id
-    description: The local identifier of a record within register_uri. Preserve the
-      original string, including leading zeros.
+    description: The identifier of the record within its register, exactly as the register issues it,
+      including any leading zeros.
     range: string
     multivalued: false
     status: bibo:draft
@@ -242,19 +249,23 @@ slots:
       category: administrative
   subject_uri:
     slot_uri: publicschema:subject_uri
-    title: Subject uri
-    description: The explicit identity of the subject described by a record, distinct
-      from record identity.
+    title: Subject URI
+    description: The URI of the thing this record or statement is about.
     range: uri
     multivalued: false
+    close_mappings:
+    - foaf:primaryTopic
     status: bibo:draft
     annotations:
       category: administrative
+      external_alignments_json: '[{"label": "primaryTopic", "match": "close", "note": "DCAT uses it to
+        link a catalog record to the one resource it describes. Here it links any record or dated statement
+        to its subject.", "uri": "http://xmlns.com/foaf/0.1/primaryTopic", "vocabulary": "FOAF", "vocabulary_id":
+        "foaf"}]'
   subject_type:
     slot_uri: publicschema:subject_type
     title: Subject type
-    description: The semantic class URI expected for the described subject, not a
-      source library class name.
+    description: The URI of the class that the subject is expected to belong to.
     range: uri
     multivalued: false
     status: bibo:draft
@@ -263,18 +274,23 @@ slots:
   recorded_at:
     slot_uri: publicschema:recorded_at
     title: Recorded at
-    description: The timestamp when an assertion or event was entered into its source
-      record, distinct from its effective time.
+    description: The date and time the statement or event was entered into its source record. It can differ
+      from when the fact took effect.
     range: datetime
     multivalued: false
+    close_mappings:
+    - dct:issued
     status: bibo:draft
     annotations:
       category: administrative
+      external_alignments_json: '[{"label": "issued", "match": "close", "note": "DCAT uses it on a catalog
+        record for the date of formal recording. It is usually given as a date, while this value carries
+        a time.", "uri": "http://purl.org/dc/terms/issued", "vocabulary": "DCMI Metadata Terms", "vocabulary_id":
+        "dcterms"}]'
   valid_from:
     slot_uri: publicschema:valid_from
     title: Valid from
-    description: The first calendar date on which the relationship or assertion applies,
-      when known.
+    description: The first calendar day on which the statement applies, when known.
     range: date
     multivalued: false
     status: bibo:draft
@@ -283,8 +299,8 @@ slots:
   valid_to:
     slot_uri: publicschema:valid_to
     title: Valid to
-    description: The last calendar date on which the relationship or assertion applies,
-      when known. Omission does not assert perpetual validity.
+    description: The last calendar day on which the statement applies. If absent, the end is unknown,
+      not unlimited.
     range: date
     multivalued: false
     status: bibo:draft
@@ -293,27 +309,38 @@ slots:
   supersedes_record:
     slot_uri: publicschema:supersedes_record
     title: Supersedes record
-    description: Earlier records replaced by this assertion or event without implying
-      that their subjects were replaced.
+    description: Earlier records that this record or event replaces. Replacing a record does not replace
+      its subject.
     range: RecordReference
     multivalued: true
+    close_mappings:
+    - dct:replaces
     status: bibo:draft
     annotations:
       category: administrative
+      external_alignments_json: '[{"label": "replaces", "match": "close", "note": "A related resource that
+        is supplanted, displaced or superseded by the described resource. Here the replaced resource is
+        always a register record.", "uri": "http://purl.org/dc/terms/replaces", "vocabulary": "DCMI Metadata
+        Terms", "vocabulary_id": "dcterms"}]'
   source_records:
     slot_uri: publicschema:source_records
     title: Source records
-    description: Qualified upstream records retained as provenance for this assertion.
+    description: Upstream records from which this statement was taken or derived.
     range: RecordReference
     multivalued: true
+    close_mappings:
+    - prov:wasDerivedFrom
     status: bibo:draft
     annotations:
       category: administrative
+      external_alignments_json: '[{"label": "wasDerivedFrom", "match": "close", "note": "The construction
+        of a new entity based on a pre-existing entity. Here the pre-existing entity is always a register
+        record.", "uri": "http://www.w3.org/ns/prov#wasDerivedFrom", "vocabulary": "PROV-O", "vocabulary_id":
+        "prov"}]'
   evidence_assertions:
     slot_uri: publicschema:evidence_assertions
     title: Evidence assertions
-    description: Statements identifying the role of source material in supporting
-      or contradicting this assertion.
+    description: Statements identifying sources that support or contradict this statement.
     range: EvidenceAssertion
     multivalued: true
     status: bibo:draft
@@ -322,17 +349,17 @@ slots:
   registered_subject:
     slot_uri: publicschema:registered_subject
     title: Registered subject
-    description: The URI of the person, organization, asset or other subject receiving
-      administrative recognition.
+    description: The URI of the person, organization, asset or other thing that the registration recognizes.
     range: uri
     multivalued: false
     status: bibo:draft
     annotations:
       category: administrative
+      sensitivity: sensitive
   registration_authority:
     slot_uri: publicschema:registration_authority
     title: Registration authority
-    description: The organization granting or recording administrative recognition.
+    description: The organization that confers the recognition.
     range: Organization
     multivalued: false
     status: bibo:draft
@@ -341,7 +368,7 @@ slots:
   registration_jurisdiction:
     slot_uri: publicschema:registration_jurisdiction
     title: Registration jurisdiction
-    description: The named geographic or administrative area of the recognition.
+    description: The area within which the recognition applies.
     range: Location
     multivalued: false
     status: bibo:draft
@@ -350,8 +377,8 @@ slots:
   registration_purpose:
     slot_uri: publicschema:registration_purpose
     title: Registration purpose
-    description: The explicitly stated purpose or category of administrative recognition;
-      it does not imply eligibility for a benefit.
+    description: The administrative purpose or category of the recognition. It does not imply eligibility
+      for a benefit.
     range: string
     multivalued: false
     status: bibo:draft
@@ -360,7 +387,7 @@ slots:
   authorized_activity:
     slot_uri: publicschema:authorized_activity
     title: Authorized activity
-    description: The activity that permission explicitly covers.
+    description: The activity that the permission covers.
     range: string
     multivalued: false
     status: bibo:draft
@@ -369,8 +396,7 @@ slots:
   authorization_conditions:
     slot_uri: publicschema:authorization_conditions
     title: Authorization conditions
-    description: Conditions limiting the grant, expressed as human-readable text rather
-      than executable policy.
+    description: Conditions that limit the permission, stated as text.
     range: string
     multivalued: false
     status: bibo:draft
@@ -379,35 +405,31 @@ slots:
   assigned_identifier:
     slot_uri: publicschema:assigned_identifier
     title: Assigned identifier
-    description: The identifier value and scheme assigned in this assertion.
+    description: The identifier value and scheme that the assignment gives the subject.
     range: Identifier
     multivalued: false
     status: bibo:draft
     annotations:
-      category: administrative
-  identifier_subject:
-    slot_uri: publicschema:identifier_subject
-    title: Identifier subject
-    description: The identity of the subject to which the identifier was assigned.
-    range: uri
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      category: administrative
+      category: identity
   identifier_issuer:
     slot_uri: publicschema:identifier_issuer
     title: Identifier issuer
-    description: The organization assigning the identifier, distinct from an organization
-      merely recording it.
+    description: The organization that assigned the identifier, as distinct from an organization that
+      only records it.
     range: Organization
     multivalued: false
+    close_mappings:
+    - dct:creator
     status: bibo:draft
     annotations:
-      category: administrative
+      category: identity
+      external_alignments_json: '[{"label": "creator", "match": "close", "note": "The asset description
+        metadata schema recommends this term to link an identifier to the agency that issued it.", "uri":
+        "http://purl.org/dc/terms/creator", "vocabulary": "DCMI Metadata Terms", "vocabulary_id": "dcterms"}]'
   assertion_uri:
     slot_uri: publicschema:assertion_uri
-    title: Assertion uri
-    description: The URI of the claim or record for which material is offered as evidence.
+    title: Assertion URI
+    description: The URI of the claim or record that the evidence relates to.
     range: uri
     multivalued: false
     status: bibo:draft
@@ -416,8 +438,7 @@ slots:
   evidence_source:
     slot_uri: publicschema:evidence_source
     title: Evidence source
-    description: The URI of source material, including a document or data record;
-      it is not fetched by vocabulary expansion.
+    description: The URI of the document, record or other material offered as evidence.
     range: uri
     multivalued: false
     status: bibo:draft
@@ -426,28 +447,51 @@ slots:
   evidence_role:
     slot_uri: publicschema:evidence_role
     title: Evidence role
-    description: The scheme-qualified role of material, such as supporting or contradicting
-      a claim.
-    range: CodedValue
+    description: Whether the source supports or contradicts the claim.
+    range: EvidenceRole
     multivalued: false
     status: bibo:draft
     annotations:
       category: administrative
-  evidence_authority:
-    slot_uri: publicschema:evidence_authority
-    title: Evidence authority
-    description: The organization responsible for this evidential assertion.
+  assertion_authority:
+    slot_uri: publicschema:assertion_authority
+    title: Assertion authority
+    description: The organization accountable for this statement, which can differ from the person or
+      software that entered it.
     range: Organization
     multivalued: false
+    close_mappings:
+    - prov:wasAttributedTo
     status: bibo:draft
     annotations:
       category: administrative
+      external_alignments_json: '[{"label": "wasAttributedTo", "match": "close", "note": "Attribution is
+        the ascribing of an entity to an agent. Here the agent is always an organization.", "uri": "http://www.w3.org/ns/prov#wasAttributedTo",
+        "vocabulary": "PROV-O", "vocabulary_id": "prov"}]'
+      bibliography_refs: '["w3c-prov-o"]'
   lifecycle_kind:
     slot_uri: publicschema:lifecycle_kind
     title: Lifecycle kind
-    description: The scheme-qualified kind of change reported; no universal registration-status
-      transition is implied.
+    description: The kind of change that the event reports.
     range: CodedValue
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: administrative
+  record_change_kind:
+    slot_uri: publicschema:record_change_kind
+    title: Record change kind
+    description: The kind of change to the record's standing, such as invalidation, retirement or supersession.
+    range: RecordChangeKind
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: administrative
+  affected_record:
+    slot_uri: publicschema:affected_record
+    title: Affected record
+    description: The record whose standing the change affects.
+    range: RecordReference
     multivalued: false
     status: bibo:draft
     annotations:
@@ -455,8 +499,8 @@ slots:
   effective_at:
     slot_uri: publicschema:effective_at
     title: Effective at
-    description: The timestamp when the reported change took effect, which may precede
-      its recording.
+    description: The date and time at which the change took effect, which can be earlier or later than
+      when it was recorded.
     range: datetime
     multivalued: false
     status: bibo:draft
@@ -465,7 +509,7 @@ slots:
   event_authority:
     slot_uri: publicschema:event_authority
     title: Event authority
-    description: The organization accountable for the reported lifecycle change.
+    description: The organization accountable for the reported change.
     range: Organization
     multivalued: false
     status: bibo:draft
@@ -474,7 +518,7 @@ slots:
   matched_source:
     slot_uri: publicschema:matched_source
     title: Matched source
-    description: The qualified source record whose subject is being reconciled.
+    description: The record that the match judgement concerns.
     range: RecordReference
     multivalued: false
     status: bibo:draft
@@ -483,8 +527,7 @@ slots:
   matched_subject:
     slot_uri: publicschema:matched_subject
     title: Matched subject
-    description: The proposed canonical subject URI without asserting an automatic
-      merge.
+    description: The subject that the record is judged to describe, or judged not to describe.
     range: uri
     multivalued: false
     status: bibo:draft
@@ -493,26 +536,19 @@ slots:
   match_method:
     slot_uri: publicschema:match_method
     title: Match method
-    description: The scheme-qualified reconciliation method used to make the assertion.
+    description: The method used to reach the judgement, such as manual review or a deterministic or
+      probabilistic rule.
     range: CodedValue
     multivalued: false
     status: bibo:draft
     annotations:
       category: administrative
-  match_authority:
-    slot_uri: publicschema:match_authority
-    title: Match authority
-    description: The organization accountable for the reconciliation assertion.
-    range: Organization
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      category: administrative
-  named_subject:
-    slot_uri: publicschema:named_subject
-    title: Named subject
-    description: The URI of the subject bearing this name.
-    range: uri
+  match_outcome:
+    slot_uri: publicschema:match_outcome
+    title: Match outcome
+    description: Whether the record was judged to describe the subject, possibly to describe it, or not
+      to describe it.
+    range: MatchOutcome
     multivalued: false
     status: bibo:draft
     annotations:
@@ -520,59 +556,49 @@ slots:
   name_language:
     slot_uri: publicschema:name_language
     title: Name language
-    description: The BCP 47 language tag for the name, if known.
+    description: The language of the name, as a language tag such as en or pt-BR, if known.
     range: string
     multivalued: false
     status: bibo:draft
     annotations:
-      category: administrative
+      category: identity
   name_use:
     slot_uri: publicschema:name_use
     title: Name use
-    description: The scheme-qualified context of name use, such as registered or trading
+    description: The context in which the name is used, such as an official, legal, trading or former
       name.
     range: CodedValue
     multivalued: false
     status: bibo:draft
     annotations:
-      category: administrative
-  contact_subject:
-    slot_uri: publicschema:contact_subject
-    title: Contact subject
-    description: The subject reachable through this channel.
-    range: uri
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      category: administrative
+      category: identity
   contact_channel:
     slot_uri: publicschema:contact_channel
     title: Contact channel
-    description: The scheme-qualified kind of communication channel.
-    range: CodedValue
+    description: The kind of channel, such as telephone, text message, email or web address.
+    range: ContactChannel
     multivalued: false
     status: bibo:draft
     annotations:
-      category: administrative
+      category: contact
   contact_value:
     slot_uri: publicschema:contact_value
     title: Contact value
-    description: The address or handle appropriate to the channel; format validation
-      belongs to its profile.
+    description: The telephone number, email address, web address or other handle for the channel.
     range: string
     multivalued: false
     status: bibo:draft
     annotations:
-      category: administrative
+      category: contact
   contact_purpose:
     slot_uri: publicschema:contact_purpose
     title: Contact purpose
-    description: The purpose for which this communication channel is offered.
+    description: The purpose for which the contact is offered, such as billing, complaints or emergencies.
     range: string
     multivalued: false
     status: bibo:draft
     annotations:
-      category: administrative
+      category: contact
   legal_resources:
     slot_uri: publicschema:legal_resources
     title: Legal resources

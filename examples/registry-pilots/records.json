@@ -27,7 +27,7 @@
   {
     "@id": "https://example.org/geometry/clinic",
     "@type": "SpatialGeometry",
-    "geometry_encoding": "application/geo+json",
+    "geometry_encoding": "geojson",
     "geometry_literal": "{\"type\":\"Point\",\"coordinates\":[100,13]}",
     "coordinate_reference_system": "http://www.opengis.net/def/crs/OGC/1.3/CRS84"
   },
@@ -39,9 +39,17 @@
     "located_at": "https://example.org/area/district"
   },
   {
+    "@id": "https://example.org/building/clinic",
+    "@type": "Building",
+    "name": "Clinic building",
+    "spatial_geometry": [
+      "https://example.org/geometry/clinic"
+    ]
+  },
+  {
     "@id": "https://example.org/management/old",
     "@type": "AssetPartyRole",
-    "asset_subject": "https://example.org/facility/clinic",
+    "subject_uri": "https://example.org/facility/clinic",
     "asset_actor": "https://example.org/org/ministry",
     "asset_role_type": {
       "@type": "CodedValue",
@@ -53,7 +61,7 @@
   {
     "@id": "https://example.org/management/current",
     "@type": "AssetPartyRole",
-    "asset_subject": "https://example.org/facility/clinic",
+    "subject_uri": "https://example.org/facility/clinic",
     "asset_actor": "https://example.org/org/cooperative",
     "asset_role_type": {
       "@type": "CodedValue",
@@ -65,21 +73,20 @@
   {
     "@id": "https://example.org/facility-address/one",
     "@type": "AssetAddressAssignment",
-    "asset_subject": "https://example.org/facility/clinic",
+    "subject_uri": "https://example.org/facility/clinic",
     "assigned_address": "https://example.org/address/clinic",
     "address_purpose": {
       "@type": "CodedValue",
       "code_value": "physical",
       "code_scheme": "https://example.org/facility-roles/address-purposes"
     },
-    "address_geometry": "https://example.org/geometry/clinic",
     "start_date": "2026-01-01"
   },
   {
     "@id": "https://example.org/register/facilities",
     "@type": "Register",
     "name": "Synthetic facility register",
-    "maintaining_authority": "https://example.org/org/ministry"
+    "register_owner": "https://example.org/org/ministry"
   },
   {
     "@id": "https://example.org/entry/facility",
@@ -137,7 +144,7 @@
       "@type": "QuantityValue",
       "quantity_value": 12500.25,
       "unit_code": "m2",
-      "unit_scheme": "http://unitsofmeasure.org"
+      "unit_scheme": "ucum"
     }
   },
   {
@@ -222,7 +229,12 @@
   {
     "@id": "https://example.org/event/late",
     "@type": "RecordLifecycleEvent",
-    "subject_uri": "https://example.org/facility/clinic",
+    "affected_record": {
+      "@type": "RecordReference",
+      "register_uri": "https://example.org/register/facilities",
+      "record_id": "001"
+    },
+    "record_change_kind": "retirement",
     "effective_at": "2026-07-01T00:00:00Z",
     "recorded_at": "2026-07-03T12:00:00Z"
   },
@@ -235,7 +247,7 @@
     "@id": "https://example.org/register/trading-licences",
     "@type": "Register",
     "name": "Synthetic market trading licences",
-    "maintaining_authority": "https://example.org/org/trade-office"
+    "register_owner": "https://example.org/org/trade-office"
   },
   {
     "@id": "https://example.org/authorization/market-trading",
@@ -259,7 +271,7 @@
   {
     "@id": "https://example.org/identifier-assignment/trade-licence",
     "@type": "IdentifierAssignment",
-    "identifier_subject": "https://example.org/authorization/market-trading",
+    "subject_uri": "https://example.org/authorization/market-trading",
     "identifier_issuer": "https://example.org/org/trade-office",
     "assigned_identifier": {
       "@type": "Identifier",

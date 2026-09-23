@@ -439,7 +439,7 @@
       "kind": "property",
       "id": "addressed_facility",
       "old_uri": "https://publicschema.org/addressed_facility",
-      "new_uri": "https://publicschema.org/asset_subject",
+      "new_uri": "https://publicschema.org/subject_uri",
       "action": "reviewed-replacement",
       "note": "Use within a reviewed AssetAddressAssignment, preserving the physical subject identity."
     },
@@ -793,7 +793,7 @@
       "kind": "property",
       "id": "managed_facility",
       "old_uri": "https://publicschema.org/managed_facility",
-      "new_uri": "https://publicschema.org/asset_subject",
+      "new_uri": "https://publicschema.org/subject_uri",
       "action": "reviewed-replacement",
       "note": "Use within a reviewed AssetPartyRole, preserving the physical subject identity."
     },

@@ -96,7 +96,7 @@ def migrate_relationship_dates(document, *, source_boundary=None):
         if legacy and kind in TRANSFORMED_ASSIGNMENTS:
             field = "asset_role_type" if kind == "AssetPartyRole" else "address_purpose"
             code = record.get(field)
-            endpoints = ("asset_subject", "asset_actor" if kind == "AssetPartyRole" else "assigned_address")
+            endpoints = ("subject_uri", "asset_actor" if kind == "AssetPartyRole" else "assigned_address")
             retired_fields = {"managed_facility", "managing_organization", "addressed_facility", "facility_address"}
             if any(key not in record for key in endpoints) or retired_fields & record.keys():
                 report(path, "incomplete-assignment-transformation", "Transform the retired endpoint fields explicitly before converting this assignment's dates.")

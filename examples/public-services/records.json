@@ -108,12 +108,8 @@
         "@type": "EvidenceAssertion",
         "assertion_uri": "https://example.org/public-services/business-application",
         "evidence_source": "https://example.org/public-services/documents/business-application",
-        "evidence_role": {
-          "@type": "CodedValue",
-          "code_value": "supports",
-          "code_scheme": "https://example.org/public-services/codes/evidence-role/v1"
-        },
-        "evidence_authority": {
+        "evidence_role": "supports",
+        "assertion_authority": {
           "@id": "https://example.org/public-services/former-office",
           "@type": "PublicOrganization"
         },
@@ -174,12 +170,8 @@
         "@type": "EvidenceAssertion",
         "assertion_uri": "https://example.org/public-services/grant-decision",
         "evidence_source": "https://example.org/public-services/documents/permit-grant",
-        "evidence_role": {
-          "@type": "CodedValue",
-          "code_value": "supports",
-          "code_scheme": "https://example.org/public-services/codes/evidence-role/v1"
-        },
-        "evidence_authority": {
+        "evidence_role": "supports",
+        "assertion_authority": {
           "@id": "https://example.org/public-services/former-office",
           "@type": "PublicOrganization"
         },
@@ -206,12 +198,8 @@
         "@type": "EvidenceAssertion",
         "assertion_uri": "https://example.org/public-services/business-permit",
         "evidence_source": "https://example.org/public-services/documents/permit-grant",
-        "evidence_role": {
-          "@type": "CodedValue",
-          "code_value": "supports",
-          "code_scheme": "https://example.org/public-services/codes/evidence-role/v1"
-        },
-        "evidence_authority": {
+        "evidence_role": "supports",
+        "assertion_authority": {
           "@id": "https://example.org/public-services/former-office",
           "@type": "PublicOrganization"
         },
@@ -223,15 +211,16 @@
     "@context": "https://publicschema.org/ctx/draft.jsonld",
     "@id": "https://example.org/public-services/office-name-correction",
     "@type": "RecordLifecycleEvent",
-    "subject_uri": "https://example.org/public-services/former-office",
-    "lifecycle_kind": {
-      "@type": "CodedValue",
-      "code_value": "name-record-correction",
-      "code_scheme": "https://example.org/public-services/codes/record-change/v1"
+    "affected_record": {
+      "@type": "RecordReference",
+      "register_uri": "https://example.org/public-services/registers/organizations",
+      "record_id": "former-office-name",
+      "subject_uri": "https://example.org/public-services/former-office"
     },
+    "record_change_kind": "invalidation",
     "effective_at": "2026-04-01T00:00:00Z",
     "recorded_at": "2026-04-04T12:00:00Z",
-    "event_authority": {
+    "assertion_authority": {
       "@id": "https://example.org/public-services/former-office",
       "@type": "PublicOrganization"
     },
@@ -240,12 +229,8 @@
         "@type": "EvidenceAssertion",
         "assertion_uri": "https://example.org/public-services/office-name-correction",
         "evidence_source": "https://example.org/public-services/documents/name-correction",
-        "evidence_role": {
-          "@type": "CodedValue",
-          "code_value": "supports",
-          "code_scheme": "https://example.org/public-services/codes/evidence-role/v1"
-        },
-        "evidence_authority": {
+        "evidence_role": "supports",
+        "assertion_authority": {
           "@id": "https://example.org/public-services/former-office",
           "@type": "PublicOrganization"
         },
@@ -288,12 +273,8 @@
         "@type": "EvidenceAssertion",
         "assertion_uri": "https://example.org/public-services/authority-succession",
         "evidence_source": "https://example.org/public-services/documents/succession-instrument",
-        "evidence_role": {
-          "@type": "CodedValue",
-          "code_value": "supports",
-          "code_scheme": "https://example.org/public-services/codes/evidence-role/v1"
-        },
-        "evidence_authority": {
+        "evidence_role": "supports",
+        "assertion_authority": {
           "@id": "https://example.org/public-services/successor-agency",
           "@type": "PublicOrganization"
         },
@@ -352,12 +333,8 @@
         "@type": "EvidenceAssertion",
         "assertion_uri": "https://example.org/public-services/suspension-decision",
         "evidence_source": "https://example.org/public-services/documents/suspension-notice",
-        "evidence_role": {
-          "@type": "CodedValue",
-          "code_value": "supports",
-          "code_scheme": "https://example.org/public-services/codes/evidence-role/v1"
-        },
-        "evidence_authority": {
+        "evidence_role": "supports",
+        "assertion_authority": {
           "@id": "https://example.org/public-services/successor-agency",
           "@type": "PublicOrganization"
         },
@@ -390,12 +367,8 @@
         "@type": "EvidenceAssertion",
         "assertion_uri": "https://example.org/public-services/business-appeal",
         "evidence_source": "https://example.org/public-services/documents/appeal-submission",
-        "evidence_role": {
-          "@type": "CodedValue",
-          "code_value": "supports",
-          "code_scheme": "https://example.org/public-services/codes/evidence-role/v1"
-        },
-        "evidence_authority": {
+        "evidence_role": "supports",
+        "assertion_authority": {
           "@id": "https://example.org/public-services/review-board",
           "@type": "PublicOrganization"
         },
@@ -432,12 +405,8 @@
         "@type": "EvidenceAssertion",
         "assertion_uri": "https://example.org/public-services/review-decision",
         "evidence_source": "https://example.org/public-services/documents/review-determination",
-        "evidence_role": {
-          "@type": "CodedValue",
-          "code_value": "supports",
-          "code_scheme": "https://example.org/public-services/codes/evidence-role/v1"
-        },
-        "evidence_authority": {
+        "evidence_role": "supports",
+        "assertion_authority": {
           "@id": "https://example.org/public-services/review-board",
           "@type": "PublicOrganization"
         },

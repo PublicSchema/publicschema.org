@@ -1,7 +1,8 @@
 id: https://publicschema.org/linkml/physical_assets
 name: publicschema-physical-assets
 title: Physical assets, responsibilities and addresses
-description: Draft buildings, building units, asset party roles and address assignments.
+description: Buildings, building units, the responsibilities that parties hold for physical assets, and
+  the addresses assigned to those assets.
 license: CC-BY-4.0
 default_prefix: publicschema
 prefixes:
@@ -13,16 +14,17 @@ imports:
 - common
 - identity
 - value_types
+- registry
 classes:
   AssetPartyRole:
     class_uri: publicschema:AssetPartyRole
     title: Asset Party Role
-    description: A dated assertion that a person or organization has a stated role in relation to a physical
-      asset. Operation (running the asset), upkeep (provisioning or maintaining it), ownership and vehicle
-      keeping are separate responsibilities. One role does not imply another or establish permission to
-      perform a regulated activity.
+    description: A dated statement that a person, organization or group holds a stated responsibility for
+      a physical asset, such as ownership, operation, upkeep or registered keeping. Each responsibility
+      is recorded separately; holding one does not imply another or give permission to carry out a regulated
+      activity.
     slots:
-    - asset_subject
+    - subject_uri
     - asset_actor
     - asset_role_type
     - start_date
@@ -33,39 +35,38 @@ classes:
   AssetAddressAssignment:
     class_uri: publicschema:AssetAddressAssignment
     title: Asset Address Assignment
-    description: A dated association of a physical asset with an address for a stated physical or postal
-      purpose. It identifies neither the asset owner nor a new asset when the address changes. A separate
-      geometry is a position, not a named administrative Location.
+    description: A dated association between a physical asset and an address used for a stated purpose,
+      such as postal delivery or site access. A change of address does not create a new asset or change
+      its owner.
     slots:
-    - asset_subject
+    - subject_uri
     - assigned_address
     - address_purpose
-    - address_geometry
     - start_date
     - end_date
     status: bibo:draft
     annotations:
-      bibliography_refs: '["w3c-vcard-2014", "ogc-geosparql-11"]'
+      bibliography_refs: '["w3c-vcard-2014"]'
   Building:
     class_uri: publicschema:Building
     title: Building
-    description: A constructed enclosure providing shelter for people, animals or things. Its physical
-      identity is separate from its address, cadastral parcel, owner and any service point operating inside
-      it.
+    description: A permanent, enclosed construction, above or below ground, used or intended to shelter
+      people, animals or things, or to produce goods. A building's identity is separate from its addresses,
+      the land parcel it stands on, its owners and any service delivered inside it.
     slots:
     - name
     - identifiers
     - building_use
     - spatial_geometry
-    - building_addresses
     status: bibo:draft
     annotations:
       bibliography_refs: '["gov-inspire-buildings"]'
   BuildingUnit:
     class_uri: publicschema:BuildingUnit
     title: Building Unit
-    description: A separately identifiable functional subdivision of a building, such as an apartment
-      or business unit. A unit need not have separate legal ownership or a separate address.
+    description: A part of a building used as a separate unit in daily life, such as a dwelling, shop or
+      office, usually with its own lockable entrance from outside or from a shared area. A unit need not
+      be separately owned or have its own address.
     slots:
     - name
     - identifiers
@@ -78,44 +79,26 @@ slots:
   building_use:
     slot_uri: publicschema:building_use
     title: Building use
-    description: A scheme-qualified classification of the uses of a building or functional unit.
+    description: What a building or building unit is currently used for, such as housing, farming or public
+      services, taken from a named classification. Several uses can apply at once.
     range: CodedValue
     multivalued: true
     status: bibo:draft
     annotations:
       category: classification
-  building_addresses:
-    slot_uri: publicschema:building_addresses
-    title: Building addresses
-    description: Addresses associated with a building; an address does not identify a parcel or establish
-      title.
-    range: Address
-    multivalued: true
-    status: bibo:draft
-    annotations:
-      category: location
   within_building:
     slot_uri: publicschema:within_building
     title: Within building
-    description: The building containing this functional unit.
+    description: The building that this building unit is part of.
     range: Building
     multivalued: false
     status: bibo:draft
     annotations:
       category: location
-  asset_subject:
-    slot_uri: publicschema:asset_subject
-    title: Asset subject
-    description: The URI of the physical asset described by this assertion.
-    range: uri
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      category: assets
   asset_actor:
     slot_uri: publicschema:asset_actor
     title: Asset actor
-    description: The URI of the person or organization holding the stated role in relation to the asset.
+    description: The URI of the person, organization or group that holds the responsibility for the asset.
     range: uri
     multivalued: false
     status: bibo:draft
@@ -124,29 +107,18 @@ slots:
   asset_role_type:
     slot_uri: publicschema:asset_role_type
     title: Asset role type
-    description: A scheme-qualified responsibility of the actor for the physical asset, such as operation,
-      upkeep, ownership or vehicle keeping. A consuming profile defines the precise role codes; operation
-      and upkeep are not synonyms for ownership.
+    description: The responsibility the actor holds for the asset, such as ownership, operation, upkeep
+      or registered keeping. Operation and upkeep are not ownership.
     range: CodedValue
     multivalued: false
     status: bibo:draft
     annotations:
       category: classification
-  address_geometry:
-    slot_uri: publicschema:address_geometry
-    title: Address geometry
-    description: A separate geometric position associated with the address; never substituted for a named
-      Location.
-    range: SpatialGeometry
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      category: administrative
   assigned_address:
     slot_uri: publicschema:assigned_address
     title: Assigned address
-    description: The structured physical or postal address associated with the physical asset for the
-      stated purpose and period. An address change need not identify a different asset.
+    description: The address associated with the asset for the stated purpose and period. An address change
+      need not identify a different asset.
     range: Address
     multivalued: false
     status: bibo:draft
@@ -155,8 +127,8 @@ slots:
   address_purpose:
     slot_uri: publicschema:address_purpose
     title: Address purpose
-    description: A scheme-qualified purpose of this address association, such as physical access or postal
-      correspondence. A postal address does not establish the physical position of the asset.
+    description: The purpose of the address for this asset, such as postal delivery or physical access.
+      A postal address does not establish where the asset is.
     range: CodedValue
     multivalued: false
     status: bibo:draft

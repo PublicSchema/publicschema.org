@@ -213,7 +213,7 @@ def test_revised_reference_distinctions_are_not_profile_only():
     records = {record["@id"].rsplit("/", 1)[-1]: record for record in RECORDS}
     assert records["unit"]["@type"] == "BuildingUnit"
     assert records["vehicle-keeper"]["asset_actor"] != records["vehicle-owner"]["asset_actor"]
-    assert records["vehicle-keeper"]["asset_subject"] == records["vehicle-owner"]["asset_subject"]
+    assert records["vehicle-keeper"]["subject_uri"] == records["vehicle-owner"]["subject_uri"]
     assert records["interest-statement"]["subject_uri"] == records["interest-person"]["@id"]
     assert records["interest-statement"]["recorded_at"][:10] > records["interest-person"]["start_date"]
 

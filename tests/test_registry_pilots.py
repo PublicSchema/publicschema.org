@@ -52,6 +52,9 @@ def test_actual_pilot_exports_and_identity(exports):
     assert len(set(data.subjects(RDF.type, PS.AssetPartyRole))) == 2
     assert len(list(data.subjects(AGRI.linked_parcel,Namespace('https://example.org/')['parcel/one']))) == 2
     assert len(set(data.subjects(RDF.type, LAND.LandTenureAssertion))) == 2
+    building = Namespace('https://example.org/')['building/clinic']
+    assert data.value(building, PS.spatial_geometry) == Namespace('https://example.org/')['geometry/clinic']
+    assert all('register_owner' in r for r in records if r['@type'] == 'Register')
     for name in ('RegistryEntry','agri/Farm','agri/AgriculturalParcel','Registration'):
         jsonschema.Draft202012Validator(result['concept_schemas'][name],registry=registry).validate({})
 
@@ -124,17 +127,17 @@ def test_area_conversion_preserves_precision_and_rejects_wrong_dimension():
     quantity={'quantity_value':Decimal('12500.25'),'unit_code':'m2','unit_scheme':profile.UCUM}
     assert profile.area_hectares(quantity)==Decimal('1.250025')
     assert profile.area_hectares({**quantity,'quantity_value':Decimal('1.250025'),'unit_code':'har'})==Decimal('1.250025')
-    for change in ({'unit_code':'kg'},{'quantity_value':-1},{'quantity_value':'NaN'},{'unit_scheme':'https://example.org/local'}):
+    for change in ({'unit_code':'kg'},{'quantity_value':-1},{'quantity_value':'NaN'},{'unit_scheme':'https://example.org/local'},{'unit_scheme':'http://unitsofmeasure.org'}):
         with pytest.raises(ValueError):profile.area_hectares({**quantity,**change})
 
 
 def test_geometry_encoding_crs_and_coordinate_order():
-    value={'geometry_encoding':'application/geo+json','coordinate_reference_system':profile.CRS84,'geometry_literal':'{"type":"Point","coordinates":[100,13]}'}
+    value={'geometry_encoding':'geojson','coordinate_reference_system':profile.CRS84,'geometry_literal':'{"type":"Point","coordinates":[100,13]}'}
     assert profile.validate_geometry(value)['coordinates']==[100,13]
     for literal in ('{"type":"Point","coordinates":[13,100]}','{"type":"LineString","coordinates":[[100,13],[101,14]]}','{"type":"Polygon","coordinates":[[[100,13],[101,13],[101,14]]]}'):
         with pytest.raises(ValueError):profile.validate_geometry({**value,'geometry_literal':literal})
     with pytest.raises(ValueError):profile.validate_geometry({**value,'coordinate_reference_system':'http://www.opengis.net/def/crs/EPSG/0/4326'})
-    with pytest.raises(ValueError):profile.validate_geometry({**value,'geometry_encoding':'WKT'})
+    with pytest.raises(ValueError):profile.validate_geometry({**value,'geometry_encoding':'wkt'})
     profile.validate_geometry({**value,'geometry_literal':'{"type":"Polygon","coordinates":[[[100,13],[101,13],[101,14],[100,13]]]}'} )
 
 
@@ -173,7 +176,7 @@ def test_licence_number_and_record_key_preserve_separate_identities(exports):
     entries = {(entry['register_uri'], entry['record_id']): entry}
     resolved = profile.resolve_reference(reference, entries, subjects)
     assert resolved['state'] == 'resolved'
-    assert resolved['subject_uri'] == assignment['identifier_subject']
+    assert resolved['subject_uri'] == assignment['subject_uri']
     assert assignment['assigned_identifier']['identifier_value'] != entry['record_id']
     assert len({entry['@id'], resolved['subject_uri'], resolved['subject']['registered_subject']}) == 3
     wrong_key = {**reference, 'record_id': assignment['assigned_identifier']['identifier_value']}

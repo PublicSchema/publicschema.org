@@ -83,12 +83,12 @@ def test_real_json_schema_jsonld_and_shacl_exports(records, exports):
         quantity_node = graph.value(observation, PS.capacity_quantity)
         assert graph.value(quantity_node, PS.quantity_value).toPython() == amount
         assert graph.value(quantity_node, PS.unit_code) == Literal("1")
-        assert graph.value(quantity_node, PS.unit_scheme) == URIRef("http://unitsofmeasure.org")
+        assert graph.value(quantity_node, PS.unit_scheme) == Literal("ucum")
         assert graph.value(observation, PS.capacity_observed_at).toPython() == datetime.fromisoformat(observed_at)
     for name in ("AssetPartyRole", "AssetAddressAssignment"):
         properties = result["concept_schemas"][name]["properties"]
-        assert {"asset_subject", "start_date", "end_date"} <= properties.keys()
-        assert not {"valid_from", "valid_to"} & properties.keys()
+        assert {"subject_uri", "start_date", "end_date"} <= properties.keys()
+        assert not {"valid_from", "valid_to", "asset_subject", "address_geometry"} & properties.keys()
         assert result["concepts"][name]["maturity"] == "draft"
     assert result["properties"]["asset_actor"]["type"] == "uri"
     assert result["concepts"]["Organization"]["supertypes"] == ["Agent"]
@@ -102,7 +102,7 @@ def test_real_json_schema_jsonld_and_shacl_exports(records, exports):
 def test_responsibility_handoffs_preserve_one_physical_identity(records, prefix, change_day):
     index = {record["@id"]: record for record in records}
     before, after = (index[EX + prefix + suffix] for suffix in ("-before", "-after"))
-    assert before["asset_subject"] == after["asset_subject"]
+    assert before["subject_uri"] == after["subject_uri"]
     assert before["asset_actor"] != after["asset_actor"]
     assert before["asset_role_type"] == after["asset_role_type"]
     assert before["end_date"] == after["start_date"] == change_day.isoformat()
@@ -110,7 +110,7 @@ def test_responsibility_handoffs_preserve_one_physical_identity(records, prefix,
     assert profile.effective_on(after, change_day - timedelta(days=1)) is False
     assert profile.effective_on(before, change_day) is False
     assert profile.effective_on(after, change_day) is True
-    owners = [record for record in records if record.get("asset_subject") == before["asset_subject"]
+    owners = [record for record in records if record.get("subject_uri") == before["subject_uri"]
               and record.get("asset_role_type", {}).get("code_value") == "owner"]
     assert len(owners) == 1 and "end_date" not in owners[0]
 
@@ -136,37 +136,36 @@ def test_owner_operator_upkeep_provider_and_holder_remain_independent(records):
     profile.validate_profile(records + [concurrent])
 
 
-def test_postal_changes_do_not_move_school_geometry_or_change_operator(records):
+def test_postal_changes_do_not_move_the_physical_address_or_change_operator(records):
     index = {record["@id"]: record for record in records}
     physical = index[EX + "school-physical"]
-    assert physical["address_geometry"] == EX + "school-position"
+    assert physical["assigned_address"] == EX + "school-physical-address"
+    assert physical["address_purpose"]["code_value"] == "physical" and "end_date" not in physical
     for asset in ("school", "warehouse"):
         before, after = (index[EX + asset + suffix] for suffix in ("-postal-before", "-postal-after"))
-        assert before["asset_subject"] == after["asset_subject"] == EX + asset
+        assert before["subject_uri"] == after["subject_uri"] == EX + asset
         assert before["assigned_address"] != after["assigned_address"]
         assert before["end_date"] == after["start_date"]
         assert before["address_purpose"] == after["address_purpose"]
         assert before["address_purpose"]["code_value"] == "postal"
-        assert "address_geometry" not in before and "address_geometry" not in after
     assert index[EX + "school-postal-after"]["start_date"] != index[EX + "school-operator-after"]["start_date"]
 
 
 @pytest.mark.parametrize("record_id,field,value,error", [
     ("school-owner", "asset_actor", EX + "online-site", "asset_actor"),
-    ("school-owner", "asset_actor", EX + "nursery-group", "asset_actor"),
+    ("school-owner", "asset_actor", EX + "school", "asset_actor"),
     ("school-owner", "asset_actor", EX + "absent", "unresolved"),
     ("school-owner", "asset_actor", "relative/person", "absolute"),
-    ("school-owner", "asset_subject", EX + "online-site", "asset_subject"),
-    ("school-owner", "asset_subject", EX + "school-provider", "asset_subject"),
-    ("warehouse-owner", "asset_subject", EX + "holding", "asset_subject"),
+    ("school-owner", "subject_uri", EX + "online-site", "subject_uri"),
+    ("school-owner", "subject_uri", EX + "school-provider", "subject_uri"),
+    ("warehouse-owner", "subject_uri", EX + "holding", "subject_uri"),
     ("school-operator-before", "end_date", "2020-01-01", "at least one"),
     ("school-operator-before", "end_date", "2019-12-31", "at least one"),
     ("school-operator-before", "end_date", "2026-02-30", "impossible"),
     ("school-operator-before", "end_date", "2026-06", "YYYY-MM-DD"),
     ("school-operator-before", "valid_to", "2026-06-30", "legacy validity"),
-    ("school-physical", "assigned_address", EX + "school-position", "assigned_address"),
-    ("school-physical", "address_geometry", EX + "school-physical-address", "address_geometry"),
-    ("school-physical", "asset_subject", EX + "online-site", "asset_subject"),
+    ("school-physical", "assigned_address", EX + "council", "assigned_address"),
+    ("school-physical", "subject_uri", EX + "online-site", "subject_uri"),
 ])
 def test_profile_rejects_wrong_endpoints_and_periods(records, record_id, field, value, error):
     changed = copy.deepcopy(records)
@@ -176,7 +175,7 @@ def test_profile_rejects_wrong_endpoints_and_periods(records, record_id, field, 
 
 
 @pytest.mark.parametrize("record_id,field", [
-    ("school-owner", "asset_actor"), ("school-owner", "asset_subject"),
+    ("school-owner", "asset_actor"), ("school-owner", "subject_uri"),
     ("school-owner", "asset_role_type"), ("school-physical", "assigned_address"),
     ("school-physical", "address_purpose"),
 ])
@@ -200,10 +199,12 @@ def test_role_and_address_codes_require_the_declared_meaning(records, record_id,
         profile.validate_profile(changed)
 
 
-def test_group_snapshot_does_not_widen_asset_actor_and_missing_dates_stay_unknown(records):
+def test_group_can_hold_a_facility_responsibility_and_missing_dates_stay_unknown(records):
     index = {record["@id"]: record for record in records}
     assert index[EX + "nursery"]["facility_operator"] == EX + "nursery-group"
-    profile.validate_profile(records)
+    group_role = copy.deepcopy(index[EX + "hospital-operator"])
+    group_role.update({"@id": EX + "hospital-group-operator", "asset_actor": EX + "nursery-group"})
+    profile.validate_profile(records + [group_role])
     assert profile.effective_on(index[EX + "school-owner"], date(2026, 7, 1)) is None
     assert profile.effective_on({"end_date": "2026-07-01"}, date(2026, 7, 1)) is False
     assert profile.effective_on({"end_date": "2026-07-01"}, date(2026, 6, 30)) is None
@@ -221,16 +222,16 @@ def test_uri_shape_does_not_prove_subject_kind(records, exports):
     result, shapes, registry = exports
     changed = copy.deepcopy(records)
     role = next(record for record in changed if record["@id"] == EX + "school-owner")
-    role["asset_actor"] = EX + "nursery-group"
+    role["asset_actor"] = EX + "online-site"
     jsonschema.Draft202012Validator(result["concept_schemas"]["AssetPartyRole"], registry=registry).validate(role)
     assert validate(graph_for(changed, result), shacl_graph=shapes, inference="rdfs")[0]
     with pytest.raises(ValueError, match="asset_actor"):
         profile.validate_profile(changed)
 
 
-def test_production_shacl_enforces_address_and_geometry_types(records, exports):
+def test_production_shacl_enforces_the_address_type(records, exports):
     result, shapes, _ = exports
     changed = copy.deepcopy(records)
     address = next(record for record in changed if record["@id"] == EX + "school-physical")
-    address["assigned_address"] = EX + "school-position"
+    address["assigned_address"] = EX + "council"
     assert not validate(graph_for(changed, result), shacl_graph=shapes, inference="rdfs")[0]

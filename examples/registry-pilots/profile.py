@@ -8,7 +8,7 @@ from datetime import date, datetime
 from decimal import Decimal, localcontext
 from urllib.parse import urlparse
 
-UCUM = 'http://unitsofmeasure.org'
+UCUM = 'ucum'
 CRS84 = 'http://www.opengis.net/def/crs/OGC/1.3/CRS84'
 
 
@@ -112,7 +112,7 @@ def area_hectares(quantity):
 
 def validate_geometry(value):
     """This pilot supports 2D RFC 7946 Point/Polygon, not topology validation."""
-    if value.get('geometry_encoding') != 'application/geo+json' or value.get('coordinate_reference_system') != CRS84:
+    if value.get('geometry_encoding') != 'geojson' or value.get('coordinate_reference_system') != CRS84:
         raise ValueError('expected GeoJSON in longitude/latitude CRS84')
     geometry = json.loads(value['geometry_literal'])
     if set(geometry) != {'type', 'coordinates'}:

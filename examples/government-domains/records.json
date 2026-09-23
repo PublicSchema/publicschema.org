@@ -450,7 +450,7 @@
     "@context": "https://publicschema.org/ctx/draft.jsonld",
     "@id": "https://example.org/vehicle-keeper",
     "@type": "AssetPartyRole",
-    "asset_subject": "https://example.org/vehicle",
+    "subject_uri": "https://example.org/vehicle",
     "asset_actor": "https://example.org/person",
     "asset_role_type": {
       "@type": "CodedValue",
@@ -463,7 +463,7 @@
     "@context": "https://publicschema.org/ctx/draft.jsonld",
     "@id": "https://example.org/vehicle-owner",
     "@type": "AssetPartyRole",
-    "asset_subject": "https://example.org/vehicle",
+    "subject_uri": "https://example.org/vehicle",
     "asset_actor": "https://example.org/company",
     "asset_role_type": {
       "@type": "CodedValue",
@@ -496,12 +496,8 @@
         "@type": "EvidenceAssertion",
         "assertion_uri": "https://example.org/interest-person",
         "evidence_source": "https://example.org/source/declaration-7",
-        "evidence_role": {
-          "@type": "CodedValue",
-          "code_value": "declared-by-subject",
-          "code_scheme": "https://example.org/codes/evidence-roles"
-        },
-        "evidence_authority": {
+        "evidence_role": "supports",
+        "assertion_authority": {
           "@id": "https://example.org/agency",
           "@type": "PublicOrganization"
         },

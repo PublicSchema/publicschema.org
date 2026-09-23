@@ -1,6 +1,6 @@
 """Validate the bounded, locally resolved facility estate example exchange.
 
-This is an example submission profile, not a vocabulary or Registry Stack gate.
+This is an example submission profile; the vocabulary itself accepts any URI.
 """
 import json
 import re
@@ -90,13 +90,11 @@ def validate_profile(records):
     for record in records:
         kind = record.get("@type")
         if kind in AGRICULTURAL_FACILITIES and "facility_operator" in record:
-            # This existing snapshot has a broader actor contract than AssetPartyRole.
+            # facility_operator admits the same actor and group kinds as asset_actor.
             typed_uri(record, "facility_operator", ACTOR_TYPES | GROUP_TYPES)
         if kind == "AssetAddressAssignment":
-            typed_uri(record, "asset_subject", FACILITY_TYPES)
+            typed_uri(record, "subject_uri", FACILITY_TYPES)
             typed_uri(record, "assigned_address", {"Address"})
-            if "address_geometry" in record:
-                typed_uri(record, "address_geometry", {"SpatialGeometry"})
             purpose = record.get("address_purpose")
             if not isinstance(purpose, dict) or purpose.get("@type") != "CodedValue":
                 raise ValueError("address_purpose: expected a CodedValue")
@@ -107,8 +105,8 @@ def validate_profile(records):
             period(record)
         if kind != "AssetPartyRole":
             continue
-        typed_uri(record, "asset_subject", FACILITY_TYPES)
-        typed_uri(record, "asset_actor", ACTOR_TYPES)
+        typed_uri(record, "subject_uri", FACILITY_TYPES)
+        typed_uri(record, "asset_actor", ACTOR_TYPES | GROUP_TYPES)
         role = record.get("asset_role_type")
         if not isinstance(role, dict) or role.get("@type") != "CodedValue":
             raise ValueError("asset_role_type: expected a CodedValue")

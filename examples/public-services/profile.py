@@ -31,6 +31,7 @@ REQUIRED = {
     ),
     "Authorization": ("registered_subject", "registration_authority", "authorized_activity"),
     "RegulatoryAction": ("action_subject", "action_authority", "action_type", "action_date"),
+    "RecordLifecycleEvent": ("affected_record",),
     "RepresentationRole": ("representative_actor", "represented_subject", "start_date"),
 }
 
@@ -147,12 +148,13 @@ def validate_journey(records, config):
             evidence = structured_value(value, "EvidenceAssertion", f"{key}.evidence_assertions")
             if evidence.get("assertion_uri") != key:
                 raise ProfileError(f"{key}.evidence_assertions: evidence is about a different assertion")
-            reference(evidence.get("evidence_authority"), ORGANIZATIONS, f"{key}.evidence_authority")
+            reference(evidence.get("assertion_authority"), ORGANIZATIONS, f"{key}.assertion_authority")
         if kind == "PublicService":
             for value in record["service_competent_authorities"]:
                 reference(value, {"PublicOrganization"}, f"{key}.service_competent_authorities")
         if kind == "RecordLifecycleEvent":
-            linked(record, "subject_uri", None)
+            affected = structured_value(record["affected_record"], "RecordReference", f"{key}.affected_record")
+            reference(affected.get("subject_uri"), None, f"{key}.affected_record.subject_uri")
         if kind in {"ServiceApplication", "AdministrativeAppeal"}:
             actor_field = "service_applicant" if kind == "ServiceApplication" else "appellant"
             actor = linked(record, actor_field, APPLICANTS)

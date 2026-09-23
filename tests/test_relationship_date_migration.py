@@ -195,7 +195,7 @@ def test_retired_facility_assertions_need_source_meaning_review(kind, code):
     ("AssetAddressAssignment", "assigned_address", "address_purpose", "postal"),
 ])
 def test_only_explicitly_transformed_facility_facts_can_have_dates_converted(kind, endpoint, meaning_field, code):
-    source = {"@type": kind, "asset_subject": "https://example.org/facility",
+    source = {"@type": kind, "subject_uri": "https://example.org/facility",
               endpoint: "https://example.org/endpoint", "valid_to": "2026-06-30"}
     with pytest.raises(migration.MigrationError) as error:
         convert(source)

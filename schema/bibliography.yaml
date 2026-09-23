@@ -3129,7 +3129,7 @@ classes:
         4.2.4 and 4.2.5, printed pages 4, 8 and 10-14. Non-binding guidance.
         PublicSchema applies these precedents to administrative records; its qualified
         key, jurisdiction slot and subject-continuity semantics are design choices.'
-      informs_json: '{"concepts": ["RecordLifecycleEvent", "Register", "RegistryEntry"], "properties": ["maintaining_authority", "register_uri", "supersedes_record", "lifecycle_kind"]}'
+      informs_json: '{"concepts": ["RecordLifecycleEvent", "Register", "RegistryEntry"], "properties": ["register_owner", "register_uri", "supersedes_record", "lifecycle_kind"]}'
   GovCpsvAp311Citation:
     class_uri: publicschema:Citation/gov-cpsv-ap-311
     is_a: Citation
