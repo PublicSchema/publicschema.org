@@ -2197,7 +2197,7 @@ def test_rebuild_prunes_renamed_and_retired_generated_artifacts(
     from build import build
 
     write_property("farm_name.yaml", make_property(id="farm_name"))
-    farm = write_concept("farm.yaml", make_concept(
+    write_concept("farm.yaml", make_concept(
         id="Farm", properties=["farm_name"],
     ))
     medicinal_product = write_concept("medicinal-product.yaml", make_concept(
