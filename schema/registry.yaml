@@ -113,7 +113,7 @@ classes:
     - evidence_assertions
     status: bibo:draft
     annotations:
-      label_es: Registro
+      label_es: Inscripción registral
       label_fr: Enregistrement
       description_es: El reconocimiento formal que una autoridad otorga a un sujeto para un fin administrativo
         determinado dentro de una jurisdicción. El reconocimiento es distinto del sujeto, de la entrada
@@ -429,7 +429,7 @@ slots:
     multivalued: false
     status: bibo:draft
     annotations:
-      label_es: Válido desde
+      label_es: Vigente desde
       label_fr: Valide à partir de
       description_es: El primer día calendario en que se aplica la declaración, cuando se conoce.
       description_fr: Le premier jour calendaire où la déclaration s'applique, lorsqu'il est connu.
@@ -443,7 +443,7 @@ slots:
     multivalued: false
     status: bibo:draft
     annotations:
-      label_es: Válido hasta
+      label_es: Vigente hasta
       label_fr: Valide jusqu'à
       description_es: El último día calendario en que se aplica la declaración. Si está ausente, el
         final es desconocido, no ilimitado.

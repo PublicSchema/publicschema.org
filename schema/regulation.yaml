@@ -138,8 +138,8 @@ slots:
     multivalued: false
     status: bibo:draft
     annotations:
-      label_es: Fecha de evaluación
-      label_fr: Date d'évaluation
+      label_es: Fecha de la evaluación de cumplimiento
+      label_fr: Date de l'évaluation de conformité
       description_es: La fecha en que se realizó la evaluación.
       description_fr: La date à laquelle l'évaluation a été effectuée.
       category: administrative
