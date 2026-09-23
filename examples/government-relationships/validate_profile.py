@@ -8,10 +8,12 @@ beneficial ownership, accreditation, legal authority or environmental compliance
 import argparse
 import copy
 import json
-from datetime import date
-from decimal import Decimal, InvalidOperation
+import sys
+from decimal import Decimal
 from pathlib import Path
-from urllib.parse import urlsplit
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "shared"))
+from profile_support import absolute_uri, check_period, coded_value, parse_day  # noqa: E402
 
 ORGANIZATIONS = {"Organization", "PublicOrganization", "edu/EducationProvider"}
 INTEREST_ENTITIES = ORGANIZATIONS | {"LegalArrangement"}
@@ -19,10 +21,6 @@ INTEREST_HOLDERS = INTEREST_ENTITIES | {"Person"}
 LOWER_BOUNDS = ("interest_minimum_percentage", "interest_exclusive_minimum_percentage")
 UPPER_BOUNDS = ("interest_maximum_percentage", "interest_exclusive_maximum_percentage")
 BOUNDS = LOWER_BOUNDS + UPPER_BOUNDS
-
-
-def absolute_uri(value):
-    return isinstance(value, str) and bool(urlsplit(value).scheme)
 
 
 def reference_uri(value):
@@ -70,33 +68,18 @@ def resolve(value, index, accepted):
 
 
 def period(record):
-    values = []
-    for key in ("start_date", "end_date"):
-        value = record.get(key)
-        if key in record and not isinstance(value, str):
-            raise ValueError("An effective date must be an ISO date string")
-        values.append(date.fromisoformat(value) if value is not None else None)
-    start, end = values
+    start, end = (parse_day(record[key], key) if key in record else None
+                  for key in ("start_date", "end_date"))
     # Whole-day convention: start is inclusive; end is the first inactive day.
-    if start and end and end <= start:
-        raise ValueError("The effective interval must contain at least one day")
+    check_period(start, end, exclusive=True, message="The effective interval must contain at least one day")
     return start, end
-
-
-def coded_value(value):
-    if not isinstance(value, dict) or not absolute_uri(value.get("code_scheme")):
-        raise ValueError("A classification requires an absolute scheme URI")
-    if not isinstance(value.get("code_value"), str) or not value["code_value"]:
-        raise ValueError("A classification requires its original code")
 
 
 def percentage(value):
     if isinstance(value, bool) or not isinstance(value, (int, float, Decimal)):
         raise ValueError("An ownership percentage must be a number")
-    try:
-        number = Decimal(str(value))
-    except InvalidOperation as error:
-        raise ValueError("An ownership percentage must be finite") from error
+    # str() of an int, float or Decimal is always a valid Decimal literal, including nan and inf.
+    number = Decimal(str(value))
     if not number.is_finite() or not 0 <= number <= 100:
         raise ValueError("An ownership percentage must be between zero and one hundred")
     return number
@@ -219,7 +202,9 @@ def validate_profile(records):
 def apply_case(records, case):
     """Apply a documented negative example to an independent copy of the fixture."""
     changed = copy.deepcopy(records)
-    target = next(record for record in changed if record["@id"] == case["target"])
+    target = next((record for record in changed if record["@id"] == case["target"]), None)
+    if target is None:
+        raise ValueError(f"{case['name']}: no record {case['target']} to change")
     target.update(case.get("set", {}))
     for key in case.get("remove", []):
         target.pop(key, None)
@@ -237,8 +222,9 @@ if __name__ == "__main__":
     if arguments.negative:
         cases = json.loads(Path(__file__).with_name("negative-cases.json").read_text())
         for case in cases:
+            changed = apply_case(records, case)
             try:
-                validate_profile(apply_case(records, case))
+                validate_profile(changed)
             except ValueError as error:
                 if case["expected"] not in str(error):
                     raise AssertionError(f"{case['name']}: unexpected rejection: {error}") from error

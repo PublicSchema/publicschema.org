@@ -105,6 +105,23 @@ def test_documented_profile_counterexamples(case):
         PROFILE.validate_profile(PROFILE.apply_case(RECORDS, case))
 
 
+def test_a_case_naming_a_missing_target_is_reported_as_a_bad_case():
+    with pytest.raises(ValueError, match="no record " + EX + "absent"):
+        PROFILE.apply_case(RECORDS, {"name": "typo", "target": EX + "absent", "expected": ""})
+
+
+@pytest.mark.parametrize("value,message", [
+    ("20250101", "exact YYYY-MM-DD"),
+    (20250101, "exact YYYY-MM-DD"),
+    ("2025-02-30", "impossible calendar date"),
+])
+def test_interest_dates_are_exact_calendar_days(value, message):
+    records = copy.deepcopy(RECORDS)
+    record(records, "holding-shares")["start_date"] = value
+    with pytest.raises(ValueError, match=message):
+        PROFILE.validate_profile(records)
+
+
 def test_scope_queries_do_not_infer_approval_or_beneficial_ownership():
     PROFILE.validate_profile(RECORDS)
     index = PROFILE.index_records(RECORDS)
