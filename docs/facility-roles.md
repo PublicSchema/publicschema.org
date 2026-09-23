@@ -6,7 +6,7 @@ actor and from its institutional provider. A school campus can change operator
 without becoming another campus; the same applies to agricultural premises and a
 hospital estate.
 
-This is a draft cross-sector use of the existing physical-asset relationship.
+This is a cross-sector use of the physical-asset relationship.
 `School`, `HealthFacility` and `AgriculturalFacility` retain their distinct
 meanings. A `Farm` is an economic production unit, and a `ProviderSite` can be
 virtual. Neither becomes a physical asset merely because it has an operator or
@@ -24,32 +24,31 @@ The example binds `asset_role_type` to the synthetic scheme
 | `upkeep` | The actor is responsible for provisioning and maintaining the premises. | The identity of the service provider or owner. |
 
 Use a separate assertion for each responsibility even when one actor has several.
-The example's codes are local profile content, not a new universal closed
+The example's codes are local profile content, not a universal closed
 vocabulary. An implementing scheme must publish its meanings and keep its URI
 with the code. An unqualified word such as `manager` does not resolve these
 distinctions.
 
-`asset_actor` retains its Person or Organization meaning, including appropriate
-institutional subtypes. It does not acquire every subtype of Agent or Party.
-An agricultural facility's existing `facility_operator` snapshot also permits a
-group. The example therefore preserves an InformalGroup-operated nursery using
-that snapshot and rejects the group as an AssetPartyRole actor. A dated group
-asset responsibility needs an explicit draft refinement or another scoped
-relationship; do not recast the group as an Organization to pass this profile.
+`asset_actor` identifies a person, an organization or a group, including
+appropriate institutional subtypes. A jointly run nursery can therefore have a
+dated AssetPartyRole whose actor is an InformalGroup, matching the agricultural
+facility's `facility_operator`. Do not recast the group as an Organization. A
+software agent is not an asset actor.
 
 ## Keep addresses separate
 
 `AssetAddressAssignment` associates a physical asset with an Address during a
-period. It uses `asset_subject`, `assigned_address`, optional `address_geometry`,
-`address_purpose`, `start_date` and `end_date`. Address, geometry, named geographic
-Location and the physical facility remain separately identified subjects.
+period. It uses `subject_uri`, `assigned_address`, `address_purpose`, `start_date`
+and `end_date`. Address, geometry, named geographic Location and the physical
+facility remain separately identified subjects.
 
 The example uses `physical` and `postal` in the synthetic scheme
 `https://example.org/facility-roles/address-purposes`. A postal change does not
-assert that the facility moved. Geometry is optional and remains an explicit
-SpatialGeometry, including its encoding and coordinate reference system. The
-example's school keeps its physical address and geometry while its mailing box
-changes a month after its operator changes.
+assert that the facility moved. A position for the address belongs on the
+Address `location`; a shape for a building belongs on its `spatial_geometry`,
+with an explicit encoding and coordinate reference system. The example's school
+keeps its physical address while its mailing box changes a month after its
+operator changes.
 
 The former health-only `FacilityAddressAssignment` is replaced by this shared
 assignment. It requires a reviewed address purpose when migrating an old
@@ -63,7 +62,7 @@ purpose from address text.
 
 | Journey | Change | Independently preserved assertions |
 | --- | --- | --- |
-| Riverside school campus | One EducationProvider replaces another as premises operator on 1 July 2026. Its postal address changes on 1 August. | The campus, public owner, maintenance organization, physical address and geometry retain their identities. A separate ProviderSite links educational delivery to the campus; another ProviderSite is entirely virtual. |
+| Riverside school campus | One EducationProvider replaces another as premises operator on 1 July 2026. Its postal address changes on 1 August. | The campus, public owner, maintenance organization and physical address retain their identities. A separate ProviderSite links educational delivery to the campus; another ProviderSite is entirely virtual. |
 | Grain drying and storage premises | One Person replaces another as warehouse operator on 1 March 2026. The postal address changes on 1 April. | The premises retain their identity. A ProducerOrganization has separately identified owner and upkeep assertions. The Farm and its holder responsibility remain separate. |
 | East hospital premises | The organization maintaining the estate changes on 1 September 2026. | The physical HealthFacility, institutional hospital operator and public estates owner remain separate and unchanged. |
 
@@ -99,14 +98,15 @@ uv run --locked pytest tests/test_facility_roles.py
 ```
 
 This submission profile requires locally resolved facility and actor URIs and a
-declared role or address-purpose code. It deliberately admits the concrete
-facility and actor types listed in `validate_profile.py`. Additional types and
+declared role or address-purpose code. It admits the concrete facility, actor
+and group types listed in `validate_profile.py`. Additional types and
 source schemes require a profile decision; URI syntax alone cannot establish
 that a target is a physical facility or an allowed actor. The example uses
 identified, top-level records for references and does not fetch remote URIs.
 
-For the example, `start_date` includes its calendar day and `end_date` is the
-first inactive day. A former role ending on 1 July and its replacement starting
+`start_date` includes its calendar day, and `end_date` is the date on which the
+responsibility ceased to be effective, so it is no longer in effect on that day.
+A former role ending on 1 July and its replacement starting
 on 1 July do not overlap. A nonempty interval is required when both dates are
 known. Missing dates remain unknown, and `effective_on` returns an unknown result
 where those missing bounds prevent an affirmative answer. No uniqueness rule is
@@ -115,7 +115,8 @@ rule.
 
 The tests validate the same records through generated JSON Schema and
 context-expanded SHACL, then apply the example profile. They also show that a
-well-formed URI pointing to an InformalGroup passes the vocabulary's URI-shaped
-asset actor field but fails the profile's Person/Organization rule. Typed address
-and geometry references have separate SHACL checks. These are local executable
-examples, not Registry Stack runtime enforcement or an adopter conformance claim.
+well-formed URI pointing to a virtual provider site passes the vocabulary's
+URI-shaped asset actor field but fails the profile's actor rule, and that a
+group can hold a dated responsibility. Typed address references have separate
+SHACL checks. These are local executable examples, not runtime enforcement or an
+adopter conformance claim.

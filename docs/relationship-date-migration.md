@@ -65,7 +65,7 @@ the supported calendar and must not silently become a missing end.
 
 `FacilityManagementAssignment` did not distinguish running premises from their
 upkeep. Inspect its source evidence before selecting a scheme-qualified role for
-AssetPartyRole. Transform `managed_facility` to `asset_subject` and
+AssetPartyRole. Transform `managed_facility` to `subject_uri` and
 `managing_organization` to `asset_actor`, with an explicit `asset_role_type`.
 Preserve the physical subject identity. If the evidence establishes several
 responsibilities, represent distinct assertions and retain their source links.
@@ -77,9 +77,9 @@ For an independently needed former FacilityAddressAssignment:
 | Former field or class | Reviewed replacement |
 | --- | --- |
 | `FacilityAddressAssignment` | `AssetAddressAssignment` |
-| `addressed_facility` | `asset_subject`, referring to the same physical facility |
+| `addressed_facility` | `subject_uri`, referring to the same physical facility |
 | `facility_address` | `assigned_address`, preserving the Address |
-| `address_geometry` | Unchanged reference and property URI |
+| `address_geometry` | No replacement on the assignment; record a position on the Address `location` or the asset's `spatial_geometry` |
 | No explicit purpose | Add source-supported `address_purpose` as a CodedValue, retaining its scheme. |
 
 Choosing the role or address purpose is a semantic step. The helper refuses both
