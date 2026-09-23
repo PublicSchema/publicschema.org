@@ -9314,47 +9314,37 @@ enums:
         description: The source does not establish whether the interest is direct or indirect.
         status: bibo:draft
   LandTenure:
-    enum_uri: publicschema:land/LandTenure
+    enum_uri: publicschema:agri/LandTenure
     title: Land Tenure
-    description: The legal or customary arrangement under which land is held, classified according to
-      FAO Voluntary Guidelines on the Responsible Governance of Tenure (VGGT) categories.
+    description: Kinds of arrangement under which a farm operates the land it uses, following the land
+      tenure types of the FAO World Programme for the Census of Agriculture.
     status: bibo:draft
     permissible_values:
       owned_with_title:
-        meaning: publicschema:land/LandTenure/owned_with_title
+        meaning: publicschema:agri/LandTenure/owned_with_title
         title: Owned with title
-        description: Land held with a formal, legally recognized title deed or certificate of ownership.
+        description: Land the farm operates as legal owner or legal owner-like possessor, with rights recognized
+          and enforceable under statutory law.
         annotations:
           label_es: Propiedad con título
           label_fr: Propriété titrée
-          description_es: Tierra mantenida con un título de propiedad o certificado de propiedad formalmente
-            reconocido legalmente.
-          description_fr: Terre détenue avec un titre de propriété ou un certificat de propriété formellement
-            reconnu par la loi.
       owned_without_title:
-        meaning: publicschema:land/LandTenure/owned_without_title
+        meaning: publicschema:agri/LandTenure/owned_without_title
         title: Owned without title
-        description: Land held through customary or informal ownership without a formal title document.
+        description: Land the farm operates as owner or owner-like possessor without statutory recognition
+          of that ownership, for example under customary tenure.
         annotations:
           label_es: Propiedad sin título
           label_fr: Propriété sans titre
-          description_es: Tierra mantenida mediante propiedad consuetudinaria o informal sin documento
-            de título formal.
-          description_fr: Terre détenue par possession coutumière ou informelle sans document de titre
-            formel.
       rented:
-        meaning: publicschema:land/LandTenure/rented
+        meaning: publicschema:agri/LandTenure/rented
         title: Rented
-        description: Land used under a rental or lease agreement with a landowner for a fixed payment.
+        description: Land the farm rents or leases from someone else for a fixed payment in money, produce or services.
         annotations:
           label_es: Arrendada
           label_fr: Louée
-          description_es: Tierra utilizada bajo un contrato de arrendamiento con un propietario a cambio
-            de un pago fijo.
-          description_fr: Terre utilisée dans le cadre d'un contrat de location ou de bail avec un propriétaire
-            foncier moyennant un paiement fixe.
       sharecropped:
-        meaning: publicschema:land/LandTenure/sharecropped
+        meaning: publicschema:agri/LandTenure/sharecropped
         title: Sharecropped
         description: Land cultivated under an arrangement where the tenant pays the landowner a share
           of the harvest or proceeds.
@@ -9366,40 +9356,29 @@ enums:
           description_fr: Terre cultivée dans le cadre d'un arrangement où le locataire verse au propriétaire
             une part de la récolte ou des revenus.
       communal:
-        meaning: publicschema:land/LandTenure/communal
+        meaning: publicschema:agri/LandTenure/communal
         title: Communal
-        description: Land held collectively by a community, clan, or group under customary or statutory
-          communal tenure.
+        description: Common land the farm uses under rights shared with others, not belonging to the farm itself.
         annotations:
           label_es: Comunal
           label_fr: Communautaire
-          description_es: Tierra mantenida colectivamente por una comunidad, clan o grupo bajo tenencia
-            comunal consuetudinaria o estatutaria.
-          description_fr: Terre détenue collectivement par une communauté, un clan ou un groupe sous régime
-            foncier communautaire coutumier ou légal.
       state_allocated:
-        meaning: publicschema:land/LandTenure/state_allocated
+        meaning: publicschema:agri/LandTenure/state_allocated
         title: State-allocated
-        description: Land allocated by the state or government authority for use, often without transfer
-          of ownership.
+        description: Public land the farm uses under a use right granted by a public authority, without
+          ownership.
         annotations:
           label_es: Asignación estatal
           label_fr: Attribution étatique
-          description_es: Tierra asignada por el Estado o una autoridad gubernamental para su uso, generalmente
-            sin transferencia de propiedad.
-          description_fr: Terre attribuée par l'État ou une autorité gouvernementale pour usage, souvent
-            sans transfert de propriété.
       informal:
-        meaning: publicschema:land/LandTenure/informal
+        meaning: publicschema:agri/LandTenure/informal
         title: Informal/squatting
-        description: Land occupied and used without any formal or customary legal basis.
+        description: Land the farm occupies and uses without the owner's permission or any recognized right.
         annotations:
           label_es: Informal/ocupación ilegal
           label_fr: Occupation informelle/squat
-          description_es: Tierra ocupada y utilizada sin ninguna base legal formal o consuetudinaria.
-          description_fr: Terre occupée et utilisée sans aucune base juridique formelle ou coutumière.
       borrowed:
-        meaning: publicschema:land/LandTenure/borrowed
+        meaning: publicschema:agri/LandTenure/borrowed
         title: Borrowed
         description: Land used temporarily without payment, typically lent by a relative, friend, or community
           member.
@@ -9411,7 +9390,7 @@ enums:
           description_fr: Terre utilisée temporairement sans paiement, généralement prêtée par un parent,
             un ami ou un membre de la communauté.
       other:
-        meaning: publicschema:land/LandTenure/other
+        meaning: publicschema:agri/LandTenure/other
         title: Other
         description: A tenure arrangement not covered by the other categories.
         annotations:
@@ -9420,19 +9399,15 @@ enums:
           description_es: Un régimen de tenencia no cubierto por las otras categorías.
           description_fr: Un régime foncier non couvert par les autres catégories.
     annotations:
-      source_domain: land
+      source_domain: agri
       label_es: Tenencia de la tierra
       label_fr: Régime foncier
-      description_es: El régimen legal o consuetudinario bajo el cual se mantiene la tierra, clasificado
-        según las categorías de las Directrices voluntarias de la FAO sobre la gobernanza responsable
-        de la tenencia (VGGT).
-      description_fr: Le régime légal ou coutumier sous lequel les terres sont détenues, classifié selon
-        les catégories des Directives volontaires de la FAO sur la gouvernance responsable des régimes
-        fonciers (VGGT).
-      standard_json: '{"name": "FAO Voluntary Guidelines on the Responsible Governance of Tenure (VGGT)",
-        "notes": "International framework for governance of tenure of land, fisheries, and forests. Provides
-        the conceptual basis for tenure classification.", "uri": "https://www.fao.org/tenure/voluntary-guidelines/en/"}'
-      bibliography_refs: '["fao-vggt", "lsms-isa"]'
+      standard_json: '{"name": "FAO World Programme for the Census of Agriculture 2030 (WCA 2030), Item 0204
+        Area of holding according to land tenure types", "notes": "Tenure types follow WCA 2030 Item 0204
+        and paragraphs 7.2.38 to 7.2.47. WCA 2020 Item 0203 gives the equivalent types for data from the
+        2020 round. The FAO Voluntary Guidelines on the Responsible Governance of Tenure give context but
+        define no classification.", "uri": "https://doi.org/10.4060/cd9437en"}'
+      bibliography_refs: '["fao-wca-2020-vol1", "fao-vggt", "lsms-isa"]'
   Language:
     enum_uri: publicschema:Language
     title: Language
@@ -50602,8 +50577,8 @@ enums:
   LivestockType:
     enum_uri: publicschema:agri/LivestockType
     title: Livestock Type
-    description: Types of livestock kept by the agricultural holding, classified according to the FAO
-      World Programme for the Census of Agriculture.
+    description: Kinds of livestock kept on a farm, grouped following the livestock classification of
+      the FAO World Programme for the Census of Agriculture.
     status: bibo:draft
     permissible_values:
       cattle:
@@ -50611,15 +50586,23 @@ enums:
         title: Cattle
         description: Domesticated bovines including cows, bulls, oxen, and calves.
         annotations:
+          standard_code: '11'
           label_es: Ganado bovino
           label_fr: Bovins
           description_es: Bovinos domesticados, incluidas vacas, toros, bueyes y terneros.
           description_fr: Bovins domestiqués, y compris vaches, taureaux, bœufs et veaux.
+      buffaloes:
+        meaning: publicschema:agri/LivestockType/buffaloes
+        title: Buffaloes
+        description: Domesticated water buffaloes and other buffaloes of all ages.
+        annotations:
+          standard_code: '12'
       sheep:
         meaning: publicschema:agri/LivestockType/sheep
         title: Sheep
         description: Domesticated sheep of all ages.
         annotations:
+          standard_code: '21'
           label_es: Ovejas
           label_fr: Ovins
           description_es: Ovejas domesticadas de todas las edades.
@@ -50629,6 +50612,7 @@ enums:
         title: Goats
         description: Domesticated goats of all ages.
         annotations:
+          standard_code: '22'
           label_es: Cabras
           label_fr: Caprins
           description_es: Cabras domesticadas de todas las edades.
@@ -50638,6 +50622,7 @@ enums:
         title: Pigs
         description: Domesticated pigs and swine of all ages.
         annotations:
+          standard_code: '3'
           label_es: Cerdos
           label_fr: Porcins
           description_es: Cerdos domesticados de todas las edades.
@@ -50647,6 +50632,7 @@ enums:
         title: Chickens
         description: Domesticated chickens, hens, roosters, and chicks.
         annotations:
+          standard_code: '61'
           label_es: Pollos
           label_fr: Poulets
           description_es: Pollos, gallinas, gallos y pollitos domesticados.
@@ -50657,6 +50643,7 @@ enums:
         description: Domesticated birds other than chickens, including ducks, turkeys, guinea fowl, and
           geese.
         annotations:
+          note: WCA 2030 Annex 8 classes 62 to 65 (turkeys, geese, ducks, guinea fowls).
           label_es: Otras aves de corral
           label_fr: Autres volailles
           description_es: Aves domesticadas distintas de los pollos, incluidos patos, pavos, gallinas
@@ -50668,6 +50655,7 @@ enums:
         title: Horses
         description: Domesticated horses of all ages.
         annotations:
+          standard_code: '41'
           label_es: Caballos
           label_fr: Chevaux
           description_es: Caballos domesticados de todas las edades.
@@ -50677,6 +50665,7 @@ enums:
         title: Donkeys/mules
         description: Domesticated donkeys, mules, and hinnies.
         annotations:
+          note: WCA 2030 Annex 8 classes 42 (asses) and 43 (mules and hinnies).
           label_es: Asnos/mulas
           label_fr: Ânes/mulets
           description_es: Asnos, mulas y burdéganos domesticados.
@@ -50686,33 +50675,38 @@ enums:
         title: Camels
         description: Domesticated camels (dromedary and Bactrian).
         annotations:
+          note: WCA 2030 Annex 8 classes 51 (dromedary) and 52 (Bactrian camel); WCA 2020 class 51.
           label_es: Camellos
           label_fr: Chameaux
           description_es: Camellos domesticados (dromedarios y camellos bactrianos).
           description_fr: Chameaux domestiqués (dromadaires et chameaux de Bactriane).
+      llamas_alpacas:
+        meaning: publicschema:agri/LivestockType/llamas_alpacas
+        title: Llamas and alpacas
+        description: Domesticated llamas and alpacas of all ages.
+        annotations:
+          standard_code: '53'
+          note: WCA 2030 Annex 8 class 53; WCA 2020 class 52.
       rabbits:
         meaning: publicschema:agri/LivestockType/rabbits
         title: Rabbits
-        description: Domesticated rabbits raised for meat, fur, or other products.
+        description: Rabbits and hares raised for meat, fur or other products.
         annotations:
+          standard_code: '72'
           label_es: Conejos
           label_fr: Lapins
-          description_es: Conejos domesticados criados para carne, piel u otros productos.
-          description_fr: Lapins domestiqués élevés pour la viande, la fourrure ou d'autres produits.
-      beehives:
-        meaning: publicschema:agri/LivestockType/beehives
-        title: Beehives
-        description: Bee colonies maintained in hives for honey production.
+      bees:
+        meaning: publicschema:agri/LivestockType/bees
+        title: Bees
+        description: Bees kept on the farm, counted by hive or colony.
         annotations:
-          label_es: Colmenas
-          label_fr: Ruches
-          description_es: Colonias de abejas mantenidas en colmenas para la producción de miel.
-          description_fr: Colonies d'abeilles maintenues dans des ruches pour la production de miel.
+          standard_code: '81'
       other_livestock:
         meaning: publicschema:agri/LivestockType/other_livestock
         title: Other livestock
         description: Livestock species not covered by the other categories.
         annotations:
+          note: WCA 2030 Annex 8 classes 19, 59, 71, 73 to 79, 82 and 89.
           label_es: Otro ganado
           label_fr: Autre bétail
           description_es: Especies de ganado no cubiertas por las otras categorías.
@@ -50721,14 +50715,37 @@ enums:
       source_domain: agri
       label_es: Tipo de ganado
       label_fr: Type de bétail
-      description_es: Tipos de ganado criados por la explotación agrícola, clasificados según el Programa
-        Mundial del Censo Agropecuario de la FAO.
-      description_fr: Types de bétail élevés par l'exploitation agricole, classifiés selon le Programme
-        mondial du recensement de l'agriculture de la FAO.
-      standard_json: '{"name": "FAO World Programme for the Census of Agriculture 2020", "notes": "FAO
-        defines livestock categories for agricultural censuses. The list below covers the main species
-        relevant to social protection targeting.", "uri": "https://www.fao.org/world-census-agriculture/wcarounds/wca2020/en/"}'
+      standard_json: '{"name": "FAO World Programme for the Census of Agriculture 2030 (WCA 2030), Annex
+        8 Classification of livestock", "notes": "Standard codes are WCA 2030 Annex 8 classes. WCA 2020 Annex
+        6 uses the same classes, except that camels are one class (51) and llamas and alpacas are class 52.
+        Livestock kept on the farm are counted whether or not the farm owns them; bees are counted by hive
+        or colony.", "uri": "https://doi.org/10.4060/cd9437en"}'
       bibliography_refs: '["dhs-recode7", "fao-wca-2020-vol1", "lsms-isa"]'
+  TenureCategory:
+    enum_uri: publicschema:land/TenureCategory
+    title: Tenure Category
+    description: Whether a land tenure assertion concerns a right, a restriction or a responsibility, following
+      the three kinds of tenure relationship distinguished by the Land Administration Domain Model (ISO
+      19152-1).
+    status: bibo:draft
+    permissible_values:
+      right:
+        meaning: publicschema:land/TenureCategory/right
+        title: Right
+        description: A formal or informal entitlement to own, use or perform an action on the land.
+      restriction:
+        meaning: publicschema:land/TenureCategory/restriction
+        title: Restriction
+        description: A formal or informal obligation to refrain from performing an action on the land.
+      responsibility:
+        meaning: publicschema:land/TenureCategory/responsibility
+        title: Responsibility
+        description: A formal or informal obligation to allow or perform an action on the land.
+    annotations:
+      source_domain: land
+      standard_json: '{"name": "ISO 19152-1:2024 Land Administration Domain Model (LADM)", "notes": "Values
+        follow the LADM classes LA_Right, LA_Restriction and LA_Responsibility.", "uri": "https://www.iso.org/standard/81263.html"}'
+      bibliography_refs: '["fao-vggt"]'
   MaritalStatus:
     enum_uri: publicschema:MaritalStatus
     title: Marital Status

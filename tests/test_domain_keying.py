@@ -190,7 +190,7 @@ class TestRealSchemaDomainResolution:
             assert citation in real_result[kind][key]["bibliography_refs"]
 
     def test_moved_vocabularies_retain_authored_crosswalks(self, real_result):
-        for key, system in (("land/land-tenure", "lsms_isa"), ("agri/livestock-type", "dhs")):
+        for key, system in (("agri/land-tenure", "lsms_isa"), ("agri/livestock-type", "dhs")):
             assert system in real_result["vocabularies"][key]["system_mappings"]
 
 

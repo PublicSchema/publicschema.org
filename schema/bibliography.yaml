@@ -307,7 +307,7 @@ classes:
       uri: https://www.fao.org/tenure/voluntary-guidelines/en/
       access: open
       status: active
-      informs_json: '{"concepts": ["agri/Farm", "agri/HoldingParcelLink", "land/LandBoundaryAssertion", "land/LandTenureAssertion"], "properties": ["land_tenure"], "vocabularies": ["land/land-tenure"]}'
+      informs_json: '{"concepts": ["agri/Farm", "agri/HoldingParcelLink", "land/LandBoundaryAssertion", "land/LandTenureAssertion"], "properties": ["land_tenure"], "vocabularies": ["agri/land-tenure"]}'
   FaoWca2020Vol1Citation:
     class_uri: publicschema:Citation/fao-wca-2020-vol1
     is_a: Citation
@@ -324,7 +324,7 @@ classes:
       access: open
       status: active
       standard_number: ISBN 978-92-5-108865-4
-      informs_json: '{"concepts": ["InformalGroup", "agri/AgriculturalParcel", "agri/Farm", "agri/FarmerRegistration", "agri/GroupHoldingOperatorRole", "agri/HoldingOperatorRole", "agri/HoldingParcelLink", "agri/OrganizationHoldingOperatorRole", "agri/PersonHoldingOperatorRole"], "properties": ["farm_area_hectares", "holding_operator_group", "holding_operator_organization", "holding_operator_person", "holding_operator_roles", "livestock_type", "operated_holding", "primary_crop"], "vocabularies": ["agri/livestock-type"]}'
+      informs_json: '{"concepts": ["InformalGroup", "agri/AgriculturalHolderRole", "agri/AgriculturalParcel", "agri/Farm", "agri/FarmerRegistration", "agri/GroupAgriculturalHolderRole", "agri/HoldingParcelLink", "agri/OrganizationAgriculturalHolderRole", "agri/PersonAgriculturalHolderRole"], "properties": ["farm_area", "holder_farm", "holder_group", "holder_organization", "holder_person", "livestock_type"], "vocabularies": ["agri/livestock-type"]}'
   FhirAdministrativeGenderCitation:
     class_uri: publicschema:Citation/fhir-administrative-gender
     is_a: Citation
@@ -1165,7 +1165,7 @@ classes:
       uri: https://www.worldbank.org/en/programs/lsms/initiatives/lsms-ISA
       access: open
       status: active
-      informs_json: '{"concepts": ["agri/Farm"], "properties": ["land_tenure", "livestock_type"], "vocabularies": ["agri/livestock-type", "land/land-tenure"]}'
+      informs_json: '{"concepts": ["agri/Farm"], "properties": ["land_tenure", "livestock_type"], "vocabularies": ["agri/land-tenure", "agri/livestock-type"]}'
   Mics6Citation:
     class_uri: publicschema:Citation/mics6
     is_a: Citation

@@ -30,7 +30,6 @@ classes:
     - start_date
     - end_date
     - identifiers
-    - work_functions
     - work_form
     - work_status
     - work_remuneration
@@ -86,17 +85,6 @@ slots:
       site or a legal employer. The consuming profile checks the locally resolved unit and its meaning.
     range: uri
     multivalued: false
-    status: bibo:draft
-    annotations:
-      category: employment
-      bibliography_refs: '["ilo-icse18-manual-2023"]'
-  work_functions:
-    slot_uri: publicschema:work_functions
-    title: Work functions
-    description: Scheme-qualified functions performed in this work, such as daily management or harvesting.
-      Function does not establish agricultural holder responsibility or status at work.
-    range: CodedValue
-    multivalued: true
     status: bibo:draft
     annotations:
       category: employment

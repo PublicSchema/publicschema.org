@@ -93,7 +93,21 @@
   {
     "@id": "https://example.org/holding/one",
     "@type": "agri/Farm",
-    "name": "Synthetic mixed holding"
+    "name": "Synthetic mixed holding",
+    "farm_area": {
+      "@type": "QuantityValue",
+      "quantity_value": 2.5,
+      "unit_code": "har",
+      "unit_scheme": "http://unitsofmeasure.org"
+    },
+    "land_tenure": [
+      "owned_without_title",
+      "communal"
+    ],
+    "livestock_type": [
+      "cattle",
+      "goats"
+    ]
   },
   {
     "@id": "https://example.org/holding/two",
@@ -103,7 +117,17 @@
   {
     "@id": "https://example.org/holding/landless",
     "@type": "agri/Farm",
-    "name": "Landless livestock holding"
+    "name": "Landless livestock holding",
+    "farm_area": {
+      "@type": "QuantityValue",
+      "quantity_value": 0,
+      "unit_code": "har",
+      "unit_scheme": "http://unitsofmeasure.org"
+    },
+    "livestock_type": [
+      "goats",
+      "bees"
+    ]
   },
   {
     "@id": "https://example.org/parcel/one",
@@ -144,12 +168,25 @@
     "@type": "agri/FarmerRegistration",
     "registered_subject": "https://example.org/org/cooperative",
     "registration_authority": "https://example.org/org/ministry",
-    "registration_purpose": "Producer registry only"
+    "registration_purpose": "Producer registry only",
+    "registered_farms": [
+      "https://example.org/holding/one"
+    ]
+  },
+  {
+    "@id": "https://example.org/geometry/land-unit",
+    "@type": "SpatialGeometry",
+    "geometry_encoding": "application/geo+json",
+    "geometry_literal": "{\"type\":\"Polygon\",\"coordinates\":[[[100,13],[100.001,13],[100.001,13.001],[100,13.001],[100,13]]]}",
+    "coordinate_reference_system": "http://www.opengis.net/def/crs/OGC/1.3/CRS84"
   },
   {
     "@id": "https://example.org/land/unit",
     "@type": "land/LandSpatialUnit",
-    "name": "Cadastral unit"
+    "name": "Cadastral unit",
+    "spatial_geometry": [
+      "https://example.org/geometry/land-unit"
+    ]
   },
   {
     "@id": "https://example.org/title/unit",
@@ -162,7 +199,8 @@
     "@id": "https://example.org/claim/one",
     "@type": "land/LandTenureAssertion",
     "tenure_holder": "https://example.org/person/one",
-    "tenure_object": "https://example.org/parcel/one",
+    "tenure_object": "https://example.org/title/unit",
+    "tenure_category": "right",
     "tenure_type": {
       "@type": "CodedValue",
       "code_scheme": "https://example.org/codes/tenure",
@@ -173,7 +211,8 @@
     "@id": "https://example.org/claim/two",
     "@type": "land/LandTenureAssertion",
     "tenure_holder": "https://example.org/org/cooperative",
-    "tenure_object": "https://example.org/parcel/one",
+    "tenure_object": "https://example.org/title/unit",
+    "tenure_category": "right",
     "tenure_type": {
       "@type": "CodedValue",
       "code_scheme": "https://example.org/codes/tenure",

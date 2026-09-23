@@ -122,8 +122,8 @@ def test_owner_operator_upkeep_provider_and_holder_remain_independent(records):
     assert "physical_service_point" not in index[EX + "online-site"]
     assert index[EX + "warehouse-owner"]["asset_actor"] == index[EX + "warehouse-upkeep"]["asset_actor"]
     assert index[EX + "warehouse-owner"]["@id"] != index[EX + "warehouse-upkeep"]["@id"]
-    assert index[EX + "holder-role"]["operated_holding"] == EX + "holding"
-    assert index[EX + "holder-role"]["holding_operator_person"] not in {
+    assert index[EX + "holder-role"]["holder_farm"] == EX + "holding"
+    assert index[EX + "holder-role"]["holder_person"] not in {
         index[EX + "warehouse-operator-before"]["asset_actor"],
         index[EX + "warehouse-operator-after"]["asset_actor"],
     }

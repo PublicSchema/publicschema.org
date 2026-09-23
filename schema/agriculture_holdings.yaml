@@ -1,7 +1,7 @@
 id: https://publicschema.org/linkml/agriculture_holdings
 name: publicschema-agriculture-holdings
-title: Agricultural holdings, parcels and operators
-description: Draft farms, agricultural parcels, farmer registrations, holding operator roles and holding work assignments.
+title: Agricultural holdings, parcels and holders
+description: Farms, agricultural parcels, farmer registrations, agricultural holder roles and work on farms.
 license: CC-BY-4.0
 default_prefix: publicschema
 prefixes:
@@ -19,20 +19,18 @@ imports:
 classes:
   Farm:
     class_uri: publicschema:agri/Farm
-    title: Farm
-    description: 'An economic unit of agricultural production under single management, comprising all
-      livestock kept and all land used wholly or partly for agricultural production, without regard to
-      title, legal form, or size. Aligns with the FAO "agricultural holding" (World Census of Agriculture
-      2020). Farm records appear across agricultural registries, land administration, social protection,
-      and climate adaptation programs.
-
-      '
+    title: Farm (agricultural holding)
+    description: An economic unit of agricultural production under single management. It comprises all
+      livestock kept and all land used wholly or partly for agricultural production, whatever the title,
+      legal form or size. Its land may lie in one or more separate areas that share the same means of
+      production. A farm may have no land, for example when it only keeps livestock. It is identified
+      separately from the household, from the persons, organizations or groups responsible for it, and
+      from the rights over its land. Summary fields such as the farm's area, land tenure types and livestock
+      kept do not override detailed parcel, tenure or animal records.
     slots:
     - name
     - identifiers
-    - holding_operator_roles
-    - farm_area_hectares
-    - primary_crop
+    - farm_area
     - livestock_type
     - land_tenure
     - location
@@ -41,31 +39,20 @@ classes:
       source_domain: agri
       label_es: Finca
       label_fr: Exploitation agricole
-      description_es: Una unidad económica de producción agrícola bajo gestión única, que comprende todo
-        el ganado que se posee y toda la tierra utilizada total o parcialmente para la producción agrícola,
-        sin consideración del título, la forma jurídica o el tamaño. Equivale a la "explotación agrícola"
-        de la FAO (Censo Agropecuario Mundial 2020). Los registros de explotaciones agrícolas aparecen
-        en registros agrícolas, administración de tierras, protección social y programas de adaptación
-        climática.
-      description_fr: Une unité économique de production agricole sous gestion unique, comprenant tout
-        le cheptel détenu et toutes les terres utilisées en tout ou en partie à des fins de production
-        agricole, sans tenir compte du titre, de la forme juridique ou de la taille. Équivaut à l'"exploitation
-        agricole" de la FAO (Recensement mondial de l'agriculture 2020). Les données sur les exploitations
-        agricoles apparaissent dans les registres agricoles, l'administration foncière, la protection
-        sociale et les programmes d'adaptation climatique.
       convergence_json: '{"notes": "Low coverage. Only DHIS2 (workaround) and OpenSPP have farm data models.",
         "system_count": 2, "total_systems": 6}'
       bibliography_refs: '["fao-vggt", "fao-wca-2020-vol1", "lsms-isa"]'
   AgriculturalParcel:
     class_uri: publicschema:agri/AgriculturalParcel
     title: Agricultural Parcel
-    description: A contiguous area considered together for agricultural use during
-      a stated period. Its boundaries need not coincide with cadastral parcels or
-      title units; shared use by holdings is represented separately.
+    description: An identified, delimited area of land used or usable for agricultural production, as recorded
+      by the source for a stated period. It is a land-use unit. It is not a cadastral parcel, a title unit
+      or a census parcel of one tenure type, although its boundary may coincide with any of them. Use by
+      one or more farms is recorded separately.
     slots:
     - name
     - identifiers
-    - parcel_geometry
+    - spatial_geometry
     - parcel_area
     - location
     - valid_from
@@ -77,9 +64,8 @@ classes:
   HoldingParcelLink:
     class_uri: publicschema:agri/HoldingParcelLink
     title: Holding Parcel Link
-    description: A dated assertion that a Farm uses an AgriculturalParcel. Multiple
-      holdings may use the same parcel; this relationship does not assert exclusive
-      occupation, ownership or a legal right.
+    description: A dated statement that a farm uses all or part of an agricultural parcel. Several farms
+      may use the same parcel. The link does not by itself assert exclusive use, ownership or a legal right.
     slots:
     - linked_holding
     - linked_parcel
@@ -94,26 +80,31 @@ classes:
   FarmerRegistration:
     class_uri: publicschema:agri/FarmerRegistration
     title: Farmer Registration
-    description: Administrative recognition of a person, organization or qualifying
-      collective as an agricultural producer for a stated purpose. It is separate
-      from Farm identity, operation, land title and program eligibility.
-    slots: []
+    description: A registration recognizing a person, organization or group as a farmer or agricultural
+      producer for a stated administrative purpose, optionally naming the farms it covers. It does not
+      by itself establish holder responsibility, land rights or program eligibility.
+    slots:
+    - registered_farms
+    slot_usage:
+      registered_subject:
+        description: The URI of the person, organization or group recognized as a farmer or agricultural
+          producer.
     status: bibo:draft
     annotations:
       source_domain: agri
       bibliography_refs: '["fao-wca-2020-vol1"]'
     is_a: Registration
-  HoldingOperatorRole:
-    class_uri: publicschema:agri/HoldingOperatorRole
-    title: Agricultural Holder Responsibility
-    description: Agricultural holder responsibility for major resource decisions and management control
-      of a Farm, alone or jointly, during an optionally known period. This responsibility is distinct
-      from daily management, ownership, employment and program entitlement. The same subject can bear
-      several of these roles. Multiple simultaneous holder responsibilities may describe
-      joint responsibility for one production unit. Dates describe effectiveness, not when a record was
-      entered.
+  AgriculturalHolderRole:
+    class_uri: publicschema:agri/AgriculturalHolderRole
+    title: Agricultural Holder Role
+    description: The responsibility of a person, organization or group for the key decisions on resource
+      use and for management control of a farm, alone or jointly with others, during a stated period. It
+      includes bearing the technical and economic responsibility for the farm. It is distinct from daily
+      management, which may be delegated, and from ownership, employment and program entitlement. Several
+      simultaneous roles for one farm describe joint holders. Dates describe when the role is effective,
+      not when it was recorded.
     slots:
-    - operated_holding
+    - holder_farm
     - start_date
     - end_date
     - identifiers
@@ -124,48 +115,49 @@ classes:
       source_domain: agri
       bibliography_refs: '["fao-wca-2020-vol1"]'
     abstract: true
-  PersonHoldingOperatorRole:
-    class_uri: publicschema:agri/PersonHoldingOperatorRole
-    title: Person Holder Responsibility
-    description: A holding management responsibility borne by one person. This identifies the responsible
-      subject without asserting ownership, registration or benefit entitlement.
+  PersonAgriculturalHolderRole:
+    class_uri: publicschema:agri/PersonAgriculturalHolderRole
+    title: Person Agricultural Holder Role
+    description: An agricultural holder role borne by one person. It does not assert ownership, registration
+      or benefit entitlement.
     slots:
-    - holding_operator_person
+    - holder_person
     status: bibo:draft
     see_also:
     - https://www.fao.org/4/i4913e/i4913e.pdf
     annotations:
       source_domain: agri
       bibliography_refs: '["fao-wca-2020-vol1"]'
-    is_a: HoldingOperatorRole
-  OrganizationHoldingOperatorRole:
-    class_uri: publicschema:agri/OrganizationHoldingOperatorRole
-    title: Organization Holder Responsibility
-    description: A holding management responsibility borne by one organization. This identifies the responsible
-      subject without asserting ownership, registration or benefit entitlement.
+    is_a: AgriculturalHolderRole
+  OrganizationAgriculturalHolderRole:
+    class_uri: publicschema:agri/OrganizationAgriculturalHolderRole
+    title: Organization Agricultural Holder Role
+    description: An agricultural holder role borne by one organization with legal personality, such as
+      a company, cooperative or public body. It does not assert ownership, registration or benefit entitlement.
     slots:
-    - holding_operator_organization
+    - holder_organization
     status: bibo:draft
     see_also:
     - https://www.fao.org/4/i4913e/i4913e.pdf
     annotations:
       source_domain: agri
       bibliography_refs: '["fao-wca-2020-vol1"]'
-    is_a: HoldingOperatorRole
-  GroupHoldingOperatorRole:
-    class_uri: publicschema:agri/GroupHoldingOperatorRole
-    title: Group Holder Responsibility
-    description: A holding management responsibility borne by one group. This identifies the responsible
-      subject without asserting ownership, registration or benefit entitlement.
+    is_a: AgriculturalHolderRole
+  GroupAgriculturalHolderRole:
+    class_uri: publicschema:agri/GroupAgriculturalHolderRole
+    title: Group Agricultural Holder Role
+    description: An agricultural holder role borne by a group of persons acting as one holder without
+      legal personality, such as a household, clan or informal partnership. Its members need not be individually
+      recorded.
     slots:
-    - holding_operator_group
+    - holder_group
     status: bibo:draft
     see_also:
     - https://www.fao.org/4/i4913e/i4913e.pdf
     annotations:
       source_domain: agri
       bibliography_refs: '["fao-wca-2020-vol1"]'
-    is_a: HoldingOperatorRole
+    is_a: AgriculturalHolderRole
   HoldingWorkAssignment:
     class_uri: publicschema:agri/HoldingWorkAssignment
     title: Holding Work Assignment
@@ -195,10 +187,10 @@ classes:
       source_domain: agri
       bibliography_refs: '["ilo-icse18-manual-2023", "fao-wca2030-jan2026-draft"]'
 slots:
-  operated_holding:
-    slot_uri: publicschema:agri/operated_holding
-    title: Operated holding
-    description: The agricultural production unit for which this management responsibility is asserted.
+  holder_farm:
+    slot_uri: publicschema:agri/holder_farm
+    title: Holder farm
+    description: The farm to which this agricultural holder role applies.
     range: Farm
     multivalued: false
     status: bibo:draft
@@ -206,23 +198,11 @@ slots:
       source_domain: agri
       category: administrative
       bibliography_refs: '["fao-wca-2020-vol1"]'
-  holding_operator_roles:
-    slot_uri: publicschema:agri/holding_operator_roles
-    title: Holding operator roles
-    description: Responsibilities for management of this Farm. Each referenced role must identify this
-      same Farm through operated_holding; a complete exchange profile checks that consistency.
-    range: HoldingOperatorRole
-    multivalued: true
-    status: bibo:draft
-    annotations:
-      source_domain: agri
-      category: administrative
-      bibliography_refs: '["fao-wca-2020-vol1"]'
-  holding_operator_person:
-    slot_uri: publicschema:agri/holding_operator_person
-    title: Holding operator person
-    description: The person bearing this responsibility for major resource decisions and management control.
-      This is not inferred from membership, ownership or employment.
+  holder_person:
+    slot_uri: publicschema:agri/holder_person
+    title: Holder person
+    description: The person who holds this agricultural holder role. It is not inferred from household
+      membership, ownership or employment.
     range: Person
     multivalued: false
     status: bibo:draft
@@ -230,11 +210,11 @@ slots:
       source_domain: agri
       category: administrative
       bibliography_refs: '["fao-wca-2020-vol1"]'
-  holding_operator_organization:
-    slot_uri: publicschema:agri/holding_operator_organization
-    title: Holding operator organization
-    description: The organization bearing this responsibility for major resource decisions and management
-      control. This is not inferred from membership, ownership or employment.
+  holder_organization:
+    slot_uri: publicschema:agri/holder_organization
+    title: Holder organization
+    description: The organization that holds this agricultural holder role. It is not inferred from membership,
+      ownership or employment.
     range: Organization
     multivalued: false
     status: bibo:draft
@@ -242,13 +222,24 @@ slots:
       source_domain: agri
       category: administrative
       bibliography_refs: '["fao-wca-2020-vol1"]'
-  holding_operator_group:
-    slot_uri: publicschema:agri/holding_operator_group
-    title: Holding operator group
-    description: The group bearing this responsibility for major resource decisions and management control.
-      This is not inferred from membership, ownership or employment.
+  holder_group:
+    slot_uri: publicschema:agri/holder_group
+    title: Holder group
+    description: The group that holds this agricultural holder role. It is not inferred from membership,
+      ownership or employment.
     range: Group
     multivalued: false
+    status: bibo:draft
+    annotations:
+      source_domain: agri
+      category: administrative
+      bibliography_refs: '["fao-wca-2020-vol1"]'
+  registered_farms:
+    slot_uri: publicschema:agri/registered_farms
+    title: Registered farms
+    description: The farms covered by this farmer registration.
+    range: Farm
+    multivalued: true
     status: bibo:draft
     annotations:
       source_domain: agri
@@ -279,22 +270,23 @@ slots:
       source_domain: agri
       category: employment
       bibliography_refs: '["ilo-icse18-manual-2023", "fao-wca2030-jan2026-draft"]'
-  parcel_geometry:
-    slot_uri: publicschema:agri/parcel_geometry
-    title: Parcel geometry
-    description: The geometry describing an agricultural-use parcel, distinct from
-      cadastral evidence.
-    range: SpatialGeometry
-    multivalued: false
+  work_functions:
+    slot_uri: publicschema:agri/work_functions
+    title: Work functions
+    description: The functions performed in this work on the farm, such as daily management or harvesting,
+      each coded in a stated classification. A function does not establish agricultural holder responsibility
+      or status at work.
+    range: CodedValue
+    multivalued: true
     status: bibo:draft
     annotations:
       source_domain: agri
-      category: administrative
+      category: employment
+      bibliography_refs: '["ilo-icse18-manual-2023", "fao-wca2030-jan2026-draft"]'
   parcel_area:
     slot_uri: publicschema:agri/parcel_area
     title: Parcel area
-    description: The measured area of the agricultural parcel; an area unit is required
-      by area-consuming profiles.
+    description: The measured area of the agricultural parcel, with its unit of measure.
     range: QuantityValue
     multivalued: false
     status: bibo:draft
@@ -304,7 +296,7 @@ slots:
   linked_holding:
     slot_uri: publicschema:agri/linked_holding
     title: Linked holding
-    description: The production holding using the linked agricultural parcel.
+    description: The farm that uses the linked parcel.
     range: Farm
     multivalued: false
     status: bibo:draft
@@ -314,8 +306,7 @@ slots:
   linked_parcel:
     slot_uri: publicschema:agri/linked_parcel
     title: Linked parcel
-    description: The agricultural parcel used by the holding during the relationship
-      period.
+    description: The agricultural parcel used by the farm during the relationship period.
     range: AgriculturalParcel
     multivalued: false
     status: bibo:draft
@@ -325,49 +316,47 @@ slots:
   used_area:
     slot_uri: publicschema:agri/used_area
     title: Used area
-    description: The area used by this holding within the linked parcel; overlapping
-      uses must not be summed without a policy.
+    description: The area of the linked parcel that this farm uses. Areas used by different farms may overlap;
+      do not add them without an allocation rule.
     range: QuantityValue
     multivalued: false
     status: bibo:draft
     annotations:
       source_domain: agri
       category: administrative
-  farm_area_hectares:
-    slot_uri: publicschema:agri/farm_area_hectares
-    title: Farm area (hectares)
-    description: The total area of the farm in hectares.
-    range: decimal
+  farm_area:
+    slot_uri: publicschema:agri/farm_area
+    title: Farm area
+    description: The total area of land operated by the farm, whatever the title, as declared or measured
+      by the source, with its unit of measure. It is zero for a farm without land. It is not the sum of
+      the areas of parcels shared with other farms.
+    range: QuantityValue
     multivalued: false
     status: bibo:draft
     annotations:
       source_domain: agri
-      label_es: Superficie de la explotación (hectáreas)
-      label_fr: Superficie de l'exploitation (hectares)
-      description_es: La superficie total de la explotación agrícola en hectáreas.
-      description_fr: La superficie totale de l'exploitation agricole en hectares.
-      convergence_json: '{"system_count": 1, "total_systems": 2}'
+      category: agriculture
       bibliography_refs: '["fao-wca-2020-vol1"]'
   land_tenure:
     slot_uri: publicschema:agri/land_tenure
     title: Land tenure
-    description: The legal or customary tenure arrangement under which the farm's land is held.
+    description: The kinds of arrangement under which the farm operates its land, such as ownership, rental,
+      sharecropping or use of common land. A farm may operate land under several arrangements. This describes
+      how the farm uses land; it is not a record of land rights.
     range: LandTenure
-    multivalued: false
+    multivalued: true
     status: bibo:draft
     annotations:
       source_domain: agri
       label_es: Tenencia de la tierra
       label_fr: Régime foncier
-      description_es: El régimen de tenencia legal o consuetudinario bajo el cual se mantiene la tierra
-        de la explotación.
-      description_fr: Le régime foncier légal ou coutumier sous lequel les terres agricoles sont détenues.
       category: agriculture
-      bibliography_refs: '["fao-vggt", "lsms-isa"]'
+      sensitivity: sensitive
+      bibliography_refs: '["fao-vggt", "fao-wca-2020-vol1", "lsms-isa"]'
   livestock_type:
     slot_uri: publicschema:agri/livestock_type
     title: Livestock type
-    description: Types of livestock kept by the agricultural holding.
+    description: The kinds of livestock kept on the farm, whether or not the farm owns them.
     range: LivestockType
     multivalued: true
     status: bibo:draft
@@ -375,23 +364,5 @@ slots:
       source_domain: agri
       label_es: Tipo de ganado
       label_fr: Type de bétail
-      description_es: Tipos de ganado criados por la explotación agrícola.
-      description_fr: Types de bétail élevés par l'exploitation agricole.
       category: agriculture
       bibliography_refs: '["dhs-recode7", "fao-wca-2020-vol1", "lsms-isa"]'
-  primary_crop:
-    slot_uri: publicschema:agri/primary_crop
-    title: Primary crop
-    description: The primary crop or agricultural activity of the farm.
-    range: string
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      source_domain: agri
-      label_es: Cultivo principal
-      label_fr: Culture principale
-      description_es: El cultivo o actividad agrícola principal de la explotación agrícola.
-      description_fr: La principale culture ou activité agricole de l'exploitation.
-      convergence_json: '{"notes": "Even OpenSPP models crops as activities on a farm, not as a single
-        attribute.", "system_count": 0, "total_systems": 2}'
-      bibliography_refs: '["fao-wca-2020-vol1"]'

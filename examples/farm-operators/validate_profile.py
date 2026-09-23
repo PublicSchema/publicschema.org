@@ -1,4 +1,4 @@
-"""Validate the closed, local Farm operator demonstration exchange.
+"""Validate the closed, local Farm holder demonstration exchange.
 
 Run: .venv/bin/python examples/farm-operators/validate_profile.py
 This submission profile adds completeness and reference checks to the optional vocabulary.
@@ -9,14 +9,19 @@ from pathlib import Path
 from urllib.parse import urlsplit
 
 ROLE_ENDPOINTS = {
-    "agri/PersonHoldingOperatorRole": ("holding_operator_person", {"Person"}),
-    "agri/OrganizationHoldingOperatorRole": ("holding_operator_organization", {"Organization"}),
-    "agri/GroupHoldingOperatorRole": ("holding_operator_group", {"Household", "Family", "InformalGroup"}),
+    "agri/PersonAgriculturalHolderRole": ("holder_person", {"Person"}),
+    "agri/OrganizationAgriculturalHolderRole": ("holder_organization", {"Organization"}),
+    "agri/GroupAgriculturalHolderRole": ("holder_group", {"Household", "Family", "InformalGroup"}),
 }
 ENDPOINTS = {pair[0] for pair in ROLE_ENDPOINTS.values()}
 WORK_TYPES = {"WorkRelationship", "agri/HoldingWorkAssignment"}
 ECONOMIC_UNIT_TYPES = {"Organization", "Household", "InformalGroup", "agri/Farm"}
 WORK_CLASSIFICATIONS = {"work_form", "work_status", "work_remuneration", "work_seasonality"}
+# Fields that the vocabulary no longer defines on these types.
+RETIRED_FIELDS = {
+    "agri/Farm": {"holding_operator_roles", "primary_crop", "farm_area_hectares"},
+    "WorkRelationship": {"work_functions"},
+}
 
 
 
@@ -86,6 +91,8 @@ def validate_profile(records):
             raise ValueError("A supplied work classification requires its original code")
 
     for record in objects:
+        if RETIRED_FIELDS.get(record["@type"], set()) & record.keys():
+            raise ValueError("A retired field is present")
         if record["@type"] in WORK_TYPES:
             person = typed(record.get("work_person"), {"Person"})
             start, end = interval(record)
@@ -121,30 +128,20 @@ def validate_profile(records):
 
     for record in objects:
         kind = record["@type"]
-        if kind == "HoldingOperatorRole":
-            raise ValueError("A concrete holder responsibility type is required")
+        if kind in {"AgriculturalHolderRole", "agri/AgriculturalHolderRole"}:
+            raise ValueError("A concrete holder role type is required")
         if kind in ROLE_ENDPOINTS:
             endpoint, accepted = ROLE_ENDPOINTS[kind]
             if {key for key in ENDPOINTS if key in record} != {endpoint}:
-                raise ValueError("Exactly the concrete type's operator endpoint is required")
+                raise ValueError("Exactly the concrete type's holder endpoint is required")
             if resolve(record[endpoint]).get("@type") not in accepted:
-                raise ValueError("Wrong operator target type")
-            if resolve(record.get("operated_holding")).get("@type") != "agri/Farm":
-                raise ValueError("The operated holding must resolve to a Farm")
+                raise ValueError("Wrong holder target type")
+            if resolve(record.get("holder_farm")).get("@type") != "agri/Farm":
+                raise ValueError("The holder farm must resolve to a Farm")
             start = date.fromisoformat(record["start_date"]) if "start_date" in record else None
             end = date.fromisoformat(record["end_date"]) if "end_date" in record else None
             if start and end and end < start:
-                raise ValueError("Responsibility ends before it starts")
-        if kind == "agri/Farm":
-            for value in record.get("holding_operator_roles", []):
-                role = resolve(value)
-                if role.get("@type") not in ROLE_ENDPOINTS:
-                    raise ValueError("Listed role must use a supported concrete type")
-                holding = resolve(role.get("operated_holding"))
-                if holding is not record and (
-                    not record.get("@id") or holding.get("@id") != record["@id"]
-                ):
-                    raise ValueError("Listed responsibility identifies a different Farm")
+                raise ValueError("Holder role ends before it starts")
 
 
 if __name__ == "__main__":

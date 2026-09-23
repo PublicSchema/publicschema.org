@@ -56,6 +56,33 @@ def test_actual_pilot_exports_and_identity(exports):
         jsonschema.Draft202012Validator(result['concept_schemas'][name],registry=registry).validate({})
 
 
+def test_land_tenure_contract_and_shared_geometry(exports):
+    import yaml
+    result, shapes, records, registry = exports
+    properties = result['properties']
+    assert properties['tenure_object']['type'] == 'concept:land/LandAdministrativeUnit'
+    assert properties['tenure_holder']['type'] == 'uri'
+    assert properties['tenure_category']['vocabulary'] == 'land/tenure-category'
+    assert {v['code'] for v in result['vocabularies']['land/tenure-category']['values']} == {'right', 'restriction', 'responsibility'}
+    for name in ('tenure_holder', 'tenure_type', 'boundary_recognition', 'land_tenure'):
+        assert properties[name]['sensitivity'] == 'sensitive', name
+    share = yaml.safe_load((ROOT / 'schema/land.yaml').read_text())['slots']['tenure_share']
+    assert (share['range'], share['minimum_value'], share['maximum_value']) == ('decimal', 0, 1)
+    for kind in ('agri/AgriculturalParcel', 'land/LandSpatialUnit', 'land/LandBoundaryAssertion'):
+        assert 'spatial_geometry' in result['concept_schemas'][kind]['properties'], kind
+    for retired in ('parcel_geometry', 'land_geometry', 'boundary_geometry'):
+        assert retired not in properties
+    claims = [r for r in records if r['@type'] == 'land/LandTenureAssertion']
+    units = {r['@id'] for r in records if r['@type'] == 'land/LandAdministrativeUnit'}
+    assert claims and all(claim['tenure_object'] in units for claim in claims)
+    validator = jsonschema.Draft202012Validator(result['concept_schemas']['land/LandTenureAssertion'], registry=registry)
+    with pytest.raises(jsonschema.ValidationError):
+        validator.validate({'tenure_category': 'ownership'})
+    changed = copy.deepcopy(records)
+    next(r for r in changed if r['@type'] == 'land/LandTenureAssertion')['tenure_object'] = 'https://example.org/parcel/one'
+    assert not validate(graph(changed, result['context']), shacl_graph=shapes, inference='rdfs')[0]
+
+
 def test_asset_actor_kind_is_a_local_profile_rule(exports):
     result, shapes, records, _ = exports
     changed = copy.deepcopy(records)

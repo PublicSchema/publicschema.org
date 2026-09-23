@@ -9,7 +9,7 @@ import pytest
 from pyld import jsonld
 from pyshacl import validate
 from rdflib import Graph, Namespace, URIRef
-from rdflib.namespace import RDF, RDFS
+from rdflib.namespace import RDFS
 from referencing import Registry, Resource
 
 from build.build import build_vocabulary
@@ -34,7 +34,10 @@ def farm(tmp_path_factory):
 
 
 def graph_for(records, result):
-    graph = Graph().parse(data=json.dumps(jsonld.expand({"@context": result["context"]["@context"], "@graph": records})), format="json-ld")
+    # Use the standards conversion; RDFLib direct JSON-LD parsing can give
+    # xsd:decimal a Python float/int and cause false pySHACL datatype errors.
+    quads = jsonld.to_rdf({"@context": result["context"]["@context"], "@graph": records}, {"format": "application/n-quads"})
+    graph = Graph().parse(data=quads, format="nquads")
     # Supply the authored hierarchy for references to abstract ranges.
     for concept in result["concepts"].values():
         for parent in concept.get("supertypes", []):
@@ -46,8 +49,9 @@ def test_farm_hierarchy_and_locked_membership_contracts(farm):
     result, _, _, _ = farm
     assert result["concepts"]["agri/Farm"]["supertypes"] == []
     properties = result["concept_schemas"]["agri/Farm"]["properties"]
-    assert {"name", "identifiers", "holding_operator_roles"} <= properties.keys()
+    assert {"name", "identifiers", "farm_area", "land_tenure", "livestock_type", "location"} <= properties.keys()
     assert not {"group_type", "memberships", "member_count", "identity_documents"} & properties.keys()
+    assert not {"holding_operator_roles", "primary_crop", "farm_area_hectares"} & properties.keys()
     assert result["properties"]["group"]["type"] == "concept:Group"
     assert result["properties"]["beneficiary"]["type"] == "concept:Party"
     assert result["concepts"]["Organization"]["supertypes"] == ["Agent"]
@@ -69,50 +73,95 @@ def test_real_exports_and_example_profile(farm):
 
 def test_optional_vocabulary_does_not_imply_complete_role(farm):
     result, _, _, registry = farm
-    for kind in ("agri/Farm", "agri/PersonHoldingOperatorRole"):
+    for kind in ("agri/Farm", "agri/PersonAgriculturalHolderRole"):
         jsonschema.Draft202012Validator(result["concept_schemas"][kind], registry=registry).validate({})
     with pytest.raises(ValueError):
-        _profile.validate_profile([{"@type": "agri/PersonHoldingOperatorRole"}])
+        _profile.validate_profile([{"@type": "agri/PersonAgriculturalHolderRole"}])
     _profile.validate_profile([{"@type": "agri/Farm"}])
 
 
-@pytest.mark.parametrize("case", ["software", "wrong_holding", "missing_target", "mixed_endpoints", "no_operator", "base_only", "reversed_dates"])
+@pytest.mark.parametrize("case", ["software", "wrong_holding", "missing_target", "mixed_endpoints", "no_holder",
+                                  "base_only", "reversed_dates", "retired_role_list"])
 def test_profile_counterexamples(farm, case):
     _, _, original, _ = farm
     records = copy.deepcopy(original)
-    role = next(r for r in records if r["@type"] == "agri/PersonHoldingOperatorRole")
+    role = next(r for r in records if r["@type"] == "agri/PersonAgriculturalHolderRole")
     if case == "software":
-        next(r for r in records if r["@id"] == role["holding_operator_person"])["@type"] = "SoftwareAgent"
+        next(r for r in records if r["@id"] == role["holder_person"])["@type"] = "SoftwareAgent"
     elif case == "wrong_holding":
-        records.append({"@id": EX + "other", "@type": "agri/Farm"})
-        role["operated_holding"] = EX + "other"
+        role["holder_farm"] = EX + "person"
     elif case == "missing_target":
-        role["holding_operator_person"] = EX + "missing"
+        role["holder_person"] = EX + "missing"
     elif case == "mixed_endpoints":
-        role["holding_operator_organization"] = EX + "cooperative"
-    elif case == "no_operator":
-        del role["holding_operator_person"]
+        role["holder_organization"] = EX + "cooperative"
+    elif case == "no_holder":
+        del role["holder_person"]
     elif case == "base_only":
-        role["@type"] = "HoldingOperatorRole"
+        role["@type"] = "agri/AgriculturalHolderRole"
+    elif case == "retired_role_list":
+        records[0]["holding_operator_roles"] = [role["@id"]]
     else:
         role["end_date"] = "2020-01-01"
     with pytest.raises(ValueError):
         _profile.validate_profile(records)
 
 
-def test_embedded_role_dispatch_and_partial_inverse(farm):
+def test_embedded_holder_and_farm_objects_resolve(farm):
     _, _, original, _ = farm
     records = copy.deepcopy(original)
-    holding = records[0]
-    role = next(r for r in records if r["@type"] == "agri/PersonHoldingOperatorRole")
-    holding["holding_operator_roles"] = [role]
-    records.remove(role)
-    _profile.validate_profile(records)  # Other roles need not appear in the inverse list.
-    role["holding_operator_person"] = {"@type": "Person", "name": "Local person"}
+    role = next(r for r in records if r["@type"] == "agri/PersonAgriculturalHolderRole")
+    role["holder_farm"] = {"@type": "agri/Farm", "name": "Embedded farm"}
+    role["holder_person"] = {"@type": "Person", "name": "Local person"}
     _profile.validate_profile(records)
-    role["holding_operator_person"] = {"@type": "SoftwareAgent", "name": "Scheduler"}
+    role["holder_person"] = {"@type": "SoftwareAgent", "name": "Scheduler"}
     with pytest.raises(ValueError):
         _profile.validate_profile(records)
+
+
+def test_holding_vocabulary_contract(farm):
+    result, _, _, _ = farm
+    concepts, properties = result["concepts"], result["properties"]
+    assert concepts["agri/Farm"]["label"]["en"] == "Farm (agricultural holding)"
+    assert properties["farm_area"]["type"] == "concept:QuantityValue"
+    assert properties["farm_area"]["uri"] == str(AGRI.farm_area)
+    assert properties["land_tenure"]["cardinality"] == "multiple"
+    assert properties["land_tenure"]["vocabulary"] == "agri/land-tenure"
+    assert properties["land_tenure"]["sensitivity"] == "sensitive"
+    assert properties["livestock_type"]["cardinality"] == "multiple"
+    assert "whether or not" in properties["livestock_type"]["definition"]["en"]
+    for retired in ("holding_operator_roles", "primary_crop", "farm_area_hectares", "operated_holding",
+                    "holding_operator_person", "holding_operator_organization", "holding_operator_group"):
+        assert retired not in properties
+    for retired in ("HoldingOperatorRole", "PersonHoldingOperatorRole", "OrganizationHoldingOperatorRole",
+                    "GroupHoldingOperatorRole"):
+        assert f"agri/{retired}" not in concepts
+    assert concepts["agri/AgriculturalHolderRole"]["abstract"] is True
+    for variant, endpoint, target in (("Person", "holder_person", "Person"),
+                                      ("Organization", "holder_organization", "Organization"),
+                                      ("Group", "holder_group", "Group")):
+        kind = f"agri/{variant}AgriculturalHolderRole"
+        assert concepts[kind]["supertypes"] == ["agri/AgriculturalHolderRole"]
+        assert {endpoint, "holder_farm", "start_date", "end_date"} <= result["concept_schemas"][kind]["properties"].keys()
+        assert properties[endpoint]["type"] == f"concept:{target}"
+    assert properties["holder_farm"]["type"] == "concept:agri/Farm"
+    registration = result["concept_schemas"]["agri/FarmerRegistration"]["properties"]
+    assert {"registered_subject", "registered_farms"} <= registration.keys()
+    assert concepts["agri/FarmerRegistration"]["supertypes"] == ["Registration"]
+    assert properties["registered_farms"]["type"] == "concept:agri/Farm"
+    assert properties["registered_farms"]["cardinality"] == "multiple"
+
+
+def test_livestock_type_follows_wca_classes(farm):
+    result, _, _, _ = farm
+    vocabulary = result["vocabularies"]["agri/livestock-type"]
+    codes = {value["code"]: value for value in vocabulary["values"]}
+    assert {"buffaloes", "llamas_alpacas", "bees"} <= codes.keys()
+    assert "beehives" not in codes
+    for code, wca in (("cattle", "11"), ("buffaloes", "12"), ("sheep", "21"), ("goats", "22"), ("pigs", "3"),
+                      ("horses", "41"), ("llamas_alpacas", "53"), ("chickens", "61"), ("bees", "81")):
+        assert codes[code]["standard_code"] == wca
+    assert "social protection" not in json.dumps(vocabulary["standard"])
+    assert "2030" in vocabulary["standard"]["name"]
 
 
 def test_production_shacl_rejects_software_as_person(farm):
@@ -141,9 +190,14 @@ def test_workforce_golden_json_schema_shacl_and_profile(farm, workforce):
     for kind, endpoint in (("WorkRelationship", "work_economic_unit"),
                            ("agri/HoldingWorkAssignment", "assigned_holding")):
         properties = result["concept_schemas"][kind]["properties"]
-        assert {endpoint, "work_person", "start_date", "end_date", "work_functions",
+        assert {endpoint, "work_person", "start_date", "end_date",
                 "work_form", "work_status", "work_remuneration", "work_seasonality"} <= properties.keys()
         assert result["concepts"][kind]["maturity"] == "draft"
+    # Functions describe work at a site, so they belong to the holding assignment only.
+    assert "work_functions" in result["concept_schemas"]["agri/HoldingWorkAssignment"]["properties"]
+    assert "work_functions" not in result["concept_schemas"]["WorkRelationship"]["properties"]
+    assert result["properties"]["work_functions"]["uri"] == str(AGRI.work_functions)
+    assert result["properties"]["work_functions"]["used_by"] == ["agri/HoldingWorkAssignment"]
     for predicate in (PS.beneficiary, PS.recipient, PS.group):
         assert not list(graph.triples((None, predicate, None)))
 
@@ -168,8 +222,8 @@ def test_paid_unpaid_family_and_holder_management_are_independent(workforce):
         assert "assignment_work_relationship" not in record  # One participation record suffices.
     holder = index[EX + "person-role"]
     manager = index[EX + "holder-management"]
-    assert holder["holding_operator_person"] == manager["work_person"]
-    assert holder["operated_holding"] == manager["assigned_holding"]
+    assert holder["holder_person"] == manager["work_person"]
+    assert holder["holder_farm"] == manager["assigned_holding"]
     assert holder["start_date"] == "2025-01-01" and "end_date" not in holder
     assert "identifiers" not in index[manager["work_person"]]
 
@@ -207,7 +261,7 @@ def test_agency_and_contractor_keep_one_economic_relationship_across_two_holding
 @pytest.mark.parametrize("case", ["missing_person", "software_person", "missing_holding", "wrong_holding",
     "missing_relationship", "wrong_relationship", "different_person", "missing_unit", "wrong_unit",
     "missing_unit_field", "reversed_dates", "empty_interval", "invalid_date", "before_relationship",
-    "after_relationship", "starts_on_cessation", "code_without_scheme"])
+    "after_relationship", "starts_on_cessation", "code_without_scheme", "relationship_functions"])
 def test_work_profile_rejects_inconsistent_assertions(workforce, case):
     records = copy.deepcopy(workforce)
     assignment = next(r for r in records if r["@id"] == EX + "agency-river")
@@ -245,6 +299,8 @@ def test_work_profile_rejects_inconsistent_assertions(workforce, case):
     elif case == "starts_on_cessation":
         assignment["start_date"] = relationship["end_date"]
         del assignment["end_date"]
+    elif case == "relationship_functions":
+        relationship["work_functions"] = copy.deepcopy(assignment["work_functions"])
     else:
         del assignment["work_functions"][0]["code_scheme"]
     with pytest.raises(ValueError):

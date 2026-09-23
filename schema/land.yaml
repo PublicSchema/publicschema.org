@@ -1,7 +1,7 @@
 id: https://publicschema.org/linkml/land
 name: publicschema-land
 title: Land administration
-description: Draft land spatial and administrative units, tenure and boundary assertions.
+description: Land spatial and administrative units, tenure assertions and boundary assertions.
 license: CC-BY-4.0
 default_prefix: publicschema
 prefixes:
@@ -11,19 +11,19 @@ prefixes:
 imports:
 - linkml:types
 - common
+- vocabularies
 - value_types
 - registry
 classes:
   LandSpatialUnit:
     class_uri: publicschema:land/LandSpatialUnit
     title: Land Spatial Unit
-    description: A separately identified area or volume used in land administration.
-      A cadastral parcel is one possible unit; a spatial unit is not itself a title
-      or right.
+    description: A separately identified area of land, or volume of space, recorded in land administration.
+      A cadastral parcel is one kind of spatial unit. A spatial unit is not itself a right or a title.
     slots:
     - name
     - identifiers
-    - land_geometry
+    - spatial_geometry
     - land_area
     - location
     status: bibo:draft
@@ -33,9 +33,9 @@ classes:
   LandAdministrativeUnit:
     class_uri: publicschema:land/LandAdministrativeUnit
     title: Land Administrative Unit
-    description: A unit of property administration to which rights, restrictions or
-      responsibilities apply. It may combine several spatial units and must not be
-      confused with a territorial administrative area.
+    description: A unit recorded in land administration to which one or more uniform rights, restrictions
+      or responsibilities apply. It may be formally registered or informally or customarily recorded.
+      It groups zero or more spatial units. It is not a territorial administrative area.
     slots:
     - name
     - identifiers
@@ -47,10 +47,10 @@ classes:
   LandTenureAssertion:
     class_uri: publicschema:land/LandTenureAssertion
     title: Land Tenure Assertion
-    description: A claim concerning a person, organization or collective's right, restriction
-      or responsibility over land. Recording it does not adjudicate competing claims
-      or turn customary tenure into registered ownership. The land object may be an
-      agricultural parcel, spatial unit or administrative property unit.
+    description: A statement that a party holds, or claims, a right, restriction or responsibility over
+      an identified land administrative unit during a stated period. It records the claim and its evidence.
+      It does not decide between competing claims and does not convert customary or informal tenure into
+      registered ownership. Some restrictions and responsibilities have no named holder.
     slots:
     - tenure_holder
     - tenure_object
@@ -67,12 +67,11 @@ classes:
   LandBoundaryAssertion:
     class_uri: publicschema:land/LandBoundaryAssertion
     title: Land Boundary Assertion
-    description: A statement of the position and recognition of a land boundary, linked
-      to the spatial unit and supporting survey or other evidence. Geometry alone
-      does not establish legal agreement.
+    description: A statement of where the boundary of a land spatial unit lies and how far it is recognized
+      or agreed, with its supporting evidence. Geometry alone does not establish legal agreement.
     slots:
     - boundary_unit
-    - boundary_geometry
+    - spatial_geometry
     - boundary_recognition
     - evidence_assertions
     - recorded_at
@@ -81,16 +80,6 @@ classes:
       source_domain: land
       bibliography_refs: '["unece-property-units-2004", "fao-vggt"]'
 slots:
-  land_geometry:
-    slot_uri: publicschema:land/land_geometry
-    title: Land geometry
-    description: The geometry of the spatial land unit.
-    range: SpatialGeometry
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      source_domain: land
-      category: administrative
   land_area:
     slot_uri: publicschema:land/land_area
     title: Land area
@@ -105,8 +94,8 @@ slots:
   administrative_spatial_units:
     slot_uri: publicschema:land/administrative_spatial_units
     title: Administrative spatial units
-    description: Spatial units associated with a property administration unit; a spatial
-      unit can be associated with more than one administrative unit.
+    description: The spatial units grouped by this land administrative unit. It may be empty where no
+      cadastral map exists. A spatial unit can belong to more than one administrative unit.
     range: LandSpatialUnit
     multivalued: true
     status: bibo:draft
@@ -116,20 +105,21 @@ slots:
   tenure_holder:
     slot_uri: publicschema:land/tenure_holder
     title: Tenure holder
-    description: The actual person, organization or collective to which the tenure
-      assertion applies; the URI does not create legal personality.
+    description: The person, organization or group that holds or claims the right, or bears the restriction
+      or responsibility. It may be absent for restrictions attached to the land alone. The URI does not
+      create legal personality.
     range: uri
     multivalued: false
     status: bibo:draft
     annotations:
       source_domain: land
       category: administrative
+      sensitivity: sensitive
   tenure_object:
     slot_uri: publicschema:land/tenure_object
     title: Tenure object
-    description: The identified land object affected by the assertion, with its actual
-      type retained by the local graph.
-    range: uri
+    description: The land administrative unit to which the right, restriction or responsibility applies.
+    range: LandAdministrativeUnit
     multivalued: false
     status: bibo:draft
     annotations:
@@ -138,9 +128,8 @@ slots:
   tenure_category:
     slot_uri: publicschema:land/tenure_category
     title: Tenure category
-    description: The broad category of right, restriction or responsibility, interpreted
-      within an explicit scheme.
-    range: CodedValue
+    description: Whether the assertion concerns a right, a restriction or a responsibility.
+    range: TenureCategory
     multivalued: false
     status: bibo:draft
     annotations:
@@ -149,20 +138,24 @@ slots:
   tenure_type:
     slot_uri: publicschema:land/tenure_type
     title: Tenure type
-    description: The jurisdictional or customary kind of tenure asserted, preserved
-      without forced conversion to ownership.
+    description: The statutory, customary or informal kind of tenure asserted, coded in a stated classification
+      and kept as recorded, without conversion to ownership.
     range: CodedValue
     multivalued: false
     status: bibo:draft
     annotations:
       source_domain: land
       category: administrative
+      sensitivity: sensitive
   tenure_share:
     slot_uri: publicschema:land/tenure_share
     title: Tenure share
-    description: The asserted fractional interest where meaningful; multiple conflicting
-      claims are not automatically normalized or summed.
+    description: The holder's share of the right, restriction or responsibility, as a fraction of the
+      whole from 0 to 1, where 1 is the entire interest. It is not a percentage. Shares in competing claims
+      are not normalized or added.
     range: decimal
+    minimum_value: 0
+    maximum_value: 1
     multivalued: false
     status: bibo:draft
     annotations:
@@ -178,25 +171,14 @@ slots:
     annotations:
       source_domain: land
       category: administrative
-  boundary_geometry:
-    slot_uri: publicschema:land/boundary_geometry
-    title: Boundary geometry
-    description: The asserted boundary geometry, whose accuracy and legal recognition
-      are separate concerns.
-    range: SpatialGeometry
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      source_domain: land
-      category: administrative
   boundary_recognition:
     slot_uri: publicschema:land/boundary_recognition
     title: Boundary recognition
-    description: The scheme-qualified recognition or agreement state of the asserted
-      boundary.
+    description: How far the asserted boundary is recognized or agreed, coded in a stated classification.
     range: CodedValue
     multivalued: false
     status: bibo:draft
     annotations:
       source_domain: land
       category: administrative
+      sensitivity: sensitive

@@ -189,8 +189,9 @@
       "kind": "class",
       "id": "GroupHoldingOperatorRole",
       "old_uri": "https://publicschema.org/GroupHoldingOperatorRole",
-      "new_uri": "https://publicschema.org/agri/GroupHoldingOperatorRole",
-      "action": "relocate"
+      "new_uri": "https://publicschema.org/agri/GroupAgriculturalHolderRole",
+      "action": "reviewed-replacement",
+      "note": "The holder role is renamed with the same meaning; migrate the endpoint and farm fields explicitly."
     },
     {
       "kind": "class",
@@ -219,8 +220,9 @@
       "kind": "class",
       "id": "HoldingOperatorRole",
       "old_uri": "https://publicschema.org/HoldingOperatorRole",
-      "new_uri": "https://publicschema.org/agri/HoldingOperatorRole",
-      "action": "relocate"
+      "new_uri": "https://publicschema.org/agri/AgriculturalHolderRole",
+      "action": "reviewed-replacement",
+      "note": "The holder role is renamed with the same meaning; migrate the endpoint and farm fields explicitly."
     },
     {
       "kind": "class",
@@ -305,8 +307,9 @@
       "kind": "class",
       "id": "OrganizationHoldingOperatorRole",
       "old_uri": "https://publicschema.org/OrganizationHoldingOperatorRole",
-      "new_uri": "https://publicschema.org/agri/OrganizationHoldingOperatorRole",
-      "action": "relocate"
+      "new_uri": "https://publicschema.org/agri/OrganizationAgriculturalHolderRole",
+      "action": "reviewed-replacement",
+      "note": "The holder role is renamed with the same meaning; migrate the endpoint and farm fields explicitly."
     },
     {
       "kind": "class",
@@ -320,8 +323,9 @@
       "kind": "class",
       "id": "PersonHoldingOperatorRole",
       "old_uri": "https://publicschema.org/PersonHoldingOperatorRole",
-      "new_uri": "https://publicschema.org/agri/PersonHoldingOperatorRole",
-      "action": "relocate"
+      "new_uri": "https://publicschema.org/agri/PersonAgriculturalHolderRole",
+      "action": "reviewed-replacement",
+      "note": "The holder role is renamed with the same meaning; migrate the endpoint and farm fields explicitly."
     },
     {
       "kind": "class",
@@ -515,8 +519,9 @@
       "kind": "property",
       "id": "boundary_geometry",
       "old_uri": "https://publicschema.org/boundary_geometry",
-      "new_uri": "https://publicschema.org/land/boundary_geometry",
-      "action": "relocate"
+      "new_uri": "https://publicschema.org/spatial_geometry",
+      "action": "reviewed-replacement",
+      "note": "Use the shared spatial_geometry property; it is multivalued, so wrap a single value in a list."
     },
     {
       "kind": "property",
@@ -649,8 +654,9 @@
       "kind": "property",
       "id": "farm_area_hectares",
       "old_uri": "https://publicschema.org/farm_area_hectares",
-      "new_uri": "https://publicschema.org/agri/farm_area_hectares",
-      "action": "relocate"
+      "new_uri": "https://publicschema.org/agri/farm_area",
+      "action": "reviewed-replacement",
+      "note": "Convert the hectare number into a QuantityValue with UCUM unit code har; zero is valid for a farm without land."
     },
     {
       "kind": "property",
@@ -672,29 +678,33 @@
       "kind": "property",
       "id": "holding_operator_group",
       "old_uri": "https://publicschema.org/holding_operator_group",
-      "new_uri": "https://publicschema.org/agri/holding_operator_group",
-      "action": "relocate"
+      "new_uri": "https://publicschema.org/agri/holder_group",
+      "action": "reviewed-replacement",
+      "note": "Renamed with the same meaning and Group range."
     },
     {
       "kind": "property",
       "id": "holding_operator_organization",
       "old_uri": "https://publicschema.org/holding_operator_organization",
-      "new_uri": "https://publicschema.org/agri/holding_operator_organization",
-      "action": "relocate"
+      "new_uri": "https://publicschema.org/agri/holder_organization",
+      "action": "reviewed-replacement",
+      "note": "Renamed with the same meaning and Organization range."
     },
     {
       "kind": "property",
       "id": "holding_operator_person",
       "old_uri": "https://publicschema.org/holding_operator_person",
-      "new_uri": "https://publicschema.org/agri/holding_operator_person",
-      "action": "relocate"
+      "new_uri": "https://publicschema.org/agri/holder_person",
+      "action": "reviewed-replacement",
+      "note": "Renamed with the same meaning and Person range."
     },
     {
       "kind": "property",
       "id": "holding_operator_roles",
       "old_uri": "https://publicschema.org/holding_operator_roles",
-      "new_uri": "https://publicschema.org/agri/holding_operator_roles",
-      "action": "relocate"
+      "new_uri": null,
+      "action": "retire",
+      "note": "Farm no longer lists its holder roles; find them through holder_farm on each role."
     },
     {
       "kind": "property",
@@ -744,8 +754,9 @@
       "kind": "property",
       "id": "land_geometry",
       "old_uri": "https://publicschema.org/land_geometry",
-      "new_uri": "https://publicschema.org/land/land_geometry",
-      "action": "relocate"
+      "new_uri": "https://publicschema.org/spatial_geometry",
+      "action": "reviewed-replacement",
+      "note": "Use the shared spatial_geometry property; it is multivalued, so wrap a single value in a list."
     },
     {
       "kind": "property",
@@ -826,8 +837,9 @@
       "kind": "property",
       "id": "operated_holding",
       "old_uri": "https://publicschema.org/operated_holding",
-      "new_uri": "https://publicschema.org/agri/operated_holding",
-      "action": "relocate"
+      "new_uri": "https://publicschema.org/agri/holder_farm",
+      "action": "reviewed-replacement",
+      "note": "Renamed with the same meaning and Farm range."
     },
     {
       "kind": "property",
@@ -872,8 +884,9 @@
       "kind": "property",
       "id": "parcel_geometry",
       "old_uri": "https://publicschema.org/parcel_geometry",
-      "new_uri": "https://publicschema.org/agri/parcel_geometry",
-      "action": "relocate"
+      "new_uri": "https://publicschema.org/spatial_geometry",
+      "action": "reviewed-replacement",
+      "note": "Use the shared spatial_geometry property; it is multivalued, so wrap a single value in a list."
     },
     {
       "kind": "property",
@@ -943,8 +956,9 @@
       "kind": "property",
       "id": "primary_crop",
       "old_uri": "https://publicschema.org/primary_crop",
-      "new_uri": "https://publicschema.org/agri/primary_crop",
-      "action": "relocate"
+      "new_uri": null,
+      "action": "retire",
+      "note": "A single free-text crop does not describe a farm; record cultivated crops as separate planting records."
     },
     {
       "kind": "property",
@@ -1396,140 +1410,140 @@
       "kind": "linkml-enum",
       "id": "LandTenure",
       "old_uri": "https://publicschema.org/LandTenure",
-      "new_uri": "https://publicschema.org/land/LandTenure",
+      "new_uri": "https://publicschema.org/agri/LandTenure",
       "action": "relocate"
     },
     {
       "kind": "linkml-enum-value",
       "id": "LandTenure/owned_with_title",
       "old_uri": "https://publicschema.org/LandTenure/owned_with_title",
-      "new_uri": "https://publicschema.org/land/LandTenure/owned_with_title",
+      "new_uri": "https://publicschema.org/agri/LandTenure/owned_with_title",
       "action": "relocate"
     },
     {
       "kind": "linkml-enum-value",
       "id": "LandTenure/owned_without_title",
       "old_uri": "https://publicschema.org/LandTenure/owned_without_title",
-      "new_uri": "https://publicschema.org/land/LandTenure/owned_without_title",
+      "new_uri": "https://publicschema.org/agri/LandTenure/owned_without_title",
       "action": "relocate"
     },
     {
       "kind": "linkml-enum-value",
       "id": "LandTenure/rented",
       "old_uri": "https://publicschema.org/LandTenure/rented",
-      "new_uri": "https://publicschema.org/land/LandTenure/rented",
+      "new_uri": "https://publicschema.org/agri/LandTenure/rented",
       "action": "relocate"
     },
     {
       "kind": "linkml-enum-value",
       "id": "LandTenure/sharecropped",
       "old_uri": "https://publicschema.org/LandTenure/sharecropped",
-      "new_uri": "https://publicschema.org/land/LandTenure/sharecropped",
+      "new_uri": "https://publicschema.org/agri/LandTenure/sharecropped",
       "action": "relocate"
     },
     {
       "kind": "linkml-enum-value",
       "id": "LandTenure/communal",
       "old_uri": "https://publicschema.org/LandTenure/communal",
-      "new_uri": "https://publicschema.org/land/LandTenure/communal",
+      "new_uri": "https://publicschema.org/agri/LandTenure/communal",
       "action": "relocate"
     },
     {
       "kind": "linkml-enum-value",
       "id": "LandTenure/state_allocated",
       "old_uri": "https://publicschema.org/LandTenure/state_allocated",
-      "new_uri": "https://publicschema.org/land/LandTenure/state_allocated",
+      "new_uri": "https://publicschema.org/agri/LandTenure/state_allocated",
       "action": "relocate"
     },
     {
       "kind": "linkml-enum-value",
       "id": "LandTenure/informal",
       "old_uri": "https://publicschema.org/LandTenure/informal",
-      "new_uri": "https://publicschema.org/land/LandTenure/informal",
+      "new_uri": "https://publicschema.org/agri/LandTenure/informal",
       "action": "relocate"
     },
     {
       "kind": "linkml-enum-value",
       "id": "LandTenure/borrowed",
       "old_uri": "https://publicschema.org/LandTenure/borrowed",
-      "new_uri": "https://publicschema.org/land/LandTenure/borrowed",
+      "new_uri": "https://publicschema.org/agri/LandTenure/borrowed",
       "action": "relocate"
     },
     {
       "kind": "linkml-enum-value",
       "id": "LandTenure/other",
       "old_uri": "https://publicschema.org/LandTenure/other",
-      "new_uri": "https://publicschema.org/land/LandTenure/other",
+      "new_uri": "https://publicschema.org/agri/LandTenure/other",
       "action": "relocate"
     },
     {
       "kind": "catalog-vocabulary",
       "id": "land-tenure",
       "old_uri": "https://publicschema.org/vocab/land-tenure",
-      "new_uri": "https://publicschema.org/vocab/land/land-tenure",
+      "new_uri": "https://publicschema.org/vocab/agri/land-tenure",
       "action": "relocate"
     },
     {
       "kind": "catalog-vocabulary-value",
       "id": "land-tenure/owned_with_title",
       "old_uri": "https://publicschema.org/vocab/land-tenure/owned_with_title",
-      "new_uri": "https://publicschema.org/vocab/land/land-tenure/owned_with_title",
+      "new_uri": "https://publicschema.org/vocab/agri/land-tenure/owned_with_title",
       "action": "relocate"
     },
     {
       "kind": "catalog-vocabulary-value",
       "id": "land-tenure/owned_without_title",
       "old_uri": "https://publicschema.org/vocab/land-tenure/owned_without_title",
-      "new_uri": "https://publicschema.org/vocab/land/land-tenure/owned_without_title",
+      "new_uri": "https://publicschema.org/vocab/agri/land-tenure/owned_without_title",
       "action": "relocate"
     },
     {
       "kind": "catalog-vocabulary-value",
       "id": "land-tenure/rented",
       "old_uri": "https://publicschema.org/vocab/land-tenure/rented",
-      "new_uri": "https://publicschema.org/vocab/land/land-tenure/rented",
+      "new_uri": "https://publicschema.org/vocab/agri/land-tenure/rented",
       "action": "relocate"
     },
     {
       "kind": "catalog-vocabulary-value",
       "id": "land-tenure/sharecropped",
       "old_uri": "https://publicschema.org/vocab/land-tenure/sharecropped",
-      "new_uri": "https://publicschema.org/vocab/land/land-tenure/sharecropped",
+      "new_uri": "https://publicschema.org/vocab/agri/land-tenure/sharecropped",
       "action": "relocate"
     },
     {
       "kind": "catalog-vocabulary-value",
       "id": "land-tenure/communal",
       "old_uri": "https://publicschema.org/vocab/land-tenure/communal",
-      "new_uri": "https://publicschema.org/vocab/land/land-tenure/communal",
+      "new_uri": "https://publicschema.org/vocab/agri/land-tenure/communal",
       "action": "relocate"
     },
     {
       "kind": "catalog-vocabulary-value",
       "id": "land-tenure/state_allocated",
       "old_uri": "https://publicschema.org/vocab/land-tenure/state_allocated",
-      "new_uri": "https://publicschema.org/vocab/land/land-tenure/state_allocated",
+      "new_uri": "https://publicschema.org/vocab/agri/land-tenure/state_allocated",
       "action": "relocate"
     },
     {
       "kind": "catalog-vocabulary-value",
       "id": "land-tenure/informal",
       "old_uri": "https://publicschema.org/vocab/land-tenure/informal",
-      "new_uri": "https://publicschema.org/vocab/land/land-tenure/informal",
+      "new_uri": "https://publicschema.org/vocab/agri/land-tenure/informal",
       "action": "relocate"
     },
     {
       "kind": "catalog-vocabulary-value",
       "id": "land-tenure/borrowed",
       "old_uri": "https://publicschema.org/vocab/land-tenure/borrowed",
-      "new_uri": "https://publicschema.org/vocab/land/land-tenure/borrowed",
+      "new_uri": "https://publicschema.org/vocab/agri/land-tenure/borrowed",
       "action": "relocate"
     },
     {
       "kind": "catalog-vocabulary-value",
       "id": "land-tenure/other",
       "old_uri": "https://publicschema.org/vocab/land-tenure/other",
-      "new_uri": "https://publicschema.org/vocab/land/land-tenure/other",
+      "new_uri": "https://publicschema.org/vocab/agri/land-tenure/other",
       "action": "relocate"
     },
     {
@@ -1613,8 +1627,9 @@
       "kind": "linkml-enum-value",
       "id": "LivestockType/beehives",
       "old_uri": "https://publicschema.org/LivestockType/beehives",
-      "new_uri": "https://publicschema.org/agri/LivestockType/beehives",
-      "action": "relocate"
+      "new_uri": "https://publicschema.org/agri/LivestockType/bees",
+      "action": "reviewed-replacement",
+      "note": "Bees follow WCA class 81 and are counted by hive or colony."
     },
     {
       "kind": "linkml-enum-value",
@@ -1704,8 +1719,9 @@
       "kind": "catalog-vocabulary-value",
       "id": "livestock-type/beehives",
       "old_uri": "https://publicschema.org/vocab/livestock-type/beehives",
-      "new_uri": "https://publicschema.org/vocab/agri/livestock-type/beehives",
-      "action": "relocate"
+      "new_uri": "https://publicschema.org/vocab/agri/livestock-type/bees",
+      "action": "reviewed-replacement",
+      "note": "Bees follow WCA class 81 and are counted by hive or colony."
     },
     {
       "kind": "catalog-vocabulary-value",

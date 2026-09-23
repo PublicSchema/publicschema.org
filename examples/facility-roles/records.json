@@ -121,9 +121,9 @@
   },
   {
     "@id": "https://example.org/facility-roles/holder-role",
-    "@type": "PersonHoldingOperatorRole",
-    "operated_holding": "https://example.org/facility-roles/holding",
-    "holding_operator_person": "https://example.org/facility-roles/holding-holder",
+    "@type": "PersonAgriculturalHolderRole",
+    "holder_farm": "https://example.org/facility-roles/holding",
+    "holder_person": "https://example.org/facility-roles/holding-holder",
     "start_date": "2020-01-01"
   },
   {
