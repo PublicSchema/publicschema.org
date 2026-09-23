@@ -1,62 +1,124 @@
-# Agricultural operations draft review brief
+# Agricultural operations draft
 
-This bounded draft separates physical facilities and assets, actors in service roles, product specifications, certifications and legal authorizations. The agricultural concepts and properties use the `agri/` namespace; shared concepts retain root URIs by meaning. Every new term is draft. It is neither a full agricultural-domain model nor a normative specification. Definitions and serialization are PublicSchema design choices informed by the sources below; no exact equivalence, national conformance or RegistryStack compatibility is claimed.
+These draft terms describe the physical facilities, machines, vessels and
+irrigation works used in agriculture; the people and organizations that provide
+agricultural services; producer organizations; and agricultural input products
+with their declared composition. Agricultural concepts and properties use the
+`agri/` namespace. Terms whose meaning is not specific to agriculture, such as
+`ProductComponent` and `service_provider`, keep root URIs. Every term is draft.
+Definitions are PublicSchema design choices informed by the sources below; they
+do not claim equivalence with, or conformance to, any national register.
 
-## Family coverage and evidence
+## Concepts and evidence
 
-| Family and delivered concept | Evidence and boundary |
-| --- | --- |
-| `AgriculturalFacility` | [FAO Global Soil Laboratory Network](https://www.fao.org/global-soil-partnership/glosolan/en/), Network registration and proficiency disclaimer. A physical site or installation used for agricultural production, storage, processing, trade or technical support. Its identity is distinct from its operator, a holding and any registration. |
-| `AgriculturalLaboratory` | [FAO Global Soil Laboratory Network](https://www.fao.org/global-soil-partnership/glosolan/en/), Network registration and proficiency disclaimer. A physical laboratory facility providing analysis or testing of agricultural materials. Network membership does not establish accreditation or proficiency. |
-| `Apiary` | [Hive Count frequently asked questions, 2021](https://www.nationalbeeunit.com/assets/PDFs/6_Bees_and_the_Law/Hive_count/FAQs_for_Hive_Count_2021.pdf), Apiary name, address and map reference. A site at which bee colonies are kept. Colonies and their movements have identities separate from the site. |
-| `AquacultureEstablishment` | [Registers of authorised aquaculture production businesses](https://www.gov.scot/publications/registers-of-authorised-aquaculture-production-businesses-and-authorised-processing-establishments/), Separate business and establishment registers. A site or installation where aquatic organisms are farmed or held for aquaculture. The operating business and its authorization are separate. |
-| `LivestockEstablishment` | [Terrestrial Animal Health Code glossary, 2024](https://www.woah.org/fileadmin/Home/eng/Health_standards/tahc/2024/en_glossaire.htm), Glossary: establishment. A premises or installation where terrestrial livestock are kept or handled, including production and assembly sites. It is distinct from the animals and the agricultural holding. |
-| `PlantNursery` | [Issuing plant passports to trade plants in Great Britain](https://www.gov.uk/guidance/issuing-plant-passports-to-trade-plants-in-great-britain), Register as a professional operator and get authorised. A facility where plants are propagated or grown for planting elsewhere. It is distinct from a nursery business and authorization to issue plant passports. |
-| `AgriculturalMachinery` | [FARMS Farm Machinery Solutions](https://agrimachinery.nic.in/Index/farmsapp), Hiring and sale/purchase of machinery. An identifiable physical machine used in agricultural work. A hired machine retains its identity independently of a service provider, owner or holding. |
-| `FishingVessel` | [Global Record Unique Vessel Identifier](https://www.fao.org/global-record/background/unique-vessel-identifier/en/), UVI continuity across ownership, flag and name changes. An identifiable vessel used for fishing. Changes in name, flag or operator do not alone create a different vessel; registration and permission to fish remain separate. |
-| `AgriculturalServiceRole` | [FARMS Farm Machinery Solutions](https://agrimachinery.nic.in/Index/farmsapp), Hiring and sale/purchase of machinery. A person, organization or group acting as a provider of specified agricultural services during a stated period. This relationship does not establish professional qualification or legal permission. |
-| `InputSupplierRole` | [Register work involving pesticides](https://www.hse.gov.uk/pesticides/register.htm), Professional users and suppliers. An agricultural service role supplying inputs such as seed, feed, fertilizer or pesticides. Supply activity does not itself establish approval for every product. |
-| `PesticideApplicatorRole` | [Register work involving pesticides](https://www.hse.gov.uk/pesticides/register.htm), Professional users and suppliers. An agricultural service role applying pesticides. Competence certification and permission to use a particular product are separate assertions. |
-| `SeedOperatorRole` | [Public Register of Seeds Merchants, Processors and Packers](https://www.sasa.gov.uk/document-library/public-register-seeds-merchants-processors-packers), Public registry activity distinctions. An agricultural service role producing, processing, packing or marketing seed. The role is distinct from seed-lot certification and plant-variety identity. |
-| `ProducerOrganization` | [Producer and interbranch organisations](https://agriculture.ec.europa.eu/common-agricultural-policy/agri-food-supply-chain/producer-and-interbranch-organisations_en), Recognition of producer organizations. An identifiable organization formed by agricultural producers to pursue shared production, marketing or service objectives. Recognition under a particular legal regime is represented separately. ProducerMembership provides dated membership without changing Person-only GroupMembership. |
-| `ProducerMembership` | [European Commission producer organizations](https://agriculture.ec.europa.eu/common-agricultural-policy/agri-food-supply-chain/producer-and-interbranch-organisations_en), producer members and collective objectives. A dated membership with a person, group or organization endpoint; membership does not imply employment or ownership. |
-| `AgriculturalProduct` | [EU Pesticides Database](https://food.ec.europa.eu/plants/pesticides/eu-pesticides-database_en), Active substances and emergency authorizations. A specified product intended for use as an agricultural input. It describes the product specification or marketed formulation, not an individual package, shipment, batch or authorization. |
-| `FeedProduct` | [Starting an animal feed business](https://www.gov.uk/government/publications/starting-an-animal-feed-business/starting-an-animal-feed-business), Business registration and approval. A product intended for oral feeding to animals. Product description is distinct from registration or approval of the feed business. |
-| `FertilizerProduct` | [Regulation (EU) 2019/1009](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex%3A32019R1009), Article 2 and Annex I PFC 1. A product intended to provide nutrients to plants or mushrooms. Soil improvers and other fertilising-product categories are not automatically fertilizers. |
-| `PesticideProduct` | [EU Pesticides Database](https://food.ec.europa.eu/plants/pesticides/eu-pesticides-database_en), Active substances and emergency authorizations. A prepared agricultural input product intended to control pests or regulate plant growth, including defoliants and desiccants. [FAOTERM pesticide definitions](https://faoterm.fao.org/viewEntry.html?entryId=182628&language=en) support these non-pest-control uses. Active substances, permitted uses and national product authorizations remain separate from product identity. |
-| `ProductComponent` | [EU Pesticides Database](https://food.ec.europa.eu/plants/pesticides/eu-pesticides-database_en), Active substances and emergency authorizations. A named or coded constituent of a product, optionally with a quantity expressing its concentration on a stated basis. This is a composition description, not an application instruction. |
-| `Certification` (root) | [Organic INTEGRITY Database](https://agdatacommons.nal.usda.gov/articles/dataset/The_Organic_INTEGRITY_Database/24661722), Certified operation information. An assertion by a certifying organization that a specified subject meets a stated scheme within an explicit scope and validity period. It is distinct from the certificate document, registration and permission to operate. |
-| `IrrigationScheme` | [AQUASTAT irrigation and drainage methodology](https://www.fao.org/aquastat/en/overview/methodology/irrig-drainage/index.html), Equipped area and water-source typology. An organized set of infrastructure for supplying irrigation water to an agricultural service area. Its equipped or command area is distinct from actual seasonal irrigation and from water-use permission. |
-| `WaterUseAuthorization` | [Apply for a water abstraction or impounding licence](https://www.gov.uk/guidance/water-management-apply-for-a-water-abstraction-or-impoundment-licence), Types of water resources licence. An authorization to abstract or otherwise use water for stated purposes, sources and conditions. It is distinct from an irrigation scheme, a water source and an observation of actual water use. |
+| Concept | Evidence | Meaning and boundary |
+| --- | --- | --- |
+| `AgriculturalFacility` | [FAO Global Soil Laboratory Network](https://www.fao.org/global-soil-partnership/glosolan/en/); [e-NAM FAQ](https://www.enam.gov.in/web/resources/FAQs-of-eNam), "How will e-NAM operate?" | A physical site, building or installation used for agricultural or aquaculture production or a related activity. It keeps its identity when its operator, holding or registration changes. `facility_function` states what happens there. |
+| `AgriculturalLaboratory` | [FAO Global Soil Laboratory Network](https://www.fao.org/global-soil-partnership/glosolan/en/), network registration and proficiency disclaimer | A facility where agricultural materials are analysed or tested. Network membership does not show accreditation or proficiency. |
+| `AgriculturalMachine` | [FARMS Farm Machinery Solutions](https://agrimachinery.nic.in/Index/farmsapp), hiring and sale of machinery | An identifiable machine or implement used for agricultural work. It keeps its identity when its owner, operator or hiring service changes. Serial numbers are identifiers. |
+| `FishingVessel` | [FAO Port State Measures Agreement](https://www.fao.org/fileadmin/user_upload/legal/docs/037t-e.pdf), Art. 1(j); [Global Record Unique Vessel Identifier](https://www.fao.org/global-record/background/unique-vessel-identifier/en/) | A vessel used, equipped or intended for fishing or fishing-related activities. Its IMO number or other unique vessel identifier stays with it across changes of name, flag and owner. Registration and authorization to fish are separate records. |
+| `AgriculturalServiceRole` | [Register work involving pesticides](https://www.hse.gov.uk/pesticides/register.htm); [Public Register of Seeds Merchants, Processors and Packers](https://www.sasa.gov.uk/document-library/public-register-seeds-merchants-processors-packers); [FARMS](https://agrimachinery.nic.in/Index/farmsapp) | A dated relationship in which a person, organization or group offers or performs stated agricultural services. It does not show qualification, registration or permission. |
+| `ProducerOrganization` | [Regulation (EU) No 1308/2013](https://eur-lex.europa.eu/eli/reg/2013/1308/oj), Art. 152; [Producer and interbranch organisations](https://agriculture.ec.europa.eu/common-agricultural-policy/agri-food-supply-chain/producer-and-interbranch-organisations_en) | An organization set up and controlled by agricultural producers to pursue shared aims in one or more sectors. Legal recognition is a separate Registration or Authorization. |
+| `AgriculturalInputProduct` | [EU Pesticides Database](https://food.ec.europa.eu/plants/pesticides/eu-pesticides-database_en); [Regulation (EU) 2019/1009](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex%3A32019R1009); [Starting an animal feed business](https://www.gov.uk/government/publications/starting-an-animal-feed-business/starting-an-animal-feed-business); [FAOTERM pesticide](https://faoterm.fao.org/viewEntry.html?entryId=182628&language=en) | A product specification or marketed formulation used as an agricultural input. It is not a package, shipment, batch or product authorization. `input_product_category` states its regulatory category. |
+| `ProductComponent` | [EU Pesticides Database](https://food.ec.europa.eu/plants/pesticides/eu-pesticides-database_en); [HL7 FHIR R5 Ingredient](https://hl7.org/fhir/R5/ingredient.html) | A declared constituent of a product with its role and, optionally, its amount on a stated basis. It describes composition, not use or dosage. |
+| `IrrigationScheme` | [AQUASTAT irrigation and drainage methodology](https://www.fao.org/aquastat/en/overview/methodology/irrig-drainage/index.html), equipped area and water-source typology | A defined area in which water is controlled for irrigation, with the works that supply it. The equipped area differs from the area actually irrigated in a season, and from permission to use water. |
 
-Sources accessed 7 September 2026; the FAOTERM pesticide definition was checked on 8 September 2026. The WOAH reference deliberately fixes the 2024 edition as conceptual evidence, without claiming current code compliance. Regulatory sources explain distinctions, not legal advice or executable eligibility rules.
+Regulatory sources explain distinctions; they are not legal advice or executable
+eligibility rules. The WOAH reference is the 2024 edition of the Terrestrial
+Animal Health Code, used as conceptual evidence.
 
-## Design decisions and alternatives
+## Kinds of facility, service and product are codes
 
-A single registered-record superclass would merge objects with administrative recognition and impose country-specific rules. Separate Authorization and Registration records instead reference their subjects. Mandatory register numbers, status vocabularies, approval categories and renewal workflows belong in jurisdiction profiles. Certification expresses a scoped conformity assertion; it is not a subtype of permission.
+A facility's kind, a service role's services and an input product's category
+are values of closed vocabularies, not subclasses. None of these kinds adds
+properties of its own, and a single record often needs several of them: a
+livestock market is both a livestock establishment and a market, and a seed
+business may process and pack seed.
 
-Facility is a physical operational site, so it does not inherit Organization or ServicePoint. The [e-NAM FAQ](https://www.enam.gov.in/web/resources/FAQs-of-eNam), section "How will e-NAM operate?", distinguishes existing market yards from the electronic trading platform; this supports retaining physical facility identity separately from a service platform. Storage, processing and market functions use scheme-qualified facility_function values rather than three rigid facility classes. Laboratory capability is a declaration; GLOSOLAN membership does not establish accreditation. Plant nursery, livestock establishment, apiary and aquaculture establishment specialize the physical-site meaning. Counts, specimens, disease status and animal movements belong in observations and domain records. One business can operate multiple sites.
+| Property | Vocabulary | Values |
+| --- | --- | --- |
+| `facility_function` | `AgriculturalFacilityFunction` | `apiary`, `aquaculture_establishment`, `livestock_establishment`, `plant_nursery`, `storage`, `processing`, `market`, `other` |
+| `agricultural_service` | `AgriculturalServiceType` | `input_supply`, `pesticide_application`, `seed_processing`, `seed_packing`, `seed_marketing`, `machinery_hire`, `advisory`, `animal_health_service`, `post_harvest`, `other` |
+| `input_product_category` | `AgriculturalInputProductCategory` | `feed`, `fertilising_product`, `pesticide`, `other` |
 
-Service roles preserve Person, Organization or Group identity using a URI. Input supplier, pesticide applicator and seed operator are activities, not new kinds of person. URI targets do not validate actor identity or enforce the allowed kinds; profiles must resolve those targets. Professional qualifications and permission remain separate. ProducerOrganization reuses Organization only for identifiable bodies; an informal collection of people can use Group and a service role without being declared a legal organization.
+A laboratory is an `AgriculturalLaboratory`, because it carries
+`laboratory_capability`. `fertilising_product` follows the umbrella category of
+Regulation (EU) 2019/1009, which includes fertilisers, liming materials, soil
+improvers, growing media, inhibitors and plant biostimulants. `pesticide` covers plant protection
+products and biocidal products, including plant growth regulators, defoliants
+and desiccants. National categories and finer regulatory classes, such as the
+EU product function categories, belong in a profile or in a separate coded
+property.
 
-Supplier product references use URIs so seed lots and other product specifications retain their own classifications. Product specifications are independent of manufactured lots and market authorization. ProductComponent states a constituent and concentration basis. FertilizerProduct is narrower than the EU umbrella fertilising product, which also covers soil improvers. Native FHIR R5 resources own veterinary medicinal-product detail; see [FHIR registry integration](fhir-registry-integration.md). Authorizations may refer to an identified product where the selected profile permits it, without duplicating product identity.
+## Operators, providers and members
 
-FishingVessel is an asset, not a facility or a fishing authorization. Identifiers can retain IMO identity across a flag change, without requiring every small boat to have an IMO number. IrrigationScheme describes infrastructure, not an annual production observation. WaterUseAuthorization describes allowed quantities, each stated as a rate such as cubic metres per day, not actual abstraction. Seasonal restrictions, water rights priority, legal interpretation of conditions and component engineering specifications remain profile concerns.
+Facilities, machines, vessels and irrigation schemes do not carry an operator
+property. An operator, owner or other responsible party is an `AssetPartyRole`
+whose `subject_uri` is the asset and whose `asset_role_type` states the
+responsibility, with `start_date` and `end_date`. This keeps a change of
+operator from changing the asset, and lets one business operate many sites.
+See [facility roles](facility-roles.md).
+
+`AgriculturalServiceRole` identifies its provider by URI through
+`service_provider`, because the provider can be a person, an organization or a
+group. A URI does not prove the kind of the target; a profile resolves it.
+`service_equipment` names a machine offered or used without implying
+ownership. `supplied_product` refers to a product specification by URI, so a
+seed lot or a veterinary medicinal product keeps its own classification.
+`service_area` describes geography, not a particular holding.
+
+Membership of a producer organization is an `InstitutionalRole`: `role_actor`
+identifies the member, `role_organization` the producer organization and
+`institutional_role_type` the member role, from a published scheme. The member
+may be a person or an organization. Membership does not imply employment or
+ownership.
+
+## Composition and quantities
+
+`component_substance`, `component_role` and `component_basis` are coded values.
+Role distinguishes an active substance from a safener, synergist, co-formulant
+or declared nutrient. The amount and the basis are read together: 10 % as a mass
+fraction of the whole product differs from 10 % expressed as the oxide, and
+250 g/L is a mass per volume. Quantities use UCUM units with
+`unit_scheme` `ucum`: `%` for percentages, `g/L` for
+concentrations, `m` for lengths and `har` for hectares.
+
+`vessel_length_overall` is the length overall. Registered length and length
+between perpendiculars are different measurements and are not recorded in this
+property.
+
+## Related records
+
+The shared `Certification` records a scoped conformity assertion by a
+certifying body; it is not a permission to operate. `WaterUseAuthorization`
+records allowed quantities, each stated as a rate such as cubic metres per
+day, not actual abstraction.
+Registrations and authorizations refer to facilities, products and operators
+as their subjects; product identity is not duplicated in them.
 
 ## Examples and counterexamples
 
-The JSON files in `examples/agriculture-operations/` are synthetic, with at least one example per delivered class and both person and organizational producer members. They show a laboratory capability, feed composition with an explicit mass basis, a pesticide product for plant-growth regulation without a pest-control purpose, a scoped certification and irrigation water authorization. The authorization refers to the operator and the irrigation network separately. The same structure supports suppliers owned by cooperatives and applicators who are individuals.
+The JSON files in `examples/agriculture-operations/` are synthetic. They
+include facilities recorded by function, dated operator roles for a facility
+and an irrigation scheme, service roles for machinery hire, input supply,
+pesticide application and seed packing, feed and pesticide compositions with
+explicit bases, and producer-organization membership held by a person and by
+an organization.
 
-Counterexamples: a laboratory directory entry is not accreditation; a suspended authorization does not erase a product; an organic operation certificate does not certify every product sold by that business; an empty apiary remains a site; moving bee colonies does not move the site; the hectares equipped for irrigation cannot be substituted for cubic metres abstracted; an array of yearly quantities is not a scalar authorization limit. Focused tests exercise actual generated JSON Schema and SHACL for these shape boundaries. Schema validation alone cannot determine legal permission or whether a URI targets the intended real-world object.
+Counterexamples: a laboratory directory entry is not accreditation; a suspended
+authorization does not erase a product; an organic operation certificate does
+not certify every product the business sells; an empty apiary remains a site;
+moving bee colonies does not move the site; hectares equipped for irrigation
+cannot stand in for cubic metres abstracted. Schema validation cannot determine
+legal permission or whether a URI targets the intended real-world object.
 
-## Available review disposition
+## Open questions
 
-Maintainer review identified missing person-or-organization producer membership. Accepted: ProducerMembership now names the member URI, producer organization, role and interval. Expanded fixtures cover every class directly, including generic facilities, service roles, product components and irrigation infrastructure. No external feedback is claimed.
-
-## Contribution questions
-
-Please supply contradictory examples and source locators for mobile laboratories and apiaries; certification scope covering multiple subjects; concentration denominators; service roles held by informal groups; and water authorization periods whose limits vary seasonally. National profiles can tighten requiredness, code schemes and date ordering. Laboratory samples/results, engineering topology, dosing instructions, inspection workflows and transactional ledgers are excluded from this reference slice because they describe distinct process or observation models, not because the starter has fewer fields.
-
-For services provided by an organization or group to a specific holding, should the service role identify that holding, or should a separate service engagement do so? Please provide a concrete registry record. The current service area describes geography, not a particular holding.
-
-English labels and definitions are the authored draft surface; the site uses its normal fallback for untranslated draft terms. French and Spanish terminology review and independent adopter evidence are needed before maturity promotion. No external reviewer has been contacted.
+Please supply source records for mobile laboratories and apiaries; composition
+declarations whose basis is not a mass fraction or mass per volume; service
+roles held by informal groups; and services provided to one named holding,
+which may need a service engagement record rather than a service area.
+National profiles can tighten requiredness, code schemes and date ordering.
+Laboratory samples and results, irrigation network topology, dosing
+instructions, inspection workflows and transaction ledgers describe process or
+observation models and are outside these terms.
