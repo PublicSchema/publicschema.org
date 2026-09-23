@@ -143,8 +143,10 @@ def main(argv=None):
     except MigrationError as error:
         print(json.dumps({"errors": error.diagnostics}, indent=2), file=sys.stderr)
         return 2
-    except (OSError, json.JSONDecodeError):
-        print(json.dumps({"errors": [{"path": "/", "code": "unreadable-json", "message": "The input could not be read as a JSON document."}]}), file=sys.stderr)
+    except (OSError, json.JSONDecodeError) as error:
+        reason = error.strerror if isinstance(error, OSError) else str(error)
+        message = f"The input could not be read as a JSON document: {reason}."
+        print(json.dumps({"errors": [{"path": "/", "code": "unreadable-json", "message": message}]}), file=sys.stderr)
         return 2
     print(json.dumps(result, indent=2, ensure_ascii=False))
     return 0

@@ -247,3 +247,17 @@ def test_migrated_examples_validate_against_real_exports(
             assert migration.TYPE_ALIASES.get(concept["uri"]) in migration.RELATIONSHIPS, concept["uri"]
     conforms, _, report = validate(graph, shacl_graph=shacl_graph, inference="rdfs")
     assert conforms, report
+
+
+@pytest.mark.parametrize("content,reason", [
+    (None, "No such file or directory"),
+    ('{"@type": ', "line 1 column 11"),
+])
+def test_cli_reports_why_the_input_could_not_be_read(tmp_path, capsys, content, reason):
+    source = tmp_path / "input.json"
+    if content is not None:
+        source.write_text(content)
+    assert migration.main([str(source)]) == 2
+    [error] = json.loads(capsys.readouterr().err)["errors"]
+    assert error["code"] == "unreadable-json"
+    assert reason in error["message"]
