@@ -29,6 +29,15 @@ classes:
     - code_meaning
     status: bibo:draft
     annotations:
+      label_es: Valor codificado
+      label_fr: Valeur codée
+      description_es: Un código junto con el esquema de código que le da sentido, con la etiqueta de
+        visualización proporcionada por la fuente y el URI del concepto que denota cuando corresponda.
+        Los códigos desconocidos, retirados y locales siguen siendo representables; una etiqueta por
+        sí sola no establece equivalencia.
+      description_fr: Un code accompagné du schéma de code qui lui donne son sens, avec le cas échéant
+        le libellé d'affichage fourni par la source et l'URI du concept qu'il désigne. Les codes inconnus,
+        retirés et locaux restent représentables; un libellé seul n'établit pas d'équivalence.
       bibliography_refs: '["fhir-r5", "skos"]'
   QuantityValue:
     class_uri: publicschema:QuantityValue
@@ -41,6 +50,12 @@ classes:
     - unit_scheme
     status: bibo:draft
     annotations:
+      label_es: Valor cuantitativo
+      label_fr: Valeur quantitative
+      description_es: Una cantidad numérica con su unidad de medida, donde la unidad es un código de
+        un sistema de unidades con nombre. La propiedad que contiene el valor indica qué se mide.
+      description_fr: Un montant numérique avec son unité de mesure, l'unité étant un code issu d'un
+        système d'unités nommé. La propriété qui porte la valeur indique ce qui est mesuré.
       bibliography_refs: '["regenstrief-ucum", "un-cefact-rec20"]'
   SpatialGeometry:
     class_uri: publicschema:SpatialGeometry
@@ -54,6 +69,14 @@ classes:
     - coordinate_reference_system
     status: bibo:draft
     annotations:
+      label_es: Geometría espacial
+      label_fr: Géométrie spatiale
+      description_es: Una forma o posición escrita en una codificación de geometría con nombre y un
+        sistema de referencia de coordenadas. Indica dónde está algo, no qué es; las direcciones, las
+        áreas con nombre y las parcelas de tierra se describen por separado.
+      description_fr: Une forme ou une position écrite dans un encodage de géométrie nommé et un système
+        de référence de coordonnées. Elle indique où se trouve une chose, non ce qu'elle est; les adresses,
+        les zones nommées et les parcelles de terrain sont décrites séparément.
       bibliography_refs: '["ogc-geosparql-11", "rfc-7946", "semic-core-location"]'
 slots:
   code_value:
@@ -66,6 +89,12 @@ slots:
     - skos:notation
     status: bibo:draft
     annotations:
+      label_es: Valor del código
+      label_fr: Valeur du code
+      description_es: El código exactamente tal como lo emite su esquema, incluidos los códigos desconocidos
+        o retirados.
+      description_fr: Le code exactement tel qu'émis par son schéma, y compris les codes inconnus ou
+        retirés.
       category: classification
       external_alignments_json: '[{"label": "notation", "match": "close", "note": "A string that identifies
         a concept within the scope of its concept scheme.", "uri": "http://www.w3.org/2004/02/skos/core#notation",
@@ -82,6 +111,12 @@ slots:
     - skos:inScheme
     status: bibo:draft
     annotations:
+      label_es: Esquema de código
+      label_fr: Schéma de code
+      description_es: El URI del esquema de código, incluida su edición cuando la edición cambia el
+        significado de los códigos.
+      description_fr: L'URI du schéma de code, y compris son édition lorsque l'édition change le sens
+        des codes.
       category: classification
       external_alignments_json: '[{"label": "inScheme", "match": "close", "note": "Relates a concept to
         the concept scheme it belongs to. Here the scheme is named by URI on the coded value rather than
@@ -97,6 +132,12 @@ slots:
     multivalued: false
     status: bibo:draft
     annotations:
+      label_es: Etiqueta del código
+      label_fr: Libellé du code
+      description_es: El texto de visualización proporcionado con el código por su fuente. No reemplaza
+        al esquema y al código.
+      description_fr: Le texte d'affichage fourni avec le code par sa source. Il ne remplace pas le
+        schéma et le code.
       category: classification
   code_meaning:
     slot_uri: publicschema:code_meaning
@@ -107,6 +148,12 @@ slots:
     multivalued: false
     status: bibo:draft
     annotations:
+      label_es: Significado del código
+      label_fr: Signification du code
+      description_es: El URI del concepto que denota el código, cuando ese concepto ha sido confirmado.
+        Déjelo ausente cuando no exista una interpretación verificada.
+      description_fr: L'URI du concept que le code désigne, lorsque ce concept a été confirmé. Le laisser
+        absent en l'absence d'interprétation vérifiée.
       category: classification
       bibliography_refs: '["skos"]'
   quantity_value:
@@ -117,6 +164,12 @@ slots:
     multivalued: false
     status: bibo:draft
     annotations:
+      label_es: Valor cuantitativo
+      label_fr: Valeur quantitative
+      description_es: La cantidad numérica, expresada en la unidad indicada sin conversión ni redondeo
+        implícitos.
+      description_fr: Le montant numérique, exprimé dans l'unité indiquée sans conversion ni arrondi
+        implicites.
       category: other
   unit_code:
     slot_uri: publicschema:unit_code
@@ -126,6 +179,11 @@ slots:
     multivalued: false
     status: bibo:draft
     annotations:
+      label_es: Código de la unidad
+      label_fr: Code de l'unité
+      description_es: El código de la unidad de medida dentro del sistema de unidades nombrado por
+        unit_scheme.
+      description_fr: Le code de l'unité de mesure au sein du système d'unités nommé par unit_scheme.
       category: other
       bibliography_refs: '["regenstrief-ucum", "un-cefact-rec20"]'
   unit_scheme:
@@ -136,6 +194,12 @@ slots:
     multivalued: false
     status: bibo:draft
     annotations:
+      label_es: Esquema de unidades
+      label_fr: Schéma d'unités
+      description_es: El sistema de unidades que define unit_code, como el Unified Code for Units of
+        Measure.
+      description_fr: Le système d'unités qui définit unit_code, tel que le Unified Code for Units of
+        Measure.
       category: other
       bibliography_refs: '["regenstrief-ucum"]'
   geometry_encoding:
@@ -146,6 +210,10 @@ slots:
     multivalued: false
     status: bibo:draft
     annotations:
+      label_es: Codificación de la geometría
+      label_fr: Encodage de la géométrie
+      description_es: El formato en el que se escribe la geometría, como GeoJSON o Well-Known Text.
+      description_fr: Le format dans lequel la géométrie est écrite, tel que GeoJSON ou Well-Known Text.
       category: location
       bibliography_refs: '["ogc-geosparql-11"]'
   geometry_literal:
@@ -159,6 +227,12 @@ slots:
     - geo:hasSerialization
     status: bibo:draft
     annotations:
+      label_es: Literal de geometría
+      label_fr: Littéral de géométrie
+      description_es: La geometría escrita en la codificación indicada. El orden de las coordenadas
+        lo determina esa codificación y el sistema de referencia de coordenadas.
+      description_fr: La géométrie écrite dans l'encodage indiqué. L'ordre des coordonnées est déterminé
+        par cet encodage et par le système de référence de coordonnées.
       category: location
       external_alignments_json: '[{"label": "hasSerialization", "match": "close", "note": "Connects a
         geometry with its text serialization. GeoSPARQL carries the encoding in the literal datatype;
@@ -174,6 +248,14 @@ slots:
     multivalued: false
     status: bibo:draft
     annotations:
+      label_es: Sistema de referencia de coordenadas
+      label_fr: Système de référence de coordonnées
+      description_es: El URI del sistema de referencia de coordenadas aplicable a las coordenadas.
+        Cuando está ausente, se aplica el sistema longitud-luego-latitud denominado CRS84, que GeoJSON
+        utiliza siempre.
+      description_fr: L'URI du système de référence de coordonnées applicable aux coordonnées. En son
+        absence, le système longitude-puis-latitude nommé CRS84 s'applique, celui que GeoJSON utilise
+        toujours.
       category: location
       bibliography_refs: '["ogc-geosparql-11"]'
   spatial_geometry:
@@ -189,6 +271,14 @@ slots:
     - locn:geometry
     status: bibo:draft
     annotations:
+      label_es: Geometría espacial
+      label_fr: Géométrie spatiale
+      description_es: Una representación geométrica del recurso descrito. Es el tipo de ese recurso,
+        y no esta propiedad, el que indica a qué pertenece la forma. Es independiente de una dirección
+        o de un área administrativa con nombre.
+      description_fr: Une représentation géométrique de la ressource décrite. C'est le type de cette
+        ressource, et non cette propriété, qui indique à quoi appartient la forme. Elle est distincte
+        d'une adresse ou d'une zone administrative nommée.
       category: location
       external_alignments_json: '[{"label": "hasGeometry", "match": "close", "note": "A spatial representation
         for a given feature. The value here is a structured geometry with an explicit encoding and coordinate
