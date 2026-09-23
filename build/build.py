@@ -1315,11 +1315,7 @@ def write_outputs(
     the vocabulary; ``source="bespoke"`` uses the historical RDF renderer.
     """
     from build.export import generate_all_downloads
-    from build.linkml_rdf_export import (
-        write_full_jsonld,
-        write_shacl,
-        write_turtle,
-    )
+    from build import linkml_rdf_export
     from build.metrics_catalog import write_metrics_catalog
     from build.preview_export import build_preview
     from build.system_matchings import build_system_matchings
@@ -1441,12 +1437,14 @@ def write_outputs(
         rdf_export_legacy.write_shacl(result, dist_dir)
     else:
         composite = rdf_composite if rdf_composite is not None else schema_dir / "publicschema.yaml"
-        write_turtle(dist_dir / "publicschema.ttl", composite=composite)
-        write_full_jsonld(
+        # Turtle and full JSON-LD are two serializations of one OWL graph.
+        owl_graph = linkml_rdf_export.generate_owl_graph(composite)
+        linkml_rdf_export.write_turtle(dist_dir / "publicschema.ttl", graph=owl_graph)
+        linkml_rdf_export.write_full_jsonld(
             dist_dir / "publicschema.jsonld", context_url=rdf_context_url,
-            composite=composite,
+            graph=owl_graph,
         )
-        write_shacl(dist_dir / "publicschema.shacl.ttl", composite=composite)
+        linkml_rdf_export.write_shacl(dist_dir / "publicschema.shacl.ttl", composite=composite)
 
     # CSV and Excel downloads per concept
     downloads_dir = dist_dir / "downloads"

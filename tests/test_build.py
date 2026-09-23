@@ -2163,7 +2163,7 @@ def test_bespoke_build_emits_its_own_rdf_and_static_downloads(
     def unexpected_linkml(*args, **kwargs):
         pytest.fail("Bespoke output must not load the current LinkML composite")
 
-    for name in ("write_turtle", "write_full_jsonld", "write_shacl"):
+    for name in ("generate_owl_graph", "write_turtle", "write_full_jsonld", "write_shacl"):
         monkeypatch.setattr(linkml_rdf_export, name, unexpected_linkml)
     write_property("amount.yaml", make_property(id="amount", type="decimal"))
     write_concept("sample.yaml", make_concept(id="Sample", properties=["amount"]))
@@ -2261,19 +2261,31 @@ def test_write_outputs_passes_explicit_composite_to_all_rdf_generators(
 
     write_concept("sample.yaml", make_concept(id="Sample"))
     calls = []
+    graphs = []
 
     def capture(path, **kwargs):
         calls.append((path.name, kwargs))
 
+    def generate(composite):
+        graphs.append((composite, object()))
+        return graphs[-1][1]
+
     for name in ("write_turtle", "write_full_jsonld", "write_shacl"):
         monkeypatch.setattr(linkml_rdf_export, name, capture)
+    monkeypatch.setattr(linkml_rdf_export, "generate_owl_graph", generate)
     composite = tmp_path / "custom" / "publicschema.yaml"
     build.write_outputs(
         build.build_vocabulary(tmp_schema), tmp_path / "output",
         schema_dir=tmp_schema, rdf_composite=composite,
     )
     assert {name for name, _ in calls} == {"publicschema.ttl", "publicschema.jsonld", "publicschema.shacl.ttl"}
-    assert all(kwargs["composite"] == composite for _, kwargs in calls)
+    # The Turtle and full JSON-LD exports share one OWL generation.
+    [(generated_from, graph)] = graphs
+    assert generated_from == composite
+    assert {name for name, kwargs in calls if kwargs.get("graph") is graph} == {
+        "publicschema.ttl", "publicschema.jsonld",
+    }
+    assert next(kwargs for name, kwargs in calls if name == "publicschema.shacl.ttl")["composite"] == composite
     assert next(kwargs for name, kwargs in calls if name.endswith(".jsonld"))["context_url"] == "https://test.example.org/ctx/draft.jsonld"
 
 
@@ -2285,7 +2297,7 @@ def test_published_metric_observation_preserves_linkml_numeric_value(tmp_path, m
 
     # RDF generators have their own production integration tests. This test
     # follows the public JSON Schema and context through the actual publisher.
-    for name in ("write_turtle", "write_full_jsonld", "write_shacl"):
+    for name in ("generate_owl_graph", "write_turtle", "write_full_jsonld", "write_shacl"):
         monkeypatch.setattr(linkml_rdf_export, name, lambda *args, **kwargs: None)
     result = build.build_vocabulary(SCHEMA_DIR)
     dist = tmp_path / "dist"

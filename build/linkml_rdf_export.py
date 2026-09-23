@@ -68,12 +68,15 @@ def _require_composite(composite: Path = DEFAULT_LINKML_COMPOSITE) -> Path:
     return composite.resolve()
 
 
-def _uri_slot_paths(composite: Path) -> set:
-    """Return RDF paths for induced slots authored with LinkML's ``uri`` range."""
-    from linkml_runtime.utils.schemaview import SchemaView
+def uri_slot_paths(schemaview) -> set:
+    """Return RDF paths for induced slots authored with LinkML's ``uri`` range.
+
+    The public JSON-LD context coerces these slots to ``@id``, so the OWL and
+    SHACL exports both describe their values as IRIs. Both use this one rule,
+    always including imported classes, so the two exports cannot drift.
+    """
     from rdflib import URIRef
 
-    schemaview = SchemaView(str(_require_composite(composite)))
     return {
         URIRef(schemaview.get_uri(slot, expand=True))
         for class_definition in schemaview.all_classes(imports=True).values()
@@ -82,9 +85,14 @@ def _uri_slot_paths(composite: Path) -> set:
     }
 
 
-def _generate_owl_graph(composite: Path):
-    """Generate OWL and align authored URI slots with the public IRI contract."""
+def generate_owl_graph(composite: Path = DEFAULT_LINKML_COMPOSITE):
+    """Generate OWL and align authored URI slots with the public IRI contract.
+
+    A build generates this graph once and passes it to ``write_turtle`` and
+    ``write_full_jsonld``; gen-owl and slot induction are the slow steps.
+    """
     import rdflib  # noqa: WPS433 — local import is intentional.
+    from linkml_runtime.utils.schemaview import SchemaView
     from rdflib.namespace import OWL, RDF, RDFS, XSD
 
     composite = _require_composite(composite)
@@ -98,7 +106,7 @@ def _generate_owl_graph(composite: Path):
     graph = rdflib.Graph()
     graph.parse(data=proc.stdout, format="turtle")
 
-    for property_uri in _uri_slot_paths(composite):
+    for property_uri in uri_slot_paths(SchemaView(str(composite))):
         graph.remove((property_uri, RDF.type, OWL.DatatypeProperty))
         graph.add((property_uri, RDF.type, OWL.ObjectProperty))
         graph.remove((property_uri, RDFS.range, XSD.anyURI))
@@ -112,9 +120,14 @@ def _generate_owl_graph(composite: Path):
 def write_turtle(
     output_path: Path,
     composite: Path = DEFAULT_LINKML_COMPOSITE,
+    graph=None,
 ) -> Path:
-    """Generate the full vocabulary as OWL Turtle via ``gen-owl``."""
-    graph = _generate_owl_graph(composite)
+    """Write the full vocabulary as OWL Turtle via ``gen-owl``.
+
+    ``graph`` reuses an already generated OWL graph; ``composite`` is then unused.
+    """
+    if graph is None:
+        graph = generate_owl_graph(composite)
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(graph.serialize(format="turtle"), encoding="utf-8")
     return output_path
@@ -134,7 +147,7 @@ def write_shacl(
     from dataclasses import asdict
 
     from linkml.generators.shaclgen import ShaclGenerator
-    from rdflib import BNode, Literal, URIRef
+    from rdflib import BNode, Literal
     from rdflib.collection import Collection
     from rdflib.namespace import SH, XSD
 
@@ -151,15 +164,7 @@ def write_shacl(
             slots, leaving every other primitive and enum constraint untouched.
             """
             graph = super().as_graph()
-            uri_slot_paths = {
-                URIRef(self.schemaview.get_uri(slot, expand=True))
-                for class_definition in self.schemaview.all_classes(
-                    imports=not self.exclude_imports
-                ).values()
-                for slot in self.schemaview.class_induced_slots(class_definition.name)
-                if slot.range == "uri"
-            }
-            for path in uri_slot_paths:
+            for path in uri_slot_paths(self.schemaview):
                 for property_shape in graph.subjects(SH.path, path):
                     graph.remove((property_shape, SH.datatype, XSD.anyURI))
                     graph.remove((property_shape, SH.nodeKind, SH.Literal))
@@ -197,6 +202,7 @@ def write_full_jsonld(
     output_path: Path,
     context_url: str = DEFAULT_CONTEXT_URL,
     composite: Path = DEFAULT_LINKML_COMPOSITE,
+    graph=None,
 ) -> Path:
     """Generate the full vocabulary JSON-LD ``@graph`` document.
 
@@ -205,9 +211,10 @@ def write_full_jsonld(
     with rdflib, re-serialise with expanded IRIs, then reference the hosted
     public context. Compacting with rdflib's generated prefixes and then
     discarding that context changes IRIs that the public context does not
-    define, or defines differently.
+    define, or defines differently. ``graph`` reuses an already generated
+    OWL graph; ``composite`` is then unused.
     """
-    g = _generate_owl_graph(composite)
+    g = graph if graph is not None else generate_owl_graph(composite)
 
     # The public context describes instance fields, not every namespace
     # in the OWL vocabulary. Expanded IRIs need no serializer-only context.
