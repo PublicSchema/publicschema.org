@@ -1,6 +1,6 @@
 # Qualified government relationships: draft
 
-An ownership band and a programme offered at one campus each need a precise relationship. These draft terms preserve those facts without deciding beneficial ownership or educational accreditation. The reference fields remain optional; the accompanying example profile checks a complete, locally resolved exchange.
+An ownership band and a program offered at one campus each need a precise relationship. These draft terms preserve those facts without deciding beneficial ownership or educational accreditation. The reference fields remain optional; the accompanying example profile checks a complete, locally resolved exchange.
 
 ## Meanings and source boundaries
 
@@ -8,7 +8,7 @@ An ownership band and a programme offered at one campus each need a precise rela
 | --- | --- | --- |
 | Ownership bounds | `OwnershipInterest` retains exact `interest_percentage`. Four separate fields preserve inclusive or exclusive lower and upper bounds. Missing amounts remain unknown. | [BODS 0.4 Share](https://standard.openownership.org/en/0.4.0/standard/reference.html#share) distinguishes exact values and these four boundary meanings. |
 | Arrangement and indirect route | `LegalArrangement` identifies a mechanism without inventing an Organization. An indirect `OwnershipInterest` can list, as `component_interests`, the direct interests offered as its route. | [BODS 0.4 entity types and relationship details](https://standard.openownership.org/en/0.4.0/standard/reference.html) include arrangements and component records. PublicSchema references interest identities; BODS references record identifiers. These are different contracts. |
-| Education offering | `edu/EducationOffering` connects programme, provider, sites, period, optional mode and expected award-definition URI. | [Schema.org CourseInstance](https://schema.org/CourseInstance) distinguishes delivery by time, place or mode. [Course](https://schema.org/Course) can identify an expected educational award. PublicSchema chooses its narrower provider/site relationships. |
+| Education offering | `edu/EducationOffering` connects program, provider, sites, period, optional mode and, when it differs from the program's, the qualification definition URI. | The [European Learning Model](https://europass.europa.eu/en/stakeholders/information-developers) LearningOpportunity is a provider's offering with location, mode and the achievement it leads to. [Schema.org CourseInstance](https://schema.org/CourseInstance) distinguishes delivery by time, place or mode. PublicSchema chooses its narrower provider/site relationships. |
 
 These sources were consulted on 8 September 2026. They support the distinctions, not exact mappings or implemented BODS or Schema.org interchange compatibility. All new concepts and properties are draft. Domain-specific education meanings use `edu/`; shared ownership and legal arrangement meanings use root URIs. The module filename does not determine the URI namespace.
 
@@ -24,11 +24,11 @@ An associated `RegistryEntry` identifies the record, recording time and source e
 
 ## Education: the offering carries the site and intake
 
-The fixture gives one programme a campus offering and a later online offering. Both reference the same external award definition. One Registration recognizes only the campus offering. An application can follow that explicit subject relationship; recognition is not copied to every programme, provider or site sharing a link.
+The fixture gives one program a campus offering and a later online offering. The program names the external qualification definition it leads to, and neither offering overrides it. One Registration recognizes only the campus offering. An application can follow that explicit subject relationship; recognition is not copied to every program, provider or site sharing a link.
 
-`offering_award` identifies the expected qualification or award definition in a source catalog. It is distinct from ProfessionalQualification, which describes an award already made to a person. The example retains the definition URI without fetching it or verifying its external meaning. It does not introduce another qualification catalog or infer that any student completed the programme.
+`qualification_awarded` identifies the qualification definitions, such as entries in a qualifications register, that a program or offering leads to. It is distinct from AwardedQualification, which describes an award already made to a person. The example retains the definition URI without fetching it or verifying its external meaning. It does not introduce another qualification catalog or infer that any student completed the program.
 
-The local profile checks programme, provider and site identities, the site's provider, supplied modes and a coherent offering period. A physical School is connected through ProviderSite, while a virtual site needs no invented premises. Joint providers, session timetables, actual enrolments and accreditation criteria remain outside this bounded example. An offering can be a registration or authorization subject where the applicable scheme recognizes or permits that offering.
+The local profile checks program, provider and site identities, the site's provider, supplied modes, a coherent offering period and that each qualification awarded is an external definition URI. A physical School is connected through ProviderSite, while a virtual site needs no invented premises. Joint providers, session timetables, actual enrollments and accreditation criteria remain outside this bounded example. An offering can be a registration or authorization subject where the applicable scheme recognizes or permits that offering.
 
 ## Runnable example and verification
 

@@ -113,13 +113,7 @@
     "@context": "https://publicschema.org/ctx/draft.jsonld",
     "@id": "https://example.org/provider",
     "@type": "edu/EducationProvider",
-    "name": "Example Learning Cooperative",
-    "provider_programmes": [
-      {
-        "@id": "https://example.org/programme",
-        "@type": "edu/EducationProgramme"
-      }
-    ]
+    "name": "Example Learning Cooperative"
   },
   {
     "@context": "https://publicschema.org/ctx/draft.jsonld",
@@ -134,17 +128,26 @@
   },
   {
     "@context": "https://publicschema.org/ctx/draft.jsonld",
-    "@id": "https://example.org/programme",
-    "@type": "edu/EducationProgramme",
-    "name": "Example Adult Learning Programme",
-    "programme_classification": [
+    "@id": "https://example.org/program",
+    "@type": "edu/EducationProgram",
+    "name": "Example Adult Learning Program",
+    "program_level": [
       {
         "@type": "CodedValue",
         "code_value": "local-adult-1",
-        "code_scheme": "https://example.org/codes/programme-level"
+        "code_scheme": "https://example.org/codes/program-level"
       }
     ],
-    "programme_award": "Example completion certificate"
+    "program_field": [
+      {
+        "@type": "CodedValue",
+        "code_value": "local-field-1",
+        "code_scheme": "https://example.org/codes/program-field"
+      }
+    ],
+    "qualification_awarded": [
+      "https://example.org/qualifications/completion-certificate"
+    ]
   },
   {
     "@context": "https://publicschema.org/ctx/draft.jsonld",
@@ -159,7 +162,7 @@
       "@id": "https://example.org/district",
       "@type": "Location"
     },
-    "authorized_activity": "Practise example profession",
+    "authorized_activity": "Practice example profession",
     "valid_from": "2025-01-01",
     "valid_to": "2027-12-31",
     "profession_code": [
@@ -173,16 +176,18 @@
   {
     "@context": "https://publicschema.org/ctx/draft.jsonld",
     "@id": "https://example.org/qualification",
-    "@type": "ProfessionalQualification",
+    "@type": "AwardedQualification",
     "person": {
       "@id": "https://example.org/person",
       "@type": "Person"
     },
     "qualification_title": "Example professional diploma",
-    "qualification_awarder": {
-      "@id": "https://example.org/provider",
-      "@type": "edu/EducationProvider"
-    },
+    "qualification_awarder": [
+      {
+        "@id": "https://example.org/provider",
+        "@type": "edu/EducationProvider"
+      }
+    ],
     "issue_date": "2024-01-01"
   },
   {

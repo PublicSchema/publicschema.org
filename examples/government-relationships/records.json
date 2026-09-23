@@ -114,16 +114,15 @@
   {
     "@id": "https://example.org/government-relationships/provider",
     "@type": "edu/EducationProvider",
-    "name": "Example Community College",
-    "provider_programmes": [
-      "https://example.org/government-relationships/programme"
-    ]
+    "name": "Example Community College"
   },
   {
-    "@id": "https://example.org/government-relationships/programme",
-    "@type": "edu/EducationProgramme",
+    "@id": "https://example.org/government-relationships/program",
+    "@type": "edu/EducationProgram",
     "name": "Example industrial maintenance diploma",
-    "programme_award": "Example industrial maintenance diploma"
+    "qualification_awarded": [
+      "https://example.org/government-relationships/qualifications/maintenance-diploma-2026"
+    ]
   },
   {
     "@id": "https://example.org/government-relationships/north-school",
@@ -147,7 +146,7 @@
   {
     "@id": "https://example.org/government-relationships/north-offering",
     "@type": "edu/EducationOffering",
-    "offering_programme": "https://example.org/government-relationships/programme",
+    "offering_program": "https://example.org/government-relationships/program",
     "offering_provider": "https://example.org/government-relationships/provider",
     "offering_sites": [
       "https://example.org/government-relationships/north-site"
@@ -159,14 +158,13 @@
         "code_scheme": "https://example.org/government-relationships/codes/delivery-mode"
       }
     ],
-    "offering_award": "https://example.org/government-relationships/qualifications/maintenance-diploma-2026",
     "start_date": "2026-09-01",
     "end_date": "2027-07-01"
   },
   {
     "@id": "https://example.org/government-relationships/online-offering",
     "@type": "edu/EducationOffering",
-    "offering_programme": "https://example.org/government-relationships/programme",
+    "offering_program": "https://example.org/government-relationships/program",
     "offering_provider": "https://example.org/government-relationships/provider",
     "offering_sites": [
       "https://example.org/government-relationships/online-site"
@@ -178,7 +176,6 @@
         "code_scheme": "https://example.org/government-relationships/codes/delivery-mode"
       }
     ],
-    "offering_award": "https://example.org/government-relationships/qualifications/maintenance-diploma-2026",
     "start_date": "2027-01-01",
     "end_date": "2027-10-01"
   },

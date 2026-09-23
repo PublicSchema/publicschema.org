@@ -32,6 +32,17 @@ def reference_uri(value):
     return key
 
 
+def qualification_definitions(record, index):
+    values = record.get("qualification_awarded", [])
+    if not isinstance(values, list):
+        raise ValueError("Qualifications awarded must be a list of definition URIs")
+    for value in values:
+        if not absolute_uri(value):
+            raise ValueError("A qualification awarded must be an absolute definition URI")
+        if value in index:
+            raise ValueError("This example uses an external qualification definition, not a local awarded qualification")
+
+
 def index_records(records):
     if not isinstance(records, list):
         raise ValueError("The example exchange must be a list of records")
@@ -181,7 +192,7 @@ def validate_profile(records):
             validate_share(record)
         if kind == "edu/EducationOffering":
             provider = resolve(record.get("offering_provider"), index, {"edu/EducationProvider"})
-            resolve(record.get("offering_programme"), index, {"edu/EducationProgramme"})
+            program = resolve(record.get("offering_program"), index, {"edu/EducationProgram"})
             sites = record.get("offering_sites")
             if not isinstance(sites, list) or not sites:
                 raise ValueError("The example offering requires at least one delivery site")
@@ -198,10 +209,8 @@ def validate_profile(records):
                     raise ValueError("The example site requires a physical or virtual delivery point")
             for mode in record.get("offering_mode", []):
                 coded_value(mode)
-            if "offering_award" in record:
-                award = reference_uri(record["offering_award"])
-                if award in index:
-                    raise ValueError("This example uses an external award definition, not a local awarded qualification")
+            qualification_definitions(record, index)
+            qualification_definitions(program, index)
     for record in records:
         if record["@type"] == "OwnershipInterest" and "component_interests" in record:
             ownership_route(record, index)

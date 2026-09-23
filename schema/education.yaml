@@ -1,13 +1,17 @@
 id: https://publicschema.org/linkml/education
 name: publicschema-education
-title: Education provision and qualifications
-description: Draft education providers, sites, programmes, offerings and professional qualifications.
+title: Education
+description: Education providers, their delivery sites, education programs and offerings, and qualifications
+  awarded to persons.
 license: CC-BY-4.0
 default_prefix: publicschema
 prefixes:
   publicschema: https://publicschema.org/
   linkml: https://w3id.org/linkml/
   bibo: http://purl.org/ontology/bibo/
+  schema: http://schema.org/
+  org: http://www.w3.org/ns/org#
+  elm: http://data.europa.eu/snb/model/elm/
 imports:
 - linkml:types
 - common
@@ -17,22 +21,28 @@ classes:
   EducationProvider:
     class_uri: publicschema:edu/EducationProvider
     title: Education Provider
-    description: An organization responsible for providing education or training, independently of its
-      physical premises or online delivery sites. This is the institutional provider; School describes
-      a physical education service point.
-    slots:
-    - provider_programmes
+    description: An organization that provides education or training, either as its main purpose or alongside
+      other activities. It is described independently of the premises or online sites through which it
+      delivers learning; physical premises are described separately, for example as a School.
     status: bibo:draft
     is_a: Organization
+    narrow_mappings:
+    - schema:EducationalOrganization
     annotations:
       source_domain: edu
-      bibliography_refs: '["gov-gias", "gov-org"]'
+      bibliography_refs: '["isced-2011", "gov-gias", "gov-org"]'
+      external_alignments_json: '[{"label": "EducationalOrganization", "match": "narrow", "note": "schema.org
+        EducationalOrganization is both an Organization and a Place and covers organizations whose purpose
+        is education. An education provider also includes enterprises and non-governmental organizations
+        that provide education alongside other activities (ISCED 2011, Annex VI, education provider), and
+        its premises are described separately.", "uri": "https://schema.org/EducationalOrganization", "vocabulary":
+        "schema.org", "vocabulary_id": "schema-org"}]'
   ProviderSite:
     class_uri: publicschema:edu/ProviderSite
     title: Provider Site
-    description: A physical or virtual site through which an education provider delivers learning. A virtual
-      site has no implied street address; a provider may use several sites and a physical School may be
-      linked without duplicating it.
+    description: A physical or virtual place through which an education provider delivers learning. A
+      physical site may point to a School or other service point instead of repeating its details. A virtual
+      site has no street address.
     slots:
     - name
     - identifiers
@@ -40,49 +50,76 @@ classes:
     - physical_service_point
     - virtual_site_url
     status: bibo:draft
+    close_mappings:
+    - org:Site
     annotations:
       source_domain: edu
       bibliography_refs: '["gov-gias", "gov-org"]'
-  EducationProgramme:
-    class_uri: publicschema:edu/EducationProgramme
-    title: Education Programme
-    description: An organized programme of learning offered by an education provider. It is distinct from
-      a campus, an individual enrolment, and the qualification awarded on completion.
+      external_alignments_json: '[{"label": "Site", "match": "close", "note": "A W3C ORG site is an office
+        or other premises at which an organization is located, and may be virtual. A provider site is a
+        place through which learning is delivered; both admit virtual sites.", "uri": "http://www.w3.org/ns/org#Site",
+        "vocabulary": "W3C ORG 2014", "vocabulary_id": "w3c_org"}]'
+  EducationProgram:
+    class_uri: publicschema:edu/EducationProgram
+    title: Education Program
+    description: A coherent, organized set or sequence of learning activities designed to achieve stated
+      learning objectives over a sustained period, usually leading to a qualification on successful completion.
+      It is distinct from any offering of it at a particular time, place or mode, from its delivery sites,
+      from an individual's enrollment, and from the qualification it leads to.
     slots:
     - name
     - identifiers
-    - programme_classification
-    - programme_award
+    - program_level
+    - program_field
+    - qualification_awarded
     status: bibo:draft
+    close_mappings:
+    - schema:EducationalOccupationalProgram
     annotations:
       source_domain: edu
-      bibliography_refs: '["gov-isced"]'
+      bibliography_refs: '["isced-2011", "schema-org"]'
+      external_alignments_json: '[{"label": "EducationalOccupationalProgram", "match": "close", "note": "schema.org
+        defines a program offered by an institution that leads to an outcome such as a credential, and
+        also carries offering details such as dates, provider and program mode. PublicSchema keeps those
+        offering details on EducationOffering.", "uri": "https://schema.org/EducationalOccupationalProgram",
+        "vocabulary": "schema.org", "vocabulary_id": "schema-org"}]'
   EducationOffering:
     class_uri: publicschema:edu/EducationOffering
     title: Education Offering
-    description: A provider's offering of an identified education programme at specified physical or
-      virtual provider sites over a period. Separate offerings distinguish campuses, intakes or
-      delivery modes without creating different programme identities. An offering is neither an
-      individual enrolment nor evidence that the programme or site is accredited.
+    description: A provider's offering of an education program through specified physical or virtual sites
+      during a period, such as one campus, intake or delivery mode. Several offerings can deliver the same
+      program. An offering is not a person's enrollment and does not show that the program or site is accredited.
     slots:
     - name
     - identifiers
-    - offering_programme
+    - offering_program
     - offering_provider
     - offering_sites
     - offering_mode
-    - offering_award
+    - qualification_awarded
     - start_date
     - end_date
     status: bibo:draft
+    close_mappings:
+    - elm:LearningOpportunity
+    related_mappings:
+    - schema:CourseInstance
     annotations:
       source_domain: edu
-      bibliography_refs: '["gov-schema-course"]'
-  ProfessionalQualification:
-    class_uri: publicschema:ProfessionalQualification
-    title: Professional Qualification
-    description: A qualification awarded to a person by an organization, recording an achievement rather
-      than permission to practise.
+      bibliography_refs: '["ebsi-europass-elm", "schema-org", "gov-schema-course"]'
+      external_alignments_json: '[{"label": "Learning Opportunity", "match": "close", "note": "An ELM learning
+        opportunity is a provider''s offering with its location, mode, schedule and the learning achievement
+        specification it leads to.", "uri": "http://data.europa.eu/snb/model/elm/LearningOpportunity", "vocabulary":
+        "European Learning Model 3", "vocabulary_id": "elm"}, {"label": "CourseInstance", "match": "related",
+        "note": "A schema.org course instance is an offering of a course at a time, place or mode. A course
+        is a component of a program (ISCED 2011, para 18), so the relation is neither broader nor narrower.",
+        "uri": "https://schema.org/CourseInstance", "vocabulary": "schema.org", "vocabulary_id": "schema-org"}]'
+  AwardedQualification:
+    class_uri: publicschema:AwardedQualification
+    title: Awarded Qualification
+    description: The official confirmation that an organization awarded a qualification to a person who
+      met its requirements, usually evidenced by a certificate, diploma or degree. It records an achievement,
+      not permission to practice a profession.
     slots:
     - person
     - qualification_title
@@ -90,34 +127,42 @@ classes:
     - issue_date
     - identifiers
     status: bibo:draft
+    close_mappings:
+    - elm:LearningAchievement
+    related_mappings:
+    - schema:EducationalOccupationalCredential
     annotations:
-      bibliography_refs: '["gov-fhir-practitioner"]'
+      bibliography_refs: '["isced-2011", "ebsi-europass-elm", "gov-fhir-practitioner"]'
+      external_alignments_json: '[{"label": "Learning Achievement", "match": "close", "note": "An ELM learning
+        achievement is a recognized or awarded set of learning outcomes of an individual. FHIR R5
+        Practitioner.qualification is broader: it also covers licenses, certifications and training.",
+        "uri": "http://data.europa.eu/snb/model/elm/LearningAchievement", "vocabulary": "European Learning
+        Model 3", "vocabulary_id": "elm"}, {"label": "EducationalOccupationalCredential", "match":
+        "related", "note": "schema.org describes the credential that may be awarded, not a particular award
+        to a person.", "uri": "https://schema.org/EducationalOccupationalCredential", "vocabulary": "schema.org",
+        "vocabulary_id": "schema-org"}]'
 slots:
-  provider_programmes:
-    slot_uri: publicschema:edu/provider_programmes
-    title: Provider programmes
-    description: Programmes offered by the education provider.
-    range: EducationProgramme
-    multivalued: true
-    status: bibo:draft
-    annotations:
-      source_domain: edu
-      category: classification
   education_provider:
     slot_uri: publicschema:edu/education_provider
     title: Education provider
-    description: The institutional provider using this delivery site.
+    description: The education provider that delivers learning through this site.
     range: EducationProvider
     multivalued: false
     status: bibo:draft
+    close_mappings:
+    - org:siteOf
     annotations:
       source_domain: edu
       category: governance
+      external_alignments_json: '[{"label": "site of", "match": "close", "note": "W3C ORG links a site to
+        the organization located there; here the organization is the provider delivering learning through
+        the site.", "uri": "http://www.w3.org/ns/org#siteOf", "vocabulary": "W3C ORG 2014", "vocabulary_id":
+        "w3c_org"}]'
   physical_service_point:
     slot_uri: publicschema:edu/physical_service_point
     title: Physical service point
-    description: A physical service point associated with this provider site. Omit for an entirely virtual
-      site.
+    description: The physical service point, such as a School, at which this site delivers learning. Omit
+      it for an entirely virtual site.
     range: ServicePoint
     multivalued: false
     status: bibo:draft
@@ -127,105 +172,154 @@ slots:
   virtual_site_url:
     slot_uri: publicschema:edu/virtual_site_url
     title: Virtual site url
-    description: The address of an online environment through which learning is delivered, rather than
-      merely the provider home page.
+    description: The web address of the online environment through which learning is delivered at this
+      site, not the provider's general home page.
     range: uri
     multivalued: false
     status: bibo:draft
     annotations:
       source_domain: edu
       category: location
-  programme_classification:
-    slot_uri: publicschema:edu/programme_classification
-    title: Programme classification
-    description: Scheme-qualified classification of the educational programme, such as an ISCED programme
-      level.
+  program_level:
+    slot_uri: publicschema:edu/program_level
+    title: Program level
+    description: The level of the education program in a named program classification, such as a three-digit
+      ISCED-P 2011 code or a national equivalent. It classifies the program, not the attainment of any
+      learner. Give at most one value per classification.
     range: CodedValue
     multivalued: true
     status: bibo:draft
     annotations:
       source_domain: edu
       category: classification
-  programme_award:
-    slot_uri: publicschema:edu/programme_award
-    title: Programme award
-    description: The qualification or other recognition normally awarded on completing the programme.
-    range: string
-    multivalued: false
+      bibliography_refs: '["isced-2011"]'
+  program_field:
+    slot_uri: publicschema:edu/program_field
+    title: Program field
+    description: The field of education and training of the education program in a named classification,
+      such as an ISCED-F 2013 detailed field code or a national equivalent. Give at most one value per
+      classification.
+    range: CodedValue
+    multivalued: true
     status: bibo:draft
     annotations:
       source_domain: edu
       category: classification
+  qualification_awarded:
+    slot_uri: publicschema:edu/qualification_awarded
+    title: Qualification awarded
+    description: The URI of a qualification definition, such as an entry in a qualifications register,
+      that successful completion normally leads to. A program can lead to several qualifications; on an
+      offering, state it only when the offering leads to a different qualification than its program. It
+      never identifies a qualification already awarded to a person, and no award is implied when it is
+      omitted.
+    range: uri
+    multivalued: true
+    status: bibo:draft
+    close_mappings:
+    - schema:educationalCredentialAwarded
+    annotations:
+      source_domain: edu
+      category: classification
+      bibliography_refs: '["isced-2011", "schema-org"]'
+      external_alignments_json: '[{"label": "educationalCredentialAwarded", "match": "close", "note": "schema.org
+        also admits a text or a credential object; PublicSchema requires the URI of the qualification definition.",
+        "uri": "https://schema.org/educationalCredentialAwarded", "vocabulary": "schema.org", "vocabulary_id":
+        "schema-org"}]'
   qualification_title:
     slot_uri: publicschema:qualification_title
     title: Qualification title
-    description: The name of the qualification awarded to the person.
+    description: The name of the qualification as stated by the awarding organization.
     range: string
     multivalued: false
     status: bibo:draft
     annotations:
-      category: classification
+      category: education
+      sensitivity: sensitive
   qualification_awarder:
     slot_uri: publicschema:qualification_awarder
     title: Qualification awarder
-    description: The organization that awarded the professional qualification.
+    description: The organization, or organizations for a joint award, that awarded the qualification.
     range: Organization
-    multivalued: false
+    multivalued: true
     status: bibo:draft
+    close_mappings:
+    - elm:awardingBody
     annotations:
       category: governance
-  offering_programme:
-    slot_uri: publicschema:edu/offering_programme
-    title: Offering programme
-    description: The education programme delivered through this offering. A different offering need
-      not imply a different programme.
-    range: EducationProgramme
+      bibliography_refs: '["ebsi-europass-elm"]'
+      external_alignments_json: '[{"label": "awarding body", "match": "close", "note": "In ELM the awarding
+        body belongs to the awarding process of the achievement; FHIR R5 Practitioner.qualification.issuer
+        carries the same role.", "uri": "http://data.europa.eu/snb/model/elm/awardingBody", "vocabulary":
+        "European Learning Model 3", "vocabulary_id": "elm"}]'
+  offering_program:
+    slot_uri: publicschema:edu/offering_program
+    title: Offering program
+    description: The education program delivered through this offering. A different offering does not
+      imply a different program.
+    range: EducationProgram
     multivalued: false
     status: bibo:draft
+    related_mappings:
+    - elm:learningAchievementSpecification
     annotations:
+      source_domain: edu
       category: classification
-      domain_override: edu
+      external_alignments_json: '[{"label": "learning achievement specification", "match": "related", "note":
+        "ELM links a learning opportunity to the specification, including the curricula, of what it leads
+        to, rather than to a program as such.", "uri": "http://data.europa.eu/snb/model/elm/learningAchievementSpecification",
+        "vocabulary": "European Learning Model 3", "vocabulary_id": "elm"}]'
   offering_provider:
     slot_uri: publicschema:edu/offering_provider
     title: Offering provider
-    description: The institutional education provider responsible for this offering.
+    description: The education provider responsible for this offering.
     range: EducationProvider
     multivalued: false
     status: bibo:draft
+    close_mappings:
+    - elm:providedBy
+    - schema:provider
     annotations:
+      source_domain: edu
       category: governance
-      domain_override: edu
+      external_alignments_json: '[{"label": "provided by", "match": "close", "note": "The ELM organization
+        providing a learning opportunity.", "uri": "http://data.europa.eu/snb/model/elm/providedBy", "vocabulary":
+        "European Learning Model 3", "vocabulary_id": "elm"}, {"label": "provider", "match": "close", "note":
+        "schema.org provider of a course instance or program, which may also be a person.", "uri": "https://schema.org/provider",
+        "vocabulary": "schema.org", "vocabulary_id": "schema-org"}]'
   offering_sites:
     slot_uri: publicschema:edu/offering_sites
     title: Offering sites
-    description: Physical or virtual provider sites through which this offering is delivered. A shared
-      programme list on the provider does not imply that every site delivers every programme.
+    description: The physical or virtual provider sites through which this offering is delivered. A provider
+      offering a program at one site does not imply that its other sites deliver it.
     range: ProviderSite
     multivalued: true
     status: bibo:draft
+    related_mappings:
+    - elm:location
     annotations:
+      source_domain: edu
       category: location
-      domain_override: edu
+      external_alignments_json: '[{"label": "location", "match": "related", "note": "The ELM location of
+        a learning opportunity is a place (dct:Location), not a provider site.", "uri": "http://data.europa.eu/snb/model/elm/location",
+        "vocabulary": "European Learning Model 3", "vocabulary_id": "elm"}]'
   offering_mode:
     slot_uri: publicschema:edu/offering_mode
     title: Offering mode
-    description: A scheme-qualified delivery or study mode of this offering, such as online or part-time.
-      A mode does not identify a delivery site or imply that a learner attended.
+    description: A delivery or study mode of this offering, such as online, on site, blended, full time
+      or part time, coded in a named scheme. A mode neither identifies a site nor shows that anyone attended.
     range: CodedValue
     multivalued: true
     status: bibo:draft
+    close_mappings:
+    - schema:courseMode
+    - elm:mode
     annotations:
+      source_domain: edu
       category: classification
-      domain_override: edu
-  offering_award:
-    slot_uri: publicschema:edu/offering_award
-    title: Offering award
-    description: The URI of the qualification or award definition normally obtained on successful
-      completion of this offering. It identifies an expected award kind in its source catalog, never
-      a qualification already awarded to an individual. No award is inferred when it is omitted.
-    range: uri
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      category: classification
-      domain_override: edu
+      bibliography_refs: '["schema-org", "ebsi-europass-elm"]'
+      external_alignments_json: '[{"label": "courseMode", "match": "close", "note": "schema.org gives online,
+        onsite, blended, full-time and part-time as example values.", "uri": "https://schema.org/courseMode",
+        "vocabulary": "schema.org", "vocabulary_id": "schema-org"}, {"label": "mode", "match": "close", "note":
+        "The ELM learning mode of a learning opportunity.", "uri": "http://data.europa.eu/snb/model/elm/mode",
+        "vocabulary": "European Learning Model 3", "vocabulary_id": "elm"}]'

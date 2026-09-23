@@ -122,8 +122,9 @@
       "kind": "class",
       "id": "EducationProgramme",
       "old_uri": "https://publicschema.org/EducationProgramme",
-      "new_uri": "https://publicschema.org/edu/EducationProgramme",
-      "action": "relocate"
+      "new_uri": "https://publicschema.org/edu/EducationProgram",
+      "action": "reviewed-replacement",
+      "note": "Rename to EducationProgram; split any programme classification into program_level and program_field, and move the award to qualification_awarded as a qualification definition URI."
     },
     {
       "kind": "class",
@@ -1015,22 +1016,25 @@
       "kind": "property",
       "id": "programme_award",
       "old_uri": "https://publicschema.org/programme_award",
-      "new_uri": "https://publicschema.org/edu/programme_award",
-      "action": "relocate"
+      "new_uri": "https://publicschema.org/edu/qualification_awarded",
+      "action": "reviewed-replacement",
+      "note": "qualification_awarded is a list of qualification definition URIs; a free-text award name has no automatic conversion."
     },
     {
       "kind": "property",
       "id": "programme_classification",
       "old_uri": "https://publicschema.org/programme_classification",
-      "new_uri": "https://publicschema.org/edu/programme_classification",
-      "action": "relocate"
+      "new_uri": "https://publicschema.org/edu/program_level",
+      "action": "reviewed-replacement",
+      "note": "Move ISCED-P or other level codes to program_level and ISCED-F or other field codes to program_field; review each code by its scheme."
     },
     {
       "kind": "property",
       "id": "provider_programmes",
       "old_uri": "https://publicschema.org/provider_programmes",
-      "new_uri": "https://publicschema.org/edu/provider_programmes",
-      "action": "relocate"
+      "new_uri": null,
+      "action": "retire",
+      "note": "Record each program a provider offers as an EducationOffering with offering_provider and offering_program."
     },
     {
       "kind": "property",

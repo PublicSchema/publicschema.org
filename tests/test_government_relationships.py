@@ -81,7 +81,7 @@ def test_real_exports_preserve_qualified_relationships(exports):
     PROFILE.validate_profile(RECORDS)
 
     graph = graph_for(RECORDS, exports)
-    assert (URIRef(EX + "north-offering"), EDU.offering_programme, URIRef(EX + "programme")) in graph
+    assert (URIRef(EX + "north-offering"), EDU.offering_program, URIRef(EX + "program")) in graph
     assert (URIRef(EX + "trust-control"), PS.interest_entity, URIRef(EX + "trust")) in graph
     assert (PS.LegalArrangement, RDFS.subClassOf, PS.Organization) not in ontology
     assert (PS.LegalArrangement, RDFS.subClassOf, PS.Party) not in ontology
@@ -95,7 +95,7 @@ def test_real_exports_preserve_qualified_relationships(exports):
         paths = {path for target in targets
                  for shape in shapes.objects(target, SH.property)
                  for path in shapes.objects(shape, SH.path)}
-        for slot in definition["slots"]:
+        for slot in definition.get("slots", []):
             assert slot in built["concept_schemas"][key]["properties"]
             assert URIRef(built["properties"][slot]["uri"]) in paths
 
@@ -132,11 +132,25 @@ def test_scope_queries_do_not_infer_approval_or_beneficial_ownership():
     assert not any(key in indirect for key in PROFILE.BOUNDS)
 
     offerings = [item for item in RECORDS if item["@type"] == "edu/EducationOffering"
-                 and item["offering_programme"] == EX + "programme"]
+                 and item["offering_program"] == EX + "program"]
     recognized = {item["registered_subject"] for item in RECORDS if item["@type"] == "Registration"}
     assert len(offerings) == 2
     assert {item["@id"] for item in offerings} & recognized == {EX + "north-offering"}
-    assert record(RECORDS, "north-offering")["offering_award"] == record(RECORDS, "online-offering")["offering_award"]
+    assert not any("qualification_awarded" in item for item in offerings)
+    assert record(RECORDS, "program")["qualification_awarded"] == [EX + "qualifications/maintenance-diploma-2026"]
+
+
+@pytest.mark.parametrize("target", ["program", "online-offering"])
+@pytest.mark.parametrize("value,message", [
+    ([EX + "provider"], "external qualification definition"),
+    ([EX.removeprefix("https://")], "absolute definition URI"),
+    (EX + "qualifications/maintenance-diploma-2026", "must be a list"),
+])
+def test_qualification_awarded_names_external_definitions(target, value, message):
+    records = copy.deepcopy(RECORDS)
+    record(records, target)["qualification_awarded"] = value
+    with pytest.raises(ValueError, match=message):
+        PROFILE.validate_profile(records)
 
 
 @pytest.mark.parametrize("changes", [

@@ -127,7 +127,7 @@ def test_every_government_term_survives_actual_exports(exports):
             for shape in shapes.objects(target, SH.property)
             for path in shapes.objects(shape, SH.path)
         }
-        for slot in definition["slots"]:
+        for slot in definition.get("slots", []):
             assert slot in built["concept_schemas"][class_key]["properties"], (name, slot)
             assert context_uri(context, slot) in paths, (name, slot)
     for name in AUTHORED["slots"]:
