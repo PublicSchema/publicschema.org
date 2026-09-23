@@ -12,11 +12,12 @@ from rdflib import Namespace, URIRef
 from rdflib.namespace import OWL, RDF, SH
 
 from build.linkml_rdf_export import DEFAULT_CONTEXT_URL
-from tests.conftest import jsonld_graph
+from tests.conftest import jsonld_graph, load_example
 
 ROOT = Path(__file__).resolve().parents[1]
 PS = Namespace("https://publicschema.org/")
 RECORDS = json.loads((ROOT / "examples/government-domains/records.json").read_text())
+PROFILE = load_example("government-domains/profile.py")
 GOVERNMENT_MODULES = ("organizations", "ownership", "regulation", "education", "work", "transport",
                       "environment", "tax", "elections", "physical_assets")
 # Classes in the government modules whose examples belong to other fixture sets.
@@ -45,48 +46,6 @@ def validator(exports, kind):
 def context_uri(context, term):
     value = context[term]
     return URIRef(value["@id"] if isinstance(value, dict) else value)
-
-
-def example_profile_errors(records):
-    """Deliberately local profile, not reference-vocabulary or runtime enforcement.
-
-    Complete typed subjects must be present; same-URI references do not mint new
-    actors. Dates and ownership percentage are application rules.
-    """
-    index = {record["@id"]: record for record in records}
-    errors = []
-    organization_types = {"Organization", "PublicOrganization", "edu/EducationProvider"}
-    for record in records:
-        kind = record["@type"]
-        for begin, end in [("valid_from", "valid_to"), ("start_date", "end_date")]:
-            if begin in record and end in record and record[begin] > record[end]:
-                errors.append("reversed period")
-        field = None
-        allowed = set()
-        if kind in {"ProfessionalLicense", "transport/DrivingEntitlement", "elections/VoterRegistration"}:
-            field, allowed = "registered_subject", {"Person"}
-        elif kind == "tax/TaxRegistration":
-            field, allowed = "registered_subject", organization_types | {"Person"}
-        elif kind in {"OwnershipInterest", "InstitutionalRole"}:
-            field = "interest_holder" if kind == "OwnershipInterest" else "role_actor"
-            allowed = organization_types | {"Person"}
-        if kind == "AssetPartyRole":
-            field, allowed = "asset_actor", organization_types | {"Person"}
-        if kind == "RepresentationRole":
-            field, allowed = "representative", organization_types | {"Person"}
-            represented = index.get(record.get("represented"))
-            if represented is None or represented["@type"] not in allowed:
-                errors.append("invalid represented party")
-        if field:
-            target = index.get(record.get(field))
-            if target is None:
-                errors.append("missing actor")
-            elif target["@type"] not in allowed:
-                errors.append("wrong actor kind")
-        if kind == "OwnershipInterest" and "interest_percentage" in record:
-            if not 0 <= record["interest_percentage"] <= 100:
-                errors.append("percentage outside zero to one hundred")
-    return errors
 
 
 def test_every_government_term_survives_actual_exports(exports):
@@ -125,7 +84,7 @@ def test_same_synthetic_records_validate_json_schema_and_context_shacl(exports, 
     graph = jsonld_graph(RECORDS, built["context"])
     conforms, _, report = validate(graph, shacl_graph=shapes, ont_graph=subclass_hierarchy)
     assert conforms, report
-    assert not example_profile_errors(RECORDS)
+    assert not PROFILE.profile_errors(RECORDS)
     # URI values remain object identities in RDF, including subclass subjects.
     assert (URIRef("https://example.org/tax-company"), PS.registered_subject,
             URIRef("https://example.org/company")) in graph
@@ -155,21 +114,32 @@ def test_invalid_public_shapes_fail_both_formats(exports, subclass_hierarchy, ki
     ("tax-representative", {"represented": "https://example.org/vehicle"}, "invalid represented party"),
     ("voter", {"registered_subject": "https://example.org/company"}, "wrong actor kind"),
     ("drive-B", {"registered_subject": "https://example.org/unavailable"}, "missing actor"),
-    ("professional-license", {"valid_to": "2024-01-01"}, "reversed period"),
+    ("professional-license", {"valid_to": "2024-01-01"}, "empty or reversed period"),
+    # end_date is the first inactive day, so a role ending on its start day is empty.
+    ("facility-operator", {"end_date": "2024-06-01"}, "empty or reversed period"),
+    ("professional-license", {"valid_from": "20250101"}, "valid_from: expected an exact YYYY-MM-DD calendar date"),
+    ("interest-person", {"start_date": "2025-02-30"}, "start_date: impossible calendar date"),
     ("interest-person", {"interest_percentage": 101}, "percentage outside zero to one hundred"),
 ])
 def test_example_profile_rejects_semantic_counterexamples(suffix, changes, message):
     records = copy.deepcopy(RECORDS)
     target = next(record for record in records if record["@id"] == "https://example.org/" + suffix)
     target.update(changes)
-    assert message in example_profile_errors(records)
+    assert message in PROFILE.profile_errors(records)
+
+
+def test_inclusive_validity_allows_a_single_day():
+    records = copy.deepcopy(RECORDS)
+    license_ = next(record for record in records if record["@id"] == "https://example.org/professional-license")
+    license_["valid_to"] = license_["valid_from"]
+    assert not PROFILE.profile_errors(records)
 
 
 def test_partial_vocabulary_record_is_valid_but_not_complete_example_profile(exports):
     partial = {"@context": DEFAULT_CONTEXT_URL, "@id": "https://example.org/partial",
                "@type": "transport/DrivingEntitlement"}
     validator(exports, "transport/DrivingEntitlement").validate(partial)
-    assert "missing actor" in example_profile_errors([partial])
+    assert "missing actor" in PROFILE.profile_errors([partial])
 
 
 def test_counterexamples_preserve_neighboring_identities():
@@ -208,7 +178,7 @@ def test_facility_operator_is_a_dated_asset_role_for_person_organization_or_unkn
     graph = jsonld_graph(records, built["context"])
     conforms, _, report = validate(graph, shacl_graph=shapes, ont_graph=subclass_hierarchy)
     assert conforms, report
-    assert not example_profile_errors(records)
+    assert not PROFILE.profile_errors(records)
     roles = set(graph.subjects(PS.subject_uri, URIRef(facility["@id"]))) & set(
         graph.subjects(RDF.type, PS.AssetPartyRole))
     if operator is not None:
