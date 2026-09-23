@@ -11,8 +11,8 @@ const exampleFiles: Record<string, string[]> = {
   'agriculture-operations': [
     'README.md',
     'apiary.json', 'applicator.json', 'aquaculture.json', 'certification.json',
-    'component.json', 'facility.json', 'feed.json', 'fertilizer.json',
-    'irrigation.json', 'laboratory.json', 'livestock.json', 'machinery.json',
+    'component.json', 'facility.json', 'facility-operator.json', 'feed.json', 'fertilizer.json',
+    'irrigation.json', 'irrigation-operator.json', 'laboratory.json', 'livestock.json', 'machinery.json',
     'membership-organization.json', 'membership-person.json', 'nursery.json',
     'pesticide.json', 'pesticide-growth-regulator.json', 'producer-organization.json', 'product.json',
     'seed-operator.json', 'service-role.json', 'supplier.json', 'vessel.json',
@@ -33,6 +33,8 @@ const decisionFiles = [
   '022-public-services-and-administrative-history.md',
   '023-government-qualified-relationships.md',
   '024-domain-and-external-model-boundaries.md',
+  '025-organizations-legal-personality-and-authority.md',
+  '026-dates-known-to-reduced-precision.md',
 ];
 
 const files = new Set([
