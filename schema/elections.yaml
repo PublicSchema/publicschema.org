@@ -27,6 +27,14 @@ classes:
     close_mappings:
     - https://pages.nist.gov/VoterRecordsInterchange/
     annotations:
+      label_es: Inscripción electoral
+      label_fr: Inscription électorale
+      description_es: Un registro que acredita que una autoridad electoral ha inscrito a una persona
+        en su registro de electores para una jurisdicción. Estar inscrito no implica por sí solo que
+        la persona pueda votar en todas las elecciones.
+      description_fr: Un enregistrement attestant qu'une autorité électorale a inscrit une personne
+        dans son registre des électeurs pour une juridiction. Être inscrit ne signifie pas à lui seul
+        que la personne peut voter à chaque élection.
       source_domain: elections
       bibliography_refs: '["nist-sp-1500-102", "oasis-eml-7", "venice-commission-cdl-ad-2002-023"]'
       external_alignments_json: '[{"label": "VoterRecord", "match": "close", "note": "NIST SP 1500-102
@@ -47,6 +55,16 @@ slots:
     multivalued: true
     status: bibo:draft
     annotations:
+      label_es: Circunscripciones electorales
+      label_fr: Circonscriptions électorales
+      description_es: Las áreas electorales en las que la inscripción sitúa a la persona, como una
+        circunscripción, un distrito electoral o una sección electoral, una por cada tipo de
+        elección cuando difieren. Estar situado en una circunscripción no implica por sí solo que
+        la persona pueda votar en todas las elecciones que se celebren allí.
+      description_fr: Les zones électorales dans lesquelles l'inscription place la personne, telles
+        qu'une circonscription, un quartier électoral ou une section électorale, une par type
+        d'élection lorsqu'elles diffèrent. Être placé dans une circonscription ne signifie pas à lui
+        seul que la personne peut voter à chaque élection qui s'y tient.
       source_domain: elections
       category: location
       external_alignments_json: '[{"label": "ReportingUnit", "match": "related", "note": "NIST SP 1500-100
@@ -65,6 +83,12 @@ slots:
     multivalued: false
     status: bibo:draft
     annotations:
+      label_es: Centro de votación
+      label_fr: Bureau de vote
+      description_es: El centro de votación asignado a la persona para votar en persona, cuando el
+        registro consigna uno. Puede revelar el barrio en el que reside la persona.
+      description_fr: Le bureau de vote attribué à la personne pour voter en personne, lorsque le
+        registre en enregistre un. Il peut révéler le quartier où réside la personne.
       source_domain: elections
       category: location
       sensitivity: sensitive
