@@ -541,15 +541,17 @@
       "kind": "property",
       "id": "breed_context",
       "old_uri": "https://publicschema.org/breed_context",
-      "new_uri": "https://publicschema.org/agri/breed_context",
-      "action": "relocate"
+      "new_uri": null,
+      "action": "retire",
+      "note": "Free-text breed context has no replacement; a national breed population is a separate concept that is not yet modelled."
     },
     {
       "kind": "property",
       "id": "breed_source",
       "old_uri": "https://publicschema.org/breed_source",
-      "new_uri": "https://publicschema.org/agri/breed_source",
-      "action": "relocate"
+      "new_uri": "https://publicschema.org/agri/breed_recognized_by",
+      "action": "reviewed-replacement",
+      "note": "Resolve the source URI to the recognizing Organization; breed codes from that source move to the breed's identifiers."
     },
     {
       "kind": "property",
@@ -562,8 +564,9 @@
       "kind": "property",
       "id": "component_planting_date",
       "old_uri": "https://publicschema.org/component_planting_date",
-      "new_uri": "https://publicschema.org/agri/component_planting_date",
-      "action": "relocate"
+      "new_uri": "https://publicschema.org/agri/planting_date",
+      "action": "reviewed-replacement",
+      "note": "Use planting_date on the CropPlantingComponent; the value and meaning are unchanged."
     },
     {
       "kind": "property",

@@ -13,13 +13,14 @@ import jsonschema
 MOVEMENT_PROFILE = {
     "type": "object",
     "required": [
-        "@id", "@type", "animal_movement_date", "moved_animal_count",
+        "@id", "@type", "movement_departure_date", "moved_animal_count",
         "movement_origin_site", "movement_destination_site",
     ],
     "properties": {
         "@id": {"type": "string", "format": "uri"},
         "@type": {"const": "AnimalMovement"},
-        "animal_movement_date": {"type": "string", "format": "date"},
+        "movement_departure_date": {"type": "string", "format": "date"},
+        "movement_arrival_date": {"type": "string", "format": "date"},
         "recorded_at": {"type": "string", "format": "date-time"},
         "moved_animal_count": {"type": "integer", "minimum": 1},
         "moved_animals": {
@@ -44,9 +45,9 @@ def validate_profile(records):
     """Validate movement submissions and resolve their references locally.
 
     JSON Schema exports should validate native record structure separately.
-    This example requires AgriculturalFacility sites; other physical site types
-    need an explicit profile extension. Dates have calendar precision only, so
-    no timezone or chronology is inferred from their relation to recorded_at.
+    Sites must resolve to AgriculturalFacility records. Dates have calendar
+    precision only, so no timezone or chronology is inferred from their relation
+    to recorded_at.
     """
     index = {}
     for record in records:
@@ -71,6 +72,9 @@ def validate_profile(records):
         moved = record.get("moved_animals", [])
         if record["moved_animal_count"] < len(moved):
             raise ValueError("moved_animal_count: fewer animals than identified participants")
+        arrival = record.get("movement_arrival_date")
+        if arrival is not None and arrival < record["movement_departure_date"]:
+            raise ValueError("movement_arrival_date: before departure")
         for animal in moved:
             typed_target(animal, {"IndividualAnimal"}, "moved_animals")
         if "movement_source_group" in record:

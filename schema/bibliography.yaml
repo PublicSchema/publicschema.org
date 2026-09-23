@@ -2614,7 +2614,7 @@ classes:
         movements and changes of owner or keeper. Movement records include origin, destination,
         transit establishments, date and animals involved. PublicSchema shapes, source-group
         interpretation and optionality are design choices. Movement locators rechecked 2026-09-08.
-      informs_json: '{"concepts": ["AnimalGroup", "AnimalGroupCount", "AnimalMovement", "AnimalResponsibility", "IndividualAnimal", "agri/AnimalResidence"], "properties": ["moved_animals", "movement_source_group", "moved_animal_count", "movement_origin_site", "movement_destination_site", "movement_transit_sites", "animal_movement_date"]}'
+      informs_json: '{"concepts": ["AnimalGroup", "AnimalGroupCount", "AnimalMovement", "AnimalResponsibility", "IdentifiedAnimalUnit", "IndividualAnimal", "agri/AnimalResidence"], "properties": ["moved_animals", "movement_source_group", "moved_animal_count", "movement_origin_site", "movement_destination_site", "movement_transit_sites", "movement_departure_date", "movement_arrival_date"]}'
       year: 2024
   FaoDadIsDataCitation:
     class_uri: publicschema:Citation/fao-dad-is-data

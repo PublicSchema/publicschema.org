@@ -1,7 +1,7 @@
 id: https://publicschema.org/linkml/animals
 name: publicschema-animals
-title: Agricultural animals
-description: Draft individual animals, animal groups, breeds, residence, responsibility and movement.
+title: Animals
+description: Individual animals, animal groups, breeds, residence, responsibility and movement.
 license: CC-BY-4.0
 default_prefix: publicschema
 prefixes:
@@ -15,38 +15,50 @@ imports:
 - identity
 - value_types
 - registry
+- agriculture_operations
 classes:
-  IndividualAnimal:
-    class_uri: publicschema:IndividualAnimal
-    title: Individual Animal
-    description: One animal whose identity persists through changes of tag, keeper, location or registration.
-      An animal is neither a person nor an administrative registry entry.
+  IdentifiedAnimalUnit:
+    class_uri: publicschema:IdentifiedAnimalUnit
+    title: Identified Animal Unit
+    description: An animal or a group of animals identified as one unit. Records about residence, responsibility
+      or other facts can refer to either kind, because individual and group identification are alternative
+      ways to identify animals.
     slots:
     - name
     - biological_taxon
-    - animal_identifiers
+    - identifiers
+    status: bibo:draft
+    see_also:
+    - https://www.woah.org/fileadmin/Home/eng/Health_standards/tahc/2024/en_chapitre_ident_design.htm
+    annotations:
+      bibliography_refs: '["woah-identification-2024"]'
+    abstract: true
+  IndividualAnimal:
+    class_uri: publicschema:IndividualAnimal
+    title: Individual Animal
+    is_a: IdentifiedAnimalUnit
+    description: A single animal, identified as the same organism throughout its life regardless of the
+      identifiers it carries, the people responsible for it or the places where it is kept.
+    slots:
     - animal_breed
     - animal_birth_date
-    - animal_birth_year
     - animal_death_date
     - animal_sex
-    - biological_dam
-    - biological_sire
+    - genetic_dam
+    - genetic_sire
     status: bibo:draft
-    see_also: &id001
+    see_also:
     - https://www.woah.org/fileadmin/Home/eng/Health_standards/tahc/2024/en_chapitre_ident_design.htm
     annotations:
       bibliography_refs: '["woah-identification-2024"]'
   AnimalGroup:
     class_uri: publicschema:AnimalGroup
     title: Animal Group
-    description: Animals identified or managed together as a herd, flock or batch. The group has an identity
-      distinct from individual animals and from a human household or organization; membership can change.
+    is_a: IdentifiedAnimalUnit
+    description: Animals of one kind identified or managed together as one unit, such as a herd, flock
+      or batch. The group keeps its identity while its membership changes, and it is distinct from a
+      human household or organization.
     slots:
-    - name
-    - biological_taxon
-    - animal_identifiers
-    - animal_group_counts
     - known_animal_members
     - predecessor_animal_groups
     status: bibo:draft
@@ -57,12 +69,12 @@ classes:
   AnimalGroupCount:
     class_uri: publicschema:AnimalGroupCount
     title: Animal Group Count
-    description: An observation of the number of animals in a group at a stated date. A listed subset
-      of individually identified members need not equal this count.
+    description: An observation of how many animals belonged to an animal group on a stated date. The
+      count need not equal the number of individually identified members.
     slots:
     - counted_animal_group
     - animal_count
-    - count_date
+    - animal_count_date
     status: bibo:draft
     see_also:
     - https://www.woah.org/fileadmin/Home/eng/Health_standards/tahc/2024/en_chapitre_ident_design.htm
@@ -71,13 +83,14 @@ classes:
   AnimalBreed:
     class_uri: publicschema:agri/AnimalBreed
     title: Animal Breed
-    description: A named livestock population recognized as a breed in a stated source or community. It
-      is distinct from any individual animal and from a dated national breed population or risk assessment.
+    description: A named population of domesticated animals that a breed society, public authority or
+      breed information system recognizes as a breed. A breed is distinct from any animal attributed to
+      it and from a national breed population or its risk status.
     slots:
     - name
     - biological_taxon
-    - breed_source
-    - breed_context
+    - identifiers
+    - breed_recognized_by
     status: bibo:draft
     see_also:
     - https://www.fao.org/dad-is/data/en/
@@ -87,9 +100,9 @@ classes:
   AnimalResidence:
     class_uri: publicschema:agri/AnimalResidence
     title: Animal Residence
-    description: Association of an individual animal or animal group with a holding or facility where
-      it is kept during a period. A change of keeper need not change residence. This association does
-      not itself record a transport movement.
+    description: A period during which an individual animal or animal group is kept at an identified agricultural
+      facility. A change of keeper need not change residence, and a residence does not itself record a
+      movement.
     slots:
     - animal_subject
     - animal_residence_site
@@ -97,16 +110,17 @@ classes:
     - end_date
     - recorded_at
     status: bibo:draft
-    see_also: *id001
+    see_also:
+    - https://www.woah.org/fileadmin/Home/eng/Health_standards/tahc/2024/en_chapitre_ident_design.htm
     annotations:
       source_domain: agri
       bibliography_refs: '["woah-identification-2024"]'
   AnimalResponsibility:
     class_uri: publicschema:AnimalResponsibility
     title: Animal Responsibility
-    description: A person or organization acting as keeper, owner or another explicitly identified responsibility
-      role for an individual animal or group during a period. Keeping an animal does not establish ownership
-      or residence.
+    description: A period during which a person or organization holds a stated responsibility for an individual
+      animal or animal group, such as owner, keeper or operator. Each responsibility is a separate record;
+      one does not imply another, and keeping an animal does not establish ownership or residence.
     slots:
     - animal_subject
     - animal_responsible_actor
@@ -115,17 +129,17 @@ classes:
     - end_date
     - recorded_at
     status: bibo:draft
-    see_also: *id001
+    see_also:
+    - https://www.woah.org/fileadmin/Home/eng/Health_standards/tahc/2024/en_chapitre_ident_design.htm
     annotations:
       bibliography_refs: '["woah-identification-2024"]'
   AnimalMovement:
     class_uri: publicschema:AnimalMovement
     title: Animal Movement
     is_a: Event
-    description: An actual movement of one or more animals from a physical origin site to a destination site,
-      possibly through transit sites. Identified animals and a source managed group retain their identities.
-      The number moved does not assert that every member of the source group moved. Movement alone does
-      not establish a residence period or change of keeper or owner.
+    description: The transfer of one or more animals from an origin facility to a destination facility,
+      possibly through transit facilities, recorded as one event. A movement alone does not establish
+      a residence period or a change of keeper or owner.
     slots:
     - moved_animals
     - movement_source_group
@@ -133,37 +147,30 @@ classes:
     - movement_origin_site
     - movement_destination_site
     - movement_transit_sites
-    - animal_movement_date
+    - movement_departure_date
+    - movement_arrival_date
     - recorded_at
     status: bibo:draft
-    see_also: *id001
+    see_also:
+    - https://www.woah.org/fileadmin/Home/eng/Health_standards/tahc/2024/en_chapitre_ident_design.htm
     annotations:
       bibliography_refs: '["woah-identification-2024"]'
 slots:
   biological_taxon:
     slot_uri: publicschema:biological_taxon
     title: Biological taxon
-    description: Taxonomic classification with its original code or name and source; no universal species
-      code list is implied.
+    description: The taxon to which this organism, group, breed, variety or sample belongs, as a code
+      or scientific name from an identified taxonomy such as Catalogue of Life or the taxonomy of the National
+      Center for Biotechnology Information. No single taxonomy is required.
     range: CodedValue
     multivalued: false
-    status: bibo:draft
-    annotations:
-      category: agriculture
-  animal_identifiers:
-    slot_uri: publicschema:animal_identifiers
-    title: Animal identifiers
-    description: Identifiers assigned to the animal or animal group, including replaceable tags. They
-      do not identify a registry entry.
-    range: Identifier
-    multivalued: true
     status: bibo:draft
     annotations:
       category: agriculture
   animal_breed:
     slot_uri: publicschema:agri/animal_breed
     title: Animal breed
-    description: Breed attributed to this animal; attribution is not pedigree certification.
+    description: The breed to which the animal is attributed. Attribution does not certify pedigree.
     range: AnimalBreed
     multivalued: false
     status: bibo:draft
@@ -173,17 +180,11 @@ slots:
   animal_birth_date:
     slot_uri: publicschema:animal_birth_date
     title: Animal birth date
-    description: Complete date of birth when known; do not invent a day from a year.
-    range: date
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      category: agriculture
-  animal_birth_year:
-    slot_uri: publicschema:animal_birth_year
-    title: Animal birth year
-    description: Year of birth when known only to year precision.
-    range: integer
+    description: The date of birth of the animal to the precision known, in ISO 8601 form as a year (2021),
+      a year and month (2021-05) or a full date (2021-05-14). A month or day that was not recorded is left
+      out, not invented.
+    range: string
+    pattern: ^[0-9]{4}(-(0[1-9]|1[0-2])(-(0[1-9]|[12][0-9]|3[01]))?)?$
     multivalued: false
     status: bibo:draft
     annotations:
@@ -191,7 +192,8 @@ slots:
   animal_death_date:
     slot_uri: publicschema:animal_death_date
     title: Animal death date
-    description: Complete date of death when known; registration closure does not imply death.
+    description: The date on which the animal died or was slaughtered. A lost or missing animal has no
+      death date until its death is known, and closing a registration does not imply death.
     range: date
     multivalued: false
     status: bibo:draft
@@ -200,44 +202,37 @@ slots:
   animal_sex:
     slot_uri: publicschema:animal_sex
     title: Animal sex
-    description: Recorded biological sex using an identified animal terminology, independent of the Person
-      sex vocabulary.
+    description: The sex of the animal as recorded in an identified animal terminology, such as the animal
+      gender codes of the International Committee for Animal Recording for livestock. It is independent of
+      the Person sex vocabulary.
     range: CodedValue
     multivalued: false
     status: bibo:draft
     annotations:
       category: agriculture
-  biological_dam:
-    slot_uri: publicschema:biological_dam
-    title: Biological dam
-    description: Animal attributed as the biological mother; distinct from a foster mother.
+  genetic_dam:
+    slot_uri: publicschema:genetic_dam
+    title: Genetic dam
+    description: The female that is the genetic mother of the animal. A recipient (gestational) or foster
+      mother is not the genetic dam.
     range: IndividualAnimal
     multivalued: false
     status: bibo:draft
     annotations:
       category: agriculture
-  biological_sire:
-    slot_uri: publicschema:biological_sire
-    title: Biological sire
-    description: Animal attributed as the biological father; unknown parentage is omitted.
+  genetic_sire:
+    slot_uri: publicschema:genetic_sire
+    title: Genetic sire
+    description: The male that is the genetic father of the animal. Unknown parentage is omitted.
     range: IndividualAnimal
     multivalued: false
-    status: bibo:draft
-    annotations:
-      category: agriculture
-  animal_group_counts:
-    slot_uri: publicschema:animal_group_counts
-    title: Animal group counts
-    description: Dated observations of this group size, not a permanent population total.
-    range: AnimalGroupCount
-    multivalued: true
     status: bibo:draft
     annotations:
       category: agriculture
   known_animal_members:
     slot_uri: publicschema:known_animal_members
     title: Known animal members
-    description: Individually identified members known to belong to the group; this list may be incomplete
+    description: Individually identified animals known to belong to the group. The list can be incomplete
       and is not a movement history.
     range: IndividualAnimal
     multivalued: true
@@ -247,8 +242,8 @@ slots:
   predecessor_animal_groups:
     slot_uri: publicschema:predecessor_animal_groups
     title: Predecessor animal groups
-    description: Groups from which this group originated through a split or merge; no full event chronology
-      is asserted.
+    description: Groups from which this group was formed by splitting or merging. No chronology of those
+      events is implied.
     range: AnimalGroup
     multivalued: true
     status: bibo:draft
@@ -257,7 +252,7 @@ slots:
   counted_animal_group:
     slot_uri: publicschema:counted_animal_group
     title: Counted animal group
-    description: Group whose members were counted.
+    description: The animal group whose animals were counted.
     range: AnimalGroup
     multivalued: false
     status: bibo:draft
@@ -266,37 +261,29 @@ slots:
   animal_count:
     slot_uri: publicschema:animal_count
     title: Animal count
-    description: Number of animals observed in the group, including zero; unknown is omitted.
+    description: The number of animals counted in the group. Zero means that none were present; an unknown
+      count is omitted.
     range: integer
+    minimum_value: 0
     multivalued: false
     status: bibo:draft
     annotations:
       category: agriculture
-  count_date:
-    slot_uri: publicschema:count_date
-    title: Count date
-    description: Date to which the animal count applies, distinct from the recording time.
+  animal_count_date:
+    slot_uri: publicschema:animal_count_date
+    title: Animal count date
+    description: The date to which the animal count applies, distinct from the time the count was recorded.
     range: date
     multivalued: false
     status: bibo:draft
     annotations:
       category: agriculture
-  breed_source:
-    slot_uri: publicschema:agri/breed_source
-    title: Breed source
-    description: Source defining or recognizing this breed concept.
-    range: uri
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      source_domain: agri
-      category: agriculture
-  breed_context:
-    slot_uri: publicschema:agri/breed_context
-    title: Breed context
-    description: Community or geographic context of breed recognition; a matching name alone does not
-      establish cross-country identity.
-    range: string
+  breed_recognized_by:
+    slot_uri: publicschema:agri/breed_recognized_by
+    title: Breed recognized by
+    description: The organization, such as a breed society, public authority or breed information system
+      operator, that recognizes the breed. Breed codes from that organization belong in the breed's identifiers.
+    range: Organization
     multivalued: false
     status: bibo:draft
     annotations:
@@ -305,9 +292,9 @@ slots:
   animal_subject:
     slot_uri: publicschema:animal_subject
     title: Animal subject
-    description: URI of the IndividualAnimal or AnimalGroup described by this association. It identifies
-      the animal subject rather than a tag or registry entry.
-    range: uri
+    description: The individual animal or animal group to which the residence or responsibility applies,
+      rather than a tag or a registry entry.
+    range: IdentifiedAnimalUnit
     multivalued: false
     status: bibo:draft
     annotations:
@@ -315,9 +302,9 @@ slots:
   animal_residence_site:
     slot_uri: publicschema:agri/animal_residence_site
     title: Animal residence site
-    description: URI of the Farm or AgriculturalFacility where the animal or group is kept. This is not
-      the keeper's home address.
-    range: uri
+    description: The agricultural facility where the animal or group is kept during the residence. A
+      holding or a keeper's home address does not identify it.
+    range: AgriculturalFacility
     multivalued: false
     status: bibo:draft
     annotations:
@@ -326,18 +313,18 @@ slots:
   animal_responsible_actor:
     slot_uri: publicschema:animal_responsible_actor
     title: Animal responsible actor
-    description: URI of the Person or Organization holding the stated responsibility for the animal or
-      group.
-    range: uri
+    description: The person or organization that holds the stated responsibility for the animal or group.
+    range: Agent
     multivalued: false
     status: bibo:draft
     annotations:
       category: agriculture
+      sensitivity: sensitive
   animal_responsibility_role:
     slot_uri: publicschema:animal_responsibility_role
     title: Animal responsibility role
-    description: Scheme-qualified responsibility such as keeper or owner. The role must not be inferred
-      from residence or treated as proof of legal title.
+    description: The kind of responsibility held, such as owner, keeper or operator, as a code from an
+      identified scheme. The role is not inferred from residence and does not prove legal title.
     range: CodedValue
     multivalued: false
     status: bibo:draft
@@ -346,8 +333,8 @@ slots:
   moved_animals:
     slot_uri: publicschema:moved_animals
     title: Moved animals
-    description: Individually identified animals known to have participated in this movement. The list
-      may be incomplete; members of a referenced source group must not be added without movement evidence.
+    description: Individually identified animals known to have moved. The list can be incomplete; members
+      of the source group are not added without evidence that they moved.
     range: IndividualAnimal
     multivalued: true
     status: bibo:draft
@@ -356,8 +343,8 @@ slots:
   movement_source_group:
     slot_uri: publicschema:movement_source_group
     title: Movement source group
-    description: Managed animal group from which the moved animals were drawn. This identifies the
-      source population, not a claim that the whole group or every known member moved.
+    description: The animal group from which the moved animals came. It does not mean that the whole
+      group or every known member moved.
     range: AnimalGroup
     multivalued: false
     status: bibo:draft
@@ -366,10 +353,11 @@ slots:
   moved_animal_count:
     slot_uri: publicschema:moved_animal_count
     title: Moved animal count
-    description: Number of animals participating in this movement, including any not individually
-      identified. It is distinct from a dated observation of the source group's population and does
-      not determine that group's remaining inventory.
+    description: The number of animals dispatched in the movement, including animals that are not individually
+      identified. It is not an observation of the source group's size and does not determine that group's
+      remaining inventory.
     range: integer
+    minimum_value: 1
     multivalued: false
     status: bibo:draft
     annotations:
@@ -377,9 +365,9 @@ slots:
   movement_origin_site:
     slot_uri: publicschema:movement_origin_site
     title: Movement origin site
-    description: URI of the identified physical site from which the animals departed. A holding's
-      economic identity or an owner or keeper address alone does not identify the departure premises.
-    range: uri
+    description: The agricultural facility from which the animals departed. A holding's economic identity
+      or an owner's or keeper's address does not identify the departure premises.
+    range: AgriculturalFacility
     multivalued: false
     status: bibo:draft
     annotations:
@@ -387,10 +375,9 @@ slots:
   movement_destination_site:
     slot_uri: publicschema:movement_destination_site
     title: Movement destination site
-    description: URI of the identified physical site to which the animals moved. A holding's economic
-      identity alone does not identify arrival premises. Arrival does not by itself establish a period
-      of residence or a change of responsibility.
-    range: uri
+    description: The agricultural facility to which the animals moved. Arrival does not by itself establish
+      a residence period or a change of responsibility.
+    range: AgriculturalFacility
     multivalued: false
     status: bibo:draft
     annotations:
@@ -398,18 +385,27 @@ slots:
   movement_transit_sites:
     slot_uri: publicschema:movement_transit_sites
     title: Movement transit sites
-    description: URIs of identified physical sites through which the animals passed during
-      this movement. This collection does not assert visit order, arrival dates or residence periods.
-    range: uri
+    description: Agricultural facilities through which the animals passed during the movement, in no stated
+      order. They do not assert arrival dates or residence periods.
+    range: AgriculturalFacility
     multivalued: true
     status: bibo:draft
     annotations:
       category: agriculture
-  animal_movement_date:
-    slot_uri: publicschema:animal_movement_date
-    title: Animal movement date
-    description: Calendar date on which the animals departed the origin site, when known. This is the
-      occurrence date used by this draft, distinct from an arrival date or the time the event was recorded.
+  movement_departure_date:
+    slot_uri: publicschema:movement_departure_date
+    title: Movement departure date
+    description: The date on which the animals left the origin facility, distinct from the time the movement
+      was recorded.
+    range: date
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: agriculture
+  movement_arrival_date:
+    slot_uri: publicschema:movement_arrival_date
+    title: Movement arrival date
+    description: The date on which the animals arrived at the destination facility.
     range: date
     multivalued: false
     status: bibo:draft

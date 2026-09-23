@@ -16,9 +16,6 @@
     "known_animal_members": [
       "https://example.org/animals/moving-cow",
       "https://example.org/animals/staying-cow"
-    ],
-    "animal_group_counts": [
-      "https://example.org/counts/before-movement"
     ]
   },
   {
@@ -26,7 +23,7 @@
     "@type": "AnimalGroupCount",
     "counted_animal_group": "https://example.org/herds/source",
     "animal_count": 12,
-    "count_date": "2026-08-01"
+    "animal_count_date": "2026-08-01"
   },
   {
     "@id": "https://example.org/facilities/origin-premises",
@@ -67,7 +64,8 @@
       "https://example.org/facilities/transit-market",
       "https://example.org/facilities/transit-centre"
     ],
-    "animal_movement_date": "2026-08-02",
+    "movement_departure_date": "2026-08-02",
+    "movement_arrival_date": "2026-08-03",
     "recorded_at": "2026-08-05T14:00:00Z"
   },
   {

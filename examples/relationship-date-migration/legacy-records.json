@@ -5,6 +5,11 @@
     "name": "Synthetic market holding"
   },
   {
+    "@id": "https://example.org/date-migration/cattle-shed",
+    "@type": "AgriculturalFacility",
+    "name": "Synthetic cattle shed"
+  },
+  {
     "@id": "https://example.org/date-migration/parcel",
     "@type": "AgriculturalParcel",
     "name": "Synthetic river parcel"
@@ -36,7 +41,7 @@
     "@id": "https://example.org/date-migration/residence",
     "@type": "AnimalResidence",
     "animal_subject": "https://example.org/date-migration/animal",
-    "animal_residence_site": "https://example.org/date-migration/holding",
+    "animal_residence_site": "https://example.org/date-migration/cattle-shed",
     "valid_from": "2026-01-01"
   },
   {
