@@ -138,7 +138,7 @@ HoldingParcelLink, AnimalResidence, AnimalResponsibility, ProducerMembership,
 AgriculturalServiceRole (including InputSupplierRole, PesticideApplicatorRole and SeedOperatorRole), IdentifierAssignment, NameUsage
 and ContactPoint now follow this convention. AssetPartyRole and AssetAddressAssignment
 also use it. Registration (including Authorization specializations such as DrivingEntitlement),
-RegistryEntry, AgriculturalParcel, AgriculturalCertification and LandTenureAssertion retain
+RegistryEntry, AgriculturalParcel, Certification and LandTenureAssertion retain
 their declared calendar validity.
 The [relationship migration guide](relationship-date-migration.md) describes the
 explicit conversion contract and the retired facility assignments. Renaming an

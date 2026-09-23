@@ -16,7 +16,7 @@ its own identity. All names, laws, source documents and code schemes are synthet
 
 ## Research and reuse
 
-[CPSV-AP 3.1.1](https://semiceu.github.io/CPSV-AP/releases/3.1.1/) distinguishes a
+[CPSV-AP 3.2.0](https://semiceu.github.io/CPSV-AP/releases/3.2.0/) distinguishes a
 catalogue service from its individual uses and recognizes individual, business and
 public-authority audiences. Its service properties describe responsible authorities,
 legal resources, evidence requirements and outputs. Its Rule description leaves
@@ -49,24 +49,24 @@ is public.
 | Record | Main fields and meaning |
 |---|---|
 | `PublicService` | `name`, `identifiers`, `description`, `service_competent_authorities`, `service_audience`, `legal_resources` describe the offered service. Its current authority need not be the authority on an earlier decision. |
-| `ServiceApplication` | `public_service`, `service_applicant`, `application_subject`, `submitted_by`, `submission_representation`, `receiving_authority`, `submitted_at`, `recorded_at`, `evidence_assertions` separate the request, subject, applicant, submitter and recipient. |
-| `AdministrativeDecision` | `decision_subject`, `decision_authority`, `decision_outcome`, `decision_made_at`, `effective_at`, `recorded_at`, `legal_resources`, `evidence_assertions` record the determination. `decides_application`, `decision_authorizations`, `decision_regulatory_actions` and `resolves_appeal` connect its context and results. |
-| `AdministrativeAppeal` | `challenged_decision`, `appellant`, `submitted_by`, `submission_representation`, `reviewing_authority`, `submitted_at`, `recorded_at`, `evidence_assertions` describe the filing and requested review. |
-| `OrganizationalChangeEvent` | `original_organizations`, `resulting_organizations`, `lifecycle_kind`, `effective_at`, `recorded_at`, `event_authority`, `legal_resources`, `evidence_assertions` retain participants, timing and basis without replacing historical actors. |
+| `ServiceApplication` | `public_service`, `service_applicant`, `subject_uri`, `submitted_by`, `submission_representation`, `authority`, `submission_date`, `recorded_at`, `evidence_assertions` separate the request, subject, applicant, submitter and receiving authority. |
+| `AdministrativeDecision` | `subject_uri`, `authority`, `decision_outcome`, `decision_date`, `effective_at`, `recorded_at`, `legal_resources`, `evidence_assertions` record the determination. `decides_application`, `decision_authorizations`, `decision_regulatory_actions` and `resolves_appeal` connect its context and results. |
+| `AdministrativeAppeal` | `challenged_decision`, `appellant`, `submitted_by`, `submission_representation`, `authority`, `submission_date`, `recorded_at`, `evidence_assertions` describe the filing and requested review; `authority` is the reviewing body. |
+| `OrganizationalChangeEvent` | `original_organizations`, `resulting_organizations`, `lifecycle_kind`, `effective_at`, `recorded_at`, `authority`, `legal_resources`, `evidence_assertions` retain participants, timing and basis without replacing historical actors. |
 
-Applicant, appellant and submitter URI fields allow a person or organization without
-widening the existing recipient hierarchy. A local profile resolves the target and
-checks its kind. A `RepresentationRole` reference identifies a claimed relationship;
+Applicant and appellant URI fields allow a person or organization without widening
+the existing recipient hierarchy. The submitter and both ends of a `RepresentationRole`
+reference an `Agent`. A local profile resolves each target and checks its kind. A `RepresentationRole` reference identifies a claimed relationship;
 it does not prove the actor can file this particular request. Identity, period and
 the applicable scope require separate checking.
 
 The permit remains an `Authorization` originally issued by the former office.
-The suspension is a `RegulatoryAction` whose `action_subject` is the permit URI.
+The suspension is a `RegulatoryAction` whose `subject_uri` is the permit URI.
 The decision links to that action. This represents a limit on one permission without
 describing its holder as globally suspended. The appeal and review keep the original
 determination accessible; filing alone does not establish a stay or reversal.
 
-`decision_made_at`, `effective_at` and `recorded_at` answer different questions.
+`decision_date`, `effective_at` and `recorded_at` answer different questions.
 The example succession takes effect before it is recorded. The grant retains the
 former authority's identity after the service catalogue points to the successor.
 Organizational continuity does not automatically reissue permissions, transfer every
@@ -87,7 +87,8 @@ JSON-LD context plus SHACL exports. They do not fetch example URIs or upstream s
 
 Reference fields remain optional so partial descriptions are useful. The example
 profile requires complete local service, submission, decision and succession links;
-timezone-qualified timestamps; resolved actor types; consistent permit subjects and
+calendar submission and decision dates; timezone-qualified timestamps elsewhere;
+resolved actor types; consistent permit subjects and
 issuers; and a distinct identity for a material successor. It rejects missing or
 mis-typed targets, duplicate identities, empty or reversed representation periods, an appeal
 that precedes its challenged determination and a historical authority assigned before
@@ -101,12 +102,13 @@ change this result; an explicit matching grant is required. A grant for applicat
 alone does not authorize an appeal. The example's authority checks demonstrate the
 binding, without proving the legal validity of a representation instrument.
 
-Representation periods use whole UTC calendar days in this synthetic profile:
-`start_date` is included and `end_date` is the first inactive day. An appeal submitted
-at `2026-09-03T10:00:00Z` therefore cannot use a role ending on `2026-09-03`.
+Representation periods use whole calendar days in this synthetic profile:
+`start_date` is included and `end_date` is the first inactive day. An appeal with
+`submission_date` `2026-09-03` therefore cannot use a role ending on `2026-09-03`.
 Equal start and end dates describe an empty role interval and are rejected.
-The submission timestamp is converted to UTC before choosing its calendar day.
-Deployments must choose the calendar and time zone appropriate to their own rules.
+The profile compares submission and decision dates with the UTC day of recording and
+effective timestamps. Deployments must choose the calendar and time zone appropriate
+to their own rules.
 The permission's existing `valid_from` and `valid_to` remain inclusive, so a one-day
 authorization can have equal validity dates.
 
