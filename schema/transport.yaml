@@ -1,7 +1,7 @@
 id: https://publicschema.org/linkml/transport
 name: publicschema-transport
 title: Vehicles and driving permissions
-description: Draft vehicles and driving entitlements.
+description: Road vehicles and the driving entitlements that licensing authorities record for persons.
 license: CC-BY-4.0
 default_prefix: publicschema
 prefixes:
@@ -17,22 +17,30 @@ classes:
   DrivingEntitlement:
     class_uri: publicschema:transport/DrivingEntitlement
     title: Driving Entitlement
-    description: An authorization for a person to drive a stated vehicle category, with any conditions
-      and its own validity period. A licence document may evidence several entitlements with different
-      expiry dates.
+    description: A permission for a person to drive vehicles of one licence category, recorded by a
+      licensing authority, with its own conditions and dates. One driving licence can record several
+      entitlements that start and expire on different dates. The licence document is evidence of the
+      entitlements, not the permission itself.
     slots:
     - driving_category
-    - entitlement_conditions
+    - driving_condition_codes
     status: bibo:draft
     is_a: Authorization
     annotations:
       source_domain: transport
       bibliography_refs: '["gov-driving"]'
+      external_alignments_json: '[{"label": "Driving licence category entry", "match": "related", "note":
+        "Directive (EU) 2025/2205, Annex I Part D point 4, fields 9 to 12, records each category with its
+        own issue date, expiry date and restriction codes on one licence document. This concept is that
+        per-category entry, not the licence card.", "uri": "https://eur-lex.europa.eu/eli/dir/2025/2205/oj",
+        "vocabulary": "Directive (EU) 2025/2205", "vocabulary_id": "eu-dir-2025-2205"}]'
   Vehicle:
     class_uri: publicschema:transport/Vehicle
     title: Vehicle
-    description: An individually identifiable vehicle used for transport. Physical identity persists through
-      registration or keeper changes; identifying a keeper does not establish ownership.
+    description: A single, identifiable road vehicle or trailer, such as a car, lorry, motorcycle or
+      agricultural tractor. It stays the same vehicle when its registration number, keeper or owner changes.
+      The registered keeper is not necessarily the owner; keepers and owners are recorded as dated asset
+      roles.
     slots:
     - identifiers
     - vehicle_make
@@ -40,70 +48,120 @@ classes:
     - vehicle_category
     - manufacture_year
     status: bibo:draft
+    close_mappings:
+    - https://schema.org/Vehicle
     annotations:
       source_domain: transport
       bibliography_refs: '["gov-dvla"]'
+      external_alignments_json: '[{"label": "Vehicle", "match": "close", "note": "schema.org Vehicle also
+        covers aircraft, boats and vehicles offered for sale; this concept is a registered road vehicle.",
+        "uri": "https://schema.org/Vehicle", "vocabulary": "schema.org", "vocabulary_id": "schema-org"},
+        {"label": "Vehicle", "match": "related", "note": "Council Directive 1999/37/EC, Article 2, defines
+        the vehicle whose registration certificate this concept''s attributes follow; the registration itself
+        is a separate Registration record.", "uri": "https://eur-lex.europa.eu/eli/dir/1999/37/oj", "vocabulary":
+        "Council Directive 1999/37/EC", "vocabulary_id": "eu-dir-1999-37"}]'
 slots:
   driving_category:
     slot_uri: publicschema:transport/driving_category
     title: Driving category
-    description: The scheme-qualified vehicle category covered by this driving entitlement. Category meanings
-      depend on jurisdiction and edition.
+    description: The licence category this entitlement covers, such as B for cars, taken from a named
+      category list. The same letter can mean different vehicles in different jurisdictions or editions
+      of a list.
     range: CodedValue
     multivalued: false
     status: bibo:draft
+    close_mappings:
+    - https://eur-lex.europa.eu/eli/dir/2025/2205/oj
     annotations:
       source_domain: transport
       category: classification
-  entitlement_conditions:
-    slot_uri: publicschema:transport/entitlement_conditions
-    title: Entitlement conditions
-    description: Scheme-qualified conditions restricting this entitlement, such as an adapted vehicle
-      requirement.
+      external_alignments_json: '[{"label": "Driving licence categories", "match": "close", "note": "Directive
+        (EU) 2025/2205, Article 6(1), defines the EU categories AM to DE; other jurisdictions use their own
+        lists.", "uri": "https://eur-lex.europa.eu/eli/dir/2025/2205/oj", "vocabulary": "Directive (EU) 2025/2205",
+        "vocabulary_id": "eu-dir-2025-2205"}]'
+  driving_condition_codes:
+    slot_uri: publicschema:transport/driving_condition_codes
+    title: Driving condition codes
+    description: Coded conditions or restrictions recorded against this entitlement, such as a requirement
+      to wear glasses or to drive only vehicles with automatic transmission, each taken from a named
+      code list. Conditions without a code are stated as text in authorization_conditions. Some codes
+      reveal a medical condition.
     range: CodedValue
     multivalued: true
     status: bibo:draft
+    close_mappings:
+    - https://eur-lex.europa.eu/eli/dir/2025/2205/oj
     annotations:
       source_domain: transport
       category: classification
+      sensitivity: sensitive
+      external_alignments_json: '[{"label": "Harmonised licence codes", "match": "close", "note": "Directive
+        (EU) 2025/2205, Annex I Part E, lists the harmonised restriction codes; codes 01 to 44 concern the
+        driver''s health or the vehicle adaptations the driver needs.", "uri": "https://eur-lex.europa.eu/eli/dir/2025/2205/oj",
+        "vocabulary": "Directive (EU) 2025/2205", "vocabulary_id": "eu-dir-2025-2205"}]'
   vehicle_make:
     slot_uri: publicschema:transport/vehicle_make
     title: Vehicle make
-    description: The manufacturer or make recorded for the vehicle.
+    description: The make of the vehicle as recorded in the vehicle register, usually the manufacturer's
+      trade name.
     range: string
     multivalued: false
     status: bibo:draft
+    close_mappings:
+    - https://eur-lex.europa.eu/eli/dir/1999/37/oj
     annotations:
       source_domain: transport
       category: assets
+      external_alignments_json: '[{"label": "Make (D.1)", "match": "close", "note": "Council Directive
+        1999/37/EC, Annex I, registration certificate field D.1.", "uri": "https://eur-lex.europa.eu/eli/dir/1999/37/oj",
+        "vocabulary": "Council Directive 1999/37/EC", "vocabulary_id": "eu-dir-1999-37"}]'
   vehicle_model:
     slot_uri: publicschema:transport/vehicle_model
     title: Vehicle model
-    description: The model designation recorded for the vehicle.
+    description: The commercial name of the vehicle model as recorded in the register. It is not the
+      type-approval variant or version.
     range: string
     multivalued: false
     status: bibo:draft
+    close_mappings:
+    - https://eur-lex.europa.eu/eli/dir/1999/37/oj
+    - https://schema.org/model
     annotations:
       source_domain: transport
       category: assets
+      external_alignments_json: '[{"label": "Commercial description(s) (D.3)", "match": "close", "note":
+        "Council Directive 1999/37/EC, Annex I, registration certificate field D.3.", "uri": "https://eur-lex.europa.eu/eli/dir/1999/37/oj",
+        "vocabulary": "Council Directive 1999/37/EC", "vocabulary_id": "eu-dir-1999-37"}, {"label": "model",
+        "match": "close", "uri": "https://schema.org/model", "vocabulary": "schema.org", "vocabulary_id":
+        "schema-org"}]'
   vehicle_category:
     slot_uri: publicschema:transport/vehicle_category
     title: Vehicle category
-    description: A scheme-qualified vehicle classification, not a driving entitlement.
+    description: The technical class of the vehicle, such as M1 for passenger cars or N1 for light goods
+      vehicles, taken from a named classification. It describes the vehicle, not what a driver may drive.
     range: CodedValue
     multivalued: false
     status: bibo:draft
+    close_mappings:
+    - https://eur-lex.europa.eu/eli/reg/2018/858/oj
     annotations:
       source_domain: transport
       category: classification
+      external_alignments_json: '[{"label": "Vehicle categories", "match": "close", "note": "Regulation
+        (EU) 2018/858, Article 4, defines the M, N and O categories used in EU type approval.", "uri": "https://eur-lex.europa.eu/eli/reg/2018/858/oj",
+        "vocabulary": "Regulation (EU) 2018/858", "vocabulary_id": "eu-reg-2018-858"}]'
   manufacture_year:
     slot_uri: publicschema:transport/manufacture_year
     title: Manufacture year
-    description: The calendar year in which the vehicle was manufactured, when known. A missing month
-      or day is not invented.
+    description: The calendar year the vehicle was built, when known. It is not the date of first registration.
     range: integer
     multivalued: false
     status: bibo:draft
+    close_mappings:
+    - https://schema.org/productionDate
     annotations:
       source_domain: transport
       category: assets
+      external_alignments_json: '[{"label": "productionDate", "match": "close", "note": "schema.org productionDate
+        is a full date; this slot keeps only the year.", "uri": "https://schema.org/productionDate", "vocabulary":
+        "schema.org", "vocabulary_id": "schema-org"}]'

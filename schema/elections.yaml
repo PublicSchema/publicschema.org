@@ -1,7 +1,7 @@
 id: https://publicschema.org/linkml/elections
 name: publicschema-elections
 title: Voter registration
-description: Draft electoral administration and voter registration.
+description: Voter registration and the electoral districts and polling stations it assigns.
 license: CC-BY-4.0
 default_prefix: publicschema
 prefixes:
@@ -17,35 +17,55 @@ classes:
   VoterRegistration:
     class_uri: publicschema:elections/VoterRegistration
     title: Voter Registration
-    description: Registration of a person for electoral administration in a jurisdiction. It records registration
-      rather than an unconditional conclusion that the person may vote in every election.
+    description: A record that an electoral authority has entered a person in its register of electors
+      for a jurisdiction. Being registered does not by itself mean the person may vote in every election.
     slots:
     - electoral_districts
     - polling_service_point
     status: bibo:draft
     is_a: Registration
+    close_mappings:
+    - https://pages.nist.gov/VoterRecordsInterchange/
     annotations:
       source_domain: elections
       bibliography_refs: '["gov-nist-vri"]'
+      external_alignments_json: '[{"label": "VoterRecord", "match": "close", "note": "NIST SP 1500-102
+        Voter Records Interchange 1.0 also carries a voter status (active, inactive or other) that this
+        concept does not model.", "uri": "https://pages.nist.gov/VoterRecordsInterchange/", "vocabulary":
+        "NIST SP 1500-102", "vocabulary_id": "nist-sp-1500-102"}, {"label": "Voter Registration (schema 310)",
+        "match": "related", "note": "OASIS EML 7.0 schema 310 is a message for registering voters, not a
+        register entry.", "uri": "https://docs.oasis-open.org/election/eml/v7.0/eml-v7.0.html", "vocabulary":
+        "OASIS EML 7.0", "vocabulary_id": "oasis-eml-7"}]'
 slots:
   electoral_districts:
     slot_uri: publicschema:elections/electoral_districts
     title: Electoral districts
-    description: Electoral districts associated with this registration; district assignment does not establish
-      eligibility for every election.
+    description: The electoral areas the registration places the person in, such as a constituency,
+      ward or precinct, one for each kind of election where they differ. Being placed in a district does
+      not by itself mean the person may vote in every election held there.
     range: Location
     multivalued: true
     status: bibo:draft
     annotations:
       source_domain: elections
       category: location
+      external_alignments_json: '[{"label": "ReportingUnit", "match": "related", "note": "NIST SP 1500-100
+        uses ReportingUnit, typed as precinct, ward or another unit, for the areas that results are reported
+        for.", "uri": "https://pages.nist.gov/ElectionResultsReporting/", "vocabulary": "NIST SP 1500-100",
+        "vocabulary_id": "nist-sp-1500-100"}, {"label": "ElectionDistricts", "match": "related", "uri":
+        "https://docs.oasis-open.org/election/eml/v7.0/eml-v7.0.html", "vocabulary": "OASIS EML 7.0", "vocabulary_id":
+        "oasis-eml-7"}]'
   polling_service_point:
     slot_uri: publicschema:elections/polling_service_point
-    title: Polling service point
-    description: The assigned physical polling service point, if one is known.
+    title: Polling station
+    description: The polling station assigned to the person for voting in person, when the register
+      records one. It can reveal the neighbourhood where the person lives.
     range: ServicePoint
     multivalued: false
     status: bibo:draft
     annotations:
       source_domain: elections
       category: location
+      sensitivity: sensitive
+      external_alignments_json: '[{"label": "PollingPlace", "match": "related", "uri": "https://docs.oasis-open.org/election/eml/v7.0/eml-v7.0.html",
+        "vocabulary": "OASIS EML 7.0", "vocabulary_id": "oasis-eml-7"}]'

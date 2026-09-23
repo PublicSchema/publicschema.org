@@ -90,8 +90,6 @@ def example_profile_errors(records):
         elif kind in {"OwnershipInterest", "InstitutionalRole"}:
             field = "interest_holder" if kind == "OwnershipInterest" else "role_actor"
             allowed = organization_types | {"Person"}
-        if kind == "environment/EnvironmentalFacility" and "environmental_operator" in record:
-            field, allowed = "environmental_operator", organization_types | {"Person"}
         if kind == "AssetPartyRole":
             field, allowed = "asset_actor", organization_types | {"Person"}
         if kind == "RepresentationRole":
@@ -157,7 +155,7 @@ def test_same_synthetic_records_validate_json_schema_and_context_shacl(exports):
 
 
 @pytest.mark.parametrize("kind,changes", [
-    ("environment/EnvironmentalFacility", {"environmental_operator": True}),
+    ("environment/EnvironmentalFacility", {"environmental_activities": "processing"}),
     ("OwnershipInterest", {"interest_directness": "not-a-code"}),
     ("OwnershipInterest", {"interest_percentage": "twenty"}),
     ("transport/Vehicle", {"manufacture_year": "unknown"}),
@@ -178,8 +176,8 @@ def test_invalid_public_shapes_fail_both_formats(exports, kind, changes):
 
 
 @pytest.mark.parametrize("suffix,changes,message", [
-    ("facility", {"environmental_operator": "https://example.org/vehicle"}, "wrong actor kind"),
-    ("facility", {"environmental_operator": "https://example.org/unavailable"}, "missing actor"),
+    ("facility-operator", {"asset_actor": "https://example.org/vehicle"}, "wrong actor kind"),
+    ("facility-operator", {"asset_actor": "https://example.org/unavailable"}, "missing actor"),
     ("tax-representative", {"represented": "https://example.org/vehicle"}, "invalid represented party"),
     ("voter", {"registered_subject": "https://example.org/company"}, "wrong actor kind"),
     ("drive-B", {"registered_subject": "https://example.org/unavailable"}, "missing actor"),
@@ -219,14 +217,17 @@ def test_revised_reference_distinctions_are_not_profile_only():
 
 
 @pytest.mark.parametrize("operator", ["person", "company", None])
-def test_facility_operator_preserves_person_organization_or_unknown(exports, operator):
+def test_facility_operator_is_a_dated_asset_role_for_person_organization_or_unknown(exports, operator):
     records = copy.deepcopy(RECORDS)
     facility = next(record for record in records if record["@type"] == "environment/EnvironmentalFacility")
+    role = next(record for record in records if record["@id"] == "https://example.org/facility-operator")
+    assert role["@type"] == "AssetPartyRole"
+    assert role["asset_subject"] == facility["@id"]
+    assert "start_date" in role
     if operator is None:
-        facility.pop("environmental_operator")
+        records.remove(role)
     else:
-        facility["environmental_operator"] = "https://example.org/" + operator
-    validator(exports, facility["@type"]).validate(facility)
+        role["asset_actor"] = "https://example.org/" + operator
     built, shapes, ontology, _ = exports
     graph = expand_graph(records, built["context"])
     hierarchy = Graph()
@@ -235,8 +236,41 @@ def test_facility_operator_preserves_person_organization_or_unknown(exports, ope
     conforms, _, report = validate(graph, shacl_graph=shapes, ont_graph=hierarchy)
     assert conforms, report
     assert not example_profile_errors(records)
-    predicate = URIRef(str(PS) + "environment/environmental_operator")
+    roles = set(graph.subjects(PS.asset_subject, URIRef(facility["@id"]))) & set(
+        graph.subjects(RDF.type, PS.AssetPartyRole))
     if operator is not None:
-        assert (URIRef(facility["@id"]), predicate, URIRef(facility["environmental_operator"])) in graph
+        assert roles == {URIRef(role["@id"])}
+        assert (URIRef(role["@id"]), PS.asset_actor, URIRef(role["asset_actor"])) in graph
     else:
-        assert not list(graph.objects(URIRef(facility["@id"]), predicate))
+        assert not roles
+    # The facility record itself carries no operator or address slot.
+    assert not set(facility) & {"environmental_operator", "facility_addresses"}
+
+
+def test_retired_draft_slots_stay_removed(exports):
+    built, _, _, _ = exports
+    context = built["context"]["@context"]
+    for name in ("environmental_operator", "facility_addresses", "entitlement_conditions", "tax_regime",
+                 "water_quantity_period"):
+        assert name not in built["properties"], name
+        assert name not in context, name
+    facility_slots = built["concept_schemas"]["environment/EnvironmentalFacility"]["properties"]
+    assert "environmental_operator" not in facility_slots
+    assert "facility_addresses" not in facility_slots
+    assert "tax_type" in built["concept_schemas"]["tax/TaxRegistration"]["properties"]
+    assert "driving_condition_codes" in built["concept_schemas"]["transport/DrivingEntitlement"]["properties"]
+
+
+def test_disclosure_sensitive_government_slots(exports):
+    built, _, _, _ = exports
+    properties = built["properties"]
+    assert properties["driving_condition_codes"]["sensitivity"] == "sensitive"
+    assert properties["polling_service_point"]["sensitivity"] == "sensitive"
+    assert properties["electoral_districts"].get("sensitivity") in {None, "standard"}
+
+
+def test_coded_and_textual_authorization_conditions_point_to_each_other(exports):
+    built, _, _, _ = exports
+    properties = built["properties"]
+    assert "authorization_conditions" in properties["driving_condition_codes"]["definition"]["en"]
+    assert "driving_condition_codes" in properties["authorization_conditions"]["definition"]["en"]

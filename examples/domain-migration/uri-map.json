@@ -601,8 +601,9 @@
       "kind": "property",
       "id": "entitlement_conditions",
       "old_uri": "https://publicschema.org/entitlement_conditions",
-      "new_uri": "https://publicschema.org/transport/entitlement_conditions",
-      "action": "relocate"
+      "new_uri": "https://publicschema.org/transport/driving_condition_codes",
+      "action": "relocate",
+      "note": "Renamed to driving_condition_codes; values are unchanged."
     },
     {
       "kind": "property",
@@ -615,8 +616,9 @@
       "kind": "property",
       "id": "environmental_operator",
       "old_uri": "https://publicschema.org/environmental_operator",
-      "new_uri": "https://publicschema.org/environment/environmental_operator",
-      "action": "relocate"
+      "new_uri": "https://publicschema.org/asset_actor",
+      "action": "reviewed-replacement",
+      "note": "Record the operator in a dated AssetPartyRole whose subject is the facility and whose role type codes operation."
     },
     {
       "kind": "property",
@@ -630,8 +632,9 @@
       "kind": "property",
       "id": "facility_addresses",
       "old_uri": "https://publicschema.org/facility_addresses",
-      "new_uri": "https://publicschema.org/environment/facility_addresses",
-      "action": "relocate"
+      "new_uri": "https://publicschema.org/assigned_address",
+      "action": "reviewed-replacement",
+      "note": "Record each facility address in an AssetAddressAssignment with an explicit purpose."
     },
     {
       "kind": "property",
@@ -1092,8 +1095,9 @@
       "kind": "property",
       "id": "tax_regime",
       "old_uri": "https://publicschema.org/tax_regime",
-      "new_uri": "https://publicschema.org/tax/tax_regime",
-      "action": "relocate"
+      "new_uri": "https://publicschema.org/tax/tax_type",
+      "action": "relocate",
+      "note": "Renamed to tax_type; values are unchanged."
     },
     {
       "kind": "property",
@@ -1183,8 +1187,9 @@
       "kind": "property",
       "id": "water_quantity_period",
       "old_uri": "https://publicschema.org/water_quantity_period",
-      "new_uri": "https://publicschema.org/environment/water_quantity_period",
-      "action": "relocate"
+      "new_uri": null,
+      "action": "retire",
+      "note": "State the period in the UCUM rate unit of each authorized_water_quantity value, such as m3/d or m3/a."
     },
     {
       "kind": "linkml-enum",

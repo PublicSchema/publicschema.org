@@ -6,19 +6,28 @@
   "authorized_water_source": [
     "https://example.org/waterbody/river"
   ],
-  "authorized_water_quantity": {
-    "@type": "QuantityValue",
-    "quantity_value": 5000,
-    "unit_code": "m3"
-  },
-  "water_quantity_period": "calendar year",
+  "authorized_water_quantity": [
+    {
+      "@type": "QuantityValue",
+      "quantity_value": 50,
+      "unit_code": "m3/d",
+      "unit_scheme": "http://unitsofmeasure.org"
+    },
+    {
+      "@type": "QuantityValue",
+      "quantity_value": 5000,
+      "unit_code": "m3/a",
+      "unit_scheme": "http://unitsofmeasure.org"
+    }
+  ],
   "irrigation_scheme": {
     "@type": "agri/IrrigationScheme",
     "name": "Synthetic canal network",
     "irrigation_service_area": {
       "@type": "QuantityValue",
       "quantity_value": 100,
-      "unit_code": "ha"
+      "unit_code": "har",
+      "unit_scheme": "http://unitsofmeasure.org"
     }
   }
 }

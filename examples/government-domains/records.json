@@ -227,7 +227,7 @@
       "code_value": "B",
       "code_scheme": "https://example.org/codes/driving-categories"
     },
-    "entitlement_conditions": [
+    "driving_condition_codes": [
       {
         "@type": "CodedValue",
         "code_value": "adapted-vehicle",
@@ -256,7 +256,7 @@
       "code_value": "C",
       "code_scheme": "https://example.org/codes/driving-categories"
     },
-    "entitlement_conditions": [
+    "driving_condition_codes": [
       {
         "@type": "CodedValue",
         "code_value": "adapted-vehicle",
@@ -277,10 +277,10 @@
       "@id": "https://example.org/district",
       "@type": "Location"
     },
-    "tax_regime": {
+    "tax_type": {
       "@type": "CodedValue",
       "code_value": "income",
-      "code_scheme": "https://example.org/codes/tax-regimes"
+      "code_scheme": "https://example.org/codes/tax-types"
     },
     "valid_from": "2025-01-01"
   },
@@ -297,10 +297,10 @@
       "@id": "https://example.org/district",
       "@type": "Location"
     },
-    "tax_regime": {
+    "tax_type": {
       "@type": "CodedValue",
       "code_value": "income",
-      "code_scheme": "https://example.org/codes/tax-regimes"
+      "code_scheme": "https://example.org/codes/tax-types"
     },
     "valid_from": "2025-01-01"
   },
@@ -364,7 +364,7 @@
     "manufacture_year": 2023,
     "vehicle_category": {
       "@type": "CodedValue",
-      "code_value": "goods",
+      "code_value": "N1",
       "code_scheme": "https://example.org/codes/vehicles"
     }
   },
@@ -385,7 +385,6 @@
     "@id": "https://example.org/facility",
     "@type": "environment/EnvironmentalFacility",
     "name": "Example Processing Site",
-    "environmental_operator": "https://example.org/company",
     "environmental_activities": [
       {
         "@type": "CodedValue",
@@ -478,6 +477,38 @@
       "code_scheme": "https://example.org/codes/synthetic"
     },
     "start_date": "2024-01-01"
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/facility-operator",
+    "@type": "AssetPartyRole",
+    "asset_subject": "https://example.org/facility",
+    "asset_actor": "https://example.org/company",
+    "asset_role_type": {
+      "@type": "CodedValue",
+      "code_value": "operator",
+      "code_scheme": "https://example.org/codes/synthetic"
+    },
+    "start_date": "2024-06-01"
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/address/facility",
+    "@type": "Address",
+    "full_address": "1 Example Industrial Road, Example District"
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/facility-address",
+    "@type": "AssetAddressAssignment",
+    "asset_subject": "https://example.org/facility",
+    "assigned_address": "https://example.org/address/facility",
+    "address_purpose": {
+      "@type": "CodedValue",
+      "code_value": "physical",
+      "code_scheme": "https://example.org/codes/synthetic"
+    },
+    "start_date": "2024-06-01"
   },
   {
     "@context": "https://publicschema.org/ctx/draft.jsonld",

@@ -1,7 +1,7 @@
 id: https://publicschema.org/linkml/environment
 name: publicschema-environment
 title: Environmental facilities and water use
-description: Draft environmental facilities and water-use authorizations.
+description: Environmentally regulated facilities and their activities, and water-use authorizations.
 license: CC-BY-4.0
 default_prefix: publicschema
 prefixes:
@@ -20,31 +20,40 @@ classes:
   EnvironmentalFacility:
     class_uri: publicschema:environment/EnvironmentalFacility
     title: Environmental Facility
-    description: A physical site associated with an activity of environmental interest. Site identity
-      is distinct from its operator, installations, program records and permits. A site may be associated
-      with several regulatory programs.
+    description: A place where one or more activities regulated for their effect on the environment
+      are carried out, such as an industrial plant, a large livestock unit or a waste water treatment
+      works. The facility keeps its identity when its operator, permits or reporting duties change. Its
+      operator is recorded as a dated AssetPartyRole and its addresses through AssetAddressAssignment.
     slots:
     - name
     - identifiers
-    - environmental_operator
     - spatial_geometry
-    - facility_addresses
     - environmental_activities
     status: bibo:draft
+    close_mappings:
+    - http://inspire.ec.europa.eu/featureconcept/ProductionFacility
     annotations:
       source_domain: environment
-      bibliography_refs: '["gov-epa-frs"]'
+      bibliography_refs: '["gov-epa-frs", "gov-eu-industrial-emissions-portal"]'
+      external_alignments_json: '[{"label": "ProductionFacility", "match": "close", "note": "INSPIRE defines
+        a production facility as installations on one site operated by the same natural or legal person,
+        so a change of operator can make a new facility there. This concept keeps its identity across operator
+        changes.", "uri": "http://inspire.ec.europa.eu/featureconcept/ProductionFacility", "vocabulary":
+        "INSPIRE feature concepts", "vocabulary_id": "inspire-fc"}, {"label": "Facility (Article 3(2))",
+        "match": "related", "note": "Regulation (EU) 2024/1244, which applies from 1 January 2028, defines
+        a facility by site and operator and recognises natural and legal persons as operators.", "uri":
+        "https://eur-lex.europa.eu/eli/reg/2024/1244/oj", "vocabulary": "Regulation (EU) 2024/1244", "vocabulary_id":
+        "eu-reg-2024-1244"}]'
   WaterUseAuthorization:
     class_uri: publicschema:environment/WaterUseAuthorization
     title: Water Use Authorization
-    description: An authorization to abstract or otherwise use water for stated purposes, sources and
-      conditions. It is distinct from an irrigation scheme, a water source and an observation of actual
-      water use.
+    description: A permission from a competent authority to abstract or impound water from stated sources,
+      for stated purposes, within stated limits and conditions. It is not an irrigation scheme, a water
+      source or a record of how much water was actually used.
     status: bibo:draft
     slots:
     - authorized_water_source
     - authorized_water_quantity
-    - water_quantity_period
     - irrigation_scheme
     see_also:
     - https://www.gov.uk/guidance/water-management-apply-for-a-water-abstraction-or-impoundment-licence
@@ -52,43 +61,36 @@ classes:
     annotations:
       source_domain: environment
       bibliography_refs: '["uk-water-authorization"]'
+      external_alignments_json: '[{"label": "Controls over abstraction and impoundment (Article 11(3)(e))",
+        "match": "related", "note": "Directive 2000/60/EC requires prior authorization of surface and groundwater
+        abstraction and impoundment.", "uri": "https://eur-lex.europa.eu/eli/dir/2000/60/oj", "vocabulary":
+        "Directive 2000/60/EC", "vocabulary_id": "eu-dir-2000-60"}, {"label": "water rights", "match": "related",
+        "uri": "http://aims.fao.org/aos/agrovoc/c_16062", "vocabulary": "AGROVOC", "vocabulary_id": "agrovoc"}]'
 slots:
-  environmental_operator:
-    slot_uri: publicschema:environment/environmental_operator
-    title: Facility operator
-    description: The URI of the person or organization operating this environmental facility. Operator
-      identity is separate from facility identity. A consuming profile verifies the actor's type.
-    range: uri
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      source_domain: environment
-      category: governance
-      bibliography_refs: '["gov-eu-industrial-emissions-portal"]'
-  facility_addresses:
-    slot_uri: publicschema:environment/facility_addresses
-    title: Facility addresses
-    description: Addresses associated with the physical environmental facility.
-    range: Address
-    multivalued: true
-    status: bibo:draft
-    annotations:
-      source_domain: environment
-      category: location
   environmental_activities:
     slot_uri: publicschema:environment/environmental_activities
     title: Environmental activities
-    description: Scheme-qualified activities conducted at an environmental site or installation.
+    description: The regulated activities carried out at the facility, such as intensive pig rearing
+      or waste incineration, each taken from a named activity list.
     range: CodedValue
     multivalued: true
     status: bibo:draft
+    close_mappings:
+    - https://eur-lex.europa.eu/eli/reg/2024/1244/oj
     annotations:
       source_domain: environment
       category: classification
+      external_alignments_json: '[{"label": "Activities (Annex I)", "match": "close", "note": "Regulation
+        (EU) 2024/1244, Annex I, lists the activities whose installations report to the Industrial Emissions
+        Portal.", "uri": "https://eur-lex.europa.eu/eli/reg/2024/1244/oj", "vocabulary": "Regulation (EU)
+        2024/1244", "vocabulary_id": "eu-reg-2024-1244"}, {"label": "NACECodeValue", "match": "related",
+        "note": "INSPIRE production facilities code their economic activity with NACE.", "uri": "http://inspire.ec.europa.eu/codelist/NACECodeValue",
+        "vocabulary": "INSPIRE code lists", "vocabulary_id": "inspire-cl"}]'
   authorized_water_source:
     slot_uri: publicschema:environment/authorized_water_source
-    title: Water source
-    description: URI identifying the water body or source covered by an authorization.
+    title: Authorized water source
+    description: The water bodies, aquifers or intake points from which the authorization permits abstraction
+      or impoundment, each identified by URI.
     range: uri
     multivalued: true
     status: bibo:draft
@@ -98,28 +100,22 @@ slots:
   authorized_water_quantity:
     slot_uri: publicschema:environment/authorized_water_quantity
     title: Authorized water quantity
-    description: A quantity of water allowed during the separately stated accounting period; not observed
-      withdrawal.
+    description: A maximum amount of water the authorization allows to be taken, stated as a rate whose
+      unit carries the period, such as cubic metres per day (m3/d) or per year (m3/a). Several limits
+      can apply together, such as a daily and an annual maximum. It is not a measurement of water actually
+      taken.
     range: QuantityValue
-    multivalued: false
+    multivalued: true
     status: bibo:draft
     annotations:
       source_domain: environment
       category: agriculture
-  water_quantity_period:
-    slot_uri: publicschema:environment/water_quantity_period
-    title: Water quantity period
-    description: The accounting period for the authorized quantity, such as per calendar year or per day.
-    range: string
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      source_domain: environment
-      category: agriculture
+      bibliography_refs: '["ucum-specification"]'
   irrigation_scheme:
     slot_uri: publicschema:agri/irrigation_scheme
     title: Irrigation scheme
-    description: The irrigation scheme associated with the authorization.
+    description: The irrigation scheme that the authorized water serves, when the authorization is tied
+      to one.
     range: IrrigationScheme
     multivalued: false
     status: bibo:draft

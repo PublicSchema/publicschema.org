@@ -396,7 +396,9 @@ slots:
   authorization_conditions:
     slot_uri: publicschema:authorization_conditions
     title: Authorization conditions
-    description: Conditions that limit the permission, stated as text.
+    description: Conditions that limit the permission, stated as text. Conditions taken from a code list
+      go in a coded slot where the authorization defines one, such as driving_condition_codes on a
+      driving entitlement.
     range: string
     multivalued: false
     status: bibo:draft

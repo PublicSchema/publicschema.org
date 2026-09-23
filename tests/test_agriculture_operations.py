@@ -56,13 +56,23 @@ def test_examples_across_actual_exports(exports, path):
     assert (PS[record['@type']], RDF.type, OWL.Class) in ontology
 
 
-def test_authorization_quantity_is_not_an_array(exports):
+def test_authorization_quantities_are_rate_limits(exports):
     result, shapes, _ = exports
     record = json.loads((EXAMPLES / 'water.json').read_text())
-    record['authorized_water_quantity'] = [record['authorized_water_quantity']] * 2
+    limits = record['authorized_water_quantity']
+    # Several limits apply together; each states its period in a UCUM rate unit.
+    assert len(limits) > 1
+    assert all('/' in limit['unit_code'] for limit in limits)
+    assert len({limit['unit_code'] for limit in limits}) == len(limits)
+    assert 'water_quantity_period' not in result['properties']
+    assert 'water_quantity_period' not in result['concept_schemas'][record['@type']]['properties']
+    scalar = dict(record, authorized_water_quantity=limits[0])
     with pytest.raises(jsonschema.ValidationError):
-        validate_json(record, result)
-    conforms, _, _ = validate(data_graph(record, result), shacl_graph=shapes)
+        validate_json(scalar, result)
+    non_numeric = dict(record, authorized_water_quantity=[dict(limits[0], quantity_value='many')])
+    with pytest.raises(jsonschema.ValidationError):
+        validate_json(non_numeric, result)
+    conforms, _, _ = validate(data_graph(non_numeric, result), shacl_graph=shapes)
     assert not conforms
 
 

@@ -3181,7 +3181,7 @@ classes:
       status: active
       notes: 'Articles 3, 5 and 6: installation-level reporting and the containing facility. This vocabulary
         does not implement EU reporting duties or thresholds.'
-      informs_json: '{"properties": ["environmental_operator"]}'
+      informs_json: '{"concepts": ["environment/EnvironmentalFacility"]}'
   W3cSosa2017Citation:
     class_uri: publicschema:Citation/w3c-sosa-2017
     is_a: Citation
