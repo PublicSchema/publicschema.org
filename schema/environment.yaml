@@ -27,7 +27,7 @@ classes:
     - name
     - identifiers
     - environmental_operator
-    - asset_geometry
+    - spatial_geometry
     - facility_addresses
     - environmental_activities
     status: bibo:draft

@@ -148,3 +148,14 @@ slots:
     status: bibo:draft
     annotations:
       category: administrative
+  spatial_geometry:
+    slot_uri: publicschema:spatial_geometry
+    title: Spatial geometry
+    description: A geometric representation of the described resource. The type of that resource, not this
+      property, says what the shape belongs to. It is separate from an address or a named administrative
+      area.
+    range: SpatialGeometry
+    multivalued: true
+    status: bibo:draft
+    annotations:
+      category: location

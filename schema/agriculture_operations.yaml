@@ -278,26 +278,6 @@ classes:
     - https://food.ec.europa.eu/plants/pesticides/eu-pesticides-database_en
     annotations:
       bibliography_refs: '["ec-pesticides-database"]'
-  AgriculturalCertification:
-    class_uri: publicschema:agri/AgriculturalCertification
-    title: Agricultural Certification
-    description: An assertion by a certifying organization that an agricultural subject meets a stated agricultural scheme
-      within an explicit scope and validity period. It is distinct from the certificate document, registration
-      and permission to operate.
-    status: bibo:draft
-    slots:
-    - identifiers
-    - certified_subject
-    - certifying_organization
-    - certification_scheme
-    - certification_scope
-    - valid_from
-    - valid_to
-    see_also:
-    - https://agdatacommons.nal.usda.gov/articles/dataset/The_Organic_INTEGRITY_Database/24661722
-    annotations:
-      source_domain: agri
-      bibliography_refs: '["usda-integrity"]'
   IrrigationScheme:
     class_uri: publicschema:agri/IrrigationScheme
     title: Irrigation Scheme
@@ -526,42 +506,6 @@ slots:
     description: The denominator or basis of composition, such as mass per product volume or mass fraction.
     range: string
     multivalued: false
-    status: bibo:draft
-    annotations:
-      category: agriculture
-  certified_subject:
-    slot_uri: publicschema:certified_subject
-    title: Certified subject
-    description: URI of the operation, product, lot, facility or actor to which the certification applies.
-    range: uri
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      category: agriculture
-  certifying_organization:
-    slot_uri: publicschema:certifying_organization
-    title: Certifying organization
-    description: The organization responsible for the certification assertion.
-    range: Organization
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      category: agriculture
-  certification_scheme:
-    slot_uri: publicschema:certification_scheme
-    title: Certification scheme
-    description: URI identifying the certification scheme and, where material, its edition.
-    range: uri
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      category: agriculture
-  certification_scope:
-    slot_uri: publicschema:certification_scope
-    title: Certification scope
-    description: The activities, products or limitations expressly covered by certification.
-    range: string
-    multivalued: true
     status: bibo:draft
     annotations:
       category: agriculture

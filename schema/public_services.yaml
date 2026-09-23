@@ -165,16 +165,6 @@ slots:
     status: bibo:draft
     annotations:
       category: classification
-  legal_resources:
-    slot_uri: publicschema:legal_resources
-    title: Legal resources
-    description: Identified legal provisions or policy resources relied on for the service, determination
-      or institutional change. A link does not execute a rule or establish which version is applicable.
-    range: uri
-    multivalued: true
-    status: bibo:draft
-    annotations:
-      category: governance
   public_service:
     slot_uri: publicschema:public_service
     title: Public service

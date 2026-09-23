@@ -23,7 +23,7 @@ GOVERNMENT_MODULES = ("organizations", "ownership", "regulation", "education", "
                       "environment", "tax", "elections", "physical_assets")
 # Classes in the government modules whose examples belong to other fixture sets.
 EXAMPLED_ELSEWHERE = {"LegalArrangement", "OwnershipChainAssertion", "EducationOffering", "WorkRelationship",
-                      "WaterUseAuthorization", "AssetAddressAssignment"}
+                      "WaterUseAuthorization", "AssetAddressAssignment", "AgriculturalCertification"}
 AUTHORED = {"classes": {}, "slots": {}}
 for _module in GOVERNMENT_MODULES:
     _authored = yaml.safe_load((ROOT / f"schema/{_module}.yaml").read_text())

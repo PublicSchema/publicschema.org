@@ -56,7 +56,7 @@ classes:
     - name
     - identifiers
     - building_use
-    - asset_geometry
+    - spatial_geometry
     - building_addresses
     status: bibo:draft
     annotations:
@@ -132,16 +132,6 @@ slots:
     status: bibo:draft
     annotations:
       category: classification
-  asset_geometry:
-    slot_uri: publicschema:asset_geometry
-    title: Asset geometry
-    description: A geometric representation of the physical asset or network element. It is separate from
-      an address or a named administrative area.
-    range: SpatialGeometry
-    multivalued: true
-    status: bibo:draft
-    annotations:
-      category: location
   address_geometry:
     slot_uri: publicschema:address_geometry
     title: Address geometry
