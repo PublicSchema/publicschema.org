@@ -2,6 +2,7 @@
 
 import copy
 import json
+import re
 import socket
 from pathlib import Path
 
@@ -333,3 +334,52 @@ def test_official_outcome_preserves_error_and_fatal_severities():
     assert official.outcome_counts(outcome) == {"warning": 1, "error": 1, "fatal": 1}
     with pytest.raises(ValueError, match="OperationOutcome"):
         official.outcome_counts({"resourceType": "Bundle"})
+
+
+@pytest.mark.parametrize("path", [
+    "bundle.entry[0].fullUrl",
+    "bundle.entry[0].resource",
+    "links.subjects",
+    "links.records[0].entry.recorded_at",
+    "links.records[0].fhir_full_url",
+    "links.records[0].business_identifier",
+    "links.links[0].record",
+    "links.links[0].record.register_uri",
+])
+def test_missing_input_member_is_a_contract_error_naming_its_path(inputs, path):
+    bundle, envelope = inputs
+    document, *parts = path.split(".")
+    parent = bundle if document == "bundle" else envelope
+    steps = [step for part in parts for step in part.replace("]", "").split("[")]
+    for step in steps[:-1]:
+        parent = parent[int(step)] if step.isdigit() else parent[step]
+    del parent[steps[-1]]
+    with pytest.raises(integration.ContractError, match=re.escape(f"{path}: required")):
+        integration.validate_integration(bundle, envelope)
+
+
+def test_malformed_recording_time_is_a_contract_error(inputs):
+    bundle, envelope = inputs
+    envelope["records"][0]["entry"]["recorded_at"] = 20260101
+    with pytest.raises(integration.ContractError, match=r"links.records\[0\].entry.recorded_at"):
+        integration.validate_integration(bundle, envelope)
+
+
+def test_cli_reports_contract_failures_without_hiding_programming_errors(tmp_path, monkeypatch, capsys):
+    envelope = json.loads((EXAMPLE / "registry-links.json").read_text())
+    del envelope["subjects"]
+    links = tmp_path / "links.json"
+    links.write_text(json.dumps(envelope))
+    monkeypatch.setattr("sys.argv", ["validate.py", "--links", str(links)])
+    with pytest.raises(SystemExit) as exit_info:
+        integration.main()
+    assert exit_info.value.code == 1
+    assert "Reference integration failed: links.subjects: required" in capsys.readouterr().err
+
+    def broken(*_):
+        raise KeyError("internal")
+
+    monkeypatch.setattr("sys.argv", ["validate.py"])
+    monkeypatch.setattr(integration, "validate_integration", broken)
+    with pytest.raises(KeyError, match="internal"):
+        integration.main()

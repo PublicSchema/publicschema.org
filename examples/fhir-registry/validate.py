@@ -12,7 +12,7 @@ import json
 import re
 import zipfile
 from datetime import datetime
-from functools import lru_cache
+from functools import cache, lru_cache
 from pathlib import Path
 from urllib.parse import urlsplit
 
@@ -45,9 +45,16 @@ def absolute_uri(value):
     return value
 
 
-def record_key(value):
-    register = absolute_uri(value["register_uri"])
-    identifier = value["record_id"]
+def member(value, key, path):
+    """Return a required input member; a missing one is a contract failure naming its path."""
+    require(isinstance(value, dict), f"{path}: expected an object")
+    require(key in value, f"{path}.{key}: required")
+    return value[key]
+
+
+def record_key(value, path="record"):
+    register = absolute_uri(member(value, "register_uri", path))
+    identifier = member(value, "record_id", path)
     require(isinstance(identifier, str) and bool(identifier), "record_id must be a nonempty string")
     return register, identifier
 
@@ -79,7 +86,7 @@ def artifacts():
     return schema, profiles
 
 
-@lru_cache(maxsize=None)
+@cache
 def structural_validator(kind):
     schema, profiles = artifacts()
     require(kind in profiles, "resource type outside the example contract")
@@ -124,13 +131,15 @@ def resource_index(bundle):
     validate_supported_content(bundle)
     require(bundle.get("meta", {}).get("profile") == [_profile("Bundle")], "Bundle profile must be pinned")
     result = {}
-    for entry in bundle.get("entry", []):
-        resource = entry["resource"]
+    for position, entry in enumerate(bundle.get("entry", [])):
+        path = f"bundle.entry[{position}]"
+        resource = member(entry, "resource", path)
+        require(isinstance(resource, dict), f"{path}.resource: expected an object")
         validate_structure(resource)
         kind = resource["resourceType"]
         require(kind != "Bundle", "nested Bundles are outside the example contract")
         require(resource.get("meta", {}).get("profile") == [_profile(kind)], "resource profile must be pinned")
-        full_url = absolute_uri(entry["fullUrl"])
+        full_url = absolute_uri(member(entry, "fullUrl", path))
         parsed = urlsplit(full_url)
         require(parsed.scheme in {"https", "http"} and parsed.netloc and not parsed.query
                 and not parsed.fragment and not parsed.username, "fullUrl must be an absolute HTTP(S) resource URL")
@@ -143,7 +152,7 @@ def resource_index(bundle):
     return result
 
 
-@lru_cache(maxsize=None)
+@cache
 def reference_targets(kind):
     """Use official R5 targetProfile values, including CodeableReference choices."""
     _, profiles = artifacts()
@@ -183,8 +192,9 @@ def _identifiers(resource):
 
 
 def _identifier_matches(identifier, resource):
+    require(isinstance(identifier, dict), "business identifier must be an object")
     require(isinstance(identifier.get("value"), str) and identifier["value"], "business identifier requires a value")
-    absolute_uri(identifier["system"])
+    absolute_uri(identifier.get("system"))
     return any(item.get("system") == identifier["system"] and item.get("value") == identifier["value"]
                for item in _identifiers(resource))
 
@@ -224,26 +234,34 @@ def validate_fhir_references(resources):
 
 def registry_index(envelope):
     result = {}
-    for binding in envelope["records"]:
-        entry = binding["entry"]
+    for position, binding in enumerate(member(envelope, "records", "links")):
+        path = f"links.records[{position}]"
+        entry = member(binding, "entry", path)
+        for field in ("resource_type", "fhir_full_url", "profile", "business_identifier"):
+            member(binding, field, path)
         require(entry.get("@type") == "RegistryEntry", "expected PublicSchema RegistryEntry")
-        key = record_key(entry)
+        key = record_key(entry, path + ".entry")
         require(key not in result, "duplicate qualified registry record key")
-        absolute_uri(entry["subject_uri"])
-        timestamp = datetime.fromisoformat(entry["recorded_at"].replace("Z", "+00:00"))
+        absolute_uri(member(entry, "subject_uri", path + ".entry"))
+        recorded_at = member(entry, "recorded_at", path + ".entry")
+        try:
+            timestamp = datetime.fromisoformat(recorded_at.replace("Z", "+00:00"))
+        except (AttributeError, ValueError):
+            raise ContractError(f"{path}.entry.recorded_at: expected an ISO 8601 timestamp") from None
         require(timestamp.tzinfo is not None, "recorded_at requires a timezone")
         result[key] = binding
     return result
 
 
-def resolve_record(reference, expected_resource_type, records, resources):
+def resolve_record(reference, expected_resource_type, records, resources, path="record"):
     """Resolve only supplied qualified records; preserve the native FHIR resource.
 
     Missing entries are explicit outcomes, while identity/type disagreement is an
     error. The caller decides whether a missing source is acceptable for its use.
     """
-    require(reference.get("@type") == "RecordReference", "expected PublicSchema RecordReference")
-    binding = records.get(record_key(reference))
+    require(isinstance(reference, dict) and reference.get("@type") == "RecordReference",
+            f"{path}: expected PublicSchema RecordReference")
+    binding = records.get(record_key(reference, path))
     if binding is None:
         return {"state": "missing-record"}
     entry = binding["entry"]
@@ -276,8 +294,8 @@ def validate_integration(bundle, envelope):
     reference_count = validate_fhir_references(resources)
     records = registry_index(envelope)
     subjects = {}
-    for subject in envelope["subjects"]:
-        uri = absolute_uri(subject["@id"])
+    for position, subject in enumerate(member(envelope, "subjects", "links")):
+        uri = absolute_uri(member(subject, "@id", f"links.subjects[{position}]"))
         require(uri not in subjects, "duplicate native subject identity")
         subjects[uri] = subject
     bound_urls = set()
@@ -306,15 +324,19 @@ def validate_integration(bundle, envelope):
             require("subject_type" not in entry, "this contract does not mint a native medical subject type")
     require(bound_urls == resources.keys(), "every supplied FHIR resource needs an explicit registry binding")
     require(used_subjects == subjects.keys(), "native subject lacks a reviewed FHIR binding")
-    for link in envelope["links"]:
-        resolved = resolve_record(link["record"], link["expected_resource_type"], records, resources)
+    links = member(envelope, "links", "links")
+    for position, link in enumerate(links):
+        path = f"links.links[{position}]"
+        resolved = resolve_record(member(link, "record", path), member(link, "expected_resource_type", path),
+                                  records, resources, path + ".record")
         require(resolved["state"] == "resolved", "required consumer link is " + resolved["state"])
-    for outcome in envelope.get("migration_outcomes", []):
-        record_key(outcome["source_record"])
+    for position, outcome in enumerate(envelope.get("migration_outcomes", [])):
+        path = f"links.migration_outcomes[{position}]"
+        record_key(member(outcome, "source_record", path), path + ".source_record")
         require(outcome.get("state") == "unmapped" and outcome.get("source_path")
                 and "source_value" in outcome and outcome.get("reason"), "unmapped outcome must retain source, value, and reason")
     return {"fhir_resources": len(resources), "registry_entries": len(records),
-            "local_fhir_references": reference_count, "consumer_links": len(envelope["links"])}
+            "local_fhir_references": reference_count, "consumer_links": len(links)}
 
 
 def main():
@@ -323,8 +345,12 @@ def main():
     parser.add_argument("--links", type=Path, default=HERE / "registry-links.json")
     args = parser.parse_args()
     try:
-        result = validate_integration(json.loads(args.bundle.read_text()), json.loads(args.links.read_text()))
-    except (ContractError, KeyError, TypeError, ValueError) as error:
+        bundle, envelope = (json.loads(path.read_text()) for path in (args.bundle, args.links))
+    except (OSError, json.JSONDecodeError) as error:
+        parser.exit(2, f"Reference integration input could not be read: {error}\n")
+    try:
+        result = validate_integration(bundle, envelope)
+    except ContractError as error:
         parser.exit(1, f"Reference integration failed: {error}\n")
     print(json.dumps(result, indent=2))
     print("PASS: official R5 JSON Schema and local reference contract; not full FHIR conformance.")
