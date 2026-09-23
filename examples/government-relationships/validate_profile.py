@@ -1,6 +1,6 @@
 """Validate the bounded, locally resolved government relationship demonstration.
 
-Run: uv run python examples/government-relationships/validate_profile.py
+Run: uv run --locked python examples/government-relationships/validate_profile.py
 These checks supplement the reference vocabulary. They do not verify source truth,
 beneficial ownership, accreditation, legal authority or environmental compliance.
 """
