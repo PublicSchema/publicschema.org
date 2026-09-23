@@ -90,6 +90,23 @@ def test_profile_counterexamples(farm, case):
         _profile.validate_profile(records)
 
 
+@pytest.mark.parametrize("changes,message", [
+    # end_date is the first inactive day, so ending on the start day leaves no effective day.
+    ({"end_date": "2025-01-01"}, "at least one day"),
+    ({"start_date": 20250101}, "exact YYYY-MM-DD"),
+    ({"end_date": ["2026-01-01"]}, "exact YYYY-MM-DD"),
+    ({"start_date": "20250101"}, "exact YYYY-MM-DD"),
+])
+def test_holder_role_period_is_end_exclusive_and_strict(farm, changes, message):
+    _, _, original, _ = farm
+    records = copy.deepcopy(original)
+    role = next(r for r in records if r["@id"] == EX + "person-role")
+    assert role["start_date"] == "2025-01-01"
+    role.update(changes)
+    with pytest.raises(ValueError, match=message):
+        _profile.validate_profile(records)
+
+
 def test_embedded_holder_and_farm_objects_resolve(farm):
     _, _, original, _ = farm
     records = copy.deepcopy(original)
@@ -244,7 +261,7 @@ def test_agency_and_contractor_keep_one_economic_relationship_across_two_holding
 
 @pytest.mark.parametrize("case", ["missing_person", "software_person", "missing_holding", "wrong_holding",
     "missing_relationship", "wrong_relationship", "different_person", "missing_unit", "wrong_unit",
-    "missing_unit_field", "reversed_dates", "empty_interval", "invalid_date", "before_relationship",
+    "missing_unit_field", "reversed_dates", "empty_interval", "invalid_date", "compact_date", "before_relationship",
     "after_relationship", "starts_on_cessation", "code_without_scheme", "relationship_functions"])
 def test_work_profile_rejects_inconsistent_assertions(workforce, case):
     records = copy.deepcopy(workforce)
@@ -276,6 +293,9 @@ def test_work_profile_rejects_inconsistent_assertions(workforce, case):
         assignment["end_date"] = assignment["start_date"]
     elif case == "invalid_date":
         assignment["start_date"] = "2025-02-30"
+    elif case == "compact_date":
+        # Python accepts the ISO 8601 basic form; the exchange uses only YYYY-MM-DD.
+        assignment["start_date"] = "20250501"
     elif case == "before_relationship":
         assignment["start_date"] = "2024-12-31"
     elif case == "after_relationship":

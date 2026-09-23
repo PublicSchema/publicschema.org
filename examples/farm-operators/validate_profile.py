@@ -1,12 +1,14 @@
 """Validate the closed, local Farm holder demonstration exchange.
 
-Run: .venv/bin/python examples/farm-operators/validate_profile.py
+Run: uv run --locked python examples/farm-operators/validate_profile.py
 This submission profile adds completeness and reference checks to the optional vocabulary.
 """
 import json
-from datetime import date
+import sys
 from pathlib import Path
-from urllib.parse import urlsplit
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "shared"))
+from profile_support import absolute_uri, check_period, coded_value, parse_day  # noqa: E402
 
 ROLE_ENDPOINTS = {
     "agri/PersonAgriculturalHolderRole": ("holder_person", {"Person"}),
@@ -44,6 +46,8 @@ def validate_profile(records):
                 objects.append(value)
                 if "@id" in value:
                     key = value["@id"]
+                    # JSON-LD may embed a node where it is referenced as well as list it;
+                    # only different content for one subject URI is a conflict.
                     if key in index and index[key] != value:
                         raise ValueError("Conflicting records for one subject URI")
                     index[key] = value
@@ -70,25 +74,14 @@ def validate_profile(records):
         return left is right or bool(left.get("@id") and left["@id"] == right.get("@id"))
 
     def interval(record):
-        result = []
-        for field in ("start_date", "end_date"):
-            value = record.get(field)
-            if field in record and not isinstance(value, str):
-                raise ValueError("An effective date must be an ISO date string")
-            result.append(date.fromisoformat(value) if value is not None else None)
-        start, end = result
+        start, end = (parse_day(record[field], field) if field in record else None
+                      for field in ("start_date", "end_date"))
         # Whole-day example convention: start is inclusive; end is first inactive day.
-        if start and end and end <= start:
-            raise ValueError("Work interval must contain at least one effective day")
+        check_period(start, end, exclusive=True)
         return start, end
 
     def classification(value):
-        code = typed(value, {"CodedValue"})
-        scheme, text = code.get("code_scheme"), code.get("code_value")
-        if not isinstance(scheme, str) or not urlsplit(scheme).scheme:
-            raise ValueError("A supplied work classification requires an absolute scheme URI")
-        if not isinstance(text, str) or not text:
-            raise ValueError("A supplied work classification requires its original code")
+        coded_value(typed(value, {"CodedValue"}))
 
     for record in objects:
         if RETIRED_FIELDS.get(record["@type"], set()) & record.keys():
@@ -106,7 +99,7 @@ def validate_profile(records):
                     classification(function)
             if record["@type"] == "WorkRelationship":
                 unit_uri = record.get("work_economic_unit")
-                if not isinstance(unit_uri, str) or not urlsplit(unit_uri).scheme:
+                if not absolute_uri(unit_uri):
                     raise ValueError("The work economic unit requires a subject URI")
                 typed(unit_uri, ECONOMIC_UNIT_TYPES)
             else:
@@ -138,10 +131,7 @@ def validate_profile(records):
                 raise ValueError("Wrong holder target type")
             if resolve(record.get("holder_farm")).get("@type") != "agri/Farm":
                 raise ValueError("The holder farm must resolve to a Farm")
-            start = date.fromisoformat(record["start_date"]) if "start_date" in record else None
-            end = date.fromisoformat(record["end_date"]) if "end_date" in record else None
-            if start and end and end < start:
-                raise ValueError("Holder role ends before it starts")
+            interval(record)
 
 
 if __name__ == "__main__":
