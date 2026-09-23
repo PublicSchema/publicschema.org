@@ -37,6 +37,19 @@ classes:
     - end_date
     status: bibo:draft
     annotations:
+      label_es: Participación en la propiedad
+      label_fr: Intérêt de propriété
+      description_es: Una participación de propiedad o de control declarada que una persona, una organización
+        o una estructura jurídica posee en una organización o una estructura jurídica, como una participación
+        accionaria o derechos de voto. Pueden coexistir participaciones distintas. Una participación
+        indirecta puede enumerar las participaciones directas que componen su recorrido. El registro
+        de una participación no determina quién es beneficiario final conforme a ninguna ley.
+      description_fr: Une participation de propriété ou de contrôle déclarée qu'une personne, une organisation
+        ou une construction juridique détient dans une organisation ou une construction juridique,
+        par exemple une participation au capital ou des droits de vote. Plusieurs participations distinctes
+        peuvent coexister. Une participation indirecte peut énumérer les participations directes qui
+        composent son parcours. L'enregistrement d'une participation ne détermine pas qui est un bénéficiaire
+        effectif au regard d'une loi quelconque.
       bibliography_refs: '["openownership-bods"]'
   LegalArrangement:
     class_uri: publicschema:LegalArrangement
@@ -51,6 +64,18 @@ classes:
     - arrangement_type
     status: bibo:draft
     annotations:
+      label_es: Estructura jurídica
+      label_fr: Construction juridique
+      description_es: Una estructura, como un fideicomiso o un acuerdo de testaferro, mediante la cual
+        personas u organizaciones ejercen la propiedad o el control sobre una entidad sin constituir
+        una persona jurídica distinta. Un fideicomiso que posee personalidad jurídica es en cambio una
+        Organization. La identificación de una estructura no establece la identidad, los derechos ni
+        la condición de beneficiario final de sus participantes.
+      description_fr: Une construction, telle qu'un trust ou un accord de prête-nom, par laquelle des
+        personnes ou des organisations exercent la propriété ou le contrôle d'une entité sans constituer
+        une personne morale distincte. Un trust doté de la personnalité juridique est en revanche une
+        Organization. L'identification d'une construction n'établit pas l'identité, les droits ou le
+        statut de bénéficiaire effectif de ses participants.
       bibliography_refs: '["openownership-bods"]'
 slots:
   interest_holder:
@@ -61,6 +86,12 @@ slots:
     multivalued: false
     status: bibo:draft
     annotations:
+      label_es: Titular de la participación
+      label_fr: Titulaire de la participation
+      description_es: El URI de la persona, la organización o la estructura jurídica que posee la
+        participación.
+      description_fr: L'URI de la personne, de l'organisation ou de la construction juridique qui détient
+        la participation.
       category: governance
       sensitivity: sensitive
   interest_entity:
@@ -72,6 +103,12 @@ slots:
     multivalued: false
     status: bibo:draft
     annotations:
+      label_es: Entidad de la participación
+      label_fr: Entité de la participation
+      description_es: El URI de la organización o la estructura jurídica en la que se posee la participación.
+        Una persona nunca es la entidad en la que se posee una participación.
+      description_fr: L'URI de l'organisation ou de la construction juridique dans laquelle la participation
+        est détenue. Une personne n'est jamais l'entité dans laquelle une participation est détenue.
       category: governance
   interest_type:
     slot_uri: publicschema:interest_type
@@ -82,6 +119,12 @@ slots:
     multivalued: false
     status: bibo:draft
     annotations:
+      label_es: Tipo de participación
+      label_fr: Type de participation
+      description_es: La forma en que se posee o se ejerce la participación, como acciones, derechos
+        de voto o el derecho a nombrar la junta directiva.
+      description_fr: La manière dont la participation est détenue ou exercée, par exemple des actions,
+        des droits de vote ou le droit de nommer le conseil d'administration.
       category: classification
   interest_directness:
     slot_uri: publicschema:interest_directness
@@ -92,6 +135,12 @@ slots:
     multivalued: false
     status: bibo:draft
     annotations:
+      label_es: Carácter directo de la participación
+      label_fr: Caractère direct de la participation
+      description_es: Si la participación se posee directamente, a través de entidades o estructuras
+        intermedias, o con un carácter directo desconocido.
+      description_fr: Si la participation est détenue directement, par l'intermédiaire d'entités ou
+        de constructions intermédiaires, ou avec un caractère direct inconnu.
       category: classification
   interest_percentage:
     slot_uri: publicschema:interest_percentage
@@ -104,6 +153,14 @@ slots:
     multivalued: false
     status: bibo:draft
     annotations:
+      label_es: Porcentaje de la participación
+      label_fr: Pourcentage de la participation
+      description_es: Un porcentaje exacto declarado para esta participación, en una escala de cero
+        a cien. Debe omitirse cuando solo se conoce un rango o un monto incierto; esa precisión se
+        conserva en interest_description.
+      description_fr: Un pourcentage exact déclaré pour cette participation, sur une échelle de zéro
+        à cent. À omettre lorsque seule une fourchette ou un montant incertain est connu ; conserver
+        cette précision dans interest_description.
       category: governance
   interest_description:
     slot_uri: publicschema:interest_description
@@ -114,6 +171,12 @@ slots:
     multivalued: false
     status: bibo:draft
     annotations:
+      label_es: Descripción de la participación
+      label_fr: Description de la participation
+      description_es: El nombre local de la participación u otros detalles que la expliquen, como
+        límites o una incertidumbre que los campos de porcentaje no pueden expresar.
+      description_fr: Le nom local de la participation ou d'autres précisions qui l'expliquent, par
+        exemple des bornes ou une incertitude que les champs de pourcentage ne peuvent exprimer.
       category: governance
       sensitivity: sensitive
   arrangement_type:
@@ -125,6 +188,12 @@ slots:
     multivalued: false
     status: bibo:draft
     annotations:
+      label_es: Tipo de estructura jurídica
+      label_fr: Type de construction juridique
+      description_es: El tipo de estructura jurídica, como un fideicomiso o un acuerdo de designación
+        de testaferro. Su tratamiento jurídico depende de la jurisdicción aplicable.
+      description_fr: Le type de construction juridique, par exemple un trust ou un accord de désignation
+        de prête-nom. Son traitement juridique dépend de la juridiction applicable.
       category: classification
       domain_override: 'null'
   component_interests:
@@ -136,6 +205,14 @@ slots:
     multivalued: true
     status: bibo:draft
     annotations:
+      label_es: Participaciones componentes
+      label_fr: Participations composantes
+      description_es: Las participaciones directas que en conjunto conforman esta participación indirecta,
+        cada una con su propio titular, entidad y período. Su enumeración no verifica el recorrido
+        ni calcula una participación efectiva.
+      description_fr: Les participations directes qui composent ensemble cette participation indirecte,
+        chacune avec son propre titulaire, son entité et sa période. Leur énumération ne vérifie pas
+        le parcours ni ne calcule une part effective.
       category: governance
       sensitivity: sensitive
       domain_override: 'null'
@@ -150,6 +227,14 @@ slots:
     multivalued: false
     status: bibo:draft
     annotations:
+      label_es: Porcentaje mínimo de la participación
+      label_fr: Pourcentage minimal de la participation
+      description_es: Un límite inferior inclusivo de porcentaje para una participación declarada,
+        en una escala de cero a cien. Se trata de un límite, no de un valor exacto; debe omitirse cuando
+        se desconoce.
+      description_fr: Une borne inférieure inclusive de pourcentage pour une participation déclarée,
+        sur une échelle de zéro à cent. Il s'agit d'une borne, non d'une valeur exacte ; à omettre
+        lorsqu'elle est inconnue.
       category: governance
       domain_override: 'null'
   interest_exclusive_minimum_percentage:
@@ -164,6 +249,14 @@ slots:
     multivalued: false
     status: bibo:draft
     annotations:
+      label_es: Porcentaje mínimo exclusivo de la participación
+      label_fr: Pourcentage minimal exclusif de la participation
+      description_es: Un porcentaje estrictamente inferior a la participación declarada, en una escala
+        de cero a cien. Una participación superior al veinticinco por ciento puede usar 25 aquí sin
+        inventar un monto exacto. Este valor es una alternativa a un límite inferior inclusivo.
+      description_fr: Un pourcentage strictement inférieur à la participation déclarée, sur une échelle
+        de zéro à cent. Une participation supérieure à vingt-cinq pour cent peut utiliser 25 ici sans
+        inventer un montant exact. Cette valeur est une alternative à une borne inférieure inclusive.
       category: governance
       domain_override: 'null'
   interest_maximum_percentage:
@@ -177,6 +270,14 @@ slots:
     multivalued: false
     status: bibo:draft
     annotations:
+      label_es: Porcentaje máximo de la participación
+      label_fr: Pourcentage maximal de la participation
+      description_es: Un límite superior inclusivo de porcentaje para una participación declarada,
+        en una escala de cero a cien. Su omisión significa que no se proporcionó este límite superior;
+        no implica un monto exacto.
+      description_fr: Une borne supérieure inclusive de pourcentage pour une participation déclarée,
+        sur une échelle de zéro à cent. Son omission signifie que cette borne supérieure n'a pas été
+        fournie ; elle n'implique pas un montant exact.
       category: governance
       domain_override: 'null'
   interest_exclusive_maximum_percentage:
@@ -190,5 +291,13 @@ slots:
     multivalued: false
     status: bibo:draft
     annotations:
+      label_es: Porcentaje máximo exclusivo de la participación
+      label_fr: Pourcentage maximal exclusif de la participation
+      description_es: Un porcentaje estrictamente superior a la participación declarada, en una escala
+        de cero a cien. Este valor es una alternativa a un límite superior inclusivo y nunca es un
+        porcentaje exacto.
+      description_fr: Un pourcentage strictement supérieur à la participation déclarée, sur une échelle
+        de zéro à cent. Cette valeur est une alternative à une borne supérieure inclusive et n'est
+        jamais un pourcentage exact.
       category: governance
       domain_override: 'null'
