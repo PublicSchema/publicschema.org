@@ -16,7 +16,7 @@ ROLE_ENDPOINTS = {
 ENDPOINTS = {pair[0] for pair in ROLE_ENDPOINTS.values()}
 WORK_TYPES = {"WorkRelationship", "agri/HoldingWorkAssignment"}
 ECONOMIC_UNIT_TYPES = {"Organization", "Household", "InformalGroup", "agri/Farm"}
-WORK_CLASSIFICATIONS = {"work_form", "work_status", "work_remuneration", "work_seasonality"}
+WORK_CLASSIFICATIONS = {"work_status", "work_remuneration", "work_seasonality"}
 # Fields that the vocabulary no longer defines on these types.
 RETIRED_FIELDS = {
     "agri/Farm": {"holding_operator_roles", "primary_crop", "farm_area_hectares"},

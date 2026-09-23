@@ -125,11 +125,7 @@
         "code_value": "daily_management"
       }
     ],
-    "work_form": {
-      "@type": "CodedValue",
-      "code_scheme": "https://example.org/farm-work/v1/work_form",
-      "code_value": "employment"
-    },
+    "work_form": "employment_work",
     "work_status": {
       "@type": "CodedValue",
       "code_scheme": "https://example.org/farm-work/v1/work_status",
@@ -193,11 +189,7 @@
         "code_value": "cultivation"
       }
     ],
-    "work_form": {
-      "@type": "CodedValue",
-      "code_scheme": "https://example.org/farm-work/v1/work_form",
-      "code_value": "own_use_production"
-    },
+    "work_form": "own_use_production_work",
     "work_remuneration": {
       "@type": "CodedValue",
       "code_scheme": "https://example.org/farm-work/v1/work_remuneration",
@@ -217,11 +209,7 @@
         "code_value": "harvesting"
       }
     ],
-    "work_form": {
-      "@type": "CodedValue",
-      "code_scheme": "https://example.org/farm-work/v1/work_form",
-      "code_value": "employment"
-    },
+    "work_form": "employment_work",
     "work_status": {
       "@type": "CodedValue",
       "code_scheme": "https://example.org/farm-work/v1/work_status",
@@ -245,11 +233,7 @@
     "work_economic_unit": "https://example.org/farm-pilot/agency",
     "start_date": "2025-01-01",
     "end_date": "2026-01-01",
-    "work_form": {
-      "@type": "CodedValue",
-      "code_scheme": "https://example.org/farm-work/v1/work_form",
-      "code_value": "employment"
-    },
+    "work_form": "employment_work",
     "work_status": {
       "@type": "CodedValue",
       "code_scheme": "https://example.org/farm-work/v1/work_status",
@@ -309,11 +293,7 @@
     "work_person": "https://example.org/farm-pilot/contractor",
     "work_economic_unit": "https://example.org/farm-pilot/contractor-enterprise",
     "start_date": "2025-01-01",
-    "work_form": {
-      "@type": "CodedValue",
-      "code_scheme": "https://example.org/farm-work/v1/work_form",
-      "code_value": "employment"
-    },
+    "work_form": "employment_work",
     "work_status": {
       "@type": "CodedValue",
       "code_scheme": "https://example.org/farm-work/v1/work_status",

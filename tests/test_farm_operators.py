@@ -213,8 +213,8 @@ def test_paid_unpaid_family_and_holder_management_are_independent(workforce):
     assert "work_form" not in unpaid and "work_status" not in unpaid
     own_use = index[EX + "own-use-family-work"]
     market = index[EX + "market-family-work"]
-    assert own_use["work_form"]["code_value"] == "own_use_production"
-    assert market["work_form"]["code_value"] == "employment"
+    assert own_use["work_form"] == "own_use_production_work"
+    assert market["work_form"] == "employment_work"
     assert market["work_status"]["code_value"] == "contributing_family_worker"
     assert market["work_remuneration"]["code_value"] == "no_regular_wage"
     assert market["work_seasonality"]["code_value"] == "seasonal"

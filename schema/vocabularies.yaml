@@ -62323,6 +62323,42 @@ enums:
         contractor, employee, contributing family worker, cooperative member. Implementers requiring the
         full ICSE-18 structure should extend or refine this list.", "uri": "https://www.ilo.org/media/209766/download"}'
       bibliography_refs: '["ilo-20th-icls-2018"]'
+  FormOfWork:
+    enum_uri: publicschema:FormOfWork
+    title: Form of Work
+    description: The form of productive activity that a piece of work belongs to under the international
+      statistical standards on work, distinguished by the intended destination of the production and the
+      nature of the transaction.
+    status: bibo:draft
+    permissible_values:
+      own_use_production_work:
+        meaning: publicschema:FormOfWork/own_use_production_work
+        title: Own-use production work
+        description: Production of goods or services for own final use.
+      employment_work:
+        meaning: publicschema:FormOfWork/employment_work
+        title: Employment work
+        description: Work performed for others in exchange for pay or profit.
+      unpaid_trainee_work:
+        meaning: publicschema:FormOfWork/unpaid_trainee_work
+        title: Unpaid trainee work
+        description: Work performed for others without pay to acquire workplace experience or skills.
+      volunteer_work:
+        meaning: publicschema:FormOfWork/volunteer_work
+        title: Volunteer work
+        description: Non-compulsory work performed for others without pay.
+      other_work_activities:
+        meaning: publicschema:FormOfWork/other_work_activities
+        title: Other work activities
+        description: Work in none of the other four forms, such as unpaid community service or unpaid work
+          by prisoners when ordered by a court or similar authority, and unpaid military or alternative civilian
+          service.
+    annotations:
+      standard_json: '{"name": "ILO 19th ICLS Resolution concerning statistics of work, employment, and
+        labour underutilization", "notes": "Paragraph 7 defines the five mutually exclusive forms of work.
+        Each ICSaW-18 status at work group relates to one form (20th ICLS resolution, para 60), so a form
+        can be derived from an ICSaW-18 code.", "uri": "https://ilostat.ilo.org/methods/concepts-and-definitions/description-work-statistics-icls19/"}'
+      bibliography_refs: '["ilo-19th-icls-2013", "ilo-20th-icls-2018"]'
   SymptomChronicity:
     enum_uri: publicschema:SymptomChronicity
     title: Symptom Chronicity
