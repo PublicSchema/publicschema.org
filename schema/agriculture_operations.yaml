@@ -35,7 +35,8 @@ classes:
     - https://www.enam.gov.in/web/resources/FAQs-of-eNam
     annotations:
       source_domain: agri
-      bibliography_refs: '["fao-glosolan", "india-enam-facilities"]'
+      bibliography_refs: '["apha-nbu-hive-count-faq-2021", "fao-glosolan", "india-enam-facilities", "inspire-tg-af",
+        "scotland-aquaculture-register", "uk-plant-passports", "woah-terrestrial-2024"]'
   AgriculturalLaboratory:
     class_uri: publicschema:agri/AgriculturalLaboratory
     title: Agricultural Laboratory
@@ -49,7 +50,7 @@ classes:
     is_a: AgriculturalFacility
     annotations:
       source_domain: agri
-      bibliography_refs: '["fao-glosolan"]'
+      bibliography_refs: '["fao-glosolan", "iso-iec-17025-2017"]'
   AgriculturalMachine:
     class_uri: publicschema:agri/AgriculturalMachine
     title: Agricultural Machine
@@ -65,7 +66,7 @@ classes:
     - https://agrimachinery.nic.in/Index/farmsapp
     annotations:
       source_domain: agri
-      bibliography_refs: '["india-farms"]'
+      bibliography_refs: '["eu-reg-2013-167", "india-farms"]'
   FishingVessel:
     class_uri: publicschema:agri/FishingVessel
     title: Fishing Vessel
@@ -82,7 +83,7 @@ classes:
     - https://www.fao.org/global-record/background/unique-vessel-identifier/en/
     annotations:
       source_domain: agri
-      bibliography_refs: '["fao-vessel-uvi"]'
+      bibliography_refs: '["fao-psma-2009", "fao-vessel-uvi"]'
   AgriculturalServiceRole:
     class_uri: publicschema:agri/AgriculturalServiceRole
     title: Agricultural Service Role
@@ -119,7 +120,7 @@ classes:
     is_a: Organization
     annotations:
       source_domain: agri
-      bibliography_refs: '["ec-producer-organizations"]'
+      bibliography_refs: '["ec-producer-organizations", "eu-reg-2013-1308", "ica-cooperative-identity-1995"]'
   AgriculturalInputProduct:
     class_uri: publicschema:agri/AgriculturalInputProduct
     title: Agricultural Input Product
@@ -139,7 +140,7 @@ classes:
     - https://www.gov.uk/government/publications/starting-an-animal-feed-business/starting-an-animal-feed-business
     annotations:
       source_domain: agri
-      bibliography_refs: '["ec-pesticides-database", "eu-fertilizer-2019", "uk-feed-business", "faoterm-pesticide"]'
+      bibliography_refs: '["ec-pesticides-database", "eu-reg-2019-1009", "faoterm-pesticide", "uk-feed-business"]'
   ProductComponent:
     class_uri: publicschema:ProductComponent
     title: Product Component
@@ -155,7 +156,7 @@ classes:
     - https://food.ec.europa.eu/plants/pesticides/eu-pesticides-database_en
     - https://hl7.org/fhir/R5/ingredient.html
     annotations:
-      bibliography_refs: '["ec-pesticides-database", "gov-fhir-ingredient"]'
+      bibliography_refs: '["ec-pesticides-database", "fhir-r5"]'
   IrrigationScheme:
     class_uri: publicschema:agri/IrrigationScheme
     title: Irrigation Scheme
@@ -196,6 +197,7 @@ slots:
     status: bibo:draft
     annotations:
       category: classification
+      bibliography_refs: '["iso-iec-17025-2017"]'
   machine_category:
     slot_uri: publicschema:machine_category
     title: Machine category
@@ -206,6 +208,7 @@ slots:
     status: bibo:draft
     annotations:
       category: classification
+      bibliography_refs: '["eu-reg-2013-167"]'
   machine_model:
     slot_uri: publicschema:machine_model
     title: Machine model
@@ -287,6 +290,7 @@ slots:
     annotations:
       source_domain: agri
       category: agriculture
+      bibliography_refs: '["ema-upd"]'
   producer_sector:
     slot_uri: publicschema:agri/producer_sector
     title: Producer sector
@@ -298,6 +302,7 @@ slots:
     annotations:
       source_domain: agri
       category: agriculture
+      bibliography_refs: '["eu-reg-2013-1308"]'
   input_product_category:
     slot_uri: publicschema:agri/input_product_category
     title: Input product category
@@ -347,6 +352,7 @@ slots:
     status: bibo:draft
     annotations:
       category: classification
+      bibliography_refs: '["eu-reg-2009-1107"]'
   component_amount:
     slot_uri: publicschema:component_amount
     title: Component amount

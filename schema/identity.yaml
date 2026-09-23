@@ -352,7 +352,7 @@ classes:
         "classification", "properties": ["service_point_type", "facility_type", "facility_level", "operational_status"]},
         {"category": "location", "properties": ["located_at"]}, {"category": "governance", "properties":
         ["managed_by"]}]'
-      bibliography_refs: '["schema-org", "who-health-systems", "who-herams", "who-sara"]'
+      bibliography_refs: '["fhir-r5", "schema-org", "who-health-systems", "who-herams", "who-sara"]'
   Household:
     class_uri: publicschema:Household
     title: Household
@@ -528,7 +528,8 @@ classes:
       property_groups_json: '[{"category": "identity", "properties": ["name", "identifiers"]}, {"category":
         "location", "properties": ["location"]}, {"category": "administrative", "properties": ["legal_form",
         "formation_date"]}]'
-      bibliography_refs: '["fhir-r4", "foaf", "schema-org", "semic-cpov", "w3c-prov-o"]'
+      bibliography_refs: '["fhir-r4", "foaf", "schema-org", "semic-cpov", "uk-companies-house-api", "w3c-prov-o",
+        "w3c-regorg"]'
   RegistrationOffice:
     class_uri: publicschema:RegistrationOffice
     title: Registration Office
@@ -1493,7 +1494,7 @@ slots:
       convergence_json: '{"notes": "Present in only 1 of 5 mapped systems. Uncommon in practice; most
         systems record the date of first registration rather than group formation.", "system_count": 1,
         "total_systems": 5}'
-      bibliography_refs: '["spdci-common-standards"]'
+      bibliography_refs: '["spdci-common-standards", "uk-companies-house-api"]'
   full_address:
     slot_uri: publicschema:full_address
     title: Full address
@@ -1861,6 +1862,7 @@ slots:
     status: bibo:draft
     annotations:
       category: classification
+      bibliography_refs: '["w3c-regorg"]'
   literacy:
     slot_uri: publicschema:literacy
     title: Literacy

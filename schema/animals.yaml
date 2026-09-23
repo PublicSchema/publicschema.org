@@ -31,7 +31,7 @@ classes:
     see_also:
     - https://www.woah.org/fileadmin/Home/eng/Health_standards/tahc/2024/en_chapitre_ident_design.htm
     annotations:
-      bibliography_refs: '["woah-identification-2024"]'
+      bibliography_refs: '["woah-identification-2024", "woah-tahc-2024-ch4-2", "woah-terrestrial-2024"]'
     abstract: true
   IndividualAnimal:
     class_uri: publicschema:IndividualAnimal
@@ -50,7 +50,8 @@ classes:
     see_also:
     - https://www.woah.org/fileadmin/Home/eng/Health_standards/tahc/2024/en_chapitre_ident_design.htm
     annotations:
-      bibliography_refs: '["woah-identification-2024"]'
+      bibliography_refs: '["eu-reg-2016-429", "icar-ade-1-5-1", "tdwg-dwc-2026-05-26", "woah-identification-2024",
+        "woah-terrestrial-2024"]'
   AnimalGroup:
     class_uri: publicschema:AnimalGroup
     title: Animal Group
@@ -65,7 +66,7 @@ classes:
     see_also:
     - https://www.woah.org/fileadmin/Home/eng/Health_standards/tahc/2024/en_chapitre_ident_design.htm
     annotations:
-      bibliography_refs: '["woah-identification-2024"]'
+      bibliography_refs: '["woah-identification-2024", "woah-terrestrial-2024"]'
   AnimalGroupCount:
     class_uri: publicschema:AnimalGroupCount
     title: Animal Group Count
@@ -114,7 +115,7 @@ classes:
     - https://www.woah.org/fileadmin/Home/eng/Health_standards/tahc/2024/en_chapitre_ident_design.htm
     annotations:
       source_domain: agri
-      bibliography_refs: '["woah-identification-2024"]'
+      bibliography_refs: '["woah-identification-2024", "woah-terrestrial-2024"]'
   AnimalResponsibility:
     class_uri: publicschema:AnimalResponsibility
     title: Animal Responsibility
@@ -132,7 +133,7 @@ classes:
     see_also:
     - https://www.woah.org/fileadmin/Home/eng/Health_standards/tahc/2024/en_chapitre_ident_design.htm
     annotations:
-      bibliography_refs: '["woah-identification-2024"]'
+      bibliography_refs: '["eu-reg-2016-429", "woah-identification-2024"]'
   AnimalMovement:
     class_uri: publicschema:AnimalMovement
     title: Animal Movement
@@ -154,7 +155,7 @@ classes:
     see_also:
     - https://www.woah.org/fileadmin/Home/eng/Health_standards/tahc/2024/en_chapitre_ident_design.htm
     annotations:
-      bibliography_refs: '["woah-identification-2024"]'
+      bibliography_refs: '["eu-reg-2016-429", "woah-identification-2024", "woah-tahc-2024-ch4-2", "woah-terrestrial-2024"]'
 slots:
   biological_taxon:
     slot_uri: publicschema:biological_taxon
@@ -167,6 +168,7 @@ slots:
     status: bibo:draft
     annotations:
       category: agriculture
+      bibliography_refs: '["col-xr", "tdwg-dwc-2026-05-26"]'
   animal_breed:
     slot_uri: publicschema:agri/animal_breed
     title: Animal breed
@@ -189,6 +191,7 @@ slots:
     status: bibo:draft
     annotations:
       category: agriculture
+      bibliography_refs: '["eu-reg-del-2019-2035", "tdwg-dwc-2026-05-26"]'
   animal_death_date:
     slot_uri: publicschema:animal_death_date
     title: Animal death date
@@ -210,6 +213,7 @@ slots:
     status: bibo:draft
     annotations:
       category: agriculture
+      bibliography_refs: '["icar-ade-1-5-1"]'
   genetic_dam:
     slot_uri: publicschema:genetic_dam
     title: Genetic dam
@@ -220,6 +224,7 @@ slots:
     status: bibo:draft
     annotations:
       category: agriculture
+      bibliography_refs: '["icar-ade-1-5-1"]'
   genetic_sire:
     slot_uri: publicschema:genetic_sire
     title: Genetic sire
@@ -229,6 +234,7 @@ slots:
     status: bibo:draft
     annotations:
       category: agriculture
+      bibliography_refs: '["icar-ade-1-5-1"]'
   known_animal_members:
     slot_uri: publicschema:known_animal_members
     title: Known animal members
@@ -269,6 +275,7 @@ slots:
     status: bibo:draft
     annotations:
       category: agriculture
+      bibliography_refs: '["tdwg-dwc-2026-05-26"]'
   animal_count_date:
     slot_uri: publicschema:animal_count_date
     title: Animal count date
@@ -289,6 +296,7 @@ slots:
     annotations:
       source_domain: agri
       category: agriculture
+      bibliography_refs: '["eu-reg-del-2019-2035"]'
   animal_subject:
     slot_uri: publicschema:animal_subject
     title: Animal subject
@@ -320,6 +328,7 @@ slots:
     annotations:
       category: agriculture
       sensitivity: sensitive
+      bibliography_refs: '["eu-reg-2016-429"]'
   animal_responsibility_role:
     slot_uri: publicschema:animal_responsibility_role
     title: Animal responsibility role
@@ -340,6 +349,7 @@ slots:
     status: bibo:draft
     annotations:
       category: agriculture
+      bibliography_refs: '["woah-identification-2024"]'
   movement_source_group:
     slot_uri: publicschema:movement_source_group
     title: Movement source group
@@ -350,6 +360,7 @@ slots:
     status: bibo:draft
     annotations:
       category: agriculture
+      bibliography_refs: '["woah-identification-2024"]'
   moved_animal_count:
     slot_uri: publicschema:moved_animal_count
     title: Moved animal count
@@ -362,6 +373,7 @@ slots:
     status: bibo:draft
     annotations:
       category: agriculture
+      bibliography_refs: '["icar-ade-1-5-1", "woah-identification-2024"]'
   movement_origin_site:
     slot_uri: publicschema:movement_origin_site
     title: Movement origin site
@@ -372,6 +384,7 @@ slots:
     status: bibo:draft
     annotations:
       category: agriculture
+      bibliography_refs: '["woah-identification-2024"]'
   movement_destination_site:
     slot_uri: publicschema:movement_destination_site
     title: Movement destination site
@@ -382,6 +395,7 @@ slots:
     status: bibo:draft
     annotations:
       category: agriculture
+      bibliography_refs: '["woah-identification-2024"]'
   movement_transit_sites:
     slot_uri: publicschema:movement_transit_sites
     title: Movement transit sites
@@ -392,6 +406,7 @@ slots:
     status: bibo:draft
     annotations:
       category: agriculture
+      bibliography_refs: '["woah-identification-2024"]'
   movement_departure_date:
     slot_uri: publicschema:movement_departure_date
     title: Movement departure date
@@ -402,6 +417,7 @@ slots:
     status: bibo:draft
     annotations:
       category: agriculture
+      bibliography_refs: '["eu-reg-del-2019-2035", "woah-identification-2024"]'
   movement_arrival_date:
     slot_uri: publicschema:movement_arrival_date
     title: Movement arrival date
@@ -411,3 +427,4 @@ slots:
     status: bibo:draft
     annotations:
       category: agriculture
+      bibliography_refs: '["eu-reg-del-2019-2035", "woah-identification-2024"]'

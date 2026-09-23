@@ -30,10 +30,10 @@ classes:
     - planting_season
     status: bibo:draft
     see_also:
-    - https://www.fao.org/4/a0135e/a0135e05.htm
+    - https://www.fao.org/4/i4913e/i4913e.pdf
     annotations:
       source_domain: agri
-      bibliography_refs: '["fao-wca-2010-crop-concepts"]'
+      bibliography_refs: '["fao-wca-2020-vol1"]'
   CropPlantingComponent:
     class_uri: publicschema:agri/CropPlantingComponent
     title: Crop Planting Component
@@ -46,10 +46,10 @@ classes:
     - component_planted_area
     status: bibo:draft
     see_also:
-    - https://www.fao.org/4/a0135e/a0135e05.htm
+    - https://www.fao.org/4/i4913e/i4913e.pdf
     annotations:
       source_domain: agri
-      bibliography_refs: '["fao-wca-2010-crop-concepts"]'
+      bibliography_refs: '["fao-wca-2020-vol1"]'
   PlantVariety:
     class_uri: publicschema:PlantVariety
     title: Plant Variety
@@ -67,7 +67,7 @@ classes:
     see_also:
     - https://www.upov.int/documents/d/upov/docs-en-pluto-contribute-pluto-tag-format-description.pdf
     annotations:
-      bibliography_refs: '["upov-pluto-tag-format"]'
+      bibliography_refs: '["upov-convention-1991", "upov-pluto-tag-format"]'
   GeneticResourceAccession:
     class_uri: publicschema:GeneticResourceAccession
     title: Genetic Resource Accession
@@ -86,7 +86,7 @@ classes:
     see_also:
     - https://www.genesys-pgr.org/documentation/apis
     annotations:
-      bibliography_refs: '["genesys-api-passport"]'
+      bibliography_refs: '["fao-bioversity-mcpd-2-1", "fao-itpgrfa-2001", "genesys-api-passport"]'
   SeedLot:
     class_uri: publicschema:SeedLot
     title: Seed Lot
@@ -105,7 +105,7 @@ classes:
     see_also:
     - https://inspection.canada.ca/en/plant-health/seeds/seed-inspection-procedures/oecd-and-eu
     annotations:
-      bibliography_refs: '["cfia-qsp-152-1"]'
+      bibliography_refs: '["cfia-qsp-152-1", "ista-rules-2026"]'
 slots:
   planting_holding:
     slot_uri: publicschema:agri/planting_holding
@@ -170,6 +170,7 @@ slots:
     annotations:
       source_domain: agri
       category: agriculture
+      bibliography_refs: '["fao-wca-2020-vol1"]'
   planted_variety:
     slot_uri: publicschema:agri/planted_variety
     title: Planted variety
@@ -192,6 +193,7 @@ slots:
     annotations:
       source_domain: agri
       category: agriculture
+      bibliography_refs: '["fao-wca-2020-vol1"]'
   variety_denominations:
     slot_uri: publicschema:variety_denominations
     title: Variety denominations
@@ -203,6 +205,7 @@ slots:
     status: bibo:draft
     annotations:
       category: agriculture
+      bibliography_refs: '["upov-convention-1991"]'
   breeder_reference:
     slot_uri: publicschema:breeder_reference
     title: Breeder reference
@@ -233,6 +236,7 @@ slots:
     status: bibo:draft
     annotations:
       category: agriculture
+      bibliography_refs: '["fao-bioversity-mcpd-2-1"]'
   maintaining_institute:
     slot_uri: publicschema:maintaining_institute
     title: Maintaining institute
@@ -243,6 +247,7 @@ slots:
     status: bibo:draft
     annotations:
       category: agriculture
+      bibliography_refs: '["fao-bioversity-mcpd-2-1"]'
   accession_variety:
     slot_uri: publicschema:accession_variety
     title: Accession variety
@@ -265,6 +270,7 @@ slots:
     status: bibo:draft
     annotations:
       category: agriculture
+      bibliography_refs: '["fao-bioversity-mcpd-2-1"]'
   seed_lot_varieties:
     slot_uri: publicschema:seed_lot_varieties
     title: Seed lot varieties
@@ -314,3 +320,4 @@ slots:
     status: bibo:draft
     annotations:
       category: agriculture
+      bibliography_refs: '["ista-rules-2026"]'

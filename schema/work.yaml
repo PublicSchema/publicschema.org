@@ -46,7 +46,8 @@ classes:
     narrow_mappings:
     - schema:EmployeeRole
     annotations:
-      bibliography_refs: '["ilo-20th-icls-2018", "ilo-19th-icls-2013", "ilo-icse18-manual-2023"]'
+      bibliography_refs: '["fao-wca-2030", "ilo-19th-icls-2013", "ilo-20th-icls-2018", "ilo-icse18-manual-2023",
+        "schema-org"]'
       external_alignments_json: '[{"label": "EmployeeRole", "match": "narrow", "note": "schema.org EmployeeRole
         describes employee relationships only. A work relationship follows the job or work activity of
         the 20th ICLS resolution (paras 7-9) and covers every form of work.", "uri": "https://schema.org/EmployeeRole",
@@ -64,7 +65,7 @@ classes:
     broad_mappings:
     - schema:Permit
     annotations:
-      bibliography_refs: '["gov-fhir-practitioner", "schema-org"]'
+      bibliography_refs: '["eu-dir-2005-36", "fhir-r5", "schema-org"]'
       external_alignments_json: '[{"label": "Permit", "match": "broad", "note": "A schema.org permit is any
         permit issued by an organization. FHIR R5 Practitioner.qualification is also broader: it covers
         licenses together with qualifications, certifications and training.", "uri": "https://schema.org/Permit",
@@ -90,7 +91,7 @@ classes:
     - org:Membership
     - schema:EmployeeRole
     annotations:
-      bibliography_refs: '["gov-fhir-role"]'
+      bibliography_refs: '["fhir-r5", "schema-org", "w3c-org"]'
       external_alignments_json: '[{"label": "PractitionerRole", "match": "close", "note": "FHIR R5 makes
         the practitioner and the organization optional, separates the role code from the specialty, and
         links healthcare services. PractitionerRole.period is the period of the organization''s authorization
@@ -98,7 +99,7 @@ classes:
         "uri": "http://hl7.org/fhir/PractitionerRole", "vocabulary": "FHIR R5", "vocabulary_id": "fhir-r5"},
         {"label": "Membership", "match": "related", "note": "A W3C ORG membership relates any agent to an
         organization in a role; a practice role is limited to a person practicing a profession.", "uri":
-        "http://www.w3.org/ns/org#Membership", "vocabulary": "W3C ORG 2014", "vocabulary_id": "w3c_org"},
+        "http://www.w3.org/ns/org#Membership", "vocabulary": "W3C ORG 2014", "vocabulary_id": "w3c-org"},
         {"label": "EmployeeRole", "match": "related", "note": "A practice role does not by itself establish
         employment.", "uri": "https://schema.org/EmployeeRole", "vocabulary": "schema.org", "vocabulary_id":
         "schema-org"}]'
@@ -113,7 +114,7 @@ slots:
     annotations:
       category: employment
       sensitivity: sensitive
-      bibliography_refs: '["ilo-20th-icls-2018"]'
+      bibliography_refs: '["fao-wca-2030", "ilo-20th-icls-2018", "ilo-icse18-manual-2023"]'
   work_economic_unit:
     slot_uri: publicschema:work_economic_unit
     title: Work economic unit
@@ -125,7 +126,7 @@ slots:
     status: bibo:draft
     annotations:
       category: employment
-      bibliography_refs: '["ilo-19th-icls-2013", "ilo-20th-icls-2018"]'
+      bibliography_refs: '["fao-wca-2030", "ilo-19th-icls-2013", "ilo-20th-icls-2018", "ilo-icse18-manual-2023"]'
   work_form:
     slot_uri: publicschema:work_form
     title: Form of work
@@ -137,7 +138,7 @@ slots:
     status: bibo:draft
     annotations:
       category: employment
-      bibliography_refs: '["ilo-19th-icls-2013", "ilo-20th-icls-2018"]'
+      bibliography_refs: '["fao-wca-2030", "ilo-19th-icls-2013", "ilo-20th-icls-2018", "ilo-icse18-manual-2023"]'
   work_status:
     slot_uri: publicschema:work_status
     title: Status at work
@@ -150,7 +151,7 @@ slots:
     status: bibo:draft
     annotations:
       category: employment
-      bibliography_refs: '["ilo-20th-icls-2018", "ilo-icse18-manual-2023"]'
+      bibliography_refs: '["fao-wca-2030", "ilo-20th-icls-2018", "ilo-icse18-manual-2023"]'
   work_remuneration:
     slot_uri: publicschema:work_remuneration
     title: Work remuneration arrangement
@@ -163,7 +164,7 @@ slots:
     annotations:
       category: employment
       sensitivity: sensitive
-      bibliography_refs: '["ilo-20th-icls-2018", "ilo-icse18-manual-2023"]'
+      bibliography_refs: '["fao-wca-2030", "ilo-20th-icls-2018", "ilo-icse18-manual-2023"]'
   work_seasonality:
     slot_uri: publicschema:work_seasonality
     title: Work seasonality
@@ -175,7 +176,7 @@ slots:
     status: bibo:draft
     annotations:
       category: employment
-      bibliography_refs: '["ilo-20th-icls-2018", "ilo-icse18-manual-2023"]'
+      bibliography_refs: '["fao-wca-2030", "ilo-20th-icls-2018", "ilo-icse18-manual-2023"]'
   profession_code:
     slot_uri: publicschema:profession_code
     title: Profession code
@@ -189,7 +190,7 @@ slots:
     - schema:occupationalCategory
     annotations:
       category: classification
-      bibliography_refs: '["isco-08"]'
+      bibliography_refs: '["esco", "isco-08", "schema-org"]'
       external_alignments_json: '[{"label": "occupationalCategory", "match": "related", "note": "schema.org
         gives the occupational category of a job or role, typically an ISCO-08 or O*NET code; a licensed
         profession or specialty need not align one to one with an occupation group.", "uri": "https://schema.org/occupationalCategory",

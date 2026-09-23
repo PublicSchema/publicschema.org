@@ -28,7 +28,7 @@ classes:
     - https://pages.nist.gov/VoterRecordsInterchange/
     annotations:
       source_domain: elections
-      bibliography_refs: '["gov-nist-vri"]'
+      bibliography_refs: '["nist-sp-1500-102", "oasis-eml-7", "venice-commission-cdl-ad-2002-023"]'
       external_alignments_json: '[{"label": "VoterRecord", "match": "close", "note": "NIST SP 1500-102
         Voter Records Interchange 1.0 also carries a voter status (active, inactive or other) that this
         concept does not model.", "uri": "https://pages.nist.gov/VoterRecordsInterchange/", "vocabulary":
@@ -55,6 +55,7 @@ slots:
         "vocabulary_id": "nist-sp-1500-100"}, {"label": "ElectionDistricts", "match": "related", "uri":
         "https://docs.oasis-open.org/election/eml/v7.0/eml-v7.0.html", "vocabulary": "OASIS EML 7.0", "vocabulary_id":
         "oasis-eml-7"}]'
+      bibliography_refs: '["nist-sp-1500-100", "oasis-eml-7"]'
   polling_service_point:
     slot_uri: publicschema:elections/polling_service_point
     title: Polling station
@@ -69,3 +70,4 @@ slots:
       sensitivity: sensitive
       external_alignments_json: '[{"label": "PollingPlace", "match": "related", "uri": "https://docs.oasis-open.org/election/eml/v7.0/eml-v7.0.html",
         "vocabulary": "OASIS EML 7.0", "vocabulary_id": "oasis-eml-7"}]'
+      bibliography_refs: '["oasis-eml-7"]'

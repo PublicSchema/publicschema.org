@@ -4573,7 +4573,7 @@ enums:
         title: Contradicts
         description: The source refutes or disputes the claim.
     annotations:
-      bibliography_refs: '["w3c-prov-o"]'
+      bibliography_refs: '["spar-cito", "w3c-prov-o"]'
   ContactChannel:
     enum_uri: publicschema:ContactChannel
     title: Contact Channel
@@ -4614,8 +4614,8 @@ enums:
     annotations:
       external_alignments_json: '[{"label": "ContactPointSystem", "match": "exact", "note": "The same
         seven codes with the same meanings.", "uri": "http://hl7.org/fhir/contact-point-system", "vocabulary":
-        "FHIR R4", "vocabulary_id": "fhir"}]'
-      bibliography_refs: '["fhir-r4"]'
+        "FHIR R5", "vocabulary_id": "fhir-r5"}]'
+      bibliography_refs: '["fhir-r5"]'
   GeometryEncoding:
     enum_uri: publicschema:GeometryEncoding
     title: Geometry Encoding
@@ -4641,7 +4641,7 @@ enums:
         title: Keyhole Markup Language
         description: Keyhole Markup Language as profiled by GeoSPARQL.
     annotations:
-      bibliography_refs: '["ogc-geosparql-11", "ietf-geojson-7946"]'
+      bibliography_refs: '["ogc-geosparql-11", "rfc-7946"]'
   UnitSystem:
     enum_uri: publicschema:UnitSystem
     title: Unit System
@@ -4659,7 +4659,7 @@ enums:
         description: Common codes from UN/CEFACT Recommendation 20, such as MTK for square metre and
           HAR for hectare.
     annotations:
-      bibliography_refs: '["ucum-specification", "un-cefact-rec20"]'
+      bibliography_refs: '["regenstrief-ucum", "un-cefact-rec20"]'
   MatchOutcome:
     enum_uri: publicschema:MatchOutcome
     title: Match Outcome
@@ -4680,7 +4680,7 @@ enums:
         title: Non-match
         description: The record was judged not to describe the subject.
     annotations:
-      bibliography_refs: '["sssom"]'
+      bibliography_refs: '["fellegi-sunter-1969", "sssom"]'
   RecordChangeKind:
     enum_uri: publicschema:RecordChangeKind
     title: Record Change Kind
@@ -4701,7 +4701,7 @@ enums:
         title: Supersession
         description: The record was retired and replaced by one or more new records.
     annotations:
-      bibliography_refs: '["ec-inspire-registers-2017"]'
+      bibliography_refs: '["ec-inspire-registers-2017", "iso-19135-1"]'
   RegistrationStatus:
     enum_uri: publicschema:RegistrationStatus
     title: Registration Status
@@ -9552,7 +9552,7 @@ enums:
         and paragraphs 7.2.38 to 7.2.47. WCA 2020 Item 0203 gives the equivalent types for data from the
         2020 round. The FAO Voluntary Guidelines on the Responsible Governance of Tenure give context but
         define no classification.", "uri": "https://doi.org/10.4060/cd9437en"}'
-      bibliography_refs: '["fao-wca-2020-vol1", "fao-vggt", "lsms-isa"]'
+      bibliography_refs: '["fao-vggt", "fao-wca-2020-vol1", "fao-wca-2030", "lsms-isa"]'
   Language:
     enum_uri: publicschema:Language
     title: Language
@@ -50865,7 +50865,7 @@ enums:
         6 uses the same classes, except that camels are one class (51) and llamas and alpacas are class 52.
         Livestock kept on the farm are counted whether or not the farm owns them; bees are counted by hive
         or colony.", "uri": "https://doi.org/10.4060/cd9437en"}'
-      bibliography_refs: '["dhs-recode7", "fao-wca-2020-vol1", "lsms-isa"]'
+      bibliography_refs: '["dhs-recode7", "fao-wca-2020-vol1", "fao-wca-2030", "lsms-isa"]'
   TenureCategory:
     enum_uri: publicschema:land/TenureCategory
     title: Tenure Category
@@ -50890,7 +50890,7 @@ enums:
       source_domain: land
       standard_json: '{"name": "ISO 19152-1:2024 Land Administration Domain Model (LADM)", "notes": "Values
         follow the LADM classes LA_Right, LA_Restriction and LA_Responsibility.", "uri": "https://www.iso.org/standard/81263.html"}'
-      bibliography_refs: '["fao-vggt"]'
+      bibliography_refs: '["iso-19152-1-2024"]'
   MaritalStatus:
     enum_uri: publicschema:MaritalStatus
     title: Marital Status
@@ -60537,8 +60537,8 @@ enums:
         status: bibo:draft
     annotations:
       source_domain: agri
-      bibliography_refs: '["woah-terrestrial-2024", "beebase-apiaries", "scotland-aquaculture-register",
-        "uk-plant-passports", "india-enam-facilities"]'
+      bibliography_refs: '["apha-nbu-hive-count-faq-2021", "eu-reg-2016-2031", "eu-reg-2016-429", "india-enam-facilities",
+        "inspire-tg-af", "scotland-aquaculture-register", "uk-plant-passports", "woah-aquatic-2024", "woah-terrestrial-2024"]'
   AgriculturalServiceType:
     enum_uri: publicschema:agri/AgriculturalServiceType
     title: Agricultural Service Type
@@ -60600,7 +60600,8 @@ enums:
         status: bibo:draft
     annotations:
       source_domain: agri
-      bibliography_refs: '["uk-pesticide-work", "sasa-seed-register", "india-farms"]'
+      bibliography_refs: '["eu-dir-2009-128", "india-farms", "sasa-seed-register", "uk-pesticide-work",
+        "unsd-isic-rev4"]'
   AgriculturalInputCategory:
     enum_uri: publicschema:agri/AgriculturalInputCategory
     title: Agricultural Input Category
@@ -60635,7 +60636,9 @@ enums:
         status: bibo:draft
     annotations:
       source_domain: agri
-      bibliography_refs: '["uk-feed-business", "eu-fertilizer-2019", "faoterm-pesticide", "ec-pesticides-database"]'
+      bibliography_refs: '["codex-cxc-54-2004", "ec-pesticides-database", "eu-dir-2009-128", "eu-reg-2005-183",
+        "eu-reg-2009-1107", "eu-reg-2019-1009", "fao-fertilizer-code-2019", "fao-who-pesticide-code-2014",
+        "faoterm-pesticide", "uk-feed-business"]'
   SettlementType:
     enum_uri: publicschema:SettlementType
     title: Settlement Type

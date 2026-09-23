@@ -183,9 +183,9 @@ class TestRealSchemaDomainResolution:
     def test_moved_terms_keep_their_bibliography_links(self, real_result):
         for kind, key, citation in (
             ("concepts", "agri/Farm", "fao-wca-2020-vol1"),
-            ("concepts", "PublicService", "gov-cpsv-ap-311"),
-            ("concepts", "ServiceCapacityObservation", "w3c-sosa-2017"),
-            ("concepts", "edu/EducationOffering", "gov-schema-course"),
+            ("concepts", "PublicService", "semic-cpsv-ap"),
+            ("concepts", "ServiceCapacityObservation", "w3c-ssn-sosa"),
+            ("concepts", "edu/EducationOffering", "schema-org"),
         ):
             assert citation in real_result[kind][key]["bibliography_refs"]
 

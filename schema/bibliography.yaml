@@ -133,7 +133,7 @@ classes:
       uri: https://www.dublincore.org/specifications/dublin-core/dcmi-terms/
       access: open
       status: active
-      informs_json: '{}'
+      informs_json: '{"properties": ["identifier_issuer", "recorded_at", "register_jurisdiction", "supersedes_record"]}'
   DhsRecode7Citation:
     class_uri: publicschema:Citation/dhs-recode7
     is_a: Citation
@@ -146,7 +146,7 @@ classes:
       year: 2018
       type: classification
       domain: general
-      uri: https://dhsprogram.com/publications/publication-dhsg4-dhs-questionnaires-and-manuals.cfm
+      uri: https://dhsprogram.com/pubs/pdf/DHSG4/Recode7_DHS_10Sep2018_DHSG4.pdf
       access: open
       status: active
       informs_json: '{"concepts": ["FunctioningProfile", "Household", "Person", "ScoringEvent", "SocioEconomicProfile"], "properties": ["assessment_band", "cooking_fuel", "difficulty_cognition", "difficulty_communication", "difficulty_hearing", "difficulty_seeing", "difficulty_self_care", "difficulty_walking", "education_level", "electricity_access", "floor_material", "household_assets", "ict_access", "literacy", "livestock_type", "pregnancy_status", "roof_material", "sanitation_facility", "settlement_type", "wall_material", "water_source"], "vocabularies": ["agri/livestock-type", "cooking-fuel", "education-level", "floor-material", "functional-difficulty-severity", "household-asset", "ict-access", "literacy", "pregnancy-status", "roof-material", "sanitation-facility", "settlement-type", "wall-material", "water-source"]}'
@@ -214,8 +214,9 @@ classes:
       uri: https://europass.europa.eu/en/stakeholders/information-developers
       access: open
       status: active
-      version: v3
-      informs_json: '{}'
+      version: v3.1
+      note: ELM 3.1 (2023); ontology namespace http://data.europa.eu/snb/model/elm/.
+      informs_json: '{"concepts": ["AwardedQualification", "edu/EducationOffering"], "properties": ["offering_mode", "offering_program", "offering_provider", "offering_sites", "qualification_awarder"]}'
   EbsiPortableDocA1Citation:
     class_uri: publicschema:Citation/ebsi-portable-doc-a1
     is_a: Citation
@@ -293,20 +294,21 @@ classes:
   FaoVggtCitation:
     class_uri: publicschema:Citation/fao-vggt
     is_a: Citation
-    title: Voluntary Guidelines on the Responsible Governance of Tenure of Land, Fisheries and Forests in
-      the Context of National Food Security
+    title: Voluntary Guidelines on the Responsible Governance of Tenure of Land, Fisheries and Forests
+      in the Context of National Food Security
     annotations:
       citation_id: fao-vggt
       title: Voluntary Guidelines on the Responsible Governance of Tenure of Land, Fisheries and Forests
         in the Context of National Food Security
       short_title: FAO VGGT
       publisher: Food and Agriculture Organization of the United Nations (FAO)
-      year: 2012
+      year: 2022
       type: guidance_publication
       domain: general
-      uri: https://www.fao.org/tenure/voluntary-guidelines/en/
+      uri: https://doi.org/10.4060/i2801e
       access: open
       status: active
+      note: First revision; replaces the 2012 first edition. ISBN 978-92-5-107277-6.
       informs_json: '{"concepts": ["agri/Farm", "agri/HoldingParcelLink", "land/LandBoundaryAssertion", "land/LandTenureAssertion"], "properties": ["land_tenure"], "vocabularies": ["agri/land-tenure"]}'
   FaoWca2020Vol1Citation:
     class_uri: publicschema:Citation/fao-wca-2020-vol1
@@ -324,7 +326,10 @@ classes:
       access: open
       status: active
       standard_number: ISBN 978-92-5-108865-4
-      informs_json: '{"concepts": ["InformalGroup", "agri/AgriculturalHolderRole", "agri/AgriculturalParcel", "agri/Farm", "agri/FarmerRegistration", "agri/GroupAgriculturalHolderRole", "agri/HoldingParcelLink", "agri/OrganizationAgriculturalHolderRole", "agri/PersonAgriculturalHolderRole"], "properties": ["farm_area", "holder_farm", "holder_group", "holder_organization", "holder_person", "livestock_type"], "vocabularies": ["agri/livestock-type"]}'
+      note: 'FAO Statistical Development Series 15. Full text: https://www.fao.org/4/i4913e/i4913e.pdf.
+        Crop planting: paragraphs 8.2.19 and 8.4.10 to 8.4.17, Annex 4 (Indicative Crop Classification
+        1.1). WCA 2030 supersedes it for the 2026-2035 census round.'
+      informs_json: '{"concepts": ["InformalGroup", "agri/AgriculturalHolderRole", "agri/AgriculturalParcel", "agri/CropPlanting", "agri/CropPlantingComponent", "agri/Farm", "agri/FarmerRegistration", "agri/GroupAgriculturalHolderRole", "agri/HoldingParcelLink", "agri/OrganizationAgriculturalHolderRole", "agri/PersonAgriculturalHolderRole"], "properties": ["component_planted_area", "crop_kind", "farm_area", "holder_farm", "holder_group", "holder_organization", "holder_person", "land_tenure", "livestock_type", "registered_farms"], "vocabularies": ["agri/land-tenure", "agri/livestock-type"]}'
   FhirAdministrativeGenderCitation:
     class_uri: publicschema:Citation/fhir-administrative-gender
     is_a: Citation
@@ -500,7 +505,7 @@ classes:
       access: open
       status: active
       version: '0.99'
-      informs_json: '{"concepts": ["Agent", "Organization", "SoftwareAgent"]}'
+      informs_json: '{"concepts": ["Agent", "Organization", "SoftwareAgent"], "properties": ["subject_uri"]}'
   GlobalShelterClusterCitation:
     class_uri: publicschema:Citation/global-shelter-cluster
     is_a: Citation
@@ -769,7 +774,7 @@ classes:
       uri: https://ilostat.ilo.org/methods/concepts-and-definitions/description-work-statistics-icls19/
       access: open
       status: active
-      informs_json: '{"vocabularies": ["employment-status"]}'
+      informs_json: '{"concepts": ["WorkRelationship"], "properties": ["work_economic_unit", "work_form"], "vocabularies": ["employment-status", "form-of-work"]}'
   Ilo20thIcls2018Citation:
     class_uri: publicschema:Citation/ilo-20th-icls-2018
     is_a: Citation
@@ -785,7 +790,7 @@ classes:
       uri: https://www.ilo.org/media/209766/download
       access: open
       status: active
-      informs_json: '{"vocabularies": ["status-in-employment"]}'
+      informs_json: '{"concepts": ["WorkRelationship"], "properties": ["work_economic_unit", "work_form", "work_person", "work_remuneration", "work_seasonality", "work_status"], "vocabularies": ["form-of-work", "status-in-employment"]}'
   IloAspireCitation:
     class_uri: publicschema:Citation/ilo-aspire
     is_a: Citation
@@ -849,7 +854,7 @@ classes:
       access: open
       status: active
       standard_number: ISCED 2011
-      informs_json: '{"properties": ["education_level"], "vocabularies": ["edu/school-level", "edu/school-type", "education-level"]}'
+      informs_json: '{"concepts": ["AwardedQualification", "edu/EducationProgram", "edu/EducationProvider"], "properties": ["education_level", "program_level", "qualification_awarded"], "vocabularies": ["edu/school-level", "edu/school-type", "education-level"]}'
   Isco08Citation:
     class_uri: publicschema:Citation/isco-08
     is_a: Citation
@@ -866,7 +871,7 @@ classes:
       access: open
       status: active
       standard_number: ISCO-08
-      informs_json: '{"properties": ["occupation"], "vocabularies": ["occupation"]}'
+      informs_json: '{"properties": ["occupation", "profession_code"], "vocabularies": ["occupation"]}'
   Iso10002Citation:
     class_uri: publicschema:Citation/iso-10002
     is_a: Citation
@@ -1159,8 +1164,7 @@ classes:
       title: Living Standards Measurement Study - Integrated Surveys on Agriculture (LSMS-ISA)
       short_title: LSMS-ISA
       publisher: World Bank
-      year: 2012
-      type: classification
+      type: guidance_publication
       domain: general
       uri: https://www.worldbank.org/en/programs/lsms/initiatives/lsms-ISA
       access: open
@@ -1313,7 +1317,8 @@ classes:
       access: open
       status: active
       standard_number: RFC 7946
-      informs_json: '{"concepts": ["HazardEvent", "Location"], "properties": ["geometry"]}'
+      note: 'Sections 3.1.1, 3.1.6 and 4: positions, polygons and the WGS 84 coordinate reference system.'
+      informs_json: '{"concepts": ["HazardEvent", "Location", "SpatialGeometry"], "properties": ["geometry"], "vocabularies": ["geometry-encoding"]}'
   SchemaOrgCitation:
     class_uri: publicschema:Citation/schema-org
     is_a: Citation
@@ -1328,7 +1333,7 @@ classes:
       uri: https://schema.org/
       access: open
       status: active
-      informs_json: '{"concepts": ["Address", "Agent", "Event", "Location", "Organization", "Party", "Person", "RegistrationOffice", "ServicePoint", "WaterPoint", "edu/School", "health/HealthFacility"], "properties": ["administrative_area", "city", "country", "date_of_birth", "date_of_death", "email_address", "end_date", "family_name", "given_name", "latitude", "longitude", "name", "phone_number", "postal_code", "preferred_name", "start_date", "street_address"]}'
+      informs_json: '{"concepts": ["Address", "Agent", "AwardedQualification", "Event", "Location", "Organization", "Party", "Person", "PracticeRole", "ProfessionalLicense", "RegistrationOffice", "ServicePoint", "WaterPoint", "WorkRelationship", "edu/EducationOffering", "edu/EducationProgram", "edu/EducationProvider", "edu/School", "health/HealthFacility", "transport/Vehicle"], "properties": ["administrative_area", "certified_subject", "certifying_organization", "city", "country", "date_of_birth", "date_of_death", "email_address", "end_date", "family_name", "given_name", "latitude", "longitude", "manufacture_year", "name", "offering_mode", "offering_provider", "phone_number", "postal_code", "preferred_name", "profession_code", "qualification_awarded", "start_date", "street_address", "vehicle_model"]}'
   SdJwtVcCitation:
     class_uri: publicschema:Citation/sd-jwt-vc
     is_a: Citation
@@ -1361,7 +1366,9 @@ classes:
       access: open
       status: active
       version: v2.00
-      informs_json: '{"concepts": ["Identifier"]}'
+      note: The W3C ADMS Note of 1 August 2013 (section 5.2.6, identifier scheme and issuing agency) is
+        the historical precedent; SEMIC maintains ADMS.
+      informs_json: '{"concepts": ["Identifier", "IdentifierAssignment", "RecordReference"]}'
   SemicCccevCitation:
     class_uri: publicschema:Citation/semic-cccev
     is_a: Citation
@@ -1377,7 +1384,7 @@ classes:
       access: open
       status: active
       version: v2.1.0
-      informs_json: '{"concepts": ["ScoringRule", "sp/EligibilityDecision"]}'
+      informs_json: '{"concepts": ["EvidenceAssertion", "ScoringRule", "sp/EligibilityDecision"], "properties": ["evidence_source"]}'
   SemicCoreBusinessCitation:
     class_uri: publicschema:Citation/semic-core-business
     is_a: Citation
@@ -1393,7 +1400,7 @@ classes:
       access: open
       status: active
       version: v2.2.0
-      informs_json: '{}'
+      informs_json: '{"concepts": ["NameUsage", "Registration", "RepresentationRole"]}'
   SemicCoreLocationCitation:
     class_uri: publicschema:Citation/semic-core-location
     is_a: Citation
@@ -1403,13 +1410,14 @@ classes:
       title: Core Location Vocabulary
       short_title: SEMIC Core Location
       publisher: SEMIC, Interoperable Europe (European Commission)
+      year: 2026
       type: eu_vocabulary
       domain: general
       uri: https://semiceu.github.io/Core-Location-Vocabulary/releases/2.1.1/
       access: open
       status: active
       version: v2.1.1
-      informs_json: '{"concepts": ["Address", "Location"], "properties": ["address_area", "administrative_area", "building_name", "city", "country", "full_address", "geometry", "house_number", "latitude", "location_name", "longitude", "postal_code", "street_address"], "vocabularies": ["country"]}'
+      informs_json: '{"concepts": ["Address", "Location", "SpatialGeometry"], "properties": ["address_area", "administrative_area", "building_name", "city", "country", "full_address", "geometry", "house_number", "latitude", "location_name", "longitude", "postal_code", "spatial_geometry", "street_address"], "vocabularies": ["country"]}'
   SemicCorePersonCitation:
     class_uri: publicschema:Citation/semic-core-person
     is_a: Citation
@@ -1451,13 +1459,15 @@ classes:
       title: Core Public Organisation Vocabulary (CPOV)
       short_title: SEMIC CPOV
       publisher: SEMIC, Interoperable Europe (European Commission)
+      year: 2026
       type: eu_vocabulary
       domain: general
-      uri: https://semiceu.github.io/CPOV/releases/2.1.1/
+      uri: https://semiceu.github.io/CPOV/releases/2.1.2/
       access: open
       status: active
-      version: v2.1.1
-      informs_json: '{"concepts": ["Organization", "sp/Program"], "properties": ["implementing_agency"]}'
+      version: v2.1.2
+      note: 'Release 2.1.2 (2026-05-12): Public Organisation, mandate and spatial jurisdiction (dct:spatial).'
+      informs_json: '{"concepts": ["Organization", "PublicOrganization", "sp/Program"], "properties": ["implementing_agency", "register_jurisdiction"]}'
   SemicCpsvApCitation:
     class_uri: publicschema:Citation/semic-cpsv-ap
     is_a: Citation
@@ -1474,7 +1484,9 @@ classes:
       access: open
       status: active
       version: v3.2.0
-      informs_json: '{}'
+      note: Public Service, Participation, Evidence, Output and Legal Resource. Service applications,
+        decisions and appeal links are PublicSchema design choices, not a CPSV-AP serialization claim.
+      informs_json: '{"concepts": ["AdministrativeAppeal", "AdministrativeDecision", "PublicService", "ServiceApplication"], "properties": ["service_competent_authorities"]}'
   SkosCitation:
     class_uri: publicschema:Citation/skos
     is_a: Citation
@@ -1490,7 +1502,7 @@ classes:
       uri: https://www.w3.org/TR/skos-reference/
       access: open
       status: active
-      informs_json: '{}'
+      informs_json: '{"concepts": ["CodedValue"], "properties": ["code_meaning", "code_scheme", "code_value"]}'
   SpdciCommonStandardsCitation:
     class_uri: publicschema:Citation/spdci-common-standards
     is_a: Citation
@@ -1537,7 +1549,7 @@ classes:
       uri: https://standards.spdci.org/standards/dci-standards/wip-social-registry-v1.0.0
       access: open
       status: active
-      informs_json: '{"concepts": ["Profile", "SocioEconomicProfile"]}'
+      informs_json: '{"concepts": ["Profile", "Register", "SocioEconomicProfile"]}'
   Sphere2018Citation:
     class_uri: publicschema:Citation/sphere-2018
     is_a: Citation
@@ -1568,8 +1580,8 @@ classes:
       uri: https://mapping-commons.github.io/sssom/spec-intro/
       access: open
       status: active
-      version: v1.1
-      informs_json: '{}'
+      version: v1.0
+      informs_json: '{"concepts": ["SubjectMatchAssertion"], "properties": ["match_outcome"], "vocabularies": ["match-outcome"]}'
   UnCefactRec20Citation:
     class_uri: publicschema:Citation/un-cefact-rec20
     is_a: Citation
@@ -1585,7 +1597,7 @@ classes:
       access: open
       status: active
       standard_number: UN/CEFACT Recommendation 20
-      informs_json: '{"properties": ["unit_of_measure"], "vocabularies": ["unit-of-measure"]}'
+      informs_json: '{"concepts": ["QuantityValue"], "properties": ["unit_code", "unit_of_measure"], "vocabularies": ["unit-of-measure", "unit-system"]}'
   UnCensusRev3Citation:
     class_uri: publicschema:Citation/un-census-rev3
     is_a: Citation
@@ -1739,7 +1751,9 @@ classes:
       access: open
       status: active
       version: Recommendation 30 April 2013
-      informs_json: '{"concepts": ["Agent", "Organization", "SoftwareAgent"]}'
+      note: 'Sections 3.1 (wasAttributedTo, wasDerivedFrom), 3.2 and 3.3: entities, activities, delegation
+        and qualified influence.'
+      informs_json: '{"concepts": ["Agent", "EvidenceAssertion", "Organization", "RecordLifecycleEvent", "RepresentationRole", "SoftwareAgent", "SubjectMatchAssertion"], "properties": ["assertion_authority", "source_records"], "vocabularies": ["evidence-role"]}'
   W3cRdfc10Citation:
     class_uri: publicschema:Citation/w3c-rdfc-1-0
     is_a: Citation
@@ -2147,83 +2161,89 @@ classes:
   FaoGlosolanCitation:
     class_uri: publicschema:Citation/fao-glosolan
     is_a: Citation
-    title: FAO Global Soil Laboratory Network
+    title: Global Soil Laboratory Network (GLOSOLAN)
     annotations:
       citation_id: fao-glosolan
-      title: FAO Global Soil Laboratory Network
-      short_title: FAO Global Soil Laboratory Network
-      publisher: FAO
+      title: Global Soil Laboratory Network (GLOSOLAN)
+      short_title: GLOSOLAN
+      publisher: Food and Agriculture Organization of the United Nations (FAO)
       type: guidance_publication
-      domain: registry
-      uri: https://www.fao.org/global-soil-partnership/glosolan/en/
+      domain: general
+      uri: https://www.fao.org/global-soil-partnership/Scientific-and-technical-support/networks/the-glosolan/en
       access: open
       status: active
-      notes: Network registration and proficiency disclaimer
+      note: Network registration and proficiency disclaimer
       informs_json: '{"concepts": ["agri/AgriculturalFacility", "agri/AgriculturalLaboratory"]}'
   WoahTerrestrial2024Citation:
     class_uri: publicschema:Citation/woah-terrestrial-2024
     is_a: Citation
-    title: Terrestrial Animal Health Code glossary, 2024
+    title: Terrestrial Animal Health Code, Glossary
     annotations:
       citation_id: woah-terrestrial-2024
-      title: Terrestrial Animal Health Code glossary, 2024
-      short_title: Terrestrial Animal Health Code glossary, 2024
-      publisher: WOAH
-      type: guidance_publication
-      domain: registry
+      title: Terrestrial Animal Health Code, Glossary
+      short_title: WOAH TAHC glossary
+      publisher: World Organisation for Animal Health
+      year: 2024
+      type: international_standard
+      domain: general
       uri: https://www.woah.org/fileadmin/Home/eng/Health_standards/tahc/2024/en_glossaire.htm
       access: open
       status: active
-      notes: 'Glossary: establishment'
-      informs_json: '{"concepts": ["agri/LivestockEstablishment"]}'
-  BeebaseApiariesCitation:
-    class_uri: publicschema:Citation/beebase-apiaries
+      version: 32nd edition
+      note: 'Glossary: establishment, animal identification and animal traceability.'
+      informs_json: '{"concepts": ["AnimalGroup", "AnimalMovement", "IdentifiedAnimalUnit", "IndividualAnimal", "agri/AgriculturalFacility", "agri/AnimalResidence"], "vocabularies": ["agri/agricultural-facility-function"]}'
+  AphaNbuHiveCountFaq2021Citation:
+    class_uri: publicschema:Citation/apha-nbu-hive-count-faq-2021
     is_a: Citation
-    title: Hive Count frequently asked questions, 2021
+    title: Hive Count frequently asked questions
     annotations:
-      citation_id: beebase-apiaries
-      title: Hive Count frequently asked questions, 2021
-      short_title: Hive Count frequently asked questions, 2021
-      publisher: National Bee Unit
+      citation_id: apha-nbu-hive-count-faq-2021
+      title: Hive Count frequently asked questions
+      short_title: Hive Count FAQ
+      publisher: Animal and Plant Health Agency, National Bee Unit
+      year: 2021
       type: guidance_publication
-      domain: registry
+      domain: general
       uri: https://www.nationalbeeunit.com/assets/PDFs/6_Bees_and_the_Law/Hive_count/FAQs_for_Hive_Count_2021.pdf
       access: open
       status: active
-      notes: Apiary name, address and map reference
-      informs_json: '{"concepts": ["agri/Apiary"]}'
+      note: 'Page 9, question 11: apiary name, address and map reference.'
+      informs_json: '{"concepts": ["agri/AgriculturalFacility"], "vocabularies": ["agri/agricultural-facility-function"]}'
   ScotlandAquacultureRegisterCitation:
     class_uri: publicschema:Citation/scotland-aquaculture-register
     is_a: Citation
-    title: Registers of authorised aquaculture production businesses
+    title: 'Authorised Aquaculture Production Businesses and Authorised Processing Establishments: registers'
     annotations:
       citation_id: scotland-aquaculture-register
-      title: Registers of authorised aquaculture production businesses
-      short_title: Registers of authorised aquaculture production businesses
-      publisher: Scottish Government
+      title: 'Authorised Aquaculture Production Businesses and Authorised Processing Establishments: registers'
+      short_title: Scottish aquaculture registers
+      publisher: Scottish Government, Marine Directorate
+      year: 2020
       type: guidance_publication
-      domain: registry
+      domain: general
       uri: https://www.gov.scot/publications/registers-of-authorised-aquaculture-production-businesses-and-authorised-processing-establishments/
       access: open
       status: active
-      notes: Separate business and establishment registers
-      informs_json: '{"concepts": ["agri/AquacultureEstablishment"]}'
+      note: First published 31 July 2020. Separate business and establishment registers.
+      informs_json: '{"concepts": ["agri/AgriculturalFacility"], "vocabularies": ["agri/agricultural-facility-function"]}'
   UkPlantPassportsCitation:
     class_uri: publicschema:Citation/uk-plant-passports
     is_a: Citation
-    title: Issuing plant passports to trade plants in Great Britain
+    title: Issue plant passports to move regulated plant material in Great Britain
     annotations:
       citation_id: uk-plant-passports
-      title: Issuing plant passports to trade plants in Great Britain
-      short_title: Issuing plant passports to trade plants in Great Britain
-      publisher: APHA
+      title: Issue plant passports to move regulated plant material in Great Britain
+      short_title: GB plant passports
+      publisher: Animal and Plant Health Agency (APHA) and Department for Environment, Food and Rural
+        Affairs (Defra)
+      year: 2026
       type: guidance_publication
-      domain: registry
+      domain: general
       uri: https://www.gov.uk/guidance/issuing-plant-passports-to-trade-plants-in-great-britain
       access: open
       status: active
-      notes: Register as a professional operator and get authorised
-      informs_json: '{"concepts": ["agri/PlantNursery"]}'
+      note: Last updated 2026. Register as a professional operator and get authorised.
+      informs_json: '{"concepts": ["agri/AgriculturalFacility"], "vocabularies": ["agri/agricultural-facility-function"]}'
   IndiaFarmsCitation:
     class_uri: publicschema:Citation/india-farms
     is_a: Citation
@@ -2234,12 +2254,12 @@ classes:
       short_title: FARMS Farm Machinery Solutions
       publisher: Government of India
       type: guidance_publication
-      domain: registry
+      domain: general
       uri: https://agrimachinery.nic.in/Index/farmsapp
       access: open
       status: active
-      notes: Hiring and sale/purchase of machinery
-      informs_json: '{"concepts": ["agri/AgriculturalMachinery", "agri/AgriculturalServiceRole"]}'
+      note: Hiring and sale/purchase of machinery
+      informs_json: '{"concepts": ["agri/AgriculturalMachine", "agri/AgriculturalServiceRole"], "vocabularies": ["agri/agricultural-service-type"]}'
   FaoVesselUviCitation:
     class_uri: publicschema:Citation/fao-vessel-uvi
     is_a: Citation
@@ -2248,13 +2268,13 @@ classes:
       citation_id: fao-vessel-uvi
       title: Global Record Unique Vessel Identifier
       short_title: Global Record Unique Vessel Identifier
-      publisher: FAO
+      publisher: Food and Agriculture Organization of the United Nations (FAO)
       type: guidance_publication
-      domain: registry
+      domain: general
       uri: https://www.fao.org/global-record/background/unique-vessel-identifier/en/
       access: open
       status: active
-      notes: UVI continuity across ownership, flag and name changes
+      note: UVI continuity across ownership, flag and name changes.
       informs_json: '{"concepts": ["agri/FishingVessel"]}'
   UkPesticideWorkCitation:
     class_uri: publicschema:Citation/uk-pesticide-work
@@ -2264,14 +2284,15 @@ classes:
       citation_id: uk-pesticide-work
       title: Register work involving pesticides
       short_title: Register work involving pesticides
-      publisher: HSE
+      publisher: Health and Safety Executive
       type: guidance_publication
-      domain: registry
+      domain: general
       uri: https://www.hse.gov.uk/pesticides/register.htm
       access: open
       status: active
-      notes: Professional users and suppliers
-      informs_json: '{"concepts": ["agri/InputSupplierRole", "agri/PesticideApplicatorRole"]}'
+      note: 'Professional users and suppliers. Legal basis: The Official Controls (Plant Protection Products)
+        Regulations 2020.'
+      informs_json: '{"concepts": ["agri/AgriculturalServiceRole"], "vocabularies": ["agri/agricultural-service-type"]}'
   SasaSeedRegisterCitation:
     class_uri: publicschema:Citation/sasa-seed-register
     is_a: Citation
@@ -2280,14 +2301,14 @@ classes:
       citation_id: sasa-seed-register
       title: Public Register of Seeds Merchants, Processors and Packers
       short_title: Public Register of Seeds Merchants, Processors and Packers
-      publisher: SASA
+      publisher: Science and Advice for Scottish Agriculture (SASA)
       type: guidance_publication
-      domain: registry
+      domain: general
       uri: https://www.sasa.gov.uk/document-library/public-register-seeds-merchants-processors-packers
       access: open
       status: active
-      notes: Public registry activity distinctions
-      informs_json: '{"concepts": ["agri/SeedOperatorRole"]}'
+      note: Public registry activity distinctions
+      informs_json: '{"concepts": ["agri/AgriculturalServiceRole"], "vocabularies": ["agri/agricultural-service-type"]}'
   EcProducerOrganizationsCitation:
     class_uri: publicschema:Citation/ec-producer-organizations
     is_a: Citation
@@ -2298,12 +2319,12 @@ classes:
       short_title: Producer and interbranch organisations
       publisher: European Commission
       type: guidance_publication
-      domain: registry
+      domain: general
       uri: https://agriculture.ec.europa.eu/common-agricultural-policy/agri-food-supply-chain/producer-and-interbranch-organisations_en
       access: open
       status: active
-      notes: Recognition of producer organizations
-      informs_json: '{"concepts": ["agri/ProducerMembership", "agri/ProducerOrganization"]}'
+      note: Recognition of producer organizations
+      informs_json: '{"concepts": ["agri/ProducerOrganization"]}'
   UkFeedBusinessCitation:
     class_uri: publicschema:Citation/uk-feed-business
     is_a: Citation
@@ -2313,29 +2334,36 @@ classes:
       title: Starting an animal feed business
       short_title: Starting an animal feed business
       publisher: Food Standards Agency
+      year: 2017
       type: guidance_publication
-      domain: registry
+      domain: general
       uri: https://www.gov.uk/government/publications/starting-an-animal-feed-business/starting-an-animal-feed-business
       access: open
       status: active
-      notes: Business registration and approval
-      informs_json: '{"concepts": ["agri/FeedProduct"]}'
-  EuFertilizer2019Citation:
-    class_uri: publicschema:Citation/eu-fertilizer-2019
+      note: Published 5 December 2017. Business registration and approval; legal basis Regulation (EC)
+        No 183/2005, Articles 9 and 10.
+      informs_json: '{"concepts": ["agri/AgriculturalInputProduct"], "vocabularies": ["agri/agricultural-input-category"]}'
+  EuReg20191009Citation:
+    class_uri: publicschema:Citation/eu-reg-2019-1009
     is_a: Citation
-    title: Regulation (EU) 2019/1009
+    title: Regulation (EU) 2019/1009 laying down rules on the making available on the market of EU fertilising
+      products
     annotations:
-      citation_id: eu-fertilizer-2019
-      title: Regulation (EU) 2019/1009
-      short_title: Regulation (EU) 2019/1009
-      publisher: European Union
-      type: guidance_publication
-      domain: registry
-      uri: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex%3A32019R1009
+      citation_id: eu-reg-2019-1009
+      title: Regulation (EU) 2019/1009 laying down rules on the making available on the market of EU fertilising
+        products
+      short_title: EU Reg. 2019/1009
+      publisher: European Parliament and Council of the European Union
+      year: 2019
+      type: legal_instrument
+      domain: general
+      uri: https://eur-lex.europa.eu/eli/reg/2019/1009/oj
       access: open
       status: active
-      notes: Article 2 and Annex I PFC 1
-      informs_json: '{"concepts": ["agri/FertilizerProduct"]}'
+      standard_number: Regulation (EU) 2019/1009
+      note: Article 2 and Annex I (product function categories, PFC 1 fertiliser). Component material
+        categories 12 to 15 were added by later delegated acts.
+      informs_json: '{"concepts": ["agri/AgriculturalInputProduct"], "vocabularies": ["agri/agricultural-input-category"]}'
   EcPesticidesDatabaseCitation:
     class_uri: publicschema:Citation/ec-pesticides-database
     is_a: Citation
@@ -2346,12 +2374,12 @@ classes:
       short_title: EU Pesticides Database
       publisher: European Commission
       type: guidance_publication
-      domain: registry
+      domain: general
       uri: https://food.ec.europa.eu/plants/pesticides/eu-pesticides-database_en
       access: open
       status: active
-      notes: Active substances and emergency authorizations
-      informs_json: '{"concepts": ["ProductComponent", "agri/AgriculturalProduct", "agri/PesticideProduct"]}'
+      note: Active substances and emergency authorisations; legal basis Regulation (EC) No 1107/2009.
+      informs_json: '{"concepts": ["ProductComponent", "agri/AgriculturalInputProduct"], "vocabularies": ["agri/agricultural-input-category"]}'
   FaotermPesticideCitation:
     class_uri: publicschema:Citation/faoterm-pesticide
     is_a: Citation
@@ -2360,16 +2388,17 @@ classes:
       citation_id: faoterm-pesticide
       title: FAOTERM pesticide definitions
       short_title: FAOTERM pesticide
-      publisher: Food and Agriculture Organization of the United Nations
+      publisher: Food and Agriculture Organization of the United Nations (FAO)
       type: guidance_publication
-      domain: registry
+      domain: general
       uri: https://faoterm.fao.org/viewEntry.html?entryId=182628&language=en
       access: open
       status: active
-      notes: English entry 182628, pesticide definitions and their identified FAO/WHO and Codex sources.
-        Includes plant-growth regulation, defoliants and desiccants. Accessed 8 September 2026;
-        conceptual evidence, not a jurisdiction-specific legal classification.
-      informs_json: '{"concepts": ["agri/PesticideProduct"]}'
+      note: English entry 182628 carries two pesticide definitions, sourced to the Codex Alimentarius
+        Procedural Manual (2015) and to the FAO/WHO 2022 antimicrobial resistance terms. Includes plant-growth
+        regulation, defoliants and desiccants. Accessed 8 September 2026; conceptual evidence, not a jurisdiction-specific
+        legal classification.
+      informs_json: '{"concepts": ["agri/AgriculturalInputProduct"], "vocabularies": ["agri/agricultural-input-category"]}'
   EmaUpdCitation:
     class_uri: publicschema:Citation/ema-upd
     is_a: Citation
@@ -2380,12 +2409,12 @@ classes:
       short_title: Union Product Database
       publisher: European Medicines Agency
       type: guidance_publication
-      domain: registry
+      domain: general
       uri: https://www.ema.europa.eu/en/veterinary-regulatory-overview/veterinary-medicinal-products-regulation/union-product-database
       access: open
       status: active
-      notes: Product information and Veterinary Medicines information website
-      informs_json: '{}'
+      note: Veterinary medicinal product information and the Veterinary Medicines information website.
+      informs_json: '{"properties": ["supplied_product"]}'
   UsdaIntegrityCitation:
     class_uri: publicschema:Citation/usda-integrity
     is_a: Citation
@@ -2394,14 +2423,16 @@ classes:
       citation_id: usda-integrity
       title: Organic INTEGRITY Database
       short_title: Organic INTEGRITY Database
-      publisher: USDA
+      publisher: USDA Agricultural Marketing Service
       type: guidance_publication
-      domain: registry
+      domain: general
       uri: https://agdatacommons.nal.usda.gov/articles/dataset/The_Organic_INTEGRITY_Database/24661722
       access: open
       status: active
-      notes: Certified operation information
-      informs_json: '{"concepts": ["agri/AgriculturalCertification"]}'
+      note: Certified operation information. The canonical service is https://organic.ams.usda.gov/integrity/;
+        the INTEGRITY Data Dictionary for Certifiers (v6.1, 5 February 2026) defines operation status
+        and scope code lists.
+      informs_json: '{"concepts": ["Certification"]}'
   FaoAquastatIrrigationCitation:
     class_uri: publicschema:Citation/fao-aquastat-irrigation
     is_a: Citation
@@ -2410,29 +2441,33 @@ classes:
       citation_id: fao-aquastat-irrigation
       title: AQUASTAT irrigation and drainage methodology
       short_title: AQUASTAT irrigation and drainage methodology
-      publisher: FAO
+      publisher: Food and Agriculture Organization of the United Nations (FAO)
       type: guidance_publication
-      domain: registry
+      domain: general
       uri: https://www.fao.org/aquastat/en/overview/methodology/irrig-drainage/index.html
       access: open
       status: active
-      notes: Equipped area and water-source typology
+      note: Equipped area and water-source typology
       informs_json: '{"concepts": ["agri/IrrigationScheme"]}'
-  UkWaterAuthorizationCitation:
-    class_uri: publicschema:Citation/uk-water-authorization
+  UkEaWaterAbstractionLicenceCitation:
+    class_uri: publicschema:Citation/uk-ea-water-abstraction-licence
     is_a: Citation
     title: Apply for a water abstraction or impounding licence
     annotations:
-      citation_id: uk-water-authorization
+      citation_id: uk-ea-water-abstraction-licence
       title: Apply for a water abstraction or impounding licence
-      short_title: Apply for a water abstraction or impounding licence
+      short_title: EA abstraction licence
       publisher: Environment Agency
+      year: 2026
       type: guidance_publication
-      domain: registry
+      domain: general
       uri: https://www.gov.uk/guidance/water-management-apply-for-a-water-abstraction-or-impoundment-licence
       access: open
       status: active
-      notes: Types of water resources licence
+      note: 'Updated 2 March 2026; national example. Types of water resources licence. An Environment
+        Agency abstraction licence can set several simultaneous limits, so authorized quantities are multivalued:
+        the Exbury Gardens application (published 11 April 2025) states 29.5 m3 per hour, 501.5 m3 per
+        day and 55,770 m3 per year.'
       informs_json: '{"concepts": ["environment/WaterUseAuthorization"]}'
   IndiaEnamFacilitiesCitation:
     class_uri: publicschema:Citation/india-enam-facilities
@@ -2444,93 +2479,50 @@ classes:
       short_title: e-NAM frequently asked questions
       publisher: Government of India
       type: guidance_publication
-      domain: registry
+      domain: general
       uri: https://www.enam.gov.in/web/resources/FAQs-of-eNam
       access: open
       status: active
-      notes: 'How e-NAM operates: existing physical market yards and online platform'
-      informs_json: '{"concepts": ["agri/AgriculturalFacility"]}'
-  W3cDcat32024Citation:
-    class_uri: publicschema:Citation/w3c-dcat-3-2024
+      note: 'How e-NAM operates: existing physical market yards and online platform'
+      informs_json: '{"concepts": ["agri/AgriculturalFacility"], "vocabularies": ["agri/agricultural-facility-function"]}'
+  W3cDcat3Citation:
+    class_uri: publicschema:Citation/w3c-dcat-3
     is_a: Citation
-    title: Data Catalog Vocabulary Version 3, Recommendation 22 August 2024
+    title: Data Catalog Vocabulary (DCAT) - Version 3
     annotations:
-      citation_id: w3c-dcat-3-2024
-      title: Data Catalog Vocabulary Version 3, Recommendation 22 August 2024
-      short_title: Data Catalog Vocabulary Version 3, Recommendation 22 August 2024
-      publisher: W3C
-      type: guidance_publication
-      domain: registry
+      citation_id: w3c-dcat-3
+      title: Data Catalog Vocabulary (DCAT) - Version 3
+      short_title: DCAT 3
+      publisher: World Wide Web Consortium (W3C)
+      year: 2024
+      type: specification
+      domain: general
       uri: https://www.w3.org/TR/2024/REC-vocab-dcat-3-20240822/
       access: open
       status: active
-      notes: 'Sections 5.6 and 6.5: catalog record distinct from its primary topic'
-      informs_json: '{"concepts": ["Authorization", "CodedValue", "RecordReference", "Register", "Registration", "RegistryEntry"]}'
-  W3cProvO2013Citation:
-    class_uri: publicschema:Citation/w3c-prov-o-2013
-    is_a: Citation
-    title: PROV-O, Recommendation 30 April 2013
-    annotations:
-      citation_id: w3c-prov-o-2013
-      title: PROV-O, Recommendation 30 April 2013
-      short_title: PROV-O, Recommendation 30 April 2013
-      publisher: W3C
-      type: guidance_publication
-      domain: registry
-      uri: https://www.w3.org/TR/2013/REC-prov-o-20130430/
-      access: open
-      status: active
-      notes: 'Sections 3.2 and 3.3: entities, activities and qualified influence'
-      informs_json: '{"concepts": ["EvidenceAssertion", "RecordLifecycleEvent", "SubjectMatchAssertion"]}'
-  W3cAdms2013Citation:
-    class_uri: publicschema:Citation/w3c-adms-2013
-    is_a: Citation
-    title: Asset Description Metadata Schema, retired W3C Note 1 August 2013
-    annotations:
-      citation_id: w3c-adms-2013
-      title: Asset Description Metadata Schema, retired W3C Note 1 August 2013
-      short_title: Asset Description Metadata Schema, retired W3C Note 1 August 2013
-      publisher: W3C
-      type: guidance_publication
-      domain: registry
-      uri: https://www.w3.org/TR/2013/NOTE-vocab-adms-20130801/
-      access: open
-      status: active
-      notes: 'Section 5.2.6: identifier scheme and issuing agency. Historical precedent; SEMIC maintains
-        ADMS since 2023.'
-      informs_json: '{"concepts": ["IdentifierAssignment"]}'
+      version: Recommendation 22 August 2024
+      note: 'Sections 5.6, 6.5, 6.5.3 (dcterms:issued) and 6.5.5 (foaf:primaryTopic): a catalog record
+        is distinct from its primary topic. dct:replaces is on dcat:Resource (section 6.4.27).'
+      informs_json: '{"concepts": ["RecordReference", "Register", "RegistryEntry"]}'
   OgcGeosparql11Citation:
     class_uri: publicschema:Citation/ogc-geosparql-11
     is_a: Citation
-    title: GeoSPARQL 1.1, OGC 22-047r1
+    title: OGC GeoSPARQL - A Geographic Query Language for RDF Data
     annotations:
       citation_id: ogc-geosparql-11
-      title: GeoSPARQL 1.1, OGC 22-047r1
-      short_title: GeoSPARQL 1.1, OGC 22-047r1
-      publisher: Open Geospatial Consortium
-      type: guidance_publication
-      domain: registry
+      title: OGC GeoSPARQL - A Geographic Query Language for RDF Data
+      short_title: GeoSPARQL 1.1
+      publisher: Open Geospatial Consortium (OGC)
+      year: 2024
+      type: specification
+      domain: general
       uri: https://docs.ogc.org/is/22-047r1/22-047r1.html
       access: open
       status: active
-      notes: 'Sections 8 and 10: features, geometries and serialization'
-      informs_json: '{"concepts": ["AssetAddressAssignment", "SpatialGeometry"]}'
-  IetfGeojson7946Citation:
-    class_uri: publicschema:Citation/ietf-geojson-7946
-    is_a: Citation
-    title: RFC 7946, The GeoJSON Format, August 2016
-    annotations:
-      citation_id: ietf-geojson-7946
-      title: RFC 7946, The GeoJSON Format, August 2016
-      short_title: RFC 7946, The GeoJSON Format, August 2016
-      publisher: IETF
-      type: guidance_publication
-      domain: registry
-      uri: https://datatracker.ietf.org/doc/html/rfc7946
-      access: open
-      status: active
-      notes: 'Sections 3.1.1, 3.1.6 and 4: positions, polygons and coordinate reference system'
-      informs_json: '{"concepts": ["SpatialGeometry"]}'
+      version: 1.1 (OGC 22-047r1, 2024-01-29)
+      note: 'Clauses 8.2.2, 8.4.1, 10.6, 10.7.10, 10.8.1.1 (Requirement 15, CRS84 default) and 10.8.3.1:
+        features, geometries, serialization and coordinate reference systems.'
+      informs_json: '{"concepts": ["SpatialGeometry"], "properties": ["coordinate_reference_system", "geometry_encoding", "geometry_literal", "spatial_geometry"], "vocabularies": ["geometry-encoding"]}'
   UnecePropertyUnits2004Citation:
     class_uri: publicschema:Citation/unece-property-units-2004
     is_a: Citation
@@ -2539,82 +2531,74 @@ classes:
       citation_id: unece-property-units-2004
       title: Guidelines on Real Property Units and Identifiers, 2004
       short_title: Guidelines on Real Property Units and Identifiers, 2004
-      publisher: UNECE
+      publisher: United Nations Economic Commission for Europe (UNECE)
+      year: 2004
       type: guidance_publication
-      domain: registry
+      domain: general
       uri: https://unece.org/DAM/hlm/documents/Publications/guidelines.real.property.e.pdf
       access: open
       status: active
-      notes: Property-unit and parcel identification; title administration distinct from spatial identity
+      note: Property-unit and parcel identification; title administration distinct from spatial identity
       informs_json: '{"concepts": ["agri/AgriculturalParcel", "land/LandAdministrativeUnit", "land/LandBoundaryAssertion", "land/LandSpatialUnit", "land/LandTenureAssertion"]}'
-  Hl7HealthcareServiceR4Citation:
-    class_uri: publicschema:Citation/hl7-healthcare-service-r4
+  RegenstriefUcumCitation:
+    class_uri: publicschema:Citation/regenstrief-ucum
     is_a: Citation
-    title: FHIR R4 4.0.1 HealthcareService and Location
+    title: The Unified Code for Units of Measure
     annotations:
-      citation_id: hl7-healthcare-service-r4
-      title: FHIR R4 4.0.1 HealthcareService and Location
-      short_title: FHIR R4 4.0.1 HealthcareService and Location
-      publisher: HL7
-      type: guidance_publication
-      domain: registry
-      uri: https://www.hl7.org/fhir/R4/healthcareservice.html
-      access: open
-      status: active
-      notes: HealthcareService providedBy/location/endpoint and Location managingOrganization; conceptual
-        comparison only
-      informs_json: '{"concepts": ["AssetAddressAssignment", "ServiceCapacityObservation"]}'
-  UcumSpecificationCitation:
-    class_uri: publicschema:Citation/ucum-specification
-    is_a: Citation
-    title: Unified Code for Units of Measure specification
-    annotations:
-      citation_id: ucum-specification
-      title: Unified Code for Units of Measure specification
-      short_title: Unified Code for Units of Measure specification
-      publisher: Regenstrief Institute
-      type: guidance_publication
-      domain: registry
+      citation_id: regenstrief-ucum
+      title: The Unified Code for Units of Measure
+      short_title: UCUM
+      publisher: Regenstrief Institute and the UCUM Organization
+      year: 2024
+      type: specification
+      domain: general
       uri: https://ucum.org/ucum
       access: open
       status: active
-      notes: Unit tables and syntax; hectare har and square metre m2
-      informs_json: '{"concepts": ["QuantityValue", "ServiceCapacityObservation"]}'
-  W3cVcard2014Citation:
-    class_uri: publicschema:Citation/w3c-vcard-2014
+      version: '2.2'
+      note: Version 2.2, revision 2024-06-17. Hectare is prefix h plus atom ar, giving har (section 31);
+        square metre m2 uses exponent syntax (section 9). Neither is a row in the unit tables.
+      informs_json: '{"concepts": ["QuantityValue", "ServiceCapacityObservation"], "properties": ["authorized_water_quantity", "unit_code", "unit_scheme"], "vocabularies": ["unit-system"]}'
+  W3cVcardRdfCitation:
+    class_uri: publicschema:Citation/w3c-vcard-rdf
     is_a: Citation
-    title: vCard Ontology, W3C Note 22 May 2014
+    title: vCard Ontology - for describing People and Organizations
     annotations:
-      citation_id: w3c-vcard-2014
-      title: vCard Ontology, W3C Note 22 May 2014
-      short_title: vCard Ontology, W3C Note 22 May 2014
-      publisher: W3C
-      type: guidance_publication
-      domain: registry
+      citation_id: w3c-vcard-rdf
+      title: vCard Ontology - for describing People and Organizations
+      short_title: vCard Ontology
+      publisher: World Wide Web Consortium (W3C)
+      year: 2014
+      type: specification
+      domain: general
       uri: https://www.w3.org/TR/vcard-rdf/
       access: open
       status: active
-      notes: Names and communication channels; no direct serialization mapping
+      version: Interest Group Note 22 May 2014
+      note: Sections 2.3 names, 2.4 addresses, 2.5 communications and 2.11 type codes; no direct serialization
+        mapping.
       informs_json: '{"concepts": ["AssetAddressAssignment", "ContactPoint", "NameUsage"]}'
   WoahIdentification2024Citation:
     class_uri: publicschema:Citation/woah-identification-2024
     is_a: Citation
-    title: Terrestrial Animal Health Code 2024, chapter 4.3
+    title: 'Terrestrial Animal Health Code, Chapter 4.3: Design and implementation of identification systems
+      to achieve animal traceability'
     annotations:
       citation_id: woah-identification-2024
-      title: Terrestrial Animal Health Code 2024, chapter 4.3
-      short_title: Terrestrial Animal Health Code 2024, chapter 4.3
+      title: 'Terrestrial Animal Health Code, Chapter 4.3: Design and implementation of identification
+        systems to achieve animal traceability'
+      short_title: WOAH TAHC chapter 4.3
       publisher: World Organisation for Animal Health
-      type: guidance_publication
-      domain: agriculture
+      type: international_standard
+      domain: general
       uri: https://www.woah.org/fileadmin/Home/eng/Health_standards/tahc/2024/en_chapitre_ident_design.htm
       access: open
       status: active
-      notes: Article 4.3.3, registration and other events, distinguishes animal identification,
-        movements and changes of owner or keeper. Movement records include origin, destination,
-        transit establishments, date and animals involved. PublicSchema shapes, source-group
-        interpretation and optionality are design choices. Movement locators rechecked 2026-09-08.
-      informs_json: '{"concepts": ["AnimalGroup", "AnimalGroupCount", "AnimalMovement", "AnimalResponsibility", "IdentifiedAnimalUnit", "IndividualAnimal", "agri/AnimalResidence"], "properties": ["moved_animals", "movement_source_group", "moved_animal_count", "movement_origin_site", "movement_destination_site", "movement_transit_sites", "movement_departure_date", "movement_arrival_date"]}'
+      note: 'Article 4.3.3, point 5(c)(iii) other events: identification, movements and changes of owner
+        or keeper; movement records include origin, destination, transit establishments, the date of the
+        movement and the number of animals moved. Point 5(b): group identification. PublicSchema shapes,
+        source-group interpretation and optionality are design choices.'
+      informs_json: '{"concepts": ["AnimalGroup", "AnimalGroupCount", "AnimalMovement", "AnimalResponsibility", "IdentifiedAnimalUnit", "IndividualAnimal", "agri/AnimalResidence"], "properties": ["moved_animal_count", "moved_animals", "movement_arrival_date", "movement_departure_date", "movement_destination_site", "movement_origin_site", "movement_source_group", "movement_transit_sites"]}'
       year: 2024
   FaoDadIsDataCitation:
     class_uri: publicschema:Citation/fao-dad-is-data
@@ -2624,29 +2608,14 @@ classes:
       citation_id: fao-dad-is-data
       title: 'Domestic Animal Diversity Information System: Data'
       short_title: 'Domestic Animal Diversity Information System: Data'
-      publisher: Food and Agriculture Organization
-      type: guidance_publication
-      domain: agriculture
+      publisher: Food and Agriculture Organization of the United Nations (FAO)
+      type: classification
+      domain: general
       uri: https://www.fao.org/dad-is/data/en/
       access: open
       status: active
+      note: Live database without an edition year.
       informs_json: '{"concepts": ["agri/AnimalBreed"]}'
-  FaoWca2010CropConceptsCitation:
-    class_uri: publicschema:Citation/fao-wca-2010-crop-concepts
-    is_a: Citation
-    title: 'WCA 2010, chapter 11: Concepts and definitions'
-    annotations:
-      citation_id: fao-wca-2010-crop-concepts
-      title: 'WCA 2010, chapter 11: Concepts and definitions'
-      short_title: 'WCA 2010, chapter 11: Concepts and definitions'
-      publisher: Food and Agriculture Organization
-      type: guidance_publication
-      domain: agriculture
-      uri: https://www.fao.org/4/a0135e/a0135e05.htm
-      access: open
-      status: active
-      informs_json: '{"concepts": ["agri/CropPlanting", "agri/CropPlantingComponent"]}'
-      year: 2005
   UpovPlutoTagFormatCitation:
     class_uri: publicschema:Citation/upov-pluto-tag-format
     is_a: Citation
@@ -2657,10 +2626,11 @@ classes:
       short_title: 'PLUTO: Guidance for the preparation of data in TAG format'
       publisher: International Union for the Protection of New Varieties of Plants
       type: guidance_publication
-      domain: agriculture
+      domain: general
       uri: https://www.upov.int/documents/d/upov/docs-en-pluto-contribute-pluto-tag-format-description.pdf
       access: open
       status: active
+      note: Undated (PDF created 2021-10-14).
       informs_json: '{"concepts": ["PlantVariety"]}'
   GenesysApiPassportCitation:
     class_uri: publicschema:Citation/genesys-api-passport
@@ -2672,10 +2642,12 @@ classes:
       short_title: 'Genesys API reference manual: accession passport model'
       publisher: Crop Trust
       type: guidance_publication
-      domain: agriculture
+      domain: general
       uri: https://www.genesys-pgr.org/documentation/apis
       access: open
       status: active
+      note: 'Secondary implementation evidence: section 3.2 labels the passport model outdated. The MCPD
+        descriptors are the primary reference for accessions.'
       informs_json: '{"concepts": ["GeneticResourceAccession"]}'
   CfiaQsp1521Citation:
     class_uri: publicschema:Citation/cfia-qsp-152-1
@@ -2687,222 +2659,172 @@ classes:
       short_title: 'QSP 152.1: Implementation of the OECD seed schemes and EU seed directives'
       publisher: Canadian Food Inspection Agency
       type: guidance_publication
-      domain: agriculture
+      domain: general
       uri: https://inspection.canada.ca/en/plant-health/seeds/seed-inspection-procedures/oecd-and-eu
       access: open
       status: active
+      note: Date modified 2025-07-24. Section 3.1 definitions; 4.8 blends; 4.9 mixtures; Appendix 1. Jurisdictional
+        evidence, not the seed lot definition source.
       informs_json: '{"concepts": ["SeedLot"]}'
-  GovCpov212Citation:
-    class_uri: publicschema:Citation/gov-cpov-212
-    is_a: Citation
-    title: Core Public Organisation Vocabulary 2.1.2
-    annotations:
-      citation_id: gov-cpov-212
-      title: Core Public Organisation Vocabulary 2.1.2
-      short_title: Core Public Organisation Vocabulary 2.1.2
-      publisher: European Commission SEMIC
-      type: guidance_publication
-      domain: registry
-      uri: https://semiceu.github.io/CPOV/releases/2.1.2/
-      access: open
-      status: active
-      notes: 2026-05-12 recommendation; Public Organisation, mandate and spatial jurisdiction
-      informs_json: '{"concepts": ["PublicOrganization"]}'
-  GovRegorgCitation:
-    class_uri: publicschema:Citation/gov-regorg
+  W3cRegorgCitation:
+    class_uri: publicschema:Citation/w3c-regorg
     is_a: Citation
     title: Registered Organization Vocabulary
     annotations:
-      citation_id: gov-regorg
+      citation_id: w3c-regorg
       title: Registered Organization Vocabulary
-      short_title: Registered Organization Vocabulary
-      publisher: W3C
-      type: guidance_publication
-      domain: registry
-      uri: https://www.w3.org/TR/vocab-regorg/
+      short_title: RegOrg
+      publisher: World Wide Web Consortium (W3C)
+      year: 2013
+      type: specification
+      domain: general
+      uri: http://www.w3.org/TR/2013/NOTE-vocab-regorg-20130801/
       access: open
       status: active
-      notes: 2013 Working Group Note; RegisteredOrganization
-      informs_json: '{"concepts": ["LegalEntity"]}'
-  GovCompaniesHouseCitation:
-    class_uri: publicschema:Citation/gov-companies-house
+      version: Working Group Note 01 August 2013
+      note: RegisteredOrganization and legal form (rov:orgType).
+      informs_json: '{"concepts": ["Organization"], "properties": ["legal_form"]}'
+  UkCompaniesHouseApiCitation:
+    class_uri: publicschema:Citation/uk-companies-house-api
     is_a: Citation
-    title: 'Companies House Public Data API: companyProfile'
+    title: Companies House Public Data API
     annotations:
-      citation_id: gov-companies-house
-      title: 'Companies House Public Data API: companyProfile'
-      short_title: 'Companies House Public Data API: companyProfile'
+      citation_id: uk-companies-house-api
+      title: Companies House Public Data API
+      short_title: Companies House API
       publisher: UK Companies House
-      type: guidance_publication
-      domain: registry
+      type: specification
+      domain: general
       uri: https://developer-specs.company-information.service.gov.uk/companies-house-public-data-api/resources/companyprofile?v=latest
       access: open
       status: active
-      notes: Retrieved 2026-09-07; type, jurisdiction, date_of_creation, foreign_company_details and registered
-        office
-      informs_json: '{"concepts": ["InstitutionalRole", "LegalEntity"]}'
-  GovOrgCitation:
-    class_uri: publicschema:Citation/gov-org
+      note: Retrieved 2026-09-07. Resource companyProfile (type, jurisdiction, date_of_creation and registered
+        office) grounds formation_date; resource officerList (officer_role, appointed_on, resigned_on;
+        https://developer-specs.company-information.service.gov.uk/companies-house-public-data-api/resources/officerlist?v=latest)
+        grounds institutional roles.
+      informs_json: '{"concepts": ["InstitutionalRole", "Organization"], "properties": ["formation_date"]}'
+  W3cOrgCitation:
+    class_uri: publicschema:Citation/w3c-org
     is_a: Citation
     title: The Organization Ontology
     annotations:
-      citation_id: gov-org
+      citation_id: w3c-org
       title: The Organization Ontology
-      short_title: The Organization Ontology
-      publisher: W3C
-      type: guidance_publication
-      domain: registry
-      uri: https://www.w3.org/TR/vocab-org/
+      short_title: W3C ORG
+      publisher: World Wide Web Consortium (W3C)
+      year: 2014
+      type: specification
+      domain: general
+      uri: https://www.w3.org/TR/2014/REC-vocab-org-20140116/
       access: open
       status: active
-      notes: 2014 recommendation; Organization, OrganizationalUnit, Membership, Site and ChangeEvent
-      informs_json: '{"concepts": ["InstitutionalRelationship", "InstitutionalRole", "OrganizationalChangeEvent", "edu/EducationProvider", "edu/ProviderSite"]}'
-  GovBods04Citation:
-    class_uri: publicschema:Citation/gov-bods-04
+      version: Recommendation 16 January 2014
+      note: Organization, OrganizationalUnit, Membership, Site and ChangeEvent.
+      informs_json: '{"concepts": ["InstitutionalRelationship", "InstitutionalRole", "OrganizationalChangeEvent", "PracticeRole", "edu/EducationProvider", "edu/ProviderSite"], "properties": ["education_provider", "original_organizations", "resulting_organizations"]}'
+  OpenownershipBodsCitation:
+    class_uri: publicschema:Citation/openownership-bods
     is_a: Citation
-    title: Beneficial Ownership Data Standard 0.4
+    title: Beneficial Ownership Data Standard
     annotations:
-      citation_id: gov-bods-04
-      title: Beneficial Ownership Data Standard 0.4
-      short_title: Beneficial Ownership Data Standard 0.4
+      citation_id: openownership-bods
+      title: Beneficial Ownership Data Standard
+      short_title: BODS 0.4
       publisher: Open Ownership
-      type: guidance_publication
-      domain: registry
-      uri: https://standard.openownership.org/en/latest/standard/reference.html
+      type: specification
+      domain: general
+      uri: https://standard.openownership.org/en/0.4.0/standard/reference.html
       access: open
       status: active
-      notes: Version 0.4, May 2024; Relationship Statement and Interest; records separate from statements
-      informs_json: '{"concepts": ["LegalArrangement", "OwnershipChainAssertion", "OwnershipInterest"]}'
-  GovGiasCitation:
-    class_uri: publicschema:Citation/gov-gias
+      version: 0.4.0
+      note: Relationship Statement and Interest; records are separate from statements.
+      informs_json: '{"concepts": ["LegalArrangement", "OwnershipInterest"]}'
+  UkDfeGiasCitation:
+    class_uri: publicschema:Citation/uk-dfe-gias
     is_a: Citation
     title: Get Information about Schools
     annotations:
-      citation_id: gov-gias
+      citation_id: uk-dfe-gias
       title: Get Information about Schools
-      short_title: Get Information about Schools
+      short_title: GIAS
       publisher: UK Department for Education
       type: guidance_publication
-      domain: registry
+      domain: education
       uri: https://www.get-information-schools.service.gov.uk/
       access: open
       status: active
-      notes: Retrieved 2026-09-07; establishment and establishment-group records; download implementation
+      note: Retrieved 2026-09-07; establishment and establishment-group records; download implementation
         https://dfe-digital.github.io/get-information-about-schools/service/front-end-component/reference/downloads/
       informs_json: '{"concepts": ["edu/EducationProvider", "edu/ProviderSite"]}'
-  GovIscedCitation:
-    class_uri: publicschema:Citation/gov-isced
-    is_a: Citation
-    title: 'International Standard Classification of Education: ISCED 2011'
-    annotations:
-      citation_id: gov-isced
-      title: 'International Standard Classification of Education: ISCED 2011'
-      short_title: 'International Standard Classification of Education: ISCED 2011'
-      publisher: UNESCO Institute for Statistics
-      type: guidance_publication
-      domain: registry
-      uri: https://uis.unesco.org/sites/default/files/documents/international-standard-classification-of-education-isced-2011-en.pdf
-      access: open
-      status: active
-      notes: ISCED 2011, section 2, especially paragraphs 19-22; programme and qualification
-      informs_json: '{"concepts": ["edu/EducationProgramme"]}'
-  GovFhirPractitionerCitation:
-    class_uri: publicschema:Citation/gov-fhir-practitioner
-    is_a: Citation
-    title: FHIR R5 Practitioner
-    annotations:
-      citation_id: gov-fhir-practitioner
-      title: FHIR R5 Practitioner
-      short_title: FHIR R5 Practitioner
-      publisher: HL7 International
-      type: guidance_publication
-      domain: registry
-      uri: https://hl7.org/fhir/R5/practitioner-definitions.html
-      access: open
-      status: active
-      notes: FHIR 5.0.0 (2023); Practitioner.qualification
-      informs_json: '{"concepts": ["ProfessionalLicense", "ProfessionalQualification"]}'
-  GovFhirRoleCitation:
-    class_uri: publicschema:Citation/gov-fhir-role
-    is_a: Citation
-    title: FHIR R5 PractitionerRole
-    annotations:
-      citation_id: gov-fhir-role
-      title: FHIR R5 PractitionerRole
-      short_title: FHIR R5 PractitionerRole
-      publisher: HL7 International
-      type: guidance_publication
-      domain: registry
-      uri: https://hl7.org/fhir/R5/practitionerrole-definitions.html
-      access: open
-      status: active
-      notes: FHIR 5.0.0 (2023); practitioner, organization, period and location
-      informs_json: '{"concepts": ["PracticeRole"]}'
-  GovDrivingCitation:
-    class_uri: publicschema:Citation/gov-driving
+  UkDvlaDrivingLicenceCategoriesCitation:
+    class_uri: publicschema:Citation/uk-dvla-driving-licence-categories
     is_a: Citation
     title: Driving licence categories and codes
     annotations:
-      citation_id: gov-driving
+      citation_id: uk-dvla-driving-licence-categories
       title: Driving licence categories and codes
-      short_title: Driving licence categories and codes
+      short_title: UK driving licence categories
       publisher: UK Driver and Vehicle Licensing Agency
       type: guidance_publication
-      domain: registry
+      domain: general
       uri: https://www.gov.uk/driving-licence-categories
       access: open
       status: active
-      notes: Retrieved 2026-09-07; categories, https://www.gov.uk/driving-licence-codes and https://www.gov.uk/guidance/changes-to-the-driving-licence-and-categories
-        for category-specific validity
+      note: Retrieved 2026-09-07; national example. Categories, https://www.gov.uk/driving-licence-codes
+        and https://www.gov.uk/guidance/changes-to-the-driving-licence-and-categories for category-specific
+        validity.
       informs_json: '{"concepts": ["transport/DrivingEntitlement"]}'
-  GovOecdTinCitation:
-    class_uri: publicschema:Citation/gov-oecd-tin
+  OecdAeoiTinCitation:
+    class_uri: publicschema:Citation/oecd-aeoi-tin
     is_a: Citation
     title: Tax identification numbers
     annotations:
-      citation_id: gov-oecd-tin
+      citation_id: oecd-aeoi-tin
       title: Tax identification numbers
-      short_title: Tax identification numbers
+      short_title: OECD TIN pages
       publisher: OECD Global Forum on Transparency and Exchange of Information for Tax Purposes
       type: guidance_publication
-      domain: registry
+      domain: general
       uri: https://www.oecd.org/en/networks/global-forum-tax-transparency/resources/aeoi-implementation-portal/tax-identification-numbers.html
       access: open
       status: active
-      notes: Retrieved 2026-09-07; separate individual and entity jurisdiction documentation
+      note: Retrieved 2026-09-07 (page last updated 18 May 2026); separate individual and entity jurisdiction
+        documentation.
       informs_json: '{"concepts": ["tax/TaxRegistration"]}'
-  GovIrsTinCitation:
-    class_uri: publicschema:Citation/gov-irs-tin
+  UsIrsTinCitation:
+    class_uri: publicschema:Citation/us-irs-tin
     is_a: Citation
     title: Taxpayer identification numbers (TIN)
     annotations:
-      citation_id: gov-irs-tin
+      citation_id: us-irs-tin
       title: Taxpayer identification numbers (TIN)
-      short_title: Taxpayer identification numbers (TIN)
+      short_title: IRS TIN
       publisher: US Internal Revenue Service
       type: guidance_publication
-      domain: registry
+      domain: general
       uri: https://www.irs.gov/tin/taxpayer-identification-numbers-tin
       access: open
       status: active
-      notes: Retrieved 2026-09-07; identifier categories and purposes
+      note: Retrieved 2026-09-07; national example of identifier categories and purposes.
       informs_json: '{"concepts": ["tax/TaxRegistration"]}'
-  GovNistVriCitation:
-    class_uri: publicschema:Citation/gov-nist-vri
+  NistSp1500102Citation:
+    class_uri: publicschema:Citation/nist-sp-1500-102
     is_a: Citation
     title: Voter Records Interchange Common Data Format Specification, Version 1.0
     annotations:
-      citation_id: gov-nist-vri
+      citation_id: nist-sp-1500-102
       title: Voter Records Interchange Common Data Format Specification, Version 1.0
-      short_title: Voter Records Interchange Common Data Format Specification, Version 1.0
-      publisher: US National Institute of Standards and Technology
-      type: guidance_publication
-      domain: registry
+      short_title: NIST SP 1500-102
+      publisher: National Institute of Standards and Technology (NIST)
+      year: 2019
+      type: specification
+      domain: general
       uri: https://pages.nist.gov/VoterRecordsInterchange/
       access: open
       status: active
-      notes: NIST SP 1500-102 V1, March 2020 web edition; VoterRecord, ReportingUnit and Voter; official
-        JSON/XML schema repository linked
+      standard_number: NIST SP 1500-102
+      version: '1.0'
+      note: VoterRecord, ReportingUnit and Voter; the official JSON and XML schema repository is linked
+        from the specification.
       informs_json: '{"concepts": ["elections/VoterRegistration"]}'
   GovInspireBuildingsCitation:
     class_uri: publicschema:Citation/gov-inspire-buildings
@@ -2913,163 +2835,83 @@ classes:
       title: 'INSPIRE Data Specification on Buildings: Technical Guidelines'
       short_title: 'INSPIRE Data Specification on Buildings: Technical Guidelines'
       publisher: European Commission INSPIRE
-      type: guidance_publication
-      domain: registry
+      type: specification
+      domain: general
       uri: https://inspire-mif.github.io/technical-guidelines/data/bu/dataspecification_bu.html
       access: open
       status: active
-      notes: Building, BuildingUnit, BuildingPart; BuildingsBase 4.0 application schema; retrieved 2026-09-07
+      note: Building, BuildingUnit, BuildingPart; BuildingsBase 4.0 application schema; retrieved 2026-09-07
       informs_json: '{"concepts": ["Building", "BuildingUnit"]}'
-  GovDvlaCitation:
-    class_uri: publicschema:Citation/gov-dvla
+  UkDvlaVehicleEnquiryApiCitation:
+    class_uri: publicschema:Citation/uk-dvla-vehicle-enquiry-api
     is_a: Citation
     title: DVLA Vehicle Enquiry API 1.2.0
     annotations:
-      citation_id: gov-dvla
+      citation_id: uk-dvla-vehicle-enquiry-api
       title: DVLA Vehicle Enquiry API 1.2.0
-      short_title: DVLA Vehicle Enquiry API 1.2.0
+      short_title: DVLA Vehicle Enquiry API
       publisher: UK Driver and Vehicle Licensing Agency
-      type: guidance_publication
-      domain: registry
+      type: specification
+      domain: general
       uri: https://developer-portal.driver-vehicle-licensing.api.gov.uk/apis/vehicle-enquiry-service/v1.2.0-vehicle-enquiry-service.html
       access: open
       status: active
-      notes: Vehicle response; make, yearOfManufacture and registration number; https://www.gov.uk/vehicle-log-book
-        for keeper record context
-      informs_json: '{"concepts": ["AssetPartyRole", "transport/Vehicle"]}'
-  GovEpaFrsCitation:
-    class_uri: publicschema:Citation/gov-epa-frs
+      version: 1.2.0
+      note: 'Vehicle response: make, yearOfManufacture and registration number. The API returns no keeper
+        or owner data; https://www.gov.uk/vehicle-log-book gives keeper record context.'
+      informs_json: '{"concepts": ["transport/Vehicle"]}'
+  UsEpaFrsCitation:
+    class_uri: publicschema:Citation/us-epa-frs
     is_a: Citation
     title: Facility Registry Service description
     annotations:
-      citation_id: gov-epa-frs
+      citation_id: us-epa-frs
       title: Facility Registry Service description
       short_title: Facility Registry Service description
       publisher: US Environmental Protection Agency
       type: guidance_publication
-      domain: registry
+      domain: general
       uri: https://www.epa.gov/frs/frs-description
       access: open
       status: active
-      notes: Retrieved 2026-09-07; site/program-record distinction, Facility Site Identification Standard
+      note: Retrieved 2026-09-07; site/program-record distinction, Facility Site Identification Standard
         2.0 (2006) and physical model links
       informs_json: '{"concepts": ["environment/EnvironmentalFacility"]}'
-  GovEpaEchoCitation:
-    class_uri: publicschema:Citation/gov-epa-echo
+  UsEpaEchoCitation:
+    class_uri: publicschema:Citation/us-epa-echo
     is_a: Citation
     title: ECHO Detailed Facility Report web services
     annotations:
-      citation_id: gov-epa-echo
+      citation_id: us-epa-echo
       title: ECHO Detailed Facility Report web services
       short_title: ECHO Detailed Facility Report web services
       publisher: US Environmental Protection Agency
       type: guidance_publication
-      domain: registry
+      domain: general
       uri: https://echo.epa.gov/tools/web-services/detailed-facility-report
       access: open
       status: active
-      notes: Retrieved 2026-09-07; facility report interface. EPA data portal https://data.epa.gov/ describes
+      note: Retrieved 2026-09-07; facility report interface. EPA data portal https://data.epa.gov/ describes
         inspections, violations and penalties as separate program data
       informs_json: '{"concepts": ["ComplianceAssessment", "RegulatoryAction"]}'
-  GovFhirProductCitation:
-    class_uri: publicschema:Citation/gov-fhir-product
-    is_a: Citation
-    title: FHIR R5 MedicinalProductDefinition
-    annotations:
-      citation_id: gov-fhir-product
-      title: FHIR R5 MedicinalProductDefinition
-      short_title: FHIR R5 MedicinalProductDefinition
-      publisher: HL7 International
-      type: guidance_publication
-      domain: registry
-      uri: https://hl7.org/fhir/R5/medicinalproductdefinition-definitions.html
-      access: open
-      status: active
-      notes: FHIR 5.0.0 (2023); product definition, dose form and ingredient; not package or batch identity
-      informs_json: '{}'
-  GovFhirIngredientCitation:
-    class_uri: publicschema:Citation/gov-fhir-ingredient
-    is_a: Citation
-    title: FHIR R5 Ingredient
-    annotations:
-      citation_id: gov-fhir-ingredient
-      title: FHIR R5 Ingredient
-      short_title: FHIR R5 Ingredient
-      publisher: HL7 International
-      type: guidance_publication
-      domain: registry
-      uri: https://hl7.org/fhir/R5/ingredient-definitions.html
-      access: open
-      status: active
-      notes: FHIR 5.0.0 (2023); ingredient function, substance and strength
-      informs_json: '{}'
-  GovFhirAdministrableCitation:
-    class_uri: publicschema:Citation/gov-fhir-administrable
-    is_a: Citation
-    title: FHIR R5 AdministrableProductDefinition
-    annotations:
-      citation_id: gov-fhir-administrable
-      title: FHIR R5 AdministrableProductDefinition
-      short_title: FHIR R5 AdministrableProductDefinition
-      publisher: HL7 International
-      type: guidance_publication
-      domain: registry
-      uri: https://hl7.org/fhir/R5/administrableproductdefinition-definitions.html
-      access: open
-      status: active
-      notes: FHIR 5.0.0 (2023); final prepared form, formOf, administrableDoseForm and routeOfAdministration
-      informs_json: '{}'
-  GovFhirPackagedCitation:
-    class_uri: publicschema:Citation/gov-fhir-packaged
-    is_a: Citation
-    title: FHIR R5 PackagedProductDefinition
-    annotations:
-      citation_id: gov-fhir-packaged
-      title: FHIR R5 PackagedProductDefinition
-      short_title: FHIR R5 PackagedProductDefinition
-      publisher: HL7 International
-      type: guidance_publication
-      domain: registry
-      uri: https://hl7.org/fhir/R5/packagedproductdefinition-definitions.html
-      access: open
-      status: active
-      notes: FHIR 5.0.0 (2023); defined package and contained products
-      informs_json: '{}'
-  GovIrsRepresentationCitation:
-    class_uri: publicschema:Citation/gov-irs-representation
+  UsIrsForm2848Citation:
+    class_uri: publicschema:Citation/us-irs-form-2848
     is_a: Citation
     title: About Form 2848, Power of Attorney and Declaration of Representative
     annotations:
-      citation_id: gov-irs-representation
+      citation_id: us-irs-form-2848
       title: About Form 2848, Power of Attorney and Declaration of Representative
-      short_title: About Form 2848, Power of Attorney and Declaration of Representative
+      short_title: IRS Form 2848
       publisher: US Internal Revenue Service
       type: guidance_publication
-      domain: registry
+      domain: general
       uri: https://www.irs.gov/forms-pubs/about-form-2848
       access: open
       status: active
-      notes: Retrieved 2026-09-07; IRS permits eligible individual representatives. Compare HMRC https://www.gov.uk/appoint-tax-agent,
-        which also describes voluntary organization assistance; generic endpoints deliberately permit persons
-        or organizations under a scoped profile
+      note: Retrieved 2026-09-07; IRS permits eligible individual representatives. Compare HMRC https://www.gov.uk/appoint-tax-agent,
+        which also describes voluntary organization assistance; generic endpoints deliberately permit
+        persons or organizations under a scoped profile
       informs_json: '{"concepts": ["RepresentationRole"]}'
-  WhoHealthAccreditation2022Citation:
-    class_uri: publicschema:Citation/who-health-accreditation-2022
-    is_a: Citation
-    title: Health care accreditation and quality of care, 2022
-    annotations:
-      citation_id: who-health-accreditation-2022
-      title: Health care accreditation and quality of care, 2022
-      short_title: Health care accreditation and quality of care, 2022
-      publisher: World Health Organization
-      type: guidance_publication
-      domain: registry
-      uri: https://iris.who.int/bitstream/handle/10665/363528/9789240055230-eng.pdf
-      access: open
-      status: active
-      notes: Healthcare external assessment and accreditation distinguished from licensing and certification;
-        conceptual scope, no accreditation conformance claim
-      informs_json: '{}'
   IloIcse18Manual2023Citation:
     class_uri: publicschema:Citation/ilo-icse18-manual-2023
     is_a: Citation
@@ -3085,37 +2927,19 @@ classes:
       uri: https://webapps.ilo.org/ilostat-files/Documents/ICSE-18_manual.pdf
       access: open
       status: active
-      notes: Verified August 2023 edition; printed pages 4–5 distinguish persons, economic units, employment
-        and other work relationships; page 21 describes contributing family workers. Supports meaning, not
-        an exact mapping or a mandated PublicSchema serialization. Accessed 2026-09-08.
+      note: Verified August 2023 edition; printed pages 4–5 distinguish persons, economic units, employment
+        and other work relationships; page 21 describes contributing family workers. Supports meaning,
+        not an exact mapping or a mandated PublicSchema serialization. Accessed 2026-09-08.
       informs_json: '{"concepts": ["WorkRelationship", "agri/HoldingWorkAssignment"], "properties": ["assigned_holding", "assignment_work_relationship", "work_economic_unit", "work_form", "work_functions", "work_person", "work_remuneration", "work_seasonality", "work_status"]}'
-  FaoWca2030January2026DraftCitation:
-    class_uri: publicschema:Citation/fao-wca2030-jan2026-draft
-    is_a: Citation
-    title: World Programme for the Census of Agriculture 2030, January 2026 master draft
-    annotations:
-      citation_id: fao-wca2030-jan2026-draft
-      title: World Programme for the Census of Agriculture 2030, January 2026 master draft
-      short_title: World Programme for the Census of Agriculture 2030, January 2026 master draft
-      publisher: Food and Agriculture Organization of the United Nations
-      year: 2026
-      type: guidance_publication
-      domain: general
-      uri: https://unstats.un.org/UNSDWebsite/statcom/session_57/documents/BG-3g-1-Background_document_WCA_2030-E.pdf
-      access: open
-      status: active
-      notes: January master draft prepared for UN Statistical Commission session 57. Paragraphs 4.21–4.24
-        distinguish holder and paid/unpaid manager; 7.9.16–7.9.18 distinguish employees, contractors and
-        repeated work. FAO lists a final publication dated 4 May 2026; this inspected PDF is not that final
-        edition. Refresh against the final edition before maturity promotion. Accessed 2026-09-08.
-      informs_json: '{"concepts": ["WorkRelationship", "agri/HoldingWorkAssignment"], "properties": ["assigned_holding", "assignment_work_relationship", "work_economic_unit", "work_form", "work_functions", "work_person", "work_remuneration", "work_seasonality", "work_status"]}'
-  InspireRegisterGuidance2017Citation:
+  EcInspireRegisters2017Citation:
     class_uri: publicschema:Citation/ec-inspire-registers-2017
     is_a: Citation
-    title: Best Practices for registers and registries & Technical Guidelines for the INSPIRE register federation
+    title: Best Practices for registers and registries & Technical Guidelines for the INSPIRE register
+      federation
     annotations:
       citation_id: ec-inspire-registers-2017
-      title: Best Practices for registers and registries & Technical Guidelines for the INSPIRE register federation
+      title: Best Practices for registers and registries & Technical Guidelines for the INSPIRE register
+        federation
       short_title: INSPIRE registers and register federation
       publisher: INSPIRE Maintenance and Implementation Group (MIG)
       year: 2017
@@ -3125,78 +2949,1074 @@ classes:
       uri: https://knowledge-base.inspire.ec.europa.eu/publications/best-practices-registers-and-registries-technical-guidelines-inspire-register-federation_en
       access: open
       status: active
-      notes: 'Published 2017-05-31; retrieved 2026-09-08. Sections 3.1, 4, 4.2.1, 4.2.2,
-        4.2.4 and 4.2.5, printed pages 4, 8 and 10-14. Non-binding guidance.
-        PublicSchema applies these precedents to administrative records; its qualified
-        key, jurisdiction slot and subject-continuity semantics are design choices.'
-      informs_json: '{"concepts": ["RecordLifecycleEvent", "Register", "RegistryEntry"], "properties": ["register_owner", "register_uri", "supersedes_record", "lifecycle_kind"]}'
-  GovCpsvAp311Citation:
-    class_uri: publicschema:Citation/gov-cpsv-ap-311
+      note: Published 2017-05-31; retrieved 2026-09-08. Sections 3.1, 4, 4.2.1, 4.2.2, 4.2.4 and 4.2.5,
+        printed pages 4, 8 and 10-14. Non-binding guidance. PublicSchema applies these precedents to administrative
+        records; its qualified key, jurisdiction slot and subject-continuity semantics are design choices.
+      informs_json: '{"concepts": ["RecordLifecycleEvent", "RecordReference", "Register", "RegistryEntry"], "properties": ["record_change_kind", "register_owner", "register_uri", "supersedes_record"], "vocabularies": ["record-change-kind"]}'
+  EuReg20241244Citation:
+    class_uri: publicschema:Citation/eu-reg-2024-1244
     is_a: Citation
-    title: Core Public Service Vocabulary Application Profile 3.1.1
+    title: Regulation (EU) 2024/1244 on reporting of environmental data from industrial installations,
+      establishing an Industrial Emissions Portal and repealing Regulation (EC) No 166/2006
     annotations:
-      citation_id: gov-cpsv-ap-311
-      title: Core Public Service Vocabulary Application Profile 3.1.1
-      short_title: Core Public Service Vocabulary Application Profile 3.1.1
-      publisher: SEMIC, European Commission
-      type: guidance_publication
-      domain: registry
-      uri: https://semiceu.github.io/CPSV-AP/releases/3.1.1/
+      citation_id: eu-reg-2024-1244
+      title: Regulation (EU) 2024/1244 on reporting of environmental data from industrial installations,
+        establishing an Industrial Emissions Portal and repealing Regulation (EC) No 166/2006
+      short_title: EU Reg. 2024/1244
+      publisher: European Parliament and Council of the European Union
+      year: 2024
+      type: legal_instrument
+      domain: general
+      uri: https://eur-lex.europa.eu/eli/reg/2024/1244/oj
       access: open
       status: active
-      notes: SEMIC Recommendation 31 May 2023; Public Service, Participation, Evidence, Output and Legal
-        Resource. Service applications, decision and appeal links here are PublicSchema design choices,
-        not a CPSV-AP serialization claim.
-      informs_json: '{"concepts": ["AdministrativeAppeal", "AdministrativeDecision", "PublicService", "ServiceApplication"]}'
-  GovSchemaCourseCitation:
-    class_uri: publicschema:Citation/gov-schema-course
+      standard_number: Regulation (EU) 2024/1244
+      note: 'Articles 3, 5 and 6: installation-level reporting and the containing facility. Applies from
+        1 January 2028 (Article 22). This vocabulary does not implement EU reporting duties or thresholds.'
+      informs_json: '{"concepts": ["environment/EnvironmentalFacility"], "properties": ["environmental_activities"]}'
+  W3cSsnSosaCitation:
+    class_uri: publicschema:Citation/w3c-ssn-sosa
     is_a: Citation
-    title: Schema.org Course and CourseInstance
+    title: Semantic Sensor Network Ontology
     annotations:
-      citation_id: gov-schema-course
-      title: Schema.org Course and CourseInstance
-      short_title: Schema.org Course and CourseInstance
-      publisher: Schema.org
-      type: guidance_publication
-      domain: registry
-      uri: https://schema.org/CourseInstance
-      access: open
-      status: active
-      notes: Inspected 8 September 2026 with https://schema.org/Course; course offerings, provider, place,
-        period and educational credentials. No exact mapping or Schema.org conformance is claimed.
-      informs_json: '{"concepts": ["edu/EducationOffering"]}'
-  GovEuIndustrialEmissionsPortalCitation:
-    class_uri: publicschema:Citation/gov-eu-industrial-emissions-portal
-    is_a: Citation
-    title: Industrial Emissions Portal Regulation (EU) 2024/1244
-    annotations:
-      citation_id: gov-eu-industrial-emissions-portal
-      title: Industrial Emissions Portal Regulation (EU) 2024/1244
-      short_title: Industrial Emissions Portal Regulation (EU) 2024/1244
-      publisher: European Union
-      type: guidance_publication
-      domain: registry
-      uri: https://eur-lex.europa.eu/eli/reg/2024/1244/oj/eng
-      access: open
-      status: active
-      notes: 'Articles 3, 5 and 6: installation-level reporting and the containing facility. This vocabulary
-        does not implement EU reporting duties or thresholds.'
-      informs_json: '{"concepts": ["environment/EnvironmentalFacility"]}'
-  W3cSosa2017Citation:
-    class_uri: publicschema:Citation/w3c-sosa-2017
-    is_a: Citation
-    title: Semantic Sensor Network Ontology, W3C Recommendation 19 October 2017
-    annotations:
-      citation_id: w3c-sosa-2017
-      title: Semantic Sensor Network Ontology, W3C Recommendation 19 October 2017
-      short_title: Semantic Sensor Network Ontology, W3C Recommendation 19 October 2017
-      publisher: W3C and OGC
-      type: guidance_publication
-      domain: registry
+      citation_id: w3c-ssn-sosa
+      title: Semantic Sensor Network Ontology
+      short_title: SSN/SOSA
+      publisher: World Wide Web Consortium (W3C) and Open Geospatial Consortium (OGC)
+      year: 2017
+      type: specification
+      domain: general
       uri: https://www.w3.org/TR/2017/REC-vocab-ssn-20171019/
       access: open
       status: active
-      notes: Sections 4.3, 4.6 and 4.7 distinguish an observation, observed property, feature, result and
+      version: Recommendation 19 October 2017
+      note: Sections 4.3, 4.6 and 4.7 distinguish an observation, observed property, feature, result and
         time. Supports the shared observation pattern; PublicSchema capacity fields and quantity serialization
         are explicit local choices.
       informs_json: '{"concepts": ["ServiceCapacityObservation"]}'
+  FhirR5Citation:
+    class_uri: publicschema:Citation/fhir-r5
+    is_a: Citation
+    title: Fast Healthcare Interoperability Resources (FHIR), Release 5
+    annotations:
+      citation_id: fhir-r5
+      title: Fast Healthcare Interoperability Resources (FHIR), Release 5
+      short_title: FHIR R5
+      publisher: Health Level Seven International (HL7)
+      year: 2023
+      type: specification
+      domain: health
+      uri: https://hl7.org/fhir/R5/
+      access: open
+      status: active
+      version: R5 (5.0.0)
+      note: 'Resources used: Practitioner.qualification, PractitionerRole, HealthcareService, Location,
+        Ingredient and ContactPoint. ContactPoint system codes are the same in R4 and R5.'
+      informs_json: '{"concepts": ["AssetAddressAssignment", "AssetPartyRole", "AwardedQualification", "CodedValue", "ConsentRecord", "ContactPoint", "IdentifierAssignment", "NameUsage", "PracticeRole", "ProductComponent", "ProfessionalLicense", "ServiceCapacityObservation", "health/HealthFacility"], "vocabularies": ["contact-channel"]}'
+  FaoWca2030Citation:
+    class_uri: publicschema:Citation/fao-wca-2030
+    is_a: Citation
+    title: 'World Programme for the Census of Agriculture 2030: Programme, concepts and definitions'
+    annotations:
+      citation_id: fao-wca-2030
+      title: 'World Programme for the Census of Agriculture 2030: Programme, concepts and definitions'
+      short_title: WCA 2030
+      publisher: Food and Agriculture Organization of the United Nations (FAO)
+      year: 2026
+      type: guidance_publication
+      domain: general
+      uri: https://doi.org/10.4060/cd9437en
+      access: open
+      status: active
+      standard_number: ISBN 978-92-5-140661-8
+      note: FAO Statistical Development Series No. 22; CC BY 4.0; published 4 May 2026. Sections 4.3 and
+        4.19 to 4.24 (holder and paid or unpaid manager), 7.2.38 to 7.2.47, 7.9.16 to 7.9.18 (employees,
+        contractors and repeated work) and Annex 8.
+      informs_json: '{"concepts": ["WorkRelationship", "agri/AgriculturalHolderRole", "agri/AgriculturalParcel", "agri/Farm", "agri/FarmerRegistration", "agri/GroupAgriculturalHolderRole", "agri/HoldingParcelLink", "agri/HoldingWorkAssignment", "agri/OrganizationAgriculturalHolderRole", "agri/PersonAgriculturalHolderRole"], "properties": ["assigned_holding", "assignment_work_relationship", "farm_area", "holder_farm", "holder_group", "holder_organization", "holder_person", "land_tenure", "livestock_type", "registered_farms", "work_economic_unit", "work_form", "work_functions", "work_person", "work_remuneration", "work_seasonality", "work_status"], "vocabularies": ["agri/land-tenure", "agri/livestock-type"]}'
+  SparCitoCitation:
+    class_uri: publicschema:Citation/spar-cito
+    is_a: Citation
+    title: CiTO, the Citation Typing Ontology
+    annotations:
+      citation_id: spar-cito
+      title: CiTO, the Citation Typing Ontology
+      short_title: CiTO
+      publisher: SPAR Ontologies
+      year: 2026
+      type: specification
+      domain: general
+      uri: http://purl.org/spar/cito
+      access: open
+      status: active
+      version: 2.9.0
+      note: Citation functions such as cito:supports and cito:disputes type the role of evidence.
+      informs_json: '{"concepts": ["EvidenceAssertion"], "properties": ["evidence_role"], "vocabularies": ["evidence-role"]}'
+  Iso191351Citation:
+    class_uri: publicschema:Citation/iso-19135-1
+    is_a: Citation
+    title: 'Geographic information - Procedures for item registration - Part 1: Fundamentals'
+    annotations:
+      citation_id: iso-19135-1
+      title: 'Geographic information - Procedures for item registration - Part 1: Fundamentals'
+      short_title: ISO 19135-1
+      publisher: International Organization for Standardization
+      year: 2015
+      type: international_standard
+      domain: general
+      uri: https://www.iso.org/standard/54721.html
+      access: paywalled
+      status: active
+      standard_number: ISO 19135-1:2015
+      note: 'Clauses 4.1.6, 4.1.14 and 4.1.17: register, register owner and item status changes.'
+      informs_json: '{"concepts": ["RecordLifecycleEvent", "Register", "RegistryEntry"], "properties": ["register_owner"], "vocabularies": ["record-change-kind"]}'
+  Rfc5646Citation:
+    class_uri: publicschema:Citation/rfc-5646
+    is_a: Citation
+    title: Tags for Identifying Languages
+    annotations:
+      citation_id: rfc-5646
+      title: Tags for Identifying Languages
+      short_title: RFC 5646
+      publisher: Internet Engineering Task Force (IETF)
+      year: 2009
+      type: specification
+      domain: general
+      uri: https://www.rfc-editor.org/info/rfc5646
+      access: open
+      status: active
+      standard_number: RFC 5646 (BCP 47)
+      informs_json: '{"properties": ["name_language"]}'
+  FellegiSunter1969Citation:
+    class_uri: publicschema:Citation/fellegi-sunter-1969
+    is_a: Citation
+    title: A Theory for Record Linkage
+    annotations:
+      citation_id: fellegi-sunter-1969
+      title: A Theory for Record Linkage
+      short_title: Fellegi and Sunter 1969
+      publisher: Journal of the American Statistical Association
+      authors_json: '["Ivan P. Fellegi", "Alan B. Sunter"]'
+      year: 1969
+      type: guidance_publication
+      domain: general
+      uri: https://doi.org/10.1080/01621459.1969.10501049
+      access: paywalled
+      status: active
+      note: JASA 64(328):1183-1210. Link, possible link and non-link decision classes.
+      informs_json: '{"properties": ["match_outcome"], "vocabularies": ["match-outcome"]}'
+  UkDftV5c2010Citation:
+    class_uri: publicschema:Citation/uk-dft-v5c-2010
+    is_a: Citation
+    title: The re-designed vehicle registration certificate and 'buyer beware' consumer protection initiative
+    annotations:
+      citation_id: uk-dft-v5c-2010
+      title: The re-designed vehicle registration certificate and 'buyer beware' consumer protection initiative
+      short_title: V5C keeper versus owner
+      publisher: UK Department for Transport
+      year: 2010
+      type: guidance_publication
+      domain: general
+      uri: https://www.gov.uk/government/speeches/the-re-designed-vehicle-registration-certificate-and-buyer-beware-consumer-protection-initiative
+      access: open
+      status: active
+      note: Published 21 July 2010; national example. The registration certificate names the registered
+        keeper, who is not necessarily the legal owner.
+      informs_json: '{"concepts": ["AssetPartyRole"]}'
+  IsoIec17000Citation:
+    class_uri: publicschema:Citation/iso-iec-17000
+    is_a: Citation
+    title: Conformity assessment - Vocabulary and general principles
+    annotations:
+      citation_id: iso-iec-17000
+      title: Conformity assessment - Vocabulary and general principles
+      short_title: ISO/IEC 17000
+      publisher: International Organization for Standardization
+      year: 2020
+      type: international_standard
+      domain: general
+      uri: https://www.iso.org/standard/73029.html
+      access: paywalled
+      status: active
+      standard_number: ISO/IEC 17000:2020
+      note: 'Clauses 4.1, 4.2, 6.3 and 7.6: conformity assessment, object of conformity assessment and
+        certification.'
+      informs_json: '{"concepts": ["Certification", "ComplianceAssessment"]}'
+  IsoIec170652012Citation:
+    class_uri: publicschema:Citation/iso-iec-17065-2012
+    is_a: Citation
+    title: Conformity assessment - Requirements for bodies certifying products, processes and services
+    annotations:
+      citation_id: iso-iec-17065-2012
+      title: Conformity assessment - Requirements for bodies certifying products, processes and services
+      short_title: ISO/IEC 17065
+      publisher: International Organization for Standardization
+      year: 2012
+      type: international_standard
+      domain: general
+      uri: https://www.iso.org/standard/46568.html
+      access: paywalled
+      status: active
+      standard_number: ISO/IEC 17065:2012
+      note: First edition 2012-09-15; clauses 3.9 (certification scheme), 3.10 and 3.12 (scope of certification).
+      informs_json: '{"concepts": ["Certification"], "properties": ["certification_scheme", "certification_scope"]}'
+  EuReg2017625Citation:
+    class_uri: publicschema:Citation/eu-reg-2017-625
+    is_a: Citation
+    title: Regulation (EU) 2017/625 on official controls and other official activities performed to ensure
+      the application of food and feed law, rules on animal health and welfare, plant health and plant
+      protection products
+    annotations:
+      citation_id: eu-reg-2017-625
+      title: Regulation (EU) 2017/625 on official controls and other official activities performed to
+        ensure the application of food and feed law, rules on animal health and welfare, plant health
+        and plant protection products
+      short_title: EU Reg. 2017/625
+      publisher: European Parliament and Council of the European Union
+      year: 2017
+      type: legal_instrument
+      domain: general
+      uri: https://eur-lex.europa.eu/eli/reg/2017/625/oj
+      access: open
+      status: active
+      standard_number: Regulation (EU) 2017/625
+      note: Article 2(1) official controls; Article 138 actions in case of established non-compliance.
+      informs_json: '{"concepts": ["ComplianceAssessment", "RegulatoryAction"]}'
+  EuEliOntologyCitation:
+    class_uri: publicschema:Citation/eu-eli-ontology
+    is_a: Citation
+    title: European Legislation Identifier (ELI) ontology
+    annotations:
+      citation_id: eu-eli-ontology
+      title: European Legislation Identifier (ELI) ontology
+      short_title: ELI ontology
+      publisher: Publications Office of the European Union
+      type: eu_vocabulary
+      domain: general
+      uri: http://data.europa.eu/eli/ontology
+      access: open
+      status: active
+      version: '1.4'
+      informs_json: '{"properties": ["legal_resources"]}'
+  EuReg20181724Citation:
+    class_uri: publicschema:Citation/eu-reg-2018-1724
+    is_a: Citation
+    title: Regulation (EU) 2018/1724 establishing a single digital gateway to provide access to information,
+      to procedures and to assistance and problem-solving services
+    annotations:
+      citation_id: eu-reg-2018-1724
+      title: Regulation (EU) 2018/1724 establishing a single digital gateway to provide access to information,
+        to procedures and to assistance and problem-solving services
+      short_title: EU Reg. 2018/1724
+      publisher: European Parliament and Council of the European Union
+      year: 2018
+      type: legal_instrument
+      domain: general
+      uri: https://eur-lex.europa.eu/eli/reg/2018/1724/oj
+      access: open
+      status: active
+      standard_number: Regulation (EU) 2018/1724
+      note: 'Article 3(3) to (5): procedure, requirements and evidence.'
+      informs_json: '{"concepts": ["AdministrativeDecision", "ServiceApplication"]}'
+  IscedF2013Citation:
+    class_uri: publicschema:Citation/isced-f-2013
+    is_a: Citation
+    title: 'ISCED Fields of Education and Training 2013 (ISCED-F 2013): Detailed field descriptions'
+    annotations:
+      citation_id: isced-f-2013
+      title: 'ISCED Fields of Education and Training 2013 (ISCED-F 2013): Detailed field descriptions'
+      short_title: ISCED-F 2013
+      publisher: UNESCO Institute for Statistics
+      year: 2015
+      type: classification
+      domain: education
+      uri: https://www.uis.unesco.org/sites/default/files/medias/fichiers/2025/04/international-standard-classification-of-education-fields-of-education-and-training-2013-detailed-field-descriptions-2015-en.pdf
+      access: open
+      status: active
+      informs_json: '{"properties": ["program_field"]}'
+  EuDir200536Citation:
+    class_uri: publicschema:Citation/eu-dir-2005-36
+    is_a: Citation
+    title: Directive 2005/36/EC on the recognition of professional qualifications
+    annotations:
+      citation_id: eu-dir-2005-36
+      title: Directive 2005/36/EC on the recognition of professional qualifications
+      short_title: EU Dir. 2005/36
+      publisher: European Parliament and Council of the European Union
+      year: 2005
+      type: legal_instrument
+      domain: education
+      uri: https://eur-lex.europa.eu/eli/dir/2005/36/oj
+      access: open
+      status: active
+      standard_number: Directive 2005/36/EC
+      note: Distinguishes a formal qualification from the permission to pursue a regulated profession.
+      informs_json: '{"concepts": ["AwardedQualification", "ProfessionalLicense"]}'
+  EscoCitation:
+    class_uri: publicschema:Citation/esco
+    is_a: Citation
+    title: European Skills, Competences, Qualifications and Occupations (ESCO)
+    annotations:
+      citation_id: esco
+      title: European Skills, Competences, Qualifications and Occupations (ESCO)
+      short_title: ESCO
+      publisher: European Commission
+      type: classification
+      domain: general
+      uri: https://esco.ec.europa.eu/
+      access: open
+      status: active
+      informs_json: '{"properties": ["profession_code"]}'
+  EuDir20252205Citation:
+    class_uri: publicschema:Citation/eu-dir-2025-2205
+    is_a: Citation
+    title: Directive (EU) 2025/2205 on driving licences
+    annotations:
+      citation_id: eu-dir-2025-2205
+      title: Directive (EU) 2025/2205 on driving licences
+      short_title: EU Dir. 2025/2205
+      publisher: European Parliament and Council of the European Union
+      year: 2025
+      type: legal_instrument
+      domain: general
+      uri: https://eur-lex.europa.eu/eli/dir/2025/2205/oj
+      access: open
+      status: active
+      standard_number: Directive (EU) 2025/2205
+      note: Article 6(1) categories; Article 8(1) codes; Annex I Part D point 4 fields 9 to 12; Annex
+        I Part E codes.
+      informs_json: '{"concepts": ["transport/DrivingEntitlement"], "properties": ["driving_category", "driving_condition_codes"]}'
+  EuDir199937Citation:
+    class_uri: publicschema:Citation/eu-dir-1999-37
+    is_a: Citation
+    title: Council Directive 1999/37/EC on the registration documents for vehicles
+    annotations:
+      citation_id: eu-dir-1999-37
+      title: Council Directive 1999/37/EC on the registration documents for vehicles
+      short_title: EU Dir. 1999/37
+      publisher: Council of the European Union
+      year: 1999
+      type: legal_instrument
+      domain: general
+      uri: https://eur-lex.europa.eu/eli/dir/1999/37/oj
+      access: open
+      status: active
+      standard_number: Council Directive 1999/37/EC
+      note: Annex I codes D.1 (make) and D.3 (commercial description).
+      informs_json: '{"concepts": ["transport/Vehicle"], "properties": ["vehicle_make", "vehicle_model"]}'
+  EuReg2018858Citation:
+    class_uri: publicschema:Citation/eu-reg-2018-858
+    is_a: Citation
+    title: Regulation (EU) 2018/858 on the approval and market surveillance of motor vehicles and their
+      trailers, and of systems, components and separate technical units intended for such vehicles
+    annotations:
+      citation_id: eu-reg-2018-858
+      title: Regulation (EU) 2018/858 on the approval and market surveillance of motor vehicles and their
+        trailers, and of systems, components and separate technical units intended for such vehicles
+      short_title: EU Reg. 2018/858
+      publisher: European Parliament and Council of the European Union
+      year: 2018
+      type: legal_instrument
+      domain: general
+      uri: https://eur-lex.europa.eu/eli/reg/2018/858/oj
+      access: open
+      status: active
+      standard_number: Regulation (EU) 2018/858
+      note: 'Article 4: vehicle categories.'
+      informs_json: '{"properties": ["vehicle_category"]}'
+  EuDir200060Citation:
+    class_uri: publicschema:Citation/eu-dir-2000-60
+    is_a: Citation
+    title: Directive 2000/60/EC establishing a framework for Community action in the field of water policy
+    annotations:
+      citation_id: eu-dir-2000-60
+      title: Directive 2000/60/EC establishing a framework for Community action in the field of water
+        policy
+      short_title: Water Framework Directive
+      publisher: European Parliament and Council of the European Union
+      year: 2000
+      type: legal_instrument
+      domain: general
+      uri: https://eur-lex.europa.eu/eli/dir/2000/60/oj
+      access: open
+      status: active
+      standard_number: Directive 2000/60/EC
+      note: 'Article 11(3)(e): prior authorisation of abstraction and impoundment.'
+      informs_json: '{"concepts": ["environment/WaterUseAuthorization"]}'
+  EuDir2006112Citation:
+    class_uri: publicschema:Citation/eu-dir-2006-112
+    is_a: Citation
+    title: Council Directive 2006/112/EC on the common system of value added tax
+    annotations:
+      citation_id: eu-dir-2006-112
+      title: Council Directive 2006/112/EC on the common system of value added tax
+      short_title: VAT Directive
+      publisher: Council of the European Union
+      year: 2006
+      type: legal_instrument
+      domain: general
+      uri: https://eur-lex.europa.eu/eli/dir/2006/112/oj
+      access: open
+      status: active
+      standard_number: Council Directive 2006/112/EC
+      note: 'Articles 213 to 215: VAT identification.'
+      informs_json: '{"concepts": ["tax/TaxRegistration"]}'
+  TadatFieldGuide2019Citation:
+    class_uri: publicschema:Citation/tadat-field-guide-2019
+    is_a: Citation
+    title: TADAT Field Guide, 2019 edition
+    annotations:
+      citation_id: tadat-field-guide-2019
+      title: TADAT Field Guide, 2019 edition
+      short_title: TADAT Field Guide
+      publisher: Tax Administration Diagnostic Assessment Tool (TADAT) Secretariat
+      year: 2019
+      type: guidance_publication
+      domain: general
+      uri: https://www.tadat.org/content/dam/tadat/en/assessments/TADAT%20Field%20Guide%202019%20-%20English.pdf
+      access: open
+      status: active
+      note: 'Performance outcome area 1, indicators P1-1 and P1-2: taxpayer registration.'
+      informs_json: '{"concepts": ["tax/TaxRegistration"]}'
+  OecdTaxClassificationCitation:
+    class_uri: publicschema:Citation/oecd-tax-classification
+    is_a: Citation
+    title: The OECD Classification of Taxes and Interpretative Guide
+    annotations:
+      citation_id: oecd-tax-classification
+      title: The OECD Classification of Taxes and Interpretative Guide
+      short_title: OECD tax classification
+      publisher: Organisation for Economic Co-operation and Development (OECD)
+      year: 2023
+      type: classification
+      domain: general
+      uri: https://www.oecd.org/content/dam/oecd/en/topics/policy-sub-issues/global-tax-revenues/oecd-classification-taxes-interpretative-guide.pdf
+      access: open
+      status: active
+      note: Annex A of Revenue Statistics 2023; headings 1000 to 6000.
+      informs_json: '{"properties": ["tax_type"]}'
+  ImfGfsm2014Citation:
+    class_uri: publicschema:Citation/imf-gfsm-2014
+    is_a: Citation
+    title: Government Finance Statistics Manual 2014
+    annotations:
+      citation_id: imf-gfsm-2014
+      title: Government Finance Statistics Manual 2014
+      short_title: GFSM 2014
+      publisher: International Monetary Fund (IMF)
+      year: 2014
+      type: classification
+      domain: general
+      uri: https://www.imf.org/external/Pubs/FT/GFS/Manual/2014/gfsfinal.pdf
+      access: open
+      status: active
+      note: Classification of revenue, heading 11 Taxes.
+      informs_json: '{"properties": ["tax_type"]}'
+  OasisEml7Citation:
+    class_uri: publicschema:Citation/oasis-eml-7
+    is_a: Citation
+    title: Election Markup Language (EML) Version 7.0
+    annotations:
+      citation_id: oasis-eml-7
+      title: Election Markup Language (EML) Version 7.0
+      short_title: EML 7.0
+      publisher: OASIS
+      year: 2011
+      type: specification
+      domain: general
+      uri: https://docs.oasis-open.org/election/eml/v7.0/eml-v7.0.html
+      access: open
+      status: active
+      version: Committee Specification 01, 27 October 2011
+      note: Schema 310 (voter registration), ElectionDistricts and PollingPlace.
+      informs_json: '{"concepts": ["elections/VoterRegistration"], "properties": ["electoral_districts", "polling_service_point"]}'
+  NistSp1500100Citation:
+    class_uri: publicschema:Citation/nist-sp-1500-100
+    is_a: Citation
+    title: Election Results Reporting Common Data Format Specification
+    annotations:
+      citation_id: nist-sp-1500-100
+      title: Election Results Reporting Common Data Format Specification
+      short_title: NIST SP 1500-100
+      publisher: National Institute of Standards and Technology (NIST)
+      type: specification
+      domain: general
+      uri: https://pages.nist.gov/ElectionResultsReporting/
+      access: open
+      status: active
+      standard_number: NIST SP 1500-100
+      note: 'ReportingUnit: electoral districts and precincts.'
+      informs_json: '{"properties": ["electoral_districts"]}'
+  VeniceCommissionCdlAd2002023Citation:
+    class_uri: publicschema:Citation/venice-commission-cdl-ad-2002-023
+    is_a: Citation
+    title: 'Code of Good Practice in Electoral Matters: Guidelines and Explanatory Report'
+    annotations:
+      citation_id: venice-commission-cdl-ad-2002-023
+      title: 'Code of Good Practice in Electoral Matters: Guidelines and Explanatory Report'
+      short_title: Venice Commission electoral code
+      publisher: European Commission for Democracy through Law (Venice Commission)
+      year: 2002
+      type: guidance_publication
+      domain: general
+      uri: https://www.venice.coe.int/webforms/documents/default.aspx?pdffile=CDL-AD(2002)023rev2-cor-e
+      access: open
+      status: active
+      standard_number: CDL-AD(2002)023rev2-cor
+      note: 'Guideline I.1.2: electoral registers.'
+      informs_json: '{"concepts": ["elections/VoterRegistration"]}'
+  InspireFcCitation:
+    class_uri: publicschema:Citation/inspire-fc
+    is_a: Citation
+    title: INSPIRE feature concept register
+    annotations:
+      citation_id: inspire-fc
+      title: INSPIRE feature concept register
+      short_title: INSPIRE feature concepts
+      publisher: Publications Office of the European Union
+      type: eu_vocabulary
+      domain: general
+      uri: http://publications.europa.eu/resource/dataset/inspire-featureconcept
+      access: open
+      status: active
+      note: Feature concept ProductionFacility.
+      informs_json: '{"concepts": ["environment/EnvironmentalFacility"]}'
+  InspireClCitation:
+    class_uri: publicschema:Citation/inspire-cl
+    is_a: Citation
+    title: INSPIRE code list register
+    annotations:
+      citation_id: inspire-cl
+      title: INSPIRE code list register
+      short_title: INSPIRE code lists
+      publisher: Publications Office of the European Union
+      type: eu_vocabulary
+      domain: general
+      uri: http://inspire.ec.europa.eu/codelist/
+      access: open
+      status: active
+      note: NACECodeValue for economic activity coding.
+      informs_json: '{"properties": ["environmental_activities"]}'
+  InspireTgPfCitation:
+    class_uri: publicschema:Citation/inspire-tg-pf
+    is_a: Citation
+    title: 'INSPIRE Data Specification on Production and Industrial Facilities: Technical Guidelines'
+    annotations:
+      citation_id: inspire-tg-pf
+      title: 'INSPIRE Data Specification on Production and Industrial Facilities: Technical Guidelines'
+      short_title: INSPIRE PF TG
+      publisher: INSPIRE Maintenance and Implementation Group (MIG)
+      year: 2024
+      type: specification
+      domain: general
+      uri: https://inspire-mif.github.io/technical-guidelines/data/pf/
+      access: open
+      status: active
+      version: D2.8.III.8 v3.1.0
+      note: ProductionFacility within an ActivityComplex; activities are coded with NACECodeValue. The
+        specification has no facility function attribute.
+      informs_json: '{"concepts": ["environment/EnvironmentalFacility"], "properties": ["environmental_activities"]}'
+  AgrovocCitation:
+    class_uri: publicschema:Citation/agrovoc
+    is_a: Citation
+    title: AGROVOC Multilingual Thesaurus
+    annotations:
+      citation_id: agrovoc
+      title: AGROVOC Multilingual Thesaurus
+      short_title: AGROVOC
+      publisher: Food and Agriculture Organization of the United Nations (FAO)
+      type: classification
+      domain: general
+      uri: https://agrovoc.fao.org/
+      access: open
+      status: active
+      note: Concept c_16062 water rights.
+      informs_json: '{"concepts": ["environment/WaterUseAuthorization"]}'
+  Iso1915212024Citation:
+    class_uri: publicschema:Citation/iso-19152-1-2024
+    is_a: Citation
+    title: 'Geographic information - Land Administration Domain Model (LADM) - Part 1: Generic conceptual
+      model'
+    annotations:
+      citation_id: iso-19152-1-2024
+      title: 'Geographic information - Land Administration Domain Model (LADM) - Part 1: Generic conceptual
+        model'
+      short_title: ISO 19152-1 (LADM)
+      publisher: International Organization for Standardization
+      year: 2024
+      type: international_standard
+      domain: general
+      uri: https://www.iso.org/standard/81263.html
+      access: paywalled
+      status: active
+      standard_number: ISO 19152-1:2024
+      note: First edition 2024-01; supersedes ISO 19152:2012. Clauses 3.1.2 basic administrative unit,
+        3.1.5 fraction, 3.1.7 group party and 3.1.8 land.
+      informs_json: '{"concepts": ["land/LandAdministrativeUnit", "land/LandBoundaryAssertion", "land/LandSpatialUnit", "land/LandTenureAssertion"], "properties": ["tenure_category", "tenure_holder", "tenure_object", "tenure_share"], "vocabularies": ["land/tenure-category"]}'
+  UpovConvention1991Citation:
+    class_uri: publicschema:Citation/upov-convention-1991
+    is_a: Citation
+    title: International Convention for the Protection of New Varieties of Plants (1991 Act)
+    annotations:
+      citation_id: upov-convention-1991
+      title: International Convention for the Protection of New Varieties of Plants (1991 Act)
+      short_title: UPOV Convention 1991
+      publisher: International Union for the Protection of New Varieties of Plants (UPOV)
+      year: 1991
+      type: legal_instrument
+      domain: general
+      uri: https://www.upov.int/documents/d/upov/docs-en-publications-upov_pub_221.pdf
+      access: open
+      status: active
+      standard_number: UPOV Publication No. 221(E)
+      note: Article 1(iv) breeder, 1(vi) variety and Article 20 variety denomination.
+      informs_json: '{"concepts": ["PlantVariety"], "properties": ["variety_denominations"]}'
+  FaoBioversityMcpd21Citation:
+    class_uri: publicschema:Citation/fao-bioversity-mcpd-2-1
+    is_a: Citation
+    title: FAO/Bioversity Multi-Crop Passport Descriptors V.2.1
+    annotations:
+      citation_id: fao-bioversity-mcpd-2-1
+      title: FAO/Bioversity Multi-Crop Passport Descriptors V.2.1
+      short_title: MCPD V.2.1
+      publisher: Food and Agriculture Organization of the United Nations (FAO) and Bioversity International
+      year: 2015
+      type: specification
+      domain: general
+      uri: https://cgspace.cgiar.org/handle/10568/69166
+      access: open
+      status: active
+      version: 2.1 (December 2015)
+      note: Descriptors 0, 1 INSTCODE, 2 ACCENUMB, 11, 17, 19 and 20; formatting rule (iii) for partial
+        dates (YYYYMMDD with -- for missing parts).
+      informs_json: '{"concepts": ["GeneticResourceAccession"], "properties": ["accession_collection_date", "accession_number", "maintaining_institute"]}'
+  FaoItpgrfa2001Citation:
+    class_uri: publicschema:Citation/fao-itpgrfa-2001
+    is_a: Citation
+    title: International Treaty on Plant Genetic Resources for Food and Agriculture
+    annotations:
+      citation_id: fao-itpgrfa-2001
+      title: International Treaty on Plant Genetic Resources for Food and Agriculture
+      short_title: ITPGRFA
+      publisher: Food and Agriculture Organization of the United Nations (FAO)
+      year: 2001
+      type: legal_instrument
+      domain: general
+      uri: https://www.fao.org/3/i0510e/i0510e.pdf
+      access: open
+      status: active
+      note: Article 2, use of terms.
+      informs_json: '{"concepts": ["GeneticResourceAccession"]}'
+  EuReg2016429Citation:
+    class_uri: publicschema:Citation/eu-reg-2016-429
+    is_a: Citation
+    title: Regulation (EU) 2016/429 on transmissible animal diseases and amending and repealing certain
+      acts in the area of animal health (Animal Health Law)
+    annotations:
+      citation_id: eu-reg-2016-429
+      title: Regulation (EU) 2016/429 on transmissible animal diseases and amending and repealing certain
+        acts in the area of animal health (Animal Health Law)
+      short_title: EU Animal Health Law
+      publisher: European Parliament and Council of the European Union
+      year: 2016
+      type: legal_instrument
+      domain: general
+      uri: https://eur-lex.europa.eu/eli/reg/2016/429/oj
+      access: open
+      status: active
+      standard_number: Regulation (EU) 2016/429
+      note: Article 4(1), 4(12), 4(13), 4(24), 4(27), 4(39), 4(48) and 4(50); Articles 84, 102(1), 108(3)(a)
+        and 172. The establishment type is recorded as data.
+      informs_json: '{"concepts": ["AnimalMovement", "AnimalResponsibility", "IndividualAnimal"], "properties": ["animal_responsible_actor"], "vocabularies": ["agri/agricultural-facility-function"]}'
+  EuRegDel20192035Citation:
+    class_uri: publicschema:Citation/eu-reg-del-2019-2035
+    is_a: Citation
+    title: Commission Delegated Regulation (EU) 2019/2035 supplementing Regulation (EU) 2016/429 as regards
+      rules for establishments keeping terrestrial animals and hatcheries, and the traceability of certain
+      kept terrestrial animals and hatching eggs
+    annotations:
+      citation_id: eu-reg-del-2019-2035
+      title: Commission Delegated Regulation (EU) 2019/2035 supplementing Regulation (EU) 2016/429 as
+        regards rules for establishments keeping terrestrial animals and hatcheries, and the traceability
+        of certain kept terrestrial animals and hatching eggs
+      short_title: EU Del. Reg. 2019/2035
+      publisher: European Commission
+      year: 2019
+      type: legal_instrument
+      domain: general
+      uri: https://eur-lex.europa.eu/eli/reg_del/2019/2035/oj
+      access: open
+      status: active
+      standard_number: Commission Delegated Regulation (EU) 2019/2035
+      note: Article 2(18) and 2(28) breed society; Article 23(1), (2) (year-only birth date for ovine
+        and caprine animals) and (4); Article 42(d) movement dates.
+      informs_json: '{"properties": ["animal_birth_date", "breed_recognized_by", "movement_arrival_date", "movement_departure_date"]}'
+  IcarAde151Citation:
+    class_uri: publicschema:Citation/icar-ade-1-5-1
+    is_a: Citation
+    title: ICAR Animal Data Exchange (ADE) standard
+    annotations:
+      citation_id: icar-ade-1-5-1
+      title: ICAR Animal Data Exchange (ADE) standard
+      short_title: ICAR ADE 1.5.1
+      publisher: International Committee for Animal Recording (ICAR)
+      year: 2025
+      type: specification
+      domain: general
+      uri: https://github.com/adewg/ICAR/tree/v1.5.1
+      access: open
+      status: active
+      version: 1.5.1 (2025-12-10)
+      note: types/icarParentageType.json (genetic, recipient and adoptive parents) and icarConsignmentType.countConsigned.
+      informs_json: '{"concepts": ["IndividualAnimal"], "properties": ["animal_sex", "genetic_dam", "genetic_sire", "moved_animal_count"]}'
+  TdwgDwc20260526Citation:
+    class_uri: publicschema:Citation/tdwg-dwc-2026-05-26
+    is_a: Citation
+    title: Darwin Core
+    annotations:
+      citation_id: tdwg-dwc-2026-05-26
+      title: Darwin Core
+      short_title: Darwin Core
+      publisher: Biodiversity Information Standards (TDWG)
+      year: 2026
+      type: specification
+      domain: general
+      uri: http://rs.tdwg.org/version/dwc/2026-05-26
+      access: open
+      status: active
+      version: '2026-05-26'
+      note: Terms Organism, MaterialEntity, Occurrence, taxonID, sex, individualCount, eventDate (ISO
+        8601-1:2019 reduced precision), catalogNumber and institutionID.
+      informs_json: '{"concepts": ["IndividualAnimal"], "properties": ["animal_birth_date", "animal_count", "biological_taxon"]}'
+  ColXrCitation:
+    class_uri: publicschema:Citation/col-xr
+    is_a: Citation
+    title: Catalogue of Life eXtended Release
+    annotations:
+      citation_id: col-xr
+      title: Catalogue of Life eXtended Release
+      short_title: COL XR
+      publisher: Catalogue of Life
+      year: 2026
+      type: classification
+      domain: general
+      uri: https://doi.org/10.48580/dgyy9
+      access: open
+      status: active
+      note: GBIF dataset 7ddf754f-d193-4cc9-b351-99906754a03b; the DOI resolved to release COL26.6 XR
+        when checked. Pin a dated release when a profile adopts it.
+      informs_json: '{"properties": ["biological_taxon"]}'
+  IstaRules2026Citation:
+    class_uri: publicschema:Citation/ista-rules-2026
+    is_a: Citation
+    title: International Rules for Seed Testing 2026
+    annotations:
+      citation_id: ista-rules-2026
+      title: International Rules for Seed Testing 2026
+      short_title: ISTA Rules 2026
+      publisher: International Seed Testing Association (ISTA)
+      year: 2026
+      type: international_standard
+      domain: general
+      uri: https://www.seedtest.org/api/rm/776HVE3532HC95N/free-chapter-2-sampling.pdf
+      access: open
+      status: active
+      standard_number: doi:10.15258/istarules.2026.02
+      note: 'Chapter 2 (sampling), 2.2.1 and 2.2.2: seed lot.'
+      informs_json: '{"concepts": ["SeedLot"], "properties": ["seed_lot_production_date"]}'
+  WoahTahc2024Ch42Citation:
+    class_uri: publicschema:Citation/woah-tahc-2024-ch4-2
+    is_a: Citation
+    title: 'Terrestrial Animal Health Code, Chapter 4.2: General principles on identification and traceability
+      of live animals'
+    annotations:
+      citation_id: woah-tahc-2024-ch4-2
+      title: 'Terrestrial Animal Health Code, Chapter 4.2: General principles on identification and traceability
+        of live animals'
+      short_title: WOAH TAHC chapter 4.2
+      publisher: World Organisation for Animal Health
+      year: 2024
+      type: international_standard
+      domain: general
+      uri: https://www.woah.org/fileadmin/Home/eng/Health_standards/tahc/2024/en_chapitre_ident_traceability.htm
+      access: open
+      status: active
+      version: 32nd edition
+      note: 'Article 4.2.1: animal identification and animal traceability, including animal movement controls.'
+      informs_json: '{"concepts": ["AnimalMovement", "IdentifiedAnimalUnit"]}'
+  EuReg20131308Citation:
+    class_uri: publicschema:Citation/eu-reg-2013-1308
+    is_a: Citation
+    title: Regulation (EU) No 1308/2013 establishing a common organisation of the markets in agricultural
+      products
+    annotations:
+      citation_id: eu-reg-2013-1308
+      title: Regulation (EU) No 1308/2013 establishing a common organisation of the markets in agricultural
+        products
+      short_title: EU Reg. 1308/2013
+      publisher: European Parliament and Council of the European Union
+      year: 2013
+      type: legal_instrument
+      domain: general
+      uri: https://eur-lex.europa.eu/eli/reg/2013/1308/oj
+      access: open
+      status: active
+      standard_number: Regulation (EU) No 1308/2013
+      note: Article 1(2) sectors and Articles 152 to 156 producer organisations; amended by Regulation
+        (EU) 2021/2117.
+      informs_json: '{"concepts": ["agri/ProducerOrganization"], "properties": ["producer_sector"]}'
+  EuReg20091107Citation:
+    class_uri: publicschema:Citation/eu-reg-2009-1107
+    is_a: Citation
+    title: Regulation (EC) No 1107/2009 concerning the placing of plant protection products on the market
+    annotations:
+      citation_id: eu-reg-2009-1107
+      title: Regulation (EC) No 1107/2009 concerning the placing of plant protection products on the market
+      short_title: EU Reg. 1107/2009
+      publisher: European Parliament and Council of the European Union
+      year: 2009
+      type: legal_instrument
+      domain: general
+      uri: https://eur-lex.europa.eu/eli/reg/2009/1107/oj
+      access: open
+      status: active
+      standard_number: Regulation (EC) No 1107/2009
+      note: Articles 2(1) to (3) (active substances, safeners, synergists, co-formulants) and 3.
+      informs_json: '{"properties": ["component_role"], "vocabularies": ["agri/agricultural-input-category"]}'
+  EuDir2009128Citation:
+    class_uri: publicschema:Citation/eu-dir-2009-128
+    is_a: Citation
+    title: Directive 2009/128/EC establishing a framework for Community action to achieve the sustainable
+      use of pesticides
+    annotations:
+      citation_id: eu-dir-2009-128
+      title: Directive 2009/128/EC establishing a framework for Community action to achieve the sustainable
+        use of pesticides
+      short_title: EU Dir. 2009/128
+      publisher: European Parliament and Council of the European Union
+      year: 2009
+      type: legal_instrument
+      domain: general
+      uri: https://eur-lex.europa.eu/eli/dir/2009/128/oj
+      access: open
+      status: active
+      standard_number: Directive 2009/128/EC
+      note: 'Article 3(10): pesticide covers plant protection and biocidal products; Articles 5, 6 and
+        8.'
+      informs_json: '{"vocabularies": ["agri/agricultural-input-category", "agri/agricultural-service-type"]}'
+  EuReg20162031Citation:
+    class_uri: publicschema:Citation/eu-reg-2016-2031
+    is_a: Citation
+    title: Regulation (EU) 2016/2031 on protective measures against pests of plants
+    annotations:
+      citation_id: eu-reg-2016-2031
+      title: Regulation (EU) 2016/2031 on protective measures against pests of plants
+      short_title: EU Reg. 2016/2031
+      publisher: European Parliament and Council of the European Union
+      year: 2016
+      type: legal_instrument
+      domain: general
+      uri: https://eur-lex.europa.eu/eli/reg/2016/2031/oj
+      access: open
+      status: active
+      standard_number: Regulation (EU) 2016/2031
+      note: 'Articles 2(9), 65, 66 and 89: professional operators and plant passports.'
+      informs_json: '{"vocabularies": ["agri/agricultural-facility-function"]}'
+  EuReg2013167Citation:
+    class_uri: publicschema:Citation/eu-reg-2013-167
+    is_a: Citation
+    title: Regulation (EU) No 167/2013 on the approval and market surveillance of agricultural and forestry
+      vehicles
+    annotations:
+      citation_id: eu-reg-2013-167
+      title: Regulation (EU) No 167/2013 on the approval and market surveillance of agricultural and forestry
+        vehicles
+      short_title: EU Reg. 167/2013
+      publisher: European Parliament and Council of the European Union
+      year: 2013
+      type: legal_instrument
+      domain: general
+      uri: https://eur-lex.europa.eu/eli/reg/2013/167/oj
+      access: open
+      status: active
+      standard_number: Regulation (EU) No 167/2013
+      note: 'Articles 3(8) to (11) and 4: tractor and machine categories.'
+      informs_json: '{"concepts": ["agri/AgriculturalMachine"], "properties": ["machine_category"]}'
+  UnsdIsicRev4Citation:
+    class_uri: publicschema:Citation/unsd-isic-rev4
+    is_a: Citation
+    title: International Standard Industrial Classification of All Economic Activities (ISIC), Rev.4
+    annotations:
+      citation_id: unsd-isic-rev4
+      title: International Standard Industrial Classification of All Economic Activities (ISIC), Rev.4
+      short_title: ISIC Rev.4
+      publisher: United Nations Statistics Division
+      year: 2008
+      type: classification
+      domain: general
+      uri: https://unstats.un.org/unsd/publication/seriesm/seriesm_4rev4e.pdf
+      access: open
+      status: active
+      note: Group 016 (support activities to agriculture) and class 0130 (plant propagation).
+      informs_json: '{"vocabularies": ["agri/agricultural-service-type"]}'
+  IsoIec170252017Citation:
+    class_uri: publicschema:Citation/iso-iec-17025-2017
+    is_a: Citation
+    title: General requirements for the competence of testing and calibration laboratories
+    annotations:
+      citation_id: iso-iec-17025-2017
+      title: General requirements for the competence of testing and calibration laboratories
+      short_title: ISO/IEC 17025
+      publisher: International Organization for Standardization
+      year: 2017
+      type: international_standard
+      domain: general
+      uri: https://www.iso.org/standard/66912.html
+      access: paywalled
+      status: active
+      standard_number: ISO/IEC 17025:2017
+      note: 'Clause 3.6: laboratory.'
+      informs_json: '{"concepts": ["agri/AgriculturalLaboratory"], "properties": ["laboratory_capability"]}'
+  IcaCooperativeIdentity1995Citation:
+    class_uri: publicschema:Citation/ica-cooperative-identity-1995
+    is_a: Citation
+    title: Statement on the Cooperative Identity
+    annotations:
+      citation_id: ica-cooperative-identity-1995
+      title: Statement on the Cooperative Identity
+      short_title: ICA cooperative identity
+      publisher: International Cooperative Alliance (ICA)
+      year: 1995
+      type: guidance_publication
+      domain: general
+      uri: https://ica.coop/en/cooperatives/cooperative-identity
+      access: open
+      status: active
+      note: Definition of a cooperative and the cooperative principles.
+      informs_json: '{"concepts": ["agri/ProducerOrganization"]}'
+  CodexCxc542004Citation:
+    class_uri: publicschema:Citation/codex-cxc-54-2004
+    is_a: Citation
+    title: Code of Practice on Good Animal Feeding (CXC 54-2004)
+    annotations:
+      citation_id: codex-cxc-54-2004
+      title: Code of Practice on Good Animal Feeding (CXC 54-2004)
+      short_title: Codex CXC 54-2004
+      publisher: Codex Alimentarius Commission (FAO/WHO)
+      year: 2004
+      type: international_standard
+      domain: general
+      uri: https://www.fao.org/input/download/standards/10080/CXP_054e.pdf
+      access: open
+      status: active
+      standard_number: CXC 54-2004
+      note: 'Section 3: definitions of feed and feed ingredient.'
+      informs_json: '{"vocabularies": ["agri/agricultural-input-category"]}'
+  FaoFertilizerCode2019Citation:
+    class_uri: publicschema:Citation/fao-fertilizer-code-2019
+    is_a: Citation
+    title: International Code of Conduct for the Sustainable Use and Management of Fertilizers
+    annotations:
+      citation_id: fao-fertilizer-code-2019
+      title: International Code of Conduct for the Sustainable Use and Management of Fertilizers
+      short_title: FAO Fertilizer Code
+      publisher: Food and Agriculture Organization of the United Nations (FAO)
+      year: 2019
+      type: guidance_publication
+      domain: general
+      uri: https://openknowledge.fao.org/3/ca5253en/ca5253en.pdf
+      access: open
+      status: active
+      note: 'Article 2: definitions.'
+      informs_json: '{"vocabularies": ["agri/agricultural-input-category"]}'
+  FaoWhoPesticideCode2014Citation:
+    class_uri: publicschema:Citation/fao-who-pesticide-code-2014
+    is_a: Citation
+    title: The International Code of Conduct on Pesticide Management
+    annotations:
+      citation_id: fao-who-pesticide-code-2014
+      title: The International Code of Conduct on Pesticide Management
+      short_title: Pesticide Code
+      publisher: Food and Agriculture Organization of the United Nations (FAO) and World Health Organization
+        (WHO)
+      year: 2014
+      type: guidance_publication
+      domain: general
+      uri: https://www.fao.org/3/I3604E/I3604E.pdf
+      access: open
+      status: active
+      standard_number: ISBN 978-92-5-108548-6
+      note: 'Article 2: definitions.'
+      informs_json: '{"vocabularies": ["agri/agricultural-input-category"]}'
+  EuReg2005183Citation:
+    class_uri: publicschema:Citation/eu-reg-2005-183
+    is_a: Citation
+    title: Regulation (EC) No 183/2005 laying down requirements for feed hygiene
+    annotations:
+      citation_id: eu-reg-2005-183
+      title: Regulation (EC) No 183/2005 laying down requirements for feed hygiene
+      short_title: EU Reg. 183/2005
+      publisher: European Parliament and Council of the European Union
+      year: 2005
+      type: legal_instrument
+      domain: general
+      uri: https://eur-lex.europa.eu/eli/reg/2005/183/oj
+      access: open
+      status: active
+      standard_number: Regulation (EC) No 183/2005
+      note: 'Articles 3, 9, 10 and 19: feed business operators, registration and approval.'
+      informs_json: '{"vocabularies": ["agri/agricultural-input-category"]}'
+  WoahAquatic2024Citation:
+    class_uri: publicschema:Citation/woah-aquatic-2024
+    is_a: Citation
+    title: Aquatic Animal Health Code, Glossary
+    annotations:
+      citation_id: woah-aquatic-2024
+      title: Aquatic Animal Health Code, Glossary
+      short_title: WOAH Aquatic Code glossary
+      publisher: World Organisation for Animal Health
+      year: 2024
+      type: international_standard
+      domain: general
+      uri: https://www.woah.org/fileadmin/Home/eng/Health_standards/aahc/current/glossaire.pdf
+      access: open
+      status: active
+      version: 26th edition
+      note: 'Glossary: aquaculture establishment. The current/ path follows the latest edition.'
+      informs_json: '{"vocabularies": ["agri/agricultural-facility-function"]}'
+  FaoPsma2009Citation:
+    class_uri: publicschema:Citation/fao-psma-2009
+    is_a: Citation
+    title: Agreement on Port State Measures to Prevent, Deter and Eliminate Illegal, Unreported and Unregulated
+      Fishing
+    annotations:
+      citation_id: fao-psma-2009
+      title: Agreement on Port State Measures to Prevent, Deter and Eliminate Illegal, Unreported and
+        Unregulated Fishing
+      short_title: PSMA
+      publisher: Food and Agriculture Organization of the United Nations (FAO)
+      year: 2009
+      type: legal_instrument
+      domain: general
+      uri: https://www.fao.org/fileadmin/user_upload/legal/docs/037t-e.pdf
+      access: open
+      status: active
+      note: 'Article 1(j): vessel.'
+      informs_json: '{"concepts": ["agri/FishingVessel"]}'
+  InspireTgAfCitation:
+    class_uri: publicschema:Citation/inspire-tg-af
+    is_a: Citation
+    title: 'INSPIRE Data Specification on Agricultural and Aquaculture Facilities: Technical Guidelines'
+    annotations:
+      citation_id: inspire-tg-af
+      title: 'INSPIRE Data Specification on Agricultural and Aquaculture Facilities: Technical Guidelines'
+      short_title: INSPIRE AF TG
+      publisher: INSPIRE Maintenance and Implementation Group (MIG)
+      year: 2024
+      type: specification
+      domain: general
+      uri: https://inspire-mif.github.io/technical-guidelines/data/af/dataspecification_af.html
+      access: open
+      status: active
+      version: D2.8.III.9 v3.1.0
+      note: One Site class with an activity code (sections 5.3.2.1 and 5.4.2.1).
+      informs_json: '{"concepts": ["agri/AgriculturalFacility"], "vocabularies": ["agri/agricultural-facility-function"]}'

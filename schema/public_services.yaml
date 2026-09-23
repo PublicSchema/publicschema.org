@@ -41,7 +41,7 @@ classes:
     close_mappings:
     - cpsv:PublicService
     annotations:
-      bibliography_refs: '["gov-cpsv-ap-311"]'
+      bibliography_refs: '["semic-cpsv-ap"]'
       external_alignments_json: '[{"label": "Public Service", "match": "close", "note": "CPSV-AP 3.2.0 informs the separation of a catalogue service from its use and its audience and competent authority links. This smaller native description does not implement CPSV-AP cardinalities, its public funding criterion or its RDF wire profile.", "uri": "http://purl.org/vocab/cpsv#PublicService", "vocabulary": "CPSV-AP 3.2.0", "vocabulary_id": "semic"}]'
   ServiceApplication:
     class_uri: publicschema:ServiceApplication
@@ -64,7 +64,7 @@ classes:
     - recorded_at
     status: bibo:draft
     annotations:
-      bibliography_refs: '["gov-cpsv-ap-311"]'
+      bibliography_refs: '["eu-reg-2018-1724", "semic-cpsv-ap"]'
   AdministrativeDecision:
     class_uri: publicschema:AdministrativeDecision
     title: Administrative Decision
@@ -89,7 +89,7 @@ classes:
     - recorded_at
     status: bibo:draft
     annotations:
-      bibliography_refs: '["gov-cpsv-ap-311"]'
+      bibliography_refs: '["eu-reg-2018-1724", "semic-cpsv-ap"]'
   AdministrativeAppeal:
     class_uri: publicschema:AdministrativeAppeal
     title: Administrative Appeal
@@ -109,7 +109,7 @@ classes:
     - recorded_at
     status: bibo:draft
     annotations:
-      bibliography_refs: '["gov-cpsv-ap-311"]'
+      bibliography_refs: '["semic-cpsv-ap"]'
   OrganizationalChangeEvent:
     class_uri: publicschema:OrganizationalChangeEvent
     title: Organizational Change Event
@@ -131,7 +131,7 @@ classes:
     close_mappings:
     - org:ChangeEvent
     annotations:
-      bibliography_refs: '["gov-org"]'
+      bibliography_refs: '["w3c-org"]'
       external_alignments_json: '[{"label": "Change Event", "match": "close", "note": "W3C ORG Recommendation 16 January 2014 supplies the original/resulting organization pattern for a material change with distinct identity. PublicSchema adds registry recording and effective timestamps and does not implement the PROV activity interval or ORG property-chain entailments.", "uri": "http://www.w3.org/ns/org#ChangeEvent", "vocabulary": "W3C ORG 2014", "vocabulary_id": "w3c-org"}]'
   ServiceCapacityObservation:
     class_uri: publicschema:ServiceCapacityObservation
@@ -149,7 +149,7 @@ classes:
     close_mappings:
     - sosa:Observation
     annotations:
-      bibliography_refs: '["w3c-sosa-2017", "ucum-specification"]'
+      bibliography_refs: '["fhir-r5", "regenstrief-ucum", "w3c-ssn-sosa"]'
 slots:
   service_competent_authorities:
     slot_uri: publicschema:service_competent_authorities
@@ -165,6 +165,7 @@ slots:
     annotations:
       category: governance
       external_alignments_json: '[{"label": "Has competent authority", "match": "close", "note": "CPSV-AP 3.2.0 informs the competent-authority relationship. This native optional field does not implement the upstream minimum cardinality or establish conformance to the full RDF profile.", "uri": "http://data.europa.eu/m8g/hasCompetentAuthority", "vocabulary": "CPSV-AP 3.2.0", "vocabulary_id": "semic"}]'
+      bibliography_refs: '["semic-cpsv-ap"]'
   service_audience:
     slot_uri: publicschema:service_audience
     title: Service audience
@@ -308,6 +309,7 @@ slots:
     annotations:
       category: governance
       external_alignments_json: '[{"label": "Original organization", "match": "close", "note": "W3C ORG Recommendation 16 January 2014 informs the original-organization link. This native field uses PublicSchema Organization references and does not implement ORG inverse properties or PROV property entailments.", "uri": "http://www.w3.org/ns/org#originalOrganization", "vocabulary": "W3C ORG 2014", "vocabulary_id": "w3c-org"}]'
+      bibliography_refs: '["w3c-org"]'
   resulting_organizations:
     slot_uri: publicschema:resulting_organizations
     title: Resulting organizations
@@ -321,6 +323,7 @@ slots:
     annotations:
       category: governance
       external_alignments_json: '[{"label": "Resulting organization", "match": "close", "note": "W3C ORG Recommendation 16 January 2014 informs the resulting-organization link. This native field uses PublicSchema Organization references and does not implement ORG inverse properties or PROV property-chain entailments.", "uri": "http://www.w3.org/ns/org#resultingOrganization", "vocabulary": "W3C ORG 2014", "vocabulary_id": "w3c-org"}]'
+      bibliography_refs: '["w3c-org"]'
   capacity_measure:
     slot_uri: publicschema:capacity_measure
     title: Capacity measure

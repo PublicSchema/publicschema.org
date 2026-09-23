@@ -34,7 +34,7 @@ classes:
     - http://inspire.ec.europa.eu/featureconcept/ProductionFacility
     annotations:
       source_domain: environment
-      bibliography_refs: '["gov-epa-frs", "gov-eu-industrial-emissions-portal"]'
+      bibliography_refs: '["eu-reg-2024-1244", "inspire-fc", "inspire-tg-pf", "us-epa-frs"]'
       external_alignments_json: '[{"label": "ProductionFacility", "match": "close", "note": "INSPIRE defines
         a production facility as installations on one site operated by the same natural or legal person,
         so a change of operator can make a new facility there. This concept keeps its identity across operator
@@ -60,7 +60,7 @@ classes:
     is_a: Authorization
     annotations:
       source_domain: environment
-      bibliography_refs: '["uk-water-authorization"]'
+      bibliography_refs: '["agrovoc", "eu-dir-2000-60", "uk-ea-water-abstraction-licence"]'
       external_alignments_json: '[{"label": "Controls over abstraction and impoundment (Article 11(3)(e))",
         "match": "related", "note": "Directive 2000/60/EC requires prior authorization of surface and groundwater
         abstraction and impoundment.", "uri": "https://eur-lex.europa.eu/eli/dir/2000/60/oj", "vocabulary":
@@ -86,6 +86,7 @@ slots:
         2024/1244", "vocabulary_id": "eu-reg-2024-1244"}, {"label": "NACECodeValue", "match": "related",
         "note": "INSPIRE production facilities code their economic activity with NACE.", "uri": "http://inspire.ec.europa.eu/codelist/NACECodeValue",
         "vocabulary": "INSPIRE code lists", "vocabulary_id": "inspire-cl"}]'
+      bibliography_refs: '["eu-reg-2024-1244", "inspire-cl", "inspire-tg-pf"]'
   authorized_water_source:
     slot_uri: publicschema:environment/authorized_water_source
     title: Authorized water source
@@ -110,7 +111,7 @@ slots:
     annotations:
       source_domain: environment
       category: agriculture
-      bibliography_refs: '["ucum-specification"]'
+      bibliography_refs: '["regenstrief-ucum"]'
   irrigation_scheme:
     slot_uri: publicschema:agri/irrigation_scheme
     title: Irrigation scheme

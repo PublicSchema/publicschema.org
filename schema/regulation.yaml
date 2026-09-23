@@ -35,7 +35,7 @@ classes:
     - assessment_findings
     status: bibo:draft
     annotations:
-      bibliography_refs: '["gov-epa-echo"]'
+      bibliography_refs: '["eu-reg-2017-625", "iso-iec-17000", "us-epa-echo"]'
   RegulatoryAction:
     class_uri: publicschema:RegulatoryAction
     title: Regulatory Action
@@ -53,7 +53,7 @@ classes:
     - action_description
     status: bibo:draft
     annotations:
-      bibliography_refs: '["gov-epa-echo"]'
+      bibliography_refs: '["eu-reg-2017-625", "us-epa-echo"]'
   Certification:
     class_uri: publicschema:Certification
     title: Certification
@@ -76,7 +76,7 @@ classes:
     see_also:
     - https://agdatacommons.nal.usda.gov/articles/dataset/The_Organic_INTEGRITY_Database/24661722
     annotations:
-      bibliography_refs: '["usda-integrity"]'
+      bibliography_refs: '["iso-iec-17000", "iso-iec-17065-2012", "usda-integrity"]'
 slots:
   assessed_requirements:
     slot_uri: publicschema:assessed_requirements
@@ -161,6 +161,7 @@ slots:
     annotations:
       category: administrative
       sensitivity: sensitive
+      bibliography_refs: '["schema-org"]'
   certifying_organization:
     slot_uri: publicschema:certifying_organization
     title: Certifying organization
@@ -173,6 +174,7 @@ slots:
     - schema:issuedBy
     annotations:
       category: governance
+      bibliography_refs: '["schema-org"]'
   certification_scheme:
     slot_uri: publicschema:certification_scheme
     title: Certification scheme
@@ -182,6 +184,7 @@ slots:
     status: bibo:draft
     annotations:
       category: governance
+      bibliography_refs: '["iso-iec-17065-2012"]'
   certification_scope:
     slot_uri: publicschema:certification_scope
     title: Certification scope
@@ -192,3 +195,4 @@ slots:
     status: bibo:draft
     annotations:
       category: classification
+      bibliography_refs: '["iso-iec-17065-2012"]'

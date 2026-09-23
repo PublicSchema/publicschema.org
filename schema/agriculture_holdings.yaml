@@ -41,7 +41,7 @@ classes:
       label_fr: Exploitation agricole
       convergence_json: '{"notes": "Low coverage. Only DHIS2 (workaround) and OpenSPP have farm data models.",
         "system_count": 2, "total_systems": 6}'
-      bibliography_refs: '["fao-vggt", "fao-wca-2020-vol1", "lsms-isa"]'
+      bibliography_refs: '["fao-vggt", "fao-wca-2020-vol1", "fao-wca-2030", "lsms-isa"]'
   AgriculturalParcel:
     class_uri: publicschema:agri/AgriculturalParcel
     title: Agricultural Parcel
@@ -60,7 +60,7 @@ classes:
     status: bibo:draft
     annotations:
       source_domain: agri
-      bibliography_refs: '["fao-wca-2020-vol1", "unece-property-units-2004"]'
+      bibliography_refs: '["fao-wca-2020-vol1", "fao-wca-2030", "unece-property-units-2004"]'
   HoldingParcelLink:
     class_uri: publicschema:agri/HoldingParcelLink
     title: Holding Parcel Link
@@ -76,7 +76,7 @@ classes:
     status: bibo:draft
     annotations:
       source_domain: agri
-      bibliography_refs: '["fao-wca-2020-vol1", "fao-vggt"]'
+      bibliography_refs: '["fao-vggt", "fao-wca-2020-vol1", "fao-wca-2030"]'
   FarmerRegistration:
     class_uri: publicschema:agri/FarmerRegistration
     title: Farmer Registration
@@ -92,7 +92,7 @@ classes:
     status: bibo:draft
     annotations:
       source_domain: agri
-      bibliography_refs: '["fao-wca-2020-vol1"]'
+      bibliography_refs: '["fao-wca-2020-vol1", "fao-wca-2030"]'
     is_a: Registration
   AgriculturalHolderRole:
     class_uri: publicschema:agri/AgriculturalHolderRole
@@ -113,7 +113,7 @@ classes:
     - https://www.fao.org/4/i4913e/i4913e.pdf
     annotations:
       source_domain: agri
-      bibliography_refs: '["fao-wca-2020-vol1"]'
+      bibliography_refs: '["fao-wca-2020-vol1", "fao-wca-2030"]'
     abstract: true
   PersonAgriculturalHolderRole:
     class_uri: publicschema:agri/PersonAgriculturalHolderRole
@@ -127,7 +127,7 @@ classes:
     - https://www.fao.org/4/i4913e/i4913e.pdf
     annotations:
       source_domain: agri
-      bibliography_refs: '["fao-wca-2020-vol1"]'
+      bibliography_refs: '["fao-wca-2020-vol1", "fao-wca-2030"]'
     is_a: AgriculturalHolderRole
   OrganizationAgriculturalHolderRole:
     class_uri: publicschema:agri/OrganizationAgriculturalHolderRole
@@ -141,7 +141,7 @@ classes:
     - https://www.fao.org/4/i4913e/i4913e.pdf
     annotations:
       source_domain: agri
-      bibliography_refs: '["fao-wca-2020-vol1"]'
+      bibliography_refs: '["fao-wca-2020-vol1", "fao-wca-2030"]'
     is_a: AgriculturalHolderRole
   GroupAgriculturalHolderRole:
     class_uri: publicschema:agri/GroupAgriculturalHolderRole
@@ -156,7 +156,7 @@ classes:
     - https://www.fao.org/4/i4913e/i4913e.pdf
     annotations:
       source_domain: agri
-      bibliography_refs: '["fao-wca-2020-vol1"]'
+      bibliography_refs: '["fao-wca-2020-vol1", "fao-wca-2030"]'
     is_a: AgriculturalHolderRole
   HoldingWorkAssignment:
     class_uri: publicschema:agri/HoldingWorkAssignment
@@ -185,7 +185,7 @@ classes:
     - https://unstats.un.org/UNSDWebsite/statcom/session_57/documents/BG-3g-1-Background_document_WCA_2030-E.pdf
     annotations:
       source_domain: agri
-      bibliography_refs: '["ilo-icse18-manual-2023", "fao-wca2030-jan2026-draft"]'
+      bibliography_refs: '["fao-wca-2030", "ilo-icse18-manual-2023"]'
 slots:
   holder_farm:
     slot_uri: publicschema:agri/holder_farm
@@ -197,7 +197,7 @@ slots:
     annotations:
       source_domain: agri
       category: administrative
-      bibliography_refs: '["fao-wca-2020-vol1"]'
+      bibliography_refs: '["fao-wca-2020-vol1", "fao-wca-2030"]'
   holder_person:
     slot_uri: publicschema:agri/holder_person
     title: Holder person
@@ -209,7 +209,7 @@ slots:
     annotations:
       source_domain: agri
       category: administrative
-      bibliography_refs: '["fao-wca-2020-vol1"]'
+      bibliography_refs: '["fao-wca-2020-vol1", "fao-wca-2030"]'
   holder_organization:
     slot_uri: publicschema:agri/holder_organization
     title: Holder organization
@@ -221,7 +221,7 @@ slots:
     annotations:
       source_domain: agri
       category: administrative
-      bibliography_refs: '["fao-wca-2020-vol1"]'
+      bibliography_refs: '["fao-wca-2020-vol1", "fao-wca-2030"]'
   holder_group:
     slot_uri: publicschema:agri/holder_group
     title: Holder group
@@ -233,7 +233,7 @@ slots:
     annotations:
       source_domain: agri
       category: administrative
-      bibliography_refs: '["fao-wca-2020-vol1"]'
+      bibliography_refs: '["fao-wca-2020-vol1", "fao-wca-2030"]'
   registered_farms:
     slot_uri: publicschema:agri/registered_farms
     title: Registered farms
@@ -244,7 +244,7 @@ slots:
     annotations:
       source_domain: agri
       category: administrative
-      bibliography_refs: '["fao-wca-2020-vol1"]'
+      bibliography_refs: '["fao-wca-2020-vol1", "fao-wca-2030"]'
   assigned_holding:
     slot_uri: publicschema:agri/assigned_holding
     title: Assigned holding
@@ -256,7 +256,7 @@ slots:
     annotations:
       source_domain: agri
       category: employment
-      bibliography_refs: '["ilo-icse18-manual-2023", "fao-wca2030-jan2026-draft"]'
+      bibliography_refs: '["fao-wca-2030", "ilo-icse18-manual-2023"]'
   assignment_work_relationship:
     slot_uri: publicschema:agri/assignment_work_relationship
     title: Assignment work relationship
@@ -269,7 +269,7 @@ slots:
     annotations:
       source_domain: agri
       category: employment
-      bibliography_refs: '["ilo-icse18-manual-2023", "fao-wca2030-jan2026-draft"]'
+      bibliography_refs: '["fao-wca-2030", "ilo-icse18-manual-2023"]'
   work_functions:
     slot_uri: publicschema:agri/work_functions
     title: Work functions
@@ -282,7 +282,7 @@ slots:
     annotations:
       source_domain: agri
       category: employment
-      bibliography_refs: '["ilo-icse18-manual-2023", "fao-wca2030-jan2026-draft"]'
+      bibliography_refs: '["fao-wca-2030", "ilo-icse18-manual-2023"]'
   parcel_area:
     slot_uri: publicschema:agri/parcel_area
     title: Parcel area
@@ -336,7 +336,7 @@ slots:
     annotations:
       source_domain: agri
       category: agriculture
-      bibliography_refs: '["fao-wca-2020-vol1"]'
+      bibliography_refs: '["fao-wca-2020-vol1", "fao-wca-2030"]'
   land_tenure:
     slot_uri: publicschema:agri/land_tenure
     title: Land tenure
@@ -352,7 +352,7 @@ slots:
       label_fr: Régime foncier
       category: agriculture
       sensitivity: sensitive
-      bibliography_refs: '["fao-vggt", "fao-wca-2020-vol1", "lsms-isa"]'
+      bibliography_refs: '["fao-vggt", "fao-wca-2020-vol1", "fao-wca-2030", "lsms-isa"]'
   livestock_type:
     slot_uri: publicschema:agri/livestock_type
     title: Livestock type
@@ -365,4 +365,4 @@ slots:
       label_es: Tipo de ganado
       label_fr: Type de bétail
       category: agriculture
-      bibliography_refs: '["dhs-recode7", "fao-wca-2020-vol1", "lsms-isa"]'
+      bibliography_refs: '["dhs-recode7", "fao-wca-2020-vol1", "fao-wca-2030", "lsms-isa"]'

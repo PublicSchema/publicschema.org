@@ -28,7 +28,7 @@ classes:
     is_a: Authorization
     annotations:
       source_domain: transport
-      bibliography_refs: '["gov-driving"]'
+      bibliography_refs: '["eu-dir-2025-2205", "uk-dvla-driving-licence-categories"]'
       external_alignments_json: '[{"label": "Driving licence category entry", "match": "related", "note":
         "Directive (EU) 2025/2205, Annex I Part D point 4, fields 9 to 12, records each category with its
         own issue date, expiry date and restriction codes on one licence document. This concept is that
@@ -52,7 +52,7 @@ classes:
     - https://schema.org/Vehicle
     annotations:
       source_domain: transport
-      bibliography_refs: '["gov-dvla"]'
+      bibliography_refs: '["eu-dir-1999-37", "schema-org", "uk-dvla-vehicle-enquiry-api"]'
       external_alignments_json: '[{"label": "Vehicle", "match": "close", "note": "schema.org Vehicle also
         covers aircraft, boats and vehicles offered for sale; this concept is a registered road vehicle.",
         "uri": "https://schema.org/Vehicle", "vocabulary": "schema.org", "vocabulary_id": "schema-org"},
@@ -79,6 +79,7 @@ slots:
         (EU) 2025/2205, Article 6(1), defines the EU categories AM to DE; other jurisdictions use their own
         lists.", "uri": "https://eur-lex.europa.eu/eli/dir/2025/2205/oj", "vocabulary": "Directive (EU) 2025/2205",
         "vocabulary_id": "eu-dir-2025-2205"}]'
+      bibliography_refs: '["eu-dir-2025-2205"]'
   driving_condition_codes:
     slot_uri: publicschema:transport/driving_condition_codes
     title: Driving condition codes
@@ -99,6 +100,7 @@ slots:
         (EU) 2025/2205, Annex I Part E, lists the harmonised restriction codes; codes 01 to 44 concern the
         driver''s health or the vehicle adaptations the driver needs.", "uri": "https://eur-lex.europa.eu/eli/dir/2025/2205/oj",
         "vocabulary": "Directive (EU) 2025/2205", "vocabulary_id": "eu-dir-2025-2205"}]'
+      bibliography_refs: '["eu-dir-2025-2205"]'
   vehicle_make:
     slot_uri: publicschema:transport/vehicle_make
     title: Vehicle make
@@ -115,6 +117,7 @@ slots:
       external_alignments_json: '[{"label": "Make (D.1)", "match": "close", "note": "Council Directive
         1999/37/EC, Annex I, registration certificate field D.1.", "uri": "https://eur-lex.europa.eu/eli/dir/1999/37/oj",
         "vocabulary": "Council Directive 1999/37/EC", "vocabulary_id": "eu-dir-1999-37"}]'
+      bibliography_refs: '["eu-dir-1999-37"]'
   vehicle_model:
     slot_uri: publicschema:transport/vehicle_model
     title: Vehicle model
@@ -134,6 +137,7 @@ slots:
         "vocabulary": "Council Directive 1999/37/EC", "vocabulary_id": "eu-dir-1999-37"}, {"label": "model",
         "match": "close", "uri": "https://schema.org/model", "vocabulary": "schema.org", "vocabulary_id":
         "schema-org"}]'
+      bibliography_refs: '["eu-dir-1999-37", "schema-org"]'
   vehicle_category:
     slot_uri: publicschema:transport/vehicle_category
     title: Vehicle category
@@ -150,6 +154,7 @@ slots:
       external_alignments_json: '[{"label": "Vehicle categories", "match": "close", "note": "Regulation
         (EU) 2018/858, Article 4, defines the M, N and O categories used in EU type approval.", "uri": "https://eur-lex.europa.eu/eli/reg/2018/858/oj",
         "vocabulary": "Regulation (EU) 2018/858", "vocabulary_id": "eu-reg-2018-858"}]'
+      bibliography_refs: '["eu-reg-2018-858"]'
   manufacture_year:
     slot_uri: publicschema:transport/manufacture_year
     title: Manufacture year
@@ -165,3 +170,4 @@ slots:
       external_alignments_json: '[{"label": "productionDate", "match": "close", "note": "schema.org productionDate
         is a full date; this slot keeps only the year.", "uri": "https://schema.org/productionDate", "vocabulary":
         "schema.org", "vocabulary_id": "schema-org"}]'
+      bibliography_refs: '["schema-org"]'

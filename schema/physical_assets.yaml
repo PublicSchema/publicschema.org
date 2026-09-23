@@ -31,7 +31,7 @@ classes:
     - end_date
     status: bibo:draft
     annotations:
-      bibliography_refs: '["gov-dvla"]'
+      bibliography_refs: '["fhir-r5", "uk-dft-v5c-2010"]'
   AssetAddressAssignment:
     class_uri: publicschema:AssetAddressAssignment
     title: Asset Address Assignment
@@ -46,7 +46,7 @@ classes:
     - end_date
     status: bibo:draft
     annotations:
-      bibliography_refs: '["w3c-vcard-2014"]'
+      bibliography_refs: '["fhir-r5", "w3c-vcard-rdf"]'
   Building:
     class_uri: publicschema:Building
     title: Building

@@ -30,7 +30,7 @@ classes:
     - schema:EducationalOrganization
     annotations:
       source_domain: edu
-      bibliography_refs: '["isced-2011", "gov-gias", "gov-org"]'
+      bibliography_refs: '["isced-2011", "schema-org", "uk-dfe-gias", "w3c-org"]'
       external_alignments_json: '[{"label": "EducationalOrganization", "match": "narrow", "note": "schema.org
         EducationalOrganization is both an Organization and a Place and covers organizations whose purpose
         is education. An education provider also includes enterprises and non-governmental organizations
@@ -54,11 +54,11 @@ classes:
     - org:Site
     annotations:
       source_domain: edu
-      bibliography_refs: '["gov-gias", "gov-org"]'
+      bibliography_refs: '["uk-dfe-gias", "w3c-org"]'
       external_alignments_json: '[{"label": "Site", "match": "close", "note": "A W3C ORG site is an office
         or other premises at which an organization is located, and may be virtual. A provider site is a
         place through which learning is delivered; both admit virtual sites.", "uri": "http://www.w3.org/ns/org#Site",
-        "vocabulary": "W3C ORG 2014", "vocabulary_id": "w3c_org"}]'
+        "vocabulary": "W3C ORG 2014", "vocabulary_id": "w3c-org"}]'
   EducationProgram:
     class_uri: publicschema:edu/EducationProgram
     title: Education Program
@@ -106,7 +106,7 @@ classes:
     - schema:CourseInstance
     annotations:
       source_domain: edu
-      bibliography_refs: '["ebsi-europass-elm", "schema-org", "gov-schema-course"]'
+      bibliography_refs: '["ebsi-europass-elm", "schema-org"]'
       external_alignments_json: '[{"label": "Learning Opportunity", "match": "close", "note": "An ELM learning
         opportunity is a provider''s offering with its location, mode, schedule and the learning achievement
         specification it leads to.", "uri": "http://data.europa.eu/snb/model/elm/LearningOpportunity", "vocabulary":
@@ -132,7 +132,7 @@ classes:
     related_mappings:
     - schema:EducationalOccupationalCredential
     annotations:
-      bibliography_refs: '["isced-2011", "ebsi-europass-elm", "gov-fhir-practitioner"]'
+      bibliography_refs: '["ebsi-europass-elm", "eu-dir-2005-36", "fhir-r5", "isced-2011", "schema-org"]'
       external_alignments_json: '[{"label": "Learning Achievement", "match": "close", "note": "An ELM learning
         achievement is a recognized or awarded set of learning outcomes of an individual. FHIR R5
         Practitioner.qualification is broader: it also covers licenses, certifications and training.",
@@ -157,7 +157,8 @@ slots:
       external_alignments_json: '[{"label": "site of", "match": "close", "note": "W3C ORG links a site to
         the organization located there; here the organization is the provider delivering learning through
         the site.", "uri": "http://www.w3.org/ns/org#siteOf", "vocabulary": "W3C ORG 2014", "vocabulary_id":
-        "w3c_org"}]'
+        "w3c-org"}]'
+      bibliography_refs: '["w3c-org"]'
   physical_service_point:
     slot_uri: publicschema:edu/physical_service_point
     title: Physical service point
@@ -205,6 +206,7 @@ slots:
     annotations:
       source_domain: edu
       category: classification
+      bibliography_refs: '["isced-f-2013"]'
   qualification_awarded:
     slot_uri: publicschema:edu/qualification_awarded
     title: Qualification awarded
@@ -269,6 +271,7 @@ slots:
         "ELM links a learning opportunity to the specification, including the curricula, of what it leads
         to, rather than to a program as such.", "uri": "http://data.europa.eu/snb/model/elm/learningAchievementSpecification",
         "vocabulary": "European Learning Model 3", "vocabulary_id": "elm"}]'
+      bibliography_refs: '["ebsi-europass-elm"]'
   offering_provider:
     slot_uri: publicschema:edu/offering_provider
     title: Offering provider
@@ -287,6 +290,7 @@ slots:
         "European Learning Model 3", "vocabulary_id": "elm"}, {"label": "provider", "match": "close", "note":
         "schema.org provider of a course instance or program, which may also be a person.", "uri": "https://schema.org/provider",
         "vocabulary": "schema.org", "vocabulary_id": "schema-org"}]'
+      bibliography_refs: '["ebsi-europass-elm", "schema-org"]'
   offering_sites:
     slot_uri: publicschema:edu/offering_sites
     title: Offering sites
@@ -303,6 +307,7 @@ slots:
       external_alignments_json: '[{"label": "location", "match": "related", "note": "The ELM location of
         a learning opportunity is a place (dct:Location), not a provider site.", "uri": "http://data.europa.eu/snb/model/elm/location",
         "vocabulary": "European Learning Model 3", "vocabulary_id": "elm"}]'
+      bibliography_refs: '["ebsi-europass-elm"]'
   offering_mode:
     slot_uri: publicschema:edu/offering_mode
     title: Offering mode

@@ -22,6 +22,42 @@ from collections import defaultdict
 from build import propose_informs
 
 
+def _alignment(key: str, vocabulary: str) -> dict:
+    return {
+        "external_equivalents": {
+            key: {"vocabulary": vocabulary, "match": "close", "uri": "https://example.org/x"}
+        }
+    }
+
+
+def test_report_reads_the_linkml_schema():
+    report = propose_informs.build_report()
+    assert "fhir-r4" in report.bib_existing
+    assert {p.kind for p in report.proposals} == {"concepts", "properties", "vocabularies"}
+
+
+def test_fhir_r5_alignments_map_to_the_fhir_r5_entry():
+    report = propose_informs.Report()
+    propose_informs.process_external_equivalents(
+        _alignment("fhir-r5", "FHIR R5"), "concept Example", "concepts", "Example", report
+    )
+    assert [(p.bib_id, p.target_id) for p in report.proposals] == [("fhir-r5", "Example")]
+
+
+def test_alignment_ids_that_name_a_bibliography_entry_map_to_it():
+    report = propose_informs.Report()
+    report.bib_existing["eu-dir-2000-60"] = {"concepts": set(), "vocabularies": set(), "properties": set()}
+    propose_informs.process_external_equivalents(
+        _alignment("eu-dir-2000-60", "Directive 2000/60/EC"),
+        "concept Example",
+        "concepts",
+        "Example",
+        report,
+    )
+    assert [p.bib_id for p in report.proposals] == ["eu-dir-2000-60"]
+    assert not report.flags
+
+
 def test_no_informs_drift():
     report = propose_informs.build_report()
     missing: list[str] = []
@@ -34,7 +70,7 @@ def test_no_informs_drift():
             )
     assert not missing, (
         "Bibliography informs drift detected. "
-        "Either add the missing links by running `uv run python build/propose_informs.py --apply`, "
+        "Either add the missing links by running `uv run python -m build.propose_informs --apply`, then update the matching term `bibliography_refs` annotations, "
         "or remove the evidence from the source YAMLs if the link is not intended.\n\n"
         + "\n".join(missing)
     )

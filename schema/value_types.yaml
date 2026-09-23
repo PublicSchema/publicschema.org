@@ -29,7 +29,7 @@ classes:
     - code_meaning
     status: bibo:draft
     annotations:
-      bibliography_refs: '["w3c-dcat-3-2024", "skos", "fhir-r4"]'
+      bibliography_refs: '["fhir-r5", "skos"]'
   QuantityValue:
     class_uri: publicschema:QuantityValue
     title: Quantity Value
@@ -41,7 +41,7 @@ classes:
     - unit_scheme
     status: bibo:draft
     annotations:
-      bibliography_refs: '["ucum-specification", "un-cefact-rec20"]'
+      bibliography_refs: '["regenstrief-ucum", "un-cefact-rec20"]'
   SpatialGeometry:
     class_uri: publicschema:SpatialGeometry
     title: Spatial Geometry
@@ -54,7 +54,7 @@ classes:
     - coordinate_reference_system
     status: bibo:draft
     annotations:
-      bibliography_refs: '["ogc-geosparql-11", "ietf-geojson-7946"]'
+      bibliography_refs: '["ogc-geosparql-11", "rfc-7946", "semic-core-location"]'
 slots:
   code_value:
     slot_uri: publicschema:code_value
@@ -70,6 +70,7 @@ slots:
       external_alignments_json: '[{"label": "notation", "match": "close", "note": "A string that identifies
         a concept within the scope of its concept scheme.", "uri": "http://www.w3.org/2004/02/skos/core#notation",
         "vocabulary": "SKOS", "vocabulary_id": "skos"}]'
+      bibliography_refs: '["skos"]'
   code_scheme:
     slot_uri: publicschema:code_scheme
     title: Code scheme
@@ -86,6 +87,7 @@ slots:
         the concept scheme it belongs to. Here the scheme is named by URI on the coded value rather than
         on a concept resource.", "uri": "http://www.w3.org/2004/02/skos/core#inScheme", "vocabulary":
         "SKOS", "vocabulary_id": "skos"}]'
+      bibliography_refs: '["skos"]'
   code_label:
     slot_uri: publicschema:code_label
     title: Code label
@@ -106,6 +108,7 @@ slots:
     status: bibo:draft
     annotations:
       category: classification
+      bibliography_refs: '["skos"]'
   quantity_value:
     slot_uri: publicschema:quantity_value
     title: Quantity value
@@ -124,6 +127,7 @@ slots:
     status: bibo:draft
     annotations:
       category: other
+      bibliography_refs: '["regenstrief-ucum", "un-cefact-rec20"]'
   unit_scheme:
     slot_uri: publicschema:unit_scheme
     title: Unit scheme
@@ -133,6 +137,7 @@ slots:
     status: bibo:draft
     annotations:
       category: other
+      bibliography_refs: '["regenstrief-ucum"]'
   geometry_encoding:
     slot_uri: publicschema:geometry_encoding
     title: Geometry encoding
@@ -142,6 +147,7 @@ slots:
     status: bibo:draft
     annotations:
       category: location
+      bibliography_refs: '["ogc-geosparql-11"]'
   geometry_literal:
     slot_uri: publicschema:geometry_literal
     title: Geometry literal
@@ -158,6 +164,7 @@ slots:
         geometry with its text serialization. GeoSPARQL carries the encoding in the literal datatype;
         here it is stated in geometry_encoding.", "uri": "http://www.opengis.net/ont/geosparql#hasSerialization",
         "vocabulary": "GeoSPARQL 1.1", "vocabulary_id": "geosparql"}]'
+      bibliography_refs: '["ogc-geosparql-11"]'
   coordinate_reference_system:
     slot_uri: publicschema:coordinate_reference_system
     title: Coordinate reference system
@@ -168,6 +175,7 @@ slots:
     status: bibo:draft
     annotations:
       category: location
+      bibliography_refs: '["ogc-geosparql-11"]'
   spatial_geometry:
     slot_uri: publicschema:spatial_geometry
     title: Spatial geometry

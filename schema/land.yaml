@@ -29,7 +29,7 @@ classes:
     status: bibo:draft
     annotations:
       source_domain: land
-      bibliography_refs: '["unece-property-units-2004"]'
+      bibliography_refs: '["iso-19152-1-2024", "unece-property-units-2004"]'
   LandAdministrativeUnit:
     class_uri: publicschema:land/LandAdministrativeUnit
     title: Land Administrative Unit
@@ -43,7 +43,7 @@ classes:
     status: bibo:draft
     annotations:
       source_domain: land
-      bibliography_refs: '["unece-property-units-2004"]'
+      bibliography_refs: '["iso-19152-1-2024", "unece-property-units-2004"]'
   LandTenureAssertion:
     class_uri: publicschema:land/LandTenureAssertion
     title: Land Tenure Assertion
@@ -63,7 +63,7 @@ classes:
     status: bibo:draft
     annotations:
       source_domain: land
-      bibliography_refs: '["fao-vggt", "unece-property-units-2004"]'
+      bibliography_refs: '["fao-vggt", "iso-19152-1-2024", "unece-property-units-2004"]'
   LandBoundaryAssertion:
     class_uri: publicschema:land/LandBoundaryAssertion
     title: Land Boundary Assertion
@@ -78,7 +78,7 @@ classes:
     status: bibo:draft
     annotations:
       source_domain: land
-      bibliography_refs: '["unece-property-units-2004", "fao-vggt"]'
+      bibliography_refs: '["fao-vggt", "iso-19152-1-2024", "unece-property-units-2004"]'
 slots:
   land_area:
     slot_uri: publicschema:land/land_area
@@ -115,6 +115,7 @@ slots:
       source_domain: land
       category: administrative
       sensitivity: sensitive
+      bibliography_refs: '["iso-19152-1-2024"]'
   tenure_object:
     slot_uri: publicschema:land/tenure_object
     title: Tenure object
@@ -125,6 +126,7 @@ slots:
     annotations:
       source_domain: land
       category: administrative
+      bibliography_refs: '["iso-19152-1-2024"]'
   tenure_category:
     slot_uri: publicschema:land/tenure_category
     title: Tenure category
@@ -135,6 +137,7 @@ slots:
     annotations:
       source_domain: land
       category: administrative
+      bibliography_refs: '["iso-19152-1-2024"]'
   tenure_type:
     slot_uri: publicschema:land/tenure_type
     title: Tenure type
@@ -161,6 +164,7 @@ slots:
     annotations:
       source_domain: land
       category: administrative
+      bibliography_refs: '["iso-19152-1-2024"]'
   boundary_unit:
     slot_uri: publicschema:land/boundary_unit
     title: Boundary unit

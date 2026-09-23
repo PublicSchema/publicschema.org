@@ -37,7 +37,7 @@ classes:
     - end_date
     status: bibo:draft
     annotations:
-      bibliography_refs: '["gov-bods-04"]'
+      bibliography_refs: '["openownership-bods"]'
   LegalArrangement:
     class_uri: publicschema:LegalArrangement
     title: Legal Arrangement
@@ -51,7 +51,7 @@ classes:
     - arrangement_type
     status: bibo:draft
     annotations:
-      bibliography_refs: '["gov-bods-04"]'
+      bibliography_refs: '["openownership-bods"]'
 slots:
   interest_holder:
     slot_uri: publicschema:interest_holder

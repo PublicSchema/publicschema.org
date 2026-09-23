@@ -33,7 +33,7 @@ classes:
     - description
     status: bibo:draft
     annotations:
-      bibliography_refs: '["w3c-dcat-3-2024", "ec-inspire-registers-2017"]'
+      bibliography_refs: '["ec-inspire-registers-2017", "iso-19135-1", "spdci-social-registry", "w3c-dcat-3"]'
   RegistryEntry:
     class_uri: publicschema:RegistryEntry
     title: Registry Entry
@@ -53,7 +53,7 @@ classes:
     - evidence_assertions
     status: bibo:draft
     annotations:
-      bibliography_refs: '["w3c-dcat-3-2024", "ec-inspire-registers-2017"]'
+      bibliography_refs: '["ec-inspire-registers-2017", "iso-19135-1", "w3c-dcat-3"]'
   RecordReference:
     class_uri: publicschema:RecordReference
     title: Record Reference
@@ -67,7 +67,7 @@ classes:
     - subject_type
     status: bibo:draft
     annotations:
-      bibliography_refs: '["w3c-dcat-3-2024", "ec-inspire-registers-2017"]'
+      bibliography_refs: '["ec-inspire-registers-2017", "semic-adms", "w3c-dcat-3"]'
   Registration:
     class_uri: publicschema:Registration
     title: Registration
@@ -84,7 +84,7 @@ classes:
     - evidence_assertions
     status: bibo:draft
     annotations:
-      bibliography_refs: '["w3c-dcat-3-2024"]'
+      bibliography_refs: '["semic-core-business"]'
   Authorization:
     class_uri: publicschema:Authorization
     title: Authorization
@@ -94,8 +94,6 @@ classes:
     - authorized_activity
     - authorization_conditions
     status: bibo:draft
-    annotations:
-      bibliography_refs: '["w3c-dcat-3-2024"]'
     is_a: Registration
   IdentifierAssignment:
     class_uri: publicschema:IdentifierAssignment
@@ -110,7 +108,7 @@ classes:
     - end_date
     status: bibo:draft
     annotations:
-      bibliography_refs: '["w3c-adms-2013"]'
+      bibliography_refs: '["fhir-r5", "semic-adms"]'
   EvidenceAssertion:
     class_uri: publicschema:EvidenceAssertion
     title: Evidence Assertion
@@ -124,7 +122,7 @@ classes:
     - recorded_at
     status: bibo:draft
     annotations:
-      bibliography_refs: '["w3c-prov-o-2013"]'
+      bibliography_refs: '["semic-cccev", "spar-cito", "w3c-prov-o"]'
   RecordLifecycleEvent:
     class_uri: publicschema:RecordLifecycleEvent
     title: Record Lifecycle Event
@@ -142,7 +140,7 @@ classes:
     - supersedes_record
     status: bibo:draft
     annotations:
-      bibliography_refs: '["w3c-prov-o-2013", "ec-inspire-registers-2017"]'
+      bibliography_refs: '["ec-inspire-registers-2017", "iso-19135-1", "w3c-prov-o"]'
   SubjectMatchAssertion:
     class_uri: publicschema:SubjectMatchAssertion
     title: Subject Match Assertion
@@ -159,7 +157,7 @@ classes:
     - evidence_assertions
     status: bibo:draft
     annotations:
-      bibliography_refs: '["w3c-prov-o-2013", "sssom"]'
+      bibliography_refs: '["sssom", "w3c-prov-o"]'
   NameUsage:
     class_uri: publicschema:NameUsage
     title: Name Usage
@@ -174,7 +172,7 @@ classes:
     - end_date
     status: bibo:draft
     annotations:
-      bibliography_refs: '["w3c-vcard-2014"]'
+      bibliography_refs: '["fhir-r5", "semic-core-business", "w3c-vcard-rdf"]'
   ContactPoint:
     class_uri: publicschema:ContactPoint
     title: Contact Point
@@ -190,7 +188,7 @@ classes:
     - end_date
     status: bibo:draft
     annotations:
-      bibliography_refs: '["w3c-vcard-2014", "fhir-r4"]'
+      bibliography_refs: '["fhir-r5", "w3c-vcard-rdf"]'
 slots:
   register_owner:
     slot_uri: publicschema:register_owner
@@ -201,7 +199,7 @@ slots:
     status: bibo:draft
     annotations:
       category: administrative
-      bibliography_refs: '["ec-inspire-registers-2017"]'
+      bibliography_refs: '["ec-inspire-registers-2017", "iso-19135-1"]'
   register_jurisdiction:
     slot_uri: publicschema:register_jurisdiction
     title: Register jurisdiction
@@ -217,6 +215,7 @@ slots:
         the area it covers, as the Core Public Organisation Vocabulary uses it for the administrative
         regions an organization covers.", "uri": "http://purl.org/dc/terms/spatial", "vocabulary": "DCMI
         Metadata Terms", "vocabulary_id": "dcterms"}]'
+      bibliography_refs: '["dcterms", "semic-cpov"]'
   register_subject_types:
     slot_uri: publicschema:register_subject_types
     title: Register subject types
@@ -237,6 +236,7 @@ slots:
     annotations:
       category: administrative
       sensitivity: sensitive
+      bibliography_refs: '["ec-inspire-registers-2017"]'
   record_id:
     slot_uri: publicschema:record_id
     title: Record id
@@ -262,6 +262,7 @@ slots:
         link a catalog record to the one resource it describes. Here it links any record or dated statement
         to its subject.", "uri": "http://xmlns.com/foaf/0.1/primaryTopic", "vocabulary": "FOAF", "vocabulary_id":
         "foaf"}]'
+      bibliography_refs: '["foaf"]'
   subject_type:
     slot_uri: publicschema:subject_type
     title: Subject type
@@ -287,6 +288,7 @@ slots:
         record for the date of formal recording. It is usually given as a date, while this value carries
         a time.", "uri": "http://purl.org/dc/terms/issued", "vocabulary": "DCMI Metadata Terms", "vocabulary_id":
         "dcterms"}]'
+      bibliography_refs: '["dcterms"]'
   valid_from:
     slot_uri: publicschema:valid_from
     title: Valid from
@@ -322,6 +324,7 @@ slots:
         is supplanted, displaced or superseded by the described resource. Here the replaced resource is
         always a register record.", "uri": "http://purl.org/dc/terms/replaces", "vocabulary": "DCMI Metadata
         Terms", "vocabulary_id": "dcterms"}]'
+      bibliography_refs: '["dcterms", "ec-inspire-registers-2017"]'
   source_records:
     slot_uri: publicschema:source_records
     title: Source records
@@ -337,6 +340,7 @@ slots:
         of a new entity based on a pre-existing entity. Here the pre-existing entity is always a register
         record.", "uri": "http://www.w3.org/ns/prov#wasDerivedFrom", "vocabulary": "PROV-O", "vocabulary_id":
         "prov"}]'
+      bibliography_refs: '["w3c-prov-o"]'
   evidence_assertions:
     slot_uri: publicschema:evidence_assertions
     title: Evidence assertions
@@ -428,6 +432,7 @@ slots:
       external_alignments_json: '[{"label": "creator", "match": "close", "note": "The asset description
         metadata schema recommends this term to link an identifier to the agency that issued it.", "uri":
         "http://purl.org/dc/terms/creator", "vocabulary": "DCMI Metadata Terms", "vocabulary_id": "dcterms"}]'
+      bibliography_refs: '["dcterms"]'
   assertion_uri:
     slot_uri: publicschema:assertion_uri
     title: Assertion URI
@@ -446,6 +451,7 @@ slots:
     status: bibo:draft
     annotations:
       category: administrative
+      bibliography_refs: '["semic-cccev"]'
   evidence_role:
     slot_uri: publicschema:evidence_role
     title: Evidence role
@@ -455,6 +461,7 @@ slots:
     status: bibo:draft
     annotations:
       category: administrative
+      bibliography_refs: '["spar-cito"]'
   assertion_authority:
     slot_uri: publicschema:assertion_authority
     title: Assertion authority
@@ -489,6 +496,7 @@ slots:
     status: bibo:draft
     annotations:
       category: administrative
+      bibliography_refs: '["ec-inspire-registers-2017"]'
   affected_record:
     slot_uri: publicschema:affected_record
     title: Affected record
@@ -546,6 +554,7 @@ slots:
     status: bibo:draft
     annotations:
       category: administrative
+      bibliography_refs: '["fellegi-sunter-1969", "sssom"]'
   name_language:
     slot_uri: publicschema:name_language
     title: Name language
@@ -555,6 +564,7 @@ slots:
     status: bibo:draft
     annotations:
       category: identity
+      bibliography_refs: '["rfc-5646"]'
   name_use:
     slot_uri: publicschema:name_use
     title: Name use
@@ -602,3 +612,4 @@ slots:
     status: bibo:draft
     annotations:
       category: governance
+      bibliography_refs: '["eu-eli-ontology"]'

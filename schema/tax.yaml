@@ -26,7 +26,7 @@ classes:
     is_a: Registration
     annotations:
       source_domain: tax
-      bibliography_refs: '["gov-oecd-tin", "gov-irs-tin"]'
+      bibliography_refs: '["eu-dir-2006-112", "oecd-aeoi-tin", "tadat-field-guide-2019", "us-irs-tin"]'
       external_alignments_json: '[{"label": "POA 1: Integrity of the Registered Taxpayer Base", "match":
         "related", "note": "TADAT Field Guide (2019), indicators P1-1 and P1-2, assess the accuracy and coverage
         of the taxpayer register that these records make up.", "uri": "https://www.tadat.org/content/dam/tadat/en/assessments/TADAT%20Field%20Guide%202019%20-%20English.pdf",
@@ -53,3 +53,4 @@ slots:
         "Taxes (GFSM 2014 classification 11)", "match": "broad", "note": "IMF Government Finance Statistics
         Manual 2014 heading 11 and its subheadings classify taxes, not registrations.", "uri": "https://www.imf.org/external/pubs/ft/gfs/manual/pdf/class.pdf",
         "vocabulary": "IMF GFSM 2014", "vocabulary_id": "imf-gfsm-2014"}]'
+      bibliography_refs: '["imf-gfsm-2014", "oecd-tax-classification"]'

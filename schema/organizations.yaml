@@ -33,7 +33,7 @@ classes:
     exact_mappings:
     - cpov:PublicOrganisation
     annotations:
-      bibliography_refs: '["gov-cpov-212"]'
+      bibliography_refs: '["semic-cpov"]'
   InstitutionalRelationship:
     class_uri: publicschema:InstitutionalRelationship
     title: Institutional Relationship
@@ -49,7 +49,7 @@ classes:
     - end_date
     status: bibo:draft
     annotations:
-      bibliography_refs: '["gov-org"]'
+      bibliography_refs: '["w3c-org"]'
   InstitutionalRole:
     class_uri: publicschema:InstitutionalRole
     title: Institutional Role
@@ -67,7 +67,7 @@ classes:
     close_mappings:
     - org:Membership
     annotations:
-      bibliography_refs: '["gov-org", "gov-companies-house"]'
+      bibliography_refs: '["uk-companies-house-api", "w3c-org"]'
   RepresentationRole:
     class_uri: publicschema:RepresentationRole
     title: Representation Role
@@ -82,7 +82,7 @@ classes:
     - end_date
     status: bibo:draft
     annotations:
-      bibliography_refs: '["gov-irs-representation"]'
+      bibliography_refs: '["semic-core-business", "us-irs-form-2848", "w3c-prov-o"]'
 slots:
   authority:
     slot_uri: publicschema:authority
