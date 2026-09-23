@@ -24,6 +24,9 @@ const totalCount = concepts.length;
 const knownSystems = [
   'dci', 'fhir', 'fhir-r4', 'fhir-r5', 'opencrvs', 'semic',
   'schema-org', 'foaf', 'prov', 'dpv', 'dpv-consent-notice', 'icao',
+  'semic-adminunit', 'w3c-org', 'elm', 'agrovoc', 'inspire-fc', 'oasis-eml-7',
+  'nist-sp-1500-102', 'tadat-field-guide-2019', 'eu-dir-1999-37', 'eu-dir-2000-60',
+  'eu-dir-2006-112', 'eu-dir-2025-2205', 'eu-reg-2024-1244',
 ];
 const allSystems: string[] = knownSystems.filter((sys) =>
   concepts.some((c) => Object.keys(c.external_equivalents ?? {}).includes(sys))
