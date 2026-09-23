@@ -1333,7 +1333,7 @@ classes:
       uri: https://schema.org/
       access: open
       status: active
-      informs_json: '{"concepts": ["Address", "Agent", "AwardedQualification", "Event", "Location", "Organization", "Party", "Person", "PracticeRole", "ProfessionalLicense", "RegistrationOffice", "ServicePoint", "WaterPoint", "WorkRelationship", "edu/EducationOffering", "edu/EducationProgram", "edu/EducationProvider", "edu/School", "health/HealthFacility", "transport/Vehicle"], "properties": ["administrative_area", "certified_subject", "certifying_organization", "city", "country", "date_of_birth", "date_of_death", "email_address", "end_date", "family_name", "given_name", "latitude", "longitude", "manufacture_year", "name", "offering_mode", "offering_provider", "phone_number", "postal_code", "preferred_name", "profession_code", "qualification_awarded", "start_date", "street_address", "vehicle_model"]}'
+      informs_json: '{"concepts": ["Address", "Agent", "Authorization", "AwardedQualification", "Event", "Location", "Organization", "Party", "Person", "PracticeRole", "ProfessionalLicense", "RegistrationOffice", "ServicePoint", "WaterPoint", "WorkRelationship", "edu/EducationOffering", "edu/EducationProgram", "edu/EducationProvider", "edu/School", "health/HealthFacility", "transport/Vehicle"], "properties": ["administrative_area", "certified_subject", "certifying_organization", "city", "country", "date_of_birth", "date_of_death", "email_address", "end_date", "family_name", "given_name", "latitude", "longitude", "manufacture_year", "name", "offering_mode", "offering_provider", "phone_number", "postal_code", "preferred_name", "profession_code", "qualification_awarded", "start_date", "street_address", "vehicle_model"]}'
   SdJwtVcCitation:
     class_uri: publicschema:Citation/sd-jwt-vc
     is_a: Citation
@@ -1486,7 +1486,7 @@ classes:
       version: v3.2.0
       note: Public Service, Participation, Evidence, Output and Legal Resource. Service applications,
         decisions and appeal links are PublicSchema design choices, not a CPSV-AP serialization claim.
-      informs_json: '{"concepts": ["AdministrativeAppeal", "AdministrativeDecision", "PublicService", "ServiceApplication"], "properties": ["service_competent_authorities"]}'
+      informs_json: '{"concepts": ["AdministrativeAppeal", "AdministrativeDecision", "Authorization", "PublicService", "Registration", "ServiceApplication"], "properties": ["service_competent_authorities"]}'
   SkosCitation:
     class_uri: publicschema:Citation/skos
     is_a: Citation
@@ -2683,7 +2683,7 @@ classes:
       status: active
       version: Working Group Note 01 August 2013
       note: RegisteredOrganization and legal form (rov:orgType).
-      informs_json: '{"concepts": ["Organization"], "properties": ["legal_form"]}'
+      informs_json: '{"concepts": ["Organization", "Registration"], "properties": ["legal_form"]}'
   UkCompaniesHouseApiCitation:
     class_uri: publicschema:Citation/uk-companies-house-api
     is_a: Citation

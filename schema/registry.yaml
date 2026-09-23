@@ -84,7 +84,7 @@ classes:
     - evidence_assertions
     status: bibo:draft
     annotations:
-      bibliography_refs: '["semic-core-business"]'
+      bibliography_refs: '["semic-core-business", "semic-cpsv-ap", "w3c-regorg"]'
   Authorization:
     class_uri: publicschema:Authorization
     title: Authorization
@@ -95,6 +95,8 @@ classes:
     - authorization_conditions
     status: bibo:draft
     is_a: Registration
+    annotations:
+      bibliography_refs: '["schema-org", "semic-cpsv-ap"]'
   IdentifierAssignment:
     class_uri: publicschema:IdentifierAssignment
     title: Identifier Assignment
