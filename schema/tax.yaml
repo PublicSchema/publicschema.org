@@ -25,6 +25,20 @@ classes:
     status: bibo:draft
     is_a: Registration
     annotations:
+      label_es: Registro fiscal
+      label_fr: Enregistrement fiscal
+      description_es: Un registro, llevado por una administración tributaria, que acredita que una
+        persona u organización está registrada para un impuesto, o un grupo de impuestos, en su
+        jurisdicción. Un sujeto registrado para varios impuestos puede tener un registro para cada
+        uno. Ni el registro ni el identificador fiscal que expide muestran por sí solos que se
+        adeuda un impuesto, que una declaración está pendiente, que el sujeto reside allí, o que
+        cumple con sus obligaciones.
+      description_fr: Un enregistrement, tenu par une administration fiscale, attestant qu'une
+        personne ou une organisation est enregistrée pour un impôt, ou un groupe d'impôts, dans sa
+        juridiction. Un sujet enregistré pour plusieurs impôts peut détenir un enregistrement pour
+        chacun. Ni l'enregistrement ni l'identifiant fiscal qu'il délivre ne montrent à eux seuls
+        qu'un impôt est dû, qu'une déclaration est exigible, que le sujet y réside, ou qu'il est en
+        conformité.
       source_domain: tax
       bibliography_refs: '["eu-dir-2006-112", "oecd-aeoi-tin", "tadat-field-guide-2019", "us-irs-tin"]'
       external_alignments_json: '[{"label": "POA 1: Integrity of the Registered Taxpayer Base", "match":
@@ -45,6 +59,14 @@ slots:
     multivalued: false
     status: bibo:draft
     annotations:
+      label_es: Tipo de impuesto
+      label_fr: Type d'impôt
+      description_es: El impuesto, o el grupo de impuestos, que cubre el registro, por ejemplo el
+        impuesto sobre el valor añadido o el impuesto sobre la renta de las personas físicas, tomado
+        de una clasificación designada.
+      description_fr: L'impôt, ou le groupe d'impôts, que couvre l'enregistrement, par exemple la
+        taxe sur la valeur ajoutée ou l'impôt sur le revenu des personnes physiques, tiré d'une
+        classification nommée.
       source_domain: tax
       category: classification
       external_alignments_json: '[{"label": "OECD classification of taxes", "match": "broad", "note": "The
