@@ -1,12 +1,8 @@
 {
-  "@type": "agri/SeedOperatorRole",
+  "@id": "https://example.org/agriculture/seed-operator",
+  "@type": "agri/AgriculturalServiceRole",
   "service_provider": "https://example.org/org/seed-company",
   "agricultural_service": [
-    {
-      "@type": "CodedValue",
-      "code_value": "packing",
-      "code_scheme": "https://example.org/services"
-    }
-  ],
-  "@id": "https://example.org/agriculture/seed-operator"
+    "seed_packing"
+  ]
 }

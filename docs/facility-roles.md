@@ -30,10 +30,10 @@ with the code. An unqualified word such as `manager` does not resolve these
 distinctions.
 
 `asset_actor` identifies a person, an organization or a group, including
-appropriate institutional subtypes. A jointly run nursery can therefore have a
-dated AssetPartyRole whose actor is an InformalGroup, matching the agricultural
-facility's `facility_operator`. Do not recast the group as an Organization. A
-software agent is not an asset actor.
+appropriate institutional subtypes. Agricultural facilities record their operator
+as an AssetPartyRole too, so a jointly run nursery can have a dated
+AssetPartyRole whose actor is an InformalGroup. Do not recast the group as an
+Organization. A software agent is not an asset actor.
 
 ## Keep addresses separate
 

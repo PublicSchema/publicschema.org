@@ -12,10 +12,7 @@ ROLE_SCHEME = "https://example.org/facility-roles/role-types"
 ROLE_TYPES = {"owner", "operator", "upkeep"}
 ADDRESS_PURPOSE_SCHEME = "https://example.org/facility-roles/address-purposes"
 ADDRESS_PURPOSES = {"physical", "postal"}
-AGRICULTURAL_FACILITIES = {
-    "AgriculturalFacility", "AgriculturalLaboratory", "Apiary",
-    "AquacultureEstablishment", "LivestockEstablishment", "PlantNursery",
-}
+AGRICULTURAL_FACILITIES = {"AgriculturalFacility", "AgriculturalLaboratory"}
 FACILITY_TYPES = {"School", "HealthFacility"} | AGRICULTURAL_FACILITIES
 ACTOR_TYPES = {
     "Person", "Organization", "PublicOrganization",
@@ -89,9 +86,6 @@ def validate_profile(records):
 
     for record in records:
         kind = record.get("@type")
-        if kind in AGRICULTURAL_FACILITIES and "facility_operator" in record:
-            # facility_operator admits the same actor and group kinds as asset_actor.
-            typed_uri(record, "facility_operator", ACTOR_TYPES | GROUP_TYPES)
         if kind == "AssetAddressAssignment":
             typed_uri(record, "subject_uri", FACILITY_TYPES)
             typed_uri(record, "assigned_address", {"Address"})

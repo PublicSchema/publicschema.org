@@ -1,7 +1,10 @@
 {
   "@id": "https://example.org/product/feed",
-  "@type": "agri/FeedProduct",
+  "@type": "agri/AgriculturalInputProduct",
   "name": "Synthetic feed specification",
+  "input_product_category": [
+    "feed"
+  ],
   "product_component": [
     {
       "@type": "ProductComponent",
@@ -10,12 +13,22 @@
         "code_value": "protein",
         "code_scheme": "https://example.org/feed-components"
       },
+      "component_role": {
+        "@type": "CodedValue",
+        "code_value": "declared-constituent",
+        "code_scheme": "https://example.org/component-roles"
+      },
       "component_amount": {
         "@type": "QuantityValue",
         "quantity_value": 18,
-        "unit_code": "percent"
+        "unit_code": "%",
+        "unit_scheme": "http://unitsofmeasure.org"
       },
-      "component_basis": "mass fraction"
+      "component_basis": {
+        "@type": "CodedValue",
+        "code_value": "mass-fraction",
+        "code_scheme": "https://example.org/composition-bases"
+      }
     }
   ]
 }

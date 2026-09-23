@@ -1,6 +1,9 @@
 {
-  "@type": "agri/PesticideProduct",
+  "@id": "https://example.org/agriculture/pesticide-growth-regulator",
+  "@type": "agri/AgriculturalInputProduct",
   "name": "Synthetic crop growth regulator",
-  "product_designation": "Example formulation for regulating crop growth without a pest-control purpose",
-  "@id": "https://example.org/agriculture/pesticide-growth-regulator"
+  "input_product_category": [
+    "pesticide"
+  ],
+  "product_designation": "Example formulation for regulating crop growth without a pest-control purpose"
 }

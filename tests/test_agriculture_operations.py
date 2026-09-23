@@ -4,11 +4,11 @@ from pathlib import Path
 
 import jsonschema
 import pytest
-from referencing import Registry, Resource
 from pyld import jsonld
 from pyshacl import validate
-from rdflib import Graph, Namespace, Literal
-from rdflib.namespace import RDF, OWL, RDFS
+from rdflib import Graph, Literal, Namespace
+from rdflib.namespace import OWL, RDF, RDFS
+from referencing import Registry, Resource
 
 from build.build import build_vocabulary
 from build.linkml_rdf_export import DEFAULT_LINKML_COMPOSITE, write_shacl, write_turtle
@@ -16,6 +16,8 @@ from build.linkml_rdf_export import DEFAULT_LINKML_COMPOSITE, write_shacl, write
 PS = Namespace('https://publicschema.org/')
 AGRI = Namespace('https://publicschema.org/agri/')
 ENVIRONMENT = Namespace('https://publicschema.org/environment/')
+TRANSPORT = Namespace('https://publicschema.org/transport/')
+UCUM = 'http://unitsofmeasure.org'
 EXAMPLES = Path(__file__).resolve().parents[1] / 'examples/agriculture-operations'
 
 
@@ -45,12 +47,22 @@ def data_graph(record, result):
     return Graph().parse(data=quads, format='nquads')
 
 
+def with_superclasses(graph, ontology):
+    # sh:class follows rdfs:subClassOf in the data graph, so a nested
+    # ProducerOrganization satisfies an Organization-typed slot.
+    for kind in set(graph.objects(predicate=RDF.type)):
+        for superclass in ontology.transitive_objects(kind, RDFS.subClassOf):
+            if superclass != kind:
+                graph.add((kind, RDFS.subClassOf, superclass))
+    return graph
+
+
 @pytest.mark.parametrize('path', sorted(EXAMPLES.glob('*.json')), ids=lambda p: p.stem)
 def test_examples_across_actual_exports(exports, path):
     result, shapes, ontology = exports
     record = json.loads(path.read_text())
     validate_json(record, result)
-    graph = data_graph(record, result)
+    graph = with_superclasses(data_graph(record, result), ontology)
     conforms, _, report = validate(graph, shacl_graph=shapes)
     assert conforms, report
     assert (PS[record['@type']], RDF.type, OWL.Class) in ontology
@@ -80,7 +92,7 @@ def test_composition_quantity_must_be_numeric(exports):
     result, shapes, _ = exports
     record = json.loads((EXAMPLES / 'feed.json').read_text())
     # Resolve generated references locally, without requesting published schemas.
-    quantity = {'@type': 'QuantityValue', 'quantity_value': 'eighteen', 'unit_code': 'percent'}
+    quantity = {'@type': 'QuantityValue', 'quantity_value': 'eighteen', 'unit_code': '%', 'unit_scheme': UCUM}
     with pytest.raises(jsonschema.ValidationError):
         validate_json(quantity, result)
     record['product_component'][0]['component_amount'] = quantity
@@ -123,14 +135,134 @@ def test_every_operations_class_has_a_direct_example(exports):
     assert expected <= represented
 
 
-def test_membership_preserves_actor_identity_and_interval(exports):
+def test_membership_is_an_institutional_role(exports):
     result, shapes, ontology = exports
     for filename in ('membership-person.json', 'membership-organization.json'):
         record = json.loads((EXAMPLES / filename).read_text())
-        validate_json(record, result)
+        assert record['@type'] == 'InstitutionalRole'
+        assert record['start_date']
         graph = data_graph(record, result)
-        conforms, _, report = validate(graph, shacl_graph=shapes)
-        assert conforms, report
-        assert list(graph.objects(predicate=AGRI.producer_member))
+        assert list(graph.objects(predicate=PS.role_actor))
+        organizations = list(graph.objects(predicate=PS.role_organization))
+        assert organizations
+        assert all((org, RDF.type, AGRI.ProducerOrganization) in graph for org in organizations)
         assert not list(graph.objects(predicate=PS.service_provider))
-    assert (AGRI.ProducerMembership, RDFS.subClassOf, PS.GroupMembership) not in ontology
+    assert (AGRI.ProducerMembership, RDF.type, OWL.Class) not in ontology
+
+
+REMOVED_CLASSES = (
+    'Apiary', 'AquacultureEstablishment', 'LivestockEstablishment', 'PlantNursery',
+    'InputSupplierRole', 'PesticideApplicatorRole', 'SeedOperatorRole',
+    'FeedProduct', 'FertilizerProduct', 'PesticideProduct',
+    'AgriculturalProduct', 'AgriculturalMachinery', 'ProducerMembership',
+)
+
+
+def test_collapsed_and_renamed_classes_stay_removed(exports):
+    result, _, ontology = exports
+    for name in REMOVED_CLASSES:
+        assert f'agri/{name}' not in result['concept_schemas']
+        assert (AGRI[name], RDF.type, OWL.Class) not in ontology
+    for name in ('AgriculturalInputProduct', 'AgriculturalMachine', 'AgriculturalLaboratory'):
+        assert (AGRI[name], RDF.type, OWL.Class) in ontology
+
+
+REMOVED_SLOTS = (
+    (PS, 'facility_location'), (PS, 'facility_operator'), (PS, 'machine_serial_number'),
+    (AGRI, 'scheme_operator'), (AGRI, 'producer_member'), (AGRI, 'producer_organization'),
+    (AGRI, 'producer_membership_role'), (TRANSPORT, 'vessel_length'),
+)
+
+
+def test_replaced_slots_stay_removed(exports):
+    result, _, ontology = exports
+    context = result['context']['@context']
+    for namespace, name in REMOVED_SLOTS:
+        assert name not in context
+        assert not list(ontology.triples((namespace[name], None, None)))
+
+
+@pytest.mark.parametrize('filename, field, codes', [
+    ('apiary.json', 'facility_function',
+     {'apiary', 'aquaculture_establishment', 'livestock_establishment', 'plant_nursery'}),
+    ('supplier.json', 'agricultural_service',
+     {'input_supply', 'pesticide_application', 'seed_processing', 'seed_packing', 'seed_marketing'}),
+    ('feed.json', 'input_product_category', {'feed', 'fertilising_product', 'pesticide'}),
+])
+def test_collapsed_subtypes_are_closed_codes(exports, filename, field, codes):
+    result, shapes, _ = exports
+    record = json.loads((EXAMPLES / filename).read_text())
+    kind = record['@type']
+    published = set(result['concept_schemas'][kind]['properties'][field]['items']['enum'])
+    assert codes <= published
+    assert set(record[field]) <= published
+    record[field] = ['unlisted_code']
+    with pytest.raises(jsonschema.ValidationError):
+        validate_json(record, result)
+    conforms, _, _ = validate(data_graph(record, result), shacl_graph=shapes)
+    assert not conforms
+
+
+@pytest.mark.parametrize('vocabulary', [
+    'agricultural-facility-function', 'agricultural-service-type', 'agricultural-input-product-category',
+])
+def test_code_vocabularies_are_published_in_the_agri_domain(exports, vocabulary):
+    result, _, _ = exports
+    assert vocabulary not in result['vocabularies']
+    published = result['vocabularies']['agri/' + vocabulary]
+    assert published['uri'] == f'https://publicschema.org/vocab/agri/{vocabulary}'
+    assert all(value['uri'].startswith(published['uri'] + '/') for value in published['values'])
+
+
+def test_component_basis_and_role_are_coded(exports):
+    result, _, ontology = exports
+    properties = result['concept_schemas']['ProductComponent']['properties']
+    for name in ('component_basis', 'component_role'):
+        assert 'CodedValue.schema.json' in json.dumps(properties[name])
+        assert (PS[name], RDFS.range, PS.CodedValue) in ontology
+    record = json.loads((EXAMPLES / 'component.json').read_text())
+    assert record['component_basis']['@type'] == 'CodedValue'
+    assert record['component_role']['@type'] == 'CodedValue'
+
+
+def test_vessel_length_overall_keeps_the_transport_domain(exports):
+    result, _, _ = exports
+    term = result['context']['@context']['vessel_length_overall']
+    assert term['@id'] == str(TRANSPORT.vessel_length_overall)
+    graph = data_graph(json.loads((EXAMPLES / 'vessel.json').read_text()), result)
+    assert list(graph.objects(predicate=TRANSPORT.vessel_length_overall))
+
+
+@pytest.mark.parametrize('role_file, subject_file', [
+    ('facility-operator.json', 'facility.json'),
+    ('irrigation-operator.json', 'irrigation.json'),
+])
+def test_operation_is_a_dated_asset_party_role(role_file, subject_file):
+    role = json.loads((EXAMPLES / role_file).read_text())
+    subject = json.loads((EXAMPLES / subject_file).read_text())
+    assert role['@type'] == 'AssetPartyRole'
+    assert role['asset_subject'] == subject['@id']
+    assert role['asset_role_type']['code_value'] == 'operator'
+    assert role['start_date']
+
+
+def _quantities(value):
+    if isinstance(value, dict):
+        if value.get('@type') == 'QuantityValue':
+            yield value
+        for item in value.values():
+            yield from _quantities(item)
+    elif isinstance(value, list):
+        for item in value:
+            yield from _quantities(item)
+
+
+# water.json is owned by the environment module and checked by its own tests.
+OWN_EXAMPLES = sorted(path for path in EXAMPLES.glob('*.json') if path.name != 'water.json')
+
+
+@pytest.mark.parametrize('path', OWN_EXAMPLES, ids=lambda p: p.stem)
+def test_example_quantities_use_ucum(path):
+    for quantity in _quantities(json.loads(path.read_text())):
+        assert quantity['unit_scheme'] == UCUM
+        assert quantity['unit_code'] not in {'percent', 'ha'}

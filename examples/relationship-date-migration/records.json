@@ -58,14 +58,6 @@
     "end_date": "2026-07-01"
   },
   {
-    "@id": "https://example.org/date-migration/membership",
-    "@type": "ProducerMembership",
-    "producer_member": "https://example.org/date-migration/person",
-    "producer_organization": "https://example.org/date-migration/producer",
-    "start_date": "2026-12-31",
-    "end_date": "2027-01-01"
-  },
-  {
     "@id": "https://example.org/date-migration/service",
     "@type": "AgriculturalServiceRole",
     "service_provider": "https://example.org/date-migration/producer",
@@ -74,7 +66,8 @@
   },
   {
     "@id": "https://example.org/date-migration/supplier",
-    "@type": "InputSupplierRole",
+    "@type": "AgriculturalServiceRole",
+    "agricultural_service": ["input_supply"],
     "service_provider": "https://example.org/date-migration/person",
     "end_date": "2027-01-01"
   },
@@ -126,14 +119,16 @@
   },
   {
     "@id": "https://example.org/date-migration/pesticide-applicator",
-    "@type": "PesticideApplicatorRole",
+    "@type": "AgriculturalServiceRole",
+    "agricultural_service": ["pesticide_application"],
     "service_provider": "https://example.org/date-migration/person",
     "start_date": "2024-02-28",
     "end_date": "2024-03-01"
   },
   {
     "@id": "https://example.org/date-migration/seed-operator",
-    "@type": "SeedOperatorRole",
+    "@type": "AgriculturalServiceRole",
+    "agricultural_service": ["seed_packing"],
     "service_provider": "https://example.org/date-migration/producer",
     "start_date": "2026-12-31",
     "end_date": "2027-01-01"

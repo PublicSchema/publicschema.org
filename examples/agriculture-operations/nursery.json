@@ -1,5 +1,8 @@
 {
-  "@type": "agri/PlantNursery",
+  "@id": "https://example.org/agriculture/nursery",
+  "@type": "agri/AgriculturalFacility",
   "name": "Synthetic plant propagation site",
-  "@id": "https://example.org/agriculture/nursery"
+  "facility_function": [
+    "plant_nursery"
+  ]
 }

@@ -134,8 +134,8 @@ instead records when the source entered the assertion. Missing dates remain unkn
 an omitted end does not prove perpetual validity.
 
 Use `start_date` / `end_date` for relationship and membership concepts. The draft
-HoldingParcelLink, AnimalResidence, AnimalResponsibility, ProducerMembership,
-AgriculturalServiceRole (including InputSupplierRole, PesticideApplicatorRole and SeedOperatorRole), IdentifierAssignment, NameUsage
+HoldingParcelLink, AnimalResidence, AnimalResponsibility,
+AgriculturalServiceRole, IdentifierAssignment, NameUsage
 and ContactPoint now follow this convention. AssetPartyRole and AssetAddressAssignment
 also use it. Registration (including Authorization specializations such as DrivingEntitlement),
 RegistryEntry, AgriculturalParcel, Certification and LandTenureAssertion retain

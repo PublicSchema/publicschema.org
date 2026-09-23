@@ -184,9 +184,9 @@
   },
   {
     "@id": "https://example.org/facility-roles/nursery",
-    "@type": "PlantNursery",
+    "@type": "AgriculturalFacility",
     "name": "Synthetic community nursery",
-    "facility_operator": "https://example.org/facility-roles/nursery-group"
+    "facility_function": ["plant_nursery"]
   },
   {
     "@id": "https://example.org/facility-roles/hospital",

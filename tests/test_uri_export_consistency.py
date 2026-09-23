@@ -46,7 +46,7 @@ def public_context_and_shapes(tmp_path_factory):
     ("class_name", "field"),
     [
         ("Registration", "registered_subject"),
-        ("AgriculturalFacility", "facility_operator"),
+        ("AgriculturalServiceRole", "service_provider"),
     ],
 )
 def test_context_uri_values_expand_to_iris_and_conform(

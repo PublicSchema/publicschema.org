@@ -1,5 +1,9 @@
 {
-  "@type": "agri/LivestockEstablishment",
+  "@id": "https://example.org/agriculture/livestock",
+  "@type": "agri/AgriculturalFacility",
   "name": "Synthetic assembly site",
-  "@id": "https://example.org/agriculture/livestock"
+  "facility_function": [
+    "livestock_establishment",
+    "market"
+  ]
 }

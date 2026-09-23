@@ -1,16 +1,16 @@
 {
-  "@type": "agri/ProducerMembership",
-  "producer_member": "https://example.org/person/farmer",
-  "producer_organization": {
+  "@id": "https://example.org/agriculture/membership-person",
+  "@type": "InstitutionalRole",
+  "role_actor": "https://example.org/person/farmer",
+  "role_organization": {
     "@type": "agri/ProducerOrganization",
     "name": "Synthetic cooperative"
   },
-  "producer_membership_role": {
+  "institutional_role_type": {
     "@type": "CodedValue",
     "code_value": "voting-member",
     "code_scheme": "https://example.org/cooperative-roles"
   },
-  "@id": "https://example.org/agriculture/membership-person",
   "start_date": "2026-01-01",
   "end_date": "2027-01-01"
 }

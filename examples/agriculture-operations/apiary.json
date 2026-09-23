@@ -1,6 +1,8 @@
 {
-  "@type": "agri/Apiary",
+  "@id": "https://example.org/agriculture/apiary",
+  "@type": "agri/AgriculturalFacility",
   "name": "Synthetic orchard apiary",
-  "facility_operator": "https://example.org/person/beekeeper",
-  "@id": "https://example.org/agriculture/apiary"
+  "facility_function": [
+    "apiary"
+  ]
 }

@@ -60487,6 +60487,155 @@ enums:
         operational datasets, civic-tech service registries, and sector-specific typologies (e.g. WHO
         SARA for health, JMP for WASH, cluster 4W reporting for distributions).", "relationship": "prose_guidance",
         "uri": "https://data.humdata.org/"}]'
+  AgriculturalFacilityFunction:
+    enum_uri: publicschema:agri/AgriculturalFacilityFunction
+    title: Agricultural Facility Function
+    description: The kind of agricultural activity carried out at an agricultural facility, such as keeping
+      animals, propagating plants, storing produce or trading. One facility can carry out several functions.
+    status: bibo:draft
+    permissible_values:
+      apiary:
+        meaning: publicschema:agri/AgriculturalFacilityFunction/apiary
+        title: Apiary
+        description: A site where bee colonies are kept.
+        status: bibo:draft
+      aquaculture_establishment:
+        meaning: publicschema:agri/AgriculturalFacilityFunction/aquaculture_establishment
+        title: Aquaculture establishment
+        description: A site or installation where aquatic organisms are farmed or held for aquaculture.
+        status: bibo:draft
+      livestock_establishment:
+        meaning: publicschema:agri/AgriculturalFacilityFunction/livestock_establishment
+        title: Livestock establishment
+        description: A premises where terrestrial animals are kept, gathered or handled, including production
+          sites and assembly centres.
+        status: bibo:draft
+      plant_nursery:
+        meaning: publicschema:agri/AgriculturalFacilityFunction/plant_nursery
+        title: Plant nursery
+        description: A site where plants are propagated or grown on for planting elsewhere.
+        status: bibo:draft
+      storage:
+        meaning: publicschema:agri/AgriculturalFacilityFunction/storage
+        title: Storage
+        description: A site where agricultural produce or agricultural inputs are stored.
+        status: bibo:draft
+      processing:
+        meaning: publicschema:agri/AgriculturalFacilityFunction/processing
+        title: Processing
+        description: A site where agricultural produce is cleaned, graded, packed or transformed.
+        status: bibo:draft
+      market:
+        meaning: publicschema:agri/AgriculturalFacilityFunction/market
+        title: Market
+        description: A site where agricultural produce or animals are traded.
+        status: bibo:draft
+      other:
+        meaning: publicschema:agri/AgriculturalFacilityFunction/other
+        title: Other
+        description: An agricultural facility function not covered by the other values.
+        status: bibo:draft
+    annotations:
+      source_domain: agri
+      bibliography_refs: '["woah-terrestrial-2024", "beebase-apiaries", "scotland-aquaculture-register",
+        "uk-plant-passports", "india-enam-facilities"]'
+  AgriculturalServiceType:
+    enum_uri: publicschema:agri/AgriculturalServiceType
+    title: Agricultural Service Type
+    description: A kind of service or activity that an actor offers or performs for agricultural producers.
+    status: bibo:draft
+    permissible_values:
+      input_supply:
+        meaning: publicschema:agri/AgriculturalServiceType/input_supply
+        title: Input supply
+        description: Selling or otherwise making agricultural inputs, such as seed, feed, fertilising products
+          or pesticides, available to producers.
+        status: bibo:draft
+      pesticide_application:
+        meaning: publicschema:agri/AgriculturalServiceType/pesticide_application
+        title: Pesticide application
+        description: Applying pesticides for others or in the course of a professional activity.
+        status: bibo:draft
+      seed_processing:
+        meaning: publicschema:agri/AgriculturalServiceType/seed_processing
+        title: Seed processing
+        description: Cleaning, drying, grading, treating or otherwise processing seed for sowing.
+        status: bibo:draft
+      seed_packing:
+        meaning: publicschema:agri/AgriculturalServiceType/seed_packing
+        title: Seed packing
+        description: Packing, sealing or labelling seed for sowing.
+        status: bibo:draft
+      seed_marketing:
+        meaning: publicschema:agri/AgriculturalServiceType/seed_marketing
+        title: Seed marketing
+        description: Selling, holding for sale or otherwise supplying seed for sowing to third parties.
+        status: bibo:draft
+      machinery_hire:
+        meaning: publicschema:agri/AgriculturalServiceType/machinery_hire
+        title: Machinery hire
+        description: Hiring out agricultural machines, with or without an operator.
+        status: bibo:draft
+      advisory:
+        meaning: publicschema:agri/AgriculturalServiceType/advisory
+        title: Advisory
+        description: Advising producers on production methods, input use or farm management.
+        status: bibo:draft
+      animal_health_service:
+        meaning: publicschema:agri/AgriculturalServiceType/animal_health_service
+        title: Animal health service
+        description: Providing animal health care, such as vaccination, diagnosis or treatment, for producers'
+          animals.
+        status: bibo:draft
+      post_harvest:
+        meaning: publicschema:agri/AgriculturalServiceType/post_harvest
+        title: Post-harvest
+        description: Cleaning, drying, sorting, grading or storing harvested produce before it reaches primary
+          markets.
+        status: bibo:draft
+      other:
+        meaning: publicschema:agri/AgriculturalServiceType/other
+        title: Other
+        description: An agricultural service not covered by the other values.
+        status: bibo:draft
+    annotations:
+      source_domain: agri
+      bibliography_refs: '["uk-pesticide-work", "sasa-seed-register", "india-farms"]'
+  AgriculturalInputProductCategory:
+    enum_uri: publicschema:agri/AgriculturalInputProductCategory
+    title: Agricultural Input Product Category
+    description: The regulatory category of an agricultural input product. One product can belong to more
+      than one category.
+    status: bibo:draft
+    permissible_values:
+      feed:
+        meaning: publicschema:agri/AgriculturalInputProductCategory/feed
+        title: Feed
+        description: A product intended for oral feeding to animals, including feed materials, compound feed
+          and feed additives.
+        status: bibo:draft
+      fertilising_product:
+        meaning: publicschema:agri/AgriculturalInputProductCategory/fertilising_product
+        title: Fertilising product
+        description: A product applied to plants, their root zone or their growing medium to supply nutrients
+          or improve nutrient use, including fertilisers, liming materials, soil improvers, growing media,
+          inhibitors and plant biostimulants.
+        status: bibo:draft
+      pesticide:
+        meaning: publicschema:agri/AgriculturalInputProductCategory/pesticide
+        title: Pesticide
+        description: A formulated product intended to repel, destroy or control pests or to regulate plant
+          growth, including plant protection products and biocidal products. It excludes fertilising products
+          and veterinary medicines.
+        status: bibo:draft
+      other:
+        meaning: publicschema:agri/AgriculturalInputProductCategory/other
+        title: Other
+        description: An agricultural input product category not covered by the other values.
+        status: bibo:draft
+    annotations:
+      source_domain: agri
+      bibliography_refs: '["uk-feed-business", "eu-fertilizer-2019", "faoterm-pesticide", "ec-pesticides-database"]'
   SettlementType:
     enum_uri: publicschema:SettlementType
     title: Settlement Type

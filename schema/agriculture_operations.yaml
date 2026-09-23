@@ -20,15 +20,16 @@ classes:
   AgriculturalFacility:
     class_uri: publicschema:agri/AgriculturalFacility
     title: Agricultural Facility
-    description: A physical site or installation used for agricultural production, storage, processing,
-      trade or technical support. Its identity is distinct from its operator, a holding and any registration.
+    description: A physical site, building or installation where agricultural or aquaculture production,
+      or a related activity such as storage, processing, trading or testing, takes place. It keeps its
+      identity when its operator, holding or registration changes.
     status: bibo:draft
     slots:
     - name
     - identifiers
     - facility_function
-    - facility_location
-    - facility_operator
+    - location
+    - spatial_geometry
     see_also:
     - https://www.fao.org/global-soil-partnership/glosolan/en/
     - https://www.enam.gov.in/web/resources/FAQs-of-eNam
@@ -38,8 +39,8 @@ classes:
   AgriculturalLaboratory:
     class_uri: publicschema:agri/AgriculturalLaboratory
     title: Agricultural Laboratory
-    description: A physical laboratory facility providing analysis or testing of agricultural materials.
-      Network membership does not establish accreditation or proficiency.
+    description: A facility where agricultural materials such as soil, water, plant tissue, feed or produce
+      are analysed or tested. Membership of a laboratory network does not show accreditation or proficiency.
     status: bibo:draft
     slots:
     - laboratory_capability
@@ -49,70 +50,17 @@ classes:
     annotations:
       source_domain: agri
       bibliography_refs: '["fao-glosolan"]'
-  Apiary:
-    class_uri: publicschema:agri/Apiary
-    title: Apiary
-    description: A site at which bee colonies are kept. Colonies and their movements have identities separate
-      from the site.
-    status: bibo:draft
-    slots: []
-    see_also:
-    - https://www.nationalbeeunit.com/assets/PDFs/6_Bees_and_the_Law/Hive_count/FAQs_for_Hive_Count_2021.pdf
-    is_a: AgriculturalFacility
-    annotations:
-      source_domain: agri
-      bibliography_refs: '["beebase-apiaries"]'
-  AquacultureEstablishment:
-    class_uri: publicschema:agri/AquacultureEstablishment
-    title: Aquaculture Establishment
-    description: A site or installation where aquatic organisms are farmed or held for aquaculture. The
-      operating business and its authorization are separate.
-    status: bibo:draft
-    slots: []
-    see_also:
-    - https://www.gov.scot/publications/registers-of-authorised-aquaculture-production-businesses-and-authorised-processing-establishments/
-    is_a: AgriculturalFacility
-    annotations:
-      source_domain: agri
-      bibliography_refs: '["scotland-aquaculture-register"]'
-  LivestockEstablishment:
-    class_uri: publicschema:agri/LivestockEstablishment
-    title: Livestock Establishment
-    description: A premises or installation where terrestrial livestock are kept or handled, including
-      production and assembly sites. It is distinct from the animals and the agricultural holding.
-    status: bibo:draft
-    slots: []
-    see_also:
-    - https://www.woah.org/fileadmin/Home/eng/Health_standards/tahc/2024/en_glossaire.htm
-    is_a: AgriculturalFacility
-    annotations:
-      source_domain: agri
-      bibliography_refs: '["woah-terrestrial-2024"]'
-  PlantNursery:
-    class_uri: publicschema:agri/PlantNursery
-    title: Plant Nursery
-    description: A facility where plants are propagated or grown for planting elsewhere. It is distinct
-      from a nursery business and authorization to issue plant passports.
-    status: bibo:draft
-    slots: []
-    see_also:
-    - https://www.gov.uk/guidance/issuing-plant-passports-to-trade-plants-in-great-britain
-    is_a: AgriculturalFacility
-    annotations:
-      source_domain: agri
-      bibliography_refs: '["uk-plant-passports"]'
-  AgriculturalMachinery:
-    class_uri: publicschema:agri/AgriculturalMachinery
-    title: Agricultural Machinery
-    description: An identifiable physical machine used in agricultural work. A hired machine retains its
-      identity independently of a service provider, owner or holding.
+  AgriculturalMachine:
+    class_uri: publicschema:agri/AgriculturalMachine
+    title: Agricultural Machine
+    description: An identifiable physical machine or implement used for agricultural work, such as a tractor,
+      harvester, sprayer or pump. It keeps its identity when its owner, operator or hiring service changes.
     status: bibo:draft
     slots:
     - name
     - identifiers
     - machine_category
     - machine_model
-    - machine_serial_number
     see_also:
     - https://agrimachinery.nic.in/Index/farmsapp
     annotations:
@@ -121,14 +69,15 @@ classes:
   FishingVessel:
     class_uri: publicschema:agri/FishingVessel
     title: Fishing Vessel
-    description: An identifiable vessel used for fishing. Changes in name, flag or operator do not alone
-      create a different vessel; registration and permission to fish remain separate.
+    description: A vessel used, equipped or intended for fishing or fishing-related activities. It keeps
+      its identity when its name, flag, owner or operator changes. Registration and authorization to fish
+      are separate records.
     status: bibo:draft
     slots:
     - name
     - identifiers
     - vessel_flag
-    - vessel_length
+    - vessel_length_overall
     see_also:
     - https://www.fao.org/global-record/background/unique-vessel-identifier/en/
     annotations:
@@ -137,67 +86,31 @@ classes:
   AgriculturalServiceRole:
     class_uri: publicschema:agri/AgriculturalServiceRole
     title: Agricultural Service Role
-    description: A person, organization or group acting as a provider of specified agricultural services
-      during a stated period. This relationship does not establish professional qualification or legal
-      permission.
+    description: A dated relationship in which a person, organization or group offers or performs stated
+      agricultural services, such as input supply, pesticide application, machinery hire or seed processing,
+      in stated areas. It does not show qualification, registration or permission.
     status: bibo:draft
     slots:
     - service_provider
     - agricultural_service
     - service_area
     - service_equipment
+    - supplied_product
     - start_date
     - end_date
     see_also:
     - https://agrimachinery.nic.in/Index/farmsapp
-    annotations:
-      source_domain: agri
-      bibliography_refs: '["india-farms"]'
-  InputSupplierRole:
-    class_uri: publicschema:agri/InputSupplierRole
-    title: Input Supplier Role
-    description: An agricultural service role supplying inputs such as seed, feed, fertilizer or pesticides.
-      Supply activity does not itself establish approval for every product.
-    status: bibo:draft
-    slots:
-    - supplied_product
-    see_also:
     - https://www.hse.gov.uk/pesticides/register.htm
-    is_a: AgriculturalServiceRole
-    annotations:
-      source_domain: agri
-      bibliography_refs: '["uk-pesticide-work"]'
-  PesticideApplicatorRole:
-    class_uri: publicschema:agri/PesticideApplicatorRole
-    title: Pesticide Applicator Role
-    description: An agricultural service role applying pesticides. Competence certification and permission
-      to use a particular product are separate assertions.
-    status: bibo:draft
-    slots: []
-    see_also:
-    - https://www.hse.gov.uk/pesticides/register.htm
-    is_a: AgriculturalServiceRole
-    annotations:
-      source_domain: agri
-      bibliography_refs: '["uk-pesticide-work"]'
-  SeedOperatorRole:
-    class_uri: publicschema:agri/SeedOperatorRole
-    title: Seed Operator Role
-    description: An agricultural service role producing, processing, packing or marketing seed. The role
-      is distinct from seed-lot certification and plant-variety identity.
-    status: bibo:draft
-    slots: []
-    see_also:
     - https://www.sasa.gov.uk/document-library/public-register-seeds-merchants-processors-packers
-    is_a: AgriculturalServiceRole
     annotations:
       source_domain: agri
-      bibliography_refs: '["sasa-seed-register"]'
+      bibliography_refs: '["india-farms", "uk-pesticide-work", "sasa-seed-register"]'
   ProducerOrganization:
     class_uri: publicschema:agri/ProducerOrganization
     title: Producer Organization
-    description: An identifiable organization formed by agricultural producers to pursue shared production,
-      marketing or service objectives. Recognition under a particular legal regime is represented separately.
+    description: An organization set up on the initiative of agricultural producers and controlled by its
+      producer members to pursue shared aims, such as joint production planning, marketing or services,
+      in one or more agricultural sectors. Legal recognition under a particular regime is a separate record.
     status: bibo:draft
     slots:
     - producer_sector
@@ -207,88 +120,53 @@ classes:
     annotations:
       source_domain: agri
       bibliography_refs: '["ec-producer-organizations"]'
-  AgriculturalProduct:
-    class_uri: publicschema:agri/AgriculturalProduct
-    title: Agricultural Product
-    description: A specified product intended for use as an agricultural input. It describes the product
-      specification or marketed formulation, not an individual package, shipment, batch or authorization.
+  AgriculturalInputProduct:
+    class_uri: publicschema:agri/AgriculturalInputProduct
+    title: Agricultural Input Product
+    description: A product specification or marketed formulation intended for use as an agricultural input,
+      such as a feed, fertilising product or pesticide. It is not an individual package, shipment, batch
+      or product authorization.
     status: bibo:draft
     slots:
     - name
     - identifiers
+    - input_product_category
     - product_designation
     - product_component
     see_also:
     - https://food.ec.europa.eu/plants/pesticides/eu-pesticides-database_en
-    annotations:
-      source_domain: agri
-      bibliography_refs: '["ec-pesticides-database"]'
-  FeedProduct:
-    class_uri: publicschema:agri/FeedProduct
-    title: Feed Product
-    description: A product intended for oral feeding to animals. Product description is distinct from
-      registration or approval of the feed business.
-    status: bibo:draft
-    slots: []
-    see_also:
-    - https://www.gov.uk/government/publications/starting-an-animal-feed-business/starting-an-animal-feed-business
-    is_a: AgriculturalProduct
-    annotations:
-      source_domain: agri
-      bibliography_refs: '["uk-feed-business"]'
-  FertilizerProduct:
-    class_uri: publicschema:agri/FertilizerProduct
-    title: Fertilizer Product
-    description: A product intended to provide nutrients to plants or mushrooms. Soil improvers and other
-      fertilising-product categories are not automatically fertilizers.
-    status: bibo:draft
-    slots: []
-    see_also:
     - https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex%3A32019R1009
-    is_a: AgriculturalProduct
+    - https://www.gov.uk/government/publications/starting-an-animal-feed-business/starting-an-animal-feed-business
     annotations:
       source_domain: agri
-      bibliography_refs: '["eu-fertilizer-2019"]'
-  PesticideProduct:
-    class_uri: publicschema:agri/PesticideProduct
-    title: Pesticide Product
-    description: A prepared agricultural input product intended to control pests or regulate plant growth,
-      including defoliants and desiccants. Active substances, permitted uses and national product authorizations
-      remain separate from product identity.
-    status: bibo:draft
-    slots: []
-    see_also:
-    - https://faoterm.fao.org/viewEntry.html?entryId=182628&language=en
-    - https://food.ec.europa.eu/plants/pesticides/eu-pesticides-database_en
-    is_a: AgriculturalProduct
-    annotations:
-      source_domain: agri
-      bibliography_refs: '["ec-pesticides-database", "faoterm-pesticide"]'
+      bibliography_refs: '["ec-pesticides-database", "eu-fertilizer-2019", "uk-feed-business", "faoterm-pesticide"]'
   ProductComponent:
     class_uri: publicschema:ProductComponent
     title: Product Component
-    description: A named or coded constituent of a product, optionally with a quantity expressing its
-      concentration on a stated basis. This is a composition description, not an application instruction.
+    description: A declared constituent of a product, identified by a code, with its role in the product
+      and, optionally, its amount on a stated basis. It describes composition, not use or dosage.
     status: bibo:draft
     slots:
     - component_substance
+    - component_role
     - component_amount
     - component_basis
     see_also:
     - https://food.ec.europa.eu/plants/pesticides/eu-pesticides-database_en
+    - https://hl7.org/fhir/R5/ingredient.html
     annotations:
-      bibliography_refs: '["ec-pesticides-database"]'
+      bibliography_refs: '["ec-pesticides-database", "gov-fhir-ingredient"]'
   IrrigationScheme:
     class_uri: publicschema:agri/IrrigationScheme
     title: Irrigation Scheme
-    description: An organized set of infrastructure for supplying irrigation water to an agricultural
-      service area. Its equipped or command area is distinct from actual seasonal irrigation and from
-      water-use permission.
+    description: A defined area in which water is fully or partly controlled for irrigation, together with
+      the works that supply it, such as intakes, canals, pipes and pumps, under private or collective management.
+      Its equipped area differs from the area actually irrigated in a season.
     status: bibo:draft
     slots:
     - name
     - identifiers
-    - scheme_operator
+    - spatial_geometry
     - irrigation_service_area
     - irrigation_component
     see_also:
@@ -296,128 +174,84 @@ classes:
     annotations:
       source_domain: agri
       bibliography_refs: '["fao-aquastat-irrigation"]'
-  ProducerMembership:
-    class_uri: publicschema:agri/ProducerMembership
-    title: Producer membership
-    description: A dated relationship in which a person, group or organization is a member of a producer
-      organization. Membership is distinct from employment, ownership of a holding and recognition of
-      the producer organization by an authority.
-    status: bibo:draft
-    slots:
-    - producer_member
-    - producer_organization
-    - producer_membership_role
-    - start_date
-    - end_date
-    see_also:
-    - https://agriculture.ec.europa.eu/common-agricultural-policy/agri-food-supply-chain/producer-and-interbranch-organisations_en
-    annotations:
-      source_domain: agri
-      bibliography_refs: '["ec-producer-organizations"]'
 slots:
   facility_function:
     slot_uri: publicschema:agri/facility_function
     title: Facility function
-    description: A function performed at an agricultural facility; codes identify their own classification
-      scheme.
-    range: CodedValue
+    description: A kind of agricultural activity carried out at the facility, such as keeping bees, propagating
+      plants, storing produce or trading.
+    range: AgriculturalFacilityFunction
     multivalued: true
     status: bibo:draft
     annotations:
       source_domain: agri
       category: agriculture
-  facility_location:
-    slot_uri: publicschema:facility_location
-    title: Facility location
-    description: The named geographic or administrative area containing a facility; not a geometry.
-    range: Location
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      category: agriculture
-  facility_operator:
-    slot_uri: publicschema:facility_operator
-    title: Facility operator
-    description: URI of the person, organization or group operating a facility in this description. Operator
-      history should use dated relationships.
-    range: uri
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      category: agriculture
   laboratory_capability:
     slot_uri: publicschema:laboratory_capability
     title: Laboratory capability
-    description: A declared analytical capability, identifying its method or scope vocabulary; not proof
-      of accreditation.
+    description: A declared analytical method or test that a laboratory offers, identified by a code in
+      a stated scheme. It does not show accreditation or proficiency.
     range: CodedValue
     multivalued: true
     status: bibo:draft
     annotations:
-      category: agriculture
+      category: classification
   machine_category:
     slot_uri: publicschema:machine_category
     title: Machine category
-    description: The machine type in an explicitly identified classification.
+    description: The category of a machine, identified by a code in a stated scheme, such as a type-approval
+      category or a national machinery class.
     range: CodedValue
     multivalued: false
     status: bibo:draft
     annotations:
-      category: agriculture
+      category: classification
   machine_model:
     slot_uri: publicschema:machine_model
     title: Machine model
-    description: The manufacturer model designation of a machine.
+    description: The manufacturer's model designation of a machine.
     range: string
     multivalued: false
     status: bibo:draft
     annotations:
-      category: agriculture
-  machine_serial_number:
-    slot_uri: publicschema:machine_serial_number
-    title: Machine serial number
-    description: The manufacturer-assigned serial number, interpreted with manufacturer or identifier
-      scheme context.
-    range: string
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      category: agriculture
+      category: assets
   vessel_flag:
     slot_uri: publicschema:transport/vessel_flag
     title: Vessel flag
-    description: The state under whose flag the vessel operates in this description.
+    description: The State whose flag the vessel is entitled to fly at the time the record describes.
     range: Country
     multivalued: false
     status: bibo:draft
     annotations:
       source_domain: transport
-      category: agriculture
-  vessel_length:
-    slot_uri: publicschema:transport/vessel_length
-    title: Vessel length
-    description: Length overall of a vessel, with its unit explicitly stated.
+      category: assets
+  vessel_length_overall:
+    slot_uri: publicschema:transport/vessel_length_overall
+    title: Vessel length overall
+    description: The length overall of the vessel, with its unit. Registered length and length between
+      perpendiculars are different measurements.
     range: QuantityValue
     multivalued: false
     status: bibo:draft
     annotations:
       source_domain: transport
-      category: agriculture
+      category: assets
   service_provider:
     slot_uri: publicschema:service_provider
     title: Service provider
-    description: URI of the person, organization or group performing this role; the URI identifies the
-      actor rather than its registration.
+    description: The URI of the person, organization or group that offers or performs the services in this
+      role. The URI identifies the actor, not its registration.
     range: uri
     multivalued: false
     status: bibo:draft
     annotations:
-      category: agriculture
+      category: governance
+      sensitivity: sensitive
   agricultural_service:
     slot_uri: publicschema:agri/agricultural_service
     title: Agricultural service
-    description: A service or activity offered in this role, with its classification scheme.
-    range: CodedValue
+    description: A kind of agricultural service offered or performed in this role.
+    range: AgriculturalServiceType
     multivalued: true
     status: bibo:draft
     annotations:
@@ -431,12 +265,12 @@ slots:
     multivalued: true
     status: bibo:draft
     annotations:
-      category: agriculture
+      category: location
   service_equipment:
     slot_uri: publicschema:agri/service_equipment
     title: Service equipment
-    description: A machine offered or used by this service role, without implying ownership.
-    range: AgriculturalMachinery
+    description: A machine offered or used in this service role, without implying ownership.
+    range: AgriculturalMachine
     multivalued: true
     status: bibo:draft
     annotations:
@@ -445,8 +279,8 @@ slots:
   supplied_product:
     slot_uri: publicschema:agri/supplied_product
     title: Supplied product
-    description: URI of an input product supplied under this role, including medicinal products or seed
-      lots defined in their own domains.
+    description: The URI of a product specification supplied under this role, such as an agricultural input
+      product, a veterinary medicinal product or a seed lot.
     range: uri
     multivalued: true
     status: bibo:draft
@@ -456,8 +290,20 @@ slots:
   producer_sector:
     slot_uri: publicschema:agri/producer_sector
     title: Producer sector
-    description: A production sector in which a producer organization acts.
+    description: An agricultural sector in which the producer organization acts, identified by a code in
+      a stated scheme.
     range: CodedValue
+    multivalued: true
+    status: bibo:draft
+    annotations:
+      source_domain: agri
+      category: agriculture
+  input_product_category:
+    slot_uri: publicschema:agri/input_product_category
+    title: Input product category
+    description: A regulatory category to which the agricultural input product belongs, such as feed, fertilising
+      product or pesticide.
+    range: AgriculturalInputProductCategory
     multivalued: true
     status: bibo:draft
     annotations:
@@ -471,59 +317,61 @@ slots:
     multivalued: false
     status: bibo:draft
     annotations:
-      category: agriculture
+      category: classification
   product_component:
     slot_uri: publicschema:product_component
     title: Product component
-    description: A constituent and its declared composition in a product.
+    description: A declared constituent of the product.
     range: ProductComponent
     multivalued: true
     status: bibo:draft
     annotations:
-      category: agriculture
+      category: classification
   component_substance:
     slot_uri: publicschema:component_substance
     title: Component substance
-    description: The constituent identified by a code and scheme, optionally with a descriptive label.
+    description: The substance or material that forms this constituent, identified by a code in a stated
+      scheme and optionally a descriptive label.
     range: CodedValue
     multivalued: false
     status: bibo:draft
     annotations:
-      category: agriculture
+      category: classification
+  component_role:
+    slot_uri: publicschema:component_role
+    title: Component role
+    description: The role of the constituent in the product, identified by a code in a stated scheme, such
+      as active substance, safener, synergist, co-formulant or declared nutrient.
+    range: CodedValue
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: classification
   component_amount:
     slot_uri: publicschema:component_amount
     title: Component amount
-    description: The quantity expressing the constituent concentration on the stated basis; units and
-      basis must be interpreted together.
+    description: The declared amount of the constituent on the stated basis, with its unit. Amount and basis
+      are interpreted together.
     range: QuantityValue
     multivalued: false
     status: bibo:draft
     annotations:
-      category: agriculture
+      category: classification
   component_basis:
     slot_uri: publicschema:component_basis
     title: Component basis
-    description: The denominator or basis of composition, such as mass per product volume or mass fraction.
-    range: string
+    description: The basis on which the component amount is expressed, identified by a code in a stated
+      scheme, such as mass fraction of the whole product, mass per volume or mass expressed as the oxide.
+    range: CodedValue
     multivalued: false
     status: bibo:draft
     annotations:
-      category: agriculture
-  scheme_operator:
-    slot_uri: publicschema:agri/scheme_operator
-    title: Scheme operator
-    description: URI of the person, organization or group operating the irrigation scheme.
-    range: uri
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      source_domain: agri
-      category: agriculture
+      category: classification
   irrigation_service_area:
     slot_uri: publicschema:agri/irrigation_service_area
     title: Irrigation service area
-    description: The equipped service or command area of the scheme with its unit; not the area actually
-      irrigated during a season.
+    description: The area served by the scheme's irrigation works, as equipped or commanded, with its unit.
+      It is not the area actually irrigated in a season.
     range: QuantityValue
     multivalued: false
     status: bibo:draft
@@ -533,40 +381,9 @@ slots:
   irrigation_component:
     slot_uri: publicschema:agri/irrigation_component
     title: Irrigation component
-    description: URI of an infrastructure component forming part of the scheme, such as a canal, pump
-      or reservoir.
+    description: The URI of a physical component of the scheme, such as an intake, canal, pump or reservoir.
     range: uri
     multivalued: true
-    status: bibo:draft
-    annotations:
-      source_domain: agri
-      category: agriculture
-  producer_member:
-    slot_uri: publicschema:agri/producer_member
-    title: Producer member
-    description: URI of the person, group or organization holding this membership.
-    range: uri
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      source_domain: agri
-      category: agriculture
-  producer_organization:
-    slot_uri: publicschema:agri/producer_organization
-    title: Producer organization
-    description: The producer organization in which membership is held.
-    range: ProducerOrganization
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      source_domain: agri
-      category: agriculture
-  producer_membership_role:
-    slot_uri: publicschema:agri/producer_membership_role
-    title: Producer membership role
-    description: A membership role or category defined by the organization or membership scheme.
-    range: CodedValue
-    multivalued: false
     status: bibo:draft
     annotations:
       source_domain: agri

@@ -41,8 +41,9 @@
       "kind": "class",
       "id": "AgriculturalMachinery",
       "old_uri": "https://publicschema.org/AgriculturalMachinery",
-      "new_uri": "https://publicschema.org/agri/AgriculturalMachinery",
-      "action": "relocate"
+      "new_uri": "https://publicschema.org/agri/AgriculturalMachine",
+      "action": "relocate",
+      "note": "Renamed to AgriculturalMachine with the same meaning; carry serial numbers in identifiers."
     },
     {
       "kind": "class",
@@ -55,8 +56,9 @@
       "kind": "class",
       "id": "AgriculturalProduct",
       "old_uri": "https://publicschema.org/AgriculturalProduct",
-      "new_uri": "https://publicschema.org/agri/AgriculturalProduct",
-      "action": "relocate"
+      "new_uri": "https://publicschema.org/agri/AgriculturalInputProduct",
+      "action": "relocate",
+      "note": "Renamed to AgriculturalInputProduct with the same meaning."
     },
     {
       "kind": "class",
@@ -83,15 +85,17 @@
       "kind": "class",
       "id": "Apiary",
       "old_uri": "https://publicschema.org/Apiary",
-      "new_uri": "https://publicschema.org/agri/Apiary",
-      "action": "relocate"
+      "new_uri": "https://publicschema.org/agri/AgriculturalFacility",
+      "action": "reviewed-replacement",
+      "note": "Use AgriculturalFacility with the facility_function code apiary."
     },
     {
       "kind": "class",
       "id": "AquacultureEstablishment",
       "old_uri": "https://publicschema.org/AquacultureEstablishment",
-      "new_uri": "https://publicschema.org/agri/AquacultureEstablishment",
-      "action": "relocate"
+      "new_uri": "https://publicschema.org/agri/AgriculturalFacility",
+      "action": "reviewed-replacement",
+      "note": "Use AgriculturalFacility with the facility_function code aquaculture_establishment."
     },
     {
       "kind": "class",
@@ -169,15 +173,17 @@
       "kind": "class",
       "id": "FeedProduct",
       "old_uri": "https://publicschema.org/FeedProduct",
-      "new_uri": "https://publicschema.org/agri/FeedProduct",
-      "action": "relocate"
+      "new_uri": "https://publicschema.org/agri/AgriculturalInputProduct",
+      "action": "reviewed-replacement",
+      "note": "Use AgriculturalInputProduct with the input_product_category code feed."
     },
     {
       "kind": "class",
       "id": "FertilizerProduct",
       "old_uri": "https://publicschema.org/FertilizerProduct",
-      "new_uri": "https://publicschema.org/agri/FertilizerProduct",
-      "action": "relocate"
+      "new_uri": "https://publicschema.org/agri/AgriculturalInputProduct",
+      "action": "reviewed-replacement",
+      "note": "Use AgriculturalInputProduct with the input_product_category code fertilising_product."
     },
     {
       "kind": "class",
@@ -243,8 +249,9 @@
       "kind": "class",
       "id": "InputSupplierRole",
       "old_uri": "https://publicschema.org/InputSupplierRole",
-      "new_uri": "https://publicschema.org/agri/InputSupplierRole",
-      "action": "relocate"
+      "new_uri": "https://publicschema.org/agri/AgriculturalServiceRole",
+      "action": "reviewed-replacement",
+      "note": "Use AgriculturalServiceRole with the agricultural_service code input_supply."
     },
     {
       "kind": "class",
@@ -285,8 +292,9 @@
       "kind": "class",
       "id": "LivestockEstablishment",
       "old_uri": "https://publicschema.org/LivestockEstablishment",
-      "new_uri": "https://publicschema.org/agri/LivestockEstablishment",
-      "action": "relocate"
+      "new_uri": "https://publicschema.org/agri/AgriculturalFacility",
+      "action": "reviewed-replacement",
+      "note": "Use AgriculturalFacility with the facility_function code livestock_establishment."
     },
     {
       "kind": "class",
@@ -332,29 +340,33 @@
       "kind": "class",
       "id": "PesticideApplicatorRole",
       "old_uri": "https://publicschema.org/PesticideApplicatorRole",
-      "new_uri": "https://publicschema.org/agri/PesticideApplicatorRole",
-      "action": "relocate"
+      "new_uri": "https://publicschema.org/agri/AgriculturalServiceRole",
+      "action": "reviewed-replacement",
+      "note": "Use AgriculturalServiceRole with the agricultural_service code pesticide_application."
     },
     {
       "kind": "class",
       "id": "PesticideProduct",
       "old_uri": "https://publicschema.org/PesticideProduct",
-      "new_uri": "https://publicschema.org/agri/PesticideProduct",
-      "action": "relocate"
+      "new_uri": "https://publicschema.org/agri/AgriculturalInputProduct",
+      "action": "reviewed-replacement",
+      "note": "Use AgriculturalInputProduct with the input_product_category code pesticide."
     },
     {
       "kind": "class",
       "id": "PlantNursery",
       "old_uri": "https://publicschema.org/PlantNursery",
-      "new_uri": "https://publicschema.org/agri/PlantNursery",
-      "action": "relocate"
+      "new_uri": "https://publicschema.org/agri/AgriculturalFacility",
+      "action": "reviewed-replacement",
+      "note": "Use AgriculturalFacility with the facility_function code plant_nursery."
     },
     {
       "kind": "class",
       "id": "ProducerMembership",
       "old_uri": "https://publicschema.org/ProducerMembership",
-      "new_uri": "https://publicschema.org/agri/ProducerMembership",
-      "action": "relocate"
+      "new_uri": "https://publicschema.org/InstitutionalRole",
+      "action": "reviewed-replacement",
+      "note": "Use InstitutionalRole with a member role code from a published scheme; migrate endpoints and dates explicitly."
     },
     {
       "kind": "class",
@@ -381,8 +393,9 @@
       "kind": "class",
       "id": "SeedOperatorRole",
       "old_uri": "https://publicschema.org/SeedOperatorRole",
-      "new_uri": "https://publicschema.org/agri/SeedOperatorRole",
-      "action": "relocate"
+      "new_uri": "https://publicschema.org/agri/AgriculturalServiceRole",
+      "action": "reviewed-replacement",
+      "note": "Use AgriculturalServiceRole and select seed_processing, seed_packing or seed_marketing from the source evidence."
     },
     {
       "kind": "class",
@@ -971,22 +984,25 @@
       "kind": "property",
       "id": "producer_member",
       "old_uri": "https://publicschema.org/producer_member",
-      "new_uri": "https://publicschema.org/agri/producer_member",
-      "action": "relocate"
+      "new_uri": "https://publicschema.org/role_actor",
+      "action": "reviewed-replacement",
+      "note": "Use within a reviewed InstitutionalRole, preserving the member's identity."
     },
     {
       "kind": "property",
       "id": "producer_membership_role",
       "old_uri": "https://publicschema.org/producer_membership_role",
-      "new_uri": "https://publicschema.org/agri/producer_membership_role",
-      "action": "relocate"
+      "new_uri": "https://publicschema.org/institutional_role_type",
+      "action": "reviewed-replacement",
+      "note": "Use within a reviewed InstitutionalRole; keep the source role code and its scheme."
     },
     {
       "kind": "property",
       "id": "producer_organization",
       "old_uri": "https://publicschema.org/producer_organization",
-      "new_uri": "https://publicschema.org/agri/producer_organization",
-      "action": "relocate"
+      "new_uri": "https://publicschema.org/role_organization",
+      "action": "reviewed-replacement",
+      "note": "Use within a reviewed InstitutionalRole, preserving the producer organization's identity."
     },
     {
       "kind": "property",
@@ -1020,8 +1036,9 @@
       "kind": "property",
       "id": "scheme_operator",
       "old_uri": "https://publicschema.org/scheme_operator",
-      "new_uri": "https://publicschema.org/agri/scheme_operator",
-      "action": "relocate"
+      "new_uri": "https://publicschema.org/asset_actor",
+      "action": "reviewed-replacement",
+      "note": "Use within an AssetPartyRole whose asset_subject is the irrigation scheme and whose role code states the operator responsibility."
     },
     {
       "kind": "property",
@@ -1173,8 +1190,9 @@
       "kind": "property",
       "id": "vessel_length",
       "old_uri": "https://publicschema.org/vessel_length",
-      "new_uri": "https://publicschema.org/transport/vessel_length",
-      "action": "relocate"
+      "new_uri": "https://publicschema.org/transport/vessel_length_overall",
+      "action": "reviewed-replacement",
+      "note": "Confirm the source value is the length overall before using vessel_length_overall."
     },
     {
       "kind": "property",

@@ -66,7 +66,7 @@ def test_fixture_conversion_is_reviewable_idempotent_and_does_not_mutate(legacy)
     ("2026-04-01", "2026-04-30", "2026-05-01"),
     ("2026-12-31", "2026-12-31", "2027-01-01"),
 ])
-@pytest.mark.parametrize("kind", ["AnimalResponsibility", "PesticideApplicatorRole", "SeedOperatorRole"])
+@pytest.mark.parametrize("kind", ["AnimalResponsibility", "AgriculturalServiceRole"])
 def test_inclusive_membership_of_every_day_is_preserved(kind, start, end, expected_end):
     before = {"@type": kind, "valid_from": start, "valid_to": end}
     after = convert(before)
@@ -107,7 +107,7 @@ def test_impossible_or_ambiguous_dates_fail_with_stable_field_diagnostics(patch,
 @pytest.mark.parametrize("boundary", [None, "unknown", "end-is-exclusive"])
 def test_source_boundary_is_required_evidence(boundary):
     with pytest.raises(migration.MigrationError) as error:
-        convert({"@type": "ProducerMembership", "valid_to": "2026-06-30"}, boundary)
+        convert({"@type": "AgriculturalServiceRole", "valid_to": "2026-06-30"}, boundary)
     assert error.value.diagnostics[0]["code"] == "unknown-source-boundary"
 
 
@@ -128,8 +128,7 @@ def test_nested_exchange_is_all_or_nothing_and_missing_dates_are_not_invented():
 @pytest.mark.parametrize("type_id", [
     "AnimalResidence", "publicschema:AnimalResidence", "https://publicschema.org/AnimalResidence",
     "agri/AnimalResidence", "publicschema:agri/AnimalResidence", "https://publicschema.org/agri/AnimalResidence",
-    "agri/AgriculturalServiceRole", "agri/InputSupplierRole",
-    "https://publicschema.org/agri/AgriculturalServiceRole", "https://publicschema.org/agri/InputSupplierRole",
+    "agri/AgriculturalServiceRole", "https://publicschema.org/agri/AgriculturalServiceRole",
     "AnimalResponsibility", "https://publicschema.org/AnimalResponsibility",
 ])
 def test_exact_type_identifiers_are_preserved(type_id):
@@ -138,13 +137,12 @@ def test_exact_type_identifiers_are_preserved(type_id):
     }
 
 
-@pytest.mark.parametrize("kind", ["PesticideApplicatorRole", "SeedOperatorRole"])
 @pytest.mark.parametrize("prefix", [
     "", "publicschema:", "https://publicschema.org/", "agri/",
     "publicschema:agri/", "https://publicschema.org/agri/",
 ])
-def test_inherited_roles_accept_exact_historical_and_current_type_identifiers(kind, prefix):
-    type_id = prefix + kind
+def test_service_roles_accept_exact_historical_and_current_type_identifiers(prefix):
+    type_id = prefix + "AgriculturalServiceRole"
     assert convert({"@type": type_id, "valid_from": "2026-12-31", "valid_to": "2026-12-31"}) == {
         "@type": type_id, "start_date": "2026-12-31", "end_date": "2027-01-01",
     }
@@ -161,23 +159,27 @@ def test_a_matching_local_name_does_not_establish_class_identity(type_id):
     assert error.value.diagnostics[0]["code"] == "unsupported-type-identifier"
 
 
-@pytest.mark.parametrize("kind", ["PesticideApplicatorRole", "SeedOperatorRole"])
 @pytest.mark.parametrize("prefix", ["https://unrelated.example/", "alien:", "health/"])
-def test_inherited_roles_reject_foreign_namespaces(kind, prefix):
+def test_service_roles_reject_foreign_namespaces(prefix):
     with pytest.raises(migration.MigrationError) as error:
-        convert({"@type": prefix + kind, "valid_to": "2026-06-30"})
+        convert({"@type": prefix + "AgriculturalServiceRole", "valid_to": "2026-06-30"})
     assert error.value.diagnostics[0]["code"] == "unsupported-type-identifier"
 
 
-@pytest.mark.parametrize("kind", ["PesticideApplicatorRole", "SeedOperatorRole"])
-def test_inherited_roles_require_source_boundary_and_reject_unrepresentable_end(kind):
-    source = {"@type": kind, "valid_to": "9999-12-31"}
+def test_service_roles_require_source_boundary_and_reject_unrepresentable_end():
+    source = {"@type": "AgriculturalServiceRole", "valid_to": "9999-12-31"}
     with pytest.raises(migration.MigrationError) as error:
         convert(source, None)
     assert error.value.diagnostics[0]["code"] == "unknown-source-boundary"
     with pytest.raises(migration.MigrationError) as error:
         convert(source)
     assert error.value.diagnostics[0]["code"] == "unrepresentable-end-date"
+
+
+def test_collapsed_agricultural_roles_are_not_migration_targets():
+    removed = {"ProducerMembership", "InputSupplierRole", "PesticideApplicatorRole", "SeedOperatorRole"}
+    assert not removed & migration.RELATIONSHIPS
+    assert not removed & set(migration.TYPE_ALIASES.values())
 
 
 @pytest.mark.parametrize("kind,code", [
@@ -248,7 +250,7 @@ def test_migrated_examples_validate_against_real_exports(tmp_path, legacy):
         for parent in concept.get("supertypes", []):
             graph.add((URIRef(concept["uri"]), RDFS.subClassOf, URIRef(result["concepts"][parent]["uri"])))
     migrated_roots = {URIRef(result["context"]["@context"][kind]) for kind in (
-        "HoldingParcelLink", "AnimalResidence", "AnimalResponsibility", "ProducerMembership",
+        "HoldingParcelLink", "AnimalResidence", "AnimalResponsibility",
         "AgriculturalServiceRole", "IdentifierAssignment", "NameUsage", "ContactPoint",
     )}
     for concept in result["concepts"].values():

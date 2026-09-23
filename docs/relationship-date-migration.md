@@ -17,8 +17,7 @@ fields are not timestamps and do not describe the time a source recorded a fact.
 | HoldingParcelLink | The period during which a holding uses a parcel. |
 | AnimalResidence | The period during which an animal or group is kept at the identified agricultural site. |
 | AnimalResponsibility | The period of the stated keeper, owner or other responsibility. |
-| ProducerMembership | The period of producer-organization membership. Allowed member kinds stay unchanged. |
-| AgriculturalServiceRole and its InputSupplierRole, PesticideApplicatorRole and SeedOperatorRole subtypes | The period of acting as the described service provider; every subtype inherits the same date change. |
+| AgriculturalServiceRole | The period of acting as the described service provider. |
 | IdentifierAssignment | The period of an identifier's assignment to the subject. |
 | NameUsage | The period of using the name for the subject in its stated context. |
 | ContactPoint | The period of using the communication channel to reach the subject. |
@@ -45,13 +44,13 @@ Only after establishing that the source uses inclusive whole calendar days:
 For example:
 
 ```json
-{"@type":"ProducerMembership","valid_from":"2026-12-31","valid_to":"2026-12-31"}
+{"@type":"AgriculturalServiceRole","valid_from":"2026-12-31","valid_to":"2026-12-31"}
 ```
 
 becomes:
 
 ```json
-{"@type":"ProducerMembership","start_date":"2026-12-31","end_date":"2027-01-01"}
+{"@type":"AgriculturalServiceRole","start_date":"2026-12-31","end_date":"2027-01-01"}
 ```
 
 Both describe one effective day. Likewise, an inclusive leap-day end of
@@ -122,8 +121,7 @@ unchanged on both success and failure.
 
 The helper accepts the named compact authored `@type` values, their historical
 root PublicSchema URI forms and the exact new `agri/` catalog identifiers and URIs for
-HoldingParcelLink, AnimalResidence, ProducerMembership, AgriculturalServiceRole,
-InputSupplierRole, PesticideApplicatorRole and SeedOperatorRole. AnimalResponsibility and the registry assignments remain
+HoldingParcelLink, AnimalResidence and AgriculturalServiceRole. AnimalResponsibility and the registry assignments remain
 at root. Type identifiers are preserved; this tool does not perform namespace
 migration. An arbitrary namespace with the same local name is rejected, as are
 multiple types involving these concepts. Context alias interpretation and

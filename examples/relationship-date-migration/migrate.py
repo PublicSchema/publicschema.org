@@ -13,16 +13,11 @@ from pathlib import Path
 
 RELATIONSHIPS = {
     "HoldingParcelLink", "AnimalResidence", "AnimalResponsibility",
-    "ProducerMembership", "AgriculturalServiceRole", "InputSupplierRole",
-    "PesticideApplicatorRole", "SeedOperatorRole",
-    "IdentifierAssignment", "NameUsage", "ContactPoint",
+    "AgriculturalServiceRole", "IdentifierAssignment", "NameUsage", "ContactPoint",
 }
 TRANSFORMED_ASSIGNMENTS = {"AssetPartyRole", "AssetAddressAssignment"}
 RETIRED_ASSIGNMENTS = {"FacilityManagementAssignment", "FacilityAddressAssignment"}
-AGRICULTURAL_RELATIONSHIPS = {
-    "HoldingParcelLink", "AnimalResidence", "ProducerMembership",
-    "AgriculturalServiceRole", "InputSupplierRole", "PesticideApplicatorRole", "SeedOperatorRole",
-}
+AGRICULTURAL_RELATIONSHIPS = {"HoldingParcelLink", "AnimalResidence", "AgriculturalServiceRole"}
 TYPE_ALIASES = {}
 for _name in RELATIONSHIPS | TRANSFORMED_ASSIGNMENTS | RETIRED_ASSIGNMENTS:
     TYPE_ALIASES.update({value: _name for value in (

@@ -199,11 +199,18 @@ def test_role_and_address_codes_require_the_declared_meaning(records, record_id,
         profile.validate_profile(changed)
 
 
-def test_group_can_hold_a_facility_responsibility_and_missing_dates_stay_unknown(records):
+def test_nursery_is_a_coded_facility_a_group_can_operate_and_missing_dates_stay_unknown(records):
     index = {record["@id"]: record for record in records}
-    assert index[EX + "nursery"]["facility_operator"] == EX + "nursery-group"
+    nursery = index[EX + "nursery"]
+    assert nursery["@type"] == "AgriculturalFacility"
+    assert nursery["facility_function"] == ["plant_nursery"]
+    assert "facility_operator" not in nursery
     group_role = copy.deepcopy(index[EX + "hospital-operator"])
-    group_role.update({"@id": EX + "hospital-group-operator", "asset_actor": EX + "nursery-group"})
+    group_role.update({
+        "@id": EX + "nursery-group-operator",
+        "subject_uri": EX + "nursery",
+        "asset_actor": EX + "nursery-group",
+    })
     profile.validate_profile(records + [group_role])
     assert profile.effective_on(index[EX + "school-owner"], date(2026, 7, 1)) is None
     assert profile.effective_on({"end_date": "2026-07-01"}, date(2026, 7, 1)) is False
