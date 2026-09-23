@@ -1,48 +1,32 @@
 """Farm is a production unit; holder responsibilities preserve typed subjects."""
 import copy
-import importlib.util
 import json
 from pathlib import Path
 
 import jsonschema
 import pytest
-from pyld import jsonld
 from pyshacl import validate
-from rdflib import Graph, Namespace, URIRef
+from rdflib import Namespace
 from rdflib.namespace import RDFS
-from referencing import Registry, Resource
 
-from build.build import build_vocabulary
-from build.linkml_rdf_export import write_shacl
+from tests.conftest import jsonld_graph, load_example
 
 ROOT = Path(__file__).resolve().parents[1]
 PS = Namespace("https://publicschema.org/")
 AGRI = Namespace("https://publicschema.org/agri/")
 EX = "https://example.org/farm-pilot/"
-_spec = importlib.util.spec_from_file_location("farm_profile", ROOT / "examples/farm-operators/validate_profile.py")
-_profile = importlib.util.module_from_spec(_spec)
-_spec.loader.exec_module(_profile)
+_profile = load_example("farm-operators/validate_profile.py")
 
 
 @pytest.fixture(scope="module")
-def farm(tmp_path_factory):
-    result = build_vocabulary(ROOT / "schema")
-    shapes = Graph().parse(write_shacl(tmp_path_factory.mktemp("farm") / "shapes.ttl"), format="turtle")
+def farm(built_vocabulary, shacl_graph, schema_registry):
     records = json.loads((ROOT / "examples/farm-operators/records.json").read_text())
-    registry = Registry().with_resources((s["$id"], Resource.from_contents(s)) for s in result["concept_schemas"].values())
-    return result, shapes, records, registry
+    return built_vocabulary, shacl_graph, records, schema_registry
 
 
-def graph_for(records, result):
-    # Use the standards conversion; RDFLib direct JSON-LD parsing can give
-    # xsd:decimal a Python float/int and cause false pySHACL datatype errors.
-    quads = jsonld.to_rdf({"@context": result["context"]["@context"], "@graph": records}, {"format": "application/n-quads"})
-    graph = Graph().parse(data=quads, format="nquads")
-    # Supply the authored hierarchy for references to abstract ranges.
-    for concept in result["concepts"].values():
-        for parent in concept.get("supertypes", []):
-            graph.add((URIRef(concept["uri"]), RDFS.subClassOf, URIRef(result["concepts"][parent]["uri"])))
-    return graph
+def graph_for(records, result, hierarchy):
+    # Supply the exported hierarchy for references to abstract ranges.
+    return jsonld_graph(records, result["context"], hierarchy)
 
 
 def test_farm_hierarchy_and_locked_membership_contracts(farm):
@@ -57,12 +41,12 @@ def test_farm_hierarchy_and_locked_membership_contracts(farm):
     assert result["concepts"]["Organization"]["supertypes"] == ["Agent"]
 
 
-def test_real_exports_and_example_profile(farm):
+def test_real_exports_and_example_profile(farm, subclass_hierarchy):
     result, shapes, records, registry = farm
     for record in records:
         jsonschema.Draft202012Validator(result["concept_schemas"][record["@type"]], registry=registry).validate(record)
     _profile.validate_profile(records)
-    graph = graph_for(records, result)
+    graph = graph_for(records, result, subclass_hierarchy)
     assert validate(graph, shacl_graph=shapes, inference="rdfs")[0]
     assert not list(graph.triples((None, PS.beneficiary, None)))
     assert not list(graph.triples((None, PS.recipient, None)))
@@ -164,11 +148,11 @@ def test_livestock_type_follows_wca_classes(farm):
     assert "2030" in vocabulary["standard"]["name"]
 
 
-def test_production_shacl_rejects_software_as_person(farm):
+def test_production_shacl_rejects_software_as_person(farm, subclass_hierarchy):
     result, shapes, original, _ = farm
     records = copy.deepcopy(original)
     next(r for r in records if r["@id"] == EX + "person")["@type"] = "SoftwareAgent"
-    assert not validate(graph_for(records, result), shacl_graph=shapes, inference="rdfs")[0]
+    assert not validate(graph_for(records, result, subclass_hierarchy), shacl_graph=shapes, inference="rdfs")[0]
 
 
 @pytest.fixture(scope="module")
@@ -176,7 +160,7 @@ def workforce():
     return json.loads((ROOT / "examples/farm-operators/work-records.json").read_text())
 
 
-def test_workforce_golden_json_schema_shacl_and_profile(farm, workforce):
+def test_workforce_golden_json_schema_shacl_and_profile(farm, subclass_hierarchy, workforce):
     result, shapes, _, registry = farm
     for record in workforce:
         jsonschema.Draft202012Validator(
@@ -184,7 +168,7 @@ def test_workforce_golden_json_schema_shacl_and_profile(farm, workforce):
             format_checker=jsonschema.FormatChecker(),
         ).validate(record)
     _profile.validate_profile(workforce)
-    graph = graph_for(workforce, result)
+    graph = graph_for(workforce, result, subclass_hierarchy)
     conforms, _, report = validate(graph, shacl_graph=shapes, inference="rdfs")
     assert conforms, report
     for kind, endpoint in (("WorkRelationship", "work_economic_unit"),
@@ -320,11 +304,11 @@ def test_partial_work_vocabulary_and_minimal_participation(farm):
 
 @pytest.mark.parametrize("field,target", [("work_person", "agency"), ("assigned_holding", "person"),
                                            ("assignment_work_relationship", "holding")])
-def test_work_shacl_checks_typed_references(farm, workforce, field, target):
+def test_work_shacl_checks_typed_references(farm, subclass_hierarchy, workforce, field, target):
     result, shapes, _, _ = farm
     records = copy.deepcopy(workforce)
     next(r for r in records if r["@id"] == EX + "agency-river")[field] = EX + target
-    assert not validate(graph_for(records, result), shacl_graph=shapes, inference="rdfs")[0]
+    assert not validate(graph_for(records, result, subclass_hierarchy), shacl_graph=shapes, inference="rdfs")[0]
 
 
 def test_work_json_schema_rejects_non_uri_economic_unit_and_wrong_function_shape(farm):
@@ -336,26 +320,26 @@ def test_work_json_schema_rejects_non_uri_economic_unit_and_wrong_function_shape
             validator.validate(record)
 
 
-def test_farm_cannot_return_to_normative_membership(farm):
+def test_farm_cannot_return_to_normative_membership(farm, subclass_hierarchy):
     result, shapes, original, _ = farm
     records = copy.deepcopy(original)
     membership = {"@type": "GroupMembership", "person": EX + "person", "group": EX + "holding", "role": "worker"}
     records.append(membership)
     with pytest.raises(ValueError):
         _profile.validate_profile(records)
-    assert not validate(graph_for(records, result), shacl_graph=shapes, inference="rdfs")[0]
+    assert not validate(graph_for(records, result, subclass_hierarchy), shacl_graph=shapes, inference="rdfs")[0]
     records.append({"@id": EX + "family", "@type": "Family"})
     membership["group"] = EX + "family"
     membership["role"] = "head"
     _profile.validate_profile(records)
-    assert validate(graph_for(records, result), shacl_graph=shapes, inference="rdfs")[0]
+    assert validate(graph_for(records, result, subclass_hierarchy), shacl_graph=shapes, inference="rdfs")[0]
     person_properties = result["concept_schemas"]["Person"]["properties"]
     assert "work_status" not in person_properties
     assert "employment_status" in person_properties and "status_in_employment" in person_properties
 
 
 @pytest.mark.parametrize("unit_type", ["Household", "agri/Farm"])
-def test_work_relationship_does_not_require_a_legal_employer(farm, unit_type):
+def test_work_relationship_does_not_require_a_legal_employer(farm, subclass_hierarchy, unit_type):
     result, shapes, _, registry = farm
     records = [{"@id": EX + "p", "@type": "Person"},
                {"@id": EX + "unit", "@type": unit_type},
@@ -363,4 +347,4 @@ def test_work_relationship_does_not_require_a_legal_employer(farm, unit_type):
     _profile.validate_profile(records)
     for record in records:
         jsonschema.Draft202012Validator(result["concept_schemas"][record["@type"]], registry=registry).validate(record)
-    assert validate(graph_for(records, result), shacl_graph=shapes, inference="rdfs")[0]
+    assert validate(graph_for(records, result, subclass_hierarchy), shacl_graph=shapes, inference="rdfs")[0]

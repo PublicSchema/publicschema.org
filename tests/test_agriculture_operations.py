@@ -4,14 +4,11 @@ from pathlib import Path
 
 import jsonschema
 import pytest
-from pyld import jsonld
 from pyshacl import validate
-from rdflib import Graph, Literal, Namespace
+from rdflib import Literal, Namespace
 from rdflib.namespace import OWL, RDF, RDFS
-from referencing import Registry, Resource
 
-from build.build import build_vocabulary
-from build.linkml_rdf_export import DEFAULT_LINKML_COMPOSITE, write_shacl, write_turtle
+from tests.conftest import jsonld_graph
 
 PS = Namespace('https://publicschema.org/')
 AGRI = Namespace('https://publicschema.org/agri/')
@@ -22,53 +19,33 @@ EXAMPLES = Path(__file__).resolve().parents[1] / 'examples/agriculture-operation
 
 
 @pytest.fixture(scope='module')
-def exports(tmp_path_factory):
-    result = build_vocabulary(DEFAULT_LINKML_COMPOSITE.parent)
-    out = tmp_path_factory.mktemp('agriculture-operations')
-    shapes = Graph().parse(write_shacl(out / 'shapes.ttl'), format='turtle')
-    ontology = Graph().parse(write_turtle(out / 'ontology.ttl'), format='turtle')
-    return result, shapes, ontology
+def exports(built_vocabulary, shacl_graph, owl_graph):
+    return built_vocabulary, shacl_graph, owl_graph
 
 
-def validate_json(record, result):
-    registry = Registry().with_resources(
-        (schema['$id'], Resource.from_contents(schema))
-        for schema in result['concept_schemas'].values()
-    )
+def validate_json(record, result, registry):
     schema = result['concept_schemas'][record['@type']]
     jsonschema.Draft202012Validator(schema, registry=registry).validate(record)
 
 
-def data_graph(record, result):
-    document = {'@context': result['context']['@context'], **record}
-    # PyLD performs the JSON-LD to RDF conversion. RDFLib's direct JSON-LD
-    # parser retains Python int for xsd:decimal and misleads pySHACL.
-    quads = jsonld.to_rdf(document, {'format': 'application/n-quads'})
-    return Graph().parse(data=quads, format='nquads')
-
-
-def with_superclasses(graph, ontology):
-    # sh:class follows rdfs:subClassOf in the data graph, so a nested
-    # ProducerOrganization satisfies an Organization-typed slot.
-    for kind in set(graph.objects(predicate=RDF.type)):
-        for superclass in ontology.transitive_objects(kind, RDFS.subClassOf):
-            if superclass != kind:
-                graph.add((kind, RDFS.subClassOf, superclass))
-    return graph
+def data_graph(record, result, hierarchy=None):
+    return jsonld_graph(record, result['context'], hierarchy)
 
 
 @pytest.mark.parametrize('path', sorted(EXAMPLES.glob('*.json')), ids=lambda p: p.stem)
-def test_examples_across_actual_exports(exports, path):
+def test_examples_across_actual_exports(exports, schema_registry, subclass_hierarchy, path):
     result, shapes, ontology = exports
     record = json.loads(path.read_text())
-    validate_json(record, result)
-    graph = with_superclasses(data_graph(record, result), ontology)
+    validate_json(record, result, schema_registry)
+    # sh:class follows rdfs:subClassOf in the data graph, so a nested
+    # ProducerOrganization satisfies an Organization-typed slot.
+    graph = data_graph(record, result, subclass_hierarchy)
     conforms, _, report = validate(graph, shacl_graph=shapes)
     assert conforms, report
     assert (PS[record['@type']], RDF.type, OWL.Class) in ontology
 
 
-def test_authorization_quantities_are_rate_limits(exports):
+def test_authorization_quantities_are_rate_limits(exports, schema_registry):
     result, shapes, _ = exports
     record = json.loads((EXAMPLES / 'water.json').read_text())
     limits = record['authorized_water_quantity']
@@ -80,21 +57,21 @@ def test_authorization_quantities_are_rate_limits(exports):
     assert 'water_quantity_period' not in result['concept_schemas'][record['@type']]['properties']
     scalar = dict(record, authorized_water_quantity=limits[0])
     with pytest.raises(jsonschema.ValidationError):
-        validate_json(scalar, result)
+        validate_json(scalar, result, schema_registry)
     non_numeric = dict(record, authorized_water_quantity=[dict(limits[0], quantity_value='many')])
     with pytest.raises(jsonschema.ValidationError):
-        validate_json(non_numeric, result)
+        validate_json(non_numeric, result, schema_registry)
     conforms, _, _ = validate(data_graph(non_numeric, result), shacl_graph=shapes)
     assert not conforms
 
 
-def test_composition_quantity_must_be_numeric(exports):
+def test_composition_quantity_must_be_numeric(exports, schema_registry):
     result, shapes, _ = exports
     record = json.loads((EXAMPLES / 'feed.json').read_text())
     # Resolve generated references locally, without requesting published schemas.
     quantity = {'@type': 'QuantityValue', 'quantity_value': 'eighteen', 'unit_code': '%', 'unit_scheme': UCUM}
     with pytest.raises(jsonschema.ValidationError):
-        validate_json(quantity, result)
+        validate_json(quantity, result, schema_registry)
     record['product_component'][0]['component_amount'] = quantity
     conforms, _, _ = validate(data_graph(record, result), shacl_graph=shapes)
     assert not conforms
@@ -189,7 +166,7 @@ def test_replaced_slots_stay_removed(exports):
      {'input_supply', 'pesticide_application', 'seed_processing', 'seed_packing', 'seed_marketing'}),
     ('feed.json', 'input_product_category', {'feed', 'fertilising_product', 'pesticide'}),
 ])
-def test_collapsed_subtypes_are_closed_codes(exports, filename, field, codes):
+def test_collapsed_subtypes_are_closed_codes(exports, schema_registry, filename, field, codes):
     result, shapes, _ = exports
     record = json.loads((EXAMPLES / filename).read_text())
     kind = record['@type']
@@ -198,7 +175,7 @@ def test_collapsed_subtypes_are_closed_codes(exports, filename, field, codes):
     assert set(record[field]) <= published
     record[field] = ['unlisted_code']
     with pytest.raises(jsonschema.ValidationError):
-        validate_json(record, result)
+        validate_json(record, result, schema_registry)
     conforms, _, _ = validate(data_graph(record, result), shacl_graph=shapes)
     assert not conforms
 

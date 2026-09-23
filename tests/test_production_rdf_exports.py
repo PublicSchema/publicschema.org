@@ -6,7 +6,6 @@ from pathlib import Path
 
 import jsonschema
 import pytest
-from pyld import jsonld
 from pyshacl import validate
 from rdflib import BNode, Graph, Literal, Namespace, URIRef
 from rdflib.compare import isomorphic
@@ -15,24 +14,14 @@ from rdflib.namespace import OWL, RDF, SH
 from build.build import build_vocabulary
 from build.linkml_rdf_export import (
     DEFAULT_CONTEXT_URL,
-    DEFAULT_LINKML_COMPOSITE,
     write_full_jsonld,
     write_shacl,
     write_turtle,
 )
+from tests.conftest import jsonld_graph as _jsonld_graph
 
 PS = Namespace("https://publicschema.org/")
 EX = Namespace("https://example.org/custom/")
-
-
-def _jsonld_graph(document, context, context_url=DEFAULT_CONTEXT_URL):
-    """Resolve the published context from this build, without network access."""
-    def load_context(url, options=None):
-        assert url == context_url, f"Unexpected remote document: {url}"
-        return {"contextUrl": None, "documentUrl": url, "document": context}
-
-    expanded = jsonld.expand(document, options={"documentLoader": load_context})
-    return Graph().parse(data=json.dumps(expanded), format="json-ld")
 
 
 def _write_exports(directory, composite, context_url=DEFAULT_CONTEXT_URL):
@@ -49,12 +38,11 @@ def _write_exports(directory, composite, context_url=DEFAULT_CONTEXT_URL):
 
 
 @pytest.fixture(scope="module")
-def production_exports(tmp_path_factory):
-    result = build_vocabulary(DEFAULT_LINKML_COMPOSITE.parent)
-    exports = _write_exports(
-        tmp_path_factory.mktemp("production-rdf"), DEFAULT_LINKML_COMPOSITE,
-    )
-    return result, *exports
+def production_exports(tmp_path_factory, built_vocabulary, owl_graph, shacl_graph):
+    # The session fixtures run write_turtle and write_shacl on the production
+    # composite; only the full JSON-LD export is specific to this module.
+    full_jsonld = write_full_jsonld(tmp_path_factory.mktemp("production-rdf") / "publicschema.jsonld")
+    return built_vocabulary, owl_graph, shacl_graph, json.loads(full_jsonld.read_text())
 
 
 def test_production_jsonld_preserves_turtle_graph(production_exports):

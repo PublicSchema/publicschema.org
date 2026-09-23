@@ -1,44 +1,33 @@
 """Local registry identity, spatial and health/holding pilot checks."""
 import copy
-import importlib.util
 import json
-from pathlib import Path
 from decimal import Decimal
+from pathlib import Path
 
 import jsonschema
 import pytest
-from pyld import jsonld
 from pyshacl import validate
-from rdflib import Graph, Namespace, URIRef
+from rdflib import Namespace, URIRef
 from rdflib.namespace import RDF
-from referencing import Registry, Resource
-from build.build import build_vocabulary
-from build.linkml_rdf_export import write_shacl
+
+from tests.conftest import jsonld_graph, load_example
 
 ROOT = Path(__file__).resolve().parents[1]
 PS = Namespace('https://publicschema.org/')
 AGRI = Namespace('https://publicschema.org/agri/')
 HEALTH = Namespace('https://publicschema.org/health/')
 LAND = Namespace('https://publicschema.org/land/')
-spec = importlib.util.spec_from_file_location('pilot_profile', ROOT / 'examples/registry-pilots/profile.py')
-profile = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(profile)
+profile = load_example('registry-pilots/profile.py')
 
 
 @pytest.fixture(scope='module')
-def exports(tmp_path_factory):
-    result = build_vocabulary(ROOT / 'schema')
-    shapes = Graph().parse(write_shacl(tmp_path_factory.mktemp('registry') / 'shapes.ttl'), format='turtle')
+def exports(built_vocabulary, shacl_graph, schema_registry):
     records = json.loads((ROOT / 'examples/registry-pilots/records.json').read_text())
-    registry = Registry().with_resources((s['$id'], Resource.from_contents(s)) for s in result['concept_schemas'].values())
-    return result, shapes, records, registry
+    return built_vocabulary, shacl_graph, records, schema_registry
 
 
 def graph(records, context):
-    # Use the standards conversion; RDFLib direct JSON-LD parsing can give
-    # xsd:decimal a Python float/int and cause false pySHACL datatype errors.
-    quads = jsonld.to_rdf({'@context':context['@context'],'@graph':records}, {'format':'application/n-quads'})
-    return Graph().parse(data=quads,format='nquads')
+    return jsonld_graph(records, context)
 
 
 def test_actual_pilot_exports_and_identity(exports):
@@ -110,17 +99,22 @@ def test_qualified_reference_resolves_without_collapsing_local_ids():
     assert profile.resolve_reference({**a,'register_uri':'https://unavailable.example/register'},entries,subjects)['state']=='missing-record'
     assert profile.resolve_reference(a,entries,{})['state']=='missing-subject'
     for bad in ({**a,'subject_type':str(PS.Organization)},{**a,'subject_uri':'https://example.org/two'}):
-        with pytest.raises(ValueError):profile.resolve_reference(bad,entries,subjects)
-    with pytest.raises(ValueError):profile.resolve_reference(a,entries,{'https://example.org/one':{'@type':str(PS.Organization)}})
+        with pytest.raises(ValueError):
+            profile.resolve_reference(bad,entries,subjects)
+    with pytest.raises(ValueError):
+        profile.resolve_reference(a,entries,{'https://example.org/one':{'@type':str(PS.Organization)}})
 
 
 def test_submission_requiredness_and_late_recording():
     entry = {'register_uri':'https://example.org/r','record_id':'001','subject_uri':'https://example.org/s','subject_type':str(AGRI.Farm),'recorded_at':'2026-09-07T00:00:00Z','valid_from':'2026-01-01','valid_to':'2026-12-31'}
     profile.validate_entry(entry)
-    with pytest.raises(KeyError):profile.validate_entry({})
-    with pytest.raises(ValueError):profile.validate_period({'valid_from':'2026-03-01','valid_to':'2026-02-01'})
+    with pytest.raises(KeyError):
+        profile.validate_entry({})
+    with pytest.raises(ValueError):
+        profile.validate_period({'valid_from':'2026-03-01','valid_to':'2026-02-01'})
     profile.validate_period({'valid_from':'2026-03-01'})
-    with pytest.raises(ValueError):profile.validate_entry({**entry,'recorded_at':'2026-09-07T00:00:00'})
+    with pytest.raises(ValueError):
+        profile.validate_entry({**entry,'recorded_at':'2026-09-07T00:00:00'})
 
 
 def test_area_conversion_preserves_precision_and_rejects_wrong_dimension():
@@ -128,16 +122,20 @@ def test_area_conversion_preserves_precision_and_rejects_wrong_dimension():
     assert profile.area_hectares(quantity)==Decimal('1.250025')
     assert profile.area_hectares({**quantity,'quantity_value':Decimal('1.250025'),'unit_code':'har'})==Decimal('1.250025')
     for change in ({'unit_code':'kg'},{'quantity_value':-1},{'quantity_value':'NaN'},{'unit_scheme':'https://example.org/local'},{'unit_scheme':'http://unitsofmeasure.org'}):
-        with pytest.raises(ValueError):profile.area_hectares({**quantity,**change})
+        with pytest.raises(ValueError):
+            profile.area_hectares({**quantity,**change})
 
 
 def test_geometry_encoding_crs_and_coordinate_order():
     value={'geometry_encoding':'geojson','coordinate_reference_system':profile.CRS84,'geometry_literal':'{"type":"Point","coordinates":[100,13]}'}
     assert profile.validate_geometry(value)['coordinates']==[100,13]
     for literal in ('{"type":"Point","coordinates":[13,100]}','{"type":"LineString","coordinates":[[100,13],[101,14]]}','{"type":"Polygon","coordinates":[[[100,13],[101,13],[101,14]]]}'):
-        with pytest.raises(ValueError):profile.validate_geometry({**value,'geometry_literal':literal})
-    with pytest.raises(ValueError):profile.validate_geometry({**value,'coordinate_reference_system':'http://www.opengis.net/def/crs/EPSG/0/4326'})
-    with pytest.raises(ValueError):profile.validate_geometry({**value,'geometry_encoding':'wkt'})
+        with pytest.raises(ValueError):
+            profile.validate_geometry({**value,'geometry_literal':literal})
+    with pytest.raises(ValueError):
+        profile.validate_geometry({**value,'coordinate_reference_system':'http://www.opengis.net/def/crs/EPSG/0/4326'})
+    with pytest.raises(ValueError):
+        profile.validate_geometry({**value,'geometry_encoding':'wkt'})
     profile.validate_geometry({**value,'geometry_literal':'{"type":"Polygon","coordinates":[[[100,13],[101,13],[101,14],[100,13]]]}'} )
 
 

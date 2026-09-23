@@ -5,24 +5,19 @@ from pathlib import Path
 import jsonschema
 import pytest
 import yaml
-from referencing import Registry, Resource
-
-from build.build import build_vocabulary
 
 ROOT = Path(__file__).resolve().parents[1]
 MODULES = ("value_types", "registry", "physical_assets")
 
 
 @pytest.fixture(scope="module")
-def result():
-    return build_vocabulary(ROOT / "schema")
+def result(built_vocabulary):
+    return built_vocabulary
 
 
 @pytest.fixture(scope="module")
-def registry(result):
-    return Registry().with_resources(
-        (schema["$id"], Resource.from_contents(schema)) for schema in result["concept_schemas"].values()
-    )
+def registry(schema_registry):
+    return schema_registry
 
 
 CLOSED_ENUMS = {

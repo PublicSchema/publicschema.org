@@ -1,6 +1,5 @@
 """Whole-day date conversion preserves meaning and refuses ambiguous source facts."""
 import copy
-import importlib.util
 import json
 import subprocess
 import sys
@@ -9,20 +8,15 @@ from pathlib import Path
 
 import jsonschema
 import pytest
-from pyld import jsonld
 from pyshacl import validate
-from rdflib import Graph, URIRef
+from rdflib import URIRef
 from rdflib.namespace import RDFS
-from referencing import Registry, Resource
 
-from build.build import build_vocabulary
-from build.linkml_rdf_export import write_shacl
+from tests.conftest import jsonld_graph, load_example
 
 ROOT = Path(__file__).resolve().parents[1]
 EXAMPLES = ROOT / "examples/relationship-date-migration"
-_spec = importlib.util.spec_from_file_location("date_migration", EXAMPLES / "migrate.py")
-migration = importlib.util.module_from_spec(_spec)
-_spec.loader.exec_module(migration)
+migration = load_example("relationship-date-migration/migrate.py")
 BOUNDARY = migration.SOURCE_BOUNDARY
 
 
@@ -225,12 +219,11 @@ def test_cli_never_rewrites_input_or_emits_a_partial_result(tmp_path, legacy):
     assert source.read_bytes() == original
 
 
-def test_migrated_examples_validate_against_real_exports(tmp_path, legacy):
-    result = build_vocabulary(ROOT / "schema")
+def test_migrated_examples_validate_against_real_exports(
+    legacy, built_vocabulary, schema_registry, shacl_graph, subclass_hierarchy,
+):
+    result, registry = built_vocabulary, schema_registry
     migrated = convert(legacy)
-    registry = Registry().with_resources(
-        (schema["$id"], Resource.from_contents(schema)) for schema in result["concept_schemas"].values()
-    )
     for record in migrated:
         jsonschema.Draft202012Validator(
             schema_for(result, record["@type"]), registry=registry,
@@ -243,12 +236,7 @@ def test_migrated_examples_validate_against_real_exports(tmp_path, legacy):
     for kind in ("RegistryEntry", "Registration", "LandTenureAssertion", "Certification"):
         properties = schema_for(result, kind)["properties"]
         assert {"valid_from", "valid_to"} <= properties.keys()
-    graph = Graph().parse(data=json.dumps(jsonld.expand({
-        "@context": result["context"]["@context"], "@graph": migrated,
-    })), format="json-ld")
-    for concept in result["concepts"].values():
-        for parent in concept.get("supertypes", []):
-            graph.add((URIRef(concept["uri"]), RDFS.subClassOf, URIRef(result["concepts"][parent]["uri"])))
+    graph = jsonld_graph(migrated, result["context"], subclass_hierarchy)
     migrated_roots = {URIRef(result["context"]["@context"][kind]) for kind in (
         "HoldingParcelLink", "AnimalResidence", "AnimalResponsibility",
         "AgriculturalServiceRole", "IdentifierAssignment", "NameUsage", "ContactPoint",
@@ -257,6 +245,5 @@ def test_migrated_examples_validate_against_real_exports(tmp_path, legacy):
         ancestors = set(graph.transitive_objects(URIRef(concept["uri"]), RDFS.subClassOf))
         if ancestors & migrated_roots:
             assert migration.TYPE_ALIASES.get(concept["uri"]) in migration.RELATIONSHIPS, concept["uri"]
-    shapes = Graph().parse(write_shacl(tmp_path / "shapes.ttl"), format="turtle")
-    conforms, _, report = validate(graph, shacl_graph=shapes, inference="rdfs")
+    conforms, _, report = validate(graph, shacl_graph=shacl_graph, inference="rdfs")
     assert conforms, report

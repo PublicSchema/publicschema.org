@@ -1,21 +1,17 @@
 """Qualified relationship examples through the real public exporters and local profile."""
 
 import copy
-import importlib.util
 import json
 from pathlib import Path
 
 import jsonschema
 import pytest
 import yaml
-from pyld import jsonld
 from pyshacl import validate
-from rdflib import Graph, Namespace, URIRef
+from rdflib import Namespace, URIRef
 from rdflib.namespace import OWL, RDF, RDFS, SH
-from referencing import Registry, Resource
 
-from build.build import build_vocabulary
-from build.linkml_rdf_export import write_shacl, write_turtle
+from tests.conftest import jsonld_graph, load_example
 
 ROOT = Path(__file__).resolve().parents[1]
 EXAMPLES = ROOT / "examples/government-relationships"
@@ -27,22 +23,12 @@ CASES = json.loads((EXAMPLES / "negative-cases.json").read_text())
 AUTHORED = {"classes": {}}
 for _module in ("ownership", "education"):
     AUTHORED["classes"].update(yaml.safe_load((ROOT / f"schema/{_module}.yaml").read_text())["classes"])
-SPEC = importlib.util.spec_from_file_location("government_relationship_profile", EXAMPLES / "validate_profile.py")
-PROFILE = importlib.util.module_from_spec(SPEC)
-SPEC.loader.exec_module(PROFILE)
+PROFILE = load_example("government-relationships/validate_profile.py")
 
 
 @pytest.fixture(scope="module")
-def exports(tmp_path_factory):
-    built = build_vocabulary(ROOT / "schema")
-    path = tmp_path_factory.mktemp("government-relationships")
-    shapes = Graph().parse(write_shacl(path / "shapes.ttl"), format="turtle")
-    ontology = Graph().parse(write_turtle(path / "vocabulary.ttl"), format="turtle")
-    registry = Registry().with_resources(
-        (schema["$id"], Resource.from_contents(schema))
-        for schema in built["concept_schemas"].values()
-    )
-    return built, shapes, ontology, registry
+def exports(built_vocabulary, shacl_graph, owl_graph, schema_registry):
+    return built_vocabulary, shacl_graph, owl_graph, schema_registry
 
 
 def validator(exports, kind):
@@ -55,16 +41,11 @@ def validator(exports, kind):
 
 def graph_for(records, exports):
     built, _, _, _ = exports
-    expanded = jsonld.expand({"@context": built["context"]["@context"], "@graph": records})
-    nquads = jsonld.to_rdf(expanded, {"format": "application/n-quads"})
-    return Graph().parse(data=nquads, format="nquads")
+    return jsonld_graph(records, built["context"])
 
 
-def conforms(records, exports):
-    _, shapes, ontology, _ = exports
-    hierarchy = Graph()
-    for triple in ontology.triples((None, RDFS.subClassOf, None)):
-        hierarchy.add(triple)
+def conforms(records, exports, hierarchy):
+    _, shapes, _, _ = exports
     return validate(graph_for(records, exports), shacl_graph=shapes, ont_graph=hierarchy)
 
 
@@ -72,11 +53,11 @@ def record(records, suffix):
     return next(item for item in records if item["@id"] == EX + suffix)
 
 
-def test_real_exports_preserve_qualified_relationships(exports):
+def test_real_exports_preserve_qualified_relationships(exports, subclass_hierarchy):
     built, shapes, ontology, _ = exports
     for item in RECORDS:
         validator(exports, item["@type"]).validate(item)
-    valid, _, report = conforms(RECORDS, exports)
+    valid, _, report = conforms(RECORDS, exports, subclass_hierarchy)
     assert valid, report
     PROFILE.validate_profile(RECORDS)
 
@@ -104,12 +85,14 @@ def test_real_exports_preserve_qualified_relationships(exports):
     ("holding-shares", {"interest_exclusive_minimum_percentage": "more than twenty-five"}, False),
     ("north-offering", {"offering_sites": EX + "north-site"}, True),
 ])
-def test_malformed_relationship_values_respect_each_public_format(exports, suffix, changes, rdf_conforms):
+def test_malformed_relationship_values_respect_each_public_format(
+    exports, subclass_hierarchy, suffix, changes, rdf_conforms,
+):
     records = copy.deepcopy(RECORDS)
     changed = record(records, suffix)
     changed.update(changes)
     assert list(validator(exports, changed["@type"]).iter_errors(changed))
-    assert conforms(records, exports)[0] is rdf_conforms
+    assert conforms(records, exports, subclass_hierarchy)[0] is rdf_conforms
     if rdf_conforms:
         # JSON array form is a serialization rule. RDF preserves the same single
         # site relationship and cannot distinguish a scalar from a one-item array.

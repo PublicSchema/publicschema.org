@@ -16,15 +16,14 @@ import rdflib
 from rdflib.namespace import RDF, RDFS, SKOS
 
 from build.build import build_vocabulary
-from tests.conftest import SCHEMA_DIR
 
 SCHEMA = rdflib.Namespace("https://schema.org/")
 
 
 @pytest.fixture(scope="module")
-def build_result():
-    """Build the real schema once for all tests in this module."""
-    return build_vocabulary(SCHEMA_DIR)
+def build_result(built_vocabulary):
+    """The real schema build, shared across the session."""
+    return built_vocabulary
 
 
 def _parse_doc(doc: dict, inline_context: dict) -> rdflib.Graph:

@@ -1,22 +1,19 @@
 """Public service history through production exports and the named synthetic profile."""
 
 import copy
-import importlib.util
 import json
 from pathlib import Path
 
 import jsonschema
 import pytest
 import yaml
-from pyld import jsonld
 from pyshacl import validate
 from rdflib import Graph, Namespace, URIRef
 from rdflib.namespace import RDFS, SKOS
-from referencing import Registry, Resource
 
-from build.build import build_vocabulary
-from build.linkml_rdf_export import DEFAULT_CONTEXT_URL, write_shacl, write_turtle
+from build.linkml_rdf_export import DEFAULT_CONTEXT_URL
 from build.rdf_export_legacy import build_turtle as build_legacy_turtle
+from tests.conftest import jsonld_graph, load_example
 
 ROOT = Path(__file__).resolve().parents[1]
 EXAMPLES = ROOT / "examples/public-services"
@@ -24,9 +21,7 @@ BASE = "https://example.org/public-services/"
 PS = Namespace("https://publicschema.org/")
 RECORDS = json.loads((EXAMPLES / "records.json").read_text())
 CONFIG = json.loads((EXAMPLES / "profile.json").read_text())
-spec = importlib.util.spec_from_file_location("public_services_profile", EXAMPLES / "profile.py")
-profile = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(profile)
+profile = load_example("public-services/profile.py")
 
 
 def record(records, suffix):
@@ -37,37 +32,14 @@ def ref(suffix, kind):
     return {"@id": BASE + suffix, "@type": kind}
 
 
-def expand_graph(records, context):
-    def loader(url, options=None):
-        assert url == DEFAULT_CONTEXT_URL
-        return {"contextUrl": None, "documentUrl": url, "document": context}
-
-    expanded = jsonld.expand(records, options={"documentLoader": loader})
-    quads = jsonld.to_rdf(expanded, {"format": "application/n-quads"})
-    return Graph().parse(data=quads, format="nquads")
+@pytest.fixture(scope="module")
+def native_ontology(owl_graph):
+    return owl_graph
 
 
 @pytest.fixture(scope="module")
-def native_ontology(tmp_path_factory):
-    path = tmp_path_factory.mktemp("public-services-ontology") / "vocabulary.ttl"
-    composite = ROOT / "schema/publicschema.yaml"
-    return Graph().parse(write_turtle(path, composite=composite), format="turtle")
-
-
-@pytest.fixture(scope="module")
-def exports(tmp_path_factory, native_ontology):
-    built = build_vocabulary(ROOT / "schema")
-    path = tmp_path_factory.mktemp("public-services-exports")
-    composite = ROOT / "schema/publicschema.yaml"
-    shapes = Graph().parse(write_shacl(path / "shapes.ttl", composite=composite), format="turtle")
-    hierarchy = Graph()
-    for triple in native_ontology.triples((None, RDFS.subClassOf, None)):
-        hierarchy.add(triple)
-    registry = Registry().with_resources(
-        (schema["$id"], Resource.from_contents(schema))
-        for schema in built["concept_schemas"].values()
-    )
-    return built, shapes, hierarchy, registry
+def exports(built_vocabulary, shacl_graph, subclass_hierarchy, schema_registry):
+    return built_vocabulary, shacl_graph, subclass_hierarchy, schema_registry
 
 
 def test_catalogue_alignment_metadata_reaches_jsonld_and_both_rdf_projections(exports, native_ontology):
@@ -95,7 +67,7 @@ def test_catalogue_alignment_metadata_reaches_jsonld_and_both_rdf_projections(ex
         assert "does not implement" in alignment["note"]
         triple = (PS[name], SKOS.closeMatch, URIRef(uri))
         document = {**docs[f"{catalogue}/{name}.jsonld"], "@context": built["context"]["@context"]}
-        document_graph = Graph().parse(data=json.dumps(document), format="json-ld")
+        document_graph = jsonld_graph(document, built["context"])
         assert triple in document_graph
         assert triple in legacy
         assert triple in native_ontology
@@ -114,7 +86,7 @@ def test_permit_history_validates_in_both_export_formats_and_local_profile(expor
     before = copy.deepcopy(RECORDS)
     for item in RECORDS:
         validator(exports, item["@type"]).validate(item)
-    graph = expand_graph(RECORDS, built["context"])
+    graph = jsonld_graph(RECORDS, built["context"])
     conforms, _, report = validate(graph, shacl_graph=shapes, ont_graph=hierarchy)
     assert conforms, report
     profile.validate_journey(RECORDS, CONFIG)
@@ -150,7 +122,7 @@ def test_wrong_decision_output_type_fails_shacl_even_with_an_existing_identity(e
     built, shapes, hierarchy, _ = exports
     invalid = copy.deepcopy(RECORDS)
     record(invalid, "grant-decision")["decision_authorizations"] = [ref("business", "Organization")]
-    conforms, _, _ = validate(expand_graph(invalid, built["context"]), shacl_graph=shapes, ont_graph=hierarchy)
+    conforms, _, _ = validate(jsonld_graph(invalid, built["context"]), shacl_graph=shapes, ont_graph=hierarchy)
     assert not conforms
 
 
@@ -248,7 +220,7 @@ def test_class_reference_forms_preserve_the_complete_permit_journey(exports, for
         validator(exports, item["@type"]).validate(item)
     profile.validate_journey(changed, CONFIG)
     built, shapes, hierarchy, _ = exports
-    graph = expand_graph(changed, built["context"])
+    graph = jsonld_graph(changed, built["context"])
     conforms, _, report = validate(graph, shacl_graph=shapes, ont_graph=hierarchy)
     assert conforms, report
     assert (URIRef(BASE + "grant-decision"), PS.decision_authorizations, URIRef(BASE + "business-permit")) in graph

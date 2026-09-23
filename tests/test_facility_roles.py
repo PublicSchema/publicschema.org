@@ -1,27 +1,21 @@
 """Physical facility responsibilities and address changes survive production exports."""
 import copy
-import importlib.util
 import json
 from datetime import date, datetime, timedelta
 from pathlib import Path
 
 import jsonschema
 import pytest
-from pyld import jsonld
 from pyshacl import validate
-from rdflib import Graph, Literal, Namespace, URIRef
-from rdflib.namespace import RDF, RDFS
-from referencing import Registry, Resource
+from rdflib import Literal, Namespace, URIRef
+from rdflib.namespace import RDF
 
-from build.build import build_vocabulary
-from build.linkml_rdf_export import write_shacl
+from tests.conftest import jsonld_graph, load_example
 
 ROOT = Path(__file__).resolve().parents[1]
 EX = "https://example.org/facility-roles/"
 PS = Namespace("https://publicschema.org/")
-_spec = importlib.util.spec_from_file_location("facility_profile", ROOT / "examples/facility-roles/validate_profile.py")
-profile = importlib.util.module_from_spec(_spec)
-_spec.loader.exec_module(profile)
+profile = load_example("facility-roles/validate_profile.py")
 
 
 @pytest.fixture(scope="module")
@@ -30,25 +24,8 @@ def records():
 
 
 @pytest.fixture(scope="module")
-def exports(tmp_path_factory):
-    result = build_vocabulary(ROOT / "schema")
-    shapes = Graph().parse(write_shacl(tmp_path_factory.mktemp("facility") / "shapes.ttl"), format="turtle")
-    registry = Registry().with_resources(
-        (schema["$id"], Resource.from_contents(schema)) for schema in result["concept_schemas"].values()
-    )
-    return result, shapes, registry
-
-
-def graph_for(records, result):
-    # Match the other quantity fixtures: PyLD converts numeric xsd:decimal values
-    # to RDF lexical forms; RDFLib's direct JSON-LD parser retains Python int/float.
-    quads = jsonld.to_rdf({"@context": result["context"]["@context"], "@graph": records},
-                          {"format": "application/n-quads"})
-    graph = Graph().parse(data=quads, format="nquads")
-    for concept in result["concepts"].values():
-        for parent in concept.get("supertypes", []):
-            graph.add((URIRef(concept["uri"]), RDFS.subClassOf, URIRef(result["concepts"][parent]["uri"])))
-    return graph
+def exports(built_vocabulary, shacl_graph, schema_registry):
+    return built_vocabulary, shacl_graph, schema_registry
 
 
 def schema_for(result, type_name):
@@ -56,7 +33,7 @@ def schema_for(result, type_name):
     return next(schema for schema in result["concept_schemas"].values() if schema["$id"] == uri + ".schema.json")
 
 
-def test_real_json_schema_jsonld_and_shacl_exports(records, exports):
+def test_real_json_schema_jsonld_and_shacl_exports(records, exports, subclass_hierarchy):
     result, shapes, registry = exports
     for record in records:
         jsonschema.Draft202012Validator(
@@ -64,7 +41,7 @@ def test_real_json_schema_jsonld_and_shacl_exports(records, exports):
             format_checker=jsonschema.FormatChecker(),
         ).validate(record)
     profile.validate_profile(records)
-    graph = graph_for(records, result)
+    graph = jsonld_graph(records, result["context"], subclass_hierarchy)
     conforms, _, report = validate(graph, shacl_graph=shapes, inference="rdfs")
     assert conforms, report
     assert len(set(graph.subjects(RDF.type, PS.AssetPartyRole))) == 12
@@ -225,20 +202,22 @@ def test_software_agent_cannot_take_a_facility_responsibility(records):
         profile.validate_profile(changed)
 
 
-def test_uri_shape_does_not_prove_subject_kind(records, exports):
+def test_uri_shape_does_not_prove_subject_kind(records, exports, subclass_hierarchy):
     result, shapes, registry = exports
     changed = copy.deepcopy(records)
     role = next(record for record in changed if record["@id"] == EX + "school-owner")
     role["asset_actor"] = EX + "online-site"
     jsonschema.Draft202012Validator(result["concept_schemas"]["AssetPartyRole"], registry=registry).validate(role)
-    assert validate(graph_for(changed, result), shacl_graph=shapes, inference="rdfs")[0]
+    graph = jsonld_graph(changed, result["context"], subclass_hierarchy)
+    assert validate(graph, shacl_graph=shapes, inference="rdfs")[0]
     with pytest.raises(ValueError, match="asset_actor"):
         profile.validate_profile(changed)
 
 
-def test_production_shacl_enforces_the_address_type(records, exports):
+def test_production_shacl_enforces_the_address_type(records, exports, subclass_hierarchy):
     result, shapes, _ = exports
     changed = copy.deepcopy(records)
     address = next(record for record in changed if record["@id"] == EX + "school-physical")
     address["assigned_address"] = EX + "council"
-    assert not validate(graph_for(changed, result), shacl_graph=shapes, inference="rdfs")[0]
+    graph = jsonld_graph(changed, result["context"], subclass_hierarchy)
+    assert not validate(graph, shacl_graph=shapes, inference="rdfs")[0]

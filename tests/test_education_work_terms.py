@@ -6,9 +6,6 @@ from pathlib import Path
 import jsonschema
 import pytest
 import yaml
-from referencing import Registry, Resource
-
-from build.build import build_vocabulary
 
 ROOT = Path(__file__).resolve().parents[1]
 EDUCATION = yaml.safe_load((ROOT / "schema/education.yaml").read_text())
@@ -22,14 +19,11 @@ PROCESS_WORDING = ("draft covers", "review brief", "starter", "scheme-qualified"
 
 
 @pytest.fixture(scope="module")
-def built():
-    return build_vocabulary(ROOT / "schema")
+def built(built_vocabulary):
+    return built_vocabulary
 
 
-def schema_validator(built, kind):
-    registry = Registry().with_resources(
-        (schema["$id"], Resource.from_contents(schema)) for schema in built["concept_schemas"].values()
-    )
+def schema_validator(built, registry, kind):
     return jsonschema.Draft202012Validator(built["concept_schemas"][kind], registry=registry)
 
 
@@ -45,8 +39,8 @@ def test_form_of_work_is_the_closed_19th_icls_list():
     assert WORK["slots"]["work_status"]["range"] == "CodedValue"
 
 
-def test_work_form_accepts_only_a_form_of_work(built):
-    validator = schema_validator(built, "WorkRelationship")
+def test_work_form_accepts_only_a_form_of_work(built, schema_registry):
+    validator = schema_validator(built, schema_registry, "WorkRelationship")
     for value in FORMS_OF_WORK:
         validator.validate({"work_form": value})
     coded = {"@type": "CodedValue", "code_value": "employment_work", "code_scheme": "https://example.org/forms"}

@@ -3,26 +3,20 @@
 import json
 
 import pytest
-from pyld import jsonld
 from pyshacl import validate
-from rdflib import Graph, Literal, URIRef
+from rdflib import Literal, URIRef
 from rdflib.collection import Collection
 from rdflib.namespace import OWL, RDF, RDFS, SH, XSD
 
-from build.build import build_vocabulary
-from build.linkml_rdf_export import (
-    DEFAULT_LINKML_COMPOSITE,
-    write_full_jsonld,
-    write_shacl,
-    write_turtle,
-)
+from build.linkml_rdf_export import write_full_jsonld
+from tests.conftest import jsonld_graph
 
 PS = "https://publicschema.org/"
 
 
 def _context_graph(document):
     """Expand an instance through the generated public context."""
-    return Graph().parse(data=json.dumps(jsonld.expand(document)), format="json-ld")
+    return jsonld_graph(document, {"@context": document["@context"]})
 
 
 def _property_shapes(shapes, field):
@@ -30,16 +24,12 @@ def _property_shapes(shapes, field):
 
 
 @pytest.fixture(scope="module")
-def public_context_and_shapes(tmp_path_factory):
-    context = build_vocabulary(DEFAULT_LINKML_COMPOSITE.parent)["context"]["@context"]
+def public_context_and_shapes(tmp_path_factory, built_vocabulary, shacl_graph, owl_graph):
     export_dir = tmp_path_factory.mktemp("uri-export")
-    shapes_path = export_dir / "shapes.ttl"
-    shapes = Graph().parse(write_shacl(shapes_path), format="turtle")
-    turtle = Graph().parse(write_turtle(export_dir / "vocabulary.ttl"), format="turtle")
     full_jsonld = json.loads(
         write_full_jsonld(export_dir / "vocabulary.jsonld").read_text(encoding="utf-8")
     )
-    return context, shapes, turtle, full_jsonld
+    return built_vocabulary["context"]["@context"], shacl_graph, owl_graph, full_jsonld
 
 
 @pytest.mark.parametrize(

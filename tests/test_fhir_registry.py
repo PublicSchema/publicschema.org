@@ -1,25 +1,19 @@
 """Native FHIR examples, official structural artifacts, and local identity links."""
 
 import copy
-import importlib.util
 import json
 import socket
 from pathlib import Path
 
 import pytest
 from jsonschema import Draft202012Validator
-from referencing import Registry, Resource
 
-from build.build import build_vocabulary
+from tests.conftest import load_example
 
 ROOT = Path(__file__).resolve().parents[1]
 EXAMPLE = ROOT / "examples/fhir-registry"
-SPEC = importlib.util.spec_from_file_location("fhir_registry", EXAMPLE / "validate.py")
-integration = importlib.util.module_from_spec(SPEC)
-SPEC.loader.exec_module(integration)
-OFFICIAL_SPEC = importlib.util.spec_from_file_location("fhir_official", EXAMPLE / "official_validate.py")
-official = importlib.util.module_from_spec(OFFICIAL_SPEC)
-OFFICIAL_SPEC.loader.exec_module(official)
+integration = load_example("fhir-registry/validate.py")
+official = load_example("fhir-registry/official_validate.py")
 
 
 @pytest.fixture
@@ -55,11 +49,9 @@ def test_official_artifacts_and_entire_native_journey(inputs):
     assert integration.reference_targets("HealthcareService")["HealthcareService.providedBy"] == {"Organization"}
 
 
-def test_publicschema_sidecar_uses_real_generated_native_contracts(inputs):
+def test_publicschema_sidecar_uses_real_generated_native_contracts(inputs, built_vocabulary, schema_registry):
     _, envelope = inputs
-    built = build_vocabulary(ROOT / "schema")
-    registry = Registry().with_resources((schema["$id"], Resource.from_contents(schema))
-                                         for schema in built["concept_schemas"].values())
+    built, registry = built_vocabulary, schema_registry
     instances = [*envelope["subjects"], *(row["entry"] for row in envelope["records"]),
                  *(link["record"] for link in envelope["links"]),
                  *(outcome["source_record"] for outcome in envelope["migration_outcomes"])]

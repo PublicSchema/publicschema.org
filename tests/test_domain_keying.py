@@ -80,9 +80,8 @@ class TestRealSchemaDomainResolution:
     """
 
     @pytest.fixture(scope="class")
-    def real_result(self):
-        from tests.conftest import SCHEMA_DIR
-        return build_vocabulary(SCHEMA_DIR)
+    def real_result(self, built_vocabulary):
+        return built_vocabulary
 
     def test_crvs_parent_supertype_is_crvs_person(self, real_result):
         """The crvs/Parent concept extends the CRVS-scoped Person snapshot."""
@@ -310,9 +309,8 @@ class TestRealSchemaKeying:
     """Verify composite keying against the real schema directory."""
 
     @pytest.fixture(scope="class")
-    def real_result(self):
-        from tests.conftest import SCHEMA_DIR
-        return build_vocabulary(SCHEMA_DIR)
+    def real_result(self, built_vocabulary):
+        return built_vocabulary
 
     def test_sp_concepts_keyed_by_composite(self, real_result):
         """Known sp/ concepts appear under composite keys."""

@@ -19,7 +19,7 @@ from build.rdf_export import (
     write_shacl,
     write_turtle,
 )
-from tests.conftest import SCHEMA_DIR, make_concept, make_property, make_vocabulary
+from tests.conftest import make_concept, make_property, make_vocabulary
 
 SCHEMA = rdflib.Namespace("https://schema.org/")
 
@@ -204,8 +204,8 @@ class TestTurtleIntegration:
     """Turtle export against the real schema directory."""
 
     @pytest.fixture(scope="class")
-    def real_result(self):
-        return build_vocabulary(SCHEMA_DIR)
+    def real_result(self, built_vocabulary):
+        return built_vocabulary
 
     def test_real_schema_turtle_parses(self, real_result):
         """Turtle from the real schema parses without errors."""
@@ -324,8 +324,8 @@ class TestFullJsonldIntegration:
     """Full JSON-LD export against the real schema directory."""
 
     @pytest.fixture(scope="class")
-    def real_result(self):
-        return build_vocabulary(SCHEMA_DIR)
+    def real_result(self, built_vocabulary):
+        return built_vocabulary
 
     def test_real_schema_full_jsonld_parses(self, real_result):
         """Full JSON-LD from the real schema parses without errors."""
@@ -565,8 +565,8 @@ class TestShaclIntegration:
     """SHACL shapes against the real schema directory."""
 
     @pytest.fixture(scope="class")
-    def real_result(self):
-        return build_vocabulary(SCHEMA_DIR)
+    def real_result(self, built_vocabulary):
+        return built_vocabulary
 
     def test_real_schema_shacl_parses(self, real_result):
         """SHACL from the real schema parses without errors."""

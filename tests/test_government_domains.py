@@ -7,14 +7,12 @@ from pathlib import Path
 import jsonschema
 import pytest
 import yaml
-from pyld import jsonld
 from pyshacl import validate
-from rdflib import Graph, Namespace, URIRef
-from rdflib.namespace import OWL, RDF, RDFS, SH
-from referencing import Registry, Resource
+from rdflib import Namespace, URIRef
+from rdflib.namespace import OWL, RDF, SH
 
-from build.build import build_vocabulary
-from build.linkml_rdf_export import DEFAULT_CONTEXT_URL, write_shacl, write_turtle
+from build.linkml_rdf_export import DEFAULT_CONTEXT_URL
+from tests.conftest import jsonld_graph
 
 ROOT = Path(__file__).resolve().parents[1]
 PS = Namespace("https://publicschema.org/")
@@ -31,27 +29,9 @@ for _module in GOVERNMENT_MODULES:
         _entries.update(_authored.get(_section) or {})
 
 
-def expand_graph(records, context):
-    def loader(url, options=None):
-        assert url == DEFAULT_CONTEXT_URL
-        return {"contextUrl": None, "documentUrl": url, "document": context}
-
-    expanded = jsonld.expand(records, options={"documentLoader": loader})
-    return Graph().parse(data=jsonld.to_rdf(expanded, {"format": "application/n-quads"}), format="nquads")
-
-
 @pytest.fixture(scope="module")
-def exports(tmp_path_factory):
-    built = build_vocabulary(ROOT / "schema")
-    path = tmp_path_factory.mktemp("government-exports")
-    composite = ROOT / "schema/publicschema.yaml"
-    shapes = Graph().parse(write_shacl(path / "shapes.ttl", composite=composite), format="turtle")
-    ontology = Graph().parse(write_turtle(path / "vocabulary.ttl", composite=composite), format="turtle")
-    registry = Registry().with_resources(
-        (schema["$id"], Resource.from_contents(schema))
-        for schema in built["concept_schemas"].values()
-    )
-    return built, shapes, ontology, registry
+def exports(built_vocabulary, shacl_graph, owl_graph, schema_registry):
+    return built_vocabulary, shacl_graph, owl_graph, schema_registry
 
 
 def validator(exports, kind):
@@ -138,15 +118,12 @@ def test_every_government_term_survives_actual_exports(exports):
         ) in ontology
 
 
-def test_same_synthetic_records_validate_json_schema_and_context_shacl(exports):
-    built, shapes, ontology, _ = exports
+def test_same_synthetic_records_validate_json_schema_and_context_shacl(exports, subclass_hierarchy):
+    built, shapes, _, _ = exports
     for record in RECORDS:
         validator(exports, record["@type"]).validate(record)
-    graph = expand_graph(RECORDS, built["context"])
-    hierarchy = Graph()
-    for triple in ontology.triples((None, RDFS.subClassOf, None)):
-        hierarchy.add(triple)
-    conforms, _, report = validate(graph, shacl_graph=shapes, ont_graph=hierarchy)
+    graph = jsonld_graph(RECORDS, built["context"])
+    conforms, _, report = validate(graph, shacl_graph=shapes, ont_graph=subclass_hierarchy)
     assert conforms, report
     assert not example_profile_errors(RECORDS)
     # URI values remain object identities in RDF, including subclass subjects.
@@ -162,16 +139,13 @@ def test_same_synthetic_records_validate_json_schema_and_context_shacl(exports):
     ("edu/ProviderSite", {"virtual_site_url": ["https://example.org/learning", "https://example.org/second"]}),
     ("ComplianceAssessment", {"assessment_date": "yesterday"}),
 ])
-def test_invalid_public_shapes_fail_both_formats(exports, kind, changes):
-    built, shapes, ontology, _ = exports
+def test_invalid_public_shapes_fail_both_formats(exports, subclass_hierarchy, kind, changes):
+    built, shapes, _, _ = exports
     invalid = copy.deepcopy(next(record for record in RECORDS if record["@type"] == kind))
     invalid.update(changes)
     assert list(validator(exports, kind).iter_errors(invalid))
-    graph = expand_graph([record for record in RECORDS if record["@id"] != invalid["@id"]] + [invalid], built["context"])
-    hierarchy = Graph()
-    for triple in ontology.triples((None, RDFS.subClassOf, None)):
-        hierarchy.add(triple)
-    conforms, _, _ = validate(graph, shacl_graph=shapes, ont_graph=hierarchy)
+    graph = jsonld_graph([record for record in RECORDS if record["@id"] != invalid["@id"]] + [invalid], built["context"])
+    conforms, _, _ = validate(graph, shacl_graph=shapes, ont_graph=subclass_hierarchy)
     assert not conforms
 
 
@@ -217,7 +191,9 @@ def test_revised_reference_distinctions_are_not_profile_only():
 
 
 @pytest.mark.parametrize("operator", ["person", "company", None])
-def test_facility_operator_is_a_dated_asset_role_for_person_organization_or_unknown(exports, operator):
+def test_facility_operator_is_a_dated_asset_role_for_person_organization_or_unknown(
+    exports, subclass_hierarchy, operator,
+):
     records = copy.deepcopy(RECORDS)
     facility = next(record for record in records if record["@type"] == "environment/EnvironmentalFacility")
     role = next(record for record in records if record["@id"] == "https://example.org/facility-operator")
@@ -228,12 +204,9 @@ def test_facility_operator_is_a_dated_asset_role_for_person_organization_or_unkn
         records.remove(role)
     else:
         role["asset_actor"] = "https://example.org/" + operator
-    built, shapes, ontology, _ = exports
-    graph = expand_graph(records, built["context"])
-    hierarchy = Graph()
-    for triple in ontology.triples((None, RDFS.subClassOf, None)):
-        hierarchy.add(triple)
-    conforms, _, report = validate(graph, shacl_graph=shapes, ont_graph=hierarchy)
+    built, shapes, _, _ = exports
+    graph = jsonld_graph(records, built["context"])
+    conforms, _, report = validate(graph, shacl_graph=shapes, ont_graph=subclass_hierarchy)
     assert conforms, report
     assert not example_profile_errors(records)
     roles = set(graph.subjects(PS.subject_uri, URIRef(facility["@id"]))) & set(

@@ -1,51 +1,31 @@
 """Biological identities and representative production-export boundaries."""
 import copy
-import importlib.util
 import json
 from pathlib import Path
 
 import jsonschema
 import pytest
-from pyld import jsonld
 from pyshacl import validate
-from rdflib import Graph, Literal, Namespace, URIRef
-from rdflib.namespace import RDF, RDFS, XSD
-from referencing import Registry, Resource
+from rdflib import Literal, Namespace, URIRef
+from rdflib.namespace import RDF, XSD
 
-from build.build import build_vocabulary
-from build.linkml_rdf_export import write_shacl
+from tests.conftest import jsonld_graph, load_example
 
 ROOT = Path(__file__).resolve().parents[1]
 PS = Namespace("https://publicschema.org/")
 AGRI = Namespace("https://publicschema.org/agri/")
-PROFILE_SPEC = importlib.util.spec_from_file_location(
-    "movement_profile", ROOT / "examples/agriculture-biology/validate_movement_profile.py",
-)
-movement_profile = importlib.util.module_from_spec(PROFILE_SPEC)
-PROFILE_SPEC.loader.exec_module(movement_profile)
+movement_profile = load_example("agriculture-biology/validate_movement_profile.py")
 
 
 @pytest.fixture(scope="module")
-def biology(tmp_path_factory):
-    result = build_vocabulary(ROOT / "schema")
-    shapes = Graph().parse(write_shacl(tmp_path_factory.mktemp("biology") / "shapes.ttl"), format="turtle")
+def biology(built_vocabulary, shacl_graph, schema_registry):
     records = json.loads((ROOT / "examples/agriculture-biology/records.json").read_text())
-    registry = Registry().with_resources(
-        (schema["$id"], Resource.from_contents(schema))
-        for schema in result["concept_schemas"].values()
-    )
-    return result, shapes, records, registry
+    return built_vocabulary, shacl_graph, records, schema_registry
 
 
-def graph_for(records, result):
-    graph = Graph().parse(data=json.dumps(jsonld.expand({
-        "@context": result["context"]["@context"], "@graph": records,
-    })), format="json-ld")
+def graph_for(records, result, hierarchy):
     # SHACL class ranges need the export's subclass hierarchy alongside the data.
-    for concept in result["concepts"].values():
-        for parent in concept.get("supertypes", []):
-            graph.add((URIRef(concept["uri"]), RDFS.subClassOf, URIRef(result["concepts"][parent]["uri"])))
-    return graph
+    return jsonld_graph(records, result["context"], hierarchy)
 
 
 LINKED_TARGETS = [
@@ -65,14 +45,14 @@ def movement_records():
     return json.loads((ROOT / "examples/agriculture-biology/movement-records.json").read_text())
 
 
-def test_all_families_export_and_keep_distinct_identity(biology):
+def test_all_families_export_and_keep_distinct_identity(biology, subclass_hierarchy):
     result, shapes, records, registry = biology
     for record in records:
         jsonschema.Draft202012Validator(result["concept_schemas"][record["@type"]], registry=registry).validate(record)
     for concept in {r["@type"] for r in records}:
         assert result["concepts"][concept]["maturity"] == "draft"
     linked_records = records + LINKED_TARGETS
-    data = graph_for(linked_records, result)
+    data = graph_for(linked_records, result, subclass_hierarchy)
     conforms, _, report = validate(data, shacl_graph=shapes, inference="rdfs")
     assert conforms, report
     assert len(set(data.subjects(RDF.type, PS.SeedLot))) == 2
@@ -110,19 +90,19 @@ def test_count_submission_profile_is_separate_from_optional_vocabulary():
             validator.validate(invalid)
 
 
-def test_shacl_rejects_variety_used_as_accession(biology):
+def test_shacl_rejects_variety_used_as_accession(biology, subclass_hierarchy):
     result, shapes, records, _ = biology
     selected = [copy.deepcopy(r) for r in records if r["@type"] in {"SeedLot", "PlantVariety", "GeneticResourceAccession"}]
     selected.append({"@id": "https://example.org/organizations/bank", "@type": "Organization"})
-    data = graph_for(selected, result)
+    data = graph_for(selected, result, subclass_hierarchy)
     assert validate(data, shacl_graph=shapes, inference="rdfs")[0]
     next(r for r in selected if r["@type"] == "SeedLot")["seed_lot_accessions"] = ["https://example.org/varieties/1"]
-    assert not validate(graph_for(selected, result), shacl_graph=shapes, inference="rdfs")[0]
+    assert not validate(graph_for(selected, result, subclass_hierarchy), shacl_graph=shapes, inference="rdfs")[0]
 
 
-def test_keeper_change_preserves_animal_residence_and_owner(biology):
+def test_keeper_change_preserves_animal_residence_and_owner(biology, subclass_hierarchy):
     result, _, records, registry = biology
-    data = graph_for(records, result)
+    data = graph_for(records, result, subclass_hierarchy)
     residences = [r for r in records if r["@type"] == "agri/AnimalResidence"]
     responsibilities = [r for r in records if r["@type"] == "AnimalResponsibility"]
     assert len(residences) == 1
@@ -145,7 +125,7 @@ def test_keeper_change_preserves_animal_residence_and_owner(biology):
         ).validate(invalid)
 
 
-def test_movement_exports_keep_population_participants_and_residence_distinct(biology, movement_records):
+def test_movement_exports_keep_population_participants_and_residence_distinct(biology, movement_records, subclass_hierarchy):
     result, shapes, _, registry = biology
     for record in movement_records:
         jsonschema.Draft202012Validator(
@@ -153,7 +133,7 @@ def test_movement_exports_keep_population_participants_and_residence_distinct(bi
             format_checker=jsonschema.FormatChecker(),
         ).validate(record)
     assert result["concepts"]["AnimalMovement"]["maturity"] == "draft"
-    data = graph_for(movement_records, result)
+    data = graph_for(movement_records, result, subclass_hierarchy)
     conforms, _, report = validate(data, shacl_graph=shapes, inference="rdfs")
     assert conforms, report
     movement = URIRef("https://example.org/movements/partial-herd")
@@ -180,12 +160,12 @@ def test_movement_exports_keep_population_participants_and_residence_distinct(bi
     assert owner["animal_subject"] == str(moving) and "end_date" not in owner
     # Differing residence sites are valid assertions without a movement assertion.
     no_movement = [r for r in movement_records if r["@type"] != "AnimalMovement"]
-    data = graph_for(no_movement, result)
+    data = graph_for(no_movement, result, subclass_hierarchy)
     assert validate(data, shacl_graph=shapes, inference="rdfs")[0]
     assert not list(data.subjects(RDF.type, PS.AnimalMovement))
 
 
-def test_partial_movement_is_optional_vocabulary_but_incomplete_submission(biology):
+def test_partial_movement_is_optional_vocabulary_but_incomplete_submission(biology, subclass_hierarchy):
     result, shapes, _, registry = biology
     partial = {"@id": "https://example.org/movements/partial", "@type": "AnimalMovement"}
     validator = jsonschema.Draft202012Validator(
@@ -193,7 +173,7 @@ def test_partial_movement_is_optional_vocabulary_but_incomplete_submission(biolo
     )
     validator.validate({})
     validator.validate(partial)
-    assert validate(graph_for([partial], result), shacl_graph=shapes, inference="rdfs")[0]
+    assert validate(graph_for([partial], result, subclass_hierarchy), shacl_graph=shapes, inference="rdfs")[0]
     with pytest.raises(jsonschema.ValidationError):
         movement_profile.validate_profile([partial])
 
@@ -223,7 +203,7 @@ def test_movement_json_schema_rejects_wrong_primitives_and_collections(biology, 
     ("moved_animals", "https://example.org/herds/source"),
     ("movement_source_group", "https://example.org/animals/moving-cow"),
 ])
-def test_movement_shacl_checks_resolved_animal_and_group_types(biology, movement_records, field, target):
+def test_movement_shacl_checks_resolved_animal_and_group_types(biology, movement_records, subclass_hierarchy, field, target):
     result, shapes, _, registry = biology
     records = copy.deepcopy(movement_records)
     movement = next(r for r in records if r["@type"] == "AnimalMovement")
@@ -232,7 +212,7 @@ def test_movement_shacl_checks_resolved_animal_and_group_types(biology, movement
     jsonschema.Draft202012Validator(
         result["concept_schemas"]["AnimalMovement"], registry=registry,
     ).validate(movement)
-    assert not validate(graph_for(records, result), shacl_graph=shapes, inference="rdfs")[0]
+    assert not validate(graph_for(records, result, subclass_hierarchy), shacl_graph=shapes, inference="rdfs")[0]
 
 
 @pytest.mark.parametrize(("field", "value"), [
@@ -243,17 +223,17 @@ def test_movement_shacl_checks_resolved_animal_and_group_types(biology, movement
     ("movement_origin_site", Literal("https://example.org/facilities/origin-premises")),
     ("movement_transit_sites", Literal("https://example.org/facilities/transit-market")),
 ])
-def test_movement_shacl_rejects_wrong_rdf_values(biology, movement_records, field, value):
+def test_movement_shacl_rejects_wrong_rdf_values(biology, movement_records, subclass_hierarchy, field, value):
     result, shapes, _, _ = biology
-    data = graph_for(movement_records, result)
+    data = graph_for(movement_records, result, subclass_hierarchy)
     movement = URIRef("https://example.org/movements/partial-herd")
     data.set((movement, PS[field], value))
     assert not validate(data, shacl_graph=shapes, inference="rdfs")[0]
 
 
-def test_movement_shacl_rejects_multiple_origins(biology, movement_records):
+def test_movement_shacl_rejects_multiple_origins(biology, movement_records, subclass_hierarchy):
     result, shapes, _, _ = biology
-    data = graph_for(movement_records, result)
+    data = graph_for(movement_records, result, subclass_hierarchy)
     data.add((URIRef("https://example.org/movements/partial-herd"), PS.movement_origin_site,
               URIRef("https://example.org/farms/another-origin")))
     assert not validate(data, shacl_graph=shapes, inference="rdfs")[0]
@@ -276,7 +256,7 @@ def test_movement_submission_accepts_partial_identification_and_no_inventory_inf
 
 
 @pytest.mark.parametrize("count", [0, -1])
-def test_movement_of_no_animals_fails_every_check(biology, movement_records, count):
+def test_movement_of_no_animals_fails_every_check(biology, movement_records, subclass_hierarchy, count):
     result, shapes, _, registry = biology
     records = copy.deepcopy(movement_records)
     movement = next(r for r in records if r["@type"] == "AnimalMovement")
@@ -285,14 +265,14 @@ def test_movement_of_no_animals_fails_every_check(biology, movement_records, cou
         jsonschema.Draft202012Validator(
             result["concept_schemas"]["AnimalMovement"], registry=registry,
         ).validate(movement)
-    assert not validate(graph_for(records, result), shacl_graph=shapes, inference="rdfs")[0]
+    assert not validate(graph_for(records, result, subclass_hierarchy), shacl_graph=shapes, inference="rdfs")[0]
     with pytest.raises(jsonschema.ValidationError):
         movement_profile.validate_profile(records)
 
 
-def test_negative_animal_count_fails_shacl(biology, movement_records):
+def test_negative_animal_count_fails_shacl(biology, movement_records, subclass_hierarchy):
     result, shapes, _, _ = biology
-    data = graph_for(movement_records, result)
+    data = graph_for(movement_records, result, subclass_hierarchy)
     data.set((URIRef("https://example.org/counts/before-movement"), PS.animal_count, Literal(-1)))
     assert not validate(data, shacl_graph=shapes, inference="rdfs")[0]
 
@@ -315,7 +295,7 @@ def test_movement_profile_resolves_subjects_and_sites_locally(movement_records, 
     "https://example.org/people/continuing-owner",
     "https://example.org/farms/managed-holding",
 ])
-def test_site_of_another_type_fails_shacl_and_profile(biology, movement_records, wrong_site):
+def test_site_of_another_type_fails_shacl_and_profile(biology, movement_records, subclass_hierarchy, wrong_site):
     result, shapes, _, registry = biology
     records = copy.deepcopy(movement_records)
     movement = next(r for r in records if r["@type"] == "AnimalMovement")
@@ -324,7 +304,7 @@ def test_site_of_another_type_fails_shacl_and_profile(biology, movement_records,
     jsonschema.Draft202012Validator(
         result["concept_schemas"]["AnimalMovement"], registry=registry,
     ).validate(movement)
-    assert not validate(graph_for(records, result), shacl_graph=shapes, inference="rdfs")[0]
+    assert not validate(graph_for(records, result, subclass_hierarchy), shacl_graph=shapes, inference="rdfs")[0]
     with pytest.raises(ValueError, match="movement_origin_site: wrong resolved target type"):
         movement_profile.validate_profile(records)
 
@@ -437,22 +417,22 @@ def test_count_bounds_are_vocabulary_constraints(biology):
     ("1990", True), ("1990-07", True), ("1990-07-15", True),
     ("1990----", False), ("19900715", False), ("1990-13", False), ("1990-07-32", False), ("90", False),
 ])
-def test_partial_dates_accept_reduced_precision_only(biology, concept, slot, value, valid):
+def test_partial_dates_accept_reduced_precision_only(biology, subclass_hierarchy, concept, slot, value, valid):
     result, shapes, _, registry = biology
     validator = jsonschema.Draft202012Validator(result["concept_schemas"][concept], registry=registry)
     record = {"@id": "https://example.org/partial-date", "@type": concept, slot: value}
     assert validator.is_valid(record) is valid
-    assert validate(graph_for([record], result), shacl_graph=shapes, inference="rdfs")[0] is valid
+    assert validate(graph_for([record], result, subclass_hierarchy), shacl_graph=shapes, inference="rdfs")[0] is valid
 
 
 @pytest.mark.parametrize("subject", ["https://example.org/animals/1", "https://example.org/herds/1"])
-def test_residence_and_responsibility_accept_animal_or_group(biology, subject):
+def test_residence_and_responsibility_accept_animal_or_group(biology, subclass_hierarchy, subject):
     result, shapes, records, _ = biology
     selected = copy.deepcopy(records)
     for record in selected:
         if "animal_subject" in record:
             record["animal_subject"] = subject
-    data = graph_for(selected + LINKED_TARGETS, result)
+    data = graph_for(selected + LINKED_TARGETS, result, subclass_hierarchy)
     conforms, _, report = validate(data, shacl_graph=shapes, inference="rdfs")
     assert conforms, report
 
@@ -462,9 +442,9 @@ def test_residence_and_responsibility_accept_animal_or_group(biology, subject):
     ("animal_responsible_actor", "https://example.org/animals/1"),
     ("animal_residence_site", "https://example.org/farms/1"),
 ])
-def test_relationship_targets_of_another_type_fail_shacl(biology, field, target):
+def test_relationship_targets_of_another_type_fail_shacl(biology, subclass_hierarchy, field, target):
     result, shapes, records, _ = biology
     selected = copy.deepcopy(records)
     record = next(r for r in selected if field in r)
     record[field] = target
-    assert not validate(graph_for(selected + LINKED_TARGETS, result), shacl_graph=shapes, inference="rdfs")[0]
+    assert not validate(graph_for(selected + LINKED_TARGETS, result, subclass_hierarchy), shacl_graph=shapes, inference="rdfs")[0]
