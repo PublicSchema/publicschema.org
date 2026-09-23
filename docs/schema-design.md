@@ -30,20 +30,20 @@ The build pipeline keys concepts internally by `{domain}/{id}` (e.g., `sp/Enroll
 
 | Code | Domain | Current scope |
 |---|---|---|
-| `sp` | Social protection | Benefit programmes and delivery relationships |
-| `crvs` | Civil registration and vital statistics | Vital events and registration roles |
-| `agri` | Agriculture | Production holdings, cultivation, livestock establishments, inputs and production roles |
-| `land` | Land administration | Spatial and administrative units, tenure and boundaries |
-| `environment` | Environment | Facilities and water-use permissions |
-| `transport` | Transport | Vehicles and driving permissions |
-| `edu` | Education | Providers, programmes, offerings and educational premises |
-| `health` | Health | Physical healthcare facilities; medical content integrates through native FHIR |
-| `tax` | Tax administration | Tax registration |
-| `elections` | Electoral administration | Voter registration |
+| `sp` | Social protection | Benefit programs, participation and public-service delivery relationships |
+| `crvs` | Civil registration | Civil registration of vital events and the associated roles and records |
+| `agri` | Agriculture | Agricultural and fisheries production: holdings, cultivation, and production-specific roles, facilities, inputs and assertions |
+| `land` | Land administration | Spatial and administrative units, tenure and boundary assertions |
+| `environment` | Environment | Environmentally regulated facilities and their activities, and water-use authorizations |
+| `transport` | Transport | Road vehicles, driving entitlements and vessel attributes |
+| `edu` | Education | Education provision, programs, delivery sites and educational facility types |
+| `health` | Health | Healthcare facility discovery and integration with selected FHIR resources; no replacement medical ontology |
+| `tax` | Tax administration | Registration of persons and organizations with tax authorities, by tax type |
+| `elections` | Elections | Voter registration, electoral districts and polling stations |
 
 These labels describe represented slices, not complete sector standards. A domain is a namespace and discovery aid, not a superclass or access-control boundary. Any domain can reuse a shared concept or refer to another domain's concept. Module filenames organize authorship and do not determine public namespaces.
 
-ServicePoint stays shared. Its draft School and HealthFacility subtypes use `edu/School` and `health/HealthFacility`. RegistrationOffice remains at root because its definition also covers identity and refugee registration. WaterPoint retains its existing root identity as a disclosed scope exception; a complete water and sanitation namespace has not been designed. Generic animal and plant identities remain shared where their definitions do not require agricultural production. See [domain placement and migration](domain-migration.md) for individual dispositions.
+ServicePoint stays shared. Its School and HealthFacility subtypes use `edu/School` and `health/HealthFacility`. RegistrationOffice remains at root because its definition also covers identity and refugee registration. WaterPoint retains its existing root identity as a disclosed scope exception; a complete water and sanitation namespace has not been designed. Generic animal and plant identities remain shared where their definitions do not require agricultural production. See [domain placement and migration](domain-migration.md) for individual dispositions.
 
 Author explicit `class_uri`, `slot_uri`, `enum_uri` and permissible-value `meaning` values with consistent `annotations.source_domain`. The renderer uses a property's authored URI to place its page; adding a new consumer must not move that property. Vocabulary catalog paths remain `/vocab/<domain>/<kebab-case-id>`. `schema/publicschema.yaml` supplies domain labels through `annotations.domains_json`; the site shows domains actually present in each collection and keeps unknown codes visible.
 
@@ -128,24 +128,23 @@ Lifecycle concepts use domain-specific named dates that describe the domain even
 Do not mix both patterns on the same concept. A lifecycle concept should not carry both `enrollment_date` and `start_date`.
 
 The two generic pairs are not aliases. `start_date` names the date effectiveness began;
-`end_date` names the date effectiveness ceased. The draft `valid_from` and `valid_to`
+`end_date` names the date effectiveness ceased. `valid_from` and `valid_to`
 name the first and last applicable calendar dates, including the last day. `recorded_at`
 instead records when the source entered the assertion. Missing dates remain unknown;
 an omitted end does not prove perpetual validity.
 
-Use `start_date` / `end_date` for relationship and membership concepts. The draft
+Use `start_date` / `end_date` for relationship and membership concepts, such as
 HoldingParcelLink, AnimalResidence, AnimalResponsibility,
-AgriculturalServiceRole, IdentifierAssignment, NameUsage
-and ContactPoint now follow this convention. AssetPartyRole and AssetAddressAssignment
-also use it. Registration (including Authorization specializations such as DrivingEntitlement),
+AgriculturalServiceRole, IdentifierAssignment, NameUsage, ContactPoint,
+AssetPartyRole and AssetAddressAssignment. Registration (including Authorization specializations such as DrivingEntitlement),
 RegistryEntry, AgriculturalParcel, Certification and LandTenureAssertion retain
 their declared calendar validity.
 The [relationship migration guide](relationship-date-migration.md) describes the
-explicit conversion contract and the retired facility assignments. Renaming an
+explicit conversion contract for source records that use calendar validity. Renaming an
 inclusive `valid_to` to `end_date` without changing the boundary loses an effective day.
 
 A consuming profile must state its interval boundaries before comparing or converting
-dates. For example, under an explicitly agreed whole-day convention, `valid_to:
+dates. For example, under an explicitly stated whole-day convention, `valid_to:
 2026-06-30` corresponds to cessation on `end_date: 2026-07-01`. Renaming the key while
 keeping 30 June would change the meaning. Do not apply that conversion when source
 precision or boundary semantics are unknown. The farm-work example documents its own

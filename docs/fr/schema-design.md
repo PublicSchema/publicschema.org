@@ -28,20 +28,20 @@ Les noms publics n'ont pas besoin d'abréviation de domaine : utilisez `Enrollme
 
 | Code | Domaine | Portée actuelle |
 |---|---|---|
-| `sp` | Protection sociale | Programmes de prestations et relations de prestation |
-| `crvs` | Enregistrement des faits d'état civil et statistiques de l'état civil | Événements vitaux et rôles d'enregistrement |
-| `agri` | Agriculture | Exploitations de production, cultures, établissements d'élevage, intrants et rôles de production |
-| `land` | Administration foncière | Unités spatiales et administratives, tenure et limites |
-| `environment` | Environnement | Installations et autorisations d'utilisation de l'eau |
-| `transport` | Transport | Véhicules et permis de conduire |
-| `edu` | Éducation | Prestataires, programmes, offres et locaux d'enseignement |
-| `health` | Santé | Établissements de soins physiques ; le contenu médical s'intègre par FHIR natif |
-| `tax` | Administration fiscale | Enregistrement fiscal |
-| `elections` | Administration électorale | Inscription des électeurs |
+| `sp` | Protection sociale | Programmes de prestations, participation et relations de prestation de services publics |
+| `crvs` | État civil | Enregistrement des faits d'état civil, avec les rôles et actes associés |
+| `agri` | Agriculture | Production agricole et halieutique : exploitations, cultures, et rôles, installations, intrants et assertions propres à la production |
+| `land` | Administration foncière | Unités spatiales et administratives, assertions de tenure et de limites |
+| `environment` | Environnement | Installations soumises à la réglementation environnementale et leurs activités, et autorisations d'utilisation de l'eau |
+| `transport` | Transports | Véhicules routiers, permis de conduire et attributs des navires |
+| `edu` | Éducation | Offre d'enseignement, programmes, sites de prestation et types d'établissements d'enseignement |
+| `health` | Santé | Découverte des établissements de soins et intégration avec des ressources FHIR sélectionnées ; pas d'ontologie médicale de remplacement |
+| `tax` | Administration fiscale | Enregistrement des personnes et organisations auprès des administrations fiscales, par type d'impôt |
+| `elections` | Élections | Inscription des électeurs, circonscriptions électorales et bureaux de vote |
 
 Ces libellés décrivent des tranches représentées, et non des normes sectorielles complètes. Un domaine est un espace de noms et une aide à la découverte, pas une superclasse ni une frontière de contrôle d'accès. Tout domaine peut réutiliser un concept partagé ou référencer le concept d'un autre domaine. Les noms de fichiers de module organisent l'écriture et ne déterminent pas les espaces de noms publics.
 
-`ServicePoint` reste partagé. Ses sous-types provisoires `School` et `HealthFacility` utilisent `edu/School` et `health/HealthFacility`. `RegistrationOffice` reste à la racine car sa définition couvre aussi l'enregistrement d'identité et des réfugiés. `WaterPoint` conserve son identité racine existante comme exception de portée explicitée ; aucun espace de noms complet pour l'eau et l'assainissement n'a été conçu. Les identités génériques d'animaux et de plantes restent partagées lorsque leur définition n'exige pas la production agricole. Voir [placement et migration des domaines](domain-migration.md) pour chaque disposition.
+`ServicePoint` reste partagé. Ses sous-types `School` et `HealthFacility` utilisent `edu/School` et `health/HealthFacility`. `RegistrationOffice` reste à la racine car sa définition couvre aussi l'enregistrement d'identité et des réfugiés. `WaterPoint` conserve son identité racine existante comme exception de portée explicitée ; aucun espace de noms complet pour l'eau et l'assainissement n'a été conçu. Les identités génériques d'animaux et de plantes restent partagées lorsque leur définition n'exige pas la production agricole. Voir [placement et migration des domaines](domain-migration.md) pour chaque disposition.
 
 Rédigez des valeurs explicites pour `class_uri`, `slot_uri`, `enum_uri` et `meaning` des valeurs autorisées, avec des `annotations.source_domain` cohérentes. Le moteur de rendu utilise l'URI rédigé d'une propriété pour placer sa page ; l'ajout d'un nouveau consommateur ne doit pas déplacer cette propriété. Les chemins du catalogue de vocabulaires restent `/vocab/<domain>/<kebab-case-id>`. `schema/publicschema.yaml` fournit les libellés de domaine par `annotations.domains_json` ; le site affiche les domaines réellement présents dans chaque collection et laisse visibles les codes inconnus.
 
@@ -116,11 +116,11 @@ Les concepts à cycle de vie utilisent des noms de dates spécifiques au domaine
 
 Ne combinez pas les deux modèles sur un même concept. Un concept à cycle de vie ne doit pas porter à la fois `enrollment_date` et `start_date`.
 
-Les deux paires génériques ne sont pas des alias. `start_date` nomme la date où l'effectivité a commencé ; `end_date` nomme la date où elle a cessé. Les `valid_from` et `valid_to` provisoires nomment le premier et le dernier jour calendaire applicables, y compris ce dernier jour. `recorded_at` enregistre plutôt le moment où la source a saisi l'assertion. Les dates absentes restent inconnues ; une fin omise ne prouve pas une validité perpétuelle.
+Les deux paires génériques ne sont pas des alias. `start_date` nomme la date où l'effectivité a commencé ; `end_date` nomme la date où elle a cessé. `valid_from` et `valid_to` nomment le premier et le dernier jour calendaire applicables, y compris ce dernier jour. `recorded_at` enregistre plutôt le moment où la source a saisi l'assertion. Les dates absentes restent inconnues ; une fin omise ne prouve pas une validité perpétuelle.
 
-Utilisez `start_date` / `end_date` pour les concepts de relation et d'appartenance. Les brouillons HoldingParcelLink, AnimalResidence, AnimalResponsibility, AgriculturalServiceRole, IdentifierAssignment, NameUsage et ContactPoint suivent maintenant cette convention. AssetPartyRole et AssetAddressAssignment l'utilisent aussi. Registration (y compris les spécialisations d'Authorization telles que DrivingEntitlement), RegistryEntry, AgriculturalParcel, AgriculturalCertification et LandTenureAssertion conservent leur validité calendaire déclarée. Le [guide de migration des relations](relationship-date-migration.md) décrit le contrat de conversion explicite et les anciennes attributions d'établissement retirées. Renommer un `valid_to` inclusif en `end_date` sans modifier la frontière fait perdre un jour effectif.
+Utilisez `start_date` / `end_date` pour les concepts de relation et d'appartenance, tels que HoldingParcelLink, AnimalResidence, AnimalResponsibility, AgriculturalServiceRole, IdentifierAssignment, NameUsage, ContactPoint, AssetPartyRole et AssetAddressAssignment. Registration (y compris les spécialisations d'Authorization telles que DrivingEntitlement), RegistryEntry, AgriculturalParcel, Certification et LandTenureAssertion conservent leur validité calendaire déclarée. Le [guide de migration des relations](relationship-date-migration.md) décrit le contrat de conversion explicite pour les enregistrements sources qui utilisent une validité calendaire. Renommer un `valid_to` inclusif en `end_date` sans modifier la frontière fait perdre un jour effectif.
 
-Un profil consommateur doit indiquer les frontières de ses intervalles avant de comparer ou convertir les dates. Par exemple, selon une convention de jours entiers explicitement convenue, `valid_to: 2026-06-30` correspond à une cessation avec `end_date: 2026-07-01`. Renommer la clé en conservant le 30 juin changerait le sens. N'appliquez pas cette conversion lorsque la précision de la source ou sa sémantique de frontière est inconnue. L'exemple de travail agricole documente sa propre convention de jours entiers ; il ne modifie pas les définitions normatives des propriétés de date.
+Un profil consommateur doit indiquer les frontières de ses intervalles avant de comparer ou convertir les dates. Par exemple, selon une convention de jours entiers explicitement déclarée, `valid_to: 2026-06-30` correspond à une cessation avec `end_date: 2026-07-01`. Renommer la clé en conservant le 30 juin changerait le sens. N'appliquez pas cette conversion lorsque la précision de la source ou sa sémantique de frontière est inconnue. L'exemple de travail agricole documente sa propre convention de jours entiers ; il ne modifie pas les définitions normatives des propriétés de date.
 
 ## 6. Indépendance des propriétés
 

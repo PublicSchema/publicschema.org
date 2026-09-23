@@ -28,20 +28,20 @@ Los nombres públicos no necesitan abreviaciones de dominio: use `Enrollment`, n
 
 | Código | Dominio | Alcance actual |
 |---|---|---|
-| `sp` | Protección social | Programas de prestaciones y relaciones de prestación |
-| `crvs` | Registro civil y estadísticas vitales | Eventos vitales y roles de registro |
-| `agri` | Agricultura | Explotaciones de producción, cultivos, establecimientos ganaderos, insumos y roles de producción |
-| `land` | Administración de tierras | Unidades espaciales y administrativas, tenencia y límites |
-| `environment` | Medio ambiente | Instalaciones y autorizaciones de uso de agua |
-| `transport` | Transporte | Vehículos y permisos de conducir |
-| `edu` | Educación | Proveedores, programas, ofertas y centros educativos |
-| `health` | Salud | Instalaciones físicas de atención sanitaria; el contenido médico se integra mediante FHIR nativo |
-| `tax` | Administración tributaria | Registro tributario |
-| `elections` | Administración electoral | Registro de votantes |
+| `sp` | Protección social | Programas de prestaciones, participación y relaciones de prestación de servicios públicos |
+| `crvs` | Registro civil | Registro civil de hechos vitales y los roles y actas asociados |
+| `agri` | Agricultura | Producción agrícola y pesquera: explotaciones, cultivos, y roles, instalaciones, insumos y aserciones propios de la producción |
+| `land` | Administración de tierras | Unidades espaciales y administrativas, aserciones de tenencia y de límites |
+| `environment` | Medio ambiente | Instalaciones sujetas a regulación ambiental y sus actividades, y autorizaciones de uso de agua |
+| `transport` | Transporte | Vehículos de carretera, permisos de conducir y atributos de embarcaciones |
+| `edu` | Educación | Oferta educativa, programas, sedes de impartición y tipos de establecimientos educativos |
+| `health` | Salud | Descubrimiento de establecimientos de salud e integración con recursos FHIR seleccionados; sin ontología médica de reemplazo |
+| `tax` | Administración tributaria | Registro de personas y organizaciones ante las autoridades tributarias, por tipo de impuesto |
+| `elections` | Elecciones | Registro de votantes, distritos electorales y centros de votación |
 
 Estas etiquetas describen partes representadas, no estándares sectoriales completos. Un dominio es un espacio de nombres y una ayuda para el descubrimiento, no una superclase ni un límite de control de acceso. Cualquier dominio puede reutilizar un concepto compartido o referirse al concepto de otro dominio. Los nombres de archivos de módulo organizan la autoría y no determinan los espacios de nombres públicos.
 
-`ServicePoint` permanece compartido. Sus subtipos provisionales `School` y `HealthFacility` usan `edu/School` y `health/HealthFacility`. `RegistrationOffice` permanece en la raíz porque su definición también cubre el registro de identidad y de personas refugiadas. `WaterPoint` conserva su identidad raíz existente como excepción de alcance declarada; no se ha diseñado un espacio de nombres completo para agua y saneamiento. Las identidades genéricas de animales y plantas permanecen compartidas cuando sus definiciones no requieren producción agrícola. Consulte [ubicación y migración de dominios](domain-migration.md) para disposiciones individuales.
+`ServicePoint` permanece compartido. Sus subtipos `School` y `HealthFacility` usan `edu/School` y `health/HealthFacility`. `RegistrationOffice` permanece en la raíz porque su definición también cubre el registro de identidad y de personas refugiadas. `WaterPoint` conserva su identidad raíz existente como excepción de alcance declarada; no se ha diseñado un espacio de nombres completo para agua y saneamiento. Las identidades genéricas de animales y plantas permanecen compartidas cuando sus definiciones no requieren producción agrícola. Consulte [ubicación y migración de dominios](domain-migration.md) para disposiciones individuales.
 
 Redacte valores explícitos de `class_uri`, `slot_uri`, `enum_uri` y `meaning` de valores permitidos, con `annotations.source_domain` coherentes. El renderizador usa el URI redactado de una propiedad para ubicar su página; añadir un nuevo consumidor no debe mover esa propiedad. Las rutas del catálogo de vocabularios siguen siendo `/vocab/<domain>/<kebab-case-id>`. `schema/publicschema.yaml` proporciona etiquetas de dominio mediante `annotations.domains_json`; el sitio muestra los dominios realmente presentes en cada colección y mantiene visibles los códigos desconocidos.
 
@@ -116,11 +116,11 @@ Los conceptos de ciclo de vida usan fechas con nombre específico del dominio qu
 
 No mezcle ambos patrones en el mismo concepto. Un concepto de ciclo de vida no debe llevar tanto `enrollment_date` como `start_date`.
 
-Los dos pares genéricos no son alias. `start_date` nombra la fecha en que comenzó la efectividad; `end_date` nombra la fecha en que cesó. Los `valid_from` y `valid_to` provisionales nombran el primer y último día calendario aplicables, incluido el último día. `recorded_at` registra en cambio cuándo la fuente introdujo la aserción. Las fechas ausentes siguen siendo desconocidas; un fin omitido no demuestra validez perpetua.
+Los dos pares genéricos no son alias. `start_date` nombra la fecha en que comenzó la efectividad; `end_date` nombra la fecha en que cesó. `valid_from` y `valid_to` nombran el primer y último día calendario aplicables, incluido el último día. `recorded_at` registra en cambio cuándo la fuente introdujo la aserción. Las fechas ausentes siguen siendo desconocidas; un fin omitido no demuestra validez perpetua.
 
-Use `start_date` / `end_date` para conceptos de relación y membresía. Los borradores HoldingParcelLink, AnimalResidence, AnimalResponsibility, AgriculturalServiceRole, IdentifierAssignment, NameUsage y ContactPoint ahora siguen esta convención. AssetPartyRole y AssetAddressAssignment también la usan. Registration (incluidas las especializaciones de Authorization como DrivingEntitlement), RegistryEntry, AgriculturalParcel, AgriculturalCertification y LandTenureAssertion conservan su validez calendaria declarada. La [guía de migración de relaciones](relationship-date-migration.md) describe el contrato explícito de conversión y las asignaciones de instalaciones retiradas. Renombrar un `valid_to` inclusivo como `end_date` sin cambiar el límite pierde un día efectivo.
+Use `start_date` / `end_date` para conceptos de relación y membresía, como HoldingParcelLink, AnimalResidence, AnimalResponsibility, AgriculturalServiceRole, IdentifierAssignment, NameUsage, ContactPoint, AssetPartyRole y AssetAddressAssignment. Registration (incluidas las especializaciones de Authorization como DrivingEntitlement), RegistryEntry, AgriculturalParcel, Certification y LandTenureAssertion conservan su validez calendaria declarada. La [guía de migración de relaciones](relationship-date-migration.md) describe el contrato explícito de conversión para registros de origen que usan validez calendaria. Renombrar un `valid_to` inclusivo como `end_date` sin cambiar el límite pierde un día efectivo.
 
-Un perfil consumidor debe declarar los límites de sus intervalos antes de comparar o convertir fechas. Por ejemplo, bajo una convención de días completos acordada explícitamente, `valid_to: 2026-06-30` corresponde a un cese con `end_date: 2026-07-01`. Renombrar la clave y conservar el 30 de junio cambiaría el significado. No aplique esta conversión cuando la precisión de la fuente o la semántica de sus límites sea desconocida. El ejemplo de trabajo agrícola documenta su propia convención de días completos; no cambia las definiciones normativas de propiedades de fecha.
+Un perfil consumidor debe declarar los límites de sus intervalos antes de comparar o convertir fechas. Por ejemplo, bajo una convención de días completos declarada explícitamente, `valid_to: 2026-06-30` corresponde a un cese con `end_date: 2026-07-01`. Renombrar la clave y conservar el 30 de junio cambiaría el significado. No aplique esta conversión cuando la precisión de la fuente o la semántica de sus límites sea desconocida. El ejemplo de trabajo agrícola documenta su propia convención de días completos; no cambia las definiciones normativas de propiedades de fecha.
 
 ## 6. Independencia de propiedades
 
