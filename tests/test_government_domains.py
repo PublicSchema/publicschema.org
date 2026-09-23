@@ -22,8 +22,8 @@ RECORDS = json.loads((ROOT / "examples/government-domains/records.json").read_te
 GOVERNMENT_MODULES = ("organizations", "ownership", "regulation", "education", "work", "transport",
                       "environment", "tax", "elections", "physical_assets")
 # Classes in the government modules whose examples belong to other fixture sets.
-EXAMPLED_ELSEWHERE = {"LegalArrangement", "OwnershipChainAssertion", "EducationOffering", "WorkRelationship",
-                      "WaterUseAuthorization", "AssetAddressAssignment", "AgriculturalCertification"}
+EXAMPLED_ELSEWHERE = {"LegalArrangement", "EducationOffering", "WorkRelationship",
+                      "WaterUseAuthorization", "AssetAddressAssignment", "Certification"}
 AUTHORED = {"classes": {}, "slots": {}}
 for _module in GOVERNMENT_MODULES:
     _authored = yaml.safe_load((ROOT / f"schema/{_module}.yaml").read_text())
@@ -75,7 +75,7 @@ def example_profile_errors(records):
     """
     index = {record["@id"]: record for record in records}
     errors = []
-    organization_types = {"Organization", "PublicOrganization", "LegalEntity", "edu/EducationProvider"}
+    organization_types = {"Organization", "PublicOrganization", "edu/EducationProvider"}
     for record in records:
         kind = record["@type"]
         for begin, end in [("valid_from", "valid_to"), ("start_date", "end_date")]:
@@ -95,10 +95,10 @@ def example_profile_errors(records):
         if kind == "AssetPartyRole":
             field, allowed = "asset_actor", organization_types | {"Person"}
         if kind == "RepresentationRole":
-            field, allowed = "representative_actor", organization_types | {"Person"}
-            represented = index.get(record.get("represented_subject"))
+            field, allowed = "representative", organization_types | {"Person"}
+            represented = index.get(record.get("represented"))
             if represented is None or represented["@type"] not in allowed:
-                errors.append("invalid represented subject")
+                errors.append("invalid represented party")
         if field:
             target = index.get(record.get(field))
             if target is None:
@@ -180,7 +180,7 @@ def test_invalid_public_shapes_fail_both_formats(exports, kind, changes):
 @pytest.mark.parametrize("suffix,changes,message", [
     ("facility", {"environmental_operator": "https://example.org/vehicle"}, "wrong actor kind"),
     ("facility", {"environmental_operator": "https://example.org/unavailable"}, "missing actor"),
-    ("tax-representative", {"represented_subject": "https://example.org/vehicle"}, "invalid represented subject"),
+    ("tax-representative", {"represented": "https://example.org/vehicle"}, "invalid represented party"),
     ("voter", {"registered_subject": "https://example.org/company"}, "wrong actor kind"),
     ("drive-B", {"registered_subject": "https://example.org/unavailable"}, "missing actor"),
     ("professional-license", {"valid_to": "2024-01-01"}, "reversed period"),
@@ -205,7 +205,7 @@ def test_counterexamples_preserve_neighboring_identities():
     assert "physical_service_point" not in records["online-site"]
     assert records["drive-B"]["valid_to"] != records["drive-C"]["valid_to"]
     assert records["tax-company"]["registered_subject"] == records["company"]["@id"]
-    assert records["vehicle-registration"]["registered_subject"] == records["inspection"]["assessed_subject"]
+    assert records["vehicle-registration"]["registered_subject"] == records["inspection"]["subject_uri"]
     assert "interest_percentage" not in records["interest-organization"]
 
 

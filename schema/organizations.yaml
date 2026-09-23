@@ -1,51 +1,46 @@
 id: https://publicschema.org/linkml/organizations
 name: publicschema-organizations
 title: Organizations and institutional roles
-description: Draft public organizations, legal entities, institutional relationships and representation roles.
+description: Draft public organizations, institutional relationships, institutional and representation
+  roles, and the shared authority link.
 license: CC-BY-4.0
 default_prefix: publicschema
 prefixes:
   publicschema: https://publicschema.org/
   linkml: https://w3id.org/linkml/
   bibo: http://purl.org/ontology/bibo/
+  cpov: http://data.europa.eu/m8g/
+  org: http://www.w3.org/ns/org#
 imports:
 - linkml:types
 - common
 - identity
 - misc
 - value_types
+- registry
 classes:
   PublicOrganization:
     class_uri: publicschema:PublicOrganization
     title: Public Organization
-    description: An organization established or recognized to exercise public functions. Public function
-      does not imply separate legal personality or ownership by the state.
+    description: An organization that a law or other legal framework places in the public sector, at
+      any level of government. Being public does not settle whether it has its own legal personality.
     slots:
-    - public_mandate
-    - governmental_area
+    - legal_resources
+    - public_functions
+    - competence_areas
     status: bibo:draft
     is_a: Organization
+    exact_mappings:
+    - cpov:PublicOrganisation
     annotations:
       bibliography_refs: '["gov-cpov-212"]'
-  LegalEntity:
-    class_uri: publicschema:LegalEntity
-    title: Legal Entity
-    description: An organization recognized by a legal system as having legal personality. An individual
-      sole trader remains a Person; a branch need not have independent legal personality.
-    slots:
-    - legal_form
-    - incorporation_date
-    - governmental_area
-    status: bibo:draft
-    is_a: Organization
-    annotations:
-      bibliography_refs: '["gov-regorg", "gov-companies-house"]'
   InstitutionalRelationship:
     class_uri: publicschema:InstitutionalRelationship
     title: Institutional Relationship
-    description: A dated relationship between two organizations, such as administrative subordination,
-      branch affiliation, federation membership or succession. The relationship code determines direction
-      and meaning; none implies ownership by itself.
+    description: A dated, directed relationship between two organizations, such as one being part of,
+      supervised by, affiliated with or a member of the other. The relationship type fixes its direction
+      and meaning; none of these relationships expresses ownership or control by itself. A merger, split
+      or succession is an OrganizationalChangeEvent instead.
     slots:
     - institution_from
     - institution_to
@@ -58,9 +53,10 @@ classes:
   InstitutionalRole:
     class_uri: publicschema:InstitutionalRole
     title: Institutional Role
-    description: A dated assignment of a person or organization to a role in an organization, such as
-      officer, governor or representative. It does not by itself establish employment, beneficial ownership
-      or legal authority.
+    description: A dated assignment of a person, group or organization to a role in an organization,
+      such as member, director, officer or board member. Membership of a producer organization or cooperative
+      is an institutional role with a member role type. The role does not by itself show employment,
+      ownership or legal authority.
     slots:
     - role_actor
     - role_organization
@@ -68,17 +64,19 @@ classes:
     - start_date
     - end_date
     status: bibo:draft
+    close_mappings:
+    - org:Membership
     annotations:
       bibliography_refs: '["gov-org", "gov-companies-house"]'
   RepresentationRole:
     class_uri: publicschema:RepresentationRole
     title: Representation Role
-    description: A dated relationship in which a person or organization represents another person or organization
-      for a stated purpose. Representation is distinct from identity and does not by itself prove authorization
-      for every action.
+    description: A dated relationship in which one person or organization acts on behalf of another within
+      a stated scope. Representation is distinct from identity, and recording it does not prove that
+      the representative may take a particular action.
     slots:
-    - representative_actor
-    - represented_subject
+    - representative
+    - represented
     - representation_scope
     - start_date
     - end_date
@@ -86,47 +84,43 @@ classes:
     annotations:
       bibliography_refs: '["gov-irs-representation"]'
 slots:
-  public_mandate:
-    slot_uri: publicschema:public_mandate
-    title: Public mandate
-    description: A legal or administrative source establishing the public functions of an organization.
-    range: uri
-    multivalued: true
+  authority:
+    slot_uri: publicschema:authority
+    title: Authority
+    description: The organization responsible for the act or event a record describes, such as the body
+      that receives an application, decides a case, reviews an appeal, inspects a subject or takes a
+      measure. Each class using it states which of these roles applies.
+    range: Organization
+    multivalued: false
     status: bibo:draft
     annotations:
       category: governance
-  governmental_area:
-    slot_uri: publicschema:governmental_area
-    title: Governmental area
-    description: An area in which an organization is constituted or exercises its stated public mandate.
-      This is distinct from the data-protection jurisdiction of a record.
+  public_functions:
+    slot_uri: publicschema:public_functions
+    title: Public functions
+    description: The public functions or remit for which an organization is responsible, such as tax
+      collection or primary education, coded where possible.
+    range: CodedValue
+    multivalued: true
+    status: bibo:draft
+    close_mappings:
+    - org:purpose
+    annotations:
+      category: governance
+  competence_areas:
+    slot_uri: publicschema:competence_areas
+    title: Competence areas
+    description: The administrative areas that an organization covers or serves. They are distinct from
+      the jurisdiction whose data-protection law applies to a record.
     range: Location
     multivalued: true
     status: bibo:draft
     annotations:
       category: governance
-  legal_form:
-    slot_uri: publicschema:legal_form
-    title: Legal form
-    description: The code and scheme identifying the legal form recognized by the constituting jurisdiction.
-    range: CodedValue
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      category: classification
-  incorporation_date:
-    slot_uri: publicschema:incorporation_date
-    title: Incorporation date
-    description: The date on which the organization acquired legal personality.
-    range: date
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      category: administrative
   institution_from:
     slot_uri: publicschema:institution_from
     title: Institution from
-    description: The organization from which the directed institutional relationship is asserted.
+    description: The organization at the start of the directed institutional relationship.
     range: Organization
     multivalued: false
     status: bibo:draft
@@ -135,7 +129,7 @@ slots:
   institution_to:
     slot_uri: publicschema:institution_to
     title: Institution to
-    description: The organization to which the directed institutional relationship is asserted.
+    description: The organization at the end of the directed institutional relationship.
     range: Organization
     multivalued: false
     status: bibo:draft
@@ -144,7 +138,8 @@ slots:
   institutional_relationship_type:
     slot_uri: publicschema:institutional_relationship_type
     title: Institutional relationship type
-    description: A scheme-qualified code defining the kind and direction of the institutional relationship.
+    description: The kind of institutional relationship, which also fixes which organization is at its
+      start and which is at its end.
     range: CodedValue
     multivalued: false
     status: bibo:draft
@@ -153,11 +148,13 @@ slots:
   role_actor:
     slot_uri: publicschema:role_actor
     title: Role actor
-    description: The URI of the person or organization assigned to the institutional role. Target existence
-      and actor kind are checked by the consuming profile.
+    description: The URI of the person, group or organization holding the institutional role, such as
+      a farmer who is a member of a producer organization.
     range: uri
     multivalued: false
     status: bibo:draft
+    close_mappings:
+    - org:member
     annotations:
       category: governance
       sensitivity: sensitive
@@ -173,37 +170,42 @@ slots:
   institutional_role_type:
     slot_uri: publicschema:institutional_role_type
     title: Institutional role type
-    description: A scheme-qualified code for the role held in an organization.
+    description: The kind of role held in an organization, such as member, director or secretary.
     range: CodedValue
     multivalued: false
     status: bibo:draft
+    close_mappings:
+    - org:role
     annotations:
       category: classification
-  representative_actor:
-    slot_uri: publicschema:representative_actor
-    title: Representative actor
-    description: The URI of the person or organization acting as representative.
-    range: uri
+  representative:
+    slot_uri: publicschema:representative
+    title: Representative
+    description: The person or organization acting on behalf of the represented party.
+    range: Agent
     multivalued: false
     status: bibo:draft
     annotations:
       category: governance
-  represented_subject:
-    slot_uri: publicschema:represented_subject
-    title: Represented subject
-    description: The URI of the person or organization being represented.
-    range: uri
+      sensitivity: sensitive
+  represented:
+    slot_uri: publicschema:represented
+    title: Represented
+    description: The person or organization on whose behalf the representative acts.
+    range: Agent
     multivalued: false
     status: bibo:draft
     annotations:
       category: governance
+      sensitivity: sensitive
   representation_scope:
     slot_uri: publicschema:representation_scope
     title: Representation scope
-    description: The purpose and limits of the representation, such as communication about a specified
-      tax regime.
+    description: The matters for which, and the limits within which, the representative may act, such
+      as communication about a specified tax regime.
     range: string
     multivalued: false
     status: bibo:draft
     annotations:
       category: governance
+      sensitivity: sensitive

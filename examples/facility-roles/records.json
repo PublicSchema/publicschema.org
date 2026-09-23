@@ -351,7 +351,7 @@
   {
     "@id": "https://example.org/facility-roles/school-capacity",
     "@type": "ServiceCapacityObservation",
-    "capacity_subject": "https://example.org/facility-roles/school",
+    "subject_uri": "https://example.org/facility-roles/school",
     "capacity_measure": {
       "@type": "CodedValue",
       "code_value": "staffed-learning-places",
@@ -368,7 +368,7 @@
   {
     "@id": "https://example.org/facility-roles/hospital-capacity",
     "@type": "ServiceCapacityObservation",
-    "capacity_subject": "https://example.org/facility-roles/hospital",
+    "subject_uri": "https://example.org/facility-roles/hospital",
     "capacity_measure": {
       "@type": "CodedValue",
       "code_value": "staffed-beds",

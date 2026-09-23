@@ -1,10 +1,14 @@
 {
   "@id": "https://example.org/certificate/1",
-  "@type": "agri/AgriculturalCertification",
+  "@type": "Certification",
   "certified_subject": "https://example.org/facility/lab",
   "certification_scheme": "https://example.org/schemes/testing-v1",
   "certification_scope": [
-    "soil pH testing"
+    {
+      "@type": "CodedValue",
+      "code_value": "soil-ph-testing",
+      "code_scheme": "https://example.org/schemes/testing-v1/scopes"
+    }
   ],
   "valid_from": "2026-01-01",
   "valid_to": "2026-12-31"

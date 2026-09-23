@@ -547,6 +547,10 @@ def _is_linkml_alignment_extra(triple: tuple[str, str, str]) -> bool:
         "http://www.w3.org/ns/legal#",
         "http://www.w3.org/ns/person",
         "http://www.w3.org/ns/locn#",
+        "http://www.w3.org/ns/org#",
+        "http://www.w3.org/ns/sosa/",
+        # GS1 Web Vocabulary (certification details)
+        "https://gs1.org/voc/",
         "http://schema.org/",  # rdf_export's https:// is normalized to http://
         "https://schema.org/",
         # DPV (privacy)

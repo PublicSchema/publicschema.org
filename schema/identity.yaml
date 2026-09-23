@@ -454,6 +454,8 @@ classes:
     - name
     - identifiers
     - location
+    - legal_form
+    - formation_date
     status: bibo:status/forthcoming
     exact_mappings:
     - foaf:Organization
@@ -517,7 +519,8 @@ classes:
         legal_form, jurisdiction, contact points, multi-site locations) is deferred to a later iteration.\n",
         "system_count": 0, "total_systems": 6}'
       property_groups_json: '[{"category": "identity", "properties": ["name", "identifiers"]}, {"category":
-        "location", "properties": ["location"]}]'
+        "location", "properties": ["location"]}, {"category": "administrative", "properties": ["legal_form",
+        "formation_date"]}]'
       bibliography_refs: '["fhir-r4", "foaf", "schema-org", "semic-cpov", "w3c-prov-o"]'
   RegistrationOffice:
     class_uri: publicschema:RegistrationOffice
@@ -1841,6 +1844,16 @@ slots:
       external_alignments_json: '[{"label": "No v1 equivalent", "match": "none", "note": "OpenCRVS v2
         does not include an industry field.", "vocabulary": "OpenCRVS v2 event service", "vocabulary_id":
         "opencrvs"}]'
+  legal_form:
+    slot_uri: publicschema:legal_form
+    title: Legal form
+    description: The legal form of an organization under the law it was formed under, such as a limited
+      company, cooperative or statutory body.
+    range: CodedValue
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: classification
   literacy:
     slot_uri: publicschema:literacy
     title: Literacy

@@ -6,33 +6,33 @@ The sidecar grants are trusted synthetic profile configuration, never caller cla
 
 import argparse
 import json
-from datetime import datetime, timezone
+from datetime import UTC, date, datetime
 from pathlib import Path
 
-ORGANIZATIONS = {"Organization", "PublicOrganization", "LegalEntity"}
+ORGANIZATIONS = {"Organization", "PublicOrganization"}
 APPLICANTS = ORGANIZATIONS | {"Person"}
 REQUIRED = {
     "PublicService": ("name", "service_competent_authorities", "legal_resources"),
     "ServiceApplication": (
-        "public_service", "service_applicant", "application_subject", "submitted_by",
-        "receiving_authority", "submitted_at", "recorded_at",
+        "public_service", "service_applicant", "subject_uri", "submitted_by",
+        "authority", "submission_date", "recorded_at",
     ),
     "AdministrativeDecision": (
-        "decision_subject", "decision_authority", "decision_outcome", "decision_made_at",
+        "subject_uri", "authority", "decision_outcome", "decision_date",
         "effective_at", "recorded_at", "legal_resources",
     ),
     "AdministrativeAppeal": (
-        "challenged_decision", "appellant", "submitted_by", "reviewing_authority",
-        "submitted_at", "recorded_at",
+        "challenged_decision", "appellant", "submitted_by", "authority",
+        "submission_date", "recorded_at",
     ),
     "OrganizationalChangeEvent": (
         "original_organizations", "resulting_organizations", "lifecycle_kind", "effective_at",
-        "recorded_at", "event_authority", "legal_resources",
+        "recorded_at", "authority", "legal_resources",
     ),
     "Authorization": ("registered_subject", "registration_authority", "authorized_activity"),
-    "RegulatoryAction": ("action_subject", "action_authority", "action_type", "action_date"),
+    "RegulatoryAction": ("subject_uri", "authority", "action_type", "action_date"),
     "RecordLifecycleEvent": ("affected_record",),
-    "RepresentationRole": ("representative_actor", "represented_subject", "start_date"),
+    "RepresentationRole": ("representative", "represented", "start_date"),
 }
 
 
@@ -79,6 +79,20 @@ def validate_journey(records, config):
             raise ProfileError(f"{record['@id']}.{field}: timezone-qualified timestamp required") from exc
         return parsed
 
+    def calendar_date(record, field):
+        value = record[field]
+        try:
+            parsed = date.fromisoformat(value)
+            if parsed.isoformat() != value:
+                raise ValueError("not an extended calendar date")
+        except (TypeError, ValueError) as exc:
+            raise ProfileError(f"{record['@id']}.{field}: calendar date required") from exc
+        return parsed
+
+    def utc_day(record, field):
+        # This synthetic profile compares calendar dates with the UTC day of a timestamp.
+        return timestamp(record, field).astimezone(UTC).date()
+
     def linked(record, field, allowed):
         return reference(record[field], allowed, f"{record['@id']}.{field}")
 
@@ -104,7 +118,7 @@ def validate_journey(records, config):
         # This fixture appeals a suspension of an issued permit. Other appeal
         # patterns need their own profile; no generic legal procedure is inferred.
         challenged = linked(appeal, "challenged_decision", {"AdministrativeDecision"})
-        permit = linked(challenged, "decision_subject", {"Authorization"})
+        permit = linked(challenged, "subject_uri", {"Authorization"})
         grants = [
             decision for decision in records
             if decision["@type"] == "AdministrativeDecision"
@@ -126,10 +140,10 @@ def validate_journey(records, config):
                      for value in record["resulting_organizations"]}
         if not resulting - original:
             raise ProfileError(f"{record['@id']}: material change requires a distinct resulting identity")
-        effective = timestamp(record, "effective_at")
+        effective = utc_day(record, "effective_at")
         for key in resulting - original:
             created_at[key] = min(effective, created_at.get(key, effective))
-        linked(record, "event_authority", ORGANIZATIONS)
+        linked(record, "authority", ORGANIZATIONS)
 
     for record in records:
         key, kind = record["@id"], record["@type"]
@@ -138,11 +152,11 @@ def validate_journey(records, config):
                 raise ProfileError(f"{key}.{end}: reversed period")
         if kind == "RepresentationRole" and record.get("end_date") == record["start_date"]:
             raise ProfileError(f"{key}.end_date: empty or reversed representation period")
-        for field in ("submitted_at", "decision_made_at", "effective_at", "recorded_at"):
+        for field in ("effective_at", "recorded_at"):
             if field in record:
                 timestamp(record, field)
-        for field in ("submitted_at", "decision_made_at"):
-            if field in record and timestamp(record, field) > timestamp(record, "recorded_at"):
+        for field in ("submission_date", "decision_date"):
+            if field in record and calendar_date(record, field) > utc_day(record, "recorded_at"):
                 raise ProfileError(f"{key}.recorded_at: precedes {field}")
         for value in record.get("evidence_assertions", []):
             evidence = structured_value(value, "EvidenceAssertion", f"{key}.evidence_assertions")
@@ -160,26 +174,27 @@ def validate_journey(records, config):
             actor = linked(record, actor_field, APPLICANTS)
             submitter = linked(record, "submitted_by", APPLICANTS)
             service = service_for_application(record) if kind == "ServiceApplication" else service_for_appeal(record)
-            authority_field = "receiving_authority" if kind == "ServiceApplication" else "reviewing_authority"
-            authority = linked(record, authority_field, {"PublicOrganization"})
-            when = timestamp(record, "submitted_at")
+            authority = linked(record, "authority", {"PublicOrganization"})
+            when = calendar_date(record, "submission_date")
             if authority["@id"] in created_at and when < created_at[authority["@id"]]:
-                raise ProfileError(f"{key}.{authority_field}: authority predates its creation")
+                raise ProfileError(f"{key}.authority: authority predates its creation")
             if kind == "ServiceApplication":
-                linked(record, "application_subject", None)
+                linked(record, "subject_uri", None)
             else:
                 challenged = linked(record, "challenged_decision", {"AdministrativeDecision"})
-                if when < timestamp(challenged, "decision_made_at"):
-                    raise ProfileError(f"{key}.submitted_at: appeal precedes challenged decision")
+                if when < calendar_date(challenged, "decision_date"):
+                    raise ProfileError(f"{key}.submission_date: appeal precedes challenged decision")
             if actor["@id"] != submitter["@id"] or "submission_representation" in record:
                 if "submission_representation" not in record:
                     raise ProfileError(f"{key}.submission_representation: representative requires a cited role")
                 role = linked(record, "submission_representation", {"RepresentationRole"})
-                if (role["representative_actor"], role["represented_subject"]) != (submitter["@id"], actor["@id"]):
-                    raise ProfileError(f"{key}.submission_representation: actor or represented subject mismatch")
-                # This synthetic profile uses UTC calendar days: start included,
-                # end is the first inactive day. Permission validity is separate.
-                day = when.astimezone(timezone.utc).date().isoformat()
+                representative = linked(role, "representative", APPLICANTS)["@id"]
+                represented = linked(role, "represented", APPLICANTS)["@id"]
+                if (representative, represented) != (submitter["@id"], actor["@id"]):
+                    raise ProfileError(f"{key}.submission_representation: representative or represented party mismatch")
+                # The start day is included and the end day is the first inactive day.
+                # Permission validity is separate.
+                day = when.isoformat()
                 if day < role["start_date"] or (role.get("end_date") and day >= role["end_date"]):
                     raise ProfileError(f"{key}.submission_representation: outside representation period")
                 if not any(
@@ -191,17 +206,17 @@ def validate_journey(records, config):
                     raise ProfileError(f"{key}.submission_representation: no bound grant for submission kind and service")
         if kind != "AdministrativeDecision":
             continue
-        subject = linked(record, "decision_subject", None)
-        authority = linked(record, "decision_authority", {"PublicOrganization"})
-        made_at = timestamp(record, "decision_made_at")
-        if authority["@id"] in created_at and made_at < created_at[authority["@id"]]:
-            raise ProfileError(f"{key}.decision_authority: authority predates its creation")
+        subject = linked(record, "subject_uri", None)
+        authority = linked(record, "authority", {"PublicOrganization"})
+        made_on = calendar_date(record, "decision_date")
+        if authority["@id"] in created_at and made_on < created_at[authority["@id"]]:
+            raise ProfileError(f"{key}.authority: authority predates its creation")
         if "decides_application" in record:
             application = linked(record, "decides_application", {"ServiceApplication"})
-            if subject["@id"] != application["application_subject"]:
-                raise ProfileError(f"{key}.decision_subject: differs from application subject")
-            if made_at < timestamp(application, "submitted_at"):
-                raise ProfileError(f"{key}.decision_made_at: precedes application")
+            if subject["@id"] != application["subject_uri"]:
+                raise ProfileError(f"{key}.subject_uri: differs from application subject")
+            if made_on < calendar_date(application, "submission_date"):
+                raise ProfileError(f"{key}.decision_date: precedes application")
         for value in record.get("decision_authorizations", []):
             permit = reference(value, {"Authorization"}, f"{key}.decision_authorizations")
             if permit["registered_subject"] != subject["@id"]:
@@ -211,9 +226,9 @@ def validate_journey(records, config):
                 raise ProfileError(f"{key}.decision_authorizations: permit issuer differs from deciding authority")
         for value in record.get("decision_regulatory_actions", []):
             action = reference(value, {"RegulatoryAction"}, f"{key}.decision_regulatory_actions")
-            if action["action_subject"] != subject["@id"]:
+            if action["subject_uri"] != subject["@id"]:
                 raise ProfileError(f"{key}.decision_regulatory_actions: action subject differs from decision subject")
-            if linked(action, "action_authority", {"PublicOrganization"})["@id"] != authority["@id"]:
+            if linked(action, "authority", {"PublicOrganization"})["@id"] != authority["@id"]:
                 raise ProfileError(f"{key}.decision_regulatory_actions: action authority differs from deciding authority")
         outcome = local_code(record, "decision_outcome")
         if outcome["code_scheme"] != config["decision_outcome_scheme"]:
@@ -223,7 +238,7 @@ def validate_journey(records, config):
                 raise ProfileError(f"{key}.decision_authorizations: synthetic grant requires a permission")
         elif outcome["code_value"] == "suspended":
             if subject["@type"] != "Authorization":
-                raise ProfileError(f"{key}.decision_subject: suspension must target a permission")
+                raise ProfileError(f"{key}.subject_uri: suspension must target a permission")
             actions = record.get("decision_regulatory_actions", [])
             if not actions:
                 raise ProfileError(f"{key}.decision_regulatory_actions: synthetic suspension requires an action")
@@ -242,12 +257,12 @@ def validate_journey(records, config):
             challenged = linked(appeal, "challenged_decision", {"AdministrativeDecision"})
             if challenged["@id"] == key:
                 raise ProfileError(f"{key}.resolves_appeal: cannot resolve an appeal against itself")
-            if challenged["decision_subject"] != subject["@id"]:
-                raise ProfileError(f"{key}.decision_subject: differs from challenged decision subject")
-            if made_at < timestamp(appeal, "submitted_at"):
-                raise ProfileError(f"{key}.decision_made_at: precedes appeal")
-            if linked(appeal, "reviewing_authority", {"PublicOrganization"})["@id"] != authority["@id"]:
-                raise ProfileError(f"{key}.decision_authority: differs from reviewing authority")
+            if challenged["subject_uri"] != subject["@id"]:
+                raise ProfileError(f"{key}.subject_uri: differs from challenged decision subject")
+            if made_on < calendar_date(appeal, "submission_date"):
+                raise ProfileError(f"{key}.decision_date: precedes appeal")
+            if linked(appeal, "authority", {"PublicOrganization"})["@id"] != authority["@id"]:
+                raise ProfileError(f"{key}.authority: differs from reviewing authority")
 
 
 if __name__ == "__main__":

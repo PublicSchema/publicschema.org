@@ -19,8 +19,9 @@
       "kind": "class",
       "id": "AgriculturalCertification",
       "old_uri": "https://publicschema.org/AgriculturalCertification",
-      "new_uri": "https://publicschema.org/agri/AgriculturalCertification",
-      "action": "relocate"
+      "new_uri": "https://publicschema.org/Certification",
+      "action": "reviewed-replacement",
+      "note": "Generalized to the root Certification; map free-text certification_scope values to coded values."
     },
     {
       "kind": "class",

@@ -473,7 +473,7 @@ slots:
   decision_date:
     slot_uri: publicschema:decision_date
     title: Decision date
-    description: The date on which the eligibility decision was recorded.
+    description: The date on which the decision was made, which may precede the time it was recorded.
     range: date
     multivalued: false
     status: bibo:draft

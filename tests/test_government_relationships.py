@@ -125,9 +125,9 @@ def test_documented_profile_counterexamples(case):
 def test_scope_queries_do_not_infer_approval_or_beneficial_ownership():
     PROFILE.validate_profile(RECORDS)
     index = PROFILE.index_records(RECORDS)
-    ordered = PROFILE.ownership_route(record(RECORDS, "claimed-route"), index)
-    assert ordered == [EX + "trust-control", EX + "trust-shares", EX + "holding-shares"]
     indirect = record(RECORDS, "indirect-control")
+    ordered = PROFILE.ownership_route(indirect, index)
+    assert ordered == [EX + "trust-control", EX + "trust-shares", EX + "holding-shares"]
     assert "interest_percentage" not in indirect
     assert not any(key in indirect for key in PROFILE.BOUNDS)
 
@@ -195,19 +195,38 @@ def test_components_with_unknown_primary_dates_still_need_a_common_day():
 ])
 def test_route_components_cannot_repeat_or_refer_to_the_primary(case, expected):
     records = copy.deepcopy(RECORDS)
-    chain = record(records, "claimed-route")
+    indirect = record(records, "indirect-control")
     if case == "cycle":
         record(records, "holding-shares")["interest_entity"] = EX + "trust"
     elif case == "duplicate":
-        chain["component_interests"].append(chain["component_interests"][0])
+        indirect["component_interests"].append(indirect["component_interests"][0])
     else:
-        chain["component_interests"].append(chain["indirect_interest"])
+        indirect["component_interests"].append(indirect["@id"])
     with pytest.raises(ValueError, match=expected):
         PROFILE.validate_profile(records)
 
 
+def test_only_an_indirect_interest_lists_component_interests():
+    records = copy.deepcopy(RECORDS)
+    direct = record(records, "trust-control")
+    direct["component_interests"] = [EX + "trust-shares", EX + "holding-shares"]
+    with pytest.raises(ValueError, match="explicitly indirect interest"):
+        PROFILE.validate_profile(records)
+
+
+def test_indirect_routes_live_on_the_interest_without_a_separate_chain_class(exports):
+    built, _, ontology, _ = exports
+    assert "OwnershipChainAssertion" not in built["concepts"]
+    assert (PS.OwnershipChainAssertion, RDF.type, OWL.Class) not in ontology
+    assert "indirect_interest" not in built["properties"]
+    assert "component_interests" in built["concept_schemas"]["OwnershipInterest"]["properties"]
+    assert "LegalEntity" not in built["concepts"]
+    route = [item for item in RECORDS if item.get("component_interests")]
+    assert [item["@id"] for item in route] == [EX + "indirect-control"]
+
+
 def test_optional_reference_shapes_do_not_assert_complete_exchange(exports):
-    for kind in ("LegalArrangement", "OwnershipChainAssertion", "edu/EducationOffering"):
+    for kind in ("LegalArrangement", "OwnershipInterest", "edu/EducationOffering"):
         partial = {"@id": EX + "partial", "@type": kind}
         validator(exports, kind).validate(partial)
         with pytest.raises(ValueError):

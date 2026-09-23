@@ -82,8 +82,9 @@ def test_asset_roles_and_permissions_do_not_collapse(exports):
     _, _, ontology = exports
     assert (ENVIRONMENT.WaterUseAuthorization, RDFS.subClassOf, PS.Authorization) in ontology
     assert (AGRI.ProducerOrganization, RDFS.subClassOf, PS.Organization) in ontology
-    for name in ('AgriculturalFacility', 'FishingVessel', 'AgriculturalCertification', 'AgriculturalServiceRole'):
+    for name in ('AgriculturalFacility', 'FishingVessel', 'AgriculturalServiceRole'):
         assert (AGRI[name], RDFS.subClassOf, PS.Registration) not in ontology
+    assert (PS.Certification, RDFS.subClassOf, PS.Registration) not in ontology
     assert (AGRI.AgriculturalFacility, RDFS.subClassOf, PS.Organization) not in ontology
 
 
@@ -91,7 +92,9 @@ def test_certification_scope_survives_jsonld(exports):
     result, _, _ = exports
     record = json.loads((EXAMPLES / 'certification.json').read_text())
     graph = data_graph(record, result)
-    assert (None, PS.certification_scope, Literal('soil pH testing')) in graph
+    scopes = list(graph.objects(None, PS.certification_scope))
+    assert [graph.value(scope, PS.code_value) for scope in scopes] == [Literal('soil-ph-testing')]
+    assert graph.value(scopes[0], PS.code_scheme) is not None
     assert not list(graph.triples((None, PS.authorized_activity, None)))
 
 

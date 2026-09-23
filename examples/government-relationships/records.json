@@ -16,12 +16,12 @@
   },
   {
     "@id": "https://example.org/government-relationships/holding-company",
-    "@type": "LegalEntity",
+    "@type": "Organization",
     "name": "Example Holding Company"
   },
   {
     "@id": "https://example.org/government-relationships/trading-company",
-    "@type": "LegalEntity",
+    "@type": "Organization",
     "name": "Example Trading Company"
   },
   {
@@ -81,12 +81,7 @@
     },
     "interest_directness": "indirect",
     "start_date": "2025-01-01",
-    "end_date": "2028-01-01"
-  },
-  {
-    "@id": "https://example.org/government-relationships/claimed-route",
-    "@type": "OwnershipChainAssertion",
-    "indirect_interest": "https://example.org/government-relationships/indirect-control",
+    "end_date": "2028-01-01",
     "component_interests": [
       "https://example.org/government-relationships/holding-shares",
       "https://example.org/government-relationships/trust-control",
@@ -98,13 +93,13 @@
     "@type": "RegistryEntry",
     "register_uri": "https://example.org/government-relationships/register/ownership",
     "record_id": "route-1",
-    "subject_uri": "https://example.org/government-relationships/claimed-route",
-    "subject_type": "https://publicschema.org/OwnershipChainAssertion",
+    "subject_uri": "https://example.org/government-relationships/indirect-control",
+    "subject_type": "https://publicschema.org/OwnershipInterest",
     "recorded_at": "2026-09-08T09:00:00Z",
     "evidence_assertions": [
       {
         "@type": "EvidenceAssertion",
-        "assertion_uri": "https://example.org/government-relationships/claimed-route",
+        "assertion_uri": "https://example.org/government-relationships/indirect-control",
         "evidence_source": "https://example.org/government-relationships/source/ownership-declaration",
         "evidence_role": "supports",
         "assertion_authority": "https://example.org/government-relationships/authority"

@@ -9439,19 +9439,19 @@ enums:
   InterestDirectness:
     enum_uri: publicschema:InterestDirectness
     title: Interest directness
-    description: Whether an asserted ownership or control interest is held directly or through intervening
-      interests.
+    description: Whether an ownership or control interest is held directly or through intermediate entities
+      or arrangements.
     status: bibo:draft
     permissible_values:
       direct:
         meaning: publicschema:InterestDirectness/direct
         title: Direct
-        description: Held without an intervening ownership or control interest.
+        description: Held with no intermediate entity or arrangement.
         status: bibo:draft
       indirect:
         meaning: publicschema:InterestDirectness/indirect
         title: Indirect
-        description: Held through one or more intervening interests.
+        description: Held through one or more intermediate entities or arrangements.
         status: bibo:draft
       unknown:
         meaning: publicschema:InterestDirectness/unknown

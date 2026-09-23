@@ -238,7 +238,7 @@ def test_migrated_examples_validate_against_real_exports(tmp_path, legacy):
         properties = schema_for(result, kind)["properties"]
         assert {"start_date", "end_date"} <= properties.keys()
         assert not {"valid_from", "valid_to"} & properties.keys()
-    for kind in ("RegistryEntry", "Registration", "LandTenureAssertion", "AgriculturalCertification"):
+    for kind in ("RegistryEntry", "Registration", "LandTenureAssertion", "Certification"):
         properties = schema_for(result, kind)["properties"]
         assert {"valid_from", "valid_to"} <= properties.keys()
     graph = Graph().parse(data=json.dumps(jsonld.expand({

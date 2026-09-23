@@ -506,15 +506,6 @@ slots:
     status: bibo:draft
     annotations:
       category: administrative
-  event_authority:
-    slot_uri: publicschema:event_authority
-    title: Event authority
-    description: The organization accountable for the reported change.
-    range: Organization
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      category: administrative
   matched_source:
     slot_uri: publicschema:matched_source
     title: Matched source

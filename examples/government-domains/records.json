@@ -10,10 +10,17 @@
     "@id": "https://example.org/agency",
     "@type": "PublicOrganization",
     "name": "Example Public Authority",
-    "public_mandate": [
+    "legal_resources": [
       "https://example.org/law/public-functions"
     ],
-    "governmental_area": [
+    "public_functions": [
+      {
+        "@type": "CodedValue",
+        "code_value": "vehicle-inspection",
+        "code_scheme": "https://example.org/codes/public-functions"
+      }
+    ],
+    "competence_areas": [
       {
         "@id": "https://example.org/district",
         "@type": "Location"
@@ -23,14 +30,14 @@
   {
     "@context": "https://publicschema.org/ctx/draft.jsonld",
     "@id": "https://example.org/company",
-    "@type": "LegalEntity",
+    "@type": "Organization",
     "name": "Example Company",
     "legal_form": {
       "@type": "CodedValue",
       "code_value": "cooperative",
       "code_scheme": "https://example.org/codes/legal-form"
     },
-    "incorporation_date": "2020-01-01"
+    "formation_date": "2020-01-01"
   },
   {
     "@context": "https://publicschema.org/ctx/draft.jsonld",
@@ -48,7 +55,7 @@
     },
     "institution_to": {
       "@id": "https://example.org/company",
-      "@type": "LegalEntity"
+      "@type": "Organization"
     },
     "institutional_relationship_type": {
       "@type": "CodedValue",
@@ -64,7 +71,7 @@
     "role_actor": "https://example.org/person",
     "role_organization": {
       "@id": "https://example.org/company",
-      "@type": "LegalEntity"
+      "@type": "Organization"
     },
     "institutional_role_type": {
       "@type": "CodedValue",
@@ -188,7 +195,7 @@
     },
     "role_organization": {
       "@id": "https://example.org/company",
-      "@type": "LegalEntity"
+      "@type": "Organization"
     },
     "profession_code": [
       {
@@ -391,11 +398,11 @@
     "@context": "https://publicschema.org/ctx/draft.jsonld",
     "@id": "https://example.org/inspection",
     "@type": "ComplianceAssessment",
-    "assessed_subject": "https://example.org/vehicle",
-    "assessed_requirement": [
+    "subject_uri": "https://example.org/vehicle",
+    "assessed_requirements": [
       "https://example.org/requirements/vehicle-inspection"
     ],
-    "assessment_authority": {
+    "authority": {
       "@id": "https://example.org/agency",
       "@type": "PublicOrganization"
     },
@@ -410,11 +417,11 @@
     "@context": "https://publicschema.org/ctx/draft.jsonld",
     "@id": "https://example.org/environment-inspection",
     "@type": "ComplianceAssessment",
-    "assessed_subject": "https://example.org/facility",
-    "assessed_requirement": [
+    "subject_uri": "https://example.org/facility",
+    "assessed_requirements": [
       "https://example.org/requirements/permit-condition"
     ],
-    "assessment_authority": {
+    "authority": {
       "@id": "https://example.org/agency",
       "@type": "PublicOrganization"
     },
@@ -430,8 +437,8 @@
     "@context": "https://publicschema.org/ctx/draft.jsonld",
     "@id": "https://example.org/action",
     "@type": "RegulatoryAction",
-    "action_subject": "https://example.org/facility",
-    "action_authority": {
+    "subject_uri": "https://example.org/facility",
+    "authority": {
       "@id": "https://example.org/agency",
       "@type": "PublicOrganization"
     },
@@ -440,7 +447,7 @@
       "code_value": "information-notice",
       "code_scheme": "https://example.org/codes/regulatory-actions"
     },
-    "action_legal_basis": [
+    "legal_resources": [
       "https://example.org/law/information-notices"
     ],
     "action_date": "2025-02-03",
@@ -476,8 +483,8 @@
     "@context": "https://publicschema.org/ctx/draft.jsonld",
     "@id": "https://example.org/tax-representative",
     "@type": "RepresentationRole",
-    "representative_actor": "https://example.org/company",
-    "represented_subject": "https://example.org/person",
+    "representative": "https://example.org/company",
+    "represented": "https://example.org/person",
     "representation_scope": "Receive correspondence for the synthetic income-tax registration.",
     "start_date": "2025-01-01"
   },

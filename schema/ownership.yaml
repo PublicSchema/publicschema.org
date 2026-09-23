@@ -1,7 +1,7 @@
 id: https://publicschema.org/linkml/ownership
 name: publicschema-ownership
 title: Ownership and control
-description: Draft ownership interests, legal arrangements and ownership chain assertions.
+description: Draft ownership and control interests and legal arrangements.
 license: CC-BY-4.0
 default_prefix: publicschema
 prefixes:
@@ -17,9 +17,10 @@ classes:
   OwnershipInterest:
     class_uri: publicschema:OwnershipInterest
     title: Ownership Interest
-    description: An assertion of one ownership or control interest in an organization or legal arrangement, held by a person,
-      organization or legal arrangement. Separate interests may coexist. An indirect interest is not a verified
-      ownership chain or a determination of beneficial ownership under a particular law.
+    description: A stated ownership or control interest that a person, organization or legal arrangement
+      holds in an organization or legal arrangement, such as a shareholding or voting rights. Separate
+      interests may coexist. An indirect interest may list the direct interests that make up its route.
+      Recording an interest does not decide who is a beneficial owner under any law.
     slots:
     - interest_holder
     - interest_entity
@@ -31,6 +32,7 @@ classes:
     - interest_maximum_percentage
     - interest_exclusive_maximum_percentage
     - interest_description
+    - component_interests
     - start_date
     - end_date
     status: bibo:draft
@@ -39,10 +41,10 @@ classes:
   LegalArrangement:
     class_uri: publicschema:LegalArrangement
     title: Legal Arrangement
-    description: An identified legal mechanism through which persons or organizations associate to
-      exercise ownership or control without the mechanism itself being a separate institutional body.
-      A trust with separate legal personality is a LegalEntity instead. Identifying an arrangement does
-      not establish the identity, rights or beneficial ownership of its participants.
+    description: An arrangement, such as a trust or nominee agreement, through which people or organizations
+      exercise ownership or control over an entity without forming a separate legal person. A trust that
+      has legal personality is an Organization instead. Identifying an arrangement does not establish
+      the identity, rights or beneficial ownership of its participants.
     slots:
     - name
     - identifiers
@@ -50,26 +52,11 @@ classes:
     status: bibo:draft
     annotations:
       bibliography_refs: '["gov-bods-04"]'
-  OwnershipChainAssertion:
-    class_uri: publicschema:OwnershipChainAssertion
-    title: Ownership Chain Assertion
-    description: An assertion identifying component interests that describe a route of indirect
-      ownership or control. Components are an unordered set of separately identified interests, each
-      with its own endpoints and period. Their inclusion does not verify the route, calculate an
-      effective percentage or determine a beneficial owner. Evidence and recording time belong to
-      the RegistryEntry describing this assertion.
-    slots:
-    - indirect_interest
-    - component_interests
-    status: bibo:draft
-    annotations:
-      bibliography_refs: '["gov-bods-04"]'
 slots:
   interest_holder:
     slot_uri: publicschema:interest_holder
     title: Interest holder
-    description: The URI of the person, organization or legal arrangement asserted to hold this
-      interest. The consuming profile checks existence and kind.
+    description: The URI of the person, organization or legal arrangement that holds the interest.
     range: uri
     multivalued: false
     status: bibo:draft
@@ -79,8 +66,8 @@ slots:
   interest_entity:
     slot_uri: publicschema:interest_entity
     title: Interest entity
-    description: The URI of the organization or legal arrangement in which this interest is held.
-      The consuming profile checks existence and kind; a Person is not the target entity.
+    description: The URI of the organization or legal arrangement in which the interest is held. A person
+      is never the entity in which an interest is held.
     range: uri
     multivalued: false
     status: bibo:draft
@@ -89,8 +76,8 @@ slots:
   interest_type:
     slot_uri: publicschema:interest_type
     title: Interest type
-    description: A scheme-qualified code identifying the mechanism of ownership or control, such as shares
-      or voting rights.
+    description: How the interest is held or exercised, such as shares, voting rights or the right to
+      appoint the board.
     range: CodedValue
     multivalued: false
     status: bibo:draft
@@ -99,7 +86,8 @@ slots:
   interest_directness:
     slot_uri: publicschema:interest_directness
     title: Interest directness
-    description: Whether this asserted interest is direct, indirect or of unknown directness.
+    description: Whether the interest is held directly, through intermediate entities or arrangements,
+      or with unknown directness.
     range: InterestDirectness
     multivalued: false
     status: bibo:draft
@@ -118,53 +106,42 @@ slots:
   interest_description:
     slot_uri: publicschema:interest_description
     title: Interest description
-    description: An explanation of the interest, including bounds, uncertainty or the route of indirect
-      control. This is not a structured ownership-chain proof.
+    description: The local name for the interest or other details that explain it, such as bounds or
+      uncertainty that the percentage slots cannot express.
     range: string
     multivalued: false
     status: bibo:draft
     annotations:
       category: governance
+      sensitivity: sensitive
   arrangement_type:
     slot_uri: publicschema:arrangement_type
     title: Arrangement type
-    description: A scheme-qualified kind of legal arrangement, such as a trust or nomination agreement.
-      Its legal treatment depends on the applicable jurisdiction.
+    description: The kind of legal arrangement, such as a trust or nomination agreement. Its legal treatment
+      depends on the applicable jurisdiction.
     range: CodedValue
     multivalued: false
     status: bibo:draft
     annotations:
       category: classification
       domain_override: 'null'
-  indirect_interest:
-    slot_uri: publicschema:indirect_interest
-    title: Indirect interest
-    description: The separately asserted indirect interest whose route is described by these component
-      interests. Several chain assertions may describe different routes for the same interest.
-    range: OwnershipInterest
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      category: governance
-      domain_override: 'null'
   component_interests:
     slot_uri: publicschema:component_interests
     title: Component interests
-    description: Separately identified interests offered as components of the asserted indirect route.
-      Array position carries no meaning. Reference resolution, connected endpoints and compatible
-      periods require profile checks; inclusion never makes a source assertion true.
+    description: The direct interests that together make up this indirect interest, each with its own
+      holder, entity and period. Listing them does not verify the route or calculate an effective share.
     range: OwnershipInterest
     multivalued: true
     status: bibo:draft
     annotations:
       category: governance
+      sensitivity: sensitive
       domain_override: 'null'
   interest_minimum_percentage:
     slot_uri: publicschema:interest_minimum_percentage
     title: Interest minimum percentage
     description: An inclusive lower percentage bound for an asserted interest on a zero-to-one-hundred
-      scale. This is a bound, not an exact value; omit when unknown. An example profile distinguishes
-      bounds from interest_percentage and from an exclusive bound on the same side.
+      scale. This is a bound, not an exact value; omit when unknown.
     range: decimal
     multivalued: false
     status: bibo:draft

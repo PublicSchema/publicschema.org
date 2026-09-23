@@ -75,7 +75,7 @@ def test_real_json_schema_jsonld_and_shacl_exports(records, exports):
         ("hospital", "HealthFacility", "staffed-beds", 42, "2026-09-01T09:00:00Z"),
     ):
         observation = URIRef(EX + subject + "-capacity")
-        assert graph.value(observation, PS.capacity_subject) == URIRef(EX + subject)
+        assert graph.value(observation, PS.subject_uri) == URIRef(EX + subject)
         assert (URIRef(EX + subject), RDF.type, URIRef(result["context"]["@context"][kind])) in graph
         measure_node = graph.value(observation, PS.capacity_measure)
         assert graph.value(measure_node, PS.code_scheme) == URIRef(EX + "capacity-measures")

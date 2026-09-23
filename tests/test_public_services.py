@@ -74,11 +74,11 @@ def test_catalogue_alignment_metadata_reaches_jsonld_and_both_rdf_projections(ex
     built, _, _, _ = exports
     authored = yaml.safe_load((ROOT / "schema/public_services.yaml").read_text())
     expected = {
-        "PublicService": ("classes", "concepts", "cpsv_ap", "http://purl.org/vocab/cpsv#PublicService"),
-        "OrganizationalChangeEvent": ("classes", "concepts", "w3c_org", "http://www.w3.org/ns/org#ChangeEvent"),
-        "service_competent_authorities": ("slots", "properties", "cpsv_ap", "http://data.europa.eu/m8g/hasCompetentAuthority"),
-        "original_organizations": ("slots", "properties", "w3c_org", "http://www.w3.org/ns/org#originalOrganization"),
-        "resulting_organizations": ("slots", "properties", "w3c_org", "http://www.w3.org/ns/org#resultingOrganization"),
+        "PublicService": ("classes", "concepts", "semic", "http://purl.org/vocab/cpsv#PublicService"),
+        "OrganizationalChangeEvent": ("classes", "concepts", "w3c-org", "http://www.w3.org/ns/org#ChangeEvent"),
+        "service_competent_authorities": ("slots", "properties", "semic", "http://data.europa.eu/m8g/hasCompetentAuthority"),
+        "original_organizations": ("slots", "properties", "w3c-org", "http://www.w3.org/ns/org#originalOrganization"),
+        "resulting_organizations": ("slots", "properties", "w3c-org", "http://www.w3.org/ns/org#resultingOrganization"),
     }
     # Exercise the compatibility RDF bridge with the actual five generated term
     # documents, without rebuilding unrelated exports or allowing lost alignments.
@@ -121,7 +121,7 @@ def test_permit_history_validates_in_both_export_formats_and_local_profile(expor
     assert RECORDS == before
     for source, predicate, target in (
         ("grant-decision", "decision_authorizations", "business-permit"),
-        ("permit-suspension", "action_subject", "business-permit"),
+        ("permit-suspension", "subject_uri", "business-permit"),
         ("business-appeal", "challenged_decision", "suspension-decision"),
         ("review-decision", "resolves_appeal", "business-appeal"),
         ("authority-succession", "original_organizations", "former-office"),
@@ -131,7 +131,9 @@ def test_permit_history_validates_in_both_export_formats_and_local_profile(expor
 
 
 @pytest.mark.parametrize("suffix,field,bad", [
-    ("business-application", "submitted_at", "yesterday"),
+    ("business-application", "submission_date", "yesterday"),
+    ("business-application", "submission_date", "2026-05-02T08:00:00Z"),
+    ("grant-decision", "decision_date", "2026-05-10T09:00:00Z"),
     ("business-application", "public_service", [ref("permit-service", "PublicService")]),
     ("grant-decision", "decision_outcome", 7),
     ("grant-decision", "decision_authorizations", ref("business-permit", "Authorization")),
@@ -147,23 +149,27 @@ def test_malformed_shapes_are_rejected_by_actual_json_schema(exports, suffix, fi
 def test_wrong_decision_output_type_fails_shacl_even_with_an_existing_identity(exports):
     built, shapes, hierarchy, _ = exports
     invalid = copy.deepcopy(RECORDS)
-    record(invalid, "grant-decision")["decision_authorizations"] = [ref("business", "LegalEntity")]
+    record(invalid, "grant-decision")["decision_authorizations"] = [ref("business", "Organization")]
     conforms, _, _ = validate(expand_graph(invalid, built["context"]), shacl_graph=shapes, ont_graph=hierarchy)
     assert not conforms
 
 
 @pytest.mark.parametrize("suffix,changes,message", [
     ("business-application", {"service_applicant": BASE + "missing"}, "missing referenced record"),
-    ("business-representation", {"represented_subject": BASE + "resident"}, "represented subject mismatch"),
-    ("business-representation", {"representative_actor": BASE + "resident"}, "actor or represented subject mismatch"),
+    ("business-representation", {"represented": ref("resident", "Person")}, "represented party mismatch"),
+    ("business-representation", {"representative": ref("resident", "Person")}, "representative or represented party mismatch"),
     ("business-representation", {"end_date": "2026-04-30"}, "outside representation period"),
     ("business-permit", {"registered_subject": BASE + "resident"}, "permit subject differs"),
     ("business-permit", {"registration_authority": ref("successor-agency", "PublicOrganization")}, "permit issuer differs"),
-    ("permit-suspension", {"action_subject": BASE + "business"}, "action subject differs"),
+    ("permit-suspension", {"subject_uri": BASE + "business"}, "action subject differs"),
     ("business-appeal", {"challenged_decision": ref("business-permit", "Authorization")}, "wrong referenced type"),
-    ("business-appeal", {"submitted_at": "2026-08-30T10:00:00Z"}, "appeal precedes challenged decision"),
-    ("review-decision", {"decision_subject": BASE + "resident"}, "differs from challenged decision subject"),
-    ("review-decision", {"decision_authority": ref("former-office", "PublicOrganization")}, "differs from reviewing authority"),
+    ("business-appeal", {"submission_date": "2026-08-30"}, "appeal precedes challenged decision"),
+    ("business-appeal", {"submission_date": "2026-09-03T10:00:00Z"}, "calendar date required"),
+    ("grant-decision", {"decision_date": "2026-05-01"}, "precedes application"),
+    ("grant-decision", {"recorded_at": "2026-05-09T20:00:00Z"}, "recorded_at: precedes decision_date"),
+    ("resident-application", {"submission_date": "2026-07-31"}, "authority predates its creation"),
+    ("review-decision", {"subject_uri": BASE + "resident"}, "differs from challenged decision subject"),
+    ("review-decision", {"authority": ref("former-office", "PublicOrganization")}, "differs from reviewing authority"),
     ("authority-succession", {"resulting_organizations": [ref("former-office", "PublicOrganization")]}, "distinct resulting identity"),
 ])
 def test_profile_rejects_semantic_counterexamples(suffix, changes, message):
@@ -197,19 +203,19 @@ def test_correspondence_role_text_cannot_grant_application_or_appeal_authority()
         profile.validate_journey(changed, wrong_service)
 
 
-@pytest.mark.parametrize("end_date,appeal_time,message", [
-    ("2026-09-04", "2026-09-03T10:00:00Z", None),
-    ("2026-09-03", "2026-09-02T23:59:59Z", None),
-    ("2026-09-03", "2026-09-03T10:00:00Z", "outside representation period"),
-    ("2026-09-03", "2026-09-02T23:30:00-01:00", "outside representation period"),
+@pytest.mark.parametrize("end_date,appeal_date,message", [
+    ("2026-09-04", "2026-09-03", None),
+    ("2026-09-03", "2026-09-02", None),
+    ("2026-09-03", "2026-09-03", "outside representation period"),
+    ("2026-09-02", "2026-09-03", "outside representation period"),
 ])
-def test_representation_covers_start_day_and_stops_before_first_inactive_utc_day(
-    end_date, appeal_time, message,
+def test_representation_covers_start_day_and_stops_before_first_inactive_day(
+    end_date, appeal_date, message,
 ):
     changed = copy.deepcopy(RECORDS)
     # The application is filed on May 2, which remains an included start day.
     record(changed, "business-representation").update(start_date="2026-05-02", end_date=end_date)
-    record(changed, "business-appeal")["submitted_at"] = appeal_time
+    record(changed, "business-appeal")["submission_date"] = appeal_date
     if message:
         with pytest.raises(profile.ProfileError, match=message):
             profile.validate_journey(changed, CONFIG)
@@ -308,6 +314,31 @@ def test_individuals_and_businesses_share_application_shape_without_software_app
         profile.validate_journey(invalid, CONFIG)
 
 
+def test_dated_acts_share_the_event_hierarchy_and_one_authority_link(exports):
+    built, _, hierarchy, _ = exports
+    for name in ("ServiceApplication", "AdministrativeDecision", "AdministrativeAppeal",
+                 "OrganizationalChangeEvent", "ServiceCapacityObservation",
+                 "ComplianceAssessment", "RegulatoryAction"):
+        assert (PS[name], RDFS.subClassOf, PS.Event) in hierarchy, name
+    for name in ("ServiceApplication", "AdministrativeDecision", "ServiceCapacityObservation",
+                 "ComplianceAssessment", "RegulatoryAction"):
+        assert "subject_uri" in built["concept_schemas"][name]["properties"], name
+    for name in ("ServiceApplication", "AdministrativeDecision", "AdministrativeAppeal",
+                 "OrganizationalChangeEvent", "ComplianceAssessment", "RegulatoryAction"):
+        assert "authority" in built["concept_schemas"][name]["properties"], name
+    for name in ("submission_date", "decision_date"):
+        assert built["properties"][name]["type"] == "date"
+    authored = {}
+    for module in ("organizations", "public_services"):
+        authored.update(yaml.safe_load((ROOT / f"schema/{module}.yaml").read_text())["slots"])
+    assert authored["authority"]["range"] == "Organization"
+    for name in ("submitted_by", "representative", "represented"):
+        assert authored[name]["range"] == "Agent", name
+    for removed in ("application_subject", "receiving_authority", "submitted_at", "decision_subject",
+                    "decision_authority", "decision_made_at", "reviewing_authority", "capacity_subject"):
+        assert removed not in built["properties"], removed
+
+
 def test_shared_applications_preserve_the_existing_social_protection_receiver_boundary(exports):
     built, _, hierarchy, _ = exports
     assert PS.Party not in set(hierarchy.transitive_objects(PS.Organization, RDFS.subClassOf))
@@ -320,8 +351,8 @@ def test_shared_applications_preserve_the_existing_social_protection_receiver_bo
 
 def test_a_suspension_cannot_be_made_person_or_business_wide_by_matching_both_links():
     invalid = copy.deepcopy(RECORDS)
-    record(invalid, "suspension-decision")["decision_subject"] = BASE + "business"
-    record(invalid, "permit-suspension")["action_subject"] = BASE + "business"
+    record(invalid, "suspension-decision")["subject_uri"] = BASE + "business"
+    record(invalid, "permit-suspension")["subject_uri"] = BASE + "business"
     with pytest.raises(profile.ProfileError, match="suspension must target a permission"):
         profile.validate_journey(invalid, CONFIG)
 
@@ -331,11 +362,11 @@ def test_successor_does_not_rewrite_historical_authorities_or_permission():
     grant = record(RECORDS, "grant-decision")
     permit = record(RECORDS, "business-permit")
     service = record(RECORDS, "permit-service")
-    assert grant["decision_authority"]["@id"] == permit["registration_authority"]["@id"]
-    assert grant["decision_authority"] not in service["service_competent_authorities"]
+    assert grant["authority"]["@id"] == permit["registration_authority"]["@id"]
+    assert grant["authority"] not in service["service_competent_authorities"]
     assert record(RECORDS, "office-name-correction")["affected_record"]["subject_uri"] == BASE + "former-office"
     changed = copy.deepcopy(RECORDS)
-    record(changed, "grant-decision")["decision_authority"] = ref("successor-agency", "PublicOrganization")
+    record(changed, "grant-decision")["authority"] = ref("successor-agency", "PublicOrganization")
     record(changed, "business-permit")["registration_authority"] = ref("successor-agency", "PublicOrganization")
     with pytest.raises(profile.ProfileError, match="authority predates its creation"):
         profile.validate_journey(changed, CONFIG)

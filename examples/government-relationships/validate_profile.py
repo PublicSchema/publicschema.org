@@ -13,7 +13,7 @@ from decimal import Decimal, InvalidOperation
 from pathlib import Path
 from urllib.parse import urlsplit
 
-ORGANIZATIONS = {"Organization", "PublicOrganization", "LegalEntity", "edu/EducationProvider"}
+ORGANIZATIONS = {"Organization", "PublicOrganization", "edu/EducationProvider"}
 INTEREST_ENTITIES = ORGANIZATIONS | {"LegalArrangement"}
 INTEREST_HOLDERS = INTEREST_ENTITIES | {"Person"}
 LOWER_BOUNDS = ("interest_minimum_percentage", "interest_exclusive_minimum_percentage")
@@ -111,12 +111,11 @@ def validate_share(record):
         raise ValueError("Ownership bounds describe an empty interval")
 
 
-def ownership_route(chain, index):
+def ownership_route(primary, index):
     """Return explicit component IDs in endpoint order, without computing an interest."""
-    primary = resolve(chain.get("indirect_interest"), index, {"OwnershipInterest"})
     if primary.get("interest_directness") != "indirect":
-        raise ValueError("A chain must describe an explicitly indirect interest")
-    components = chain.get("component_interests")
+        raise ValueError("Component interests require an explicitly indirect interest")
+    components = primary.get("component_interests")
     if not isinstance(components, list) or len(components) < 2:
         raise ValueError("The example indirect route requires at least two components")
     remaining = {}
@@ -204,7 +203,7 @@ def validate_profile(records):
                 if award in index:
                     raise ValueError("This example uses an external award definition, not a local awarded qualification")
     for record in records:
-        if record["@type"] == "OwnershipChainAssertion":
+        if record["@type"] == "OwnershipInterest" and "component_interests" in record:
             ownership_route(record, index)
 
 

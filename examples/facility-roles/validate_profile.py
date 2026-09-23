@@ -18,7 +18,7 @@ AGRICULTURAL_FACILITIES = {
 }
 FACILITY_TYPES = {"School", "HealthFacility"} | AGRICULTURAL_FACILITIES
 ACTOR_TYPES = {
-    "Person", "Organization", "PublicOrganization", "LegalEntity",
+    "Person", "Organization", "PublicOrganization",
     "EducationProvider", "ProducerOrganization",
 }
 GROUP_TYPES = {"InformalGroup", "Household", "Family"}
