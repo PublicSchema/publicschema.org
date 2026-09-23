@@ -1,0 +1,39 @@
+id: https://publicschema.org/linkml/tax
+name: publicschema-tax
+title: Tax registration
+description: Draft tax administrative registration.
+license: CC-BY-4.0
+default_prefix: publicschema
+prefixes:
+  publicschema: https://publicschema.org/
+  linkml: https://w3id.org/linkml/
+  bibo: http://purl.org/ontology/bibo/
+imports:
+- linkml:types
+- value_types
+- registry
+classes:
+  TaxRegistration:
+    class_uri: publicschema:tax/TaxRegistration
+    title: Tax Registration
+    description: Recognition of a subject by a tax authority for a specified tax regime. Subjects may
+      be persons or organizations; a tax identifier does not itself prove tax liability, residence, compliance
+      or a filing obligation.
+    slots:
+    - tax_regime
+    status: bibo:draft
+    is_a: Registration
+    annotations:
+      source_domain: tax
+      bibliography_refs: '["gov-oecd-tin", "gov-irs-tin"]'
+slots:
+  tax_regime:
+    slot_uri: publicschema:tax/tax_regime
+    title: Tax regime
+    description: The scheme-qualified tax or taxation regime for which the subject is registered.
+    range: CodedValue
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      source_domain: tax
+      category: classification

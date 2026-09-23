@@ -1,0 +1,150 @@
+id: https://publicschema.org/linkml/value_types
+name: publicschema-value-types
+title: Coded, quantity and spatial values
+description: Draft value structures for coded values, measured quantities and spatial geometry.
+license: CC-BY-4.0
+default_prefix: publicschema
+prefixes:
+  publicschema: https://publicschema.org/
+  linkml: https://w3id.org/linkml/
+  bibo: http://purl.org/ontology/bibo/
+imports:
+- linkml:types
+classes:
+  CodedValue:
+    class_uri: publicschema:CodedValue
+    title: Coded Value
+    description: A code interpreted within an identified scheme, optionally retaining
+      its source label and a known meaning URI. Unknown, retired and local codes remain
+      representable; a label alone does not establish equivalence.
+    slots:
+    - code_value
+    - code_scheme
+    - code_label
+    - code_meaning
+    status: bibo:draft
+    annotations:
+      bibliography_refs: '["w3c-dcat-3-2024"]'
+  QuantityValue:
+    class_uri: publicschema:QuantityValue
+    title: Quantity Value
+    description: A numerical magnitude together with a unit identified within a scheme.
+      The surrounding property establishes the measured kind; conversion and dimension
+      checks belong to the consuming profile.
+    slots:
+    - quantity_value
+    - unit_code
+    - unit_scheme
+    status: bibo:draft
+    annotations:
+      bibliography_refs: '["ucum-specification"]'
+  SpatialGeometry:
+    class_uri: publicschema:SpatialGeometry
+    title: Spatial Geometry
+    description: A geometric representation of a feature, with explicit serialization
+      and coordinate reference system. This value is distinct from a named area, postal
+      address, land title or physical facility.
+    slots:
+    - geometry_encoding
+    - geometry_literal
+    - coordinate_reference_system
+    status: bibo:draft
+    annotations:
+      bibliography_refs: '["ogc-geosparql-11", "ietf-geojson-7946"]'
+slots:
+  code_value:
+    slot_uri: publicschema:code_value
+    title: Code value
+    description: The original code as issued by its scheme, including an unknown or
+      retired code.
+    range: string
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: administrative
+  code_scheme:
+    slot_uri: publicschema:code_scheme
+    title: Code scheme
+    description: The URI identifying the scheme and, where relevant, the edition that
+      gives a code meaning.
+    range: uri
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: administrative
+  code_label:
+    slot_uri: publicschema:code_label
+    title: Code label
+    description: The original or supplied display label; it is not a replacement for
+      scheme and code.
+    range: string
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: administrative
+  code_meaning:
+    slot_uri: publicschema:code_meaning
+    title: Code meaning
+    description: A known semantic meaning URI; leave absent when no verified interpretation
+      exists.
+    range: uri
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: administrative
+  quantity_value:
+    slot_uri: publicschema:quantity_value
+    title: Quantity value
+    description: The numerical magnitude expressed in the accompanying unit; no implicit
+      conversion or rounding is applied.
+    range: decimal
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: administrative
+  unit_code:
+    slot_uri: publicschema:unit_code
+    title: Unit code
+    description: The unit symbol or code interpreted within unit_scheme.
+    range: string
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: administrative
+  unit_scheme:
+    slot_uri: publicschema:unit_scheme
+    title: Unit scheme
+    description: The URI of the unit system used to interpret unit_code, such as UCUM.
+    range: uri
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: administrative
+  geometry_encoding:
+    slot_uri: publicschema:geometry_encoding
+    title: Geometry encoding
+    description: The explicitly named geometry serialization, such as application/geo+json.
+    range: string
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: administrative
+  geometry_literal:
+    slot_uri: publicschema:geometry_literal
+    title: Geometry literal
+    description: The geometry serialized in the declared encoding. Coordinate order
+      is determined by that encoding and reference system.
+    range: string
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: administrative
+  coordinate_reference_system:
+    slot_uri: publicschema:coordinate_reference_system
+    title: Coordinate reference system
+    description: The URI identifying the coordinate reference system used by the geometry.
+    range: uri
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: administrative

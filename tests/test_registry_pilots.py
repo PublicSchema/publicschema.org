@@ -165,7 +165,7 @@ def test_every_authored_shared_class_and_field_survives_exports(exports):
     from rdflib.namespace import SH
     result, shapes, _, _ = exports
     context = result['context']['@context']
-    for module in ('registry', 'work', 'agriculture', 'farm_operators', 'agriculture_biology'):
+    for module in ('value_types', 'registry', 'work', 'land', 'agriculture_holdings', 'animals', 'plants'):
         authored = yaml.safe_load((ROOT / f'schema/{module}.yaml').read_text())
         for name, definition in authored.get('classes', {}).items():
             value = context[name]

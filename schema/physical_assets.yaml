@@ -1,6 +1,7 @@
-id: https://publicschema.org/linkml/assets
-name: publicschema-assets
+id: https://publicschema.org/linkml/physical_assets
+name: publicschema-physical-assets
 title: Physical assets, responsibilities and addresses
+description: Draft buildings, building units, asset party roles and address assignments.
 license: CC-BY-4.0
 default_prefix: publicschema
 prefixes:
@@ -9,10 +10,9 @@ prefixes:
   bibo: http://purl.org/ontology/bibo/
 imports:
 - linkml:types
-- publicschema-extensions
 - common
 - identity
-- registry
+- value_types
 classes:
   AssetPartyRole:
     class_uri: publicschema:AssetPartyRole
@@ -46,7 +46,63 @@ classes:
     status: bibo:draft
     annotations:
       bibliography_refs: '["w3c-vcard-2014", "ogc-geosparql-11"]'
+  Building:
+    class_uri: publicschema:Building
+    title: Building
+    description: A constructed enclosure providing shelter for people, animals or things. Its physical
+      identity is separate from its address, cadastral parcel, owner and any service point operating inside
+      it.
+    slots:
+    - name
+    - identifiers
+    - building_use
+    - asset_geometry
+    - building_addresses
+    status: bibo:draft
+    annotations:
+      bibliography_refs: '["gov-inspire-buildings"]'
+  BuildingUnit:
+    class_uri: publicschema:BuildingUnit
+    title: Building Unit
+    description: A separately identifiable functional subdivision of a building, such as an apartment
+      or business unit. A unit need not have separate legal ownership or a separate address.
+    slots:
+    - name
+    - identifiers
+    - within_building
+    - building_use
+    status: bibo:draft
+    annotations:
+      bibliography_refs: '["gov-inspire-buildings"]'
 slots:
+  building_use:
+    slot_uri: publicschema:building_use
+    title: Building use
+    description: A scheme-qualified classification of the uses of a building or functional unit.
+    range: CodedValue
+    multivalued: true
+    status: bibo:draft
+    annotations:
+      category: classification
+  building_addresses:
+    slot_uri: publicschema:building_addresses
+    title: Building addresses
+    description: Addresses associated with a building; an address does not identify a parcel or establish
+      title.
+    range: Address
+    multivalued: true
+    status: bibo:draft
+    annotations:
+      category: location
+  within_building:
+    slot_uri: publicschema:within_building
+    title: Within building
+    description: The building containing this functional unit.
+    range: Building
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: location
   asset_subject:
     slot_uri: publicschema:asset_subject
     title: Asset subject

@@ -1,0 +1,162 @@
+id: https://publicschema.org/linkml/regulation
+name: publicschema-regulation
+title: Compliance and regulatory action
+description: Draft compliance assessments and regulatory actions.
+license: CC-BY-4.0
+default_prefix: publicschema
+prefixes:
+  publicschema: https://publicschema.org/
+  linkml: https://w3id.org/linkml/
+  bibo: http://purl.org/ontology/bibo/
+imports:
+- linkml:types
+- identity
+- value_types
+classes:
+  ComplianceAssessment:
+    class_uri: publicschema:ComplianceAssessment
+    title: Compliance Assessment
+    description: A dated assessment of a subject against stated regulatory requirements. Its result is
+      an assertion within that scope and period, not a timeless or universal compliance status of the
+      subject.
+    slots:
+    - assessed_subject
+    - assessed_requirement
+    - assessment_authority
+    - assessment_date
+    - assessment_result
+    - assessment_findings
+    status: bibo:draft
+    annotations:
+      bibliography_refs: '["gov-epa-echo"]'
+  RegulatoryAction:
+    class_uri: publicschema:RegulatoryAction
+    title: Regulatory Action
+    description: An action taken by an authority concerning a regulated subject, such as a notice, sanction
+      or suspension. Action type and legal basis must be interpreted in their jurisdiction; recording
+      an action does not imply guilt or finality.
+    slots:
+    - action_subject
+    - action_authority
+    - action_type
+    - action_legal_basis
+    - action_date
+    - action_description
+    status: bibo:draft
+    annotations:
+      bibliography_refs: '["gov-epa-echo"]'
+slots:
+  assessed_subject:
+    slot_uri: publicschema:assessed_subject
+    title: Assessed subject
+    description: The URI of the subject assessed, such as a facility, vehicle or authorization.
+    range: uri
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: administrative
+  assessed_requirement:
+    slot_uri: publicschema:assessed_requirement
+    title: Assessed requirement
+    description: The specific regulation, permit condition or other requirement against which the subject
+      was assessed.
+    range: uri
+    multivalued: true
+    status: bibo:draft
+    annotations:
+      category: administrative
+  assessment_authority:
+    slot_uri: publicschema:assessment_authority
+    title: Assessment authority
+    description: The organization responsible for the regulatory assessment.
+    range: Organization
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: governance
+  assessment_date:
+    slot_uri: publicschema:assessment_date
+    title: Assessment date
+    description: The date on which the regulatory assessment was performed; recording time belongs to
+      its RegistryEntry.
+    range: date
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: administrative
+  assessment_result:
+    slot_uri: publicschema:assessment_result
+    title: Assessment result
+    description: A scheme-qualified result of the regulatory assessment. Result codes are interpreted
+      under the named requirements.
+    range: CodedValue
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: classification
+  assessment_findings:
+    slot_uri: publicschema:assessment_findings
+    title: Assessment findings
+    description: Findings and qualifications supporting the scoped regulatory assessment.
+    range: string
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: administrative
+      sensitivity: sensitive
+  action_subject:
+    slot_uri: publicschema:action_subject
+    title: Action subject
+    description: The URI of the regulated subject to which this regulatory action applies.
+    range: uri
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: administrative
+  action_authority:
+    slot_uri: publicschema:action_authority
+    title: Action authority
+    description: The authority taking this regulatory action.
+    range: Organization
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: governance
+  action_type:
+    slot_uri: publicschema:action_type
+    title: Action type
+    description: The scheme-qualified kind of regulatory action taken.
+    range: CodedValue
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: classification
+  action_legal_basis:
+    slot_uri: publicschema:action_legal_basis
+    title: Action legal basis
+    description: The legal provision under which the regulatory action is taken.
+    range: uri
+    multivalued: true
+    status: bibo:draft
+    annotations:
+      category: governance
+  action_date:
+    slot_uri: publicschema:action_date
+    title: Action date
+    description: The date on which the authority took the regulatory action, separate from the time the
+      record was entered.
+    range: date
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: administrative
+  action_description:
+    slot_uri: publicschema:action_description
+    title: Action description
+    description: The scope, conditions and procedural qualifications of the regulatory action.
+    range: string
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: administrative
+      sensitivity: sensitive

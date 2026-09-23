@@ -1,0 +1,128 @@
+id: https://publicschema.org/linkml/environment
+name: publicschema-environment
+title: Environmental facilities and water use
+description: Draft environmental facilities and water-use authorizations.
+license: CC-BY-4.0
+default_prefix: publicschema
+prefixes:
+  publicschema: https://publicschema.org/
+  linkml: https://w3id.org/linkml/
+  bibo: http://purl.org/ontology/bibo/
+imports:
+- linkml:types
+- common
+- identity
+- value_types
+- registry
+- physical_assets
+- agriculture_operations
+classes:
+  EnvironmentalFacility:
+    class_uri: publicschema:environment/EnvironmentalFacility
+    title: Environmental Facility
+    description: A physical site associated with an activity of environmental interest. Site identity
+      is distinct from its operator, installations, program records and permits. A site may be associated
+      with several regulatory programs.
+    slots:
+    - name
+    - identifiers
+    - environmental_operator
+    - asset_geometry
+    - facility_addresses
+    - environmental_activities
+    status: bibo:draft
+    annotations:
+      source_domain: environment
+      bibliography_refs: '["gov-epa-frs"]'
+  WaterUseAuthorization:
+    class_uri: publicschema:environment/WaterUseAuthorization
+    title: Water Use Authorization
+    description: An authorization to abstract or otherwise use water for stated purposes, sources and
+      conditions. It is distinct from an irrigation scheme, a water source and an observation of actual
+      water use.
+    status: bibo:draft
+    slots:
+    - authorized_water_source
+    - authorized_water_quantity
+    - water_quantity_period
+    - irrigation_scheme
+    see_also:
+    - https://www.gov.uk/guidance/water-management-apply-for-a-water-abstraction-or-impoundment-licence
+    is_a: Authorization
+    annotations:
+      source_domain: environment
+      bibliography_refs: '["uk-water-authorization"]'
+slots:
+  environmental_operator:
+    slot_uri: publicschema:environment/environmental_operator
+    title: Facility operator
+    description: The URI of the person or organization operating this environmental facility. Operator
+      identity is separate from facility identity. A consuming profile verifies the actor's type.
+    range: uri
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      source_domain: environment
+      category: governance
+      bibliography_refs: '["gov-eu-industrial-emissions-portal"]'
+  facility_addresses:
+    slot_uri: publicschema:environment/facility_addresses
+    title: Facility addresses
+    description: Addresses associated with the physical environmental facility.
+    range: Address
+    multivalued: true
+    status: bibo:draft
+    annotations:
+      source_domain: environment
+      category: location
+  environmental_activities:
+    slot_uri: publicschema:environment/environmental_activities
+    title: Environmental activities
+    description: Scheme-qualified activities conducted at an environmental site or installation.
+    range: CodedValue
+    multivalued: true
+    status: bibo:draft
+    annotations:
+      source_domain: environment
+      category: classification
+  authorized_water_source:
+    slot_uri: publicschema:environment/authorized_water_source
+    title: Water source
+    description: URI identifying the water body or source covered by an authorization.
+    range: uri
+    multivalued: true
+    status: bibo:draft
+    annotations:
+      source_domain: environment
+      category: agriculture
+  authorized_water_quantity:
+    slot_uri: publicschema:environment/authorized_water_quantity
+    title: Authorized water quantity
+    description: A quantity of water allowed during the separately stated accounting period; not observed
+      withdrawal.
+    range: QuantityValue
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      source_domain: environment
+      category: agriculture
+  water_quantity_period:
+    slot_uri: publicschema:environment/water_quantity_period
+    title: Water quantity period
+    description: The accounting period for the authorized quantity, such as per calendar year or per day.
+    range: string
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      source_domain: environment
+      category: agriculture
+  irrigation_scheme:
+    slot_uri: publicschema:agri/irrigation_scheme
+    title: Irrigation scheme
+    description: The irrigation scheme associated with the authorization.
+    range: IrrigationScheme
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      source_domain: agri
+      category: agriculture

@@ -11,12 +11,13 @@ The LinkML tree under `schema/` is the authored source. Generated JSON, JSON-LD,
 | `publicschema.yaml` | Top-level composite. Prefixes, version, `imports:` for every domain and `external/<system>` partial. |
 | `publicschema-extensions.yaml` | Auxiliary metamodel (`ExternalAlignment`, `Convergence`, `MatchStrength`) imported by the schema modules. |
 | `core.yaml`, `identity.yaml`, `civil_status.yaml`, `program.yaml`, `payment.yaml`, `assessment.yaml`, `consent.yaml`, `document.yaml`, `biometric.yaml`, `common.yaml`, `metrics.yaml`, `misc.yaml`, `vocabularies.yaml` | The domain files. Each holds its own `classes:`, `slots:`, `enums:`. |
+| `value_types.yaml`, `registry.yaml`, `physical_assets.yaml`, `organizations.yaml`, `ownership.yaml`, `regulation.yaml`, `public_services.yaml`, `education.yaml`, `work.yaml`, `transport.yaml`, `environment.yaml`, `tax.yaml`, `elections.yaml`, `land.yaml`, `agriculture_holdings.yaml`, `animals.yaml`, `plants.yaml`, `agriculture_operations.yaml` | Draft domain modules, split by subject for navigation. A term's public URI comes from its authored `class_uri` or `slot_uri`, not from the file that holds it. |
 | `credentials.yaml`, `bibliography.yaml`, `categories.yaml` | Sibling files for VC descriptors, citation records, and the UI category taxonomy. |
 | `external/<system>.yaml` | Partial LinkML schemas for each implementing system (DHS, OpenSPP, DHIS2, OpenCRVS, SEMIC, FHIR, ...). They declare the enum permissible values that PublicSchema crosswalks reference. |
 | `value_crosswalks/*.yaml` | Authored value mappings with external-system codes, gaps, and standard provenance. These are separate from LinkML modules. |
 | `metric_catalog/*.yaml` | Metric catalog sources projected into `dist/metrics_catalog.json` for the site. |
 
-A new element goes into a module with related definitions; shared modules such as `registry.yaml`, `assets.yaml` and `service_capacity.yaml` can serve multiple domains. The [domain guide](domain-migration.md) describes public namespace choices. Cross-domain references must be represented with LinkML `imports:` on the files that use them.
+A new element goes into a module with related definitions; shared modules such as `value_types.yaml`, `registry.yaml` and `physical_assets.yaml` can serve multiple domains. The [domain guide](domain-migration.md) describes public namespace choices. Cross-domain references must be represented with LinkML `imports:` on the files that use them.
 
 The renderer reads definitions in the composite itself and follows its local imports, including nested modules. Unimported sibling files do not become catalog entries. External partial schemas and LinkML metamodel imports support validation and RDF generation without becoming PublicSchema catalog entries. Product modules must use local file imports; remote product imports are not supported by the renderer.
 

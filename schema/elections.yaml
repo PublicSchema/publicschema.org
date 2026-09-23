@@ -1,0 +1,51 @@
+id: https://publicschema.org/linkml/elections
+name: publicschema-elections
+title: Voter registration
+description: Draft electoral administration and voter registration.
+license: CC-BY-4.0
+default_prefix: publicschema
+prefixes:
+  publicschema: https://publicschema.org/
+  linkml: https://w3id.org/linkml/
+  bibo: http://purl.org/ontology/bibo/
+imports:
+- linkml:types
+- identity
+- misc
+- registry
+classes:
+  VoterRegistration:
+    class_uri: publicschema:elections/VoterRegistration
+    title: Voter Registration
+    description: Registration of a person for electoral administration in a jurisdiction. It records registration
+      rather than an unconditional conclusion that the person may vote in every election.
+    slots:
+    - electoral_districts
+    - polling_service_point
+    status: bibo:draft
+    is_a: Registration
+    annotations:
+      source_domain: elections
+      bibliography_refs: '["gov-nist-vri"]'
+slots:
+  electoral_districts:
+    slot_uri: publicschema:elections/electoral_districts
+    title: Electoral districts
+    description: Electoral districts associated with this registration; district assignment does not establish
+      eligibility for every election.
+    range: Location
+    multivalued: true
+    status: bibo:draft
+    annotations:
+      source_domain: elections
+      category: location
+  polling_service_point:
+    slot_uri: publicschema:elections/polling_service_point
+    title: Polling service point
+    description: The assigned physical polling service point, if one is known.
+    range: ServicePoint
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      source_domain: elections
+      category: location

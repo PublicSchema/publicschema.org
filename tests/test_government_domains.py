@@ -19,7 +19,16 @@ from build.linkml_rdf_export import DEFAULT_CONTEXT_URL, write_shacl, write_turt
 ROOT = Path(__file__).resolve().parents[1]
 PS = Namespace("https://publicschema.org/")
 RECORDS = json.loads((ROOT / "examples/government-domains/records.json").read_text())
-AUTHORED = yaml.safe_load((ROOT / "schema/government.yaml").read_text())
+GOVERNMENT_MODULES = ("organizations", "ownership", "regulation", "education", "work", "transport",
+                      "environment", "tax", "elections", "physical_assets")
+# Classes in the government modules whose examples belong to other fixture sets.
+EXAMPLED_ELSEWHERE = {"LegalArrangement", "OwnershipChainAssertion", "EducationOffering", "WorkRelationship",
+                      "WaterUseAuthorization", "AssetAddressAssignment"}
+AUTHORED = {"classes": {}, "slots": {}}
+for _module in GOVERNMENT_MODULES:
+    _authored = yaml.safe_load((ROOT / f"schema/{_module}.yaml").read_text())
+    for _section, _entries in AUTHORED.items():
+        _entries.update(_authored.get(_section) or {})
 
 
 def expand_graph(records, context):
@@ -109,7 +118,8 @@ def test_every_government_term_survives_actual_exports(exports):
     for name, definition in AUTHORED["classes"].items():
         class_uri = context_uri(context, name)
         class_key = str(class_uri).removeprefix(str(PS))
-        assert class_key in example_types
+        if name not in EXAMPLED_ELSEWHERE:
+            assert class_key in example_types
         assert class_key in built["concepts"]
         assert (class_uri, RDF.type, OWL.Class) in ontology
         targets = list(shapes.subjects(SH.targetClass, class_uri))

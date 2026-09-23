@@ -9291,6 +9291,28 @@ enums:
         de mesure. Les programmes qui déploient un instrument national ou spécifique au programme ajoutent
         un code local aux côtés des codes publiés.
       bibliography_refs: '["fao-fies", "washington-group-cfm", "washington-group-es", "washington-group-ss"]'
+  InterestDirectness:
+    enum_uri: publicschema:InterestDirectness
+    title: Interest directness
+    description: Whether an asserted ownership or control interest is held directly or through intervening
+      interests.
+    status: bibo:draft
+    permissible_values:
+      direct:
+        meaning: publicschema:InterestDirectness/direct
+        title: Direct
+        description: Held without an intervening ownership or control interest.
+        status: bibo:draft
+      indirect:
+        meaning: publicschema:InterestDirectness/indirect
+        title: Indirect
+        description: Held through one or more intervening interests.
+        status: bibo:draft
+      unknown:
+        meaning: publicschema:InterestDirectness/unknown
+        title: Unknown
+        description: The source does not establish whether the interest is direct or indirect.
+        status: bibo:draft
   LandTenure:
     enum_uri: publicschema:land/LandTenure
     title: Land Tenure

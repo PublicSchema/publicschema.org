@@ -1,6 +1,6 @@
 # Government registry concepts: draft for contribution
 
-These concepts distinguish an institution, person or physical asset from its registration, authorization and the record describing it. They are proposed reference meanings, not a government submission format, full-domain model, normative specification or a conclusion about anyone's rights. The described additions are draft, including terms authored across the government, assets and qualified-relationship modules. The English text is the current review text; missing French and Spanish use the site's normal fallback and prevent maturity promotion until reviewed translations exist.
+These concepts distinguish an institution, person or physical asset from its registration, authorization and the record describing it. They are proposed reference meanings, not a government submission format, full-domain model, normative specification or a conclusion about anyone's rights. The described additions are draft, including terms authored across the organization, ownership, regulation, education, work, transport, environment, tax, elections and physical-asset modules. The English text is the current review text; missing French and Spanish use the site's normal fallback and prevent maturity promotion until reviewed translations exist.
 
 ## Scope and evidence
 

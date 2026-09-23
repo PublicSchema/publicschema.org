@@ -1,8 +1,7 @@
-id: https://publicschema.org/linkml/government-relationships
-name: publicschema-government-relationships
-title: Qualified government relationships
-description: Draft relationships preserving qualified ownership, education offerings and installation
-  attribution. Completeness, evidence evaluation and legal decisions belong to consuming profiles.
+id: https://publicschema.org/linkml/ownership
+name: publicschema-ownership
+title: Ownership and control
+description: Draft ownership interests, legal arrangements and ownership chain assertions.
 license: CC-BY-4.0
 default_prefix: publicschema
 prefixes:
@@ -11,12 +10,32 @@ prefixes:
   bibo: http://purl.org/ontology/bibo/
 imports:
 - linkml:types
-- publicschema-extensions
 - common
-- identity
-- registry
-- government
+- vocabularies
+- value_types
 classes:
+  OwnershipInterest:
+    class_uri: publicschema:OwnershipInterest
+    title: Ownership Interest
+    description: An assertion of one ownership or control interest in an organization or legal arrangement, held by a person,
+      organization or legal arrangement. Separate interests may coexist. An indirect interest is not a verified
+      ownership chain or a determination of beneficial ownership under a particular law.
+    slots:
+    - interest_holder
+    - interest_entity
+    - interest_type
+    - interest_directness
+    - interest_percentage
+    - interest_minimum_percentage
+    - interest_exclusive_minimum_percentage
+    - interest_maximum_percentage
+    - interest_exclusive_maximum_percentage
+    - interest_description
+    - start_date
+    - end_date
+    status: bibo:draft
+    annotations:
+      bibliography_refs: '["gov-bods-04"]'
   LegalArrangement:
     class_uri: publicschema:LegalArrangement
     title: Legal Arrangement
@@ -45,28 +64,67 @@ classes:
     status: bibo:draft
     annotations:
       bibliography_refs: '["gov-bods-04"]'
-  EducationOffering:
-    class_uri: publicschema:edu/EducationOffering
-    title: Education Offering
-    description: A provider's offering of an identified education programme at specified physical or
-      virtual provider sites over a period. Separate offerings distinguish campuses, intakes or
-      delivery modes without creating different programme identities. An offering is neither an
-      individual enrolment nor evidence that the programme or site is accredited.
-    slots:
-    - name
-    - identifiers
-    - offering_programme
-    - offering_provider
-    - offering_sites
-    - offering_mode
-    - offering_award
-    - start_date
-    - end_date
+slots:
+  interest_holder:
+    slot_uri: publicschema:interest_holder
+    title: Interest holder
+    description: The URI of the person, organization or legal arrangement asserted to hold this
+      interest. The consuming profile checks existence and kind.
+    range: uri
+    multivalued: false
     status: bibo:draft
     annotations:
-      source_domain: edu
-      bibliography_refs: '["gov-schema-course"]'
-slots:
+      category: governance
+      sensitivity: sensitive
+  interest_entity:
+    slot_uri: publicschema:interest_entity
+    title: Interest entity
+    description: The URI of the organization or legal arrangement in which this interest is held.
+      The consuming profile checks existence and kind; a Person is not the target entity.
+    range: uri
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: governance
+  interest_type:
+    slot_uri: publicschema:interest_type
+    title: Interest type
+    description: A scheme-qualified code identifying the mechanism of ownership or control, such as shares
+      or voting rights.
+    range: CodedValue
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: classification
+  interest_directness:
+    slot_uri: publicschema:interest_directness
+    title: Interest directness
+    description: Whether this asserted interest is direct, indirect or of unknown directness.
+    range: InterestDirectness
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: classification
+  interest_percentage:
+    slot_uri: publicschema:interest_percentage
+    title: Interest percentage
+    description: An exact asserted percentage for this interest, on a scale from zero to one hundred.
+      Omit when only a band or uncertain amount is known; preserve that qualification in interest_description.
+    range: decimal
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: governance
+  interest_description:
+    slot_uri: publicschema:interest_description
+    title: Interest description
+    description: An explanation of the interest, including bounds, uncertainty or the route of indirect
+      control. This is not a structured ownership-chain proof.
+    range: string
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: governance
   arrangement_type:
     slot_uri: publicschema:arrangement_type
     title: Arrangement type
@@ -147,58 +205,3 @@ slots:
     annotations:
       category: governance
       domain_override: 'null'
-  offering_programme:
-    slot_uri: publicschema:edu/offering_programme
-    title: Offering programme
-    description: The education programme delivered through this offering. A different offering need
-      not imply a different programme.
-    range: EducationProgramme
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      category: classification
-      domain_override: edu
-  offering_provider:
-    slot_uri: publicschema:edu/offering_provider
-    title: Offering provider
-    description: The institutional education provider responsible for this offering.
-    range: EducationProvider
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      category: governance
-      domain_override: edu
-  offering_sites:
-    slot_uri: publicschema:edu/offering_sites
-    title: Offering sites
-    description: Physical or virtual provider sites through which this offering is delivered. A shared
-      programme list on the provider does not imply that every site delivers every programme.
-    range: ProviderSite
-    multivalued: true
-    status: bibo:draft
-    annotations:
-      category: location
-      domain_override: edu
-  offering_mode:
-    slot_uri: publicschema:edu/offering_mode
-    title: Offering mode
-    description: A scheme-qualified delivery or study mode of this offering, such as online or part-time.
-      A mode does not identify a delivery site or imply that a learner attended.
-    range: CodedValue
-    multivalued: true
-    status: bibo:draft
-    annotations:
-      category: classification
-      domain_override: edu
-  offering_award:
-    slot_uri: publicschema:edu/offering_award
-    title: Offering award
-    description: The URI of the qualification or award definition normally obtained on successful
-      completion of this offering. It identifies an expected award kind in its source catalog, never
-      a qualification already awarded to an individual. No award is inferred when it is omitted.
-    range: uri
-    multivalued: false
-    status: bibo:draft
-    annotations:
-      category: classification
-      domain_override: edu

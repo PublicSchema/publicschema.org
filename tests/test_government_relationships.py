@@ -24,7 +24,9 @@ PS = Namespace("https://publicschema.org/")
 EDU = Namespace("https://publicschema.org/edu/")
 RECORDS = json.loads((EXAMPLES / "records.json").read_text())
 CASES = json.loads((EXAMPLES / "negative-cases.json").read_text())
-AUTHORED = yaml.safe_load((ROOT / "schema/government_relationships.yaml").read_text())
+AUTHORED = {"classes": {}}
+for _module in ("ownership", "education"):
+    AUTHORED["classes"].update(yaml.safe_load((ROOT / f"schema/{_module}.yaml").read_text())["classes"])
 SPEC = importlib.util.spec_from_file_location("government_relationship_profile", EXAMPLES / "validate_profile.py")
 PROFILE = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(PROFILE)

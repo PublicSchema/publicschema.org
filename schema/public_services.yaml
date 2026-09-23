@@ -1,4 +1,4 @@
-id: https://publicschema.org/linkml/public-services
+id: https://publicschema.org/linkml/public_services
 name: publicschema-public-services
 title: Public services and administrative history
 description: Draft shared descriptions of public services, applications, decisions, appeals and material
@@ -18,8 +18,10 @@ imports:
 - common
 - core
 - identity
+- value_types
 - registry
-- government
+- organizations
+- regulation
 classes:
   PublicService:
     class_uri: publicschema:PublicService
@@ -126,6 +128,19 @@ classes:
     annotations:
       bibliography_refs: '["gov-org"]'
       external_alignments_json: '[{"label": "Change Event", "match": "close", "note": "W3C ORG Recommendation 16 January 2014 supplies the original/resulting organization pattern for a material change with distinct identity. PublicSchema adds registry recording and effective timestamps and does not implement the PROV activity interval or ORG property-chain entailments.", "uri": "http://www.w3.org/ns/org#ChangeEvent", "vocabulary": "W3C ORG 2014", "vocabulary_id": "w3c_org"}]'
+  ServiceCapacityObservation:
+    class_uri: publicschema:ServiceCapacityObservation
+    title: Service Capacity Observation
+    description: An observation of the capacity of a service or facility for a stated measure and time.
+      Capacity is not an unconditional promise of current availability or an accreditation.
+    slots:
+    - capacity_subject
+    - capacity_measure
+    - capacity_quantity
+    - capacity_observed_at
+    status: bibo:draft
+    annotations:
+      bibliography_refs: '["w3c-sosa-2017", "ucum-specification"]'
 slots:
   service_competent_authorities:
     slot_uri: publicschema:service_competent_authorities
@@ -377,3 +392,39 @@ slots:
     annotations:
       category: governance
       external_alignments_json: '[{"label": "Resulting organization", "match": "close", "note": "W3C ORG Recommendation 16 January 2014 informs the resulting-organization link. This native field uses PublicSchema Organization references and does not implement ORG inverse properties or PROV property-chain entailments.", "uri": "http://www.w3.org/ns/org#resultingOrganization", "vocabulary": "W3C ORG 2014", "vocabulary_id": "w3c_org"}]'
+  capacity_subject:
+    slot_uri: publicschema:capacity_subject
+    title: Capacity subject
+    description: The URI of the facility or service whose capacity was observed.
+    range: uri
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: administrative
+  capacity_measure:
+    slot_uri: publicschema:capacity_measure
+    title: Capacity measure
+    description: The scheme-qualified capacity measure, such as staffed beds rather than building beds.
+    range: CodedValue
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: administrative
+  capacity_quantity:
+    slot_uri: publicschema:capacity_quantity
+    title: Capacity quantity
+    description: The amount measured for the stated capacity kind.
+    range: QuantityValue
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: administrative
+  capacity_observed_at:
+    slot_uri: publicschema:capacity_observed_at
+    title: Capacity observed at
+    description: The timestamp to which the capacity observation applies, not the time a record was entered.
+    range: datetime
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      category: administrative

@@ -1,0 +1,109 @@
+id: https://publicschema.org/linkml/transport
+name: publicschema-transport
+title: Vehicles and driving permissions
+description: Draft vehicles and driving entitlements.
+license: CC-BY-4.0
+default_prefix: publicschema
+prefixes:
+  publicschema: https://publicschema.org/
+  linkml: https://w3id.org/linkml/
+  bibo: http://purl.org/ontology/bibo/
+imports:
+- linkml:types
+- common
+- value_types
+- registry
+classes:
+  DrivingEntitlement:
+    class_uri: publicschema:transport/DrivingEntitlement
+    title: Driving Entitlement
+    description: An authorization for a person to drive a stated vehicle category, with any conditions
+      and its own validity period. A licence document may evidence several entitlements with different
+      expiry dates.
+    slots:
+    - driving_category
+    - entitlement_conditions
+    status: bibo:draft
+    is_a: Authorization
+    annotations:
+      source_domain: transport
+      bibliography_refs: '["gov-driving"]'
+  Vehicle:
+    class_uri: publicschema:transport/Vehicle
+    title: Vehicle
+    description: An individually identifiable vehicle used for transport. Physical identity persists through
+      registration or keeper changes; identifying a keeper does not establish ownership.
+    slots:
+    - identifiers
+    - vehicle_make
+    - vehicle_model
+    - vehicle_category
+    - manufacture_year
+    status: bibo:draft
+    annotations:
+      source_domain: transport
+      bibliography_refs: '["gov-dvla"]'
+slots:
+  driving_category:
+    slot_uri: publicschema:transport/driving_category
+    title: Driving category
+    description: The scheme-qualified vehicle category covered by this driving entitlement. Category meanings
+      depend on jurisdiction and edition.
+    range: CodedValue
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      source_domain: transport
+      category: classification
+  entitlement_conditions:
+    slot_uri: publicschema:transport/entitlement_conditions
+    title: Entitlement conditions
+    description: Scheme-qualified conditions restricting this entitlement, such as an adapted vehicle
+      requirement.
+    range: CodedValue
+    multivalued: true
+    status: bibo:draft
+    annotations:
+      source_domain: transport
+      category: classification
+  vehicle_make:
+    slot_uri: publicschema:transport/vehicle_make
+    title: Vehicle make
+    description: The manufacturer or make recorded for the vehicle.
+    range: string
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      source_domain: transport
+      category: assets
+  vehicle_model:
+    slot_uri: publicschema:transport/vehicle_model
+    title: Vehicle model
+    description: The model designation recorded for the vehicle.
+    range: string
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      source_domain: transport
+      category: assets
+  vehicle_category:
+    slot_uri: publicschema:transport/vehicle_category
+    title: Vehicle category
+    description: A scheme-qualified vehicle classification, not a driving entitlement.
+    range: CodedValue
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      source_domain: transport
+      category: classification
+  manufacture_year:
+    slot_uri: publicschema:transport/manufacture_year
+    title: Manufacture year
+    description: The calendar year in which the vehicle was manufactured, when known. A missing month
+      or day is not invented.
+    range: integer
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      source_domain: transport
+      category: assets

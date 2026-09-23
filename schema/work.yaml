@@ -12,7 +12,9 @@ imports:
 - publicschema-extensions
 - common
 - identity
+- value_types
 - registry
+- organizations
 classes:
   WorkRelationship:
     class_uri: publicschema:WorkRelationship
@@ -38,6 +40,32 @@ classes:
     - https://webapps.ilo.org/ilostat-files/Documents/ICSE-18_manual.pdf
     annotations:
       bibliography_refs: '["ilo-icse18-manual-2023"]'
+  ProfessionalLicense:
+    class_uri: publicschema:ProfessionalLicense
+    title: Professional License
+    description: An authorization to practise a regulated profession in a jurisdiction for a stated period.
+      It is distinct from an academic qualification and from a practitioner role at an institution.
+    slots:
+    - profession_code
+    status: bibo:draft
+    is_a: Authorization
+    annotations:
+      bibliography_refs: '["gov-fhir-practitioner"]'
+  PracticeRole:
+    class_uri: publicschema:PracticeRole
+    title: Practice Role
+    description: A dated role of a person practising a profession for an organization, optionally at specified
+      physical service points. Holding this role does not itself prove current professional authorization.
+    slots:
+    - person
+    - role_organization
+    - profession_code
+    - practice_sites
+    - start_date
+    - end_date
+    status: bibo:draft
+    annotations:
+      bibliography_refs: '["gov-fhir-role"]'
 slots:
   work_person:
     slot_uri: publicschema:work_person
@@ -119,3 +147,22 @@ slots:
     annotations:
       category: employment
       bibliography_refs: '["ilo-icse18-manual-2023"]'
+  profession_code:
+    slot_uri: publicschema:profession_code
+    title: Profession code
+    description: A scheme-qualified classification of the profession or specialty covered by this role
+      or authorization.
+    range: CodedValue
+    multivalued: true
+    status: bibo:draft
+    annotations:
+      category: classification
+  practice_sites:
+    slot_uri: publicschema:practice_sites
+    title: Practice sites
+    description: Physical service points at which the person performs the stated practice role.
+    range: ServicePoint
+    multivalued: true
+    status: bibo:draft
+    annotations:
+      category: location

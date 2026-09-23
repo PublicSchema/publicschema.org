@@ -99,6 +99,8 @@ def test_every_operations_class_has_a_direct_example(exports):
     import yaml
 
     authored = yaml.safe_load((EXAMPLES.parents[1] / 'schema/agriculture_operations.yaml').read_text())
+    environment = yaml.safe_load((EXAMPLES.parents[1] / 'schema/environment.yaml').read_text())
+    authored['classes']['WaterUseAuthorization'] = environment['classes']['WaterUseAuthorization']
     represented = {json.loads(path.read_text())['@type'] for path in EXAMPLES.glob('*.json')}
     result, _, _ = exports
     expected = {
