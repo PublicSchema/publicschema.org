@@ -110,7 +110,8 @@ def test_keeper_change_preserves_animal_residence_and_owner(biology, subclass_hi
     owners = [r for r in responsibilities if r["animal_responsibility_role"]["code_value"] == "owner"]
     assert len(keepers) == 2 and len(owners) == 1
     assert keepers[0]["animal_responsible_actor"] != keepers[1]["animal_responsible_actor"]
-    assert keepers[0]["end_date"] == keepers[1]["start_date"]
+    # The former keeper's last day is the day before the new keeper's first day.
+    assert keepers[0]["end_date"] == "2026-06-30" and keepers[1]["start_date"] == "2026-07-01"
     assert len({r["animal_subject"] for r in responsibilities + residences}) == 1
     assert "end_date" not in residences[0] and "end_date" not in owners[0]
     assert len(list(data.triples((None, AGRI.animal_residence_site, None)))) == 1

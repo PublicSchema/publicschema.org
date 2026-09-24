@@ -82,7 +82,9 @@ def test_responsibility_handoffs_preserve_one_physical_identity(records, prefix,
     assert before["subject_uri"] == after["subject_uri"]
     assert before["asset_actor"] != after["asset_actor"]
     assert before["asset_role_type"] == after["asset_role_type"]
-    assert before["end_date"] == after["start_date"] == change_day.isoformat()
+    # The former role's last day is the day before its replacement's first day.
+    assert before["end_date"] == (change_day - timedelta(days=1)).isoformat()
+    assert after["start_date"] == change_day.isoformat()
     assert profile.effective_on(before, change_day - timedelta(days=1)) is True
     assert profile.effective_on(after, change_day - timedelta(days=1)) is False
     assert profile.effective_on(before, change_day) is False
@@ -122,7 +124,7 @@ def test_postal_changes_do_not_move_the_physical_address_or_change_operator(reco
         before, after = (index[EX + asset + suffix] for suffix in ("-postal-before", "-postal-after"))
         assert before["subject_uri"] == after["subject_uri"] == EX + asset
         assert before["assigned_address"] != after["assigned_address"]
-        assert before["end_date"] == after["start_date"]
+        assert date.fromisoformat(before["end_date"]) + timedelta(days=1) == date.fromisoformat(after["start_date"])
         assert before["address_purpose"] == after["address_purpose"]
         assert before["address_purpose"]["code_value"] == "postal"
     assert index[EX + "school-postal-after"]["start_date"] != index[EX + "school-operator-after"]["start_date"]
@@ -136,8 +138,8 @@ def test_postal_changes_do_not_move_the_physical_address_or_change_operator(reco
     ("school-owner", "subject_uri", EX + "online-site", "subject_uri"),
     ("school-owner", "subject_uri", EX + "school-provider", "subject_uri"),
     ("warehouse-owner", "subject_uri", EX + "holding", "subject_uri"),
-    ("school-operator-before", "end_date", "2020-01-01", "at least one"),
     ("school-operator-before", "end_date", "2019-12-31", "at least one"),
+    ("school-operator-before", "end_date", "2019-12-01", "at least one"),
     ("school-operator-before", "end_date", "2026-02-30", "impossible"),
     ("school-operator-before", "end_date", "2026-06", "YYYY-MM-DD"),
     ("school-operator-before", "valid_to", "2026-06-30", "legacy validity"),
@@ -190,8 +192,8 @@ def test_nursery_is_a_coded_facility_a_group_can_operate_and_missing_dates_stay_
     })
     profile.validate_profile(records + [group_role])
     assert profile.effective_on(index[EX + "school-owner"], date(2026, 7, 1)) is None
-    assert profile.effective_on({"end_date": "2026-07-01"}, date(2026, 7, 1)) is False
-    assert profile.effective_on({"end_date": "2026-07-01"}, date(2026, 6, 30)) is None
+    assert profile.effective_on({"end_date": "2026-06-30"}, date(2026, 7, 1)) is False
+    assert profile.effective_on({"end_date": "2026-06-30"}, date(2026, 6, 30)) is None
     assert profile.effective_on({}, date(2026, 7, 1)) is None
 
 

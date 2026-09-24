@@ -1,4 +1,4 @@
-"""Convert inclusive source validity dates on the named relationships to start_date/end_date.
+"""Rename inclusive source validity dates on the named relationships to start_date/end_date.
 
 This example helper returns a new JSON document and never rewrites its input file.
 It is deliberately independent of the repository's vocabulary build machinery.
@@ -8,7 +8,7 @@ import copy
 import json
 import re
 import sys
-from datetime import date, timedelta
+from datetime import date
 from pathlib import Path
 
 RELATIONSHIPS = {
@@ -71,14 +71,14 @@ def migrate_relationship_dates(document, *, source_boundary=None):
                     report(f"{path}/@type", "unsupported-type-identifier", "Use one exact admitted type identifier; a matching local name or context alias does not establish class identity.")
                     break
             return
-        inclusive = any(field in record for field in OLD_DATES)
-        if inclusive and any(field in record for field in CURRENT_DATES):
+        source_dates = any(field in record for field in OLD_DATES)
+        if source_dates and any(field in record for field in CURRENT_DATES):
             report(path, "mixed-date-pairs", "Both date pairs occur; reconcile them from the source before migration.")
             return
-        if inclusive and source_boundary != SOURCE_BOUNDARY:
+        if source_dates and source_boundary != SOURCE_BOUNDARY:
             report(path, "unknown-source-boundary", "Confirm inclusive-calendar-days from the source contract before converting source validity dates.")
             return
-        if inclusive and kind in QUALIFIED_ASSIGNMENTS:
+        if source_dates and kind in QUALIFIED_ASSIGNMENTS:
             field = "asset_role_type" if kind == "AssetPartyRole" else "address_purpose"
             code = record.get(field)
             endpoints = ("subject_uri", "asset_actor" if kind == "AssetPartyRole" else "assigned_address")
@@ -90,20 +90,18 @@ def migrate_relationship_dates(document, *, source_boundary=None):
                     or not re.match(r"[A-Za-z][A-Za-z0-9+.-]*:", code["code_scheme"])):
                 report(f"{path}/{field}", "assignment-meaning-required", "Supply the source-reviewed role or address purpose as a scheme-qualified code before converting dates.")
                 return
-        fields = OLD_DATES if inclusive else CURRENT_DATES
+        fields = OLD_DATES if source_dates else CURRENT_DATES
         before = len(diagnostics)
         start, end = (parse_day(record[field], f"{path}/{field}") if field in record else None for field in fields)
-        if start and end and (end < start if inclusive else end <= start):
+        if start and end and end < start:
             report(path, "invalid-period", "The period must contain at least one effective calendar day.")
-        if inclusive and end == date.max:
-            report(f"{path}/valid_to", "unrepresentable-end-date", "The day after 9999-12-31 is outside the supported calendar; do not replace it with an unknown end.")
-        if len(diagnostics) != before or not inclusive:
+        if len(diagnostics) != before or not source_dates:
             return
         if "valid_from" in record:
             record["start_date"] = record.pop("valid_from")
+        # Both pairs include their end day, so the dates carry over unchanged.
         if "valid_to" in record:
-            record.pop("valid_to")
-            record["end_date"] = (end + timedelta(days=1)).isoformat()
+            record["end_date"] = record.pop("valid_to")
 
     def visit(value, path):
         if isinstance(value, list):

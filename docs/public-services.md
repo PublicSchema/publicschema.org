@@ -116,14 +116,14 @@ check against its own rules. The example role carries them, and the profile stil
 bound grant: a caller-supplied power code does not authorize a filing.
 
 Representation periods use whole calendar days in this synthetic profile:
-`start_date` is included and `end_date` is the first inactive day. An appeal with
-`request_submission_date` `2026-09-03` therefore cannot use a role ending on `2026-09-03`.
-Equal start and end dates describe an empty role interval and are rejected.
+`start_date` and `end_date` are both included. An appeal with
+`request_submission_date` `2026-09-03` can use a role ending on `2026-09-03`, but not one
+ending on `2026-09-02`. An end date before the start date is rejected.
 The profile compares submission and decision dates with the UTC day of recording and
 effective timestamps. Deployments must choose the calendar and time zone appropriate
 to their own rules.
-The permission's existing `valid_from` and `valid_to` remain inclusive, so a one-day
-authorization can have equal validity dates.
+The permission's `valid_from` and `valid_to` are inclusive in the same way, so a one-day
+authorization has equal validity dates.
 
 The profile understands the example's grant, permit suspension and upheld-review
 codes. Unknown local codes remain valid reference data but require a profile that

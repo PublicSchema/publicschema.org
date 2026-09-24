@@ -54,28 +54,28 @@ def test_fixture_conversion_is_reviewable_idempotent_and_does_not_mutate(source_
             assert after == before
 
 
-@pytest.mark.parametrize("start,end,expected_end", [
-    ("2024-02-28", "2024-02-29", "2024-03-01"),
-    ("2023-02-28", "2023-02-28", "2023-03-01"),
-    ("2026-04-01", "2026-04-30", "2026-05-01"),
-    ("2026-12-31", "2026-12-31", "2027-01-01"),
+@pytest.mark.parametrize("start,end", [
+    ("2024-02-28", "2024-02-29"),
+    ("2023-02-28", "2023-02-28"),
+    ("2026-04-01", "2026-04-30"),
+    ("2026-12-31", "2026-12-31"),
 ])
 @pytest.mark.parametrize("kind", ["AnimalResponsibility", "AgriculturalServiceRole"])
-def test_inclusive_membership_of_every_day_is_preserved(kind, start, end, expected_end):
+def test_inclusive_membership_of_every_day_is_preserved(kind, start, end):
     before = {"@type": kind, "valid_from": start, "valid_to": end}
     after = convert(before)
-    assert after["start_date"] == start and after["end_date"] == expected_end
+    # Both pairs include their end day, so the dates carry over unchanged.
+    assert after["start_date"] == start and after["end_date"] == end
     first, last = date.fromisoformat(start), date.fromisoformat(end)
     for offset in range(-1, (last - first).days + 3):
         day = first + timedelta(days=offset)
         old_effective = first <= day <= last
-        new_effective = date.fromisoformat(after["start_date"]) <= day < date.fromisoformat(after["end_date"])
+        new_effective = date.fromisoformat(after["start_date"]) <= day <= date.fromisoformat(after["end_date"])
         assert old_effective == new_effective
 
 
 @pytest.mark.parametrize("patch,code,path", [
     ({"valid_from": "2026-07-02", "valid_to": "2026-07-01"}, "invalid-period", "/0"),
-    ({"valid_to": "9999-12-31"}, "unrepresentable-end-date", "/0/valid_to"),
     ({"valid_to": "2026-02-30"}, "invalid-calendar-date", "/0/valid_to"),
     ({"valid_to": "2026-06"}, "invalid-calendar-date", "/0/valid_to"),
     ({"valid_to": "20260630"}, "invalid-calendar-date", "/0/valid_to"),
@@ -83,7 +83,7 @@ def test_inclusive_membership_of_every_day_is_preserved(kind, start, end, expect
     ({"valid_to": None}, "invalid-calendar-date", "/0/valid_to"),
     ({"valid_to": 20260630}, "invalid-calendar-date", "/0/valid_to"),
     ({"valid_to": "2026-06-30", "end_date": "2026-07-01"}, "mixed-date-pairs", "/0"),
-    ({"start_date": "2026-07-01", "end_date": "2026-07-01"}, "invalid-period", "/0"),
+    ({"start_date": "2026-07-01", "end_date": "2026-06-30"}, "invalid-period", "/0"),
 ])
 def test_impossible_or_ambiguous_dates_fail_with_stable_field_diagnostics(patch, code, path):
     source = [{"@type": "AnimalResponsibility", **patch}]
@@ -127,7 +127,7 @@ def test_nested_exchange_is_all_or_nothing_and_missing_dates_are_not_invented():
 ])
 def test_exact_type_identifiers_are_preserved(type_id):
     assert convert({"@type": type_id, "valid_to": "2026-06-30"}) == {
-        "@type": type_id, "end_date": "2026-07-01",
+        "@type": type_id, "end_date": "2026-06-30",
     }
 
 
@@ -135,7 +135,7 @@ def test_exact_type_identifiers_are_preserved(type_id):
 def test_service_roles_accept_the_compact_alias_and_exact_domain_identifiers(prefix):
     type_id = prefix + "AgriculturalServiceRole"
     assert convert({"@type": type_id, "valid_from": "2026-12-31", "valid_to": "2026-12-31"}) == {
-        "@type": type_id, "start_date": "2026-12-31", "end_date": "2027-01-01",
+        "@type": type_id, "start_date": "2026-12-31", "end_date": "2026-12-31",
     }
 
 
@@ -160,14 +160,12 @@ def test_service_roles_reject_other_namespaces(prefix):
     assert error.value.diagnostics[0]["code"] == "unsupported-type-identifier"
 
 
-def test_service_roles_require_source_boundary_and_reject_unrepresentable_end():
+def test_service_roles_require_source_boundary_and_keep_the_latest_calendar_day():
     source = {"@type": "AgriculturalServiceRole", "valid_to": "9999-12-31"}
     with pytest.raises(migration.MigrationError) as error:
         convert(source, None)
     assert error.value.diagnostics[0]["code"] == "unknown-source-boundary"
-    with pytest.raises(migration.MigrationError) as error:
-        convert(source)
-    assert error.value.diagnostics[0]["code"] == "unrepresentable-end-date"
+    assert convert(source) == {"@type": "AgriculturalServiceRole", "end_date": "9999-12-31"}
 
 
 def test_only_publicschema_relationship_types_are_converted():
@@ -189,7 +187,7 @@ def test_facility_assignments_need_their_endpoints_and_reviewed_meaning(kind, en
     assert error.value.diagnostics[0]["code"] == "assignment-meaning-required"
     source[meaning_field] = {"@type": "CodedValue", "code_scheme": "https://example.org/reviewed-scheme", "code_value": code}
     converted = convert(source)
-    assert converted["end_date"] == "2026-07-01" and converted[meaning_field] == source[meaning_field]
+    assert converted["end_date"] == "2026-06-30" and converted[meaning_field] == source[meaning_field]
     del source[endpoint]
     with pytest.raises(migration.MigrationError) as error:
         convert(source)

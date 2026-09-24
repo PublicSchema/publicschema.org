@@ -182,11 +182,11 @@ def test_correspondence_role_text_cannot_grant_application_or_appeal_authority()
 
 @pytest.mark.parametrize("end_date,appeal_date,message", [
     ("2026-09-04", "2026-09-03", None),
-    ("2026-09-03", "2026-09-02", None),
-    ("2026-09-03", "2026-09-03", "outside representation period"),
+    ("2026-09-03", "2026-09-03", None),
     ("2026-09-02", "2026-09-03", "outside representation period"),
+    ("2026-09-01", "2026-09-03", "outside representation period"),
 ])
-def test_representation_covers_start_day_and_stops_before_first_inactive_day(
+def test_representation_covers_its_start_and_end_days(
     end_date, appeal_date, message,
 ):
     changed = copy.deepcopy(RECORDS)
@@ -200,11 +200,11 @@ def test_representation_covers_start_day_and_stops_before_first_inactive_day(
         profile.validate_journey(changed, CONFIG)
 
 
-def test_empty_representation_interval_is_rejected_but_one_day_permission_remains_valid():
+def test_reversed_representation_interval_is_rejected_but_one_day_permission_remains_valid():
     changed = copy.deepcopy(RECORDS)
     record(changed, "business-permit").update(valid_from="2026-05-11", valid_to="2026-05-11")
     profile.validate_journey(changed, CONFIG)
-    record(changed, "business-representation").update(start_date="2026-05-02", end_date="2026-05-02")
+    record(changed, "business-representation").update(start_date="2026-05-02", end_date="2026-05-01")
     with pytest.raises(profile.ProfileError, match="empty or reversed representation period"):
         profile.validate_journey(changed, CONFIG)
 

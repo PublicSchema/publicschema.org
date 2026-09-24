@@ -115,8 +115,8 @@ def test_invalid_public_shapes_fail_both_formats(exports, subclass_hierarchy, ki
     ("voter", {"registered_subject": "https://example.org/company"}, "wrong actor kind"),
     ("drive-B", {"registered_subject": "https://example.org/unavailable"}, "missing actor"),
     ("professional-license", {"valid_to": "2024-01-01"}, "empty or reversed period"),
-    # end_date is the first inactive day, so a role ending on its start day is empty.
-    ("facility-operator", {"end_date": "2024-06-01"}, "empty or reversed period"),
+    # end_date is the last effective day, so a role ending the day before it starts is reversed.
+    ("facility-operator", {"end_date": "2024-05-31"}, "empty or reversed period"),
     ("professional-license", {"valid_from": "20250101"}, "valid_from: expected an exact YYYY-MM-DD calendar date"),
     ("interest-person", {"start_date": "2025-02-30"}, "start_date: impossible calendar date"),
     ("interest-person", {"interest_percentage": 101}, "percentage outside zero to one hundred"),

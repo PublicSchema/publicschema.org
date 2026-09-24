@@ -36,7 +36,7 @@
     },
     "interest_directness": "direct",
     "start_date": "2025-01-01",
-    "end_date": "2028-01-01"
+    "end_date": "2027-12-31"
   },
   {
     "@id": "https://example.org/government-relationships/trust-shares",
@@ -50,7 +50,7 @@
     },
     "interest_directness": "direct",
     "start_date": "2025-01-01",
-    "end_date": "2028-01-01",
+    "end_date": "2027-12-31",
     "interest_percentage": 100
   },
   {
@@ -65,7 +65,7 @@
     },
     "interest_directness": "direct",
     "start_date": "2025-01-01",
-    "end_date": "2028-01-01",
+    "end_date": "2027-12-31",
     "interest_exclusive_minimum_percentage": 25,
     "interest_maximum_percentage": 50
   },
@@ -81,7 +81,7 @@
     },
     "interest_directness": "indirect",
     "start_date": "2025-01-01",
-    "end_date": "2028-01-01",
+    "end_date": "2027-12-31",
     "beneficial_ownership_or_control": true,
     "beneficial_ownership_definition": "https://example.org/law/beneficial-ownership-definition",
     "component_interests": [
@@ -161,7 +161,7 @@
       }
     ],
     "start_date": "2026-09-01",
-    "end_date": "2027-07-01"
+    "end_date": "2027-06-30"
   },
   {
     "@id": "https://example.org/government-relationships/online-offering",
@@ -179,7 +179,7 @@
       }
     ],
     "start_date": "2027-01-01",
-    "end_date": "2027-10-01"
+    "end_date": "2027-09-30"
   },
   {
     "@id": "https://example.org/government-relationships/north-recognition",

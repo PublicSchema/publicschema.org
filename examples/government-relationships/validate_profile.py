@@ -70,8 +70,8 @@ def resolve(value, index, accepted):
 def period(record):
     start, end = (parse_day(record[key], key) if key in record else None
                   for key in ("start_date", "end_date"))
-    # Whole-day convention: start is inclusive; end is the first inactive day.
-    check_period(start, end, exclusive=True, message="The effective interval must contain at least one day")
+    # Whole-day convention: both the start and the end day are effective.
+    check_period(start, end, message="The effective interval must contain at least one day")
     return start, end
 
 
@@ -141,8 +141,8 @@ def ownership_route(primary, index):
             known_ends.append(end)
         if (primary_start and start and primary_start < start
                 or primary_end and end and primary_end > end
-                or primary_start and end and primary_start >= end
-                or primary_end and start and primary_end <= start):
+                or primary_start and end and primary_start > end
+                or primary_end and start and primary_end < start):
             raise ValueError("A component period contradicts the asserted indirect period")
         current = reference_uri(component.get("interest_entity"))
         if current in visited:
@@ -152,7 +152,7 @@ def ownership_route(primary, index):
         del remaining[component["@id"]]
     if remaining:
         raise ValueError("The asserted route contains disconnected or unused components")
-    if known_starts and known_ends and max(known_starts) >= min(known_ends):
+    if known_starts and known_ends and max(known_starts) > min(known_ends):
         raise ValueError("The known component periods have no common effective day")
     return ordered
 

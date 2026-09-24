@@ -38,7 +38,7 @@
     "holder_farm": "https://example.org/farm-pilot/holding",
     "holder_organization": "https://example.org/farm-pilot/cooperative",
     "start_date": "2024-01-01",
-    "end_date": "2025-01-01"
+    "end_date": "2024-12-31"
   },
   {
     "@id": "https://example.org/farm-pilot/person-role",
@@ -59,6 +59,6 @@
     "@type": "agri/GroupAgriculturalHolderRole",
     "holder_farm": "https://example.org/farm-pilot/holding",
     "holder_group": "https://example.org/farm-pilot/collective",
-    "end_date": "2024-01-01"
+    "end_date": "2023-12-31"
   }
 ]

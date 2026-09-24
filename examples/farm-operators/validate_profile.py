@@ -76,8 +76,8 @@ def validate_profile(records):
     def interval(record):
         start, end = (parse_day(record[field], field) if field in record else None
                       for field in ("start_date", "end_date"))
-        # Whole-day example convention: start is inclusive; end is first inactive day.
-        check_period(start, end, exclusive=True)
+        # Whole-day example convention: both the start and the end day are effective.
+        check_period(start, end)
         return start, end
 
     def classification(value):
@@ -112,8 +112,8 @@ def validate_profile(records):
                     related_start, related_end = interval(relationship)
                     if (start and related_start and start < related_start
                             or end and related_end and end > related_end
-                            or start and related_end and start >= related_end
-                            or end and related_start and end <= related_start):
+                            or start and related_end and start > related_end
+                            or end and related_start and end < related_start):
                         raise ValueError("Assignment lies outside the known work relationship interval")
         if record["@type"] == "GroupMembership":
             typed(record.get("person"), {"Person"})

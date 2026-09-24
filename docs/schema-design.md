@@ -127,9 +127,10 @@ Lifecycle concepts use domain-specific named dates that describe the domain even
 
 Do not mix both patterns on the same concept. A lifecycle concept should not carry both `enrollment_date` and `start_date`.
 
-The two generic pairs are not aliases. `start_date` names the date effectiveness began;
-`end_date` names the date effectiveness ceased. `valid_from` and `valid_to`
-name the first and last applicable calendar dates, including the last day. `recorded_at`
+The two generic pairs are not aliases. `start_date` names the first day a relationship
+is effective and `end_date` the last day, both included
+([ADR-027](../decisions/027-end-date-boundary.md)). `valid_from` and `valid_to`
+name the first and last applicable calendar dates of an assertion's validity. `recorded_at`
 instead records when the source entered the assertion. Missing dates remain unknown;
 an omitted end does not prove perpetual validity.
 
@@ -140,15 +141,14 @@ AssetPartyRole and AssetAddressAssignment. Registration (including Authorization
 RegistryEntry, AgriculturalParcel, Certification and LandTenureAssertion retain
 their declared calendar validity.
 The [relationship date conversion guide](relationship-date-migration.md) describes the
-explicit conversion contract for source records that use calendar validity. Renaming an
-inclusive `valid_to` to `end_date` without changing the boundary loses an effective day.
+explicit conversion contract for source records that use calendar validity.
 
-An application that compares or converts dates must first state its interval
-boundaries. For example, under an explicitly stated whole-day convention, `valid_to:
-2026-06-30` corresponds to cessation on `end_date: 2026-07-01`. Renaming the key while
-keeping 30 June would change the meaning. Do not apply that conversion when source
-precision or boundary semantics are unknown. The farm-work example documents its own
-whole-day convention; it does not change the normative date-property definitions.
+An application that compares or converts dates must first know the source's interval
+boundaries. Both pairs include their end day, so an inclusive source `valid_to:
+2026-06-30` becomes `end_date: 2026-06-30`, and the next period starts on 1 July.
+A source whose end is the first day that no longer applies needs one day subtracted.
+Do not convert when source precision or boundary semantics are unknown. The farm-work
+example follows the same convention.
 
 ## 6. Property independence
 

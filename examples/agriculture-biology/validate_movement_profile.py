@@ -80,7 +80,7 @@ def validate_profile(records):
         arrival = record.get("movement_arrival_date")
         if arrival is not None:
             # Arrival on the departure day is allowed.
-            check_period(departure, parse_day(arrival, "movement_arrival_date"), exclusive=False,
+            check_period(departure, parse_day(arrival, "movement_arrival_date"),
                          message="movement_arrival_date: before departure")
         for animal in moved:
             typed_target(animal, {"IndividualAnimal"}, "moved_animals")
