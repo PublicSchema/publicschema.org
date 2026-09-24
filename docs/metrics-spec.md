@@ -170,7 +170,7 @@ A bundle of observations with publisher metadata: `publisher` (ranges over [`Age
 
 ### `Period`
 
-The temporal coverage of a MetricObservation. PS reifies the period (rather than carrying inline `start_date` / `end_date` like other `Event` subtypes) because the SDMX / Data Cube emitter needs a single URI-addressable interval to satisfy [W3C Data Cube integrity constraint IC-11](https://www.w3.org/TR/vocab-data-cube/#wf). Slots: `period_type` (`point_in_time` / `span` / `cohort` / `fiscal_year` / `calendar_year`), `start_date`, `end_date`, `granularity` (year / quarter / month / day), `reference_period_type`, `frequency` (`FREQ` codelist value: A / Q / M / D / W / H).
+The temporal coverage of a MetricObservation. PS reifies the period (rather than carrying inline `start_date` / `end_date` like other `Event` subtypes) because the SDMX / Data Cube emitter needs a single URI-addressable interval to satisfy [W3C Data Cube integrity constraint IC-11](https://www.w3.org/TR/vocab-data-cube/#wf). Slots: `period_type` (`point_in_time` / `span` / `cohort` / `fiscal_year` / `calendar_year`), `start_date`, `end_date`, `granularity` (year / quarter / month / day), `reference_period_type`, `frequency` (`FREQ` codelist value: A / Q / M / D / W / H). `end_date` is the first day after the coverage, as everywhere in PublicSchema ([ADR-027](../decisions/027-end-date-boundary.md)): calendar year 2024 runs from `2024-01-01` to `2025-01-01`. A FHIR `Period` gives the last covered day, so an adapter subtracts one day.
 
 ## Computation model
 

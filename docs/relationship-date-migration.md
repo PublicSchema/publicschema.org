@@ -5,10 +5,9 @@ The relationships named below use `start_date` and `end_date`, following the
 that carry a `valid_from` and `valid_to` pair for them usually describe
 inclusive calendar validity. Renaming the keys without changing the end boundary would change the last effective day.
 
-For these relationships, the convention is whole calendar
-days: `start_date` is included and `end_date` is the first inactive day. These
-fields are not timestamps and do not describe the time a source recorded a fact.
-This guide does not change the normative date-property definitions.
+The published definitions use whole calendar days: `start_date` is included and
+`end_date` is the first inactive day ([ADR-027](../decisions/027-end-date-boundary.md)).
+These fields are not timestamps and do not describe the time a source recorded a fact.
 
 ## Relationships that use start and end dates
 

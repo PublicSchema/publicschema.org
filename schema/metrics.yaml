@@ -333,7 +333,9 @@ classes:
     description: 'The temporal coverage of a MetricObservation. PublicSchema reifies the period as a separate
       class (rather than carrying inline start_date / end_date like other Event subtypes) because the
       SDMX and Data Cube emitters need a single URI-addressable interval to satisfy W3C Data Cube integrity
-      constraint IC-11 (every observation has a value for every dimension, including time).
+      constraint IC-11 (every observation has a value for every dimension, including time). Its end date
+      is the first day after the coverage, so calendar year 2024 runs from 2024-01-01 to 2025-01-01; a FHIR
+      Period gives the last covered day instead.
 
       '
     slots:
@@ -354,12 +356,16 @@ classes:
         una clase separada (en lugar de llevar inline start_date / end_date como otros subtipos de Event)
         porque los emisores SDMX y Data Cube necesitan un único intervalo direccionable por URI para satisfacer
         la restricción de integridad IC-11 de W3C Data Cube (toda observación tiene un valor para cada
-        dimensión, incluido el tiempo).
+        dimensión, incluido el tiempo). Su fecha de fin es el primer día posterior a la cobertura, de modo
+        que el año civil 2024 va de 2024-01-01 a 2025-01-01; un Period de FHIR indica en cambio el último día
+        cubierto.
       description_fr: La couverture temporelle d'une MetricObservation. PublicSchema réifie la période
         en classe distincte (plutôt que de porter start_date / end_date en ligne comme les autres sous-types
         d'Event) car les émetteurs SDMX et Data Cube ont besoin d'un seul intervalle adressable par URI
         pour satisfaire la contrainte d'intégrité IC-11 du W3C Data Cube (toute observation a une valeur
-        pour chaque dimension, y compris le temps).
+        pour chaque dimension, y compris le temps). Sa date de fin est le premier jour après la couverture,
+        donc l'année civile 2024 va du 2024-01-01 au 2025-01-01 ; un Period FHIR indique plutôt le dernier
+        jour couvert.
       source_domain: metrics
   DimensionValue:
     class_uri: publicschema:metrics/DimensionValue

@@ -128,7 +128,8 @@ Lifecycle concepts use domain-specific named dates that describe the domain even
 Do not mix both patterns on the same concept. A lifecycle concept should not carry both `enrollment_date` and `start_date`.
 
 The two generic pairs are not aliases. `start_date` names the date effectiveness began;
-`end_date` names the date effectiveness ceased. `valid_from` and `valid_to`
+`end_date` names the date effectiveness ceased, which is the first day it no longer applies
+([ADR-027](../decisions/027-end-date-boundary.md)). `valid_from` and `valid_to`
 name the first and last applicable calendar dates, including the last day. `recorded_at`
 instead records when the source entered the assertion. Missing dates remain unknown;
 an omitted end does not prove perpetual validity.
@@ -147,8 +148,7 @@ An application that compares or converts dates must first state its interval
 boundaries. For example, under an explicitly stated whole-day convention, `valid_to:
 2026-06-30` corresponds to cessation on `end_date: 2026-07-01`. Renaming the key while
 keeping 30 June would change the meaning. Do not apply that conversion when source
-precision or boundary semantics are unknown. The farm-work example documents its own
-whole-day convention; it does not change the normative date-property definitions.
+precision or boundary semantics are unknown. The farm-work example follows the same convention.
 
 ## 6. Property independence
 
