@@ -148,13 +148,12 @@ def test_geometry_encoding_crs_and_coordinate_order():
     profile.validate_geometry({**value,'geometry_literal':'{"type":"Polygon","coordinates":[[[100,13],[101,13],[101,14],[100,13]]]}'} )
 
 
-def test_unmapped_code_is_preserved(exports):
+def test_a_scheme_and_code_without_a_mapped_meaning_is_a_valid_coded_value(exports):
     result, _, _, registry=exports
     schema=result['concept_schemas']['CodedValue']
     for code in ('known','local-only','unknown','retired'):
         payload={'code_scheme':'https://example.org/v1/codes','code_value':code}
         jsonschema.Draft202012Validator(schema,registry=registry).validate(payload)
-        assert payload['code_value']==code and 'code_meaning' not in payload
 
 
 def test_reference_resolution_of_the_actual_pilot_records(exports):
