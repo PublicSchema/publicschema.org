@@ -50,7 +50,7 @@ is public.
 |---|---|
 | `PublicService` | `name`, `identifiers`, `description`, `service_competent_authorities`, `service_audience`, `legal_resources` describe the offered service. Its current authority need not be the authority on an earlier decision. |
 | `ServiceApplication` | `public_service`, `service_applicant`, `subject_uri`, `submitted_by`, `submission_representation`, `authority`, `request_submission_date`, `recorded_at`, `evidence_assertions` separate the request, subject, applicant, submitter and receiving authority. |
-| `AdministrativeDecision` | `subject_uri`, `authority`, `decision_outcome`, `decision_date`, `effective_at`, `recorded_at`, `legal_resources`, `evidence_assertions` record the determination. `decides_application`, `decision_authorizations`, `decision_regulatory_actions` and `resolves_appeal` connect its context and results. |
+| `AdministrativeDecision` | `subject_uri`, `authority`, `decision_outcome`, `decision_date`, `effective_at`, `recorded_at`, `legal_resources`, `evidence_assertions` record the determination. `decides_application`, `decision_registrations`, `decision_regulatory_actions` and `resolves_appeal` connect its context and results. |
 | `AdministrativeAppeal` | `challenged_decision`, `appellant`, `submitted_by`, `submission_representation`, `authority`, `request_submission_date`, `recorded_at`, `evidence_assertions` describe the filing and requested review; `authority` is the reviewing body. |
 | `OrganizationalChangeEvent` | `original_organizations`, `resulting_organizations`, `lifecycle_kind`, `effective_at`, `recorded_at`, `authority`, `legal_resources`, `evidence_assertions` retain participants, timing and basis without replacing historical actors. |
 

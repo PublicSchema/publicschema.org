@@ -107,7 +107,7 @@ classes:
     - decision_date
     - effective_at
     - legal_resources
-    - decision_authorizations
+    - decision_registrations
     - decision_regulatory_actions
     - resolves_appeal
     - evidence_assertions
@@ -401,21 +401,23 @@ slots:
         applicable.
       category: classification
       sensitivity: sensitive
-  decision_authorizations:
-    slot_uri: publicschema:decision_authorizations
-    title: Decision authorizations
-    description: Permissions established by this decision. A later suspension or appeal is represented
-      separately and does not rewrite the original grant or its issuing authority.
-    range: Authorization
+  decision_registrations:
+    slot_uri: publicschema:decision_registrations
+    title: Decision registrations
+    description: Registrations established by this decision, such as a permit, a voter registration
+      or a tax registration. A later suspension or appeal is represented separately and does not
+      rewrite the original grant or its issuing authority.
+    range: Registration
     multivalued: true
     status: bibo:draft
     annotations:
-      label_es: Autorizaciones de la decisión
-      label_fr: Autorisations de la décision
-      description_es: Las autorizaciones establecidas por esta decisión. Una suspensión o un recurso
-        posteriores se representan por separado y no reescriben la concesión original ni su autoridad
-        emisora.
-      description_fr: Les autorisations établies par cette décision. Une suspension ou un recours ultérieurs
+      label_es: Registros de la decisión
+      label_fr: Enregistrements de la décision
+      description_es: Los registros establecidos por esta decisión, como una autorización, una inscripción
+        electoral o un registro fiscal. Una suspensión o un recurso posteriores se representan
+        por separado y no reescriben la concesión original ni su autoridad emisora.
+      description_fr: Les enregistrements établis par cette décision, par exemple une autorisation,
+        une inscription électorale ou un enregistrement fiscal. Une suspension ou un recours ultérieurs
         sont représentés séparément et ne réécrivent pas l'octroi initial ni son autorité émettrice.
       category: governance
       sensitivity: sensitive

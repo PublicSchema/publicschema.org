@@ -92,7 +92,7 @@ def test_permit_history_validates_in_both_export_formats_and_local_profile(expor
     profile.validate_journey(RECORDS, CONFIG)
     assert RECORDS == before
     for source, predicate, target in (
-        ("grant-decision", "decision_authorizations", "business-permit"),
+        ("grant-decision", "decision_registrations", "business-permit"),
         ("permit-suspension", "subject_uri", "business-permit"),
         ("business-appeal", "challenged_decision", "suspension-decision"),
         ("review-decision", "resolves_appeal", "business-appeal"),
@@ -108,7 +108,7 @@ def test_permit_history_validates_in_both_export_formats_and_local_profile(expor
     ("grant-decision", "decision_date", "2026-05-10T09:00:00Z"),
     ("business-application", "public_service", [ref("permit-service", "PublicService")]),
     ("grant-decision", "decision_outcome", 7),
-    ("grant-decision", "decision_authorizations", ref("business-permit", "Authorization")),
+    ("grant-decision", "decision_registrations", ref("business-permit", "Authorization")),
     ("business-appeal", "challenged_decision", [ref("suspension-decision", "AdministrativeDecision")]),
     ("authority-succession", "effective_at", "2026-08-01"),
 ])
@@ -121,7 +121,7 @@ def test_malformed_shapes_are_rejected_by_actual_json_schema(exports, suffix, fi
 def test_wrong_decision_output_type_fails_shacl_even_with_an_existing_identity(exports):
     built, shapes, hierarchy, _ = exports
     invalid = copy.deepcopy(RECORDS)
-    record(invalid, "grant-decision")["decision_authorizations"] = [ref("business", "Organization")]
+    record(invalid, "grant-decision")["decision_registrations"] = [ref("business", "Organization")]
     conforms, _, _ = validate(jsonld_graph(invalid, built["context"]), shacl_graph=shapes, ont_graph=hierarchy)
     assert not conforms
 
@@ -223,14 +223,14 @@ def test_class_reference_forms_preserve_the_complete_permit_journey(exports, for
     graph = jsonld_graph(changed, built["context"])
     conforms, _, report = validate(graph, shacl_graph=shapes, ont_graph=hierarchy)
     assert conforms, report
-    assert (URIRef(BASE + "grant-decision"), PS.decision_authorizations, URIRef(BASE + "business-permit")) in graph
+    assert (URIRef(BASE + "grant-decision"), PS.decision_registrations, URIRef(BASE + "business-permit")) in graph
     assert (URIRef(BASE + "suspension-decision"), PS.decision_regulatory_actions, URIRef(BASE + "permit-suspension")) in graph
 
 
 @pytest.mark.parametrize("form", ["uri", "id"])
 @pytest.mark.parametrize("suffix,field,target,message", [
-    ("grant-decision", "decision_authorizations", "missing", "missing referenced record"),
-    ("grant-decision", "decision_authorizations", "business", "wrong referenced type"),
+    ("grant-decision", "decision_registrations", "missing", "missing referenced record"),
+    ("grant-decision", "decision_registrations", "business", "wrong referenced type"),
     ("suspension-decision", "decision_regulatory_actions", "missing", "missing referenced record"),
     ("suspension-decision", "decision_regulatory_actions", "business-permit", "wrong referenced type"),
 ])
@@ -365,7 +365,7 @@ def test_successor_does_not_rewrite_historical_authorities_or_permission():
         profile.validate_journey(changed, CONFIG)
     # A filed appeal and a later determination leave the original grant intact.
     assert permit["valid_to"] == "2026-12-31"
-    assert "decision_authorizations" not in record(RECORDS, "review-decision")
+    assert "decision_registrations" not in record(RECORDS, "review-decision")
     assert record(RECORDS, "authority-succession")["effective_at"] < record(RECORDS, "authority-succession")["recorded_at"]
 
 
@@ -406,7 +406,7 @@ def test_bare_outcome_reference_is_not_interpreted_as_a_local_code(exports):
 
 def test_declared_reference_type_does_not_override_resolved_record_type():
     invalid = copy.deepcopy(RECORDS)
-    record(invalid, "grant-decision")["decision_authorizations"] = [ref("business", "Authorization")]
+    record(invalid, "grant-decision")["decision_registrations"] = [ref("business", "Authorization")]
     with pytest.raises(profile.ProfileError, match="declared type disagrees"):
         profile.validate_journey(invalid, CONFIG)
 
@@ -448,3 +448,18 @@ def test_a_representative_can_act_for_a_household_or_a_trust(exports):
                             ("fr", ("groupe", "construction juridique")),
                             ("es", ("grupo", "estructura jurídica"))):
         assert all(word in prop["definition"][language] for word in words), language
+
+
+def test_a_decision_can_establish_any_registration(exports):
+    # Decisions grant voter, tax and holding registrations as well as permits.
+    built, shapes, hierarchy, _ = exports
+    assert built["properties"]["decision_registrations"]["type"] == "concept:Registration"
+    assert "decision_authorizations" not in built["properties"]
+    changed = copy.deepcopy(RECORDS)
+    changed.append({
+        "@context": DEFAULT_CONTEXT_URL, "@id": BASE + "tax-registration", "@type": "TaxRegistration",
+    })
+    record(changed, "grant-decision")["decision_registrations"].append(ref("tax-registration", "TaxRegistration"))
+    validator(exports, "AdministrativeDecision").validate(record(changed, "grant-decision"))
+    conforms, _, report = validate(jsonld_graph(changed, built["context"]), shacl_graph=shapes, ont_graph=hierarchy)
+    assert conforms, report

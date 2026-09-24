@@ -132,8 +132,8 @@ def validate_journey(records, config):
         grants = [
             decision for decision in records
             if decision["@type"] == "AdministrativeDecision"
-            and any(reference(value, {"Authorization"}, f"{decision['@id']}.decision_authorizations")["@id"] == permit["@id"]
-                    for value in decision.get("decision_authorizations", []))
+            and any(reference(value, {"Authorization"}, f"{decision['@id']}.decision_registrations")["@id"] == permit["@id"]
+                    for value in decision.get("decision_registrations", []))
         ]
         if len(grants) != 1 or "decides_application" not in grants[0]:
             raise ProfileError(f"{appeal['@id']}: expected one original application grant for permit")
@@ -228,13 +228,13 @@ def validate_journey(records, config):
                 raise ProfileError(f"{key}.subject_uri: differs from application subject")
             if made_on < calendar_date(application, "request_submission_date"):
                 raise ProfileError(f"{key}.decision_date: precedes application")
-        for value in record.get("decision_authorizations", []):
-            permit = reference(value, {"Authorization"}, f"{key}.decision_authorizations")
+        for value in record.get("decision_registrations", []):
+            permit = reference(value, {"Authorization"}, f"{key}.decision_registrations")
             if linked(permit, "registered_subject", None)["@id"] != subject["@id"]:
-                raise ProfileError(f"{key}.decision_authorizations: permit subject differs from decision subject")
+                raise ProfileError(f"{key}.decision_registrations: permit subject differs from decision subject")
             issuer = linked(permit, "registration_authority", {"PublicOrganization"})
             if issuer["@id"] != authority["@id"]:
-                raise ProfileError(f"{key}.decision_authorizations: permit issuer differs from deciding authority")
+                raise ProfileError(f"{key}.decision_registrations: permit issuer differs from deciding authority")
         for value in record.get("decision_regulatory_actions", []):
             action = reference(value, {"RegulatoryAction"}, f"{key}.decision_regulatory_actions")
             if linked(action, "subject_uri", None)["@id"] != subject["@id"]:
@@ -245,8 +245,8 @@ def validate_journey(records, config):
         if outcome["code_scheme"] != config["decision_outcome_scheme"]:
             raise ProfileError(f"{key}.decision_outcome: unsupported local outcome scheme")
         if outcome["code_value"] == "granted":
-            if not record.get("decision_authorizations"):
-                raise ProfileError(f"{key}.decision_authorizations: synthetic grant requires a permission")
+            if not record.get("decision_registrations"):
+                raise ProfileError(f"{key}.decision_registrations: synthetic grant requires a permission")
         elif outcome["code_value"] == "suspended":
             if subject["@type"] != "Authorization":
                 raise ProfileError(f"{key}.subject_uri: suspension must target a permission")
