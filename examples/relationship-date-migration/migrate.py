@@ -1,4 +1,4 @@
-"""Convert the named draft relationships from inclusive calendar validity dates.
+"""Convert inclusive source validity dates on the named relationships to start_date/end_date.
 
 This example helper returns a new JSON document and never rewrites its input file.
 It is deliberately independent of the repository's vocabulary build machinery.
@@ -15,19 +15,14 @@ RELATIONSHIPS = {
     "HoldingParcelLink", "AnimalResidence", "AnimalResponsibility",
     "AgriculturalServiceRole", "IdentifierAssignment", "NameUsage", "ContactPoint",
 }
-TRANSFORMED_ASSIGNMENTS = {"AssetPartyRole", "AssetAddressAssignment"}
-RETIRED_ASSIGNMENTS = {"FacilityManagementAssignment", "FacilityAddressAssignment"}
+QUALIFIED_ASSIGNMENTS = {"AssetPartyRole", "AssetAddressAssignment"}
 AGRICULTURAL_RELATIONSHIPS = {"HoldingParcelLink", "AnimalResidence", "AgriculturalServiceRole"}
 TYPE_ALIASES = {}
-for _name in RELATIONSHIPS | TRANSFORMED_ASSIGNMENTS | RETIRED_ASSIGNMENTS:
+for _name in RELATIONSHIPS | QUALIFIED_ASSIGNMENTS:
+    _path = "agri/" + _name if _name in AGRICULTURAL_RELATIONSHIPS else _name
     TYPE_ALIASES.update({value: _name for value in (
-        _name, "publicschema:" + _name, "https://publicschema.org/" + _name,
+        _name, _path, "publicschema:" + _path, "https://publicschema.org/" + _path,
     )})
-    if _name in AGRICULTURAL_RELATIONSHIPS:
-        TYPE_ALIASES.update({value: _name for value in (
-            "agri/" + _name, "publicschema:agri/" + _name,
-            "https://publicschema.org/agri/" + _name,
-        )})
 SOURCE_BOUNDARY = "inclusive-calendar-days"
 OLD_DATES = ("valid_from", "valid_to")
 CURRENT_DATES = ("start_date", "end_date")
@@ -45,9 +40,10 @@ def migrate_relationship_dates(document, *, source_boundary=None):
     """Return a copy with the named relationship dates converted, or fail as a whole.
 
     The caller must establish SOURCE_BOUNDARY from the source contract whenever
-    legacy dates occur. Missing bounds stay missing. Exact authored class names,
-    historical root URIs and the named new domain URIs are recognized. The helper
-    preserves type identifiers; context expansion and URI migration are separate.
+    source validity dates occur. Missing bounds stay missing. The compact class
+    alias and the exact PublicSchema identifiers are recognized. The helper
+    preserves type identifiers; mapping source record types and context expansion
+    are separate steps.
     """
     result = copy.deepcopy(document)
     diagnostics = []
@@ -75,40 +71,33 @@ def migrate_relationship_dates(document, *, source_boundary=None):
                     report(f"{path}/@type", "unsupported-type-identifier", "Use one exact admitted type identifier; a matching local name or context alias does not establish class identity.")
                     break
             return
-        if kind == "FacilityManagementAssignment":
-            report(path, "ambiguous-facility-management", "Review the source responsibility before selecting an AssetPartyRole; management does not identify operator, upkeep or owner.")
-            return
-        if kind == "FacilityAddressAssignment":
-            report(path, "address-purpose-review-required", "Review the source address purpose and transform the class and endpoint fields to AssetAddressAssignment before converting dates.")
-            return
-        legacy = any(field in record for field in OLD_DATES)
-        if legacy and any(field in record for field in CURRENT_DATES):
+        inclusive = any(field in record for field in OLD_DATES)
+        if inclusive and any(field in record for field in CURRENT_DATES):
             report(path, "mixed-date-pairs", "Both date pairs occur; reconcile them from the source before migration.")
             return
-        if legacy and source_boundary != SOURCE_BOUNDARY:
-            report(path, "unknown-source-boundary", "Confirm inclusive-calendar-days from the source contract before converting legacy dates.")
+        if inclusive and source_boundary != SOURCE_BOUNDARY:
+            report(path, "unknown-source-boundary", "Confirm inclusive-calendar-days from the source contract before converting source validity dates.")
             return
-        if legacy and kind in TRANSFORMED_ASSIGNMENTS:
+        if inclusive and kind in QUALIFIED_ASSIGNMENTS:
             field = "asset_role_type" if kind == "AssetPartyRole" else "address_purpose"
             code = record.get(field)
             endpoints = ("subject_uri", "asset_actor" if kind == "AssetPartyRole" else "assigned_address")
-            retired_fields = {"managed_facility", "managing_organization", "addressed_facility", "facility_address"}
-            if any(key not in record for key in endpoints) or retired_fields & record.keys():
-                report(path, "incomplete-assignment-transformation", "Transform the retired endpoint fields explicitly before converting this assignment's dates.")
+            if any(key not in record for key in endpoints):
+                report(path, "incomplete-assignment-transformation", "Map the asset and its party or address explicitly before converting this assignment's dates.")
                 return
             if (not isinstance(code, dict) or not isinstance(code.get("code_value"), str)
                     or not code["code_value"] or not isinstance(code.get("code_scheme"), str)
                     or not re.match(r"[A-Za-z][A-Za-z0-9+.-]*:", code["code_scheme"])):
                 report(f"{path}/{field}", "assignment-meaning-required", "Supply the source-reviewed role or address purpose as a scheme-qualified code before converting dates.")
                 return
-        fields = OLD_DATES if legacy else CURRENT_DATES
+        fields = OLD_DATES if inclusive else CURRENT_DATES
         before = len(diagnostics)
         start, end = (parse_day(record[field], f"{path}/{field}") if field in record else None for field in fields)
-        if start and end and (end < start if legacy else end <= start):
+        if start and end and (end < start if inclusive else end <= start):
             report(path, "invalid-period", "The period must contain at least one effective calendar day.")
-        if legacy and end == date.max:
+        if inclusive and end == date.max:
             report(f"{path}/valid_to", "unrepresentable-end-date", "The day after 9999-12-31 is outside the supported calendar; do not replace it with an unknown end.")
-        if len(diagnostics) != before or not legacy:
+        if len(diagnostics) != before or not inclusive:
             return
         if "valid_from" in record:
             record["start_date"] = record.pop("valid_from")

@@ -139,7 +139,7 @@ AgriculturalServiceRole, IdentifierAssignment, NameUsage, ContactPoint,
 AssetPartyRole and AssetAddressAssignment. Registration (including Authorization specializations such as DrivingEntitlement),
 RegistryEntry, AgriculturalParcel, Certification and LandTenureAssertion retain
 their declared calendar validity.
-The [relationship migration guide](relationship-date-migration.md) describes the
+The [relationship date conversion guide](relationship-date-migration.md) describes the
 explicit conversion contract for source records that use calendar validity. Renaming an
 inclusive `valid_to` to `end_date` without changing the boundary loses an effective day.
 

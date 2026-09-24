@@ -2,7 +2,7 @@
 
 A register, its record and the subject of that record have different identities. `RegistryEntry` uses a register URI and local record ID as its qualified key and an explicit `subject_uri` for the described thing. `Registration` records administrative recognition; `Authorization` adds permission for a stated activity. Neither is the Person, Organization, facility, product or Farm receiving it. These terms are optional reference vocabulary at draft maturity. They are not a registry submission format, a full-domain model or a normative specification.
 
-See the [government families](government-registry.md), [biology](agriculture-biology.md), [agricultural operations](agriculture-operations.md), [facility responsibilities and addresses](facility-roles.md), and [relationship date migration](relationship-date-migration.md) for neighboring concepts. [ADR-020](../decisions/020-registry-foundations.md) records the common choices and alternatives.
+See the [government families](government-registry.md), [biology](agriculture-biology.md), [agricultural operations](agriculture-operations.md), [facility responsibilities and addresses](facility-roles.md), and [relationship date conversion](relationship-date-migration.md) for neighboring concepts. [ADR-020](../decisions/020-registry-foundations.md) records the common choices and alternatives.
 
 ## Evidence and design judgment
 
@@ -118,8 +118,8 @@ and the evidence that would justify changing this choice.
 The pilot's `valid_from` / `valid_to` dates include the first and last applicable calendar
 days. Relationship classes use `start_date` / `end_date`, where `end_date` is the date on
 which the relationship ceased to be effective. They must not be converted by simply
-renaming fields; [relationship date migration](relationship-date-migration.md) lists the
-affected classes and preserves registration, tenure, parcel and certification validity
+renaming fields; [relationship date conversion](relationship-date-migration.md) lists the
+relationships concerned and preserves registration, tenure, parcel and certification validity
 semantics. Neither pair is a recording timestamp.
 
 Typed vocabulary references provide more information than arbitrary URI ranges. For general subjects, the example profile checks the locally resolved type. JSON Schema's accepted string reference alone proves neither existence nor identity. Source-local class strings and semantic type URIs are not silently interchanged, and no lossless projection or national compliance is claimed.

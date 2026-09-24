@@ -50,9 +50,9 @@ with an explicit encoding and coordinate reference system. The example's school
 keeps its physical address while its mailing box changes a month after its
 operator changes.
 
-Migrating an existing facility address exchange needs an explicitly stated address
-purpose for each assignment. The [relationship date migration guide](/docs/relationship-date-migration/)
-describes the field and date changes. It does not infer physical versus postal
+Converting source facility address records needs an explicitly stated address
+purpose for each assignment. The [relationship date conversion guide](/docs/relationship-date-migration/)
+describes the field mapping and date conversion. It does not infer physical versus postal
 purpose from address text.
 
 ## Read the synthetic journeys

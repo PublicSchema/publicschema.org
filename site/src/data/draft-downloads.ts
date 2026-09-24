@@ -23,7 +23,7 @@ const exampleFiles: Record<string, string[]> = {
   'fhir-registry/artifacts': ['README.md', 'manifest.json', 'base-profiles.zip', 'fhir.schema.json.zip'],
   'government-relationships': ['records.json', 'negative-cases.json', 'validate_profile.py'],
   'public-services': ['records.json', 'profile.json', 'profile.py'],
-  'relationship-date-migration': ['legacy-records.json', 'records.json', 'migrate.py'],
+  'relationship-date-migration': ['source-records.json', 'records.json', 'migrate.py'],
   'domain-migration': ['uri-map.json'],
   'shared': ['profile_support.py'],
 };

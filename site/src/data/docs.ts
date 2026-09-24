@@ -64,14 +64,14 @@ export const docs: Record<string, DocEntry> = {
   'relationship-date-migration': {
     file: 'relationship-date-migration.md',
     title: {
-      en: 'Relationship date migration',
-      fr: 'Migration des dates de relation',
-      es: 'Migración de fechas de relación',
+      en: 'Relationship date conversion',
+      fr: 'Conversion des dates de relation',
+      es: 'Conversión de fechas de relación',
     },
     description: {
-      en: 'Migrating dates that describe relationships and periods of responsibility.',
-      fr: 'Migrer les dates qui décrivent des relations et des périodes de responsabilité.',
-      es: 'Migrar las fechas que describen relaciones y períodos de responsabilidad.',
+      en: 'Converting inclusive source validity dates on relationships and periods of responsibility.',
+      fr: 'Convertir les dates de validité inclusives des sources pour les relations et les périodes de responsabilité.',
+      es: 'Convertir las fechas de validez inclusivas de origen en relaciones y períodos de responsabilidad.',
     },
     category: 'technical',
   },

@@ -21,8 +21,8 @@ BOUNDARY = migration.SOURCE_BOUNDARY
 
 
 @pytest.fixture(scope="module")
-def legacy():
-    return json.loads((EXAMPLES / "legacy-records.json").read_text())
+def source_records():
+    return json.loads((EXAMPLES / "source-records.json").read_text())
 
 
 def convert(document, source_boundary=BOUNDARY):
@@ -34,15 +34,15 @@ def schema_for(result, type_name):
     return next(schema for schema in result["concept_schemas"].values() if schema["$id"] == uri + ".schema.json")
 
 
-def test_fixture_conversion_is_reviewable_idempotent_and_does_not_mutate(legacy):
-    original = copy.deepcopy(legacy)
-    migrated = convert(legacy)
+def test_fixture_conversion_is_reviewable_idempotent_and_does_not_mutate(source_records):
+    original = copy.deepcopy(source_records)
+    migrated = convert(source_records)
     assert migrated == json.loads((EXAMPLES / "records.json").read_text())
-    assert legacy == original
-    assert migrated is not legacy
+    assert source_records == original
+    assert migrated is not source_records
     assert migration.migrate_relationship_dates(migrated) == migrated
-    assert {record["@type"] for record in legacy} >= migration.RELATIONSHIPS
-    for before, after in zip(legacy, migrated, strict=True):
+    assert {record["@type"] for record in source_records} >= migration.RELATIONSHIPS
+    for before, after in zip(source_records, migrated, strict=True):
         assert before["@id"] == after["@id"] and before["@type"] == after["@type"]
         if before["@type"] in migration.RELATIONSHIPS:
             assert {key: value for key, value in before.items() if key not in migration.OLD_DATES} == {
@@ -120,8 +120,8 @@ def test_nested_exchange_is_all_or_nothing_and_missing_dates_are_not_invented():
 
 
 @pytest.mark.parametrize("type_id", [
-    "AnimalResidence", "publicschema:AnimalResidence", "https://publicschema.org/AnimalResidence",
-    "agri/AnimalResidence", "publicschema:agri/AnimalResidence", "https://publicschema.org/agri/AnimalResidence",
+    "AnimalResidence", "agri/AnimalResidence",
+    "publicschema:agri/AnimalResidence", "https://publicschema.org/agri/AnimalResidence",
     "agri/AgriculturalServiceRole", "https://publicschema.org/agri/AgriculturalServiceRole",
     "AnimalResponsibility", "https://publicschema.org/AnimalResponsibility",
 ])
@@ -131,11 +131,8 @@ def test_exact_type_identifiers_are_preserved(type_id):
     }
 
 
-@pytest.mark.parametrize("prefix", [
-    "", "publicschema:", "https://publicschema.org/", "agri/",
-    "publicschema:agri/", "https://publicschema.org/agri/",
-])
-def test_service_roles_accept_exact_historical_and_current_type_identifiers(prefix):
+@pytest.mark.parametrize("prefix", ["", "agri/", "publicschema:agri/", "https://publicschema.org/agri/"])
+def test_service_roles_accept_the_compact_alias_and_exact_domain_identifiers(prefix):
     type_id = prefix + "AgriculturalServiceRole"
     assert convert({"@type": type_id, "valid_from": "2026-12-31", "valid_to": "2026-12-31"}) == {
         "@type": type_id, "start_date": "2026-12-31", "end_date": "2027-01-01",
@@ -145,6 +142,7 @@ def test_service_roles_accept_exact_historical_and_current_type_identifiers(pref
 @pytest.mark.parametrize("type_id", [
     "https://unrelated.example/AnimalResidence", "alien:AnimalResidence",
     "https://publicschema.org/agri/AnimalResponsibility", "health/AnimalResidence",
+    "publicschema:AnimalResidence", "https://publicschema.org/AnimalResidence",
     ["AnimalResidence", "AnimalResponsibility"],
 ])
 def test_a_matching_local_name_does_not_establish_class_identity(type_id):
@@ -153,8 +151,10 @@ def test_a_matching_local_name_does_not_establish_class_identity(type_id):
     assert error.value.diagnostics[0]["code"] == "unsupported-type-identifier"
 
 
-@pytest.mark.parametrize("prefix", ["https://unrelated.example/", "alien:", "health/"])
-def test_service_roles_reject_foreign_namespaces(prefix):
+@pytest.mark.parametrize("prefix", [
+    "https://unrelated.example/", "alien:", "health/", "publicschema:", "https://publicschema.org/",
+])
+def test_service_roles_reject_other_namespaces(prefix):
     with pytest.raises(migration.MigrationError) as error:
         convert({"@type": prefix + "AgriculturalServiceRole", "valid_to": "2026-06-30"})
     assert error.value.diagnostics[0]["code"] == "unsupported-type-identifier"
@@ -170,27 +170,18 @@ def test_service_roles_require_source_boundary_and_reject_unrepresentable_end():
     assert error.value.diagnostics[0]["code"] == "unrepresentable-end-date"
 
 
-def test_collapsed_agricultural_roles_are_not_migration_targets():
-    removed = {"ProducerMembership", "InputSupplierRole", "PesticideApplicatorRole", "SeedOperatorRole"}
-    assert not removed & migration.RELATIONSHIPS
-    assert not removed & set(migration.TYPE_ALIASES.values())
-
-
-@pytest.mark.parametrize("kind,code", [
-    ("FacilityManagementAssignment", "ambiguous-facility-management"),
-    ("FacilityAddressAssignment", "address-purpose-review-required"),
-])
-def test_retired_facility_assertions_need_source_meaning_review(kind, code):
-    with pytest.raises(migration.MigrationError) as error:
-        convert({"@type": kind, "valid_to": "2026-06-30"})
-    assert error.value.diagnostics[0]["code"] == code
+def test_only_publicschema_relationship_types_are_converted():
+    # Source record types are mapped to a PublicSchema type before their dates are converted.
+    source = [{"@type": "FacilityManagementAssignment", "valid_to": "2026-06-30"}]
+    assert convert(source) == source
+    assert set(migration.TYPE_ALIASES.values()) == migration.RELATIONSHIPS | migration.QUALIFIED_ASSIGNMENTS
 
 
 @pytest.mark.parametrize("kind,endpoint,meaning_field,code", [
     ("AssetPartyRole", "asset_actor", "asset_role_type", "upkeep"),
     ("AssetAddressAssignment", "assigned_address", "address_purpose", "postal"),
 ])
-def test_only_explicitly_transformed_facility_facts_can_have_dates_converted(kind, endpoint, meaning_field, code):
+def test_facility_assignments_need_their_endpoints_and_reviewed_meaning(kind, endpoint, meaning_field, code):
     source = {"@type": kind, "subject_uri": "https://example.org/facility",
               endpoint: "https://example.org/endpoint", "valid_to": "2026-06-30"}
     with pytest.raises(migration.MigrationError) as error:
@@ -199,15 +190,15 @@ def test_only_explicitly_transformed_facility_facts_can_have_dates_converted(kin
     source[meaning_field] = {"@type": "CodedValue", "code_scheme": "https://example.org/reviewed-scheme", "code_value": code}
     converted = convert(source)
     assert converted["end_date"] == "2026-07-01" and converted[meaning_field] == source[meaning_field]
-    source["addressed_facility"] = "https://example.org/facility"
+    del source[endpoint]
     with pytest.raises(migration.MigrationError) as error:
         convert(source)
     assert error.value.diagnostics[0]["code"] == "incomplete-assignment-transformation"
 
 
-def test_cli_never_rewrites_input_or_emits_a_partial_result(tmp_path, legacy):
+def test_cli_never_rewrites_input_or_emits_a_partial_result(tmp_path, source_records):
     source = tmp_path / "source.json"
-    source.write_text(json.dumps(legacy))
+    source.write_text(json.dumps(source_records))
     original = source.read_bytes()
     command = [sys.executable, str(EXAMPLES / "migrate.py"), str(source)]
     rejected = subprocess.run(command, text=True, capture_output=True, check=False)
@@ -215,15 +206,15 @@ def test_cli_never_rewrites_input_or_emits_a_partial_result(tmp_path, legacy):
     assert json.loads(rejected.stderr)["errors"][0]["code"] == "unknown-source-boundary"
     accepted = subprocess.run(command + ["--source-boundary", BOUNDARY], text=True, capture_output=True, check=False)
     assert accepted.returncode == 0 and not accepted.stderr
-    assert json.loads(accepted.stdout) == convert(legacy)
+    assert json.loads(accepted.stdout) == convert(source_records)
     assert source.read_bytes() == original
 
 
 def test_migrated_examples_validate_against_real_exports(
-    legacy, built_vocabulary, schema_registry, shacl_graph, subclass_hierarchy,
+    source_records, built_vocabulary, schema_registry, shacl_graph, subclass_hierarchy,
 ):
     result, registry = built_vocabulary, schema_registry
-    migrated = convert(legacy)
+    migrated = convert(source_records)
     for record in migrated:
         jsonschema.Draft202012Validator(
             schema_for(result, record["@type"]), registry=registry,

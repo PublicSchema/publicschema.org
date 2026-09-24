@@ -38,7 +38,7 @@ COMMANDS = {
     "fhir-registry": (["examples/fhir-registry/validate.py"],
                       "PASS: official R5 JSON Schema and local reference contract"),
     "relationship-date-migration": ([f"{MIGRATION}/migrate.py", "--source-boundary", "inclusive-calendar-days",
-                                     f"{MIGRATION}/legacy-records.json"],
+                                     f"{MIGRATION}/source-records.json"],
                                     "https://example.org/date-migration/holding"),
 }
 
