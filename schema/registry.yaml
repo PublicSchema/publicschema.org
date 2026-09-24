@@ -781,6 +781,7 @@ slots:
       description_fr: Le sujet dont on juge que l'entrée de registre le décrit, ou dont on juge qu'elle
         ne le décrit pas.
       category: administrative
+      sensitivity: sensitive
   match_method:
     slot_uri: publicschema:match_method
     title: Match method

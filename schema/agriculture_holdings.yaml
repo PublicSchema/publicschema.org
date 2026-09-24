@@ -321,6 +321,7 @@ slots:
       description_fr: La personne qui assume ce rôle d'exploitant agricole. Elle n'est pas déduite de
         l'appartenance au ménage, de la propriété ou de l'emploi.
       category: administrative
+      sensitivity: sensitive
       bibliography_refs: '["fao-wca-2020-vol1", "fao-wca-2030"]'
   holder_organization:
     slot_uri: publicschema:agri/holder_organization

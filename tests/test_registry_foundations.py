@@ -100,6 +100,15 @@ def test_register_references_carry_the_sensitive_signal(result):
         assert result["properties"][slot]["sensitivity"] == "sensitive"
 
 
+@pytest.mark.parametrize("slot", [
+    "holder_person", "work_person", "role_actor", "asset_actor", "interest_holder",
+    "tenure_holder", "animal_responsible_actor", "matched_subject", "registered_subject",
+])
+def test_links_naming_the_party_behind_a_role_or_match_are_sensitive(result, slot):
+    # Each of these ties a person to a holding, job, asset, interest or record.
+    assert result["properties"][slot]["sensitivity"] == "sensitive"
+
+
 def test_asset_actor_admits_groups_by_definition(result):
     prop = result["properties"]["asset_actor"]
     assert prop["type"] == "uri"

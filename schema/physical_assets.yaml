@@ -160,6 +160,7 @@ slots:
       description_fr: L'URI de la personne, de l'organisation ou du groupe qui détient la responsabilité
         sur le bien.
       category: governance
+      sensitivity: sensitive
   asset_role_type:
     slot_uri: publicschema:asset_role_type
     title: Asset role type
