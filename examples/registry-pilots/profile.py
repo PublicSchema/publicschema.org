@@ -81,7 +81,7 @@ def validate_period(record):
     # valid_to is the last valid day, so a one-day validity has valid_from == valid_to.
     start, end = (profile_support.parse_day(record[field], field) if field in record else None
                   for field in ('valid_from', 'valid_to'))
-    profile_support.check_period(start, end, exclusive=False, message='valid_from must not follow valid_to')
+    profile_support.check_period(start, end, message='valid_from must not follow valid_to')
 
 
 def validate_asset_party_role(record, subjects):

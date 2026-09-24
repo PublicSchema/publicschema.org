@@ -14,13 +14,13 @@ from profile_support import check_period, parse_day  # noqa: E402
 
 ORGANIZATION_TYPES = {"Organization", "PublicOrganization", "edu/EducationProvider"}
 ACTOR_TYPES = ORGANIZATION_TYPES | {"Person"}
-# valid_to is the last valid day; end_date is the first inactive day.
-PERIODS = (("valid_from", "valid_to", False), ("start_date", "end_date", True))
+# Both pairs include their end day.
+PERIODS = (("valid_from", "valid_to"), ("start_date", "end_date"))
 
 
 def period_errors(record):
     errors = []
-    for begin, end, exclusive in PERIODS:
+    for begin, end in PERIODS:
         bounds = []
         for field in (begin, end):
             try:
@@ -29,7 +29,7 @@ def period_errors(record):
                 errors.append(str(error))
                 bounds.append(None)
         try:
-            check_period(*bounds, exclusive=exclusive)
+            check_period(*bounds)
         except ValueError:
             errors.append("empty or reversed period")
     return errors

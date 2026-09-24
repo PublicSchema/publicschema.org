@@ -30,10 +30,9 @@ Copy and change a profile to suit your own data exchange.
 `shared/profile_support.py` holds the checks every profile needs in the same form:
 
 - `parse_day` accepts only an exact `YYYY-MM-DD` calendar date.
-- `check_period` applies the two date conventions. `start_date` and `end_date`
-  are end-exclusive: `end_date` is the first day the record no longer applies,
-  so the end must fall after the start. `valid_from` and `valid_to` are
-  inclusive: `valid_to` is the last valid day, so a one-day validity is allowed.
+- `check_period` checks that a period does not end before it starts. Both
+  `start_date`/`end_date` and `valid_from`/`valid_to` include their end day, so
+  equal start and end dates describe a one-day period.
 - `absolute_uri` and `coded_value` check references and classifications.
 
 Scripts import it by adding `examples/shared` to `sys.path`, so each one still

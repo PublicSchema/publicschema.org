@@ -1,6 +1,7 @@
 """Farm is a production unit; holder responsibilities preserve typed subjects."""
 import copy
 import json
+from datetime import date, timedelta
 from pathlib import Path
 
 import jsonschema
@@ -92,13 +93,13 @@ def test_profile_counterexamples(farm, case):
 
 
 @pytest.mark.parametrize("changes,message", [
-    # end_date is the first inactive day, so ending on the start day leaves no effective day.
-    ({"end_date": "2025-01-01"}, "at least one day"),
+    # end_date is the last effective day, so ending the day before the start day is reversed.
+    ({"end_date": "2024-12-31"}, "ends before it starts"),
     ({"start_date": 20250101}, "exact YYYY-MM-DD"),
     ({"end_date": ["2026-01-01"]}, "exact YYYY-MM-DD"),
     ({"start_date": "20250101"}, "exact YYYY-MM-DD"),
 ])
-def test_holder_role_period_is_end_exclusive_and_strict(farm, changes, message):
+def test_holder_role_period_is_inclusive_and_strict(farm, changes, message):
     _, _, original, _ = farm
     records = copy.deepcopy(original)
     role = next(r for r in records if r["@id"] == EX + "person-role")
@@ -230,15 +231,15 @@ def test_paid_unpaid_family_and_holder_management_are_independent(workforce):
     assert "identifiers" not in index[manager["work_person"]]
 
 
-def test_manager_handoff_uses_first_inactive_day_without_closing_holder(workforce):
+def test_manager_handoff_ends_on_the_last_day_without_closing_holder(workforce):
     index = {r["@id"]: r for r in workforce}
     former = index[EX + "amina-management"]
     replacement = index[EX + "unpaid-management"]
     holder = copy.deepcopy(index[EX + "person-role"])
-    assert former["end_date"] == replacement["start_date"] == "2025-07-01"
+    assert former["end_date"] == "2025-06-30" and replacement["start_date"] == "2025-07-01"
 
     def active(record, day):
-        return record.get("start_date", day) <= day < record.get("end_date", "9999-12-31")
+        return record.get("start_date", day) <= day <= record.get("end_date", "9999-12-31")
 
     assert active(former, "2025-06-30") and not active(replacement, "2025-06-30")
     assert not active(former, "2025-07-01") and active(replacement, "2025-07-01")
@@ -262,8 +263,8 @@ def test_agency_and_contractor_keep_one_economic_relationship_across_two_holding
 
 @pytest.mark.parametrize("case", ["missing_person", "software_person", "missing_holding", "wrong_holding",
     "missing_relationship", "wrong_relationship", "different_person", "missing_unit", "wrong_unit",
-    "missing_unit_field", "reversed_dates", "empty_interval", "invalid_date", "compact_date", "before_relationship",
-    "after_relationship", "starts_on_cessation", "code_without_scheme", "relationship_functions"])
+    "missing_unit_field", "reversed_dates", "invalid_date", "compact_date", "before_relationship",
+    "after_relationship", "starts_after_relationship_ends", "code_without_scheme", "relationship_functions"])
 def test_work_profile_rejects_inconsistent_assertions(workforce, case):
     records = copy.deepcopy(workforce)
     assignment = next(r for r in records if r["@id"] == EX + "agency-river")
@@ -290,8 +291,6 @@ def test_work_profile_rejects_inconsistent_assertions(workforce, case):
         del relationship["work_economic_unit"]
     elif case == "reversed_dates":
         assignment["end_date"] = "2025-04-01"
-    elif case == "empty_interval":
-        assignment["end_date"] = assignment["start_date"]
     elif case == "invalid_date":
         assignment["start_date"] = "2025-02-30"
     elif case == "compact_date":
@@ -301,8 +300,8 @@ def test_work_profile_rejects_inconsistent_assertions(workforce, case):
         assignment["start_date"] = "2024-12-31"
     elif case == "after_relationship":
         assignment["end_date"] = "2026-02-01"
-    elif case == "starts_on_cessation":
-        assignment["start_date"] = relationship["end_date"]
+    elif case == "starts_after_relationship_ends":
+        assignment["start_date"] = (date.fromisoformat(relationship["end_date"]) + timedelta(days=1)).isoformat()
         del assignment["end_date"]
     elif case == "relationship_functions":
         relationship["work_functions"] = copy.deepcopy(assignment["work_functions"])
@@ -310,6 +309,19 @@ def test_work_profile_rejects_inconsistent_assertions(workforce, case):
         del assignment["work_functions"][0]["code_scheme"]
     with pytest.raises(ValueError):
         _profile.validate_profile(records)
+
+
+@pytest.mark.parametrize("case", ["one_day", "starts_on_relationship_last_day"])
+def test_an_assignment_may_last_one_day_or_start_on_the_relationship_last_day(workforce, case):
+    records = copy.deepcopy(workforce)
+    assignment = next(r for r in records if r["@id"] == EX + "agency-river")
+    relationship = next(r for r in records if r["@id"] == EX + "agency-employment")
+    if case == "one_day":
+        assignment["end_date"] = assignment["start_date"]
+    else:
+        assignment["start_date"] = relationship["end_date"]
+        del assignment["end_date"]
+    _profile.validate_profile(records)
 
 
 def test_partial_work_vocabulary_and_minimal_participation(farm):

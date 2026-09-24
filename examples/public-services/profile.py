@@ -91,9 +91,9 @@ def validate_journey(records, config):
         except ValueError as exc:
             raise ProfileError(f"{record['@id']}.{field}: calendar date required") from exc
 
-    def period(record, start, end, *, exclusive, label):
+    def period(record, start, end, *, label):
         try:
-            check_period(calendar_date(record, start), calendar_date(record, end), exclusive=exclusive)
+            check_period(calendar_date(record, start), calendar_date(record, end))
         except ProfileError:
             raise
         except ValueError as exc:
@@ -158,10 +158,10 @@ def validate_journey(records, config):
     for record in records:
         key, kind = record["@id"], record["@type"]
         label = "representation period" if kind == "RepresentationRole" else "period"
-        # end_date is the first inactive day; valid_to is the last valid day.
-        for start, end, exclusive in (("start_date", "end_date", True), ("valid_from", "valid_to", False)):
+        # end_date and valid_to are both the last effective day.
+        for start, end in (("start_date", "end_date"), ("valid_from", "valid_to")):
             if start in record and end in record:
-                period(record, start, end, exclusive=exclusive, label=label)
+                period(record, start, end, label=label)
         for field in ("effective_at", "recorded_at"):
             if field in record:
                 timestamp(record, field)
@@ -202,11 +202,11 @@ def validate_journey(records, config):
                 represented = linked(role, "represented", APPLICANTS)["@id"]
                 if (representative, represented) != (submitter["@id"], actor["@id"]):
                     raise ProfileError(f"{key}.submission_representation: representative or represented party mismatch")
-                # The start day is included and the end day is the first inactive day.
+                # The start day and the end day are both included.
                 # Permission validity is separate.
                 starts = calendar_date(role, "start_date")
                 ends = calendar_date(role, "end_date") if "end_date" in role else None
-                if when < starts or (ends is not None and when >= ends):
+                if when < starts or (ends is not None and when > ends):
                     raise ProfileError(f"{key}.submission_representation: outside representation period")
                 if not any(
                     grant["representation_uri"] == role["@id"]

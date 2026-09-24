@@ -27,15 +27,13 @@ def parse_day(value, field):
         raise ValueError(f"{field}: impossible calendar date") from None
 
 
-def check_period(start, end, *, exclusive, message=None):
+def check_period(start, end, *, message=None):
     """Raise ValueError unless known bounds form a non-empty period.
 
-    ``exclusive=True`` is the ``start_date``/``end_date`` convention: the end is
-    the first day no longer in effect, so the period needs ``end > start``.
-    ``exclusive=False`` is the ``valid_from``/``valid_to`` convention: the end
-    is the last day in effect, so ``end == start`` is a one-day period. A
-    missing bound is unknown, not open-ended, and is not checked. ``message``
-    replaces the default wording for a profile that names its own rule.
+    Both ``start_date``/``end_date`` and ``valid_from``/``valid_to`` include
+    their end day, so ``end == start`` is a one-day period. A missing bound is
+    unknown, not open-ended, and is not checked. ``message`` replaces the
+    default wording for a profile that names its own rule.
     """
     for bound in (start, end):
         if bound is not None and type(bound) is not date:
@@ -44,8 +42,6 @@ def check_period(start, end, *, exclusive, message=None):
         return
     if end < start:
         raise ValueError(message or "period: ends before it starts")
-    if exclusive and end == start:
-        raise ValueError(message or "period: an end-exclusive period must contain at least one day")
 
 
 def absolute_uri(value):

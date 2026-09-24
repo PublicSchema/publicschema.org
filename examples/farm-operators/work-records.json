@@ -38,7 +38,7 @@
     "holder_farm": "https://example.org/farm-pilot/holding",
     "holder_organization": "https://example.org/farm-pilot/cooperative",
     "start_date": "2024-01-01",
-    "end_date": "2025-01-01"
+    "end_date": "2024-12-31"
   },
   {
     "@id": "https://example.org/farm-pilot/person-role",
@@ -59,7 +59,7 @@
     "@type": "agri/GroupAgriculturalHolderRole",
     "holder_farm": "https://example.org/farm-pilot/holding",
     "holder_group": "https://example.org/farm-pilot/collective",
-    "end_date": "2024-01-01"
+    "end_date": "2023-12-31"
   },
   {
     "@id": "https://example.org/farm-pilot/amina",
@@ -117,7 +117,7 @@
     "work_person": "https://example.org/farm-pilot/amina",
     "assigned_holding": "https://example.org/farm-pilot/holding",
     "start_date": "2025-03-01",
-    "end_date": "2025-07-01",
+    "end_date": "2025-06-30",
     "work_functions": [
       {
         "@type": "CodedValue",
@@ -148,7 +148,7 @@
     "work_person": "https://example.org/farm-pilot/unpaid-manager",
     "assigned_holding": "https://example.org/farm-pilot/holding",
     "start_date": "2025-07-01",
-    "end_date": "2025-10-01",
+    "end_date": "2025-09-30",
     "work_functions": [
       {
         "@type": "CodedValue",
@@ -232,7 +232,7 @@
     "work_person": "https://example.org/farm-pilot/agency-worker",
     "work_economic_unit": "https://example.org/farm-pilot/agency",
     "start_date": "2025-01-01",
-    "end_date": "2026-01-01",
+    "end_date": "2025-12-31",
     "work_form": "employment_work",
     "work_status": {
       "@type": "CodedValue",
@@ -251,7 +251,7 @@
     "work_person": "https://example.org/farm-pilot/agency-worker",
     "assigned_holding": "https://example.org/farm-pilot/holding",
     "start_date": "2025-05-01",
-    "end_date": "2025-08-01",
+    "end_date": "2025-07-31",
     "assignment_work_relationship": "https://example.org/farm-pilot/agency-employment",
     "work_functions": [
       {
@@ -272,7 +272,7 @@
     "work_person": "https://example.org/farm-pilot/agency-worker",
     "assigned_holding": "https://example.org/farm-pilot/second-holding",
     "start_date": "2025-06-01",
-    "end_date": "2025-09-01",
+    "end_date": "2025-08-31",
     "assignment_work_relationship": "https://example.org/farm-pilot/agency-employment",
     "work_functions": [
       {
@@ -311,7 +311,7 @@
     "work_person": "https://example.org/farm-pilot/contractor",
     "assigned_holding": "https://example.org/farm-pilot/holding",
     "start_date": "2025-06-01",
-    "end_date": "2025-06-15",
+    "end_date": "2025-06-14",
     "assignment_work_relationship": "https://example.org/farm-pilot/contractor-work",
     "work_functions": [
       {
@@ -327,7 +327,7 @@
     "work_person": "https://example.org/farm-pilot/contractor",
     "assigned_holding": "https://example.org/farm-pilot/second-holding",
     "start_date": "2025-06-15",
-    "end_date": "2025-07-01",
+    "end_date": "2025-06-30",
     "assignment_work_relationship": "https://example.org/farm-pilot/contractor-work",
     "work_functions": [
       {

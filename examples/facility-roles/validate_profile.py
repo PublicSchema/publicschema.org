@@ -24,13 +24,12 @@ GROUP_TYPES = {"InformalGroup", "Household", "Family"}
 
 
 def period(record):
-    """Return known bounds; end_date is the first inactive calendar day here."""
+    """Return known bounds; end_date is the last effective calendar day."""
     if "valid_from" in record or "valid_to" in record:
         raise ValueError("period: use start_date/end_date; legacy validity cannot be renamed without review")
     start, end = (parse_day(record[field], field) if field in record else None
                   for field in ("start_date", "end_date"))
-    check_period(start, end, exclusive=True,
-                 message="end_date: an assignment must contain at least one effective calendar day")
+    check_period(start, end, message="end_date: an assignment must contain at least one effective calendar day")
     return start, end
 
 
@@ -39,7 +38,7 @@ def effective_on(record, day):
     if type(day) is not date:
         raise ValueError("day: expected a calendar date")
     start, end = period(record)
-    if start and day < start or end and day >= end:
+    if start and day < start or end and day > end:
         return False
     if start is None or end is None:
         return None

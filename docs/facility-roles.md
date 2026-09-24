@@ -104,11 +104,10 @@ source schemes require a profile decision; URI syntax alone cannot establish
 that a target is a physical facility or an allowed actor. The example uses
 identified, top-level records for references and does not fetch remote URIs.
 
-`start_date` includes its calendar day, and `end_date` is the date on which the
-responsibility ceased to be effective, so it is no longer in effect on that day.
-A former role ending on 1 July and its replacement starting
-on 1 July do not overlap. A nonempty interval is required when both dates are
-known. Missing dates remain unknown, and `effective_on` returns an unknown result
+`start_date` and `end_date` both include their calendar day, so `end_date` is the
+last day the responsibility is in effect. A former role ending on 30 June and its
+replacement starting on 1 July do not overlap. An end date on or after the start date
+is required when both dates are known. Missing dates remain unknown, and `effective_on` returns an unknown result
 where those missing bounds prevent an affirmative answer. No uniqueness rule is
 imposed on simultaneous actors or roles; exclusivity needs an applicable source
 rule.

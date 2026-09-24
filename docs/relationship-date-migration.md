@@ -3,11 +3,13 @@
 The relationships named below use `start_date` and `end_date`, following the
 [relationship convention](/docs/schema-design/#5-temporal-context). Source records
 that carry a `valid_from` and `valid_to` pair for them usually describe
-inclusive calendar validity. Renaming the keys without changing the end boundary would change the last effective day.
+inclusive calendar validity.
 
-The published definitions use whole calendar days: `start_date` is included and
-`end_date` is the first inactive day ([ADR-027](../decisions/027-end-date-boundary.md)).
-These fields are not timestamps and do not describe the time a source recorded a fact.
+The published definitions use whole calendar days, and both the start and the end
+day are included: `end_date` is the last effective day
+([ADR-027](../decisions/027-end-date-boundary.md)). An inclusive source pair
+therefore converts by renaming its keys. These fields are not timestamps and do
+not describe the time a source recorded a fact.
 
 ## Relationships that use start and end dates
 
@@ -34,7 +36,7 @@ because a relationship concerning the same subject is converted. `recorded_at` a
 Only after establishing that the source uses inclusive whole calendar days:
 
 1. Copy a present `valid_from` unchanged to `start_date`.
-2. Convert a present `valid_to` to the following calendar day as `end_date`.
+2. Copy a present `valid_to` unchanged to `end_date`.
 3. Remove the source keys. Preserve each omitted bound as omitted.
 
 For example:
@@ -46,15 +48,15 @@ For example:
 becomes:
 
 ```json
-{"@type":"AgriculturalServiceRole","start_date":"2026-12-31","end_date":"2027-01-01"}
+{"@type":"AgriculturalServiceRole","start_date":"2026-12-31","end_date":"2026-12-31"}
 ```
 
-Both describe one effective day. Likewise, an inclusive leap-day end of
-29 February 2024 becomes cessation on 1 March 2024. A missing end remains unknown;
-it is not replaced with a maximum date or treated as proof of perpetual validity.
-Unknown precision, partial dates, timestamps and unspecified boundary conventions
-require source clarification. `9999-12-31` has no representable following day in
-the supported calendar and must not silently become a missing end.
+Both describe one effective day. A missing end remains unknown; it is not
+replaced with a maximum date or treated as proof of perpetual validity. Unknown
+precision, partial dates, timestamps and unspecified boundary conventions require
+source clarification. A source whose end is the first day the validity no longer
+applies is not inclusive: subtract one day from its end, or clarify it, before
+using the helper.
 
 ## Interpret source facility assignments
 
@@ -124,9 +126,9 @@ require a separate adapter. Other classes, including source record types not yet
 mapped to PublicSchema, keep their original dates.
 
 Mixed source and current date pairs are rejected even when they appear to agree.
-Reconcile them from the source. Exact impossible dates, reversed or empty
-effective intervals, unsupported precision and end-date overflow have distinct,
-deterministic field diagnostics.
+Reconcile them from the source. Exact impossible dates, reversed effective
+intervals and unsupported precision have distinct, deterministic field
+diagnostics.
 
 Run the focused checks:
 

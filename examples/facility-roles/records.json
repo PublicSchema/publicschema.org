@@ -61,7 +61,7 @@
       "code_scheme": "https://publicschema.org/vocab/asset-role-type"
     },
     "start_date": "2020-01-01",
-    "end_date": "2026-07-01"
+    "end_date": "2026-06-30"
   },
   {
     "@id": "https://example.org/facility-roles/school-operator-after",
@@ -74,7 +74,7 @@
       "code_scheme": "https://publicschema.org/vocab/asset-role-type"
     },
     "start_date": "2026-07-01",
-    "end_date": "2027-07-01"
+    "end_date": "2027-06-30"
   },
   {
     "@id": "https://example.org/facility-roles/school-upkeep",
@@ -87,7 +87,7 @@
       "code_scheme": "https://publicschema.org/vocab/asset-role-type"
     },
     "start_date": "2025-01-01",
-    "end_date": "2028-01-01"
+    "end_date": "2027-12-31"
   },
   {
     "@id": "https://example.org/facility-roles/warehouse",
@@ -149,7 +149,7 @@
       "code_scheme": "https://publicschema.org/vocab/asset-role-type"
     },
     "start_date": "2025-01-01",
-    "end_date": "2026-03-01"
+    "end_date": "2026-02-28"
   },
   {
     "@id": "https://example.org/facility-roles/warehouse-operator-after",
@@ -162,7 +162,7 @@
       "code_scheme": "https://publicschema.org/vocab/asset-role-type"
     },
     "start_date": "2026-03-01",
-    "end_date": "2027-01-01"
+    "end_date": "2026-12-31"
   },
   {
     "@id": "https://example.org/facility-roles/warehouse-upkeep",
@@ -175,7 +175,7 @@
       "code_scheme": "https://publicschema.org/vocab/asset-role-type"
     },
     "start_date": "2020-01-01",
-    "end_date": "2028-01-01"
+    "end_date": "2027-12-31"
   },
   {
     "@id": "https://example.org/facility-roles/nursery-group",
@@ -231,7 +231,7 @@
       "code_scheme": "https://publicschema.org/vocab/asset-role-type"
     },
     "start_date": "2020-01-01",
-    "end_date": "2028-01-01"
+    "end_date": "2027-12-31"
   },
   {
     "@id": "https://example.org/facility-roles/hospital-upkeep-before",
@@ -244,7 +244,7 @@
       "code_scheme": "https://publicschema.org/vocab/asset-role-type"
     },
     "start_date": "2025-01-01",
-    "end_date": "2026-09-01"
+    "end_date": "2026-08-31"
   },
   {
     "@id": "https://example.org/facility-roles/hospital-upkeep-after",
@@ -257,7 +257,7 @@
       "code_scheme": "https://publicschema.org/vocab/asset-role-type"
     },
     "start_date": "2026-09-01",
-    "end_date": "2027-09-01"
+    "end_date": "2027-08-31"
   },
   {
     "@id": "https://example.org/facility-roles/school-physical-address",
@@ -307,7 +307,7 @@
       "code_scheme": "https://publicschema.org/vocab/address-purpose"
     },
     "start_date": "2020-01-01",
-    "end_date": "2026-08-01"
+    "end_date": "2026-07-31"
   },
   {
     "@id": "https://example.org/facility-roles/school-postal-after",
@@ -320,7 +320,7 @@
       "code_scheme": "https://publicschema.org/vocab/address-purpose"
     },
     "start_date": "2026-08-01",
-    "end_date": "2027-08-01"
+    "end_date": "2027-07-31"
   },
   {
     "@id": "https://example.org/facility-roles/warehouse-postal-before",
@@ -333,7 +333,7 @@
       "code_scheme": "https://publicschema.org/vocab/address-purpose"
     },
     "start_date": "2025-01-01",
-    "end_date": "2026-04-01"
+    "end_date": "2026-03-31"
   },
   {
     "@id": "https://example.org/facility-roles/warehouse-postal-after",
@@ -346,7 +346,7 @@
       "code_scheme": "https://publicschema.org/vocab/address-purpose"
     },
     "start_date": "2026-04-01",
-    "end_date": "2027-04-01"
+    "end_date": "2027-03-31"
   },
   {
     "@id": "https://example.org/facility-roles/school-capacity",

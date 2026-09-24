@@ -198,30 +198,24 @@ slots:
   end_date:
     slot_uri: publicschema:end_date
     title: End date
-    description: The date on which this ceased to be effective, which is the first day on which it no longer
-      applies. A period includes its start date and ends before its end date, so a period that applies only
-      on 30 June 2026 has start date 2026-06-30 and end date 2026-07-01.
+    description: The last day on which this is effective. A period includes both its start date and its end
+      date, so a period that applies only on 30 June 2026 has start date 2026-06-30 and end date 2026-06-30.
     range: date
     multivalued: false
     status: bibo:status/published
-    close_mappings:
+    exact_mappings:
     - schema:endDate
     annotations:
       label_es: Fecha de fin
       label_fr: Date de fin
-      description_es: La fecha en que esto dejó de ser efectivo, que es el primer día en que ya no se aplica.
-        Un período incluye su fecha de inicio y termina antes de su fecha de fin; así, un período que solo
-        se aplica el 30 de junio de 2026 tiene fecha de inicio 2026-06-30 y fecha de fin 2026-07-01.
-      description_fr: La date à laquelle ceci a cessé d'être effectif, qui est le premier jour où il ne
-        s'applique plus. Une période inclut sa date de début et se termine avant sa date de fin ; ainsi, une
-        période qui ne s'applique que le 30 juin 2026 a pour date de début 2026-06-30 et pour date de fin
-        2026-07-01.
+      description_es: El último día en que esto es efectivo. Un período incluye tanto su fecha de inicio como
+        su fecha de fin; así, un período que solo se aplica el 30 de junio de 2026 tiene fecha de inicio
+        2026-06-30 y fecha de fin 2026-06-30.
+      description_fr: Le dernier jour où ceci est effectif. Une période inclut à la fois sa date de début et
+        sa date de fin ; ainsi, une période qui ne s'applique que le 30 juin 2026 a pour date de début
+        2026-06-30 et pour date de fin 2026-06-30.
       convergence_json: '{"system_count": 4, "total_systems": 6}'
       bibliography_refs: '["schema-org"]'
-      external_alignments_json: '[{"label": "endDate", "match": "close", "note": "FHIR Period, and common
-        schema.org usage, give the last day of a period as its end; the PublicSchema end date is the following
-        day.",
-        "uri": "https://schema.org/endDate", "vocabulary": "schema.org", "vocabulary_id": "schema-org"}]'
   enrollment_ref:
     slot_uri: publicschema:enrollment_ref
     title: Enrollment reference

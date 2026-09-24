@@ -158,9 +158,9 @@ of sibling recognition and permission concepts under an administrative-act super
 and the evidence that would justify changing this choice.
 
 The pilot's `valid_from` / `valid_to` dates include the first and last applicable calendar
-days. Relationship classes use `start_date` / `end_date`, where `end_date` is the date on
-which the relationship ceased to be effective. They must not be converted by simply
-renaming fields; [relationship date conversion](relationship-date-migration.md) lists the
+days. Relationship classes use `start_date` / `end_date`, where `end_date` is the last day
+on which the relationship is effective. Converting between the pairs is a rename only after
+the source boundary is confirmed; [relationship date conversion](relationship-date-migration.md) lists the
 relationships concerned and preserves registration, tenure, parcel and certification validity
 semantics. Neither pair is a recording timestamp.
 

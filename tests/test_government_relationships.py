@@ -204,10 +204,36 @@ def test_components_with_unknown_primary_dates_still_need_a_common_day():
     primary = record(records, "indirect-control")
     primary.pop("start_date")
     primary.pop("end_date")
-    record(records, "trust-control")["end_date"] = "2026-01-01"
+    record(records, "trust-control")["end_date"] = "2025-12-31"
     record(records, "holding-shares")["start_date"] = "2026-01-01"
     with pytest.raises(ValueError, match="no common effective day"):
         PROFILE.validate_profile(records)
+
+
+def test_components_that_meet_on_one_day_share_that_day():
+    # end_date is the last effective day, so both components apply on 2026-01-01.
+    records = copy.deepcopy(RECORDS)
+    primary = record(records, "indirect-control")
+    primary.pop("start_date")
+    primary.pop("end_date")
+    record(records, "trust-control")["end_date"] = "2026-01-01"
+    record(records, "holding-shares")["start_date"] = "2026-01-01"
+    PROFILE.validate_profile(records)
+
+
+@pytest.mark.parametrize("unknown,changes", [
+    ("end_date", {"end_date": "2025-01-01"}),
+    ("start_date", {"start_date": "2027-12-31"}),
+])
+def test_a_component_may_touch_an_open_indirect_period_on_its_boundary_day(unknown, changes):
+    # The component and the indirect interest both apply on the shared boundary day.
+    records = copy.deepcopy(RECORDS)
+    record(records, "indirect-control").pop(unknown)
+    component = record(records, "trust-shares")
+    component.pop("start_date")
+    component.pop("end_date")
+    component.update(changes)
+    PROFILE.validate_profile(records)
 
 
 @pytest.mark.parametrize("case,expected", [
