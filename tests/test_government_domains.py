@@ -243,6 +243,16 @@ def test_legal_acts_are_cited_as_related_sources_not_as_matching_terms():
                         assert alignment["match"] == "related", name
 
 
+@pytest.mark.parametrize("alias", [
+    "about", "provider", "educationalCredentialAwarded", "courseMode", "issuedBy", "model", "productionDate",
+])
+def test_only_exact_schema_org_matches_become_context_aliases(exports, alias):
+    # An alias makes schema.org data expand to a PublicSchema property, which is safe only for an exact match.
+    context = exports[0]["context"]["@context"]
+    assert alias not in context
+    assert context["startDate"] == context["start_date"]
+
+
 def test_vehicle_is_narrower_than_the_schema_org_vehicle(exports):
     # schema.org Vehicle also covers aircraft, boats and vehicles offered for sale.
     vehicle = AUTHORED["classes"]["Vehicle"]

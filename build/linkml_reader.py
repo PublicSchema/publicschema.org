@@ -511,9 +511,9 @@ def _convert_slot_to_property(
     if eqs:
         prop["external_equivalents"] = eqs
 
-    for mapping in (slot_def.get("exact_mappings") or []) + (
-        slot_def.get("close_mappings") or []
-    ):
+    # The JSON-LD context aliases this term to the property, so schema.org
+    # data using it expands to PublicSchema; only an exact match is safe.
+    for mapping in slot_def.get("exact_mappings") or []:
         if isinstance(mapping, str) and mapping.startswith("schema:"):
             prop["schema_org_equivalent"] = mapping
             break
