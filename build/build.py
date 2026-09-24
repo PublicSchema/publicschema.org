@@ -49,7 +49,9 @@ JSONLD_TYPE_COERCION = {
     # The LinkML reader represents its float range as the legacy number type.
     "number": "xsd:float",
     "float": "xsd:float",
-    "decimal": "xsd:decimal",
+    # No decimal coercion: JSON-LD writes a fractional JSON number as a double
+    # lexical form (2.5E0), which is not a valid xsd:decimal. Uncoerced numbers
+    # become xsd:integer or xsd:double, which the SHACL shapes accept.
     "boolean": "xsd:boolean",
     "uri": "@id",
     "geojson_geometry": "@json",

@@ -491,19 +491,17 @@ class TestJsonLdContext:
             "@type": "xsd:dateTime",
         }
 
-    def test_context_decimal_property_has_xsd_type(
+    def test_context_decimal_property_keeps_json_number_type(
         self, tmp_schema, write_concept, write_property
     ):
+        # Coercing to xsd:decimal would turn 2.5 into the invalid "2.5E0"^^xsd:decimal.
         write_property("amount.yaml", make_property(id="amount", type="decimal"))
         write_concept("person.yaml", make_concept(
             id="Person", properties=["amount"],
         ))
         result = build_vocabulary(tmp_schema)
         ctx = result["context"]["@context"]
-        assert ctx["amount"] == {
-            "@id": "https://test.example.org/amount",
-            "@type": "xsd:decimal",
-        }
+        assert ctx["amount"] == "https://test.example.org/amount"
 
     def test_context_integer_property_has_xsd_type(
         self, tmp_schema, write_concept, write_property
