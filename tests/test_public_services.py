@@ -301,7 +301,7 @@ def test_dated_acts_share_the_event_hierarchy_and_one_authority_link(exports):
     for name in ("submission_date", "decision_date"):
         assert built["properties"][name]["type"] == "date"
     authored = {}
-    for module in ("organizations", "public_services"):
+    for module in ("organizations", "registry", "public_services"):
         authored.update(yaml.safe_load((ROOT / f"schema/{module}.yaml").read_text())["slots"])
     assert authored["authority"]["range"] == "Organization"
     for name in ("submitted_by", "representative", "represented"):

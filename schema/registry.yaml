@@ -737,6 +737,27 @@ slots:
       description_es: La entrada de registro cuyo estado se ve afectado por el cambio.
       description_fr: L'entrée de registre dont le statut est affecté par le changement.
       category: administrative
+  authority:
+    slot_uri: publicschema:authority
+    title: Authority
+    description: The organization responsible for the act or event a record describes, such as the body
+      that receives an application, decides a case, reviews an appeal, inspects a subject or takes a
+      measure. Each class using it states which of these roles applies.
+    range: Organization
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      label_es: Autoridad
+      label_fr: Autorité
+      description_es: La organización responsable del acto o del evento que describe un registro,
+        como el organismo que recibe una solicitud, decide un caso, examina un recurso, inspecciona
+        un sujeto o adopta una medida. Cada clase que lo utiliza indica cuál de estas funciones se
+        aplica.
+      description_fr: L'organisation responsable de l'acte ou de l'événement que décrit un enregistrement,
+        par exemple l'organisme qui reçoit une demande, tranche une affaire, examine un recours, inspecte
+        un sujet ou prend une mesure. Chaque classe qui l'utilise précise laquelle de ces fonctions
+        s'applique.
+      category: governance
   effective_at:
     slot_uri: publicschema:effective_at
     title: Effective at
