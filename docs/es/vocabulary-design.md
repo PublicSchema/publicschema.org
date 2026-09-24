@@ -43,7 +43,7 @@ Si existe un sistema de códigos formal, referencíelo. Tres niveles:
 
 Cuando un vocabulario se sincroniza desde una norma internacional y los sistemas utilizan directamente los códigos de esa norma, `same_standard_systems` es suficiente en lugar de `system_mappings` a nivel de valor. Esto aplica a listas de códigos extensas (países, divisas, idiomas) en las que la norma es la capa de interoperabilidad de facto.
 
-Un vocabulario sin `standard`, sin `references` y sin `system_mappings` no está validado. Aceptable en madurez borrador; debe resolverse antes del uso experimental.
+Un vocabulario sin `standard`, sin `references` y sin `system_mappings` no está validado. Aceptable en madurez borrador; debe resolverse antes del nivel «Uso experimental» (`candidate`).
 
 No adopte los códigos de una norma cuando no resulten útiles para los usuarios. Los códigos ISO 20022 (RCVD, ACTC, ACSP) son para mensajería interbancaria. Use códigos legibles; mapee a la norma.
 

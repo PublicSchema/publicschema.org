@@ -112,6 +112,30 @@ Divulgable selectivamente:
 
 **Caso de uso**: Comprobante de derecho a prestación. Una persona beneficiaria necesita demostrar que tiene derecho a una prestación por un período específico (p. ej., para acceder a un servicio complementario). La titular divulga entitlement_status (approved) y el período de cobertura, manteniendo ocultos los detalles del programa y la identidad. Nota: los derechos por ciclo son de corta duración, por lo que la rotación de credenciales es frecuente; `document_expiry_date` controla la validez de la credencial verificable con independencia del período de cobertura.
 
+### ProfileCredential (SocioEconomicProfile, FunctioningProfile, además de subtipos humanitarios como AnthropometricProfile)
+
+Un registro Profile puede usarse como credencial según dos patrones; quienes lo adoptan eligen según el caso de uso.
+
+**Patrón A: el perfil como sujeto.** El sujeto de la credencial es el propio Profile. La persona (mediante la referencia `subject`) es una afirmación más dentro del contexto administrativo. Es adecuado cuando la titular quiere presentar evidencia de una aplicación concreta (una entrevista WG-SS con un encuestador, un tamizaje antropométrico), con las respuestas a cada ítem como afirmaciones divulgables.
+
+**Patrón B: el perfil como evidencia.** El sujeto de la credencial es la persona. El Profile se incluye como evidencia que respalda una afirmación puntuada por separado sobre la persona (p. ej., «esta persona alcanza el umbral 3 del identificador de discapacidad del WG»), producida por un ScoringEvent que referencia el Profile en `inputs`. Es adecuado cuando el verificador solo necesita la categoría derivada y puede tratar las respuestas brutas como restringidas.
+
+Siempre divulgado (patrón A):
+- `type` (subtipo de Profile)
+- `instrument_used` (identidad y versión del instrumento)
+- `observation_date`
+
+Divulgable selectivamente:
+- `subject` (identidad de la persona)
+- `performed_by`, `respondent`, `respondent_relationship`
+- `administration_mode`
+- Todas las propiedades a nivel de ítem (cada ítem WG/CFM, cada medición antropométrica, cada ítem socioeconómico, divulgados de forma independiente)
+- Campos derivados (puntuaciones z, categorías de estado)
+
+**Caso de uso**: Una trabajadora social solicita una aplicación del WG-SS como parte de una decisión de servicio que tiene en cuenta la discapacidad. Con el patrón A, la titular divulga el instrumento utilizado, la fecha y las respuestas pertinentes (por ejemplo, solo los ítems de visión y audición), manteniendo ocultos los demás ítems de funcionamiento. Con el patrón B, la titular presenta una DisabilityIdentifierCredential cuyo sujeto es la persona y cuyo `evidence` apunta a un FunctioningProfile en poder del emisor; el verificador ve el identificador derivado, no los ítems.
+
+Como los subtipos de Profile contienen datos potencialmente sensibles (salud, nutrición, pobreza), cada afirmación a nivel de ítem debería ser divulgable selectivamente por defecto. Los verificadores deberían solicitar el conjunto mínimo de ítems necesarios y no suponer que una respuesta positiva a un ítem implica una clasificación sin el ScoringEvent correspondiente.
+
 ## Estructura de carga útil SD-JWT VC
 
 Una carga útil SD-JWT VC separa las afirmaciones siempre divulgadas de las divulgables selectivamente mediante el mecanismo `_sd`. A continuación se muestra cómo se mapea una EnrollmentCredential:

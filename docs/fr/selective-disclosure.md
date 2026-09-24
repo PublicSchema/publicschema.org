@@ -112,6 +112,30 @@ Sélectivement divulgable :
 
 **Cas d'utilisation** : Preuve du droit à une prestation. Un bénéficiaire doit démontrer qu'il a droit à une prestation pour une période spécifique (par exemple, pour accéder à un service complémentaire). Le détenteur divulgue entitlement_status (approved) et la période de couverture, gardant les détails du programme et l'identité cachés. Note : les droits émis à chaque cycle de paiement ont une durée de vie limitée, ce qui implique un renouvellement fréquent des attestations ; `document_expiry_date` contrôle la validité de la VC indépendamment de la période de couverture.
 
+### ProfileCredential (SocioEconomicProfile, FunctioningProfile, ainsi que des sous-types humanitaires comme AnthropometricProfile)
+
+Un enregistrement Profile peut servir d'attestation selon deux modèles ; les adoptants choisissent selon le cas d'utilisation.
+
+**Modèle A : le profil comme sujet.** Le sujet de l'attestation est le Profile lui-même. La Personne (via la référence `subject`) est une affirmation parmi celles du contexte administratif. Ce modèle convient lorsqu'un détenteur veut présenter la preuve d'une passation précise (un entretien WG-SS avec un enquêteur, un dépistage anthropométrique), avec les réponses à chaque item comme affirmations divulgables.
+
+**Modèle B : le profil comme preuve.** Le sujet de l'attestation est la Personne. Le Profile est inclus comme preuve à l'appui d'une affirmation notée séparément sur la Personne (par exemple, « cette personne atteint le seuil 3 de l'identifiant de handicap du WG »), produite par un ScoringEvent qui référence le Profile dans `inputs`. Ce modèle convient lorsque le vérificateur n'a besoin que de la catégorie dérivée et peut traiter les réponses brutes comme restreintes.
+
+Toujours divulgué (modèle A) :
+- `type` (sous-type de Profile)
+- `instrument_used` (identité et version de l'instrument)
+- `observation_date`
+
+Sélectivement divulgable :
+- `subject` (identité de la Personne)
+- `performed_by`, `respondent`, `respondent_relationship`
+- `administration_mode`
+- Toutes les propriétés au niveau des items (chaque item WG/CFM, chaque mesure anthropométrique, chaque item socio-économique, divulgués indépendamment)
+- Champs dérivés (z-scores, catégories de statut)
+
+**Cas d'utilisation** : Un travailleur social demande une passation du WG-SS dans le cadre d'une décision de service tenant compte du handicap. Avec le modèle A, le détenteur divulgue l'instrument utilisé, la date et les réponses pertinentes (par exemple, uniquement les items sur la vue et l'audition) tout en gardant cachés les autres items de fonctionnement. Avec le modèle B, le détenteur présente une DisabilityIdentifierCredential dont le sujet est la Personne et dont `evidence` pointe vers un FunctioningProfile conservé par l'émetteur ; le vérificateur voit l'identifiant dérivé, pas les items.
+
+Comme les sous-types de Profile portent des données potentiellement sensibles (santé, nutrition, pauvreté), chaque affirmation au niveau des items devrait être sélectivement divulgable par défaut. Les vérificateurs devraient demander l'ensemble minimal d'items nécessaires et ne pas supposer qu'une réponse positive à un item implique une classification sans le ScoringEvent correspondant.
+
 ## Structure de la charge utile SD-JWT VC
 
 Une SD-JWT VC sépare les affirmations toujours divulguées des affirmations sélectivement divulgables en utilisant le mécanisme `_sd`. Voici comment un EnrollmentCredential est structuré :
