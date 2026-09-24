@@ -24,7 +24,7 @@ The domain labels are authored in `schema/publicschema.yaml`. Navigation shows t
 
 ## What changes in payloads and exports
 
-The [URI disposition file](../examples/domain-migration/uri-map.json) lists changed and retired draft URIs individually. It includes authored class, slot, enum and value identities, plus the catalog vocabulary and value URLs. The file is a reference list of changed URIs, not an executable migration or a second schema source. `new_uri: null` means that no automatic replacement is asserted.
+The [URI disposition file](../examples/domain-migration/uri-map.json) lists each changed or retired URI that was published at its source revision. It includes authored class, slot, enum and value identities, plus the catalog vocabulary and value URLs. The file is a reference list of changed URIs, not an executable migration or a second schema source. `new_uri: null` means that no automatic replacement is asserted.
 
 For example:
 
@@ -44,17 +44,17 @@ Keep an adopter's original context and source records while migrating. Review ty
 
 ## Shared facility relationships and dates
 
-Use [AssetPartyRole and AssetAddressAssignment](facility-roles.md) when consumers independently need physical asset responsibility or address history across sectors. Owner, operator and upkeep provider are separate coded responsibilities. A former FacilityManagementAssignment does not by itself prove which responsibility was intended. Former FacilityAddressAssignment records need an explicit physical or postal purpose as well as the new class and endpoint fields.
+Use [AssetPartyRole and AssetAddressAssignment](facility-roles.md) when consumers independently need physical asset responsibility or address history across sectors. Owner, operator and upkeep provider are separate coded responsibilities. A source record saying that a party manages a facility does not by itself show which of these responsibilities was intended. Source address records need an explicit physical or postal purpose.
 
-The [relationship date guide and helper](relationship-date-migration.md) cover the selected relationships changing from `valid_from`/`valid_to` to `start_date`/`end_date`. Under the helper's explicit inclusive-calendar-day source contract, an inclusive end of `2026-12-31` becomes the first inactive day `2027-01-01`. Missing dates stay missing. Legal validity, registration and certification intervals keep their existing contracts. Namespace migration and date conversion are separate reviewed steps.
+The [relationship date guide and helper](relationship-date-migration.md) cover source records that carry `valid_from`/`valid_to` for relationships that use `start_date`/`end_date`. Under the helper's explicit inclusive-calendar-day source contract, an inclusive end of `2026-12-31` becomes the first inactive day `2027-01-01`. Missing dates stay missing. Legal validity, registration and certification intervals keep their existing contracts. Namespace migration and date conversion are separate reviewed steps.
 
 ServiceCapacityObservation also remains shared: it records the kind of capacity as a coded value, the quantity, the subject observed and the observation time. Its observation pattern is informed by SOSA and its units by UCUM. It can describe capacity at a school, an agricultural service or a healthcare facility; it does not prove current availability and has no automatic mapping to a FHIR resource.
 
 ## Native medical records
 
-The [FHIR integration guide](fhir-registry-integration.md) replaces duplicate draft medicine and healthcare-directory shapes with native FHIR R5 resources. It accounts for each retired class and field, preserves separate subject and qualified source-record identities, and documents facts that require an adopter's profile or remain unmapped. Physical HealthFacility identities remain useful without reproducing healthcare-directory definitions.
+The [FHIR integration guide](fhir-registry-integration.md) maps flat medicine and healthcare-directory registry records to native FHIR R5 resources instead of defining PublicSchema classes for them. It names the FHIR destination for typical source records and fields, preserves separate subject and qualified source-record identities, and documents facts that require an adopter's profile or remain unmapped. Physical HealthFacility identities remain useful without reproducing healthcare-directory definitions.
 
-Retirement is not a lossless conversion claim. Premises-only accreditation and historical service validity, for example, must not be forced into a superficially similar FHIR field. The synthetic example preserves its unmapped facts explicitly. Clinical encounters, patient records and a complete medical terminology are outside the current scope.
+These mappings are not a lossless conversion claim. Premises-only accreditation and historical service validity, for example, must not be forced into a superficially similar FHIR field. The synthetic example preserves its unmapped facts explicitly. Clinical encounters, patient records and a complete medical terminology are outside the current scope.
 
 ## Related guides
 

@@ -180,6 +180,12 @@ class TestRealSchemaDomainResolution:
             if row["action"] != "relocate":
                 assert row["note"]
 
+    def test_farm_disposition_warns_that_group_inheritance_ended(self):
+        path = Path(__file__).resolve().parents[1] / "examples/domain-migration/uri-map.json"
+        rows = json.loads(path.read_text())["changes"]
+        farm = next(row for row in rows if row["kind"] == "class" and row["id"] == "Farm")
+        assert "no longer inherits Group" in farm["note"]
+
     def test_moved_terms_keep_their_bibliography_links(self, real_result):
         for kind, key, citation in (
             ("concepts", "agri/Farm", "fao-wca-2020-vol1"),
