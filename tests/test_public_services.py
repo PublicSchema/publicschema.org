@@ -246,14 +246,12 @@ def test_decision_output_reference_failures_are_addressed_profile_errors(
 
 
 @pytest.mark.parametrize("form", ["uri", "id"])
-def test_evidence_and_outcome_values_can_resolve_local_identified_records(exports, form):
+def test_evidence_values_can_resolve_local_identified_records(exports, form):
     changed = copy.deepcopy(RECORDS)
     decision = record(changed, "grant-decision")
     evidence = {"@context": DEFAULT_CONTEXT_URL, "@id": BASE + "grant-evidence", **decision["evidence_assertions"][0]}
-    outcome = {"@context": DEFAULT_CONTEXT_URL, "@id": BASE + "grant-outcome", **decision["decision_outcome"]}
-    changed.extend([evidence, outcome])
+    changed.append(evidence)
     decision["evidence_assertions"] = [evidence["@id"] if form == "uri" else {"@id": evidence["@id"]}]
-    decision["decision_outcome"] = outcome["@id"] if form == "uri" else {"@id": outcome["@id"]}
     for item in changed:
         validator(exports, item["@type"]).validate(item)
     profile.validate_journey(changed, CONFIG)
@@ -397,11 +395,17 @@ def test_bare_outcome_reference_is_not_interpreted_as_a_local_code(exports):
     invalid = copy.deepcopy(RECORDS)
     decision = record(invalid, "grant-decision")
     decision["decision_outcome"] = "granted"
-    # Existing class-valued JSON fields accept string identifier references.
-    # The string must resolve to a CodedValue; a bare label is not a code scheme.
+    # A coded value is written inline with its scheme; a bare label is neither a code nor a reference.
+    assert list(validator(exports, "AdministrativeDecision").iter_errors(decision))
+    decision["decision_outcome"] = ref("outcome-granted", "CodedValue")
+    assert list(validator(exports, "AdministrativeDecision").iter_errors(decision))
+    built, shapes, hierarchy, _ = exports
+    conforms, _, _ = validate(jsonld_graph(invalid, built["context"]), shacl_graph=shapes, ont_graph=hierarchy)
+    assert not conforms
+    decision["decision_outcome"] = {"code_value": "granted", "code_scheme": BASE + "codes/decision-outcome/v1"}
     validator(exports, "AdministrativeDecision").validate(decision)
-    with pytest.raises(profile.ProfileError, match="missing referenced record granted"):
-        profile.validate_journey(invalid, CONFIG)
+    conforms, _, report = validate(jsonld_graph(invalid, built["context"]), shacl_graph=shapes, ont_graph=hierarchy)
+    assert conforms, report
 
 
 def test_declared_reference_type_does_not_override_resolved_record_type():

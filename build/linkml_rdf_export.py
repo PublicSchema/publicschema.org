@@ -147,7 +147,7 @@ def write_shacl(
     from dataclasses import asdict
 
     from linkml.generators.shaclgen import ShaclGenerator
-    from rdflib import BNode, Literal
+    from rdflib import BNode, Literal, URIRef
     from rdflib.collection import Collection
     from rdflib.namespace import SH, XSD
 
@@ -169,6 +169,16 @@ def write_shacl(
                     graph.remove((property_shape, SH.datatype, XSD.anyURI))
                     graph.remove((property_shape, SH.nodeKind, SH.Literal))
                     graph.add((property_shape, SH.nodeKind, SH.IRI))
+            # A value type is written inline, often without a type, so check
+            # the value against the value type's shape rather than its class.
+            for cls in self.schemaview.all_classes().values():
+                annotation = cls.annotations.get("inline_only")
+                if annotation is None or annotation.value is not True:
+                    continue
+                class_uri = URIRef(self.schemaview.get_uri(cls, expand=True))
+                for property_shape in list(graph.subjects(SH["class"], class_uri)):
+                    graph.remove((property_shape, SH["class"], class_uri))
+                    graph.add((property_shape, SH.node, class_uri))
             return graph
 
         def _add_enum(self, graph, emit, enum_name):

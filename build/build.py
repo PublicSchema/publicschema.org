@@ -465,6 +465,7 @@ def _property_to_json_schema(
     vocabularies: dict,
     out_vocabularies: dict | None = None,
     concept_schema_uris: dict | None = None,
+    inline_only: frozenset[str] = frozenset(),
 ) -> dict:
     """Convert a property definition to a JSON Schema property definition.
 
@@ -499,7 +500,10 @@ def _property_to_json_schema(
             if concept_schema_uris is not None
             else ref_concept_id
         )
-        if concept_schema_uris and resolved_key in concept_schema_uris:
+        if concept_schema_uris and resolved_key in inline_only:
+            # A value type has no identity, so a reference string cannot stand for it.
+            item_schema = {"$ref": concept_schema_uris[resolved_key]}
+        elif concept_schema_uris and resolved_key in concept_schema_uris:
             item_schema = {
                 "oneOf": [
                     {"$ref": concept_schema_uris[resolved_key]},
@@ -947,6 +951,7 @@ def build_vocabulary(
         concept_schema_uris[concept_id] = f"{base_uri.rstrip('/')}{concept_path}.schema.json"
 
     # Build JSON Schema per concept. Keys are composite (matching out_concepts).
+    inline_only = frozenset(key for key, data in concepts_raw.items() if data.get("inline_only"))
     concept_schemas = {}
     for concept_id, data in concepts_raw.items():
         bare_id = data["id"]
@@ -958,7 +963,7 @@ def build_vocabulary(
             if prop_id in properties_raw:
                 schema_props[prop_id] = _property_to_json_schema(
                     properties_raw[prop_id], vocabularies_raw, out_vocabularies,
-                    concept_schema_uris,
+                    concept_schema_uris, inline_only,
                 )
 
         # Extract repeated vocab enums into $defs
@@ -1012,6 +1017,9 @@ def build_vocabulary(
         if defs:
             concept_schema["$defs"] = defs
         concept_schema["properties"] = schema_props
+        required = [prop_id for prop_id in schema_props if properties_raw[prop_id].get("required")]
+        if required:
+            concept_schema["required"] = required
         concept_schemas[concept_id] = concept_schema
 
     # Build SD-JWT VC credential schemas

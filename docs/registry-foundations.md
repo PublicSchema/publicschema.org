@@ -84,6 +84,11 @@ slot uses a closed vocabulary instead of a `CodedValue`:
 Lists that are local policy, such as asset roles, address purposes, name uses and building
 uses, stay `CodedValue` so the source scheme and its unknown or retired codes are retained.
 
+A `CodedValue` or `QuantityValue` is always written inline, since a code or an amount has no
+identity of its own; it needs its code and scheme, or its amount, unit code and unit system. A
+`SpatialGeometry` needs its literal and encoding. As in GeoSPARQL, it may also have its own URI
+so that several features can share one geometry.
+
 ## Geometry and Location
 
 `spatial_geometry` gives a building, parcel or other feature one or more

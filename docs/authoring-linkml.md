@@ -147,6 +147,8 @@ Stock LinkML annotations are scalar key/value pairs. PublicSchema overloads them
 | `label_<lang>`, `description_<lang>` | Multilingual labels and definitions. English stays in `title:` / `description:`. | Author directly on the LinkML element. |
 | `<name>_json` | Anything structured: alignment records, the `convergence` block, `property_groups`, `valid_instruments`, `age_applicability`, `tags`, `see_also`, the vocabulary-level `standard` / `sync` / `same_standard_systems`. | JSON-encoded annotation value. |
 
+A class annotated `inline_only: true` is a value type without identity of its own, such as `CodedValue`. Slots ranged to it accept only a complete inline object: the JSON Schema has no identifier-string branch, and SHACL checks the value against the class shape with `sh:node` instead of requiring its type with `sh:class`. Mark the fields that define such a value `required: true`; both exports enforce them.
+
 JSON-string encoding is deliberate: it survives `linkml-lint`'s scalar-annotation check and produces clean RDF literals downstream. Consumers call `json.loads(value)` on any `*_json` annotation to recover the structured form.
 
 `system_mappings_json` may appear in migrated data, but current system value mappings belong in `schema/value_crosswalks/`. Do not author new mappings in that compatibility annotation.

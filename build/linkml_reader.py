@@ -443,6 +443,8 @@ def _convert_slot_to_property(
         prop["vocabulary"] = vocabulary
     if references is not None:
         prop["references"] = references
+    if slot_def.get("required"):
+        prop["required"] = True
 
     # Scalar annotations restored verbatim. ``domain_override`` is special:
     # the bespoke shape distinguishes "no override" (key absent) from
@@ -622,6 +624,9 @@ def _convert_class_to_concept(
         concept["domain"] = domain
     if cls_def.get("abstract"):
         concept["abstract"] = True
+    # A value type has no identity of its own, so it is only ever written inline.
+    if _scalar_annotation(annotations.get("inline_only")) is True:
+        concept["inline_only"] = True
     if _scalar_annotation(annotations.get("featured")):
         featured_val = _scalar_annotation(annotations.get("featured"))
         if isinstance(featured_val, str):

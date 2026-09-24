@@ -29,6 +29,7 @@ classes:
     - code_meaning
     status: bibo:draft
     annotations:
+      inline_only: true
       label_es: Valor codificado
       label_fr: Valeur codée
       description_es: Un código junto con el esquema de código que le da sentido, con la etiqueta de
@@ -50,6 +51,7 @@ classes:
     - unit_scheme
     status: bibo:draft
     annotations:
+      inline_only: true
       label_es: Valor cuantitativo
       label_fr: Valeur quantitative
       description_es: Una cantidad numérica con su unidad de medida, donde la unidad es un código de
@@ -84,6 +86,7 @@ slots:
     title: Code value
     description: The code exactly as issued by its scheme, including codes that are unknown or retired.
     range: string
+    required: true
     multivalued: false
     close_mappings:
     - skos:notation
@@ -106,6 +109,7 @@ slots:
     description: The URI of the code scheme, including its edition when the edition changes what codes
       mean.
     range: uri
+    required: true
     multivalued: false
     close_mappings:
     - skos:inScheme
@@ -161,6 +165,7 @@ slots:
     title: Quantity value
     description: The numeric amount, expressed in the stated unit without implicit conversion or rounding.
     range: decimal
+    required: true
     multivalued: false
     status: bibo:draft
     annotations:
@@ -176,6 +181,7 @@ slots:
     title: Unit code
     description: The code of the unit of measure within the unit system named by unit_scheme.
     range: string
+    required: true
     multivalued: false
     status: bibo:draft
     annotations:
@@ -191,6 +197,7 @@ slots:
     title: Unit scheme
     description: The unit system that defines unit_code, such as the Unified Code for Units of Measure.
     range: UnitSystem
+    required: true
     multivalued: false
     status: bibo:draft
     annotations:
@@ -207,6 +214,7 @@ slots:
     title: Geometry encoding
     description: The format in which the geometry is written, such as GeoJSON or Well-Known Text.
     range: GeometryEncoding
+    required: true
     multivalued: false
     status: bibo:draft
     annotations:
@@ -222,6 +230,7 @@ slots:
     description: The geometry written in the stated encoding. Coordinate order is determined by that
       encoding and the coordinate reference system.
     range: string
+    required: true
     multivalued: false
     close_mappings:
     - geo:hasSerialization

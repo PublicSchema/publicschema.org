@@ -40,6 +40,12 @@ def test_small_standard_lists_are_closed_vocabularies(result, slot):
     assert result["vocabularies"][vocabulary]["domain"] is None
 
 
+COMPLETE_VALUES = {
+    "SpatialGeometry": {"geometry_literal": "POINT (1 2)", "geometry_encoding": "wkt"},
+    "QuantityValue": {"quantity_value": 2, "unit_code": "ha", "unit_scheme": "unece_rec20"},
+}
+
+
 @pytest.mark.parametrize("class_name,slot,valid,invalid", [
     ("EvidenceAssertion", "evidence_role", "supports", "refutes"),
     ("ContactPoint", "contact_channel", "sms", "telephone"),
@@ -50,9 +56,10 @@ def test_small_standard_lists_are_closed_vocabularies(result, slot):
 ])
 def test_closed_vocabularies_reject_unlisted_codes(result, registry, class_name, slot, valid, invalid):
     validator = jsonschema.Draft202012Validator(result["concept_schemas"][class_name], registry=registry)
-    validator.validate({slot: valid})
+    base = COMPLETE_VALUES.get(class_name, {})
+    validator.validate({**base, slot: valid})
     with pytest.raises(jsonschema.ValidationError):
-        validator.validate({slot: invalid})
+        validator.validate({**base, slot: invalid})
 
 
 @pytest.mark.parametrize("slot", [
@@ -216,3 +223,42 @@ def test_terms_near_an_existing_term_point_to_it(result, section, term, counterp
 def test_legal_resources_align_with_cpsv_ap(result):
     uris = {entry["uri"] for entry in result["properties"]["legal_resources"]["external_equivalents"].values()}
     assert "http://data.europa.eu/m8g/hasLegalResource" in uris
+
+
+VALUE_TYPES = {
+    "CodedValue": {"code_value", "code_scheme"},
+    "QuantityValue": {"quantity_value", "unit_code", "unit_scheme"},
+    "SpatialGeometry": {"geometry_literal", "geometry_encoding"},
+}
+
+
+@pytest.mark.parametrize("class_name", sorted(VALUE_TYPES))
+def test_value_types_require_the_fields_that_define_them(result, registry, class_name):
+    # A code without its scheme, or an amount without its unit, has no meaning.
+    schema = result["concept_schemas"][class_name]
+    assert set(schema["required"]) == VALUE_TYPES[class_name]
+    with pytest.raises(jsonschema.ValidationError):
+        jsonschema.Draft202012Validator(schema, registry=registry).validate({})
+
+
+@pytest.mark.parametrize("slot,class_name", [("decision_outcome", "CodedValue"), ("capacity_quantity", "QuantityValue")])
+def test_codes_and_quantities_are_inline_only_in_json_schema(result, slot, class_name):
+    # A code or an amount has no identity of its own, so a reference string cannot stand for it.
+    item = result["concept_schemas"][result["properties"][slot]["used_by"][0]]["properties"][slot]
+    item = item.get("items", item)
+    assert "oneOf" not in item and item["$ref"].endswith(f"/{class_name}.schema.json")
+
+
+@pytest.mark.parametrize("class_name", ["CodedValue", "QuantityValue"])
+def test_codes_and_quantities_are_checked_as_nodes_in_shacl(shacl_graph, class_name):
+    from rdflib import URIRef
+    from rdflib.namespace import SH
+    target = URIRef(f"https://publicschema.org/{class_name}")
+    assert not list(shacl_graph.subjects(SH["class"], target))
+    assert list(shacl_graph.subjects(SH.node, target))
+
+
+def test_a_geometry_can_be_an_identified_shared_resource(result):
+    # As in GeoSPARQL, one identified geometry can represent several features.
+    item = result["concept_schemas"]["Building"]["properties"]["spatial_geometry"]["items"]
+    assert item["oneOf"][1]["type"] == "string"
