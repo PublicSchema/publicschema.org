@@ -1,0 +1,95 @@
+{
+  "fhir_release": "5.0.0",
+  "retrieved_at": "2026-09-08",
+  "license": "CC0-1.0",
+  "license_url": "https://hl7.org/fhir/R5/license.html",
+  "json_schema": {
+    "file": "fhir.schema.json.zip",
+    "source": "https://hl7.org/fhir/R5/fhir.schema.json.zip",
+    "sha256": "8d8fdffdf1ee0b25951a28a9c8870bc06a0fa340a9a90e6bd21d706473ec7011",
+    "member": "fhir.schema.json"
+  },
+  "profiles": [
+    {
+      "resource_type": "AdministrableProductDefinition",
+      "canonical": "http://hl7.org/fhir/StructureDefinition/AdministrableProductDefinition|5.0.0",
+      "member": "AdministrableProductDefinition.profile.json",
+      "source": "https://hl7.org/fhir/R5/administrableproductdefinition.profile.json",
+      "sha256": "1eca2cd63b03c85674fc2e275a960de738dd5436f1f644aad3d7ee3d4118377e"
+    },
+    {
+      "resource_type": "Bundle",
+      "canonical": "http://hl7.org/fhir/StructureDefinition/Bundle|5.0.0",
+      "member": "Bundle.profile.json",
+      "source": "https://hl7.org/fhir/R5/bundle.profile.json",
+      "sha256": "0c1d3aee13b6822dbb67e0c0818b0e704bcd8638a86b74352fbecfb678db49c1"
+    },
+    {
+      "resource_type": "Endpoint",
+      "canonical": "http://hl7.org/fhir/StructureDefinition/Endpoint|5.0.0",
+      "member": "Endpoint.profile.json",
+      "source": "https://hl7.org/fhir/R5/endpoint.profile.json",
+      "sha256": "9a91bcfed223c90c60d55ef8b137d593b6babed4b0f88a64bd44e2672ef9766f"
+    },
+    {
+      "resource_type": "HealthcareService",
+      "canonical": "http://hl7.org/fhir/StructureDefinition/HealthcareService|5.0.0",
+      "member": "HealthcareService.profile.json",
+      "source": "https://hl7.org/fhir/R5/healthcareservice.profile.json",
+      "sha256": "0091623d10154c0ecbb819d5826f897aeb3894d417b1e4e5d53c5a2cf25bf477"
+    },
+    {
+      "resource_type": "Ingredient",
+      "canonical": "http://hl7.org/fhir/StructureDefinition/Ingredient|5.0.0",
+      "member": "Ingredient.profile.json",
+      "source": "https://hl7.org/fhir/R5/ingredient.profile.json",
+      "sha256": "b5415cb6c438b3742115f238994e9688c938085b03bacd24d760ef58077211d8"
+    },
+    {
+      "resource_type": "Location",
+      "canonical": "http://hl7.org/fhir/StructureDefinition/Location|5.0.0",
+      "member": "Location.profile.json",
+      "source": "https://hl7.org/fhir/R5/location.profile.json",
+      "sha256": "753ef621d2678006097445f11895c3c31f912aeb29aa0bc2a732d7564d55b0a5"
+    },
+    {
+      "resource_type": "MedicinalProductDefinition",
+      "canonical": "http://hl7.org/fhir/StructureDefinition/MedicinalProductDefinition|5.0.0",
+      "member": "MedicinalProductDefinition.profile.json",
+      "source": "https://hl7.org/fhir/R5/medicinalproductdefinition.profile.json",
+      "sha256": "03d9594bd64c2ad709688ca456531d83e29f28e988c23515f24bd0c16b8f09b0"
+    },
+    {
+      "resource_type": "Organization",
+      "canonical": "http://hl7.org/fhir/StructureDefinition/Organization|5.0.0",
+      "member": "Organization.profile.json",
+      "source": "https://hl7.org/fhir/R5/organization.profile.json",
+      "sha256": "069bb87a1bbe8075bdb11060ae13fd629e0ecfdc8f631428331c3850d2b55936"
+    },
+    {
+      "resource_type": "PackagedProductDefinition",
+      "canonical": "http://hl7.org/fhir/StructureDefinition/PackagedProductDefinition|5.0.0",
+      "member": "PackagedProductDefinition.profile.json",
+      "source": "https://hl7.org/fhir/R5/packagedproductdefinition.profile.json",
+      "sha256": "eae1a150883d7978277e7676daa8e0a045adc2609bad76a61b6780b06d9b4ac3"
+    },
+    {
+      "resource_type": "RegulatedAuthorization",
+      "canonical": "http://hl7.org/fhir/StructureDefinition/RegulatedAuthorization|5.0.0",
+      "member": "RegulatedAuthorization.profile.json",
+      "source": "https://hl7.org/fhir/R5/regulatedauthorization.profile.json",
+      "sha256": "3ab0658ca48a7beb9482052e6906de4f301cbe75cea4d6dd143d71a5dfeda0d1"
+    },
+    {
+      "resource_type": "SubstanceDefinition",
+      "canonical": "http://hl7.org/fhir/StructureDefinition/SubstanceDefinition|5.0.0",
+      "member": "SubstanceDefinition.profile.json",
+      "source": "https://hl7.org/fhir/R5/substancedefinition.profile.json",
+      "sha256": "65f66a946b012c9f6a374b210a93e12423cb44e89f2ee25bf90e3b2c577c0b67"
+    }
+  ],
+  "profile_archive": {
+    "file": "base-profiles.zip",
+    "sha256": "270eabab539c030a3d0bef8187408b8852f0365e3bf24359074bc86d0f45b7c7"
+  }
+}

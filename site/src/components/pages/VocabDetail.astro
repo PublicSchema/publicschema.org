@@ -3,6 +3,7 @@ import Base from '../../layouts/Base.astro';
 import { defaultLocale, type Locale } from '../../i18n/languages';
 import { useTranslations, localePath } from '../../i18n/utils';
 import { loadVocabulary } from '../../data/vocabulary';
+import { createDomainCatalog } from '../../data/domains';
 import type { Vocabulary } from '../../data/vocabulary';
 import { getSystemName } from '../../data/systems';
 import SectionFeedback from '../SectionFeedback.astro';
@@ -19,6 +20,7 @@ const t = useTranslations(locale);
 
 const allVocab = loadVocabulary();
 const vocabulary = allVocab.vocabularies[vocab] as Vocabulary;
+const domain = createDomainCatalog(allVocab, locale).get(vocabulary.domain);
 const definition = vocabulary.definition[locale] ?? vocabulary.definition.en;
 const displayLabel = vocabulary.label?.[locale] ?? vocabulary.label?.en ?? vocabulary.id;
 const showCanonicalName = locale !== defaultLocale && displayLabel !== vocabulary.id;
@@ -46,6 +48,7 @@ const isNonNormative = vocabulary.maturity === 'draft' || vocabulary.maturity ==
       <span class="separator">/</span>
       <a href={localePath('/vocab/', locale)}>{t('common.vocabularies')}</a>
       <span class="separator">/</span>
+      {vocabulary.domain && <><a href={`${localePath('/vocab/', locale)}?domain=${encodeURIComponent(vocabulary.domain)}`}>{domain.label}</a><span class="separator">/</span></>}
       {displayLabel}
     </nav>
     <h1>{displayLabel}</h1>

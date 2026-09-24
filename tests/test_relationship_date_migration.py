@@ -1,0 +1,254 @@
+"""Whole-day date conversion preserves meaning and refuses ambiguous source facts."""
+import copy
+import json
+import subprocess
+import sys
+from datetime import date, timedelta
+from pathlib import Path
+
+import jsonschema
+import pytest
+from pyshacl import validate
+from rdflib import URIRef
+from rdflib.namespace import RDFS
+
+from tests.conftest import jsonld_graph, load_example
+
+ROOT = Path(__file__).resolve().parents[1]
+EXAMPLES = ROOT / "examples/relationship-date-migration"
+migration = load_example("relationship-date-migration/migrate.py")
+BOUNDARY = migration.SOURCE_BOUNDARY
+
+
+@pytest.fixture(scope="module")
+def source_records():
+    return json.loads((EXAMPLES / "source-records.json").read_text())
+
+
+def convert(document, source_boundary=BOUNDARY):
+    return migration.migrate_relationship_dates(document, source_boundary=source_boundary)
+
+
+def schema_for(result, type_name):
+    uri = result["context"]["@context"][type_name]
+    return next(schema for schema in result["concept_schemas"].values() if schema["$id"] == uri + ".schema.json")
+
+
+def test_fixture_conversion_is_reviewable_idempotent_and_does_not_mutate(source_records):
+    original = copy.deepcopy(source_records)
+    migrated = convert(source_records)
+    assert migrated == json.loads((EXAMPLES / "records.json").read_text())
+    assert source_records == original
+    assert migrated is not source_records
+    assert migration.migrate_relationship_dates(migrated) == migrated
+    assert {record["@type"] for record in source_records} >= migration.RELATIONSHIPS
+    for before, after in zip(source_records, migrated, strict=True):
+        assert before["@id"] == after["@id"] and before["@type"] == after["@type"]
+        if before["@type"] in migration.RELATIONSHIPS:
+            assert {key: value for key, value in before.items() if key not in migration.OLD_DATES} == {
+                key: value for key, value in after.items() if key not in migration.CURRENT_DATES
+            }
+            assert ("valid_from" in before) == ("start_date" in after)
+            assert ("valid_to" in before) == ("end_date" in after)
+        else:
+            assert after == before
+
+
+@pytest.mark.parametrize("start,end,expected_end", [
+    ("2024-02-28", "2024-02-29", "2024-03-01"),
+    ("2023-02-28", "2023-02-28", "2023-03-01"),
+    ("2026-04-01", "2026-04-30", "2026-05-01"),
+    ("2026-12-31", "2026-12-31", "2027-01-01"),
+])
+@pytest.mark.parametrize("kind", ["AnimalResponsibility", "AgriculturalServiceRole"])
+def test_inclusive_membership_of_every_day_is_preserved(kind, start, end, expected_end):
+    before = {"@type": kind, "valid_from": start, "valid_to": end}
+    after = convert(before)
+    assert after["start_date"] == start and after["end_date"] == expected_end
+    first, last = date.fromisoformat(start), date.fromisoformat(end)
+    for offset in range(-1, (last - first).days + 3):
+        day = first + timedelta(days=offset)
+        old_effective = first <= day <= last
+        new_effective = date.fromisoformat(after["start_date"]) <= day < date.fromisoformat(after["end_date"])
+        assert old_effective == new_effective
+
+
+@pytest.mark.parametrize("patch,code,path", [
+    ({"valid_from": "2026-07-02", "valid_to": "2026-07-01"}, "invalid-period", "/0"),
+    ({"valid_to": "9999-12-31"}, "unrepresentable-end-date", "/0/valid_to"),
+    ({"valid_to": "2026-02-30"}, "invalid-calendar-date", "/0/valid_to"),
+    ({"valid_to": "2026-06"}, "invalid-calendar-date", "/0/valid_to"),
+    ({"valid_to": "20260630"}, "invalid-calendar-date", "/0/valid_to"),
+    ({"valid_to": "2026-06-30T23:59:59Z"}, "invalid-calendar-date", "/0/valid_to"),
+    ({"valid_to": None}, "invalid-calendar-date", "/0/valid_to"),
+    ({"valid_to": 20260630}, "invalid-calendar-date", "/0/valid_to"),
+    ({"valid_to": "2026-06-30", "end_date": "2026-07-01"}, "mixed-date-pairs", "/0"),
+    ({"start_date": "2026-07-01", "end_date": "2026-07-01"}, "invalid-period", "/0"),
+])
+def test_impossible_or_ambiguous_dates_fail_with_stable_field_diagnostics(patch, code, path):
+    source = [{"@type": "AnimalResponsibility", **patch}]
+    original = copy.deepcopy(source)
+    with pytest.raises(migration.MigrationError) as first:
+        convert(source)
+    with pytest.raises(migration.MigrationError) as second:
+        convert(source)
+    assert source == original
+    assert first.value.diagnostics == second.value.diagnostics
+    assert first.value.diagnostics[0]["code"] == code
+    assert first.value.diagnostics[0]["path"] == path
+
+
+@pytest.mark.parametrize("boundary", [None, "unknown", "end-is-exclusive"])
+def test_source_boundary_is_required_evidence(boundary):
+    with pytest.raises(migration.MigrationError) as error:
+        convert({"@type": "AgriculturalServiceRole", "valid_to": "2026-06-30"}, boundary)
+    assert error.value.diagnostics[0]["code"] == "unknown-source-boundary"
+
+
+def test_nested_exchange_is_all_or_nothing_and_missing_dates_are_not_invented():
+    source = {"@graph": [
+        {"@type": "AnimalResponsibility", "valid_from": "2026-01-01"},
+        {"a/b~c": {"@type": "NameUsage", "valid_to": "2026"}},
+    ]}
+    original = copy.deepcopy(source)
+    with pytest.raises(migration.MigrationError) as error:
+        convert(source)
+    assert source == original
+    assert error.value.diagnostics[0]["path"] == "/@graph/1/a~1b~0c/valid_to"
+    assert convert(source["@graph"][0]) == {"@type": "AnimalResponsibility", "start_date": "2026-01-01"}
+    assert convert({"@type": "AnimalResponsibility"}) == {"@type": "AnimalResponsibility"}
+
+
+@pytest.mark.parametrize("type_id", [
+    "AnimalResidence", "agri/AnimalResidence",
+    "publicschema:agri/AnimalResidence", "https://publicschema.org/agri/AnimalResidence",
+    "agri/AgriculturalServiceRole", "https://publicschema.org/agri/AgriculturalServiceRole",
+    "AnimalResponsibility", "https://publicschema.org/AnimalResponsibility",
+])
+def test_exact_type_identifiers_are_preserved(type_id):
+    assert convert({"@type": type_id, "valid_to": "2026-06-30"}) == {
+        "@type": type_id, "end_date": "2026-07-01",
+    }
+
+
+@pytest.mark.parametrize("prefix", ["", "agri/", "publicschema:agri/", "https://publicschema.org/agri/"])
+def test_service_roles_accept_the_compact_alias_and_exact_domain_identifiers(prefix):
+    type_id = prefix + "AgriculturalServiceRole"
+    assert convert({"@type": type_id, "valid_from": "2026-12-31", "valid_to": "2026-12-31"}) == {
+        "@type": type_id, "start_date": "2026-12-31", "end_date": "2027-01-01",
+    }
+
+
+@pytest.mark.parametrize("type_id", [
+    "https://unrelated.example/AnimalResidence", "alien:AnimalResidence",
+    "https://publicschema.org/agri/AnimalResponsibility", "health/AnimalResidence",
+    "publicschema:AnimalResidence", "https://publicschema.org/AnimalResidence",
+    ["AnimalResidence", "AnimalResponsibility"],
+])
+def test_a_matching_local_name_does_not_establish_class_identity(type_id):
+    with pytest.raises(migration.MigrationError) as error:
+        convert({"@type": type_id, "valid_to": "2026-06-30"})
+    assert error.value.diagnostics[0]["code"] == "unsupported-type-identifier"
+
+
+@pytest.mark.parametrize("prefix", [
+    "https://unrelated.example/", "alien:", "health/", "publicschema:", "https://publicschema.org/",
+])
+def test_service_roles_reject_other_namespaces(prefix):
+    with pytest.raises(migration.MigrationError) as error:
+        convert({"@type": prefix + "AgriculturalServiceRole", "valid_to": "2026-06-30"})
+    assert error.value.diagnostics[0]["code"] == "unsupported-type-identifier"
+
+
+def test_service_roles_require_source_boundary_and_reject_unrepresentable_end():
+    source = {"@type": "AgriculturalServiceRole", "valid_to": "9999-12-31"}
+    with pytest.raises(migration.MigrationError) as error:
+        convert(source, None)
+    assert error.value.diagnostics[0]["code"] == "unknown-source-boundary"
+    with pytest.raises(migration.MigrationError) as error:
+        convert(source)
+    assert error.value.diagnostics[0]["code"] == "unrepresentable-end-date"
+
+
+def test_only_publicschema_relationship_types_are_converted():
+    # Source record types are mapped to a PublicSchema type before their dates are converted.
+    source = [{"@type": "FacilityManagementAssignment", "valid_to": "2026-06-30"}]
+    assert convert(source) == source
+    assert set(migration.TYPE_ALIASES.values()) == migration.RELATIONSHIPS | migration.QUALIFIED_ASSIGNMENTS
+
+
+@pytest.mark.parametrize("kind,endpoint,meaning_field,code", [
+    ("AssetPartyRole", "asset_actor", "asset_role_type", "upkeep"),
+    ("AssetAddressAssignment", "assigned_address", "address_purpose", "postal"),
+])
+def test_facility_assignments_need_their_endpoints_and_reviewed_meaning(kind, endpoint, meaning_field, code):
+    source = {"@type": kind, "subject_uri": "https://example.org/facility",
+              endpoint: "https://example.org/endpoint", "valid_to": "2026-06-30"}
+    with pytest.raises(migration.MigrationError) as error:
+        convert(source)
+    assert error.value.diagnostics[0]["code"] == "assignment-meaning-required"
+    source[meaning_field] = {"@type": "CodedValue", "code_scheme": "https://example.org/reviewed-scheme", "code_value": code}
+    converted = convert(source)
+    assert converted["end_date"] == "2026-07-01" and converted[meaning_field] == source[meaning_field]
+    del source[endpoint]
+    with pytest.raises(migration.MigrationError) as error:
+        convert(source)
+    assert error.value.diagnostics[0]["code"] == "incomplete-assignment-transformation"
+
+
+def test_cli_never_rewrites_input_or_emits_a_partial_result(tmp_path, source_records):
+    source = tmp_path / "source.json"
+    source.write_text(json.dumps(source_records))
+    original = source.read_bytes()
+    command = [sys.executable, str(EXAMPLES / "migrate.py"), str(source)]
+    rejected = subprocess.run(command, text=True, capture_output=True, check=False)
+    assert rejected.returncode == 2 and not rejected.stdout
+    assert json.loads(rejected.stderr)["errors"][0]["code"] == "unknown-source-boundary"
+    accepted = subprocess.run(command + ["--source-boundary", BOUNDARY], text=True, capture_output=True, check=False)
+    assert accepted.returncode == 0 and not accepted.stderr
+    assert json.loads(accepted.stdout) == convert(source_records)
+    assert source.read_bytes() == original
+
+
+def test_migrated_examples_validate_against_real_exports(
+    source_records, built_vocabulary, schema_registry, shacl_graph, subclass_hierarchy,
+):
+    result, registry = built_vocabulary, schema_registry
+    migrated = convert(source_records)
+    for record in migrated:
+        jsonschema.Draft202012Validator(
+            schema_for(result, record["@type"]), registry=registry,
+            format_checker=jsonschema.FormatChecker(),
+        ).validate(record)
+    for kind in migration.RELATIONSHIPS:
+        properties = schema_for(result, kind)["properties"]
+        assert {"start_date", "end_date"} <= properties.keys()
+        assert not {"valid_from", "valid_to"} & properties.keys()
+    for kind in ("RegistryEntry", "Registration", "LandTenureAssertion", "Certification"):
+        properties = schema_for(result, kind)["properties"]
+        assert {"valid_from", "valid_to"} <= properties.keys()
+    graph = jsonld_graph(migrated, result["context"], subclass_hierarchy)
+    migrated_roots = {URIRef(result["context"]["@context"][kind]) for kind in (
+        "HoldingParcelLink", "AnimalResidence", "AnimalResponsibility",
+        "AgriculturalServiceRole", "IdentifierAssignment", "NameUsage", "ContactPoint",
+    )}
+    for concept in result["concepts"].values():
+        ancestors = set(graph.transitive_objects(URIRef(concept["uri"]), RDFS.subClassOf))
+        if ancestors & migrated_roots:
+            assert migration.TYPE_ALIASES.get(concept["uri"]) in migration.RELATIONSHIPS, concept["uri"]
+    conforms, _, report = validate(graph, shacl_graph=shacl_graph, inference="rdfs")
+    assert conforms, report
+
+
+@pytest.mark.parametrize("content,reason", [
+    (None, "No such file or directory"),
+    ('{"@type": ', "line 1 column 11"),
+])
+def test_cli_reports_why_the_input_could_not_be_read(tmp_path, capsys, content, reason):
+    source = tmp_path / "input.json"
+    if content is not None:
+        source.write_text(content)
+    assert migration.main([str(source)]) == 2
+    [error] = json.loads(capsys.readouterr().err)["errors"]
+    assert error["code"] == "unreadable-json"
+    assert reason in error["message"]

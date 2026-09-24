@@ -851,6 +851,49 @@ class TestJsonSchemaGeneration:
         assert schema["type"] == "array"
         assert schema["items"]["$ref"] == "https://geojson.org/schema/Geometry.json"
 
+    def test_numeric_bounds_and_pattern_constrain_single_value(
+        self, tmp_schema, write_concept, write_property
+    ):
+        """Property bounds and patterns become JSON Schema keywords."""
+        write_property("share.yaml", make_property(
+            id="share", type="decimal", minimum=0, maximum=1,
+        ))
+        write_property("code.yaml", make_property(
+            id="code", pattern="^[0-9]{4}$",
+        ))
+        write_concept("holding.yaml", make_concept(
+            id="Holding", properties=["share", "code"],
+        ))
+        result = build_vocabulary(tmp_schema)
+        schema = result["concept_schemas"]["Holding"]["properties"]
+        assert (schema["share"]["minimum"], schema["share"]["maximum"]) == (0, 1)
+        assert schema["code"]["pattern"] == "^[0-9]{4}$"
+        assert (result["properties"]["share"]["minimum"], result["properties"]["share"]["maximum"]) == (0, 1)
+        assert result["properties"]["code"]["pattern"] == "^[0-9]{4}$"
+
+    def test_numeric_bounds_apply_to_items_of_multivalued_property(
+        self, tmp_schema, write_concept, write_property
+    ):
+        """Bounds on a multivalued property constrain each array item."""
+        write_property("counts.yaml", make_property(
+            id="counts", type="integer", cardinality="multiple", minimum=1,
+        ))
+        write_concept("tally.yaml", make_concept(id="Tally", properties=["counts"]))
+        result = build_vocabulary(tmp_schema)
+        schema = result["concept_schemas"]["Tally"]["properties"]["counts"]
+        assert schema["type"] == "array"
+        assert schema["items"]["minimum"] == 1
+        assert "minimum" not in schema
+
+    def test_unbounded_property_has_no_bound_keywords(
+        self, tmp_schema, write_concept, write_property
+    ):
+        write_property("count.yaml", make_property(id="count", type="integer"))
+        write_concept("tally.yaml", make_concept(id="Tally", properties=["count"]))
+        result = build_vocabulary(tmp_schema)
+        schema = result["concept_schemas"]["Tally"]["properties"]["count"]
+        assert not {"minimum", "maximum", "pattern"} & schema.keys()
+
     # --- Phase 1: Descriptions ---
 
     def test_concept_schema_has_description(
@@ -2120,7 +2163,7 @@ def test_bespoke_build_emits_its_own_rdf_and_static_downloads(
     def unexpected_linkml(*args, **kwargs):
         pytest.fail("Bespoke output must not load the current LinkML composite")
 
-    for name in ("write_turtle", "write_full_jsonld", "write_shacl"):
+    for name in ("generate_owl_graph", "write_turtle", "write_full_jsonld", "write_shacl"):
         monkeypatch.setattr(linkml_rdf_export, name, unexpected_linkml)
     write_property("amount.yaml", make_property(id="amount", type="decimal"))
     write_concept("sample.yaml", make_concept(id="Sample", properties=["amount"]))
@@ -2147,6 +2190,130 @@ def test_bespoke_build_emits_its_own_rdf_and_static_downloads(
     assert json.loads((dist / "metrics_catalog.json").read_text())["meta"]["metric_count"] == 0
 
 
+def test_rebuild_prunes_renamed_and_retired_generated_artifacts(
+    tmp_schema, write_concept, write_property, tmp_path,
+):
+    """A second build removes only artifacts owned by the earlier build."""
+    from build import build
+
+    write_property("farm_name.yaml", make_property(id="farm_name"))
+    write_concept("farm.yaml", make_concept(
+        id="Farm", properties=["farm_name"],
+    ))
+    medicinal_product = write_concept("medicinal-product.yaml", make_concept(
+        id="MedicinalProduct",
+    ))
+    dist = tmp_path / "dist"
+    public = tmp_path / "public"
+    public.mkdir()
+    static_asset = public / "robots.txt"
+    static_asset.write_text("User-agent: *\n")
+
+    build.write_outputs(
+        build.build_vocabulary(tmp_schema), dist, schema_dir=tmp_schema,
+        source="bespoke",
+    )
+    build.prepare_site_artifacts(dist, public)
+    assert (public / "Farm.schema.json").exists()
+    assert (public / "MedicinalProduct.schema.json").exists()
+
+    write_concept("farm.yaml", make_concept(
+        id="Farm", domain="agri", properties=["farm_name"],
+    ))
+    medicinal_product.unlink()
+    build.write_outputs(
+        build.build_vocabulary(tmp_schema), dist, schema_dir=tmp_schema,
+        source="bespoke",
+    )
+    # A build-only invocation replaces dist without touching site/public. A
+    # later normal build must still recover the last copied public ownership.
+    build.write_outputs(
+        build.build_vocabulary(tmp_schema), dist, schema_dir=tmp_schema,
+        source="bespoke",
+    )
+    build.prepare_site_artifacts(dist, public)
+
+    assert (dist / "schemas" / "agri" / "Farm.schema.json").exists()
+    assert not (dist / "schemas" / "Farm.schema.json").exists()
+    assert not (dist / "schemas" / "MedicinalProduct.schema.json").exists()
+    assert (dist / "jsonld" / "concepts" / "agri" / "Farm.jsonld").exists()
+    assert not (dist / "jsonld" / "concepts" / "Farm.jsonld").exists()
+    assert not (dist / "jsonld" / "concepts" / "MedicinalProduct.jsonld").exists()
+    assert (dist / "jsonld" / "properties" / "agri" / "farm_name.jsonld").exists()
+    assert not (dist / "jsonld" / "properties" / "farm_name.jsonld").exists()
+    assert (dist / "downloads" / "agri" / "Farm.csv").exists()
+    assert not (dist / "downloads" / "Farm.csv").exists()
+    assert not (dist / "downloads" / "MedicinalProduct.csv").exists()
+    assert (public / "agri" / "Farm.schema.json").exists()
+    assert not (public / "Farm.schema.json").exists()
+    assert not (public / "MedicinalProduct.schema.json").exists()
+    assert (public / "agri" / "Farm.csv").exists()
+    assert (public / "downloads" / "agri" / "Farm.csv").exists()
+    assert not (public / "Farm.csv").exists()
+    assert not (public / "downloads" / "MedicinalProduct.csv").exists()
+    assert static_asset.read_text() == "User-agent: *\n"
+
+
+@pytest.mark.parametrize("content", ["{", "[]"])
+def test_malformed_previous_index_warns_that_pruning_is_skipped(tmp_path, capsys, content):
+    from build import build
+
+    dist = tmp_path / "dist"
+    dist.mkdir()
+    (dist / "manifest.json").write_text(content)
+    (dist / "vocabulary.json").write_text("{}")
+    assert build._read_generated_outputs(dist) == {"dist": set(), "public": set()}
+    assert f"WARNING: {dist / 'manifest.json'} is not a usable generated-artifact index" in capsys.readouterr().err
+
+    public = tmp_path / "public"
+    public.mkdir()
+    (public / "vocabulary.json").write_text(content)
+    assert build._read_public_generated_outputs(public) == {"dist": set(), "public": set()}
+    assert f"WARNING: {public / 'vocabulary.json'} is not a usable generated-artifact index" in capsys.readouterr().err
+
+
+def test_missing_previous_index_is_a_first_build(tmp_path, capsys):
+    from build import build
+
+    assert build._read_generated_outputs(tmp_path) == {"dist": set(), "public": set()}
+    assert build._read_public_generated_outputs(tmp_path) == {"dist": set(), "public": set()}
+    assert capsys.readouterr().err == ""
+
+
+def test_pruning_reports_its_count_and_removes_emptied_directories(tmp_path, capsys):
+    from build import build
+
+    root = tmp_path / "dist"
+    for path in ("agri/Farm.csv", "agri/nested/Farm.jsonld", "land/Parcel.csv", "land/keep.txt"):
+        (root / path).parent.mkdir(parents=True, exist_ok=True)
+        (root / path).write_text("x")
+    assert build._remove_generated_files(root, {
+        Path("agri/Farm.csv"), Path("agri/nested/Farm.jsonld"), Path("land/Parcel.csv"),
+        Path("absent.csv"),
+    }) == 3
+    assert not (root / "agri").exists()
+    assert (root / "land/keep.txt").exists()
+    assert root.is_dir()
+    assert f"Pruned 3 stale generated files from {root}" in capsys.readouterr().out
+
+
+def test_pruning_does_not_follow_symlinks(tmp_path, capsys):
+    from build import build
+
+    outside = tmp_path / "outside"
+    (outside / "agri").mkdir(parents=True)
+    (outside / "agri/Farm.csv").write_text("x")
+    root = tmp_path / "dist"
+    root.mkdir()
+    (root / "agri").symlink_to(outside / "agri")
+    assert build._remove_generated_files(root, {Path("agri/Farm.csv")}) == 0
+    linked_root = tmp_path / "linked"
+    linked_root.symlink_to(outside)
+    assert build._remove_generated_files(linked_root, {Path("agri/Farm.csv")}) == 0
+    assert (outside / "agri/Farm.csv").exists()
+    assert "Pruned" not in capsys.readouterr().out
+
+
 def test_write_outputs_passes_explicit_composite_to_all_rdf_generators(
     tmp_schema, write_concept, tmp_path, monkeypatch,
 ):
@@ -2154,19 +2321,31 @@ def test_write_outputs_passes_explicit_composite_to_all_rdf_generators(
 
     write_concept("sample.yaml", make_concept(id="Sample"))
     calls = []
+    graphs = []
 
     def capture(path, **kwargs):
         calls.append((path.name, kwargs))
 
+    def generate(composite):
+        graphs.append((composite, object()))
+        return graphs[-1][1]
+
     for name in ("write_turtle", "write_full_jsonld", "write_shacl"):
         monkeypatch.setattr(linkml_rdf_export, name, capture)
+    monkeypatch.setattr(linkml_rdf_export, "generate_owl_graph", generate)
     composite = tmp_path / "custom" / "publicschema.yaml"
     build.write_outputs(
         build.build_vocabulary(tmp_schema), tmp_path / "output",
         schema_dir=tmp_schema, rdf_composite=composite,
     )
     assert {name for name, _ in calls} == {"publicschema.ttl", "publicschema.jsonld", "publicschema.shacl.ttl"}
-    assert all(kwargs["composite"] == composite for _, kwargs in calls)
+    # The Turtle and full JSON-LD exports share one OWL generation.
+    [(generated_from, graph)] = graphs
+    assert generated_from == composite
+    assert {name for name, kwargs in calls if kwargs.get("graph") is graph} == {
+        "publicschema.ttl", "publicschema.jsonld",
+    }
+    assert next(kwargs for name, kwargs in calls if name == "publicschema.shacl.ttl")["composite"] == composite
     assert next(kwargs for name, kwargs in calls if name.endswith(".jsonld"))["context_url"] == "https://test.example.org/ctx/draft.jsonld"
 
 
@@ -2178,7 +2357,7 @@ def test_published_metric_observation_preserves_linkml_numeric_value(tmp_path, m
 
     # RDF generators have their own production integration tests. This test
     # follows the public JSON Schema and context through the actual publisher.
-    for name in ("write_turtle", "write_full_jsonld", "write_shacl"):
+    for name in ("generate_owl_graph", "write_turtle", "write_full_jsonld", "write_shacl"):
         monkeypatch.setattr(linkml_rdf_export, name, lambda *args, **kwargs: None)
     result = build.build_vocabulary(SCHEMA_DIR)
     dist = tmp_path / "dist"

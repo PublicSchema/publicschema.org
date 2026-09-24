@@ -63,6 +63,8 @@ Chaque élément obtient un URI stable :
 
 Une fois publié en usage expérimental ou au-dessus, un URI ne sera pas supprimé. Les termes dépréciés continuent de se résoudre avec des métadonnées indiquant le remplacement.
 
+La publication d'un brouillon sur le site ne déclenche pas cette garantie de persistance : ses URI peuvent encore changer avec préavis. La publication au niveau « Usage expérimental » (`candidate`) marque le début de cette garantie ; le niveau normatif verrouille également le sens, comme indiqué ci-dessus. Les utilisateurs de brouillons devraient fixer une révision des sources et consulter les [dispositions de migration des domaines](../domain-migration.md) avant une mise à jour. Un remplacement documenté explique le changement, sans affirmer à lui seul une équivalence sémantique.
+
 ## Licence
 
 Le modèle de référence dans `schema/` est sous licence **CC-BY-4.0**. Les outils de construction et les tests sont sous licence **Apache-2.0**.

@@ -1287,12 +1287,14 @@ dependencies = [
 
 [package.dev-dependencies]
 dev = [
+    { name = "jsonschema", extra = ["format"] },
     { name = "linkml" },
     { name = "oaklib" },
     { name = "pyld" },
     { name = "pyshacl" },
     { name = "pytest" },
     { name = "rdflib" },
+    { name = "referencing" },
     { name = "yamllint" },
 ]
 
@@ -1306,12 +1308,14 @@ requires-dist = [
 
 [package.metadata.requires-dev]
 dev = [
+    { name = "jsonschema", extras = ["format"], specifier = ">=4.20" },
     { name = "linkml", specifier = ">=1.10.0" },
     { name = "oaklib", specifier = ">=0.6.23" },
     { name = "pyld", specifier = ">=3.0.0" },
     { name = "pyshacl", specifier = ">=0.31.0" },
     { name = "pytest", specifier = ">=8.0" },
     { name = "rdflib", specifier = ">=7.6.0" },
+    { name = "referencing", specifier = ">=0.37" },
     { name = "yamllint", specifier = ">=1.35" },
 ]
 

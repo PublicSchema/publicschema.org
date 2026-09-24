@@ -465,6 +465,7 @@ def _property_to_json_schema(
     vocabularies: dict,
     out_vocabularies: dict | None = None,
     concept_schema_uris: dict | None = None,
+    inline_only: frozenset[str] = frozenset(),
 ) -> dict:
     """Convert a property definition to a JSON Schema property definition.
 
@@ -499,7 +500,10 @@ def _property_to_json_schema(
             if concept_schema_uris is not None
             else ref_concept_id
         )
-        if concept_schema_uris and resolved_key in concept_schema_uris:
+        if concept_schema_uris and resolved_key in inline_only:
+            # A value type has no identity, so a reference string cannot stand for it.
+            item_schema = {"$ref": concept_schema_uris[resolved_key]}
+        elif concept_schema_uris and resolved_key in concept_schema_uris:
             item_schema = {
                 "oneOf": [
                     {"$ref": concept_schema_uris[resolved_key]},
@@ -515,6 +519,11 @@ def _property_to_json_schema(
     description = prop_data.get("definition", {}).get("en", "")
     if description:
         item_schema["description"] = description
+
+    # Value constraints apply to each value, so they sit on the item schema.
+    for key in ("minimum", "maximum", "pattern"):
+        if prop_data.get(key) is not None:
+            item_schema[key] = prop_data[key]
 
     if cardinality == "multiple":
         return {"type": "array", "items": item_schema}
@@ -656,6 +665,9 @@ def build_vocabulary(
             "cardinality": data.get("cardinality"),
             "vocabulary": data.get("vocabulary"),
             "references": data.get("references"),
+            "minimum": data.get("minimum"),
+            "maximum": data.get("maximum"),
+            "pattern": data.get("pattern"),
             "used_by": property_domains.get(prop_id, []),
             "schema_org_equivalent": data.get("schema_org_equivalent"),
             "sensitivity": data.get("sensitivity"),
@@ -939,6 +951,7 @@ def build_vocabulary(
         concept_schema_uris[concept_id] = f"{base_uri.rstrip('/')}{concept_path}.schema.json"
 
     # Build JSON Schema per concept. Keys are composite (matching out_concepts).
+    inline_only = frozenset(key for key, data in concepts_raw.items() if data.get("inline_only"))
     concept_schemas = {}
     for concept_id, data in concepts_raw.items():
         bare_id = data["id"]
@@ -950,7 +963,7 @@ def build_vocabulary(
             if prop_id in properties_raw:
                 schema_props[prop_id] = _property_to_json_schema(
                     properties_raw[prop_id], vocabularies_raw, out_vocabularies,
-                    concept_schema_uris,
+                    concept_schema_uris, inline_only,
                 )
 
         # Extract repeated vocab enums into $defs
@@ -1004,6 +1017,9 @@ def build_vocabulary(
         if defs:
             concept_schema["$defs"] = defs
         concept_schema["properties"] = schema_props
+        required = [prop_id for prop_id in schema_props if properties_raw[prop_id].get("required")]
+        if required:
+            concept_schema["required"] = required
         concept_schemas[concept_id] = concept_schema
 
     # Build SD-JWT VC credential schemas
@@ -1148,6 +1164,180 @@ def build_vocabulary(
     }
 
 
+def _output_path(path: str) -> Path | None:
+    """Return a safe relative path for a generated artifact URL."""
+    if not isinstance(path, str) or not path:
+        return None
+    relative = Path(path.lstrip("/"))
+    if relative == Path(".") or relative.is_absolute() or ".." in relative.parts:
+        return None
+    return relative
+
+
+def _path_below(path: str, root: Path) -> Path | None:
+    """Return a safe path relative to one expected generated URL root."""
+    relative = _output_path(path)
+    if relative is None:
+        return None
+    try:
+        return relative.relative_to(root)
+    except ValueError:
+        return None
+
+
+def _object_values(value: object):
+    """Return mapping values, or no values when prior JSON has the wrong shape."""
+    return value.values() if isinstance(value, dict) else ()
+
+
+def _generated_outputs(manifest: dict, vocabulary: dict) -> dict[str, set[Path]]:
+    """List dynamic artifacts owned by one completed build.
+
+    The existing manifest identifies downloads, schemas, and vocabulary
+    documents. vocabulary.json supplies the corresponding concept and property
+    paths, including property JSON-LD documents which predate manifest entries.
+    """
+    dist_paths: set[Path] = set()
+    public_paths: set[Path] = set()
+
+    for concept in _object_values(manifest.get("concepts")):
+        if not isinstance(concept, dict):
+            continue
+        for key, root in (("schema", "schemas"), ("jsonld", "jsonld/concepts")):
+            relative = _output_path(concept.get(key, ""))
+            if relative is not None:
+                dist_paths.add(Path(root) / relative)
+        for key in ("csv", "xlsx_definition", "xlsx_template"):
+            relative = _path_below(concept.get(key, ""), Path("downloads"))
+            if relative is not None:
+                dist_paths.add(Path("downloads") / relative)
+                public_paths.add(relative)
+                public_paths.add(Path("downloads") / relative)
+
+    for credential in _object_values(manifest.get("credentials")):
+        if not isinstance(credential, dict):
+            continue
+        relative = _path_below(
+            credential.get("schema", ""), Path("schemas/credentials"),
+        )
+        if relative is not None:
+            dist_paths.add(Path("schemas/credentials") / relative)
+            public_paths.add(Path("schemas/credentials") / relative)
+
+    for vocab in _object_values(manifest.get("vocabularies")):
+        if not isinstance(vocab, dict):
+            continue
+        relative = _path_below(vocab.get("jsonld", ""), Path("vocab"))
+        if relative is not None:
+            dist_paths.add(Path("jsonld/vocab") / relative)
+
+    for property_data in _object_values(vocabulary.get("properties")):
+        if not isinstance(property_data, dict):
+            continue
+        relative = _output_path(property_data.get("path", ""))
+        if relative is not None:
+            dist_paths.add(Path("jsonld/properties") / relative.with_suffix(".jsonld"))
+
+    for concept_data in _object_values(vocabulary.get("concepts")):
+        if not isinstance(concept_data, dict):
+            continue
+        relative = _output_path(concept_data.get("path", ""))
+        if relative is not None:
+            public_paths.add(relative.with_suffix(".schema.json"))
+        concept_id = concept_data.get("id")
+        domain = concept_data.get("domain")
+        if isinstance(concept_id, str) and concept_id and (
+            domain is None or isinstance(domain, str)
+        ):
+            download_dir = _output_path(domain) if domain else Path()
+            if download_dir is None:
+                continue
+            for suffix in (".csv", "-definition.xlsx", "-template.xlsx"):
+                filename = _output_path(f"{concept_id}{suffix}")
+                if filename is None or len(filename.parts) != 1:
+                    continue
+                download = download_dir / filename
+                public_paths.add(download)
+                public_paths.add(Path("downloads") / download)
+
+    for name in ("vocabulary.json", "system_matchings.json"):
+        public_paths.add(Path(name))
+    for locale in ("en", "fr", "es"):
+        public_paths.add(Path("preview") / f"{locale}.json")
+
+    return {"dist": dist_paths, "public": public_paths}
+
+
+def _read_generated_index(*paths: Path) -> list[dict] | None:
+    """Read a prior build's JSON ownership files; ``None`` skips pruning.
+
+    A missing file is a first build. A malformed one leaves stale files in
+    place, so say so rather than silently skipping the cleanup.
+    """
+    documents = []
+    for path in paths:
+        try:
+            document = json.loads(path.read_text())
+        except FileNotFoundError:
+            return None
+        except json.JSONDecodeError as error:
+            reason = str(error)
+        else:
+            if isinstance(document, dict):
+                documents.append(document)
+                continue
+            reason = f"expected a JSON object, got {type(document).__name__}"
+        print(
+            f"WARNING: {path} is not a usable generated-artifact index ({reason}); "
+            "stale generated files from the previous build are not pruned",
+            file=sys.stderr,
+        )
+        return None
+    return documents
+
+
+def _read_generated_outputs(dist_dir: Path) -> dict[str, set[Path]]:
+    """Read the previous build's ownership data without trusting malformed JSON."""
+    documents = _read_generated_index(dist_dir / "manifest.json", dist_dir / "vocabulary.json")
+    if documents is None:
+        return {"dist": set(), "public": set()}
+    return _generated_outputs(*documents)
+
+
+def _read_public_generated_outputs(public_dir: Path) -> dict[str, set[Path]]:
+    """Recover copied-artifact ownership from the prior public vocabulary."""
+    documents = _read_generated_index(public_dir / "vocabulary.json")
+    if documents is None:
+        return {"dist": set(), "public": set()}
+    return _generated_outputs({}, *documents)
+
+
+def _remove_generated_files(root: Path, paths: set[Path]) -> int:
+    """Remove obsolete files identified by a prior generated-artifact index.
+
+    Directories left empty below ``root`` are removed too. Nothing is followed
+    through a symlink. Returns the number of files removed.
+    """
+    if root.is_symlink():
+        return 0
+    removed = 0
+    for relative in sorted(paths):
+        target = root / relative
+        if any((root / Path(*relative.parts[:index])).is_symlink()
+               for index in range(1, len(relative.parts))):
+            continue
+        if target.is_symlink() or target.is_file():
+            target.unlink()
+            removed += 1
+            parent = target.parent
+            while parent != root and not any(parent.iterdir()):
+                parent.rmdir()
+                parent = parent.parent
+    if removed:
+        print(f"Pruned {removed} stale generated files from {root}")
+    return removed
+
+
 def write_outputs(
     result: dict,
     dist_dir: Path,
@@ -1166,12 +1356,8 @@ def write_outputs(
     schema tree). ``rdf_composite`` selects the same LinkML source used for
     the vocabulary; ``source="bespoke"`` uses the historical RDF renderer.
     """
+    from build import linkml_rdf_export
     from build.export import generate_all_downloads
-    from build.linkml_rdf_export import (
-        write_full_jsonld,
-        write_shacl,
-        write_turtle,
-    )
     from build.metrics_catalog import write_metrics_catalog
     from build.preview_export import build_preview
     from build.system_matchings import build_system_matchings
@@ -1181,6 +1367,7 @@ def write_outputs(
     if external_dir is None:
         external_dir = schema_dir.parent / "external"
 
+    previous_outputs = _read_generated_outputs(dist_dir)
     dist_dir.mkdir(parents=True, exist_ok=True)
     write_metrics_catalog(
         schema_dir, dist_dir / "metrics_catalog.json",
@@ -1292,12 +1479,14 @@ def write_outputs(
         rdf_export_legacy.write_shacl(result, dist_dir)
     else:
         composite = rdf_composite if rdf_composite is not None else schema_dir / "publicschema.yaml"
-        write_turtle(dist_dir / "publicschema.ttl", composite=composite)
-        write_full_jsonld(
+        # Turtle and full JSON-LD are two serializations of one OWL graph.
+        owl_graph = linkml_rdf_export.generate_owl_graph(composite)
+        linkml_rdf_export.write_turtle(dist_dir / "publicschema.ttl", graph=owl_graph)
+        linkml_rdf_export.write_full_jsonld(
             dist_dir / "publicschema.jsonld", context_url=rdf_context_url,
-            composite=composite,
+            graph=owl_graph,
         )
-        write_shacl(dist_dir / "publicschema.shacl.ttl", composite=composite)
+        linkml_rdf_export.write_shacl(dist_dir / "publicschema.shacl.ttl", composite=composite)
 
     # CSV and Excel downloads per concept
     downloads_dir = dist_dir / "downloads"
@@ -1353,6 +1542,10 @@ def write_outputs(
     (dist_dir / "manifest.json").write_text(
         json.dumps(manifest, indent=2, ensure_ascii=False) + "\n"
     )
+    current_outputs = _generated_outputs(manifest, vocabulary)
+    _remove_generated_files(
+        dist_dir, previous_outputs["dist"] - current_outputs["dist"],
+    )
 
 
 def prepare_site_artifacts(dist_dir: Path, public_dir: Path):
@@ -1361,6 +1554,12 @@ def prepare_site_artifacts(dist_dir: Path, public_dir: Path):
     Astro serves the context, RDF, manifest and per-term JSON-LD directly from
     dist through its existing endpoints. Only static downloads belong here.
     """
+    previous_outputs = _read_public_generated_outputs(public_dir)
+    current_outputs = _read_generated_outputs(dist_dir)
+    _remove_generated_files(
+        public_dir, previous_outputs["public"] - current_outputs["public"],
+    )
+
     def copy_file(source: Path, relative: Path):
         target = public_dir / relative
         target.parent.mkdir(parents=True, exist_ok=True)

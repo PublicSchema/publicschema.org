@@ -1,0 +1,15 @@
+{
+  "@id": "https://example.org/agriculture/membership-organization",
+  "@type": "InstitutionalRole",
+  "role_actor": "https://example.org/org/family-enterprise",
+  "role_organization": {
+    "@type": "agri/ProducerOrganization",
+    "name": "Synthetic cooperative"
+  },
+  "institutional_role_type": {
+    "@type": "CodedValue",
+    "code_value": "member",
+    "code_scheme": "https://example.org/cooperative-roles"
+  },
+  "start_date": "2026-01-01"
+}

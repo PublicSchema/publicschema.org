@@ -14,8 +14,8 @@ from tests.conftest import SCHEMA_DIR
 
 
 @pytest.fixture(scope="module")
-def build_result():
-    return build_vocabulary(SCHEMA_DIR)
+def build_result(built_vocabulary):
+    return built_vocabulary
 
 
 @pytest.fixture(scope="module")

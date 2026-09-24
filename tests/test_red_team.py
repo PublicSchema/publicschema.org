@@ -13,15 +13,15 @@ from rdflib.namespace import XSD
 
 from build.build import build_vocabulary
 from build.rdf_export import SH, build_shacl
-from tests.conftest import SCHEMA_DIR, make_concept, make_property, make_vocabulary
+from tests.conftest import make_concept, make_property, make_vocabulary
 
 # ---------------------------------------------------------------------------
 # Shared fixtures
 # ---------------------------------------------------------------------------
 
 @pytest.fixture(scope="module")
-def real_result():
-    return build_vocabulary(SCHEMA_DIR)
+def real_result(built_vocabulary):
+    return built_vocabulary
 
 
 # ---------------------------------------------------------------------------

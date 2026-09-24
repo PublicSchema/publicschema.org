@@ -78,30 +78,30 @@ enums:
       watch:
         meaning: dhs:DHSRecode7HouseholdAssets/watch
         title: Watch
-  DHSRecode7LivestockVariablesHv246aJ:
-    enum_uri: dhs:DHSRecode7LivestockVariablesHv246aJ
-    title: DHSRecode7LivestockVariablesHv246aJ
+  DHSRecode7LivestockVariablesHv246aK:
+    enum_uri: dhs:DHSRecode7LivestockVariablesHv246aK
+    title: DHSRecode7LivestockVariablesHv246aK
     permissible_values:
       cattle:
-        meaning: dhs:DHSRecode7LivestockVariablesHv246aJ/cattle
+        meaning: dhs:DHSRecode7LivestockVariablesHv246aK/cattle
         title: Cattle
       chickens:
-        meaning: dhs:DHSRecode7LivestockVariablesHv246aJ/chickens
+        meaning: dhs:DHSRecode7LivestockVariablesHv246aK/chickens
         title: Chickens/poultry
+      donkeys_mules:
+        meaning: dhs:DHSRecode7LivestockVariablesHv246aK/donkeys_mules
+        title: Horses, donkeys, mules
       goats:
-        meaning: dhs:DHSRecode7LivestockVariablesHv246aJ/goats
+        meaning: dhs:DHSRecode7LivestockVariablesHv246aK/goats
         title: Goats
       horses:
-        meaning: dhs:DHSRecode7LivestockVariablesHv246aJ/horses
-        title: Horses/donkeys/mules
-      other_livestock:
-        meaning: dhs:DHSRecode7LivestockVariablesHv246aJ/other_livestock
-        title: Other
-      pigs:
-        meaning: dhs:DHSRecode7LivestockVariablesHv246aJ/pigs
-        title: Pigs
+        meaning: dhs:DHSRecode7LivestockVariablesHv246aK/horses
+        title: Horses, donkeys, mules
+      other_poultry:
+        meaning: dhs:DHSRecode7LivestockVariablesHv246aK/other_poultry
+        title: Chickens/poultry
       sheep:
-        meaning: dhs:DHSRecode7LivestockVariablesHv246aJ/sheep
+        meaning: dhs:DHSRecode7LivestockVariablesHv246aK/sheep
         title: Sheep
   DhsHv025TypeOfPlaceOfResidence:
     enum_uri: dhs:DhsHv025TypeOfPlaceOfResidence

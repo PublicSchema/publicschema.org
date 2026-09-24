@@ -24,6 +24,12 @@ refactor can't regress them without a clear unit-level failure.
 
 from __future__ import annotations
 
+import json
+
+import pytest
+import yaml
+
+from build.build import build_vocabulary
 from build.linkml_reader import (
     _bespoke_id_and_domain_from_class,
     _convert_class_to_concept,
@@ -202,6 +208,114 @@ class TestDomainOverrideSentinel:
         assert prop["domain_override"] is None
 
 
+@pytest.mark.parametrize("base_uri", ["https://publicschema.org/", "https://registry.example/schema/"])
+def test_authored_property_namespace_survives_a_consumer_domain_change(tmp_path, base_uri):
+    """A root date stays root and a sector fact stays scoped when consumers move."""
+    definition = {
+        "id": base_uri + "linkml/test", "name": "test", "default_prefix": "product",
+        "prefixes": {"product": base_uri},
+        "classes": {
+            "Premises": {
+                "class_uri": "product:Premises", "title": "Premises",
+                "slots": ["observed_on", "cultivation_kind"],
+            },
+        },
+        "slots": {
+            "observed_on": {
+                "slot_uri": "product:observed_on", "range": "date",
+                "annotations": {"domain_override": "null"},
+            },
+            "cultivation_kind": {
+                "slot_uri": "product:agri/cultivation_kind", "range": "string",
+                "annotations": {"domain_override": "agri"},
+            },
+        },
+        "annotations": {"domains_json": json.dumps({
+            "agri": {"label": {"en": "Agriculture", "fr": "Agriculture"}},
+            "health": {"label": {"en": "Health"}},
+        })},
+    }
+    source = tmp_path / "publicschema.yaml"
+    for consumer_uri in ("product:Premises", "product:health/Premises"):
+        definition["classes"]["Premises"]["class_uri"] = consumer_uri
+        source.write_text(yaml.safe_dump(definition))
+        built = build_vocabulary(tmp_path)
+        shared = built["properties"]["observed_on"]
+        scoped = built["properties"]["cultivation_kind"]
+        assert (shared["uri"], shared["path"], shared["domain"]) == (
+            base_uri + "observed_on", "/observed_on", None,
+        )
+        assert (scoped["uri"], scoped["path"], scoped["domain"]) == (
+            base_uri + "agri/cultivation_kind", "/agri/cultivation_kind", "agri",
+        )
+        assert built["context"]["@context"]["observed_on"]["@id"] == shared["uri"]
+        assert built["context"]["@context"]["cultivation_kind"] == scoped["uri"]
+        assert list(built["meta"]["domains"]) == ["agri", "health"]
+        assert built["meta"]["domains"]["agri"]["label"]["fr"] == "Agriculture"
+
+
+@pytest.mark.parametrize("slot_uri,annotation,expected", [
+    ("publicschema:observed_on", "null", None),
+    ("publicschema:agri/cultivation_kind", "agri", "agri"),
+    ("publicschema:agri/cultivation_kind", None, "agri"),
+    ("https://publicschema.org/agri/cultivation_kind", "agri", "agri"),
+])
+def test_domain_override_that_agrees_with_the_slot_uri_is_accepted(slot_uri, annotation, expected):
+    annotations = {"domain_override": annotation} if annotation else {}
+    _, prop = _convert_slot_to_property(
+        "slot", {"slot_uri": slot_uri, "range": "string", "annotations": annotations},
+        enum_to_vocab_key={}, class_names=set(),
+    )
+    assert prop["domain_override"] == expected
+
+
+@pytest.mark.parametrize("slot_uri,annotation,namespace", [
+    ("publicschema:observed_on", "health", "the root namespace"),
+    ("publicschema:agri/cultivation_kind", "null", "the agri namespace"),
+    ("publicschema:agri/cultivation_kind", "land", "the agri namespace"),
+    ("https://publicschema.org/agri/cultivation_kind", "land", "the agri namespace"),
+])
+def test_domain_override_that_disagrees_with_the_slot_uri_is_a_build_error(slot_uri, annotation, namespace):
+    # The slot_uri owns the property's namespace; an authored annotation that
+    # says otherwise is a mistake to report, not a value to ignore silently.
+    with pytest.raises(ValueError, match=(
+        f"^slot: domain_override '{annotation}' disagrees with slot_uri '{slot_uri}', "
+        f"which places the property in {namespace}"
+    )):
+        _convert_slot_to_property(
+            "slot",
+            {"slot_uri": slot_uri, "range": "string", "annotations": {"domain_override": annotation}},
+            enum_to_vocab_key={}, class_names=set(),
+        )
+
+
+def test_composite_domain_metadata_must_be_an_object(tmp_path, capsys):
+    from build.linkml_reader import load_linkml_metadata
+
+    (tmp_path / "publicschema.yaml").write_text(yaml.safe_dump({
+        "id": "https://publicschema.org/linkml/test", "name": "test",
+        "annotations": {"domains_json": json.dumps(["agri"])},
+    }))
+    assert "domains" not in load_linkml_metadata(tmp_path)
+    assert "WARNING: domains_json must be a JSON object keyed by domain; got list" in capsys.readouterr().err
+
+
+def test_every_used_domain_is_declared_in_the_composite(built_vocabulary):
+    declared = set(built_vocabulary["meta"]["domains"])
+    used = {
+        entry["domain"]
+        for kind in ("concepts", "properties", "vocabularies")
+        for entry in built_vocabulary[kind].values()
+        if entry.get("domain")
+    }
+    assert used
+    # metrics is used but not yet declared in the composite's domains_json, so
+    # the site shows its raw code. Declaring it is a schema change; remove it
+    # from this set when it is declared.
+    known_undeclared = {"metrics"}
+    assert used - declared == known_undeclared
+
+
 # ---------------------------------------------------------------------------
 # Fix 1: subtypes reconstruction must not use fuzzy short-name fallback
 # ---------------------------------------------------------------------------
@@ -373,3 +487,109 @@ class TestParseJsonAnnotationWarnsOnBadJson:
         _parse_json_annotation("not-json-at-all")
         captured = capsys.readouterr()
         assert captured.err
+
+
+# ---------------------------------------------------------------------------
+# Slot value constraints: minimum_value, maximum_value and pattern
+# ---------------------------------------------------------------------------
+
+
+class TestSlotValueConstraints:
+    """LinkML value constraints reach the bespoke property, JSON Schema and SHACL."""
+
+    def test_bounds_and_pattern_carry_into_the_property(self):
+        _, prop = _convert_slot_to_property(
+            "share", {"range": "decimal", "minimum_value": 0, "maximum_value": 1},
+            enum_to_vocab_key={}, class_names=set(),
+        )
+        assert (prop["minimum"], prop["maximum"]) == (0, 1)
+        _, prop = _convert_slot_to_property(
+            "year", {"range": "string", "pattern": "^[0-9]{4}$"},
+            enum_to_vocab_key={}, class_names=set(),
+        )
+        assert prop["pattern"] == "^[0-9]{4}$"
+
+    def test_unconstrained_slot_has_no_constraint_keys(self):
+        _, prop = _convert_slot_to_property(
+            "count", {"range": "integer"},
+            enum_to_vocab_key={}, class_names=set(),
+        )
+        assert not {"minimum", "maximum", "pattern"} & prop.keys()
+
+    @pytest.fixture
+    def constrained_composite(self, tmp_path):
+        definition = {
+            "id": "https://example.org/linkml/test", "name": "test",
+            "default_prefix": "product", "default_range": "string",
+            "prefixes": {
+                "product": "https://example.org/",
+                "linkml": "https://w3id.org/linkml/",
+            },
+            "imports": ["linkml:types"],
+            "classes": {
+                "Tally": {
+                    "class_uri": "product:Tally",
+                    "slots": ["head_count", "share", "batch_counts", "observed"],
+                },
+            },
+            "slots": {
+                "head_count": {
+                    "slot_uri": "product:head_count", "range": "integer",
+                    "minimum_value": 0,
+                },
+                "share": {
+                    "slot_uri": "product:share", "range": "decimal",
+                    "minimum_value": 0, "maximum_value": 1,
+                },
+                "batch_counts": {
+                    "slot_uri": "product:batch_counts", "range": "integer",
+                    "multivalued": True, "minimum_value": 1,
+                },
+                "observed": {
+                    "slot_uri": "product:observed", "range": "string",
+                    "pattern": "^[0-9]{4}(-[0-9]{2})?$",
+                },
+            },
+        }
+        source = tmp_path / "publicschema.yaml"
+        source.write_text(yaml.safe_dump(definition))
+        return source
+
+    def test_json_schema_enforces_bounds_and_pattern(self, constrained_composite):
+        import jsonschema
+
+        built = build_vocabulary(constrained_composite.parent)
+        schema = built["concept_schemas"]["Tally"]
+        props = schema["properties"]
+        assert props["head_count"]["minimum"] == 0
+        assert (props["share"]["minimum"], props["share"]["maximum"]) == (0, 1)
+        assert props["batch_counts"]["items"]["minimum"] == 1
+        assert props["observed"]["pattern"] == "^[0-9]{4}(-[0-9]{2})?$"
+        validator = jsonschema.Draft202012Validator(schema)
+        valid = {"head_count": 0, "share": 1, "batch_counts": [1], "observed": "2024-05"}
+        assert not list(validator.iter_errors(valid))
+        for change in (
+            {"head_count": -1}, {"share": 1.5}, {"batch_counts": [0]},
+            {"observed": "May 2024"},
+        ):
+            assert list(validator.iter_errors({**valid, **change})), change
+
+    def test_shacl_enforces_bounds_and_pattern(self, constrained_composite, tmp_path):
+        from rdflib import Graph, Literal, Namespace, URIRef
+        from rdflib.namespace import SH
+
+        from build.linkml_rdf_export import write_shacl
+
+        shapes_path = write_shacl(tmp_path / "shapes.ttl", composite=constrained_composite)
+        shapes = Graph().parse(shapes_path)
+        product = Namespace("https://example.org/")
+
+        def constraint(path: URIRef, predicate: URIRef):
+            shape = next(shapes.subjects(SH.path, path))
+            return shapes.value(shape, predicate)
+
+        assert constraint(product.head_count, SH.minInclusive) == Literal(0)
+        assert constraint(product.share, SH.minInclusive).toPython() == 0
+        assert constraint(product.share, SH.maxInclusive).toPython() == 1
+        assert constraint(product.batch_counts, SH.minInclusive) == Literal(1)
+        assert str(constraint(product.observed, SH.pattern)) == "^[0-9]{4}(-[0-9]{2})?$"

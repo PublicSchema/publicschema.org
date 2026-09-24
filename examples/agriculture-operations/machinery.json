@@ -1,0 +1,13 @@
+{
+  "@id": "https://example.org/agriculture/machinery",
+  "@type": "agri/AgriculturalMachine",
+  "name": "Synthetic hired tractor",
+  "machine_model": "Example model",
+  "identifiers": [
+    {
+      "@type": "Identifier",
+      "identifier_value": "EXAMPLE-001",
+      "identifier_scheme_id": "https://example.org/manufacturer-serial-numbers"
+    }
+  ]
+}

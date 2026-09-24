@@ -1,0 +1,279 @@
+"""Qualified relationship examples through the real public exporters and local profile."""
+
+import copy
+import json
+from pathlib import Path
+
+import jsonschema
+import pytest
+import yaml
+from pyshacl import validate
+from rdflib import Namespace, URIRef
+from rdflib.namespace import OWL, RDF, RDFS, SH
+
+from tests.conftest import jsonld_graph, load_example
+
+ROOT = Path(__file__).resolve().parents[1]
+EXAMPLES = ROOT / "examples/government-relationships"
+EX = "https://example.org/government-relationships/"
+PS = Namespace("https://publicschema.org/")
+EDU = Namespace("https://publicschema.org/edu/")
+RECORDS = json.loads((EXAMPLES / "records.json").read_text())
+CASES = json.loads((EXAMPLES / "negative-cases.json").read_text())
+AUTHORED = {"classes": {}}
+for _module in ("ownership", "education"):
+    AUTHORED["classes"].update(yaml.safe_load((ROOT / f"schema/{_module}.yaml").read_text())["classes"])
+PROFILE = load_example("government-relationships/validate_profile.py")
+
+
+@pytest.fixture(scope="module")
+def exports(built_vocabulary, shacl_graph, owl_graph, schema_registry):
+    return built_vocabulary, shacl_graph, owl_graph, schema_registry
+
+
+def validator(exports, kind):
+    built, _, _, registry = exports
+    return jsonschema.Draft202012Validator(
+        built["concept_schemas"][kind], registry=registry,
+        format_checker=jsonschema.FormatChecker(),
+    )
+
+
+def graph_for(records, exports):
+    built, _, _, _ = exports
+    return jsonld_graph(records, built["context"])
+
+
+def conforms(records, exports, hierarchy):
+    _, shapes, _, _ = exports
+    return validate(graph_for(records, exports), shacl_graph=shapes, ont_graph=hierarchy)
+
+
+def record(records, suffix):
+    return next(item for item in records if item["@id"] == EX + suffix)
+
+
+def test_real_exports_preserve_qualified_relationships(exports, subclass_hierarchy):
+    built, shapes, ontology, _ = exports
+    for item in RECORDS:
+        validator(exports, item["@type"]).validate(item)
+    valid, _, report = conforms(RECORDS, exports, subclass_hierarchy)
+    assert valid, report
+    PROFILE.validate_profile(RECORDS)
+
+    graph = graph_for(RECORDS, exports)
+    assert (URIRef(EX + "north-offering"), EDU.offering_program, URIRef(EX + "program")) in graph
+    assert (URIRef(EX + "trust-control"), PS.interest_entity, URIRef(EX + "trust")) in graph
+    assert (PS.LegalArrangement, RDFS.subClassOf, PS.Organization) not in ontology
+    assert (PS.LegalArrangement, RDFS.subClassOf, PS.Party) not in ontology
+
+    for definition in AUTHORED["classes"].values():
+        uri = URIRef(definition["class_uri"].replace("publicschema:", str(PS)))
+        assert (uri, RDF.type, OWL.Class) in ontology
+        key = str(uri).removeprefix(str(PS))
+        assert built["concepts"][key]["maturity"] == "draft"
+        targets = list(shapes.subjects(SH.targetClass, uri))
+        paths = {path for target in targets
+                 for shape in shapes.objects(target, SH.property)
+                 for path in shapes.objects(shape, SH.path)}
+        for slot in definition.get("slots", []):
+            assert slot in built["concept_schemas"][key]["properties"]
+            assert URIRef(built["properties"][slot]["uri"]) in paths
+
+
+@pytest.mark.parametrize("suffix,changes,rdf_conforms", [
+    ("holding-shares", {"interest_exclusive_minimum_percentage": "more than twenty-five"}, False),
+    ("north-offering", {"offering_sites": EX + "north-site"}, True),
+])
+def test_malformed_relationship_values_respect_each_public_format(
+    exports, subclass_hierarchy, suffix, changes, rdf_conforms,
+):
+    records = copy.deepcopy(RECORDS)
+    changed = record(records, suffix)
+    changed.update(changes)
+    assert list(validator(exports, changed["@type"]).iter_errors(changed))
+    assert conforms(records, exports, subclass_hierarchy)[0] is rdf_conforms
+    if rdf_conforms:
+        # JSON array form is a serialization rule. RDF preserves the same single
+        # site relationship and cannot distinguish a scalar from a one-item array.
+        assert (URIRef(EX + suffix), EDU.offering_sites, URIRef(EX + "north-site")) in graph_for(records, exports)
+
+
+@pytest.mark.parametrize("case", CASES, ids=lambda case: case["name"])
+def test_documented_profile_counterexamples(case):
+    with pytest.raises(ValueError, match=case["expected"]):
+        PROFILE.validate_profile(PROFILE.apply_case(RECORDS, case))
+
+
+def test_a_case_naming_a_missing_target_is_reported_as_a_bad_case():
+    with pytest.raises(ValueError, match="no record " + EX + "absent"):
+        PROFILE.apply_case(RECORDS, {"name": "typo", "target": EX + "absent", "expected": ""})
+
+
+@pytest.mark.parametrize("value,message", [
+    ("20250101", "exact YYYY-MM-DD"),
+    (20250101, "exact YYYY-MM-DD"),
+    ("2025-02-30", "impossible calendar date"),
+])
+def test_interest_dates_are_exact_calendar_days(value, message):
+    records = copy.deepcopy(RECORDS)
+    record(records, "holding-shares")["start_date"] = value
+    with pytest.raises(ValueError, match=message):
+        PROFILE.validate_profile(records)
+
+
+def test_scope_queries_do_not_infer_approval_or_beneficial_ownership():
+    PROFILE.validate_profile(RECORDS)
+    index = PROFILE.index_records(RECORDS)
+    indirect = record(RECORDS, "indirect-control")
+    ordered = PROFILE.ownership_route(indirect, index)
+    assert ordered == [EX + "trust-control", EX + "trust-shares", EX + "holding-shares"]
+    assert "interest_percentage" not in indirect
+    assert not any(key in indirect for key in PROFILE.BOUNDS)
+
+    offerings = [item for item in RECORDS if item["@type"] == "edu/EducationOffering"
+                 and item["offering_program"] == EX + "program"]
+    recognized = {item["registered_subject"] for item in RECORDS if item["@type"] == "Registration"}
+    assert len(offerings) == 2
+    assert {item["@id"] for item in offerings} & recognized == {EX + "north-offering"}
+    assert not any("qualification_awarded" in item for item in offerings)
+    assert record(RECORDS, "program")["qualification_awarded"] == [EX + "qualifications/maintenance-diploma-2026"]
+
+
+@pytest.mark.parametrize("target", ["program", "online-offering"])
+@pytest.mark.parametrize("value,message", [
+    ([EX + "provider"], "external qualification definition"),
+    ([EX.removeprefix("https://")], "absolute definition URI"),
+    (EX + "qualifications/maintenance-diploma-2026", "must be a list"),
+])
+def test_qualification_awarded_names_external_definitions(target, value, message):
+    records = copy.deepcopy(RECORDS)
+    record(records, target)["qualification_awarded"] = value
+    with pytest.raises(ValueError, match=message):
+        PROFILE.validate_profile(records)
+
+
+@pytest.mark.parametrize("changes", [
+    {"interest_minimum_percentage": 0},
+    {"interest_maximum_percentage": 100},
+    {"interest_exclusive_maximum_percentage": 50},
+    {"interest_minimum_percentage": 25, "interest_maximum_percentage": 25},
+    {"interest_percentage": 0},
+    {},
+])
+def test_unknown_one_sided_exact_and_inclusive_bounds_are_preserved(changes):
+    records = copy.deepcopy(RECORDS)
+    changed = record(records, "holding-shares")
+    for key in PROFILE.BOUNDS:
+        changed.pop(key, None)
+    changed.update(changes)
+    before = copy.deepcopy(records)
+    PROFILE.validate_profile(records)
+    assert records == before
+    assert {key for key in PROFILE.BOUNDS if key in changed} == set(changes) - {"interest_percentage"}
+
+
+@pytest.mark.parametrize("changes", [
+    {"interest_minimum_percentage": -1},
+    {"interest_maximum_percentage": 101},
+    {"interest_exclusive_minimum_percentage": 100},
+    {"interest_exclusive_maximum_percentage": 0},
+    {"interest_percentage": True},
+    {"interest_percentage": float("nan")},
+])
+def test_impossible_percentages_fail_the_profile(changes):
+    records = copy.deepcopy(RECORDS)
+    changed = record(records, "holding-shares")
+    for key in PROFILE.BOUNDS:
+        changed.pop(key, None)
+    changed.update(changes)
+    with pytest.raises(ValueError):
+        PROFILE.validate_profile(records)
+
+
+@pytest.mark.parametrize("slot", ("interest_percentage", *PROFILE.BOUNDS))
+@pytest.mark.parametrize("value", [-1, 101])
+def test_percentages_outside_zero_to_one_hundred_fail_the_public_schema(exports, slot, value):
+    changed = copy.deepcopy(record(RECORDS, "holding-shares"))
+    changed[slot] = value
+    assert list(validator(exports, changed["@type"]).iter_errors(changed))
+
+
+def test_components_with_unknown_primary_dates_still_need_a_common_day():
+    records = copy.deepcopy(RECORDS)
+    primary = record(records, "indirect-control")
+    primary.pop("start_date")
+    primary.pop("end_date")
+    record(records, "trust-control")["end_date"] = "2026-01-01"
+    record(records, "holding-shares")["start_date"] = "2026-01-01"
+    with pytest.raises(ValueError, match="no common effective day"):
+        PROFILE.validate_profile(records)
+
+
+@pytest.mark.parametrize("case,expected", [
+    ("cycle", "contain a cycle"),
+    ("duplicate", "duplicate components"),
+    ("primary", "primary interest"),
+])
+def test_route_components_cannot_repeat_or_refer_to_the_primary(case, expected):
+    records = copy.deepcopy(RECORDS)
+    indirect = record(records, "indirect-control")
+    if case == "cycle":
+        record(records, "holding-shares")["interest_entity"] = EX + "trust"
+    elif case == "duplicate":
+        indirect["component_interests"].append(indirect["component_interests"][0])
+    else:
+        indirect["component_interests"].append(indirect["@id"])
+    with pytest.raises(ValueError, match=expected):
+        PROFILE.validate_profile(records)
+
+
+def test_only_an_indirect_interest_lists_component_interests():
+    records = copy.deepcopy(RECORDS)
+    direct = record(records, "trust-control")
+    direct["component_interests"] = [EX + "trust-shares", EX + "holding-shares"]
+    with pytest.raises(ValueError, match="explicitly indirect interest"):
+        PROFILE.validate_profile(records)
+
+
+def test_indirect_routes_live_on_the_interest_without_a_separate_chain_class(exports):
+    built, _, ontology, _ = exports
+    assert "OwnershipChainAssertion" not in built["concepts"]
+    assert (PS.OwnershipChainAssertion, RDF.type, OWL.Class) not in ontology
+    assert "indirect_interest" not in built["properties"]
+    assert "component_interests" in built["concept_schemas"]["OwnershipInterest"]["properties"]
+    assert "LegalEntity" not in built["concepts"]
+    route = [item for item in RECORDS if item.get("component_interests")]
+    assert [item["@id"] for item in route] == [EX + "indirect-control"]
+
+
+def test_interest_directness_cites_the_bods_codes_it_reuses(exports):
+    built = exports[0]
+    vocabulary = built["vocabularies"]["interest-directness"]
+    assert "directOrIndirect" in vocabulary["standard"]["name"]
+    assert {value["code"] for value in vocabulary["values"]} == {"direct", "indirect", "unknown"}
+
+
+def test_interest_type_points_to_the_bods_codelist(exports):
+    # Kept open for jurisdiction-specific interests; BODS is the recommended scheme.
+    prop = exports[0]["properties"]["interest_type"]
+    assert prop["type"] == "concept:CodedValue"
+    for language in ("en", "fr", "es"):
+        assert "interestType" in prop["definition"][language], language
+    assert "openownership-bods" in prop["bibliography_refs"]
+
+
+@pytest.mark.parametrize("language,term", [
+    ("en", "nominee agreement"), ("fr", "accord de prête-nom"), ("es", "acuerdo de testaferro"),
+])
+def test_legal_arrangement_and_its_type_name_nominee_agreements_alike(exports, language, term):
+    built = exports[0]
+    assert term in built["concepts"]["LegalArrangement"]["definition"][language]
+    assert term in built["properties"]["arrangement_type"]["definition"][language]
+
+def test_optional_reference_shapes_do_not_assert_complete_exchange(exports):
+    for kind in ("LegalArrangement", "OwnershipInterest", "edu/EducationOffering"):
+        partial = {"@id": EX + "partial", "@type": kind}
+        validator(exports, kind).validate(partial)
+        with pytest.raises(ValueError):
+            PROFILE.validate_profile([partial])

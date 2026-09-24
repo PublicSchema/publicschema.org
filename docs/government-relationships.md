@@ -1,0 +1,44 @@
+# Ownership interests and education offerings
+
+An ownership band and a program offered at one campus each need a precise relationship. These terms preserve those facts without deciding beneficial ownership or educational accreditation. The reference fields remain optional; the accompanying example profile checks a complete, locally resolved exchange.
+
+## Meanings and source boundaries
+
+| Relationship | Reference meaning | Primary source and scope |
+| --- | --- | --- |
+| Ownership bounds | `OwnershipInterest` retains exact `interest_percentage`. Four separate fields preserve inclusive or exclusive lower and upper bounds. Missing amounts remain unknown. | [BODS 0.4 Share](https://standard.openownership.org/en/0.4.0/standard/reference.html#share) distinguishes exact values and these four boundary meanings. |
+| Arrangement and indirect route | `LegalArrangement` identifies a mechanism without inventing an Organization. An indirect `OwnershipInterest` can list, as `component_interests`, the direct interests offered as its route. | [BODS 0.4 entity types and relationship details](https://standard.openownership.org/en/0.4.0/standard/reference.html) include arrangements and component records. PublicSchema references interest identities; BODS references record identifiers. These are different contracts. |
+| Education offering | `edu/EducationOffering` connects program, provider, sites, period, optional mode and, when it differs from the program's, the qualification definition URI. | The [European Learning Model](https://europass.europa.eu/en/stakeholders/information-developers) LearningOpportunity is a provider's offering with location, mode and the achievement it leads to. [Schema.org CourseInstance](https://schema.org/CourseInstance) distinguishes delivery by time, place or mode. PublicSchema chooses its narrower provider/site relationships. |
+
+These sources support the distinctions, not exact mappings or implemented BODS or Schema.org interchange compatibility. The concepts and properties on this page are at draft maturity. Domain-specific education meanings use `edu/`; shared ownership and legal arrangement meanings use root URIs. The module filename does not determine the URI namespace.
+
+## Ownership: amounts, arrangements and asserted routes
+
+Use `interest_percentage` only when the source asserts an exact value. “More than 25%, at most 50%” becomes `interest_exclusive_minimum_percentage: 25` and `interest_maximum_percentage: 50`. The vocabulary bounds every percentage to zero to one hundred. The profile rejects an exact value mixed with bounds, two competing boundary conventions on one side, and empty intervals. A missing lower or upper bound is preserved as missing; validation does not fill it in. An inclusive interval with equal bounds is representable, though the exact field is preferable when the source supplies an exact amount.
+
+`LegalArrangement` is separate from Person, Organization, Group and Party. The source's treatment determines whether an identified trust-like subject is an arrangement or an Organization with its own legal personality. Arrangement participation uses ownership or control interests with appropriate source codes. Nothing about this class establishes legal title or a participant's status as a beneficial owner. Unknown or withheld identities require their source-specific treatment; this example does not fabricate identified actors for them.
+
+`component_interests` is unordered and appears only on an interest whose `interest_directness` is `indirect`. Each component has its own holder, entity and dates, so the example profile reconstructs one connected route independently of array position. That bounded profile requires identified, explicitly direct components, rejects branches, unused edges, cycles and duplicate components, and checks known periods. Unspecified dates remain unspecified. The route can mix trustee control and share interests; multiplying the percentages would be misleading and is deliberately absent. An alternative route is recorded as another indirect interest with its own components.
+
+An associated `RegistryEntry` identifies the record, recording time and source evidence of an indirect interest and its route. Recording the route never verifies its truth. Components remain separately identifiable claims, so a later record can correct one without silently replacing other subjects. BODS package ordering, replacement rules, anonymous records, control determination and legal thresholds require an explicitly selected BODS profile or adapter.
+
+## Education: the offering carries the site and intake
+
+The fixture gives one program a campus offering and a later online offering. The program names the external qualification definition it leads to, and neither offering overrides it. One Registration recognizes only the campus offering. An application can follow that explicit subject relationship; recognition is not copied to every program, provider or site sharing a link.
+
+`qualification_awarded` identifies the qualification definitions, such as entries in a qualifications register, that a program or offering leads to. It is distinct from AwardedQualification, which describes an award already made to a person. The example retains the definition URI without fetching it or verifying its external meaning. It does not introduce another qualification catalog or infer that any student completed the program.
+
+The local profile checks program, provider and site identities, the site's provider, supplied modes, a coherent offering period and that each qualification awarded is an external definition URI. A physical School is connected through ProviderSite, while a virtual site needs no invented premises. Joint providers, session timetables, actual enrollments and accreditation criteria remain outside this bounded example. An offering can be a registration or authorization subject where the applicable scheme recognizes or permits that offering.
+
+## Runnable example and verification
+
+From the repository root:
+
+```sh
+uv run --locked python examples/government-relationships/validate_profile.py --negative
+uv run --locked pytest tests/test_government_relationships.py
+```
+
+`records.json` contains the synthetic exchange. `negative-cases.json` describes independent changes that must be rejected, including conflicting percentage bounds, unresolved and disconnected ownership routes, incompatible periods and the wrong site provider. The validator runs without remote lookups or authority decisions.
+
+The tests also use the production catalog, JSON Schema, RDF, JSON-LD context and SHACL exporters. Invalid decimal values fail in both public representations. JSON requires array syntax for `offering_sites`; RDF preserves the site relationships without retaining scalar-versus-array syntax, so this constraint is checked at the JSON boundary. Semantic counterexamples exercise the separately named example profile. Passing these checks establishes local fixture behavior only. See [ADR-023](../decisions/023-government-qualified-relationships.md) for alternatives and compatibility boundaries.

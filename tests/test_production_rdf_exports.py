@@ -6,33 +6,22 @@ from pathlib import Path
 
 import jsonschema
 import pytest
-from pyld import jsonld
 from pyshacl import validate
 from rdflib import BNode, Graph, Literal, Namespace, URIRef
 from rdflib.compare import isomorphic
-from rdflib.namespace import OWL, RDF, SH
+from rdflib.namespace import OWL, RDF, SH, XSD
 
 from build.build import build_vocabulary
 from build.linkml_rdf_export import (
     DEFAULT_CONTEXT_URL,
-    DEFAULT_LINKML_COMPOSITE,
     write_full_jsonld,
     write_shacl,
     write_turtle,
 )
+from tests.conftest import jsonld_graph as _jsonld_graph
 
 PS = Namespace("https://publicschema.org/")
 EX = Namespace("https://example.org/custom/")
-
-
-def _jsonld_graph(document, context, context_url=DEFAULT_CONTEXT_URL):
-    """Resolve the published context from this build, without network access."""
-    def load_context(url, options=None):
-        assert url == context_url, f"Unexpected remote document: {url}"
-        return {"contextUrl": None, "documentUrl": url, "document": context}
-
-    expanded = jsonld.expand(document, options={"documentLoader": load_context})
-    return Graph().parse(data=json.dumps(expanded), format="json-ld")
 
 
 def _write_exports(directory, composite, context_url=DEFAULT_CONTEXT_URL):
@@ -49,12 +38,11 @@ def _write_exports(directory, composite, context_url=DEFAULT_CONTEXT_URL):
 
 
 @pytest.fixture(scope="module")
-def production_exports(tmp_path_factory):
-    result = build_vocabulary(DEFAULT_LINKML_COMPOSITE.parent)
-    exports = _write_exports(
-        tmp_path_factory.mktemp("production-rdf"), DEFAULT_LINKML_COMPOSITE,
-    )
-    return result, *exports
+def production_exports(tmp_path_factory, built_vocabulary, owl_graph, shacl_graph):
+    # The session fixtures run write_turtle and write_shacl on the production
+    # composite; only the full JSON-LD export is specific to this module.
+    full_jsonld = write_full_jsonld(tmp_path_factory.mktemp("production-rdf") / "publicschema.jsonld")
+    return built_vocabulary, owl_graph, shacl_graph, json.loads(full_jsonld.read_text())
 
 
 def test_production_jsonld_preserves_turtle_graph(production_exports):
@@ -231,7 +219,7 @@ imports:
 classes:
   Base:
     abstract: true
-    slots: [label]
+    slots: [label, homepage]
   Record:
     is_a: Base
     exact_mappings: [schema:Thing]
@@ -243,6 +231,8 @@ classes:
 slots:
   label:
     required: true
+  homepage:
+    range: uri
   state:
     range: Mode
     required: true
@@ -328,6 +318,74 @@ def test_custom_context_and_shapes_share_authored_slot_uri(custom_exports):
     assert (None, EX["domain/value"], Literal(3)) in data
     conforms, _, report = validate(data, shacl_graph=shapes)
     assert conforms, report
+
+
+def test_custom_uri_slots_are_iris_in_owl_and_shacl(custom_exports):
+    # The public context coerces uri slots to @id, so both RDF exports must
+    # describe an IRI, including where the slot is inherited from an abstract class.
+    context, turtle, shapes, _ = custom_exports
+    assert (EX.homepage, RDF.type, OWL.ObjectProperty) in turtle
+    assert (EX.homepage, RDF.type, OWL.DatatypeProperty) not in turtle
+    assert XSD.anyURI not in set(turtle.all_nodes())
+    homepage_shapes = set(shapes.subjects(SH.path, EX.homepage))
+    assert homepage_shapes
+    for shape in homepage_shapes:
+        assert (shape, SH.nodeKind, SH.IRI) in shapes
+        assert (shape, SH.datatype, XSD.anyURI) not in shapes
+    document = {
+        "@context": DEFAULT_CONTEXT_URL, "@type": "Record", "label": "Example",
+        "state": "af", "homepage": "https://example.org/home",
+    }
+    conforms, _, report = validate(_jsonld_graph(document, context), shacl_graph=shapes)
+    assert conforms, report
+
+
+def test_owl_and_shacl_share_one_uri_slot_rule(tmp_path, monkeypatch):
+    from build import linkml_rdf_export
+
+    composite = tmp_path / "publicschema.yaml"
+    composite.write_text("""\
+id: https://example.org/custom/schema
+name: custom
+default_prefix: custom
+prefixes:
+  custom: https://example.org/custom/
+  linkml: https://w3id.org/linkml/
+imports:
+  - linkml:types
+classes:
+  Record:
+    slots: [homepage]
+slots:
+  homepage:
+    range: uri
+""", encoding="utf-8")
+    calls = []
+    real = linkml_rdf_export.uri_slot_paths
+
+    def spy(schemaview):
+        calls.append(real(schemaview))
+        return calls[-1]
+
+    monkeypatch.setattr(linkml_rdf_export, "uri_slot_paths", spy)
+    linkml_rdf_export.write_turtle(tmp_path / "out.ttl", composite=composite)
+    linkml_rdf_export.write_shacl(tmp_path / "out.shacl.ttl", composite=composite)
+    assert calls == [{EX.homepage}, {EX.homepage}]
+
+
+def test_owl_writers_reuse_a_supplied_graph(tmp_path, monkeypatch):
+    from build import linkml_rdf_export
+
+    def unexpected(*args, **kwargs):
+        pytest.fail("A supplied OWL graph must not be regenerated")
+
+    monkeypatch.setattr(linkml_rdf_export, "generate_owl_graph", unexpected)
+    graph = Graph()
+    graph.add((EX.Record, RDF.type, OWL.Class))
+    turtle = write_turtle(tmp_path / "out.ttl", graph=graph)
+    document = write_full_jsonld(tmp_path / "out.jsonld", graph=graph)
+    assert isomorphic(Graph().parse(turtle, format="turtle"), graph)
+    assert json.loads(document.read_text())["@context"] == DEFAULT_CONTEXT_URL
 
 
 def test_relative_composite_uses_callers_working_directory(tmp_path, monkeypatch):

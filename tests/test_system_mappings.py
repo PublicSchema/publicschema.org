@@ -8,8 +8,6 @@ preserves that structure.
 
 import pytest
 
-from build.build import build_vocabulary
-from tests.conftest import SCHEMA_DIR
 from tests.schema_reader import raw_schema
 
 # ---------------------------------------------------------------------------
@@ -17,8 +15,8 @@ from tests.schema_reader import raw_schema
 # ---------------------------------------------------------------------------
 
 @pytest.fixture(scope="module")
-def real_result():
-    return build_vocabulary(SCHEMA_DIR)
+def real_result(built_vocabulary):
+    return built_vocabulary
 
 
 @pytest.fixture(scope="module")

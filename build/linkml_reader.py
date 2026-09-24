@@ -381,6 +381,7 @@ def _convert_slot_to_property(
     class_names: set[str],
     class_name_to_composite: dict[str, list[str]] | None = None,
     linkml_name_to_composite: dict[str, str] | None = None,
+    base_uri: str = "https://publicschema.org/",
 ) -> tuple[str, dict]:
     annotations = _normalise_annotations(slot_def.get("annotations"))
     title = slot_def.get("title")
@@ -442,6 +443,8 @@ def _convert_slot_to_property(
         prop["vocabulary"] = vocabulary
     if references is not None:
         prop["references"] = references
+    if slot_def.get("required"):
+        prop["required"] = True
 
     # Scalar annotations restored verbatim. ``domain_override`` is special:
     # the bespoke shape distinguishes "no override" (key absent) from
@@ -461,6 +464,27 @@ def _convert_slot_to_property(
         else:
             prop["domain_override"] = val
 
+    # The authored property URI owns its namespace. Deriving it from current
+    # consumers would move a shared property's page when its only consumer
+    # moves domains, even though its RDF identity remains unchanged. Keep the
+    # legacy inference only for sources without an explicit PublicSchema URI.
+    # An authored domain_override must agree with that namespace.
+    slot_uri = slot_def.get("slot_uri", "")
+    for prefix in (base_uri, "publicschema:"):
+        if slot_uri.startswith(prefix):
+            local = slot_uri[len(prefix):]
+            domain = local.split("/", 1)[0] if "/" in local else None
+            if "domain_override" in prop and prop["domain_override"] != domain:
+                authored = "null" if prop["domain_override"] is None else prop["domain_override"]
+                namespace = f"the {domain} namespace" if domain else "the root namespace"
+                raise ValueError(
+                    f"{slot_name}: domain_override {authored!r} disagrees with slot_uri "
+                    f"{slot_uri!r}, which places the property in {namespace}; "
+                    "correct the slot_uri or the annotation"
+                )
+            prop["domain_override"] = domain
+            break
+
     # JSON-stringified structured annotations.
     for src_key, dest_key in (
         ("convergence_json", "convergence"),
@@ -474,13 +498,22 @@ def _convert_slot_to_property(
         if parsed is not None:
             prop[dest_key] = parsed
 
+    # LinkML value constraints keep their meaning under bespoke names.
+    for src_key, dest_key in (
+        ("minimum_value", "minimum"),
+        ("maximum_value", "maximum"),
+        ("pattern", "pattern"),
+    ):
+        if slot_def.get(src_key) is not None:
+            prop[dest_key] = slot_def[src_key]
+
     eqs = _split_external_alignments(annotations.get("external_alignments_json"))
     if eqs:
         prop["external_equivalents"] = eqs
 
-    for mapping in (slot_def.get("exact_mappings") or []) + (
-        slot_def.get("close_mappings") or []
-    ):
+    # The JSON-LD context aliases this term to the property, so schema.org
+    # data using it expands to PublicSchema; only an exact match is safe.
+    for mapping in slot_def.get("exact_mappings") or []:
         if isinstance(mapping, str) and mapping.startswith("schema:"):
             prop["schema_org_equivalent"] = mapping
             break
@@ -591,6 +624,9 @@ def _convert_class_to_concept(
         concept["domain"] = domain
     if cls_def.get("abstract"):
         concept["abstract"] = True
+    # A value type has no identity of its own, so it is only ever written inline.
+    if _scalar_annotation(annotations.get("inline_only")) is True:
+        concept["inline_only"] = True
     if _scalar_annotation(annotations.get("featured")):
         featured_val = _scalar_annotation(annotations.get("featured"))
         if isinstance(featured_val, str):
@@ -713,6 +749,16 @@ def load_linkml_metadata(linkml_dir: Path) -> dict[str, Any]:
     title = composite.get("title")
     if isinstance(title, str) and title:
         meta["name"] = title
+    annotations = _normalise_annotations(composite.get("annotations"))
+    domains = _parse_json_annotation(annotations.get("domains_json"))
+    if isinstance(domains, dict):
+        meta["domains"] = domains
+    elif domains is not None:
+        print(
+            "WARNING: domains_json must be a JSON object keyed by domain; "
+            f"got {type(domains).__name__}. Domain labels are omitted.",
+            file=sys.stderr,
+        )
     return meta
 
 
@@ -890,6 +936,7 @@ def load_raw_from_linkml(linkml_dir: Path) -> dict[str, Any]:
             slot_name, slot_def, enum_to_vocab_key, class_names,
             class_name_to_composite=class_name_to_composite,
             linkml_name_to_composite=linkml_name_to_composite,
+            base_uri=meta["base_uri"],
         )
         properties_raw[slot_id] = prop_dict
 

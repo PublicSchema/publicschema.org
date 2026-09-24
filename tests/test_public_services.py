@@ -1,0 +1,469 @@
+"""Public service history through production exports and the named synthetic profile."""
+
+import copy
+import json
+from pathlib import Path
+
+import jsonschema
+import pytest
+import yaml
+from pyshacl import validate
+from rdflib import Graph, Namespace, URIRef
+from rdflib.namespace import RDFS, SKOS
+
+from build.linkml_rdf_export import DEFAULT_CONTEXT_URL
+from build.rdf_export_legacy import build_turtle as build_legacy_turtle
+from tests.conftest import jsonld_graph, load_example
+
+ROOT = Path(__file__).resolve().parents[1]
+EXAMPLES = ROOT / "examples/public-services"
+BASE = "https://example.org/public-services/"
+PS = Namespace("https://publicschema.org/")
+RECORDS = json.loads((EXAMPLES / "records.json").read_text())
+CONFIG = json.loads((EXAMPLES / "profile.json").read_text())
+profile = load_example("public-services/profile.py")
+
+
+def record(records, suffix):
+    return next(item for item in records if item["@id"] == BASE + suffix)
+
+
+def ref(suffix, kind):
+    return {"@id": BASE + suffix, "@type": kind}
+
+
+@pytest.fixture(scope="module")
+def native_ontology(owl_graph):
+    return owl_graph
+
+
+@pytest.fixture(scope="module")
+def exports(built_vocabulary, shacl_graph, subclass_hierarchy, schema_registry):
+    return built_vocabulary, shacl_graph, subclass_hierarchy, schema_registry
+
+
+def test_catalogue_alignment_metadata_reaches_jsonld_and_both_rdf_projections(exports, native_ontology):
+    built, _, _, _ = exports
+    authored = yaml.safe_load((ROOT / "schema/public_services.yaml").read_text())
+    expected = {
+        "PublicService": ("classes", "concepts", "semic", "http://purl.org/vocab/cpsv#PublicService"),
+        "OrganizationalChangeEvent": ("classes", "concepts", "w3c-org", "http://www.w3.org/ns/org#ChangeEvent"),
+        "service_competent_authorities": ("slots", "properties", "semic", "http://data.europa.eu/m8g/hasCompetentAuthority"),
+        "original_organizations": ("slots", "properties", "w3c-org", "http://www.w3.org/ns/org#originalOrganization"),
+        "resulting_organizations": ("slots", "properties", "w3c-org", "http://www.w3.org/ns/org#resultingOrganization"),
+    }
+    # Exercise the compatibility RDF bridge with the actual five generated term
+    # documents, without rebuilding unrelated exports or allowing lost alignments.
+    docs = {f"{catalogue}/{name}.jsonld": built["jsonld_docs"][f"{catalogue}/{name}.jsonld"]
+            for name, (_, catalogue, _, _) in expected.items()}
+    legacy = Graph().parse(data=build_legacy_turtle({**built, "jsonld_docs": docs}), format="turtle")
+    for name, (section, catalogue, vocabulary_id, uri) in expected.items():
+        source = json.loads(authored[section][name]["annotations"]["external_alignments_json"])[0]
+        alignment = built[catalogue][name]["external_equivalents"][vocabulary_id]
+        assert alignment["uri"] == uri
+        assert alignment["match"] == "close"
+        assert alignment["note"] == source["note"]
+        assert alignment["vocabulary"] == source["vocabulary"]
+        assert "does not implement" in alignment["note"]
+        triple = (PS[name], SKOS.closeMatch, URIRef(uri))
+        document = {**docs[f"{catalogue}/{name}.jsonld"], "@context": built["context"]["@context"]}
+        document_graph = jsonld_graph(document, built["context"])
+        assert triple in document_graph
+        assert triple in legacy
+        assert triple in native_ontology
+
+
+def validator(exports, kind):
+    built, _, _, registry = exports
+    return jsonschema.Draft202012Validator(
+        built["concept_schemas"][kind], registry=registry,
+        format_checker=jsonschema.FormatChecker(),
+    )
+
+
+def test_permit_history_validates_in_both_export_formats_and_local_profile(exports):
+    built, shapes, hierarchy, _ = exports
+    before = copy.deepcopy(RECORDS)
+    for item in RECORDS:
+        validator(exports, item["@type"]).validate(item)
+    graph = jsonld_graph(RECORDS, built["context"])
+    conforms, _, report = validate(graph, shacl_graph=shapes, ont_graph=hierarchy)
+    assert conforms, report
+    profile.validate_journey(RECORDS, CONFIG)
+    assert RECORDS == before
+    for source, predicate, target in (
+        ("grant-decision", "decision_registrations", "business-permit"),
+        ("permit-suspension", "subject_uri", "business-permit"),
+        ("business-appeal", "challenged_decision", "suspension-decision"),
+        ("review-decision", "resolves_appeal", "business-appeal"),
+        ("authority-succession", "original_organizations", "former-office"),
+        ("authority-succession", "resulting_organizations", "successor-agency"),
+    ):
+        assert (URIRef(BASE + source), PS[predicate], URIRef(BASE + target)) in graph
+
+
+@pytest.mark.parametrize("suffix,field,bad", [
+    ("business-application", "request_submission_date", "yesterday"),
+    ("business-application", "request_submission_date", "2026-05-02T08:00:00Z"),
+    ("grant-decision", "decision_date", "2026-05-10T09:00:00Z"),
+    ("business-application", "public_service", [ref("permit-service", "PublicService")]),
+    ("grant-decision", "decision_outcome", 7),
+    ("grant-decision", "decision_registrations", ref("business-permit", "Authorization")),
+    ("business-appeal", "challenged_decision", [ref("suspension-decision", "AdministrativeDecision")]),
+    ("authority-succession", "effective_at", "2026-08-01"),
+])
+def test_malformed_shapes_are_rejected_by_actual_json_schema(exports, suffix, field, bad):
+    invalid = copy.deepcopy(record(RECORDS, suffix))
+    invalid[field] = bad
+    assert list(validator(exports, invalid["@type"]).iter_errors(invalid))
+
+
+def test_wrong_decision_output_type_fails_shacl_even_with_an_existing_identity(exports):
+    built, shapes, hierarchy, _ = exports
+    invalid = copy.deepcopy(RECORDS)
+    record(invalid, "grant-decision")["decision_registrations"] = [ref("business", "Organization")]
+    conforms, _, _ = validate(jsonld_graph(invalid, built["context"]), shacl_graph=shapes, ont_graph=hierarchy)
+    assert not conforms
+
+
+@pytest.mark.parametrize("suffix,changes,message", [
+    ("business-application", {"service_applicant": BASE + "missing"}, "missing referenced record"),
+    ("business-representation", {"represented": BASE + "resident"}, "represented party mismatch"),
+    ("business-representation", {"representative": ref("resident", "Person")}, "representative or represented party mismatch"),
+    ("business-representation", {"end_date": "2026-04-30"}, "outside representation period"),
+    ("business-permit", {"registered_subject": BASE + "resident"}, "permit subject differs"),
+    ("business-permit", {"registration_authority": ref("successor-agency", "PublicOrganization")}, "permit issuer differs"),
+    ("permit-suspension", {"subject_uri": BASE + "business"}, "action subject differs"),
+    ("business-appeal", {"challenged_decision": ref("business-permit", "Authorization")}, "wrong referenced type"),
+    ("business-appeal", {"request_submission_date": "2026-08-30"}, "appeal precedes challenged decision"),
+    ("business-appeal", {"request_submission_date": "2026-09-03T10:00:00Z"}, "calendar date required"),
+    ("grant-decision", {"decision_date": "2026-05-01"}, "precedes application"),
+    ("grant-decision", {"recorded_at": "2026-05-09T20:00:00Z"}, "recorded_at: precedes decision_date"),
+    ("resident-application", {"request_submission_date": "2026-07-31"}, "authority predates its creation"),
+    ("review-decision", {"subject_uri": BASE + "resident"}, "differs from challenged decision subject"),
+    ("review-decision", {"authority": ref("former-office", "PublicOrganization")}, "differs from reviewing authority"),
+    ("authority-succession", {"resulting_organizations": [ref("former-office", "PublicOrganization")]}, "distinct resulting identity"),
+])
+def test_profile_rejects_semantic_counterexamples(suffix, changes, message):
+    invalid = copy.deepcopy(RECORDS)
+    record(invalid, suffix).update(changes)
+    with pytest.raises(profile.ProfileError, match=message):
+        profile.validate_journey(invalid, CONFIG)
+
+
+def test_correspondence_role_text_cannot_grant_application_or_appeal_authority():
+    changed = copy.deepcopy(RECORDS)
+    role = record(changed, "business-representation")
+    role["representation_scope"] = "Correspondence only."
+    correspondence = copy.deepcopy(CONFIG)
+    correspondence["representation_grants"][0]["allowed_submission_types"] = ["Correspondence"]
+    with pytest.raises(profile.ProfileError, match="no bound grant"):
+        profile.validate_journey(changed, correspondence)
+    # Changing prose cannot promote a correspondence grant into application authority.
+    role["representation_scope"] = "All applications and appeals are allowed."
+    with pytest.raises(profile.ProfileError, match="no bound grant"):
+        profile.validate_journey(changed, correspondence)
+    # Only the explicit bound profile grant changes the synthetic authorization result.
+    profile.validate_journey(changed, CONFIG)
+    applications_only = copy.deepcopy(CONFIG)
+    applications_only["representation_grants"][0]["allowed_submission_types"] = ["ServiceApplication"]
+    with pytest.raises(profile.ProfileError, match="business-appeal.*no bound grant"):
+        profile.validate_journey(changed, applications_only)
+    wrong_service = copy.deepcopy(CONFIG)
+    wrong_service["representation_grants"][0]["service_uri"] = BASE + "another-service"
+    with pytest.raises(profile.ProfileError, match="no bound grant"):
+        profile.validate_journey(changed, wrong_service)
+
+
+@pytest.mark.parametrize("end_date,appeal_date,message", [
+    ("2026-09-04", "2026-09-03", None),
+    ("2026-09-03", "2026-09-02", None),
+    ("2026-09-03", "2026-09-03", "outside representation period"),
+    ("2026-09-02", "2026-09-03", "outside representation period"),
+])
+def test_representation_covers_start_day_and_stops_before_first_inactive_day(
+    end_date, appeal_date, message,
+):
+    changed = copy.deepcopy(RECORDS)
+    # The application is filed on May 2, which remains an included start day.
+    record(changed, "business-representation").update(start_date="2026-05-02", end_date=end_date)
+    record(changed, "business-appeal")["request_submission_date"] = appeal_date
+    if message:
+        with pytest.raises(profile.ProfileError, match=message):
+            profile.validate_journey(changed, CONFIG)
+    else:
+        profile.validate_journey(changed, CONFIG)
+
+
+def test_empty_representation_interval_is_rejected_but_one_day_permission_remains_valid():
+    changed = copy.deepcopy(RECORDS)
+    record(changed, "business-permit").update(valid_from="2026-05-11", valid_to="2026-05-11")
+    profile.validate_journey(changed, CONFIG)
+    record(changed, "business-representation").update(start_date="2026-05-02", end_date="2026-05-02")
+    with pytest.raises(profile.ProfileError, match="empty or reversed representation period"):
+        profile.validate_journey(changed, CONFIG)
+
+
+@pytest.mark.parametrize("form", ["uri", "id"])
+def test_class_reference_forms_preserve_the_complete_permit_journey(exports, form):
+    def convert(value):
+        if isinstance(value, dict):
+            if "@id" in value and set(value) <= {"@id", "@type"}:
+                return value["@id"] if form == "uri" else {"@id": value["@id"]}
+            return {key: convert(item) for key, item in value.items()}
+        if isinstance(value, list):
+            return [convert(item) for item in value]
+        return value
+
+    changed = convert(RECORDS)
+    for item in changed:
+        validator(exports, item["@type"]).validate(item)
+    profile.validate_journey(changed, CONFIG)
+    built, shapes, hierarchy, _ = exports
+    graph = jsonld_graph(changed, built["context"])
+    conforms, _, report = validate(graph, shacl_graph=shapes, ont_graph=hierarchy)
+    assert conforms, report
+    assert (URIRef(BASE + "grant-decision"), PS.decision_registrations, URIRef(BASE + "business-permit")) in graph
+    assert (URIRef(BASE + "suspension-decision"), PS.decision_regulatory_actions, URIRef(BASE + "permit-suspension")) in graph
+
+
+@pytest.mark.parametrize("form", ["uri", "id"])
+@pytest.mark.parametrize("suffix,field,target,message", [
+    ("grant-decision", "decision_registrations", "missing", "missing referenced record"),
+    ("grant-decision", "decision_registrations", "business", "wrong referenced type"),
+    ("suspension-decision", "decision_regulatory_actions", "missing", "missing referenced record"),
+    ("suspension-decision", "decision_regulatory_actions", "business-permit", "wrong referenced type"),
+])
+def test_decision_output_reference_failures_are_addressed_profile_errors(
+    exports, form, suffix, field, target, message,
+):
+    changed = copy.deepcopy(RECORDS)
+    value = BASE + target
+    record(changed, suffix)[field] = [value if form == "uri" else {"@id": value}]
+    validator(exports, "AdministrativeDecision").validate(record(changed, suffix))
+    with pytest.raises(profile.ProfileError, match=message):
+        profile.validate_journey(changed, CONFIG)
+
+
+@pytest.mark.parametrize("form", ["uri", "id"])
+def test_evidence_values_can_resolve_local_identified_records(exports, form):
+    changed = copy.deepcopy(RECORDS)
+    decision = record(changed, "grant-decision")
+    evidence = {"@context": DEFAULT_CONTEXT_URL, "@id": BASE + "grant-evidence", **decision["evidence_assertions"][0]}
+    changed.append(evidence)
+    decision["evidence_assertions"] = [evidence["@id"] if form == "uri" else {"@id": evidence["@id"]}]
+    for item in changed:
+        validator(exports, item["@type"]).validate(item)
+    profile.validate_journey(changed, CONFIG)
+    evidence["assertion_uri"] = BASE + "review-decision"
+    with pytest.raises(profile.ProfileError, match="evidence is about a different assertion"):
+        profile.validate_journey(changed, CONFIG)
+
+
+@pytest.mark.parametrize("field,target,message", [
+    ("evidence_assertions", "missing", "missing referenced record"),
+    ("evidence_assertions", "business", "wrong referenced type"),
+    ("decision_outcome", "missing", "missing referenced record"),
+    ("decision_outcome", "business", "wrong referenced type"),
+])
+def test_structured_value_uri_failures_are_addressed_profile_errors(field, target, message):
+    changed = copy.deepcopy(RECORDS)
+    value = BASE + target
+    record(changed, "grant-decision")[field] = [value] if field == "evidence_assertions" else value
+    with pytest.raises(profile.ProfileError, match=message):
+        profile.validate_journey(changed, CONFIG)
+
+
+def test_individuals_and_businesses_share_application_shape_without_software_applicants(exports):
+    for suffix in ("business-application", "resident-application"):
+        validator(exports, "ServiceApplication").validate(record(RECORDS, suffix))
+    profile.validate_journey(RECORDS, CONFIG)
+    invalid = copy.deepcopy(RECORDS)
+    record(invalid, "resident")["@type"] = "SoftwareAgent"
+    with pytest.raises(profile.ProfileError, match="wrong referenced type SoftwareAgent"):
+        profile.validate_journey(invalid, CONFIG)
+
+
+def test_capacity_observation_says_what_its_authority_did(exports):
+    # The authority slot asks each class to state which role applies.
+    definition = exports[0]["concepts"]["ServiceCapacityObservation"]["definition"]
+    for language, phrase in (("en", "reported the measurement"), ("fr", "communiqué la mesure"),
+                             ("es", "comunicó la medición")):
+        assert phrase in definition[language], language
+
+
+def test_requests_date_their_submission_apart_from_its_registration(exports):
+    # submission_date is the published grievance date and also admits registration.
+    built = exports[0]
+    for name in ("ServiceApplication", "AdministrativeAppeal"):
+        properties = built["concept_schemas"][name]["properties"]
+        assert "request_submission_date" in properties and "submission_date" not in properties, name
+    definition = built["properties"]["request_submission_date"]["definition"]
+    for language, phrase in (("en", "precede"), ("fr", "précéder"), ("es", "anterior")):
+        assert phrase in definition[language], language
+    assert "sp/Grievance" in built["properties"]["submission_date"]["used_by"]
+
+
+def test_dated_acts_share_the_event_hierarchy_and_one_authority_link(exports):
+    built, _, hierarchy, _ = exports
+    for name in ("ServiceApplication", "AdministrativeDecision", "AdministrativeAppeal",
+                 "OrganizationalChangeEvent", "ServiceCapacityObservation",
+                 "ComplianceAssessment", "RegulatoryAction"):
+        assert (PS[name], RDFS.subClassOf, PS.Event) in hierarchy, name
+    for name in ("ServiceApplication", "AdministrativeDecision", "ServiceCapacityObservation",
+                 "ComplianceAssessment", "RegulatoryAction"):
+        assert "subject_uri" in built["concept_schemas"][name]["properties"], name
+    for name in ("ServiceApplication", "AdministrativeDecision", "AdministrativeAppeal",
+                 "OrganizationalChangeEvent", "ServiceCapacityObservation",
+                 "ComplianceAssessment", "RegulatoryAction"):
+        assert "authority" in built["concept_schemas"][name]["properties"], name
+    for name in ("request_submission_date", "decision_date"):
+        assert built["properties"][name]["type"] == "date"
+    authored = {}
+    for module in ("organizations", "registry", "public_services"):
+        authored.update(yaml.safe_load((ROOT / f"schema/{module}.yaml").read_text())["slots"])
+    assert authored["authority"]["range"] == "Organization"
+    for name in ("submitted_by", "representative"):
+        assert authored[name]["range"] == "Agent", name
+    for removed in ("application_subject", "receiving_authority", "submitted_at", "decision_subject",
+                    "decision_authority", "decision_made_at", "reviewing_authority", "capacity_subject"):
+        assert removed not in built["properties"], removed
+
+
+def test_shared_applications_preserve_the_existing_social_protection_receiver_boundary(exports):
+    built, _, hierarchy, _ = exports
+    assert PS.Party not in set(hierarchy.transitive_objects(PS.Organization, RDFS.subClassOf))
+    assert (PS.ServiceApplication, RDFS.subClassOf, PS.Event) in hierarchy
+    program_uri = URIRef(built["concepts"]["sp/Program"]["uri"])
+    enrollment_uri = URIRef(built["concepts"]["sp/Enrollment"]["uri"])
+    assert program_uri not in set(hierarchy.transitive_objects(PS.PublicService, RDFS.subClassOf))
+    assert enrollment_uri not in set(hierarchy.transitive_objects(PS.ServiceApplication, RDFS.subClassOf))
+
+
+def test_a_suspension_cannot_be_made_person_or_business_wide_by_matching_both_links():
+    invalid = copy.deepcopy(RECORDS)
+    record(invalid, "suspension-decision")["subject_uri"] = BASE + "business"
+    record(invalid, "permit-suspension")["subject_uri"] = BASE + "business"
+    with pytest.raises(profile.ProfileError, match="suspension must target a permission"):
+        profile.validate_journey(invalid, CONFIG)
+
+
+def test_successor_does_not_rewrite_historical_authorities_or_permission():
+    profile.validate_journey(RECORDS, CONFIG)
+    grant = record(RECORDS, "grant-decision")
+    permit = record(RECORDS, "business-permit")
+    service = record(RECORDS, "permit-service")
+    assert grant["authority"]["@id"] == permit["registration_authority"]["@id"]
+    assert grant["authority"] not in service["service_competent_authorities"]
+    assert record(RECORDS, "office-name-correction")["affected_record"]["subject_uri"] == BASE + "former-office"
+    changed = copy.deepcopy(RECORDS)
+    record(changed, "grant-decision")["authority"] = ref("successor-agency", "PublicOrganization")
+    record(changed, "business-permit")["registration_authority"] = ref("successor-agency", "PublicOrganization")
+    with pytest.raises(profile.ProfileError, match="authority predates its creation"):
+        profile.validate_journey(changed, CONFIG)
+    # A filed appeal and a later determination leave the original grant intact.
+    assert permit["valid_to"] == "2026-12-31"
+    assert "decision_registrations" not in record(RECORDS, "review-decision")
+    assert record(RECORDS, "authority-succession")["effective_at"] < record(RECORDS, "authority-succession")["recorded_at"]
+
+
+def test_record_lifecycle_event_must_name_a_resolvable_record_subject():
+    changed = copy.deepcopy(RECORDS)
+    del record(changed, "office-name-correction")["affected_record"]
+    with pytest.raises(profile.ProfileError, match="affected_record: required"):
+        profile.validate_journey(changed, CONFIG)
+    changed = copy.deepcopy(RECORDS)
+    record(changed, "office-name-correction")["affected_record"]["subject_uri"] = BASE + "unknown-office"
+    with pytest.raises(profile.ProfileError, match="affected_record.subject_uri: missing referenced record"):
+        profile.validate_journey(changed, CONFIG)
+
+
+def test_partial_reference_description_is_not_a_complete_local_submission(exports):
+    partial = {"@context": DEFAULT_CONTEXT_URL, **ref("partial", "ServiceApplication")}
+    validator(exports, "ServiceApplication").validate(partial)
+    with pytest.raises(profile.ProfileError, match="public_service: required"):
+        profile.validate_journey([partial], CONFIG)
+    local = copy.deepcopy(record(RECORDS, "grant-decision"))
+    local["decision_outcome"]["code_value"] = "jurisdiction-specific-unmapped"
+    validator(exports, "AdministrativeDecision").validate(local)
+    invalid = [item for item in RECORDS if item["@id"] != local["@id"]] + [local]
+    with pytest.raises(profile.ProfileError, match="unsupported local outcome code"):
+        profile.validate_journey(invalid, CONFIG)
+
+
+def test_bare_outcome_reference_is_not_interpreted_as_a_local_code(exports):
+    invalid = copy.deepcopy(RECORDS)
+    decision = record(invalid, "grant-decision")
+    decision["decision_outcome"] = "granted"
+    # A coded value is written inline with its scheme; a bare label is neither a code nor a reference.
+    assert list(validator(exports, "AdministrativeDecision").iter_errors(decision))
+    decision["decision_outcome"] = ref("outcome-granted", "CodedValue")
+    assert list(validator(exports, "AdministrativeDecision").iter_errors(decision))
+    built, shapes, hierarchy, _ = exports
+    conforms, _, _ = validate(jsonld_graph(invalid, built["context"]), shacl_graph=shapes, ont_graph=hierarchy)
+    assert not conforms
+    decision["decision_outcome"] = {"code_value": "granted", "code_scheme": BASE + "codes/decision-outcome/v1"}
+    validator(exports, "AdministrativeDecision").validate(decision)
+    conforms, _, report = validate(jsonld_graph(invalid, built["context"]), shacl_graph=shapes, ont_graph=hierarchy)
+    assert conforms, report
+
+
+def test_declared_reference_type_does_not_override_resolved_record_type():
+    invalid = copy.deepcopy(RECORDS)
+    record(invalid, "grant-decision")["decision_registrations"] = [ref("business", "Authorization")]
+    with pytest.raises(profile.ProfileError, match="declared type disagrees"):
+        profile.validate_journey(invalid, CONFIG)
+
+
+def test_duplicate_identifiers_do_not_silently_replace_historical_records():
+    with pytest.raises(profile.ProfileError, match="duplicate record identity"):
+        profile.validate_journey(RECORDS + [copy.deepcopy(record(RECORDS, "grant-decision"))], CONFIG)
+
+
+def test_node_reference_form_compares_by_identity():
+    # reference() accepts a URI or a {"@id": ...} node; identity checks must see the same subject.
+    changed = copy.deepcopy(RECORDS)
+    for suffix, field in (
+        ("business-application", "subject_uri"),
+        ("business-permit", "registered_subject"),
+        ("permit-suspension", "subject_uri"),
+        ("suspension-decision", "subject_uri"),
+    ):
+        target = record(changed, suffix)
+        target[field] = {"@id": target[field]}
+    profile.validate_journey(changed, CONFIG)
+
+
+def test_missing_recording_time_is_a_profile_error():
+    changed = copy.deepcopy(RECORDS)
+    event = record(changed, "office-name-correction")
+    del event["recorded_at"]
+    event["request_submission_date"] = "2026-05-01"
+    with pytest.raises(profile.ProfileError, match="office-name-correction.recorded_at: required"):
+        profile.validate_journey(changed, CONFIG)
+
+
+def test_a_representative_can_act_for_a_household_or_a_trust(exports):
+    # Applicants and appellants can be groups, so the represented party must admit them too.
+    built = exports[0]
+    prop = built["properties"]["represented"]
+    assert prop["type"] == "uri"
+    for language, words in (("en", ("group", "legal arrangement")),
+                            ("fr", ("groupe", "construction juridique")),
+                            ("es", ("grupo", "estructura jurídica"))):
+        assert all(word in prop["definition"][language] for word in words), language
+
+
+def test_a_decision_can_establish_any_registration(exports):
+    # Decisions grant voter, tax and holding registrations as well as permits.
+    built, shapes, hierarchy, _ = exports
+    assert built["properties"]["decision_registrations"]["type"] == "concept:Registration"
+    assert "decision_authorizations" not in built["properties"]
+    changed = copy.deepcopy(RECORDS)
+    changed.append({
+        "@context": DEFAULT_CONTEXT_URL, "@id": BASE + "tax-registration", "@type": "TaxRegistration",
+    })
+    record(changed, "grant-decision")["decision_registrations"].append(ref("tax-registration", "TaxRegistration"))
+    validator(exports, "AdministrativeDecision").validate(record(changed, "grant-decision"))
+    conforms, _, report = validate(jsonld_graph(changed, built["context"]), shacl_graph=shapes, ont_graph=hierarchy)
+    assert conforms, report

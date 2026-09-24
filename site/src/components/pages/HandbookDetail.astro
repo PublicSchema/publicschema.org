@@ -5,6 +5,8 @@ import PageFeedback from '../PageFeedback.astro';
 import FeedbackOrientation from '../FeedbackOrientation.astro';
 import { defaultLocale, type Locale } from '../../i18n/languages';
 import { localePath, useTranslations } from '../../i18n/utils';
+import { docs, implementationGuideSlugs } from '../../data/docs';
+import { rewriteDocumentationLinks } from '../../data/document-links';
 import {
   handbook,
   handbookEntries,
@@ -17,7 +19,7 @@ import { markedHighlight } from 'marked-highlight';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/github-dark.css';
 import { existsSync, readFileSync } from 'node:fs';
-import { resolve } from 'node:path';
+import { relative, resolve } from 'node:path';
 
 interface Props {
   slug: string;
@@ -48,17 +50,8 @@ const fellBack = locale !== defaultLocale && !existsSync(resolvedPath);
 const finalPath = fellBack ? resolve(handbookDir, entry.file) : resolvedPath;
 const raw = readFileSync(finalPath, 'utf-8');
 const withoutH1 = raw.replace(/^#\s+.+\n+/, '');
-let html = await renderer.parse(withoutH1);
-
-if (locale !== defaultLocale) {
-  const sharedAssetPrefix = /^\/(images|v|_astro|ctx|favicon|sitemap|robots\.txt)(\/|$|\.)/;
-  const localePrefix = new RegExp(`^\\/${locale}(\\/|$)`);
-  html = html.replace(/href="(\/[^"#]*)(#[^"]*)?"/g, (match, path, anchor) => {
-    if (sharedAssetPrefix.test(path)) return match;
-    if (localePrefix.test(path)) return match;
-    return `href="${localePath(path, locale)}${anchor ?? ''}"`;
-  });
-}
+const sourcePath = relative(resolve(process.cwd(), '..'), finalPath);
+const html = rewriteDocumentationLinks(await renderer.parse(withoutH1), sourcePath, locale);
 
 const previousSlug = previousHandbookSlug(slug);
 const nextSlug = nextHandbookSlug(slug);
@@ -81,6 +74,12 @@ const nextEntry = nextSlug ? handbook[nextSlug] : undefined;
           </li>
         ))}
       </ol>
+      <a class="handbook-sidebar-title" href={localePath('/docs/', locale)}>{t('docs.category.technical')}</a>
+      <ul>
+        {implementationGuideSlugs.map((guideSlug) => (
+          <li><a href={localePath(`/docs/${guideSlug}/`, locale)}>{docs[guideSlug].title[locale]}</a></li>
+        ))}
+      </ul>
     </aside>
 
     <div class="handbook-main">

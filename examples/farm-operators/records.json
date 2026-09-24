@@ -1,0 +1,64 @@
+[
+  {
+    "@id": "https://example.org/farm-pilot/holding",
+    "@type": "agri/Farm",
+    "name": "River holding",
+    "farm_area": {
+      "@type": "QuantityValue",
+      "quantity_value": 3.5,
+      "unit_code": "har",
+      "unit_scheme": "ucum"
+    },
+    "land_tenure": ["owned_without_title", "rented"],
+    "livestock_type": ["goats", "chickens"]
+  },
+  {
+    "@id": "https://example.org/farm-pilot/cooperative",
+    "@type": "Organization",
+    "name": "River cooperative"
+  },
+  {
+    "@id": "https://example.org/farm-pilot/person",
+    "@type": "Person",
+    "name": "Ana"
+  },
+  {
+    "@id": "https://example.org/farm-pilot/joint-person",
+    "@type": "Person",
+    "name": "Bo"
+  },
+  {
+    "@id": "https://example.org/farm-pilot/collective",
+    "@type": "InformalGroup",
+    "name": "Joint growers"
+  },
+  {
+    "@id": "https://example.org/farm-pilot/cooperative-role",
+    "@type": "agri/OrganizationAgriculturalHolderRole",
+    "holder_farm": "https://example.org/farm-pilot/holding",
+    "holder_organization": "https://example.org/farm-pilot/cooperative",
+    "start_date": "2024-01-01",
+    "end_date": "2025-01-01"
+  },
+  {
+    "@id": "https://example.org/farm-pilot/person-role",
+    "@type": "agri/PersonAgriculturalHolderRole",
+    "holder_farm": "https://example.org/farm-pilot/holding",
+    "holder_person": "https://example.org/farm-pilot/person",
+    "start_date": "2025-01-01"
+  },
+  {
+    "@id": "https://example.org/farm-pilot/joint-role",
+    "@type": "agri/PersonAgriculturalHolderRole",
+    "holder_farm": "https://example.org/farm-pilot/holding",
+    "holder_person": "https://example.org/farm-pilot/joint-person",
+    "start_date": "2025-01-01"
+  },
+  {
+    "@id": "https://example.org/farm-pilot/collective-role",
+    "@type": "agri/GroupAgriculturalHolderRole",
+    "holder_farm": "https://example.org/farm-pilot/holding",
+    "holder_group": "https://example.org/farm-pilot/collective",
+    "end_date": "2024-01-01"
+  }
+]

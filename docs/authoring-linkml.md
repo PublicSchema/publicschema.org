@@ -11,12 +11,13 @@ The LinkML tree under `schema/` is the authored source. Generated JSON, JSON-LD,
 | `publicschema.yaml` | Top-level composite. Prefixes, version, `imports:` for every domain and `external/<system>` partial. |
 | `publicschema-extensions.yaml` | Auxiliary metamodel (`ExternalAlignment`, `Convergence`, `MatchStrength`) imported by the schema modules. |
 | `core.yaml`, `identity.yaml`, `civil_status.yaml`, `program.yaml`, `payment.yaml`, `assessment.yaml`, `consent.yaml`, `document.yaml`, `biometric.yaml`, `common.yaml`, `metrics.yaml`, `misc.yaml`, `vocabularies.yaml` | The domain files. Each holds its own `classes:`, `slots:`, `enums:`. |
+| `value_types.yaml`, `registry.yaml`, `physical_assets.yaml`, `organizations.yaml`, `ownership.yaml`, `regulation.yaml`, `public_services.yaml`, `education.yaml`, `work.yaml`, `transport.yaml`, `environment.yaml`, `tax.yaml`, `elections.yaml`, `land.yaml`, `agriculture_holdings.yaml`, `animals.yaml`, `plants.yaml`, `agriculture_operations.yaml` | Registry, government and agriculture modules, split by subject for navigation. A term's public URI comes from its authored `class_uri` or `slot_uri`, not from the file that holds it. |
 | `credentials.yaml`, `bibliography.yaml`, `categories.yaml` | Sibling files for VC descriptors, citation records, and the UI category taxonomy. |
 | `external/<system>.yaml` | Partial LinkML schemas for each implementing system (DHS, OpenSPP, DHIS2, OpenCRVS, SEMIC, FHIR, ...). They declare the enum permissible values that PublicSchema crosswalks reference. |
 | `value_crosswalks/*.yaml` | Authored value mappings with external-system codes, gaps, and standard provenance. These are separate from LinkML modules. |
 | `metric_catalog/*.yaml` | Metric catalog sources projected into `dist/metrics_catalog.json` for the site. |
 
-A new element goes into the file matching its domain. Cross-domain references must be represented with LinkML `imports:` on the files that use them.
+A new element goes into a module with related definitions; shared modules such as `value_types.yaml`, `registry.yaml` and `physical_assets.yaml` can serve multiple domains. The [domain guide](domain-migration.md) describes public namespace choices. Cross-domain references must be represented with LinkML `imports:` on the files that use them.
 
 The renderer reads definitions in the composite itself and follows its local imports, including nested modules. Unimported sibling files do not become catalog entries. External partial schemas and LinkML metamodel imports support validation and RDF generation without becoming PublicSchema catalog entries. Product modules must use local file imports; remote product imports are not supported by the renderer.
 
@@ -26,7 +27,7 @@ A concept becomes a LinkML `ClassDefinition`. `School` is an existing `ServicePo
 
 ```yaml
 School:
-  class_uri: publicschema:School
+  class_uri: publicschema:edu/School
   title: School
   description: A service point where formal or non-formal education is delivered ...
   is_a: ServicePoint
@@ -34,10 +35,11 @@ School:
   status: bibo:draft
   close_mappings: [schema:School]
   annotations:
+    source_domain: edu
     label_fr: École
     label_es: Escuela
     description_fr: Un point de service ...
-    external_alignments_json: '[{"label": "School", "match": "close", "note": "...", "uri": "https://schema.org/School", "vocabulary": "schema.org"}]'
+    external_alignments_json: '[{"vocabulary_id": "schema_org", "label": "School", "match": "close", "note": "...", "uri": "https://schema.org/School", "vocabulary": "schema.org"}]'
     bibliography_refs: '["schema-org"]'
 ```
 
@@ -47,7 +49,7 @@ Rules:
 - English `title` / `description` are first-class slots; other languages live under `annotations:` as `label_<lang>` / `description_<lang>`.
 - Use `is_a:` for the primary supertype and `mixins:` for additional supertypes. `Person` (Party + Agent) is the canonical multi-inheritance example.
 - `status:` maps draft, candidate, and normative maturity to `bibo:draft`, `bibo:status/forthcoming`, and `bibo:status/published`, respectively. Candidate and normative terms require French and Spanish translations.
-- Bare-CURIE alignments go on `exact_mappings:` / `close_mappings:`; rich per-mapping records (with `label`, `note`, `vocabulary`, `match`) are JSON-stringified into `external_alignments_json`. The two should agree.
+- Bare-CURIE alignments go on `exact_mappings:` / `close_mappings:`; rich per-mapping records are JSON-stringified into `external_alignments_json`. Each record needs a stable `vocabulary_id` plus `uri`, `match`, and human-readable `label`, `vocabulary` and `note`. The catalog groups records by `vocabulary_id`; omitting it prevents the rich alignment from appearing. The native mappings and rich records should agree.
 - `Agent`, `Party`, and `Thing` are abstract; everything else should declare `abstract: true` only when it is intentionally not instantiated.
 
 ## 3. Adding a slot
@@ -56,13 +58,14 @@ A property becomes a LinkML `SlotDefinition`. This shortened `school_type` examp
 
 ```yaml
 school_type:
-  slot_uri: publicschema:school_type
+  slot_uri: publicschema:edu/school_type
   title: School type
   description: The management and funding classification of a school ...
   range: SchoolType
   multivalued: false
   status: bibo:draft
   annotations:
+    source_domain: edu
     label_fr: "Type d'école"
     category: classification
 ```
@@ -79,29 +82,53 @@ Keep `slot_uri` aligned with the property's established public URI, including it
 
 Cardinality compiles to `multivalued: true | false`. Use a list slot only when the property accepts many values; see [`schema-design.md`](schema-design.md) for the decision tree.
 
+### Value constraints
+
+A slot can carry three LinkML value constraints. Both published exports keep them:
+
+| LinkML key | JSON Schema | SHACL |
+|---|---|---|
+| `minimum_value` | `minimum` | `sh:minInclusive` |
+| `maximum_value` | `maximum` | `sh:maxInclusive` |
+| `pattern` | `pattern` | `sh:pattern` |
+
+```yaml
+interest_percentage:
+  range: decimal
+  minimum_value: 0
+  maximum_value: 100
+```
+
+- Bounds are inclusive. There is no exclusive bound; when a limit must be excluded, describe it in the slot description and leave it to profiles.
+- On a multivalued slot, each constraint applies to every item, not to the list.
+- Anchor every pattern with `^` and `$`. JSON Schema and SHACL both match a pattern anywhere in the value, so an unanchored pattern accepts values with extra text around a match. [ADR-026](../decisions/026-dates-known-to-reduced-precision.md) uses an anchored pattern for dates known only to a year or a month.
+
+The JSON Schema build does not carry `any_of` ranges or class `slot_usage` refinements. SHACL generation does, so a constraint expressed only through them validates differently in the two exports. Use `slot_usage` for class-specific descriptions, and give each slot a single range; when a slot must admit several classes, use a `uri` range and name the admitted classes in its description.
+
 ## 4. Adding a vocabulary
 
 A vocabulary becomes a LinkML `EnumDefinition` whose permissible values carry an explicit `meaning:`. For a `school-level` enum:
 
 ```yaml
 SchoolLevel:
-  enum_uri: publicschema:SchoolLevel
+  enum_uri: publicschema:edu/SchoolLevel
   title: School Level
   description: The ISCED 2011 level of education served by a school ...
   status: bibo:draft
   permissible_values:
     isced_0:
-      meaning: publicschema:SchoolLevel/isced_0
+      meaning: publicschema:edu/SchoolLevel/isced_0
       title: Early childhood education (ISCED 0)
       annotations:
         label_fr: Éducation de la petite enfance (ISCED 0)
         standard_code: "0"
         level: 0
     isced_1:
-      meaning: publicschema:SchoolLevel/isced_1
+      meaning: publicschema:edu/SchoolLevel/isced_1
       title: Primary education (ISCED 1)
       annotations: {standard_code: "1", level: 1}
   annotations:
+    source_domain: edu
     standard_json: '{"name": "UNESCO ISCED 2011", "uri": "https://uis.unesco.org/..."}'
 ```
 
@@ -120,11 +147,13 @@ Stock LinkML annotations are scalar key/value pairs. PublicSchema overloads them
 | `label_<lang>`, `description_<lang>` | Multilingual labels and definitions. English stays in `title:` / `description:`. | Author directly on the LinkML element. |
 | `<name>_json` | Anything structured: alignment records, the `convergence` block, `property_groups`, `valid_instruments`, `age_applicability`, `tags`, `see_also`, the vocabulary-level `standard` / `sync` / `same_standard_systems`. | JSON-encoded annotation value. |
 
+A class annotated `inline_only: true` is a value type without identity of its own, such as `CodedValue`. Slots ranged to it accept only a complete inline object: the JSON Schema has no identifier-string branch, and SHACL checks the value against the class shape with `sh:node` instead of requiring its type with `sh:class`. Mark the fields that define such a value `required: true`; both exports enforce them.
+
 JSON-string encoding is deliberate: it survives `linkml-lint`'s scalar-annotation check and produces clean RDF literals downstream. Consumers call `json.loads(value)` on any `*_json` annotation to recover the structured form.
 
 `system_mappings_json` may appear in migrated data, but current system value mappings belong in `schema/value_crosswalks/`. Do not author new mappings in that compatibility annotation.
 
-Bibliography is represented as citation classes in `bibliography.yaml`. The build reader exposes `bibliography_refs` on the target terms for site rendering.
+Bibliography is represented as citation classes in `bibliography.yaml`. Keep the target term's `annotations.bibliography_refs` and the citation's `annotations.informs_json` concept/property lists consistent. The build derives the site's `bibliography_refs` from these reverse `informs_json` lists, so a target annotation alone does not display a source on the term page. Verify the generated term page when adding evidence.
 
 ## 6. Cross-references
 

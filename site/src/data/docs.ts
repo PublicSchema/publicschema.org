@@ -9,7 +9,170 @@ export interface DocEntry {
   category: DocCategoryKey;
 }
 
+export const implementationGuideSlugs = [
+  'domain-migration',
+  'fhir-registry-integration',
+  'facility-roles',
+  'relationship-date-migration',
+  'public-services',
+  'government-relationships',
+];
+
 export const docs: Record<string, DocEntry> = {
+  'domain-migration': {
+    file: 'domain-migration.md',
+    title: {
+      en: 'Domain migration',
+      fr: 'Migration de domaine',
+      es: 'Migración de dominio',
+    },
+    description: {
+      en: 'Canonical domains, moved terms and migration of existing references.',
+      fr: 'Domaines canoniques, termes déplacés et migration des références existantes.',
+      es: 'Dominios canónicos, términos trasladados y migración de las referencias existentes.',
+    },
+    category: 'technical',
+  },
+  'fhir-registry-integration': {
+    file: 'fhir-registry-integration.md',
+    title: {
+      en: 'FHIR registry integration',
+      fr: 'Intégration du registre avec FHIR',
+      es: 'Integración del registro con FHIR',
+    },
+    description: {
+      en: 'Connecting health facilities and registry records to FHIR resources.',
+      fr: 'Relier les établissements de santé et les entrées de registre aux ressources FHIR.',
+      es: 'Conectar los establecimientos de salud y las entradas de registro con los recursos FHIR.',
+    },
+    category: 'technical',
+  },
+  'facility-roles': {
+    file: 'facility-roles.md',
+    title: {
+      en: 'Facility roles',
+      fr: 'Rôles des installations',
+      es: 'Funciones de las instalaciones',
+    },
+    description: {
+      en: 'Distinguishing facilities, their operators and their service delivery roles.',
+      fr: 'Distinguer les installations, leurs exploitants et leurs rôles de prestation de services.',
+      es: 'Distinguir las instalaciones, sus operadores y sus funciones de prestación de servicios.',
+    },
+    category: 'technical',
+  },
+  'relationship-date-migration': {
+    file: 'relationship-date-migration.md',
+    title: {
+      en: 'Relationship date conversion',
+      fr: 'Conversion des dates de relation',
+      es: 'Conversión de fechas de relación',
+    },
+    description: {
+      en: 'Converting inclusive source validity dates on relationships and periods of responsibility.',
+      fr: 'Convertir les dates de validité inclusives des sources pour les relations et les périodes de responsabilité.',
+      es: 'Convertir las fechas de validez inclusivas de origen en relaciones y períodos de responsabilidad.',
+    },
+    category: 'technical',
+  },
+  'public-services': {
+    file: 'public-services.md',
+    title: {
+      en: 'Public services',
+      fr: 'Services publics',
+      es: 'Servicios públicos',
+    },
+    description: {
+      en: 'Public services, applications, decisions, appeals and organizational succession.',
+      fr: 'Services publics, demandes, décisions, recours et succession organisationnelle.',
+      es: 'Servicios públicos, solicitudes, decisiones, recursos y sucesión organizacional.',
+    },
+    category: 'technical',
+  },
+  'government-relationships': {
+    file: 'government-relationships.md',
+    title: {
+      en: 'Ownership and education delivery',
+      fr: "Propriété et prestation d'éducation",
+      es: 'Propiedad y prestación educativa',
+    },
+    description: {
+      en: 'Ownership interests, legal arrangements, education programs, offerings and awarded qualifications.',
+      fr: "Participations, montages juridiques, programmes d'enseignement, offres de formation et qualifications obtenues.",
+      es: 'Participaciones de propiedad, acuerdos jurídicos, programas educativos, ofertas educativas y cualificaciones obtenidas.',
+    },
+    category: 'technical',
+  },
+  "registry-foundations": {
+    file: "registry-foundations.md",
+    title: {
+      en: "Registry foundations",
+      fr: "Fondements du registre",
+      es: "Fundamentos del registro",
+    },
+    description: {
+      en: "Registers, records, recognition, evidence, coded values, quantities and geometry.",
+      fr: "Registres, enregistrements, reconnaissance, preuves, valeurs codées, valeurs quantitatives et géométrie.",
+      es: "Registros, actas, reconocimiento, evidencias, valores codificados, valores cuantitativos y geometría.",
+    },
+    category: "technical",
+  },
+  "farm-holders": {
+    file: "farm-holders.md",
+    title: {
+      en: "Farm and holder responsibilities",
+      fr: "Responsabilités de l'exploitation et de l'exploitant agricole",
+      es: "Responsabilidades de la explotación y el productor agropecuario",
+    },
+    description: {
+      en: "Farms, agricultural holder roles, farmer registration and work on a holding.",
+      fr: "Exploitations agricoles, rôles d'exploitant agricole, enregistrement des agriculteurs et travail sur une exploitation.",
+      es: "Explotaciones agropecuarias, funciones de productor agropecuario, registro de agricultores y trabajo en una explotación.",
+    },
+    category: "technical",
+  },
+  "government-registry": {
+    file: "government-registry.md",
+    title: {
+      en: "Government registries",
+      fr: "Registres publics",
+      es: "Registros públicos",
+    },
+    description: {
+      en: "Public organizations, institutional roles, assets, ownership, regulation, tax, elections and transport.",
+      fr: "Organisations publiques, rôles institutionnels, biens, propriété, réglementation, fiscalité, élections et transport.",
+      es: "Organizaciones públicas, funciones institucionales, bienes, propiedad, regulación, fiscalidad, elecciones y transporte.",
+    },
+    category: "technical",
+  },
+  "agriculture-biology": {
+    file: "agriculture-biology.md",
+    title: {
+      en: "Animals and plants",
+      fr: "Animaux et plantes",
+      es: "Animales y plantas",
+    },
+    description: {
+      en: "Animals, crops, varieties, accessions and seed lots.",
+      fr: "Animaux, cultures, variétés végétales, accessions et lots de semences.",
+      es: "Animales, cultivos, variedades vegetales, accesiones y lotes de semillas.",
+    },
+    category: "technical",
+  },
+  "agriculture-operations": {
+    file: "agriculture-operations.md",
+    title: {
+      en: "Agricultural operations",
+      fr: "Opérations agricoles",
+      es: "Operaciones agrícolas",
+    },
+    description: {
+      en: "Facilities, input products, service roles, certification and water use.",
+      fr: "Installations, intrants, rôles de service, certification et usage de l'eau.",
+      es: "Instalaciones, insumos, funciones de servicio, certificación y uso del agua.",
+    },
+    category: "technical",
+  },
   "metrics-spec": {
     file: "metrics-spec.md",
     title: {

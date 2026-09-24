@@ -3,6 +3,7 @@ import Base from '../../layouts/Base.astro';
 import { defaultLocale, type Locale } from '../../i18n/languages';
 import { useTranslations, localePath } from '../../i18n/utils';
 import { loadVocabulary } from '../../data/vocabulary';
+import { createDomainCatalog } from '../../data/domains';
 import type { Property } from '../../data/vocabulary';
 import {
   conceptPath as conceptPathFor,
@@ -27,6 +28,7 @@ const t = useTranslations(locale);
 
 const vocab = loadVocabulary();
 const prop = vocab.properties[termId] as Property;
+const domain = createDomainCatalog(vocab, locale).get(prop.domain);
 const definition = prop.definition[locale] ?? prop.definition.en ?? '';
 
 const conceptLink = (id: string) =>
@@ -58,6 +60,7 @@ const isNonNormative = prop.maturity === 'draft' || prop.maturity === 'candidate
       <span class="separator">/</span>
       <a href={localePath('/properties/', locale)}>{t('common.properties')}</a>
       <span class="separator">/</span>
+      {prop.domain && <><a href={`${localePath('/properties/', locale)}?domain=${encodeURIComponent(prop.domain)}`}>{domain.label}</a><span class="separator">/</span></>}
       {prop.label?.[locale] ?? prop.label?.en ?? prop.id}
     </nav>
     <h1>{prop.label?.[locale] ?? prop.label?.en ?? prop.id}</h1>

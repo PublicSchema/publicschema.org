@@ -144,8 +144,6 @@ const en = {
   'browse.facet_sensitivity': 'Sensitivity',
   'browse.facet_category': 'Category',
   'browse.domain_universal': 'Universal',
-  'browse.domain_sp': 'sp (social protection)',
-  'browse.domain_crvs': 'crvs (civil registration)',
   'browse.maturity_draft': 'Draft',
   'browse.maturity_candidate': 'Candidate',
   'browse.maturity_normative': 'Normative',
@@ -295,6 +293,7 @@ const en = {
 
   // Shared download labels
   'download.jsonld': 'JSON-LD',
+  'download.example_files': 'Download example files',
   'download.json_schema': 'JSON Schema',
   'download.csv': 'CSV',
   'download.definition_xlsx': 'Definition (Excel)',
@@ -521,8 +520,6 @@ export const ui: Record<Locale, Partial<Dict>> = {
     'browse.facet_sensitivity': 'Sensibilité',
     'browse.facet_category': 'Catégorie',
     'browse.domain_universal': 'Universel',
-    'browse.domain_sp': 'sp (protection sociale)',
-    'browse.domain_crvs': 'crvs (état civil)',
     'browse.maturity_draft': 'Ébauche',
     'browse.maturity_candidate': 'Candidat',
     'browse.maturity_normative': 'Normatif',
@@ -672,6 +669,7 @@ export const ui: Record<Locale, Partial<Dict>> = {
 
     // Shared download labels
     'download.jsonld': 'JSON-LD',
+    'download.example_files': 'Télécharger les fichiers d’exemple',
     'download.json_schema': 'JSON Schema',
     'download.csv': 'CSV',
     'download.definition_xlsx': 'Définition (Excel)',
@@ -889,8 +887,6 @@ export const ui: Record<Locale, Partial<Dict>> = {
     'browse.facet_sensitivity': 'Sensibilidad',
     'browse.facet_category': 'Categoría',
     'browse.domain_universal': 'Universal',
-    'browse.domain_sp': 'sp (protección social)',
-    'browse.domain_crvs': 'crvs (registro civil)',
     'browse.maturity_draft': 'Borrador',
     'browse.maturity_candidate': 'Candidato',
     'browse.maturity_normative': 'Normativo',
@@ -1040,6 +1036,7 @@ export const ui: Record<Locale, Partial<Dict>> = {
 
     // Shared download labels
     'download.jsonld': 'JSON-LD',
+    'download.example_files': 'Descargar archivos de ejemplo',
     'download.json_schema': 'JSON Schema',
     'download.csv': 'CSV',
     'download.definition_xlsx': 'Definición (Excel)',

@@ -433,3 +433,9 @@ class TestTemplateXLSX:
         ws = wb["Data"]
         for c in range(1, ws.max_column + 1):
             assert ws.cell(row=3, column=c).value is None
+
+
+def test_every_vocabulary_id_fits_an_excel_sheet_name(all_vocabularies_short):
+    """Definition workbooks name one sheet per vocabulary; Excel caps sheet names at 31 characters."""
+    too_long = sorted(vocab["id"] for vocab in all_vocabularies_short.values() if len(vocab["id"]) > 31)
+    assert too_long == []

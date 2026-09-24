@@ -13,9 +13,11 @@ releases/
 site/public/*.csv
 site/public/*.xlsx
 site/public/*.schema.json
-site/public/sp/
-site/public/crvs/
-site/public/metrics/
+# Per-domain output directories (sp, crvs, agri, ...); new domains need no
+# entry here. site/public/images/ holds maintained static assets and stays
+# tracked.
+site/public/*/
+!site/public/images/
 site/public/downloads/
 site/public/schemas/
 site/public/vocabulary.json

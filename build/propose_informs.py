@@ -1,32 +1,34 @@
-"""Propose `informs:` additions for bibliography entries by mechanically
-extracting external_equivalents, schema_org_equivalent, and vocab `standard:`
-fields from the schema.
+"""Propose `informs` additions for bibliography entries by mechanically
+extracting external alignments, schema.org mappings, and vocabulary
+`standard_json` fields from the LinkML schema.
 
-Read-only: writes a Markdown report to stdout (or --out file). Does not modify
-any YAML.
+By default this writes a Markdown report to stdout (or --out file) and
+modifies nothing. `--apply` adds the proposed links to the `informs_json`
+annotations in schema/bibliography.yaml; term-level `bibliography_refs`
+annotations must then be updated to match (see docs/authoring-linkml.md).
 
-Curated lookup tables are kept small and explicit. Anything outside the table
-is reported as "unmapped" so a human can decide.
+An alignment whose `vocabulary_id` is itself a bibliography id maps to that
+entry. Other alignments go through the curated lookup tables, which are kept
+small and explicit. Anything outside them is reported as "unmapped" so a
+human can decide.
 """
 
 from __future__ import annotations
 
 import argparse
+import json
 import re
 import sys
 from collections import defaultdict
 from dataclasses import dataclass, field
 from pathlib import Path
 
-import yaml
-
-# Matches the start of the `informs:` block at column 0. Anchoring to line
-# start avoids false matches on inline comments or string values containing
-# the substring "informs:".
-INFORMS_HEADER_RE = re.compile(r"^informs:", re.MULTILINE)
+from build.linkml_reader import load_raw_from_linkml
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 SCHEMA = REPO_ROOT / "schema"
+BIBLIOGRAPHY = SCHEMA / "bibliography.yaml"
+INFORMS_KINDS = ("concepts", "properties", "vocabularies")
 
 # (key, vocabulary) -> bibliography id; None means "do not auto-map; flag".
 EXTERNAL_EQUIV_LOOKUP: dict[tuple[str, str | None], str | None] = {
@@ -42,11 +44,14 @@ EXTERNAL_EQUIV_LOOKUP: dict[tuple[str, str | None], str | None] = {
     ("semic", "ADMS"): "semic-adms",
     ("fhir", "FHIR R4"): "fhir-r4",
     ("fhir-r4", "FHIR R4"): "fhir-r4",
-    ("fhir-r5", "FHIR R5"): "fhir-r4",
+    ("fhir-r5", "FHIR R5"): "fhir-r5",
     ("icao", "ICAO Doc 9303"): "icao-doc-9303",
     ("prov", "PROV-O"): "w3c-prov-o",
     ("foaf", "FOAF"): "foaf",
     ("schema-org", "schema.org"): "schema-org",
+    ("semic", "CPSV-AP 3.2.0"): "semic-cpsv-ap",
+    ("elm", "European Learning Model 3"): "ebsi-europass-elm",
+    ("geosparql", "GeoSPARQL 1.1"): "ogc-geosparql-11",
     # W3C DPV v2 and its GDPR legal extension are all tracked under a single
     # bibliography entry (w3c-dpv); the snapshots differ by module but the
     # informs relationship is to DPV as a whole.
@@ -122,6 +127,10 @@ VOCAB_STANDARD_LOOKUP: dict[str, str] = {
     "DHS-8 Woman's Questionnaire, Chapter 9 (m2, m3, rh_pnc_wm_pv series)": "dhs-woman-questionnaire",
     "Sphere Handbook 2018, Standard 6 Security of Tenure; UNHCR HLP guidance": "sphere-2018",
     "IOM Displacement Tracking Matrix (DTM) documentation indicator": "iom-dtm",
+    "FAO World Programme for the Census of Agriculture 2030 (WCA 2030), Item 0204 Area of holding according to land tenure types": "fao-wca-2030",
+    "Beneficial Ownership Data Standard 0.4.0, directOrIndirect": "openownership-bods",
+    "FAO World Programme for the Census of Agriculture 2030 (WCA 2030), Annex 8 Classification of livestock": "fao-wca-2030",
+    "ISO 19152-1:2024 Land Administration Domain Model (LADM)": "iso-19152-1-2024",
 }
 
 SKIPPED_KEYS = {"opencrvs", "dhis2"}
@@ -153,31 +162,23 @@ class Report:
     bib_existing: dict[str, dict[str, set[str]]] = field(default_factory=dict)
 
 
-def load_yaml(p: Path) -> dict:
-    return yaml.safe_load(p.read_text()) or {}
+def collect_existing_informs(raw: dict, report: Report) -> None:
+    for bid, entry in raw["bibliography"].items():
+        informs = entry.get("informs") or {}
+        report.bib_existing[bid] = {kind: set(informs.get(kind) or []) for kind in INFORMS_KINDS}
 
 
-def vocab_canonical_id(p: Path) -> str:
-    """Return canonical vocab id: '<domain>/<id>' if nested, else '<id>'."""
-    rel = p.relative_to(SCHEMA / "vocabularies")
-    parts = rel.with_suffix("").parts
-    return "/".join(parts) if len(parts) > 1 else parts[0]
-
-
-def collect_existing_informs(report: Report) -> None:
-    for p in sorted((SCHEMA / "bibliography").glob("*.yaml")):
-        d = load_yaml(p)
-        bid = d.get("id") or p.stem
-        informs = d.get("informs") or {}
-        report.bib_existing[bid] = {
-            "concepts": set(informs.get("concepts") or []),
-            "vocabularies": set(informs.get("vocabularies") or []),
-            "properties": set(informs.get("properties") or []),
-        }
+def resolve_alignment(key: str, vocab: str | None, report: Report) -> str | None:
+    """Return the bibliography id for an alignment, None to flag, or "__MISSING__"."""
+    if (key, vocab) in EXTERNAL_EQUIV_LOOKUP:
+        return EXTERNAL_EQUIV_LOOKUP[(key, vocab)]
+    if key in report.bib_existing:
+        return key
+    return "__MISSING__"
 
 
 def process_external_equivalents(
-    d: dict, p: Path, kind: str, target_id: str, report: Report
+    d: dict, source: str, kind: str, target_id: str, report: Report
 ) -> None:
     ee = d.get("external_equivalents") or {}
     if not isinstance(ee, dict):
@@ -189,16 +190,14 @@ def process_external_equivalents(
         if match == "none":
             continue
         if key in SKIPPED_KEYS:
-            report.skipped.append(
-                f"{p.relative_to(REPO_ROOT)}: external_equivalents.{key} (system, not standard)"
-            )
+            report.skipped.append(f"{source}: external_equivalents.{key} (system, not standard)")
             continue
         vocab = val.get("vocabulary")
-        bib_id = EXTERNAL_EQUIV_LOOKUP.get((key, vocab), "__MISSING__")
+        bib_id = resolve_alignment(key, vocab, report)
         if bib_id == "__MISSING__":
             report.flags.append(
                 Flag(
-                    source_path=str(p.relative_to(REPO_ROOT)),
+                    source_path=source,
                     field_path=f"external_equivalents.{key}",
                     reason="unknown_key",
                     detail=f"no lookup entry for ({key!r}, {vocab!r}); add it or skip",
@@ -208,7 +207,7 @@ def process_external_equivalents(
         if bib_id is None:
             report.flags.append(
                 Flag(
-                    source_path=str(p.relative_to(REPO_ROOT)),
+                    source_path=source,
                     field_path=f"external_equivalents.{key}",
                     reason="needs_decision",
                     detail=f"({key!r}, {vocab!r}) has no dedicated bibliography entry yet",
@@ -220,14 +219,14 @@ def process_external_equivalents(
                 bib_id=bib_id,
                 kind=kind,
                 target_id=target_id,
-                source_path=str(p.relative_to(REPO_ROOT)),
+                source_path=source,
                 field_path=f"external_equivalents.{key}",
                 evidence=f"vocabulary={vocab!r}, match={match!r}, uri={val.get('uri')!r}",
             )
         )
 
 
-def process_schema_org(d: dict, p: Path, target_id: str, report: Report) -> None:
+def process_schema_org(d: dict, source: str, target_id: str, report: Report) -> None:
     s = d.get("schema_org_equivalent")
     if not s:
         return
@@ -236,14 +235,14 @@ def process_schema_org(d: dict, p: Path, target_id: str, report: Report) -> None
             bib_id="schema-org",
             kind="properties",
             target_id=target_id,
-            source_path=str(p.relative_to(REPO_ROOT)),
+            source_path=source,
             field_path="schema_org_equivalent",
             evidence=str(s),
         )
     )
 
 
-def process_vocab_standard(d: dict, p: Path, vocab_id: str, report: Report) -> None:
+def process_vocab_standard(d: dict, source: str, vocab_id: str, report: Report) -> None:
     std = d.get("standard")
     if not isinstance(std, dict):
         return
@@ -254,7 +253,7 @@ def process_vocab_standard(d: dict, p: Path, vocab_id: str, report: Report) -> N
     if bib_id is None:
         report.flags.append(
             Flag(
-                source_path=str(p.relative_to(REPO_ROOT)),
+                source_path=source,
                 field_path="standard.name",
                 reason="unknown_standard_name",
                 detail=f"no lookup entry for {name!r}; add it or skip",
@@ -266,38 +265,34 @@ def process_vocab_standard(d: dict, p: Path, vocab_id: str, report: Report) -> N
             bib_id=bib_id,
             kind="vocabularies",
             target_id=vocab_id,
-            source_path=str(p.relative_to(REPO_ROOT)),
+            source_path=source,
             field_path="standard.name",
             evidence=f"name={name!r}, uri={std.get('uri')!r}",
         )
     )
 
 
-def build_report() -> Report:
+def build_report(schema_dir: Path = SCHEMA) -> Report:
+    """Collect proposals from the LinkML schema.
+
+    Sources are labelled by term kind and catalog key (for example
+    ``concept health/HealthFacility``), because the catalog keys are what
+    `informs_json` lists.
+    """
+    raw = load_raw_from_linkml(schema_dir)
     report = Report()
-    collect_existing_informs(report)
+    collect_existing_informs(raw, report)
 
-    for p in sorted((SCHEMA / "concepts").glob("*.yaml")):
-        d = load_yaml(p)
-        cid = d.get("id") or p.stem
-        domain = d.get("domain")
-        # Domain-scoped concepts must be referenced as `<domain>/<id>` so
-        # references match the build's concept registry, which keys by
-        # (domain, id). Root concepts (domain absent/null) stay bare.
-        target_id = f"{domain}/{cid}" if domain else cid
-        process_external_equivalents(d, p, "concepts", target_id, report)
+    for cid, d in sorted(raw["concepts"].items()):
+        process_external_equivalents(d, f"concept {cid}", "concepts", cid, report)
 
-    for p in sorted((SCHEMA / "properties").glob("*.yaml")):
-        d = load_yaml(p)
-        pid = d.get("id") or p.stem
-        process_external_equivalents(d, p, "properties", pid, report)
-        process_schema_org(d, p, pid, report)
+    for pid, d in sorted(raw["properties"].items()):
+        process_external_equivalents(d, f"property {pid}", "properties", pid, report)
+        process_schema_org(d, f"property {pid}", pid, report)
 
-    for p in sorted((SCHEMA / "vocabularies").glob("**/*.yaml")):
-        d = load_yaml(p)
-        vid = vocab_canonical_id(p)
-        process_vocab_standard(d, p, vid, report)
-        process_external_equivalents(d, p, "vocabularies", vid, report)
+    for vid, d in sorted(raw["vocabularies"].items()):
+        process_vocab_standard(d, f"vocabulary {vid}", vid, report)
+        process_external_equivalents(d, f"vocabulary {vid}", "vocabularies", vid, report)
 
     return report
 
@@ -382,65 +377,61 @@ def render_markdown(report: Report) -> str:
     return "\n".join(out)
 
 
-def render_informs_block(informs: dict[str, list[str]]) -> str:
-    """Render an `informs:` block matching the existing bibliography YAML style.
+def render_informs_json(informs: dict[str, set[str]]) -> str:
+    """Render an `informs_json` annotation line in the bibliography.yaml style.
 
-    2-space indent, `[]` for empty arrays, sorted item order within each list.
-    Note: existing custom ordering in a bibliography YAML is not preserved;
-    the first `--apply` run that touches a file re-sorts its informs lists
-    alphabetically.
+    Kinds appear in a fixed order, items are sorted, and empty kinds are omitted.
     """
-    lines = ["informs:"]
-    for kind in ("concepts", "vocabularies", "properties"):
-        items = sorted(set(informs.get(kind) or []))
-        if not items:
-            lines.append(f"  {kind}: []")
-        else:
-            lines.append(f"  {kind}:")
-            for item in items:
-                lines.append(f"    - {item}")
-    return "\n".join(lines) + "\n"
+    payload = {kind: sorted(informs[kind]) for kind in INFORMS_KINDS if informs.get(kind)}
+    value = json.dumps(payload, ensure_ascii=False).replace("'", "''")
+    return f"      informs_json: '{value}'"
 
 
-def apply_proposals(report: Report) -> dict[str, dict[str, list[str]]]:
-    """Apply proposals by rewriting the `informs:` block of each touched bib YAML.
+def apply_proposals(report: Report, path: Path = BIBLIOGRAPHY) -> dict[str, dict[str, list[str]]]:
+    """Add proposed links to the `informs_json` annotations in bibliography.yaml.
 
-    Existing entries are preserved; new entries are added; nothing is removed.
-    Returns a per-bib summary of what was added.
+    Existing links are preserved; new links are added; nothing is removed.
+    Returns a per-bibliography summary of what was added.
     """
-    by_bib: dict[str, list[Proposal]] = defaultdict(list)
+    added: dict[str, dict[str, set[str]]] = defaultdict(lambda: defaultdict(set))
     for prop in report.proposals:
-        by_bib[prop.bib_id].append(prop)
-
-    summary: dict[str, dict[str, list[str]]] = {}
-    for bib_id, props in by_bib.items():
-        bib_path = SCHEMA / "bibliography" / f"{bib_id}.yaml"
-        if not bib_path.exists():
-            print(f"WARNING: {bib_path} not found, skipping", file=sys.stderr)
+        existing = report.bib_existing.get(prop.bib_id)
+        if existing is None:
+            print(f"WARNING: bibliography {prop.bib_id!r} not found, skipping", file=sys.stderr)
             continue
-        text = bib_path.read_text()
-        parts = INFORMS_HEADER_RE.split(text, maxsplit=1)
-        if len(parts) != 2:
-            print(f"WARNING: {bib_path} has no informs: block, skipping", file=sys.stderr)
+        if prop.target_id not in existing[prop.kind]:
+            added[prop.bib_id][prop.kind].add(prop.target_id)
+    if not added:
+        return {}
+
+    citation_re = re.compile(r"^      citation_id: (\S+)$")
+    pending = set(added)
+    current: str | None = None
+    out: list[str] = []
+    lines = iter(path.read_text(encoding="utf-8").split("\n"))
+    for line in lines:
+        if line.startswith("  ") and not line.startswith("   "):
+            current = None
+        if m := citation_re.match(line):
+            current = m.group(1)
+        if current in pending and line.startswith("      informs_json: "):
+            existing = report.bib_existing[current]
+            out.append(
+                render_informs_json({k: existing[k] | added[current][k] for k in INFORMS_KINDS})
+            )
+            pending.discard(current)
+            # Drop continuation lines of a wrapped scalar.
+            for line in lines:
+                if not line.startswith("        "):
+                    out.append(line)
+                    break
             continue
-
-        existing = report.bib_existing.get(bib_id, {"concepts": set(), "vocabularies": set(), "properties": set()})
-        merged = {kind: set(existing.get(kind, set())) for kind in ("concepts", "vocabularies", "properties")}
-        added = {"concepts": [], "vocabularies": [], "properties": []}
-        for prop in props:
-            if prop.target_id not in merged[prop.kind]:
-                merged[prop.kind].add(prop.target_id)
-                added[prop.kind].append(prop.target_id)
-
-        if not any(added.values()):
-            continue
-
-        before = parts[0].rstrip() + "\n\n"
-        new_block = render_informs_block({k: sorted(v) for k, v in merged.items()})
-        bib_path.write_text(before + new_block)
-        summary[bib_id] = {k: sorted(set(v)) for k, v in added.items() if v}
-
-    return summary
+        out.append(line)
+    for bib_id in sorted(pending):
+        print(f"WARNING: {bib_id!r} has no informs_json annotation, skipping", file=sys.stderr)
+        del added[bib_id]
+    path.write_text("\n".join(out), encoding="utf-8")
+    return {bib_id: {k: sorted(v) for k, v in kinds.items() if v} for bib_id, kinds in added.items()}
 
 
 def main() -> int:
@@ -453,7 +444,7 @@ def main() -> int:
     parser.add_argument(
         "--apply",
         action="store_true",
-        help="Write proposed informs additions back into bibliography YAMLs. Only adds; never removes.",
+        help="Add proposed links to informs_json in schema/bibliography.yaml. Only adds; never removes.",
     )
     args = parser.parse_args()
 

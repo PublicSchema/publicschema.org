@@ -1,59 +1,69 @@
 id: livestock-type--dhs
 source_value_set:
-  id: livestock-type
+  id: agri/livestock-type
   kind: vocabulary
   source_id: publicschema
 target_value_set:
-  id: DHS Recode7 livestock variables (hv246a-j)
+  id: DHS Recode7 livestock variables (hv246a-k)
   source_id: dhs
 pairs:
 - source_value: cattle
   target_value: hv246a
-  quality: exact
+  quality: close
   target_label: Cattle
 - source_value: cattle
   target_value: hv246b
-  quality: exact
-  target_label: Cows/bulls
+  quality: narrow
+  target_label: Cows, bulls
 - source_value: horses
   target_value: hv246c
-  quality: exact
-  target_label: Horses/donkeys/mules
-  note: DHS combines horses, donkeys, and mules. Maps to horses as primary; donkeys_mules is not separately identifiable.
+  quality: broad
+  target_label: Horses, donkeys, mules
+  note: The DHS variable counts horses, donkeys and mules together.
+- source_value: donkeys_mules
+  target_value: hv246c
+  quality: broad
+  target_label: Horses, donkeys, mules
+  note: The DHS variable counts horses, donkeys and mules together.
 - source_value: goats
   target_value: hv246d
-  quality: exact
+  quality: close
   target_label: Goats
 - source_value: sheep
   target_value: hv246e
-  quality: exact
+  quality: close
   target_label: Sheep
 - source_value: chickens
   target_value: hv246f
-  quality: exact
+  quality: broad
   target_label: Chickens/poultry
-  note: DHS combines chickens with other poultry. Maps to chickens as the dominant category.
-- source_value: pigs
-  target_value: hv246g
-  quality: exact
-  target_label: Pigs
-- source_value: other_livestock
-  target_value: hv246h
-  quality: exact
-  target_label: Other
+  note: The DHS variable counts chickens and other poultry together.
 - source_value: other_poultry
+  target_value: hv246f
+  quality: broad
+  target_label: Chickens/poultry
+  note: The DHS variable counts chickens and other poultry together.
+- source_value: pigs
   target_value: null
   quality: unmapped
-- source_value: donkeys_mules
+  note: Pigs appear in the country-specific variables hv246g to hv246k in some surveys; map them per country.
+- source_value: other_livestock
+  target_value: null
+  quality: unmapped
+  note: The standard recode has no residual livestock variable; hv246g to hv246k are country specific.
+- source_value: buffaloes
   target_value: null
   quality: unmapped
 - source_value: camels
   target_value: null
   quality: unmapped
+- source_value: llamas_alpacas
+  target_value: null
+  quality: unmapped
 - source_value: rabbits
   target_value: null
   quality: unmapped
-- source_value: beehives
+- source_value: bees
   target_value: null
   quality: unmapped
 standard:
@@ -67,4 +77,8 @@ standard:
   redistribution: "restricted; users must register and agree to DHS Program terms of use; micro-level data must not be redistributed or shared without written consent of The DHS Program"
   retrieved_at: '2026-05-12'
   source_sha256: f978284a94d28d2b5054c1300a5ffd3f68c71308ad107b4a9f961bf6c701294e
-notes: DHS Recode7 hv246a-h. Each variable records the count of animals owned by the household. Code here is the variable name. Some DHS phases use different subsets of these variables.
+notes: DHS Recode7 hv246a to hv246k. Each variable records the number of animals the household owns; the
+  code here is the variable name. hv246a to hv246f have standard labels and hv246g to hv246k are country
+  specific. LivestockType describes animals kept on a farm whether or not it owns them, so no pair is
+  exact. Qualities follow the SKOS direction; broad means the DHS variable is broader than the PublicSchema
+  value, and narrow means it is narrower. Some DHS phases use different subsets of these variables.

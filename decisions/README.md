@@ -21,3 +21,10 @@
 | [017](017-language-vocabulary-iso-639-2023.md) | Language vocabulary cites ISO 639-3 via SIL, not the withdrawn ISO 639-2 registry | Accepted |
 | [018](018-crvs-person-rename.md) | Rename CRVSPerson to crvs/Person | Accepted |
 | [019](019-parental-role-decoupled-from-gender.md) | Parental role vocabulary decoupled from gender | Accepted |
+| [020](020-registry-foundations.md) | Separate registry records, recognition, subjects and values | Accepted |
+| [021](021-farm-production-unit.md) | Farm identifies a production unit, with separate holder responsibilities | Accepted |
+| [022](022-public-services-and-administrative-history.md) | Separate public services, applications and administrative history | Accepted |
+| [023](023-government-qualified-relationships.md) | Qualified ownership interests and education delivery | Accepted |
+| [024](024-domain-and-external-model-boundaries.md) | Domain placement, asset responsibilities and external medical models | Accepted |
+| [025](025-organizations-legal-personality-and-authority.md) | Organizations carry legal form, public status and acting authority | Accepted |
+| [026](026-dates-known-to-reduced-precision.md) | Dates known only to a year or a month | Accepted |
