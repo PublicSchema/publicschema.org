@@ -67,6 +67,7 @@ slots:
         seul que la personne peut voter à chaque élection qui s'y tient.
       source_domain: elections
       category: location
+      sensitivity: sensitive
       external_alignments_json: '[{"label": "ReportingUnit", "match": "related", "note": "NIST SP 1500-100
         uses ReportingUnit, typed as precinct, ward or another unit, for the areas that results are reported
         for.", "uri": "https://pages.nist.gov/ElectionResultsReporting/", "vocabulary": "NIST SP 1500-100",

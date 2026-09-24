@@ -218,7 +218,8 @@ def test_disclosure_sensitive_government_slots(exports):
     properties = built["properties"]
     assert properties["driving_condition_codes"]["sensitivity"] == "sensitive"
     assert properties["polling_service_point"]["sensitivity"] == "sensitive"
-    assert properties["electoral_districts"].get("sensitivity") in {None, "standard"}
+    # A small district, such as a ward, can narrow where the voter lives.
+    assert properties["electoral_districts"]["sensitivity"] == "sensitive"
 
 
 def test_coded_and_textual_authorization_conditions_point_to_each_other(exports):
