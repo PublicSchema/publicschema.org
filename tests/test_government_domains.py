@@ -253,10 +253,21 @@ def test_only_exact_schema_org_matches_become_context_aliases(exports, alias):
     assert context["startDate"] == context["start_date"]
 
 
+def test_schema_org_mappings_use_the_shared_prefix():
+    # Every module maps schema: to http://schema.org/; an https IRI would be a different RDF term.
+    for path in sorted((ROOT / "schema").glob("*.yaml")):
+        authored = yaml.safe_load(path.read_text())
+        for section in ("classes", "slots", "enums"):
+            for name, entry in (authored.get(section) or {}).items():
+                for key in ("exact_mappings", "close_mappings", "broad_mappings", "narrow_mappings", "related_mappings"):
+                    for mapping in (entry or {}).get(key) or []:
+                        assert "schema.org" not in mapping, (path.name, name, mapping)
+
+
 def test_vehicle_is_narrower_than_the_schema_org_vehicle(exports):
     # schema.org Vehicle also covers aircraft, boats and vehicles offered for sale.
     vehicle = AUTHORED["classes"]["Vehicle"]
-    assert vehicle["broad_mappings"] == ["https://schema.org/Vehicle"]
+    assert vehicle["broad_mappings"] == ["schema:Vehicle"]
     assert "close_mappings" not in vehicle
     built, _, _, _ = exports
     assert built["concepts"]["transport/Vehicle"]["external_equivalents"]["schema-org"]["match"] == "broad"

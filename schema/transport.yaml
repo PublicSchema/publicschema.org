@@ -8,6 +8,7 @@ prefixes:
   publicschema: https://publicschema.org/
   linkml: https://w3id.org/linkml/
   bibo: http://purl.org/ontology/bibo/
+  schema: http://schema.org/
 imports:
 - linkml:types
 - common
@@ -61,7 +62,7 @@ classes:
     - manufacture_year
     status: bibo:draft
     broad_mappings:
-    - https://schema.org/Vehicle
+    - schema:Vehicle
     annotations:
       label_es: Vehículo
       label_fr: Véhicule
@@ -170,7 +171,7 @@ slots:
     multivalued: false
     status: bibo:draft
     close_mappings:
-    - https://schema.org/model
+    - schema:model
     annotations:
       label_es: Modelo del vehículo
       label_fr: Modèle du véhicule
@@ -217,7 +218,7 @@ slots:
     multivalued: false
     status: bibo:draft
     close_mappings:
-    - https://schema.org/productionDate
+    - schema:productionDate
     annotations:
       label_es: Año de fabricación
       label_fr: Année de fabrication
