@@ -66,7 +66,9 @@ classes:
     description: An identified, delimited area of land used or usable for agricultural production, as recorded
       by the source for a stated period. It is a land-use unit. It is not a cadastral parcel, a title unit
       or a census parcel of one tenure type, although its boundary may coincide with any of them. Use by
-      one or more farms is recorded separately.
+      one or more farms is recorded separately. A split or merge creates a new parcel, which names the
+      parcels it came from and closes their validity; a corrected measurement or geometry of the same land
+      keeps the parcel.
     slots:
     - name
     - identifiers
@@ -74,6 +76,7 @@ classes:
     - parcel_area
     - location
     - land_spatial_units
+    - predecessor_parcels
     - valid_from
     - valid_to
     status: bibo:draft
@@ -85,12 +88,16 @@ classes:
         la producción agropecuaria, tal como la registra la fuente para un período determinado. Es una
         unidad de uso de la tierra. No es una parcela catastral, una unidad de título ni una parcela censal
         de un solo tipo de tenencia, aunque su límite pueda coincidir con cualquiera de ellos. El uso
-        por una o más fincas se registra por separado.
+        por una o más fincas se registra por separado. Una división o fusión crea una nueva parcela, que
+        nombra las parcelas de las que procede y cierra su validez; una medición o geometría corregida
+        de la misma tierra conserva la parcela.
       description_fr: Une zone de terre identifiée et délimitée, utilisée ou utilisable pour la production
         agricole, telle qu'enregistrée par la source pour une période donnée. C'est une unité d'usage
         des terres. Ce n'est pas une parcelle cadastrale, une unité de titre ni une parcelle de recensement
         d'un seul type de régime foncier, bien que sa limite puisse coïncider avec l'une d'elles. L'utilisation
-        par une ou plusieurs exploitations agricoles est enregistrée séparément.
+        par une ou plusieurs exploitations agricoles est enregistrée séparément. Une division ou une fusion
+        crée une nouvelle parcelle, qui nomme les parcelles dont elle est issue et clôt leur validité; une
+        mesure ou une géométrie corrigée de la même terre conserve la parcelle.
       bibliography_refs: '["fao-wca-2020-vol1", "fao-wca-2030", "unece-property-units-2004"]'
   HoldingParcelLink:
     class_uri: publicschema:agri/HoldingParcelLink
@@ -570,6 +577,26 @@ slots:
         sur lesquelles se trouve la parcelle agricole, telles qu'enregistrées par la source. Leurs limites
         ne coïncident pas nécessairement. Le lien ne fait pas de la parcelle agricole une unité de titre
         et n'indique pas qui détient des droits sur la terre.
+      category: administrative
+      bibliography_refs: '["iso-19152-1-2024", "unece-property-units-2004"]'
+  predecessor_parcels:
+    slot_uri: publicschema:agri/predecessor_parcels
+    title: Predecessor parcels
+    description: The agricultural parcels from which this parcel was formed by a split, merge or other change
+      of boundary. The predecessors keep their own identities and validity periods.
+    range: AgriculturalParcel
+    multivalued: true
+    status: bibo:draft
+    annotations:
+      source_domain: agri
+      label_es: Parcelas predecesoras
+      label_fr: Parcelles prédécesseures
+      description_es: Las parcelas agropecuarias a partir de las cuales se formó esta parcela por división,
+        fusión u otro cambio de límite. Las predecesoras conservan sus propias identidades y períodos de
+        validez.
+      description_fr: Les parcelles agricoles à partir desquelles cette parcelle a été formée par division,
+        fusion ou autre changement de limite. Les prédécesseures conservent leurs propres identités et
+        périodes de validité.
       category: administrative
       bibliography_refs: '["iso-19152-1-2024", "unece-property-units-2004"]'
   farm_area:

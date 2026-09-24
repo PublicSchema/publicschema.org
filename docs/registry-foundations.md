@@ -175,6 +175,8 @@ AgriculturalParcel is deliberately a broader agricultural-use unit than FAO's ce
 
 A `HoldingParcelLink` states the arrangement under which that farm uses the parcel in `parcel_tenure`, and its use in `parcel_land_use`, because one farm may own one parcel and rent another. Where parts of a parcel have different uses or tenure, record one link per part with its `used_area`. `land_spatial_units` names the cadastral or other land administration units the parcel lies on. Neither link turns a use arrangement into a land right; a right is a `LandTenureAssertion` about a `LandAdministrativeUnit`.
 
+A parcel keeps its identity while the same land is re-measured or its geometry corrected. A split or merge creates a new parcel that names its sources in `predecessor_parcels`; each source keeps its URI and closes its `valid_to`. The pilot splits its second parcel this way, so earlier links and claims still resolve to the land they described.
+
 ## Medical reuse boundary
 
 For medical exchange, use the selected native FHIR R5 5.0.0 resources and profiles,

@@ -106,6 +106,24 @@ def test_a_parcel_link_states_tenure_and_use_and_a_parcel_names_its_land_units(e
     assert not validate(graph(changed, result['context']), shacl_graph=shapes, inference='rdfs')[0]
 
 
+def test_a_split_parcel_is_a_new_parcel_that_names_its_predecessor(exports):
+    result, shapes, records, _ = exports
+    properties = result['properties']
+    assert 'predecessor_parcels' in result['concept_schemas']['agri/AgriculturalParcel']['properties']
+    assert (properties['predecessor_parcels']['type'], properties['predecessor_parcels']['cardinality']) == ('concept:agri/AgriculturalParcel', 'multiple')
+    rule = result['concepts']['agri/AgriculturalParcel']['definition']['en']
+    assert 'split or merge creates a new parcel' in rule
+    assert 'corrected measurement' in rule
+    parcels = {r['@id']: r for r in records if r['@type'] == 'agri/AgriculturalParcel'}
+    successor = parcels['https://example.org/parcel/two-north']
+    assert successor['predecessor_parcels'] == ['https://example.org/parcel/two']
+    # The predecessor keeps its identity and closes its validity before the successor starts.
+    assert parcels['https://example.org/parcel/two']['valid_to'] < successor['valid_from']
+    changed = copy.deepcopy(records)
+    next(r for r in changed if r['@id'] == 'https://example.org/parcel/two-north')['predecessor_parcels'] = ['https://example.org/land/unit']
+    assert not validate(graph(changed, result['context']), shacl_graph=shapes, inference='rdfs')[0]
+
+
 def test_asset_actor_kind_is_a_local_profile_rule(exports):
     result, shapes, records, _ = exports
     changed = copy.deepcopy(records)
