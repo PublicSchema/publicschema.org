@@ -3551,7 +3551,7 @@ classes:
       standard_number: ISO 19152-1:2024
       note: First edition 2024-01; supersedes ISO 19152:2012. Clauses 3.1.2 basic administrative unit,
         3.1.5 fraction, 3.1.7 group party and 3.1.8 land.
-      informs_json: '{"concepts": ["land/LandAdministrativeUnit", "land/LandBoundaryAssertion", "land/LandSpatialUnit", "land/LandTenureAssertion"], "properties": ["tenure_category", "tenure_holder", "tenure_object", "tenure_share"], "vocabularies": ["land/tenure-category"]}'
+      informs_json: '{"concepts": ["land/LandAdministrativeUnit", "land/LandBoundaryAssertion", "land/LandSpatialUnit", "land/LandTenureAssertion"], "properties": ["tenure_category", "tenure_holder", "tenure_object", "tenure_share_denominator", "tenure_share_numerator"], "vocabularies": ["land/tenure-category"]}'
   UpovConvention1991Citation:
     class_uri: publicschema:Citation/upov-convention-1991
     is_a: Citation

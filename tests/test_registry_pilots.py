@@ -59,8 +59,16 @@ def test_land_tenure_contract_and_shared_geometry(exports):
     assert {v['code'] for v in result['vocabularies']['land/tenure-category']['values']} == {'right', 'restriction', 'responsibility'}
     for name in ('tenure_holder', 'tenure_type', 'boundary_recognition', 'land_tenure'):
         assert properties[name]['sensitivity'] == 'sensitive', name
-    share = yaml.safe_load((ROOT / 'schema/land.yaml').read_text())['slots']['tenure_share']
-    assert (share['range'], share['minimum_value'], share['maximum_value']) == ('decimal', 0, 1)
+    # A share is a whole-number fraction, as in LADM, so a third is exact.
+    assert 'tenure_share' not in properties
+    slots = yaml.safe_load((ROOT / 'schema/land.yaml').read_text())['slots']
+    assert (slots['tenure_share_numerator']['range'], slots['tenure_share_numerator']['minimum_value']) == ('integer', 0)
+    assert (slots['tenure_share_denominator']['range'], slots['tenure_share_denominator']['minimum_value']) == ('integer', 1)
+    tenure = jsonschema.Draft202012Validator(result['concept_schemas']['land/LandTenureAssertion'], registry=registry)
+    tenure.validate({'tenure_share_numerator': 1, 'tenure_share_denominator': 3})
+    for bad in ({'tenure_share_denominator': 0}, {'tenure_share_numerator': 0.5}, {'tenure_share_numerator': -1}):
+        with pytest.raises(jsonschema.ValidationError):
+            tenure.validate(bad)
     for kind in ('agri/AgriculturalParcel', 'land/LandSpatialUnit', 'land/LandBoundaryAssertion'):
         assert 'spatial_geometry' in result['concept_schemas'][kind]['properties'], kind
     for retired in ('parcel_geometry', 'land_geometry', 'boundary_geometry'):

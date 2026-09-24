@@ -74,7 +74,8 @@ classes:
     - tenure_object
     - tenure_category
     - tenure_type
-    - tenure_share
+    - tenure_share_numerator
+    - tenure_share_denominator
     - valid_from
     - valid_to
     - evidence_assertions
@@ -225,27 +226,46 @@ slots:
         classification indiquée et conservé tel qu'enregistré, sans conversion en propriété.
       category: administrative
       sensitivity: sensitive
-  tenure_share:
-    slot_uri: publicschema:land/tenure_share
-    title: Tenure share
-    description: The holder's share of the right, restriction or responsibility, as a fraction of the
-      whole from 0 to 1, where 1 is the entire interest. It is not a percentage. Shares in competing claims
-      are not normalized or added.
-    range: decimal
+  tenure_share_numerator:
+    slot_uri: publicschema:land/tenure_share_numerator
+    title: Tenure share numerator
+    description: The numerator of the holder's share of the right, restriction or responsibility, stated
+      as a fraction of whole numbers with tenure_share_denominator, such as 1 of 3. The numerator does
+      not exceed the denominator. Shares in competing claims are not normalized or added.
+    range: integer
     minimum_value: 0
-    maximum_value: 1
     multivalued: false
     status: bibo:draft
     annotations:
       source_domain: land
-      label_es: Parte de la tenencia
-      label_fr: Part de tenure
-      description_es: La parte del titular en el derecho, la restricción o la responsabilidad, expresada
-        como una fracción del total de 0 a 1, donde 1 representa el interés completo. No es un porcentaje.
-        Las partes de reclamaciones en competencia no se normalizan ni se suman.
-      description_fr: La part du détenteur dans le droit, la restriction ou la responsabilité, exprimée
-        comme une fraction du tout de 0 à 1, où 1 représente l'intérêt entier. Ce n'est pas un pourcentage.
-        Les parts de revendications concurrentes ne sont ni normalisées ni additionnées.
+      label_es: Numerador de la parte de tenencia
+      label_fr: Numérateur de la part de tenure
+      description_es: El numerador de la parte del titular en el derecho, la restricción o la responsabilidad,
+        expresada como una fracción de números enteros con tenure_share_denominator, como 1 de 3. El numerador
+        no supera al denominador. Las partes de reclamaciones en competencia no se normalizan ni se suman.
+      description_fr: Le numérateur de la part du détenteur dans le droit, la restriction ou la responsabilité,
+        exprimée comme une fraction de nombres entiers avec tenure_share_denominator, par exemple 1 sur
+        3. Le numérateur ne dépasse pas le dénominateur. Les parts de revendications concurrentes ne sont
+        ni normalisées ni additionnées.
+      category: administrative
+      bibliography_refs: '["iso-19152-1-2024"]'
+  tenure_share_denominator:
+    slot_uri: publicschema:land/tenure_share_denominator
+    title: Tenure share denominator
+    description: The denominator of the holder's share of the right, restriction or responsibility,
+      stated with tenure_share_numerator. A share of 1 of 1 is the entire interest.
+    range: integer
+    minimum_value: 1
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      source_domain: land
+      label_es: Denominador de la parte de tenencia
+      label_fr: Dénominateur de la part de tenure
+      description_es: El denominador de la parte del titular en el derecho, la restricción o la responsabilidad,
+        expresada con tenure_share_numerator. Una parte de 1 de 1 es el interés completo.
+      description_fr: Le dénominateur de la part du détenteur dans le droit, la restriction ou la responsabilité,
+        exprimée avec tenure_share_numerator. Une part de 1 sur 1 représente l'intérêt entier.
       category: administrative
       bibliography_refs: '["iso-19152-1-2024"]'
   boundary_unit:

@@ -93,10 +93,10 @@ A slot can carry three LinkML value constraints. Both published exports keep the
 | `pattern` | `pattern` | `sh:pattern` |
 
 ```yaml
-tenure_share:
+interest_percentage:
   range: decimal
   minimum_value: 0
-  maximum_value: 1
+  maximum_value: 100
 ```
 
 - Bounds are inclusive. There is no exclusive bound; when a limit must be excluded, describe it in the slot description and leave it to profiles.
