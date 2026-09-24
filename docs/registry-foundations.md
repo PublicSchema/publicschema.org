@@ -44,6 +44,14 @@ subject slot does not repeat it. `registered_subject` and `matched_subject` keep
 names because they mean something narrower: the recipient of recognition, and the subject a
 record is proposed to describe.
 
+On an `Authorization`, `registered_subject` is the holder of the permission. When the
+permission covers an installation, asset or site, such as a plant under an environmental
+permit, `authorized_object` names it. A transfer of the permission to another holder is a
+separate Authorization for the new holder, which a `Decision` can establish; the register entry
+for it names the earlier entry in `supersedes_record`, and neither Authorization's dates are
+rewritten. An asset registration, such as a vehicle registration, recognizes the asset itself:
+the asset is the `registered_subject` and its keeper is an `AssetPartyRole`.
+
 `EvidenceAssertion` and `SubjectMatchAssertion` use `assertion_authority` for the
 organization accountable for the statement. `RecordLifecycleEvent`, like the other events,
 uses `authority` for the organization responsible for the change. Organizations with other

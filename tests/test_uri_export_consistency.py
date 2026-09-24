@@ -36,6 +36,7 @@ def public_context_and_shapes(tmp_path_factory, built_vocabulary, shacl_graph, o
     ("class_name", "field"),
     [
         ("Registration", "registered_subject"),
+        ("Authorization", "authorized_object"),
         ("AgriculturalServiceRole", "service_provider"),
     ],
 )

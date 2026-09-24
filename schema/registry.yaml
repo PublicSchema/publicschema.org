@@ -126,9 +126,12 @@ classes:
   Authorization:
     class_uri: publicschema:Authorization
     title: Authorization
-    description: An authority's grant of permission to a subject to carry out a stated activity, subject
-      to stated conditions. A permission does not show that the activity took place.
+    description: An authority's grant of permission to a holder to carry out a stated activity, subject
+      to stated conditions. The registered subject is the holder; an installation, asset or site the
+      permission covers is the authorized object. A permission does not show that the activity took
+      place.
     slots:
+    - authorized_object
     - authorized_activity
     - authorization_conditions
     status: bibo:draft
@@ -136,11 +139,14 @@ classes:
     annotations:
       label_es: Autorización
       label_fr: Autorisation
-      description_es: El otorgamiento por parte de una autoridad de un permiso a un sujeto para llevar
-        a cabo una actividad determinada, sujeto a condiciones determinadas. Un permiso no demuestra
-        que la actividad haya tenido lugar.
-      description_fr: L'octroi par une autorité d'une permission à un sujet d'exercer une activité déterminée,
-        sous réserve de conditions déterminées. Une permission ne prouve pas que l'activité a eu lieu.
+      description_es: El otorgamiento por parte de una autoridad de un permiso a un titular para llevar
+        a cabo una actividad determinada, sujeto a condiciones determinadas. El sujeto registrado es
+        el titular; una instalación, un activo o un emplazamiento que cubre el permiso es el objeto
+        autorizado. Un permiso no demuestra que la actividad haya tenido lugar.
+      description_fr: L'octroi par une autorité d'une permission à un titulaire d'exercer une activité
+        déterminée, sous réserve de conditions déterminées. Le sujet enregistré est le titulaire ; une
+        installation, un bien ou un site que couvre la permission est l'objet autorisé. Une permission
+        ne prouve pas que l'activité a eu lieu.
       bibliography_refs: '["schema-org", "semic-cpsv-ap"]'
   IdentifierAssignment:
     class_uri: publicschema:IdentifierAssignment
@@ -534,6 +540,9 @@ slots:
     slot_uri: publicschema:registered_subject
     title: Registered subject
     description: The URI of the person, organization, asset or other thing that the registration recognizes.
+      On an authorization it is the holder of the permission, and an installation, asset or site the
+      permission covers is the authorized object. An asset registration, such as a vehicle registration,
+      recognizes the asset; its keeper is recorded as an asset party role.
     range: uri
     multivalued: false
     status: bibo:draft
@@ -541,8 +550,14 @@ slots:
       label_es: Sujeto registrado
       label_fr: Sujet enregistré
       description_es: El URI de la persona, organización, activo u otra cosa que reconoce el registro.
+        En una autorización es el titular del permiso, y una instalación, un activo o un emplazamiento
+        que cubre el permiso es el objeto autorizado. Un registro de activo, como el registro de un
+        vehículo, reconoce el activo; su tenedor se registra como una función de parte sobre el activo.
       description_fr: L'URI de la personne, de l'organisation, du bien ou de toute autre chose que l'enregistrement
-        reconnaît.
+        reconnaît. Pour une autorisation, c'est le titulaire de la permission, et une installation, un
+        bien ou un site que couvre la permission est l'objet autorisé. Un enregistrement de bien, tel
+        que l'immatriculation d'un véhicule, reconnaît le bien ; son détenteur est enregistré comme un
+        rôle de partie sur le bien.
       category: administrative
       sensitivity: sensitive
   registration_authority:
@@ -586,6 +601,26 @@ slots:
         texto. No implica elegibilidad para un beneficio.
       description_fr: La finalité ou la catégorie administrative de la reconnaissance, énoncée sous
         forme de texte. N'implique pas l'éligibilité à un avantage.
+      category: administrative
+      sensitivity: sensitive
+  authorized_object:
+    slot_uri: publicschema:authorized_object
+    title: Authorized object
+    description: The URI of the installation, asset or site that the permission covers, when it covers
+      one. The holder is the registered subject. A transfer of the permission to another holder is a
+      separate authorization for that holder.
+    range: uri
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      label_es: Objeto autorizado
+      label_fr: Objet autorisé
+      description_es: El URI de la instalación, el activo o el emplazamiento que cubre el permiso, cuando
+        cubre uno. El titular es el sujeto registrado. La transferencia del permiso a otro titular es
+        una autorización distinta para ese titular.
+      description_fr: L'URI de l'installation, du bien ou du site que couvre la permission, lorsqu'elle
+        en couvre un. Le titulaire est le sujet enregistré. Le transfert de la permission à un autre
+        titulaire est une autorisation distincte pour ce titulaire.
       category: administrative
       sensitivity: sensitive
   authorized_activity:

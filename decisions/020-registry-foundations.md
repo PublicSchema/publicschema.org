@@ -16,7 +16,7 @@ Root concepts keep the separate identities apart:
 
 - `Register` is the register itself. `register_owner` names the organization that establishes it and answers for it.
 - `RegistryEntry` is one record in a register. Its qualified key is a register URI (`register_uri`) plus the register's local string (`record_id`). `RecordReference` points at such a record from another statement.
-- `Registration` is administrative recognition of a subject (`registered_subject`) by an organization (`registration_authority`). `Authorization` specializes it as recognition of a subject for a permitted activity.
+- `Registration` is administrative recognition of a subject (`registered_subject`) by an organization (`registration_authority`). `Authorization` specializes it as recognition of a subject for a permitted activity. On an Authorization the subject is the holder, and an installation, asset or site the permission covers is `authorized_object`; a transfer to another holder is a separate Authorization. An asset registration keeps the asset as its subject, and the keeper is an `AssetPartyRole`.
 - `IdentifierAssignment` records who issued an identifier (`identifier_issuer`) to which subject, for what period. The existing `Identifier` remains the value and scheme; it does not become a generic classification value.
 - `EvidenceAssertion` and `SubjectMatchAssertion` are attributed statements about sources and about whether a record describes a subject.
 - `NameUsage` and `ContactPoint` record names and contact channels with purpose and dates, without modifying the personal name or household address contracts.

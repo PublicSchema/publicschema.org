@@ -293,3 +293,22 @@ def test_a_regulatory_action_states_its_own_effect_period(result):
 def test_validity_is_as_stated_and_later_actions_do_not_overwrite_it(result, slot, language, granted, later):
     definition = result["properties"][slot]["definition"][language]
     assert granted in definition and later in definition
+
+
+def test_an_authorization_names_its_holder_and_optionally_what_it_covers(result):
+    # A permit is granted to a holder for an installation, asset or site; the two are different things.
+    assert {"registered_subject", "authorized_object"} <= result["concept_schemas"]["Authorization"]["properties"].keys()
+    prop = result["properties"]["authorized_object"]
+    assert prop["type"] == "uri"
+    assert prop["sensitivity"] == "sensitive"
+    assert set(prop["definition"]) >= {"en", "fr", "es"}
+    assert "holder" in result["properties"]["registered_subject"]["definition"]["en"]
+
+
+def test_an_authorization_accepts_a_holder_and_an_object(result, registry):
+    validator = jsonschema.Draft202012Validator(result["concept_schemas"]["Authorization"], registry=registry)
+    validator.validate({
+        "registered_subject": "https://example.org/org/operator",
+        "authorized_object": "https://example.org/facility/plant",
+        "authorized_activity": "waste incineration",
+    })
