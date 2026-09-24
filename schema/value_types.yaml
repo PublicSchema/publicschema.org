@@ -243,7 +243,7 @@ slots:
     slot_uri: publicschema:coordinate_reference_system
     title: Coordinate reference system
     description: The URI of the coordinate reference system for the coordinates. When it is absent,
-      the system stated in the geometry literal applies, such as the URI that can precede a WKT literal;
+      the system stated in the geometry literal applies, such as the URI that can precede a Well-Known Text literal;
       when neither states one, the longitude-then-latitude system named CRS84 applies, which GeoJSON
       always uses. When both state one, they must agree.
     range: uri
@@ -254,12 +254,12 @@ slots:
       label_fr: Système de référence de coordonnées
       description_es: El URI del sistema de referencia de coordenadas aplicable a las coordenadas.
         Cuando está ausente, se aplica el sistema indicado en el literal geométrico, como el URI que
-        puede preceder a un literal WKT; cuando ninguno lo indica, se aplica el sistema
+        puede preceder a un literal Well-Known Text; cuando ninguno lo indica, se aplica el sistema
         longitud-luego-latitud denominado CRS84, que GeoJSON utiliza siempre. Cuando ambos lo indican,
         deben coincidir.
       description_fr: L'URI du système de référence de coordonnées applicable aux coordonnées. En son
         absence, le système indiqué dans le littéral géométrique s'applique, comme l'URI qui peut
-        précéder un littéral WKT ; lorsqu'aucun des deux n'en indique, le système longitude-puis-latitude
+        précéder un littéral Well-Known Text ; lorsqu'aucun des deux n'en indique, le système longitude-puis-latitude
         nommé CRS84 s'applique, celui que GeoJSON utilise toujours. Lorsque les deux en indiquent un,
         ils doivent concorder.
       category: location
