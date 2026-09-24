@@ -17,8 +17,8 @@ classes:
   VoterRegistration:
     class_uri: publicschema:elections/VoterRegistration
     title: Voter Registration
-    description: A record that an electoral authority has entered a person in its register of electors
-      for a jurisdiction. Being registered does not by itself mean the person may vote in every election.
+    description: The recognition by an electoral authority that a person is entered in its register
+      of electors for a jurisdiction. Being registered does not by itself mean the person may vote in every election.
     slots:
     - electoral_districts
     - polling_service_point
@@ -29,10 +29,10 @@ classes:
     annotations:
       label_es: Inscripción electoral
       label_fr: Inscription électorale
-      description_es: Un registro que acredita que una autoridad electoral ha inscrito a una persona
+      description_es: El reconocimiento por una autoridad electoral de que una persona está inscrita
         en su registro de electores para una jurisdicción. Estar inscrito no implica por sí solo que
         la persona pueda votar en todas las elecciones.
-      description_fr: Un enregistrement attestant qu'une autorité électorale a inscrit une personne
+      description_fr: La reconnaissance par une autorité électorale qu'une personne est inscrite
         dans son registre des électeurs pour une juridiction. Être inscrit ne signifie pas à lui seul
         que la personne peut voter à chaque élection.
       source_domain: elections

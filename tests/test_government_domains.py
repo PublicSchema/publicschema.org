@@ -272,3 +272,14 @@ def test_vehicle_is_narrower_than_the_schema_org_vehicle(exports):
     assert "close_mappings" not in vehicle
     built, _, _, _ = exports
     assert built["concepts"]["transport/Vehicle"]["external_equivalents"]["schema-org"]["match"] == "broad"
+
+
+@pytest.mark.parametrize("concept", ["elections/VoterRegistration", "tax/TaxRegistration"])
+@pytest.mark.parametrize("language,recognition,record", [
+    ("en", "recognition", "record"), ("fr", "reconnaissance", "Un enregistrement"), ("es", "reconocimiento", "Un registro"),
+])
+def test_registrations_are_the_recognition_not_the_record(exports, concept, language, recognition, record):
+    # A Registration is administrative recognition; the register record is a RegistryEntry.
+    first_sentence = exports[0]["concepts"][concept]["definition"][language].split(". ")[0]
+    assert recognition in first_sentence
+    assert record not in first_sentence
