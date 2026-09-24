@@ -268,3 +268,11 @@ def test_a_geometry_can_be_an_identified_shared_resource(result):
     # As in GeoSPARQL, one identified geometry can represent several features.
     item = result["concept_schemas"]["Building"]["properties"]["spatial_geometry"]["items"]
     assert item["oneOf"][1]["type"] == "string"
+
+
+@pytest.mark.parametrize("language,law", [("en", "applicable law"), ("fr", "droit applicable"), ("es", "derecho aplicable")])
+def test_record_change_kinds_leave_deletion_and_retention_to_applicable_law(result, language, law):
+    # Erasure and retention rules differ by jurisdiction; a standing code cannot override them.
+    definition = result["vocabularies"]["record-change-kind"]["definition"][language]
+    assert law in definition
+    assert not any(word in definition for word in ("rather than deleted", "plutôt que supprimées", "en lugar de eliminarse"))

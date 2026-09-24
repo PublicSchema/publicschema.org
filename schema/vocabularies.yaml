@@ -4822,7 +4822,8 @@ enums:
     enum_uri: publicschema:RecordChangeKind
     title: Record Change Kind
     description: The kind of change to the standing of a register record, following the register item
-      actions of ISO 19135. Records are marked rather than deleted.
+      actions of ISO 19135. These codes describe the record's standing; they do not decide whether a
+      record is deleted or how long it is kept, which follow applicable law.
     status: bibo:draft
     permissible_values:
       invalidation:
@@ -4861,11 +4862,13 @@ enums:
       label_es: Tipo de cambio de una entrada de registro
       label_fr: Type de changement d'une entrée de registre
       description_es: El tipo de cambio en la situación de una entrada de registro, según las
-        acciones sobre elementos de registro de la norma ISO 19135. Las entradas se marcan en
-        lugar de eliminarse.
+        acciones sobre elementos de registro de la norma ISO 19135. Estos códigos describen la
+        situación de la entrada; no deciden si una entrada se elimina ni cuánto tiempo se conserva,
+        lo que se rige por el derecho aplicable.
       description_fr: Le type de changement apporté au statut d'une entrée de registre, selon les
-        actions sur les éléments de registre de la norme ISO 19135. Les entrées sont marquées
-        plutôt que supprimées.
+        actions sur les éléments de registre de la norme ISO 19135. Ces codes décrivent le statut
+        de l'entrée; ils ne décident pas si une entrée est supprimée ni combien de temps elle est
+        conservée, ce qui relève du droit applicable.
       bibliography_refs: '["ec-inspire-registers-2017", "iso-19135-1"]'
   RegistrationStatus:
     enum_uri: publicschema:RegistrationStatus
