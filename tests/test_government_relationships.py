@@ -253,6 +253,15 @@ def test_interest_directness_cites_the_bods_codes_it_reuses(exports):
     assert "directOrIndirect" in vocabulary["standard"]["name"]
     assert {value["code"] for value in vocabulary["values"]} == {"direct", "indirect", "unknown"}
 
+
+def test_interest_type_points_to_the_bods_codelist(exports):
+    # Kept open for jurisdiction-specific interests; BODS is the recommended scheme.
+    prop = exports[0]["properties"]["interest_type"]
+    assert prop["type"] == "concept:CodedValue"
+    for language in ("en", "fr", "es"):
+        assert "interestType" in prop["definition"][language], language
+    assert "openownership-bods" in prop["bibliography_refs"]
+
 def test_optional_reference_shapes_do_not_assert_complete_exchange(exports):
     for kind in ("LegalArrangement", "OwnershipInterest", "edu/EducationOffering"):
         partial = {"@id": EX + "partial", "@type": kind}

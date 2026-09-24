@@ -2737,7 +2737,7 @@ classes:
       status: active
       version: 0.4.0
       note: Relationship Statement and Interest; records are separate from statements.
-      informs_json: '{"concepts": ["LegalArrangement", "OwnershipInterest"], "vocabularies": ["interest-directness"]}'
+      informs_json: '{"concepts": ["LegalArrangement", "OwnershipInterest"], "properties": ["interest_type"], "vocabularies": ["interest-directness"]}'
   UkDfeGiasCitation:
     class_uri: publicschema:Citation/uk-dfe-gias
     is_a: Citation

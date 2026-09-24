@@ -114,7 +114,8 @@ slots:
     slot_uri: publicschema:interest_type
     title: Interest type
     description: How the interest is held or exercised, such as shares, voting rights or the right to
-      appoint the board.
+      appoint the board. Codes from the Beneficial Ownership Data Standard interestType codelist are
+      recommended; a jurisdiction's own scheme can be used for interests that list does not cover.
     range: CodedValue
     multivalued: false
     status: bibo:draft
@@ -122,10 +123,15 @@ slots:
       label_es: Tipo de participación
       label_fr: Type de participation
       description_es: La forma en que se posee o se ejerce la participación, como acciones, derechos
-        de voto o el derecho a nombrar la junta directiva.
+        de voto o el derecho a nombrar la junta directiva. Se recomiendan los códigos de la lista interestType
+        del Beneficial Ownership Data Standard; puede usarse el esquema propio de una jurisdicción para
+        las participaciones que esa lista no cubre.
       description_fr: La manière dont la participation est détenue ou exercée, par exemple des actions,
-        des droits de vote ou le droit de nommer le conseil d'administration.
+        des droits de vote ou le droit de nommer le conseil d'administration. Les codes de la liste interestType
+        du Beneficial Ownership Data Standard sont recommandés ; le référentiel propre d'une juridiction
+        peut être utilisé pour les participations que cette liste ne couvre pas.
       category: classification
+      bibliography_refs: '["openownership-bods"]'
   interest_directness:
     slot_uri: publicschema:interest_directness
     title: Interest directness
