@@ -2826,14 +2826,14 @@ classes:
       note: VoterRecord, ReportingUnit and Voter; the official JSON and XML schema repository is linked
         from the specification.
       informs_json: '{"concepts": ["elections/VoterRegistration"]}'
-  GovInspireBuildingsCitation:
-    class_uri: publicschema:Citation/gov-inspire-buildings
+  InspireTgBuCitation:
+    class_uri: publicschema:Citation/inspire-tg-bu
     is_a: Citation
     title: 'INSPIRE Data Specification on Buildings: Technical Guidelines'
     annotations:
-      citation_id: gov-inspire-buildings
+      citation_id: inspire-tg-bu
       title: 'INSPIRE Data Specification on Buildings: Technical Guidelines'
-      short_title: 'INSPIRE Data Specification on Buildings: Technical Guidelines'
+      short_title: INSPIRE BU TG
       publisher: European Commission INSPIRE
       type: specification
       domain: general

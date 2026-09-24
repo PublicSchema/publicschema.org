@@ -88,7 +88,7 @@ classes:
         utilisée ou destinée à abriter des personnes, des animaux ou des choses, ou à produire des biens.
         L'identité d'un bâtiment est distincte de ses adresses, de la parcelle de terrain sur laquelle
         il se trouve, de ses propriétaires et de tout service rendu à l'intérieur.
-      bibliography_refs: '["gov-inspire-buildings"]'
+      bibliography_refs: '["inspire-tg-bu"]'
   BuildingUnit:
     class_uri: publicschema:BuildingUnit
     title: Building Unit
@@ -112,7 +112,7 @@ classes:
         telle qu'un logement, un commerce ou un bureau, généralement dotée de sa propre entrée verrouillable
         depuis l'extérieur ou depuis une zone commune. Une unité n'a pas nécessairement une propriété
         distincte ni sa propre adresse.
-      bibliography_refs: '["gov-inspire-buildings"]'
+      bibliography_refs: '["inspire-tg-bu"]'
 slots:
   building_use:
     slot_uri: publicschema:building_use
