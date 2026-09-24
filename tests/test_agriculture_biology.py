@@ -379,7 +379,6 @@ def test_shared_slots_replace_family_specific_ones(biology, concept, slot):
 @pytest.mark.parametrize(("slot", "target"), [
     ("animal_subject", "IdentifiedAnimalUnit"),
     ("animal_residence_site", "agri/AgriculturalFacility"),
-    ("animal_responsible_actor", "Agent"),
     ("movement_origin_site", "agri/AgriculturalFacility"),
     ("movement_destination_site", "agri/AgriculturalFacility"),
     ("movement_transit_sites", "agri/AgriculturalFacility"),
@@ -396,6 +395,25 @@ def test_identified_animal_unit_is_the_abstract_parent_of_animals_and_groups(bio
     assert result["concepts"]["IdentifiedAnimalUnit"]["abstract"] is True
     for concept in ("IndividualAnimal", "AnimalGroup"):
         assert "IdentifiedAnimalUnit" in result["concepts"][concept]["supertypes"]
+
+
+def test_animal_responsibility_admits_persons_organizations_and_groups(biology, subclass_hierarchy):
+    # Herds are often held by a household or clan; software keeps no animals.
+    result, shapes, records, registry = biology
+    prop = result["properties"]["animal_responsible_actor"]
+    assert prop["type"] == "uri"
+    for language, words in (("en", ("person", "organization", "household")),
+                            ("fr", ("personne", "organisation", "ménage")),
+                            ("es", ("persona", "organización", "hogar"))):
+        assert all(word in prop["definition"][language] for word in words), language
+    selected = copy.deepcopy(records)
+    record = next(r for r in selected if "animal_responsible_actor" in r)
+    record["animal_responsible_actor"] = "https://example.org/households/1"
+    jsonschema.Draft202012Validator(result["concept_schemas"][record["@type"]], registry=registry).validate(record)
+    household = {"@id": "https://example.org/households/1", "@type": "Household"}
+    data = graph_for(selected + LINKED_TARGETS + [household], result, subclass_hierarchy)
+    conforms, _, report = validate(data, shacl_graph=shapes, inference="rdfs")
+    assert conforms, report
 
 
 def test_responsible_actor_is_sensitive(biology):
@@ -439,7 +457,6 @@ def test_residence_and_responsibility_accept_animal_or_group(biology, subclass_h
 
 @pytest.mark.parametrize(("field", "target"), [
     ("animal_subject", "https://example.org/people/owner"),
-    ("animal_responsible_actor", "https://example.org/animals/1"),
     ("animal_residence_site", "https://example.org/farms/1"),
 ])
 def test_relationship_targets_of_another_type_fail_shacl(biology, subclass_hierarchy, field, target):

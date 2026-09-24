@@ -172,7 +172,7 @@ classes:
   AnimalResponsibility:
     class_uri: publicschema:AnimalResponsibility
     title: Animal Responsibility
-    description: A period during which a person or organization holds a stated responsibility for an individual
+    description: A period during which a person, organization or group holds a stated responsibility for an individual
       animal or animal group, such as owner, keeper or operator. Each responsibility is a separate record;
       one does not imply another, and keeping an animal does not establish ownership or residence.
     slots:
@@ -188,12 +188,12 @@ classes:
     annotations:
       label_es: Responsabilidad sobre el animal
       label_fr: Responsabilité sur l'animal
-      description_es: Un período durante el cual una persona o una organización asume una
+      description_es: Un período durante el cual una persona, una organización o un grupo asume una
         responsabilidad declarada respecto de un animal individual o de un grupo de animales, como
         propietario, poseedor u operador. Cada responsabilidad constituye un registro independiente;
         una no implica la otra, y el hecho de mantener un animal no establece la propiedad ni la
         residencia.
-      description_fr: Une période durant laquelle une personne ou une organisation assume une
+      description_fr: Une période durant laquelle une personne, une organisation ou un groupe assume une
         responsabilité déclarée à l'égard d'un animal individuel ou d'un groupe d'animaux, telle que
         propriétaire, détenteur ou exploitant. Chaque responsabilité constitue un enregistrement
         distinct ; l'une n'implique pas l'autre, et le fait de détenir un animal n'établit ni la
@@ -498,18 +498,18 @@ slots:
   animal_responsible_actor:
     slot_uri: publicschema:animal_responsible_actor
     title: Animal responsible actor
-    description: The agent, usually a person or organization, that holds the stated responsibility for
-      the animal or group.
-    range: Agent
+    description: The URI of the person, organization or group, such as a household, that holds the stated
+      responsibility for the animal or animal group.
+    range: uri
     multivalued: false
     status: bibo:draft
     annotations:
       label_es: Actor responsable del animal
       label_fr: Acteur responsable de l'animal
-      description_es: El agente, generalmente una persona o una organización, que asume la
-        responsabilidad declarada respecto del animal o del grupo.
-      description_fr: L'agent, généralement une personne ou une organisation, qui assume la
-        responsabilité déclarée à l'égard de l'animal ou du groupe.
+      description_es: El URI de la persona, organización o grupo, como un hogar, que asume la
+        responsabilidad declarada respecto del animal o del grupo de animales.
+      description_fr: L'URI de la personne, de l'organisation ou du groupe, tel qu'un ménage, qui
+        assume la responsabilité déclarée à l'égard de l'animal ou du groupe d'animaux.
       category: agriculture
       sensitivity: sensitive
       bibliography_refs: '["eu-reg-2016-429"]'
