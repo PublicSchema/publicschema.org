@@ -96,7 +96,8 @@ classes:
       the rules it applies, such as granting a permit, imposing a measure or upholding an appeal. Its
       authority is the organization that made the decision, and its subject URI names the subject decided
       on. Its outcome, effective time and legal resources are interpreted in the applicable jurisdiction;
-      recording a decision does not prove finality or current permission.
+      recording a decision does not prove finality or current permission. A decision on eligibility
+      for a program is recorded as EligibilityDecision.
     is_a: Event
     slots:
     - decides_application
@@ -120,13 +121,16 @@ classes:
         imposición de una medida o la confirmación de un recurso. Su autoridad es la organización que
         adoptó la decisión, y su URI de sujeto designa el sujeto sobre el que versa la decisión. Su
         resultado, su fecha de efecto y sus recursos jurídicos se interpretan en la jurisdicción aplicable;
-        el registro de una decisión no demuestra su carácter definitivo ni un permiso vigente.
+        el registro de una decisión no demuestra su carácter definitivo ni un permiso vigente. Una
+        decisión de elegibilidad para un programa se registra como EligibilityDecision.
       description_fr: Une décision prise par une autorité au sujet d'une personne, d'une organisation
         ou d'une chose déterminée en application des règles qu'elle met en œuvre, par exemple l'octroi
         d'un permis, l'imposition d'une mesure ou la confirmation d'un recours. Son autorité est l'organisation
         qui a pris la décision, et son URI de sujet désigne le sujet sur lequel porte la décision. Son
         issue, sa date d'effet et ses ressources juridiques s'interprètent dans la juridiction applicable ;
-        l'enregistrement d'une décision ne prouve ni son caractère définitif ni une autorisation actuelle.
+        l'enregistrement d'une décision ne prouve ni son caractère définitif ni une autorisation
+        actuelle. Une décision d'éligibilité à un programme est enregistrée comme
+        EligibilityDecision.
       bibliography_refs: '["eu-reg-2018-1724", "semic-cpsv-ap"]'
   AdministrativeAppeal:
     class_uri: publicschema:AdministrativeAppeal
@@ -134,7 +138,8 @@ classes:
     description: A formal request to an authority to review a particular administrative decision. Its
       authority is the organization asked to review the decision; the appellant and the submitter are
       recorded separately. Filing an appeal does not by itself suspend, replace or overturn the challenged
-      decision.
+      decision. A complaint or appeal raised through a program's grievance mechanism is recorded as
+      Grievance.
     is_a: Event
     slots:
     - challenged_decision
@@ -152,11 +157,14 @@ classes:
       description_es: Una solicitud formal dirigida a una autoridad para que revise una decisión administrativa
         determinada. Su autoridad es la organización a la que se pide que revise la decisión; el recurrente
         y quien presenta el recurso se registran por separado. La sola presentación de un recurso no
-        suspende, sustituye ni anula la decisión impugnada.
+        suspende, sustituye ni anula la decisión impugnada. Una queja o un recurso planteado a
+        través del mecanismo de reclamaciones de un programa se registra como Grievance.
       description_fr: Une demande formelle adressée à une autorité afin qu'elle réexamine une décision
         administrative déterminée. Son autorité est l'organisation à laquelle il est demandé de réexaminer
         la décision ; l'appelant et le déposant sont enregistrés séparément. Le dépôt d'un recours
-        ne suspend, ne remplace ni n'annule à lui seul la décision contestée.
+        ne suspend, ne remplace ni n'annule à lui seul la décision contestée. Une plainte ou un
+        recours soulevé dans le cadre du mécanisme de recours d'un programme est enregistré comme
+        Grievance.
       bibliography_refs: '["semic-cpsv-ap"]'
   OrganizationalChangeEvent:
     class_uri: publicschema:OrganizationalChangeEvent
@@ -278,7 +286,8 @@ slots:
     slot_uri: publicschema:service_applicant
     title: Service applicant
     description: The URI of the person, group or organization requesting the service, which may differ
-      from whoever submits the request on its behalf.
+      from whoever submits the request on its behalf. For a program eligibility decision, use
+      applicant.
     range: uri
     multivalued: false
     status: bibo:draft
@@ -286,9 +295,11 @@ slots:
       label_es: Solicitante del servicio
       label_fr: Demandeur du service
       description_es: El URI de la persona, el grupo o la organización que solicita el servicio, que
-        puede diferir de quien presenta la solicitud en su nombre.
+        puede diferir de quien presenta la solicitud en su nombre. Para una decisión de elegibilidad
+        de un programa, usar applicant.
       description_fr: L'URI de la personne, du groupe ou de l'organisation qui demande le service,
-        qui peut différer de celui qui soumet la demande en son nom.
+        qui peut différer de celui qui soumet la demande en son nom. Pour une décision d'éligibilité
+        à un programme, utiliser applicant.
       category: administrative
       sensitivity: sensitive
   submitted_by:

@@ -172,3 +172,24 @@ def test_vocabulary_mappings_and_rich_alignments_agree(enum):
     raw = (definition.get("annotations") or {}).get("external_alignments_json")
     rich = {(item["match"], item["uri"]) for item in json.loads(raw)} if raw else set()
     assert native == rich
+
+
+@pytest.mark.parametrize("section,term,counterpart", [
+    ("properties", "authority", "issuing_authority"),
+    ("properties", "effective_at", "effective_date"),
+    ("properties", "legal_resources", "legal_basis"),
+    ("properties", "service_applicant", "applicant"),
+    ("concepts", "ContactPoint", "phone_number"),
+    ("concepts", "NameUsage", "given_name"),
+    ("concepts", "AdministrativeDecision", "EligibilityDecision"),
+    ("concepts", "AdministrativeAppeal", "Grievance"),
+])
+def test_terms_near_an_existing_term_point_to_it(result, section, term, counterpart):
+    definition = result[section][term]["definition"]
+    for language in ("en", "fr", "es"):
+        assert counterpart in definition[language], language
+
+
+def test_legal_resources_align_with_cpsv_ap(result):
+    uris = {entry["uri"] for entry in result["properties"]["legal_resources"]["external_equivalents"].values()}
+    assert "http://data.europa.eu/m8g/hasLegalResource" in uris

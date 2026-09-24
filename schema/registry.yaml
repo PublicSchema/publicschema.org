@@ -10,6 +10,7 @@ prefixes:
   foaf: http://xmlns.com/foaf/0.1/
   prov: http://www.w3.org/ns/prov#
   dct: http://purl.org/dc/terms/
+  cpov: http://data.europa.eu/m8g/
 imports:
 - linkml:types
 - common
@@ -240,7 +241,8 @@ classes:
     class_uri: publicschema:NameUsage
     title: Name Usage
     description: A name by which a subject is known, with its language, the context of use and the period
-      of use. A subject can have several names at once.
+      of use. A subject can have several names at once. A current name can also be recorded directly
+      with name on an organization, or with given_name and family_name on a person.
     slots:
     - subject_uri
     - name
@@ -253,16 +255,21 @@ classes:
       label_es: Uso de nombre
       label_fr: Usage du nom
       description_es: Un nombre por el cual se conoce a un sujeto, con su idioma, el contexto de uso
-        y el período de uso. Un sujeto puede tener varios nombres a la vez.
+        y el período de uso. Un sujeto puede tener varios nombres a la vez. Un nombre actual también
+        puede registrarse directamente con name para una organización, o con given_name y
+        family_name para una persona.
       description_fr: Un nom sous lequel un sujet est connu, avec sa langue, le contexte d'utilisation
-        et la période d'utilisation. Un sujet peut avoir plusieurs noms à la fois.
+        et la période d'utilisation. Un sujet peut avoir plusieurs noms à la fois. Un nom actuel
+        peut aussi être enregistré directement avec name pour une organisation, ou avec given_name
+        et family_name pour une personne.
       bibliography_refs: '["fhir-r5", "semic-core-business", "w3c-vcard-rdf"]'
   ContactPoint:
     class_uri: publicschema:ContactPoint
     title: Contact Point
     description: A single means of reaching a subject, such as a telephone number or email address, offered
       for a stated purpose over a period. Holding a contact detail does not prove identity or consent to
-      be contacted.
+      be contacted. A person's usual telephone number and email address can also be recorded
+      directly with phone_number and email_address.
     slots:
     - subject_uri
     - contact_channel
@@ -276,10 +283,14 @@ classes:
       label_fr: Point de contact
       description_es: Un único medio para comunicarse con un sujeto, como un número de teléfono o una
         dirección de correo electrónico, ofrecido para un fin determinado durante un período. Disponer
-        de un dato de contacto no prueba la identidad ni el consentimiento a ser contactado.
+        de un dato de contacto no prueba la identidad ni el consentimiento a ser contactado. El
+        número de teléfono y la dirección de correo electrónico habituales de una persona también
+        pueden registrarse directamente con phone_number y email_address.
       description_fr: Un moyen unique de joindre un sujet, tel qu'un numéro de téléphone ou une adresse
         électronique, proposé pour une finalité déterminée pendant une période. Disposer d'une coordonnée
-        de contact ne prouve ni l'identité ni le consentement à être contacté.
+        de contact ne prouve ni l'identité ni le consentement à être contacté. Le numéro de
+        téléphone et l'adresse électronique habituels d'une personne peuvent aussi être enregistrés
+        directement avec phone_number et email_address.
       bibliography_refs: '["fhir-r5", "w3c-vcard-rdf"]'
 slots:
   register_owner:
@@ -424,20 +435,21 @@ slots:
   valid_from:
     slot_uri: publicschema:valid_from
     title: Valid from
-    description: The first calendar day on which the statement applies, when known.
+    description: The first calendar day on which the record applies, when known.
     range: date
     multivalued: false
     status: bibo:draft
     annotations:
       label_es: Vigente desde
       label_fr: Valide à partir de
-      description_es: El primer día calendario en que se aplica la declaración, cuando se conoce.
-      description_fr: Le premier jour calendaire où la déclaration s'applique, lorsqu'il est connu.
+      description_es: El primer día calendario en que se aplica el registro, cuando se conoce.
+      description_fr: Le premier jour calendaire où l'enregistrement s'applique, lorsqu'il est
+        connu.
       category: administrative
   valid_to:
     slot_uri: publicschema:valid_to
     title: Valid to
-    description: The last calendar day on which the statement applies. If absent, the end is unknown,
+    description: The last calendar day on which the record applies. If absent, the end is unknown,
       not unlimited.
     range: date
     multivalued: false
@@ -445,10 +457,10 @@ slots:
     annotations:
       label_es: Vigente hasta
       label_fr: Valide jusqu'à
-      description_es: El último día calendario en que se aplica la declaración. Si está ausente, el
+      description_es: El último día calendario en que se aplica el registro. Si está ausente, el
         final es desconocido, no ilimitado.
-      description_fr: Le dernier jour calendaire où la déclaration s'applique. En son absence, la fin
-        est inconnue, et non illimitée.
+      description_fr: Le dernier jour calendaire où l'enregistrement s'applique. En son absence, la
+        fin est inconnue, et non illimitée.
       category: administrative
   supersedes_record:
     slot_uri: publicschema:supersedes_record
@@ -742,7 +754,8 @@ slots:
     title: Authority
     description: The organization responsible for the act or event a record describes, such as the body
       that receives an application, decides a case, reviews an appeal, inspects a subject or takes a
-      measure. Each class using it states which of these roles applies.
+      measure. Each class using it states which of these roles applies. It links to an Organization,
+      whereas issuing_authority names the issuer of a document or credential as text.
     range: Organization
     multivalued: false
     status: bibo:draft
@@ -752,27 +765,32 @@ slots:
       description_es: La organización responsable del acto o del evento que describe un registro,
         como el organismo que recibe una solicitud, decide un caso, examina un recurso, inspecciona
         un sujeto o adopta una medida. Cada clase que lo utiliza indica cuál de estas funciones se
-        aplica.
+        aplica. Remite a una Organization, mientras que issuing_authority nombra como texto al
+        emisor de un documento o una credencial.
       description_fr: L'organisation responsable de l'acte ou de l'événement que décrit un enregistrement,
         par exemple l'organisme qui reçoit une demande, tranche une affaire, examine un recours, inspecte
         un sujet ou prend une mesure. Chaque classe qui l'utilise précise laquelle de ces fonctions
-        s'applique.
+        s'applique. Elle renvoie à une Organization, alors que issuing_authority nomme sous forme de
+        texte l'émetteur d'un document ou d'une attestation.
       category: governance
   effective_at:
     slot_uri: publicschema:effective_at
     title: Effective at
-    description: The date and time at which the change took effect, which can be earlier or later than
-      when it was recorded.
+    description: The date and time at which the change or decision took effect, which can be earlier
+      or later than when it was recorded. For the day from which a ConsentRecord or PrivacyNotice
+      applies, use effective_date.
     range: datetime
     multivalued: false
     status: bibo:draft
     annotations:
       label_es: Efectivo el
       label_fr: Effectif le
-      description_es: La fecha y hora en que el cambio surtió efecto, que puede ser anterior o posterior
-        al momento en que se registró.
-      description_fr: La date et l'heure auxquelles le changement a pris effet, qui peuvent être antérieures
-        ou postérieures au moment où il a été enregistré.
+      description_es: La fecha y hora en que el cambio o la decisión surtió efecto, que puede ser
+        anterior o posterior al momento en que se registró. Para el día a partir del cual se aplica
+        un ConsentRecord o un PrivacyNotice, usar effective_date.
+      description_fr: La date et l'heure auxquelles le changement ou la décision a pris effet, qui
+        peuvent être antérieures ou postérieures au moment de son enregistrement. Pour le jour à
+        partir duquel un ConsentRecord ou un PrivacyNotice s'applique, utiliser effective_date.
       category: administrative
   matched_source:
     slot_uri: publicschema:matched_source
@@ -916,19 +934,27 @@ slots:
   legal_resources:
     slot_uri: publicschema:legal_resources
     title: Legal resources
-    description: Identified legal provisions or policy resources relied on for the service, determination
-      or institutional change. A link does not execute a rule or establish which version is applicable.
+    description: Identified legal provisions or policy resources that a service, organization,
+      decision, measure or institutional change relies on. A link does not execute a rule or
+      establish which version is applicable. For the legal basis for processing personal data, use
+      legal_basis.
     range: uri
     multivalued: true
     status: bibo:draft
+    close_mappings:
+    - cpov:hasLegalResource
     annotations:
       label_es: Recursos jurídicos
       label_fr: Ressources juridiques
       description_es: Disposiciones legales o recursos normativos identificados en los que se basa
-        el servicio, la determinación o el cambio institucional. Un enlace no ejecuta una norma ni establece
-        cuál versión es aplicable.
-      description_fr: Les dispositions légales ou ressources réglementaires identifiées sur lesquelles
-        s'appuie le service, la détermination ou le changement institutionnel. Un lien n'exécute pas
-        une règle et n'établit pas quelle version est applicable.
+        un servicio, una organización, una decisión, una medida o un cambio institucional. Un enlace
+        no ejecuta una norma ni establece cuál versión es aplicable. Para la base legal del
+        tratamiento de datos personales, usar legal_basis.
+      description_fr: Les dispositions légales ou ressources réglementaires identifiées sur
+        lesquelles s'appuie un service, une organisation, une décision, une mesure ou un changement
+        institutionnel. Un lien n'exécute pas une règle et n'établit pas quelle version est
+        applicable. Pour la base juridique d'un traitement de données personnelles, utiliser
+        legal_basis.
       category: governance
-      bibliography_refs: '["eu-eli-ontology"]'
+      external_alignments_json: '[{"label": "Has legal resource", "match": "close", "note": "CPSV-AP 3.2.0 links a public service to the legal resources it relates to, operates under or has its legal basis in. This slot is also used on organizations, decisions, measures and institutional changes, and holds a URI rather than a described legal resource.", "uri": "http://data.europa.eu/m8g/hasLegalResource", "vocabulary": "CPSV-AP 3.2.0", "vocabulary_id": "semic"}]'
+      bibliography_refs: '["eu-eli-ontology", "semic-cpsv-ap"]'

@@ -1486,7 +1486,7 @@ classes:
       version: v3.2.0
       note: Public Service, Participation, Evidence, Output and Legal Resource. Service applications,
         decisions and appeal links are PublicSchema design choices, not a CPSV-AP serialization claim.
-      informs_json: '{"concepts": ["AdministrativeAppeal", "AdministrativeDecision", "Authorization", "PublicService", "Registration", "ServiceApplication"], "properties": ["service_competent_authorities"]}'
+      informs_json: '{"concepts": ["AdministrativeAppeal", "AdministrativeDecision", "Authorization", "PublicService", "Registration", "ServiceApplication"], "properties": ["legal_resources", "service_competent_authorities"]}'
   SkosCitation:
     class_uri: publicschema:Citation/skos
     is_a: Citation
