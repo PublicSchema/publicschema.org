@@ -1,6 +1,6 @@
 # Domain placement and draft migration
 
-PublicSchema uses domains when a definition has sector-specific meaning. Shared identities, relationships and observations remain reusable across domains. This draft revision adds agriculture, land administration, environment, transport, education, health, tax and elections to the existing social-protection and civil-registration namespaces.
+PublicSchema uses domains when a definition has sector-specific meaning. Shared identities, relationships and observations remain reusable across domains. Domains cover agriculture, land administration, environment, transport, education, health, tax and elections alongside the social-protection and civil-registration namespaces.
 
 All relocated or refactored elements remain **draft**. Candidate and normative definitions and URIs are preserved. Domain coverage is bounded: the presence of an elections namespace, for example, describes voter registration coverage and does not claim a complete electoral model.
 
@@ -18,13 +18,13 @@ All relocated or refactored elements remain **draft**. Candidate and normative d
 | Tax and voter registration | `tax/TaxRegistration` and `elections/VoterRegistration`, inheriting the common registration contract. |
 | Service application, decision and appeal | Root. These administrative relationships can describe services in several sectors without widening social-protection Program or Party. |
 
-RegistrationOffice remains at root because its definition includes identity and refugee registration as well as civil registration. WaterPoint also retains its existing URI; a separate water and sanitation domain is outside this revision's assessed scope. These are explicit boundaries, not a rule that every ServicePoint subtype must stay at root.
+RegistrationOffice remains at root because its definition includes identity and refugee registration as well as civil registration. WaterPoint also retains its existing URI; a separate water and sanitation domain is outside the current scope. These are explicit boundaries, not a rule that every ServicePoint subtype must stay at root.
 
 The domain labels are authored in `schema/publicschema.yaml`. Navigation shows the domains actually represented by concepts, properties or vocabularies, with French and Spanish labels and English description fallback. Unrecognized codes remain visible. Domains do not grant permissions or require separate repositories, registries or datasets.
 
 ## What changes in payloads and exports
 
-The [URI disposition file](../examples/domain-migration/uri-map.json) lists changed and retired draft URIs individually. It includes authored class, slot, enum and value identities, plus the catalog vocabulary and value URLs. The file is a review aid for this revision, not an executable migration or a second schema source. `new_uri: null` means that no automatic replacement is asserted.
+The [URI disposition file](../examples/domain-migration/uri-map.json) lists changed and retired draft URIs individually. It includes authored class, slot, enum and value identities, plus the catalog vocabulary and value URLs. The file is a reference list of changed URIs, not an executable migration or a second schema source. `new_uri: null` means that no automatic replacement is asserted.
 
 For example:
 
@@ -60,4 +60,4 @@ Retirement is not a lossless conversion claim. Premises-only accreditation and h
 
 The [qualified government relationships](government-relationships.md) and [public-service journeys](public-services.md) guides describe the relationships that cross these domains.
 
-Changing a draft boundary remains possible when evidence supports it, for example a domain assignment that changes a term's intended meaning, a shared relationship with a sector-specific invariant, or a FHIR mapping that loses information. Promotion to candidate or normative still requires the repository's maturity evidence, translations and review; local examples and agent review do not substitute for external adoption.
+Changing a draft boundary remains possible when evidence supports it, for example a domain assignment that changes a term's intended meaning, a shared relationship with a sector-specific invariant, or a FHIR mapping that loses information. Promotion to candidate or normative still requires the repository's maturity evidence, translations and review; local examples do not substitute for external adoption.

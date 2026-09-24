@@ -21,8 +21,8 @@ tests for each example are in `tests/`.
 
 A profile script is an example of rules one application might add on top of the
 vocabulary: required fields, which kind of record a reference must point to,
-date order, or percentage bounds. The vocabulary, its JSON Schemas and its SHACL
-shapes do not enforce these rules, and neither does any Registry Stack runtime.
+date order, or coherent percentage bounds. The vocabulary, its JSON Schemas and
+its SHACL shapes do not enforce these rules.
 Copy and change a profile to suit your own data exchange.
 
 ## Shared helpers

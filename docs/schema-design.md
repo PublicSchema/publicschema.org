@@ -143,8 +143,8 @@ The [relationship migration guide](relationship-date-migration.md) describes the
 explicit conversion contract for source records that use calendar validity. Renaming an
 inclusive `valid_to` to `end_date` without changing the boundary loses an effective day.
 
-A consuming profile must state its interval boundaries before comparing or converting
-dates. For example, under an explicitly stated whole-day convention, `valid_to:
+An application that compares or converts dates must first state its interval
+boundaries. For example, under an explicitly stated whole-day convention, `valid_to:
 2026-06-30` corresponds to cessation on `end_date: 2026-07-01`. Renaming the key while
 keeping 30 June would change the meaning. Do not apply that conversion when source
 precision or boundary semantics are unknown. The farm-work example documents its own
