@@ -68,7 +68,9 @@ def test_semic_business_and_location_alignments_are_authored() -> None:
 
     assert organization["label"] == "Public Organisation"
     assert organization["uri"] == "http://data.europa.eu/m8g/PublicOrganisation"
-    assert organization["match"] == "close"
+    # CPOV covers public bodies only; PublicOrganization holds the exact match.
+    assert organization["match"] == "narrow"
+    assert "PublicOrganization" in organization["note"]
 
     assert address["label"] == "Address"
     assert address["uri"] == "http://www.w3.org/ns/locn#Address"

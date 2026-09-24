@@ -484,9 +484,10 @@ classes:
     - prov:Organization
     - schema:Organization
     close_mappings:
-    - cpov:PublicOrganisation
     - fhir:Organization
     - legal:LegalEntity
+    narrow_mappings:
+    - cpov:PublicOrganisation
     annotations:
       label_es: Organización
       label_fr: Organisation
@@ -509,13 +510,10 @@ classes:
       external_alignments_json: '[{"label": "Organization", "match": "exact", "note": "foaf:Organization
         is the direct equivalent: a kind of agent corresponding to social institutions such as companies,
         societies, and so on.", "uri": "http://xmlns.com/foaf/0.1/Organization", "vocabulary": "FOAF",
-        "vocabulary_id": "foaf"}, {"label": "Public Organisation", "match": "close", "note": "SEMIC CPOV
-        defines PublicOrganisation as a formally recognised public-sector body with classification, legal
-        status, and spatial jurisdiction slots. Our Organization covers the broader set of institutional
-        actors in public delivery (government agencies and ministries, but also NGOs, UN agencies, health
-        facilities, and standards publishers). The overlap is exact for public bodies and partial for
-        the rest. CPOV''s richer shape (jurisdiction, legal status, purpose, contact point) is a natural
-        target if Organization is later extended.", "uri": "http://data.europa.eu/m8g/PublicOrganisation",
+        "vocabulary_id": "foaf"}, {"label": "Public Organisation", "match": "narrow", "note": "SEMIC CPOV
+        PublicOrganisation is a formally recognised public-sector body. It is narrower than Organization,
+        which also covers NGOs, UN agencies, health facilities and standards publishers. PublicOrganization
+        holds the exact match.", "uri": "http://data.europa.eu/m8g/PublicOrganisation",
         "vocabulary": "CPOV", "vocabulary_id": "semic"}, {"label": "Organization", "match": "exact", "note":
         "schema.org Organization is the direct equivalent, sibling to schema:Person under schema:Thing.
         Richer subtypes (GovernmentOrganization, NGO, MedicalOrganization) are available in schema.org
