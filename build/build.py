@@ -34,6 +34,12 @@ TYPE_MAP = {
 # Matches the threshold used in rdf_export.py for SHACL sh:in constraints.
 VOCAB_SIZE_THRESHOLD = 50
 
+# Bare class names already published in the JSON-LD context, with the URI each
+# expands to. A JSON-LD document may use any of them, so the build fails if one
+# would disappear or expand to a different class. Retiring an alias is a
+# deliberate edit of this file, recorded in the release notes.
+PUBLISHED_CLASS_ALIASES = "published_class_aliases.json"
+
 # Type mappings from YAML types to JSON-LD @type coercion values.
 # Only non-string types need coercion; plain strings are left as bare URIs.
 JSONLD_TYPE_COERCION = {
@@ -1582,6 +1588,34 @@ def prepare_site_artifacts(dist_dir: Path, public_dir: Path):
         copy_file(source, Path("preview") / source.name)
 
 
+def published_class_aliases(result: dict) -> dict[str, str]:
+    """Return each bare class alias in the built context with the URI it expands to."""
+    context = result["context"]["@context"]
+    return {
+        concept["id"]: context[concept["id"]]
+        for concept in result["concepts"].values()
+        if concept["id"] in context
+    }
+
+
+def check_published_class_aliases(result: dict, published: dict[str, str]) -> None:
+    """Raise if a published bare class alias is missing or expands to another URI."""
+    current = published_class_aliases(result)
+    broken = [
+        f"{alias}: {uri}, now {current[alias] if alias in current else 'absent'}"
+        for alias, uri in sorted(published.items())
+        if current.get(alias) != uri
+    ]
+    if broken:
+        raise ValueError(
+            "Published JSON-LD class aliases would disappear or change meaning:\n  "
+            + "\n  ".join(broken)
+            + f"\nDocuments using them would stop resolving or change type. Rename the new class, "
+            f"or retire the alias deliberately by removing it from schema/{PUBLISHED_CLASS_ALIASES} "
+            "and recording the change in the release notes."
+        )
+
+
 def main():
     """CLI entry point for build.
 
@@ -1648,6 +1682,13 @@ def main():
         linkml_dir = Path(args.linkml_dir) if args.linkml_dir else schema_dir
         result = build_vocabulary(linkml_dir, crosswalks_dir=schema_dir / "value_crosswalks")
         rdf_composite = linkml_dir / "publicschema.yaml"
+        # A restored release is checked against its own history, not today's aliases.
+        # A schema directory without a baseline has published nothing to protect;
+        # the repository's baseline is kept present by its own test.
+        baseline = schema_dir / PUBLISHED_CLASS_ALIASES
+        if args.linkml_dir is None and baseline.exists():
+            published = json.loads(baseline.read_text(encoding="utf-8"))
+            check_published_class_aliases(result, published)
 
     write_outputs(
         result, dist_dir, schema_dir=schema_dir, external_dir=external_dir,
