@@ -48,7 +48,7 @@ Use [AssetPartyRole and AssetAddressAssignment](facility-roles.md) when consumer
 
 The [relationship date guide and helper](relationship-date-migration.md) cover source records that carry `valid_from`/`valid_to` for relationships that use `start_date`/`end_date`. Under the helper's explicit inclusive-calendar-day source contract, an inclusive end of `2026-12-31` becomes the first inactive day `2027-01-01`. Missing dates stay missing. Legal validity, registration and certification intervals keep their existing contracts. Namespace migration and date conversion are separate reviewed steps.
 
-ServiceCapacityObservation also remains shared: it records the kind of capacity as a coded value, the quantity, the subject observed and the observation time. Its observation pattern is informed by SOSA and its units by UCUM. It can describe capacity at a school, an agricultural service or a healthcare facility; it does not prove current availability and has no automatic mapping to a FHIR resource.
+ServiceCapacityObservation also remains shared: it records the kind of capacity as a coded value, the quantity, the subject observed, the observation time and the organization that reported it. Its observation pattern is informed by SOSA and its units by UCUM. It can describe capacity at a school, an agricultural service or a healthcare facility; it does not prove current availability and has no automatic mapping to a FHIR resource.
 
 ## Native medical records
 

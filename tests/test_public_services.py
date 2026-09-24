@@ -286,6 +286,14 @@ def test_individuals_and_businesses_share_application_shape_without_software_app
         profile.validate_journey(invalid, CONFIG)
 
 
+def test_capacity_observation_says_what_its_authority_did(exports):
+    # The authority slot asks each class to state which role applies.
+    definition = exports[0]["concepts"]["ServiceCapacityObservation"]["definition"]
+    for language, phrase in (("en", "reported the measurement"), ("fr", "communiqué la mesure"),
+                             ("es", "comunicó la medición")):
+        assert phrase in definition[language], language
+
+
 def test_dated_acts_share_the_event_hierarchy_and_one_authority_link(exports):
     built, _, hierarchy, _ = exports
     for name in ("ServiceApplication", "AdministrativeDecision", "AdministrativeAppeal",
@@ -296,7 +304,8 @@ def test_dated_acts_share_the_event_hierarchy_and_one_authority_link(exports):
                  "ComplianceAssessment", "RegulatoryAction"):
         assert "subject_uri" in built["concept_schemas"][name]["properties"], name
     for name in ("ServiceApplication", "AdministrativeDecision", "AdministrativeAppeal",
-                 "OrganizationalChangeEvent", "ComplianceAssessment", "RegulatoryAction"):
+                 "OrganizationalChangeEvent", "ServiceCapacityObservation",
+                 "ComplianceAssessment", "RegulatoryAction"):
         assert "authority" in built["concept_schemas"][name]["properties"], name
     for name in ("submission_date", "decision_date"):
         assert built["properties"][name]["type"] == "date"

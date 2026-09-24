@@ -205,11 +205,13 @@ classes:
     class_uri: publicschema:ServiceCapacityObservation
     title: Service Capacity Observation
     description: A measurement of how much a service or facility can handle, such as staffed beds or school
-      places, at a given time. Its subject URI names the facility or service observed. Capacity is not
-      a promise of current availability or an accreditation.
+      places, at a given time. Its subject URI names the facility or service observed, and the authority
+      is the organization that made or reported the measurement. Capacity is not a promise of current
+      availability or an accreditation.
     is_a: Event
     slots:
     - subject_uri
+    - authority
     - capacity_measure
     - capacity_quantity
     - capacity_observed_at
@@ -221,11 +223,13 @@ classes:
       label_fr: Observation de la capacité de service
       description_es: Una medición de lo que un servicio o una instalación puede atender, como camas
         con personal asignado o plazas escolares, en un momento dado. Su URI de sujeto designa la instalación
-        o el servicio observado. La capacidad no es una promesa de disponibilidad actual ni una acreditación.
+        o el servicio observado, y la autoridad es la organización que realizó o comunicó la medición.
+        La capacidad no es una promesa de disponibilidad actual ni una acreditación.
       description_fr: Une mesure de ce qu'un service ou une installation peut prendre en charge, par
         exemple des lits dotés en personnel ou des places scolaires, à un moment donné. Son URI de
-        sujet désigne l'installation ou le service observé. La capacité n'est ni une promesse de disponibilité
-        actuelle ni une accréditation.
+        sujet désigne l'installation ou le service observé, et l'autorité est l'organisation qui a effectué
+        ou communiqué la mesure. La capacité n'est ni une promesse de disponibilité actuelle ni une
+        accréditation.
       bibliography_refs: '["fhir-r5", "regenstrief-ucum", "w3c-ssn-sosa"]'
 slots:
   service_competent_authorities:
