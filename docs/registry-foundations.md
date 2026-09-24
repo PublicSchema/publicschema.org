@@ -173,6 +173,8 @@ Address structure reuses Address without replacing its named Location with geome
 
 AgriculturalParcel is deliberately a broader agricultural-use unit than FAO's census parcel, whose tenure-homogeneous boundary rules may be stricter. A profile needing that census unit must state and check those boundaries; no exact parcel equivalence is claimed.
 
+A `HoldingParcelLink` states the arrangement under which that farm uses the parcel in `parcel_tenure`, and its use in `parcel_land_use`, because one farm may own one parcel and rent another. Where parts of a parcel have different uses or tenure, record one link per part with its `used_area`. `land_spatial_units` names the cadastral or other land administration units the parcel lies on. Neither link turns a use arrangement into a land right; a right is a `LandTenureAssertion` about a `LandAdministrativeUnit`.
+
 ## Medical reuse boundary
 
 For medical exchange, use the selected native FHIR R5 5.0.0 resources and profiles,

@@ -16,6 +16,7 @@ imports:
 - value_types
 - registry
 - work
+- land
 classes:
   Farm:
     class_uri: publicschema:agri/Farm
@@ -72,6 +73,7 @@ classes:
     - spatial_geometry
     - parcel_area
     - location
+    - land_spatial_units
     - valid_from
     - valid_to
     status: bibo:draft
@@ -99,6 +101,8 @@ classes:
     - linked_holding
     - linked_parcel
     - used_area
+    - parcel_tenure
+    - parcel_land_use
     - start_date
     - end_date
     - evidence_assertions
@@ -494,6 +498,80 @@ slots:
         utilisées par différentes exploitations peuvent se chevaucher; ne pas les additionner sans règle
         d'allocation.
       category: administrative
+  parcel_tenure:
+    slot_uri: publicschema:agri/parcel_tenure
+    title: Parcel tenure
+    description: The arrangement under which the farm uses the linked parcel, such as ownership, rental
+      or sharecropping, as reported by the source. A farm may own one parcel and rent another. This describes
+      how the farm uses the parcel; it is not a record of land rights, which a land tenure assertion states.
+    range: LandTenure
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      source_domain: agri
+      label_es: Tenencia de la parcela
+      label_fr: Régime foncier de la parcelle
+      description_es: El arreglo bajo el cual la finca utiliza la parcela vinculada, como la propiedad,
+        el arrendamiento o la aparcería, tal como lo informa la fuente. Una finca puede ser propietaria
+        de una parcela y arrendar otra. Esto describe cómo la finca usa la parcela; no es un registro
+        de los derechos sobre la tierra, que se expresan en una afirmación de tenencia de la tierra.
+      description_fr: L'arrangement selon lequel l'exploitation utilise la parcelle liée, tel que la
+        propriété, le fermage ou le métayage, tel que déclaré par la source. Une exploitation peut être
+        propriétaire d'une parcelle et en louer une autre. Ceci décrit la manière dont l'exploitation
+        utilise la parcelle; ce n'est pas un enregistrement des droits sur les terres, qui relèvent d'une
+        assertion de régime foncier.
+      category: agriculture
+      sensitivity: sensitive
+      bibliography_refs: '["fao-vggt", "fao-wca-2020-vol1", "fao-wca-2030"]'
+  parcel_land_use:
+    slot_uri: publicschema:agri/parcel_land_use
+    title: Parcel land use
+    description: The use the farm makes of the linked parcel, such as temporary crops, permanent crops or
+      permanent meadows and pastures, as a code from a stated scheme such as the FAO World Programme for
+      the Census of Agriculture land use classes. Where parts of the parcel have different uses, record
+      one link per part with its used area.
+    range: CodedValue
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      source_domain: agri
+      label_es: Uso de la tierra de la parcela
+      label_fr: Utilisation des terres de la parcelle
+      description_es: El uso que la finca hace de la parcela vinculada, como cultivos temporales, cultivos
+        permanentes o praderas y pastos permanentes, como un código de un esquema indicado, por ejemplo
+        las clases de uso de la tierra del Programa Mundial del Censo Agropecuario de la FAO. Cuando
+        distintas partes de la parcela tienen usos diferentes, registre un vínculo por parte con su superficie
+        utilizada.
+      description_fr: L'utilisation que l'exploitation fait de la parcelle liée, telle que cultures temporaires,
+        cultures permanentes ou prairies et pâturages permanents, sous forme de code d'un schéma indiqué,
+        par exemple les classes d'utilisation des terres du Programme mondial du recensement de l'agriculture
+        de la FAO. Lorsque des parties de la parcelle ont des utilisations différentes, enregistrer un
+        lien par partie avec sa superficie utilisée.
+      category: agriculture
+      bibliography_refs: '["fao-wca-2020-vol1", "fao-wca-2030"]'
+  land_spatial_units:
+    slot_uri: publicschema:agri/land_spatial_units
+    title: Land spatial units
+    description: The land administration spatial units, such as cadastral parcels, that the agricultural
+      parcel lies on, as recorded by the source. Their boundaries need not coincide. The link does not
+      make the agricultural parcel a title unit or state who holds rights in the land.
+    range: LandSpatialUnit
+    multivalued: true
+    status: bibo:draft
+    annotations:
+      source_domain: agri
+      label_es: Unidades espaciales de tierra
+      label_fr: Unités spatiales foncières
+      description_es: Las unidades espaciales de la administración de tierras, como las parcelas catastrales,
+        sobre las que se encuentra la parcela agropecuaria, tal como las registra la fuente. Sus límites
+        no tienen por qué coincidir. El vínculo no convierte la parcela agropecuaria en una unidad de título
+        ni indica quién tiene derechos sobre la tierra.
+      description_fr: Les unités spatiales de l'administration foncière, telles que les parcelles cadastrales,
+        sur lesquelles se trouve la parcelle agricole, telles qu'enregistrées par la source. Leurs limites
+        ne coïncident pas nécessairement. Le lien ne fait pas de la parcelle agricole une unité de titre
+        et n'indique pas qui détient des droits sur la terre.
+      category: administrative
+      bibliography_refs: '["iso-19152-1-2024", "unece-property-units-2004"]'
   farm_area:
     slot_uri: publicschema:agri/farm_area
     title: Farm area

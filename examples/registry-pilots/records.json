@@ -140,6 +140,9 @@
     "@id": "https://example.org/parcel/one",
     "@type": "agri/AgriculturalParcel",
     "name": "Shared parcel",
+    "land_spatial_units": [
+      "https://example.org/land/unit"
+    ],
     "parcel_area": {
       "@type": "QuantityValue",
       "quantity_value": 12500.25,
@@ -156,7 +159,13 @@
     "@id": "https://example.org/holding-parcel/one",
     "@type": "agri/HoldingParcelLink",
     "linked_holding": "https://example.org/holding/one",
-    "linked_parcel": "https://example.org/parcel/one"
+    "linked_parcel": "https://example.org/parcel/one",
+    "parcel_tenure": "rented",
+    "parcel_land_use": {
+      "@type": "CodedValue",
+      "code_value": "temporary_crops",
+      "code_scheme": "https://example.org/codes/wca-land-use"
+    }
   },
   {
     "@id": "https://example.org/holding-parcel/two",

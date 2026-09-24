@@ -84,6 +84,28 @@ def test_land_tenure_contract_and_shared_geometry(exports):
     assert not validate(graph(changed, result['context']), shacl_graph=shapes, inference='rdfs')[0]
 
 
+def test_a_parcel_link_states_tenure_and_use_and_a_parcel_names_its_land_units(exports):
+    result, shapes, records, _ = exports
+    properties = result['properties']
+    link = result['concept_schemas']['agri/HoldingParcelLink']['properties']
+    assert {'parcel_tenure', 'parcel_land_use'} <= link.keys()
+    # A farm can own one parcel and rent another, so the arrangement is stated per link.
+    assert (properties['parcel_tenure']['vocabulary'], properties['parcel_tenure']['cardinality']) == ('agri/land-tenure', 'single')
+    assert properties['parcel_tenure']['sensitivity'] == 'sensitive'
+    assert (properties['parcel_land_use']['type'], properties['parcel_land_use']['cardinality']) == ('concept:CodedValue', 'single')
+    assert 'one link per part' in properties['parcel_land_use']['definition']['en']
+    assert 'land_spatial_units' in result['concept_schemas']['agri/AgriculturalParcel']['properties']
+    assert properties['land_spatial_units']['type'] == 'concept:land/LandSpatialUnit'
+    assert 'not make the agricultural parcel a title unit' in properties['land_spatial_units']['definition']['en']
+    parcel = next(r for r in records if r['@id'] == 'https://example.org/parcel/one')
+    assert parcel['land_spatial_units'] == ['https://example.org/land/unit']
+    used = next(r for r in records if r['@id'] == 'https://example.org/holding-parcel/one')
+    assert used['parcel_tenure'] == 'rented'
+    changed = copy.deepcopy(records)
+    next(r for r in changed if r['@id'] == 'https://example.org/parcel/one')['land_spatial_units'] = ['https://example.org/holding/one']
+    assert not validate(graph(changed, result['context']), shacl_graph=shapes, inference='rdfs')[0]
+
+
 def test_asset_actor_kind_is_a_local_profile_rule(exports):
     result, shapes, records, _ = exports
     changed = copy.deepcopy(records)
