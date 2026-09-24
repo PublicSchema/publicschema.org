@@ -195,7 +195,6 @@ slots:
       description_fr: Le type de construction juridique, par exemple un trust ou un accord de désignation
         de prête-nom. Son traitement juridique dépend de la juridiction applicable.
       category: classification
-      domain_override: 'null'
   component_interests:
     slot_uri: publicschema:component_interests
     title: Component interests
@@ -215,7 +214,6 @@ slots:
         le parcours ni ne calcule une part effective.
       category: governance
       sensitivity: sensitive
-      domain_override: 'null'
   interest_minimum_percentage:
     slot_uri: publicschema:interest_minimum_percentage
     title: Interest minimum percentage
@@ -236,7 +234,6 @@ slots:
         sur une échelle de zéro à cent. Il s'agit d'une borne, non d'une valeur exacte ; à omettre
         lorsqu'elle est inconnue.
       category: governance
-      domain_override: 'null'
   interest_exclusive_minimum_percentage:
     slot_uri: publicschema:interest_exclusive_minimum_percentage
     title: Interest exclusive minimum percentage
@@ -258,7 +255,6 @@ slots:
         de zéro à cent. Une participation supérieure à vingt-cinq pour cent peut utiliser 25 ici sans
         inventer un montant exact. Cette valeur est une alternative à une borne inférieure inclusive.
       category: governance
-      domain_override: 'null'
   interest_maximum_percentage:
     slot_uri: publicschema:interest_maximum_percentage
     title: Interest maximum percentage
@@ -279,7 +275,6 @@ slots:
         sur une échelle de zéro à cent. Son omission signifie que cette borne supérieure n'a pas été
         fournie ; elle n'implique pas un montant exact.
       category: governance
-      domain_override: 'null'
   interest_exclusive_maximum_percentage:
     slot_uri: publicschema:interest_exclusive_maximum_percentage
     title: Interest exclusive maximum percentage
@@ -300,4 +295,3 @@ slots:
         de zéro à cent. Cette valeur est une alternative à une borne supérieure inclusive et n'est
         jamais un pourcentage exact.
       category: governance
-      domain_override: 'null'
