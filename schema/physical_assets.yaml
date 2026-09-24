@@ -77,6 +77,8 @@ classes:
     - building_use
     - spatial_geometry
     status: bibo:draft
+    close_mappings:
+    - http://inspire.ec.europa.eu/featureconcept/Building
     annotations:
       label_es: Edificio
       label_fr: Bâtiment
@@ -88,7 +90,8 @@ classes:
         utilisée ou destinée à abriter des personnes, des animaux ou des choses, ou à produire des biens.
         L'identité d'un bâtiment est distincte de ses adresses, de la parcelle de terrain sur laquelle
         il se trouve, de ses propriétaires et de tout service rendu à l'intérieur.
-      bibliography_refs: '["inspire-tg-bu"]'
+      bibliography_refs: '["inspire-fc", "inspire-tg-bu"]'
+      external_alignments_json: '[{"label": "Building", "match": "close", "note": "INSPIRE defines a building as an enclosed construction above or below ground, permanently constructed on its site, used or intended to shelter humans, animals or things or to produce economic goods. This concept follows that definition but does not include the INSPIRE decomposition into building parts or its address, parcel and use attributes.", "uri": "http://inspire.ec.europa.eu/featureconcept/Building", "vocabulary": "INSPIRE feature concepts", "vocabulary_id": "inspire-fc"}]'
   BuildingUnit:
     class_uri: publicschema:BuildingUnit
     title: Building Unit

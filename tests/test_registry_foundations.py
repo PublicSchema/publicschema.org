@@ -121,6 +121,10 @@ def test_spatial_geometry_aligns_with_geosparql_and_core_location(result):
     assert {"http://www.opengis.net/ont/geosparql#hasGeometry", "http://www.w3.org/ns/locn#geometry"} <= uris
 
 
+def test_building_aligns_with_the_inspire_feature_concept(result):
+    equivalents = result["concepts"]["Building"]["external_equivalents"]
+    assert "http://inspire.ec.europa.eu/featureconcept/Building" in {entry["uri"] for entry in equivalents.values()}
+
 BANNED_PHRASES = (
     "scheme-qualified", "consuming profile", "draft covers", "review brief", "starter",
     "registrystack", "registry stack", "this branch", "array position",
@@ -153,7 +157,8 @@ def test_native_mappings_and_rich_alignments_agree(module):
             for key in ("exact_mappings", "close_mappings"):
                 for curie in definition.get(key) or []:
                     prefix, local = curie.split(":", 1)
-                    native.add((key.split("_")[0], prefixes[prefix] + local))
+                    uri = curie if local.startswith("//") else prefixes[prefix] + local
+                    native.add((key.split("_")[0], uri))
             raw = (definition.get("annotations") or {}).get("external_alignments_json")
             rich = {(item["match"], item["uri"]) for item in json.loads(raw)} if raw else set()
             assert native == rich, name

@@ -3479,7 +3479,7 @@ classes:
       access: open
       status: active
       note: Feature concept ProductionFacility.
-      informs_json: '{"concepts": ["environment/EnvironmentalFacility"]}'
+      informs_json: '{"concepts": ["Building", "environment/EnvironmentalFacility"]}'
   InspireClCitation:
     class_uri: publicschema:Citation/inspire-cl
     is_a: Citation
