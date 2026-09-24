@@ -920,18 +920,22 @@ slots:
   name_use:
     slot_uri: publicschema:name_use
     title: Name use
-    description: The context in which the name is used, such as an official, legal, trading or former
-      name.
+    description: The context in which the name is used, such as a legal or trading name. Whether the
+      name is current or former follows from the usage period. Codes from
+      https://publicschema.org/vocab/name-use can be used where the source has no scheme of its own.
     range: CodedValue
     multivalued: false
     status: bibo:draft
     annotations:
       label_es: Uso del nombre
       label_fr: Usage du nom
-      description_es: El contexto en que se usa el nombre, como un nombre oficial, legal, comercial
-        o anterior.
-      description_fr: Le contexte dans lequel le nom est utilisé, tel qu'un nom officiel, légal, commercial
-        ou antérieur.
+      description_es: El contexto en que se usa el nombre, como un nombre legal o comercial. Si el
+        nombre es actual o anterior se desprende del período de uso. Pueden usarse los códigos de
+        https://publicschema.org/vocab/name-use cuando la fuente no tenga un esquema propio.
+      description_fr: Le contexte dans lequel le nom est utilisé, tel qu'un nom légal ou commercial. Le
+        caractère actuel ou ancien du nom découle de la période d'usage. Les codes de
+        https://publicschema.org/vocab/name-use peuvent être utilisés lorsque la source n'a pas de
+        référentiel propre.
       category: identity
   contact_channel:
     slot_uri: publicschema:contact_channel

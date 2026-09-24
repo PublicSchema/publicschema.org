@@ -14,19 +14,19 @@ an address.
 
 ## State the responsibility
 
-The example binds `asset_role_type` to the synthetic scheme
-`https://example.org/facility-roles/role-types`:
+The example uses the PublicSchema scheme
+`https://publicschema.org/vocab/asset-role-type` for `asset_role_type`. That scheme
+also defines `keeper` for a registered keeper.
 
-| Code | Meaning in this example | Does not establish |
+| Code | Meaning | Does not establish |
 | --- | --- | --- |
 | `owner` | The actor holds ownership of the identified physical asset. | Land title, ownership of the institutional provider, or facility operation. |
 | `operator` | The actor runs the identified premises for their operational purpose. | Ownership, premises upkeep, school governance, or agricultural holder responsibility. |
 | `upkeep` | The actor is responsible for provisioning and maintaining the premises. | The identity of the service provider or owner. |
 
 Use a separate assertion for each responsibility even when one actor has several.
-The example's codes are local profile content, not a universal closed
-vocabulary. An implementing scheme must publish its meanings and keep its URI
-with the code. An unqualified word such as `manager` does not resolve these
+The field stays open: a source can keep its own scheme instead, provided that
+scheme publishes its meanings and its URI travels with the code. An unqualified word such as `manager` does not resolve these
 distinctions.
 
 `asset_actor` identifies a person, an organization or a group, including
@@ -42,8 +42,8 @@ period. It uses `subject_uri`, `assigned_address`, `address_purpose`, `start_dat
 and `end_date`. Address, geometry, named geographic Location and the physical
 facility remain separately identified subjects.
 
-The example uses `physical` and `postal` in the synthetic scheme
-`https://example.org/facility-roles/address-purposes`. A postal change does not
+The example uses `physical` and `postal` from the PublicSchema scheme
+`https://publicschema.org/vocab/address-purpose`. A postal change does not
 assert that the facility moved. A position for the address belongs on the
 Address `location`; a shape for a building belongs on its `spatial_geometry`,
 with an explicit encoding and coordinate reference system. The example's school

@@ -153,6 +153,45 @@ enums:
         Programs choose the rule appropriate to the subject and cite it on the AnthropometricProfile.",
         "uri": "https://www.who.int/publications/i/item/9789241598163"}'
       bibliography_refs: '["who-child-growth-standards", "who-muac-cutoffs"]'
+  AddressPurpose:
+    enum_uri: publicschema:AddressPurpose
+    title: Address Purpose
+    description: The purpose for which an address is given for an asset, following the postal and physical
+      address types of HL7 FHIR. A source may use its own scheme instead.
+    status: bibo:draft
+    permissible_values:
+      physical:
+        meaning: publicschema:AddressPurpose/physical
+        title: Physical
+        description: An address that identifies where the asset is or how to reach it on the ground.
+        annotations:
+          label_es: Física
+          label_fr: Physique
+          description_es: Una dirección que identifica dónde se encuentra el activo o cómo llegar a él
+            sobre el terreno.
+          description_fr: Une adresse qui indique où se trouve le bien ou comment s'y rendre sur le
+            terrain.
+      postal:
+        meaning: publicschema:AddressPurpose/postal
+        title: Postal
+        description: An address at which mail for the asset is delivered. It need not be where the asset
+          is.
+        annotations:
+          label_es: Postal
+          label_fr: Postale
+          description_es: Una dirección en la que se entrega el correo destinado al activo. No tiene por
+            qué ser el lugar donde se encuentra el activo.
+          description_fr: Une adresse à laquelle le courrier destiné au bien est distribué. Ce n'est pas
+            nécessairement l'endroit où se trouve le bien.
+    annotations:
+      label_es: Finalidad de la dirección
+      label_fr: Finalité de l'adresse
+      description_es: La finalidad con la que se indica una dirección para un activo, según los tipos
+        de dirección postal y física de HL7 FHIR. Una fuente puede usar su propio esquema en su lugar.
+      description_fr: La finalité pour laquelle une adresse est indiquée pour un bien, selon les types
+        d'adresse postale et physique de HL7 FHIR. Une source peut utiliser son propre référentiel à la
+        place.
+      bibliography_refs: '["fhir-r5"]'
   AdministrationMode:
     enum_uri: publicschema:AdministrationMode
     title: Administration Mode
@@ -284,6 +323,119 @@ enums:
         on WG-ES item HEAR_3 (hearing aid use frequency, OPTIONAL) per the 11 October 2022 PDF.", "uri":
         "https://www.washingtongroup-disability.com/question-sets/wg-extended-set-on-functioning-wg-es/"}'
       bibliography_refs: '["washington-group-es"]'
+  AnimalResponsibilityRole:
+    enum_uri: publicschema:AnimalResponsibilityRole
+    title: Animal Responsibility Role
+    description: Kinds of responsibility a person or organization holds for animals. Owner, keeper and
+      operator can be different parties for the same animals. A source may use its own scheme instead.
+    status: bibo:draft
+    permissible_values:
+      keeper:
+        meaning: publicschema:AnimalResponsibilityRole/keeper
+        title: Keeper
+        description: The party that has the animals in its care and custody, whether or not it owns them.
+        annotations:
+          label_es: Poseedor
+          label_fr: Détenteur
+          description_es: La parte que tiene los animales a su cuidado y bajo su custodia, sea o no
+            propietaria de ellos.
+          description_fr: La partie qui a les animaux sous sa garde et à sa charge, qu'elle en soit
+            propriétaire ou non.
+      operator:
+        meaning: publicschema:AnimalResponsibilityRole/operator
+        title: Operator
+        description: The party responsible for the animals under animal health law, such as an operator
+          under Regulation (EU) 2016/429, including for a limited period.
+        annotations:
+          label_es: Operador
+          label_fr: Opérateur
+          description_es: La parte responsable de los animales conforme a la legislación de sanidad
+            animal, como un operador en el sentido del Reglamento (UE) 2016/429, incluso por un período
+            limitado.
+          description_fr: La partie responsable des animaux au titre de la législation sur la santé
+            animale, tel qu'un opérateur au sens du règlement (UE) 2016/429, y compris pour une durée
+            limitée.
+      owner:
+        meaning: publicschema:AnimalResponsibilityRole/owner
+        title: Owner
+        description: The party that owns the animals.
+        annotations:
+          label_es: Propietario
+          label_fr: Propriétaire
+          description_es: La parte que es propietaria de los animales.
+          description_fr: La partie qui est propriétaire des animaux.
+    annotations:
+      label_es: Función de responsabilidad animal
+      label_fr: Rôle de responsabilité animale
+      description_es: Tipos de responsabilidad que una persona u organización asume respecto de animales.
+        El propietario, el poseedor y el operador pueden ser partes distintas para los mismos animales.
+        Una fuente puede usar su propio esquema en su lugar.
+      description_fr: Types de responsabilité qu'une personne ou une organisation assume à l'égard
+        d'animaux. Le propriétaire, le détenteur et l'opérateur peuvent être des parties différentes pour
+        les mêmes animaux. Une source peut utiliser son propre référentiel à la place.
+      bibliography_refs: '["eu-reg-2016-429", "woah-identification-2024"]'
+  AssetRoleType:
+    enum_uri: publicschema:AssetRoleType
+    title: Asset Role Type
+    description: Kinds of responsibility a party holds for a physical asset. Operation, upkeep and registered
+      keeping are not ownership. A source may use its own scheme instead.
+    status: bibo:draft
+    permissible_values:
+      keeper:
+        meaning: publicschema:AssetRoleType/keeper
+        title: Registered keeper
+        description: The party registered as responsible for the asset, such as the registered keeper of
+          a vehicle. It need not be the owner.
+        annotations:
+          label_es: Tenedor registrado
+          label_fr: Détenteur enregistré
+          description_es: La parte registrada como responsable del activo, como el tenedor registrado de
+            un vehículo. No tiene por qué ser el propietario.
+          description_fr: La partie enregistrée comme responsable du bien, telle que le détenteur enregistré
+            d'un véhicule. Ce n'est pas nécessairement le propriétaire.
+      operator:
+        meaning: publicschema:AssetRoleType/operator
+        title: Operator
+        description: The party that runs the asset or the activity carried out at it, whether or not it
+          owns the asset.
+        annotations:
+          label_es: Operador
+          label_fr: Exploitant
+          description_es: La parte que explota el activo o la actividad que se realiza en él, sea o no
+            propietaria del activo.
+          description_fr: La partie qui exploite le bien ou l'activité qui y est exercée, qu'elle soit
+            propriétaire du bien ou non.
+      owner:
+        meaning: publicschema:AssetRoleType/owner
+        title: Owner
+        description: The party that owns the asset.
+        annotations:
+          label_es: Propietario
+          label_fr: Propriétaire
+          description_es: La parte que es propietaria del activo.
+          description_fr: La partie qui est propriétaire du bien.
+      upkeep:
+        meaning: publicschema:AssetRoleType/upkeep
+        title: Upkeep
+        description: The party that maintains or repairs the asset without operating or owning it through
+          this role.
+        annotations:
+          label_es: Mantenimiento
+          label_fr: Entretien
+          description_es: La parte que mantiene o repara el activo sin explotarlo ni ser su propietaria
+            en virtud de esta función.
+          description_fr: La partie qui entretient ou répare le bien sans l'exploiter ni en être propriétaire
+            au titre de ce rôle.
+    annotations:
+      label_es: Tipo de función sobre el activo
+      label_fr: Type de rôle sur le bien
+      description_es: Tipos de responsabilidad que una parte tiene sobre un activo físico. La explotación,
+        el mantenimiento y la tenencia registrada no son propiedad. Una fuente puede usar su propio esquema
+        en su lugar.
+      description_fr: Types de responsabilité qu'une partie détient sur un bien physique. L'exploitation,
+        l'entretien et la garde enregistrée ne sont pas la propriété. Une source peut utiliser son propre
+        référentiel à la place.
+      bibliography_refs: '["uk-dft-v5c-2010", "us-epa-frs"]'
   BiometricExceptionReason:
     enum_uri: publicschema:BiometricExceptionReason
     title: Biometric Exception Reason
@@ -4303,6 +4455,48 @@ enums:
         "match": "none", "note": "The field is an untyped String; values are defined at country-deployment
         time. Farajaland uses MONOGAMY/POLYGAMY.", "vocabulary": "OpenCRVS v2 event service", "vocabulary_id":
         "opencrvs"}]'
+  NameUse:
+    enum_uri: publicschema:NameUse
+    title: Name Use
+    description: Contexts in which a subject uses a name, following the legal and alternative names of
+      the SEMIC Core Business Vocabulary and the official name of HL7 FHIR. Whether a name is current or
+      former is stated by the name usage period, not by a code. A source may use its own scheme instead.
+    status: bibo:draft
+    permissible_values:
+      legal:
+        meaning: publicschema:NameUse/legal
+        title: Legal
+        description: The name under which the subject is legally registered or officially identified.
+        annotations:
+          label_es: Legal
+          label_fr: Légal
+          description_es: El nombre con el que el sujeto está legalmente registrado u oficialmente
+            identificado.
+          description_fr: Le nom sous lequel le sujet est légalement enregistré ou officiellement
+            identifié.
+      trading:
+        meaning: publicschema:NameUse/trading
+        title: Trading
+        description: A name the subject uses in trade or with the public that is not its legal name.
+        annotations:
+          label_es: Comercial
+          label_fr: Commercial
+          description_es: Un nombre que el sujeto usa en el comercio o ante el público y que no es su
+            nombre legal.
+          description_fr: Un nom que le sujet utilise dans le commerce ou auprès du public et qui n'est
+            pas son nom légal.
+    annotations:
+      label_es: Uso del nombre
+      label_fr: Usage du nom
+      description_es: Contextos en los que un sujeto usa un nombre, según los nombres legales y
+        alternativos del vocabulario Core Business de SEMIC y el nombre oficial de HL7 FHIR. Si un nombre
+        es actual o anterior lo indica el período de uso del nombre, no un código. Una fuente puede usar
+        su propio esquema en su lugar.
+      description_fr: Contextes dans lesquels un sujet utilise un nom, selon les noms légaux et alternatifs
+        du vocabulaire Core Business de SEMIC et le nom officiel de HL7 FHIR. Le caractère actuel ou ancien
+        d'un nom est indiqué par la période d'usage du nom, et non par un code. Une source peut utiliser
+        son propre référentiel à la place.
+      bibliography_refs: '["fhir-r5", "semic-core-business"]'
   ParentEstablishmentBasis:
     enum_uri: publicschema:ParentEstablishmentBasis
     title: Parent Establishment Basis

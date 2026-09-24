@@ -6,7 +6,7 @@
   "asset_role_type": {
     "@type": "CodedValue",
     "code_value": "operator",
-    "code_scheme": "https://example.org/asset-role-types"
+    "code_scheme": "https://publicschema.org/vocab/asset-role-type"
   },
   "start_date": "2026-01-01"
 }

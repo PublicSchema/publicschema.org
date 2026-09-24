@@ -109,6 +109,17 @@ slot uses a closed vocabulary instead of a `CodedValue`:
 
 Lists that are local policy, such as asset roles, address purposes, name uses and building
 uses, stay `CodedValue` so the source scheme and its unknown or retired codes are retained.
+For a source without a scheme of its own, PublicSchema publishes a small scheme for four of
+these fields. A code keeps the scheme URI with it, as with any other `CodedValue`:
+
+| Slot | Published scheme | Codes | Source |
+| --- | --- | --- | --- |
+| `asset_role_type` | `https://publicschema.org/vocab/asset-role-type` | `owner`, `operator`, `upkeep`, `keeper` | UK V5C registered keeper; EPA Facility Registry Service affiliations |
+| `animal_responsibility_role` | `https://publicschema.org/vocab/animal-responsibility-role` | `owner`, `keeper`, `operator` | Regulation (EU) 2016/429; WOAH identification and traceability |
+| `address_purpose` | `https://publicschema.org/vocab/address-purpose` | `postal`, `physical` | FHIR Address type |
+| `name_use` | `https://publicschema.org/vocab/name-use` | `legal`, `trading` | SEMIC Core Business legal and alternative names; FHIR official name |
+
+A former name is a name whose usage period has ended, so `name_use` has no `former` code.
 
 A `CodedValue` or `QuantityValue` is always written inline, since a code or an amount has no
 identity of its own; it needs its code and scheme, or its amount, unit code and unit system. A

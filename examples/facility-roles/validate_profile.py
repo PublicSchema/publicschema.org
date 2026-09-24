@@ -10,9 +10,9 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "shared"))
 from profile_support import absolute_uri, check_period, parse_day  # noqa: E402
 
-ROLE_SCHEME = "https://example.org/facility-roles/role-types"
+ROLE_SCHEME = "https://publicschema.org/vocab/asset-role-type"
 ROLE_TYPES = {"owner", "operator", "upkeep"}
-ADDRESS_PURPOSE_SCHEME = "https://example.org/facility-roles/address-purposes"
+ADDRESS_PURPOSE_SCHEME = "https://publicschema.org/vocab/address-purpose"
 ADDRESS_PURPOSES = {"physical", "postal"}
 AGRICULTURAL_FACILITIES = {"AgriculturalFacility", "AgriculturalLaboratory"}
 FACILITY_TYPES = {"School", "HealthFacility"} | AGRICULTURAL_FACILITIES

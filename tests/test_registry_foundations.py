@@ -320,3 +320,48 @@ def test_a_clarification_does_not_change_what_the_record_means(result):
     values = {value["code"]: value for value in result["vocabularies"]["record-change-kind"]["values"]}
     assert "does not change" in values["clarification"]["definition"]["en"]
     assert set(values["clarification"]["definition"]) >= {"en", "fr", "es"}
+
+
+# Open role and use codes stay CodedValue so a source can keep its own scheme; PublicSchema
+# publishes a small scheme for each so that examples and adopters without one share codes.
+PUBLISHED_SCHEMES = {
+    "asset_role_type": ("asset-role-type", {"owner", "operator", "upkeep", "keeper"}),
+    "animal_responsibility_role": ("animal-responsibility-role", {"owner", "keeper", "operator"}),
+    "address_purpose": ("address-purpose", {"postal", "physical"}),
+    "name_use": ("name-use", {"legal", "trading"}),
+}
+
+
+@pytest.mark.parametrize(("slot", "vocabulary", "codes"), [(s, v, c) for s, (v, c) in PUBLISHED_SCHEMES.items()])
+def test_an_open_role_or_use_field_names_its_published_scheme(result, slot, vocabulary, codes):
+    published = result["vocabularies"][vocabulary]
+    assert {value["code"] for value in published["values"]} == codes
+    assert published["uri"] == f"https://publicschema.org/vocab/{vocabulary}"
+    field = result["properties"][slot]
+    assert field["type"] == "concept:CodedValue"
+    for lang in ("en", "fr", "es"):
+        assert published["uri"] in field["definition"][lang], lang
+
+
+def _coded_values(node, slot):
+    if isinstance(node, list):
+        for item in node:
+            yield from _coded_values(item, slot)
+    elif isinstance(node, dict):
+        for key, value in node.items():
+            if key == slot and isinstance(value, dict):
+                yield value
+            yield from _coded_values(value, slot)
+
+
+@pytest.mark.parametrize("slot", sorted(PUBLISHED_SCHEMES))
+def test_examples_use_the_published_scheme(slot):
+    scheme = f"https://publicschema.org/vocab/{PUBLISHED_SCHEMES[slot][0]}"
+    found = [
+        (path.relative_to(ROOT).as_posix(), value)
+        for path in sorted((ROOT / "examples").rglob("*.json"))
+        for value in _coded_values(json.loads(path.read_text()), slot)
+    ]
+    assert found
+    assert [f for f in found if f[1].get("code_scheme") != scheme] == []
+    assert all(value["code_value"] in PUBLISHED_SCHEMES[slot][1] for _, value in found)

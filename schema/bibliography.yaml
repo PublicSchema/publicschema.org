@@ -1400,7 +1400,7 @@ classes:
       access: open
       status: active
       version: v2.2.0
-      informs_json: '{"concepts": ["NameUsage", "Registration", "RepresentationRole"]}'
+      informs_json: '{"concepts": ["NameUsage", "Registration", "RepresentationRole"], "vocabularies": ["name-use"]}'
   SemicCoreLocationCitation:
     class_uri: publicschema:Citation/semic-core-location
     is_a: Citation
@@ -2598,7 +2598,7 @@ classes:
         or keeper; movement records include origin, destination, transit establishments, the date of the
         movement and the number of animals moved. Point 5(b): group identification. PublicSchema shapes,
         source-group interpretation and optionality are design choices.'
-      informs_json: '{"concepts": ["AnimalGroup", "AnimalGroupCount", "AnimalMovement", "AnimalResponsibility", "IdentifiedAnimalUnit", "IndividualAnimal", "agri/AnimalResidence"], "properties": ["moved_animal_count", "moved_animals", "movement_arrival_date", "movement_departure_date", "movement_destination_site", "movement_origin_site", "movement_source_group", "movement_transit_sites"]}'
+      informs_json: '{"concepts": ["AnimalGroup", "AnimalGroupCount", "AnimalMovement", "AnimalResponsibility", "IdentifiedAnimalUnit", "IndividualAnimal", "agri/AnimalResidence"], "properties": ["moved_animal_count", "moved_animals", "movement_arrival_date", "movement_departure_date", "movement_destination_site", "movement_origin_site", "movement_source_group", "movement_transit_sites"], "vocabularies": ["animal-responsibility-role"]}'
       year: 2024
   FaoDadIsDataCitation:
     class_uri: publicschema:Citation/fao-dad-is-data
@@ -2876,7 +2876,7 @@ classes:
       status: active
       note: Retrieved 2026-09-07; site/program-record distinction, Facility Site Identification Standard
         2.0 (2006) and physical model links
-      informs_json: '{"concepts": ["environment/EnvironmentalFacility"]}'
+      informs_json: '{"concepts": ["environment/EnvironmentalFacility"], "vocabularies": ["asset-role-type"]}'
   UsEpaEchoCitation:
     class_uri: publicschema:Citation/us-epa-echo
     is_a: Citation
@@ -3012,7 +3012,7 @@ classes:
       version: R5 (5.0.0)
       note: 'Resources used: Practitioner.qualification, PractitionerRole, HealthcareService, Location,
         Ingredient and ContactPoint. ContactPoint system codes are the same in R4 and R5.'
-      informs_json: '{"concepts": ["AssetAddressAssignment", "AssetPartyRole", "AwardedQualification", "CodedValue", "ConsentRecord", "ContactPoint", "IdentifierAssignment", "NameUsage", "PracticeRole", "ProductComponent", "ProfessionalLicense", "ServiceCapacityObservation", "health/HealthFacility"], "vocabularies": ["contact-channel"]}'
+      informs_json: '{"concepts": ["AssetAddressAssignment", "AssetPartyRole", "AwardedQualification", "CodedValue", "ConsentRecord", "ContactPoint", "IdentifierAssignment", "NameUsage", "PracticeRole", "ProductComponent", "ProfessionalLicense", "ServiceCapacityObservation", "health/HealthFacility"], "vocabularies": ["address-purpose", "contact-channel", "name-use"]}'
   FaoWca2030Citation:
     class_uri: publicschema:Citation/fao-wca-2030
     is_a: Citation
@@ -3121,7 +3121,7 @@ classes:
       status: active
       note: Published 21 July 2010; national example. The registration certificate names the registered
         keeper, who is not necessarily the legal owner.
-      informs_json: '{"concepts": ["AssetPartyRole"]}'
+      informs_json: '{"concepts": ["AssetPartyRole"], "vocabularies": ["asset-role-type"]}'
   IsoIec17000Citation:
     class_uri: publicschema:Citation/iso-iec-17000
     is_a: Citation
@@ -3626,7 +3626,7 @@ classes:
       standard_number: Regulation (EU) 2016/429
       note: Article 4(1), 4(12), 4(13), 4(24), 4(27), 4(39), 4(48) and 4(50); Articles 84, 102(1), 108(3)(a)
         and 172. The establishment type is recorded as data.
-      informs_json: '{"concepts": ["AnimalMovement", "AnimalResponsibility", "IndividualAnimal"], "properties": ["animal_responsible_actor"], "vocabularies": ["agri/agricultural-facility-function"]}'
+      informs_json: '{"concepts": ["AnimalMovement", "AnimalResponsibility", "IndividualAnimal"], "properties": ["animal_responsible_actor"], "vocabularies": ["agri/agricultural-facility-function", "animal-responsibility-role"]}'
   EuRegDel20192035Citation:
     class_uri: publicschema:Citation/eu-reg-del-2019-2035
     is_a: Citation

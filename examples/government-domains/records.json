@@ -499,7 +499,7 @@
     "asset_role_type": {
       "@type": "CodedValue",
       "code_value": "keeper",
-      "code_scheme": "https://example.org/codes/synthetic"
+      "code_scheme": "https://publicschema.org/vocab/asset-role-type"
     },
     "start_date": "2025-01-01"
   },
@@ -512,7 +512,7 @@
     "asset_role_type": {
       "@type": "CodedValue",
       "code_value": "owner",
-      "code_scheme": "https://example.org/codes/synthetic"
+      "code_scheme": "https://publicschema.org/vocab/asset-role-type"
     },
     "start_date": "2024-01-01"
   },
@@ -525,7 +525,7 @@
     "asset_role_type": {
       "@type": "CodedValue",
       "code_value": "operator",
-      "code_scheme": "https://example.org/codes/synthetic"
+      "code_scheme": "https://publicschema.org/vocab/asset-role-type"
     },
     "start_date": "2024-06-01"
   },
@@ -544,7 +544,7 @@
     "address_purpose": {
       "@type": "CodedValue",
       "code_value": "physical",
-      "code_scheme": "https://example.org/codes/synthetic"
+      "code_scheme": "https://publicschema.org/vocab/address-purpose"
     },
     "start_date": "2024-06-01"
   },
