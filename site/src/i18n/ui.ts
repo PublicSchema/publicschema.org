@@ -37,7 +37,7 @@ const en = {
   'search.close': 'Close search',
 
   // Footer
-  'footer.tagline': 'Common definitions for public service delivery. Built so programs can coordinate, share data, and reach the people they serve.',
+  'footer.tagline': 'Common definitions for public services and government registries. Built so systems across sectors can share data and serve people better.',
   'footer.explore': 'Explore',
   'footer.docs': 'Docs',
   'footer.project': 'Project',
@@ -311,9 +311,10 @@ const en = {
   'handbook.page_subtitle': 'A practical guide to adopting PublicSchema through vocabulary alignment, system mapping, new system design, data exchanges, credentials, validation, and governance.',
 
   // Homepage schema index (data-driven section)
-  'home.browse_schema': 'Browse the schema',
-  'home.core_concepts': 'Core concepts',
-  'home.vocabularies': 'Vocabularies',
+  'home.domains_title': 'One shared core, many sectors',
+  'home.domains_lead': 'What every sector shares (people, groups, organizations, places, identifiers, registrations, payments) is defined once in a shared core. Sector domains build on it for the records each ministry keeps. New domains are published as drafts so they can be reviewed early; the badges show how settled each one is.',
+  'home.domain_core': 'Shared core',
+  'home.domain_core_description': 'Concepts used across sectors: people and groups, organizations, locations, identifiers, registrations, documents and payments.',
   'home.plus_more': '+{count} more',
   'home.closing': 'PublicSchema is maintained as an open project.',
   'home.source_github': 'Source on GitHub',
@@ -463,7 +464,7 @@ export const ui: Record<Locale, Partial<Dict>> = {
     'search.close': 'Fermer la recherche',
 
     // Footer
-    'footer.tagline': 'Définitions communes pour la prestation de services publics. Conçu pour permettre aux programmes de se coordonner, de partager des données et d\'atteindre les personnes auxquelles ils s\'adressent.',
+    'footer.tagline': 'Définitions communes pour les services publics et les registres administratifs. Conçu pour que les systèmes de tous les secteurs partagent leurs données et servent mieux les personnes.',
     'footer.explore': 'Explorer',
     'footer.docs': 'Documentation',
     'footer.project': 'Projet',
@@ -520,7 +521,7 @@ export const ui: Record<Locale, Partial<Dict>> = {
     'browse.facet_sensitivity': 'Sensibilité',
     'browse.facet_category': 'Catégorie',
     'browse.domain_universal': 'Universel',
-    'browse.maturity_draft': 'Ébauche',
+    'browse.maturity_draft': 'Brouillon',
     'browse.maturity_candidate': 'Candidat',
     'browse.maturity_normative': 'Normatif',
     'browse.yes': 'Oui',
@@ -662,7 +663,7 @@ export const ui: Record<Locale, Partial<Dict>> = {
     'hover_card.fallback_tag': 'affiché en {locale}',
     'hover_card.property_type': 'Type',
     'hover_card.property_vocabulary': 'Vocabulaire',
-    'hover_card.badge_draft': 'ébauche',
+    'hover_card.badge_draft': 'brouillon',
     'hover_card.badge_candidate': 'candidat',
     'hover_card.badge_stable': 'stable',
     'hover_card.badge_abstract': 'abstrait',
@@ -683,9 +684,10 @@ export const ui: Record<Locale, Partial<Dict>> = {
     'docs.category.landscape': 'Panorama',
 
     // Homepage schema index (data-driven section)
-    'home.browse_schema': 'Explorer le schéma',
-    'home.core_concepts': 'Concepts fondamentaux',
-    'home.vocabularies': 'Vocabulaires',
+    'home.domains_title': 'Un socle commun, plusieurs secteurs',
+    'home.domains_lead': 'Ce que tous les secteurs partagent (personnes, groupes, organisations, lieux, identifiants, enregistrements, paiements) est défini une seule fois dans un socle commun. Les domaines sectoriels s\'appuient sur ce socle pour les registres que tient chaque ministère. Les nouveaux domaines sont publiés à l\'état de brouillon afin d\'être relus tôt ; les badges indiquent leur degré de stabilité.',
+    'home.domain_core': 'Socle commun',
+    'home.domain_core_description': 'Concepts utilisés dans tous les secteurs : personnes et groupes, organisations, lieux, identifiants, enregistrements, documents et paiements.',
     'home.plus_more': '+{count} de plus',
     'home.closing': 'PublicSchema est maintenu comme un projet ouvert.',
     'home.source_github': 'Source sur GitHub',
@@ -830,7 +832,7 @@ export const ui: Record<Locale, Partial<Dict>> = {
     'search.close': 'Cerrar búsqueda',
 
     // Footer
-    'footer.tagline': 'Definiciones comunes para la prestación de servicios públicos. Diseñado para que los programas puedan coordinarse, compartir datos y llegar a las personas a quienes sirven.',
+    'footer.tagline': 'Definiciones comunes para los servicios públicos y los registros administrativos. Diseñado para que los sistemas de todos los sectores compartan datos y sirvan mejor a las personas.',
     'footer.explore': 'Explorar',
     'footer.docs': 'Documentación',
     'footer.project': 'Proyecto',
@@ -1050,9 +1052,10 @@ export const ui: Record<Locale, Partial<Dict>> = {
     'docs.category.landscape': 'Panorama',
 
     // Homepage schema index (data-driven section)
-    'home.browse_schema': 'Explorar el esquema',
-    'home.core_concepts': 'Conceptos fundamentales',
-    'home.vocabularies': 'Vocabularios',
+    'home.domains_title': 'Un núcleo compartido, muchos sectores',
+    'home.domains_lead': 'Lo que comparten todos los sectores (personas, grupos, organizaciones, lugares, identificadores, inscripciones, pagos) se define una sola vez en un núcleo compartido. Los dominios sectoriales se apoyan en él para los registros que lleva cada ministerio. Los dominios nuevos se publican como borradores para poder revisarlos pronto; las insignias indican cuán estable es cada uno.',
+    'home.domain_core': 'Núcleo compartido',
+    'home.domain_core_description': 'Conceptos usados en todos los sectores: personas y grupos, organizaciones, lugares, identificadores, inscripciones, documentos y pagos.',
     'home.plus_more': '+{count} más',
     'home.closing': 'PublicSchema se mantiene como un proyecto abierto.',
     'home.source_github': 'Repositorio en GitHub',

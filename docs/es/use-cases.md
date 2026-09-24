@@ -1,6 +1,6 @@
 # Casos de uso
 
-PublicSchema ofrece definiciones comunes para la prestación de servicios públicos. Hay muchas formas de usarlo, desde alinear códigos de vocabulario en hojas de cálculo hasta emitir credenciales verificables. Esta página describe escenarios concretos en los que PublicSchema ayuda a los programas a coordinarse, compartir datos y llegar a las personas a quienes sirven.
+PublicSchema ofrece definiciones comunes para los servicios públicos y los registros administrativos. Hay muchas formas de usarlo, desde alinear códigos de vocabulario en hojas de cálculo hasta emitir credenciales verificables. Esta página describe escenarios concretos en los que PublicSchema ayuda a los programas y registros a coordinarse, compartir datos y llegar a las personas a quienes sirven.
 
 ## Contenido
 
@@ -14,6 +14,9 @@ PublicSchema ofrece definiciones comunes para la prestación de servicios públi
 - [Coordinación de respuesta ante desastres](#coordinación-de-respuesta-ante-desastres)
 - [Comparación de programas entre países e investigación de políticas](#comparación-de-programas-entre-países-e-investigación-de-políticas)
 - [Armonización de APIs en una federación](#armonización-de-apis-en-una-federación)
+- [Vinculación del registro de fincas con los registros de tierras](#vinculación-del-registro-de-fincas-con-los-registros-de-tierras)
+- [Una empresa, muchos registros](#una-empresa-muchos-registros)
+- [Focalización de subsidios de insumos agropecuarios hacia agricultores registrados](#focalización-de-subsidios-de-insumos-agropecuarios-hacia-agricultores-registrados)
 - [Qué artefactos importan para cada caso de uso](#qué-artefactos-importan-para-cada-caso-de-uso)
 
 ## Deduplicación entre programas de distintos sectores
@@ -48,11 +51,11 @@ PublicSchema ofrece definiciones comunes para la prestación de servicios públi
 
 ## Adquisición de sistemas interoperables
 
-**Quién:** Un gobierno que adquiere un nuevo registro, SIG o sistema de gestión de casos en cualquier sector.
+**Quién:** Un gobierno que adquiere un nuevo registro, sistema de gestión de la información o sistema de gestión de casos en cualquier sector.
 
 **El problema:** Las solicitudes de propuesta especifican que "el sistema debe ser interoperable", lo cual es demasiado vago como para evaluarlo. Los proveedores lo interpretan como quieren. No existe una norma concreta contra la cual hacer pruebas.
 
-**Cómo ayuda PublicSchema:** La solicitud de propuesta referencia PublicSchema directamente: "El sistema debe poder exportar registros de Persona (Person) con estas propiedades: given_name, family_name, date_of_birth, identifiers. Los campos de estado deben usar códigos de los vocabularios de PublicSchema." Esto funciona tanto si se adquiere un registro social, un sistema de información estudiantil o una base de datos de establecimientos de salud. Los proveedores obtienen un objetivo concreto; los evaluadores obtienen algo que pueden probar.
+**Cómo ayuda PublicSchema:** La solicitud de propuesta referencia PublicSchema directamente: "El sistema debe exportar registros de Persona (Person) con estas propiedades: given_name, family_name, date_of_birth, identifiers. Los campos de estado deben usar códigos de los vocabularios de PublicSchema." Esto funciona tanto si se adquiere un registro social, un sistema de información estudiantil o una base de datos de establecimientos de salud. Los proveedores obtienen un objetivo concreto; los evaluadores obtienen algo que pueden probar.
 
 **Artefactos clave:** Definiciones de conceptos, inventario de propiedades, definiciones de vocabularios, esquemas JSON.
 
@@ -102,7 +105,7 @@ PublicSchema ofrece definiciones comunes para la prestación de servicios públi
 
 **El problema:** Cada país define conceptos como "inscripción", "prestación" y "queja" de forma diferente. La comparación requiere interpretar manualmente la documentación de cada país, que es inconsistente y a menudo incompleta.
 
-**Cómo ayuda PublicSchema:** El analista usa el inventario de conceptos y propiedades de PublicSchema como marco estructurado de comparación. Para cada país y sector, mapea el modelo de datos del programa local frente a PublicSchema. El resultado hace visibles las divergencias y permite nombrarlas con precisión: el País A recopila coordenadas GPS del hogar, el País B no. El País A define la inscripción "inactive" como "suspended", el País B la usa para indicar "completed".
+**Cómo ayuda PublicSchema:** El analista usa el inventario de conceptos y propiedades de PublicSchema como marco estructurado de comparación. Para cada país y sector, mapea el modelo de datos del programa local frente a PublicSchema. El resultado hace visibles las divergencias y permite nombrarlas: el País A recopila coordenadas GPS del hogar, el País B no. El País A define la inscripción "inactive" como "suspended", el País B la usa para indicar "completed".
 
 **Artefactos clave:** Definiciones de conceptos (con descripciones multilingües), inventario de propiedades, definiciones de vocabularios, correspondencias de sistemas.
 
@@ -110,11 +113,41 @@ PublicSchema ofrece definiciones comunes para la prestación de servicios públi
 
 **Quién:** Un sistema nacional o regional que agrega datos de múltiples agencias, ministerios o niveles de gobierno.
 
-**El problema:** Cinco agencias exponen cada una una API REST: registro social, SIG de educación, sistema de información de salud, registro civil, base de datos de extensión agrícola. Los nombres de campo y los códigos de valor difieren entre los cinco. Construir adaptadores personalizados para cada API es costoso y frágil.
+**El problema:** Cinco agencias exponen cada una una API REST: registro social, sistema de información educativa, sistema de información de salud, registro civil, base de datos de extensión agrícola. Los nombres de campo y los códigos de valor difieren entre los cinco. Construir adaptadores personalizados para cada API es costoso y frágil.
 
 **Cómo ayuda PublicSchema:** La federación exige que todas las APIs alineen los nombres de campo a las propiedades de PublicSchema y usen los códigos de vocabulario de PublicSchema. Cada agencia mantiene su esquema interno; simplemente expone una API compatible con PublicSchema. La capa federada habla un solo idioma en lugar de cinco.
 
 **Artefactos clave:** Propiedades (como nombres de campo compartidos), códigos de vocabulario (como conjuntos de valores compartidos), esquemas JSON (para validación de contratos).
+
+## Vinculación del registro de fincas con los registros de tierras
+
+**Quién:** Un ministerio de agricultura que construye un registro de fincas, y una agencia de tierras que mantiene el catastro y los registros de derechos sobre la tierra.
+
+**El problema:** Ambas agencias hablan de "parcelas", pero se refieren a cosas distintas. El registro de fincas anota los campos que una finca trabaja efectivamente esta temporada; el catastro registra unidades levantadas y los derechos vinculados a ellas. Un agricultor puede arrendar tierra de varios propietarios, compartir pastos comunales o trabajar tierra cuyos derechos son informales. Cuando los dos registros se combinan de forma ingenua, el uso de un campo por una finca se interpreta como propiedad, o un arrendatario desaparece porque el catastro solo conoce al propietario.
+
+**Cómo ayuda PublicSchema:** Los dominios en borrador de [agricultura](/es/concepts/?domain=agri) y [tierra](/es/concepts/?domain=land) mantienen estas afirmaciones separadas. Una [Farm](/es/agri/Farm/) utiliza una [AgriculturalParcel](/es/agri/AgriculturalParcel/), una unidad de uso de la tierra, mediante un [HoldingParcelLink](/es/agri/HoldingParcelLink/) fechado que registra el área utilizada, el período y la forma de tenencia que declara la finca (propia, arrendada, en aparcería), sin afirmar un derecho legal. La parcela puede indicar las [LandSpatialUnit](/es/land/LandSpatialUnit/), como las parcelas catastrales, sobre las que se encuentra, aunque sus límites no coincidan. Del lado de la tierra, una [LandTenureAssertion](/es/land/LandTenureAssertion/) registra quién posee o reclama un derecho sobre una unidad administrativa de tierra, con su categoría de tenencia y su evidencia, sin decidir entre reclamaciones contrapuestas. Cada agencia conserva sus propios registros; las definiciones compartidas permiten a un analista relacionar un campo cultivado con las unidades catastrales que ocupa e informar, por ejemplo, cuánta tierra cultivada carece de tenencia registrada, sin reducir el uso a la propiedad.
+
+**Artefactos clave:** Conceptos (Farm, AgriculturalParcel, HoldingParcelLink, LandSpatialUnit, LandTenureAssertion), propiedades (land_spatial_units, parcel_tenure), códigos de vocabulario (tenencia de la tierra, categoría de tenencia).
+
+## Una empresa, muchos registros
+
+**Quién:** Un registro mercantil, una autoridad tributaria y un regulador ambiental que mantienen cada uno registros sobre las mismas empresas.
+
+**El problema:** Una empresa se registra una vez en el registro mercantil, otra vez por cada impuesto que paga, y otra vez cuando uno de sus establecimientos necesita un permiso ambiental. Cada agencia asigna su propio número y mantiene su propio estado. Cuando una empresa se fusiona, cierra o cambia de nombre, las demás agencias se enteran tarde o nunca. Combinar los registros por el nombre de la empresa produce coincidencias falsas, y no queda constancia de quién decidió que dos registros describen a la misma empresa.
+
+**Cómo ayuda PublicSchema:** El registro de cada agencia se modela como una [Registration](/es/Registration/) de la misma [Organization](/es/Organization/), que nombra la autoridad, la jurisdicción y el propósito. Una [TaxRegistration](/es/tax/TaxRegistration/) es un registro por cada impuesto. Un permiso ambiental es una [Authorization](/es/Authorization/) cuyo objeto autorizado es una [EnvironmentalFacility](/es/environment/EnvironmentalFacility/), de modo que el establecimiento conserva su identidad cuando cambia el operador. El número de cada agencia es una [IdentifierAssignment](/es/IdentifierAssignment/) con su emisor y su período de validez. Cuando las agencias vinculan sus registros, una [SubjectMatchAssertion](/es/SubjectMatchAssertion/) deja constancia de quién determinó la coincidencia y cómo, sin fusionar los registros. Las fusiones y escisiones se registran como un [OrganizationalChangeEvent](/es/OrganizationalChangeEvent/), de modo que las empresas anteriores y sus actos pasados siguen siendo identificables.
+
+**Artefactos clave:** Conceptos (Organization, Registration, TaxRegistration, Authorization, EnvironmentalFacility, IdentifierAssignment, SubjectMatchAssertion, OrganizationalChangeEvent), propiedades, códigos de vocabulario (tipo de organización).
+
+## Focalización de subsidios de insumos agropecuarios hacia agricultores registrados
+
+**Quién:** Un ministerio de agricultura que gestiona un subsidio de fertilizantes y semillas, entregado mediante vales que se canjean en distribuidores agropecuarios, con el apoyo de la agencia de protección social en la focalización.
+
+**El problema:** El subsidio debe llegar a agricultores que estén efectivamente registrados y sean elegibles, una vez por temporada. Las listas de elegibilidad se extraen del registro de fincas, pero los vales se gestionan en un sistema de pagos separado y los distribuidores reportan los canjes en hojas de cálculo. Nadie puede afirmar con certeza qué agricultores registrados recibieron insumos, qué productos se recogieron, o si el mismo agricultor fue atendido dos veces bajo números distintos.
+
+**Cómo ayuda PublicSchema:** La condición del agricultor proviene de una [FarmerRegistration](/es/agri/FarmerRegistration/) que nombra las fincas que cubre. El subsidio es un [sp/Program](/es/sp/Program/) con una [sp/EligibilityDecision](/es/sp/EligibilityDecision/) y una [sp/Enrollment](/es/sp/Enrollment/) para cada agricultor, el mismo patrón que la protección social usa para las transferencias monetarias. Los derechos se cumplen mediante un [Voucher](/es/Voucher/) emitido al agricultor, y cada visita a un distribuidor es una [VoucherRedemption](/es/VoucherRedemption/) que detalla los artículos y las cantidades recogidas. La lista de productos aprobados puede describirse con [AgriculturalInputProduct](/es/agri/AgriculturalInputProduct/), cada uno con su categoría regulatoria de insumo. Debido a que el agricultor, el programa y el vale usan definiciones compartidas, el ministerio puede conciliar el registro, el sistema de vales y los reportes de los distribuidores, y la agencia de protección social puede reutilizar sus herramientas de deduplicación y focalización.
+
+**Artefactos clave:** Conceptos (FarmerRegistration, Farm, Program, EligibilityDecision, Enrollment, Voucher, VoucherRedemption, AgriculturalInputProduct), propiedades, códigos de vocabulario (estado del vale, categoría de insumo agropecuario), esquemas JSON.
 
 ## Qué artefactos importan para cada caso de uso
 
@@ -130,6 +163,9 @@ PublicSchema ofrece definiciones comunes para la prestación de servicios públi
 | Coordinación ante desastres | x | x | x | x | | |
 | Comparación entre países | x | x | x | | | |
 | Federación de APIs | | x | x | x | | |
+| Registro de fincas y registros de tierras | x | x | x | | | |
+| Una empresa, muchos registros | x | x | x | | | |
+| Subsidios de insumos agropecuarios | x | x | x | x | | |
 
 La mayoría de los casos de uso requieren solo conceptos, propiedades y códigos de vocabulario. JSON-LD y las credenciales verificables son necesarios para un subconjunto de escenarios. **Por dónde empezar:**
 

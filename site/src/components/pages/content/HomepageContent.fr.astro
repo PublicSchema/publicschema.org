@@ -23,17 +23,20 @@ const {
   <div class="h3-hero-inner">
     <h1><span class="h3-hero-public">Public</span>Schema</h1>
     <p class="h3-hero-lead">
-      Lorsque des programmes servent les mêmes personnes, leurs systèmes ont besoin d'un
-      langage commun. PublicSchema le fournit : des définitions partagées pour les concepts,
-      les champs et les codes de valeur. Prenez-les comme point de départ, puis adaptez-les
-      au contexte de votre pays.
+      Les systèmes publics conservent des enregistrements sur les mêmes personnes, lieux,
+      organisations et biens. PublicSchema leur donne un langage commun : des définitions
+      partagées pour les concepts, les champs et les codes de valeur, de l'état civil et
+      la protection sociale au foncier, à l'agriculture et à la fiscalité.
+      Prenez-les comme point de départ, puis adaptez-les et étendez-les au contexte de votre pays.
     </p>
     <div class="h3-hero-cta">
-      <a href={localePath('/docs/use-cases/', locale)} class="btn btn-primary">Voir comment les programmes l'utilisent</a>
-      <a href="#contents" class="btn btn-secondary">Contenu du schéma</a>
+      <a href="#domains" class="btn btn-primary">Explorer les domaines</a>
+      <a href={localePath('/handbook/choose-your-path/', locale)} class="btn btn-secondary">Choisir votre parcours</a>
     </div>
   </div>
 </div>
+
+<slot name="domains" />
 
 <!-- Why this matters -->
 <div class="h3-prose">
@@ -80,7 +83,15 @@ const {
   </div>
 
   <p>
-    C'est le coût de la coordination : à chaque fois que deux programmes doivent partager des données,
+    Il en va de même au-delà des personnes. Une parcelle apparaît dans le cadastre, dans le
+    registre des exploitations agricoles et dans la liste des usagers de l'eau d'un périmètre
+    d'irrigation, chacun avec son propre identifiant et sa propre idée de la superficie de la
+    parcelle. Une entreprise est un enregistrement au registre du commerce, un autre à l'administration
+    fiscale, et un troisième dans le dossier de permis environnemental.
+  </p>
+
+  <p>
+    C'est le coût de la coordination : à chaque fois que deux systèmes doivent partager des données,
     quelqu'un passe des semaines à établir des correspondances entre champs et à traduire des codes. C'est coûteux,
     fragile, et tout recommence à zéro à chaque mise à niveau d'un système.
   </p>
@@ -89,7 +100,7 @@ const {
     résoudre. On ne peut pas reconstruire une date de naissance exacte à
     partir d'un âge estimé, et les identifiants utilisés par chaque système
     ne pointent vers rien que les autres puissent vérifier. Par ailleurs,
-    un système décrit le foyer par l'admission hospitalière, un autre par
+    un système décrit la famille par l'admission hospitalière, un autre par
     le lien parental dans un registre, et un troisième pas du tout. Les
     concepts eux-mêmes ne s'alignent pas. Les définitions partagées ne font
     pas qu'économiser du temps ; elles rendent tout simplement possible un
@@ -142,7 +153,7 @@ const {
   <p>
     PublicSchema ne prescrit pas quelle représentation est la bonne. Il vous offre
     un point de référence commun pour voir les différences, choisir ce qui correspond
-    à votre contexte, et l'étendre là où vos programmes en ont besoin. Adoptez ce qui
+    à votre contexte, et l'étendre là où votre contexte en a besoin. Adoptez ce qui
     fonctionne ; laissez le reste.
   </p>
 </div>
@@ -152,8 +163,8 @@ const {
   <div class="h3-band-inner">
     <h2>Contenu du schéma</h2>
     <p class="h3-band-lead">
-      PublicSchema est un ensemble partagé de définitions. Quand un programme parle de
-      « Personne », « Ménage » ou « Inscription », un autre programme qui utilise le même
+      PublicSchema est un ensemble partagé de définitions. Quand un système parle de
+      « Personne », « Exploitation agricole » ou « Enregistrement », un autre système qui utilise le même
       schéma sait exactement ce dont il s'agit, pas seulement quels champs attendre.
     </p>
 
@@ -171,7 +182,7 @@ const {
       <div class="h3-principle">
         <span class="h3-principle-num">03</span>
         <h3>Fondé sur ce qui existe déjà</h3>
-        <p>Les normes internationales (ISO, ONU, FHIR) sont réutilisées partout où elles couvrent le domaine.</p>
+        <p>Les normes internationales (ISO, ONU, FAO, FHIR, SEMIC) sont réutilisées partout où elles couvrent le domaine.</p>
       </div>
       <div class="h3-principle">
         <span class="h3-principle-num">04</span>
@@ -187,21 +198,24 @@ const {
           <span class="h3-layer-count">{conceptsCount} concepts, {propertiesCount} propriétés</span>
         </a>
         <p>
-          Les entités comme Personne, Inscription et Paiement reçoivent des définitions claires
-          rédigées pour les gestionnaires de programmes. Chaque concept porte des
-          propriétés nommées et typées (<code>given_name</code>, <code>date_of_birth</code>,
-          <code>enrollment_status</code>) définies une fois et réutilisées d'un concept à
+          Les entités comme Personne, Organisation, Enregistrement et Exploitation agricole reçoivent des
+          définitions claires rédigées pour les personnes qui gèrent les programmes et les
+          registres. Chaque concept porte des propriétés nommées et typées
+          (<code>given_name</code>, <code>date_of_birth</code>,
+          <code>registration_date</code>) définies une fois et réutilisées d'un concept à
           l'autre.
         </p>
         <div class="h3-layer-examples">
-          <a href={localePath('/Person', locale)}>Person</a><a href={localePath('/Household', locale)}>Household</a><a href={localePath('/sp/Enrollment', locale)}>Enrollment</a><a href={localePath('/PaymentEvent', locale)}>Payment</a><a href={localePath('/sp/Grievance', locale)}>Grievance</a><a class="h3-layer-more" href={localePath('/concepts/', locale)}>…</a>
+          <a href={localePath('/Person', locale)}>Person</a><a href={localePath('/Organization', locale)}>Organization</a><a href={localePath('/Registration', locale)}>Registration</a><a href={localePath('/agri/Farm', locale)}>Farm</a><a href={localePath('/transport/Vehicle', locale)}>Vehicle</a><a class="h3-layer-more" href={localePath('/concepts/', locale)}>…</a>
         </div>
         <p class="h3-layer-standards">
           <span class="h3-layer-standards-label">Aligné sur</span>
           <a href={localePath('/systems/openspp', locale)}>OpenSPP</a> ·
           <a href={localePath('/systems/opencrvs', locale)}>OpenCRVS</a> ·
-          <a href={localePath('/systems/openimis', locale)}>OpenIMIS</a> ·
-          <a href={localePath('/systems/dhis2', locale)}>DHIS2</a>
+          <a href={localePath('/systems/openimis', locale)}>openIMIS</a> ·
+          <a href={localePath('/systems/dhis2', locale)}>DHIS2</a> ·
+          <a href={localePath('/systems/fhir_r4', locale)}>FHIR</a> ·
+          <a href={localePath('/systems/semic', locale)}>SEMIC</a>
         </p>
       </div>
       <div class="h3-layer">
@@ -211,16 +225,17 @@ const {
         </a>
         <p>
           Ensembles de valeurs contrôlées pour des champs tels que le genre, le pays, la
-          modalité de prestation et le statut d'inscription. Lorsque des normes internationales
-          existent (ISO, FHIR), nous nous y référons. Lorsqu'elles n'existent pas, nous définissons
-          un ensemble commun fondé sur la convergence observée entre les systèmes.
+          profession, le régime foncier et le type d'organisation. Lorsque des normes
+          internationales existent (ISO, FAO, FHIR), nous nous y référons. Lorsqu'elles
+          n'existent pas, nous définissons un ensemble commun fondé sur la convergence
+          observée entre les systèmes.
         </p>
         <div class="h3-layer-examples">
-          <a href={localePath('/vocab/gender-type', locale)}>Genre</a><a href={localePath('/vocab/country', locale)}>Pays</a><a href={localePath('/vocab/currency', locale)}>Devise</a><a href={localePath('/vocab/occupation', locale)}>Profession</a><a href={localePath('/vocab/education-level', locale)}>Niveau d'éducation</a><a class="h3-layer-more" href={localePath('/vocab/', locale)}>…</a>
+          <a href={localePath('/vocab/gender-type', locale)}>Genre</a><a href={localePath('/vocab/country', locale)}>Pays</a><a href={localePath('/vocab/currency', locale)}>Devise</a><a href={localePath('/vocab/occupation', locale)}>Profession</a><a href={localePath('/vocab/land/tenure-category', locale)}>Catégorie de tenure</a><a class="h3-layer-more" href={localePath('/vocab/', locale)}>…</a>
         </div>
         <p class="h3-layer-standards">
           <span class="h3-layer-standards-label">Basé sur</span>
-          ISO · ILO · UN M49 · UNESCO · FHIR
+          ISO · ILO · UN M49 · UNESCO · FAO · FHIR
         </p>
       </div>
     </div>
@@ -231,26 +246,33 @@ const {
 <div class="h3-prose">
   <h2>Sa relation avec les autres normes</h2>
   <p>
-    Si vous travaillez avec des infrastructures numériques publiques, vous avez probablement
-    rencontré des normes comme la <a href="https://spdci.org" target="_blank" rel="noopener noreferrer">Digital Convergence Initiative (DCI)</a>,
-    <a href="https://govstack.global" target="_blank" rel="noopener noreferrer">GovStack</a> ou EU Core Person Vocabulary. Voici comment
-    PublicSchema s'articule avec elles.
+    PublicSchema s'articule avec les normes que vous utilisez déjà. Il ne les remplace pas ;
+    il leur donne un point de référence sémantique commun.
   </p>
   <p>
-    Des normes comme DCI et GovStack définissent comment les données circulent entre
-    les systèmes : contrats d'API, protocoles de transport, blocs de construction. Elles
-    incluent des modèles de données, mais ces modèles servent la couche de transport.
-    PublicSchema part de l'autre direction : que signifie « inscription » ?
-    Quelles propriétés décrivent un paiement ? Quelles valeurs sont valides pour
-    la modalité de prestation ? Le modèle sémantique est l'artefact principal.
+    <strong>Les normes d'échange</strong> telles que la
+    <a href="https://spdci.org" target="_blank" rel="noopener noreferrer">Digital Convergence Initiative (DCI)</a>
+    et <a href="https://govstack.global" target="_blank" rel="noopener noreferrer">GovStack</a>
+    définissent comment les données circulent entre les systèmes : contrats d'API, protocoles
+    de transport, blocs de construction. PublicSchema définit ce que ces données signifient :
+    ce qui constitue une inscription, un enregistrement ou une exploitation agricole, et quelles valeurs sont
+    valides pour un statut ou un type de tenure. DCI peut transporter le dossier ;
+    PublicSchema dit ce que signifient ses champs.
   </p>
   <p>
-    Les deux approches sont complémentaires. DCI spécifie comment transférer
-    des dossiers d'inscription entre systèmes ; PublicSchema spécifie ce que
-    signifient « inscription », « actif » et « benefit_modality » dans ces dossiers.
-    EU Core Person Vocabulary couvre les attributs d'identité ; PublicSchema
-    va plus loin, en intégrant le cycle de vie complet de la prestation, au-delà du nom
-    et de la date de naissance.
+    <strong>Les normes sectorielles</strong> telles que HL7 FHIR pour la santé, l'ISO 19152
+    (LADM) pour l'administration foncière, et le World Programme for the Census of Agriculture
+    de la FAO creusent un domaine en profondeur. PublicSchema les réutilise là où elles
+    couvrent le terrain et les relie par un socle commun, de sorte qu'un établissement de
+    santé, une école et une parcelle utilisent les mêmes briques de base pour la localisation,
+    les identifiants et l'enregistrement.
+  </p>
+  <p>
+    <strong>Les vocabulaires sémantiques</strong> comme les Vocabulaires de base SEMIC de l'UE
+    (Core Person, Core Business, Core Location) poursuivent le même objectif. PublicSchema
+    s'y aligne et étend cette approche aux registres sectoriels et à la prestation de
+    services, qu'ils ne couvrent pas.
+    <a href={localePath('/docs/related-standards/', locale)}>En savoir plus sur les normes connexes</a>.
   </p>
 </div>
 
@@ -259,10 +281,12 @@ const {
   <div class="h3-evidence-inner">
     <h2>Ancré dans des données probantes</h2>
     <p>
-      PublicSchema est fondé sur une analyse comparative de systèmes réels
-      couvrant l'identité (MOSIP), la protection sociale (OpenSPP, openIMIS),
-      la santé (DHIS2) et l'état civil (OpenCRVS), aux côtés des normes
-      d'interopérabilité de référence (DCI, FHIR). Lorsque des normes
+      PublicSchema est fondé sur une analyse comparative de systèmes réels et
+      de normes : la protection sociale (OpenSPP, openIMIS), l'état civil
+      (OpenCRVS), la santé (DHIS2, FHIR), les enquêtes auprès des ménages
+      (DHS, MICS, LSMS-ISA, Washington Group), les limites humanitaires
+      (OCHA COD-AB), les paiements et l'échange de données (DCI, GovStack),
+      et les Vocabulaires de base de l'UE (SEMIC). Lorsque des normes
       internationales (ISO pour le genre, les pays, les devises) couvrent le
       domaine, nous nous y référons. Lorsqu'elles n'existent pas, nous
       définissons un ensemble commun fondé sur le fonctionnement réel de ces
@@ -282,15 +306,16 @@ const {
   <h2>Par où commencer</h2>
   <div class="h3-personas">
     <div class="h3-persona">
-      <h3>&ldquo;Je coordonne des programmes qui servent des publics cibles communs&rdquo;</h3>
+      <h3>&ldquo;Je coordonne ou compare des services entre administrations, secteurs ou pays&rdquo;</h3>
       <p>
-        Vous avez besoin de chiffres consolidés, de listes de bénéficiaires dédupliquées, ou
-        de parcours d'orientation entre services. PublicSchema vous fournit des définitions partagées
-        pour que les données de différents programmes puissent être comparées et liées.
+        Vous avez besoin de chiffres consolidés, de listes dédupliquées de personnes, d'exploitations agricoles
+        ou d'entreprises, de parcours d'orientation entre services, ou d'indicateurs qui
+        signifient la même chose partout. PublicSchema vous fournit des définitions partagées
+        pour que les données de sources différentes puissent être liées et comparées.
       </p>
       <div class="h3-persona-links">
-        <a href={localePath('/docs/use-cases/', locale)}>Lire les cas d'usage</a>
-        <a href={localePath('/concepts/', locale)}>Parcourir les concepts</a>
+        <a href={localePath('/handbook/choose-your-path/', locale)}>Choisir votre parcours</a>
+        <a href={localePath('/metrics/', locale)}>Catalogue de métriques</a>
       </div>
     </div>
     <div class="h3-persona">
@@ -298,38 +323,39 @@ const {
       <p>
         Vous avez besoin de noms de champs et de codes de valeur partagés pour que les systèmes échangent des données
         sans couches de traduction sur mesure. Établissez la correspondance de votre système avec PublicSchema une fois ;
-        tout autre système déjà mappé devient automatiquement interopérable.
+        tout autre système déjà mis en correspondance devient interopérable.
       </p>
       <div class="h3-persona-links">
-        <a href={localePath('/properties/', locale)}>Parcourir les propriétés</a>
-        <a href={localePath('/vocab/', locale)}>Parcourir les vocabulaires</a>
+        <a href={localePath('/handbook/map-existing-systems/', locale)}>Mettre en correspondance un système existant</a>
+        <a href={localePath('/handbook/adopt-vocabularies/', locale)}>Adopter des vocabulaires</a>
       </div>
     </div>
     <div class="h3-persona">
-      <h3>&ldquo;Je rédige des exigences pour un nouveau système&rdquo;</h3>
+      <h3>&ldquo;Je conçois un nouveau système ou je rédige ses exigences&rdquo;</h3>
       <p>
         Vous avez besoin de spécifications d'interopérabilité concrètes pour votre appel d'offres, pas
         simplement « le système doit être interopérable ». Citez les propriétés et codes de valeur de PublicSchema
-        pour que les prestataires disposent d'une cible vérifiable. Là où les programmes de votre pays ont besoin
-        de plus (catégories de prestations spécifiques, identifiants existants), étendez PublicSchema dans votre
-        propre espace de définition ; l'interopérabilité est préservée.
+        pour que les fournisseurs disposent d'une cible vérifiable. Là où votre pays a besoin
+        de plus (types de tenure locaux, catégories de prestations, identifiants hérités), étendez
+        PublicSchema dans votre propre espace de noms ; l'interopérabilité est préservée.
       </p>
       <div class="h3-persona-links">
-        <a href={localePath('/docs/use-cases/', locale)}>Lire les cas d'usage</a>
-        <a href={localePath('/docs/data-model-guide/', locale)}>Guide du modèle de données</a>
-        <a href={localePath('/docs/extension-mechanism/', locale)}>Comment étendre</a>
+        <a href={localePath('/handbook/design-new-system/', locale)}>Concevoir un nouveau système</a>
+        <a href={localePath('/handbook/extend-publicschema/', locale)}>Comment étendre</a>
       </div>
     </div>
     <div class="h3-persona">
-      <h3>&ldquo;J&rsquo;analyse des programmes entre pays ou secteurs&rdquo;</h3>
+      <h3>&ldquo;Je gère un registre sectoriel&rdquo;</h3>
       <p>
-        Vous avez besoin d'un cadre structuré pour que les divergences deviennent
-        visibles et identifiables. L'inventaire des concepts et propriétés de PublicSchema
-        vous offre une grille commune de référence.
+        Vous tenez le registre des exploitations agricoles, des parcelles, des véhicules, des contribuables ou
+        des électeurs, et d'autres administrations doivent s'y référencer. Appuyez-vous sur le
+        socle commun pour les personnes, les organisations, les localisations et les
+        identifiants afin que vos enregistrements s'alignent avec les leurs, et utilisez votre
+        domaine sectoriel pour ce qui vous est propre.
       </p>
       <div class="h3-persona-links">
+        <a href={localePath('/docs/registry-foundations/', locale)}>Fondations des registres</a>
         <a href={localePath('/concepts/', locale)}>Parcourir les concepts</a>
-        <a href={localePath('/vocab/', locale)}>Parcourir les vocabulaires</a>
       </div>
     </div>
   </div>

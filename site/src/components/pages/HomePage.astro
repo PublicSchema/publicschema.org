@@ -6,6 +6,7 @@ import { defaultLocale, type Locale } from '../../i18n/languages';
 import { useTranslations, localePath } from '../../i18n/utils';
 import { loadVocabulary } from '../../data/vocabulary';
 import { createDomainCatalog } from '../../data/domains';
+import { buildSystemIndex, getSystemMeta } from '../../data/systems';
 import '../../styles/homepage.css';
 
 interface Props {
@@ -16,7 +17,8 @@ const { locale = defaultLocale } = Astro.props;
 const t = useTranslations(locale);
 
 const vocab = loadVocabulary();
-const maturityRank: Record<string, number> = { normative: 0, candidate: 1, draft: 2 };
+const maturityOrder = ['normative', 'candidate', 'draft'];
+const maturityRank: Record<string, number> = Object.fromEntries(maturityOrder.map((m, i) => [m, i]));
 const byFeaturedThenMaturityThenName = (
   a: { featured: boolean; maturity: string; id: string },
   b: { featured: boolean; maturity: string; id: string },
@@ -25,25 +27,8 @@ const byFeaturedThenMaturityThenName = (
   (maturityRank[a.maturity] ?? 9) - (maturityRank[b.maturity] ?? 9) ||
   a.id.localeCompare(b.id);
 const concepts = Object.values(vocab.concepts).sort(byFeaturedThenMaturityThenName);
-const coreConcepts = concepts.filter((c) => !c.domain);
 const domainCatalog = createDomainCatalog(vocab, locale);
-const domains = domainCatalog.present(concepts).filter((domain) => domain.code);
-const domainCodes = domains.map((domain) => domain.code!);
-const conceptsByDomain = Object.fromEntries(domainCodes.map((d) => [d, concepts.filter((c) => c.domain === d)]));
-const byMaturityThenName = (a: { maturity: string; id: string }, b: { maturity: string; id: string }) =>
-  (maturityRank[a.maturity] ?? 9) - (maturityRank[b.maturity] ?? 9) || a.id.localeCompare(b.id);
-const properties = Object.values(vocab.properties).sort(byMaturityThenName);
 
-// Pick featured concepts for homepage chips. If a group has featured items,
-// show exactly those; otherwise fall back to the first 6 by maturity.
-const featuredOrSlice = (list: typeof concepts, fallbackCount = 6) => {
-  const featured = list.filter((c) => c.featured);
-  return featured.length > 0 ? featured : list.slice(0, fallbackCount);
-};
-const coreChips = featuredOrSlice(coreConcepts);
-const domainChips = Object.fromEntries(
-  domainCodes.map((d) => [d, featuredOrSlice(conceptsByDomain[d])]),
-);
 // Ids that appear in more than one domain (including root) need a domain prefix
 // in chip labels to disambiguate. For example, "Person" exists at root and
 // under crvs/, so the crvs/Person chip shows "crvs: Person".
@@ -51,23 +36,27 @@ const idCounts: Record<string, number> = {};
 for (const c of concepts) { idCounts[c.id] = (idCounts[c.id] ?? 0) + 1; }
 const chipLabel = (c: { id: string; domain?: string | null }) =>
   (idCounts[c.id] ?? 0) > 1 && c.domain ? `${c.domain}: ${c.id}` : c.id;
-// Vocabularies are keyed by their canonical reference form (`<domain>/<id>`
-// for domain-scoped vocabs). Keep the entry key alongside so href links use
-// the prefixed path required by CRVS and other domain-scoped routes.
-const vocabularies = Object.entries(vocab.vocabularies)
-  .map(([key, v]) => ({ key, ...v }))
-  .sort((a, b) =>
-    (maturityRank[a.maturity] ?? 9) - (maturityRank[b.maturity] ?? 9) || a.key.localeCompare(b.key)
-  );
-const systems = [
-  { id: 'mosip', name: 'MOSIP' },
-  { id: 'openspp', name: 'OpenSPP' },
-  { id: 'openimis', name: 'openIMIS' },
-  { id: 'dci', name: 'DCI' },
-  { id: 'dhis2', name: 'DHIS2' },
-  { id: 'fhir_r4', name: 'FHIR R4' },
-  { id: 'opencrvs', name: 'OpenCRVS' },
-];
+
+// One card per represented domain, core first. The core card spans the full
+// width and shows every featured concept; sector cards show up to four
+// featured concepts (or the first four by maturity when none are featured).
+const domainCards = domainCatalog.present(concepts).map((domain) => {
+  const members = concepts.filter((c) => domainCatalog.get(c.domain ?? null).value === domain.value);
+  const featured = members.filter((c) => c.featured);
+  const chips = domain.code
+    ? (featured.length > 0 ? featured : members).slice(0, 4)
+    : featured;
+  const maturity = maturityOrder
+    .map((level) => ({ level, count: members.filter((c) => c.maturity === level).length }))
+    .filter(({ count }) => count > 0);
+  return { domain, members, chips, maturity };
+});
+
+const properties = Object.values(vocab.properties);
+const vocabularies = Object.values(vocab.vocabularies);
+const systems = Object.keys(buildSystemIndex())
+  .map((id) => ({ id, name: getSystemMeta(id).name }))
+  .sort((a, b) => a.name.localeCompare(b.name));
 
 const modules = import.meta.glob<{ default: AstroComponentFactory }>('./content/HomepageContent.*.astro');
 const wantedKey = `./content/HomepageContent.${locale}.astro`;
@@ -78,16 +67,16 @@ const Content = (await loader()).default;
 
 const titles: Record<Locale, { title: string; description: string }> = {
   en: {
-    title: 'Common definitions for public service delivery',
-    description: 'Common definitions for public service delivery. When programs serve the same people, their systems need a shared language.',
+    title: 'Common definitions for public services and government registries',
+    description: 'Common definitions for public services and government registries. When systems describe the same people, places, organizations and assets, they need a shared language.',
   },
   fr: {
-    title: 'Définitions communes pour la prestation de services publics',
-    description: 'Définitions communes pour la prestation de services publics. Lorsque des programmes servent les mêmes personnes, leurs systèmes ont besoin d\'un langage partagé.',
+    title: 'Définitions communes pour les services publics et les registres administratifs',
+    description: 'Définitions communes pour les services publics et les registres administratifs. Lorsque des systèmes décrivent les mêmes personnes, lieux, organisations et biens, ils ont besoin d\'un langage partagé.',
   },
   es: {
-    title: 'Definiciones comunes para la prestación de servicios públicos',
-    description: 'Definiciones comunes para la prestación de servicios públicos. Cuando los programas sirven a las mismas personas, sus sistemas necesitan un lenguaje compartido.',
+    title: 'Definiciones comunes para los servicios públicos y los registros administrativos',
+    description: 'Definiciones comunes para los servicios públicos y los registros administrativos. Cuando los sistemas describen a las mismas personas, lugares, organizaciones y bienes, necesitan un lenguaje compartido.',
   },
 };
 
@@ -126,72 +115,42 @@ const { title, description } = titles[locale];
     propertiesCount={properties.length}
     vocabulariesCount={vocabularies.length}
     systems={systems}
-  />
-
-  <!-- Schema index (preview) -->
-  <div class="h3-prose" id="index">
-    <h2>{t('home.browse_schema')}</h2>
-
-    <div class="h3-idx">
-      <div class="h3-idx-header">
-        <h3>{t('home.core_concepts')}</h3>
-        <span class="h3-idx-count">{coreConcepts.length}</span>
-      </div>
-      <div class="h3-idx-chips">
-        {coreChips.map((c) => (
-          <a href={localePath(c.path, locale)} class="h3-chip">
-            {chipLabel(c)}
-          </a>
-        ))}
-        {coreConcepts.length > coreChips.length && (
-          <a href={localePath('/concepts/', locale)} class="h3-chip h3-chip-more">
-            {t('home.plus_more', { count: coreConcepts.length - coreChips.length })}
-          </a>
-        )}
-      </div>
-    </div>
-
-    {domainCodes.map((domain) => (
-      <div class="h3-idx">
-        <div class="h3-idx-header">
-          <h3 title={domainCatalog.get(domain).description}>{domainCatalog.get(domain).label}</h3>
-          <span class="h3-idx-count">{conceptsByDomain[domain].length}</span>
-        </div>
-        <div class="h3-idx-chips">
-          {domainChips[domain].map((c) => (
-            <a href={localePath(c.path, locale)} class="h3-chip">
-              {chipLabel(c)}
-            </a>
+  >
+    <div class="h3-band" id="domains" slot="domains">
+      <div class="h3-band-inner">
+        <h2>{t('home.domains_title')}</h2>
+        <p class="h3-band-lead">{t('home.domains_lead')}</p>
+        <div class="h3-domains">
+          {domainCards.map(({ domain, members, chips, maturity }) => (
+            <div class:list={['h3-domain', { 'h3-domain-core': !domain.code }]} style={`--domain-color: ${domain.color}`}>
+              <a class="h3-domain-header" href={`${localePath('/concepts/', locale)}?domain=${encodeURIComponent(domain.value)}`}>
+                <h3>{domain.code ? domain.label : t('home.domain_core')}</h3>
+                <span class="h3-domain-count">{members.length}</span>
+              </a>
+              <p>{domain.code ? domain.description : t('home.domain_core_description')}</p>
+              <div class="h3-domain-chips">
+                {chips.map((c) => (
+                  <a href={localePath(c.path, locale)} class="h3-chip">{chipLabel(c)}</a>
+                ))}
+                {members.length > chips.length && (
+                  <a href={`${localePath('/concepts/', locale)}?domain=${encodeURIComponent(domain.value)}`} class="h3-chip h3-chip-more">
+                    {t('home.plus_more', { count: members.length - chips.length })}
+                  </a>
+                )}
+              </div>
+              <div class="h3-domain-maturity">
+                {maturity.map(({ level, count }) => (
+                  <span class={`badge badge-${level}`}>{count} {t(`browse.maturity_${level}` as 'browse.maturity_draft')}</span>
+                ))}
+              </div>
+            </div>
           ))}
-          {conceptsByDomain[domain].length > domainChips[domain].length && (
-            <a href={`${localePath('/concepts/', locale)}?domain=${encodeURIComponent(domain)}`} class="h3-chip h3-chip-more">
-              {t('home.plus_more', { count: conceptsByDomain[domain].length - domainChips[domain].length })}
-            </a>
-          )}
         </div>
       </div>
-    ))}
-
-    <div class="h3-idx">
-      <div class="h3-idx-header">
-        <h3>{t('home.vocabularies')}</h3>
-        <span class="h3-idx-count">{vocabularies.length}</span>
-      </div>
-      <div class="h3-idx-chips">
-        {vocabularies.slice(0, 8).map((v) => (
-          <a href={localePath(`/vocab/${v.key}`, locale)} class="h3-chip">
-            {v.label[locale] ?? v.label.en ?? v.key}
-            <span class="h3-chip-meta">{v.values.length}</span>
-          </a>
-        ))}
-        {vocabularies.length > 8 && (
-          <a href={localePath('/vocab/', locale)} class="h3-chip h3-chip-more">
-            {t('home.plus_more', { count: vocabularies.length - 8 })}
-          </a>
-        )}
-      </div>
     </div>
+  </Content>
 
+  <div class="h3-prose h3-prose-closing">
     <p class="h3-closing">
       {t('home.closing')}
       <a href="https://github.com/PublicSchema/publicschema.org">{t('home.source_github')}</a>
