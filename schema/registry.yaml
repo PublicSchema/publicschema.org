@@ -983,7 +983,7 @@ slots:
     slot_uri: publicschema:legal_resources
     title: Legal resources
     description: Identified legal provisions or policy resources that a service, organization,
-      decision, measure or institutional change relies on. A link does not execute a rule or
+      decision, measure, representation or institutional change relies on. A link does not execute a rule or
       establish which version is applicable. For the legal basis for processing personal data, use
       legal_basis.
     range: uri
@@ -995,14 +995,14 @@ slots:
       label_es: Recursos jurídicos
       label_fr: Ressources juridiques
       description_es: Disposiciones legales o recursos normativos identificados en los que se basa
-        un servicio, una organización, una decisión, una medida o un cambio institucional. Un enlace
+        un servicio, una organización, una decisión, una medida, una representación o un cambio institucional. Un enlace
         no ejecuta una norma ni establece cuál versión es aplicable. Para la base legal del
         tratamiento de datos personales, usar legal_basis.
       description_fr: Les dispositions légales ou ressources réglementaires identifiées sur
-        lesquelles s'appuie un service, une organisation, une décision, une mesure ou un changement
-        institutionnel. Un lien n'exécute pas une règle et n'établit pas quelle version est
+        lesquelles s'appuie un service, une organisation, une décision, une mesure, une représentation ou
+        un changement institutionnel. Un lien n'exécute pas une règle et n'établit pas quelle version est
         applicable. Pour la base juridique d'un traitement de données personnelles, utiliser
         legal_basis.
       category: governance
-      external_alignments_json: '[{"label": "Has legal resource", "match": "close", "note": "CPSV-AP 3.2.0 links a public service to the legal resources it relates to, operates under or has its legal basis in. This slot is also used on organizations, decisions, measures and institutional changes, and holds a URI rather than a described legal resource.", "uri": "http://data.europa.eu/m8g/hasLegalResource", "vocabulary": "CPSV-AP 3.2.0", "vocabulary_id": "semic"}]'
+      external_alignments_json: '[{"label": "Has legal resource", "match": "close", "note": "CPSV-AP 3.2.0 links a public service to the legal resources it relates to, operates under or has its legal basis in. This slot is also used on organizations, decisions, measures, representations and institutional changes, and holds a URI rather than a described legal resource.", "uri": "http://data.europa.eu/m8g/hasLegalResource", "vocabulary": "CPSV-AP 3.2.0", "vocabulary_id": "semic"}]'
       bibliography_refs: '["eu-eli-ontology", "semic-cpsv-ap"]'

@@ -82,6 +82,34 @@
     },
     "represented": "https://example.org/public-services/business",
     "representation_scope": "The source instrument describes permit applications and appeals. The example profile binds the separately reviewed grant; this text is not executable permission.",
+    "representation_powers": [
+      {
+        "@type": "CodedValue",
+        "code_value": "submit-application",
+        "code_scheme": "https://example.org/public-services/representation-powers"
+      },
+      {
+        "@type": "CodedValue",
+        "code_value": "submit-appeal",
+        "code_scheme": "https://example.org/public-services/representation-powers"
+      }
+    ],
+    "legal_resources": [
+      "https://example.org/public-services/law/representation"
+    ],
+    "evidence_assertions": [
+      {
+        "@type": "EvidenceAssertion",
+        "assertion_uri": "https://example.org/public-services/business-representation",
+        "evidence_source": "https://example.org/public-services/documents/representation-mandate",
+        "evidence_role": "supports",
+        "assertion_authority": {
+          "@id": "https://example.org/public-services/former-office",
+          "@type": "PublicOrganization"
+        },
+        "recorded_at": "2026-01-02T09:00:00Z"
+      }
+    ],
     "start_date": "2026-01-01",
     "end_date": "2026-12-31"
   },

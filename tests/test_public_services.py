@@ -163,6 +163,11 @@ def test_correspondence_role_text_cannot_grant_application_or_appeal_authority()
     role["representation_scope"] = "All applications and appeals are allowed."
     with pytest.raises(profile.ProfileError, match="no bound grant"):
         profile.validate_journey(changed, correspondence)
+    # A caller-supplied power code is a claim for the receiving authority to check, not a grant.
+    role["representation_powers"] = [{"@type": "CodedValue", "code_value": "submit-appeal",
+                                      "code_scheme": BASE + "representation-powers"}]
+    with pytest.raises(profile.ProfileError, match="no bound grant"):
+        profile.validate_journey(changed, correspondence)
     # Only the explicit bound profile grant changes the synthetic authorization result.
     profile.validate_journey(changed, CONFIG)
     applications_only = copy.deepcopy(CONFIG)
@@ -467,3 +472,16 @@ def test_a_decision_can_establish_any_registration(exports):
     validator(exports, "AdministrativeDecision").validate(record(changed, "grant-decision"))
     conforms, _, report = validate(jsonld_graph(changed, built["context"]), shacl_graph=shapes, ont_graph=hierarchy)
     assert conforms, report
+
+
+def test_a_mandate_states_coded_powers_a_legal_basis_and_its_instrument(built_vocabulary, schema_registry):
+    # A receiving authority can only check a mandate whose powers, basis and instrument are stated.
+    schema = built_vocabulary["concept_schemas"]["RepresentationRole"]
+    assert {"representation_powers", "legal_resources", "evidence_assertions"} <= schema["properties"].keys()
+    powers = built_vocabulary["properties"]["representation_powers"]
+    assert powers["type"] == "concept:CodedValue"
+    assert "does not by itself" in powers["definition"]["en"]
+    assert "representation" in built_vocabulary["properties"]["legal_resources"]["definition"]["en"]
+    role = record(RECORDS, "business-representation")
+    assert role["representation_powers"] and role["legal_resources"] and role["evidence_assertions"]
+    jsonschema.Draft202012Validator(schema, registry=schema_registry).validate(role)

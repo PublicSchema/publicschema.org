@@ -103,11 +103,16 @@ classes:
     title: Representation Role
     description: A dated relationship in which a person or organization acts on behalf of a person,
       organization, group or legal arrangement within a stated scope. Representation is distinct from identity, and recording it does not prove that
-      the representative may take a particular action.
+      the representative may take a particular action. A receiving authority can check a mandate that
+      states its powers as codes, its legal basis in legal resources and the instrument that grants it
+      as evidence.
     slots:
     - representative
     - represented
     - representation_scope
+    - representation_powers
+    - legal_resources
+    - evidence_assertions
     - start_date
     - end_date
     status: bibo:draft
@@ -117,11 +122,15 @@ classes:
       description_es: Una relación fechada en la que una persona o una organización actúa en nombre
         de una persona, una organización, un grupo o una estructura jurídica dentro de un ámbito
         determinado. La representación es distinta de la identidad, y su
-        registro no demuestra que el representante pueda realizar una acción determinada.
+        registro no demuestra que el representante pueda realizar una acción determinada. Una
+        autoridad receptora puede verificar un mandato que indica sus facultades como códigos, su
+        base jurídica en recursos jurídicos y el instrumento que lo otorga como evidencia.
       description_fr: Une relation datée dans laquelle une personne ou une organisation agit pour le
         compte d'une personne, d'une organisation, d'un groupe ou d'une construction juridique dans un
         cadre défini. La représentation est distincte de l'identité, et
         son enregistrement ne prouve pas que le représentant puisse accomplir une action particulière.
+        Une autorité destinataire peut vérifier un mandat qui indique ses pouvoirs sous forme de codes,
+        sa base juridique dans des ressources juridiques et l'instrument qui le confère comme preuve.
       bibliography_refs: '["semic-core-business", "us-irs-form-2848", "w3c-prov-o"]'
 slots:
   public_functions:
@@ -285,6 +294,32 @@ slots:
         fiduciaires.
       category: governance
       sensitivity: sensitive
+  representation_powers:
+    slot_uri: publicschema:representation_powers
+    title: Representation powers
+    description: The acts the representative may perform for the represented party, each coded in a
+      named scheme, such as a tax authority's list of authorization types or the powers listed on a
+      power of attorney form. A receiving authority checks them against its own rules; a code does not
+      by itself grant authority to take any action.
+    range: CodedValue
+    multivalued: true
+    status: bibo:draft
+    annotations:
+      label_es: Facultades de representación
+      label_fr: Pouvoirs de représentation
+      description_es: Los actos que el representante puede realizar en nombre de la parte representada,
+        cada uno codificado en un esquema indicado, como la lista de tipos de autorización de una
+        administración tributaria o las facultades enumeradas en un formulario de poder. Una autoridad
+        receptora los verifica según sus propias normas; un código no otorga por sí solo autoridad
+        para realizar ninguna acción.
+      description_fr: Les actes que le représentant peut accomplir pour la partie représentée, chacun
+        codé dans un schéma indiqué, par exemple la liste des types d'autorisation d'une administration
+        fiscale ou les pouvoirs énumérés sur un formulaire de procuration. Une autorité destinataire
+        les vérifie selon ses propres règles ; un code ne confère pas à lui seul le pouvoir
+        d'accomplir une action.
+      category: governance
+      sensitivity: sensitive
+      bibliography_refs: '["us-irs-form-2848"]'
   representation_scope:
     slot_uri: publicschema:representation_scope
     title: Representation scope
