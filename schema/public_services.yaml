@@ -69,7 +69,7 @@ classes:
     - submitted_by
     - submission_representation
     - authority
-    - submission_date
+    - request_submission_date
     - evidence_assertions
     - recorded_at
     status: bibo:draft
@@ -147,7 +147,7 @@ classes:
     - submitted_by
     - submission_representation
     - authority
-    - submission_date
+    - request_submission_date
     - evidence_assertions
     - recorded_at
     status: bibo:draft
@@ -345,6 +345,24 @@ slots:
         au dépôt particulier.
       category: governance
       sensitivity: sensitive
+  request_submission_date:
+    slot_uri: publicschema:request_submission_date
+    title: Request submission date
+    description: The date on which the applicant, the appellant or someone acting for them submitted
+      the application or appeal. It can precede the date on which the receiving authority registered it.
+    range: date
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      label_es: Fecha de presentación de la solicitud
+      label_fr: Date de dépôt de la demande
+      description_es: La fecha en que el solicitante, el recurrente o quien actuó en su nombre presentó
+        la solicitud o el recurso. Puede ser anterior a la fecha en que la autoridad receptora la
+        registró.
+      description_fr: La date à laquelle le demandeur, l'appelant ou la personne agissant pour son
+        compte a déposé la demande ou le recours. Elle peut précéder la date à laquelle l'autorité
+        destinataire l'a enregistré.
+      category: administrative
   decides_application:
     slot_uri: publicschema:decides_application
     title: Decides application

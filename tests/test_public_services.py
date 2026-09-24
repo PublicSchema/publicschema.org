@@ -103,8 +103,8 @@ def test_permit_history_validates_in_both_export_formats_and_local_profile(expor
 
 
 @pytest.mark.parametrize("suffix,field,bad", [
-    ("business-application", "submission_date", "yesterday"),
-    ("business-application", "submission_date", "2026-05-02T08:00:00Z"),
+    ("business-application", "request_submission_date", "yesterday"),
+    ("business-application", "request_submission_date", "2026-05-02T08:00:00Z"),
     ("grant-decision", "decision_date", "2026-05-10T09:00:00Z"),
     ("business-application", "public_service", [ref("permit-service", "PublicService")]),
     ("grant-decision", "decision_outcome", 7),
@@ -135,11 +135,11 @@ def test_wrong_decision_output_type_fails_shacl_even_with_an_existing_identity(e
     ("business-permit", {"registration_authority": ref("successor-agency", "PublicOrganization")}, "permit issuer differs"),
     ("permit-suspension", {"subject_uri": BASE + "business"}, "action subject differs"),
     ("business-appeal", {"challenged_decision": ref("business-permit", "Authorization")}, "wrong referenced type"),
-    ("business-appeal", {"submission_date": "2026-08-30"}, "appeal precedes challenged decision"),
-    ("business-appeal", {"submission_date": "2026-09-03T10:00:00Z"}, "calendar date required"),
+    ("business-appeal", {"request_submission_date": "2026-08-30"}, "appeal precedes challenged decision"),
+    ("business-appeal", {"request_submission_date": "2026-09-03T10:00:00Z"}, "calendar date required"),
     ("grant-decision", {"decision_date": "2026-05-01"}, "precedes application"),
     ("grant-decision", {"recorded_at": "2026-05-09T20:00:00Z"}, "recorded_at: precedes decision_date"),
-    ("resident-application", {"submission_date": "2026-07-31"}, "authority predates its creation"),
+    ("resident-application", {"request_submission_date": "2026-07-31"}, "authority predates its creation"),
     ("review-decision", {"subject_uri": BASE + "resident"}, "differs from challenged decision subject"),
     ("review-decision", {"authority": ref("former-office", "PublicOrganization")}, "differs from reviewing authority"),
     ("authority-succession", {"resulting_organizations": [ref("former-office", "PublicOrganization")]}, "distinct resulting identity"),
@@ -187,7 +187,7 @@ def test_representation_covers_start_day_and_stops_before_first_inactive_day(
     changed = copy.deepcopy(RECORDS)
     # The application is filed on May 2, which remains an included start day.
     record(changed, "business-representation").update(start_date="2026-05-02", end_date=end_date)
-    record(changed, "business-appeal")["submission_date"] = appeal_date
+    record(changed, "business-appeal")["request_submission_date"] = appeal_date
     if message:
         with pytest.raises(profile.ProfileError, match=message):
             profile.validate_journey(changed, CONFIG)
@@ -294,6 +294,18 @@ def test_capacity_observation_says_what_its_authority_did(exports):
         assert phrase in definition[language], language
 
 
+def test_requests_date_their_submission_apart_from_its_registration(exports):
+    # submission_date is the published grievance date and also admits registration.
+    built = exports[0]
+    for name in ("ServiceApplication", "AdministrativeAppeal"):
+        properties = built["concept_schemas"][name]["properties"]
+        assert "request_submission_date" in properties and "submission_date" not in properties, name
+    definition = built["properties"]["request_submission_date"]["definition"]
+    for language, phrase in (("en", "precede"), ("fr", "précéder"), ("es", "anterior")):
+        assert phrase in definition[language], language
+    assert "sp/Grievance" in built["properties"]["submission_date"]["used_by"]
+
+
 def test_dated_acts_share_the_event_hierarchy_and_one_authority_link(exports):
     built, _, hierarchy, _ = exports
     for name in ("ServiceApplication", "AdministrativeDecision", "AdministrativeAppeal",
@@ -307,7 +319,7 @@ def test_dated_acts_share_the_event_hierarchy_and_one_authority_link(exports):
                  "OrganizationalChangeEvent", "ServiceCapacityObservation",
                  "ComplianceAssessment", "RegulatoryAction"):
         assert "authority" in built["concept_schemas"][name]["properties"], name
-    for name in ("submission_date", "decision_date"):
+    for name in ("request_submission_date", "decision_date"):
         assert built["properties"][name]["type"] == "date"
     authored = {}
     for module in ("organizations", "registry", "public_services"):
@@ -422,6 +434,6 @@ def test_missing_recording_time_is_a_profile_error():
     changed = copy.deepcopy(RECORDS)
     event = record(changed, "office-name-correction")
     del event["recorded_at"]
-    event["submission_date"] = "2026-05-01"
+    event["request_submission_date"] = "2026-05-01"
     with pytest.raises(profile.ProfileError, match="office-name-correction.recorded_at: required"):
         profile.validate_journey(changed, CONFIG)

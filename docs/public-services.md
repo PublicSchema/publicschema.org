@@ -49,9 +49,9 @@ is public.
 | Record | Main fields and meaning |
 |---|---|
 | `PublicService` | `name`, `identifiers`, `description`, `service_competent_authorities`, `service_audience`, `legal_resources` describe the offered service. Its current authority need not be the authority on an earlier decision. |
-| `ServiceApplication` | `public_service`, `service_applicant`, `subject_uri`, `submitted_by`, `submission_representation`, `authority`, `submission_date`, `recorded_at`, `evidence_assertions` separate the request, subject, applicant, submitter and receiving authority. |
+| `ServiceApplication` | `public_service`, `service_applicant`, `subject_uri`, `submitted_by`, `submission_representation`, `authority`, `request_submission_date`, `recorded_at`, `evidence_assertions` separate the request, subject, applicant, submitter and receiving authority. |
 | `AdministrativeDecision` | `subject_uri`, `authority`, `decision_outcome`, `decision_date`, `effective_at`, `recorded_at`, `legal_resources`, `evidence_assertions` record the determination. `decides_application`, `decision_authorizations`, `decision_regulatory_actions` and `resolves_appeal` connect its context and results. |
-| `AdministrativeAppeal` | `challenged_decision`, `appellant`, `submitted_by`, `submission_representation`, `authority`, `submission_date`, `recorded_at`, `evidence_assertions` describe the filing and requested review; `authority` is the reviewing body. |
+| `AdministrativeAppeal` | `challenged_decision`, `appellant`, `submitted_by`, `submission_representation`, `authority`, `request_submission_date`, `recorded_at`, `evidence_assertions` describe the filing and requested review; `authority` is the reviewing body. |
 | `OrganizationalChangeEvent` | `original_organizations`, `resulting_organizations`, `lifecycle_kind`, `effective_at`, `recorded_at`, `authority`, `legal_resources`, `evidence_assertions` retain participants, timing and basis without replacing historical actors. |
 
 Applicant and appellant URI fields allow a person, group or organization without widening
@@ -106,7 +106,7 @@ binding, without proving the legal validity of a representation instrument.
 
 Representation periods use whole calendar days in this synthetic profile:
 `start_date` is included and `end_date` is the first inactive day. An appeal with
-`submission_date` `2026-09-03` therefore cannot use a role ending on `2026-09-03`.
+`request_submission_date` `2026-09-03` therefore cannot use a role ending on `2026-09-03`.
 Equal start and end dates describe an empty role interval and are rejected.
 The profile compares submission and decision dates with the UTC day of recording and
 effective timestamps. Deployments must choose the calendar and time zone appropriate

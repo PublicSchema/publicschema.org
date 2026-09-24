@@ -19,7 +19,7 @@ REQUIRED = {
     "PublicService": ("name", "service_competent_authorities", "legal_resources"),
     "ServiceApplication": (
         "public_service", "service_applicant", "subject_uri", "submitted_by",
-        "authority", "submission_date", "recorded_at",
+        "authority", "request_submission_date", "recorded_at",
     ),
     "AdministrativeDecision": (
         "subject_uri", "authority", "decision_outcome", "decision_date",
@@ -27,7 +27,7 @@ REQUIRED = {
     ),
     "AdministrativeAppeal": (
         "challenged_decision", "appellant", "submitted_by", "authority",
-        "submission_date", "recorded_at",
+        "request_submission_date", "recorded_at",
     ),
     "OrganizationalChangeEvent": (
         "original_organizations", "resulting_organizations", "lifecycle_kind", "effective_at",
@@ -165,7 +165,7 @@ def validate_journey(records, config):
         for field in ("effective_at", "recorded_at"):
             if field in record:
                 timestamp(record, field)
-        for field in ("submission_date", "decision_date"):
+        for field in ("request_submission_date", "decision_date"):
             if field in record and calendar_date(record, field) > utc_day(record, "recorded_at"):
                 raise ProfileError(f"{key}.recorded_at: precedes {field}")
         for value in record.get("evidence_assertions", []):
@@ -185,7 +185,7 @@ def validate_journey(records, config):
             submitter = linked(record, "submitted_by", APPLICANTS)
             service = service_for_application(record) if kind == "ServiceApplication" else service_for_appeal(record)
             authority = linked(record, "authority", {"PublicOrganization"})
-            when = calendar_date(record, "submission_date")
+            when = calendar_date(record, "request_submission_date")
             if authority["@id"] in created_at and when < created_at[authority["@id"]]:
                 raise ProfileError(f"{key}.authority: authority predates its creation")
             if kind == "ServiceApplication":
@@ -193,7 +193,7 @@ def validate_journey(records, config):
             else:
                 challenged = linked(record, "challenged_decision", {"AdministrativeDecision"})
                 if when < calendar_date(challenged, "decision_date"):
-                    raise ProfileError(f"{key}.submission_date: appeal precedes challenged decision")
+                    raise ProfileError(f"{key}.request_submission_date: appeal precedes challenged decision")
             if actor["@id"] != submitter["@id"] or "submission_representation" in record:
                 if "submission_representation" not in record:
                     raise ProfileError(f"{key}.submission_representation: representative requires a cited role")
@@ -226,7 +226,7 @@ def validate_journey(records, config):
             application = linked(record, "decides_application", {"ServiceApplication"})
             if subject["@id"] != linked(application, "subject_uri", None)["@id"]:
                 raise ProfileError(f"{key}.subject_uri: differs from application subject")
-            if made_on < calendar_date(application, "submission_date"):
+            if made_on < calendar_date(application, "request_submission_date"):
                 raise ProfileError(f"{key}.decision_date: precedes application")
         for value in record.get("decision_authorizations", []):
             permit = reference(value, {"Authorization"}, f"{key}.decision_authorizations")
@@ -270,7 +270,7 @@ def validate_journey(records, config):
                 raise ProfileError(f"{key}.resolves_appeal: cannot resolve an appeal against itself")
             if linked(challenged, "subject_uri", None)["@id"] != subject["@id"]:
                 raise ProfileError(f"{key}.subject_uri: differs from challenged decision subject")
-            if made_on < calendar_date(appeal, "submission_date"):
+            if made_on < calendar_date(appeal, "request_submission_date"):
                 raise ProfileError(f"{key}.decision_date: precedes appeal")
             if linked(appeal, "authority", {"PublicOrganization"})["@id"] != authority["@id"]:
                 raise ProfileError(f"{key}.authority: differs from reviewing authority")

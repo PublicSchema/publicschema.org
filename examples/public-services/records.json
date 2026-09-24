@@ -107,7 +107,7 @@
       "@id": "https://example.org/public-services/former-office",
       "@type": "PublicOrganization"
     },
-    "submission_date": "2026-05-02",
+    "request_submission_date": "2026-05-02",
     "recorded_at": "2026-05-02T08:05:00Z",
     "evidence_assertions": [
       {
@@ -138,7 +138,7 @@
       "@id": "https://example.org/public-services/successor-agency",
       "@type": "PublicOrganization"
     },
-    "submission_date": "2026-09-03",
+    "request_submission_date": "2026-09-03",
     "recorded_at": "2026-09-03T08:01:00Z"
   },
   {
@@ -366,7 +366,7 @@
       "@id": "https://example.org/public-services/review-board",
       "@type": "PublicOrganization"
     },
-    "submission_date": "2026-09-03",
+    "request_submission_date": "2026-09-03",
     "recorded_at": "2026-09-03T10:03:00Z",
     "evidence_assertions": [
       {
