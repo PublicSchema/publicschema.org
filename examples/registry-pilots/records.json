@@ -184,6 +184,21 @@
     "linked_parcel": "https://example.org/parcel/two"
   },
   {
+    "@id": "https://example.org/facility/barn",
+    "@type": "agri/AgriculturalFacility",
+    "name": "Shared barn",
+    "facility_function": [
+      "storage"
+    ]
+  },
+  {
+    "@id": "https://example.org/holding-facility/one",
+    "@type": "agri/HoldingFacilityLink",
+    "linked_holding": "https://example.org/holding/one",
+    "linked_facility": "https://example.org/facility/barn",
+    "start_date": "2026-01-01"
+  },
+  {
     "@id": "https://example.org/holding-parcel/shared",
     "@type": "agri/HoldingParcelLink",
     "linked_holding": "https://example.org/holding/two",

@@ -17,6 +17,7 @@ imports:
 - registry
 - work
 - land
+- agriculture_operations
 classes:
   Farm:
     class_uri: publicschema:agri/Farm
@@ -125,6 +126,33 @@ classes:
         partie d'une parcelle agricole. Plusieurs exploitations peuvent utiliser la même parcelle. Le
         lien n'affirme pas en soi un usage exclusif, une propriété ou un droit légal.
       bibliography_refs: '["fao-vggt", "fao-wca-2020-vol1", "fao-wca-2030"]'
+  HoldingFacilityLink:
+    class_uri: publicschema:agri/HoldingFacilityLink
+    title: Holding Facility Link
+    description: A dated statement that a farm uses an agricultural facility, such as a barn, store or livestock
+      premises, for its production. Several farms may use the same facility, and one farm may use several.
+      The link does not by itself assert ownership or operation of the facility; those are asset party roles.
+    slots:
+    - linked_holding
+    - linked_facility
+    - start_date
+    - end_date
+    - evidence_assertions
+    status: bibo:draft
+    annotations:
+      source_domain: agri
+      label_es: Vínculo entre finca e instalación
+      label_fr: Lien exploitation-installation
+      description_es: Una declaración fechada de que una finca utiliza una instalación agropecuaria, como
+        un establo, un almacén o un establecimiento ganadero, para su producción. Varias fincas pueden
+        utilizar la misma instalación, y una finca puede utilizar varias. El vínculo no afirma por sí mismo
+        la propiedad ni la operación de la instalación; estas son funciones de parte sobre el activo.
+      description_fr: Une déclaration datée selon laquelle une exploitation agricole utilise une installation
+        agricole, telle qu'une grange, un entrepôt ou un établissement d'élevage, pour sa production.
+        Plusieurs exploitations peuvent utiliser la même installation, et une exploitation peut en utiliser
+        plusieurs. Le lien n'affirme pas en soi la propriété ni l'exploitation de l'installation; celles-ci
+        sont des rôles de partie sur le bien.
+      bibliography_refs: '["fao-wca-2020-vol1", "fao-wca-2030", "woah-terrestrial-2024"]'
   FarmerRegistration:
     class_uri: publicschema:agri/FarmerRegistration
     title: Farmer Registration
@@ -462,7 +490,7 @@ slots:
   linked_holding:
     slot_uri: publicschema:agri/linked_holding
     title: Linked holding
-    description: The farm that uses the linked parcel.
+    description: The farm that uses the linked parcel or facility.
     range: Farm
     multivalued: false
     status: bibo:draft
@@ -470,8 +498,8 @@ slots:
       source_domain: agri
       label_es: Finca vinculada
       label_fr: Exploitation liée
-      description_es: La finca que utiliza la parcela vinculada.
-      description_fr: L'exploitation qui utilise la parcelle liée.
+      description_es: La finca que utiliza la parcela o la instalación vinculada.
+      description_fr: L'exploitation qui utilise la parcelle ou l'installation liée.
       category: administrative
   linked_parcel:
     slot_uri: publicschema:agri/linked_parcel
@@ -486,6 +514,20 @@ slots:
       label_fr: Parcelle liée
       description_es: La parcela agropecuaria utilizada por la finca durante el período de la relación.
       description_fr: La parcelle agricole utilisée par l'exploitation pendant la période de la relation.
+      category: administrative
+  linked_facility:
+    slot_uri: publicschema:agri/linked_facility
+    title: Linked facility
+    description: The agricultural facility used by the farm during the relationship period.
+    range: AgriculturalFacility
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      source_domain: agri
+      label_es: Instalación vinculada
+      label_fr: Installation liée
+      description_es: La instalación agropecuaria utilizada por la finca durante el período de la relación.
+      description_fr: L'installation agricole utilisée par l'exploitation pendant la période de la relation.
       category: administrative
   used_area:
     slot_uri: publicschema:agri/used_area

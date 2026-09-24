@@ -124,6 +124,20 @@ def test_a_split_parcel_is_a_new_parcel_that_names_its_predecessor(exports):
     assert not validate(graph(changed, result['context']), shacl_graph=shapes, inference='rdfs')[0]
 
 
+def test_a_holding_uses_a_facility_through_a_dated_link(exports):
+    result, shapes, records, _ = exports
+    link = result['concept_schemas']['agri/HoldingFacilityLink']['properties']
+    assert {'linked_holding', 'linked_facility', 'start_date', 'end_date', 'evidence_assertions'} <= link.keys()
+    assert result['properties']['linked_facility']['type'] == 'concept:agri/AgriculturalFacility'
+    definition = result['concepts']['agri/HoldingFacilityLink']['definition']['en']
+    assert 'does not by itself assert ownership or operation' in definition
+    used = next(r for r in records if r['@type'] == 'agri/HoldingFacilityLink')
+    assert (used['linked_holding'], used['linked_facility']) == ('https://example.org/holding/one', 'https://example.org/facility/barn')
+    changed = copy.deepcopy(records)
+    next(r for r in changed if r['@type'] == 'agri/HoldingFacilityLink')['linked_facility'] = 'https://example.org/parcel/one'
+    assert not validate(graph(changed, result['context']), shacl_graph=shapes, inference='rdfs')[0]
+
+
 def test_asset_actor_kind_is_a_local_profile_rule(exports):
     result, shapes, records, _ = exports
     changed = copy.deepcopy(records)

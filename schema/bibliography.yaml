@@ -216,7 +216,7 @@ classes:
       status: active
       version: v3.1
       note: ELM 3.1 (2023); ontology namespace http://data.europa.eu/snb/model/elm/.
-      informs_json: '{"concepts": ["AwardedQualification", "edu/EducationOffering"], "properties": ["offering_mode", "offering_program", "offering_provider", "offering_sites", "qualification_awarder"]}'
+      informs_json: '{"concepts": ["AwardedQualification", "edu/EducationOffering"], "properties": ["offering_mode", "offering_program", "offering_provider", "offering_sites", "qualification_awarder", "qualification_definition"]}'
   EbsiPortableDocA1Citation:
     class_uri: publicschema:Citation/ebsi-portable-doc-a1
     is_a: Citation
@@ -309,7 +309,7 @@ classes:
       access: open
       status: active
       note: First revision; replaces the 2012 first edition. ISBN 978-92-5-107277-6.
-      informs_json: '{"concepts": ["agri/Farm", "agri/HoldingParcelLink", "land/LandBoundaryAssertion", "land/LandTenureAssertion"], "properties": ["land_tenure"], "vocabularies": ["agri/land-tenure"]}'
+      informs_json: '{"concepts": ["agri/Farm", "agri/HoldingParcelLink", "land/LandBoundaryAssertion", "land/LandTenureAssertion"], "properties": ["land_tenure", "parcel_tenure"], "vocabularies": ["agri/land-tenure"]}'
   FaoWca2020Vol1Citation:
     class_uri: publicschema:Citation/fao-wca-2020-vol1
     is_a: Citation
@@ -329,7 +329,7 @@ classes:
       note: 'FAO Statistical Development Series 15. Full text: https://www.fao.org/4/i4913e/i4913e.pdf.
         Crop planting: paragraphs 8.2.19 and 8.4.10 to 8.4.17, Annex 4 (Indicative Crop Classification
         1.1). WCA 2030 supersedes it for the 2026-2035 census round.'
-      informs_json: '{"concepts": ["InformalGroup", "agri/AgriculturalHolderRole", "agri/AgriculturalParcel", "agri/CropPlanting", "agri/CropPlantingComponent", "agri/Farm", "agri/FarmerRegistration", "agri/GroupAgriculturalHolderRole", "agri/HoldingParcelLink", "agri/OrganizationAgriculturalHolderRole", "agri/PersonAgriculturalHolderRole"], "properties": ["component_planted_area", "crop_kind", "farm_area", "holder_farm", "holder_group", "holder_organization", "holder_person", "land_tenure", "livestock_type", "registered_farms"], "vocabularies": ["agri/land-tenure", "agri/livestock-type"]}'
+      informs_json: '{"concepts": ["InformalGroup", "agri/AgriculturalHolderRole", "agri/AgriculturalParcel", "agri/CropPlanting", "agri/CropPlantingComponent", "agri/Farm", "agri/FarmerRegistration", "agri/GroupAgriculturalHolderRole", "agri/HoldingFacilityLink", "agri/HoldingParcelLink", "agri/OrganizationAgriculturalHolderRole", "agri/PersonAgriculturalHolderRole"], "properties": ["component_planted_area", "crop_kind", "farm_area", "holder_farm", "holder_group", "holder_organization", "holder_person", "land_tenure", "livestock_type", "parcel_land_use", "parcel_tenure", "registered_farms"], "vocabularies": ["agri/land-tenure", "agri/livestock-type"]}'
   FhirAdministrativeGenderCitation:
     class_uri: publicschema:Citation/fhir-administrative-gender
     is_a: Citation
@@ -790,7 +790,7 @@ classes:
       uri: https://www.ilo.org/media/209766/download
       access: open
       status: active
-      informs_json: '{"concepts": ["WorkRelationship"], "properties": ["work_economic_unit", "work_form", "work_person", "work_remuneration", "work_seasonality", "work_status"], "vocabularies": ["form-of-work", "status-in-employment"]}'
+      informs_json: '{"concepts": ["WorkRelationship"], "properties": ["legal_employer", "work_economic_unit", "work_form", "work_person", "work_remuneration", "work_seasonality", "work_status"], "vocabularies": ["form-of-work", "status-in-employment"]}'
   IloAspireCitation:
     class_uri: publicschema:Citation/ilo-aspire
     is_a: Citation
@@ -2191,7 +2191,7 @@ classes:
       status: active
       version: 32nd edition
       note: 'Glossary: establishment, animal identification and animal traceability.'
-      informs_json: '{"concepts": ["AnimalGroup", "AnimalMovement", "IdentifiedAnimalUnit", "IndividualAnimal", "agri/AgriculturalFacility", "agri/AnimalResidence"], "vocabularies": ["agri/agricultural-facility-function"]}'
+      informs_json: '{"concepts": ["AnimalGroup", "AnimalMovement", "IdentifiedAnimalUnit", "IndividualAnimal", "agri/AgriculturalFacility", "agri/AnimalResidence", "agri/HoldingFacilityLink"], "vocabularies": ["agri/agricultural-facility-function"]}'
   AphaNbuHiveCountFaq2021Citation:
     class_uri: publicschema:Citation/apha-nbu-hive-count-faq-2021
     is_a: Citation
@@ -2539,7 +2539,7 @@ classes:
       access: open
       status: active
       note: Property-unit and parcel identification; title administration distinct from spatial identity
-      informs_json: '{"concepts": ["agri/AgriculturalParcel", "land/LandAdministrativeUnit", "land/LandBoundaryAssertion", "land/LandSpatialUnit", "land/LandTenureAssertion"]}'
+      informs_json: '{"concepts": ["agri/AgriculturalParcel", "land/LandAdministrativeUnit", "land/LandBoundaryAssertion", "land/LandSpatialUnit", "land/LandTenureAssertion"], "properties": ["land_spatial_units", "predecessor_parcels"]}'
   RegenstriefUcumCitation:
     class_uri: publicschema:Citation/regenstrief-ucum
     is_a: Citation
@@ -2737,7 +2737,7 @@ classes:
       status: active
       version: 0.4.0
       note: Relationship Statement and Interest; records are separate from statements.
-      informs_json: '{"concepts": ["LegalArrangement", "OwnershipInterest"], "properties": ["interest_type"], "vocabularies": ["interest-directness"]}'
+      informs_json: '{"concepts": ["LegalArrangement", "OwnershipInterest"], "properties": ["beneficial_ownership_definition", "beneficial_ownership_or_control", "interest_type"], "vocabularies": ["interest-directness"]}'
   UkDfeGiasCitation:
     class_uri: publicschema:Citation/uk-dfe-gias
     is_a: Citation
@@ -2911,7 +2911,7 @@ classes:
       note: Retrieved 2026-09-07; IRS permits eligible individual representatives. Compare HMRC https://www.gov.uk/appoint-tax-agent,
         which also describes voluntary organization assistance; generic endpoints deliberately permit
         persons or organizations under a scoped profile
-      informs_json: '{"concepts": ["RepresentationRole"]}'
+      informs_json: '{"concepts": ["RepresentationRole"], "properties": ["representation_powers"]}'
   IloIcse18Manual2023Citation:
     class_uri: publicschema:Citation/ilo-icse18-manual-2023
     is_a: Citation
@@ -2930,7 +2930,7 @@ classes:
       note: Verified August 2023 edition; printed pages 4–5 distinguish persons, economic units, employment
         and other work relationships; page 21 describes contributing family workers. Supports meaning,
         not an exact mapping or a mandated PublicSchema serialization. Accessed 2026-09-08.
-      informs_json: '{"concepts": ["WorkRelationship", "agri/HoldingWorkAssignment"], "properties": ["assigned_holding", "assignment_work_relationship", "work_economic_unit", "work_form", "work_functions", "work_person", "work_remuneration", "work_seasonality", "work_status"]}'
+      informs_json: '{"concepts": ["WorkRelationship", "agri/HoldingWorkAssignment"], "properties": ["assigned_holding", "assignment_work_relationship", "legal_employer", "work_economic_unit", "work_form", "work_functions", "work_person", "work_remuneration", "work_seasonality", "work_status"]}'
   EcInspireRegisters2017Citation:
     class_uri: publicschema:Citation/ec-inspire-registers-2017
     is_a: Citation
@@ -3032,7 +3032,7 @@ classes:
       note: FAO Statistical Development Series No. 22; CC BY 4.0; published 4 May 2026. Sections 4.3 and
         4.19 to 4.24 (holder and paid or unpaid manager), 7.2.38 to 7.2.47, 7.9.16 to 7.9.18 (employees,
         contractors and repeated work) and Annex 8.
-      informs_json: '{"concepts": ["WorkRelationship", "agri/AgriculturalHolderRole", "agri/AgriculturalParcel", "agri/Farm", "agri/FarmerRegistration", "agri/GroupAgriculturalHolderRole", "agri/HoldingParcelLink", "agri/HoldingWorkAssignment", "agri/OrganizationAgriculturalHolderRole", "agri/PersonAgriculturalHolderRole"], "properties": ["assigned_holding", "assignment_work_relationship", "farm_area", "holder_farm", "holder_group", "holder_organization", "holder_person", "land_tenure", "livestock_type", "registered_farms", "work_economic_unit", "work_form", "work_functions", "work_person", "work_remuneration", "work_seasonality", "work_status"], "vocabularies": ["agri/land-tenure", "agri/livestock-type"]}'
+      informs_json: '{"concepts": ["WorkRelationship", "agri/AgriculturalHolderRole", "agri/AgriculturalParcel", "agri/Farm", "agri/FarmerRegistration", "agri/GroupAgriculturalHolderRole", "agri/HoldingFacilityLink", "agri/HoldingParcelLink", "agri/HoldingWorkAssignment", "agri/OrganizationAgriculturalHolderRole", "agri/PersonAgriculturalHolderRole"], "properties": ["assigned_holding", "assignment_work_relationship", "farm_area", "holder_farm", "holder_group", "holder_organization", "holder_person", "land_tenure", "livestock_type", "parcel_land_use", "parcel_tenure", "registered_farms", "work_economic_unit", "work_form", "work_functions", "work_person", "work_remuneration", "work_seasonality", "work_status"], "vocabularies": ["agri/land-tenure", "agri/livestock-type"]}'
   SparCitoCitation:
     class_uri: publicschema:Citation/spar-cito
     is_a: Citation
@@ -3551,7 +3551,7 @@ classes:
       standard_number: ISO 19152-1:2024
       note: First edition 2024-01; supersedes ISO 19152:2012. Clauses 3.1.2 basic administrative unit,
         3.1.5 fraction, 3.1.7 group party and 3.1.8 land.
-      informs_json: '{"concepts": ["land/LandAdministrativeUnit", "land/LandBoundaryAssertion", "land/LandSpatialUnit", "land/LandTenureAssertion"], "properties": ["tenure_category", "tenure_holder", "tenure_object", "tenure_share_denominator", "tenure_share_numerator"], "vocabularies": ["land/tenure-category"]}'
+      informs_json: '{"concepts": ["land/LandAdministrativeUnit", "land/LandBoundaryAssertion", "land/LandSpatialUnit", "land/LandTenureAssertion"], "properties": ["land_spatial_units", "predecessor_parcels", "tenure_category", "tenure_holder", "tenure_object", "tenure_share_denominator", "tenure_share_numerator"], "vocabularies": ["land/tenure-category"]}'
   UpovConvention1991Citation:
     class_uri: publicschema:Citation/upov-convention-1991
     is_a: Citation
