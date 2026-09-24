@@ -69,6 +69,21 @@ record as a `RecordReference`, and `record_change_kind` says what happened to it
 `effective_at` may precede `recorded_at`. A change to the organization itself, such as a
 merger or succession, is an `OrganizationalChangeEvent`, not a record lifecycle event.
 
+## Validity and later actions
+
+`valid_from` and `valid_to` state the validity of a registration, permission, certification or
+other stated fact as its source granted or declared it. They are not overwritten when its standing
+later changes:
+
+- A suspension, withdrawal or other interruption is a `RegulatoryAction` whose `subject_uri` is
+  the registration or permission. Its `start_date` and `end_date` bound the period in which the
+  measure has effect, and `action_date` is when it was taken.
+- A `RecordLifecycleEvent` is only for the record itself: an error that invalidates it, its
+  retirement or its replacement. It does not express a change in legal standing.
+
+The standing on a given day follows from the stated validity together with the actions in
+effect that day. A profile decides which actions it considers and how appeals affect them.
+
 ## Closed code lists
 
 Where a standard fixes a short list, or PublicSchema fixes one informed by a standard, the

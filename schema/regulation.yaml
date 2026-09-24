@@ -53,8 +53,10 @@ classes:
     title: Regulatory Action
     description: A measure an authority takes about a regulated subject, such as a warning, order, penalty,
       suspension or withdrawal. The authority is the body taking the measure, and the legal resources
-      are the provisions it relies on. Action types and legal resources are interpreted in their jurisdiction;
-      recording a measure does not show that it is final or upheld.
+      are the provisions it relies on. The start and end dates bound the period in which the measure has
+      effect, such as a suspension; the measure does not rewrite the validity of a registration or permission
+      it concerns. Action types and legal resources are interpreted in their jurisdiction; recording a measure
+      does not show that it is final or upheld.
     is_a: Event
     slots:
     - subject_uri
@@ -62,6 +64,8 @@ classes:
     - action_type
     - legal_resources
     - action_date
+    - start_date
+    - end_date
     - action_description
     status: bibo:draft
     annotations:
@@ -69,13 +73,17 @@ classes:
       label_fr: Mesure réglementaire
       description_es: Una medida que una autoridad adopta respecto de un sujeto regulado, como una
         advertencia, una orden, una sanción, una suspensión o un retiro. La autoridad es el organismo
-        que adopta la medida, y los recursos jurídicos son las disposiciones en las que se basa. Los
+        que adopta la medida, y los recursos jurídicos son las disposiciones en las que se basa. Las
+        fechas de inicio y de fin delimitan el período en que la medida surte efecto, como una suspensión;
+        la medida no reescribe la vigencia de un registro o de una autorización a los que se refiere. Los
         tipos de medida y los recursos jurídicos se interpretan según su jurisdicción; el registro
         de una medida no demuestra que sea definitiva o confirmada.
       description_fr: Une mesure qu'une autorité prend à l'égard d'un sujet réglementé, par exemple
         un avertissement, une injonction, une sanction, une suspension ou un retrait. L'autorité est
         l'organisme qui prend la mesure, et les ressources juridiques sont les dispositions sur lesquelles
-        elle s'appuie. Les types de mesures et les ressources juridiques s'interprètent dans leur juridiction ;
+        elle s'appuie. Les dates de début et de fin délimitent la période pendant laquelle la mesure produit
+        effet, par exemple une suspension ; la mesure ne réécrit pas la validité d'un enregistrement ou
+        d'une autorisation qu'elle concerne. Les types de mesures et les ressources juridiques s'interprètent dans leur juridiction ;
         l'enregistrement d'une mesure ne montre pas qu'elle est définitive ou confirmée.
       bibliography_refs: '["eu-reg-2017-625", "us-epa-echo"]'
   Certification:

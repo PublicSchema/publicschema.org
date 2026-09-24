@@ -435,32 +435,43 @@ slots:
   valid_from:
     slot_uri: publicschema:valid_from
     title: Valid from
-    description: The first calendar day on which the record applies, when known.
+    description: The first calendar day on which the registration, permission, certification or other
+      stated fact applies, as its source states it, when known. A later suspension, withdrawal or correction
+      is recorded separately and does not overwrite this date.
     range: date
     multivalued: false
     status: bibo:draft
     annotations:
       label_es: Vigente desde
       label_fr: Valide à partir de
-      description_es: El primer día calendario en que se aplica el registro, cuando se conoce.
-      description_fr: Le premier jour calendaire où l'enregistrement s'applique, lorsqu'il est
-        connu.
+      description_es: El primer día calendario en que se aplica el registro, la autorización, la
+        certificación u otro hecho declarado, tal como lo indica su fuente, cuando se conoce. Una suspensión,
+        un retiro o una corrección posteriores se registran por separado y no sustituyen esta fecha.
+      description_fr: Le premier jour calendaire où s'applique l'enregistrement, l'autorisation, la
+        certification ou un autre fait déclaré, tel que sa source l'indique, lorsqu'il est connu. Une
+        suspension, un retrait ou une correction ultérieurs sont consignés séparément et ne remplacent
+        pas cette date.
       category: administrative
   valid_to:
     slot_uri: publicschema:valid_to
     title: Valid to
-    description: The last calendar day on which the record applies. If absent, the end is unknown,
-      not unlimited.
+    description: The last calendar day on which the registration, permission, certification or other
+      stated fact applies, as its source states it. A later suspension, withdrawal or correction is recorded
+      separately and does not overwrite this date. If absent, the end is unknown, not unlimited.
     range: date
     multivalued: false
     status: bibo:draft
     annotations:
       label_es: Vigente hasta
       label_fr: Valide jusqu'à
-      description_es: El último día calendario en que se aplica el registro. Si está ausente, el
-        final es desconocido, no ilimitado.
-      description_fr: Le dernier jour calendaire où l'enregistrement s'applique. En son absence, la
-        fin est inconnue, et non illimitée.
+      description_es: El último día calendario en que se aplica el registro, la autorización, la
+        certificación u otro hecho declarado, tal como lo indica su fuente. Una suspensión, un retiro
+        o una corrección posteriores se registran por separado y no sustituyen esta fecha. Si está
+        ausente, el final es desconocido, no ilimitado.
+      description_fr: Le dernier jour calendaire où s'applique l'enregistrement, l'autorisation, la
+        certification ou un autre fait déclaré, tel que sa source l'indique. Une suspension, un retrait
+        ou une correction ultérieurs sont consignés séparément et ne remplacent pas cette date. En son
+        absence, la fin est inconnue, et non illimitée.
       category: administrative
   supersedes_record:
     slot_uri: publicschema:supersedes_record

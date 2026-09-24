@@ -276,3 +276,20 @@ def test_record_change_kinds_leave_deletion_and_retention_to_applicable_law(resu
     definition = result["vocabularies"]["record-change-kind"]["definition"][language]
     assert law in definition
     assert not any(word in definition for word in ("rather than deleted", "plutôt que supprimées", "en lugar de eliminarse"))
+
+
+def test_a_regulatory_action_states_its_own_effect_period(result):
+    # A suspension has its own period; it does not shorten the validity of the permit it suspends.
+    slots = {entry["id"] if isinstance(entry, dict) else entry for entry in result["concepts"]["RegulatoryAction"]["properties"]}
+    assert {"start_date", "end_date", "action_date"} <= slots
+
+
+@pytest.mark.parametrize("slot", ["valid_from", "valid_to"])
+@pytest.mark.parametrize("language,granted,later", [
+    ("en", "registration", "does not overwrite"),
+    ("fr", "enregistrement", "ne remplacent pas"),
+    ("es", "registro", "no sustituye"),
+])
+def test_validity_is_as_stated_and_later_actions_do_not_overwrite_it(result, slot, language, granted, later):
+    definition = result["properties"][slot]["definition"][language]
+    assert granted in definition and later in definition
