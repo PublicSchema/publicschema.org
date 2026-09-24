@@ -9648,6 +9648,9 @@ enums:
         o a través de entidades o mecanismos intermediarios.
       description_fr: Indique si une participation de propriété ou de contrôle est détenue
         directement ou par l'intermédiaire d'entités ou de montages intermédiaires.
+      standard_json: '{"name": "Beneficial Ownership Data Standard 0.4.0, directOrIndirect",
+        "notes": "The codes match the BODS values direct, indirect and unknown.", "uri":
+        "https://standard.openownership.org/en/0.4.0/standard/reference.html"}'
   LandTenure:
     enum_uri: publicschema:agri/LandTenure
     title: Land Tenure

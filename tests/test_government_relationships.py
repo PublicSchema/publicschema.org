@@ -247,6 +247,12 @@ def test_indirect_routes_live_on_the_interest_without_a_separate_chain_class(exp
     assert [item["@id"] for item in route] == [EX + "indirect-control"]
 
 
+def test_interest_directness_cites_the_bods_codes_it_reuses(exports):
+    built = exports[0]
+    vocabulary = built["vocabularies"]["interest-directness"]
+    assert "directOrIndirect" in vocabulary["standard"]["name"]
+    assert {value["code"] for value in vocabulary["values"]} == {"direct", "indirect", "unknown"}
+
 def test_optional_reference_shapes_do_not_assert_complete_exchange(exports):
     for kind in ("LegalArrangement", "OwnershipInterest", "edu/EducationOffering"):
         partial = {"@id": EX + "partial", "@type": kind}
