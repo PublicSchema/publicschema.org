@@ -9651,6 +9651,7 @@ enums:
       standard_json: '{"name": "Beneficial Ownership Data Standard 0.4.0, directOrIndirect",
         "notes": "The codes match the BODS values direct, indirect and unknown.", "uri":
         "https://standard.openownership.org/en/0.4.0/standard/reference.html"}'
+      bibliography_refs: '["openownership-bods"]'
   LandTenure:
     enum_uri: publicschema:agri/LandTenure
     title: Land Tenure

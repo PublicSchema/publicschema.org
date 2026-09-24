@@ -128,6 +128,7 @@ VOCAB_STANDARD_LOOKUP: dict[str, str] = {
     "Sphere Handbook 2018, Standard 6 Security of Tenure; UNHCR HLP guidance": "sphere-2018",
     "IOM Displacement Tracking Matrix (DTM) documentation indicator": "iom-dtm",
     "FAO World Programme for the Census of Agriculture 2030 (WCA 2030), Item 0204 Area of holding according to land tenure types": "fao-wca-2030",
+    "Beneficial Ownership Data Standard 0.4.0, directOrIndirect": "openownership-bods",
     "FAO World Programme for the Census of Agriculture 2030 (WCA 2030), Annex 8 Classification of livestock": "fao-wca-2030",
     "ISO 19152-1:2024 Land Administration Domain Model (LADM)": "iso-19152-1-2024",
 }
