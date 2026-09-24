@@ -110,6 +110,7 @@ def test_register_references_carry_the_sensitive_signal(result):
 @pytest.mark.parametrize("slot", [
     "holder_person", "work_person", "role_actor", "asset_actor", "interest_holder",
     "tenure_holder", "animal_responsible_actor", "matched_subject", "registered_subject",
+    "legal_employer",
 ])
 def test_links_naming_the_party_behind_a_role_or_match_are_sensitive(result, slot):
     # Each of these ties a person to a holding, job, asset, interest or record.
