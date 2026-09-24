@@ -73,6 +73,22 @@ for (const locale of ['en', 'fr', 'es'] as Locale[]) {
   });
 }
 
+test('fr home draft badges use the same term as the maturity docs', async ({ page }) => {
+  await page.goto('/fr/');
+  await expect(page.locator('.h3-domain .badge-draft').first()).toContainText('Brouillon');
+});
+
+test('en home closing line sits close under the personas with a single divider', async ({ page }) => {
+  await page.goto('/');
+  const personas = await page.locator('.h3-personas').boundingBox();
+  const closing = await page.locator('.h3-closing').boundingBox();
+  expect(closing!.y - (personas!.y + personas!.height)).toBeLessThanOrEqual(120);
+
+  const dividers = await page.locator('.h3-closing').evaluate((el) =>
+    [el, el.parentElement!].filter((node) => getComputedStyle(node).borderTopStyle !== 'none').length);
+  expect(dividers).toBe(1);
+});
+
 test('en home personas point to handbook paths', async ({ page }) => {
   await page.goto('/');
   const hrefs = await page.locator('.h3-persona-links a').evaluateAll((els) =>

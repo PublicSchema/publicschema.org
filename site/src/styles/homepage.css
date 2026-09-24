@@ -682,12 +682,15 @@ a.h3-system:hover {
   font-family: var(--font-sans) !important;
   font-size: 0.875rem !important;
   color: var(--color-text-muted);
-  margin-top: var(--space-2xl) !important;
-  padding-top: var(--space-lg);
-  border-top: 1px solid var(--color-border-light);
+  margin-top: 0 !important;
   display: flex;
   align-items: center;
   gap: var(--space-md);
+}
+
+/* The wrapper already gets a divider from `.h3-prose + .h3-prose`. */
+.h3-prose-closing {
+  padding-top: var(--space-lg);
 }
 
 .h3-closing a {

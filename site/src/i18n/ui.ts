@@ -521,7 +521,7 @@ export const ui: Record<Locale, Partial<Dict>> = {
     'browse.facet_sensitivity': 'Sensibilité',
     'browse.facet_category': 'Catégorie',
     'browse.domain_universal': 'Universel',
-    'browse.maturity_draft': 'Ébauche',
+    'browse.maturity_draft': 'Brouillon',
     'browse.maturity_candidate': 'Candidat',
     'browse.maturity_normative': 'Normatif',
     'browse.yes': 'Oui',
@@ -663,7 +663,7 @@ export const ui: Record<Locale, Partial<Dict>> = {
     'hover_card.fallback_tag': 'affiché en {locale}',
     'hover_card.property_type': 'Type',
     'hover_card.property_vocabulary': 'Vocabulaire',
-    'hover_card.badge_draft': 'ébauche',
+    'hover_card.badge_draft': 'brouillon',
     'hover_card.badge_candidate': 'candidat',
     'hover_card.badge_stable': 'stable',
     'hover_card.badge_abstract': 'abstrait',
@@ -685,7 +685,7 @@ export const ui: Record<Locale, Partial<Dict>> = {
 
     // Homepage schema index (data-driven section)
     'home.domains_title': 'Un socle commun, plusieurs secteurs',
-    'home.domains_lead': 'Ce que tous les secteurs partagent (personnes, groupes, organisations, lieux, identifiants, enregistrements, paiements) est défini une seule fois dans un socle commun. Les domaines sectoriels s\'appuient sur ce socle pour les registres que tient chaque ministère. Les nouveaux domaines sont publiés sous forme d\'ébauches afin d\'être relus tôt ; les badges indiquent leur degré de stabilité.',
+    'home.domains_lead': 'Ce que tous les secteurs partagent (personnes, groupes, organisations, lieux, identifiants, enregistrements, paiements) est défini une seule fois dans un socle commun. Les domaines sectoriels s\'appuient sur ce socle pour les registres que tient chaque ministère. Les nouveaux domaines sont publiés à l\'état de brouillon afin d\'être relus tôt ; les badges indiquent leur degré de stabilité.',
     'home.domain_core': 'Socle commun',
     'home.domain_core_description': 'Concepts utilisés dans tous les secteurs : personnes et groupes, organisations, lieux, identifiants, enregistrements, documents et paiements.',
     'home.plus_more': '+{count} de plus',
