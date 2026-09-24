@@ -80,6 +80,16 @@ def test_awarded_qualification_is_a_root_term_with_joint_awarders():
     assert awarder["range"] == "Organization" and awarder["multivalued"] is True
 
 
+def test_an_awarded_qualification_can_name_the_qualification_it_awards(built):
+    # A title string cannot be matched to a qualifications register entry or to a program's qualification_awarded.
+    assert "qualification_definition" in EDUCATION["classes"]["AwardedQualification"]["slots"]
+    prop = built["properties"]["qualification_definition"]
+    assert prop["type"] == "uri"
+    assert prop["sensitivity"] == "sensitive"
+    assert "qualification_awarded" in prop["definition"]["en"]
+    assert "http://data.europa.eu/snb/model/elm/specifiedBy" in alignments(EDUCATION["slots"]["qualification_definition"])
+
+
 @pytest.mark.parametrize("name", ["EducationProgramme", "ProfessionalQualification", "provider_programmes",
                                   "programme_award", "offering_award", "programme_classification",
                                   "offering_programme"])
