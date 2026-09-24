@@ -29,8 +29,9 @@ HTTP resolution or implement register governance. DCAT provides background for t
 record and subject boundary; it does not define administrative recognition, permission,
 the Authorization hierarchy or the complete CodedValue structure.
 
-`register_uri` and `registered_subject` are marked sensitive: knowing that a person
-appears in a particular register can reveal their circumstances. `subject_uri` alone is not.
+`register_uri`, `registered_subject` and `matched_subject` are marked sensitive: knowing that a
+person appears in a particular register, or was matched to a source record, can reveal their
+circumstances. `subject_uri` alone is not.
 
 ## Statements about a subject
 
