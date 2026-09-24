@@ -563,31 +563,31 @@ slots:
   registration_purpose:
     slot_uri: publicschema:registration_purpose
     title: Registration purpose
-    description: The administrative purpose or category of the recognition. It does not imply eligibility
-      for a benefit.
+    description: The administrative purpose or category of the recognition, stated as text. It does
+      not imply eligibility for a benefit.
     range: string
     multivalued: false
     status: bibo:draft
     annotations:
       label_es: Finalidad del registro
       label_fr: Finalité de l'enregistrement
-      description_es: La finalidad o categoría administrativa del reconocimiento. No implica elegibilidad
-        para un beneficio.
-      description_fr: La finalité ou la catégorie administrative de la reconnaissance. N'implique pas
-        l'éligibilité à un avantage.
+      description_es: La finalidad o categoría administrativa del reconocimiento, expresada en
+        texto. No implica elegibilidad para un beneficio.
+      description_fr: La finalité ou la catégorie administrative de la reconnaissance, énoncée sous
+        forme de texte. N'implique pas l'éligibilité à un avantage.
       category: administrative
   authorized_activity:
     slot_uri: publicschema:authorized_activity
     title: Authorized activity
-    description: The activity that the permission covers.
+    description: The activity that the permission covers, stated as text.
     range: string
     multivalued: false
     status: bibo:draft
     annotations:
       label_es: Actividad autorizada
       label_fr: Activité autorisée
-      description_es: La actividad que cubre el permiso.
-      description_fr: L'activité que couvre la permission.
+      description_es: La actividad que cubre el permiso, expresada en texto.
+      description_fr: L'activité que couvre la permission, énoncée sous forme de texte.
       category: administrative
   authorization_conditions:
     slot_uri: publicschema:authorization_conditions
@@ -919,17 +919,18 @@ slots:
   contact_purpose:
     slot_uri: publicschema:contact_purpose
     title: Contact purpose
-    description: The purpose for which the contact is offered, such as billing, complaints or emergencies.
+    description: The purpose for which the contact is offered, such as billing, complaints or
+      emergencies, stated as text.
     range: string
     multivalued: false
     status: bibo:draft
     annotations:
       label_es: Finalidad del contacto
       label_fr: Finalité du contact
-      description_es: La finalidad para la que se ofrece el contacto, como facturación, reclamaciones
-        o emergencias.
-      description_fr: La finalité pour laquelle le contact est proposé, telle que la facturation, les
-        réclamations ou les urgences.
+      description_es: La finalidad para la que se ofrece el contacto, como facturación,
+        reclamaciones o emergencias, expresada en texto.
+      description_fr: La finalité pour laquelle le contact est proposé, telle que la facturation,
+        les réclamations ou les urgences, énoncée sous forme de texte.
       category: contact
   legal_resources:
     slot_uri: publicschema:legal_resources

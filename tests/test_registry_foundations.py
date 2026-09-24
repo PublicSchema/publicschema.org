@@ -125,6 +125,12 @@ def test_building_aligns_with_the_inspire_feature_concept(result):
     equivalents = result["concepts"]["Building"]["external_equivalents"]
     assert "http://inspire.ec.europa.eu/featureconcept/Building" in {entry["uri"] for entry in equivalents.values()}
 
+@pytest.mark.parametrize("slot", ["registration_purpose", "authorized_activity", "contact_purpose"])
+def test_free_text_purposes_say_they_are_text(result, slot):
+    prop = result["properties"][slot]
+    assert prop["type"] == "string"
+    assert "stated as text" in prop["definition"]["en"]
+
 BANNED_PHRASES = (
     "scheme-qualified", "consuming profile", "draft covers", "review brief", "starter",
     "registrystack", "registry stack", "this branch", "array position",
