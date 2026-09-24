@@ -1488,7 +1488,7 @@ slots:
   formation_date:
     slot_uri: publicschema:formation_date
     title: Formation date
-    description: The date on which this group was formed or registered.
+    description: The date on which this group or organization was formed or registered.
     range: date
     multivalued: false
     status: bibo:status/published
@@ -1497,8 +1497,8 @@ slots:
     annotations:
       label_es: Fecha de formación
       label_fr: Date de formation
-      description_es: La fecha en que este grupo fue formado o registrado.
-      description_fr: La date à laquelle ce groupe a été formé ou enregistré.
+      description_es: La fecha de formación o de registro de este grupo u organización.
+      description_fr: La date de formation ou d'enregistrement de ce groupe ou de cette organisation.
       category: administrative
       external_alignments_json: '[{"label": "registration_date", "match": "close", "note": "DCI records
         when the group was registered; PublicSchema distinguishes group formation from registration",

@@ -63,6 +63,11 @@ class TestOrganizationConcept:
         # ADR-008's minimum set plus the organization's legal form and formation date.
         assert set(org["properties"]) == {"name", "identifiers", "location", "legal_form", "formation_date"}
 
+    def test_formation_date_is_defined_for_organizations_too(self):
+        definition = property_("formation_date")["definition"]
+        for lang, term in (("en", "organization"), ("fr", "organisation"), ("es", "organización")):
+            assert term in definition[lang], lang
+
     def test_organization_has_multilingual_definition(self):
         org = concept("Organization")
         for lang in ("en", "fr", "es"):
