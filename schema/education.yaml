@@ -166,6 +166,7 @@ classes:
     slots:
     - person
     - qualification_title
+    - qualification_definition
     - qualification_awarder
     - issue_date
     - identifiers
@@ -329,6 +330,37 @@ slots:
         also admits a text or a credential object; PublicSchema requires the URI of the qualification definition.",
         "uri": "https://schema.org/educationalCredentialAwarded", "vocabulary": "schema.org", "vocabulary_id":
         "schema-org"}]'
+  qualification_definition:
+    slot_uri: publicschema:qualification_definition
+    title: Qualification definition
+    description: The URI of the qualification definition that was awarded, such as an entry in a
+      qualifications register. It is the same kind of URI as a program's qualification_awarded, so an
+      award can be matched to the programs that lead to it. It identifies the qualification, not this
+      award to the person.
+    range: uri
+    multivalued: false
+    status: bibo:draft
+    close_mappings:
+    - elm:specifiedBy
+    annotations:
+      label_es: Definición de la cualificación
+      label_fr: Définition de la qualification
+      description_es: El URI de la definición de la cualificación otorgada, por ejemplo una entrada
+        de un registro de cualificaciones. Es el mismo tipo de URI que qualification_awarded en un
+        programa, de modo que una concesión puede relacionarse con los programas que conducen a ella.
+        Identifica la cualificación, no esta concesión a la persona.
+      description_fr: L'URI de la définition de la qualification décernée, par exemple une entrée d'un
+        registre des qualifications. C'est le même type d'URI que qualification_awarded sur un
+        programme, de sorte qu'une attribution peut être rapprochée des programmes qui y mènent. Il
+        identifie la qualification, non cette attribution à la personne.
+      category: education
+      sensitivity: sensitive
+      bibliography_refs: '["ebsi-europass-elm"]'
+      external_alignments_json: '[{"label": "specifiedBy", "match": "close", "note": "In ELM a learning
+        achievement is specified by a learning achievement specification, of which a qualification
+        is one kind. PublicSchema requires the URI of the qualification definition.", "uri":
+        "http://data.europa.eu/snb/model/elm/specifiedBy", "vocabulary": "European Learning Model 3",
+        "vocabulary_id": "elm"}]'
   qualification_title:
     slot_uri: publicschema:qualification_title
     title: Qualification title

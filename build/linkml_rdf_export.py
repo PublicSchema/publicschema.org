@@ -169,6 +169,19 @@ def write_shacl(
                     graph.remove((property_shape, SH.datatype, XSD.anyURI))
                     graph.remove((property_shape, SH.nodeKind, SH.Literal))
                     graph.add((property_shape, SH.nodeKind, SH.IRI))
+            # The public context leaves decimal fields uncoerced, because
+            # JSON-LD writes a fractional number as a double lexical form.
+            # Accept the datatypes a JSON number becomes, plus explicit decimals.
+            for property_shape in list(graph.subjects(SH.datatype, XSD.decimal)):
+                graph.remove((property_shape, SH.datatype, XSD.decimal))
+                alternatives = []
+                for datatype in (XSD.decimal, XSD.integer, XSD.double):
+                    alternative = BNode()
+                    graph.add((alternative, SH.datatype, datatype))
+                    alternatives.append(alternative)
+                node = BNode()
+                Collection(graph, node, alternatives)
+                graph.add((property_shape, SH["or"], node))
             # A value type is written inline, often without a type, so check
             # the value against the value type's shape rather than its class.
             for cls in self.schemaview.all_classes().values():

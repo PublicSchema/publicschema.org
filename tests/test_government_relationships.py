@@ -277,3 +277,20 @@ def test_optional_reference_shapes_do_not_assert_complete_exchange(exports):
         validator(exports, kind).validate(partial)
         with pytest.raises(ValueError):
             PROFILE.validate_profile([partial])
+
+
+def test_a_beneficial_ownership_conclusion_names_the_legal_definition_it_applies(exports):
+    # BODS beneficialOwnershipOrControl is a legal conclusion; without its definition it cannot be checked.
+    built = exports[0]
+    slots = AUTHORED["classes"]["OwnershipInterest"]["slots"]
+    assert {"beneficial_ownership_or_control", "beneficial_ownership_definition"} <= set(slots)
+    flag = built["properties"]["beneficial_ownership_or_control"]
+    assert flag["type"] == "boolean"
+    assert flag["sensitivity"] == "sensitive"
+    assert "beneficial_ownership_definition" in flag["definition"]["en"]
+    assert "beneficialOwnershipOrControl" in flag["definition"]["en"]
+    assert built["properties"]["beneficial_ownership_definition"]["type"] == "uri"
+    stated = record(RECORDS, "indirect-control")
+    assert stated["beneficial_ownership_or_control"] is True
+    assert stated["beneficial_ownership_definition"].startswith("https://")
+    validator(exports, "OwnershipInterest").validate(stated)

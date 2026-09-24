@@ -70,6 +70,7 @@ record as a `RecordReference`, and `record_change_kind` says what happened to it
 
 | Code | Meaning |
 | --- | --- |
+| `clarification` | A non-substantive correction, such as a spelling fix; what the record states is unchanged. |
 | `invalidation` | The record was found to be wrong and is no longer to be relied on. |
 | `retirement` | The record is kept for reference but no longer in current use. |
 | `supersession` | The record was replaced by another record, named in `supersedes_record` on the replacement. |
@@ -86,8 +87,8 @@ later changes:
 - A suspension, withdrawal or other interruption is a `RegulatoryAction` whose `subject_uri` is
   the registration or permission. Its `start_date` and `end_date` bound the period in which the
   measure has effect, and `action_date` is when it was taken.
-- A `RecordLifecycleEvent` is only for the record itself: an error that invalidates it, its
-  retirement or its replacement. It does not express a change in legal standing.
+- A `RecordLifecycleEvent` is only for the record itself: a minor correction, an error that
+  invalidates it, its retirement or its replacement. It does not express a change in legal standing.
 
 The standing on a given day follows from the stated validity together with the actions in
 effect that day. A profile decides which actions it considers and how appeals affect them.
@@ -104,10 +105,21 @@ slot uses a closed vocabulary instead of a `CodedValue`:
 | `geometry_encoding` | `geojson`, `wkt`, `gml`, `kml` | GeoSPARQL 1.1 serialization literals |
 | `unit_scheme` | `ucum`, `unece_rec20` | UCUM and UN/ECE Recommendation 20 |
 | `match_outcome` | `match`, `possible_match`, `non_match` | SSSOM mapping predicates and record-linkage practice |
-| `record_change_kind` | `invalidation`, `retirement`, `supersession` | INSPIRE register guidance |
+| `record_change_kind` | `clarification`, `invalidation`, `retirement`, `supersession` | INSPIRE register guidance, ISO 19135-1 |
 
 Lists that are local policy, such as asset roles, address purposes, name uses and building
 uses, stay `CodedValue` so the source scheme and its unknown or retired codes are retained.
+For a source without a scheme of its own, PublicSchema publishes a small scheme for four of
+these fields. A code keeps the scheme URI with it, as with any other `CodedValue`:
+
+| Slot | Published scheme | Codes | Source |
+| --- | --- | --- | --- |
+| `asset_role_type` | `https://publicschema.org/vocab/asset-role-type` | `owner`, `operator`, `upkeep`, `keeper` | UK V5C registered keeper; EPA Facility Registry Service affiliations |
+| `animal_responsibility_role` | `https://publicschema.org/vocab/animal-responsibility-role` | `owner`, `keeper`, `operator` | Regulation (EU) 2016/429; WOAH identification and traceability |
+| `address_purpose` | `https://publicschema.org/vocab/address-purpose` | `postal`, `physical` | FHIR Address type |
+| `name_use` | `https://publicschema.org/vocab/name-use` | `legal`, `trading` | SEMIC Core Business legal and alternative names; FHIR official name |
+
+A former name is a name whose usage period has ended, so `name_use` has no `former` code.
 
 A `CodedValue` or `QuantityValue` is always written inline, since a code or an amount has no
 identity of its own; it needs its code and scheme, or its amount, unit code and unit system. A
@@ -171,6 +183,12 @@ Dataset containers from source registry models are exchange packaging, not indep
 Address structure reuses Address without replacing its named Location with geometry. `AssetAddressAssignment` supplies an explicit address purpose and address identity for a physical asset. `health/HealthFacility` and `edu/School` specialize root `ServicePoint`; root `RegistrationOffice` remains wider than CRVS, and root `WaterPoint` is a disclosed exception to the sector namespace pattern. Service endpoints remain URI descriptions, capacity is dated and uses root `ServiceCapacityObservation` with SOSA/UCUM provenance, and accreditation requires the selected native FHIR or other domain profile. Land parties retain actual Person, Organization or InformalGroup identities; there is no need for a duplicate person record called LandParty. Agricultural beneficiary status remains a separate program decision.
 
 AgriculturalParcel is deliberately a broader agricultural-use unit than FAO's census parcel, whose tenure-homogeneous boundary rules may be stricter. A profile needing that census unit must state and check those boundaries; no exact parcel equivalence is claimed.
+
+A `HoldingParcelLink` states the arrangement under which that farm uses the parcel in `parcel_tenure`, and its use in `parcel_land_use`, because one farm may own one parcel and rent another. Where parts of a parcel have different uses or tenure, record one link per part with its `used_area`. `land_spatial_units` names the cadastral or other land administration units the parcel lies on. Neither link turns a use arrangement into a land right; a right is a `LandTenureAssertion` about a `LandAdministrativeUnit`.
+
+A `HoldingFacilityLink` states that a farm uses an `AgriculturalFacility`, such as a barn or livestock premises, for a period. Several farms may share a facility. The link does not make the farm its owner or operator; those remain `AssetPartyRole` records.
+
+A parcel keeps its identity while the same land is re-measured or its geometry corrected. A split or merge creates a new parcel that names its sources in `predecessor_parcels`; each source keeps its URI and closes its `valid_to`. The pilot splits its second parcel this way, so earlier links and claims still resolve to the land they described.
 
 ## Medical reuse boundary
 

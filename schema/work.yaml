@@ -33,6 +33,7 @@ classes:
     slots:
     - work_person
     - work_economic_unit
+    - legal_employer
     - start_date
     - end_date
     - identifiers
@@ -179,6 +180,34 @@ slots:
         employeur légal.
       category: employment
       bibliography_refs: '["fao-wca-2030", "ilo-19th-icls-2013", "ilo-20th-icls-2018", "ilo-icse18-manual-2023"]'
+  legal_employer:
+    slot_uri: publicschema:legal_employer
+    title: Legal employer
+    description: The URI of the person or organization that is the employer in this relationship under
+      the contract or the applicable law, as the source states it. It can differ from the economic unit,
+      such as an employer-of-record agency, a household member who employs a domestic worker for the
+      household, or a public body whose staff work in another unit. Recording it does not decide the
+      person's status in employment.
+    range: uri
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      label_es: Empleador legal
+      label_fr: Employeur légal
+      description_es: El URI de la persona u organización que es el empleador en esta relación según
+        el contrato o el derecho aplicable, tal como lo indica la fuente. Puede diferir de la unidad
+        económica, como una agencia que actúa como empleador formal, un miembro del hogar que emplea
+        a un trabajador doméstico para el hogar o un organismo público cuyo personal trabaja en otra
+        unidad. Registrarlo no determina la situación en el empleo de la persona.
+      description_fr: L'URI de la personne ou de l'organisation qui est l'employeur dans cette relation
+        selon le contrat ou le droit applicable, tel que la source l'indique. Il peut différer de
+        l'unité économique, par exemple une agence agissant comme employeur de droit, un membre du
+        ménage qui emploie un travailleur domestique pour le ménage ou un organisme public dont le
+        personnel travaille dans une autre unité. L'enregistrer ne détermine pas la situation dans
+        l'emploi de la personne.
+      category: employment
+      sensitivity: sensitive
+      bibliography_refs: '["ilo-20th-icls-2018", "ilo-icse18-manual-2023"]'
   work_form:
     slot_uri: publicschema:work_form
     title: Form of work

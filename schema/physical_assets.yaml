@@ -168,7 +168,9 @@ slots:
     slot_uri: publicschema:asset_role_type
     title: Asset role type
     description: The responsibility the actor holds for the asset, such as ownership, operation, upkeep
-      or registered keeping. Operation and upkeep are not ownership.
+      or registered keeping. Operation and upkeep are not ownership. Codes from
+      https://publicschema.org/vocab/asset-role-type can be used where the source has no scheme of its
+      own.
     range: CodedValue
     multivalued: false
     status: bibo:draft
@@ -176,10 +178,13 @@ slots:
       label_es: Tipo de función sobre el activo
       label_fr: Type de rôle sur le bien
       description_es: La responsabilidad que el actor tiene sobre el activo, como la propiedad, la
-        explotación, el mantenimiento o la tenencia registrada. La explotación y el mantenimiento no
-        son propiedad.
-      description_fr: La responsabilité que l'acteur détient sur le bien, telle que la propriété, l'exploitation,
-        l'entretien ou la garde enregistrée. L'exploitation et l'entretien ne sont pas la propriété.
+        explotación, el mantenimiento o la tenencia registrada. La explotación y el mantenimiento no son
+        propiedad. Pueden usarse los códigos de https://publicschema.org/vocab/asset-role-type cuando la
+        fuente no tenga un esquema propio.
+      description_fr: La responsabilité que l'acteur détient sur le bien, telle que la propriété,
+        l'exploitation, l'entretien ou la garde enregistrée. L'exploitation et l'entretien ne sont pas
+        la propriété. Les codes de https://publicschema.org/vocab/asset-role-type peuvent être utilisés
+        lorsque la source n'a pas de référentiel propre.
       category: classification
   assigned_address:
     slot_uri: publicschema:assigned_address
@@ -201,7 +206,9 @@ slots:
     slot_uri: publicschema:address_purpose
     title: Address purpose
     description: The purpose of the address for this asset, such as postal delivery or physical access.
-      A postal address does not establish where the asset is.
+      A postal address does not establish where the asset is. Codes from
+      https://publicschema.org/vocab/address-purpose can be used where the source has no scheme of its
+      own.
     range: CodedValue
     multivalued: false
     status: bibo:draft
@@ -209,7 +216,11 @@ slots:
       label_es: Finalidad de la dirección
       label_fr: Finalité de l'adresse
       description_es: La finalidad de la dirección para este activo, como la entrega postal o el acceso
-        físico. Una dirección postal no establece dónde se encuentra el activo.
+        físico. Una dirección postal no establece dónde se encuentra el activo. Pueden usarse los
+        códigos de https://publicschema.org/vocab/address-purpose cuando la fuente no tenga un esquema
+        propio.
       description_fr: La finalité de l'adresse pour ce bien, telle que la livraison postale ou l'accès
-        physique. Une adresse postale n'établit pas où se trouve le bien.
+        physique. Une adresse postale n'établit pas où se trouve le bien. Les codes de
+        https://publicschema.org/vocab/address-purpose peuvent être utilisés lorsque la source n'a pas
+        de référentiel propre.
       category: classification

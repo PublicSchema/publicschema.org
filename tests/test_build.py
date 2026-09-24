@@ -491,19 +491,17 @@ class TestJsonLdContext:
             "@type": "xsd:dateTime",
         }
 
-    def test_context_decimal_property_has_xsd_type(
+    def test_context_decimal_property_keeps_json_number_type(
         self, tmp_schema, write_concept, write_property
     ):
+        # Coercing to xsd:decimal would turn 2.5 into the invalid "2.5E0"^^xsd:decimal.
         write_property("amount.yaml", make_property(id="amount", type="decimal"))
         write_concept("person.yaml", make_concept(
             id="Person", properties=["amount"],
         ))
         result = build_vocabulary(tmp_schema)
         ctx = result["context"]["@context"]
-        assert ctx["amount"] == {
-            "@id": "https://test.example.org/amount",
-            "@type": "xsd:decimal",
-        }
+        assert ctx["amount"] == "https://test.example.org/amount"
 
     def test_context_integer_property_has_xsd_type(
         self, tmp_schema, write_concept, write_property
@@ -2155,6 +2153,25 @@ def test_cli_forwards_selected_linkml_composite(tmp_path, monkeypatch, override)
     assert calls["outputs"]["source"] == "linkml"
 
 
+def test_cli_stops_before_writing_when_a_published_alias_would_disappear(tmp_path, monkeypatch):
+    from build import build
+
+    schema = tmp_path / "schema"
+    schema.mkdir()
+    (schema / build.PUBLISHED_CLASS_ALIASES).write_text(
+        json.dumps({"Farm": "https://publicschema.org/agri/Farm"}), encoding="utf-8",
+    )
+    result = {"concepts": {}, "properties": {}, "vocabularies": {}, "context": {"@context": {}}}
+    monkeypatch.setattr(build, "build_vocabulary", lambda directory, **kwargs: result)
+    monkeypatch.setattr(
+        build, "write_outputs", lambda *args, **kwargs: pytest.fail("outputs written"),
+    )
+    monkeypatch.setattr("sys.argv", ["build", str(schema), str(tmp_path / "dist")])
+
+    with pytest.raises(ValueError, match="Farm: https://publicschema.org/agri/Farm, now absent"):
+        build.main()
+
+
 def test_bespoke_build_emits_its_own_rdf_and_static_downloads(
     tmp_schema, write_concept, write_property, tmp_path, monkeypatch,
 ):
@@ -2440,6 +2457,49 @@ def test_context_ambiguous_domain_names_require_qualified_alias(reverse):
         assert context[f"{domain}/Record"] == expected
         expanded = jsonld.expand({"@context": context, "@id": "urn:test:record", "@type": f"{domain}/Record"})
         assert expanded[0]["@type"] == [expected]
+
+
+def test_a_second_domain_class_with_a_published_name_fails_the_alias_check():
+    from build.build import check_published_class_aliases, published_class_aliases
+
+    published = published_class_aliases(build_vocabulary(raws={"concepts": {
+        "first/Record": make_concept(id="Record", domain="first"),
+    }}))
+    assert published == {"Record": "https://publicschema.org/first/Record"}
+    # A later domain class with the same name makes the bare alias ambiguous, so it is dropped.
+    ambiguous = build_vocabulary(raws={"concepts": {
+        "first/Record": make_concept(id="Record", domain="first"),
+        "second/Record": make_concept(id="Record", domain="second"),
+    }})
+    with pytest.raises(ValueError, match=r"Record: https://publicschema.org/first/Record, now absent"):
+        check_published_class_aliases(ambiguous, published)
+    # A root class with the same name would silently change what the alias means.
+    rooted = build_vocabulary(raws={"concepts": {
+        "first/Record": make_concept(id="Record", domain="first"),
+        "Record": make_concept(id="Record"),
+    }})
+    with pytest.raises(ValueError, match=r"now https://publicschema.org/Record"):
+        check_published_class_aliases(rooted, published)
+    # New aliases are not a break.
+    grown = build_vocabulary(raws={"concepts": {
+        "first/Record": make_concept(id="Record", domain="first"),
+        "Other": make_concept(id="Other"),
+    }})
+    check_published_class_aliases(grown, published)
+
+
+def test_the_published_alias_baseline_records_every_current_class_alias(built_vocabulary):
+    from build.build import (
+        PUBLISHED_CLASS_ALIASES,
+        check_published_class_aliases,
+        published_class_aliases,
+    )
+
+    baseline = json.loads((Path(__file__).resolve().parents[1] / "schema" / PUBLISHED_CLASS_ALIASES).read_text())
+    check_published_class_aliases(built_vocabulary, baseline)
+    assert baseline == published_class_aliases(built_vocabulary), (
+        "Add new class aliases to schema/published_class_aliases.json; a JSON-LD document may already use them"
+    )
 
 
 def test_authored_property_uri_preserves_json_field_and_site_path():

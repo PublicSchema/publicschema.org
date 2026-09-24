@@ -442,6 +442,26 @@ class TestBuildShacl:
         ps_node = prop_shapes[0][0]
         assert (ps_node, SH.datatype, rdflib.XSD.date) in g
 
+    def test_shacl_decimal_property_accepts_json_number_datatypes(
+        self, tmp_schema, write_concept, write_property,
+    ):
+        """An uncoerced JSON number is xsd:integer or xsd:double in RDF."""
+        write_concept("thing.yaml", make_concept(id="Thing", properties=["amount"]))
+        write_property("amount.yaml", make_property(id="amount", type="decimal"))
+        result = build_vocabulary(tmp_schema)
+
+        g = rdflib.Graph()
+        g.parse(data=build_shacl(result), format="turtle")
+
+        (ps_node,) = g.subjects(SH.path, rdflib.URIRef("https://test.example.org/amount"))
+        assert (ps_node, SH.datatype, None) not in g
+        (alternatives,) = g.objects(ps_node, SH["or"])
+        datatypes = {
+            g.value(alternative, SH.datatype)
+            for alternative in rdflib.collection.Collection(g, alternatives)
+        }
+        assert datatypes == {rdflib.XSD.decimal, rdflib.XSD.integer, rdflib.XSD.double}
+
     def test_shacl_single_cardinality_has_max_count(
         self, tmp_schema, write_concept, write_property,
     ):

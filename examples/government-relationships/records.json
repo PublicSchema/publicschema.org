@@ -82,6 +82,8 @@
     "interest_directness": "indirect",
     "start_date": "2025-01-01",
     "end_date": "2028-01-01",
+    "beneficial_ownership_or_control": true,
+    "beneficial_ownership_definition": "https://example.org/law/beneficial-ownership-definition",
     "component_interests": [
       "https://example.org/government-relationships/holding-shares",
       "https://example.org/government-relationships/trust-control",

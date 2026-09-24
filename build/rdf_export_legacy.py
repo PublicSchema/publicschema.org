@@ -143,7 +143,6 @@ SHACL_DATATYPE_MAP = {
     "date": XSD.date,
     "datetime": XSD.dateTime,
     "integer": XSD.integer,
-    "decimal": XSD.decimal,
     "boolean": XSD.boolean,
     "uri": XSD.anyURI,
 }
@@ -234,6 +233,17 @@ def build_shacl(result: dict) -> str:
                 g.add((prop_shape, SH.datatype, RDF.JSON))
             elif prop_type == "uri":
                 g.add((prop_shape, SH.nodeKind, SH.IRI))
+            elif prop_type == "decimal":
+                # The context leaves decimals uncoerced, so a JSON number
+                # arrives as xsd:integer or xsd:double.
+                alternatives = []
+                for datatype in (XSD.decimal, XSD.integer, XSD.double):
+                    alternative = rdflib.BNode()
+                    g.add((alternative, SH.datatype, datatype))
+                    alternatives.append(alternative)
+                collection = rdflib.BNode()
+                rdflib.collection.Collection(g, collection, alternatives)
+                g.add((prop_shape, SH["or"], collection))
             elif prop_type in SHACL_DATATYPE_MAP:
                 g.add((prop_shape, SH.datatype, SHACL_DATATYPE_MAP[prop_type]))
 

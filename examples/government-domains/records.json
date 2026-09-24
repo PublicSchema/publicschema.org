@@ -182,6 +182,7 @@
       "@type": "Person"
     },
     "qualification_title": "Example professional diploma",
+    "qualification_definition": "https://example.org/qualifications/professional-diploma",
     "qualification_awarder": [
       {
         "@id": "https://example.org/provider",
@@ -400,6 +401,38 @@
   },
   {
     "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/agricultural-facility",
+    "@type": "agri/AgriculturalFacility",
+    "name": "Example Processing Site",
+    "facility_function": [
+      "processing"
+    ]
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
+    "@id": "https://example.org/facility-match",
+    "@type": "SubjectMatchAssertion",
+    "matched_source": {
+      "@type": "RecordReference",
+      "register_uri": "https://example.org/registers/environmental-permits",
+      "record_id": "EP-0001",
+      "subject_uri": "https://example.org/facility"
+    },
+    "matched_subject": "https://example.org/agricultural-facility",
+    "match_outcome": "match",
+    "match_method": {
+      "@type": "CodedValue",
+      "code_value": "manual_review",
+      "code_scheme": "https://example.org/codes/match-methods"
+    },
+    "assertion_authority": {
+      "@id": "https://example.org/agency",
+      "@type": "PublicOrganization"
+    },
+    "recorded_at": "2025-02-01T09:00:00Z"
+  },
+  {
+    "@context": "https://publicschema.org/ctx/draft.jsonld",
     "@id": "https://example.org/inspection",
     "@type": "ComplianceAssessment",
     "subject_uri": "https://example.org/vehicle",
@@ -466,7 +499,7 @@
     "asset_role_type": {
       "@type": "CodedValue",
       "code_value": "keeper",
-      "code_scheme": "https://example.org/codes/synthetic"
+      "code_scheme": "https://publicschema.org/vocab/asset-role-type"
     },
     "start_date": "2025-01-01"
   },
@@ -479,7 +512,7 @@
     "asset_role_type": {
       "@type": "CodedValue",
       "code_value": "owner",
-      "code_scheme": "https://example.org/codes/synthetic"
+      "code_scheme": "https://publicschema.org/vocab/asset-role-type"
     },
     "start_date": "2024-01-01"
   },
@@ -492,7 +525,7 @@
     "asset_role_type": {
       "@type": "CodedValue",
       "code_value": "operator",
-      "code_scheme": "https://example.org/codes/synthetic"
+      "code_scheme": "https://publicschema.org/vocab/asset-role-type"
     },
     "start_date": "2024-06-01"
   },
@@ -511,7 +544,7 @@
     "address_purpose": {
       "@type": "CodedValue",
       "code_value": "physical",
-      "code_scheme": "https://example.org/codes/synthetic"
+      "code_scheme": "https://publicschema.org/vocab/address-purpose"
     },
     "start_date": "2024-06-01"
   },

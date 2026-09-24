@@ -19,10 +19,7 @@ Use a second `@context` entry with your own namespace:
     {
       "myorg": "https://data.myorg.gov/ns/",
       "beneficiary_category": "myorg:beneficiary_category",
-      "proxy_score_v2": {
-        "@id": "myorg:proxy_score_v2",
-        "@type": "xsd:decimal"
-      }
+      "proxy_score_v2": "myorg:proxy_score_v2"
     }
   ],
   "type": "Person",
@@ -33,7 +30,7 @@ Use a second `@context` entry with your own namespace:
 }
 ```
 
-PublicSchema terms (`given_name`, `family_name`) resolve to PublicSchema URIs. Your custom terms (`beneficiary_category`, `proxy_score_v2`) resolve to your namespace. Both coexist cleanly.
+PublicSchema terms (`given_name`, `family_name`) resolve to PublicSchema URIs. Your custom terms (`beneficiary_category`, `proxy_score_v2`) resolve to your namespace. Both coexist cleanly. Leave a numeric term uncoerced, as PublicSchema does: JSON-LD writes `23.7` in double form (`2.37E1`), so an `xsd:decimal` coercion would produce an invalid decimal literal.
 
 ### Adding custom vocabulary values
 

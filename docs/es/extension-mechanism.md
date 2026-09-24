@@ -19,10 +19,7 @@ Use una segunda entrada `@context` con su propio espacio de nombres:
     {
       "myorg": "https://data.myorg.gov/ns/",
       "beneficiary_category": "myorg:beneficiary_category",
-      "proxy_score_v2": {
-        "@id": "myorg:proxy_score_v2",
-        "@type": "xsd:decimal"
-      }
+      "proxy_score_v2": "myorg:proxy_score_v2"
     }
   ],
   "type": "Person",
@@ -33,7 +30,7 @@ Use una segunda entrada `@context` con su propio espacio de nombres:
 }
 ```
 
-Los términos de PublicSchema (`given_name`, `family_name`) se resuelven como URIs de PublicSchema. Sus términos personalizados (`beneficiary_category`, `proxy_score_v2`) se resuelven como URIs de su espacio de nombres. Ambos coexisten sin conflicto.
+Los términos de PublicSchema (`given_name`, `family_name`) se resuelven como URIs de PublicSchema. Sus términos personalizados (`beneficiary_category`, `proxy_score_v2`) se resuelven como URIs de su espacio de nombres. Ambos coexisten sin conflicto. Deje un término numérico sin coerción de tipo, como hace PublicSchema: JSON-LD escribe `23.7` en forma de doble (`2.37E1`), por lo que una coerción a `xsd:decimal` produciría un literal decimal no válido.
 
 ### Añadir valores de vocabulario personalizados
 

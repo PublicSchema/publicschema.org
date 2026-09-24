@@ -517,19 +517,25 @@ slots:
     slot_uri: publicschema:animal_responsibility_role
     title: Animal responsibility role
     description: The kind of responsibility held, such as owner, keeper or operator, as a code from an
-      identified scheme. The role is not inferred from residence and does not prove legal title.
+      identified scheme. The role is not inferred from residence and does not prove legal title. Codes
+      from https://publicschema.org/vocab/animal-responsibility-role can be used where the source has no
+      scheme of its own.
     range: CodedValue
     multivalued: false
     status: bibo:draft
     annotations:
       label_es: Función de responsabilidad animal
       label_fr: Rôle de responsabilité animale
-      description_es: El tipo de responsabilidad asumida, como propietario, poseedor u operador,
-        como un código procedente de un esquema identificado. Esta función no se deduce de la
-        residencia y no demuestra un título legal.
-      description_fr: Le type de responsabilité assumée, tel que propriétaire, détenteur ou
-        exploitant, sous forme de code issu d'un référentiel identifié. Ce rôle n'est pas déduit de
-        la résidence et ne prouve pas un titre légal.
+      description_es: El tipo de responsabilidad asumida, como propietario, poseedor u operador, como un
+        código procedente de un esquema identificado. Esta función no se deduce de la residencia y no
+        demuestra un título legal. Pueden usarse los códigos de
+        https://publicschema.org/vocab/animal-responsibility-role cuando la fuente no tenga un esquema
+        propio.
+      description_fr: Le type de responsabilité assumée, tel que propriétaire, détenteur ou exploitant,
+        sous forme de code issu d'un référentiel identifié. Ce rôle n'est pas déduit de la résidence et
+        ne prouve pas un titre légal. Les codes de
+        https://publicschema.org/vocab/animal-responsibility-role peuvent être utilisés lorsque la
+        source n'a pas de référentiel propre.
       category: agriculture
   moved_animals:
     slot_uri: publicschema:moved_animals

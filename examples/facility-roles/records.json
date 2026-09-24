@@ -46,7 +46,7 @@
     "asset_role_type": {
       "@type": "CodedValue",
       "code_value": "owner",
-      "code_scheme": "https://example.org/facility-roles/role-types"
+      "code_scheme": "https://publicschema.org/vocab/asset-role-type"
     },
     "start_date": "2020-01-01"
   },
@@ -58,7 +58,7 @@
     "asset_role_type": {
       "@type": "CodedValue",
       "code_value": "operator",
-      "code_scheme": "https://example.org/facility-roles/role-types"
+      "code_scheme": "https://publicschema.org/vocab/asset-role-type"
     },
     "start_date": "2020-01-01",
     "end_date": "2026-07-01"
@@ -71,7 +71,7 @@
     "asset_role_type": {
       "@type": "CodedValue",
       "code_value": "operator",
-      "code_scheme": "https://example.org/facility-roles/role-types"
+      "code_scheme": "https://publicschema.org/vocab/asset-role-type"
     },
     "start_date": "2026-07-01",
     "end_date": "2027-07-01"
@@ -84,7 +84,7 @@
     "asset_role_type": {
       "@type": "CodedValue",
       "code_value": "upkeep",
-      "code_scheme": "https://example.org/facility-roles/role-types"
+      "code_scheme": "https://publicschema.org/vocab/asset-role-type"
     },
     "start_date": "2025-01-01",
     "end_date": "2028-01-01"
@@ -134,7 +134,7 @@
     "asset_role_type": {
       "@type": "CodedValue",
       "code_value": "owner",
-      "code_scheme": "https://example.org/facility-roles/role-types"
+      "code_scheme": "https://publicschema.org/vocab/asset-role-type"
     },
     "start_date": "2020-01-01"
   },
@@ -146,7 +146,7 @@
     "asset_role_type": {
       "@type": "CodedValue",
       "code_value": "operator",
-      "code_scheme": "https://example.org/facility-roles/role-types"
+      "code_scheme": "https://publicschema.org/vocab/asset-role-type"
     },
     "start_date": "2025-01-01",
     "end_date": "2026-03-01"
@@ -159,7 +159,7 @@
     "asset_role_type": {
       "@type": "CodedValue",
       "code_value": "operator",
-      "code_scheme": "https://example.org/facility-roles/role-types"
+      "code_scheme": "https://publicschema.org/vocab/asset-role-type"
     },
     "start_date": "2026-03-01",
     "end_date": "2027-01-01"
@@ -172,7 +172,7 @@
     "asset_role_type": {
       "@type": "CodedValue",
       "code_value": "upkeep",
-      "code_scheme": "https://example.org/facility-roles/role-types"
+      "code_scheme": "https://publicschema.org/vocab/asset-role-type"
     },
     "start_date": "2020-01-01",
     "end_date": "2028-01-01"
@@ -216,7 +216,7 @@
     "asset_role_type": {
       "@type": "CodedValue",
       "code_value": "owner",
-      "code_scheme": "https://example.org/facility-roles/role-types"
+      "code_scheme": "https://publicschema.org/vocab/asset-role-type"
     },
     "start_date": "2020-01-01"
   },
@@ -228,7 +228,7 @@
     "asset_role_type": {
       "@type": "CodedValue",
       "code_value": "operator",
-      "code_scheme": "https://example.org/facility-roles/role-types"
+      "code_scheme": "https://publicschema.org/vocab/asset-role-type"
     },
     "start_date": "2020-01-01",
     "end_date": "2028-01-01"
@@ -241,7 +241,7 @@
     "asset_role_type": {
       "@type": "CodedValue",
       "code_value": "upkeep",
-      "code_scheme": "https://example.org/facility-roles/role-types"
+      "code_scheme": "https://publicschema.org/vocab/asset-role-type"
     },
     "start_date": "2025-01-01",
     "end_date": "2026-09-01"
@@ -254,7 +254,7 @@
     "asset_role_type": {
       "@type": "CodedValue",
       "code_value": "upkeep",
-      "code_scheme": "https://example.org/facility-roles/role-types"
+      "code_scheme": "https://publicschema.org/vocab/asset-role-type"
     },
     "start_date": "2026-09-01",
     "end_date": "2027-09-01"
@@ -292,7 +292,7 @@
     "address_purpose": {
       "@type": "CodedValue",
       "code_value": "physical",
-      "code_scheme": "https://example.org/facility-roles/address-purposes"
+      "code_scheme": "https://publicschema.org/vocab/address-purpose"
     },
     "start_date": "2020-01-01"
   },
@@ -304,7 +304,7 @@
     "address_purpose": {
       "@type": "CodedValue",
       "code_value": "postal",
-      "code_scheme": "https://example.org/facility-roles/address-purposes"
+      "code_scheme": "https://publicschema.org/vocab/address-purpose"
     },
     "start_date": "2020-01-01",
     "end_date": "2026-08-01"
@@ -317,7 +317,7 @@
     "address_purpose": {
       "@type": "CodedValue",
       "code_value": "postal",
-      "code_scheme": "https://example.org/facility-roles/address-purposes"
+      "code_scheme": "https://publicschema.org/vocab/address-purpose"
     },
     "start_date": "2026-08-01",
     "end_date": "2027-08-01"
@@ -330,7 +330,7 @@
     "address_purpose": {
       "@type": "CodedValue",
       "code_value": "postal",
-      "code_scheme": "https://example.org/facility-roles/address-purposes"
+      "code_scheme": "https://publicschema.org/vocab/address-purpose"
     },
     "start_date": "2025-01-01",
     "end_date": "2026-04-01"
@@ -343,7 +343,7 @@
     "address_purpose": {
       "@type": "CodedValue",
       "code_value": "postal",
-      "code_scheme": "https://example.org/facility-roles/address-purposes"
+      "code_scheme": "https://publicschema.org/vocab/address-purpose"
     },
     "start_date": "2026-04-01",
     "end_date": "2027-04-01"

@@ -1,11 +1,13 @@
 """Exercise the RDF writers used by the production build and public context."""
 
 import json
+import re
 from collections import Counter
 from pathlib import Path
 
 import jsonschema
 import pytest
+from pyld import jsonld
 from pyshacl import validate
 from rdflib import BNode, Graph, Literal, Namespace, URIRef
 from rdflib.compare import isomorphic
@@ -177,6 +179,54 @@ def test_public_numeric_metric_observation_targets_production_shape(
     assert conforms == expected, text
     if not expected:
         assert (None, SH.sourceConstraintComponent, SH.DatatypeConstraintComponent) in report
+
+
+XSD_LEXICAL = {
+    str(XSD.integer): r"[+-]?\d+",
+    str(XSD.decimal): r"[+-]?(\d+(\.\d*)?|\.\d+)",
+    str(XSD.double): r"[+-]?((\d+(\.\d*)?|\.\d+)([eE][+-]?\d+)?|INF|NaN)",
+}
+
+
+@pytest.mark.parametrize(
+    ("concept", "values"),
+    [
+        ("Location", {"latitude": 13.75, "longitude": 100.5}),
+        ("Location", {"latitude": 0.1, "longitude": -1e-7}),
+        ("PaymentEvent", {"payment_amount": 25}),
+    ],
+)
+def test_json_numbers_in_decimal_fields_become_well_formed_rdf_that_conforms(
+    production_exports, concept, values,
+):
+    result, _, shapes, _ = production_exports
+    document = {"@context": DEFAULT_CONTEXT_URL, "@type": concept, **values}
+    jsonschema.validate(document, result["concept_schemas"][concept])
+
+    # RDFLib normalizes literals while parsing, so read PyLD's lexical forms.
+    # JSON-LD writes a fractional JSON number in double form, such as 1.375E1,
+    # which is not a lexical form of xsd:decimal.
+    dataset = jsonld.to_rdf({**document, "@context": result["context"]["@context"]})
+    literals = {
+        quad["predicate"]["value"]: quad["object"]
+        for quad in dataset["@default"]
+        if quad["object"]["type"] == "literal"
+    }
+    for field, value in values.items():
+        literal = literals[str(PS[field])]
+        assert re.fullmatch(XSD_LEXICAL[literal["datatype"]], literal["value"]), literal
+        assert float(literal["value"]) == value
+    data = _jsonld_graph(document, result["context"])
+    conforms, _, text = validate(data, shacl_graph=shapes)
+    assert conforms, text
+
+
+def test_decimal_fields_reject_text(production_exports):
+    result, _, shapes, _ = production_exports
+    document = {"@context": DEFAULT_CONTEXT_URL, "@type": "Location", "latitude": "north"}
+    conforms, report, _ = validate(_jsonld_graph(document, result["context"]), shacl_graph=shapes)
+    assert not conforms
+    assert (None, SH.sourceConstraintComponent, SH.OrConstraintComponent) in report
 
 
 @pytest.fixture(scope="module")

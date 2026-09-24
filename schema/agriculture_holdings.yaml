@@ -16,6 +16,8 @@ imports:
 - value_types
 - registry
 - work
+- land
+- agriculture_operations
 classes:
   Farm:
     class_uri: publicschema:agri/Farm
@@ -65,13 +67,17 @@ classes:
     description: An identified, delimited area of land used or usable for agricultural production, as recorded
       by the source for a stated period. It is a land-use unit. It is not a cadastral parcel, a title unit
       or a census parcel of one tenure type, although its boundary may coincide with any of them. Use by
-      one or more farms is recorded separately.
+      one or more farms is recorded separately. A split or merge creates a new parcel, which names the
+      parcels it came from and closes their validity; a corrected measurement or geometry of the same land
+      keeps the parcel.
     slots:
     - name
     - identifiers
     - spatial_geometry
     - parcel_area
     - location
+    - land_spatial_units
+    - predecessor_parcels
     - valid_from
     - valid_to
     status: bibo:draft
@@ -83,12 +89,16 @@ classes:
         la producción agropecuaria, tal como la registra la fuente para un período determinado. Es una
         unidad de uso de la tierra. No es una parcela catastral, una unidad de título ni una parcela censal
         de un solo tipo de tenencia, aunque su límite pueda coincidir con cualquiera de ellos. El uso
-        por una o más fincas se registra por separado.
+        por una o más fincas se registra por separado. Una división o fusión crea una nueva parcela, que
+        nombra las parcelas de las que procede y cierra su validez; una medición o geometría corregida
+        de la misma tierra conserva la parcela.
       description_fr: Une zone de terre identifiée et délimitée, utilisée ou utilisable pour la production
         agricole, telle qu'enregistrée par la source pour une période donnée. C'est une unité d'usage
         des terres. Ce n'est pas une parcelle cadastrale, une unité de titre ni une parcelle de recensement
         d'un seul type de régime foncier, bien que sa limite puisse coïncider avec l'une d'elles. L'utilisation
-        par une ou plusieurs exploitations agricoles est enregistrée séparément.
+        par une ou plusieurs exploitations agricoles est enregistrée séparément. Une division ou une fusion
+        crée une nouvelle parcelle, qui nomme les parcelles dont elle est issue et clôt leur validité; une
+        mesure ou une géométrie corrigée de la même terre conserve la parcelle.
       bibliography_refs: '["fao-wca-2020-vol1", "fao-wca-2030", "unece-property-units-2004"]'
   HoldingParcelLink:
     class_uri: publicschema:agri/HoldingParcelLink
@@ -99,6 +109,8 @@ classes:
     - linked_holding
     - linked_parcel
     - used_area
+    - parcel_tenure
+    - parcel_land_use
     - start_date
     - end_date
     - evidence_assertions
@@ -114,6 +126,33 @@ classes:
         partie d'une parcelle agricole. Plusieurs exploitations peuvent utiliser la même parcelle. Le
         lien n'affirme pas en soi un usage exclusif, une propriété ou un droit légal.
       bibliography_refs: '["fao-vggt", "fao-wca-2020-vol1", "fao-wca-2030"]'
+  HoldingFacilityLink:
+    class_uri: publicschema:agri/HoldingFacilityLink
+    title: Holding Facility Link
+    description: A dated statement that a farm uses an agricultural facility, such as a barn, store or livestock
+      premises, for its production. Several farms may use the same facility, and one farm may use several.
+      The link does not by itself assert ownership or operation of the facility; those are asset party roles.
+    slots:
+    - linked_holding
+    - linked_facility
+    - start_date
+    - end_date
+    - evidence_assertions
+    status: bibo:draft
+    annotations:
+      source_domain: agri
+      label_es: Vínculo entre finca e instalación
+      label_fr: Lien exploitation-installation
+      description_es: Una declaración fechada de que una finca utiliza una instalación agropecuaria, como
+        un establo, un almacén o un establecimiento ganadero, para su producción. Varias fincas pueden
+        utilizar la misma instalación, y una finca puede utilizar varias. El vínculo no afirma por sí mismo
+        la propiedad ni la operación de la instalación; estas son funciones de parte sobre el activo.
+      description_fr: Une déclaration datée selon laquelle une exploitation agricole utilise une installation
+        agricole, telle qu'une grange, un entrepôt ou un établissement d'élevage, pour sa production.
+        Plusieurs exploitations peuvent utiliser la même installation, et une exploitation peut en utiliser
+        plusieurs. Le lien n'affirme pas en soi la propriété ni l'exploitation de l'installation; celles-ci
+        sont des rôles de partie sur le bien.
+      bibliography_refs: '["fao-wca-2020-vol1", "fao-wca-2030", "woah-terrestrial-2024"]'
   FarmerRegistration:
     class_uri: publicschema:agri/FarmerRegistration
     title: Farmer Registration
@@ -451,7 +490,7 @@ slots:
   linked_holding:
     slot_uri: publicschema:agri/linked_holding
     title: Linked holding
-    description: The farm that uses the linked parcel.
+    description: The farm that uses the linked parcel or facility.
     range: Farm
     multivalued: false
     status: bibo:draft
@@ -459,8 +498,8 @@ slots:
       source_domain: agri
       label_es: Finca vinculada
       label_fr: Exploitation liée
-      description_es: La finca que utiliza la parcela vinculada.
-      description_fr: L'exploitation qui utilise la parcelle liée.
+      description_es: La finca que utiliza la parcela o la instalación vinculada.
+      description_fr: L'exploitation qui utilise la parcelle ou l'installation liée.
       category: administrative
   linked_parcel:
     slot_uri: publicschema:agri/linked_parcel
@@ -475,6 +514,20 @@ slots:
       label_fr: Parcelle liée
       description_es: La parcela agropecuaria utilizada por la finca durante el período de la relación.
       description_fr: La parcelle agricole utilisée par l'exploitation pendant la période de la relation.
+      category: administrative
+  linked_facility:
+    slot_uri: publicschema:agri/linked_facility
+    title: Linked facility
+    description: The agricultural facility used by the farm during the relationship period.
+    range: AgriculturalFacility
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      source_domain: agri
+      label_es: Instalación vinculada
+      label_fr: Installation liée
+      description_es: La instalación agropecuaria utilizada por la finca durante el período de la relación.
+      description_fr: L'installation agricole utilisée par l'exploitation pendant la période de la relation.
       category: administrative
   used_area:
     slot_uri: publicschema:agri/used_area
@@ -494,6 +547,100 @@ slots:
         utilisées par différentes exploitations peuvent se chevaucher; ne pas les additionner sans règle
         d'allocation.
       category: administrative
+  parcel_tenure:
+    slot_uri: publicschema:agri/parcel_tenure
+    title: Parcel tenure
+    description: The arrangement under which the farm uses the linked parcel, such as ownership, rental
+      or sharecropping, as reported by the source. A farm may own one parcel and rent another. This describes
+      how the farm uses the parcel; it is not a record of land rights, which a land tenure assertion states.
+    range: LandTenure
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      source_domain: agri
+      label_es: Tenencia de la parcela
+      label_fr: Régime foncier de la parcelle
+      description_es: El arreglo bajo el cual la finca utiliza la parcela vinculada, como la propiedad,
+        el arrendamiento o la aparcería, tal como lo informa la fuente. Una finca puede ser propietaria
+        de una parcela y arrendar otra. Esto describe cómo la finca usa la parcela; no es un registro
+        de los derechos sobre la tierra, que se expresan en una afirmación de tenencia de la tierra.
+      description_fr: L'arrangement selon lequel l'exploitation utilise la parcelle liée, tel que la
+        propriété, le fermage ou le métayage, tel que déclaré par la source. Une exploitation peut être
+        propriétaire d'une parcelle et en louer une autre. Ceci décrit la manière dont l'exploitation
+        utilise la parcelle; ce n'est pas un enregistrement des droits sur les terres, qui relèvent d'une
+        assertion de régime foncier.
+      category: agriculture
+      sensitivity: sensitive
+      bibliography_refs: '["fao-vggt", "fao-wca-2020-vol1", "fao-wca-2030"]'
+  parcel_land_use:
+    slot_uri: publicschema:agri/parcel_land_use
+    title: Parcel land use
+    description: The use the farm makes of the linked parcel, such as temporary crops, permanent crops or
+      permanent meadows and pastures, as a code from a stated scheme such as the FAO World Programme for
+      the Census of Agriculture land use classes. Where parts of the parcel have different uses, record
+      one link per part with its used area.
+    range: CodedValue
+    multivalued: false
+    status: bibo:draft
+    annotations:
+      source_domain: agri
+      label_es: Uso de la tierra de la parcela
+      label_fr: Utilisation des terres de la parcelle
+      description_es: El uso que la finca hace de la parcela vinculada, como cultivos temporales, cultivos
+        permanentes o praderas y pastos permanentes, como un código de un esquema indicado, por ejemplo
+        las clases de uso de la tierra del Programa Mundial del Censo Agropecuario de la FAO. Cuando
+        distintas partes de la parcela tienen usos diferentes, registre un vínculo por parte con su superficie
+        utilizada.
+      description_fr: L'utilisation que l'exploitation fait de la parcelle liée, telle que cultures temporaires,
+        cultures permanentes ou prairies et pâturages permanents, sous forme de code d'un schéma indiqué,
+        par exemple les classes d'utilisation des terres du Programme mondial du recensement de l'agriculture
+        de la FAO. Lorsque des parties de la parcelle ont des utilisations différentes, enregistrer un
+        lien par partie avec sa superficie utilisée.
+      category: agriculture
+      bibliography_refs: '["fao-wca-2020-vol1", "fao-wca-2030"]'
+  land_spatial_units:
+    slot_uri: publicschema:agri/land_spatial_units
+    title: Land spatial units
+    description: The land administration spatial units, such as cadastral parcels, that the agricultural
+      parcel lies on, as recorded by the source. Their boundaries need not coincide. The link does not
+      make the agricultural parcel a title unit or state who holds rights in the land.
+    range: LandSpatialUnit
+    multivalued: true
+    status: bibo:draft
+    annotations:
+      source_domain: agri
+      label_es: Unidades espaciales de tierra
+      label_fr: Unités spatiales foncières
+      description_es: Las unidades espaciales de la administración de tierras, como las parcelas catastrales,
+        sobre las que se encuentra la parcela agropecuaria, tal como las registra la fuente. Sus límites
+        no tienen por qué coincidir. El vínculo no convierte la parcela agropecuaria en una unidad de título
+        ni indica quién tiene derechos sobre la tierra.
+      description_fr: Les unités spatiales de l'administration foncière, telles que les parcelles cadastrales,
+        sur lesquelles se trouve la parcelle agricole, telles qu'enregistrées par la source. Leurs limites
+        ne coïncident pas nécessairement. Le lien ne fait pas de la parcelle agricole une unité de titre
+        et n'indique pas qui détient des droits sur la terre.
+      category: administrative
+      bibliography_refs: '["iso-19152-1-2024", "unece-property-units-2004"]'
+  predecessor_parcels:
+    slot_uri: publicschema:agri/predecessor_parcels
+    title: Predecessor parcels
+    description: The agricultural parcels from which this parcel was formed by a split, merge or other change
+      of boundary. The predecessors keep their own identities and validity periods.
+    range: AgriculturalParcel
+    multivalued: true
+    status: bibo:draft
+    annotations:
+      source_domain: agri
+      label_es: Parcelas predecesoras
+      label_fr: Parcelles prédécesseures
+      description_es: Las parcelas agropecuarias a partir de las cuales se formó esta parcela por división,
+        fusión u otro cambio de límite. Las predecesoras conservan sus propias identidades y períodos de
+        validez.
+      description_fr: Les parcelles agricoles à partir desquelles cette parcelle a été formée par division,
+        fusion ou autre changement de limite. Les prédécesseures conservent leurs propres identités et
+        périodes de validité.
+      category: administrative
+      bibliography_refs: '["iso-19152-1-2024", "unece-property-units-2004"]'
   farm_area:
     slot_uri: publicschema:agri/farm_area
     title: Farm area

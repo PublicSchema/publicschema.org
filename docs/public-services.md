@@ -109,6 +109,12 @@ change this result; an explicit matching grant is required. A grant for applicat
 alone does not authorize an appeal. The example's authority checks demonstrate the
 binding, without proving the legal validity of a representation instrument.
 
+A mandate that a receiving authority can check states its powers as codes in
+`representation_powers`, its legal basis in `legal_resources` and the instrument that grants it,
+such as a power of attorney, in `evidence_assertions`. These are claims for the authority to
+check against its own rules. The example role carries them, and the profile still requires the
+bound grant: a caller-supplied power code does not authorize a filing.
+
 Representation periods use whole calendar days in this synthetic profile:
 `start_date` is included and `end_date` is the first inactive day. An appeal with
 `request_submission_date` `2026-09-03` therefore cannot use a role ending on `2026-09-03`.

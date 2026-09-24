@@ -52,7 +52,7 @@
     "animal_responsibility_role": {
       "@type": "CodedValue",
       "code_value": "keeper",
-      "code_scheme": "https://example.org/date-migration/animal-roles"
+      "code_scheme": "https://publicschema.org/vocab/animal-responsibility-role"
     },
     "recorded_at": "2026-07-03T09:00:00Z",
     "end_date": "2026-07-01"
@@ -106,6 +106,11 @@
     "subject_uri": "https://example.org/date-migration/producer",
     "name": "Synthetic former cooperative trading name",
     "name_language": "en",
+    "name_use": {
+      "@type": "CodedValue",
+      "code_value": "trading",
+      "code_scheme": "https://publicschema.org/vocab/name-use"
+    },
     "start_date": "2020-01-01",
     "end_date": "2026-06-01"
   },

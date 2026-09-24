@@ -173,6 +173,9 @@ def validate_profile(records):
             if record.get("interest_directness") not in {"direct", "indirect", "unknown"}:
                 raise ValueError("An interest requires its asserted directness")
             validate_share(record)
+            if "beneficial_ownership_or_control" in record and not absolute_uri(
+                    record.get("beneficial_ownership_definition")):
+                raise ValueError("A beneficial ownership conclusion requires the legal definition it applies")
         if kind == "edu/EducationOffering":
             provider = resolve(record.get("offering_provider"), index, {"edu/EducationProvider"})
             program = resolve(record.get("offering_program"), index, {"edu/EducationProgram"})

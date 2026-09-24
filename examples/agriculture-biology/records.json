@@ -119,7 +119,7 @@
     "animal_responsibility_role": {
       "@type": "CodedValue",
       "code_value": "keeper",
-      "code_scheme": "https://example.org/animal-responsibilities"
+      "code_scheme": "https://publicschema.org/vocab/animal-responsibility-role"
     },
     "start_date": "2025-01-01",
     "end_date": "2026-07-01"
@@ -132,7 +132,7 @@
     "animal_responsibility_role": {
       "@type": "CodedValue",
       "code_value": "keeper",
-      "code_scheme": "https://example.org/animal-responsibilities"
+      "code_scheme": "https://publicschema.org/vocab/animal-responsibility-role"
     },
     "start_date": "2026-07-01"
   },
@@ -144,7 +144,7 @@
     "animal_responsibility_role": {
       "@type": "CodedValue",
       "code_value": "owner",
-      "code_scheme": "https://example.org/animal-responsibilities"
+      "code_scheme": "https://publicschema.org/vocab/animal-responsibility-role"
     },
     "start_date": "2025-01-01"
   }

@@ -92,5 +92,13 @@
         "name": "Other provider"
       }
     ]
+  },
+  {
+    "name": "a beneficial ownership conclusion without its legal definition",
+    "target": "https://example.org/government-relationships/indirect-control",
+    "expected": "legal definition",
+    "remove": [
+      "beneficial_ownership_definition"
+    ]
   }
 ]

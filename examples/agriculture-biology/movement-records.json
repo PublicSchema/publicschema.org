@@ -102,7 +102,7 @@
     "animal_responsibility_role": {
       "@type": "CodedValue",
       "code_value": "owner",
-      "code_scheme": "https://example.org/animal-responsibilities"
+      "code_scheme": "https://publicschema.org/vocab/animal-responsibility-role"
     },
     "start_date": "2025-01-01"
   }

@@ -24,6 +24,8 @@ classes:
       are carried out, such as an industrial plant, a large livestock unit or a waste water treatment
       works. The facility keeps its identity when its operator, permits or reporting duties change. Its
       operator is recorded as a dated AssetPartyRole and its addresses through AssetAddressAssignment.
+      Where another register, such as an agricultural register, records the same site, each record keeps
+      its own identity and a subject match assertion states that they describe the same site.
     slots:
     - name
     - identifiers
@@ -40,12 +42,17 @@ classes:
         planta de tratamiento de aguas residuales. La instalación conserva su identidad cuando
         cambian su operador, sus permisos o sus obligaciones de notificación. Su operador se
         registra como una AssetPartyRole fechada y sus direcciones mediante una AssetAddressAssignment.
+        Cuando otro registro, como un registro agropecuario, registra el mismo sitio, cada registro
+        conserva su propia identidad y una aseveración de coincidencia de sujeto indica que describen
+        el mismo sitio.
       description_fr: Un lieu où sont exercées une ou plusieurs activités réglementées en raison de
         leur effet sur l'environnement, par exemple une installation industrielle, une grande unité
         d'élevage ou une station d'épuration des eaux usées. L'installation conserve son identité
         lorsque son exploitant, ses permis ou ses obligations de déclaration changent. Son
         exploitant est enregistré comme une AssetPartyRole datée et ses adresses par une
-        AssetAddressAssignment.
+        AssetAddressAssignment. Lorsqu'un autre registre, tel qu'un registre agricole, enregistre le même
+        site, chaque enregistrement conserve sa propre identité et une assertion de correspondance de
+        sujet indique qu'ils décrivent le même site.
       source_domain: environment
       bibliography_refs: '["eu-reg-2024-1244", "inspire-fc", "inspire-tg-pf", "us-epa-frs"]'
       external_alignments_json: '[{"label": "ProductionFacility", "match": "close", "note": "INSPIRE defines

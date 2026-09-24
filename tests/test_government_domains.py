@@ -199,6 +199,23 @@ def test_facility_operator_is_a_dated_asset_role_for_person_organization_or_unkn
     assert not set(facility) & {"environmental_operator", "facility_addresses"}
 
 
+def test_one_site_in_two_registers_keeps_both_records_and_a_match_states_they_agree(exports, subclass_hierarchy):
+    built, shapes, _, _ = exports
+    environmental = next(r for r in RECORDS if r["@type"] == "environment/EnvironmentalFacility")
+    agricultural = next(r for r in RECORDS if r["@type"] == "agri/AgriculturalFacility")
+    match = next(r for r in RECORDS if r["@type"] == "SubjectMatchAssertion")
+    # Each register keeps its own record; the match links them without merging identities.
+    assert environmental["@id"] != agricultural["@id"]
+    assert match["matched_source"]["subject_uri"] == environmental["@id"]
+    assert match["matched_subject"] == agricultural["@id"]
+    assert match["match_outcome"] == "match"
+    assert "subject match assertion" in built["concepts"]["environment/EnvironmentalFacility"]["definition"]["en"]
+    graph = jsonld_graph(RECORDS, built["context"])
+    conforms, _, report = validate(graph, shacl_graph=shapes, ont_graph=subclass_hierarchy)
+    assert conforms, report
+    assert not PROFILE.profile_errors(RECORDS)
+
+
 def test_retired_draft_slots_stay_removed(exports):
     built, _, _, _ = exports
     context = built["context"]["@context"]
