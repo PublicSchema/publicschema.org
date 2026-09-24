@@ -26,7 +26,7 @@ CLOSED_ENUMS = {
     "geometry_encoding": ("geometry-encoding", {"geojson", "wkt", "gml", "kml"}),
     "unit_scheme": ("unit-system", {"ucum", "unece_rec20"}),
     "match_outcome": ("match-outcome", {"match", "possible_match", "non_match"}),
-    "record_change_kind": ("record-change-kind", {"invalidation", "retirement", "supersession"}),
+    "record_change_kind": ("record-change-kind", {"clarification", "invalidation", "retirement", "supersession"}),
 }
 
 
@@ -312,3 +312,10 @@ def test_an_authorization_accepts_a_holder_and_an_object(result, registry):
         "authorized_object": "https://example.org/facility/plant",
         "authorized_activity": "waste incineration",
     })
+
+
+def test_a_clarification_does_not_change_what_the_record_means(result):
+    # ISO 19135 separates a non-substantive correction from an invalidation for a substantive error.
+    values = {value["code"]: value for value in result["vocabularies"]["record-change-kind"]["values"]}
+    assert "does not change" in values["clarification"]["definition"]["en"]
+    assert set(values["clarification"]["definition"]) >= {"en", "fr", "es"}

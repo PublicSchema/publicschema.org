@@ -70,6 +70,7 @@ record as a `RecordReference`, and `record_change_kind` says what happened to it
 
 | Code | Meaning |
 | --- | --- |
+| `clarification` | A non-substantive correction, such as a spelling fix; what the record states is unchanged. |
 | `invalidation` | The record was found to be wrong and is no longer to be relied on. |
 | `retirement` | The record is kept for reference but no longer in current use. |
 | `supersession` | The record was replaced by another record, named in `supersedes_record` on the replacement. |
@@ -86,8 +87,8 @@ later changes:
 - A suspension, withdrawal or other interruption is a `RegulatoryAction` whose `subject_uri` is
   the registration or permission. Its `start_date` and `end_date` bound the period in which the
   measure has effect, and `action_date` is when it was taken.
-- A `RecordLifecycleEvent` is only for the record itself: an error that invalidates it, its
-  retirement or its replacement. It does not express a change in legal standing.
+- A `RecordLifecycleEvent` is only for the record itself: a minor correction, an error that
+  invalidates it, its retirement or its replacement. It does not express a change in legal standing.
 
 The standing on a given day follows from the stated validity together with the actions in
 effect that day. A profile decides which actions it considers and how appeals affect them.
@@ -104,7 +105,7 @@ slot uses a closed vocabulary instead of a `CodedValue`:
 | `geometry_encoding` | `geojson`, `wkt`, `gml`, `kml` | GeoSPARQL 1.1 serialization literals |
 | `unit_scheme` | `ucum`, `unece_rec20` | UCUM and UN/ECE Recommendation 20 |
 | `match_outcome` | `match`, `possible_match`, `non_match` | SSSOM mapping predicates and record-linkage practice |
-| `record_change_kind` | `invalidation`, `retirement`, `supersession` | INSPIRE register guidance |
+| `record_change_kind` | `clarification`, `invalidation`, `retirement`, `supersession` | INSPIRE register guidance, ISO 19135-1 |
 
 Lists that are local policy, such as asset roles, address purposes, name uses and building
 uses, stay `CodedValue` so the source scheme and its unknown or retired codes are retained.
