@@ -33,7 +33,7 @@ Si un système de codes formel existe, référencez-le. Trois niveaux :
 | **Référence** | La norme existe mais nous ne synchronisons pas (prose uniquement, chevauchement partiel, simplification délibérée). | `references` |
 | **Aucun** | Aucune norme pertinente n'existe. | Aucun des deux champs |
 
-Un vocabulaire sans `standard`, sans `references` et sans `system_mappings` n'est pas validé. Acceptable au niveau de maturité brouillon ; doit être résolu avant l'usage expérimental.
+Un vocabulaire sans `standard`, sans `references` et sans `system_mappings` n'est pas validé. Acceptable au niveau de maturité brouillon ; doit être résolu avant le niveau « Usage expérimental » (`candidate`).
 
 N'adoptez pas les codes d'une norme lorsqu'ils ne servent pas les praticiens visés. Les codes ISO 20022 (RCVD, ACTC, ACSP) sont destinés aux messages interbancaires. Utilisez des codes lisibles ; effectuez la correspondance vers la norme.
 
