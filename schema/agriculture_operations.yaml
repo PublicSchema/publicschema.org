@@ -50,7 +50,7 @@ classes:
     class_uri: publicschema:agri/AgriculturalLaboratory
     title: Agricultural Laboratory
     description: A facility where agricultural materials such as soil, water, plant tissue, feed or produce
-      are analysed or tested. Membership of a laboratory network does not show accreditation or proficiency.
+      are analyzed or tested. Membership of a laboratory network does not show accreditation or proficiency.
     status: bibo:draft
     slots:
     - laboratory_capability

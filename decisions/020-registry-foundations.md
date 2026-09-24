@@ -29,7 +29,7 @@ Organizations appear in these records in distinct roles, each with its own slot:
 
 A change in the standing of a record is a `RecordLifecycleEvent`, which specializes `Event`. `affected_record` names the record as a RecordReference and `record_change_kind` says what happened to it. Changes to the subject itself, such as a death or a dissolution, are domain events, and an organizational merger or split is an `OrganizationalChangeEvent`. `effective_at` and `recorded_at` are separate because a change can take effect before or after it is recorded.
 
-`Authorization` specializes `Registration` because registration here means administrative recognition, not insertion into a database, and a permission is a more specific recognition. An issued licence number identifies the permission or document within its issuing scheme and is represented with `IdentifierAssignment`. `RegistryEntry.record_id` identifies the entry within its register; it holds a licence number only when the register uses that number as its entry key. Neither value replaces the identity of the licensed person or organization.
+`Authorization` specializes `Registration` because registration here means administrative recognition, not insertion into a database, and a permission is a more specific recognition. An issued license number identifies the permission or document within its issuing scheme and is represented with `IdentifierAssignment`. `RegistryEntry.record_id` identifies the entry within its register; it holds a license number only when the register uses that number as its entry key. Neither value replaces the identity of the licensed person or organization.
 
 ### Actor and subject ranges
 

@@ -102,7 +102,7 @@ assignment that links an address to an asset.
 
 The [local example profile](../examples/registry-pilots/profile.py) demonstrates submission rules separately from the vocabulary. It requires register, record and subject identity and a timezone-bearing recording timestamp, checks date ordering, converts only the two supported UCUM area units without rounding, and validates the chosen geometry subset. An empty Farm can still be vocabulary-valid. Kilograms fail the area profile; unknown units are retained as source values but cannot be converted. Missing dates are not fabricated. A RecordLifecycleEvent can take effect before it is recorded. Supersession links replace records, not necessarily their subjects.
 
-For an issued registration or licence number, use an `Identifier` with its issuing scheme
+For an issued registration or license number, use an `Identifier` with its issuing scheme
 and an `IdentifierAssignment` whose `subject_uri` is the recognition or permission
 it identifies. Use `RegistryEntry.record_id` for the register's own entry key. A register
 may use the issued number as that key, but the vocabulary does not assume it does. The

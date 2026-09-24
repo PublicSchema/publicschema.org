@@ -17,9 +17,9 @@ classes:
   DrivingEntitlement:
     class_uri: publicschema:transport/DrivingEntitlement
     title: Driving Entitlement
-    description: A permission for a person to drive vehicles of one licence category, recorded by a
-      licensing authority, with its own conditions and dates. One driving licence can record several
-      entitlements that start and expire on different dates. The licence document is evidence of the
+    description: A permission for a person to drive vehicles of one license category, recorded by a
+      licensing authority, with its own conditions and dates. One driver's license can record several
+      entitlements that start and expire on different dates. The license document is evidence of the
       entitlements, not the permission itself.
     slots:
     - driving_category
@@ -43,8 +43,8 @@ classes:
       bibliography_refs: '["eu-dir-2025-2205", "uk-dvla-driving-licence-categories"]'
       external_alignments_json: '[{"label": "Driving licence category entry", "match": "related", "note":
         "Directive (EU) 2025/2205, Annex I Part D point 4, fields 9 to 12, records each category with its
-        own issue date, expiry date and restriction codes on one licence document. This concept is that
-        per-category entry, not the licence card.", "uri": "https://eur-lex.europa.eu/eli/dir/2025/2205/oj",
+        own issue date, expiry date and restriction codes on one license document. This concept is that
+        per-category entry, not the license card.", "uri": "https://eur-lex.europa.eu/eli/dir/2025/2205/oj",
         "vocabulary": "Directive (EU) 2025/2205", "vocabulary_id": "eu-dir-2025-2205"}]'
   Vehicle:
     class_uri: publicschema:transport/Vehicle
@@ -88,7 +88,7 @@ slots:
   driving_category:
     slot_uri: publicschema:transport/driving_category
     title: Driving category
-    description: The licence category this entitlement covers, such as B for cars, taken from a named
+    description: The license category this entitlement covers, such as B for cars, taken from a named
       category list. The same letter can mean different vehicles in different jurisdictions or editions
       of a list.
     range: CodedValue
