@@ -55,8 +55,8 @@ is public.
 | `OrganizationalChangeEvent` | `original_organizations`, `resulting_organizations`, `lifecycle_kind`, `effective_at`, `recorded_at`, `authority`, `legal_resources`, `evidence_assertions` retain participants, timing and basis without replacing historical actors. |
 
 Applicant and appellant URI fields allow a person, group or organization without widening
-the existing recipient hierarchy. The submitter and both ends of a `RepresentationRole`
-reference an `Agent`. A local profile resolves each target and checks its kind. A `RepresentationRole` reference identifies a claimed relationship;
+the existing recipient hierarchy. The submitter and the representative reference an `Agent`; the represented party is a URI
+admitting a person, organization, group or legal arrangement. A local profile resolves each target and checks its kind. A `RepresentationRole` reference identifies a claimed relationship;
 it does not prove the actor can file this particular request. Identity, period and
 the applicable scope require separate checking.
 

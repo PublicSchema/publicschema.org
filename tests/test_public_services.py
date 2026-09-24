@@ -128,7 +128,7 @@ def test_wrong_decision_output_type_fails_shacl_even_with_an_existing_identity(e
 
 @pytest.mark.parametrize("suffix,changes,message", [
     ("business-application", {"service_applicant": BASE + "missing"}, "missing referenced record"),
-    ("business-representation", {"represented": ref("resident", "Person")}, "represented party mismatch"),
+    ("business-representation", {"represented": BASE + "resident"}, "represented party mismatch"),
     ("business-representation", {"representative": ref("resident", "Person")}, "representative or represented party mismatch"),
     ("business-representation", {"end_date": "2026-04-30"}, "outside representation period"),
     ("business-permit", {"registered_subject": BASE + "resident"}, "permit subject differs"),
@@ -325,7 +325,7 @@ def test_dated_acts_share_the_event_hierarchy_and_one_authority_link(exports):
     for module in ("organizations", "registry", "public_services"):
         authored.update(yaml.safe_load((ROOT / f"schema/{module}.yaml").read_text())["slots"])
     assert authored["authority"]["range"] == "Organization"
-    for name in ("submitted_by", "representative", "represented"):
+    for name in ("submitted_by", "representative"):
         assert authored[name]["range"] == "Agent", name
     for removed in ("application_subject", "receiving_authority", "submitted_at", "decision_subject",
                     "decision_authority", "decision_made_at", "reviewing_authority", "capacity_subject"):
@@ -437,3 +437,14 @@ def test_missing_recording_time_is_a_profile_error():
     event["request_submission_date"] = "2026-05-01"
     with pytest.raises(profile.ProfileError, match="office-name-correction.recorded_at: required"):
         profile.validate_journey(changed, CONFIG)
+
+
+def test_a_representative_can_act_for_a_household_or_a_trust(exports):
+    # Applicants and appellants can be groups, so the represented party must admit them too.
+    built = exports[0]
+    prop = built["properties"]["represented"]
+    assert prop["type"] == "uri"
+    for language, words in (("en", ("group", "legal arrangement")),
+                            ("fr", ("groupe", "construction juridique")),
+                            ("es", ("grupo", "estructura jurídica"))):
+        assert all(word in prop["definition"][language] for word in words), language

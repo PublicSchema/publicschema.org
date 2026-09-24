@@ -101,8 +101,8 @@ classes:
   RepresentationRole:
     class_uri: publicschema:RepresentationRole
     title: Representation Role
-    description: A dated relationship in which one person or organization acts on behalf of another within
-      a stated scope. Representation is distinct from identity, and recording it does not prove that
+    description: A dated relationship in which a person or organization acts on behalf of a person,
+      organization, group or legal arrangement within a stated scope. Representation is distinct from identity, and recording it does not prove that
       the representative may take a particular action.
     slots:
     - representative
@@ -115,10 +115,12 @@ classes:
       label_es: Rol de representación
       label_fr: Rôle de représentation
       description_es: Una relación fechada en la que una persona o una organización actúa en nombre
-        de otra dentro de un ámbito determinado. La representación es distinta de la identidad, y su
+        de una persona, una organización, un grupo o una estructura jurídica dentro de un ámbito
+        determinado. La representación es distinta de la identidad, y su
         registro no demuestra que el representante pueda realizar una acción determinada.
       description_fr: Une relation datée dans laquelle une personne ou une organisation agit pour le
-        compte d'une autre dans un cadre défini. La représentation est distincte de l'identité, et
+        compte d'une personne, d'une organisation, d'un groupe ou d'une construction juridique dans un
+        cadre défini. La représentation est distincte de l'identité, et
         son enregistrement ne prouve pas que le représentant puisse accomplir une action particulière.
       bibliography_refs: '["semic-core-business", "us-irs-form-2848", "w3c-prov-o"]'
 slots:
@@ -265,15 +267,22 @@ slots:
   represented:
     slot_uri: publicschema:represented
     title: Represented
-    description: The person or organization on whose behalf the representative acts.
-    range: Agent
+    description: The URI of the person, organization, group or legal arrangement on whose behalf the
+      representative acts, such as a household applying through one of its members or a trust acting
+      through its trustees.
+    range: uri
     multivalued: false
     status: bibo:draft
     annotations:
       label_es: Representado
       label_fr: Représenté
-      description_es: La persona o la organización en cuyo nombre actúa el representante.
-      description_fr: La personne ou l'organisation pour le compte de laquelle le représentant agit.
+      description_es: El URI de la persona, organización, grupo o estructura jurídica en cuyo nombre
+        actúa el representante, como un hogar que presenta una solicitud por medio de uno de sus
+        miembros o un fideicomiso que actúa por medio de sus fiduciarios.
+      description_fr: L'URI de la personne, de l'organisation, du groupe ou de la construction juridique
+        pour le compte duquel le représentant agit, par exemple un ménage qui dépose une demande par
+        l'intermédiaire de l'un de ses membres ou un trust qui agit par l'intermédiaire de ses
+        fiduciaires.
       category: governance
       sensitivity: sensitive
   representation_scope:
