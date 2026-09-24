@@ -66,7 +66,7 @@ New fields use global LinkML slots and the maintained build. Example submission 
 
 Registry payloads map to several records instead of one. A national business register row, for example, becomes a RegistryEntry, the Organization it describes, a Registration, and possibly an IdentifierAssignment for the registration number. Adopters gain the ability to keep these apart when their lifetimes diverge, at the cost of more links.
 
-`subject_uri` alone does not reveal what a record is about. `register_uri` and `registered_subject` are sensitive, because appearing in a particular register can reveal a person's circumstances.
+`subject_uri` is not marked sensitive because every statement about a thing uses it; on an application, decision, assessment or regulatory action about a person it is the link to that person, and the record is as sensitive as what it says about them. `register_uri` and `registered_subject` are sensitive, because appearing in a particular register can reveal a person's circumstances.
 
 JSON Schema accepts any string for a URI reference and so proves neither existence nor identity. Resolution and type checks for URI-ranged slots belong to profiles; SHACL checks typed relationships when the class hierarchy is supplied.
 

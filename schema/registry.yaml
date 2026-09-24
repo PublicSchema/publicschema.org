@@ -576,6 +576,7 @@ slots:
       description_fr: La finalité ou la catégorie administrative de la reconnaissance, énoncée sous
         forme de texte. N'implique pas l'éligibilité à un avantage.
       category: administrative
+      sensitivity: sensitive
   authorized_activity:
     slot_uri: publicschema:authorized_activity
     title: Authorized activity

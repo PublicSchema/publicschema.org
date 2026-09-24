@@ -116,6 +116,12 @@ def test_links_naming_the_party_behind_a_role_or_match_are_sensitive(result, slo
     assert result["properties"][slot]["sensitivity"] == "sensitive"
 
 
+@pytest.mark.parametrize("slot", ["public_service", "registration_purpose"])
+def test_what_a_person_applied_for_or_is_registered_for_is_sensitive(result, slot):
+    # A disability allowance application or a refugee registration reveals the person's circumstances.
+    assert result["properties"][slot]["sensitivity"] == "sensitive"
+
+
 def test_asset_actor_admits_groups_by_definition(result):
     prop = result["properties"]["asset_actor"]
     assert prop["type"] == "uri"

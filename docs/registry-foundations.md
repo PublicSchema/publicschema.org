@@ -31,7 +31,9 @@ the Authorization hierarchy or the complete CodedValue structure.
 
 `register_uri`, `registered_subject` and `matched_subject` are marked sensitive: knowing that a
 person appears in a particular register, or was matched to a source record, can reveal their
-circumstances. `subject_uri` alone is not.
+circumstances. `subject_uri` is not marked sensitive because every statement about a thing
+uses it. On an application, decision, assessment or regulatory action about a person, it is
+the link to that person, and the record as a whole is as sensitive as what it says about them.
 
 ## Statements about a subject
 

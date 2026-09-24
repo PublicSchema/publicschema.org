@@ -60,6 +60,11 @@ admitting a person, organization, group or legal arrangement. A local profile re
 it does not prove the actor can file this particular request. Identity, period and
 the applicable scope require separate checking.
 
+`public_service` is sensitive because the service applied for, such as a disability allowance,
+can reveal a person's circumstances. On an application, decision or appeal about a person,
+`subject_uri` is the link to that person; treat the whole record as personal data even though
+`subject_uri` itself carries no sensitivity mark.
+
 The permit remains an `Authorization` originally issued by the former office.
 The suspension is a `RegulatoryAction` whose `subject_uri` is the permit URI.
 The decision links to that action. This represents a limit on one permission without

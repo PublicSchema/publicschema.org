@@ -286,6 +286,7 @@ slots:
       description_es: El servicio público descrito al que se presenta esta solicitud.
       description_fr: Le service public décrit auquel cette demande est soumise.
       category: administrative
+      sensitivity: sensitive
   service_applicant:
     slot_uri: publicschema:service_applicant
     title: Service applicant
