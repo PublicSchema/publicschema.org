@@ -310,7 +310,7 @@ slots:
       label_fr: Juridiction du registre
       description_es: El área geográfica o administrativa que cubre el registro.
       description_fr: La zone géographique ou administrative que le registre couvre.
-      category: administrative
+      category: location
       external_alignments_json: '[{"label": "spatial", "match": "close", "note": "Links a resource to
         the area it covers, as the Core Public Organisation Vocabulary uses it for the administrative
         regions an organization covers.", "uri": "http://purl.org/dc/terms/spatial", "vocabulary": "DCMI
@@ -351,7 +351,7 @@ slots:
       bibliography_refs: '["ec-inspire-registers-2017"]'
   record_id:
     slot_uri: publicschema:record_id
-    title: Record id
+    title: Record ID
     description: The identifier of the record within its register, exactly as the register issues it,
       including any leading zeros.
     range: string
@@ -547,7 +547,7 @@ slots:
       label_fr: Juridiction d'enregistrement
       description_es: El área dentro de la cual se aplica el reconocimiento.
       description_fr: La zone au sein de laquelle la reconnaissance s'applique.
-      category: administrative
+      category: location
   registration_purpose:
     slot_uri: publicschema:registration_purpose
     title: Registration purpose

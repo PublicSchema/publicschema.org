@@ -234,7 +234,7 @@ slots:
       category: location
   virtual_site_url:
     slot_uri: publicschema:edu/virtual_site_url
-    title: Virtual site url
+    title: Virtual site URL
     description: The web address of the online environment through which learning is delivered at this
       site, not the provider's general home page.
     range: uri
