@@ -226,3 +226,27 @@ def test_coded_and_textual_authorization_conditions_point_to_each_other(exports)
     properties = built["properties"]
     assert "authorization_conditions" in properties["driving_condition_codes"]["definition"]["en"]
     assert "driving_condition_codes" in properties["authorization_conditions"]["definition"]["en"]
+
+
+def test_legal_acts_are_cited_as_related_sources_not_as_matching_terms():
+    # A directive or regulation is a whole document, not a class or property a term can match.
+    legal_act = "https://eur-lex.europa.eu/eli/"
+    for path in sorted((ROOT / "schema").glob("*.yaml")):
+        authored = yaml.safe_load(path.read_text())
+        for section in ("classes", "slots", "enums"):
+            for name, entry in (authored.get(section) or {}).items():
+                for key in ("exact_mappings", "close_mappings", "broad_mappings", "narrow_mappings"):
+                    assert not any(uri.startswith(legal_act) for uri in entry.get(key) or []), (name, key)
+                alignments = (entry.get("annotations") or {}).get("external_alignments_json") or "[]"
+                for alignment in json.loads(alignments):
+                    if alignment.get("uri", "").startswith(legal_act):
+                        assert alignment["match"] == "related", name
+
+
+def test_vehicle_is_narrower_than_the_schema_org_vehicle(exports):
+    # schema.org Vehicle also covers aircraft, boats and vehicles offered for sale.
+    vehicle = AUTHORED["classes"]["Vehicle"]
+    assert vehicle["broad_mappings"] == ["https://schema.org/Vehicle"]
+    assert "close_mappings" not in vehicle
+    built, _, _, _ = exports
+    assert built["concepts"]["transport/Vehicle"]["external_equivalents"]["schema-org"]["match"] == "broad"

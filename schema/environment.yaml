@@ -98,8 +98,6 @@ slots:
     range: CodedValue
     multivalued: true
     status: bibo:draft
-    close_mappings:
-    - https://eur-lex.europa.eu/eli/reg/2024/1244/oj
     annotations:
       label_es: Actividades medioambientales
       label_fr: Activités environnementales
@@ -110,7 +108,7 @@ slots:
         intensif de porcs ou l'incinération de déchets, chacune tirée d'une liste d'activités nommée.
       source_domain: environment
       category: classification
-      external_alignments_json: '[{"label": "Activities (Annex I)", "match": "close", "note": "Regulation
+      external_alignments_json: '[{"label": "Activities (Annex I)", "match": "related", "note": "Regulation
         (EU) 2024/1244, Annex I, lists the activities whose installations report to the Industrial Emissions
         Portal.", "uri": "https://eur-lex.europa.eu/eli/reg/2024/1244/oj", "vocabulary": "Regulation (EU)
         2024/1244", "vocabulary_id": "eu-reg-2024-1244"}, {"label": "NACECodeValue", "match": "related",

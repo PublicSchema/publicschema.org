@@ -60,7 +60,7 @@ classes:
     - vehicle_category
     - manufacture_year
     status: bibo:draft
-    close_mappings:
+    broad_mappings:
     - https://schema.org/Vehicle
     annotations:
       label_es: Vehículo
@@ -77,7 +77,7 @@ classes:
         sont enregistrés comme des rôles datés sur le bien.
       source_domain: transport
       bibliography_refs: '["eu-dir-1999-37", "schema-org", "uk-dvla-vehicle-enquiry-api"]'
-      external_alignments_json: '[{"label": "Vehicle", "match": "close", "note": "schema.org Vehicle also
+      external_alignments_json: '[{"label": "Vehicle", "match": "broad", "note": "schema.org Vehicle also
         covers aircraft, boats and vehicles offered for sale; this concept is a registered road vehicle.",
         "uri": "https://schema.org/Vehicle", "vocabulary": "schema.org", "vocabulary_id": "schema-org"},
         {"label": "Vehicle", "match": "related", "note": "Council Directive 1999/37/EC, Article 2, defines
@@ -94,8 +94,6 @@ slots:
     range: CodedValue
     multivalued: false
     status: bibo:draft
-    close_mappings:
-    - https://eur-lex.europa.eu/eli/dir/2025/2205/oj
     annotations:
       label_es: Categoría de permiso
       label_fr: Catégorie de permis
@@ -107,7 +105,7 @@ slots:
         différents selon les juridictions ou les éditions d'une liste.
       source_domain: transport
       category: classification
-      external_alignments_json: '[{"label": "Driving licence categories", "match": "close", "note": "Directive
+      external_alignments_json: '[{"label": "Driving licence categories", "match": "related", "note": "Directive
         (EU) 2025/2205, Article 6(1), defines the EU categories AM to DE; other jurisdictions use their own
         lists.", "uri": "https://eur-lex.europa.eu/eli/dir/2025/2205/oj", "vocabulary": "Directive (EU) 2025/2205",
         "vocabulary_id": "eu-dir-2025-2205"}]'
@@ -122,8 +120,6 @@ slots:
     range: CodedValue
     multivalued: true
     status: bibo:draft
-    close_mappings:
-    - https://eur-lex.europa.eu/eli/dir/2025/2205/oj
     annotations:
       label_es: Códigos de condiciones de conducción
       label_fr: Codes de conditions de conduite
@@ -139,7 +135,7 @@ slots:
       source_domain: transport
       category: classification
       sensitivity: sensitive
-      external_alignments_json: '[{"label": "Harmonised licence codes", "match": "close", "note": "Directive
+      external_alignments_json: '[{"label": "Harmonised licence codes", "match": "related", "note": "Directive
         (EU) 2025/2205, Annex I Part E, lists the harmonised restriction codes; codes 01 to 44 concern the
         driver''s health or the vehicle adaptations the driver needs.", "uri": "https://eur-lex.europa.eu/eli/dir/2025/2205/oj",
         "vocabulary": "Directive (EU) 2025/2205", "vocabulary_id": "eu-dir-2025-2205"}]'
@@ -152,8 +148,6 @@ slots:
     range: string
     multivalued: false
     status: bibo:draft
-    close_mappings:
-    - https://eur-lex.europa.eu/eli/dir/1999/37/oj
     annotations:
       label_es: Marca del vehículo
       label_fr: Marque du véhicule
@@ -163,7 +157,7 @@ slots:
         généralement le nom commercial du constructeur.
       source_domain: transport
       category: assets
-      external_alignments_json: '[{"label": "Make (D.1)", "match": "close", "note": "Council Directive
+      external_alignments_json: '[{"label": "Make (D.1)", "match": "related", "note": "Council Directive
         1999/37/EC, Annex I, registration certificate field D.1.", "uri": "https://eur-lex.europa.eu/eli/dir/1999/37/oj",
         "vocabulary": "Council Directive 1999/37/EC", "vocabulary_id": "eu-dir-1999-37"}]'
       bibliography_refs: '["eu-dir-1999-37"]'
@@ -176,7 +170,6 @@ slots:
     multivalued: false
     status: bibo:draft
     close_mappings:
-    - https://eur-lex.europa.eu/eli/dir/1999/37/oj
     - https://schema.org/model
     annotations:
       label_es: Modelo del vehículo
@@ -187,7 +180,7 @@ slots:
         registre. Elle n'est pas la variante ou la version de réception par type.
       source_domain: transport
       category: assets
-      external_alignments_json: '[{"label": "Commercial description(s) (D.3)", "match": "close", "note":
+      external_alignments_json: '[{"label": "Commercial description(s) (D.3)", "match": "related", "note":
         "Council Directive 1999/37/EC, Annex I, registration certificate field D.3.", "uri": "https://eur-lex.europa.eu/eli/dir/1999/37/oj",
         "vocabulary": "Council Directive 1999/37/EC", "vocabulary_id": "eu-dir-1999-37"}, {"label": "model",
         "match": "close", "uri": "https://schema.org/model", "vocabulary": "schema.org", "vocabulary_id":
@@ -201,8 +194,6 @@ slots:
     range: CodedValue
     multivalued: false
     status: bibo:draft
-    close_mappings:
-    - https://eur-lex.europa.eu/eli/reg/2018/858/oj
     annotations:
       label_es: Categoría de vehículo
       label_fr: Catégorie de véhicule
@@ -214,7 +205,7 @@ slots:
         le véhicule, et non ce qu'un conducteur est autorisé à conduire.
       source_domain: transport
       category: classification
-      external_alignments_json: '[{"label": "Vehicle categories", "match": "close", "note": "Regulation
+      external_alignments_json: '[{"label": "Vehicle categories", "match": "related", "note": "Regulation
         (EU) 2018/858, Article 4, defines the M, N and O categories used in EU type approval.", "uri": "https://eur-lex.europa.eu/eli/reg/2018/858/oj",
         "vocabulary": "Regulation (EU) 2018/858", "vocabulary_id": "eu-reg-2018-858"}]'
       bibliography_refs: '["eu-reg-2018-858"]'
