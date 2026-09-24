@@ -262,6 +262,15 @@ def test_interest_type_points_to_the_bods_codelist(exports):
         assert "interestType" in prop["definition"][language], language
     assert "openownership-bods" in prop["bibliography_refs"]
 
+
+@pytest.mark.parametrize("language,term", [
+    ("en", "nominee agreement"), ("fr", "accord de prête-nom"), ("es", "acuerdo de testaferro"),
+])
+def test_legal_arrangement_and_its_type_name_nominee_agreements_alike(exports, language, term):
+    built = exports[0]
+    assert term in built["concepts"]["LegalArrangement"]["definition"][language]
+    assert term in built["properties"]["arrangement_type"]["definition"][language]
+
 def test_optional_reference_shapes_do_not_assert_complete_exchange(exports):
     for kind in ("LegalArrangement", "OwnershipInterest", "edu/EducationOffering"):
         partial = {"@id": EX + "partial", "@type": kind}

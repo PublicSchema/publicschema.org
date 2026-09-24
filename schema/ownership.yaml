@@ -188,7 +188,7 @@ slots:
   arrangement_type:
     slot_uri: publicschema:arrangement_type
     title: Arrangement type
-    description: The kind of legal arrangement, such as a trust or nomination agreement. Its legal treatment
+    description: The kind of legal arrangement, such as a trust or nominee agreement. Its legal treatment
       depends on the applicable jurisdiction.
     range: CodedValue
     multivalued: false
@@ -196,10 +196,10 @@ slots:
     annotations:
       label_es: Tipo de estructura jurídica
       label_fr: Type de construction juridique
-      description_es: El tipo de estructura jurídica, como un fideicomiso o un acuerdo de designación
-        de testaferro. Su tratamiento jurídico depende de la jurisdicción aplicable.
-      description_fr: Le type de construction juridique, par exemple un trust ou un accord de désignation
-        de prête-nom. Son traitement juridique dépend de la juridiction applicable.
+      description_es: El tipo de estructura jurídica, como un fideicomiso o un acuerdo de testaferro.
+        Su tratamiento jurídico depende de la jurisdicción aplicable.
+      description_fr: Le type de construction juridique, par exemple un trust ou un accord de prête-nom.
+        Son traitement juridique dépend de la juridiction applicable.
       category: classification
   component_interests:
     slot_uri: publicschema:component_interests
