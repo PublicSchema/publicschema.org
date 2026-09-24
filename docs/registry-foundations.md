@@ -69,12 +69,12 @@ merger or succession, is an `OrganizationalChangeEvent`, not a record lifecycle 
 
 ## Closed code lists
 
-Where a standard fixes a short list, the slot uses a closed vocabulary instead of a
-`CodedValue`:
+Where a standard fixes a short list, or PublicSchema fixes one informed by a standard, the
+slot uses a closed vocabulary instead of a `CodedValue`:
 
 | Slot | Codes | Source |
 | --- | --- | --- |
-| `evidence_role` | `supports`, `contradicts` | PROV-O qualified influence |
+| `evidence_role` | `supports`, `contradicts` | PublicSchema list informed by CiTO citation functions; PROV-O supplies only the provenance relationship |
 | `contact_channel` | `phone`, `fax`, `email`, `pager`, `url`, `sms`, `other` | FHIR ContactPoint system |
 | `geometry_encoding` | `geojson`, `wkt`, `gml`, `kml` | GeoSPARQL 1.1 serialization literals |
 | `unit_scheme` | `ucum`, `unece_rec20` | UCUM and UN/ECE Recommendation 20 |
