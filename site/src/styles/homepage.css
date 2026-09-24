@@ -602,6 +602,81 @@ a.h3-system:hover {
   color: var(--color-accent);
 }
 
+/* Domain grid */
+.h3-domains {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-md);
+}
+
+.h3-domain {
+  background: white;
+  border: 1px solid var(--color-border);
+  border-top: 3px solid var(--domain-color);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.h3-domain-core {
+  grid-column: 1 / -1;
+}
+
+.h3-domain-header {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-sm);
+  text-decoration: none;
+  color: inherit;
+}
+
+.h3-domain-header:hover h3 {
+  text-decoration: underline;
+}
+
+.h3-domain h3 {
+  font-size: 1rem;
+  color: var(--color-accent);
+  margin: 0;
+}
+
+.h3-domain-count {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  background: var(--color-surface);
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-pill);
+}
+
+.h3-domain > p {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.h3-domain-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  margin-top: auto;
+  padding-top: var(--space-xs);
+}
+
+.h3-domain-chips .h3-chip {
+  font-size: 0.78rem;
+  padding: 0.25rem 0.6rem;
+}
+
+.h3-domain-maturity {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
 /* Closing line */
 .h3-closing {
   font-family: var(--font-sans) !important;
@@ -636,6 +711,10 @@ a.h3-system:hover {
   }
 
   .h3-layers {
+    grid-template-columns: 1fr;
+  }
+
+  .h3-domains {
     grid-template-columns: 1fr;
   }
 

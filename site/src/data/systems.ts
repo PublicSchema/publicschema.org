@@ -77,6 +77,48 @@ export const systemRegistry: Record<string, SystemMeta> = {
     description: "GovStack Payments Building Block specification.",
     reviewStatus: "unreviewed",
   },
+  fhir_r5: {
+    name: "FHIR R5",
+    url: "https://hl7.org/fhir/R5/",
+    description: "HL7 Fast Healthcare Interoperability Resources, Release 5.",
+    reviewStatus: "unreviewed",
+  },
+  semic: {
+    name: "SEMIC Core Vocabularies",
+    url: "https://interoperable-europe.ec.europa.eu/collection/semic-support-centre/core-vocabularies",
+    description: "EU SEMIC Core Vocabularies (Core Person, Core Business, Core Location).",
+    reviewStatus: "unreviewed",
+  },
+  dhs: {
+    name: "DHS Recode 7",
+    url: "https://dhsprogram.com",
+    description: "Demographic and Health Surveys Program, Recode 7 standard recode.",
+    reviewStatus: "unreviewed",
+  },
+  "dhs-8": {
+    name: "DHS Recode 8",
+    url: "https://dhsprogram.com",
+    description: "Demographic and Health Surveys Program, Recode 8 standard recode.",
+    reviewStatus: "unreviewed",
+  },
+  mics: {
+    name: "MICS",
+    url: "https://mics.unicef.org",
+    description: "UNICEF Multiple Indicator Cluster Surveys.",
+    reviewStatus: "unreviewed",
+  },
+  lsms_isa: {
+    name: "LSMS-ISA",
+    url: "https://www.worldbank.org/en/programs/lsms/initiatives/lsms-ISA",
+    description: "World Bank Living Standards Measurement Study, Integrated Surveys on Agriculture.",
+    reviewStatus: "unreviewed",
+  },
+  wg_es: {
+    name: "Washington Group Extended Set",
+    url: "https://www.washingtongroup-disability.com",
+    description: "Washington Group on Disability Statistics, Extended Set on Functioning.",
+    reviewStatus: "unreviewed",
+  },
 };
 
 export function getSystemName(id: string): string {

@@ -1,6 +1,6 @@
 # Use Cases
 
-PublicSchema provides common definitions for public service delivery. There are many ways to use it, from aligning vocabulary codes in spreadsheets to issuing verifiable credentials. This page describes concrete scenarios where PublicSchema helps programs coordinate, share data, and reach the people they serve.
+PublicSchema provides common definitions for public services and government registries. There are many ways to use it, from aligning vocabulary codes in spreadsheets to issuing verifiable credentials. This page describes concrete scenarios where PublicSchema helps programs and registries coordinate, share data, and reach the people they serve.
 
 ## Contents
 
@@ -14,6 +14,9 @@ PublicSchema provides common definitions for public service delivery. There are 
 - [Disaster response coordination](#disaster-response-coordination)
 - [Cross-country program comparison and policy research](#cross-country-program-comparison-and-policy-research)
 - [API harmonization across a federation](#api-harmonization-across-a-federation)
+- [Linking the farm register to land records](#linking-the-farm-register-to-land-records)
+- [One business, many registers](#one-business-many-registers)
+- [Targeting agricultural input subsidies to registered farmers](#targeting-agricultural-input-subsidies-to-registered-farmers)
 - [Which artifacts matter for which use case](#which-artifacts-matter-for-which-use-case)
 
 ## Cross-program deduplication across sectors
@@ -116,6 +119,36 @@ PublicSchema provides common definitions for public service delivery. There are 
 
 **Key artifacts:** Properties (as shared field names), vocabulary codes (as shared value sets), JSON Schemas (for contract validation).
 
+## Linking the farm register to land records
+
+**Who:** An agriculture ministry building a farm register, and a land agency that keeps the cadastre and records of land rights.
+
+**The problem:** Both agencies talk about "parcels", but they mean different things. The farm register records the fields a farm actually works this season; the cadastre records surveyed units and the rights attached to them. A farmer may rent land from several owners, share common grazing, or work land whose rights are informal. When the two registers are joined naively, a farm's use of a field gets read as ownership, or a tenant disappears because the cadastre only knows the owner.
+
+**How PublicSchema helps:** The draft [agriculture](/concepts/?domain=agri) and [land](/concepts/?domain=land) domains keep these statements apart. A [Farm](/agri/Farm/) uses an [AgriculturalParcel](/agri/AgriculturalParcel/), a land-use unit, through a dated [HoldingParcelLink](/agri/HoldingParcelLink/) that records the used area, the period and the arrangement the farm reports (owned, rented, sharecropped), without asserting a legal right. The parcel can name the [LandSpatialUnit](/land/LandSpatialUnit/) records, such as cadastral parcels, that it lies on, even when their boundaries do not coincide. On the land side, a [LandTenureAssertion](/land/LandTenureAssertion/) records who holds or claims a right over a land administrative unit, with its tenure category and evidence, without deciding between competing claims. Each agency keeps its own records; the shared definitions let an analyst follow a farmed field to the cadastral units under it and report, for example, how much farmed land has no recorded tenure, without collapsing use into ownership.
+
+**Key artifacts:** Concepts (Farm, AgriculturalParcel, HoldingParcelLink, LandSpatialUnit, LandTenureAssertion), properties (land_spatial_units, parcel_tenure), vocabulary codes (land tenure, tenure category).
+
+## One business, many registers
+
+**Who:** A business registry, a tax authority, and an environmental regulator that each hold records about the same companies.
+
+**The problem:** A company is registered once at the business registry, again for each tax it pays, and again when one of its sites needs an environmental permit. Each agency assigns its own number and keeps its own status. When a company merges, closes, or changes its name, the other agencies find out late or not at all. Joining the registers on company name produces false matches, and there is no record of who decided that two records describe the same company.
+
+**How PublicSchema helps:** Each agency's record is modeled as a [Registration](/Registration/) of the same [Organization](/Organization/), naming the authority, jurisdiction, and purpose. A [TaxRegistration](/tax/TaxRegistration/) is one registration per tax. An environmental permit is an [Authorization](/Authorization/) whose authorized object is an [EnvironmentalFacility](/environment/EnvironmentalFacility/), so the site keeps its identity when the operator changes. Each agency's number is an [IdentifierAssignment](/IdentifierAssignment/) with its issuer and validity period. When agencies link their records, a [SubjectMatchAssertion](/SubjectMatchAssertion/) records who judged the match and how, without merging the records. Mergers and splits are recorded as an [OrganizationalChangeEvent](/OrganizationalChangeEvent/), so earlier companies and their past acts stay identifiable.
+
+**Key artifacts:** Concepts (Organization, Registration, TaxRegistration, Authorization, EnvironmentalFacility, IdentifierAssignment, SubjectMatchAssertion, OrganizationalChangeEvent), properties, vocabulary codes (organization type).
+
+## Targeting agricultural input subsidies to registered farmers
+
+**Who:** An agriculture ministry running a fertilizer and seed subsidy, delivered through vouchers redeemed at agro-dealers, with support from the social protection agency on targeting.
+
+**The problem:** The subsidy needs to reach farmers who are actually registered and eligible, once per season. Eligibility lists are drawn from the farm register, but vouchers are managed in a separate payment system and redemptions are reported by dealers in spreadsheets. Nobody can say with confidence which registered farmers received inputs, which products were collected, or whether the same farmer was served twice under different numbers.
+
+**How PublicSchema helps:** The farmer's standing comes from a [FarmerRegistration](/agri/FarmerRegistration/) that names the farms it covers. The subsidy is an [sp/Program](/sp/Program/) with an [sp/EligibilityDecision](/sp/EligibilityDecision/) and an [sp/Enrollment](/sp/Enrollment/) for each farmer, the same pattern social protection uses for cash transfers. Entitlements are fulfilled through a [Voucher](/Voucher/) issued to the farmer, and each dealer visit is a [VoucherRedemption](/VoucherRedemption/) listing the items and quantities collected. The approved product list can be described with [AgriculturalInputProduct](/agri/AgriculturalInputProduct/), each with its regulatory input category. Because farmer, program, and voucher use shared definitions, the ministry can reconcile the register, the voucher system, and dealer reports, and the social protection agency can reuse its deduplication and targeting tools.
+
+**Key artifacts:** Concepts (FarmerRegistration, Farm, Program, EligibilityDecision, Enrollment, Voucher, VoucherRedemption, AgriculturalInputProduct), properties, vocabulary codes (voucher status, agricultural input category), JSON Schemas.
+
 ## Which artifacts matter for which use case
 
 | Use case | Concepts | Properties | Vocabularies | JSON Schemas | JSON-LD | Credentials |
@@ -130,6 +163,9 @@ PublicSchema provides common definitions for public service delivery. There are 
 | Disaster response coordination | x | x | x | x | | |
 | Cross-country comparison | x | x | x | | | |
 | API federation | | x | x | x | | |
+| Farm register and land records | x | x | x | | | |
+| One business, many registers | x | x | x | | | |
+| Agricultural input subsidies | x | x | x | x | | |
 
 Most use cases require only concepts, properties, and vocabulary codes. JSON-LD and Verifiable Credentials are needed for a subset of scenarios. **Where to start:**
 

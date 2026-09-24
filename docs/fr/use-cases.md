@@ -1,6 +1,6 @@
 # Cas d'utilisation
 
-PublicSchema fournit des définitions communes pour la prestation de services publics. Il existe de nombreuses façons de l'utiliser, de l'alignement des codes de vocabulaire dans des tableurs à l'émission d'attestations vérifiables. Cette page décrit des scénarios concrets où PublicSchema aide les programmes à se coordonner, à partager des données et à atteindre les personnes qu'ils servent.
+PublicSchema fournit des définitions communes pour les services publics et les registres administratifs. Il existe de nombreuses façons de l'utiliser, de l'alignement des codes de vocabulaire dans des tableurs à l'émission d'attestations vérifiables. Cette page décrit des scénarios concrets où PublicSchema aide les programmes et les registres à se coordonner, à partager des données et à atteindre les personnes qu'ils servent.
 
 ## Sommaire
 
@@ -14,6 +14,9 @@ PublicSchema fournit des définitions communes pour la prestation de services pu
 - [Coordination de la réponse aux catastrophes](#coordination-de-la-réponse-aux-catastrophes)
 - [Comparaison inter-pays de programmes et recherche en politiques publiques](#comparaison-inter-pays-de-programmes-et-recherche-en-politiques-publiques)
 - [Harmonisation des API au sein d'une fédération](#harmonisation-des-api-au-sein-dune-fédération)
+- [Relier le registre des exploitations agricoles au registre foncier](#relier-le-registre-des-exploitations-agricoles-au-registre-foncier)
+- [Une entreprise, plusieurs registres](#une-entreprise-plusieurs-registres)
+- [Ciblage des subventions aux intrants agricoles pour les agriculteurs enregistrés](#ciblage-des-subventions-aux-intrants-agricoles-pour-les-agriculteurs-enregistrés)
 - [Quels artefacts importent pour quel cas d'utilisation](#quels-artefacts-importent-pour-quel-cas-dutilisation)
 
 ## Déduplication inter-programmes entre secteurs
@@ -116,6 +119,36 @@ PublicSchema fournit des définitions communes pour la prestation de services pu
 
 **Artefacts clés :** Propriétés (comme noms de champs partagés), codes de vocabulaire (comme ensembles de valeurs partagés), schémas JSON (pour la validation des contrats).
 
+## Relier le registre des exploitations agricoles au registre foncier
+
+**Qui :** Un ministère de l'agriculture qui construit un registre des exploitations agricoles, et une agence foncière qui tient le cadastre et les enregistrements des droits fonciers.
+
+**Le problème :** Les deux agences parlent de « parcelles », mais elles n'entendent pas la même chose. Le registre des exploitations enregistre les champs qu'une exploitation utilise effectivement cette saison ; le cadastre enregistre des unités levées par un géomètre et les droits qui s'y rattachent. Un agriculteur peut louer des terres à plusieurs propriétaires, partager un pâturage commun, ou exploiter des terres dont les droits sont informels. Lorsque les deux registres sont rapprochés naïvement, l'usage d'un champ par une exploitation est lu comme une propriété, ou un locataire disparaît parce que le cadastre ne connaît que le propriétaire.
+
+**Comment PublicSchema aide :** Les domaines [agriculture](/fr/concepts/?domain=agri) et [foncier](/fr/concepts/?domain=land), encore à l'état de brouillon, maintiennent ces affirmations distinctes. Une [Farm](/fr/agri/Farm/) utilise une [AgriculturalParcel](/fr/agri/AgriculturalParcel/), une unité d'usage du sol, par le biais d'un [HoldingParcelLink](/fr/agri/HoldingParcelLink/) daté qui enregistre la superficie utilisée, la période et le mode de faire-valoir déclaré par l'exploitation (propriété, fermage, métayage), sans affirmer un droit. La parcelle peut désigner les [LandSpatialUnit](/fr/land/LandSpatialUnit/), telles que les parcelles cadastrales, sur lesquelles elle se trouve, même lorsque leurs limites ne coïncident pas. Du côté foncier, une [LandTenureAssertion](/fr/land/LandTenureAssertion/) enregistre qui détient ou revendique un droit sur une unité administrative foncière, avec sa catégorie de tenure et ses éléments de preuve, sans trancher entre des revendications concurrentes. Chaque agence conserve ses propres enregistrements ; les définitions partagées permettent à un analyste de relier un champ exploité aux unités cadastrales qu'il recouvre et de calculer, par exemple, la superficie exploitée sans régime foncier enregistré, sans confondre l'usage avec la propriété.
+
+**Artefacts clés :** Concepts (Farm, AgriculturalParcel, HoldingParcelLink, LandSpatialUnit, LandTenureAssertion), propriétés (land_spatial_units, parcel_tenure), codes de vocabulaire (régime foncier, catégorie de tenure).
+
+## Une entreprise, plusieurs registres
+
+**Qui :** Un registre du commerce, une administration fiscale et un régulateur environnemental qui détiennent chacun des enregistrements sur les mêmes entreprises.
+
+**Le problème :** Une entreprise est enregistrée une fois au registre du commerce, à nouveau pour chaque impôt qu'elle acquitte, et encore lorsqu'un de ses sites a besoin d'un permis environnemental. Chaque agence attribue son propre numéro et tient son propre statut. Quand une entreprise fusionne, cesse son activité ou change de nom, les autres agences l'apprennent tardivement, ou pas du tout. Rapprocher les registres sur le nom de l'entreprise produit de fausses correspondances, et rien ne conserve la trace de qui a jugé que deux enregistrements décrivent la même entreprise.
+
+**Comment PublicSchema aide :** L'enregistrement de chaque agence est modélisé comme un [Registration](/fr/Registration/) de la même [Organization](/fr/Organization/), qui nomme l'autorité, la juridiction et la finalité. Un [TaxRegistration](/fr/tax/TaxRegistration/) est un enregistrement par impôt. Un permis environnemental est une [Authorization](/fr/Authorization/) dont l'objet autorisé est un [EnvironmentalFacility](/fr/environment/EnvironmentalFacility/), de sorte que le site conserve son identité lorsque l'exploitant change. Le numéro attribué par chaque agence est un [IdentifierAssignment](/fr/IdentifierAssignment/) avec son émetteur et sa période de validité. Lorsque des agences relient leurs enregistrements, une [SubjectMatchAssertion](/fr/SubjectMatchAssertion/) enregistre qui a jugé la correspondance et comment, sans fusionner les enregistrements. Les fusions et scissions sont enregistrées comme un [OrganizationalChangeEvent](/fr/OrganizationalChangeEvent/), de sorte que les entreprises antérieures et leurs actes passés restent identifiables.
+
+**Artefacts clés :** Concepts (Organization, Registration, TaxRegistration, Authorization, EnvironmentalFacility, IdentifierAssignment, SubjectMatchAssertion, OrganizationalChangeEvent), propriétés, codes de vocabulaire (type d'organisation).
+
+## Ciblage des subventions aux intrants agricoles pour les agriculteurs enregistrés
+
+**Qui :** Un ministère de l'agriculture qui gère une subvention aux engrais et aux semences, délivrée sous forme de bons échangés chez des agro-distributeurs, avec l'appui de l'agence de protection sociale pour le ciblage.
+
+**Le problème :** La subvention doit atteindre les agriculteurs réellement enregistrés et éligibles, une fois par saison. Les listes d'éligibilité sont tirées du registre des exploitations, mais les bons sont gérés dans un système de paiement distinct et les distributeurs rapportent les échanges dans des tableurs. Personne ne peut dire avec certitude quels agriculteurs enregistrés ont reçu des intrants, quels produits ont été retirés, ou si le même agriculteur a été servi deux fois sous des numéros différents.
+
+**Comment PublicSchema aide :** Le statut de l'agriculteur provient d'un [FarmerRegistration](/fr/agri/FarmerRegistration/) qui nomme les exploitations qu'il couvre. La subvention est un [sp/Program](/fr/sp/Program/) avec une [sp/EligibilityDecision](/fr/sp/EligibilityDecision/) et un [sp/Enrollment](/fr/sp/Enrollment/) pour chaque agriculteur, le même modèle que la protection sociale utilise pour les transferts monétaires. Les droits sont honorés au moyen d'un [Voucher](/fr/Voucher/) délivré à l'agriculteur, et chaque passage chez un distributeur est un [VoucherRedemption](/fr/VoucherRedemption/) qui liste les articles et quantités retirés. La liste des produits approuvés peut être décrite avec [AgriculturalInputProduct](/fr/agri/AgriculturalInputProduct/), chacun avec sa catégorie d'intrant réglementaire. Parce que l'agriculteur, le programme et le bon utilisent des définitions partagées, le ministère peut rapprocher le registre, le système de bons et les rapports des distributeurs, et l'agence de protection sociale peut réutiliser ses outils de déduplication et de ciblage.
+
+**Artefacts clés :** Concepts (FarmerRegistration, Farm, Program, EligibilityDecision, Enrollment, Voucher, VoucherRedemption, AgriculturalInputProduct), propriétés, codes de vocabulaire (statut du bon, catégorie d'intrant agricole), schémas JSON.
+
 ## Quels artefacts importent pour quel cas d'utilisation
 
 | Cas d'utilisation | Concepts | Propriétés | Vocabulaires | Schémas JSON | JSON-LD | Attestations |
@@ -130,6 +163,9 @@ PublicSchema fournit des définitions communes pour la prestation de services pu
 | Coordination en cas de catastrophe | x | x | x | x | | |
 | Comparaison inter-pays | x | x | x | | | |
 | Fédération d'API | | x | x | x | | |
+| Registre des exploitations agricoles et foncier | x | x | x | | | |
+| Une entreprise, plusieurs registres | x | x | x | | | |
+| Subventions aux intrants agricoles | x | x | x | x | | |
 
 La plupart des cas d'utilisation ne nécessitent que des concepts, des propriétés et des codes de vocabulaire. JSON-LD et les attestations vérifiables sont nécessaires pour un sous-ensemble de scénarios. **Par où commencer :**
 

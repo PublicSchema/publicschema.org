@@ -309,11 +309,7 @@ def test_every_used_domain_is_declared_in_the_composite(built_vocabulary):
         if entry.get("domain")
     }
     assert used
-    # metrics is used but not yet declared in the composite's domains_json, so
-    # the site shows its raw code. Declaring it is a schema change; remove it
-    # from this set when it is declared.
-    known_undeclared = {"metrics"}
-    assert used - declared == known_undeclared
+    assert used - declared == set()
 
 
 # ---------------------------------------------------------------------------
