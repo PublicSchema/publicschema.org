@@ -112,3 +112,14 @@ def test_definitions_carry_no_process_wording():
     for name, text in texts:
         assert not any(phrase in text.lower() for phrase in PROCESS_WORDING), name
         assert "—" not in text, name
+
+
+@pytest.mark.parametrize("slot,counterparts", [
+    ("work_status", ("status_in_employment", "employment_status")),
+    ("profession_code", ("occupation",)),
+    ("program_level", ("education_level", "school_level_served")),
+])
+def test_coded_work_and_education_slots_point_to_the_person_level_enums(built, slot, counterparts):
+    definition = built["properties"][slot]["definition"]
+    for language in ("en", "fr", "es"):
+        assert all(name in definition[language] for name in counterparts), language

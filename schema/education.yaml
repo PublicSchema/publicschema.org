@@ -254,7 +254,8 @@ slots:
     title: Program level
     description: The level of the education program in a named program classification, such as a three-digit
       ISCED-P 2011 code or a national equivalent. It classifies the program, not the attainment of any
-      learner. Give at most one value per classification.
+      learner. Give at most one value per classification. The highest level a person has completed
+      is recorded with education_level, and the levels a school serves with school_level_served.
     range: CodedValue
     multivalued: true
     status: bibo:draft
@@ -263,11 +264,14 @@ slots:
       label_fr: Niveau du programme
       description_es: El nivel del programa educativo en una clasificación de programas designada,
         por ejemplo un código ISCED-P 2011 de tres dígitos o un equivalente nacional. Clasifica el
-        programa, no el logro de ningún alumno. Indicar como máximo un valor por clasificación.
+        programa, no el logro de ningún alumno. Indicar como máximo un valor por clasificación. El
+        nivel más alto completado por una persona se registra con education_level, y los niveles que
+        atiende una escuela con school_level_served.
       description_fr: Le niveau du programme d'enseignement dans une classification de programmes
         nommée, par exemple un code ISCED-P 2011 à trois chiffres ou un équivalent national. Il
         classe le programme, et non l'acquis d'un apprenant quelconque. Indiquer au plus une valeur
-        par classification.
+        par classification. Le niveau le plus élevé atteint par une personne est enregistré avec
+        education_level, et les niveaux desservis par une école avec school_level_served.
       source_domain: edu
       category: classification
       bibliography_refs: '["isced-2011"]'

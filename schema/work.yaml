@@ -207,7 +207,8 @@ slots:
     description: The person's status at work in this relationship, coded in a named classification such
       as ICSaW-18 or, for employment only, the 2018 International Classification of Status in Employment.
       The code identifies the classification and its edition. It is not the person's overall labor force
-      status.
+      status. A person's main-job status in employment and overall labor force status are recorded
+      with status_in_employment and employment_status.
     range: CodedValue
     multivalued: false
     status: bibo:draft
@@ -217,12 +218,15 @@ slots:
       description_es: La situación en el trabajo de la persona en esta relación, codificada en una
         clasificación designada como la ICSaW-18 o, únicamente para el empleo, la Clasificación
         Internacional de 2018 de la Situación en el Empleo. El código identifica la clasificación y
-        su edición. No es la situación global de la persona respecto a la actividad económica.
+        su edición. No es la situación global de la persona respecto a la actividad económica. La
+        situación en el empleo principal de una persona y su situación global respecto a la
+        actividad económica se registran con status_in_employment y employment_status.
       description_fr: La situation au travail de la personne dans cette relation, codée dans une
         classification nommée telle que l'ICSaW-18 ou, pour l'emploi uniquement, la Classification
         internationale de 2018 de la situation dans la profession. Le code identifie la
         classification et son édition. Elle n'est pas le statut global de la personne au regard de
-        l'activité.
+        l'activité. La situation dans l'emploi principal d'une personne et son statut global au
+        regard de l'activité sont enregistrés avec status_in_employment et employment_status.
       category: employment
       bibliography_refs: '["fao-wca-2030", "ilo-20th-icls-2018", "ilo-icse18-manual-2023"]'
   work_remuneration:
@@ -276,7 +280,8 @@ slots:
     title: Profession code
     description: The profession, occupation or specialty covered by this license or role, as a code from
       a named scheme, such as a regulator's list of regulated professions, ISCO-08 or the European
-      Skills, Competences, Qualifications and Occupations classification.
+      Skills, Competences, Qualifications and Occupations classification. A person's own primary
+      occupation is recorded with occupation.
     range: CodedValue
     multivalued: true
     status: bibo:draft
@@ -288,11 +293,13 @@ slots:
       description_es: La profesión, ocupación o especialidad cubierta por esta licencia o función,
         en forma de código tomado de un esquema designado, por ejemplo una lista de profesiones
         reguladas mantenida por un regulador, la CIUO-08 o la Clasificación europea de
-        capacidades/competencias, cualificaciones y ocupaciones.
+        capacidades/competencias, cualificaciones y ocupaciones. La ocupación principal de una
+        persona se registra con occupation.
       description_fr: La profession, l'occupation ou la spécialité couverte par cette licence ou ce
         rôle, sous forme de code tiré d'un schéma nommé, par exemple une liste des professions
         réglementées tenue par un régulateur, la CITP-08 ou la Classification européenne des
-        aptitudes/compétences, certifications et professions.
+        aptitudes/compétences, certifications et professions. La profession principale d'une
+        personne est enregistrée avec occupation.
       category: classification
       bibliography_refs: '["esco", "isco-08", "schema-org"]'
       external_alignments_json: '[{"label": "occupationalCategory", "match": "related", "note": "schema.org
