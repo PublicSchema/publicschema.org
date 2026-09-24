@@ -121,6 +121,18 @@ def test_spatial_geometry_aligns_with_geosparql_and_core_location(result):
     assert {"http://www.opengis.net/ont/geosparql#hasGeometry", "http://www.w3.org/ns/locn#geometry"} <= uris
 
 
+@pytest.mark.parametrize("language,literal,agree", [
+    ("en", "geometry literal", "must agree"),
+    ("fr", "littéral géométrique", "concorder"),
+    ("es", "literal geométrico", "coincidir"),
+])
+def test_an_absent_crs_defers_to_the_literal_before_crs84(result, language, literal, agree):
+    # A WKT literal can state its own reference system; CRS84 applies only when neither does.
+    definition = result["properties"]["coordinate_reference_system"]["definition"][language]
+    assert literal in definition and agree in definition
+    assert definition.index(literal) < definition.index("CRS84")
+
+
 def test_building_aligns_with_the_inspire_feature_concept(result):
     equivalents = result["concepts"]["Building"]["external_equivalents"]
     assert "http://inspire.ec.europa.eu/featureconcept/Building" in {entry["uri"] for entry in equivalents.values()}
