@@ -68,7 +68,7 @@ def test_real_json_schema_jsonld_and_shacl_exports(records, exports, subclass_hi
         assert not {"valid_from", "valid_to", "asset_subject", "address_geometry"} & properties.keys()
         assert result["concepts"][name]["maturity"] == "draft"
     assert result["properties"]["asset_actor"]["type"] == "uri"
-    assert result["concepts"]["Organization"]["supertypes"] == ["Agent"]
+    assert result["concepts"]["Organization"]["supertypes"] == ["Agent", "Party"]
 
 
 @pytest.mark.parametrize("prefix,change_day", [

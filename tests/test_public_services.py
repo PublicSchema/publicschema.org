@@ -335,9 +335,10 @@ def test_dated_acts_share_the_event_hierarchy_and_one_authority_link(exports):
         assert removed not in built["properties"], removed
 
 
-def test_shared_applications_preserve_the_existing_social_protection_receiver_boundary(exports):
+def test_shared_applications_stay_separate_from_social_protection_enrollment(exports):
     built, _, hierarchy, _ = exports
-    assert PS.Party not in set(hierarchy.transitive_objects(PS.Organization, RDFS.subClassOf))
+    # ADR-028: an organization can be a receiver, so Organization is a Party.
+    assert PS.Party in set(hierarchy.transitive_objects(PS.Organization, RDFS.subClassOf))
     assert (PS.ServiceApplication, RDFS.subClassOf, PS.Event) in hierarchy
     program_uri = URIRef(built["concepts"]["sp/Program"]["uri"])
     enrollment_uri = URIRef(built["concepts"]["sp/Enrollment"]["uri"])

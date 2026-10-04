@@ -40,7 +40,7 @@ def test_farm_hierarchy_and_locked_membership_contracts(farm):
     assert not {"holding_operator_roles", "primary_crop", "farm_area_hectares"} & properties.keys()
     assert result["properties"]["group"]["type"] == "concept:Group"
     assert result["properties"]["beneficiary"]["type"] == "concept:Party"
-    assert result["concepts"]["Organization"]["supertypes"] == ["Agent"]
+    assert result["concepts"]["Organization"]["supertypes"] == ["Agent", "Party"]
 
 
 def test_real_exports_and_example_profile(farm, subclass_hierarchy):

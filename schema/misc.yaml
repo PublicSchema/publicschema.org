@@ -1377,8 +1377,8 @@ slots:
   recipient:
     slot_uri: publicschema:recipient
     title: Recipient
-    description: The person or group that received or is intended to receive the payment. The recipient
-      may differ from the enrolled beneficiary, for example when a guardian, payment proxy, or survivor
+    description: The person, group or organization that received or is intended to receive the payment.
+      The recipient may differ from the enrolled beneficiary, for example when a guardian, payment proxy, or survivor
       collects on behalf of the beneficiary.
     range: Party
     multivalued: false
@@ -1386,10 +1386,12 @@ slots:
     annotations:
       label_es: Beneficiario
       label_fr: Destinataire du paiement
-      description_es: La persona o el grupo que recibió o está destinado a recibir el pago. El destinatario
+      description_es: La persona, el grupo o la organización que recibió o está destinado a recibir el
+        pago. El destinatario
         puede diferir del beneficiario inscrito, por ejemplo cuando un tutor, apoderado de pago o sobreviviente
         cobra en nombre del beneficiario.
-      description_fr: La personne ou le groupe qui a reçu ou est destiné à recevoir le paiement. Le destinataire
+      description_fr: La personne, le groupe ou l'organisation qui a reçu ou est destiné à recevoir le
+        paiement. Le destinataire
         peut différer du bénéficiaire inscrit, par exemple lorsqu'un tuteur, un mandataire de paiement
         ou un survivant perçoit au nom du bénéficiaire.
       convergence_json: '{"system_count": 2, "total_systems": 6}'
@@ -1435,15 +1437,18 @@ slots:
   redeemable_by:
     slot_uri: publicschema:redeemable_by
     title: Redeemable by
-    description: The person or group authorized to redeem this voucher on behalf of the beneficiary.
+    description: The person, group or organization authorized to redeem this voucher on behalf of the
+      beneficiary.
     range: Party
     multivalued: true
     status: bibo:draft
     annotations:
       label_es: Canjeable por
       label_fr: Échangeable par
-      description_es: La persona o grupo autorizado para canjear este vale en nombre del beneficiario.
-      description_fr: La personne ou le groupe autorisé à échanger ce bon au nom du bénéficiaire.
+      description_es: La persona, grupo u organización autorizado para canjear este vale en nombre del
+        beneficiario.
+      description_fr: La personne, le groupe ou l'organisation autorisé à échanger ce bon au nom du
+        bénéficiaire.
       convergence_json: '{"system_count": 0, "total_systems": 6}'
   redeemed_by:
     slot_uri: publicschema:redeemed_by

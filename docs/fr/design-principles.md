@@ -20,7 +20,7 @@ Les définitions sont rédigées pour les agents de politique publique et les ge
 
 ## 5. Supertypes abstraits
 
-Certains concepts n'existent que comme fondations partagées pour des sous-types plus spécifiques. Agent, Event, Party et Profile portent `abstract: true`, ce qui signifie qu'ils définissent des propriétés communes mais ne sont jamais instanciés directement. Les sous-types (par exemple FunctioningProfile, ScoringEvent, Organization) héritent de ces propriétés et ajoutent les leurs. Agent est le supertype côté acteur (Person, Organization, SoftwareAgent) ; Party est le supertype côté bénéficiaire (Person, Group). Person appartient aux deux. Voir [ADR-006](../decisions/006-profile-hierarchy.md) et [ADR-008](../decisions/008-agent-organization.md).
+Certains concepts n'existent que comme fondations partagées pour des sous-types plus spécifiques. Agent, Event, Party et Profile portent `abstract: true`, ce qui signifie qu'ils définissent des propriétés communes mais ne sont jamais instanciés directement. Les sous-types (par exemple FunctioningProfile, ScoringEvent, Organization) héritent de ces propriétés et ajoutent les leurs. Agent est le supertype côté acteur (Person, Organization, SoftwareAgent) ; Party est le supertype côté bénéficiaire (Person, Group, Organization). Person et Organization appartiennent aux deux. Voir [ADR-006](../decisions/006-profile-hierarchy.md), [ADR-008](../decisions/008-agent-organization.md) et [ADR-028](../decisions/028-organizations-of-any-sector.md).
 
 ## 6. Séparation observation et notation
 

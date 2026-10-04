@@ -142,9 +142,9 @@ classes:
   Party:
     class_uri: publicschema:Party
     title: Party
-    description: 'A person or organized group of persons that can be identified, enrolled in programs,
-      and receive benefits or services. Party is the shared supertype for Person and Group, enabling references
-      that accept either.
+    description: 'A person, an organized group of persons or an organization that can be identified, enrolled
+      in programs, and receive benefits or services. Party is the shared supertype for Person, Group and
+      Organization, enabling references that accept any of them.
 
       '
     slots:
@@ -157,16 +157,17 @@ classes:
     annotations:
       label_es: Parte
       label_fr: Partie
-      description_es: Una persona o grupo organizado de personas que puede ser identificado, inscrito
-        en programas y recibir beneficios o servicios. Party es el supertipo compartido para Person y
-        Group, que permite referencias que acepten cualquiera de los dos.
-      description_fr: Une personne ou un groupe organisé de personnes pouvant être identifié, inscrit
-        dans des programmes et recevoir des prestations ou des services. Party est le supertype commun
-        de Person et Group, permettant de les désigner indifféremment dans une référence.
+      description_es: Una persona, un grupo organizado de personas o una organización que puede ser
+        identificado, inscrito en programas y recibir beneficios o servicios. Party es el supertipo compartido
+        para Person, Group y Organization, que permite referencias que acepten cualquiera de ellos.
+      description_fr: Une personne, un groupe organisé de personnes ou une organisation pouvant être
+        identifié, inscrit dans des programmes et recevoir des prestations ou des services. Party est
+        le supertype commun de Person, Group et Organization, permettant de les désigner indifféremment
+        dans une référence.
       external_alignments_json: '[{"label": "Person (Core Person)", "match": "related", "note": "SEMIC
-        Core Person covers the individual human. Party is the beneficiary-side supertype for persons and
-        organized groups of persons (Household, Family) that can be enrolled in programs and receive
-        services. The broader SEMIC/foaf:Agent vocabulary for acting entities maps to our Agent concept,
+        Core Person covers the individual human. Party is the beneficiary-side supertype for persons,
+        organized groups of persons (Household, Family) and organizations that can be enrolled in programs
+        and receive services. The broader SEMIC/foaf:Agent vocabulary for acting entities maps to our Agent concept,
         not to Party.", "uri": "http://www.w3.org/ns/person#Person", "vocabulary": "Core Person", "vocabulary_id":
         "semic"}]'
       convergence_json: '{"notes": "Party is a PublicSchema abstract supertype; no mapped system exposes
@@ -183,7 +184,8 @@ slots:
     slot_uri: publicschema:identity_documents
     title: Identity documents
     description: Identity documents held by this party, such as passports, national identity cards, civil
-      registration certificates, and program-issued beneficiary cards.
+      registration certificates, and program-issued beneficiary cards, or, for an organization, a certificate
+      of registration.
     range: IdentityDocument
     multivalued: true
     status: bibo:draft
@@ -191,7 +193,9 @@ slots:
       label_es: Documentos de identidad
       label_fr: Documents d'identité
       description_es: Documentos de identidad que posee esta parte, como pasaportes, tarjetas de identidad
-        nacional, actas de registro civil y tarjetas de beneficiario emitidas por programas.
+        nacional, actas de registro civil y tarjetas de beneficiario emitidas por programas o, para una
+        organización, un certificado de inscripción registral.
       description_fr: Documents d'identité détenus par cette partie, tels que passeports, cartes d'identité
-        nationale, actes d'état civil et cartes de bénéficiaire délivrées par des programmes.
+        nationale, actes d'état civil et cartes de bénéficiaire délivrées par des programmes ou, pour
+        une organisation, un certificat d'immatriculation.
       category: identity

@@ -81,10 +81,19 @@ Use this decision tree to determine what kind of element to create.
 
 `Agent` and `Party` are two abstract supertypes that carry different semantics.
 
-- `Party` is the **receiver side**: the persons and organised groups of persons (Household, Family) that can be identified, enrolled in programs, and receive benefits or services. Beneficiary-side references (`beneficiary`, `recipient`, `subject`, `redeemable_by`, `issued_to`) range over `Party`.
+- `Party` is the **receiver side**: the persons, organised groups of persons (Household, Family) and organizations that can be identified, enrolled in programs, and receive benefits or services. Beneficiary-side references (`beneficiary`, `recipient`, `subject`, `redeemable_by`, `issued_to`) range over `Party`.
 - `Agent` is the **actor side**: the persons, organisations, and software that perform, publish, evaluate, decide, or execute. Actor-side references (`performed_by`, `evaluator`, `publisher`) range over `Agent`.
 
-`Person` is the only concept that belongs to both hierarchies. A person can both receive services and perform them. `Organization` is an `Agent` only (it is not modelled as a receiver today). `SoftwareAgent` is an `Agent` only. See [ADR-008](../decisions/008-agent-organization.md).
+`Person` and `Organization` belong to both hierarchies: each can both receive services and perform them. `Organization` covers bodies of any sector, including companies and cooperatives. `SoftwareAgent` is an `Agent` only. Two Party-ranged properties do not apply to organizations and say so in their definitions: `data_subject`, because data protection law protects natural persons, and `subject` on profiles. See [ADR-008](../decisions/008-agent-organization.md) and [ADR-028](../decisions/028-organizations-of-any-sector.md).
+
+### Sole proprietorships
+
+Jurisdictions draw the line between a person and their business differently, so the core admits two patterns and an application profile states which one a jurisdiction uses:
+
+- **Person pattern.** Where the business has no existence separate from the person, record a `Person` with the business identifier (an `IdentifierAssignment` from the business register), the trading name (a `NameUsage` with name use `trading`) and `industry`.
+- **Organization pattern.** Where the register treats the business as a body distinct from the person, record an `Organization` whose `legal_form` is a sole proprietorship, linked to the person by an `InstitutionalRole`.
+
+A record is a person or an organization, never both: do not define a concept, in the core or in a local extension, that is a subtype of both `Person` and `Organization`. FOAF declares the two classes disjoint, and a person can run several successive businesses.
 
 ## 4a. Group-like concepts
 

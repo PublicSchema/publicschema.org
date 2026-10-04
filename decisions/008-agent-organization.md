@@ -76,7 +76,7 @@ The convergence count on Agent is non-trivial: PROV, FOAF, schema.org, FHIR, SEM
 - **PractitionerRole layer.** Reified role assignments (Person in role at Organization) are deferred. Revisit when a concrete use case appears (e.g., a credential whose evidence includes "issued by Person acting as registrar at Office").
 - **External equivalents on Agent.** Populate `external_equivalents` with `prov:Agent`, `foaf:Agent`, `schema:Thing` (Person+Organization sibling pattern), FHIR's practitioner/organization split, and SEMIC Core Person as part of the implementation.
 
-[ADR-025](025-organizations-legal-personality-and-authority.md) amends the Organization follow-on work: Organization carries `legal_form` and `formation_date` rather than a separate LegalEntity class, dated InstitutionalRelationship records take the place of `parent_organization`, ContactPoint records hold contact points, and PracticeRole and InstitutionalRole provide the role layer. [ADR-021](021-farm-production-unit.md) removes Farm from the Group subtypes listed above.
+[ADR-025](025-organizations-legal-personality-and-authority.md) amends the Organization follow-on work: Organization carries `legal_form` and `formation_date` rather than a separate LegalEntity class, dated InstitutionalRelationship records take the place of `parent_organization`, ContactPoint records hold contact points, and PracticeRole and InstitutionalRole provide the role layer. [ADR-021](021-farm-production-unit.md) removes Farm from the Group subtypes listed above. [ADR-028](028-organizations-of-any-sector.md) amends decision 4: Organization is a Party as well as an Agent, so beneficiary-side references admit organizations.
 
 ## References
 

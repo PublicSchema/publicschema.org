@@ -306,17 +306,18 @@ slots:
   issued_to:
     slot_uri: publicschema:issued_to
     title: Issued to
-    description: The party (person, household, or group) to whom the document, voucher, or credential
-      is issued.
+    description: The party (person, household, group, or organization) to whom the document, voucher,
+      or credential is issued.
     range: Party
     multivalued: false
     status: bibo:draft
     annotations:
       label_es: Emitido a
       label_fr: Délivré à
-      description_es: La parte (persona, hogar o grupo) a la que se emite el documento, vale o credencial.
-      description_fr: La partie (personne, ménage ou groupe) à laquelle le document, le bon ou l'attestation
-        est délivré.
+      description_es: La parte (persona, hogar, grupo u organización) a la que se emite el documento,
+        vale o credencial.
+      description_fr: La partie (personne, ménage, groupe ou organisation) à laquelle le document, le
+        bon ou l'attestation est délivré.
       convergence_json: '{"system_count": 0, "total_systems": 6}'
   issuing_authority:
     slot_uri: publicschema:issuing_authority
@@ -657,7 +658,7 @@ slots:
     title: Subject
     description: 'The person or group that the profile or scoring event is about. Ranged at Party (not
       Agent) because Profiles observe receivers: persons and organised groups of persons (Household and
-      Family). Institutional actors (Organizations) are described through their own Organization records,
+      Family). Organizations are Parties too, but they are described through their own Organization records,
       not as subjects of a Profile.'
     range: Party
     multivalued: false
@@ -667,10 +668,10 @@ slots:
       label_fr: Sujet
       description_es: 'La persona o grupo sobre el que trata el perfil o evento de puntuación. Tipado
         como Party (no Agent) porque los Profile observan receptores: personas y grupos organizados de
-        personas (Household, Family). Los actores institucionales (Organizations) se describen mediante
+        personas (Household, Family). Las Organizations también son Party, pero se describen mediante
         sus propios registros Organization, no como sujetos de un Profile.'
       description_fr: 'La personne ou le groupe sur lequel porte le profil ou l''événement de notation.
         Typé sur Party (et non Agent) parce que les Profiles observent des bénéficiaires : personnes et
-        groupes organisés de personnes (Household, Family). Les acteurs institutionnels (Organizations)
-        sont décrits par leurs propres enregistrements Organization, non comme sujets d''un Profile.'
+        groupes organisés de personnes (Household, Family). Les Organizations sont aussi des Party, mais
+        elles sont décrites par leurs propres enregistrements Organization, non comme sujets d''un Profile.'
       convergence_json: '{"system_count": 2, "total_systems": 3}'
