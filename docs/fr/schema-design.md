@@ -26,6 +26,8 @@ Appliquez le même test fondé sur le sens aux propriétés et aux vocabulaires.
 
 Les noms publics n'ont pas besoin d'abréviation de domaine : utilisez `Enrollment`, pas `SPEnrollment`. Les identifiants LinkML doivent néanmoins être uniques dans le composite. Par exemple, le `CrvsPerson` rédigé représente `crvs/Person`, un instantané d'état civil distinct de `Person` universel ; `crvs/Parent` hérite de cet instantané. Voir [ADR-018](../../decisions/018-crvs-person-rename.md).
 
+Le pipeline de compilation identifie en interne les concepts par `{domain}/{id}` (par exemple `sp/Enrollment`, `crvs/Birth`) lorsqu'ils sont propres à un domaine et par leur seul `id` (par exemple `Person`, `Event`) lorsqu'ils sont universels. Cela évite les écrasements silencieux lorsque deux domaines définissent des concepts portant le même nom court.
+
 | Code | Domaine | Portée actuelle |
 |---|---|---|
 | `sp` | Protection sociale | Programmes de prestations, participation et relations de prestation de services publics |
@@ -74,6 +76,24 @@ Utilisez cet arbre de décision pour déterminer quel type d'élément créer.
 | Valeur tirée d'un ensemble fermé d'options | Vocabulaire |
 | La valeur a sa propre identité et des sous-propriétés | Propriété référençant un concept |
 | Scalaire simple | Type primitif en ligne |
+
+### Supertypes côté acteur et côté bénéficiaire
+
+`Agent` et `Party` sont deux supertypes abstraits porteurs de sémantiques différentes.
+
+- `Party` est le **côté bénéficiaire** : les personnes, les groupes organisés de personnes (Household, Family) et les organisations qui peuvent être identifiés, inscrits dans des programmes et recevoir des prestations ou des services. Les références côté bénéficiaire (`beneficiary`, `recipient`, `subject`, `redeemable_by`, `issued_to`) ont pour type `Party`.
+- `Agent` est le **côté acteur** : les personnes, les organisations et les logiciels qui réalisent, publient, évaluent, décident ou exécutent. Les références côté acteur (`performed_by`, `evaluator`, `publisher`) ont pour type `Agent`.
+
+`Person` et `Organization` appartiennent aux deux hiérarchies : chacun peut à la fois recevoir des services et en fournir. `Organization` couvre les organismes de tout secteur, y compris les entreprises et les coopératives. `SoftwareAgent` n'est qu'un `Agent`. Deux propriétés de type `Party` ne s'appliquent pas aux organisations, et leurs définitions le précisent : `data_subject`, car la législation sur la protection des données protège les personnes physiques, et `subject` sur les profils. Voir [ADR-008](../../decisions/008-agent-organization.md) et [ADR-028](../../decisions/028-organizations-of-any-sector.md).
+
+### Entreprises individuelles
+
+Les juridictions tracent différemment la frontière entre une personne et son entreprise ; le noyau admet donc deux modèles, et un profil d'application indique celui qu'utilise une juridiction :
+
+- **Modèle personne.** Lorsque l'entreprise n'a pas d'existence distincte de la personne, enregistrez une `Person` avec l'identifiant de l'entreprise (une `IdentifierAssignment` issue du registre des entreprises), le nom commercial (une `NameUsage` dont l'usage du nom est `trading`) et `industry`.
+- **Modèle organisation.** Lorsque le registre traite l'entreprise comme un organisme distinct de la personne, enregistrez une `Organization` dont le `legal_form` est une entreprise individuelle, liée à la personne par un `InstitutionalRole`.
+
+Un enregistrement est une personne ou une organisation, jamais les deux : ne définissez pas de concept, dans le noyau ou dans une extension locale, qui soit sous-type à la fois de `Person` et d'`Organization`. FOAF déclare ces deux classes disjointes, et une personne peut exploiter plusieurs entreprises successives.
 
 ## 4a. Concepts de type groupe
 
@@ -128,7 +148,7 @@ Une propriété comme `start_date` est définie une seule fois et réutilisée p
 
 ### Réutilisation d'une propriété entre concepts
 
-L'indépendance des propriétés ne se limite pas aux champs structurels répétés. Des observables substantiels peuvent aussi être réutilisés entre concepts. `water_source`, `sanitation_facility` et `dwelling_type` apparaissent à la fois sur `SocioEconomicProfile` (contexte d'enregistrement de base) et sur `DwellingDamageProfile` (évaluation post-choc). Dans chaque cas, la propriété est déclarée une seule fois et figure dans la liste `properties` de chaque concept.
+L'indépendance des propriétés ne se limite pas aux champs structurels répétés. Des observables substantiels peuvent aussi être réutilisés entre concepts. `water_source`, `sanitation_facility` et `dwelling_type` apparaissent à la fois sur `SocioEconomicProfile` (contexte d'enregistrement de base) et sur `DwellingDamageProfile` dans un schéma voisin (évaluation post-choc). Dans chaque cas, la propriété est déclarée une seule fois et figure dans la liste `properties` de chaque concept ; ce cas montre aussi comment des sous-types de profil propres à un domaine, intégrés dans un schéma voisin, peuvent réutiliser des propriétés de PublicSchema.
 
 Les règles qui maintiennent la cohérence :
 
@@ -136,7 +156,7 @@ Les règles qui maintiennent la cohérence :
 2. **Le cadrage contextuel vit sur le concept, pas sur la propriété.** La définition de la propriété nomme l'observable (« la source principale d'eau potable du ménage »). La définition de chaque concept nomme la façon dont cet observable est interprété dans ce concept (enregistrement de base ou post-choc).
 3. **La réutilisation doit être annoncée dans la définition narrative des deux concepts.** Un lecteur sur l'une ou l'autre page doit pouvoir constater que le champ apparaît aussi ailleurs et pourquoi.
 4. **La réutilisation ne rend pas les enregistrements compatibles en type.** Un enregistrement `SocioEconomicProfile` et un enregistrement `DwellingDamageProfile` sont des choses différentes même lorsque leurs valeurs de propriétés se recoupent. Les adoptants doivent consulter la page du concept, pas la liste des propriétés, pour sérialiser vers une forme fortement typée.
-5. **Scindez lorsque la formulation diverge.** Si la définition propre à la propriété doit varier d'un contexte à l'autre, créez deux propriétés. `location` et `location_of_assessment` sont scindées ainsi : `location` est la localisation administrative ou par coordonnées enregistrée du ménage ; `location_of_assessment` est l'endroit où une évaluation des dégâts post-choc a effectivement été menée, qui peut différer après un déplacement.
+5. **Scindez lorsque la formulation diverge.** Si la définition propre à la propriété doit varier d'un contexte à l'autre, créez deux propriétés. `location` et `location_of_assessment` sont scindées ainsi : `location` est la localisation géographique du sujet de l'enregistrement, indépendante du concept (le site du ménage pour un enregistrement Household, le site principal de l'organisation pour un enregistrement Organization) ; `location_of_assessment` est l'endroit où une évaluation des dégâts post-choc a effectivement été menée, qui peut différer après un déplacement.
 
 `triggering_hazard_event` (sur `DwellingDamageProfile`) et `triggering_vital_event` (sur `CivilStatusAnnotation`) suivent le même principe. Initialement unifiés dans une propriété unique `triggering_event` dont le type avait été élargi à `concept:Event`, ils ont été scindés parce que le sous-type attendu porte un sens pour les validateurs et les praticiens ; chaque consommateur déclare désormais sa propre référence typée. Voir [ADR-007](../../decisions/007-profile-property-reuse.md) pour l'argumentaire complet.
 

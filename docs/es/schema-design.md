@@ -26,6 +26,8 @@ Aplique la misma prueba basada en el significado a propiedades y vocabularios. U
 
 Los nombres públicos no necesitan abreviaciones de dominio: use `Enrollment`, no `SPEnrollment`. Sin embargo, los identificadores LinkML deben ser únicos dentro del compuesto. Por ejemplo, el `CrvsPerson` redactado representa `crvs/Person`, una instantánea de registro civil distinta de `Person` universal; `crvs/Parent` hereda de esa instantánea. Consulte [ADR-018](../../decisions/018-crvs-person-rename.md).
 
+El pipeline de compilación identifica internamente los conceptos por `{domain}/{id}` (p. ej., `sp/Enrollment`, `crvs/Birth`) cuando tienen alcance de dominio y por el `id` sin prefijo (p. ej., `Person`, `Event`) cuando son universales. Esto evita sobrescrituras silenciosas cuando dos dominios definen conceptos con el mismo nombre corto.
+
 | Código | Dominio | Alcance actual |
 |---|---|---|
 | `sp` | Protección social | Programas de prestaciones, participación y relaciones de prestación de servicios públicos |
@@ -74,6 +76,24 @@ Use este árbol de decisión para determinar qué tipo de elemento crear.
 | Valor de un conjunto cerrado de opciones | Vocabulario |
 | El valor tiene su propia identidad y subpropiedades | Propiedad que referencia un concepto |
 | Escalar simple | Tipo primitivo en línea |
+
+### Supertipos del lado del actor y del lado del beneficiario
+
+`Agent` y `Party` son dos supertipos abstractos con semánticas diferentes.
+
+- `Party` es el **lado del beneficiario**: las personas, los grupos organizados de personas (Household, Family) y las organizaciones que pueden ser identificados, inscritos en programas y recibir prestaciones o servicios. Las referencias del lado del beneficiario (`beneficiary`, `recipient`, `subject`, `redeemable_by`, `issued_to`) tienen como tipo `Party`.
+- `Agent` es el **lado del actor**: las personas, las organizaciones y el software que realizan, publican, evalúan, deciden o ejecutan. Las referencias del lado del actor (`performed_by`, `evaluator`, `publisher`) tienen como tipo `Agent`.
+
+`Person` y `Organization` pertenecen a ambas jerarquías: cada uno puede tanto recibir servicios como prestarlos. `Organization` abarca organismos de cualquier sector, incluidas empresas y cooperativas. `SoftwareAgent` es solo un `Agent`. Dos propiedades de tipo `Party` no se aplican a las organizaciones y así lo indican sus definiciones: `data_subject`, porque la legislación de protección de datos protege a las personas físicas, y `subject` en los perfiles. Consulte [ADR-008](../../decisions/008-agent-organization.md) y [ADR-028](../../decisions/028-organizations-of-any-sector.md).
+
+### Empresas individuales
+
+Las jurisdicciones trazan de forma distinta la línea entre una persona y su negocio, por lo que el núcleo admite dos patrones y un perfil de aplicación indica cuál usa cada jurisdicción:
+
+- **Patrón persona.** Cuando el negocio no tiene existencia separada de la persona, registre una `Person` con el identificador del negocio (una `IdentifierAssignment` del registro de empresas), el nombre comercial (una `NameUsage` con uso de nombre `trading`) y `industry`.
+- **Patrón organización.** Cuando el registro trata el negocio como un organismo distinto de la persona, registre una `Organization` cuyo `legal_form` sea una empresa individual, vinculada a la persona mediante un `InstitutionalRole`.
+
+Un registro es una persona o una organización, nunca ambas: no defina un concepto, ni en el núcleo ni en una extensión local, que sea subtipo a la vez de `Person` y de `Organization`. FOAF declara disjuntas ambas clases, y una persona puede explotar varios negocios sucesivos.
 
 ## 4a. Conceptos de tipo grupo
 
@@ -128,7 +148,7 @@ Una propiedad como `start_date` se define una sola vez y se reutiliza en varios 
 
 ### Reutilización de propiedades entre conceptos
 
-La independencia de propiedades no se limita a campos estructurales repetidos. También pueden reutilizarse observables sustantivos entre conceptos. `water_source`, `sanitation_facility` y `dwelling_type` aparecen tanto en `SocioEconomicProfile` (contexto de registro de base) como en `DwellingDamageProfile` (evaluación posterior a un choque). En cada caso la propiedad se declara una sola vez y figura en la lista `properties` de cada concepto.
+La independencia de propiedades no se limita a campos estructurales repetidos. También pueden reutilizarse observables sustantivos entre conceptos. `water_source`, `sanitation_facility` y `dwelling_type` aparecen tanto en `SocioEconomicProfile` (contexto de registro de base) como en `DwellingDamageProfile` en un esquema hermano (evaluación posterior a un choque). En cada caso la propiedad se declara una sola vez y figura en la lista `properties` de cada concepto; el patrón ilustra además cómo los subtipos de perfil específicos de un dominio, incorporados en un esquema hermano, pueden reutilizar propiedades de PublicSchema.
 
 Las reglas que mantienen la coherencia:
 
@@ -136,7 +156,7 @@ Las reglas que mantienen la coherencia:
 2. **El encuadre contextual vive en el concepto, no en la propiedad.** La definición de la propiedad nombra el observable ("la fuente principal de agua potable del hogar"). La definición de cada concepto nombra cómo se interpreta ese observable en ese concepto (registro de base o posterior al choque).
 3. **La reutilización debe anunciarse en la definición narrativa de ambos conceptos.** Un lector en cualquiera de las dos páginas debe poder ver que el campo aparece también en otro lugar y por qué.
 4. **La reutilización no hace que los registros sean compatibles en tipo.** Un registro `SocioEconomicProfile` y un registro `DwellingDamageProfile` son cosas distintas aun cuando sus valores de propiedad se solapen. Los adoptantes deben consultar la página del concepto, no la lista de propiedades, al serializar hacia una forma fuertemente tipada.
-5. **Divida cuando la redacción diverge.** Si la definición propia de la propiedad necesita un texto distinto en cada contexto, cree dos propiedades. `location` y `location_of_assessment` se dividen así: `location` es la ubicación administrativa o por coordenadas registrada del hogar; `location_of_assessment` es el lugar donde se llevó a cabo físicamente una evaluación de daños posterior al choque, que puede diferir tras un desplazamiento.
+5. **Divida cuando la redacción diverge.** Si la definición propia de la propiedad necesita un texto distinto en cada contexto, cree dos propiedades. `location` y `location_of_assessment` se dividen así: `location` es la ubicación geográfica, independiente del concepto, del sujeto del registro (el sitio del hogar en un registro Household, el sitio principal de la organización en un registro Organization); `location_of_assessment` es el lugar donde se llevó a cabo físicamente una evaluación de daños posterior al choque, que puede diferir tras un desplazamiento.
 
 `triggering_hazard_event` (en `DwellingDamageProfile`) y `triggering_vital_event` (en `CivilStatusAnnotation`) siguen el mismo principio. Inicialmente unificadas en una única propiedad `triggering_event` cuyo tipo se había ampliado a `concept:Event`, se dividieron porque el subtipo esperado tiene significado para validadores y profesionales; cada consumidor declara ahora su propia referencia tipada. Consulte [ADR-007](../../decisions/007-profile-property-reuse.md) para ver la argumentación completa.
 
