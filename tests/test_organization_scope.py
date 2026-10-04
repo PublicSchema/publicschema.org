@@ -162,3 +162,39 @@ class TestCompanyAsBeneficiaryAcrossExports:
             jsonld_graph(record, built_vocabulary["context"]), shacl_graph=shacl_graph
         )
         assert not conforms
+
+
+class TestRelatedDefinitionsStayConsistent:
+    def test_organization_holder_role_does_not_require_legal_personality(self):
+        # ADR-025: an organization without legal personality is still an Organization.
+        definition = concept("agri/OrganizationAgriculturalHolderRole")["definition"]
+        for lang, term in (
+            ("en", "legal personality"),
+            ("fr", "personnalité juridique"),
+            ("es", "personalidad jurídica"),
+        ):
+            assert term not in definition[lang].lower(), lang
+
+    def test_data_subject_lists_current_party_subtypes(self):
+        definition = property_("data_subject")["definition"]
+        for lang in ("en", "fr", "es"):
+            assert "Farm" not in definition[lang], lang
+            assert "Person, Group" in definition[lang], lang
+            assert "Organization" in definition[lang], lang
+
+    def test_organization_convergence_note_defers_only_what_is_still_deferred(self):
+        notes = concept("Organization")["convergence"]["notes"]
+        deferred = [s for s in notes.split(". ") if "deferred" in s]
+        assert deferred
+        for sentence in deferred:
+            for added in ("parent_organization", "legal_form", "contact points"):
+                assert added not in sentence, added
+
+    def test_person_definition_is_not_limited_to_social_protection(self):
+        definition = concept("Person")["definition"]
+        for lang, term in (
+            ("en", "social protection"),
+            ("fr", "protection sociale"),
+            ("es", "protección social"),
+        ):
+            assert term not in definition[lang].lower(), lang

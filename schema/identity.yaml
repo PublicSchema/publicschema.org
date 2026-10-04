@@ -102,8 +102,7 @@ classes:
   Person:
     class_uri: publicschema:Person
     title: Person
-    description: 'The unique individual human being who is a subject of record within a social protection
-      system. Person is the persistent, indivisible unit of identity in registries; operational statuses
+    description: 'The unique individual human being who is a subject of record. Person is the persistent, indivisible unit of identity in registries; operational statuses
       such as Registrant, Applicant, or Beneficiary are transient roles defined by the person''s relationship
       to a specific Program, not properties of the person themselves. A person who runs a business that
       the register of its jurisdiction does not treat as a distinct body, such as many sole traders, remains
@@ -155,14 +154,12 @@ classes:
     annotations:
       label_es: Persona
       label_fr: Personne
-      description_es: El individuo único que es sujeto de registro en un sistema de protección social.
-        La persona es la unidad indivisible y persistente de identidad en los registros; los estados operacionales
+      description_es: El individuo único que es sujeto de registro. La persona es la unidad indivisible y persistente de identidad en los registros; los estados operacionales
         como inscrito, solicitante o beneficiario son roles transitorios definidos por la relación de
         la persona con un programa específico. Una persona que explota un negocio que el registro de su
         jurisdicción no trata como un organismo distinto, como muchos comerciantes individuales, sigue
         siendo una Person; el negocio es una Organization solo cuando el registro lo trata como tal.
-      description_fr: L'individu unique qui fait l'objet d'un enregistrement dans un système de protection
-        sociale. La personne est l'unité indivisible et persistante d'identité dans les registres. Les
+      description_fr: L'individu unique qui fait l'objet d'un enregistrement. La personne est l'unité indivisible et persistante d'identité dans les registres. Les
         statuts opérationnels tels que Registrant, demandeur ou bénéficiaire sont des rôles transitoires
         définis par la relation de la personne à un programme spécifique. Une personne qui exploite une
         activité que le registre de sa juridiction ne traite pas comme un organisme distinct, comme de
@@ -556,8 +553,10 @@ classes:
         In practice, organizations appear as free-text publisher names on instruments, as implicit issuers
         on certificates, and as unmodelled administrative context around program operations. Standards
         bodies are consistent: FOAF, schema.org, PROV-O, and FHIR all have a named Organization concept.
-        Minimum property set (name, identifiers, location) is pragmatic; richer modelling (parent_organization,
-        legal_form, jurisdiction, contact points, multi-site locations) is deferred to a later iteration.\n",
+        ADR-008 set a pragmatic minimum property set (name, identifiers, location). ADR-025 added legal_form
+        and formation_date, and records parent organizations and contact points as InstitutionalRelationship
+        and ContactPoint records; ADR-028 added economic_activities and dissolution_date. Jurisdiction
+        and multi-site locations remain deferred.\n",
         "system_count": 0, "total_systems": 6}'
       property_groups_json: '[{"category": "identity", "properties": ["name", "identifiers"]}, {"category":
         "location", "properties": ["location"]}, {"category": "administrative", "properties": ["legal_form",
