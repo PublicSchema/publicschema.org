@@ -326,7 +326,7 @@ slots:
   beneficiary:
     slot_uri: publicschema:beneficiary
     title: Beneficiary
-    description: The person or group enrolled in the program.
+    description: The person, group or organization enrolled in the program.
     range: Party
     multivalued: false
     status: bibo:status/forthcoming
@@ -334,8 +334,8 @@ slots:
       label_es: Beneficiario
       label_fr: Bénéficiaire
       domain_override: "null"
-      description_es: La persona o grupo inscrito en el programa.
-      description_fr: La personne ou le groupe inscrit dans le programme.
+      description_es: La persona, grupo u organización inscrito en el programa.
+      description_fr: La personne, le groupe ou l'organisation inscrit dans le programme.
       convergence_json: '{"system_count": 5, "total_systems": 6}'
   benefit_description:
     slot_uri: publicschema:sp/benefit_description

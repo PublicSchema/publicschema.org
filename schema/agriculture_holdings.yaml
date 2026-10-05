@@ -242,8 +242,8 @@ classes:
   OrganizationAgriculturalHolderRole:
     class_uri: publicschema:agri/OrganizationAgriculturalHolderRole
     title: Organization Agricultural Holder Role
-    description: An agricultural holder role borne by one organization with legal personality, such as
-      a company, cooperative or public body. It does not assert ownership, registration or benefit entitlement.
+    description: An agricultural holder role borne by one organization, such as a company, cooperative
+      or public body. It does not assert ownership, registration or benefit entitlement.
     slots:
     - holder_organization
     status: bibo:draft
@@ -253,11 +253,9 @@ classes:
       source_domain: agri
       label_es: Rol de productor agropecuario (organización)
       label_fr: Rôle d'exploitant agricole (organisation)
-      description_es: Un rol de productor agropecuario asumido por una sola organización con personalidad
-        jurídica, como una empresa, una cooperativa o un organismo público. No afirma propiedad, registro
+      description_es: Un rol de productor agropecuario asumido por una sola organización, como una empresa, una cooperativa o un organismo público. No afirma propiedad, registro
         ni derecho a una prestación.
-      description_fr: Un rôle d'exploitant agricole assumé par une seule organisation dotée de la personnalité
-        juridique, telle qu'une entreprise, une coopérative ou un organisme public. Il n'affirme ni propriété,
+      description_fr: Un rôle d'exploitant agricole assumé par une seule organisation, telle qu'une entreprise, une coopérative ou un organisme public. Il n'affirme ni propriété,
         ni enregistrement, ni droit à une prestation.
       bibliography_refs: '["fao-wca-2020-vol1", "fao-wca-2030"]'
     is_a: AgriculturalHolderRole

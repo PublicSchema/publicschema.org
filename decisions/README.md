@@ -29,3 +29,4 @@
 | [025](025-organizations-legal-personality-and-authority.md) | Organizations carry legal form, public status and acting authority | Accepted |
 | [026](026-dates-known-to-reduced-precision.md) | Dates known only to a year or a month | Accepted |
 | [027](027-end-date-boundary.md) | The end date is the last day a period applies | Accepted |
+| [028](028-organizations-of-any-sector.md) | Organizations of any sector, as actors and as receivers | Accepted |

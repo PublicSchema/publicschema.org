@@ -2,9 +2,9 @@
 
 These tests guard the decisions in ADR-008:
 - Agent is an abstract supertype for Person, Organization, SoftwareAgent.
-- Party is the beneficiary-side abstract supertype for Person and Group.
-- Person belongs to both hierarchies.
-- Organization is an Agent, not a Party.
+- Party is the beneficiary-side abstract supertype for Person, Group and,
+  since ADR-028, Organization.
+- Person and Organization belong to both hierarchies.
 - Actor-side properties (performed_by, evaluator, publisher) reference Agent.
 - Profile carries software_used, inherited by all Profile subtypes.
 - Party and Agent must NOT carry an owl:disjointWith axiom between them.
@@ -54,14 +54,23 @@ class TestOrganizationConcept:
         assert org["id"] == "Organization"
         assert org.get("abstract") is not True
 
-    def test_organization_supertype_is_agent(self):
+    def test_organization_supertypes_are_agent_then_party(self):
         org = concept("Organization")
-        assert org["supertypes"] == ["Agent"]
+        assert org["supertypes"] == ["Agent", "Party"]
 
     def test_organization_min_properties(self):
         org = concept("Organization")
-        # ADR-008's minimum set plus the organization's legal form and formation date.
-        assert set(org["properties"]) == {"name", "identifiers", "location", "legal_form", "formation_date"}
+        # ADR-008's minimum set plus legal form and formation date (ADR-025) and
+        # economic activities and dissolution date (ADR-028).
+        assert set(org["properties"]) == {
+            "name",
+            "identifiers",
+            "location",
+            "legal_form",
+            "formation_date",
+            "economic_activities",
+            "dissolution_date",
+        }
 
     def test_formation_date_is_defined_for_organizations_too(self):
         definition = property_("formation_date")["definition"]
@@ -87,14 +96,14 @@ class TestSoftwareAgentIsAgent:
         assert sw["supertypes"] == ["Agent"]
 
 
-class TestPartyScopeUnchanged:
-    """Party stays beneficiary-side. Organization is NOT a Party."""
+class TestPartyScope:
+    """Party stays beneficiary-side; ADR-028 adds Organization to it."""
 
-    def test_party_subtypes_are_person_and_group(self):
-        assert subtypes_of("Party") == {"Person", "Group"}
+    def test_party_subtypes_are_person_group_and_organization(self):
+        assert subtypes_of("Party") == {"Person", "Group", "Organization"}
 
-    def test_organization_is_not_a_party_subtype(self):
-        assert "Organization" not in subtypes_of("Party")
+    def test_software_agent_is_not_a_party_subtype(self):
+        assert "SoftwareAgent" not in subtypes_of("Party")
 
 
 class TestActorPropertyRanges:
@@ -127,7 +136,11 @@ class TestProfileSoftwareUsed:
         for concept_id in PROFILE_SUBTYPES:
             data = concept(concept_id)
             admin_group = next(
-                (g for g in data.get("property_groups", []) if g.get("category") == "administrative"),
+                (
+                    g
+                    for g in data.get("property_groups", [])
+                    if g.get("category") == "administrative"
+                ),
                 None,
             )
             assert admin_group is not None, f"{concept_id} has no administrative group"

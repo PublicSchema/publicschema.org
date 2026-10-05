@@ -272,9 +272,9 @@ slots:
     slot_uri: publicschema:data_subject
     title: Data subject
     description: 'The natural person (or occasionally group) whose personal data is being processed under
-      this record. Party is the abstract supertype covering Person and Group. Farm is excluded: farms
-      are not natural persons or legal beneficiaries under any data protection law. When ''data_subject''
-      is a Group, ''delegation_type'' must not be ''self''.'
+      this record. Party is the abstract supertype covering Person, Group and Organization. When ''data_subject''
+      is a Group, ''delegation_type'' must not be ''self''. An organization is a Party but is not a data
+      subject: data protection law protects natural persons.'
     range: Party
     multivalued: false
     status: bibo:draft
@@ -284,14 +284,15 @@ slots:
       label_es: Persona interesada
       label_fr: Personne concernée
       description_es: 'La persona física (o en ocasiones el grupo) cuyos datos personales se tratan bajo
-        este registro. Party es el supertipo abstracto que abarca Person y Group. Farm está excluido:
-        las explotaciones agrícolas no son personas físicas ni beneficiarias legales bajo ninguna ley
-        de protección de datos. Cuando ''data_subject'' es un Group, ''delegation_type'' no debe ser ''self''.'
+        este registro. Party es el supertipo abstracto que abarca Person, Group y Organization. Cuando ''data_subject'' es un Group, ''delegation_type'' no debe ser ''self''.
+        Una organización es una Party pero no es una persona interesada: la legislación de protección
+        de datos protege a las personas físicas.'
       description_fr: 'La personne physique (ou parfois le groupe) dont les données personnelles sont
-        traitées dans le cadre de cet enregistrement. Party est le supertype abstrait couvrant Person
-        et Group. Farm est exclu : les exploitations agricoles ne sont pas des personnes physiques ni
-        des bénéficiaires légaux au titre d''aucune loi sur la protection des données. Lorsque ''data_subject''
-        est un Group, ''delegation_type'' ne doit pas être ''self''.'
+        traitées dans le cadre de cet enregistrement. Party est le supertype abstrait couvrant Person,
+        Group et Organization. Lorsque ''data_subject''
+        est un Group, ''delegation_type'' ne doit pas être ''self''. Une organisation est une Party mais
+        n''est pas une personne concernée : la législation sur la protection des données protège les personnes
+        physiques.'
       category: consent_parties
       immutable_after_status: given
       external_alignments_json: '[{"label": "has data subject", "match": "close", "note": "DPV models

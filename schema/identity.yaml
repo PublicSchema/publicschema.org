@@ -102,10 +102,11 @@ classes:
   Person:
     class_uri: publicschema:Person
     title: Person
-    description: 'The unique individual human being who is a subject of record within a social protection
-      system. Person is the persistent, indivisible unit of identity in registries; operational statuses
+    description: 'The unique individual human being who is a subject of record. Person is the persistent, indivisible unit of identity in registries; operational statuses
       such as Registrant, Applicant, or Beneficiary are transient roles defined by the person''s relationship
-      to a specific Program, not properties of the person themselves.
+      to a specific Program, not properties of the person themselves. A person who runs a business that
+      the register of its jurisdiction does not treat as a distinct body, such as many sole traders, remains
+      a Person; the business is an Organization only where the register treats it as one.
 
       '
     is_a: Party
@@ -153,14 +154,17 @@ classes:
     annotations:
       label_es: Persona
       label_fr: Personne
-      description_es: El individuo único que es sujeto de registro en un sistema de protección social.
-        La persona es la unidad indivisible y persistente de identidad en los registros; los estados operacionales
+      description_es: El individuo único que es sujeto de registro. La persona es la unidad indivisible y persistente de identidad en los registros; los estados operacionales
         como inscrito, solicitante o beneficiario son roles transitorios definidos por la relación de
-        la persona con un programa específico.
-      description_fr: L'individu unique qui fait l'objet d'un enregistrement dans un système de protection
-        sociale. La personne est l'unité indivisible et persistante d'identité dans les registres. Les
+        la persona con un programa específico. Una persona que explota un negocio que el registro de su
+        jurisdicción no trata como un organismo distinto, como muchos comerciantes individuales, sigue
+        siendo una Person; el negocio es una Organization solo cuando el registro lo trata como tal.
+      description_fr: L'individu unique qui fait l'objet d'un enregistrement. La personne est l'unité indivisible et persistante d'identité dans les registres. Les
         statuts opérationnels tels que Registrant, demandeur ou bénéficiaire sont des rôles transitoires
-        définis par la relation de la personne à un programme spécifique.
+        définis par la relation de la personne à un programme spécifique. Une personne qui exploite une
+        activité que le registre de sa juridiction ne traite pas comme un organisme distinct, comme de
+        nombreux entrepreneurs individuels, reste une Person ; l'activité n'est une Organization que lorsque
+        le registre la traite comme telle.
       featured: true
       external_alignments_json: '[{"label": "Person", "match": "exact", "uri": "http://www.w3.org/ns/person#Person",
         "vocabulary": "Core Person", "vocabulary_id": "semic"}, {"label": "Person", "match": "close",
@@ -463,21 +467,28 @@ classes:
   Organization:
     class_uri: publicschema:Organization
     title: Organization
-    description: 'A legally or administratively identifiable body that can act within a public delivery
-      process: a government agency, ministry, NGO, UN agency, statistical office, health facility, civil
-      registration office, court, or standards publisher. Organizations are the institutional actors that
-      administer instruments, publish methodologies, evaluate submissions, issue certificates, and operate
-      programs. An Organization''s location refers to its own registered or primary site, not to the place
-      where an action it performed happened. Event-level place remains a property of the event record.
+    description: 'A legally or administratively identifiable body, public or private, for profit or not,
+      such as a company, cooperative, association, non-governmental organization, government agency, ministry,
+      UN agency, health facility, court or standards publisher. An organization can act in a process, for
+      example by administering a program, deciding a case or issuing a certificate, and it can also receive
+      services or benefits, for example as an enrolled beneficiary or a licence holder. An Organization''s
+      location refers to its own registered or primary site, not to the place where an action it performed
+      happened. A sole proprietorship is recorded as an Organization where the register of its jurisdiction
+      treats the business as a body distinct from the person who runs it; otherwise it is recorded on the
+      Person, and an application profile states which pattern applies.
 
       '
     is_a: Agent
+    mixins:
+    - Party
     slots:
     - name
     - identifiers
     - location
     - legal_form
+    - economic_activities
     - formation_date
+    - dissolution_date
     status: bibo:status/forthcoming
     exact_mappings:
     - foaf:Organization
@@ -492,22 +503,28 @@ classes:
       featured: true
       label_es: Organización
       label_fr: Organisation
-      description_es: 'Un organismo identificable jurídica o administrativamente capaz de actuar en un
-        proceso de prestación pública: una agencia gubernamental, un ministerio, una ONG, una agencia
-        de las Naciones Unidas, una oficina estadística, un establecimiento de salud, una oficina de registro
-        civil, un tribunal o un editor de normas. Las organizaciones son los actores institucionales que
-        administran instrumentos, publican metodologías, evalúan expedientes, emiten certificados y operan
-        programas. La ubicación de una Organization se refiere a su propio sitio registrado o principal,
-        no al lugar donde ocurrió una acción que realizó. La ubicación a nivel de evento sigue siendo
-        una propiedad del registro del evento.'
-      description_fr: 'Un organisme identifiable juridiquement ou administrativement capable d''agir dans
-        un processus de prestation publique : agence gouvernementale, ministère, ONG, agence des Nations
-        unies, office statistique, établissement de santé, office d''état civil, tribunal ou éditeur de
-        normes. Les organisations sont les acteurs institutionnels qui administrent des instruments, publient
-        des méthodologies, évaluent des dossiers, délivrent des certificats et opèrent des programmes.
-        La localisation d''une Organization désigne son propre site enregistré ou principal, et non le
-        lieu où une action qu''elle a accomplie s''est déroulée. La localisation d''un événement reste
-        une propriété du registre de l''événement.'
+      description_es: 'Un organismo identificable jurídica o administrativamente, público o privado, con
+        o sin fines de lucro, como una empresa, una cooperativa, una asociación, una organización no gubernamental,
+        una agencia gubernamental, un ministerio, una agencia de las Naciones Unidas, un establecimiento
+        de salud, un tribunal o un editor de normas. Una organización puede actuar en un proceso, por
+        ejemplo administrando un programa, resolviendo un expediente o emitiendo un certificado, y también
+        puede recibir servicios o prestaciones, por ejemplo como beneficiaria inscrita o titular de una
+        licencia. La ubicación de una Organization se refiere a su propio sitio registrado o principal,
+        no al lugar donde ocurrió una acción que realizó. Una empresa individual se registra como Organization
+        cuando el registro de su jurisdicción trata el negocio como un organismo distinto de la persona
+        que lo explota; de lo contrario se registra en la Person, y un perfil de aplicación indica qué
+        modelo se aplica.'
+      description_fr: 'Un organisme identifiable juridiquement ou administrativement, public ou privé,
+        à but lucratif ou non, par exemple une entreprise, une coopérative, une association, une organisation
+        non gouvernementale, une agence gouvernementale, un ministère, une agence des Nations unies, un
+        établissement de santé, un tribunal ou un éditeur de normes. Une organisation peut agir dans un
+        processus, par exemple en administrant un programme, en statuant sur un dossier ou en délivrant
+        un certificat, et elle peut aussi recevoir des services ou des prestations, par exemple comme
+        bénéficiaire inscrite ou titulaire d''une licence. La localisation d''une Organization désigne
+        son propre site enregistré ou principal, et non le lieu où une action qu''elle a accomplie s''est
+        déroulée. Une entreprise individuelle est enregistrée comme Organization lorsque le registre de
+        sa juridiction traite l''entreprise comme un organisme distinct de la personne qui l''exploite ;
+        sinon, elle est enregistrée sur la Person, et un profil d''application précise quel modèle s''applique.'
       external_alignments_json: '[{"label": "Organization", "match": "exact", "note": "foaf:Organization
         is the direct equivalent: a kind of agent corresponding to social institutions such as companies,
         societies, and so on.", "uri": "http://xmlns.com/foaf/0.1/Organization", "vocabulary": "FOAF",
@@ -536,12 +553,14 @@ classes:
         In practice, organizations appear as free-text publisher names on instruments, as implicit issuers
         on certificates, and as unmodelled administrative context around program operations. Standards
         bodies are consistent: FOAF, schema.org, PROV-O, and FHIR all have a named Organization concept.
-        Minimum property set (name, identifiers, location) is pragmatic; richer modelling (parent_organization,
-        legal_form, jurisdiction, contact points, multi-site locations) is deferred to a later iteration.\n",
+        ADR-008 set a pragmatic minimum property set (name, identifiers, location). ADR-025 added legal_form
+        and formation_date, and records parent organizations and contact points as InstitutionalRelationship
+        and ContactPoint records; ADR-028 added economic_activities and dissolution_date. Jurisdiction
+        and multi-site locations remain deferred.\n",
         "system_count": 0, "total_systems": 6}'
       property_groups_json: '[{"category": "identity", "properties": ["name", "identifiers"]}, {"category":
         "location", "properties": ["location"]}, {"category": "administrative", "properties": ["legal_form",
-        "formation_date"]}]'
+        "economic_activities", "formation_date", "dissolution_date"]}]'
       bibliography_refs: '["fhir-r4", "foaf", "schema-org", "semic-cpov", "uk-companies-house-api", "w3c-prov-o",
         "w3c-regorg"]'
   RegistrationOffice:
@@ -1203,6 +1222,30 @@ slots:
       category: demographics
       sensitivity: sensitive
       bibliography_refs: '["egriss-iris"]'
+  dissolution_date:
+    slot_uri: publicschema:dissolution_date
+    title: Dissolution date
+    description: The date on which the organization ceased to exist or was removed from the register, such
+      as by dissolution, liquidation or striking off. It is the counterpart of the formation date.
+    range: date
+    multivalued: false
+    status: bibo:draft
+    close_mappings:
+    - https://developer-specs.company-information.service.gov.uk/companies-house-public-data-api/resources/companyprofile?v=latest
+    annotations:
+      label_es: Fecha de disolución
+      label_fr: Date de dissolution
+      description_es: La fecha en que la organización dejó de existir o fue dada de baja del registro,
+        por ejemplo por disolución, liquidación o cancelación de oficio. Es la contrapartida de la fecha
+        de formación.
+      description_fr: La date à laquelle l'organisation a cessé d'exister ou a été radiée du registre,
+        par exemple par dissolution, liquidation ou radiation d'office. Elle est le pendant de la date
+        de formation.
+      category: administrative
+      external_alignments_json: '[{"label": "date_of_cessation", "match": "close", "note": "Companies House
+        records the date a company was converted or closed, dissolved or removed.", "uri": "https://developer-specs.company-information.service.gov.uk/companies-house-public-data-api/resources/companyprofile?v=latest",
+        "vocabulary": "Companies House Public Data API", "vocabulary_id": "uk-companies-house-api"}]'
+      bibliography_refs: '["uk-companies-house-api"]'
   domicile:
     slot_uri: publicschema:domicile
     title: Domicile
@@ -1244,6 +1287,37 @@ slots:
       convergence_json: '{"notes": "Proxy means testing input, not a standard registry field.", "system_count":
         0, "total_systems": 4}'
       bibliography_refs: '["un-census-rev3"]'
+  economic_activities:
+    slot_uri: publicschema:economic_activities
+    title: Economic activities
+    description: The economic activities the organization carries out, each coded in a classification of
+      economic activities. ISIC is the international reference; a register may use NACE, NAICS or a national
+      adaptation. The order of the values does not mark a principal activity.
+    range: CodedValue
+    multivalued: true
+    status: bibo:draft
+    close_mappings:
+    - http://www.w3.org/ns/regorg#orgActivity
+    - https://developer-specs.company-information.service.gov.uk/companies-house-public-data-api/resources/companyprofile?v=latest
+    annotations:
+      label_es: Actividades económicas
+      label_fr: Activités économiques
+      description_es: Las actividades económicas que ejerce la organización, cada una codificada en
+        una clasificación de actividades económicas. La CIIU es la referencia internacional; un registro
+        puede usar la NACE, el SCIAN o una adaptación nacional. El orden de los valores no indica una
+        actividad principal.
+      description_fr: Les activités économiques exercées par l'organisation, chacune codée dans une
+        classification des activités économiques. La CITI est la référence internationale ; un registre
+        peut utiliser la NACE, le SCIAN ou une adaptation nationale. L'ordre des valeurs n'indique pas
+        d'activité principale.
+      category: classification
+      external_alignments_json: '[{"label": "orgActivity", "match": "close", "note": "RegOrg records the
+        activities of a registered organization as concepts from a controlled vocabulary, many of which
+        map to ISIC.", "uri": "http://www.w3.org/ns/regorg#orgActivity", "vocabulary": "Registered Organization
+        Vocabulary", "vocabulary_id": "w3c-regorg"}, {"label": "sic_codes", "match": "close", "note": "Companies
+        House lists the UK SIC codes of a company.", "uri": "https://developer-specs.company-information.service.gov.uk/companies-house-public-data-api/resources/companyprofile?v=latest",
+        "vocabulary": "Companies House Public Data API", "vocabulary_id": "uk-companies-house-api"}]'
+      bibliography_refs: '["uk-companies-house-api", "unsd-isic-rev4", "w3c-regorg"]'
   education_level:
     slot_uri: publicschema:education_level
     title: Education level

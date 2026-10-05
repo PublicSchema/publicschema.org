@@ -2683,7 +2683,7 @@ classes:
       status: active
       version: Working Group Note 01 August 2013
       note: RegisteredOrganization and legal form (rov:orgType).
-      informs_json: '{"concepts": ["Organization", "Registration"], "properties": ["legal_form"]}'
+      informs_json: '{"concepts": ["Organization", "Registration"], "properties": ["economic_activities", "legal_form"]}'
   UkCompaniesHouseApiCitation:
     class_uri: publicschema:Citation/uk-companies-house-api
     is_a: Citation
@@ -2702,7 +2702,8 @@ classes:
         office) grounds formation_date; resource officerList (officer_role, appointed_on, resigned_on;
         https://developer-specs.company-information.service.gov.uk/companies-house-public-data-api/resources/officerlist?v=latest)
         grounds institutional roles.
-      informs_json: '{"concepts": ["InstitutionalRole", "Organization"], "properties": ["formation_date"]}'
+      informs_json: '{"concepts": ["InstitutionalRole", "Organization"], "properties": ["dissolution_date", "economic_activities",
+        "formation_date"]}'
   W3cOrgCitation:
     class_uri: publicschema:Citation/w3c-org
     is_a: Citation
@@ -3856,8 +3857,9 @@ classes:
       uri: https://unstats.un.org/unsd/publication/seriesm/seriesm_4rev4e.pdf
       access: open
       status: active
-      note: Group 016 (support activities to agriculture) and class 0130 (plant propagation).
-      informs_json: '{"vocabularies": ["agri/agricultural-service-type"]}'
+      note: Group 016 (support activities to agriculture) and class 0130 (plant propagation); the classification
+        as a whole is the international reference for economic activities.
+      informs_json: '{"properties": ["economic_activities"], "vocabularies": ["agri/agricultural-service-type"]}'
   IsoIec170252017Citation:
     class_uri: publicschema:Citation/iso-iec-17025-2017
     is_a: Citation

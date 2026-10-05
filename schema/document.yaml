@@ -47,7 +47,7 @@ classes:
     class_uri: publicschema:IdentityDocument
     title: Identity Document
     description: 'A physical or digital document that asserts one or more identifiers about a party (person,
-      household, or group). Distinct from the identifier itself: the number on a passport is an Identifier;
+      household, group, or organization). Distinct from the identifier itself: the number on a passport is an Identifier;
       the passport book is an IdentityDocument. Documents have their own lifecycle (issue date, expiry,
       issuing authority) independent of the identifier value, and the same identifier may appear on successive
       documents. Distinct from Certificate (a re-issuable extract of a civil-status record under CIEC
@@ -71,14 +71,14 @@ classes:
       label_es: Documento de identidad
       label_fr: Document d'identité
       description_es: 'Un documento físico o digital que acredita uno o más identificadores sobre una
-        parte (persona, hogar o grupo). Distinto del identificador en sí: el número del pasaporte es un
+        parte (persona, hogar, grupo u organización). Distinto del identificador en sí: el número del pasaporte es un
         Identifier; la libreta del pasaporte es un IdentityDocument. Los documentos tienen su propio ciclo
         de vida (fecha de emisión, expiración, autoridad emisora) independiente del valor del identificador,
         y el mismo identificador puede aparecer en documentos sucesivos. Distinto de Certificate (un extracto
         reeditable de un acta de estado civil bajo las convenciones CIEC) y de IdentityCredential (la
         envoltura de credencial verificable que puede acreditar un IdentityDocument en forma digital).'
       description_fr: 'Un document physique ou numérique qui atteste d''un ou plusieurs identifiants concernant
-        une partie (personne, ménage ou groupe). Distinct de l''identifiant lui-même: le numéro sur un
+        une partie (personne, ménage, groupe ou organisation). Distinct de l''identifiant lui-même: le numéro sur un
         passeport est un Identifier; le livret du passeport est un IdentityDocument. Les documents ont
         leur propre cycle de vie (date de délivrance, expiration, autorité émettrice) indépendamment de
         la valeur de l''identifiant, et le même identifiant peut apparaître sur des documents successifs.
