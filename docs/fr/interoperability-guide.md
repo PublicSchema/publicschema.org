@@ -90,6 +90,8 @@ Plusieurs sources sont mises en correspondance avec le format canonique de Publi
 
 ![Plusieurs sources effectuent leur correspondance vers PublicSchema, puis se consolident](/images/etl-consolidation.svg)
 
+Si un système consommateur n'a besoin que d'une information sur un enregistrement (par exemple, savoir si une personne est inscrite à un programme), envisagez de demander cette réponse, exprimée dans les termes de PublicSchema, au système qui détient l'enregistrement, plutôt que de copier l'enregistrement dans un entrepôt de données partagé ; il existe moins de copies de données personnelles et la réponse reste à jour.
+
 ### Fédération d'API
 
 Chaque agence expose une surface d'API alignée sur PublicSchema. La couche de fédération interroge toutes les API en utilisant les mêmes noms de champs et codes de vocabulaire. Consultez le [cas d'utilisation de l'harmonisation des API](/docs/use-cases/#harmonisation-des-api-au-sein-dune-fédération) pour un scénario concret.

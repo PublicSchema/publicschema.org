@@ -90,6 +90,8 @@ Múltiples fuentes se mapean al formato canónico de PublicSchema y se cargan en
 
 ![Múltiples fuentes mapean a PublicSchema, luego consolidan](/images/etl-consolidation.svg)
 
+Si un sistema consumidor solo necesita un dato sobre un registro (por ejemplo, si una persona está inscrita en un programa), considere pedir esa respuesta, expresada en términos de PublicSchema, al sistema que tiene el registro, en lugar de copiar el registro en un almacén de datos compartido; existen menos copias de datos personales y la respuesta se mantiene actualizada.
+
 ### Federación de APIs
 
 Cada agencia expone una superficie de API alineada con PublicSchema. La capa de federación consulta todas las APIs usando los mismos nombres de campo y códigos de vocabulario. Consulte el [caso de uso de armonización de APIs](/docs/use-cases/#armonización-de-apis-en-una-federación) para un escenario concreto.
