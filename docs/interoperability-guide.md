@@ -90,6 +90,8 @@ Multiple sources are mapped to PublicSchema's canonical format and loaded into a
 
 ![Multiple sources map to PublicSchema, then consolidate](/images/etl-consolidation.svg)
 
+If a consumer needs only a fact about a record (for example, whether a person is enrolled in a program), consider asking the system that holds the record for that answer, expressed in PublicSchema terms, instead of copying the record into a shared store; less personal data moves and the answer stays current.
+
 ### API federation
 
 Each agency exposes a PublicSchema-aligned API surface. The federation layer queries all APIs using the same field names and vocabulary codes. See the [API harmonization use case](/docs/use-cases/#api-harmonization-across-a-federation) for a concrete scenario.
