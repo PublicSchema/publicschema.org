@@ -90,7 +90,7 @@ Múltiples fuentes se mapean al formato canónico de PublicSchema y se cargan en
 
 ![Múltiples fuentes mapean a PublicSchema, luego consolidan](/images/etl-consolidation.svg)
 
-Si un consumidor solo necesita un dato sobre un registro (por ejemplo, si una persona está inscrita en un programa), considere pedir esa respuesta, expresada en términos de PublicSchema, al sistema que tiene el registro, en lugar de copiar el registro en un almacén de datos compartido; circulan menos datos personales y la respuesta se mantiene actualizada.
+Si un sistema consumidor solo necesita un dato sobre un registro (por ejemplo, si una persona está inscrita en un programa), considere pedir esa respuesta, expresada en términos de PublicSchema, al sistema que tiene el registro, en lugar de copiar el registro en un almacén de datos compartido; existen menos copias de datos personales y la respuesta se mantiene actualizada.
 
 ### Federación de APIs
 

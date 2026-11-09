@@ -90,7 +90,7 @@ Plusieurs sources sont mises en correspondance avec le format canonique de Publi
 
 ![Plusieurs sources effectuent leur correspondance vers PublicSchema, puis se consolident](/images/etl-consolidation.svg)
 
-Si un consommateur n'a besoin que d'un fait concernant un enregistrement (par exemple, savoir si une personne est inscrite à un programme), envisagez de demander cette réponse, exprimée dans les termes de PublicSchema, au système qui détient l'enregistrement, plutôt que de copier l'enregistrement dans un entrepôt de données partagé ; moins de données personnelles circulent et la réponse reste à jour.
+Si un système consommateur n'a besoin que d'une information sur un enregistrement (par exemple, savoir si une personne est inscrite à un programme), envisagez de demander cette réponse, exprimée dans les termes de PublicSchema, au système qui détient l'enregistrement, plutôt que de copier l'enregistrement dans un entrepôt de données partagé ; il existe moins de copies de données personnelles et la réponse reste à jour.
 
 ### Fédération d'API
 
